@@ -49,6 +49,8 @@ class TestSearchQueryFactory : public search::SearchQueryFactory
 
 UNIT_TEST(SearchQueryV2_Smoke)
 {
+  my::g_LogLevel = LDEBUG;
+
   classificator::Load();
   Platform & platform = GetPlatform();
   platform::LocalCountryFile wonderland(platform.WritableDir(), platform::CountryFile("wonderland"),

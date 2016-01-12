@@ -104,7 +104,8 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
   for (uint32_t t : types)
   {
     // Leave only 2 levels of types - for example, do not distinguish:
-    // highway-primary-bridge or amenity-parking-fee.
+    // highway-primary-bridge and highway-primary-tunnel
+    // or amenity-parking-fee and amenity-parking-underground-fee.
     ftype::TruncValue(t, 2);
 
     // Only categorized types will be added to index.
@@ -130,11 +131,9 @@ struct FeatureNameInserter
   bool m_hasStreetType;
 
   FeatureNameInserter(SynonymsHolder * synonyms, vector<pair<TKey, TValue>> & keyValuePairs,
-                      vector<uint32_t> const & categoryTypes)
-    : m_synonyms(synonyms), m_keyValuePairs(keyValuePairs)
+                      bool hasStreetType)
+    : m_synonyms(synonyms), m_keyValuePairs(keyValuePairs), m_hasStreetType(hasStreetType)
   {
-    auto const & streetChecker = ftypes::IsStreetChecker::Instance();
-    m_hasStreetType = streetChecker(categoryTypes);
   }
 
   void AddToken(signed char lang, strings::UniString const & s) const
@@ -178,22 +177,22 @@ public:
     // "street" in the categories branch of the search index.
     // However, we still add it when there are two or more street tokens
     // ("industrial st", "улица набережная").
-    size_t numStreets = 0;
+    size_t numStreetTokens = 0;
     vector<bool> isStreet(tokens.size());
     for (size_t i = 0; i < tokens.size(); ++i)
     {
-      if (search::IsStreetSynonym(strings::ToUtf8(tokens[i])))
+      if (search::IsStreetSynonym(tokens[i]))
       {
         isStreet[i] = true;
-        ++numStreets;
+        ++numStreetTokens;
       }
     }
 
     for (size_t i = 0; i < tokens.size(); ++i)
     {
-      if (numStreets == 1 && isStreet[i] && m_hasStreetType)
+      if (numStreetTokens == 1 && isStreet[i] && m_hasStreetType)
       {
-        LOG(LDEBUG, ("skipping street:", name));
+        LOG(LDEBUG, ("skipping token:", tokens[i], "in", name));
         continue;
       }
       AddToken(lang, tokens[i]);
@@ -268,13 +267,13 @@ public:
     if (types.Empty())
       return;
 
-    vector<uint32_t> categoryTypes;
-    GetCategoryTypes(m_categories, m_scales, types, categoryTypes);
+    auto const & streetChecker = ftypes::IsStreetChecker::Instance();
+    bool hasStreetType = streetChecker(types);
 
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
     FeatureNameInserter<TKey, TValue> inserter(
-        skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs, categoryTypes);
+        skipIndex.IsCountryOrState(types) ? m_synonyms : nullptr, m_keyValuePairs, hasStreetType);
     m_valueBuilder.MakeValue(f, types, index, inserter.m_val);
 
     // Skip types for features without names.
@@ -285,7 +284,7 @@ public:
 
     Classificator const & c = classif();
 
-    categoryTypes.clear();
+    vector<uint32_t> categoryTypes;
     GetCategoryTypes(m_categories, m_scales, types, categoryTypes);
 
     // add names of categories of the feature

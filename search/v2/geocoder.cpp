@@ -430,7 +430,7 @@ void Geocoder::GreedilyMatchStreets()
     size_t curToken = startToken;
     for (; curToken < m_numTokens && !m_usedTokens[curToken]; ++curToken)
     {
-      if (IsStreetSynonym(strings::ToUtf8(m_params.GetTokens(curToken).front())))
+      if (IsStreetSynonym(m_params.GetTokens(curToken).front()))
         continue;
       if (startToken == curToken || coding::CompressedBitVector::IsEmpty(allFeatures))
       {
