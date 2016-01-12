@@ -1248,6 +1248,10 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadRetryCallback, this, countryIndex));
   };
 
+  bool allow3d;
+  bool allow3dBuildings;
+  Load3dMode(allow3d, allow3dBuildings);
+
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
                             df::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
@@ -1257,7 +1261,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                                                 downloadRetryFn),
                             params.m_visualScale,
                             move(params.m_widgetsInitInfo),
-                            make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState));
+                            make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
+                            allow3dBuildings);
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
@@ -1283,9 +1288,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       ActivateUserMark(mark, true);
   }
 
-  bool allow3d;
-  bool allow3dBuildings;
-  Load3dMode(allow3d, allow3dBuildings);
   Allow3dMode(allow3d, allow3dBuildings);
 
   // In case of the engine reinitialization recover route.

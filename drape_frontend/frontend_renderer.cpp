@@ -49,7 +49,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_transparentLayer(new TransparentLayer())
   , m_overlayTree(new dp::OverlayTree())
   , m_enablePerspectiveInNavigation(false)
-  , m_enable3dBuildings(false)
+  , m_enable3dBuildings(params.m_allow3dBuildings)
   , m_isIsometry(false)
   , m_viewport(params.m_viewport)
   , m_userEventStream(params.m_isCountryLoadedFn)
@@ -171,40 +171,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::InvalidateRect:
     {
       ref_ptr<InvalidateRectMessage> m = message;
-      TTilesCollection tiles;
-      ScreenBase screen = m_userEventStream.GetCurrentScreen();
-      m2::RectD rect = m->GetRect();
-      if (rect.Intersect(screen.ClipRect()))
-      {
-        m_tileTree->Invalidate();
-        ResolveTileKeys(rect, tiles);
-
-        auto eraseFunction = [&tiles](vector<drape_ptr<RenderGroup>> & groups)
-        {
-          vector<drape_ptr<RenderGroup> > newGroups;
-          for (drape_ptr<RenderGroup> & group : groups)
-          {
-            if (tiles.find(group->GetTileKey()) == tiles.end())
-              newGroups.push_back(move(group));
-          }
-
-          swap(groups, newGroups);
-        };
-
-        eraseFunction(m_renderGroups);
-        eraseFunction(m_deferredRenderGroups);
-
-        BaseBlockingMessage::Blocker blocker;
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<InvalidateReadManagerRectMessage>(blocker, tiles),
-                                  MessagePriority::High);
-        blocker.Wait();
-
-        m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), move(tiles));
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateReadManagerMessage>(),
-                                  MessagePriority::UberHighSingleton);
-      }
+      InvalidateRect(m->GetRect());
       break;
     }
 
@@ -516,10 +483,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Allow3dMode:
     {
       ref_ptr<Allow3dModeMessage> const msg = message;
-      bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
+      ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+
 #ifdef OMIM_OS_DESKTOP
       if (m_enablePerspectiveInNavigation == msg->AllowPerspective() &&
-          m_enablePerspectiveInNavigation != isPerspective)
+          m_enablePerspectiveInNavigation != screen.isPerspective())
       {
         if (m_enablePerspectiveInNavigation)
           AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
@@ -528,19 +496,28 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           AddUserEvent(DisablePerspectiveEvent());
       }
 #endif
-      m_enablePerspectiveInNavigation = msg->AllowPerspective();
-      m_enable3dBuildings = msg->Allow3dBuildings();
 
-      if (m_myPositionController->IsInRouting())
+      if (m_enable3dBuildings != msg->Allow3dBuildings())
       {
-        if (m_enablePerspectiveInNavigation && !isPerspective && !m_perspectiveDiscarded)
+        m_enable3dBuildings = msg->Allow3dBuildings();
+        CheckIsometryMinScale(screen);
+        InvalidateRect(screen.ClipRect());
+      }
+
+      if (m_enablePerspectiveInNavigation != msg->AllowPerspective())
+      {
+        m_enablePerspectiveInNavigation = msg->AllowPerspective();
+        if (m_myPositionController->IsInRouting())
         {
-          AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
-                                              true /* animated */, true /* immediately start */));
-        }
-        else if (!m_enablePerspectiveInNavigation && (isPerspective || m_perspectiveDiscarded))
-        {
-          DisablePerspective();
+          if (m_enablePerspectiveInNavigation && !screen.isPerspective() && !m_perspectiveDiscarded)
+          {
+            AddUserEvent(EnablePerspectiveEvent(msg->GetRotationAngle(), msg->GetAngleFOV(),
+                                                true /* animated */, true /* immediately start */));
+          }
+          else if (!m_enablePerspectiveInNavigation && (screen.isPerspective() || m_perspectiveDiscarded))
+          {
+            DisablePerspective();
+          }
         }
       }
       break;
@@ -560,6 +537,44 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
 {
   return make_unique<Routine>(*this);
+}
+
+void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
+{
+  TTilesCollection tiles;
+  ScreenBase screen = m_userEventStream.GetCurrentScreen();
+  m2::RectD rect = gRect;
+  if (rect.Intersect(screen.ClipRect()))
+  {
+    m_tileTree->Invalidate();
+    ResolveTileKeys(rect, tiles);
+
+    auto eraseFunction = [&tiles](vector<drape_ptr<RenderGroup>> & groups)
+    {
+      vector<drape_ptr<RenderGroup> > newGroups;
+      for (drape_ptr<RenderGroup> & group : groups)
+      {
+        if (tiles.find(group->GetTileKey()) == tiles.end())
+          newGroups.push_back(move(group));
+      }
+
+      swap(groups, newGroups);
+    };
+
+    eraseFunction(m_renderGroups);
+    eraseFunction(m_deferredRenderGroups);
+
+    BaseBlockingMessage::Blocker blocker;
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<InvalidateReadManagerRectMessage>(blocker, tiles),
+                              MessagePriority::High);
+    blocker.Wait();
+
+    m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), move(tiles));
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<UpdateReadManagerMessage>(),
+                              MessagePriority::UberHighSingleton);
+  }
 }
 
 void FrontendRenderer::OnResize(ScreenBase const & screen)
@@ -1035,15 +1050,23 @@ void FrontendRenderer::DisablePerspective()
   AddUserEvent(DisablePerspectiveEvent());
 }
 
-void FrontendRenderer::CheckMinAllowableIn3dScale()
+void FrontendRenderer::CheckIsometryMinScale(const ScreenBase &screen)
 {
   bool const isScaleAllowableIn3d = UserEventStream::IsScaleAllowableIn3d(m_currentZoomLevel);
-  m_isIsometry = m_enable3dBuildings && isScaleAllowableIn3d;
+  bool const isIsometry = m_enable3dBuildings && isScaleAllowableIn3d;
+  if (m_isIsometry != isIsometry)
+  {
+    m_isIsometry = isIsometry;
+    RefreshPivotTransform(screen);
+  }
+}
 
+void FrontendRenderer::CheckPerspectiveMinScale()
+{
   if (!m_enablePerspectiveInNavigation || m_userEventStream.IsInPerspectiveAnimation())
     return;
 
-  bool const switchTo2d = !isScaleAllowableIn3d;
+  bool const switchTo2d = !UserEventStream::IsScaleAllowableIn3d(m_currentZoomLevel);
   if ((!switchTo2d && !m_perspectiveDiscarded) ||
       (switchTo2d && !m_userEventStream.GetCurrentScreen().isPerspective()))
     return;
@@ -1056,7 +1079,8 @@ void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   m_currentZoomLevel = GetDrawTileScale(screen);
 
-  CheckMinAllowableIn3dScale();
+  CheckIsometryMinScale(screen);
+  CheckPerspectiveMinScale();
 }
 
 void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)

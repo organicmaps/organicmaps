@@ -25,7 +25,7 @@ namespace df
 BackendRenderer::BackendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
-  , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model))
+  , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model, params.m_allow3dBuildings))
   , m_requestedTiles(params.m_requestedTiles)
 {
 #ifdef DEBUG

@@ -28,7 +28,7 @@ class CoverageUpdateDescriptor;
 class ReadManager
 {
 public:
-  ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model);
+  ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings);
 
   void UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, TTilesCollection const & tiles,
                       ref_ptr<dp::TextureManager> texMng);

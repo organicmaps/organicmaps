@@ -39,7 +39,8 @@ public:
            MapDataProvider const & model,
            double vs,
            gui::TWidgetsInitInfo && info,
-           pair<location::EMyPositionMode, bool> const & initialMyPositionMode)
+           pair<location::EMyPositionMode, bool> const & initialMyPositionMode,
+           bool allow3dBuildings)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
@@ -47,6 +48,7 @@ public:
       , m_vs(vs)
       , m_info(move(info))
       , m_initialMyPositionMode(initialMyPositionMode)
+      , m_allow3dBuildings(allow3dBuildings)
     {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
@@ -56,6 +58,7 @@ public:
     double m_vs;
     gui::TWidgetsInitInfo m_info;
     pair<location::EMyPositionMode, bool> m_initialMyPositionMode;
+    bool m_allow3dBuildings;
   };
 
   DrapeEngine(Params && params);

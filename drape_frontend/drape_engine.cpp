@@ -62,12 +62,13 @@ DrapeEngine::DrapeEngine(Params && params)
                                     bind(&DrapeEngine::TapEvent, this, _1, _2, _3, _4),
                                     bind(&DrapeEngine::UserPositionChanged, this, _1),
                                     bind(&DrapeEngine::MyPositionModeChanged, this, _1),
-                                    mode, make_ref(m_requestedTiles));
+                                    mode, make_ref(m_requestedTiles), params.m_allow3dBuildings);
 
   m_frontend = make_unique_dp<FrontendRenderer>(frParams);
 
   BackendRenderer::Params brParams(frParams.m_commutator, frParams.m_oglContextFactory,
-                                   frParams.m_texMng, params.m_model, make_ref(m_requestedTiles));
+                                   frParams.m_texMng, params.m_model, make_ref(m_requestedTiles),
+                                   params.m_allow3dBuildings);
   m_backend = make_unique_dp<BackendRenderer>(brParams);
 
   m_widgetsInfo = move(params.m_info);
