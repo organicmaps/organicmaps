@@ -65,15 +65,16 @@ typedef NS_ENUM(NSUInteger, Section)
 {
   switch (sections[section])
   {
-  case SectionMetrics:
-    return 2;
-  case SectionMap:
-  case SectionRouting:
-    return 3;
   case SectionAd:
   case SectionStatistics:
   case SectionCalibration:
     return 1;
+  case SectionMetrics:
+    return 2;
+  case SectionRouting:
+    return 3;
+  case SectionMap:
+    return 4;
   }
 }
 
@@ -120,15 +121,17 @@ typedef NS_ENUM(NSUInteger, Section)
     switch (indexPath.row)
     {
     // Night mode
+    // Recent track
     case 0:
+    case 1:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
       LinkCell * customCell = static_cast<LinkCell *>(cell);
-      customCell.titleLabel.text = L(@"pref_night_mode");
+      customCell.titleLabel.text = indexPath.row == 0 ? L(@"pref_night_mode") : L(@"pref_recent_track");
       break;
     }
     // 3D buildings
-    case 1:
+    case 2:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = static_cast<SwitchCell *>(cell);
@@ -137,7 +140,7 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.titleLabel.text = L(@"pref_map_3d_buildings_title");
     }
     // Zoom buttons
-    case 2:
+    case 3:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = static_cast<SwitchCell *>(cell);
@@ -238,10 +241,12 @@ typedef NS_ENUM(NSUInteger, Section)
     switch (indexPath.row)
     {
       // Night mode
+      // Recent track
       case 0:
+      case 1:
         break;
       // 3D buildings
-      case 1:
+      case 2:
       {
         [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStat3DBuildings)
                          withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
@@ -254,7 +259,7 @@ typedef NS_ENUM(NSUInteger, Section)
         break;
       }
       // Zoom buttons
-      case 2:
+      case 3:
       {
         [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
             withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
@@ -335,6 +340,12 @@ Settings::Units unitsForIndex(NSInteger index)
       [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatNightMode)
                        withParameters:@{kStatAction : kStatChangeNightMode}];
       [self performSegueWithIdentifier:@"SettingsToNightMode" sender:nil];
+    }
+    else if (indexPath.row == 1)
+    {
+      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatRecentTrack)
+                       withParameters:@{kStatAction : kStatChangeRecentTrack}];
+      [self performSegueWithIdentifier:@"SettingsToRecentTrackSegue" sender:nil];
     }
     break;
   case SectionAd:

@@ -36,6 +36,7 @@
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 extern NSString * const kUDWhatsNewWasShown = @"WhatsNewWith3dAndPerspectiveWasShown";
+extern NSString * const kUDAutoNightMode;
 extern char const * kAdForbiddenSettingsKey;
 extern char const * kAdServerForbiddenKey;
 

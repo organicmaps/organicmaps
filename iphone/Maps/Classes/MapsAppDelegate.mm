@@ -50,7 +50,6 @@ static NSString * const kUDWatchEventAlreadyTracked = @"WatchEventAlreadyTracked
 static NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 static NSString * const kIOSIDFA = @"IFA";
 static NSString * const kBundleVersion = @"BundleVersion";
-static NSString * const kUDEnableTrackingKey = @"EnableTrackingForTheFirstTime";
 
 extern string const kCountryCodeKey;
 extern string const kUniqueIdKey;
@@ -237,7 +236,7 @@ void InitLocalizedStrings()
   InitLocalizedStrings();
   [Preferences setup];
   [self subscribeToStorage];
-  [self customizeAppearance];
+  [MapsAppDelegate customizeAppearance];
 
   self.standbyCounter = 0;
   NSTimeInterval const minimumBackgroundFetchIntervalInSeconds = 6 * 60 * 60;
@@ -346,7 +345,6 @@ void InitLocalizedStrings()
     [self incrementSessionsCountAndCheckForAlert];
 
   [self enableTTSForTheFirstTime];
-  [self enableTrackingForTheFirstTime];
   [MWMTextToSpeech activateAudioSession];
 
   return returnValue;
@@ -669,18 +667,6 @@ void InitLocalizedStrings()
   [ud setBool:YES forKey:kUserDafaultsNeedToEnableTTS];
   [ud synchronize];
 
-}
-
-#pragma mark - Tracks
-
-- (void)enableTrackingForTheFirstTime
-{
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  if ([ud boolForKey:kUDEnableTrackingKey])
-    return;
-  [ud setBool:YES forKey:kUDEnableTrackingKey];
-  [ud synchronize];
-  GpsTracker::Instance().SetDuration(hours(48));
 }
 
 #pragma mark - Standby
