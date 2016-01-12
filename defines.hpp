@@ -43,6 +43,7 @@
 #define DOWNLOADING_FILE_EXTENSION ".downloading"
 #define BOOKMARKS_FILE_EXTENSION ".kml"
 #define ROUTING_FILE_EXTENSION ".routing"
+#define NOROUTING_FILE_EXTENSION ".norouting"
 
 #define GEOM_INDEX_TMP_EXT ".geomidx.tmp"
 #define CELL2FEATURE_SORTED_EXT ".c2f.sorted"

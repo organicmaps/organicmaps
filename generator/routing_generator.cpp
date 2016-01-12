@@ -444,11 +444,12 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   LOG(LINFO, ("Collect all data into one file..."));
 
   string const mwmPath = localFile.GetPath(MapOptions::Map);
-  string const mwmWithRoutingPath = mwmPath + ROUTING_FILE_EXTENSION;
+  string const mwmWithoutRoutingPath = mwmPath + NOROUTING_FILE_EXTENSION;
 
-  CHECK(my::CopyFileX(mwmPath, mwmWithRoutingPath), ("Can't copy", mwmPath, "to", mwmWithRoutingPath));
+  // Backup mwm file without routing.
+  CHECK(my::CopyFileX(mwmPath, mwmWithoutRoutingPath), ("Can't copy", mwmPath, "to", mwmWithoutRoutingPath));
 
-  FilesContainerW routingCont(mwmWithRoutingPath, FileWriter::OP_WRITE_EXISTING);
+  FilesContainerW routingCont(mwmPath, FileWriter::OP_WRITE_EXISTING);
 
   mapping.Save(routingCont);
 
@@ -467,7 +468,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   routingCont.Finish();
 
   uint64_t sz;
-  VERIFY(my::GetFileSize(mwmWithRoutingPath, sz), ());
+  VERIFY(my::GetFileSize(mwmPath, sz), ());
   LOG(LINFO, ("Nodes stored:", stored, "Routing index file size:", sz));
 }
 }
