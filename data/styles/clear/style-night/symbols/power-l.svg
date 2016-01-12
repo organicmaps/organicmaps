@@ -10,7 +10,7 @@
         <g id="power-l" sketch:type="MSLayerGroup">
             <ellipse id="Oval-1-Copy-46" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="13.5" cy="13.5" rx="13.5" ry="13.5"></ellipse>
             <g id="Oval-1-Copy-38">
-                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M15,5 L20.0669782,5.0160001 L15,12 L20,12 L9,23 L13,13.9967935 L8,13.9967935 L15,5 Z" id="Path-1152" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

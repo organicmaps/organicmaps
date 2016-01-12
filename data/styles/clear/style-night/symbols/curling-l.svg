@@ -10,7 +10,7 @@
         <g id="curling-l" sketch:type="MSLayerGroup">
             <path d="M13.5,27 C6.057,27 0,20.943 0,13.5 C0,6.057 6.057,0 13.5,0 C20.943,0 27,6.057 27,13.5 C27,20.943 20.943,27 13.5,27 L13.5,27 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <g id="Shape">
-                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M22.949,14 L4.029,14 C4.01,14.164 4,14.331 4,14.5 C4,16.985 6.015,19 8.5,19 L18.5,19 C20.985,19 23,16.985 23,14.5 C23,14.329 22.968,14.166 22.949,14 L22.949,14 Z M18.5,10 L12.1,10 C11.547,10 11.1,9.553 11.1,9 C11.1,8.447 11.547,8 12.1,8 L18,8 C18.553,8 19,7.553 19,7 C19,6.447 18.553,6 18,6 L10.697,6 L5.668,11.029 C5.327,11.307 5.031,11.636 4.782,12 L22.24,12 C21.433,10.795 20.06,10 18.5,10 L18.5,10 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

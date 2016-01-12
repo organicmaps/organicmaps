@@ -174,14 +174,16 @@ area|z17-[sport=multi]
 
 /* hospital*/
 
-area|z14-15[amenity=hospital] {
+area|z14-15[amenity=hospital],
+area|z14-15[amenity=doctors] {
   fill-color: @hospital;
   fill-opacity: 1;
   fill-position: background;
   z-index: 2;
 
 }
-area|z16-[amenity=hospital] {
+area|z16-[amenity=hospital],
+area|z16-[amenity=doctors]{
   fill-color: @hospital;
   fill-opacity: 1;
   fill-position: background;

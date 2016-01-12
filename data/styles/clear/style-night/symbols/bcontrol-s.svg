@@ -11,14 +11,14 @@
         <g id="bcontrol-s" sketch:type="MSLayerGroup">
             <circle id="Oval-1-Copy-43" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="8.5" cy="8.5" r="8.5"></circle>
             <g id="Oval-1-Copy-42">
-                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <g id="Rectangle-22-+-Group-Copy-2" transform="translate(4.000000, 3.000000)">
                 <path d="M6,1 L6,0 L3,0 L3,3 L0,3 L0,4 L3,4 L3,11 L6,11 L6,6 L9,6 L9,5 L6,5 L6,2 L9,2 L9,1 L6,1 Z" id="Rectangle-22" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
                 <g id="Group" transform="translate(3.250000, 0.733333)">
                     <g id="Rectangle-49">
-                        <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-2"></use>
+                        <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-2"></use>
                         <use fill="none" xlink:href="#path-2"></use>
                     </g>
                 </g>

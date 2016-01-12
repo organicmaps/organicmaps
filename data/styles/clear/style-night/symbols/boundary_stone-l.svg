@@ -10,7 +10,7 @@
         <g id="boundary_stone-l" sketch:type="MSLayerGroup">
             <path d="M13.5,27 C6.057,27 0,20.943 0,13.5 C0,6.056 6.057,0 13.5,0 C20.943,0 27,6.056 27,13.5 C27,20.943 20.943,27 13.5,27 L13.5,27 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <g id="Shape">
-                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M19,8.313 L14.686,4 L12.315,4 L8,8.313 L8,17 L19,17 L19,8.313 L19,8.313 Z M6,19 L6,21 L21,21 L21,19 L6,19 L6,19 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

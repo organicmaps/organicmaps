@@ -10,7 +10,7 @@
         <g id="fort-m" sketch:type="MSLayerGroup">
             <ellipse id="Oval-1-Copy-41" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
             <g id="Oval-1-Copy-40">
-                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M14,9 L14,7 L13,7 L13,8.99999998 L12,8.99999998 L12,7 L11,7 L11,8.99999998 L9.95655274,8.99999998 L9.95655276,7 L9,7 L9,9 L7,8.99108016 L7,6 L16,6 L16,9 L14,9 Z" id="Shape-Copy-16" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup" transform="translate(11.500000, 7.500000) rotate(-180.000000) translate(-11.500000, -7.500000) "></path>

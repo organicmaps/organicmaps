@@ -10,7 +10,7 @@
         <g id="power-m" sketch:type="MSLayerGroup">
             <circle id="Oval-1-Copy-38" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="12.5" cy="12.5" r="12.5"></circle>
             <g id="Oval-1-Copy-47">
-                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M13,5 L18,5 L13,11 L18,11 L8,20 L12,13 L7,13 L13,5 Z" id="Path-1152" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>

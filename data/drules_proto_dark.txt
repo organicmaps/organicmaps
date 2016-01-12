@@ -1121,14 +1121,14 @@ cont {
   element {
     scale: 11
     area {
-      color: 3681605
+      color: 3418688
       priority: -15987
     }
   }
   element {
     scale: 12
     area {
-      color: 3681605
+      color: 3155515
       priority: -15068
     }
     symbol {
@@ -1155,7 +1155,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 3681605
+      color: 3155515
       priority: -15068
     }
     symbol {
@@ -1182,7 +1182,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 3681605
+      color: 2827062
       priority: -15068
     }
     symbol {
@@ -1209,7 +1209,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 3681605
+      color: 2695475
       priority: -15068
     }
     symbol {
@@ -1236,7 +1236,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 3681605
+      color: 2695475
       priority: -15068
     }
     symbol {
@@ -1263,7 +1263,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 3681605
+      color: 2695475
       priority: -15068
     }
     symbol {
@@ -1290,7 +1290,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 3681605
+      color: 2695475
       priority: -15068
     }
     symbol {
@@ -1317,7 +1317,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 3681605
+      color: 2695475
       priority: -15068
     }
     symbol {
@@ -1367,7 +1367,7 @@ cont {
   element {
     scale: 11
     area {
-      color: 3681605
+      color: 3418688
       priority: -15068
     }
     symbol {
@@ -1394,7 +1394,7 @@ cont {
   element {
     scale: 12
     area {
-      color: 3681605
+      color: 3155515
       priority: -15068
     }
     symbol {
@@ -1421,7 +1421,7 @@ cont {
   element {
     scale: 13
     area {
-      color: 3681605
+      color: 3155515
       priority: -15068
     }
     symbol {
@@ -1448,7 +1448,7 @@ cont {
   element {
     scale: 14
     area {
-      color: 3681605
+      color: 2827062
       priority: -15068
     }
     symbol {
@@ -1475,7 +1475,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 3681605
+      color: 2695475
       priority: -15068
     }
     symbol {
@@ -1502,7 +1502,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 3681605
+      color: 2695475
       priority: -15068
     }
     symbol {
@@ -1529,7 +1529,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 3681605
+      color: 2695475
       priority: -15068
     }
     symbol {
@@ -1556,7 +1556,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 3681605
+      color: 2695475
       priority: -15068
     }
     symbol {
@@ -1583,7 +1583,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 3681605
+      color: 2695475
       priority: -15068
     }
     symbol {
@@ -2664,10 +2664,25 @@ cont {
 cont {
   name: "amenity-dentist"
   element {
-    scale: 19
+    scale: 17
     symbol {
-      name: "none"
-      priority: 16000
+      name: "dentist-l"
+      priority: 16837
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15837
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dentist-l"
+      priority: 16837
     }
     caption {
       primary {
@@ -2675,17 +2690,76 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15000
+      priority: 15837
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dentist-l"
+      priority: 16837
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15837
     }
   }
 }
 cont {
   name: "amenity-doctors"
   element {
-    scale: 19
+    scale: 14
+    area {
+      color: 2496790
+      priority: -15973
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 2496790
+      priority: -15973
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2496790
+      priority: -15973
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2496790
+      priority: -15163
+    }
     symbol {
-      name: "none"
-      priority: 16000
+      name: "hospital-l"
+      priority: 16837
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15837
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2496790
+      priority: -15163
+    }
+    symbol {
+      name: "hospital-l"
+      priority: 16837
     }
     caption {
       primary {
@@ -2693,7 +2767,26 @@ cont {
         color: 5592405
         offset_y: 10
       }
-      priority: 15000
+      priority: 15837
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2496790
+      priority: -15163
+    }
+    symbol {
+      name: "hospital-l"
+      priority: 16837
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 10
+      }
+      priority: 15837
     }
   }
 }
@@ -48115,7 +48208,7 @@ cont {
     scale: 16
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48129,7 +48222,7 @@ cont {
     scale: 17
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48143,7 +48236,7 @@ cont {
     scale: 18
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48157,7 +48250,7 @@ cont {
     scale: 19
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48174,7 +48267,7 @@ cont {
     scale: 16
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48188,7 +48281,7 @@ cont {
     scale: 17
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48202,7 +48295,7 @@ cont {
     scale: 18
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48216,7 +48309,7 @@ cont {
     scale: 19
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48233,7 +48326,7 @@ cont {
     scale: 16
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48247,7 +48340,7 @@ cont {
     scale: 17
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48261,7 +48354,7 @@ cont {
     scale: 18
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48275,7 +48368,7 @@ cont {
     scale: 19
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48292,7 +48385,7 @@ cont {
     scale: 18
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 1.8
         dd: 5.4
@@ -48306,7 +48399,7 @@ cont {
     scale: 19
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 1.8
         dd: 5.4
@@ -48323,7 +48416,7 @@ cont {
     scale: 18
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 1.8
         dd: 5.4
@@ -48337,7 +48430,7 @@ cont {
     scale: 19
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 1.8
         dd: 5.4
@@ -48354,7 +48447,7 @@ cont {
     scale: 13
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48364,7 +48457,7 @@ cont {
     scale: 14
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48374,7 +48467,7 @@ cont {
     scale: 15
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48384,7 +48477,7 @@ cont {
     scale: 16
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48394,7 +48487,7 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48404,7 +48497,7 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48414,7 +48507,7 @@ cont {
     scale: 19
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48427,7 +48520,7 @@ cont {
     scale: 13
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48437,7 +48530,7 @@ cont {
     scale: 14
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48447,7 +48540,7 @@ cont {
     scale: 15
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48457,7 +48550,7 @@ cont {
     scale: 16
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48467,7 +48560,7 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48477,7 +48570,7 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48487,7 +48580,7 @@ cont {
     scale: 19
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48500,7 +48593,7 @@ cont {
     scale: 13
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48510,7 +48603,7 @@ cont {
     scale: 14
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48520,7 +48613,7 @@ cont {
     scale: 15
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48530,7 +48623,7 @@ cont {
     scale: 16
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48540,7 +48633,7 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48550,7 +48643,7 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48560,7 +48653,7 @@ cont {
     scale: 19
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48795,7 +48888,7 @@ cont {
     scale: 13
     lines {
       width: 0.8
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48805,7 +48898,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48815,7 +48908,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48825,14 +48918,14 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 1.3
-      color: 0
+      color: 1118481
       dashdot {
         dd: 4.5
         dd: 4.5
@@ -48846,14 +48939,14 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -48867,14 +48960,14 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -48888,14 +48981,14 @@ cont {
     scale: 19
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -48912,7 +49005,7 @@ cont {
     scale: 13
     lines {
       width: 0.8
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48922,7 +49015,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48946,7 +49039,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -48970,7 +49063,7 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -48991,7 +49084,7 @@ cont {
     }
     lines {
       width: 1.3
-      color: 0
+      color: 1118481
       dashdot {
         dd: 4.5
         dd: 4.5
@@ -49005,7 +49098,7 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49026,7 +49119,7 @@ cont {
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49040,7 +49133,7 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49061,7 +49154,7 @@ cont {
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -49075,7 +49168,7 @@ cont {
     scale: 19
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49096,7 +49189,7 @@ cont {
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -49113,7 +49206,7 @@ cont {
     scale: 13
     lines {
       width: 0.8
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49123,7 +49216,7 @@ cont {
     scale: 14
     lines {
       width: 3.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -49134,7 +49227,7 @@ cont {
     }
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49144,7 +49237,7 @@ cont {
     scale: 15
     lines {
       width: 3.2
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -49155,7 +49248,7 @@ cont {
     }
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49165,7 +49258,7 @@ cont {
     scale: 16
     lines {
       width: 4.6
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -49176,14 +49269,14 @@ cont {
     }
     lines {
       width: 2.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 1.3
-      color: 0
+      color: 1118481
       dashdot {
         dd: 4.5
         dd: 4.5
@@ -49197,7 +49290,7 @@ cont {
     scale: 17
     lines {
       width: 5.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -49208,14 +49301,14 @@ cont {
     }
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49229,7 +49322,7 @@ cont {
     scale: 18
     lines {
       width: 5.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -49240,14 +49333,14 @@ cont {
     }
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -49261,7 +49354,7 @@ cont {
     scale: 19
     lines {
       width: 5.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -49272,14 +49365,14 @@ cont {
     }
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -49296,7 +49389,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49306,7 +49399,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49316,7 +49409,7 @@ cont {
     scale: 16
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49326,7 +49419,7 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49336,7 +49429,7 @@ cont {
     scale: 18
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49346,7 +49439,7 @@ cont {
     scale: 19
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49359,7 +49452,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49369,7 +49462,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49379,7 +49472,7 @@ cont {
     scale: 16
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49389,7 +49482,7 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49399,7 +49492,7 @@ cont {
     scale: 18
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49409,7 +49502,7 @@ cont {
     scale: 19
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49422,7 +49515,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49432,7 +49525,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49442,7 +49535,7 @@ cont {
     scale: 16
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49452,7 +49545,7 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49462,7 +49555,7 @@ cont {
     scale: 18
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49472,7 +49565,7 @@ cont {
     scale: 19
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49485,7 +49578,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49495,7 +49588,7 @@ cont {
     scale: 16
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49505,7 +49598,7 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49515,7 +49608,7 @@ cont {
     scale: 18
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49525,7 +49618,7 @@ cont {
     scale: 19
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49538,7 +49631,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49548,7 +49641,7 @@ cont {
     scale: 16
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49558,7 +49651,7 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49568,7 +49661,7 @@ cont {
     scale: 18
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49578,7 +49671,7 @@ cont {
     scale: 19
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49591,7 +49684,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49601,7 +49694,7 @@ cont {
     scale: 16
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49611,7 +49704,7 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49621,7 +49714,7 @@ cont {
     scale: 18
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49631,7 +49724,7 @@ cont {
     scale: 19
     lines {
       width: 2.0
-      color: 2171161
+      color: 3355443
       priority: 1635
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -49675,7 +49768,7 @@ cont {
     scale: 16
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49689,7 +49782,7 @@ cont {
     scale: 17
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49703,7 +49796,7 @@ cont {
     scale: 18
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49717,7 +49810,7 @@ cont {
     scale: 19
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49734,7 +49827,7 @@ cont {
     scale: 16
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49748,7 +49841,7 @@ cont {
     scale: 17
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49762,7 +49855,7 @@ cont {
     scale: 18
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49776,7 +49869,7 @@ cont {
     scale: 19
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49793,7 +49886,7 @@ cont {
     scale: 16
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49807,7 +49900,7 @@ cont {
     scale: 17
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49821,7 +49914,7 @@ cont {
     scale: 18
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49835,7 +49928,7 @@ cont {
     scale: 19
     lines {
       width: 1.6
-      color: 2171161
+      color: 3355443
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49852,7 +49945,7 @@ cont {
     scale: 11
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -49862,7 +49955,7 @@ cont {
     scale: 12
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -49872,7 +49965,7 @@ cont {
     scale: 13
     lines {
       width: 0.8
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49882,7 +49975,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49892,7 +49985,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -49902,14 +49995,14 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 1.3
-      color: 0
+      color: 1118481
       dashdot {
         dd: 4.5
         dd: 4.5
@@ -49923,14 +50016,14 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -49944,14 +50037,14 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -49965,14 +50058,14 @@ cont {
     scale: 19
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -49989,7 +50082,7 @@ cont {
     scale: 11
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -49999,7 +50092,7 @@ cont {
     scale: 12
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -50009,7 +50102,7 @@ cont {
     scale: 13
     lines {
       width: 0.8
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -50019,7 +50112,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -50043,7 +50136,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -50067,7 +50160,7 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -50088,7 +50181,7 @@ cont {
     }
     lines {
       width: 1.3
-      color: 0
+      color: 1118481
       dashdot {
         dd: 4.5
         dd: 4.5
@@ -50102,7 +50195,7 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -50123,7 +50216,7 @@ cont {
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -50137,7 +50230,7 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -50158,7 +50251,7 @@ cont {
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -50172,7 +50265,7 @@ cont {
     scale: 19
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -50193,7 +50286,7 @@ cont {
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -50210,7 +50303,7 @@ cont {
     scale: 11
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -50220,7 +50313,7 @@ cont {
     scale: 12
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -50230,7 +50323,7 @@ cont {
     scale: 13
     lines {
       width: 0.8
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -50240,7 +50333,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -50250,7 +50343,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -50260,14 +50353,14 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 1.3
-      color: 0
+      color: 1118481
       dashdot {
         dd: 4.5
         dd: 4.5
@@ -50281,14 +50374,14 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -50302,14 +50395,14 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -50323,14 +50416,14 @@ cont {
     scale: 19
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -50347,7 +50440,7 @@ cont {
     scale: 11
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -50357,7 +50450,7 @@ cont {
     scale: 12
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -50367,7 +50460,7 @@ cont {
     scale: 13
     lines {
       width: 0.8
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -50377,7 +50470,7 @@ cont {
     scale: 14
     lines {
       width: 3.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -50388,7 +50481,7 @@ cont {
     }
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -50398,7 +50491,7 @@ cont {
     scale: 15
     lines {
       width: 3.2
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -50409,7 +50502,7 @@ cont {
     }
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -50419,7 +50512,7 @@ cont {
     scale: 16
     lines {
       width: 4.6
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -50430,14 +50523,14 @@ cont {
     }
     lines {
       width: 2.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 1.3
-      color: 0
+      color: 1118481
       dashdot {
         dd: 4.5
         dd: 4.5
@@ -50451,7 +50544,7 @@ cont {
     scale: 17
     lines {
       width: 5.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -50462,14 +50555,14 @@ cont {
     }
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -50483,7 +50576,7 @@ cont {
     scale: 18
     lines {
       width: 5.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -50494,14 +50587,14 @@ cont {
     }
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -50515,7 +50608,7 @@ cont {
     scale: 19
     lines {
       width: 5.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -50526,14 +50619,14 @@ cont {
     }
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -56591,7 +56684,7 @@ cont {
     scale: 11
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -56601,7 +56694,7 @@ cont {
     scale: 12
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -56611,7 +56704,7 @@ cont {
     scale: 13
     lines {
       width: 0.8
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -56621,7 +56714,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -56631,7 +56724,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -56641,14 +56734,14 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 1.3
-      color: 0
+      color: 1118481
       dashdot {
         dd: 4.5
         dd: 4.5
@@ -56662,14 +56755,14 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -56683,14 +56776,14 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -56704,14 +56797,14 @@ cont {
     scale: 19
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -56728,7 +56821,7 @@ cont {
     scale: 11
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -56738,7 +56831,7 @@ cont {
     scale: 12
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -56748,7 +56841,7 @@ cont {
     scale: 13
     lines {
       width: 0.8
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -56758,7 +56851,7 @@ cont {
     scale: 14
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -56782,7 +56875,7 @@ cont {
     scale: 15
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -56806,7 +56899,7 @@ cont {
     scale: 16
     lines {
       width: 2.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -56827,7 +56920,7 @@ cont {
     }
     lines {
       width: 1.3
-      color: 0
+      color: 1118481
       dashdot {
         dd: 4.5
         dd: 4.5
@@ -56841,7 +56934,7 @@ cont {
     scale: 17
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -56862,7 +56955,7 @@ cont {
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -56876,7 +56969,7 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -56897,7 +56990,7 @@ cont {
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -56911,7 +57004,7 @@ cont {
     scale: 19
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -56932,7 +57025,7 @@ cont {
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -56949,7 +57042,7 @@ cont {
     scale: 11
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -56959,7 +57052,7 @@ cont {
     scale: 12
     lines {
       width: 0.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: BEVELJOIN
       cap: BUTTCAP
@@ -56969,7 +57062,7 @@ cont {
     scale: 13
     lines {
       width: 0.8
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -56979,7 +57072,7 @@ cont {
     scale: 14
     lines {
       width: 3.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -56990,7 +57083,7 @@ cont {
     }
     lines {
       width: 1.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -57000,7 +57093,7 @@ cont {
     scale: 15
     lines {
       width: 3.2
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -57011,7 +57104,7 @@ cont {
     }
     lines {
       width: 1.2
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
@@ -57021,7 +57114,7 @@ cont {
     scale: 16
     lines {
       width: 4.6
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -57032,14 +57125,14 @@ cont {
     }
     lines {
       width: 2.6
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 1.3
-      color: 0
+      color: 1118481
       dashdot {
         dd: 4.5
         dd: 4.5
@@ -57053,7 +57146,7 @@ cont {
     scale: 17
     lines {
       width: 5.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -57064,14 +57157,14 @@ cont {
     }
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 6.3
         dd: 6.3
@@ -57085,7 +57178,7 @@ cont {
     scale: 18
     lines {
       width: 5.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -57096,14 +57189,14 @@ cont {
     }
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1
@@ -57117,7 +57210,7 @@ cont {
     scale: 19
     lines {
       width: 5.0
-      color: 2171161
+      color: 2236962
       dashdot {
         dd: 5.0
         dd: 5.0
@@ -57128,14 +57221,14 @@ cont {
     }
     lines {
       width: 3.0
-      color: 2171161
+      color: 3355443
       priority: 1486
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
     lines {
       width: 2.0
-      color: 0
+      color: 1118481
       dashdot {
         dd: 8.1
         dd: 8.1

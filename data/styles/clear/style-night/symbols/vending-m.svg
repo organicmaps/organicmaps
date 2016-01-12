@@ -10,7 +10,7 @@
         <g id="vending-m" sketch:type="MSLayerGroup">
             <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
             <g id="Shape">
-                <use fill="#383833" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
                 <use fill="none" xlink:href="#path-1"></use>
             </g>
             <path d="M16,4 L7,4 C6.448,4 6,4.447 6,5 L6,18 C6,18.553 6.448,19 7,19 L16,19 C16.552,19 17,18.553 17,18 L17,5 C17,4.447 16.552,4 16,4 L16,4 Z M14,17 L8,17 L8,15 L14,15 L14,17 L14,17 Z M14,14 L8,14 L8,6 L14,6 L14,14 L14,14 Z M16,8 L15,8 L15,6 L16,6 L16,8 L16,8 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
