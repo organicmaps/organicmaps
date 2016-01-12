@@ -69,6 +69,7 @@ void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
     else if (IsGoodPoint(currInfo))
     {
       outPoints.emplace_back(currInfo);
+      m_lastAcceptedInfo = currInfo;
     }
 
     m_lastInfo = currInfo;
