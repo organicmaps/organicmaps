@@ -22,16 +22,23 @@ rm -rf $DST/resources-mdpi
 rm -rf $DST/resources-hdpi
 rm -rf $DST/resources-xhdpi
 rm -rf $DST/resources-xxhdpi
+rm -rf $DST/resources-6plus
 rm -rf $DST/resources-ldpi_dark
 rm -rf $DST/resources-mdpi_dark
 rm -rf $DST/resources-hdpi_dark
 rm -rf $DST/resources-xhdpi_dark
 rm -rf $DST/resources-xxhdpi_dark
+rm -rf $DST/resources-6plus_dark
 rm -rf $DST/resources-ldpi_clear
 rm -rf $DST/resources-mdpi_clear
 rm -rf $DST/resources-hdpi_clear
 rm -rf $DST/resources-xhdpi_clear
 rm -rf $DST/resources-xxhdpi_clear
+rm -rf $DST/resources-6plus_clear
+rm -rf $DST/resources-default
+rm -rf $DST/sound-strings
+rm -rf $DST/colors.txt
+rm -rf $DST/patterns.txt
 ln -s $SRC/resources-yota $DST/resources-mdpi
 
 # Yota 2nd generation
@@ -52,14 +59,21 @@ rm -rf $DST/resources-mdpi
 rm -rf $DST/resources-hdpi
 rm -rf $DST/resources-xhdpi
 rm -rf $DST/resources-xxhdpi
+rm -rf $DST/resources-6plus
 rm -rf $DST/resources-ldpi_dark
 rm -rf $DST/resources-mdpi_dark
 rm -rf $DST/resources-hdpi_dark
 rm -rf $DST/resources-xhdpi_dark
 rm -rf $DST/resources-xxhdpi_dark
+rm -rf $DST/resources-6plus_dark
 rm -rf $DST/resources-ldpi_clear
 rm -rf $DST/resources-mdpi_clear
 rm -rf $DST/resources-hdpi_clear
 rm -rf $DST/resources-xhdpi_clear
 rm -rf $DST/resources-xxhdpi_clear
+rm -rf $DST/resources-6plus_clear
+rm -rf $DST/resources-default
+rm -rf $DST/sound-strings
+rm -rf $DST/colors.txt
+rm -rf $DST/patterns.txt
 ln -s $SRC/resources-yota $DST/resources-mdpi
