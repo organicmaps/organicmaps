@@ -93,6 +93,48 @@ UNIT_TEST(XMLFeature_ToOSMString)
   TEST_EQUAL(expectedString, feature.ToOSMString(), ());
 }
 
+UNIT_TEST(XMLFeature_IsArea)
+{
+  constexpr char const * validAreaXml = R"(
+<way timestamp="2015-11-27T21:13:32Z">
+  <nd ref="822403"/>
+  <nd ref="21533912"/>
+  <nd ref="821601"/>
+  <nd ref="822403"/>
+</way>
+)";
+  TEST(XMLFeature(validAreaXml).IsArea(), ());
+
+  constexpr char const * notClosedWayXml = R"(
+<way timestamp="2015-11-27T21:13:32Z">
+  <nd ref="822403"/>
+  <nd ref="21533912"/>
+  <nd ref="821601"/>
+  <nd ref="123321"/>
+</way>
+)";
+  TEST(!XMLFeature(notClosedWayXml).IsArea(), ());
+
+  constexpr char const * invalidWayXml = R"(
+<way timestamp="2015-11-27T21:13:32Z">
+  <nd ref="822403"/>
+  <nd ref="21533912"/>
+  <nd ref="822403"/>
+</way>
+)";
+  TEST(!XMLFeature(invalidWayXml).IsArea(), ());
+
+  constexpr char const * emptyWay = R"(
+<way timestamp="2015-11-27T21:13:32Z"/>
+)";
+  TEST(!XMLFeature(emptyWay).IsArea(), ());
+
+  constexpr char const * node = R"(
+<node lat="0.0" lon="0.0" timestamp="2015-11-27T21:13:32Z"/>
+)";
+  TEST(!XMLFeature(node).IsArea(), ());
+}
+
 // UNIT_TEST(XMLFeature_FromXml)
 // {
 //   auto const srcString = R"(<?xml version="1.0"?>

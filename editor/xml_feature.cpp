@@ -112,6 +112,21 @@ XMLFeature::Type XMLFeature::GetType() const
   return strcmp(GetRootNode().name(), "node") == 0 ? Type::Node : Type::Way;
 }
 
+bool XMLFeature::IsArea() const
+{
+  if (strcmp(GetRootNode().name(), kWayType) != 0)
+    return false;
+
+  vector<string> ndIds;
+  for (auto const & nd : GetRootNode().select_nodes("nd"))
+    ndIds.push_back(nd.node().attribute("ref").value());
+
+  if (ndIds.size() < 4)
+    return false;
+
+  return ndIds.front() == ndIds.back();
+}
+
 void XMLFeature::Save(ostream & ost) const
 {
   m_document.save(ost, "  ");

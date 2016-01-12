@@ -49,6 +49,9 @@ public:
 
   Type GetType() const;
 
+  /// @returns true only if it is a way and it is closed (area).
+  bool IsArea() const;
+
   ms::LatLon GetCenter() const;
   void SetCenter(m2::PointD const & mercatorCenter);
 
