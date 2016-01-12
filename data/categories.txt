@@ -288,18 +288,424 @@ ro:3magazin
 nb:3butikk
 fi:3kauppa
 
+shop-florist
+en:florist’s|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|2shop
+ru:цветочный магазин|цветы|2магазин
+fr:fleuriste|2magasin
+da:blomsterbutik|2butik
+id:tukang bunga|toko bunga|2toko
+ko:플로리스트의꽃가게|1쇼핑|가게
+sv:blomsteraffär|2butik
+tr:çiçekçi|2mağaza
+uk:магазин квітів|2магазин|крамниця
+vi:cửa hàng hoa|tiệm hoa|cửa hàng
+hu:virágos|virágbolt|2bolt
+de:Florist|Blumengeschäft|3Einkaufenladen|Geschäft|2Laden
+fi:floristi|kukkakauppa|3kauppa
+cs:květinářství|2obchod
+it:fiorista|fioraio|2negozio
+nb:blomsterhandler|3butikk
+zh-Hant:花店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:花店|商店
+th:ร้านดอกไม้|2ร้านค้า
+ja:フローリスト/花屋|1買い物|お買い物|ショップ|商店|雑貨
+ro:florărie|3magazin
+ar:محل زهور|متجر زهور |متجر|المتجر
+sk:kvety|kvetinárstvo|2obchod
+es:floristería|tienda de flores|2tienda
+pl:kwiaciarnia|3sklep|towary
+nl:bloemist|bloemenwinkel|2winkel
+pt:floricultura|2loja|compras
+
+shop-butcher
+en:butcher’s|U+1F356|U+1F357|2shop
+ru:мясная лавка|мясо|2магазин
+fr:boucherie|2magasin
+da:slagter|2butik
+id:tukang daging|2toko
+ko:정육점의|1쇼핑|가게
+sv:slaktare|2butik
+tr:kasap|2mağaza
+uk:м'ясний магазин|2магазин|крамниця
+vi:cửa hàng thịt|cửa hàng
+hu:hentes|2bolt
+de:Metzgerei|3Einkaufenladen|Geschäft|2Laden
+fi:lihakauppias|3kauppa
+cs:řeznictví|2obchod
+it:macellaio|2negozio
+nb:slakter|3butikk
+zh-Hant:肉商|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:肉商|商店
+th:ร้านขายเนื้อ|2ร้านค้า
+ja:肉屋|1買い物|お買い物|ショップ|商店|雑貨
+ro:măcelărie|3magazin
+ar:ججزارة|متجر|المتجر
+sk:mäsiar|2obchod
+es:carnicería|2tienda
+pl:rzeźnik|3sklep|towary
+nl:slager|2winkel
+pt:açougueiro|2loja|compras
+
+shop-furniture
+en:furniture store|2shop
+ru:магазин мебели|2магазин
+fr:magasin de meubles|2magasin
+da:møbelbutik|2butik
+id:toko mebel|2toko
+ko:가구 상점|1쇼핑|가게
+sv:möbelaffär|2butik
+tr:mobilya mağazası|2mağaza
+uk:магазин меблів|2магазин|крамниця
+vi:cửa hàng nội thất|cửa hàng
+hu:bútoráruház|2bolt
+de:Möbelgeschäft|3Einkaufenladen|Geschäft|2Laden
+fi:huonekalukauppa|3kauppa
+cs:nábytek|2obchod
+it:negozio di mobili|2negozio
+nb:møbelbutikk|3butikk
+zh-Hant:家具店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:家具店|商店
+th:ร้านเฟอร์นิเจอร์|2ร้านค้า
+ja:家具店|1買い物|お買い物|ショップ|商店|雑貨
+ro:magazin de mobilă|3magazin
+ar:معرض أثاث|متجر|المتجر
+sk:nábytok|2obchod
+es:tienda de muebles|2tienda
+pl:sklep meblowy|3sklep|towary
+nl:meubelzaak|2winkel
+pt:loja de móveis|2loja|compras
+
+shop-alcohol
+en:liquor store|liquor|U+1F377|2shop
+ru:магазин алкоголя|4алкоголь|3винный|3вино-водочный|2магазин
+fr:magasin de vins et spiritueux|vins et spiritueux|2magasin
+da:vinhandel|2butik
+id:toko minuman keras|minuman keras|2toko
+ko:주류 판매점|1쇼핑|가게
+sv:spritaffär|alkohol|2butik
+tr:içki dükkanı|2mağaza
+uk:винний магазин|крамниця спиртних напоїв|2магазин|крамниця
+vi:cửa hàng rượu|rượu|cửa hàng
+hu:italbolt|ital|2bolt
+de:Spirituosengeschäft|Spirituosen|3Einkaufenladen|Geschäft|2Laden
+fi:alkoholikauppa|alkoholi|3kauppa
+cs:obchod s alkoholem|2obchod
+it:enoteca|2negozio
+nb:vinmonopol|brennevin|3butikk
+zh-Hant:烈酒|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:烈酒|商店
+th:ร้านขายเหล้า|2ร้านค้า
+ja:酒屋|1買い物|お買い物|ショップ|商店|雑貨
+ro:băuturi alcoolice|3magazin
+ar:متجر مشروبات كحولية|خمور|متجر|المتجر
+sk:liehoviny|alkohol|2obchod
+es:licorería|licor|2tienda
+pl:monopolowy|3sklep|towary
+nl:slijterij|drankhandel|2winkel
+pt:loja de bebidas|bebidas alcoólicas|2loja|compras
+
+shop-books
+en:bookstore|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5|2shop
+ru:книжный магазин|книги|2магазин
+fr:librairie|2magasin
+da:boghandel|2butik
+id:toko buku|2toko
+ko:서점|1쇼핑|가게
+sv:bokaffär|2butik
+tr:kitapçı|2mağaza
+uk:книгарня|2магазин|крамниця
+vi:hiệu sách|cửa hàng
+hu:könyvesbolt|2bolt
+de:Büchergeschäft|3Einkaufenladen|Geschäft|2Laden
+fi:kirjakauppa|3kauppa
+cs:knihkupectví|2obchod
+it:libreria|2negozio
+nb:bokhandel|3butikk
+zh-Hant:書店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:书店|商店
+th:ร้านหนังสือ|2ร้านค้า
+ja:本屋|1買い物|お買い物|ショップ|商店|雑貨
+ro:librărie|3magazin
+ar:مكتبة لبيع الكتب|متجر|المتجر
+sk:kníhkupectvo|2obchod
+es:librería|2tienda
+pl:księgarnia|3sklep|towary
+nl:boekwinkel|2winkel
+pt:livraria|2loja|compras
+
+shop-shoes
+en:shoe store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|2shop
+ru:магазин обуви|2обувь|2обувной|2магазин
+fr:magasin de chaussures|2magasin
+da:skobutik|2butik
+id:toko sepatu|2toko
+ko:신발 가게|1쇼핑|가게
+sv:skobutik|2butik
+tr:ayakkabı mağazası|2mağaza
+uk:магазин взуття|2магазин|крамниця
+vi:cửa hàng giày|cửa hàng
+hu:cipőbolt|2bolt
+de:Schuhgeschäft|3Einkaufenladen|Geschäft|2Laden
+fi:kenkäkauppa|3kauppa
+cs:obuv|2obchod
+it:calzolaio|2negozio
+nb:skobutikk|3butikk
+zh-Hant:鞋店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:鞋店|商店
+th:ร้านขายรองเท้า|2ร้านค้า
+ja:靴屋|1買い物|お買い物|ショップ|商店|雑貨
+ro:magazin de încălțăminte|3magazin
+ar:متجر أحذية|متجر|المتجر
+sk:obuvníctvo|2obchod
+es:zapatería|2tienda
+pl:sklep obuwniczy|3sklep|towary
+nl:schoenenwinkel|2winkel
+pt:sapataria|loja de calçados|2loja|compras
+
+shop-electronics
+en:electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1|2shop
+ru:электротехника|2магазин
+fr:magasin d'électroménager|2magasin
+da:elektronikbutik|2butik
+id:elektronik|2toko
+ko:전자|1쇼핑|가게
+sv:elektronik|2butik
+tr:elektronik mağazası|2mağaza
+uk:електротехнічний магазин|2магазин|крамниця
+vi:cửa hàng điện|cửa hàng
+hu:elektronika|2bolt
+de:Elektronik|3Einkaufenladen|Geschäft|2Laden
+fi:elektroniikka|3kauppa
+cs:elektronika|2obchod
+it:negozio di elettronica|2negozio
+nb:elektronikk forhandler|3butikk
+zh-Hant:電子產品|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:电子产品|商店
+th:ร้านขายอุปกรณ์อิเล็กทรอนิกส์|2ร้านค้า
+ja:電気店|1買い物|お買い物|ショップ|商店|雑貨
+ro:electronice|3magazin
+ar:متجر إلكترونيات|متجر|المتجر
+sk:elektronika|2obchod
+es:electrónica|2tienda
+pl:sklep ze sprzętem elektronicznym|3sklep|towary
+nl:elektronicazaak|2winkel
+pt:loja de eletrônicos|2loja|compras
+
+shop-electronics
+en:hardware store|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614|2shop
+ru:хозяйственный магазин|2магазин
+fr:quincaillerie|2magasin
+da:isenkræmmer|2butik
+id:toko perangkat keras|2toko
+ko:철물점|1쇼핑|가게
+sv:järnhandel|2butik
+tr:hırdavatçı|2mağaza
+uk:магазин побутової техніки|2магазин|крамниця
+vi:cửa hàng phần cứng|cửa hàng
+hu:vaskereskedés|2bolt
+de:Eisenwarengeschäft|3Einkaufenladen|Geschäft|2Laden
+fi:työkalukauppa|3kauppa
+cs:železářství|2obchod
+it:ferramenta|2negozio
+nb:jernvareforretning|3butikk
+zh-Hant:硬件店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:硬件店|商店
+th:ร้านขายฮาร์ดแวร์|2ร้านค้า
+ja:工具店|1買い物|お買い物|ショップ|商店|雑貨
+ro:magazin hardware|3magazin
+ar:متجر حواسيب|متجر|المتجر
+sk:železiarstvo|2obchod
+es:ferretería|2tienda
+pl:sklep narzędziowy|3sklep|towary
+nl:ijzerhandel|2winkel
+pt:loja de ferramentas|2loja|compras
+
+shop-jewelry
+en:jewelry|U+1F48D|2shop
+ru:ювелирный магазин|2магазин
+fr:bijouterie|2magasin
+da:smykkebutik|2butik
+id:perhiasan|2toko
+ko:보석류|1쇼핑|가게
+sv:smycken|2butik
+tr:kuyumcu|2mağaza
+uk:ювелірний магазин|2магазин|крамниця
+vi:đồ trang sức|cửa hàng
+hu:ékszer|2bolt
+de:Juweliergeschäft|3Einkaufenladen|Geschäft|2Laden
+fi:korukauppa|3kauppa
+cs:klenotnictví|2obchod
+it:gioielleria|2negozio
+nb:gullsmed|3butikk
+zh-Hant:珠寶店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:珠宝店|商店
+th:ร้านขายเครื่องประดับ|2ร้านค้า
+ja:宝石店|1買い物|お買い物|ショップ|商店|雑貨
+ro:bijutier|3magazin
+ar:مجوهرات|المتجر
+sk:klenotníctvo|2obchod
+es:joyería|2tienda
+pl:jubiler|3sklep|towary
+nl:juwelier|2winkel
+pt:joias|2loja|compras
+
+shop-optician
+en:optician’s|U+1F453|2shop
+ru:оптика|2магазин
+fr:opticien|2magasin
+da:optiker|2butik
+id:toko kacamata|2toko
+ko:안경점 의|1쇼핑|가게
+sv:optiker|2butik
+tr:gözlükçü|2mağaza
+uk:оптика|2магазин|крамниця
+vi:cửa hàng mắt kính|cửa hàng
+hu:optika|2bolt
+de:Optiker|3Einkaufenladen|Geschäft|2Laden
+fi:optikko|3kauppa
+cs:optika|2obchod
+it:ottico|2negozio
+nb:optiker|3butikk
+zh-Hant:眼鏡店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:眼镜店|商店
+th:ร้านแว่น|2ร้านค้า
+ja:眼鏡店|1買い物|お買い物|ショップ|商店|雑貨
+ro:optică|3magazin
+ar:مركز بصريات|متجر|المتجر
+sk:optika|2obchod
+es:óptica|2tienda
+pl:sklep optyczny|3sklep|towary
+nl:opticien|2winkel
+pt:oculista|2loja|compras
+
+shop-gift
+en:gift shop|U+1F381|2shop
+ru:сувениры|2магазин
+fr:boutique de souvenirs|2magasin
+da:gavebutik|2butik
+id:toko hadiah|2toko
+ko:선물 가게|1쇼핑|가게
+sv:presentaffär|2butik
+tr:hediyelik eşya mağazası|2mağaza
+uk:магазин сувенірів|2магазин|крамниця
+vi:cửa hàng quà tặng|cửa hàng
+hu:ajándékbolt|2bolt
+de:Geschenkladen|3Einkaufenladen|Geschäft|2Laden
+fi:lahjakauppa|3kauppa
+cs:obchod s dárkovým zbožím|2obchod
+it:negozio di regali|2negozio
+nb:gavebutikk|3butikk
+zh-Hant:禮品店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:礼品店|商店
+th:ร้านของขวัญ|2ร้านค้า
+ja:ギフトショップ|1買い物|お買い物|ショップ|商店|雑貨
+ro:magazin de suveniruri|3magazin
+ar:متجر هدايا|متجر|المتجر
+sk:darčeky|2obchod
+es:tienda de regalos|2tienda
+pl:sklep pamiątkarski|3sklep|towary
+nl:cadeauwinkel|2winkel
+pt:loja de presentes|2loja|compras
+
+shop-beauty
+en:beauty shop|U+1F484|2shop
+ru:магазин косметики|косметика|2магазин
+fr:institut de beauté|2magasin
+da:skønhedsbutik|2butik
+id:toko barang kecantikan|2toko
+ko:미용 용품 가게|1쇼핑|가게
+sv:skönhetsbutik|2butik
+tr:kozmetik ürünler mağazası|2mağaza
+uk:магазин товарів для краси|2магазин|крамниця
+vi:cửa hàng làm đẹp|cửa hàng
+hu:kozmetikai termékek|2bolt
+de:Kosmetikgeschäft|3Einkaufenladen|Geschäft|2Laden
+fi:kauneusliike|3kauppa
+cs:kosmetický salón|2obchod
+it:estetista|2negozio
+nb:skjønnhetssalong|3butikk
+zh-Hant:美容產品店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:美容产品店|商店
+th:ร้านขายผลิตภัณฑ์ความงาม|2ร้านค้า
+ja:美容品店|1買い物|お買い物|ショップ|商店|雑貨
+ro:magazin de cosmetice|3magazin
+ar:مركز أدوات تجميل|متجر|المتجر
+sk:drogéria|2obchod
+es:tienda de productos de belleza|2tienda
+pl:sklep kosmetyczny|3sklep|towary
+nl:winkel voor schoonheidsproducten|2winkel
+pt:loja de cosméticos|2loja|compras
+
+shop-greengrocer
+en:4greengrocer's|greengrocers|greengrocers'|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353|2shop
+ru:овощи и фрукты|овощи|фрукты|2магазин
+fr:primeur|2magasin
+da:grønthandler|2butik
+id:penjual sayuran|2toko
+ko:청과물 상인의|1쇼핑|가게
+sv:grönsakshandlare|2butik
+tr:manav|2mağaza
+uk:магазин овочів|овочі|фрукти|2магазин|крамниця
+vi:cửa hàng rau củ|cửa hàng
+hu:zöldséges|2bolt
+de:Gemüseladen|3Einkaufenladen|Geschäft|2Laden
+fi:vihanneskauppias|3kauppa
+cs:ovoce a zelenina|2obchod
+it:fruttivendolo|2negozio
+nb:frukt- og grønnsakshandler|3butikk
+zh-Hant:蔬果零售店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:蔬果零售店|商店
+th:ร้านขายผัด|2ร้านค้า
+ja:八百屋|1買い物|お買い物|ショップ|商店|雑貨
+ro:băcănie|3magazin
+ar:محل خضراوات|متجر|المتجر
+sk:zelovoc|2obchod
+es:frutería|2tienda
+pl:warzywniak|3sklep|towary
+nl:groenteboer|2winkel
+pt:quitanda|2loja|compras
+
+shop-sports
+en:sports goods|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3|2shop
+ru:спорттовары|товары для спорта|2магазин
+fr:articles de sport|2magasin
+da:sportsudstyr|2butik
+id:barang olahraga|2toko
+ko:스포츠 용품|1쇼핑|가게
+sv:sportaffär|2butik
+tr:spor ürünleri|2mağaza
+uk:спортивні товари|2магазин|крамниця
+vi:đồ dùng thể thao|cửa hàng
+hu:sporteszközök|2bolt
+de:Sportartikel|3Einkaufenladen|Geschäft|2Laden
+fi:urheilukauppa|3kauppa
+cs:sportovní zboží|2obchod
+it:negozio sportivo|negozio articoli sportivi|2negozio
+nb:sportsutstyr|3butikk
+zh-Hant:運動商品店|1購物|店鋪|商店|雜貨店|便利商店
+zh-Hans:运动商品店|商店
+th:สินค้ากีฬา|2ร้านค้า
+ja:スポーツ用品店|1買い物|お買い物|ショップ|商店|雑貨
+ro:articole sportive|3magazin
+ar:أدوات رياضية|متجر|المتجر
+sk:športové potreby|2obchod
+es:productos de deporte|2tienda
+pl:sklep sportowy|3sklep|towary
+nl:sportartikelen|2winkel
+pt:artigos esportivos|2loja|compras
+
 shop-supermarket|shop-department_store
 en:3supermarket|shop|U+1F3EA|U+1F3EC
 ru:3универсам|3супермаркет|магазин
 uk:3супермаркет|3універсам|2магазин|крамниця
 de:3Supermarkt|Laden
-fr:3supermarché|magasin
+fr:3supermarché|2magasin
 it:3supermercato|negozio
 es:3supermercado|tienda
 ko:1슈퍼마켓|쇼핑|가게
 ja:1スーパーマーケット|ショップ|お買い物|買い物|商店
-cs:3supermarket|obchod
-sk:3supermarket|obchod
+cs:3supermarket|2obchod
+sk:3supermarket|2obchod
 nl:3supermarkt|winkel
 zh-Hant:1超級市場|市場|購物
 pl:4supermarket|zakupy|sklep
@@ -2953,33 +3359,33 @@ nb:golfbane
 fi:golf-rata
 
 leisure-pitch
-en:pitch|sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F3C9|U+1F3C3
+en:sports ground|sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F3C9|U+1F3C3
 ru:спортплощадка|спорт
 uk:спортмайданчик|спорт
-de:Feld|Sport
+de:Sportplatz|Feld|Sport
 fr:terrain de sport|sport
-it:campo|sport
-es:terreno|deporte
-ko:스포츠 경내|스포츠
+it:campo sportivo|campo|sport
+es:complejo deportivo|terreno|deporte
+ko:경기장|스포츠 경내|스포츠
 ja:1運動場|スポーツ|トラック|球場
-cs:sport
-sk:šport
-nl:veld|sport
+cs:sportovní hřiště|sport
+sk:športovisko|šport
+nl:sportveld|veld|sport
 zh-Hant:2運動場|體育館|球場|2足球場|體育|運動|健身
-pl:pole|boisko|sport
-pt:campo|desporto
-hu:oszlop|sport
-th:ขว้าง|กีฬา
+pl:boisko sportowe|pole|boisko|sport
+pt:campo de esportes|campo|desporto
+hu:sportpálya|oszlop|sport
+th:พื้นสนามกีฬา|ขว้าง|กีฬา
 zh-Hans:2球场|运动
-ar:ميدان اللعب|رياضة
-da:sportsplads|fiskested|fodboldbane|bane
-tr:alan|spor
-sv:bana|sport
-vi:đường pích
-id:lapangan
-ro:gazon
+ar:ميدان اللعب|رياضة |ملاعب رياضية
+da:teltplads|fiskested|fodboldbane|bane|sportsplads
+tr: spor sahası|alan|spor
+sv: idrottsplats|bana|sport
+vi: sân vận động|đường pích
+id:lapangan olahraga|lapangan
+ro:teren de sport|gazon
 nb:sportssenter
-fi:nimikkopaikka
+fi:urheilukenttä|nimikkopaikka
 
 leisure-swimming_pool
 en:4swimming pool|sport|U+1F3CA
