@@ -333,14 +333,16 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration
 {
-  if (isIOSVersionLessThan(8))
-    [self.alertController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+  [self.alertController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
   [self.controlsManager willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+  [self.alertController willRotateToInterfaceOrientation:(size.width > size.height) ?
+                    UIInterfaceOrientationLandscapeLeft : UIInterfaceOrientationPortrait
+                                                                        duration:kDefaultAnimationDuration];
   [self.controlsManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.pageViewController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
