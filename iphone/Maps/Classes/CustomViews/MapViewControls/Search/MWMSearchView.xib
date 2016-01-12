@@ -132,6 +132,7 @@
                             <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="search"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>

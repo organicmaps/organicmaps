@@ -60,8 +60,6 @@
                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="64" identifier="searchWidth" id="5xY-fR-Lyf"/>
                             </constraints>
                             <state key="normal" image="ic_menu_search"/>
-                            <state key="selected" image="ic_menu_search_press"/>
-                            <state key="highlighted" image="ic_menu_search_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
@@ -244,6 +242,5 @@
         <image name="ic_menu_location_get_position" width="48" height="48"/>
         <image name="ic_menu_point_to_point" width="48" height="48"/>
         <image name="ic_menu_search" width="48" height="48"/>
-        <image name="ic_menu_search_press" width="48" height="48"/>
     </resources>
 </document>
