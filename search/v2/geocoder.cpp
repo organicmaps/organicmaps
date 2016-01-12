@@ -490,23 +490,23 @@ void Geocoder::GreedilyMatchStreets()
     {
       if (IsStreetSynonym(m_params.GetTokens(curToken).front()))
         continue;
+
       if (startToken == curToken || coding::CompressedBitVector::IsEmpty(allFeatures))
-      {
         buffer = coding::CompressedBitVector::Intersect(*m_streets, *m_addressFeatures[curToken]);
-        if (m_filter.NeedToFilter(*buffer))
-          buffer = m_filter.Filter(*buffer);
-      }
       else
-      {
         buffer = coding::CompressedBitVector::Intersect(*allFeatures, *m_addressFeatures[curToken]);
-      }
+
       if (coding::CompressedBitVector::IsEmpty(buffer))
           break;
+
       allFeatures.swap(buffer);
     }
 
     if (coding::CompressedBitVector::IsEmpty(allFeatures))
       continue;
+
+    if (m_filter.NeedToFilter(*allFeatures))
+      allFeatures = m_filter.Filter(*allFeatures);
 
     auto & layer = m_layers.back();
     layer.Clear();
