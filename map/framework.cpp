@@ -1916,7 +1916,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   }
   else if (isLong)
   {
-    mercatorPivot = m_currentModelView.PtoG(pxPoint);
+    mercatorPivot = m_currentModelView.PtoG(pxPoint2d);
     // TODO(AlexZ): Should we change mercatorPivot to found feature's center?
     feature = GetFeatureAtMercatorPoint(mercatorPivot);
     needMark = true;
