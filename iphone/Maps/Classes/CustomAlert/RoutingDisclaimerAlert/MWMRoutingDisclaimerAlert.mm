@@ -67,7 +67,7 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
 - (CGFloat)bounded:(CGFloat)f withHeight:(CGFloat)h
 {
   CGFloat const currentHeight = [self.subviews.firstObject height];
-  CGFloat const maximumHeight = h - 2. * kMinimumOffset;
+  CGFloat const maximumHeight = h - (isIOSVersionLessThan(8) ? 4. : 2.) * kMinimumOffset;
   CGFloat const availableHeight = maximumHeight - currentHeight;
   return MIN(f, availableHeight + self.textViewHeight.constant);
 }
