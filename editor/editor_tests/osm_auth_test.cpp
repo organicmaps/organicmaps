@@ -44,7 +44,7 @@ UNIT_TEST(OSM_Auth_Facebook)
 }
 
 
-UNIT_TEST(OSM_Auth_Google)
+/*UNIT_TEST(OSM_Auth_Google)
 {
   OsmOAuth auth(kConsumerKey, kConsumerSecret, kTestServer, kTestServer);
   auto result = auth.AuthorizeGoogle(kGoogleToken);
@@ -53,4 +53,4 @@ UNIT_TEST(OSM_Auth_Google)
   OsmOAuth::Response const perm = auth.Request("/permissions");
   TEST_EQUAL(perm.first, OsmOAuth::ResponseCode::OK, ("permission with stored token request ok"));
   TEST(perm.second.find("write_api") != string::npos, ("can write to api"));
-}
+}*/
