@@ -301,13 +301,21 @@ namespace integration
     routing::OnlineCrossFetcher fetcher(OSRM_ONLINE_SERVER_URL, startPoint, finalPoint);
     fetcher.Do();
     vector<m2::PointD> const & points = fetcher.GetMwmPoints();
-    TEST_EQUAL(points.size(), expected.size(), ());
+    set<string> foundMwms;
+
+    // Start/stop mwm workaround. Remove after borders migration.
+    foundMwms.insert(routerComponents.GetCountryInfoGetter().GetRegionFile(
+        MercatorBounds::FromLatLon(startPoint)));
+    foundMwms.insert(routerComponents.GetCountryInfoGetter().GetRegionFile(
+        MercatorBounds::FromLatLon(finalPoint)));
+
     for (m2::PointD const & point : points)
     {
       string const mwmName = routerComponents.GetCountryInfoGetter().GetRegionFile(point);
       TEST(find(expected.begin(), expected.end(), mwmName) != expected.end(),
            ("Can't find ", mwmName));
+      foundMwms.insert(mwmName);
     }
-    TestOnlineFetcher(startPoint, finalPoint, expected, routerComponents);
+    TEST_EQUAL(expected.size(), foundMwms.size(), ());
   }
 }
