@@ -2664,10 +2664,25 @@ cont {
 cont {
   name: "amenity-dentist"
   element {
-    scale: 19
+    scale: 17
     symbol {
-      name: "none"
-      priority: 16000
+      name: "dentist-l"
+      priority: 16837
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15837
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dentist-l"
+      priority: 16837
     }
     caption {
       primary {
@@ -2675,17 +2690,76 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15000
+      priority: 15837
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dentist-l"
+      priority: 16837
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15837
     }
   }
 }
 cont {
   name: "amenity-doctors"
   element {
-    scale: 19
+    scale: 14
+    area {
+      color: 16308697
+      priority: -15973
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16308697
+      priority: -15973
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16308697
+      priority: -15973
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16308697
+      priority: -15163
+    }
     symbol {
-      name: "none"
-      priority: 16000
+      name: "hospital-l"
+      priority: 16837
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15837
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16308697
+      priority: -15163
+    }
+    symbol {
+      name: "hospital-l"
+      priority: 16837
     }
     caption {
       primary {
@@ -2693,7 +2767,26 @@ cont {
         color: 4473924
         offset_y: 10
       }
-      priority: 15000
+      priority: 15837
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16308697
+      priority: -15163
+    }
+    symbol {
+      name: "hospital-l"
+      priority: 16837
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15837
     }
   }
 }
@@ -5931,14 +6024,14 @@ cont {
   element {
     scale: 14
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
   element {
     scale: 15
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
     caption {
@@ -5952,7 +6045,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -5966,7 +6059,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -5980,7 +6073,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -5994,7 +6087,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -6011,42 +6104,42 @@ cont {
   element {
     scale: 14
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
   element {
     scale: 15
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
   element {
     scale: 16
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
   }
   element {
     scale: 17
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
   }
   element {
     scale: 18
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
   }
   element {
     scale: 19
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
   }
@@ -6056,14 +6149,14 @@ cont {
   element {
     scale: 14
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
   element {
     scale: 15
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
     caption {
@@ -6077,7 +6170,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -6091,7 +6184,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -6105,7 +6198,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -6119,7 +6212,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -9456,7 +9549,7 @@ cont {
       cap: BUTTCAP
     }
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
@@ -9474,7 +9567,7 @@ cont {
       cap: BUTTCAP
     }
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
     caption {
@@ -9500,7 +9593,7 @@ cont {
       cap: ROUNDCAP
     }
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -9526,7 +9619,7 @@ cont {
       cap: ROUNDCAP
     }
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -9552,7 +9645,7 @@ cont {
       cap: ROUNDCAP
     }
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -9578,7 +9671,7 @@ cont {
       cap: ROUNDCAP
     }
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -15328,7 +15421,7 @@ cont {
       cap: BUTTCAP
     }
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
     path_text {
@@ -15354,7 +15447,7 @@ cont {
       cap: BUTTCAP
     }
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
     caption {
@@ -15380,7 +15473,7 @@ cont {
       cap: ROUNDCAP
     }
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -15406,7 +15499,7 @@ cont {
       cap: ROUNDCAP
     }
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -15432,7 +15525,7 @@ cont {
       cap: ROUNDCAP
     }
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -15458,7 +15551,7 @@ cont {
       cap: ROUNDCAP
     }
     area {
-      color: 15592411
+      color: 15920858
       priority: -15838
     }
     caption {
@@ -48083,28 +48176,28 @@ cont {
   element {
     scale: 16
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
   element {
     scale: 17
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
   element {
     scale: 18
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
   element {
     scale: 19
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
@@ -49643,28 +49736,28 @@ cont {
   element {
     scale: 16
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
   element {
     scale: 17
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
   element {
     scale: 18
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
   element {
     scale: 19
     area {
-      color: 14934482
+      color: 15591638
       priority: -15838
     }
   }
