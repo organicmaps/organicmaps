@@ -27,8 +27,9 @@ static NSString * const kStatisticsEvent = @"Routing Disclaimer Alert";
                         L(@"dialog_routing_disclaimer_priority"),
                         L(@"dialog_routing_disclaimer_precision"),
                         L(@"dialog_routing_disclaimer_recommendations"),
-                        L(@"dialog_routing_disclaimer_beware"),
-                        L(@"dialog_routing_disclaimer_borders")];
+                        L(@"dialog_routing_disclaimer_borders"),
+                        L(@"dialog_routing_disclaimer_beware")];
+
   alert.textView.attributedText = [[NSAttributedString alloc] initWithString:message
                                                       attributes:@{NSFontAttributeName : UIFont.regular14,
                                                         NSForegroundColorAttributeName : UIColor.blackSecondaryText}];
