@@ -43,8 +43,6 @@ public:
 
   /// A pair of <error code, response contents>.
   using Response = std::pair<ResponseCode, string>;
-  /// A request token container, with key and secret.
-  using RequestToken = std::pair<string, string>;
 
   /// The constructor. Simply stores a lot of strings in fields.
   /// @param[apiUrl] The OSM API URL defaults to baseUrl, or kDefaultApiURL if not specified.
@@ -80,10 +78,10 @@ public:
 
   /// @name Methods for WebView-based authentication.
   //@{
-  std::pair<string, RequestToken> GetFacebookOAuthURL() const;
-  std::pair<string, RequestToken> GetGoogleOAuthURL() const;
-  AuthResult FinishAuthorization(RequestToken const & requestToken, string const & verifier, ClientToken & token) const;
-  AuthResult FinishAuthorization(RequestToken const & requestToken, string const & verifier);
+  std::pair<string, TKeySecret> GetFacebookOAuthURL() const;
+  std::pair<string, TKeySecret> GetGoogleOAuthURL() const;
+  AuthResult FinishAuthorization(TKeySecret const & requestToken, string const & verifier, TKeySecret & outKeySecret) const;
+  AuthResult FinishAuthorization(TKeySecret const & requestToken, string const & verifier);
   //@}
 
   /// Tokenless GET request, for convenience.
@@ -109,7 +107,7 @@ private:
   AuthResult LoginUserPassword(string const & login, string const & password, SessionID const & sid) const;
   AuthResult LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const;
   string SendAuthRequest(string const & requestTokenKey, SessionID const & sid) const;
-  RequestToken FetchRequestToken() const;
+  TKeySecret FetchRequestToken() const;
   AuthResult FetchAccessToken(SessionID const & sid, TKeySecret & outKeySecret) const;
   AuthResult FetchAccessToken(SessionID const & sid);
 };
