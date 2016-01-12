@@ -84,6 +84,7 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
     ref_ptr<RenderGroup> oldGroup = make_ref(batches.front());
     drape_ptr<RenderGroup> newGroup = make_unique_dp<RenderGroup>(oldGroup->GetState(), oldGroup->GetTileKey());
     newGroup->m_shader = oldGroup->m_shader;
+    newGroup->m_shader3d = oldGroup->m_shader3d;
     newGroup->m_uniforms = oldGroup->m_uniforms;
     newGroup->m_generalUniforms = oldGroup->m_generalUniforms;
     newGroup->AddBucket(move(bucket));
