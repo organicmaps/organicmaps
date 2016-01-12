@@ -272,22 +272,22 @@ OsmOAuth::AuthResult OsmOAuth::AuthorizeGoogle(string const & googleToken, TKeyS
   return FetchAccessToken(sid, outKeySecret);
 }
 
-std::pair<string, TKeySecret> OsmOAuth::GetFacebookOAuthURL() const
+OsmOAuth::TUrlKeySecret OsmOAuth::GetFacebookOAuthURL() const
 {
   TKeySecret const requestToken = FetchRequestToken();
   if (requestToken.first.empty())
-    return std::pair<string, TKeySecret>(string(), requestToken);
+    return TUrlKeySecret(string(), requestToken);
   string const url = m_baseUrl + kFacebookOAuthPart + requestToken.first;
-  return std::pair<string, TKeySecret>(url, requestToken);
+  return TUrlKeySecret(url, requestToken);
 }
 
-std::pair<string, TKeySecret> OsmOAuth::GetGoogleOAuthURL() const
+OsmOAuth::TUrlKeySecret OsmOAuth::GetGoogleOAuthURL() const
 {
   TKeySecret const requestToken = FetchRequestToken();
   if (requestToken.first.empty())
-    return std::pair<string, TKeySecret>(string(), requestToken);
+    return TUrlKeySecret(string(), requestToken);
   string const url = m_baseUrl + kGoogleOAuthPart + requestToken.first;
-  return std::pair<string, TKeySecret>(url, requestToken);
+  return TUrlKeySecret(url, requestToken);
 }
 
 OsmOAuth::Response OsmOAuth::Request(TKeySecret const & keySecret, string const & method, string const & httpMethod, string const & body) const

@@ -43,6 +43,8 @@ public:
 
   /// A pair of <error code, response contents>.
   using Response = std::pair<ResponseCode, string>;
+  /// A pair of <url, key-secret>.
+  using TUrlKeySecret = std::pair<string, TKeySecret>;
 
   /// The constructor. Simply stores a lot of strings in fields.
   /// @param[apiUrl] The OSM API URL defaults to baseUrl, or kDefaultApiURL if not specified.
@@ -78,8 +80,8 @@ public:
 
   /// @name Methods for WebView-based authentication.
   //@{
-  std::pair<string, TKeySecret> GetFacebookOAuthURL() const;
-  std::pair<string, TKeySecret> GetGoogleOAuthURL() const;
+  TUrlKeySecret GetFacebookOAuthURL() const;
+  TUrlKeySecret GetGoogleOAuthURL() const;
   AuthResult FinishAuthorization(TKeySecret const & requestToken, string const & verifier, TKeySecret & outKeySecret) const;
   AuthResult FinishAuthorization(TKeySecret const & requestToken, string const & verifier);
   //@}
