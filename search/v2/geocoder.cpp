@@ -3,6 +3,7 @@
 #include "search/retrieval.hpp"
 #include "search/search_delimiters.hpp"
 #include "search/search_string_utils.hpp"
+#include "search/v2/cbv_ptr.hpp"
 #include "search/v2/features_layer_matcher.hpp"
 
 #include "indexer/classificator.hpp"
@@ -46,7 +47,7 @@ namespace v2
 namespace
 {
 
-size_t const kMaxLocalitiesCount = 5;
+size_t constexpr kMaxLocalitiesCount = 5;
 double constexpr kComparePoints = MercatorBounds::GetCellID2PointAbsEpsilon();
 
 void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t endToken,
@@ -257,13 +258,13 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
           context.m_value, static_cast<my::Cancellable const &>(*this), m_retrievalParams));
   }
 
-  // 2. Get all locality candidates with all the token ranges.
+  // 2. Get all locality candidates for the continuous token ranges.
   vector<Locality> preLocalities;
 
   for (size_t i = 0; i < m_numTokens; ++i)
   {
     CBVPtr intersection;
-    intersection.Set(tokensCBV[i].get(), false);
+    intersection.Set(tokensCBV[i].get(), false /*isOwner*/);
     if (intersection.IsEmpty())
       continue;
 
@@ -314,12 +315,13 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
                               }), preLocalities.end());
 
   // 4. Leave most popular localities.
-  // Use 2*kMaxLocalitiesCount because there can be countries, states, ...
-  if (preLocalities.size() > 2*kMaxLocalitiesCount)
+  // Use 2 * kMaxLocalitiesCount because there can be countries, states, ...
+  size_t count = 2 * kMaxLocalitiesCount;
+  if (preLocalities.size() > count)
   {
     auto rankTable = search::RankTable::Load(context.m_value.m_cont);
 
-    sort(preLocalities.begin(), preLocalities.end(),
+    nth_element(preLocalities.begin(), preLocalities.begin() + count, preLocalities.end(),
           [&] (Locality const & l1, Locality const & l2)
           {
             auto const d1 = tokensCountFn(l1);
@@ -328,21 +330,26 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
               return d1 > d2;
             return rankTable->Get(l1.m_featureId) > rankTable->Get(l2.m_featureId);
           });
-    preLocalities.resize(2*kMaxLocalitiesCount);
+  }
+  else
+  {
+    count = preLocalities.size();
   }
 
   // 5. Fill result container.
-  size_t count = 0;
-  for (auto & l : preLocalities)
+  size_t citiesCount = 0;
+  for (size_t i = 0; i < count; ++i)
   {
+    auto & l = preLocalities[i];
+
     FeatureType ft;
     context.m_vector.GetByIndex(l.m_featureId, ft);
 
-    if (count < kMaxLocalitiesCount &&
+    if (citiesCount < kMaxLocalitiesCount &&
         ft.GetFeatureType() == feature::GEOM_POINT &&
         m_model.GetSearchType(ft) == SearchModel::SEARCH_TYPE_CITY)
     {
-      ++count;
+      ++citiesCount;
       l.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
                     ft.GetCenter(), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
 
@@ -754,18 +761,18 @@ coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(
   /// - Implement more smart strategy according to id.
   /// - Move all rect limits here
 
-  auto & featuresV = m_geometryFeatures[context.m_id];
-  for (auto const & v : featuresV)
+  auto & features = m_geometryFeatures[context.m_id];
+  for (auto const & v : features)
   {
     if (v.m_rect.IsRectInside(rect))
       return v.m_cbv.get();
   }
 
-  auto features = Retrieval::RetrieveGeometryFeatures(
+  auto cbv = Retrieval::RetrieveGeometryFeatures(
       context.m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale);
 
-  auto const * result = features.get();
-  featuresV.push_back({ m2::Inflate(rect, kComparePoints, kComparePoints), move(features), id });
+  auto const * result = cbv.get();
+  features.push_back({ m2::Inflate(rect, kComparePoints, kComparePoints), move(cbv), id });
   return result;
 }
 

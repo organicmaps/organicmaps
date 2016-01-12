@@ -44,6 +44,7 @@ HEADERS += \
     search_string_utils.hpp \
     search_trie.hpp \
     suggest.hpp \
+    v2/cbv_ptr.hpp \
     v2/features_filter.hpp \
     v2/features_layer.hpp \
     v2/features_layer_matcher.hpp \
@@ -83,6 +84,7 @@ SOURCES += \
     search_query.cpp \
     search_query_params.cpp \
     search_string_utils.cpp \
+    v2/cbv_ptr.cpp \
     v2/features_filter.cpp \
     v2/features_layer.cpp \
     v2/features_layer_matcher.cpp \
