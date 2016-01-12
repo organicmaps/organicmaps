@@ -41,7 +41,7 @@ public final class ThemeSwitcher
       Location last = LocationHelper.INSTANCE.getLastLocation();
       if (last == null)
       {
-        LocationHelper.INSTANCE.addLocationListener(mLocationListener);
+        LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
         theme = Config.getCurrentUiTheme();
       }
       else
@@ -77,7 +77,7 @@ public final class ThemeSwitcher
   }
 
   @android.support.annotation.UiThread
-  public static void changeMapStyle(String theme)
+  static void changeMapStyle(String theme)
   {
     int style = Framework.MAP_STYLE_CLEAR;
     if (ThemeUtils.isNightTheme(theme))
