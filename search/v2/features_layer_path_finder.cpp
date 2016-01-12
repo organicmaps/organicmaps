@@ -13,7 +13,7 @@ namespace v2
 {
 namespace
 {
-using TParentGraph = vector<unordered_map<uint32_t, uint32_t>>;
+using TParentGraph = unordered_map<uint32_t, uint32_t>;
 
 // This function tries to estimate amount of work needed to perform an
 // intersection pass on a sequence of layers.
@@ -66,9 +66,8 @@ bool GetPath(uint32_t id, vector<FeaturesLayer const *> const & layers, TParentG
     if (level >= parent.size())
       return true;
 
-    auto const & p = parent[level];
-    auto const it = p.find(id);
-    if (it == p.cend())
+    auto const it = parent.find(id);
+    if (it == parent.cend())
       return false;
     id = it->second;
     ++level;
@@ -108,18 +107,18 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
 
   TParentGraph parent(layers.size() - 1);
 
+  auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
+  {
+    parent[childFeature] = parentFeature;
+    buffer.push_back(childFeature);
+  };
+
   for (size_t i = layers.size() - 1; i != 0; --i)
   {
     BailIfCancelled(m_cancellable);
 
     if (reachable.empty())
       return;
-
-    auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
-    {
-      parent[i - 1][childFeature] = parentFeature;
-      buffer.push_back(childFeature);
-    };
 
     FeaturesLayer parent(*layers[i]);
     if (i != layers.size() - 1)
@@ -155,18 +154,18 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
 
   TParentGraph parent(layers.size() - 1);
 
+  auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
+  {
+    parent[childFeature] = parentFeature;
+    buffer.push_back(parentFeature);
+  };
+
   for (size_t i = 0; i + 1 != layers.size(); ++i)
   {
     BailIfCancelled(m_cancellable);
 
     if (reachable.empty())
       return;
-
-    auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
-    {
-      parent[i][childFeature] = parentFeature;
-      buffer.push_back(parentFeature);
-    };
 
     FeaturesLayer child(*layers[i]);
     if (i != 0)
