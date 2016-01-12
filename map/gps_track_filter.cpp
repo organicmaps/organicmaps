@@ -1,8 +1,12 @@
 #include "map/gps_track_filter.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
 
 #include "platform/settings.hpp"
+
+#include "base/assert.hpp"
+#include "base/math.hpp"
 
 namespace
 {
@@ -19,6 +23,18 @@ double constexpr kClosePointDistanceMeters = 15;
 // Max acceptable acceleration to filter gps jumps
 double constexpr kMaxAcceptableAcceleration = 2; // m / sec ^ 2
 
+m2::PointD GetDirection(location::GpsInfo const & from, location::GpsInfo const & to)
+{
+  m2::PointD const pt0 = MercatorBounds::FromLatLon(from.m_latitude, from.m_longitude);
+  m2::PointD const pt1 = MercatorBounds::FromLatLon(to.m_latitude, to.m_longitude);
+  return pt1 - pt0;
+}
+
+double GetDistance(location::GpsInfo const & from, location::GpsInfo const & to)
+{
+  return ms::DistanceOnEarth(from.m_latitude, from.m_longitude, to.m_latitude, to.m_longitude);
+}
+
 } // namespace
 
 void GpsTrackNullFilter::Process(vector<location::GpsInfo> const & inPoints,
@@ -34,7 +50,8 @@ void GpsTrackFilter::StoreMinHorizontalAccuracy(double value)
 
 GpsTrackFilter::GpsTrackFilter()
   : m_minAccuracy(kMinHorizontalAccuracyMeters)
-  , m_hasLastInfo(false)
+  , m_countLastInfo(0)
+  , m_countAcceptedInfo(0)
 {
   Settings::Get(kMinHorizontalAccuracyKey, m_minAccuracy);
 }
@@ -61,18 +78,35 @@ void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
     if (!currInfo.HasSpeed())
       continue;
 
-    if (!m_hasLastInfo || currInfo.m_timestamp < m_lastAcceptedInfo.m_timestamp)
+    if (m_countAcceptedInfo < 2 || currInfo.m_timestamp < GetLastAcceptedInfo().m_timestamp)
     {
-      m_hasLastInfo = true;
-      m_lastAcceptedInfo = currInfo;
-    }
-    else if (IsGoodPoint(currInfo))
-    {
-      outPoints.emplace_back(currInfo);
-      m_lastAcceptedInfo = currInfo;
+      AddLastInfo(currInfo);
+      AddLastAcceptedInfo(currInfo);
+      continue;
     }
 
-    m_lastInfo = currInfo;
+    if (IsGoodPoint(currInfo))
+    {
+      double const predictionDistance = GetDistance(m_lastInfo[1], m_lastInfo[0]); // meters
+      double const realDistance = GetDistance(m_lastInfo[0], currInfo); // meters
+
+      auto const predictionDirection = GetDirection(m_lastInfo[1], m_lastInfo[0]);
+      auto const realDirection = GetDirection(m_lastInfo[0], currInfo);
+
+      // Sine of angle between prediction direction and real direction is
+      double const sine = m2::CrossProduct(predictionDirection, realDirection);
+
+      // Acceptable angle must be from 0 to 90 or from 0 to -90 (I or IV quad):
+      //   in I quad sine >= 0 && cosine >= 0 and in IV quad sine >= 0 and cosine <= 0.
+      // Acceptable distance must be not great than 2x than predicted, otherwise it is jump.
+      if (sine >= 0. && realDistance <= max(kClosePointDistanceMeters, 2. * predictionDistance))
+      {
+        outPoints.emplace_back(currInfo);
+        AddLastAcceptedInfo(currInfo);
+      }
+    }
+
+    AddLastInfo(currInfo);
   }
 }
 
@@ -82,35 +116,63 @@ bool GpsTrackFilter::IsGoodPoint(location::GpsInfo const & info) const
   if (info.m_horizontalAccuracy > m_minAccuracy)
     return false;
 
+  auto const & lastInfo = GetLastInfo();
+  auto const & lastAcceptedInfo = GetLastAcceptedInfo();
+
   // Distance in meters between last accepted and current point is, meters:
-  double const distanceFromLastAccepted = ms::DistanceOnEarth(m_lastAcceptedInfo.m_latitude, m_lastAcceptedInfo.m_longitude,
-                                                              info.m_latitude, info.m_longitude);
+  double const distanceFromLastAccepted = GetDistance(lastAcceptedInfo, info);
 
   // Filter point by close distance
   if (distanceFromLastAccepted < kClosePointDistanceMeters)
     return false;
 
   // Filter point if accuracy areas are intersected
-  if (distanceFromLastAccepted < m_lastAcceptedInfo.m_horizontalAccuracy &&
-      info.m_horizontalAccuracy > 0.5 * m_lastAcceptedInfo.m_horizontalAccuracy)
+  if (distanceFromLastAccepted < lastAcceptedInfo.m_horizontalAccuracy &&
+      info.m_horizontalAccuracy > 0.5 * lastAcceptedInfo.m_horizontalAccuracy)
     return false;
 
   // Distance in meters between last and current point is, meters:
-  double const distanceFromLast = ms::DistanceOnEarth(m_lastInfo.m_latitude, m_lastInfo.m_longitude,
-                                                      info.m_latitude, info.m_longitude);
+  double const distanceFromLast = GetDistance(lastInfo, info);
 
   // Time spend to move from the last point to the current point, sec:
-  double const timeFromLast = info.m_timestamp - m_lastInfo.m_timestamp;
+  double const timeFromLast = info.m_timestamp - lastInfo.m_timestamp;
   if (timeFromLast <= 0.0)
     return false;
 
   // Speed to move from the last point to the current point
   double const speedFromLast = distanceFromLast / timeFromLast;
 
-  // Filter by acceleration: skip point it jumps too far in short time
-  double const accelerationFromLast = (speedFromLast - m_lastInfo.m_speed) / timeFromLast;
+  // Filter by acceleration: skip point if it jumps too far in short time
+  double const accelerationFromLast = (speedFromLast - lastInfo.m_speed) / timeFromLast;
   if (accelerationFromLast > kMaxAcceptableAcceleration)
     return false;
 
   return true;
 }
+
+location::GpsInfo const & GpsTrackFilter::GetLastInfo() const
+{
+  ASSERT_GREATER(m_countLastInfo, 0, ());
+  return m_lastInfo[0];
+}
+
+location::GpsInfo const & GpsTrackFilter::GetLastAcceptedInfo() const
+{
+  ASSERT_GREATER(m_countAcceptedInfo, 0, ());
+  return m_lastAcceptedInfo[0];
+}
+
+void GpsTrackFilter::AddLastInfo(location::GpsInfo const & info)
+{
+  m_lastInfo[1] = m_lastInfo[0];
+  m_lastInfo[0] = info;
+  m_countLastInfo += 1;
+}
+
+void GpsTrackFilter::AddLastAcceptedInfo(location::GpsInfo const & info)
+{
+  m_lastAcceptedInfo[1] = m_lastAcceptedInfo[0];
+  m_lastAcceptedInfo[0] = info;
+  m_countAcceptedInfo += 1;
+}
+

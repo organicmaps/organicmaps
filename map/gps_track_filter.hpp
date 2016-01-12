@@ -38,9 +38,17 @@ public:
 private:
   bool IsGoodPoint(location::GpsInfo const & info) const;
 
+  location::GpsInfo const & GetLastInfo() const;
+  location::GpsInfo const & GetLastAcceptedInfo() const;
+
+  void AddLastInfo(location::GpsInfo const & info);
+  void AddLastAcceptedInfo(location::GpsInfo const & info);
+
   double m_minAccuracy;
 
-  bool m_hasLastInfo;
-  location::GpsInfo m_lastInfo;
-  location::GpsInfo m_lastAcceptedInfo;
+  location::GpsInfo m_lastInfo[2];
+  size_t m_countLastInfo;
+
+  location::GpsInfo m_lastAcceptedInfo[2];
+  size_t m_countAcceptedInfo;
 };
