@@ -232,7 +232,8 @@
   NSInteger const stepValue = direct ? 1 : -1;
   NSMutableArray * morphImages = [NSMutableArray arrayWithCapacity:morphImagesCount];
   for (NSUInteger i = startValue, j = 0; i != endValue; i += stepValue, j++)
-    morphImages[j] = [UIImage imageNamed:[morphTemplate stringByAppendingString:@(i).stringValue]];
+    morphImages[j] = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@_%@", morphTemplate, @(i).stringValue,
+                                          [UIColor isNightMode] ? @"dark" : @"light"]];
   btn.imageView.animationImages = morphImages;
   btn.imageView.animationRepeatCount = 1;
   btn.imageView.image = morphImages.lastObject;
@@ -258,17 +259,12 @@
       case MWMBottomMenuStateGo:
       case MWMBottomMenuStateText:
         [btn setImage:[UIImage imageNamed:@"ic_menu"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"ic_menu_press"] forState:UIControlStateHighlighted];
         break;
       case MWMBottomMenuStateActive:
         [btn setImage:[UIImage imageNamed:@"ic_menu_down"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"ic_menu_down_press"]
-             forState:UIControlStateHighlighted];
         break;
       case MWMBottomMenuStateCompact:
         [btn setImage:[UIImage imageNamed:@"ic_menu_left"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"ic_menu_left_press"]
-             forState:UIControlStateHighlighted];
         break;
       }
     }

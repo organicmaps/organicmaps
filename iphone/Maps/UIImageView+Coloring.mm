@@ -65,17 +65,11 @@
   switch (self.mwm_coloring)
   {
   case MWMImageColoringBlack:
-    if (highlighted)
-      self.tintColor = [UIColor linkBlue];
-    else
-      self.tintColor = [UIColor blackSecondaryText];
+    self.tintColor = highlighted ? [UIColor linkBlue] : [UIColor blackSecondaryText];
     break;
 
   case MWMImageColoringGray:
-    if (highlighted)
-      self.tintColor = [UIColor blackSecondaryText];
-    else
-      self.tintColor = [UIColor blackHintText];
+    self.tintColor = highlighted ? [UIColor blackSecondaryText] : [UIColor blackHintText];
     break;
   case MWMImageColoringBlue:
   case MWMImageColoringOther:

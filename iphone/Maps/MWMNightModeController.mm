@@ -53,8 +53,11 @@ extern NSString * const kUDAutoNightMode;
   _selectedCell = cell;
   auto & f = GetFramework();
   auto app = MapsAppDelegate.theApp;
+  auto const style = f.GetMapStyle();
   if ([cell isEqual:self.on])
   {
+    if (style == MapStyleDark)
+      return;
     f.SetMapStyle(MapStyleDark);
     [UIColor setNightMode:YES];
     [app stopMapStyleChecker];
@@ -62,6 +65,8 @@ extern NSString * const kUDAutoNightMode;
   }
   else if ([cell isEqual:self.off])
   {
+    if (style == MapStyleClear || style == MapStyleLight)
+      return;
     f.SetMapStyle(MapStyleClear);
     [UIColor setNightMode:NO];
     [app stopMapStyleChecker];

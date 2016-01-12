@@ -66,6 +66,11 @@
   self.tintColor = [UIColor colorWithName:colorName];
 }
 
+- (void)setColorName:(NSString *)colorName
+{
+  self.textColor = [UIColor colorWithName:colorName];
+}
+
 @end
 
 @implementation MWMTextView (RuntimeAttributes)

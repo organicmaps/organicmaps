@@ -195,7 +195,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
       NSUInteger const endValue = morphImagesCount + 1;
       NSMutableArray * morphImages = [NSMutableArray arrayWithCapacity:morphImagesCount];
       for (NSUInteger i = 1, j = 0; i != endValue; i++, j++)
-        morphImages[j] = [UIImage imageNamed:[@"ic_follow_mode_" stringByAppendingString:@(i).stringValue]];
+      {
+        morphImages[j] = [UIImage imageNamed:[NSString stringWithFormat:@"ic_follow_mode_%@_%@", @(i).stringValue,
+                                              [UIColor isNightMode] ? @"dark" : @"light"]];
+      }
       locBtn.imageView.animationImages = morphImages;
       locBtn.imageView.animationRepeatCount = 1;
       locBtn.imageView.image = morphImages.lastObject;
@@ -203,7 +206,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
       break;
     }
   }
-  [self refreshLocationButtonState: state];
+  [self refreshLocationButtonState:state];
 }
 
 - (void)refreshLocationButtonState:(location::EMyPositionMode)state

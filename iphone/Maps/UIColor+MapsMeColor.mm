@@ -11,6 +11,7 @@ CGFloat const alpha54 = 0.54;
 CGFloat const alpha70 = 0.7;
 CGFloat const alpha80 = 0.8;
 CGFloat const alpha87 = 0.87;
+CGFloat const alpha90 = 0.9;
 CGFloat const alpha100 = 1.;
 
 BOOL isNightMode = NO;
@@ -44,7 +45,7 @@ NSDictionary<NSString *, UIColor *> * night =
   @"white" : [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha100],
   @"whiteSecondaryText" : [UIColor colorWithWhite:1. alpha:alpha70],
   @"buttonDisabledBlueText" : [UIColor colorWithRed:scaled(255.) green:scaled(230.) blue:scaled(140.) alpha:alpha30],
-  @"alertBackground" : [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha100]
+  @"alertBackground" : [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha90]
 };
 
 NSDictionary<NSString *, UIColor *> * day =
@@ -71,7 +72,7 @@ NSDictionary<NSString *, UIColor *> * day =
   @"white" : [UIColor colorWithWhite:1. alpha:alpha100],
   @"whiteSecondaryText" : [UIColor colorWithWhite:1. alpha:alpha54],
   @"buttonDisabledBlueText" :[UIColor colorWithRed:scaled(3.) green:scaled(122.) blue:scaled(255.) alpha:alpha26],
-  @"alertBackground" : [UIColor colorWithWhite:1. alpha:alpha87]
+  @"alertBackground" : [UIColor colorWithWhite:1. alpha:alpha90]
 };
 
 UIColor * color(SEL cmd)

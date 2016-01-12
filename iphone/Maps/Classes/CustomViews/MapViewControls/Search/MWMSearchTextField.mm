@@ -12,8 +12,6 @@
   self.isSearching = NO;
   self.leftViewMode = UITextFieldViewModeAlways;
   self.textColor = [UIColor blackSecondaryText];
-  UILabel * p = [self valueForKey:@"_placeholderLabel"];
-  p.textColor = [UIColor blackHintText];
   return self;
 }
 

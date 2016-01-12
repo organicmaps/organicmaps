@@ -77,15 +77,15 @@ NSString * const kSelectedPattern = @"%@_selected_%@";
     case MWMButtonColoringOther:
       break;
     }
-    self.imageView.image = [self imageForState:UIControlStateHighlighted];
   }
   else
   {
     if (self.selected)
       return;
     [self setDefaultTintColor];
-    self.imageView.image = [self imageForState:UIControlStateNormal];
   }
+  if (UIImage * image = [self imageForState:highlighted ? UIControlStateHighlighted : UIControlStateNormal])
+    self.imageView.image = image;
 }
 
 - (void)setSelected:(BOOL)selected
