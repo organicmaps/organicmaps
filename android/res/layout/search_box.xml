@@ -43,7 +43,7 @@
     android:background="?attr/selectableItemBackgroundBorderless"
     android:contentDescription="@null"
     android:scaleType="center"
-    android:src="@drawable/ic_close_w"/>
+    android:src="@drawable/ic_search_clear"/>
 
   <ImageView
     android:id="@+id/voice_input"
