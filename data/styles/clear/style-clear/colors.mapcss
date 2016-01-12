@@ -116,8 +116,8 @@
 
 /* LANDUSE */
 
-@pedestrian_area: #E3E1D2;
-@pedestrian_area_light: #EDEBDB;
+@pedestrian_area: #EDE8D6;
+@pedestrian_area_light: #F2EEDA;
 
 @unversity: #F8E4BA;
 @hospital: #F8D9D9;/*FADCDB*/

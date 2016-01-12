@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+    <title>dentist-m</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="12.5" cy="12.5" r="11.5"></circle>
+    </defs>
+    <g id="POI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="dentist-m" sketch:type="MSLayerGroup">
+            <circle id="Oval-1-Copy-38" opacity="0" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="12.5" cy="12.5" r="12.5"></circle>
+            <g id="Oval-1-Copy-47">
+                <use fill="#33332E" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                <use fill="none" xlink:href="#path-1"></use>
+            </g>
+            <path d="M6.44569839,12.9243301 C5.98675869,10.6598036 5.26587698,6.5165339 7.95132369,6.0627366 C10.601051,5.61339923 10.6562537,7.73520821 12.5677809,7.73520821 C14.4803904,7.73520821 14.5312635,5.61228425 17.1809908,6.0627366 C19.8707671,6.5165339 19.1477206,10.6586886 18.6898633,12.9243301 C18.1475784,15.5924798 17.9808881,20 16,20 C14.7336732,20 14.4814728,16 12.5,16 C10.6454296,16 10.4029709,20 9,20 C7.15575605,20 6.98690087,15.5924798 6.44569839,12.9243301 Z" id="Shape" opacity="0.7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

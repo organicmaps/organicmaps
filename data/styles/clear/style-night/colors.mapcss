@@ -77,21 +77,21 @@
 
 
 /* TRANSPORT */
-@railway_light: #212119;
-@railway: #212119;
-@railway_tunnel: #212119;
-@railway_dash: #000000;
+@railway_light: #333333;
+@railway: #333333;
+@railway_tunnel: #222222;
+@railway_dash: #111111;
 @aerialway: #4E4E3D;
 @tram: #5C5C51;
 @ferry: #2A4541;
- @aerodrome: #382D45;
+ @aerodrome: #30263B;
 /*aerodrome*/
  @aerodrome0: #382D45;
- @aerodrome1: #382D45;
- @aerodrome2: #382D45;
- @aerodrome3: #382D45;
- @aerodrome4: #382D45;
- @aerodrome5: #382D45;
+ @aerodrome1: #342A40;
+ @aerodrome2: #30263B;
+ @aerodrome3: #30263B;
+ @aerodrome4: #2B2336;
+ @aerodrome5: #292133;
 /* NATURAL */
 @glacier: #111111;
 @water: #002222;
