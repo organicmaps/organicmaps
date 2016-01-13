@@ -261,6 +261,8 @@ public:
   friend string DebugPrint(FeatureType const & ft);
 
   string GetHouseNumber() const;
+  /// Needed for Editor, to change house numbers in runtime.
+  void SetHouseNumber(string const & number);
 
   /// @name Get names for feature.
   /// @param[out] defaultName corresponds to osm tag "name"

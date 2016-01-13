@@ -466,6 +466,14 @@ string FeatureType::GetHouseNumber() const
   return m_params.house.Get();
 }
 
+void FeatureType::SetHouseNumber(string const & number)
+{
+  if (number.empty())
+    m_params.house.Clear();
+  else
+    m_params.house.Set(number);
+}
+
 bool FeatureType::GetName(int8_t lang, string & name) const
 {
   if (!HasName())
