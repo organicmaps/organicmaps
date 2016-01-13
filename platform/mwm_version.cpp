@@ -27,7 +27,7 @@ void ReadVersionT(TSource & src, MwmVersion & version)
 
   if (strcmp(prolog, MWM_PROLOG) != 0)
   {
-    version.format = v2;
+    version.format = Format::v2;
     version.timestamp =
         my::GenerateTimestamp(2011 - 1900 /* number of years since 1900 */,
                               10 /* number of month since January */, 1 /* month day */);
@@ -41,14 +41,14 @@ void ReadVersionT(TSource & src, MwmVersion & version)
 }
 }  // namespace
 
-MwmVersion::MwmVersion() : format(unknownFormat), timestamp(0) {}
+MwmVersion::MwmVersion() : format(Format::unknownFormat), timestamp(0) {}
 
 void WriteVersion(Writer & w, uint32_t versionDate)
 {
   w.Write(MWM_PROLOG, ARRAY_SIZE(MWM_PROLOG));
 
   // write inner data version
-  WriteVarUint(w, static_cast<uint32_t>(lastFormat));
+  WriteVarUint(w, static_cast<uint32_t>(Format::lastFormat));
   WriteVarUint(w, versionDate);
 }
 

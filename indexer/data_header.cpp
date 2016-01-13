@@ -154,6 +154,6 @@ namespace feature
 
     m_type = country;
 
-    m_format = version::v1;
+    m_format = version::Format::v1;
   }
 }

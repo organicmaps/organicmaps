@@ -8,14 +8,14 @@ MwmTraits::MwmTraits(version::Format versionFormat) : m_versionFormat(versionFor
 
 MwmTraits::SearchIndexFormat MwmTraits::GetSearchIndexFormat() const
 {
-  if (m_versionFormat < version::v7)
+  if (m_versionFormat < version::Format::v7)
     return SearchIndexFormat::FeaturesWithRankAndCenter;
   return SearchIndexFormat::CompressedBitVector;
 }
 
 MwmTraits::HouseToStreetTableFormat MwmTraits::GetHouseToStreetTableFormat() const
 {
-  if (m_versionFormat < version::v7)
+  if (m_versionFormat < version::Format::v7)
     return HouseToStreetTableFormat::Unknown;
   return HouseToStreetTableFormat::Fixed3BitsDDVector;
 }

@@ -47,7 +47,7 @@ bool RunTest(string const & countryFileName, int lowS, int highS)
   ASSERT(id.IsAlive(), ());
 
   version::Format const version = id.GetInfo()->m_version.format;
-  if (version == version::unknownFormat)
+  if (version == version::Format::unknownFormat)
     return false;
 
   CheckNonEmptyGeometry doCheck;

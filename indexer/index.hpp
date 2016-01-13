@@ -117,7 +117,7 @@ private:
                                          pValue->m_factory);
 
         // iterate through intervals
-        CheckUniqueIndexes checkUnique(header.GetFormat() >= version::v5);
+        CheckUniqueIndexes checkUnique(header.GetFormat() >= version::Format::v5);
         MwmId const mwmID = handle.GetId();
 
         for (auto const & i : interval)
@@ -164,7 +164,7 @@ private:
                                          pValue->m_factory);
 
         // iterate through intervals
-        CheckUniqueIndexes checkUnique(header.GetFormat() >= version::v5);
+        CheckUniqueIndexes checkUnique(header.GetFormat() >= version::Format::v5);
         MwmId const mwmID = handle.GetId();
 
         for (auto const & i : interval)

@@ -415,7 +415,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, uint32_t maxN
   Clear();
 
   feature::DataHeader header(localFile.GetPath(MapOptions::Map));
-  m_oldFormat = header.GetFormat() < version::v5;
+  m_oldFormat = header.GetFormat() < version::Format::v5;
   if (m_oldFormat)
     LOG(LINFO, ("Using old format index for", localFile.GetCountryName()));
 

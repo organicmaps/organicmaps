@@ -66,7 +66,7 @@ namespace feature
     pair<int, int> GetScaleRange() const;
 
     inline version::Format GetFormat() const { return m_format; }
-    inline bool IsMWMSuitable() const { return m_format <= version::lastFormat; }
+    inline bool IsMWMSuitable() const { return m_format <= version::Format::lastFormat; }
 
     /// @name Serialization
     //@{

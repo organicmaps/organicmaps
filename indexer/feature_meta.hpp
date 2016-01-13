@@ -126,7 +126,7 @@ namespace feature
     {
       for (auto const & e : m_metadata)
       {
-        // set high bit if it's the last element
+        // Set high bit if it's the last element.
         uint8_t const mark = (&e == &(*m_metadata.crbegin()) ? 0x80 : 0);
         uint8_t elem[2] = {static_cast<uint8_t>(e.first | mark),
                            static_cast<uint8_t>(min(e.second.size(), (size_t)kMaxStringLength))};

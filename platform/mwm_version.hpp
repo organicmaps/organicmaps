@@ -9,7 +9,7 @@ class ModelReaderPtr;
 
 namespace version
 {
-enum Format
+enum class Format
 {
   unknownFormat = -1,
   v1 = 0,  // April 2011

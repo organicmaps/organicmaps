@@ -56,7 +56,7 @@ SharedLoadInfo::ReaderT SharedLoadInfo::GetTrianglesReader(int ind) const
 
 void SharedLoadInfo::CreateLoader()
 {
-  if (m_header.GetFormat() == version::v1)
+  if (m_header.GetFormat() == version::Format::v1)
     m_pLoader = new old_101::feature::LoaderImpl(*this);
   else
     m_pLoader = new LoaderCurrent(*this);
