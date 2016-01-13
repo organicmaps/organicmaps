@@ -93,6 +93,8 @@
 		342BB7AB1BC7CC5C00DF6443 /* PlacePageBookmarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342BB7AA1BC7CC5C00DF6443 /* PlacePageBookmarkCell.xib */; };
 		342CC5F11C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */; };
 		342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */; };
+		342EE4111C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
+		342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
 		3438CDF41B85F1170051AA78 /* MWMConsole.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDF31B85F1170051AA78 /* MWMConsole.mm */; };
 		3438CDF81B8616760051AA78 /* MWMSearchShowOnMapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDF61B8616760051AA78 /* MWMSearchShowOnMapCell.mm */; };
 		3438CDF91B8616760051AA78 /* MWMSearchShowOnMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3438CDF71B8616760051AA78 /* MWMSearchShowOnMapCell.xib */; };
@@ -1041,6 +1043,8 @@
 		342CC5EF1C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationLoginViewController.h; sourceTree = "<group>"; };
 		342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationLoginViewController.mm; sourceTree = "<group>"; };
 		342E75A11B302FCC00A8635F /* MWMPlacePageViewManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageViewManagerDelegate.h; sourceTree = "<group>"; };
+		342EE40F1C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationWebViewLoginViewController.h; sourceTree = "<group>"; };
+		342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationWebViewLoginViewController.mm; sourceTree = "<group>"; };
 		3434D7701BD12AEA00C77E44 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3434D7711BD12AEA00C77E44 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3434D7721BD12AEA00C77E44 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -2301,6 +2305,8 @@
 				3445CEAD1C2D9E08006F4226 /* MWMAuthorizationSignupViewController.mm */,
 				34BF0CC81C31306300D097EB /* MWMAuthorizationCommon.h */,
 				34BF0CC51C31304A00D097EB /* MWMAuthorizationCommon.mm */,
+				342EE40F1C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.h */,
+				342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */,
 			);
 			name = Login;
 			path = CustomViews/Login;
@@ -3922,6 +3928,7 @@
 				F66A8FA81B09F052001B9C97 /* MWMiPhoneLandscapePlacePage.mm in Sources */,
 				974386DD19373EA400FD5659 /* ToastView.mm in Sources */,
 				F6C9343C1AE4F94A00DDC624 /* MWMAnimator.mm in Sources */,
+				342EE4111C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
 				3438CDFC1B862F5C0051AA78 /* MWMSearchContentView.mm in Sources */,
 				3485C0121B85C20E00F7712D /* MWMSearchTableViewController.mm in Sources */,
 				977E26B919E2E64200BA2219 /* MapsObservers.mm in Sources */,
@@ -4144,6 +4151,7 @@
 				F6D5822E1BFDC9FF009409E8 /* MWMWhatsNewController.mm in Sources */,
 				6741A9CA1BF340DE002C974C /* MWMAnimator.mm in Sources */,
 				6741A9CB1BF340DE002C974C /* MWMSearchContentView.mm in Sources */,
+				342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
 				6741A9CC1BF340DE002C974C /* MWMSearchTableViewController.mm in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
 				6741A9CD1BF340DE002C974C /* MapsObservers.mm in Sources */,
