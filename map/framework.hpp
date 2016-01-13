@@ -472,7 +472,8 @@ public:
   //@}
 
 private:
-  void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
+  // TODO(vng): Uncomment when needed.
+  //void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
 
 public:
   /// Please use this method for debug purposes only. It always tries to find closest street.

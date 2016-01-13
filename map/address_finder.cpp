@@ -180,7 +180,7 @@ void Framework::GetFeatureTypes(m2::PointD const & pxPoint, vector<string> & typ
   getTypes.GetFeatureTypes(5, types);
 }
 
-
+/*
 namespace
 {
   class DoGetAddressBase : public DoGetFeatureInfoBase
@@ -453,7 +453,7 @@ namespace
     return *g_checker;
   }
 }
-
+*/
 search::AddressInfo Framework::GetMercatorAddressInfo(m2::PointD const & mercator) const
 {
   search::AddressInfo info;
@@ -498,6 +498,7 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType const & ft) con
   return info;
 }
 
+/*
 void Framework::GetLocality(m2::PointD const & pt, search::AddressInfo & info) const
 {
   CheckerT & checker = GetChecker();
@@ -513,3 +514,4 @@ void Framework::GetLocality(m2::PointD const & pt, search::AddressInfo & info) c
 
   getLocality.FillLocality(info, *this);
 }
+*/
