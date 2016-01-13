@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "Így állítsd be a hangot";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "Legutolsó útvonal";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "Kikapcsolva";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1 óra";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2 óra";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6 óra";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12 óra";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1 nap";
+
+"pref_track_ios_caption" = "A legutolsó útvonal megmutatja, hogy milyen útvonalon haladtál.";
+
+"pref_track_ios_subcaption" = "Válaszd ki az útvonalak elmentésének időtartamát!";
 
 "placepage_distance" = "Távolság";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "3D Épületek engedélyezése";
 
 "whats_new_next_button" = "Következő";
+
+"whats_new_rec_track_title" = "A térkép navigálása kényelmesebb lett";
+
+"whats_new_rec_track_body" = "A MAPS.ME-vel nem fogsz eltévedni";

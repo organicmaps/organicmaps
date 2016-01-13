@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "Як налаштувати голосовий контроль";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "Недавній маршрут";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "Вимкнуто";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1 година";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2 години";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6 годин";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12 годин";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1 день";
+
+"pref_track_ios_caption" = "Останній маршрут показує пройдену відстань.";
+
+"pref_track_ios_subcaption" = "Будь ласка, виберіть проміжок часу для збереження маршруту.";
 
 "placepage_distance" = "Відстань";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Включити 3D-будівлі";
 
 "whats_new_next_button" = "Далі";
+
+"whats_new_rec_track_title" = "З MAPS.ME ви ніколи не заблукаєте";
+
+"whats_new_rec_track_body" = "Тепер програма відображає ваш недавній маршрут.";

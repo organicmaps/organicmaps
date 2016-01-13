@@ -326,6 +326,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Egyéb</string>
 	<string name="pref_tts_how_to_set_up_voice">Így állítsd be a hangot</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Viimeisin reitti</string>
+	<string name="duration_disabled">Pois päältä</string>
+	<string name="duration_1_hour">1 tunti</string>
+	<string name="duration_2_hours">2 tuntia</string>
+	<string name="duration_6_hours">6 tuntia</string>
+	<string name="duration_12_hours">12 tuntia</string>
+	<string name="duration_1_day">1 päivä</string>
+	<string name="pref_track_ios_caption">Viimeisin reitti näyttää kulkemasi matkan.</string>
+	<string name="pref_track_ios_subcaption">Valitse reitin tallennuksen aikaväli.</string>
 	<string name="placepage_distance">Etäisyys</string>
 	<string name="placepage_coordinates">Koordinaatit</string>
 	<string name="placepage_unsorted">Järjestelemätön</string>
@@ -815,4 +825,6 @@
 	<string name="whats_new_3d_on">Aktivoi perspektiivinäkymä</string>
 	<string name="whats_new_3d_buildings_on">Aktivoi 3D-rakennukset</string>
 	<string name="whats_new_next_button">Seuraava</string>
+	<string name="whats_new_rec_track_title">MAPS.ME mukanasi et eksy</string>
+	<string name="whats_new_rec_track_body">Sovellus näyttää nyt viimeiseksi kulkemasi reitin.</string>
 </resources>

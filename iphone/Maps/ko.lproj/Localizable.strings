@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "음성 설정 방법";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "최근 추적";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "선택 안 함";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1시간";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2시간";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6시간";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12시간";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1일";
+
+"pref_track_ios_caption" = "최근 추적은 여행한 경로를 보여줍니다.";
+
+"pref_track_ios_subcaption" = "추적을 저장하는 시간 범위를 선택하십시오.";
 
 "placepage_distance" = "거리";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "3D 빌딩 보기 활성";
 
 "whats_new_next_button" = "다음";
+
+"whats_new_rec_track_title" = "MAPS.ME로 길을 잃지 않을 것입니다";
+
+"whats_new_rec_track_body" = "지금 앱은 최근 여행한 경로를 보여줍니다.";

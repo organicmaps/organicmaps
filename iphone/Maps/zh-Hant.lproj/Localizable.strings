@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "如何設置語音";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "最近的軌跡";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "關閉";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1小時";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2小時";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6小時";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12小時";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1天";
+
+"pref_track_ios_caption" = "近期軌跡顯示您的行進道路。";
+
+"pref_track_ios_subcaption" = "請選擇保存軌跡的時間範圍。";
 
 "placepage_distance" = "距离";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "啟用3D建築";
 
 "whats_new_next_button" = "下一頁";
+
+"whats_new_rec_track_title" = "有了MAPS.ME，你就不會迷路";
+
+"whats_new_rec_track_body" = "現在，該應用可以顯示你最近走過的道路。";

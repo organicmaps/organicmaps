@@ -326,6 +326,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Khác</string>
 	<string name="pref_tts_how_to_set_up_voice">Làm thế nào để thiết lập tiếng nói</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Tìm kiếm gần đây</string>
+	<string name="duration_disabled">Tắt</string>
+	<string name="duration_1_hour">1 giờ</string>
+	<string name="duration_2_hours">2 giờ</string>
+	<string name="duration_6_hours">6 giờ</string>
+	<string name="duration_12_hours">12 giờ</string>
+	<string name="duration_1_day">1 ngày</string>
+	<string name="pref_track_ios_caption">Chức năng theo dấu gần đây hiển thị các đường bạn đã đi.</string>
+	<string name="pref_track_ios_subcaption">Vui lòng chọn khoảng thời gian lưu dấu.</string>
 	<string name="placepage_distance">Khoảng cách</string>
 	<string name="placepage_coordinates">Tọa độ</string>
 	<string name="placepage_unsorted">Chưa phân loại</string>
@@ -815,4 +825,6 @@
 	<string name="whats_new_3d_on">Kích hoạt góc nhìn phối cảnh</string>
 	<string name="whats_new_3d_buildings_on">Kích hoạt Tòa nhà 3D</string>
 	<string name="whats_new_next_button">Tiếp theo</string>
+	<string name="whats_new_rec_track_title">Với MAPS.ME, bạn sẽ không bị lạc</string>
+	<string name="whats_new_rec_track_body">Ứng dụng hiện đang hiển thị đường đã đi gần đây của bạn.</string>
 </resources>

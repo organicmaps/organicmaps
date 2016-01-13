@@ -318,6 +318,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Andere</string>
 	<string name="pref_tts_how_to_set_up_voice">Hoe stel je de stem in</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Recente route</string>
+	<string name="duration_disabled">Uit</string>
+	<string name="duration_1_hour">1 uur</string>
+	<string name="duration_2_hours">2 uur</string>
+	<string name="duration_6_hours">6 uur</string>
+	<string name="duration_12_hours">12 uur</string>
+	<string name="duration_1_day">1 dag</string>
+	<string name="pref_track_ios_caption">Recente route geeft uw gebruikte route weer.</string>
+	<string name="pref_track_ios_subcaption">Selecteer de tijdperiode voor het opslaan van route.</string>
 	<string name="placepage_distance">Afstand</string>
 	<string name="placepage_coordinates">Coördinaten</string>
 	<string name="placepage_unsorted">Ongeclassificeerd</string>
@@ -805,4 +815,6 @@
 	<string name="whats_new_3d_on">Perspectiefbeeld inschakelen</string>
 	<string name="whats_new_3d_buildings_on">3D-Gebouwen inschakelen</string>
 	<string name="whats_new_next_button">Volgende</string>
+	<string name="whats_new_rec_track_title">Met MAPS.ME verdwaalt u niet.</string>
+	<string name="whats_new_rec_track_body">Nu geeft de app uw recente route weer.</string>
 </resources>

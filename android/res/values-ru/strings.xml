@@ -342,13 +342,15 @@
 	<string name="pref_tts_other_section_title">Другой</string>
 	<string name="pref_tts_how_to_set_up_voice">Как настроить голос</string>
 	<!-- Settings «Map» category: «Record track» title -->
-	<string name="pref_track_record_title">Запись маршрута</string>
-	<string name="duration_disabled">Отключена</string>
+	<string name="pref_track_record_title">Недавно пройденный путь</string>
+	<string name="duration_disabled">Выключено</string>
 	<string name="duration_1_hour">1 час</string>
 	<string name="duration_2_hours">2 часа</string>
 	<string name="duration_6_hours">6 часов</string>
 	<string name="duration_12_hours">12 часов</string>
-	<string name="duration_1_day">1 день</string>
+	<string name="duration_1_day">1 сутки</string>
+	<string name="pref_track_ios_caption">История пути покажет недавно пройденный маршрут.</string>
+	<string name="pref_track_ios_subcaption">Выберите длительность записи истории.</string>
 	<string name="placepage_distance">Расстояние</string>
 	<string name="placepage_coordinates">Координаты</string>
 	<string name="placepage_unsorted">Без категории</string>
@@ -860,4 +862,6 @@
 	<string name="whats_new_3d_on">Включить перспективный вид</string>
 	<string name="whats_new_3d_buildings_on">Включить 3D здания</string>
 	<string name="whats_new_next_button">Далее</string>
+	<string name="whats_new_rec_track_title">С MAPS.ME не заблудишься!</string>
+	<string name="whats_new_rec_track_body">Теперь приложение показывает недавно пройденный путь.</string>
 </resources>

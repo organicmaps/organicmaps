@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "Így állítsd be a hangot";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "Viimeisin reitti";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "Pois päältä";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1 tunti";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2 tuntia";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6 tuntia";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12 tuntia";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1 päivä";
+
+"pref_track_ios_caption" = "Viimeisin reitti näyttää kulkemasi matkan.";
+
+"pref_track_ios_subcaption" = "Valitse reitin tallennuksen aikaväli.";
 
 "placepage_distance" = "Etäisyys";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Aktivoi 3D-rakennukset";
 
 "whats_new_next_button" = "Seuraava";
+
+"whats_new_rec_track_title" = "MAPS.ME mukanasi et eksy";
+
+"whats_new_rec_track_body" = "Sovellus näyttää nyt viimeiseksi kulkemasi reitin.";

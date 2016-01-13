@@ -331,6 +331,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Інша</string>
 	<string name="pref_tts_how_to_set_up_voice">Як налаштувати голосовий контроль</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Недавній маршрут</string>
+	<string name="duration_disabled">Вимкнуто</string>
+	<string name="duration_1_hour">1 година</string>
+	<string name="duration_2_hours">2 години</string>
+	<string name="duration_6_hours">6 годин</string>
+	<string name="duration_12_hours">12 годин</string>
+	<string name="duration_1_day">1 день</string>
+	<string name="pref_track_ios_caption">Останній маршрут показує пройдену відстань.</string>
+	<string name="pref_track_ios_subcaption">Будь ласка, виберіть проміжок часу для збереження маршруту.</string>
 	<string name="placepage_distance">Відстань</string>
 	<string name="placepage_coordinates">Координати</string>
 	<string name="placepage_unsorted">Без категорії</string>
@@ -818,4 +828,6 @@
 	<string name="whats_new_3d_on">Включити перспективний вид</string>
 	<string name="whats_new_3d_buildings_on">Включити 3D-будівлі</string>
 	<string name="whats_new_next_button">Далі</string>
+	<string name="whats_new_rec_track_title">З MAPS.ME ви ніколи не заблукаєте</string>
+	<string name="whats_new_rec_track_body">Тепер програма відображає ваш недавній маршрут.</string>
 </resources>

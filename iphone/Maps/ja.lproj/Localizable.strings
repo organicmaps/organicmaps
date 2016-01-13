@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "音声設定の仕方";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "最近のルート";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "オフ";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1時間";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2時間";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6時間";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12時間";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1日";
+
+"pref_track_ios_caption" = "最近ルートは、使用した道のりを表示する機能です。";
+
+"pref_track_ios_subcaption" = "ルートを保存する期間を選択してください。";
 
 "placepage_distance" = "距離";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "3Dビルディングを有効化";
 
 "whats_new_next_button" = "次へ";
+
+"whats_new_rec_track_title" = "MAPS.MEがあれば道に迷うことがありません";
+
+"whats_new_rec_track_body" = "アプリが最近の道のりを表示できるようになりました。";

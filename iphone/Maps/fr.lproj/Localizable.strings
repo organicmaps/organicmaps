@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "Comment configurer la voix";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "Parcours récent";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "Désactivé";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1 heure";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2 heures";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6 heures";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12 heures";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1 jour";
+
+"pref_track_ios_caption" = "L'itinéraire récent indique votre chemin parcouru.";
+
+"pref_track_ios_subcaption" = "Veuillez sélectionner la période d'enregistrement du parcours.";
 
 "placepage_distance" = "Distance";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Activer les bâtiments en 3D";
 
 "whats_new_next_button" = "Neste";
+
+"whats_new_rec_track_title" = "Avec MAPS.ME, ne vous perdez pas";
+
+"whats_new_rec_track_body" = "L'appli affiche maintenant le parcours que vous avez effectué.";

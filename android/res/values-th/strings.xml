@@ -328,6 +328,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">อื่น ๆ</string>
 	<string name="pref_tts_how_to_set_up_voice">วิธีตั้งค่าเสียง</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">เส้นทางล่าสุด</string>
+	<string name="duration_disabled">ปิด</string>
+	<string name="duration_1_hour">1 ชั่วโมง</string>
+	<string name="duration_2_hours">2 ชั่วโมง</string>
+	<string name="duration_6_hours">6 ชั่วโมง</string>
+	<string name="duration_12_hours">12 ชั่วโมง</string>
+	<string name="duration_1_day">1 วัน</string>
+	<string name="pref_track_ios_caption">เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ</string>
+	<string name="pref_track_ios_subcaption">โปรดเลือกช่วงเวลาในการบันทึกการติดตาม</string>
 	<string name="placepage_distance">ระยะห่าง</string>
 	<string name="placepage_coordinates">พิกัด</string>
 	<string name="placepage_unsorted">ไม่เรียงลำดับ</string>
@@ -817,4 +827,6 @@
 	<string name="whats_new_3d_on">เปิดใช้งานมุมมองเพอร์สเปกทีฟ</string>
 	<string name="whats_new_3d_buildings_on">เปิดใช้งานตึก 3D</string>
 	<string name="whats_new_next_button">ถัดไป</string>
+	<string name="whats_new_rec_track_title">เมื่อใช้ MAPS. คุณจะไม่หลงทาง</string>
+	<string name="whats_new_rec_track_body">ตอนนี้ แอปจะแสดงเส้นทางการท่องเที่ยวล่าสุดของคุณ</string>
 </resources>

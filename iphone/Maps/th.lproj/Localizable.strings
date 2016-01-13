@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "วิธีตั้งค่าเสียง";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "เส้นทางล่าสุด";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "ปิด";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1 ชั่วโมง";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2 ชั่วโมง";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6 ชั่วโมง";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12 ชั่วโมง";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1 วัน";
+
+"pref_track_ios_caption" = "เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ";
+
+"pref_track_ios_subcaption" = "โปรดเลือกช่วงเวลาในการบันทึกการติดตาม";
 
 "placepage_distance" = "ระยะห่าง";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "เปิดใช้งานตึก 3D";
 
 "whats_new_next_button" = "ถัดไป";
+
+"whats_new_rec_track_title" = "เมื่อใช้ MAPS. คุณจะไม่หลงทาง";
+
+"whats_new_rec_track_body" = "ตอนนี้ แอปจะแสดงเส้นทางการท่องเที่ยวล่าสุดของคุณ";

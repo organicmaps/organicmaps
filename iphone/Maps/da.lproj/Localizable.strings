@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "Sådan indstiller du tale";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "Seneste sti";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "Fra";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1 time";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2 timer";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6 timer";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12 timer";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1 dag";
+
+"pref_track_ios_caption" = "Seneste spor viser din rejste vej.";
+
+"pref_track_ios_subcaption" = "Vælg tidsinterval for at gemme sporet.";
 
 "placepage_distance" = "Afstand";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Aktivér 3D-bygninger";
 
 "whats_new_next_button" = "Næste";
+
+"whats_new_rec_track_title" = "Med MAPS.ME farer du ikke vild";
+
+"whats_new_rec_track_body" = "Nu viser app'en den seneste vej, du har rejst.";

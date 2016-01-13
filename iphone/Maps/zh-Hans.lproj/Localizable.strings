@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "如何设置语音";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "最近的路径";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "关闭";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1小时";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2小时";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6小时";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12小时";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1天";
+
+"pref_track_ios_caption" = "近期轨迹显示您的行进道路。";
+
+"pref_track_ios_subcaption" = "请选择保存轨迹的时间范围。";
 
 "placepage_distance" = "距离";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "启用3D建筑";
 
 "whats_new_next_button" = "下一页";
+
+"whats_new_rec_track_title" = "有了MAPS.ME，您就不会迷路了";
+
+"whats_new_rec_track_body" = "现在，应用程序可以显示您最近走过的路径。";

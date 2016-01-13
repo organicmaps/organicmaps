@@ -327,6 +327,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Inny</string>
 	<string name="pref_tts_how_to_set_up_voice">Jak skonfigurować usługę głosową</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Ostatnia trasa</string>
+	<string name="duration_disabled">Wyłącz</string>
+	<string name="duration_1_hour">1 godzina</string>
+	<string name="duration_2_hours">2 godziny</string>
+	<string name="duration_6_hours">6 godzin</string>
+	<string name="duration_12_hours">12 godzin</string>
+	<string name="duration_1_day">1 dzień</string>
+	<string name="pref_track_ios_caption">Ostatnia trasa pokazuje pokonaną przez Ciebie ścieżkę.</string>
+	<string name="pref_track_ios_subcaption">Wybierz zakres czasowy dla zapisywanej trasy.</string>
 	<string name="placepage_distance">Dystans</string>
 	<string name="placepage_coordinates">Współrzędne</string>
 	<string name="placepage_unsorted">Niesklasyfikowane</string>
@@ -816,4 +826,6 @@
 	<string name="whats_new_3d_on">Włącz widok z perspektywy</string>
 	<string name="whats_new_3d_buildings_on">Włącz budynki 3D</string>
 	<string name="whats_new_next_button">Dalej</string>
+	<string name="whats_new_rec_track_title">Dzięki MAPS.ME nie zgubisz się</string>
+	<string name="whats_new_rec_track_body">Aplikacja pokazuje teraz ostatnio pokonaną przez Ciebie ścieżkę.</string>
 </resources>

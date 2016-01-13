@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "Navi-Stimme einstellen";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "Letzte Strecke";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "Aus";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1 Stunde";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2 Stunden";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6 Stunden";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12 Stunden";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1 Tag";
+
+"pref_track_ios_caption" = "Letzte Strecke zeigt den von Ihnen zurückgelegten Weg.";
+
+"pref_track_ios_subcaption" = "Bitte wählen Sie die Zeitspanne, in der die Strecke gespeichert wurde.";
 
 "placepage_distance" = "Distanz";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "3D-Gebäude aktivieren";
 
 "whats_new_next_button" = "Weiter";
+
+"whats_new_rec_track_title" = "Mit MAPS.ME können Sie sich nicht verirren";
+
+"whats_new_rec_track_body" = "Die App zeigt jetzt die zuletzt benutzte Strecke an.";

@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "Ako nastaviť hlas";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "Posledná trasa";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "Vypnúť";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1 hodina";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2 hodiny";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6 hodín";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12 hodín";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1 deň";
+
+"pref_track_ios_caption" = "Funkcia Čerstvá stopa zobrazuje trasu, ktorú ste prešli.";
+
+"pref_track_ios_subcaption" = "Prosím, vyberte si, po akú dobu má aplikácia zaznamenávať vašu trasu.";
 
 "placepage_distance" = "Vzdialenosť";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Povoliť 3D budovy";
 
 "whats_new_next_button" = "Nasledujúca";
+
+"whats_new_rec_track_title" = "S MAPS.ME sa nestratíte";
+
+"whats_new_rec_track_body" = "Aplikácia vám teraz ukazuje vašu poslednú trasu.";

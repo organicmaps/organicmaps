@@ -531,19 +531,23 @@
 "pref_tts_how_to_set_up_voice" = "Làm thế nào để thiết lập tiếng nói";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "Tìm kiếm gần đây";
 
-"duration_disabled" = "Off";
+"duration_disabled" = "Tắt";
 
-"duration_1_hour" = "1 hour";
+"duration_1_hour" = "1 giờ";
 
-"duration_2_hours" = "2 hours";
+"duration_2_hours" = "2 giờ";
 
-"duration_6_hours" = "6 hours";
+"duration_6_hours" = "6 giờ";
 
-"duration_12_hours" = "12 hours";
+"duration_12_hours" = "12 giờ";
 
-"duration_1_day" = "1 day";
+"duration_1_day" = "1 ngày";
+
+"pref_track_ios_caption" = "Chức năng theo dấu gần đây hiển thị các đường bạn đã đi.";
+
+"pref_track_ios_subcaption" = "Vui lòng chọn khoảng thời gian lưu dấu.";
 
 "placepage_distance" = "Khoảng cách";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Kích hoạt Tòa nhà 3D";
 
 "whats_new_next_button" = "Tiếp theo";
+
+"whats_new_rec_track_title" = "Với MAPS.ME, bạn sẽ không bị lạc";
+
+"whats_new_rec_track_body" = "Ứng dụng hiện đang hiển thị đường đã đi gần đây của bạn.";

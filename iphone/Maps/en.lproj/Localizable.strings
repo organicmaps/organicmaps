@@ -531,7 +531,7 @@
 "pref_tts_how_to_set_up_voice" = "How to set up voice";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Record GPS track";
+"pref_track_record_title" = "Recent track";
 
 "duration_disabled" = "Off";
 
@@ -544,6 +544,10 @@
 "duration_12_hours" = "12 hours";
 
 "duration_1_day" = "1 day";
+
+"pref_track_ios_caption" = "Recent track shows your traveled path.";
+
+"pref_track_ios_subcaption" = "Please select the time range of saving the track.";
 
 "placepage_distance" = "Distance";
 
@@ -1354,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Enable 3D Buildings";
 
 "whats_new_next_button" = "Next";
+
+"whats_new_rec_track_title" = "With MAPS.ME you won’t get lost";
+
+"whats_new_rec_track_body" = "Now the app shows your recent traveled path.";

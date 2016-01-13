@@ -330,6 +330,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">آخر</string>
 	<string name="pref_tts_how_to_set_up_voice">كيفية ضبط الصوت</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">المسار الأخير</string>
+	<string name="duration_disabled">لا يعمل</string>
+	<string name="duration_1_hour">1 ساعة</string>
+	<string name="duration_2_hours">2 ساعة</string>
+	<string name="duration_6_hours">6 ساعات</string>
+	<string name="duration_12_hours">12 ساعة</string>
+	<string name="duration_1_day">1 يوم</string>
+	<string name="pref_track_ios_caption">يُظهر المسار الأخير مسار سفرك.</string>
+	<string name="pref_track_ios_subcaption">يرجى تحديد نطاق وقت حفظ المسار.</string>
 	<string name="placepage_distance">المسافة</string>
 	<string name="placepage_coordinates">الإحداثيات</string>
 	<string name="placepage_unsorted">لم يتم فرزها</string>
@@ -819,4 +829,6 @@
 	<string name="whats_new_3d_on">تفعيل العرض المنظوري</string>
 	<string name="whats_new_3d_buildings_on">قم بتفعيل المباني ثلاثية الأبعاد</string>
 	<string name="whats_new_next_button">التالي</string>
+	<string name="whats_new_rec_track_title">مع MAPS.ME لن تتوه أبدا</string>
+	<string name="whats_new_rec_track_body">بإمكان التطبيق الآن أن يُظهر لك مسار سفرك الأخير.</string>
 </resources>
