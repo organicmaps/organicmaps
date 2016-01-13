@@ -40,6 +40,7 @@ private:
   size_t GetAvailablePointsCount() const;
   dp::Color CalculatePointColor(size_t pointIndex, m2::PointD const & curPoint,
                                 double lengthFromStart, double fullLength) const;
+  dp::Color GetColorBySpeed(double speed) const;
 
   TRenderDataRequestFn m_dataRequestFn;
   vector<drape_ptr<GpsTrackRenderData>> m_renderData;

@@ -149,16 +149,22 @@ dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD co
   double const td = my::clamp(dist / length, 0.0, 1.0);
 
   double const speed = max(start.m_speedMPS * (1.0 - td) + end.m_speedMPS * td, 0.0);
-
-  dp::Color color = df::GetColorConstant(style, df::TrackHumanSpeed);
-  if (speed > kHumanSpeed && speed <= kCarSpeed)
-    color = df::GetColorConstant(style, df::TrackCarSpeed);
-  else if (speed > kCarSpeed)
-    color = df::GetColorConstant(style, df::TrackPlaneSpeed);
+  dp::Color const color = GetColorBySpeed(speed);
 
   double const ta = my::clamp(lengthFromStart / fullLength, 0.0, 1.0);
   double const alpha = kMinAlpha * (1.0 - ta) + kMaxAlpha * ta;
   return dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(), alpha);
+}
+
+dp::Color GpsTrackRenderer::GetColorBySpeed(double speed) const
+{
+  auto const style = GetStyleReader().GetCurrentStyle();
+  if (speed > kHumanSpeed && speed <= kCarSpeed)
+    return df::GetColorConstant(style, df::TrackCarSpeed);
+  else if (speed > kCarSpeed)
+    return df::GetColorConstant(style, df::TrackPlaneSpeed);
+
+  return df::GetColorConstant(style, df::TrackHumanSpeed);
 }
 
 void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
@@ -206,7 +212,7 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
     size_t cacheIndex = 0;
     if (m_points.size() == 1)
     {
-      dp::Color const color = df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::TrackHumanSpeed);
+      dp::Color const color = GetColorBySpeed(m_points.front().m_speedMPS);
       m_handlesCache[cacheIndex].first->SetPoint(0, m_points.front().m_point, m_radius, color);
       m_handlesCache[cacheIndex].second++;
     }
