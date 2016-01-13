@@ -220,9 +220,9 @@ fi
 
 if [ "$MODE" == "coast" ]; then
   putmode
-  [ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -lz -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert"
-  [ ! -x "$OSMCTOOLS/osmupdate"  ] && cc -x c         "$OMIM_PATH/tools/osmctools/osmupdate.c"  -o "$OSMCTOOLS/osmupdate"
-  [ ! -x "$OSMCTOOLS/osmfilter"  ] && cc -x c     -O3 "$OMIM_PATH/tools/osmctools/osmfilter.c"  -o "$OSMCTOOLS/osmfilter"
+  [ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert" -lz
+  [ ! -x "$OSMCTOOLS/osmupdate"  ] && cc -x c     "$OMIM_PATH/tools/osmctools/osmupdate.c"  -o "$OSMCTOOLS/osmupdate"
+  [ ! -x "$OSMCTOOLS/osmfilter"  ] && cc -x c -O3 "$OMIM_PATH/tools/osmctools/osmfilter.c"  -o "$OSMCTOOLS/osmfilter"
   if [ -n "$OPT_DOWNLOAD" ]; then
     # Planet download is requested
     log "STATUS" "Step 0: Downloading and converting the planet"

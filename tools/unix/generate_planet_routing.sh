@@ -39,7 +39,7 @@ if [ "$1" == "pbf" ]; then
   PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
   OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
   [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
-  [ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -lz -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert"
+  [ ! -x "$OSMCTOOLS/osmconvert" ] && cc -x c -O3 "$OMIM_PATH/tools/osmctools/osmconvert.c" -o "$OSMCTOOLS/osmconvert" -lz
 
   TMPBORDERS="$INTDIR/tmpborders"
   [ -d "$TMPBORDERS" ] && rm -r "$TMPBORDERS"
