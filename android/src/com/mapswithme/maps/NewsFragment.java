@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
 public class NewsFragment extends BaseMwmDialogFragment
@@ -137,8 +138,10 @@ public class NewsFragment extends BaseMwmDialogFragment
     int cur = mPager.getCurrentItem();
     for (int i = 0; i < mDots.length; i++)
     {
-      mDots[i].setImageResource(i == cur ? R.drawable.news_marker_active
-                                         : R.drawable.news_marker_inactive);
+      mDots[i].setImageResource(ThemeUtils.isNightTheme() ? i == cur ? R.drawable.news_marker_active_night
+                                                                     : R.drawable.news_marker_inactive_night
+                                                          : i == cur ? R.drawable.news_marker_active
+                                                                     : R.drawable.news_marker_inactive);
     }
 
     UiUtils.showIf(cur > 0, mPrevButton);

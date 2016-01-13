@@ -81,5 +81,7 @@
 
   <!-- What's new -->
   <color name="news_marker_active">#8A000000</color>
+  <color name="news_marker_active_night">#B3FFFFFF</color>
   <color name="news_marker_inactive">#1F000000</color>
+  <color name="news_marker_inactive_night">#4CFFFFFF</color>
 </resources>
