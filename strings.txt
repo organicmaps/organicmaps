@@ -5279,12 +5279,6 @@
     en = Map style
     ru = Стиль карты
 
-  [pref_map_style_summary]
-    tags = android
-    comment = Settings «Map» category: «Map style» summary
-    en = Map and interface presentation
-    ru = Стиль отображения карты и интерфейса
-
   [pref_map_style_default]
     tags = android
     comment = «Map style» entry value
@@ -5551,17 +5545,16 @@
     nl = Hoe stel je de stem in
     pt = Como configurar a voz
 
-  [pref_track_record_enabled_title]
+  [pref_track_record_title]
      tags = ios,android
      comment = Settings «Map» category: «Record track» title
      en = Record GPS track
      ru = Запись маршрута
 
-  [pref_track_record_length_title]
+  [duration_disabled]
      tags = ios,android
-     comment = Settings «Map» category: «Length of recorded track» title
-     en = Record length
-     ru = Длительность записи
+     en = Off
+     ru = Отключена
 
   [duration_1_hour]
      tags = ios,android
