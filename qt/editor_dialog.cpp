@@ -69,11 +69,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature) : QDia
 
   // All  metadata rows.
   QVBoxLayout * metaRows = new QVBoxLayout();
-  // Features can have several types, so we merge all editable fields here.
-  set<Metadata::EType> const  editableMetadataFields =
-      // TODO(mgsergio, Alex): Maybe just return set in EditableMetadataForType?
-      my::collection_cast<set>(osm::Editor::Instance().EditableMetadataForType(feature));
-
+  vector<Metadata::EType> const editableMetadataFields = editor.EditableMetadataForType(feature);
   for (Metadata::EType const field : editableMetadataFields)
   {
     QString const fieldName = QString::fromStdString(DebugPrint(field));
