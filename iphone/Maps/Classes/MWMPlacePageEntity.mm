@@ -306,7 +306,6 @@ void initFieldsMap()
 
 - (BOOL)isCellEditable:(MWMPlacePageCellType)cellType
 {
-  return YES;
   return m_editableFields.count(cellType) == 1;
 }
 
