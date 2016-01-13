@@ -68,6 +68,9 @@ public:
 
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
 
+  /// @returns street segments (can be duplicate names) sorted by distance to feature's center.
+  /// uint32_t, if less than vector.size(), contains index of exact feature's street specified in OSM data.
+  pair<vector<Street>, uint32_t> GetNearbyFeatureStreets(FeatureType const & feature) const;
 
   void GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings) const;
 
