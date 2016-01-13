@@ -179,7 +179,7 @@ void initFieldsMap()
 {
   if (feature)
   {
-    search::AddressInfo const info = GetFramework().GetPOIAddressInfo(*feature);
+    search::AddressInfo const info = GetFramework().GetFeatureAddressInfo(*feature);
     feature::Metadata const & metadata = feature->GetMetadata();
     NSString * const name = @(info.GetPinName().c_str());
     self.title = name.length > 0 ? name : L(@"dropped_pin");

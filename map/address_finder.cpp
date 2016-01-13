@@ -474,7 +474,7 @@ void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::Addr
   //GetLocality(pt, info);
 }
 
-search::AddressInfo Framework::GetPOIAddressInfo(FeatureType const & ft) const
+search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType const & ft) const
 {
   search::AddressInfo info;
 
