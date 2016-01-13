@@ -1668,26 +1668,6 @@ unique_ptr<FeatureType> Framework::GetFeatureAtMercatorPoint(m2::PointD const & 
   return pointFt ? move(pointFt) : move(areaFt);
 }
 
-bool Framework::GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const
-{
-  ASSERT(m_drapeEngine != nullptr, ());
-  FeatureID const id = m_drapeEngine->GetVisiblePOI(glbPoint);
-  if (!id.IsValid())
-    return false;
-
-  auto const feature = GetPOIByID(id);
-  metadata = feature->GetMetadata();
-  info = GetPOIAddressInfo(*feature);
-  return true;
-}
-
-unique_ptr<FeatureType> Framework::GetVisiblePOI(m2::PointD const & ptMercator) const
-{
-  ASSERT(m_drapeEngine != nullptr, ());
-  FeatureID const fid = m_drapeEngine->GetVisiblePOI(ptMercator);
-  return fid.IsValid() ? GetPOIByID(fid) : unique_ptr<FeatureType>();
-}
-
 unique_ptr<FeatureType> Framework::GetPOIByID(FeatureID const & fid) const
 {
   ASSERT(fid.IsValid(), ());
