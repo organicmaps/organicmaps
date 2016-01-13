@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -1626,6 +1626,7 @@ the world. Join us!</string>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="loginGoogle" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="ozK-l5-X1m"/>
+                                    <segue destination="anB-7S-ebY" kind="custom" identifier="" customClass="MWMSegue" id="Yqb-S0-ZQV"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_google" translatesAutoresizingMaskIntoConstraints="NO" id="VTY-T1-l6q">
@@ -1653,6 +1654,7 @@ the world. Join us!</string>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="loginFacebook" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="osd-dp-2jK"/>
+                                    <segue destination="anB-7S-ebY" kind="custom" identifier="" customClass="MWMSegue" id="KS5-GV-A1p"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_facebook" translatesAutoresizingMaskIntoConstraints="NO" id="bGN-fy-oFg">
@@ -2030,7 +2032,54 @@ the world. Join us!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fD2-AS-PNi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2712" y="3513"/>
+            <point key="canvasLocation" x="2712" y="3547"/>
+        </scene>
+        <!--Authorization Web View Login View Controller-->
+        <scene sceneID="FkX-1E-Llw">
+            <objects>
+                <viewController id="anB-7S-ebY" customClass="MWMAuthorizationWebViewLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N4E-E9-PTc"/>
+                        <viewControllerLayoutGuide type="bottom" id="JzT-iz-MhU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2u2-L2-Hb3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iae-5m-9Z1">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="anB-7S-ebY" id="EDW-sZ-Oem"/>
+                                </connections>
+                            </webView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWh-HK-7a5">
+                                <rect key="frame" x="280" y="290" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="4e7-ir-1vf"/>
+                                    <constraint firstAttribute="height" constant="40" id="89f-2L-ZNe"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WWh-HK-7a5" firstAttribute="centerY" secondItem="Iae-5m-9Z1" secondAttribute="centerY" id="4tD-Ed-qHk"/>
+                            <constraint firstItem="Iae-5m-9Z1" firstAttribute="leading" secondItem="2u2-L2-Hb3" secondAttribute="leading" id="5mo-E8-9ix"/>
+                            <constraint firstItem="JzT-iz-MhU" firstAttribute="top" secondItem="Iae-5m-9Z1" secondAttribute="bottom" id="BM8-d4-hta"/>
+                            <constraint firstAttribute="trailing" secondItem="Iae-5m-9Z1" secondAttribute="trailing" id="Q7N-cK-6tx"/>
+                            <constraint firstItem="Iae-5m-9Z1" firstAttribute="top" secondItem="N4E-E9-PTc" secondAttribute="bottom" id="gOV-vK-tNp"/>
+                            <constraint firstItem="WWh-HK-7a5" firstAttribute="centerX" secondItem="Iae-5m-9Z1" secondAttribute="centerX" id="r8G-3t-FwY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="spinnerView" destination="WWh-HK-7a5" id="XEJ-Dd-BnV"/>
+                        <outlet property="webView" destination="Iae-5m-9Z1" id="yvR-eL-Mf9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S4s-hB-rml" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3462" y="3513"/>
         </scene>
         <!--Authorization Forgotten Password View Controller-->
         <scene sceneID="IIi-gL-aXb">
@@ -2259,12 +2308,14 @@ the world. Join us!</string>
         </scene>
     </scenes>
     <resources>
-        <image name="img_perspective_view" width="220" height="220"/>
         <image name="btn_back_arrow" width="12" height="20"/>
         <image name="ic_arrow_gray" width="8" height="14"/>
         <image name="ic_arrow_gray_down" width="14" height="8"/>
-        <image name="img_tts" width="220" height="220"/>
+        <image name="img_perspective_view" width="220" height="220"/>
         <image name="login_facebook" width="28" height="28"/>
         <image name="login_google" width="28" height="28"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="KS5-GV-A1p"/>
+    </inferredMetricsTieBreakers>
 </document>
