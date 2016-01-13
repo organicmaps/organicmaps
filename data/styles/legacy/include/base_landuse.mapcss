@@ -75,21 +75,6 @@ area|z12-[landuse=conservation]
   fill-color: @conservation;
   z-index: 1;
 }
-area|z12-[landuse=residential]
-{
-  fill-color: @residential_generic;
-  z-index: -2;
-}
-area|z12-[landuse=residential][residential=urban]
-{
-  fill-color: @residential_urban;
-  z-index: -1;
-}
-area|z12-[landuse=residential][residential=rural]
-{
-  fill-color: @residential_rural;
-  z-index: -1;
-}
 area|z12-[landuse=retail]
 {
   fill-color: @retail;
@@ -160,7 +145,6 @@ area|z15[landuse=salt_pond],
 area|z15[landuse=village_green],
 area|z15[landuse=vineyard],
 area|z14-[landuse=field],
-area|z15-[landuse=residential],
 area|z14-15[natural=bay],
 node|z14-15[natural=bay],
 area|z15[natural=grassland],
