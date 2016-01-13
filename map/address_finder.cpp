@@ -473,28 +473,17 @@ search::AddressInfo Framework::GetMercatorAddressInfo(m2::PointD const & mercato
 search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType const & ft) const
 {
   search::AddressInfo info;
-
-  ASSERT_NOT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
-  m2::PointD const center = feature::GetCenter(ft);
-
-  info.m_country = GetCountryName(center);
-  if (info.m_country.empty())
-  {
-    LOG(LINFO, ("Can't find region for point ", center));
-    return info;
-  }
-
-  double const inf = numeric_limits<double>::max();
-  double addressR[] = { inf, inf, inf };
-
-  // FeatureType::WORST_GEOMETRY - no need to check on visibility
-  DoGetAddressInfo getAddress(center, FeatureType::WORST_GEOMETRY, GetChecker(), addressR);
-  getAddress(ft);
-  getAddress.FillAddress(m_searchEngine.get(), info);
-
-  /// @todo Temporarily commented - it's slow and not used in UI
+  // @TODO(vng): insert correct implementation from new search.
+  //info.m_country = GetCountryName(feature::GetCenter(ft));
+  // @TODO(vng): Temporarily commented - it's slow and not used in UI.
   //GetLocality(pt, info);
 
+  info.m_house = ft.GetHouseNumber();
+
+  search::ReverseGeocoder const coder(m_model.GetIndex());
+  vector<search::ReverseGeocoder::Street> const streets = coder.GetNearbyFeatureStreets(ft);
+  if (!streets.empty())
+    info.m_street = streets.front().m_name;
   return info;
 }
 
