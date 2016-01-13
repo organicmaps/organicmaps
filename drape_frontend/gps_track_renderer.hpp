@@ -40,7 +40,6 @@ private:
   size_t GetAvailablePointsCount() const;
   dp::Color CalculatePointColor(size_t pointIndex, m2::PointD const & curPoint,
                                 double lengthFromStart, double fullLength) const;
-  void UpdateSpeedsAndColors();
 
   TRenderDataRequestFn m_dataRequestFn;
   vector<drape_ptr<GpsTrackRenderData>> m_renderData;
@@ -49,10 +48,6 @@ private:
   bool m_needUpdate;
   bool m_waitForRenderData;
   vector<pair<GpsTrackHandle*, size_t>> m_handlesCache;
-
-  double m_startSpeed;
-  double m_endSpeed;
-  dp::Color m_startColor;
   float m_radius;
 };
 

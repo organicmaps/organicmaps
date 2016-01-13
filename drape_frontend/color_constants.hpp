@@ -20,7 +20,11 @@ enum ColorConstant
   Selection,
   Route,
   RoutePedestrian,
-  Arrow3D
+  Arrow3D,
+  TrackHumanSpeed,
+  TrackCarSpeed,
+  TrackPlaneSpeed,
+  TrackUnknownDistance
 };
 
 dp::Color GetColorConstant(MapStyle style, ColorConstant constant);

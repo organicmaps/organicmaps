@@ -24,6 +24,10 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { Route, dp::Color(30, 150, 240, 204) },
       { RoutePedestrian, dp::Color(5, 105, 175, 204) },
       { Arrow3D, dp::Color(30, 150, 240, 255) },
+      { TrackHumanSpeed, dp::Color(255, 0, 0, 255) },
+      { TrackCarSpeed, dp::Color(251, 192, 45, 255) },
+      { TrackPlaneSpeed, dp::Color(44, 120, 47, 255) },
+      { TrackUnknownDistance, dp::Color(127, 127, 127, 127) },
     }
   },
   { MapStyleDark,
@@ -40,6 +44,10 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { Route, dp::Color(255, 230, 140, 204) },
       { RoutePedestrian, dp::Color(250, 215, 80, 204) },
       { Arrow3D, dp::Color(255, 230, 140, 255) },
+      { TrackHumanSpeed, dp::Color(255, 0, 0, 255) },
+      { TrackCarSpeed, dp::Color(251, 192, 45, 255) },
+      { TrackPlaneSpeed, dp::Color(44, 120, 47, 255) },
+      { TrackUnknownDistance, dp::Color(127, 127, 127, 127) },
     }
   },
 };

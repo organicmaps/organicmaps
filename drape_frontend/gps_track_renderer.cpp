@@ -1,10 +1,12 @@
 #include "drape_frontend/gps_track_renderer.hpp"
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/glsl_func.hpp"
 #include "drape/shader_def.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/logging.hpp"
@@ -32,19 +34,12 @@ float const kRadiusInPixel[] =
   3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 4.0f, 5.0f, 5.0f, 5.0f, 6.0f
 };
 
-double const kMinSpeed = 1.4; // meters per second
-double const kAvgSpeed = 3.3; // meters per second
-double const kMaxSpeed = 5.5; // meters per second
-dp::Color const kMinSpeedColor = dp::Color(255, 0, 0, 255);
-dp::Color const kAvgSpeedColor = dp::Color(251, 192, 45, 255);
-dp::Color const kMaxSpeedColor = dp::Color(44, 120, 47, 255);
+double const kHumanSpeed = 1.4; // meters per second
+double const kCarSpeed = 5.5; // meters per second
 uint8_t const kMinAlpha = 50;
 uint8_t const kMaxAlpha = 255;
-
 float const kOutlineRadiusScalar = 0.3f;
-
 double const kUnknownDistanceTime = 5 * 60; // seconds
-dp::Color const kUnknownDistanceColor = dp::Color(127, 127, 127, 127);
 
 #ifdef DEBUG
 bool GpsPointsSortPredicate(GpsTrackPoint const & pt1, GpsTrackPoint const & pt2)
@@ -53,24 +48,12 @@ bool GpsPointsSortPredicate(GpsTrackPoint const & pt1, GpsTrackPoint const & pt2
 }
 #endif
 
-dp::Color InterpolateColors(dp::Color const & color1, dp::Color const & color2, double t)
-{
-  double const r = color1.GetRed() * (1.0 - t) + color2.GetRed() * t;
-  double const g = color1.GetGreen() * (1.0 - t) + color2.GetGreen() * t;
-  double const b = color1.GetBlue() * (1.0 - t) + color2.GetBlue() * t;
-  double const a = color1.GetAlfa() * (1.0 - t) + color2.GetAlfa() * t;
-  return dp::Color(r, g, b, a);
-}
-
 } // namespace
 
 GpsTrackRenderer::GpsTrackRenderer(TRenderDataRequestFn const & dataRequestFn)
   : m_dataRequestFn(dataRequestFn)
   , m_needUpdate(false)
   , m_waitForRenderData(false)
-  , m_startSpeed(0.0)
-  , m_endSpeed(0.0)
-  , m_startColor(kMaxSpeedColor)
   , m_radius(0.0f)
 {
   ASSERT(m_dataRequestFn != nullptr, ());
@@ -138,42 +121,6 @@ void GpsTrackRenderer::UpdatePoints(vector<GpsTrackPoint> const & toAdd, vector<
   m_needUpdate = true;
 }
 
-void GpsTrackRenderer::UpdateSpeedsAndColors()
-{
-  m_startSpeed = 0.0;
-  m_endSpeed = 0.0;
-  for (size_t i = 0; i < m_points.size(); i++)
-  {
-    // Filter unknown points.
-    if (i > 0 && (m_points[i].m_timestamp - m_points[i - 1].m_timestamp) > kUnknownDistanceTime)
-      continue;
-
-    if (m_points[i].m_speedMPS < m_startSpeed)
-      m_startSpeed = m_points[i].m_speedMPS;
-
-    if (m_points[i].m_speedMPS > m_endSpeed)
-      m_endSpeed = m_points[i].m_speedMPS;
-  }
-
-  m_startSpeed = max(m_startSpeed, 0.0);
-  m_endSpeed = max(m_endSpeed, 0.0);
-
-  double const delta = m_endSpeed - m_startSpeed;
-  if (delta <= kMinSpeed)
-    m_startColor = kMaxSpeedColor;
-  else if (delta <= kAvgSpeed)
-    m_startColor = kAvgSpeedColor;
-  else
-    m_startColor = kMinSpeedColor;
-
-  m_startSpeed = max(m_startSpeed, kMinSpeed);
-  m_endSpeed = min(m_endSpeed, kMaxSpeed);
-
-  double const kBias = 0.01;
-  if (fabs(m_endSpeed - m_startSpeed) < 1e-5)
-    m_endSpeed += kBias;
-}
-
 size_t GpsTrackRenderer::GetAvailablePointsCount() const
 {
   size_t pointsCount = 0;
@@ -192,16 +139,22 @@ dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD co
 
   GpsTrackPoint const & start = m_points[pointIndex];
   GpsTrackPoint const & end = m_points[pointIndex + 1];
+
+  auto const style = GetStyleReader().GetCurrentStyle();
   if ((end.m_timestamp - start.m_timestamp) > kUnknownDistanceTime)
-    return kUnknownDistanceColor;
+    return df::GetColorConstant(style, df::TrackUnknownDistance);
 
   double const length = (end.m_point - start.m_point).Length();
   double const dist = (curPoint - start.m_point).Length();
   double const td = my::clamp(dist / length, 0.0, 1.0);
 
   double const speed = max(start.m_speedMPS * (1.0 - td) + end.m_speedMPS * td, 0.0);
-  double const ts = my::clamp((speed - m_startSpeed) / (m_endSpeed - m_startSpeed), 0.0, 1.0);
-  dp::Color color = InterpolateColors(m_startColor, kMaxSpeedColor, ts);
+
+  dp::Color color = df::GetColorConstant(style, df::TrackHumanSpeed);
+  if (speed > kHumanSpeed && speed <= kCarSpeed)
+    color = df::GetColorConstant(style, df::TrackCarSpeed);
+  else if (speed > kCarSpeed)
+    color = df::GetColorConstant(style, df::TrackPlaneSpeed);
 
   double const ta = my::clamp(lengthFromStart / fullLength, 0.0, 1.0);
   double const alpha = kMinAlpha * (1.0 - ta) + kMaxAlpha * ta;
@@ -249,12 +202,12 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
       handle->Clear();
       m_handlesCache.push_back(make_pair(handle, 0));
     }
-    UpdateSpeedsAndColors();
 
     size_t cacheIndex = 0;
     if (m_points.size() == 1)
     {
-      m_handlesCache[cacheIndex].first->SetPoint(0, m_points.front().m_point, m_radius, kMaxSpeedColor);
+      dp::Color const color = df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::TrackHumanSpeed);
+      m_handlesCache[cacheIndex].first->SetPoint(0, m_points.front().m_point, m_radius, color);
       m_handlesCache[cacheIndex].second++;
     }
     else
