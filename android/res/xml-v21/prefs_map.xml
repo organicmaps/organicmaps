@@ -26,7 +26,6 @@
   <ListPreference
     android:key="@string/pref_map_style"
     android:title="@string/pref_map_style_title"
-    android:summary="@string/pref_map_style_summary"
     android:entries="@array/map_style"
     android:entryValues="@array/map_style_values"
     android:order="4"/>
@@ -44,18 +43,10 @@
     android:summary="@string/yopme_pref_summary"
     android:order="6"/>
 
-  <SwitchPreference
-    android:key="@string/pref_track_record_enabled"
-    android:title="@string/pref_track_record_enabled_title"
-    android:order="7"
-    android:switchTextOn=""
-    android:switchTextOff=""/>
-
   <ListPreference
-    android:key="@string/pref_track_record_length"
-    android:title="@string/pref_track_record_length_title"
-    android:dependency="@string/pref_track_record_enabled"
-    android:entries="@array/track_lengths"
-    android:entryValues="@array/track_lengths_values"
-    android:order="8"/>
+    android:key="@string/pref_track_record"
+    android:title="@string/pref_track_record_title"
+    android:entries="@array/track_length"
+    android:entryValues="@array/track_length_values"
+    android:order="7"/>
 </PreferenceScreen>
