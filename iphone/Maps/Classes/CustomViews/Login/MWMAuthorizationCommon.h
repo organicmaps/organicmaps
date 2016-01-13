@@ -1,6 +1,5 @@
 
-static NSString * const kOSMRequestToken = @"OSMRequestToken";
-static NSString * const kOSMRequestSecret = @"OSMRequestSecret";
+#include "editor/osm_auth.hpp"
 
 typedef NS_OPTIONS(NSUInteger, MWMAuthorizationButtonType)
 {
@@ -11,3 +10,6 @@ typedef NS_OPTIONS(NSUInteger, MWMAuthorizationButtonType)
 
 UIColor * MWMAuthorizationButtonBackgroundColor(MWMAuthorizationButtonType type);
 void MWMAuthorizationConfigButton(UIButton * btn, MWMAuthorizationButtonType type);
+
+void MWMAuthorizationStoreCredentials(osm::TKeySecret const & keySecret);
+BOOL MWMAuthorizationHaveCredentials();

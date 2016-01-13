@@ -1,4 +1,3 @@
-#import "Common.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationOSMLoginViewController.h"
 #import "MWMCircularProgress.h"
@@ -101,39 +100,6 @@ using namespace osm;
   return YES;
 }
 
-- (void)storeCredentials:(TKeySecret)keySecret
-{
-  NSString * requestToken = @(keySecret.first.c_str());
-  NSString * requestSecret = @(keySecret.second.c_str());
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setObject:requestToken forKey:kOSMRequestToken];
-  [ud setObject:requestSecret forKey:kOSMRequestSecret];
-  [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)showAlert:(NSString *)text
-{
-  NSString * ok = L(@"ok");
-  if (isIOSVersionLessThan(8))
-  {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:text
-                                                         message:nil
-                                                        delegate:nil
-                                               cancelButtonTitle:ok
-                                               otherButtonTitles:nil];
-    [alertView show];
-    return;
-  }
-  UIAlertController * alertController =
-      [UIAlertController alertControllerWithTitle:text
-                                          message:nil
-                                   preferredStyle:UIAlertControllerStyleAlert];
-  UIAlertAction * okAction =
-      [UIAlertAction actionWithTitle:ok style:UIAlertActionStyleCancel handler:nil];
-  [alertController addAction:okAction];
-  [self presentViewController:alertController animated:YES completion:nil];
-}
-
 - (void)startSpinner
 {
   self.spinnerView.hidden = NO;
@@ -171,21 +137,26 @@ using namespace osm;
       string const username = self.loginTextField.text.UTF8String;
       string const password = self.passwordTextField.text.UTF8String;
       // TODO(AlexZ): Change to production.
-      OsmOAuth auth = osm::OsmOAuth::DevServerAuth();
+      OsmOAuth auth = OsmOAuth::IZServerAuth();
       OsmOAuth::AuthResult const result = auth.AuthorizePassword(username, password);
       dispatch_async(dispatch_get_main_queue(), ^
       {
         [self stopSpinner];
         if (result == OsmOAuth::AuthResult::OK)
-          [self storeCredentials:auth.GetToken()];
+        {
+          MWMAuthorizationStoreCredentials(auth.GetToken());
+          [self dismissViewControllerAnimated:YES completion:nil];
+        }
         else
-          [self showAlert:L(@"invalid_username_or_password")];
+        {
+          [self showAlert:L(@"invalid_username_or_password") withButtonTitle:L(@"ok")];
+        }
       });
     });
   }
   else
   {
-    [self showAlert:L(@"no_internet_connection")];
+    [self showAlert:L(@"no_internet_connection") withButtonTitle:L(@"ok")];
   }
 }
 

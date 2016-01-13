@@ -1,6 +1,12 @@
 #import "MWMAuthorizationCommon.h"
 #import "UIButton+RuntimeAttributes.h"
 
+namespace
+{
+NSString * const kOSMRequestToken = @"OSMRequestToken";
+NSString * const kOSMRequestSecret = @"OSMRequestSecret";
+}  // namespace
+
 UIColor * MWMAuthorizationButtonTextColor(MWMAuthorizationButtonType type)
 {
   switch (type)
@@ -40,4 +46,21 @@ void MWMAuthorizationConfigButton(UIButton * btn, MWMAuthorizationButtonType typ
   [btn setBackgroundColor:[UIColor clearColor] forState:UIControlStateHighlighted];
 
   btn.layer.borderColor = bgCol.CGColor;
+}
+
+void MWMAuthorizationStoreCredentials(osm::TKeySecret const & keySecret)
+{
+  NSString * requestToken = @(keySecret.first.c_str());
+  NSString * requestSecret = @(keySecret.second.c_str());
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setObject:requestToken forKey:kOSMRequestToken];
+  [ud setObject:requestSecret forKey:kOSMRequestSecret];
+}
+
+BOOL MWMAuthorizationHaveCredentials()
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSString * requestToken = [ud stringForKey:kOSMRequestToken];
+  NSString * requestSecret = [ud stringForKey:kOSMRequestSecret];
+  return requestToken && requestSecret;
 }

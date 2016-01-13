@@ -2,6 +2,7 @@
 #import "MapsAppDelegate.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
+#import "MWMAuthorizationWebViewLoginViewController.h"
 #import "UIColor+MapsMeColor.h"
 
 @interface MWMAuthorizationLoginViewController ()
@@ -81,6 +82,17 @@
 - (IBAction)cancel
 {
   [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  MWMAuthorizationWebViewLoginViewController * dvc = segue.destinationViewController;
+  if ([self.loginGoogleButton isEqual:sender])
+    dvc.authType = MWMWebViewAuthorizationTypeGoogle;
+  else if ([self.loginFacebookButton isEqual:sender])
+    dvc.authType = MWMWebViewAuthorizationTypeFacebook;
 }
 
 @end
