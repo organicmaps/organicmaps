@@ -170,7 +170,6 @@
     <activity
         android:name="com.mapswithme.maps.MwmActivity"
         android:launchMode="singleTask"
-        android:theme="@style/MwmTheme.MainActivity"
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
     <activity
@@ -252,6 +251,15 @@
         android:name="com.mapswithme.maps.background.WorkerService"
         android:exported="false"/>
 
+    <receiver android:name="com.mapswithme.maps.location.TrackRecorderWakeReceiver">
+      <intent-filter>
+        <action android:name="com.mapswithme.maps.TRACK_RECORDER_ALARM"/>
+      </intent-filter>
+    </receiver>
+
+    <service android:name="com.mapswithme.maps.location.TrackRecorderWakeService"
+             android:exported="false"/>
+
     <!-- our custom receiver, that will call Aloha & other handlers -->
     <receiver
         android:name="com.mapswithme.util.MultipleTrackerReferrerReceiver"
@@ -311,7 +319,5 @@
         <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
       </intent-filter>
     </receiver>
-
   </application>
-
 </manifest>

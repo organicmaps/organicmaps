@@ -17,12 +17,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -75,7 +77,9 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
             public void onAnimationEnd(Animator animation)
             {
               final Button button = (Button) root.findViewById(R.id.btn__explain_bad_rating);
-              button.setVisibility(View.VISIBLE);
+              UiUtils.show(button);
+              Graphics.tint(button);
+
               button.setOnClickListener(RateStoreDialogFragment.this);
               ((TextView) root.findViewById(R.id.tv__title)).setText(getString(R.string.rating_thanks));
               ((TextView) root.findViewById(R.id.tv__subtitle)).setText(getString(R.string.rating_share_ideas));

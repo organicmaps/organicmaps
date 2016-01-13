@@ -120,7 +120,6 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 {
   UIButton * btn = self.bookmarkButton;
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateHighlighted|UIControlStateSelected];
-  [btn setImage:[UIImage imageNamed:@"ic_bookmarks_off_pressed"] forState:UIControlStateHighlighted];
 
   NSUInteger const animationImagesCount = 11;
   NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];

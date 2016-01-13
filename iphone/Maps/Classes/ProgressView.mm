@@ -1,5 +1,5 @@
-
 #import "ProgressView.h"
+#import "UIColor+MapsMeColor.h"
 
 @interface ProgressView ()
 
@@ -86,21 +86,11 @@ NSString * const CircleAnimationKey = @"CircleAnimation";
     [self setProgress:[self.nextProgressToAnimate doubleValue] animated:YES];
 }
 
-- (CGColorRef)redColor
-{
-  return [UIColor colorWithColorCode:@"FF4436"].CGColor;
-}
-
-- (CGColorRef)blueColor
-{
-  return [UIColor colorWithColorCode:@"0585FF"].CGColor;
-}
-
 - (void)setFailedMode:(BOOL)failedMode
 {
   _failedMode = failedMode;
 
-  self.progressLayer.strokeColor = failedMode ? [self redColor] : [self blueColor];
+  self.progressLayer.strokeColor = (failedMode ? [UIColor redColor] : [UIColor linkBlue]).CGColor;
   self.stopRectLayer.hidden = failedMode;
   self.startTriangleView.hidden = !failedMode;
 }
@@ -122,7 +112,7 @@ NSString * const CircleAnimationKey = @"CircleAnimation";
     _stopRectLayer = [CAShapeLayer layer];
     CGFloat const side = 11;
     CGRect const rect = CGRectMake((self.width - side) / 2, (self.width - side) / 2, side, side);
-    _stopRectLayer.fillColor = [self blueColor];
+    _stopRectLayer.fillColor = [UIColor linkBlue].CGColor;
     _stopRectLayer.path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:2].CGPath;
   }
   return _stopRectLayer;
@@ -142,7 +132,7 @@ NSString * const CircleAnimationKey = @"CircleAnimation";
     _backgroundCircleLayer = [CAShapeLayer layer];
     _backgroundCircleLayer.fillColor = [UIColor clearColor].CGColor;
     _backgroundCircleLayer.lineWidth = 2;
-    _backgroundCircleLayer.strokeColor = [[UIColor colorWithColorCode:@"F0F0F0"] CGColor];
+    _backgroundCircleLayer.strokeColor = [UIColor pressBackground].CGColor;
     _backgroundCircleLayer.shouldRasterize = YES;
     _backgroundCircleLayer.rasterizationScale = 2 * [UIScreen mainScreen].scale;
     CGRect rect = CGRectMake(self.width / 2 - CIRCLE_RADIUS, self.height / 2 - CIRCLE_RADIUS, 2 * CIRCLE_RADIUS, 2 * CIRCLE_RADIUS);

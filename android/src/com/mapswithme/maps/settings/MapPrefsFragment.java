@@ -11,11 +11,13 @@ import android.support.v7.app.AlertDialog;
 import java.util.List;
 
 import com.mapswithme.country.ActiveCountryTree;
-import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -104,23 +106,25 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       }
     });
 
-    pref = findPreference(getString(R.string.pref_map_style));
-    if (BuildConfig.ALLOW_PREF_MAP_STYLE)
+    String curTheme = Config.getUiThemeSettings();
+    ListPreference stylePref = (ListPreference)findPreference(getString(R.string.pref_map_style));
+    stylePref.setValue(curTheme);
+    stylePref.setSummary(stylePref.getEntry());
+    stylePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
-      ((ListPreference) pref).setValue(String.valueOf(Framework.getMapStyle()));
-      pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+      @Override
+      public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object newValue)
-        {
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE);
-          Framework.setMapStyle(Integer.parseInt((String) newValue));
+        String themeName = (String)newValue;
+        if (!Config.setUiThemeSettings(themeName))
           return true;
-        }
-      });
-    }
-    else
-      getPreferenceScreen().removePreference(pref);
+
+        ThemeSwitcher.restart();
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE,
+                                       Statistics.params().add(Statistics.EventParam.NAME, themeName));
+        return true;
+      }
+    });
 
     final Framework.Params3dMode _3d = new Framework.Params3dMode();
     Framework.nativeGet3dMode(_3d);
@@ -151,6 +155,33 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       });
     else
       getPreferenceScreen().removePreference(pref);
+
+    final ListPreference trackPref = (ListPreference)findPreference(getString(R.string.pref_track_record));
+    String value = (TrackRecorder.isEnabled() ? String.valueOf(TrackRecorder.getDuration()) : "0");
+    trackPref.setValue(value);
+    trackPref.setSummary(trackPref.getEntry());
+    trackPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    {
+      @Override
+      public boolean onPreferenceChange(final Preference preference, Object newValue)
+      {
+        int value = Integer.valueOf((String)newValue);
+        TrackRecorder.setEnabled(value != 0);
+
+        if (value != 0)
+          TrackRecorder.setDuration(value);
+
+        UiThread.runLater(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            trackPref.setSummary(trackPref.getEntry());
+          }
+        });
+        return true;
+      }
+    });
   }
 
   @Override

@@ -1,6 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,14 @@ import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.widget.TextView;
-import com.mapswithme.maps.R;
-import com.mapswithme.util.Graphics;
-import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mapswithme.maps.R;
+import com.mapswithme.util.Graphics;
+import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UiUtils;
 
 class TabAdapter extends FragmentPagerAdapter
 {
@@ -146,6 +149,12 @@ class TabAdapter extends FragmentPagerAdapter
     attachTo(tabs);
   }
 
+  private static ColorStateList getTabTextColor(Context context)
+  {
+    return context.getResources().getColorStateList(ThemeUtils.isNightTheme() ? R.color.tab_text_night
+                                                                              : R.color.tab_text);
+  }
+
   private void attachTo(TabLayout tabs)
   {
     final Context context = tabs.getContext();
@@ -160,7 +169,10 @@ class TabAdapter extends FragmentPagerAdapter
       tabView.setText(tab.getTitleRes());
       tabView.setCompoundDrawablePadding(padding);
       tabView.setCompoundDrawablesWithIntrinsicBounds(landscape ? tab.getIconRes() : 0, landscape ? 0 : tab.getIconRes(), 0, 0);
-      Graphics.tintTextView(tabView, context.getResources().getColorStateList(R.color.text_highlight));
+
+      ColorStateList colors = getTabTextColor(context);
+      tabView.setTextColor(colors);
+      Graphics.tint(tabView, colors);
 
       tabs.addTab(tabs.newTab().setCustomView(tabView), true);
     }

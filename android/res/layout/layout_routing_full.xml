@@ -42,6 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="@string/next_turn_then"
-        tools:src="@drawable/ic_round_then"/>
+        tools:src="@drawable/ic_then_round"/>
   </LinearLayout>
 </LinearLayout>

@@ -1,6 +1,8 @@
+#import "ViewController.h"
+
 @class MWMPageController;
 
-@interface MWMWhatsNewController : UIViewController
+@interface MWMWhatsNewController : ViewController
 
 @property (nonatomic) NSUInteger pageIndex;
 @property (weak, nonatomic) MWMPageController * pageController;

@@ -24,8 +24,8 @@
         style="@style/MwmWidget.ProgressWheel.RoutingPlan"
         tools:visibility="visible"
         wheel:centerDrawable="@android:color/transparent"
-        wheel:wheelProgressColor="@color/routing_blue"
-        wheel:wheelSecondaryColor="@color/base_black_divider"
+        wheel:wheelProgressColor="?colorAccent"
+        wheel:wheelSecondaryColor="?dividerHorizontal"
         wheel:wheelThickness="@dimen/margin_eighth"/>
 
       <Space android:layout_width="32dp"
@@ -36,8 +36,8 @@
         style="@style/MwmWidget.ProgressWheel.RoutingPlan"
         tools:visibility="visible"
         wheel:centerDrawable="@android:color/transparent"
-        wheel:wheelProgressColor="@color/routing_blue"
-        wheel:wheelSecondaryColor="@color/base_black_divider"
+        wheel:wheelProgressColor="?colorAccent"
+        wheel:wheelSecondaryColor="?dividerHorizontal"
         wheel:wheelThickness="@dimen/margin_eighth"/>
     </LinearLayout>
 
@@ -49,16 +49,18 @@
       android:orientation="horizontal">
       <RadioButton
         android:id="@+id/vehicle"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/routing_selector_size"
+        android:layout_height="@dimen/routing_selector_size"
         android:layout_marginRight="32dp"
-        android:button="@drawable/selector_vehicle"/>
+        tools:button="@drawable/ic_drive"
+        tools:buttonTint="?colorAccent"/>
 
       <RadioButton
         android:id="@+id/pedestrian"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:button="@drawable/selector_pedestrian"/>
+        android:layout_width="@dimen/routing_selector_size"
+        android:layout_height="@dimen/routing_selector_size"
+        tools:button="@drawable/ic_walk"
+        tools:buttonTint="?colorAccent"/>
     </RadioGroup>
   </FrameLayout>
 
@@ -74,7 +76,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:background="@android:color/white"
+    android:background="?windowBackgroundForced"
     android:visibility="gone"
     tools:visibility="visible">
     <View android:layout_width="match_parent"
@@ -87,18 +89,16 @@
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/margin_base"
       android:layout_gravity="center_vertical"
-      tools:background="#400000FF">
+      tools:background="#4020202F">
       <TextView
         android:id="@+id/time"
         style="@style/MwmWidget.TextView.PlanDetail.Number"
-        android:textColor="@color/base_black"
         tools:text="2d 23h 59m"/>
 
       <TextView
         android:id="@+id/dot"
-        style="@style/MwmWidget.TextView.PlanDetail.Number"
+        style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
         android:layout_toRightOf="@id/time"
-        android:textColor="@color/base_black_hint"
         android:text="•"
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
@@ -107,17 +107,15 @@
 
       <TextView
         android:id="@+id/distance"
-        style="@style/MwmWidget.TextView.PlanDetail.Number"
+        style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
         android:layout_toRightOf="@id/dot"
-        android:textColor="@color/base_black_hint"
         tools:text="1024 km"/>
 
       <TextView
         android:id="@+id/arrival"
-        style="@style/MwmWidget.TextView.PlanDetail.Number"
+        style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
         android:textSize="@dimen/text_size_routing_plan_detail_arrival"
         android:layout_below="@id/time"
-        android:textColor="@color/base_black_hint"
         tools:text="Arrive at 12:34"/>
     </RelativeLayout>
 
@@ -127,7 +125,7 @@
       style="@style/MwmWidget.TextView.PlanDetail.Status"
       android:layout_margin="16dp"
       android:text="@string/p2p_planning"
-      android:textColor="@color/text_dark_hint"
+      android:textColor="?secondary"
       android:visibility="gone"
       tools:visibility="visible"
       tools:layout_gravity="right"/>

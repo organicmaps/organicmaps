@@ -1,5 +1,7 @@
 #import "Common.h"
 #import "EAGLView.h"
+#import "MapsAppDelegate.h"
+#import "LocationManager.h"
 #import "MWMDirectionView.h"
 
 #import "../Platform/opengl/iosOGLContextFactory.h"
@@ -58,33 +60,39 @@ double getExactDPI(double contentScaleFactor)
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
 - (id)initWithCoder:(NSCoder *)coder
 {
+  BOOL const isDaemon = MapsAppDelegate.theApp.m_locationManager.isDaemonMode;
   NSLog(@"EAGLView initWithCoder Started");
-
-  if ((self = [super initWithCoder:coder]))
-  {
-    lastViewSize = CGRectZero;
-    _widgetsManager = [[MWMMapWidgets alloc] init];
-
-    // Setup Layer Properties
-    CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
-
-    eaglLayer.opaque = YES;
-    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
-                                     kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
-    
-    // Correct retina display support in opengl renderbuffer
-    self.contentScaleFactor = correctContentScale();
-
-    m_factory = make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer));
-  }
+  self = [super initWithCoder:coder];
+  if (self && !isDaemon)
+    [self initialize];
 
   NSLog(@"EAGLView initWithCoder Ended");
   return self;
 }
 
+- (void)initialize
+{
+  lastViewSize = CGRectZero;
+  _widgetsManager = [[MWMMapWidgets alloc] init];
+
+  // Setup Layer Properties
+  CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
+
+  eaglLayer.opaque = YES;
+  eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
+                                   kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
+
+  // Correct retina display support in opengl renderbuffer
+  self.contentScaleFactor = correctContentScale();
+
+  m_factory = make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer));
+}
+
 - (void)createDrapeEngineWithWidth:(int)width height:(int)height
 {
   NSLog(@"EAGLView createDrapeEngine Started");
+  if (MapsAppDelegate.theApp.m_locationManager.isDaemonMode)
+    return;
 
   Framework::DrapeCreationParams p;
   p.m_surfaceWidth = width;

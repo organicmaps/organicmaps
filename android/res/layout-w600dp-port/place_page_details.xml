@@ -6,7 +6,7 @@
       android:id="@+id/pp__details"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/bg_top_panels"
+      android:background="?ppBackground"
       android:overScrollMode="never">
 
     <RelativeLayout

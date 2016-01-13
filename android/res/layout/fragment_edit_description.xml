@@ -1,46 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white">
-
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
   <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-      style="@style/MwmWidget.ToolbarStyle"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:theme="@style/MwmWidget.ToolbarTheme">
-
+    android:id="@+id/toolbar"
+    style="@style/MwmWidget.ToolbarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/MwmWidget.ToolbarTheme">
     <TextView
-        android:id="@+id/tv__save"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:padding="@dimen/margin_half"
-        android:text="@string/save"
-        android:textAppearance="@style/MwmTextAppearance.Toolbar.Button"/>
+      android:id="@+id/tv__save"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="right"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:clickable="true"
+      android:gravity="center_vertical"
+      android:padding="@dimen/margin_half"
+      android:text="@string/save"
+      android:textAppearance="@style/MwmTextAppearance.Toolbar.Title.Button"/>
   </android.support.v7.widget.Toolbar>
 
   <FrameLayout
-      style="@style/MwmWidget.FrameLayout.Elevation"
+    style="@style/MwmWidget.FrameLayout.Elevation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/toolbar"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base">
+    <EditText
+      android:id="@+id/et__description"
+      style="@style/MwmWidget.PlacePage.EditText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/toolbar"
-      android:paddingLeft="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base">
-
-    <EditText
-        android:id="@+id/et__description"
-        style="@style/MwmWidget.PlacePage.EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/edit_description_hint"
-        android:includeFontPadding="false"
-        android:inputType="textMultiLine"/>
-
+      android:hint="@string/edit_description_hint"
+      android:includeFontPadding="false"
+      android:inputType="textMultiLine"/>
   </FrameLayout>
-
 </RelativeLayout>

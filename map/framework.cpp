@@ -2,6 +2,7 @@
 
 #include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
+#include "map/gps_tracker.hpp"
 #include "map/storage_bridge.hpp"
 
 #include "defines.hpp"
@@ -17,8 +18,11 @@
 #include "search/search_engine.hpp"
 #include "search/search_query_factory.hpp"
 
+#include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/watch/cpu_drawer.hpp"
 #include "drape_frontend/watch/feature_processor.hpp"
 
@@ -93,12 +97,36 @@ namespace
 
   char const kRouterTypeKey[] = "router";
   char const kMapStyleKey[] = "MapStyleKeyV1";
+
   char const kAllow3dKey[] = "Allow3d";
   char const kAllow3dBuildingsKey[] = "Buildings3d";
 
   double const kRotationAngle = math::pi4;
   double const kAngleFOV = math::pi / 3.0;
-}
+
+  // TODO!
+  // To adjust GpsTrackFilter was added secret command "?gpstrackaccuracy:xxx;"
+  // where xxx is a new value for horizontal accuracy.
+  // This is temporary solution while we don't have a good filter.
+  void ParseSetGpsTrackMinAccuracyCommand(string const & query)
+  {
+    const char kGpsAccuracy[] = "?gpstrackaccuracy:";
+    if (strings::StartsWith(query, kGpsAccuracy))
+    {
+      size_t const end = query.find(';', sizeof(kGpsAccuracy) - 1);
+      if (end != string::npos)
+      {
+        string s(query.begin() + sizeof(kGpsAccuracy) - 1, query.begin() + end);
+        double value;
+        if (strings::to_double(s, value))
+        {
+          GpsTrackFilter::StoreMinHorizontalAccuracy(value);
+        }
+      }
+    }
+  }
+
+}  // namespace
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
     LocalCountryFile const & localFile)
@@ -204,6 +232,8 @@ Framework::Framework()
   if (!Settings::Get(kMapStyleKey, mapStyle))
     mapStyle = MapStyleClear;
   GetStyleReader().SetCurrentStyle(static_cast<MapStyle>(mapStyle));
+
+  m_connectToGpsTrack = GpsTracker::Instance().IsEnabled();
 
   m_ParsedMapApi.SetBookmarkManager(&m_bmManager);
 
@@ -982,6 +1012,8 @@ bool Framework::Search(search::SearchParams const & params)
   search::SearchParams const & rParams = params;
 #endif
 
+  ParseSetGpsTrackMinAccuracyCommand(params.m_query);
+
   return m_searchEngine->Search(rParams, GetCurrentViewport());
 }
 
@@ -1297,6 +1329,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     if (allow3d && m_routingSession.IsFollowing())
       m_drapeEngine->EnablePerspective(kRotationAngle, kAngleFOV);
   }
+
+  if (m_connectToGpsTrack)
+    GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
@@ -1306,7 +1341,55 @@ ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
 
 void Framework::DestroyDrapeEngine()
 {
+  GpsTracker::Instance().Disconnect();
   m_drapeEngine.reset();
+}
+
+void Framework::ConnectToGpsTracker()
+{
+  m_connectToGpsTrack = true;
+  if (m_drapeEngine)
+  {
+    m_drapeEngine->ClearGpsTrackPoints();
+    GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
+  }
+}
+
+void Framework::DisconnectFromGpsTracker()
+{
+  m_connectToGpsTrack = false;
+  GpsTracker::Instance().Disconnect();
+  if (m_drapeEngine)
+    m_drapeEngine->ClearGpsTrackPoints();
+}
+
+void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
+                                               pair<size_t, size_t> const & toRemove)
+{
+  ASSERT(m_drapeEngine.get() != nullptr, ());
+
+  vector<df::GpsTrackPoint> pointsAdd;
+  pointsAdd.reserve(toAdd.size());
+  for (auto const & ip : toAdd)
+  {
+    df::GpsTrackPoint pt;
+    pt.m_id = ip.first;
+    pt.m_speedMPS = ip.second.m_speed;
+    pt.m_timestamp = ip.second.m_timestamp;
+    pt.m_point = MercatorBounds::FromLatLon(ip.second.m_latitude, ip.second.m_longitude);
+    pointsAdd.emplace_back(pt);
+  }
+
+  vector<uint32_t> indicesRemove;
+  if (toRemove.first != GpsTrack::kInvalidId)
+  {
+    ASSERT_LESS_OR_EQUAL(toRemove.first, toRemove.second, ());
+    indicesRemove.reserve(toRemove.second - toRemove.first + 1);
+    for (size_t i = toRemove.first; i <= toRemove.second; ++i)
+      indicesRemove.emplace_back(i);
+  }
+
+  m_drapeEngine->UpdateGpsTrackPoints(move(pointsAdd), move(indicesRemove));
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)
@@ -1960,12 +2043,8 @@ void Framework::InsertRoute(Route const & route)
   if (m_currentRouterType == RouterType::Vehicle)
     route.GetTurnsDistances(turns);
 
-  dp::Color routeColor;
-  if (m_currentRouterType == RouterType::Pedestrian)
-    routeColor = dp::Color(5, 105, 175, 204);
-  else
-    routeColor = dp::Color(30, 150, 240, 204);
-
+  df::ColorConstant const routeColor = (m_currentRouterType == RouterType::Pedestrian) ?
+                                        df::RoutePedestrian : df::Route;
   m_drapeEngine->AddRoute(route.GetPoly(), turns, routeColor);
 }
 

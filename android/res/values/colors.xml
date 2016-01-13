@@ -1,85 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-  <!-- general text colors -->
-  <color name="text_darkest">#000000</color>
+  <!-- Text colors -->
   <color name="text_dark">#DE000000</color>
   <color name="text_dark_subtitle">#8A000000</color>
-  <color name="text_dark_hint">#42000000</color>
-  <color name="text_light">#DEFFFFFF</color>
-  <color name="text_light_subtitle">#8AFFFFFF</color>
-  <color name="text_light_hint">#42FFFFFF</color>
-  <color name="text_green">#DE1F9952</color>
-  <color name="text_green_subtitle">#8A1F9952</color>
-  <color name="text_green_hint">#421F9952</color>
+  <color name="text_dark_hint">#61000000</color>
+  <color name="text_light">#FFFFFFFF</color>
+  <color name="text_light_subtitle">#B3FFFFFF</color>
+  <color name="text_light_hint">#4CFFFFFF</color>
 
-  <!-- base colors -->
-  <!-- green tints -->
-  <color name="base_green">#209852</color>
-  <color name="base_green_darker">#188044</color>
-  <color name="base_green_darkest">#146636</color>
-  <color name="base_green_light">#24B460</color>
-  <color name="base_green_lightest">#28CC6C</color>
-  <!-- black tints -->
-  <color name="base_black">#DE000000</color>
-  <color name="base_black_hint">#8A000000</color>
-  <color name="base_black_divider">#1E000000</color>
-  <!-- other colors -->
-  <color name="base_blue_light">#1E96F0</color>
-  <color name="base_blue">#0569AF</color>
-  <color name="base_red">#F54137</color>
-  <color name="base_yellow">#FFCD00</color>
-  <color name="base_bg_secondary">#F5F5F5</color>
+  <color name="base_green">#FF1F9952</color>
+  <color name="darker_green">#FF197E46</color>
 
-  <!-- TODO change all colors below, remove old ones-->
-  <color name="semitransparent_white">#99FFFFFF</color>
-  <color name="semitransparent_black">#60000000</color>
-  <color name="semitransparent_black_dark">#BB000000</color>
+  <color name="base_accent">#FF1E96F0</color>
+  <color name="base_accent_night">#FFFFE68C</color>
+  <color name="base_red">#FFF54137</color>
 
-  <color name="divider_standard">@color/base_black_divider</color>
-  <!-- TODO end of unfinished colors-->
+  <color name="icon_tint">#FF757575</color>
+  <color name="icon_tint_night">#FFC4C6C7</color>
 
-  <!-- place page -->
-  <color name="text_place_page">@color/text_dark</color>
-  <color name="text_place_page_subtitle">@color/text_dark_subtitle</color>
-  <color name="text_place_page_buttons">@color/text_dark_subtitle</color>
-  <color name="bg_place_page_buttons">@color/base_bg_secondary</color>
+  <color name="icon_tint_light">#FFBDBDBD</color>
+  <color name="icon_tint_light_night">#FF76797C</color>
 
-  <color name="menu_background_open">#FFFFFFFF</color>
-  <color name="menu_background_closed">#CCFFFFFF</color>
+  <color name="divider">#1E000000</color>
+  <color name="divider_night">#1EFFFFFF</color>
 
-  <!-- TODO change all colors below, remove old ones-->
+  <!-- Backgrounds -->
+  <color name="bg_window">#FFFFFFFF</color>
+  <color name="bg_window_night">#FF32363A</color>
+  <color name="bg_primary">@color/base_green</color>
+  <color name="bg_primary_night">#FF1E2226</color>
+  <color name="bg_panel">#FFF5F5F5</color>
+  <color name="bg_panel_night">#FF3C4044</color>
+  <color name="bg_side_panel">#FFFFFFFF</color>
+  <color name="bg_side_panel_night">@color/bg_panel_night</color>
 
-  <color name="text_place_page_blue">#0288D1</color>
-  <color name="bg_top_panels">#f4ffffff</color>
+  <color name="bg_dialog_translucent">#BB000000</color>
+  <color name="bg_text_translucent">#99FFFFFF</color>
+
+  <color name="bg_menu_open">#FFFFFFFF</color>
+  <color name="bg_menu_open_night">#FF2D3237</color>
+  <color name="bg_menu_closed">#CCFFFFFF</color>
+  <color name="bg_menu_closed_night">#CC2D3237</color>
+
+  <color name="bg_statusbar">@color/darker_green</color>
+  <color name="bg_statusbar_night">#FF000000</color>
+
   <color name="bg_azimut_arrow">#1D414651</color>
-  <color name="fg_azimut_arrow">@android:color/white</color>
+  <color name="fg_azimut_arrow">#FFFFFFFF</color>
 
-  <!-- downloader -->
-  <color name="downloader_green">#179E4D</color>
-  <color name="downloader_blue">#0585ff</color>
-  <color name="downloader_gray">#999999</color>
-  <color name="downloader_gray_bg">#efeff4</color>
-  <color name="downloader_progress_bg">#f0f0f0</color>
+  <!-- Downloader -->
+  <color name="downloader_gray">#FF999999</color>
+  <color name="downloader_spacer">#FFEFEFF4</color>
+  <color name="downloader_spacer_night">@color/divider_night</color>
 
-  <!-- routing-->
-  <color name="routing_blue">#FF2096F3</color>
+  <!-- Routing-->
   <color name="routing_progress">#FF757575</color>
-  <color name="routing_slot_background">@android:color/white</color>
+  <color name="routing_slot_background">#FFFFFFFF</color>
+  <color name="routing_slot_background_night">@color/bg_panel_night</color>
   <color name="routing_slot_background_pressed">#FFF0F0F0</color>
+  <color name="routing_slot_background_pressed_night">@color/bg_window_night</color>
   <color name="routing_slot_shadow">#3D000000</color>
-  <color name="routing_start">@color/base_blue_light</color>
+
+  <color name="routing_start">@color/base_accent</color>
+  <color name="routing_start_night">@color/base_accent_night</color>
   <color name="routing_start_pressed">#FF1C85D6</color>
+  <color name="routing_start_pressed_night">#FFCCB870</color>
   <color name="routing_start_disabled">#FFEFEFEF</color>
-  <color name="routing_start_text">@android:color/white</color>
+  <color name="routing_start_disabled_night">#FF505050</color>
+  <color name="routing_start_text">#FFFFFFFF</color>
+  <color name="routing_start_text_night">#FF000000</color>
   <color name="routing_start_text_disabled">#42000000</color>
+  <color name="routing_start_text_disabled_night">#4CFFFFFF</color>
 
-  <!-- TODO end of unfinished colors-->
 
-  <!-- search -->
+  <color name="bs_divider_color">@color/divider</color>
+  <color name="bs_dark_divider_color">@color/divider_night</color>
+
+  <!-- Search -->
   <color name="search_star_dimmed">#1F000000</color>
 
   <!-- What's new -->
   <color name="news_marker_active">#8A000000</color>
+  <color name="news_marker_active_night">#B3FFFFFF</color>
   <color name="news_marker_inactive">#1F000000</color>
+  <color name="news_marker_inactive_night">#4CFFFFFF</color>
 </resources>

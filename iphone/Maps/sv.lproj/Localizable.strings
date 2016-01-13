@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektivvy";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "Övrigt";
 
 "pref_tts_how_to_set_up_voice" = "Hur man ställer in ljud";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "Senaste resväg";
+
+"duration_disabled" = "Av";
+
+"duration_1_hour" = "1 timme";
+
+"duration_2_hours" = "2 timmar";
+
+"duration_6_hours" = "6 timmar";
+
+"duration_12_hours" = "12 timmar";
+
+"duration_1_day" = "1 dag";
+
+"pref_track_ios_caption" = "Senaste resväg visar den väg du rest.";
+
+"pref_track_ios_subcaption" = "Välj tidsintervall för att spara resvägen.";
 
 "placepage_distance" = "Avstånd";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Aktivera 3D-byggnader";
 
 "whats_new_next_button" = "Nästa";
+
+"whats_new_rec_track_title" = "Med MAPS.ME går du inte vilse";
+
+"whats_new_rec_track_body" = "Appen visar nu din senaste resväg.";

@@ -263,7 +263,7 @@ public class SearchFragment extends BaseMwmFragment
   public void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this, true);
   }
 
   @Override
@@ -331,7 +331,7 @@ public class SearchFragment extends BaseMwmFragment
 
     // change map style for the Map activity
     final int mapStyle = isOld ? Framework.MAP_STYLE_LIGHT : (isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_CLEAR);
-    Framework.setMapStyle(mapStyle);
+    Framework.nativeSetMapStyle(mapStyle);
 
     return true;
   }

@@ -4,43 +4,41 @@
               android:layout_height="match_parent"
               android:gravity="center_horizontal"
               android:orientation="vertical">
-
   <ImageView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:padding="@dimen/margin_base"
-      android:src="@drawable/ic_launcher"/>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:padding="@dimen/margin_base"
+    android:src="@drawable/ic_launcher"/>
 
   <TextView
-      style="@style/MwmWidget.TextView"
-      android:layout_width="wrap_content"
-      android:textSize="20sp"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:padding="@dimen/margin_half"
-      android:text="@string/rating_do_like_maps"/>
+    style="@style/MwmWidget.TextView"
+    android:layout_width="wrap_content"
+    android:textSize="20sp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:padding="@dimen/margin_half"
+    android:text="@string/rating_do_like_maps"/>
 
   <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:fontFamily="@string/robotoLight"
-      android:padding="@dimen/margin_half"
-      android:textSize="14sp"
-      android:text="@string/rating_google_plus"/>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="@string/robotoLight"
+    android:padding="@dimen/margin_half"
+    android:textSize="14sp"
+    android:text="@string/rating_google_plus"/>
 
   <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="?attr/dividerHorizontal"/>
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="?dividerHorizontal"/>
 
   <com.google.android.gms.plus.PlusOneButton
-      android:id="@+id/btn__gplus"
-      xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/margin_half"
-      plus:annotation="inline"
-      plus:size="normal"/>
-
+    android:id="@+id/btn__gplus"
+    xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_half"
+    plus:annotation="inline"
+    plus:size="normal"/>
 </LinearLayout>

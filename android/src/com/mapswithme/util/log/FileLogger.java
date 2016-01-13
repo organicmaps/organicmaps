@@ -1,53 +1,46 @@
 package com.mapswithme.util.log;
 
-import android.util.Log;
-
-import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class FileLogger extends Logger
 {
-  static private volatile FileWriter m_file = null;
-  static private String m_separator;
+  private static final SimpleDateFormat sDate = new SimpleDateFormat("yyyy.MM.dd - HH:mm:ss", Locale.US);
+  private OutputStreamWriter mWriter;
 
   private void write(String str)
   {
     try
     {
-      m_file.write(tag + ": " + str + m_separator);
-      m_file.flush();
-    } catch (IOException ex)
+      mWriter.write(sDate.format(new Date()) + ": " + str + "\n");
+      mWriter.flush();
+    } catch (IOException e)
     {
-      Log.e(tag, ex.toString());
+      e.printStackTrace();
     }
   }
 
-  public FileLogger(String tag, String path)
+  public FileLogger(String fileName)
   {
-    this.tag = tag;
-    if (m_file == null)
+    try
     {
-      synchronized (FileWriter.class)
-      {
-        if (m_file == null)
-        {
-          try
-          {
-            m_file = new FileWriter(path + "android-logging.txt");
-            m_separator = System.getProperty("line.separator");
-          } catch (IOException ex)
-          {
-            Log.e(tag, ex.toString());
-          }
-        }
-      }
+      mWriter = new OutputStreamWriter(new FileOutputStream(new File(fileName), true));
+    } catch (FileNotFoundException e)
+    {
+      e.printStackTrace();
     }
   }
 
   @Override
-  public void d(String message)
+  public synchronized void d(String message)
   {
-    write("Debug: " + message);
+    write(message);
   }
 
   @Override

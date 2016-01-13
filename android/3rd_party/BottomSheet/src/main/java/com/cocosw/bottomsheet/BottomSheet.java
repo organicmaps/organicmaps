@@ -606,7 +606,7 @@ public class BottomSheet extends Dialog implements DialogInterface {
      */
     public static class Builder {
 
-        private final Context context;
+        protected final Context context;
         private int theme;
         private final ActionMenu menu;
         private CharSequence title;
@@ -859,6 +859,10 @@ public class BottomSheet extends Dialog implements DialogInterface {
         public Builder setOnDismissListener(@NonNull OnDismissListener listener) {
             this.dismissListener = listener;
             return this;
+        }
+
+        public Menu getMenu() {
+            return menu;
         }
     }
 

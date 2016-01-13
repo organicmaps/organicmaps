@@ -1,6 +1,6 @@
-@interface MWMSearchHistoryRequestCell : UITableViewCell
+#import "MWMTableViewCell.h"
 
-@property (nonatomic) BOOL isLightTheme;
+@interface MWMSearchHistoryRequestCell : MWMTableViewCell
 
 - (void)config:(NSString *)title;
 

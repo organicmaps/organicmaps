@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Távlati kép";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "Egyéb";
 
 "pref_tts_how_to_set_up_voice" = "Így állítsd be a hangot";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "Legutolsó útvonal";
+
+"duration_disabled" = "Kikapcsolva";
+
+"duration_1_hour" = "1 óra";
+
+"duration_2_hours" = "2 óra";
+
+"duration_6_hours" = "6 óra";
+
+"duration_12_hours" = "12 óra";
+
+"duration_1_day" = "1 nap";
+
+"pref_track_ios_caption" = "A legutolsó útvonal megmutatja, hogy milyen útvonalon haladtál.";
+
+"pref_track_ios_subcaption" = "Válaszd ki az útvonalak elmentésének időtartamát!";
 
 "placepage_distance" = "Távolság";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "3D Épületek engedélyezése";
 
 "whats_new_next_button" = "Következő";
+
+"whats_new_rec_track_title" = "A térkép navigálása kényelmesebb lett";
+
+"whats_new_rec_track_body" = "A MAPS.ME-vel nem fogsz eltévedni";

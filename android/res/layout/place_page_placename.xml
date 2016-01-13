@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-  android:id="@+id/ll__place_name"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?attr/clickableBackground"
-  android:gravity="center_vertical"
-  android:paddingBottom="@dimen/margin_half"
-  android:paddingTop="@dimen/margin_half"
-  android:visibility="gone"
-  tools:background="#6000FF00"
+  android:id="@+id/ll__place_name"
+  style="@style/PlacePageItemFrame"
+  tools:background="#2000FF00"
   tools:visibility="visible">
-
   <ImageView
     android:id="@+id/iv__place_name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
     android:layout_marginRight="@dimen/margin_base"
-    android:src="@drawable/ic_adress"/>
+    android:tint="?iconTint"
+    android:src="@drawable/ic_address"/>
 
   <TextView
     android:id="@+id/tv__place_address"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_toRightOf="@id/iv__place_name"
-    android:textColor="@color/text_place_page"
-    android:textSize="@dimen/text_size_body_1"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage"
     tools:text="Sample place"/>
 
   <TextView

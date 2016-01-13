@@ -1,9 +1,9 @@
 package com.mapswithme.maps.widget;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -52,11 +52,10 @@ public class WheelProgressView extends View
 
   private void init(AttributeSet attrs)
   {
-    final Resources resources = getResources();
     final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.WheelProgressView, 0, 0);
     mStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.WheelProgressView_wheelThickness, DEFAULT_THICKNESS);
-    final int progressColor = typedArray.getColor(R.styleable.WheelProgressView_wheelProgressColor, resources.getColor(R.color.downloader_progress_bg));
-    final int secondaryColor = typedArray.getColor(R.styleable.WheelProgressView_wheelSecondaryColor, resources.getColor(R.color.text_green));
+    final int progressColor = typedArray.getColor(R.styleable.WheelProgressView_wheelProgressColor, Color.WHITE);
+    final int secondaryColor = typedArray.getColor(R.styleable.WheelProgressView_wheelSecondaryColor, Color.GRAY);
     mCenterDrawable = typedArray.getDrawable(R.styleable.WheelProgressView_centerDrawable);
     typedArray.recycle();
 

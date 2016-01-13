@@ -1,5 +1,4 @@
-
-#import <UIKit/UIKit.h>
+#import "MWMTableViewCell.h"
 
 @class SwitchCell;
 @protocol SwitchCellDelegate <NSObject>
@@ -8,11 +7,11 @@
 
 @end
 
-@interface SwitchCell : UITableViewCell
+@interface SwitchCell : MWMTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 @property (weak, nonatomic) IBOutlet UISwitch * switchButton;
 
-@property (weak) id <SwitchCellDelegate> delegate;
+@property (weak) id<SwitchCellDelegate> delegate;
 
 @end

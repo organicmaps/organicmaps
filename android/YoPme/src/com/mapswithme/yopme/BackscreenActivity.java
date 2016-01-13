@@ -25,7 +25,6 @@ import android.widget.TextView;
 import com.mapswithme.location.LocationRequester;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.yopme.map.MapData;
 import com.mapswithme.yopme.map.MapDataProvider;
 import com.mapswithme.yopme.map.MapRenderer;

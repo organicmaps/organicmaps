@@ -1,6 +1,6 @@
-@interface MWMSearchBookmarksCell : UITableViewCell
+#import "MWMTableViewCell.h"
 
-@property (nonatomic) BOOL isLightTheme;
+@interface MWMSearchBookmarksCell : MWMTableViewCell
 
 - (void)configForIndex:(NSInteger)index;
 

@@ -2,7 +2,6 @@
 
 @interface MWMSearchSuggestionCell : MWMSearchCell
 
-@property (nonatomic) BOOL isLightTheme;
 @property (nonatomic) BOOL isLastCell;
 
 + (CGFloat)cellHeight;

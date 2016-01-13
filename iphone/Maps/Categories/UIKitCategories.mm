@@ -1,5 +1,7 @@
-
 #import "Common.h"
+#import "UIButton+Coloring.h"
+#import "UIColor+MapsMeColor.h"
+#import "UIImageView+Coloring.h"
 #import "UIKitCategories.h"
 
 @implementation NSObject (Optimized)
@@ -17,7 +19,6 @@
 }
 
 @end
-
 
 @implementation UIColor (HexColor)
 
@@ -171,7 +172,6 @@
 
 @end
 
-
 @implementation UIApplication (URLs)
 
 - (void)rateVersionFrom:(NSString *)launchPlaceName
@@ -184,7 +184,6 @@
 
 @end
 
-
 @implementation NSString (Size)
 
 - (CGSize)sizeWithDrawSize:(CGSize)drawSize font:(UIFont *)font
@@ -195,7 +194,6 @@
 
 @end
 
-
 @implementation SolidTouchView
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {}
@@ -205,6 +203,141 @@
 
 @end
 
+@implementation UIView (Refresh)
+
+- (void)refresh
+{
+  UIColor * opposite = self.backgroundColor.opposite;
+  if (opposite)
+    self.backgroundColor = opposite;
+
+  for (UIView * v in self.subviews)
+  {
+    if ([v respondsToSelector:@selector(refresh)])
+      [v refresh];
+  }
+}
+
+@end
+
+@implementation UITableViewCell (Refresh)
+
+- (void)refresh
+{
+  [super refresh];
+  [self.selectedBackgroundView refresh];
+}
+
+@end
+
+@implementation UINavigationBar (Refresh)
+
+- (void)refresh
+{
+  UIColor * oppositeTint = self.tintColor.opposite;
+  UIColor * oppositeBar = self.barTintColor.opposite;
+  if (oppositeTint)
+    self.tintColor = oppositeTint;
+  if (oppositeBar)
+    self.barTintColor = oppositeBar;
+}
+
+@end
+
+@implementation UILabel (Refresh)
+
+- (void)refresh
+{
+  [super refresh];
+  UIColor * oppositeText = self.textColor.opposite;
+  if (oppositeText)
+    self.textColor = oppositeText;
+}
+
+@end
+
+@implementation UISlider (Refresh)
+
+- (void)refresh
+{
+  UIColor * opposite = self.minimumTrackTintColor.opposite;
+  if (opposite)
+    self.minimumTrackTintColor = opposite;
+}
+
+@end
+
+@implementation UISwitch (Refresh)
+
+- (void)refresh
+{
+  UIColor * opposite = self.onTintColor.opposite;
+  if (opposite)
+    self.onTintColor = opposite;
+}
+
+@end
+
+@implementation UIButton (Refresh)
+
+- (void)refresh
+{
+  [self changeColoringToOpposite];
+  UIColor * oppositeNormal = [self titleColorForState:UIControlStateNormal].opposite;
+  UIColor * oppositeSelected = [self titleColorForState:UIControlStateSelected].opposite;
+  UIColor * oppositeHightlighted = [self titleColorForState:UIControlStateHighlighted].opposite;
+  UIColor * oppositeDisabled = [self titleColorForState:UIControlStateDisabled].opposite;
+  if (oppositeNormal)
+    [self setTitleColor:oppositeNormal forState:UIControlStateNormal];
+  if (oppositeSelected)
+    [self setTitleColor:oppositeSelected forState:UIControlStateSelected];
+  if (oppositeHightlighted)
+    [self setTitleColor:oppositeHightlighted forState:UIControlStateHighlighted];
+  if (oppositeDisabled)
+    [self setTitleColor:oppositeDisabled forState:UIControlStateDisabled];
+}
+
+@end
+
+@implementation UITextView (Refresh)
+
+- (void)refresh
+{
+  [super refresh];
+  UIColor * oppositeText = self.textColor.opposite;
+  UIColor * oppositeTint = self.tintColor.opposite;
+  if (oppositeText)
+    self.textColor = oppositeText;
+  if (oppositeTint)
+    self.tintColor = oppositeTint;
+}
+
+@end
+
+@implementation UITextField (Refresh)
+
+- (void)refresh
+{
+  [super refresh];
+  UIColor * oppositeText = self.textColor.opposite;
+  UILabel * placeholder = [self valueForKey:@"_placeholderLabel"];
+  UIColor * oppositePlaceholder = placeholder.textColor.opposite;
+  if (oppositeText)
+    self.textColor = oppositeText;
+  if (oppositePlaceholder)
+    placeholder.textColor = oppositePlaceholder;
+}
+
+@end
+
+@implementation UIImageView (Refresh)
+
+- (void)refresh
+{
+  [self changeColoringToOpposite];
+}
+
+@end
 
 @implementation SolidTouchImageView
 
@@ -341,7 +474,6 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
     [originalDelegate didPresentAlertView:alertView];
 }
 
-
 - (void)alertViewCancel:(UIAlertView *)alertView {
   MWMAlertViewBlock block = alertView.cancelBlock;
   
@@ -403,7 +535,6 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
 
 @end
 
-
 @implementation UINavigationController (Autorotate)
 
 - (BOOL)shouldAutorotate
@@ -417,7 +548,6 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
 }
 
 @end
-
 
 @implementation UIImage (ImageWithColor)
 

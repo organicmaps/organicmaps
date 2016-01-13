@@ -31,6 +31,9 @@
   NSArray * subviews = @[self.titleLabel, self.subtitleLabel, self.statusLabel, self.sizeLabel, self.progressView, self.arrowView, self.badgeView, self.routingImageView, self.separator, self.separatorTop, self.separatorBottom];
   for (UIView * subview in subviews)
     [self.contentView addSubview:subview];
+  self.backgroundColor = [UIColor white];
+  self.titleLabel.textColor = [UIColor blackPrimaryText];
+  self.subtitleLabel.textColor = self.statusLabel.textColor = self.sizeLabel.textColor = [UIColor blackHintText];
 
   return self;
 }
@@ -328,7 +331,7 @@
   if (!_separatorTop)
   {
     _separatorTop = [[UIView alloc] initWithFrame:CGRectZero];
-    _separatorTop.backgroundColor = [UIColor colorWithColorCode:@"cecece"];
+    _separatorTop.backgroundColor = [UIColor blackDividers];
   }
   return _separatorTop;
 }
@@ -338,7 +341,7 @@
   if (!_separator)
   {
     _separator = [[UIView alloc] initWithFrame:CGRectZero];
-    _separator.backgroundColor = [UIColor colorWithColorCode:@"cecece"];
+    _separator.backgroundColor = [UIColor blackDividers];
   }
   return _separator;
 }
@@ -348,7 +351,7 @@
   if (!_separatorBottom)
   {
     _separatorBottom = [[UIView alloc] initWithFrame:CGRectZero];
-    _separatorBottom.backgroundColor = [UIColor colorWithColorCode:@"cecece"];
+    _separatorBottom.backgroundColor = [UIColor blackDividers];
   }
   return _separatorBottom;
 }

@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "Facebook.png"
+      "filename" : "ic_settings_fb.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Facebook@2x.png"
+      "filename" : "ic_settings_fb@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "facebook_xxhdpi.png"
+      "filename" : "ic_settings_fb@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

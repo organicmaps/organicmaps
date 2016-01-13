@@ -2,4 +2,6 @@
 
 @interface TableViewController : UITableViewController
 
+- (void)refresh;
+
 @end

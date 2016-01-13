@@ -5,6 +5,7 @@
 #include "drape/utils/projection.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/logging.hpp"
@@ -179,7 +180,8 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, ref_ptr<dp::GpuProgra
 
     // set up uniforms
     dp::UniformValuesStorage uniforms = commonUniforms;
-    glsl::vec4 color = glsl::ToVec4(m_routeData->m_color);
+    glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(GetStyleReader().GetCurrentStyle(),
+                                                               m_routeData->m_color));
     uniforms.SetFloatValue("u_color", color.r, color.g, color.b, alpha);
     uniforms.SetFloatValue("u_routeParams", halfWidth, halfWidth * screen.GetScale(), m_distanceFromBegin);
 

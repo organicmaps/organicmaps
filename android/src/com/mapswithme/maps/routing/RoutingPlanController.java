@@ -3,9 +3,13 @@ package com.mapswithme.maps.routing;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -15,6 +19,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -42,6 +47,26 @@ public class RoutingPlanController extends ToolbarController
   private int mToolbarHeight;
   private boolean mOpen;
 
+  private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
+  {
+    CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener()
+    {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+      {
+        buttonView.setButtonDrawable(Graphics.tint(mActivity, iconRes, isChecked ? R.attr.colorAccent
+                                                                                 : R.attr.iconTint));
+      }
+    };
+
+    RadioButton rb = (RadioButton)mRouterTypes.findViewById(buttonId);
+    listener.onCheckedChanged(rb, false);
+    rb.setOnCheckedChangeListener(listener);
+    rb.setOnClickListener(clickListener);
+
+    return rb;
+  }
+
   public RoutingPlanController(View root, Activity activity)
   {
     super(root, activity);
@@ -49,19 +74,12 @@ public class RoutingPlanController extends ToolbarController
 
     mToggle = (ImageView) mToolbar.findViewById(R.id.toggle);
     mSlotFrame = (SlotFrame) root.findViewById(R.id.slots);
-    mSlotFrame.setOnSlotClickListener(new SlotFrame.OnSlotClickListener()
-    {
-      @Override
-      public void OnSlotClick(int slotId)
-      {
-        RoutingController.get().searchPoi(slotId);
-      }
-    });
 
     View planFrame = root.findViewById(R.id.planning_frame);
 
     mRouterTypes = (RadioGroup) planFrame.findViewById(R.id.route_type);
-    mRouterTypes.findViewById(R.id.vehicle).setOnClickListener(new View.OnClickListener()
+
+    setupRouterButton(R.id.vehicle, R.drawable.ic_drive, new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -72,7 +90,7 @@ public class RoutingPlanController extends ToolbarController
       }
     });
 
-    mRouterTypes.findViewById(R.id.pedestrian).setOnClickListener(new View.OnClickListener()
+    setupRouterButton(R.id.pedestrian, R.drawable.ic_walk, new View.OnClickListener()
     {
       @Override
       public void onClick(View v)

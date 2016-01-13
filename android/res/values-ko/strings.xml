@@ -316,6 +316,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">다른 언어</string>
 	<string name="pref_tts_how_to_set_up_voice">음성 설정 방법</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">최근 추적</string>
+	<string name="duration_disabled">선택 안 함</string>
+	<string name="duration_1_hour">1시간</string>
+	<string name="duration_2_hours">2시간</string>
+	<string name="duration_6_hours">6시간</string>
+	<string name="duration_12_hours">12시간</string>
+	<string name="duration_1_day">1일</string>
+	<string name="pref_track_ios_caption">최근 추적은 여행한 경로를 보여줍니다.</string>
+	<string name="pref_track_ios_subcaption">추적을 저장하는 시간 범위를 선택하십시오.</string>
 	<string name="placepage_distance">거리</string>
 	<string name="placepage_coordinates">좌표</string>
 	<string name="placepage_unsorted">분류되지 않음</string>
@@ -805,4 +815,6 @@
 	<string name="whats_new_3d_on">원근 보기 활성</string>
 	<string name="whats_new_3d_buildings_on">3D 빌딩 보기 활성</string>
 	<string name="whats_new_next_button">다음</string>
+	<string name="whats_new_rec_track_title">MAPS.ME로 길을 잃지 않을 것입니다</string>
+	<string name="whats_new_rec_track_body">지금 앱은 최근 여행한 경로를 보여줍니다.</string>
 </resources>

@@ -19,11 +19,10 @@
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
 
-- (void)onEnterForeground;
-
 #pragma mark - Layout
 
 - (void)refreshLayout;
+- (void)refresh;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration;

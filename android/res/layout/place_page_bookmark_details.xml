@@ -10,7 +10,6 @@
     android:paddingBottom="@dimen/margin_base"
     android:visibility="invisible"
     tools:visibility="visible">
-
   <View android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?attr/dividerHorizontal"/>
@@ -54,8 +53,7 @@
         android:paddingBottom="@dimen/margin_half"
         android:paddingRight="@dimen/margin_half"
         android:paddingTop="@dimen/margin_half"
-        android:textColor="@color/text_place_page"
-        android:textSize="@dimen/text_size_body_1"/>
+        android:textAppearance="@style/MwmTextAppearance.PlacePage"/>
 
     <View
         android:layout_width="match_parent"
@@ -73,7 +71,7 @@
         android:layout_centerVertical="true"
         android:background="?attr/clickableBackground"
         android:padding="@dimen/margin_half"
-        android:src="@drawable/color_picker_red_on"/>
+        tools:src="@drawable/ic_bookmark_marker_red_on"/>
   </RelativeLayout>
 
   <TextView

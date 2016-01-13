@@ -6,6 +6,7 @@
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageViewManager.h"
 #import "SelectSetVC.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 #import "ViewController.h"
 
@@ -28,6 +29,7 @@ static CGFloat const kKeyboardOffset = 12.;
   self = [super init];
   if (self)
   {
+    self.view.backgroundColor = [UIColor white];
     self.placePageView = ppView;
     self.actionBarView = actionBar;
     [self.view addSubview:ppView];
@@ -156,7 +158,7 @@ static CGFloat const kKeyboardOffset = 12.;
   [self.manager addSubviews:@[ self.navigationController.view ]
       withNavigationController:self.navigationController];
   self.anchorImageView.image = nil;
-  self.anchorImageView.backgroundColor = [UIColor whiteColor];
+  self.anchorImageView.backgroundColor = [UIColor white];
   [self configureContentInset];
 }
 

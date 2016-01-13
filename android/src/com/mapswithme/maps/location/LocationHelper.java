@@ -15,17 +15,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.util.Listeners;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
@@ -43,7 +40,8 @@ public enum LocationHelper implements SensorEventListener
   public static final int ERROR_GPS_OFF = 3;
 
   public static final String LOCATION_PREDICTOR_PROVIDER = "LocationPredictorProvider";
-  private static final long STOP_DELAY = 5000;
+  private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
+  private static final long STOP_DELAY_MS = 5000;
 
   public interface LocationListener
   {
@@ -52,9 +50,9 @@ public enum LocationHelper implements SensorEventListener
     void onLocationError(int errorCode);
   }
 
-  private final Set<LocationListener> mListeners = new LinkedHashSet<>();
-  private final List<LocationListener> mListenersToRemove = new ArrayList<>();
-  private boolean mIteratingListener;
+  private final Listeners<LocationListener> mListeners = new Listeners<>();
+
+  private boolean mActive;
 
   private Location mLastLocation;
   private MapObject.MyPosition mMyPosition;
@@ -76,6 +74,10 @@ public enum LocationHelper implements SensorEventListener
     @Override
     public void run()
     {
+      if (!mActive)
+        return;
+
+      mActive = false;
       mLocationProvider.stopUpdates();
       mMagneticField = null;
       if (mSensorManager != null)
@@ -93,6 +95,15 @@ public enum LocationHelper implements SensorEventListener
       mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
       mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
+
+    MwmApplication.backgroundTracker().addListener(new AppBackgroundTracker.OnTransitionListener()
+    {
+      @Override
+      public void onTransit(boolean foreground)
+      {
+        setForegroundMode();
+      }
+    });
   }
 
   @SuppressWarnings("deprecation")
@@ -135,7 +146,8 @@ public enum LocationHelper implements SensorEventListener
       mLocationProvider = new AndroidNativeProvider();
     }
 
-    if (!mListeners.isEmpty())
+    mActive = !mListeners.isEmpty();
+    if (mActive)
       mLocationProvider.startUpdates();
   }
 
@@ -168,98 +180,76 @@ public enum LocationHelper implements SensorEventListener
     notifyLocationUpdated();
   }
 
-  private void startIteratingListeners()
-  {
-    mIteratingListener = true;
-  }
-
-  private void finishIteratingListeners()
-  {
-    mIteratingListener = false;
-    if (!mListenersToRemove.isEmpty())
-    {
-      mListeners.removeAll(mListenersToRemove);
-      mListenersToRemove.clear();
-    }
-  }
-
-  void notifyLocationUpdated()
+  protected void notifyLocationUpdated()
   {
     if (mLastLocation == null)
       return;
 
-    startIteratingListeners();
     for (LocationListener listener : mListeners)
       listener.onLocationUpdated(mLastLocation);
-    finishIteratingListeners();
+    mListeners.finishIterate();
   }
 
-  void notifyLocationError(int errCode)
+  protected void notifyLocationError(int errCode)
   {
-    startIteratingListeners();
     for (LocationListener listener : mListeners)
       listener.onLocationError(errCode);
-    finishIteratingListeners();
+    mListeners.finishIterate();
   }
 
   private void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    startIteratingListeners();
     for (LocationListener listener : mListeners)
       listener.onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
-    finishIteratingListeners();
+    mListeners.finishIterate();
   }
 
   @android.support.annotation.UiThread
-  public void addLocationListener(LocationListener listener)
+  public void addLocationListener(LocationListener listener, boolean forceUpdate)
   {
     UiThread.cancelDelayedTasks(mStopLocationTask);
+
     if (mListeners.isEmpty())
+    {
+      mActive = true;
       mLocationProvider.startUpdates();
-    mListeners.add(listener);
-    notifyLocationUpdated();
+    }
+
+    mListeners.register(listener);
+
+    if (forceUpdate)
+      notifyLocationUpdated();
   }
 
   @android.support.annotation.UiThread
   public void removeLocationListener(LocationListener listener)
   {
-    boolean empty = false;
-    if (mIteratingListener)
-    {
-      if (mListeners.contains(listener))
-      {
-        mListenersToRemove.add(listener);
-        empty = (mListeners.size() == 1);
-      }
-    }
-    else
-    {
-      mListeners.remove(listener);
-      empty = mListeners.isEmpty();
-    }
+    boolean wasEmpty = mListeners.isEmpty();
+    mListeners.unregister(listener);
 
-    if (empty)
+    if (!wasEmpty && mListeners.isEmpty())
       // Make a delay with disconnection from location providers, so that orientation changes and short app sleeps
       // doesn't take long time to connect again.
-      UiThread.runLater(mStopLocationTask, STOP_DELAY);
+      UiThread.runLater(mStopLocationTask, STOP_DELAY_MS);
   }
 
   void registerSensorListeners()
   {
     if (mSensorManager != null)
     {
-      final int COMPASS_REFRESH_MKS = SensorManager.SENSOR_DELAY_UI;
-
       if (mAccelerometer != null)
-        mSensorManager.registerListener(this, mAccelerometer, COMPASS_REFRESH_MKS);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
       if (mMagnetometer != null)
-        mSensorManager.registerListener(this, mMagnetometer, COMPASS_REFRESH_MKS);
+        mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_UI);
     }
   }
 
   @Override
   public void onSensorChanged(SensorEvent event)
   {
+    if (!MwmApplication.get().isFrameworkInitialized())
+      return;
+
     boolean hasOrientation = false;
 
     switch (event.sensor.getType())
@@ -298,8 +288,6 @@ public enum LocationHelper implements SensorEventListener
     }
   }
 
-  private native float[] nativeUpdateCompassSensor(int ind, float[] arr);
-
   @Override
   public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
@@ -309,9 +297,34 @@ public enum LocationHelper implements SensorEventListener
     {
       // Recreate magneticField if location has changed significantly
       if (mMagneticField == null || mLastLocation == null ||
-          newLocation.distanceTo(mLastLocation) > BaseLocationProvider.DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M)
+          newLocation.distanceTo(mLastLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M)
         mMagneticField = new GeomagneticField((float) newLocation.getLatitude(), (float) newLocation.getLongitude(),
             (float) newLocation.getAltitude(), newLocation.getTime());
     }
   }
+
+  private void setForegroundMode()
+  {
+    if (!mActive)
+      return;
+
+    mLocationProvider.stopUpdates();
+    if (!mListeners.isEmpty())
+      mLocationProvider.startUpdates();
+  }
+
+  public static void onLocationUpdated(@NonNull Location location)
+  {
+    nativeLocationUpdated(location.getTime(),
+                          location.getLatitude(),
+                          location.getLongitude(),
+                          location.getAccuracy(),
+                          location.getAltitude(),
+                          location.getSpeed(),
+                          location.getBearing());
+  }
+
+  public static native void nativeOnLocationError(int errorCode);
+  private static native void nativeLocationUpdated(long time, double lat, double lon, float accuracy, double altitude, float speed, float bearing);
+  private static native float[] nativeUpdateCompassSensor(int ind, float[] arr);
 }

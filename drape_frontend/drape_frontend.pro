@@ -38,10 +38,13 @@ SOURCES += \
     base_renderer.cpp \
     batchers_pool.cpp \
     circle_shape.cpp \
+    color_constants.cpp \
     drape_engine.cpp \
     engine_context.cpp \
     framebuffer.cpp \
     frontend_renderer.cpp \
+    gps_track_renderer.cpp \
+    gps_track_shape.cpp \
     line_shape.cpp \
     line_shape_helper.cpp \
     map_data_provider.cpp \
@@ -122,10 +125,14 @@ HEADERS += \
     base_renderer.hpp \
     batchers_pool.hpp \
     circle_shape.hpp \
+    color_constants.hpp \
     drape_engine.hpp \
     engine_context.hpp \
     framebuffer.hpp \
     frontend_renderer.hpp \
+    gps_track_point.hpp \
+    gps_track_renderer.hpp \
+    gps_track_shape.hpp \
     intrusive_vector.hpp \
     line_shape.hpp \
     line_shape_helper.hpp \

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/route_shape.hpp"
 
 #include "drape/pointers.hpp"
@@ -22,7 +23,7 @@ public:
                TFlushRouteSignFn const & flushRouteSignFn);
 
   void Build(m2::PolylineD const & routePolyline, vector<double> const & turns,
-             dp::Color const & color, ref_ptr<dp::TextureManager> textures);
+             df::ColorConstant color, ref_ptr<dp::TextureManager> textures);
 
   void BuildSign(m2::PointD const & pos, bool isStart, bool isValid,
                  ref_ptr<dp::TextureManager> textures);

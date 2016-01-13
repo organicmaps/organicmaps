@@ -1,5 +1,6 @@
 package com.mapswithme.maps.base;
 
+import android.app.Activity;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,17 +8,40 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.ViewServer;
-import com.mapswithme.util.statistics.Statistics;
 
 public class BaseMwmFragmentActivity extends AppCompatActivity
+                                  implements BaseActivity
 {
+  private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
+
+  @Override
+  public Activity get()
+  {
+    return this;
+  }
+
+  @Override
+  public int getThemeResourceId(String theme)
+  {
+    if (ThemeUtils.isDefaultTheme(theme))
+        return R.style.MwmTheme;
+
+    if (ThemeUtils.isNightTheme(theme))
+      return R.style.MwmTheme_Night;
+
+    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+  }
+
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
+    mBaseDelegate.onCreate();
+
     super.onCreate(savedInstanceState);
     setVolumeControlStream(AudioManager.STREAM_MUSIC);
     final int layoutId = getContentLayoutResId();
@@ -33,30 +57,36 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
 
     MwmApplication.get().initNativeCore();
     MwmApplication.get().initCounters();
-    ViewServer.get(this).addWindow(this);
 
     attachDefaultFragment();
+  }
+
+  @Override
+  protected void onPostCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.onPostCreate(savedInstanceState);
+    mBaseDelegate.onPostCreate();
   }
 
   @Override
   protected void onDestroy()
   {
     super.onDestroy();
-    ViewServer.get(this).removeWindow(this);
+    mBaseDelegate.onDestroy();
   }
 
   @Override
   protected void onStart()
   {
     super.onStart();
-    Statistics.INSTANCE.startActivity(this);
+    mBaseDelegate.onStart();
   }
 
   @Override
   protected void onStop()
   {
     super.onStop();
-    Statistics.INSTANCE.stopActivity(this);
+    mBaseDelegate.onStop();
   }
 
   @Override
@@ -67,24 +97,27 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
       onBackPressed();
       return true;
     }
-    else
-      return super.onOptionsItemSelected(item);
+    return super.onOptionsItemSelected(item);
   }
 
   @Override
   protected void onResume()
   {
     super.onResume();
-    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName()
-        + ":" + com.mapswithme.util.UiUtils.deviceOrientationAsString(this));
-    ViewServer.get(this).setFocusedWindow(this);
+    mBaseDelegate.onResume();
+  }
+
+  @Override
+  protected void onPostResume() {
+    super.onPostResume();
+    mBaseDelegate.onPostResume();
   }
 
   @Override
   protected void onPause()
   {
     super.onPause();
-    org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
+    mBaseDelegate.onPause();
   }
 
   protected Toolbar getToolbar()

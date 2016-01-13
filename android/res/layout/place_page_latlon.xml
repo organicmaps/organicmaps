@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll__place_latlon"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/clickableBackground"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/margin_half"
-    android:paddingTop="@dimen/margin_half"
-    android:tag="latlon"
-    tools:background="#20FF0000">
-
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_latlon"
+  style="@style/PlacePageItemFrame"
+  android:visibility="visible"
+  android:tag="latlon"
+  tools:background="#20FF0000">
   <ImageView
-      android:id="@+id/iv__place_latlon"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_base"
-      android:src="@drawable/ic_coordinates"/>
+    android:id="@+id/iv__place_latlon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/margin_base"
+    android:src="@drawable/ic_coordinates"
+    android:tint="?iconTint"/>
 
   <TextView
-      android:id="@+id/tv__place_latlon"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textColor="@color/text_place_page"
-      android:textSize="@dimen/text_size_body_1"
-      tools:text="55.747, 37.616"/>
+    android:id="@+id/tv__place_latlon"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage"
+    tools:text="55.747, 37.616"/>
 </LinearLayout>

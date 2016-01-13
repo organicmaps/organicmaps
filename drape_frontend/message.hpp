@@ -46,7 +46,11 @@ public:
     Invalidate,
     Allow3dMode,
     Allow3dBuildings,
-    EnablePerspective
+    EnablePerspective,
+    CacheGpsTrackPoints,
+    FlushGpsTrackPoints,
+    UpdateGpsTrackPoints,
+    ClearGpsTrackPoints
   };
 
   virtual ~Message() {}

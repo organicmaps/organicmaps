@@ -179,6 +179,11 @@
 		67E91C7C1BDFC85E005CEE88 /* selection_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947701BDF9BE0005014C0 /* selection_shape.cpp */; };
 		67E91C7D1BDFC85E005CEE88 /* user_marks_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709478B1BDF9BE0005014C0 /* user_marks_provider.cpp */; };
 		67E91C7E1BDFC85E005CEE88 /* visual_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709478F1BDF9BE1005014C0 /* visual_params.cpp */; };
+		F6B283101C1B04680081957A /* gps_track_point.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830B1C1B04680081957A /* gps_track_point.hpp */; };
+		F6B283111C1B04680081957A /* gps_track_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */; };
+		F6B283121C1B04680081957A /* gps_track_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */; };
+		F6B283131C1B04680081957A /* gps_track_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B2830E1C1B04680081957A /* gps_track_shape.cpp */; };
+		F6B283141C1B04680081957A /* gps_track_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B2830F1C1B04680081957A /* gps_track_shape.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -357,6 +362,11 @@
 		675D218B1BFB871D00717E4F /* text_engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = text_engine.h; sourceTree = "<group>"; };
 		677A2DE31C0DD55D00635A00 /* requested_tiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = requested_tiles.cpp; sourceTree = "<group>"; };
 		677A2DE41C0DD55D00635A00 /* requested_tiles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = requested_tiles.hpp; sourceTree = "<group>"; };
+		F6B2830B1C1B04680081957A /* gps_track_point.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_point.hpp; sourceTree = "<group>"; };
+		F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_renderer.cpp; sourceTree = "<group>"; };
+		F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_renderer.hpp; sourceTree = "<group>"; };
+		F6B2830E1C1B04680081957A /* gps_track_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_shape.cpp; sourceTree = "<group>"; };
+		F6B2830F1C1B04680081957A /* gps_track_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_shape.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,6 +406,11 @@
 				6743D36A1C3A9F090095054B /* framebuffer.hpp */,
 				6743D36B1C3A9F090095054B /* transparent_layer.cpp */,
 				6743D36C1C3A9F090095054B /* transparent_layer.hpp */,
+				F6B2830B1C1B04680081957A /* gps_track_point.hpp */,
+				F6B2830C1C1B04680081957A /* gps_track_renderer.cpp */,
+				F6B2830D1C1B04680081957A /* gps_track_renderer.hpp */,
+				F6B2830E1C1B04680081957A /* gps_track_shape.cpp */,
+				F6B2830F1C1B04680081957A /* gps_track_shape.hpp */,
 				677A2DE31C0DD55D00635A00 /* requested_tiles.cpp */,
 				677A2DE41C0DD55D00635A00 /* requested_tiles.hpp */,
 				670948511BDF9C5F005014C0 /* watch */,
@@ -619,9 +634,11 @@
 				670947F91BDF9BF5005014C0 /* area_shape.hpp in Headers */,
 				670947991BDF9BE1005014C0 /* map_data_provider.hpp in Headers */,
 				670947BC1BDF9BE1005014C0 /* route_shape.hpp in Headers */,
+				F6B283121C1B04680081957A /* gps_track_renderer.hpp in Headers */,
 				670948721BDF9C7F005014C0 /* feature_styler.hpp in Headers */,
 				6709484E1BDF9C48005014C0 /* shape.hpp in Headers */,
 				6743D3721C3A9F090095054B /* transparent_layer.hpp in Headers */,
+				F6B283101C1B04680081957A /* gps_track_point.hpp in Headers */,
 				670947B61BDF9BE1005014C0 /* render_node.hpp in Headers */,
 				6709484C1BDF9C48005014C0 /* ruler.hpp in Headers */,
 				670947AE1BDF9BE1005014C0 /* poi_symbol_shape.hpp in Headers */,
@@ -642,6 +659,7 @@
 				670947E51BDF9BEC005014C0 /* engine_context.hpp in Headers */,
 				6743D3701C3A9F090095054B /* framebuffer.hpp in Headers */,
 				670947D11BDF9BE1005014C0 /* tile_tree_builder.hpp in Headers */,
+				F6B283141C1B04680081957A /* gps_track_shape.hpp in Headers */,
 				670947BE1BDF9BE1005014C0 /* rule_drawer.hpp in Headers */,
 				6709487C1BDF9C7F005014C0 /* pen_info.hpp in Headers */,
 				6709487D1BDF9C7F005014C0 /* point.h in Headers */,
@@ -789,6 +807,7 @@
 				670947C41BDF9BE1005014C0 /* text_handle.cpp in Sources */,
 				670947BD1BDF9BE1005014C0 /* rule_drawer.cpp in Sources */,
 				6709481E1BDF9C39005014C0 /* show_hide_animation.cpp in Sources */,
+				F6B283131C1B04680081957A /* gps_track_shape.cpp in Sources */,
 				6709483D1BDF9C48005014C0 /* copyright_label.cpp in Sources */,
 				670947C81BDF9BE1005014C0 /* text_shape.cpp in Sources */,
 				670947CC1BDF9BE1005014C0 /* tile_info.cpp in Sources */,
@@ -827,6 +846,7 @@
 				6709479B1BDF9BE1005014C0 /* memory_feature_index.cpp in Sources */,
 				670947E61BDF9BEC005014C0 /* frontend_renderer.cpp in Sources */,
 				670947D41BDF9BE1005014C0 /* tile_utils.cpp in Sources */,
+				F6B283111C1B04680081957A /* gps_track_renderer.cpp in Sources */,
 				670947C61BDF9BE1005014C0 /* text_layout.cpp in Sources */,
 				670948161BDF9C39005014C0 /* interpolation_holder.cpp in Sources */,
 				670947B71BDF9BE1005014C0 /* route_builder.cpp in Sources */,

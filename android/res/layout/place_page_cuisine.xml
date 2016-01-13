@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-  android:id="@+id/ll__place_cuisine"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?attr/clickableBackground"
-  android:gravity="center_vertical"
-  android:orientation="horizontal"
-  android:paddingBottom="@dimen/margin_half"
-  android:paddingTop="@dimen/margin_half"
+  android:id="@+id/ll__place_cuisine"
+  style="@style/PlacePageItemFrame"
   android:tag="schedule"
-  android:visibility="gone"
-  android:clickable="true"
   tools:visibility="visible">
-
   <ImageView
     android:id="@+id/iv__place_cuisine"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginRight="@dimen/margin_base"
+    android:tint="?iconTint"
     android:src="@drawable/ic_cuisine"/>
 
   <TextView
     android:id="@+id/tv__place_cuisine"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="@color/text_place_page"
-    android:textSize="@dimen/text_size_body_1"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage"
     tools:text="Japan, European"/>
 </LinearLayout>

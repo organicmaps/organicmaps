@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="New York Cafe" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="220" translatesAutoresizingMaskIntoConstraints="NO" id="4FD-RE-ffF" customClass="MWMMultilineLabel">
@@ -40,6 +40,9 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="ZWt-cn-KrT"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8w-dT-7B1" userLabel="ClosedBackground">
                         <rect key="frame" x="248" y="16" width="56" height="16"/>
@@ -51,7 +54,7 @@
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whiteColor"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="white"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="closed"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
@@ -113,40 +116,55 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aNp-Yw-io2">
                                 <rect key="frame" x="7" y="0.0" width="113" height="14"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" tag="1" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star_off_light" highlightedImage="hotel_star_on_light" translatesAutoresizingMaskIntoConstraints="NO" id="yWm-az-pkX">
+                                    <imageView userInteractionEnabled="NO" tag="1" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star" translatesAutoresizingMaskIntoConstraints="NO" id="yWm-az-pkX">
                                         <rect key="frame" x="2" y="2" width="11" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="PlQ-4v-w8M"/>
                                             <constraint firstAttribute="width" constant="11" id="jwv-No-JFH"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMGray"/>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star_off_light" highlightedImage="hotel_star_on_light" translatesAutoresizingMaskIntoConstraints="NO" id="fU0-W2-tgC">
+                                    <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star" translatesAutoresizingMaskIntoConstraints="NO" id="fU0-W2-tgC">
                                         <rect key="frame" x="17" y="2" width="11" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="11" id="12P-aP-Fcq"/>
                                             <constraint firstAttribute="height" constant="10" id="fci-53-ClD"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMGray"/>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star_off_light" highlightedImage="hotel_star_on_light" translatesAutoresizingMaskIntoConstraints="NO" id="E8B-4H-1PX">
+                                    <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star" translatesAutoresizingMaskIntoConstraints="NO" id="E8B-4H-1PX">
                                         <rect key="frame" x="32" y="2" width="11" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="ZSp-E8-lN4"/>
                                             <constraint firstAttribute="width" constant="11" id="wJe-R5-W1w"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMGray"/>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star_off_light" highlightedImage="hotel_star_on_light" translatesAutoresizingMaskIntoConstraints="NO" id="RuV-jO-kmE">
+                                    <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star" translatesAutoresizingMaskIntoConstraints="NO" id="RuV-jO-kmE">
                                         <rect key="frame" x="47" y="2" width="11" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="11" id="FuT-Ha-33O"/>
                                             <constraint firstAttribute="height" constant="10" id="QrV-px-9rk"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMGray"/>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star_off_light" highlightedImage="hotel_star_on_light" translatesAutoresizingMaskIntoConstraints="NO" id="A5b-Hv-xec">
+                                    <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star" translatesAutoresizingMaskIntoConstraints="NO" id="A5b-Hv-xec">
                                         <rect key="frame" x="62" y="2" width="11" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="11" id="5Ka-eP-MPM"/>
                                             <constraint firstAttribute="height" constant="10" id="AcP-KG-fP6"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMGray"/>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -177,6 +195,9 @@
                             <constraint firstItem="aNp-Yw-io2" firstAttribute="leading" secondItem="tUT-ew-nNT" secondAttribute="trailing" constant="2" id="jed-QI-J5C"/>
                             <constraint firstAttribute="width" constant="120" id="w0I-4z-Bix"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Russia, Moscow &amp; Central, Moscow" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="220" translatesAutoresizingMaskIntoConstraints="NO" id="6pc-4s-GyP" customClass="MWMMultilineLabel">
                         <rect key="frame" x="16" y="54" width="220" height="14"/>
@@ -212,6 +233,9 @@
                     <constraint firstAttribute="trailing" secondItem="HGm-lZ-JNr" secondAttribute="trailing" id="xt0-86-Efu"/>
                 </constraints>
             </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="closedView" destination="V8w-dT-7B1" id="5by-Nb-6Ch"/>
                 <outlet property="distanceLabel" destination="P8X-Xp-AaE" id="Kaw-aR-8uJ"/>
@@ -230,7 +254,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="hotel_star_off_light" width="11" height="10"/>
-        <image name="hotel_star_on_light" width="11" height="10"/>
+        <image name="hotel_star" width="12" height="12"/>
     </resources>
 </document>

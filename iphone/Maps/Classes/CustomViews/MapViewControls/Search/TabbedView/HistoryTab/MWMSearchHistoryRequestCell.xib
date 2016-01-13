@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,15 +11,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_history_label_light" translatesAutoresizingMaskIntoConstraints="NO" id="k5o-Xw-buz" userLabel="Icon">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_history_label" translatesAutoresizingMaskIntoConstraints="NO" id="k5o-Xw-buz" userLabel="Icon">
                         <rect key="frame" x="16" y="8" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="Gjo-VG-g4T"/>
                             <constraint firstAttribute="width" constant="28" id="jp9-B7-91r"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0x-sD-vTW" userLabel="Separator">
                         <rect key="frame" x="60" y="43" width="260" height="1"/>
@@ -27,6 +30,9 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="bSd-Nh-svm"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="244" translatesAutoresizingMaskIntoConstraints="NO" id="t8W-bQ-Jgd" userLabel="Request label" customClass="MWMMultilineLabel">
                         <rect key="frame" x="60" y="12" width="244" height="20"/>
@@ -35,7 +41,7 @@
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
@@ -51,6 +57,9 @@
                     <constraint firstAttribute="trailing" secondItem="t8W-bQ-Jgd" secondAttribute="trailing" constant="16" id="w0g-Q7-D2m"/>
                 </constraints>
             </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="icon" destination="k5o-Xw-buz" id="RKY-vZ-6lM"/>
                 <outlet property="title" destination="t8W-bQ-Jgd" id="yYX-rB-2pk"/>
@@ -58,6 +67,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_history_label_light" width="28" height="28"/>
+        <image name="ic_history_label" width="28" height="28"/>
     </resources>
 </document>

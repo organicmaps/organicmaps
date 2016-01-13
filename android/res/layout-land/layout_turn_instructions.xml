@@ -5,7 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="@color/bg_top_panels"
+  android:background="?panel"
   android:clipToPadding="false"
   android:elevation="@dimen/appbar_elevation"
   android:paddingTop="@dimen/margin_eighth">
@@ -18,7 +18,7 @@
     app:progressColor="@color/routing_progress"
     app:headColor="@color/routing_progress"
     app:progressThickness="2dp"
-    app:secondaryProgressColor="@color/base_black_divider"
+    app:secondaryProgressColor="@color/divider"
     app:secondaryProgressThickness="2dp"/>
 
   <ImageView
@@ -32,6 +32,7 @@
     android:layout_marginTop="@dimen/margin_base_plus"
     android:background="?attr/selectableItemBackgroundBorderless"
     android:scaleType="center"
+    android:tint="?iconTint"
     android:src="@drawable/ic_cancel"/>
 
   <FrameLayout
@@ -47,7 +48,8 @@
       android:id="@+id/iv__turn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:src="@drawable/ic_round"/>
+      android:tint="?colorAccent"
+      tools:src="@drawable/ic_turn_round"/>
 
     <TextView
       android:id="@+id/tv__exit_num"
@@ -55,7 +57,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:textAppearance="@style/MwmTextAppearance.Title"
-      android:textColor="@color/routing_blue"
+      android:textColor="?colorAccent"
       android:visibility="gone"
       tools:text="2"
       tools:visibility="visible"/>
@@ -68,8 +70,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_toRightOf="@id/turn"
-    android:textAppearance="@style/MwmTextAppearance.Display1.Plus"
-    android:textColor="@color/routing_blue"
+    android:textAppearance="@style/MwmTextAppearance.RoutingDirection"
     tools:text="300 m"/>
 
   <TextView

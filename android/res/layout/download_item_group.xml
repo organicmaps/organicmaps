@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/clickableBackground"
-                android:minHeight="?android:attr/listPreferredItemHeight">
-
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?attr/clickableBackground"
+  android:minHeight="?android:listPreferredItemHeight">
   <TextView
-      android:id="@+id/title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:layout_marginLeft="@dimen/margin_base"
-      android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
+    android:id="@+id/title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    tools:text="Some item"/>
 </RelativeLayout>

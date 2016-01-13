@@ -1,10 +1,12 @@
+#import "MWMTableViewCell.h"
+
 @protocol AddSetTableViewCellProtocol <NSObject>
 
 - (void)onDone:(NSString *)text;
 
 @end
 
-@interface AddSetTableViewCell : UITableViewCell
+@interface AddSetTableViewCell : MWMTableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextField * textField;
 

@@ -83,6 +83,8 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/MapFragment.cpp \
 	com/mapswithme/maps/MwmApplication.cpp \
 	com/mapswithme/maps/LocationState.cpp \
+	com/mapswithme/maps/LocationHelper.cpp \
+	com/mapswithme/maps/TrackRecorder.cpp \
 	com/mapswithme/maps/MapStorage.cpp \
 	com/mapswithme/maps/DownloadResourcesActivity.cpp \
 	com/mapswithme/maps/PrivateVariables.cpp \

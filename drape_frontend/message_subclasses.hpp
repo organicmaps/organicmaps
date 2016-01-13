@@ -4,6 +4,9 @@
 #include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/gui/skin.hpp"
 
+#include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/gps_track_point.hpp"
+#include "drape_frontend/gps_track_shape.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/selection_shape.hpp"
@@ -512,7 +515,7 @@ private:
 class AddRouteMessage : public Message
 {
 public:
-  AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns, dp::Color const & color)
+  AddRouteMessage(m2::PolylineD const & routePolyline, vector<double> const & turns, df::ColorConstant color)
     : m_routePolyline(routePolyline)
     , m_color(color)
     , m_turns(turns)
@@ -521,12 +524,12 @@ public:
   Type GetType() const override { return Message::AddRoute; }
 
   m2::PolylineD const & GetRoutePolyline() { return m_routePolyline; }
-  dp::Color const & GetColor() const { return m_color; }
+  df::ColorConstant GetColor() const { return m_color; }
   vector<double> const & GetTurns() const { return m_turns; }
 
 private:
   m2::PolylineD m_routePolyline;
-  dp::Color m_color;
+  df::ColorConstant m_color;
   vector<double> m_turns;
 };
 
@@ -706,6 +709,55 @@ public:
 private:
   double const m_rotationAngle;
   double const m_angleFOV;
+};
+
+class CacheGpsTrackPointsMessage : public Message
+{
+public:
+  CacheGpsTrackPointsMessage(size_t pointsCount) : m_pointsCount(pointsCount) {}
+  Type GetType() const override { return Message::CacheGpsTrackPoints; }
+  size_t GetPointsCount() const { return m_pointsCount; }
+
+private:
+  size_t m_pointsCount;
+};
+
+class FlushGpsTrackPointsMessage : public Message
+{
+public:
+  FlushGpsTrackPointsMessage(drape_ptr<GpsTrackRenderData> && renderData)
+    : m_renderData(move(renderData))
+  {}
+
+  Type GetType() const override { return Message::FlushGpsTrackPoints; }
+  drape_ptr<GpsTrackRenderData> && AcceptRenderData() { return move(m_renderData); }
+
+private:
+  drape_ptr<GpsTrackRenderData> m_renderData;
+};
+
+class UpdateGpsTrackPointsMessage : public Message
+{
+public:
+  UpdateGpsTrackPointsMessage(vector<GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)
+    : m_pointsToAdd(move(toAdd))
+    , m_pointsToRemove(move(toRemove))
+  {}
+
+  Type GetType() const override { return Message::UpdateGpsTrackPoints; }
+  vector<GpsTrackPoint> const & GetPointsToAdd() { return m_pointsToAdd; }
+  vector<uint32_t> const & GetPointsToRemove() { return m_pointsToRemove; }
+
+private:
+  vector<GpsTrackPoint> m_pointsToAdd;
+  vector<uint32_t> m_pointsToRemove;
+};
+
+class ClearGpsTrackPointsMessage : public Message
+{
+public:
+  ClearGpsTrackPointsMessage(){}
+  Type GetType() const override { return Message::ClearGpsTrackPoints; }
 };
 
 } // namespace df

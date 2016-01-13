@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektívne zobrazenie";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "Iný";
 
 "pref_tts_how_to_set_up_voice" = "Ako nastaviť hlas";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "Posledná trasa";
+
+"duration_disabled" = "Vypnúť";
+
+"duration_1_hour" = "1 hodina";
+
+"duration_2_hours" = "2 hodiny";
+
+"duration_6_hours" = "6 hodín";
+
+"duration_12_hours" = "12 hodín";
+
+"duration_1_day" = "1 deň";
+
+"pref_track_ios_caption" = "Funkcia Čerstvá stopa zobrazuje trasu, ktorú ste prešli.";
+
+"pref_track_ios_subcaption" = "Prosím, vyberte si, po akú dobu má aplikácia zaznamenávať vašu trasu.";
 
 "placepage_distance" = "Vzdialenosť";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Povoliť 3D budovy";
 
 "whats_new_next_button" = "Nasledujúca";
+
+"whats_new_rec_track_title" = "S MAPS.ME sa nestratíte";
+
+"whats_new_rec_track_body" = "Aplikácia vám teraz ukazuje vašu poslednú trasu.";

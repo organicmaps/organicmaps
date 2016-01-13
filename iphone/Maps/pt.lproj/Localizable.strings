@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Visão em Perspectiva";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "Outro";
 
 "pref_tts_how_to_set_up_voice" = "Como configurar a voz";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "Recent track";
+
+"duration_disabled" = "Desligado";
+
+"duration_1_hour" = "1 hora";
+
+"duration_2_hours" = "2 horas";
+
+"duration_6_hours" = "6 horas";
+
+"duration_12_hours" = "12 horas";
+
+"duration_1_day" = "1 dia";
+
+"pref_track_ios_caption" = "O percurso recente mostra o seu caminho viajado.";
+
+"pref_track_ios_subcaption" = "Por favor, selecione o intervalo de tempo da gravação do percurso.";
 
 "placepage_distance" = "Distância";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Habilitar Prédios em 3D";
 
 "whats_new_next_button" = "Próxima";
+
+"whats_new_rec_track_title" = "With MAPS.ME you won’t get lost";
+
+"whats_new_rec_track_body" = "Now the app shows your recent traveled path.";

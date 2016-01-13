@@ -327,6 +327,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Egyéb</string>
 	<string name="pref_tts_how_to_set_up_voice">Így állítsd be a hangot</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Legutolsó útvonal</string>
+	<string name="duration_disabled">Kikapcsolva</string>
+	<string name="duration_1_hour">1 óra</string>
+	<string name="duration_2_hours">2 óra</string>
+	<string name="duration_6_hours">6 óra</string>
+	<string name="duration_12_hours">12 óra</string>
+	<string name="duration_1_day">1 nap</string>
+	<string name="pref_track_ios_caption">A legutolsó útvonal megmutatja, hogy milyen útvonalon haladtál.</string>
+	<string name="pref_track_ios_subcaption">Válaszd ki az útvonalak elmentésének időtartamát!</string>
 	<string name="placepage_distance">Távolság</string>
 	<string name="placepage_coordinates">Koordináták</string>
 	<string name="placepage_unsorted">Osztályozatlan</string>
@@ -816,4 +826,6 @@
 	<string name="whats_new_3d_on">Távlati kép engedélyezése</string>
 	<string name="whats_new_3d_buildings_on">3D Épületek engedélyezése</string>
 	<string name="whats_new_next_button">Következő</string>
+	<string name="whats_new_rec_track_title">A térkép navigálása kényelmesebb lett</string>
+	<string name="whats_new_rec_track_body">A MAPS.ME-vel nem fogsz eltévedni</string>
 </resources>

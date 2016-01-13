@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspectiefbeeld";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "Andere";
 
 "pref_tts_how_to_set_up_voice" = "Hoe stel je de stem in";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "Recente route";
+
+"duration_disabled" = "Uit";
+
+"duration_1_hour" = "1 uur";
+
+"duration_2_hours" = "2 uur";
+
+"duration_6_hours" = "6 uur";
+
+"duration_12_hours" = "12 uur";
+
+"duration_1_day" = "1 dag";
+
+"pref_track_ios_caption" = "Recente route geeft uw gebruikte route weer.";
+
+"pref_track_ios_subcaption" = "Selecteer de tijdperiode voor het opslaan van route.";
 
 "placepage_distance" = "Afstand";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "3D-Gebouwen inschakelen";
 
 "whats_new_next_button" = "Volgende";
+
+"whats_new_rec_track_title" = "Met MAPS.ME verdwaalt u niet.";
+
+"whats_new_rec_track_body" = "Nu geeft de app uw recente route weer.";

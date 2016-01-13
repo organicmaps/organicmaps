@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-  <!-- 7 inch tablet -->
-  <bool name="isSmallTablet">true</bool>
-  <!-- 10 inch tablet -->
-  <bool name="isBigTablet">false</bool>
-
+  <bool name="isTablet">true</bool>
 </resources>

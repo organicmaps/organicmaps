@@ -4,9 +4,7 @@
   <!-- BASE TEXT SIZES -->
 
   <!-- we use slightly greater font sizes, then in default material styles -->
-  <dimen name="text_size_display_3">64sp</dimen>
-  <dimen name="text_size_display_2">48sp</dimen>
-  <dimen name="text_size_display_1_plus">40sp</dimen>
+  <dimen name="text_size_display_2">40sp</dimen>
   <dimen name="text_size_display_1">36sp</dimen>
   <dimen name="text_size_headline">28sp</dimen>
   <dimen name="text_size_title">24sp</dimen>

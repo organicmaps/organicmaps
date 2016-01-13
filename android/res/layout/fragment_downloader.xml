@@ -1,40 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              style="@style/MwmWidget.Floating"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@android:color/white">
-
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  style="@style/MwmWidget.Floating"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
   <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-      style="@style/MwmWidget.ToolbarStyle"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:theme="@style/MwmWidget.ToolbarTheme">
-
+    android:id="@+id/toolbar"
+    style="@style/MwmWidget.ToolbarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/MwmWidget.ToolbarTheme">
     <TextView
-        android:id="@+id/tv__update_all"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:gravity="center_vertical"
-        android:padding="@dimen/margin_half"
-        android:text="@string/downloader_update_all"
-        android:textAppearance="@style/MwmTextAppearance.Toolbar.Button"/>
+      android:id="@+id/tv__update_all"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="right"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:gravity="center_vertical"
+      android:padding="@dimen/margin_half"
+      android:text="@string/downloader_update_all"
+      android:textAppearance="@style/MwmTextAppearance.Toolbar.Title.Button"/>
   </android.support.v7.widget.Toolbar>
 
   <FrameLayout
-      style="@style/MwmWidget.FrameLayout.Elevation"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
+    style="@style/MwmWidget.FrameLayout.Elevation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+      android:id="@android:id/list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
   </FrameLayout>
-
 </LinearLayout>

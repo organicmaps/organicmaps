@@ -84,7 +84,7 @@ public final class MytargetHelper
   }
 
   @WorkerThread
-  private boolean getShowcaseSetting()
+  private static boolean getShowcaseSetting()
   {
     final long lastCheckMillis = MwmApplication.prefs().getLong(PREF_CHECK_MILLIS, 0);
     final long currentMillis = System.currentTimeMillis();

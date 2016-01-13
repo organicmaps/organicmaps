@@ -62,4 +62,4 @@
 /// How many langs we're supporting on indexing stage
 #define MAX_SUPPORTED_LANGUAGES 64
 
-
+#define GPS_TRACK_FILENAME "gps_track.dat"

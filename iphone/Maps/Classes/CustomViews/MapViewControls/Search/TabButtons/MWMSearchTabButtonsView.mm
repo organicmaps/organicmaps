@@ -89,11 +89,6 @@ static CGFloat const kIconToLabelSpacing = 4.0;
   _iconImage = self.icon.image = iconImage;
 }
 
-- (void)setIconImageHighlighted:(UIImage *)iconImageHighlighted
-{
-  _iconImageHighlighted = self.icon.highlightedImage = iconImageHighlighted;
-}
-
 - (void)setLocalizedText:(NSString *)localizedText
 {
   _localizedText = self.label.text = L(localizedText);

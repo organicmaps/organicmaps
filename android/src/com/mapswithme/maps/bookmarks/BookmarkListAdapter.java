@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -16,9 +20,6 @@ import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Graphics;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class BookmarkListAdapter extends BaseAdapter
@@ -43,7 +44,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
   public void startLocationUpdate()
   {
-    LocationHelper.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this, true);
   }
 
   public void stopLocationUpdate()

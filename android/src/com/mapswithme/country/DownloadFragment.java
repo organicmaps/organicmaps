@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.util.Config;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.Utils;
 
 public class DownloadFragment extends BaseMwmListFragment implements View.OnClickListener, ActiveCountryTree.ActiveCountryListener, OnBackPressListener
@@ -22,16 +24,37 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   private TextView mTvUpdateAll;
   private int mMode = MODE_DISABLED;
   private int mListenerSlotId;
+  private LayoutInflater mLayoutInflater;
 
   private static final int MODE_DISABLED = -1;
   private static final int MODE_NONE = 0;
   private static final int MODE_UPDATE_ALL = 1;
   private static final int MODE_CANCEL_ALL = 2;
 
+  private static int getTheme()
+  {
+    String theme = Config.getCurrentUiTheme();
+    if (ThemeUtils.isDefaultTheme(theme))
+      return R.style.MwmTheme_Downloader;
+
+    if (ThemeUtils.isNightTheme(theme))
+      return R.style.MwmTheme_Night_Downloader;
+
+    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+  }
+
+  protected LayoutInflater getLayoutInflater()
+  {
+    if (mLayoutInflater == null)
+      mLayoutInflater = ThemeUtils.themedInflater(getActivity().getLayoutInflater(), getTheme());
+
+    return mLayoutInflater;
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.fragment_downloader, container, false);
+    return getLayoutInflater().inflate(R.layout.fragment_downloader, container, false);
   }
 
   @Override

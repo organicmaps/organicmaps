@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -26,7 +26,6 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a4n-5I-PN3" userLabel="Back">
                             <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="huq-Vr-EM5"/>
                                 <constraint firstAttribute="width" constant="44" id="zCn-K4-Ax9"/>
@@ -38,17 +37,16 @@
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planning Route" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Q7-PE-2D9">
                             <rect key="frame" x="99.5" y="12" width="120" height="20.5"/>
-                            <animations/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_route_planning"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="TC0-58-PO9">
                             <rect key="frame" x="8" y="48" width="304" height="80"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="80" id="exN-o8-Rx8"/>
@@ -69,7 +67,6 @@
                             </connections>
                         </collectionView>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="140" id="7e9-gc-Y07"/>
@@ -81,6 +78,9 @@
                         <constraint firstItem="a4n-5I-PN3" firstAttribute="top" secondItem="3s2-BV-X5i" secondAttribute="top" id="ppW-Pq-6rh"/>
                         <constraint firstAttribute="trailing" secondItem="TC0-58-PO9" secondAttribute="trailing" constant="8" id="yA7-YN-yHs"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="primary"/>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCk-ko-ZXf" customClass="SolidTouchView">
                     <rect key="frame" x="0.0" y="140" width="320" height="48"/>
@@ -90,24 +90,20 @@
                             <subviews>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jDl-pu-eov">
                                     <rect key="frame" x="6" y="6" width="36" height="36"/>
-                                    <animations/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VhE-hA-Leo">
                                     <rect key="frame" x="72" y="6" width="36" height="36"/>
-                                    <animations/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
-                            <animations/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="120" id="L2G-Qu-tAj"/>
                                 <constraint firstAttribute="height" constant="48" id="VKo-hu-3qN"/>
                             </constraints>
                         </view>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="sXu-tl-a0m" firstAttribute="centerX" secondItem="dCk-ko-ZXf" secondAttribute="centerX" id="I21-lN-FTQ"/>
@@ -127,6 +123,7 @@
                         <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                             <size key="value" width="0.0" height="1"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87p-Qg-8f3" userLabel="Status Box">
@@ -137,7 +134,6 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planning..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="a7v-h1-j52">
                                     <rect key="frame" x="0.0" y="0.0" width="240" height="20"/>
-                                    <animations/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="kce-Z6-Dgg"/>
                                     </constraints>
@@ -146,10 +142,10 @@
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_planning"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackHintText"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="a7v-h1-j52" firstAttribute="leading" secondItem="tdV-a8-fmG" secondAttribute="leading" id="DTZ-EA-SCl"/>
@@ -163,7 +159,6 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planning..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="VNi-4g-9gz" userLabel="Error">
                                     <rect key="frame" x="0.0" y="0.0" width="240" height="20"/>
-                                    <animations/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="cgc-k8-8fa"/>
                                     </constraints>
@@ -172,10 +167,10 @@
                                     <nil key="highlightedColor"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routing_planning_error"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="red"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="VNi-4g-9gz" firstAttribute="top" secondItem="QEP-6s-YTM" secondAttribute="top" id="D4E-VN-nEs"/>
@@ -189,27 +184,29 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="results" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zml-eW-DsI">
                                     <rect key="frame" x="40" y="0.0" width="240" height="20"/>
-                                    <animations/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="hNE-av-oYA"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Arrive at 12:24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oec-Ee-6ha">
                                     <rect key="frame" x="40" y="28" width="240" height="16"/>
-                                    <animations/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-pb-L88">
                                     <rect key="frame" x="0.0" y="10" width="24" height="24"/>
-                                    <animations/>
                                 </imageView>
                             </subviews>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="zml-eW-DsI" firstAttribute="top" secondItem="Rqr-bu-crx" secondAttribute="top" id="64F-ka-3rg"/>
@@ -219,7 +216,6 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="QEP-6s-YTM" secondAttribute="trailing" constant="24" id="3j3-fg-BQI"/>
@@ -240,14 +236,14 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                             <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gcR-zj-b7P">
                     <rect key="frame" x="0.0" y="607" width="320" height="48"/>
                     <subviews>
-                        <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4IJ-pR-Ztp" userLabel="Go">
+                        <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4IJ-pR-Ztp" userLabel="Go" customClass="MWMStartButton">
                             <rect key="frame" x="100" y="8" width="120" height="32"/>
-                            <animations/>
                             <accessibility key="accessibilityConfiguration" identifier="goButton"/>
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                             <state key="normal" title="Start"/>
@@ -260,7 +256,7 @@
                                     <integer key="value" value="4"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_start"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueDark"/>
                             </userDefinedRuntimeAttributes>
@@ -269,7 +265,6 @@
                             </connections>
                         </button>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="5GN-4g-vV1"/>
@@ -281,10 +276,10 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                             <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="gcR-zj-b7P" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="1RD-kG-W2O"/>
@@ -315,6 +310,7 @@
                 <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                     <size key="value" width="3" height="0.0"/>
                 </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="arriveLabel" destination="oec-Ee-6ha" id="7Ep-ck-NSQ"/>

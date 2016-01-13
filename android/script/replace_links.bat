@@ -33,6 +33,9 @@ cp -r ../data/resources-xhdpi_clear/ assets/
 cp -r ../data/resources-xxhdpi/ assets/
 cp -r ../data/resources-xxhdpi_dark/ assets/
 cp -r ../data/resources-xxhdpi_clear/ assets/
+cp -r ../data/resources-6plus/ assets/
+cp -r ../data/resources-6plus_dark/ assets/
+cp -r ../data/resources-6plus_clear/ assets/
 
 cp -r ../data/sound-strings/ assets/
 

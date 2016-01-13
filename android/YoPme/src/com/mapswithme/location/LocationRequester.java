@@ -15,7 +15,6 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.yopme.util.BatteryHelper;
 import com.mapswithme.yopme.util.BatteryHelper.BatteryLevel;
 

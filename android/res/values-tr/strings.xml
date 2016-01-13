@@ -330,6 +330,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Diğer</string>
 	<string name="pref_tts_how_to_set_up_voice">Ses nasıl ayarlanır</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">En son yol</string>
+	<string name="duration_disabled">Kapalı</string>
+	<string name="duration_1_hour">1 saat</string>
+	<string name="duration_2_hours">2 saat</string>
+	<string name="duration_6_hours">6 saat</string>
+	<string name="duration_12_hours">12 saat</string>
+	<string name="duration_1_day">1 gün</string>
+	<string name="pref_track_ios_caption">En son yol seyahat ettiğiniz yolları gösterir.</string>
+	<string name="pref_track_ios_subcaption">Lütfen kaydedilecek yol süresini seçin.</string>
 	<string name="placepage_distance">Mesafe</string>
 	<string name="placepage_coordinates">Koordinatlar</string>
 	<string name="placepage_unsorted">Sıralanmamış</string>
@@ -819,4 +829,6 @@
 	<string name="whats_new_3d_on">Perspektif görünümü etkinleştir</string>
 	<string name="whats_new_3d_buildings_on">3D Binalar seçeneğini etkinleştir</string>
 	<string name="whats_new_next_button">Sonraki</string>
+	<string name="whats_new_rec_track_title">MAPS.ME ile kaybolmayacaksınız</string>
+	<string name="whats_new_rec_track_body">Artık uygulama en son seyahat ettiğiniz güzergâhı gösteriyor.</string>
 </resources>

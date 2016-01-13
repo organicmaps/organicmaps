@@ -12,8 +12,8 @@ import com.mapswithme.util.UiUtils;
 
 public abstract class WebContainerDelegate implements OnBackPressListener
 {
-  private WebView mWebView;
-  private View mProgress;
+  private final WebView mWebView;
+  private final View mProgress;
 
   @SuppressLint("SetJavaScriptEnabled")
   private void initWebView(String url)

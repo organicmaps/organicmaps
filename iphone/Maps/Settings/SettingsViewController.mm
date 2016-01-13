@@ -9,6 +9,7 @@
 #import "Statistics.h"
 #import "SwitchCell.h"
 #import "WebViewController.h"
+#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 
@@ -45,7 +46,6 @@ typedef NS_ENUM(NSUInteger, Section)
   [super viewDidLoad];
   self.title = L(@"settings");
   self.tableView.backgroundView = nil;
-  self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
   bool adServerForbidden = false;
   (void)Settings::Get(kAdServerForbiddenKey, adServerForbidden);
   if (isIOSVersionLessThan(8) || adServerForbidden)
@@ -65,15 +65,16 @@ typedef NS_ENUM(NSUInteger, Section)
 {
   switch (sections[section])
   {
-  case SectionMetrics:
-  case SectionMap:
-    return 2;
-  case SectionRouting:
-    return 3;
   case SectionAd:
   case SectionStatistics:
   case SectionCalibration:
     return 1;
+  case SectionMetrics:
+    return 2;
+  case SectionRouting:
+    return 3;
+  case SectionMap:
+    return 4;
   }
 }
 
@@ -117,28 +118,47 @@ typedef NS_ENUM(NSUInteger, Section)
   }
   case SectionMap:
   {
-    cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
-    SwitchCell * customCell = (SwitchCell *)cell;
-    bool on = true;
-    if (indexPath.row == 0)
+    switch (indexPath.row)
     {
-      bool _ = true;
+    // Night mode
+    // Recent track
+    case 0:
+    case 1:
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
+      LinkCell * customCell = static_cast<LinkCell *>(cell);
+      customCell.titleLabel.text = indexPath.row == 0 ? L(@"pref_map_style_title") : L(@"pref_track_record_title");
+      break;
+    }
+    // 3D buildings
+    case 2:
+    {
+      cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+      SwitchCell * customCell = static_cast<SwitchCell *>(cell);
+      bool on = true, _ = true;
       GetFramework().Load3dMode(_, on);
       customCell.titleLabel.text = L(@"pref_map_3d_buildings_title");
     }
-    else
+    // Zoom buttons
+    case 3:
     {
+      cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+      SwitchCell * customCell = static_cast<SwitchCell *>(cell);
+      bool on = true;
       (void)Settings::Get("ZoomButtonsEnabled", on);
       customCell.titleLabel.text = L(@"pref_zoom_title");
+      customCell.switchButton.on = on;
+      customCell.delegate = self;
+      break;
     }
-    customCell.switchButton.on = on;
-    customCell.delegate = self;
-    break;
+  }
+  break;
   }
   case SectionRouting:
   {
     switch (indexPath.row)
     {
+    // 3D mode
     case 0:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
@@ -150,6 +170,7 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.switchButton.on = on;
       break;
     }
+    // Enable TTS
     case 1:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
@@ -159,6 +180,7 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.delegate = self;
       break;
     }
+    // Change TTS language
     case 2:
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
@@ -216,23 +238,35 @@ typedef NS_ENUM(NSUInteger, Section)
     break;
 
   case SectionMap:
-    if (indexPath.row == 0)
+    switch (indexPath.row)
     {
-      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStat3DBuildings)
-                       withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
-      auto & f = GetFramework();
-      bool _ = true, is3dBuildings = true;
-      f.Load3dMode(_, is3dBuildings);
-      is3dBuildings = static_cast<bool>(value);
-      f.Save3dMode(_, is3dBuildings);
-      f.Allow3dMode(_, is3dBuildings);
-    }
-    else
-    {
-      [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
-          withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
-      Settings::Set("ZoomButtonsEnabled", (bool)value);
-      [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
+      // Night mode
+      // Recent track
+      case 0:
+      case 1:
+        break;
+      // 3D buildings
+      case 2:
+      {
+        [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStat3DBuildings)
+                         withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
+        auto & f = GetFramework();
+        bool _ = true, is3dBuildings = true;
+        f.Load3dMode(_, is3dBuildings);
+        is3dBuildings = static_cast<bool>(value);
+        f.Save3dMode(_, is3dBuildings);
+        f.Allow3dMode(_, is3dBuildings);
+        break;
+      }
+      // Zoom buttons
+      case 3:
+      {
+        [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
+            withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
+        Settings::Set("ZoomButtonsEnabled", (bool)value);
+        [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
+        break;
+      }
     }
     break;
 
@@ -243,6 +277,7 @@ typedef NS_ENUM(NSUInteger, Section)
     break;
 
   case SectionRouting:
+    // 3D mode
     if (indexPath.row == 0)
     {
       [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStat3D)
@@ -254,7 +289,8 @@ typedef NS_ENUM(NSUInteger, Section)
       f.Save3dMode(is3d, _);
       f.Allow3dMode(is3d, _);
     }
-    else
+    // Enable TTS
+    else if (indexPath.row == 1)
     {
       [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
                        withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
@@ -289,12 +325,29 @@ Settings::Units unitsForIndex(NSInteger index)
     break;
   }
   case SectionRouting:
-    [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
-                   withParameters:@{kStatAction : kStatChangeLanguage}];
-    [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
+    // Change TTS language
+    if (indexPath.row == 2)
+    {
+      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
+                     withParameters:@{kStatAction : kStatChangeLanguage}];
+      [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
+    }
     break;
-
   case SectionMap:
+    // Change night mode
+    if (indexPath.row == 0)
+    {
+      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatNightMode)
+                       withParameters:@{kStatAction : kStatChangeNightMode}];
+      [self performSegueWithIdentifier:@"SettingsToNightMode" sender:nil];
+    }
+    else if (indexPath.row == 1)
+    {
+      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatRecentTrack)
+                       withParameters:@{kStatAction : kStatChangeRecentTrack}];
+      [self performSegueWithIdentifier:@"SettingsToRecentTrackSegue" sender:nil];
+    }
+    break;
   case SectionAd:
   case SectionCalibration:
   case SectionStatistics:

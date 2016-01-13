@@ -1,5 +1,5 @@
 #import "BookmarkCell.h"
-
+#import "UIColor+MapsMeColor.h"
 
 @implementation BookmarkCell
 
@@ -19,11 +19,11 @@
     [super layoutSubviews];
 
     _bmName.font = self.textLabel.font;
-    _bmName.textColor = self.textLabel.textColor;
+    _bmName.textColor = [UIColor blackPrimaryText];
     _bmName.backgroundColor = [UIColor clearColor];
 
     _bmDistance.font = self.detailTextLabel.font;
-    _bmDistance.textColor = self.detailTextLabel.textColor;
+    _bmDistance.textColor = [UIColor blackHintText];
     _bmDistance.backgroundColor = [UIColor clearColor];
 
     self.detailTextLabel.text = nil;

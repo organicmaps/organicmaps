@@ -43,6 +43,34 @@
   self.font = [UIFont fontWithName:fontName];
 }
 
+- (void)setColorName:(NSString *)colorName
+{
+  self.textColor = [UIColor colorWithName:colorName];
+}
+
+@end
+
+@implementation UISwitch (RuntimeAttributes)
+
+- (void)setOnTintColorName:(NSString *)colorName
+{
+  self.onTintColor = [UIColor colorWithName:colorName];
+}
+
+@end
+
+@implementation UITextView (RuntimeAttributes)
+
+- (void)setTintColorName:(NSString *)colorName
+{
+  self.tintColor = [UIColor colorWithName:colorName];
+}
+
+- (void)setColorName:(NSString *)colorName
+{
+  self.textColor = [UIColor colorWithName:colorName];
+}
+
 @end
 
 @implementation MWMTextView (RuntimeAttributes)

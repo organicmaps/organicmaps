@@ -1,6 +1,6 @@
-@interface MWMSearchShowOnMapCell : UITableViewCell
+#import "MWMTableViewCell.h"
 
-@property (nonatomic) BOOL isLightTheme;
+@interface MWMSearchShowOnMapCell : MWMTableViewCell
 
 + (CGFloat)cellHeight;
 

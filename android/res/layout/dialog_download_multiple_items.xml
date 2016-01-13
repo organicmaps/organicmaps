@@ -25,8 +25,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@id/divider_top"
-      android:background="@color/base_bg_secondary"
-      android:listSelector="?attr/clickableBackground"
+      android:background="?panel"
+      android:listSelector="?clickableBackground"
       android:drawSelectorOnTop="true"/>
 
   <View
@@ -34,7 +34,7 @@
       android:layout_width="match_parent"
       android:layout_height="1px"
       android:layout_below="@id/elv__items"
-      android:background="?android:attr/listDivider"/>
+      android:background="?android:listDivider"/>
 
 </RelativeLayout>
 

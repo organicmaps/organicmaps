@@ -6,6 +6,7 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
+#import "UIView+RuntimeAttributes.h"
 
 #include "Framework.h"
 
@@ -93,7 +94,7 @@
     self.streetLabel.alpha = 0.0;
     break;
   case MWMBottomMenuStateActive:
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor white];
     self.bookmarksButton.alpha = 1.0;
     self.downloadBadge.alpha = 0.0;
     self.goButton.alpha = 0.0;
@@ -231,7 +232,8 @@
   NSInteger const stepValue = direct ? 1 : -1;
   NSMutableArray * morphImages = [NSMutableArray arrayWithCapacity:morphImagesCount];
   for (NSUInteger i = startValue, j = 0; i != endValue; i += stepValue, j++)
-    morphImages[j] = [UIImage imageNamed:[morphTemplate stringByAppendingString:@(i).stringValue]];
+    morphImages[j] = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@_%@", morphTemplate, @(i).stringValue,
+                                          [UIColor isNightMode] ? @"dark" : @"light"]];
   btn.imageView.animationImages = morphImages;
   btn.imageView.animationRepeatCount = 1;
   btn.imageView.image = morphImages.lastObject;
@@ -257,17 +259,12 @@
       case MWMBottomMenuStateGo:
       case MWMBottomMenuStateText:
         [btn setImage:[UIImage imageNamed:@"ic_menu"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"ic_menu_press"] forState:UIControlStateHighlighted];
         break;
       case MWMBottomMenuStateActive:
         [btn setImage:[UIImage imageNamed:@"ic_menu_down"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"ic_menu_down_press"]
-             forState:UIControlStateHighlighted];
         break;
       case MWMBottomMenuStateCompact:
         [btn setImage:[UIImage imageNamed:@"ic_menu_left"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"ic_menu_left_press"]
-             forState:UIControlStateHighlighted];
         break;
       }
     }

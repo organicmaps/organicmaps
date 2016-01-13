@@ -1,4 +1,6 @@
-#include "arrow3d.hpp"
+#include "drape_frontend/arrow3d.hpp"
+
+#include "drape_frontend/color_constants.hpp"
 
 #include "drape/glconstants.hpp"
 #include "drape/glfunctions.hpp"
@@ -10,6 +12,7 @@
 #include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
 
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/screenbase.hpp"
@@ -171,6 +174,9 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
 
   dp::UniformValuesStorage uniforms;
   uniforms.SetMatrix4x4Value("m_transform", modelTransform.m_data);
+
+  glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(GetStyleReader().GetCurrentStyle(), df::Arrow3D));
+  uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
 
   dp::ApplyUniforms(uniforms, prg);
 

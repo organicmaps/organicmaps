@@ -8,6 +8,9 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
 
+#import "UIColor+MapsMeColor.h"
+#import "UIImageView+Coloring.h"
+
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "platform/platform.hpp"
@@ -68,15 +71,14 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
   self.title = L(@"settings_and_more");
   self.items = @[@{@"Title" : @"",
-                   @"Items" : @[@{@"Id" : @"Settings", @"Title" : L(@"settings"), @"Icon" : @"IconAppSettings"},
-                                @{@"Id" : @"Help", @"Title" : L(@"help"), @"Icon" : @"IconHelp"},
-                                @{@"Id" : @"ReportBug", @"Title" : L(@"report_a_bug"), @"Icon" : @"IconReportABug"}]},
+                   @"Items" : @[@{@"Id" : @"Settings", @"Title" : L(@"settings"), @"Icon" : @"ic_settings_settings"},
+                                @{@"Id" : @"Help", @"Title" : L(@"help"), @"Icon" : @"ic_settings_help"},
+                                @{@"Id" : @"ReportBug", @"Title" : L(@"report_a_bug"), @"Icon" : @"ic_settings_feedback"}]},
                  @{@"Title" : @"",
-                   @"Items" : @[@{@"Id" : @"Community", @"Title" : L(@"maps_me_community"), @"Icon" : @"IconSocial"},
-                                @{@"Id" : @"RateApp", @"Title" : L(@"rate_the_app"), @"Icon" : @"IconRate"}]},
+                   @"Items" : @[@{@"Id" : @"Community", @"Title" : L(@"maps_me_community"), @"Icon" : @"ic_settings_community"},
+                                @{@"Id" : @"RateApp", @"Title" : L(@"rate_the_app"), @"Icon" : @"ic_settings_rate"}]},
                  @{@"Title" : @"",
                    @"Items" : @[@{@"Id" : @"About", @"Title" : L(@"about_menu_title"), @"Icon" : @"IconAbout"},
                                 @{@"Id" : @"Copyright", @"Title" : L(@"copyright"), @"Icon" : @"IconCopyright"}]}];
@@ -117,8 +119,12 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
   if (!cell) // iOS 5
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[UITableViewCell className]];
 
+  cell.backgroundColor = [UIColor white];
   cell.textLabel.text = item[@"Title"];
   cell.imageView.image = [UIImage imageNamed:item[@"Icon"]];
+  cell.imageView.mwm_coloring = MWMImageColoringBlack;
+  cell.textLabel.textColor = [UIColor blackPrimaryText];
+  cell.textLabel.backgroundColor = [UIColor clearColor];
 
   return cell;
 }

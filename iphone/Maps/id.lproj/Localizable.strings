@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Pandangan perspektif";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "Lainnya";
 
 "pref_tts_how_to_set_up_voice" = "Cara mengatur suara";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "Jalur terkini";
+
+"duration_disabled" = "Nonaktif";
+
+"duration_1_hour" = "1 jam";
+
+"duration_2_hours" = "2 jam";
+
+"duration_6_hours" = "6 jam";
+
+"duration_12_hours" = "12 jam";
+
+"duration_1_day" = "1 hari";
+
+"pref_track_ios_caption" = "Jalur terakhir menunjukkan jalur yang sudah Anda lalui.";
+
+"pref_track_ios_subcaption" = "Silakan pilih jangka waktu penyimpanan jalur.";
 
 "placepage_distance" = "Jarak";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Aktifkan Bangunan 3D";
 
 "whats_new_next_button" = "Berikut";
+
+"whats_new_rec_track_title" = "Dengan MAPS.ME Anda tidak akan tersesat";
+
+"whats_new_rec_track_body" = "Aplikasi kini menunjukkan jalur yang telah Anda tempuh baru-baru ini.";

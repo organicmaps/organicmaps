@@ -3,10 +3,10 @@
           xmlns:tools="http://schemas.android.com/tools"
           tools:ignore="UnusedAttribute">
 
-  <item android:drawable="@color/base_green_darker"
+  <item android:drawable="@color/darker_green"
         android:state_pressed="true"/>
 
-  <item android:drawable="@color/base_green_darker"
+  <item android:drawable="@color/darker_green"
         android:state_hovered="true"/>
 
   <item android:drawable="@color/base_green"/>

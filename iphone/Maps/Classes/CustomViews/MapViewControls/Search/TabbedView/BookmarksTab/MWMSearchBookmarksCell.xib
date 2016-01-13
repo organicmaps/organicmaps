@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNc-6m-i8r" userLabel="VisibilityButton">
@@ -19,10 +19,13 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="g2n-JI-FYq"/>
                         </constraints>
-                        <state key="normal" image="ic_hide_light">
+                        <state key="normal" image="ic_hide">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
-                        <state key="selected" image="ic_show_light"/>
+                        <state key="selected" image="ic_show"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="toggleVisibility" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kEx-DN-uuu"/>
                         </connections>
@@ -43,6 +46,9 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="CQ9-Xa-g1C"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ca-Zu-8k4" userLabel="BookmarksCount">
                         <rect key="frame" x="244" y="14" width="40" height="16"/>
@@ -58,12 +64,15 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_carrot_light" translatesAutoresizingMaskIntoConstraints="NO" id="obB-B0-hzq" userLabel="OpenArrow">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_carrot" translatesAutoresizingMaskIntoConstraints="NO" id="obB-B0-hzq" userLabel="OpenArrow">
                         <rect key="frame" x="284" y="8" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="G3F-hb-qym"/>
                             <constraint firstAttribute="width" constant="28" id="c9g-F6-qp8"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="MWMBlack" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oya-sL-CmM" userLabel="OpenButton">
                         <rect key="frame" x="60" y="0.0" width="260" height="43"/>
@@ -97,6 +106,9 @@
                     <constraint firstItem="aNc-6m-i8r" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xpT-y7-ntU"/>
                 </constraints>
             </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="countLabel" destination="5ca-Zu-8k4" id="USR-pA-xLd"/>
                 <outlet property="openArrow" destination="obB-B0-hzq" id="IMl-hQ-e7y"/>
@@ -106,8 +118,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_carrot_light" width="28" height="28"/>
-        <image name="ic_hide_light" width="28" height="28"/>
-        <image name="ic_show_light" width="28" height="28"/>
+        <image name="ic_carrot" width="28" height="28"/>
+        <image name="ic_hide" width="28" height="28"/>
+        <image name="ic_show" width="28" height="28"/>
     </resources>
 </document>

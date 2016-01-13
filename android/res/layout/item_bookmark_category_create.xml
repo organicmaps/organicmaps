@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/base_block_size"
     android:background="?clickableBackground"
-    android:gravity="center_vertical"
+    android:gravity="center_vertical|right"
     android:paddingLeft="@dimen/margin_base"
     android:paddingRight="@dimen/margin_base"
     android:text="@string/add_new_set"
-    android:textAppearance="@style/MwmTextAppearance.Button"/>
+    android:textAppearance="@style/MwmTextAppearance.Button"
+    android:fontFamily="@string/robotoLight"/>

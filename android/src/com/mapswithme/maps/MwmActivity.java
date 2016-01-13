@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -65,6 +67,7 @@ import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
@@ -287,9 +290,26 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public int getThemeResourceId(String theme)
+  {
+    if (ThemeUtils.isDefaultTheme(theme))
+      return R.style.MwmTheme_MainActivity;
+
+    if (ThemeUtils.isNightTheme(theme))
+      return R.style.MwmTheme_Night_MainActivity;
+
+    return super.getThemeResourceId(theme);
+  }
+
+  @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+
+    mIsFragmentContainer = getResources().getBoolean(R.bool.tabletLayout);
+
+    if (!mIsFragmentContainer && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP))
+      getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     setContentView(R.layout.activity_map);
     initViews();
@@ -302,7 +322,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationPredictor = new LocationPredictor(new Handler(), this);
     processIntent(getIntent());
     SharingHelper.prepare();
-    RoutingController.get().attach(this);
   }
 
   private void initViews()
@@ -312,15 +331,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initPlacePage();
     initNavigationButtons();
 
-    if (findViewById(R.id.fragment_container) != null)
-      mIsFragmentContainer = true;
-    else
+    if (!mIsFragmentContainer)
     {
       mRoutingPlanInplaceController = new RoutingPlanInplaceController(this);
       removeCurrentFragment(false);
     }
 
     mNavigationController = new NavigationController(this);
+    RoutingController.get().attach(this);
     initMenu();
   }
 
@@ -352,9 +370,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     View frame = findViewById(R.id.navigation_buttons);
     mBtnZoomIn = (ImageButton) frame.findViewById(R.id.map_button_plus);
+    mBtnZoomIn.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.zoom_in_night
+                                                          : R.drawable.zoom_in);
     mBtnZoomIn.setOnClickListener(this);
     mBtnZoomOut = (ImageButton) frame.findViewById(R.id.map_button_minus);
     mBtnZoomOut.setOnClickListener(this);
+    mBtnZoomOut.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.zoom_out_night
+                                                           : R.drawable.zoom_out);
   }
 
   private void initPlacePage()
@@ -624,7 +646,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationError(int errorCode)
   {
-    MapFragment.nativeOnLocationError(errorCode);
+    LocationHelper.nativeOnLocationError(errorCode);
 
     if (errorCode == LocationHelper.ERROR_DENIED)
     {
@@ -665,13 +687,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!location.getProvider().equals(LocationHelper.LOCATION_PREDICTOR_PROVIDER))
       mLocationPredictor.reset(location);
 
-    MapFragment.nativeLocationUpdated(location.getTime(),
-                                       location.getLatitude(),
-                                       location.getLongitude(),
-                                       location.getAccuracy(),
-                                       location.getAltitude(),
-                                       location.getSpeed(),
-                                       location.getBearing());
+    LocationHelper.onLocationUpdated(location);
 
     if (mPlacePage.getState() != State.HIDDEN)
       mPlacePage.refreshLocation(location);
@@ -816,7 +832,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void resumeLocation()
   {
-    LocationHelper.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this, true);
     // Do not turn off the screen while displaying position
     Utils.keepScreenOn(true, getWindow());
     mLocationPredictor.resume();

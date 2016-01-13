@@ -22,7 +22,7 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
 
 - (void)configureWithType:(MWMPlacePageMetadataType)type info:(NSString *)info;
 {
-  NSString * typeName;
+  NSString * typeName = nil;
   switch (type)
   {
     case MWMPlacePageMetadataTypeURL:
@@ -74,9 +74,10 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
 - (void)layoutSubviews
 {
   CGFloat const leftOffset = 16.;
-  CGFloat const topOffset = 15.;;
-  self.icon.origin = CGPointMake(leftOffset, topOffset);
-  [self.textContainer setMinX:3 * leftOffset];
+  CGFloat const topOffset = 8.;
+  CGFloat const textOffset= 60.;
+  self.icon.origin = {leftOffset, topOffset};
+  [self.textContainer setMinX:textOffset];
 }
 
 - (IBAction)cellTap

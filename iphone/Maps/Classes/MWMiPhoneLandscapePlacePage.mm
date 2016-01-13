@@ -5,6 +5,7 @@
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMSpringAnimation.h"
+#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 
@@ -30,7 +31,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)configure
 {
   [super configure];
-  self.anchorImageView.backgroundColor = [UIColor whiteColor];
+  self.anchorImageView.backgroundColor = [UIColor white];
   self.anchorImageView.image = nil;
   [self configureContentInset];
   [self addPlacePageShadowToView:self.extendedPlacePageView offset:CGSizeMake(2.0, 4.0)];

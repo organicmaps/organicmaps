@@ -2,4 +2,6 @@
 
 @interface UIView  (RuntimeAttributes)
 
+- (void)setBackgroundColorName:(NSString *)colorName;
+
 @end

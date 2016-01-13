@@ -1,3 +1,5 @@
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "ViewController.h"
 #import "../../3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -6,6 +8,15 @@
 - (BOOL)prefersStatusBarHidden
 {
   return NO;
+}
+
+- (void)refresh
+{
+  [MapsAppDelegate customizeAppearance];
+  [self.navigationController.navigationBar refresh];
+  [self.view refresh];
+  if (![self isKindOfClass:[MapViewController class]])
+    [[MapsAppDelegate theApp].mapViewController refresh];
 }
 
 - (void)viewDidLoad

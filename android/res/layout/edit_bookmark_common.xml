@@ -1,109 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/rl__bookmark_details"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/margin_half">
-
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/rl__bookmark_details"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:padding="@dimen/margin_half">
   <LinearLayout
-      android:id="@+id/ll__bookmark_name"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/height_item_edit_bookmark"
-      android:layout_marginLeft="@dimen/margin_half"
-      android:layout_marginRight="@dimen/margin_half"
-      android:orientation="vertical">
-
+    android:id="@+id/ll__bookmark_name"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_item_edit_bookmark"
+    android:layout_marginLeft="@dimen/margin_half"
+    android:layout_marginRight="@dimen/margin_half"
+    android:orientation="vertical">
     <com.mapswithme.maps.widget.CustomTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
       <EditText
-          android:id="@+id/et__bookmark_name"
-          style="@style/MwmWidget.PlacePage.EditText"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/name"
-          android:inputType="textCapWords"
-          android:singleLine="true"/>
+        android:id="@+id/et__bookmark_name"
+        style="@style/MwmWidget.PlacePage.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        android:inputType="textCapWords"
+        android:singleLine="true"/>
 
     </com.mapswithme.maps.widget.CustomTextInputLayout>
-
   </LinearLayout>
 
   <RelativeLayout
-      android:id="@+id/rl__bookmark_set"
+    android:id="@+id/rl__bookmark_set"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_item_edit_bookmark"
+    android:layout_below="@id/ll__bookmark_name"
+    android:layout_marginLeft="@dimen/margin_half_plus"
+    android:layout_marginTop="@dimen/margin_half">
+    <TextView
+      android:id="@+id/tv__bookmark_set_title"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/height_item_edit_bookmark"
-      android:layout_below="@id/ll__bookmark_name"
-      android:layout_marginLeft="@dimen/margin_half_plus"
-      android:layout_marginTop="@dimen/margin_half">
+      android:layout_height="wrap_content"
+      android:layout_marginRight="@dimen/margin_quadruple"
+      android:layout_marginTop="@dimen/margin_base"
+      android:text="@string/set"
+      android:textAppearance="@style/MwmTextAppearance.Body3"/>
 
     <TextView
-        android:id="@+id/tv__bookmark_set_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_quadruple"
-        android:layout_marginTop="@dimen/margin_base"
-        android:text="@string/set"
-        android:textAppearance="@style/MwmTextAppearance.Body3"/>
-
-    <TextView
-        android:id="@+id/tv__bookmark_set"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv__bookmark_set_title"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/margin_quadruple"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:drawableRight="@drawable/ic_arrow_down"
-        android:paddingBottom="@dimen/margin_half"
-        android:paddingTop="@dimen/margin_quarter_plus"
-        android:textAppearance="@style/MwmTextAppearance.Body1"/>
+      android:id="@+id/tv__bookmark_set"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/tv__bookmark_set_title"
+      android:layout_centerVertical="true"
+      android:layout_marginRight="@dimen/margin_quadruple"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:drawableRight="@drawable/ic_arrow_down"
+      android:paddingBottom="@dimen/margin_half"
+      android:paddingTop="@dimen/margin_quarter_plus"
+      android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin_half"
-        android:layout_marginRight="@dimen/margin_quadruple"
-        android:background="@color/base_black_divider"/>
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:layout_marginRight="@dimen/margin_quadruple"
+      android:background="@color/divider"/>
 
     <ImageView
-        android:id="@+id/iv__bookmark_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="?attr/clickableBackground"
-        android:padding="@dimen/margin_half"
-        android:src="@drawable/color_picker_red_on"/>
+      android:id="@+id/iv__bookmark_color"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentRight="true"
+      android:background="?attr/clickableBackground"
+      android:padding="@dimen/margin_half"
+      tools:src="@drawable/ic_bookmark_marker_red_on"/>
   </RelativeLayout>
 
   <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/height_item_edit_bookmark"
-      android:layout_below="@id/rl__bookmark_set"
-      android:layout_margin="@dimen/margin_half"
-      android:orientation="vertical"
-      android:paddingTop="@dimen/margin_base">
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_item_edit_bookmark"
+    android:layout_below="@id/rl__bookmark_set"
+    android:layout_margin="@dimen/margin_half"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/margin_base">
 
     <com.mapswithme.maps.widget.CustomTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
       <EditText
-          android:id="@+id/et__description"
-          style="@style/MwmWidget.PlacePage.EditText"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/edit_description_hint"
-          android:inputType="text"
-          android:singleLine="false"/>
-
+        android:id="@+id/et__description"
+        style="@style/MwmWidget.PlacePage.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_description_hint"
+        android:inputType="text"
+        android:singleLine="false"/>
     </com.mapswithme.maps.widget.CustomTextInputLayout>
-
   </LinearLayout>
-
 </RelativeLayout>

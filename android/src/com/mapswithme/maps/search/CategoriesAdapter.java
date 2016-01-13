@@ -2,16 +2,16 @@ package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
@@ -63,8 +63,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   @Override
   public void onBindViewHolder(ViewHolder holder, int position)
   {
-    UiUtils.setTextAndShow(holder.mName, mResources.getString(mCategoryResIds[position]));
-    holder.mImageLeft.setImageResource(mIconResIds[position]);
+    holder.setTextAndIcon(mCategoryResIds[position], mIconResIds[position]);
   }
 
   @Override
@@ -80,15 +79,13 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
-    public TextView mName;
-    public ImageView mImageLeft;
+    private final TextView mTitle;
 
     public ViewHolder(View v)
     {
       super(v);
       v.setOnClickListener(this);
-      mName = (TextView) v.findViewById(R.id.tv__search_category);
-      mImageLeft = (ImageView) v.findViewById(R.id.iv__search_category);
+      mTitle = (TextView) v;
     }
 
     @Override
@@ -98,6 +95,12 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       Statistics.INSTANCE.trackSearchCategoryClicked(mResources.getResourceEntryName(mCategoryResIds[position]));
       if (mListener != null)
         mListener.onCategorySelected(getSuggestionFromCategory(mCategoryResIds[position]));
+    }
+
+    void setTextAndIcon(@StringRes int textResId, @DrawableRes int iconResId)
+    {
+      mTitle.setText(textResId);
+      mTitle.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
     }
   }
 }

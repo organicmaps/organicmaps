@@ -3,7 +3,6 @@ package com.mapswithme.maps.bookmarks;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,10 +35,9 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment implem
   private Listener mListener;
 
   @Override
-  public void onCreate(@Nullable Bundle savedInstanceState)
+  protected int getStyle()
   {
-    super.onCreate(savedInstanceState);
-    setStyle(DialogFragment.STYLE_NO_FRAME, R.style.MwmMain_DialogFragment);
+    return STYLE_NO_TITLE;
   }
 
   @Nullable

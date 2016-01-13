@@ -9,14 +9,19 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.io.File;
+
 import com.google.gson.Gson;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
+import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -25,8 +30,6 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.SaveCallback;
-
-import java.io.File;
 
 public class MwmApplication extends Application
                          implements ActiveCountryTree.ActiveCountryListener
@@ -38,14 +41,15 @@ public class MwmApplication extends Application
   private static final String PREF_PARSE_INSTALLATION_ID = "ParseInstallationId";
 
   private static MwmApplication sSelf;
-  private static SharedPreferences sPrefs;
+  private SharedPreferences mPrefs;
+  private AppBackgroundTracker mBackgroundTracker;
   private final Gson mGson = new Gson();
 
   private boolean mAreCountersInitialized;
   private boolean mIsFrameworkInitialized;
 
   private Handler mMainLoopHandler;
-  private Object mMainQueueToken = new Object();
+  private final Object mMainQueueToken = new Object();
 
   public MwmApplication()
   {
@@ -63,9 +67,14 @@ public class MwmApplication extends Application
     return sSelf.mGson;
   }
 
+  public static AppBackgroundTracker backgroundTracker()
+  {
+    return sSelf.mBackgroundTracker;
+  }
+
   public static SharedPreferences prefs()
   {
-    return sPrefs;
+    return sSelf.mPrefs;
   }
 
   @Override
@@ -103,9 +112,11 @@ public class MwmApplication extends Application
     initPaths();
     nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
-                       Yota.isFirstYota(), UiUtils.isSmallTablet() || UiUtils.isBigTablet());
+                       Yota.isFirstYota(), UiUtils.isTablet());
     initParse();
-    sPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
+    mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
+    mBackgroundTracker = new AppBackgroundTracker();
+    TrackRecorder.init();
   }
 
   public void initNativeCore()
@@ -118,6 +129,7 @@ public class MwmApplication extends Application
     initNativeStrings();
     BookmarkManager.getIcons(); // init BookmarkManager (automatically loads bookmarks)
     TtsPlayer.INSTANCE.init(this);
+    ThemeSwitcher.restart();
     mIsFrameworkInitialized = true;
   }
 
@@ -151,6 +163,11 @@ public class MwmApplication extends Application
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
   }
 
+  public boolean isFrameworkInitialized()
+  {
+    return mIsFrameworkInitialized;
+  }
+
   public String getApkPath()
   {
     try
@@ -163,7 +180,7 @@ public class MwmApplication extends Application
     }
   }
 
-  public String getDataStoragePath()
+  public static String getDataStoragePath()
   {
     return Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.MWM_DIR_POSTFIX;
   }
@@ -178,7 +195,7 @@ public class MwmApplication extends Application
             String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
   }
 
-  private String getObbGooglePath()
+  private static String getObbGooglePath()
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
     return storagePath.concat(String.format(Constants.OBB_PATH, BuildConfig.APPLICATION_ID));
@@ -245,11 +262,12 @@ public class MwmApplication extends Application
     }
   }
 
-  public void onUpgrade()
+  public static void onUpgrade()
   {
     Config.resetAppSessionCounters();
   }
 
+  @SuppressWarnings("unused")
   public void runNativeFunctorOnUiThread(final long functorPointer)
   {
     Message m = Message.obtain(mMainLoopHandler, new Runnable()

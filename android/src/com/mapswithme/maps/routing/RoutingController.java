@@ -26,6 +26,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -431,8 +432,8 @@ public class RoutingController
       return;
 
     mStartButton.setEnabled(mState == State.PREPARE && mBuildState == BuildState.BUILT);
-    mStartButton.setTextColor(MwmApplication.get().getResources().getColor(mStartButton.isEnabled() ? R.color.routing_start_text
-                                                                                                    : R.color.routing_start_text_disabled));
+    mStartButton.setTextColor(ThemeUtils.getColor(mContainer.getActivity(), mStartButton.isEnabled() ? R.attr.routingStartButtonTextColor
+                                                                                                     : R.attr.routingStartButtonTextColorDisabled));
   }
 
   public void setStartButton(@Nullable Button button)

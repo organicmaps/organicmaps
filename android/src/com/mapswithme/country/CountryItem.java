@@ -59,21 +59,6 @@ public class CountryItem
     mOptions = options;
   }
 
-  public int getTextColor()
-  {
-    switch (getStatus())
-    {
-    case MapStorage.ON_DISK_OUT_OF_DATE:
-      return 0xFF666666;
-    case MapStorage.NOT_DOWNLOADED:
-      return 0xFF333333;
-    case MapStorage.DOWNLOAD_FAILED:
-      return 0xFFFF0000;
-    default:
-      return 0xFF000000;
-    }
-  }
-
   public Typeface getTypeface()
   {
     switch (mStatus)

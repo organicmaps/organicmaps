@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "透视图";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "其他";
 
 "pref_tts_how_to_set_up_voice" = "如何设置语音";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "最近的路径";
+
+"duration_disabled" = "关闭";
+
+"duration_1_hour" = "1小时";
+
+"duration_2_hours" = "2小时";
+
+"duration_6_hours" = "6小时";
+
+"duration_12_hours" = "12小时";
+
+"duration_1_day" = "1天";
+
+"pref_track_ios_caption" = "近期轨迹显示您的行进道路。";
+
+"pref_track_ios_subcaption" = "请选择保存轨迹的时间范围。";
 
 "placepage_distance" = "距离";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "启用3D建筑";
 
 "whats_new_next_button" = "下一页";
+
+"whats_new_rec_track_title" = "有了MAPS.ME，您就不会迷路了";
+
+"whats_new_rec_track_body" = "现在，应用程序可以显示您最近走过的路径。";

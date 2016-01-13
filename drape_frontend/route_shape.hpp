@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 
@@ -44,7 +45,7 @@ struct RouteData
 {
   m2::PolylineD m_sourcePolyline;
   vector<double> m_sourceTurns;
-  dp::Color m_color;
+  df::ColorConstant m_color;
   m2::RectF m_arrowTextureRect;
   double m_length;
   RouteRenderProperty m_route;

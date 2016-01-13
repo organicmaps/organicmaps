@@ -94,7 +94,7 @@ public class NavigationController
     mDistanceTurn.setText(Utils.formatUnitsText(R.dimen.text_size_display_1, R.dimen.text_size_toolbar,
                                                 splitDistance[0], splitDistance[1]));
     if (info.pedestrianTurnDirection != null)
-      info.pedestrianTurnDirection.setTurnDrawable(mTurnDirection, da);
+      RoutingInfo.PedestrianTurnDirection.setTurnDrawable(mTurnDirection, da);
   }
 
   public void updateNorth(double north)

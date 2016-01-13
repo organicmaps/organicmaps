@@ -64,6 +64,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   GetFramework().Scale(Framework::SCALE_MIN, true);
 }
 
+- (void)refresh
+{
+  [self.zoomView refresh];
+}
+
 #pragma mark - Actions
 
 - (IBAction)zoomTouchDown:(UIButton *)sender

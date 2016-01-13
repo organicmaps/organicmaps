@@ -34,7 +34,7 @@
 
     <TextView
       android:id="@+id/counter"
-      style="@style/MwmTextAppearance.Counter"
+      style="@style/MwmWidget.Counter"
       android:layout_gravity="center_horizontal"
       android:layout_marginLeft="14dp"
       android:layout_marginTop="10dp"
@@ -60,7 +60,7 @@
   <TextView
     android:id="@+id/showcase"
     style="@style/MwmTheme.Menu.Content.GridItem.Text"
-    android:drawableTop="@drawable/ic_showcase"
+    android:drawableTop="@drawable/ic_menu_showcase"
     android:visibility="gone"
     android:text="@string/showcase_more_apps"
     tools:background="#200000FF"

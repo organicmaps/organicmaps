@@ -74,16 +74,20 @@ extern NSString * const kAlohalyticsTapEventKey;
   return self;
 }
 
-- (void)onEnterForeground
-{
-  [self.menuController onEnterForeground];
-}
-
 #pragma mark - Layout
 
 - (void)refreshLayout
 {
   [self.menuController refreshLayout];
+}
+
+- (void)refresh
+{
+  [self.zoomButtons refresh];
+  [self.navigationManager refresh];
+  [self.searchManager refresh];
+  [self.menuController refresh];
+  [self.placePageManager refresh];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation

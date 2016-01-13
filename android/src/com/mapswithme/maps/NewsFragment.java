@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -22,6 +21,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
 public class NewsFragment extends BaseMwmDialogFragment
@@ -138,8 +138,10 @@ public class NewsFragment extends BaseMwmDialogFragment
     int cur = mPager.getCurrentItem();
     for (int i = 0; i < mDots.length; i++)
     {
-      mDots[i].setImageResource(i == cur ? R.drawable.news_marker_active
-                                         : R.drawable.news_marker_inactive);
+      mDots[i].setImageResource(ThemeUtils.isNightTheme() ? i == cur ? R.drawable.news_marker_active_night
+                                                                     : R.drawable.news_marker_inactive_night
+                                                          : i == cur ? R.drawable.news_marker_active
+                                                                     : R.drawable.news_marker_inactive);
     }
 
     UiUtils.showIf(cur > 0, mPrevButton);
@@ -170,15 +172,15 @@ public class NewsFragment extends BaseMwmDialogFragment
   }
 
   @Override
-  public void onCreate(@Nullable Bundle savedInstanceState)
+  protected int getCustomTheme()
   {
-    super.onCreate(savedInstanceState);
-    setStyle(STYLE_NORMAL, UiUtils.isTablet() ? R.style.MwmMain_DialogFragment
-                                              : R.style.MwmMain_DialogFragment_Fullscreen);
+    return (UiUtils.isTablet() ? super.getCustomTheme()
+                               : getFullscreenTheme());
   }
 
   @Override
-  public @NonNull Dialog onCreateDialog(Bundle savedInstanceState)
+  public @NonNull
+  Dialog onCreateDialog(Bundle savedInstanceState)
   {
     Dialog res = super.onCreateDialog(savedInstanceState);
     res.requestWindowFeature(Window.FEATURE_NO_TITLE);

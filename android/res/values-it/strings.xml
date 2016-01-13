@@ -323,6 +323,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Altro</string>
 	<string name="pref_tts_how_to_set_up_voice">Come impostare la voce</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Percorso recente</string>
+	<string name="duration_disabled">Disabilitato</string>
+	<string name="duration_1_hour">1 ora</string>
+	<string name="duration_2_hours">2 ore</string>
+	<string name="duration_6_hours">6 ore</string>
+	<string name="duration_12_hours">12 ore</string>
+	<string name="duration_1_day">1 giorno</string>
+	<string name="pref_track_ios_caption">Il percorso recente mostra il tragitto effettuato.</string>
+	<string name="pref_track_ios_subcaption">Seleziona un intervallo temporale per la registrazione del percorso.</string>
 	<string name="placepage_distance">Distanza</string>
 	<string name="placepage_coordinates">Coordinate</string>
 	<string name="placepage_unsorted">Non classificato</string>
@@ -812,4 +822,6 @@
 	<string name="whats_new_3d_on">Attiva vista in prospettiva</string>
 	<string name="whats_new_3d_buildings_on">Attiva Edifici in 3D</string>
 	<string name="whats_new_next_button">Avanti</string>
+	<string name="whats_new_rec_track_title">Con MAPS.ME, non ti perderai</string>
+	<string name="whats_new_rec_track_body">Ora, l\&#39;app mostra i percorsi effettuati di recente.</string>
 </resources>

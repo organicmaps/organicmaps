@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSearchManager">
@@ -27,6 +27,9 @@
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u9y-bx-NGd" userLabel="Content" customClass="MWMSearchContentView">
                             <rect key="frame" x="0.0" y="64" width="320" height="440"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Smx-UL-Mcd" userLabel="TabBar">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
@@ -35,8 +38,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="60"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="ic_history_tab_off"/>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="iconImageHighlighted" value="ic_history_tab_on"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="ic_history_tab"/>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="history"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
@@ -48,8 +50,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="categories"/>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="ic_category_tab_off"/>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="iconImageHighlighted" value="ic_category_tab_on"/>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="ic_category_tab"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="HFa-nc-cL3"/>
@@ -94,6 +95,7 @@
                                 <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                                     <size key="value" width="0.0" height="0.0"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
@@ -107,6 +109,9 @@
                         <constraint firstItem="Smx-UL-Mcd" firstAttribute="top" secondItem="grH-Hm-JRD" secondAttribute="top" id="wq0-ta-MXo"/>
                         <constraint firstAttribute="bottom" secondItem="u9y-bx-NGd" secondAttribute="bottom" id="ztw-wn-pBJ"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcT-Cg-vp3" userLabel="SearchBar">
                     <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -117,11 +122,19 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="uq8-gE-5iC"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="primary"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="hna-zw-Zor" userLabel="Search" customClass="MWMSearchTextField">
                             <rect key="frame" x="8" y="4" width="246" height="36"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="search"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="textFieldDidEndEditing:" destination="-1" eventType="editingDidEnd" id="1NS-lr-9DA"/>
                                 <action selector="textFieldTextDidChange:" destination="-1" eventType="editingChanged" id="lni-qP-88W"/>
@@ -139,7 +152,7 @@
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cancel"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whitePrimaryText"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="cancelButtonPressed" destination="-1" eventType="touchUpInside" id="8EF-82-bpl"/>
@@ -212,9 +225,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_category_tab_off" width="28" height="28"/>
-        <image name="ic_category_tab_on" width="28" height="28"/>
-        <image name="ic_history_tab_off" width="28" height="28"/>
-        <image name="ic_history_tab_on" width="28" height="28"/>
+        <image name="ic_category_tab" width="28" height="28"/>
+        <image name="ic_history_tab" width="28" height="28"/>
     </resources>
 </document>

@@ -31,6 +31,9 @@ SOURCES += \
   bookmarks_test.cpp \
   ge0_parser_tests.cpp  \
   geourl_test.cpp \
+  gps_track_collection_test.cpp \
+  gps_track_storage_test.cpp \
+  gps_track_test.cpp \
   kmz_unarchive_test.cpp \
   mwm_url_tests.cpp \
 

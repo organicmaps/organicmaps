@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Góc nhìn phối cảnh";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "Khác";
 
 "pref_tts_how_to_set_up_voice" = "Làm thế nào để thiết lập tiếng nói";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "Tìm kiếm gần đây";
+
+"duration_disabled" = "Tắt";
+
+"duration_1_hour" = "1 giờ";
+
+"duration_2_hours" = "2 giờ";
+
+"duration_6_hours" = "6 giờ";
+
+"duration_12_hours" = "12 giờ";
+
+"duration_1_day" = "1 ngày";
+
+"pref_track_ios_caption" = "Chức năng theo dấu gần đây hiển thị các đường bạn đã đi.";
+
+"pref_track_ios_subcaption" = "Vui lòng chọn khoảng thời gian lưu dấu.";
 
 "placepage_distance" = "Khoảng cách";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Kích hoạt Tòa nhà 3D";
 
 "whats_new_next_button" = "Tiếp theo";
+
+"whats_new_rec_track_title" = "Với MAPS.ME, bạn sẽ không bị lạc";
+
+"whats_new_rec_track_body" = "Ứng dụng hiện đang hiển thị đường đã đi gần đây của bạn.";

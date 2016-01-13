@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "มุมมองเพอร์สเปกทีฟ";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "อื่น ๆ";
 
 "pref_tts_how_to_set_up_voice" = "วิธีตั้งค่าเสียง";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "เส้นทางล่าสุด";
+
+"duration_disabled" = "ปิด";
+
+"duration_1_hour" = "1 ชั่วโมง";
+
+"duration_2_hours" = "2 ชั่วโมง";
+
+"duration_6_hours" = "6 ชั่วโมง";
+
+"duration_12_hours" = "12 ชั่วโมง";
+
+"duration_1_day" = "1 วัน";
+
+"pref_track_ios_caption" = "เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ";
+
+"pref_track_ios_subcaption" = "โปรดเลือกช่วงเวลาในการบันทึกการติดตาม";
 
 "placepage_distance" = "ระยะห่าง";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "เปิดใช้งานตึก 3D";
 
 "whats_new_next_button" = "ถัดไป";
+
+"whats_new_rec_track_title" = "เมื่อใช้ MAPS. คุณจะไม่หลงทาง";
+
+"whats_new_rec_track_body" = "ตอนนี้ แอปจะแสดงเส้นทางการท่องเที่ยวล่าสุดของคุณ";

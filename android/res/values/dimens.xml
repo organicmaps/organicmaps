@@ -48,10 +48,9 @@
   <!-- direction fragment -->
   <dimen name="margin_direction_small">8dp</dimen>
   <dimen name="margin_direction_big">20dp</dimen>
-  <dimen name="margin_direction_left">32dp</dimen>
-  <dimen name="margin_direction_top">40dp</dimen>
+  <dimen name="margin_direction_side">32dp</dimen>
   <dimen name="margin_direction_mid">24dp</dimen>
-  <dimen name="margin_direction_around_center">20dp</dimen>
+  <dimen name="margin_direction_around_center">40dp</dimen>
 
   <dimen name="height_item_oneline">56dp</dimen>
   <dimen name="height_item_edit_bookmark">72dp</dimen>

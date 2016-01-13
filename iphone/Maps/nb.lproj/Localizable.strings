@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspektivvisning";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "Andre";
 
 "pref_tts_how_to_set_up_voice" = "Slik installerer du stemme";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "Siste rute";
+
+"duration_disabled" = "Av";
+
+"duration_1_hour" = "1 time";
+
+"duration_2_hours" = "2 timer";
+
+"duration_6_hours" = "6 timer";
+
+"duration_12_hours" = "12 timer";
+
+"duration_1_day" = "1 dag";
+
+"pref_track_ios_caption" = "Nylig rute viser ruten du har fulgt.";
+
+"pref_track_ios_subcaption" = "Velg en tidsperiode for rutelagring.";
 
 "placepage_distance" = "Avstand";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Aktiver 3D-bygninger";
 
 "whats_new_next_button" = "Neste";
+
+"whats_new_rec_track_title" = "Med MAPS.ME vil du ikke gå deg bort";
+
+"whats_new_rec_track_body" = "Nå vil appen vise deg den siste ruten du fulgte.";

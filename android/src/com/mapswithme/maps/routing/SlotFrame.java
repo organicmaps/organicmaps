@@ -12,18 +12,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 
 public class SlotFrame extends LinearLayout
 {
-  private static final int COLOR_TEXT = MwmApplication.get().getResources().getColor(R.color.text_dark);
-  private static final int COLOR_HINT = MwmApplication.get().getResources().getColor(R.color.text_dark_hint);
   private static final int ANIM_SWAP = MwmApplication.get().getResources().getInteger(R.integer.anim_slots_swap);
 
-  private OnSlotClickListener mClickListener;
   private Slot mSlotFrom;
   private Slot mSlotTo;
 
@@ -32,10 +31,8 @@ public class SlotFrame extends LinearLayout
   private final PointF mDragStartPoint = new PointF();
   private boolean mSwapProgress;
 
-  public interface OnSlotClickListener
-  {
-    void OnSlotClick(int slotId);
-  }
+  private int mTextColor;
+  private int mHintColor;
 
   private class Slot
   {
@@ -76,7 +73,7 @@ public class SlotFrame extends LinearLayout
         @Override
         public void onClick(View v)
         {
-          mClickListener.OnSlotClick(mOrder);
+          RoutingController.get().searchPoi(mOrder);
         }
       });
 
@@ -95,7 +92,7 @@ public class SlotFrame extends LinearLayout
         else
           mText.setText(R.string.p2p_to);
 
-        mText.setTextColor(COLOR_HINT);
+        mText.setTextColor(mHintColor);
         return;
       }
 
@@ -104,7 +101,7 @@ public class SlotFrame extends LinearLayout
       else
         mText.setText(mMapObject.getName());
 
-      mText.setTextColor(COLOR_TEXT);
+      mText.setTextColor(mTextColor);
     }
 
     void setMapObject(MapObject mapObject)
@@ -160,9 +157,8 @@ public class SlotFrame extends LinearLayout
       mShadowedFrame.setLayoutParams(lp);
       mShadow.setAlpha(dragging ? 0.6f : 1.0f);
 
-      mShadowedFrame.setBackgroundResource(dragging ? R.drawable.routing_slot_background_pressed
-                                                    : R.drawable.routing_slot_background);
-
+      mShadowedFrame.setBackgroundResource(ThemeUtils.getResource(getContext(), dragging ? R.attr.routingSlotPressed
+                                                                                         : R.attr.routingSlot));
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         mFrame.setElevation(dragging ? 1.0f : 0.0f);
     }
@@ -217,7 +213,9 @@ public class SlotFrame extends LinearLayout
   {
     super.onFinishInflate();
 
-    setBackgroundColor(getContext().getResources().getColor(R.color.base_green));
+    mTextColor = ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary);
+    mHintColor = ThemeUtils.getColor(getContext(), R.attr.secondary);
+
     setBaselineAligned(false);
     setClipChildren(false);
     setClipToPadding(false);
@@ -325,11 +323,6 @@ public class SlotFrame extends LinearLayout
   public SlotFrame(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs, defStyleAttr);
-  }
-
-  public void setOnSlotClickListener(OnSlotClickListener clickListener)
-  {
-    mClickListener = clickListener;
   }
 
   public void update()

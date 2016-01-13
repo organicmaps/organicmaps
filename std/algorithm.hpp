@@ -13,6 +13,7 @@ using std::fill;
 using std::find;
 using std::find_if;
 using std::find_first_of;
+using std::is_sorted;
 using std::lexicographical_compare;
 using std::lower_bound;
 using std::max;

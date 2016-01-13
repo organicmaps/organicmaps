@@ -1,7 +1,9 @@
 #import "Common.h"
 #import "MWMCircularProgress.h"
 #import "MWMCircularProgressView.h"
+#import "UIButton+Coloring.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIImageView+Coloring.h"
 
 static CGFloat const kLineWidth = 2.0;
 static NSString * const kAnimationKey = @"CircleAnimation";
@@ -48,16 +50,13 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 - (void)setupColors
 {
   self.colors = [NSMutableDictionary dictionary];
+  self.spinner.mwm_coloring = MWMImageColoringGray;
   UIColor * progressColor = [UIColor linkBlue];
   UIColor * clearColor = [UIColor clearColor];
   [self setColor:clearColor forState:MWMCircularProgressStateNormal];
-  [self setColor:clearColor forState:MWMCircularProgressStateHighlighted];
   [self setColor:clearColor forState:MWMCircularProgressStateSelected];
-  [self setColor:clearColor forState:MWMCircularProgressStateSelectedHighlighted];
   [self setColor:progressColor forState:MWMCircularProgressStateProgress];
-  [self setColor:progressColor forState:MWMCircularProgressStateProgressHighlighted];
   [self setColor:clearColor forState:MWMCircularProgressStateFailed];
-  [self setColor:clearColor forState:MWMCircularProgressStateFailedHighlighted];
   [self setColor:clearColor forState:MWMCircularProgressStateCompleted];
 }
 
@@ -93,36 +92,30 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   self.progressLayer.strokeColor = self.progressColor;
   CGRect rect = CGRectInset(self.bounds, kLineWidth, kLineWidth);
   self.backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
-  UIImage * normalImage, * highlightedImage;
+  UIImage * normalImage = nil;
   switch (self.state)
   {
     case MWMCircularProgressStateNormal:
-    case MWMCircularProgressStateHighlighted:
       normalImage = self.images[@(MWMCircularProgressStateNormal)];
-      highlightedImage = self.images[@(MWMCircularProgressStateHighlighted)];
+      self.button.mwm_coloring = MWMButtonColoringBlack;
       break;
     case MWMCircularProgressStateSelected:
-    case MWMCircularProgressStateSelectedHighlighted:
       normalImage = self.images[@(MWMCircularProgressStateSelected)];
-      highlightedImage = self.images[@(MWMCircularProgressStateSelectedHighlighted)];
+      self.button.mwm_coloring = MWMButtonColoringBlue;
       break;
     case MWMCircularProgressStateProgress:
-    case MWMCircularProgressStateProgressHighlighted:
       normalImage = self.images[@(MWMCircularProgressStateProgress)];
-      highlightedImage = self.images[@(MWMCircularProgressStateProgressHighlighted)];
+      self.button.mwm_coloring = MWMButtonColoringBlue;
       break;
     case MWMCircularProgressStateFailed:
-    case MWMCircularProgressStateFailedHighlighted:
-      normalImage = self.images[@(MWMCircularProgressStateFailed)];
-      highlightedImage = self.images[@(MWMCircularProgressStateFailedHighlighted)];
+      self.button.mwm_coloring = MWMButtonColoringBlue;
       break;
     case MWMCircularProgressStateCompleted:
       normalImage = self.images[@(MWMCircularProgressStateCompleted)];
-      highlightedImage = self.images[@(MWMCircularProgressStateCompleted)];
+      self.button.mwm_coloring = MWMButtonColoringBlue;
       break;
   }
   [self.button setImage:normalImage forState:UIControlStateNormal];
-  [self.button setImage:highlightedImage forState:UIControlStateHighlighted];
 }
 
 - (void)updatePath:(CGFloat)progress
@@ -208,7 +201,6 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   switch (self.state)
   {
     case MWMCircularProgressStateProgress:
-    case MWMCircularProgressStateProgressHighlighted:
       return [UIColor pressBackground].CGColor;
     default:
       return [UIColor clearColor].CGColor;

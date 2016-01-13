@@ -23,6 +23,8 @@
   BOOL m_isCourse;
 }
 
+@property (nonatomic, readonly) BOOL isDaemonMode;
+
 - (void)start:(id <LocationObserver>)observer;
 - (void)stop:(id <LocationObserver>)observer;
 - (CLLocation *)lastLocation;
@@ -40,6 +42,11 @@
 - (bool)lastLocationIsValid;
 - (BOOL)enabledOnMap;
 - (void)triggerCompass;
+
+- (void)onDaemonMode;
+- (void)onForeground;
+- (void)onBackground;
+- (void)beforeTerminate;
 
 @end
 

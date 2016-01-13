@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll__place_operator"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/clickableBackground"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/margin_half"
-    android:paddingTop="@dimen/margin_half"
-    android:tag="operator"
-    android:visibility="gone"
-    tools:visibility="visible"
-    tools:background="#8000FFFF">
-
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_operator"
+  style="@style/PlacePageItemFrame"
+  android:tag="operator"
+  tools:visibility="visible"
+  tools:background="#4000FFFF">
   <ImageView
-      android:id="@+id/iv__place_operator"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_base"
-      android:src="@drawable/ic_bank"/>
+    android:id="@+id/iv__place_operator"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/margin_base"
+    android:src="@drawable/ic_bank"
+    android:tint="?iconTint"/>
 
   <TextView
-      android:id="@+id/tv__place_operator"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textColor="@color/text_place_page"
-      android:textSize="@dimen/text_size_body_1"
-      tools:text="Operator"/>
+    android:id="@+id/tv__place_operator"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage"
+    tools:text="Operator"/>
 </LinearLayout>

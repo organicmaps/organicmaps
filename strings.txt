@@ -5279,29 +5279,24 @@
     en = Map style
     ru = Стиль карты
 
-  [pref_map_style_summary]
-    tags = android
-    comment = Settings «Map» category: «Map style» summary
-    en = Change map presentation
-    ru = Стиль отображения карты
-
-  [pref_map_style_classic_light]
+  [pref_map_style_default]
     tags = android
     comment = «Map style» entry value
-    en = Classic light
-    ru = Классическая светлая
+    en = Default
+    ru = По умолчанию
 
-  [pref_map_style_classic_dark]
+  [pref_map_style_night]
     tags = android
     comment = «Map style» entry value
-    en = Classic dark
-    ru = Классическая тёмная
+    en = Night
+    ru = Ночная
 
-  [pref_map_style_modern_light]
+  [pref_map_style_auto]
     tags = android
     comment = «Map style» entry value
-    en = Modern light
-    ru = Современная светлая
+    en = Auto
+    ru = Автоматическое переключение
+
 
   [pref_map_3d_title]
     comment = Settings «Map» category: «Perspective view» title
@@ -5549,6 +5544,276 @@
     pl = Jak skonfigurować usługę głosową
     nl = Hoe stel je de stem in
     pt = Como configurar a voz
+
+  [pref_track_record_title]
+    tags = ios,android
+    comment = Settings «Map» category: «Record track» title
+    en = Recent track
+    ru = Недавно пройденный путь
+    fr = Parcours récent
+    da = Seneste sti
+    id = Jalur terkini
+    ko = 최근 추적
+    sv = Senaste resväg
+    tr = En son yol
+    uk = Недавній маршрут
+    vi = Tìm kiếm gần đây
+    hu = Legutolsó útvonal
+    de = Letzte Strecke
+    fi = Viimeisin reitti
+    cs = Nedávné cesty
+    it = Percorso recente
+    nb = Siste rute
+    zh-Hant = 最近的軌跡
+    zh-Hans = 最近的路径
+    th = เส้นทางล่าสุด
+    ja = 最近のルート
+    ro = Rute recente
+    ar = المسار الأخير
+    sk = Posledná trasa
+    es = Trayecto reciente
+    pl = Ostatnia trasa
+    nl = Recente route
+
+  [duration_disabled]
+    tags = ios,android
+    en = Off
+    ru = Выключено
+    fr = Désactivé
+    da = Fra
+    id = Nonaktif
+    ko = 선택 안 함
+    sv = Av
+    tr = Kapalı
+    uk = Вимкнуто
+    vi = Tắt
+    hu = Kikapcsolva
+    de = Aus
+    fi = Pois päältä
+    cs = Vypnuto
+    it = Disabilitato
+    nb = Av
+    zh-Hant = 關閉
+    zh-Hans = 关闭
+    th = ปิด
+    ja = オフ
+    ro = Oprit
+    ar = لا يعمل
+    sk = Vypnúť
+    es = Desactivada
+    pl = Wyłącz
+    nl = Uit
+    pt = Desligado
+
+  [duration_1_hour]
+    tags = ios,android
+    en = 1 hour
+    ru = 1 час
+    fr = 1 heure
+    da = 1 time
+    id = 1 jam
+    ko = 1시간
+    sv = 1 timme
+    tr = 1 saat
+    uk = 1 година
+    vi = 1 giờ
+    hu = 1 óra
+    de = 1 Stunde
+    fi = 1 tunti
+    cs = 1 hodina
+    it = 1 ora
+    nb = 1 time
+    zh-Hant = 1小時
+    zh-Hans = 1小时
+    th = 1 ชั่วโมง
+    ja = 1時間
+    ro = 1 oră
+    ar = 1 ساعة
+    sk = 1 hodina
+    es = 1 hora
+    pl = 1 godzina
+    nl = 1 uur
+    pt = 1 hora
+
+  [duration_2_hours]
+    tags = ios,android
+    en = 2 hours
+    ru = 2 часа
+    fr = 2 heures
+    da = 2 timer
+    id = 2 jam
+    ko = 2시간
+    sv = 2 timmar
+    tr = 2 saat
+    uk = 2 години
+    vi = 2 giờ
+    hu = 2 óra
+    de = 2 Stunden
+    fi = 2 tuntia
+    cs = 2 hodiny
+    it = 2 ore
+    nb = 2 timer
+    zh-Hant = 2小時
+    zh-Hans = 2小时
+    th = 2 ชั่วโมง
+    ja = 2時間
+    ro = 2 ore
+    ar = 2 ساعة
+    sk = 2 hodiny
+    es = 2 horas
+    pl = 2 godziny
+    nl = 2 uur
+    pt = 2 horas
+
+  [duration_6_hours]
+    tags = ios,android
+    en = 6 hours
+    ru = 6 часов
+    fr = 6 heures
+    da = 6 timer
+    id = 6 jam
+    ko = 6시간
+    sv = 6 timmar
+    tr = 6 saat
+    uk = 6 годин
+    vi = 6 giờ
+    hu = 6 óra
+    de = 6 Stunden
+    fi = 6 tuntia
+    cs = 6 hodin
+    it = 6 ore
+    nb = 6 timer
+    zh-Hant = 6小時
+    zh-Hans = 6小时
+    th = 6 ชั่วโมง
+    ja = 6時間
+    ro = 6 ore
+    ar = 6 ساعات
+    sk = 6 hodín
+    es = 6 horas
+    pl = 6 godzin
+    nl = 6 uur
+    pt = 6 horas
+
+  [duration_12_hours]
+    tags = ios,android
+    en = 12 hours
+    ru = 12 часов
+    fr = 12 heures
+    da = 12 timer
+    id = 12 jam
+    ko = 12시간
+    sv = 12 timmar
+    tr = 12 saat
+    uk = 12 годин
+    vi = 12 giờ
+    hu = 12 óra
+    de = 12 Stunden
+    fi = 12 tuntia
+    cs = 12 hodin
+    it = 12 ore
+    nb = 12 timer
+    zh-Hant = 12小時
+    zh-Hans = 12小时
+    th = 12 ชั่วโมง
+    ja = 12時間
+    ro = 12 ore
+    ar = 12 ساعة
+    sk = 12 hodín
+    es = 12 horas
+    pl = 12 godzin
+    nl = 12 uur
+    pt = 12 horas
+
+  [duration_1_day]
+    tags = ios,android
+    en = 1 day
+    ru = 1 сутки
+    fr = 1 jour
+    da = 1 dag
+    id = 1 hari
+    ko = 1일
+    sv = 1 dag
+    tr = 1 gün
+    uk = 1 день
+    vi = 1 ngày
+    hu = 1 nap
+    de = 1 Tag
+    fi = 1 päivä
+    cs = 1 den
+    it = 1 giorno
+    nb = 1 dag
+    zh-Hant = 1天
+    zh-Hans = 1天
+    th = 1 วัน
+    ja = 1日
+    ro = 1 zi
+    ar = 1 يوم
+    sk = 1 deň
+    es = 1 día
+    pl = 1 dzień
+    nl = 1 dag
+    pt = 1 dia
+    
+  [pref_track_ios_caption]
+    tags = ios
+    en = Recent track shows your traveled path.
+    ru = История пути покажет недавно пройденный маршрут.
+    fr = L'itinéraire récent indique votre chemin parcouru.
+    da = Seneste spor viser din rejste vej.
+    id = Jalur terakhir menunjukkan jalur yang sudah Anda lalui.
+    ko = 최근 추적은 여행한 경로를 보여줍니다.
+    sv = Senaste resväg visar den väg du rest.
+    tr = En son yol seyahat ettiğiniz yolları gösterir.
+    uk = Останній маршрут показує пройдену відстань.
+    vi = Chức năng theo dấu gần đây hiển thị các đường bạn đã đi.
+    hu = A legutolsó útvonal megmutatja, hogy milyen útvonalon haladtál.
+    de = Letzte Strecke zeigt den von Ihnen zurückgelegten Weg.
+    fi = Viimeisin reitti näyttää kulkemasi matkan.
+    cs = Nedávná trasa zobrazuje cestu, po které jste cestovali.
+    it = Il percorso recente mostra il tragitto effettuato. 
+    nb = Nylig rute viser ruten du har fulgt. 
+    zh-Hant = 近期軌跡顯示您的行進道路。
+    zh-Hans = 近期轨迹显示您的行进道路。
+    th = เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ 
+    ja = 最近ルートは、使用した道のりを表示する機能です。 
+    ro = Opțiunea Rută recentă vă afișează ruta folosită anterior. 
+    ar = يُظهر المسار الأخير مسار سفرك. 
+    sk = Funkcia Čerstvá stopa zobrazuje trasu, ktorú ste prešli. 
+    es = El trayecto reciente muestra tu recorrido de viaje. 
+    pl = Ostatnia trasa pokazuje pokonaną przez Ciebie ścieżkę. 
+    nl = Recente route geeft uw gebruikte route weer.
+    pt = O percurso recente mostra o seu caminho viajado. 
+
+  [pref_track_ios_subcaption]
+    tags = ios
+    en = Please select the time range of saving the track.
+    ru = Выберите длительность записи истории.
+    fr = Veuillez sélectionner la période d'enregistrement du parcours.
+    da = Vælg tidsinterval for at gemme sporet.
+    id = Silakan pilih jangka waktu penyimpanan jalur.
+    ko = 추적을 저장하는 시간 범위를 선택하십시오.
+    sv = Välj tidsintervall för att spara resvägen.
+    tr = Lütfen kaydedilecek yol süresini seçin.
+    uk = Будь ласка, виберіть проміжок часу для збереження маршруту.
+    vi = Vui lòng chọn khoảng thời gian lưu dấu.
+    hu = Válaszd ki az útvonalak elmentésének időtartamát!
+    de = Bitte wählen Sie die Zeitspanne, in der die Strecke gespeichert wurde.
+    fi = Valitse reitin tallennuksen aikaväli.
+    cs = Vyberte prosím časový rozsah uložené trasy.
+    it = Seleziona un intervallo temporale per la registrazione del percorso.
+    nb = Velg en tidsperiode for rutelagring.
+    zh-Hant = 請選擇保存軌跡的時間範圍。
+    zh-Hans = 请选择保存轨迹的时间范围。
+    th = โปรดเลือกช่วงเวลาในการบันทึกการติดตาม
+    ja = ルートを保存する期間を選択してください。
+    ro = Vă rugăm să selectați intervalul orar corespunzător salvării rutei.
+    ar = يرجى تحديد نطاق وقت حفظ المسار.
+    sk = Prosím, vyberte si, po akú dobu má aplikácia zaznamenávať vašu trasu.
+    es = Por favor, selecciona la periodicidad para guardar el trayecto.
+    pl = Wybierz zakres czasowy dla zapisywanej trasy.
+    nl = Selecteer de tijdperiode voor het opslaan van route.
+    pt = Por favor, selecione o intervalo de tempo da gravação do percurso.
 
   [placepage_distance]
     en = Distance
@@ -14767,3 +15032,63 @@
     pl = Dalej
     nl = Volgende
     pt = Próxima
+
+  [whats_new_rec_track_title]
+    tags = ios, android
+    en = With MAPS.ME you won’t get lost
+    ru = С MAPS.ME не заблудишься!
+    fr = Avec MAPS.ME, ne vous perdez pas 
+    da = Med MAPS.ME farer du ikke vild
+    id = Dengan MAPS.ME Anda tidak akan tersesat
+    ko = MAPS.ME로 길을 잃지 않을 것입니다
+    sv = Med MAPS.ME går du inte vilse
+    tr = MAPS.ME ile kaybolmayacaksınız
+    uk = З MAPS.ME ви ніколи не заблукаєте
+    vi = Với MAPS.ME, bạn sẽ không bị lạc
+    hu = A térkép navigálása kényelmesebb lett
+    de = Mit MAPS.ME können Sie sich nicht verirren
+    fi = MAPS.ME mukanasi et eksy
+    cs = S MAPS.ME se nikdy neztratíte
+    it = Con MAPS.ME, non ti perderai
+    nb = Med MAPS.ME vil du ikke gå deg bort
+    zh-Hant = 有了MAPS.ME，你就不會迷路
+    zh-Hans = 有了MAPS.ME，您就不会迷路了
+    th = เมื่อใช้ MAPS. คุณจะไม่หลงทาง
+    ja = MAPS.MEがあれば道に迷うことがありません
+    ro = Cu MAPS.ME nu vă veți rătăci
+    ar = مع MAPS.ME لن تتوه أبدا
+    sk = S MAPS.ME sa nestratíte
+    es = Con MAPS.ME no te perderás
+    pl = Dzięki MAPS.ME nie zgubisz się
+    nl = Met MAPS.ME verdwaalt u niet.
+
+  [whats_new_rec_track_body]
+    tags = ios, android
+    en = Now the app shows your recent traveled path.
+    ru = Теперь приложение показывает недавно пройденный путь.
+    fr = L'appli affiche maintenant le parcours que vous avez effectué.
+    da = Nu viser app'en den seneste vej, du har rejst.
+    id = Aplikasi kini menunjukkan jalur yang telah Anda tempuh baru-baru ini.
+    ko = 지금 앱은 최근 여행한 경로를 보여줍니다.
+    sv = Appen visar nu din senaste resväg.
+    tr = Artık uygulama en son seyahat ettiğiniz güzergâhı gösteriyor.
+    uk = Тепер програма відображає ваш недавній маршрут.
+    vi = Ứng dụng hiện đang hiển thị đường đã đi gần đây của bạn.
+    hu = A MAPS.ME-vel nem fogsz eltévedni
+    de = Die App zeigt jetzt die zuletzt benutzte Strecke an.
+    fi = Sovellus näyttää nyt viimeiseksi kulkemasi reitin.
+    cs = Aplikace nyní ukazuje vaše nedávno uskutečněné cesty.
+    it = Ora, l'app mostra i percorsi effettuati di recente.
+    nb = Nå vil appen vise deg den siste ruten du fulgte.
+    zh-Hant = 現在，該應用可以顯示你最近走過的道路。
+    zh-Hans = 现在，应用程序可以显示您最近走过的路径。
+    th = ตอนนี้ แอปจะแสดงเส้นทางการท่องเที่ยวล่าสุดของคุณ
+    ja = アプリが最近の道のりを表示できるようになりました。
+    ro = Acum, MAPS.ME vă indică ruta folosită recent.
+    ar = بإمكان التطبيق الآن أن يُظهر لك مسار سفرك الأخير.
+    sk = Aplikácia vám teraz ukazuje vašu poslednú trasu.
+    es = Ahora la aplicación muestra tu recorrido de viaje reciente.
+    pl = Aplikacja pokazuje teraz ostatnio pokonaną przez Ciebie ścieżkę.
+    nl = Nu geeft de app uw recente route weer.    
+
+

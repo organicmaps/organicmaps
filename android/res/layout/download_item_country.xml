@@ -1,121 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:wheel="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/clickableBackground"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:paddingLeft="@dimen/margin_half">
-
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:wheel="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="?attr/clickableBackground"
+  android:minHeight="?android:attr/listPreferredItemHeight"
+  android:paddingLeft="@dimen/margin_half">
   <TextView
-      android:id="@+id/title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      android:layout_centerVertical="true"
-      android:layout_marginLeft="@dimen/margin_half"
-      android:layout_toLeftOf="@+id/ll__info_slided"
-      android:maxLines="2"
-      android:textAppearance="@style/MwmTextAppearance.Body1"/>
+    android:id="@+id/title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_centerVertical="true"
+    android:layout_marginLeft="@dimen/margin_half"
+    android:layout_toLeftOf="@+id/ll__info_slided"
+    android:maxLines="2"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    tools:text="Russia"/>
 
   <com.mapswithme.maps.widget.WheelProgressView
-      android:id="@+id/download_progress"
-      android:layout_width="@dimen/progress_wheel_width"
-      android:layout_height="@dimen/progress_wheel_height"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:layout_marginRight="@dimen/progress_wheel_width_neg"
-      android:paddingLeft="@dimen/margin_quarter"
-      android:paddingRight="@dimen/margin_quarter"
-      wheel:wheelProgressColor="@color/downloader_blue"
-      wheel:wheelSecondaryColor="@color/downloader_progress_bg"
-      wheel:wheelThickness="@dimen/margin_eighth"/>
+    android:id="@+id/download_progress"
+    android:layout_width="@dimen/progress_wheel_width"
+    android:layout_height="@dimen/progress_wheel_height"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:layout_marginRight="@dimen/progress_wheel_width_neg"
+    android:paddingLeft="@dimen/margin_quarter"
+    android:paddingRight="@dimen/margin_quarter"
+    wheel:wheelProgressColor="?colorAccent"
+    wheel:wheelSecondaryColor="?dividerHorizontal"
+    wheel:wheelThickness="@dimen/margin_eighth"/>
 
   <ImageView
-      android:id="@+id/iv__routing_status_slided"
-      android:layout_width="@dimen/progress_wheel_width"
-      android:layout_height="@dimen/progress_wheel_height"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:contentDescription="@null"
-      android:scaleType="center"/>
+    android:id="@+id/iv__routing_status_slided"
+    android:layout_width="@dimen/progress_wheel_width"
+    android:layout_height="@dimen/progress_wheel_height"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:contentDescription="@null"
+    android:scaleType="center"/>
 
   <com.mapswithme.maps.widget.WheelProgressView
-      android:id="@+id/download_progress_slided"
-      android:layout_width="@dimen/progress_wheel_width"
-      android:layout_height="@dimen/progress_wheel_height"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:paddingLeft="@dimen/margin_quarter"
-      android:paddingRight="@dimen/margin_quarter"
-      wheel:wheelProgressColor="@color/downloader_blue"
-      wheel:wheelSecondaryColor="@color/downloader_progress_bg"
-      wheel:wheelThickness="@dimen/margin_eighth"/>
+    android:id="@+id/download_progress_slided"
+    android:layout_width="@dimen/progress_wheel_width"
+    android:layout_height="@dimen/progress_wheel_height"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:paddingLeft="@dimen/margin_quarter"
+    android:paddingRight="@dimen/margin_quarter"
+    wheel:wheelProgressColor="?colorAccent"
+    wheel:wheelSecondaryColor="?dividerHorizontal"
+    wheel:wheelThickness="@dimen/margin_eighth"/>
 
   <LinearLayout
-      android:id="@+id/ll__info"
+    android:id="@+id/ll__info"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:layout_marginRight="@dimen/margin_half"
+    android:gravity="right"
+    android:minWidth="60dp"
+    android:orientation="vertical">
+    <TextView
+      android:id="@+id/tv__percent"
       android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:layout_marginRight="@dimen/margin_half"
-      android:gravity="right"
-      android:minWidth="60dp"
-      android:orientation="vertical">
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:maxLines="1"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textColor="?colorAccent"
+      tools:text="100%"/>
 
     <TextView
-        android:id="@+id/tv__percent"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:maxLines="1"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        android:textColor="@color/downloader_green"/>
-
-    <TextView
-        android:id="@+id/tv__size"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:maxLines="1"
-        android:shadowColor="@color/downloader_gray"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        android:textColor="@color/downloader_gray"/>
-
+      android:id="@+id/tv__size"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:maxLines="1"
+      android:shadowColor="@color/downloader_gray"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textColor="@color/downloader_gray"
+      tools:text="900 MB"/>
   </LinearLayout>
 
   <LinearLayout
-      android:id="@+id/ll__info_slided"
+    android:id="@+id/ll__info_slided"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:layout_marginRight="56dp"
+    android:gravity="right"
+    android:minWidth="60dp"
+    android:orientation="vertical"
+    android:visibility="gone">
+    <TextView
+      android:id="@+id/tv__percent_slided"
       android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:layout_marginRight="56dp"
-      android:gravity="right"
-      android:minWidth="60dp"
-      android:orientation="vertical"
-      android:visibility="gone">
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:maxLines="1"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textColor="?colorPrimary"
+      tools:text="100%"/>
 
     <TextView
-        android:id="@+id/tv__percent_slided"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:maxLines="1"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        android:textColor="@color/downloader_green"/>
-
-    <TextView
-        android:id="@+id/tv__size_slided"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:maxLines="1"
-        android:shadowColor="@color/downloader_gray"
-        android:textAppearance="@style/MwmTextAppearance.Body3"
-        android:textColor="@color/downloader_gray"/>
-
+      android:id="@+id/tv__size_slided"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:maxLines="1"
+      android:shadowColor="@color/downloader_gray"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textColor="@color/downloader_gray"/>
   </LinearLayout>
 </RelativeLayout>
-

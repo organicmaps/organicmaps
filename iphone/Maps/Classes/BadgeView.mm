@@ -1,5 +1,5 @@
-
 #import "BadgeView.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
 @implementation BadgeView
@@ -21,7 +21,7 @@
   UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(offset, 0, textWidth, self.height)];
   label.backgroundColor = [UIColor clearColor];
   label.textAlignment = NSTextAlignmentCenter;
-  label.textColor = [UIColor whiteColor];
+  label.textColor = [UIColor white];
   label.font = font;
   label.text = @(value).stringValue;
   label.center = CGPointMake(self.width / 2, self.height / 2);

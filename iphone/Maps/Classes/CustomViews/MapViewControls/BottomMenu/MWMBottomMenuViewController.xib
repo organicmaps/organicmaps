@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -45,8 +45,9 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" identifier="p2pButton"/>
                             <state key="normal" image="ic_menu_point_to_point"/>
-                            <state key="selected" image="ic_menu_point_to_point_press"/>
-                            <state key="highlighted" image="ic_menu_point_to_point_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="point2PointButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="s4j-nH-gFP"/>
                             </connections>
@@ -59,8 +60,9 @@
                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="64" identifier="searchWidth" id="5xY-fR-Lyf"/>
                             </constraints>
                             <state key="normal" image="ic_menu_search"/>
-                            <state key="selected" image="ic_menu_search_press"/>
-                            <state key="highlighted" image="ic_menu_search_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="searchButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="Orp-zQ-HVP"/>
                             </connections>
@@ -69,8 +71,10 @@
                             <rect key="frame" x="192" y="0.0" width="64" height="48"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
-                            <state key="normal" image="ic_menu_bookmark_list_light"/>
-                            <state key="highlighted" image="ic_menu_bookmark_list_light_press"/>
+                            <state key="normal" image="ic_menu_bookmark_list"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="bookmarksButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="6rq-3I-Tcp"/>
                             </connections>
@@ -83,6 +87,9 @@
                                 <constraint firstAttribute="width" constant="64" identifier="menuWidth" id="xz3-Ds-GVr"/>
                             </constraints>
                             <state key="normal" image="ic_menu"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="menuButtonTouchUpInside:" destination="-1" eventType="touchUpInside" id="RZO-bi-Zfz"/>
                             </connections>
@@ -101,7 +108,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="downloadBadgeBackground"/>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLD-sZ-ejH" userLabel="Go">
+                        <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLD-sZ-ejH" userLabel="Go" customClass="MWMStartButton">
                             <rect key="frame" x="100" y="8" width="120" height="32"/>
                             <accessibility key="accessibilityConfiguration" identifier="goButton"/>
                             <constraints>
@@ -119,7 +126,7 @@
                                     <integer key="value" value="4"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_start"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueDark"/>
                             </userDefinedRuntimeAttributes>
@@ -231,12 +238,9 @@
     </objects>
     <resources>
         <image name="ic_menu" width="48" height="48"/>
-        <image name="ic_menu_bookmark_list_light" width="48" height="48"/>
-        <image name="ic_menu_bookmark_list_light_press" width="48" height="48"/>
+        <image name="ic_menu_bookmark_list" width="48" height="48"/>
         <image name="ic_menu_location_get_position" width="48" height="48"/>
         <image name="ic_menu_point_to_point" width="48" height="48"/>
-        <image name="ic_menu_point_to_point_press" width="48" height="48"/>
         <image name="ic_menu_search" width="48" height="48"/>
-        <image name="ic_menu_search_press" width="48" height="48"/>
     </resources>
 </document>

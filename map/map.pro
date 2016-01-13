@@ -21,6 +21,11 @@ HEADERS += \
     framework.hpp \
     ge0_parser.hpp \
     geourl_process.hpp \
+    gps_track.hpp \
+    gps_track_collection.hpp \
+    gps_track_filter.hpp \
+    gps_track_storage.hpp \
+    gps_tracker.hpp \
     mwm_url.hpp \
     storage_bridge.hpp \
     styled_point.hpp \
@@ -40,6 +45,11 @@ SOURCES += \
     framework.cpp \
     ge0_parser.cpp \
     geourl_process.cpp \
+    gps_track.cpp \
+    gps_track_filter.cpp \
+    gps_track_collection.cpp \
+    gps_track_storage.cpp \
+    gps_tracker.cpp \
     mwm_url.cpp \
     storage_bridge.cpp \
     styled_point.cpp \

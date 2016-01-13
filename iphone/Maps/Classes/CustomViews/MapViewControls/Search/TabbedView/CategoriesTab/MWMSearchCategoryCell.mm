@@ -17,12 +17,10 @@
   sl.rasterizationScale = UIScreen.mainScreen.scale;
 }
 
-- (void)setCategory:(NSString *)category isLightTheme:(BOOL)isLightTheme;
+- (void)setCategory:(NSString *)category
 {
   self.label.text = L(category);
-  NSString * theme = isLightTheme ? @"light" : @"dark";
-  NSString * imageName = [NSString stringWithFormat:@"ic_%@_%@", category, theme];
-  self.icon.image = [UIImage imageNamed:imageName];
+  self.icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_%@_light", category]];
 }
 
 @end

@@ -651,6 +651,13 @@
 		F6172FA51BBD5A3E0081D325 /* MWMiPadRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6172FA41BBD5A3E0081D325 /* MWMiPadRoutePreview.xib */; };
 		F61B0F2C1B8B82DB00C08258 /* MWMNextTurnPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61B0F2B1B8B82DB00C08258 /* MWMNextTurnPanel.mm */; };
 		F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm */; };
+		F626D52E1C3E6CAA00C17D15 /* MWMTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */; };
+		F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */; };
+		F626D5301C3E840600C17D15 /* MWMNightModeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */; };
+		F626D5321C3E845600C17D15 /* UIButton+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62F1D971C32B968006CF38E /* UIButton+Coloring.mm */; };
+		F626D5331C3E846E00C17D15 /* UIImageView+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */; };
+		F62F1D951C3281F1006CF38E /* UIImageView+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */; };
+		F62F1D981C32B968006CF38E /* UIButton+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62F1D971C32B968006CF38E /* UIButton+Coloring.mm */; };
 		F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63732951AE9431E00A03764 /* MWMBasePlacePageView.mm */; };
 		F63774E71B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */; };
 		F63774EA1B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm */; };
@@ -681,6 +688,8 @@
 		F66A8FB01B09F268001B9C97 /* MWMPlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F66A8FAF1B09F268001B9C97 /* MWMPlacePage.mm */; };
 		F66A8FB21B0A0954001B9C97 /* PlacePageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66A8FB11B0A0954001B9C97 /* PlacePageView.xib */; };
 		F672A6B71AD423A7009060C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F672A6B61AD423A7009060C3 /* Images.xcassets */; };
+		F6791B131C43DEA7007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
+		F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
 		F67BC26F1B254B2000FE1D7B /* MWMPlacePageDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67BC26E1B254B1F00FE1D7B /* MWMPlacePageDescriptionView.xib */; };
 		F67BC2751B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = F67BC2741B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm */; };
 		F681DE971BFB390A00B547C7 /* MWMWhatsNewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F681DE961BFB390A00B547C7 /* MWMWhatsNewController.mm */; };
@@ -690,6 +699,9 @@
 		F696CCBB1C2816FB00150DFD /* MyTrackerSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */; };
 		F6A750B91BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A750B81BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm */; };
 		F6A750BB1BE8C7BA00981B41 /* MWMSearchHistoryMyPositionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6A750BA1BE8C7BA00981B41 /* MWMSearchHistoryMyPositionCell.xib */; };
+		F6B2E61F1C3D5F31005562DF /* MWMNightModeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */; };
+		F6B283151C1B23680081957A /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */; };
+		F6B283161C1B23EB0081957A /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
 		F6BB6CBE1BB15A5E00DF1DF2 /* MWMRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BB6CBD1BB15A5E00DF1DF2 /* MWMRoutePreview.xib */; };
 		F6BB6CC01BB17D7000DF1DF2 /* MWMRoutePointCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BB6CBF1BB17D7000DF1DF2 /* MWMRoutePointCell.xib */; };
 		F6BB6CC31BB1860D00DF1DF2 /* MWMRoutePointLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BB6CC21BB1860D00DF1DF2 /* MWMRoutePointLayout.mm */; };
@@ -1206,6 +1218,12 @@
 		F61B0F2B1B8B82DB00C08258 /* MWMNextTurnPanel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNextTurnPanel.mm; sourceTree = "<group>"; };
 		F62404F91AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UILabel+RuntimeAttributes.mm"; sourceTree = "<group>"; };
+		F626D52C1C3E6CAA00C17D15 /* MWMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTableViewCell.h; sourceTree = "<group>"; };
+		F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTableViewCell.mm; sourceTree = "<group>"; };
+		F62F1D931C3281F1006CF38E /* UIImageView+Coloring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Coloring.h"; sourceTree = "<group>"; };
+		F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+Coloring.mm"; sourceTree = "<group>"; };
+		F62F1D961C32B968006CF38E /* UIButton+Coloring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Coloring.h"; sourceTree = "<group>"; };
+		F62F1D971C32B968006CF38E /* UIButton+Coloring.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIButton+Coloring.mm"; sourceTree = "<group>"; };
 		F63732941AE9431E00A03764 /* MWMBasePlacePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBasePlacePageView.h; sourceTree = "<group>"; };
 		F63732951AE9431E00A03764 /* MWMBasePlacePageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBasePlacePageView.mm; sourceTree = "<group>"; };
 		F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutingDisclaimerAlert.xib; sourceTree = "<group>"; };
@@ -1258,6 +1276,8 @@
 		F66A8FB11B0A0954001B9C97 /* PlacePageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlacePageView.xib; sourceTree = "<group>"; };
 		F672A6B61AD423A7009060C3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F673E9151AD2B65B0064EB7F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		F6791B111C43DEA7007A8A6E /* MWMStartButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStartButton.h; sourceTree = "<group>"; };
+		F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStartButton.mm; sourceTree = "<group>"; };
 		F67BC26E1B254B1F00FE1D7B /* MWMPlacePageDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPlacePageDescriptionView.xib; sourceTree = "<group>"; };
 		F67BC2731B254F5500FE1D7B /* MWMPlacePageTypeDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageTypeDescription.h; sourceTree = "<group>"; };
 		F67BC2741B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageTypeDescription.mm; sourceTree = "<group>"; };
@@ -1273,6 +1293,8 @@
 		F6A750B71BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchHistoryMyPositionCell.h; sourceTree = "<group>"; };
 		F6A750B81BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchHistoryMyPositionCell.mm; sourceTree = "<group>"; };
 		F6A750BA1BE8C7BA00981B41 /* MWMSearchHistoryMyPositionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchHistoryMyPositionCell.xib; sourceTree = "<group>"; };
+		F6B2E61D1C3D5F31005562DF /* MWMNightModeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNightModeController.h; sourceTree = "<group>"; };
+		F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNightModeController.mm; sourceTree = "<group>"; };
 		F6BB6CBD1BB15A5E00DF1DF2 /* MWMRoutePreview.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutePreview.xib; sourceTree = "<group>"; };
 		F6BB6CBF1BB17D7000DF1DF2 /* MWMRoutePointCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutePointCell.xib; sourceTree = "<group>"; };
 		F6BB6CC11BB1860D00DF1DF2 /* MWMRoutePointLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutePointLayout.h; sourceTree = "<group>"; };
@@ -1595,6 +1617,8 @@
 				B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */,
 				B0FBFA251A515AFD0086819E /* ViewController.h */,
 				B0FBFA261A515AFD0086819E /* ViewController.mm */,
+				F626D52C1C3E6CAA00C17D15 /* MWMTableViewCell.h */,
+				F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */,
 				B0FBFA291A515B4C0086819E /* TableViewController.h */,
 				B0FBFA2A1A515B4C0086819E /* TableViewController.mm */,
 				978F9251183BD530000D6C7C /* NavigationController.h */,
@@ -1862,6 +1886,8 @@
 			children = (
 				346EDAD91B9F0E35004F8DB5 /* MWMMultilineLabel.h */,
 				346EDADA1B9F0E35004F8DB5 /* MWMMultilineLabel.mm */,
+				F6791B111C43DEA7007A8A6E /* MWMStartButton.h */,
+				F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2191,6 +2217,10 @@
 				342AD7711B53D32F00E0B997 /* UIView+RuntimeAttributes.mm */,
 				342AD76D1B53D30C00E0B997 /* UIButton+RuntimeAttributes.h */,
 				342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.mm */,
+				F62F1D961C32B968006CF38E /* UIButton+Coloring.h */,
+				F62F1D971C32B968006CF38E /* UIButton+Coloring.mm */,
+				F62F1D931C3281F1006CF38E /* UIImageView+Coloring.h */,
+				F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */,
 				9747264218323080006B7CB7 /* UIKitCategories.h */,
 				9747264118323080006B7CB7 /* UIKitCategories.mm */,
 				B08AA8D81A26299A00810B1C /* TimeUtils.h */,
@@ -2802,6 +2832,8 @@
 				F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */,
 				F6C641AE1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.h */,
 				F6C641AF1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm */,
+				F6B2E61D1C3D5F31005562DF /* MWMNightModeController.h */,
+				F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */,
 				97508421199522D300A7457D /* SettingsAndMoreVC.h */,
 				97508422199522D300A7457D /* SettingsAndMoreVC.mm */,
 				978D4A231996B0EC00D72CA7 /* CommunityVC.h */,
@@ -3404,6 +3436,7 @@
 				3438CDF41B85F1170051AA78 /* MWMConsole.mm in Sources */,
 				A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */,
 				560634F21B78806100F3D670 /* MWMTextToSpeech.mm in Sources */,
+				F6791B131C43DEA7007A8A6E /* MWMStartButton.mm in Sources */,
 				46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */,
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
 				F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */,
@@ -3493,6 +3526,7 @@
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				34BAB6ED1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */,
+				F6B2E61F1C3D5F31005562DF /* MWMNightModeController.mm in Sources */,
 				F6BD33791B62400E00F2CE18 /* MWMNavigationDashboard.mm in Sources */,
 				974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */,
 				97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
@@ -3507,6 +3541,7 @@
 				6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.mm in Sources */,
 				342AD7721B53D32F00E0B997 /* UIView+RuntimeAttributes.mm in Sources */,
+				F626D52E1C3E6CAA00C17D15 /* MWMTableViewCell.mm in Sources */,
 				F64F4B6D1B46A51F0081A24A /* MWMDownloaderDialogCell.mm in Sources */,
 				97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
 				F6ED13541B1643900095C6DE /* MWMDirectionView.mm in Sources */,
@@ -3520,6 +3555,7 @@
 				3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */,
 				342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.mm in Sources */,
 				349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */,
+				F62F1D981C32B968006CF38E /* UIButton+Coloring.mm in Sources */,
 				349A358C1B53EABC009677EE /* MWMSearchDownloadMapRequest.mm in Sources */,
 				F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */,
 				F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */,
@@ -3529,6 +3565,7 @@
 				340E10631B949D1900D975D5 /* MWMSearchBookmarksManager.mm in Sources */,
 				34D15BA81BD8F93C00C8BCBE /* AddSetTableViewCell.mm in Sources */,
 				34CFFE901B7DE83D009D0C9F /* MWMSearchView.mm in Sources */,
+				F62F1D951C3281F1006CF38E /* UIImageView+Coloring.mm in Sources */,
 				F6FE2C151B04A44E009814AA /* MWMPlacePageEntity.mm in Sources */,
 				34B82AB21B8344E300180497 /* MWMSearchTextField.mm in Sources */,
 			);
@@ -3605,6 +3642,7 @@
 				6741A9CA1BF340DE002C974C /* MWMAnimator.mm in Sources */,
 				6741A9CB1BF340DE002C974C /* MWMSearchContentView.mm in Sources */,
 				6741A9CC1BF340DE002C974C /* MWMSearchTableViewController.mm in Sources */,
+				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
 				6741A9CD1BF340DE002C974C /* MapsObservers.mm in Sources */,
 				6741A9CE1BF340DE002C974C /* MWMSearchManager.mm in Sources */,
 				6741A9CF1BF340DE002C974C /* MWMLocationAlert.mm in Sources */,
@@ -3619,7 +3657,7 @@
 				F6D5822F1BFDCA03009409E8 /* MWMPageController.mm in Sources */,
 				6741A9D81BF340DE002C974C /* RouteState.mm in Sources */,
 				6741A9D91BF340DE002C974C /* MWMLanesPanel.mm in Sources */,
-				676507631C1055BB00830BB3 /* MWMTTSLanguageViewController.mm in Sources */,
+				F6B283151C1B23680081957A /* MWMTTSLanguageViewController.mm in Sources */,
 				6741A9DA1BF340DE002C974C /* UIKitCategories.mm in Sources */,
 				6741A9DB1BF340DE002C974C /* MWMRoutePreview.mm in Sources */,
 				6741A9DC1BF340DE002C974C /* MWMRoutePointLayout.mm in Sources */,
@@ -3635,6 +3673,7 @@
 				6741A9E51BF340DE002C974C /* MWMPlacePageViewManager.mm in Sources */,
 				6741A9E61BF340DE002C974C /* MWMPlacePage+Animation.mm in Sources */,
 				6741A9E71BF340DE002C974C /* MWMCircularProgressView.mm in Sources */,
+				F626D5301C3E840600C17D15 /* MWMNightModeController.mm in Sources */,
 				6741A9E81BF340DE002C974C /* MWMAPIBar.mm in Sources */,
 				6741A9E91BF340DE002C974C /* Preferences.mm in Sources */,
 				6741A9EA1BF340DE002C974C /* MWMBookmarkColorCell.mm in Sources */,
@@ -3653,6 +3692,7 @@
 				6741A9F71BF340DE002C974C /* MWMPedestrianShareAlert.mm in Sources */,
 				6741A9F81BF340DE002C974C /* MWMSharePedestrianRoutesToastActivityItem.mm in Sources */,
 				6741A9F91BF340DE002C974C /* MWMSearchSuggestionCell.mm in Sources */,
+				F626D5321C3E845600C17D15 /* UIButton+Coloring.mm in Sources */,
 				6741A9FA1BF340DE002C974C /* MWMBookmarkColorViewController.mm in Sources */,
 				6741A9FB1BF340DE002C974C /* MWMSearchDownloadMapRequestView.mm in Sources */,
 				6741A9FC1BF340DE002C974C /* iosOGLContextFactory.mm in Sources */,
@@ -3666,6 +3706,7 @@
 				6741AA041BF340DE002C974C /* MWMNavigationDashboardManager.mm in Sources */,
 				6741AA051BF340DE002C974C /* MWMSearchDownloadViewController.mm in Sources */,
 				6741AA061BF340DE002C974C /* MWMSearchHistoryRequestCell.mm in Sources */,
+				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */,
 				6741AA071BF340DE002C974C /* MWMBottomMenuLayout.mm in Sources */,
 				6741AA081BF340DE002C974C /* TableViewController.mm in Sources */,
 				6741AA091BF340DE002C974C /* BookmarkCell.mm in Sources */,
@@ -3685,6 +3726,7 @@
 				6741AA161BF340DE002C974C /* MWMCustomFacebookEvents.mm in Sources */,
 				6741AA171BF340DE002C974C /* SwitchCell.mm in Sources */,
 				6741AA181BF340DE002C974C /* UIView+RuntimeAttributes.mm in Sources */,
+				F626D5331C3E846E00C17D15 /* UIImageView+Coloring.mm in Sources */,
 				6741AA191BF340DE002C974C /* MWMDownloaderDialogCell.mm in Sources */,
 				6741AA1A1BF340DE002C974C /* SettingsAndMoreVC.mm in Sources */,
 				6741AA1B1BF340DE002C974C /* MWMDirectionView.mm in Sources */,
@@ -3703,6 +3745,7 @@
 				6741AA271BF340DE002C974C /* MWMBasePlacePageView.mm in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */,
+				F6B283161C1B23EB0081957A /* MWMSegue.mm in Sources */,
 				6741AA2A1BF340DE002C974C /* MWMWatchEventInfo.mm in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.mm in Sources */,
 				6741AA2C1BF340DE002C974C /* MWMSearchBookmarksManager.mm in Sources */,

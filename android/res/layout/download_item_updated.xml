@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView
-    android:id="@+id/title"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:background="@color/downloader_gray_bg"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingTop="@dimen/margin_half"
-    android:textAppearance="@style/MwmTextAppearance.Body3"/>
+  android:id="@+id/title"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="40dp"
+  android:background="?countrySeparator"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingTop="@dimen/margin_half"
+  android:textAppearance="@style/MwmTextAppearance.Body3"/>

@@ -18,9 +18,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
   self.delegate = self;
-  self.autorotate = YES;
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -29,11 +27,6 @@
 
   if ([navigationController.viewControllers count] > 1)
     [viewController showBackButton];
-}
-
-- (BOOL)shouldAutorotate
-{
-  return self.autorotate;
 }
 
 @end

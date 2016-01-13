@@ -3,6 +3,7 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 #import "SelectSetVC.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 
 #include "Framework.h"
@@ -74,11 +75,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  static NSString * kSetCellId = @"AddSetCell";
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:kSetCellId];
-  if (cell == nil)
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kSetCellId];
-  // Customize cell
+  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
   if (indexPath.section == 0)
   {
     cell.textLabel.text = L(@"add_new_set");
@@ -97,6 +94,8 @@
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
   }
+  cell.backgroundColor = [UIColor white];
+  cell.textLabel.textColor = [UIColor blackPrimaryText];
   return cell;
 }
 

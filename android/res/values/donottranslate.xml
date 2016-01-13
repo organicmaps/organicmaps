@@ -42,10 +42,16 @@
   <string name="pref_tts_language" translatable="false">TtsLanguage</string>
   <string name="pref_3d" translatable="false">3D</string>
   <string name="pref_3d_buildings" translatable="false">3DBuildings</string>
+  <string name="pref_track_record" translatable="false">TrackRecord</string>
   <string name="pref_showcase_switched_on" translatable="false">DisplayShowcase</string>
 
   <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>
+
+  <!-- UI themes -->
+  <string name="theme_default" translatable="false">default</string>
+  <string name="theme_night" translatable="false">night</string>
+  <string name="theme_auto" translatable="false">auto</string>
 
   <!-- Tags -->
   <string name="tag_menu_collapse" translatable="false">collapse</string>

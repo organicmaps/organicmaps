@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
@@ -6,12 +7,24 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#include "Framework.h"
+
+#include "map/gps_tracker.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 #include "base/math.hpp"
 
+#include "platform/file_logging.hpp"
+
 static CLAuthorizationStatus const kRequestAuthStatus = kCLAuthorizationStatusAuthorizedAlways;
 static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlwaysRequestErrorDenied";
+
+@interface LocationManager ()
+
+@property (nonatomic, readwrite) BOOL isDaemonMode;
+@property (nonatomic) BOOL deferringUpdates;
+
+@end
 
 @implementation LocationManager
 
@@ -23,8 +36,10 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
     m_locationManager.delegate = self;
     [UIDevice currentDevice].batteryMonitoringEnabled = YES;
     [self refreshAccuracy];
+    if (!isIOSVersionLessThan(9))
+      m_locationManager.allowsBackgroundLocationUpdates = YES;
+    m_locationManager.pausesLocationUpdatesAutomatically = YES;
     m_locationManager.headingFilter = 3.0;
-    //    m_locationManager.distanceFilter = 3.0;
     m_isStarted = NO;
     m_observers = [[NSMutableSet alloc] init];
     m_lastLocationTime = nil;
@@ -50,6 +65,36 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 {
   m_locationManager.delegate = nil;
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)onDaemonMode
+{
+  self.isDaemonMode = YES;
+  [m_locationManager stopMonitoringSignificantLocationChanges];
+  [m_locationManager startUpdatingLocation];
+}
+
+- (void)onBackground
+{
+  if (!GpsTracker::Instance().IsEnabled())
+    [m_locationManager stopUpdatingLocation];
+}
+
+- (void)beforeTerminate
+{
+  if (!GpsTracker::Instance().IsEnabled())
+    return;
+  [m_locationManager startMonitoringSignificantLocationChanges];
+}
+
+- (void)onForeground
+{
+  self.isDaemonMode = NO;
+  [m_locationManager stopMonitoringSignificantLocationChanges];
+  [m_locationManager disallowDeferredLocationUpdates];
+  self.deferringUpdates = NO;
+  [m_locationManager startUpdatingLocation];
+  [self orientationChanged];
 }
 
 - (void)start:(id <LocationObserver>)observer
@@ -90,9 +135,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
     {
       // pass last location known location when new observer is attached
       // (default CLLocationManagerDelegate behaviour)
-      location::GpsInfo newInfo;
-      [self location:[self lastLocation] toGpsInfo:newInfo];
-      [observer onLocationUpdate:newInfo];
+      [observer onLocationUpdate:gpsInfoFromLocation(self.lastLocation)];
     }
   }
 }
@@ -123,38 +166,6 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   return m_isStarted ? m_locationManager.heading : nil;
 }
 
-- (void)location:(CLLocation *)location toGpsInfo:(location::GpsInfo &)info
-{
-  info.m_source = location::EAppleNative;
-
-  info.m_latitude = location.coordinate.latitude;
-  info.m_longitude = location.coordinate.longitude;
-  info.m_timestamp = [location.timestamp timeIntervalSince1970];
-
-  if (location.horizontalAccuracy >= 0.0)
-    info.m_horizontalAccuracy = location.horizontalAccuracy;
-
-  if (location.verticalAccuracy >= 0.0)
-  {
-    info.m_verticalAccuracy = location.verticalAccuracy;
-    info.m_altitude = location.altitude;
-  }
-
-  if (location.course >= 0.0)
-    info.m_bearing = location.course;
-
-  if (location.speed >= 0.0)
-    info.m_speed = location.speed;
-}
-
-- (void)heading:(CLHeading *)heading toCompassInfo:(location::CompassInfo &)info
-{
-  if (heading.trueHeading >= 0.0)
-    info.m_bearing = my::DegToRad(heading.trueHeading);
-  else if (heading.headingAccuracy >= 0.0)
-    info.m_bearing = my::DegToRad(heading.magneticHeading);
-}
-
 - (void)triggerCompass
 {
   [self locationManager:m_locationManager didUpdateHeading:m_locationManager.heading];
@@ -162,38 +173,47 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)heading
 {
-  location::CompassInfo info;
-  [self heading:heading toCompassInfo:info];
-  [self notifyCompassUpdate:info];
+  [self notifyCompassUpdate:compasInfoFromHeading(heading)];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-  [self processLocation:newLocation];
+  [self processLocation:locations.lastObject];
+  if (!self.deferringUpdates)
+    return;
+  [m_locationManager allowDeferredLocationUpdatesUntilTraveled:300 timeout:15];
+  self.deferringUpdates = NO;
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+- (BOOL)deferringUpdates
 {
-  CLLocation * newLocation = [locations lastObject];
-  [self processLocation:newLocation];
+  return _deferringUpdates && [CLLocationManager deferredLocationUpdatesAvailable] &&
+                              [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
 }
 
-- (void)processLocation:(CLLocation *)newLocation
+- (void)processLocation:(CLLocation *)location
 {
   // According to documentation, lat and lon are valid only if horz acc is non-negative.
   // So we filter out such events completely.
-  if (newLocation.horizontalAccuracy < 0.)
+  if (location.horizontalAccuracy < 0.)
     return;
 
   // Save current device time for location.
   m_lastLocationTime = [NSDate date];
+  [[Statistics instance] logLocation:location];
+  auto const newInfo = gpsInfoFromLocation(location);
+  if (!self.isDaemonMode)
+  {
+    for (id observer in m_observers)
+       [observer onLocationUpdate:newInfo];
+    // TODO(AlexZ): Temporary, remove in the future.
+  }
+  GpsTracker::Instance().OnLocationUpdated(newInfo);
+}
 
-  location::GpsInfo newInfo;
-  [self location:newLocation toGpsInfo:newInfo];
-  for (id observer in m_observers)
-     [observer onLocationUpdate:newInfo];
-  // TODO(AlexZ): Temporary, remove in the future.
-  [[Statistics instance] logLocation:newLocation];
+- (void)locationManager:(CLLocationManager *)manager didFinishDeferredUpdatesWithError:(NSError *)error
+{
+  self.deferringUpdates = YES;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -210,6 +230,8 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
 {
+  if (self.isDaemonMode)
+    return NO;
   bool on = false;
   Settings::Get("CompassCalibrationEnabled", on);
   if (!on)
@@ -345,6 +367,42 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 {
   if ([(NSObject *)observer respondsToSelector:@selector(onLocationError:)])
     [observer onLocationError:errorCode];
+}
+
+location::GpsInfo gpsInfoFromLocation(CLLocation const * l)
+{
+  location::GpsInfo info;
+  info.m_source = location::EAppleNative;
+
+  info.m_latitude = l.coordinate.latitude;
+  info.m_longitude = l.coordinate.longitude;
+  info.m_timestamp = [l.timestamp timeIntervalSince1970];
+
+  if (l.horizontalAccuracy >= 0.0)
+    info.m_horizontalAccuracy = l.horizontalAccuracy;
+
+  if (l.verticalAccuracy >= 0.0)
+  {
+    info.m_verticalAccuracy = l.verticalAccuracy;
+    info.m_altitude = l.altitude;
+  }
+
+  if (l.course >= 0.0)
+    info.m_bearing = l.course;
+
+  if (l.speed >= 0.0)
+    info.m_speed = l.speed;
+  return info;
+}
+
+location::CompassInfo compasInfoFromHeading(CLHeading const * h)
+{
+  location::CompassInfo info;
+  if (h.trueHeading >= 0.0)
+    info.m_bearing = my::DegToRad(h.trueHeading);
+  else if (h.headingAccuracy >= 0.0)
+    info.m_bearing = my::DegToRad(h.magneticHeading);
+  return info;
 }
 
 @end

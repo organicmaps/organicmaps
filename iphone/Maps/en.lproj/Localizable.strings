@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Perspective view";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "Other";
 
 "pref_tts_how_to_set_up_voice" = "How to set up voice";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "Recent track";
+
+"duration_disabled" = "Off";
+
+"duration_1_hour" = "1 hour";
+
+"duration_2_hours" = "2 hours";
+
+"duration_6_hours" = "6 hours";
+
+"duration_12_hours" = "12 hours";
+
+"duration_1_day" = "1 day";
+
+"pref_track_ios_caption" = "Recent track shows your traveled path.";
+
+"pref_track_ios_subcaption" = "Please select the time range of saving the track.";
 
 "placepage_distance" = "Distance";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "Enable 3D Buildings";
 
 "whats_new_next_button" = "Next";
+
+"whats_new_rec_track_title" = "With MAPS.ME you won’t get lost";
+
+"whats_new_rec_track_body" = "Now the app shows your recent traveled path.";

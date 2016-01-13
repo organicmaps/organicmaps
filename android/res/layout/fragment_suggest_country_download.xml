@@ -1,140 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
-
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="?windowBackgroundForced">
   <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
-        android:id="@+id/ll__select_download"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_double_and_half"
-        tools:ignore="UnusedAttribute">
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_base_plus"
-          android:gravity="center"
-          android:text="@string/search_without_internet_advertisement"
-          android:textAppearance="@style/MwmTextAppearance.Body2"/>
-
-      <ImageView
-          android:layout_width="match_parent"
-          android:layout_height="0dp"
-          android:layout_weight="1"
-          android:contentDescription="@null"/>
-
-      <LinearLayout
-          android:id="@+id/ll__location_determined"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center_horizontal"
-          android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv__country_name"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/base_block_size"
-            android:layout_marginTop="@dimen/margin_half"
-            android:gravity="center"
-            android:textAppearance="@style/MwmTextAppearance.Title"/>
-
-        <Button
-            android:id="@+id/btn__download_map"
-            style="@style/MwmWidget.Button.Green"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/base_block_size"
-            android:layout_marginTop="@dimen/margin_half"
-            android:text="@string/downloader_download_map"
-            android:textAllCaps="true"
-            android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
-
-        <CheckBox
-            android:id="@+id/chb__routing_too"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/base_block_size"
-            android:layout_marginTop="@dimen/margin_half"
-            android:text="@string/search_vehicle_routes"
-            android:textAppearance="@style/MwmTextAppearance.Body2"/>
-
-        <Button
-            android:id="@+id/btn__select_other_map"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/base_block_size"
-            android:layout_marginTop="@dimen/margin_base_plus"
-            android:background="?clickableBackground"
-            android:text="@string/search_select_other_map"
-            android:textAllCaps="true"
-            android:textAppearance="@style/MwmTextAppearance.Body3"
-            android:textColor="@color/text_green"/>
-      </LinearLayout>
-
-      <LinearLayout
-          android:id="@+id/ll__location_unknown"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:visibility="gone">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/base_block_size"
-            android:layout_marginTop="@dimen/margin_half"
-            android:gravity="center"
-            android:text="@string/unknown_current_position"
-            android:textAppearance="@style/MwmTextAppearance.Body3"/>
-
-        <Button
-            android:id="@+id/btn__select_map"
-            style="@style/MwmWidget.Button.Green"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/base_block_size"
-            android:layout_marginTop="@dimen/margin_half"
-            android:text="@string/search_select_map"
-            android:textAllCaps="true"
-            android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
-
-      </LinearLayout>
-
-    </LinearLayout>
-
-  </ScrollView>
-
-  <LinearLayout
-      android:id="@+id/ll__active_download"
+      android:id="@+id/ll__select_download"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center"
       android:gravity="center_horizontal"
       android:orientation="vertical"
       android:padding="@dimen/margin_double_and_half"
-      android:visibility="gone">
+      tools:ignore="UnusedAttribute">
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base_plus"
+        android:gravity="center"
+        android:text="@string/search_without_internet_advertisement"
+        android:textAppearance="@style/MwmTextAppearance.Body2"/>
 
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:contentDescription="@null"/>
+
+      <LinearLayout
+        android:id="@+id/ll__location_determined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <TextView
+          android:id="@+id/tv__country_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_half"
+          android:paddingTop="@dimen/margin_half"
+          android:paddingBottom="@dimen/margin_half"
+          android:gravity="center"
+          android:textAppearance="@style/MwmTextAppearance.Title"
+          tools:text="Some country name"/>
+
+        <Button
+          android:id="@+id/btn__download_map"
+          style="@style/MwmWidget.Button.Green"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/base_block_size"
+          android:layout_marginTop="@dimen/margin_half"
+          android:text="@string/downloader_download_map"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+
+        <CheckBox
+          android:id="@+id/chb__routing_too"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/base_block_size"
+          android:layout_marginTop="@dimen/margin_half"
+          android:text="@string/search_vehicle_routes"
+          android:textAppearance="@style/MwmTextAppearance.Body2"/>
+
+        <Button
+          android:id="@+id/btn__select_other_map"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/base_block_size"
+          android:layout_marginTop="@dimen/margin_base_plus"
+          android:background="?clickableBackground"
+          android:text="@string/search_select_other_map"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          android:textColor="?colorAccent"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/ll__location_unknown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/base_block_size"
+          android:layout_marginTop="@dimen/margin_half"
+          android:gravity="center"
+          android:text="@string/unknown_current_position"
+          android:textAppearance="@style/MwmTextAppearance.Body3"/>
+
+        <Button
+          android:id="@+id/btn__select_map"
+          style="@style/MwmWidget.Button.Green"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/base_block_size"
+          android:layout_marginTop="@dimen/margin_half"
+          android:text="@string/search_select_map"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+      </LinearLayout>
+    </LinearLayout>
+  </ScrollView>
+
+  <LinearLayout
+    android:id="@+id/ll__active_download"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_double_and_half"
+    android:visibility="gone">
     <TextView
-        android:id="@+id/tv__active_country_name"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/base_block_size"
-        android:textAppearance="@style/MwmTextAppearance.Title"/>
+      android:id="@+id/tv__active_country_name"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/base_block_size"
+      android:textAppearance="@style/MwmTextAppearance.Title"/>
 
     <com.mapswithme.maps.widget.WheelProgressView
-        android:id="@+id/wpv__download_progress"
-        xmlns:wheel="http://schemas.android.com/apk/res-auto"
-        android:layout_width="@dimen/progress_wheel_height"
-        android:layout_height="@dimen/progress_wheel_height"
-        android:layout_marginTop="@dimen/margin_half_plus"
-        android:background="?clickableBackground"
-        wheel:wheelProgressColor="@color/base_green"
-        wheel:wheelSecondaryColor="@color/downloader_progress_bg"
-        wheel:wheelThickness="@dimen/margin_quarter"/>
+      android:id="@+id/wpv__download_progress"
+      xmlns:wheel="http://schemas.android.com/apk/res-auto"
+      android:layout_width="@dimen/progress_wheel_height"
+      android:layout_height="@dimen/progress_wheel_height"
+      android:layout_marginTop="@dimen/margin_half_plus"
+      android:background="?clickableBackground"
+      wheel:wheelProgressColor="@color/base_green"
+      wheel:wheelSecondaryColor="?dividerHorizontal"
+      wheel:wheelThickness="@dimen/margin_quarter"/>
   </LinearLayout>
-
 </FrameLayout>

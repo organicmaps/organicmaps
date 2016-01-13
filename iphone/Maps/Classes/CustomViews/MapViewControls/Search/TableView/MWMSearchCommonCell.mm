@@ -8,16 +8,6 @@
 #include "geometry/mercator.hpp"
 #include "platform/measurement_utils.hpp"
 
-static NSDictionary * const kSelectedAttributes = @{
-  NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-  NSFontAttributeName : UIFont.bold17
-};
-
-static NSDictionary * const kUnselectedAttributes = @{
-  NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-  NSFontAttributeName : UIFont.regular17
-};
-
 @interface MWMSearchCommonCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel * typeLabel;
@@ -96,12 +86,18 @@ static NSDictionary * const kUnselectedAttributes = @{
 
 - (NSDictionary *)selectedTitleAttributes
 {
-  return kSelectedAttributes;
+  return @{
+    NSForegroundColorAttributeName : UIColor.blackPrimaryText,
+    NSFontAttributeName : UIFont.bold17
+  };
 }
 
 - (NSDictionary *)unselectedTitleAttributes
 {
-  return kUnselectedAttributes;
+  return @{
+    NSForegroundColorAttributeName : UIColor.blackPrimaryText,
+    NSFontAttributeName : UIFont.regular17
+  };
 }
 
 + (CGFloat)defaultCellHeight
@@ -112,30 +108,6 @@ static NSDictionary * const kUnselectedAttributes = @{
 - (CGFloat)cellHeight
 {
   return ceil([self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
-}
-
-#pragma mark - Properties
-
-- (void)setIsLightTheme:(BOOL)isLightTheme
-{
-  _isLightTheme = isLightTheme;
-  UIImage * star = nil;
-  UIImage * starHighlighted = nil;
-  if (isLightTheme)
-  {
-    star = [UIImage imageNamed:@"hotel_star_off_light"];
-    starHighlighted = [UIImage imageNamed:@"hotel_star_on_light"];
-  }
-  else
-  {
-    star = [UIImage imageNamed:@"hotel_star_off_dark"];
-    starHighlighted = [UIImage imageNamed:@"hotel_star_on_dark"];
-  }
-  [self.infoRatingStars enumerateObjectsUsingBlock:^(UIImageView * starView, NSUInteger idx, BOOL * stop)
-  {
-    [starView setImage:star];
-    [starView setHighlightedImage:starHighlighted];
-  }];
 }
 
 @end

@@ -498,17 +498,14 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Change map presentation";
+/* «Map style» entry value */
+"pref_map_style_default" = "Default";
 
 /* «Map style» entry value */
-"pref_map_style_classic_light" = "Classic light";
+"pref_map_style_night" = "Night";
 
 /* «Map style» entry value */
-"pref_map_style_classic_dark" = "Classic dark";
-
-/* «Map style» entry value */
-"pref_map_style_modern_light" = "Modern light";
+"pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "パースペクティブ表示";
@@ -532,6 +529,25 @@
 "pref_tts_other_section_title" = "その他";
 
 "pref_tts_how_to_set_up_voice" = "音声設定の仕方";
+
+/* Settings «Map» category: «Record track» title */
+"pref_track_record_title" = "最近のルート";
+
+"duration_disabled" = "オフ";
+
+"duration_1_hour" = "1時間";
+
+"duration_2_hours" = "2時間";
+
+"duration_6_hours" = "6時間";
+
+"duration_12_hours" = "12時間";
+
+"duration_1_day" = "1日";
+
+"pref_track_ios_caption" = "最近ルートは、使用した道のりを表示する機能です。";
+
+"pref_track_ios_subcaption" = "ルートを保存する期間を選択してください。";
 
 "placepage_distance" = "距離";
 
@@ -1342,3 +1358,7 @@
 "whats_new_3d_buildings_on" = "3Dビルディングを有効化";
 
 "whats_new_next_button" = "次へ";
+
+"whats_new_rec_track_title" = "MAPS.MEがあれば道に迷うことがありません";
+
+"whats_new_rec_track_body" = "アプリが最近の道のりを表示できるようになりました。";

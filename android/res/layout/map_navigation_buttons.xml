@@ -25,10 +25,10 @@
   <ImageButton android:id="@+id/map_button_plus"
                style="@style/MwmWidget.MapButton"
                android:layout_marginRight="@dimen/margin_quarter"
-               android:src="@drawable/zoom_in"/>
+               tools:src="@drawable/zoom_in"/>
 
   <ImageButton android:id="@+id/map_button_minus"
                style="@style/MwmWidget.MapButton"
                android:layout_marginRight="@dimen/margin_quarter"
-               android:src="@drawable/zoom_out"/>
+               tools:src="@drawable/zoom_out"/>
 </LinearLayout>

@@ -143,6 +143,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self updateDistance];
 }
 
+- (void)refresh
+{
+  [self.placePage.extendedPlacePageView refresh];
+}
+
 - (void)setPlacePageForiPad
 {
   [self.placePage dismiss];

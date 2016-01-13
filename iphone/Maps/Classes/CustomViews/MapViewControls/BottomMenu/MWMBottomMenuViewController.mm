@@ -11,6 +11,8 @@
 #import "MWMSearchManager.h"
 #import "SettingsAndMoreVC.h"
 #import "Statistics.h"
+#import "UIButton+Coloring.h"
+#import "UIImageView+Coloring.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
 
@@ -103,13 +105,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [self refreshLayout];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)refresh
 {
-  [super viewWillDisappear:animated];
-}
-
-- (void)onEnterForeground
-{
+  [self.view refresh];
 }
 
 #pragma mark - Refresh Collection View layout
@@ -197,7 +195,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
       NSUInteger const endValue = morphImagesCount + 1;
       NSMutableArray * morphImages = [NSMutableArray arrayWithCapacity:morphImagesCount];
       for (NSUInteger i = 1, j = 0; i != endValue; i++, j++)
-        morphImages[j] = [UIImage imageNamed:[@"ic_follow_mode_light_" stringByAppendingString:@(i).stringValue]];
+      {
+        morphImages[j] = [UIImage imageNamed:[NSString stringWithFormat:@"ic_follow_mode_%@_%@", @(i).stringValue,
+                                              [UIColor isNightMode] ? @"dark" : @"light"]];
+      }
       locBtn.imageView.animationImages = morphImages;
       locBtn.imageView.animationRepeatCount = 1;
       locBtn.imageView.image = morphImages.lastObject;
@@ -205,7 +206,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
       break;
     }
   }
-  [self refreshLocationButtonState: state];
+  [self refreshLocationButtonState:state];
 }
 
 - (void)refreshLocationButtonState:(location::EMyPositionMode)state
@@ -214,7 +215,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   {
     if (self.locationButton.imageView.isAnimating)
     {
-      [self refreshLocationButtonState: state];
+      [self refreshLocationButtonState:state];
     }
     else
     {
@@ -222,18 +223,23 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
       switch (state)
       {
         case location::MODE_PENDING_POSITION:
+          locBtn.mwm_coloring = MWMButtonColoringBlue;
           break;
         case location::MODE_UNKNOWN_POSITION:
-          [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_off_mode_light"] forState:UIControlStateNormal];
+          [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow"] forState:UIControlStateNormal];
+          locBtn.mwm_coloring = MWMButtonColoringGray;
           break;
         case location::MODE_NOT_FOLLOW:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_get_position"] forState:UIControlStateNormal];
+          locBtn.mwm_coloring = MWMButtonColoringBlack;
           break;
         case location::MODE_FOLLOW:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow"] forState:UIControlStateNormal];
+          locBtn.mwm_coloring = MWMButtonColoringBlue;
           break;
         case location::MODE_ROTATE_AND_FOLLOW:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow_and_rotate"] forState:UIControlStateNormal];
+          locBtn.mwm_coloring = MWMButtonColoringBlue;
           break;
       }
     }

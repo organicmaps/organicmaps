@@ -1,7 +1,6 @@
+#import "MWMTableViewCell.h"
 
-#import <UIKit/UIKit.h>
-
-@interface LinkCell : UITableViewCell
+@interface LinkCell : MWMTableViewCell
 
 @property (nonatomic) IBOutlet UILabel * titleLabel;
 

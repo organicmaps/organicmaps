@@ -2,7 +2,6 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -38,10 +37,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   public EditBookmarkFragment() {}
 
   @Override
-  public void onCreate(@Nullable Bundle savedInstanceState)
+  protected int getCustomTheme()
   {
-    super.onCreate(savedInstanceState);
-    setStyle(DialogFragment.STYLE_NORMAL, R.style.MwmMain_DialogFragment_Fullscreen);
+    return getFullscreenTheme();
   }
 
   @Nullable

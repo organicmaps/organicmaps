@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -31,10 +31,12 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLk-1L-mbP" userLabel="Cancel">
                             <rect key="frame" x="6" y="6" width="44" height="44"/>
-                            <animations/>
-                            <state key="normal" image="ic_nav_bar_close_light">
+                            <state key="normal" image="ic_nav_bar_close">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="aAu-j5-Y4z"/>
                             </connections>
@@ -44,7 +46,6 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79d-Oo-yBr">
                                     <rect key="frame" x="104.5" y="18.5" width="52.5" height="20.5"/>
-                                    <animations/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -55,7 +56,6 @@
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:24" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMy-7M-aoF" userLabel="12:24">
                                     <rect key="frame" x="196" y="18.5" width="43" height="20.5"/>
-                                    <animations/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -66,7 +66,6 @@
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZa-ok-2IV">
                                     <rect key="frame" x="19.5" y="18.5" width="48" height="20.5"/>
-                                    <animations/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -76,7 +75,6 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="centerX" secondItem="QMy-7M-aoF" secondAttribute="centerX" multiplier="3:5" id="8ys-Ye-XAu"/>
@@ -91,21 +89,21 @@
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqb-lr-tzL">
                             <rect key="frame" x="312" y="6" width="44" height="44"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="UqN-lJ-bXU"/>
                                 <constraint firstAttribute="width" constant="44" id="dIf-ht-BU5"/>
                             </constraints>
                             <state key="normal" image="ic_voice_off"/>
                             <state key="selected" image="ic_voice_on"/>
-                            <state key="highlighted" image="ic_voice_off_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="soundTap:" destination="-1" eventType="touchUpInside" id="aqG-hG-ebJ"/>
                             </connections>
                         </button>
                         <slider opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Kup-95-EXj">
                             <rect key="frame" x="-3" y="42" width="366" height="31"/>
-                            <animations/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="fxr-ir-Wwz"/>
@@ -117,7 +115,6 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4si-G5-bxC">
                                     <rect key="frame" x="120" y="8" width="22.5" height="53"/>
-                                    <animations/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="53" id="7ro-YL-TGI"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="iwD-qu-xpb"/>
@@ -132,7 +129,6 @@
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ue-Ra-INo">
                                     <rect key="frame" x="149.5" y="29" width="34" height="28"/>
-                                    <animations/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="34" id="Ktk-eK-oxD"/>
                                         <constraint firstAttribute="height" constant="28" id="nYU-QS-ods"/>
@@ -147,11 +143,12 @@
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="slight_left" translatesAutoresizingMaskIntoConstraints="NO" id="t9X-xe-M4K" customClass="MWMImageView">
                                     <rect key="frame" x="16" y="16" width="96" height="96"/>
-                                    <animations/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                                    </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPs-Pe-p41" userLabel="exit">
                                     <rect key="frame" x="49" y="49" width="30" height="30"/>
-                                    <animations/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -162,7 +159,6 @@
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Овчинниковская наб." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fV0-mJ-yGN">
                                     <rect key="frame" x="120" y="59" width="232" height="20.5"/>
-                                    <animations/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -172,7 +168,6 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="9ue-Ra-INo" firstAttribute="leading" secondItem="4si-G5-bxC" secondAttribute="trailing" constant="7.5" id="87L-8C-oDt"/>
@@ -187,7 +182,6 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Kup-95-EXj" secondAttribute="trailing" constant="-1" id="04U-qJ-FUs"/>
@@ -216,10 +210,10 @@
                         <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                             <size key="value" width="0.0" height="1"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="9Ou-1e-eFR" firstAttribute="top" secondItem="zx5-8Q-rUK" secondAttribute="top" id="e8M-4E-Yc5"/>
@@ -244,9 +238,8 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_nav_bar_close_light" width="44" height="44"/>
-        <image name="ic_voice_off" width="44" height="44"/>
-        <image name="ic_voice_off_press" width="44" height="44"/>
+        <image name="ic_nav_bar_close" width="44" height="44"/>
+        <image name="ic_voice_off" width="28" height="28"/>
         <image name="ic_voice_on" width="28" height="28"/>
         <image name="slight_left" width="96" height="96"/>
     </resources>

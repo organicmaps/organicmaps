@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!-- Default theme -->
+  <style name="MwmTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
+
+    <item name="android:textColorPrimary">@color/text_dark</item>
+    <item name="android:textColorPrimaryInverse">@color/text_light</item>
+    <item name="android:textColorSecondary">@color/text_dark_subtitle</item>
+    <item name="android:windowBackground">?windowBackgroundForced</item>
+    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/darker_green</item>
+    <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="clickableBackground">?attr/selectableItemBackground</item>
+
+    <item name="alertDialogTheme">@style/MwmTheme.DialogFragment</item>
+    <item name="windowBackgroundForced">@color/bg_window</item>
+    <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
+
+    <item name="statusBar">@color/bg_statusbar</item>
+    <item name="colorPrimary">@color/bg_primary</item>
+    <item name="colorControlNormal">?secondary</item>
+    <item name="colorAccent">@color/base_accent</item>
+    <item name="panel">@color/bg_panel</item>
+    <item name="sidePanel">@color/bg_side_panel</item>
+    <item name="iconTint">@color/icon_tint</item>
+    <item name="iconTintLight">@color/icon_tint_light</item>
+    <item name="counterTextColor">?android:textColorPrimaryInverse</item>
+
+    <item name="secondary">@color/text_dark_hint</item>
+    <item name="dividerHorizontal">@color/divider</item>
+
+    <item name="ppBackground">@color/bg_window</item>
+    <item name="ppButtonsBackground">?panel</item>
+    <item name="ppPreviewHead">@drawable/bg_place_page_back</item>
+
+    <item name="routingSlot">@drawable/routing_slot_background</item>
+    <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
+    <item name="routingSlotMarker">@drawable/routing_slot_marker</item>
+    <item name="routingStartButton">@drawable/routing_start_button</item>
+    <item name="routingStartButtonTextColor">@color/routing_start_text</item>
+    <item name="routingStartButtonTextColorDisabled">@color/routing_start_text_disabled</item>
+
+    <item name="menuBackgroundClosed">@color/bg_menu_closed</item>
+    <item name="menuBackgroundOpen">@color/bg_menu_open</item>
+
+    <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending</item>
+  </style>
+
+  <!-- Night theme -->
+  <style name="MwmTheme.Night.Base" parent="Theme.AppCompat.NoActionBar">
+    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
+
+    <item name="android:textColorPrimary">@color/text_light</item>
+    <item name="android:textColorPrimaryInverse">@color/text_dark</item>
+    <item name="android:textColorSecondary">@color/text_light_subtitle</item>
+    <item name="android:windowBackground">?windowBackgroundForced</item>
+    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
+    <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="clickableBackground">?attr/selectableItemBackground</item>
+
+    <item name="alertDialogTheme">@style/MwmTheme.Night.DialogFragment</item>
+    <item name="windowBackgroundForced">@color/bg_window_night</item>
+    <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
+
+    <item name="statusBar">@color/bg_statusbar_night</item>
+    <item name="colorPrimary">@color/bg_primary_night</item>
+    <item name="colorControlNormal">?secondary</item>
+    <item name="colorAccent">@color/base_accent_night</item>
+    <item name="panel">@color/bg_panel_night</item>
+    <item name="sidePanel">@color/bg_side_panel_night</item>
+    <item name="iconTint">@color/icon_tint_night</item>
+    <item name="iconTintLight">@color/icon_tint_light_night</item>
+    <item name="counterTextColor">?android:textColorPrimary</item>
+
+    <item name="secondary">@color/text_light_hint</item>
+    <item name="dividerHorizontal">@color/divider_night</item>
+
+    <item name="ppBackground">?panel</item>
+    <item name="ppButtonsBackground">@color/bg_window_night</item>
+    <item name="ppPreviewHead">@drawable/bg_place_page_back_night</item>
+
+    <item name="routingSlot">@drawable/routing_slot_background_night</item>
+    <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>
+    <item name="routingSlotMarker">@drawable/routing_slot_marker_night</item>
+    <item name="routingStartButton">@drawable/routing_start_button_night</item>
+    <item name="routingStartButtonTextColor">@color/routing_start_text_night</item>
+    <item name="routingStartButtonTextColorDisabled">@color/routing_start_text_disabled_night</item>
+
+    <item name="menuBackgroundClosed">@color/bg_menu_closed_night</item>
+    <item name="menuBackgroundOpen">@color/bg_menu_open_night</item>
+
+    <item name="myPositionButtonAnimation">@drawable/anim_myposition_pending_night</item>
+  </style>
+</resources>

@@ -7,6 +7,7 @@
 #import "MapViewController.h"
 #import "MWMMapViewControlsManager.h"
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
 #include "Framework.h"
@@ -154,6 +155,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
       }
       UISwitch * sw = (UISwitch *)cell.accessoryView;
       sw.on = cat->IsVisible();
+      sw.onTintColor = [UIColor linkBlue];
       [sw addTarget:self action:@selector(onVisibilitySwitched:) forControlEvents:UIControlEventValueChanged];
     }
   }
@@ -220,7 +222,9 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
       cell.textLabel.text = L(@"share_by_email");
     }
   }
-
+  cell.backgroundColor = [UIColor white];
+  cell.textLabel.textColor = [UIColor blackPrimaryText];
+  cell.detailTextLabel.textColor = [UIColor blackHintText];
   return cell;
 }
 
@@ -381,13 +385,6 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
 
 //*********** End of Location manager callbacks ********************
 //******************************************************************
-
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-  self.tableView.backgroundView = nil;
-  self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {

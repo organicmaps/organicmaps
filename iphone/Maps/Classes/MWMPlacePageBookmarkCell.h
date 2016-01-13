@@ -1,3 +1,4 @@
+#import "MWMTableViewCell.h"
 
 @class MWMPlacePage;
 

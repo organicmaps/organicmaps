@@ -33,7 +33,7 @@
 
     <TextView
       android:id="@+id/counter"
-      style="@style/MwmTextAppearance.Counter"
+      style="@style/MwmWidget.Counter"
       android:layout_gravity="right|center_vertical"
       android:layout_marginRight="@dimen/margin_base"
       android:visibility="gone"
@@ -58,7 +58,7 @@
   <TextView
     android:id="@+id/showcase"
     style="@style/MwmTheme.Menu.Content.ListItem"
-    android:drawableLeft="@drawable/ic_showcase"
+    android:drawableLeft="@drawable/ic_menu_showcase"
     android:visibility="gone"
     android:text="@string/showcase_more_apps"
     tools:visibility="visible"

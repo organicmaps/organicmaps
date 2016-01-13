@@ -326,6 +326,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Lainnya</string>
 	<string name="pref_tts_how_to_set_up_voice">Cara mengatur suara</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Jalur terkini</string>
+	<string name="duration_disabled">Nonaktif</string>
+	<string name="duration_1_hour">1 jam</string>
+	<string name="duration_2_hours">2 jam</string>
+	<string name="duration_6_hours">6 jam</string>
+	<string name="duration_12_hours">12 jam</string>
+	<string name="duration_1_day">1 hari</string>
+	<string name="pref_track_ios_caption">Jalur terakhir menunjukkan jalur yang sudah Anda lalui.</string>
+	<string name="pref_track_ios_subcaption">Silakan pilih jangka waktu penyimpanan jalur.</string>
 	<string name="placepage_distance">Jarak</string>
 	<string name="placepage_coordinates">Koordinat</string>
 	<string name="placepage_unsorted">Tidak diurutkan</string>
@@ -814,4 +824,6 @@
 	<string name="whats_new_3d_on">Aktifkan pandangan perspektif</string>
 	<string name="whats_new_3d_buildings_on">Aktifkan Bangunan 3D</string>
 	<string name="whats_new_next_button">Berikut</string>
+	<string name="whats_new_rec_track_title">Dengan MAPS.ME Anda tidak akan tersesat</string>
+	<string name="whats_new_rec_track_body">Aplikasi kini menunjukkan jalur yang telah Anda tempuh baru-baru ini.</string>
 </resources>

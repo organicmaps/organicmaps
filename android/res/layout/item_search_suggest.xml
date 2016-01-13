@@ -2,6 +2,6 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           style="@style/MwmWidget.TextView.Search"
-          android:textColor="@color/base_blue_light"
+          android:textColor="?colorAccent"
           android:drawableLeft="@drawable/ic_search_suggest"
           tools:text="Some suggest title"/>

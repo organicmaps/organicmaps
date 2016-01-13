@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_top_panels"
+    android:background="?panel"
     android:clipToPadding="false"
     android:elevation="@dimen/appbar_elevation">
 
@@ -26,6 +26,7 @@
         android:layout_weight="0"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="center"
+        android:tint="?iconTint"
         android:src="@drawable/ic_cancel"/>
 
     <TextView
@@ -68,7 +69,7 @@
       app:progressColor="@color/routing_progress"
       app:headColor="@color/routing_progress"
       app:progressThickness="2dp"
-      app:secondaryProgressColor="@color/base_black_divider"
+      app:secondaryProgressColor="@color/divider"
       app:secondaryProgressThickness="2dp"/>
 
   <include

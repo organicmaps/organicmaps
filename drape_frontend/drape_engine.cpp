@@ -389,7 +389,8 @@ bool DrapeEngine::GetMyPosition(m2::PointD & myPosition)
   return hasPosition;
 }
 
-void DrapeEngine::AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns, dp::Color const & color)
+void DrapeEngine::AddRoute(m2::PolylineD const & routePolyline, vector<double> const & turns,
+                           df::ColorConstant color)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<AddRouteMessage>(routePolyline, turns, color),
@@ -446,6 +447,20 @@ void DrapeEngine::EnablePerspective(double rotationAngle, double angleFOV)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<EnablePerspectiveMessage>(rotationAngle, angleFOV),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::UpdateGpsTrackPoints(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<UpdateGpsTrackPointsMessage>(move(toAdd), move(toRemove)),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::ClearGpsTrackPoints()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<ClearGpsTrackPointsMessage>(),
                                   MessagePriority::Normal);
 }
 

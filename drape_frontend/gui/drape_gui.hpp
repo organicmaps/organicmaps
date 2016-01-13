@@ -31,7 +31,7 @@ public:
   static RulerHelper & GetRulerHelper();
   static CountryStatusHelper & GetCountryStatusHelper();
 
-  static dp::FontDecl const & GetGuiTextFont();
+  static dp::FontDecl GetGuiTextFont();
 
   void SetLocalizator(TLocalizeStringFn const & fn);
   void Destroy();

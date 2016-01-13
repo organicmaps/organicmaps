@@ -1,7 +1,9 @@
 #import "CommunityVC.h"
-#import "UIViewController+Navigation.h"
 #import <MessageUI/MFMailComposeViewController.h>
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
+#import "UIImageView+Coloring.h"
+#import "UIViewController+Navigation.h"
 
 #import "../../3party/Alohalytics/src/alohalytics_objc.h"
 
@@ -18,7 +20,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
   self.title = L(@"maps_me_community");
 
   self.items = @[@{@"Title" : @"",
@@ -59,7 +60,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   cell.textLabel.text = item[@"Title"];
   cell.imageView.image = [UIImage imageNamed:item[@"Icon"]];
-
+  cell.imageView.mwm_coloring = MWMImageColoringBlack;
+  cell.backgroundColor = [UIColor white];
+  cell.textLabel.textColor = [UIColor blackPrimaryText];
   return cell;
 }
 

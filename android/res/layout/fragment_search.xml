@@ -1,101 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              style="@style/MwmWidget.Floating"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@android:color/white">
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  style="@style/MwmWidget.Floating"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
   <include
-      android:id="@+id/toolbar"
-      layout="@layout/toolbar_with_search"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"/>
+    android:id="@+id/toolbar"
+    layout="@layout/toolbar_with_search"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"/>
 
   <FrameLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <!-- Tabs -->
     <LinearLayout
-        android:id="@+id/tab_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+      android:id="@+id/tab_frame"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
       <android.support.design.widget.TabLayout
-          android:id="@+id/tabs"
-          android:theme="@style/ThemeOverlay.AppCompat"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/tabs_height"
-          android:background="@android:color/white"
-          android:elevation="@dimen/appbar_elevation"
-          app:tabIndicatorColor="@color/base_blue_light"
-          app:tabMode="fixed"
-          app:tabGravity="fill"/>
+        android:id="@+id/tabs"
+        android:theme="@style/ThemeOverlay.AppCompat"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tabs_height"
+        android:elevation="@dimen/appbar_elevation"
+        app:tabIndicatorColor="?colorAccent"
+        app:tabMode="fixed"
+        app:tabGravity="fill"/>
 
       <View
-          android:id="@+id/tabs_divider"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="?dividerHorizontal"/>
+        android:id="@+id/tabs_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?dividerHorizontal"/>
 
       <android.support.v4.view.ViewPager
-          android:id="@+id/pages"
-          style="@style/MwmWidget.Floating"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"/>
+        android:id="@+id/pages"
+        style="@style/MwmWidget.Floating"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     </LinearLayout>
 
     <!-- Results -->
     <FrameLayout
-        android:id="@+id/results_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white">
+      android:id="@+id/results_frame"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="?windowBackgroundForced">
       <include layout="@layout/recycler_default"/>
 
       <!-- "Nothing found" placeholder -->
       <com.mapswithme.maps.widget.HeightLimitedFrameLayout
-          android:id="@+id/placeholder"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:visibility="gone"
-          tools:visibility="visible">
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
         <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_gravity="center"
+          android:gravity="center">
+          <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:gravity="center">
-          <ImageView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:src="@drawable/img_search_nothing_found_light"
-              android:layout_marginBottom="@dimen/margin_base_plus"
-              android:tag="@string/tag_height_limited"/>
+            android:src="@drawable/img_search_nothing_found_light"
+            android:layout_marginBottom="@dimen/margin_base_plus"
+            android:tag="@string/tag_height_limited"/>
 
           <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="@dimen/margin_base"
-              android:text="@string/search_not_found"
-              android:textAppearance="@style/MwmTextAppearance.Title"
-              android:gravity="center_horizontal"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_base"
+            android:text="@string/search_not_found"
+            android:textAppearance="@style/MwmTextAppearance.Title"
+            android:gravity="center_horizontal"/>
 
           <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/search_not_found_query"
-              android:textAppearance="@style/MwmTextAppearance.Body2"
-              android:gravity="center_horizontal"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_not_found_query"
+            android:textAppearance="@style/MwmTextAppearance.Body2"
+            android:gravity="center_horizontal"/>
         </LinearLayout>
       </com.mapswithme.maps.widget.HeightLimitedFrameLayout>
     </FrameLayout>
 
     <!-- Country download suggest fragment -->
     <FrameLayout
-        android:id="@+id/download_suggest_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+      android:id="@+id/download_suggest_frame"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
   </FrameLayout>
 </LinearLayout>

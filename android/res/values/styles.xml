@@ -38,20 +38,19 @@
   </style>
 
   <style name="MwmWidget.Floating.Panel">
-    <item name="android:background">@color/bg_top_panels</item>
+    <item name="android:background">?panel</item>
   </style>
 
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
-    <item name="android:textColor">@color/text_place_page</item>
-    <item name="android:textColorHint">@color/text_dark_hint</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.PlacePage</item>
+    <item name="android:textColorHint">?secondary</item>
     <item name="android:textCursorDrawable">@null</item>
-    <item name="android:textSize">@dimen/text_size_body_1</item>
     <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
   </style>
 
   <style name="MwmWidget.ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-    <item name="android:background">?attr/colorPrimary</item>
+    <item name="android:background">?colorPrimary</item>
     <item name="android:elevation" tools:ignore="NewApi">@dimen/appbar_elevation</item>
     <item name="android:displayOptions">homeAsUp|showTitle</item>
     <item name="contentInsetStart">72dp</item>
@@ -69,7 +68,7 @@
 
   <style name="MwmWidget.ListView" parent="Widget.AppCompat.ListView">
     <item name="android:fadingEdge">none</item>
-    <item name="android:divider">@color/base_black_divider</item>
+    <item name="android:divider">@color/divider</item>
     <item name="android:background">@null</item>
     <item name="android:dividerHeight">1px</item>
     <item name="android:animationCache">false</item>
@@ -121,30 +120,13 @@
     <item name="android:singleLine">true</item>
   </style>
 
+  <style name="MwmWidget.TextView.PlanDetail.Number.Secondary">
+    <item name="android:textAppearance">@style/MwmTextAppearance.RoutingDetail.Secondary</item>
+  </style>
+
   <style name="MwmWidget.TextView.PlanDetail.Status">
     <item name="android:layout_gravity">center_vertical</item>
     <item name="android:layout_centerVertical">true</item>
-  </style>
-
-  <style name="MwmWidget.TextView.BottomMenu">
-    <item name="android:maxLines">2</item>
-    <item name="android:textColor">@color/color_menu_text</item>
-    <item name="android:layout_width">0dp</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:maxWidth">200dp</item>
-    <item name="android:layout_weight">1</item>
-    <item name="android:layout_marginRight">@dimen/margin_half</item>
-    <item name="android:gravity">right</item>
-    <item name="android:textAllCaps">true</item>
-  </style>
-
-  <style name="MwmWidget.TextView.OutOfDateMapsMarker">
-    <item name="android:layout_width">26dp</item>
-    <item name="android:layout_height">26dp</item>
-    <item name="android:background">@drawable/bg_circle_outdated_maps_marker</item>
-    <item name="android:gravity">center</item>
-    <item name="android:textAppearance">@style/MwmTextAppearance.Body3</item>
-    <item name="android:textColor">@android:color/white</item>
   </style>
 
   <style name="MwmWidget.FrameLayout.Elevation">
@@ -154,5 +136,18 @@
   <style name="MwmWidget.RatingBar" parent="android:Widget.RatingBar">
     <item name="android:progressDrawable">@drawable/rating_bar</item>
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
+  </style>
+
+  <style name="MwmWidget.Counter">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minWidth">20dp</item>
+    <item name="android:minHeight">20dp</item>
+    <item name="android:paddingLeft">2dp</item>
+    <item name="android:paddingRight">2dp</item>
+    <item name="android:gravity">center</item>
+    <item name="android:background">@drawable/counter</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body3.Light</item>
+    <item name="android:textColor">@color/text_light</item>
   </style>
 </resources>

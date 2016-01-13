@@ -322,14 +322,12 @@
 	<string name="pref_zoom_summary">Display on the screen</string>
 	<!-- Settings «Map» category: «Map style» title -->
 	<string name="pref_map_style_title">Map style</string>
-	<!-- Settings «Map» category: «Map style» summary -->
-	<string name="pref_map_style_summary">Change map presentation</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_classic_light">Classic light</string>
+	<string name="pref_map_style_default">Default</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_classic_dark">Classic dark</string>
+	<string name="pref_map_style_night">Night</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_modern_light">Modern light</string>
+	<string name="pref_map_style_auto">Auto</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspective view</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -345,6 +343,16 @@
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Other</string>
 	<string name="pref_tts_how_to_set_up_voice">How to set up voice</string>
+	<!-- Settings «Map» category: «Record track» title -->
+	<string name="pref_track_record_title">Recent track</string>
+	<string name="duration_disabled">Off</string>
+	<string name="duration_1_hour">1 hour</string>
+	<string name="duration_2_hours">2 hours</string>
+	<string name="duration_6_hours">6 hours</string>
+	<string name="duration_12_hours">12 hours</string>
+	<string name="duration_1_day">1 day</string>
+	<string name="pref_track_ios_caption">Recent track shows your traveled path.</string>
+	<string name="pref_track_ios_subcaption">Please select the time range of saving the track.</string>
 	<string name="placepage_distance">Distance</string>
 	<string name="placepage_coordinates">Coordinates</string>
 	<string name="placepage_unsorted">Unsorted</string>
@@ -858,4 +866,6 @@
 	<string name="whats_new_3d_on">Enable Perspective View</string>
 	<string name="whats_new_3d_buildings_on">Enable 3D Buildings</string>
 	<string name="whats_new_next_button">Next</string>
+	<string name="whats_new_rec_track_title">With MAPS.ME you won’t get lost</string>
+	<string name="whats_new_rec_track_body">Now the app shows your recent traveled path.</string>
 </resources>

@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.WebContainerDelegate;
@@ -15,6 +17,7 @@ import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.ObservableWebView;
 import com.mapswithme.maps.widget.WebViewShadowController;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -52,7 +55,10 @@ public class HelpFragment extends BaseSettingsFragment
       }
     };
 
-    mFrame.findViewById(R.id.feedback).setOnClickListener(new View.OnClickListener()
+    TextView feedback = (TextView)mFrame.findViewById(R.id.feedback);
+    Graphics.tint(feedback);
+
+    feedback.setOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View v)

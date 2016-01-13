@@ -4,12 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="20dp">
-
   <RelativeLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:background="@color/divider_standard">
-
+      android:background="@color/divider">
     <View
         android:id="@+id/divider_top"
         android:layout_width="match_parent"
@@ -26,7 +24,6 @@
         android:gravity="center_vertical"
         android:minHeight="60dp"
         android:orientation="horizontal">
-
       <TextView
           android:id="@+id/tv__title"
           android:layout_width="0dp"
@@ -40,7 +37,6 @@
           android:layout_height="wrap_content"
           android:maxLines="1"
           android:textAppearance="@style/MwmTextAppearance.Button"/>
-
     </LinearLayout>
 
     <View
@@ -49,8 +45,5 @@
         android:layout_height="1dp"
         android:layout_below="@id/ll__item"
         android:background="?attr/dividerHorizontal"/>
-
   </RelativeLayout>
-
 </FrameLayout>
-

@@ -24,6 +24,7 @@
       <ImageView
         android:id="@+id/my_position"
         style="@style/MwmTheme.Menu.Line.Button"
+        android:tint="@null"
         android:background="@drawable/menu_button_left"
         android:layout_width="@dimen/menu_line_button_width_edge"
         android:layout_height="@dimen/menu_line_height"
@@ -35,6 +36,7 @@
       <ImageView
         android:id="@+id/toggle"
         style="@style/MwmTheme.Menu.Line.Button"
+        android:tint="@null"
         android:layout_width="@dimen/menu_line_button_width_edge"
         android:layout_height="@dimen/menu_line_height"
         android:layout_gravity="right"
@@ -73,7 +75,7 @@
     <View
       android:layout_width="match_parent"
       android:layout_height="1dp"
-      android:background="@color/divider_standard"/>
+      android:background="@color/divider"/>
 
     <include
       layout="@layout/menu_content"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -31,6 +31,7 @@
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="rating_do_like_maps"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0r-sd-kA8" userLabel="Message">
@@ -44,6 +45,7 @@
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="share_on_facebook_text"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27o-Pr-5r5" userLabel="hDivider">
@@ -52,6 +54,9 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="ItN-PG-PAr"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wp2-fW-sfI" userLabel="left">
                             <rect key="frame" x="0.0" y="94" width="140" height="44"/>
@@ -67,7 +72,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="later"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonEnabledBlueText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="notNowButtonTap:" destination="Eeb-Gs-Fip" eventType="touchUpInside" id="FEJ-y8-uMY"/>
@@ -87,7 +92,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="share"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonEnabledBlueText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="shareButtonTap:" destination="Eeb-Gs-Fip" eventType="touchUpInside" id="NBE-Bo-lM3"/>
@@ -100,6 +105,9 @@
                                 <constraint firstAttribute="width" constant="1" id="1TF-2b-jo4"/>
                                 <constraint firstAttribute="height" constant="44" id="2ZE-1w-Yd9"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="0.88" colorSpace="calibratedWhite"/>
@@ -146,9 +154,4 @@
     <resources>
         <image name="dialog_btn_press" width="280" height="44"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

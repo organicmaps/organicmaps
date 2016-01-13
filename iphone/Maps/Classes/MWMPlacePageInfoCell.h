@@ -1,7 +1,8 @@
-#import <UIKit/UIKit.h>
-#import "MWMPlacePageEntity.h"
+#import "MWMTableViewCell.h"
 
-@interface MWMPlacePageInfoCell : UITableViewCell
+@class MWMPlacePageEntity;
+
+@interface MWMPlacePageInfoCell : MWMTableViewCell
 
 - (void)configureWithType:(MWMPlacePageMetadataType)type info:(NSString *)info;
 

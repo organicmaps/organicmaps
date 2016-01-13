@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll__place_phone"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/clickableBackground"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/margin_half"
-    android:paddingTop="@dimen/margin_half"
-    android:tag="phone"
-    android:visibility="gone"
-    tools:visibility="visible"
-    tools:background="#200000FF">
-
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_phone"
+  style="@style/PlacePageItemFrame"
+  android:tag="phone"
+  tools:visibility="visible"
+  tools:background="#2000FF00">
   <ImageView
-      android:id="@+id/iv__place_phone"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_base"
-      android:src="@drawable/ic_phone"/>
+    android:id="@+id/iv__place_phone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/margin_base"
+    android:src="@drawable/ic_phone"
+    android:tint="?colorAccent"/>
 
   <TextView
-      android:id="@+id/tv__place_phone"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textColor="@color/text_place_page_blue"
-      android:textSize="@dimen/text_size_body_1"
-      tools:text="+1 234 567-89-00"
-  />
-
+    android:id="@+id/tv__place_phone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+    tools:text="+1 234 567-89-00"/>
 </LinearLayout>

@@ -2,7 +2,6 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -11,13 +10,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.lang.ref.WeakReference;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
-
-import java.lang.ref.WeakReference;
 
 public class EditDescriptionFragment extends BaseMwmDialogFragment
 {
@@ -36,10 +36,9 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
   public EditDescriptionFragment() {}
 
   @Override
-  public void onCreate(@Nullable Bundle savedInstanceState)
+  protected int getCustomTheme()
   {
-    super.onCreate(savedInstanceState);
-    setStyle(DialogFragment.STYLE_NORMAL, R.style.MwmMain_DialogFragment_Fullscreen);
+    return getFullscreenTheme();
   }
 
   @Nullable

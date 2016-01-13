@@ -35,13 +35,4 @@
   return ceil([self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
 }
 
-#pragma mark - Properties
-
-- (void)setIsLightTheme:(BOOL)isLightTheme
-{
-  _isLightTheme = isLightTheme;
-  self.icon.image =
-      [UIImage imageNamed:isLightTheme ? @"ic_history_label_light" : @"ic_history_label_dark"];
-}
-
 @end

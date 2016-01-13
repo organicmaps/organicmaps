@@ -15,7 +15,7 @@
       android:layout_height="wrap_content"
       android:layout_above="@+id/pp__buttons"
       android:layout_marginTop="56dp"
-      android:background="@color/bg_top_panels"/>
+      android:background="?panel"/>
 
   <include
       android:id="@+id/pp__buttons"

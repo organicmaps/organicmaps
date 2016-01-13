@@ -10,8 +10,6 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
-static NSDictionary * const kEtaAttributes = @{NSForegroundColorAttributeName : UIColor.blackPrimaryText,
-                                                          NSFontAttributeName : UIFont.medium17};
 static CGFloat const kAdditionalHeight = 20.;
 
 @interface MWMRoutePreview () <MWMRoutePointCellDelegate>
@@ -55,19 +53,17 @@ static CGFloat const kAdditionalHeight = 20.;
         forCellWithReuseIdentifier:[MWMRoutePointCell className]];
 
   self.pedestrianProgressView = [[MWMCircularProgress alloc] initWithParentView:self.pedestrian];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_off"] forState:MWMCircularProgressStateNormal];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:MWMCircularProgressStateFailed];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_press"] forState:MWMCircularProgressStateHighlighted];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:MWMCircularProgressStateSelected];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:MWMCircularProgressStateProgress];
-  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk_on"] forState:MWMCircularProgressStateCompleted];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk"] forState:MWMCircularProgressStateNormal];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk"] forState:MWMCircularProgressStateFailed];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk"] forState:MWMCircularProgressStateSelected];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk"] forState:MWMCircularProgressStateProgress];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk"] forState:MWMCircularProgressStateCompleted];
   self.vehicleProgressView = [[MWMCircularProgress alloc] initWithParentView:self.vehicle];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_off"] forState:MWMCircularProgressStateNormal];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:MWMCircularProgressStateFailed];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_press"] forState:MWMCircularProgressStateHighlighted];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:MWMCircularProgressStateSelected];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:MWMCircularProgressStateProgress];
-  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive_on"] forState:MWMCircularProgressStateCompleted];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateNormal];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateFailed];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateSelected];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateProgress];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateCompleted];
 }
 
 - (void)didMoveToSuperview
@@ -89,7 +85,7 @@ static CGFloat const kAdditionalHeight = 20.;
                              entity.targetDistance,
                              entity.targetUnits];
   NSMutableAttributedString * result = [[NSMutableAttributedString alloc] initWithString:resultString];
-  [result addAttributes:kEtaAttributes range:NSMakeRange(0, eta.length)];
+  [result addAttributes:self.etaAttributes range:NSMakeRange(0, eta.length)];
   self.resultLabel.attributedText = result;
   if (!IPAD)
     return;
@@ -303,6 +299,12 @@ static CGFloat const kAdditionalHeight = 20.;
   l.shadowOffset = {0., 0.};
   l.shouldRasterize = YES;
   l.rasterizationScale = [[UIScreen mainScreen] scale];
+}
+
+- (NSDictionary *)etaAttributes
+{
+  return @{NSForegroundColorAttributeName : UIColor.blackPrimaryText,
+           NSFontAttributeName : UIFont.medium17};
 }
 
 #pragma mark - MWMRoutePointCellDelegate

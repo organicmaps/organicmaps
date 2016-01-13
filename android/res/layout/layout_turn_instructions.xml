@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/bg_top_panels"
+    android:background="?panel"
     android:elevation="@dimen/appbar_elevation">
   <LinearLayout
       android:id="@+id/time_distance"
@@ -20,7 +20,8 @@
         android:layout_width="@dimen/base_block_size"
         android:layout_height="@dimen/base_block_size"
         android:layout_weight="0"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="?selectableItemBackgroundBorderless"
+        android:tint="?iconTint"
         android:scaleType="center"
         android:src="@drawable/ic_cancel"/>
 
@@ -61,7 +62,7 @@
       app:progressColor="@color/routing_progress"
       app:headColor="@color/routing_progress"
       app:progressThickness="2dp"
-      app:secondaryProgressColor="@color/base_black_divider"
+      app:secondaryProgressColor="@color/divider"
       app:secondaryProgressThickness="2dp"/>
 
   <include

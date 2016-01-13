@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
           style="@style/MwmWidget.TextView.Search"
+          android:paddingLeft="@dimen/margin_base"
           android:text="@string/search_show_on_map"
-          android:textColor="@color/base_blue_light"
+          android:textColor="?colorAccent"
           android:textAppearance="@style/MwmTextAppearance.Body1"/>

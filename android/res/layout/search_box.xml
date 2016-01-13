@@ -1,63 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container_search"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    tools:background="#FF004F00">
-
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/container_search"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:baselineAligned="false"
+  android:gravity="center_vertical"
+  android:orientation="horizontal">
   <EditText
-      android:id="@+id/query"
-      style="@style/MwmTextAppearance.Toolbar"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:background="@null"
-      android:hint="@string/search"
-      android:imeOptions="actionSearch|flagNoExtractUi"
-      android:inputType="text"
-      android:padding="@dimen/margin_quarter"
-      android:singleLine="true"
-      android:textCursorDrawable="@drawable/cursor_drawable"
-      tools:ignore="UnusedAttribute"/>
+    android:id="@+id/query"
+    style="@style/MwmTextAppearance.Toolbar"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@null"
+    android:hint="@string/search"
+    android:imeOptions="actionSearch|flagNoExtractUi"
+    android:inputType="text"
+    android:padding="@dimen/margin_quarter"
+    android:singleLine="true"
+    android:textCursorDrawable="@drawable/cursor_drawable"
+    tools:ignore="UnusedAttribute"/>
 
   <ProgressBar
-      android:id="@+id/progress"
-      style="@style/Widget.AppCompat.ProgressBar"
-      android:layout_width="@dimen/search_progress_size"
-      android:layout_height="@dimen/search_progress_size"
-      android:layout_marginRight="@dimen/margin_half"
-      android:layout_weight="0"
-      android:background="@null"
-      android:minHeight="@dimen/search_progress_size"
-      android:minWidth="@dimen/search_progress_size"/>
+    android:id="@+id/progress"
+    style="@style/Widget.AppCompat.ProgressBar"
+    android:layout_width="@dimen/search_progress_size"
+    android:layout_height="@dimen/search_progress_size"
+    android:layout_marginRight="@dimen/margin_half"
+    android:layout_weight="0"
+    android:background="@null"
+    android:minHeight="@dimen/search_progress_size"
+    android:minWidth="@dimen/search_progress_size"/>
 
   <ImageView
-      android:id="@+id/clear"
-      android:layout_width="?actionBarSize"
-      android:layout_height="?actionBarSize"
-      android:layout_gravity="center_vertical"
-      android:layout_weight="0"
-      android:background="?attr/selectableItemBackgroundBorderless"
-      android:contentDescription="@null"
-      android:scaleType="center"
-      android:src="@drawable/ic_close_w"/>
+    android:id="@+id/clear"
+    android:layout_width="?actionBarSize"
+    android:layout_height="?actionBarSize"
+    android:layout_gravity="center_vertical"
+    android:layout_weight="0"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:contentDescription="@null"
+    android:scaleType="center"
+    android:src="@drawable/ic_search_clear"/>
 
   <ImageView
-      android:id="@+id/voice_input"
-      android:layout_width="?actionBarSize"
-      android:layout_height="?actionBarSize"
-      android:layout_gravity="center_vertical"
-      android:layout_weight="0"
-      android:background="?attr/selectableItemBackgroundBorderless"
-      android:contentDescription="@null"
-      android:scaleType="center"
-      android:src="@drawable/ic_mic_white"
-      android:visibility="gone"
-      tools:visibility="visible"/>
+    android:id="@+id/voice_input"
+    android:layout_width="?actionBarSize"
+    android:layout_height="?actionBarSize"
+    android:layout_gravity="center_vertical"
+    android:layout_weight="0"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:contentDescription="@null"
+    android:scaleType="center"
+    android:src="@drawable/ic_mic_white"
+    android:visibility="gone"
+    tools:visibility="visible"/>
 
 </LinearLayout>
