@@ -958,7 +958,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   AfterDrawFrame();
 #endif
 
-  MergeBuckets();
+  //TODO: there is a bug in this function, commented until investigation completion.
+  //MergeBuckets();
 }
 
 void FrontendRenderer::MergeBuckets()
