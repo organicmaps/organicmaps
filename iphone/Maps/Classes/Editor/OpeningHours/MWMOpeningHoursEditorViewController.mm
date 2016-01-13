@@ -53,10 +53,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 
 - (void)checkAuthorization
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  NSString * requestToken = [ud stringForKey:kOSMRequestToken];
-  NSString * requestSecret = [ud stringForKey:kOSMRequestSecret];
-  if (!requestToken || !requestSecret)
+  if (!MWMAuthorizationHaveCredentials())
   {
     [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
                      withParameters:@{kStatValue : kStatAuthorization}];
