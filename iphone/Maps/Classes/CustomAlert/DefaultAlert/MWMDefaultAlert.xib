@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -29,6 +29,9 @@
                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0D6-oV-Lio" userLabel="Message">
                             <rect key="frame" x="20" y="54" width="240" height="20"/>
@@ -39,6 +42,9 @@
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f8D-qe-39W" userLabel="hDivider">
                             <rect key="frame" x="0.0" y="94" width="280" height="1"/>
@@ -46,6 +52,9 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="HTM-C2-dMq"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAg-cp-4Ms" userLabel="left">
                             <rect key="frame" x="0.0" y="95" width="140" height="44"/>
@@ -61,7 +70,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonEnabledBlueText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="leftButtonTap" destination="iN0-l3-epB" eventType="touchUpInside" id="xE7-aE-OzM"/>
@@ -81,7 +90,7 @@
                             <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonEnabledBlueText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="rightButtonTap" destination="iN0-l3-epB" eventType="touchUpInside" id="UO8-7c-q1i"/>
@@ -94,6 +103,9 @@
                                 <constraint firstAttribute="height" constant="44" id="8r3-72-asP"/>
                                 <constraint firstAttribute="width" constant="1" id="ORs-aP-K10"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.88" colorSpace="calibratedRGB"/>
@@ -151,9 +163,4 @@
     <resources>
         <image name="dialog_btn_press" width="280" height="44"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>
