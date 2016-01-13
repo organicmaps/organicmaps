@@ -20,8 +20,8 @@ namespace osm
 constexpr char const * kApiVersion = "/api/0.6";
 constexpr char const * kFacebookCallbackPart = "/auth/facebook_access_token/callback?access_token=";
 constexpr char const * kGoogleCallbackPart = "/auth/google_oauth2_access_token/callback?access_token=";
-constexpr char const * kFacebookOAuthPart = "/auth/facebook?referer=%2Foauth%2Fauthorize%3Frequest_token%3D";
-constexpr char const * kGoogleOAuthPart = "/auth/google?referer=%2Foauth%2Fauthorize%3Frequest_token%3D";
+constexpr char const * kFacebookOAuthPart = "/auth/facebook?referer=%2Foauth%2Fauthorize%3Foauth_token%3D";
+constexpr char const * kGoogleOAuthPart = "/auth/google?referer=%2Foauth%2Fauthorize%3Foauth_token%3D";
 
 namespace
 {
