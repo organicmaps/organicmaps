@@ -26,11 +26,6 @@ double const ReverseGeocoder::kLookupRadiusM = 500.0;
 
 ReverseGeocoder::ReverseGeocoder(Index const & index) : m_index(index) {}
 
-void ReverseGeocoder::GetNearbyStreets(FeatureType const & addrFt, vector<Street> & streets) const
-{
-  GetNearbyStreets(feature::GetCenter(addrFt), streets);
-}
-
 void ReverseGeocoder::GetNearbyStreets(m2::PointD const & center, vector<Street> & streets) const
 {
   m2::RectD const rect = GetLookupRect(center, kLookupRadiusM);

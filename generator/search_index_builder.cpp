@@ -341,7 +341,7 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
 
         using TStreet = search::ReverseGeocoder::Street;
         vector<TStreet> streets;
-        rgc.GetNearbyStreets(ft, streets);
+        rgc.GetNearbyStreets(feature::GetCenter(ft), streets);
 
         streetIndex = rgc.GetMatchedStreetIndex(street, streets);
         if (streetIndex < streets.size())

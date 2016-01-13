@@ -53,8 +53,6 @@ public:
     }
   };
 
-  void GetNearbyStreets(FeatureType const & addrFt, vector<Street> & streets) const;
-
   static size_t GetMatchedStreetIndex(string const & keyName, vector<Street> const & streets);
 
   struct Address
@@ -65,6 +63,8 @@ public:
     string GetHouseNumber() const { return m_building.m_name; }
     string GetStreetName() const { return m_street.m_name; }
   };
+
+  void GetNearbyStreets(m2::PointD const & center, vector<Street> & streets) const;
 
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
 
@@ -78,8 +78,6 @@ public:
 
 private:
   static m2::RectD GetLookupRect(m2::PointD const & center, double radiusM);
-
-  void GetNearbyStreets(m2::PointD const & center, vector<Street> & streets) const;
 };
 
 } // namespace search

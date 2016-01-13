@@ -87,7 +87,7 @@ vector<ReverseGeocoder::Street> const & FeaturesLayerMatcher::GetNearbyStreetsIm
     uint32_t featureId, FeatureType & feature)
 {
   auto & streets = m_nearbyStreetsCache[featureId];
-  m_reverseGeocoder.GetNearbyStreets(feature, streets);
+  m_reverseGeocoder.GetNearbyStreets(feature::GetCenter(feature), streets);
   return streets;
 }
 }  // namespace v2
