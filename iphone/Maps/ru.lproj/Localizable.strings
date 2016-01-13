@@ -498,9 +498,6 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Стиль карты";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Стиль отображения карты и интерфейса";
-
 /* «Map style» entry value */
 "pref_map_style_default" = "По умолчанию";
 
@@ -534,10 +531,9 @@
 "pref_tts_how_to_set_up_voice" = "Как настроить голос";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_enabled_title" = "Запись маршрута";
+"pref_track_record_title" = "Запись маршрута";
 
-/* Settings «Map» category: «Length of recorded track» title */
-"pref_track_record_length_title" = "Длительность записи";
+"duration_disabled" = "Отключена";
 
 "duration_1_hour" = "1 час";
 

@@ -498,9 +498,6 @@
 /* Settings «Map» category: «Map style» title */
 "pref_map_style_title" = "Map style";
 
-/* Settings «Map» category: «Map style» summary */
-"pref_map_style_summary" = "Map and interface presentation";
-
 /* «Map style» entry value */
 "pref_map_style_default" = "Default";
 
@@ -534,10 +531,9 @@
 "pref_tts_how_to_set_up_voice" = "How to set up voice";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_enabled_title" = "Record GPS track";
+"pref_track_record_title" = "Record GPS track";
 
-/* Settings «Map» category: «Length of recorded track» title */
-"pref_track_record_length_title" = "Record length";
+"duration_disabled" = "Off";
 
 "duration_1_hour" = "1 hour";
 
