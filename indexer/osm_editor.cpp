@@ -1,6 +1,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/osm_editor.hpp"
 
@@ -503,6 +504,9 @@ bool Editor::IsAddressEditable(FeatureType const & feature) const
 {
   for (auto type : GetAllTypes(feature))
   {
+    // Building addresses are always editable.
+    if (ftypes::IsBuildingChecker::Instance().HasTypeValue(type))
+      return true;
     auto const * typeDesc = GetTypeDescription(type);
     if (typeDesc && typeDesc->address)
       return true;
