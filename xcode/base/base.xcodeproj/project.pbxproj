@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		670E39441C46C76900E9C0A6 /* sunrise_sunset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E39421C46C76900E9C0A6 /* sunrise_sunset.cpp */; };
+		670E39451C46C76900E9C0A6 /* sunrise_sunset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E39431C46C76900E9C0A6 /* sunrise_sunset.hpp */; };
 		674A7E2E1C0DB03D003D48E1 /* timegm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A7E2C1C0DB03D003D48E1 /* timegm.cpp */; };
 		674A7E2F1C0DB03D003D48E1 /* timegm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A7E2D1C0DB03D003D48E1 /* timegm.hpp */; };
 		675341CB1A3F57E400A0A8C3 /* array_adapters.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675341851A3F57E400A0A8C3 /* array_adapters.hpp */; };
@@ -71,6 +73,8 @@
 
 /* Begin PBXFileReference section */
 		670D05AA1B0E057B0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		670E39421C46C76900E9C0A6 /* sunrise_sunset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sunrise_sunset.cpp; sourceTree = "<group>"; };
+		670E39431C46C76900E9C0A6 /* sunrise_sunset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sunrise_sunset.hpp; sourceTree = "<group>"; };
 		674A7E2C1C0DB03D003D48E1 /* timegm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timegm.cpp; sourceTree = "<group>"; };
 		674A7E2D1C0DB03D003D48E1 /* timegm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = timegm.hpp; sourceTree = "<group>"; };
 		675341771A3F57BF00A0A8C3 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +169,8 @@
 		675341791A3F57BF00A0A8C3 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				670E39421C46C76900E9C0A6 /* sunrise_sunset.cpp */,
+				670E39431C46C76900E9C0A6 /* sunrise_sunset.hpp */,
 				674A7E2C1C0DB03D003D48E1 /* timegm.cpp */,
 				674A7E2D1C0DB03D003D48E1 /* timegm.hpp */,
 				675345381A3F6F5E00A0A8C3 /* internal */,
@@ -255,6 +261,7 @@
 				675342021A3F57E400A0A8C3 /* string_utils.hpp in Headers */,
 				675341E41A3F57E400A0A8C3 /* matrix.hpp in Headers */,
 				675341D81A3F57E400A0A8C3 /* condition.hpp in Headers */,
+				670E39451C46C76900E9C0A6 /* sunrise_sunset.hpp in Headers */,
 				675341E91A3F57E400A0A8C3 /* object_tracker.hpp in Headers */,
 				675341F51A3F57E400A0A8C3 /* set_operations.hpp in Headers */,
 				675342041A3F57E400A0A8C3 /* strings_bundle.hpp in Headers */,
@@ -348,6 +355,7 @@
 				675342081A3F57E400A0A8C3 /* thread.cpp in Sources */,
 				675342061A3F57E400A0A8C3 /* thread_pool.cpp in Sources */,
 				675341D41A3F57E400A0A8C3 /* condition_bada.cpp in Sources */,
+				670E39441C46C76900E9C0A6 /* sunrise_sunset.cpp in Sources */,
 				6753420E1A3F57E400A0A8C3 /* timer.cpp in Sources */,
 				675341F61A3F57E400A0A8C3 /* shared_buffer_manager.cpp in Sources */,
 				675341DA1A3F57E400A0A8C3 /* exception.cpp in Sources */,
