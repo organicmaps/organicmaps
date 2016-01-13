@@ -37,6 +37,8 @@ namespace feature
 
     LoaderBase * GetLoader() const { return m_pLoader; }
 
+    inline version::Format GetMWMFormat() const { return m_header.GetFormat(); }
+
     inline serial::CodingParams const & GetDefCodingParams() const
     {
       return m_header.GetDefCodingParams();

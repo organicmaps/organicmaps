@@ -522,7 +522,7 @@ namespace feature
           ASSERT_LESS_OR_EQUAL(offset, numeric_limits<uint32_t>::max(), ());
 
           m_metadataIndex.emplace_back(ftID, static_cast<uint32_t>(offset));
-          fb.GetMetadata().SerializeToMWM(*w);
+          fb.GetMetadata().Serialize(*w);
         }
 
         uint64_t const osmID = fb.GetWayIDForRouting();

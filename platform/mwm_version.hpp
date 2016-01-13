@@ -19,7 +19,8 @@ enum class Format
   v5,      // July 2015 (feature id is the index in vector now).
   v6,      // October 2015 (offsets vector is in mwm now).
   v7,      // November 2015 (supply different search index formats).
-  lastFormat = v7
+  v8,      // January 2016 (long strings in metadata).
+  lastFormat = v8
 };
 
 struct MwmVersion
