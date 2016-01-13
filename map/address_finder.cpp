@@ -454,24 +454,20 @@ namespace
   }
 }
 
-void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::AddressInfo & info) const
+search::AddressInfo Framework::GetMercatorAddressInfo(m2::PointD const & mercator) const
 {
-  /// @todo Do not returm MWM's name here.
-  //info.m_country = GetCountryName(pt);
-  //if (info.m_country.empty())
-  //{
-  //  LOG(LINFO, ("Can't find region for point ", pt));
-  //  return;
-  //}
+  search::AddressInfo info;
+  // @TODO(vng): insert correct implementation from new search.
+  //info.m_country = GetCountryName(mercator);
+  // @TODO(vng): Rewrite code to get it from LocalityFinder.
+  //GetLocality(pt, info);
 
   search::ReverseGeocoder coder(m_model.GetIndex());
   search::ReverseGeocoder::Address addr;
-  coder.GetNearbyAddress(pt, addr);
+  coder.GetNearbyAddress(mercator, addr);
   info.m_house = addr.GetHouseNumber();
   info.m_street = addr.GetStreetName();
-
-  /// @todo Rewrite code to get it from LocalityFinder.
-  //GetLocality(pt, info);
+  return info;
 }
 
 search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType const & ft) const

@@ -495,8 +495,7 @@ void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
     menu.addAction(QString::fromUtf8(s.c_str()));
   };
 
-  search::AddressInfo info;
-  m_framework->GetAddressInfoForPixelPoint(pt, info);
+  search::AddressInfo const info = m_framework->GetMercatorAddressInfo(m_framework->PtoG(pt));
 
   // Get feature types under cursor.
   vector<string> types;

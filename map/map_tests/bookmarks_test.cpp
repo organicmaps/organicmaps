@@ -394,8 +394,7 @@ namespace
 
   void CheckPlace(Framework const & fm, double lat, double lon, POIInfo const & poi)
   {
-    search::AddressInfo info;
-    fm.GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(lat, lon), info);
+    search::AddressInfo const info = fm.GetMercatorAddressInfo(MercatorBounds::FromLatLon(lat, lon));
 
     TEST_EQUAL(info.m_street, poi.m_street, ());
     TEST_EQUAL(info.m_house, poi.m_house, ());

@@ -469,21 +469,14 @@ public:
   /// Get classificator types for nearest features.
   /// @param[in] pxPoint Current touch point in device pixel coordinates.
   void GetFeatureTypes(m2::PointD const & pxPoint, vector<string> & types) const;
-
-  /// Get address information for the point on map.
-  /// Fill only house number and street name. All other params stay unchanged.
-  //@{
-  inline void GetAddressInfoForPixelPoint(m2::PointD const & pxPoint, search::AddressInfo & info) const
-  {
-    GetAddressInfoForGlobalPoint(PtoG(pxPoint), info);
-  }
-  void GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::AddressInfo & info) const;
   //@}
 
 private:
   void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
 
 public:
+  /// Please use this method for debug purposes only. It always tries to find closest street.
+  search::AddressInfo GetMercatorAddressInfo(m2::PointD const & mercator) const;
   search::AddressInfo GetFeatureAddressInfo(FeatureType const & ft) const;
   /// Get feature at given point even if it's invisible on the screen.
   /// TODO(AlexZ): Refactor out other similar methods.
