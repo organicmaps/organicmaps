@@ -106,9 +106,11 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       }
     });
 
-    pref = findPreference(getString(R.string.pref_map_style));
-    ((ListPreference) pref).setValue(Config.getUiThemeSettings());
-    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    String curTheme = Config.getUiThemeSettings();
+    ListPreference stylePref = (ListPreference)findPreference(getString(R.string.pref_map_style));
+    stylePref.setValue(curTheme);
+    stylePref.setSummary(stylePref.getEntry());
+    stylePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
@@ -154,34 +156,27 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
     else
       getPreferenceScreen().removePreference(pref);
 
-    pref = findPreference(getString(R.string.pref_track_record_enabled));
-    ((TwoStatePreference)pref).setChecked(TrackRecorder.isEnabled());
-    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        TrackRecorder.setEnabled((Boolean)newValue);
-        return true;
-      }
-    });
-
-    pref = findPreference(getString(R.string.pref_track_record_length));
-    String value = String.valueOf(TrackRecorder.getDuration());
-    ((ListPreference)pref).setValue(value);
-    pref.setSummary(((ListPreference)pref).getEntry());
-    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    final ListPreference trackPref = (ListPreference)findPreference(getString(R.string.pref_track_record));
+    String value = (TrackRecorder.isEnabled() ? String.valueOf(TrackRecorder.getDuration()) : "0");
+    trackPref.setValue(value);
+    trackPref.setSummary(trackPref.getEntry());
+    trackPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
       public boolean onPreferenceChange(final Preference preference, Object newValue)
       {
-        TrackRecorder.setDuration(Integer.valueOf((String)newValue));
+        int value = Integer.valueOf((String)newValue);
+        TrackRecorder.setEnabled(value != 0);
+
+        if (value != 0)
+          TrackRecorder.setDuration(value);
+
         UiThread.runLater(new Runnable()
         {
           @Override
           public void run()
           {
-            preference.setSummary(((ListPreference)preference).getEntry());
+            trackPref.setSummary(trackPref.getEntry());
           }
         });
         return true;

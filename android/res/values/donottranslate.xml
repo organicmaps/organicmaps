@@ -43,7 +43,7 @@
   <string name="pref_3d" translatable="false">3D</string>
   <string name="pref_3d_buildings" translatable="false">3DBuildings</string>
   <string name="pref_track_record_enabled" translatable="false">TrackRecordEnabled</string>
-  <string name="pref_track_record_length" translatable="false">TrackRecordLength</string>
+  <string name="pref_track_record" translatable="false">TrackRecord</string>
   <string name="pref_showcase_switched_on" translatable="false">DisplayShowcase</string>
 
   <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
