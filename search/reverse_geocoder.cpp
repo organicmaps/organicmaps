@@ -24,12 +24,12 @@ double const ReverseGeocoder::kLookupRadiusM = 500.0;
 
 ReverseGeocoder::ReverseGeocoder(Index const & index) : m_index(index) {}
 
-void ReverseGeocoder::GetNearbyStreets(FeatureType const & addrFt, vector<Street> & streets)
+void ReverseGeocoder::GetNearbyStreets(FeatureType const & addrFt, vector<Street> & streets) const
 {
   GetNearbyStreets(feature::GetCenter(addrFt), streets);
 }
 
-void ReverseGeocoder::GetNearbyStreets(m2::PointD const & center, vector<Street> & streets)
+void ReverseGeocoder::GetNearbyStreets(m2::PointD const & center, vector<Street> & streets) const
 {
   m2::RectD const rect = GetLookupRect(center, kLookupRadiusM);
 
@@ -92,7 +92,7 @@ size_t ReverseGeocoder::GetMatchedStreetIndex(string const & keyName,
   return result;
 }
 
-void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr)
+void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr) const
 {
   vector<Building> buildings;
   GetNearbyBuildings(center, buildings);
@@ -127,13 +127,13 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr
   }
 }
 
-void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings)
+void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings) const
 {
   GetNearbyBuildings(center, kLookupRadiusM, buildings);
 }
 
 void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, double radiusM,
-                                         vector<Building> & buildings)
+                                         vector<Building> & buildings) const
 {
   // Seems like a copy-paste here of the GetNearbyStreets function.
   // Trying to factor out common logic will cause many variables logic.

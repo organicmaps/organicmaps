@@ -53,7 +53,7 @@ public:
     }
   };
 
-  void GetNearbyStreets(FeatureType const & addrFt, vector<Street> & streets);
+  void GetNearbyStreets(FeatureType const & addrFt, vector<Street> & streets) const;
 
   static size_t GetMatchedStreetIndex(string const & keyName, vector<Street> const & streets);
 
@@ -66,16 +66,17 @@ public:
     string GetStreetName() const { return m_street.m_name; }
   };
 
-  void GetNearbyAddress(m2::PointD const & center, Address & addr);
+  void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
 
-  void GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings);
 
-  void GetNearbyBuildings(m2::PointD const & center, double radiusM, vector<Building> & buildings);
+  void GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings) const;
+
+  void GetNearbyBuildings(m2::PointD const & center, double radiusM, vector<Building> & buildings) const;
 
 private:
   static m2::RectD GetLookupRect(m2::PointD const & center, double radiusM);
 
-  void GetNearbyStreets(m2::PointD const & center, vector<Street> & streets);
+  void GetNearbyStreets(m2::PointD const & center, vector<Street> & streets) const;
 };
 
 } // namespace search
