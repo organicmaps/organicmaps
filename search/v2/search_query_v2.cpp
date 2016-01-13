@@ -13,7 +13,7 @@ namespace v2
 SearchQueryV2::SearchQueryV2(Index & index, CategoriesHolder const & categories,
                              vector<Suggest> const & suggests,
                              storage::CountryInfoGetter const & infoGetter)
-  : Query(index, categories, suggests, infoGetter), m_geocoder(index)
+  : Query(index, categories, suggests, infoGetter), m_geocoder(index, infoGetter)
 {
   m_keepHouseNumberInQuery = true;
 }

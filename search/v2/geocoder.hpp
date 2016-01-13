@@ -33,6 +33,11 @@ namespace coding
 class CompressedBitVector;
 }
 
+namespace storage
+{
+class CountryInfoGetter;
+}  // namespace storage
+
 namespace search
 {
 namespace v2
@@ -67,7 +72,7 @@ public:
     size_t m_maxNumResults;
   };
 
-  Geocoder(Index & index);
+  Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter);
 
   ~Geocoder() override;
 
@@ -86,8 +91,27 @@ private:
     uint32_t m_featureId = 0;
     size_t m_startToken = 0;
     size_t m_endToken = 0;
+  };
+
+  struct Country : public Locality
+  {
+    Country(Locality const & l) : Locality(l) {}
+
+    vector<size_t> m_regions;
+    string m_enName;
+  };
+
+  struct City : public Locality
+  {
+    City(Locality const & l): Locality(l) {}
+
     m2::RectD m_rect;
   };
+
+  template <typename TLocality>
+  using TLocalitiesCache = map<pair<size_t, size_t>, vector<TLocality>>;
+
+  enum { VIEWPORT_ID = -1, POSITION_ID = -2 };
 
   SearchQueryParams::TSynonymsVector const & GetTokens(size_t i) const;
 
@@ -106,18 +130,23 @@ private:
     ::search::BailIfCancelled(static_cast<my::Cancellable const &>(*this));
   }
 
-  // Tries to find all localities in a search query and then performs
-  // matching of streets in found localities.
-  //
-  // *NOTE* that localities will be looked for in a World.mwm, so, for
-  // now, villages won't be found on this stage.
-  // TODO (@y, @m, @vng): try to add villages to World.mwm.
-  void DoGeocodingWithLocalities();
+  // Tries to find all countries in a search query and then performs
+  // matching of cities in found countries.
+  void MatchCountries();
 
-  // Tries to do geocoding without localities. If during the geocoding
-  // too many features are retrieved, viewport is used to throw away
-  // excess features.
-  void DoGeocodingWithoutLocalities();
+  // Tries to find all cities in a search query and then performs
+  // matching of streets in found cities.
+  //
+  // *NOTE* that cities will be looked for in a World.mwm, so, for
+  // now, villages won't be found on this stage.  TODO (@y, @m, @vng):
+  // try to add villages to World.mwm.
+  void MatchCities();
+
+  // Tries to do geocoding without localities, ie. find POIs,
+  // BUILDINGs and STREETs without knowledge about country, state or
+  // city. If during the geocoding too many features are retrieved,
+  // viewport is used to throw away excess features.
+  void MatchViewportAndPosition();
 
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in streets vicinities.
@@ -139,13 +168,18 @@ private:
 
   coding::CompressedBitVector const * LoadStreets(MwmContext & context);
 
-  enum { VIEWPORT_ID = -1, POSITION_ID = -2 };
   /// A caching wrapper around Retrieval::RetrieveGeometryFeatures.
   /// param[in] Optional query id. Use VIEWPORT_ID, POSITION_ID or feature index for locality.
   coding::CompressedBitVector const * RetrieveGeometryFeatures(
       MwmContext const & context, m2::RectD const & rect, int id);
 
+  bool AllTokensUsed() const;
+
+  bool HasUsedTokensInRange(size_t from, size_t to) const;
+
   Index & m_index;
+
+  storage::CountryInfoGetter const & m_infoGetter;
 
   // Geocoder params.
   Params m_params;
@@ -165,8 +199,8 @@ private:
   // Context of the currently processed mwm.
   unique_ptr<MwmContext> m_context;
 
-  // Map from [curToken, endToken) to matching localities list.
-  map<pair<size_t, size_t>, vector<Locality>> m_localities;
+  TLocalitiesCache<City> m_cities;
+  TLocalitiesCache<Country> m_countries;
 
   // Cache of geometry features.
   struct FeaturesInRect

@@ -1,5 +1,6 @@
 #include "search/v2/geocoder.hpp"
 
+#include "search/dummy_rank_table.hpp"
 #include "search/retrieval.hpp"
 #include "search/search_delimiters.hpp"
 #include "search/search_string_utils.hpp"
@@ -12,6 +13,8 @@
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
+
+#include "storage/country_info_getter.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 
@@ -46,9 +49,55 @@ namespace v2
 {
 namespace
 {
-
-size_t constexpr kMaxLocalitiesCount = 5;
+size_t constexpr kMaxNumCities = 5;
+size_t constexpr kMaxNumCountries = 5;
+size_t constexpr kMaxNumLocalities = kMaxNumCities + kMaxNumCountries;
 double constexpr kComparePoints = MercatorBounds::GetCellID2PointAbsEpsilon();
+
+template <typename T>
+struct Id
+{
+  T const & operator()(T const & t) const { return t; }
+};
+
+struct ScopedMarkTokens
+{
+  ScopedMarkTokens(vector<bool> & usedTokens, size_t from, size_t to)
+    : m_usedTokens(usedTokens), m_from(from), m_to(to)
+  {
+    ASSERT_LESS_OR_EQUAL(m_from, m_to, ());
+    ASSERT_LESS_OR_EQUAL(m_to, m_usedTokens.size(), ());
+    fill(m_usedTokens.begin() + m_from, m_usedTokens.begin() + m_to, true /* used */);
+  }
+
+  ~ScopedMarkTokens()
+  {
+    fill(m_usedTokens.begin() + m_from, m_usedTokens.begin() + m_to, false /* used */);
+  }
+
+  vector<bool> & m_usedTokens;
+  size_t const m_from;
+  size_t const m_to;
+};
+
+struct LazyRankTable
+{
+  LazyRankTable(MwmValue const & value) : m_value(value) {}
+
+  uint8_t Get(uint64_t i)
+  {
+    if (!m_table)
+    {
+      m_table = search::RankTable::Load(m_value.m_cont);
+      if (!m_table)
+        m_table = make_unique<search::DummyRankTable>();
+    }
+    return m_table->Get(i);
+  }
+
+  MwmValue const & m_value;
+  unique_ptr<search::RankTable> m_table;
+};
 
 void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t endToken,
                      string const & sep, string & res)
@@ -86,6 +135,38 @@ vector<strings::UniString> GetStreetCategories()
   return categories;
 }
 
+bool HasAllSubstrings(string const & s, vector<string> const & substrs)
+{
+  for (auto const & substr : substrs)
+  {
+    if (s.find(substr) == string::npos)
+      return false;
+  }
+  return true;
+}
+
+void GetEnglishName(FeatureType const & ft, string & name)
+{
+  static vector<string> const kUSA{"united", "states", "america"};
+  static vector<string> const kUK{"united", "kingdom"};
+  static vector<int8_t> const kLangs = {StringUtf8Multilang::GetLangIndex("en"),
+                                        StringUtf8Multilang::GetLangIndex("int_name"),
+                                        StringUtf8Multilang::GetLangIndex("default")};
+
+  for (auto const & lang : kLangs)
+  {
+    if (!ft.GetName(lang, name))
+      continue;
+    strings::AsciiToLower(name);
+    if (HasAllSubstrings(name, kUSA))
+      name = "usa";
+    else if (HasAllSubstrings(name, kUK))
+      name = "uk";
+    else
+      return;
+  }
+}
+
 template <typename TFn>
 void ForEachStreetCategory(TFn && fn)
 {
@@ -116,8 +197,9 @@ MwmSet::MwmHandle FindWorld(Index & index, vector<shared_ptr<MwmInfo>> & infos)
 Geocoder::Params::Params() : m_position(0, 0), m_maxNumResults(0) {}
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
-Geocoder::Geocoder(Index & index)
+Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
   : m_index(index)
+  , m_infoGetter(infoGetter)
   , m_numTokens(0)
   , m_model(SearchModel::Instance())
   , m_streets(nullptr)
@@ -165,7 +247,8 @@ void Geocoder::Go(vector<FeatureID> & results)
 
     // Tries to find world and fill localities table.
     {
-      m_localities.clear();
+      m_cities.clear();
+      m_countries.clear();
       MwmSet::MwmHandle handle = FindWorld(m_index, infos);
       if (handle.IsAlive())
       {
@@ -205,8 +288,9 @@ void Geocoder::Go(vector<FeatureID> & results)
 
       m_streets = LoadStreets(*m_context);
 
-      DoGeocodingWithLocalities();
-      DoGeocodingWithoutLocalities();
+      m_usedTokens.assign(m_numTokens, false);
+      MatchCountries();
+      MatchViewportAndPosition();
     };
 
     // Iterates through all alive mwms and performs geocoding.
@@ -247,15 +331,13 @@ void Geocoder::PrepareRetrievalParams(size_t curToken, size_t endToken)
 
 void Geocoder::FillLocalitiesTable(MwmContext const & context)
 {
-  m_localities.clear();
-
   // 1. Get cbv for every single token and prefix.
   vector<unique_ptr<coding::CompressedBitVector>> tokensCBV;
   for (size_t i = 0; i < m_numTokens; ++i)
   {
     PrepareRetrievalParams(i, i + 1);
     tokensCBV.push_back(Retrieval::RetrieveAddressFeatures(
-          context.m_value, static_cast<my::Cancellable const &>(*this), m_retrievalParams));
+        context.m_value, static_cast<my::Cancellable const &>(*this), m_retrievalParams));
   }
 
   // 2. Get all locality candidates for the continuous token ranges.
@@ -271,14 +353,14 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
     for (size_t j = i + 1; j <= m_numTokens; ++j)
     {
       coding::CompressedBitVectorEnumerator::ForEach(*intersection.Get(),
-               [&](uint32_t featureId)
-               {
-                 Locality l;
-                 l.m_featureId = featureId;
-                 l.m_startToken = i;
-                 l.m_endToken = j;
-                 preLocalities.push_back(l);
-               });
+                                                     [&](uint32_t featureId)
+                                                     {
+                                                       Locality l;
+                                                       l.m_featureId = featureId;
+                                                       l.m_startToken = i;
+                                                       l.m_endToken = j;
+                                                       preLocalities.push_back(l);
+                                                     });
 
       if (j < m_numTokens)
       {
@@ -301,68 +383,75 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
 
   // 3. Unique preLocalities with featureId but leave the longest range if equal.
   sort(preLocalities.begin(), preLocalities.end(),
-        [&](Locality const & l1, Locality const & l2)
-        {
-          if (l1.m_featureId != l2.m_featureId)
-            return l1.m_featureId < l2.m_featureId;
-          return tokensCountFn(l1) > tokensCountFn(l2);
-        });
+       [&](Locality const & l1, Locality const & l2)
+       {
+         if (l1.m_featureId != l2.m_featureId)
+           return l1.m_featureId < l2.m_featureId;
+         return tokensCountFn(l1) > tokensCountFn(l2);
+       });
 
   preLocalities.erase(unique(preLocalities.begin(), preLocalities.end(),
-                              [](Locality const & l1, Locality const & l2)
-                              {
-                                return l1.m_featureId == l2.m_featureId;
-                              }), preLocalities.end());
+                             [](Locality const & l1, Locality const & l2)
+                             {
+                               return l1.m_featureId == l2.m_featureId;
+                             }),
+                      preLocalities.end());
+
+  LazyRankTable rankTable(context.m_value);
 
   // 4. Leave most popular localities.
-  // Use 2 * kMaxLocalitiesCount because there can be countries, states, ...
-  size_t count = 2 * kMaxLocalitiesCount;
-  if (preLocalities.size() > count)
+  if (preLocalities.size() > kMaxNumLocalities)
   {
-    auto rankTable = search::RankTable::Load(context.m_value.m_cont);
-
-    nth_element(preLocalities.begin(), preLocalities.begin() + count, preLocalities.end(),
-          [&] (Locality const & l1, Locality const & l2)
-          {
-            auto const d1 = tokensCountFn(l1);
-            auto const d2 = tokensCountFn(l2);
-            if (d1 != d2)
-              return d1 > d2;
-            return rankTable->Get(l1.m_featureId) > rankTable->Get(l2.m_featureId);
-          });
-  }
-  else
-  {
-    count = preLocalities.size();
+    nth_element(preLocalities.begin(), preLocalities.begin() + kMaxNumLocalities,
+                preLocalities.end(),
+                [&](Locality const & l1, Locality const & l2)
+                {
+                  auto const d1 = tokensCountFn(l1);
+                  auto const d2 = tokensCountFn(l2);
+                  if (d1 != d2)
+                    return d1 > d2;
+                  return rankTable.Get(l1.m_featureId) > rankTable.Get(l2.m_featureId);
+                });
+    preLocalities.resize(kMaxNumLocalities);
   }
 
   // 5. Fill result container.
-  size_t citiesCount = 0;
-  for (size_t i = 0; i < count; ++i)
+  size_t numCities = 0;
+  size_t numCountries = 0;
+  for (auto & l : preLocalities)
   {
-    auto & l = preLocalities[i];
-
     FeatureType ft;
     context.m_vector.GetByIndex(l.m_featureId, ft);
 
-    if (citiesCount < kMaxLocalitiesCount &&
-        ft.GetFeatureType() == feature::GEOM_POINT &&
-        m_model.GetSearchType(ft) == SearchModel::SEARCH_TYPE_CITY)
+    switch (m_model.GetSearchType(ft))
     {
-      ++citiesCount;
-      l.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
-                    ft.GetCenter(), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
+    case SearchModel::SEARCH_TYPE_CITY:
+    {
+      if (numCities < kMaxNumCities && ft.GetFeatureType() == feature::GEOM_POINT)
+      {
+        ++numCities;
+        City city = l;
+        city.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
+            ft.GetCenter(), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
 
-      m_localities[make_pair(l.m_startToken, l.m_endToken)].push_back(l);
+        m_cities[make_pair(l.m_startToken, l.m_endToken)].push_back(city);
+      }
+      break;
     }
-    else
+    case SearchModel::SEARCH_TYPE_COUNTRY:
     {
-      /// @todo Process not only cities but states and countries.
-      /// We can limit the MWM's scope for search.
-
-      // Push to results only full tokens match.
-      if (l.m_endToken - l.m_startToken == m_numTokens)
-        m_results->emplace_back(m_worldId, l.m_featureId);
+      if (numCountries < kMaxNumCountries && ft.GetFeatureType() == feature::GEOM_POINT)
+      {
+        ++numCountries;
+        Country country(l);
+        GetEnglishName(ft, country.m_enName);
+        m_infoGetter.GetMatchedRegions(country.m_enName, country.m_regions);
+        m_countries[make_pair(l.m_startToken, l.m_endToken)].push_back(country);
+      }
+      break;
+    default:
+      break;
+    }
     }
   }
 }
@@ -384,58 +473,96 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && 
   }
 }
 
-void Geocoder::DoGeocodingWithLocalities()
+void Geocoder::MatchCountries()
 {
-  ASSERT(m_context, ("Mwm context must be initialized at this moment."));
+  // Try to skip countries matching.
+  MatchCities();
 
-  m_usedTokens.assign(m_numTokens, false);
+  auto const & fileName = m_context->m_handle.GetId().GetInfo()->GetCountryName();
 
-  m2::RectD const countryBounds = m_context->m_value.GetHeader().GetBounds();
-
-  // Localities are ordered my (m_startToken, m_endToken) pairs.
-  for (auto const & p : m_localities)
+  // Try to match countries.
+  for (auto const & p : m_countries)
   {
     BailIfCancelled();
 
     size_t const startToken = p.first.first;
     size_t const endToken = p.first.second;
-    if (startToken == 0 && endToken == m_numTokens)
+    if (HasUsedTokensInRange(startToken, endToken))
+      continue;
+
+    ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
+    if (AllTokensUsed())
+    {
+      // Countries match to search query.
+      for (auto const & country : p.second)
+        m_results->emplace_back(m_worldId, country.m_featureId);
+      continue;
+    }
+
+    bool matches = false;
+    for (auto const & country : p.second)
+    {
+      if (m_infoGetter.IsBelongToRegions(fileName, country.m_regions))
+      {
+        matches = true;
+        break;
+      }
+    }
+
+    if (matches)
+      MatchCities();
+  }
+}
+
+void Geocoder::MatchCities()
+{
+  m2::RectD const countryBounds = m_context->m_value.GetHeader().GetBounds();
+
+  // Localities are ordered my (m_startToken, m_endToken) pairs.
+  for (auto const & p : m_cities)
+  {
+    BailIfCancelled();
+
+    size_t const startToken = p.first.first;
+    size_t const endToken = p.first.second;
+    if (HasUsedTokensInRange(startToken, endToken))
+      continue;
+
+    ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
+    if (AllTokensUsed())
     {
       // Localities match to search query.
-      for (auto const & locality : p.second)
-        m_results->emplace_back(m_worldId, locality.m_featureId);
+      for (auto const & city : p.second)
+        m_results->emplace_back(m_worldId, city.m_featureId);
       continue;
     }
 
     // Unites features from all localities and uses the resulting bit
     // vector as a filter for features retrieved during geocoding.
     CBVPtr allFeatures;
-    for (auto const & locality : p.second)
+    for (auto const & city : p.second)
     {
-      m2::RectD rect = locality.m_rect;
+      m2::RectD rect = city.m_rect;
       if (!rect.Intersect(countryBounds))
         continue;
 
-      allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, locality.m_featureId));
+      allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, city.m_featureId));
     }
 
     if (allFeatures.IsEmpty())
       continue;
 
     m_filter.SetFilter(allFeatures.Get());
-    MY_SCOPE_GUARD(resetFilter, [&]() { m_filter.SetFilter(nullptr); });
+    MY_SCOPE_GUARD(resetFilter, [&]() {m_filter.SetFilter(nullptr);});
 
     // Filter will be applied for all non-empty bit vectors.
     m_filter.SetThreshold(0);
 
-    // Marks all tokens matched to localities as used and performs geocoding.
-    fill(m_usedTokens.begin() + startToken, m_usedTokens.begin() + endToken, true);
     GreedilyMatchStreets();
-    fill(m_usedTokens.begin() + startToken, m_usedTokens.begin() + endToken, false);
   }
 }
 
-void Geocoder::DoGeocodingWithoutLocalities()
+void Geocoder::MatchViewportAndPosition()
 {
   // 50km maximum viewport radius.
   double constexpr kMaxViewportRadiusM = 50.0 * 1000;
@@ -504,7 +631,7 @@ void Geocoder::GreedilyMatchStreets()
         buffer = coding::CompressedBitVector::Intersect(*allFeatures, *m_addressFeatures[curToken]);
 
       if (coding::CompressedBitVector::IsEmpty(buffer))
-          break;
+        break;
 
       allFeatures.swap(buffer);
     }
@@ -527,9 +654,8 @@ void Geocoder::GreedilyMatchStreets()
                                                    MakeBackInsertFunctor(sortedFeatures));
     layer.m_sortedFeatures = &sortedFeatures;
 
-    fill(m_usedTokens.begin() + startToken, m_usedTokens.begin() + curToken, true);
+    ScopedMarkTokens mark(m_usedTokens, startToken, curToken);
     MatchPOIsAndBuildings(0 /* curToken */);
-    fill(m_usedTokens.begin() + startToken, m_usedTokens.begin() + curToken, false);
   }
 }
 
@@ -754,8 +880,9 @@ coding::CompressedBitVector const * Geocoder::LoadStreets(MwmContext & context)
   return result;
 }
 
-coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(
-    MwmContext const & context, m2::RectD const & rect, int id)
+coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(MwmContext const & context,
+                                                                       m2::RectD const & rect,
+                                                                       int id)
 {
   /// @todo
   /// - Implement more smart strategy according to id.
@@ -772,9 +899,18 @@ coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(
       context.m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale);
 
   auto const * result = cbv.get();
-  features.push_back({ m2::Inflate(rect, kComparePoints, kComparePoints), move(cbv), id });
+  features.push_back({m2::Inflate(rect, kComparePoints, kComparePoints), move(cbv), id});
   return result;
 }
 
+bool Geocoder::AllTokensUsed() const
+{
+  return all_of(m_usedTokens.begin(), m_usedTokens.end(), Id<bool>());
+}
+
+bool Geocoder::HasUsedTokensInRange(size_t from, size_t to) const
+{
+  return any_of(m_usedTokens.begin() + from, m_usedTokens.begin() + to, Id<bool>());
+}
 }  // namespace v2
 }  // namespace search

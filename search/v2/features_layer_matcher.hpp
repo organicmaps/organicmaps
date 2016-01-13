@@ -69,6 +69,7 @@ public:
     {
     case SearchModel::SEARCH_TYPE_POI:
     case SearchModel::SEARCH_TYPE_CITY:
+    case SearchModel::SEARCH_TYPE_COUNTRY:
     case SearchModel::SEARCH_TYPE_COUNT:
       ASSERT(false, ("Invalid parent layer type:", parent.m_type));
       break;
