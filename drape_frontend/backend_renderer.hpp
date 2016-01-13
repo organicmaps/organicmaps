@@ -32,14 +32,16 @@ public:
   {
     Params(ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::OGLContextFactory> factory,
            ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model,
-           ref_ptr<RequestedTiles> requestedTiles)
+           ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_model(model)
       , m_requestedTiles(requestedTiles)
+      , m_allow3dBuildings(allow3dBuildings)
     {}
 
     MapDataProvider const & m_model;
     ref_ptr<RequestedTiles> m_requestedTiles;
+    bool m_allow3dBuildings;
   };
 
   BackendRenderer(Params const & params);

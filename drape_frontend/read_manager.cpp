@@ -31,13 +31,13 @@ struct LessCoverageCell
 
 } // namespace
 
-ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model)
+ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings)
   : m_commutator(commutator)
   , m_model(model)
   , m_pool(make_unique_dp<threads::ThreadPool>(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)))
   , m_forceUpdate(true)
   , m_need3dBuildings(false)
-  , m_allow3dBuildings(false)
+  , m_allow3dBuildings(allow3dBuildings)
   , m_modeChanged(false)
   , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model))
   , m_counter(0)

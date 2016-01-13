@@ -80,7 +80,8 @@ public:
            TUserPositionChangedFn const & positionChangedFn,
            location::TMyPositionModeChanged myPositionModeCallback,
            location::EMyPositionMode initMode,
-           ref_ptr<RequestedTiles> requestedTiles)
+           ref_ptr<RequestedTiles> requestedTiles,
+           bool allow3dBuildings)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
@@ -90,6 +91,7 @@ public:
       , m_myPositionModeCallback(myPositionModeCallback)
       , m_initMyPositionMode(initMode)
       , m_requestedTiles(requestedTiles)
+      , m_allow3dBuildings(allow3dBuildings)
     {}
 
     Viewport m_viewport;
@@ -100,6 +102,7 @@ public:
     location::TMyPositionModeChanged m_myPositionModeCallback;
     location::EMyPositionMode m_initMyPositionMode;
     ref_ptr<RequestedTiles> m_requestedTiles;
+    bool m_allow3dBuildings;
   };
 
   FrontendRenderer(Params const & params);
@@ -155,7 +158,8 @@ private:
   int GetCurrentZoomLevel() const;
   int GetCurrentZoomLevelForData() const;
   void ResolveZoomLevel(ScreenBase const & screen);
-  void CheckMinAllowableIn3dScale();
+  void CheckPerspectiveMinScale();
+  void CheckIsometryMinScale(ScreenBase const & screen);
 
   void DisablePerspective();
 
@@ -208,6 +212,7 @@ private:
   using TRenderGroupRemovePredicate = function<bool(drape_ptr<RenderGroup> const &)>;
   void RemoveRenderGroups(TRenderGroupRemovePredicate const & predicate);
 
+  void InvalidateRect(m2::RectD const & gRect);
   bool CheckTileGenerations(TileKey const & tileKey);
 
   void OnCompassTapped();
