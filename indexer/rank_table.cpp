@@ -221,7 +221,10 @@ void SerializeRankTable(RankTable & table, string const & mapPath)
 template <typename TRegion>
 unique_ptr<RankTable> LoadRankTable(unique_ptr<TRegion> && region)
 {
-  if (!region || !region->ImmutableData() || region->Size() < kHeaderSize)
+  if (!region || !region->ImmutableData())
+    return unique_ptr<RankTable>();
+
+  if (region->Size() < kHeaderSize)
   {
     LOG(LERROR, ("Invalid RankTable format."));
     return unique_ptr<RankTable>();
