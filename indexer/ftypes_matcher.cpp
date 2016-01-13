@@ -45,6 +45,11 @@ bool BaseChecker::operator() (vector<uint32_t> const & types) const
   return false;
 }
 
+bool BaseChecker::HasTypeValue(uint32_t const type) const
+{
+  return find(m_types.begin(), m_types.end(), type) != m_types.end();
+}
+
 IsPeakChecker::IsPeakChecker()
 {
   Classificator const & c = classif();
