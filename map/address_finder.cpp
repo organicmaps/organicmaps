@@ -487,6 +487,29 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType const & ft) con
   return info;
 }
 
+vector<string> Framework::GetNearbyFeatureStreets(FeatureType const & ft) const
+{
+  search::ReverseGeocoder const coder(m_model.GetIndex());
+  // Need to filter out duplicate street names.
+  auto const streets = coder.GetNearbyFeatureStreets(ft);
+  // Reasonable number of different nearby street names to display in UI.
+  size_t const kMinNumberOfNearbyStreets = 5;
+  vector<string> results;
+  // Feature's street from OSM data, if exists, always goes first.
+  if (streets.second < streets.first.size())
+    results.push_back(streets.first[streets.second].m_name);
+  for (auto const & street : streets.first)
+  {
+    auto const e = results.end();
+    if (e == find(results.begin(), e, street.m_name))
+    {
+      results.push_back(street.m_name);
+      if (results.size() >= kMinNumberOfNearbyStreets)
+        break;
+    }
+  }
+  return results;
+}
 /*
 void Framework::GetLocality(m2::PointD const & pt, search::AddressInfo & info) const
 {

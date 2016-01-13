@@ -479,6 +479,10 @@ public:
   /// Please use this method for debug purposes only. It always tries to find closest street.
   search::AddressInfo GetMercatorAddressInfo(m2::PointD const & mercator) const;
   search::AddressInfo GetFeatureAddressInfo(FeatureType const & ft) const;
+  /// If feature does not have explicit street in OSM data, first value can be a closest named street.
+  /// If it does have explicit street name in OSM, it goes first in the returned vector.
+  /// @returns empty vector if no named streets were found around feature.
+  vector<string> GetNearbyFeatureStreets(FeatureType const & ft) const;
   /// Get feature at given point even if it's invisible on the screen.
   /// TODO(AlexZ): Refactor out other similar methods.
   /// @returns nullptr if no feature was found at the given mercator point.
