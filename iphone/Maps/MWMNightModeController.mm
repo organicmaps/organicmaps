@@ -21,7 +21,7 @@ extern NSString * const kUDAutoNightMode;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = L(@"pref_night_mode");
+  self.title = L(@"pref_map_style_title");
   if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightMode])
   {
     self.autoSwitch.accessoryType = UITableViewCellAccessoryCheckmark;

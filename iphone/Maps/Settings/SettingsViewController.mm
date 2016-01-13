@@ -127,7 +127,7 @@ typedef NS_ENUM(NSUInteger, Section)
     {
       cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
       LinkCell * customCell = static_cast<LinkCell *>(cell);
-      customCell.titleLabel.text = indexPath.row == 0 ? L(@"pref_night_mode") : L(@"pref_recent_track");
+      customCell.titleLabel.text = indexPath.row == 0 ? L(@"pref_map_style_title") : L(@"pref_track_record_title");
       break;
     }
     // 3D buildings

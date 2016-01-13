@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = L(@"recent_track");
+  self.title = L(@"pref_track_record_title");
 
   if (!GpsTracker::Instance().IsEnabled())
   {

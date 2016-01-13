@@ -54,7 +54,7 @@
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whiteColor"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="white"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="closed"/>
                                 </userDefinedRuntimeAttributes>
                             </label>

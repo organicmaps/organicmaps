@@ -499,9 +499,9 @@ void InitLocalizedStrings()
   barBtn.tintColor = [UIColor whitePrimaryText];
 
   UIPageControl * pageControl = [UIPageControl appearance];
-  pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
-  pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
-  pageControl.backgroundColor = [UIColor whiteColor];
+  pageControl.pageIndicatorTintColor = [UIColor blackSecondaryText];
+  pageControl.currentPageIndicatorTintColor = [UIColor blackPrimaryText];
+  pageControl.backgroundColor = [UIColor white];
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
