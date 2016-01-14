@@ -1,6 +1,6 @@
 #include "indexer/classificator.hpp"
-#include "indexer/tree_structure.hpp"
 #include "indexer/map_style_reader.hpp"
+#include "indexer/tree_structure.hpp"
 
 #include "base/macros.hpp"
 #include "base/logging.hpp"
