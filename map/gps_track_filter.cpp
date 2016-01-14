@@ -23,11 +23,14 @@ double constexpr kClosePointDistanceMeters = 15;
 // Max acceptable acceleration to filter gps jumps
 double constexpr kMaxAcceptableAcceleration = 2; // m / sec ^ 2
 
+double constexpr kCosine45degrees = 0.70710678118;
+
 m2::PointD GetDirection(location::GpsInfo const & from, location::GpsInfo const & to)
 {
   m2::PointD const pt0 = MercatorBounds::FromLatLon(from.m_latitude, from.m_longitude);
   m2::PointD const pt1 = MercatorBounds::FromLatLon(to.m_latitude, to.m_longitude);
-  return pt1 - pt0;
+  m2::PointD const d = pt1 - pt0;
+  return d.IsAlmostZero() ? m2::PointD::Zero() : d.Normalize();
 }
 
 double GetDistance(location::GpsInfo const & from, location::GpsInfo const & to)
@@ -90,16 +93,16 @@ void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,
       double const predictionDistance = GetDistance(m_lastInfo[1], m_lastInfo[0]); // meters
       double const realDistance = GetDistance(m_lastInfo[0], currInfo); // meters
 
-      auto const predictionDirection = GetDirection(m_lastInfo[1], m_lastInfo[0]);
-      auto const realDirection = GetDirection(m_lastInfo[0], currInfo);
+      m2::PointD const predictionDirection = GetDirection(m_lastInfo[1], m_lastInfo[0]);
+      m2::PointD const realDirection = GetDirection(m_lastInfo[0], currInfo);
 
-      // Sine of angle between prediction direction and real direction is
-      double const sine = m2::CrossProduct(predictionDirection, realDirection);
+      // Cosine of angle between prediction direction and real direction is
+      double const cosine = m2::DotProduct(predictionDirection, realDirection);
 
-      // Acceptable angle must be from 0 to 90 or from 0 to -90 (I or IV quad):
-      //   in I quad sine >= 0 && cosine >= 0 and in IV quad sine >= 0 and cosine <= 0.
+      // Acceptable angle must be from 0 to 45 or from 0 to -45.
       // Acceptable distance must be not great than 2x than predicted, otherwise it is jump.
-      if (sine >= 0. && realDistance <= max(kClosePointDistanceMeters, 2. * predictionDistance))
+      if (cosine >= kCosine45degrees &&
+          realDistance <= max(kClosePointDistanceMeters, 2. * predictionDistance))
       {
         outPoints.emplace_back(currInfo);
         AddLastAcceptedInfo(currInfo);
