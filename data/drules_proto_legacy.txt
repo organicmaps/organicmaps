@@ -1,16 +1,6 @@
 cont {
   name: "aerialway-cable_car"
   element {
-    scale: 14
-    lines {
-      width: 0.8
-      color: 2105376
-      priority: 1598
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 0.8
@@ -64,16 +54,6 @@ cont {
 cont {
   name: "aerialway-chair_lift"
   element {
-    scale: 14
-    lines {
-      width: 0.8
-      color: 2105376
-      priority: 1604
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 0.8
@@ -125,125 +105,7 @@ cont {
   }
 }
 cont {
-  name: "aerialway-drag_lift"
-  element {
-    scale: 14
-    lines {
-      width: 0.5
-      color: 4473924
-      priority: 1729
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.5
-      color: 1715749956
-      dashdot {
-        dd: 1.0
-        dd: 18.0
-      }
-      priority: 1716
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 0.5
-      color: 4473924
-      priority: 1729
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.5
-      color: 1715749956
-      dashdot {
-        dd: 1.0
-        dd: 18.0
-      }
-      priority: 1716
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 0.5
-      color: 4473924
-      priority: 1729
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.5
-      color: 1715749956
-      dashdot {
-        dd: 1.0
-        dd: 18.0
-      }
-      priority: 1716
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 0.5
-      color: 4473924
-      priority: 1729
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.5
-      color: 1715749956
-      dashdot {
-        dd: 1.0
-        dd: 18.0
-      }
-      priority: 1716
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 0.5
-      color: 4473924
-      priority: 1729
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.5
-      color: 1715749956
-      dashdot {
-        dd: 1.0
-        dd: 18.0
-      }
-      priority: 1716
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
   name: "aerialway-gondola"
-  element {
-    scale: 14
-    lines {
-      width: 0.8
-      color: 2105376
-      priority: 1601
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 15
     lines {
@@ -297,16 +159,6 @@ cont {
 }
 cont {
   name: "aerialway-mixed_lift"
-  element {
-    scale: 14
-    lines {
-      width: 0.8
-      color: 2105376
-      priority: 1607
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 15
     lines {
@@ -451,13 +303,6 @@ cont {
 }
 cont {
   name: "aeroway-aerodrome"
-  element {
-    scale: 10
-    area {
-      color: 14212302
-      priority: -16001
-    }
-  }
   element {
     scale: 11
     area {
@@ -684,13 +529,6 @@ cont {
 }
 cont {
   name: "aeroway-aerodrome-international"
-  element {
-    scale: 10
-    area {
-      color: 14212302
-      priority: -16010
-    }
-  }
   element {
     scale: 11
     area {
@@ -1862,13 +1700,6 @@ cont {
 cont {
   name: "amenity-bus_station"
   element {
-    scale: 15
-    symbol {
-      name: "bus"
-      priority: 16024
-    }
-  }
-  element {
     scale: 16
     symbol {
       name: "bus"
@@ -2219,18 +2050,6 @@ cont {
 cont {
   name: "amenity-clinic"
   element {
-    scale: 16
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
     scale: 17
     caption {
       primary {
@@ -2399,20 +2218,6 @@ cont {
 }
 cont {
   name: "amenity-doctors"
-  element {
-    scale: 14
-    symbol {
-      name: "pharmacy"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "pharmacy"
-      priority: 16000
-    }
-  }
   element {
     scale: 16
     symbol {
@@ -2638,20 +2443,6 @@ cont {
 }
 cont {
   name: "amenity-ferry_terminal"
-  element {
-    scale: 14
-    symbol {
-      name: "slipway"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "slipway"
-      priority: 16000
-    }
-  }
   element {
     scale: 16
     symbol {
@@ -3066,54 +2857,6 @@ cont {
 cont {
   name: "amenity-hospital"
   element {
-    scale: 14
-    symbol {
-      name: "hospital"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "hospital"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "hospital"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "hospital"
@@ -3164,13 +2907,6 @@ cont {
 }
 cont {
   name: "amenity-hunting_stand"
-  element {
-    scale: 15
-    symbol {
-      name: "hunting_closed_high"
-      priority: 16000
-    }
-  }
   element {
     scale: 16
     symbol {
@@ -3818,18 +3554,6 @@ cont {
 }
 cont {
   name: "amenity-parking-no-access"
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
   element {
     scale: 17
     caption {
@@ -5978,20 +5702,6 @@ cont {
 cont {
   name: "area:highway-footway"
   element {
-    scale: 14
-    area {
-      color: 13683900
-      priority: 1384
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-      }
-      priority: 15383
-    }
-  }
-  element {
     scale: 15
     area {
       color: 13683900
@@ -6059,44 +5769,6 @@ cont {
         color: 4210752
       }
       priority: 15383
-    }
-  }
-}
-cont {
-  name: "area:highway-living_street"
-  element {
-    scale: 14
-    area {
-      color: 15591638
-      priority: -15838
-    }
-  }
-  element {
-    scale: 15
-    area {
-      color: 15591638
-      priority: -15838
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 15591638
-      priority: -15838
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 15591638
-      priority: -15838
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 15591638
-      priority: -15838
     }
   }
 }
@@ -6140,20 +5812,6 @@ cont {
 }
 cont {
   name: "area:highway-pedestrian"
-  element {
-    scale: 14
-    area {
-      color: 12171925
-      priority: 1384
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-      }
-      priority: 15383
-    }
-  }
   element {
     scale: 15
     area {
@@ -6335,13 +5993,6 @@ cont {
 }
 cont {
   name: "barrier-border_control"
-  element {
-    scale: 15
-    symbol {
-      name: "barrier"
-      priority: 16000
-    }
-  }
   element {
     scale: 16
     symbol {
@@ -6659,14 +6310,6 @@ cont {
 }
 cont {
   name: "barrier-toll_booth"
-  element {
-    scale: 15
-    circle {
-      radius: 1.2
-      color: 7368816
-      priority: 14000
-    }
-  }
   element {
     scale: 16
     circle {
@@ -7276,174 +6919,6 @@ cont {
   }
   element {
     scale: 11
-    lines {
-      width: 1.5
-      color: 9474192
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 16390
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658717
-      priority: 16387
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 1.5
-      color: 9474192
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 16390
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658717
-      priority: 16387
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.5
-      color: 9474192
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 16390
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658717
-      priority: 16387
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.5
-      color: 9474192
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 16390
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658717
-      priority: 16387
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.5
-      color: 9474192
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 16390
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658717
-      priority: 16387
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.5
-      color: 9474192
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 16390
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658717
-      priority: 16387
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.5
-      color: 9474192
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 16390
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658717
-      priority: 16387
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.5
-      color: 9474192
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 16390
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 15658717
-      priority: 16387
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 19
     lines {
       width: 1.5
       color: 9474192
@@ -9204,13 +8679,6 @@ cont {
 }
 cont {
   name: "building"
-  element {
-    scale: 14
-    area {
-      color: 13487540
-      priority: 1001
-    }
-  }
   element {
     scale: 15
     area {
@@ -11089,16 +10557,6 @@ cont {
 cont {
   name: "highway-cycleway"
   element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 5095245
-      priority: 1036
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 14
     lines {
       width: 1.0
@@ -11196,16 +10654,6 @@ cont {
 }
 cont {
   name: "highway-cycleway-bridge"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 5095245
-      priority: 1036
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 14
     lines {
@@ -11375,16 +10823,6 @@ cont {
 cont {
   name: "highway-cycleway-permissive"
   element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 5095245
-      priority: 1036
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 14
     lines {
       width: 1.0
@@ -11482,16 +10920,6 @@ cont {
 }
 cont {
   name: "highway-cycleway-tunnel"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 5095245
-      priority: 1036
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 14
     lines {
@@ -13599,23 +13027,6 @@ cont {
 cont {
   name: "highway-living_street"
   element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1032
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1033
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 13
     lines {
       width: 2.6
@@ -13773,23 +13184,6 @@ cont {
 }
 cont {
   name: "highway-living_street-bridge"
-  element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1032
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1033
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 13
     lines {
@@ -14018,23 +13412,6 @@ cont {
 }
 cont {
   name: "highway-living_street-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1032
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1033
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 13
     lines {
@@ -15559,40 +14936,6 @@ cont {
 cont {
   name: "highway-motorway_link"
   element {
-    scale: 10
-    lines {
-      width: 2.6
-      color: 11899980
-      priority: 1054
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 15763456
-      priority: 1055
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 2.6
-      color: 11899980
-      priority: 1054
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 15763456
-      priority: 1055
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 2.6
@@ -15779,40 +15122,6 @@ cont {
 }
 cont {
   name: "highway-motorway_link-bridge"
-  element {
-    scale: 10
-    lines {
-      width: 2.6
-      color: 11899980
-      priority: 1054
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 15763456
-      priority: 1055
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 2.6
-      color: 11899980
-      priority: 1054
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 15763456
-      priority: 1055
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 12
     lines {
@@ -16070,40 +15379,6 @@ cont {
 }
 cont {
   name: "highway-motorway_link-tunnel"
-  element {
-    scale: 10
-    lines {
-      width: 2.6
-      color: 11899980
-      priority: 1054
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 15763456
-      priority: 1055
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 11
-    lines {
-      width: 2.6
-      color: 11899980
-      priority: 1054
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 15763456
-      priority: 1055
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 12
     lines {
@@ -18742,40 +18017,6 @@ cont {
 cont {
   name: "highway-pedestrian"
   element {
-    scale: 13
-    lines {
-      width: 2.0
-      color: 12171925
-      priority: 1033
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 5263440
-      }
-      priority: 16033
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.0
-      color: 12171925
-      priority: 1033
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 5263440
-      }
-      priority: 16033
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 2.0
@@ -18864,34 +18105,6 @@ cont {
 cont {
   name: "highway-pedestrian-area"
   element {
-    scale: 13
-    area {
-      color: 12171925
-      priority: 1034
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-      }
-      priority: 15033
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 12171925
-      priority: 1034
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-      }
-      priority: 15033
-    }
-  }
-  element {
     scale: 15
     area {
       color: 12171925
@@ -18964,68 +18177,6 @@ cont {
 }
 cont {
   name: "highway-pedestrian-bridge"
-  element {
-    scale: 13
-    lines {
-      width: 2.0
-      color: 12171925
-      priority: 1033
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1029
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12.0
-      color: 7368816
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 5263440
-      }
-      priority: 16033
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.0
-      color: 12171925
-      priority: 1033
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1029
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12.0
-      color: 7368816
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 5263440
-      }
-      priority: 16033
-    }
-  }
   element {
     scale: 15
     lines {
@@ -19184,76 +18335,6 @@ cont {
 }
 cont {
   name: "highway-pedestrian-tunnel"
-  element {
-    scale: 13
-    lines {
-      width: 2.0
-      color: 12171925
-      priority: 1033
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1029
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12.0
-      color: 7368816
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 5263440
-      }
-      priority: 16033
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.0
-      color: 12171925
-      priority: 1033
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 10.0
-      color: 16777215
-      priority: 1029
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 12.0
-      color: 7368816
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 5263440
-      }
-      priority: 16033
-    }
-  }
   element {
     scale: 15
     lines {
@@ -21508,106 +20589,6 @@ cont {
 cont {
   name: "highway-proposed"
   element {
-    scale: 13
-    lines {
-      width: 11.6
-      color: 11899980
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 13684944
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1000
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 11.6
-      color: 11899980
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 13684944
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1000
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 11.6
-      color: 11899980
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 13684944
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1000
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 11.6
-      color: 11899980
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 10.0
-      color: 13684944
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1000
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 17
     lines {
       width: 11.6
@@ -21915,40 +20896,6 @@ cont {
 cont {
   name: "highway-residential"
   element {
-    scale: 11
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1041
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1042
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1041
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1042
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 13
     lines {
       width: 2.6
@@ -22119,20 +21066,6 @@ cont {
 cont {
   name: "highway-residential-area"
   element {
-    scale: 11
-    area {
-      color: 16777215
-      priority: 1043
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 16777215
-      priority: 1043
-    }
-  }
-  element {
     scale: 13
     area {
       color: 16777215
@@ -22184,40 +21117,6 @@ cont {
 }
 cont {
   name: "highway-residential-bridge"
-  element {
-    scale: 11
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1041
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1042
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1041
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1042
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 13
     lines {
@@ -22458,40 +21357,6 @@ cont {
 }
 cont {
   name: "highway-residential-tunnel"
-  element {
-    scale: 11
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1041
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1042
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1041
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1042
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 13
     lines {
@@ -22753,23 +21618,6 @@ cont {
 cont {
   name: "highway-road"
   element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 13684944
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 13
     lines {
       width: 2.6
@@ -22935,23 +21783,6 @@ cont {
 }
 cont {
   name: "highway-road-bridge"
-  element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 13684944
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 13
     lines {
@@ -23188,23 +22019,6 @@ cont {
 }
 cont {
   name: "highway-road-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 13684944
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 13
     lines {
@@ -27370,29 +26184,6 @@ cont {
 cont {
   name: "highway-tertiary"
   element {
-    scale: 11
-    lines {
-      width: 2.6
-      color: 13158496
-      priority: 1045
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777104
-      priority: 1046
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    shield {
-      height: 11
-      color: 9849600
-      stroke_color: 16777215
-      priority: 16046
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 2.6
@@ -27627,29 +26418,6 @@ cont {
 }
 cont {
   name: "highway-tertiary-bridge"
-  element {
-    scale: 11
-    lines {
-      width: 2.6
-      color: 13158496
-      priority: 1045
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777104
-      priority: 1046
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    shield {
-      height: 11
-      color: 9849600
-      stroke_color: 16777215
-      priority: 16046
-    }
-  }
   element {
     scale: 12
     lines {
@@ -27955,29 +26723,6 @@ cont {
 }
 cont {
   name: "highway-tertiary-tunnel"
-  element {
-    scale: 11
-    lines {
-      width: 2.6
-      color: 13158496
-      priority: 1045
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777104
-      priority: 1046
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    shield {
-      height: 11
-      color: 9849600
-      stroke_color: 16777215
-      priority: 16046
-    }
-  }
   element {
     scale: 12
     lines {
@@ -32935,23 +31680,6 @@ cont {
 cont {
   name: "highway-unclassified"
   element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1041
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1042
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 13
     lines {
       width: 2.6
@@ -33122,13 +31850,6 @@ cont {
 cont {
   name: "highway-unclassified-area"
   element {
-    scale: 12
-    area {
-      color: 16777215
-      priority: 1043
-    }
-  }
-  element {
     scale: 13
     area {
       color: 16777215
@@ -33180,23 +31901,6 @@ cont {
 }
 cont {
   name: "highway-unclassified-bridge"
-  element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1041
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1042
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 13
     lines {
@@ -33437,23 +32141,6 @@ cont {
 }
 cont {
   name: "highway-unclassified-tunnel"
-  element {
-    scale: 12
-    lines {
-      width: 2.6
-      color: 13158575
-      priority: 1041
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1042
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 13
     lines {
@@ -34428,7 +33115,7 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.0
+      width: 0
       color: 0
       priority: 1987
       pathsym {
@@ -34441,7 +33128,7 @@ cont {
   element {
     scale: 17
     lines {
-      width: 0.0
+      width: 0
       color: 0
       priority: 1987
       pathsym {
@@ -34454,7 +33141,7 @@ cont {
   element {
     scale: 18
     lines {
-      width: 0.0
+      width: 0
       color: 0
       priority: 1987
       pathsym {
@@ -34467,7 +33154,7 @@ cont {
   element {
     scale: 19
     lines {
-      width: 0.0
+      width: 0
       color: 0
       priority: 1987
       pathsym {
@@ -36048,20 +34735,6 @@ cont {
 cont {
   name: "landuse-garages"
   element {
-    scale: 14
-    area {
-      color: 14803429
-      priority: -15988
-    }
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15012
-    }
-  }
-  element {
     scale: 15
     area {
       color: 14803429
@@ -36745,36 +35418,6 @@ cont {
 cont {
   name: "landuse-orchard"
   element {
-    scale: 12
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 13
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 15
     caption {
       primary {
@@ -37110,20 +35753,6 @@ cont {
 cont {
   name: "landuse-reservoir"
   element {
-    scale: 10
-    area {
-      color: 9487572
-      priority: -15905
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 9487572
-      priority: -15905
-    }
-  }
-  element {
     scale: 12
     area {
       color: 9487572
@@ -37312,156 +35941,6 @@ cont {
 cont {
   name: "landuse-salt_pond"
   element {
-    scale: 0
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 1
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 2
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 3
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 6
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 7
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 8
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 9
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 10
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 11
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 12
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 13
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 15
     caption {
       primary {
@@ -37608,13 +36087,6 @@ cont {
 }
 cont {
   name: "landuse-vineyard"
-  element {
-    scale: 12
-    area {
-      color: 13757137
-      priority: -15994
-    }
-  }
   element {
     scale: 13
     area {
@@ -38066,41 +36538,6 @@ cont {
 }
 cont {
   name: "leisure-nature_reserve"
-  element {
-    scale: 10
-    symbol {
-      name: "bird"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 11
-    symbol {
-      name: "bird"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 12
-    symbol {
-      name: "bird"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 13
-    symbol {
-      name: "bird"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 14
-    symbol {
-      name: "bird"
-      priority: 16000
-    }
-  }
   element {
     scale: 15
     symbol {
@@ -39640,36 +38077,6 @@ cont {
 cont {
   name: "man_made-breakwater"
   element {
-    scale: 12
-    lines {
-      width: 2.0
-      color: 7368816
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 2.0
-      color: 7368816
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 2.0
-      color: 7368816
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 2.0
@@ -39833,20 +38240,6 @@ cont {
 cont {
   name: "man_made-lighthouse"
   element {
-    scale: 15
-    symbol {
-      name: "lighthouse"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "lighthouse"
-      priority: 16000
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "lighthouse"
@@ -39870,48 +38263,6 @@ cont {
 }
 cont {
   name: "man_made-pier"
-  element {
-    scale: 12
-    lines {
-      width: 0.1
-      color: 13684944
-      priority: 1463
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 0.6
-      color: 15000804
-      priority: 1466
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    area {
-      color: 15855336
-      priority: 1464
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.1
-      color: 13684944
-      priority: 1463
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 0.6
-      color: 15000804
-      priority: 1466
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    area {
-      color: 15855336
-      priority: 1464
-    }
-  }
   element {
     scale: 14
     lines {
@@ -40288,9 +38639,6 @@ cont {
       cap: BUTTCAP
     }
   }
-}
-cont {
-  name: "man_made-survey_point"
 }
 cont {
   name: "man_made-wastewater_plant"
@@ -40928,62 +39276,6 @@ cont {
 cont {
   name: "natural-bay"
   element {
-    scale: 10
-    area {
-      color: 9487572
-      priority: -15905
-    }
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15095
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 9487572
-      priority: -15905
-    }
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15095
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 9487572
-      priority: -15905
-    }
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15095
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 9487572
-      priority: -15905
-    }
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15095
-    }
-  }
-  element {
     scale: 14
     area {
       color: 9487572
@@ -41070,66 +39362,6 @@ cont {
 }
 cont {
   name: "natural-beach"
-  element {
-    scale: 10
-    area {
-      color: 15649877
-      priority: -16320
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2105376
-        stroke_color: 15649877
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 15649877
-      priority: -16320
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2105376
-        stroke_color: 15649877
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 15649877
-      priority: -16320
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2105376
-        stroke_color: 15649877
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 15649877
-      priority: -16320
-    }
-    caption {
-      primary {
-        height: 11
-        color: 2105376
-        stroke_color: 15649877
-      }
-      priority: 15000
-    }
-  }
   element {
     scale: 14
     area {
@@ -41292,36 +39524,6 @@ cont {
 }
 cont {
   name: "natural-cave_entrance"
-  element {
-    scale: 12
-    symbol {
-      name: "cave_entrance"
-      priority: 16000
-    }
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-        offset_y: 10
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 13
-    symbol {
-      name: "cave_entrance"
-      priority: 16000
-    }
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-        offset_y: 10
-      }
-      priority: 15000
-    }
-  }
   element {
     scale: 14
     symbol {
@@ -42061,48 +40263,6 @@ cont {
 cont {
   name: "natural-land"
   element {
-    scale: 0
-    area {
-      color: 15658717
-      priority: -16706
-    }
-  }
-  element {
-    scale: 1
-    area {
-      color: 15658717
-      priority: -16706
-    }
-  }
-  element {
-    scale: 2
-    area {
-      color: 15658717
-      priority: -16706
-    }
-  }
-  element {
-    scale: 3
-    area {
-      color: 15658717
-      priority: -16706
-    }
-  }
-  element {
-    scale: 4
-    area {
-      color: 15658717
-      priority: -16706
-    }
-  }
-  element {
-    scale: 5
-    area {
-      color: 15658717
-      priority: -16706
-    }
-  }
-  element {
     scale: 6
     area {
       color: 15658717
@@ -42198,65 +40358,6 @@ cont {
     area {
       color: 15658717
       priority: -16706
-    }
-  }
-}
-cont {
-  name: "natural-marsh"
-  element {
-    scale: 11
-    area {
-      color: 13229526
-      priority: -15798
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 13229526
-      priority: -15798
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 13229526
-      priority: -15798
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 13229526
-      priority: -15798
-    }
-  }
-  element {
-    scale: 15
-    area {
-      color: 13229526
-      priority: -15798
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 13229526
-      priority: -15798
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 13229526
-      priority: -15798
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 13229526
-      priority: -15798
     }
   }
 }
@@ -42763,156 +40864,6 @@ cont {
 cont {
   name: "natural-salt_pond"
   element {
-    scale: 0
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 1
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 2
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 3
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 6
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 7
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 8
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 9
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 10
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 11
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 12
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 13
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 15
     caption {
       primary {
@@ -43167,52 +41118,52 @@ cont {
   element {
     scale: 16
     lines {
-      width: 0.0
+      width: 0
       color: 0
       priority: 1000
       pathsym {
         name: "tree"
         step: 84.0
-        offset: 0.0
+        offset: 0
       }
     }
   }
   element {
     scale: 17
     lines {
-      width: 0.0
+      width: 0
       color: 0
       priority: 1000
       pathsym {
         name: "tree"
         step: 84.0
-        offset: 0.0
+        offset: 0
       }
     }
   }
   element {
     scale: 18
     lines {
-      width: 0.0
+      width: 0
       color: 0
       priority: 1000
       pathsym {
         name: "tree"
         step: 84.0
-        offset: 0.0
+        offset: 0
       }
     }
   }
   element {
     scale: 19
     lines {
-      width: 0.0
+      width: 0
       color: 0
       priority: 1000
       pathsym {
         name: "tree"
         step: 84.0
-        offset: 0.0
+        offset: 0
       }
     }
   }
@@ -43272,20 +41223,6 @@ cont {
 }
 cont {
   name: "natural-volcano"
-  element {
-    scale: 10
-    symbol {
-      name: "vulcan"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 11
-    symbol {
-      name: "vulcan"
-      priority: 16000
-    }
-  }
   element {
     scale: 12
     symbol {
@@ -43600,38 +41537,6 @@ cont {
 cont {
   name: "natural-waterfall"
   element {
-    scale: 12
-    symbol {
-      name: "waterfall"
-      apply_for_type: 1
-      priority: 16000
-    }
-    caption {
-      primary {
-        height: 12
-        color: 255
-        offset_y: 10
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 13
-    symbol {
-      name: "waterfall"
-      apply_for_type: 1
-      priority: 16000
-    }
-    caption {
-      primary {
-        height: 12
-        color: 255
-        offset_y: 10
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 14
     symbol {
       name: "waterfall"
@@ -43731,27 +41636,6 @@ cont {
 cont {
   name: "natural-wetland"
   element {
-    scale: 11
-    area {
-      color: 10535864
-      priority: -16362
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 10535864
-      priority: -16362
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 10535864
-      priority: -16362
-    }
-  }
-  element {
     scale: 14
     area {
       color: 10535864
@@ -43796,13 +41680,6 @@ cont {
 }
 cont {
   name: "natural-wetland-bog"
-  element {
-    scale: 11
-    area {
-      color: 10535864
-      priority: -16368
-    }
-  }
   element {
     scale: 12
     area {
@@ -44545,48 +42422,6 @@ cont {
 cont {
   name: "piste:lift-j-bar"
   element {
-    scale: 12
-    lines {
-      width: 0.4
-      color: 2105376
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 4.0
-      color: 2105376
-      dashdot {
-        dd: 1.0
-        dd: 20.0
-      }
-      priority: 1000
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.4
-      color: 2105376
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 4.0
-      color: 2105376
-      dashdot {
-        dd: 1.0
-        dd: 20.0
-      }
-      priority: 1000
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 14
     lines {
       width: 0.4
@@ -44716,36 +42551,6 @@ cont {
 cont {
   name: "piste:lift-magic_carpet"
   element {
-    scale: 12
-    lines {
-      width: 1.6
-      color: 1052688
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.6
-      color: 1052688
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.6
-      color: 1052688
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 1.6
@@ -44798,48 +42603,6 @@ cont {
 }
 cont {
   name: "piste:lift-platter"
-  element {
-    scale: 12
-    lines {
-      width: 4.0
-      color: 2105376
-      dashdot {
-        dd: 1.0
-        dd: 20.0
-      }
-      priority: 1000
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 0.4
-      color: 2105376
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 4.0
-      color: 2105376
-      dashdot {
-        dd: 1.0
-        dd: 20.0
-      }
-      priority: 1000
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 0.4
-      color: 2105376
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 14
     lines {
@@ -44970,48 +42733,6 @@ cont {
 cont {
   name: "piste:lift-rope_tow"
   element {
-    scale: 12
-    lines {
-      width: 1.0
-      color: 14211268
-      dashdot {
-        dd: 2.0
-        dd: 2.0
-      }
-      priority: 1595
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 14211268
-      dashdot {
-        dd: 2.0
-        dd: 2.0
-      }
-      priority: 1595
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 14211268
-      dashdot {
-        dd: 2.0
-        dd: 2.0
-      }
-      priority: 1595
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
     scale: 15
     lines {
       width: 1.0
@@ -45084,48 +42805,6 @@ cont {
 }
 cont {
   name: "piste:lift-t-bar"
-  element {
-    scale: 12
-    lines {
-      width: 0.4
-      color: 2105376
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 4.0
-      color: 2105376
-      dashdot {
-        dd: 1.0
-        dd: 20.0
-      }
-      priority: 1000
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.4
-      color: 2105376
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 4.0
-      color: 2105376
-      dashdot {
-        dd: 1.0
-        dd: 20.0
-      }
-      priority: 1000
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
   element {
     scale: 14
     lines {
@@ -45941,42 +43620,6 @@ cont {
 cont {
   name: "place-city"
   element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 6
     caption {
       primary {
@@ -46140,78 +43783,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -46232,42 +43803,6 @@ cont {
 cont {
   name: "place-city-capital"
   element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 6
     caption {
       primary {
@@ -46431,78 +43966,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -46523,42 +43986,6 @@ cont {
 cont {
   name: "place-city-capital-10"
   element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 6
     caption {
       primary {
@@ -46722,78 +44149,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -46814,42 +44169,6 @@ cont {
 cont {
   name: "place-city-capital-11"
   element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 6
     caption {
       primary {
@@ -47013,78 +44332,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -47320,117 +44567,9 @@ cont {
       priority: 15000
     }
   }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
 }
 cont {
   name: "place-city-capital-3"
-  element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
   element {
     scale: 6
     caption {
@@ -47595,78 +44734,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -47687,42 +44754,6 @@ cont {
 cont {
   name: "place-city-capital-4"
   element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 6
     caption {
       primary {
@@ -47886,78 +44917,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -47978,42 +44937,6 @@ cont {
 cont {
   name: "place-city-capital-5"
   element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 6
     caption {
       primary {
@@ -48177,78 +45100,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -48269,42 +45120,6 @@ cont {
 cont {
   name: "place-city-capital-6"
   element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 6
     caption {
       primary {
@@ -48468,78 +45283,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -48560,42 +45303,6 @@ cont {
 cont {
   name: "place-city-capital-7"
   element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 6
     caption {
       primary {
@@ -48759,78 +45466,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -48851,42 +45486,6 @@ cont {
 cont {
   name: "place-city-capital-8"
   element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 6
     caption {
       primary {
@@ -49050,78 +45649,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -49142,42 +45669,6 @@ cont {
 cont {
   name: "place-city-capital-9"
   element {
-    scale: 4
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 5
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 11
-        color: 9474192
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 6
     caption {
       primary {
@@ -49341,78 +45832,6 @@ cont {
   }
   element {
     scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 4210752
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 16
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -49566,166 +45985,6 @@ cont {
   }
   element {
     scale: 9
-    caption {
-      primary {
-        height: 28
-        color: 10526864
-      }
-      secondary {
-        height: 14
-        color: 11579552
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 10
-    caption {
-      primary {
-        height: 28
-        color: 10526864
-      }
-      secondary {
-        height: 14
-        color: 11579552
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 11
-    caption {
-      primary {
-        height: 28
-        color: 10526864
-      }
-      secondary {
-        height: 14
-        color: 11579552
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 12
-    caption {
-      primary {
-        height: 28
-        color: 10526864
-      }
-      secondary {
-        height: 14
-        color: 11579552
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 13
-    caption {
-      primary {
-        height: 28
-        color: 10526864
-      }
-      secondary {
-        height: 14
-        color: 11579552
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 28
-        color: 10526864
-      }
-      secondary {
-        height: 14
-        color: 11579552
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 28
-        color: 10526864
-      }
-      secondary {
-        height: 14
-        color: 11579552
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 28
-        color: 10526864
-      }
-      secondary {
-        height: 14
-        color: 11579552
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 28
-        color: 10526864
-      }
-      secondary {
-        height: 14
-        color: 11579552
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 28
-        color: 10526864
-      }
-      secondary {
-        height: 14
-        color: 11579552
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 28
@@ -50063,36 +46322,6 @@ cont {
 cont {
   name: "place-islet"
   element {
-    scale: 10
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 11
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 12
-    caption {
-      primary {
-        height: 12
-        color: 2105376
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 13
     caption {
       primary {
@@ -50166,42 +46395,6 @@ cont {
 cont {
   name: "place-isolated_dwelling"
   element {
-    scale: 14
-    caption {
-      primary {
-        height: 16
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 12
-        color: 9474192
-        stroke_color: 16777215
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 16
-        color: 6316128
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 12
-        color: 9474192
-        stroke_color: 16777215
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
     scale: 16
     caption {
       primary {
@@ -50252,22 +46445,6 @@ cont {
 }
 cont {
   name: "place-locality"
-  element {
-    scale: 13
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-      }
-      secondary {
-        height: 12
-        color: 9474192
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
   element {
     scale: 14
     caption {
@@ -50353,22 +46530,6 @@ cont {
 }
 cont {
   name: "place-neighbourhood"
-  element {
-    scale: 13
-    caption {
-      primary {
-        height: 12
-        color: 6316128
-      }
-      secondary {
-        height: 12
-        color: 9474192
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
   element {
     scale: 14
     caption {
@@ -50544,106 +46705,6 @@ cont {
       priority: 14997
     }
   }
-  element {
-    scale: 10
-    caption {
-      primary {
-        height: 16
-        color: 5217717
-      }
-      priority: 14997
-    }
-  }
-  element {
-    scale: 11
-    caption {
-      primary {
-        height: 16
-        color: 5217717
-      }
-      priority: 14997
-    }
-  }
-  element {
-    scale: 12
-    caption {
-      primary {
-        height: 16
-        color: 5217717
-      }
-      priority: 14997
-    }
-  }
-  element {
-    scale: 13
-    caption {
-      primary {
-        height: 16
-        color: 5217717
-      }
-      priority: 14997
-    }
-  }
-  element {
-    scale: 14
-    caption {
-      primary {
-        height: 16
-        color: 5217717
-      }
-      priority: 14997
-    }
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 16
-        color: 5217717
-      }
-      priority: 14997
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 16
-        color: 5217717
-      }
-      priority: 14997
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 16
-        color: 5217717
-      }
-      priority: 14997
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 16
-        color: 5217717
-      }
-      priority: 14997
-    }
-  }
-  element {
-    scale: 19
-    caption {
-      primary {
-        height: 16
-        color: 5217717
-      }
-      priority: 14997
-    }
-  }
 }
 cont {
   name: "place-region"
@@ -50670,16 +46731,6 @@ cont {
 }
 cont {
   name: "place-sea"
-  element {
-    scale: 4
-    caption {
-      primary {
-        height: 10
-        color: 5217717
-      }
-      priority: 15000
-    }
-  }
   element {
     scale: 5
     caption {
@@ -50885,17 +46936,6 @@ cont {
       priority: 14991
     }
   }
-  element {
-    scale: 10
-    caption {
-      primary {
-        height: 14
-        color: 12632240
-        stroke_color: 15658717
-      }
-      priority: 14991
-    }
-  }
 }
 cont {
   name: "place-state-USA"
@@ -50951,52 +46991,9 @@ cont {
       priority: 14991
     }
   }
-  element {
-    scale: 10
-    caption {
-      primary {
-        height: 14
-        color: 12632240
-        stroke_color: 15658717
-      }
-      priority: 14991
-    }
-  }
 }
 cont {
   name: "place-suburb"
-  element {
-    scale: 10
-    caption {
-      primary {
-        height: 12
-        color: 9474192
-      }
-      secondary {
-        height: 12
-        color: 10526880
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15024
-    }
-  }
-  element {
-    scale: 11
-    caption {
-      primary {
-        height: 12
-        color: 9474192
-      }
-      secondary {
-        height: 12
-        color: 10526880
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15024
-    }
-  }
   element {
     scale: 12
     caption {
@@ -51230,96 +47227,6 @@ cont {
   }
   element {
     scale: 14
-    caption {
-      primary {
-        height: 22
-        color: 5263440
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 14
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 15
-    caption {
-      primary {
-        height: 22
-        color: 5263440
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 14
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 16
-    caption {
-      primary {
-        height: 22
-        color: 5263440
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 14
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    caption {
-      primary {
-        height: 22
-        color: 5263440
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 14
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    caption {
-      primary {
-        height: 22
-        color: 5263440
-        stroke_color: 15658717
-      }
-      secondary {
-        height: 14
-        color: 8421504
-        stroke_color: 15658717
-        offset_y: 20
-        text: "int_name"
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
     caption {
       primary {
         height: 22
@@ -52843,68 +48750,6 @@ cont {
   }
 }
 cont {
-  name: "railway-abandoned-tunnel"
-  element {
-    scale: 16
-    lines {
-      width: 1.6
-      color: 9868678
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 1391
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.6
-      color: 9868678
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 1391
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.6
-      color: 9868678
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 1391
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-}
-cont {
-  name: "railway-construction"
-  element {
-    scale: 18
-    lines {
-      width: 1.0
-      color: 9868678
-      dashdot {
-        dd: 1.8
-        dd: 5.4
-      }
-      priority: 1391
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-}
-cont {
   name: "railway-crossing"
   element {
     scale: 16
@@ -53862,20 +49707,6 @@ cont {
 cont {
   name: "railway-halt"
   element {
-    scale: 12
-    symbol {
-      name: "railway-station-mini"
-      priority: 16159
-    }
-  }
-  element {
-    scale: 13
-    symbol {
-      name: "railway-station-mini"
-      priority: 16159
-    }
-  }
-  element {
     scale: 14
     symbol {
       name: "railway-station-mini"
@@ -54441,69 +50272,6 @@ cont {
       width: 12.0
       color: 7368816
       priority: 1026
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
-  name: "railway-light_rail-tunnel"
-  element {
-    scale: 13
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 1486
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 1486
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 1486
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 1486
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 1486
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 0.8
-      color: 11710882
-      priority: 1486
       join: ROUNDJOIN
       cap: BUTTCAP
     }
@@ -55695,49 +51463,6 @@ cont {
   }
 }
 cont {
-  name: "railway-narrow_gauge-tunnel"
-  element {
-    scale: 15
-    lines {
-      width: 1.2
-      color: 9868678
-      priority: 1635
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.2
-      color: 9868678
-      priority: 1635
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.2
-      color: 9868678
-      priority: 1635
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.2
-      color: 9868678
-      priority: 1635
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
   name: "railway-platform"
   element {
     scale: 16
@@ -56245,51 +51970,6 @@ cont {
       priority: 1026
       join: ROUNDJOIN
       cap: BUTTCAP
-    }
-  }
-}
-cont {
-  name: "railway-preserved-tunnel"
-  element {
-    scale: 16
-    lines {
-      width: 1.6
-      color: 9868678
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 1391
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.6
-      color: 9868678
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 1391
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.6
-      color: 9868678
-      dashdot {
-        dd: 6.3
-        dd: 6.3
-      }
-      priority: 1391
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -57137,89 +52817,6 @@ cont {
         stroke_color: 16777215
       }
       priority: 16558
-    }
-  }
-}
-cont {
-  name: "railway-rail-tunnel"
-  element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
     }
   }
 }
@@ -58217,13 +53814,6 @@ cont {
 cont {
   name: "railway-station"
   element {
-    scale: 13
-    symbol {
-      name: "railway-station-mini"
-      priority: 16159
-    }
-  }
-  element {
     scale: 14
     symbol {
       name: "railway-station-mini"
@@ -58314,13 +53904,6 @@ cont {
 cont {
   name: "railway-station-light_rail"
   element {
-    scale: 13
-    symbol {
-      name: "railway-station-mini"
-      priority: 16159
-    }
-  }
-  element {
     scale: 14
     symbol {
       name: "railway-station-mini"
@@ -58410,13 +53993,6 @@ cont {
 }
 cont {
   name: "railway-station-monorail"
-  element {
-    scale: 13
-    symbol {
-      name: "railway-station-mini"
-      priority: 16159
-    }
-  }
   element {
     scale: 14
     symbol {
@@ -61313,29 +56889,6 @@ cont {
 cont {
   name: "railway-station-subway-moscow"
   element {
-    scale: 11
-    symbol {
-      name: "subway-station-s"
-      priority: 19100
-    }
-    caption {
-      primary {
-        height: 10
-        color: 3166424
-        stroke_color: 16317695
-        offset_y: 10
-      }
-      secondary {
-        height: 9
-        color: 3166424
-        stroke_color: 16317695
-        offset_y: 10
-        text: "int_name"
-      }
-      priority: 19000
-    }
-  }
-  element {
     scale: 12
     symbol {
       name: "subway-station-s"
@@ -62644,29 +58197,6 @@ cont {
 }
 cont {
   name: "railway-station-subway-spb"
-  element {
-    scale: 11
-    symbol {
-      name: "subway-station-s"
-      priority: 19100
-    }
-    caption {
-      primary {
-        height: 10
-        color: 3166424
-        stroke_color: 16317695
-        offset_y: 10
-      }
-      secondary {
-        height: 9
-        color: 3166424
-        stroke_color: 16317695
-        offset_y: 10
-        text: "int_name"
-      }
-      priority: 19000
-    }
-  }
   element {
     scale: 12
     symbol {
@@ -66187,16 +61717,6 @@ cont {
 cont {
   name: "railway-yard"
   element {
-    scale: 11
-    lines {
-      width: 0.5
-      color: 4210752
-      priority: 1236
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
     scale: 12
     lines {
       width: 0.5
@@ -66387,16 +61907,6 @@ cont {
 }
 cont {
   name: "railway-yard-bridge"
-  element {
-    scale: 11
-    lines {
-      width: 0.5
-      color: 4210752
-      priority: 1236
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
   element {
     scale: 12
     lines {
@@ -66652,89 +62162,6 @@ cont {
       color: 7368816
       priority: 1026
       join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-  }
-}
-cont {
-  name: "railway-yard-tunnel"
-  element {
-    scale: 11
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 12
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 13
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
-      cap: BUTTCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 0.6
-      color: 11710882
-      priority: 1486
-      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
@@ -69328,13 +64755,6 @@ cont {
 cont {
   name: "sport-soccer"
   element {
-    scale: 16
-    symbol {
-      name: "soccer-borderless"
-      priority: 16000
-    }
-  }
-  element {
     scale: 17
     symbol {
       name: "soccer-borderless"
@@ -70213,13 +65633,6 @@ cont {
 cont {
   name: "tourism-museum"
   element {
-    scale: 15
-    symbol {
-      name: "museum"
-      priority: 16000
-    }
-  }
-  element {
     scale: 16
     symbol {
       name: "museum"
@@ -70671,111 +66084,6 @@ cont {
   }
 }
 cont {
-  name: "waterway-canal-tunnel"
-  element {
-    scale: 13
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-}
-cont {
   name: "waterway-dam"
   element {
     scale: 14
@@ -70953,37 +66261,6 @@ cont {
         color: 5274858
       }
       priority: 16122
-    }
-  }
-}
-cont {
-  name: "waterway-ditch-tunnel"
-  element {
-    scale: 17
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1959
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1959
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -71284,37 +66561,6 @@ cont {
   }
 }
 cont {
-  name: "waterway-drain-tunnel"
-  element {
-    scale: 17
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1959
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.8
-      color: 3584191
-      dashdot {
-        dd: 1.0
-        dd: 1.0
-      }
-      priority: 1959
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-}
-cont {
   name: "waterway-lock"
   element {
     scale: 14
@@ -71416,33 +66662,6 @@ cont {
       priority: 1088
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-  }
-}
-cont {
-  name: "waterway-lock_gate"
-  element {
-    scale: 16
-    symbol {
-      name: "dot-m"
-      apply_for_type: 1
-      priority: 16243
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "dot-m"
-      apply_for_type: 1
-      priority: 16243
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "dot-m"
-      apply_for_type: 1
-      priority: 16243
     }
   }
 }
@@ -72154,219 +67373,6 @@ cont {
         color: 5274858
       }
       priority: 16107
-    }
-  }
-}
-cont {
-  name: "waterway-stream-tunnel"
-  element {
-    scale: 13
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 0.7
-      color: 3584191
-      priority: -15800
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4495803
-      }
-      priority: 16959
-    }
-  }
-}
-cont {
-  name: "waterway-waterfall"
-  element {
-    scale: 12
-    symbol {
-      name: "waterfall-s"
-      priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
-    }
-  }
-  element {
-    scale: 13
-    symbol {
-      name: "waterfall-s"
-      priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
-    }
-  }
-  element {
-    scale: 14
-    symbol {
-      name: "waterfall-s"
-      priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "waterfall-s"
-      priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "waterfall-s"
-      priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "waterfall-s"
-      priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "waterfall-s"
-      priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
     }
   }
 }
