@@ -2,6 +2,7 @@
 
 #include "indexer/drawing_rule_def.hpp"
 #include "indexer/drules_selector.hpp"
+#include "indexer/map_style.hpp"
 
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
@@ -121,6 +122,7 @@ namespace drule
     void InitBackgroundColors(ContainerProto const & cp);
   };
 
+  RulesHolder & rules(MapStyle mapStyle);
   RulesHolder & rules();
 
   void LoadRules();

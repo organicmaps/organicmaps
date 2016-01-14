@@ -428,8 +428,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         blocker.Wait();
       }
 
-      classificator::Load();
-
       // Invalidate textures and wait for completion.
       {
         BaseBlockingMessage::Blocker blocker;

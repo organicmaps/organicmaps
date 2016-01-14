@@ -1,6 +1,7 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/drawing_rules.hpp"
+#include "indexer/map_style_reader.hpp"
 
 #include "platform/platform.hpp"
 
@@ -45,10 +46,20 @@ namespace classificator
 
     Platform & p = GetPlatform();
 
-    ReadCommon(p.GetReader("classificator.txt"),            
-               p.GetReader("types.txt"));
+    MapStyle const originMapStyle = GetStyleReader().GetCurrentStyle();
 
-    drule::LoadRules();
+    for (size_t i = 0; i < MapStyleCount; ++i)
+    {
+      MapStyle const mapStyle = static_cast<MapStyle>(i);
+      GetStyleReader().SetCurrentStyle(mapStyle);
+
+      ReadCommon(p.GetReader("classificator.txt"),
+                 p.GetReader("types.txt"));
+
+      drule::LoadRules();
+    }
+
+    GetStyleReader().SetCurrentStyle(originMapStyle);
 
     LOG(LDEBUG, ("Reading of classificator finished"));
   }
