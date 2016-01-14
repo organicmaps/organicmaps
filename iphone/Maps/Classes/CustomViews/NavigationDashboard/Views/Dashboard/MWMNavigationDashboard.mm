@@ -28,7 +28,7 @@
   if (IPAD)
     self.statusbarBackground = nil;
   [self.progress setThumbImage:[UIImage imageNamed:@"progress_circle_light"] forState:UIControlStateNormal];
-  [self.progress setMaximumTrackTintColor:[UIColor colorWithWhite:0. alpha:0.08]];
+  [self.progress setMaximumTrackTintColor:[UIColor blackOpaque]];
   [self.progress setMinimumTrackTintColor:[UIColor blackSecondaryText]];
   CALayer * l = self.layer;
   l.shouldRasterize = YES;

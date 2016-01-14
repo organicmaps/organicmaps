@@ -271,7 +271,7 @@
   {
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.textColor = [UIColor blackColor];
+    _titleLabel.textColor = [UIColor blackPrimaryText];
     _titleLabel.font = [UIFont regular17];
   }
   return _titleLabel;
