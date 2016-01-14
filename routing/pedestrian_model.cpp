@@ -72,6 +72,32 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_Default =
   { {"highway", "platform"},       kSpeedPlatformKMpH }, // *
 };
 
+// All options available.
+routing::VehicleModel::InitListT const s_pedestrianLimits_All =
+{
+  { {"highway", "trunk"},          kSpeedPedestrianKMpH },
+  { {"highway", "trunk_link"},     kSpeedPedestrianKMpH },
+  { {"highway", "primary"},        kSpeedPedestrianKMpH },
+  { {"highway", "primary_link"},   kSpeedPedestrianKMpH },
+  { {"highway", "secondary"},      kSpeedPedestrianKMpH },
+  { {"highway", "secondary_link"}, kSpeedPedestrianKMpH },
+  { {"highway", "tertiary"},       kSpeedPedestrianKMpH },
+  { {"highway", "tertiary_link"},  kSpeedPedestrianKMpH },
+  { {"highway", "service"},        kSpeedPedestrianKMpH },
+  { {"highway", "unclassified"},   kSpeedPedestrianKMpH },
+  { {"highway", "road"},           kSpeedPedestrianKMpH },
+  { {"highway", "track"},          kSpeedPedestrianKMpH },
+  { {"highway", "path"},           kSpeedPedestrianKMpH },
+  { {"highway", "bridleway"},      kSpeedPedestrianKMpH },
+  { {"highway", "cycleway"},       kSpeedPedestrianKMpH },
+  { {"highway", "residential"},    kSpeedPedestrianKMpH },
+  { {"highway", "living_street"},  kSpeedPedestrianKMpH },
+  { {"highway", "steps"},          kSpeedPedestrianKMpH },
+  { {"highway", "pedestrian"},     kSpeedPedestrianKMpH },
+  { {"highway", "footway"},        kSpeedPedestrianKMpH },
+  { {"highway", "platform"},       kSpeedPedestrianKMpH },
+};
+
 // Australia
 routing::VehicleModel::InitListT const s_pedestrianLimits_Australia =
 {
@@ -579,8 +605,9 @@ routing::VehicleModel::InitListT const s_pedestrianLimits_USA =
 namespace routing
 {
 
-PedestrianModel::PedestrianModel()
-  : VehicleModel(classif(), s_pedestrianLimits_Default)
+// If one of feature types will be disabled for pedestrian, features of this type will be simplyfied
+// in generator. Look FeatureBuilder1::IsRoad() for more details.
+PedestrianModel::PedestrianModel() : VehicleModel(classif(), s_pedestrianLimits_All)
 {
   Init();
 }
@@ -630,7 +657,7 @@ double PedestrianModel::GetSpeed(FeatureType const & f) const
 
 PedestrianModelFactory::PedestrianModelFactory()
 {
-  m_models[string()] = make_shared<PedestrianModel>();
+  m_models[string()] = make_shared<PedestrianModel>(s_pedestrianLimits_Default);
   m_models["Australia"] = make_shared<PedestrianModel>(s_pedestrianLimits_Australia);
   m_models["Austria"] = make_shared<PedestrianModel>(s_pedestrianLimits_Austria);
   m_models["Belarus"] = make_shared<PedestrianModel>(s_pedestrianLimits_Belarus);

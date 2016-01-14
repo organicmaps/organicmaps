@@ -7,6 +7,14 @@
 using namespace routing;
 using namespace routing::turns;
 
+UNIT_TEST(GermanyBremenJunctionToCycleway)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetPedestrianComponents(),
+      MercatorBounds::FromLatLon(52.41947, 10.75148), {0., 0.},
+      MercatorBounds::FromLatLon(52.41868, 10.75274), 137.);
+}
+
 UNIT_TEST(Zgrad424aTo1207)
 {
   integration::CalculateRouteAndTestRouteLength(
