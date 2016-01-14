@@ -1398,8 +1398,6 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   Settings::Set(kMapStyleKey, static_cast<int>(mapStyle));
   GetStyleReader().SetCurrentStyle(mapStyle);
 
-  classificator::Load();
-  drule::LoadRules();
   CallDrapeFunction(bind(&df::DrapeEngine::UpdateMapStyle, _1));
 
   InvalidateUserMarks();

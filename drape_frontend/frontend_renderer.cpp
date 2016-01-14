@@ -16,6 +16,7 @@
 #include "drape/utils/gpu_mem_tracker.hpp"
 #include "drape/utils/projection.hpp"
 
+#include "indexer/classificator_loader.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/drawing_rules.hpp"
 
@@ -426,6 +427,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
                                   MessagePriority::High);
         blocker.Wait();
       }
+
+      classificator::Load();
 
       // Invalidate textures and wait for completion.
       {
