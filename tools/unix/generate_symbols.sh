@@ -74,14 +74,14 @@ done
 
 # Build styles
 
-BuildSkin legacy yota  yota   19 true
+BuildSkin legacy yota  yota   19 true  _legacy
 
-BuildSkin legacy light ldpi   18 false
-BuildSkin legacy light mdpi   18 false
-BuildSkin legacy light hdpi   27 false
-BuildSkin legacy light xhdpi  36 false
-BuildSkin legacy light xxhdpi 54 false
-BuildSkin legacy light 6plus  54 false
+BuildSkin legacy light ldpi   18 false  _legacy
+BuildSkin legacy light mdpi   18 false  _legacy
+BuildSkin legacy light hdpi   27 false  _legacy
+BuildSkin legacy light xhdpi  36 false  _legacy
+BuildSkin legacy light xxhdpi 54 false  _legacy
+BuildSkin legacy light 6plus  54 false  _legacy
 
 BuildSkin clear  night ldpi   18 false _dark
 BuildSkin clear  night mdpi   18 false _dark
