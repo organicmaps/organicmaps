@@ -34,10 +34,12 @@ float const kRadiusInPixel[] =
   3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 4.0f, 5.0f, 5.0f, 5.0f, 6.0f
 };
 
-double const kHumanSpeed = 1.4; // meters per second
-double const kCarSpeed = 5.5; // meters per second
-uint8_t const kMinAlpha = 50;
-uint8_t const kMaxAlpha = 255;
+double const kHumanSpeed = 2.6; // meters per second
+double const kCarSpeed = 6.2; // meters per second
+uint8_t const kMinDayAlpha = 90;
+uint8_t const kMaxDayAlpha = 144;
+uint8_t const kMinNightAlpha = 50;
+uint8_t const kMaxNightAlpha = 102;
 float const kOutlineRadiusScalar = 0.3f;
 double const kUnknownDistanceTime = 5 * 60; // seconds
 
@@ -140,9 +142,23 @@ dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD co
   GpsTrackPoint const & start = m_points[pointIndex];
   GpsTrackPoint const & end = m_points[pointIndex + 1];
 
+  double startAlpha = kMinDayAlpha;
+  double endAlpha = kMaxDayAlpha;
   auto const style = GetStyleReader().GetCurrentStyle();
+  if (style == MapStyle::MapStyleDark)
+  {
+    startAlpha = kMinNightAlpha;
+    endAlpha = kMaxNightAlpha;
+  }
+
+  double const ta = my::clamp(lengthFromStart / fullLength, 0.0, 1.0);
+  double const alpha = startAlpha * (1.0 - ta) + endAlpha * ta;
+
   if ((end.m_timestamp - start.m_timestamp) > kUnknownDistanceTime)
-    return df::GetColorConstant(style, df::TrackUnknownDistance);
+  {
+    dp::Color const color = df::GetColorConstant(style, df::TrackUnknownDistance);
+    return dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(), alpha);
+  }
 
   double const length = (end.m_point - start.m_point).Length();
   double const dist = (curPoint - start.m_point).Length();
@@ -150,9 +166,6 @@ dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD co
 
   double const speed = max(start.m_speedMPS * (1.0 - td) + end.m_speedMPS * td, 0.0);
   dp::Color const color = GetColorBySpeed(speed);
-
-  double const ta = my::clamp(lengthFromStart / fullLength, 0.0, 1.0);
-  double const alpha = kMinAlpha * (1.0 - ta) + kMaxAlpha * ta;
   return dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(), alpha);
 }
 
