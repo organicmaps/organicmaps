@@ -70,7 +70,8 @@ public:
   bool GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t offset, FeatureType & outFeature) const;
 
   /// Original feature with same FeatureID as newFeature is replaced by newFeature.
-  void EditFeature(FeatureType & editedFeature);
+  /// Please pass editedStreet only if it was changed by user.
+  void EditFeature(FeatureType const & editedFeature, string const & editedStreet = "");
 
   vector<feature::Metadata::EType> EditableMetadataForType(FeatureType const & feature) const;
   bool IsNameEditable(FeatureType const & feature) const;
@@ -84,6 +85,8 @@ private:
   {
     FeatureStatus m_status;
     FeatureType m_feature;
+    /// If not empty contains Feature's addr:street, edited by user.
+    string m_street;
     time_t m_modificationTimestamp = my::INVALID_TIME_STAMP;
     time_t m_uploadAttemptTimestamp = my::INVALID_TIME_STAMP;
     /// "" | "ok" | "repeat" | "failed"

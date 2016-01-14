@@ -31,6 +31,8 @@ constexpr char const * kXmlMwmNode = "mwm";
 constexpr char const * kDeleteSection = "delete";
 constexpr char const * kModifySection = "modify";
 constexpr char const * kCreateSection = "create";
+/// We store edited streets in OSM-compatible way.
+constexpr char const * kAddrStreetTag = "addr:street";
 
 namespace osm
 {
@@ -285,6 +287,7 @@ void Editor::LoadMapEdits()
           // }
 
           fti.m_feature.SetID(fid);
+          fti.m_street = xml.GetTagValue(kAddrStreetTag);
 
           fti.m_modificationTimestamp = xml.GetModificationTime();
           ASSERT_NOT_EQUAL(my::INVALID_TIME_STAMP, fti.m_modificationTimestamp, ());
@@ -334,6 +337,8 @@ void Editor::Save(string const & fullFilePath) const
       FeatureTypeInfo const & fti = offset.second;
       XMLFeature xf = fti.m_feature.ToXML();
       xf.SetOffset(offset.first);
+      if (!fti.m_street.empty())
+        xf.SetTagValue(kAddrStreetTag, fti.m_street);
       ASSERT_NOT_EQUAL(0, fti.m_modificationTimestamp, ());
       xf.SetModificationTime(fti.m_modificationTimestamp);
       if (fti.m_uploadAttemptTimestamp != my::INVALID_TIME_STAMP)
@@ -407,15 +412,18 @@ void Editor::DeleteFeature(FeatureType const & feature)
 //}
 //}  // namespace
 
-void Editor::EditFeature(FeatureType & editedFeature)
+void Editor::EditFeature(FeatureType const & editedFeature, string const & editedStreet)
 {
   // TODO(AlexZ): Check if feature has not changed and reset status.
   FeatureID const fid = editedFeature.GetID();
-  FeatureTypeInfo & ftInfo = m_features[fid.m_mwmId][fid.m_index];
-  ftInfo.m_status = FeatureStatus::Modified;
-  ftInfo.m_feature = editedFeature;
+  FeatureTypeInfo & fti = m_features[fid.m_mwmId][fid.m_index];
+  fti.m_status = FeatureStatus::Modified;
+  fti.m_feature = editedFeature;
   // TODO: What if local client time is absolutely wrong?
-  ftInfo.m_modificationTimestamp = time(nullptr);
+  fti.m_modificationTimestamp = time(nullptr);
+
+  if (!editedStreet.empty())
+    fti.m_street = editedStreet;
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save(GetEditorFilePath());
