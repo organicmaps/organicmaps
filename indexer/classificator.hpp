@@ -1,16 +1,17 @@
 #pragma once
+
 #include "indexer/drawing_rule_def.hpp"
-#include "indexer/types_mapping.hpp"
-#include "indexer/scales.hpp"
 #include "indexer/feature_decl.hpp"
+#include "indexer/map_style.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/types_mapping.hpp"
 
-#include "std/vector.hpp"
-#include "std/string.hpp"
-#include "std/iostream.hpp"
 #include "std/bitset.hpp"
-#include "std/noncopyable.hpp"
 #include "std/initializer_list.hpp"
-
+#include "std/iostream.hpp"
+#include "std/noncopyable.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 class ClassifObject;
 
@@ -222,4 +223,5 @@ public:
   string GetReadableObjectName(uint32_t type) const;
 };
 
+Classificator & classif(MapStyle mapStyle);
 Classificator & classif();

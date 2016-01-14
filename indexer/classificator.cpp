@@ -1,5 +1,6 @@
 #include "indexer/classificator.hpp"
 #include "indexer/tree_structure.hpp"
+#include "indexer/map_style_reader.hpp"
 
 #include "base/macros.hpp"
 #include "base/logging.hpp"
@@ -119,10 +120,18 @@ void ClassifObject::ConcatChildNames(string & s) const
 // Classificator implementation
 /////////////////////////////////////////////////////////////////////////////////////////
 
+Classificator & classif(MapStyle mapStyle)
+{
+  int const index = static_cast<int>(mapStyle);
+  ASSERT_GREATER_OR_EQUAL(index, 0, ());
+  ASSERT_LESS(index, MapStyleCount, ());
+  static Classificator c[MapStyleCount];
+  return c[index];
+}
+
 Classificator & classif()
 {
-  static Classificator c;
-  return c;
+  return classif(GetStyleReader().GetCurrentStyle());
 }
 
 namespace ftype
