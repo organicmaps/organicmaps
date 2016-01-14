@@ -1,5 +1,5 @@
-
 #import "ToastView.h"
+#import "UIColor+MapsMeColor.h"
 
 @interface ToastView ()
 
@@ -17,7 +17,7 @@
   CGSize textSize = [message sizeWithDrawSize:CGSizeMake(245 - 2 * xOffset, 1000) font:self.messageLabel.font];
 
   self = [super initWithFrame:CGRectMake(0, 0, textSize.width + 2 * xOffset, textSize.height + 2 * yOffset)];
-  self.backgroundColor = [UIColor colorWithColorCode:@"f2f2f2"];
+  self.backgroundColor = [UIColor pressBackground];
   self.layer.cornerRadius = 4;
   self.layer.masksToBounds = NO;
   self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
@@ -39,7 +39,7 @@
     _messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     _messageLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:12.5];
     _messageLabel.textAlignment = NSTextAlignmentCenter;
-    _messageLabel.textColor = [UIColor blackColor];
+    _messageLabel.textColor = [UIColor blackPrimaryText];
     _messageLabel.numberOfLines = 0;
     _messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
   }

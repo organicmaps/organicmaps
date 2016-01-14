@@ -20,43 +20,6 @@
 
 @end
 
-@implementation UIColor (HexColor)
-
-+ (UIColor *)colorWithColorCode:(NSString *)hexString
-{
-  NSString * cleanString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
-
-  if (cleanString.length == 6)
-    cleanString = [cleanString stringByAppendingString:@"ff"];
-
-  unsigned int baseValue;
-  [[NSScanner scannerWithString:cleanString] scanHexInt:&baseValue];
-
-  float red = ((baseValue >> 24) & 0xFF) / 255.f;
-  float green = ((baseValue >> 16) & 0xFF) / 255.f;
-  float blue = ((baseValue >> 8) & 0xFF) / 255.f;
-  float alpha = ((baseValue >> 0) & 0xFF) / 255.f;
-
-  return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
-}
-
-+ (UIColor *)applicationBackgroundColor
-{
-  return [UIColor colorWithColorCode:@"efeff4"];
-}
-
-+ (UIColor *)applicationColor
-{
-  return [UIColor colorWithColorCode:@"15c783"];
-}
-
-+ (UIColor *)navigationBarColor
-{
-  return [UIColor colorWithColorCode:@"1F9952"];
-}
-
-@end
-
 @implementation UIView (Coordinates)
 
 - (void)setMidX:(CGFloat)midX
