@@ -112,12 +112,11 @@ string MetadataTagProcessorImpl::ValidateAndFormat_height(string const & v) cons
 
 string MetadataTagProcessorImpl::ValidateAndFormat_building_levels(string const & v) const
 {
-  double constexpr kMetersPerLevel = 3;
   double val = 0;
   if(!strings::to_double(v, val) || val == 0)
     return string();
   ostringstream ss;
-  ss << fixed << setprecision(1) << (val * kMetersPerLevel);
+  ss << fixed << setprecision(1) << val;
   return ss.str();
 }
 

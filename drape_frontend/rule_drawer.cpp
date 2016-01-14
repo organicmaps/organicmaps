@@ -154,6 +154,15 @@ void RuleDrawer::operator()(FeatureType const & f)
       double heightInMeters = kDefaultHeightInMeters;
       if (!value.empty())
         strings::to_double(value, heightInMeters);
+      else
+      {
+        value = md.Get(feature::Metadata::FMD_BUILDING_LEVELS);
+        if (!value.empty())
+        {
+          strings::to_double(value, heightInMeters);
+          heightInMeters *= 3.0;
+        }
+      }
 
       value = md.Get(feature::Metadata::FMD_MIN_HEIGHT);
       double minHeigthInMeters = 0.0;

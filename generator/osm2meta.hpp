@@ -156,14 +156,9 @@ public:
     }
     else if (k == "building:levels")
     {
-      // Ignoring if FMD_HEIGHT already set
-      if (md.Get(Metadata::FMD_HEIGHT).empty())
-      {
-        // Converting this attribute into height
-        string const & value = ValidateAndFormat_building_levels(v);
-        if (!value.empty())
-          md.Set(Metadata::FMD_HEIGHT, value);
-      }
+      string const & value = ValidateAndFormat_building_levels(v);
+      if (!value.empty())
+        md.Set(Metadata::FMD_BUILDING_LEVELS, value);
     }
     else if (k == "min_height")
     {

@@ -109,6 +109,7 @@ public:
     FMD_HEIGHT = 19,
     FMD_MIN_HEIGHT = 20,
     FMD_DENOMINATION = 21,
+    FMD_BUILDING_LEVELS = 22,
     FMD_COUNT
   };
 

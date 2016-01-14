@@ -186,26 +186,27 @@ UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
   TEST(md.Empty(), ());
 
   p("building:levels", "1");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "3.0", ());
-  md.Drop(Metadata::FMD_HEIGHT);
+  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1.0", ());
+  md.Drop(Metadata::FMD_BUILDING_LEVELS);
 
   p("building:levels", "3.2");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "9.6", ());
-  md.Drop(Metadata::FMD_HEIGHT);
+  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "3.2", ());
+  md.Drop(Metadata::FMD_BUILDING_LEVELS);
 
   p("building:levels", "1.0");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "3.0", ());
-  md.Drop(Metadata::FMD_HEIGHT);
+  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1.0", ());
+  md.Drop(Metadata::FMD_BUILDING_LEVELS);
 
 
   p("building:levels", "1.0");
   p("height", "4.0");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "4.0", ());
-  md.Drop(Metadata::FMD_HEIGHT);
+  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1.0", ());
+  md.Drop(Metadata::FMD_BUILDING_LEVELS);
 
   p("height", "4.0");
   p("building:levels", "1.0");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "4.0", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1.0", ());
+  md.Drop(Metadata::FMD_BUILDING_LEVELS);
   md.Drop(Metadata::FMD_HEIGHT);
 
   p("building:levels", "Level 1");
