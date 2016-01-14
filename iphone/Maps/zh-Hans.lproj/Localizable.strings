@@ -495,17 +495,17 @@
 
 "pref_zoom_summary" = "在屏幕上显示";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "夜间模式";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "关闭";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "开启";
 
 /* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+"pref_map_style_auto" = "自动";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "透视图";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12小时";
 
 "duration_1_day" = "1天";
+
+"recent_track_help_text" = "请注意：激活此功能会导致用电量增加。";
 
 "pref_track_ios_caption" = "近期轨迹显示您的行进道路。";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "有了MAPS.ME，您就不会迷路了";
 
 "whats_new_rec_track_body" = "现在，应用程序可以显示您最近走过的路径。";
+
+"whats_new_night_caption" = "加入黑暗一方！";
+
+"whats_new_night_body" = "每天日落之后，MAPS.ME激活夜间模式。";

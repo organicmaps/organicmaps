@@ -302,6 +302,14 @@
 	<string name="prefs_group_route">ナビゲーション</string>
 	<string name="pref_zoom_title">ズームボタン</string>
 	<string name="pref_zoom_summary">画面上に表示</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">夜間モード</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">オフ</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">オン</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">自動</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">パースペクティブ表示</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -325,6 +333,7 @@
 	<string name="duration_6_hours">6時間</string>
 	<string name="duration_12_hours">12時間</string>
 	<string name="duration_1_day">1日</string>
+	<string name="recent_track_help_text">ご注意：この機能を有効にすると電池の使用量が増加します。</string>
 	<string name="pref_track_ios_caption">最近ルートは、使用した道のりを表示する機能です。</string>
 	<string name="pref_track_ios_subcaption">ルートを保存する期間を選択してください。</string>
 	<string name="placepage_distance">距離</string>
@@ -824,4 +833,6 @@
 	<string name="whats_new_next_button">次へ</string>
 	<string name="whats_new_rec_track_title">MAPS.MEがあれば道に迷うことがありません</string>
 	<string name="whats_new_rec_track_body">アプリが最近の道のりを表示できるようになりました。</string>
+	<string name="whats_new_night_caption">ダークサイドに仲間入り！</string>
+	<string name="whats_new_night_body">毎日日の入り後に、MAPS.MEが夜間モードになります。</string>
 </resources>

@@ -312,6 +312,14 @@
 	<string name="prefs_group_route">Nawigacja</string>
 	<string name="pref_zoom_title">Przyciski powiększania</string>
 	<string name="pref_zoom_summary">Wyświetl na ekranie</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Tryb nocny</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Wyłączony</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Włączony</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Automatyczny</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Widok z perspektywy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -335,6 +343,7 @@
 	<string name="duration_6_hours">6 godzin</string>
 	<string name="duration_12_hours">12 godzin</string>
 	<string name="duration_1_day">1 dzień</string>
+	<string name="recent_track_help_text">Uwaga: aktywacja tej funkcji spowoduje większe zużycie baterii.</string>
 	<string name="pref_track_ios_caption">Ostatnia trasa pokazuje pokonaną przez Ciebie ścieżkę.</string>
 	<string name="pref_track_ios_subcaption">Wybierz zakres czasowy dla zapisywanej trasy.</string>
 	<string name="placepage_distance">Dystans</string>
@@ -828,4 +837,6 @@
 	<string name="whats_new_next_button">Dalej</string>
 	<string name="whats_new_rec_track_title">Dzięki MAPS.ME nie zgubisz się</string>
 	<string name="whats_new_rec_track_body">Aplikacja pokazuje teraz ostatnio pokonaną przez Ciebie ścieżkę.</string>
+	<string name="whats_new_night_caption">Przejdź na ciemną stronę!</string>
+	<string name="whats_new_night_body">Każdego dnia po zachodzie słońca aplikacja MAPS.ME aktywuje tryb nocny.</string>
 </resources>

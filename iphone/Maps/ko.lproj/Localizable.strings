@@ -495,17 +495,17 @@
 
 "pref_zoom_summary" = "화면에 표시";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "나이트 모드";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "끄기";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "켜기";
 
 /* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+"pref_map_style_auto" = "자동";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "원근 보기";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12시간";
 
 "duration_1_day" = "1일";
+
+"recent_track_help_text" = "참고: 이 기능의 활성화는 증가된 배터리 사용량의 원인이 됩니다.";
 
 "pref_track_ios_caption" = "최근 추적은 여행한 경로를 보여줍니다.";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "MAPS.ME로 길을 잃지 않을 것입니다";
 
 "whats_new_rec_track_body" = "지금 앱은 최근 여행한 경로를 보여줍니다.";
+
+"whats_new_night_caption" = "어두운 환경으로 진입!";
+
+"whats_new_night_body" = "매일 해가 진 후, 맵스.미 나이트 모드로 활성화.";

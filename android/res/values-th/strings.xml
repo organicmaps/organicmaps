@@ -313,6 +313,14 @@
 	<string name="prefs_group_route">การนำทาง</string>
 	<string name="pref_zoom_title">ปุ่มซูม</string>
 	<string name="pref_zoom_summary">แสดงบนหน้าจอ</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">โหมดกลางคืน</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">ปิด</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">เปิด</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">อัตโนมัติ</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">มุมมองเพอร์สเปกทีฟ</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -336,6 +344,7 @@
 	<string name="duration_6_hours">6 ชั่วโมง</string>
 	<string name="duration_12_hours">12 ชั่วโมง</string>
 	<string name="duration_1_day">1 วัน</string>
+	<string name="recent_track_help_text">โปรดทราบ: การเปิดใช้งานฟังก์ชันนี้จะส่งผลให้มีการใช้งานแบตเตอรี่เพิ่มขึ้น</string>
 	<string name="pref_track_ios_caption">เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ</string>
 	<string name="pref_track_ios_subcaption">โปรดเลือกช่วงเวลาในการบันทึกการติดตาม</string>
 	<string name="placepage_distance">ระยะห่าง</string>
@@ -829,4 +838,6 @@
 	<string name="whats_new_next_button">ถัดไป</string>
 	<string name="whats_new_rec_track_title">เมื่อใช้ MAPS. คุณจะไม่หลงทาง</string>
 	<string name="whats_new_rec_track_body">ตอนนี้ แอปจะแสดงเส้นทางการท่องเที่ยวล่าสุดของคุณ</string>
+	<string name="whats_new_night_caption">เข้าร่วมด้านมืด!</string>
+	<string name="whats_new_night_body">ทุกวันหลังพระอาทิตย์ตกดิน MAPS.ME จะเปิดใช้งานโหมดกลางคืน</string>
 </resources>

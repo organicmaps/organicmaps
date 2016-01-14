@@ -311,6 +311,14 @@
 	<string name="prefs_group_route">Navigering</string>
 	<string name="pref_zoom_title">Zoom-knappar</string>
 	<string name="pref_zoom_summary">Visa på skärmen</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Nattläge</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Av</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">På</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Auto</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektivvy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -334,6 +342,7 @@
 	<string name="duration_6_hours">6 timmar</string>
 	<string name="duration_12_hours">12 timmar</string>
 	<string name="duration_1_day">1 dag</string>
+	<string name="recent_track_help_text">Obs: aktivering av denna funktion orsakar ökad batterianvändning.</string>
 	<string name="pref_track_ios_caption">Senaste resväg visar den väg du rest.</string>
 	<string name="pref_track_ios_subcaption">Välj tidsintervall för att spara resvägen.</string>
 	<string name="placepage_distance">Avstånd</string>
@@ -829,4 +838,6 @@
 	<string name="whats_new_next_button">Nästa</string>
 	<string name="whats_new_rec_track_title">Med MAPS.ME går du inte vilse</string>
 	<string name="whats_new_rec_track_body">Appen visar nu din senaste resväg.</string>
+	<string name="whats_new_night_caption">Gå med i den mörka sidan!</string>
+	<string name="whats_new_night_body">Varje dag efter solnedgången aktiverar MAPS.ME nattläget.</string>
 </resources>

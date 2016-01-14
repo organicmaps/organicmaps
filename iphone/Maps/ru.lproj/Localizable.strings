@@ -495,17 +495,17 @@
 
 "pref_zoom_summary" = "Показать на карте";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Стиль карты";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "Ночной режим";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "По умолчанию";
+"pref_map_style_default" = "Выключен";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Ночная";
+"pref_map_style_night" = "Включен";
 
 /* «Map style» entry value */
-"pref_map_style_auto" = "Автоматическое переключение";
+"pref_map_style_auto" = "Автоматически";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Перспективный вид";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12 часов";
 
 "duration_1_day" = "1 сутки";
+
+"recent_track_help_text" = "Внимание: активация этой функции может привести к повышенному расходу батареи.";
 
 "pref_track_ios_caption" = "История пути покажет недавно пройденный маршрут.";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "С MAPS.ME не заблудишься!";
 
 "whats_new_rec_track_body" = "Теперь приложение показывает недавно пройденный путь.";
+
+"whats_new_night_caption" = "Переходи на тёмную сторону!";
+
+"whats_new_night_body" = "Каждый день после заката солнца MAPS.ME активирует ночной режим.";

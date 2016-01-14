@@ -308,6 +308,14 @@
 	<string name="prefs_group_route">Navegação</string>
 	<string name="pref_zoom_title">Botões de zoom</string>
 	<string name="pref_zoom_summary">Mostrar no ecrã</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Modo Noturno</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Desligado</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Ligado</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Automático</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Visão em Perspectiva</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -329,6 +337,7 @@
 	<string name="duration_6_hours">6 horas</string>
 	<string name="duration_12_hours">12 horas</string>
 	<string name="duration_1_day">1 dia</string>
+	<string name="recent_track_help_text">Atenção: a ativação desta função aumenta o uso da bateria.</string>
 	<string name="pref_track_ios_caption">O percurso recente mostra o seu caminho viajado.</string>
 	<string name="pref_track_ios_subcaption">Por favor, selecione o intervalo de tempo da gravação do percurso.</string>
 	<string name="placepage_distance">Distância</string>
@@ -820,4 +829,6 @@
 	<string name="whats_new_3d_on">Habilitar visão em perspectiva</string>
 	<string name="whats_new_3d_buildings_on">Habilitar Prédios em 3D</string>
 	<string name="whats_new_next_button">Próxima</string>
+	<string name="whats_new_night_caption">Junte-se ao lado negro!</string>
+	<string name="whats_new_night_body">Todo dia depois do pôr do sol, MAPS.ME ativa o modo noturno.</string>
 </resources>

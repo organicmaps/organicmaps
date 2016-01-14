@@ -5275,28 +5275,127 @@
 
   [pref_map_style_title]
     tags = android
-    comment = Settings «Map» category: «Map style» title
-    en = Map style
-    ru = Стиль карты
+    comment = Settings «Map» category: «Night style» title
+    en = Night Mode
+    ru = Ночной режим
+    fr = Mode nuit
+    da = Nattilstand
+    id = Mode Malam
+    ko = 나이트 모드
+    sv = Nattläge
+    tr = Gece Modu
+    uk = Нічний режим
+    vi = Chế độ ban đêm
+    hu = Éjszakai üzemmód
+    de = Nachtmodus
+    fi = Yötila
+    cs = Noční režim
+    it = Modalità notturna
+    nb = Nattmodus
+    zh-Hant = 夜間模式
+    zh-Hans = 夜间模式
+    th = โหมดกลางคืน
+    ja = 夜間モード
+    ro = Mod nocturn
+    ar = الوضع الليلي
+    sk = Nočný režim
+    es = Modo nocturno
+    pl = Tryb nocny
+    nl = Nachtmodus
+    pt = Modo Noturno
 
   [pref_map_style_default]
     tags = android
     comment = «Map style» entry value
-    en = Default
-    ru = По умолчанию
+    en = Off
+    ru = Выключен
+    fr = Désactivé
+    da = Fra
+    id = Tidak Aktif
+    ko = 끄기
+    sv = Av
+    tr = Kapalı
+    uk = Вимкнуто
+    vi = Tắt
+    hu = Ki
+    de = An
+    fi = Pois päältä
+    cs = Vypnuto
+    it = Sì
+    nb = Av
+    zh-Hant = 關
+    zh-Hans = 关闭
+    th = ปิด
+    ja = オフ
+    ro = Oprit
+    ar = إغلاق
+    sk = Vypnúť
+    es = Apagado
+    pl = Wyłączony
+    nl = Uit
+    pt = Desligado
 
   [pref_map_style_night]
     tags = android
     comment = «Map style» entry value
-    en = Night
-    ru = Ночная
+    en = On
+    ru = Включен
+    fr = Activé
+    da = Til
+    id = Aktif
+    ko = 켜기
+    sv = På
+    tr = Açık
+    uk = Увімкнуто
+    vi = Bật
+    hu = Be
+    de = Aus
+    fi = Päällä
+    cs = Zapnuto
+    it = No
+    nb = På
+    zh-Hant = 開
+    zh-Hans = 开启
+    th = เปิด
+    ja = オン
+    ro = Pornit
+    ar = تشغيل
+    sk = Zapnúť
+    es = Encendido
+    pl = Włączony
+    nl = Aan
+    pt = Ligado
 
   [pref_map_style_auto]
     tags = android
     comment = «Map style» entry value
     en = Auto
-    ru = Автоматическое переключение
-
+    ru = Автоматически
+    fr = Automatique
+    da = Auto
+    id = Otomatis
+    ko = 자동
+    sv = Auto
+    tr = Otomatik
+    uk = Автоматично
+    vi = Tự động
+    hu = Automatikus
+    de = Auto
+    fi = Automaattinen
+    cs = Automaticky
+    it = Auto
+    nb = Auto
+    zh-Hant = 自動
+    zh-Hans = 自动
+    th = อัตโนมัติ
+    ja = 自動
+    ro = Automat
+    ar = تلقائي
+    sk = Automaticky
+    es = Auto
+    pl = Automatyczny
+    nl = Automatisch
+    pt = Automático
 
   [pref_map_3d_title]
     comment = Settings «Map» category: «Perspective view» title
@@ -5754,6 +5853,35 @@
     pl = 1 dzień
     nl = 1 dag
     pt = 1 dia
+    
+  [recent_track_help_text]
+    en = Please note: activation of this function causes increased battery usage.
+    ru = Внимание: активация этой функции может привести к повышенному расходу батареи.
+    fr = Notez bien : l'activation de cette fonction entraîne une utilisation plus importante de la batterie.
+    da = Bemærk: aktivering af denne funktion medfører øget batteriforbrug.
+    id = Harap perhatikan: mengaktifkan fungsi ini menyebabkan pemakaian baterai meningkat.
+    ko = 참고: 이 기능의 활성화는 증가된 배터리 사용량의 원인이 됩니다.
+    sv = Obs: aktivering av denna funktion orsakar ökad batterianvändning.
+    tr = Lütfen dikkat: bu özelliği etkinleştirmek pil kullanımını arttırır.
+    uk = Примітка: активація цієї функції спричиняє підвищене використання заряду акумулятора.
+    vi = Xin lưu ý: kích hoạt chức năng này làm tăng việc sử dụng pin.
+    hu = Fontos: a funkció bekapcsolásával megnövekedhet az akkumulátorhasználat.
+    de = Bitte beachten: Die Aktivierung dieser Funktion führt zu erhöhtem Batterieverbrauch.
+    fi = Huomaa: kun aktivoit tämän toiminnon, akun kulutus kasvaa.
+    cs = Vezměte prosím na vědomí: aktivace této funkce způsobí zvýšení využití baterie.
+    it = Nota bene: l'attivazione di questa funziona comporta un maggior consumo di batteria.
+    nb = Merk følgende: Aktivering av denne funksjonen forårsaker økt batteribruk.
+    zh-Hant = 請注意：啟動此功能會導致用電量增加。
+    zh-Hans = 请注意：激活此功能会导致用电量增加。
+    th = โปรดทราบ: การเปิดใช้งานฟังก์ชันนี้จะส่งผลให้มีการใช้งานแบตเตอรี่เพิ่มขึ้น
+    ja = ご注意：この機能を有効にすると電池の使用量が増加します。
+    ro = Vă rugăm să rețineți: activarea acestei funcții determină un consum accelerat al bateriei.
+    ar = يرجى ملاحظة الآتي: تفعيل هذه الوظيفة يسبب زيادة في استخدام البطارية.
+    sk = Upozornenie: aktivovanie tejto funkcie zvyšuje spotrebu energie.
+    es = Nota: activar esta función aumenta el uso de la batería.
+    pl = Uwaga: aktywacja tej funkcji spowoduje większe zużycie baterii.
+    nl = Onthoud: Het activeren van deze functie veroorzaakt meer batterijverbruik.
+    pt = Atenção: a ativação desta função aumenta o uso da bateria.    
     
   [pref_track_ios_caption]
     tags = ios
@@ -14940,7 +15068,6 @@
     nl = Werk uw kaartgegevens bij om volledig te kunnen profiteren van deze functie.
     pt = Para aproveitar por completo este recurso, atualize os dados do seu mapa.  
     
-    
   [whats_new_3d_on]    
     tags = ios
     en = Enable Perspective View
@@ -14970,8 +15097,6 @@
     pl = Włącz widok z perspektywy
     nl = Perspectiefbeeld inschakelen
     pt = Habilitar visão em perspectiva    
-    
-    
     
   [whats_new_3d_buildings_on]
     tags = ios
@@ -15091,4 +15216,61 @@
     pl = Aplikacja pokazuje teraz ostatnio pokonaną przez Ciebie ścieżkę.
     nl = Nu geeft de app uw recente route weer.    
 
+  [whats_new_night_caption]
+    en = Join the dark side!
+    ru = Переходи на тёмную сторону!
+    fr = Rejoignez le côté obscur !
+    da = Slut dig til den mørke side!
+    id = Bergabunglah di sisi kegelapan!
+    ko = 어두운 환경으로 진입!
+    sv = Gå med i den mörka sidan!
+    tr = Karanlık tarafa katıl!
+    uk = Приєднайтесь до темної сторони!
+    vi = Hãy gia nhập phe bóng đêm!
+    hu = Csatlakozz a sötét oldalhoz!
+    de = Kommen Sie auf die dunkle Seite!
+    fi = Liity pimeälle puolelle!
+    cs = Přidejte se na temnou stranu!
+    it = Unisciti al lato oscuro!
+    nb = Slutt deg til den mørke siden!
+    zh-Hant = 加入黑暗一方！
+    zh-Hans = 加入黑暗一方！
+    th = เข้าร่วมด้านมืด!
+    ja = ダークサイドに仲間入り！
+    ro = Alăturați-vă întunericului!
+    ar = انضم إلى الوضع الليلي! 
+    sk = Pridajte sa na temnú stranu! 
+    es = ¡Únete al lado oscuro!
+    pl = Przejdź na ciemną stronę!
+    nl = Treed toe tot de donkere zijde!
+    pt = Junte-se ao lado negro!  
+
+  [whats_new_night_body]
+    en = Each day after sunset, MAPS.ME activates the night mode.
+    ru = Каждый день после заката солнца MAPS.ME активирует ночной режим.
+    fr = Chaque jour, après le lever du soleil, MAPS.ME active le mode nuit.
+    da = Hver dag efter solnedgang aktiverer MAPS.ME nattilstand.
+    id = Setiap hari setelah matahari terbenam, MAPS.ME mengaktifkan mode malam.
+    ko = 매일 해가 진 후, 맵스.미 나이트 모드로 활성화.
+    sv = Varje dag efter solnedgången aktiverar MAPS.ME nattläget.
+    tr = Her gün, gün batımından sonra MAPS.ME gece modunu etkinleştirir.
+    uk = Кожного дня після заходу сонця MAPS.ME активує нічний режим.
+    vi = Mỗi ngày sau buổi hoàng hôn, MAPS.ME kích hoạt chế độ ban đêm.
+    hu = Minden nap naplemente után a MAPS.ME bekapcsolja az éjszakai módot.
+    de = Jeden Tag nach Sonnenuntergang aktiviert MAPS.ME den Nachtmodus.
+    fi = Joka päivä auringonlaskun jälkeen, MAPS.ME aktivoi yötilan.
+    cs = Každý den po západu slunce aktivují MAPS.ME noční režim.
+    it = Ogni giorno, dopo il tramonto, MAPS.ME attiva la modalità notturna.
+    nb = Hver dag etter solnedgang aktiverer MAPS.ME nattmodus.
+    zh-Hant = 每天日落之後，MAPS.ME啟動夜間模式。
+    zh-Hans = 每天日落之后，MAPS.ME激活夜间模式。
+    th = ทุกวันหลังพระอาทิตย์ตกดิน MAPS.ME จะเปิดใช้งานโหมดกลางคืน
+    ja = 毎日日の入り後に、MAPS.MEが夜間モードになります。
+    ro = În fiecare zi după apus, MAPS.ME activează modul de noapte.
+    ar = كل يوم بعد غروب الشمس، تقوم MAPS.ME بتنشيط الوضع الليلي.
+    sk = Po západe slnka sa každý deň aktivuje v MAPS.ME nočný režim.
+    es = Cada día después del atardecer, MAPS.ME activa el modo nocturno.
+    pl = Każdego dnia po zachodzie słońca aplikacja MAPS.ME aktywuje tryb nocny.
+    nl = Elke dag na de zonsondergang activeert MAPS.ME de nachtmodus.
+    pt = Todo dia depois do pôr do sol, MAPS.ME ativa o modo noturno.
 

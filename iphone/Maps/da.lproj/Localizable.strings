@@ -495,14 +495,14 @@
 
 "pref_zoom_summary" = "Vis på skærmen";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "Nattilstand";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "Fra";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "Til";
 
 /* «Map style» entry value */
 "pref_map_style_auto" = "Auto";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12 timer";
 
 "duration_1_day" = "1 dag";
+
+"recent_track_help_text" = "Bemærk: aktivering af denne funktion medfører øget batteriforbrug.";
 
 "pref_track_ios_caption" = "Seneste spor viser din rejste vej.";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "Med MAPS.ME farer du ikke vild";
 
 "whats_new_rec_track_body" = "Nu viser app'en den seneste vej, du har rejst.";
+
+"whats_new_night_caption" = "Slut dig til den mørke side!";
+
+"whats_new_night_body" = "Hver dag efter solnedgang aktiverer MAPS.ME nattilstand.";

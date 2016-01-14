@@ -311,6 +311,14 @@
 	<string name="prefs_group_route">Điều hướng</string>
 	<string name="pref_zoom_title">Nút Phóng to/Thu nhỏ</string>
 	<string name="pref_zoom_summary">Hiển thị trên màn hình</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Chế độ ban đêm</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Tắt</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Bật</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Tự động</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Góc nhìn phối cảnh</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -334,6 +342,7 @@
 	<string name="duration_6_hours">6 giờ</string>
 	<string name="duration_12_hours">12 giờ</string>
 	<string name="duration_1_day">1 ngày</string>
+	<string name="recent_track_help_text">Xin lưu ý: kích hoạt chức năng này làm tăng việc sử dụng pin.</string>
 	<string name="pref_track_ios_caption">Chức năng theo dấu gần đây hiển thị các đường bạn đã đi.</string>
 	<string name="pref_track_ios_subcaption">Vui lòng chọn khoảng thời gian lưu dấu.</string>
 	<string name="placepage_distance">Khoảng cách</string>
@@ -827,4 +836,6 @@
 	<string name="whats_new_next_button">Tiếp theo</string>
 	<string name="whats_new_rec_track_title">Với MAPS.ME, bạn sẽ không bị lạc</string>
 	<string name="whats_new_rec_track_body">Ứng dụng hiện đang hiển thị đường đã đi gần đây của bạn.</string>
+	<string name="whats_new_night_caption">Hãy gia nhập phe bóng đêm!</string>
+	<string name="whats_new_night_body">Mỗi ngày sau buổi hoàng hôn, MAPS.ME kích hoạt chế độ ban đêm.</string>
 </resources>

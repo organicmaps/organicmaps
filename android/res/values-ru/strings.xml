@@ -318,14 +318,14 @@
 	<string name="prefs_group_route">Навигация</string>
 	<string name="pref_zoom_title">Кнопки масштаба</string>
 	<string name="pref_zoom_summary">Показать на карте</string>
-	<!-- Settings «Map» category: «Map style» title -->
-	<string name="pref_map_style_title">Стиль карты</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Ночной режим</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">По умолчанию</string>
+	<string name="pref_map_style_default">Выключен</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Ночная</string>
+	<string name="pref_map_style_night">Включен</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_auto">Автоматическое переключение</string>
+	<string name="pref_map_style_auto">Автоматически</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Перспективный вид</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -349,6 +349,7 @@
 	<string name="duration_6_hours">6 часов</string>
 	<string name="duration_12_hours">12 часов</string>
 	<string name="duration_1_day">1 сутки</string>
+	<string name="recent_track_help_text">Внимание: активация этой функции может привести к повышенному расходу батареи.</string>
 	<string name="pref_track_ios_caption">История пути покажет недавно пройденный маршрут.</string>
 	<string name="pref_track_ios_subcaption">Выберите длительность записи истории.</string>
 	<string name="placepage_distance">Расстояние</string>
@@ -864,4 +865,6 @@
 	<string name="whats_new_next_button">Далее</string>
 	<string name="whats_new_rec_track_title">С MAPS.ME не заблудишься!</string>
 	<string name="whats_new_rec_track_body">Теперь приложение показывает недавно пройденный путь.</string>
+	<string name="whats_new_night_caption">Переходи на тёмную сторону!</string>
+	<string name="whats_new_night_body">Каждый день после заката солнца MAPS.ME активирует ночной режим.</string>
 </resources>

@@ -315,6 +315,14 @@
 	<string name="prefs_group_route">Navigasyon</string>
 	<string name="pref_zoom_title">Yakınlaştırma butonları</string>
 	<string name="pref_zoom_summary">Ekranda göster</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Gece Modu</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Kapalı</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Açık</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Otomatik</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektif görünüm</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -338,6 +346,7 @@
 	<string name="duration_6_hours">6 saat</string>
 	<string name="duration_12_hours">12 saat</string>
 	<string name="duration_1_day">1 gün</string>
+	<string name="recent_track_help_text">Lütfen dikkat: bu özelliği etkinleştirmek pil kullanımını arttırır.</string>
 	<string name="pref_track_ios_caption">En son yol seyahat ettiğiniz yolları gösterir.</string>
 	<string name="pref_track_ios_subcaption">Lütfen kaydedilecek yol süresini seçin.</string>
 	<string name="placepage_distance">Mesafe</string>
@@ -831,4 +840,6 @@
 	<string name="whats_new_next_button">Sonraki</string>
 	<string name="whats_new_rec_track_title">MAPS.ME ile kaybolmayacaksınız</string>
 	<string name="whats_new_rec_track_body">Artık uygulama en son seyahat ettiğiniz güzergâhı gösteriyor.</string>
+	<string name="whats_new_night_caption">Karanlık tarafa katıl!</string>
+	<string name="whats_new_night_body">Her gün, gün batımından sonra MAPS.ME gece modunu etkinleştirir.</string>
 </resources>

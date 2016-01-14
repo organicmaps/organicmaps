@@ -311,6 +311,14 @@
 	<string name="prefs_group_route">Navigasi</string>
 	<string name="pref_zoom_title">Tombol perbesaran</string>
 	<string name="pref_zoom_summary">Tampilkan pada layar</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Mode Malam</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Tidak Aktif</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Aktif</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Otomatis</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Pandangan perspektif</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -334,6 +342,7 @@
 	<string name="duration_6_hours">6 jam</string>
 	<string name="duration_12_hours">12 jam</string>
 	<string name="duration_1_day">1 hari</string>
+	<string name="recent_track_help_text">Harap perhatikan: mengaktifkan fungsi ini menyebabkan pemakaian baterai meningkat.</string>
 	<string name="pref_track_ios_caption">Jalur terakhir menunjukkan jalur yang sudah Anda lalui.</string>
 	<string name="pref_track_ios_subcaption">Silakan pilih jangka waktu penyimpanan jalur.</string>
 	<string name="placepage_distance">Jarak</string>
@@ -826,4 +835,6 @@
 	<string name="whats_new_next_button">Berikut</string>
 	<string name="whats_new_rec_track_title">Dengan MAPS.ME Anda tidak akan tersesat</string>
 	<string name="whats_new_rec_track_body">Aplikasi kini menunjukkan jalur yang telah Anda tempuh baru-baru ini.</string>
+	<string name="whats_new_night_caption">Bergabunglah di sisi kegelapan!</string>
+	<string name="whats_new_night_body">Setiap hari setelah matahari terbenam, MAPS.ME mengaktifkan mode malam.</string>
 </resources>

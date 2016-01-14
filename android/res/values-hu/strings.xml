@@ -312,6 +312,14 @@
 	<string name="prefs_group_route">Navigáció</string>
 	<string name="pref_zoom_title">Nagyítás/kicsinyítés gombok</string>
 	<string name="pref_zoom_summary">Mutassa a kijelzőn</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Éjszakai üzemmód</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Ki</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Be</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Automatikus</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Távlati kép</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -335,6 +343,7 @@
 	<string name="duration_6_hours">6 óra</string>
 	<string name="duration_12_hours">12 óra</string>
 	<string name="duration_1_day">1 nap</string>
+	<string name="recent_track_help_text">Fontos: a funkció bekapcsolásával megnövekedhet az akkumulátorhasználat.</string>
 	<string name="pref_track_ios_caption">A legutolsó útvonal megmutatja, hogy milyen útvonalon haladtál.</string>
 	<string name="pref_track_ios_subcaption">Válaszd ki az útvonalak elmentésének időtartamát!</string>
 	<string name="placepage_distance">Távolság</string>
@@ -828,4 +837,6 @@
 	<string name="whats_new_next_button">Következő</string>
 	<string name="whats_new_rec_track_title">A térkép navigálása kényelmesebb lett</string>
 	<string name="whats_new_rec_track_body">A MAPS.ME-vel nem fogsz eltévedni</string>
+	<string name="whats_new_night_caption">Csatlakozz a sötét oldalhoz!</string>
+	<string name="whats_new_night_body">Minden nap naplemente után a MAPS.ME bekapcsolja az éjszakai módot.</string>
 </resources>

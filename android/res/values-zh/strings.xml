@@ -311,6 +311,14 @@
 	<string name="prefs_group_route">导航</string>
 	<string name="pref_zoom_title">缩放按钮</string>
 	<string name="pref_zoom_summary">在屏幕上显示</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">夜间模式</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">关闭</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">开启</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">自动</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">透视图</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -334,6 +342,7 @@
 	<string name="duration_6_hours">6小时</string>
 	<string name="duration_12_hours">12小时</string>
 	<string name="duration_1_day">1天</string>
+	<string name="recent_track_help_text">请注意：激活此功能会导致用电量增加。</string>
 	<string name="pref_track_ios_caption">近期轨迹显示您的行进道路。</string>
 	<string name="pref_track_ios_subcaption">请选择保存轨迹的时间范围。</string>
 	<string name="placepage_distance">距离</string>
@@ -831,4 +840,6 @@
 	<string name="whats_new_next_button">下一页</string>
 	<string name="whats_new_rec_track_title">有了MAPS.ME，您就不会迷路了</string>
 	<string name="whats_new_rec_track_body">现在，应用程序可以显示您最近走过的路径。</string>
+	<string name="whats_new_night_caption">加入黑暗一方！</string>
+	<string name="whats_new_night_body">每天日落之后，MAPS.ME激活夜间模式。</string>
 </resources>

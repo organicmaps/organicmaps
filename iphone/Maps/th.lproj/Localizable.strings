@@ -495,17 +495,17 @@
 
 "pref_zoom_summary" = "แสดงบนหน้าจอ";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "โหมดกลางคืน";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "ปิด";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "เปิด";
 
 /* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+"pref_map_style_auto" = "อัตโนมัติ";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "มุมมองเพอร์สเปกทีฟ";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12 ชั่วโมง";
 
 "duration_1_day" = "1 วัน";
+
+"recent_track_help_text" = "โปรดทราบ: การเปิดใช้งานฟังก์ชันนี้จะส่งผลให้มีการใช้งานแบตเตอรี่เพิ่มขึ้น";
 
 "pref_track_ios_caption" = "เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "เมื่อใช้ MAPS. คุณจะไม่หลงทาง";
 
 "whats_new_rec_track_body" = "ตอนนี้ แอปจะแสดงเส้นทางการท่องเที่ยวล่าสุดของคุณ";
+
+"whats_new_night_caption" = "เข้าร่วมด้านมืด!";
+
+"whats_new_night_body" = "ทุกวันหลังพระอาทิตย์ตกดิน MAPS.ME จะเปิดใช้งานโหมดกลางคืน";

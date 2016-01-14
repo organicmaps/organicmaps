@@ -306,6 +306,14 @@
 	<string name="prefs_group_route">Navigation</string>
 	<string name="pref_zoom_title">Zoom-Tasten</string>
 	<string name="pref_zoom_summary">Auf dem Bildschirm anzeigen</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Nachtmodus</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">An</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Aus</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Auto</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektivenansicht</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -329,6 +337,7 @@
 	<string name="duration_6_hours">6 Stunden</string>
 	<string name="duration_12_hours">12 Stunden</string>
 	<string name="duration_1_day">1 Tag</string>
+	<string name="recent_track_help_text">Bitte beachten: Die Aktivierung dieser Funktion führt zu erhöhtem Batterieverbrauch.</string>
 	<string name="pref_track_ios_caption">Letzte Strecke zeigt den von Ihnen zurückgelegten Weg.</string>
 	<string name="pref_track_ios_subcaption">Bitte wählen Sie die Zeitspanne, in der die Strecke gespeichert wurde.</string>
 	<string name="placepage_distance">Distanz</string>
@@ -822,4 +831,6 @@
 	<string name="whats_new_next_button">Weiter</string>
 	<string name="whats_new_rec_track_title">Mit MAPS.ME können Sie sich nicht verirren</string>
 	<string name="whats_new_rec_track_body">Die App zeigt jetzt die zuletzt benutzte Strecke an.</string>
+	<string name="whats_new_night_caption">Kommen Sie auf die dunkle Seite!</string>
+	<string name="whats_new_night_body">Jeden Tag nach Sonnenuntergang aktiviert MAPS.ME den Nachtmodus.</string>
 </resources>
