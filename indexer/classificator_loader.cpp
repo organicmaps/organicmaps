@@ -48,7 +48,7 @@ namespace classificator
 
     MapStyle const originMapStyle = GetStyleReader().GetCurrentStyle();
 
-    for (int i = 0; i < MapStyleCount; ++i)
+    for (size_t i = 0; i < MapStyleCount; ++i)
     {
       MapStyle const mapStyle = static_cast<MapStyle>(i);
       GetStyleReader().SetCurrentStyle(mapStyle);

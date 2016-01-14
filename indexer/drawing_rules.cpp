@@ -187,8 +187,7 @@ void RulesHolder::ResizeCaches(size_t s)
 
 RulesHolder & rules(MapStyle mapStyle)
 {
-  int const index = static_cast<int>(mapStyle);
-  ASSERT_GREATER_OR_EQUAL(index, 0, ());
+  size_t const index = static_cast<size_t>(mapStyle);
   ASSERT_LESS(index, MapStyleCount, ());
   static RulesHolder h[MapStyleCount];
   return h[index];
