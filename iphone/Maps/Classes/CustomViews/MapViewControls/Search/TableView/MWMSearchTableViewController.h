@@ -22,5 +22,6 @@
 - (nonnull instancetype)initWithDelegate:(nonnull id<MWMSearchTableViewProtocol>)delegate;
 
 - (void)searchText:(nonnull NSString *)text forInputLocale:(nullable NSString *)locale;
+- (search::SearchParams const &)searchParams;
 
 @end

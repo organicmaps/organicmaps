@@ -288,8 +288,11 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 {
   Framework & f = GetFramework();
   UITextField * textField = self.searchTextField;
-  f.SaveSearchQuery(make_pair(textField.textInputMode.primaryLanguage.UTF8String,
-                              textField.text.precomposedStringWithCompatibilityMapping.UTF8String));
+
+  string const locale = textField.textInputMode.primaryLanguage ?
+            textField.textInputMode.primaryLanguage.UTF8String :
+            self.tableViewController.searchParams.m_inputLocale;
+  f.SaveSearchQuery(make_pair(locale, textField.text.precomposedStringWithCompatibilityMapping.UTF8String));
   f.ActivateUserMark(nullptr, true);
   [self.searchTextField resignFirstResponder];
   self.rootView.compact = YES;

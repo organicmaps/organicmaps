@@ -65,6 +65,11 @@ LocationObserver>
   return self;
 }
 
+- (search::SearchParams const &)searchParams
+{
+  return searchParams;
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
