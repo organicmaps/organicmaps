@@ -489,7 +489,6 @@ public:
   unique_ptr<FeatureType> GetFeatureAtMercatorPoint(m2::PointD const & mercator) const;
   // TODO(AlexZ): Do we really need to avoid linear features?
   unique_ptr<FeatureType> GetFeatureByID(FeatureID const & fid) const;
-  void FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata & metadata) const;
 
   void MemoryWarning();
   void EnterBackground();

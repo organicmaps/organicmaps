@@ -1722,18 +1722,6 @@ public:
 
 }
 
-void Framework::FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata & metadata) const
-{
-  m2::RectD rect(pt, pt);
-  double const inf = MercatorBounds::GetCellID2PointAbsEpsilon();
-  rect.Inflate(inf, inf);
-
-  DoFindClosestPOI doFind(pt, 1.1 /* search radius in meters */);
-  m_model.ForEachFeature(rect, doFind, scales::GetUpperScale() /* scale level for POI */);
-
-  doFind.LoadMetadata(m_model, metadata);
-}
-
 BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
 {
   BookmarkAndCategory empty = MakeEmptyBookmarkAndCategory();
