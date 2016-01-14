@@ -215,6 +215,15 @@ Editor::TTypes GetAllTypes(FeatureType const & feature)
   feature.ForEachType([&types](uint32_t type) { types.push_back(type); });
   return types;
 }
+
+uint32_t MigrateFeatureOffset(XMLFeature const & /*xml*/)
+{
+  // @TODO(mgsergio): update feature's offset, user has downloaded fresh MWM file and old offsets point to other features.
+  // Possible implementation: use function to load features in rect (center feature's point) and somehow compare/choose from them.
+  // Probably we need to store more data about features in xml, e.g. types, may be other data, to match them correctly.
+  return 0;
+}
+
 } // namespace
 
 Editor & Editor::Instance()
@@ -258,7 +267,7 @@ void Editor::LoadMapEdits()
     MwmSet::MwmId const id = m_mwmIdByMapNameFn(mapName);
     if (!id.IsAlive())
     {
-      // TODO(AlexZ): Handle case when map was upgraded and edits should migrate to fresh map data.
+      // TODO(AlexZ): MWM file was deleted, but changes have left. What whould we do in this case?
       LOG(LWARNING, (mapName, "version", mapVersion, "references not existing MWM file."));
       continue;
     }
@@ -270,7 +279,9 @@ void Editor::LoadMapEdits()
         try
         {
           XMLFeature const xml(nodeOrWay.node());
-          FeatureID const fid(id, xml.GetOffset());
+          uint32_t const featureOffset = mapVersion < id.GetInfo()->GetVersion() ? xml.GetOffset() : MigrateFeatureOffset(xml);
+          FeatureID const fid(id, featureOffset);
+
           FeatureTypeInfo fti;
 
           /// TODO(mgsergio): uncomment when feature creating will
