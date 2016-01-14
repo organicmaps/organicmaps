@@ -580,8 +580,8 @@ namespace routing
 {
 
 // Use Australia limits because it has all track types availible for pedestrian.
-// If one of feature types will be disabled for pedestrian? Features of this type will be simplyfied
-// in generator. Look FeatureBuilder1::IsRoad() for more info.
+// If one of feature types will be disabled for pedestrian, features of this type will be simplyfied
+// in generator. Look FeatureBuilder1::IsRoad() for more details.
 PedestrianModel::PedestrianModel() : VehicleModel(classif(), s_pedestrianLimits_Australia)
 {
   Init();
