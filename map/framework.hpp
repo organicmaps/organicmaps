@@ -476,8 +476,9 @@ private:
   //void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
 
 public:
-  /// Please use this method for debug purposes only. It always tries to find closest street.
+  /// @returns address of nearby building with house number in approx 1km distance.
   search::AddressInfo GetMercatorAddressInfo(m2::PointD const & mercator) const;
+  /// @returns valid street address only if it was specified in OSM for given feature; used in the editor.
   search::AddressInfo GetFeatureAddressInfo(FeatureType const & ft) const;
   vector<string> GetPrintableFeatureTypes(FeatureType const & ft) const;
   /// If feature does not have explicit street in OSM data, first value can be a closest named street.

@@ -479,11 +479,21 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType const & ft) con
   //GetLocality(pt, info);
 
   info.m_house = ft.GetHouseNumber();
+  // TODO(vng): Now geocoder assumes that buildings without house numbers also do not have a specified street.
+  if (!info.m_house.empty())
+  {
+    search::ReverseGeocoder const coder(m_model.GetIndex());
+    auto const streets = coder.GetNearbyFeatureStreets(ft);
+    if (streets.second < streets.first.size())
+      info.m_street = streets.first[streets.second].m_name;
+  }
 
-  search::ReverseGeocoder const coder(m_model.GetIndex());
-  vector<search::ReverseGeocoder::Street> const streets = coder.GetNearbyFeatureStreets(ft);
-  if (!streets.empty())
-    info.m_street = streets.front().m_name;
+  // TODO(vng): Why AddressInfo is responsible for types and names? Refactor out.
+  string defaultName, intName;
+  ft.GetPreferredNames(defaultName, intName);
+  info.m_name = defaultName.empty() ? intName : defaultName;
+  info.m_types = GetPrintableFeatureTypes(ft);
+
   return info;
 }
 
