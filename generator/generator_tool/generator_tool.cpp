@@ -18,6 +18,7 @@
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/index_builder.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/search_index_builder.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -114,7 +115,7 @@ int main(int argc, char ** argv)
   if (!FLAGS_osm_file_type.empty())
     genInfo.SetOsmFileType(FLAGS_osm_file_type);
 
-  // Generating intermediate files
+  // Generate intermediate files.
   if (FLAGS_preprocess)
   {
     LOG(LINFO, ("Generating intermediate data ...."));
@@ -124,7 +125,10 @@ int main(int argc, char ** argv)
     }
   }
 
-  // load classificator only if necessary
+  // Use merged style.
+  GetStyleReader().SetCurrentStyle(MapStyleMerged);
+
+  // Load classificator only when necessary.
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
       FLAGS_generate_index || FLAGS_generate_search_index ||
       FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
@@ -134,7 +138,7 @@ int main(int argc, char ** argv)
     classif().SortClassificator();
   }
 
-  // Generate dat file
+  // Generate dat file.
   if (FLAGS_generate_features || FLAGS_make_coasts)
   {
     LOG(LINFO, ("Generating final data ..."));
@@ -176,7 +180,7 @@ int main(int argc, char ** argv)
       if (country == WORLD_COASTS_FILE_NAME)
         mapType = feature::DataHeader::worldcoasts;
 
-      // If error - move to next bucket without index generation.
+      // On error move to the next bucket without index generation.
 
       LOG(LINFO, ("Generating result features for", country));
       if (!feature::GenerateFinalFeatures(genInfo, country, mapType))
@@ -204,7 +208,7 @@ int main(int argc, char ** argv)
     }
   }
 
-  // Create http update list for countries and corresponding files
+  // Create http update list for countries and corresponding files.
   if (FLAGS_generate_update)
   {
     LOG(LINFO, ("Updating countries file..."));
