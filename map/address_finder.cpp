@@ -487,6 +487,32 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType const & ft) con
   return info;
 }
 
+vector<string> Framework::GetPrintableFeatureTypes(FeatureType const & ft) const
+{
+  ASSERT(m_searchEngine, ());
+
+  vector<string> results;
+  int8_t const locale = CategoriesHolder::MapLocaleToInteger(languages::GetCurrentOrig());
+
+  feature::TypesHolder types(ft);
+  types.SortBySpec();
+  // Try to add types from categories.
+  for (uint32_t type : types)
+  {
+    string s;
+    if (m_searchEngine->GetNameByType(type, locale, s))
+      results.push_back(s);
+  }
+  // If nothing added - return raw classificator types.
+  if (results.empty())
+  {
+    Classificator const & c = classif();
+    for (uint32_t type : types)
+      results.push_back(c.GetReadableObjectName(type));
+  }
+  return results;
+}
+
 vector<string> Framework::GetNearbyFeatureStreets(FeatureType const & ft) const
 {
   search::ReverseGeocoder const coder(m_model.GetIndex());
