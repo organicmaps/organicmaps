@@ -470,7 +470,7 @@ void DrawWidget::ShowPOIEditor(FeatureType & feature)
 {
   // Show Edit POI dialog.
   auto & editor = osm::Editor::Instance();
-  EditorDialog dlg(this, feature);
+  EditorDialog dlg(this, feature, *m_framework);
   int const result = dlg.exec();
   if (result == QDialog::Accepted)
   {
