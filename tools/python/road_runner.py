@@ -35,6 +35,9 @@ def each_to_each(points):
 
 def load_towns(path):
     result = []
+    if not os.path.isfile(path):
+        print "WARNING! File with towns not found!"
+        return result
     with open(path, "r") as f:
         for line in f:
             data = line.split(";")
@@ -57,6 +60,10 @@ def parallel_worker(tasks, capitals_list, towns_list):
 
 if len(sys.argv) < 3:
     print "road_runner.py <intermediate_dir> <osrm_addr>"
+    exit(1)
+
+if not os.path.isdir(sys.argv[1]):
+    print sys.argv[1], "is not a directory!"
     exit(1)
 
 towns = load_towns(os.path.join(sys.argv[1], "towns.csv"))

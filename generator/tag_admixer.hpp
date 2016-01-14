@@ -4,6 +4,8 @@
 
 #include "coding/file_reader.hpp"
 
+#include  "base/logging.hpp"
+
 #include "std/map.hpp"
 #include "std/string.hpp"
 
@@ -37,8 +39,18 @@ public:
   TagAdmixer(string const & fileName) : m_ferryTag("route", "ferry")
   {
     string data;
-    FileReader reader(fileName);
-    reader.ReadAsString(data);
+
+    try
+    {
+      FileReader reader(fileName);
+      reader.ReadAsString(data);
+    }
+    catch (Reader::OpenException const &)
+    {
+      LOG(LWARNING, ("World level ways file not found! Generating world without roads."));
+      return;
+    }
+
     WaysParserHelper parser(m_ways);
     parser.ParseString(data);
   }
