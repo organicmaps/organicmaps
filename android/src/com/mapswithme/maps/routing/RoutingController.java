@@ -26,6 +26,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
@@ -376,6 +377,8 @@ public class RoutingController
 
     mContainer.showRoutePlan(false, null);
     mContainer.showNavigation(true);
+
+    ThemeSwitcher.restart();
   }
 
   private void suggestRebuildRoute()
@@ -456,6 +459,8 @@ public class RoutingController
     setState(State.NONE);
 
     Framework.nativeCloseRouting();
+
+    ThemeSwitcher.restart();
   }
 
   public boolean cancel()
