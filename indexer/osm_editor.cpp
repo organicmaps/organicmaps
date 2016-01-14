@@ -46,7 +46,7 @@ string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXML
 /// type:string -> description:pair<fields:vector<???>, editName:bool, editAddr:bool>
 
 using EType = feature::Metadata::EType;
-using TEditableFields = set<EType>;
+using TEditableFields = vector<EType>;
 
 struct TypeDescription
 {
@@ -190,30 +190,6 @@ TypeDescription const * GetTypeDescription(uint32_t const type)
   if (it != end(gEditableTypes))
     return &it->second;
   return nullptr;
-}
-
-template <typename TIterator>
-TEditableFields GetEditableFields(TIterator from, TIterator const to)
-{
-  TEditableFields fields;
-  while (from != to)
-  {
-    auto const * desc = GetTypeDescription(*from++);
-    if (desc)
-    {
-      for (auto field : desc->fields)
-        fields.insert(field);
-    }
-  }
-
-  return fields;
-}
-
-Editor::TTypes GetAllTypes(FeatureType const & feature)
-{
-  Editor::TTypes types;
-  feature.ForEachType([&types](uint32_t type) { types.push_back(type); });
-  return types;
 }
 
 uint32_t MigrateFeatureOffset(XMLFeature const & /*xml*/)
@@ -501,15 +477,24 @@ bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t offset, Feat
 vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feature) const
 {
   // TODO(mgsergio): Load editable fields into memory from XML and query them here.
-  auto const types = GetAllTypes(feature);
-
-  auto const fields = GetEditableFields(begin(types), end(types));
+  feature::TypesHolder const types(feature);
+  set<Metadata::EType> fields;
+  for (auto type : types)
+  {
+    auto const * desc = GetTypeDescription(type);
+    if (desc)
+    {
+      for (auto field : desc->fields)
+        fields.insert(field);
+    }
+  }
   return {begin(fields), end(fields)};
 }
 
 bool Editor::IsNameEditable(FeatureType const & feature) const
 {
-  for (auto type : GetAllTypes(feature))
+  feature::TypesHolder const types(feature);
+  for (auto type : types)
   {
     auto const * typeDesc = GetTypeDescription(type);
     if (typeDesc && typeDesc->name)
@@ -521,7 +506,8 @@ bool Editor::IsNameEditable(FeatureType const & feature) const
 
 bool Editor::IsAddressEditable(FeatureType const & feature) const
 {
-  for (auto type : GetAllTypes(feature))
+  feature::TypesHolder const types(feature);
+  for (auto type : types)
   {
     // Building addresses are always editable.
     if (ftypes::IsBuildingChecker::Instance().HasTypeValue(type))

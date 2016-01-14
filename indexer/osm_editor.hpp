@@ -38,8 +38,6 @@ public:
     Created
   };
 
-  using TTypes = vector<uint32_t>;
-
   static Editor & Instance();
 
   void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn const & fn) { m_mwmIdByMapNameFn = fn; }
