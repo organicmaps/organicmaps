@@ -1,5 +1,6 @@
 package com.mapswithme.maps.location;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.SystemClock;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.util.concurrency.UiThread;
@@ -33,7 +35,8 @@ public final class TrackRecorder
     }
   };
 
-  private static final Logger sLogger = new FileLogger("/sdcard/MapsWithMe/gps-tracker.log");
+  private static Boolean sEnableLogging;
+  private static Logger sLogger;
 
   private static final LocationHelper.LocationListener sLocationListener = new LocationHelper.LocationListener()
   {
@@ -203,9 +206,22 @@ public final class TrackRecorder
     });
   }
 
+  @SuppressLint("SdCardPath")
   static void log(String message)
   {
-    sLogger.d(message);
+    if (sEnableLogging == null)
+      sEnableLogging = ("debug".equals(BuildConfig.BUILD_TYPE) || "beta".equals(BuildConfig.BUILD_TYPE));
+
+    if (!sEnableLogging)
+      return;
+
+    synchronized (TrackRecorder.class)
+    {
+      if (sLogger == null)
+        sLogger = new FileLogger("/sdcard/MapsWithMe/gps-tracker.log");
+
+      sLogger.d(message);
+    }
   }
 
   private static native void nativeSetEnabled(boolean enable);
