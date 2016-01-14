@@ -1,5 +1,6 @@
 #import "Macros.h"
 #import "MWMSearchCategoryCell.h"
+#import "UIImageView+Coloring.h"
 
 @interface MWMSearchCategoryCell ()
 
@@ -20,7 +21,7 @@
 - (void)setCategory:(NSString *)category
 {
   self.label.text = L(category);
-  self.icon.image = [UIImage imageNamed:[NSString stringWithFormat:@"ic_%@_light", category]];
+  self.icon.mwm_name = [NSString stringWithFormat:@"ic_%@", category];
 }
 
 @end
