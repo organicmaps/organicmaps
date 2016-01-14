@@ -1143,12 +1143,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   {
     case Result::RESULT_FEATURE:
     {
-      FeatureID const id = res.GetFeatureID();
-      Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwmId);
-
-      ft.reset(new FeatureType);
-      guard.GetFeatureByIndex(id.m_index, *ft);
-
+      ft = GetFeatureByID(res.GetFeatureID());
       scale = GetFeatureViewportScale(TypesHolder(*ft));
       center = GetCenter(*ft, scale);
       break;
@@ -1161,6 +1156,7 @@ void Framework::ShowSearchResult(search::Result const & res)
       break;
 
     default:
+      ASSERT(false, ("Suggests should not be here."));
       return;
   }
 
