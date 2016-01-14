@@ -329,7 +329,7 @@ Framework::Framework()
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
   editor.SetFeatureLoaderFn([this](FeatureID const & fid) -> unique_ptr<FeatureType>
   {
-    return GetPOIByID(fid);
+    return GetFeatureByID(fid);
   });
   editor.LoadMapEdits();
 }
@@ -1668,7 +1668,7 @@ unique_ptr<FeatureType> Framework::GetFeatureAtMercatorPoint(m2::PointD const & 
   return pointFt ? move(pointFt) : move(areaFt);
 }
 
-unique_ptr<FeatureType> Framework::GetPOIByID(FeatureID const & fid) const
+unique_ptr<FeatureType> Framework::GetFeatureByID(FeatureID const & fid) const
 {
   ASSERT(fid.IsValid(), ());
 
@@ -1890,7 +1890,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
 
   if (fid.IsValid())
   {
-    feature = GetPOIByID(fid);
+    feature = GetFeatureByID(fid);
     mercatorPivot = feature::GetCenter(*feature);
     needMark = true;
   }
