@@ -26,6 +26,8 @@ struct TileKey
   bool operator < (TileKey const & other) const;
   bool operator == (TileKey const & other) const;
 
+  bool LessStrict(TileKey const & other) const;
+
   m2::RectD GetGlobalRect(bool considerStyleZoom = false) const;
 
   int m_x;

@@ -44,6 +44,23 @@ bool TileKey::operator ==(TileKey const & other) const
          m_zoomLevel == other.m_zoomLevel;
 }
 
+bool TileKey::LessStrict(TileKey const & other) const
+{
+  if (m_generation != other.m_generation)
+    return m_generation < other.m_generation;
+
+  if (m_zoomLevel != other.m_zoomLevel)
+    return m_zoomLevel < other.m_zoomLevel;
+
+  if (m_styleZoomLevel != other.m_styleZoomLevel)
+    return m_styleZoomLevel < other.m_styleZoomLevel;
+
+  if (m_y != other.m_y)
+    return m_y < other.m_y;
+
+  return m_x < other.m_x;
+}
+
 m2::RectD TileKey::GetGlobalRect(bool considerStyleZoom) const
 {
   double const worldSizeDevisor = 1 << (considerStyleZoom ? m_styleZoomLevel : m_zoomLevel);

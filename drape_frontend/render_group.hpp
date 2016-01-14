@@ -63,7 +63,8 @@ public:
 
   bool IsEmpty() const { return m_renderBuckets.empty(); }
   void DeleteLater() const { m_pendingOnDelete = true; }
-  bool IsPendingOnDelete() const { return m_pendingOnDelete && !IsAnimating(); }
+  bool IsPendingOnDelete() const { return m_pendingOnDelete; }
+  bool CanBeDeleted() const { return IsPendingOnDelete() && !IsAnimating(); }
 
   bool IsLess(RenderGroup const & other) const;
 

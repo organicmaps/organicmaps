@@ -61,7 +61,8 @@ bool BatchMergeHelper::IsMergeSupported()
 }
 
 void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
-                                    vector<drape_ptr<RenderGroup>> & mergedBatches)
+                                    vector<drape_ptr<RenderGroup>> & mergedBatches,
+                                    bool isPerspective)
 {
   ASSERT(!batches.empty(), ());
   if (batches.size() < 2)
@@ -90,7 +91,11 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
     newGroup->AddBucket(move(bucket));
 
     buffer->Preflush();
-    buffer->Build(newGroup->m_shader);
+    if (isPerspective)
+      newGroup->m_shader3d->Bind();
+    else
+      newGroup->m_shader->Bind();
+    buffer->Build(isPerspective ? newGroup->m_shader3d : newGroup->m_shader);
     mergedBatches.push_back(move(newGroup));
   };
 
@@ -142,12 +147,12 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
 
       uint32_t indexOffset = newBuffer->GetStartIndexValue();
 
-      for (dp::VertexArrayBuffer::TBuffersMap::value_type const & vboNode : buffer->m_staticBuffers)
+      for (auto const & vboNode : buffer->m_staticBuffers)
       {
         copyVertecesFn(vboNode, rawDataBuffer, newBuffer);
       }
 
-      for (dp::VertexArrayBuffer::TBuffersMap::value_type const & vboNode : buffer->m_dynamicBuffers)
+      for (auto const & vboNode : buffer->m_dynamicBuffers)
       {
         copyVertecesFn(vboNode, rawDataBuffer, newBuffer);
       }

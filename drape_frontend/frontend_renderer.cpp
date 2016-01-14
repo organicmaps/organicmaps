@@ -39,6 +39,24 @@ constexpr float kIsometryAngle = math::pi * 80.0f / 180.0f;
 const double VSyncInterval = 0.06;
 //const double VSyncInterval = 0.014;
 
+struct MergedGroupKey
+{
+  dp::GLState m_state;
+  TileKey m_key;
+
+  MergedGroupKey(dp::GLState const & state, TileKey const & tileKey)
+    : m_state(state), m_key(tileKey)
+  {}
+
+  bool operator <(MergedGroupKey const & other) const
+  {
+    if (!(m_state == other.m_state))
+      return m_state < other.m_state;
+
+    return m_key.LessStrict(other.m_key);
+  }
+};
+
 } // namespace
 
 FrontendRenderer::FrontendRenderer(Params const & params)
@@ -789,7 +807,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     if (group->IsEmpty())
       continue;
 
-    if (group->IsPendingOnDelete())
+    if (group->CanBeDeleted())
     {
       group.reset();
       ++eraseCount;
@@ -958,8 +976,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   AfterDrawFrame();
 #endif
 
-  //TODO: there is a bug in this function, commented until investigation completion.
-  //MergeBuckets();
+  MergeBuckets();
 }
 
 void FrontendRenderer::MergeBuckets()
@@ -974,8 +991,7 @@ void FrontendRenderer::MergeBuckets()
   if (m_renderGroups.empty())
     return;
 
-  using TGroup = pair<dp::GLState, TileKey>;
-  using TGroupMap = map<TGroup, vector<drape_ptr<RenderGroup>>>;
+  using TGroupMap = map<MergedGroupKey, vector<drape_ptr<RenderGroup>>>;
   TGroupMap forMerge;
 
   vector<drape_ptr<RenderGroup>> newGroups;
@@ -987,18 +1003,20 @@ void FrontendRenderer::MergeBuckets()
   {
     ref_ptr<RenderGroup> group = make_ref(m_renderGroups[i]);
     dp::GLState state = group->GetState();
-    if (state.GetDepthLayer() == dp::GLState::GeometryLayer &&
-        group->IsPendingOnDelete() == false)
+    if (state.GetDepthLayer() == dp::GLState::GeometryLayer && !group->IsPendingOnDelete())
     {
-      TGroup const key = make_pair(state, group->GetTileKey());
+      MergedGroupKey const key = MergedGroupKey(state, group->GetTileKey());
       forMerge[key].push_back(move(m_renderGroups[i]));
     }
     else
+    {
       newGroups.push_back(move(m_renderGroups[i]));
+    }
   }
 
+  bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
   for (TGroupMap::value_type & node : forMerge)
-      BatchMergeHelper::MergeBatches(node.second, newGroups);
+    BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective);
 
   m_renderGroups = move(newGroups);
 }
