@@ -311,6 +311,14 @@
 	<string name="prefs_group_route">Navigaatio</string>
 	<string name="pref_zoom_title">Zoomauspainikkeet</string>
 	<string name="pref_zoom_summary">Näytä ruudulla</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Yötila</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Pois päältä</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Päällä</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Automaattinen</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektiivinäkymä</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -334,6 +342,7 @@
 	<string name="duration_6_hours">6 tuntia</string>
 	<string name="duration_12_hours">12 tuntia</string>
 	<string name="duration_1_day">1 päivä</string>
+	<string name="recent_track_help_text">Huomaa: kun aktivoit tämän toiminnon, akun kulutus kasvaa.</string>
 	<string name="pref_track_ios_caption">Viimeisin reitti näyttää kulkemasi matkan.</string>
 	<string name="pref_track_ios_subcaption">Valitse reitin tallennuksen aikaväli.</string>
 	<string name="placepage_distance">Etäisyys</string>
@@ -827,4 +836,6 @@
 	<string name="whats_new_next_button">Seuraava</string>
 	<string name="whats_new_rec_track_title">MAPS.ME mukanasi et eksy</string>
 	<string name="whats_new_rec_track_body">Sovellus näyttää nyt viimeiseksi kulkemasi reitin.</string>
+	<string name="whats_new_night_caption">Liity pimeälle puolelle!</string>
+	<string name="whats_new_night_body">Joka päivä auringonlaskun jälkeen, MAPS.ME aktivoi yötilan.</string>
 </resources>

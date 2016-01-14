@@ -495,17 +495,17 @@
 
 "pref_zoom_summary" = "Відображення на екрані";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "Нічний режим";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "Вимкнуто";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "Увімкнуто";
 
 /* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+"pref_map_style_auto" = "Автоматично";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Перспективний вид";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12 годин";
 
 "duration_1_day" = "1 день";
+
+"recent_track_help_text" = "Примітка: активація цієї функції спричиняє підвищене використання заряду акумулятора.";
 
 "pref_track_ios_caption" = "Останній маршрут показує пройдену відстань.";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "З MAPS.ME ви ніколи не заблукаєте";
 
 "whats_new_rec_track_body" = "Тепер програма відображає ваш недавній маршрут.";
+
+"whats_new_night_caption" = "Приєднайтесь до темної сторони!";
+
+"whats_new_night_body" = "Кожного дня після заходу сонця MAPS.ME активує нічний режим.";

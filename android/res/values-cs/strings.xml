@@ -312,6 +312,14 @@
 	<string name="prefs_group_route">Navigace</string>
 	<string name="pref_zoom_title">Tlačítka přiblížení/oddálení</string>
 	<string name="pref_zoom_summary">Zobrazit na obrazovce</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Noční režim</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Vypnuto</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Zapnuto</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Automaticky</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Zobrazení perspektivy</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -335,6 +343,7 @@
 	<string name="duration_6_hours">6 hodin</string>
 	<string name="duration_12_hours">12 hodin</string>
 	<string name="duration_1_day">1 den</string>
+	<string name="recent_track_help_text">Vezměte prosím na vědomí: aktivace této funkce způsobí zvýšení využití baterie.</string>
 	<string name="pref_track_ios_caption">Nedávná trasa zobrazuje cestu, po které jste cestovali.</string>
 	<string name="pref_track_ios_subcaption">Vyberte prosím časový rozsah uložené trasy.</string>
 	<string name="placepage_distance">Vzdálenost</string>
@@ -834,4 +843,6 @@
 	<string name="whats_new_next_button">Další</string>
 	<string name="whats_new_rec_track_title">S MAPS.ME se nikdy neztratíte</string>
 	<string name="whats_new_rec_track_body">Aplikace nyní ukazuje vaše nedávno uskutečněné cesty.</string>
+	<string name="whats_new_night_caption">Přidejte se na temnou stranu!</string>
+	<string name="whats_new_night_body">Každý den po západu slunce aktivují MAPS.ME noční režim.</string>
 </resources>

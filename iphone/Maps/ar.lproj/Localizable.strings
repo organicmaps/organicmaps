@@ -495,17 +495,17 @@
 
 "pref_zoom_summary" = "عرض على الشاشة";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "الوضع الليلي";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "إغلاق";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "تشغيل";
 
 /* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+"pref_map_style_auto" = "تلقائي";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "العرض المنظوري";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12 ساعة";
 
 "duration_1_day" = "1 يوم";
+
+"recent_track_help_text" = "يرجى ملاحظة الآتي: تفعيل هذه الوظيفة يسبب زيادة في استخدام البطارية.";
 
 "pref_track_ios_caption" = "يُظهر المسار الأخير مسار سفرك.";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "مع MAPS.ME لن تتوه أبدا";
 
 "whats_new_rec_track_body" = "بإمكان التطبيق الآن أن يُظهر لك مسار سفرك الأخير.";
+
+"whats_new_night_caption" = "انضم إلى الوضع الليلي!";
+
+"whats_new_night_body" = "كل يوم بعد غروب الشمس، تقوم MAPS.ME بتنشيط الوضع الليلي.";

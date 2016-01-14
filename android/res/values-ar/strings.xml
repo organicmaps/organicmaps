@@ -315,6 +315,14 @@
 	<string name="prefs_group_route">الملاحة</string>
 	<string name="pref_zoom_title">أزرار التكبير</string>
 	<string name="pref_zoom_summary">عرض على الشاشة</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">الوضع الليلي</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">إغلاق</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">تشغيل</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">تلقائي</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">العرض المنظوري</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -338,6 +346,7 @@
 	<string name="duration_6_hours">6 ساعات</string>
 	<string name="duration_12_hours">12 ساعة</string>
 	<string name="duration_1_day">1 يوم</string>
+	<string name="recent_track_help_text">يرجى ملاحظة الآتي: تفعيل هذه الوظيفة يسبب زيادة في استخدام البطارية.</string>
 	<string name="pref_track_ios_caption">يُظهر المسار الأخير مسار سفرك.</string>
 	<string name="pref_track_ios_subcaption">يرجى تحديد نطاق وقت حفظ المسار.</string>
 	<string name="placepage_distance">المسافة</string>
@@ -831,4 +840,6 @@
 	<string name="whats_new_next_button">التالي</string>
 	<string name="whats_new_rec_track_title">مع MAPS.ME لن تتوه أبدا</string>
 	<string name="whats_new_rec_track_body">بإمكان التطبيق الآن أن يُظهر لك مسار سفرك الأخير.</string>
+	<string name="whats_new_night_caption">انضم إلى الوضع الليلي!</string>
+	<string name="whats_new_night_body">كل يوم بعد غروب الشمس، تقوم MAPS.ME بتنشيط الوضع الليلي.</string>
 </resources>

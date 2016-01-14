@@ -495,17 +495,17 @@
 
 "pref_zoom_summary" = "Zobrazit na obrazovce";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "Noční režim";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "Vypnuto";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "Zapnuto";
 
 /* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+"pref_map_style_auto" = "Automaticky";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Zobrazení perspektivy";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12 hodin";
 
 "duration_1_day" = "1 den";
+
+"recent_track_help_text" = "Vezměte prosím na vědomí: aktivace této funkce způsobí zvýšení využití baterie.";
 
 "pref_track_ios_caption" = "Nedávná trasa zobrazuje cestu, po které jste cestovali.";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "S MAPS.ME se nikdy neztratíte";
 
 "whats_new_rec_track_body" = "Aplikace nyní ukazuje vaše nedávno uskutečněné cesty.";
+
+"whats_new_night_caption" = "Přidejte se na temnou stranu!";
+
+"whats_new_night_body" = "Každý den po západu slunce aktivují MAPS.ME noční režim.";

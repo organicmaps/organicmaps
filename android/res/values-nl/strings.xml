@@ -303,6 +303,14 @@
 	<string name="prefs_group_route">Navigatie</string>
 	<string name="pref_zoom_title">Zoomknoppen</string>
 	<string name="pref_zoom_summary">Weergave op het scherm</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Nachtmodus</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Uit</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Aan</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Automatisch</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspectiefbeeld</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -326,6 +334,7 @@
 	<string name="duration_6_hours">6 uur</string>
 	<string name="duration_12_hours">12 uur</string>
 	<string name="duration_1_day">1 dag</string>
+	<string name="recent_track_help_text">Onthoud: Het activeren van deze functie veroorzaakt meer batterijverbruik.</string>
 	<string name="pref_track_ios_caption">Recente route geeft uw gebruikte route weer.</string>
 	<string name="pref_track_ios_subcaption">Selecteer de tijdperiode voor het opslaan van route.</string>
 	<string name="placepage_distance">Afstand</string>
@@ -817,4 +826,6 @@
 	<string name="whats_new_next_button">Volgende</string>
 	<string name="whats_new_rec_track_title">Met MAPS.ME verdwaalt u niet.</string>
 	<string name="whats_new_rec_track_body">Nu geeft de app uw recente route weer.</string>
+	<string name="whats_new_night_caption">Treed toe tot de donkere zijde!</string>
+	<string name="whats_new_night_body">Elke dag na de zonsondergang activeert MAPS.ME de nachtmodus.</string>
 </resources>

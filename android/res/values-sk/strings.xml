@@ -310,6 +310,14 @@
 	<string name="prefs_group_route">Navigácia</string>
 	<string name="pref_zoom_title">Tlačítka priblíženia/oddialenia</string>
 	<string name="pref_zoom_summary">Zobraziť na obrazovke</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Nočný režim</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Vypnúť</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">Zapnúť</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Automaticky</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Perspektívne zobrazenie</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -333,6 +341,7 @@
 	<string name="duration_6_hours">6 hodín</string>
 	<string name="duration_12_hours">12 hodín</string>
 	<string name="duration_1_day">1 deň</string>
+	<string name="recent_track_help_text">Upozornenie: aktivovanie tejto funkcie zvyšuje spotrebu energie.</string>
 	<string name="pref_track_ios_caption">Funkcia Čerstvá stopa zobrazuje trasu, ktorú ste prešli.</string>
 	<string name="pref_track_ios_subcaption">Prosím, vyberte si, po akú dobu má aplikácia zaznamenávať vašu trasu.</string>
 	<string name="placepage_distance">Vzdialenosť</string>
@@ -830,4 +839,6 @@
 	<string name="whats_new_next_button">Nasledujúca</string>
 	<string name="whats_new_rec_track_title">S MAPS.ME sa nestratíte</string>
 	<string name="whats_new_rec_track_body">Aplikácia vám teraz ukazuje vašu poslednú trasu.</string>
+	<string name="whats_new_night_caption">Pridajte sa na temnú stranu!</string>
+	<string name="whats_new_night_body">Po západe slnka sa každý deň aktivuje v MAPS.ME nočný režim.</string>
 </resources>

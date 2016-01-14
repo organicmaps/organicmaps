@@ -308,6 +308,14 @@
 	<string name="prefs_group_route">Navigazione</string>
 	<string name="pref_zoom_title">Pulsanti per lo zoom</string>
 	<string name="pref_zoom_summary">Condividi la mia location</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">Modalità notturna</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">Sì</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">No</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">Auto</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">Vista in prospettiva</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -331,6 +339,7 @@
 	<string name="duration_6_hours">6 ore</string>
 	<string name="duration_12_hours">12 ore</string>
 	<string name="duration_1_day">1 giorno</string>
+	<string name="recent_track_help_text">Nota bene: l\&#39;attivazione di questa funziona comporta un maggior consumo di batteria.</string>
 	<string name="pref_track_ios_caption">Il percorso recente mostra il tragitto effettuato.</string>
 	<string name="pref_track_ios_subcaption">Seleziona un intervallo temporale per la registrazione del percorso.</string>
 	<string name="placepage_distance">Distanza</string>
@@ -824,4 +833,6 @@
 	<string name="whats_new_next_button">Avanti</string>
 	<string name="whats_new_rec_track_title">Con MAPS.ME, non ti perderai</string>
 	<string name="whats_new_rec_track_body">Ora, l\&#39;app mostra i percorsi effettuati di recente.</string>
+	<string name="whats_new_night_caption">Unisciti al lato oscuro!</string>
+	<string name="whats_new_night_body">Ogni giorno, dopo il tramonto, MAPS.ME attiva la modalità notturna.</string>
 </resources>

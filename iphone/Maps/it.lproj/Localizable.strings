@@ -495,14 +495,14 @@
 
 "pref_zoom_summary" = "Condividi la mia location";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "Modalità notturna";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "Sì";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "No";
 
 /* «Map style» entry value */
 "pref_map_style_auto" = "Auto";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12 ore";
 
 "duration_1_day" = "1 giorno";
+
+"recent_track_help_text" = "Nota bene: l'attivazione di questa funziona comporta un maggior consumo di batteria.";
 
 "pref_track_ios_caption" = "Il percorso recente mostra il tragitto effettuato.";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "Con MAPS.ME, non ti perderai";
 
 "whats_new_rec_track_body" = "Ora, l'app mostra i percorsi effettuati di recente.";
+
+"whats_new_night_caption" = "Unisciti al lato oscuro!";
+
+"whats_new_night_body" = "Ogni giorno, dopo il tramonto, MAPS.ME attiva la modalità notturna.";

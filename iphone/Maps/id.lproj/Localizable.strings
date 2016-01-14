@@ -495,17 +495,17 @@
 
 "pref_zoom_summary" = "Tampilkan pada layar";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "Mode Malam";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "Tidak Aktif";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "Aktif";
 
 /* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+"pref_map_style_auto" = "Otomatis";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "Pandangan perspektif";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12 jam";
 
 "duration_1_day" = "1 hari";
+
+"recent_track_help_text" = "Harap perhatikan: mengaktifkan fungsi ini menyebabkan pemakaian baterai meningkat.";
 
 "pref_track_ios_caption" = "Jalur terakhir menunjukkan jalur yang sudah Anda lalui.";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "Dengan MAPS.ME Anda tidak akan tersesat";
 
 "whats_new_rec_track_body" = "Aplikasi kini menunjukkan jalur yang telah Anda tempuh baru-baru ini.";
+
+"whats_new_night_caption" = "Bergabunglah di sisi kegelapan!";
+
+"whats_new_night_body" = "Setiap hari setelah matahari terbenam, MAPS.ME mengaktifkan mode malam.";

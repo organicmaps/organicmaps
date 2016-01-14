@@ -495,17 +495,17 @@
 
 "pref_zoom_summary" = "画面上に表示";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "夜間モード";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "オフ";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "オン";
 
 /* «Map style» entry value */
-"pref_map_style_auto" = "Auto";
+"pref_map_style_auto" = "自動";
 
 /* Settings «Map» category: «Perspective view» title */
 "pref_map_3d_title" = "パースペクティブ表示";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12時間";
 
 "duration_1_day" = "1日";
+
+"recent_track_help_text" = "ご注意：この機能を有効にすると電池の使用量が増加します。";
 
 "pref_track_ios_caption" = "最近ルートは、使用した道のりを表示する機能です。";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "MAPS.MEがあれば道に迷うことがありません";
 
 "whats_new_rec_track_body" = "アプリが最近の道のりを表示できるようになりました。";
+
+"whats_new_night_caption" = "ダークサイドに仲間入り！";
+
+"whats_new_night_body" = "毎日日の入り後に、MAPS.MEが夜間モードになります。";

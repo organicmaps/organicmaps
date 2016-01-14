@@ -301,6 +301,14 @@
 	<string name="prefs_group_route">네비게이션</string>
 	<string name="pref_zoom_title">확대/축소 버튼</string>
 	<string name="pref_zoom_summary">화면에 표시</string>
+	<!-- Settings «Map» category: «Night style» title -->
+	<string name="pref_map_style_title">나이트 모드</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_default">끄기</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_night">켜기</string>
+	<!-- «Map style» entry value -->
+	<string name="pref_map_style_auto">자동</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
 	<string name="pref_map_3d_title">원근 보기</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
@@ -324,6 +332,7 @@
 	<string name="duration_6_hours">6시간</string>
 	<string name="duration_12_hours">12시간</string>
 	<string name="duration_1_day">1일</string>
+	<string name="recent_track_help_text">참고: 이 기능의 활성화는 증가된 배터리 사용량의 원인이 됩니다.</string>
 	<string name="pref_track_ios_caption">최근 추적은 여행한 경로를 보여줍니다.</string>
 	<string name="pref_track_ios_subcaption">추적을 저장하는 시간 범위를 선택하십시오.</string>
 	<string name="placepage_distance">거리</string>
@@ -817,4 +826,6 @@
 	<string name="whats_new_next_button">다음</string>
 	<string name="whats_new_rec_track_title">MAPS.ME로 길을 잃지 않을 것입니다</string>
 	<string name="whats_new_rec_track_body">지금 앱은 최근 여행한 경로를 보여줍니다.</string>
+	<string name="whats_new_night_caption">어두운 환경으로 진입!</string>
+	<string name="whats_new_night_body">매일 해가 진 후, 맵스.미 나이트 모드로 활성화.</string>
 </resources>

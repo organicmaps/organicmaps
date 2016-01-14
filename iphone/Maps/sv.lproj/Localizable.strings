@@ -495,14 +495,14 @@
 
 "pref_zoom_summary" = "Visa på skärmen";
 
-/* Settings «Map» category: «Map style» title */
-"pref_map_style_title" = "Map style";
+/* Settings «Map» category: «Night style» title */
+"pref_map_style_title" = "Nattläge";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Default";
+"pref_map_style_default" = "Av";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Night";
+"pref_map_style_night" = "På";
 
 /* «Map style» entry value */
 "pref_map_style_auto" = "Auto";
@@ -544,6 +544,8 @@
 "duration_12_hours" = "12 timmar";
 
 "duration_1_day" = "1 dag";
+
+"recent_track_help_text" = "Obs: aktivering av denna funktion orsakar ökad batterianvändning.";
 
 "pref_track_ios_caption" = "Senaste resväg visar den väg du rest.";
 
@@ -1362,3 +1364,7 @@
 "whats_new_rec_track_title" = "Med MAPS.ME går du inte vilse";
 
 "whats_new_rec_track_body" = "Appen visar nu din senaste resväg.";
+
+"whats_new_night_caption" = "Gå med i den mörka sidan!";
+
+"whats_new_night_body" = "Varje dag efter solnedgången aktiverar MAPS.ME nattläget.";
