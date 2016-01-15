@@ -81,7 +81,13 @@
 
 - (IBAction)cancel
 {
-  [self dismissViewControllerAnimated:YES completion:nil];
+  if (!self.isCalledFromSettings)
+    MWMAuthorizationSetUserSkip();
+  UINavigationController * parentNavController = self.navigationController.navigationController;
+  if (parentNavController)
+    [parentNavController popViewControllerAnimated:YES];
+  else
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Segue

@@ -5,6 +5,7 @@ namespace
 {
 NSString * const kOSMRequestToken = @"OSMRequestToken";
 NSString * const kOSMRequestSecret = @"OSMRequestSecret";
+NSString * const kAuthUserSkip = @"AuthUserSkip";
 }  // namespace
 
 UIColor * MWMAuthorizationButtonTextColor(MWMAuthorizationButtonType type)
@@ -63,4 +64,15 @@ BOOL MWMAuthorizationHaveCredentials()
   NSString * requestToken = [ud stringForKey:kOSMRequestToken];
   NSString * requestSecret = [ud stringForKey:kOSMRequestSecret];
   return requestToken && requestSecret;
+}
+
+void MWMAuthorizationSetUserSkip()
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setObject:[NSDate date] forKey:kAuthUserSkip];
+}
+
+BOOL MWMAuthorizationIsUserSkip()
+{
+  return [[NSUserDefaults standardUserDefaults] objectForKey:kAuthUserSkip] != nil;
 }

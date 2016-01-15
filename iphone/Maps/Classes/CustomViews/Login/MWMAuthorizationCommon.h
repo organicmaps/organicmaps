@@ -13,3 +13,6 @@ void MWMAuthorizationConfigButton(UIButton * btn, MWMAuthorizationButtonType typ
 
 void MWMAuthorizationStoreCredentials(osm::TKeySecret const & keySecret);
 BOOL MWMAuthorizationHaveCredentials();
+
+void MWMAuthorizationSetUserSkip();
+BOOL MWMAuthorizationIsUserSkip();

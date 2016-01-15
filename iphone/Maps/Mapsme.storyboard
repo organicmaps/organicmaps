@@ -10,6 +10,7 @@
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
             <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1713,9 +1714,10 @@ the world. Join us!</string>
                         </subviews>
                         <constraints>
                             <constraint firstItem="VTY-T1-l6q" firstAttribute="centerY" secondItem="cT8-b7-zTj" secondAttribute="centerY" id="0Jf-e2-H65"/>
+                            <constraint firstItem="y41-VX-XhB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="s0p-dL-PG8" secondAttribute="bottom" priority="800" constant="16" id="1sg-HR-tEt"/>
                             <constraint firstAttribute="trailing" secondItem="s0p-dL-PG8" secondAttribute="trailing" constant="16" id="2aN-6e-wkN"/>
                             <constraint firstItem="7X8-ED-Si4" firstAttribute="top" secondItem="Yup-ms-er9" secondAttribute="bottom" constant="-64" id="658-9q-R3b"/>
-                            <constraint firstItem="nhm-W1-U8A" firstAttribute="top" secondItem="Gqm-JS-hos" secondAttribute="bottom" constant="52" id="9F6-2k-EQ9"/>
+                            <constraint firstItem="nhm-W1-U8A" firstAttribute="top" secondItem="Gqm-JS-hos" secondAttribute="bottom" priority="750" constant="52" id="9F6-2k-EQ9"/>
                             <constraint firstAttribute="trailing" secondItem="7X8-ED-Si4" secondAttribute="trailing" id="AcN-Oh-T4S"/>
                             <constraint firstItem="U4B-pb-aFf" firstAttribute="top" secondItem="cT8-b7-zTj" secondAttribute="bottom" constant="16" id="Amy-BS-LqC"/>
                             <constraint firstItem="bGN-fy-oFg" firstAttribute="centerY" secondItem="U4B-pb-aFf" secondAttribute="centerY" id="DXy-dr-Yu1"/>
@@ -2321,6 +2323,6 @@ the world. Join us!</string>
         <image name="login_google" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="w48-2Y-VXA"/>
+        <segue reference="Yqb-S0-ZQV"/>
     </inferredMetricsTieBreakers>
 </document>

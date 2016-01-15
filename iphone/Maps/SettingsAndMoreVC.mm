@@ -1,4 +1,5 @@
 #import "CommunityVC.h"
+#import "MWMAuthorizationLoginViewController.h"
 #import "RichTextVC.h"
 #import "SettingsAndMoreVC.h"
 #import "SettingsViewController.h"
@@ -164,8 +165,8 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 {
   [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatAuthorization}];
   UINavigationController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:@"LoginNavigationController"];
-  vc.modalPresentationStyle = UIModalPresentationFormSheet;
-  vc.preferredContentSize = {520, 600};
+  MWMAuthorizationLoginViewController * authVC = (MWMAuthorizationLoginViewController *)[vc topViewController];
+  authVC.isCalledFromSettings = YES;
   [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 

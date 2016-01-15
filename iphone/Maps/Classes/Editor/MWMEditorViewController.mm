@@ -1,4 +1,5 @@
 #import "MWMAuthorizationCommon.h"
+#import "MWMAuthorizationLoginViewController.h"
 #import "MWMCuisineEditorViewController.h"
 #import "MWMEditorCommon.h"
 #import "MWMEditorSelectTableViewCell.h"
@@ -19,6 +20,7 @@ namespace
 NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSegue";
 NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 NSString * const kStreetEditorSegue = @"Editor2StreetEditorSegue";
+NSString * const kAuthorizationSegue = @"Editor2AuthorizationSegue";
 
 typedef NS_ENUM(NSUInteger, MWMEditorSection)
 {
@@ -101,11 +103,11 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)checkAuthorization
 {
-  if (!MWMAuthorizationHaveCredentials())
+  if (!MWMAuthorizationHaveCredentials() && !MWMAuthorizationIsUserSkip())
   {
     [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
                      withParameters:@{kStatValue : kStatAuthorization}];
-    [self performSegueWithIdentifier:@"Editor2AuthorizationSegue" sender:nil];
+    [self performSegueWithIdentifier:kAuthorizationSegue sender:nil];
   }
 }
 
@@ -129,7 +131,11 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)onCancel
 {
-  [self dismissViewControllerAnimated:YES completion:nil];
+  UINavigationController * parentNavController = self.navigationController.navigationController;
+  if (parentNavController)
+    [parentNavController popViewControllerAnimated:YES];
+  else
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)onSave
@@ -566,6 +572,12 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   {
     MWMStreetEditorViewController * dvc = segue.destinationViewController;
     dvc.delegate = self;
+  }
+  else if ([segue.identifier isEqualToString:kAuthorizationSegue])
+  {
+    UINavigationController * dvc = segue.destinationViewController;
+    MWMAuthorizationLoginViewController * authVC = (MWMAuthorizationLoginViewController *)[dvc topViewController];
+    authVC.isCalledFromSettings = NO;
   }
 }
 
