@@ -45,8 +45,7 @@ private:
     // don't change order and values
     MY_POSITION_ACCURACY = 0,
     MY_POSITION_ARROW = 1,
-    MY_POSITION_POINT = 2,
-    MY_POSITION_ROUTING_ARROW = 3
+    MY_POSITION_POINT = 2
   };
 
   void RenderPart(ref_ptr<dp::GpuProgramManager> mng,

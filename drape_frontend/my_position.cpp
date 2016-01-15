@@ -119,8 +119,7 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen,
     uniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::MY_POSITION_MARK);
     uniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
     uniforms.SetFloatValue("u_opacity", 1.0);
-    RenderPart(mng, uniforms, (m_showAzimuth == true) ?
-               (m_isRoutingMode ? MY_POSITION_ROUTING_ARROW : MY_POSITION_ARROW) : MY_POSITION_POINT);
+    RenderPart(mng, uniforms, (m_showAzimuth == true) ? MY_POSITION_ARROW : MY_POSITION_POINT);
   }
 }
 
@@ -171,10 +170,9 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
 
 void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 {
-  dp::TextureManager::SymbolRegion pointSymbol, arrowSymbol, routingArrowSymbol;
+  dp::TextureManager::SymbolRegion pointSymbol, arrowSymbol;
   mng->GetSymbolRegion("current-position", pointSymbol);
   mng->GetSymbolRegion("current-position-compas", arrowSymbol);
-  mng->GetSymbolRegion("current-routing-compas", routingArrowSymbol);
 
   m2::RectF const & pointTexRect = pointSymbol.GetTexRect();
   m2::PointF pointHalfSize = m2::PointF(pointSymbol.GetPixelSize()) * 0.5f;
@@ -198,27 +196,15 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
     { glsl::vec2( arrowHalfSize.x, -arrowHalfSize.y), glsl::ToVec2(arrowTexRect.RightBottom())}
   };
 
-  m2::RectF const & routingArrowTexRect = routingArrowSymbol.GetTexRect();
-  m2::PointF routingArrowHalfSize = m2::PointF(routingArrowSymbol.GetPixelSize()) * 0.5f;
-
-  m_arrow3d.SetSize(routingArrowSymbol.GetPixelSize().x, routingArrowSymbol.GetPixelSize().y);
+  m_arrow3d.SetSize(arrowSymbol.GetPixelSize().x, arrowSymbol.GetPixelSize().y);
   m_arrow3d.SetTexture(mng);
 
-  Vertex routingArrowData[4]=
-  {
-    { glsl::vec2(-routingArrowHalfSize.x,  routingArrowHalfSize.y), glsl::ToVec2(routingArrowTexRect.LeftTop()) },
-    { glsl::vec2(-routingArrowHalfSize.x, -routingArrowHalfSize.y), glsl::ToVec2(routingArrowTexRect.LeftBottom()) },
-    { glsl::vec2( routingArrowHalfSize.x,  routingArrowHalfSize.y), glsl::ToVec2(routingArrowTexRect.RightTop()) },
-    { glsl::vec2( routingArrowHalfSize.x, -routingArrowHalfSize.y), glsl::ToVec2(routingArrowTexRect.RightBottom())}
-  };
-
   ASSERT(pointSymbol.GetTexture() == arrowSymbol.GetTexture(), ());
-  ASSERT(pointSymbol.GetTexture() == routingArrowSymbol.GetTexture(), ());
   dp::GLState state(gpu::MY_POSITION_PROGRAM, dp::GLState::OverlayLayer);
   state.SetColorTexture(pointSymbol.GetTexture());
 
   {
-    dp::Batcher batcher(3 * dp::Batcher::IndexPerQuad, 3 * dp::Batcher::VertexPerQuad);
+    dp::Batcher batcher(2 * dp::Batcher::IndexPerQuad, 2 * dp::Batcher::VertexPerQuad);
     dp::SessionGuard guard(batcher, [this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = move(b);
@@ -233,21 +219,14 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
     dp::AttributeProvider arrowProvider(1 /*stream count*/, dp::Batcher::VertexPerQuad);
     arrowProvider.InitStream(0 /*stream index*/, GetBindingInfo(), make_ref(arrowData));
 
-    dp::AttributeProvider routingArrowProvider(1 /*stream count*/, dp::Batcher::VertexPerQuad);
-    routingArrowProvider.InitStream(0 /*stream index*/, GetBindingInfo(), make_ref(routingArrowData));
-
     m_parts[MY_POSITION_POINT].second = m_nodes.size();
     m_parts[MY_POSITION_ARROW].second = m_nodes.size();
-    m_parts[MY_POSITION_ROUTING_ARROW].second = m_nodes.size();
 
     m_parts[MY_POSITION_POINT].first = batcher.InsertTriangleStrip(state, make_ref(&pointProvider), nullptr);
     ASSERT(m_parts[MY_POSITION_POINT].first.IsValid(), ());
 
     m_parts[MY_POSITION_ARROW].first = batcher.InsertTriangleStrip(state, make_ref(&arrowProvider), nullptr);
     ASSERT(m_parts[MY_POSITION_ARROW].first.IsValid(), ());
-
-    m_parts[MY_POSITION_ROUTING_ARROW].first = batcher.InsertTriangleStrip(state, make_ref(&routingArrowProvider), nullptr);
-    ASSERT(m_parts[MY_POSITION_ROUTING_ARROW].first.IsValid(), ());
   }
 }
 
