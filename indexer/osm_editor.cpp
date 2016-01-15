@@ -7,13 +7,18 @@
 
 #include "platform/platform.hpp"
 
+#include "editor/changeset_wrapper.hpp"
+#include "editor/osm_auth.hpp"
+#include "editor/server_api.hpp"
 #include "editor/xml_feature.hpp"
+
+#include "coding/internal/file_data.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "coding/internal/file_data.hpp"
-
+#include "std/chrono.hpp"
+#include "std/future.hpp"
 #include "std/tuple.hpp"
 #include "std/unordered_map.hpp"
 #include "std/unordered_set.hpp"
@@ -33,6 +38,10 @@ constexpr char const * kModifySection = "modify";
 constexpr char const * kCreateSection = "create";
 /// We store edited streets in OSM-compatible way.
 constexpr char const * kAddrStreetTag = "addr:street";
+
+constexpr char const * kUploaded = "Uploaded";
+constexpr char const * kDeletedFromOSMServer = "Deleted from OSM by someone";
+constexpr char const * kNeedsRetry = "Needs Retry";
 
 namespace osm
 {
@@ -519,4 +528,78 @@ bool Editor::IsAddressEditable(FeatureType const & feature) const
 
   return false;
 }
+
+void Editor::UploadChanges(string const & key, string const & secret, TChangesetTags const & tags)
+{
+  // TODO(AlexZ): features access should be synchronized.
+  auto const lambda = [this](string key, string secret, TChangesetTags tags)
+  {
+    int uploadedFeaturesCount = 0;
+    // TODO(AlexZ): insert usefull changeset comments.
+    ChangesetWrapper changeset({key, secret}, tags);
+    for (auto & id : m_features)
+    {
+      for (auto & offset : id.second)
+      {
+        FeatureTypeInfo & fti = offset.second;
+        // Do not process already uploaded features or those failed permanently.
+        if (!(fti.m_uploadStatus.empty() || fti.m_uploadStatus == kNeedsRetry))
+          continue;
+
+        // TODO(AlexZ): Create/delete nodes support.
+        if (fti.m_status != FeatureStatus::Modified)
+          continue;
+
+        XMLFeature feature = fti.m_feature.ToXML();
+        // TODO(AlexZ): Add areas(ways) upload support.
+        if (feature.GetType() != XMLFeature::Type::Node)
+          continue;
+
+        try
+        {
+          XMLFeature osmFeature = changeset.GetMatchingFeatureFromOSM(feature, fti.m_feature);
+          XMLFeature const osmFeatureCopy = osmFeature;
+          osmFeature.ApplyPatch(feature);
+          // Check to avoid duplicates.
+          if (osmFeature == osmFeatureCopy)
+          {
+            LOG(LWARNING, ("Local changes are equal to OSM, feature was not uploaded, local changes were deleted.", feature));
+            // TODO(AlexZ): Delete local change.
+            continue;
+          }
+          LOG(LDEBUG, ("Uploading patched feature", osmFeature));
+          changeset.ModifyNode(osmFeature);
+          fti.m_uploadStatus = kUploaded;
+          fti.m_uploadAttemptTimestamp = time(nullptr);
+          ++uploadedFeaturesCount;
+        }
+        catch (ChangesetWrapper::OsmObjectWasDeletedException const & ex)
+        {
+          fti.m_uploadStatus = kDeletedFromOSMServer;
+          fti.m_uploadAttemptTimestamp = time(nullptr);
+          fti.m_uploadError = "Node was deleted from the server.";
+          LOG(LWARNING, (fti.m_uploadError, ex.what()));
+        }
+        catch (RootException const & ex)
+        {
+          LOG(LWARNING, (ex.what()));
+          fti.m_uploadStatus = kNeedsRetry;
+          fti.m_uploadAttemptTimestamp = time(nullptr);
+          fti.m_uploadError = ex.what();
+        }
+        // TODO(AlexZ): Synchronize save after edits.
+        // Call Save every time we modify each feature's information.
+        Save(GetEditorFilePath());
+      }
+    }
+    // TODO(AlexZ): Should we call any callback at the end?
+  };
+
+  // Do not run more than one upload thread at a time.
+  static auto future = async(launch::async, lambda, key, secret, tags);
+  auto const status = future.wait_for(milliseconds(0));
+  if (status == future_status::ready)
+    future = async(launch::async, lambda, key, secret, tags);
+}
+
 }  // namespace osm

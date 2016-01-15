@@ -75,6 +75,11 @@ public:
   bool IsNameEditable(FeatureType const & feature) const;
   bool IsAddressEditable(FeatureType const & feature) const;
 
+  using TChangesetTags = map<string, string>;
+  /// Tries to upload all local changes to OSM server in a separate thread.
+  /// @param[in] tags should provide additional information about client to use in changeset.
+  void UploadChanges(string const & key, string const & secret, TChangesetTags const & tags);
+
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   void Save(string const & fullFilePath) const;
@@ -87,7 +92,7 @@ private:
     string m_street;
     time_t m_modificationTimestamp = my::INVALID_TIME_STAMP;
     time_t m_uploadAttemptTimestamp = my::INVALID_TIME_STAMP;
-    /// "" | "ok" | "repeat" | "failed"
+    /// Is empty if upload has never occured or one of k* constants above otherwise.
     string m_uploadStatus;
     string m_uploadError;
   };
