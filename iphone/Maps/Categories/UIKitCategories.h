@@ -27,16 +27,6 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @end
 
-
-@interface UIColor (HexColor)
-
-+ (UIColor *)colorWithColorCode:(NSString *)colorCode;
-+ (UIColor *)applicationBackgroundColor;
-+ (UIColor *)applicationColor;
-+ (UIColor *)navigationBarColor;
-
-@end
-
 @interface UIView (Coordinates)
 
 @property (nonatomic) CGFloat minX;

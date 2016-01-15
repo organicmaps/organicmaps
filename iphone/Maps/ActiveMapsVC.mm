@@ -3,6 +3,7 @@
 #import "Common.h"
 #import "MapCell.h"
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
 
 extern NSString * const MapsStatusChangedNotification;
 
@@ -191,6 +192,7 @@ extern NSString * const MapsStatusChangedNotification;
   UILabel * label = [[UILabel alloc] initWithFrame:view.bounds];
   label.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
   label.backgroundColor = [UIColor clearColor];
+  label.textColor = [UIColor blackPrimaryText];
 
   if (group == ActiveMapsLayout::TGroup::EOutOfDate)
     label.text = L(@"downloader_outdated_maps").uppercaseString;

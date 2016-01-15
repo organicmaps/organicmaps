@@ -15,7 +15,6 @@
 
 - (void)refresh
 {
-  [MapsAppDelegate customizeAppearance];
   [self.navigationController.navigationBar refresh];
   for (UIViewController * vc in self.navigationController.viewControllers.reverseObjectEnumerator)
   {

@@ -463,8 +463,14 @@ extern NSString * const kAlohalyticsTapEventKey;
   GetFramework().FollowRoute();
   self.disableStandbyOnRouteFollowing = YES;
   [self.menuController setStreetName:@""];
-  MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModeNone;
+  MapsAppDelegate * app = MapsAppDelegate.theApp;
+  app.routingPlaneMode = MWMRoutingPlaneModeNone;
   [RouteState save];
+  if ([MapsAppDelegate isAutoNightMode])
+  {
+    [MapsAppDelegate changeMapStyleIfNedeed];
+    [app startMapStyleChecker];
+  }
   return YES;
 }
 
@@ -473,13 +479,14 @@ extern NSString * const kAlohalyticsTapEventKey;
   [[Statistics instance] logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
   [[MapsAppDelegate theApp].m_locationManager stop:self.navigationManager];
   self.navigationManager.state = MWMNavigationDashboardStateHidden;
-  GetFramework().CloseRouting();
   self.disableStandbyOnRouteFollowing = NO;
   [MapsAppDelegate theApp].routingPlaneMode = MWMRoutingPlaneModeNone;
   [RouteState remove];
   [self.menuController setInactive];
   [self resetRoutingPoint];
   [self navigationDashBoardDidUpdate];
+  [MapsAppDelegate resetToDefaultMapStyle];
+  GetFramework().CloseRouting();
 }
 
 - (void)swapPointsAndRebuildRouteIfPossible

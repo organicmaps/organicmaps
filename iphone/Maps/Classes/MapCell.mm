@@ -2,6 +2,7 @@
 #import "MapCell.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
+#import "UIImageView+Coloring.h"
 
 @interface MapCell () <ProgressViewDelegate>
 
@@ -46,9 +47,9 @@
   self.progressView.failedMode = NO;
 
   if (options == MapOptions::Map)
-    self.routingImageView.image = [UIImage imageNamed:@"DownloadRoutingButton"];
+    self.routingImageView.mwm_name = @"ic_routing_get";
   else
-    self.routingImageView.image = [UIImage imageNamed:@"RoutingDownloadedButton"];
+    self.routingImageView.mwm_name = @"ic_routing_ok";
 
   switch (status)
   {
@@ -59,13 +60,13 @@
       else
        self.statusLabel.text = L(@"downloader_status_outdated").uppercaseString;
 
-      self.statusLabel.textColor = [UIColor colorWithColorCode:@"179E4D"];
+      self.statusLabel.textColor = [UIColor linkBlue];
       [self setProgressMode:NO withAnimatedLayout:animated];
       break;
 
     case TStatus::EInQueue:
     case TStatus::EDownloading:
-      self.statusLabel.textColor = [UIColor colorWithColorCode:@"999999"];
+      self.statusLabel.textColor = [UIColor blackHintText];
       [self setDownloadProgress:self.downloadProgress animated:animated];
       if (status == TStatus::EInQueue)
         self.statusLabel.text = L(@"downloader_queued").uppercaseString;
@@ -74,7 +75,7 @@
     case TStatus::EOnDisk:
     {
       self.statusLabel.text = L(@"downloader_downloaded").uppercaseString;
-      self.statusLabel.textColor = [UIColor colorWithColorCode:@"999999"];
+      self.statusLabel.textColor = [UIColor blackHintText];
       if (animated)
       {
         [self alignSubviews];
@@ -93,7 +94,7 @@
     case TStatus::EDownloadFailed:
       self.progressView.failedMode = YES;
       self.statusLabel.text = L(@"downloader_retry").uppercaseString;
-      self.statusLabel.textColor = [UIColor colorWithColorCode:@"FF4436"];
+      self.statusLabel.textColor = [UIColor red];
       [self setProgressMode:YES withAnimatedLayout:animated];
       break;
 
@@ -156,7 +157,7 @@
 
   CGFloat const sizeLabelMinY = self.statusLabel.maxY;
   self.sizeLabel.frame = CGRectMake(self.contentView.width - [self rightOffset] - self.sizeLabel.width, sizeLabelMinY, self.sizeLabel.width, 16);
-  self.sizeLabel.textColor = [UIColor colorWithColorCode:@"999999"];
+  self.sizeLabel.textColor = [UIColor blackHintText];
   self.sizeLabel.hidden = self.parentMode;
 
   CGFloat const rightLabelsMaxWidth = self.parentMode ? 10 : MAX(self.statusLabel.width, self.sizeLabel.width);
@@ -270,7 +271,7 @@
   {
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.textColor = [UIColor blackColor];
+    _titleLabel.textColor = [UIColor blackPrimaryText];
     _titleLabel.font = [UIFont regular17];
   }
   return _titleLabel;
@@ -315,7 +316,10 @@
 - (UIImageView *)routingImageView
 {
   if (!_routingImageView)
-    _routingImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DownloadRoutingButton"]];
+  {
+    _routingImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_routing_get_light"]];
+    _routingImageView.mwm_name = @"ic_routing_get";
+  }
   return _routingImageView;
 }
 

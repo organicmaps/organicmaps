@@ -24,6 +24,7 @@
 + (UIColor *)buttonDisabledBlueText;
 + (UIColor *)buttonHighlightedBlueText;
 + (UIColor *)alertBackground;
++ (UIColor *)blackOpaque;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 

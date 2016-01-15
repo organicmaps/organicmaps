@@ -241,6 +241,6 @@
         <image name="ic_nav_bar_close" width="44" height="44"/>
         <image name="ic_voice_off" width="28" height="28"/>
         <image name="ic_voice_on" width="28" height="28"/>
-        <image name="slight_left" width="96" height="96"/>
+        <image name="slight_left" width="64" height="64"/>
     </resources>
 </document>

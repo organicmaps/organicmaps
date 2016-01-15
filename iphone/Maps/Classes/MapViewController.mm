@@ -36,7 +36,6 @@
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 extern NSString * const kUDWhatsNewWasShown = @"WhatsNewWith3dAndPerspectiveWasShown";
-extern NSString * const kUDAutoNightMode;
 extern char const * kAdForbiddenSettingsKey;
 extern char const * kAdServerForbiddenKey;
 
@@ -143,12 +142,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     [self showPopover];
     [self updateRoutingInfo];
 
-    static dispatch_once_t onceToken = 0;
-    dispatch_once(&onceToken, ^
-    {
-      if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightMode])
-        [MapsAppDelegate.theApp changeMapStyleIfNedeed];
-    });
     if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
       [self restoreRoute];
   }
@@ -423,6 +416,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)refresh
 {
 //  [super refresh];
+  [MapsAppDelegate customizeAppearance];
   [self.controlsManager refresh];
 }
 

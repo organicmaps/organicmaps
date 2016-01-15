@@ -249,37 +249,62 @@ void InitLocalizedStrings()
 
 - (void)determineMapStyle
 {
-  [UIColor setNightMode:GetFramework().GetMapStyle() == MapStyleDark];
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightMode])
+  GetFramework().SetMapStyle(MapStyleClear);
+  [UIColor setNightMode:NO];
+  if ([MapsAppDelegate isAutoNightMode])
     [self startMapStyleChecker];
+}
+
++ (void)setAutoNightModeOn:(BOOL)on
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setBool:on forKey:kUDAutoNightMode];
+  [ud synchronize];
+}
+
++ (BOOL)isAutoNightMode
+{
+  return [[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightMode];
 }
 
 - (void)startMapStyleChecker
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setBool:YES forKey:kUDAutoNightMode];
-  [ud synchronize];
-  self.mapStyleSwitchTimer = [NSTimer scheduledTimerWithTimeInterval:(30 * 60 * 60) target:self selector:@selector(changeMapStyleIfNedeed) userInfo:nil repeats:YES];
+  NSAssert([MapsAppDelegate isAutoNightMode], @"Invalid auto switcher's state");
+  self.mapStyleSwitchTimer = [NSTimer scheduledTimerWithTimeInterval:(1 * 60) target:[MapsAppDelegate class]
+                                                            selector:@selector(changeMapStyleIfNedeed) userInfo:nil
+                                                             repeats:YES];
 }
 
 - (void)stopMapStyleChecker
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setBool:NO forKey:kUDAutoNightMode];
-  [ud synchronize];
   [self.mapStyleSwitchTimer invalidate];
 }
 
-- (void)changeMapStyleIfNedeed
++ (void)resetToDefaultMapStyle
 {
-  CLLocation * l = self.m_locationManager.lastLocation;
-  if (!l)
+  MapsAppDelegate * app = MapsAppDelegate.theApp;
+  auto & f = GetFramework();
+  auto style = f.GetMapStyle();
+  if (style == MapStyleClear || style == MapStyleLight)
     return;
-  auto const dayTime = GetDayTime(static_cast<time_t>(NSDate.date.timeIntervalSince1970), l.coordinate.latitude, l.coordinate.longitude);
-  dispatch_async(dispatch_get_main_queue(), ^
+  f.SetMapStyle(MapStyleClear);
+  [UIColor setNightMode:NO];
+  [static_cast<ViewController *>(app.mapViewController.navigationController.topViewController) refresh];
+  [app stopMapStyleChecker];
+}
+
++ (void)changeMapStyleIfNedeed
+{
+  NSAssert([MapsAppDelegate isAutoNightMode], @"Invalid auto switcher's state");
+  auto & f = GetFramework();
+  MapsAppDelegate * app = MapsAppDelegate.theApp;
+  CLLocation * l = app.m_locationManager.lastLocation;
+  if (!l || !f.IsRoutingActive())
+    return;
+  dispatch_async(dispatch_get_main_queue(), [&f, l, self, app]
   {
-    auto & f = GetFramework();
-    ViewController * vc = static_cast<ViewController *>(self.mapViewController.navigationController.topViewController);
+    auto const dayTime = GetDayTime(static_cast<time_t>(NSDate.date.timeIntervalSince1970), l.coordinate.latitude, l.coordinate.longitude);
+    ViewController * vc = static_cast<ViewController *>(app.mapViewController.navigationController.topViewController);
     auto style = f.GetMapStyle();
     switch (dayTime)
     {

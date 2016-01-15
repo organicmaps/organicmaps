@@ -12,7 +12,6 @@
 
 - (void)refresh
 {
-  [MapsAppDelegate customizeAppearance];
   [self.navigationController.navigationBar refresh];
   [self.view refresh];
   if (![self isKindOfClass:[MapViewController class]])

@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "routing_get_mdpi.png"
+      "filename" : "ic_routing_ok_light.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "routing_get_xhdpi.png"
+      "filename" : "ic_routing_ok_light@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "routing_get_xxhdpi.png"
+      "filename" : "ic_routing_ok_light@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
