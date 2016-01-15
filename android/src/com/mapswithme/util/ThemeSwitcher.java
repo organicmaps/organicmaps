@@ -6,6 +6,7 @@ import android.location.Location;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.concurrency.UiThread;
 
 public final class ThemeSwitcher
@@ -37,19 +38,23 @@ public final class ThemeSwitcher
     @Override
     public void run()
     {
-      String theme;
-      Location last = LocationHelper.INSTANCE.getLastLocation();
-      if (last == null)
-      {
-        LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
-        theme = Config.getCurrentUiTheme();
-      }
-      else
-      {
-        LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
+      String theme = ThemeUtils.THEME_DEFAULT;
 
-        boolean day = Framework.nativeIsDayTime(System.currentTimeMillis() / 1000, last.getLatitude(), last.getLongitude());
-        theme = (day ? ThemeUtils.THEME_DEFAULT : ThemeUtils.THEME_NIGHT);
+      if (RoutingController.get().isNavigating())
+      {
+        Location last = LocationHelper.INSTANCE.getLastLocation();
+        if (last == null)
+        {
+          LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
+          theme = Config.getCurrentUiTheme();
+        }
+        else
+        {
+          LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
+
+          boolean day = Framework.nativeIsDayTime(System.currentTimeMillis() / 1000, last.getLatitude(), last.getLongitude());
+          theme = (day ? ThemeUtils.THEME_DEFAULT : ThemeUtils.THEME_NIGHT);
+        }
       }
 
       Config.setCurrentUiTheme(theme);
