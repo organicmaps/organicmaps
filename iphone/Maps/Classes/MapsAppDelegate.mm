@@ -260,6 +260,8 @@ void InitLocalizedStrings()
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setBool:on forKey:kUDAutoNightMode];
   [ud synchronize];
+  if (!on)
+    [MapsAppDelegate.theApp stopMapStyleChecker];
 }
 
 + (BOOL)isAutoNightMode
@@ -270,7 +272,7 @@ void InitLocalizedStrings()
 - (void)startMapStyleChecker
 {
   NSAssert([MapsAppDelegate isAutoNightMode], @"Invalid auto switcher's state");
-  self.mapStyleSwitchTimer = [NSTimer scheduledTimerWithTimeInterval:(1 * 60) target:[MapsAppDelegate class]
+  self.mapStyleSwitchTimer = [NSTimer scheduledTimerWithTimeInterval:(30 * 60) target:[MapsAppDelegate class]
                                                             selector:@selector(changeMapStyleIfNedeed) userInfo:nil
                                                              repeats:YES];
 }
