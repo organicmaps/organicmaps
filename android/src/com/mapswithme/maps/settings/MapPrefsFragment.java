@@ -107,7 +107,7 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
     });
 
     String curTheme = Config.getUiThemeSettings();
-    ListPreference stylePref = (ListPreference)findPreference(getString(R.string.pref_map_style));
+    final ListPreference stylePref = (ListPreference)findPreference(getString(R.string.pref_map_style));
     stylePref.setValue(curTheme);
     stylePref.setSummary(stylePref.getEntry());
     stylePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
@@ -122,6 +122,16 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
         ThemeSwitcher.restart();
         Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE,
                                        Statistics.params().add(Statistics.EventParam.NAME, themeName));
+
+        UiThread.runLater(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            stylePref.setSummary(stylePref.getEntry());
+          }
+        });
+
         return true;
       }
     });
