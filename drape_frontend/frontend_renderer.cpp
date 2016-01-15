@@ -1005,7 +1005,7 @@ void FrontendRenderer::MergeBuckets()
     dp::GLState state = group->GetState();
     if (state.GetDepthLayer() == dp::GLState::GeometryLayer && !group->IsPendingOnDelete())
     {
-      MergedGroupKey const key = MergedGroupKey(state, group->GetTileKey());
+      MergedGroupKey const key(state, group->GetTileKey());
       forMerge[key].push_back(move(m_renderGroups[i]));
     }
     else
