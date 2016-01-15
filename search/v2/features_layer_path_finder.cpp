@@ -56,22 +56,18 @@ bool GetPath(uint32_t id, vector<FeaturesLayer const *> const & layers, TParentG
              IntersectionResult & result)
 {
   result.Clear();
+
   size_t level = 0;
+  TParentGraph::const_iterator it;
   do
   {
-    ASSERT_LESS(level, layers.size(), ());
-
     result.Set(layers[level]->m_type, id);
-
-    if (level >= parent.size())
-      return true;
-
-    auto const it = parent.find(id);
-    if (it == parent.cend())
-      return false;
-    id = it->second;
     ++level;
-  } while (true);
+    it = parent.find(id);
+    if (it != parent.cend())
+      id = it->second;
+  } while (level < layers.size() && it != parent.cend());
+  return level == layers.size();
 }
 }  // namespace
 
