@@ -49,6 +49,10 @@
 namespace qt
 {
 
+// Defined in osm_auth_dialog.cpp.
+extern char const * kTokenKeySetting;
+extern char const * kTokenSecretSetting;
+
 MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this))
 {
   // Always runs on the first desktop
@@ -91,6 +95,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   helpMenu->addAction(tr("About"), this, SLOT(OnAbout()));
   helpMenu->addAction(tr("Preferences"), this, SLOT(OnPreferences()));
   helpMenu->addAction(tr("OpenStreetMap Login"), this, SLOT(OnLoginMenuItem()));
+  helpMenu->addAction(tr("Upload Edits"), this, SLOT(OnUploadEditsMenuItem()));
 #else
   {
     // create items in the system menu
@@ -369,6 +374,17 @@ void MainWindow::OnLoginMenuItem()
 {
   OsmAuthDialog dlg(this);
   dlg.exec();
+}
+
+void MainWindow::OnUploadEditsMenuItem()
+{
+  string key, secret;
+  Settings::Get(kTokenKeySetting, key);
+  Settings::Get(kTokenSecretSetting, secret);
+  if (key.empty() || secret.empty())
+    OnLoginMenuItem();
+  else
+    osm::Editor::Instance().UploadChanges(key, secret, {{"created_by", "MAPS.ME " OMIM_OS_NAME}});
 }
 
 void MainWindow::OnBeforeEngineCreation()

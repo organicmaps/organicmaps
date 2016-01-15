@@ -69,6 +69,7 @@ namespace qt
     void OnMyPosition();
     void OnSearchButtonClicked();
     void OnLoginMenuItem();
+    void OnUploadEditsMenuItem();
 
     void OnBeforeEngineCreation();
   };
