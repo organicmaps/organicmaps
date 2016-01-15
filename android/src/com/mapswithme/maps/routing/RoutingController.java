@@ -458,9 +458,8 @@ public class RoutingController
     setBuildState(BuildState.NONE);
     setState(State.NONE);
 
-    Framework.nativeCloseRouting();
-
     ThemeSwitcher.restart();
+    Framework.nativeCloseRouting();
   }
 
   public boolean cancel()
