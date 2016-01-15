@@ -43,6 +43,16 @@ public:
   string ToString() const override;
 };
 
+class TestCountry : public TestFeature
+{
+public:
+  TestCountry(m2::PointD const & center, string const & name, string const & lang);
+
+  // TestFeature overrides:
+  void Serialize(FeatureBuilder1 & fb) const override;
+  string ToString() const override;
+};
+
 class TestCity : public TestFeature
 {
 public:

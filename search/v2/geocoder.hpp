@@ -137,9 +137,9 @@ private:
   // Tries to find all cities in a search query and then performs
   // matching of streets in found cities.
   //
-  // *NOTE* that cities will be looked for in a World.mwm, so, for
-  // now, villages won't be found on this stage.  TODO (@y, @m, @vng):
-  // try to add villages to World.mwm.
+  // *NOTE* those cities will be looked for in World.mwm, so, for now,
+  // villages won't be found on this stage.  TODO (@y, @m, @vng): try
+  // to add villages to World.mwm.
   void MatchCities();
 
   // Tries to do geocoding without localities, ie. find POIs,

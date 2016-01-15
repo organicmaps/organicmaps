@@ -74,6 +74,10 @@ UNIT_TEST(SearchQueryV2_Smoke)
 
   TestSearchEngine engine("en", make_unique<storage::CountryInfoGetterForTesting>(countries),
                           make_unique<TestSearchQueryFactory>());
+  auto const wonderlandCountry =
+      make_shared<TestCountry>(m2::PointD(10, 10), "Wonderland", "en");
+  auto const losAlamosCity =
+      make_shared<TestCity>(m2::PointD(10, 10), "Los Alamos", "en", 100 /* rank */);
   auto const mskCity = make_shared<TestCity>(m2::PointD(0, 0), "Moscow", "en", 100 /* rank */);
   auto const busStop = make_shared<TestPOI>(m2::PointD(0, 0), "Bus stop", "en");
   auto const tramStop = make_shared<TestPOI>(m2::PointD(0.0001, 0.0001), "Tram stop", "en");
@@ -94,20 +98,21 @@ UNIT_TEST(SearchQueryV2_Smoke)
   auto const bohrStreet3 = make_shared<TestStreet>(
       vector<m2::PointD>{m2::PointD(10.002, 9.998), m2::PointD(10.003, 9.997)}, "Bohr street",
       "en");
-  auto const feynmanHouse = make_shared<TestBuilding>(m2::PointD(10, 10), "Feynman house 1 unit 1",
+  auto const feynmanHouse = make_shared<TestBuilding>(m2::PointD(10, 10), "Feynman house",
                                                       "1 unit 1", *feynmanStreet, "en");
-  auto const bohrHouse = make_shared<TestBuilding>(m2::PointD(10, 10), "Bohr house 1 unit 1 ",
-                                                   "1 unit 1", *bohrStreet1, "en");
+  auto const bohrHouse =
+      make_shared<TestBuilding>(m2::PointD(10, 10), "Bohr house", "1 unit 1", *bohrStreet1, "en");
 
   auto const hilbertHouse = make_shared<TestBuilding>(
       vector<m2::PointD>{
           {10.0005, 10.0005}, {10.0006, 10.0005}, {10.0006, 10.0006}, {10.0005, 10.0006}},
-      "Hilbert house 1 unit 2", "1 unit 2", *bohrStreet1, "en");
+      "Hilbert house", "1 unit 2", *bohrStreet1, "en");
   auto const lantern1 = make_shared<TestPOI>(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
   auto const lantern2 = make_shared<TestPOI>(m2::PointD(10.0006, 10.0005), "lantern 2", "en");
 
   {
     TestMwmBuilder builder(wonderland, feature::DataHeader::country);
+    builder.Add(*losAlamosCity);
     builder.Add(*mskCity);
     builder.Add(*busStop);
     builder.Add(*tramStop);
@@ -128,6 +133,8 @@ UNIT_TEST(SearchQueryV2_Smoke)
 
   {
     TestMwmBuilder builder(testWorld, feature::DataHeader::world);
+    builder.Add(*wonderlandCountry);
+    builder.Add(*losAlamosCity);
     builder.Add(*mskCity);
   }
 
@@ -211,6 +218,14 @@ UNIT_TEST(SearchQueryV2_Smoke)
     request.Wait();
     vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, lantern1),
                                               make_shared<ExactMatch>(wonderlandId, lantern2)};
+    TEST(MatchResults(engine, rules, request.Results()), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "wonderland los alamos feynman 1 unit 1 ", "en",
+                              search::SearchParams::ALL, viewport);
+    request.Wait();
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, feynmanHouse)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 }

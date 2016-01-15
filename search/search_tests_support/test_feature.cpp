@@ -61,6 +61,26 @@ string TestPOI::ToString() const
   return os.str();
 }
 
+// TestCountry -------------------------------------------------------------------------------------
+TestCountry::TestCountry(m2::PointD const & center, string const & name, string const & lang)
+  : TestFeature(center, name, lang)
+{
+}
+
+void TestCountry::Serialize(FeatureBuilder1 & fb) const
+{
+  TestFeature::Serialize(fb);
+  auto const & classificator = classif();
+  fb.SetType(classificator.GetTypeByPath({"place", "country"}));
+}
+
+string TestCountry::ToString() const
+{
+  ostringstream os;
+  os << "TestCountry [" << m_name << ", " << m_lang << ", " << DebugPrint(m_center) << "]";
+  return os.str();
+}
+
 // TestCity ----------------------------------------------------------------------------------------
 TestCity::TestCity(m2::PointD const & center, string const & name, string const & lang,
                    uint8_t rank)
