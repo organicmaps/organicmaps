@@ -99,7 +99,7 @@ public:
   bool IsCurrentOnEnd() const;
 
   /// Add country name if we have no country filename to make route
-  void AddAbsentCountry(string const & name) { m_absentCountries.insert(name); }
+  void AddAbsentCountry(string const & name);
 
   /// Get absent file list of a routing files for shortest path finding
   set<string> const & GetAbsentCountries() const { return m_absentCountries; }

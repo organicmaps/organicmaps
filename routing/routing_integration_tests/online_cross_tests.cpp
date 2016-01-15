@@ -8,8 +8,13 @@ namespace
 UNIT_TEST(OnlineCrossFetcherSmokeTest)
 {
   integration::IRouterComponents & routerComponents  = integration::GetOsrmComponents();
-  TestOnlineFetcher({61.76, 34.45}, {45.07, 38.94},
-                    {"Russia_Central", "Russia_Southern", "Russia_Northwestern"}, routerComponents);
+  TestOnlineFetcher(
+      {61.76, 34.45}, {45.07, 38.94},
+      {"Russia_Central", "Russia_Central", "Russia_Central", "Russia_Central", "Russia_Central",
+       "Russia_Central", "Russia_Central", "Russia_Central", "Russia_Central", "Russia_Central",
+       "Russia_Central", "Russia_Central", "Russia_Central", "Russia_Central", "Russia_Southern",
+       "Russia_Southern", "Russia_Northwestern", "Russia_Northwestern"},
+      routerComponents);
 }
 
 UNIT_TEST(OnlineRussiaNorthToSouthTest)

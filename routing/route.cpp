@@ -42,6 +42,11 @@ void Route::Swap(Route & rhs)
   m_absentCountries.swap(rhs.m_absentCountries);
 }
 
+void Route::AddAbsentCountry(string const & name)
+{
+  if (!name.empty()) m_absentCountries.insert(name);
+}
+
 double Route::GetTotalDistanceMeters() const
 {
   return m_poly.GetTotalDistanceM();

@@ -231,7 +231,10 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     ResultCode const code = startMapping->GetError();
     if (code != NoError)
     {
-      route.AddAbsentCountry(startMapping->GetCountryName());
+      string const name = startMapping->GetCountryName();
+      if (name.empty())
+        return IRouter::ResultCode::StartPointNotFound;
+      route.AddAbsentCountry(name);
       return code;
     }
     return IRouter::StartPointNotFound;
@@ -241,7 +244,10 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     ResultCode const code = targetMapping->GetError();
     if (code != NoError)
     {
-      route.AddAbsentCountry(targetMapping->GetCountryName());
+      string const name = targetMapping->GetCountryName();
+      if (name.empty())
+        return IRouter::EndPointNotFound;
+      route.AddAbsentCountry(name);
       return code;
     }
     return IRouter::EndPointNotFound;
