@@ -388,8 +388,35 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   NSAssert(banners.count != 0, @"Banners collection can not be empty!");
   [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatMoreApps}];
   self.state = self.restoreState;
-  [self.controller.appWallAd handleClick:[banners firstObject]
-                          withController:self.controller];
+  [self.controller.appWallAd showWithController:self.controller onComplete:^
+  {
+    [[Statistics instance] logEvent:kStatMyTargetAppsDisplayed withParameters:@{kStatCount : @(banners.count)}];
+    NSMutableArray<NSString *> * appNames = [@[] mutableCopy];
+    for (MTRGNativeAppwallBanner * banner in banners)
+    {
+      [[Statistics instance] logEvent:kStatMyTargetAppsDisplayed withParameters:@{kStatName : banner.title}];
+      [appNames addObject:banner.title];
+    }
+    NSString * appNamesString = [appNames componentsJoinedByString:@";"];
+    [Alohalytics logEvent:kStatMyTargetAppsDisplayed
+           withDictionary:@{
+             kStatCount : @(banners.count),
+             kStatName : appNamesString
+           }];
+  }
+  onError:^(NSError * error)
+  {
+    NSMutableArray<NSString *> * appNames = [@[] mutableCopy];
+    for (MTRGNativeAppwallBanner * banner in banners)
+      [appNames addObject:banner.title];
+    NSString * appNamesString = [appNames componentsJoinedByString:@";"];
+    [[Statistics instance] logEvent:kStatMyTargetAppsDisplayed
+                     withParameters:@{
+                       kStatError : error,
+                       kStatCount : @(banners.count),
+                       kStatName : appNamesString
+                     }];
+  }];
 }
 
 - (IBAction)locationButtonTouchUpInside:(UIButton *)sender
