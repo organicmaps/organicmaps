@@ -68,7 +68,7 @@ NSString * getVerifier(NSString * urlString)
 - (void)loadAuthorizationPage
 {
   [self startSpinner];
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
   {
     // TODO(AlexZ): Change to production.
     OsmOAuth auth = OsmOAuth::IZServerAuth();
@@ -115,7 +115,7 @@ NSString * getVerifier(NSString * urlString)
 - (void)checkAuthorization:(NSString *)verifier
 {
   [self startSpinner];
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
   {
     TKeySecret outKeySecret;
     // TODO(AlexZ): Change to production.
