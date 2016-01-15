@@ -355,7 +355,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FlushRouteMessage> msg = message;
       drape_ptr<RouteData> routeData = msg->AcceptRouteData();
-      m2::PointD const startPoint = routeData->m_sourcePolyline.Front();
       m2::PointD const finishPoint = routeData->m_sourcePolyline.Back();
       m_routeRenderer->SetRouteData(move(routeData), make_ref(m_gpuProgramManager));
       if (!m_routeRenderer->GetFinishPoint())
