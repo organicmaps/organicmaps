@@ -712,6 +712,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
 bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
 {
   size_t touchCount = GetValidTouchesCount(touches);
+  UNUSED_VALUE(touchCount);
   bool isMapTouch = true;
   switch (m_state)
   {

@@ -315,6 +315,7 @@ void RouteShape::CacheRouteSign(ref_ptr<dp::TextureManager> mng, RouteSignData &
     provider.InitStream(0 /* stream index */, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(data));
 
     dp::IndicesRange indices = batcher.InsertTriangleStrip(state, make_ref(&provider), nullptr);
+    UNUSED_VALUE(indices);
     ASSERT(indices.IsValid(), ());
   }
 }

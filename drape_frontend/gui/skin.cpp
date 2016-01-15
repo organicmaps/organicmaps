@@ -10,7 +10,9 @@ namespace gui
 
 namespace
 {
-
+  
+#ifdef DEBUG
+  
 bool IsSimple(dp::Anchor anchor)
 {
   return anchor >= 0 && anchor <= 8;
@@ -20,6 +22,8 @@ bool IsAnchor(dp::Anchor anchor)
 {
   return anchor >= 0 && anchor <= 10;
 }
+  
+#endif
 
 dp::Anchor ParseValueAnchor(string const & value)
 {
