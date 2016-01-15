@@ -1422,7 +1422,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NyD-Tz-Vq4">
                                         <rect key="frame" x="16" y="1" width="568" height="44"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="email_or_username"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
@@ -1446,7 +1446,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e51-Qs-t6a">
                                         <rect key="frame" x="16" y="44" width="568" height="44"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="password_8_chars_min"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
@@ -1844,7 +1844,7 @@ the world. Join us!</string>
                                             <constraint firstAttribute="height" constant="44" id="4Cz-dF-zCt"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="email_address"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
@@ -1870,7 +1870,7 @@ the world. Join us!</string>
                                             <constraint firstAttribute="height" constant="44" id="PFF-yv-tAC"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="username"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
@@ -1896,7 +1896,7 @@ the world. Join us!</string>
                                             <constraint firstAttribute="height" constant="44" id="07H-dg-bQ6"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="password_8_chars_min"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
@@ -2120,7 +2120,7 @@ the world. Join us!</string>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XfZ-9h-gw0">
                                         <rect key="frame" x="16" y="1" width="568" height="43"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="email_address"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
