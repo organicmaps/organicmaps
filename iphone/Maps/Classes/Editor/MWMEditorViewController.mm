@@ -1,3 +1,4 @@
+#import "MWMAuthorizationCommon.h"
 #import "MWMCuisineEditorViewController.h"
 #import "MWMEditorCommon.h"
 #import "MWMEditorSelectTableViewCell.h"
@@ -8,6 +9,7 @@
 #import "MWMOpeningHoursEditorViewController.h"
 #import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMStreetEditorViewController.h"
+#import "Statistics.h"
 
 #include "std/algorithm.hpp"
 
@@ -93,10 +95,17 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  if (self.needsReload)
+  [self checkAuthorization];
+  [self reloadData];
+}
+
+- (void)checkAuthorization
+{
+  if (!MWMAuthorizationHaveCredentials())
   {
-    [self.tableView reloadData];
-    self.needsReload = NO;
+    [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
+                     withParameters:@{kStatValue : kStatAuthorization}];
+    [self performSegueWithIdentifier:@"Editor2AuthorizationSegue" sender:nil];
   }
 }
 
@@ -161,6 +170,15 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 }
 
 #pragma mark - Table
+
+- (void)reloadData
+{
+  if (self.needsReload)
+  {
+    [self.tableView reloadData];
+    self.needsReload = NO;
+  }
+}
 
 - (void)configTable
 {
