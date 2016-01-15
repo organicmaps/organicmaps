@@ -90,7 +90,6 @@ if [ -f "$COASTS" ]; then
   cp "$COASTS" "$INTDIR/WorldCoasts.geom"
   GENERATE_EVERYTHING="$GENERATE_EVERYTHING --emit_coasts=true --split_by_polygons=true"
 fi
-echo "src type: $SOURCE_TYPE"
 # Convert everything to o5m
 if [ "$SOURCE_TYPE" == "pbf" -o "$SOURCE_TYPE" == "bz2" -o "$SOURCE_TYPE" == "osm" ]; then
   find_osmconvert
