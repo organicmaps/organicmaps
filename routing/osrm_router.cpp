@@ -316,7 +316,11 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     Route::TTimes times;
     vector<m2::PointD> points;
 
-    MakeTurnAnnotation(routingResult, startMapping, delegate, points, turnsDir, times);
+    if (MakeTurnAnnotation(routingResult, startMapping, delegate, points, turnsDir, times) != NoError)
+    {
+      LOG(LWARNING, ("Can't load road path data from disk!"));
+      return RouteNotFound;
+    }
 
     route.SetGeometry(points.begin(), points.end());
     route.SetTurnInstructions(turnsDir);
@@ -467,6 +471,10 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
       points.insert(points.end(), loadedSegment.m_path.begin(), loadedSegment.m_path.end());
     }
   }
+
+  // Path found. Points will be replaced by start and end edges points.
+  if (points.size() == 1)
+    points.push_back(points.front());
 
   if (points.size() < 2)
     return RouteNotFound;

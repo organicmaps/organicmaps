@@ -15,6 +15,14 @@ namespace
         MercatorBounds::FromLatLon(19.172889999999998878, 30.473150000000000404), 7250.);
   }
 
+  UNIT_TEST(MoscowShortRoadUnpacking)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+          integration::GetOsrmComponents(),
+          MercatorBounds::FromLatLon(55.66218, 37.63253), {0., 0.},
+          MercatorBounds::FromLatLon(55.66237, 37.63560), 101.);
+  }
+
   // Node filtering test. SVO has many restricted service roads that absent in a OSRM index.
   UNIT_TEST(MoscowToSVOAirport)
   {
