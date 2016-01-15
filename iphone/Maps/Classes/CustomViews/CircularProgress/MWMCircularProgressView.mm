@@ -60,12 +60,17 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   [self setColor:clearColor forState:MWMCircularProgressStateCompleted];
 }
 
+- (void)refresh
+{
+  [self setupColors];
+}
+
 - (void)setupAnimationLayers
 {
   self.backgroundLayer = [CAShapeLayer layer];
   self.progressLayer = [CAShapeLayer layer];
 
-  [self refresh];
+  [self refreshProgress];
   [self.layer addSublayer:self.backgroundLayer];
   [self.layer addSublayer:self.progressLayer];
 }
@@ -73,18 +78,18 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 - (void)setImage:(nonnull UIImage *)image forState:(MWMCircularProgressState)state
 {
   self.images[@(state)] = image;
-  [self refresh];
+  [self refreshProgress];
 }
 
 - (void)setColor:(nonnull UIColor *)color forState:(MWMCircularProgressState)state
 {
   self.colors[@(state)] = color;
-  [self refresh];
+  [self refreshProgress];
 }
 
 #pragma mark - Progress
 
-- (void)refresh
+- (void)refreshProgress
 {
   self.backgroundLayer.fillColor = self.progressLayer.fillColor = UIColor.clearColor.CGColor;
   self.backgroundLayer.lineWidth = self.progressLayer.lineWidth = kLineWidth;
@@ -193,7 +198,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   if (_state == state)
     return;
   _state = state;
-  [self refresh];
+  [self refreshProgress];
 }
 
 - (CGColorRef)backgroundColor
@@ -215,10 +220,10 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)setFrame:(CGRect)frame
 {
-  BOOL const needRefresh = !CGRectEqualToRect(self.frame, frame);
+  BOOL const needrefreshProgress = !CGRectEqualToRect(self.frame, frame);
   super.frame = frame;
-  if (needRefresh)
-    [self refresh];
+  if (needrefreshProgress)
+    [self refreshProgress];
 }
 
 - (BOOL)animating
