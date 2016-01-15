@@ -415,8 +415,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)refresh
 {
-//  [super refresh];
   [MapsAppDelegate customizeAppearance];
+  [self.navigationController.navigationBar refresh];
   [self.controlsManager refresh];
 }
 
