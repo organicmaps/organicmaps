@@ -1,5 +1,6 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationSignupViewController.h"
+#import "MWMAuthorizationWebViewLoginViewController.h"
 #import "UITextField+RuntimeAttributes.h"
 
 typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
@@ -141,6 +142,17 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
 {
   _isCorrect = isCorrect;
   [self setSignupOSMButtonEnabled:isCorrect == MWMFieldCorrectAll];
+}
+
+#pragma mark - Segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  MWMAuthorizationWebViewLoginViewController * dvc = segue.destinationViewController;
+  if ([self.signupGoogleButton isEqual:sender])
+    dvc.authType = MWMWebViewAuthorizationTypeGoogle;
+  else if ([self.signupFacebookButton isEqual:sender])
+    dvc.authType = MWMWebViewAuthorizationTypeFacebook;
 }
 
 @end

@@ -1695,7 +1695,10 @@ the world. Join us!</string>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0p-dL-PG8">
-                                <rect key="frame" x="16" y="454" width="568" height="34"/>
+                                <rect key="frame" x="16" y="455" width="568" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="V0s-db-tR6"/>
+                                </constraints>
                                 <state key="normal" title="Sign Up Now"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
@@ -1788,6 +1791,7 @@ the world. Join us!</string>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signupGoogle" destination="Ez0-RI-stE" eventType="touchUpInside" id="c1T-Gt-87R"/>
+                                    <segue destination="anB-7S-ebY" kind="custom" customClass="MWMSegue" id="c3T-gx-qb6"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_google" translatesAutoresizingMaskIntoConstraints="NO" id="RSi-uc-JmJ">
@@ -1815,6 +1819,7 @@ the world. Join us!</string>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signupFacebook" destination="Ez0-RI-stE" eventType="touchUpInside" id="TKi-nk-hHP"/>
+                                    <segue destination="anB-7S-ebY" kind="custom" customClass="MWMSegue" id="w48-2Y-VXA"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_facebook" translatesAutoresizingMaskIntoConstraints="NO" id="o80-wQ-rWg">
@@ -2079,7 +2084,7 @@ the world. Join us!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S4s-hB-rml" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2705" y="5153"/>
+            <point key="canvasLocation" x="2705" y="5187"/>
         </scene>
         <!--Authorization Forgotten Password View Controller-->
         <scene sceneID="IIi-gL-aXb">
@@ -2316,6 +2321,6 @@ the world. Join us!</string>
         <image name="login_google" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KS5-GV-A1p"/>
+        <segue reference="w48-2Y-VXA"/>
     </inferredMetricsTieBreakers>
 </document>
