@@ -73,6 +73,11 @@
   {
     [MapsAppDelegate setAutoNightModeOn:YES];
     [MapsAppDelegate changeMapStyleIfNedeed];
+    if (style == MapStyleClear || style == MapStyleLight)
+      return;
+    [UIColor setNightMode:NO];
+    f.SetMapStyle(MapStyleClear);
+    [self refresh];
   }
 }
 
