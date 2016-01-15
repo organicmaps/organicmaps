@@ -5,8 +5,6 @@
 
 #include "Framework.h"
 
-extern NSString * const kUDAutoNightMode;
-
 @interface MWMNightModeController ()
 
 @property (weak, nonatomic) IBOutlet SelectableCell * autoSwitch;
@@ -22,7 +20,7 @@ extern NSString * const kUDAutoNightMode;
 {
   [super viewDidLoad];
   self.title = L(@"pref_map_style_title");
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightMode])
+  if ([MapsAppDelegate isAutoNightMode])
   {
     self.autoSwitch.accessoryType = UITableViewCellAccessoryCheckmark;
     _selectedCell = self.autoSwitch;
@@ -52,7 +50,6 @@ extern NSString * const kUDAutoNightMode;
 
   _selectedCell = cell;
   auto & f = GetFramework();
-  auto app = MapsAppDelegate.theApp;
   auto const style = f.GetMapStyle();
   if ([cell isEqual:self.on])
   {
@@ -60,7 +57,7 @@ extern NSString * const kUDAutoNightMode;
       return;
     f.SetMapStyle(MapStyleDark);
     [UIColor setNightMode:YES];
-    [app stopMapStyleChecker];
+    [MapsAppDelegate setAutoNightModeOn:NO];
     [self refresh];
   }
   else if ([cell isEqual:self.off])
@@ -69,13 +66,13 @@ extern NSString * const kUDAutoNightMode;
       return;
     f.SetMapStyle(MapStyleClear);
     [UIColor setNightMode:NO];
-    [app stopMapStyleChecker];
+    [MapsAppDelegate setAutoNightModeOn:NO];
     [self refresh];
   }
   else if ([cell isEqual:self.autoSwitch])
   {
-    [app startMapStyleChecker];
-    [app changeMapStyleIfNedeed];
+    [MapsAppDelegate setAutoNightModeOn:YES];
+    [MapsAppDelegate changeMapStyleIfNedeed];
   }
 }
 
