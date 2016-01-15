@@ -545,7 +545,8 @@ public class RoutingController
     if (mStartPoint == null)
       Framework.nativeSetRouteStartPoint(0.0, 0.0, false);
     else
-      Framework.nativeSetRouteStartPoint(mStartPoint.getLat(), mStartPoint.getLon(), true);
+      Framework.nativeSetRouteStartPoint(mStartPoint.getLat(), mStartPoint.getLon(),
+                                         !(mStartPoint instanceof MapObject.MyPosition));
 
     if (mEndPoint == null)
       Framework.nativeSetRouteEndPoint(0.0, 0.0, false);

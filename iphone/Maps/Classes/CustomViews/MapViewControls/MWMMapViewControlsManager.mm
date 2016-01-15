@@ -297,7 +297,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self buildRoute];
 
   auto & f = GetFramework();
-  f.SetRouteStartPoint(from.Point(), true /* isValid */);
+  f.SetRouteStartPoint(from.Point(), !from.IsMyPosition());
   f.SetRouteFinishPoint(to.Point(), to != MWMRoutePoint::MWMRoutePointZero());
 }
 
@@ -311,7 +311,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     self.searchManager.state = MWMSearchManagerStateHidden;
   [self buildRoute];
   
-  GetFramework().SetRouteStartPoint(from.Point(), from != MWMRoutePoint::MWMRoutePointZero());
+  GetFramework().SetRouteStartPoint(from.Point(), from != MWMRoutePoint::MWMRoutePointZero() && !from.IsMyPosition());
 }
 
 - (void)buildRouteTo:(MWMRoutePoint const &)to
@@ -490,7 +490,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   auto & f = GetFramework();
   f.SetRouteStartPoint(self.routeSource.Point(),
-                       self.routeSource != MWMRoutePoint::MWMRoutePointZero());
+                       self.routeSource != MWMRoutePoint::MWMRoutePointZero() && !self.routeSource.IsMyPosition());
 
   f.SetRouteFinishPoint(self.routeDestination.Point(),
                         self.routeDestination != MWMRoutePoint::MWMRoutePointZero());
