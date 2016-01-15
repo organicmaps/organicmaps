@@ -172,7 +172,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     CalculatePhantomNodeForCross(mwmMapping, cross.startNode, m_pIndex, true /* forward */);
     CalculatePhantomNodeForCross(mwmMapping, cross.finalNode, m_pIndex, false /* forward */);
     if (!FindSingleRoute(cross.startNode, cross.finalNode, mwmMapping->m_dataFacade, routingResult))
-      return OsrmRouter::RouteNotFound;
+      return RouteNotFound;
 
     if (!Points.empty())
     {
@@ -186,7 +186,11 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     Route::TTurns mwmTurnsDir;
     Route::TTimes mwmTimes;
     vector<m2::PointD> mwmPoints;
-    MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmTurnsDir, mwmTimes);
+    if (MakeTurnAnnotation(routingResult, mwmMapping, delegate, mwmPoints, mwmTurnsDir, mwmTimes) != NoError)
+    {
+      LOG(LWARNING, ("Can't load road path data from disk for", mwmMapping->GetCountryName()));
+      return RouteNotFound;
+    }
     // Connect annotated route.
     auto const pSize = static_cast<uint32_t>(Points.size());
     for (auto turn : mwmTurnsDir)
@@ -213,7 +217,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
   route.SetGeometry(Points.begin(), Points.end());
   route.SetTurnInstructions(TurnsDir);
   route.SetSectionTimes(Times);
-  return OsrmRouter::NoError;
+  return NoError;
 }
 
 OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
