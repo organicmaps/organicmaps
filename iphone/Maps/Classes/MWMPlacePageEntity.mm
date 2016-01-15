@@ -195,7 +195,9 @@ void initFieldsMap()
         {
           [self deserializeCuisine:@(metadata.Get(type).c_str())];
           NSString * cuisine = [self getCellValue:MWMPlacePageCellTypeCuisine];
-          if (![self.category isEqualToString:cuisine])
+          if (self.category.length == 0)
+            self.category = cuisine;
+          else if (![self.category isEqualToString:cuisine])
             self.category = [NSString stringWithFormat:@"%@, %@", self.category, cuisine];
           break;
         }
@@ -208,11 +210,11 @@ void initFieldsMap()
         }
         case Metadata::FMD_OPERATOR:
         {
-          NSString const * bank = @(metadata.Get(type).c_str());
+          NSString * bank = @(metadata.Get(type).c_str());
           if (self.category.length)
             self.category = [NSString stringWithFormat:@"%@, %@", self.category, bank];
           else
-            self.category = [NSString stringWithFormat:@"%@", bank];
+            self.category = bank;
           break;
         }
         case Metadata::FMD_STARS:
