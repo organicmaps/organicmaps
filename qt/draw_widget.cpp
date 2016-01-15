@@ -496,20 +496,18 @@ void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
   };
 
   search::AddressInfo const info = m_framework->GetMercatorAddressInfo(m_framework->PtoG(pt));
-
-  // Get feature types under cursor.
-  vector<string> types;
-  m_framework->GetFeatureTypes(pt, types);
-  for (size_t i = 0; i < types.size(); ++i)
-    addStringFn(types[i]);
+  for (auto const & type : info.m_types)
+    addStringFn(type);
 
   menu.addSeparator();
 
-  // Format address and types.
   if (!info.m_name.empty())
+  {
     addStringFn(info.m_name);
+    menu.addSeparator();
+  }
+
   addStringFn(info.FormatAddress());
-  addStringFn(info.FormatTypes());
 
   menu.exec(e->pos());
 }

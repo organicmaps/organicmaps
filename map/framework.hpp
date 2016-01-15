@@ -466,11 +466,6 @@ public:
   /// Set correct viewport, parse API, show balloon.
   bool ShowMapForURL(string const & url);
 
-  /// Get classificator types for nearest features.
-  /// @param[in] pxPoint Current touch point in device pixel coordinates.
-  void GetFeatureTypes(m2::PointD const & pxPoint, vector<string> & types) const;
-  //@}
-
 private:
   // TODO(vng): Uncomment when needed.
   //void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;

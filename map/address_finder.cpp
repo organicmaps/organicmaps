@@ -12,7 +12,7 @@
 
 #include "platform/preferred_languages.hpp"
 
-
+/*
 namespace
 {
   class FeatureInfoT
@@ -180,7 +180,6 @@ void Framework::GetFeatureTypes(m2::PointD const & pxPoint, vector<string> & typ
   getTypes.GetFeatureTypes(5, types);
 }
 
-/*
 namespace
 {
   class DoGetAddressBase : public DoGetFeatureInfoBase
