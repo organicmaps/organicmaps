@@ -193,16 +193,16 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
   dp::GLState const & lState = l->GetState();
   dp::GLState const & rState = r->GetState();
 
-  if (!l->IsPendingOnDelete() && l->IsEmpty())
+  if (!l->CanBeDeleted() && l->IsEmpty())
     l->DeleteLater();
 
-  if (!r->IsPendingOnDelete() && r->IsEmpty())
+  if (!r->CanBeDeleted() && r->IsEmpty())
     r->DeleteLater();
 
-  bool lPendingOnDelete = l->IsPendingOnDelete();
-  bool rPendingOnDelete = r->IsPendingOnDelete();
+  bool const lCanBeDeleted = l->CanBeDeleted();
+  bool const rCanBeDeleted = r->CanBeDeleted();
 
-  if (rPendingOnDelete == lPendingOnDelete)
+  if (rCanBeDeleted == lCanBeDeleted)
   {
     dp::GLState::DepthLayer lDepth = lState.GetDepthLayer();
     dp::GLState::DepthLayer rDepth = rState.GetDepthLayer();
@@ -215,7 +215,7 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
       return l->GetOpacity() > r->GetOpacity();
   }
 
-  if (rPendingOnDelete)
+  if (rCanBeDeleted)
     return true;
 
   return false;
