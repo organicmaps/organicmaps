@@ -84,6 +84,20 @@ public:
   static IsStreetChecker const & Instance();
 };
 
+class IsVillageChecker : public BaseChecker
+{
+public:
+  IsVillageChecker();
+
+  template <typename TFn>
+  void ForEachType(TFn && fn) const
+  {
+    for_each(m_types.cbegin(), m_types.cend(), forward<TFn>(fn));
+  }
+
+  static IsVillageChecker const & Instance();
+};
+
 class IsOneWayChecker : public BaseChecker
 {
   IsOneWayChecker();

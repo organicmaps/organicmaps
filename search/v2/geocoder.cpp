@@ -10,9 +10,12 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_impl.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
+
+#include "storage/country_info_getter.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 
@@ -51,6 +54,7 @@ namespace
 {
 size_t constexpr kMaxNumCities = 5;
 size_t constexpr kMaxNumStates = 5;
+size_t constexpr kMaxNumVillages = 5;
 size_t constexpr kMaxNumCountries = 5;
 size_t constexpr kMaxNumLocalities = kMaxNumCities + kMaxNumStates + kMaxNumCountries;
 
@@ -124,6 +128,11 @@ public:
     return binary_search(m_categories.cbegin(), m_categories.cend(), category);
   }
 
+  vector<strings::UniString> const & GetCategories() const
+  {
+    return m_categories;
+  }
+
 private:
   StreetCategories()
   {
@@ -193,6 +202,22 @@ void GetEnglishName(FeatureType const & ft, string & name)
     else
       return;
   }
+}
+
+// todo(@m) Refactor at least here, or even at indexer/ftypes_matcher.hpp.
+vector<strings::UniString> GetVillageCategories()
+{
+  vector<strings::UniString> categories;
+
+  auto const & classificator = classif();
+  auto addCategory = [&](uint32_t type)
+  {
+    uint32_t const index = classificator.GetIndexForType(type);
+    categories.push_back(FeatureTypeToString(index));
+  };
+  ftypes::IsVillageChecker::Instance().ForEachType(addCategory);
+
+  return categories;
 }
 
 bool HasSearchIndex(MwmValue const & value) { return value.m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
@@ -288,6 +313,21 @@ TIt OrderCountries(Geocoder::Params const & params, TIt begin, TIt end)
   return stable_partition(begin, end, intersects);
 }
 
+// Performs pairwise union of adjacent bit vectors
+// until at most one bit vector is left.
+void UniteCBVs(vector<unique_ptr<coding::CompressedBitVector>> & cbvs)
+{
+  while (cbvs.size() > 1)
+  {
+    size_t i = 0;
+    size_t j = 0;
+    for (; j + 1 < cbvs.size(); j += 2)
+      cbvs[i++] = coding::CompressedBitVector::Union(*cbvs[j], *cbvs[j + 1]);
+    for (; j < cbvs.size(); ++j)
+      cbvs[i++] = move(cbvs[j]);
+    cbvs.resize(i);
+  }
+}
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
@@ -301,6 +341,7 @@ Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
   , m_model(SearchModel::Instance())
   , m_streets(nullptr)
   , m_matcher(nullptr)
+  , m_villages(nullptr)
   , m_finder(static_cast<my::Cancellable const &>(*this))
   , m_results(nullptr)
 {
@@ -411,8 +452,13 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
         // All MwmIds are unique during the application lifetime, so
         // it's ok to save MwmId.
         m_worldId = handle.GetId();
+        m_context = make_unique<MwmContext>(move(handle));
         if (HasSearchIndex(value))
-          FillLocalitiesTable(move(handle));
+        {
+          PrepareAddressFeatures();
+          FillLocalitiesTable();
+        }
+        m_context.reset();
       }
     }
 
@@ -446,6 +492,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
                        m_context.reset();
                        m_addressFeatures.clear();
                        m_streets = nullptr;
+                       m_villages = nullptr;
                      });
 
       auto it = m_matchersCache.find(m_context->m_id);
@@ -465,24 +512,18 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
                                                 m_params.m_viewport, m_params.m_scale);
       }
 
-      // Creates a cache of posting lists for each token.
-      m_addressFeatures.resize(m_numTokens);
-      for (size_t i = 0; i < m_numTokens; ++i)
+      PrepareAddressFeatures();
+
+      if (viewportCBV)
       {
-        PrepareRetrievalParams(i, i + 1);
-
-        m_addressFeatures[i] = Retrieval::RetrieveAddressFeatures(
-            m_context->m_id, m_context->m_value, cancellable, m_retrievalParams);
-        ASSERT(m_addressFeatures[i], ());
-
-        if (viewportCBV)
-        {
-          m_addressFeatures[i] =
-              coding::CompressedBitVector::Intersect(*m_addressFeatures[i], *viewportCBV);
-        }
+        for (size_t i = 0; i < m_numTokens; ++i)
+          m_addressFeatures[i] = coding::CompressedBitVector::Intersect(*m_addressFeatures[i], *viewportCBV);
       }
 
       m_streets = LoadStreets(*m_context);
+      m_villages = LoadVillages(*m_context);
+
+      FillVillageLocalities();
 
       m_usedTokens.assign(m_numTokens, false);
       MatchRegions(REGION_TYPE_COUNTRY);
@@ -505,6 +546,7 @@ void Geocoder::ClearCaches()
   m_addressFeatures.clear();
   m_matchersCache.clear();
   m_streetsCache.clear();
+  m_villagesCache.clear();
 }
 
 void Geocoder::PrepareRetrievalParams(size_t curToken, size_t endToken)
@@ -527,43 +569,50 @@ void Geocoder::PrepareRetrievalParams(size_t curToken, size_t endToken)
   }
 }
 
-void Geocoder::FillLocalitiesTable(MwmContext const & context)
+void Geocoder::PrepareAddressFeatures()
 {
-  // 1. Get cbv for every single token and prefix.
-  vector<unique_ptr<coding::CompressedBitVector>> tokensCBV;
+  m_addressFeatures.resize(m_numTokens);
   for (size_t i = 0; i < m_numTokens; ++i)
   {
     PrepareRetrievalParams(i, i + 1);
-    tokensCBV.push_back(Retrieval::RetrieveAddressFeatures(
-        context.m_id, context.m_value, static_cast<my::Cancellable const &>(*this),
-        m_retrievalParams));
+    m_addressFeatures[i] = Retrieval::RetrieveAddressFeatures(
+         m_context->m_id, m_context->m_value, static_cast<my::Cancellable const &>(*this), m_retrievalParams);
+    ASSERT(m_addressFeatures[i], ());
   }
+}
 
-  // 2. Get all locality candidates for the continuous token ranges.
-  vector<Locality> preLocalities;
+void Geocoder::FillLocalityCandidates(coding::CompressedBitVector const * filter,
+                                      size_t const maxNumLocalities,
+                                      vector<Locality> & preLocalities)
+{
+  preLocalities.clear();
 
-  for (size_t i = 0; i < m_numTokens; ++i)
+  for (size_t startToken = 0; startToken < m_numTokens; ++startToken)
   {
     CBVPtr intersection;
-    intersection.Set(tokensCBV[i].get(), false /*isOwner*/);
+    intersection.SetFull();
+    if (filter)
+      intersection.Intersect(filter);
+    intersection.Intersect(m_addressFeatures[startToken].get());
     if (intersection.IsEmpty())
       continue;
 
-    for (size_t j = i + 1; j <= m_numTokens; ++j)
+    for (size_t endToken = startToken + 1; endToken <= m_numTokens; ++endToken)
     {
       coding::CompressedBitVectorEnumerator::ForEach(*intersection.Get(),
                                                      [&](uint32_t featureId)
                                                      {
                                                        Locality l;
+                                                       l.m_countryId = m_context->m_id;
                                                        l.m_featureId = featureId;
-                                                       l.m_startToken = i;
-                                                       l.m_endToken = j;
+                                                       l.m_startToken = startToken;
+                                                       l.m_endToken = endToken;
                                                        preLocalities.push_back(l);
                                                      });
 
-      if (j < m_numTokens)
+      if (endToken < m_numTokens)
       {
-        intersection.Intersect(tokensCBV[j].get());
+        intersection.Intersect(m_addressFeatures[endToken].get());
         if (intersection.IsEmpty())
           break;
       }
@@ -580,7 +629,7 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
     return d;
   };
 
-  // 3. Unique preLocalities with featureId but leave the longest range if equal.
+  // Unique preLocalities with featureId but leave the longest range if equal.
   sort(preLocalities.begin(), preLocalities.end(),
        [&](Locality const & l1, Locality const & l2)
        {
@@ -596,10 +645,10 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
                              }),
                       preLocalities.end());
 
-  LazyRankTable rankTable(context.m_value);
+  LazyRankTable rankTable(m_context->m_value);
 
-  // 4. Leave most popular localities.
-  if (preLocalities.size() > kMaxNumLocalities)
+  // Leave the most popular localities.
+  if (preLocalities.size() > maxNumLocalities)
   {
     /// @todo Calculate match costs according to the exact locality name
     /// (for 'york' query "york city" is better than "new york").
@@ -613,17 +662,22 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
                     return d1 > d2;
                   return rankTable.Get(l1.m_featureId) > rankTable.Get(l2.m_featureId);
                 });
-    preLocalities.resize(kMaxNumLocalities);
+    preLocalities.resize(maxNumLocalities);
   }
+}
 
-  // 5. Fill result container.
+void Geocoder::FillLocalitiesTable()
+{
+  vector<Locality> preLocalities;
+  FillLocalityCandidates(nullptr, kMaxNumLocalities, preLocalities);
+
   size_t numCities = 0;
   size_t numStates = 0;
   size_t numCountries = 0;
   for (auto & l : preLocalities)
   {
     FeatureType ft;
-    context.m_vector.GetByIndex(l.m_featureId, ft);
+    m_context->m_vector.GetByIndex(l.m_featureId, ft);
 
     switch (m_model.GetSearchType(ft))
     {
@@ -642,7 +696,7 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
         LOG(LDEBUG, ("City =", name));
 #endif
 
-        m_cities[make_pair(l.m_startToken, l.m_endToken)].push_back(city);
+        m_cities[{l.m_startToken, l.m_endToken}].push_back(city);
       }
       break;
     }
@@ -692,6 +746,44 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
     default:
       break;
     }
+    }
+  }
+}
+
+void Geocoder::FillVillageLocalities()
+{
+  vector<Locality> preLocalities;
+  FillLocalityCandidates(m_villages, kMaxNumVillages, preLocalities);
+
+  size_t numVillages = 0;
+
+  for (auto & l : preLocalities)
+  {
+    FeatureType ft;
+    m_context->m_vector.GetByIndex(l.m_featureId, ft);
+
+    switch (m_model.GetSearchType(ft))
+    {
+    case SearchModel::SEARCH_TYPE_CITY:
+    {
+      if (numVillages < kMaxNumVillages && ft.GetFeatureType() == feature::GEOM_POINT)
+      {
+        ++numVillages;
+        City village = l;
+        village.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
+            ft.GetCenter(), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
+
+#if defined(DEBUG)
+        string name;
+        ft.GetName(StringUtf8Multilang::DEFAULT_CODE, name);
+        LOG(LDEBUG, ("Village =", name));
+#endif
+
+        m_cities[{l.m_startToken, l.m_endToken}].push_back(village);
+      }
+      break;
+    }
+    default: break;
     }
   }
 }
@@ -803,7 +895,7 @@ void Geocoder::MatchCities()
     {
       // Localities match to search query.
       for (auto const & city : p.second)
-        m_results->emplace_back(m_worldId, city.m_featureId);
+        m_results->emplace_back(city.m_countryId, city.m_featureId);
       continue;
     }
 
@@ -1082,7 +1174,7 @@ void Geocoder::FindPaths()
   if (m_layers.empty())
     return;
 
-  // Layers ordered by a search type.
+  // Layers ordered by search type.
   vector<FeaturesLayer const *> sortedLayers;
   sortedLayers.reserve(m_layers.size());
   for (auto & layer : m_layers)
@@ -1099,6 +1191,33 @@ void Geocoder::FindPaths()
   });
 }
 
+unique_ptr<coding::CompressedBitVector> Geocoder::LoadCategories(
+    MwmContext & context, vector<strings::UniString> const & categories)
+{
+  ASSERT(context.m_handle.IsAlive() && HasSearchIndex(context.m_value), ());
+
+  m_retrievalParams.m_tokens.resize(1);
+  m_retrievalParams.m_tokens[0].resize(1);
+  m_retrievalParams.m_prefixTokens.clear();
+
+  vector<unique_ptr<coding::CompressedBitVector>> cbvs;
+
+  for_each(categories.begin(), categories.end(), [&](strings::UniString const & category)
+           {
+             m_retrievalParams.m_tokens[0][0] = category;
+             auto cbv = Retrieval::RetrieveAddressFeatures(
+                 context.m_id, context.m_value, static_cast<my::Cancellable const &>(*this), m_retrievalParams);
+             if (!coding::CompressedBitVector::IsEmpty(cbv))
+               cbvs.push_back(move(cbv));
+           });
+
+  UniteCBVs(cbvs);
+  if (cbvs.empty())
+    cbvs.push_back(make_unique<coding::DenseCBV>());
+
+  return move(cbvs[0]);
+}
+
 coding::CompressedBitVector const * Geocoder::LoadStreets(MwmContext & context)
 {
   if (!context.m_handle.IsAlive() || !HasSearchIndex(context.m_value))
@@ -1109,40 +1228,27 @@ coding::CompressedBitVector const * Geocoder::LoadStreets(MwmContext & context)
   if (it != m_streetsCache.cend())
     return it->second.get();
 
-  unique_ptr<coding::CompressedBitVector> allStreets;
+  auto streets = LoadCategories(context, StreetCategories::Instance().GetCategories());
 
-  m_retrievalParams.m_tokens.resize(1);
-  m_retrievalParams.m_tokens[0].resize(1);
-  m_retrievalParams.m_prefixTokens.clear();
+  auto const * result = streets.get();
+  m_streetsCache[mwmId] = move(streets);
+  return result;
+}
 
-  vector<unique_ptr<coding::CompressedBitVector>> streetsList;
-  StreetCategories::Instance().ForEach([&](strings::UniString const & category)
-                                       {
-                                         m_retrievalParams.m_tokens[0][0] = category;
-                                         auto streets = Retrieval::RetrieveAddressFeatures(
-                                             context.m_id, context.m_value, *this /* cancellable */,
-                                             m_retrievalParams);
-                                         if (!coding::CompressedBitVector::IsEmpty(streets))
-                                           streetsList.push_back(move(streets));
-                                       });
+coding::CompressedBitVector const * Geocoder::LoadVillages(MwmContext & context)
+{
+  if (!context.m_handle.IsAlive() || !HasSearchIndex(context.m_value))
+    return nullptr;
 
-  // Following code performs pairwise union of adjacent bit vectors
-  // until at most one bit vector is left.
-  while (streetsList.size() > 1)
-  {
-    size_t i = 0;
-    size_t j = 0;
-    for (; j + 1 < streetsList.size(); j += 2)
-      streetsList[i++] = coding::CompressedBitVector::Union(*streetsList[j], *streetsList[j + 1]);
-    for (; j < streetsList.size(); ++j)
-      streetsList[i++] = move(streetsList[j]);
-    streetsList.resize(i);
-  }
+  auto mwmId = context.m_handle.GetId();
+  auto const it = m_villagesCache.find(mwmId);
+  if (it != m_villagesCache.cend())
+    return it->second.get();
 
-  if (streetsList.empty())
-    streetsList.push_back(make_unique<coding::DenseCBV>());
-  auto const * result = streetsList[0].get();
-  m_streetsCache[mwmId] = move(streetsList[0]);
+  auto villages = LoadCategories(context, GetVillageCategories());
+
+  auto const * result = villages.get();
+  m_villagesCache[mwmId] = move(villages);
   return result;
 }
 

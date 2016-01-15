@@ -227,7 +227,8 @@ int main(int argc, char * argv[])
   vector<double> responseTimes(queries.size());
   for (size_t i = 0; i < queries.size(); ++i)
   {
-    string const & query = queries[i];
+    // todo(@m) Add a bool flag to search with prefixes?
+    string const & query = queries[i] + " ";
     my::Timer timer;
     // todo(@m) Viewport and position should belong to the query info.
     TestSearchRequest request(engine, query, FLAGS_locale, search::SearchParams::ALL, viewport);

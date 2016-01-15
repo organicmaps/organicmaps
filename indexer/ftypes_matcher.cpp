@@ -115,8 +115,8 @@ IsRailwayStationChecker const & IsRailwayStationChecker::Instance()
 IsStreetChecker::IsStreetChecker()
 {
   // TODO (@y, @m, @vng): this list must be up-to-date with
-  // data/categories.txt, so, it worth to generate or parse it from that
-  // file.
+  // data/categories.txt, so, it's worth it to generate or parse it
+  // from that file.
   Classificator const & c = classif();
   char const * arr[][2] = {{"highway", "living_street"},
                            {"highway", "footway"},
@@ -144,6 +144,24 @@ IsStreetChecker::IsStreetChecker()
 IsStreetChecker const & IsStreetChecker::Instance()
 {
   static const IsStreetChecker inst;
+  return inst;
+}
+
+IsVillageChecker::IsVillageChecker()
+{
+  // TODO (@y, @m, @vng): this list must be up-to-date with
+  // data/categories.txt, so, it's worth it to generate or parse it
+  // from that file.
+  Classificator const & c = classif();
+  char const * arr[][2] = {{"place", "village"}, {"place", "hamlet"}};
+
+  for (auto const & p : arr)
+    m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
+}
+
+IsVillageChecker const & IsVillageChecker::Instance()
+{
+  static const IsVillageChecker inst;
   return inst;
 }
 

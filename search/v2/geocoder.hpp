@@ -60,8 +60,8 @@ class SearchModel;
 // from the highest layer (BUILDING is located on STREET, STREET is
 // located inside CITY, CITY is located inside STATE, etc.). Final
 // part is to find all paths through this layered graph and report all
-// features from the lowest layer, that are reachable from the highest
-// layer.
+// features from the lowest layer, that are reachable from the
+// highest layer.
 class Geocoder : public my::Cancellable
 {
 public:
@@ -101,6 +101,7 @@ private:
 
   struct Locality
   {
+    MwmSet::MwmId m_countryId;
     uint32_t m_featureId = 0;
     size_t m_startToken = 0;
     size_t m_endToken = 0;
@@ -137,7 +138,16 @@ private:
   // of search query tokens.
   void PrepareRetrievalParams(size_t curToken, size_t endToken);
 
-  void FillLocalitiesTable(MwmContext const & context);
+  // Creates a cache of posting lists corresponding to features in m_context
+  // for each token and saves it to m_addressFeatures.
+  void PrepareAddressFeatures();
+
+  void FillLocalityCandidates(coding::CompressedBitVector const * filter,
+                              size_t const maxNumLocalities, vector<Locality> & preLocalities);
+
+  void FillLocalitiesTable();
+
+  void FillVillageLocalities();
 
   template <typename TFn>
   void ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && fn);
@@ -154,22 +164,18 @@ private:
 
   // Tries to find all cities in a search query and then performs
   // matching of streets in found cities.
-  //
-  // *NOTE* those cities will be looked for in World.mwm, so, for now,
-  // villages won't be found on this stage.  TODO (@y, @m, @vng): try
-  // to add villages to World.mwm.
   void MatchCities();
 
   // Tries to do geocoding without localities, ie. find POIs,
-  // BUILDINGs and STREETs without knowledge about country, state or
-  // city. If during the geocoding too many features are retrieved,
-  // viewport is used to throw away excess features.
+  // BUILDINGs and STREETs without knowledge about country, state,
+  // city or village. If during the geocoding too many features are
+  // retrieved, viewport is used to throw away excess features.
   void MatchViewportAndPosition();
 
   void LimitedSearch(coding::CompressedBitVector const * filter, size_t filterThreshold);
 
   // Tries to match some adjacent tokens in the query as streets and
-  // then performs geocoding in streets vicinities.
+  // then performs geocoding in street vicinities.
   void GreedilyMatchStreets();
 
   // Tries to find all paths in a search tree, where each edge is
@@ -178,7 +184,7 @@ private:
   void MatchPOIsAndBuildings(size_t curToken);
 
   // Returns true if current path in the search tree (see comment for
-  // DoGeocoding()) looks sane. This method is used as a fast
+  // MatchPOIsAndBuildings()) looks sane. This method is used as a fast
   // pre-check to cut off unnecessary work.
   bool IsLayerSequenceSane() const;
 
@@ -186,7 +192,12 @@ private:
   // the lowest layer.
   void FindPaths();
 
+  unique_ptr<coding::CompressedBitVector> LoadCategories(
+      MwmContext & context, vector<strings::UniString> const & categories);
+
   coding::CompressedBitVector const * LoadStreets(MwmContext & context);
+
+  coding::CompressedBitVector const * LoadVillages(MwmContext & context);
 
   /// A caching wrapper around Retrieval::RetrieveGeometryFeatures.
   /// param[in] Optional query id. Use VIEWPORT_ID, POSITION_ID or feature index for locality.
@@ -219,6 +230,8 @@ private:
   // Context of the currently processed mwm.
   unique_ptr<MwmContext> m_context;
 
+  // m_cities stores both big cities that are visible at World.mwm
+  // and small villages and hamlets that are not.
   TLocalitiesCache<City> m_cities;
   TLocalitiesCache<Region> m_regions[REGION_TYPE_COUNT];
 
@@ -239,8 +252,14 @@ private:
   // Cache of street ids in mwms.
   map<MwmSet::MwmId, unique_ptr<coding::CompressedBitVector>> m_streetsCache;
 
-  // Streets in a currenly processed mwm.
+  // Cache of village ids in mwms.
+  map<MwmSet::MwmId, unique_ptr<coding::CompressedBitVector>> m_villagesCache;
+
+  // Street features in the mwm that is currently being processed.
   coding::CompressedBitVector const * m_streets;
+
+  // Village features in the mwm that is currently being processed.
+  coding::CompressedBitVector const * m_villages;
 
   // This vector is used to indicate what tokens were matched by
   // locality and can't be re-used during the geocoding process.
