@@ -201,9 +201,9 @@ TypeDescription const * GetTypeDescription(uint32_t const type)
   return nullptr;
 }
 
-uint32_t MigrateFeatureOffset(XMLFeature const & /*xml*/)
+uint32_t MigrateFeatureIndex(XMLFeature const & /*xml*/)
 {
-  // @TODO(mgsergio): update feature's offset, user has downloaded fresh MWM file and old offsets point to other features.
+  // @TODO(mgsergio): Update feature's index when user has downloaded fresh MWM file and old indices point to other features.
   // Possible implementation: use function to load features in rect (center feature's point) and somehow compare/choose from them.
   // Probably we need to store more data about features in xml, e.g. types, may be other data, to match them correctly.
   return 0;
@@ -264,8 +264,8 @@ void Editor::LoadMapEdits()
         try
         {
           XMLFeature const xml(nodeOrWay.node());
-          uint32_t const featureOffset = mapVersion < id.GetInfo()->GetVersion() ? xml.GetOffset() : MigrateFeatureOffset(xml);
-          FeatureID const fid(id, featureOffset);
+          uint32_t const featureIndex = mapVersion < id.GetInfo()->GetVersion() ? xml.GetMWMFeatureIndex() : MigrateFeatureIndex(xml);
+          FeatureID const fid(id, featureIndex);
 
           FeatureTypeInfo fti;
 
@@ -328,11 +328,11 @@ void Editor::Save(string const & fullFilePath) const
     xml_node deleted = mwmNode.append_child(kDeleteSection);
     xml_node modified = mwmNode.append_child(kModifySection);
     xml_node created = mwmNode.append_child(kCreateSection);
-    for (auto const & offset : mwm.second)
+    for (auto const & index : mwm.second)
     {
-      FeatureTypeInfo const & fti = offset.second;
+      FeatureTypeInfo const & fti = index.second;
       XMLFeature xf = fti.m_feature.ToXML();
-      xf.SetOffset(offset.first);
+      xf.SetMWMFeatureIndex(index.first);
       if (!fti.m_street.empty())
         xf.SetTagValue(kAddrStreetTag, fti.m_street);
       ASSERT_NOT_EQUAL(0, fti.m_modificationTimestamp, ());
@@ -365,7 +365,7 @@ void Editor::Save(string const & fullFilePath) const
   }
 }
 
-Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t offset) const
+Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const
 {
   // Most popular case optimization.
   if (m_features.empty())
@@ -375,11 +375,11 @@ Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint
   if (mwmMatched == m_features.end())
     return FeatureStatus::Untouched;
 
-  auto const offsetMatched = mwmMatched->second.find(offset);
-  if (offsetMatched == mwmMatched->second.end())
+  auto const matchedIndex = mwmMatched->second.find(index);
+  if (matchedIndex == mwmMatched->second.end())
     return FeatureStatus::Untouched;
 
-  return offsetMatched->second.m_status;
+  return matchedIndex->second.m_status;
 }
 
 void Editor::DeleteFeature(FeatureType const & feature)
@@ -403,8 +403,8 @@ void Editor::DeleteFeature(FeatureType const & feature)
 //FeatureID GenerateNewFeatureId(FeatureID const & oldFeatureId)
 //{
 //  // TODO(AlexZ): Stable & unique features ID generation.
-//  static uint32_t newOffset = 0x0effffff;
-//  return FeatureID(oldFeatureId.m_mwmId, newOffset++);
+//  static uint32_t newIndex = 0x0effffff;
+//  return FeatureID(oldFeatureId.m_mwmId, newIndex++);
 //}
 //}  // namespace
 
@@ -439,12 +439,12 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
 
   // TODO(AlexZ): Check that features are visible at this scale.
   // Process only new (created) features.
-  for (auto const & offset : mwmFound->second)
+  for (auto const & index : mwmFound->second)
   {
-    FeatureTypeInfo const & ftInfo = offset.second;
+    FeatureTypeInfo const & ftInfo = index.second;
     if (ftInfo.m_status == FeatureStatus::Created &&
         rect.IsPointInside(ftInfo.m_feature.GetCenter()))
-      f(FeatureID(id, offset.first));
+      f(FeatureID(id, index.first));
   }
 }
 
@@ -459,27 +459,27 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
 
   // TODO(AlexZ): Check that features are visible at this scale.
   // Process only new (created) features.
-  for (auto & offset : mwmFound->second)
+  for (auto & index : mwmFound->second)
   {
-    FeatureTypeInfo & ftInfo = offset.second;
+    FeatureTypeInfo & ftInfo = index.second;
     if (ftInfo.m_status == FeatureStatus::Created &&
         rect.IsPointInside(ftInfo.m_feature.GetCenter()))
       f(ftInfo.m_feature);
   }
 }
 
-bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t offset, FeatureType & outFeature) const
+bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index, FeatureType & outFeature) const
 {
   auto const mwmMatched = m_features.find(mwmId);
   if (mwmMatched == m_features.end())
     return false;
 
-  auto const offsetMatched = mwmMatched->second.find(offset);
-  if (offsetMatched == mwmMatched->second.end())
+  auto const matchedIndex = mwmMatched->second.find(index);
+  if (matchedIndex == mwmMatched->second.end())
     return false;
 
   // TODO(AlexZ): Should we process deleted/created features as well?
-  outFeature = offsetMatched->second.m_feature;
+  outFeature = matchedIndex->second.m_feature;
   return true;
 }
 
@@ -539,9 +539,9 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
     ChangesetWrapper changeset({key, secret}, tags);
     for (auto & id : m_features)
     {
-      for (auto & offset : id.second)
+      for (auto & index : id.second)
       {
-        FeatureTypeInfo & fti = offset.second;
+        FeatureTypeInfo & fti = index.second;
         // Do not process already uploaded features or those failed permanently.
         if (!(fti.m_uploadStatus.empty() || fti.m_uploadStatus == kNeedsRetry))
           continue;

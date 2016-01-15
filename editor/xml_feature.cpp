@@ -16,7 +16,7 @@ namespace
 {
 constexpr int const kLatLonTolerance = 7;
 constexpr char const * kTimestamp = "timestamp";
-constexpr char const * kOffset = "offset";
+constexpr char const * kIndex = "mwmFileIndex";
 constexpr char const * kUploadTimestamp = "upload_timestamp";
 constexpr char const * kUploadStatus = "upload_status";
 constexpr char const * kUploadError = "upload_error";
@@ -212,15 +212,15 @@ void XMLFeature::SetModificationTime(time_t const time)
   SetAttribute(kTimestamp, my::TimestampToString(time));
 }
 
-uint32_t XMLFeature::GetOffset() const
+uint32_t XMLFeature::GetMWMFeatureIndex() const
 {
   // Always cast to uint32_t to avoid warnings on different platforms.
-  return static_cast<uint32_t>(GetRootNode().attribute(kOffset).as_uint(0));
+  return static_cast<uint32_t>(GetRootNode().attribute(kIndex).as_uint(0));
 }
 
-void XMLFeature::SetOffset(uint32_t featureOffset)
+void XMLFeature::SetMWMFeatureIndex(uint32_t index)
 {
-  SetAttribute(kOffset, strings::to_string(featureOffset));
+  SetAttribute(kIndex, strings::to_string(index));
 }
 
 time_t XMLFeature::GetUploadTime() const

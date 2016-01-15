@@ -58,14 +58,14 @@ public:
                                        uint32_t scale);
 
   /// Easy way to check if feature was deleted, modified, created or not changed at all.
-  FeatureStatus GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t offset) const;
+  FeatureStatus GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const;
 
   /// Marks feature as "deleted" from MwM file.
   void DeleteFeature(FeatureType const & feature);
 
   /// @returns false if feature wasn't edited.
   /// @param outFeature is valid only if true was returned.
-  bool GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t offset, FeatureType & outFeature) const;
+  bool GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index, FeatureType & outFeature) const;
 
   /// Original feature with same FeatureID as newFeature is replaced by newFeature.
   /// Please pass editedStreet only if it was changed by user.
