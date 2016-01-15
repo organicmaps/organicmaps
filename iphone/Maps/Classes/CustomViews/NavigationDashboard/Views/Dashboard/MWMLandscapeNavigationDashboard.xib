@@ -162,7 +162,7 @@
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_direction" translatesAutoresizingMaskIntoConstraints="NO" id="ZNA-Yu-OG7" customClass="MWMImageView">
                                     <rect key="frame" x="0.0" y="10" width="64" height="64"/>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                             </subviews>

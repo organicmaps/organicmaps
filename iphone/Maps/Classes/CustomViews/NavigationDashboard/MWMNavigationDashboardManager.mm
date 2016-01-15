@@ -375,7 +375,8 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 - (void)refresh
 {
-  [self.navigationDashboard refresh];
+  [self.navigationDashboardLandscape refresh];
+  [self.navigationDashboardPortrait refresh];
   [self.routePreview refresh];
 }
 
