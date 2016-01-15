@@ -103,7 +103,7 @@ void OsmAuthDialog::OnAction()
     }
 
     // TODO(AlexZ): Change to production server.
-    OsmOAuth auth = osm::OsmOAuth::DevServerAuth();
+    OsmOAuth auth = osm::OsmOAuth::IZServerAuth();
     OsmOAuth::AuthResult const res = auth.AuthorizePassword(login, password);
     if (res != OsmOAuth::AuthResult::OK)
     {
