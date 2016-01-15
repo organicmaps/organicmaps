@@ -51,6 +51,9 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="name"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="validatorName" value="MWMInputValidator"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="uUF-rL-Jcn" id="7W6-iy-j9O"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yj2-am-tAr" userLabel="Bottom Separator">
                                 <rect key="frame" x="0.0" y="43" width="320" height="1"/>
