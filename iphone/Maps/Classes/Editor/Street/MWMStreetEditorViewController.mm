@@ -91,15 +91,8 @@ namespace
 
 - (void)selectCell:(UITableViewCell *)selectedCell
 {
-  self.editedStreetName = @"";
   self.selectedStreet = [self.tableView indexPathForCell:selectedCell].row;
-  for (UITableViewCell * cell in self.tableView.visibleCells)
-  {
-    if ([cell isEqual:selectedCell])
-      continue;
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    [self fillCell:cell indexPath:indexPath];
-  }
+  [self onDone];
 }
 
 - (void)fillCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
