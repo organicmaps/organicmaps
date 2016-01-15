@@ -67,24 +67,32 @@ NSString * getVerifier(NSString * urlString)
 
 - (void)loadAuthorizationPage
 {
-  // TODO(AlexZ): Change to production.
-  OsmOAuth auth = OsmOAuth::IZServerAuth();
-  OsmOAuth::TUrlKeySecret urlKey;
-  switch (self.authType)
+  [self startSpinner];
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^
   {
-    case MWMWebViewAuthorizationTypeGoogle:
-      urlKey = auth.GetGoogleOAuthURL();
-      break;
-    case MWMWebViewAuthorizationTypeFacebook:
-      urlKey = auth.GetFacebookOAuthURL();
-      break;
-  }
+    // TODO(AlexZ): Change to production.
+    OsmOAuth auth = OsmOAuth::IZServerAuth();
+    OsmOAuth::TUrlKeySecret urlKey;
+    switch (self.authType)
+    {
+      case MWMWebViewAuthorizationTypeGoogle:
+        urlKey = auth.GetGoogleOAuthURL();
+        break;
+      case MWMWebViewAuthorizationTypeFacebook:
+        urlKey = auth.GetFacebookOAuthURL();
+        break;
+    }
 
-  m_keySecret = urlKey.second;
-  NSURL * url = [NSURL URLWithString:@(urlKey.first.c_str())];
-  NSURLRequest * request = [NSURLRequest requestWithURL:url];
-  self.webView.hidden = NO;
-  [self.webView loadRequest:request];
+    self->m_keySecret = urlKey.second;
+    NSURL * url = [NSURL URLWithString:@(urlKey.first.c_str())];
+    NSURLRequest * request = [NSURLRequest requestWithURL:url];
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+      [self stopSpinner];
+      self.webView.hidden = NO;
+      [self.webView loadRequest:request];
+    });
+  });
 }
 
 - (void)startSpinner
