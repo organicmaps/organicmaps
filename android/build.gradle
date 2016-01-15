@@ -65,7 +65,6 @@ android {
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
     buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
-    buildConfigField 'boolean', 'ALLOW_PREF_MAP_STYLE', 'false'
   }
 
   sourceSets.main {
@@ -235,7 +234,6 @@ android {
       zipAlignEnabled true
       signingConfig signingConfigs.mapswithmeDebug
       android.sourceSets.debug.setRoot('flavors/debug')
-      buildConfigField 'boolean', 'ALLOW_PREF_MAP_STYLE', 'true'
     }
 
     release {
@@ -250,7 +248,6 @@ android {
       versionNameSuffix '-beta'
       signingConfig signingConfigs.mapswithme
       android.sourceSets.beta.setRoot('flavors/beta')
-      buildConfigField 'boolean', 'ALLOW_PREF_MAP_STYLE', 'true'
     }
   }
 
