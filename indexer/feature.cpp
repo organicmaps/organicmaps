@@ -266,6 +266,11 @@ void FeatureType::ParseMetadata() const
   m_bMetadataParsed = true;
 }
 
+StringUtf8Multilang FeatureType::GetNames() const
+{
+  return m_params.name;
+}
+
 void FeatureType::SetNames(StringUtf8Multilang const & newNames)
 {
   m_params.name.Clear();

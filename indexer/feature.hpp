@@ -167,6 +167,7 @@ public:
 
   /// @name Editor functions.
   //@{
+  StringUtf8Multilang GetNames() const;
   void SetNames(StringUtf8Multilang const & newNames);
   void SetMetadata(feature::Metadata const & newMetadata);
   //@}
