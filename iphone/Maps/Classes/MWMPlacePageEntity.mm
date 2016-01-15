@@ -185,9 +185,10 @@ void initFieldsMap()
     self.title = name.length > 0 ? name : L(@"dropped_pin");
     self.category = @(info.GetPinType().c_str());
 
-    auto const presentTypes = metadata.GetPresentTypes();
+    if (!info.m_house.empty())
+      [self addMetaField:MWMPlacePageCellTypeBuilding value:info.m_house];
 
-    for (auto const & type : presentTypes)
+    for (auto const type : metadata.GetPresentTypes())
     {
       switch (type)
       {
@@ -281,11 +282,19 @@ void initFieldsMap()
 
 - (void)processStreets
 {
-  // TODO Replace with real Getters
-  // FeatureType * feature = self.delegate.userMark->GetFeature();
-  string featureString = "street#2";
-  self.nearbyStreets = @[@"street#1", @(featureString.c_str()), @"street#3"];
-  [self addMetaField:MWMPlacePageCellTypeStreet value:featureString];
+  FeatureType const * feature = self.delegate.userMark->GetFeature();
+  if (!feature)
+    return;
+
+  Framework & frm = GetFramework();
+  auto const streets = frm.GetNearbyFeatureStreets(*feature);
+  NSMutableArray * arr = [[NSMutableArray alloc] initWithCapacity:streets.size()];
+  for (auto const & street : streets)
+    [arr addObject:@(street.c_str())];
+  self.nearbyStreets = arr;
+
+  auto const info = frm.GetFeatureAddressInfo(*feature);
+  [self addMetaField:MWMPlacePageCellTypeStreet value:info.m_street];
 }
 
 #pragma mark - Editing
@@ -295,9 +304,20 @@ void initFieldsMap()
   FeatureType * feature = self.delegate.userMark->GetFeature();
   if (!feature)
     return;
-  vector<Metadata::EType> const editableTypes = osm::Editor::Instance().EditableMetadataForType(*feature);
-  if (!editableTypes.empty())
+
+  auto & editor = osm::Editor::Instance();
+  vector<Metadata::EType> const editableTypes = editor.EditableMetadataForType(*feature);
+  bool const isNameEditable = editor.IsNameEditable(*feature);
+  bool const isAddressEditable = editor.IsAddressEditable(*feature);
+  if (!editableTypes.empty() || isAddressEditable || isNameEditable)
     [self addEditField];
+  if (isNameEditable)
+    m_editableFields.insert(MWMPlacePageCellTypeName);
+  if (isAddressEditable)
+  {
+    m_editableFields.insert(MWMPlacePageCellTypeStreet);
+    m_editableFields.insert(MWMPlacePageCellTypeBuilding);
+  }
   for (auto const & type : editableTypes)
   {
     NSAssert(kMetaFieldsMap[type] >= Metadata::FMD_COUNT || kMetaFieldsMap[type] == 0, @"Incorrect enum value");
@@ -317,7 +337,9 @@ void initFieldsMap()
   NSAssert(feature != nullptr, @"Feature is null");
   if (!feature)
     return;
+
   auto & metadata = feature->GetMetadata();
+  string streetName;
   for (auto const & cell : cells)
   {
     switch (cell.first)
@@ -343,18 +365,20 @@ void initFieldsMap()
       }
       case MWMPlacePageCellTypeName:
       {
-        // TODO Add implementation
+        // TODO(AlexZ): Make sure that we display and save name in the same language (default?).
+        auto names = feature->GetNames();
+        names.AddString(StringUtf8Multilang::DEFAULT_CODE, cell.second);
+        feature->SetNames(names);
         break;
       }
       case MWMPlacePageCellTypeStreet:
       {
-        // TODO Add implementation
-        // Save cell.second
+        streetName = cell.second;
         break;
       }
       case MWMPlacePageCellTypeBuilding:
       {
-        // TODO Add implementation
+        feature->SetHouseNumber(cell.second);
         break;
       }
       default:
@@ -362,7 +386,6 @@ void initFieldsMap()
         break;
     }
   }
-  feature->SetMetadata(metadata);
   osm::Editor::Instance().EditFeature(*feature);
 }
 
