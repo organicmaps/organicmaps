@@ -271,18 +271,15 @@ void Editor::LoadMapEdits()
 
           FeatureTypeInfo & fti = m_features[id][fid.m_index];
 
-          /// TODO(mgsergio): uncomment when feature creating will
-          /// be required
-          // if (xml.GetType() != XMLFeature::Type::Way)
-          // {
-          // TODO(mgsergio): Check if feature can be read.
-          fti.m_feature = *m_featureLoaderFn(fid);
-          fti.m_feature.ApplyPatch(xml);
-          // }
-          // else
-          // {
-          //   fti.m_feature = FeatureType::FromXML(xml);
-          // }
+          if (section.first == FeatureStatus::Created)
+          {
+            // TODO(mgsergio): Create features which are not present in mwm.
+          }
+          else
+          {
+            fti.m_feature = *m_featureLoaderFn(fid);
+            fti.m_feature.ApplyPatch(xml);
+          }
 
           fti.m_feature.SetID(fid);
           fti.m_street = xml.GetTagValue(kAddrStreetTag);
@@ -293,6 +290,13 @@ void Editor::LoadMapEdits()
           fti.m_uploadStatus = xml.GetUploadStatus();
           fti.m_uploadError = xml.GetUploadError();
           fti.m_status = section.first;
+          switch (section.first)
+          {
+          case FeatureStatus::Deleted: ++deleted; break;
+          case FeatureStatus::Modified: ++modified; break;
+          case FeatureStatus::Created: ++created; break;
+          case FeatureStatus::Untouched: ASSERT(false, ()); break;
+          }
         }
         catch (editor::XMLFeatureError const & ex)
         {
