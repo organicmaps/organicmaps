@@ -6,6 +6,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/osm_editor.hpp"
 
 #include "base/collection_cast.hpp"
@@ -33,6 +34,16 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature, Framew
   osm::Editor & editor = osm::Editor::Instance();
 
   QVBoxLayout * vLayout = new QVBoxLayout();
+
+  // Zero uneditable row: coordinates.
+  ms::LatLon const ll = MercatorBounds::ToLatLon(feature::GetCenter(feature));
+  QHBoxLayout * coordinatesRow = new QHBoxLayout();
+  coordinatesRow->addWidget(new QLabel("Latitude, Longitude:"));
+  QLabel * coords = new QLabel(QString::fromStdString(strings::to_string_dac(ll.lat, 6) +
+                                                      "," + strings::to_string_dac(ll.lon, 6)));
+  coords->setTextInteractionFlags(Qt::TextSelectableByMouse);
+  coordinatesRow->addWidget(coords);
+  vLayout->addLayout(coordinatesRow);
 
   // First uneditable row: feature types.
   string strTypes;
