@@ -475,10 +475,9 @@ void DrawWidget::ShowPOIEditor(FeatureType & feature)
   if (result == QDialog::Accepted)
   {
     feature.SetNames(dlg.GetEditedNames());
-    feature.SetHouseNumber(dlg.GetEditedHouseNumber());
     feature.SetMetadata(dlg.GetEditedMetadata());
     // TODO(AlexZ): Check that street was actually changed/edited.
-    editor.EditFeature(feature, dlg.GetEditedStreet());
+    editor.EditFeature(feature, dlg.GetEditedStreet(), dlg.GetEditedHouseNumber());
   }
   else if (result == QDialogButtonBox::DestructiveRole)
   {

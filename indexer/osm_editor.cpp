@@ -1,5 +1,6 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_decl.hpp"
+#include "indexer/feature_impl.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
@@ -409,7 +410,8 @@ void Editor::DeleteFeature(FeatureType const & feature)
 //}
 //}  // namespace
 
-void Editor::EditFeature(FeatureType const & editedFeature, string const & editedStreet)
+void Editor::EditFeature(FeatureType const & editedFeature, string const & editedStreet,
+                         string const & editedHouseNumber)
 {
   // TODO(AlexZ): Check if feature has not changed and reset status.
   FeatureID const fid = editedFeature.GetID();
@@ -419,8 +421,12 @@ void Editor::EditFeature(FeatureType const & editedFeature, string const & edite
   // TODO: What if local client time is absolutely wrong?
   fti.m_modificationTimestamp = time(nullptr);
 
-  if (!editedStreet.empty())
-    fti.m_street = editedStreet;
+  fti.m_street = editedStreet;
+  if (editedHouseNumber.empty())
+    fti.m_feature.SetHouseNumber(string());
+  else if (feature::IsHouseNumber(editedHouseNumber))
+    fti.m_feature.SetHouseNumber(editedHouseNumber);
+  // else TODO(AlexZ): Store edited house number as house name.
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save(GetEditorFilePath());

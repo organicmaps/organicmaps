@@ -69,7 +69,9 @@ public:
 
   /// Original feature with same FeatureID as newFeature is replaced by newFeature.
   /// Please pass editedStreet only if it was changed by user.
-  void EditFeature(FeatureType const & editedFeature, string const & editedStreet = "");
+  void EditFeature(FeatureType const & editedFeature,
+                   string const & editedStreet = "",
+                   string const & editedHouseNumber = "");
 
   vector<feature::Metadata::EType> EditableMetadataForType(FeatureType const & feature) const;
   bool IsNameEditable(FeatureType const & feature) const;

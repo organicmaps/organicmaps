@@ -339,7 +339,7 @@ void initFieldsMap()
     return;
 
   auto & metadata = feature->GetMetadata();
-  string streetName;
+  string streetName, houseNumber;
   for (auto const & cell : cells)
   {
     switch (cell.first)
@@ -378,7 +378,7 @@ void initFieldsMap()
       }
       case MWMPlacePageCellTypeBuilding:
       {
-        feature->SetHouseNumber(cell.second);
+        houseNumber = cell.second;
         break;
       }
       default:
@@ -386,7 +386,7 @@ void initFieldsMap()
         break;
     }
   }
-  osm::Editor::Instance().EditFeature(*feature);
+  osm::Editor::Instance().EditFeature(*feature, streetName, houseNumber);
 }
 
 #pragma mark - Getters
