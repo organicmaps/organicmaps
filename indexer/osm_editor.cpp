@@ -266,7 +266,7 @@ void Editor::LoadMapEdits()
         try
         {
           XMLFeature const xml(nodeOrWay.node());
-          uint32_t const featureIndex = mapVersion < id.GetInfo()->GetVersion() ? xml.GetMWMFeatureIndex() : MigrateFeatureIndex(xml);
+          uint32_t const featureIndex = mapVersion == id.GetInfo()->GetVersion() ? xml.GetMWMFeatureIndex() : MigrateFeatureIndex(xml);
           FeatureID const fid(id, featureIndex);
 
           FeatureTypeInfo & fti = m_features[id][fid.m_index];
