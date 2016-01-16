@@ -114,7 +114,7 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(m2::RectD const & latLonRec
   return m_auth.DirectRequest(url);
 }
 
-OsmOAuth::Response ServerApi06::GetXmlNodeByLatLon(double lat, double lon) const
+OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(double lat, double lon) const
 {
   double const kInflateEpsilon = MercatorBounds::GetCellID2PointAbsEpsilon();
   m2::RectD rect(lon, lat, lon, lat);

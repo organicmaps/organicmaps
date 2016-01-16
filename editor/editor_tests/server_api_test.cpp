@@ -116,7 +116,7 @@ UNIT_TEST(OSM_ServerAPI_ChangesetActions)
   // New changeset has new id.
   TEST(SetAttributeForOsmNode(node, "changeset", changeSetId), ());
 
-  auto const response = api.GetXmlNodeByLatLon(node.child("osm").child("node").attribute("lat").as_double(),
+  auto const response = api.GetXmlFeaturesAtLatLon(node.child("osm").child("node").attribute("lat").as_double(),
                                                node.child("osm").child("node").attribute("lon").as_double());
   TEST_EQUAL(response.first, OsmOAuth::ResponseCode::OK, ());
   xml_document reply;

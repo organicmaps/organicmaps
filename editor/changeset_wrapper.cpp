@@ -31,7 +31,7 @@ XMLFeature ChangesetWrapper::GetMatchingFeatureFromOSM(XMLFeature const & ourPat
   {
     // Match with OSM node.
     ms::LatLon const ll = ourPatch.GetCenter();
-    auto const response = m_api.GetXmlNodeByLatLon(ll.lat, ll.lon);
+    auto const response = m_api.GetXmlFeaturesAtLatLon(ll.lat, ll.lon);
     if (response.first == OsmOAuth::ResponseCode::NetworkError)
       MYTHROW(NetworkErrorException, ("NetworkError with GetXmlNodeByLatLon request."));
     if (response.first != OsmOAuth::ResponseCode::OK)
@@ -65,7 +65,7 @@ XMLFeature ChangesetWrapper::GetMatchingFeatureFromOSM(XMLFeature const & ourPat
     for (auto const & pt : geometry)
     {
       ms::LatLon const ll = MercatorBounds::ToLatLon(pt);
-      auto const response = m_api.GetXmlNodeByLatLon(ll.lat, ll.lon);
+      auto const response = m_api.GetXmlFeaturesAtLatLon(ll.lat, ll.lon);
       if (response.first == OsmOAuth::ResponseCode::NetworkError)
         MYTHROW(NetworkErrorException, ("NetworkError with GetXmlNodeByLatLon request."));
       if (response.first != OsmOAuth::ResponseCode::OK)
