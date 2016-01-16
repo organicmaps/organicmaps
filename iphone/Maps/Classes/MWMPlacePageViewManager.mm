@@ -301,13 +301,17 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   Framework & f = GetFramework();
   BookmarkData data = BookmarkData(self.entity.title.UTF8String, f.LastEditedBMType());
   size_t const categoryIndex = f.LastEditedBMCategory();
-  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetPivot(), data);
+  m2::PointD const mercator = m_userMark->GetUserMark()->GetPivot();
+  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, mercator, data);
   self.entity.bac = make_pair(categoryIndex, bookmarkIndex);
   self.entity.type = MWMPlacePageEntityTypeBookmark;
 
   BookmarkCategory::Guard guard(*f.GetBmCategory(categoryIndex));
 
   UserMark const * bookmark = guard.m_controller.GetUserMark(bookmarkIndex);
+  // TODO(AlexZ): Refactor bookmarks code together to hide this code in the Framework/Drape.
+  // UI code should never know about any guards, pointers to UserMark etc.
+  const_cast<UserMark *>(bookmark)->SetFeature(f.GetFeatureAtMercatorPoint(mercator));
   m_userMark.reset(new UserMarkCopy(bookmark, false));
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
@@ -330,6 +334,8 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
   self.entity.type = MWMPlacePageEntityTypeRegular;
 
+  // TODO(AlexZ): SetFeature is called in GetAddressMark here.
+  // UI code should never know about any guards, pointers to UserMark etc.
   PoiMarkPoint const * poi = f.GetAddressMark(bookmark->GetPivot());
   m_userMark.reset(new UserMarkCopy(poi, false));
   if (bookmarkCategory)
