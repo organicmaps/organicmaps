@@ -25,8 +25,8 @@
 
 using feature::Metadata;
 
-constexpr char const * kStreetObjectName = "street";
-constexpr char const * kHouseNumberObjectName = "houseNumber";
+constexpr char const * kStreetObjectName = "addr:street";
+constexpr char const * kHouseNumberObjectName = "addr:housenumber";
 
 EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature, Framework & frm) : QDialog(parent)
 {
@@ -50,7 +50,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature, Framew
   char const * defaultLangStr = StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::DEFAULT_CODE);
   // Default name editor is always displayed, even if feature name is empty.
   QHBoxLayout * defaultNameRow = new QHBoxLayout();
-  defaultNameRow->addWidget(new QLabel(QString("Name:")));
+  defaultNameRow->addWidget(new QLabel(QString("name")));
   QLineEdit * defaultNamelineEdit = new QLineEdit();
   defaultNamelineEdit->setReadOnly(readOnlyName);
   defaultNamelineEdit->setObjectName(defaultLangStr);
@@ -65,7 +65,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature, Framew
     {
       QHBoxLayout * nameRow = new QHBoxLayout();
       char const * langStr = StringUtf8Multilang::GetLangByCode(langCode);
-      nameRow->addWidget(new QLabel(QString("Name:") + langStr));
+      nameRow->addWidget(new QLabel(QString("name:") + langStr));
       QLineEdit * lineEditName = new QLineEdit(QString::fromStdString(name));
       lineEditName->setReadOnly(readOnlyName);
       lineEditName->setObjectName(langStr);
@@ -83,7 +83,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature, Framew
   if (info.m_street.empty())
     nearbyStreets.insert(nearbyStreets.begin(), "");
   QHBoxLayout * streetRow = new QHBoxLayout();
-  streetRow->addWidget(new QLabel(QString("Street:")));
+  streetRow->addWidget(new QLabel(QString(kStreetObjectName)));
   QComboBox * cmb = new QComboBox();
   for (auto const & street : nearbyStreets)
     cmb->addItem(street.c_str());
@@ -93,7 +93,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature, Framew
   streetRow->addWidget(cmb) ;
   vLayout->addLayout(streetRow);
   QHBoxLayout * houseRow = new QHBoxLayout();
-  houseRow->addWidget(new QLabel(QString("House Number:")));
+  houseRow->addWidget(new QLabel(QString(kHouseNumberObjectName)));
   QLineEdit * houseLineEdit = new QLineEdit();
   houseLineEdit->setText(info.m_house.c_str());
   houseLineEdit->setReadOnly(readOnlyAddress);
@@ -108,7 +108,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature, Framew
   {
     QString const fieldName = QString::fromStdString(DebugPrint(field));
     QHBoxLayout * fieldRow = new QHBoxLayout();
-    fieldRow->addWidget(new QLabel(fieldName + ":"));
+    fieldRow->addWidget(new QLabel(fieldName));
     QLineEdit * lineEdit = new QLineEdit(QString::fromStdString(feature.GetMetadata().Get(field)));
     // Mark line editor to query it's text value when editing is finished.
     lineEdit->setObjectName(fieldName);
