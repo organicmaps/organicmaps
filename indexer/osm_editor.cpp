@@ -254,7 +254,7 @@ void Editor::LoadMapEdits()
     MwmSet::MwmId const id = m_mwmIdByMapNameFn(mapName);
     if (!id.IsAlive())
     {
-      // TODO(AlexZ): MWM file was deleted, but changes have left. What whould we do in this case?
+      // TODO(AlexZ): MWM file was deleted, but changes have left. What should we do in this case?
       LOG(LWARNING, (mapName, "version", mapVersion, "references not existing MWM file."));
       continue;
     }
@@ -525,7 +525,6 @@ bool Editor::IsNameEditable(FeatureType const & feature) const
     if (typeDesc && typeDesc->name)
       return true;
   }
-
   return false;
 }
 
@@ -541,7 +540,6 @@ bool Editor::IsAddressEditable(FeatureType const & feature) const
     if (typeDesc && typeDesc->address)
       return true;
   }
-
   return false;
 }
 

@@ -74,7 +74,9 @@ public:
                    string const & editedHouseNumber = "");
 
   vector<feature::Metadata::EType> EditableMetadataForType(FeatureType const & feature) const;
+  /// @returns true if feature's name is editable.
   bool IsNameEditable(FeatureType const & feature) const;
+  /// @returns true if street and house number are editable.
   bool IsAddressEditable(FeatureType const & feature) const;
 
   using TChangesetTags = map<string, string>;
