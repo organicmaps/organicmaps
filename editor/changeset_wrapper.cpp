@@ -3,10 +3,18 @@
 #include "editor/changeset_wrapper.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/sstream.hpp"
 
 #include "private.h"
 
 using editor::XMLFeature;
+
+string DebugPrint(pugi::xml_document const & doc)
+{
+  ostringstream stream;
+  doc.print(stream, "  ");
+  return stream.str();
+}
 
 namespace osm
 {
@@ -25,26 +33,32 @@ ChangesetWrapper::~ChangesetWrapper()
     m_api.CloseChangeSet(m_changesetId);
 }
 
+void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc)
+{
+  auto const response = m_api.GetXmlFeaturesAtLatLon(ll.lat, ll.lon);
+  if (response.first == OsmOAuth::ResponseCode::NetworkError)
+    MYTHROW(NetworkErrorException, ("NetworkError with GetXmlFeaturesAtLatLon request."));
+  if (response.first != OsmOAuth::ResponseCode::OK)
+    MYTHROW(HttpErrorException, ("HTTP error", response.first, "with GetXmlFeaturesAtLatLon", ll));
+
+  if (pugi::status_ok != doc.load(response.second.c_str()).status)
+    MYTHROW(OsmXmlParseException, ("Can't parse OSM server response for GetXmlFeaturesAtLatLon request", response.second));
+}
+
 XMLFeature ChangesetWrapper::GetMatchingFeatureFromOSM(XMLFeature const & ourPatch, FeatureType const & feature)
 {
   if (feature.GetFeatureType() == feature::EGeomType::GEOM_POINT)
   {
     // Match with OSM node.
     ms::LatLon const ll = ourPatch.GetCenter();
-    auto const response = m_api.GetXmlFeaturesAtLatLon(ll.lat, ll.lon);
-    if (response.first == OsmOAuth::ResponseCode::NetworkError)
-      MYTHROW(NetworkErrorException, ("NetworkError with GetXmlNodeByLatLon request."));
-    if (response.first != OsmOAuth::ResponseCode::OK)
-      MYTHROW(HttpErrorException, ("HTTP error", response.first, "with GetXmlNodeByLatLon", ll));
-
     pugi::xml_document doc;
-    if (pugi::status_ok != doc.load(response.second.c_str()).status)
-      MYTHROW(OsmXmlParseException, ("Can't parse OSM server response for GetXmlNodeByLatLon request", response.second));
+    // Throws!
+    LoadXmlFromOSM(ll, doc);
 
     // TODO(AlexZ): Select best matching OSM node, not just the first one.
     pugi::xml_node const firstNode = doc.child("osm").child("node");
     if (firstNode.empty())
-      MYTHROW(OsmObjectWasDeletedException, ("OSM does not have any nodes at the coordinates", ll, ", server has returned:", response.second));
+      MYTHROW(OsmObjectWasDeletedException, ("OSM does not have any nodes at the coordinates", ll, ", server has returned:", doc));
 
     return XMLFeature(firstNode);
   }
@@ -65,15 +79,9 @@ XMLFeature ChangesetWrapper::GetMatchingFeatureFromOSM(XMLFeature const & ourPat
     for (auto const & pt : geometry)
     {
       ms::LatLon const ll = MercatorBounds::ToLatLon(pt);
-      auto const response = m_api.GetXmlFeaturesAtLatLon(ll.lat, ll.lon);
-      if (response.first == OsmOAuth::ResponseCode::NetworkError)
-        MYTHROW(NetworkErrorException, ("NetworkError with GetXmlNodeByLatLon request."));
-      if (response.first != OsmOAuth::ResponseCode::OK)
-        MYTHROW(HttpErrorException, ("HTTP error", response.first, "with GetXmlNodeByLatLon", ll));
-
       pugi::xml_document doc;
-      if (pugi::status_ok != doc.load(response.second.c_str()).status)
-        MYTHROW(OsmXmlParseException, ("Can't parse OSM server response for GetXmlNodeByLatLon request", response.second));
+      // Throws!
+      LoadXmlFromOSM(ll, doc);
 
       // TODO(AlexZ): Select best matching OSM way from possible many ways.
       pugi::xml_node const firstWay = doc.child("osm").child("way");

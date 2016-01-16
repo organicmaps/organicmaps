@@ -35,6 +35,9 @@ public:
   void ModifyNode(editor::XMLFeature node);
 
 private:
+  // Unfortunately, pugi can't return xml_documents from methods.
+  void LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc);
+
   ServerApi06::TKeyValueTags m_changesetComments;
   ServerApi06 m_api;
   static constexpr int const kInvalidChangesetId = 0;
