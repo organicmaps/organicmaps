@@ -284,7 +284,10 @@ public:
     inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
     string GetCountryFileName() const;
     bool IsWorld() const;
+    /// Everyone, except Editor core, should use this method.
     void GetFeatureByIndex(uint32_t index, FeatureType & ft) const;
+    /// Editor core only method, to get 'untouched', original version of feature.
+    void GetNotEditedFeatureByIndex(uint32_t index, FeatureType & ft) const;
     inline FeaturesVector const & GetFeaturesVector() const { return m_vector; }
 
   private:

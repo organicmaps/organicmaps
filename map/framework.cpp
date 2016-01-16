@@ -329,7 +329,11 @@ Framework::Framework()
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
   editor.SetFeatureLoaderFn([this](FeatureID const & fid) -> unique_ptr<FeatureType>
   {
-    return GetFeatureByID(fid);
+    unique_ptr<FeatureType> feature(new FeatureType());
+    Index::FeaturesLoaderGuard const guard(m_model.GetIndex(), fid.m_mwmId);
+    guard.GetNotEditedFeatureByIndex(fid.m_index, *feature);
+    feature->ParseEverything();
+    return feature;
   });
   editor.LoadMapEdits();
 }

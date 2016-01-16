@@ -269,7 +269,7 @@ void Editor::LoadMapEdits()
           uint32_t const featureIndex = mapVersion < id.GetInfo()->GetVersion() ? xml.GetMWMFeatureIndex() : MigrateFeatureIndex(xml);
           FeatureID const fid(id, featureIndex);
 
-          FeatureTypeInfo fti;
+          FeatureTypeInfo & fti = m_features[id][fid.m_index];
 
           /// TODO(mgsergio): uncomment when feature creating will
           /// be required
@@ -293,11 +293,6 @@ void Editor::LoadMapEdits()
           fti.m_uploadStatus = xml.GetUploadStatus();
           fti.m_uploadError = xml.GetUploadError();
           fti.m_status = section.first;
-
-          /// Call to m_featureLoaderFn indirectly tries to load feature by
-          /// it's ID from the editor's m_features.
-          /// That's why insertion into m_features should go AFTER call to m_featureLoaderFn.
-          m_features[id][fid.m_index] = fti;
         }
         catch (editor::XMLFeatureError const & ex)
         {
