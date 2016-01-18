@@ -11,10 +11,8 @@ UNIT_TEST(OnlineCrossFetcherSmokeTest)
   TestOnlineFetcher(
       {61.76, 34.45}, {45.07, 38.94},
       {"Russia_Central", "Russia_Central", "Russia_Central", "Russia_Central", "Russia_Central",
-       "Russia_Central", "Russia_Central", "Russia_Central", "Russia_Central", "Russia_Central",
-       "Russia_Central", "Russia_Central", "Russia_Central", "Russia_Central", "Russia_Southern",
-       "Russia_Southern", "Russia_Northwestern", "Russia_Northwestern"},
-      routerComponents);
+       "Russia_Central", "Russia_Southern", "Russia_Southern", "Russia_Northwestern",
+       "Russia_Northwestern", "Russia_Northwestern"}, routerComponents);
 }
 
 UNIT_TEST(OnlineRussiaNorthToSouthTest)

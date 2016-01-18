@@ -303,12 +303,6 @@ namespace integration
     vector<m2::PointD> const & points = fetcher.GetMwmPoints();
     set<string> foundMwms;
 
-    // Start/stop mwm workaround. Remove after borders migration.
-    foundMwms.insert(routerComponents.GetCountryInfoGetter().GetRegionFile(
-        MercatorBounds::FromLatLon(startPoint)));
-    foundMwms.insert(routerComponents.GetCountryInfoGetter().GetRegionFile(
-        MercatorBounds::FromLatLon(finalPoint)));
-
     for (m2::PointD const & point : points)
     {
       string const mwmName = routerComponents.GetCountryInfoGetter().GetRegionFile(point);
