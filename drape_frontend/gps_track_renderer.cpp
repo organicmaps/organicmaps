@@ -29,9 +29,9 @@ size_t const kAveragePointsCount = 512;
 float const kRadiusInPixel[] =
 {
   // 1   2     3     4     5     6     7     8     9     10
-  1.0f, 1.0f, 1.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f,
+  0.8f, 0.8f, 0.8f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
   //11   12    13    14    15    16    17    18    19     20
-  3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 4.0f, 5.0f, 5.0f, 5.0f, 6.0f
+  2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 3.5f, 4.5f, 4.5f, 4.5f, 5.5f
 };
 
 double const kHumanSpeed = 2.6; // meters per second
@@ -40,7 +40,6 @@ uint8_t const kMinDayAlpha = 90;
 uint8_t const kMaxDayAlpha = 144;
 uint8_t const kMinNightAlpha = 50;
 uint8_t const kMaxNightAlpha = 102;
-float const kOutlineRadiusScalar = 0.3f;
 double const kUnknownDistanceTime = 5 * 60; // seconds
 
 #ifdef DEBUG
@@ -288,7 +287,6 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
   // Render points.
   dp::UniformValuesStorage uniforms = commonUniforms;
   uniforms.SetFloatValue("u_opacity", 1.0f);
-  uniforms.SetFloatValue("u_radiusShift", m_radius * kOutlineRadiusScalar);
   ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::TRACK_POINT_PROGRAM);
   program->Bind();
 
