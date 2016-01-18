@@ -61,6 +61,7 @@ TARGET_PLATFORM := android-15
 LOCAL_HEADER_FILES := \
 	../../private.h \
 	com/mapswithme/core/jni_helper.hpp \
+	com/mapswithme/core/ScopedLocalRef.hpp \
 	com/mapswithme/core/logging.hpp \
 	com/mapswithme/maps/Framework.hpp \
 	com/mapswithme/maps/MapStorage.hpp \
@@ -92,6 +93,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/PrivateVariables.cpp \
 	com/mapswithme/maps/SearchEngine.cpp \
 	com/mapswithme/maps/SearchRecents.cpp \
+	com/mapswithme/maps/UserMarkHelper.cpp \
 	com/mapswithme/maps/settings/UnitLocale.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
@@ -104,6 +106,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/opengl/androidoglcontext.cpp \
 	com/mapswithme/opengl/androidoglcontextfactory.cpp \
 	com/mapswithme/maps/editor/OpeningHours.cpp \
+	com/mapswithme/maps/editor/Editor.cpp
 
 LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv2 -latomic -lz
 

@@ -144,20 +144,13 @@ extern "C"
     if ( g_javaListener )
       env->DeleteGlobalRef(g_javaListener);
     g_javaListener = env->NewGlobalRef(thiz);
-    g_updateResultsId = jni::GetJavaMethodID(env, g_javaListener, "onResultsUpdate", "([Lcom/mapswithme/maps/search/SearchResult;J)V");
-    ASSERT(g_updateResultsId, ());
-    g_endResultsId = jni::GetJavaMethodID(env, g_javaListener, "onResultsEnd", "(J)V");
-    ASSERT(g_endResultsId, ());
+    g_updateResultsId = jni::GetMethodID(env, g_javaListener, "onResultsUpdate", "([Lcom/mapswithme/maps/search/SearchResult;J)V");
+    g_endResultsId = jni::GetMethodID(env, g_javaListener, "onResultsEnd", "(J)V");
     g_resultClass = static_cast<jclass>(env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult")));
-    ASSERT(g_resultClass, ());
-    g_resultConstructor = env->GetMethodID(g_resultClass, "<init>", "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;DD[I)V");
-    ASSERT(g_resultConstructor, ());
-    g_suggestConstructor = env->GetMethodID(g_resultClass, "<init>", "(Ljava/lang/String;Ljava/lang/String;[I)V");
-    ASSERT(g_suggestConstructor, ());
+    g_resultConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;DD[I)V");
+    g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;[I)V");
     g_descriptionClass = static_cast<jclass>(env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult$Description")));
-    ASSERT(g_descriptionClass, ());
-    g_descriptionConstructor = env->GetMethodID(g_descriptionClass, "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZ)V");
-    ASSERT(g_descriptionConstructor, ());
+    g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZ)V");
   }
 
   JNIEXPORT jboolean JNICALL

@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.widget.placepage.TimetableFragment;
 
 public class EditorActivity extends BaseMwmFragmentActivity
 {
@@ -15,14 +14,6 @@ public class EditorActivity extends BaseMwmFragmentActivity
   protected Class<? extends Fragment> getFragmentClass()
   {
     return EditorHostFragment.class;
-  }
-
-  @Override
-  public void onBackPressed()
-  {
-    final TimetableFragment fragment = (TimetableFragment) getSupportFragmentManager().findFragmentByTag(getFragmentClass().getName());
-    if ((fragment == null) || !fragment.isAdded() || !fragment.onBackPressed())
-      super.onBackPressed();
   }
 
   public static void start(@NonNull Activity activity, @NonNull MapObject point)

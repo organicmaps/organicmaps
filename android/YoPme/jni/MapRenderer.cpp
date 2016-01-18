@@ -10,9 +10,6 @@ namespace
   static shared_ptr<yopme::Framework> s_framework;
 }
 
-// @TODO refactor and remove that
-void InitNVEvent(JavaVM * jvm) {}
-
 extern "C"
 {
 

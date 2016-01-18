@@ -2,6 +2,8 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,13 +44,19 @@ public class Metadata implements Parcelable
       mMetaType = metadataType;
     }
 
-    public static MetadataType fromInt(int metaType)
+    @NonNull
+    public static MetadataType fromInt(@IntRange(from = 1, to = 22) int metaType)
     {
       for (MetadataType type : values())
         if (type.mMetaType == metaType)
           return type;
 
-      return null;
+      throw new IllegalArgumentException("Illegal metaType arg!");
+    }
+
+    public int toInt()
+    {
+      return mMetaType;
     }
   }
 
@@ -62,9 +70,6 @@ public class Metadata implements Parcelable
   public boolean addMetadata(int metaType, String metaValue)
   {
     final MetadataType type = MetadataType.fromInt(metaType);
-    if (type == null)
-      return false;
-
     mMetadataMap.put(type, metaValue);
     return true;
   }
@@ -81,7 +86,6 @@ public class Metadata implements Parcelable
   }
 
   /**
-   * @param type
    * @return null if metadata doesn't exist
    */
   public String getMetadata(MetadataType type)

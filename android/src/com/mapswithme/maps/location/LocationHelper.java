@@ -55,7 +55,7 @@ public enum LocationHelper implements SensorEventListener
   private boolean mActive;
 
   private Location mLastLocation;
-  private MapObject.MyPosition mMyPosition;
+  private MapObject mMyPosition;
   private long mLastLocationTime;
 
   private final SensorManager mSensorManager;
@@ -151,7 +151,8 @@ public enum LocationHelper implements SensorEventListener
       mLocationProvider.startUpdates();
   }
 
-  public @Nullable MapObject.MyPosition getMyPosition()
+  @Nullable
+  public MapObject getMyPosition()
   {
     if (!LocationState.isTurnedOn())
     {
@@ -163,7 +164,7 @@ public enum LocationHelper implements SensorEventListener
       return null;
 
     if (mMyPosition == null)
-      mMyPosition = new MapObject.MyPosition(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+      mMyPosition = new MapObject(MapObject.MY_POSITION, "", mLastLocation.getLatitude(), mLastLocation.getLongitude(), "", "", "");
 
     return mMyPosition;
   }

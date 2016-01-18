@@ -163,7 +163,7 @@ extern "C"
 
     JNIEnv * env = jni::GetEnv();
 
-    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onDownloadFinished", "(I)V");
+    jmethodID methodID = jni::GetMethodID(env, *obj.get(), "onDownloadFinished", "(I)V");
     env->CallVoidMethod(*obj.get(), methodID, errorCode);
   }
 
@@ -180,10 +180,10 @@ extern "C"
 
     JNIEnv * env = jni::GetEnv();
 
-    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onDownloadProgress", "(IIII)V");
+    jmethodID methodID = jni::GetMethodID(env, *obj.get(), "onDownloadProgress", "(IIII)V");
     env->CallVoidMethod(*obj.get(), methodID,
-                         curTotal, curProgress,
-                         glbTotal, glbProgress);
+                        curTotal, curProgress,
+                        glbTotal, glbProgress);
   }
 
   typedef HttpRequest::CallbackT CallbackT;

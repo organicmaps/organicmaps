@@ -358,7 +358,7 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     {
       final View day = itemView.findViewById(id);
       final CheckBox checkBox = (CheckBox) day.findViewById(R.id.chb__day);
-      // Save index of the day to get it back wheh checkbox will be toggled.
+      // Save index of the day to get it back when checkbox will be toggled.
       checkBox.setTag(dayIndex);
       days.put(dayIndex, checkBox);
       day.setOnClickListener(new View.OnClickListener()

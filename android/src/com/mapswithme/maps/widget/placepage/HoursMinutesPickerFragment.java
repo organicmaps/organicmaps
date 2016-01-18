@@ -46,14 +46,15 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
   }
 
   public static void pick(Context context, FragmentManager manager, @NonNull HoursMinutes from, @NonNull HoursMinutes to,
-                             @IntRange(from = 0, to = 1) int selectedPosition, int id)
+                          @IntRange(from = 0, to = 1) int selectedPosition, int id)
   {
     final Bundle args = new Bundle();
     args.putParcelable(EXTRA_FROM, from);
     args.putParcelable(EXTRA_TO, to);
     args.putInt(EXTRA_SELECT_FIRST, selectedPosition);
     args.putInt(EXTRA_ID, id);
-    final HoursMinutesPickerFragment fragment = (HoursMinutesPickerFragment) Fragment.instantiate(context, HoursMinutesPickerFragment.class.getName(), args);
+    final HoursMinutesPickerFragment fragment =
+        (HoursMinutesPickerFragment) Fragment.instantiate(context, HoursMinutesPickerFragment.class.getName(), args);
     fragment.show(manager, null);
   }
 

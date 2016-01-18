@@ -114,7 +114,7 @@ extern "C"
   {
     JNIEnv * env = jni::GetEnv();
 
-    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onCountryStatusChanged", "(Lcom/mapswithme/maps/MapStorage$Index;)V");
+    jmethodID methodID = jni::GetMethodID(env, *obj.get(), "onCountryStatusChanged", "(Lcom/mapswithme/maps/MapStorage$Index;)V");
     env->CallVoidMethod(*obj.get(), methodID, ToJava(idx));
   }
 
@@ -125,7 +125,7 @@ extern "C"
 
     JNIEnv * env = jni::GetEnv();
 
-    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onCountryProgress", "(Lcom/mapswithme/maps/MapStorage$Index;JJ)V");
+    jmethodID methodID = jni::GetMethodID(env, *obj.get(), "onCountryProgress", "(Lcom/mapswithme/maps/MapStorage$Index;JJ)V");
     env->CallVoidMethod(*obj.get(), methodID, ToJava(idx), current, total);
   }
 

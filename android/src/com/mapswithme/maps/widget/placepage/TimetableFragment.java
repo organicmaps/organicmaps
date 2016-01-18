@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmToolbarFragment;
+import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.editor.OpeningHours;
 import com.mapswithme.maps.editor.data.Timetable;
-import com.mapswithme.util.Utils;
 
-public class TimetableFragment extends BaseMwmToolbarFragment
+public class TimetableFragment extends BaseMwmFragment
                             implements View.OnClickListener,
                                        OnBackPressListener
 {
@@ -35,6 +35,8 @@ public class TimetableFragment extends BaseMwmToolbarFragment
   private SimpleTimetableFragment mSimpleModeFragment;
   private AdvancedTimetableFragment mAdvancedModeFragment;
 
+  protected EditorHostFragment mParent;
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -47,6 +49,8 @@ public class TimetableFragment extends BaseMwmToolbarFragment
   {
     super.onViewCreated(view, savedInstanceState);
 
+    mParent = (EditorHostFragment) getParentFragment();
+
     initViews(view);
     simpleMode();
 
@@ -55,10 +59,14 @@ public class TimetableFragment extends BaseMwmToolbarFragment
       mSimpleModeFragment.setTimetables(OpeningHours.nativeTimetablesFromString(args.getString(EXTRA_TIME)));
   }
 
+  public String getTimetable()
+  {
+    return OpeningHours.nativeTimetablesToString(mIsAdvancedMode ? mAdvancedModeFragment.getTimetables()
+                                                                 : mSimpleModeFragment.getTimetables());
+  }
+
   private void initViews(View root)
   {
-    mToolbarController.setTitle(R.string.editor_time_title);
-    mToolbarController.findViewById(R.id.iv__submit).setOnClickListener(this);
     mSwitchMode = (TextView) root.findViewById(R.id.tv__mode_switch);
     mSwitchMode.setOnClickListener(this);
   }
@@ -71,8 +79,6 @@ public class TimetableFragment extends BaseMwmToolbarFragment
     case R.id.tv__mode_switch:
       switchMode();
       break;
-    case R.id.iv__submit:
-      saveTimetable();
     }
   }
 
@@ -113,7 +119,7 @@ public class TimetableFragment extends BaseMwmToolbarFragment
     return fragment != null && fragment.isAdded();
   }
 
-  private Timetable[] getFilledTimetables(Fragment fragment, TimetableProvider provider)
+  private @Nullable Timetable[] getFilledTimetables(Fragment fragment, TimetableProvider provider)
   {
     if (!hasFilledTimetables(fragment))
       return null;
@@ -137,18 +143,5 @@ public class TimetableFragment extends BaseMwmToolbarFragment
                                         : current;
     getChildFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     return fragment;
-  }
-
-  private void saveTimetable()
-  {
-    if (mIsAdvancedMode)
-      mAdvancedModeFragment.getTimetables();
-    else
-      mSimpleModeFragment.getTimetables();
-
-    final Timetable[] timetables = mIsAdvancedMode ? mAdvancedModeFragment.getTimetables() : mSimpleModeFragment.getTimetables();
-    // TODO @yunikkk or @deathbaba save timetables to the core
-
-    Utils.navigateToParent(getActivity());
   }
 }

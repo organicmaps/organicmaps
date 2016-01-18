@@ -90,9 +90,9 @@ class PlacePageLeftAnimationController extends BasePlacePageAnimationController
   }
 
   @Override
-  public void setState(State state, MapObject.MapObjectType type)
+  public void setState(State state, @MapObject.MapObjectType int type)
   {
-    if (state == State.PREVIEW && type == MapObject.MapObjectType.BOOKMARK)
+    if (state == State.PREVIEW && type == MapObject.BOOKMARK)
       state = State.BOOKMARK;
 
     super.setState(state, type);

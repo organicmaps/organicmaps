@@ -72,10 +72,10 @@ public abstract class BasePlacePageAnimationController
     }
   }
 
-  public void setState(State state, MapObject.MapObjectType type)
+  public void setState(State state, @MapObject.MapObjectType int type)
   {
     State newState = state;
-    if (type == MapObject.MapObjectType.BOOKMARK && state == State.DETAILS)
+    if (type == MapObject.BOOKMARK && state == State.DETAILS)
       newState = State.BOOKMARK;
 
     if (newState != mState)

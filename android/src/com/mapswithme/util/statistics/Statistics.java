@@ -334,6 +334,7 @@ public enum Statistics
 
   public static String getPointType(MapObject point)
   {
-    return point instanceof MapObject.MyPosition ? Statistics.EventParam.MY_POSITION : Statistics.EventParam.POINT;
+    return MapObject.isOfType(MapObject.MY_POSITION, point) ? Statistics.EventParam.MY_POSITION
+                                                            : Statistics.EventParam.POINT;
   }
 }

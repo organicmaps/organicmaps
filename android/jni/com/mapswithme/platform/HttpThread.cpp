@@ -70,7 +70,7 @@ public:
     JNIEnv * env = jni::GetEnv();
     ASSERT ( env, () );
 
-    jmethodID methodId = jni::GetJavaMethodID(env, m_self, "cancel", "(Z)Z");
+    jmethodID methodId = jni::GetMethodID(env, m_self, "cancel", "(Z)Z");
     ASSERT ( methodId, () );
 
     env->CallBooleanMethod(m_self, methodId, false);

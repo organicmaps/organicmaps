@@ -20,17 +20,9 @@ public class Framework
   public static final int ROUTER_TYPE_PEDESTRIAN = 1;
 
   @SuppressWarnings("unused")
-  public interface OnBalloonListener
+  public interface MapObjectListener
   {
-    void onApiPointActivated(double lat, double lon, String name, String id);
-
-    void onPoiActivated(String name, String type, String address, double lat, double lon, int[] metaTypes, String[] metaValues);
-
-    void onBookmarkActivated(int category, int bookmarkIndex);
-
-    void onMyPositionActivated(double lat, double lon);
-
-    void onAdditionalLayerActivated(String name, String type, double lat, double lon, int[] metaTypes, String[] metaValues);
+    void onMapObjectActivated(MapObject object);
 
     void onDismiss();
   }
@@ -85,9 +77,9 @@ public class Framework
 
   public native static MapObject nativeGetMapObjectForPoint(double lat, double lon);
 
-  public native static void nativeSetBalloonListener(OnBalloonListener listener);
+  public native static void nativeSetMapObjectListener(MapObjectListener listener);
 
-  public native static void nativeRemoveBalloonListener();
+  public native static void nativeRemoveMapObjectListener();
 
   public native static String nativeGetOutdatedCountriesString();
 

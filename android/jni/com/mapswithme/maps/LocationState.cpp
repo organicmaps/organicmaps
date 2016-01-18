@@ -23,7 +23,7 @@ extern "C"
     g_framework->SetMyPositionMode(mode);
 
     JNIEnv * env = jni::GetEnv();
-    env->CallVoidMethod(*obj.get(), jni::GetJavaMethodID(env, *obj.get(), "onMyPositionModeChangedCallback", "(I)V"), static_cast<jint>(mode));
+    env->CallVoidMethod(*obj.get(), jni::GetMethodID(env, *obj.get(), "onMyPositionModeChangedCallback", "(I)V"), static_cast<jint>(mode));
   }
 
   JNIEXPORT void JNICALL

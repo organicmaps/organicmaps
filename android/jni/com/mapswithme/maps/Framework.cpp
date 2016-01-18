@@ -1,13 +1,10 @@
 #include "Framework.hpp"
 #include "MapStorage.hpp"
-
-#include "../opengl/androidoglcontextfactory.hpp"
-
-#include "../core/jni_helper.hpp"
-
-#include "../country/country_helper.hpp"
-
-#include "../platform/Platform.hpp"
+#include "UserMarkHelper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/country/country_helper.hpp"
+#include "com/mapswithme/opengl/androidoglcontextfactory.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
 
 #include "map/user_mark.hpp"
 
@@ -449,10 +446,8 @@ void Framework::ItemStatusChanged(int childPosition)
     return;
 
   JNIEnv * env = jni::GetEnv();
-  static jmethodID const methodID = jni::GetJavaMethodID(env,
-                                                  *m_javaCountryListener,
-                                                  "onItemStatusChanged",
-                                                  "(I)V");
+  static jmethodID const methodID = jni::GetMethodID(env, *m_javaCountryListener,
+                                                     "onItemStatusChanged", "(I)V");
   ASSERT ( methodID, () );
 
   env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition);
@@ -464,10 +459,8 @@ void Framework::ItemProgressChanged(int childPosition, LocalAndRemoteSizeT const
     return;
 
   JNIEnv * env = jni::GetEnv();
-  static jmethodID const methodID = jni::GetJavaMethodID(env,
-                                                  *m_javaCountryListener,
-                                                  "onItemProgressChanged",
-                                                  "(I[J)V");
+  static jmethodID const methodID = jni::GetMethodID(env, *m_javaCountryListener,
+                                                     "onItemProgressChanged", "(I[J)V");
   ASSERT ( methodID, () );
 
   env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition, storage_utils::ToArray(env, sizes));
@@ -479,7 +472,7 @@ void Framework::CountryGroupChanged(ActiveMapsLayout::TGroup const & oldGroup, i
   JNIEnv * env = jni::GetEnv();
   for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
   {
-    jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryGroupChanged", "(IIII)V");
+    jmethodID const methodID = jni::GetMethodID(env, *(it->second), "onCountryGroupChanged", "(IIII)V");
     ASSERT ( methodID, () );
 
     env->CallVoidMethod(*(it->second), methodID, oldGroup, oldPosition, newGroup, newPosition);
@@ -492,7 +485,7 @@ void Framework::CountryStatusChanged(ActiveMapsLayout::TGroup const & group, int
   JNIEnv * env = jni::GetEnv();
   for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
   {
-    jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryStatusChanged", "(IIII)V");
+    jmethodID const methodID = jni::GetMethodID(env, *(it->second), "onCountryStatusChanged", "(IIII)V");
     ASSERT ( methodID, () );
 
     env->CallVoidMethod(*(it->second), methodID, group, position,
@@ -506,7 +499,7 @@ void Framework::CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, in
   JNIEnv * env = jni::GetEnv();
   for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
   {
-    jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryOptionsChanged", "(IIII)V");
+    jmethodID const methodID = jni::GetMethodID(env, *(it->second), "onCountryOptionsChanged", "(IIII)V");
     ASSERT ( methodID, () );
 
     env->CallVoidMethod(*(it->second), methodID, group, position,
@@ -520,29 +513,10 @@ void Framework::DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group
   JNIEnv * env = jni::GetEnv();
   for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
   {
-    jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryProgressChanged", "(II[J)V");
+    jmethodID const methodID = jni::GetMethodID(env, *(it->second), "onCountryProgressChanged", "(II[J)V");
     ASSERT ( methodID, () );
 
     env->CallVoidMethod(*(it->second), methodID, group, position, storage_utils::ToArray(env, progress));
-  }
-}
-
-// Fills mapobject's metadata
-void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, feature::Metadata const & metadata)
-{
-  static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
-  ASSERT ( addId, () );
-
-  for (auto const t : metadata.GetPresentTypes())
-  {
-    // TODO: It is not a good idea to pass raw strings to UI. Calling separate getters should be a better way.
-    // Upcoming change: how to pass opening hours (parsed) into Editor's UI? How to get edited changes back?
-    jstring metaString = t == feature::Metadata::FMD_WIKIPEDIA ?
-                         jni::ToJavaString(env, metadata.GetWikiURL()) :
-                         jni::ToJavaString(env, metadata.Get(t));
-    env->CallVoidMethod(mapObject, addId, t, metaString);
-    // TODO use unique_ptrs for autoallocation of local refs
-    env->DeleteLocalRef(metaString);
   }
 }
 
@@ -563,14 +537,17 @@ void Framework::ExecuteDrapeTasks()
   m_drapeTasksQueue.clear();
 }
 
-} // namespace android
-
-template <class T>
-T const * CastMark(UserMark const * data)
+void Framework::SetActiveUserMark(UserMark const * mark)
 {
-  return static_cast<T const *>(data);
+  m_activeUserMark = mark;
 }
 
+UserMark const * Framework::GetActiveUserMark()
+{
+  return m_activeUserMark;
+}
+
+} // namespace android
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
 /*            ____
@@ -581,128 +558,23 @@ T const * CastMark(UserMark const * data)
  *             \/
  */
 
-namespace
-{
-pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature::Metadata const & metadata)
-{
-  using feature::Metadata;
-
-  auto const metaTypes = metadata.GetPresentTypes();
-  // FIXME arrays, allocated through New<Type>Array should be deleted manually in the method.
-  // refactor that to delete refs locally or pass arrays from outside context
-  const jintArray j_metaTypes = env->NewIntArray(metadata.Size());
-  jint * arr = env->GetIntArrayElements(j_metaTypes, 0);
-  const jobjectArray j_metaValues = env->NewObjectArray(metadata.Size(), jni::GetStringClass(env), 0);
-
-  for (size_t i = 0; i < metaTypes.size(); i++)
-  {
-    auto const type = metaTypes[i];
-    arr[i] = type;
-    // TODO: Refactor code to use separate getters for each metadata.
-    jstring metaString = type == Metadata::FMD_WIKIPEDIA ?
-                         jni::ToJavaString(env, metadata.GetWikiURL()) :
-                         jni::ToJavaString(env, metadata.Get(type));
-    env->SetObjectArrayElement(j_metaValues, i, metaString);
-    env->DeleteLocalRef(metaString);
-  }
-  env->ReleaseIntArrayElements(j_metaTypes, arr, 0);
-
-  return make_pair(j_metaTypes, j_metaValues);
-}
-} // namespace
-
 extern "C"
 {
-  // API
-  void CallOnApiPointActivatedListener(shared_ptr<jobject> obj, ApiMarkPoint const * data, double lat, double lon)
+  void CallOnMapObjectActivatedListener(shared_ptr<jobject> listener, jobject mapObject)
   {
     JNIEnv * env = jni::GetEnv();
-    static jmethodID const methodID = jni::GetJavaMethodID(env,
-                                                    *obj.get(),
-                                                   "onApiPointActivated",
-                                                   "(DDLjava/lang/String;Ljava/lang/String;)V");
-
-    jstring j_name = jni::ToJavaString(env, data->GetName());
-    jstring j_id = jni::ToJavaString(env, data->GetID());
-
-    env->CallVoidMethod(*obj.get(), methodID, lat, lon, j_name, j_id);
-
-    // TODO use unique_ptrs for autoallocation of local refs
-    env->DeleteLocalRef(j_id);
-    env->DeleteLocalRef(j_name);
+    static jmethodID const methodId =
+        jni::GetMethodID(env, *listener.get(), "onMapObjectActivated",
+                             "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
+    ASSERT(methodId, ());
+    //public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName)
+    env->CallVoidMethod(*listener.get(), methodId, mapObject);
   }
 
-  // Additional layer
-  void CallOnAdditionalLayerActivatedListener(shared_ptr<jobject> obj, m2::PointD const & globalPoint,
-      search::AddressInfo const & addrInfo, feature::Metadata const & metadata)
-  {
-    JNIEnv * env = jni::GetEnv();
-
-    const jstring j_name = jni::ToJavaString(env, addrInfo.GetPinName());
-    const jstring j_type = jni::ToJavaString(env, addrInfo.GetPinType());
-    const double lon = MercatorBounds::XToLon(globalPoint.x);
-    const double lat = MercatorBounds::YToLat(globalPoint.y);
-
-    pair<jintArray, jobjectArray> const meta = NativeMetadataToJavaMetadata(env, metadata);
-
-    const char * signature = "(Ljava/lang/String;Ljava/lang/String;DD[I[Ljava/lang/String;)V";
-    static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(),
-                                                      "onAdditionalLayerActivated", signature);
-    env->CallVoidMethod(*obj.get(), methodId, j_name, j_type, lat, lon, meta.first, meta.second);
-
-    env->DeleteLocalRef(j_type);
-    env->DeleteLocalRef(j_name);
-
-    env->DeleteLocalRef(meta.second);
-    env->DeleteLocalRef(meta.first);
-  }
-
-  // POI
-  void CallOnPoiActivatedListener(shared_ptr<jobject> obj, m2::PointD const & globalPoint,
-      search::AddressInfo const & addrInfo, feature::Metadata const & metadata)
-  {
-    JNIEnv * env = jni::GetEnv();
-
-    const jstring j_name = jni::ToJavaString(env, addrInfo.GetPinName());
-    const jstring j_type = jni::ToJavaString(env, addrInfo.GetPinType());
-    const jstring j_address = jni::ToJavaString(env, addrInfo.FormatAddress());
-    const double lon = MercatorBounds::XToLon(globalPoint.x);
-    const double lat = MercatorBounds::YToLat(globalPoint.y);
-
-    pair<jintArray, jobjectArray> const meta = NativeMetadataToJavaMetadata(env, metadata);
-
-    const char * signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DD[I[Ljava/lang/String;)V";
-    static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(),
-                                                      "onPoiActivated", signature);
-    env->CallVoidMethod(*obj.get(), methodId, j_name, j_type, j_address, lat, lon, meta.first, meta.second);
-
-    env->DeleteLocalRef(meta.second);
-    env->DeleteLocalRef(meta.first);
-  }
-
-  // Bookmark
-  void CallOnBookmarkActivatedListener(shared_ptr<jobject> obj, BookmarkAndCategory const & bmkAndCat)
-  {
-    JNIEnv * env = jni::GetEnv();
-    static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(),
-                                                    "onBookmarkActivated", "(II)V");
-    env->CallVoidMethod(*obj.get(), methodId, bmkAndCat.first, bmkAndCat.second);
-  }
-
-  // My position
-  void CallOnMyPositionActivatedListener(shared_ptr<jobject> obj, double lat, double lon)
-  {
-    JNIEnv * env = jni::GetEnv();
-    static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(),
-                                                    "onMyPositionActivated", "(DD)V");
-    env->CallVoidMethod(*obj.get(), methodId, lat, lon);
-  }
-
-  // Dismiss information box
   void CallOnDismissListener(shared_ptr<jobject> obj)
   {
     JNIEnv * env = jni::GetEnv();
-    static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(), "onDismiss", "()V");
+    static jmethodID const methodId = jni::GetMethodID(env, *obj.get(), "onDismiss", "()V");
     ASSERT(methodId, ());
     env->CallVoidMethod(*obj.get(), methodId);
   }
@@ -711,68 +583,15 @@ extern "C"
   {
     if (markCopy == nullptr)
     {
+      g_framework->SetActiveUserMark(nullptr);
       CallOnDismissListener(obj);
       return;
     }
 
-    ::Framework * fm = frm();
     UserMark const * mark = markCopy->GetUserMark();
-    search::AddressInfo info;
-    feature::Metadata metadata;
-    auto const * feature = mark->GetFeature();
-    if (feature)
-    {
-      info = fm->GetFeatureAddressInfo(*feature);
-      metadata = feature->GetMetadata();
-    }
-    else
-    {
-      // Calculate at least country name for a point. Can we provide more address information?
-      info.m_country = fm->GetCountryName(mark->GetPivot());
-    }
-    switch (mark->GetMarkType())
-    {
-    case UserMark::Type::API:
-      {
-        ms::LatLon const ll = mark->GetLatLon();
-        CallOnApiPointActivatedListener(obj, CastMark<ApiMarkPoint>(mark), ll.lat, ll.lon);
-        break;
-      }
-
-    case UserMark::Type::BOOKMARK:
-      {
-        BookmarkAndCategory bmAndCat = fm->FindBookmark(mark);
-        if (IsValid(bmAndCat))
-          CallOnBookmarkActivatedListener(obj, bmAndCat);
-        break;
-      }
-
-    case UserMark::Type::POI:
-      {
-        // TODO(AlexZ): Refactor out passing custom name for shared links.
-        auto const & cn = static_cast<PoiMarkPoint const *>(mark)->GetCustomName();
-        if (!cn.empty())
-          info.m_name = cn;
-        CallOnPoiActivatedListener(obj, mark->GetPivot(), info, metadata);
-        break;
-      }
-
-    case UserMark::Type::SEARCH:
-      {
-        CallOnAdditionalLayerActivatedListener(obj, mark->GetPivot(), info, metadata);
-        break;
-      }
-
-    case UserMark::Type::MY_POSITION:
-      {
-        ms::LatLon const ll = mark->GetLatLon();
-        CallOnMyPositionActivatedListener(obj, ll.lat, ll.lon);
-        break;
-      }
-    case UserMark::Type::DEBUG_MARK:
-      // Ignore clicks to debug marks.
-      break;
-    }
+    g_framework->SetActiveUserMark(mark);
+    jni::TScopedLocalRef mapObject(jni::GetEnv(), usermark_helper::CreateMapObject(mark));
+    CallOnMapObjectActivatedListener(obj, mapObject.get());
   }
 
   void CallRoutingListener(shared_ptr<jobject> obj, int errorCode, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
@@ -780,7 +599,7 @@ extern "C"
     JNIEnv * env = jni::GetEnv();
     // cache methodID - it cannot change after class is loaded.
     // http://developer.android.com/training/articles/perf-jni.html#jclass_jmethodID_and_jfieldID more details here
-    static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(), "onRoutingEvent",
+    static jmethodID const methodId = jni::GetMethodID(env, *obj.get(), "onRoutingEvent",
                                                            "(I[Lcom/mapswithme/maps/MapStorage$Index;[Lcom/mapswithme/maps/MapStorage$Index;)V");
     ASSERT(methodId, ());
 
@@ -809,7 +628,7 @@ extern "C"
   {
     JNIEnv * env = jni::GetEnv();
     jobject listener = *sharedListener.get();
-    static jmethodID const methodId = jni::GetJavaMethodID(env, listener, "onRouteBuildingProgress", "(F)V");
+    static jmethodID const methodId = jni::GetMethodID(env, listener, "onRouteBuildingProgress", "(F)V");
     env->CallVoidMethod(listener, methodId, progress);
   }
 
@@ -830,13 +649,13 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetBalloonListener(JNIEnv * env, jclass clazz, jobject l)
+  Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jclass clazz, jobject l)
   {
     frm()->SetUserMarkActivationListener(bind(&CallOnUserMarkActivated, jni::make_global_ref(l), _1));
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeRemoveBalloonListener(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_Framework_nativeRemoveMapObjectListener(JNIEnv * env, jobject thiz)
   {
     frm()->SetUserMarkActivationListener(::Framework::TActivateCallbackFn());
   }
@@ -1158,33 +977,12 @@ extern "C"
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetMapObjectForPoint(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
-    PoiMarkPoint const * poiMark = frm()->GetAddressMark(MercatorBounds::FromLatLon(lat, lon));
-    search::AddressInfo info;
-    feature::Metadata metadata;
-    auto const * feature = poiMark->GetFeature();
-    if (feature)
-    {
-      metadata = feature->GetMetadata();
-      info = frm()->GetFeatureAddressInfo(*feature);
-    }
-    // TODO(AlexZ): else case?
-
-    static jclass const klass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/MapObject$Poi");
-    // Java signature : Poi(String name, double lat, double lon, String typeName)
-    static jmethodID const methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;DDLjava/lang/String;)V");
-
-    jobject const mapObject = env->NewObject(klass, methodID, jni::ToJavaString(env, info.GetPinName()),
-                                             lat, lon, jni::ToJavaString(env, info.GetPinType()));
-    ASSERT(mapObject, ());
-
-    g_framework->InjectMetadata(env, klass, mapObject, metadata);
-
-    return mapObject;
+    return usermark_helper::CreateMapObject(frm()->GetAddressMark(MercatorBounds::FromLatLon(lat, lon)));
   }
 
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetCountryNameIfAbsent(JNIEnv * env, jobject thiz,
-      jdouble lat, jdouble lon)
+                                                                  jdouble lat, jdouble lon)
   {
     string const name = g_framework->GetCountryNameIfAbsent(MercatorBounds::FromLatLon(lat, lon));
 
@@ -1200,7 +998,7 @@ extern "C"
 
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetCountryIndex(JNIEnv * env, jobject thiz,
-      jdouble lat, jdouble lon)
+                                                           jdouble lat, jdouble lon)
   {
     TIndex const idx = g_framework->GetCountryIndex(lat, lon);
 
@@ -1353,5 +1151,11 @@ extern "C"
 
     static jfieldID const buildingsField = env->GetFieldID(resultClass, "buildings", "Z");
     env->SetBooleanField(result, buildingsField, buildings);
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetActiveMapObject(JNIEnv * env, jclass thiz)
+  {
+    return usermark_helper::CreateMapObject(g_framework->GetActiveUserMark());
   }
 } // extern "C"

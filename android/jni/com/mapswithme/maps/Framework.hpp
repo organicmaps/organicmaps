@@ -56,6 +56,8 @@ namespace android
     location::EMyPositionMode m_currentMode;
     bool m_isCurrentModeInitialized;
 
+    UserMark const * m_activeUserMark;
+
   public:
     Framework();
     ~Framework();
@@ -160,12 +162,12 @@ namespace android
     void ApplyWidgets();
     void CleanWidgets();
 
-    // Fills mapobject's metadata from UserMark
-    void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature::Metadata const & metadata);
-
     using TDrapeTask = function<void()>;
     // Posts a task which must be executed when Drape Engine is alive.
     void PostDrapeTask(TDrapeTask && task);
+
+    void SetActiveUserMark(UserMark const * mark);
+    UserMark const * GetActiveUserMark();
 
   public:
     virtual void ItemStatusChanged(int childPosition);

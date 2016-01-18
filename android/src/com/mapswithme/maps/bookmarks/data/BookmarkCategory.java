@@ -51,9 +51,9 @@ public class BookmarkCategory
     return getTracksCount(mId);
   }
 
-  public Bookmark getBookmark(int index)
+  public Bookmark getBookmark(int bookmarkId)
   {
-    return getBookmark(mId, index, Bookmark.class);
+    return getBookmark(mId, bookmarkId);
   }
 
   public Track getTrack(int index)
@@ -67,7 +67,7 @@ public class BookmarkCategory
 
   private native int getSize(int id);
 
-  private native Bookmark getBookmark(int id, int index, Class<Bookmark> bookmarkClazz);
+  private native Bookmark getBookmark(int id, int index);
 
   private native Track getTrack(int id, int index, Class<Track> trackClazz);
 

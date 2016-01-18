@@ -40,7 +40,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapFragment_nativeConnectDownloadButton(JNIEnv * env, jobject thiz)
   {
-    jmethodID methodID = jni::GetJavaMethodID(env, thiz, "onDownloadCountryClicked", "(IIII)V");
+    jmethodID methodID = jni::GetMethodID(env, thiz, "onDownloadCountryClicked", "(IIII)V");
     g_framework->NativeFramework()->SetDownloadCountryListener(bind(&CallOnDownloadCountryClicked,
                                                                jni::make_global_ref(thiz), _1, _2, methodID));
   }
