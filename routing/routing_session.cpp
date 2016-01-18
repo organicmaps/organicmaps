@@ -356,7 +356,7 @@ void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
 void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
                                           location::RouteMatchingInfo & routeMatchingInfo) const
 {
-  if (m_state != State::OnRoute)
+  if (!IsOnRoute())
     return;
 
   threads::MutexGuard guard(m_routeSessionMutex);
