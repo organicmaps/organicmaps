@@ -525,8 +525,9 @@ bool Retrieval::InitBucketStrategy(Bucket & bucket, double scale)
 
   try
   {
-    addressFeatures = RetrieveAddressFeatures(*bucket.m_handle.GetValue<MwmValue>(),
-                                              *this /* cancellable */, m_params);
+    addressFeatures =
+        RetrieveAddressFeatures(*bucket.m_handle.GetValue<MwmValue>(), *this /* cancellable */,
+                                m_params);
   }
   catch (CancelException &)
   {

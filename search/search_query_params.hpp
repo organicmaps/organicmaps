@@ -33,6 +33,7 @@ struct SearchQueryParams
   inline bool IsLangExist(int8_t l) const { return (m_langs.count(l) > 0); }
 
   TSynonymsVector const & GetTokens(size_t i) const;
+  TSynonymsVector & GetTokens(size_t i);
 
 private:
   template <class ToDo>

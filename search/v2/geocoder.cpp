@@ -168,6 +168,14 @@ void GetEnglishName(FeatureType const & ft, string & name)
   }
 }
 
+bool IsStreetCategory(strings::UniString const & category)
+{
+  static auto const kCategoriesList = GetStreetCategories();
+  static set<strings::UniString> const kCategoriesSet(kCategoriesList.begin(),
+                                                      kCategoriesList.end());
+  return kCategoriesSet.count(category) != 0;
+}
+
 template <typename TFn>
 void ForEachStreetCategory(TFn && fn)
 {
@@ -304,6 +312,19 @@ void Geocoder::SetParams(Params const & params)
   if (!m_params.m_prefixTokens.empty())
     ++m_numTokens;
 
+  // Remove all category synonyms for streets, as they're extracted
+  // individually via LoadStreets.
+  for (size_t i = 0; i < m_numTokens; ++i)
+  {
+    auto & synonyms = m_params.GetTokens(i);
+    if (!synonyms.empty() && IsStreetSynonym(synonyms.front()))
+    {
+      auto b = synonyms.begin();
+      auto e = synonyms.end();
+      synonyms.erase(remove_if(b + 1, e, &IsStreetCategory), e);
+    }
+  }
+
   LOG(LDEBUG, ("Languages =", m_params.m_langs));
 }
 
@@ -423,7 +444,10 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
         ASSERT(m_addressFeatures[i], ());
 
         if (viewportCBV)
-          m_addressFeatures[i] = coding::CompressedBitVector::Intersect(*m_addressFeatures[i], *viewportCBV);
+        {
+          m_addressFeatures[i] =
+              coding::CompressedBitVector::Intersect(*m_addressFeatures[i], *viewportCBV);
+        }
       }
 
       m_streets = LoadStreets(*m_context);
