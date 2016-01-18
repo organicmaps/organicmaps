@@ -48,9 +48,6 @@ public class NewsFragment extends BaseMwmDialogFragment
         mImages[i] = images.getResourceId(i, 0);
 
       images.recycle();
-
-      // TODO: Temporary solution. Remove for the next WhatsNews
-      mSubtitles[1] += "\n\n" + MwmApplication.get().getString(R.string.whats_new_3d_update_maps);
     }
 
     @Override
@@ -100,15 +97,7 @@ public class NewsFragment extends BaseMwmDialogFragment
           @Override
           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
           {
-            Framework.Params3dMode _3d = new Framework.Params3dMode();
-            Framework.nativeGet3dMode(_3d);
-
-            if (position == 0)
-              _3d.enabled = isChecked;
-            else
-              _3d.buildings = isChecked;
-
-            Framework.nativeSet3dMode(_3d.enabled, _3d.buildings);
+            // Unused now
           }
         });
 

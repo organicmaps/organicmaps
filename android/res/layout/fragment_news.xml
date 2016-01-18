@@ -35,12 +35,13 @@
       android:id="@+id/dots"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="center">
-      <ImageView
+      android:layout_gravity="center"
+      android:visibility="gone">
+      <!--ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="9dp"
-        tools:src="@drawable/news_marker_active"/>
+        tools:src="@drawable/news_marker_active"/-->
 
       <ImageView
         android:layout_width="wrap_content"
