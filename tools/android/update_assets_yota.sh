@@ -1,15 +1,17 @@
 #!/bin/bash
-set -x -u
+set -u
 
 # Pre-installed lite version apk should have a reference to mwm and ttf assets in the gradle file
 
 # Yota 1st generation
 
-SRC=../../../data
-DST=../../android/YoPme/assets
+SCRIPTS_PATH="$(dirname "$0")"
+OMIM_PATH="${OMIM_PATH:-$SCRIPTS_PATH/../..}"
+SRC="$OMIM_PATH/data"
+DST="$OMIM_PATH/android/YoPme/assets"
 
-./update_assets_for_version.sh $SRC $DST
-./add_assets_mwm-ttf.sh $DST
+"$SCRIPTS_PATH/update_assets_for_version.sh" "$SRC" "$DST"
+"$SCRIPTS_PATH/add_assets_mwm-ttf.sh" "$SRC" "$DST"
 
 
 rm -rf $DST/drules_proto_legacy.bin
@@ -43,10 +45,10 @@ ln -s $SRC/resources-yota_legacy $DST/resources-mdpi_legacy
 
 # Yota 2nd generation
 
-DST=../../android/YoPme2/assets
+DST="$OMIM_PATH/android/YoPme2/assets"
 
-./update_assets_for_version.sh $SRC $DST
-./add_assets_mwm-ttf.sh $DST
+"$SCRIPTS_PATH/update_assets_for_version.sh" "$SRC" "$DST"
+"$SCRIPTS_PATH/add_assets_mwm-ttf.sh" "$SRC" "$DST"
 
 
 rm -rf $DST/drules_proto_legacy.bin

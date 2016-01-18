@@ -1,32 +1,26 @@
 #!/bin/bash
-set -e -u -x
+set -e -u
 
-MY_PATH=`pwd`
-BINARY_PATH="$MY_PATH/../../out/release/skin_generator"
-DATA_PATH="$MY_PATH/../../data"
-DETECT_QMAKE="$MY_PATH/../autobuild/detect_qmake.sh"
-
-source "$DETECT_QMAKE"
-QMAKE="$(PrintQmakePath)" || ( echo "ERROR: qmake was not found, please add it to your PATH or into the tools/autobuild/detect_qmake.sh"; exit 1 )
+OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
+SKIN_GENERATOR="$OMIM_PATH/out/release/skin_generator"
+DATA_PATH="$OMIM_PATH/data"
 
 # If skin_generator does not exist then build it
-if [ ! -f $BINARY_PATH ];
+if [ ! -f $SKIN_GENERATOR ];
 then
-  projects=(freetype gflags)
-  for project in ${projects[*]}
+  source "$OMIM_PATH/tools/autobuild/detect_qmake.sh"
+  for project in freetype gflags
   do
-    cd $MY_PATH/../../3party/$project
+    cd "$OMIM_PATH/3party/$project"
     "$QMAKE" $project.pro -r -spec macx-clang CONFIG+=x86_64
     make
   done
-  projects=(base coding geometry skin_generator)
-  for project in ${projects[*]}
+  for project in base coding geometry skin_generator
   do
-    cd $MY_PATH/../../$project
+    cd "$OMIM_PATH/$project"
     "$QMAKE" $project.pro -r -spec macx-clang CONFIG+=x86_64
     make
   done
-  cd $MY_PATH
 fi
 
 # Helper function to build skin
@@ -45,21 +39,18 @@ function BuildSkin() {
   suffix=${6-}
   echo "Building skin for $styleName/$resourceName"
   # Set environment
-  PNG_PATH="$DATA_PATH/styles/$styleType/style-$styleName/symbols/png"
-  rm -r $PNG_PATH || true
-  ln -s "$DATA_PATH/styles/$styleType/style-$styleName/$resourceName" $PNG_PATH
+  STYLE_PATH="$DATA_PATH/styles/$styleType/style-$styleName"
+  PNG_PATH="$STYLE_PATH/symbols/png"
+  rm -rf "$PNG_PATH" || true
+  ln -s "$STYLE_PATH/$resourceName" $PNG_PATH
   # Run sking generator
-  if [ $colorCorrection = "true" ];
-  then
-    "$BINARY_PATH" --symbolWidth $symbolSize --symbolHeight $symbolSize \
-        --symbolsDir "$DATA_PATH/styles/$styleType/style-$styleName/symbols" \
-        --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix="" \
-        --colorCorrection true
+  if [ $colorCorrection = "true" ]; then
+    COLOR_CORR="--colorCorrection true"
   else
-    "$BINARY_PATH" --symbolWidth $symbolSize --symbolHeight $symbolSize \
-        --symbolsDir "$DATA_PATH/styles/$styleType/style-$styleName/symbols" \
-        --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix=""
+    COLOR_CORR=
   fi
+  "$SKIN_GENERATOR" --symbolWidth $symbolSize --symbolHeight $symbolSize --symbolsDir "$STYLE_PATH/symbols" \
+      --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix="" $COLOR_CORR
   # Reset environment
   rm -r $PNG_PATH || true
 }
@@ -68,8 +59,8 @@ function BuildSkin() {
 cleanup=(resources-{yota_legacy,{6plus,ldpi,mdpi,hdpi,xhdpi,xxhdpi}{_legacy,_dark,_clear}})
 for item in ${cleanup[*]}
 do
-  rm -rf ../../data/$item || true
-  mkdir ../../data/$item
+  rm -rf "$DATA_PATH/$item" || true
+  mkdir "$DATA_PATH/$item"
 done
 
 # Build styles
@@ -96,7 +87,3 @@ BuildSkin clear  clear hdpi   27 false _clear
 BuildSkin clear  clear xhdpi  36 false _clear
 BuildSkin clear  clear xxhdpi 54 false _clear
 BuildSkin clear  clear 6plus  54 false _clear
-
-# Success
-echo "Done"
-exit 0 # ok

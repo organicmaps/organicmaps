@@ -1,12 +1,13 @@
 #!/bin/bash
-set -e -x -u
+set -e -u
 
-SRC=$1
-DST=$2
+[ $# -lt 2 ] && echo "Usage: $0 <source> <dest>" && exit 1
+SRC="$1"
+DST="$2"
 
 # Remove old links
-rm -rf $DST || true
-mkdir $DST || true
+rm -rf "$DST" || true
+mkdir "$DST" || true
 
 files=(copyright.html faq.html resources-default resources-ldpi_legacy resources-mdpi_legacy resources-hdpi_legacy resources-xhdpi_legacy resources-xxhdpi_legacy categories.txt classificator.txt
        resources-ldpi_dark resources-mdpi_dark resources-hdpi_dark resources-xhdpi_dark resources-xxhdpi_dark
@@ -17,5 +18,5 @@ files=(copyright.html faq.html resources-default resources-ldpi_legacy resources
 
 for item in ${files[*]}
 do
-  ln -s $SRC/$item $DST/$item
+  ln -s "$SRC/$item" "$DST/$item"
 done
