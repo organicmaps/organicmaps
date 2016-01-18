@@ -837,16 +837,7 @@
 	<string name="p2p_to_here">Jusqu\&#39;à</string>
 	<string name="p2p_only_from_current">La navigation est uniquement disponible à partir de votre emplacement actuel.</string>
 	<string name="p2p_reroute_from_current">Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?</string>
-	<string name="whats_new_3d_title">Vos cartes préférées prennent de la profondeur</string>
-	<string name="whats_new_3d_subtitle">Nous avons ajouté de la perspective au mode navigation.</string>
-	<string name="whats_new_3d_buildings_title">La nouvelle dimension de MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">Grâce à l\&#39;affichage des bâtiments en 3D, nos cartes sont désormais plus informatives et plus belles.</string>
-	<string name="whats_new_3d_update_maps">Pour profiter pleinement de cette fonction, veuillez mettre à jour les données de votre carte.</string>
-	<string name="whats_new_3d_on">Activer la vue en perspective</string>
-	<string name="whats_new_3d_buildings_on">Activer les bâtiments en 3D</string>
 	<string name="whats_new_next_button">Neste</string>
-	<string name="whats_new_rec_track_title">Avec MAPS.ME, ne vous perdez pas</string>
-	<string name="whats_new_rec_track_body">L\&#39;appli affiche maintenant le parcours que vous avez effectué.</string>
 	<string name="whats_new_night_caption">Rejoignez le côté obscur !</string>
 	<string name="whats_new_night_body">Chaque jour, après le lever du soleil, MAPS.ME active le mode nuit.</string>
 </resources>

@@ -826,16 +826,7 @@
 	<string name="p2p_to_here">Til</string>
 	<string name="p2p_only_from_current">Navigation er kun tilgængelig fra din nuværende lokalitet.</string>
 	<string name="p2p_reroute_from_current">Ønsker du, at vi planlægger en rute fra din nuværende placering?</string>
-	<string name="whats_new_3d_title">Dine foretrukne kort fra et nyt perspektiv</string>
-	<string name="whats_new_3d_subtitle">Vi har tilføjet perspektivvisning til navigeringstilstanden.</string>
-	<string name="whats_new_3d_buildings_title">En ny dimension i MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">Med 3D-bygninger er vores kort blevet smukkere og mere informative.</string>
-	<string name="whats_new_3d_update_maps">For at udnytte denne funktion fuldt ud skal du opdatere dine kortdata.</string>
-	<string name="whats_new_3d_on">Aktivér perspektivvisning</string>
-	<string name="whats_new_3d_buildings_on">Aktivér 3D-bygninger</string>
 	<string name="whats_new_next_button">Næste</string>
-	<string name="whats_new_rec_track_title">Med MAPS.ME farer du ikke vild</string>
-	<string name="whats_new_rec_track_body">Nu viser app\&#39;en den seneste vej, du har rejst.</string>
 	<string name="whats_new_night_caption">Slut dig til den mørke side!</string>
 	<string name="whats_new_night_body">Hver dag efter solnedgang aktiverer MAPS.ME nattilstand.</string>
 </resources>

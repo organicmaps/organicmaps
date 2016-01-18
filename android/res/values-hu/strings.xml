@@ -827,16 +827,7 @@
 	<string name="p2p_to_here">Ide</string>
 	<string name="p2p_only_from_current">A navigáció csak a jelenlegi helyzetéből érhető el.</string>
 	<string name="p2p_reroute_from_current">Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?</string>
-	<string name="whats_new_3d_title">Kedvenc térképei új perspektívából</string>
-	<string name="whats_new_3d_subtitle">A navigációs módban már perspektívikus nézet is választható.</string>
-	<string name="whats_new_3d_buildings_title">Új dimenzió a MAPS.ME-ben</string>
-	<string name="whats_new_3d_buildings_subtitle">A 3D-s épületeknek köszönhetően a térképeink még több információval szolgálnak, és még szebbek lettek.</string>
-	<string name="whats_new_3d_update_maps">Ezen tulajdonság teljes körű kihasználásához, kérjük, frissítse térképének az adatát.</string>
-	<string name="whats_new_3d_on">Távlati kép engedélyezése</string>
-	<string name="whats_new_3d_buildings_on">3D Épületek engedélyezése</string>
 	<string name="whats_new_next_button">Következő</string>
-	<string name="whats_new_rec_track_title">A térkép navigálása kényelmesebb lett</string>
-	<string name="whats_new_rec_track_body">A MAPS.ME-vel nem fogsz eltévedni</string>
 	<string name="whats_new_night_caption">Csatlakozz a sötét oldalhoz!</string>
 	<string name="whats_new_night_body">Minden nap naplemente után a MAPS.ME bekapcsolja az éjszakai módot.</string>
 </resources>

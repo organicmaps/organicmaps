@@ -826,16 +826,7 @@
 	<string name="p2p_to_here">Đến</string>
 	<string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
 	<string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
-	<string name="whats_new_3d_title">Bản đồ yêu thích của bạn từ một góc nhìn mới</string>
-	<string name="whats_new_3d_subtitle">Chúng tôi đã thêm góc nhìn phối cảnh cho chế độ điều hướng.</string>
-	<string name="whats_new_3d_buildings_title">Một chiều mới trong MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">Với các tòa nhà 3 chiều, bản đồ của chúng tôi cung cấp thêm nhiều thông tin hơn và đẹp hơn.</string>
-	<string name="whats_new_3d_update_maps">Để tận dụng tính năng này, vui lòng cập nhật dữ liệu bản đồ của bạn.</string>
-	<string name="whats_new_3d_on">Kích hoạt góc nhìn phối cảnh</string>
-	<string name="whats_new_3d_buildings_on">Kích hoạt Tòa nhà 3D</string>
 	<string name="whats_new_next_button">Tiếp theo</string>
-	<string name="whats_new_rec_track_title">Với MAPS.ME, bạn sẽ không bị lạc</string>
-	<string name="whats_new_rec_track_body">Ứng dụng hiện đang hiển thị đường đã đi gần đây của bạn.</string>
 	<string name="whats_new_night_caption">Hãy gia nhập phe bóng đêm!</string>
 	<string name="whats_new_night_body">Mỗi ngày sau buổi hoàng hôn, MAPS.ME kích hoạt chế độ ban đêm.</string>
 </resources>

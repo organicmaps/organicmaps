@@ -812,16 +812,7 @@
 	<string name="p2p_to_here">到</string>
 	<string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
 	<string name="p2p_reroute_from_current">你是否想要規劃當前位置的路線？</string>
-	<string name="whats_new_3d_title">從全新的角度看您最愛的地圖</string>
-	<string name="whats_new_3d_subtitle">我們添加了視角視圖到導航模式。</string>
-	<string name="whats_new_3d_buildings_title">MAPS.ME中的全新維度</string>
-	<string name="whats_new_3d_buildings_subtitle">有了3D大樓，我們的地圖信息量更豐富也更美了。</string>
-	<string name="whats_new_3d_update_maps">要充分利用此功能，請更新您的地圖資料。</string>
-	<string name="whats_new_3d_on">啟用透視圖</string>
-	<string name="whats_new_3d_buildings_on">啟用3D建築</string>
 	<string name="whats_new_next_button">下一頁</string>
-	<string name="whats_new_rec_track_title">有了MAPS.ME，你就不會迷路</string>
-	<string name="whats_new_rec_track_body">現在，該應用可以顯示你最近走過的道路。</string>
 	<string name="whats_new_night_caption">加入黑暗一方！</string>
 	<string name="whats_new_night_body">每天日落之後，MAPS.ME啟動夜間模式。</string>
 </resources>

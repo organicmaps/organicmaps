@@ -833,16 +833,7 @@
 	<string name="p2p_to_here">Do</string>
 	<string name="p2p_only_from_current">Navigace je dostupná pouze z vašeho současného umístění.</string>
 	<string name="p2p_reroute_from_current">Chcete, abychom naplánovali trasu z vašeho současného umístění?</string>
-	<string name="whats_new_3d_title">Vaše oblíbené mapy z nové perspektivy</string>
-	<string name="whats_new_3d_subtitle">Přidali jsme do navigačního režimu zobrazení perspektivy.</string>
-	<string name="whats_new_3d_buildings_title">Nová dimenze v MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">Díky 3D budovám jsou naše mapy pěknější a více informativní.</string>
-	<string name="whats_new_3d_update_maps">Využijte naplno tuto funkci, aktualizujte prosím svá mapová data.</string>
-	<string name="whats_new_3d_on">Povolit zobrazení perspektivy</string>
-	<string name="whats_new_3d_buildings_on">Povolit 3D Budovy</string>
 	<string name="whats_new_next_button">Další</string>
-	<string name="whats_new_rec_track_title">S MAPS.ME se nikdy neztratíte</string>
-	<string name="whats_new_rec_track_body">Aplikace nyní ukazuje vaše nedávno uskutečněné cesty.</string>
 	<string name="whats_new_night_caption">Přidejte se na temnou stranu!</string>
 	<string name="whats_new_night_body">Každý den po západu slunce aktivují MAPS.ME noční režim.</string>
 </resources>

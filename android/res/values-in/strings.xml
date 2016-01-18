@@ -825,16 +825,7 @@
 	<string name="p2p_to_here">Ke</string>
 	<string name="p2p_only_from_current">Navigasi tersedia hanya dari lokasi Anda saat ini.</string>
 	<string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
-	<string name="whats_new_3d_title">Peta favorit Anda dari perspektif yang baru</string>
-	<string name="whats_new_3d_subtitle">Kami telah menambahkan tampilan perspektif ke mode navigasi.</string>
-	<string name="whats_new_3d_buildings_title">Dimensi yang baru di MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">Dengan bangunan 3D, peta kami telah menjadi lebih indah dan informatif.</string>
-	<string name="whats_new_3d_update_maps">Untuk memaksimalkan pemanfaatan fitur ini, harap perbarui data peta Anda.</string>
-	<string name="whats_new_3d_on">Aktifkan pandangan perspektif</string>
-	<string name="whats_new_3d_buildings_on">Aktifkan Bangunan 3D</string>
 	<string name="whats_new_next_button">Berikut</string>
-	<string name="whats_new_rec_track_title">Dengan MAPS.ME Anda tidak akan tersesat</string>
-	<string name="whats_new_rec_track_body">Aplikasi kini menunjukkan jalur yang telah Anda tempuh baru-baru ini.</string>
 	<string name="whats_new_night_caption">Bergabunglah di sisi kegelapan!</string>
 	<string name="whats_new_night_body">Setiap hari setelah matahari terbenam, MAPS.ME mengaktifkan mode malam.</string>
 </resources>

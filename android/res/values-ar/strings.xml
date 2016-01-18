@@ -830,16 +830,7 @@
 	<string name="p2p_to_here">إلى</string>
 	<string name="p2p_only_from_current">تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟</string>
 	<string name="p2p_reroute_from_current">هل ترغب في أن نرسم مسار لك من موقعك الحالي؟</string>
-	<string name="whats_new_3d_title">خرائطك المفضلة من منظور جديد</string>
-	<string name="whats_new_3d_subtitle">لقد أضفنا عرض المنظور إلى نمط الملاحة.</string>
-	<string name="whats_new_3d_buildings_title">بُعد جديد في MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">مع المباني ثلاثية الأبعاد، أصبحت خرائطنا أكثر معلوماتية وجمالا.</string>
-	<string name="whats_new_3d_update_maps">للتمتع بالمزايا الكاملة لهذه الخاصية، قم بتحديث بيانات الخرائط لديك.</string>
-	<string name="whats_new_3d_on">تفعيل العرض المنظوري</string>
-	<string name="whats_new_3d_buildings_on">قم بتفعيل المباني ثلاثية الأبعاد</string>
 	<string name="whats_new_next_button">التالي</string>
-	<string name="whats_new_rec_track_title">مع MAPS.ME لن تتوه أبدا</string>
-	<string name="whats_new_rec_track_body">بإمكان التطبيق الآن أن يُظهر لك مسار سفرك الأخير.</string>
 	<string name="whats_new_night_caption">انضم إلى الوضع الليلي!</string>
 	<string name="whats_new_night_body">كل يوم بعد غروب الشمس، تقوم MAPS.ME بتنشيط الوضع الليلي.</string>
 </resources>

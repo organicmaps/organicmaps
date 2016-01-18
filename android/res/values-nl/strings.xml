@@ -816,16 +816,7 @@
 	<string name="p2p_to_here">Naar</string>
 	<string name="p2p_only_from_current">Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.</string>
 	<string name="p2p_reroute_from_current">Wilt u dat wij een route plannen vanaf uw huidige locatie?</string>
-	<string name="whats_new_3d_title">Uw favoriete kaarten vanuit een nieuw perspectief</string>
-	<string name="whats_new_3d_subtitle">We hebben perspectief toegevoegd aan de navigatiestand.</string>
-	<string name="whats_new_3d_buildings_title">Een nieuwe dimensie in MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">Met 3D-gebouwen zijn onze kaarten informatiever en mooier geworden.</string>
-	<string name="whats_new_3d_update_maps">Werk uw kaartgegevens bij om volledig te kunnen profiteren van deze functie.</string>
-	<string name="whats_new_3d_on">Perspectiefbeeld inschakelen</string>
-	<string name="whats_new_3d_buildings_on">3D-Gebouwen inschakelen</string>
 	<string name="whats_new_next_button">Volgende</string>
-	<string name="whats_new_rec_track_title">Met MAPS.ME verdwaalt u niet.</string>
-	<string name="whats_new_rec_track_body">Nu geeft de app uw recente route weer.</string>
 	<string name="whats_new_night_caption">Treed toe tot de donkere zijde!</string>
 	<string name="whats_new_night_body">Elke dag na de zonsondergang activeert MAPS.ME de nachtmodus.</string>
 </resources>

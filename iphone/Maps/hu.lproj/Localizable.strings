@@ -1345,25 +1345,7 @@
 
 "p2p_reroute_from_current" = "Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?";
 
-"whats_new_3d_title" = "Kedvenc térképei új perspektívából";
-
-"whats_new_3d_subtitle" = "A navigációs módban már perspektívikus nézet is választható.";
-
-"whats_new_3d_buildings_title" = "Új dimenzió a MAPS.ME-ben";
-
-"whats_new_3d_buildings_subtitle" = "A 3D-s épületeknek köszönhetően a térképeink még több információval szolgálnak, és még szebbek lettek.";
-
-"whats_new_3d_update_maps" = "Ezen tulajdonság teljes körű kihasználásához, kérjük, frissítse térképének az adatát.";
-
-"whats_new_3d_on" = "Távlati kép engedélyezése";
-
-"whats_new_3d_buildings_on" = "3D Épületek engedélyezése";
-
 "whats_new_next_button" = "Következő";
-
-"whats_new_rec_track_title" = "A térkép navigálása kényelmesebb lett";
-
-"whats_new_rec_track_body" = "A MAPS.ME-vel nem fogsz eltévedni";
 
 "whats_new_night_caption" = "Csatlakozz a sötét oldalhoz!";
 

@@ -828,16 +828,7 @@
 	<string name="p2p_to_here">Till</string>
 	<string name="p2p_only_from_current">Navigering är endast tillgänglig från din aktuella plats.</string>
 	<string name="p2p_reroute_from_current">Vill du att vi planerar en färdväg från din nuvarande plats?</string>
-	<string name="whats_new_3d_title">Dina favoritkartor från ett nytt perspektiv</string>
-	<string name="whats_new_3d_subtitle">Vi har lagt till perspektivvy till navigeringsläget.</string>
-	<string name="whats_new_3d_buildings_title">En ny dimension av MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">Med byggnader i 3D blir våra karter mer informativa och vackrare.</string>
-	<string name="whats_new_3d_update_maps">Uppdatera dina kartdata för att kunna använda denna funktion fullt ut.</string>
-	<string name="whats_new_3d_on">Aktivera perspektivvy</string>
-	<string name="whats_new_3d_buildings_on">Aktivera 3D-byggnader</string>
 	<string name="whats_new_next_button">Nästa</string>
-	<string name="whats_new_rec_track_title">Med MAPS.ME går du inte vilse</string>
-	<string name="whats_new_rec_track_body">Appen visar nu din senaste resväg.</string>
 	<string name="whats_new_night_caption">Gå med i den mörka sidan!</string>
 	<string name="whats_new_night_body">Varje dag efter solnedgången aktiverar MAPS.ME nattläget.</string>
 </resources>
