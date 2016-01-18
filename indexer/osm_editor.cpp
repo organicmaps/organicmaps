@@ -492,6 +492,7 @@ vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feat
   // TODO(mgsergio): Load editable fields into memory from XML and query them here.
   feature::TypesHolder const types(feature);
   set<Metadata::EType> fields;
+  auto const & isBuilding = ftypes::IsBuildingChecker::Instance();
   for (auto type : types)
   {
     auto const * desc = GetTypeDescription(type);
@@ -505,9 +506,13 @@ vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feat
         fields.insert(EType::FMD_EMAIL);
         fields.insert(EType::FMD_OPEN_HOURS);
         fields.insert(EType::FMD_PHONE_NUMBER);
-        fields.insert(EType::FMD_POSTCODE);
         fields.insert(EType::FMD_WEBSITE);
       }
+    }
+    else if (isBuilding.HasTypeValue(type))
+    {
+      // Post boxes and post offices have editable postcode field defined separately.
+      fields.insert(EType::FMD_POSTCODE);
     }
   }
   return {begin(fields), end(fields)};
