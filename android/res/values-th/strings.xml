@@ -481,7 +481,7 @@
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">เมนูของแอปพลิเคชัน</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ </string>
+	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">ฉันเพิ่งให้คะแนนแอปของคุณ</string>
 	<!-- Text for rating dialog -->
