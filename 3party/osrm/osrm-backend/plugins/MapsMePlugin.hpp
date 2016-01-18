@@ -187,7 +187,9 @@ public:
             return 400;
         }
         // Get mwm names
-        vector<pair<string, m2::PointD>> usedMwms;
+        vector<pair<size_t, m2::PointD>> usedMwms;
+        size_t lastUsedMwm = numeric_limits<size_t>::max();
+        vector<m2::PointD> mwmPoints;
 
         for (auto i : osrm::irange<std::size_t>(0, raw_route.unpacked_path_segments.size()))
         {
@@ -203,13 +205,39 @@ public:
                 GetByPoint doGet(m_regions, pt);
                 ForEachCountry(pt, doGet);
 
-                if (doGet.m_res != std::numeric_limits<size_t>::max())
-                    usedMwms.emplace_back(make_pair(m_countries[doGet.m_res].m_name, pt));
+                auto const & index = doGet.m_res;
+                if (index == std::numeric_limits<size_t>::max())
+                  continue;
+
+                if (index != lastUsedMwm)
+                {
+                  if (!mwmPoints.empty())
+                  {
+                    // Get the middlest point (max far from borders).
+                    size_t delta = std::distance(mwmPoints.begin(), mwmPoints.end()) / 2;
+                    usedMwms.emplace_back(lastUsedMwm, mwmPoints[delta]);
+                    mwmPoints.clear();
+                  }
+                  lastUsedMwm = index;
+                }
+                mwmPoints.push_back(pt);
             }
         }
+        // Get point from last mwm.
+        if (!mwmPoints.empty())
+        {
+          size_t delta = std::distance(mwmPoints.begin(), mwmPoints.end()) / 2;
+          usedMwms.emplace_back(lastUsedMwm, mwmPoints[delta]);
+          mwmPoints.clear();
+        }
 
-        auto const it = std::unique(usedMwms.begin(), usedMwms.end(), [&]
-                                    (pair<string, m2::PointD> const & a, pair<string, m2::PointD> const & b)
+        std::sort(usedMwms.begin(), usedMwms.end(), []
+                  (pair<size_t, m2::PointD> const & a, pair<size_t, m2::PointD> const & b)
+                  {
+                    return a.first < b.first;
+                  });
+        auto const it = std::unique(usedMwms.begin(), usedMwms.end(), []
+                                    (pair<size_t, m2::PointD> const & a, pair<size_t, m2::PointD> const & b)
                                     {
                                         return a.first == b.first;
                                     });
@@ -221,7 +249,7 @@ public:
             osrm::json::Array pointArray;
             pointArray.values.push_back(mwm.second.x);
             pointArray.values.push_back(mwm.second.y);
-            pointArray.values.push_back(mwm.first);
+            pointArray.values.push_back(m_countries[mwm.first].m_name);
             json_array.values.push_back(pointArray);
         }
         reply.values["used_mwms"] = json_array;
