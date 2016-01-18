@@ -859,16 +859,7 @@
 	<string name="p2p_to_here">To</string>
 	<string name="p2p_only_from_current">Navigation is available only from your current location.</string>
 	<string name="p2p_reroute_from_current">Do you want us to plan a route from your current location?</string>
-	<string name="whats_new_3d_title">Your favorite maps from a new perspective</string>
-	<string name="whats_new_3d_subtitle">We have added perspective view to the navigation mode.</string>
-	<string name="whats_new_3d_buildings_title">A new dimension in MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">With 3D buildings, our maps have become more informative and more beautiful.</string>
-	<string name="whats_new_3d_update_maps">To take full advantage of this feature, please, update your map data.</string>
-	<string name="whats_new_3d_on">Enable Perspective View</string>
-	<string name="whats_new_3d_buildings_on">Enable 3D Buildings</string>
 	<string name="whats_new_next_button">Next</string>
-	<string name="whats_new_rec_track_title">With MAPS.ME you won’t get lost</string>
-	<string name="whats_new_rec_track_body">Now the app shows your recent traveled path.</string>
 	<string name="whats_new_night_caption">Join the dark side!</string>
 	<string name="whats_new_night_body">Each day after sunset, MAPS.ME activates the night mode.</string>
 </resources>

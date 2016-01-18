@@ -1345,25 +1345,7 @@
 
 "p2p_reroute_from_current" = "Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?";
 
-"whats_new_3d_title" = "Vos cartes préférées prennent de la profondeur";
-
-"whats_new_3d_subtitle" = "Nous avons ajouté de la perspective au mode navigation.";
-
-"whats_new_3d_buildings_title" = "La nouvelle dimension de MAPS.ME";
-
-"whats_new_3d_buildings_subtitle" = "Grâce à l'affichage des bâtiments en 3D, nos cartes sont désormais plus informatives et plus belles.";
-
-"whats_new_3d_update_maps" = "Pour profiter pleinement de cette fonction, veuillez mettre à jour les données de votre carte.";
-
-"whats_new_3d_on" = "Activer la vue en perspective";
-
-"whats_new_3d_buildings_on" = "Activer les bâtiments en 3D";
-
 "whats_new_next_button" = "Neste";
-
-"whats_new_rec_track_title" = "Avec MAPS.ME, ne vous perdez pas";
-
-"whats_new_rec_track_body" = "L'appli affiche maintenant le parcours que vous avez effectué.";
 
 "whats_new_night_caption" = "Rejoignez le côté obscur !";
 

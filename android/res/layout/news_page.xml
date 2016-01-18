@@ -32,12 +32,12 @@
 
         <ImageView
           android:id="@+id/image"
-          android:layout_width="180dp"
-          android:layout_height="180dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/margin_base"
           android:layout_gravity="center_horizontal"
           android:tag="@string/tag_height_limited"
-          tools:src="@drawable/img_news_3d"/>
+          tools:src="@drawable/img_news_night"/>
 
         <TextView
           android:id="@+id/subtitle"

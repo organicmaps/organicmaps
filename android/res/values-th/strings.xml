@@ -828,16 +828,7 @@
 	<string name="p2p_to_here">ถึง</string>
 	<string name="p2p_only_from_current">สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น</string>
 	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
-	<string name="whats_new_3d_title">แผนที่โปรดของคุณจากมุมมองใหม่</string>
-	<string name="whats_new_3d_subtitle">เราได้เพิ่มมุมมองเพอร์สเปกทีฟในโหมดการนำทาง</string>
-	<string name="whats_new_3d_buildings_title">มิติใหม่ใน MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">ด้วยตึกแบบ 3D แผนที่ของเราจะมอบข้อมูลให้มากขึ้นและสวยงามยิ่งขึ้น</string>
-	<string name="whats_new_3d_update_maps">เพื่อรับประโยชน์อย่างเต็มที่สำหรับฟีเจอร์นี้ กรุณาอัปเดตข้อมูลแผนที่ของคุณ</string>
-	<string name="whats_new_3d_on">เปิดใช้งานมุมมองเพอร์สเปกทีฟ</string>
-	<string name="whats_new_3d_buildings_on">เปิดใช้งานตึก 3D</string>
 	<string name="whats_new_next_button">ถัดไป</string>
-	<string name="whats_new_rec_track_title">เมื่อใช้ MAPS. คุณจะไม่หลงทาง</string>
-	<string name="whats_new_rec_track_body">ตอนนี้ แอปจะแสดงเส้นทางการท่องเที่ยวล่าสุดของคุณ</string>
 	<string name="whats_new_night_caption">เข้าร่วมด้านมืด!</string>
 	<string name="whats_new_night_body">ทุกวันหลังพระอาทิตย์ตกดิน MAPS.ME จะเปิดใช้งานโหมดกลางคืน</string>
 </resources>

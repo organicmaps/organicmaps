@@ -821,16 +821,7 @@
 	<string name="p2p_to_here">Nach</string>
 	<string name="p2p_only_from_current">Die Navigation ist nur von Ihrem aktuellen Standort verfügbar.</string>
 	<string name="p2p_reroute_from_current">Soll eine Route von Ihrer aktuellen Position aus berechnet werden?</string>
-	<string name="whats_new_3d_title">Ihre Lieblingskarten aus einer neuen Perspektive</string>
-	<string name="whats_new_3d_subtitle">Wir haben dem Navigationsmodus perspektivische Ansichten hinzugefügt.</string>
-	<string name="whats_new_3d_buildings_title">Eine neue Dimension in MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">Durch die 3D-Gebäude sind unsere Karten noch informativer und schöner geworden.</string>
-	<string name="whats_new_3d_update_maps">Um alle Vorteile dieser Funktion nutzen zu können, aktualisieren Sie bitte Ihre Kartendaten.</string>
-	<string name="whats_new_3d_on">Perspektivenansicht aktualisieren</string>
-	<string name="whats_new_3d_buildings_on">3D-Gebäude aktivieren</string>
 	<string name="whats_new_next_button">Weiter</string>
-	<string name="whats_new_rec_track_title">Mit MAPS.ME können Sie sich nicht verirren</string>
-	<string name="whats_new_rec_track_body">Die App zeigt jetzt die zuletzt benutzte Strecke an.</string>
 	<string name="whats_new_night_caption">Kommen Sie auf die dunkle Seite!</string>
 	<string name="whats_new_night_body">Jeden Tag nach Sonnenuntergang aktiviert MAPS.ME den Nachtmodus.</string>
 </resources>

@@ -829,16 +829,7 @@
 	<string name="p2p_to_here">Сюди</string>
 	<string name="p2p_only_from_current">Маршрут можна прокласти лише з поточного місцезнаходження.</string>
 	<string name="p2p_reroute_from_current">Хочете спланувати маршрут із поточного місцезнаходження?</string>
-	<string name="whats_new_3d_title">Улюблені карти під новим кутом</string>
-	<string name="whats_new_3d_subtitle">Ми додали переспективний огляд у режим навігації.</string>
-	<string name="whats_new_3d_buildings_title">Новий вимір в MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">З 3D будівлями наші карти стали більш інформативними і гарними.</string>
-	<string name="whats_new_3d_update_maps">Щоб повною мірою скористатися цією функцією, будь ласка, оновіть дані своєї карти.</string>
-	<string name="whats_new_3d_on">Включити перспективний вид</string>
-	<string name="whats_new_3d_buildings_on">Включити 3D-будівлі</string>
 	<string name="whats_new_next_button">Далі</string>
-	<string name="whats_new_rec_track_title">З MAPS.ME ви ніколи не заблукаєте</string>
-	<string name="whats_new_rec_track_body">Тепер програма відображає ваш недавній маршрут.</string>
 	<string name="whats_new_night_caption">Приєднайтесь до темної сторони!</string>
 	<string name="whats_new_night_body">Кожного дня після заходу сонця MAPS.ME активує нічний режим.</string>
 </resources>

@@ -823,16 +823,7 @@
 	<string name="p2p_to_here">În</string>
 	<string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de pornire locațiacctuală.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
-	<string name="whats_new_3d_title">Hărțile dvs. preferate dintr-o nouă perspectivă</string>
-	<string name="whats_new_3d_subtitle">Am adăugat modul de vizualizare în perspectivă la modul de navigație.</string>
-	<string name="whats_new_3d_buildings_title">O nouă dimensiune în MAPS.ME</string>
-	<string name="whats_new_3d_buildings_subtitle">Cu ajutorul clădirilor 3D, hărțile noastre conțin mai multe informații și sunt mai frumoase.</string>
-	<string name="whats_new_3d_update_maps">Pentru a beneficia integral de această funcție, vă rugăm să actualizați datele hărții dvs.</string>
-	<string name="whats_new_3d_on">Activare vizualizare în perspectivă</string>
-	<string name="whats_new_3d_buildings_on">Activare Clădiri 3D</string>
 	<string name="whats_new_next_button">Următoarea</string>
-	<string name="whats_new_rec_track_title">Cu MAPS.ME nu vă veți rătăci</string>
-	<string name="whats_new_rec_track_body">Acum, MAPS.ME vă indică ruta folosită recent.</string>
 	<string name="whats_new_night_caption">Alăturați-vă întunericului!</string>
 	<string name="whats_new_night_body">În fiecare zi după apus, MAPS.ME activează modul de noapte.</string>
 </resources>

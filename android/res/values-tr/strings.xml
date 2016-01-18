@@ -830,16 +830,7 @@
 	<string name="p2p_to_here">Hedef</string>
 	<string name="p2p_only_from_current">Navigasyon sadece şu anki konumunuzdan mevcut.</string>
 	<string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
-	<string name="whats_new_3d_title">En sevdiğiniz haritalar yeni bir perspektiften</string>
-	<string name="whats_new_3d_subtitle">Navigasyon moduna perspektif görünüm ekledik.</string>
-	<string name="whats_new_3d_buildings_title">MAPS.ME\&#39;de yeni bir boyut</string>
-	<string name="whats_new_3d_buildings_subtitle">3 boyutlu binalarla haritalarımız daha bilgilendirici ve daha güzel hale geldi.</string>
-	<string name="whats_new_3d_update_maps">Bu özellikten tam anlamıyla faydalanabilmek için, lütfen harita verilerinizi güncelleyin.</string>
-	<string name="whats_new_3d_on">Perspektif görünümü etkinleştir</string>
-	<string name="whats_new_3d_buildings_on">3D Binalar seçeneğini etkinleştir</string>
 	<string name="whats_new_next_button">Sonraki</string>
-	<string name="whats_new_rec_track_title">MAPS.ME ile kaybolmayacaksınız</string>
-	<string name="whats_new_rec_track_body">Artık uygulama en son seyahat ettiğiniz güzergâhı gösteriyor.</string>
 	<string name="whats_new_night_caption">Karanlık tarafa katıl!</string>
 	<string name="whats_new_night_body">Her gün, gün batımından sonra MAPS.ME gece modunu etkinleştirir.</string>
 </resources>

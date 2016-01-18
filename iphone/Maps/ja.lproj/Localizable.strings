@@ -1345,25 +1345,7 @@
 
 "p2p_reroute_from_current" = "現在位置からのルートを作成しますか？";
 
-"whats_new_3d_title" = "お気に入りの地図を新たな視点で";
-
-"whats_new_3d_subtitle" = "ナビゲーションモードに視点表示が追加されました。";
-
-"whats_new_3d_buildings_title" = "MAPS.MEに新たな次元を追加";
-
-"whats_new_3d_buildings_subtitle" = "建物を3Dで表示することで、地図がより詳細で美しくなりました。";
-
-"whats_new_3d_update_maps" = "この機能をフル活用するために、マップデータを更新してください。";
-
-"whats_new_3d_on" = "パースペクティブ表示を有効化";
-
-"whats_new_3d_buildings_on" = "3Dビルディングを有効化";
-
 "whats_new_next_button" = "次へ";
-
-"whats_new_rec_track_title" = "MAPS.MEがあれば道に迷うことがありません";
-
-"whats_new_rec_track_body" = "アプリが最近の道のりを表示できるようになりました。";
 
 "whats_new_night_caption" = "ダークサイドに仲間入り！";
 
