@@ -11,6 +11,53 @@ namespace search
 {
 namespace v2
 {
+namespace
+{
+class OneLevelPOIChecker : public ftypes::BaseChecker
+{
+public:
+  OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
+  {
+    Classificator const & c = classif();
+    m_types.push_back(c.GetTypeByPath({"amenity"}));
+    m_types.push_back(c.GetTypeByPath({"historic"}));
+    m_types.push_back(c.GetTypeByPath({"office"}));
+    m_types.push_back(c.GetTypeByPath({"railway"}));
+    m_types.push_back(c.GetTypeByPath({"shop"}));
+    m_types.push_back(c.GetTypeByPath({"sport"}));
+    m_types.push_back(c.GetTypeByPath({"tourism"}));
+  }
+};
+
+class TwoLevelsPOIChecker : public ftypes::BaseChecker
+{
+public:
+  TwoLevelsPOIChecker() : ftypes::BaseChecker(2 /* level */)
+  {
+    Classificator const & c = classif();
+    m_types.push_back(c.GetTypeByPath({"highway", "bus_stop"}));
+  }
+};
+
+class IsPoiChecker
+{
+public:
+  IsPoiChecker() {}
+
+  static IsPoiChecker const & Instance()
+  {
+    static const IsPoiChecker inst;
+    return inst;
+  }
+
+  bool operator()(FeatureType const & ft) const { return m_oneLevel(ft) || m_twoLevels(ft); }
+
+private:
+  OneLevelPOIChecker const m_oneLevel;
+  TwoLevelsPOIChecker const m_twoLevels;
+};
+}  // namespace
+
 // static
 SearchModel const & SearchModel::Instance()
 {
@@ -23,6 +70,7 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
   static auto const & buildingChecker = IsBuildingChecker::Instance();
   static auto const & streetChecker = IsStreetChecker::Instance();
   static auto const & localityChecker = IsLocalityChecker::Instance();
+  static auto const & poiChecker = IsPoiChecker::Instance();
 
   if (buildingChecker(feature))
     return SEARCH_TYPE_BUILDING;
@@ -36,6 +84,7 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
     switch (type)
     {
     case NONE:
+    case STATE:
       return SEARCH_TYPE_COUNT;
     case COUNTRY:
       return SEARCH_TYPE_COUNTRY;
@@ -48,7 +97,10 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
     }
   }
 
-  return SEARCH_TYPE_POI;
+  if (poiChecker(feature))
+    return SEARCH_TYPE_POI;
+
+  return SEARCH_TYPE_COUNT;
 }
 
 string DebugPrint(SearchModel::SearchType type)
