@@ -16,7 +16,7 @@ namespace
 {
 constexpr int const kLatLonTolerance = 7;
 constexpr char const * kTimestamp = "timestamp";
-constexpr char const * kIndex = "mwmFileIndex";
+constexpr char const * kIndex = "mwm_file_index";
 constexpr char const * kUploadTimestamp = "upload_timestamp";
 constexpr char const * kUploadStatus = "upload_status";
 constexpr char const * kUploadError = "upload_error";

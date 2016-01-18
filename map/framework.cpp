@@ -331,7 +331,7 @@ Framework::Framework()
   {
     unique_ptr<FeatureType> feature(new FeatureType());
     Index::FeaturesLoaderGuard const guard(m_model.GetIndex(), fid.m_mwmId);
-    guard.GetNotEditedFeatureByIndex(fid.m_index, *feature);
+    guard.GetOriginalFeatureByIndex(fid.m_index, *feature);
     feature->ParseEverything();
     return feature;
   });

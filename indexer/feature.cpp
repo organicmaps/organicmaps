@@ -266,7 +266,7 @@ void FeatureType::ParseMetadata() const
   m_bMetadataParsed = true;
 }
 
-StringUtf8Multilang FeatureType::GetNames() const
+StringUtf8Multilang const & FeatureType::GetNames() const
 {
   return m_params.name;
 }

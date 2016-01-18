@@ -129,7 +129,7 @@ void Index::FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index, FeatureType &
   }
 }
 
-void Index::FeaturesLoaderGuard::GetNotEditedFeatureByIndex(uint32_t index, FeatureType & ft) const
+void Index::FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index, FeatureType & ft) const
 {
   MwmId const & id = m_handle.GetId();
   m_vector.GetByIndex(index, ft);

@@ -27,20 +27,21 @@ public:
   ChangesetWrapper(TKeySecret const & keySecret, ServerApi06::TKeyValueTags const & comments);
   ~ChangesetWrapper();
 
-  /// Throws many exceptions, including XMLNode's parsing ones.
+  /// Throws many exceptions from above list, plus including XMLNode's parsing ones.
   /// OsmObjectWasDeletedException means that node was deleted from OSM server by someone else.
   editor::XMLFeature GetMatchingFeatureFromOSM(editor::XMLFeature const & ourPatch, FeatureType const & feature);
 
-  /// Throws.
+  /// Throws exceptions from above list.
   void ModifyNode(editor::XMLFeature node);
 
 private:
-  // Unfortunately, pugi can't return xml_documents from methods.
+  /// Unfortunately, pugi can't return xml_documents from methods.
+  /// Throws exceptions from above list.
   void LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc);
 
   ServerApi06::TKeyValueTags m_changesetComments;
   ServerApi06 m_api;
-  static constexpr int const kInvalidChangesetId = 0;
+  static constexpr uint64_t kInvalidChangesetId = 0;
   uint64_t m_changesetId = kInvalidChangesetId;
 };
 

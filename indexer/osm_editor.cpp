@@ -254,7 +254,7 @@ void Editor::LoadMapEdits()
     MwmSet::MwmId const id = m_mwmIdByMapNameFn(mapName);
     if (!id.IsAlive())
     {
-      // TODO(AlexZ): MWM file was deleted, but changes have left. What should we do in this case?
+      // TODO(AlexZ): MWM file was deleted, but changes remain. What should we do in this case?
       LOG(LWARNING, (mapName, "version", mapVersion, "references not existing MWM file."));
       continue;
     }
@@ -421,11 +421,9 @@ void Editor::EditFeature(FeatureType const & editedFeature, string const & edite
   fti.m_modificationTimestamp = time(nullptr);
 
   fti.m_street = editedStreet;
-  if (editedHouseNumber.empty())
-    fti.m_feature.SetHouseNumber(string());
-  else if (feature::IsHouseNumber(editedHouseNumber))
+  if (editedHouseNumber.empty() || feature::IsHouseNumber(editedHouseNumber))
     fti.m_feature.SetHouseNumber(editedHouseNumber);
-  // else TODO(AlexZ): Store edited house number as house name.
+  // TODO(AlexZ): Store edited house number as house name if feature::IsHouseNumber() returned false.
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save(GetEditorFilePath());
@@ -530,10 +528,11 @@ bool Editor::IsNameEditable(FeatureType const & feature) const
 bool Editor::IsAddressEditable(FeatureType const & feature) const
 {
   feature::TypesHolder const types(feature);
+  auto & isBuilding = ftypes::IsBuildingChecker::Instance();
   for (auto type : types)
   {
     // Building addresses are always editable.
-    if (ftypes::IsBuildingChecker::Instance().HasTypeValue(type))
+    if (isBuilding.HasTypeValue(type))
       return true;
     auto const * typeDesc = GetTypeDescription(type);
     if (typeDesc && typeDesc->address)
