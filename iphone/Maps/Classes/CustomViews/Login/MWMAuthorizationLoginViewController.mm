@@ -41,7 +41,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
   UINavigationBar * navBar = self.navigationController.navigationBar;
-  [MapsAppDelegate.theApp customizeAppearanceForNavigationBar:navBar];
+  [MapsAppDelegate customizeAppearanceForNavigationBar:navBar];
 }
 
 - (BOOL)shouldAutorotate

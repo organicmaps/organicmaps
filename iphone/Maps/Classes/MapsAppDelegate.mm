@@ -512,7 +512,7 @@ void InitLocalizedStrings()
   [self.mapViewController setMapStyle: mapStyle];
 }
 
- (NSDictionary *)navigationBarTextAttributes
++ (NSDictionary *)navigationBarTextAttributes
 {
   return @{
     NSForegroundColorAttributeName : [UIColor whitePrimaryText],
@@ -520,7 +520,7 @@ void InitLocalizedStrings()
   };
 }
 
-- (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar
++ (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar
 {
   navigationBar.tintColor = [UIColor primary];
   navigationBar.barTintColor = [UIColor primary];
@@ -530,7 +530,7 @@ void InitLocalizedStrings()
   navigationBar.translucent = NO;
 }
 
-- (void)customizeAppearance
++ (void)customizeAppearance
 {
   [self customizeAppearanceForNavigationBar:[UINavigationBar appearance]];
 

@@ -25,7 +25,6 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="add_hours_closed"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="textColorDisabledName" value="linkBlueDisabled"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueDark"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
