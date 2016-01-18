@@ -4,7 +4,9 @@ import android.app.Dialog;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SwitchCompat;
@@ -240,8 +242,19 @@ public class NewsFragment extends BaseMwmDialogFragment
       return false;
 
     String tag = NewsFragment.class.getName();
+    FragmentManager fm = activity.getSupportFragmentManager();
+    if (fm.isDestroyed())
+      return false;
+
     if (Config.getLastWhatsNewVersion() >= BuildConfig.VERSION_CODE)
-      return (activity.getSupportFragmentManager().findFragmentByTag(tag) != null);
+    {
+      Fragment f = fm.findFragmentByTag(tag);
+      if (f != null)
+      {
+        fm.beginTransaction().remove(f).commitAllowingStateLoss();
+        fm.executePendingTransactions();
+      }
+    }
 
     Config.setWhatsNewShown();
 
