@@ -11,6 +11,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include "coding/internal/file_data.hpp"
+
 #include "std/tuple.hpp"
 #include "std/unordered_map.hpp"
 #include "std/unordered_set.hpp"
@@ -351,8 +353,14 @@ void Editor::Save(string const & fullFilePath) const
     }
   }
 
-  if (doc && !doc.save_file(fullFilePath.c_str(), "  "))
-    LOG(LERROR, ("Can't save map edits into", fullFilePath));
+  if (doc)
+  {
+    auto const & tmpFileName = fullFilePath + ".tmp";
+    if (!doc.save_file(tmpFileName.data(), "  "))
+      LOG(LERROR, ("Can't save map edits into", tmpFileName));
+    else if (!my::RenameFileX(tmpFileName, fullFilePath))
+      LOG(LERROR, ("Can't rename file", tmpFileName, "to", fullFilePath));
+  }
 }
 
 Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t offset) const
