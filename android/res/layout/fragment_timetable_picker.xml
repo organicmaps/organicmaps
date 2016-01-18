@@ -14,9 +14,9 @@
     android:elevation="@dimen/appbar_elevation"
     android:background="@android:color/white"
     app:tabGravity="fill"
-    app:tabIndicatorColor="@color/base_blue_light"
     app:tabMode="fixed"
     tools:ignore="UnusedAttribute"/>
+  <!--app:tabIndicatorColor="@color/base_blue_light"-->
 
   <TimePicker
     android:id="@+id/picker"

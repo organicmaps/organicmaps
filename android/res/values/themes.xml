@@ -56,7 +56,6 @@
   </style>
 
   <style name="MwmTheme.EditorActivity">
-    <item name="colorAccent">@color/base_blue_light</item>
     <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/MwmWidget.Editor.TimePicker</item>
   </style>
 
@@ -94,8 +93,6 @@
   <style name="MwmMain.DialogFragment.TimePicker" parent="Theme.AppCompat.Light.Dialog.Alert">
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
     <item name="android:background">@android:color/white</item>
-    <item name="colorPrimary">@color/base_blue_light</item>
-    <item name="colorAccent">@color/base_blue_light</item>
   </style>
 
   <style name="BottomSheet.Dialog.Dark">

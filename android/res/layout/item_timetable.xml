@@ -150,8 +150,8 @@
 
     <View
       android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="@color/divider_standard"/>
+      android:layout_height="1dp"/>
+      <!--android:background="@color/divider_standard"/>-->
 
     <LinearLayout
       android:id="@+id/allday"
@@ -187,8 +187,8 @@
 
       <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider_standard"/>
+        android:layout_height="1dp"/>
+        <!--android:background="@color/divider_standard"/>-->
 
       <LinearLayout
         android:id="@+id/time_open_close"
@@ -252,8 +252,8 @@
 
       <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider_standard"/>
+        android:layout_height="1dp"/>
+        <!--android:background="@color/divider_standard"/>-->
 
       <LinearLayout
         android:id="@+id/closed_host"
@@ -269,8 +269,8 @@
         android:padding="@dimen/margin_half_plus"
         android:text="@string/editor_time_add_closed"
         android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1"
-        android:textColor="@color/base_blue_light"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1"/>
+        <!--android:textColor="@color/base_blue_light"/>-->
 
     </LinearLayout>
 

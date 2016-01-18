@@ -107,7 +107,6 @@
   </style>
 
   <style name="MwmTextAppearance.Editor">
-    <item name="android:textColor">@color/base_blue_light</item>
   </style>
 
   <style name="MwmTextAppearance.Editor.TimePicker">

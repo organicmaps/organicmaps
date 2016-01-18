@@ -30,8 +30,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_above="@+id/tv__mode_switch"
-    android:layout_below="@id/toolbar"
-    android:background="@color/editor_background"/>
+    android:layout_below="@id/toolbar"/>
+    <!--android:background="@color/editor_background"/>-->
 
   <TextView
     android:id="@+id/tv__mode_switch"
@@ -43,8 +43,8 @@
     android:padding="@dimen/margin_base"
     android:text="@string/editor_time_advanced"
     android:textAllCaps="true"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:textColor="@color/base_blue_light"/>
+    android:textAppearance="@style/MwmTextAppearance.Body3"/>
+    <!--android:textColor="@color/base_blue_light"/>-->
 
   <include
     layout="@layout/shadow_bottom"

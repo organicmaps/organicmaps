@@ -2,7 +2,7 @@
 <TextView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  style="@style/MwmWidget.Tab"
   android:textAppearance="@style/MwmTextAppearance.Body4"
   tools:drawableLeft="@drawable/ic_menu_open"
   tools:text="Some tab"/>
+    <!--style="@style/MwmWidget.Tab"-->

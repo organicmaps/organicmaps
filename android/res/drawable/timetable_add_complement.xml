@@ -2,10 +2,10 @@
 <selector
   xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <item
-    android:drawable="@color/base_blue_light"
-    android:state_enabled="true"/>
+  <!--<item-->
+    <!--android:drawable="@color/base_blue_light"-->
+    <!--android:state_enabled="true"/>-->
 
-  <item
-    android:drawable="@color/editor_complement_disabled"/>
+  <!--<item-->
+    <!--android:drawable="@color/editor_complement_disabled"/>-->
 </selector>

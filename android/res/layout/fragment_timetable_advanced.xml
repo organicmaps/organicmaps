@@ -61,8 +61,8 @@
           android:gravity="center_vertical"
           android:padding="@dimen/margin_base"
           android:text="Example values"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          android:textColor="@color/base_blue_light"/>
+          android:textAppearance="@style/MwmTextAppearance.Body3"/>
+          <!--android:textColor="@color/base_blue_light"/>-->
 
         <ImageView
           android:id="@+id/iv__indicator"
@@ -77,8 +77,8 @@
         <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_below="@id/tv__examples_title"
-          android:background="@color/divider_standard"/>
+          android:layout_below="@id/tv__examples_title"/>
+          <!--android:background="@color/divider_standard"/>-->
 
         <TextView
           android:id="@+id/tv__examples"
