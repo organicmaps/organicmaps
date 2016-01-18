@@ -22,8 +22,7 @@ namespace osm
 ChangesetWrapper::ChangesetWrapper(TKeySecret const & keySecret,
                                    ServerApi06::TKeyValueTags const & comments)
   : m_changesetComments(comments),
-    // TODO(AlexZ): Replace with production server.
-    m_api(OsmOAuth::IZServerAuth().SetToken(keySecret))
+    m_api(OsmOAuth::ServerAuth().SetToken(keySecret))
 {
 }
 

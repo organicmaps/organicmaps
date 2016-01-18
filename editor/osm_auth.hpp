@@ -56,6 +56,8 @@ public:
   static OsmOAuth DevServerAuth();
   /// api.openstreetmap.org
   static OsmOAuth ProductionServerAuth();
+  /// Should be used everywhere in production code.
+  static OsmOAuth ServerAuth();
 
   /// @name Stateless methods.
   //@{

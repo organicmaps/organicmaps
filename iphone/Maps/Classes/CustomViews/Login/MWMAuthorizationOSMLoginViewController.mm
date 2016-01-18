@@ -136,8 +136,7 @@ using namespace osm;
     {
       string const username = self.loginTextField.text.UTF8String;
       string const password = self.passwordTextField.text.UTF8String;
-      // TODO(AlexZ): Change to production.
-      OsmOAuth auth = OsmOAuth::IZServerAuth();
+      OsmOAuth auth = OsmOAuth::ServerAuth();
       OsmOAuth::AuthResult const result = auth.AuthorizePassword(username, password);
       dispatch_async(dispatch_get_main_queue(), ^
       {

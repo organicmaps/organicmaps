@@ -71,7 +71,7 @@ NSString * getVerifier(NSString * urlString)
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
   {
     // TODO(AlexZ): Change to production.
-    OsmOAuth auth = OsmOAuth::IZServerAuth();
+    OsmOAuth const auth = OsmOAuth::ServerAuth();
     OsmOAuth::TUrlKeySecret urlKey;
     switch (self.authType)
     {
@@ -119,7 +119,7 @@ NSString * getVerifier(NSString * urlString)
   {
     TKeySecret outKeySecret;
     // TODO(AlexZ): Change to production.
-    OsmOAuth auth = OsmOAuth::IZServerAuth();
+    OsmOAuth const auth = OsmOAuth::ServerAuth();
     OsmOAuth::AuthResult const result = auth.FinishAuthorization(self->m_keySecret, verifier.UTF8String, outKeySecret);
     dispatch_async(dispatch_get_main_queue(), ^
     {

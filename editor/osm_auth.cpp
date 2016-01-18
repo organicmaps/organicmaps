@@ -91,6 +91,12 @@ OsmOAuth OsmOAuth::ProductionServerAuth()
   return OsmOAuth(OSM_CONSUMER_KEY, OSM_CONSUMER_SECRET, kOsmMainSiteURL, kOsmApiURL);
 }
 
+OsmOAuth OsmOAuth::ServerAuth()
+{
+  // TODO(AlexZ): Replace with ProductionServerAuth before release.
+  return IZServerAuth();
+}
+
 // Opens a login page and extract a cookie and a secret token.
 OsmOAuth::AuthResult OsmOAuth::FetchSessionId(OsmOAuth::SessionID & sid) const
 {
