@@ -396,7 +396,11 @@ void AddElementToCache(TCache & cache, TElement const & em)
 template <typename TCache>
 void BuildIntermediateDataFromXML(SourceReader & stream, TCache & cache, TownsDumper & towns)
 {
-  XMLSource parser([&](OsmElement * e) { towns.CheckElement(*e); AddElementToCache(cache, *e); });
+  XMLSource parser([&](OsmElement * e)
+    {
+      towns.CheckElement(*e);
+      AddElementToCache(cache, *e);
+    });
   ParseXMLSequence(stream, parser);
 }
 

@@ -32,7 +32,7 @@ public:
     SimpleLogger().Write(logWARNING) << "Multitreaded storage was not set on compile time!!! Do "
                                         "not use osrm-routed in several threads."
 #endif
-        if (!osrm::LoadNodeDataFromFile(nodeDataFile, m_nodeData))
+    if (!osrm::LoadNodeDataFromFile(nodeDataFile, m_nodeData))
     {
       SimpleLogger().Write(logDEBUG) << "Can't load node data";
       return;
@@ -127,7 +127,7 @@ public:
     }
 
     // Get ids of ways used in path.
-    set<uint32_t> wayIds;
+    set<uint64_t> wayIds;
 
     for (auto i : osrm::irange<std::size_t>(0, raw_route.unpacked_path_segments.size()))
     {

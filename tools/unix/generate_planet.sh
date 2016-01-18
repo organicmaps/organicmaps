@@ -258,7 +258,11 @@ if [ "$MODE" == "coast" ]; then
       # Preprocess coastlines to separate intermediate directory
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
-      python "$ROADS_SCRIPT" "$INTCOASTSDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
+      if [ -z "$OSRM_URL" ]; then
+        log "STATUS" "OSRM_URL variable not set. World roads will not be calculated."
+      else
+        python "$ROADS_SCRIPT" "$INTCOASTSDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
+      fi
       # Generate temporary coastlines file in the coasts intermediate dir
       if ! "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$LOG_PATH/WorldCoasts.log" | { grep -i 'not merged\|coastline polygons' || true; }

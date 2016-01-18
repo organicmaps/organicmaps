@@ -2,10 +2,10 @@
 
 #include "generator/osm_element.hpp"
 
-#include "coding/file_reader.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
-#include  "base/logging.hpp"
-
+#include "std/fstream.hpp"
 #include "std/map.hpp"
 #include "std/string.hpp"
 
@@ -13,17 +13,16 @@ class WaysParserHelper
 {
 public:
   WaysParserHelper(map<uint64_t, string> & ways) : m_ways(ways) {}
-  void ParseString(string const & input)
+  void ParseStream(istream & input)
   {
-    stringstream stream(input);
-
     string oneLine;
-    while (getline(stream, oneLine, '\n'))
+    while (getline(input, oneLine, '\n'))
     {
       auto pos = oneLine.find(';');
       if (pos < oneLine.length())
       {
-        uint64_t wayId = stoll(oneLine.substr(0, pos));
+        uint64_t wayId;
+        CHECK(strings::to_uint64(oneLine.substr(0, pos), wayId),());
         m_ways[wayId] = oneLine.substr(pos + 1, oneLine.length() - pos - 1);
       }
     }
@@ -38,21 +37,17 @@ class TagAdmixer
 public:
   TagAdmixer(string const & fileName) : m_ferryTag("route", "ferry")
   {
-    string data;
-
     try
     {
-      FileReader reader(fileName);
-      reader.ReadAsString(data);
+      ifstream reader(fileName);
+      WaysParserHelper parser(m_ways);
+      parser.ParseStream(reader);
     }
-    catch (Reader::OpenException const &)
+    catch (ifstream::failure const &)
     {
-      LOG(LWARNING, ("World level ways file not found! Generating world without roads."));
+      LOG(LWARNING, ("Can't read the world level ways file! Generating world without roads. Path:", fileName));
       return;
     }
-
-    WaysParserHelper parser(m_ways);
-    parser.ParseString(data);
   }
 
   OsmElement * operator()(OsmElement * e)

@@ -1,13 +1,11 @@
 #include "towns_dumper.hpp"
 
-#include "coding/file_writer.hpp"
-
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/tree4d.hpp"
 
 #include "base/logging.hpp"
 
-#include "std/sstream.hpp"
+#include "std/fstream.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -59,19 +57,15 @@ void TownsDumper::FilterTowns()
   LOG(LINFO, ("Preprocessing finished. Have", m_records.size(), "towns."));
 }
 
-void TownsDumper::Dump(string filePath)
+void TownsDumper::Dump(string const & filePath)
 {
   FilterTowns();
   ASSERT(!filePath.empty(), ());
-  ostringstream stream;
+  ofstream stream(filePath);
   stream.precision(9);
   for (auto const & record : m_records)
   {
     string const isCapital = record.capital ? "t" : "f";
     stream << record.point.lat << ";" << record.point.lon << ";" << record.id << ";" << isCapital <<  std::endl;
   }
-  string result = stream.str();
-  FileWriter file(filePath);
-  file.Write(result.c_str(), result.length());
-  file.Flush();
 }

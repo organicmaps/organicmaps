@@ -2,13 +2,15 @@
 
 #include "generator/tag_admixer.hpp"
 
-#include <std/map.hpp>
+#include "std/map.hpp"
+#include "std/sstream.hpp"
 
 UNIT_TEST(ParserTests)
 {
   map<uint64_t, string> ways;
   WaysParserHelper parser(ways);
-  parser.ParseString("140247102;world_level\n86398306;another_level\n294584441;world_level");
+  istringstream stream("140247102;world_level\n86398306;another_level\n294584441;world_level");
+  parser.ParseStream(stream);
   TEST(ways.find(140247102) != ways.end(), ());
   TEST_EQUAL(ways[140247102], string("world_level"), ());
   TEST(ways.find(86398306) != ways.end(), ());

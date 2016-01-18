@@ -4,6 +4,8 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/string_utils.hpp"
+
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -27,14 +29,14 @@ public:
       {
         try
         {
-          population = stoul(value);
+          strings::to_uint64(value, population);
         }
         catch (std::invalid_argument const &)
         {
           continue;
         }
       }
-      else if (key == "capital")
+      else if (key == "capital" && value == "yes")
       {
         capital = true;
       }
@@ -47,7 +49,7 @@ public:
       m_records.emplace_back(em.lat, em.lon, em.id, capital, population);
   }
 
-  void Dump(string filePath);
+  void Dump(string const & filePath);
 
 private:
   void FilterTowns();
