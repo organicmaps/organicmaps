@@ -922,13 +922,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void removeFragmentImmediate(Fragment fragment)
   {
-    getSupportFragmentManager().beginTransaction()
-                               .remove(fragment)
-                               .commitAllowingStateLoss();
-    getSupportFragmentManager().executePendingTransactions();
+    FragmentManager fm = getSupportFragmentManager();
+    if (fm.isDestroyed())
+      return;
+
+    fm.beginTransaction()
+      .remove(fragment)
+      .commitAllowingStateLoss();
+    fm.executePendingTransactions();
   }
 
-  boolean removeCurrentFragment(boolean animate)
+  private boolean removeCurrentFragment(boolean animate)
   {
     for (String tag : DOCKED_FRAGMENTS)
       if (removeFragment(tag, animate))
