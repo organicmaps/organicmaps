@@ -952,6 +952,8 @@ bool Framework::Search(search::SearchParams const & params)
   search::SearchParams const & rParams = params;
 #endif
 
+  ParseSetGpsTrackMinAccuracyCommand(params.m_query);
+
   m2::RectD const viewport = GetCurrentViewport();
 
   if (QueryMayBeSkipped(rParams, viewport))
