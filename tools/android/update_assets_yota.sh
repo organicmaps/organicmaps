@@ -15,7 +15,7 @@ DST=../../android/YoPme/assets
 rm -rf $DST/drules_proto_legacy.bin
 rm -rf $DST/drules_proto_dark.bin
 rm -rf $DST/drules_proto_clear.bin
-ln -s $SRC/drules_proto-bw.bin $DST/drules_proto.bin
+ln -s $SRC/drules_proto-bw.bin $DST/drules_proto_legacy.bin
 
 rm -rf $DST/resources-ldpi_legacy
 rm -rf $DST/resources-mdpi_legacy
@@ -52,7 +52,7 @@ DST=../../android/YoPme2/assets
 rm -rf $DST/drules_proto_legacy.bin
 rm -rf $DST/drules_proto_dark.bin
 rm -rf $DST/drules_proto_clear.bin
-ln -s $SRC/drules_proto-bw.bin $DST/drules_proto.bin
+ln -s $SRC/drules_proto-bw.bin $DST/drules_proto_legacy.bin
 
 rm -rf $DST/resources-ldpi_legacy
 rm -rf $DST/resources-mdpi_legacy

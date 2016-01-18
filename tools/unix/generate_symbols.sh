@@ -65,7 +65,7 @@ function BuildSkin() {
 }
 
 # Cleanup
-cleanup=(resources-{yota,{6plus,ldpi,mdpi,hdpi,xhdpi,xxhdpi}{,_dark,_clear}})
+cleanup=(resources-{yota_legacy,{6plus,ldpi,mdpi,hdpi,xhdpi,xxhdpi}{_legacy,_dark,_clear}})
 for item in ${cleanup[*]}
 do
   rm -rf ../../data/$item || true
