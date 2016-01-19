@@ -31,7 +31,6 @@
 		3438CDFC1B862F5C0051AA78 /* MWMSearchContentView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDFB1B862F5C0051AA78 /* MWMSearchContentView.mm */; };
 		343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */; };
 		343F26301AEFDB1A00388A6D /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 343F262F1AEFDB1A00388A6D /* Framework.cpp */; };
-		343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
 		344825931B8DBADF00757B1B /* MWMSearchDownloadViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 344825911B8DBADF00757B1B /* MWMSearchDownloadViewController.mm */; };
 		344825941B8DBADF00757B1B /* MWMSearchDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 344825921B8DBADF00757B1B /* MWMSearchDownloadViewController.xib */; };
 		344825971B8DCEC400757B1B /* MWMSearchDownloadView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 344825961B8DCEC400757B1B /* MWMSearchDownloadView.mm */; };
@@ -128,7 +127,6 @@
 		34F45E901B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */; };
 		34F8ADD91B97229A004184CC /* MWMSearchTableView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */; };
 		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
-		45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */ = {isa = PBXBuildFile; fileRef = 45159BF81B0CA2D5009BFA85 /* resources-6plus */; };
 		4519503A1B7A3E070085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		4519503B1B7A3E390085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
@@ -153,7 +151,6 @@
 		4579C89B1AD2F9A2001D6B90 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
 		4579C89C1AD2F9A2001D6B90 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		4579C89D1AD2F9E6001D6B90 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
-		4579C89E1AD2F9E6001D6B90 /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
 		4579C89F1AD2FA36001D6B90 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		4579C8A01AD2FAB1001D6B90 /* 07_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */; };
 		4579C8A11AD2FAB1001D6B90 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
@@ -211,7 +208,6 @@
 		6741A9141BF340D1002C974C /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */; };
 		6741A9151BF340D1002C974C /* resources-xhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */; };
 		6741A9161BF340D1002C974C /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */; };
-		6741A9171BF340D1002C974C /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
 		6741A9181BF340D1002C974C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
 		6741A9191BF340D1002C974C /* 07_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */; };
 		6741A91A1BF340D1002C974C /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
@@ -225,7 +221,6 @@
 		6741A9221BF340D1002C974C /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		6741A9231BF340D1002C974C /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		6741A9241BF340D1002C974C /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
-		6741A9251BF340D1002C974C /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
 		6741A9261BF340D1002C974C /* me.maps.watchkitextension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */; };
 		6741A9271BF340D1002C974C /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
 		6741A9281BF340D1002C974C /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
@@ -265,11 +260,9 @@
 		6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
 		6741A95C1BF340DE002C974C /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
 		6741A95D1BF340DE002C974C /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
-		6741A95E1BF340DE002C974C /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99D919C1A2CD00C1CF98 /* resources-mdpi */; };
 		6741A95F1BF340DE002C974C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C659451BD12A77009DC20A /* InfoPlist.strings */; };
 		6741A9601BF340DE002C974C /* MWMRoutingDisclaimerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */; };
 		6741A9611BF340DE002C974C /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */; };
-		6741A9621BF340DE002C974C /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
 		6741A9631BF340DE002C974C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
 		6741A9641BF340DE002C974C /* MWMSearchDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 344825921B8DBADF00757B1B /* MWMSearchDownloadViewController.xib */; };
 		6741A9651BF340DE002C974C /* LocalNotifications.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */; };
@@ -277,7 +270,6 @@
 		6741A9671BF340DE002C974C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */; };
 		6741A9681BF340DE002C974C /* faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 978D4A30199A11E600D72CA7 /* faq.html */; };
 		6741A9691BF340DE002C974C /* PlacePageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66A8FB11B0A0954001B9C97 /* PlacePageView.xib */; };
-		6741A96A1BF340DE002C974C /* resources-xxhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */; };
 		6741A96B1BF340DE002C974C /* MWMBottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */; };
 		6741A96C1BF340DE002C974C /* MWMDownloadTransitMapAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */; };
 		6741A96D1BF340DE002C974C /* MWMLocationAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BBF2C71B4FFB8C000CF8E2 /* MWMLocationAlert.xib */; };
@@ -294,7 +286,6 @@
 		6741A9781BF340DE002C974C /* AddSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */; };
 		6741A9791BF340DE002C974C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
 		6741A97A1BF340DE002C974C /* MWMSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CFFE8C1B7DE71C009D0C9F /* MWMSearchView.xib */; };
-		6741A97B1BF340DE002C974C /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
 		6741A97C1BF340DE002C974C /* MWMBookmarkColorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6588E361B15D87A00EE1E58 /* MWMBookmarkColorCell.xib */; };
 		6741A97D1BF340DE002C974C /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
 		6741A97E1BF340DE002C974C /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
@@ -327,7 +318,6 @@
 		6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */; };
 		6741A99A1BF340DE002C974C /* MWMBookmarkColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6588E321B15D73100EE1E58 /* MWMBookmarkColorViewController.xib */; };
 		6741A99B1BF340DE002C974C /* PlacePageInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6CB215B1AEE704D00FB8963 /* PlacePageInfoCell.xib */; };
-		6741A99C1BF340DE002C974C /* resources-6plus in Resources */ = {isa = PBXBuildFile; fileRef = 45159BF81B0CA2D5009BFA85 /* resources-6plus */; };
 		6741A99D1BF340DE002C974C /* MWMPedestrianShareAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */; };
 		6741A99E1BF340DE002C974C /* MWMNextTurnPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FF2E2A1B8C5C020063FD1F /* MWMNextTurnPanel.xib */; };
 		6741A99F1BF340DE002C974C /* 07_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */; };
@@ -606,9 +596,22 @@
 		97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		97F0817E19AF72590098FB0B /* BadgeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F0817D19AF72590098FB0B /* BadgeView.mm */; };
 		97F61794183E7445009919E2 /* LinkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.mm */; };
-		97FC99DC19C1A2CD00C1CF98 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99D919C1A2CD00C1CF98 /* resources-mdpi */; };
-		97FC99DE19C1A2CD00C1CF98 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
-		97FC99E019C1A2CD00C1CF98 /* resources-xxhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */; };
+		9DA46A081C47E92100EF52BA /* resources-hdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */; };
+		9DA46A091C47E92100EF52BA /* resources-hdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */; };
+		9DA46A0A1C47E92100EF52BA /* resources-mdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */; };
+		9DA46A0B1C47E92100EF52BA /* resources-mdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */; };
+		9DA46A0C1C47E92100EF52BA /* resources-xhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */; };
+		9DA46A0D1C47E92100EF52BA /* resources-xhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */; };
+		9DA46A0E1C47E92100EF52BA /* resources-xxhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A071C47E92100EF52BA /* resources-xxhdpi_legacy */; };
+		9DA46A0F1C47E92100EF52BA /* resources-xxhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A071C47E92100EF52BA /* resources-xxhdpi_legacy */; };
+		9DA46A121C47E95700EF52BA /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */; };
+		9DA46A131C47E95700EF52BA /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */; };
+		9DA46A141C47E95700EF52BA /* resources-6plus_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A111C47E95700EF52BA /* resources-6plus_legacy */; };
+		9DA46A151C47E95700EF52BA /* resources-6plus_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A111C47E95700EF52BA /* resources-6plus_legacy */; };
+		9DA46A161C47E95A00EF52BA /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */; };
+		9DA46A171C47E95B00EF52BA /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */; };
+		9DA46A181C47E96400EF52BA /* resources-xhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */; };
+		9DA46A191C47E96500EF52BA /* resources-xhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */; };
 		9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D491A14980500E54A65 /* iosOGLContext.mm */; };
 		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
@@ -638,8 +641,6 @@
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
 		EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
 		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
-		F607C1851C032A8800B53A87 /* resources-hdpi in Resources */ = {isa = PBXBuildFile; fileRef = F607C1821C032A8800B53A87 /* resources-hdpi */; };
-		F607C1861C032A8800B53A87 /* resources-hdpi in Resources */ = {isa = PBXBuildFile; fileRef = F607C1821C032A8800B53A87 /* resources-hdpi */; };
 		F607C1871C032A8800B53A87 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = F607C1831C032A8800B53A87 /* resources-hdpi_clear */; };
 		F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = F607C1831C032A8800B53A87 /* resources-hdpi_clear */; };
 		F607C1891C032A8800B53A87 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = F607C1841C032A8800B53A87 /* resources-hdpi_dark */; };
@@ -752,7 +753,6 @@
 		F6FE2C151B04A44E009814AA /* MWMPlacePageEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FE2C141B04A44E009814AA /* MWMPlacePageEntity.mm */; };
 		F6FF2E2B1B8C5C020063FD1F /* MWMNextTurnPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FF2E2A1B8C5C020063FD1F /* MWMNextTurnPanel.xib */; };
 		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
-		F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
 		FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
 		FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
@@ -1032,7 +1032,6 @@
 		34FE4C431BCC013500066718 /* MWMMapWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgets.h; sourceTree = "<group>"; };
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		3D443C9C19E421EE0025C2FC /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
-		45159BF81B0CA2D5009BFA85 /* resources-6plus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus"; path = "../../data/resources-6plus"; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
 		454040681AD2D8D2007A9B12 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -1161,9 +1160,12 @@
 		97F0817D19AF72590098FB0B /* BadgeView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BadgeView.mm; path = Classes/BadgeView.mm; sourceTree = "<group>"; };
 		97F6178F183E742E009919E2 /* LinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinkCell.h; path = Settings/LinkCell.h; sourceTree = "<group>"; };
 		97F61793183E7445009919E2 /* LinkCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LinkCell.mm; path = Settings/LinkCell.mm; sourceTree = "<group>"; };
-		97FC99D919C1A2CD00C1CF98 /* resources-mdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi"; path = "../../data/resources-mdpi"; sourceTree = "<group>"; };
-		97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi"; path = "../../data/resources-xhdpi"; sourceTree = "<group>"; };
-		97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi"; path = "../../data/resources-xxhdpi"; sourceTree = "<group>"; };
+		9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_legacy"; path = "../../data/resources-hdpi_legacy"; sourceTree = "<group>"; };
+		9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi_legacy"; path = "../../data/resources-mdpi_legacy"; sourceTree = "<group>"; };
+		9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi_legacy"; path = "../../data/resources-xhdpi_legacy"; sourceTree = "<group>"; };
+		9DA46A071C47E92100EF52BA /* resources-xxhdpi_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi_legacy"; path = "../../data/resources-xxhdpi_legacy"; sourceTree = "<group>"; };
+		9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_legacy.bin; path = ../../data/drules_proto_legacy.bin; sourceTree = "<group>"; };
+		9DA46A111C47E95700EF52BA /* resources-6plus_legacy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus_legacy"; path = "../../data/resources-6plus_legacy"; sourceTree = "<group>"; };
 		9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "02_droidsans-fallback.ttf"; path = "../../data/02_droidsans-fallback.ttf"; sourceTree = "<group>"; };
 		A32B6D481A14980500E54A65 /* iosOGLContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iosOGLContext.h; path = Platform/opengl/iosOGLContext.h; sourceTree = "<group>"; };
 		A32B6D491A14980500E54A65 /* iosOGLContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iosOGLContext.mm; path = Platform/opengl/iosOGLContext.mm; sourceTree = "<group>"; };
@@ -1203,7 +1205,6 @@
 		F60699001B429CC8002BECBB /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F60699011B429D08002BECBB /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F60699021B429D23002BECBB /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F607C1821C032A8800B53A87 /* resources-hdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi"; path = "../../data/resources-hdpi"; sourceTree = "<group>"; };
 		F607C1831C032A8800B53A87 /* resources-hdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_clear"; path = "../../data/resources-hdpi_clear"; sourceTree = "<group>"; };
 		F607C1841C032A8800B53A87 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-hdpi_dark"; path = "../../data/resources-hdpi_dark"; sourceTree = "<group>"; };
 		F607C18C1C047FDC00B53A87 /* MWMSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSegue.h; sourceTree = "<group>"; };
@@ -1370,7 +1371,6 @@
 		F7DD848414FE77F8005695E1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F7DD848514FE7C7F005695E1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F7DD848614FE7FE0005695E1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		F7FDD822147F30CC005900FA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
 		FA054610155C465E001F4E37 /* SelectSetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectSetVC.h; path = Bookmarks/SelectSetVC.h; sourceTree = SOURCE_ROOT; };
 		FA054611155C465E001F4E37 /* SelectSetVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectSetVC.mm; path = Bookmarks/SelectSetVC.mm; sourceTree = SOURCE_ROOT; };
 		FA29FDA8141E77F8004ADF66 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Preferences.h; path = Settings/Preferences.h; sourceTree = "<group>"; };
@@ -2737,6 +2737,12 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */,
+				9DA46A111C47E95700EF52BA /* resources-6plus_legacy */,
+				9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */,
+				9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */,
+				9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */,
+				9DA46A071C47E92100EF52BA /* resources-xxhdpi_legacy */,
 				3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */,
 				3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */,
 				4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */,
@@ -2751,16 +2757,10 @@
 				4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */,
 				4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */,
 				A367C93A1B17334800E2B6E7 /* resources-default */,
-				45159BF81B0CA2D5009BFA85 /* resources-6plus */,
 				4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */,
 				97A5967E19B9CD47007A963F /* copyright.html */,
 				978D4A30199A11E600D72CA7 /* faq.html */,
 				FAAEA7D0161BD26600CCD661 /* synonyms.txt */,
-				F7FDD822147F30CC005900FA /* drules_proto.bin */,
-				97FC99D919C1A2CD00C1CF98 /* resources-mdpi */,
-				F607C1821C032A8800B53A87 /* resources-hdpi */,
-				97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */,
-				97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */,
 				FAAFD696139D9BE2000AE70C /* categories.txt */,
 				FA64D9A813F975AD00350ECF /* types.txt */,
 				452FCA3A1B6A3DF7007019AB /* colors.txt */,
@@ -3090,6 +3090,8 @@
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
 				341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */,
 				4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */,
+				9DA46A0C1C47E92100EF52BA /* resources-xhdpi_legacy in Resources */,
+				9DA46A0E1C47E92100EF52BA /* resources-xxhdpi_legacy in Resources */,
 				34BC722B1B0DECAE0012A34B /* MWMZoomButtonsView.xib in Resources */,
 				EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */,
 				EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */,
@@ -3100,25 +3102,24 @@
 				EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */,
 				FAAFD697139D9BE2000AE70C /* categories.txt in Resources */,
 				FA64D9A913F975AD00350ECF /* types.txt in Resources */,
-				97FC99DC19C1A2CD00C1CF98 /* resources-mdpi in Resources */,
 				34C659471BD12A77009DC20A /* InfoPlist.strings in Resources */,
 				F63774E71B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				4A7D89C71B2EBF3B00AC843E /* resources-xhdpi_dark in Resources */,
-				97FC99DE19C1A2CD00C1CF98 /* resources-xhdpi in Resources */,
 				97D40C0A184D031900A1D572 /* Images.xcassets in Resources */,
 				344825941B8DBADF00757B1B /* MWMSearchDownloadViewController.xib in Resources */,
+				9DA46A141C47E95700EF52BA /* resources-6plus_legacy in Resources */,
 				B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */,
 				34B82ABB1B837FFD00180497 /* MWMSearchHistoryRequestCell.xib in Resources */,
 				34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */,
 				3476B8DC1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				978D4A31199A11E600D72CA7 /* faq.html in Resources */,
 				F66A8FB21B0A0954001B9C97 /* PlacePageView.xib in Resources */,
-				97FC99E019C1A2CD00C1CF98 /* resources-xxhdpi in Resources */,
 				349C26B61BB02C6F0005DF2F /* MWMBottomMenuViewController.xib in Resources */,
 				F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */,
 				F6BBF2C81B4FFB8C000CF8E2 /* MWMLocationAlert.xib in Resources */,
 				F6BB6CBE1BB15A5E00DF1DF2 /* MWMRoutePreview.xib in Resources */,
 				34B82AD71B84746E00180497 /* MWMSearchSuggestionCell.xib in Resources */,
+				9DA46A0A1C47E92100EF52BA /* resources-mdpi_legacy in Resources */,
 				F6172FA51BBD5A3E0081D325 /* MWMiPadRoutePreview.xib in Resources */,
 				97A5967F19B9CD47007A963F /* copyright.html in Resources */,
 				34B82ADF1B84A4A000180497 /* MWMSearchCommonCell.xib in Resources */,
@@ -3129,10 +3130,9 @@
 				F6ED13561B16439E0095C6DE /* MWMDirectionView.xib in Resources */,
 				34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
+				9DA46A081C47E92100EF52BA /* resources-hdpi_legacy in Resources */,
 				34CFFE8D1B7DE71C009D0C9F /* MWMSearchView.xib in Resources */,
-				F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */,
 				F6588E381B15D87A00EE1E58 /* MWMBookmarkColorCell.xib in Resources */,
-				F607C1851C032A8800B53A87 /* resources-hdpi in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
 				4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */,
 				4A23D15D1B8B4DD700D4EB6F /* resources-mdpi_clear in Resources */,
@@ -3143,6 +3143,7 @@
 				3438CDF91B8616760051AA78 /* MWMSearchShowOnMapCell.xib in Resources */,
 				34BAB6EE1BB2DFCE00DB941B /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
 				349A358D1B53EABC009677EE /* MWMSearchDownloadMapRequest.xib in Resources */,
+				9DA46A121C47E95700EF52BA /* drules_proto_legacy.bin in Resources */,
 				4A23D15B1B8B4DD700D4EB6F /* drules_proto_clear.bin in Resources */,
 				341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */,
 				34B82AC51B84608600180497 /* MWMSearchHistoryClearCell.xib in Resources */,
@@ -3165,7 +3166,6 @@
 				F64F199A1AB81A00006EAF7E /* MWMAlertViewController.xib in Resources */,
 				F6588E331B15D73100EE1E58 /* MWMBookmarkColorViewController.xib in Resources */,
 				F6CB215C1AEE704D00FB8963 /* PlacePageInfoCell.xib in Resources */,
-				45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */,
 				347BAC691B733D540010FF78 /* MWMPedestrianShareAlert.xib in Resources */,
 				F6FF2E2B1B8C5C020063FD1F /* MWMNextTurnPanel.xib in Resources */,
 				FAF30A95173AB23900818BF6 /* 07_roboto_medium.ttf in Resources */,
@@ -3189,8 +3189,8 @@
 				6741A9141BF340D1002C974C /* drules_proto_clear.bin in Resources */,
 				6741A9151BF340D1002C974C /* resources-xhdpi_clear in Resources */,
 				6741A9161BF340D1002C974C /* resources-xhdpi_dark in Resources */,
-				6741A9171BF340D1002C974C /* resources-xhdpi in Resources */,
 				6741A9181BF340D1002C974C /* Localizable.strings in Resources */,
+				9DA46A191C47E96500EF52BA /* resources-xhdpi_legacy in Resources */,
 				6741A9191BF340D1002C974C /* 07_roboto_medium.ttf in Resources */,
 				6741A91A1BF340D1002C974C /* 01_dejavusans.ttf in Resources */,
 				6741A91B1BF340D1002C974C /* 02_droidsans-fallback.ttf in Resources */,
@@ -3203,9 +3203,9 @@
 				6741A9221BF340D1002C974C /* packed_polygons.bin in Resources */,
 				6741A9231BF340D1002C974C /* sound-strings in Resources */,
 				6741A9241BF340D1002C974C /* drules_proto_dark.bin in Resources */,
-				6741A9251BF340D1002C974C /* drules_proto.bin in Resources */,
 				6741A9261BF340D1002C974C /* me.maps.watchkitextension.entitlements in Resources */,
 				6741A9271BF340D1002C974C /* categories.txt in Resources */,
+				9DA46A171C47E95B00EF52BA /* drules_proto_legacy.bin in Resources */,
 				6741A9281BF340D1002C974C /* types.txt in Resources */,
 				6741A9291BF340D1002C974C /* fonts_blacklist.txt in Resources */,
 				6741A92A1BF340D1002C974C /* fonts_whitelist.txt in Resources */,
@@ -3245,6 +3245,8 @@
 				6741A9531BF340DE002C974C /* 01_dejavusans.ttf in Resources */,
 				6741A9541BF340DE002C974C /* 02_droidsans-fallback.ttf in Resources */,
 				6741A9551BF340DE002C974C /* resources-xxhdpi_dark in Resources */,
+				9DA46A0D1C47E92100EF52BA /* resources-xhdpi_legacy in Resources */,
+				9DA46A0F1C47E92100EF52BA /* resources-xxhdpi_legacy in Resources */,
 				6741A9561BF340DE002C974C /* MWMZoomButtonsView.xib in Resources */,
 				6741A9571BF340DE002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
 				6741A9581BF340DE002C974C /* 04_padauk.ttf in Resources */,
@@ -3255,25 +3257,24 @@
 				6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */,
 				6741A95C1BF340DE002C974C /* categories.txt in Resources */,
 				6741A95D1BF340DE002C974C /* types.txt in Resources */,
-				6741A95E1BF340DE002C974C /* resources-mdpi in Resources */,
 				6741A95F1BF340DE002C974C /* InfoPlist.strings in Resources */,
 				6741A9601BF340DE002C974C /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				6741A9611BF340DE002C974C /* resources-xhdpi_dark in Resources */,
-				6741A9621BF340DE002C974C /* resources-xhdpi in Resources */,
 				6741A9631BF340DE002C974C /* Images.xcassets in Resources */,
 				6741A9641BF340DE002C974C /* MWMSearchDownloadViewController.xib in Resources */,
+				9DA46A151C47E95700EF52BA /* resources-6plus_legacy in Resources */,
 				6741A9651BF340DE002C974C /* LocalNotifications.plist in Resources */,
 				6741A9661BF340DE002C974C /* MWMSearchHistoryRequestCell.xib in Resources */,
 				6741A9671BF340DE002C974C /* LaunchScreen.storyboard in Resources */,
 				3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				6741A9681BF340DE002C974C /* faq.html in Resources */,
 				6741A9691BF340DE002C974C /* PlacePageView.xib in Resources */,
-				6741A96A1BF340DE002C974C /* resources-xxhdpi in Resources */,
 				6741A96B1BF340DE002C974C /* MWMBottomMenuViewController.xib in Resources */,
 				6741A96C1BF340DE002C974C /* MWMDownloadTransitMapAlert.xib in Resources */,
 				6741A96D1BF340DE002C974C /* MWMLocationAlert.xib in Resources */,
 				6741A96E1BF340DE002C974C /* MWMRoutePreview.xib in Resources */,
 				6741A96F1BF340DE002C974C /* MWMSearchSuggestionCell.xib in Resources */,
+				9DA46A0B1C47E92100EF52BA /* resources-mdpi_legacy in Resources */,
 				6741A9701BF340DE002C974C /* MWMiPadRoutePreview.xib in Resources */,
 				6741A9711BF340DE002C974C /* copyright.html in Resources */,
 				6741A9721BF340DE002C974C /* MWMSearchCommonCell.xib in Resources */,
@@ -3284,10 +3285,9 @@
 				6741A9771BF340DE002C974C /* MWMDirectionView.xib in Resources */,
 				6741A9781BF340DE002C974C /* AddSetTableViewCell.xib in Resources */,
 				6741A9791BF340DE002C974C /* Localizable.strings in Resources */,
+				9DA46A091C47E92100EF52BA /* resources-hdpi_legacy in Resources */,
 				6741A97A1BF340DE002C974C /* MWMSearchView.xib in Resources */,
-				6741A97B1BF340DE002C974C /* drules_proto.bin in Resources */,
 				6741A97C1BF340DE002C974C /* MWMBookmarkColorCell.xib in Resources */,
-				F607C1861C032A8800B53A87 /* resources-hdpi in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				6741A97E1BF340DE002C974C /* drules_proto_dark.bin in Resources */,
 				6741A97F1BF340DE002C974C /* resources-mdpi_clear in Resources */,
@@ -3298,6 +3298,7 @@
 				6741A9841BF340DE002C974C /* MWMSearchShowOnMapCell.xib in Resources */,
 				6741A9851BF340DE002C974C /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
 				6741A9861BF340DE002C974C /* MWMSearchDownloadMapRequest.xib in Resources */,
+				9DA46A131C47E95700EF52BA /* drules_proto_legacy.bin in Resources */,
 				6741A9871BF340DE002C974C /* drules_proto_clear.bin in Resources */,
 				6741A9881BF340DE002C974C /* MWMAPIBarView.xib in Resources */,
 				6741A9891BF340DE002C974C /* MWMSearchHistoryClearCell.xib in Resources */,
@@ -3320,7 +3321,6 @@
 				6741A9991BF340DE002C974C /* MWMAlertViewController.xib in Resources */,
 				6741A99A1BF340DE002C974C /* MWMBookmarkColorViewController.xib in Resources */,
 				6741A99B1BF340DE002C974C /* PlacePageInfoCell.xib in Resources */,
-				6741A99C1BF340DE002C974C /* resources-6plus in Resources */,
 				6741A99D1BF340DE002C974C /* MWMPedestrianShareAlert.xib in Resources */,
 				6741A99E1BF340DE002C974C /* MWMNextTurnPanel.xib in Resources */,
 				6741A99F1BF340DE002C974C /* 07_roboto_medium.ttf in Resources */,
@@ -3336,7 +3336,6 @@
 				F6C7B7141BA8443C004233F4 /* drules_proto_clear.bin in Resources */,
 				F6C7B7121BA840A4004233F4 /* resources-xhdpi_clear in Resources */,
 				F6C7B7131BA840A4004233F4 /* resources-xhdpi_dark in Resources */,
-				343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */,
 				6C47C8BF1AD6C47E000C52C1 /* Localizable.strings in Resources */,
 				4579C8A11AD2FAB1001D6B90 /* 01_dejavusans.ttf in Resources */,
 				9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */,
@@ -3347,10 +3346,10 @@
 				4579C8A01AD2FAB1001D6B90 /* 07_roboto_medium.ttf in Resources */,
 				347274791B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements in Resources */,
 				34C659481BD12A77009DC20A /* InfoPlist.strings in Resources */,
+				9DA46A181C47E96400EF52BA /* resources-xhdpi_legacy in Resources */,
 				4579C89F1AD2FA36001D6B90 /* packed_polygons.bin in Resources */,
 				34C6594C1BD12A89009DC20A /* sound-strings in Resources */,
 				4579C89D1AD2F9E6001D6B90 /* drules_proto_dark.bin in Resources */,
-				4579C89E1AD2F9E6001D6B90 /* drules_proto.bin in Resources */,
 				347274771B0F4F3900756B37 /* me.maps.watchkitextension.entitlements in Resources */,
 				4579C8961AD2F9A1001D6B90 /* categories.txt in Resources */,
 				4579C8971AD2F9A1001D6B90 /* types.txt in Resources */,
@@ -3359,6 +3358,7 @@
 				4579C89A1AD2F9A2001D6B90 /* unicode_blocks.txt in Resources */,
 				3472747B1B0F4FF100756B37 /* me.maps.production.entitlements in Resources */,
 				4579C89B1AD2F9A2001D6B90 /* countries.txt in Resources */,
+				9DA46A161C47E95A00EF52BA /* drules_proto_legacy.bin in Resources */,
 				4579C89C1AD2F9A2001D6B90 /* classificator.txt in Resources */,
 				4579C8951AD2F98B001D6B90 /* synonyms.txt in Resources */,
 				F6D4344E1AD2AB96007C7728 /* Images.xcassets in Resources */,

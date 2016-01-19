@@ -63,13 +63,13 @@ OTHER_RES.files = ../data/copyright.html ../data/eula.html ../data/welcome.html 
 CLASSIFICATOR_RES.path = $$DATADIR
 CLASSIFICATOR_RES.files = ../data/classificator.txt \
                           ../data/types.txt \
-                          ../data/drules_proto.bin
+                          ../data/drules_proto_legacy.bin
 DEFAULT_SKIN_RES.path = $$DATADIR/resources-default
 DEFAULT_SKIN_RES.files = ../resources-default/default.ui
-MDPI_SKIN_RES.path = $$DATADIR/resources-mdpi
-MDPI_SKIN_RES.files = ../data/resources-mdpi/symbols.sdf ../data/resources-mdpi/symbols.png
-XHDPI_SKIN_RES.path = $$DATADIR/resources-xhdpi
-XHDPI_SKIN_RES.files = ../data/resources-xhdpi/symbols.sdf ../data/resources-xhdpi/symbols.png
+MDPI_SKIN_RES.path = $$DATADIR/resources-mdpi_legacy
+MDPI_SKIN_RES.files = ../data/resources-mdpi_legacy/symbols.sdf ../data/resources-mdpi_legacy/symbols.png
+XHDPI_SKIN_RES.path = $$DATADIR/resources-xhdpi_legacy
+XHDPI_SKIN_RES.files = ../data/resources-xhdpi_legacy/symbols.sdf ../data/resources-xhdpi_legacy/symbols.png
 
 FONT_RES.path = $$FONTSDIR
 FONT_RES.files = ../data/01_dejavusans.ttf \

@@ -11,7 +11,7 @@
 namespace
 {
 
-const char * const kSuffixLegacyLight = "";
+const char * const kSuffixLegacyLight = "_legacy";
 const char * const kSuffixLegacyDark = "_dark";
 const char * const kSuffixModernClear = "_clear";
 
@@ -25,6 +25,8 @@ string GetStyleSuffix(MapStyle mapStyle)
     return kSuffixLegacyDark;
   case MapStyleClear:
     return kSuffixModernClear;
+  case MapStyleMerged:
+    return string();
 
   case MapStyleCount:
     break;

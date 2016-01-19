@@ -63,7 +63,7 @@ UNIT_TEST(GetReader)
 {
   char const * NON_EXISTING_FILE = "mgbwuerhsnmbui45efhdbn34.tmp";
   char const * arr[] = {
-    "resources-ldpi/symbols.sdf",
+    "resources-ldpi_legacy/symbols.sdf",
     "classificator.txt",
     "minsk-pass.mwm"
   };

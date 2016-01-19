@@ -42,9 +42,12 @@ namespace
     for (size_t s = 0; s < MapStyleCount; ++s)
     {
       MapStyle const mapStyle = static_cast<MapStyle>(s);
-      GetStyleReader().SetCurrentStyle(mapStyle);
-      LOG(LINFO, ("Test with map style", mapStyle));
-      fn();
+      if (mapStyle != MapStyle::MapStyleMerged)
+      {
+        GetStyleReader().SetCurrentStyle(mapStyle);
+        LOG(LINFO, ("Test with map style", mapStyle));
+        fn();
+      }
     }
   }
 }  // namespace

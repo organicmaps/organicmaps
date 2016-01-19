@@ -12,6 +12,8 @@ string DebugPrint(MapStyle mapStyle)
     return "MapStyleDark";
   case MapStyleClear:
     return "MapStyleClear";
+  case MapStyleMerged:
+    return "MapStyleMerged";
 
   case MapStyleCount:
     break;
