@@ -259,7 +259,7 @@ if [ "$MODE" == "coast" ]; then
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
       if [ -z "$OSRM_URL" ]; then
-        log "STATUS" "OSRM_URL variable not set. World roads will not be calculated."
+        log "OSRM_URL variable not set. World roads will not be calculated."
       else
         python "$ROADS_SCRIPT" "$INTCOASTSDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
       fi
@@ -282,7 +282,7 @@ if [ "$MODE" == "coast" ]; then
   # make a working copy of generated coastlines file
   if [ -n "$OPT_COAST" ]; then
     cp "$INTCOASTSDIR"/WorldCoasts.*geom "$INTDIR"
-    cp "$INTCOASTSDIR"/*.csv "$INTDIR"
+    cp "$INTCOASTSDIR"/*.csv "$INTDIR" || true
   fi
   [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
   if [ -n "$OPT_ROUTING" -o -n "$OPT_WORLD" -o -z "$NO_REGIONS" ]; then
