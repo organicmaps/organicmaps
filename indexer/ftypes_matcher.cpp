@@ -315,7 +315,7 @@ bool IsTypeConformed(uint32_t type, vector<string> const & path)
   ASSERT(p, ());
 
   uint8_t val = 0, i = 0;
-  for (auto const n : path)
+  for (auto const & n : path)
   {
     if (!ftype::GetValue(type, i, val))
       return false;
