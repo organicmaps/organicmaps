@@ -1,7 +1,10 @@
 #pragma once
+
 #include "base/base.hpp"
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
+
+#include "std/atomic.hpp"
 
 namespace my
 {
@@ -14,11 +17,12 @@ namespace my
     LCRITICAL
   };
 
+  typedef atomic<LogLevel> TLogLevel;
   typedef void (*LogMessageFn)(LogLevel level, SrcPoint const &, string const &);
 
   extern LogMessageFn LogMessage;
-  extern LogLevel g_LogLevel;
-  extern LogLevel g_LogAbortLevel;
+  extern TLogLevel g_LogLevel;
+  extern TLogLevel g_LogAbortLevel;
 
   /// @return Pointer to previous message function.
   LogMessageFn SetLogMessageFn(LogMessageFn fn);

@@ -92,10 +92,10 @@ namespace my
   }
 
 #ifdef DEBUG
-  LogLevel g_LogLevel = LDEBUG;
-  LogLevel g_LogAbortLevel = LERROR;
+  TLogLevel g_LogLevel = {LDEBUG};
+  TLogLevel g_LogAbortLevel = {LERROR};
 #else
-  LogLevel g_LogLevel = LINFO;
-  LogLevel g_LogAbortLevel = LCRITICAL;
+  TLogLevel g_LogLevel = {LINFO};
+  TLogLevel g_LogAbortLevel = {LCRITICAL};
 #endif
 }
