@@ -178,7 +178,7 @@ bool HasSearchIndex(MwmValue const & value) { return value.m_cont.IsExist(SEARCH
 
 bool HasGeometryIndex(MwmValue & value) { return value.m_cont.IsExist(INDEX_FILE_TAG); }
 
-MwmSet::MwmHandle FindWorld(Index & index, vector<shared_ptr<MwmInfo>> & infos)
+MwmSet::MwmHandle FindWorld(Index & index, vector<shared_ptr<MwmInfo>> const & infos)
 {
   MwmSet::MwmHandle handle;
   for (auto const & info : infos)
@@ -291,11 +291,34 @@ void Geocoder::Go(vector<FeatureID> & results)
 
   m_results = &results;
 
+  vector<shared_ptr<MwmInfo>> infos;
+  m_index.GetMwmsInfo(infos);
+
+  GoImpl(infos, false /* inViewport */);
+}
+
+void Geocoder::GoInViewport(vector<FeatureID> & results)
+{
+  if (m_numTokens == 0)
+    return;
+
+  m_results = &results;
+
+  vector<shared_ptr<MwmInfo>> infos;
+  m_index.GetMwmsInfo(infos);
+
+  infos.erase(remove_if(infos.begin(), infos.end(), [this](shared_ptr<MwmInfo> p)
+  {
+    return !m_params.m_viewport.IsIntersect(p->m_limitRect);
+  }), infos.end());
+
+  GoImpl(infos, true /* inViewport */);
+}
+
+void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
+{
   try
   {
-    vector<shared_ptr<MwmInfo>> infos;
-    m_index.GetMwmsInfo(infos);
-
     // Tries to find world and fill localities table.
     {
       m_cities.clear();
@@ -344,14 +367,26 @@ void Geocoder::Go(vector<FeatureID> & results)
 
       m_matcher.reset(new FeaturesLayerMatcher(m_index, *m_context, *this /* cancellable */));
 
+      unique_ptr<coding::CompressedBitVector> viewportCBV;
+      if (inViewport)
+      {
+        viewportCBV = Retrieval::RetrieveGeometryFeatures(
+              m_context->m_value, static_cast<my::Cancellable const &>(*this),
+              m_params.m_viewport, m_params.m_scale);
+      }
+
       // Creates a cache of posting lists for each token.
       m_addressFeatures.resize(m_numTokens);
       for (size_t i = 0; i < m_numTokens; ++i)
       {
         PrepareRetrievalParams(i, i + 1);
+
         m_addressFeatures[i] = Retrieval::RetrieveAddressFeatures(
             m_context->m_value, *this /* cancellable */, m_retrievalParams);
         ASSERT(m_addressFeatures[i], ());
+
+        if (viewportCBV)
+          m_addressFeatures[i] = coding::CompressedBitVector::Intersect(*m_addressFeatures[i], *viewportCBV);
       }
 
       m_streets = LoadStreets(*m_context);
@@ -647,7 +682,8 @@ void Geocoder::MatchViewportAndPosition()
   }
 
   // Extracts features around user position.
-  if (!position.EqualDxDy(viewport.Center(), kComparePoints))
+  if (!position.EqualDxDy({0, 0}, kComparePoints) &&
+      !position.EqualDxDy(viewport.Center(), kComparePoints))
   {
     m2::RectD const rect = GetRectAroundPoistion(position);
     allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, POSITION_ID));
@@ -797,7 +833,7 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
         SearchModel::SearchType const searchType = m_model.GetSearchType(feature);
 
         // All SEARCH_TYPE_CITY features were filtered in DoGeocodingWithLocalities().
-        // All SEARCH_TYPE_STREET features were filtered in GreedyMatchStreets().
+        // All SEARCH_TYPE_STREET features were filtered in GreedilyMatchStreets().
         if (searchType < SearchModel::SEARCH_TYPE_STREET)
           clusters[searchType].push_back(featureId);
       };

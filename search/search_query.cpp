@@ -534,7 +534,7 @@ void Query::Search(Results & res, size_t resCount)
 
   LONG_OP(SearchAddress(res));
   LONG_OP(SearchFeatures());
-  LONG_OP(FlushResults(res, false, resCount));
+  LONG_OP(FlushResults(res, false /* allMWMs */, resCount, true /* oldHouseSearch */));
 }
 
 void Query::SearchViewportPoints(Results & res)
@@ -542,6 +542,11 @@ void Query::SearchViewportPoints(Results & res)
   LONG_OP(SearchAddress(res));
   LONG_OP(SearchFeaturesInViewport(CURRENT_V));
 
+  FlushViewportResults(res, true /* oldHouseSearch */);
+}
+
+void Query::FlushViewportResults(Results & res, bool oldHouseSearch)
+{
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
 
@@ -552,7 +557,8 @@ void Query::SearchViewportPoints(Results & res)
   RemoveDuplicatingLinear(indV);
 
 #ifdef HOUSE_SEARCH_TEST
-  FlushHouses(res, false, streets);
+  if (oldHouseSearch)
+    FlushHouses(res, false, streets);
 #endif
 
   for (size_t i = 0; i < indV.size(); ++i)
@@ -794,7 +800,7 @@ void Query::FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & s
   }
 }
 
-void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
+void Query::FlushResults(Results & res, bool allMWMs, size_t resCount, bool oldHouseSearch)
 {
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
@@ -813,7 +819,8 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
     ProcessSuggestions(indV, res);
 
 #ifdef HOUSE_SEARCH_TEST
-  FlushHouses(res, allMWMs, streets);
+  if (oldHouseSearch)
+    FlushHouses(res, allMWMs, streets);
 #endif
 
   // emit feature results

@@ -175,8 +175,15 @@ protected:
                      ViewportID viewportId = DEFAULT_V);
 
   template <class T> void MakePreResult2(vector<T> & cont, vector<FeatureID> & streets);
+
+  /// @param allMWMs Deprecated, need to support old search algorithm.
+  /// @param oldHouseSearch Deprecated, need to support old search algorithm.
+  //@{
   void FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & streets);
-  void FlushResults(Results & res, bool allMWMs, size_t resCount);
+
+  void FlushResults(Results & res, bool allMWMs, size_t resCount, bool oldHouseSearch);
+  void FlushViewportResults(Results & res, bool oldHouseSearch);
+  //@}
 
   void RemoveStringPrefix(string const & str, string & res) const;
   void GetSuggestion(string const & name, string & suggest) const;
