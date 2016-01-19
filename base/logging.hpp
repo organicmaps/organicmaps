@@ -36,11 +36,11 @@ namespace my
   ///   LogLevelSuppressor onlyLERRORAndLCriticalLogsAreEnabled;
   ///   TEST(SomeFunctionWhichHasDebugOrInfoOrWarningLogs(), ());
   /// }
-  struct LogLevelSuppressor
+  struct ScopedLogLevelChanger
   {
     LogLevel m_old = g_LogLevel;
-    LogLevelSuppressor(LogLevel temporaryLogLevel = LERROR) { g_LogLevel = temporaryLogLevel; }
-    ~LogLevelSuppressor() { g_LogLevel = m_old; }
+    ScopedLogLevelChanger(LogLevel temporaryLogLevel = LERROR) { g_LogLevel = temporaryLogLevel; }
+    ~ScopedLogLevelChanger() { g_LogLevel = m_old; }
   };
 }
 
