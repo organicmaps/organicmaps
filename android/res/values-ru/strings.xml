@@ -856,6 +856,6 @@
 	<string name="p2p_only_from_current">Навигация возможна только из текущего местоположения.</string>
 	<string name="p2p_reroute_from_current">Хотите перестроить маршрут от вашего местоположения?</string>
 	<string name="whats_new_next_button">Далее</string>
-	<string name="whats_new_night_caption">Переходи на тёмную сторону!</string>
-	<string name="whats_new_night_body">Каждый день после заката солнца MAPS.ME активирует ночной режим.</string>
+	<string name="whats_new_night_caption">Ночной режим навигации</string>
+	<string name="whats_new_night_body">Для удобства использования MAPS.ME во время вождения автомобиля в темное время суток мы добавили ночной режим. Он запускается автоматически после захода солнца.</string>
 </resources>

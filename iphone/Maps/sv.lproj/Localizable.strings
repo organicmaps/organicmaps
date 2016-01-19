@@ -1347,6 +1347,6 @@
 
 "whats_new_next_button" = "Nästa";
 
-"whats_new_night_caption" = "Gå med i den mörka sidan!";
+"whats_new_night_caption" = "Navigering i nattläge";
 
-"whats_new_night_body" = "Varje dag efter solnedgången aktiverar MAPS.ME nattläget.";
+"whats_new_night_body" = "För att underlätta användandet av MAPS.ME under mörkerkörning har vi lagt till nattläget. Det slås automatiskt på efter att solen gått ned.";

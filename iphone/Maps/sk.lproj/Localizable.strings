@@ -1347,6 +1347,6 @@
 
 "whats_new_next_button" = "Nasledujúca";
 
-"whats_new_night_caption" = "Pridajte sa na temnú stranu!";
+"whats_new_night_caption" = "Navigácia v nočnom režime";
 
-"whats_new_night_body" = "Po západe slnka sa každý deň aktivuje v MAPS.ME nočný režim.";
+"whats_new_night_body" = "Na uľahčenie použitia MAPS.ME pri jazde za tmy sme pridali nočný režim. Automaticky sa zapne po západe slnka.";

@@ -860,6 +860,6 @@
 	<string name="p2p_only_from_current">Navigation is available only from your current location.</string>
 	<string name="p2p_reroute_from_current">Do you want us to plan a route from your current location?</string>
 	<string name="whats_new_next_button">Next</string>
-	<string name="whats_new_night_caption">Join the dark side!</string>
-	<string name="whats_new_night_body">Each day after sunset, MAPS.ME activates the night mode.</string>
+	<string name="whats_new_night_caption">Night Mode Navigation</string>
+	<string name="whats_new_night_body">To facilitate using MAPS.ME when driving in the dark, we have added night mode. It switches on automatically after sunset.</string>
 </resources>

@@ -1347,6 +1347,6 @@
 
 "whats_new_next_button" = "次へ";
 
-"whats_new_night_caption" = "ダークサイドに仲間入り！";
+"whats_new_night_caption" = "夜間モードナビゲーション";
 
-"whats_new_night_body" = "毎日日の入り後に、MAPS.MEが夜間モードになります。";
+"whats_new_night_body" = "MAPS.MEを夜間の運転中に使いやすくするため、夜間モードを追加しました。日の入り後に自動的に切り替わります。";

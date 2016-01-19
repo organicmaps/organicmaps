@@ -827,6 +827,6 @@
 	<string name="p2p_only_from_current">Navigointi onnistuu vain nykyisestä sijainnistasi.</string>
 	<string name="p2p_reroute_from_current">Haluatko valita vaihtoehtoisen reitin?</string>
 	<string name="whats_new_next_button">Seuraava</string>
-	<string name="whats_new_night_caption">Liity pimeälle puolelle!</string>
-	<string name="whats_new_night_body">Joka päivä auringonlaskun jälkeen, MAPS.ME aktivoi yötilan.</string>
+	<string name="whats_new_night_caption">Yötilanavigaatio</string>
+	<string name="whats_new_night_body">Olemme lisänneet yötilan helpottaaksemme MAPS.ME:n käyttöä pimeällä ajettaessa. Se menee automaattisesti päälle auringonlaskun jälkeen.</string>
 </resources>

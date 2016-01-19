@@ -830,6 +830,6 @@
 	<string name="p2p_only_from_current">Маршрут можна прокласти лише з поточного місцезнаходження.</string>
 	<string name="p2p_reroute_from_current">Хочете спланувати маршрут із поточного місцезнаходження?</string>
 	<string name="whats_new_next_button">Далі</string>
-	<string name="whats_new_night_caption">Приєднайтесь до темної сторони!</string>
-	<string name="whats_new_night_body">Кожного дня після заходу сонця MAPS.ME активує нічний режим.</string>
+	<string name="whats_new_night_caption">Нічний режим навігації</string>
+	<string name="whats_new_night_body">Для зручності використання MAPS.ME під час водіння автомобіля в темну пору доби ми додали нічний режим. Він запускається автоматично після заходу сонця.</string>
 </resources>

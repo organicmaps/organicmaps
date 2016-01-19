@@ -834,6 +834,6 @@
 	<string name="p2p_only_from_current">Navigace je dostupná pouze z vašeho současného umístění.</string>
 	<string name="p2p_reroute_from_current">Chcete, abychom naplánovali trasu z vašeho současného umístění?</string>
 	<string name="whats_new_next_button">Další</string>
-	<string name="whats_new_night_caption">Přidejte se na temnou stranu!</string>
-	<string name="whats_new_night_body">Každý den po západu slunce aktivují MAPS.ME noční režim.</string>
+	<string name="whats_new_night_caption">Navigace v nočním režimu</string>
+	<string name="whats_new_night_body">Přidali jsme noční režim, abyste mohli MAPS.ME používat při řízení v noci. Zapíná se automaticky po západu slunce.</string>
 </resources>

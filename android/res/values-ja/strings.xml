@@ -824,6 +824,6 @@
 	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
 	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
 	<string name="whats_new_next_button">次へ</string>
-	<string name="whats_new_night_caption">ダークサイドに仲間入り！</string>
-	<string name="whats_new_night_body">毎日日の入り後に、MAPS.MEが夜間モードになります。</string>
+	<string name="whats_new_night_caption">夜間モードナビゲーション</string>
+	<string name="whats_new_night_body">MAPS.MEを夜間の運転中に使いやすくするため、夜間モードを追加しました。日の入り後に自動的に切り替わります。</string>
 </resources>
