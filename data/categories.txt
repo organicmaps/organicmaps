@@ -259,7 +259,7 @@ ro:3brutărie|magazin
 nb:3bakeri|butikk
 fi:3leipomo|kauppa
 
-shop|shop-convenience|shop-mall|shop-doityourself|shop-florist|shop-butcher|shop-furniture|shop-alcohol|shop-books|shop-shoes|shop-electronics|shop-hardware|shop-jewelry|shop-optician|shop-gift|shop-mobile_phone|shop-beauty|shop-greengrocer|shop-chemist|shop-garden_centre|shop-sports
+shop|shop-convenience|shop-mall|shop-doityourself|shop-mobile_phone|shop-chemist|shop-garden_centre
 en:2shop|U+1F3EA|U+1F3EC
 ru:2магазин
 uk:2магазин|крамниця
@@ -491,7 +491,7 @@ pl:sklep ze sprzętem elektronicznym|3sklep|towary
 nl:elektronicazaak|2winkel
 pt:loja de eletrônicos|2loja|compras
 
-shop-electronics
+shop-hardware
 en:hardware store|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614|2shop
 ru:хозяйственный магазин|2магазин
 fr:quincaillerie|2magasin
@@ -2131,7 +2131,7 @@ zh-Hant:1垃圾桶|垃圾|回收|回收場
 pl:3recykling|ponowne odtworzenie|odpady
 pt:reciclagem|lixo
 hu:szemetes
-th: การรีไซเคิล|ถังขยะ|ขยะ
+th:การรีไซเคิล|ถังขยะ|ขยะ
 zh-Hans:1回收
 ar:تدوير
 da:genbrug|skrald
@@ -2479,7 +2479,7 @@ zh-Hant:省|州
 pl:3stan|4region|5prowincja
 pt:estado|província
 hu:állam
-th: รัฐ
+th:รัฐ
 zh-Hans:州|省
 ar:محافظة
 da:stat|provins
@@ -2508,7 +2508,7 @@ zh-Hant:1地區
 pl:4region
 pt:região
 hu:régió
-th: ภูมิภาค
+th:ภูมิภาค
 zh-Hans:区域
 ar:منطقة
 da:region
@@ -3112,7 +3112,7 @@ sk:penzión|hotel|hostel|ubytovňa
 nl:gasthuis|hotel|hostel
 zh-Hant:1賓館|旅館|飯店|酒店|旅舍|住宿|招待所
 pl:4pensjonat|hotel|hostel|gościnne pokoje
-pt: casa de hóspedes|pousada|motel
+pt:casa de hóspedes|pousada|motel
 hu:vendégház|hotel|szálloda
 th:3เกสท์เฮ้าส์|โรงแรม์|์โรงแรม
 zh-Hans:1招待所์|์旅馆์|์旅社|旅店
@@ -3379,9 +3379,9 @@ th:พื้นสนามกีฬา|ขว้าง|กีฬา
 zh-Hans:2球场|运动
 ar:ميدان اللعب|رياضة |ملاعب رياضية
 da:teltplads|fiskested|fodboldbane|bane|sportsplads
-tr: spor sahası|alan|spor
-sv: idrottsplats|bana|sport
-vi: sân vận động|đường pích
+tr:spor sahası|alan|spor
+sv:idrottsplats|bana|sport
+vi:sân vận động|đường pích
 id:lapangan olahraga|lapangan
 ro:teren de sport|gazon
 nb:sportssenter
