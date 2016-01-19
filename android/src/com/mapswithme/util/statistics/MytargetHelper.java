@@ -97,6 +97,8 @@ public final class MytargetHelper
       final URL url = new URL(CHECK_URL);
       connection = (HttpURLConnection) url.openConnection();
       connection.setRequestMethod("HEAD");
+      // bugfix for HEAD requests on pre-JB devices https://code.google.com/p/android/issues/detail?id=24672
+      connection.setRequestProperty("Accept-Encoding", "");
       connection.setConnectTimeout(TIMEOUT);
       connection.setReadTimeout(TIMEOUT);
       connection.connect();
