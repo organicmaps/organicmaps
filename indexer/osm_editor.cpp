@@ -31,6 +31,8 @@ using feature::EGeomType;
 using feature::Metadata;
 using editor::XMLFeature;
 
+namespace
+{
 constexpr char const * kEditorXMLFileName = "edits.xml";
 constexpr char const * kXmlRootNode = "mapsme";
 constexpr char const * kXmlMwmNode = "mwm";
@@ -44,13 +46,6 @@ constexpr char const * kUploaded = "Uploaded";
 constexpr char const * kDeletedFromOSMServer = "Deleted from OSM by someone";
 constexpr char const * kNeedsRetry = "Needs Retry";
 
-namespace osm
-{
-// TODO(AlexZ): Normalize osm multivalue strings for correct merging
-// (e.g. insert/remove spaces after ';' delimeter);
-
-namespace
-{
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
 // TODO(mgsergio): Replace hard-coded value with reading from file.
 /// type:string -> description:pair<fields:vector<???>, editName:bool, editAddr:bool>
@@ -61,16 +56,16 @@ using TEditableFields = vector<EType>;
 struct TypeDescription
 {
   TypeDescription(TEditableFields const & fields, bool const name, bool const address) :
-      fields(fields),
-      name(name),
-      address(address)
+      m_fields(fields),
+      m_name(name),
+      m_address(address)
   {
   }
 
-  TEditableFields const fields;
-  bool const name;
+  TEditableFields const m_fields;
+  bool const m_name;
   // Address == true implies Street, House Number, Phone, Fax, Opening Hours, Website, EMail, Postcode.
-  bool const address;
+  bool const m_address;
 };
 
 static unordered_map<string, TypeDescription> const gEditableTypes = {
@@ -212,6 +207,11 @@ uint32_t MigrateFeatureIndex(XMLFeature const & /*xml*/)
 }
 
 } // namespace
+
+namespace osm
+{
+// TODO(AlexZ): Normalize osm multivalue strings for correct merging
+// (e.g. insert/remove spaces after ';' delimeter);
 
 Editor & Editor::Instance()
 {
@@ -372,12 +372,12 @@ Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint
   if (m_features.empty())
     return FeatureStatus::Untouched;
 
-  auto const mwmMatched = m_features.find(mwmId);
-  if (mwmMatched == m_features.end())
+  auto const matchedMwm = m_features.find(mwmId);
+  if (matchedMwm == m_features.end())
     return FeatureStatus::Untouched;
 
-  auto const matchedIndex = mwmMatched->second.find(index);
-  if (matchedIndex == mwmMatched->second.end())
+  auto const matchedIndex = matchedMwm->second.find(index);
+  if (matchedIndex == matchedMwm->second.end())
     return FeatureStatus::Untouched;
 
   return matchedIndex->second.m_status;
@@ -474,12 +474,12 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
 
 bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index, FeatureType & outFeature) const
 {
-  auto const mwmMatched = m_features.find(mwmId);
-  if (mwmMatched == m_features.end())
+  auto const matchedMwm = m_features.find(mwmId);
+  if (matchedMwm == m_features.end())
     return false;
 
-  auto const matchedIndex = mwmMatched->second.find(index);
-  if (matchedIndex == mwmMatched->second.end())
+  auto const matchedIndex = matchedMwm->second.find(index);
+  if (matchedIndex == matchedMwm->second.end())
     return false;
 
   // TODO(AlexZ): Should we process deleted/created features as well?
@@ -498,10 +498,10 @@ vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feat
     auto const * desc = GetTypeDescription(type);
     if (desc)
     {
-      for (auto field : desc->fields)
+      for (auto field : desc->m_fields)
         fields.insert(field);
       // If address is editable, many metadata fields are editable too.
-      if (desc->address)
+      if (desc->m_address)
       {
         fields.insert(EType::FMD_EMAIL);
         fields.insert(EType::FMD_OPEN_HOURS);
@@ -524,7 +524,7 @@ bool Editor::IsNameEditable(FeatureType const & feature) const
   for (auto type : types)
   {
     auto const * typeDesc = GetTypeDescription(type);
-    if (typeDesc && typeDesc->name)
+    if (typeDesc && typeDesc->m_name)
       return true;
   }
   return false;
@@ -540,7 +540,7 @@ bool Editor::IsAddressEditable(FeatureType const & feature) const
     if (isBuilding.HasTypeValue(type))
       return true;
     auto const * typeDesc = GetTypeDescription(type);
-    if (typeDesc && typeDesc->address)
+    if (typeDesc && typeDesc->m_address)
       return true;
   }
   return false;

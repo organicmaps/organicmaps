@@ -47,11 +47,11 @@ public:
   void LoadMapEdits();
 
   using TFeatureIDFunctor = function<void(FeatureID const &)>;
-  using TFeatureTypeFunctor = function<void(FeatureType &)>;
   void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
                                        TFeatureIDFunctor const & f,
                                        m2::RectD const & rect,
                                        uint32_t scale);
+  using TFeatureTypeFunctor = function<void(FeatureType &)>;
   void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
                                        TFeatureTypeFunctor const & f,
                                        m2::RectD const & rect,

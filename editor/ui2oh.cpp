@@ -1,5 +1,7 @@
 #include "editor/ui2oh.hpp"
 
+#include "base/assert.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/array.hpp"
 #include "std/string.hpp"
@@ -97,8 +99,10 @@ using TWeekdays = vector<osmoh::Weekday>;
 
 vector<TWeekdays> SplitIntoIntervals(editor::ui::TOpeningDays const & days)
 {
+  ASSERT_GREATER(days.size(), 0, ("At least one day must present."));
   vector<TWeekdays> result;
   auto const & noInversionDays = RemoveInversion(days);
+  ASSERT(!noInversionDays.empty(), ());
 
   auto previous = *begin(noInversionDays);
   result.push_back({previous});
@@ -156,6 +160,7 @@ namespace editor
 {
 osmoh::OpeningHours MakeOpeningHours(ui::TimeTableSet const & tts)
 {
+  ASSERT_GREATER(tts.Size(), 0, ("At least one time table must present."));
   osmoh::TRuleSequences rule;
   for (auto const & tt : tts)
   {

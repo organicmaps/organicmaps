@@ -77,7 +77,7 @@ void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
   // m_params.rank =
   m_bCommonParsed = true;
 
-  for (auto const i : my::Range(1u, static_cast<uint32_t>(feature::Metadata::FMD_COUNT)))
+  for (auto const i : my::UpTo(1u, static_cast<uint32_t>(feature::Metadata::FMD_COUNT)))
   {
     auto const type = static_cast<feature::Metadata::EType>(i);
     auto const attributeName = DebugPrint(type);

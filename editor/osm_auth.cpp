@@ -30,7 +30,7 @@ inline bool IsKeySecretValid(TKeySecret const & t)
   return !(t.first.empty() || t.second.empty());
 }
 
-string findAuthenticityToken(string const & body)
+string FindAuthenticityToken(string const & body)
 {
   auto pos = body.find("name=\"authenticity_token\"");
   if (pos == string::npos)
@@ -44,7 +44,7 @@ string findAuthenticityToken(string const & body)
   return end == string::npos ? string() : body.substr(start, end - start);
 }
 
-string buildPostRequest(map<string, string> const & params)
+string BuildPostRequest(map<string, string> const & params)
 {
   string result;
   for (auto it = params.begin(); it != params.end(); ++it)
@@ -57,7 +57,7 @@ string buildPostRequest(map<string, string> const & params)
 }
 
 // Trying to determine whether it's a login page.
-bool isLoggedIn(string const & contents)
+bool IsLoggedIn(string const & contents)
 {
   return contents.find("<form id=\"login_form\"") == string::npos;
 }
@@ -106,7 +106,7 @@ OsmOAuth::AuthResult OsmOAuth::FetchSessionId(OsmOAuth::SessionID & sid) const
   if (request.error_code() != 200)
     return AuthResult::ServerError;
   sid.m_cookies = request.combined_cookies();
-  sid.m_token = findAuthenticityToken(request.server_response());
+  sid.m_token = FindAuthenticityToken(request.server_response());
   return !sid.m_cookies.empty() && !sid.m_token.empty() ? AuthResult::OK : AuthResult::FailCookie;
 }
 
@@ -132,7 +132,7 @@ OsmOAuth::AuthResult OsmOAuth::LoginUserPassword(string const & login, string co
   params["commit"] = "Login";
   params["authenticity_token"] = sid.m_token;
   HTTPClientPlatformWrapper request(m_baseUrl + "/login");
-  request.set_body_data(buildPostRequest(params), "application/x-www-form-urlencoded");
+  request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded");
   request.set_cookies(sid.m_cookies);
   if (!request.RunHTTPRequest())
     return AuthResult::NetworkError;
@@ -141,7 +141,7 @@ OsmOAuth::AuthResult OsmOAuth::LoginUserPassword(string const & login, string co
   if (!request.was_redirected())
     return AuthResult::FailLogin;
   // Since we don't know whether the request was redirected or not, we need to check page contents.
-  return isLoggedIn(request.server_response()) ? AuthResult::OK : AuthResult::FailLogin;
+  return IsLoggedIn(request.server_response()) ? AuthResult::OK : AuthResult::FailLogin;
 }
 
 // Signs a user in using a facebook token.
@@ -156,7 +156,7 @@ OsmOAuth::AuthResult OsmOAuth::LoginSocial(string const & callbackPart, string c
     return AuthResult::ServerError;
   if (!request.was_redirected())
     return AuthResult::FailLogin;
-  return isLoggedIn(request.server_response()) ? AuthResult::OK : AuthResult::FailLogin;
+  return IsLoggedIn(request.server_response()) ? AuthResult::OK : AuthResult::FailLogin;
 }
 
 // Fakes a buttons press, so a user accepts requested permissions.
@@ -172,7 +172,7 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
   params["allow_write_notes"] = "yes";
   params["commit"] = "Save changes";
   HTTPClientPlatformWrapper request(m_baseUrl + "/oauth/authorize");
-  request.set_body_data(buildPostRequest(params), "application/x-www-form-urlencoded");
+  request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded");
   request.set_cookies(sid.m_cookies);
 
   if (!request.RunHTTPRequest())

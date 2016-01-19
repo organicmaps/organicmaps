@@ -33,7 +33,7 @@ bool ServerApi06::CreateChangeSet(TKeyValueTags const & kvTags, uint64_t & outCh
   stream << "</changeset>\n"
   "</osm>\n";
 
-  OsmOAuth::Response const response = m_auth.Request("/changeset/create", "PUT", move(stream.str()));
+  OsmOAuth::Response const response = m_auth.Request("/changeset/create", "PUT", stream.str());
   if (response.first == OsmOAuth::ResponseCode::OK)
   {
     if (strings::to_uint64(response.second, outChangeSetId))
@@ -48,7 +48,7 @@ bool ServerApi06::CreateChangeSet(TKeyValueTags const & kvTags, uint64_t & outCh
 
 bool ServerApi06::CreateNode(string const & nodeXml, uint64_t & outCreatedNodeId) const
 {
-  OsmOAuth::Response const response = m_auth.Request("/node/create", "PUT", move(nodeXml));
+  OsmOAuth::Response const response = m_auth.Request("/node/create", "PUT", nodeXml);
   if (response.first == OsmOAuth::ResponseCode::OK)
   {
     if (strings::to_uint64(response.second, outCreatedNodeId))
@@ -63,7 +63,7 @@ bool ServerApi06::CreateNode(string const & nodeXml, uint64_t & outCreatedNodeId
 
 bool ServerApi06::ModifyNode(string const & nodeXml, uint64_t nodeId) const
 {
-  OsmOAuth::Response const response = m_auth.Request("/node/" + strings::to_string(nodeId), "PUT", move(nodeXml));
+  OsmOAuth::Response const response = m_auth.Request("/node/" + strings::to_string(nodeId), "PUT", nodeXml);
   if (response.first == OsmOAuth::ResponseCode::OK)
     return true;
 
@@ -73,7 +73,7 @@ bool ServerApi06::ModifyNode(string const & nodeXml, uint64_t nodeId) const
 
 ServerApi06::DeleteResult ServerApi06::DeleteNode(string const & nodeXml, uint64_t nodeId) const
 {
-  OsmOAuth::Response const response = m_auth.Request("/node/" + strings::to_string(nodeId), "DELETE", move(nodeXml));
+  OsmOAuth::Response const response = m_auth.Request("/node/" + strings::to_string(nodeId), "DELETE", nodeXml);
   if (response.first == OsmOAuth::ResponseCode::OK)
     return DeleteResult::ESuccessfullyDeleted;
   else if (static_cast<int>(response.first) >= 400)
@@ -105,7 +105,7 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(m2::RectD const & latLonRec
   using strings::to_string_dac;
 
   // Digits After Comma.
-  static constexpr double const kDAC = 7;
+  static constexpr double kDAC = 7;
   m2::PointD const lb = latLonRect.LeftBottom();
   m2::PointD const rt = latLonRect.RightTop();
   string const url = "/map?bbox=" + to_string_dac(lb.x, kDAC) + ',' + to_string_dac(lb.y, kDAC) + ',' +

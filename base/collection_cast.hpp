@@ -9,11 +9,11 @@ namespace details
 template <typename T>
 struct ValueType
 {
-  using type = typename std::remove_reference<T>::type::value_type;
+  using TType = typename std::remove_reference<T>::type::value_type;
 };
 
 template <typename T>
-using ValueTypeT = typename ValueType<T>::type;
+using TValueType = typename ValueType<T>::TType;
 }  // namespace details
 
 // Use this function to cast one collection to annother.
@@ -21,9 +21,9 @@ using ValueTypeT = typename ValueType<T>::type;
 // More examples:
 // auto const mySet = collection_cast<set>("aaabcccd");
 // auto const myMap = collection_cast<map>(vector<pair<int, int>>{{1, 2}, {3, 4}});
-template <template<typename ... Args> class To, typename From>
-auto collection_cast(From && from) -> To<details::ValueTypeT<From>>
+template <template<typename ... TArgs> class TTo, typename TFrom>
+auto collection_cast(TFrom && from) -> TTo<details::TValueType<TFrom>>
 {
-  return To<details::ValueTypeT<From>>(begin(from), end(from));
+  return TTo<details::TValueType<TFrom>>(begin(from), end(from));
 }
 }  // namespace my

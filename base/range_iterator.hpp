@@ -67,28 +67,28 @@ struct RangeWrapper
 
 // Use this helper to iterate through 0 to `to'.
 template <typename TCounter>
-RangeWrapper<TCounter, true> Range(TCounter const to)
+RangeWrapper<TCounter, true> UpTo(TCounter const to)
 {
   return {{}, to};
 }
 
 // Use this helper to iterate through `from' to `to'.
 template <typename TCounter>
-RangeWrapper<TCounter, true> Range(TCounter const from, TCounter const to)
+RangeWrapper<TCounter, true> UpTo(TCounter const from, TCounter const to)
 {
   return {from, to};
 }
 
 // Use this helper to iterate through `from' to 0.
 template <typename TCounter>
-RangeWrapper<TCounter, false> ReverseRange(TCounter const from)
+RangeWrapper<TCounter, false> DownTo(TCounter const from)
 {
   return {from, {}};
 }
 
 // Use this helper to iterate through `from' to `to'.
 template <typename TCounter>
-RangeWrapper<TCounter, false> ReverseRange(TCounter const from, TCounter const to)
+RangeWrapper<TCounter, false> DownTo(TCounter const from, TCounter const to)
 {
   return {to, from};
 }

@@ -198,4 +198,4 @@ double GetMinDistanceMeters(FeatureType const & ft, m2::PointD const & pt)
   return GetMinDistanceMeters(ft, pt, FeatureType::BEST_GEOMETRY);
 }
 
-} // namespace feature
+}  // namespace feature
