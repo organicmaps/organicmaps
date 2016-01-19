@@ -827,6 +827,6 @@
 	<string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
 	<string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
 	<string name="whats_new_next_button">Neste</string>
-	<string name="whats_new_night_caption">Slutt deg til den mørke siden!</string>
-	<string name="whats_new_night_body">Hver dag etter solnedgang aktiverer MAPS.ME nattmodus.</string>
+	<string name="whats_new_night_caption">Nattmodus-navigering</string>
+	<string name="whats_new_night_body">For å tilrettelegge bruk av MAPS.ME under mørkekjøring har vi lagt til funksjonen nattmodus. Funksjonen skrues automatisk på etter solnedgang.</string>
 </resources>

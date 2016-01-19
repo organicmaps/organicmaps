@@ -1347,6 +1347,6 @@
 
 "whats_new_next_button" = "Neste";
 
-"whats_new_night_caption" = "Slutt deg til den mørke siden!";
+"whats_new_night_caption" = "Nattmodus-navigering";
 
-"whats_new_night_body" = "Hver dag etter solnedgang aktiverer MAPS.ME nattmodus.";
+"whats_new_night_body" = "For å tilrettelegge bruk av MAPS.ME under mørkekjøring har vi lagt til funksjonen nattmodus. Funksjonen skrues automatisk på etter solnedgang.";

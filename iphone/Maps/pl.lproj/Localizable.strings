@@ -1347,6 +1347,6 @@
 
 "whats_new_next_button" = "Dalej";
 
-"whats_new_night_caption" = "Przejdź na ciemną stronę!";
+"whats_new_night_caption" = "Nawigacja w trybie nocnym";
 
-"whats_new_night_body" = "Każdego dnia po zachodzie słońca aplikacja MAPS.ME aktywuje tryb nocny.";
+"whats_new_night_body" = "Aby umożliwić korzystanie z MAPS.ME podczas prowadzenia po zmroku, dodaliśmy tryb nocny. Włącza się on automatycznie po zachodzie słońca.";

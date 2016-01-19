@@ -824,6 +824,6 @@
 	<string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de pornire locațiacctuală.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
 	<string name="whats_new_next_button">Următoarea</string>
-	<string name="whats_new_night_caption">Alăturați-vă întunericului!</string>
-	<string name="whats_new_night_body">În fiecare zi după apus, MAPS.ME activează modul de noapte.</string>
+	<string name="whats_new_night_caption">Navigație mod nocturn</string>
+	<string name="whats_new_night_body">Pentru a facilita utilizarea MAPS.ME atunci când conduceți noaptea, am adăugat modul nocturn. Acesta pornește automat după apusul soarelui.</string>
 </resources>

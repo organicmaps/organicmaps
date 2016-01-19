@@ -827,6 +827,6 @@
 	<string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
 	<string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
 	<string name="whats_new_next_button">Tiếp theo</string>
-	<string name="whats_new_night_caption">Hãy gia nhập phe bóng đêm!</string>
-	<string name="whats_new_night_body">Mỗi ngày sau buổi hoàng hôn, MAPS.ME kích hoạt chế độ ban đêm.</string>
+	<string name="whats_new_night_caption">Điều hướng chế độ ban đêm</string>
+	<string name="whats_new_night_body">Để tạo điều kiện sử dụng MAPS.ME khi lái xe trong đêm tối, chúng tôi đã thêm chế độ ban đêm. Nó tự động mở sau khi mặt trời lặn.</string>
 </resources>

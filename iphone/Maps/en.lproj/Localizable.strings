@@ -1347,6 +1347,6 @@
 
 "whats_new_next_button" = "Next";
 
-"whats_new_night_caption" = "Join the dark side!";
+"whats_new_night_caption" = "Night Mode Navigation";
 
-"whats_new_night_body" = "Each day after sunset, MAPS.ME activates the night mode.";
+"whats_new_night_body" = "To facilitate using MAPS.ME when driving in the dark, we have added night mode. It switches on automatically after sunset.";

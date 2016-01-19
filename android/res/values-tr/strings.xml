@@ -831,6 +831,6 @@
 	<string name="p2p_only_from_current">Navigasyon sadece şu anki konumunuzdan mevcut.</string>
 	<string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
 	<string name="whats_new_next_button">Sonraki</string>
-	<string name="whats_new_night_caption">Karanlık tarafa katıl!</string>
-	<string name="whats_new_night_body">Her gün, gün batımından sonra MAPS.ME gece modunu etkinleştirir.</string>
+	<string name="whats_new_night_caption">Gece modu navigasyon</string>
+	<string name="whats_new_night_body">Karanlıkta sürerken MAPS.ME kullanmayı kolaylaştırmak için gece modunu ekledik. Gün batımından sonra otomatik olarak devreye girer.</string>
 </resources>

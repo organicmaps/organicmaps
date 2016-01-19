@@ -828,6 +828,6 @@
 	<string name="p2p_only_from_current">Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.</string>
 	<string name="p2p_reroute_from_current">Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?</string>
 	<string name="whats_new_next_button">Dalej</string>
-	<string name="whats_new_night_caption">Przejdź na ciemną stronę!</string>
-	<string name="whats_new_night_body">Każdego dnia po zachodzie słońca aplikacja MAPS.ME aktywuje tryb nocny.</string>
+	<string name="whats_new_night_caption">Nawigacja w trybie nocnym</string>
+	<string name="whats_new_night_body">Aby umożliwić korzystanie z MAPS.ME podczas prowadzenia po zmroku, dodaliśmy tryb nocny. Włącza się on automatycznie po zachodzie słońca.</string>
 </resources>

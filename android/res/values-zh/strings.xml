@@ -831,6 +831,6 @@
 	<string name="p2p_only_from_current">导航只能从您目前的位置开始。</string>
 	<string name="p2p_reroute_from_current">你是否想要规划当前位置的路线？</string>
 	<string name="whats_new_next_button">下一页</string>
-	<string name="whats_new_night_caption">加入黑暗一方！</string>
-	<string name="whats_new_night_body">每天日落之后，MAPS.ME激活夜间模式。</string>
+	<string name="whats_new_night_caption">夜间模式导航</string>
+	<string name="whats_new_night_body">为了便于天黑行驶时使用MAPS.ME，我们增加了夜间模式。该模式在日落之后会自动开启。</string>
 </resources>

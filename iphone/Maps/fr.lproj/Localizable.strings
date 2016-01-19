@@ -1347,6 +1347,6 @@
 
 "whats_new_next_button" = "Neste";
 
-"whats_new_night_caption" = "Rejoignez le côté obscur !";
+"whats_new_night_caption" = "Navigation en mode nuit";
 
-"whats_new_night_body" = "Chaque jour, après le lever du soleil, MAPS.ME active le mode nuit.";
+"whats_new_night_body" = "Pour faciliter l'utilisation de MAPS.ME en conduisant dans l'obscurité, nous avons ajouté le mode nuit. Il se met automatiquement en marche après le coucher du soleil.";

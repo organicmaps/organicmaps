@@ -1347,6 +1347,6 @@
 
 "whats_new_next_button" = "Sonraki";
 
-"whats_new_night_caption" = "Karanlık tarafa katıl!";
+"whats_new_night_caption" = "Gece modu navigasyon";
 
-"whats_new_night_body" = "Her gün, gün batımından sonra MAPS.ME gece modunu etkinleştirir.";
+"whats_new_night_body" = "Karanlıkta sürerken MAPS.ME kullanmayı kolaylaştırmak için gece modunu ekledik. Gün batımından sonra otomatik olarak devreye girer.";

@@ -1347,6 +1347,6 @@
 
 "whats_new_next_button" = "Seuraava";
 
-"whats_new_night_caption" = "Liity pimeälle puolelle!";
+"whats_new_night_caption" = "Yötilanavigaatio";
 
-"whats_new_night_body" = "Joka päivä auringonlaskun jälkeen, MAPS.ME aktivoi yötilan.";
+"whats_new_night_body" = "Olemme lisänneet yötilan helpottaaksemme MAPS.ME:n käyttöä pimeällä ajettaessa. Se menee automaattisesti päälle auringonlaskun jälkeen.";

@@ -1347,6 +1347,6 @@
 
 "whats_new_next_button" = "Næste";
 
-"whats_new_night_caption" = "Slut dig til den mørke side!";
+"whats_new_night_caption" = "Navigering i nattilstand";
 
-"whats_new_night_body" = "Hver dag efter solnedgang aktiverer MAPS.ME nattilstand.";
+"whats_new_night_body" = "For at hjælpe med brugen af MAPS.ME ved kørsel om natten har vi tilføjet nattilstand. Den slår automatisk til efter solnedgang.";

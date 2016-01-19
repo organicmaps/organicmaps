@@ -829,6 +829,6 @@
 	<string name="p2p_only_from_current">สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น</string>
 	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
 	<string name="whats_new_next_button">ถัดไป</string>
-	<string name="whats_new_night_caption">เข้าร่วมด้านมืด!</string>
-	<string name="whats_new_night_body">ทุกวันหลังพระอาทิตย์ตกดิน MAPS.ME จะเปิดใช้งานโหมดกลางคืน</string>
+	<string name="whats_new_night_caption">การนำทางในโหมดกลางคืน</string>
+	<string name="whats_new_night_body">เราได้เพิ่มโหมดกลางคืนเพื่อส่งเสริมการใช้ MAPS.ME เมื่อคุณกำลังขับรถในสภาพมืด จะมีการเปิดใช้โหมดนี้โดยอัตโนมัติหลังจากพระอาทิตย์ตก</string>
 </resources>

@@ -830,6 +830,6 @@
 	<string name="p2p_only_from_current">Navigácia je dostupná iba z vašej aktuálnej polohy.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
 	<string name="whats_new_next_button">Nasledujúca</string>
-	<string name="whats_new_night_caption">Pridajte sa na temnú stranu!</string>
-	<string name="whats_new_night_body">Po západe slnka sa každý deň aktivuje v MAPS.ME nočný režim.</string>
+	<string name="whats_new_night_caption">Navigácia v nočnom režime</string>
+	<string name="whats_new_night_body">Na uľahčenie použitia MAPS.ME pri jazde za tmy sme pridali nočný režim. Automaticky sa zapne po západe slnka.</string>
 </resources>

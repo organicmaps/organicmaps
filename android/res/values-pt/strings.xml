@@ -822,6 +822,6 @@
 	<string name="p2p_only_from_current">Só é possível navegar a partir da sua localização atual.</string>
 	<string name="p2p_reroute_from_current">Deseja planejar uma rota a partir da sua localização atual?</string>
 	<string name="whats_new_next_button">Próxima</string>
-	<string name="whats_new_night_caption">Junte-se ao lado negro!</string>
-	<string name="whats_new_night_body">Todo dia depois do pôr do sol, MAPS.ME ativa o modo noturno.</string>
+	<string name="whats_new_night_caption">Navegação em modo noturno</string>
+	<string name="whats_new_night_body">Para facilitar o uso do MAPS.ME ao dirigir no escuro, adicionamos o modo noturno. Ele é acionado automaticamente após o pôr do sol.</string>
 </resources>
