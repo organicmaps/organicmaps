@@ -249,11 +249,14 @@ public class NewsFragment extends BaseMwmDialogFragment
     if (Config.getLastWhatsNewVersion() >= BuildConfig.VERSION_CODE)
     {
       Fragment f = fm.findFragmentByTag(tag);
-      if (f != null)
-      {
-        fm.beginTransaction().remove(f).commitAllowingStateLoss();
-        fm.executePendingTransactions();
-      }
+      if (f == null)
+        return false;
+
+      // If we're here, it means that the user has rotated the screen.
+      // We use different dialog themes for landscape and portrait modes on tablets,
+      // so the fragment should be recreated to be displayed correctly.
+      fm.beginTransaction().remove(f).commitAllowingStateLoss();
+      fm.executePendingTransactions();
     }
 
     Config.setWhatsNewShown();
