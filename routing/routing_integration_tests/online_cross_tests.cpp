@@ -22,6 +22,12 @@ UNIT_TEST(OnlineRussiaNorthToSouthTest)
                     {"Russia_Central", "Russia_Southern", "Russia_Northwestern"}, routerComponents);
 }
 
+UNIT_TEST(OnlineRoadToSeaCenterTest)
+{
+  integration::IRouterComponents & routerComponents  = integration::GetOsrmComponents();
+  TestOnlineCrosses({61.76, 34.45}, {42.25,30.10}, {}, routerComponents);
+}
+
 UNIT_TEST(OnlineEuropeTestNurnbergToMoscow)
 {
   integration::IRouterComponents & routerComponents  = integration::GetOsrmComponents();
@@ -39,7 +45,7 @@ UNIT_TEST(OnlineAmericanTestOttawaToWashington)
 UNIT_TEST(OnlineAsiaPhuketToPnompen)
 {
   integration::IRouterComponents & routerComponents  = integration::GetOsrmComponents();
-  TestOnlineCrosses({7.90, 98.23}, {11.56, 104.86},
+  TestOnlineCrosses({7.89, 98.30}, {11.56, 104.86},
                     {"Thailand", "Cambodia"}, routerComponents);
 }
 
