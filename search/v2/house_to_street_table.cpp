@@ -28,7 +28,11 @@ public:
     ASSERT(m_vector.get(), ("Can't instantiate FixedBitsDDVector."));
   }
 
-  uint32_t Get(uint32_t houseId) const override { return m_vector->Get(houseId); }
+  // HouseToStreetTable overrides:
+  bool Get(uint32_t houseId, uint32_t & streetIndex) const override
+  {
+    return m_vector->Get(houseId, streetIndex);
+  }
 
 private:
   unique_ptr<TVector> m_vector;
@@ -37,7 +41,8 @@ private:
 class DummyTable : public HouseToStreetTable
 {
 public:
-  uint32_t Get(uint32_t /* houseId */) const override { return 0; }
+  // HouseToStreetTable overrides:
+  bool Get(uint32_t /* houseId */, uint32_t & /* streetIndex */) const override { return false; }
 };
 }  // namespace
 

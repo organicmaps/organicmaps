@@ -107,6 +107,8 @@ UNIT_TEST(SearchQueryV2_Smoke)
       vector<m2::PointD>{
           {10.0005, 10.0005}, {10.0006, 10.0005}, {10.0006, 10.0006}, {10.0005, 10.0006}},
       "Hilbert house", "1 unit 2", *bohrStreet1, "en");
+  auto const descartesHouse =
+      make_shared<TestBuilding>(m2::PointD(10, 10), "Descartes house", "2", "en");
   auto const lantern1 = make_shared<TestPOI>(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
   auto const lantern2 = make_shared<TestPOI>(m2::PointD(10.0006, 10.0005), "lantern 2", "en");
 
@@ -129,6 +131,8 @@ UNIT_TEST(SearchQueryV2_Smoke)
     builder.Add(*hilbertHouse);
     builder.Add(*lantern1);
     builder.Add(*lantern2);
+
+    builder.Add(*descartesHouse);
   }
 
   {
@@ -226,6 +230,28 @@ UNIT_TEST(SearchQueryV2_Smoke)
                               search::SearchParams::ALL, viewport);
     request.Wait();
     vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(wonderlandId, feynmanHouse)};
+    TEST(MatchResults(engine, rules, request.Results()), ());
+  }
+
+  {
+    // It's possible to find Descartes house by name.
+    TestSearchRequest request(engine, "Los Alamos Descartes", "en", search::SearchParams::ALL,
+                              viewport);
+    request.Wait();
+    vector<shared_ptr<MatchingRule>> rules = {
+        make_shared<ExactMatch>(wonderlandId, descartesHouse)};
+    TEST(MatchResults(engine, rules, request.Results()), ());
+  }
+
+  {
+    // It's not possible to find Descartes house by house number,
+    // because it doesn't belong to Los Alamos streets. But it still
+    // exists.
+    TestSearchRequest request(engine, "Los Alamos 2", "en", search::SearchParams::ALL, viewport);
+    request.Wait();
+    vector<shared_ptr<MatchingRule>> rules = {
+        make_shared<ExactMatch>(wonderlandId, lantern2),
+        make_shared<ExactMatch>(wonderlandId, quantumTeleport2)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 }

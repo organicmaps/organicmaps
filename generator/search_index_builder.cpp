@@ -313,7 +313,6 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
 void BuildAddressTable(FilesContainerR & container, Writer & writer)
 {
   ReaderSource<ModelReaderPtr> src = container.GetReader(SEARCH_TOKENS_FILE_TAG);
-  uint32_t index = 0;
   uint32_t address = 0, missing = 0;
   map<size_t, size_t> bounds;
 
@@ -326,12 +325,13 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
     FixedBitsDDVector<3, FileReader>::Builder<Writer> building2Street(writer);
 
     FeaturesVectorTest features(container);
-    while (src.Size() > 0)
+    for (uint32_t index = 0; src.Size() > 0; ++index)
     {
       feature::AddressData data;
       data.Deserialize(src);
 
-      size_t ind = 0;
+      size_t streetIndex;
+      bool streetMatched = false;
       string street;
       search::GetStreetNameAsKey(data.Get(feature::AddressData::STREET), street);
       if (!street.empty())
@@ -343,20 +343,23 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
         vector<TStreet> streets;
         rgc.GetNearbyStreets(ft, streets);
 
-        ind = rgc.GetMatchedStreetIndex(street, streets);
-        if (ind == streets.size())
+        streetIndex = rgc.GetMatchedStreetIndex(street, streets);
+        if (streetIndex < streets.size())
         {
-          ++missing;
-          ind = 0;
+          ++bounds[streetIndex];
+          streetMatched = true;
         }
-        else
-          ++bounds[ind];
-
         ++address;
       }
-
-      ++index;
-      building2Street.PushBack(ind);
+      if (streetMatched)
+      {
+        building2Street.PushBack(streetIndex);
+      }
+      else
+      {
+        building2Street.PushBackUndefined();
+        ++missing;
+      }
     }
 
     LOG(LINFO, ("Address: Building -> Street (opt, all)", building2Street.GetCount()));

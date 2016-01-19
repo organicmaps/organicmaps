@@ -16,7 +16,8 @@
 /// 4 bytes to store vector's size
 /// Buffer of ceil(Size * Bits / 8) bytes, e.g. vector of Bits-sized elements.
 /// - values in range [0, (1 << Bits) - 2] stored as is
-/// - value (1 << Bits) - 1 tells that actual value is stored in the exceptions table below.
+/// - value (1 << Bits) - 2 tells that actual value is stored in the exceptions table below.
+/// - value (1 << Bits) - 1 tells that the value is undefined.
 /// Buffer with exceptions table, e.g. vector of (index, value) pairs till the end of the reader,
 /// sorted by index parameter.
 /// Component is stored and used in host's endianness, without any conversions.
@@ -33,6 +34,7 @@ class FixedBitsDDVector
   static_assert(is_unsigned<TSize>::value, "");
   static_assert(is_unsigned<TValue>::value, "");
   // 16 - is the maximum bits count to get all needed bits in random access within uint32_t.
+  static_assert(Bits > 0, "");
   static_assert(Bits <= 16, "");
 
   using TSelf = FixedBitsDDVector<Bits, TReader, TSize, TValue>;
@@ -59,6 +61,8 @@ class FixedBitsDDVector
   }
 
   static TBlock constexpr kMask = (1 << Bits) - 1;
+  static TBlock constexpr kLargeValue = kMask - 1;
+  static TBlock constexpr kUndefined = kMask;
 
   TValue FindInVector(TSize index) const
   {
@@ -88,7 +92,7 @@ public:
                                        size));
   }
 
-  TValue Get(TSize index) const
+  bool Get(TSize index, TValue & value) const
   {
     ASSERT_LESS(index, m_size, ());
     uint64_t const bitsOffset = index * Bits;
@@ -101,7 +105,11 @@ public:
     TBlock v = ReadPrimitiveFromPos<TBlock>(m_bits, bytesOffset);
     v >>= (bitsOffset - bytesOffset * CHAR_BIT);
     v &= kMask;
-    return (v == kMask ? FindInVector(index) : v);
+    if (v == kUndefined)
+      return false;
+
+    value = v < kLargeValue ? v : FindInVector(index);
+    return true;
   }
 
   template <class TWriter> class Builder
@@ -147,9 +155,9 @@ public:
 
     void PushBack(TValue v)
     {
-      if (v >= kMask)
+      if (v >= kLargeValue)
       {
-        m_bits->WriteAtMost32Bits(kMask, Bits);
+        m_bits->WriteAtMost32Bits(kLargeValue, Bits);
         m_excepts.push_back({m_count, v});
       }
       else
@@ -158,6 +166,14 @@ public:
         m_bits->WriteAtMost32Bits(v, Bits);
       }
 
+      ++m_count;
+    }
+
+    // Pushes a special (undefined) value.
+    void PushBackUndefined()
+    {
+      m_bits->WriteAtMost32Bits(kUndefined, Bits);
+      ++m_optCount;
       ++m_count;
     }
 

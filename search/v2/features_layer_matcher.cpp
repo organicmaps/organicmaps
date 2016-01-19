@@ -71,9 +71,12 @@ vector<ReverseGeocoder::Street> const & FeaturesLayerMatcher::GetNearbyStreets(
 uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature)
 {
   auto const & streets = GetNearbyStreets(houseId, houseFeature);
-  uint32_t const streetIndex = m_houseToStreetTable->Get(houseId);
 
   uint32_t streetId = kInvalidId;
+  uint32_t streetIndex;
+  if (!m_houseToStreetTable->Get(houseId, streetIndex))
+    streetIndex = streets.size();;
+
   if (streetIndex < streets.size() && streets[streetIndex].m_id.m_mwmId == m_context.m_id)
     streetId = streets[streetIndex].m_id.m_index;
   m_matchingStreetsCache[houseId] = streetId;

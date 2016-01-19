@@ -22,7 +22,7 @@ template <size_t Bits> void TestWithData(vector<uint32_t> const & lst)
     typename TVector::template Builder<TWriter> builder(writer);
 
     uint32_t optCount = 0;
-    uint32_t const optBound = (1 << Bits) - 1;
+    uint32_t const optBound = (1 << Bits) - 2;
 
     for (uint32_t v : lst)
     {
@@ -40,8 +40,13 @@ template <size_t Bits> void TestWithData(vector<uint32_t> const & lst)
   auto const vec = TVector::Create(reader);
 
   size_t i = 0;
-  for (uint32_t v : lst)
-    TEST_EQUAL(vec->Get(i++), v, ());
+  for (uint32_t actual : lst)
+  {
+    uint32_t expected;
+    TEST(vec->Get(i, expected), ());
+    TEST_EQUAL(expected, actual, ());
+    ++i;
+  }
 }
 
 } // namespace
