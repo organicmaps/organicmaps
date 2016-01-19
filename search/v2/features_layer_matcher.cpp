@@ -75,7 +75,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
   uint32_t streetId = kInvalidId;
   uint32_t streetIndex;
   if (!m_houseToStreetTable->Get(houseId, streetIndex))
-    streetIndex = streets.size();;
+    streetIndex = streets.size();
 
   if (streetIndex < streets.size() && streets[streetIndex].m_id.m_mwmId == m_context.m_id)
     streetId = streets[streetIndex].m_id.m_index;

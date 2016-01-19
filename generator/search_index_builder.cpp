@@ -349,17 +349,16 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
           ++bounds[streetIndex];
           streetMatched = true;
         }
+        else
+        {
+          ++missing;
+        }
         ++address;
       }
       if (streetMatched)
-      {
         building2Street.PushBack(streetIndex);
-      }
       else
-      {
         building2Street.PushBackUndefined();
-        ++missing;
-      }
     }
 
     LOG(LINFO, ("Address: Building -> Street (opt, all)", building2Street.GetCount()));

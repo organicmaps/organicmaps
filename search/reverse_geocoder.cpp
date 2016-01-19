@@ -115,8 +115,9 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr
 
     uint32_t ind;
 
-    // False result of table->Get(...) means that there're no street
-    // for a building. Somehow it should be used in a Features Editor.
+    // TODO (AlexZ): False result of table->Get(...) means that
+    // there're no street for a building.  Somehow it should be used
+    // in a Features Editor.
     if (table->Get(b.m_id.m_index, ind) && ind < streets.size())
     {
       addr.m_building = b;
