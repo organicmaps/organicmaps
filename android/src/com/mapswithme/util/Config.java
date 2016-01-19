@@ -283,11 +283,11 @@ public final class Config
 
   public static String getUiThemeSettings()
   {
-    String res = getString(KEY_MISC_UI_THEME_SETTINGS, ThemeUtils.THEME_DEFAULT);
+    String res = getString(KEY_MISC_UI_THEME_SETTINGS, ThemeUtils.THEME_AUTO);
     if (ThemeUtils.isValidTheme(res) || ThemeUtils.isAutoTheme(res))
       return res;
 
-    return ThemeUtils.THEME_DEFAULT;
+    return ThemeUtils.THEME_AUTO;
   }
 
   public static boolean setUiThemeSettings(String theme)
