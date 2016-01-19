@@ -73,6 +73,8 @@ UNIT_TEST(Test_SymbolsConsistency)
   for (size_t s = 0; s < MapStyleCount; ++s)
   {
     MapStyle const mapStyle = static_cast<MapStyle>(s);
+    if (mapStyle == MapStyleMerged)
+      continue;
 
     GetStyleReader().SetCurrentStyle(mapStyle);
     classificator::Load();
