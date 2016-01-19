@@ -249,11 +249,11 @@ public class NewsFragment extends BaseMwmDialogFragment
     if (Config.getLastWhatsNewVersion() >= BuildConfig.VERSION_CODE)
     {
       Fragment f = fm.findFragmentByTag(tag);
-      if (f != null)
-      {
-        fm.beginTransaction().remove(f).commitAllowingStateLoss();
-        fm.executePendingTransactions();
-      }
+      if (f == null)
+        return false;
+
+      fm.beginTransaction().remove(f).commitAllowingStateLoss();
+      fm.executePendingTransactions();
     }
 
     Config.setWhatsNewShown();
