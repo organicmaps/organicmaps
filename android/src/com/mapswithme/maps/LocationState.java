@@ -19,8 +19,6 @@ public enum LocationState
   public native void setMyPositionModeListener(Object l);
   public native void removeMyPositionModeListener();
 
-  public native void turnOff();
-
   public native void invalidatePosition();
 
   /**

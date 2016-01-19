@@ -650,8 +650,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (errorCode == LocationHelper.ERROR_DENIED)
     {
-      LocationState.INSTANCE.turnOff();
-
       Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
       if (intent.resolveActivity(getPackageManager()) == null)
       {
