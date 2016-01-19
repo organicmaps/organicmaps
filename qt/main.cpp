@@ -41,12 +41,12 @@ namespace
   class InitializeFinalize : public FinalizeBase
   {
     FILE * m_errFile;
+    my::ScopedLogLevelChanger const m_debugLog;
   public:
-    InitializeFinalize()
+    InitializeFinalize() : m_debugLog(LDEBUG)
     {
       // App runs without error console under win32.
       m_errFile = ::freopen(".\\mapsme.log", "w", stderr);
-      my::g_LogLevel = my::LDEBUG;
 
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);

@@ -49,7 +49,7 @@ class TestSearchQueryFactory : public search::SearchQueryFactory
 
 UNIT_TEST(SearchQueryV2_Smoke)
 {
-  my::g_LogLevel = LDEBUG;
+  my::ScopedLogLevelChanger const debugLogLevel(LDEBUG);
 
   classificator::Load();
   Platform & platform = GetPlatform();

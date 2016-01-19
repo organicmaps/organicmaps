@@ -110,7 +110,7 @@ int main(int argc, char * argv[])
   UNUSED_VALUE(argv);
 #endif
 
-  my::g_LogLevel = LINFO;
+  my::ScopedLogLevelChanger const infoLogLevel(LINFO);
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
   my::SetLogMessageFn(my::LogMessageTests);
 #endif

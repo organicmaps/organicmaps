@@ -41,7 +41,7 @@ int main(int argc, char * argv[])
   UNUSED_VALUE(argv);
 #endif
 
-  my::g_LogLevel = LINFO;
+  my::ScopedLogLevelChanger const infoLogLevel(LINFO);
 
   emul::GLMockFunctions::Init(&argc, argv);
   MY_SCOPE_GUARD(GLMockScope, bind(&emul::GLMockFunctions::Teardown));
