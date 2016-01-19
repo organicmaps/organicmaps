@@ -184,7 +184,7 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
   if (pos == string::npos)
     return string();
   auto const end = callbackURL.find("&", pos);
-  return callbackURL.substr(pos + vKey.length(), end == string::npos ? end : end - pos - vKey.length()+ 1);
+  return callbackURL.substr(pos + vKey.length(), end == string::npos ? end : end - pos - vKey.length());
 }
 
 TKeySecret OsmOAuth::FetchRequestToken() const
