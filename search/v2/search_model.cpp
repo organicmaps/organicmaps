@@ -19,20 +19,17 @@ public:
   OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
   {
     Classificator const & c = classif();
-    m_types.push_back(c.GetTypeByPath({"amenity"}));
-    m_types.push_back(c.GetTypeByPath({"historic"}));
-    m_types.push_back(c.GetTypeByPath({"office"}));
-    m_types.push_back(c.GetTypeByPath({"railway"}));
-    m_types.push_back(c.GetTypeByPath({"shop"}));
-    m_types.push_back(c.GetTypeByPath({"sport"}));
-    m_types.push_back(c.GetTypeByPath({"tourism"}));
+
+    auto paths = {"amenity", "historic", "office", "railway", "shop", "sport", "tourism"};
+    for (auto const & path : paths)
+      m_types.push_back(c.GetTypeByPath({path}));
   }
 };
 
-class TwoLevelsPOIChecker : public ftypes::BaseChecker
+class TwoLevelPOIChecker : public ftypes::BaseChecker
 {
 public:
-  TwoLevelsPOIChecker() : ftypes::BaseChecker(2 /* level */)
+  TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
   {
     Classificator const & c = classif();
     m_types.push_back(c.GetTypeByPath({"highway", "bus_stop"}));
@@ -50,11 +47,11 @@ public:
     return inst;
   }
 
-  bool operator()(FeatureType const & ft) const { return m_oneLevel(ft) || m_twoLevels(ft); }
+  bool operator()(FeatureType const & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
 
 private:
   OneLevelPOIChecker const m_oneLevel;
-  TwoLevelsPOIChecker const m_twoLevels;
+  TwoLevelPOIChecker const m_twoLevel;
 };
 }  // namespace
 
@@ -84,6 +81,8 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
     switch (type)
     {
     case NONE:
+      ASSERT(false, ("Unknown locality."));
+      return SEARCH_TYPE_COUNT;
     case STATE:
       return SEARCH_TYPE_COUNT;
     case COUNTRY:
