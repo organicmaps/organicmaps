@@ -68,7 +68,8 @@ public:
     Params();
 
     m2::RectD m_viewport;
-    m2::PointD m_position;  ///< Default = {0, 0} as empty.
+    /// User's position or viewport center if there is no valid position.
+    m2::PointD m_position;
     size_t m_maxNumResults;
   };
 
@@ -81,7 +82,7 @@ public:
 
   // Starts geocoding, retrieved features will be appended to
   // |results|.
-  void Go(vector<FeatureID> & results);
+  void GoEverywhere(vector<FeatureID> & results);
   void GoInViewport(vector<FeatureID> & results);
 
   void ClearCaches();
@@ -151,7 +152,7 @@ private:
   // viewport is used to throw away excess features.
   void MatchViewportAndPosition();
 
-  void DoSearch(coding::CompressedBitVector const * filter, size_t filterThreshold);
+  void LimitedSearch(coding::CompressedBitVector const * filter, size_t filterThreshold);
 
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in streets vicinities.

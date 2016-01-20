@@ -973,7 +973,7 @@ public:
 
 void Query::GetBestMatchName(FeatureType const & f, string & name) const
 {
-  (void)f.ForEachName(impl::BestNameFinder(name, m_keywordsScorer));
+  UNUSED_VALUE(f.ForEachName(impl::BestNameFinder(name, m_keywordsScorer)));
 }
 
 /// Makes continuous range for tokens and prefix.
