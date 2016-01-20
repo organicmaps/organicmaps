@@ -263,8 +263,7 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
       m_query->Search(res, kResultsCount);
     }
 
-    if (res.GetCount() > 0)
-      EmitResults(params, res);
+    EmitResults(params, res);
   }
   catch (Query::CancelException const &)
   {
