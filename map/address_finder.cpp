@@ -478,8 +478,8 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType const & ft) con
   //GetLocality(pt, info);
 
   info.m_house = ft.GetHouseNumber();
-  // TODO(vng): Now geocoder assumes that buildings without house numbers also do not have a specified street.
-  if (!info.m_house.empty())
+  // Street can be added/edited by user in the Editor.
+  if (!osm::Editor::Instance().GetEditedFeatureStreet(ft, info.m_street))
   {
     search::ReverseGeocoder const coder(m_model.GetIndex());
     auto const streets = coder.GetNearbyFeatureStreets(ft);
