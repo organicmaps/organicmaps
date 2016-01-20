@@ -26,21 +26,18 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  if (self.pageIndex == 0)
-    [self configureFirstPage];
-  else
-    [self configureSecondPage];
+  [self configureFirstPage];
   [self updateForSize:self.parentViewController.view.size];
 }
 
 - (void)configureFirstPage
 {
-  self.image.image = [UIImage imageNamed:@"img_3d_buildings"];
-  self.alertTitle.text = L(@"whats_new_3d_buildings_title");
-  self.alertText.text = [NSString stringWithFormat:@"%@\n\n%@", L(@"whats_new_3d_buildings_subtitle"), L(@"whats_new_3d_update_maps")];
+  self.image.image = [UIImage imageNamed:@"img_nightmode"];
+  self.alertTitle.text = L(@"whats_new_night_caption");
+  self.alertText.text = L(@"whats_new_night_body");
   [self.enableButton setTitle:L(@"whats_new_3d_buildings_on") forState:UIControlStateNormal];
-  [self.nextPageButton setTitle:L(@"whats_new_next_button") forState:UIControlStateNormal];
-  [self.nextPageButton addTarget:self.pageController action:@selector(nextPage) forControlEvents:UIControlEventTouchUpInside];
+  [self.nextPageButton setTitle:L(@"done") forState:UIControlStateNormal];
+  [self.nextPageButton addTarget:self.pageController action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
   [self.enableButton addTarget:self.pageController action:@selector(enableFirst:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -67,7 +64,7 @@
 
 - (void)updateForSize:(CGSize)size
 {
-  CGSize const iPadSize = {520.0, 600.0};
+  CGSize const iPadSize = {520.0, 534.0};
   CGSize const newSize = IPAD ? iPadSize : size;
   self.parentViewController.view.size = newSize;
   CGFloat const width = newSize.width;
