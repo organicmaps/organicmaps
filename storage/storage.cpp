@@ -114,7 +114,7 @@ void Storage::DeleteAllLocalMaps(TCountriesVec * existedCountries /* = nullptr *
   {
     for (auto const & localFile : localFiles.second)
     {
-      LOG_SHORT(LINFO, (localFiles.first, DebugPrint(*localFile)));
+      LOG_SHORT(LINFO, ("Remove:", localFiles.first, DebugPrint(*localFile)));
       if (existedCountries)
         existedCountries->push_back(localFiles.first);
       localFile->SyncWithDisk();
@@ -127,6 +127,8 @@ void Storage::PrefetchMigrateData()
 {
   m_prefetchStorage.reset(new Storage(COUNTRIES_MIGRATE_FILE, "migrate"));
   m_prefetchStorage->Init([](LocalCountryFile const &){});
+  if (!m_downloadingUrlsForTesting.empty())
+    m_prefetchStorage->SetDownloadingUrlsForTesting(m_downloadingUrlsForTesting);
 }
 
 void Storage::Migrate(TCountriesVec const & existedCountries)
