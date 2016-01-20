@@ -50,12 +50,7 @@ else
 fi
 
 # Find qmake, prefer qmake-qt5
-if [ ! -x "${QMAKE-}" ]; then
-  QMAKE=qmake-qt5
-  if ! hash "$QMAKE" 2>/dev/null; then
-    QMAKE=qmake
-  fi
-fi
+source "$OMIM_PATH/tools/autobuild/detect_qmake.sh"
 
 # Find cmake, prefer cmake28
 if [ ! -x "${CMAKE-}" ]; then

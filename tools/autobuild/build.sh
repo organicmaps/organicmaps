@@ -42,8 +42,6 @@ StripCygwinPrefix() {
 # 3rd param: additional qmake parameters
 BuildQt() {
   (
-    # set qmake path
-    QMAKE="$(PrintQmakePath)" || ( echo "ERROR: qmake was not found, please add it to your PATH or into the tools/autobuild/detect_qmake.sh"; exit 1 )
     SHADOW_DIR="$1"
     MKSPEC="$2"
     QMAKE_PARAMS="$3"
