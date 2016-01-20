@@ -180,12 +180,12 @@ public class MapFragment extends BaseMwmFragment
       return;
 
     if (getActivity() == null || !getActivity().isChangingConfigurations())
-      destroySurface();
+      destroyEngine();
     else
       nativeDetachSurface();
   }
 
-  public void destroySurface()
+  public void destroyEngine()
   {
     if (!mEngineCreated)
       return;
