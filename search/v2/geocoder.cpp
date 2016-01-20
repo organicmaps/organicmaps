@@ -478,11 +478,11 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
 
   auto const tokensCountFn = [&](Locality const & l)
   {
-    // Important! Don't take into account matched prefix for locality comparison.
-    size_t d = l.m_endToken - l.m_startToken;
+    // Important! Prefix match costs 0.5 while token match costs 1 for locality comparison.
+    double d = l.m_endToken - l.m_startToken;
     ASSERT_GREATER(d, 0, ());
     if (l.m_endToken == m_numTokens && !m_params.m_prefixTokens.empty())
-      --d;
+      d -= 0.5;
     return d;
   };
 
@@ -507,8 +507,7 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
   // 4. Leave most popular localities.
   if (preLocalities.size() > kMaxNumLocalities)
   {
-    nth_element(preLocalities.begin(), preLocalities.begin() + kMaxNumLocalities,
-                preLocalities.end(),
+    sort(preLocalities.begin(), preLocalities.end(),
                 [&](Locality const & l1, Locality const & l2)
                 {
                   auto const d1 = tokensCountFn(l1);
@@ -539,6 +538,12 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
         city.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
             ft.GetCenter(), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
 
+#ifdef DEBUG
+        string name;
+        ft.GetName(StringUtf8Multilang::DEFAULT_CODE, name);
+        LOG(LDEBUG, ("City =", name));
+#endif
+
         m_cities[make_pair(l.m_startToken, l.m_endToken)].push_back(city);
       }
       break;
@@ -550,6 +555,9 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
         ++numCountries;
         Country country(l);
         GetEnglishName(ft, country.m_enName);
+
+        LOG(LDEBUG, ("Country =", country.m_enName));
+
         m_infoGetter.GetMatchedRegions(country.m_enName, country.m_regions);
         m_countries[make_pair(l.m_startToken, l.m_endToken)].push_back(country);
       }
