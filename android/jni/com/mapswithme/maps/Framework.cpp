@@ -1088,7 +1088,10 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeFollowRoute(JNIEnv * env, jclass thiz)
   {
-    frm()->FollowRoute();
+    g_framework->PostDrapeTask([]()
+    {
+      frm()->FollowRoute();
+    });
   }
 
   JNIEXPORT void JNICALL

@@ -213,6 +213,8 @@ private:
   using TRenderGroupRemovePredicate = function<bool(drape_ptr<RenderGroup> const &)>;
   void RemoveRenderGroups(TRenderGroupRemovePredicate const & predicate);
 
+  void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d,
+                   double rotationAngle, double angleFOV);
   void InvalidateRect(m2::RectD const & gRect);
   bool CheckTileGenerations(TileKey const & tileKey);
 
@@ -263,6 +265,28 @@ private:
   ref_ptr<RequestedTiles> m_requestedTiles;
   uint64_t m_maxGeneration;
   int m_mergeBucketsCounter = 0;
+
+#ifdef OMIM_OS_ANDROID
+  struct FollowRouteData
+  {
+    FollowRouteData(int preferredZoomLevel,
+                    int preferredZoomLevelIn3d,
+                    double rotationAngle,
+                    double angleFOV)
+      : m_preferredZoomLevel(preferredZoomLevel)
+      , m_preferredZoomLevelIn3d(preferredZoomLevelIn3d)
+      , m_rotationAngle(rotationAngle)
+      , m_angleFOV(angleFOV)
+    {}
+
+    int m_preferredZoomLevel;
+    int m_preferredZoomLevelIn3d;
+    double m_rotationAngle;
+    double m_angleFOV;
+  };
+
+  unique_ptr<FollowRouteData> m_pendingFollowRoute;
+#endif
 
 #ifdef DEBUG
   bool m_isTeardowned;
