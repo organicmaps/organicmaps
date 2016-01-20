@@ -487,6 +487,23 @@ bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index, Featu
   return true;
 }
 
+bool Editor::GetEditedFeatureStreet(FeatureType const & feature, string & outFeatureStreet) const
+{
+  FeatureID const & fid = feature.GetID();
+  // TODO(AlexZ): Reuse common code or better make better getters/setters for edited features.
+  auto const matchedMwm = m_features.find(fid.m_mwmId);
+  if (matchedMwm == m_features.end())
+    return false;
+
+  auto const matchedIndex = matchedMwm->second.find(fid.m_index);
+  if (matchedIndex == matchedMwm->second.end())
+    return false;
+
+  // TODO(AlexZ): Should we process deleted/created features as well?
+  outFeatureStreet = matchedIndex->second.m_street;
+  return true;
+}
+
 vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feature) const
 {
   // TODO(mgsergio): Load editable fields into memory from XML and query them here.

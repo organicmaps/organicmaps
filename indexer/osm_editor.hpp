@@ -67,6 +67,10 @@ public:
   /// @param outFeature is valid only if true was returned.
   bool GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index, FeatureType & outFeature) const;
 
+  /// @returns false if feature wasn't edited.
+  /// @param outFeatureStreet is valid only if true was returned.
+  bool GetEditedFeatureStreet(FeatureType const & feature, string & outFeatureStreet) const;
+
   /// Original feature with same FeatureID as newFeature is replaced by newFeature.
   /// Please pass editedStreet only if it was changed by user.
   void EditFeature(FeatureType const & editedFeature,
