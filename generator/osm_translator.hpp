@@ -170,13 +170,6 @@ class RelationTagsWay : public RelationTagsBase
     return (role != "inner");
   }
 
-  void GetNameKeys(TNameKeys & keys) const
-  {
-    for (auto const & p : TBase::m_current->m_tags)
-      if (strings::StartsWith(p.key, "name"))
-        keys.insert(p.key);
-  }
-
 protected:
   void Process(RelationElement const & e) override
   {
@@ -189,17 +182,14 @@ protected:
     bool const isWay = (TBase::m_current->type == OsmElement::EntityType::Way);
     bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
 
-    TNameKeys nameKeys;
-    GetNameKeys(nameKeys);
-
     for (auto const & p : e.tags)
     {
       /// @todo Skip common key tags.
       if (p.first == "type" || p.first == "route")
         continue;
 
-      // Skip already existing "name" tags.
-      if (nameKeys.count(p.first) != 0)
+      // Important! Skip all "name" tags.
+      if (strings::StartsWith(p.first, "name"))
         continue;
 
       if (!isBoundary && p.first == "boundary")
