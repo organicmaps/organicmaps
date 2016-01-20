@@ -50,20 +50,27 @@ bool Platform::RmDirRecursively(string const & dirName)
 
   bool res = true;
 
-  TFilesWithType fwts;
-  GetFilesByType(dirName, FILE_TYPE_REGULAR | FILE_TYPE_DIRECTORY, fwts);
-  for (auto const & fwt : fwts)
+  FilesList allFiles;
+  GetFilesByRegExp(dirName, ".*", allFiles);
+  for (string const & file : allFiles)
   {
-    string const & name = fwt.first;
-    EFileType const type = fwt.second;
-    if (type == FILE_TYPE_REGULAR)
+    string const path = my::JoinFoldersToPath(dirName, file);
+
+    EFileType type;
+    if (GetFileType(path, type) != ERR_OK)
+      continue;
+
+    if (type == FILE_TYPE_DIRECTORY)
     {
-      if (!my::DeleteFileX(my::JoinFoldersToPath(dirName, name)))
-        res = false;
+      if (!IsSpecialDirName(file))
+      {
+        if (!RmDirRecursively(path))
+          res = false;
+      }
     }
-    else if (type == FILE_TYPE_DIRECTORY && !IsSpecialDirName(name))
+    else
     {
-      if (!RmDirRecursively(my::JoinFoldersToPath(dirName, name)))
+      if (!my::DeleteFileX(path))
         res = false;
     }
   }
