@@ -32,11 +32,11 @@
 		340837161B72451A00B5C185 /* MWMShareLocationActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837151B72451A00B5C185 /* MWMShareLocationActivityItem.mm */; };
 		340C20E31C3E565600111D22 /* MWMCuisineEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */; };
 		340C20E41C3E565600111D22 /* MWMCuisineEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */; };
-		340C210D1C3E5F1A00111D22 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340C210C1C3E5F1A00111D22 /* liboauthcpp.a */; };
 		340C21111C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C210F1C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm */; };
 		340C21121C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C210F1C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm */; };
 		340C21131C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 340C21101C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib */; };
 		340C21141C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 340C21101C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib */; };
+		340DC82C1C4E72C700EAA2CC /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */; };
 		340E10601B944DAB00D975D5 /* MWMSearchHistoryManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340E105F1B944DAB00D975D5 /* MWMSearchHistoryManager.mm */; };
 		340E10631B949D1900D975D5 /* MWMSearchBookmarksManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340E10621B949D1900D975D5 /* MWMSearchBookmarksManager.mm */; };
 		340F24631B14910500F874CD /* RouteState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340F24621B14910500F874CD /* RouteState.mm */; };
@@ -139,6 +139,7 @@
 		3476B8DD1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */; };
 		3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
 		3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */ = {isa = PBXBuildFile; fileRef = 3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */; };
+		347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */; };
 		347BAC691B733D540010FF78 /* MWMPedestrianShareAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 347BAC681B733D540010FF78 /* MWMPedestrianShareAlert.xib */; };
 		347BAC6E1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 347BAC6D1B736BA70010FF78 /* MWMSharePedestrianRoutesToastActivityItem.mm */; };
 		347C71251C295AC300BE9208 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3411387C1C15AE73002E3B3E /* libeditor.a */; };
@@ -660,7 +661,6 @@
 		674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
 		676507601C10559800830BB3 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		676507611C10559B00830BB3 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
-		676507621C1055B200830BB3 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
 		676507631C1055BB00830BB3 /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */; };
 		677A2DE21C0DD50900635A00 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
 		67E504401BFA355B001F34BA /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA21BF356B9002C974C /* libagg.a */; };
@@ -830,7 +830,6 @@
 		F696CCBB1C2816FB00150DFD /* MyTrackerSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */; };
 		F6A750B91BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A750B81BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm */; };
 		F6A750BB1BE8C7BA00981B41 /* MWMSearchHistoryMyPositionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6A750BA1BE8C7BA00981B41 /* MWMSearchHistoryMyPositionCell.xib */; };
-		676507631C1055BB00830BB3 /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */; };
 		F6B2E61F1C3D5F31005562DF /* MWMNightModeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */; };
 		F6BB6CBE1BB15A5E00DF1DF2 /* MWMRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BB6CBD1BB15A5E00DF1DF2 /* MWMRoutePreview.xib */; };
 		F6BB6CC01BB17D7000DF1DF2 /* MWMRoutePointCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BB6CBF1BB17D7000DF1DF2 /* MWMRoutePointCell.xib */; };
@@ -988,10 +987,10 @@
 		340C20E11C3E565600111D22 /* MWMCuisineEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCuisineEditorViewController.h; sourceTree = "<group>"; };
 		340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCuisineEditorViewController.mm; sourceTree = "<group>"; };
 		340C20E51C3E58B000111D22 /* MWMEditorCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorCommon.h; sourceTree = "<group>"; };
-		340C210C1C3E5F1A00111D22 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "/Users/igrechuhin/Repo/omim/xcode/oauthcpp/../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<absolute>"; };
 		340C210E1C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCuisineEditorTableViewCell.h; sourceTree = "<group>"; };
 		340C210F1C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCuisineEditorTableViewCell.mm; sourceTree = "<group>"; };
 		340C21101C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMCuisineEditorTableViewCell.xib; sourceTree = "<group>"; };
+		340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
 		340E105E1B944DAB00D975D5 /* MWMSearchHistoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchHistoryManager.h; sourceTree = "<group>"; };
 		340E105F1B944DAB00D975D5 /* MWMSearchHistoryManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchHistoryManager.mm; sourceTree = "<group>"; };
 		340E10611B949D1900D975D5 /* MWMSearchBookmarksManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchBookmarksManager.h; sourceTree = "<group>"; };
@@ -1697,6 +1696,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				340DC82C1C4E72C700EAA2CC /* liboauthcpp.a in Frameworks */,
 				674A7E241C0DA55E003D48E1 /* libdrape_frontend.a in Frameworks */,
 				674A7E251C0DA55E003D48E1 /* libdrape.a in Frameworks */,
 				674A7E261C0DA55E003D48E1 /* libsdf_image.a in Frameworks */,
@@ -1747,7 +1747,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				340C210D1C3E5F1A00111D22 /* liboauthcpp.a in Frameworks */,
 				341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */,
 				3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */,
 				34921F6B1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */,
@@ -1770,6 +1769,7 @@
 				6741AACC1BF356BA002C974C /* libmap.a in Frameworks */,
 				6741AACD1BF356BA002C974C /* libminizip.a in Frameworks */,
 				6741AACE1BF356BA002C974C /* libopening_hours.a in Frameworks */,
+				347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */,
 				6741AACF1BF356BA002C974C /* libosrm.a in Frameworks */,
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
 				6741AAD11BF356BA002C974C /* libprotobuf.a in Frameworks */,
@@ -1945,7 +1945,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				340C210C1C3E5F1A00111D22 /* liboauthcpp.a */,
+				340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */,
 				F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */,
 				341F09831C20138100F18AC5 /* libpugixml.a */,
 				3411387C1C15AE73002E3B3E /* libeditor.a */,

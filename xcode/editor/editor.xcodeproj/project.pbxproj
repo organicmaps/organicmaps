@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		340C20DE1C3E4DFD00111D22 /* osm_auth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340C20DC1C3E4DFD00111D22 /* osm_auth.cpp */; };
 		340C20DF1C3E4DFD00111D22 /* osm_auth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 340C20DD1C3E4DFD00111D22 /* osm_auth.hpp */; };
+		340DC8291C4E71E500EAA2CC /* changeset_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340DC8271C4E71E500EAA2CC /* changeset_wrapper.cpp */; };
+		340DC82A1C4E71E500EAA2CC /* changeset_wrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 340DC8281C4E71E500EAA2CC /* changeset_wrapper.hpp */; };
 		341138781C15AE42002E3B3E /* opening_hours_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 341138741C15AE42002E3B3E /* opening_hours_ui.cpp */; };
 		341138791C15AE42002E3B3E /* opening_hours_ui.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 341138751C15AE42002E3B3E /* opening_hours_ui.hpp */; };
 		3411387A1C15AE42002E3B3E /* ui2oh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 341138761C15AE42002E3B3E /* ui2oh.cpp */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		340C20DC1C3E4DFD00111D22 /* osm_auth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_auth.cpp; sourceTree = "<group>"; };
 		340C20DD1C3E4DFD00111D22 /* osm_auth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_auth.hpp; sourceTree = "<group>"; };
+		340DC8271C4E71E500EAA2CC /* changeset_wrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = changeset_wrapper.cpp; sourceTree = "<group>"; };
+		340DC8281C4E71E500EAA2CC /* changeset_wrapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = changeset_wrapper.hpp; sourceTree = "<group>"; };
 		3411386B1C15AD97002E3B3E /* libeditor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libeditor.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		341138721C15ADB7002E3B3E /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		341138741C15AE42002E3B3E /* opening_hours_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opening_hours_ui.cpp; sourceTree = "<group>"; };
@@ -65,6 +69,8 @@
 		341138731C15AE02002E3B3E /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				340DC8271C4E71E500EAA2CC /* changeset_wrapper.cpp */,
+				340DC8281C4E71E500EAA2CC /* changeset_wrapper.hpp */,
 				340C20DC1C3E4DFD00111D22 /* osm_auth.cpp */,
 				340C20DD1C3E4DFD00111D22 /* osm_auth.hpp */,
 				347C71261C295B1100BE9208 /* xml_feature.cpp */,
@@ -88,6 +94,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34FFB34D1C316A7600BFF6C3 /* server_api.hpp in Headers */,
+				340DC82A1C4E71E500EAA2CC /* changeset_wrapper.hpp in Headers */,
 				347C71291C295B1100BE9208 /* xml_feature.hpp in Headers */,
 				340C20DF1C3E4DFD00111D22 /* osm_auth.hpp in Headers */,
 				3411387B1C15AE42002E3B3E /* ui2oh.hpp in Headers */,
@@ -155,6 +162,7 @@
 				341138781C15AE42002E3B3E /* opening_hours_ui.cpp in Sources */,
 				340C20DE1C3E4DFD00111D22 /* osm_auth.cpp in Sources */,
 				3411387A1C15AE42002E3B3E /* ui2oh.cpp in Sources */,
+				340DC8291C4E71E500EAA2CC /* changeset_wrapper.cpp in Sources */,
 				34FFB34C1C316A7600BFF6C3 /* server_api.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
