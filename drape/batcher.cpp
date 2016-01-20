@@ -13,13 +13,13 @@
 namespace dp
 {
 
-class Batcher::CallbacksWrapper
+class Batcher::CallbacksWrapper : public BatchCallbacks
 {
 public:
-  CallbacksWrapper(GLState const & state, ref_ptr<OverlayHandle> overlay)
+  CallbacksWrapper(GLState const & state, ref_ptr<OverlayHandle> overlay, ref_ptr<Batcher> batcher)
     : m_state(state)
     , m_overlay(overlay)
-    , m_vaoChanged(false)
+    , m_batcher(batcher)
   {
   }
 
@@ -34,7 +34,7 @@ public:
     m_indicesRange.m_idxStart = m_buffer->GetIndexCount();
   }
 
-  void FlushData(BindingInfo const & info, void const * data, uint32_t count)
+  void FlushData(BindingInfo const & info, void const * data, uint32_t count) override
   {
     if (m_overlay != nullptr && info.IsDynamic())
     {
@@ -44,7 +44,7 @@ public:
     m_buffer->UploadData(info, data, count);
   }
 
-  void * GetIndexStorage(uint32_t size, uint32_t & startIndex)
+  void * GetIndexStorage(uint32_t size, uint32_t & startIndex) override
   {
     startIndex = m_buffer->GetStartIndexValue();
     if (m_overlay == nullptr || !m_overlay->IndexesRequired())
@@ -56,20 +56,25 @@ public:
       return m_overlay->IndexStorage(size);
   }
 
-  void SubmitIndexes()
+  void SubmitIndeces() override
   {
     if (m_overlay == nullptr || !m_overlay->IndexesRequired())
       m_buffer->UploadIndexes(m_indexStorage.GetRawConst(), m_indexStorage.Size());
   }
 
-  uint32_t GetAvailableVertexCount() const
+  uint32_t GetAvailableVertexCount() const override
   {
     return m_buffer->GetAvailableVertexCount();
   }
 
-  uint32_t GetAvailableIndexCount() const
+  uint32_t GetAvailableIndexCount() const override
   {
     return m_buffer->GetAvailableIndexCount();
+  }
+
+  void ChangeBuffer() override
+  {
+    m_batcher->ChangeBuffer(make_ref(this));
   }
 
   GLState const & GetState() const
@@ -89,11 +94,12 @@ public:
 
 private:
   GLState const & m_state;
-  ref_ptr<VertexArrayBuffer> m_buffer;
   ref_ptr<OverlayHandle> m_overlay;
+  ref_ptr<Batcher> m_batcher;
+  ref_ptr<VertexArrayBuffer> m_buffer;
   IndexStorage m_indexStorage;
   IndicesRange m_indicesRange;
-  bool m_vaoChanged;
+  bool m_vaoChanged = false;
 };
 
 ////////////////////////////////////////////////////////////////
@@ -221,18 +227,10 @@ IndicesRange Batcher::InsertTriangles(GLState const & state, ref_ptr<AttributePr
   drape_ptr<OverlayHandle> handle = move(transferHandle);
 
   {
-    Batcher::CallbacksWrapper wrapper(state, make_ref(handle));
+    Batcher::CallbacksWrapper wrapper(state, make_ref(handle), make_ref(this));
     wrapper.SetVAO(vao);
 
-    BatchCallbacks callbacks;
-    callbacks.m_flushVertex = bind(&CallbacksWrapper::FlushData, &wrapper, _1, _2, _3);
-    callbacks.m_getIndexStorage = bind(&CallbacksWrapper::GetIndexStorage, &wrapper, _1, _2);
-    callbacks.m_submitIndex = bind(&CallbacksWrapper::SubmitIndexes, &wrapper);
-    callbacks.m_getAvailableVertex = bind(&CallbacksWrapper::GetAvailableVertexCount, &wrapper);
-    callbacks.m_getAvailableIndex = bind(&CallbacksWrapper::GetAvailableIndexCount, &wrapper);
-    callbacks.m_changeBuffer = bind(&Batcher::ChangeBuffer, this, make_ref(&wrapper));
-
-    TBatcher batch(callbacks);
+    TBatcher batch(wrapper);
     batch.SetIsCanDevideStreams(handle == nullptr);
     batch.SetVertexStride(vertexStride);
     batch.BatchData(params);

@@ -89,11 +89,6 @@ void UniformValuesStorage::SetMatrix4x4Value(string const & name, float const * 
     m_uniforms.emplace_back(name, matrixValue);
 }
 
-void UniformValuesStorage::ForeachValue(enum_uniforms_fn action) const
-{
-  for_each(m_uniforms.begin(), m_uniforms.end(), action);
-}
-
 bool UniformValuesStorage::operator< (UniformValuesStorage const & other) const
 {
   if (m_uniforms.size() < other.m_uniforms.size())
