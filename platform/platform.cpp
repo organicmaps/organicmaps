@@ -62,11 +62,8 @@ bool Platform::RmDirRecursively(string const & dirName)
 
     if (type == FILE_TYPE_DIRECTORY)
     {
-      if (!IsSpecialDirName(file))
-      {
-        if (!RmDirRecursively(path))
-          res = false;
-      }
+      if (!IsSpecialDirName(file) && !RmDirRecursively(path))
+        res = false;
     }
     else
     {
