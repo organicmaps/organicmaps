@@ -139,14 +139,13 @@ struct Finder
 int8_t StringUtf8Multilang::FindString(string const & utf8s) const
 {
   Finder finder(utf8s);
-  ForEachRef(finder);
+  ForEach(finder);
   return finder.m_res;
 }
 
 string DebugPrint(StringUtf8Multilang const & s)
 {
   string out;
-  Printer printer(out);
-  s.ForEachRef(printer);
+  s.ForEach(Printer(out));
   return out;
 }

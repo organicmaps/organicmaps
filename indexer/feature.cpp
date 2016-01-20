@@ -103,11 +103,11 @@ editor::XMLFeature FeatureType::ToXML() const
   if (GetFeatureType() == feature::GEOM_POINT)
     feature.SetCenter(GetCenter());
 
-  ForEachNameRef([&feature](uint8_t const & lang, string const & name)
-                 {
-                   feature.SetName(lang, name);
-                   return true;
-                 });
+  ForEachName([&feature](uint8_t const & lang, string const & name)
+              {
+                feature.SetName(lang, name);
+                return true;
+              });
 
   string const house = GetHouseNumber();
   if (!house.empty())
@@ -275,7 +275,7 @@ void FeatureType::SetNames(StringUtf8Multilang const & newNames)
 {
   m_params.name.Clear();
   // Validate passed string to clean up empty names (if any).
-  newNames.ForEachRef([this](int8_t langCode, string const & name) -> bool
+  newNames.ForEach([this](int8_t langCode, string const & name) -> bool
   {
     if (!name.empty())
       m_params.name.AddString(langCode, name);
@@ -427,7 +427,7 @@ void FeatureType::GetPreferredNames(string & defaultName, string & intName) cons
   ParseCommon();
 
   BestMatchedLangNames matcher;
-  ForEachNameRef(matcher);
+  ForEachName(matcher);
 
   defaultName.swap(matcher.m_defaultName);
 
@@ -453,7 +453,7 @@ void FeatureType::GetReadableName(string & name) const
   ParseCommon();
 
   BestMatchedLangNames matcher;
-  ForEachNameRef(matcher);
+  ForEachName(matcher);
 
   if (!matcher.m_nativeName.empty())
     name.swap(matcher.m_nativeName);

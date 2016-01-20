@@ -175,11 +175,8 @@ bool FeatureParamsBase::CheckValid() const
 
 string FeatureParamsBase::DebugString() const
 {
-  string utf8name;
-  name.GetString(StringUtf8Multilang::DEFAULT_CODE, utf8name);
-
+  string const utf8name = DebugPrint(name);
   return ((!utf8name.empty() ? "Name:" + utf8name : "") +
-          (" Layer:" + DebugPrint(layer)) +
           (rank != 0 ? " Rank:" + DebugPrint(rank) : "") +
           (!house.IsEmpty() ? " House:" + house.Get() : "") +
           (!ref.empty() ? " Ref:" + ref : ""));

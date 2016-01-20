@@ -958,7 +958,7 @@ public:
   {
   }
 
-  bool operator()(signed char lang, string const & name)
+  bool operator()(int8_t lang, string const & name)
   {
     KeywordLangMatcher::ScoreT const score = m_keywordsScorer.Score(lang, name);
     if (m_score < score)
@@ -973,8 +973,7 @@ public:
 
 void Query::GetBestMatchName(FeatureType const & f, string & name) const
 {
-  impl::BestNameFinder bestNameFinder(name, m_keywordsScorer);
-  (void)f.ForEachNameRef(bestNameFinder);
+  (void)f.ForEachName(impl::BestNameFinder(name, m_keywordsScorer));
 }
 
 /// Makes continuous range for tokens and prefix.

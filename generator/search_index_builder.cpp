@@ -277,7 +277,7 @@ public:
     m_valueBuilder.MakeValue(f, types, index, inserter.m_val);
 
     // Skip types for features without names.
-    if (!f.ForEachNameRef(inserter))
+    if (!f.ForEachName(inserter))
       skipIndex.SkipEmptyNameTypes(types);
     if (types.Empty())
       return;

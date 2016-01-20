@@ -64,14 +64,14 @@ public:
   }
 
   template <class T>
-  void ForEachRef(T && functor) const
+  void ForEach(T && fn) const
   {
     size_t i = 0;
     size_t const sz = m_s.size();
     while (i < sz)
     {
       size_t const next = GetNextIndex(i);
-      if (!functor((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)))
+      if (!fn((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)))
         return;
       i = next;
     }

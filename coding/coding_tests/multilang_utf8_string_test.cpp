@@ -74,8 +74,7 @@ UNIT_TEST(MultilangString_ForEach)
   for (size_t i = 0; i < ARRAY_SIZE(gArr); ++i)
     s.AddString(gArr[i].m_lang, gArr[i].m_str);
 
-  LangChecker doClass;
-  s.ForEachRef(doClass);
+  s.ForEach(LangChecker());
 }
 
 UNIT_TEST(MultilangString_Unique)

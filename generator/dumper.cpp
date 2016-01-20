@@ -151,7 +151,7 @@ namespace feature
 
     void operator()(FeatureType & f, uint32_t)
     {
-      f.ForEachNameRef(*this);
+      f.ForEachName(*this);
     }
   };
 
@@ -228,7 +228,7 @@ namespace feature
 
     feature::ForEachFromDat(fPath, [&](FeatureType & f, uint32_t)
                             {
-                              f.ForEachNameRef(printName);
+                              f.ForEachName(printName);
                             });
   }
 

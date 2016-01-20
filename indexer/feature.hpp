@@ -10,6 +10,7 @@
 #include "editor/xml_feature.hpp"
 
 #include "std/string.hpp"
+#include "std/utility.hpp"
 
 
 namespace feature
@@ -81,13 +82,13 @@ public:
   */
 
   template <class T>
-  inline bool ForEachNameRef(T && functor) const
+  inline bool ForEachName(T && fn) const
   {
     if (!HasName())
       return false;
 
     ParseCommon();
-    m_params.name.ForEachRef(forward<T>(functor));
+    m_params.name.ForEach(forward<T>(fn));
     return true;
   }
 

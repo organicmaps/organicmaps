@@ -68,7 +68,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature, Framew
   defaultNameRow->addWidget(defaultNamelineEdit);
   vLayout->addLayout(defaultNameRow);
 
-  feature.ForEachNameRef([&](int8_t langCode, string const & name) -> bool
+  feature.ForEachName([&](int8_t langCode, string const & name) -> bool
   {
     if (langCode == StringUtf8Multilang::DEFAULT_CODE)
       defaultNamelineEdit->setText(QString::fromStdString(name));
