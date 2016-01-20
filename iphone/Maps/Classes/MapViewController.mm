@@ -35,7 +35,7 @@
 #import "../../../private.h"
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
-extern NSString * const kUDWhatsNewWasShown = @"WhatsNewWith3dAndPerspectiveWasShown";
+extern NSString * const kUDWhatsNewWasShown = @"WhatsNewWithNightModeWasShown";
 extern char const * kAdForbiddenSettingsKey;
 extern char const * kAdServerForbiddenKey;
 
@@ -424,6 +424,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   if (isIOSVersionLessThan(8))
     return;
+    
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   BOOL const whatsNewWasShown = [ud boolForKey:kUDWhatsNewWasShown];
   if (whatsNewWasShown)
@@ -471,15 +472,14 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
+  BOOL const isNightMode = [UIColor isNightMode];
   BOOL const isLight = !self.controlsManager.searchHidden ||
                        self.controlsManager.menuState == MWMBottomMenuStateActive ||
                        self.controlsManager.isDirectionViewShown ||
-                       (GetFramework().GetMapStyle() == MapStyleDark &&
-                        self.controlsManager.navigationState == MWMNavigationDashboardStateHidden) ||
-                        MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
-  if (isLight)
-    return UIStatusBarStyleLightContent;
-  return UIStatusBarStyleDefault;
+                       (isNightMode &&
+                       self.controlsManager.navigationState != MWMNavigationDashboardStateHidden) ||
+                       MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
+  return (isLight || (!isLight && isNightMode)) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 - (void)updateStatusBarStyle

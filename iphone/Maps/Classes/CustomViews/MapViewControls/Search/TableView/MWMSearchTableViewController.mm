@@ -76,6 +76,11 @@ LocationObserver>
   [self setupTableView];
 }
 
+- (void)refresh
+{
+  [self.view refresh];
+}
+
 - (void)setupTableView
 {
   [self.tableView registerNib:[UINib nibWithNibName:kTableShowOnMapCell bundle:nil]

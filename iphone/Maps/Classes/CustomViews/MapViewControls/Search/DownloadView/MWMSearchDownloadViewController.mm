@@ -30,6 +30,11 @@
       [[MWMDownloadMapRequest alloc] initWithParentView:self.downloadRequestHolder delegate:self];
 }
 
+- (void)refresh
+{
+  [self.view refresh];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];

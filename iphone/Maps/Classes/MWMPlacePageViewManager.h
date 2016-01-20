@@ -1,12 +1,13 @@
 #include "Framework.h"
 
-@class MWMPlacePageEntity, MWMPlacePageNavigationBar;
+@class MWMPlacePageEntity, MWMPlacePageNavigationBar, MWMPlacePage;
 @protocol MWMPlacePageViewManagerProtocol;
 
 @interface MWMPlacePageViewManager : NSObject
 
 @property (weak, nonatomic, readonly) UIViewController * ownerViewController;
 @property (nonatomic, readonly) MWMPlacePageEntity * entity;
+@property (nonatomic, readonly) MWMPlacePage * placePage;
 @property (nonatomic) MWMPlacePageNavigationBar * iPhoneNavigationBar;
 @property (nonatomic) CGFloat topBound;
 @property (nonatomic) CGFloat leftBound;

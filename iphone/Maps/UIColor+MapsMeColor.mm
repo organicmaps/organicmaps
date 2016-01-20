@@ -39,7 +39,7 @@ NSDictionary<NSString *, UIColor *> * night =
   // Blue color (use for links and phone numbers)
   @"linkBlue" : [UIColor colorWithRed:scaled(255.) green:scaled(230.) blue:scaled(140.) alpha:alpha100],
   @"linkBlueDark" : [UIColor colorWithRed:scaled(200.) green:scaled(180.) blue:scaled(110.) alpha:alpha100],
-  @"blackPrimaryText" : [UIColor colorWithWhite:1. alpha:alpha100],
+  @"blackPrimaryText" : [UIColor colorWithWhite:1. alpha:alpha90],
   @"blackSecondaryText" : [UIColor colorWithWhite:1. alpha:alpha70],
   @"blackHintText" : [UIColor colorWithWhite:1. alpha:alpha30],
   @"blackDividers" : [UIColor colorWithWhite:1. alpha:alpha12],

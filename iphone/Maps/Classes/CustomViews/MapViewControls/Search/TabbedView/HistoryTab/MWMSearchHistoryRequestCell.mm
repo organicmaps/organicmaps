@@ -1,5 +1,6 @@
 #import "Common.h"
 #import "MWMSearchHistoryRequestCell.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
 @interface MWMSearchHistoryRequestCell ()
@@ -13,6 +14,8 @@
 
 - (void)awakeFromNib
 {
+  if (IPAD)
+    self.contentView.backgroundColor = [UIColor white];
   self.layer.shouldRasterize = YES;
   self.layer.rasterizationScale = UIScreen.mainScreen.scale;
 }

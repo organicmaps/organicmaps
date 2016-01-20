@@ -37,7 +37,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 @property (weak, nonatomic) UIViewController * ownerViewController;
 @property (nonatomic, readwrite) MWMPlacePageEntity * entity;
-@property (nonatomic) MWMPlacePage * placePage;
+@property (nonatomic, readwrite) MWMPlacePage * placePage;
 @property (nonatomic) MWMPlacePageManagerState state;
 @property (nonatomic) MWMDirectionView * directionView;
 

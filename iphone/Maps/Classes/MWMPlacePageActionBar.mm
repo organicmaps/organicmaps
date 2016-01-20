@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MapsAppDelegate.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMPlacePage.h"

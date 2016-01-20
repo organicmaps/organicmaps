@@ -16,13 +16,13 @@
 - (void)refresh
 {
   [self.navigationController.navigationBar refresh];
+  MapViewController * mapViewController = [MapsAppDelegate theApp].mapViewController;
   for (UIViewController * vc in self.navigationController.viewControllers.reverseObjectEnumerator)
   {
-    if (![vc isKindOfClass:[MapViewController class]])
+    if (![vc isEqual:mapViewController])
       [vc.view refresh];
   }
-  if (![self isKindOfClass:[MapViewController class]])
-    [[MapsAppDelegate theApp].mapViewController refresh];
+  [mapViewController refresh];
 }
 
 - (void)viewDidLoad

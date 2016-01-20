@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MWMNavigationDashboardEntity.h"
@@ -115,7 +116,7 @@ UIImage * image(routing::turns::TurnDirection t, bool isNextTurn)
   }
   if (!imageName)
     return nil;
-  return [UIImage imageNamed: isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName];
+  return [UIImage imageNamed:isNextTurn ? [imageName stringByAppendingString:@"_then"] : imageName];
 }
 
 @end

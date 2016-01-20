@@ -19,16 +19,23 @@
 - (void)setMwm_coloring:(MWMImageColoring)mwm_coloring
 {
   objc_setAssociatedObject(self, @selector(mwm_coloring), @(mwm_coloring), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-  if (mwm_coloring != MWMImageColoringOther)
-    self.tintColor = [[UIColor class] performSelector:self.coloringSelector];
-#pragma clang diagnostic pop
+  if (mwm_coloring == MWMImageColoringOther)
+    return;
+  [self makeImageAlwaysTemplate];
+  [self applyColoring];
 }
 
 - (MWMImageColoring)mwm_coloring
 {
   return static_cast<MWMImageColoring>([objc_getAssociatedObject(self, @selector(mwm_coloring)) integerValue]);
+}
+
+- (void)applyColoring
+{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+  self.tintColor = [[UIColor class] performSelector:self.coloringSelector];
+#pragma clang diagnostic pop
 }
 
 - (void)changeColoringToOpposite
@@ -39,10 +46,8 @@
       self.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@", self.mwm_name, [UIColor isNightMode] ? @"dark" : @"light"]];
     return;
   }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-  self.tintColor = [[UIColor class] performSelector:self.coloringSelector];
-#pragma clang diagnostic pop
+  [self makeImageAlwaysTemplate];
+  [self applyColoring];
 }
 
 - (SEL)coloringSelector
@@ -71,8 +76,8 @@
   case MWMImageColoringGray:
     self.tintColor = highlighted ? [UIColor blackSecondaryText] : [UIColor blackHintText];
     break;
-  case MWMImageColoringBlue:
   case MWMImageColoringOther:
+  case MWMImageColoringBlue:
     break;
   }
 }

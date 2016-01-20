@@ -43,7 +43,7 @@ static NSString * const kUDFirstVersionKey = @"FirstVersion";
 static NSString * const kUDLastRateRequestDate = @"LastRateRequestDate";
 extern NSString * const kUDAlreadySharedKey = @"UserAlreadyShared";
 static NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
-extern NSString * const kUDAutoNightMode = @"AutoNightMode";
+static NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
 static NSString * const kNewWatchUserEventKey = @"NewWatchUser";
 static NSString * const kOldWatchUserEventKey = @"OldWatchUser";
 static NSString * const kUDWatchEventAlreadyTracked = @"WatchEventAlreadyTracked";
@@ -249,24 +249,30 @@ void InitLocalizedStrings()
 
 - (void)determineMapStyle
 {
-  GetFramework().SetMapStyle(MapStyleClear);
-  [UIColor setNightMode:NO];
+  auto & f = GetFramework();
   if ([MapsAppDelegate isAutoNightMode])
-    [self startMapStyleChecker];
+  {
+    f.SetMapStyle(MapStyleClear);
+    [UIColor setNightMode:NO];
+  }
+  else
+  {
+    [UIColor setNightMode:f.GetMapStyle() == MapStyleDark];
+  }
 }
 
-+ (void)setAutoNightModeOn:(BOOL)on
++ (void)setAutoNightModeOff:(BOOL)off
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setBool:on forKey:kUDAutoNightMode];
+  [ud setBool:off forKey:kUDAutoNightModeOff];
   [ud synchronize];
-  if (!on)
+  if (!off)
     [MapsAppDelegate.theApp stopMapStyleChecker];
 }
 
 + (BOOL)isAutoNightMode
 {
-  return [[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightMode];
+  return ![[NSUserDefaults standardUserDefaults] boolForKey:kUDAutoNightModeOff];
 }
 
 - (void)startMapStyleChecker
@@ -526,8 +532,8 @@ void InitLocalizedStrings()
   barBtn.tintColor = [UIColor whitePrimaryText];
 
   UIPageControl * pageControl = [UIPageControl appearance];
-  pageControl.pageIndicatorTintColor = [UIColor blackSecondaryText];
-  pageControl.currentPageIndicatorTintColor = [UIColor blackPrimaryText];
+  pageControl.pageIndicatorTintColor = [UIColor blackHintText];
+  pageControl.currentPageIndicatorTintColor = [UIColor blackSecondaryText];
   pageControl.backgroundColor = [UIColor white];
 }
 
