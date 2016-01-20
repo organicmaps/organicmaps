@@ -6,6 +6,8 @@
 #import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
+#import "MWMAuthorizationCommon.h"
+#import "MWMAuthorizationLoginViewController.h"
 #import "MWMEditorViewController.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPageController.h"
@@ -54,6 +56,11 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   UserTouchesActionDrag,
   UserTouchesActionScale
 };
+
+namespace
+{
+NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
+} // namespace
 
 @interface NSValueWrapper : NSObject
 
@@ -410,6 +417,12 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [self showWhatsNewIfNeeded];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+  [super viewDidAppear:animated];
+  [self checkAuthorization];
+}
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
@@ -643,6 +656,19 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark - Authorization
+
+- (void)checkAuthorization
+{
+  if (MWMAuthorizationIsNeedCheck() && !MWMAuthorizationHaveCredentials() && !MWMAuthorizationIsUserSkip())
+  {
+    [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
+                     withParameters:@{kStatValue : kStatAuthorization}];
+    [self performSegueWithIdentifier:kAuthorizationSegue sender:nil];
+  }
+  MWMAuthorizationSetNeedCheck(NO);
+}
+
 #pragma mark - 3d touch
 
 - (void)performAction:(NSString *)action
@@ -796,6 +822,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     [[MapsAppDelegate theApp] enableStandby];
 }
 
+#pragma mark - Segue
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
   if ([segue.identifier isEqualToString:@"Map2EditorSegue"])
@@ -804,6 +832,12 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     UINavigationController * dvc = segue.destinationViewController;
     MWMEditorViewController * editorVC = (MWMEditorViewController *)[dvc topViewController];
     editorVC.entity = sender;
+  }
+  else if ([segue.identifier isEqualToString:kAuthorizationSegue])
+  {
+    UINavigationController * dvc = segue.destinationViewController;
+    MWMAuthorizationLoginViewController * authVC = (MWMAuthorizationLoginViewController *)[dvc topViewController];
+    authVC.isCalledFromSettings = NO;
   }
 }
 

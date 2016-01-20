@@ -31,6 +31,11 @@
   [self setTitleColor:[UIColor colorWithName:colorName] forState:UIControlStateHighlighted];
 }
 
+- (void)setTextColorDisabledName:(NSString *)colorName
+{
+  [self setTitleColor:[UIColor colorWithName:colorName] forState:UIControlStateDisabled];
+}
+
 - (void)setTextColorSelectedName:(NSString *)colorName
 {
   [self setTitleColor:[UIColor colorWithName:colorName] forState:UIControlStateSelected];

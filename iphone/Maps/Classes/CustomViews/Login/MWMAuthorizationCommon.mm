@@ -6,6 +6,7 @@ namespace
 NSString * const kOSMRequestToken = @"OSMRequestToken";
 NSString * const kOSMRequestSecret = @"OSMRequestSecret";
 NSString * const kAuthUserSkip = @"AuthUserSkip";
+NSString * const kAuthNeedCheck = @"AuthNeedCheck";
 }  // namespace
 
 UIColor * MWMAuthorizationButtonTextColor(MWMAuthorizationButtonType type)
@@ -75,4 +76,16 @@ void MWMAuthorizationSetUserSkip()
 BOOL MWMAuthorizationIsUserSkip()
 {
   return [[NSUserDefaults standardUserDefaults] objectForKey:kAuthUserSkip] != nil;
+}
+
+void MWMAuthorizationSetNeedCheck(BOOL needCheck)
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setBool:needCheck forKey:kAuthNeedCheck];
+  [ud synchronize];
+}
+
+BOOL MWMAuthorizationIsNeedCheck()
+{
+  return [[NSUserDefaults standardUserDefaults] boolForKey:kAuthNeedCheck];
 }

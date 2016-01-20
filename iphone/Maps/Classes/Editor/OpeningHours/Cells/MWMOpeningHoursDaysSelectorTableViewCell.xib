@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -19,31 +19,30 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQj-bk-oM9">
                                 <rect key="frame" x="0.0" y="0.0" width="41" height="76"/>
-                                <animations/>
                                 <connections>
                                     <action selector="selectDay:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9i4-jY-OM3"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="brZ-af-NfP">
                                 <rect key="frame" x="0.0" y="12" width="41" height="20"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn_light" translatesAutoresizingMaskIntoConstraints="NO" id="eN6-Is-HP5">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="eN6-Is-HP5">
                                 <rect key="frame" x="10" y="40" width="22" height="22"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="6PM-WV-5ha"/>
                                     <constraint firstAttribute="width" constant="22" id="Wid-uC-2rb"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="brZ-af-NfP" firstAttribute="top" secondItem="CCr-vZ-lZV" secondAttribute="top" constant="12" id="4Tb-B7-xF1"/>
@@ -62,31 +61,30 @@
                         <subviews>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fE-x8-2Vl">
                                 <rect key="frame" x="0.0" y="0.0" width="42" height="76"/>
-                                <animations/>
                                 <connections>
                                     <action selector="selectDay:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zPb-wt-0Cz"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="TX4-wv-r7d">
                                 <rect key="frame" x="0.0" y="12" width="42" height="20"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn_light" translatesAutoresizingMaskIntoConstraints="NO" id="PA6-gY-SsH">
+                            <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="PA6-gY-SsH">
                                 <rect key="frame" x="10" y="40" width="22" height="22"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="ACp-b4-BbL"/>
                                     <constraint firstAttribute="width" constant="22" id="PHS-nj-MJ1"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="TX4-wv-r7d" firstAttribute="top" secondItem="d7U-Vz-ZXn" secondAttribute="top" constant="12" id="3Os-r4-IV4"/>
@@ -105,31 +103,30 @@
                         <subviews>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ocy-4H-ZwH">
                                 <rect key="frame" x="0.0" y="0.0" width="41" height="76"/>
-                                <animations/>
                                 <connections>
                                     <action selector="selectDay:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Nab-Ud-zim"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="6IK-aQ-W8x">
                                 <rect key="frame" x="0.0" y="12" width="41" height="20"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn_light" translatesAutoresizingMaskIntoConstraints="NO" id="eLh-R1-Lvc">
+                            <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="eLh-R1-Lvc">
                                 <rect key="frame" x="10" y="40" width="22" height="22"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="0ck-A4-4EU"/>
                                     <constraint firstAttribute="width" constant="22" id="OuD-FL-tq0"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Ocy-4H-ZwH" firstAttribute="top" secondItem="J8L-sr-yWu" secondAttribute="top" id="0sk-ua-zdd"/>
@@ -148,31 +145,30 @@
                         <subviews>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pmq-0T-6ND">
                                 <rect key="frame" x="0.0" y="0.0" width="41" height="76"/>
-                                <animations/>
                                 <connections>
                                     <action selector="selectDay:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PZT-nD-iid"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="gSE-qV-osv">
                                 <rect key="frame" x="0.0" y="12" width="41" height="20"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn_light" translatesAutoresizingMaskIntoConstraints="NO" id="IVB-FW-ULI">
+                            <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="IVB-FW-ULI">
                                 <rect key="frame" x="10" y="40" width="22" height="22"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="rkz-jd-7Vx"/>
                                     <constraint firstAttribute="width" constant="22" id="zeP-ls-q95"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Pmq-0T-6ND" secondAttribute="trailing" id="FKK-TY-xSz"/>
@@ -191,31 +187,30 @@
                         <subviews>
                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Otc-DJ-XJQ">
                                 <rect key="frame" x="0.0" y="0.0" width="41" height="76"/>
-                                <animations/>
                                 <connections>
                                     <action selector="selectDay:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Fgx-45-oKW"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="JHH-2W-e7Q">
                                 <rect key="frame" x="0.0" y="12" width="41" height="20"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn_light" translatesAutoresizingMaskIntoConstraints="NO" id="WaR-h2-4mE">
+                            <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="WaR-h2-4mE">
                                 <rect key="frame" x="10" y="40" width="22" height="22"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="2WN-hW-NfA"/>
                                     <constraint firstAttribute="height" constant="22" id="paI-VA-gTy"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Otc-DJ-XJQ" secondAttribute="bottom" id="8rG-g5-oib"/>
@@ -234,31 +229,30 @@
                         <subviews>
                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kid-OJ-nOc">
                                 <rect key="frame" x="0.0" y="0.0" width="42" height="76"/>
-                                <animations/>
                                 <connections>
                                     <action selector="selectDay:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Viw-8h-SMl"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="F0Z-Fk-0s9">
                                 <rect key="frame" x="0.0" y="12" width="42" height="20"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn_light" translatesAutoresizingMaskIntoConstraints="NO" id="Qo3-ii-YnF">
+                            <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="Qo3-ii-YnF">
                                 <rect key="frame" x="10" y="40" width="22" height="22"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="9Ya-Qr-OeU"/>
                                     <constraint firstAttribute="height" constant="22" id="jS5-JM-9BC"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Kid-OJ-nOc" firstAttribute="leading" secondItem="Tqf-QU-RCZ" secondAttribute="leading" id="4op-ZK-yva"/>
@@ -277,31 +271,30 @@
                         <subviews>
                             <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5X-og-86Q">
                                 <rect key="frame" x="0.0" y="0.0" width="41" height="76"/>
-                                <animations/>
                                 <connections>
                                     <action selector="selectDay:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xnf-pU-Pv9"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Su" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="Nzo-2k-zUZ">
                                 <rect key="frame" x="0.0" y="12" width="41" height="20"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn_light" translatesAutoresizingMaskIntoConstraints="NO" id="vIl-li-8uM">
+                            <imageView userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioBtnOff" highlightedImage="radioBtnOn" translatesAutoresizingMaskIntoConstraints="NO" id="vIl-li-8uM">
                                 <rect key="frame" x="10" y="40" width="22" height="22"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="D4F-jl-d8J"/>
                                     <constraint firstAttribute="width" constant="22" id="nOA-Kh-nx9"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vIl-li-8uM" firstAttribute="top" secondItem="Nzo-2k-zUZ" secondAttribute="bottom" constant="8" id="5Md-vp-o0X"/>
@@ -317,7 +310,6 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k47-ei-lEk" userLabel="Separator">
                         <rect key="frame" x="0.0" y="75" width="320" height="1"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="dUK-Gg-fgg"/>
@@ -327,7 +319,6 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="Tqf-QU-RCZ" firstAttribute="leading" secondItem="15A-tH-C45" secondAttribute="trailing" id="1zj-Fh-hEJ"/>
                     <constraint firstItem="Tqf-QU-RCZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2wt-Fw-elF"/>
@@ -362,7 +353,6 @@
                     <constraint firstItem="k47-ei-lEk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ze5-IH-JYq"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outletCollection property="buttons" destination="tQj-bk-oM9" id="pbb-m3-HUd"/>
                 <outletCollection property="buttons" destination="7fE-x8-2Vl" id="TmQ-vt-r6l"/>
@@ -390,6 +380,6 @@
     </objects>
     <resources>
         <image name="radioBtnOff" width="22" height="22"/>
-        <image name="radioBtnOn_light" width="22" height="22"/>
+        <image name="radioBtnOn" width="22" height="22"/>
     </resources>
 </document>

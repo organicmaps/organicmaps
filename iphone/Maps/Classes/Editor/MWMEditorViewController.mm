@@ -1,5 +1,4 @@
 #import "MWMAuthorizationCommon.h"
-#import "MWMAuthorizationLoginViewController.h"
 #import "MWMCuisineEditorViewController.h"
 #import "MWMEditorCommon.h"
 #import "MWMEditorSelectTableViewCell.h"
@@ -16,11 +15,9 @@
 
 namespace
 {
-
 NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSegue";
 NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 NSString * const kStreetEditorSegue = @"Editor2StreetEditorSegue";
-NSString * const kAuthorizationSegue = @"Editor2AuthorizationSegue";
 
 typedef NS_ENUM(NSUInteger, MWMEditorSection)
 {
@@ -97,18 +94,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  [self checkAuthorization];
   [self reloadData];
-}
-
-- (void)checkAuthorization
-{
-  if (!MWMAuthorizationHaveCredentials() && !MWMAuthorizationIsUserSkip())
-  {
-    [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
-                     withParameters:@{kStatValue : kStatAuthorization}];
-    [self performSegueWithIdentifier:kAuthorizationSegue sender:nil];
-  }
 }
 
 #pragma mark - Configuration
@@ -140,7 +126,11 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)onSave
 {
-  [self.entity saveEditedCells:m_edited_cells];
+  if (!m_edited_cells.empty())
+  {
+    MWMAuthorizationSetNeedCheck(YES);
+    [self.entity saveEditedCells:m_edited_cells];
+  }
   [self onCancel];
 }
 
@@ -572,12 +562,6 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   {
     MWMStreetEditorViewController * dvc = segue.destinationViewController;
     dvc.delegate = self;
-  }
-  else if ([segue.identifier isEqualToString:kAuthorizationSegue])
-  {
-    UINavigationController * dvc = segue.destinationViewController;
-    MWMAuthorizationLoginViewController * authVC = (MWMAuthorizationLoginViewController *)[dvc topViewController];
-    authVC.isCalledFromSettings = NO;
   }
 }
 

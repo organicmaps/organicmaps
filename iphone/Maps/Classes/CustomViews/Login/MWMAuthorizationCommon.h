@@ -16,3 +16,5 @@ BOOL MWMAuthorizationHaveCredentials();
 
 void MWMAuthorizationSetUserSkip();
 BOOL MWMAuthorizationIsUserSkip();
+void MWMAuthorizationSetNeedCheck(BOOL needCheck);
+BOOL MWMAuthorizationIsNeedCheck();
