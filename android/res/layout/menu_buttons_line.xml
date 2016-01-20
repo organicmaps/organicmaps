@@ -1,66 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/menu_line_height"
-             tools:background="#40FF0000">
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/menu_line_height"
+  tools:background="#40FF0000">
   <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
     <!-- Gap for MyPosition button -->
     <Space
-        android:layout_width="@dimen/menu_line_button_width_edge"
-        android:layout_height="match_parent"/>
+      android:layout_width="@dimen/menu_line_button_width_edge"
+      android:layout_height="match_parent"/>
 
     <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"/>
 
     <ImageView
-        android:id="@+id/p2p"
-        style="@style/MwmTheme.Menu.Line.Button"
-        android:src="@drawable/ic_menu_point_to_point"
-        android:tag="@string/tag_menu_collapse"/>
+      android:id="@+id/p2p"
+      style="@style/MwmTheme.Menu.Line.Button"
+      android:src="@drawable/ic_menu_point_to_point"
+      android:tag="@string/tag_menu_collapse"/>
 
     <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"/>
 
     <ImageView
-        android:id="@+id/search"
-        style="@style/MwmTheme.Menu.Line.Button"
-        android:src="@drawable/ic_menu_search"
-        android:tag="@string/tag_menu_collapse"/>
+      android:id="@+id/search"
+      style="@style/MwmTheme.Menu.Line.Button"
+      android:src="@drawable/ic_menu_search"
+      android:tag="@string/tag_menu_collapse"/>
 
     <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"/>
 
     <ImageView
-        android:id="@+id/bookmarks"
-        style="@style/MwmTheme.Menu.Line.Button"
-        android:src="@drawable/ic_menu_bookmarks"
-        android:tag="@string/tag_menu_collapse"/>
+      android:id="@+id/bookmarks"
+      style="@style/MwmTheme.Menu.Line.Button"
+      android:src="@drawable/ic_menu_bookmarks"
+      android:tag="@string/tag_menu_collapse"/>
 
     <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"/>
 
     <!-- Gap for menu open/close button -->
     <View
-        android:layout_width="@dimen/menu_line_button_width_edge"
-        android:layout_height="match_parent"/>
+      android:layout_width="@dimen/menu_line_button_width_edge"
+      android:layout_height="match_parent"/>
   </LinearLayout>
 
   <FrameLayout
-      android:layout_width="@dimen/menu_line_button_width_edge"
-      android:layout_height="match_parent"
-      android:layout_gravity="right">
+    android:layout_width="@dimen/menu_line_button_width_edge"
+    android:layout_height="match_parent"
+    android:layout_gravity="right">
     <include layout="@layout/menu_news_marker"/>
   </FrameLayout>
 </FrameLayout>
