@@ -1392,18 +1392,21 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
   m_drapeEngine->UpdateGpsTrackPoints(move(pointsAdd), move(indicesRemove));
 }
 
-void Framework::SetMapStyle(MapStyle mapStyle)
+void Framework::MarkMapStyle(MapStyle mapStyle)
 {
   // Store current map style before classificator reloading
   Settings::Set(kMapStyleKey, static_cast<int>(mapStyle));
   GetStyleReader().SetCurrentStyle(mapStyle);
 
-  CallDrapeFunction(bind(&df::DrapeEngine::UpdateMapStyle, _1));
-
-  InvalidateUserMarks();
-
   alohalytics::TStringMap details {{"mapStyle", strings::to_string(static_cast<int>(mapStyle))}};
   alohalytics::Stats::Instance().LogEvent("MapStyle_Changed", details);
+}
+
+void Framework::SetMapStyle(MapStyle mapStyle)
+{
+  MarkMapStyle(mapStyle);
+  CallDrapeFunction(bind(&df::DrapeEngine::UpdateMapStyle, _1));
+  InvalidateUserMarks();
 }
 
 MapStyle Framework::GetMapStyle() const

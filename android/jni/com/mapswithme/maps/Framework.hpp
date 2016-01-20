@@ -80,6 +80,7 @@ namespace android
     void AttachSurface(JNIEnv * env, jobject jSurface);
 
     void SetMapStyle(MapStyle mapStyle);
+    void MarkMapStyle(MapStyle mapStyle);
     MapStyle GetMapStyle() const;
 
     void SetupMeasurementSystem();

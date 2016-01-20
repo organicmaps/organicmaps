@@ -88,7 +88,9 @@ public final class ThemeSwitcher
     if (ThemeUtils.isNightTheme(theme))
       style = Framework.MAP_STYLE_DARK;
 
-    Framework.nativeSetMapStyle(style);
+    // Activity and drape engine will be recreated so we have to mark new map style.
+    // Changes will be applied in process of recreation.
+    Framework.nativeMarkMapStyle(style);
 
     Activity a = MwmApplication.backgroundTracker().getTopActivity();
     if (a != null && !a.isFinishing())

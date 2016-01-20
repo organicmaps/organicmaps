@@ -161,6 +161,8 @@ public class Framework
 
   public native static void nativeSetMapStyle(int mapStyle);
 
+  public native static void nativeMarkMapStyle(int mapStyle);
+
   public native static void nativeSetRouter(int routerType);
 
   public native static int nativeGetRouter();
