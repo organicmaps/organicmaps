@@ -31,6 +31,7 @@ using std::reverse;
 using std::set_intersection;
 using std::set_union;
 using std::sort;
+using std::stable_partition;
 using std::stable_sort;
 using std::swap;
 using std::unique;

@@ -191,6 +191,60 @@ MwmSet::MwmHandle FindWorld(Index & index, vector<shared_ptr<MwmInfo>> & infos)
   }
   return handle;
 }
+
+m2::RectD NormalizeViewport(m2::RectD const & viewport)
+{
+  // 50km maximum viewport radius.
+  double constexpr kMaxViewportRadiusM = 50.0 * 1000;
+  m2::RectD const limit =
+      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMaxViewportRadiusM);
+  m2::RectD result = viewport;
+  VERIFY(result.Intersect(limit), ());
+  return result;
+}
+
+m2::RectD GetRectAroundPoistion(m2::PointD const & position)
+{
+  // 50km radius around position.
+  double constexpr kMaxPositionRadiusM = 50.0 * 1000;
+  return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
+}
+
+double GetSquaredDistance(vector<m2::RectD> const & pivots, m2::RectD const & rect)
+{
+  double distance = numeric_limits<double>::max();
+  auto const center = rect.Center();
+  for (auto const & pivot : pivots)
+    distance = min(distance, center.SquareLength(pivot.Center()));
+  return distance;
+}
+
+// Reorders maps in a way that prefix consists of maps intersecting
+// with viewport and position, suffix consists of all other maps
+// ordered by minimum distance from viewport and position.  Returns an
+// iterator to the first element of the suffix.
+template <typename TIt>
+TIt OrderCountries(Geocoder::Params const & params, TIt begin, TIt end)
+{
+  vector<m2::RectD> const pivots = {NormalizeViewport(params.m_viewport),
+                                    GetRectAroundPoistion(params.m_position)};
+  auto compareByDistance = [&](shared_ptr<MwmInfo> const & lhs, shared_ptr<MwmInfo> const & rhs)
+  {
+    return GetSquaredDistance(pivots, lhs->m_limitRect) <
+           GetSquaredDistance(pivots, rhs->m_limitRect);
+  };
+  auto intersects = [&](shared_ptr<MwmInfo> const & info) -> bool
+  {
+    for (auto const & pivot : pivots)
+    {
+      if (pivot.IsIntersect(info->m_limitRect))
+        return true;
+    }
+    return false;
+  };
+  sort(begin, end, compareByDistance);
+  return stable_partition(begin, end, intersects);
+}
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
@@ -262,7 +316,24 @@ void Geocoder::Go(vector<FeatureID> & results)
       }
     }
 
-    auto processCountry = [&](unique_ptr<MwmContext> context)
+    // Orders countries by distance from viewport center and position.
+    // This order is used during MatchViewportAndPosition() stage - we
+    // try to match as many features as possible without trying to
+    // match locality (COUNTRY or CITY), and only when there're too
+    // many features, viewport and position vicinity filter is used.
+    // To prevent full search in all mwms, we need to limit somehow a
+    // set of mwms for MatchViewportAndPosition(), so, we always call
+    // MatchViewportAndPosition() on maps intersecting with viewport
+    // and on the map where the user corrently located, other maps are
+    // ordered by a distance from viewport and user position, and we
+    // stop to call MatchViewportAndPosition() on them as soon as at
+    // least one feature is found.
+    size_t numIntersectingMaps =
+        distance(infos.begin(), OrderCountries(m_params, infos.begin(), infos.end()));
+
+    // MatchViewportAndPosition() should always be matched in mwms
+    // intersecting with position and viewport.
+    auto processCountry = [&](size_t index, unique_ptr<MwmContext> context)
     {
       ASSERT(context, ());
       m_context = move(context);
@@ -290,7 +361,9 @@ void Geocoder::Go(vector<FeatureID> & results)
 
       m_usedTokens.assign(m_numTokens, false);
       MatchCountries();
-      MatchViewportAndPosition();
+
+      if (index < numIntersectingMaps || m_results->empty())
+        MatchViewportAndPosition();
     };
 
     // Iterates through all alive mwms and performs geocoding.
@@ -459,8 +532,9 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
 template <typename TFn>
 void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && fn)
 {
-  for (auto const & info : infos)
+  for (size_t i = 0; i < infos.size(); ++i)
   {
+    auto const & info = infos[i];
     if (info->GetType() != MwmInfo::COUNTRY)
       continue;
     auto handle = m_index.GetMwmHandleById(MwmSet::MwmId(info));
@@ -469,7 +543,7 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && 
     auto & value = *handle.GetValue<MwmValue>();
     if (!HasSearchIndex(value) || !HasGeometryIndex(value))
       continue;
-    fn(make_unique<MwmContext>(move(handle)));
+    fn(i, make_unique<MwmContext>(move(handle)));
   }
 }
 
@@ -564,33 +638,21 @@ void Geocoder::MatchCities()
 
 void Geocoder::MatchViewportAndPosition()
 {
-  // 50km maximum viewport radius.
-  double constexpr kMaxViewportRadiusM = 50.0 * 1000;
-
-  // 50km radius around position.
-  double constexpr kMaxPositionRadiusM = 50.0 * 1000;
-
   m2::RectD viewport = m_params.m_viewport;
   m2::PointD const & position = m_params.m_position;
 
   CBVPtr allFeatures;
 
-  // Extracts features in viewport.
+  // Extracts features in viewport (but not farther than some limit).
   {
-    // Limits viewport by kMaxViewportRadiusM.
-    m2::RectD const viewportLimit =
-        MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMaxViewportRadiusM);
-    VERIFY(viewport.Intersect(viewportLimit), ());
-
-    allFeatures.Union(RetrieveGeometryFeatures(*m_context, viewport, VIEWPORT_ID));
+    m2::RectD const rect = NormalizeViewport(viewport);
+    allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, VIEWPORT_ID));
   }
 
   // Extracts features around user position.
   if (!position.EqualDxDy(viewport.Center(), kComparePoints))
   {
-    m2::RectD const rect =
-        MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
-
+    m2::RectD const rect = GetRectAroundPoistion(position);
     allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, POSITION_ID));
   }
 
