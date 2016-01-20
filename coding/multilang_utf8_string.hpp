@@ -52,6 +52,11 @@ public:
     return (m_s == rhs.m_s);
   }
 
+  inline bool operator!= (StringUtf8Multilang const & rhs) const
+  {
+    return !(*this == rhs);
+  }
+
   inline void Clear() { m_s.clear(); }
   inline bool IsEmpty() const { return m_s.empty(); }
 

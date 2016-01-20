@@ -7,6 +7,7 @@
 #include "base/stl_add.hpp"
 
 #include "std/bind.hpp"
+#include "std/set.hpp"
 
 
 using namespace feature;
@@ -37,6 +38,16 @@ string TypesHolder::DebugPrint() const
 void TypesHolder::Remove(uint32_t t)
 {
   (void) RemoveIf(EqualFunctor<uint32_t>(t));
+}
+
+bool feature::operator==(TypesHolder const & a, TypesHolder const & b)
+{
+  return set<uint32_t>(a.begin(), a.end()) == set<uint32_t>(b.begin(), b.end());
+}
+
+bool feature::operator!=(TypesHolder const & a, TypesHolder const & b)
+{
+  return !(a == b);
 }
 
 namespace

@@ -102,18 +102,23 @@ namespace feature
       }
       return false;
     }
+
     void Remove(uint32_t t);
 
     string DebugPrint() const;
 
     /// Sort types by it's specification (more detailed type goes first).
     void SortBySpec();
+
+    friend bool operator==(TypesHolder const & a, TypesHolder const & b);
+    friend bool operator!=(TypesHolder const & a, TypesHolder const & b);
   };
 
   inline string DebugPrint(TypesHolder const & t)
   {
     return t.DebugPrint();
   }
+
   uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const headerGeomType,
                           FeatureParamsBase const & params);
 }

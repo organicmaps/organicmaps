@@ -18,6 +18,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/chrono.hpp"
 #include "std/future.hpp"
 #include "std/tuple.hpp"
@@ -206,6 +207,25 @@ uint32_t MigrateFeatureIndex(XMLFeature const & /*xml*/)
   return 0;
 }
 
+bool AreFeaturesEqualButStreat(FeatureType const & a, FeatureType const & b)
+{
+  feature::TypesHolder const aTypes(a);
+  feature::TypesHolder const bTypes(b);
+
+  if (aTypes != bTypes)
+    return false;
+
+  if (a.GetHouseNumber() != b.GetHouseNumber())
+    return false;
+
+  if (a.GetMetadata() != b.GetMetadata())
+      return false;
+
+  if (a.GetNames() != b.GetNames())
+    return false;
+
+  return true;
+}
 } // namespace
 
 namespace osm
@@ -313,9 +333,11 @@ void Editor::LoadMapEdits()
 
 void Editor::Save(string const & fullFilePath) const
 {
-  // Should we delete edits file if user has canceled all changes?
   if (m_features.empty())
+  {
+    my::DeleteFileX(GetEditorFilePath());
     return;
+  }
 
   xml_document doc;
   xml_node root = doc.append_child(kXmlRootNode);
@@ -395,8 +417,7 @@ void Editor::DeleteFeature(FeatureType const & feature)
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save(GetEditorFilePath());
 
-  if (m_invalidateFn)
-    m_invalidateFn();
+  Invalidate();
 }
 
 //namespace
@@ -412,9 +433,10 @@ void Editor::DeleteFeature(FeatureType const & feature)
 void Editor::EditFeature(FeatureType const & editedFeature, string const & editedStreet,
                          string const & editedHouseNumber)
 {
-  // TODO(AlexZ): Check if feature has not changed and reset status.
   FeatureID const fid = editedFeature.GetID();
+  auto const originalFeaturePtr = m_featureLoaderFn(fid);
   FeatureTypeInfo & fti = m_features[fid.m_mwmId][fid.m_index];
+
   fti.m_status = FeatureStatus::Modified;
   fti.m_feature = editedFeature;
   // TODO: What if local client time is absolutely wrong?
@@ -425,11 +447,23 @@ void Editor::EditFeature(FeatureType const & editedFeature, string const & edite
     fti.m_feature.SetHouseNumber(editedHouseNumber);
   // TODO(AlexZ): Store edited house number as house name if feature::IsHouseNumber() returned false.
 
+  if (AreFeaturesEqualButStreat(fti.m_feature, *originalFeaturePtr)
+      // TODO(mgsergio): Handle street as well.
+      )
+  {
+    // We always have a feature with fid.m_mwmId, fid.m_index at the point.
+    // Either it was set previously or just now on quering m_features. See code above.
+    RemoveFeatureFromStorage(fid.m_mwmId, fid.m_index);
+    // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
+    Save(GetEditorFilePath());
+    Invalidate();
+
+    return;
+  }
+
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save(GetEditorFilePath());
-
-  if (m_invalidateFn)
-    m_invalidateFn();
+  Invalidate();
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
@@ -636,4 +670,23 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
     future = async(launch::async, lambda, key, secret, tags);
 }
 
+void Editor::RemoveFeatureFromStorage(MwmSet::MwmId const & mwmId, uint32_t index)
+{
+  auto mwmMatched = m_features.find(mwmId);
+  if (mwmMatched == m_features.end())
+    return;
+
+  auto matchedIndex = mwmMatched->second.find(index);
+  if (matchedIndex != mwmMatched->second.end())
+    mwmMatched->second.erase(matchedIndex);
+
+  if (mwmMatched->second.empty())
+    m_features.erase(mwmMatched);
+}
+
+void Editor::Invalidate()
+{
+  if (m_invalidateFn)
+    m_invalidateFn();
+}
 }  // namespace osm

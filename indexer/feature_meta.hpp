@@ -77,6 +77,16 @@ public:
     }
   }
 
+  inline friend bool operator==(MetadataBase const & a, MetadataBase const & b)
+  {
+    return a.m_metadata == b.m_metadata;
+  }
+
+  inline friend bool operator!=(MetadataBase const & a, MetadataBase const & b)
+  {
+    return !(a == b);
+  }
+
 protected:
   map<uint8_t, string> m_metadata;
 };

@@ -91,6 +91,9 @@ public:
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   void Save(string const & fullFilePath) const;
+  void RemoveFeatureFromStorage(MwmSet::MwmId const & mwmId, uint32_t index);
+  /// Notify framework that something has changed and should be redisplayed.
+  void Invalidate();
 
   struct FeatureTypeInfo
   {
