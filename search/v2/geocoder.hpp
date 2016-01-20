@@ -151,6 +151,8 @@ private:
   // viewport is used to throw away excess features.
   void MatchViewportAndPosition();
 
+  void DoSearch(coding::CompressedBitVector const * filter, size_t filterThreshold);
+
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in streets vicinities.
   void GreedilyMatchStreets();

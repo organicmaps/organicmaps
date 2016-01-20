@@ -666,13 +666,8 @@ void Geocoder::MatchCities()
     if (allFeatures.IsEmpty())
       continue;
 
-    m_filter.SetFilter(allFeatures.Get());
-    MY_SCOPE_GUARD(resetFilter, [&]() {m_filter.SetFilter(nullptr);});
-
     // Filter will be applied for all non-empty bit vectors.
-    m_filter.SetThreshold(0);
-
-    GreedilyMatchStreets();
+    DoSearch(allFeatures.Get(), 0);
   }
 }
 
@@ -697,20 +692,25 @@ void Geocoder::MatchViewportAndPosition()
     allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, POSITION_ID));
   }
 
-  m_filter.SetFilter(allFeatures.Get());
+  // Filter will be applied only for large bit vectors.
+  DoSearch(allFeatures.Get(), m_params.m_maxNumResults);
+}
+
+void Geocoder::DoSearch(coding::CompressedBitVector const * filter, size_t filterThreshold)
+{
+  m_filter.SetFilter(filter);
   MY_SCOPE_GUARD(resetFilter, [&]() { m_filter.SetFilter(nullptr); });
 
-  // Filter will be applied only for large bit vectors.
-  m_filter.SetThreshold(m_params.m_maxNumResults);
+  m_filter.SetThreshold(filterThreshold);
+
+  // The order is rather important. Match streets first, then all other stuff.
   GreedilyMatchStreets();
+  MatchPOIsAndBuildings(0 /* curToken */);
 }
 
 void Geocoder::GreedilyMatchStreets()
 {
-  MatchPOIsAndBuildings(0 /* curToken */);
-
   ASSERT(m_layers.empty(), ());
-
   m_layers.emplace_back();
 
   MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &m_layers));
