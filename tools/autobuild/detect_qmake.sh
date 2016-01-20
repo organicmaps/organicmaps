@@ -8,15 +8,10 @@ set -e -u
 KNOWN_QMAKE_PATHS=( \
   /Developer/Tools/qmake \
   /usr/local/opt/qt5/bin/qmake \
-  ~/Developer/Qt/5.3/clang_64/bin/qmake \
-  ~/Developer/Qt/5.5/clang_64/bin/qmake \
-  ~/Qt/5.3/clang_64/bin/qmake \
-  ~/Qt/5.4/clang_64/bin/qmake \
-  ~/Qt/5.5/clang_64/bin/qmake \
-  ~/Qt5.3.0/5.3/clang_64/bin/qmake \
-  ~/Developer/Qt/5.4/clang_64/bin/qmake \
-  ~/Developer/Qt/5.5/clang_64/bin/qmake \
-  /cygdrive/c/Qt/5.5/msvc2013_64/bin/qmake.exe \
+  ~/Developer/Qt/5.?/clang_64/bin/qmake \
+  ~/Qt/5.?/clang_64/bin/qmake \
+  ~/Qt5.?.0/5.?/clang_64/bin/qmake \
+  /cygdrive/c/Qt/5.?/msvc2013_64/bin/qmake.exe \
 )
 
 # Prints path to directory with found qmake binary or prints nothing if not found
@@ -28,8 +23,8 @@ elif QMAKE="$(which qmake)"; then
 else
   # qmake binary is not in the path, look for it in the given array
   for path in "${KNOWN_QMAKE_PATHS[@]}"; do
-    if [ -x "${path}" ]; then
-      QMAKE="${path}"
+    if [ -x "$path" ]; then
+      QMAKE="$path"
       return 0
     fi
   done
