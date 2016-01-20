@@ -106,6 +106,11 @@ public:
   /// Removes empty directory from the filesystem.
   static EError RmDir(string const & dirName);
 
+  /// Removes directory from the filesystem.
+  /// @note Directory can be non empty.
+  /// @note If function fails, directory can be partially removed.
+  static bool RmDirRecursively(string const & dirName);
+
   /// @TODO create join method for string concatenation
 
   /// @return path for directory with temporary files with slash at the end

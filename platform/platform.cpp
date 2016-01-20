@@ -3,6 +3,7 @@
 
 #include "coding/base64.hpp"
 #include "coding/file_name_utils.hpp"
+#include "coding/internal/file_data.hpp"
 #include "coding/sha2.hpp"
 #include "coding/writer.hpp"
 
@@ -14,6 +15,14 @@
 #include "private.h"
 
 #include <errno.h>
+
+namespace
+{
+bool IsSpecialDirName(string const & dirName)
+{
+  return dirName == "." || dirName == "..";
+}
+} // namespace
 
 // static
 Platform::EError Platform::ErrnoToError()
@@ -31,6 +40,38 @@ Platform::EError Platform::ErrnoToError()
     default:
       return ERR_UNKNOWN;
   }
+}
+
+// static
+bool Platform::RmDirRecursively(string const & dirName)
+{
+  if (dirName.empty() || IsSpecialDirName(dirName))
+    return false;
+
+  bool res = true;
+
+  TFilesWithType fwts;
+  GetFilesByType(dirName, FILE_TYPE_REGULAR | FILE_TYPE_DIRECTORY, fwts);
+  for (auto const & fwt : fwts)
+  {
+    string const & name = fwt.first;
+    EFileType const type = fwt.second;
+    if (type == FILE_TYPE_REGULAR)
+    {
+      if (!my::DeleteFileX(my::JoinFoldersToPath(dirName, name)))
+        res = false;
+    }
+    else if (type == FILE_TYPE_DIRECTORY && !IsSpecialDirName(name))
+    {
+      if (!RmDirRecursively(my::JoinFoldersToPath(dirName, name)))
+        res = false;
+    }
+  }
+
+  if (RmDir(dirName) != ERR_OK)
+    res = false;
+
+  return res;
 }
 
 string Platform::ReadPathForFile(string const & file, string searchScope) const
