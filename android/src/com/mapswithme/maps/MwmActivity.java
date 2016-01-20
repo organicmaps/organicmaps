@@ -763,7 +763,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
           return;
         }
 
-        final NativeAppwallBanner menuBanner = nativeAppwallAd.getBanners().get(0);
         mMainMenu.showShowcase(true);
       }
 

@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:placePage="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom">
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:placePage="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:gravity="bottom">
   <FrameLayout
-      android:id="@+id/map_fragment_container"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+    android:id="@+id/map_fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
   <include
-      android:id="@+id/toolbar"
-      layout="@layout/toolbar_with_search"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/search_box_height"
-      android:visibility="gone"
-      tools:visibility="visible"/>
+    android:id="@+id/toolbar"
+    layout="@layout/toolbar_with_search"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/search_box_height"
+    android:visibility="gone"
+    tools:visibility="visible"/>
 
   <include
-      layout="@layout/layout_routing_full"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/toolbar"
-      android:paddingBottom="@dimen/margin_base"
-      android:visibility="gone"
-      tools:visibility="visible"/>
+    layout="@layout/layout_routing_full"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/toolbar"
+    android:paddingBottom="@dimen/margin_base"
+    android:visibility="gone"
+    tools:visibility="visible"/>
 
   <include
-      layout="@layout/routing_plan"
-      android:visibility="invisible"/>
+    layout="@layout/routing_plan"
+    android:visibility="invisible"/>
 
   <include
-      android:id="@+id/navigation_buttons"
-      layout="@layout/map_navigation_buttons"/>
+    android:id="@+id/navigation_buttons"
+    layout="@layout/map_navigation_buttons"/>
 
   <com.mapswithme.maps.widget.FadeView
-      android:id="@+id/fade_view"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@android:color/black"
-      android:visibility="gone"/>
+    android:id="@+id/fade_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:visibility="gone"/>
 
   <include
-      android:id="@+id/menu_frame"
-      layout="@layout/menu"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"/>
+    android:id="@+id/menu_frame"
+    layout="@layout/menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"/>
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
-      android:id="@+id/info_box"
-      style="@style/MwmWidget.Floating.Panel"
-      android:layout_width="@dimen/place_page_width"
-      android:layout_height="match_parent"
-      android:layout_below="@id/toolbar"
-      android:layout_alignWithParentIfMissing="true"
-      placePage:animationType="left"
-      placePage:docked="true"
-      tools:ignore="UnknownIdInLayout"/>
+    android:id="@+id/info_box"
+    style="@style/MwmWidget.Floating.Panel"
+    android:layout_width="@dimen/place_page_width"
+    android:layout_height="match_parent"
+    android:layout_alignWithParentIfMissing="true"
+    android:layout_below="@id/toolbar"
+    placePage:animationType="left"
+    placePage:docked="true"
+    tools:ignore="UnknownIdInLayout"/>
 </RelativeLayout>

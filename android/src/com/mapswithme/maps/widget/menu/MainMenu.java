@@ -547,7 +547,10 @@ public class MainMenu
 
   public void showShowcase(boolean show)
   {
-    UiUtils.showIf(show, mItemViews.get(Item.SHOWCASE));
+    final View showcaseInFrame = mButtonsFrame.findViewById(R.id.showcase);
+    // showcase button can be either in mButtonsFrame, or in mItemViews(items from content frame)
+    UiUtils.showIf(show, showcaseInFrame == null ? mItemViews.get(Item.SHOWCASE)
+                                                 : showcaseInFrame);
   }
 
   public Button getRouteStartButton()

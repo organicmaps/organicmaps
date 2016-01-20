@@ -1,66 +1,72 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/menu_line_height"
-              android:orientation="horizontal">
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/menu_line_height"
+  android:orientation="horizontal">
   <!-- Gap for MyPosition button -->
   <View
-      android:layout_width="@dimen/menu_line_button_width_edge"
-      android:layout_height="match_parent"/>
+    android:layout_width="@dimen/menu_line_button_width_edge"
+    android:layout_height="match_parent"/>
 
   <!-- Fake view to make layout symmetrical -->
   <Space
-      android:id="@+id/symmetrical_gap"
-      android:layout_width="@dimen/menu_line_button_width"
-      android:layout_height="match_parent"/>
+    android:id="@+id/symmetrical_gap"
+    android:layout_width="@dimen/menu_line_button_width"
+    android:layout_height="match_parent"/>
 
   <!-- Anchor ID. Disables menu toggle button if present. -->
   <Space
-      android:id="@+id/disable_toggle"
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_weight="1"/>
+    android:id="@+id/disable_toggle"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"/>
 
   <ImageView
-      android:id="@+id/p2p"
-      style="@style/MwmTheme.Menu.Line.Button"
-      android:src="@drawable/ic_menu_point_to_point"/>
+    android:id="@+id/p2p"
+    style="@style/MwmTheme.Menu.Line.Button"
+    android:src="@drawable/ic_menu_point_to_point"/>
 
   <ImageView
-      android:id="@+id/search"
-      style="@style/MwmTheme.Menu.Line.Button"
-      android:src="@drawable/ic_menu_search"/>
+    android:id="@+id/search"
+    style="@style/MwmTheme.Menu.Line.Button"
+    android:src="@drawable/ic_menu_search"/>
 
   <ImageView
-      android:id="@+id/bookmarks"
-      style="@style/MwmTheme.Menu.Line.Button"
-      android:src="@drawable/ic_menu_bookmarks"/>
+    android:id="@+id/bookmarks"
+    style="@style/MwmTheme.Menu.Line.Button"
+    android:src="@drawable/ic_menu_bookmarks"/>
 
   <ImageView
-      android:id="@+id/share"
-      style="@style/MwmTheme.Menu.Line.Button"
-      android:src="@drawable/ic_menu_share"/>
+    android:id="@+id/share"
+    style="@style/MwmTheme.Menu.Line.Button"
+    android:src="@drawable/ic_menu_share"/>
+
+  <ImageView
+    android:id="@+id/showcase"
+    style="@style/MwmTheme.Menu.Line.Button"
+    android:src="@drawable/ic_menu_showcase"/>
 
   <Space
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_weight="1"/>
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"/>
 
   <FrameLayout
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
     <ImageView
-        android:id="@+id/download_maps"
-        style="@style/MwmTheme.Menu.Line.Button"
-        android:src="@drawable/ic_menu_download"/>
+      android:id="@+id/download_maps"
+      style="@style/MwmTheme.Menu.Line.Button"
+      android:src="@drawable/ic_menu_download"/>
 
     <include layout="@layout/menu_news_marker"/>
   </FrameLayout>
 
   <ImageView
-      android:id="@+id/settings"
-      style="@style/MwmTheme.Menu.Line.Button"
-      android:layout_width="@dimen/menu_line_button_width_edge"
-      android:layout_height="@dimen/menu_line_height"
-      android:src="@drawable/ic_menu_settings"
-      android:background="@drawable/menu_button_right"/>
+    android:id="@+id/settings"
+    style="@style/MwmTheme.Menu.Line.Button"
+    android:layout_width="@dimen/menu_line_button_width_edge"
+    android:layout_height="@dimen/menu_line_height"
+    android:background="@drawable/menu_button_right"
+    android:src="@drawable/ic_menu_settings"/>
 </LinearLayout>

@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/menu_line_height"
-              android:orientation="horizontal">
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/menu_line_height"
+  android:orientation="horizontal">
   <!-- Gap for MyPosition button -->
-  <View android:layout_width="@dimen/menu_line_button_width_edge"
-        android:layout_height="match_parent"
-        tools:background="#4000F000"/>
+  <View
+    android:layout_width="@dimen/menu_line_button_width_edge"
+    android:layout_height="match_parent"
+    tools:background="#4000F000"/>
 
-  <TextView android:id="@+id/current_place"
-            style="@style/MwmTheme.Menu.Line.CurrentLocationText"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            tools:background="#200000FF"
-            tools:text="Some street name. Long long long long name here! Loooooong!!!111"/>
+  <TextView
+    android:id="@+id/current_place"
+    style="@style/MwmTheme.Menu.Line.CurrentLocationText"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    tools:background="#200000FF"
+    tools:text="Some street name. Long long long long name here! Loooooong!!!111"/>
 
   <!-- Gap for menu open/close button -->
-  <View android:layout_width="@dimen/menu_line_button_width_edge"
-        android:layout_height="match_parent"
-        tools:background="#4000F000"/>
+  <View
+    android:layout_width="@dimen/menu_line_button_width_edge"
+    android:layout_height="match_parent"
+    tools:background="#4000F000"/>
 </LinearLayout>
