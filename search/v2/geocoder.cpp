@@ -32,6 +32,7 @@
 #include "std/algorithm.hpp"
 #include "std/iterator.hpp"
 #include "std/target_os.hpp"
+#include "std/transform_iterator.hpp"
 
 #include "defines.hpp"
 
@@ -192,6 +193,21 @@ MwmSet::MwmHandle FindWorld(Index & index, vector<shared_ptr<MwmInfo>> const & i
   return handle;
 }
 
+strings::UniString AsciiToUniString(char const * s)
+{
+  return strings::UniString(s, s + strlen(s));
+}
+
+bool IsStopWord(strings::UniString const & s)
+{
+  static char const * arr[] = { "a", "de", "da", "la" };
+  static set<strings::UniString> const kStopWords(
+      make_transform_iterator(arr, &AsciiToUniString),
+      make_transform_iterator(arr + ARRAY_SIZE(arr), &AsciiToUniString));
+
+  return kStopWords.count(s) > 0;
+}
+
 m2::RectD NormalizeViewport(m2::RectD const & viewport)
 {
   double constexpr kMaxViewportRadiusM = 50.0 * 1000;
@@ -242,6 +258,7 @@ TIt OrderCountries(Geocoder::Params const & params, TIt begin, TIt end)
   sort(begin, end, compareByDistance);
   return stable_partition(begin, end, intersects);
 }
+
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
@@ -264,7 +281,30 @@ Geocoder::~Geocoder() {}
 void Geocoder::SetParams(Params const & params)
 {
   m_params = params;
-  m_retrievalParams = params;
+
+  // Filter stop words.
+  if (m_params.m_tokens.size() > 1)
+  {
+    for (auto & v : m_params.m_tokens)
+    {
+      v.erase(remove_if(v.begin(), v.end(), [] (Params::TString const & s)
+      {
+        return IsStopWord(s);
+      }), v.end());
+    }
+
+    auto & v = m_params.m_tokens;
+    v.erase(remove_if(v.begin(), v.end(), [] (Params::TSynonymsVector const & t)
+    {
+      return t.empty();
+    }), v.end());
+
+    // If all tokens are stop words - give up.
+    if (m_params.m_tokens.empty())
+      m_params = params;
+  }
+
+  m_retrievalParams = m_params;
   m_numTokens = m_params.m_tokens.size();
   if (!m_params.m_prefixTokens.empty())
     ++m_numTokens;
