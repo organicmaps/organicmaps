@@ -45,8 +45,7 @@ public:
     OnRoute,           // user follows the route
     RouteNeedRebuild,  // user left the route
     RouteFinished,     // destination point is reached but the session isn't closed
-    RouteNoFollowing,  // route is built but following mode has been disabled
-    RouteFollowing     // user driwes on road. Similar to OnRoute. Indicates that user pushed the start button.
+    RouteNoFollowing   // route is built but following mode has been disabled
   };
 
   /*
@@ -58,8 +57,6 @@ public:
    * OnRoute -> RouteNeedRebuild          // user moves away from route - need to rebuild
    * OnRoute -> RouteNoFollowing          // following mode was disabled. Router doesn't track position.
    * OnRoute -> RouteFinished             // user reached the end of route
-   * OnRoute -> RouteFollowing            // user pushed the start button
-   * RouteFollowing -> RouteFinished      // user reached the end of route
    * RouteNeedRebuild -> RouteNotReady    // start rebuild route
    * RouteFinished -> RouteNotReady       // start new route
    */
@@ -86,11 +83,11 @@ public:
 
   m2::PointD GetEndPoint() const { return m_endPoint; }
   bool IsActive() const { return (m_state != RoutingNotActive); }
-  bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished || m_state == RouteFollowing); }
+  bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished); }
   bool IsBuilt() const { return (IsNavigable() || m_state == RouteNeedRebuild || m_state == RouteFinished); }
   bool IsBuilding() const { return (m_state == RouteBuilding); }
-  bool IsOnRoute() const { return (m_state == OnRoute || m_state == RouteFollowing); }
-  bool IsFollowing() const { return (m_state == RouteFollowing); }
+  bool IsOnRoute() const { return (m_state == OnRoute); }
+  bool IsFollowing() const { return m_isFollowing; }
   void Reset();
 
   Route const & GetRoute() const { return m_route; }
@@ -155,6 +152,7 @@ private:
   unique_ptr<AsyncRouter> m_router;
   Route m_route;
   atomic<State> m_state;
+  atomic<bool> m_isFollowing;
   m2::PointD m_endPoint;
   size_t m_lastWarnedSpeedCameraIndex;
   SpeedCameraRestriction m_lastFoundCamera;

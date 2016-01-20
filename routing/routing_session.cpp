@@ -46,6 +46,7 @@ RoutingSession::RoutingSession()
     : m_router(nullptr),
       m_route(string()),
       m_state(RoutingNotActive),
+      m_isFollowing(false),
       m_endPoint(m2::PointD::Zero()),
       m_lastWarnedSpeedCameraIndex(0),
       m_lastCheckedSpeedCameraIndex(0),
@@ -70,6 +71,7 @@ void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const 
   m_lastGoodPosition = startPoint;
   m_endPoint = endPoint;
   m_router->ClearState();
+  m_isFollowing = false;
   RebuildRoute(startPoint, readyCallback, progressCallback, timeoutSec);
 }
 
@@ -140,6 +142,7 @@ void RoutingSession::Reset()
   m_lastCheckedSpeedCameraIndex = 0;
   m_lastFoundCamera = SpeedCameraRestriction();
   m_speedWarningSignal = false;
+  m_isFollowing = false;
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & info, Index const & index)
@@ -173,8 +176,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     }
     else
     {
-      if (m_state != RouteFollowing)
-        m_state = OnRoute;
+      m_state = OnRoute;
 
       // Warning signals checks
       if (m_routingSettings.m_speedCameraWarning && !m_speedWarningSignal)
@@ -370,6 +372,7 @@ bool RoutingSession::DisableFollowMode()
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
     m_state = RouteNoFollowing;
+    m_isFollowing = false;
     return true;
   }
   return false;
@@ -378,11 +381,8 @@ bool RoutingSession::DisableFollowMode()
 bool RoutingSession::EnableFollowMode()
 {
   if (m_state == RouteNotStarted || m_state == OnRoute)
-  {
-    m_state = RouteFollowing;
-    return true;
-  }
-  return false;
+    m_isFollowing = true;
+  return m_isFollowing;
 }
 
 void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)

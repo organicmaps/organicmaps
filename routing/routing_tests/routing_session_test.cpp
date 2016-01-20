@@ -151,4 +151,83 @@ UNIT_TEST(TestRouteRebuilding)
   }
   TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
 }
+
+UNIT_TEST(TestFollowRouteFlagPersistence)
+{
+  Index index;
+  RoutingSession session;
+  session.Init(nullptr, nullptr);
+  vector<m2::PointD> routePoints = kTestRoute;
+  Route masterRoute("dummy", routePoints.begin(), routePoints.end());
+  size_t counter = 0;
+  unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
+  session.SetRouter(move(router), nullptr);
+
+  // Go along the route.
+  TimedSignal alongTimedSignal;
+  session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
+                     [&alongTimedSignal](Route const &, IRouter::ResultCode)
+                     {
+                       alongTimedSignal.Signal();
+                     },
+                     nullptr, 0);
+  // Manual check of the routeBuilded mutex to avoid spurious results.
+  auto time = steady_clock::now() + kRouteBuildingMaxDuration;
+  TEST(alongTimedSignal.WaitUntil(time), ("Route was not built."));
+
+  TEST(!session.IsFollowing(), ());
+  session.EnableFollowMode();
+  TEST(session.IsFollowing(), ());
+
+  location::GpsInfo info;
+  info.m_horizontalAccuracy = 0.01;
+  info.m_verticalAccuracy = 0.01;
+  info.m_longitude = 0.;
+  info.m_latitude = 1.;
+  RoutingSession::State code;
+  while (info.m_latitude < kTestRoute.back().y)
+  {
+    session.OnLocationPositionChanged(info, index);
+    TEST(session.IsOnRoute() , ());
+    TEST(session.IsFollowing(), ());
+    info.m_latitude += 0.01;
+  }
+  TEST_EQUAL(counter, 1, ());
+
+  // Rebuild route and go in opposite direction. So initiate a route rebuilding flag.
+  time = steady_clock::now() + kRouteBuildingMaxDuration;
+  counter = 0;
+  TimedSignal oppositeTimedSignal;
+  session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
+                     [&oppositeTimedSignal](Route const &, IRouter::ResultCode)
+                     {
+                       oppositeTimedSignal.Signal();
+                     },
+                     nullptr, 0);
+  TEST(oppositeTimedSignal.WaitUntil(time), ("Route was not built."));
+
+  // Manual route building resets the following flag.
+  TEST(!session.IsFollowing(), ());
+  session.EnableFollowMode();
+  TEST(session.IsFollowing(), ());
+  info.m_longitude = 0.;
+  info.m_latitude = 1.;
+  for (size_t i = 0; i < 10; ++i)
+  {
+    code = session.OnLocationPositionChanged(info, index);
+    info.m_latitude -= 0.1;
+  }
+  TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
+  TEST(session.IsFollowing(), ());
+
+  TimedSignal rebuildTimedSignal;
+  session.RebuildRoute(kTestRoute.front(),
+                       [&rebuildTimedSignal](Route const &, IRouter::ResultCode)
+                       {
+                         rebuildTimedSignal.Signal();
+                       },
+                       nullptr, 0);
+  TEST(rebuildTimedSignal.WaitUntil(time), ("Route was not built."));
+  TEST(session.IsFollowing(), ());
+}
 }  // namespace routing
