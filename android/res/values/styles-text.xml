@@ -13,7 +13,7 @@
 
   <style name="MwmTextAppearance.Toolbar">
     <item name="android:textSize">@dimen/text_size_toolbar</item>
-    <item name="android:textColor">?android:textColorPrimary</item>
+    <item name="android:textColor">@color/text_light</item>
     <item name="android:textColorHint">@color/text_light_hint</item>
   </style>
 
