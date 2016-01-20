@@ -52,9 +52,6 @@
                     <constraint firstItem="Enr-Zg-Z5s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="naz-Qh-tGQ"/>
                     <constraint firstItem="ACg-C3-HtA" firstAttribute="leading" secondItem="WO3-AY-H0S" secondAttribute="leading" id="uzK-Ai-LsP"/>
                 </constraints>
-                <userDefinedRuntimeAttributes>
-                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
