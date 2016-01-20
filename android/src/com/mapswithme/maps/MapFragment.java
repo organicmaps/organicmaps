@@ -180,14 +180,21 @@ public class MapFragment extends BaseMwmFragment
       return;
 
     if (getActivity() == null || !getActivity().isChangingConfigurations())
-    {
-      // We're in the main thread here. So nothing from the queue will be run between these two calls.
-      // Destroy engine first, then clear the queue that theoretically can be filled by nativeDestroyEngine().
-      nativeDestroyEngine();
-      MwmApplication.get().clearFunctorsOnUiThread();
-    }
+      destroyEngine();
     else
       nativeDetachSurface();
+  }
+
+  public void destroyEngine()
+  {
+    if (!mEngineCreated)
+      return;
+
+    // We're in the main thread here. So nothing from the queue will be run between these two calls.
+    // Destroy engine first, then clear the queue that theoretically can be filled by nativeDestroyEngine().
+    nativeDestroyEngine();
+    MwmApplication.get().clearFunctorsOnUiThread();
+    mEngineCreated = false;
   }
 
   @Override

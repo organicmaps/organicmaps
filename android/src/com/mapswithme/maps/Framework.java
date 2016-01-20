@@ -161,6 +161,13 @@ public class Framework
 
   public native static void nativeSetMapStyle(int mapStyle);
 
+  /**
+   * This method allows to set new map style without immediate applying. It can be used before
+   * engine recreation instead of nativeSetMapStyle to avoid huge flow of OpenGL invocations.
+   * @param mapStyle style index
+   */
+  public native static void nativeMarkMapStyle(int mapStyle);
+
   public native static void nativeSetRouter(int routerType);
 
   public native static int nativeGetRouter();

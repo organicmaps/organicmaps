@@ -183,6 +183,11 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   m_work.SetMapStyle(mapStyle);
 }
 
+void Framework::MarkMapStyle(MapStyle mapStyle)
+{
+  m_work.MarkMapStyle(mapStyle);
+}
+
 MapStyle Framework::GetMapStyle() const
 {
   return m_work.GetMapStyle();
@@ -1279,6 +1284,14 @@ extern "C"
     MapStyle const val = static_cast<MapStyle>(mapStyle);
     if (val != g_framework->GetMapStyle())
       g_framework->SetMapStyle(val);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeMarkMapStyle(JNIEnv * env, jclass thiz, jint mapStyle)
+  {
+    MapStyle const val = static_cast<MapStyle>(mapStyle);
+    if (val != g_framework->GetMapStyle())
+      g_framework->MarkMapStyle(val);
   }
 
   JNIEXPORT void JNICALL

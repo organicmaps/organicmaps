@@ -750,6 +750,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMainMenu.onResume();
   }
 
+  @Override
+  public void recreate()
+  {
+    // Explicitly destroy engine before activity recreation.
+    mMapFragment.destroyEngine();
+    super.recreate();
+  }
+
   private void initShowcase()
   {
     NativeAppwallAd.AppwallAdListener listener = new NativeAppwallAd.AppwallAdListener()
