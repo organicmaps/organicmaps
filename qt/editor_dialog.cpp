@@ -178,9 +178,7 @@ Metadata EditorDialog::GetEditedMetadata() const
 string EditorDialog::GetEditedStreet() const
 {
   QComboBox const * cmb = findChild<QComboBox *>();
-  if (cmb->count())
-    return cmb->itemText(0).toStdString();
-  return string();
+  return cmb->currentText().toStdString();
 }
 
 string EditorDialog::GetEditedHouseNumber() const
