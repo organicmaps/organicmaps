@@ -373,12 +373,13 @@ public class RoutingController
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_START);
     AlohaHelper.logClick(AlohaHelper.ROUTING_START);
     setState(State.NAVIGATION);
-    Framework.nativeFollowRoute();
 
     mContainer.showRoutePlan(false, null);
     mContainer.showNavigation(true);
 
     ThemeSwitcher.restart();
+
+    Framework.nativeFollowRoute();
   }
 
   private void suggestRebuildRoute()

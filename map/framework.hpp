@@ -276,6 +276,10 @@ private:
     FeatureID m_feature;
   };
   unique_ptr<TapEventData> m_lastTapEvent;
+#ifdef OMIM_OS_ANDROID
+  unique_ptr<location::CompassInfo> m_lastCompassInfo;
+  unique_ptr<location::GpsInfo> m_lastGPSInfo;
+#endif
 
   void OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature);
   UserMark const * OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature);

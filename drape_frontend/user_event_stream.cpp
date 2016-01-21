@@ -193,6 +193,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       }
       break;
     case UserEvent::EVENT_FOLLOW_AND_ROTATE:
+      m_pendingPerspective = false;
       breakAnim = SetFollowAndRotate(e.m_followAndRotate.m_userPos, e.m_followAndRotate.m_pixelZero,
                                      e.m_followAndRotate.m_azimuth, e.m_followAndRotate.m_preferredZoomLevel,
                                      e.m_followAndRotate.m_isAnim);
@@ -200,7 +201,10 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       break;
     case UserEvent::EVENT_ENABLE_PERSPECTIVE:
       if (!e.m_enable3dMode.m_immediatelyStart)
+      {
+        m_pendingPerspective = true;
         m_pendingEvent.reset(new UserEvent(e.m_enable3dMode));
+      }
       else
         SetEnable3dMode(e.m_enable3dMode.m_rotationAngle, e.m_enable3dMode.m_angleFOV,
                         e.m_enable3dMode.m_isAnim, viewportChanged);
@@ -242,19 +246,19 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     m_navigator.SetFromRect(rect);
     modelViewChange = true;
     if (m_animation->IsFinished())
-    {
-      if (m_animation->GetType() == ModelViewAnimationType::FollowAndRotate &&
-          m_pendingEvent != nullptr && m_pendingEvent->m_type == UserEvent::EVENT_ENABLE_PERSPECTIVE)
-      {
-        SetEnable3dMode(m_pendingEvent->m_enable3dMode.m_rotationAngle,
-                        m_pendingEvent->m_enable3dMode.m_angleFOV,
-                        m_pendingEvent->m_enable3dMode.m_isAnim,
-                        viewportChanged);
-
-        m_pendingEvent.reset();
-      }
       m_animation.reset();
-    }
+  }
+
+  if (m_pendingEvent != nullptr &&
+      m_pendingEvent->m_type == UserEvent::EVENT_ENABLE_PERSPECTIVE &&
+      !m_pendingPerspective && m_animation == nullptr)
+  {
+    SetEnable3dMode(m_pendingEvent->m_enable3dMode.m_rotationAngle,
+                    m_pendingEvent->m_enable3dMode.m_angleFOV,
+                    m_pendingEvent->m_enable3dMode.m_isAnim,
+                    viewportChanged);
+    modelViewChange = true;
+    m_pendingEvent.reset();
   }
 
   if (m_perspectiveAnimation != nullptr)
