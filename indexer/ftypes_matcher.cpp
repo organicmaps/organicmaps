@@ -224,19 +224,15 @@ IsLocalityChecker::IsLocalityChecker()
     m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
 }
 
-IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(3)
+IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1)
 {
+  m_types.push_back(classif().GetTypeByPath({"building:part"}));
 }
 
 IsBuildingPartChecker const & IsBuildingPartChecker::Instance()
 {
   static const IsBuildingPartChecker inst;
   return inst;
-}
-
-bool IsBuildingPartChecker::IsMatched(uint32_t type) const
-{
-  return IsTypeConformed(type, {"building:part"});
 }
 
 IsBridgeChecker::IsBridgeChecker() : BaseChecker(3)
@@ -333,23 +329,24 @@ uint32_t GetPopulationByRadius(double r)
   return my::rounds(pow(r / 550.0, 3.6));
 }
 
-bool IsTypeConformed(uint32_t type, vector<string> const & path)
+bool IsTypeConformed(uint32_t type, StringIL const & path)
 {
-  Classificator const & c = classif();
-  ClassifObject const * p = c.GetRoot();
+  ClassifObject const * p = classif().GetRoot();
   ASSERT(p, ());
 
   uint8_t val = 0, i = 0;
-  for (auto const & n : path)
+  for (char const * s : path)
   {
     if (!ftype::GetValue(type, i, val))
       return false;
+
     p = p->GetObject(val);
     if (p == 0)
       return false;
-    string const name = p->GetName();
-    if (n != name && n != "*")
+
+    if (p->GetName() != s && strcmp(s, "*") != 0)
       return false;
+
     ++i;
   }
   return true;

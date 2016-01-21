@@ -137,7 +137,10 @@ void RuleDrawer::operator()(FeatureType const & f)
     bool is3dBuilding = false;
     if (m_is3dBuidings && f.GetLayer() >= 0)
     {
-      is3dBuilding = (ftypes::IsBuildingChecker::Instance()(f) || ftypes::IsBuildingPartChecker::Instance()(f)) &&
+      // Looks like nonsense, but there are some osm objects with types
+      // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).
+      is3dBuilding = (ftypes::IsBuildingChecker::Instance()(f) ||
+                      ftypes::IsBuildingPartChecker::Instance()(f)) &&
           !ftypes::IsBridgeChecker::Instance()(f) &&
           !ftypes::IsTunnelChecker::Instance()(f);
     }
