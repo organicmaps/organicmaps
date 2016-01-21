@@ -6,9 +6,9 @@
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/bind.hpp"
-#include "std/set.hpp"
-
+#include "std/vector.hpp"
 
 using namespace feature;
 
@@ -40,14 +40,15 @@ void TypesHolder::Remove(uint32_t t)
   (void) RemoveIf(EqualFunctor<uint32_t>(t));
 }
 
-bool feature::operator==(TypesHolder const & a, TypesHolder const & b)
+bool TypesHolder::Equals(TypesHolder const & other) const
 {
-  return set<uint32_t>(a.begin(), a.end()) == set<uint32_t>(b.begin(), b.end());
-}
+  vector<uint32_t> my(this->begin(), this->end());
+  vector<uint32_t> his(other.begin(), other.end());
 
-bool feature::operator!=(TypesHolder const & a, TypesHolder const & b)
-{
-  return !(a == b);
+  sort(::begin(my), ::end(my));
+  sort(::begin(his), ::end(his));
+
+  return my == his;
 }
 
 namespace

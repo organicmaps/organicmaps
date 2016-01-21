@@ -110,8 +110,9 @@ namespace feature
     /// Sort types by it's specification (more detailed type goes first).
     void SortBySpec();
 
-    friend bool operator==(TypesHolder const & a, TypesHolder const & b);
-    friend bool operator!=(TypesHolder const & a, TypesHolder const & b);
+    /// Returns true if this->m_types and other.m_types contain same values
+    /// in any order. Works in O(n log n).
+    bool Equals(TypesHolder const & other) const;
   };
 
   inline string DebugPrint(TypesHolder const & t)

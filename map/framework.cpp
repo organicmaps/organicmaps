@@ -17,6 +17,7 @@
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/result.hpp"
+#include "search/reverse_geocoder.hpp"
 #include "search/search_engine.hpp"
 #include "search/search_query_factory.hpp"
 
@@ -334,6 +335,14 @@ Framework::Framework()
     guard.GetOriginalFeatureByIndex(fid.m_index, *feature);
     feature->ParseEverything();
     return feature;
+  });
+  editor.SetFeatureOriginalStretFn([this](FeatureType const & ft) -> string
+  {
+    search::ReverseGeocoder const coder(m_model.GetIndex());
+    auto const streets = coder.GetNearbyFeatureStreets(ft);
+    if (streets.second < streets.first.size())
+      return streets.first[streets.second].m_name;
+    return {};
   });
   editor.LoadMapEdits();
 }

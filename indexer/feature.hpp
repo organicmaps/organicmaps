@@ -81,8 +81,6 @@ public:
   };
   */
 
-  inline StringUtf8Multilang const & GetNames() const { return m_params.name; }
-
   template <class T>
   inline bool ForEachName(T && fn) const
   {

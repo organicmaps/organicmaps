@@ -29,6 +29,7 @@ public:
   using TMwmIdByMapNameFn = function<MwmSet::MwmId(string const & /*map*/)>;
   using TInvalidateFn = function<void()>;
   using TFeatureLoaderFn = function<unique_ptr<FeatureType> (FeatureID const & /*fid*/)>;
+  using TFeatureOriginalStreetFn = function<string(FeatureType const & /*ft*/)>;
 
   enum class FeatureStatus
   {
@@ -43,6 +44,7 @@ public:
   void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn const & fn) { m_mwmIdByMapNameFn = fn; }
   void SetInvalidateFn(TInvalidateFn const & fn) { m_invalidateFn = fn; }
   void SetFeatureLoaderFn(TFeatureLoaderFn const & fn) { m_featureLoaderFn = fn; }
+  void SetFeatureOriginalStretFn(TFeatureOriginalStreetFn const & fn) { m_featureOriginalStreet = fn; }
 
   void LoadMapEdits();
 
@@ -118,6 +120,8 @@ private:
   TInvalidateFn m_invalidateFn;
   /// Get FeatureType from mwm.
   TFeatureLoaderFn m_featureLoaderFn;
+  /// Get feature original street name or empty string.
+  TFeatureOriginalStreetFn m_featureOriginalStreet;
 };  // class Editor
 
 inline string DebugPrint(Editor::FeatureStatus fs)

@@ -207,18 +207,19 @@ uint32_t MigrateFeatureIndex(XMLFeature const & /*xml*/)
   return 0;
 }
 
-bool AreFeaturesEqualButStreat(FeatureType const & a, FeatureType const & b)
+/// Compares editable fields connected with feature ignoring street.
+bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
 {
   feature::TypesHolder const aTypes(a);
   feature::TypesHolder const bTypes(b);
 
-  if (aTypes != bTypes)
+  if (!aTypes.Equals(bTypes))
     return false;
 
   if (a.GetHouseNumber() != b.GetHouseNumber())
     return false;
 
-  if (a.GetMetadata() != b.GetMetadata())
+  if (!a.GetMetadata().Equals(b.GetMetadata()))
       return false;
 
   if (a.GetNames() != b.GetNames())
@@ -447,9 +448,8 @@ void Editor::EditFeature(FeatureType const & editedFeature, string const & edite
     fti.m_feature.SetHouseNumber(editedHouseNumber);
   // TODO(AlexZ): Store edited house number as house name if feature::IsHouseNumber() returned false.
 
-  if (AreFeaturesEqualButStreat(fti.m_feature, *originalFeaturePtr)
-      // TODO(mgsergio): Handle street as well.
-      )
+  if (AreFeaturesEqualButStreet(fti.m_feature, *originalFeaturePtr) &&
+      m_featureOriginalStreet(editedFeature) == editedStreet)
   {
     // We always have a feature with fid.m_mwmId, fid.m_index at the point.
     // Either it was set previously or just now on quering m_features. See code above.
@@ -457,7 +457,6 @@ void Editor::EditFeature(FeatureType const & editedFeature, string const & edite
     // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
     Save(GetEditorFilePath());
     Invalidate();
-
     return;
   }
 
@@ -672,16 +671,16 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
 
 void Editor::RemoveFeatureFromStorage(MwmSet::MwmId const & mwmId, uint32_t index)
 {
-  auto mwmMatched = m_features.find(mwmId);
-  if (mwmMatched == m_features.end())
+  auto matchedMwm = m_features.find(mwmId);
+  if (matchedMwm == m_features.end())
     return;
 
-  auto matchedIndex = mwmMatched->second.find(index);
-  if (matchedIndex != mwmMatched->second.end())
-    mwmMatched->second.erase(matchedIndex);
+  auto matchedIndex = matchedMwm->second.find(index);
+  if (matchedIndex != matchedMwm->second.end())
+    matchedMwm->second.erase(matchedIndex);
 
-  if (mwmMatched->second.empty())
-    m_features.erase(mwmMatched);
+  if (matchedMwm->second.empty())
+    m_features.erase(matchedMwm);
 }
 
 void Editor::Invalidate()
