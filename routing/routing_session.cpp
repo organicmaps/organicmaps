@@ -72,6 +72,7 @@ void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const 
   m_endPoint = endPoint;
   m_router->ClearState();
   m_isFollowing = false;
+  m_routingRebuildCount = -1; // -1 for the first rebuild.
   RebuildRoute(startPoint, readyCallback, progressCallback, timeoutSec);
 }
 
@@ -83,6 +84,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
   RemoveRoute();
   m_state = RouteBuilding;
+  m_routingRebuildCount++;
 
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
@@ -171,7 +173,8 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
       m_state = RouteFinished;
 
       alohalytics::TStringMap params = {{"router", m_route.GetRouterId()},
-                                        {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)}};
+                                        {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
+                                        {"rebuildCount", strings::to_string(m_routingRebuildCount)}};
       alohalytics::LogEvent("RouteTracking_ReachedDestination", params);
     }
     else

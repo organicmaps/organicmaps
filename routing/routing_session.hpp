@@ -177,7 +177,10 @@ private:
 
   RoutingSettings m_routingSettings;
 
+  // Statistics parameters
   // Passed distance on route including reroutes
   double m_passedDistanceOnRouteMeters;
+  // Rerouting count
+  int m_routingRebuildCount;
 };
 }  // namespace routing
