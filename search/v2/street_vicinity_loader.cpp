@@ -45,6 +45,7 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
 
   vector<m2::PointD> points;
   feature.ForEachPoint(MakeBackInsertFunctor(points), FeatureType::BEST_GEOMETRY);
+  ASSERT(!points.empty(), ());
 
   for (auto const & point : points)
     street.m_rect.Add(MercatorBounds::RectByCenterXYAndSizeInMeters(point, m_offsetMeters));
@@ -57,8 +58,7 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
                                       interval.second, m_scale);
   }
 
-  if (!points.empty())
-    street.m_calculator = make_unique<ProjectionOnStreetCalculator>(move(points), m_offsetMeters);
+  street.m_calculator = make_unique<ProjectionOnStreetCalculator>(points, m_offsetMeters);
 }
 }  // namespace v2
 }  // namespace search

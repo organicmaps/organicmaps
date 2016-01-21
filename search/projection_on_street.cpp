@@ -22,56 +22,44 @@ ProjectionOnStreet::ProjectionOnStreet()
 // ProjectionOnStreetCalculator --------------------------------------------------------------------
 ProjectionOnStreetCalculator::ProjectionOnStreetCalculator(vector<m2::PointD> const & points,
                                                            double maxDistMeters)
-  : m_points(points), m_maxDistMeters(maxDistMeters)
+  : m_maxDistMeters(maxDistMeters)
 {
-  Init();
-}
-
-ProjectionOnStreetCalculator::ProjectionOnStreetCalculator(vector<m2::PointD> && points,
-                                                           double maxDistMeters)
-  : m_points(move(points)), m_maxDistMeters(maxDistMeters)
-{
-  Init();
+  Init(points);
 }
 
 bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
                                                  ProjectionOnStreet & proj) const
 {
   size_t const kInvalidIndex = m_segProjs.size();
-
-  m2::PointD bestProj;
-  size_t bestIndex = kInvalidIndex;
-  double bestDistMeters = numeric_limits<double>::max();
+  proj.m_segIndex = kInvalidIndex;
+  proj.m_distMeters = numeric_limits<double>::max();
 
   for (size_t index = 0; index < m_segProjs.size(); ++index)
   {
-    m2::PointD proj = m_segProjs[index](point);
-    double distMeters = MercatorBounds::DistanceOnEarth(point, proj);
-    if (distMeters < bestDistMeters)
+    m2::PointD const ptProj = m_segProjs[index](point);
+    double const distMeters = MercatorBounds::DistanceOnEarth(point, ptProj);
+    if (distMeters < proj.m_distMeters)
     {
-      bestProj = proj;
-      bestDistMeters = distMeters;
-      bestIndex = index;
+      proj.m_proj = ptProj;
+      proj.m_distMeters = distMeters;
+      proj.m_segIndex = index;
+      proj.m_projSign = m2::robust::OrientedS(m_segProjs[index].P0(),
+                                              m_segProjs[index].P1(),
+                                              point) <= 0.0;
     }
   }
 
-  if (bestIndex == kInvalidIndex || bestDistMeters > m_maxDistMeters)
-    return false;
-
-  proj.m_proj = bestProj;
-  proj.m_distMeters = bestDistMeters;
-  proj.m_segIndex = bestIndex;
-  proj.m_projSign = m2::robust::OrientedS(m_points[bestIndex], m_points[bestIndex + 1], point) <= 0.0;
-  return true;
+  return (proj.m_segIndex < kInvalidIndex && proj.m_distMeters <= m_maxDistMeters);
 }
 
-void ProjectionOnStreetCalculator::Init()
+void ProjectionOnStreetCalculator::Init(vector<m2::PointD> const & points)
 {
-  if (m_points.empty())
+  size_t const count = points.size();
+  if (count < 2)
     return;
 
-  m_segProjs.resize(m_points.size() - 1);
-  for (size_t i = 0; i + 1 != m_points.size(); ++i)
-    m_segProjs[i].SetBounds(m_points[i], m_points[i + 1]);
+  m_segProjs.resize(count - 1);
+  for (size_t i = 0; i + 1 != count; ++i)
+    m_segProjs[i].SetBounds(points[i], points[i + 1]);
 }
 }  // namespace search
