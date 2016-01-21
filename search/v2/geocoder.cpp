@@ -194,18 +194,15 @@ MwmSet::MwmHandle FindWorld(Index & index, vector<shared_ptr<MwmInfo>> & infos)
 
 m2::RectD NormalizeViewport(m2::RectD const & viewport)
 {
-  // 50km maximum viewport radius.
   double constexpr kMaxViewportRadiusM = 50.0 * 1000;
-  m2::RectD const limit =
+  m2::RectD limit =
       MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMaxViewportRadiusM);
-  m2::RectD result = viewport;
-  VERIFY(result.Intersect(limit), ());
-  return result;
+  VERIFY(limit.Intersect(viewport), ());
+  return limit;
 }
 
 m2::RectD GetRectAroundPoistion(m2::PointD const & position)
 {
-  // 50km radius around position.
   double constexpr kMaxPositionRadiusM = 50.0 * 1000;
   return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
 }
@@ -319,16 +316,16 @@ void Geocoder::Go(vector<FeatureID> & results)
     // Orders countries by distance from viewport center and position.
     // This order is used during MatchViewportAndPosition() stage - we
     // try to match as many features as possible without trying to
-    // match locality (COUNTRY or CITY), and only when there're too
+    // match locality (COUNTRY or CITY), and only when there are too
     // many features, viewport and position vicinity filter is used.
     // To prevent full search in all mwms, we need to limit somehow a
     // set of mwms for MatchViewportAndPosition(), so, we always call
     // MatchViewportAndPosition() on maps intersecting with viewport
-    // and on the map where the user corrently located, other maps are
-    // ordered by a distance from viewport and user position, and we
+    // and on the map where the user is currently located, other maps
+    // are ordered by distance from viewport and user position, and we
     // stop to call MatchViewportAndPosition() on them as soon as at
     // least one feature is found.
-    size_t numIntersectingMaps =
+    size_t const numIntersectingMaps =
         distance(infos.begin(), OrderCountries(m_params, infos.begin(), infos.end()));
 
     // MatchViewportAndPosition() should always be matched in mwms
