@@ -12,7 +12,12 @@ NSString * const kVerifierKey = @"oauth_verifier";
 
 BOOL checkURLHasVerifierKey(NSString * urlString)
 {
-  return !NSEqualRanges([urlString rangeOfString:kVerifierKey], {NSNotFound, 0});
+  return [urlString containsString:kVerifierKey];
+}
+
+BOOL checkURLNeedsReload(NSString * urlString)
+{
+  return [urlString hasSuffix:@"/"] || [urlString containsString:@"/welcome"];
 }
 
 NSString * getVerifier(NSString * urlString)
@@ -157,12 +162,18 @@ NSString * getVerifier(NSString * urlString)
 {
   [self stopSpinner];
   NSString * urlString = webView.request.URL.absoluteString;
-  if (!checkURLHasVerifierKey(urlString))
-    return;
-  webView.hidden = YES;
-  NSString * verifier = getVerifier(urlString);
-  NSAssert(verifier, @"Verifier value is nil");
-  [self checkAuthorization:verifier];
+
+  if (checkURLNeedsReload(urlString))
+  {
+    [self loadAuthorizationPage];
+  }
+  else if (checkURLHasVerifierKey(urlString))
+  {
+    webView.hidden = YES;
+    NSString * verifier = getVerifier(urlString);
+    NSAssert(verifier, @"Verifier value is nil");
+    [self checkAuthorization:verifier];
+  }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
