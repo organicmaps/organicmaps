@@ -146,10 +146,12 @@ private:
     // |buildings| doesn't contain buildings matching by house number,
     // so following code reads buildings in POIs vicinities and checks
     // house numbers.
-    auto const & mwmId = m_context.m_handle.GetId();
     vector<string> queryTokens;
     NormalizeHouseNumber(parent.m_subQuery, queryTokens);
+    if (queryTokens.empty())
+      return;
 
+    auto const & mwmId = m_context.m_handle.GetId();
     vector<ReverseGeocoder::Building> nearbyBuildings;
     for (size_t i = 0; i < pois.size(); ++i)
     {
@@ -226,10 +228,9 @@ private:
     // vicinities loading.
     if (!child.m_hasDelayedFeatures && buildings.size() < streets.size())
     {
-      auto const & streets = *parent.m_sortedFeatures;
-      for (uint32_t houseId : *child.m_sortedFeatures)
+      for (uint32_t const houseId : buildings)
       {
-        uint32_t streetId = GetMatchingStreet(houseId);
+        uint32_t const streetId = GetMatchingStreet(houseId);
         if (binary_search(streets.begin(), streets.end(), streetId))
           fn(houseId, streetId);
       }
