@@ -68,35 +68,36 @@ private:
 class TimeTableSet;
 using TTimeTableProxy = TimeTableProxyBase<TimeTableSet>;
 
-class TimeTableSet : vector<TimeTable>
+class TimeTableSet
 {
-public:
-  using TBase = vector<TimeTable>;
-  using TBase::TBase;
+  using TTimeTableSetImpl = vector<TimeTable>;
 
+public:
   TimeTableSet();
 
   TOpeningDays GetUnhandledDays() const;
 
   TimeTable GetComplementTimeTable() const;
 
-  TTimeTableProxy Get(size_t const index) { return TTimeTableProxy(*this, index, (*this)[index]); }
+  TTimeTableProxy Get(size_t const index) { return TTimeTableProxy(*this, index, m_table[index]); }
   TTimeTableProxy Front() { return Get(0); }
   TTimeTableProxy Back() { return Get(Size() - 1); }
 
-  size_t Size() const { return size(); }
-  bool Empty() const { return empty(); }
+  size_t Size() const { return m_table.size(); }
+  bool Empty() const { return m_table.empty(); }
 
   bool Append(TimeTable const & tt);
   bool Remove(size_t const index);
 
   bool Replace(TimeTable const & tt, size_t const index);
 
-  TBase::const_iterator begin() const { return TBase::begin(); }
-  TBase::const_iterator end() const { return TBase::end(); }
+  TTimeTableSetImpl::const_iterator begin() const { return m_table.begin(); }
+  TTimeTableSetImpl::const_iterator end() const { return m_table.end(); }
 
 private:
   static bool UpdateByIndex(TimeTableSet & ttSet, size_t const index);
+
+  TTimeTableSetImpl m_table;
 };
 } // namespace ui
 } // namespace editor

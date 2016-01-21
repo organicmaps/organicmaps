@@ -281,7 +281,7 @@ osmoh::Timespan TimeTable::GetPredefinedExcludeTime() const
 
 TimeTableSet::TimeTableSet()
 {
-  push_back(TimeTable::GetPredefinedTimeTable());
+  m_table.push_back(TimeTable::GetPredefinedTimeTable());
 }
 
 TOpeningDays TimeTableSet::GetUnhandledDays() const
@@ -317,59 +317,60 @@ TimeTable TimeTableSet::GetComplementTimeTable() const
 bool TimeTableSet::Append(TimeTable const & tt)
 {
   auto copy = *this;
-  copy.push_back(tt);
+  copy.m_table.push_back(tt);
 
-  if (!TimeTableSet::UpdateByIndex(copy, copy.size() - 1))
+  if (!TimeTableSet::UpdateByIndex(copy, copy.Size() - 1))
     return false;
 
-  swap(copy);
+  m_table.swap(copy.m_table);
   return true;
 }
 
 bool TimeTableSet::Remove(size_t const index)
 {
-  if (index == 0 || index >= size())
+  if (index == 0 || index >= Size())
     return false;
 
-  erase(begin() + index);
+  m_table.erase(m_table.begin() + index);
 
   return true;
 }
 
 bool TimeTableSet::Replace(TimeTable const & tt, size_t const index)
 {
-  if (index >= size())
+  if (index >= Size())
     return false;
 
   auto copy = *this;
-  copy[index] = tt;
+  copy.m_table[index] = tt;
 
   if (!TimeTableSet::UpdateByIndex(copy, index))
     return false;
 
-  swap(copy);
+  m_table.swap(copy.m_table);
   return true;
 }
 
 bool TimeTableSet::UpdateByIndex(TimeTableSet & ttSet, size_t const index)
 {
-  if (index >= ttSet.size() || !ttSet[index].IsValid())
+  auto const & updated = ttSet.m_table[index];
+
+  if (index >= ttSet.Size() || !updated.IsValid())
     return false;
 
-  auto const & updated = ttSet[index];
-
-  for (auto i = 0; i < ttSet.size(); ++i)
+  for (auto i = 0; i < ttSet.Size(); ++i)
   {
     if (i == index)
       continue;
 
+    auto && tt = ttSet.m_table[i];
     // Remove all days of updated timetable from all other timetables.
     TOpeningDays days;
-    set_difference(std::begin(ttSet[i].GetOpeningDays()), std::end(ttSet[i].GetOpeningDays()),
+    set_difference(std::begin(tt.GetOpeningDays()), std::end(tt.GetOpeningDays()),
                    std::begin(updated.GetOpeningDays()), std::end(updated.GetOpeningDays()),
                    inserter(days, std::end(days)));
 
-    if (!ttSet[i].SetOpeningDays(days))
+    if (!tt.SetOpeningDays(days))
       return false;
   }
 
