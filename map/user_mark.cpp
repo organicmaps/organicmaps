@@ -132,7 +132,11 @@ UserMark::Type SearchMarkPoint::GetMarkType() const
 
 unique_ptr<UserMarkCopy> SearchMarkPoint::Copy() const
 {
-  return unique_ptr<UserMarkCopy>(new UserMarkCopy(new SearchMarkPoint(m_ptOrg, m_container)));
+  // TODO(AlexZ): Remove this code after UserMark refactoring.
+  UserMark * mark = new SearchMarkPoint(m_ptOrg, m_container);
+  if (m_feature)
+    mark->SetFeature(unique_ptr<FeatureType>(new FeatureType(*m_feature)));
+  return unique_ptr<UserMarkCopy>(new UserMarkCopy(mark));
 }
 
 PoiMarkPoint::PoiMarkPoint(UserMarkContainer * container)
