@@ -4,10 +4,14 @@ from optparse import OptionParser
 
 def find_recursive(root, subpath, maxdepth=4):
   queue = collections.deque([(root, 0)])
+  if 'PATH' in os.environ:
+    envpath = os.environ['PATH'].split(':')
+    relpath = ['..'] * (len(subpath) - 1)
+    queue.extendleft([(os.path.join(x, *relpath), maxdepth) for x in envpath if 'android' in x.lower()])
   while len(queue) > 0:
     item = queue.popleft()
     if os.path.isfile(os.path.join(item[0], *subpath)):
-      return item[0]
+      return os.path.abspath(item[0])
     if item[1] < maxdepth:
       for name in os.listdir(item[0]):
         fullname = os.path.join(item[0], name)
@@ -23,10 +27,11 @@ def read_local_properties():
   if os.path.exists(propsFile):
     with open(propsFile, 'r') as f:
       for line in f:
-        if line[:8] == 'sdk.dir=':
-          sdkDir = line[8:].strip()
-        elif line[:8] == 'ndk.dir=':
-          ndkDir = line[8:].strip()
+        line = line.strip()
+        if line.startswith('sdk.dir') and '=' in line:
+          sdkDir = line.split('=')[1].strip()
+        elif line.startswith('ndk.dir') and '=' in line:
+          ndkDir = line.split('=')[1].strip()
   return (sdkDir, ndkDir)
 
 def query_path(title, option, default, subpath):
