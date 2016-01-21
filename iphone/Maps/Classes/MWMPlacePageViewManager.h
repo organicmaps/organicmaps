@@ -1,13 +1,12 @@
 #include "Framework.h"
 
-@class MWMPlacePageEntity, MWMPlacePageNavigationBar, MWMPlacePage;
+@class MWMPlacePageEntity, MWMPlacePageNavigationBar;
 @protocol MWMPlacePageViewManagerProtocol;
 
 @interface MWMPlacePageViewManager : NSObject
 
 @property (weak, nonatomic, readonly) UIViewController * ownerViewController;
 @property (nonatomic, readonly) MWMPlacePageEntity * entity;
-@property (nonatomic, readonly) MWMPlacePage * placePage;
 @property (nonatomic) MWMPlacePageNavigationBar * iPhoneNavigationBar;
 @property (nonatomic) CGFloat topBound;
 @property (nonatomic) CGFloat leftBound;
@@ -19,6 +18,7 @@
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
 - (void)refreshPlacePage;
 - (void)refresh;
+- (BOOL)hasPlacePage;
 - (void)dismissPlacePage;
 - (void)hidePlacePage;
 - (void)buildRoute;

@@ -217,9 +217,7 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
   [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context)
   {
     if (IPAD)
-    {
       self.view.center = {size.width / 2, size.height / 2 };
-    }
     else
       self.view.origin = {};
   } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}];

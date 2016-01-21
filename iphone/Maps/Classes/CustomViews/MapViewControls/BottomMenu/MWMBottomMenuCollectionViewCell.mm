@@ -48,7 +48,7 @@
 
 - (void)setSelected:(BOOL)selected
 {
-// There is don't need to do something after cell was selected.
+// There is no need to do something after cell has been selected.
 }
 
 @end

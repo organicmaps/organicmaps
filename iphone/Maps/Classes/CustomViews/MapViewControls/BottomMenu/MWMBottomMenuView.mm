@@ -269,8 +269,6 @@
         name = @"ic_menu_left";
         break;
       }
-      if (!name)
-        return;
       UIImage * image = [UIImage imageNamed:name];
       if (isIOSVersionLessThan(8))
         image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];

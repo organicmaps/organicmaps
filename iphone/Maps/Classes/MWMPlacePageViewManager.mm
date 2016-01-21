@@ -37,7 +37,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 @property (weak, nonatomic) UIViewController * ownerViewController;
 @property (nonatomic, readwrite) MWMPlacePageEntity * entity;
-@property (nonatomic, readwrite) MWMPlacePage * placePage;
+@property (nonatomic) MWMPlacePage * placePage;
 @property (nonatomic) MWMPlacePageManagerState state;
 @property (nonatomic) MWMDirectionView * directionView;
 
@@ -147,6 +147,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   [self.placePage.extendedPlacePageView refresh];
   [self.placePage.actionBar refresh];
+}
+
+- (BOOL)hasPlacePage
+{
+  return self.placePage != nil;
 }
 
 - (void)setPlacePageForiPad

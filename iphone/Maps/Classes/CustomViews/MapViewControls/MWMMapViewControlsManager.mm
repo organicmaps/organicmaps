@@ -112,7 +112,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)refreshHelperPanels:(BOOL)isLandscape
 {
-  if (!self.placePageManager.placePage)
+  if (!self.placePageManager.hasPlacePage)
     return;
   if (isLandscape)
     [self.navigationManager hideHelperPanels];

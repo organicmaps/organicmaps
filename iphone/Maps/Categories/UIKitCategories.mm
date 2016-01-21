@@ -197,14 +197,10 @@
       for (UIView * v in self.subviews)
       {
         // There is workaroung for iOS7 only.
-        if (isIOSVersionLessThan(8))
+        if ([v isKindOfClass:NSClassFromString(@"UITableViewCellScrollView")])
         {
-          if ([v isKindOfClass:NSClassFromString(@"UITableViewCellScrollView")])
-          {
-            for (UIView * subview in v.subviews)
-             [subview refresh];
-          }
-          continue;
+          for (UIView * subview in v.subviews)
+           [subview refresh];
         }
 
         if ([v respondsToSelector:@selector(refresh)])
