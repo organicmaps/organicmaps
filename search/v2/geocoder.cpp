@@ -682,22 +682,6 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
   // list of ids.
   vector<uint32_t> clusters[SearchModel::SEARCH_TYPE_STREET];
 
-  auto clusterize = [&](uint32_t featureId)
-  {
-    if (m_streets->GetBit(featureId))
-      return;
-
-    FeatureType feature;
-    m_context->m_vector.GetByIndex(featureId, feature);
-    feature.ParseTypes();
-    SearchModel::SearchType const searchType = m_model.GetSearchType(feature);
-
-    // All SEARCH_TYPE_CITY features were filtered in DoGeocodingWithLocalities().
-    // All SEARCH_TYPE_STREET features were filtered in GreedyMatchStreets().
-    if (searchType < SearchModel::SEARCH_TYPE_STREET)
-      clusters[searchType].push_back(featureId);
-  };
-
   unique_ptr<coding::CompressedBitVector> intersection;
   coding::CompressedBitVector * features = nullptr;
 
@@ -741,9 +725,35 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
     if (coding::CompressedBitVector::IsEmpty(features) && !looksLikeHouseNumber)
       break;
 
-    for (auto & cluster : clusters)
-      cluster.clear();
-    coding::CompressedBitVectorEnumerator::ForEach(*features, clusterize);
+    if (n == 1)
+    {
+      auto clusterize = [&](uint32_t featureId)
+      {
+        if (m_streets->GetBit(featureId))
+          return;
+
+        FeatureType feature;
+        m_context->m_vector.GetByIndex(featureId, feature);
+        feature.ParseTypes();
+        SearchModel::SearchType const searchType = m_model.GetSearchType(feature);
+
+        // All SEARCH_TYPE_CITY features were filtered in DoGeocodingWithLocalities().
+        // All SEARCH_TYPE_STREET features were filtered in GreedyMatchStreets().
+        if (searchType < SearchModel::SEARCH_TYPE_STREET)
+          clusters[searchType].push_back(featureId);
+      };
+
+      coding::CompressedBitVectorEnumerator::ForEach(*features, clusterize);
+    }
+    else
+    {
+      auto noFeature = [&features](uint32_t featureId) -> bool
+      {
+        return !features->GetBit(featureId);
+      };
+      for (auto & cluster : clusters)
+        cluster.erase(remove_if(cluster.begin(), cluster.end(), noFeature), cluster.end());
+    }
 
     for (size_t i = 0; i < ARRAY_SIZE(clusters); ++i)
     {
