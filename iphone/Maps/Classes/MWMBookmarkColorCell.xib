@@ -23,6 +23,9 @@
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
                     </label>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_approve" translatesAutoresizingMaskIntoConstraints="NO" id="icw-Gw-rjx">
                         <rect key="frame" x="290" y="15" width="14" height="14"/>

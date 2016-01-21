@@ -10,6 +10,4 @@
                          label:(NSString *)label
                     badgeCount:(NSUInteger)badgeCount;
 
-- (void)highlighted:(BOOL)highlighted;
-
 @end

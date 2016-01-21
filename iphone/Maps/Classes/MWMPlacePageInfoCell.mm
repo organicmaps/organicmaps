@@ -1,7 +1,9 @@
+#import "Common.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageInfoCell.h"
 #import "Statistics.h"
 #import "UIFont+MapsMeFonts.h"
+#import "UIImageView+Coloring.h"
 
 #include "platform/settings.hpp"
 #include "platform/measurement_utils.hpp"
@@ -57,9 +59,15 @@ extern NSString * const kUserDefaultsLatLonAsDMSKey;
   self.icon.image = image;
 
   if ([self.textContainer isKindOfClass:[UITextView class]])
+  {
     [self.textContainer setAttributedText:[[NSAttributedString alloc] initWithString:info attributes:@{NSFontAttributeName : [UIFont light16]}]];
+    self.icon.mwm_coloring = MWMImageColoringBlue;
+  }
   else
+  {
     [self.textContainer setText:info];
+    self.icon.mwm_coloring = MWMImageColoringBlack;
+  }
 
   UILongPressGestureRecognizer * longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTap:)];
   longTap.minimumPressDuration = 0.3;

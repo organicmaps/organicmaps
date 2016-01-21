@@ -138,6 +138,8 @@ typedef NS_ENUM(NSUInteger, Section)
       bool on = true, _ = true;
       GetFramework().Load3dMode(_, on);
       customCell.titleLabel.text = L(@"pref_map_3d_buildings_title");
+      customCell.switchButton.on = on;
+      customCell.delegate = self;
       break;
     }
     // Zoom buttons

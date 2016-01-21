@@ -38,6 +38,7 @@
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity
 {
   self.direction.image = entity.turnImage;
+  [self.direction makeImageAlwaysTemplate];
   if (!entity.isPedestrian)
     self.direction.transform = CGAffineTransformIdentity;
   self.distanceToNextAction.text = entity.distanceToTurn;

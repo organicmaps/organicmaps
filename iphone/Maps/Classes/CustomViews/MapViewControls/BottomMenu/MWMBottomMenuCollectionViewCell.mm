@@ -20,6 +20,7 @@
                 badgeCount:(NSUInteger)badgeCount
 {
   self.icon.image = image;
+  [self.icon makeImageAlwaysTemplate];
   self.label.text = label;
   if (badgeCount > 0)
   {
@@ -32,7 +33,6 @@
     self.badgeBackground.hidden = YES;
     self.badgeCount.hidden = YES;
   }
-  [self highlighted:NO];
 }
 
 - (void)configureWithImageName:(NSString *)imageName label:(NSString *)label badgeCount:(NSUInteger)badgeCount
@@ -40,9 +40,15 @@
   [self configureWithImage:[UIImage imageNamed:imageName] label:label badgeCount:badgeCount];
 }
 
-- (void)highlighted:(BOOL)highlighted
+- (void)setHighlighted:(BOOL)highlighted
 {
+  [super setHighlighted:highlighted];
   self.icon.tintColor = self.label.textColor = highlighted ? [UIColor blackHintText] : [UIColor blackSecondaryText];
+}
+
+- (void)setSelected:(BOOL)selected
+{
+// There is no need to do something after cell has been selected.
 }
 
 @end

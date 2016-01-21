@@ -1,5 +1,6 @@
 #import "Macros.h"
 #import "MWMSearchCategoryCell.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 @interface MWMSearchCategoryCell ()
@@ -13,6 +14,8 @@
 
 - (void)awakeFromNib
 {
+  if (IPAD)
+    self.contentView.backgroundColor = [UIColor white];
   CALayer * sl = self.layer;
   sl.shouldRasterize = YES;
   sl.rasterizationScale = UIScreen.mainScreen.scale;

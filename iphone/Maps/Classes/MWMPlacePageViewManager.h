@@ -18,6 +18,7 @@
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
 - (void)refreshPlacePage;
 - (void)refresh;
+- (BOOL)hasPlacePage;
 - (void)dismissPlacePage;
 - (void)hidePlacePage;
 - (void)buildRoute;

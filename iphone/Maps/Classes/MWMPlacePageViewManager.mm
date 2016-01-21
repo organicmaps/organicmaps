@@ -149,6 +149,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self.placePage.actionBar refresh];
 }
 
+- (BOOL)hasPlacePage
+{
+  return self.placePage != nil;
+}
+
 - (void)setPlacePageForiPad
 {
   [self.placePage dismiss];

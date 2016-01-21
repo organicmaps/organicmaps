@@ -179,6 +179,7 @@
     if ([v respondsToSelector:@selector(refresh)])
       [v refresh];
   }
+  [self setNeedsDisplay];
 }
 
 @end
@@ -187,7 +188,29 @@
 
 - (void)refresh
 {
-  [super refresh];
+  if (isIOSVersionLessThan(8))
+  {
+    UIColor * opposite = self.backgroundColor.opposite;
+    if (opposite)
+      self.backgroundColor = opposite;
+
+      for (UIView * v in self.subviews)
+      {
+        // There is workaroung for iOS7 only.
+        if ([v isKindOfClass:NSClassFromString(@"UITableViewCellScrollView")])
+        {
+          for (UIView * subview in v.subviews)
+           [subview refresh];
+        }
+
+        if ([v respondsToSelector:@selector(refresh)])
+          [v refresh];
+      }
+  }
+  else
+  {
+    [super refresh];
+  }
   [self.selectedBackgroundView refresh];
 }
 
@@ -297,7 +320,18 @@
 
 - (void)refresh
 {
+  [super refresh];
   [self changeColoringToOpposite];
+}
+
+@end
+
+@implementation UIImageView (IOS7Workaround)
+
+- (void)makeImageAlwaysTemplate
+{
+  if (isIOSVersionLessThan(8))
+    self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 @end

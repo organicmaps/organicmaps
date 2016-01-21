@@ -45,9 +45,6 @@
                     <constraint firstItem="e49-Z8-rFG" firstAttribute="leading" secondItem="0Ch-mz-VzP" secondAttribute="leading" id="eDx-cK-3LA"/>
                     <constraint firstAttribute="trailing" secondItem="0Ch-mz-VzP" secondAttribute="trailing" constant="16" id="xgg-OV-LnW"/>
                 </constraints>
-                <userDefinedRuntimeAttributes>
-                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                </userDefinedRuntimeAttributes>
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="eDx-cK-3LA"/>

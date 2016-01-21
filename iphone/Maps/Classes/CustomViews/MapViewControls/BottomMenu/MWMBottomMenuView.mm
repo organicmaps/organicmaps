@@ -3,6 +3,7 @@
 #import "MWMBottomMenuView.h"
 #import "MWMBottomMenuViewController.h"
 #import "MapsAppDelegate.h"
+#import "UIButton+Coloring.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
@@ -251,6 +252,7 @@
     else
     {
       UIButton * btn = self.menuButton;
+      NSString * name = nil;
       switch (self.state)
       {
       case MWMBottomMenuStateHidden:
@@ -258,21 +260,26 @@
       case MWMBottomMenuStatePlanning:
       case MWMBottomMenuStateGo:
       case MWMBottomMenuStateText:
-        [btn setImage:[UIImage imageNamed:@"ic_menu"] forState:UIControlStateNormal];
+        name = @"ic_menu";
         break;
       case MWMBottomMenuStateActive:
-        [btn setImage:[UIImage imageNamed:@"ic_menu_down"] forState:UIControlStateNormal];
+        name = @"ic_menu_down";
         break;
       case MWMBottomMenuStateCompact:
-        [btn setImage:[UIImage imageNamed:@"ic_menu_left"] forState:UIControlStateNormal];
+        name = @"ic_menu_left";
         break;
       }
+      UIImage * image = [UIImage imageNamed:name];
+      if (isIOSVersionLessThan(8))
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+      [btn setImage:image forState:UIControlStateNormal];
     }
   });
 }
 
 - (void)refreshOnOrientationChange
 {
+  [self refreshButtonsColor];
   if (IPAD || self.state != MWMBottomMenuStateCompact)
     return;
   BOOL const isPortrait = self.superview.width < self.superview.height;
@@ -284,6 +291,18 @@
 {
   self.layoutDuration = kDefaultAnimationDuration;
   [self setNeedsLayout];
+  [self refreshButtonsColor];
+}
+
+- (void)refreshButtonsColor
+{
+  if (!isIOSVersionLessThan(8))
+    return;
+  auto const coloring = self.p2pButton.mwm_coloring;
+  self.p2pButton.mwm_coloring = coloring;
+  self.bookmarksButton.mwm_coloring = coloring;
+  self.locationButton.mwm_coloring = self.locationButton.mwm_coloring;
+  self.searchButton.mwm_coloring = self.searchButton.mwm_coloring;
 }
 
 #pragma mark - Properties

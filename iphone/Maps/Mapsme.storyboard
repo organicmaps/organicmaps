@@ -526,35 +526,6 @@
                                             <outlet property="titleLabel" destination="uhN-0k-BL7" id="9Mv-uo-A5S"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectableCell" id="js7-Hu-EdJ" customClass="SelectableCell">
-                                        <rect key="frame" x="0.0" y="299" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="js7-Hu-EdJ" id="8rz-AY-REp">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4c-Ji-Ctk">
-                                                    <rect key="frame" x="16" y="11" width="477" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="b4c-Ji-Ctk" secondAttribute="trailing" constant="99" id="Mi8-fq-jsL"/>
-                                                <constraint firstItem="b4c-Ji-Ctk" firstAttribute="top" secondItem="8rz-AY-REp" secondAttribute="topMargin" constant="3" id="dDC-N5-e9p"/>
-                                                <constraint firstItem="b4c-Ji-Ctk" firstAttribute="leading" secondItem="8rz-AY-REp" secondAttribute="leadingMargin" constant="8" id="uur-nG-gmT"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="b4c-Ji-Ctk" secondAttribute="bottom" constant="3.5" id="x6j-3w-06X"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="titleLabel" destination="b4c-Ji-Ctk" id="7Tt-gY-BnY"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -569,7 +540,6 @@
                         <outlet property="oneHour" destination="8Cq-dm-roX" id="th5-s5-8wh"/>
                         <outlet property="sixHours" destination="1Mm-WA-eyt" id="lsg-lo-4YV"/>
                         <outlet property="twelveHours" destination="JLY-Qt-y88" id="uvV-xr-gOM"/>
-                        <outlet property="twoDays" destination="js7-Hu-EdJ" id="H1o-vQ-re3"/>
                         <outlet property="twoHours" destination="DIL-q2-mUp" id="GBk-7j-k2T"/>
                     </connections>
                 </tableViewController>

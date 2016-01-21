@@ -113,6 +113,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
       self.button.mwm_coloring = MWMButtonColoringBlue;
       break;
     case MWMCircularProgressStateFailed:
+      normalImage = self.images[@(MWMCircularProgressStateFailed)];
       self.button.mwm_coloring = MWMButtonColoringBlue;
       break;
     case MWMCircularProgressStateCompleted:
@@ -154,7 +155,8 @@ static inline CGFloat angleWithProgress(CGFloat progress)
     NSUInteger const animationImagesCount = 12;
     NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
     for (NSUInteger i = 0; i < animationImagesCount; ++i)
-      animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@", @(i+1)]];
+      animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i+1),
+                                                [UIColor isNightMode] ? @"dark" : @"light"]];
 
     self.spinner.animationImages = animationImages;
     [self.spinner startAnimating];

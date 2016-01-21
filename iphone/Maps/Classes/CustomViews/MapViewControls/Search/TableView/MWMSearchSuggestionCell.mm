@@ -11,6 +11,12 @@
 
 @implementation MWMSearchSuggestionCell
 
+- (void)awakeFromNib
+{
+  if (IPAD)
+    self.contentView.backgroundColor = [UIColor white];
+}
+
 - (NSDictionary *)selectedTitleAttributes
 {
   return @{NSForegroundColorAttributeName : UIColor.linkBlue, NSFontAttributeName : UIFont.bold16};

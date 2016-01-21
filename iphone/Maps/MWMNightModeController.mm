@@ -53,25 +53,25 @@
   auto const style = f.GetMapStyle();
   if ([cell isEqual:self.on])
   {
+    [MapsAppDelegate setAutoNightModeOff:YES];
     if (style == MapStyleDark)
       return;
     f.SetMapStyle(MapStyleDark);
     [UIColor setNightMode:YES];
-    [MapsAppDelegate setAutoNightModeOn:NO];
     [self refresh];
   }
   else if ([cell isEqual:self.off])
   {
+    [MapsAppDelegate setAutoNightModeOff:YES];
     if (style == MapStyleClear || style == MapStyleLight)
       return;
     f.SetMapStyle(MapStyleClear);
     [UIColor setNightMode:NO];
-    [MapsAppDelegate setAutoNightModeOn:NO];
     [self refresh];
   }
   else if ([cell isEqual:self.autoSwitch])
   {
-    [MapsAppDelegate setAutoNightModeOn:YES];
+    [MapsAppDelegate setAutoNightModeOff:NO];
     [MapsAppDelegate changeMapStyleIfNedeed];
     if (style == MapStyleClear || style == MapStyleLight)
       return;

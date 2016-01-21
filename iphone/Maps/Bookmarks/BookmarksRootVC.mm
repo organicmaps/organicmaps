@@ -94,8 +94,9 @@
     bool visible = !cat->IsVisible();
     [[Statistics instance] logEvent:kStatEventName(kStatBookmarks, kStatToggleVisibility)
                      withParameters:@{kStatValue : visible ? kStatVisible : kStatHidden}];
-    cell.imageView.mwm_coloring = visible ? MWMImageColoringBlue : MWMImageColoringBlack;
     cell.imageView.image = [UIImage imageNamed:(visible ? @"ic_show" : @"ic_hide")];
+    [cell.imageView makeImageAlwaysTemplate];
+    cell.imageView.mwm_coloring = visible ? MWMImageColoringBlue : MWMImageColoringBlack;
     {
       BookmarkCategory::Guard guard(*cat);
       guard.m_controller.SetIsVisible(visible);
@@ -126,8 +127,9 @@
     NSString * title = @(cat->GetName().c_str());
     cell.textLabel.text = [self truncateString:title toWidth:(self.tableView.width - 122) withFont:cell.textLabel.font];
     BOOL const isVisible = cat->IsVisible();
-    cell.imageView.mwm_coloring = isVisible ? MWMImageColoringBlue : MWMImageColoringBlack;
     cell.imageView.image = [UIImage imageNamed:(isVisible ? @"ic_show" : @"ic_hide")];
+    cell.imageView.mwm_coloring = isVisible ? MWMImageColoringBlue : MWMImageColoringBlack;
+    [cell.imageView makeImageAlwaysTemplate];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", cat->GetUserMarkCount() + cat->GetTracksCount()];
   }
   cell.backgroundColor = [UIColor white];

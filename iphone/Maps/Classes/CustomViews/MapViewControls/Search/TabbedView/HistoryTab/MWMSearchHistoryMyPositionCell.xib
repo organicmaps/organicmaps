@@ -56,9 +56,6 @@
                     <constraint firstAttribute="centerY" secondItem="ruc-o5-hBy" secondAttribute="centerY" id="obu-BB-qEf"/>
                     <constraint firstAttribute="centerY" secondItem="hik-Fn-AeJ" secondAttribute="centerY" id="wP9-mz-caJ"/>
                 </constraints>
-                <userDefinedRuntimeAttributes>
-                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>

@@ -1,5 +1,6 @@
 #import "BookmarksVC.h"
 #import "MWMSearchBookmarksCell.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
 #include "Framework.h"
@@ -21,6 +22,8 @@
 
 - (void)awakeFromNib
 {
+  if (IPAD)
+    self.contentView.backgroundColor = [UIColor white];
   self.layer.shouldRasterize = YES;
   self.layer.rasterizationScale = UIScreen.mainScreen.scale;
 }

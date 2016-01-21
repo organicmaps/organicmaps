@@ -1,4 +1,5 @@
 #import "MWMSearchCell.h"
+#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 
@@ -12,6 +13,8 @@
 
 - (void)awakeFromNib
 {
+  if (IPAD)
+    self.contentView.backgroundColor = [UIColor white];
   CALayer * sl = self.layer;
   sl.shouldRasterize = YES;
   sl.rasterizationScale = UIScreen.mainScreen.scale;

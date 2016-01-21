@@ -112,7 +112,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)refreshHelperPanels:(BOOL)isLandscape
 {
-  if (!self.placePageManager.entity)
+  if (!self.placePageManager.hasPlacePage)
     return;
   if (isLandscape)
     [self.navigationManager hideHelperPanels];
@@ -485,7 +485,8 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.menuController setInactive];
   [self resetRoutingPoint];
   [self navigationDashBoardDidUpdate];
-  [MapsAppDelegate resetToDefaultMapStyle];
+  if ([MapsAppDelegate isAutoNightMode])
+    [MapsAppDelegate resetToDefaultMapStyle];
   GetFramework().CloseRouting();
 }
 

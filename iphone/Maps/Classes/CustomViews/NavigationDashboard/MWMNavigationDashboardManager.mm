@@ -11,6 +11,7 @@
 #import "MWMRoutePreview.h"
 #import "MWMTextToSpeech.h"
 #import "Statistics.h"
+#import "UIButton+Coloring.h"
 
 static NSString * const kRoutePreviewXibName = @"MWMRoutePreview";
 static NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";
@@ -298,7 +299,8 @@ extern NSString * const kTTSStatusWasChangedNotification;
     [tts enable];
   else
     [tts disable];
-  sender.selected = isEnable;
+  self.navigationDashboardPortrait.soundButton.selected = isEnable;
+  self.navigationDashboardLandscape.soundButton.selected = isEnable;
 }
 
 #pragma mark - MWMNavigationGo

@@ -10,7 +10,7 @@ namespace
 
 NSString * const kPageViewControllerStoryboardID = @"PageViewController";
 NSString * const kContentViewControllerStoryboardID = @"PageContentController";
-NSUInteger const kNumberOfPages = 2;
+NSUInteger const kNumberOfPages = 1;
 
 } // namespace
 
@@ -187,7 +187,7 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
 
 - (CGSize)defaultSize
 {
-  return IPAD ? CGSizeMake(520.0, 600.0) : self.parent.view.frame.size;
+  return IPAD ? CGSizeMake(520.0, 600.0) : self.parent.view.bounds.size;
 }
 
 - (void)configure
@@ -196,7 +196,7 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
   UIView * parentView = self.parent.view;
   CGSize const size = self.defaultSize;
   CGPoint const origin = IPAD ? CGPointMake(parentView.center.x - size.width / 2, parentView.center.y - size.height / 2) :
-                                CGPointZero;
+  CGPointZero;
   mainView.frame = {origin, size};
   mainView.backgroundColor = [UIColor white];
   if (IPAD)
@@ -214,10 +214,13 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MWMPageControllerDataSourceImpl : NSObjec
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
   [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  if (IPAD)
-    self.view.center = self.parent.view.center;
-  else
-    self.view.origin = {};
+  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context)
+  {
+    if (IPAD)
+      self.view.center = {size.width / 2, size.height / 2 };
+    else
+      self.view.origin = {};
+  } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}];
 }
 
 @end

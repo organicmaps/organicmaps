@@ -28,6 +28,7 @@ NSString * const kSelectedPattern = @"%@_selected_%@";
 - (void)setMwm_coloring:(MWMButtonColoring)mwm_coloring
 {
   objc_setAssociatedObject(self, @selector(mwm_coloring), @(mwm_coloring), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  [self.imageView makeImageAlwaysTemplate];
   [self setDefaultTintColor];
 }
 
@@ -61,8 +62,11 @@ NSString * const kSelectedPattern = @"%@_selected_%@";
 - (void)setHighlighted:(BOOL)highlighted
 {
   [super setHighlighted:highlighted];
+  UIImage * image = [self imageForState:highlighted ? UIControlStateHighlighted : UIControlStateNormal];
   if (highlighted)
   {
+    self.imageView.image = image;
+    [self.imageView makeImageAlwaysTemplate];
     switch (self.mwm_coloring)
     {
     case MWMButtonColoringBlue:
@@ -82,15 +86,20 @@ NSString * const kSelectedPattern = @"%@_selected_%@";
   {
     if (self.selected)
       return;
+    self.imageView.image = image;
+    [self.imageView makeImageAlwaysTemplate];
     [self setDefaultTintColor];
   }
-  if (UIImage * image = [self imageForState:highlighted ? UIControlStateHighlighted : UIControlStateNormal])
-    self.imageView.image = image;
 }
 
 - (void)setSelected:(BOOL)selected
 {
   [super setSelected:selected];
+  if (UIImage * image = [self imageForState:selected ? UIControlStateSelected : UIControlStateNormal])
+  {
+    self.imageView.image = image;
+    [self.imageView makeImageAlwaysTemplate];
+  }
   if (selected)
   {
     switch (self.mwm_coloring)
@@ -103,12 +112,10 @@ NSString * const kSelectedPattern = @"%@_selected_%@";
     case MWMButtonColoringGray:
       break;
     }
-    self.imageView.image = [self imageForState:UIControlStateSelected];
   }
   else
   {
     [self setDefaultTintColor];
-    self.imageView.image = [self imageForState:UIControlStateNormal];
   }
 }
 
@@ -124,6 +131,7 @@ NSString * const kSelectedPattern = @"%@_selected_%@";
     break;
   case MWMButtonColoringGray:
     self.tintColor = [UIColor blackHintText];
+    break;
   case MWMButtonColoringOther:
     self.imageView.image = [self imageForState:UIControlStateNormal];
     break;

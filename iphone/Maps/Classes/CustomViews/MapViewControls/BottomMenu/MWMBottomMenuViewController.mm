@@ -325,22 +325,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   }
 }
 
-- (void)collectionView:(nonnull UICollectionView *)collectionView
-    didHighlightItemAtIndexPath:(nonnull NSIndexPath *)indexPath
-{
-  MWMBottomMenuCollectionViewCell * cell =
-      (MWMBottomMenuCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-  [cell highlighted:YES];
-}
-
-- (void)collectionView:(nonnull UICollectionView *)collectionView
-    didUnhighlightItemAtIndexPath:(nonnull NSIndexPath *)indexPath
-{
-  MWMBottomMenuCollectionViewCell * cell =
-      (MWMBottomMenuCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-  [cell highlighted:NO];
-}
-
 #pragma mark - Buttons actions
 
 - (void)menuActionDownloadMaps

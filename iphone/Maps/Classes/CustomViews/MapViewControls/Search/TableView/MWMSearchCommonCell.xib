@@ -232,9 +232,6 @@
                     <constraint firstItem="V8w-dT-7B1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="x1p-sf-n4c"/>
                     <constraint firstAttribute="trailing" secondItem="HGm-lZ-JNr" secondAttribute="trailing" id="xt0-86-Efu"/>
                 </constraints>
-                <userDefinedRuntimeAttributes>
-                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>

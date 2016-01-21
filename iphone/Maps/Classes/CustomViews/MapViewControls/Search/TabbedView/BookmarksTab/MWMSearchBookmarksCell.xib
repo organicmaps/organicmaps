@@ -105,9 +105,6 @@
                     <constraint firstAttribute="bottom" secondItem="C8a-9A-ijG" secondAttribute="bottom" constant="12" id="uqy-Ik-W0e"/>
                     <constraint firstItem="aNc-6m-i8r" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xpT-y7-ntU"/>
                 </constraints>
-                <userDefinedRuntimeAttributes>
-                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
