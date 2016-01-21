@@ -22,6 +22,7 @@ namespace Settings
   public:
     static StringStorage & Instance();
 
+    void Clear();
     bool GetValue(string const & key, string & outValue) const;
     void SetValue(string const & key, string && value);
     void DeleteKeyAndValue(string const & key);
@@ -44,6 +45,11 @@ namespace Settings
   inline void Delete(string const & key)
   {
     StringStorage::Instance().DeleteKeyAndValue(key);
+  }
+
+  inline void Clear()
+  {
+    StringStorage::Instance().Clear();
   }
 
   enum Units { Metric = 0, Foot };

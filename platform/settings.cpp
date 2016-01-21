@@ -83,6 +83,13 @@ namespace Settings
     return inst;
   }
 
+  void StringStorage::Clear()
+  {
+    lock_guard<mutex> guard(m_mutex);
+    m_values.clear();
+    Save();
+  }
+
   bool StringStorage::GetValue(string const & key, string & outValue) const
   {
     lock_guard<mutex> guard(m_mutex);
