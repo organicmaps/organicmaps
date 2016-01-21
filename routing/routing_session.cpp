@@ -204,7 +204,8 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
   {
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).
-    double const dist = MercatorBounds::DistanceOnEarth(m_route.GetFollowedPolyline().GetCurrentIter().m_pt,
+    auto const & lastGoodPoint = m_route.GetFollowedPolyline().GetCurrentIter().m_pt;
+    double const dist = MercatorBounds::DistanceOnEarth(lastGoodPoint,
                                                         MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude));
     if (my::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
         return m_state;
@@ -223,6 +224,12 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     {
       m_passedDistanceOnRouteMeters += m_route.GetCurrentDistanceFromBeginMeters();
       m_state = RouteNeedRebuild;
+      alohalytics::TStringMap params = {{"router", m_route.GetRouterId()},
+                                        {"lastCoordinateLat", strings::to_string_dac(MercatorBounds::YToLat(lastGoodPoint.y), 5 /*precision*/)},
+                                        {"lastCoordinateLon", strings::to_string_dac(MercatorBounds::XToLon(lastGoodPoint.x), 5 /*precision*/)},
+                                        {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
+                                        {"rebuildCount", strings::to_string(m_routingRebuildCount)}};
+      alohalytics::LogEvent("RouteTracking_RouteNeedRebuild", params);
     }
   }
 
