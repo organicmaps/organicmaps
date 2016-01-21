@@ -1,5 +1,6 @@
 #include "opening_hours_ui.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/numeric.hpp"
 #include "std/stack.hpp"
 #include "std/tuple.hpp"
