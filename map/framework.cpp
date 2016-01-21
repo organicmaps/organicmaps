@@ -940,7 +940,6 @@ void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isC
   countryInfo.m_countryIndex = countryIndex;
   countryInfo.m_currentCountryName = m_activeMaps->GetFormatedCountryName(countryIndex);
   countryInfo.m_mapSize = m_activeMaps->GetRemoteCountrySizes(countryIndex).first;
-  countryInfo.m_routingSize = m_activeMaps->GetRemoteCountrySizes(countryIndex).second;
   countryInfo.m_countryStatus = m_activeMaps->GetCountryStatus(countryIndex);
   if (countryInfo.m_countryStatus == storage::TStatus::EDownloading)
   {
@@ -1354,11 +1353,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapCallback, this, countryIndex));
   };
 
-  TDownloadFn downloadMapWithoutRoutingFn = [this](storage::TIndex const & countryIndex)
-  {
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapRoutingCallback, this, countryIndex));
-  };
-
   TDownloadFn downloadRetryFn = [this](storage::TIndex const & countryIndex)
   {
     GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadRetryCallback, this, countryIndex));
@@ -1373,8 +1367,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             df::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
                             df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex,
                                                 isCountryLoadedFn, isCountryLoadedByNameFn,
-                                                downloadMapFn, downloadMapWithoutRoutingFn,
-                                                downloadRetryFn),
+                                                downloadMapFn, downloadRetryFn),
                             params.m_visualScale,
                             move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),

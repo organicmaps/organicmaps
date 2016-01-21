@@ -219,12 +219,6 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
     MapStyle const style = GetStyleReader().GetCurrentStyle();
     auto color = df::GetColorConstant(style, df::DownloadButton);
     auto pressedColor = df::GetColorConstant(style, df::DownloadButtonPressed);
-    if (control.m_buttonType == CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING)
-    {
-      color = df::GetColorConstant(style, df::DownloadButtonRouting);
-      pressedColor = df::GetColorConstant(style, df::DownloadButtonRoutingPressed);
-    }
-
     auto const buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
     Shape::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
     params.m_bodyHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, color, pressedColor, _1, _2);

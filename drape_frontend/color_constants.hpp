@@ -10,9 +10,7 @@ namespace df
 enum ColorConstant
 {
   DownloadButton,
-  DownloadButtonRouting,
   DownloadButtonPressed,
-  DownloadButtonRoutingPressed,
   DownloadButtonText,
   CountryStatusText,
   GuiText,

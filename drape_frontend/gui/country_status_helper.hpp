@@ -19,7 +19,6 @@ struct CountryInfo
   storage::TStatus m_countryStatus = storage::TStatus::EUnknown;
   string m_currentCountryName;
   size_t m_mapSize = 0;
-  size_t m_routingSize = 0;
   size_t m_downloadProgress = 0;
 };
 
@@ -46,7 +45,6 @@ public:
   {
     BUTTON_TYPE_NOT_BUTTON,
     BUTTON_TYPE_MAP,
-    BUTTON_TYPE_MAP_ROUTING,
     BUTTON_TRY_AGAIN
   };
 
@@ -85,7 +83,6 @@ private:
   void FillControlsForFailed();
 
   string FormatDownloadMap();
-  string FormatDownloadMapRouting();
   string FormatInQueueMap();
   string FormatFailed();
   string FormatTryAgain();

@@ -200,7 +200,6 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheCountryStatus(ref_ptr<dp::TextureMa
 
   CountryStatus::TButtonHandlers handlers;
   RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TYPE_MAP);
-  RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING);
   RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TRY_AGAIN);
 
   renderer->AddShapeRenderer(WIDGET_COUNTRY_STATUS, countryStatus.Draw(textures, handlers));

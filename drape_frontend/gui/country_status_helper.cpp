@@ -54,8 +54,7 @@ void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload
   }
 }
 
-char const * DownloadMapButtonID = "country_status_download_without_routing";
-char const * DownloadMapRoutingButtonID = "country_status_download";
+char const * DownloadMapButtonID = "country_status_download";
 char const * TryAgainButtonID = "try_again";
 char const * DownloadingLabelID = "country_status_downloading";
 char const * DownloadingFailedID = "country_status_download_failed";
@@ -175,7 +174,6 @@ void CountryStatusHelper::FillControlsForEmpty()
 {
   ASSERT(m_controls.empty(), ());
   m_controls.push_back(MakeLabel(m_countryInfo.m_currentCountryName));
-  m_controls.push_back(MakeButton(FormatDownloadMapRouting(), BUTTON_TYPE_MAP_ROUTING));
   m_controls.push_back(MakeButton(FormatDownloadMap(), BUTTON_TYPE_MAP));
 }
 
@@ -225,14 +223,6 @@ string CountryStatusHelper::FormatDownloadMap()
   string units;
   FormatMapSize(m_countryInfo.m_mapSize, units, size);
   return strings::Format(GetLocalizedString(DownloadMapButtonID), size, units);
-}
-
-string CountryStatusHelper::FormatDownloadMapRouting()
-{
-  size_t size;
-  string units;
-  FormatMapSize(m_countryInfo.m_mapSize + m_countryInfo.m_routingSize, units, size);
-  return strings::Format(GetLocalizedString(DownloadMapRoutingButtonID), size, units);
 }
 
 string CountryStatusHelper::FormatInQueueMap()
