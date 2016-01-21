@@ -157,4 +157,14 @@
     <item name="android:textAppearance">@style/MwmTextAppearance.Body3.Light</item>
     <item name="android:textColor">@color/text_light</item>
   </style>
+
+
+  <style name="MwmWidget.Tab">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">@dimen/tabs_height</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body3</item>
+    <item name="android:gravity">center</item>
+  </style>
+
 </resources>
