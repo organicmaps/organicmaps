@@ -4,6 +4,7 @@
 #include "coding/internal/file_data.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/cstring.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -109,7 +110,7 @@ GpsTrackStorage::GpsTrackStorage(string const & filePath, size_t maxItemCount)
   ASSERT_GREATER(m_maxItemCount, 0, ());
 
   // Open existing file
-  m_stream = fstream(m_filePath, ios::in | ios::out | ios::binary);
+  m_stream.open(m_filePath, ios::in | ios::out | ios::binary);
 
   if (m_stream)
   {
@@ -144,7 +145,7 @@ GpsTrackStorage::GpsTrackStorage(string const & filePath, size_t maxItemCount)
   if (!m_stream)
   {
     // Create new file
-    m_stream = fstream(m_filePath, ios::in | ios::out | ios::binary | ios::trunc);
+    m_stream.open(m_filePath, ios::in | ios::out | ios::binary | ios::trunc);
 
     if (!m_stream)
       MYTHROW(OpenException, ("File:", m_filePath));
@@ -201,7 +202,7 @@ void GpsTrackStorage::Clear()
 
   m_stream.close();
 
-  m_stream = fstream(m_filePath, ios::in | ios::out | ios::binary | ios::trunc);
+  m_stream.open(m_filePath, ios::in | ios::out | ios::binary | ios::trunc);
 
   if (!m_stream)
     MYTHROW(WriteException, ("File:", m_filePath));
@@ -250,7 +251,7 @@ void GpsTrackStorage::TruncFile()
   string const tmpFilePath = m_filePath + ".tmp";
 
   // Create a tmp file
-  fstream tmp = fstream(tmpFilePath, ios::in | ios::out | ios::binary | ios::trunc);
+  fstream tmp(tmpFilePath, ios::in | ios::out | ios::binary | ios::trunc);
 
   if (!tmp)
     MYTHROW(WriteException, ("Unable to create temporary file:", tmpFilePath));
@@ -298,7 +299,7 @@ void GpsTrackStorage::TruncFile()
   }
 
   // Reopen stream
-  m_stream = fstream(m_filePath, ios::in | ios::out | ios::binary | ios::ate);
+  m_stream.open(m_filePath, ios::in | ios::out | ios::binary | ios::ate);
 
   if (!m_stream)
     MYTHROW(WriteException, ("File:", m_filePath));
