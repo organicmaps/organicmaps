@@ -88,11 +88,9 @@ namespace
   };
 }
 
-pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
+pair<int, bool> GetDrawRule(TypesHolder const & types, int level,
                             drule::KeysT & keys)
 {
-  TypesHolder types(f);
-
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
 
