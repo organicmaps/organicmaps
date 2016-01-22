@@ -67,6 +67,7 @@ private slots:
   bool TryChangeMapStyleCmd(QString const & str);
   bool TryChangeRouterCmd(QString const & str);
   bool Try3dModeCmd(QString const & str);
+  bool TryMigrate(QString const & str);
 };
 
 }

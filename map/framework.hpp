@@ -150,6 +150,8 @@ public:
   Framework();
   virtual ~Framework();
 
+  void Migrate();
+
   void InitWatchFrameRenderer(float visualScale);
 
   /// @param center - map center in Mercator

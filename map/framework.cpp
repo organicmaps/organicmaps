@@ -237,6 +237,20 @@ void Framework::StopLocationFollow()
   CallDrapeFunction(bind(&df::DrapeEngine::StopLocationFollow, _1));
 }
 
+void Framework::Migrate()
+{
+  Storage().DeleteAllLocalMaps();
+  DeregisterAllMaps();
+  m_model.Clear();
+  Storage().Migrate();
+  RegisterAllMaps();
+  m_searchEngine.reset();
+  m_infoGetter.reset();
+  InitCountryInfoGetter();
+  InitSearchEngine();
+  InvalidateRect(MercatorBounds::FullRect());
+}
+
 Framework::Framework()
   : m_bmManager(*this)
   , m_fixedSearchResults(0)
@@ -514,6 +528,9 @@ void Framework::RegisterAllMaps()
           "ActiveMapsListener::m_items."));
 
   m_storage.RegisterAllLocalMaps();
+
+  if(platform::migrate::NeedMigrate())
+    m_storage.FastMigrateIfPossible();
 
   int minFormat = numeric_limits<int>::max();
 

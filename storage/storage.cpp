@@ -6,6 +6,7 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/servers_list.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
@@ -103,6 +104,41 @@ void Storage::Clear()
   m_failedCountries.clear();
   m_localFiles.clear();
   m_localFilesForFakeCountries.clear();
+}
+
+void Storage::FastMigrateIfPossible()
+{
+  bool disableFastMigrate = false;
+  Settings::Get("DisableFastMigrate", disableFastMigrate);
+  if(!disableFastMigrate && platform::migrate::NeedMigrate() && m_localFiles.empty())
+  {
+    Migrate();
+  }
+}
+
+void Storage::Migrate()
+{
+  platform::migrate::SetMigrationFlag();
+
+  Clear();
+  m_countries.Clear();
+
+  LoadCountriesFile(true /* forceReload */);
+}
+
+void Storage::DeleteAllLocalMaps(vector<TIndex> * existedCountries /* = nullptr */)
+{
+  for (auto const & localFiles : m_localFiles)
+  {
+    for (auto const & localFile : localFiles.second)
+    {
+      LOG_SHORT(LINFO, ("Remove:", localFiles.first, DebugPrint(*localFile)));
+      if (existedCountries)
+        existedCountries->push_back(localFiles.first);
+      localFile->SyncWithDisk();
+      DeleteFromDiskWithIndexes(*localFile, MapOptions::MapWithCarRouting);
+    }
+  }
 }
 
 void Storage::RegisterAllLocalMaps()
