@@ -1,9 +1,5 @@
-#import <UIKit/UIKit.h>
-
 #include "routing/router.hpp"
 #include "storage/storage.hpp"
-
-typedef void (^RightButtonAction)();
 
 @class MWMAlertViewController;
 @interface MWMAlert : UIView
@@ -19,11 +15,11 @@ typedef void (^RightButtonAction)();
 + (MWMAlert *)locationAlert;
 + (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation;
 + (MWMAlert *)disabledLocationAlert;
-+ (MWMAlert *)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block;
++ (MWMAlert *)noWiFiAlertWithName:(NSString *)name downloadBlock:(TMWMVoidBlock)block;
 + (MWMAlert *)noConnectionAlert;
 + (MWMAlert *)locationServiceNotSupportedAlert;
 + (MWMAlert *)pedestrianToastShareAlert:(BOOL)isFirstLaunch;
-+ (MWMAlert *)point2PointAlertWithOkBlock:(RightButtonAction)block needToRebuild:(BOOL)needToRebuild;
++ (MWMAlert *)point2PointAlertWithOkBlock:(TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild;
 - (void)close;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;

@@ -8,7 +8,7 @@
 @property (nonatomic) MWMSpringAnimation * springAnimation;
 
 - (void)cancelSpringAnimation;
-- (void)startAnimatingPlacePage:(MWMPlacePage *)placePage initialVelocity:(CGPoint)velocity completion:(MWMSpringAnimationCompletionBlock)completion;
+- (void)startAnimatingPlacePage:(MWMPlacePage *)placePage initialVelocity:(CGPoint)velocity completion:(TMWMVoidBlock)completion;
 - (CGPoint)targetPoint;
 
 @end

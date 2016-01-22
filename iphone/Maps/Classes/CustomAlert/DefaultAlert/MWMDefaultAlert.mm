@@ -20,7 +20,7 @@ static NSString * kStatisticsEvent = @"Default Alert";
 @property (weak, nonatomic) IBOutlet UIButton * leftButton;
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * rightButtonWidth;
-@property (copy, nonatomic) RightButtonAction rightButtonAction;
+@property (copy, nonatomic) TMWMVoidBlock rightButtonAction;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *dividerTop;
 
 @end
@@ -56,7 +56,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
-+ (instancetype)noWiFiAlertWithName:(NSString *)name downloadBlock:(RightButtonAction)block
++ (instancetype)noWiFiAlertWithName:(NSString *)name downloadBlock:(TMWMVoidBlock)block
 {
   kStatisticsEvent = @"No WiFi Alert";
   NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
@@ -96,7 +96,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)disabledLocationAlert
 {
   kStatisticsEvent = @"Disabled Location Alert";
-  RightButtonAction action = ^
+  TMWMVoidBlock action = ^
   {
     GetFramework().SwitchMyPositionNextMode();
   };
@@ -109,7 +109,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return [self defaultAlertWithTitle:@"routing_failed_cross_mwm_building" message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
-+ (instancetype)point2PointAlertWithOkBlock:(RightButtonAction)block needToRebuild:(BOOL)needToRebuild
++ (instancetype)point2PointAlertWithOkBlock:(TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
 {
   if (needToRebuild)
   {
@@ -124,7 +124,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   }
 }
 
-+ (instancetype)defaultAlertWithTitle:(nonnull NSString *)title message:(nullable NSString *)message rightButtonTitle:(nonnull NSString *)rightButtonTitle leftButtonTitle:(nullable NSString *)leftButtonTitle rightButtonAction:(nullable RightButtonAction)action
++ (instancetype)defaultAlertWithTitle:(nonnull NSString *)title message:(nullable NSString *)message rightButtonTitle:(nonnull NSString *)rightButtonTitle leftButtonTitle:(nullable NSString *)leftButtonTitle rightButtonAction:(nullable TMWMVoidBlock)action
 {
   [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMDefaultAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDefaultAlertNibName owner:self options:nil] firstObject];
