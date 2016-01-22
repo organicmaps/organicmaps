@@ -42,6 +42,18 @@ def collapse_single(root):
       else:
         collapse_single(root['g'][i])
 
+def get_name(leaf):
+  if 'n' in leaf:
+    return leaf['n'].lower()
+  else:
+    return leaf['id'].lower()
+
+def sort_tree(root):
+  root['g'].sort(key=get_name)
+  for leaf in root['g']:
+    if 'g' in leaf:
+      sort_tree(leaf)
+
 parser = OptionParser(add_help_option=False)
 parser.add_option('-t', '--target', help='Path to mwm files')
 parser.add_option('-h', '--hierarchy', default='hierarchy.txt', help='Hierarchy file')
@@ -53,6 +65,7 @@ parser.add_option('--flag', action='store_true', help='Add flags ("c") to countr
 parser.add_option('--lang', action='store_true', help='Add languages ("lang") to countries')
 parser.add_option('-l', '--legacy', action='store_true', help='Produce a legacy format file')
 parser.add_option('-n', '--names', help='Translations for file names (for legacy format)')
+parser.add_option('-s', '--sort', action='store_true', help='Sort leaves by name (useful for legacy)')
 (options, args) = parser.parse_args()
 
 if options.help:
@@ -144,6 +157,8 @@ while len(stack) > 1:
     stack[-1]['g'].append(g)
 
 collapse_single(stack[-1])
+if options.sort:
+  sort_tree(stack[-1])
 if options.output:
   with open(options.output, 'w') as f:
     json.dump(stack[-1], f, indent=1)
