@@ -1,6 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -125,34 +123,31 @@ public class BookmarksListFragment extends BaseMwmListFragment
       break;
 
     case BookmarkListAdapter.TYPE_BOOKMARK:
-      BottomSheet bs = BottomSheetHelper.create(getActivity())
-                                        .title(((Bookmark) item).getName())
-                                        .sheet(R.menu.menu_bookmarks)
-                                        .listener(this)
-                                        .build();
-
+      BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), ((Bookmark) item).getName())
+                                                      .sheet(R.menu.menu_bookmarks)
+                                                      .listener(this);
       if (!ShareOption.SMS.isSupported(getActivity()))
         bs.getMenu().removeItem(R.id.share_message);
 
       if (!ShareOption.EMAIL.isSupported(getActivity()))
         bs.getMenu().removeItem(R.id.share_email);
 
-      bs.show();
+      bs.tint().show();
       break;
 
     case BookmarkListAdapter.TYPE_TRACK:
-      BottomSheetHelper.create(getActivity())
-                       .title(((Track) item).getName())
+      BottomSheetHelper.create(getActivity(), ((Track) item).getName())
                        .sheet(Menu.NONE, R.drawable.ic_delete, R.string.delete)
-                       .listener(new DialogInterface.OnClickListener()
+                       .listener(new MenuItem.OnMenuItemClickListener()
                        {
                          @Override
-                         public void onClick(DialogInterface dialog, int which)
+                         public boolean onMenuItemClick(MenuItem menuItem)
                          {
                            BookmarkManager.INSTANCE.deleteTrack((Track) item);
                            mAdapter.notifyDataSetChanged();
+                           return false;
                          }
-                       }).show();
+                       }).tint().show();
       break;
     }
 

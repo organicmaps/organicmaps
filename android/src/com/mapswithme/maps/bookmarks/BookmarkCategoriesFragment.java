@@ -109,8 +109,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     mSelectedPosition = position;
 
     BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition);
-    BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity())
-                                                    .title(category.getName())
+    BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), category.getName())
                                                     .sheet(R.menu.menu_bookmark_categories)
                                                     .listener(this);
     MenuItem show = bs.getMenu().getItem(0);
