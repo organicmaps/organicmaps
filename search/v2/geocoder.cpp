@@ -523,7 +523,12 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       m_streets = LoadStreets(*m_context);
       m_villages = LoadVillages(*m_context);
 
+      auto citiesFromWorld = m_cities;
       FillVillageLocalities();
+      MY_SCOPE_GUARD(remove_villages, [&]()
+      {
+         m_cities = citiesFromWorld;
+      });
 
       m_usedTokens.assign(m_numTokens, false);
       MatchRegions(REGION_TYPE_COUNTRY);
@@ -764,7 +769,7 @@ void Geocoder::FillVillageLocalities()
 
     switch (m_model.GetSearchType(ft))
     {
-    case SearchModel::SEARCH_TYPE_CITY:
+    case SearchModel::SEARCH_TYPE_VILLAGE:
     {
       if (numVillages < kMaxNumVillages && ft.GetFeatureType() == feature::GEOM_POINT)
       {
