@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,7 +39,6 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
   private WheelProgressView mWpvDownloadProgress;
   private TextView mTvCountry;
   private TextView mTvActiveCountry;
-  private CheckBox mChbRoutes;
   private Button mBtnDownloadMap;
 
   @Nullable
@@ -148,9 +146,6 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     mWpvDownloadProgress.setOnClickListener(this);
     mTvCountry = (TextView) view.findViewById(R.id.tv__country_name);
     mTvActiveCountry = (TextView) view.findViewById(R.id.tv__active_country_name);
-    mChbRoutes = (CheckBox) view.findViewById(R.id.chb__routing_too);
-    mChbRoutes.setOnCheckedChangeListener(this);
-    mChbRoutes.setChecked(true);
   }
 
   private void refreshViews()
@@ -218,7 +213,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
   private int storageOptionsRequested()
   {
-    return mChbRoutes.isChecked() ? StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING : StorageOptions.MAP_OPTION_MAP_ONLY;
+    return StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING;
   }
 
   private void selectMapForDownload()

@@ -348,7 +348,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     return 0;
   }
 
-  protected void bindCountry(final int position, final ViewHolder holder)
+  private void bindCountry(final int position, final ViewHolder holder)
   {
     final CountryItem item = getItem(position);
     if (item == null)
@@ -665,7 +665,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     }
   }
 
-  protected void setItemName(int position, ViewHolder holder)
+  private void setItemName(int position, ViewHolder holder)
   {
     // set name and style
     final CountryItem item = getItem(position);
@@ -715,26 +715,20 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     }
   }
 
-  protected void showCountryContextMenu(final CountryItem countryItem, final View anchor, final int position)
+  void showCountryContextMenu(final CountryItem countryItem, final View anchor, final int position)
   {
     if (countryItem == null || anchor.getParent() == null)
       return;
 
     final int MENU_CANCEL = 0;
-    final int MENU_DOWNLOAD = 1;
-    final int MENU_UPDATE_MAP_AND_ROUTING = 2;
-    final int MENU_DOWNLOAD_MAP_AND_ROUTING = 3;
-    final int MENU_UPDATE_MAP_DOWNLOAD_ROUTING = 4;
-    final int MENU_UPDATE = 5;
-    final int MENU_DOWNLOAD_ROUTING = 6;
-    final int MENU_SHOW = 7;
-    final int MENU_DELETE_ROUTING = 9;
-    final int MENU_DELETE = 10;
-    final int MENU_RETRY = 11;
+    final int MENU_UPDATE = 1;
+    final int MENU_DOWNLOAD = 2;
+    final int MENU_EXPLORE = 3;
+    final int MENU_DELETE = 4;
+    final int MENU_RETRY = 5;
 
     final int status = countryItem.getStatus();
     final String name = countryItem.getName();
-    final int options = countryItem.getOptions();
 
     OnMenuItemClickListener menuItemClickListener = new OnMenuItemClickListener()
     {
@@ -749,31 +743,16 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         case MENU_DELETE:
           processOnDisk(name, position, StorageOptions.MAP_OPTION_MAP_ONLY);
           break;
-        case MENU_UPDATE:
-          processOutOfDate(name, position, StorageOptions.MAP_OPTION_MAP_ONLY);
-          break;
-        case MENU_DOWNLOAD:
-          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_ONLY, holder);
-          break;
         case MENU_CANCEL:
           confirmDownloadCancellation(holder, position, name);
           break;
-        case MENU_SHOW:
+        case MENU_EXPLORE:
           showCountry(position);
           break;
-        case MENU_DELETE_ROUTING:
-          processOnDisk(name, position, StorageOptions.MAP_OPTION_CAR_ROUTING);
-          break;
-        case MENU_DOWNLOAD_ROUTING:
-          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_CAR_ROUTING, holder);
-          break;
-        case MENU_DOWNLOAD_MAP_AND_ROUTING:
+        case MENU_DOWNLOAD:
           processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING, holder);
           break;
-        case MENU_UPDATE_MAP_DOWNLOAD_ROUTING:
-          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING, holder);
-          break;
-        case MENU_UPDATE_MAP_AND_ROUTING:
+        case MENU_UPDATE:
           processOutOfDate(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
           break;
         case MENU_RETRY:
@@ -792,37 +771,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     if (status == MapStorage.ON_DISK_OUT_OF_DATE)
     {
-      switch (options)
-      {
-      case StorageOptions.MAP_OPTION_MAP_ONLY:
-        BottomSheetHelper.sheet(bs, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, R.drawable.ic_download_routing,
-                                mFragment.getString(R.string.downloader_download_routing) + ", " +
-                                    StringUtils.getFileSizeString(remoteSizes[1]));
-
-        BottomSheetHelper.sheet(bs, MENU_UPDATE, R.drawable.ic_update,
-                                mFragment.getString(R.string.downloader_update_map) + ", " +
-                                    StringUtils.getFileSizeString(remoteSizes[0]));
-        break;
-
-      case StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING:
-        BottomSheetHelper.sheet(bs, MENU_UPDATE_MAP_AND_ROUTING, R.drawable.ic_update,
-                                mFragment.getString(R.string.downloader_update_map) + ", " +
-                                    StringUtils.getFileSizeString(remoteSizes[1]));
-        break;
-      }
+      BottomSheetHelper.sheet(bs, MENU_UPDATE, R.drawable.ic_update,
+                              mFragment.getString(R.string.downloader_update_map) + ", " +
+                              StringUtils.getFileSizeString(remoteSizes[0]));
     }
-
-    if (status == MapStorage.ON_DISK && options == StorageOptions.MAP_OPTION_MAP_ONLY)
-      BottomSheetHelper.sheet(bs, MENU_DOWNLOAD_ROUTING, R.drawable.ic_download_routing,
-                              mFragment.getString(R.string.downloader_download_routing) + ", " +
-                                  StringUtils.getFileSizeString(remoteSizes[1] - remoteSizes[0]));
 
     if (status == MapStorage.ON_DISK || status == MapStorage.ON_DISK_OUT_OF_DATE)
     {
-      bs.sheet(MENU_SHOW, R.drawable.ic_explore, R.string.zoom_to_country);
-
-      if (options != StorageOptions.MAP_OPTION_MAP_ONLY)
-        bs.sheet(MENU_DELETE_ROUTING, R.drawable.ic_no_routing, R.string.downloader_delete_routing);
+      bs.sheet(MENU_EXPLORE, R.drawable.ic_explore, R.string.zoom_to_country);
 
       bs.sheet(MENU_DELETE, R.drawable.ic_delete, R.string.downloader_delete_map);
     }
@@ -835,18 +791,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       break;
 
     case MapStorage.NOT_DOWNLOADED:
-      BottomSheetHelper.sheet(bs, MENU_DOWNLOAD_MAP_AND_ROUTING, R.drawable.ic_download_map,
+      BottomSheetHelper.sheet(bs, MENU_DOWNLOAD, R.drawable.ic_download_map,
                               mFragment.getString(R.string.downloader_download_map) + ", " +
-                                  StringUtils.getFileSizeString(remoteSizes[1]));
-
-      BottomSheetHelper.sheet(bs, MENU_DOWNLOAD, R.drawable.ic_no_routing,
-                              mFragment.getString(R.string.downloader_download_map_no_routing) + ", " +
-                                  StringUtils.getFileSizeString(remoteSizes[0]));
+                              StringUtils.getFileSizeString(remoteSizes[1]));
       break;
 
     case MapStorage.DOWNLOAD_FAILED:
       bs.sheet(MENU_RETRY, R.drawable.ic_retry, R.string.downloader_retry);
-      bs.sheet(MENU_DOWNLOAD_MAP_AND_ROUTING, R.drawable.ic_download_routing, R.string.downloader_download_map_and_routing);
       break;
     }
 

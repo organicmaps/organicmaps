@@ -82,4 +82,8 @@ public class ActiveCountryTree
     for (Index index : indices)
       downloadMapForIndex(index, options);
   }
+
+  public static native boolean isLegacyMode();
+
+  public static native void migrate();
 }

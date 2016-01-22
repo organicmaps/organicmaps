@@ -57,14 +57,6 @@
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
-        <CheckBox
-          android:id="@+id/chb__routing_too"
-          android:layout_width="wrap_content"
-          android:layout_height="@dimen/base_block_size"
-          android:layout_marginTop="@dimen/margin_half"
-          android:text="@string/search_vehicle_routes"
-          android:textAppearance="@style/MwmTextAppearance.Body2"/>
-
         <Button
           android:id="@+id/btn__select_other_map"
           android:layout_width="match_parent"
