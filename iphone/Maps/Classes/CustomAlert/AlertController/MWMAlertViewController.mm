@@ -66,7 +66,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild]];
 }
 
-- (void)presentNeedMigrationAlertWithOkBlock:(nonnull CloseAlertCompletion)block
+- (void)presentNeedMigrationAlertWithOkBlock:(nonnull TMWMVoidBlock)block
 {
   [self displayAlert:[MWMAlert needMigrationAlertWithOkBlock:block]];
 }
