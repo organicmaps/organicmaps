@@ -1,3 +1,5 @@
+#pragma once
+
 #include "base/assert.hpp"
 #include "base/base.hpp"
 #include "base/macros.hpp"
