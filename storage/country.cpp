@@ -127,7 +127,6 @@ public:
 
       // Do not use 'name' here! It was swapped!
 
-      ASSERT(!m_lastFlag.empty(), ());
       info.m_flag = m_lastFlag;
 
       m_file2info[file] = info;
