@@ -8,7 +8,7 @@ namespace storage
 UNIT_TEST(QueuedCountry_AddOptions)
 {
   Storage storage;
-  TIndex const index = storage.FindIndexByFile("USA_Georgia");
+  TIndex const index = storage.FindIndexByFile("Angola");
   QueuedCountry country(index, MapOptions::CarRouting);
 
   TEST_EQUAL(index, country.GetIndex(), ());
@@ -31,7 +31,7 @@ UNIT_TEST(QueuedCountry_AddOptions)
 UNIT_TEST(QueuedCountry_RemoveOptions)
 {
   Storage storage;
-  TIndex const index = storage.FindIndexByFile("USA_Georgia");
+  TIndex const index = storage.FindIndexByFile("Angola");
 
   {
     QueuedCountry country(index, MapOptions::MapWithCarRouting);
@@ -93,7 +93,7 @@ UNIT_TEST(QueuedCountry_RemoveOptions)
 UNIT_TEST(QueuedCountry_Bits)
 {
   Storage storage;
-  TIndex const index = storage.FindIndexByFile("USA_Georgia");
+  TIndex const index = storage.FindIndexByFile("Angola");
   QueuedCountry country(index, MapOptions::MapWithCarRouting);
   TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
 
