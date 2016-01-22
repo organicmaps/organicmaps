@@ -56,7 +56,7 @@ namespace feature
   //@}
 
   /// @return (geometry type, is coastline)
-  pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
+  pair<int, bool> GetDrawRule(TypesHolder const & types, int level,
                               drule::KeysT & keys);
   void GetDrawRule(vector<uint32_t> const & types, int level, int geoType,
                    drule::KeysT & keys);
