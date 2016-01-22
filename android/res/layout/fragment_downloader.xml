@@ -21,6 +21,15 @@
       android:padding="@dimen/margin_half"
       android:text="@string/downloader_update_all"
       android:textAppearance="@style/MwmTextAppearance.Toolbar.Title.Button"/>
+
+    <ImageView
+      android:id="@+id/download_all"
+      android:layout_width="?actionBarSize"
+      android:layout_height="?actionBarSize"
+      android:layout_gravity="end|center_vertical"
+      android:background="?selectableItemBackgroundBorderless"
+      android:scaleType="center"
+      android:src="@drawable/ic_download_map"/>
   </android.support.v7.widget.Toolbar>
 
   <FrameLayout

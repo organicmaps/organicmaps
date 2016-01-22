@@ -15,6 +15,7 @@ import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
 public class DownloadFragment extends BaseMwmListFragment implements View.OnClickListener, ActiveCountryTree.ActiveCountryListener, OnBackPressListener
@@ -22,6 +23,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   private ExtendedDownloadAdapterWrapper mExtendedAdapter;
   private DownloadedAdapter mDownloadedAdapter;
   private TextView mTvUpdateAll;
+  private View mDownloadAll;
   private int mMode = MODE_DISABLED;
   private int mListenerSlotId;
   private LayoutInflater mLayoutInflater;
@@ -85,9 +87,13 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
         onBackPressed();
       }
     });
+
     mTvUpdateAll = (TextView) toolbar.findViewById(R.id.tv__update_all);
     mTvUpdateAll.setOnClickListener(this);
-    mTvUpdateAll.setVisibility(View.GONE);
+
+    mDownloadAll = toolbar.findViewById(R.id.download_all);
+    mDownloadAll.setOnClickListener(this);
+    UiUtils.hide(mTvUpdateAll, mDownloadAll);
   }
 
   @Override
@@ -121,7 +127,10 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   public boolean onBackPressed()
   {
     if (getDownloadAdapter().onBackPressed())
+    {
       setSelection(0);
+      updateToolbar();
+    }
     else if (getListAdapter() instanceof DownloadedAdapter)
     {
       mMode = MODE_DISABLED;
@@ -144,8 +153,11 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     if (mMode == MODE_DISABLED)
     {
       mTvUpdateAll.setVisibility(View.GONE);
+      UiUtils.showIf(CountryTree.hasParent() && CountryTree.isDownloadableGroup(), mDownloadAll);
       return;
     }
+
+    UiUtils.hide(mDownloadAll);
 
     updateMode();
     switch (mMode)
@@ -240,6 +252,10 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
       else
         ActiveCountryTree.cancelAll();
       updateToolbar();
+      break;
+
+    case R.id.download_all:
+      CountryTree.downloadGroup();
       break;
     }
   }

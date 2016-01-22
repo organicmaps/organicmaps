@@ -43,4 +43,8 @@ public class CountryTree
   public static native void setListener(CountryTreeListener listener);
 
   public static native void resetListener();
+
+  public static native boolean isDownloadableGroup();
+
+  public static native void downloadGroup();
 }
