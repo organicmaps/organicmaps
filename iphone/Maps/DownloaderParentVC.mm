@@ -31,24 +31,13 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
   if (buttonIndex != alertView.cancelButtonIndex)
-  {
-    if (self.selectedInActionSheetOptions == MapOptions::Map)
-      [self performAction:DownloaderActionDownloadMap withSizeCheck:NO];
-    else if (self.selectedInActionSheetOptions == MapOptions::CarRouting)
-      [self performAction:DownloaderActionDownloadCarRouting withSizeCheck:NO];
-    else if (self.selectedInActionSheetOptions == MapOptions::MapWithCarRouting)
-      [self performAction:DownloaderActionDownloadAll withSizeCheck:NO];
-  }
+    [self download];
 }
 
 - (void)download
 {
-  if (self.selectedInActionSheetOptions == MapOptions::Map)
+  if (self.selectedInActionSheetOptions == MapOptions::MapWithCarRouting)
     [self performAction:DownloaderActionDownloadMap withSizeCheck:NO];
-  else if (self.selectedInActionSheetOptions == MapOptions::CarRouting)
-    [self performAction:DownloaderActionDownloadCarRouting withSizeCheck:NO];
-  else if (self.selectedInActionSheetOptions == MapOptions::MapWithCarRouting)
-    [self performAction:DownloaderActionDownloadAll withSizeCheck:NO];
 }
 
 #pragma mark - Virtual methods
@@ -102,14 +91,14 @@
       break;
     case TStatus::EOnDiskOutOfDate:
       [self addButtonWithTitle:L(@"zoom_to_country") action:DownloaderActionZoomToCountry toActionSheet:actionSheet];
-      [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map"), fullSize] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
+      [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map"), fullSize] action:DownloaderActionDownloadMap toActionSheet:actionSheet];
       [self addButtonWithTitle:L(@"downloader_delete_map") action:DownloaderActionDeleteMap toActionSheet:actionSheet];
       actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
       break;
     case TStatus::ENotDownloaded:
     case TStatus::EDownloadFailed:
     case TStatus::EOutOfMemFailed:
-      [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map"), fullSize] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
+      [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map"), fullSize] action:DownloaderActionDownloadMap toActionSheet:actionSheet];
       break;
     case TStatus::EDownloading:
     case TStatus::EInQueue:
@@ -159,27 +148,7 @@
   if (buttonIndex != actionSheet.cancelButtonIndex)
   {
     DownloaderAction const action = (DownloaderAction)[self.actionSheetActions[@(buttonIndex)] integerValue];
-    switch (action)
-    {
-      case DownloaderActionDownloadAll:
-      case DownloaderActionDeleteAll:
-        self.selectedInActionSheetOptions = MapOptions::MapWithCarRouting;
-        break;
-
-      case DownloaderActionDownloadMap:
-      case DownloaderActionDeleteMap:
-        self.selectedInActionSheetOptions = MapOptions::Map;
-        break;
-
-      case DownloaderActionDownloadCarRouting:
-      case DownloaderActionDeleteCarRouting:
-        self.selectedInActionSheetOptions = MapOptions::CarRouting;
-        break;
-
-      default:
-        break;
-    }
-
+    self.selectedInActionSheetOptions = MapOptions::MapWithCarRouting;
     [self performAction:action withSizeCheck:YES];
   }
 }

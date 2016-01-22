@@ -119,7 +119,7 @@ extern NSString * const MapsStatusChangedNotification;
     if (status == TStatus::ENotDownloaded)
     {
       LocalAndRemoteSizeT const size = self.tree.GetRemoteLeafSizes(position);
-      cell.sizeLabel.text = [NSString stringWithFormat:@"%@ / %@", formattedSize(size.first), formattedSize(size.second)];
+      cell.sizeLabel.text = formattedSize(size.first);
     }
     else if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
       cell.sizeLabel.text = formattedSize(self.tree.GetLeafSize(position, options).second);
@@ -159,16 +159,12 @@ extern NSString * const MapsStatusChangedNotification;
 {
   switch (action)
   {
-    case DownloaderActionDownloadAll:
     case DownloaderActionDownloadMap:
-    case DownloaderActionDownloadCarRouting:
       if (check == NO || [self canDownloadSelectedMap])
         self.tree.DownloadCountry(self.selectedPosition, self.selectedInActionSheetOptions);
       break;
 
-    case DownloaderActionDeleteAll:
     case DownloaderActionDeleteMap:
-    case DownloaderActionDeleteCarRouting:
       self.tree.DeleteCountry(self.selectedPosition, self.selectedInActionSheetOptions);
       break;
 

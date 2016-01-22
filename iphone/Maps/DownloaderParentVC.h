@@ -9,12 +9,8 @@
 
 typedef NS_ENUM(NSUInteger, DownloaderAction)
 {
-  DownloaderActionDownloadAll,
   DownloaderActionDownloadMap,
-  DownloaderActionDownloadCarRouting,
-  DownloaderActionDeleteAll,
   DownloaderActionDeleteMap,
-  DownloaderActionDeleteCarRouting,
   DownloaderActionCancelDownloading,
   DownloaderActionZoomToCountry
 };

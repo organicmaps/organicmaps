@@ -153,16 +153,12 @@ extern NSString * const MapsStatusChangedNotification;
 {
   switch (action)
   {
-    case DownloaderActionDownloadAll:
     case DownloaderActionDownloadMap:
-    case DownloaderActionDownloadCarRouting:
       if (check == NO || [self canDownloadSelectedMap])
         self.mapsLayout.DownloadMap(self.selectedGroup, self.selectedPosition, self.selectedInActionSheetOptions);
       break;
 
-    case DownloaderActionDeleteAll:
     case DownloaderActionDeleteMap:
-    case DownloaderActionDeleteCarRouting:
       self.mapsLayout.DeleteMap(self.selectedGroup, self.selectedPosition, self.selectedInActionSheetOptions);
       break;
 
