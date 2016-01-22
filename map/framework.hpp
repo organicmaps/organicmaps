@@ -469,7 +469,8 @@ public:
 private:
   // TODO(vng): Uncomment when needed.
   //void GetLocality(m2::PointD const & pt, search::AddressInfo & info) const;
-
+  /// @returns true if command was handled by editor.
+  bool ParseEditorDebugCommand(search::SearchParams const & params);
 public:
   /// @returns address of nearby building with house number in approx 1km distance.
   search::AddressInfo GetMercatorAddressInfo(m2::PointD const & mercator) const;

@@ -978,6 +978,8 @@ bool Framework::Search(search::SearchParams const & params)
 #endif
 
   ParseSetGpsTrackMinAccuracyCommand(params.m_query);
+  if (ParseEditorDebugCommand(params))
+    return true;
 
   m2::RectD const viewport = GetCurrentViewport();
 
@@ -2296,4 +2298,46 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 
   if (!Settings::Get(kAllow3dBuildingsKey, allow3dBuildings))
     allow3dBuildings = true;
+}
+
+namespace feature
+{
+string GetPrintableTypes(FeatureType const & ft)
+{
+  return feature::TypesHolder(ft).DebugPrint();
+}
+uint32_t GetBestType(FeatureType const & ft)
+{
+  return feature::TypesHolder(ft).GetBestType();
+}
+}
+
+bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
+{
+  if (params.m_query == "?edits")
+  {
+    osm::Editor::Stats const stats = osm::Editor::Instance().GetStats();
+    search::Results results;
+    results.AddResultNoChecks(search::Result("Uploaded: " + strings::to_string(stats.m_uploadedCount), "?edits"));
+    for (auto const & edit : stats.m_edits)
+    {
+      FeatureID const & fid = edit.first;
+      auto const feature = GetFeatureByID(fid);
+      string name;
+      feature->GetReadableName(name);
+      feature::TypesHolder const types(*feature);
+      search::Result::Metadata smd;
+      results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*feature), name, edit.second,
+                                           types.DebugPrint(), types.GetBestType(), smd));
+    }
+    params.m_callback(results);
+    params.m_callback(search::Results::GetEndMarker(false));
+    return true;
+  }
+  else if (params.m_query == "?eclear")
+  {
+    osm::Editor::Instance().ClearAllLocalEdits();
+    return true;
+  }
+  return false;
 }
