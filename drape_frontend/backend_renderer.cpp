@@ -112,7 +112,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::InvalidateReadManagerRect:
     {
       ref_ptr<InvalidateReadManagerRectMessage> msg = message;
-      m_readManager->Invalidate(msg->GetTilesForInvalidate());
+      if (msg->NeedInvalidateAll())
+        m_readManager->InvalidateAll();
+      else
+        m_readManager->Invalidate(msg->GetTilesForInvalidate());
       break;
     }
   case Message::CountryStatusRecache:

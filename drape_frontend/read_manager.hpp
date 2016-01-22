@@ -33,6 +33,7 @@ public:
   void UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, TTilesCollection const & tiles,
                       ref_ptr<dp::TextureManager> texMng);
   void Invalidate(TTilesCollection const & keyStorage);
+  void InvalidateAll();
   void Stop();
 
   bool CheckTileKey(TileKey const & tileKey) const;

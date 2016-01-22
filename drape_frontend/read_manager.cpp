@@ -155,6 +155,17 @@ void ReadManager::Invalidate(TTilesCollection const & keyStorage)
   m_forceUpdate = true;
 }
 
+void ReadManager::InvalidateAll()
+{
+  for (auto const & info : m_tileInfos)
+    CancelTileInfo(info);
+
+  m_tileInfos.clear();
+
+  m_forceUpdate = true;
+  m_modeChanged = true;
+}
+
 void ReadManager::Stop()
 {
   for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));
