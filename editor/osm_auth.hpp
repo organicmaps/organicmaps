@@ -8,6 +8,7 @@ namespace osm
 
 using TKeySecret = pair<string /*key*/, string /*secret*/>;
 
+/// All methods that interact with the OSM server are blocking and not asynchronous.
 class OsmOAuth
 {
 public:
@@ -21,7 +22,8 @@ public:
     FailAuth,
     NoAccess,
     NetworkError,
-    ServerError
+    ServerError,
+    NoEmail
   };
 
   /// A result of a request. Has readable values for all OSM API return codes.
@@ -64,6 +66,7 @@ public:
   AuthResult AuthorizePassword(string const & login, string const & password, TKeySecret & outKeySecret) const;
   AuthResult AuthorizeFacebook(string const & facebookToken, TKeySecret & outKeySecret) const;
   AuthResult AuthorizeGoogle(string const & googleToken, TKeySecret & outKeySecret) const;
+  AuthResult RestorePassword(string const & email) const;
   /// @param[method] The API method, must start with a forward slash.
   Response Request(TKeySecret const & keySecret, string const & method, string const & httpMethod = "GET", string const & body = "") const;
   //@}
@@ -86,6 +89,7 @@ public:
   TUrlKeySecret GetGoogleOAuthURL() const;
   AuthResult FinishAuthorization(TKeySecret const & requestToken, string const & verifier, TKeySecret & outKeySecret) const;
   AuthResult FinishAuthorization(TKeySecret const & requestToken, string const & verifier);
+  string GetRegistrationURL() const { return m_baseUrl + "/user/new"; }
   //@}
 
   /// Tokenless GET request, for convenience.
@@ -106,7 +110,7 @@ private:
   /// Key and secret to sign every OAuth request.
   TKeySecret m_tokenKeySecret;
 
-  AuthResult FetchSessionId(SessionID & sid) const;
+  AuthResult FetchSessionId(SessionID & sid, string const & subUrl = "/login") const;
   AuthResult LogoutUser(SessionID const & sid) const;
   AuthResult LoginUserPassword(string const & login, string const & password, SessionID const & sid) const;
   AuthResult LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const;

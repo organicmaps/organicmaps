@@ -98,9 +98,9 @@ OsmOAuth OsmOAuth::ServerAuth()
 }
 
 // Opens a login page and extract a cookie and a secret token.
-OsmOAuth::AuthResult OsmOAuth::FetchSessionId(OsmOAuth::SessionID & sid) const
+OsmOAuth::AuthResult OsmOAuth::FetchSessionId(OsmOAuth::SessionID & sid, string const & subUrl) const
 {
-  HTTPClientPlatformWrapper request(m_baseUrl + "/login?cookie_test=true");
+  HTTPClientPlatformWrapper request(m_baseUrl + subUrl + "?cookie_test=true");
   if (!request.RunHTTPRequest())
     return AuthResult::NetworkError;
   if (request.error_code() != 200)
@@ -296,6 +296,30 @@ OsmOAuth::TUrlKeySecret OsmOAuth::GetGoogleOAuthURL() const
   return TUrlKeySecret(url, requestToken);
 }
 
+OsmOAuth::AuthResult OsmOAuth::RestorePassword(string const & email) const
+{
+  string const kForgotPasswordUrlPart = "/user/forgot-password";
+
+  SessionID sid;
+  AuthResult result = FetchSessionId(sid, kForgotPasswordUrlPart);
+  if (result != AuthResult::OK)
+    return result;
+
+  map<string, string> params;
+  params["user[email]"] = email;
+  params["authenticity_token"] = sid.m_token;
+  params["commit"] = "Reset password";
+  HTTPClientPlatformWrapper request(m_baseUrl + kForgotPasswordUrlPart);
+  request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded");
+  request.set_cookies(sid.m_cookies);
+
+  if (!request.RunHTTPRequest())
+    return AuthResult::NetworkError;
+
+  string const content = request.server_response();
+  return content.find("<div class=\"flash notice\">") == string::npos ? AuthResult::NoEmail : AuthResult::OK;
+}
+
 OsmOAuth::Response OsmOAuth::Request(TKeySecret const & keySecret, string const & method, string const & httpMethod, string const & body) const
 {
   CHECK(IsKeySecretValid(keySecret), ("Empty request token"));
@@ -391,6 +415,7 @@ string DebugPrint(OsmOAuth::AuthResult const res)
   case OsmOAuth::AuthResult::NoAccess: return "NoAccess";
   case OsmOAuth::AuthResult::NetworkError: return "NetworkError";
   case OsmOAuth::AuthResult::ServerError: return "ServerError";
+  case OsmOAuth::AuthResult::NoEmail: return "NoEmail";
   }
   return "Unknown";
 }
