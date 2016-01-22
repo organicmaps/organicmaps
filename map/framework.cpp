@@ -1050,12 +1050,12 @@ void Framework::InitCountryInfoGetter()
   {
     if(platform::migrate::NeedMigrate())
     {
-      m_infoGetter.reset(new storage::CountryInfoGetter(platform.GetReader(PACKED_POLYGONS_FILE),
+      m_infoGetter.reset(new storage::CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE),
                                                         platform.GetReader(COUNTRIES_FILE)));
     }
     else
     {
-      m_infoGetter.reset(new storage::CountryInfoGetter(platform.GetReader(PACKED_POLYGONS_MIGRATE_FILE),
+      m_infoGetter.reset(new storage::CountryInfoReader(platform.GetReader(PACKED_POLYGONS_MIGRATE_FILE),
                                                         platform.GetReader(COUNTRIES_MIGRATE_FILE)));
     }
   }
