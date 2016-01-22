@@ -9,7 +9,8 @@
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries
                                           routes:(vector<storage::TIndex> const &)routes
-                                            code:(routing::IRouter::ResultCode)code;
+                                            code:(routing::IRouter::ResultCode)code
+                                           block:(TMWMVoidBlock)block;
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)facebookAlert;
 + (MWMAlert *)locationAlert;
@@ -20,6 +21,7 @@
 + (MWMAlert *)locationServiceNotSupportedAlert;
 + (MWMAlert *)pedestrianToastShareAlert:(BOOL)isFirstLaunch;
 + (MWMAlert *)point2PointAlertWithOkBlock:(TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild;
++ (MWMAlert *)needMigrationAlertWithOkBlock:(TMWMVoidBlock)block;
 - (void)close;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;

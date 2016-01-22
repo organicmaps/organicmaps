@@ -66,6 +66,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild]];
 }
 
+- (void)presentNeedMigrationAlertWithOkBlock:(nonnull CloseAlertCompletion)block
+{
+  [self displayAlert:[MWMAlert needMigrationAlertWithOkBlock:block]];
+}
+
 - (void)presentFacebookAlert
 {
   [self displayAlert:MWMAlert.facebookAlert];
@@ -94,8 +99,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const &)countries
                                      routes:(vector<storage::TIndex> const &)routes
                                        code:(routing::IRouter::ResultCode)code
+                                      block:(TMWMVoidBlock)block
 {
-  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes code:code]];
+  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes code:code block:block]];
 }
 
 - (void)presentRoutingDisclaimerAlert

@@ -7,7 +7,8 @@
 
 + (instancetype)downloaderAlertWithMaps:(vector<storage::TIndex> const &)maps
                                  routes:(vector<storage::TIndex> const &)routes
-                                   code:(routing::IRouter::ResultCode)code;
+                                   code:(routing::IRouter::ResultCode)code
+                                  block:(TMWMVoidBlock)block;
 - (void)showDownloadDetail:(UIButton *)sender;
 
 @end

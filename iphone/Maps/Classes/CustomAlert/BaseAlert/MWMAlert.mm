@@ -31,6 +31,11 @@
   return [MWMDefaultAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild];
 }
 
++ (MWMAlert *)needMigrationAlertWithOkBlock:(TMWMVoidBlock)block
+{
+  return [MWMDefaultAlert needMigrationAlertWithOkBlock:block];
+}
+
 + (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation
 {
   return [MWMRoutingDisclaimerAlert alertWithInitialOrientation:orientation];
@@ -59,8 +64,9 @@
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries
                                           routes:(vector<storage::TIndex> const &)routes
                                             code:(routing::IRouter::ResultCode)code
+                                           block:(TMWMVoidBlock)block
 {
-  return [MWMDownloadTransitMapAlert downloaderAlertWithMaps:countries routes:routes code:code];
+  return [MWMDownloadTransitMapAlert downloaderAlertWithMaps:countries routes:routes code:code block:block];
 }
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type

@@ -12,10 +12,12 @@
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
 - (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const &)countries
                                      routes:(vector<storage::TIndex> const &)routes
-                                       code:(routing::IRouter::ResultCode)code;
+                                       code:(routing::IRouter::ResultCode)code
+                                      block:(nonnull TMWMVoidBlock)block;
 - (void)presentRateAlert;
 - (void)presentFacebookAlert;
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild;
+- (void)presentNeedMigrationAlertWithOkBlock:(nonnull TMWMVoidBlock)block;
 - (void)presentRoutingDisclaimerAlert;
 - (void)presentDisabledLocationAlert;
 - (void)presentLocationAlert;

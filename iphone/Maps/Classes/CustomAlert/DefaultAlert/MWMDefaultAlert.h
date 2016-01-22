@@ -14,5 +14,6 @@
 + (instancetype)noConnectionAlert;
 + (instancetype)locationServiceNotSupportedAlert;
 + (instancetype)point2PointAlertWithOkBlock:(TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild;
++ (instancetype)needMigrationAlertWithOkBlock:(TMWMVoidBlock)block;
 
 @end

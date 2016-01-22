@@ -35,6 +35,7 @@ namespace search { struct AddressInfo; }
 - (void)performAction:(NSString *)action;
 
 - (void)openBookmarks;
+- (void)downloadMaps;
 
 - (void)refreshAd;
 

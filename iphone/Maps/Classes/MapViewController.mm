@@ -1,6 +1,7 @@
 #import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
 #import "Common.h"
+#import "CountryTreeVC.h"
 #import "EAGLView.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
@@ -32,6 +33,7 @@
 #include "drape_frontend/user_event_stream.hpp"
 
 #include "platform/file_logging.hpp"
+#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
@@ -554,32 +556,35 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
     }
     else
     {
-      LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
-      uint64_t sizeToDownload = sizes.first;
-      MapOptions options = static_cast<MapOptions>(opt);
-      if(HasOptions(options, MapOptions::CarRouting))
-        sizeToDownload += sizes.second;
-
-      NSString * name = @(layout.GetCountryName(idx).c_str());
-      Platform::EConnectionType const connection = Platform::ConnectionStatus();
-      if (connection != Platform::EConnectionType::CONNECTION_NONE)
+      [self checkMigrationAndCallBlock:^
       {
-        if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * MB)
+        LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
+        uint64_t sizeToDownload = sizes.first;
+        MapOptions options = static_cast<MapOptions>(opt);
+        if(HasOptions(options, MapOptions::CarRouting))
+          sizeToDownload += sizes.second;
+
+        NSString * name = @(layout.GetCountryName(idx).c_str());
+        Platform::EConnectionType const connection = Platform::ConnectionStatus();
+        if (connection != Platform::EConnectionType::CONNECTION_NONE)
         {
-          [self.alertController presentnoWiFiAlertWithName:name downloadBlock:^
+          if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * MB)
           {
-            layout.DownloadMap(idx, static_cast<MapOptions>(opt));
-          }];
+            [self.alertController presentnoWiFiAlertWithName:name downloadBlock:^
+             {
+               layout.DownloadMap(idx, static_cast<MapOptions>(opt));
+             }];
+            return;
+          }
+        }
+        else
+        {
+          [self.alertController presentNoConnectionAlert];
           return;
         }
-      }
-      else
-      {
-        [self.alertController presentNoConnectionAlert];
-        return;
-      }
 
-      layout.DownloadMap(idx, static_cast<MapOptions>(opt));
+        layout.DownloadMap(idx, static_cast<MapOptions>(opt));
+      }];
     }
   });
 
@@ -598,6 +603,31 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
       self.controlsManager.routeBuildingProgress = progress;
     });
   });
+}
+
+- (void)checkMigrationAndCallBlock:(TMWMVoidBlock)block
+{
+  if (platform::migrate::NeedMigrate())
+  {
+    [self.alertController presentNeedMigrationAlertWithOkBlock:^
+    {
+      GetFramework().Migrate();
+    }];
+  }
+  else
+  {
+    block();
+  }
+}
+
+- (void)downloadMaps
+{
+  [self checkMigrationAndCallBlock:^
+  {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
+    CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
+    [self.navigationController pushViewController:vc animated:YES];
+  }];
 }
 
 - (void)processRoutingBuildingEvent:(routing::IRouter::ResultCode)code
@@ -633,10 +663,22 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
     case routing::IRouter::NeedMoreMaps:
     case routing::IRouter::FileTooOld:
     case routing::IRouter::RouteNotFound:
+    {
       [self.controlsManager handleRoutingError];
-      [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes];
+      [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes block:^
+      {
+        [self checkMigrationAndCallBlock:^
+        {
+          auto & a = GetFramework().GetCountryTree().GetActiveMapLayout();
+          for (auto const & index : absentCountries)
+            a.DownloadMap(index, MapOptions::MapWithCarRouting);
+          for (auto const & index : absentRoutes)
+            a.DownloadMap(index, MapOptions::CarRouting);
+        }];
+      }];
       self.forceRoutingStateChange = ForceRoutingStateChangeNone;
       break;
+    }
     case routing::IRouter::Cancelled:
       self.forceRoutingStateChange = ForceRoutingStateChangeNone;
       break;
@@ -748,9 +790,10 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
                      countries:(vector<storage::TIndex> const &)countries
                         routes:(vector<storage::TIndex> const &)routes
+                         block:(TMWMVoidBlock)block
 {
   if (countries.size() || routes.size())
-    [self.alertController presentDownloaderAlertWithCountries:countries routes:routes code:code];
+    [self.alertController presentDownloaderAlertWithCountries:countries routes:routes code:code block:block];
   else
     [self presentDefaultAlert:code];
 }
