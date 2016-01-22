@@ -7,6 +7,8 @@ cp ../data/classificator.txt assets/
 cp ../data/copyright.html assets/
 cp ../data/countries.txt assets/
 cp ../data/drules_proto_legacy.bin assets/
+cp ../data/countries_migrate.txt assets/
+cp ../data/drules_proto.bin assets/
 cp ../data/drules_proto_dark.bin assets/
 cp ../data/drules_proto_clear.bin assets/
 cp ../data/external_resources.txt assets/
@@ -15,6 +17,7 @@ cp ../data/fonts_blacklist.txt assets/
 cp ../data/fonts_whitelist.txt assets/
 cp ../data/languages.txt assets/
 cp ../data/packed_polygons.bin assets/
+cp ../data/packed_polygons_migrate.bin assets/
 cp ../data/types.txt assets/
 cp ../data/unicode_blocks.txt assets/
 
@@ -50,6 +53,7 @@ cp ../data/06_code2000.ttf flavors/mwm-ttf-assets/
 cp ../data/07_roboto_medium.ttf flavors/mwm-ttf-assets/
 cp ../data/World.mwm flavors/mwm-ttf-assets/
 cp ../data/WorldCoasts.mwm flavors/mwm-ttf-assets/
+cp ../data/WorldCoasts_migrate.mwm flavors/mwm-ttf-assets/
 
 rm -rf res/values-zh-rHK/
 mkdir res\\values-zh-rHK
