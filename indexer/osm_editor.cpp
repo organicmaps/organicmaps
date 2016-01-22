@@ -395,6 +395,13 @@ void Editor::Save(string const & fullFilePath) const
   }
 }
 
+void Editor::ClearAllLocalEdits()
+{
+  m_features.clear();
+  Save(GetEditorFilePath());
+  m_invalidateFn();
+}
+
 Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const
 {
   // Most popular case optimization.
