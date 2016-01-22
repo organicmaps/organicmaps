@@ -95,6 +95,12 @@
 		342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342CC5F01C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm */; };
 		342EE4111C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
 		342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */; };
+		342F53991C529AF100229014 /* countries_migrate.txt in Resources */ = {isa = PBXBuildFile; fileRef = 342F53961C529AF100229014 /* countries_migrate.txt */; };
+		342F539A1C529AF100229014 /* countries_migrate.txt in Resources */ = {isa = PBXBuildFile; fileRef = 342F53961C529AF100229014 /* countries_migrate.txt */; };
+		342F539B1C529AF100229014 /* packed_polygons_migrate.bin in Resources */ = {isa = PBXBuildFile; fileRef = 342F53971C529AF100229014 /* packed_polygons_migrate.bin */; };
+		342F539C1C529AF100229014 /* packed_polygons_migrate.bin in Resources */ = {isa = PBXBuildFile; fileRef = 342F53971C529AF100229014 /* packed_polygons_migrate.bin */; };
+		342F539D1C529AF100229014 /* WorldCoasts_migrate.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 342F53981C529AF100229014 /* WorldCoasts_migrate.mwm */; };
+		342F539E1C529AF100229014 /* WorldCoasts_migrate.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 342F53981C529AF100229014 /* WorldCoasts_migrate.mwm */; };
 		3438CDF41B85F1170051AA78 /* MWMConsole.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDF31B85F1170051AA78 /* MWMConsole.mm */; };
 		3438CDF81B8616760051AA78 /* MWMSearchShowOnMapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDF61B8616760051AA78 /* MWMSearchShowOnMapCell.mm */; };
 		3438CDF91B8616760051AA78 /* MWMSearchShowOnMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3438CDF71B8616760051AA78 /* MWMSearchShowOnMapCell.xib */; };
@@ -1046,6 +1052,9 @@
 		342E75A11B302FCC00A8635F /* MWMPlacePageViewManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageViewManagerDelegate.h; sourceTree = "<group>"; };
 		342EE40F1C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationWebViewLoginViewController.h; sourceTree = "<group>"; };
 		342EE4101C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationWebViewLoginViewController.mm; sourceTree = "<group>"; };
+		342F53961C529AF100229014 /* countries_migrate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries_migrate.txt; path = ../../data/countries_migrate.txt; sourceTree = "<group>"; };
+		342F53971C529AF100229014 /* packed_polygons_migrate.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons_migrate.bin; path = ../../data/packed_polygons_migrate.bin; sourceTree = "<group>"; };
+		342F53981C529AF100229014 /* WorldCoasts_migrate.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts_migrate.mwm; path = ../../data/WorldCoasts_migrate.mwm; sourceTree = "<group>"; };
 		3434D7701BD12AEA00C77E44 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3434D7711BD12AEA00C77E44 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3434D7721BD12AEA00C77E44 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -3201,6 +3210,9 @@
 				FA46DA2B12D4166E00968C36 /* countries.txt */,
 				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
 				EE026F0511D6AC0D00645242 /* classificator.txt */,
+				342F53961C529AF100229014 /* countries_migrate.txt */,
+				342F53971C529AF100229014 /* packed_polygons_migrate.bin */,
+				342F53981C529AF100229014 /* WorldCoasts_migrate.mwm */,
 			);
 			name = "External Resources";
 			sourceTree = "<group>";
@@ -3536,6 +3548,8 @@
 				9DA46A141C47E95700EF52BA /* resources-6plus_legacy in Resources */,
 				B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */,
 				34B82ABB1B837FFD00180497 /* MWMSearchHistoryRequestCell.xib in Resources */,
+				342F539B1C529AF100229014 /* packed_polygons_migrate.bin in Resources */,
+				342F53991C529AF100229014 /* countries_migrate.txt in Resources */,
 				34F9FB921C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */,
 				3476B8DC1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
@@ -3587,6 +3601,7 @@
 				34B82AC51B84608600180497 /* MWMSearchHistoryClearCell.xib in Resources */,
 				F6BB6CC01BB17D7000DF1DF2 /* MWMRoutePointCell.xib in Resources */,
 				349A357B1B53D4C9009677EE /* MWMCircularProgress.xib in Resources */,
+				342F539D1C529AF100229014 /* WorldCoasts_migrate.mwm in Resources */,
 				F6CB21621AEE902B00FB8963 /* PlacePageLinkCell.xib in Resources */,
 				3401CD781C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.xib in Resources */,
 				34181E971C0ECF210081B586 /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
@@ -3714,6 +3729,8 @@
 				6741A9641BF340DE002C974C /* MWMSearchDownloadViewController.xib in Resources */,
 				9DA46A151C47E95700EF52BA /* resources-6plus_legacy in Resources */,
 				345FDD2E1C3BF98D0070C459 /* MWMEditorTableViewHeader.xib in Resources */,
+				342F539C1C529AF100229014 /* packed_polygons_migrate.bin in Resources */,
+				342F539A1C529AF100229014 /* countries_migrate.txt in Resources */,
 				34F9FB931C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				6741A9651BF340DE002C974C /* LocalNotifications.plist in Resources */,
 				6741A9661BF340DE002C974C /* MWMSearchHistoryRequestCell.xib in Resources */,
@@ -3765,6 +3782,7 @@
 				6741A9881BF340DE002C974C /* MWMAPIBarView.xib in Resources */,
 				6741A9891BF340DE002C974C /* MWMSearchHistoryClearCell.xib in Resources */,
 				6741A98A1BF340DE002C974C /* MWMRoutePointCell.xib in Resources */,
+				342F539E1C529AF100229014 /* WorldCoasts_migrate.mwm in Resources */,
 				6741A98B1BF340DE002C974C /* MWMCircularProgress.xib in Resources */,
 				6741A98C1BF340DE002C974C /* PlacePageLinkCell.xib in Resources */,
 				6741A98D1BF340DE002C974C /* MWMDownloadMapRequest.xib in Resources */,
