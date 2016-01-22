@@ -146,19 +146,15 @@ extern "C"
     GetMapLayout().DownloadMap(storage::ToNative(index), ToOptions(options));
   }
 
-  // FIXME (trashkalmar): Include proper logic
-
-  static bool legacy_mode = true;
-
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_country_ActiveCountryTree_isLegacyMode(JNIEnv * env, jclass clazz)
   {
-    return legacy_mode;
+    return g_framework->NeedMigrate();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_country_ActiveCountryTree_migrate(JNIEnv * env, jclass clazz)
   {
-    legacy_mode = false;
+    g_framework->Migrate();
   }
 }

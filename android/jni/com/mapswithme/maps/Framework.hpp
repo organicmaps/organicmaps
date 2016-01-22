@@ -169,6 +169,9 @@ namespace android
     void SetActiveUserMark(UserMark const * mark);
     UserMark const * GetActiveUserMark();
 
+    bool NeedMigrate();
+    void Migrate();
+
   public:
     virtual void ItemStatusChanged(int childPosition);
     virtual void ItemProgressChanged(int childPosition, storage::LocalAndRemoteSizeT const & sizes);
