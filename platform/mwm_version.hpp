@@ -44,4 +44,19 @@ bool ReadVersion(FilesContainerR const & container, MwmVersion & version);
 
 /// Helper function that is used in FindAllLocalMaps.
 uint32_t ReadVersionTimestamp(ModelReaderPtr const & reader);
+
+/// \returns true if version is version of an mwm which was generated after small mwm update.
+/// This means it contains routing file as well.
+bool IsSingleMwm(int64_t version);
+
+/// \brief This enum sets constants which are used for writing test to set a version of mwm
+/// which should be processed as either single or two components (mwm and routing) mwms.
+enum ForTesting
+{
+  FOR_TESTING_TWO_COMPONENT_MWM1 = 10,
+  FOR_TESTING_TWO_COMPONENT_MWM2,
+  FOR_TESTING_SINGLE_MWM1 = 991215,
+  FOR_TESTING_SINGLE_MWM2,
+  FOR_TESTING_SINGLE_MWM_LATEST,
+};
 }  // namespace version

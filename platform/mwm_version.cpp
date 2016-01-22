@@ -74,4 +74,10 @@ uint32_t ReadVersionTimestamp(ModelReaderPtr const & reader)
   return version.timestamp;
 }
 
+bool IsSingleMwm(int64_t version)
+{
+  // @TODO(bykoianko) Check this version and move if necessary before small mwm release.
+  int64_t constexpr kMinSingleMwmVersion = 160107;
+  return version >= kMinSingleMwmVersion || version == 0 /* Version of mwm in the root directory. */;
+}
 }  // namespace version
