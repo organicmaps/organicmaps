@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import "ViewController.h"
 
 @class MWMPlacePageViewManager;
