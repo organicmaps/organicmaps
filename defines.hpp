@@ -49,12 +49,12 @@
 #define CELL2FEATURE_SORTED_EXT ".c2f.sorted"
 #define CELL2FEATURE_TMP_EXT ".c2f.tmp"
 
-#define COUNTRIES_FILE  "countries.txt"
-#define COUNTRIES_MIGRATE_FILE  "countries_mig.txt"
+#define COUNTRIES_FILE "countries.txt"
+#define COUNTRIES_MIGRATE_FILE  "countries_migrate.txt"
 
 #define WORLD_FILE_NAME "World"
 #define WORLD_COASTS_FILE_NAME "WorldCoasts"
-#define WORLD_COASTS_MIGRATE_FILE_NAME "WorldCoasts_mig"
+#define WORLD_COASTS_MIGRATE_FILE_NAME "WorldCoasts_migrate"
 
 #define SETTINGS_FILE_NAME "settings.ini"
 
@@ -62,7 +62,7 @@
 
 #define PACKED_POLYGONS_INFO_TAG "info"
 #define PACKED_POLYGONS_FILE "packed_polygons.bin"
-#define PACKED_POLYGONS_MIGRATE_FILE "packed_polygons_mig.bin"
+#define PACKED_POLYGONS_MIGRATE_FILE "packed_polygons_migrate.bin"
 
 #define EXTERNAL_RESOURCES_FILE "external_resources.txt"
 

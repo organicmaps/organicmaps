@@ -57,7 +57,7 @@ void LocalCountryFile::DeleteFromDisk(MapOptions files) const
 
 string LocalCountryFile::GetPath(MapOptions file) const
 {
-  // TODO (mpimenov): Refactor with MwmTraits after merge new-search branch.
+  // todo(@m): Refactor with MwmTraits after merge new-search branch.
   bool singleFile = GetVersion() > 151126;
   string const & countryFilePath = singleFile ? m_countryFile.GetNameWithExt(MapOptions::Map)
                                               : m_countryFile.GetNameWithExt(file);
