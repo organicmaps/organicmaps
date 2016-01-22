@@ -281,24 +281,29 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
+  void showMigrateDialog()
+  {
+    new AlertDialog.Builder(MwmActivity.this)
+        .setTitle(R.string.migrate_title)
+        .setMessage(R.string.migrate_subtitle)
+        .setNegativeButton(android.R.string.cancel, null)
+        .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            ActiveCountryTree.migrate();
+            showDownloader(false);
+          }
+        }).show();
+  }
+
   @Override
-  public void showDownloader(final boolean openDownloadedList)
+  public void showDownloader(boolean openDownloadedList)
   {
     if (ActiveCountryTree.isLegacyMode())
     {
-      new AlertDialog.Builder(MwmActivity.this)
-          .setTitle(R.string.migrate_title)
-          .setMessage(R.string.migrate_subtitle)
-          .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-              ActiveCountryTree.migrate();
-              showDownloader(openDownloadedList);
-            }
-          }).show();
-
+      showMigrateDialog();
       return;
     }
 

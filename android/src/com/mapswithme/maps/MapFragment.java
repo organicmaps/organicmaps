@@ -7,7 +7,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.Surface;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.downloader.DownloadHelper;
 import com.mapswithme.util.UiUtils;
@@ -275,6 +283,12 @@ public class MapFragment extends BaseMwmFragment
       @Override
       public void run()
       {
+        if (ActiveCountryTree.isLegacyMode())
+        {
+          ((MwmActivity)getActivity()).showMigrateDialog();
+          return;
+        }
+
         final MapStorage.Index index = new MapStorage.Index(group, country, region);
         if (options == -1)
         {
