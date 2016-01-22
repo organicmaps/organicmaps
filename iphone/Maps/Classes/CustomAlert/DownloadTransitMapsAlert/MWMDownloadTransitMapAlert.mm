@@ -42,8 +42,6 @@
 
 @end
 
-typedef void (^MWMDownloaderBlock)();
-
 typedef NS_ENUM(NSUInteger, SelectionState)
 {
   SelectionStateNone,
@@ -69,7 +67,7 @@ static NSString * const kStatisticsEvent = @"Map download Alert";
 
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel * messageLabel;
-@property (copy, nonatomic) MWMDownloaderBlock downloaderBlock;
+@property (copy, nonatomic) TMWMVoidBlock downloaderBlock;
 @property (weak, nonatomic) IBOutlet UITableView * dialogsTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * tableViewHeight;
 @property (copy, nonatomic) NSArray * missedFiles;

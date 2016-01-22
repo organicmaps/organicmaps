@@ -8,5 +8,6 @@
     #import <CoreLocation/CoreLocation.h>
     #import <CoreGraphics/CoreGraphics.h>
 
+    #import "MWMTypes.h"
     #import "UIKitCategories.h"
 #endif

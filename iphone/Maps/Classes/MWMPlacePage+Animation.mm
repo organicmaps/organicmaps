@@ -26,7 +26,7 @@
   self.springAnimation = nil;
 }
 
-- (void)startAnimatingPlacePage:(MWMPlacePage *)placePage initialVelocity:(CGPoint)velocity completion:(MWMSpringAnimationCompletionBlock)completion
+- (void)startAnimatingPlacePage:(MWMPlacePage *)placePage initialVelocity:(CGPoint)velocity completion:(TMWMVoidBlock)completion
 {
   [self cancelSpringAnimation];
   self.springAnimation = [MWMSpringAnimation animationWithView:placePage.extendedPlacePageView target:placePage.targetPoint velocity:velocity completion:completion];

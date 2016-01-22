@@ -5,18 +5,18 @@
 @property (nonatomic) CGPoint velocity;
 @property (nonatomic) CGPoint targetPoint;
 @property (nonatomic) UIView * view;
-@property (copy, nonatomic) MWMSpringAnimationCompletionBlock completion;
+@property (copy, nonatomic) TMWMVoidBlock completion;
 
 @end
 
 @implementation MWMSpringAnimation
 
-+ (instancetype)animationWithView:(UIView *)view target:(CGPoint)target velocity:(CGPoint)velocity completion:(MWMSpringAnimationCompletionBlock)completion
++ (instancetype)animationWithView:(UIView *)view target:(CGPoint)target velocity:(CGPoint)velocity completion:(TMWMVoidBlock)completion
 {
   return [[self alloc] initWithView:view target:target velocity:velocity completion:completion];
 }
 
-- (instancetype)initWithView:(UIView *)view target:(CGPoint)target velocity:(CGPoint)velocity completion:(MWMSpringAnimationCompletionBlock)completion
+- (instancetype)initWithView:(UIView *)view target:(CGPoint)target velocity:(CGPoint)velocity completion:(TMWMVoidBlock)completion
 {
   self = [super init];
   if (self)

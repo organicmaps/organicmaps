@@ -453,7 +453,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent
                      animated:(BOOL)flag
-                   completion:(void (^__nullable)(void))completion
+                   completion:(TMWMVoidBlock)completion
 {
   if (isIOSVersionLessThan(8))
     self.menuRestoreState = self.controlsManager.menuState;
