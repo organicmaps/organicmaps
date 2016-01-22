@@ -90,57 +90,35 @@
 
 - (UIActionSheet *)actionSheetToPerformActionOnSelectedMap
 {
-  TStatus const status = [self selectedMapStatus];
-  MapOptions const options = [self selectedMapOptions];
   [self.actionSheetActions removeAllObjects];
   UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:self.actionSheetTitle delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-  if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
-    [self addButtonWithTitle:L(@"zoom_to_country") action:DownloaderActionZoomToCountry toActionSheet:actionSheet];
-
-  if (status == TStatus::ENotDownloaded || status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed)
+  NSString * fullSize = formattedSize([self selectedMapSizeWithOptions:MapOptions::MapWithCarRouting]);
+  switch ([self selectedMapStatus])
   {
-    NSString * fullSize = formattedSize([self selectedMapSizeWithOptions:MapOptions::MapWithCarRouting]);
-    NSString * onlyMapSize = formattedSize([self selectedMapSizeWithOptions:MapOptions::Map]);
-    [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map"), fullSize] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
-    [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map_no_routing"), onlyMapSize] action:DownloaderActionDownloadMap toActionSheet:actionSheet];
-  }
-
-  if (status == TStatus::EOnDiskOutOfDate && options == MapOptions::MapWithCarRouting)
-  {
-    NSString * size = formattedSize([self selectedMapSizeWithOptions:MapOptions::MapWithCarRouting]);
-    [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map_and_routing"), size] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
-  }
-
-  if (status == TStatus::EOnDisk && options == MapOptions::Map)
-  {
-    NSString * size = formattedSize([self selectedMapSizeWithOptions:MapOptions::CarRouting]);
-    NSString * title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_download_routing"), size];
-    [self addButtonWithTitle:title action:DownloaderActionDownloadCarRouting toActionSheet:actionSheet];
-  }
-
-  if (status == TStatus::EOnDiskOutOfDate && options == MapOptions::Map)
-  {
-    NSString * size = formattedSize([self selectedMapSizeWithOptions:MapOptions::Map]);
-    NSString * title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map"), size];
-    [self addButtonWithTitle:title action:DownloaderActionDownloadMap toActionSheet:actionSheet];
-    size = formattedSize([self selectedMapSizeWithOptions:MapOptions::MapWithCarRouting]);
-    title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map_and_routing"), size];
-    [self addButtonWithTitle:title action:DownloaderActionDownloadAll toActionSheet:actionSheet];
-  }
-
-  if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
-  {
-    if (options == MapOptions::MapWithCarRouting)
-      [self addButtonWithTitle:L(@"downloader_delete_routing") action:DownloaderActionDeleteCarRouting toActionSheet:actionSheet];
-
-    [self addButtonWithTitle:L(@"downloader_delete_map") action:DownloaderActionDeleteMap toActionSheet:actionSheet];
-    actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
-  }
-
-  if (status == TStatus::EDownloading || status == TStatus::EInQueue)
-  {
-    [self addButtonWithTitle:L(@"cancel_download") action:DownloaderActionCancelDownloading toActionSheet:actionSheet];
-    actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
+    case TStatus::EOnDisk:
+      [self addButtonWithTitle:L(@"zoom_to_country") action:DownloaderActionZoomToCountry toActionSheet:actionSheet];
+      [self addButtonWithTitle:L(@"downloader_delete_map") action:DownloaderActionDeleteMap toActionSheet:actionSheet];
+      actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
+      break;
+    case TStatus::EOnDiskOutOfDate:
+      [self addButtonWithTitle:L(@"zoom_to_country") action:DownloaderActionZoomToCountry toActionSheet:actionSheet];
+      [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map"), fullSize] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
+      [self addButtonWithTitle:L(@"downloader_delete_map") action:DownloaderActionDeleteMap toActionSheet:actionSheet];
+      actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
+      break;
+    case TStatus::ENotDownloaded:
+    case TStatus::EDownloadFailed:
+    case TStatus::EOutOfMemFailed:
+      [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map"), fullSize] action:DownloaderActionDownloadAll toActionSheet:actionSheet];
+      break;
+    case TStatus::EDownloading:
+    case TStatus::EInQueue:
+      [self addButtonWithTitle:L(@"cancel_download") action:DownloaderActionCancelDownloading toActionSheet:actionSheet];
+      actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
+      break;
+    case TStatus::EUnknown:
+      NSAssert(NO, @"Invalid status");
+      break;
   }
 
   if (!IPAD)
