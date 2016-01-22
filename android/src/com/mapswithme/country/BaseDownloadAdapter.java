@@ -39,13 +39,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   static final int TYPE_COUNTRY_IN_PROCESS = 2;
   static final int TYPE_COUNTRY_READY = 3;
   static final int TYPE_COUNTRY_NOT_DOWNLOADED = 4;
-  static final int TYPES_COUNT = 5;
+  static final int TYPES_COUNT = TYPE_COUNTRY_NOT_DOWNLOADED + 1;
 
   private int mActiveAnimationsCount;
   private static final String PROPERTY_TRANSLATION_X = "translationX";
   private static final long ANIMATION_LENGTH = 250;
   private final Handler mHandler = new Handler();
-  private ListView mListView;
+  ListView mListView;
 
   private static class SafeAdapterRunnable implements Runnable
   {
@@ -141,9 +141,19 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   @Override
   public abstract CountryItem getItem(int position);
 
+  protected int adjustPosition(int position)
+  {
+    return position;
+  }
+
+  protected int unadjustPosition(int position)
+  {
+    return position;
+  }
+
   private void processNotDownloaded(final String name, final int position, final int newOptions, final ViewHolder holder)
   {
-    final long[] remoteSizes = getRemoteItemSizes(position);
+    final long[] remoteSizes = getRemoteItemSizes(adjustPosition(position));
     final long size = newOptions > StorageOptions.MAP_OPTION_MAP_ONLY ? remoteSizes[0] : remoteSizes[1];
     DownloadHelper.downloadWithCellularCheck(mFragment.getActivity(), size, name, new DownloadHelper.OnDownloadListener()
     {
@@ -354,6 +364,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     if (item == null)
       return;
 
+    final int adjustedPosition = adjustPosition(position);
     holder.mInfoSlided.setTranslationX(0);
     holder.mInfo.setTranslationX(0);
     holder.mProgress.setTranslationX(0);
@@ -375,7 +386,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       });
 
       // FIXME when only routing is downloaded, second size in returned array is incorrect and contains total map+routing size.
-      sizes = getDownloadableItemSizes(position);
+      sizes = getDownloadableItemSizes(adjustedPosition);
       setHolderSizeString(holder, 0, sizes[1]);
       final int percent = (int) (sizes[0] * 100 / sizes[1]);
       setHolderPercentText(holder, percent + "%");
@@ -391,13 +402,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onClick(View v)
         {
-          startItemUpdating(holder, position, getItem(position).getOptions());
+          startItemUpdating(holder, adjustedPosition, item.getOptions());
           Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MAP_UPDATE);
         }
       });
 
       bindCarRoutingIcon(holder, item);
-      sizes = getDownloadableItemSizes(position);
+      sizes = getDownloadableItemSizes(adjustedPosition);
       setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentText(holder, mStatusOutdated);
       setHolderPercentColor(holder, ThemeUtils.getColor(mListView.getContext(), R.attr.colorAccent));
@@ -408,7 +419,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       UiUtils.show(holder.mInfoSlided, holder.mImageRoutingStatus);
 
       bindCarRoutingIcon(holder, item);
-      sizes = getRemoteItemSizes(position);
+      sizes = getRemoteItemSizes(adjustedPosition);
       if (item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY)
       {
         setHolderPercentText(holder, mMapOnly);
@@ -432,7 +443,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onClick(View v)
         {
-          processFailed(holder, position);
+          processFailed(holder, adjustedPosition);
         }
       };
       holder.mProgressSlided.setOnClickListener(listener);
@@ -440,7 +451,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mProgressSlided.setProgressColor(mColorFailed);
       holder.mProgressSlided.setCenterDrawable(ContextCompat.getDrawable(mFragment.getActivity(), R.drawable.ic_retry_failed));
 
-      sizes = getDownloadableItemSizes(position);
+      sizes = getDownloadableItemSizes(adjustedPosition);
       setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentText(holder, mStatusFailed);
       setHolderPercentColor(holder, mColorFailed);
@@ -461,7 +472,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       });
       holder.mInfoSlided.setVisibility(View.VISIBLE);
 
-      sizes = getDownloadableItemSizes(position);
+      sizes = getDownloadableItemSizes(adjustedPosition);
       setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentText(holder, mFragment.getString(R.string.downloader_queued));
       setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_gray));
@@ -472,7 +483,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       UiUtils.hide(holder.mProgress, holder.mImageRoutingStatus, holder.mProgressSlided);
       UiUtils.invisible(holder.mInfoSlided);
 
-      sizes = getRemoteItemSizes(position);
+      sizes = getRemoteItemSizes(adjustedPosition);
       setHolderSizeString(holder, sizes[0], sizes[1]);
       setHolderPercentText(holder, mStatusNotDownloaded);
       setHolderPercentColor(holder, ThemeUtils.getColor(mListView.getContext(), R.attr.colorAccent));
@@ -526,7 +537,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     holder.animator = animatorSet;
     mActiveAnimationsCount++;
 
-    downloadCountry(position, newOptions);
+    downloadCountry(adjustPosition(position), newOptions);
   }
 
   private static void setDownloadingViewsVisible(ViewHolder holder, boolean visible)
@@ -622,7 +633,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     }
 
     mHandler.postDelayed(mDatasetChangedRunnable, ANIMATION_LENGTH);
-    cancelDownload(position); // cancel download before checking real item status(now its just DOWNLOADING or IN_QUEUE)
+    cancelDownload(adjustPosition(position)); // cancel download before checking real item status(now its just DOWNLOADING or IN_QUEUE)
   }
 
   private static void setHolderSizeString(ViewHolder holder, long first, long second)
@@ -702,7 +713,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   /**
    * Called from children to notify about item progress.
    */
-  protected void onCountryProgress(int position, long current, long total)
+  void onCountryProgress(int position, long current, long total)
   {
     if (mListView == null || !mFragment.isAdded())
       return;
@@ -710,9 +721,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     // Do update only one item's view; don't call notifyDataSetChanged
     int index = (position - mListView.getFirstVisiblePosition());
 
-    // Skip first two items if at the root level
-    if (!(this instanceof DownloadedAdapter) && !CountryTree.hasParent())
-      index += 2;
+    // Skip first two items if at the root level and there are downloaded maps
+    index = unadjustPosition(index);
 
     final View v = mListView.getChildAt(index);
     if (v != null)
@@ -725,6 +735,11 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         setHolderPercentText(holder, percent + "%");
       }
     }
+  }
+
+  protected boolean hasHeaderItems()
+  {
+    return false;
   }
 
   void showCountryContextMenu(final CountryItem countryItem, final View anchor, final int position)
@@ -741,6 +756,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     final int status = countryItem.getStatus();
     final String name = countryItem.getName();
+    final int adjustedPosition = adjustPosition(position);
 
     OnMenuItemClickListener menuItemClickListener = new OnMenuItemClickListener()
     {
@@ -753,22 +769,22 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         switch (id)
         {
         case MENU_DELETE:
-          processOnDisk(name, position, StorageOptions.MAP_OPTION_MAP_ONLY);
+          processOnDisk(name, adjustedPosition, StorageOptions.MAP_OPTION_MAP_ONLY);
           break;
         case MENU_CANCEL:
           confirmDownloadCancellation(holder, position, name);
           break;
         case MENU_EXPLORE:
-          showCountry(position);
+          showCountry(adjustedPosition);
           break;
         case MENU_DOWNLOAD:
           processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING, holder);
           break;
         case MENU_UPDATE:
-          processOutOfDate(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+          processOutOfDate(name, adjustedPosition, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
           break;
         case MENU_RETRY:
-          processFailed(holder, position);
+          processFailed(holder, adjustedPosition);
           break;
         }
 
@@ -776,7 +792,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       }
     };
 
-    long[] remoteSizes = getRemoteItemSizes(position);
+    long[] remoteSizes = getRemoteItemSizes(adjustedPosition);
 
     BottomSheetHelper.Builder bs = BottomSheetHelper.create(mFragment.getActivity(), name)
                                                     .listener(menuItemClickListener);

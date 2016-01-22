@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +19,7 @@ import com.mapswithme.util.Utils;
 
 public class DownloadFragment extends BaseMwmListFragment implements View.OnClickListener, ActiveCountryTree.ActiveCountryListener, OnBackPressListener
 {
-  private ExtendedDownloadAdapterWrapper mExtendedAdapter;
+  private DownloadAdapter mDownloadAdapter;
   private DownloadedAdapter mDownloadedAdapter;
   private TextView mTvUpdateAll;
   private View mDownloadAll;
@@ -45,7 +44,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 
-  protected LayoutInflater getLayoutInflater()
+  LayoutInflater getLayoutInflater()
   {
     if (mLayoutInflater == null)
       mLayoutInflater = ThemeUtils.themedInflater(getActivity().getLayoutInflater(), getTheme());
@@ -68,8 +67,8 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
       openDownloadedList();
     else
     {
-      mExtendedAdapter = getExtendedAdapter();
-      setListAdapter(mExtendedAdapter);
+      mDownloadAdapter = getDownloadAdapter();
+      setListAdapter(mDownloadAdapter);
       mMode = MODE_DISABLED;
       mListenerSlotId = ActiveCountryTree.addListener(this);
     }
@@ -104,15 +103,11 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     ActiveCountryTree.removeListener(mListenerSlotId);
   }
 
-  private BaseDownloadAdapter getDownloadAdapter()
-  {
-    return (BaseDownloadAdapter) getListView().getAdapter();
-  }
-
   @Override
   public void onResume()
   {
     super.onResume();
+    getDownloadedAdapter().setCountryListener();
     getDownloadAdapter().onResume(getListView());
   }
 
@@ -120,6 +115,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   public void onPause()
   {
     super.onPause();
+    getDownloadedAdapter().resetCountryListener();
     getDownloadAdapter().onPause();
   }
 
@@ -135,9 +131,9 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     {
       mMode = MODE_DISABLED;
       mDownloadedAdapter.onPause();
-      mExtendedAdapter = getExtendedAdapter();
-      mExtendedAdapter.onResume(getListView());
-      setListAdapter(mExtendedAdapter);
+      mDownloadAdapter = getDownloadAdapter();
+      mDownloadAdapter.onResume(getListView());
+      setListAdapter(mDownloadAdapter);
       updateToolbar();
     }
     else
@@ -189,7 +185,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   @Override
   public void onListItemClick(ListView l, View v, int position, long id)
   {
-    if (getListAdapter().getItemViewType(position) == ExtendedDownloadAdapterWrapper.TYPE_EXTENDED)
+    if (getListAdapter().getItemViewType(position) == DownloadAdapter.TYPE_EXTENDED)
       openDownloadedList();
   }
 
@@ -198,12 +194,12 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     setListAdapter(getDownloadedAdapter());
     mMode = MODE_NONE;
     updateToolbar();
-    if (mExtendedAdapter != null)
-      mExtendedAdapter.onPause();
+    if (mDownloadAdapter != null)
+      mDownloadAdapter.onPause();
     mDownloadedAdapter.onResume(getListView());
   }
 
-  private ListAdapter getDownloadedAdapter()
+  BaseDownloadAdapter getDownloadedAdapter()
   {
     if (mDownloadedAdapter == null)
     {
@@ -222,12 +218,12 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     return mDownloadedAdapter;
   }
 
-  private ExtendedDownloadAdapterWrapper getExtendedAdapter()
+  private DownloadAdapter getDownloadAdapter()
   {
-    if (mExtendedAdapter == null)
+    if (mDownloadAdapter == null)
     {
-      mExtendedAdapter = new ExtendedDownloadAdapterWrapper(this, new DownloadAdapter(this));
-      mExtendedAdapter.registerDataSetObserver(new DataSetObserver()
+      mDownloadAdapter = new DownloadAdapter(this);
+      mDownloadAdapter.registerDataSetObserver(new DataSetObserver()
       {
         @Override
         public void onChanged()
@@ -238,7 +234,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
       });
     }
 
-    return mExtendedAdapter;
+    return mDownloadAdapter;
   }
 
   @Override

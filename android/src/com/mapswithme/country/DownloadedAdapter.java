@@ -4,16 +4,17 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
-public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree.ActiveCountryListener
+class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree.ActiveCountryListener
 {
   private static final String TAG = DownloadedAdapter.class.getSimpleName();
   private static final int TYPE_HEADER = 5;
-  private static final int VIEW_TYPE_COUNT = 6;
+  private static final int VIEW_TYPE_COUNT = TYPES_COUNT + 1;
 
   /*
    * Invalid position indicates, that country group(downloaded, new or outdated) and position in that group cannot be determined correctly.
@@ -27,7 +28,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   private int mInProgressCount;
   private int mListenerSlotId;
 
-  public DownloadedAdapter(DownloadFragment fragment)
+  DownloadedAdapter(DownloadFragment fragment)
   {
     super(fragment);
   }
@@ -242,6 +243,19 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
     final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "retryDownload. Cannot get correct positions.");
     if (groupAndPosition != null)
       ActiveCountryTree.retryDownloading(groupAndPosition.first, groupAndPosition.second);
+  }
+
+  @Override
+  public void onResume(ListView listView)
+  {
+    mListView = listView;
+    notifyDataSetChanged();
+  }
+
+  @Override
+  public void onPause()
+  {
+    mListView = null;
   }
 
   @Override

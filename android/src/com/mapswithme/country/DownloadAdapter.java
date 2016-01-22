@@ -1,15 +1,162 @@
 package com.mapswithme.country;
 
+import android.database.DataSetObserver;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
 class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.CountryTreeListener
 {
-  public DownloadAdapter(DownloadFragment fragment)
+  private static final int EXTENDED_VIEWS_COUNT = 2; // 3 more views at the top of baseadapter
+  private static final int DOWNLOADED_ITEM_POSITION = 0;
+  private static final int EXTENDED_VIEW_TYPE_COUNT = 2; // one for placeholder, other for downloader view
+  private static final int TYPE_PLACEHOLDER = 5;
+  static final int TYPE_EXTENDED = 6;
+
+  private int mLastDownloadedCount = -1;
+
+  private static class ViewHolder extends BaseDownloadAdapter.ViewHolder
+  {
+    TextView tvCount;
+
+    @Override
+    void initFromView(View v)
+    {
+      super.initFromView(v);
+      tvCount = (TextView) v.findViewById(R.id.tv__count);
+    }
+  }
+
+  @Override
+  protected int adjustPosition(int position)
+  {
+    if (hasHeaderItems())
+      return position - EXTENDED_VIEWS_COUNT;
+
+    return position;
+  }
+
+  @Override
+  protected int unadjustPosition(int position)
+  {
+    if (hasHeaderItems())
+      return position + EXTENDED_VIEWS_COUNT;
+
+    return position;
+  }
+
+  DownloadAdapter(DownloadFragment fragment)
   {
     super(fragment);
     CountryTree.setDefaultRoot();
+
+    mFragment.getDownloadedAdapter().registerDataSetObserver(new DataSetObserver()
+    {
+      @Override
+      public void onChanged()
+      {
+        onDownloadedCountChanged(mFragment.getDownloadedAdapter().getCount());
+      }
+    });
+  }
+
+  @Override
+  public boolean isEnabled(int position)
+  {
+    if (hasHeaderItems())
+    {
+      if (position == DOWNLOADED_ITEM_POSITION)
+        return true;
+
+      if (position < EXTENDED_VIEWS_COUNT)
+        return false;
+    }
+
+    return super.isEnabled(position);
+  }
+
+  @Override
+  public int getViewTypeCount()
+  {
+    return super.getViewTypeCount() + EXTENDED_VIEW_TYPE_COUNT;
+  }
+
+  @Override
+  public int getItemViewType(int position)
+  {
+    if (hasHeaderItems())
+    {
+      if (position == DOWNLOADED_ITEM_POSITION)
+        return TYPE_EXTENDED;
+
+      if (position < EXTENDED_VIEWS_COUNT)
+        return TYPE_PLACEHOLDER;
+    }
+
+    return super.getItemViewType(position);
+  }
+
+  @Override
+  public View getView(int position, View convertView, ViewGroup parent)
+  {
+    final int viewType = getItemViewType(position);
+    ViewHolder holder = new ViewHolder();
+    if (viewType == TYPE_PLACEHOLDER)
+    {
+      final View view = getPlaceholderView(parent);
+      holder.initFromView(view);
+      view.setTag(holder);
+      return view;
+    }
+
+    if (viewType == TYPE_EXTENDED)
+    {
+      final View view = getExtendedView(parent);
+      holder.initFromView(view);
+      final int count = ActiveCountryTree.getOutOfDateCount();
+      if (count > 0)
+      {
+        holder.tvCount.setVisibility(View.VISIBLE);
+        holder.tvCount.setText(String.valueOf(count));
+      }
+      else
+        holder.tvCount.setVisibility(View.GONE);
+      view.setTag(holder);
+      return view;
+    }
+
+    return super.getView(position, convertView, parent);
+  }
+
+  private View getPlaceholderView(ViewGroup parent)
+  {
+    return mInflater.inflate(R.layout.download_item_placeholder, parent, false);
+  }
+
+  private View getExtendedView(ViewGroup parent)
+  {
+    return mInflater.inflate(R.layout.download_item_extended, parent, false);
+  }
+
+  private void onDownloadedCountChanged(int newCount)
+  {
+    if (mLastDownloadedCount != newCount)
+    {
+      mLastDownloadedCount = newCount;
+      notifyDataSetChanged();
+    }
+  }
+
+  @Override
+  protected boolean hasHeaderItems()
+  {
+    if (mLastDownloadedCount == -1)
+      mLastDownloadedCount = mFragment.getDownloadedAdapter().getCount();
+
+    return !CountryTree.hasParent() && (mLastDownloadedCount > 0);
   }
 
   @Override
@@ -23,7 +170,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
       return;
 
     if (item.hasChildren())      // expand next level
-      expandGroup(position);
+      expandGroup(adjustPosition(position));
     else
       showCountryContextMenu(item, view, position);
   }
@@ -31,13 +178,18 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   @Override
   public int getCount()
   {
-    return CountryTree.getChildCount();
+    int res = CountryTree.getChildCount();
+
+    if (hasHeaderItems())
+      res += EXTENDED_VIEWS_COUNT;
+
+    return res;
   }
 
   @Override
   public CountryItem getItem(int position)
   {
-    return CountryTree.getChildItem(position);
+    return CountryTree.getChildItem(adjustPosition(position));
   }
 
   @Override
@@ -131,6 +283,6 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   @Override
   public void onItemStatusChanged(int position)
   {
-    onCountryStatusChanged(position);
+    onCountryStatusChanged(unadjustPosition(position));
   }
 }

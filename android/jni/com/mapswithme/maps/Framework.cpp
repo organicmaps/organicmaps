@@ -542,6 +542,11 @@ void Framework::SetActiveUserMark(UserMark const * mark)
   m_activeUserMark = mark;
 }
 
+UserMark const * Framework::GetActiveUserMark()
+{
+  return m_activeUserMark;
+}
+
 bool Framework::NeedMigrate()
 {
   return platform::migrate::NeedMigrate();
@@ -552,10 +557,6 @@ void Framework::Migrate()
   m_work.Migrate();
 }
 
-UserMark const * Framework::GetActiveUserMark()
-{
-  return m_activeUserMark;
-}
 } // namespace android
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
