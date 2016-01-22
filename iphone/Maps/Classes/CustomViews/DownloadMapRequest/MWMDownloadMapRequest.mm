@@ -14,7 +14,6 @@
 @property (nonatomic) IBOutlet MWMDownloadMapRequestView * rootView;
 @property (nonatomic) IBOutlet UILabel * mapTitleLabel;
 @property (nonatomic) IBOutlet UIButton * downloadMapButton;
-@property (nonatomic) IBOutlet UIButton * downloadRoutesButton;
 @property (nonatomic) IBOutlet UIView * progressViewWrapper;
 
 @property (nonatomic) MWMCircularProgress * progressView;
@@ -136,21 +135,10 @@
 - (IBAction)downloadMapTouchUpInside:(nonnull UIButton *)sender
 {
   [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatDownloadMap)];
-  auto const mapType = self.downloadRoutesButton.selected ? MapOptions::MapWithCarRouting : MapOptions::Map;
-  GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(self.currentCountryIndex, mapType);
+  GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(self.currentCountryIndex, MapOptions::MapWithCarRouting);
   self.progressView.progress = 0.0;
   [self showRequest];
   [self.progressView startSpinner];
-}
-
-- (IBAction)downloadRoutesTouchUpInside:(nonnull UIButton *)sender
-{
-  [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatDownloadRoute)];
-  sender.selected = !sender.selected;
-  [self.downloadMapButton setTitle:[NSString stringWithFormat:@"%@ (%@)",
-                                    L(@"downloader_download_map"),
-                                    sender.selected ? self.mapAndRouteSize : self.mapSize]
-                          forState:UIControlStateNormal];
 }
 
 - (IBAction)selectMapTouchUpInside:(nonnull UIButton *)sender
