@@ -15284,7 +15284,7 @@
 
   [editor_time_simple]
     tags = ios, android
-    en = Simple Mode
+    en = Simple mode
     ru = Простой режим
     fr = Mode simple
     da = Enkel tilstand
@@ -15431,3 +15431,9 @@
     pl = Popełniono błąd podczas edycji. Popraw go lub przełącz się na tryb prosty.
     nl = U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.
     pt = Fez um erro de edição. Corrija-o ou mude para o modo simples.
+
+  [migrate_title]
+    en = Important!
+
+  [migrate_subtitle]
+    en = In order to support new data format we have to erase installed maps. Then you should download maps again.
