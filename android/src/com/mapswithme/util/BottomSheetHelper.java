@@ -124,6 +124,13 @@ public final class BottomSheetHelper
     }
 
     @Override
+    public Builder sheet(int id, @DrawableRes int iconRes, @StringRes int textRes)
+    {
+      super.sheet(id, iconRes, textRes);
+      return this;
+    }
+
+    @Override
     public Builder grid()
     {
       super.grid();
@@ -190,6 +197,11 @@ public final class BottomSheetHelper
   }
 
   public static Builder create(Activity context, @StringRes int title)
+  {
+    return create(context).title(title);
+  }
+
+  public static Builder create(Activity context, CharSequence title)
   {
     return create(context).title(title);
   }

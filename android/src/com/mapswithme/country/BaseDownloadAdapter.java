@@ -787,8 +787,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     long[] remoteSizes = getRemoteItemSizes(position);
 
-    BottomSheetHelper.Builder bs = BottomSheetHelper.create(mFragment.getActivity())
-                                                    .title(name)
+    BottomSheetHelper.Builder bs = BottomSheetHelper.create(mFragment.getActivity(), name)
                                                     .listener(menuItemClickListener);
 
     if (status == MapStorage.ON_DISK_OUT_OF_DATE)
