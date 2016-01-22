@@ -84,7 +84,7 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
       ASSERT(false, ("Unknown locality."));
       return SEARCH_TYPE_COUNT;
     case STATE:
-      return SEARCH_TYPE_COUNT;
+      return SEARCH_TYPE_STATE;
     case COUNTRY:
       return SEARCH_TYPE_COUNTRY;
     case CITY:
@@ -114,6 +114,8 @@ string DebugPrint(SearchModel::SearchType type)
     return "STREET";
   case SearchModel::SEARCH_TYPE_CITY:
     return "CITY";
+  case SearchModel::SEARCH_TYPE_STATE:
+    return "STATE";
   case SearchModel::SEARCH_TYPE_COUNTRY:
     return "COUNTRY";
   case SearchModel::SEARCH_TYPE_COUNT:

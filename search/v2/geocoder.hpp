@@ -10,6 +10,8 @@
 
 #include "indexer/index.hpp"
 
+#include "storage/country_info_getter.hpp"
+
 #include "coding/compressed_bit_vector.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -88,6 +90,13 @@ public:
   void ClearCaches();
 
 private:
+  enum RegionType
+  {
+    REGION_TYPE_STATE,
+    REGION_TYPE_COUNTRY,
+    REGION_TYPE_COUNT
+  };
+
   void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   struct Locality
@@ -97,14 +106,19 @@ private:
     size_t m_endToken = 0;
   };
 
-  struct Country : public Locality
+  // This struct represents a country or US- or Canadian- state.  It
+  // is used to filter maps before search.
+  struct Region : public Locality
   {
-    Country(Locality const & l) : Locality(l) {}
+    Region(Locality const & l, RegionType type) : Locality(l), m_type(type) {}
 
-    vector<size_t> m_regions;
+    storage::CountryInfoGetter::IdSet m_ids;
     string m_enName;
+    RegionType m_type;
   };
 
+  // This struct represents a city. It is used to filter features
+  // during search.
   struct City : public Locality
   {
     City(Locality const & l): Locality(l) {}
@@ -134,9 +148,9 @@ private:
     ::search::BailIfCancelled(static_cast<my::Cancellable const &>(*this));
   }
 
-  // Tries to find all countries in a search query and then performs
-  // matching of cities in found countries.
-  void MatchCountries();
+  // Tries to find all countries and states in a search query and then
+  // performs matching of cities in found maps.
+  void MatchRegions(RegionType type);
 
   // Tries to find all cities in a search query and then performs
   // matching of streets in found cities.
@@ -206,7 +220,8 @@ private:
   unique_ptr<MwmContext> m_context;
 
   TLocalitiesCache<City> m_cities;
-  TLocalitiesCache<Country> m_countries;
+  TLocalitiesCache<Region> m_states;
+  TLocalitiesCache<Region> m_countries;
 
   // Cache of geometry features.
   struct FeaturesInRect
