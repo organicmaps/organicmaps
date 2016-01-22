@@ -8,9 +8,11 @@
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/future.hpp"
 #include "std/regex.hpp"
 #include "std/target_os.hpp"
 
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QLocale>
@@ -79,6 +81,21 @@ void Platform::SetupMeasurementSystem() const
   u = isMetric ? Settings::Metric : Settings::Foot;
   Settings::Set("Units", u);
 }
+
+#if defined(OMIM_OS_LINUX)
+void Platform::RunOnGuiThread(TFunctor const & fn)
+{
+  // Following hack is used to post on main message loop |fn| when
+  // |source| is destroyed (at the exit of the code block).
+  QObject source;
+  QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), fn);
+}
+
+void Platform::RunAsync(TFunctor const & fn, Priority p)
+{
+  async(fn);
+}
+#endif  // defined(OMIM_OS_LINUX)
 
 extern Platform & GetPlatform()
 {
