@@ -434,11 +434,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       // Clear tile tree.
       m_tileTree->Invalidate();
 
-      // Get new tiles.
-      TTilesCollection tiles;
-      ScreenBase screen = m_userEventStream.GetCurrentScreen();
-      ResolveTileKeys(screen.ClipRect(), tiles);
-
       // Clear all graphics.
       m_renderGroups.clear();
       m_deferredRenderGroups.clear();
@@ -447,7 +442,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         BaseBlockingMessage::Blocker blocker;
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<InvalidateReadManagerRectMessage>(blocker, tiles),
+                                  make_unique_dp<InvalidateReadManagerRectMessage>(blocker),
                                   MessagePriority::High);
         blocker.Wait();
       }
@@ -491,6 +486,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
 
       // Request new tiles.
+      TTilesCollection tiles;
+      ScreenBase screen = m_userEventStream.GetCurrentScreen();
+      ResolveTileKeys(screen.ClipRect(), tiles);
+
       m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), move(tiles));
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<UpdateReadManagerMessage>(),
