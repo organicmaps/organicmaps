@@ -239,15 +239,15 @@ void Framework::StopLocationFollow()
 
 void Framework::Migrate()
 {
+  m_searchEngine.reset();
+  m_infoGetter.reset();
   Storage().DeleteAllLocalMaps();
   DeregisterAllMaps();
   m_model.Clear();
   Storage().Migrate();
-  RegisterAllMaps();
-  m_searchEngine.reset();
-  m_infoGetter.reset();
   InitCountryInfoGetter();
   InitSearchEngine();
+  RegisterAllMaps();
   InvalidateRect(MercatorBounds::FullRect());
 }
 
