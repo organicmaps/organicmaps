@@ -794,6 +794,8 @@
 		F63774EA1B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm */; };
 		F63BA3711BCD5B520044C504 /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */; };
 		F64A37D01B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64A37CF1B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.mm */; };
+		F64DA8021C524BDE00330E9E /* UISwitch+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F64DA8011C524BDE00330E9E /* UISwitch+RuntimeAttributes.m */; };
+		F64DA8031C52520000330E9E /* UISwitch+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F64DA8011C524BDE00330E9E /* UISwitch+RuntimeAttributes.m */; };
 		F64F19991AB81A00006EAF7E /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19821AB81A00006EAF7E /* MWMAlertViewController.mm */; };
 		F64F199A1AB81A00006EAF7E /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */; };
 		F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19861AB81A00006EAF7E /* MWMAlert.mm */; };
@@ -1471,6 +1473,8 @@
 		F63BA3731BCE70D60044C504 /* MWMRoutingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutingProtocol.h; sourceTree = "<group>"; };
 		F64A37CE1B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouteHelperPanelsDrawer.h; sourceTree = "<group>"; };
 		F64A37CF1B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouteHelperPanelsDrawer.mm; sourceTree = "<group>"; };
+		F64DA8001C524BDE00330E9E /* UISwitch+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISwitch+RuntimeAttributes.h"; sourceTree = "<group>"; };
+		F64DA8011C524BDE00330E9E /* UISwitch+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISwitch+RuntimeAttributes.m"; sourceTree = "<group>"; };
 		F64F19811AB81A00006EAF7E /* MWMAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlertViewController.h; sourceTree = "<group>"; };
 		F64F19821AB81A00006EAF7E /* MWMAlertViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAlertViewController.mm; sourceTree = "<group>"; };
 		F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAlertViewController.xib; sourceTree = "<group>"; };
@@ -2642,6 +2646,8 @@
 				347D7C681C2C0703006B2D0A /* UITextView+RuntimeAttributes.mm */,
 				34ABA6191C2D4DA900FE1BEC /* UITextField+RuntimeAttributes.h */,
 				34ABA61A1C2D4DCC00FE1BEC /* UITextField+RuntimeAttributes.mm */,
+				F64DA8001C524BDE00330E9E /* UISwitch+RuntimeAttributes.h */,
+				F64DA8011C524BDE00330E9E /* UISwitch+RuntimeAttributes.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -3944,6 +3950,7 @@
 				34181EA11C0ECF210081B586 /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				340C21111C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm in Sources */,
 				F63BA3711BCD5B520044C504 /* MWMTTSLanguageViewController.mm in Sources */,
+				F64DA8021C524BDE00330E9E /* UISwitch+RuntimeAttributes.m in Sources */,
 				F607C18E1C047FDC00B53A87 /* MWMSegue.mm in Sources */,
 				F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */,
 				F64A37D01B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.mm in Sources */,
@@ -4168,6 +4175,7 @@
 				6741A9D61BF340DE002C974C /* MWMPlacePageNavigationBar.mm in Sources */,
 				340C21121C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm in Sources */,
 				6741A9D71BF340DE002C974C /* MWMRouteHelperPanelsDrawer.mm in Sources */,
+				F64DA8031C52520000330E9E /* UISwitch+RuntimeAttributes.m in Sources */,
 				F6D5822F1BFDCA03009409E8 /* MWMPageController.mm in Sources */,
 				6741A9D81BF340DE002C974C /* RouteState.mm in Sources */,
 				6741A9D91BF340DE002C974C /* MWMLanesPanel.mm in Sources */,

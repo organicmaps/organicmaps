@@ -1,0 +1,3 @@
+@interface UISwitch (RuntimeAttributes)
+
+@end
