@@ -1,4 +1,5 @@
 #import "MWMBookmarkColorCell.h"
+#import "UIColor+MapsMeColor.h"
 
 extern NSArray * const kBookmarkColorsVariant;
 
@@ -9,6 +10,12 @@ extern NSArray * const kBookmarkColorsVariant;
 @end
 
 @implementation MWMBookmarkColorCell
+
+- (void)awakeFromNib
+{
+  [super awakeFromNib];
+  self.backgroundColor = [UIColor white];
+}
 
 - (void)configureWithColorString:(NSString *)colorString
 {
