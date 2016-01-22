@@ -263,9 +263,9 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
   routing::CrossRoutingContextWriter crossContext;
   FindCrossNodes(nodeData, osm2ft, countries, countryName, index, p.first, crossContext);
 
-  string const mwmWithRoutingPath = localFile.GetPath(MapOptions::Map) + ROUTING_FILE_EXTENSION;
-  CalculateCrossAdjacency(mwmWithRoutingPath, crossContext);
-  WriteCrossSection(crossContext, mwmWithRoutingPath);
+  string const mwmPath = localFile.GetPath(MapOptions::Map);
+  CalculateCrossAdjacency(mwmPath, crossContext);
+  WriteCrossSection(crossContext, mwmPath);
 }
 
 void BuildRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
