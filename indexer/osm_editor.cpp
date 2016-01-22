@@ -726,4 +726,22 @@ void Editor::Invalidate()
   if (m_invalidateFn)
     m_invalidateFn();
 }
+
+Editor::Stats Editor::GetStats() const
+{
+  Stats stats;
+  for (auto const & id : m_features)
+  {
+    for (auto const & index : id.second)
+    {
+      Editor::FeatureTypeInfo const & fti = index.second;
+      stats.m_edits.push_back(make_pair(FeatureID(id.first, index.first),
+                                        fti.m_uploadStatus + " " + fti.m_uploadError));
+      if (fti.m_uploadStatus == kUploaded)
+        ++stats.m_uploadedCount;
+    }
+  }
+  return stats;
+}
+
 }  // namespace osm

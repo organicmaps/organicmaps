@@ -101,6 +101,14 @@ public:
   void UploadChanges(string const & key, string const & secret, TChangesetTags tags,
                      TFinishUploadCallback callBack = TFinishUploadCallback());
 
+  struct Stats
+  {
+    /// <id, feature status string>
+    vector<pair<FeatureID, string>> m_edits;
+    size_t m_uploadedCount = 0;
+  };
+  Stats GetStats() const;
+
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   void Save(string const & fullFilePath) const;
