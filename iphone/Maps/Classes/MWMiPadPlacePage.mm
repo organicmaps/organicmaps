@@ -272,6 +272,8 @@ static CGFloat const kKeyboardOffset = 12.;
 
 - (void)updatePlacePageLayoutAnimated:(BOOL)animated
 {
+  if (![self.navigationController.topViewController isKindOfClass:[MWMiPadPlacePageViewController class]])
+    return;
   [UIView animateWithDuration:animated ? kDefaultAnimationDuration : 0.0 animations:^
   {
     CGFloat const ppHeight = self.basePlacePageView.height;
