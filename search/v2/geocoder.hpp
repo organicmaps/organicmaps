@@ -220,8 +220,7 @@ private:
   unique_ptr<MwmContext> m_context;
 
   TLocalitiesCache<City> m_cities;
-  TLocalitiesCache<Region> m_states;
-  TLocalitiesCache<Region> m_countries;
+  TLocalitiesCache<Region> m_regions[REGION_TYPE_COUNT];
 
   // Cache of geometry features.
   struct FeaturesInRect

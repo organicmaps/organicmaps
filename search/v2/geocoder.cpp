@@ -394,8 +394,8 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     // Tries to find world and fill localities table.
     {
       m_cities.clear();
-      m_states.clear();
-      m_countries.clear();
+      for (auto & regions : m_regions)
+        regions.clear();
       MwmSet::MwmHandle handle = FindWorld(m_index, infos);
       if (handle.IsAlive())
       {
@@ -655,9 +655,9 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
           m_infoGetter.GetMatchedRegions(state.m_enName, state.m_ids);
           if (!state.m_ids.empty())
           {
-            LOG(LDEBUG, ("State = ", state.m_enName));
+            LOG(LDEBUG, ("State =", state.m_enName));
             ++numStates;
-            m_states[make_pair(l.m_startToken, l.m_endToken)].push_back(state);
+            m_regions[REGION_TYPE_STATE][make_pair(l.m_startToken, l.m_endToken)].push_back(state);
           }
         }
       }
@@ -675,7 +675,8 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
         {
           LOG(LDEBUG, ("Country =", country.m_enName));
           ++numCountries;
-          m_countries[make_pair(l.m_startToken, l.m_endToken)].push_back(country);
+          m_regions[REGION_TYPE_COUNTRY][make_pair(l.m_startToken, l.m_endToken)].push_back(
+              country);
         }
       }
       break;
@@ -706,32 +707,29 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && 
 
 void Geocoder::MatchRegions(RegionType type)
 {
-  TLocalitiesCache<Region> * cache = nullptr;
   switch (type)
   {
     case REGION_TYPE_STATE:
       // Tries to skip state matching and go to cities matching.
       // Then, performs states matching.
       MatchCities();
-      cache = &m_states;
       break;
     case REGION_TYPE_COUNTRY:
       // Tries to skip country matching and go to states matching.
       // Then, performs countries matching.
       MatchRegions(REGION_TYPE_STATE);
-      cache = &m_countries;
       break;
     case REGION_TYPE_COUNT:
-      ASSERT(false, ("Invalid large locality type."));
-      break;
+      ASSERT(false, ("Invalid region type."));
+      return;
   }
-  if (!cache)
-    return;
+
+  auto const & regions = m_regions[type];
 
   auto const & fileName = m_context->m_handle.GetId().GetInfo()->GetCountryName();
 
-  // Try to match countries.
-  for (auto const & p : *cache)
+  // Try to match regions.
+  for (auto const & p : regions)
   {
     BailIfCancelled();
 
@@ -743,21 +741,24 @@ void Geocoder::MatchRegions(RegionType type)
     ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
     if (AllTokensUsed())
     {
-      // Locality matches to search query, we need to emit it as is.
-      for (auto const & locality : p.second)
-        m_results->emplace_back(m_worldId, locality.m_featureId);
+      // Region matches to search query, we need to emit it as is.
+      for (auto const & region : p.second)
+        m_results->emplace_back(m_worldId, region.m_featureId);
       continue;
     }
 
     bool matches = false;
-    for (auto const & locality : p.second)
+    for (auto const & region : p.second)
     {
-      if (m_infoGetter.IsBelongToRegions(fileName, locality.m_ids))
+      if (m_infoGetter.IsBelongToRegions(fileName, region.m_ids))
       {
         matches = true;
         break;
       }
     }
+
+    if (!matches)
+      continue;
 
     switch (type)
     {
