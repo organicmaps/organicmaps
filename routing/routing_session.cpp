@@ -72,6 +72,7 @@ void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const 
   m_endPoint = endPoint;
   m_router->ClearState();
   m_isFollowing = false;
+  m_routingRebuildCount = -1; // -1 for the first rebuild.
   RebuildRoute(startPoint, readyCallback, progressCallback, timeoutSec);
 }
 
@@ -83,6 +84,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
   RemoveRoute();
   m_state = RouteBuilding;
+  m_routingRebuildCount++;
 
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
@@ -171,7 +173,8 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
       m_state = RouteFinished;
 
       alohalytics::TStringMap params = {{"router", m_route.GetRouterId()},
-                                        {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)}};
+                                        {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
+                                        {"rebuildCount", strings::to_string(m_routingRebuildCount)}};
       alohalytics::LogEvent("RouteTracking_ReachedDestination", params);
     }
     else
@@ -201,7 +204,8 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
   {
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).
-    double const dist = MercatorBounds::DistanceOnEarth(m_route.GetFollowedPolyline().GetCurrentIter().m_pt,
+    auto const & lastGoodPoint = m_route.GetFollowedPolyline().GetCurrentIter().m_pt;
+    double const dist = MercatorBounds::DistanceOnEarth(lastGoodPoint,
                                                         MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude));
     if (my::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
         return m_state;
@@ -220,6 +224,12 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     {
       m_passedDistanceOnRouteMeters += m_route.GetCurrentDistanceFromBeginMeters();
       m_state = RouteNeedRebuild;
+      alohalytics::TStringMap params = {{"router", m_route.GetRouterId()},
+                                        {"lastCoordinateLat", strings::to_string_dac(MercatorBounds::YToLat(lastGoodPoint.y), 5 /*precision*/)},
+                                        {"lastCoordinateLon", strings::to_string_dac(MercatorBounds::XToLon(lastGoodPoint.x), 5 /*precision*/)},
+                                        {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
+                                        {"rebuildCount", strings::to_string(m_routingRebuildCount)}};
+      alohalytics::LogEvent("RouteTracking_RouteNeedRebuild", params);
     }
   }
 
