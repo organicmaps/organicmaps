@@ -80,9 +80,9 @@ public:
   /// @param outFeatureStreet is valid only if true was returned.
   bool GetEditedFeatureStreet(FeatureType const & feature, string & outFeatureStreet) const;
 
-  /// Original feature with same FeatureID as newFeature is replaced by newFeature.
-  /// Please pass editedStreet only if it was changed by user.
-  void EditFeature(FeatureType const & editedFeature,
+  /// Editor checks internally if any feature params were actually edited.
+  /// House number is correctly updated for editedFeature (if it's valid).
+  void EditFeature(FeatureType & editedFeature,
                    string const & editedStreet = "",
                    string const & editedHouseNumber = "");
 

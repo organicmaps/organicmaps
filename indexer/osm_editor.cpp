@@ -432,34 +432,31 @@ void Editor::DeleteFeature(FeatureType const & feature)
 //}
 //}  // namespace
 
-void Editor::EditFeature(FeatureType const & editedFeature, string const & editedStreet,
-                         string const & editedHouseNumber)
+void Editor::EditFeature(FeatureType & editedFeature, string const & editedStreet, string const & editedHouseNumber)
 {
-  FeatureID const fid = editedFeature.GetID();
-  auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
-  FeatureTypeInfo & fti = m_features[fid.m_mwmId][fid.m_index];
-
-  fti.m_status = FeatureStatus::Modified;
-  fti.m_feature = editedFeature;
-  // TODO: What if local client time is absolutely wrong?
-  fti.m_modificationTimestamp = time(nullptr);
-
-  fti.m_street = editedStreet;
+  // Check house number for validity.
   if (editedHouseNumber.empty() || feature::IsHouseNumber(editedHouseNumber))
-    fti.m_feature.SetHouseNumber(editedHouseNumber);
+    editedFeature.SetHouseNumber(editedHouseNumber);
   // TODO(AlexZ): Store edited house number as house name if feature::IsHouseNumber() returned false.
 
-  if (AreFeaturesEqualButStreet(fti.m_feature, *originalFeaturePtr) &&
+  FeatureID const fid = editedFeature.GetID();
+  if (AreFeaturesEqualButStreet(editedFeature, *m_getOriginalFeatureFn(fid)) &&
       m_getOriginalFeatureStreetFn(editedFeature) == editedStreet)
   {
-    // We always have a feature with fid.m_mwmId, fid.m_index at the point.
-    // Either it was set previously or just now on quering m_features. See code above.
     RemoveFeatureFromStorage(fid.m_mwmId, fid.m_index);
     // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
     Save(GetEditorFilePath());
     Invalidate();
     return;
   }
+
+  FeatureTypeInfo fti;
+  fti.m_status = FeatureStatus::Modified;
+  fti.m_feature = editedFeature;
+  // TODO: What if local client time is absolutely wrong?
+  fti.m_modificationTimestamp = time(nullptr);
+  fti.m_street = editedStreet;
+  m_features[fid.m_mwmId][fid.m_index] = move(fti);
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save(GetEditorFilePath());
