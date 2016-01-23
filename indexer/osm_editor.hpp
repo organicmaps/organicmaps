@@ -30,6 +30,13 @@ public:
   using TInvalidateFn = function<void()>;
   using TFeatureLoaderFn = function<unique_ptr<FeatureType> (FeatureID const & /*fid*/)>;
   using TFeatureOriginalStreetFn = function<string(FeatureType const & /*ft*/)>;
+  enum class UploadResult
+  {
+    Success,
+    Error,
+    NothingToUpload
+  };
+  using TFinishUploadCallback = function<void(UploadResult)>;
 
   enum class FeatureStatus
   {
@@ -88,7 +95,8 @@ public:
   using TChangesetTags = map<string, string>;
   /// Tries to upload all local changes to OSM server in a separate thread.
   /// @param[in] tags should provide additional information about client to use in changeset.
-  void UploadChanges(string const & key, string const & secret, TChangesetTags const & tags);
+  void UploadChanges(string const & key, string const & secret, TChangesetTags tags,
+                     TFinishUploadCallback callBack = TFinishUploadCallback());
 
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.

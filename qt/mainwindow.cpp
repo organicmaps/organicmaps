@@ -384,7 +384,7 @@ void MainWindow::OnUploadEditsMenuItem()
   if (key.empty() || secret.empty())
     OnLoginMenuItem();
   else
-    osm::Editor::Instance().UploadChanges(key, secret, {{"created_by", "MAPS.ME " OMIM_OS_NAME}});
+    osm::Editor::Instance().UploadChanges(key, secret, {});
 }
 
 void MainWindow::OnBeforeEngineCreation()

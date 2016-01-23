@@ -21,6 +21,7 @@
 #include "std/algorithm.hpp"
 #include "std/chrono.hpp"
 #include "std/future.hpp"
+#include "std/target_os.hpp"
 #include "std/tuple.hpp"
 #include "std/unordered_map.hpp"
 #include "std/unordered_set.hpp"
@@ -596,12 +597,15 @@ bool Editor::IsAddressEditable(FeatureType const & feature) const
   return false;
 }
 
-void Editor::UploadChanges(string const & key, string const & secret, TChangesetTags const & tags)
+void Editor::UploadChanges(string const & key, string const & secret, TChangesetTags tags,
+                           TFinishUploadCallback callBack)
 {
+  tags["created_by"] = "MAPS.ME " OMIM_OS_NAME;
+
   // TODO(AlexZ): features access should be synchronized.
-  auto const lambda = [this](string key, string secret, TChangesetTags tags)
+  auto const lambda = [this](string key, string secret, TChangesetTags tags, TFinishUploadCallback callBack)
   {
-    int uploadedFeaturesCount = 0;
+    int uploadedFeaturesCount = 0, errorsCount = 0;
     // TODO(AlexZ): insert usefull changeset comments.
     ChangesetWrapper changeset({key, secret}, tags);
     for (auto & id : m_features)
@@ -644,8 +648,9 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         {
           fti.m_uploadStatus = kDeletedFromOSMServer;
           fti.m_uploadAttemptTimestamp = time(nullptr);
-          fti.m_uploadError = "Node was deleted from the server.";
+          fti.m_uploadError = ex.what();
           LOG(LWARNING, (fti.m_uploadError, ex.what()));
+          ++errorsCount;
         }
         catch (RootException const & ex)
         {
@@ -653,20 +658,30 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           fti.m_uploadStatus = kNeedsRetry;
           fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError = ex.what();
+          ++errorsCount;
         }
         // TODO(AlexZ): Synchronize save after edits.
         // Call Save every time we modify each feature's information.
         Save(GetEditorFilePath());
       }
     }
-    // TODO(AlexZ): Should we call any callback at the end?
+
+    if (callBack)
+    {
+      UploadResult result = UploadResult::NothingToUpload;
+      if (uploadedFeaturesCount)
+        result = UploadResult::Success;
+      else if (errorsCount)
+        result = UploadResult::Error;
+      callBack(result);
+    }
   };
 
   // Do not run more than one upload thread at a time.
-  static auto future = async(launch::async, lambda, key, secret, tags);
+  static auto future = async(launch::async, lambda, key, secret, tags, callBack);
   auto const status = future.wait_for(milliseconds(0));
   if (status == future_status::ready)
-    future = async(launch::async, lambda, key, secret, tags);
+    future = async(launch::async, lambda, key, secret, tags, callBack);
 }
 
 void Editor::RemoveFeatureFromStorage(MwmSet::MwmId const & mwmId, uint32_t index)
