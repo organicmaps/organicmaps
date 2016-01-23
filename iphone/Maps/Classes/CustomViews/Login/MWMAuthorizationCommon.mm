@@ -52,11 +52,18 @@ void MWMAuthorizationConfigButton(UIButton * btn, MWMAuthorizationButtonType typ
 
 void MWMAuthorizationStoreCredentials(osm::TKeySecret const & keySecret)
 {
-  NSString * requestToken = @(keySecret.first.c_str());
-  NSString * requestSecret = @(keySecret.second.c_str());
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setObject:requestToken forKey:kOSMRequestToken];
-  [ud setObject:requestSecret forKey:kOSMRequestSecret];
+  if (keySecret.first.empty() || keySecret.second.empty())
+  {
+    [ud removeObjectForKey:kOSMRequestToken];
+    [ud removeObjectForKey:kOSMRequestSecret];
+  }
+  else
+  {
+    [ud setObject:@(keySecret.first.c_str()) forKey:kOSMRequestToken];
+    [ud setObject:@(keySecret.second.c_str()) forKey:kOSMRequestSecret];
+  }
+  [ud synchronize];
 }
 
 BOOL MWMAuthorizationHaveCredentials()
@@ -67,10 +74,21 @@ BOOL MWMAuthorizationHaveCredentials()
   return requestToken && requestSecret;
 }
 
+osm::TKeySecret MWMAuthorizationGetCredentials()
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSString * requestToken = [ud stringForKey:kOSMRequestToken];
+  NSString * requestSecret = [ud stringForKey:kOSMRequestSecret];
+  if (requestToken && requestSecret)
+    return osm::TKeySecret(requestToken.UTF8String, requestSecret.UTF8String);
+  return {};
+}
+
 void MWMAuthorizationSetUserSkip()
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setObject:[NSDate date] forKey:kAuthUserSkip];
+  [ud synchronize];
 }
 
 BOOL MWMAuthorizationIsUserSkip()
