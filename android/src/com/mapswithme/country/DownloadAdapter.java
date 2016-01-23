@@ -48,6 +48,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
     Utils.navigateToParent(mFragment.getActivity());
   }
 
+  @Override
   protected void expandGroup(int position)
   {
     CountryTree.setChildAsRoot(position);

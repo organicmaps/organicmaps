@@ -256,6 +256,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
 
     case R.id.download_all:
       CountryTree.downloadGroup();
+      getDownloadAdapter().notifyDataSetInvalidated();
       break;
     }
   }

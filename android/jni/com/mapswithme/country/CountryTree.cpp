@@ -141,12 +141,12 @@ extern "C"
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_country_CountryTree_isDownloadableGroup(JNIEnv * env, jclass clazz)
   {
-    return true;
+    return GetTree().IsDownloadAllAvailable();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_country_CountryTree_downloadGroup(JNIEnv * env, jclass clazz)
   {
-
+    GetTree().DownloadAll();
   }
 }

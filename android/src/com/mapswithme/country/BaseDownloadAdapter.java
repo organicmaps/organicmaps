@@ -543,8 +543,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     setHolderPercentText(holder, mFragment.getString(R.string.downloader_queued));
     setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_gray));
 
-    ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mProgress, PROPERTY_TRANSLATION_X, 0,
-                                                     -mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+    final ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mProgress, PROPERTY_TRANSLATION_X, 0,
+                                                           -mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
     animator.setDuration(ANIMATION_LENGTH);
 
     animator.addListener(new UiUtils.SimpleAnimatorListener()
@@ -552,6 +552,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       @Override
       public void onAnimationEnd(Animator animation)
       {
+        animator.removeListener(this);
         setDownloadingViewsVisible(holder, true);
         mActiveAnimationsCount--;
       }
@@ -578,13 +579,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
                                                            mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
       infoAnimator.setDuration(ANIMATION_LENGTH);
 
-      AnimatorSet animatorSet = new AnimatorSet();
+      final AnimatorSet animatorSet = new AnimatorSet();
       animatorSet.playTogether(animator, infoAnimator);
       animatorSet.addListener(new UiUtils.SimpleAnimatorListener()
       {
         @Override
         public void onAnimationEnd(Animator animation)
         {
+          animatorSet.removeListener(this);
           setDownloadingViewsVisible(holder, false);
           mActiveAnimationsCount--;
         }
@@ -594,11 +596,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     }
     else
     {
-      holder.mImageRoutingStatus.setVisibility(View.VISIBLE);
-      bindCarRoutingIcon(holder, item);
+      if (item.getStatus() != MapStorage.DOWNLOADING)
+      {
+        holder.mImageRoutingStatus.setVisibility(View.VISIBLE);
+        bindCarRoutingIcon(holder, item);
+      }
 
-      ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mProgressSlided, PROPERTY_TRANSLATION_X, 0,
-                                                           mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+      final ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mProgressSlided, PROPERTY_TRANSLATION_X, 0,
+                                                                 mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
       infoAnimator.setDuration(ANIMATION_LENGTH);
 
       infoAnimator.addListener(new UiUtils.SimpleAnimatorListener()
@@ -606,6 +611,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onAnimationEnd(Animator animation)
         {
+          infoAnimator.removeListener(this);
           setDownloadingViewsVisible(holder, false);
           mActiveAnimationsCount--;
         }
