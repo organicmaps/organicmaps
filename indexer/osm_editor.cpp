@@ -599,7 +599,7 @@ bool Editor::IsAddressEditable(FeatureType const & feature) const
   return false;
 }
 
-bool Editor::HaveNotUploadedChanges() const
+bool Editor::HaveSomethingToUpload() const
 {
   for (auto const & id : m_features)
   {
