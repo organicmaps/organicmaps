@@ -72,7 +72,7 @@ using namespace osmoh;
   for (UIImageView * image in self.images)
   {
     if (image.tag == tag)
-      image.highlighted = selected;
+      image.image = [UIImage imageNamed:selected ? @"radioBtnOn" : @"radioBtnOff"];
   }
 }
 

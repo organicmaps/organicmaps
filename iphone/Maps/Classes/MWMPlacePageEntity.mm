@@ -365,7 +365,10 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
     return;
 
   auto & metadata = feature->GetMetadata();
-  string streetName, houseNumber;
+  NSString * entityStreet = [self getCellValue:MWMPlacePageCellTypeStreet];
+  string streetName = (entityStreet ? entityStreet : @"").UTF8String;
+  NSString * entityHouseNumber = [self getCellValue:MWMPlacePageCellTypeBuilding];
+  string houseNumber = (entityHouseNumber ? entityHouseNumber : @"").UTF8String;;
   for (auto const & cell : cells)
   {
     switch (cell.first)

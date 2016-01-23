@@ -5,10 +5,19 @@
 
 - (void)perform
 {
+  UINavigationController * nc = self.sourceViewController.navigationController;
+  UIViewController * dvc = self.destinationViewController;
   if (isIOSVersionLessThan(8))
-    [self.sourceViewController.navigationController pushViewController:self.destinationViewController animated:YES];
+  {
+    if ([dvc isMemberOfClass:[UINavigationController class]])
+      [nc presentViewController:dvc animated:YES completion:nil];
+    else
+      [nc pushViewController:dvc animated:YES];
+  }
   else
-    [self.sourceViewController.navigationController showViewController:self.destinationViewController sender:nil];
+  {
+    [nc showViewController:dvc sender:nil];
+  }
 }
 
 @end
