@@ -191,6 +191,13 @@ void CountryTree::RetryDownloading(int childPosition)
   GetActiveMapLayout().RetryDownloading(GetChild(childPosition));
 }
 
+void CountryTree::DownloadAllCountry(MapOptions const & options)
+{
+  size_t const childCount = GetChildCount();
+  for (size_t i = 0; i < childCount; ++i)
+    DownloadCountry(i, options);
+}
+
 void CountryTree::CancelDownloading(int childPosition)
 {
   GetStorage().DeleteFromDownloader(GetChild(childPosition));
