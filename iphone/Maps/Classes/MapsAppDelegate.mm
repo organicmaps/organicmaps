@@ -4,6 +4,7 @@
 #import "LocalNotificationManager.h"
 #import "LocationManager.h"
 #import "MWMAlertViewController.h"
+#import "MWMAuthorizationCommon.h"
 #import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
@@ -21,14 +22,14 @@
 
 #include <sys/xattr.h>
 
-#include "map/gps_tracker.hpp"
 #include "base/sunrise_sunset.hpp"
-#include "storage/storage_defines.hpp"
-
+#include "indexer/osm_editor.hpp"
+#include "map/gps_tracker.hpp"
 #include "platform/http_thread_apple.h"
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
+#include "storage/storage_defines.hpp"
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
 #import "../../../private.h"
@@ -389,12 +390,35 @@ void InitLocalizedStrings()
   completionHandler(YES);
 }
 
+// Starts async edits uploading process.
++ (void)uploadLocalMapEdits:(void (^)(osm::Editor::UploadResult))finishCallback with:(osm::TKeySecret const &)keySecret
+{
+  osm::Editor::Instance().UploadChanges(keySecret.first, keySecret.second, {{"version", AppInfo.sharedInfo.bundleVersion.UTF8String}},
+                                        [finishCallback](osm::Editor::UploadResult result)
+                                        {
+                                          finishCallback(result);
+                                        });
+}
+
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  // At the moment, we need to perform 2 asynchronous background tasks simultaneously:
-  // 1. Check if map for current location is already downloaded, and if not - notify user to download it.
-  // 2. Try to send collected statistics (if any) to our server.
-  [Alohalytics forceUpload];
+  // TODO(@igrechuhin): correctly call completionHandler once after all three tasks have finished.
+
+  // At the moment, we need to perform 3 asynchronous background tasks simultaneously:
+  // 1. Try to send collected statistics (if any) to our server.
+  [Alohalytics forceUpload:^(UIBackgroundFetchResult result)
+  {
+    // TODO(@igrechuhin): use result to correctly call completionHandler.
+  }];
+  // 2. Upload map edits (if any).
+  if (osm::Editor::Instance().HaveSomethingToUpload() && MWMAuthorizationHaveCredentials())
+  {
+    [MapsAppDelegate uploadLocalMapEdits:^(osm::Editor::UploadResult result)
+    {
+      // TODO(@igrechuhin): use result to correctly call completionHandler.
+    } with:MWMAuthorizationGetCredentials()];
+  }
+  // 3. Check if map for current location is already downloaded, and if not - notify user to download it.
   [[LocalNotificationManager sharedManager] showDownloadMapNotificationIfNeeded:completionHandler];
 }
 
@@ -414,6 +438,28 @@ void InitLocalizedStrings()
       [application endBackgroundTask:self->m_backgroundTask];
       self->m_backgroundTask = UIBackgroundTaskInvalid;
     }];
+  }
+  // Upload map edits if any, but only if we have Internet connection and user has already been authorized.
+  if (osm::Editor::Instance().HaveSomethingToUpload() &&
+      MWMAuthorizationHaveCredentials() &&
+      Platform::EConnectionType::CONNECTION_NONE != Platform::ConnectionStatus())
+  {
+    void (^finishEditorUploadTaskBlock)() = ^
+    {
+      if (self->m_editorUploadBackgroundTask != UIBackgroundTaskInvalid)
+      {
+        [application endBackgroundTask:self->m_editorUploadBackgroundTask];
+        self->m_editorUploadBackgroundTask = UIBackgroundTaskInvalid;
+      }
+    };
+    ::dispatch_after(::dispatch_time(DISPATCH_TIME_NOW, static_cast<int64_t>(application.backgroundTimeRemaining)),
+                     ::dispatch_get_main_queue(),
+                     finishEditorUploadTaskBlock);
+    m_editorUploadBackgroundTask = [application beginBackgroundTaskWithExpirationHandler:finishEditorUploadTaskBlock];
+    [MapsAppDelegate uploadLocalMapEdits:^(osm::Editor::UploadResult /*ignore it here*/)
+    {
+      finishEditorUploadTaskBlock();
+    } with:MWMAuthorizationGetCredentials()];
   }
 }
 

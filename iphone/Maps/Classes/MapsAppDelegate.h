@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode)
 {
   NSInteger m_activeDownloadsCounter;
   UIBackgroundTaskIdentifier m_backgroundTask;
+  UIBackgroundTaskIdentifier m_editorUploadBackgroundTask;
   UIAlertView * m_loadingAlertView;
 }
 
