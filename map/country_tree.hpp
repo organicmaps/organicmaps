@@ -67,7 +67,8 @@ public:
   void DownloadCountry(int childPosition, MapOptions const & options);
   void DeleteCountry(int childPosition, MapOptions const & options);
   void RetryDownloading(int childPosition);
-  void DownloadAllCountry(MapOptions const & options);
+  void DownloadAll();
+  bool IsDownloadAllAvailable();
   ///@}
   void CancelDownloading(int childPosition);
 
