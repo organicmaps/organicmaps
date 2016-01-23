@@ -9,6 +9,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
+@Deprecated
 public abstract class BaseMwmListFragment extends ListFragment
 {
   private Toolbar mToolbar;

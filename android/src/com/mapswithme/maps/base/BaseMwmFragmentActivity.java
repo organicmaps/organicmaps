@@ -149,7 +149,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   /**
    * Replace attached fragment with the new one.
    */
-  public void replaceFragment(Class<? extends Fragment> fragmentClass, Bundle args, @Nullable Runnable completionListener)
+  public void replaceFragment(Class<? extends Fragment> fragmentClass, @Nullable Bundle args, @Nullable Runnable completionListener)
   {
     final int resId = getFragmentContentResId();
     if (resId <= 0 || findViewById(resId) == null)

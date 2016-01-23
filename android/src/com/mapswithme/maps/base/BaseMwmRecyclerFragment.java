@@ -89,4 +89,9 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     super.onPause();
     org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
   }
+
+  public BaseMwmFragmentActivity getMwmActivity()
+  {
+    return (BaseMwmFragmentActivity) getActivity();
+  }
 }
