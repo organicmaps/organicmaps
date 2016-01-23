@@ -4,6 +4,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "std/cstring.hpp"
+
 #include "3party/pugixml/src/pugixml.hpp"
 
 using osm::ServerApi06;
