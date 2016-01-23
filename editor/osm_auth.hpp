@@ -66,7 +66,7 @@ public:
   AuthResult AuthorizePassword(string const & login, string const & password, TKeySecret & outKeySecret) const;
   AuthResult AuthorizeFacebook(string const & facebookToken, TKeySecret & outKeySecret) const;
   AuthResult AuthorizeGoogle(string const & googleToken, TKeySecret & outKeySecret) const;
-  AuthResult RestorePassword(string const & email) const;
+  AuthResult ResetPassword(string const & email) const;
   /// @param[method] The API method, must start with a forward slash.
   Response Request(TKeySecret const & keySecret, string const & method, string const & httpMethod = "GET", string const & body = "") const;
   //@}

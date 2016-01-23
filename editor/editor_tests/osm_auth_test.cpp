@@ -59,8 +59,8 @@ UNIT_TEST(OSM_Auth_Facebook)
 UNIT_TEST(OSM_Auth_ForgotPassword)
 {
   OsmOAuth auth = OsmOAuth::IZServerAuth();
-  auto result = auth.RestorePassword(kIZForgotPasswordEmail);
+  auto result = auth.ResetPassword(kIZForgotPasswordEmail);
   TEST_EQUAL(result, OsmOAuth::AuthResult::OK, ("Correct email"));
-  result = auth.RestorePassword("incorrect@ema.il");
+  result = auth.ResetPassword("not@registered.email");
   TEST_EQUAL(result, OsmOAuth::AuthResult::NoEmail, ("Incorrect email"));
 }

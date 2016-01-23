@@ -296,7 +296,7 @@ OsmOAuth::TUrlKeySecret OsmOAuth::GetGoogleOAuthURL() const
   return TUrlKeySecret(url, requestToken);
 }
 
-OsmOAuth::AuthResult OsmOAuth::RestorePassword(string const & email) const
+OsmOAuth::AuthResult OsmOAuth::ResetPassword(string const & email) const
 {
   string const kForgotPasswordUrlPart = "/user/forgot-password";
 
@@ -316,8 +316,7 @@ OsmOAuth::AuthResult OsmOAuth::RestorePassword(string const & email) const
   if (!request.RunHTTPRequest())
     return AuthResult::NetworkError;
 
-  string const content = request.server_response();
-  return content.find("<div class=\"flash notice\">") == string::npos ? AuthResult::NoEmail : AuthResult::OK;
+  return request.was_redirected() && request.url_received().find(m_baseUrl) != string::npos ? AuthResult::OK : AuthResult::NoEmail;
 }
 
 OsmOAuth::Response OsmOAuth::Request(TKeySecret const & keySecret, string const & method, string const & httpMethod, string const & body) const
