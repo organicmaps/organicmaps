@@ -443,7 +443,7 @@ void Editor::EditFeature(FeatureType & editedFeature, string const & editedStree
   if (AreFeaturesEqualButStreet(editedFeature, *m_getOriginalFeatureFn(fid)) &&
       m_getOriginalFeatureStreetFn(editedFeature) == editedStreet)
   {
-    RemoveFeatureFromStorage(fid.m_mwmId, fid.m_index);
+    RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
     // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
     Save(GetEditorFilePath());
     Invalidate();
@@ -681,7 +681,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
     future = async(launch::async, lambda, key, secret, tags, callBack);
 }
 
-void Editor::RemoveFeatureFromStorage(MwmSet::MwmId const & mwmId, uint32_t index)
+void Editor::RemoveFeatureFromStorageIfExists(MwmSet::MwmId const & mwmId, uint32_t index)
 {
   auto matchedMwm = m_features.find(mwmId);
   if (matchedMwm == m_features.end())
