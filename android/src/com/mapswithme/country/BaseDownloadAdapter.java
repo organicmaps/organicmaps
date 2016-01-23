@@ -701,8 +701,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     if (mListView == null || !mFragment.isAdded())
       return;
 
-    // do update only one item's view; don't call notifyDataSetChanged
-    final View v = mListView.getChildAt(position - mListView.getFirstVisiblePosition());
+    // Do update only one item's view; don't call notifyDataSetChanged
+    int index = (position - mListView.getFirstVisiblePosition());
+
+    // Skip first two items if at the root level
+    if (!(this instanceof DownloadedAdapter) && !CountryTree.hasParent())
+      index += 2;
+
+    final View v = mListView.getChildAt(index);
     if (v != null)
     {
       final ViewHolder holder = (ViewHolder) v.getTag();
