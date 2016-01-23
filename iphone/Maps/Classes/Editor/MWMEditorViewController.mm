@@ -510,20 +510,21 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 #pragma mark - MWMCuisineEditorProtocol
 
-- (NSSet<NSString *> *)getCuisines
+@synthesize cuisines = _cuisines;
+- (NSSet<NSString *> *)cuisines
 {
+  if (_cuisines)
+    return _cuisines;
   return self.entity.cuisines;
 }
 
 - (void)setCuisines:(NSSet<NSString *> *)cuisines
 {
-  if ([[self getCuisines] isEqualToSet:cuisines])
+  if ([self.cuisines isEqualToSet:cuisines])
     return;
+  _cuisines = cuisines;
   self.needsReload = YES;
-  self.entity.cuisines = cuisines;
-  // To get updated value we use [self.entity getCellValue:] not [self getCellValue:]
-  NSString * updatedValue = [self.entity getCellValue:MWMPlacePageCellTypeCuisine];
-  [self setCell:MWMPlacePageCellTypeCuisine value:updatedValue];
+  [self setCell:MWMPlacePageCellTypeCuisine value:[MWMPlacePageEntity makeMWMCuisineString:cuisines]];
 }
 
 #pragma mark - MWMStreetEditorProtocol

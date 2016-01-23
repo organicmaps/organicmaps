@@ -45,6 +45,8 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 
 @interface MWMPlacePageEntity : NSObject
 
++ (NSString *)makeMWMCuisineString:(NSSet<NSString *> *)cuisines;
+
 @property (copy, nonatomic) NSString * title;
 @property (copy, nonatomic) NSString * category;
 @property (copy, nonatomic) NSString * bookmarkTitle;

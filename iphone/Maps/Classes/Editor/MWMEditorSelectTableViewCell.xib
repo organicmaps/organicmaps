@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -22,9 +22,9 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="220" translatesAutoresizingMaskIntoConstraints="NO" id="MBe-6r-IsA">
-                        <rect key="frame" x="60" y="0.0" width="220" height="44"/>
+                        <rect key="frame" x="60" y="8" width="220" height="28"/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="44" id="7cv-Wq-vWC"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="28" id="7cv-Wq-vWC"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -62,8 +62,8 @@
                     <constraint firstAttribute="trailing" secondItem="jLw-GA-z3y" secondAttribute="trailing" constant="6" id="3Bg-20-t7E"/>
                     <constraint firstAttribute="bottom" secondItem="3QW-i5-g6A" secondAttribute="bottom" id="437-dg-x06"/>
                     <constraint firstAttribute="trailing" secondItem="nq9-KC-Ujh" secondAttribute="trailing" id="5gd-06-ZOC"/>
-                    <constraint firstItem="MBe-6r-IsA" firstAttribute="top" secondItem="V1p-K9-KlE" secondAttribute="top" id="6FB-in-VCz"/>
-                    <constraint firstAttribute="bottom" secondItem="MBe-6r-IsA" secondAttribute="bottom" id="CG0-ar-vx9"/>
+                    <constraint firstItem="MBe-6r-IsA" firstAttribute="top" secondItem="V1p-K9-KlE" secondAttribute="top" constant="8" id="6FB-in-VCz"/>
+                    <constraint firstAttribute="bottom" secondItem="MBe-6r-IsA" secondAttribute="bottom" constant="8" id="CG0-ar-vx9"/>
                     <constraint firstItem="xur-tJ-HA9" firstAttribute="leading" secondItem="V1p-K9-KlE" secondAttribute="leading" constant="16" id="DlR-yh-2JK"/>
                     <constraint firstItem="3QW-i5-g6A" firstAttribute="leading" secondItem="V1p-K9-KlE" secondAttribute="leading" priority="250" id="Ghg-3J-hYK"/>
                     <constraint firstItem="MBe-6r-IsA" firstAttribute="leading" secondItem="V1p-K9-KlE" secondAttribute="leading" constant="60" id="RGA-XL-gLq"/>
@@ -87,6 +87,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_arrow_gray" width="8" height="14"/>
+        <image name="ic_arrow_gray" width="28" height="28"/>
     </resources>
 </document>

@@ -2,8 +2,7 @@
 
 @protocol MWMCuisineEditorProtocol <NSObject>
 
-- (NSSet<NSString *> *)getCuisines;
-- (void)setCuisines:(NSSet<NSString *> *)cuisines;
+@property (nonatomic) NSSet<NSString *> * cuisines;
 
 @end
 

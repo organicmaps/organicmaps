@@ -13,6 +13,7 @@ namespace
 {
 
 NSString * const kOSMCuisineSeparator = @";";
+NSString * const kMWMCuisineSeparator = @", ";
 
 array<MWMPlacePageCellType, 10> const gMetaFieldsMap{
     {MWMPlacePageCellTypePostcode, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite,
@@ -48,6 +49,11 @@ void initFieldsMap()
   ASSERT_EQUAL(kMetaFieldsMap[MWMPlacePageCellTypeSpacer], 0, ());
   ASSERT_EQUAL(kMetaFieldsMap[Metadata::FMD_MAXSPEED], 0, ());
 }
+
+NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
+{
+  return [mwmCuisine stringByReplacingOccurrencesOfString:kMWMCuisineSeparator withString:kOSMCuisineSeparator];
+}
 } // namespace
 
 @interface MWMPlacePageEntity ()
@@ -61,6 +67,24 @@ void initFieldsMap()
   vector<MWMPlacePageCellType> m_fields;
   set<MWMPlacePageCellType> m_editableFields;
   MWMPlacePageCellTypeValueMap m_values;
+}
+
++ (NSString *)makeMWMCuisineString:(NSSet<NSString *> *)cuisines
+{
+  NSString * prefix = @"cuisine_";
+  NSMutableArray<NSString *> * localizedCuisines = [NSMutableArray arrayWithCapacity:cuisines.count];
+  for (NSString * cus in cuisines)
+  {
+    NSString * cuisine = [prefix stringByAppendingString:cus];
+    NSString * localizedCuisine = L(cuisine);
+    BOOL const noLocalization = [localizedCuisine isEqualToString:cuisine];
+    [localizedCuisines addObject:noLocalization ? cus : localizedCuisine];
+  }
+  [localizedCuisines sortUsingComparator:^NSComparisonResult(NSString * s1, NSString * s2)
+  {
+    return [s1 compare:s2 options:NSCaseInsensitiveSearch range:{0, s1.length} locale:[NSLocale currentLocale]];
+  }];
+  return [localizedCuisines componentsJoinedByString:kMWMCuisineSeparator];
 }
 
 - (instancetype)initWithDelegate:(id<MWMPlacePageEntityProtocol>)delegate
@@ -123,21 +147,28 @@ void initFieldsMap()
     m_fields.emplace_back(field);
 }
 
-- (void)removeMetaField:(MWMPlacePageCellType)field
+- (void)removeMetaField:(NSUInteger)value
 {
-  auto const it = find(m_fields.begin(), m_fields.end(), field);
+  NSAssert(value >= Metadata::FMD_COUNT, @"Incorrect enum value");
+  auto const it = find(m_fields.begin(), m_fields.end(), value);
   if (it != m_fields.end())
     m_fields.erase(it);
 }
 
-- (void)addMetaField:(NSUInteger)key value:(string const &)value
+- (void)setMetaField:(NSUInteger)key value:(string const &)value
 {
-  if (value.empty())
-    return;
-  [self addMetaField:key];
   NSAssert(key >= Metadata::FMD_COUNT, @"Incorrect enum value");
   MWMPlacePageCellType const cellType = static_cast<MWMPlacePageCellType>(key);
-  m_values[cellType] = value;
+  if (value.empty())
+  {
+    [self removeMetaField:key];
+    m_values.erase(cellType);
+  }
+  else
+  {
+    [self addMetaField:key];
+    m_values[cellType] = value;
+  }
 }
 
 - (void)configureForBookmark:(UserMark const *)bookmark
@@ -186,7 +217,7 @@ void initFieldsMap()
     self.category = @(info.GetPinType().c_str());
 
     if (!info.m_house.empty())
-      [self addMetaField:MWMPlacePageCellTypeBuilding value:info.m_house];
+      [self setMetaField:MWMPlacePageCellTypeBuilding value:info.m_house];
 
     for (auto const type : metadata.GetPresentTypes())
     {
@@ -231,10 +262,10 @@ void initFieldsMap()
         case Metadata::FMD_OPEN_HOURS:
         case Metadata::FMD_EMAIL:
         case Metadata::FMD_POSTCODE:
-          [self addMetaField:kMetaFieldsMap[type] value:metadata.Get(type)];
+          [self setMetaField:kMetaFieldsMap[type] value:metadata.Get(type)];
           break;
         case Metadata::FMD_INTERNET:
-          [self addMetaField:kMetaFieldsMap[type] value:L(@"WiFi_available").UTF8String];
+          [self setMetaField:kMetaFieldsMap[type] value:L(@"WiFi_available").UTF8String];
           break;
         default:
           break;
@@ -275,11 +306,6 @@ void initFieldsMap()
   self.cuisines = [NSSet setWithArray:[cuisine componentsSeparatedByString:kOSMCuisineSeparator]];
 }
 
-- (NSString *)serializeCuisine
-{
-  return [self.cuisines.allObjects componentsJoinedByString:kOSMCuisineSeparator];
-}
-
 - (void)processStreets
 {
   FeatureType const * feature = self.delegate.userMark->GetFeature();
@@ -294,7 +320,7 @@ void initFieldsMap()
   self.nearbyStreets = arr;
 
   auto const info = frm.GetFeatureAddressInfo(*feature);
-  [self addMetaField:MWMPlacePageCellTypeStreet value:info.m_street];
+  [self setMetaField:MWMPlacePageCellTypeStreet value:info.m_street];
 }
 
 #pragma mark - Editing
@@ -359,8 +385,8 @@ void initFieldsMap()
       {
         Metadata::EType const fmdType = static_cast<Metadata::EType>(kMetaFieldsMap[cell.first]);
         NSAssert(fmdType > 0 && fmdType < Metadata::FMD_COUNT, @"Incorrect enum value");
-        NSString * cuisineStr = [self serializeCuisine];
-        metadata.Set(fmdType, cuisineStr.UTF8String);
+        NSString * osmCuisineStr = mwmToOSMCuisineString(@(cell.second.c_str()));
+        metadata.Set(fmdType, osmCuisineStr.UTF8String);
         break;
       }
       case MWMPlacePageCellTypeName:
@@ -444,16 +470,8 @@ void initFieldsMap()
   if ([_cuisines isEqualToSet:cuisines])
     return;
   _cuisines = cuisines;
-  NSMutableArray<NSString *> * localizedCuisines = [NSMutableArray arrayWithCapacity:self.cuisines.count];
-  for (NSString * cus in self.cuisines)
-  {
-    NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", cus];
-    NSString * localizedCuisine = L(cuisine);
-    BOOL const noLocalization = [localizedCuisine isEqualToString:cuisine];
-    [localizedCuisines addObject:noLocalization ? cus : localizedCuisine];
-  }
-  [self addMetaField:MWMPlacePageCellTypeCuisine
-               value:[localizedCuisines componentsJoinedByString:@", "].UTF8String];
+  [self setMetaField:MWMPlacePageCellTypeCuisine
+               value:[MWMPlacePageEntity makeMWMCuisineString:cuisines].UTF8String];
 }
 
 #pragma mark - Bookmark editing

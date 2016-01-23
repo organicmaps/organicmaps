@@ -55,8 +55,13 @@ namespace
     if ([key hasPrefix:prefix])
       [cuisineKeys addObject:[key substringFromIndex:prefixLength]];
   }
-  self.cuisineKeys = cuisineKeys.allObjects;
-  self.selectedCuisines = [[self.delegate getCuisines] mutableCopy];
+  self.cuisineKeys = [cuisineKeys.allObjects sortedArrayUsingComparator:^NSComparisonResult(NSString * s1, NSString * s2)
+  {
+    NSString * cus1 = L([prefix stringByAppendingString:s1]);
+    NSString * cus2 = L([prefix stringByAppendingString:s2]);
+    return [cus1 compare:cus2 options:NSCaseInsensitiveSearch range:{0, cus1.length} locale:[NSLocale currentLocale]];
+  }];
+  self.selectedCuisines = [self.delegate.cuisines mutableCopy];
 }
 
 - (void)configTable
