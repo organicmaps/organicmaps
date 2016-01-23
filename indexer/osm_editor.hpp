@@ -50,8 +50,8 @@ public:
 
   void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn const & fn) { m_mwmIdByMapNameFn = fn; }
   void SetInvalidateFn(TInvalidateFn const & fn) { m_invalidateFn = fn; }
-  void SetFeatureLoaderFn(TFeatureLoaderFn const & fn) { m_featureLoaderFn = fn; }
-  void SetFeatureOriginalStretFn(TFeatureOriginalStreetFn const & fn) { m_featureOriginalStreet = fn; }
+  void SetFeatureLoaderFn(TFeatureLoaderFn const & fn) { m_getOriginalFeatureFn = fn; }
+  void SetFeatureOriginalStretFn(TFeatureOriginalStreetFn const & fn) { m_getOriginalFeatureStreetFn = fn; }
 
   void LoadMapEdits();
 
@@ -127,9 +127,9 @@ private:
   /// Invalidate map viewport after edits.
   TInvalidateFn m_invalidateFn;
   /// Get FeatureType from mwm.
-  TFeatureLoaderFn m_featureLoaderFn;
+  TFeatureLoaderFn m_getOriginalFeatureFn;
   /// Get feature original street name or empty string.
-  TFeatureOriginalStreetFn m_featureOriginalStreet;
+  TFeatureOriginalStreetFn m_getOriginalFeatureStreetFn;
 };  // class Editor
 
 inline string DebugPrint(Editor::FeatureStatus fs)

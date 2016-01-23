@@ -299,7 +299,7 @@ void Editor::LoadMapEdits()
           }
           else
           {
-            fti.m_feature = *m_featureLoaderFn(fid);
+            fti.m_feature = *m_getOriginalFeatureFn(fid);
             fti.m_feature.ApplyPatch(xml);
           }
 
@@ -436,7 +436,7 @@ void Editor::EditFeature(FeatureType const & editedFeature, string const & edite
                          string const & editedHouseNumber)
 {
   FeatureID const fid = editedFeature.GetID();
-  auto const originalFeaturePtr = m_featureLoaderFn(fid);
+  auto const originalFeaturePtr = m_getOriginalFeatureFn(fid);
   FeatureTypeInfo & fti = m_features[fid.m_mwmId][fid.m_index];
 
   fti.m_status = FeatureStatus::Modified;
@@ -450,7 +450,7 @@ void Editor::EditFeature(FeatureType const & editedFeature, string const & edite
   // TODO(AlexZ): Store edited house number as house name if feature::IsHouseNumber() returned false.
 
   if (AreFeaturesEqualButStreet(fti.m_feature, *originalFeaturePtr) &&
-      m_featureOriginalStreet(editedFeature) == editedStreet)
+      m_getOriginalFeatureStreetFn(editedFeature) == editedStreet)
   {
     // We always have a feature with fid.m_mwmId, fid.m_index at the point.
     // Either it was set previously or just now on quering m_features. See code above.
