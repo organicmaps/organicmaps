@@ -48,6 +48,11 @@ constexpr char const * kUploaded = "Uploaded";
 constexpr char const * kDeletedFromOSMServer = "Deleted from OSM by someone";
 constexpr char const * kNeedsRetry = "Needs Retry";
 
+bool NeedsUpload(string const & uploadStatus)
+{
+  return uploadStatus != kUploaded && uploadStatus != kDeletedFromOSMServer;
+}
+
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
 // TODO(mgsergio): Replace hard-coded value with reading from file.
 /// type:string -> description:pair<fields:vector<???>, editName:bool, editAddr:bool>
@@ -594,6 +599,19 @@ bool Editor::IsAddressEditable(FeatureType const & feature) const
   return false;
 }
 
+bool Editor::HaveNotUploadedChanges() const
+{
+  for (auto const & id : m_features)
+  {
+    for (auto const & index : id.second)
+    {
+      if (NeedsUpload(index.second.m_uploadStatus))
+        return true;
+    }
+  }
+  return false;
+}
+
 void Editor::UploadChanges(string const & key, string const & secret, TChangesetTags tags,
                            TFinishUploadCallback callBack)
 {
@@ -611,7 +629,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
       {
         FeatureTypeInfo & fti = index.second;
         // Do not process already uploaded features or those failed permanently.
-        if (!(fti.m_uploadStatus.empty() || fti.m_uploadStatus == kNeedsRetry))
+        if (!NeedsUpload(fti.m_uploadStatus))
           continue;
 
         // TODO(AlexZ): Create/delete nodes support.
