@@ -639,6 +639,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           changeset.ModifyNode(osmFeature);
           fti.m_uploadStatus = kUploaded;
           fti.m_uploadAttemptTimestamp = time(nullptr);
+          fti.m_uploadError.clear();
           ++uploadedFeaturesCount;
         }
         catch (ChangesetWrapper::OsmObjectWasDeletedException const & ex)
