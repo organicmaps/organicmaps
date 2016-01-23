@@ -9,24 +9,24 @@
 
 namespace utils
 {
-  template <class TSink> void WriteString(TSink & sink, string const & s)
-  {
-    CHECK(!s.empty(), ());
+template <class TSink> void WriteString(TSink & sink, string const & s)
+{
+  CHECK(!s.empty(), ());
 
-    size_t const sz = s.size();
-    WriteVarUint(sink, static_cast<uint32_t>(sz-1));
-    sink.Write(s.c_str(), sz);
-  }
-
-  template <class TSource> void ReadString(TSource & src, string & s)
-  {
-    uint32_t const sz = ReadVarUint<uint32_t>(src) + 1;
-    s.resize(sz);
-    src.Read(&s[0], sz);
-
-    CHECK(!s.empty(), ());
-  }
+  size_t const sz = s.size();
+  WriteVarUint(sink, static_cast<uint32_t>(sz-1));
+  sink.Write(s.c_str(), sz);
 }
+
+template <class TSource> void ReadString(TSource & src, string & s)
+{
+  uint32_t const sz = ReadVarUint<uint32_t>(src) + 1;
+  s.resize(sz);
+  src.Read(&s[0], sz);
+
+  CHECK(!s.empty(), ());
+}
+}  // namespace utils
 
 class StringUtf8Multilang
 {

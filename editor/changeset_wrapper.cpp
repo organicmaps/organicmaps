@@ -1,13 +1,147 @@
+#include "base/logging.hpp"
+
 #include "indexer/feature.hpp"
 
 #include "editor/changeset_wrapper.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/sstream.hpp"
+#include "std/map.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "private.h"
 
 using editor::XMLFeature;
+
+namespace
+{
+double ScoreLatLon(XMLFeature const & xmlFt, ms::LatLon const & latLon)
+{
+  // TODO: Set meaningfull value.
+  // 1e-5 was taken as first approximation.
+  double constexpr eps = 1e-5;
+  return latLon.EqualDxDy(xmlFt.GetCenter(), eps);
+}
+
+double ScoreNames(XMLFeature const & xmlFt, StringUtf8Multilang const & names)
+{
+  double score = 0;
+  names.ForEachRef([&score, &xmlFt](uint8_t const langCode, string const & name)
+                   {
+                     score += xmlFt.GetName(langCode) == name;
+                     return true;
+                   });
+
+  // // Deafult name match have greater wieght.
+  // if (name.GetString(StringUtf8Multilang::DEFAULT_CODE) == xmlFt.GetName(StringUtf8Multilang::DEFAULT_COD))
+  //   score += 10;
+
+  return score;
+}
+
+vector<string> GetOsmOriginalTagsForType(feature::Metadata::EType const et)
+{
+  static multimap<feature::Metadata::EType, string> const kFmd2Osm = {
+    {feature::Metadata::EType::FMD_CUISINE, "cuisine"},
+    {feature::Metadata::EType::FMD_OPEN_HOURS, "opening_hour"},
+    {feature::Metadata::EType::FMD_PHONE_NUMBER, "phone"},
+    {feature::Metadata::EType::FMD_PHONE_NUMBER, "contact:phone"},
+    {feature::Metadata::EType::FMD_FAX_NUMBER, "fax"},
+    {feature::Metadata::EType::FMD_FAX_NUMBER, "contact:fax"},
+    {feature::Metadata::EType::FMD_STARS, "stars"},
+    {feature::Metadata::EType::FMD_OPERATOR, "operator"},
+    {feature::Metadata::EType::FMD_URL, "url"},
+    {feature::Metadata::EType::FMD_WEBSITE, "website"},
+    {feature::Metadata::EType::FMD_WEBSITE, "contact:website"},
+    // TODO: {feature::Metadata::EType::FMD_INTERNET, ""},
+    {feature::Metadata::EType::FMD_ELE, "ele"},
+    {feature::Metadata::EType::FMD_TURN_LANES, "turn:lanes"},
+    {feature::Metadata::EType::FMD_TURN_LANES_FORWARD, "turn:lanes:forward"},
+    {feature::Metadata::EType::FMD_TURN_LANES_BACKWARD, "turn:lanes:backward"},
+    {feature::Metadata::EType::FMD_EMAIL, "email"},
+    {feature::Metadata::EType::FMD_EMAIL, "contact:email"},
+    {feature::Metadata::EType::FMD_POSTCODE, "addr:postcode"},
+    {feature::Metadata::EType::FMD_WIKIPEDIA, "wikipedia"},
+    {feature::Metadata::EType::FMD_MAXSPEED, "maxspeed"},
+    {feature::Metadata::EType::FMD_FLATS, "addr:flats"},
+    {feature::Metadata::EType::FMD_HEIGHT, "height"},
+    {feature::Metadata::EType::FMD_MIN_HEIGHT, "min_hfeight"},
+    {feature::Metadata::EType::FMD_MIN_HEIGHT, "building:min_level"},
+    {feature::Metadata::EType::FMD_DENOMINATION, "denominatio"},
+    {feature::Metadata::EType::FMD_BUILDING_LEVELS, "building:levels"},
+  };
+
+  vector<string> result;
+  auto const range = kFmd2Osm.equal_range(et);
+  for (auto it = range.first; it != range.second; ++it)
+    result.emplace_back(it->second);
+
+  return result;
+}
+
+double ScoreMetadata(XMLFeature const & xmlFt, feature::Metadata const & metadata)
+{
+  double score = 0;
+
+  for (auto const type : metadata.GetPresentTypes())
+  {
+    for (auto const osm_tag : GetOsmOriginalTagsForType(static_cast<feature::Metadata::EType>(type)))
+    {
+      if (osm_tag == xmlFt.GetTagValue(osm_tag))
+        score += 1;
+    }
+  }
+
+  return score;
+}
+
+bool TypesEqual(XMLFeature const & xmlFt, feature::TypesHolder const & types)
+{
+  return false;
+}
+
+pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, FeatureType const & ft)
+{
+  double bestScore = -1;
+  pugi::xml_node bestMatchNode;
+
+  for (auto const & xNode : osmResponse.select_nodes("node"))
+  {
+    try
+    {
+      XMLFeature xmlFt(xNode.node());
+
+      if (!TypesEqual(xmlFt, feature::TypesHolder(ft)))
+        continue;
+
+      double nodeScore = ScoreLatLon(xmlFt, MercatorBounds::ToLatLon(ft.GetCenter()));
+      if (nodeScore < 0)
+        continue;
+
+      nodeScore += ScoreNames(xmlFt, ft.GetNames());
+      nodeScore += ScoreMetadata(xmlFt, ft.GetMetadata());
+
+      if (bestScore < nodeScore)
+      {
+        bestScore = nodeScore;
+        bestMatchNode = xNode.node();
+      }
+    }
+    catch (editor::XMLFeatureNoLatLonError)
+    {
+      LOG(LWARNING, ("No lat/lon attribute in osm response node."));
+      continue;
+    }
+  }
+
+  // TODO(mgsergio): Add a properly defined treshold.
+  // if (bestScore < minimumScoreThreshold)
+  //   return pugi::xml_node;
+
+  return bestMatchNode;
+}
+}  // namespace
 
 string DebugPrint(pugi::xml_document const & doc)
 {
@@ -54,8 +188,8 @@ XMLFeature ChangesetWrapper::GetMatchingFeatureFromOSM(XMLFeature const & ourPat
     // Throws!
     LoadXmlFromOSM(ll, doc);
 
-    // TODO(AlexZ): Select best matching OSM node, not just the first one.
-    pugi::xml_node const firstNode = doc.child("osm").child("node");
+    // feature must be the original one, not patched!
+    pugi::xml_node const firstNode = GetBestOsmNode(doc, feature);
     if (firstNode.empty())
       MYTHROW(OsmObjectWasDeletedException, ("OSM does not have any nodes at the coordinates", ll, ", server has returned:", doc));
 

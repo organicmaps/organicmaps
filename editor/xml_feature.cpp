@@ -5,10 +5,7 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "std/set.hpp"
-#include "std/unordered_set.hpp"
-
-#include <boost/functional/hash.hpp>
+#include "geometry/latlon.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
 
@@ -30,7 +27,7 @@ pugi::xml_node FindTag(pugi::xml_document const & document, string const & key)
   return document.select_node(("//tag[@k='" + key + "']").data()).node();
 }
 
-ms::LatLon PointFromLatLon(pugi::xml_node const node)
+ms::LatLon PointFromLatLon(pugi::xml_node const & node)
 {
   ms::LatLon ll;
   if (!strings::to_double(node.attribute("lat").value(), ll.lat))
