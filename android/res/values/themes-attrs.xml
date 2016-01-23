@@ -12,6 +12,8 @@
     <attr name="iconTint" format="color"/>
     <attr name="iconTintLight" format="color"/>
     <attr name="counterTextColor" format="color"/>
+    <attr name="buttonAccent" format="reference"/>
+    <attr name="buttonLight" format="reference"/>
 
     <attr name="zoomPlus" format="reference"/>
     <attr name="zoomMinus" format="reference"/>

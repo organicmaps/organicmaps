@@ -73,6 +73,11 @@
     <item name="android:textSize">@dimen/text_size_toolbar</item>
   </style>
 
+  <style name="MwmTextAppearance.Toolbar.Title.Light">
+    <item name="android:textSize">@dimen/text_size_toolbar</item>
+    <item name="android:textColor">@color/bg_cards</item>
+  </style>
+
   <style name="MwmTextAppearance.Toolbar.Title.Button">
     <item name="android:textSize">@dimen/text_size_body_3</item>
     <item name="android:textAllCaps">true</item>

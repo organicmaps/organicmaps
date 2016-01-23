@@ -61,9 +61,19 @@
     <item name="android:contentInsetLeft" tools:ignore="NewApi">72dp</item>
   </style>
 
+  <style name="MwmWidget.ToolbarStyle.Light">
+    <item name="android:titleTextAppearance" tools:targetApi="lollipop">@style/MwmTextAppearance.Toolbar.Title.Light</item>
+    <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title.Light</item>
+  </style>
+
   <style name="MwmWidget.ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:gravity">center_vertical</item>
     <item name="colorAccent">@android:color/white</item>
+  </style>
+
+  <style name="MwmWidget.ToolbarTheme.Light" parent="ThemeOverlay.AppCompat.ActionBar">
+    <item name="android:gravity">center_vertical</item>
+    <item name="colorAccent">@color/bg_window_night</item>
   </style>
 
   <style name="MwmWidget.ListView" parent="Widget.AppCompat.ListView">

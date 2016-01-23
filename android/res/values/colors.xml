@@ -13,6 +13,9 @@
 
   <color name="base_accent">#FF1E96F0</color>
   <color name="base_accent_night">#FFFFE68C</color>
+  <color name="base_accent_pressed">#FF1C85D6</color>
+  <color name="base_accent_pressed_night">#FFCCB870</color>
+
   <color name="base_red">#FFF54137</color>
 
   <color name="icon_tint">#FF757575</color>
@@ -32,7 +35,7 @@
   <color name="bg_cards">@android:color/white</color>
   <color name="bg_cards_night">#FF3C4044</color>
   <color name="bg_panel">@color/bg_window</color>
-  <color name="bg_panel_night">@color/bg_cards_night</color>
+  <color name="bg_panel_night">@color/bg_window_night</color>
   <color name="bg_side_panel">@color/bg_cards</color>
   <color name="bg_side_panel_night">@color/bg_panel_night</color>
 
@@ -89,7 +92,12 @@
   <!-- Editor -->
   <color name="bg_editor_add_enabled">@color/base_accent</color>
   <color name="bg_editor_add_disabled">#FFF4F4F4</color>
-  <color name="bg_editor_login_google">#FFF2F6F6</color>
   <color name="bg_editor_login_fb">#FF4861A3</color>
+  <color name="bg_editor_login_fb_pressed">#FF405792</color>
+  <color name="bg_editor_light">#FFF2F6F6</color>
+  <color name="bg_editor_light_pressed">#FFDCD9D9</color>
+  <!-- TODO yunikkk correct colors -->
+  <color name="bg_editor_light_night">#FFF2F6F6</color>
+  <color name="bg_editor_light_night_pressed">#FFDCD9D9</color>
 
 </resources>

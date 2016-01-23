@@ -11,11 +11,12 @@
   <ImageView
     android:id="@+id/iv__place_wiki"
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_wiki" />
+    android:src="@drawable/ic_wiki"
+    android:tint="?colorAccent"/>
 
   <TextView
     android:id="@+id/tv__place_wiki"
     style="@style/PlacePageMetadataText"
     android:text="@string/read_in_wikipedia"
-    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent" />
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"/>
 </LinearLayout>
