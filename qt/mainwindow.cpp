@@ -384,7 +384,11 @@ void MainWindow::OnUploadEditsMenuItem()
   if (key.empty() || secret.empty())
     OnLoginMenuItem();
   else
-    osm::Editor::Instance().UploadChanges(key, secret, {});
+  {
+    auto & editor = osm::Editor::Instance();
+    if (editor.HaveSomethingToUpload())
+      editor.UploadChanges(key, secret, {});
+  }
 }
 
 void MainWindow::OnBeforeEngineCreation()
