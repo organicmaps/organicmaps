@@ -10,6 +10,8 @@ DEPENDENCIES = geometry base
 
 include($$ROOT_DIR/common.pri)
 
+DEFINES += OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
+
 HEADERS += \
   equality.hpp \
   large_polygon.hpp \

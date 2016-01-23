@@ -6,7 +6,10 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = storage indexer platform_tests_support platform geometry coding base jansson tomcrypt stats_client succinct
+#DEPENDENCIES = storage indexer platform_tests_support platform geometry coding base jansson tomcrypt stats_client succinct
+DEPENDENCIES = map drape_frontend routing search storage indexer drape platform_tests_support platform editor opening_hours geometry \
+               coding base freetype expat fribidi tomcrypt jansson protobuf osrm stats_client \
+               minizip succinct pugixml oauthcpp
 
 include($$ROOT_DIR/common.pri)
 
@@ -16,7 +19,7 @@ QT *= core
 
 macx-* {
   QT *= gui widgets # needed for QApplication with event loop, to test async events (downloader, etc.)
-  LIBS *= "-framework IOKit" "-framework QuartzCore"
+  LIBS *= "-framework IOKit" "-framework QuartzCore" "-framework SystemConfiguration"
 }
 win32*|linux* {
   QT *= network
@@ -36,3 +39,4 @@ SOURCES += \
   storage_tests.cpp \
   task_runner.cpp \
   test_map_files_downloader.cpp \
+  migrate_tests.cpp \

@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = editor geometry coding base stats_client opening_hours pugixml oauthcpp
+DEPENDENCIES = editor platform_tests_support platform geometry coding base stats_client opening_hours pugixml oauthcpp
 
 include($$ROOT_DIR/common.pri)
 

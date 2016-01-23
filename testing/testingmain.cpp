@@ -13,8 +13,12 @@
 #include "std/target_os.hpp"
 #include "std/vector.hpp"
 
+#ifndef OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
+# include "platform/platform.hpp"
+#endif
+
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
-  #include <Qt>
+  #include <QtCore/Qt>
   #ifdef OMIM_OS_MAC // on Mac OS X native run loop works only for QApplication :(
     #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
       #include <QtGui/QApplication>
@@ -133,6 +137,16 @@ int main(int argc, char * argv[])
   regex suppressRegExp;
   if (g_testingOptions.m_suppressRegExp)
     suppressRegExp.assign(g_testingOptions.m_suppressRegExp);
+
+#ifndef OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
+  // Setting stored paths from testingmain.cpp
+  Platform & pl = GetPlatform();
+  CommandLineOptions const & options = GetTestingOptions();
+  if (options.m_dataPath)
+    pl.SetWritableDirForTests(options.m_dataPath);
+  if (options.m_resourcePath)
+    pl.SetResourceDir(options.m_resourcePath);
+#endif
 
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
   {

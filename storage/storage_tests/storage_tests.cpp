@@ -399,6 +399,7 @@ UNIT_TEST(StorageTest_TwoCountriesDownloading)
   uruguayChecker->StartDownload();
   venezuelaChecker->StartDownload();
   runner.Run();
+  cout << "sdfsdf";
 }
 
 UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
@@ -444,6 +445,10 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
 UNIT_TEST(StorageTest_DownloadCountryAndDeleteRoutingOnly)
 {
   Storage storage;
+
+  if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
+    return;
+
   TaskRunner runner;
   InitStorage(storage, runner);
 

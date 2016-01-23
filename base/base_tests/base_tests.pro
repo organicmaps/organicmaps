@@ -10,6 +10,8 @@ DEPENDENCIES = base
 
 include($$ROOT_DIR/common.pri)
 
+DEFINES += OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
+
 SOURCES += \
   ../../testing/testingmain.cpp \
   assert_test.cpp \
