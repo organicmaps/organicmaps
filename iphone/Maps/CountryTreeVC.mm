@@ -30,6 +30,14 @@ extern NSString * const MapsStatusChangedNotification;
     ASSERT(position < self.tree.GetChildCount(), ());
     self.title = @(self.tree.GetChildName(position).c_str());
     self.tree.SetChildAsRoot(position);
+    if (self.tree.IsDownloadAllAvailable())
+    {
+      self.navigationItem.rightBarButtonItem =
+          [[UIBarButtonItem alloc] initWithTitle:L(@"download_all")
+                                           style:UIBarButtonItemStylePlain
+                                          target:self
+                                          action:@selector(onDownloadAll)];
+    }
   }
 
   __weak CountryTreeVC * weakSelf = self;
@@ -67,6 +75,11 @@ extern NSString * const MapsStatusChangedNotification;
     else
       self.tree.ResetListener();
   }
+}
+
+- (void)onDownloadAll
+{
+  self.tree.DownloadAll();
 }
 
 #define TOP_ROWS_COUNT 1
