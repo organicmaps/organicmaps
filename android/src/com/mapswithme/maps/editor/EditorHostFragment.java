@@ -26,7 +26,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     MAP_OBJECT,
     OPENING_HOURS,
     STREET,
-    CUISINE;
+    CUISINE
   }
   private Mode mMode;
 
@@ -133,10 +133,18 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         Editor.nativeSetMetadata(Metadata.MetadataType.FMD_INTERNET.toInt(), editorFragment.getWifi());
         Editor.nativeSetName(editorFragment.getName());
         Editor.nativeEditFeature(editorFragment.getStreet(), editorFragment.getHouseNumber());
-        Utils.navigateToParent(getActivity());
+        if (OsmOAuth.isAuthorized())
+          Utils.navigateToParent(getActivity());
+        else
+          showAuthorization();
         break;
       }
       break;
     }
+  }
+
+  private void showAuthorization()
+  {
+    getMwmActivity().replaceFragment(AuthFragment.class, null, null);
   }
 }

@@ -1020,8 +1020,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (UiUtils.isVisible(mFadeView))
       mFadeView.fadeOut(false);
-    if (UiUtils.isVisible(mFadeView))
-      mFadeView.fadeOut(false);
   }
 
   @Override

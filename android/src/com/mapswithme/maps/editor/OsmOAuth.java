@@ -12,15 +12,6 @@ public final class OsmOAuth
 {
   private OsmOAuth() {}
 
-  // Auth type corresponds to different auths from OsmOAuth.
-  @IntDef({IZ_SERVER, DEV_SERVER, PRODUCTION, SERVER})
-  public @interface AuthType {}
-
-  public static final int IZ_SERVER = 0;
-  public static final int DEV_SERVER = 1;
-  public static final int PRODUCTION = 2;
-  public static final int SERVER = 3;
-
   // Result type corresponds to OsmOAuth::AuthResult.
   @IntDef({OK, FAIL_COOKIE, FAIL_LOGIN, NO_O_AUTH, FAIL_AUTH, NO_ACCESS, NETWORK_ERROR, SERVER_ERROR})
   public @interface AuthResult {}
@@ -66,7 +57,7 @@ public final class OsmOAuth
   @WorkerThread
   @Size(2)
   @Nullable
-  public static native String[] nativeAuthWithPassword(@AuthType int auth, String login, String password);
+  public static native String[] nativeAuthWithPassword(String login, String password);
 
   /**
    * @return array containing auth token and secret
@@ -74,19 +65,19 @@ public final class OsmOAuth
   @WorkerThread
   @Size(2)
   @Nullable
-  public static native String[] nativeAuthWithWebviewToken(@AuthType int auth, String secret, String token, String verifier);
+  public static native String[] nativeAuthWithWebviewToken(String secret, String token, String verifier);
 
   /**
    * @return url for web auth, and token with secret for finishing authorization later
    */
   @Size(3)
   @NonNull
-  public static native String[] nativeGetFacebookAuthUrl(@AuthType int auth);
+  public static native String[] nativeGetFacebookAuthUrl();
 
   /**
    * @return url for web auth, and token with secret for finishing authorization later
    */
   @Size(3)
   @NonNull
-  public static native String[] nativeGetGoogleAuthUrl(@AuthType int auth);
+  public static native String[] nativeGetGoogleAuthUrl();
 }
