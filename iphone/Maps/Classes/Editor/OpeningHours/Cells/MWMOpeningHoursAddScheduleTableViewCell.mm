@@ -17,7 +17,7 @@
 
 - (void)refresh
 {
-  NSString * title = [NSString stringWithFormat:@"%@ %@", L(@"add_schedule_for"),
+  NSString * title = [NSString stringWithFormat:@"%@ %@", L(@"editor_time_add"),
                       stringFromOpeningDays([self.model unhandledDays])];
   [self.addScheduleButton setTitle:title forState:UIControlStateNormal];
 }

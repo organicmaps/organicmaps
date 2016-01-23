@@ -271,7 +271,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypeOpenHours:
     {
       MWMPlacePageOpeningHoursCell * tCell = (MWMPlacePageOpeningHoursCell *)cell;
-      NSString * text = entityValue ? entityValue : L(@"opening_hours");
+      NSString * text = entityValue ? entityValue : L(@"editor_time_title");
       [tCell configWithDelegate:self info:text lastCell:lastCell];
       break;
     }

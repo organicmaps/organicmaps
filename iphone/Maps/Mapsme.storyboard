@@ -924,7 +924,7 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="opening_hours"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="editor_time_title"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="Ld6-gM-2hk" id="Ewa-a5-hAF"/>
@@ -945,7 +945,7 @@
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="example_values"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_example_values"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray_down" translatesAutoresizingMaskIntoConstraints="NO" id="m7d-sG-5LN">

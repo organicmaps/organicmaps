@@ -178,7 +178,7 @@ using namespace osmoh;
     _isSimpleMode = YES;
     delegate.tableView.hidden = NO;
     delegate.advancedEditor.hidden = YES;
-    [delegate.toggleModeButton setTitle:L(@"advanced_mode") forState:UIControlStateNormal];
+    [delegate.toggleModeButton setTitle:L(@"editor_time_advanced") forState:UIControlStateNormal];
     _sections = [NSMutableArray arrayWithCapacity:timeTableSet.Size()];
     while (self.sections.count < timeTableSet.Size())
       [self addSection];
@@ -193,7 +193,7 @@ using namespace osmoh;
     }
     delegate.tableView.hidden = YES;
     delegate.advancedEditor.hidden = NO;
-    [delegate.toggleModeButton setTitle:L(@"simple_mode") forState:UIControlStateNormal];
+    [delegate.toggleModeButton setTitle:L(@"editor_time_simple") forState:UIControlStateNormal];
     MWMTextView * ev = delegate.editorView;
     ev.text = delegate.openingHours;
     [ev becomeFirstResponder];
