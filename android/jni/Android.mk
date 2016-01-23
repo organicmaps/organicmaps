@@ -106,7 +106,8 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/opengl/androidoglcontext.cpp \
 	com/mapswithme/opengl/androidoglcontextfactory.cpp \
 	com/mapswithme/maps/editor/OpeningHours.cpp \
-	com/mapswithme/maps/editor/Editor.cpp
+	com/mapswithme/maps/editor/Editor.cpp \
+	com/mapswithme/maps/editor/OsmOAuth.cpp
 
 LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv2 -latomic -lz
 
