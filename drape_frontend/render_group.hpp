@@ -90,6 +90,7 @@ class RenderGroupComparator
 {
 public:
   bool operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r);
+  bool m_pendingOnDeleteFound = false;
 };
 
 class UserMarkRenderGroup : public BaseRenderGroup

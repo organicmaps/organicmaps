@@ -36,6 +36,7 @@
 
 #include "std/function.hpp"
 #include "std/map.hpp"
+#include "std/array.hpp"
 
 namespace dp
 {
@@ -148,6 +149,12 @@ private:
   void RefreshPivotTransform(ScreenBase const & screen);
   void RefreshBgColor();
 
+  //////
+  /// Render part of scene
+  void Render2dLayer(ScreenBase const & modelView);
+  void Render3dLayer(ScreenBase const & modelView);
+  void RenderOverlayLayer(ScreenBase const & modelView);
+  //////
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   void PrepareScene(ScreenBase const & modelView);
   void UpdateScene(ScreenBase const & modelView);
@@ -230,8 +237,26 @@ private:
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
-  vector<drape_ptr<RenderGroup>> m_renderGroups;
-  vector<drape_ptr<RenderGroup>> m_deferredRenderGroups;
+  struct RenderLayer
+  {
+    enum RenderLayerID
+    {
+      Geometry2dID,
+      OverlayID,
+      Geometry3dID,
+      LayerCountID
+    };
+
+    static RenderLayerID GetLayerID(dp::GLState const & renderGroup);
+
+    vector<drape_ptr<RenderGroup>> m_renderGroups;
+    vector<drape_ptr<RenderGroup>> m_deferredRenderGroups;
+    bool m_isDirty = false;
+
+    inline void Sort();
+  };
+
+  array<RenderLayer, RenderLayer::LayerCountID> m_layers;
   vector<drape_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
   set<TileKey> m_userMarkVisibility;
 
