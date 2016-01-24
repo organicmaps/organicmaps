@@ -58,21 +58,22 @@
             <point key="canvasLocation" x="247" y="33.5"/>
         </view>
         <view contentMode="scaleToFill" id="vX3-r7-Aki" customClass="MWMPlacePageELEDescription">
-            <rect key="frame" x="0.0" y="0.0" width="81" height="16"/>
+            <rect key="frame" x="0.0" y="0.0" width="81" height="14"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5125 м" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XDk-Zw-AaI">
-                    <rect key="frame" x="25" y="2" width="58" height="16"/>
+                    <rect key="frame" x="25" y="0.0" width="58" height="14"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                     <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackHintText"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                     </userDefinedRuntimeAttributes>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_hight_mountain" id="7GG-hb-FBC">
-                    <rect key="frame" x="0.0" y="5" width="21" height="10"/>
+                    <rect key="frame" x="0.0" y="2" width="21" height="10"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMGray"/>
@@ -86,7 +87,7 @@
             <connections>
                 <outlet property="heightLabel" destination="XDk-Zw-AaI" id="lN9-Y9-VK8"/>
             </connections>
-            <point key="canvasLocation" x="247.5" y="105"/>
+            <point key="canvasLocation" x="247.5" y="106"/>
         </view>
     </objects>
     <resources>
