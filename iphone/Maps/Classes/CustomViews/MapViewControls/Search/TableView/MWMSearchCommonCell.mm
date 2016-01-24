@@ -27,7 +27,11 @@
 {
   [super config:result];
   self.typeLabel.text = @(result.GetFeatureType()).capitalizedString;
-  self.locationLabel.text = @(result.GetRegionString());
+  search::AddressInfo info {};
+  info.MakeFrom(result);
+  string const address = info.FormatAddress();
+  string const location = address.empty() ? result.GetRegionString() : address;
+  self.locationLabel.text = @(location.c_str());
   [self.locationLabel sizeToFit];
 
   if (!forHeight)
