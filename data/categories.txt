@@ -1249,7 +1249,7 @@ amenity-place_of_worship
 en:place of worship|4temple|sights|U+1F64F|U+26EA
 ru:3храм|церковь|достопримечательность
 uk:3храм|церква|собор|пам’ятка|алтарь|мавзолей|пам’ятні місця
-de:Kirche|Synagoge|Moschee|4Tempel|Anbetungsstätte|Dom|Sehenswürdigkeit
+de:Anbetungsstätte|Sehenswürdigkeit
 fr:4lieu de culte|site touristique
 it:4tempio|cattedrale|duomo|turistico
 es:4templo|lugar de culto|turismo
@@ -1273,6 +1273,34 @@ id:tempat ibadah|pemandangan
 ro:3loc de cult|obiective turistice
 nb:3gudshus|severdigheter
 fi:3uskonnollinen kohde|nähtävyydet
+
+amenity-place_of_worship-christian
+en:church|sights
+de:Kirche|Dom|3Kathedrale|4Münster|Sehenswürdigkeit
+
+amenity-place_of_worship-muslim
+en:mosque|sights
+de:Moschee|Sehenswürdigkeit
+
+amenity-place_of_worship-buddhist
+en:4temple|sights|U+1F64F|U+26EA
+de:Tempel|Sehenswürdigkeit
+
+amenity-place_of_worship-hindu
+en:4temple|sights|U+1F64F|U+26EA
+de:Tempel|Sehenswürdigkeit
+
+amenity-place_of_worship-shinto
+en:shrine|sights
+de:Schrein|Sehenswürdigkeit
+
+amenity-place_of_worship-jewish
+en:synagogue|sights
+de:Synagoge|Sehenswürdigkeit
+
+amenity-place_of_worship-taoist
+en:4temple|sights|U+1F64F|U+26EA
+de:Tempel|Sehenswürdigkeit
 
 tourism-museum
 en:2museum|attraction|tourism|sights|U+1F3A8
@@ -1510,7 +1538,7 @@ amenity-bench
 en:bench
 ru:скамейка|лавка
 uk:лавка
-en:Parkbank
+de:Parkbank
 fr:banc
 it:panchina|panca
 es:banca
@@ -3831,3 +3859,8 @@ ro:radar
 nb:fartskamera
 de:Blitzer
 fi:nopeuskamera
+
+man_made-lighthouse
+en:lighthouse
+ru:маяк
+de:Leuchtturm
