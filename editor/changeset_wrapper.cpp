@@ -25,12 +25,12 @@ double ScoreLatLon(XMLFeature const & xmlFt, ms::LatLon const & latLon)
 double ScoreNames(XMLFeature const & xmlFt, StringUtf8Multilang const & names)
 {
   double score = 0;
-  names.ForEachRef([&score, &xmlFt](uint8_t const langCode, string const & name)
-                   {
-                     if (xmlFt.GetName(langCode) == name)
-                       score += 1;
-                     return true;
-                   });
+  names.ForEach([&score, &xmlFt](uint8_t const langCode, string const & name)
+                {
+                  if (xmlFt.GetName(langCode) == name)
+                    score += 1;
+                  return true;
+                });
 
   // TODO(mgsergio): Deafult name match should have greater wieght. Should it?
 
