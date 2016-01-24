@@ -1,5 +1,3 @@
-#import <UIKit/UIKit.h>
-
 @interface UIFont (MapsMeFonts)
 
 + (UIFont *)regular10;
@@ -17,6 +15,7 @@
 + (UIFont *)medium16;
 + (UIFont *)medium17;
 + (UIFont *)medium18;
++ (UIFont *)medium20;
 + (UIFont *)medium24;
 + (UIFont *)medium36;
 + (UIFont *)medium40;
