@@ -749,6 +749,10 @@ extern "C"
 
     case UserMark::Type::POI:
       {
+        // TODO(AlexZ): Refactor out passing custom name for shared links.
+        auto const & cn = static_cast<PoiMarkPoint const *>(mark)->GetCustomName();
+        if (!cn.empty())
+          info.m_name = cn;
         CallOnPoiActivatedListener(obj, mark->GetPivot(), info, metadata);
         break;
       }

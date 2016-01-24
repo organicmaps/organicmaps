@@ -156,6 +156,16 @@ void PoiMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
   m_ptOrg = ptOrg;
 }
 
+void PoiMarkPoint::SetCustomName(string const & customName)
+{
+  m_customName = customName;
+}
+
+string const & PoiMarkPoint::GetCustomName() const
+{
+  return m_customName;
+}
+
 MyPositionMarkPoint::MyPositionMarkPoint(UserMarkContainer * container)
   : PoiMarkPoint(container)
 {

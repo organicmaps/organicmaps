@@ -113,6 +113,9 @@ void UserMarkContainer::InitStaticMarks(UserMarkContainer * container)
 PoiMarkPoint * UserMarkContainer::UserMarkForPoi()
 {
   ASSERT(g_selectionUserMark != NULL, ());
+  // TODO(AlexZ): Refactor out UserMarks and containers.
+  // Consider this call as returning "new" PoiMarkPoint, so clear up old "custom name" data.
+  g_selectionUserMark->SetCustomName(string());
   return g_selectionUserMark.get();
 }
 

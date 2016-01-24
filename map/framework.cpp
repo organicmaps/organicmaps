@@ -1620,7 +1620,8 @@ bool Framework::ShowMapForURL(string const & url)
       {
         PoiMarkPoint * mark = UserMarkContainer::UserMarkForPoi();
         mark->SetPtOrg(point);
-        // TODO(AlexZ): Do we really have to set custom name here if it's not empty?
+        // TODO(AlexZ): refactor out interface for passing PP values to UI.
+        mark->SetCustomName(name);
         ActivateUserMark(mark, false);
       }
     }

@@ -98,6 +98,13 @@ public:
   unique_ptr<UserMarkCopy> Copy() const override;
 
   void SetPtOrg(m2::PointD const & ptOrg);
+  // TODO(AlexZ): Refactor out. Now we need it to pass custom name from shared links.
+  void SetCustomName(string const & customName);
+  string const & GetCustomName() const;
+
+private:
+  // If present, should override any feature's name for this user mark.
+  string m_customName;
 };
 
 class MyPositionMarkPoint : public PoiMarkPoint
