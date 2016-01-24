@@ -1,8 +1,23 @@
 #import "MWMPlacePageTypeDescription.h"
 
-static NSString * const kPlacePageDescriptionViewNibName = @"MWMPlacePageDescriptionView";
+namespace
+{
 
-@interface MWMPlacePageELEDescription : UIView
+NSString * const kPlacePageDescriptionViewNibName = @"MWMPlacePageDescriptionView";
+CGFloat const kLeftOffset = 8.0;
+
+} // namespace
+
+@implementation MWMPlacePageTypeDescriptionView
+
+- (void)layoutNearPoint:(CGPoint const &)point
+{
+  self.origin = {point.x + kLeftOffset, point.y};
+}
+
+@end
+
+@interface MWMPlacePageELEDescription : MWMPlacePageTypeDescriptionView
 
 @property (weak, nonatomic) IBOutlet UILabel * heightLabel;
 
@@ -10,7 +25,7 @@ static NSString * const kPlacePageDescriptionViewNibName = @"MWMPlacePageDescrip
 
 @end
 
-@interface MWMPlacePageHotelDescription : UIView
+@interface MWMPlacePageHotelDescription : MWMPlacePageTypeDescriptionView
 
 - (void)configureWithStarsCount:(NSUInteger)count;
 
@@ -25,9 +40,10 @@ static NSString * const kPlacePageDescriptionViewNibName = @"MWMPlacePageDescrip
   {
     [[NSBundle mainBundle] loadNibNamed:kPlacePageDescriptionViewNibName owner:self options:nil];
     if (entity.type == MWMPlacePageEntityTypeEle)
-      [self.eleDescription configureWithHeight:entity.typeDescriptionValue];
+      [static_cast<MWMPlacePageELEDescription *>(self.eleDescription) configureWithHeight:entity.typeDescriptionValue];
     else
-      [self.hotelDescription configureWithStarsCount:entity.typeDescriptionValue];
+      [static_cast<MWMPlacePageHotelDescription *>(self.hotelDescription) configureWithStarsCount:entity.typeDescriptionValue];
+    self.eleDescription.autoresizingMask = self.hotelDescription.autoresizingMask = UIViewAutoresizingNone;
   }
   return self;
 }

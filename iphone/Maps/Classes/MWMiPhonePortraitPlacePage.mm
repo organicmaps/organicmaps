@@ -13,8 +13,8 @@
 
 #include "Framework.h"
 
-static CGFloat const kPlacePageBottomOffset = 31.;
-extern CGFloat const kBasePlacePageViewTitleBottomOffset;
+static CGFloat const kPlacePageDefaultOffset = 31.;
+extern CGFloat const kBottomPlacePageOffset;
 
 typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
 {
@@ -160,10 +160,12 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   CGFloat const width = isLandscape ? size.height : size.width;
   CGFloat const height = isLandscape ? size.width : size.height;
   MWMBasePlacePageView * basePPV = self.basePlacePageView;
-  CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ? basePPV.typeLabel.height
-                                                               : basePPV.typeDescriptionView.height;
-  CGFloat const h = height - (basePPV.titleLabel.height + kPlacePageBottomOffset + typeHeight +
-                              self.actionBar.height);
+  CGFloat const typeHeight = (basePPV.typeLabel.text.length > 0 ? basePPV.typeLabel.height
+                                                               : static_cast<UIView *>(basePPV.typeDescriptionView).height) - 1;
+  CGFloat const addressHeight = (basePPV.addressLabel.text.length > 0 ? basePPV.addressLabel.height + kBottomPlacePageOffset
+                                                                     : 0) - 1;
+  CGFloat const h = height - (basePPV.titleLabel.height + kPlacePageDefaultOffset + typeHeight +
+                              self.actionBar.height + addressHeight);
   return {width / 2, height + h};
 }
 
@@ -189,10 +191,12 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   CGSize const size = UIScreen.mainScreen.bounds.size;
   CGFloat const height = MAX(size.width, size.height);
   CGFloat const typeHeight = basePPV.typeLabel.text.length > 0 ? basePPV.typeLabel.height
-                                                               : basePPV.typeDescriptionView.height;
+                                                               : static_cast<UIView *>(basePPV.typeDescriptionView).height;
+  CGFloat const addressHeight = basePPV.addressLabel.text.length > 0 ? basePPV.addressLabel.height + kBottomPlacePageOffset
+                                                                     : 0;
   return height -
-         (basePPV.titleLabel.height + kPlacePageBottomOffset + kBasePlacePageViewTitleBottomOffset +
-          typeHeight + [(UITableView *)basePPV.featureTable height] + self.actionBar.height +
+         (basePPV.titleLabel.height + kPlacePageDefaultOffset +
+          typeHeight + addressHeight + [(UITableView *)basePPV.featureTable height] + self.actionBar.height +
           self.keyboardHeight);
 }
 

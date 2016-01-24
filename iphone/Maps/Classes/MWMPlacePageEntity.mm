@@ -173,6 +173,7 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
 
 - (void)configureForBookmark:(UserMark const *)bookmark
 {
+  // TODO: There is need to get address info which store feature address.
   Framework & f = GetFramework();
   self.bac = f.FindBookmark(bookmark);
   self.type = MWMPlacePageEntityTypeBookmark;
@@ -192,6 +193,7 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
 
 - (void)configureForMyPosition:(MyPositionMarkPoint const *)myPositionMark
 {
+  // TODO: There is need to get address info which store feature address.
   self.title = L(@"my_position");
   self.type = MWMPlacePageEntityTypeMyPosition;
   [self addMetaField:MWMPlacePageCellTypeCoordinate];
@@ -199,6 +201,7 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
 
 - (void)configureForApi:(ApiMarkPoint const *)apiMark
 {
+  // TODO: There is need to get address info which store feature address.
   self.type = MWMPlacePageEntityTypeAPI;
   self.title = @(apiMark->GetName().c_str());
   self.category = @(GetFramework().GetApiDataHolder().GetAppTitle().c_str());
@@ -215,6 +218,7 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
     NSString * const name = @(info.GetPinName().c_str());
     self.title = name.length > 0 ? name : L(@"dropped_pin");
     self.category = @(info.GetPinType().c_str());
+    self.address = @(info.FormatAddress().c_str());
 
     if (!info.m_house.empty())
       [self setMetaField:MWMPlacePageCellTypeBuilding value:info.m_house];
@@ -230,7 +234,7 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
           if (self.category.length == 0)
             self.category = cuisine;
           else if (![self.category isEqualToString:cuisine])
-            self.category = [NSString stringWithFormat:@"%@, %@", self.category, cuisine];
+            self.category = [NSString stringWithFormat:@"%@ • %@", self.category, cuisine];
           break;
         }
         case Metadata::FMD_ELE:
@@ -244,7 +248,7 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
         {
           NSString * bank = @(metadata.Get(type).c_str());
           if (self.category.length)
-            self.category = [NSString stringWithFormat:@"%@, %@", self.category, bank];
+            self.category = [NSString stringWithFormat:@"%@ • %@", self.category, bank];
           else
             self.category = bank;
           break;

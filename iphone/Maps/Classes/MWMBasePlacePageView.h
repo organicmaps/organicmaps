@@ -1,15 +1,16 @@
-@class MWMPlacePageEntity, MWMDirectionView;
+@class MWMPlacePageEntity, MWMDirectionView, MWMPlacePageTypeDescriptionView;
 
-@interface MWMBasePlacePageView : UIView
+@interface MWMBasePlacePageView : SolidTouchView
 
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel * typeLabel;
+@property (weak, nonatomic) IBOutlet UILabel * addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel * distanceLabel;
 @property (weak, nonatomic) IBOutlet UIImageView * directionArrow;
 @property (weak, nonatomic) IBOutlet UITableView * featureTable;
 @property (weak, nonatomic) IBOutlet UIView * separatorView;
 @property (weak, nonatomic) IBOutlet UIButton * directionButton;
-@property (nonatomic) UIView * typeDescriptionView;
+@property (nonatomic) MWMPlacePageTypeDescriptionView * typeDescriptionView;
 
 - (void)configureWithEntity:(MWMPlacePageEntity *)entity;
 - (void)addBookmark;
