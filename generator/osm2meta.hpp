@@ -64,6 +64,12 @@ public:
       if (!value.empty())
         md.Set(Metadata::FMD_PHONE_NUMBER, value);
     }
+    else if (k == "fax" || k == "contact:fax")
+    {
+      string const & value = ValidateAndFormat_phone(v);
+      if (!value.empty())
+        md.Set(Metadata::EType::FMD_FAX_NUMBER, value);
+    }
     else if (k == "maxspeed")
     {
       string const & value = ValidateAndFormat_maxspeed(v);
@@ -183,7 +189,7 @@ public:
       if (!value.empty())
         md.Set(Metadata::FMD_DENOMINATION, value);
     }
-
+    // FMD_INTERNET is set in FeatureType::ParseMetadata.
     return false;
   }
 };
