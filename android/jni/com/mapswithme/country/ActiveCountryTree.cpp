@@ -13,7 +13,7 @@ extern "C"
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_country_ActiveCountryTree_getOutOfDateCount(JNIEnv * env, jclass clazz)
   {
-    return GetMapLayout().GetOutOfDateCount();
+    return (g_framework->NeedMigrate() ? 0 : GetMapLayout().GetOutOfDateCount());
   }
 
   JNIEXPORT jint JNICALL
