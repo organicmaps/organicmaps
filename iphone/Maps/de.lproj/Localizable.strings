@@ -16,7 +16,7 @@
 "cancel" = "Abbrechen";
 
 /* Button which interrupts country download */
-"cancel_download" = "Download beenden";
+"cancel_download" = "Herunterladen abbrechen";
 
 /* Button which deletes downloaded country */
 "delete" = "Löschen";
@@ -39,13 +39,13 @@
 "download_x_mb" = "Herunterladen %qu MB";
 
 /* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Download fehlgeschlagen. Bitte versuchen Sie es erneut.";
+"download_has_failed" = "Herunterladen fehlgeschlagen. Antippen für einen neuen Versuch.";
 
 /* Settings/Downloader - info for downloaded country */
 "downloaded_x_y_touch_to_delete" = "Heruntergeladen (%1$qu %2$@). Drücken, um zu löschen";
 
 /* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Heruntergeladen %qu%%. Drücken, um abzubrechen";
+"downloading_x_touch_to_cancel" = "Herunterladen %qu%%. Drücken, um abzubrechen";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Wird heruntergeladen…";
@@ -62,13 +62,13 @@
 "kilometres" = "Kilometer";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Meinung hinterlassen";
+"leave_a_review" = "Bericht abgeben";
 
 /* View and button titles for accessibility */
 "maps" = "Karten";
 
 /* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Wartet auf Download. Drücken, um abzubrechen";
+"marked_for_downloading" = "Zum Herunterladen vorgemerkt. Drücken, um abzubrechen";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
@@ -88,13 +88,13 @@
 "ok" = "OK";
 
 /* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Aktivieren Sie bitte Ortungsdienste in den Einstellungen Ihres Geräts";
+"enable_location_services" = "Aktivieren Sie bitte Ortungsdienste in den Geräte-Einstellungen";
 
 /* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download %@ durchführen zu können.";
+"free_disk_space_for_country_x" = "Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um %@ herunterzuladen.";
 
 /* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Erinnern Sie mich später";
+"remind_me_later" = "Später erinnern";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Später";
@@ -112,10 +112,10 @@
 "search_map" = "Auf der Karte suchen";
 
 /* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Kein Speicherplatz vorhanden";
+"not_enough_disk_space" = "Speicherplatz reicht nicht aus";
 
 /* Settings/Downloader - info for not downloaded country */
-"touch_to_download" = "Berühren, um herunterzuladen";
+"touch_to_download" = "Antippen, um herunterzuladen";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ja";
@@ -124,22 +124,22 @@
 "use_wifi_recommendation_text" = "Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen";
 
 /* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewälte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie bitte die alten.";
+"new_map_data_format_upgrade_dialog" = "Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewählte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie vorher heruntergeladene Karten.";
 
 /* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Welches Maßsystem ziehen Sie vor?";
+"which_measurement_system" = "Welches Einheitensystem bevorzugen Sie?";
 
 /* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Ortungsdienste sind inaktiv. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.";
+"location_is_disabled_long_text" = "Ortungsdienste sind für dieses Gerät oder die App deaktiviert. Bitte aktivieren Sie diese in den Einstellungen.";
 
 /* Location Services are not available on the device alert - message */
 "device_doesnot_support_location_services" = "Ihr Gerät unterstützt keine Ortungsdienste";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Das Land auf der Karte anzeigen";
+"zoom_to_country" = "Dieses Land auf der Karte anzeigen";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\nwird zur Download-Warteschleife hinzugefügt";
+"country_status_added_to_queue" = "^\nwird zur Herunterladen-Warteschleife hinzugefügt";
 
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Wird heruntergeladen\n^\n^";
@@ -154,15 +154,15 @@
 "country_status_download_failed" = "Download\n^\nfehlgeschlagen";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Nochmals versuchen";
+"try_again" = "Erneut versuchen";
 
 "app_name" = "MAPS.ME";
 
 "about_menu_title" = "Über MAPS.ME";
 
-"downloading_touch_to_cancel" = "Heruntergeladen %d%%. Berühren, um abzubrechen";
+"downloading_touch_to_cancel" = "Herunterladen %d%%. Antippen, um abzubrechen";
 
-"downloaded_touch_to_delete" = "Heruntergeladen (%@). Berühren, um zu löschen";
+"downloaded_touch_to_delete" = "Heruntergeladen (%@). Antippen, um zu löschen";
 
 "connection_settings" = "Verbindungseinstellungen";
 
@@ -170,22 +170,22 @@
 
 "close" = "Schließen";
 
-"unsupported_phone" = "Das Programm braucht OpenGL um zu funktionieren. Leider wird ihr Gerät nicht unterschtüzt.";
+"unsupported_phone" = "Das Programm benötigt OpenGL, um zu funktionieren. Leider wird Ihr Gerät nicht unterstützt.";
 
 "download" = "Herunterladen";
 
-"external_storage_is_not_available" = "SD Karte/USB Speicher mit geladenen Karten nicht verfügbar";
+"external_storage_is_not_available" = "SD-Karte/USB-Speicher mit heruntergeladenen Karten nicht verfügbar";
 
-"disconnect_usb_cable" = "Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MAPS.ME zu verwenden";
+"disconnect_usb_cable" = "Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um MAPS.ME zu verwenden";
 
-"not_enough_free_space_on_sdcard" = "Bitte zuerst Speicherplatz auf SD Karte/USB Speicher freigeben um die Anwendung zu nutzen";
+"not_enough_free_space_on_sdcard" = "Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen";
 
-"not_enough_memory" = "Nicht genügend Speicher um die Anwendung zu starten";
+"not_enough_memory" = "Nicht genügend Speicher, um die Anwendung zu starten";
 
-"free_space_for_country" = "Bitte zuerst %1$@ Platz schaffen um %2$@ herunterzuladen";
+"free_space_for_country" = "Bitte zuerst %1$@ Platz schaffen, um %2$@ herunterzuladen";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %.1f%@ Speicherplatz benötigt.";
+"download_resources" = "Bevor Sie loslegen, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %.1f%@ Speicherplatz benötigt.";
 
 "getting_position" = "Ermittle momentane Position";
 
@@ -198,13 +198,13 @@
 "update_country_ask" = "%@ aktualisieren?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Sie können die Karte von\nihrem aktuellen Ort herunterladen.";
+"download_location_map_proposal" = "Sie können die Karte Ihres\naktuellen Standorts herunterladen.";
 
 /* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Sie können die Karte von\nihrem aktuellen Ort aktualisieren.";
+"download_location_update_map_proposal" = "Sie können die Karte Ihres\naktuellen Standorts aktualisieren.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Die Karte von ihrem aktuellen\nOrt (%@) ist aktuell";
+"download_location_map_up_to_date" = "Die Karte um Ihren aktuellen\nStandort (%@) ist aktuell";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Pause";
@@ -212,24 +212,24 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Fortfahren";
 
-"downloaded_touch_to_update" = "Heruntergeladen (%@), berühren zum aktualisieren oder löschen";
+"downloaded_touch_to_update" = "Heruntergeladen (%@), antippen zum Aktualisieren oder Löschen";
 
-"update_mb_or_kb" = "Aktualisiere %@";
+"update_mb_or_kb" = "%@ aktualisieren";
 
 /* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Sie benötigen aktualisierte Karten für die Suchfunktion";
+"search_update_maps" = "Sie benötigen aktualisierte Karten für die Suchfunktion:";
 
 /* Show popup notification on app start when we have out-of-date maps */
 "advise_update_maps" = "Aktualisierung für diese Karten erhältlich:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Sie benötigen MAPS.ME Lite nicht mehr, sie können es deinstallieren.";
+"suggest_uninstall_lite" = "Sie benötigen MAPS.ME Lite nicht mehr und können es deinstallieren.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ erfolgreich heruntergeladen";
 
 /* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "%@ herunterladen fehlgeschlagen";
+"download_country_failed" = "%@ Herunterladen fehlgeschlagen";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Neue Gruppe hinzufügen";
@@ -238,7 +238,7 @@
 "add_to_bookmarks" = "Zu den Lesezeichen hinzufügen";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Lesezeichen Farbe";
+"bookmark_color" = "Lesezeichen-Farbe";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Name des Lesezeichens";
@@ -271,10 +271,10 @@
 "set" = "Gruppe";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.";
+"bookmarks_usage_hint" = "Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer E-Mail, Dropbox oder einem Weblink öffnen.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Lesezeichen von anderen Quellen können importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.";
+"bookmarks_usage_hint_import_only" = "Lesezeichen von anderen Quellen können importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer E-Mail, Dropbox oder einem Weblink öffnen.";
 
 /* Settings button in system menu */
 "settings" = "Einstellungen";
@@ -283,7 +283,7 @@
 "maps_storage" = "Kartenspeicher";
 
 /* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "Wählen Sie den Ort, wohin die Karten heruntergeladen werden sollen";
+"maps_storage_summary" = "Wählen Sie den Speicherort, an den die Karten heruntergeladen werden sollen";
 
 /* Question dialog for transferring maps from one storage to another */
 "move_maps" = "Karten verschieben?";
@@ -295,13 +295,13 @@
 "visible" = "Sichtbar";
 
 /* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "GPS ist deaktiviert. Schalten Sie es bitte ein, um das Programm bequem nutzen zu können.";
+"gps_is_disabled_long_text" = "GPS ist deaktiviert. Bitte aktivieren Sie es in den Einstellungen.";
 
 /* Measurement units title in settings activity */
 "measurement_units" = "Maßeinheiten";
 
 /* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "Auswahl zwischen Meilen und Kilometern";
+"measurement_units_summary" = "Wählen Sie zwischen Kilometern und Meilen";
 
 /* Do search in all sources */
 "search_mode_all" = "Überall";
@@ -310,7 +310,7 @@
 "search_mode_nearme" = "In meiner Nähe";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "Am Bildschirm";
+"search_mode_viewport" = "Auf dem Bildschirm";
 
 /* Search Suggestion */
 "food" = "Essen";
@@ -325,7 +325,7 @@
 "parking" = "Parkplatz";
 
 /* Search Suggestion */
-"shop" = "Laden";
+"shop" = "Geschäft";
 
 "hotel" = "Hotel";
 
@@ -366,37 +366,37 @@
 "share_by_email" = "Per E-Mail teilen";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "MAPS.ME Lesezeichen mit Ihnen geteilt";
+"share_bookmarks_email_subject" = "MAPS.ME-Lesezeichen mit Ihnen geteilt";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MAPS.ME. Falls Sie MAPS.ME bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit MAPS.ME!";
+"share_bookmarks_email_body" = "Hallo,\n\nIn der angefügten „%@.KMZ“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MAPS.ME. Falls Sie MAPS.ME bereits installiert haben, müssen Sie die App nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nViel Spaß unterwegs mit MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Lesezeichen werden geladen";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager sehen.";
+"load_kmz_successful" = "Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager anzeigen.";
 
 /* Kml file loading failed */
 "load_kmz_failed" = "Hochladen der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.";
 
 /* resource for context menu */
-"edit" = "Edit";
+"edit" = "Bearbeiten";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "Ihr Standort wurde bisher noch nicht bestimmt";
+"unknown_current_position" = "Ihr Standort konnte noch nicht ermittelt werden";
 
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
 "download_location_country" = "Land Ihres derzeitigen Standorts herunterladen (%@)";
 
 /* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "Land herunterladen, von dem aus Sie suchen (%@)";
+"download_viewport_country_to_search" = "Land herunterladen, in dem Sie suchen (%@)";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Es tut uns leid, die Einstellungen der Kartenspeicherung sind deaktiviert.";
+"cant_change_this_setting" = "Leider sind die Einstellungen für die Kartenspeicherung deaktiviert.";
 
 /* Alert message that downloading is in progress. */
-"downloading_is_active" = "Der Download der Länder wird gerade ausgeführt.";
+"downloading_is_active" = "Das Land wird gerade heruntergeladen.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
 "appStore_message" = "Wir hoffen, dass Ihnen die Verwendung von MAPS.ME Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!";
@@ -405,25 +405,25 @@
 "no_thanks" = "Nein danke";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Meine Nadel auf der Karte sehen. Klicke auf den Link %1$@ oder %2$@";
+"bookmark_share_sms" = "Siehe meine Markierung auf MAPS.ME an. %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@";
+"my_position_share_sms" = "Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: http://maps.me/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Schau dir meine Nadel auf der MAPS.ME-Karte an";
+"bookmark_share_email_subject" = "Schau dir meine Stecknadel auf der MAPS.ME-Karte an";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Hi,\n\nIch habe gepinnt: %1$@ auf MAPS.ME, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.";
+"bookmark_share_email" = "Hi,\n\nIch habe %1$@ auf MAPS.ME, der Offline-Weltkarte, gepinnt. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Sieh dir meinen aktuellen Standort auf der Karte MAPS.ME an";
+"my_position_share_email_subject" = "Sieh dir meinen aktuellen Standort auf der MAPS.ME-Karte an";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Hi,\n\nich bin gerade hier: %1$@ . Klicke auf diesen Link %2$@ oder diesen %3$@, um meinen Standort auf der Karte zu sehen.\n\nVielen Dank.";
+"my_position_share_email" = "Hi,\n\nich bin gerade hier: %1$@ . Klicke den Link %2$@ oder %3$@ , um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.";
 
 /* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "Mit Benachrichtigung teilen";
+"share_by_message" = "Als Nachricht teilen";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Teilen";
@@ -432,7 +432,7 @@
 "message" = "Nachricht";
 
 /* Share by email button text */
-"email" = "E-mail";
+"email" = "E-Mail";
 
 /* Copy Link */
 "copy_link" = "Link kopieren";
@@ -453,13 +453,13 @@
 "info" = "Info";
 
 /* Used for bookmark editing */
-"done" = "Erledigt";
+"done" = "Fertig";
 
 /* Summary for preferences in MWM */
-"yopme_pref_summary" = "Wählen Sie die rückseitigen Bildschirm-Einstellungen";
+"yopme_pref_summary" = "Einstellungen für den rückseitigen Bildschirm wählen";
 
 /* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Rückseitige Bildschirm-Einstellungen";
+"yopme_pref_title" = "Einstellungen für rückseitigen Bildschirm";
 
 /* Hint for upper-right icon p2b */
 "show_on_backscreen" = "Auf dem rückseitigen Bildschirm anzeigen";
@@ -468,13 +468,13 @@
 "version" = "Version: %@";
 
 /* Data version in «About» screen */
-"data_version" = "Data version: %d";
+"data_version" = "Datenversion: %d";
 
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Möchten Sie wirklich fortfahren?";
 
 /* Title for tracks category in bookmarks manager */
-"tracks" = "Tracks";
+"tracks" = "Strecken";
 
 /* Length of track in cell that describes route */
 "length" = "Länge";
@@ -508,7 +508,7 @@
 "pref_map_style_auto" = "Auto";
 
 /* Settings «Map» category: «Perspective view» title */
-"pref_map_3d_title" = "Perspektivenansicht";
+"pref_map_3d_title" = "Perspektivische Ansicht";
 
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-Gebäude";
@@ -517,10 +517,10 @@
 "pref_map_3d_buildings_subtitle" = "Beeinträchtigt die Akkulaufzeit";
 
 /* Settings «Route» category: «Tts enabled» title */
-"pref_tts_enable_title" = "Sprachbefehle";
+"pref_tts_enable_title" = "Sprachführung";
 
 /* Settings «Route» category: «Tts language» title */
-"pref_tts_language_title" = "Sprachauswahl für Sprachbefehle";
+"pref_tts_language_title" = "Sprache für Sprachführung";
 
 /* Settings «Route» category: «Tts unavailable» subtitle */
 "pref_tts_unavailable" = "Nicht verfügbar";
@@ -528,7 +528,7 @@
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Weitere";
 
-"pref_tts_how_to_set_up_voice" = "Navi-Stimme einstellen";
+"pref_tts_how_to_set_up_voice" = "Navi-Stimme konfigurieren";
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Letzte Strecke";
@@ -549,9 +549,9 @@
 
 "pref_track_ios_caption" = "Letzte Strecke zeigt den von Ihnen zurückgelegten Weg.";
 
-"pref_track_ios_subcaption" = "Bitte wählen Sie die Zeitspanne, in der die Strecke gespeichert wurde.";
+"pref_track_ios_subcaption" = "Bitte wählen Sie die Zeitspanne, für die die Strecke gespeichert wird.";
 
-"placepage_distance" = "Distanz";
+"placepage_distance" = "Entfernung";
 
 "placepage_coordinates" = "Koordinaten";
 
@@ -563,13 +563,13 @@
 "kitkat_migrate_ok" = "Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner MapsWithMe im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "Bedingt durch Änderungen in Android 4.4, müssen wir den Kartendaten-Speicherplatz optimieren, es steht jedoch zum Kopieren der Kartendaten nicht genügend Speicherplatz zur Verfügung.\n\nGeben Sie bitte Speicherplatz frei, ansonsten werden Karten nur im Lesemodus verfügbar sein.";
+"kitkat_migrate_failed" = "Bedingt durch Änderungen in Android 4.4, müssen wir den Kartendaten-Speicherplatz optimieren. Es steht jedoch zum Kopieren der Kartendaten nicht genügend Speicherplatz zur Verfügung.\n\nGeben Sie bitte Speicherplatz frei, sonst sind Karten nur im Lesemodus verfügbar.";
 
 /* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "Wir müssen Ihre Lesezeichen in den internen Speicher verschieben, aber es gibt dafür keinen verfügbaren Speicherplatz. Bitte geben Sie Speicherplatz frei, sonst werden Ihre Lesezeichen nicht verfügbar sein.";
+"bookmark_move_fail" = "Wir müssen Ihre Lesezeichen in den internen Speicher verschieben, aber es steht dafür keinen Speicherplatz zur Verfügung. Bitte geben Sie Speicherplatz frei, sonst werden Ihre Lesezeichen nicht verfügbar sein.";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, es kann ein paar Minuten dauern.";
+"kitkat_optimization_in_progress" = "Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, da das ein paar Minuten dauern kann.";
 
 /* Used in More Apps menu */
 "free" = "Kostenlos";
@@ -578,7 +578,7 @@
 "buy" = "Kaufen";
 
 /* 1st search button-like result */
-"search_on_map" = "Auf der Landkarte suchen";
+"search_on_map" = "Auf der Karte anzeigen";
 
 /* toast with an error */
 "no_route_found" = "Keine Route gefunden";
@@ -590,22 +590,22 @@
 "routes" = "Routen";
 
 /* Show on first launch. */
-"maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
+"maps_licence_info" = "Diese Anwendungen verwenden geographische Informationen (inklusive Karten, Geschäftseinträge, Sehenswürdigkeiten, Landes- und Regionsgrenzen, etc.) aus dem OpenStreetMap-Projekt. Wir können weder die Beständigkeit noch die Genauigkeit, Vollständigkeit oder Eignung der OpenStreetMap-Daten garantieren.";
 
 /* Show on first launch. */
-"agree" = "I agree";
+"agree" = "Ich stimme zu";
 
 /* Show on first launch */
-"disagree" = "I disagree";
+"disagree" = "Ich stimme nicht zu";
 
 /* text of notification */
-"download_map_notification" = "Laden Sie die Karte des Ortes herunter, in dem Sie sich befinden";
+"download_map_notification" = "Laden Sie die Karte Ihres Standortes herunter";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME heute gratis! Jetzt runterladen & Freunde informieren";
+"pro_version_is_free_today" = "MAPS.ME heute gratis! Jetzt runterladen & Ihre Freunde informieren";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Wir übertragen Ihre heruntergeladenen Karten von MAPS.ME Lite zu MAPS.ME. Der Vorgang kann einige Minuten in Anspruch nehmen.";
+"move_lite_maps_to_pro" = "Wir übertragen Ihre heruntergeladenen Karten von MAPS.ME Lite zu MAPS.ME. Dieser Vorgang kann einige Minuten in Anspruch nehmen.";
 
 /* Message to display when maps moved. */
 "move_lite_maps_to_pro_ok" = "Ihre heruntergeladenen Karten wurden erfolgreich zu MAPS.ME übertragen.";
@@ -638,7 +638,7 @@
 "feedback" = "Feedback";
 
 /* Settings: "Send general feedback" button */
-"feedback_general" = "General feedback";
+"feedback_general" = "Allgemeines Feedback";
 
 /* Text in menu */
 "subscribe_to_news" = "Abonnieren Sie unsere News";
@@ -647,13 +647,13 @@
 "rate_the_app" = "Bewerten Sie die App";
 
 /* Rate in Google Play (Android only) */
-"rate_gp" = "Rate on Google Play";
+"rate_gp" = "Bei Google Play bewerten";
 
 /* Share with friends: menu item title */
-"tell_friends" = "Tell a Friend";
+"tell_friends" = "Einem Freund empfehlen";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Hi! Install Maps.me!";
+"tell_friends_text" = "Hallo! Installiere dir MAPS.ME!";
 
 /* Text in menu */
 "help" = "Hilfe";
@@ -668,13 +668,13 @@
 "subscribe_me_subject" = "Ich möchte gerne den MAPS.ME-Newsletter abonnieren";
 
 /* Email body */
-"subscribe_me_body" = "Gerne möchte ich zu den Ersten gehören die aktuelle Neuigkeiten erfahren und über neueste Updates und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.";
+"subscribe_me_body" = "Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Updates und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.";
 
 /* About short text (below logo) */
 "about_description" = "Joined efforts of Mail.Ru Group and OpenStreetMap make the most useful application for travelers!";
 
 /* About text */
-"about_text" = "MAPS.ME bietet die schnellsten Offline-Karten aller Städte in allen Ländern der Welt. Reisen Sie mit Vertrauen: wo immer Sie sind, MAPS.ME hilft Ihnen, sich selbst auf der Karte zu finden. Finden Sie das nächste Restaurant, ein Hotel, eine Bank, eine Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Markt\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nP. S. Wir nehmen die Kartendaten von OpenStreetMap, einem Mapping-Projekt ähnlich Wikipedia, bei welchem Benutzer Karten erstellen und bearbeiten können. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten MAPS.ME App Version.";
+"about_text" = "MAPS.ME bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen MAPS.ME, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der MAPS.ME-App.";
 
 /* Alert text */
 "email_error_body" = "Der E-Mail-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.";
@@ -686,13 +686,13 @@
 "pref_calibration_title" = "Kompass-Kalibrierung";
 
 /* Search Suggestion */
-"wifi" = "WiFi";
+"wifi" = "WLAN";
 
 /* Update map suggestion */
-"routing_map_outdated" = "Bitte aktualisieren Sie die Karte, um eine Route zu erzeugen.";
+"routing_map_outdated" = "Bitte aktualisieren Sie die Karte, um eine Route zu erstellen.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Maps, um diese Funktion nutzen zu können.";
+"routing_update_maps" = "Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Karten, um diese Funktion nutzen zu können.";
 
 /* Update all button text */
 "downloader_update_all" = "Alles aktualisieren";
@@ -722,22 +722,22 @@
 "downloader_uptodate_maps" = "Aktuell";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Aktualisiere";
+"downloader_status_outdated" = "Aktualisieren";
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Fehlgeschlagen";
 
 /* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "Der aktuelle Standort ist nicht definiert. Bitte geben Sie den Standort ein, um eine Route zu erstellen.";
+"routing_failed_unknown_my_position" = "Der aktuelle Standort ist nicht bekannt. Bitte geben Sie den Standort ein, um eine Route zu erstellen.";
 
 /* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Zusätzliche Daten werden zum Erstellen einer Route benötigt. Mit dem Download beginnen?";
+"routing_failed_has_no_routing_file" = "Zusätzliche Daten werden zum Erstellen der Route benötigt. Mit dem Download beginnen?";
 
 /* StartPointNotFound */
-"routing_failed_start_point_not_found" = "Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe von Ihrem Ausgangspunkt.";
+"routing_failed_start_point_not_found" = "Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe Ihres Ausgangspunkts.";
 
 /* EndPointNotFound */
-"routing_failed_dst_point_not_found" = "Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe von Ihrem Ziel.";
+"routing_failed_dst_point_not_found" = "Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe Ihres Ziels.";
 
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.";
@@ -749,13 +749,13 @@
 "routing_failed_internal_error" = "Es ist ein interner Fehler aufgetreten. Bitte versuchen Sie, die Karte zu löschen und erneut herunterzuladen.";
 
 /* Context menu item for downloader. */
-"downloader_download_map_and_routing" = "Karte + Streckenführung herunterladen";
+"downloader_download_map_and_routing" = "Karte + Routenplanung herunterladen";
 
 /* Context menu item for downloader. */
-"downloader_download_routing" = "Streckenführung herunterladen";
+"downloader_download_routing" = "Routenplanung herunterladen";
 
 /* Context menu item for downloader. */
-"downloader_delete_routing" = "Streckenführung löschen";
+"downloader_delete_routing" = "Routenplanung löschen";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Karte herunterladen";
@@ -784,16 +784,16 @@
 "downloader_map_only" = "Nur Karte";
 
 /* Toolbar title */
-"toolbar_application_menu" = "Applikations-Menü";
+"toolbar_application_menu" = "Anwendungs-Menü";
 
 /* Preference text */
-"pref_use_google_play" = "Nutzen Sie die Google Play-Dienstleistungen, um Ihren aktuellen Standort zu erhalten";
+"pref_use_google_play" = "Nutzen Sie die Google Play-Dienste, um Ihren aktuellen Standort zu erhalten";
 
 /* Text for rating dialog */
 "rating_just_rated" = "Ich habe gerade Ihre App bewertet";
 
 /* Text for rating dialog */
-"rating_user_since" = "Ich bin MAPS.ME-Benutzer seit %@";
+"rating_user_since" = "Ich bin MAPS.ME-Nutzer seit %@";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "Mögen Sie MAPS.ME?";
@@ -805,13 +805,13 @@
 "rating_thanks" = "Vielen Dank!";
 
 /* Text for rating dialog */
-"rating_share_ideas" = "Teilen Sie uns Ihre Anregungen und Fragen mit, so dass wir die App für Sie verbessern können.";
+"rating_share_ideas" = "Teilen Sie uns Ihre Anregungen und Probleme mit, so dass wir die App für Sie verbessern können.";
 
 /* Text for rating dialog */
 "rating_send_feedback" = "Feedback senden";
 
 /* Text for g+ dialog */
-"rating_google_plus" = "Klick auf g+, um deinen Freunden über die App zu erzählen.";
+"rating_google_plus" = "Klick auf G+, um deinen Freunden über die App zu erzählen.";
 
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Karten entlang der Route herunterladen";
@@ -823,13 +823,13 @@
 "routing_download_map_and_routing" = "Laden Sie die aktualisierte Karte und Daten der Routenplanung herunter, um alle MAPS.ME-Funktionen zu nutzen.";
 
 /* Text for routing error dialog */
-"routing_get_routing_data" = "Routenplanungsdaten abrufen";
+"routing_get_routing_data" = "Daten für Routenplanung abrufen";
 
 /* Text for routing error dialog */
-"routing_get_additional_data" = "Es sind Zusatzdaten erforderlich, um eine Routenplanung ab Ihrem Standort zu erstellen.";
+"routing_get_additional_data" = "Es sind Zusatzdaten erforderlich, um die Route ab Ihrem Standort zu erstellen.";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "Zum Erstellen einer Route müssen alle Karten von Ihrem Standort bis zum Zielt heruntergeladen und aktualisiert worden sein.";
+"routing_requires_all_map" = "Zum Erstellen einer Route müssen alle Karten von Ihrem Standort bis zum Ziel heruntergeladen und aktualisiert worden sein.";
 
 /* Text for routing error dialog */
 "routing_not_enough_space" = "Nicht genug Speicherplatz";
@@ -838,10 +838,10 @@
 "routing_download_more_than_avail" = "Der Download erfordert %@ MB, es sind jedoch nur %@ MB verfügbar.";
 
 /* Text for routing error dialog */
-"routing_download_roaming" = "Sie sind im Begriff, %@ MB unter Nutzung von Mobile Data (in Roaming) herunterzuladen. Dies kann je nach dem Anbieter Ihres mobilen Datentarifs zusätzliche Kosten verursachen.";
+"routing_download_roaming" = "Sie sind im Begriff, %@ MB unter Nutzung einer mobilen Datenverbindung (mit Roaming) herunterzuladen. Dies kann je nach Anbieter Ihres mobilen Datentarifs zusätzliche Kosten verursachen.";
 
 /* Cuisine */
-"cuisine_regional" = "regionale Küche";
+"cuisine_regional" = "Regionale Küche";
 
 /* Cuisine */
 "cuisine_pizza" = "Pizza";
@@ -850,64 +850,64 @@
 "cuisine_burger" = "Burger";
 
 /* Cuisine */
-"cuisine_italian" = "italienische Küche";
+"cuisine_italian" = "Italienische Küche";
 
 /* Cuisine */
-"cuisine_chinese" = "chinesische Küche";
+"cuisine_chinese" = "Chinesische Küche";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "Caffé";
+"cuisine_coffee_shop" = "Café";
 
 /* Cuisine */
 "cuisine_sandwich" = "Sandwich";
 
 /* Cuisine */
-"cuisine_german" = "deutsche Küche";
+"cuisine_german" = "Deutsche Küche";
 
 /* Cuisine */
-"cuisine_japanese" = "japanische Küche";
+"cuisine_japanese" = "Japanische Küche";
 
 /* Cuisine */
 "cuisine_kebab" = "Kebab";
 
 /* Cuisine */
-"cuisine_mexican" = "mexikanische Küche";
+"cuisine_mexican" = "Mexikanische Küche";
 
 /* Cuisine */
-"cuisine_indian" = "indische Küche";
+"cuisine_indian" = "Indische Küche";
 
 /* Cuisine */
-"cuisine_american" = "amerikanische Küche";
+"cuisine_american" = "Amerikanische Küche";
 
 /* Cuisine */
-"cuisine_french" = "französische Küche";
+"cuisine_french" = "Französische Küche";
 
 /* Cuisine */
 "cuisine_ice_cream" = "Eis";
 
 /* Cuisine */
-"cuisine_asian" = "asiatische Küche";
+"cuisine_asian" = "Asiatische Küche";
 
 /* Cuisine */
 "cuisine_chicken" = "Hühnchen";
 
 /* Cuisine */
-"cuisine_greek" = "griechische Küche";
+"cuisine_greek" = "Griechische Küche";
 
 /* Cuisine */
 "cuisine_thai" = "Thai-Küche";
 
 /* Cuisine */
-"cuisine_international" = "internationale Küche";
+"cuisine_international" = "Internationale Küche";
 
 /* Cuisine */
 "cuisine_sushi" = "Sushi";
 
 /* Cuisine */
-"cuisine_fish_and_chips" = "Bratfisch mit Pommes frites";
+"cuisine_fish_and_chips" = "Fish and Chips";
 
 /* Cuisine */
-"cuisine_turkish" = "türkische Küche";
+"cuisine_turkish" = "Türkische Küche";
 
 /* Cuisine */
 "cuisine_seafood" = "Meeresfrüchte";
@@ -916,22 +916,22 @@
 "cuisine_steak_house" = "Steakhaus";
 
 /* Cuisine */
-"cuisine_spanish" = "spanische Küche";
+"cuisine_spanish" = "Spanische Küche";
 
 /* Cuisine */
 "cuisine_fish" = "Fisch";
 
 /* Cuisine */
-"cuisine_vietnamese" = "vietnamesische Küche";
+"cuisine_vietnamese" = "Vietnamesische Küche";
 
 /* Cuisine */
-"cuisine_noodles" = "Nudel";
+"cuisine_noodles" = "Nudeln";
 
 /* Cuisine */
-"cuisine_vegetarian" = "vegetarische Küche";
+"cuisine_vegetarian" = "Vegetarische Küche";
 
 /* Cuisine */
-"cuisine_korean" = "koreanische Küche";
+"cuisine_korean" = "Koreanische Küche";
 
 /* Cuisine */
 "cuisine_friture" = "Friterie";
@@ -940,16 +940,16 @@
 "cuisine_barbecue" = "Grill";
 
 /* Cuisine */
-"cuisine_bavarian" = "bayerische Küche";
+"cuisine_bavarian" = "Bayerische Küche";
 
 /* Cuisine */
 "cuisine_ramen" = "Ramen";
 
 /* Cuisine */
-"cuisine_italian_pizza" = "italienische Küche; Pizza";
+"cuisine_italian_pizza" = "Italienische Küche; Pizza";
 
 /* Cuisine */
-"cuisine_mediterranean" = "mediterrane Küche";
+"cuisine_mediterranean" = "Mediterrane Küche";
 
 /* Cuisine */
 "cuisine_donut" = "Donuts";
@@ -967,22 +967,22 @@
 "cuisine_heuriger" = "Heuriger";
 
 /* Cuisine */
-"cuisine_lebanese" = "libanesische Küche";
+"cuisine_lebanese" = "Libanesische Küche";
 
 /* Cuisine */
 "cuisine_steak" = "Steak";
 
 /* Cuisine */
-"cuisine_local" = "lokale Küche";
+"cuisine_local" = "Lokale Küche";
 
 /* Cuisine */
 "cuisine_curry" = "Curry";
 
 /* Cuisine */
-"cuisine_filipino" = "philippinische Küche";
+"cuisine_filipino" = "Philippinische Küche";
 
 /* Cuisine */
-"cuisine_russian" = "russische Küche";
+"cuisine_russian" = "Russische Küche";
 
 /* Cuisine */
 "cuisine_breakfast" = "Frühstück";
@@ -1006,7 +1006,7 @@
 "cuisine_sausage" = "Wurst";
 
 /* Cuisine */
-"cuisine_portuguese" = "portugiesische Küche";
+"cuisine_portuguese" = "Portugiesische Küche";
 
 /* Cuisine */
 "cuisine_grill" = "Grill";
@@ -1015,37 +1015,37 @@
 "cuisine_pancake" = "Pfannkuchen";
 
 /* Cuisine */
-"cuisine_malagasy" = "Madagassisch";
+"cuisine_malagasy" = "Madegassische Küche";
 
 /* Cuisine */
-"cuisine_polish" = "polnische Küche";
+"cuisine_polish" = "Polnische Küche";
 
 /* Cuisine */
-"cuisine_diner" = "Imbiss";
+"cuisine_diner" = "Diner";
 
 /* Cuisine */
-"cuisine_african" = "afrikanische Küche";
+"cuisine_african" = "Afrikanische Küche";
 
 /* Cuisine */
 "cuisine_doughnut" = "Donuts";
 
 /* Cuisine */
-"cuisine_georgian" = "georgische Küche";
+"cuisine_georgian" = "Georgische Küche";
 
 /* Cuisine */
-"cuisine_croatian" = "kroatische Küche";
+"cuisine_croatian" = "Kroatische Küche";
 
 /* Cuisine */
-"cuisine_arab" = "arabische Küche";
+"cuisine_arab" = "Arabische Küche";
 
 /* Cuisine */
 "cuisine_balkan" = "Balkanküche";
 
 /* Cuisine */
-"cuisine_brazilian" = "brasilianische Küche";
+"cuisine_brazilian" = "Brasilianische Küche";
 
 /* Cuisine */
-"cuisine_caribbean" = "karibische Küche";
+"cuisine_caribbean" = "Karibische Küche";
 
 /* Cuisine */
 "cuisine_austrian" = "Österreichische Küche";
@@ -1054,19 +1054,19 @@
 "cuisine_vegan" = "Vegane Küche";
 
 /* Cuisine */
-"cuisine_argentinian" = "argentinische Küche";
+"cuisine_argentinian" = "Argentinische Küche";
 
 /* Cuisine */
-"cuisine_persian" = "persische Küche";
+"cuisine_persian" = "Persische Küche";
 
 /* Cuisine */
 "cuisine_soba" = "Soba";
 
 /* Cuisine */
-"cuisine_malaysian" = "malaysische Küche";
+"cuisine_malaysian" = "Malaysische Küche";
 
 /* Cuisine */
-"cuisine_indonesian" = "indonesische Küche";
+"cuisine_indonesian" = "Indonesische Küche";
 
 /* Cuisine */
 "cuisine_ethiopian" = "Äthiopische Küche";
@@ -1075,37 +1075,37 @@
 "cuisine_deli" = "Deli-Küche";
 
 /* Cuisine */
-"cuisine_irish" = "irische Küche";
+"cuisine_irish" = "Irische Küche";
 
 /* Cuisine */
-"cuisine_hungarian" = "ungarische Küche";
+"cuisine_hungarian" = "Ungarische Küche";
 
 /* Cuisine */
-"cuisine_lao" = "laotische Küche";
+"cuisine_lao" = "Laotische Küche";
 
 /* Cuisine */
-"cuisine_coffee" = "Kaffee";
+"cuisine_coffee" = "Café";
 
 /* Cuisine */
 "cuisine_hotdog" = "Hotdog";
 
 /* Cuisine */
-"cuisine_oriental" = "orientalische Küche";
+"cuisine_oriental" = "Orientalische Küche";
 
 /* Cuisine */
-"cuisine_savory_pancakes" = "herzhafte Pfannkuchen";
+"cuisine_savory_pancakes" = "Herzhafte Pfannkuchen";
 
 /* Cuisine */
-"cuisine_moroccan" = "marokkanische Küche";
+"cuisine_moroccan" = "Marokkanische Küche";
 
 /* Cuisine */
 "cuisine_barbeque" = "Grill";
 
 /* Cuisine */
-"cuisine_peruvian" = "Peruanisch";
+"cuisine_peruvian" = "Peruanische Küche";
 
 /* Cuisine */
-"cuisine_fine_dining" = "gehobene Küche";
+"cuisine_fine_dining" = "Gehobene Küche";
 
 /* Cuisine */
 "cuisine_tea" = "Tee";
@@ -1117,7 +1117,7 @@
 "not_found_map" = "Es gibt keine Karte für Ihren Standort";
 
 /* location service disabled */
-"enable_location_service" = "Aktivieren Sie bitte Ortungsdienste in den Einstellungen";
+"enable_location_service" = "Aktivieren Sie bitte Ortungsdienste";
 
 /* download map */
 "download_map" = "Laden Sie die Karte für Ihren Standort herunter";
@@ -1129,7 +1129,7 @@
 "nearby" = "In der Nähe";
 
 /* clear pin */
-"clear_pin" = "Pin löschen";
+"clear_pin" = "Stecknadel löschen";
 
 /* location is undefined */
 "undefined_location" = "Der aktuelle Standort ist nicht definiert.";
@@ -1138,7 +1138,7 @@
 "download_country" = "Land Ihres derzeitigen Standorts herunterladen";
 
 /* download failed */
-"download_failed" = "herunterladen fehlgeschlagen";
+"download_failed" = "Herunterladen fehlgeschlagen";
 
 /* get the map */
 "get_the_map" = "Karte abrufen";
@@ -1188,21 +1188,21 @@
 
 "dialog_routing_disclaimer_recommendations" = "— Die vorgeschlagenen Routen sind als Empfehlungen zu verstehen;";
 
-"dialog_routing_disclaimer_borders" = "— Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen überschreiten und durch Sperrgebiete führen;";
+"dialog_routing_disclaimer_borders" = "— Bitte seien Sie vorsichtig bei Routen in Grenzgebieten: die Routen, die unsere App erstellt, können manchmal Landesgrenzen in gesperrten Gebieten überschreiten;";
 
 "dialog_routing_disclaimer_beware" = "Bitte fahren Sie aufmerksam und sicher!";
 
 "dialog_routing_check_gps" = "GPS-Signal prüfen";
 
-"dialog_routing_error_location_not_found" = "Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht identifiziert werden.";
+"dialog_routing_error_location_not_found" = "Route kann nicht erstellt werden. Aktuelle GPS-Koordinaten konnten nicht ermittelt werden.";
 
 "dialog_routing_location_turn_wifi" = "Bitte prüfen Sie Ihr GPS-Signal. WLAN verbessert Ihre Standortgenauigkeit.";
 
 "dialog_routing_location_turn_on" = "Ortungsdienste aktivieren";
 
-"dialog_routing_location_unknown_turn_on" = "Aktuelle GPS-Koordinaten können nicht gefunden werden. Aktivieren Sie Ortungsdienste, um die Route zu berechnen.";
+"dialog_routing_location_unknown_turn_on" = "Aktuelle GPS-Koordinaten können nicht ermittelt werden. Aktivieren Sie Ortungsdienste, um die Route zu berechnen.";
 
-"dialog_routing_location_unknown" = "Aktuelle GPS-Koordinaten können nicht gefunden werden.";
+"dialog_routing_location_unknown" = "Aktuelle GPS-Koordinaten können nicht ermittelt werden.";
 
 "dialog_routing_download_files" = "Erforderliche Dateien herunterladen";
 
@@ -1210,7 +1210,7 @@
 
 "dialog_routing_routes_size" = "Routeninformationsdateien";
 
-"dialog_routing_unable_locate_route" = "Route kann nicht gefunden werden";
+"dialog_routing_unable_locate_route" = "Route kann nicht ermittelt werden";
 
 "dialog_routing_cant_build_route" = "Route kann nicht erstellt werden.";
 
@@ -1234,7 +1234,7 @@
 
 "dialog_routing_try_again" = "Bitte versuchen Sie es erneut";
 
-"dialog_routing_send_error" = "Problem melden";
+"dialog_routing_send_error" = "Dieses Problem melden";
 
 "dialog_routing_if_get_cross_route" = "Möchten Sie eine direktere Route erstellen, die mehr als eine Karte umfasst?";
 
@@ -1281,11 +1281,11 @@
 "routing_arrive" = "Ankunft: %s";
 
 /* Text for routing::IRouter::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, die zur Route gehören.";
+"dialog_routing_download_and_update_maps" = "Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, auf der die Route liegt.";
 
 "rate_alert_title" = "Gefällt Ihnen die App?";
 
-"rate_alert_default_message" = "Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihr Feedback hilft uns besser zu werden.";
+"rate_alert_default_message" = "Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihr Feedback hilft uns, besser zu werden.";
 
 "rate_alert_five_star_message" = "Hurra! Wir lieben Sie auch!";
 
@@ -1295,7 +1295,7 @@
 
 "categories" = "Kategorien";
 
-"history" = "Historie";
+"history" = "Verlauf";
 
 "next_turn_then" = "Dann";
 
@@ -1303,24 +1303,24 @@
 
 "back_to" = "Zurück zu %@";
 
-"search_not_found" = "Bedaure, ich habe nichts gefunden.";
+"search_not_found" = "Leider wurde nichts gefunden.";
 
 "search_not_found_query" = "Versuchen Sie bitte eine andere Suchanfrage.";
 
-"search_not_found_map" = "Laden Sie die Karte, in der Sie suchen, bitte herunter.";
+"search_not_found_map" = "Laden Sie bitte die Karte herunter, auf der Sie suchen.";
 
 "search_not_found_location" = "Laden Sie die Karte Ihres aktuellen Standorts herunter.";
 
 "search_history_title" = "Suchverlauf";
 
-"search_history_text" = "Schnell auf die letzten Suchanfragen zugreifen.";
+"search_history_text" = "Hier werden Ihre letzten Suchanfragen angezeigt.";
 
-"clear_search" = "Suchhistorie löschen";
+"clear_search" = "Suchverlauf löschen";
 
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "Angebote anzeigen";
 
-"showcase_more_apps" = "Weitere My.com Apps";
+"showcase_more_apps" = "Weitere Apps von My.com";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
@@ -1329,9 +1329,9 @@
 
 "p2p_your_location" = "Ihr Standort";
 
-"p2p_from" = "Abfahrtspunkt";
+"p2p_from" = "Startpunkt";
 
-"p2p_to" = "Ankunftspunkt";
+"p2p_to" = "Zielort";
 
 "p2p_start" = "Start";
 
@@ -1343,7 +1343,7 @@
 
 "p2p_only_from_current" = "Die Navigation ist nur von Ihrem aktuellen Standort verfügbar.";
 
-"p2p_reroute_from_current" = "Soll eine Route von Ihrer aktuellen Position aus berechnet werden?";
+"p2p_reroute_from_current" = "Soll eine Route von Ihrem aktuellen Standort aus berechnet werden?";
 
 "whats_new_next_button" = "Weiter";
 

@@ -9,12 +9,14 @@
 	<!-- Button text (should be short) -->
 	<text id="IDS_CANCEL">Abbrechen</text>
 	<!-- Button which interrupts country download -->
-	<text id="IDS_CANCEL_DOWNLOAD">Download beenden</text>
+	<text id="IDS_CANCEL_DOWNLOAD">Herunterladen abbrechen</text>
 	<!-- Button which deletes downloaded country -->
 	<text id="IDS_DELETE">Löschen</text>
 	<text id="IDS_DOWNLOAD_MAPS">Karten herunterladen</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Kilometer</text>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
+	<text id="IDS_MB">MB</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Meilen</text>
 	<!-- Settings/Downloader - No internet connection dialog title -->
@@ -25,11 +27,11 @@
 	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen</text>
 	<text id="IDS_DOWNLOAD">Herunterladen</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
-	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">%s herunterladen fehlgeschlagen</text>
+	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">%s Herunterladen fehlgeschlagen</text>
 	<!-- Add New Bookmark Set dialog title -->
 	<text id="IDS_ADD_NEW_SET">Neue Gruppe hinzufügen</text>
 	<!-- Bookmark Color dialog title -->
-	<text id="IDS_BOOKMARK_COLOR">Lesezeichen Farbe</text>
+	<text id="IDS_BOOKMARK_COLOR">Lesezeichen-Farbe</text>
 	<!-- Bookmarks - dialog title -->
 	<text id="IDS_BOOKMARKS">Lesezeichengruppen</text>
 	<!-- Settings button in system menu -->
@@ -39,7 +41,7 @@
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Maßeinheiten</text>
 	<!-- Detailed description of Measurement Units settings button -->
-	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Auswahl zwischen Meilen und Kilometern</text>
+	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Wählen Sie zwischen Kilometern und Meilen</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_FOOD">Essen</text>
 	<!-- Search Suggestion -->
@@ -49,7 +51,7 @@
 	<!-- Search Suggestion -->
 	<text id="IDS_PARKING">Parkplatz</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_SHOP">Laden</text>
+	<text id="IDS_SHOP">Geschäft</text>
 	<text id="IDS_HOTEL">Hotel</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_TOURISM">Sehenswürdigkeit</text>
@@ -71,30 +73,32 @@
 	<text id="IDS_POLICE">Polizeistation</text>
 	<!-- String in search result list, when nothing found -->
 	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Keine Ergebnisse gefunden</text>
+	<!-- resource for context menu -->
+	<text id="IDS_EDIT">Bearbeiten</text>
 	<!-- Warning message when doing search around current position -->
-	<text id="IDS_UNKNOWN_CURRENT_POSITION">Ihr Standort wurde bisher noch nicht bestimmt</text>
+	<text id="IDS_UNKNOWN_CURRENT_POSITION">Ihr Standort konnte noch nicht ermittelt werden</text>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<text id="IDS_BOOKMARK_SHARE_SMS">Meine Nadel auf der Karte sehen. Klicke auf den Link %1$s oder %2$s</text>
+	<text id="IDS_BOOKMARK_SHARE_SMS">Siehe meine Markierung auf MAPS.ME an. %1$s oder %2$s - Keine Offline-Karten installiert? Hier herunterladen: http://maps.me/get</text>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<text id="IDS_MY_POSITION_SHARE_SMS">Schau wo ich gerade bin. Klicke auf den Link %1$s oder %2$s</text>
+	<text id="IDS_MY_POSITION_SHARE_SMS">Schau wo ich gerade bin. Klicke auf den Link %1$s oder %2$s - Keine Offline-Karten installiert? Hier herunterladen: http://maps.me/get</text>
 	<!-- Subject for emailed bookmark -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Schau dir meine Nadel auf der MAPS.ME-Karte an</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Schau dir meine Stecknadel auf der MAPS.ME-Karte an</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL">Hi,\n\nIch habe gepinnt: %1$s auf MAPS.ME, Offline-Weltkarten. Klicke auf diesen Link %2$s oder diesen %3$s, um den Ort auf der Karte zu sehen.\n\nVielen Dank.</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL">Hi,\n\nIch habe %1$s auf MAPS.ME, der Offline-Weltkarte, gepinnt. Klicke auf diesen Link %2$s oder diesen %3$s, um den Ort auf der Karte zu sehen.\n\nVielen Dank.</text>
 	<!-- Subject for emailed position -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Sieh dir meinen aktuellen Standort auf der Karte MAPS.ME an</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Sieh dir meinen aktuellen Standort auf der MAPS.ME-Karte an</text>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL">Hi,\n\nich bin gerade hier: %1$s . Klicke auf diesen Link %2$s oder diesen %3$s, um meinen Standort auf der Karte zu sehen.\n\nVielen Dank.</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL">Hi,\n\nich bin gerade hier: %1$s . Klicke den Link %2$s oder %3$s , um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<text id="IDS_SHARE">Teilen</text>
 	<!-- iOS share by Message button text (including SMS) -->
 	<text id="IDS_MESSAGE">Nachricht</text>
 	<!-- Share by email button text -->
-	<text id="IDS_EMAIL">E-mail</text>
+	<text id="IDS_EMAIL">E-Mail</text>
 	<!-- Copy Link -->
 	<text id="IDS_COPY_LINK">Link kopieren</text>
 	<!-- Used for bookmark editing -->
-	<text id="IDS_DONE">Erledigt</text>
+	<text id="IDS_DONE">Fertig</text>
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Version: %s</text>
 	<!-- Confirmation in downloading countries dialog -->
@@ -102,12 +106,18 @@
 	<text id="IDS_SHARE_MY_LOCATION">Meinen Standort teilen</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Zoom-Tasten</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Auf dem Bildschirm anzeigen</text>
+	<!-- Show on first launch. -->
+	<text id="IDS_MAPS_LICENCE_INFO">Diese Anwendungen verwenden geographische Informationen (inklusive Karten, Geschäftseinträge, Sehenswürdigkeiten, Landes- und Regionsgrenzen, etc.) aus dem OpenStreetMap-Projekt. Wir können weder die Beständigkeit noch die Genauigkeit, Vollständigkeit oder Eignung der OpenStreetMap-Daten garantieren.</text>
+	<!-- Show on first launch. -->
+	<text id="IDS_AGREE">Ich stimme zu</text>
+	<!-- Show on first launch -->
+	<text id="IDS_DISAGREE">Ich stimme nicht zu</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_WIFI">WiFi</text>
+	<text id="IDS_WIFI">WLAN</text>
 	<!-- Update map suggestion -->
-	<text id="IDS_ROUTING_MAP_OUTDATED">Bitte aktualisieren Sie die Karte, um eine Route zu erzeugen.</text>
+	<text id="IDS_ROUTING_MAP_OUTDATED">Bitte aktualisieren Sie die Karte, um eine Route zu erstellen.</text>
 	<!-- Update maps suggestion -->
-	<text id="IDS_ROUTING_UPDATE_MAPS">Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Maps, um diese Funktion nutzen zu können.</text>
+	<text id="IDS_ROUTING_UPDATE_MAPS">Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Karten, um diese Funktion nutzen zu können.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Alles aktualisieren</text>
 	<!-- Cancel all button text -->
@@ -127,15 +137,15 @@
 	<!-- Up to date maps category -->
 	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Aktuell</text>
 	<!-- Status of outdated country in the list -->
-	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Aktualisiere</text>
+	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Aktualisieren</text>
 	<!-- Status of failed country in the list -->
 	<text id="IDS_DOWNLOADER_STATUS_FAILED">Fehlgeschlagen</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Karte + Streckenführung herunterladen</text>
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Karte + Routenplanung herunterladen</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DOWNLOAD_ROUTING">Streckenführung herunterladen</text>
+	<text id="IDS_DOWNLOADER_DOWNLOAD_ROUTING">Routenplanung herunterladen</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Streckenführung löschen</text>
+	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Routenplanung löschen</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Karte herunterladen</text>
 	<!-- Button for routing. -->
@@ -153,5 +163,5 @@
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_MAP_ONLY">Nur Karte</text>
 	<!-- Toolbar title -->
-	<text id="IDS_TOOLBAR_APPLICATION_MENU">Applikations-Menü</text>
+	<text id="IDS_TOOLBAR_APPLICATION_MENU">Anwendungs-Menü</text>
 </string_table>
