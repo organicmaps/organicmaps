@@ -86,6 +86,16 @@ To build and run OSRM binaries:
     sudo apt-get install libboost-filesystem-dev libboost-date-time-dev
     tools/unix/build_omim.sh -o
 
+### Fedora 23
+
+Install dependencies:
+
+    dnf install clang qt5-qtbase-devel boost-devel libstdc++-devel
+
+Then do a git clone, run `configure.sh` and compile with linux-clang spec:
+
+    SPEC=linux-clang tools/unix/build_omim.sh -r
+
 ### Windows
 
 We haven't compiled MAPS.ME on Windows in a long time, though it is possible. It is likely
