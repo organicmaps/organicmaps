@@ -144,14 +144,6 @@ private:
   TFeatureOriginalStreetFn m_getOriginalFeatureStreetFn;
 };  // class Editor
 
-inline string DebugPrint(Editor::FeatureStatus fs)
-{
-  switch (fs)
-  {
-  case Editor::FeatureStatus::Untouched: return "Untouched";
-  case Editor::FeatureStatus::Deleted: return "Deleted";
-  case Editor::FeatureStatus::Modified: return "Modified";
-  case Editor::FeatureStatus::Created: return "Created";
-  };
-}
+string DebugPrint(Editor::FeatureStatus fs);
+
 }  // namespace osm

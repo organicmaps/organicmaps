@@ -748,4 +748,15 @@ Editor::Stats Editor::GetStats() const
   return stats;
 }
 
+string DebugPrint(Editor::FeatureStatus fs)
+{
+  switch (fs)
+  {
+  case Editor::FeatureStatus::Untouched: return "Untouched";
+  case Editor::FeatureStatus::Deleted: return "Deleted";
+  case Editor::FeatureStatus::Modified: return "Modified";
+  case Editor::FeatureStatus::Created: return "Created";
+  };
+}
+
 }  // namespace osm
