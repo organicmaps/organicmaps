@@ -77,8 +77,11 @@ ServerApi06::DeleteResult ServerApi06::DeleteNode(string const & nodeXml, uint64
   if (response.first == OsmOAuth::ResponseCode::OK)
     return DeleteResult::ESuccessfullyDeleted;
   else if (static_cast<int>(response.first) >= 400)
+  {
+    LOG(LWARNING, ("Server can't delete node, replied:", response.second));
     // Tons of reasons, see http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_16
     return DeleteResult::ECanNotBeDeleted;
+  }
 
   LOG(LWARNING, ("DeleteNode request has failed:", response.first));
   return DeleteResult::EFailed;
