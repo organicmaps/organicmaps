@@ -122,4 +122,9 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(double lat, double lon) c
   return GetXmlFeaturesInRect(rect);
 }
 
+OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(ms::LatLon const & ll) const
+{
+  return GetXmlFeaturesAtLatLon(ll.lat, ll.lon);
+}
+
 } // namespace osm

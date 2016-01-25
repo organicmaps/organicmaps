@@ -2,6 +2,7 @@
 
 #include "editor/osm_auth.hpp"
 
+#include "geometry/latlon.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "std/map.hpp"
@@ -43,6 +44,7 @@ public:
   /// @returns OSM xml string with features in the bounding box or empty string on error.
   OsmOAuth::Response GetXmlFeaturesInRect(m2::RectD const & latLonRect) const;
   OsmOAuth::Response GetXmlFeaturesAtLatLon(double lat, double lon) const;
+  OsmOAuth::Response GetXmlFeaturesAtLatLon(ms::LatLon const & ll) const;
 
 private:
   OsmOAuth m_auth;
