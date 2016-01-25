@@ -106,6 +106,7 @@ public:
     /// <id, feature status string>
     vector<pair<FeatureID, string>> m_edits;
     size_t m_uploadedCount = 0;
+    time_t m_lastUploadTimestamp = my::INVALID_TIME_STAMP;
   };
   Stats GetStats() const;
 

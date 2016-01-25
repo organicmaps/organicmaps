@@ -738,7 +738,11 @@ Editor::Stats Editor::GetStats() const
       stats.m_edits.push_back(make_pair(FeatureID(id.first, index.first),
                                         fti.m_uploadStatus + " " + fti.m_uploadError));
       if (fti.m_uploadStatus == kUploaded)
+      {
         ++stats.m_uploadedCount;
+        if (stats.m_lastUploadTimestamp < fti.m_uploadAttemptTimestamp)
+          stats.m_lastUploadTimestamp = fti.m_uploadAttemptTimestamp;
+      }
     }
   }
   return stats;
