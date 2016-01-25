@@ -4083,7 +4083,7 @@
     vi = Sửa
     ro = Editare
     nb = Rediger
-    en = Bearbeiten
+    de = Bearbeiten
     fi = Muokkaa
 
   [unknown_current_position]
@@ -4968,7 +4968,7 @@
     comment = Data version in «About» screen
     en = Data version: %d
     ru = Версия данных: %d
-    en = Datenversion: %d
+    de = Datenversion: %d
 
   [are_you_sure]
     tags = android,tizen
@@ -6466,7 +6466,7 @@
     vi = Tôi không đồng ý
     ro = Nu sunt de acord
     nb = Jeg samtykker ikke
-    en = Ich stimme nicht zu
+    de = Ich stimme nicht zu
     fi = En hyväksy
 
   [download_map_notification]
@@ -6877,21 +6877,21 @@
     comment = Rate in Google Play (Android only)
     en = Rate on Google Play
     ru = Оценить в Google Play
-    en = Bei Google Play bewerten
+    de = Bei Google Play bewerten
 
   [tell_friends]
     tags = android
     comment = Share with friends: menu item title
     en = Tell a Friend
     ru = Рассказать друзьям
-    en = Einem Freund empfehlen
+    de = Einem Freund empfehlen
 
   [tell_friends_text]
     tags = android
     comment = Share with friends: sharing text
     en = Hi! Install Maps.me!
     ru = Привет! Установи Maps.me!
-    en = Hallo! Installiere dir MAPS.ME!
+    de = Hallo! Installiere dir MAPS.ME!
 
   [help]
     tags = ios, android
