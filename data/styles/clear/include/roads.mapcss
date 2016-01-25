@@ -73,6 +73,37 @@ line|z7-[highway=residential_link],
 
 */
 
+line|z7-[highway=world_level]
+{
+    color: @trunk_orange_world;
+    width: 1.2;
+    opacity: 0;
+    z-index: 900;
+}
+
+line|z1-[highway=world_level]
+{
+    color: @trunk_orange_world;
+    width: 1.2;
+    opacity: 1;
+    z-index: 900;
+}
+
+line|z7-[highway=world_towns_level]
+{
+    color: @trunk_yellow_world;
+    width: 0.9;
+    opacity: 0;
+    z-index: 900;
+}
+
+line|z1-[highway=world_towns_level]
+{
+    color: @trunk_yellow_world;
+    width: 0.9;
+    opacity: 1;
+    z-index: 900;
+}
 
 /* ZOOM 7 */
 

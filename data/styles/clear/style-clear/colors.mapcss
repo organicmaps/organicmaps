@@ -27,6 +27,8 @@
  @trunk_orange_hard: #FF5E1F;
 @trunk_orange_medium: #FF7326; /*FF6626*/
  @trunk_orange_light: #FF7A26;/*F57A45*/
+ @trunk_orange_world: #FF5E1F;
+ @trunk_yellow_world: #FF8800;
 @trunk_orange_case: #DDDDCC;
   @primary_orange:  #FF8726;
  @primary_orange_medium: #FF9440;

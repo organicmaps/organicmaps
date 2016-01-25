@@ -1049,3 +1049,5 @@ amenity|place_of_worship|shinto;[amenity=place_of_worship][religion=shinto];;nam
 amenity|place_of_worship|jewish;[amenity=place_of_worship][religion=jewish];;name;int_name;1049;
 amenity|place_of_worship|taoist;[amenity=place_of_worship][religion=taoist];;name;int_name;1050;
 man_made|water_tower;[man_made=water_tower];;name;int_name;1051;
+highway|world_level;[highway=world_level];;name;int_name;1052;
+highway|world_towns_level;[highway=world_towns_level];;name;int_name;1053;

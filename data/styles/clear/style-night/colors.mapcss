@@ -28,6 +28,8 @@
 @trunk_orange_hard: #331C12;
   @trunk_orange_medium: #381F14;
   @trunk_orange_light: #381F11;
+@trunk_orange_world: #F7632C;
+@trunk_yellow_world: #372400;
 @trunk_orange_case: black;
   @primary_orange:  #422518;
   @primary_orange_medium: #422518;
