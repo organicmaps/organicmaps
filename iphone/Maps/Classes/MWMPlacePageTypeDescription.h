@@ -8,8 +8,8 @@
 
 @interface MWMPlacePageTypeDescription : NSObject
 
-@property (strong, nonatomic) IBOutlet MWMPlacePageTypeDescriptionView * eleDescription;
-@property (strong, nonatomic) IBOutlet MWMPlacePageTypeDescriptionView * hotelDescription;
+@property (nonatomic) IBOutlet MWMPlacePageTypeDescriptionView * eleDescription;
+@property (nonatomic) IBOutlet MWMPlacePageTypeDescriptionView * hotelDescription;
 
 - (instancetype)initWithPlacePageEntity:(MWMPlacePageEntity *)entity;
 

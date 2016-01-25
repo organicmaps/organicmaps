@@ -48,7 +48,12 @@ CGFloat placePageWidth()
   return IPAD ? kMaximumWidth : (size.width > size.height ? MIN(kMaximumWidth, size.height) : size.width);
 }
 
-using EAttributePosition = NS_ENUM(NSUInteger) {Title, Type, Address};
+enum class AttributePosition
+{
+  Title,
+  Type,
+  Address
+};
 } // namespace
 
 @interface MWMBasePlacePageView () <MWMPlacePageOpeningHoursCellProtocol>
@@ -107,8 +112,9 @@ using EAttributePosition = NS_ENUM(NSUInteger) {Title, Type, Address};
   if (type == MWMPlacePageEntityTypeEle || type == MWMPlacePageEntityTypeHotel)
   {
     MWMPlacePageTypeDescription * description = [[MWMPlacePageTypeDescription alloc] initWithPlacePageEntity:entity];
-    self.typeDescriptionView = (type == MWMPlacePageEntityTypeEle ? static_cast<MWMPlacePageTypeDescriptionView *>(description.eleDescription) :
-                                                                    static_cast<MWMPlacePageTypeDescriptionView *>(description.hotelDescription));
+    self.typeDescriptionView = static_cast<MWMPlacePageTypeDescriptionView *>(type == MWMPlacePageEntityTypeEle ?
+                                                                              description.eleDescription :
+                                                                              description.hotelDescription);
     [self addSubview:self.typeDescriptionView];
   }
   else
@@ -134,34 +140,43 @@ using EAttributePosition = NS_ENUM(NSUInteger) {Title, Type, Address};
 
 #pragma mark - Layout
 
-- (EAttributePosition)setupLabelsWidthWithBoundedWidth:(CGFloat)bound
+- (AttributePosition)distanceAttributePosition
+{
+  if ((self.typeLabel.text.length || self.typeDescriptionView))
+    return AttributePosition::Type;
+  else if ((!self.typeLabel.text.length && !self.typeDescriptionView) && self.addressLabel.text.length)
+    return AttributePosition::Address;
+  else
+    return AttributePosition::Title;
+}
+
+- (void)setupLabelsWidthWithBoundedWidth:(CGFloat)bound distancePosition:(AttributePosition)position
 {
   CGFloat const labelsMaxWidth = placePageWidth() - kLabelsPadding;
-  if ((self.typeLabel.text.length || self.typeDescriptionView) && self.addressLabel.text.length)
+  switch (position)
   {
-    self.titleLabel.width = self.addressLabel.width = labelsMaxWidth;
-    self.typeLabel.width = labelsMaxWidth - bound;
-    return Type;
-  }
-  else if ((!self.typeLabel.text.length && !self.typeDescriptionView) && self.addressLabel.text.length)
-  {
+  case AttributePosition::Title:
+    self.titleLabel.width = labelsMaxWidth - bound;
+    self.typeLabel.width = self.addressLabel.width = 0;
+    break;
+  case AttributePosition::Type:
+    if (self.addressLabel.text.length > 0)
+    {
+      self.titleLabel.width = self.addressLabel.width = labelsMaxWidth;
+      self.typeLabel.width = labelsMaxWidth - bound;
+    }
+    else
+    {
+      self.titleLabel.width = labelsMaxWidth;
+      self.typeLabel.width = labelsMaxWidth - bound;
+      self.addressLabel.width = 0;
+    }
+    break;
+  case AttributePosition::Address:
     self.titleLabel.width = labelsMaxWidth;
     self.typeLabel.width = 0;
     self.addressLabel.width = labelsMaxWidth - bound;
-    return Address;
-  }
-  else if ((self.typeLabel.text.length || self.typeDescriptionView) && !self.addressLabel.text.length)
-  {
-    self.titleLabel.width = labelsMaxWidth;
-    self.typeLabel.width = labelsMaxWidth - bound;
-    self.addressLabel.width = 0;
-    return Type;
-  }
-  else
-  {
-    self.titleLabel.width = labelsMaxWidth - bound;
-    self.typeLabel.width = self.addressLabel.width = 0;
-    return Title;
+    break;
   }
 }
 
@@ -171,7 +186,8 @@ using EAttributePosition = NS_ENUM(NSUInteger) {Title, Type, Address};
   self.distanceLabel.width = placePageWidth() - kLabelsPadding;
   [self.distanceLabel sizeToFit];
   CGFloat const bound = self.distanceLabel.width + kDirectionArrowSide + kOffsetFromDistanceToArrow + kOffsetFromTitleToDistance;
-  EAttributePosition const position = [self setupLabelsWidthWithBoundedWidth:bound];
+  AttributePosition const position = [self distanceAttributePosition];
+  [self setupLabelsWidthWithBoundedWidth:bound distancePosition:position];
   [self.titleLabel sizeToFit];
   [self.typeLabel sizeToFit];
   [self.addressLabel sizeToFit];
@@ -189,19 +205,19 @@ using EAttributePosition = NS_ENUM(NSUInteger) {Title, Type, Address};
   self.addressLabel.origin = {kLeftOffset, self.typeLabel.maxY + kTopOffset};
 }
 
-- (void)layoutDistanceBoxWithPosition:(EAttributePosition)position
+- (void)layoutDistanceBoxWithPosition:(AttributePosition)position
 {
-  auto getY = ^ CGFloat (EAttributePosition p)
+  auto getY = ^ CGFloat (AttributePosition p)
   {
     // Have to align distance box for the first label's line.
-    CGFloat const defaultCenter = p == Title ? 12 : 8;
+    CGFloat const defaultCenter = p == AttributePosition::Title ? 12 : 8;
     switch (position)
     {
-    case Title:
+    case AttributePosition::Title:
       return self.titleLabel.minY + defaultCenter;
-    case Type:
+    case AttributePosition::Type:
       return self.typeLabel.minY + defaultCenter;
-    case Address:
+    case AttributePosition::Address:
       return self.addressLabel.minY + defaultCenter;
     }
   };
@@ -214,17 +230,17 @@ using EAttributePosition = NS_ENUM(NSUInteger) {Title, Type, Address};
   self.directionButton.center = self.directionArrow.center;
 }
 
-- (void)layoutTableViewWithPosition:(EAttributePosition)position
+- (void)layoutTableViewWithPosition:(AttributePosition)position
 {
-  auto getY = ^ CGFloat (EAttributePosition p)
+  auto getY = ^ CGFloat (AttributePosition p)
   {
     switch (position)
     {
-    case Title:
+    case AttributePosition::Title:
       return self.titleLabel.maxY + kBottomPlacePageOffset;
-    case Type:
+    case AttributePosition::Type:
       return (self.addressLabel.text.length > 0 ? self.addressLabel.maxY : self.typeLabel.maxY) + kBottomPlacePageOffset;
-    case Address:
+    case AttributePosition::Address:
       return self.addressLabel.maxY + kBottomPlacePageOffset;
     }
   };
