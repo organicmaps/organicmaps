@@ -55,7 +55,6 @@ UNIT_TEST(StorageTests_Migrate)
   s.Subscribe(stateChanged, progressChanged);
 
   for (auto const & countryId : kOldCountries)
-//    s.DownloadCountry(countryId, MapOptions::MapWithCarRouting);
     f.GetCountryTree().GetActiveMapLayout().DownloadMap(countryId, MapOptions::MapWithCarRouting);
 
   // Wait for downloading complete.

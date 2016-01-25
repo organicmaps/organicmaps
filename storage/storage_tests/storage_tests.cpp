@@ -399,7 +399,6 @@ UNIT_TEST(StorageTest_TwoCountriesDownloading)
   uruguayChecker->StartDownload();
   venezuelaChecker->StartDownload();
   runner.Run();
-  cout << "sdfsdf";
 }
 
 UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)

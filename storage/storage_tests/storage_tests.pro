@@ -34,9 +34,9 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   country_info_getter_test.cpp \
   fake_map_files_downloader.cpp \
+  migrate_tests.cpp \
   queued_country_tests.cpp \
   simple_tree_test.cpp \
   storage_tests.cpp \
   task_runner.cpp \
   test_map_files_downloader.cpp \
-  migrate_tests.cpp \
