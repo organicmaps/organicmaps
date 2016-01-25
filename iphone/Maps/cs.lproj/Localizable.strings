@@ -1386,3 +1386,7 @@
 "editor_correct_mistake" = "Opravit chybu";
 
 "editor_correct_mistake_message" = "Při úpravách jste udělali chybu. Opravte ji prosím, nebo přepněte do jednoduchého režimu.";
+
+"migrate_title" = "Important!";
+
+"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";

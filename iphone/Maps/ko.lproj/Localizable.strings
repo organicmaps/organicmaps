@@ -1386,3 +1386,7 @@
 "editor_correct_mistake" = "입력 수정";
 
 "editor_correct_mistake_message" = "잘못 입력했습니다. 수정하거나 기본 모드로 전환하세요.";
+
+"migrate_title" = "Important!";
+
+"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";

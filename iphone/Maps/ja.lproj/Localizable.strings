@@ -1386,3 +1386,7 @@
 "editor_correct_mistake" = "間違いの訂正";
 
 "editor_correct_mistake_message" = "編集の間違いがあります。訂正するか、シンプルモードに切り替えてください。";
+
+"migrate_title" = "Important!";
+
+"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";

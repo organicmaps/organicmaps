@@ -1386,3 +1386,7 @@
 "editor_correct_mistake" = "Corriger l'erreur";
 
 "editor_correct_mistake_message" = "Vous avez fait une erreur d'édition. Veuillez la corriger ou passer en mode simple.";
+
+"migrate_title" = "Important!";
+
+"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";

@@ -1386,3 +1386,7 @@
 "editor_correct_mistake" = "แก้ไขข้อผิดพลาด";
 
 "editor_correct_mistake_message" = "มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย";
+
+"migrate_title" = "Important!";
+
+"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";

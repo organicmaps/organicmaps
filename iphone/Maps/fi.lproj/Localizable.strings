@@ -1386,3 +1386,7 @@
 "editor_correct_mistake" = "Korjaa virhe";
 
 "editor_correct_mistake_message" = "Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen malliin.";
+
+"migrate_title" = "Important!";
+
+"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";

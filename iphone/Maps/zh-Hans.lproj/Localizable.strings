@@ -1386,3 +1386,7 @@
 "editor_correct_mistake" = "纠正错误";
 
 "editor_correct_mistake_message" = "出现编辑错误，请纠正或切换至简单模式。";
+
+"migrate_title" = "Important!";
+
+"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";

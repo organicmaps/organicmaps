@@ -1386,3 +1386,7 @@
 "editor_correct_mistake" = "Sửa lỗi";
 
 "editor_correct_mistake_message" = "Bạn đã mắc lỗi chỉnh sửa. Vui lòng sửa lỗi hoặc chuyển qua chế độ đơn giản.";
+
+"migrate_title" = "Important!";
+
+"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
