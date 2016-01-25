@@ -398,6 +398,7 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
       BuildSearchIndex(readContainer, writer);
       LOG(LINFO, ("Search index size =", writer.Size()));
     }
+    if (filename != WORLD_FILE_NAME && filename != WORLD_COASTS_FILE_NAME)
     {
       FileWriter writer(addrFilePath);
       BuildAddressTable(readContainer, writer);
