@@ -14,7 +14,7 @@ template <class TSink> void WriteString(TSink & sink, string const & s)
   CHECK(!s.empty(), ());
 
   size_t const sz = s.size();
-  WriteVarUint(sink, static_cast<uint32_t>(sz-1));
+  WriteVarUint(sink, static_cast<uint32_t>(sz - 1));
   sink.Write(s.c_str(), sz);
 }
 

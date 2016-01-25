@@ -19,7 +19,8 @@ namespace
 double ScoreLatLon(XMLFeature const & xmlFt, ms::LatLon const & latLon)
 {
   double constexpr eps = MercatorBounds::GetCellID2PointAbsEpsilon();
-  return latLon.EqualDxDy(xmlFt.GetCenter(), eps);
+  // TODO: Find proper score values;
+  return latLon.EqualDxDy(xmlFt.GetCenter(), eps) ? 10 ? -10;
 }
 
 double ScoreNames(XMLFeature const & xmlFt, StringUtf8Multilang const & names)
