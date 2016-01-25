@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "defines.hpp"
@@ -247,4 +248,12 @@ UNIT_TEST(RmDirRecursively)
   TEST(!Platform::IsFileExistsByFullPath(filePath), ());
   TEST(!Platform::IsFileExistsByFullPath(testDir1), ());
   TEST(!Platform::IsFileExistsByFullPath(testDir2), ());
+}
+
+UNIT_TEST(IsSingleMwm)
+{
+  TEST(version::IsSingleMwm(version::FOR_TESTING_SINGLE_MWM1), ());
+  TEST(version::IsSingleMwm(version::FOR_TESTING_SINGLE_MWM_LATEST), ());
+  TEST(!version::IsSingleMwm(version::FOR_TESTING_TWO_COMPONENT_MWM1), ());
+  TEST(!version::IsSingleMwm(version::FOR_TESTING_TWO_COMPONENT_MWM2), ());
 }
