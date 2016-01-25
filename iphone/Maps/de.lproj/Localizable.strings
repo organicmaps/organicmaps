@@ -499,10 +499,10 @@
 "pref_map_style_title" = "Nachtmodus";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "An";
+"pref_map_style_default" = "Aus";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "Aus";
+"pref_map_style_night" = "An";
 
 /* «Map style» entry value */
 "pref_map_style_auto" = "Auto";
