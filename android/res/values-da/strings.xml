@@ -829,4 +829,18 @@
 	<string name="whats_new_next_button">Næste</string>
 	<string name="whats_new_night_caption">Navigering i nattilstand</string>
 	<string name="whats_new_night_body">For at hjælpe med brugen af MAPS.ME ved kørsel om natten har vi tilføjet nattilstand. Den slår automatisk til efter solnedgang.</string>
+	<string name="editor_time_add">Tilføj tidsplan</string>
+	<string name="editor_time_delete">Slet tidsplan</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Alle dage (24 timer)</string>
+	<string name="editor_time_open">Åbent</string>
+	<string name="editor_time_close">Lukket</string>
+	<string name="editor_time_add_closed">Tilføj Lukket-timer</string>
+	<string name="editor_time_title">Åbningstider</string>
+	<string name="editor_time_advanced">Avanceret tilstand</string>
+	<string name="editor_time_simple">Enkel tilstand</string>
+	<string name="editor_hours_closed">Lukket-timer</string>
+	<string name="editor_example_values">Eksempelværdier</string>
+	<string name="editor_correct_mistake">Ret fejl</string>
+	<string name="editor_correct_mistake_message">Du har lavet en redigeringsfejl. Ret den, eller skift til enkel tilstand.</string>
 </resources>

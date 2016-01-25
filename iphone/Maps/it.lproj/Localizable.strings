@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Navigazione in modalità notturna";
 
 "whats_new_night_body" = "Per poter utilizzare al meglio MAPS.ME di sera o di notte, abbiamo aggiunto la modalità notturna. L'applicazione passerà automaticamente a questa modalità dopo il tramonto.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "Aggiungi orari";
+
+"editor_time_delete" = "Elimina orari";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Tutto il giorno (24 ore)";
+
+"editor_time_open" = "Aperto";
+
+"editor_time_close" = "Chiuso";
+
+"editor_time_add_closed" = "Aggiungi orari di chiusura";
+
+"editor_time_title" = "Orari di apertura";
+
+"editor_time_advanced" = "Modalità avanzata";
+
+"editor_time_simple" = "Modalità semplice";
+
+"editor_hours_closed" = "Orari di chiusura";
+
+"editor_example_values" = "Valori esemplificativi";
+
+"editor_correct_mistake" = "Correggi errore";
+
+"editor_correct_mistake_message" = "Hai commesso un errore nella modifica. Correggerlo o passare alla modalità semplice.";

@@ -833,4 +833,18 @@
 	<string name="whats_new_next_button">Sonraki</string>
 	<string name="whats_new_night_caption">Gece modu navigasyon</string>
 	<string name="whats_new_night_body">Karanlıkta sürerken MAPS.ME kullanmayı kolaylaştırmak için gece modunu ekledik. Gün batımından sonra otomatik olarak devreye girer.</string>
+	<string name="editor_time_add">Plan Ekle</string>
+	<string name="editor_time_delete">Planı Sil</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Tüm gün (24 saat)</string>
+	<string name="editor_time_open">Açık</string>
+	<string name="editor_time_close">Kapalı</string>
+	<string name="editor_time_add_closed">Kapalı olduğu saatleri ekle</string>
+	<string name="editor_time_title">Açık olduğu saatler</string>
+	<string name="editor_time_advanced">Gelişmiş Mod</string>
+	<string name="editor_time_simple">Basit Mod</string>
+	<string name="editor_hours_closed">Kapalı olduğu saatler</string>
+	<string name="editor_example_values">Örnek Değerler</string>
+	<string name="editor_correct_mistake">Hatayı düzelt</string>
+	<string name="editor_correct_mistake_message">Bir düzenleme hatası yaptınız. Lütfen düzeltin veya basit moda geçin.</string>
 </resources>

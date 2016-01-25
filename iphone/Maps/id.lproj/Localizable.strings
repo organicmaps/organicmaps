@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Navigasi mode malam";
 
 "whats_new_night_body" = "Untuk memfasilitasi penggunaan MAPS.ME saat berkendara dalam gelap, kami telah menambahkan mode malam. Mode ini diaktifkan secara otomatis setelah matahari terbenam.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "Tambah Jadwal";
+
+"editor_time_delete" = "Hapus Jadwal";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Setiap Hari (24 jam)";
+
+"editor_time_open" = "Buka";
+
+"editor_time_close" = "Tutup";
+
+"editor_time_add_closed" = "Tambah Jam Tutup";
+
+"editor_time_title" = "Jam buka";
+
+"editor_time_advanced" = "Mode Lanjutan";
+
+"editor_time_simple" = "Mode Sederhana";
+
+"editor_hours_closed" = "Jam Tutup";
+
+"editor_example_values" = "Contoh Nilai";
+
+"editor_correct_mistake" = "Koreksi kesalahan";
+
+"editor_correct_mistake_message" = "Pengeditan salah. Koreksi atau ubah ke mode sederhana.";

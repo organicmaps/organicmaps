@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Navigáció éjszakai módban";
 
 "whats_new_night_body" = "A MAPS.ME használatának sötétben való vezetés közbeni elősegítése érdekében hozzáadtuk a funkciókhoz az éjszakai módot. Naplemente után automatikusan bekapcsol.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "Időrend felvitele";
+
+"editor_time_delete" = "Időrend törlése";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Egész nap (24 óra)";
+
+"editor_time_open" = "Nyitva";
+
+"editor_time_close" = "Zárva";
+
+"editor_time_add_closed" = "Zárvatartási idők felvitele";
+
+"editor_time_title" = "Nyitvatartási idő";
+
+"editor_time_advanced" = "Haladó mód";
+
+"editor_time_simple" = "Egyszerű mód";
+
+"editor_hours_closed" = "Zárvatartási órák";
+
+"editor_example_values" = "Példa értékek";
+
+"editor_correct_mistake" = "Hiba javítása";
+
+"editor_correct_mistake_message" = "Szerkesztési hibát vétett. Javítsa ki vagy váltson egyszerű módba.";

@@ -832,4 +832,18 @@
 	<string name="whats_new_next_button">Далі</string>
 	<string name="whats_new_night_caption">Нічний режим навігації</string>
 	<string name="whats_new_night_body">Для зручності використання MAPS.ME під час водіння автомобіля в темну пору доби ми додали нічний режим. Він запускається автоматично після заходу сонця.</string>
+	<string name="editor_time_add">Додати розклад</string>
+	<string name="editor_time_delete">Видалити розклад</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Весь день (24 години)</string>
+	<string name="editor_time_open">Відчинено</string>
+	<string name="editor_time_close">Зачинено</string>
+	<string name="editor_time_add_closed">Додати перерву</string>
+	<string name="editor_time_title">Час роботи</string>
+	<string name="editor_time_advanced">Розширений режим</string>
+	<string name="editor_time_simple">Простий режим</string>
+	<string name="editor_hours_closed">Перерва</string>
+	<string name="editor_example_values">Приклади значень</string>
+	<string name="editor_correct_mistake">Виправте помилку</string>
+	<string name="editor_correct_mistake_message">Під час редагування часу роботи ви зробили помилку. Виправте її або перейдіть у простий режим.</string>
 </resources>

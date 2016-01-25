@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Gece modu navigasyon";
 
 "whats_new_night_body" = "Karanlıkta sürerken MAPS.ME kullanmayı kolaylaştırmak için gece modunu ekledik. Gün batımından sonra otomatik olarak devreye girer.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "Plan Ekle";
+
+"editor_time_delete" = "Planı Sil";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Tüm gün (24 saat)";
+
+"editor_time_open" = "Açık";
+
+"editor_time_close" = "Kapalı";
+
+"editor_time_add_closed" = "Kapalı olduğu saatleri ekle";
+
+"editor_time_title" = "Açık olduğu saatler";
+
+"editor_time_advanced" = "Gelişmiş Mod";
+
+"editor_time_simple" = "Basit Mod";
+
+"editor_hours_closed" = "Kapalı olduğu saatler";
+
+"editor_example_values" = "Örnek Değerler";
+
+"editor_correct_mistake" = "Hatayı düzelt";
+
+"editor_correct_mistake_message" = "Bir düzenleme hatası yaptınız. Lütfen düzeltin veya basit moda geçin.";

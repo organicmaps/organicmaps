@@ -787,7 +787,7 @@
 "toolbar_application_menu" = "เมนูของแอปพลิเคชัน";
 
 /* Preference text */
-"pref_use_google_play" = "ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ ";
+"pref_use_google_play" = "ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ";
 
 /* Text for rating dialog */
 "rating_just_rated" = "ฉันเพิ่งให้คะแนนแอปของคุณ";
@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "การนำทางในโหมดกลางคืน";
 
 "whats_new_night_body" = "เราได้เพิ่มโหมดกลางคืนเพื่อส่งเสริมการใช้ MAPS.ME เมื่อคุณกำลังขับรถในสภาพมืด จะมีการเปิดใช้โหมดนี้โดยอัตโนมัติหลังจากพระอาทิตย์ตก";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "เพิ่มวัน";
+
+"editor_time_delete" = "ลบวัน";
+
+/* Text for allday switch. */
+"editor_time_allday" = "ตลอดวัน (24 ชั่วโมง)";
+
+"editor_time_open" = "เปิด";
+
+"editor_time_close" = "ปิด";
+
+"editor_time_add_closed" = "เพิ่มเวลาที่ปิดทำการเพิ่มเติม";
+
+"editor_time_title" = "วันเวลาทำการ";
+
+"editor_time_advanced" = "โหมดขั้นสูง";
+
+"editor_time_simple" = "โหมดแบบง่าย";
+
+"editor_hours_closed" = "ปิดเวลา";
+
+"editor_example_values" = "ตัวอย่างของค่าที่ตั้งไว้";
+
+"editor_correct_mistake" = "แก้ไขข้อผิดพลาด";
+
+"editor_correct_mistake_message" = "มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย";

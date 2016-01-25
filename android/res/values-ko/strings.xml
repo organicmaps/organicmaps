@@ -819,4 +819,18 @@
 	<string name="whats_new_next_button">다음</string>
 	<string name="whats_new_night_caption">야간 모드 탐색</string>
 	<string name="whats_new_night_body">어두운 곳에서 운전할 때 MAPS.ME를 사용하는 걸 용이하게 하려면, 야간 모드에 추가됩니다. 이는 일몰 후 자동으로 전환됩니다.</string>
+	<string name="editor_time_add">스케줄 추가</string>
+	<string name="editor_time_delete">스케줄 삭제</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">종일 영업(24시간)</string>
+	<string name="editor_time_open">개점</string>
+	<string name="editor_time_close">폐점</string>
+	<string name="editor_time_add_closed">폐점 시간 추가</string>
+	<string name="editor_time_title">영업 시간</string>
+	<string name="editor_time_advanced">고급 모드</string>
+	<string name="editor_time_simple">기본 모드</string>
+	<string name="editor_hours_closed">폐점 시간</string>
+	<string name="editor_example_values">예제</string>
+	<string name="editor_correct_mistake">입력 수정</string>
+	<string name="editor_correct_mistake_message">잘못 입력했습니다. 수정하거나 기본 모드로 전환하세요.</string>
 </resources>

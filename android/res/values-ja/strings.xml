@@ -826,4 +826,18 @@
 	<string name="whats_new_next_button">次へ</string>
 	<string name="whats_new_night_caption">夜間モードナビゲーション</string>
 	<string name="whats_new_night_body">MAPS.MEを夜間の運転中に使いやすくするため、夜間モードを追加しました。日の入り後に自動的に切り替わります。</string>
+	<string name="editor_time_add">スケジュール追加</string>
+	<string name="editor_time_delete">スケジュール削除</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">終日 (24時間)</string>
+	<string name="editor_time_open">営業中</string>
+	<string name="editor_time_close">閉店</string>
+	<string name="editor_time_add_closed">閉店時間追加</string>
+	<string name="editor_time_title">営業時間</string>
+	<string name="editor_time_advanced">詳細モード</string>
+	<string name="editor_time_simple">シンプルモード</string>
+	<string name="editor_hours_closed">閉店時間</string>
+	<string name="editor_example_values">値の例</string>
+	<string name="editor_correct_mistake">間違いの訂正</string>
+	<string name="editor_correct_mistake_message">編集の間違いがあります。訂正するか、シンプルモードに切り替えてください。</string>
 </resources>

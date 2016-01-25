@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Navigace v nočním režimu";
 
 "whats_new_night_body" = "Přidali jsme noční režim, abyste mohli MAPS.ME používat při řízení v noci. Zapíná se automaticky po západu slunce.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "Přidat rozvrh";
+
+"editor_time_delete" = "Smazat rozvrh";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Celý den (24 hodin)";
+
+"editor_time_open" = "Otevřeno";
+
+"editor_time_close" = "Zavřeno";
+
+"editor_time_add_closed" = "Přidat dobu, kdy je zavřeno";
+
+"editor_time_title" = "Otevírací doba";
+
+"editor_time_advanced" = "Pokročilý režim";
+
+"editor_time_simple" = "Jednoduchý režim";
+
+"editor_hours_closed" = "Doba, kdy je zavřeno";
+
+"editor_example_values" = "Vzorové hodnoty";
+
+"editor_correct_mistake" = "Opravit chybu";
+
+"editor_correct_mistake_message" = "Při úpravách jste udělali chybu. Opravte ji prosím, nebo přepněte do jednoduchého režimu.";

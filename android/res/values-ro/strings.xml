@@ -826,4 +826,18 @@
 	<string name="whats_new_next_button">Următoarea</string>
 	<string name="whats_new_night_caption">Navigație mod nocturn</string>
 	<string name="whats_new_night_body">Pentru a facilita utilizarea MAPS.ME atunci când conduceți noaptea, am adăugat modul nocturn. Acesta pornește automat după apusul soarelui.</string>
+	<string name="editor_time_add">Adăugare planificare</string>
+	<string name="editor_time_delete">Eliminare planificare</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Toată ziua (non-stop)</string>
+	<string name="editor_time_open">Deschidere</string>
+	<string name="editor_time_close">Închidere</string>
+	<string name="editor_time_add_closed">Adăugare oră de închidere</string>
+	<string name="editor_time_title">Program</string>
+	<string name="editor_time_advanced">Mod Avansat</string>
+	<string name="editor_time_simple">Mod Simplu</string>
+	<string name="editor_hours_closed">Ora închiderii</string>
+	<string name="editor_example_values">Exemple de valori</string>
+	<string name="editor_correct_mistake">Corectare greșeală</string>
+	<string name="editor_correct_mistake_message">Ați efectuat o eroare de editare. Corectați eroarea sau treceți în modul Simplu.</string>
 </resources>

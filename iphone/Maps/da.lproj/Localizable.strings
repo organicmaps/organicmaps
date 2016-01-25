@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Navigering i nattilstand";
 
 "whats_new_night_body" = "For at hjælpe med brugen af MAPS.ME ved kørsel om natten har vi tilføjet nattilstand. Den slår automatisk til efter solnedgang.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "Tilføj tidsplan";
+
+"editor_time_delete" = "Slet tidsplan";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Alle dage (24 timer)";
+
+"editor_time_open" = "Åbent";
+
+"editor_time_close" = "Lukket";
+
+"editor_time_add_closed" = "Tilføj Lukket-timer";
+
+"editor_time_title" = "Åbningstider";
+
+"editor_time_advanced" = "Avanceret tilstand";
+
+"editor_time_simple" = "Enkel tilstand";
+
+"editor_hours_closed" = "Lukket-timer";
+
+"editor_example_values" = "Eksempelværdier";
+
+"editor_correct_mistake" = "Ret fejl";
+
+"editor_correct_mistake_message" = "Du har lavet en redigeringsfejl. Ret den, eller skift til enkel tilstand.";

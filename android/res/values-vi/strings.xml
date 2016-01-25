@@ -829,4 +829,18 @@
 	<string name="whats_new_next_button">Tiếp theo</string>
 	<string name="whats_new_night_caption">Điều hướng chế độ ban đêm</string>
 	<string name="whats_new_night_body">Để tạo điều kiện sử dụng MAPS.ME khi lái xe trong đêm tối, chúng tôi đã thêm chế độ ban đêm. Nó tự động mở sau khi mặt trời lặn.</string>
+	<string name="editor_time_add">Thêm lịch biểu</string>
+	<string name="editor_time_delete">Xóa lịch biểu</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Cả ngày (24 giờ)</string>
+	<string name="editor_time_open">Mở cửa</string>
+	<string name="editor_time_close">Đóng cửa</string>
+	<string name="editor_time_add_closed">Thêm giờ đóng cửa</string>
+	<string name="editor_time_title">Giờ mở cửa</string>
+	<string name="editor_time_advanced">Chế độ nâng cao</string>
+	<string name="editor_time_simple">Chế độ đơn giản</string>
+	<string name="editor_hours_closed">Giờ đóng cửa</string>
+	<string name="editor_example_values">Giá trị ví dụ</string>
+	<string name="editor_correct_mistake">Sửa lỗi</string>
+	<string name="editor_correct_mistake_message">Bạn đã mắc lỗi chỉnh sửa. Vui lòng sửa lỗi hoặc chuyển qua chế độ đơn giản.</string>
 </resources>

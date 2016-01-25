@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Điều hướng chế độ ban đêm";
 
 "whats_new_night_body" = "Để tạo điều kiện sử dụng MAPS.ME khi lái xe trong đêm tối, chúng tôi đã thêm chế độ ban đêm. Nó tự động mở sau khi mặt trời lặn.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "Thêm lịch biểu";
+
+"editor_time_delete" = "Xóa lịch biểu";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Cả ngày (24 giờ)";
+
+"editor_time_open" = "Mở cửa";
+
+"editor_time_close" = "Đóng cửa";
+
+"editor_time_add_closed" = "Thêm giờ đóng cửa";
+
+"editor_time_title" = "Giờ mở cửa";
+
+"editor_time_advanced" = "Chế độ nâng cao";
+
+"editor_time_simple" = "Chế độ đơn giản";
+
+"editor_hours_closed" = "Giờ đóng cửa";
+
+"editor_example_values" = "Giá trị ví dụ";
+
+"editor_correct_mistake" = "Sửa lỗi";
+
+"editor_correct_mistake_message" = "Bạn đã mắc lỗi chỉnh sửa. Vui lòng sửa lỗi hoặc chuyển qua chế độ đơn giản.";

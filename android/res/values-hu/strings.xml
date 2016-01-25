@@ -830,4 +830,18 @@
 	<string name="whats_new_next_button">Következő</string>
 	<string name="whats_new_night_caption">Navigáció éjszakai módban</string>
 	<string name="whats_new_night_body">A MAPS.ME használatának sötétben való vezetés közbeni elősegítése érdekében hozzáadtuk a funkciókhoz az éjszakai módot. Naplemente után automatikusan bekapcsol.</string>
+	<string name="editor_time_add">Időrend felvitele</string>
+	<string name="editor_time_delete">Időrend törlése</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Egész nap (24 óra)</string>
+	<string name="editor_time_open">Nyitva</string>
+	<string name="editor_time_close">Zárva</string>
+	<string name="editor_time_add_closed">Zárvatartási idők felvitele</string>
+	<string name="editor_time_title">Nyitvatartási idő</string>
+	<string name="editor_time_advanced">Haladó mód</string>
+	<string name="editor_time_simple">Egyszerű mód</string>
+	<string name="editor_hours_closed">Zárvatartási órák</string>
+	<string name="editor_example_values">Példa értékek</string>
+	<string name="editor_correct_mistake">Hiba javítása</string>
+	<string name="editor_correct_mistake_message">Szerkesztési hibát vétett. Javítsa ki vagy váltson egyszerű módba.</string>
 </resources>

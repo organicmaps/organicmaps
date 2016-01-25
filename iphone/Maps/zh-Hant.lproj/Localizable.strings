@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "夜間模式導航";
 
 "whats_new_night_body" = "為了便於天黑行駛時使用MAPS.ME，我們增加了夜間模式。該模式在日落之後會自動開啟。";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "新增排程";
+
+"editor_time_delete" = "刪除排程";
+
+/* Text for allday switch. */
+"editor_time_allday" = "全天 (24 小時)";
+
+"editor_time_open" = "營業時間";
+
+"editor_time_close" = "休息時間";
+
+"editor_time_add_closed" = "新增休息時間";
+
+"editor_time_title" = "營業時間";
+
+"editor_time_advanced" = "進階模式";
+
+"editor_time_simple" = "簡易模式";
+
+"editor_hours_closed" = "休息時間";
+
+"editor_example_values" = "範例值";
+
+"editor_correct_mistake" = "修正錯誤";
+
+"editor_correct_mistake_message" = "編輯時出錯。請修正或切換到簡易模式。";

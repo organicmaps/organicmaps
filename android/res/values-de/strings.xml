@@ -851,4 +851,18 @@
 	<string name="whats_new_next_button">Weiter</string>
 	<string name="whats_new_night_caption">Nachtmodus-Navigation</string>
 	<string name="whats_new_night_body">Um die Nutzung von MAPS.ME beim Fahren im Dunkeln zu erleichtern, haben wir den Nachtmodus hinzugefügt. Dieser wird automatisch nach Sonnenuntergang aktiviert.</string>
+	<string name="editor_time_add">Zeitplan hinzufügen</string>
+	<string name="editor_time_delete">Zeitplan löschen</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Ganztägig (24 Stunden)</string>
+	<string name="editor_time_open">Geöffnet</string>
+	<string name="editor_time_close">Geschlossen</string>
+	<string name="editor_time_add_closed">Schließzeiten hinzufügen</string>
+	<string name="editor_time_title">Öffnungszeiten</string>
+	<string name="editor_time_advanced">Erweiterter Modus</string>
+	<string name="editor_time_simple">Einfachmodus</string>
+	<string name="editor_hours_closed">Schließzeiten</string>
+	<string name="editor_example_values">Beispiele</string>
+	<string name="editor_correct_mistake">Fehler korrigieren</string>
+	<string name="editor_correct_mistake_message">Es ist ein Bearbeitungsfehler aufgetreten. Bitte korrigieren oder zum Einfachmodus wechseln.</string>
 </resources>

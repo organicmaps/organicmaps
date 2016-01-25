@@ -830,4 +830,18 @@
 	<string name="whats_new_next_button">Dalej</string>
 	<string name="whats_new_night_caption">Nawigacja w trybie nocnym</string>
 	<string name="whats_new_night_body">Aby umożliwić korzystanie z MAPS.ME podczas prowadzenia po zmroku, dodaliśmy tryb nocny. Włącza się on automatycznie po zachodzie słońca.</string>
+	<string name="editor_time_add">Dodaj harmonogram</string>
+	<string name="editor_time_delete">Usuń harmonogram</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Całą dobę (24 godziny)</string>
+	<string name="editor_time_open">Otwarte</string>
+	<string name="editor_time_close">Zamknięte</string>
+	<string name="editor_time_add_closed">Dodaj godziny zamknięcia</string>
+	<string name="editor_time_title">Godziny pracy</string>
+	<string name="editor_time_advanced">Tryb zaawansowany</string>
+	<string name="editor_time_simple">Tryb prosty</string>
+	<string name="editor_hours_closed">Godziny zamknięcia</string>
+	<string name="editor_example_values">Przykładowe wartości</string>
+	<string name="editor_correct_mistake">Popraw błąd</string>
+	<string name="editor_correct_mistake_message">Popełniono błąd podczas edycji. Popraw go lub przełącz się na tryb prosty.</string>
 </resources>

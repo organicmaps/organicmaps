@@ -819,4 +819,18 @@
 	<string name="whats_new_next_button">Volgende</string>
 	<string name="whats_new_night_caption">Nachtmodusnavigatie</string>
 	<string name="whats_new_night_body">Om het gebruik van MAPS.ME te vergemakkelijken tijdens het rijden in het donker, hebben we de nachtmodus toegevoegd. Deze wordt automatisch ingeschakeld na zonsondergang.</string>
+	<string name="editor_time_add">Schema toevoegen</string>
+	<string name="editor_time_delete">Schema verwijderen</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Elke dag (dag en nacht)</string>
+	<string name="editor_time_open">Open</string>
+	<string name="editor_time_close">Gesloten</string>
+	<string name="editor_time_add_closed">Sluitingstijden toevoegen</string>
+	<string name="editor_time_title">Openingstijden</string>
+	<string name="editor_time_advanced">Geavanceerde modus</string>
+	<string name="editor_time_simple">Eenvoudige modus</string>
+	<string name="editor_hours_closed">Sluitingstijden</string>
+	<string name="editor_example_values">Voorbeeldwaarden</string>
+	<string name="editor_correct_mistake">Fout corrigeren</string>
+	<string name="editor_correct_mistake_message">U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.</string>
 </resources>

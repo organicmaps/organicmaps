@@ -833,4 +833,18 @@
 	<string name="whats_new_next_button">下一页</string>
 	<string name="whats_new_night_caption">夜间模式导航</string>
 	<string name="whats_new_night_body">为了便于天黑行驶时使用MAPS.ME，我们增加了夜间模式。该模式在日落之后会自动开启。</string>
+	<string name="editor_time_add">添加计划</string>
+	<string name="editor_time_delete">删除计划</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">全天（24小时）</string>
+	<string name="editor_time_open">营业中</string>
+	<string name="editor_time_close">未营业</string>
+	<string name="editor_time_add_closed">添加不营业时间</string>
+	<string name="editor_time_title">营业时间</string>
+	<string name="editor_time_advanced">高级模式</string>
+	<string name="editor_time_simple">简单模式</string>
+	<string name="editor_hours_closed">不营业时间</string>
+	<string name="editor_example_values">示例值</string>
+	<string name="editor_correct_mistake">纠正错误</string>
+	<string name="editor_correct_mistake_message">出现编辑错误，请纠正或切换至简单模式。</string>
 </resources>

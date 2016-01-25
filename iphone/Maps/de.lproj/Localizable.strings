@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Nachtmodus-Navigation";
 
 "whats_new_night_body" = "Um die Nutzung von MAPS.ME beim Fahren im Dunkeln zu erleichtern, haben wir den Nachtmodus hinzugefügt. Dieser wird automatisch nach Sonnenuntergang aktiviert.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "Zeitplan hinzufügen";
+
+"editor_time_delete" = "Zeitplan löschen";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Ganztägig (24 Stunden)";
+
+"editor_time_open" = "Geöffnet";
+
+"editor_time_close" = "Geschlossen";
+
+"editor_time_add_closed" = "Schließzeiten hinzufügen";
+
+"editor_time_title" = "Öffnungszeiten";
+
+"editor_time_advanced" = "Erweiterter Modus";
+
+"editor_time_simple" = "Einfachmodus";
+
+"editor_hours_closed" = "Schließzeiten";
+
+"editor_example_values" = "Beispiele";
+
+"editor_correct_mistake" = "Fehler korrigieren";
+
+"editor_correct_mistake_message" = "Es ist ein Bearbeitungsfehler aufgetreten. Bitte korrigieren oder zum Einfachmodus wechseln.";

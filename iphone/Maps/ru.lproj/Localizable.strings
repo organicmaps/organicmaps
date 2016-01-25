@@ -130,7 +130,7 @@
 "which_measurement_system" = "Какую систему измерения вы предпочитаете?";
 
 /* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Геолокация выключена в настройках устройства. Пожалуйста, включите ее для удобного использования программы.";
+"location_is_disabled_long_text" = "Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.";
 
 /* Location Services are not available on the device alert - message */
 "device_doesnot_support_location_services" = "Ваше устройство не поддерживает геолокацию";
@@ -223,7 +223,7 @@
 "advise_update_maps" = "Доступно обновление для следующих карт:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "MAPS.ME Lite больше не нужна. Рекомендуем ее удалить.";
+"suggest_uninstall_lite" = "MAPS.ME Lite больше не нужна. Рекомендуем её удалить.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ успешно загружена";
@@ -560,7 +560,7 @@
 "search_show_on_map" = "Посмотреть на карте";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.";
+"kitkat_migrate_ok" = "Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете её удалить.";
 
 /* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_failed" = "В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни во внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.";
@@ -746,7 +746,7 @@
 "routing_failed_route_not_found" = "Невозможно проложить маршрут между выбранными точками. Пожалуйста, измените начало или конец маршрута.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Внутренняя ошибка. Пожалуйста, удалите карту и скачайте ее еще раз. Если это не помогло, напишите нам на support@maps.me";
+"routing_failed_internal_error" = "Внутренняя ошибка. Пожалуйста, удалите карту и скачайте её еще раз. Если это не помогло, напишите нам на support@maps.me";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Загрузить карту + маршруты";
@@ -1256,7 +1256,7 @@
 
 "search_without_internet_advertisement" = "Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.";
 
-"search_select_map" = "Выбрать карту ";
+"search_select_map" = "Выбрать карту";
 
 "search_select_other_map" = "Выбрать другую карту";
 
@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Ночной режим навигации";
 
 "whats_new_night_body" = "Для удобства использования MAPS.ME во время вождения автомобиля в темное время суток мы добавили ночной режим. Он запускается автоматически после захода солнца.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Добавить место";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Редактировать место";
+
+"editor_time_add" = "Добавить расписание";
+
+"editor_time_delete" = "Удалить расписание";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Весь день (24 часа)";
+
+"editor_time_open" = "Открыто";
+
+"editor_time_close" = "Закрыто";
+
+"editor_time_add_closed" = "Добавить перерыв";
+
+"editor_time_title" = "Время работы";
+
+"editor_time_advanced" = "Расширенный режим";
+
+"editor_time_simple" = "Простой режим";
+
+"editor_hours_closed" = "Перерыв";
+
+"editor_example_values" = "Примеры значений";
+
+"editor_correct_mistake" = "Исправьте ошибку";
+
+"editor_correct_mistake_message" = "При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.";

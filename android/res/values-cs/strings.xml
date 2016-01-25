@@ -836,4 +836,18 @@
 	<string name="whats_new_next_button">Další</string>
 	<string name="whats_new_night_caption">Navigace v nočním režimu</string>
 	<string name="whats_new_night_body">Přidali jsme noční režim, abyste mohli MAPS.ME používat při řízení v noci. Zapíná se automaticky po západu slunce.</string>
+	<string name="editor_time_add">Přidat rozvrh</string>
+	<string name="editor_time_delete">Smazat rozvrh</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Celý den (24 hodin)</string>
+	<string name="editor_time_open">Otevřeno</string>
+	<string name="editor_time_close">Zavřeno</string>
+	<string name="editor_time_add_closed">Přidat dobu, kdy je zavřeno</string>
+	<string name="editor_time_title">Otevírací doba</string>
+	<string name="editor_time_advanced">Pokročilý režim</string>
+	<string name="editor_time_simple">Jednoduchý režim</string>
+	<string name="editor_hours_closed">Doba, kdy je zavřeno</string>
+	<string name="editor_example_values">Vzorové hodnoty</string>
+	<string name="editor_correct_mistake">Opravit chybu</string>
+	<string name="editor_correct_mistake_message">Při úpravách jste udělali chybu. Opravte ji prosím, nebo přepněte do jednoduchého režimu.</string>
 </resources>

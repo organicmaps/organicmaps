@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Нічний режим навігації";
 
 "whats_new_night_body" = "Для зручності використання MAPS.ME під час водіння автомобіля в темну пору доби ми додали нічний режим. Він запускається автоматично після заходу сонця.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "Додати розклад";
+
+"editor_time_delete" = "Видалити розклад";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Весь день (24 години)";
+
+"editor_time_open" = "Відчинено";
+
+"editor_time_close" = "Зачинено";
+
+"editor_time_add_closed" = "Додати перерву";
+
+"editor_time_title" = "Час роботи";
+
+"editor_time_advanced" = "Розширений режим";
+
+"editor_time_simple" = "Простий режим";
+
+"editor_hours_closed" = "Перерва";
+
+"editor_example_values" = "Приклади значень";
+
+"editor_correct_mistake" = "Виправте помилку";
+
+"editor_correct_mistake_message" = "Під час редагування часу роботи ви зробили помилку. Виправте її або перейдіть у простий режим.";

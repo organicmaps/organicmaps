@@ -1353,3 +1353,36 @@
 "whats_new_night_caption" = "Yötilanavigaatio";
 
 "whats_new_night_body" = "Olemme lisänneet yötilan helpottaaksemme MAPS.ME:n käyttöä pimeällä ajettaessa. Se menee automaattisesti päälle auringonlaskun jälkeen.";
+
+/* «Add place» button in place page. */
+"pp_place_add" = "Add place";
+
+/* «Edit place» button in place page. */
+"pp_place_edit" = "Edit place";
+
+"editor_time_add" = "Lisää aikataulu";
+
+"editor_time_delete" = "Poista aikataulu";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Kaikki päivät (24 tuntia)";
+
+"editor_time_open" = "Avoinna";
+
+"editor_time_close" = "Suljettu";
+
+"editor_time_add_closed" = "Lisää suljettuna tunnit";
+
+"editor_time_title" = "Aukioloajat";
+
+"editor_time_advanced" = "Kehittynyt malli";
+
+"editor_time_simple" = "Yksinkertainen malli";
+
+"editor_hours_closed" = "Suljettuna tunnit";
+
+"editor_example_values" = "Esimerkkiarvot";
+
+"editor_correct_mistake" = "Korjaa virhe";
+
+"editor_correct_mistake_message" = "Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen malliin.";

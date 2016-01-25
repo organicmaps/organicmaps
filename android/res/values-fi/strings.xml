@@ -829,4 +829,18 @@
 	<string name="whats_new_next_button">Seuraava</string>
 	<string name="whats_new_night_caption">Yötilanavigaatio</string>
 	<string name="whats_new_night_body">Olemme lisänneet yötilan helpottaaksemme MAPS.ME:n käyttöä pimeällä ajettaessa. Se menee automaattisesti päälle auringonlaskun jälkeen.</string>
+	<string name="editor_time_add">Lisää aikataulu</string>
+	<string name="editor_time_delete">Poista aikataulu</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Kaikki päivät (24 tuntia)</string>
+	<string name="editor_time_open">Avoinna</string>
+	<string name="editor_time_close">Suljettu</string>
+	<string name="editor_time_add_closed">Lisää suljettuna tunnit</string>
+	<string name="editor_time_title">Aukioloajat</string>
+	<string name="editor_time_advanced">Kehittynyt malli</string>
+	<string name="editor_time_simple">Yksinkertainen malli</string>
+	<string name="editor_hours_closed">Suljettuna tunnit</string>
+	<string name="editor_example_values">Esimerkkiarvot</string>
+	<string name="editor_correct_mistake">Korjaa virhe</string>
+	<string name="editor_correct_mistake_message">Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen malliin.</string>
 </resources>
