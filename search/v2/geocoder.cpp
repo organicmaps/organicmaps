@@ -28,6 +28,7 @@
 #include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/bind.hpp"
 #include "std/iterator.hpp"
 #include "std/target_os.hpp"
 #include "std/transform_iterator.hpp"
@@ -103,6 +104,44 @@ struct LazyRankTable
   unique_ptr<search::RankTable> m_table;
 };
 
+class StreetCategories
+{
+public:
+  static StreetCategories const & Instance()
+  {
+    static StreetCategories const instance;
+    return instance;
+  }
+
+  template <typename TFn>
+  void ForEach(TFn && fn) const
+  {
+    for_each(m_categories.cbegin(), m_categories.cend(), forward<TFn>(fn));
+  }
+
+  bool Contains(strings::UniString const & category) const
+  {
+    return binary_search(m_categories.cbegin(), m_categories.cend(), category);
+  }
+
+private:
+  StreetCategories()
+  {
+    auto const & classificator = classif();
+    auto addCategory = [&](uint32_t type)
+    {
+      uint32_t const index = classificator.GetIndexForType(type);
+      m_categories.push_back(FeatureTypeToString(index));
+    };
+    ftypes::IsStreetChecker::Instance().ForEachType(addCategory);
+    sort(m_categories.begin(), m_categories.end());
+  }
+
+  vector<strings::UniString> m_categories;
+
+  DISALLOW_COPY_AND_MOVE(StreetCategories);
+};
+
 void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t endToken,
                      string const & sep, string & res)
 {
@@ -122,21 +161,6 @@ void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t e
     if (i + 1 != endToken)
       res.append(sep);
   }
-}
-
-vector<strings::UniString> GetStreetCategories()
-{
-  vector<strings::UniString> categories;
-
-  auto const & classificator = classif();
-  auto addCategory = [&](uint32_t type)
-  {
-    uint32_t const index = classificator.GetIndexForType(type);
-    categories.push_back(FeatureTypeToString(index));
-  };
-  ftypes::IsStreetChecker::Instance().ForEachType(addCategory);
-
-  return categories;
 }
 
 bool HasAllSubstrings(string const & s, vector<string> const & substrs)
@@ -169,21 +193,6 @@ void GetEnglishName(FeatureType const & ft, string & name)
     else
       return;
   }
-}
-
-bool IsStreetCategory(strings::UniString const & category)
-{
-  static auto const kCategoriesList = GetStreetCategories();
-  static set<strings::UniString> const kCategoriesSet(kCategoriesList.begin(),
-                                                      kCategoriesList.end());
-  return kCategoriesSet.count(category) != 0;
-}
-
-template <typename TFn>
-void ForEachStreetCategory(TFn && fn)
-{
-  static auto const kCategories = GetStreetCategories();
-  for_each(kCategories.begin(), kCategories.end(), forward<TFn>(fn));
 }
 
 bool HasSearchIndex(MwmValue const & value) { return value.m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
@@ -324,7 +333,9 @@ void Geocoder::SetParams(Params const & params)
     {
       auto b = synonyms.begin();
       auto e = synonyms.end();
-      synonyms.erase(remove_if(b + 1, e, &IsStreetCategory), e);
+      auto const & categories = StreetCategories::Instance();
+      synonyms.erase(remove_if(b + 1, e, bind(&StreetCategories::Contains, cref(categories), _1)),
+                     e);
     }
   }
 
@@ -1095,14 +1106,15 @@ coding::CompressedBitVector const * Geocoder::LoadStreets(MwmContext & context)
   m_retrievalParams.m_prefixTokens.clear();
 
   vector<unique_ptr<coding::CompressedBitVector>> streetsList;
-  ForEachStreetCategory([&](strings::UniString const & category)
-                        {
-                          m_retrievalParams.m_tokens[0][0] = category;
-                          auto streets = Retrieval::RetrieveAddressFeatures(
-                              context.m_value, *this /* cancellable */, m_retrievalParams);
-                          if (!coding::CompressedBitVector::IsEmpty(streets))
-                            streetsList.push_back(move(streets));
-                        });
+  StreetCategories::Instance().ForEach([&](strings::UniString const & category)
+                                       {
+                                         m_retrievalParams.m_tokens[0][0] = category;
+                                         auto streets = Retrieval::RetrieveAddressFeatures(
+                                             context.m_value, *this /* cancellable */,
+                                             m_retrievalParams);
+                                         if (!coding::CompressedBitVector::IsEmpty(streets))
+                                           streetsList.push_back(move(streets));
+                                       });
 
   // Following code performs pairwise union of adjacent bit vectors
   // until at most one bit vector is left.
