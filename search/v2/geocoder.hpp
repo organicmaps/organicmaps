@@ -251,7 +251,8 @@ private:
   FeaturesFilter m_filter;
 
   // Features matcher for layers intersection.
-  unique_ptr<FeaturesLayerMatcher> m_matcher;
+  map<MwmSet::MwmId, unique_ptr<FeaturesLayerMatcher>> m_matchersCache;
+  FeaturesLayerMatcher * m_matcher;
 
   // Path finder for interpretations.
   FeaturesLayerPathFinder m_finder;

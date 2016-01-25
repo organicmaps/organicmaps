@@ -58,7 +58,8 @@ public:
   static uint32_t const kInvalidId = numeric_limits<uint32_t>::max();
   static double const kBuildingRadiusMeters;
 
-  FeaturesLayerMatcher(Index & index, MwmContext & context, my::Cancellable const & cancellable);
+  FeaturesLayerMatcher(Index & index, my::Cancellable const & cancellable);
+  void InitContext(MwmContext * context);
 
   template <typename TFn>
   void Match(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
@@ -89,6 +90,8 @@ public:
       break;
     }
   }
+
+  void FinishQuery();
 
 private:
   template <typename TFn>
@@ -152,7 +155,6 @@ private:
     if (queryTokens.empty())
       return;
 
-    auto const & mwmId = m_context.m_handle.GetId();
     vector<ReverseGeocoder::Building> nearbyBuildings;
     for (size_t i = 0; i < pois.size(); ++i)
     {
@@ -163,7 +165,7 @@ private:
       m_reverseGeocoder.GetNearbyBuildings(poiCenters[i], kBuildingRadiusMeters, nearbyBuildings);
       for (auto const & building : nearbyBuildings)
       {
-        if (building.m_id.m_mwmId != mwmId || building.m_distanceMeters > kBuildingRadiusMeters)
+        if (building.m_id.m_mwmId != m_context->m_id || building.m_distanceMeters > kBuildingRadiusMeters)
           continue;
         if (HouseNumbersMatch(building.m_name, queryTokens))
           fn(pois[i], building.m_id.m_index);
@@ -184,7 +186,6 @@ private:
     // it's faster to check nearby streets for POIs.
     if (pois.size() < streets.size())
     {
-      auto const & mwmId = m_context.m_handle.GetId();
       for (uint32_t poiId : pois)
       {
         // TODO (@y, @m, @vng): implement a faster version
@@ -192,7 +193,7 @@ private:
         // map.
         for (auto const & street : GetNearbyStreets(poiId))
         {
-          if (street.m_id.m_mwmId != mwmId ||
+          if (street.m_id.m_mwmId != m_context->m_id ||
               street.m_distanceMeters > ReverseGeocoder::kLookupRadiusM)
           {
             continue;
@@ -330,26 +331,24 @@ private:
 
   uint32_t GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature);
 
-  vector<ReverseGeocoder::Street> const & GetNearbyStreetsImpl(uint32_t featureId,
-                                                               FeatureType & feature);
-
   inline void GetByIndex(uint32_t id, FeatureType & ft) const
   {
-    m_context.m_vector.GetByIndex(id, ft);
+    /// @todo Add StatsCache for feature id -> (point, name / house number).
+    m_context->m_vector.GetByIndex(id, ft);
   }
 
-  MwmContext & m_context;
+  MwmContext * m_context;
 
   ReverseGeocoder m_reverseGeocoder;
 
   // Cache of streets in a feature's vicinity. All lists in the cache
   // are ordered by distance from the corresponding feature.
-  unordered_map<uint32_t, vector<ReverseGeocoder::Street>> m_nearbyStreetsCache;
+  StatsCache<uint32_t, vector<ReverseGeocoder::Street>> m_nearbyStreetsCache;
 
   // Cache of correct streets for buildings. Current search algorithm
   // supports only one street for a building, whereas buildings can be
   // located on multiple streets.
-  unordered_map<uint32_t, uint32_t> m_matchingStreetsCache;
+  StatsCache<uint32_t, uint32_t> m_matchingStreetsCache;
 
   unique_ptr<HouseToStreetTable> m_houseToStreetTable;
 

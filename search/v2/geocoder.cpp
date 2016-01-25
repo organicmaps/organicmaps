@@ -421,13 +421,22 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       m_context = move(context);
       MY_SCOPE_GUARD(cleanup, [&]()
                      {
-                       m_matcher.reset();
+                       LOG(LDEBUG, ("Search results for", m_context->GetMwmName()));
+                       m_matcher->FinishQuery();
+                       m_matcher = nullptr;
                        m_context.reset();
                        m_addressFeatures.clear();
                        m_streets = nullptr;
                      });
 
-      m_matcher.reset(new FeaturesLayerMatcher(m_index, *m_context, *this /* cancellable */));
+      auto iMatcher = m_matchersCache.find(m_context->m_id);
+      if (iMatcher == m_matchersCache.end())
+      {
+        iMatcher = m_matchersCache.insert(make_pair(m_context->m_id, make_unique<FeaturesLayerMatcher>(
+                                            m_index, *this /* cancellable */))).first;
+      }
+      m_matcher = iMatcher->second.get();
+      m_matcher->InitContext(m_context.get());
 
       unique_ptr<coding::CompressedBitVector> viewportCBV;
       if (inViewport)
@@ -475,7 +484,7 @@ void Geocoder::ClearCaches()
 {
   m_geometryFeatures.clear();
   m_addressFeatures.clear();
-  m_matcher.reset();
+  m_matchersCache.clear();
   m_streetsCache.clear();
 }
 

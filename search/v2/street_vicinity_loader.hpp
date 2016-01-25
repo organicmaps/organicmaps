@@ -1,13 +1,11 @@
 #pragma once
 
 #include "search/projection_on_street.hpp"
+#include "search/v2/mwm_context.hpp"
+#include "search/v2/stats_cache.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
-#include "indexer/features_vector.hpp"
-#include "indexer/scale_index.hpp"
-
-#include "coding/reader.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -15,12 +13,13 @@
 
 #include "std/unordered_map.hpp"
 
-class MwmValue;
 
 namespace search
 {
 namespace v2
 {
+struct MwmContext;
+
 // This class is able to load features in a street's vicinity.
 //
 // NOTE: this class *IS NOT* thread-safe.
@@ -41,8 +40,8 @@ public:
     DISALLOW_COPY(Street);
   };
 
-  StreetVicinityLoader(MwmValue & value, FeaturesVector const & featuresVector, int scale,
-                       double offsetMeters);
+  StreetVicinityLoader(int scale, double offsetMeters);
+  void InitContext(MwmContext * context);
 
   // Calls |fn| on each index in |sortedIds| where sortedIds[index]
   // belongs to the street's vicinity.
@@ -62,7 +61,7 @@ public:
         continue;
 
       FeatureType ft;
-      m_featuresVector.GetByIndex(id, ft);
+      m_context->m_vector.GetByIndex(id, ft);
       if (!calculator.GetProjection(feature::GetCenter(ft, FeatureType::WORST_GEOMETRY), proj))
         continue;
 
@@ -70,19 +69,18 @@ public:
     }
   }
 
-  Street const & GetStreet(uint32_t featureId);
+  void FinishQuery();
 
-  inline void ClearCache() { m_cache.clear(); }
+  Street const & GetStreet(uint32_t featureId);
 
 private:
   void LoadStreet(uint32_t featureId, Street & street);
 
-  ScaleIndex<ModelReaderPtr> m_index;
-  FeaturesVector const & m_featuresVector;
+  MwmContext * m_context;
   int m_scale;
   double const m_offsetMeters;
 
-  unordered_map<uint32_t, Street> m_cache;
+  StatsCache<uint32_t, Street> m_cache;
 
   DISALLOW_COPY_AND_MOVE(StreetVicinityLoader);
 };

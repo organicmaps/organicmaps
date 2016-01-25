@@ -2,6 +2,7 @@
 
 #include "indexer/features_vector.hpp"
 #include "indexer/mwm_set.hpp"
+#include "indexer/scale_index.hpp"
 
 #include "base/macros.hpp"
 
@@ -19,6 +20,9 @@ struct MwmContext
   MwmValue & m_value;
   MwmSet::MwmId const & m_id;
   FeaturesVector m_vector;
+  ScaleIndex<ModelReaderPtr> m_index;
+
+  string const & GetMwmName() const;
 
   DISALLOW_COPY_AND_MOVE(MwmContext);
 };

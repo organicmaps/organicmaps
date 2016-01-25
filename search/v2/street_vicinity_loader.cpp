@@ -15,30 +15,37 @@ namespace search
 {
 namespace v2
 {
-StreetVicinityLoader::StreetVicinityLoader(MwmValue & value, FeaturesVector const & featuresVector,
-                                           int scale, double offsetMeters)
-  : m_index(value.m_cont.GetReader(INDEX_FILE_TAG), value.m_factory)
-  , m_featuresVector(featuresVector)
-  , m_offsetMeters(offsetMeters)
+StreetVicinityLoader::StreetVicinityLoader(int scale, double offsetMeters)
+  : m_context(nullptr), m_scale(scale), m_offsetMeters(offsetMeters), m_cache("Streets")
 {
-  auto const scaleRange = value.GetHeader().GetScaleRange();
-  m_scale = my::clamp(scale, scaleRange.first, scaleRange.second);
+}
+
+void StreetVicinityLoader::InitContext(MwmContext * context)
+{
+  m_context = context;
+  auto const scaleRange = m_context->m_value.GetHeader().GetScaleRange();
+  m_scale = my::clamp(m_scale, scaleRange.first, scaleRange.second);
+}
+
+void StreetVicinityLoader::FinishQuery()
+{
+  m_cache.FinishQuery();
 }
 
 StreetVicinityLoader::Street const & StreetVicinityLoader::GetStreet(uint32_t featureId)
 {
-  auto it = m_cache.find(featureId);
-  if (it != m_cache.end())
-    return it->second;
+  auto r = m_cache.Get(featureId);
+  if (!r.second)
+    return r.first;
 
-  LoadStreet(featureId, m_cache[featureId]);
-  return m_cache[featureId];
+  LoadStreet(featureId, r.first);
+  return r.first;
 }
 
 void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
 {
   FeatureType feature;
-  m_featuresVector.GetByIndex(featureId, feature);
+  m_context->m_vector.GetByIndex(featureId, feature);
 
   if (feature.GetFeatureType() != feature::GEOM_LINE)
     return;
@@ -54,8 +61,8 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
   auto const & intervals = coveringGetter.Get(m_scale);
   for (auto const & interval : intervals)
   {
-    m_index.ForEachInIntervalAndScale(MakeBackInsertFunctor(street.m_features), interval.first,
-                                      interval.second, m_scale);
+    m_context->m_index.ForEachInIntervalAndScale(MakeBackInsertFunctor(street.m_features),
+                                                 interval.first, interval.second, m_scale);
   }
 
   street.m_calculator = make_unique<ProjectionOnStreetCalculator>(points, m_offsetMeters);

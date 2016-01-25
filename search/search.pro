@@ -57,6 +57,7 @@ HEADERS += \
     v2/rank_table_cache.hpp \
     v2/search_model.hpp \
     v2/search_query_v2.hpp \
+    v2/stats_cache.hpp \
     v2/street_vicinity_loader.hpp \
 
 SOURCES += \
