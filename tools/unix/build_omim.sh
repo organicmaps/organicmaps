@@ -1,4 +1,6 @@
 #!/bin/bash
+set -u -e
+
 OPT_DEBUG=
 OPT_RELEASE=
 OPT_OSRM=
@@ -37,9 +39,12 @@ if [ -z "$OPT_DEBUG$OPT_RELEASE$OPT_OSRM" ]; then
   OPT_RELEASE=1
 fi
 
-set -x -u -e
-
 OMIM_PATH="$(cd "${OMIM_PATH:-$(dirname "$0")/../..}"; pwd)"
+if ! grep "DEFAULT_URLS_JSON" "$OMIM_PATH/private.h" >/dev/null 2>/dev/null; then
+  echo "Please run $OMIM_PATH/configure.sh"
+  exit 2
+fi
+
 BOOST_PATH="${BOOST_PATH:-/usr/local/boost_1.54.0}"
 DEVTOOLSET_PATH=/opt/rh/devtoolset-2
 if [ -d "$DEVTOOLSET_PATH" ]; then
