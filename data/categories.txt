@@ -60,7 +60,7 @@ amenity-bureau_de_change
 en:3currency exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ru:3обмен валюты|обменник|4валюта|деньги
 uk:3обмін валют|валюта|гроші
-de:3Geldwechselstelle|Geld
+de:3Geldwechselstelle|Wechselstube|Geld
 fr:3bureau de change|3change|3devises|argent
 it:3cambio valute|valuta|soldi
 es:3cambio de devisas|dinero
@@ -89,7 +89,7 @@ amenity-bar|amenity-pub
 en:2bar|2pub|beer|drink|food|U+1F37A|U+1F37B|U+1F376
 ru:2бар|2паб|пиво|выпить|еда
 uk:2бар|2паб|пиво|напої|їжа
-de:2Bar|2Pub|Bier|Essen
+de:2Bar|2Pub|Kneipe|Bier|Essen
 fr:2bar|2pub|bière|boisson|nourriture
 it:2bar|2birra|pub|mangiare
 es:2bar|2pub|comer
@@ -118,7 +118,7 @@ amenity-cafe
 en:3cafe|3restaurant|3food|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
 ru:3кафе|3ресторан|3еда
 uk:3кафе|3ресторан|2їжа|2їсти
-de:3Cafe|3Restautant|essen
+de:3Cafe|3Restautant|Kaffee|essen
 fr:3café|3restaurant|3resto|3nourriture
 it:3caffè|3ristorante|pasto|mangiare
 es:3café|3restaurante|comer
@@ -147,7 +147,7 @@ amenity-fast_food
 en:4fast food|3restaurant|3cafe|takeaway|3food|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374
 ru:3фастфуд|3ресторан|3кафе|еда
 uk:3фастфуд|3ресторан|3кафе|2їжа|2їсти
-de:4Fast food|takeaway|Restaurant|Cafe|Pizzeria|essen
+de:4Fastfood|takeaway|Restaurant|Cafe|Pizzeria|essen
 fr:4restauration rapide|3restaurant|3café|à emporter|3nourriture|3resto
 it:4fast food|takeaway|caffè|ristorante|pasto|mangiare
 es:4comida rápida|restaurante|café|comer
@@ -176,7 +176,7 @@ amenity-restaurant
 en:3restaurant|3cafe|3food|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
 ru:3ресторан|3кафе|еда
 uk:3ресторан|3кафе|2їжа|2їсти
-de:3Restaurant|3Cafe|Gasthaus|3essen
+de:3Restaurant|3Cafe|Gasthaus|Gaststube|3essen
 fr:3restaurant|3café|3nourriture|3resto
 it:3ristorante|3caffè|mangiare
 es:3restaurante|3café|comer
@@ -234,7 +234,7 @@ shop-bakery
 en:3bakery|shop|U+1F35E
 ru:3булочная|магазин
 uk:3пекарня|магазин|крамниця
-de:3Bäckerei|Bäckerladen|Laden
+de:3Bäckerei|Bäckerladen|Bäcker|Laden
 fr:3boulangerie|magasin
 it:3panetteria|negozio
 es:3panadería|tienda
@@ -263,7 +263,7 @@ shop|shop-convenience|shop-mall|shop-doityourself|shop-mobile_phone|shop-chemist
 en:2shop|U+1F3EA|U+1F3EC
 ru:2магазин
 uk:2магазин|крамниця
-de:3Einkaufenladen|Geschäft|2Laden
+de:3Verbrauchermarkt|Geschäft|2Laden
 fr:2magasin
 it:2negozio
 es:2tienda
@@ -300,7 +300,7 @@ tr:çiçekçi|2mağaza
 uk:магазин квітів|2магазин|крамниця
 vi:cửa hàng hoa|tiệm hoa|cửa hàng
 hu:virágos|virágbolt|2bolt
-de:Florist|Blumengeschäft|3Einkaufenladen|Geschäft|2Laden
+de:Florist|Blumengeschäft|Blumenladen|Geschäft|2Laden
 fi:floristi|kukkakauppa|3kauppa
 cs:květinářství|2obchod
 it:fiorista|fioraio|2negozio
@@ -329,7 +329,7 @@ tr:kasap|2mağaza
 uk:м'ясний магазин|2магазин|крамниця
 vi:cửa hàng thịt|cửa hàng
 hu:hentes|2bolt
-de:Metzgerei|3Einkaufenladen|Geschäft|2Laden
+de:Metzgerei|Metzger|Schlachter|Geschäft|2Laden
 fi:lihakauppias|3kauppa
 cs:řeznictví|2obchod
 it:macellaio|2negozio
@@ -358,7 +358,7 @@ tr:mobilya mağazası|2mağaza
 uk:магазин меблів|2магазин|крамниця
 vi:cửa hàng nội thất|cửa hàng
 hu:bútoráruház|2bolt
-de:Möbelgeschäft|3Einkaufenladen|Geschäft|2Laden
+de:Möbelgeschäft|Geschäft|2Laden
 fi:huonekalukauppa|3kauppa
 cs:nábytek|2obchod
 it:negozio di mobili|2negozio
@@ -387,7 +387,7 @@ tr:içki dükkanı|2mağaza
 uk:винний магазин|крамниця спиртних напоїв|2магазин|крамниця
 vi:cửa hàng rượu|rượu|cửa hàng
 hu:italbolt|ital|2bolt
-de:Spirituosengeschäft|Spirituosen|3Einkaufenladen|Geschäft|2Laden
+de:Spirituosengeschäft|Spirituosen|Geschäft|2Laden
 fi:alkoholikauppa|alkoholi|3kauppa
 cs:obchod s alkoholem|2obchod
 it:enoteca|2negozio
@@ -416,7 +416,7 @@ tr:kitapçı|2mağaza
 uk:книгарня|2магазин|крамниця
 vi:hiệu sách|cửa hàng
 hu:könyvesbolt|2bolt
-de:Büchergeschäft|3Einkaufenladen|Geschäft|2Laden
+de:Büchergeschäft|Buchhandlung|Geschäft|2Laden
 fi:kirjakauppa|3kauppa
 cs:knihkupectví|2obchod
 it:libreria|2negozio
@@ -445,7 +445,7 @@ tr:ayakkabı mağazası|2mağaza
 uk:магазин взуття|2магазин|крамниця
 vi:cửa hàng giày|cửa hàng
 hu:cipőbolt|2bolt
-de:Schuhgeschäft|3Einkaufenladen|Geschäft|2Laden
+de:Schuhgeschäft|Schuhladen|Geschäft|2Laden
 fi:kenkäkauppa|3kauppa
 cs:obuv|2obchod
 it:calzolaio|2negozio
@@ -474,7 +474,7 @@ tr:elektronik mağazası|2mağaza
 uk:електротехнічний магазин|2магазин|крамниця
 vi:cửa hàng điện|cửa hàng
 hu:elektronika|2bolt
-de:Elektronik|3Einkaufenladen|Geschäft|2Laden
+de:Elektronik|Geschäft|2Laden
 fi:elektroniikka|3kauppa
 cs:elektronika|2obchod
 it:negozio di elettronica|2negozio
@@ -503,7 +503,7 @@ tr:hırdavatçı|2mağaza
 uk:магазин побутової техніки|2магазин|крамниця
 vi:cửa hàng phần cứng|cửa hàng
 hu:vaskereskedés|2bolt
-de:Eisenwarengeschäft|3Einkaufenladen|Geschäft|2Laden
+de:Eisenwarengeschäft|Eisenwarenhandlung|Geschäft|2Laden
 fi:työkalukauppa|3kauppa
 cs:železářství|2obchod
 it:ferramenta|2negozio
@@ -532,7 +532,7 @@ tr:kuyumcu|2mağaza
 uk:ювелірний магазин|2магазин|крамниця
 vi:đồ trang sức|cửa hàng
 hu:ékszer|2bolt
-de:Juweliergeschäft|3Einkaufenladen|Geschäft|2Laden
+de:Juweliergeschäft|Juwelier|Schmuck|Geschäft|2Laden
 fi:korukauppa|3kauppa
 cs:klenotnictví|2obchod
 it:gioielleria|2negozio
@@ -561,7 +561,7 @@ tr:gözlükçü|2mağaza
 uk:оптика|2магазин|крамниця
 vi:cửa hàng mắt kính|cửa hàng
 hu:optika|2bolt
-de:Optiker|3Einkaufenladen|Geschäft|2Laden
+de:Optiker|Brillengeschäft|Geschäft|2Laden
 fi:optikko|3kauppa
 cs:optika|2obchod
 it:ottico|2negozio
@@ -590,7 +590,7 @@ tr:hediyelik eşya mağazası|2mağaza
 uk:магазин сувенірів|2магазин|крамниця
 vi:cửa hàng quà tặng|cửa hàng
 hu:ajándékbolt|2bolt
-de:Geschenkladen|3Einkaufenladen|Geschäft|2Laden
+de:Geschenkladen|Geschenke|Geschäft|2Laden
 fi:lahjakauppa|3kauppa
 cs:obchod s dárkovým zbožím|2obchod
 it:negozio di regali|2negozio
@@ -619,7 +619,7 @@ tr:kozmetik ürünler mağazası|2mağaza
 uk:магазин товарів для краси|2магазин|крамниця
 vi:cửa hàng làm đẹp|cửa hàng
 hu:kozmetikai termékek|2bolt
-de:Kosmetikgeschäft|3Einkaufenladen|Geschäft|2Laden
+de:Kosmetikgeschäft|Geschäft|2Laden
 fi:kauneusliike|3kauppa
 cs:kosmetický salón|2obchod
 it:estetista|2negozio
@@ -648,7 +648,7 @@ tr:manav|2mağaza
 uk:магазин овочів|овочі|фрукти|2магазин|крамниця
 vi:cửa hàng rau củ|cửa hàng
 hu:zöldséges|2bolt
-de:Gemüseladen|3Einkaufenladen|Geschäft|2Laden
+de:Gemüseladen|Gemüsehändler|Geschäft|2Laden
 fi:vihanneskauppias|3kauppa
 cs:ovoce a zelenina|2obchod
 it:fruttivendolo|2negozio
@@ -677,7 +677,7 @@ tr:spor ürünleri|2mağaza
 uk:спортивні товари|2магазин|крамниця
 vi:đồ dùng thể thao|cửa hàng
 hu:sporteszközök|2bolt
-de:Sportartikel|3Einkaufenladen|Geschäft|2Laden
+de:Sportartikel|Fitnessgeschäft|Geschäft|2Laden
 fi:urheilukauppa|3kauppa
 cs:sportovní zboží|2obchod
 it:negozio sportivo|negozio articoli sportivi|2negozio
@@ -756,7 +756,7 @@ shop-clothes
 en:clothes shop|4clothes|U+1F45A|U+1F457|U+1F456|U+1F455
 ru:магазин одежды|4одежда
 uk:магазин одягу|речі|4одяг|2крамниця
-de:Bekleidungsgeschäft|Laden
+de:Bekleidungsgeschäft|Klamotten|Laden
 fr:boutique de vêtements|4vêtements
 it:negozio di abbigliamento|negozio
 es:tienda de ropa|3ropa|tienda
@@ -901,7 +901,7 @@ railway-tram_stop
 en:tram stop|3tram|stop|4transport|U+1F683
 ru:4остановка|4трамвай|4транспорт
 uk:4зупинка|4трамвай|4транспорт
-de:4Haltestelle|Tram|Verkehr
+de:4Straßenbahnhaltestelle|Tramhaltestelle|Haltestelle|Tram|Verkehr
 fr:arrêt de tramway|3tramway|3tram|arrêt|4transport
 it:fermata|tram|4transporto
 es:parada|4transporte
@@ -930,7 +930,7 @@ amenity-bus_station
 en:bus station|2bus|station|4transport|U+1F68C|U+1F68F|U+1F68D
 ru:автостанция|4автобус|4остановка|4транспорт
 uk:автовокзал|4автобус|4зупинка|4транспорт
-de:4Bahnhof|Haltestelle|Bus|Autobus|Verkehr
+de:4Busbahnhof|Haltestelle|Bus|Autobus|Verkehr
 fr:gare routière|2bus|2autobus|arrêt|4transport
 it:autostazione|fermata|autobus|4transporto
 es:estación de autobuses|4transporte
@@ -959,7 +959,7 @@ railway-station|railway-halt
 en:3train station|4railway|railroad|3train|4station|4transport|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
 ru:ж/д станция|3поезд|3станция|4транспорт
 uk:залізничний вокзал|3поїзд|залізниця|3станція|4транспорт
-de:3Haltestelle|3Station|Zug|Verkehr
+de:4Bahnhof|3Haltepunkt|3Station|Zug|Bahn|Verkehr
 fr:3gare|4chemin de fer|3train|4transport
 it:3stazione ferroviaria|3treno|transporto
 es:3estación de tren|3tren|transporte
@@ -1017,7 +1017,7 @@ amenity-ferry_terminal
 en:3ferry|terminal|transport|U+1F6A2|U+1F6A4|U+2693
 ru:3паром|транспорт
 uk:3пором|транспорт
-de:2Fähre|Verkehr
+de:2Fähre|Terminal|Verkehr
 fr:3traversier|terminal|transport
 it:3traghetto|transporto
 es:3transbordador|transporte
@@ -1162,7 +1162,7 @@ tourism-viewpoint
 en:4viewpoint|tourism|sights
 ru:4обзорная площадка|туризм|достопримечательность
 uk:4оглядний майданчик|4місце огляду|туризм|пам’ятка|пам’ятні місця
-de:3Panorama|Sehenswürdigkeit
+de:3Panorama|Ausblick|Sehenswürdigkeit
 fr:4belvédère|4point de vue|4panorama|tourisme|site touristique
 it:3panorama|turistico
 es:3vista panorámica|turismo
@@ -1249,7 +1249,7 @@ amenity-place_of_worship
 en:place of worship|4temple|sights|U+1F64F|U+26EA
 ru:3храм|церковь|достопримечательность
 uk:3храм|церква|собор|пам’ятка|алтарь|мавзолей|пам’ятні місця
-de:4Tempel|Kirche|Dom|Sehenswürdigkeit
+de:Anbetungsstätte|Sehenswürdigkeit
 fr:4lieu de culte|site touristique
 it:4tempio|cattedrale|duomo|turistico
 es:4templo|lugar de culto|turismo
@@ -1273,6 +1273,34 @@ id:tempat ibadah|pemandangan
 ro:3loc de cult|obiective turistice
 nb:3gudshus|severdigheter
 fi:3uskonnollinen kohde|nähtävyydet
+
+amenity-place_of_worship-christian
+en:church|sights
+de:Kirche|Dom|3Kathedrale|4Münster|Sehenswürdigkeit
+
+amenity-place_of_worship-muslim
+en:mosque|sights
+de:Moschee|Sehenswürdigkeit
+
+amenity-place_of_worship-buddhist
+en:4temple|sights|U+1F64F|U+26EA
+de:Tempel|Sehenswürdigkeit
+
+amenity-place_of_worship-hindu
+en:4temple|sights|U+1F64F|U+26EA
+de:Tempel|Sehenswürdigkeit
+
+amenity-place_of_worship-shinto
+en:shrine|sights
+de:Schrein|Sehenswürdigkeit
+
+amenity-place_of_worship-jewish
+en:synagogue|sights
+de:Synagoge|Sehenswürdigkeit
+
+amenity-place_of_worship-taoist
+en:4temple|sights|U+1F64F|U+26EA
+de:Tempel|Sehenswürdigkeit
 
 tourism-museum
 en:2museum|attraction|tourism|sights|U+1F3A8
@@ -1510,6 +1538,7 @@ amenity-bench
 en:bench
 ru:скамейка|лавка
 uk:лавка
+de:Parkbank
 fr:banc
 it:panchina|panca
 es:banca
@@ -1567,7 +1596,7 @@ amenity-car_sharing|amenity-car_rental
 en:3car rental|car|rental|sharing|U+1F697|U+1F698|U+1F699
 ru:4прокат авто|3авто|3машина|прокат
 uk:4прокат авто|3авто|3машина|прокат
-de:3Autoverleih|Auto|Farzeug Mieten|Verleih
+de:3Autoverleih|Mietauto|Auto|Fahrzeug Mieten|Verleih
 fr:4location de voitures|auto|loueur|location|partage
 it:3noleggio di automobili|noleggio
 es:3coche compartido|alquiler
@@ -1596,7 +1625,7 @@ amenity-cinema
 en:3cinema|entertainment|U+1F3A6|U+1F3AC
 ru:кинотеатр|3кино|развлечения
 uk:3кіно|кінотеатр|розваги
-de:3Kino|Cinema|Filmtheater|Unterhaltung
+de:3Kino|Cinema|Filmtheater|Lichtspielhaus|Unterhaltung
 fr:3cinéma|divertissement
 it:3cinema|teatro|divertimento
 es:3cine|entretenimiento
@@ -1712,7 +1741,7 @@ amenity-casino
 en:casino|entertainment|U+1F3B0|U+1F3B2|U+1F3B4
 ru:казино|развлечения
 uk:казино|розваги
-de:Kasino|Unterhaltung
+de:Kasino|Spielkasino|Spielhalle|Unterhaltung
 fr:casino|divertissement
 it:casinò|divertimento
 es:casino|entretenimiento
@@ -1800,7 +1829,7 @@ amenity-fire_station
 en:fire station|U+1F692
 ru:пожарные
 uk:пожежна частина
-de:Feuerwehr
+de:Feuerwehr|Feuerwache
 fr:caserne de pompiers
 it:scuadra antincendio
 es:parque de bomberos
@@ -1887,7 +1916,7 @@ amenity-hospital|amenity-doctors|amenity-dentist|amenity-clinic
 en:3hospital|clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A
 ru:3больница|3госпиталь|врач|доктор
 uk:3лікарня|клініка|лікар|травмпункт
-de:3Spital|Krankenhaus
+de:Krankenhaus|3Spital
 fr:3hôpital|clinique|3médecin|3docteur
 it:3ospedale
 es:3hospital
@@ -2031,7 +2060,7 @@ amenity-pharmacy
 en:3pharmacy|3drugstore|apothecary|dispensary|U+1F489|U+1F48A
 ru:3аптека
 uk:3аптека|3ліки
-de:3Apotheke|3Droguerie
+de:3Apotheke|3Drogerie
 fr:3pharmacie|dispensaire
 it:3farmacia
 es:3farmacia
@@ -2118,7 +2147,7 @@ amenity-recycling|amenity-waste_disposal
 en:recycling|trash|bin|garbage|U+1F6AE
 ru:мусорка
 uk:сміттєвий бак|сміття|корзина
-de:Abfälle|Recycling|Müll
+de:Recycling|Abfälle|Müll
 fr:recyclage|poubelle|déchet
 it:rifiuti
 es:reciclaje
@@ -2176,7 +2205,7 @@ amenity-shelter
 en:shelter
 ru:укрытие
 uk:укриття
-de:Schutz|Zivilschutz
+de:Schutzraum|Zivilschutz
 fr:refuge
 it:riparo
 es:abrigo
@@ -2350,7 +2379,7 @@ place-city
 en:city|town
 ru:город
 uk:місто
-de:Stadt
+de:Großstadt
 fr:ville
 it:città
 es:ciudad
@@ -2553,7 +2582,7 @@ place-suburb
 en:suburb|district
 ru:район|микрорайон|округ|квартал
 uk:район|мікрорайон|квартал|округа
-de:Kreis|Wohnbezirk|Wohnviertel
+de:Stadtteil|Kreis|Wohnbezirk|Wohnviertel
 fr:banlieue|arrondissement|quartier
 it:quartiere
 es:barrio
@@ -2640,7 +2669,7 @@ place-locality
 en:locality
 ru:местность|регион
 uk:місцевість|регіон
-de:Lokal|Region|Raum
+de:Örtlichkeit|Lokalität|Region|Raum
 fr:localité
 it:località|luogo|regione|area
 es:localidad
@@ -2785,7 +2814,7 @@ highway-path|highway-footway|highway-steps
 en:path
 ru:дорожка
 uk:пішохідна доріжка|пішохідний прохід
-de:Weg|Bahn
+de:Weg|Fußweg|Pfad
 fr:chemin
 it:sentiero|viottolo
 es:sendero
@@ -2814,7 +2843,7 @@ highway-primary|highway-primary_link|highway-residential|highway-secondary|highw
 en:street|st|str|ave|road|rd
 ru:улица|переулок|проезд|тракт|проспект|ул
 uk:вулиця|провулок|проїзд|проспект|бульвар|вул
-de:Strasse|Weg|Avenue|Gasse|str
+de:Strasse|Weg|Avenue|Gasse|Str
 fr:rue|avenue|av|boul|boulevard|route
 it:via|strada|corso|vicolo
 es:calle|avenue|camino
@@ -2844,7 +2873,7 @@ en:3exit|3junction
 ru:3съезд
 uk:з'їзд|сполучення|переплетення
 fr:3sortie|3bifurcation
-de:4Ausfahrt
+de:4Ausfahrt|Abfahrt
 cs:dopravní uzel|3dálnice
 sk:dopravný uzol|3diaľnica
 ja:1ジャンクション|料金所|高速道路|インターチェンジ
@@ -2898,7 +2927,7 @@ natural-water|landuse-basin|landuse-reservoir
 en:water
 ru:водоём
 uk:водоймище|резервуар|басейн
-de:Wasserbecken
+de:Wasserfläche|Wasserbecken
 fr:eau
 it:bacino
 es:cuenca
@@ -3043,7 +3072,7 @@ tourism-hostel
 en:3hostel|hotel|motel|U+1F3E8
 ru:3хостел|гостиница|отель|мотель
 uk:3хостел|отель|мотель|вітальниця|готель
-de:3Wohnheim|Gasthaus
+de:3Herberge|Hostel|Gasthaus
 fr:3auberge de jeunesse|hôtel|motel
 it:3ostello
 es:3albergue juvenil|4residencia
@@ -3101,7 +3130,7 @@ tourism-guest_house
 en:guest house|hotel|hostel|U+1F3E8
 ru:гостевой дом|гостиница|отель|хостел
 uk:гостинний дім|готель|хостел|постояльний двір
-de:Gästehaus|Hotel|Gasthaus|Wohnheim
+de:Gästehaus|Hotel|Wohnheim
 fr:maison d'hôtes|hôtel|auberge de jeunesse
 it:guest house|hôtel|albergo|ostello
 es:casa de huéspedes|hotel|albergue juvenil|residencia
@@ -3449,7 +3478,7 @@ amenity-police
 en:4police|U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
 ru:4милиция|4полиция
 uk:4міліція|4поліція
-de:4Polizeistation|Polizei
+de:4Polizeistation|Polizeiwache|Polizei
 fr:4police|4gendarmerie
 it:posto di polizia|4polizia
 es:4policía
@@ -3768,7 +3797,7 @@ internet_access|internet_access-wlan
 en:WiFi|3Internet|U+1F4F6
 cs:WiFi|3Internet
 sk:WiFi|3Internet
-de:WiFi|3Internet
+de:3Internet|Internetzugang|WiFi
 es:WiFi|3Internet
 fr:WiFi|3Internet
 it:WiFi|3Internet
@@ -3828,4 +3857,10 @@ vi:camera tốc độ
 id:kamera kecepatan
 ro:radar
 nb:fartskamera
+de:Blitzer
 fi:nopeuskamera
+
+man_made-lighthouse
+en:lighthouse
+ru:маяк
+de:Leuchtturm
