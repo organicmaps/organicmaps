@@ -15,7 +15,7 @@ It takes city points from omim intermediate data and calculates roads between th
 After all, it stores road features OSM way ids into csv text file.
 '''
 
-road_delta = 50
+road_delta = 200
 WORKERS = 16
 
 def get_way_ids(point1, point2, server):
@@ -72,7 +72,9 @@ print "Have {0} towns".format(len(towns))
 tasks = each_to_each(towns)
 filtered = []
 for p1, p2 in tasks:
-    if (p1[0]-p2[0])**2 + (p1[1]-p2[1])**2 < road_delta:
+    if p1[2] and p2[2]:
+        filtered.append((p1,p2))
+    elif (p1[0]-p2[0])**2 + (p1[1]-p2[1])**2 < road_delta:
         filtered.append((p1,p2))
 tasks = filtered
 
