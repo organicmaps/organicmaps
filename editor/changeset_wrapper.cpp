@@ -14,13 +14,57 @@
 
 using editor::XMLFeature;
 
+using TGeometry = set<m2::PointD>;
+
 namespace
 {
-double ScoreLatLon(XMLFeature const & xmlFt, ms::LatLon const & latLon)
+bool LatLonEqual(ms::LatLon const & a, ms::LatLon const & b)
 {
   double constexpr eps = MercatorBounds::GetCellID2PointAbsEpsilon();
+  return a.EqualDxDy(b, eps);
+}
+
+double ScoreLatLon(XMLFeature const & xmlFt, ms::LatLon const & latLon)
+{
   // TODO: Find proper score values;
-  return latLon.EqualDxDy(xmlFt.GetCenter(), eps) ? 10 ? -10;
+  return LatLonEqual(latLon, xmlFt.GetCenter()) ? 10 : -10;
+}
+
+double ScoreGeometry(pugi::xml_document const & osmResponse, pugi::xml_node const & way,
+                     TGeometry geometry)
+{
+  int matched = 0;
+  int total = 0;
+  // TODO(mgsergio): optimize using sorting and scaning eps-squares.
+  // The idea is to build squares with side = eps on points from the first set.
+  // Sort them by y and x in y groups.
+  // Then pass points from the second set through constructed struct and register events
+  // like square started, square ended, point encounted.
+
+  for (auto const xNodeRef : way.select_nodes("nd/@ref"))
+  {
+    ++total;
+    string const nodeRef = xNodeRef.attribute().value();
+    auto const node = osmResponse.select_node(("node[@ref='" + nodeRef + "']").data()).node();
+    if (!node)
+    {
+      LOG(LDEBUG, ("OSM response have ref", nodeRef,
+                   "but have no node with such id.", osmResponse));
+      continue;  // TODO: or break and return -1000?
+    }
+
+    XMLFeature xmlFt(node);
+    for (auto pointIt = begin(geometry); pointIt != end(geometry); ++pointIt)
+    {
+      if (LatLonEqual(xmlFt.GetCenter(), MercatorBounds::ToLatLon(*pointIt)))
+      {
+        ++matched;
+        geometry.erase(pointIt);
+      }
+    }
+  }
+
+  return static_cast<double>(matched) / total * 100;
 }
 
 double ScoreNames(XMLFeature const & xmlFt, StringUtf8Multilang const & names)
@@ -142,6 +186,49 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, FeatureTyp
 
   return bestMatchNode;
 }
+
+pugi::xml_node GetBestOsmWay(pugi::xml_document const & osmResponse, FeatureType const & ft,
+                             TGeometry const & geometry)
+{
+  double bestScore = -1;
+  pugi::xml_node bestMatchWay;
+
+  for (auto const & xWay : osmResponse.select_nodes("Way"))
+  {
+    try
+    {
+      XMLFeature xmlFt(xWay.node());
+
+      if (!TypesEqual(xmlFt, feature::TypesHolder(ft)))
+        continue;
+
+      double nodeScore = ScoreGeometry(osmResponse, xWay.node(), geometry);
+      if (nodeScore < 0)
+        continue;
+
+      nodeScore += ScoreNames(xmlFt, ft.GetNames());
+      nodeScore += ScoreMetadata(xmlFt, ft.GetMetadata());
+
+      if (bestScore < nodeScore)
+      {
+        bestScore = nodeScore;
+        bestMatchWay = xWay.node();
+      }
+    }
+    catch (editor::XMLFeatureNoLatLonError const & ex)
+    {
+      LOG(LWARNING, ("No lat/lon attribute in osm response node.", ex.Msg()));
+      continue;
+    }
+  }
+
+  // TODO(mgsergio): Add a properly defined threshold.
+  // if (bestScore < minimumScoreThreshold)
+  //   return pugi::xml_node;
+
+  return bestMatchWay;
+}
+
 }  // namespace
 
 string DebugPrint(pugi::xml_document const & doc)
@@ -200,7 +287,7 @@ XMLFeature ChangesetWrapper::GetMatchingFeatureFromOSM(XMLFeature const & ourPat
   {
     using m2::PointD;
     // Set filters out duplicate points for closed ways or triangles' vertices.
-    set<PointD> geometry;
+    TGeometry geometry;
     feature.ForEachTriangle([&geometry](PointD const & p1, PointD const & p2, PointD const & p3)
     {
       geometry.insert(p1);
@@ -218,11 +305,11 @@ XMLFeature ChangesetWrapper::GetMatchingFeatureFromOSM(XMLFeature const & ourPat
       LoadXmlFromOSM(ll, doc);
 
       // TODO(AlexZ): Select best matching OSM way from possible many ways.
-      pugi::xml_node const firstWay = doc.child("osm").child("way");
-      if (firstWay.empty())
+      pugi::xml_node const bestWay = GetBestOsmWay(doc, feature, geometry);
+      if (bestWay.empty())
         continue;
 
-      XMLFeature const way(firstWay);
+      XMLFeature const way(bestWay);
       if (!way.IsArea())
         continue;
 
