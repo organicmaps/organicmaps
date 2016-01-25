@@ -5325,7 +5325,7 @@
     uk = Вимкнуто
     vi = Tắt
     hu = Ki
-    de = An
+    de = Aus
     fi = Pois päältä
     cs = Vypnuto
     it = Sì
@@ -5356,7 +5356,7 @@
     uk = Увімкнуто
     vi = Bật
     hu = Be
-    de = Aus
+    de = An
     fi = Päällä
     cs = Zapnuto
     it = No

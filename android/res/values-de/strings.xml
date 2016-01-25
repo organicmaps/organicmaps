@@ -322,9 +322,9 @@
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Nachtmodus</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">An</string>
+	<string name="pref_map_style_default">Aus</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">Aus</string>
+	<string name="pref_map_style_night">An</string>
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_auto">Auto</string>
 	<!-- Settings «Map» category: «Perspective view» title -->
