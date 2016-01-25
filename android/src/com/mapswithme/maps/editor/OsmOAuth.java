@@ -28,6 +28,8 @@ public final class OsmOAuth
   private static final String PREF_OSM_TOKEN = "OsmToken";
   private static final String PREF_OSM_SECRET = "OsmSecret";
 
+  public static final String URL_PARAM_VERIFIER = "oauth_verifier";
+
   public static boolean isAuthorized()
   {
     return MwmApplication.prefs().contains(PREF_OSM_TOKEN) && MwmApplication.prefs().contains(PREF_OSM_SECRET);
@@ -49,6 +51,15 @@ public final class OsmOAuth
                   .putString(PREF_OSM_TOKEN, token)
                   .putString(PREF_OSM_SECRET, secret)
                   .commit();
+  }
+
+  /**
+   * Some redirect urls indicates that user wasn't registered before.
+   * Initial auth url should be reloaded to get correct {@link #URL_PARAM_VERIFIER} then.
+   */
+  public static boolean shouldReloadWebviewUrl(String url)
+  {
+    return url.contains("/welcome") || url.endsWith("/");
   }
 
   /**

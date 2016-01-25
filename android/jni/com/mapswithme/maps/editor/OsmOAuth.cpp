@@ -37,7 +37,6 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeAuthWithPassword(JNIEnv * env, jc
 {
   OsmOAuth auth = OsmOAuth::ServerAuth();
   auto authResult = auth.AuthorizePassword(ToNativeString(env, login), ToNativeString(env, password));
-  LOG(LINFO, ("Auth result : ", authResult));
   return authResult == OsmOAuth::AuthResult::OK ? ToStringArray(env, auth.GetToken())
                                                 : nullptr;
 }
@@ -50,7 +49,6 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeAuthWithWebviewToken(JNIEnv * env
   TKeySecret outKeySecret;
   TKeySecret inKeySecret(ToNativeString(env, secret), ToNativeString(env, token));
   auto authResult = auth.FinishAuthorization(inKeySecret, ToNativeString(env, verifier), outKeySecret);
-  LOG(LINFO, ("Auth result : ", authResult));
   if (authResult != OsmOAuth::AuthResult::OK)
     return nullptr;
   auth.FinishAuthorization(inKeySecret, ToNativeString(env, token), outKeySecret);
@@ -65,7 +63,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetFacebookAuthUrl(JNIEnv * env, 
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_OsmOAuth_nativeAuthGoogle(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetGoogleAuthUrl(JNIEnv * env, jclass clazz)
 {
   OsmOAuth::TUrlKeySecret keySecret = OsmOAuth::ServerAuth().GetGoogleOAuthURL();
   return ToStringArray(env, keySecret.first, keySecret.second.first, keySecret.second.second);

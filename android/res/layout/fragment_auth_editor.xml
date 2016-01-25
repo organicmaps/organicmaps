@@ -17,7 +17,6 @@
     tools:ignore="UnusedAttribute"/>
 
   <ScrollView
-    android:id="@+id/block_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_cards"
@@ -113,39 +112,6 @@
         android:text="Register"
         android:textAllCaps="true"
         android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
-    </LinearLayout>
-
-  </ScrollView>
-
-  <ScrollView
-    android:id="@+id/block_terms"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fillViewport="true"
-    tools:ignore="DuplicateIds">
-
-    <LinearLayout
-      android:id="@+id/block_terms"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:padding="@dimen/margin_base"
-      android:visibility="gone">
-
-      <TextView
-        android:id="@+id/terms"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-      <Button
-        android:id="@+id/btn__confirm"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/base_block_size"
-        android:background="?buttonAccent"
-        android:text="@string/agree"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
 
     </LinearLayout>
 
