@@ -106,14 +106,9 @@ void Storage::Clear()
   m_localFilesForFakeCountries.clear();
 }
 
-void Storage::FastMigrateIfPossible()
+bool Storage::HaveDownloadedCountries()
 {
-  bool disableFastMigrate = false;
-  Settings::Get("DisableFastMigrate", disableFastMigrate);
-  if(!disableFastMigrate && platform::migrate::NeedMigrate() && m_localFiles.empty())
-  {
-    Migrate();
-  }
+  return !m_localFiles.empty();
 }
 
 void Storage::Migrate()
