@@ -1436,7 +1436,7 @@
     vi = Tải xuống Bản đồ\n(^ ^)
     ro = Descărcare hartă\n(^ ^)
     nb = Last ned kart\n(^ ^)
-    fi = Lataa kartta\n(^ ^)    
+    fi = Lataa kartta\n(^ ^)
 
   [country_status_download_without_routing]
     comment = Button text for the button at the center of the screen when the country is not downloaded
@@ -5407,7 +5407,7 @@
   [pref_map_3d_title]
     comment = Settings «Map» category: «Perspective view» title
     tags = ios, android
-    en = Perspective view 
+    en = Perspective view
     ru = Перспективный вид
     fr = Vue en perspective
     da = Perspektivvisning
@@ -5465,7 +5465,7 @@
     pl = Budynki w 3D
     nl = 3D-gebouwen
     pt = Prédios em 3D
-    
+
   [pref_map_3d_buildings_subtitle]
     tags = ios, android
     comment = Settings «Map» category: «3D buildings» summary
@@ -5860,7 +5860,7 @@
     pl = 1 dzień
     nl = 1 dag
     pt = 1 dia
-    
+
   [recent_track_help_text]
     en = Please note: activation of this function causes increased battery usage.
     ru = Внимание: активация этой функции может привести к повышенному расходу батареи.
@@ -5888,8 +5888,8 @@
     es = Nota: activar esta función aumenta el uso de la batería.
     pl = Uwaga: aktywacja tej funkcji spowoduje większe zużycie baterii.
     nl = Onthoud: Het activeren van deze functie veroorzaakt meer batterijverbruik.
-    pt = Atenção: a ativação desta função aumenta o uso da bateria.    
-    
+    pt = Atenção: a ativação desta função aumenta o uso da bateria.
+
   [pref_track_ios_caption]
     tags = ios
     en = Recent track shows your traveled path.
@@ -5906,19 +5906,19 @@
     de = Letzte Strecke zeigt den von Ihnen zurückgelegten Weg.
     fi = Viimeisin reitti näyttää kulkemasi matkan.
     cs = Nedávná trasa zobrazuje cestu, po které jste cestovali.
-    it = Il percorso recente mostra il tragitto effettuato. 
-    nb = Nylig rute viser ruten du har fulgt. 
+    it = Il percorso recente mostra il tragitto effettuato.
+    nb = Nylig rute viser ruten du har fulgt.
     zh-Hant = 近期軌跡顯示您的行進道路。
     zh-Hans = 近期轨迹显示您的行进道路。
-    th = เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ 
-    ja = 最近ルートは、使用した道のりを表示する機能です。 
-    ro = Opțiunea Rută recentă vă afișează ruta folosită anterior. 
-    ar = يُظهر المسار الأخير مسار سفرك. 
-    sk = Funkcia Čerstvá stopa zobrazuje trasu, ktorú ste prešli. 
-    es = El trayecto reciente muestra tu recorrido de viaje. 
-    pl = Ostatnia trasa pokazuje pokonaną przez Ciebie ścieżkę. 
+    th = เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ
+    ja = 最近ルートは、使用した道のりを表示する機能です。
+    ro = Opțiunea Rută recentă vă afișează ruta folosită anterior.
+    ar = يُظهر المسار الأخير مسار سفرك.
+    sk = Funkcia Čerstvá stopa zobrazuje trasu, ktorú ste prešli.
+    es = El trayecto reciente muestra tu recorrido de viaje.
+    pl = Ostatnia trasa pokazuje pokonaną przez Ciebie ścieżkę.
     nl = Recente route geeft uw gebruikte route weer.
-    pt = O percurso recente mostra o seu caminho viajado. 
+    pt = O percurso recente mostra o seu caminho viajado.
 
   [pref_track_ios_subcaption]
     tags = ios
@@ -9788,7 +9788,7 @@
     el = βιετναμέζικη κουζίνα
     ar = مطبخ فيتنامي
     he = מטבח וייטנאמי
-    
+
   [cuisine_noodles]
     tags = android, ios
     comment = Cuisine
@@ -10189,7 +10189,7 @@
     tags = android, ios
     comment = Cuisine
     en = crepe
-    ru = тонкие блинчики 
+    ru = тонкие блинчики
     uk = креп
     tr = krep
     es = crepes
@@ -10628,7 +10628,7 @@
     ro = tavernă
     pl = winiarnia
     ko = 와인 레스토랑
-    id = taverna anggur 
+    id = taverna anggur
     hu = borozó
     de = Buschenschank
     fr = buschenschank
@@ -11438,7 +11438,7 @@
     el = εκλεκτά τρόφιμα
     ar = أطعمة مبردة
     he = מעדנייה
-    
+
   [cuisine_irish]
     tags = android, ios
     comment = Cuisine
@@ -11686,7 +11686,7 @@
     ko = 모로코식 음식
     id = masakan maroko
     hu = marokkói konyha
-    de = Marokkanische Küche 
+    de = Marokkanische Küche
     fr = cuisine marocaine
     nl = marokkaans
     fi = marokkolainen keittiö
@@ -11795,7 +11795,7 @@
     nb = gourmet
     zh-Hant = 高級 餐飲
     zh-Hans = 高级 餐饮
-    vi = chuỗi nhà hàng 
+    vi = chuỗi nhà hàng
     th = อาหารหรูหรา
     ja = 高級料理
     el = εκλεκτό φαγητό
@@ -14057,32 +14057,32 @@
 
   [rate_alert_title]
     tags = ios, android
-    en = Like the app? 
+    en = Like the app?
     ru = Нравится приложение?
-    fr = Vous aimez l’application ? 
-    da = Kan du lide appen? 
-    id = Suka aplikasi ini? 
-    ko = 앱을 좋아하나요? 
-    sv = Gillar du appen? 
-    tr = Uygulamayı beğendiniz mi? 
+    fr = Vous aimez l’application ?
+    da = Kan du lide appen?
+    id = Suka aplikasi ini?
+    ko = 앱을 좋아하나요?
+    sv = Gillar du appen?
+    tr = Uygulamayı beğendiniz mi?
     uk = Подобається програма?
-    vi = Bạn thích ứng dụng chứ? 
+    vi = Bạn thích ứng dụng chứ?
     hu = Tetszik az app?
-    de = Gefällt Ihnen die App? 
+    de = Gefällt Ihnen die App?
     fi = Pidätkö sovelluksesta?
-    cs = Líbí se vám aplikace? 
-    it = Ti piace l’app? 
-    nb = Liker du appen? 
+    cs = Líbí se vám aplikace?
+    it = Ti piace l’app?
+    nb = Liker du appen?
     zh-Hant = 喜歡這個應用嗎？
     zh-Hans = 喜欢这个应用吗？
-    th = ชอบแอปหรือไม่? 
-    ja = このアプリが好きですか? 
+    th = ชอบแอปหรือไม่?
+    ja = このアプリが好きですか?
     ro = Vă place aplicația?
     ar = يعجبك التطبيق؟
     sk = Páči sa vám aplikácia?
-    es = ¿Te gusta la aplicación? 
-    pl = Lubisz tę aplikację? 
-    nl = Vindt u de app leuk? 
+    es = ¿Te gusta la aplicación?
+    pl = Lubisz tę aplikację?
+    nl = Vindt u de app leuk?
     pt = Gosta do aplicativo?
 
   [rate_alert_default_message]
@@ -14097,7 +14097,7 @@
     tr = MAPS.ME’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.
     uk = Дякуємо за використання MAPS.ME. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.
     vi = Cám ơn bạn đã sử dụng MAPS.ME. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.
-    hu = Köszönjük, hogy a MAPS.ME-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk. 
+    hu = Köszönjük, hogy a MAPS.ME-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk.
     de = Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihr Feedback hilft uns, besser zu werden.
     fi = Kiitos kun käytät MAPS.ME:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.
     cs = Děkujeme, že používáte MAPS.ME. Ohodnoťte, prosím, tuto aplikaci. Váš komentář nám pomůže ji ještě zlepšit.
@@ -14139,7 +14139,7 @@
     ja = やったー! 相思相愛!
     ro = Ura! Și noi vă iubim!
     ar = مرحا! نحن أيضا نحبك!
-    sk = Hurá! Aj my vás taky páči! 
+    sk = Hurá! Aj my vás taky páči!
     es = ¡Genial! ¡Nosotros también te queremos!
     pl = Hurra! My też Cię uwielbiamy!
     nl = Hoera! Wij houden ook van u!
@@ -14169,7 +14169,7 @@
     ja = ありがとうございます。頑張ります!
     ro = Vă mulțumim, vom face tot ce ne stă în putință!
     ar = شكرا لك، سوف نبذل قصارى جهدنا!
-    sk = Ďakujeme vám, urobíme, čo bude v našich silách! 
+    sk = Ďakujeme vám, urobíme, čo bude v našich silách!
     es = ¡Gracias, haremos todo lo posible!
     pl = Dziękujemy, zrobimy co w naszej mocy!
     nl = Bedankt, we zullen ons best doen!
@@ -14199,7 +14199,7 @@
     ja = 改善のためのアイデアはございますか?
     ro = Aveți vreo idee prin care putem să îmbunătățim aplicația?
     ar = لديك أي فكرة حول كيف يمكننا أن نجعله أفضل؟
-    sk = Nejaký nápad, ako ju môžeme vylepšiť? 
+    sk = Nejaký nápad, ako ju môžeme vylepšiť?
     es = ¿Alguna idea de cómo podemos mejorarla?
     pl = Czy masz pomysł, w jaki sposób możemy dokonać ulepszeń?
     nl = Heeft u suggesties voor verbeteringen?
@@ -14932,7 +14932,7 @@
     nl = Wilt u dat wij een route plannen vanaf uw huidige locatie?
     pt = Deseja planejar uma rota a partir da sua localização atual?
 
-  [whats_new_next_button]    
+  [whats_new_next_button]
     tags = ios
     en = Next
     ru = Далее
