@@ -59,7 +59,7 @@ public:
   static double const kBuildingRadiusMeters;
 
   FeaturesLayerMatcher(Index & index, my::Cancellable const & cancellable);
-  void InitContext(MwmContext * context);
+  void SetContext(MwmContext * context);
 
   template <typename TFn>
   void Match(FeaturesLayer const & child, FeaturesLayer const & parent, TFn && fn)
@@ -91,7 +91,7 @@ public:
     }
   }
 
-  void FinishQuery();
+  void OnQueryFinished();
 
 private:
   template <typename TFn>
@@ -333,7 +333,7 @@ private:
 
   inline void GetByIndex(uint32_t id, FeatureType & ft) const
   {
-    /// @todo Add StatsCache for feature id -> (point, name / house number).
+    /// @todo Add Cache for feature id -> (point, name / house number).
     m_context->m_vector.GetByIndex(id, ft);
   }
 
@@ -343,12 +343,12 @@ private:
 
   // Cache of streets in a feature's vicinity. All lists in the cache
   // are ordered by distance from the corresponding feature.
-  StatsCache<uint32_t, vector<ReverseGeocoder::Street>> m_nearbyStreetsCache;
+  Cache<uint32_t, vector<ReverseGeocoder::Street>> m_nearbyStreetsCache;
 
   // Cache of correct streets for buildings. Current search algorithm
   // supports only one street for a building, whereas buildings can be
   // located on multiple streets.
-  StatsCache<uint32_t, uint32_t> m_matchingStreetsCache;
+  Cache<uint32_t, uint32_t> m_matchingStreetsCache;
 
   unique_ptr<HouseToStreetTable> m_houseToStreetTable;
 

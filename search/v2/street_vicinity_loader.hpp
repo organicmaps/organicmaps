@@ -41,7 +41,7 @@ public:
   };
 
   StreetVicinityLoader(int scale, double offsetMeters);
-  void InitContext(MwmContext * context);
+  void SetContext(MwmContext * context);
 
   // Calls |fn| on each index in |sortedIds| where sortedIds[index]
   // belongs to the street's vicinity.
@@ -69,7 +69,7 @@ public:
     }
   }
 
-  void FinishQuery();
+  void OnQueryFinished();
 
   Street const & GetStreet(uint32_t featureId);
 
@@ -80,7 +80,7 @@ private:
   int m_scale;
   double const m_offsetMeters;
 
-  StatsCache<uint32_t, Street> m_cache;
+  Cache<uint32_t, Street> m_cache;
 
   DISALLOW_COPY_AND_MOVE(StreetVicinityLoader);
 };

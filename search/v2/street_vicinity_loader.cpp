@@ -20,16 +20,20 @@ StreetVicinityLoader::StreetVicinityLoader(int scale, double offsetMeters)
 {
 }
 
-void StreetVicinityLoader::InitContext(MwmContext * context)
+void StreetVicinityLoader::SetContext(MwmContext * context)
 {
+  ASSERT(context, ());
+  if (m_context == context)
+    return;
+
   m_context = context;
   auto const scaleRange = m_context->m_value.GetHeader().GetScaleRange();
   m_scale = my::clamp(m_scale, scaleRange.first, scaleRange.second);
 }
 
-void StreetVicinityLoader::FinishQuery()
+void StreetVicinityLoader::OnQueryFinished()
 {
-  m_cache.FinishQuery();
+  m_cache.ClearIfNeeded();
 }
 
 StreetVicinityLoader::Street const & StreetVicinityLoader::GetStreet(uint32_t featureId)

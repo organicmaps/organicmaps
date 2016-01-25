@@ -294,6 +294,7 @@ Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
   , m_numTokens(0)
   , m_model(SearchModel::Instance())
   , m_streets(nullptr)
+  , m_matcher(nullptr)
   , m_finder(static_cast<my::Cancellable const &>(*this))
   , m_results(nullptr)
 {
@@ -426,34 +427,35 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 
     // MatchViewportAndPosition() should always be matched in mwms
     // intersecting with position and viewport.
+    auto const & cancellable = static_cast<my::Cancellable const&>(*this);
     auto processCountry = [&](size_t index, unique_ptr<MwmContext> context)
     {
       ASSERT(context, ());
       m_context = move(context);
       MY_SCOPE_GUARD(cleanup, [&]()
                      {
-                       LOG(LDEBUG, ("Search results for", m_context->GetMwmName()));
-                       m_matcher->FinishQuery();
+                       LOG(LDEBUG, (m_context->GetMwmName(), "processing complete."));
+                       m_matcher->OnQueryFinished();
                        m_matcher = nullptr;
                        m_context.reset();
                        m_addressFeatures.clear();
                        m_streets = nullptr;
                      });
 
-      auto iMatcher = m_matchersCache.find(m_context->m_id);
-      if (iMatcher == m_matchersCache.end())
+      auto it = m_matchersCache.find(m_context->m_id);
+      if (it == m_matchersCache.end())
       {
-        iMatcher = m_matchersCache.insert(make_pair(m_context->m_id, make_unique<FeaturesLayerMatcher>(
-                                            m_index, *this /* cancellable */))).first;
+        it = m_matchersCache.insert(make_pair(m_context->m_id, make_unique<FeaturesLayerMatcher>(
+                    m_index, cancellable))).first;
       }
-      m_matcher = iMatcher->second.get();
-      m_matcher->InitContext(m_context.get());
+      m_matcher = it->second.get();
+      m_matcher->SetContext(m_context.get());
 
       unique_ptr<coding::CompressedBitVector> viewportCBV;
       if (inViewport)
       {
         viewportCBV = Retrieval::RetrieveGeometryFeatures(
-              m_context->m_value, static_cast<my::Cancellable const &>(*this),
+              m_context->m_value, cancellable,
               m_params.m_viewport, m_params.m_scale);
       }
 
@@ -464,7 +466,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
         PrepareRetrievalParams(i, i + 1);
 
         m_addressFeatures[i] = Retrieval::RetrieveAddressFeatures(
-            m_context->m_value, *this /* cancellable */, m_retrievalParams);
+              m_context->m_value, cancellable, m_retrievalParams);
         ASSERT(m_addressFeatures[i], ());
 
         if (viewportCBV)
@@ -726,7 +728,7 @@ void Geocoder::MatchRegions(RegionType type)
 
   auto const & regions = m_regions[type];
 
-  auto const & fileName = m_context->m_handle.GetId().GetInfo()->GetCountryName();
+  auto const & fileName = m_context->GetMwmName();
 
   // Try to match regions.
   for (auto const & p : regions)
