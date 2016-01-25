@@ -19,7 +19,7 @@ and Android debug packages.
 For detailed installation instructions and Android/iOS building process,
 see [INSTALL.md](https://github.com/mapsme/omim/tree/master/docs/INSTALL.md).
 
-Nightly builds for Android and iOS are published to [osmz.ru](http://osmz.ru/mwm/)
+Nightly builds for Android are published to [osmz.ru](http://osmz.ru/mwm/)
 and Dropbox: [release](http://maps.me/release), [debug](http://maps.me/debug).
 
 ## Building maps
