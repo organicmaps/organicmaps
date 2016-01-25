@@ -9,6 +9,8 @@
 
 #include "std/sstream.hpp"
 
+#include "3party/pugixml/src/pugixml.hpp"
+
 namespace osm
 {
 
@@ -101,6 +103,24 @@ OsmOAuth::ResponseCode ServerApi06::TestUserExists(string const & userName)
 {
   string const method = "/user/" + UrlEncode(userName);
   return m_auth.DirectRequest(method, false).first;
+}
+
+OsmOAuth::ResponseCode ServerApi06::GetUserPreferences(UserPreferences & pref) const
+{
+  OsmOAuth::Response const response = m_auth.Request("/user/details");
+  if (response.first != OsmOAuth::ResponseCode::OK)
+    return response.first;
+  pugi::xml_document details;
+  if (!details.load_string(response.second.c_str()))
+    return OsmOAuth::ResponseCode::NotFound;
+  pugi::xml_node user = details.child("osm").child("user");
+  if (!user || !user.attribute("id"))
+    return OsmOAuth::ResponseCode::BadXML;
+  pref.m_id = user.attribute("id").as_ullong();
+  pref.m_displayName = user.attribute("display_name").as_string();
+  pref.m_imageUrl = user.child("img").attribute("href").as_string();
+  pref.m_changesets = user.child("changesets").attribute("count").as_uint();
+  return OsmOAuth::ResponseCode::OK;
 }
 
 OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(m2::RectD const & latLonRect) const

@@ -28,10 +28,16 @@ namespace
 ServerApi06 CreateAPI()
 {
   OsmOAuth auth = OsmOAuth::DevServerAuth();
-  OsmOAuth::AuthResult result = auth.AuthorizePassword(kValidOsmUser, kValidOsmPassword);
+  OsmOAuth::AuthResult const result = auth.AuthorizePassword(kValidOsmUser, kValidOsmPassword);
   TEST_EQUAL(result, OsmOAuth::AuthResult::OK, ());
   TEST(auth.IsAuthorized(), ("OSM authorization"));
   ServerApi06 api(auth);
+  // Test user preferences reading along the way.
+  osm::UserPreferences prefs;
+  OsmOAuth::ResponseCode const code = api.GetUserPreferences(prefs);
+  TEST_EQUAL(code, OsmOAuth::ResponseCode::OK, ("Request user preferences"));
+  TEST_EQUAL(prefs.m_displayName, kValidOsmUser, ("User display name"));
+  TEST_EQUAL(prefs.m_id, 3500, ("User id"));
   return api;
 }
 

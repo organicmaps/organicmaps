@@ -10,6 +10,13 @@
 
 namespace osm
 {
+struct UserPreferences
+{
+  uint64_t m_id;
+  string m_displayName;
+  string m_imageUrl;
+  uint32_t m_changesets;
+};
 
 /// All methods here are synchronous and need wrappers for async usage.
 /// TODO(AlexZ): Rewrite ServerAPI interface to accept XMLFeature.
@@ -31,6 +38,8 @@ public:
   /// This function can be used to check if user did not confirm email validation link after registration.
   /// @returns OK if user exists, NotFound if it is not, and ServerError if there is no connection.
   OsmOAuth::ResponseCode TestUserExists(string const & userName);
+  /// A convenience method for UI
+  OsmOAuth::ResponseCode GetUserPreferences(UserPreferences & pref) const;
   /// Please use at least created_by=* and comment=* tags.
   bool CreateChangeSet(TKeyValueTags const & kvTags, uint64_t & outChangeSetId) const;
   /// nodeXml should be wrapped into <osm> ... </osm> tags.
