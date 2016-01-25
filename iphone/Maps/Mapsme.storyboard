@@ -1852,7 +1852,7 @@ the world. Join us!</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="signup_now"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="Ez0-RI-stE" kind="custom" customClass="MWMSegue" id="bQL-tw-mLS"/>
+                                    <action selector="signup" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="jMD-gB-R6e"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -5,6 +5,10 @@
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "UIColor+MapsMeColor.h"
 
+#include "editor/osm_auth.hpp"
+
+using namespace osm;
+
 @interface MWMAuthorizationLoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView * backgroundImage;
@@ -77,6 +81,13 @@
 - (IBAction)loginFacebook
 {
   // TODO: Add login
+}
+
+- (IBAction)signup
+{
+  OsmOAuth const auth = OsmOAuth::ServerAuth();
+  NSURL * url = [NSURL URLWithString:@(auth.GetRegistrationURL().c_str())];
+  [[UIApplication sharedApplication] openURL:url];
 }
 
 - (IBAction)cancel
