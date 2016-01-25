@@ -42,7 +42,7 @@ UNIT_TEST(OnlineEuropeTestNurnbergToMoscow)
        "Germany_Free State of Bavaria_Upper Franconia", "Germany_Saxony_Leipzig",
        "Germany_Saxony_Dresden", "Poland_Lower Silesian Voivodeship",
        "Poland_Greater Poland Voivodeship", "Poland_Lodz Voivodeship",
-       "Poland_Masovian Voivodeship", "Poland_Lublin Voivodeship", "Belarus_Brest Region",
+       "Poland_Masovian Voivodeship", "Belarus_Brest Region", "Poland_Podlaskie Voivodeship",
        "Belarus_Hrodna Region", "Belarus_Minsk Region", "Belarus_Vitebsk Region",
        "Russia_Smolensk Oblast", "Russia_Moscow Oblast", "Russia_Moscow"},
       routerComponents);
@@ -61,7 +61,7 @@ UNIT_TEST(OnlineAmericanTestOttawaToWashington)
 UNIT_TEST(OnlineAsiaPhuketToPnompen)
 {
   integration::IRouterComponents & routerComponents  = integration::GetOsrmComponents();
-  TestOnlineCrosses({7.90, 98.23}, {11.56, 104.86}, {"Thailand_South", "Cambodia"},
+  TestOnlineCrosses({7.89, 98.30}, {11.56, 104.86}, {"Thailand_South", "Cambodia"},
                     routerComponents);
 }
 
