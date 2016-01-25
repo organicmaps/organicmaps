@@ -37,14 +37,14 @@ ServerApi06 CreateAPI()
 
 // id attribute is set to -1.
 // version attribute is set to 1.
-void GenerateNodeXml(double lat, double lon, ServerApi06::TKeyValueTags const & tags, xml_document & outNode)
+void GenerateNodeXml(ms::LatLon const & ll, ServerApi06::TKeyValueTags const & tags, xml_document & outNode)
 {
   outNode.reset();
   xml_node node = outNode.append_child("osm").append_child("node");
   node.append_attribute("id") = -1;
   node.append_attribute("version") = 1;
-  node.append_attribute("lat") = lat;
-  node.append_attribute("lon") = lon;
+  node.append_attribute("lat") = ll.lat;
+  node.append_attribute("lon") = ll.lon;
   for (auto const & kv : tags)
   {
     xml_node tag = node.append_child("tag");
@@ -53,10 +53,10 @@ void GenerateNodeXml(double lat, double lon, ServerApi06::TKeyValueTags const & 
   }
 }
 
-string XmlToString(xml_document const & doc)
+string XmlToString(xml_node const & node)
 {
   ostringstream stream;
-  doc.print(stream);
+  node.print(stream);
   return stream.str();
 }
 
@@ -91,22 +91,45 @@ UNIT_TEST(SetAttributeForOsmNode)
   TEST_EQUAL(321, doc.child("osm").child("node").attribute("Test").as_int(), ());
 }
 
+void DeleteOSMNodeIfExists(ServerApi06 const & api, uint64_t changeSetId, ms::LatLon const & ll)
+{
+  // Delete all test nodes left on the server (if any).
+  auto const response = api.GetXmlFeaturesAtLatLon(ll);
+  TEST_EQUAL(response.first, OsmOAuth::ResponseCode::OK, ());
+  xml_document reply;
+  reply.load_string(response.second.c_str());
+  // Response can be empty, and it's ok.
+  for (pugi::xml_node node : reply.child("osm").children("node"))
+  {
+    node.attribute("changeset") = changeSetId;
+    node.remove_child("tag");
+    TEST(ServerApi06::DeleteResult::ESuccessfullyDeleted == api.DeleteNode(
+           "<osm>\n" + XmlToString(node) + "</osm>", node.attribute("id").as_ullong()), ());
+  }
+}
+
 UNIT_TEST(OSM_ServerAPI_ChangesetActions)
 {
-  ServerApi06 api = CreateAPI();
+  ServerApi06 const api = CreateAPI();
 
   uint64_t changeSetId;
   TEST(api.CreateChangeSet({{"created_by", "MAPS.ME Unit Test"}, {"comment", "For test purposes only."}}, changeSetId), ());
 
+  ms::LatLon const originalLocation(11.11, 12.12);
+  // Sometimes network can unexpectedly fail (or test exception can be raised), so do some cleanup before unit tests.
+  DeleteOSMNodeIfExists(api, changeSetId, originalLocation);
+  ms::LatLon const modifiedLocation(10.10, 12.12);
+  DeleteOSMNodeIfExists(api, changeSetId, modifiedLocation);
+
   xml_document node;
-  GenerateNodeXml(11.11, 12.12, {{"testkey", "firstnode"}}, node);
+  GenerateNodeXml(originalLocation, {{"testkey", "firstnode"}}, node);
   TEST(SetAttributeForOsmNode(node, "changeset", changeSetId), ());
 
   uint64_t nodeId;
   TEST(api.CreateNode(XmlToString(node), nodeId), ());
   TEST(SetAttributeForOsmNode(node, "id", nodeId), ());
 
-  TEST(SetAttributeForOsmNode(node, "lat", 10.10), ());
+  TEST(SetAttributeForOsmNode(node, "lat", modifiedLocation.lat), ());
   TEST(api.ModifyNode(XmlToString(node), nodeId), ());
   // After modification, node version has increased.
   TEST(SetAttributeForOsmNode(node, "version", 2), ());
@@ -119,7 +142,7 @@ UNIT_TEST(OSM_ServerAPI_ChangesetActions)
   TEST(SetAttributeForOsmNode(node, "changeset", changeSetId), ());
 
   auto const response = api.GetXmlFeaturesAtLatLon(node.child("osm").child("node").attribute("lat").as_double(),
-                                               node.child("osm").child("node").attribute("lon").as_double());
+                                                   node.child("osm").child("node").attribute("lon").as_double());
   TEST_EQUAL(response.first, OsmOAuth::ResponseCode::OK, ());
   xml_document reply;
   reply.load_string(response.second.c_str());
