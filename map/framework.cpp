@@ -1880,7 +1880,13 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
         });
 
   if (mark != nullptr)
+  {
+    // TODO(AlexZ): Refactor out together with UserMarks.
+    const_cast<UserMark *>(mark)->SetFeature(fid.IsValid() ?
+                                             GetFeatureByID(fid) :
+                                             GetFeatureAtMercatorPoint(mark->GetPivot()));
     return mark;
+  }
 
   bool needMark = false;
   m2::PointD mercatorPivot;
