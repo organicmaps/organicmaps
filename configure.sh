@@ -62,7 +62,7 @@ if git clone --depth 1 "$PRIVATE_REPO" "$TMP_REPO_DIR"; then
   echo "Saved private repository url to $SAVED_PRIVATE_REPO_FILE"
   echo "$PRIVATE_REPO" > "$SAVED_PRIVATE_REPO_FILE"
   rm -rf "$TMP_REPO_DIR/.git" "$TMP_REPO_DIR/README.md"
-  cp -Rv "$TMP_REPO_DIR"/* .
+  cp -Rv "$TMP_REPO_DIR"/* "$BASE_PATH"
   rm -rf "$TMP_REPO_DIR"
   echo "Private files have been updated."
 fi
