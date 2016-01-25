@@ -1265,7 +1265,7 @@ hu:templom|látványosság|látnivaló
 th:2สถานที่ประกอบพิธีกรรม|สถานที่ท่องเที่ยว
 zh-Hans:1礼拜场所|景点
 ar:مكان للعبادة|مناظر|سياحة
-da:3tempel|moske|kirke|synagoge|kultsted|sightseeing|seværdigheder
+da:3tempel|kirke|kultsted|sightseeing|seværdigheder
 tr:3ibadet yerleri|4tapınak|görülecek yerler
 sv:plats för tillbedjan|4tempel|sevärdheter
 vi:ghế dài|diểm tham quan
@@ -1276,30 +1276,37 @@ fi:3uskonnollinen kohde|nähtävyydet
 
 amenity-place_of_worship-christian
 en:church|sights
+ru:храм|костел|церковь|достопримечательность
 de:Kirche|Dom|3Kathedrale|4Münster|Sehenswürdigkeit
 
 amenity-place_of_worship-muslim
 en:mosque|sights
+ru:мечеть|достопримечательность
 de:Moschee|Sehenswürdigkeit
 
 amenity-place_of_worship-buddhist
 en:4temple|sights|U+1F64F|U+26EA
+ru:храм|достопримечательность
 de:Tempel|Sehenswürdigkeit
 
 amenity-place_of_worship-hindu
 en:4temple|sights|U+1F64F|U+26EA
+ru:храм|достопримечательность
 de:Tempel|Sehenswürdigkeit
 
 amenity-place_of_worship-shinto
 en:shrine|sights
+ru:святилище|достопримечательность
 de:Schrein|Sehenswürdigkeit
 
 amenity-place_of_worship-jewish
 en:synagogue|sights
+ru:синагога|достопримечательность
 de:Synagoge|Sehenswürdigkeit
 
 amenity-place_of_worship-taoist
 en:4temple|sights|U+1F64F|U+26EA
+ru:храм|достопримечательность
 de:Tempel|Sehenswürdigkeit
 
 tourism-museum
