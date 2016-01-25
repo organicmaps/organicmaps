@@ -26,6 +26,8 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { TrackCarSpeed, dp::Color(21, 121, 244, 255) },
       { TrackPlaneSpeed, dp::Color(10, 196, 255, 255) },
       { TrackUnknownDistance, dp::Color(97, 97, 97, 255) },
+      { DownloadCancelButton, dp::Color(0, 0, 0, 112) },
+      { DownloadCancelButtonPressed, dp::Color(0, 0, 0, 184) },
     }
   },
   { MapStyleDark,
@@ -44,6 +46,8 @@ unordered_map<int, unordered_map<int, dp::Color>> kColorConstants =
       { TrackCarSpeed, dp::Color(255, 202, 40, 255) },
       { TrackPlaneSpeed, dp::Color(255, 245, 160, 255) },
       { TrackUnknownDistance, dp::Color(150, 150, 150, 255) },
+      { DownloadCancelButton, dp::Color(255, 255, 255, 178) },
+      { DownloadCancelButtonPressed, dp::Color(255, 255, 255, 77) },
     }
   },
 };

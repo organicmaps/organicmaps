@@ -910,6 +910,16 @@ void Framework::SetDownloadCountryListener(TDownloadCountryListener const & list
   m_downloadCountryListener = listener;
 }
 
+void Framework::SetDownloadCancelListener(TDownloadCancelListener const & listener)
+{
+  m_downloadCancelListener = listener;
+}
+
+void Framework::SetAutoDownloadListener(TAutoDownloadListener const & listener)
+{
+  m_autoDownloadListener = listener;
+}
+
 void Framework::OnDownloadMapCallback(storage::TIndex const & countryIndex)
 {
   if (m_downloadCountryListener != nullptr)
@@ -918,20 +928,23 @@ void Framework::OnDownloadMapCallback(storage::TIndex const & countryIndex)
     m_activeMaps->DownloadMap(countryIndex, MapOptions::Map);
 }
 
-void Framework::OnDownloadMapRoutingCallback(storage::TIndex const & countryIndex)
-{
-  if (m_downloadCountryListener != nullptr)
-    m_downloadCountryListener(countryIndex, static_cast<int>(MapOptions::MapWithCarRouting));
-  else
-    m_activeMaps->DownloadMap(countryIndex, MapOptions::MapWithCarRouting);
-}
-
 void Framework::OnDownloadRetryCallback(storage::TIndex const & countryIndex)
 {
   if (m_downloadCountryListener != nullptr)
     m_downloadCountryListener(countryIndex, -1);
   else
     m_activeMaps->RetryDownloading(countryIndex);
+}
+
+void Framework::OnDownloadCancelCallback(storage::TIndex const & countryIndex)
+{
+  // Any cancel leads to disable auto-downloading.
+  m_autoDownloadingOn = false;
+
+  if (m_downloadCancelListener != nullptr)
+    m_downloadCancelListener(countryIndex);
+  else
+    m_activeMaps->CancelDownloading(countryIndex);
 }
 
 void Framework::OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt)
@@ -944,7 +957,16 @@ void Framework::OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::P
   }
 
   if (currentIndex != newCountryIndex)
+  {
+    // Enable auto-downloading after return from the world map.
+    if (!currentIndex.IsValid())
+      m_autoDownloadingOn = true;
+
+    if (m_autoDownloadingOn && m_autoDownloadListener != nullptr)
+      m_autoDownloadListener(newCountryIndex);
+
     UpdateCountryInfo(newCountryIndex, true /* isCurrentCountry */);
+  }
 }
 
 void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isCurrentCountry)
@@ -1392,6 +1414,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadRetryCallback, this, countryIndex));
   };
 
+  TDownloadFn downloadCancelFn = [this](storage::TIndex const & countryIndex)
+  {
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadCancelCallback, this, countryIndex));
+  };
+
   bool allow3d;
   bool allow3dBuildings;
   Load3dMode(allow3d, allow3dBuildings);
@@ -1401,7 +1428,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             df::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
                             df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex,
                                                 isCountryLoadedFn, isCountryLoadedByNameFn,
-                                                downloadMapFn, downloadRetryFn),
+                                                downloadMapFn, downloadRetryFn, downloadCancelFn),
                             params.m_visualScale,
                             move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),

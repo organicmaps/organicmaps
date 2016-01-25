@@ -98,6 +98,8 @@ class Framework
 protected:
   using TDrapeFunction = function<void (df::DrapeEngine *)>;
   using TDownloadCountryListener = function<void(storage::TIndex const &, int)>;
+  using TDownloadCancelListener = function<void(storage::TIndex const &)>;
+  using TAutoDownloadListener = function<void(storage::TIndex const &)>;
 
   StringsBundle m_stringsBundle;
 
@@ -124,6 +126,9 @@ protected:
   double m_startForegroundTime;
 
   TDownloadCountryListener m_downloadCountryListener;
+  TDownloadCancelListener m_downloadCancelListener;
+  TAutoDownloadListener m_autoDownloadListener;
+  bool m_autoDownloadingOn = true;
 
   storage::Storage m_storage;
   shared_ptr<storage::ActiveMapsLayout> m_activeMaps;
@@ -193,6 +198,8 @@ public:
   void DownloadCountry(storage::TIndex const & index, MapOptions opt);
 
   void SetDownloadCountryListener(TDownloadCountryListener const & listener);
+  void SetDownloadCancelListener(TDownloadCancelListener const & listener);
+  void SetAutoDownloadListener(TAutoDownloadListener const & listener);
 
   storage::TStatus GetCountryStatus(storage::TIndex const & index) const;
   string GetCountryName(storage::TIndex const & index) const;
@@ -353,8 +360,8 @@ private:
   void FillSearchResultsMarks(search::Results const & results);
 
   void OnDownloadMapCallback(storage::TIndex const & countryIndex);
-  void OnDownloadMapRoutingCallback(storage::TIndex const & countryIndex);
   void OnDownloadRetryCallback(storage::TIndex const & countryIndex);
+  void OnDownloadCancelCallback(storage::TIndex const & countryIndex);
 
   void OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt);
   void UpdateCountryInfo(storage::TIndex const & countryIndex, bool isCurrentCountry);

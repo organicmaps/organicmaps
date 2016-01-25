@@ -56,6 +56,7 @@ void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload
 
 char const * DownloadMapButtonID = "country_status_download";
 char const * TryAgainButtonID = "try_again";
+char const * DownloadCancelButtonID = "country_download_cancel";
 char const * DownloadingLabelID = "country_status_downloading";
 char const * DownloadingFailedID = "country_status_download_failed";
 char const * InQueueID = "country_status_added_to_queue";
@@ -202,6 +203,8 @@ void CountryStatusHelper::FillControlsForLoading()
     strings::Trim(secondLabel , "\n ");
     m_controls.push_back(MakeLabel(secondLabel));
   }
+
+  m_controls.push_back(MakeButton(FormatCancel(), BUTTON_CANCEL));
 }
 
 void CountryStatusHelper::FillControlsForInQueue()
@@ -238,6 +241,12 @@ string CountryStatusHelper::FormatFailed()
 string CountryStatusHelper::FormatTryAgain()
 {
   return GetLocalizedString(TryAgainButtonID);
+}
+
+string CountryStatusHelper::FormatCancel()
+{
+  //TODO: Uncomment after adding localization for country_download_cancel
+  return "Cancel";//GetLocalizedString(DownloadCancelButtonID);
 }
 
 }  // namespace gui

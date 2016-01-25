@@ -19,6 +19,23 @@ enum EWidget
   WIDGET_COUNTRY_STATUS = 0x8000
 };
 
+enum EGuiHandle
+{
+  GuiHandleScaleLabel,
+  GuiHandleCopyright,
+  GuiHandleCompass,
+  GuiHandleRuler,
+  GuiHandleRulerLabel,
+  GuiHandleCountryLabel,
+  GuiHandleCountryProgress,
+  GuiHandleDownloadButton,
+  GuiHandleDownloadButtonLabel,
+  GuiHandleRetryButton,
+  GuiHandleRetryButtonLabel,
+  GuiHandleCancelButton,
+  GuiHandleCancelButtonLabel
+};
+
 struct Position
 {
   Position() : m_pixelPivot(m2::PointF::Zero()), m_anchor(dp::Center) {}

@@ -14,7 +14,7 @@ class ButtonHandle : public TappableHandle
   typedef TappableHandle TBase;
 
 public:
-  ButtonHandle(dp::Anchor anchor, m2::PointF const & size,
+  ButtonHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & size,
                dp::Color const & color, dp::Color const & pressedColor);
 
   void OnTapBegin() override;

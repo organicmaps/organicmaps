@@ -22,7 +22,9 @@ enum ColorConstant
   TrackHumanSpeed,
   TrackCarSpeed,
   TrackPlaneSpeed,
-  TrackUnknownDistance
+  TrackUnknownDistance,
+  DownloadCancelButton,
+  DownloadCancelButtonPressed
 };
 
 dp::Color GetColorConstant(MapStyle style, ColorConstant constant);

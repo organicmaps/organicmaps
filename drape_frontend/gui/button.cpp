@@ -70,9 +70,9 @@ uint32_t BuildCorner(vector<Button::ButtonVertex> & vertices,
 
 }
 
-ButtonHandle::ButtonHandle(dp::Anchor anchor, m2::PointF const & size,
+ButtonHandle::ButtonHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & size,
                            dp::Color const & color, dp::Color const & pressedColor)
-  : TBase(anchor, m2::PointF::Zero(), size)
+  : TBase(id, anchor, m2::PointF::Zero(), size)
   , m_isInPressedState(false)
   , m_color(color)
   , m_pressedColor(pressedColor)

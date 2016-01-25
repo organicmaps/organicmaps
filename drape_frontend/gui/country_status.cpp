@@ -24,11 +24,11 @@ class CountryStatusButtonHandle : public ButtonHandle
   using TBase = ButtonHandle;
 
 public:
-  CountryStatusButtonHandle(CountryStatusHelper::ECountryState const state,
+  CountryStatusButtonHandle(uint32_t id, CountryStatusHelper::ECountryState const state,
                             Shape::TTapHandler const & tapHandler,
                             dp::Anchor anchor, m2::PointF const & size,
                             dp::Color const & color, dp::Color const & pressedColor)
-    : TBase(anchor, size, color, pressedColor)
+    : TBase(id, anchor, size, color, pressedColor)
     , m_state(state)
     , m_tapHandler(tapHandler)
   {}
@@ -55,11 +55,11 @@ class CountryStatusLabelHandle : public StaticLabelHandle
   using TBase = StaticLabelHandle;
 
 public:
-  CountryStatusLabelHandle(CountryStatusHelper::ECountryState const state,
+  CountryStatusLabelHandle(uint32_t id, CountryStatusHelper::ECountryState const state,
                            ref_ptr<dp::TextureManager> textureManager,
                            dp::Anchor anchor, m2::PointF const & size,
                            TAlphabet const & alphabet)
-    : TBase(textureManager, anchor, m2::PointF::Zero(), size, alphabet)
+    : TBase(id, textureManager, anchor, m2::PointF::Zero(), size, alphabet)
     , m_state(state)
   {}
 
@@ -78,9 +78,10 @@ class CountryProgressHandle : public MutableLabelHandle
   using TBase = MutableLabelHandle;
 
 public:
-  CountryProgressHandle(dp::Anchor anchor, CountryStatusHelper::ECountryState const state,
+  CountryProgressHandle(uint32_t id, dp::Anchor anchor,
+                        CountryStatusHelper::ECountryState const state,
                         ref_ptr<dp::TextureManager> textures)
-    : TBase(anchor, m2::PointF::Zero(), textures), m_state(state)
+    : TBase(id, anchor, m2::PointF::Zero(), textures), m_state(state)
   {}
 
   bool Update(ScreenBase const & screen) override
@@ -97,20 +98,27 @@ private:
   CountryStatusHelper::ECountryState m_state;
 };
 
-drape_ptr<dp::OverlayHandle> CreateButtonHandle(CountryStatusHelper::ECountryState const state,
+struct ButtonData
+{
+  Button::Params m_params;
+  StaticLabel::LabelResult m_label;
+  CountryStatusHelper::EButtonType m_type;
+};
+
+drape_ptr<dp::OverlayHandle> CreateButtonHandle(uint32_t id, CountryStatusHelper::ECountryState const state,
                                                 Shape::TTapHandler const & tapHandler,
                                                 dp::Color const & color, dp::Color const & pressedColor,
                                                 dp::Anchor anchor, m2::PointF const & size)
 {
-  return make_unique_dp<CountryStatusButtonHandle>(state, tapHandler, anchor, size, color, pressedColor);
+  return make_unique_dp<CountryStatusButtonHandle>(id, state, tapHandler, anchor, size, color, pressedColor);
 }
 
-drape_ptr<dp::OverlayHandle> CreateLabelHandle(CountryStatusHelper::ECountryState const state,
+drape_ptr<dp::OverlayHandle> CreateLabelHandle(uint32_t id, CountryStatusHelper::ECountryState const state,
                                                ref_ptr<dp::TextureManager> textureManager,
                                                dp::Anchor anchor, m2::PointF const & size,
                                                TAlphabet const & alphabet)
 {
-  return make_unique_dp<CountryStatusLabelHandle>(state, textureManager, anchor, size, alphabet);
+  return make_unique_dp<CountryStatusLabelHandle>(id, state, textureManager, anchor, size, alphabet);
 }
 
 void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlushFn const & flushFn,
@@ -130,7 +138,8 @@ void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlus
   dp::Batcher batcher(indexCount, vertexCount);
   dp::SessionGuard guard(batcher, flushFn);
   m2::PointF size(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CountryStatusLabelHandle>(state, mng, anchor, size, result.m_alphabet);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CountryStatusLabelHandle>(EGuiHandle::GuiHandleCountryLabel,
+                                                                                 state, mng, anchor, size, result.m_alphabet);
   batcher.InsertListOfStrip(result.m_state, make_ref(&provider), move(handle),
                             dp::Batcher::VertexPerQuad);
 }
@@ -148,7 +157,7 @@ void DrawProgressControl(dp::Anchor anchor, dp::Batcher::TFlushFn const & flushF
   params.m_font = dp::FontDecl(textColor, 18);
   params.m_handleCreator = [state, mng](dp::Anchor anchor, m2::PointF const & /*pivot*/)
   {
-    return make_unique_dp<CountryProgressHandle>(anchor, state, mng);
+    return make_unique_dp<CountryProgressHandle>(EGuiHandle::GuiHandleCountryProgress, anchor, state, mng);
   };
 
   MutableLabelDrawer::Draw(params, mng, flushFn);
@@ -198,10 +207,10 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
   });
 
   // Preprocess buttons.
-  vector<pair<Button::Params, StaticLabel::LabelResult>> buttons;
+  vector<ButtonData> buttons;
   float const kMinButtonWidth = 400;
   float maxButtonWidth = kMinButtonWidth;
-  buttons.reserve(2);
+  buttons.reserve(3);
   ForEachComponent(helper, CountryStatusHelper::CONTROL_TYPE_BUTTON,
                    [this, &buttons, &state, &tex, &buttonHandlers,
                    &maxButtonWidth](CountryStatusHelper::Control const & control)
@@ -219,25 +228,60 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
     MapStyle const style = GetStyleReader().GetCurrentStyle();
     auto color = df::GetColorConstant(style, df::DownloadButton);
     auto pressedColor = df::GetColorConstant(style, df::DownloadButtonPressed);
+    if (control.m_buttonType == CountryStatusHelper::BUTTON_CANCEL)
+    {
+      color = df::GetColorConstant(style, df::DownloadCancelButton);
+      pressedColor = df::GetColorConstant(style, df::DownloadCancelButtonPressed);
+    }
+
+    uint32_t buttonHandleId = 0;
+    uint32_t buttonLabelHandleId = 0;
+    if (control.m_buttonType == CountryStatusHelper::BUTTON_TYPE_MAP)
+    {
+      buttonHandleId = EGuiHandle::GuiHandleDownloadButton;
+      buttonLabelHandleId = EGuiHandle::GuiHandleDownloadButtonLabel;
+    }
+    else if (control.m_buttonType == CountryStatusHelper::BUTTON_TRY_AGAIN)
+    {
+      buttonHandleId = EGuiHandle::GuiHandleRetryButton;
+      buttonLabelHandleId = EGuiHandle::GuiHandleRetryButtonLabel;
+    }
+    else if (control.m_buttonType == CountryStatusHelper::BUTTON_CANCEL)
+    {
+      buttonHandleId = EGuiHandle::GuiHandleCancelButton;
+      buttonLabelHandleId = EGuiHandle::GuiHandleCancelButtonLabel;
+    }
+    else
+    {
+      ASSERT(false, ("Unknown button"));
+    }
+
     auto const buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
     Shape::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
-    params.m_bodyHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, color, pressedColor, _1, _2);
-    params.m_labelHandleCreator = bind(&CreateLabelHandle, state, tex, _1, _2, _3);
+    params.m_bodyHandleCreator = bind(&CreateButtonHandle, buttonHandleId, state, buttonHandler, color, pressedColor, _1, _2);
+    params.m_labelHandleCreator = bind(&CreateLabelHandle, buttonLabelHandleId, state, tex, _1, _2, _3);
 
     auto label = Button::PreprocessLabel(params, tex);
     float const buttonWidth = label.m_boundRect.SizeX();
     if (buttonWidth > maxButtonWidth)
       maxButtonWidth = buttonWidth;
 
-    buttons.emplace_back(make_pair(move(params), move(label)));
+    ButtonData data;
+    data.m_params = move(params);
+    data.m_label = move(label);
+    data.m_type = control.m_buttonType;
+    buttons.emplace_back(move(data));
   });
 
   // Create buttons.
   for (size_t i = 0; i < buttons.size(); i++)
   {
-    buttons[i].first.m_width = maxButtonWidth;
+    if (buttons[i].m_type == CountryStatusHelper::BUTTON_CANCEL)
+      continue;
+
+    buttons[i].m_params.m_width = maxButtonWidth;
     ShapeControl shapeControl;
-    Button::Draw(buttons[i].first, shapeControl, buttons[i].second);
+    Button::Draw(buttons[i].m_params, shapeControl, buttons[i].m_label);
     renderer->AddShapeControl(move(shapeControl));
   }
 
@@ -247,6 +291,19 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
   {
     DrawProgressControl(m_position.m_anchor, flushFn, tex, state);
   });
+
+  // Create cancel buttons.
+  for (size_t i = 0; i < buttons.size(); i++)
+  {
+    if (buttons[i].m_type == CountryStatusHelper::BUTTON_CANCEL)
+    {
+      buttons[i].m_params.m_width = maxButtonWidth;
+      ShapeControl shapeControl;
+      Button::Draw(buttons[i].m_params, shapeControl, buttons[i].m_label);
+      renderer->AddShapeControl(move(shapeControl));
+      break;
+    }
+  }
 
   buffer_vector<float, 4> heights;
   float totalHeight = 0.0f;

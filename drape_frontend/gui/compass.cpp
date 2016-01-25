@@ -33,8 +33,9 @@ namespace
     double const VisibleEndAngle = my::DegToRad(355.0);
 
   public:
-    CompassHandle(m2::PointF const & pivot, m2::PointF const & size, Shape::TTapHandler const & tapHandler)
-      : TappableHandle(dp::Center, pivot, size)
+    CompassHandle(uint32_t id, m2::PointF const & pivot, m2::PointF const & size,
+                  Shape::TTapHandler const & tapHandler)
+      : TappableHandle(id, dp::Center, pivot, size)
       , m_tapHandler(tapHandler)
       , m_animation(false, 0.25)
     {
@@ -126,7 +127,9 @@ drape_ptr<ShapeRenderer> Compass::Draw(m2::PointF & compassSize, ref_ptr<dp::Tex
   provider.InitStream(0, info, make_ref(&vertexes));
 
   compassSize = region.GetPixelSize();
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(m_position.m_pixelPivot, compassSize, tapHandler);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(EGuiHandle::GuiHandleCompass,
+                                                                      m_position.m_pixelPivot,
+                                                                      compassSize, tapHandler);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);

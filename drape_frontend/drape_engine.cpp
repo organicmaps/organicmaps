@@ -45,6 +45,7 @@ DrapeEngine::DrapeEngine(Params && params)
 
   ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TYPE_MAP, params.m_model.GetDownloadMapHandler());
   ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TRY_AGAIN, params.m_model.GetDownloadRetryHandler());
+  ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_CANCEL, params.m_model.GetDownloadCancelHandler());
 
   m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();

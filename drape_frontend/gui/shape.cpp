@@ -9,8 +9,9 @@
 
 namespace gui
 {
-Handle::Handle(dp::Anchor anchor, const m2::PointF & pivot, const m2::PointF & size)
-  : dp::OverlayHandle(FeatureID(), anchor, 0, false)
+
+Handle::Handle(uint32_t id, dp::Anchor anchor, const m2::PointF & pivot, const m2::PointF & size)
+  : dp::OverlayHandle(FeatureID(MwmSet::MwmId(), id), anchor, 0, false)
   , m_pivot(glsl::ToVec2(pivot)), m_size(size)
 {
 }
@@ -162,6 +163,18 @@ ref_ptr<Handle> ShapeRenderer::ProcessTapEvent(m2::RectD const & touchArea)
   ForEachShapeInfo([&resultHandle, &touchArea](ShapeControl::ShapeInfo & shapeInfo)
                    {
                      if (shapeInfo.m_handle->IsTapped(touchArea))
+                       resultHandle = make_ref(shapeInfo.m_handle);
+                   });
+
+  return resultHandle;
+}
+
+ref_ptr<Handle> ShapeRenderer::FindHandle(FeatureID const & id)
+{
+  ref_ptr<Handle> resultHandle = nullptr;
+  ForEachShapeInfo([&resultHandle, &id](ShapeControl::ShapeInfo & shapeInfo)
+                   {
+                     if (shapeInfo.m_handle->GetFeatureID() == id)
                        resultHandle = make_ref(shapeInfo.m_handle);
                    });
 

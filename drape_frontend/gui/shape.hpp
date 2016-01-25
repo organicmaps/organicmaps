@@ -16,7 +16,7 @@ namespace gui
 class Handle : public dp::OverlayHandle
 {
 public:
-  Handle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size = m2::PointF::Zero());
+  Handle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size = m2::PointF::Zero());
 
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
 
@@ -43,8 +43,8 @@ protected:
 class TappableHandle : public Handle
 {
 public:
-  TappableHandle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size)
-    : Handle(anchor, pivot, size)
+  TappableHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size)
+    : Handle(id, anchor, pivot, size)
   {}
 
   bool IsTapped(m2::RectD const & touchArea) const override;
@@ -92,6 +92,7 @@ public:
   void SetPivot(m2::PointF const & pivot);
 
   ref_ptr<Handle> ProcessTapEvent(m2::RectD const & touchArea);
+  ref_ptr<Handle> FindHandle(FeatureID const & id);
 
 private:
   friend void ArrangeShapes(ref_ptr<ShapeRenderer>,

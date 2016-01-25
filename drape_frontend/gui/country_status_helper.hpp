@@ -45,7 +45,8 @@ public:
   {
     BUTTON_TYPE_NOT_BUTTON,
     BUTTON_TYPE_MAP,
-    BUTTON_TRY_AGAIN
+    BUTTON_TRY_AGAIN,
+    BUTTON_CANCEL
   };
 
   struct Control
@@ -86,6 +87,7 @@ private:
   string FormatInQueueMap();
   string FormatFailed();
   string FormatTryAgain();
+  string FormatCancel();
 
   void SetState(ECountryState state);
 

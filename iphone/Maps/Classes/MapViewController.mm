@@ -588,6 +588,19 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
     }
   });
 
+  f.SetDownloadCancelListener([self, &f](storage::TIndex const & idx)
+  {
+    ActiveMapsLayout & layout = f.GetCountryTree().GetActiveMapLayout();
+    layout.CancelDownloading(idx);
+  });
+
+  f.SetAutoDownloadListener([self, &f](storage::TIndex const & idx)
+  {
+    //TODO: check wifi, migration, settings, whatever and download or not download
+    ActiveMapsLayout & layout = f.GetCountryTree().GetActiveMapLayout();
+    layout.DownloadMap(idx, MapOptions::Map);
+  });
+
   f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
   {
     dispatch_async(dispatch_get_main_queue(), [=]
