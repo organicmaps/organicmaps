@@ -47,6 +47,11 @@ void AndroidOGLContext::makeCurrent()
     CHECK_EGL_CALL();
 }
 
+void AndroidOGLContext::doneCurrent()
+{
+  clearCurrent();
+}
+
 void AndroidOGLContext::clearCurrent()
 {
   if (eglMakeCurrent(m_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) == EGL_FALSE)

@@ -15,6 +15,7 @@ public:
   ~AndroidOGLContext();
 
   void makeCurrent() override;
+  void doneCurrent() override;
   void present() override;
   void setDefaultFramebuffer() override;
   void setRenderingEnabled(bool enabled) override;
