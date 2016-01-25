@@ -90,6 +90,7 @@ public:
   AuthResult FinishAuthorization(TKeySecret const & requestToken, string const & verifier, TKeySecret & outKeySecret) const;
   AuthResult FinishAuthorization(TKeySecret const & requestToken, string const & verifier);
   string GetRegistrationURL() const { return m_baseUrl + "/user/new"; }
+  string GetResetPasswordURL() const { return m_baseUrl + "/user/forgot-password"; }
   //@}
 
   /// Tokenless GET request, for convenience.
