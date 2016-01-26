@@ -333,6 +333,8 @@ world  +
             bridge  -
             tunnel  -
             {}
+        world_level  -
+        world_towns_level  -
         {}
     historic  +
         archaeological_site  -

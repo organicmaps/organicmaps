@@ -1049,3 +1049,5 @@ amenity|place_of_worship|shinto
 amenity|place_of_worship|jewish
 amenity|place_of_worship|taoist
 man_made|water_tower
+highway|world_level
+highway|world_towns_level

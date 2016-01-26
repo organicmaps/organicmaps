@@ -33713,6 +33713,372 @@ cont {
   }
 }
 cont {
+  name: "highway-world_level"
+  element {
+    scale: 1
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 2
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 3
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 4
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 5
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 6
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 7
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 8
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 10
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 11
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 1.2
+      color: 16735775
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
+  name: "highway-world_towns_level"
+  element {
+    scale: 1
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 2
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 3
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 4
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 5
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 6
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 7
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 8
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 9
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 10
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 11
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 0.9
+      color: 16746496
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
   name: "historic-archaeological_site"
   element {
     scale: 16
