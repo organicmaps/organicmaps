@@ -877,7 +877,7 @@
 	<string name="editor_time_add_closed">Add Hours Closed</string>
 	<string name="editor_time_title">Opening hours</string>
 	<string name="editor_time_advanced">Advanced Mode</string>
-	<string name="editor_time_simple">Simple mode</string>
+	<string name="editor_time_simple">Simple Mode</string>
 	<string name="editor_hours_closed">Hours Closed</string>
 	<string name="editor_example_values">Example Values</string>
 	<string name="editor_correct_mistake">Correct mistake</string>
