@@ -561,7 +561,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
         LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
         uint64_t sizeToDownload = sizes.first;
         MapOptions options = static_cast<MapOptions>(opt);
-        if(HasOptions(options, MapOptions::CarRouting))
+        if (HasOptions(options, MapOptions::CarRouting))
           sizeToDownload += sizes.second;
 
         NSString * name = @(layout.GetCountryName(idx).c_str());

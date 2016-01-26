@@ -383,13 +383,13 @@ UNIT_TEST(StorageTest_TwoCountriesDownloading)
   TIndex const index1 = storage.FindIndexByFile("Yemen");
   TEST(index1.IsValid(), ());
   storage.DeleteCountry(index1, MapOptions::Map);
-  MY_SCOPE_GUARD(cleanupUruguayFiles,
+  MY_SCOPE_GUARD(cleanupFiles1,
                  bind(&Storage::DeleteCountry, &storage, index1, MapOptions::Map));
 
   TIndex const index2 = storage.FindIndexByFile("Angola");
   TEST(index2.IsValid(), ());
   storage.DeleteCountry(index2, MapOptions::MapWithCarRouting);
-  MY_SCOPE_GUARD(cleanupVenezuelaFiles, bind(&Storage::DeleteCountry, &storage, index2,
+  MY_SCOPE_GUARD(cleanupFiles2, bind(&Storage::DeleteCountry, &storage, index2,
                                              MapOptions::MapWithCarRouting));
 
   unique_ptr<CountryDownloaderChecker> uruguayChecker =
