@@ -2,6 +2,8 @@
 
 #include "map/framework.hpp"
 
+#include "write_dir_changer.hpp"
+
 #include <QtCore/QCoreApplication>
 
 using namespace platform;
@@ -9,13 +11,8 @@ using namespace platform;
 UNIT_TEST(StorageTest_FastMigrate)
 {
   // Set clear state.
-  {
-    Settings::Clear();
-    Framework f;
-    auto & s = f.Storage();
-    s.DeleteAllLocalMaps();
-    Settings::Clear();
-  }
+  string const kMapTestDir = "map-tests";
+  WritableDirChanger writableDirChanger(kMapTestDir);
 
   Framework f;
   auto & s = f.Storage();
@@ -29,12 +26,13 @@ UNIT_TEST(StorageTest_FastMigrate)
 
 UNIT_TEST(StorageTests_Migrate)
 {
-  Settings::Clear();
+  string const kMapTestDir = "map-tests";
+  WritableDirChanger writableDirChanger(kMapTestDir);
+
   Settings::Set("DisableFastMigrate", true);
 
   Framework f;
   auto & s = f.Storage();
-  s.DeleteAllLocalMaps();
 
   auto cleanup = [&]()
   {
