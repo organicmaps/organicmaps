@@ -15,7 +15,9 @@ enum EGeomType
   GEOM_LINE = 1,
   GEOM_AREA = 2
 };
-}
+}  // namespace feature
+
+string DebugPrint(feature::EGeomType type);
 
 struct FeatureID
 {

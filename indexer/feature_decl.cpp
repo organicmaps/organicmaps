@@ -8,3 +8,15 @@ string DebugPrint(FeatureID const & id)
   ss << "{ " << DebugPrint(id.m_mwmId) << ", " << id.m_index << " }";
   return ss.str();
 }
+
+string DebugPrint(feature::EGeomType type)
+{
+  using feature::EGeomType;
+  switch (type)
+  {
+  case EGeomType::GEOM_UNDEFINED: return "GEOM_UNDEFINED";
+  case EGeomType::GEOM_POINT: return "GEOM_POINT";
+  case EGeomType::GEOM_LINE: return "GEOM_LINE";
+  case EGeomType::GEOM_AREA: return "GEOM_AREA";
+  }
+}
