@@ -15284,7 +15284,7 @@
 
   [editor_time_simple]
     tags = ios, android
-    en = Simple mode
+    en = Simple Mode
     ru = Простой режим
     fr = Mode simple
     da = Enkel tilstand
