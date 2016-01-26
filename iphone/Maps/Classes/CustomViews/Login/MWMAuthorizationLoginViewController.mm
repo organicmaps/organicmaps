@@ -1,22 +1,44 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
 #import "MWMAuthorizationCommon.h"
+#import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "editor/osm_auth.hpp"
+#include "editor/server_api.hpp"
 
 using namespace osm;
 
-@interface MWMAuthorizationLoginViewController ()
+@interface MWMAuthorizationLoginViewController () <UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView * backgroundImage;
 @property (weak, nonatomic) IBOutlet UIButton * loginGoogleButton;
 @property (weak, nonatomic) IBOutlet UIButton * loginFacebookButton;
 @property (weak, nonatomic) IBOutlet UIButton * loginOSMButton;
 @property (weak, nonatomic) IBOutlet UIButton * signupButton;
+@property (weak, nonatomic) IBOutlet UILabel * message;
+@property (weak, nonatomic) IBOutlet UILabel * signupTitle;
+@property (weak, nonatomic) IBOutlet UIButton * logoutButton;
+@property (weak, nonatomic) IBOutlet UIImageView * googleImage;
+@property (weak, nonatomic) IBOutlet UIImageView * facebookImage;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem * leftBarButton;
+
+@property (weak, nonatomic) IBOutlet UIView * profileView;
+@property (weak, nonatomic) IBOutlet UILabel * localChangesLabel;
+@property (weak, nonatomic) IBOutlet UILabel * localChangesNotUploadedLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * localChangesViewHeight;
+@property (weak, nonatomic) IBOutlet UIButton * localChangesActionButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * localChangesLabelCenter;
+
+@property (weak, nonatomic) IBOutlet UILabel * uploadedChangesLabel;
+@property (weak, nonatomic) IBOutlet UILabel * lastUploadLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * uploadedChangesViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * uploadedChangesLabelCenter;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * messageTopOffset;
 @end
 
 @implementation MWMAuthorizationLoginViewController
@@ -31,7 +53,12 @@ using namespace osm;
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  self.title = L(@"login");
+  if (MWMAuthorizationHaveCredentials())
+    [self configHaveAuth];
+  else
+    [self configNoAuth:MWMAuthorizationIsNeedCheck() && !MWMAuthorizationIsUserSkip()];
+
+  [self configChanges];
   UINavigationBar * navBar = self.navigationController.navigationBar;
   navBar.barStyle = UIBarStyleBlack;
   navBar.tintColor = [UIColor clearColor];
@@ -40,6 +67,7 @@ using namespace osm;
   navBar.shadowImage = [[UIImage alloc] init];
   [navBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
   navBar.translucent = YES;
+  MWMAuthorizationSetNeedCheck(NO);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -71,6 +99,94 @@ using namespace osm;
   }
 }
 
+- (void)configHaveAuth
+{
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
+  {
+    OsmOAuth auth = OsmOAuth::ServerAuth();
+    auth.SetToken(MWMAuthorizationGetCredentials());
+    ServerApi06 api(auth);
+    UserPreferences prefs;
+    if (api.GetUserPreferences(prefs) != OsmOAuth::ResponseCode::OK)
+      return;
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+      self.title = @(prefs.m_displayName.c_str());
+    });
+  });
+  self.title = @"";
+  self.message.hidden = YES;
+  self.loginGoogleButton.hidden = YES;
+  self.loginFacebookButton.hidden = YES;
+  self.loginOSMButton.hidden = YES;
+  self.signupTitle.hidden = YES;
+  self.signupButton.hidden = YES;
+  self.googleImage.hidden = YES;
+  self.facebookImage.hidden = YES;
+  self.logoutButton.hidden = NO;
+  self.leftBarButton.image = [UIImage imageNamed:@"btn_back_arrow"];
+}
+
+- (void)configNoAuth:(BOOL)isAfterFirstEdit
+{
+  self.message.hidden = NO;
+  self.loginGoogleButton.hidden = NO;
+  self.loginFacebookButton.hidden = NO;
+  self.loginOSMButton.hidden = NO;
+  self.signupTitle.hidden = NO;
+  self.signupButton.hidden = NO;
+  self.googleImage.hidden = NO;
+  self.facebookImage.hidden = NO;
+  self.logoutButton.hidden = YES;
+  if (isAfterFirstEdit)
+  {
+    self.title = L(@"thank_you");
+    self.message.text = L(@"thank_you_message");
+    self.leftBarButton.image = [UIImage imageNamed:@"ic_nav_bar_close"];
+  }
+  else
+  {
+    self.title = L(@"profile");
+    self.message.text = L(@"profile_message");
+    self.leftBarButton.image = [UIImage imageNamed:@"btn_back_arrow"];
+  }
+}
+
+- (void)configChanges
+{
+  auto const stats = Editor::Instance().GetStats();
+  if (stats.m_edits.empty() && !MWMAuthorizationHaveCredentials())
+  {
+    self.profileView.hidden = YES;
+    self.messageTopOffset.priority = UILayoutPriorityDefaultHigh;
+  }
+  else
+  {
+    size_t const totalChanges = stats.m_edits.size();
+    size_t const uploadedChanges = stats.m_uploadedCount;
+    size_t const localChanges = totalChanges - uploadedChanges;
+
+    self.localChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"changes"), @(localChanges).stringValue];
+    BOOL const noLocalChanges = (localChanges == 0);
+    self.localChangesNotUploadedLabel.hidden = noLocalChanges;
+    self.localChangesActionButton.hidden = noLocalChanges;
+    self.localChangesViewHeight.constant = noLocalChanges ? 44.0 : 64.0;
+    self.localChangesLabelCenter.priority = noLocalChanges ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+
+    BOOL const noUploadedChanges = (uploadedChanges == 0);
+    self.uploadedChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"changes"), @(uploadedChanges).stringValue];
+    self.lastUploadLabel.hidden = noUploadedChanges;
+    if (!noUploadedChanges)
+      self.lastUploadLabel.text = [NSDateFormatter
+          localizedStringFromDate:[NSDate dateWithTimeIntervalSince1970:stats.m_lastUploadTimestamp]
+                        dateStyle:NSDateFormatterShortStyle
+                        timeStyle:NSDateFormatterNoStyle];
+    self.uploadedChangesViewHeight.constant = noUploadedChanges ? 44.0 : 64.0;
+    self.uploadedChangesLabelCenter.priority = noUploadedChanges ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+    self.messageTopOffset.priority = UILayoutPriorityDefaultLow;
+  }
+}
+
 #pragma mark - Actions
 
 - (IBAction)loginGoogle
@@ -90,6 +206,12 @@ using namespace osm;
   [[UIApplication sharedApplication] openURL:url];
 }
 
+- (IBAction)logout
+{
+  MWMAuthorizationStoreCredentials({});
+  [self cancel];
+}
+
 - (IBAction)cancel
 {
   if (!self.isCalledFromSettings)
@@ -99,6 +221,40 @@ using namespace osm;
     [parentNavController popViewControllerAnimated:YES];
   else
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)localChangesAction
+{
+  NSString * cancel = L(@"cancel");
+  NSString * del = L(@"delete");
+  if (isIOSVersionLessThan(8))
+  {
+    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:del otherButtonTitles:nil];
+    [actionSheet showInView:self.view];
+  }
+  else
+  {
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction * openSettingsAction = [UIAlertAction actionWithTitle:del style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action)
+    {
+      Editor::Instance().ClearAllLocalEdits();
+      [self configChanges];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:openSettingsAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+  }
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+  if (actionSheet.destructiveButtonIndex != buttonIndex)
+    return;
+  Editor::Instance().ClearAllLocalEdits();
+  [self configChanges];
 }
 
 #pragma mark - Segue

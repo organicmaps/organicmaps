@@ -660,13 +660,13 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 
 - (void)checkAuthorization
 {
-  if (MWMAuthorizationIsNeedCheck() && !MWMAuthorizationHaveCredentials() && !MWMAuthorizationIsUserSkip())
+  BOOL const isAfterFirstEdit = MWMAuthorizationIsNeedCheck() && !MWMAuthorizationHaveCredentials() && !MWMAuthorizationIsUserSkip();
+  if (isAfterFirstEdit)
   {
     [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
                      withParameters:@{kStatValue : kStatAuthorization}];
     [self performSegueWithIdentifier:kAuthorizationSegue sender:nil];
   }
-  MWMAuthorizationSetNeedCheck(NO);
 }
 
 #pragma mark - 3d touch

@@ -10,7 +10,6 @@
 namespace search { struct AddressInfo; }
 
 @class MWMMapViewControlsManager;
-@class ShareActionSheet;
 @class MWMAPIBar;
 
 @interface MapViewController : ViewController <LocationObserver, UIPopoverControllerDelegate>
@@ -45,7 +44,6 @@ namespace search { struct AddressInfo; }
 @property (nonatomic, readonly) BOOL isAppWallAdActive;
 
 @property (nonatomic) UIPopoverController * popoverVC;
-@property (nonatomic) ShareActionSheet * shareActionSheet;
 @property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) m2::PointD restoreRouteDestination;
 @property (nonatomic) MWMAPIBar * apiBar;
