@@ -14,6 +14,7 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
@@ -31,6 +32,8 @@
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
+
+#include "storage/storage_tests/write_dir_changer.hpp"
 
 #include <QtCore/QCoreApplication>
 
@@ -322,10 +325,22 @@ void InitStorage(Storage & storage, TaskRunner & runner,
   storage.RegisterAllLocalMaps();
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
 }
+
+string const kTestDir = "storage_tests";
+
+void SetMigrationComplete()
+{
+  int constexpr kSmallMwmVersion = 160107;
+  Settings::Set("LastMigration", kSmallMwmVersion);
+}
 }  // namespace
 
 UNIT_TEST(StorageTest_Smoke)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
+  SetMigrationComplete();
+
   Storage storage;
 
   TIndex const usaGeorgiaIndex = storage.FindIndexByFile("US_Georgia_North");
@@ -345,6 +360,8 @@ UNIT_TEST(StorageTest_Smoke)
 
 UNIT_TEST(StorageTest_SingleCountryDownloading)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   Storage storage;
   TaskRunner runner;
   InitStorage(storage, runner);
@@ -376,6 +393,8 @@ UNIT_TEST(StorageTest_SingleCountryDownloading)
 
 UNIT_TEST(StorageTest_TwoCountriesDownloading)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   Storage storage;
   TaskRunner runner;
   InitStorage(storage, runner);
@@ -403,6 +422,8 @@ UNIT_TEST(StorageTest_TwoCountriesDownloading)
 
 UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   Storage storage;
   storage.Init(&OnCountryDownloaded);
   storage.RegisterAllLocalMaps();
@@ -443,6 +464,8 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
 
 UNIT_TEST(StorageTest_DownloadCountryAndDeleteRoutingOnly)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   Storage storage;
 
   if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
@@ -481,6 +504,8 @@ UNIT_TEST(StorageTest_DownloadCountryAndDeleteRoutingOnly)
 
 UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   Storage storage;
   TaskRunner runner;
   tests::TestMwmSet mwmSet;
@@ -562,6 +587,8 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
 
 UNIT_TEST(StorageTest_DeletePendingCountry)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   Storage storage;
   TaskRunner runner;
   InitStorage(storage, runner);
@@ -581,6 +608,8 @@ UNIT_TEST(StorageTest_DeletePendingCountry)
 
 UNIT_TEST(StorageTest_DownloadTwoCountriesAndDelete)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   Storage storage;
   TaskRunner runner;
   InitStorage(storage, runner);
@@ -650,13 +679,15 @@ UNIT_TEST(StorageTest_CancelDownloadingWhenAlmostDone)
 
 UNIT_TEST(StorageTest_DeleteCountry)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   Storage storage;
   TaskRunner runner;
   InitStorage(storage, runner);
 
   tests_support::ScopedFile map("Wonderland.mwm", "map");
   tests_support::ScopedFile routing("Wonderland.mwm.routing", "routing");
-  LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland");
+  LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland", storage.GetCurrentDataVersion());
   TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
 
   CountryIndexes::PreparePlaceOnDisk(file);
@@ -684,6 +715,8 @@ UNIT_TEST(StorageTest_DeleteCountry)
 
 UNIT_TEST(StorageTest_FailedDownloading)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   Storage storage;
   storage.Init(&OnCountryDownloaded);
   storage.SetDownloaderForTesting(make_unique<TestMapFilesDownloader>());
@@ -718,6 +751,8 @@ UNIT_TEST(StorageTest_FailedDownloading)
 // is no routing file for this island.
 UNIT_TEST(StorageTest_EmptyRoutingFile)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   Storage storage;
   TaskRunner runner;
   InitStorage(storage, runner, [](LocalCountryFile const & localFile)
@@ -742,6 +777,8 @@ UNIT_TEST(StorageTest_EmptyRoutingFile)
 
 UNIT_TEST(StorageTest_ObsoleteMapsRemoval)
 {
+  WritableDirChanger writableDirChanger(kTestDir);
+
   CountryFile country("Azerbaijan");
 
   tests_support::ScopedDir dir1("1");

@@ -100,10 +100,10 @@ bool LocalCountryFile::operator==(LocalCountryFile const & rhs) const
 }
 
 // static
-LocalCountryFile LocalCountryFile::MakeForTesting(string const & countryFileName)
+LocalCountryFile LocalCountryFile::MakeForTesting(string const & countryFileName, int64_t version)
 {
   CountryFile const countryFile(countryFileName);
-  LocalCountryFile localFile(GetPlatform().WritableDir(), countryFile, 0 /* version */);
+  LocalCountryFile localFile(GetPlatform().WritableDir(), countryFile, version);
   localFile.SyncWithDisk();
   return localFile;
 }
