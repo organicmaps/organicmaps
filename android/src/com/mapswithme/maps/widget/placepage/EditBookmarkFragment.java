@@ -134,7 +134,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       @Override
       public void onBookmarkColorSet(int colorPos)
       {
-        final Icon newIcon = BookmarkManager.getIcons().get(colorPos);
+        final Icon newIcon = BookmarkManager.ICONS.get(colorPos);
         final String from = mBookmark.getIcon().getName();
         final String to = newIcon.getName();
         if (!TextUtils.equals(from, to))

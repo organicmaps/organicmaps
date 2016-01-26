@@ -691,7 +691,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       if (path != null)
       {
         Log.d(TAG, "Loading bookmarks file from: " + path);
-        result = BookmarkManager.loadKmzFile(path);
+        result = BookmarkManager.nativeLoadKmzFile(path);
       }
       else
         Log.w(TAG, "Can't get bookmarks file from URI: " + mData);

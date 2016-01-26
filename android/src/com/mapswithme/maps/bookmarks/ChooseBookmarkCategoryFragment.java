@@ -86,7 +86,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment implem
 
   private void createCategory(String name)
   {
-    final int category = BookmarkManager.INSTANCE.createCategory(name);
+    final int category = BookmarkManager.INSTANCE.nativeCreateCategory(name);
     mBookmark.setCategoryId(category);
     mAdapter.chooseItem(category);
 

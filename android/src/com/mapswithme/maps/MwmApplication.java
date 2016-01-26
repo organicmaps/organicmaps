@@ -127,7 +127,7 @@ public class MwmApplication extends Application
     nativeInitFramework();
     ActiveCountryTree.addListener(this);
     initNativeStrings();
-    BookmarkManager.getIcons(); // init BookmarkManager (automatically loads bookmarks)
+    BookmarkManager.nativeLoadBookmarks();
     TtsPlayer.INSTANCE.init(this);
     ThemeSwitcher.restart();
     mIsFrameworkInitialized = true;

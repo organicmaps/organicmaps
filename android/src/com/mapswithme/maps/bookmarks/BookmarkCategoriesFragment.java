@@ -89,7 +89,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
       break;
 
     case R.id.set_delete:
-      BookmarkManager.INSTANCE.deleteCategory(mSelectedPosition);
+      BookmarkManager.INSTANCE.nativeDeleteCategory(mSelectedPosition);
       getAdapter().notifyDataSetChanged();
       break;
 

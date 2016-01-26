@@ -96,7 +96,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
       return;
     case BookmarkListAdapter.TYPE_BOOKMARK:
       final Bookmark bookmark = (Bookmark) mAdapter.getItem(position);
-      BookmarkManager.INSTANCE.showBookmarkOnMap(mCategoryIndex, bookmark.getBookmarkId());
+      BookmarkManager.INSTANCE.nativeShowBookmarkOnMap(mCategoryIndex, bookmark.getBookmarkId());
       break;
     case BookmarkListAdapter.TYPE_TRACK:
       final Track track = (Track) mAdapter.getItem(position);

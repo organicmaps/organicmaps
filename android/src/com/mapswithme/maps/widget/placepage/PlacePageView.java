@@ -636,7 +636,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       final Bookmark bmk = (Bookmark) mMapObject;
       boolean deleted = false;
 
-      if (BookmarkManager.INSTANCE.getCategoriesCount() <= bmk.getCategoryId())
+      if (BookmarkManager.INSTANCE.nativeGetCategoriesCount() <= bmk.getCategoryId())
         deleted = true;
       else if (BookmarkManager.INSTANCE.getCategoryById(bmk.getCategoryId()).getBookmarksCount() <= bmk.getBookmarkId())
         deleted = true;
@@ -830,8 +830,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     else
     {
       mBookmarkedMapObject = mMapObject;
-      final Bookmark newBmk = BookmarkManager.INSTANCE.getBookmark(BookmarkManager.INSTANCE.addNewBookmark(
-          mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
+      final Bookmark newBmk = BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon());
       setMapObject(newBmk);
       // FIXME this hack is necessary to get correct views height in animation controller. remove after further investigation.
       post(new Runnable()
@@ -870,7 +869,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       public void onBookmarkColorSet(int colorPos)
       {
         Bookmark bmk = (Bookmark) mMapObject;
-        final Icon newIcon = BookmarkManager.getIcons().get(colorPos);
+        final Icon newIcon = BookmarkManager.ICONS.get(colorPos);
         final String from = bmk.getIcon().getName();
         final String to = newIcon.getName();
         if (!TextUtils.equals(from, to))

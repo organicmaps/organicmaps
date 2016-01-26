@@ -90,7 +90,7 @@ extern "C"
     Platform & pl = GetPlatform();
     string const path = pl.WritableDir();
 
-    ReaderStreamBuf buffer(pl.GetReader("external_resources.txt"));
+    ReaderStreamBuf buffer(pl.GetReader(EXTERNAL_RESOURCES_FILE));
     istream in(&buffer);
 
     string name;
