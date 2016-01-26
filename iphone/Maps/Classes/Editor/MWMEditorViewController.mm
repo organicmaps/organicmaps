@@ -70,6 +70,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                                       MWMStreetEditorProtocol>
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * tableViewBottomOffset;
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
 
@@ -89,6 +90,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   [super viewDidLoad];
   [self configTable];
   [self configNavBar];
+  [self configKeyboardObserver];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -111,6 +113,31 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                                                     target:self
                                                     action:@selector(onSave)];
   self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+}
+
+- (void)configKeyboardObserver
+{
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillChangeFrame:)
+                                               name:UIKeyboardWillChangeFrameNotification
+                                             object:nil];
+}
+
+#pragma mark - Observers
+
+- (void)keyboardWillChangeFrame:(NSNotification *)aNotification
+{
+  NSDictionary * info = [aNotification userInfo];
+  CGFloat const kbYEnd = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
+  CGFloat const kbYBeg = [info[UIKeyboardFrameBeginUserInfoKey] CGRectValue].origin.y;
+  UIViewAnimationCurve const curve = static_cast<UIViewAnimationCurve>([info[UIKeyboardAnimationCurveUserInfoKey] integerValue]);
+  NSTimeInterval const duration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+  [self.view layoutIfNeeded];
+  self.tableViewBottomOffset.constant = kbYEnd < kbYBeg ? kbYBeg - kbYEnd : 0.0;
+  [UIView animateWithDuration:duration delay:0.0 options:curve animations:^
+  {
+    [self.view layoutIfNeeded];
+  } completion:nil];
 }
 
 #pragma mark - Actions

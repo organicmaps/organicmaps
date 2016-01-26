@@ -767,6 +767,7 @@
                     <navigationItem key="navigationItem" id="SXI-s6-K6S"/>
                     <connections>
                         <outlet property="tableView" destination="EH3-92-Tzz" id="HAe-TD-KcI"/>
+                        <outlet property="tableViewBottomOffset" destination="VXm-ke-yXK" id="Su9-9Z-OP4"/>
                         <segue destination="IAA-1a-ZuZ" kind="custom" identifier="Editor2CuisineEditorSegue" customClass="MWMSegue" id="mPs-fC-nli"/>
                         <segue destination="Ld6-gM-2hk" kind="custom" identifier="Editor2OpeningHoursEditorSegue" customClass="MWMSegue" id="iTp-yQ-ied"/>
                         <segue destination="pFB-aY-HKf" kind="custom" identifier="Editor2StreetEditorSegue" customClass="MWMSegue" id="Q8Z-Ql-2TN"/>
