@@ -107,12 +107,11 @@ jobject CreateMapObject(UserMark const * userMark)
   feature::Metadata metadata;
   FillAddressAndMetadata(userMark, info, metadata);
   jobject mapObject = nullptr;
-  ms::LatLon ll;
+  ms::LatLon ll = userMark->GetLatLon();
   switch (userMark->GetMarkType())
   {
     case UserMark::Type::API:
     {
-      ll = userMark->GetLatLon();
       ApiMarkPoint const * apiMark = CastMark<ApiMarkPoint>(userMark);
       mapObject = CreateMapObject(kApiPoint, apiMark->GetName(), ll.lat, ll.lon, apiMark->GetID(), "", "", metadata);
       break;
@@ -127,17 +126,20 @@ jobject CreateMapObject(UserMark const * userMark)
     }
     case UserMark::Type::POI:
     {
-      mapObject = CreateMapObject(kPoi, info.GetPinName(), userMark->GetPivot().x, userMark->GetPivot().y, info.GetPinType(), info.m_street, info.m_house, metadata);
+      // TODO(AlexZ): Refactor out passing custom name for shared links.
+      auto const & cn = CastMark<PoiMarkPoint>(userMark)->GetCustomName();
+      if (!cn.empty())
+        info.m_name = cn;
+      mapObject = CreateMapObject(kPoi, info.GetPinName(), ll.lat, ll.lon, info.GetPinType(), info.m_street, info.m_house, metadata);
       break;
     }
     case UserMark::Type::SEARCH:
     {
-      mapObject = CreateMapObject(kSearch, info.GetPinName(), userMark->GetPivot().x, userMark->GetPivot().y, info.GetPinType(), info.m_street, info.m_house, metadata);
+      mapObject = CreateMapObject(kSearch, info.GetPinName(), ll.lat, ll.lon, info.GetPinType(), info.m_street, info.m_house, metadata);
       break;
     }
     case UserMark::Type::MY_POSITION:
     {
-      ll = userMark->GetLatLon();
       mapObject = CreateMapObject(kMyPosition, "", ll.lat, ll.lon, "", "", "", metadata);
       break;
     }
