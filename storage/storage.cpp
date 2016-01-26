@@ -4,6 +4,7 @@
 #include "defines.hpp"
 
 #include "platform/local_country_file_utils.hpp"
+#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 #include "platform/servers_list.hpp"
 #include "platform/settings.hpp"
@@ -775,7 +776,8 @@ MapOptions Storage::NormalizeDownloadFileSet(TIndex const & index, MapOptions op
     }
 
     // Check whether requested file is not empty.
-    if (GetRemoteSize(country, option) == 0)
+    if ((version::IsSingleMwm(GetCurrentDataVersion()) && option == MapOptions::CarRouting)
+        || GetRemoteSize(country, option) == 0)
     {
       ASSERT_NOT_EQUAL(MapOptions::Map, option, ("Map can't be empty."));
       options = UnsetOptions(options, option);
