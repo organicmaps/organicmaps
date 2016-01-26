@@ -86,9 +86,7 @@ void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
   }
   m_bMetadataParsed = true;
 
-  // TODO(mgsergio): Get types count from xml.
-  auto constexpr kOnlyOneTypeCount = 1;
-  m_header = CalculateHeader(kOnlyOneTypeCount, Header() & HEADER_GEOTYPE_MASK, m_params);
+  m_header = CalculateHeader(GetTypesCount(), Header() & HEADER_GEOTYPE_MASK, m_params);
   m_bHeader2Parsed = true;
 }
 
