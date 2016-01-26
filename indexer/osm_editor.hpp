@@ -129,6 +129,7 @@ private:
     string m_uploadStatus;
     string m_uploadError;
   };
+  void SaveUploadedInformation(FeatureTypeInfo const & fromUploader);
 
   // TODO(AlexZ): Synchronize multithread access.
   /// Deleted, edited and created features.

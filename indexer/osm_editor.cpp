@@ -627,10 +627,14 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
   // TODO(AlexZ): features access should be synchronized.
   auto const lambda = [this](string key, string secret, TChangesetTags tags, TFinishUploadCallback callBack)
   {
+    // This lambda was designed to start after app goes into background. But for cases when user is immediately
+    // coming back to the app we work with a copy, because 'for' loops below can take a significant amount of time.
+    auto features = m_features;
+
     int uploadedFeaturesCount = 0, errorsCount = 0;
     // TODO(AlexZ): insert usefull changeset comments.
     ChangesetWrapper changeset({key, secret}, tags);
-    for (auto & id : m_features)
+    for (auto & id : features)
     {
       for (auto & index : id.second)
       {
@@ -683,9 +687,8 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           fti.m_uploadError = ex.what();
           ++errorsCount;
         }
-        // TODO(AlexZ): Synchronize save after edits.
         // Call Save every time we modify each feature's information.
-        Save(GetEditorFilePath());
+        SaveUploadedInformation(fti);
       }
     }
 
@@ -705,6 +708,23 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
   auto const status = future.wait_for(milliseconds(0));
   if (status == future_status::ready)
     future = async(launch::async, lambda, key, secret, tags, callBack);
+}
+
+void Editor::SaveUploadedInformation(FeatureTypeInfo const & fromUploader)
+{
+  // TODO(AlexZ): Correctly synchronize this call and Save() at the end.
+  FeatureID const & fid = fromUploader.m_feature.GetID();
+  auto id = m_features.find(fid.m_mwmId);
+  if (id == m_features.end())
+    return;  // Rare case: feature was deleted at the time of changes uploading.
+  auto index = id->second.find(fid.m_index);
+  if (index == id->second.end())
+    return;  // Rare case: feature was deleted at the time of changes uploading.
+  auto & fti = index->second;
+  fti.m_uploadAttemptTimestamp = fromUploader.m_uploadAttemptTimestamp;
+  fti.m_uploadStatus = fromUploader.m_uploadStatus;
+  fti.m_uploadError = fromUploader.m_uploadError;
+  Save(GetEditorFilePath());
 }
 
 void Editor::RemoveFeatureFromStorageIfExists(MwmSet::MwmId const & mwmId, uint32_t index)
