@@ -2,13 +2,14 @@
 #include "generator/feature_generator.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/intermediate_elements.hpp"
-#include "generator/osm_translator.hpp"
-#include "generator/osm_o5m_source.hpp"
-#include "generator/osm_xml_source.hpp"
-#include "generator/osm_source.hpp"
-#include "generator/polygonizer.hpp"
-#include "generator/world_map_generator.hpp"
 #include "generator/osm_element.hpp"
+#include "generator/osm_o5m_source.hpp"
+#include "generator/osm_source.hpp"
+#include "generator/osm_translator.hpp"
+#include "generator/osm_xml_source.hpp"
+#include "generator/polygonizer.hpp"
+#include "generator/tag_admixer.hpp"
+#include "generator/world_map_generator.hpp"
 
 #include "indexer/classificator.hpp"
 #include "geometry/mercator.hpp"
@@ -496,7 +497,9 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
         bucketer, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
         info.GetAddressesFileName());
 
-    auto fn = [&parser](OsmElement * e) { parser.EmitElement(e); };
+    TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways",".csv"));
+    // Here we can add new tags to element!!!
+    auto fn = [&parser, &tagAdmixer](OsmElement * e) { parser.EmitElement(tagAdmixer(e)); };
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
     switch (info.m_osmFileType)
