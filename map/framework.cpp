@@ -529,12 +529,12 @@ void Framework::RegisterAllMaps()
 
   m_storage.RegisterAllLocalMaps();
 
-  // Fast migrate if possible.
+  // Fast migrate in case there are no downloaded MWM.
   if (platform::migrate::NeedMigrate())
   {
     bool disableFastMigrate = false;
     Settings::Get("DisableFastMigrate", disableFastMigrate);
-    if(!disableFastMigrate && m_storage.HaveDownloadedCountries())
+    if(!disableFastMigrate && !m_storage.HaveDownloadedCountries())
     {
       Migrate();
       return;
