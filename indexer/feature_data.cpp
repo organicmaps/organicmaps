@@ -77,6 +77,7 @@ public:
     // 1-arity
     char const * arr1[][1] = {
       { "building" },
+      { "building:part" },
       { "hwtag" },
       { "internet_access" },
     };
@@ -86,7 +87,8 @@ public:
 
     // 2-arity
     char const * arr2[][2] = {
-      { "amenity", "atm" }
+      { "amenity", "atm" },
+      { "building", "address" },
     };
 
     AddTypes(arr2);
