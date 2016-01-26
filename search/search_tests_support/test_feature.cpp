@@ -103,6 +103,28 @@ string TestCity::ToString() const
   return os.str();
 }
 
+// TestVillage ----------------------------------------------------------------------------------------
+TestVillage::TestVillage(m2::PointD const & center, string const & name, string const & lang,
+                   uint8_t rank)
+  : TestFeature(center, name, lang), m_rank(rank)
+{
+}
+
+void TestVillage::Serialize(FeatureBuilder1 & fb) const
+{
+  TestFeature::Serialize(fb);
+  auto const & classificator = classif();
+  fb.SetType(classificator.GetTypeByPath({"place", "village"}));
+  fb.SetRank(m_rank);
+}
+
+string TestVillage::ToString() const
+{
+  ostringstream os;
+  os << "TestVillage [" << m_name << ", " << m_lang << ", " << DebugPrint(m_center) << "]";
+  return os.str();
+}
+
 // TestStreet --------------------------------------------------------------------------------------
 TestStreet::TestStreet(vector<m2::PointD> const & points, string const & name, string const & lang)
   : TestFeature(name, lang), m_points(points)

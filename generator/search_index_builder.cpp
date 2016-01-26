@@ -364,7 +364,10 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
     LOG(LINFO, ("Address: Building -> Street (opt, all)", building2Street.GetCount()));
   }
 
-  LOG(LINFO, ("Address: Matched percent", 100 * (1.0 - missing/double(address))));
+  double matchedPercent = 100;
+  if (address > 0)
+    matchedPercent = 100.0 * (1.0 - static_cast<double>(missing) / static_cast<double>(address));
+  LOG(LINFO, ("Address: Matched percent", matchedPercent));
   LOG(LINFO, ("Address: Upper bounds", bounds));
 }
 }  // namespace

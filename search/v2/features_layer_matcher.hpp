@@ -70,6 +70,7 @@ public:
     {
     case SearchModel::SEARCH_TYPE_POI:
     case SearchModel::SEARCH_TYPE_CITY:
+    case SearchModel::SEARCH_TYPE_VILLAGE:
     case SearchModel::SEARCH_TYPE_STATE:
     case SearchModel::SEARCH_TYPE_COUNTRY:
     case SearchModel::SEARCH_TYPE_COUNT:

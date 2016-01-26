@@ -551,7 +551,7 @@ void Geocoder::ClearCaches()
   m_addressFeatures.clear();
   m_matchersCache.clear();
   m_streetsCache.clear();
-  m_villagesCache.clear();
+  m_villages.reset();
 }
 
 void Geocoder::PrepareRetrievalParams(size_t curToken, size_t endToken)
@@ -758,7 +758,7 @@ void Geocoder::FillLocalitiesTable()
 void Geocoder::FillVillageLocalities()
 {
   vector<Locality> preLocalities;
-  FillLocalityCandidates(m_villages, kMaxNumVillages, preLocalities);
+  FillLocalityCandidates(m_villages.get(), kMaxNumVillages, preLocalities);
 
   size_t numVillages = 0;
 
@@ -1240,21 +1240,12 @@ coding::CompressedBitVector const * Geocoder::LoadStreets(MwmContext & context)
   return result;
 }
 
-coding::CompressedBitVector const * Geocoder::LoadVillages(MwmContext & context)
+unique_ptr<coding::CompressedBitVector> Geocoder::LoadVillages(MwmContext & context)
 {
   if (!context.m_handle.IsAlive() || !HasSearchIndex(context.m_value))
-    return nullptr;
+    return make_unique<coding::DenseCBV>();
 
-  auto mwmId = context.m_handle.GetId();
-  auto const it = m_villagesCache.find(mwmId);
-  if (it != m_villagesCache.cend())
-    return it->second.get();
-
-  auto villages = LoadCategories(context, GetVillageCategories());
-
-  auto const * result = villages.get();
-  m_villagesCache[mwmId] = move(villages);
-  return result;
+  return LoadCategories(context, GetVillageCategories());
 }
 
 coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(MwmContext const & context,

@@ -66,6 +66,19 @@ private:
   uint8_t const m_rank;
 };
 
+class TestVillage : public TestFeature
+{
+public:
+  TestVillage(m2::PointD const & center, string const & name, string const & lang, uint8_t rank);
+
+  // TestFeature overrides:
+  void Serialize(FeatureBuilder1 & fb) const override;
+  string ToString() const override;
+
+private:
+  uint8_t const m_rank;
+};
+
 class TestStreet : public TestFeature
 {
 public:

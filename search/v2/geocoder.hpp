@@ -118,8 +118,11 @@ private:
     RegionType m_type;
   };
 
-  // This struct represents a city. It is used to filter features
+  // This struct represents a city or a village. It is used to filter features
   // during search.
+  // todo(@m) It works well as is, but consider a new naming scheme
+  // when counties etc. are added. E.g., Region for countries and
+  // states and Locality for smaller settlements.
   struct City : public Locality
   {
     City(Locality const & l): Locality(l) {}
@@ -197,7 +200,7 @@ private:
 
   coding::CompressedBitVector const * LoadStreets(MwmContext & context);
 
-  coding::CompressedBitVector const * LoadVillages(MwmContext & context);
+  unique_ptr<coding::CompressedBitVector> LoadVillages(MwmContext & context);
 
   /// A caching wrapper around Retrieval::RetrieveGeometryFeatures.
   /// param[in] Optional query id. Use VIEWPORT_ID, POSITION_ID or feature index for locality.
@@ -252,14 +255,11 @@ private:
   // Cache of street ids in mwms.
   map<MwmSet::MwmId, unique_ptr<coding::CompressedBitVector>> m_streetsCache;
 
-  // Cache of village ids in mwms.
-  map<MwmSet::MwmId, unique_ptr<coding::CompressedBitVector>> m_villagesCache;
-
   // Street features in the mwm that is currently being processed.
   coding::CompressedBitVector const * m_streets;
 
   // Village features in the mwm that is currently being processed.
-  coding::CompressedBitVector const * m_villages;
+  unique_ptr<coding::CompressedBitVector> m_villages;
 
   // This vector is used to indicate what tokens were matched by
   // locality and can't be re-used during the geocoding process.
