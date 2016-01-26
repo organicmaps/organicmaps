@@ -100,6 +100,23 @@ namespace m2
 
     T GetMaxSize() const { return max(m_rect.SizeX(), m_rect.SizeY()); }
 
+    bool EqualDxDy(AnyRect<T> const & r, T eps) const
+    {
+      m2::Point<T> arr1[4];
+      GetGlobalPoints(arr1);
+      sort(arr1, arr1 + 4);
+
+      m2::Point<T> arr2[4];
+      r.GetGlobalPoints(arr2);
+      sort(arr2, arr2 + 4);
+
+      for (size_t i = 0; i < 4; ++i)
+        if (!arr1[i].EqualDxDy(arr2[i], eps))
+          return false;
+
+      return true;
+    }
+
     bool IsPointInside(Point<T> const & pt) const
     {
       return m_rect.IsPointInside(ConvertTo(pt));

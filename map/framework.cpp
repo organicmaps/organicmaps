@@ -1004,9 +1004,6 @@ void Framework::UpdateUserViewportChanged()
   {
     (void)GetCurrentPosition(m_lastInteractiveSearchParams.m_lat,
                              m_lastInteractiveSearchParams.m_lon);
-    m_lastInteractiveSearchParams.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY);
-    m_lastInteractiveSearchParams.SetForceSearch(false);
-
     Search(m_lastInteractiveSearchParams);
   }
 }
@@ -1437,7 +1434,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
   {
-    UpdateUserViewportChanged();
+    if (!screen.GlobalRect().EqualDxDy(m_currentModelView.GlobalRect(), 1.0E-4))
+      UpdateUserViewportChanged();
     m_currentModelView = screen;
   });
   m_drapeEngine->SetTapEventInfoListener(bind(&Framework::OnTapEvent, this, _1, _2, _3, _4));
