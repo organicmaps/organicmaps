@@ -13,12 +13,12 @@
 
 #include "std/map.hpp"
 #include "std/queue.hpp"
+#include "std/target_os.hpp"
 #include "std/vector.hpp"
 
 namespace
 {
 double constexpr kPOIPerTileSizeCount = 6;
-double constexpr kPointLookupDeltaDegrees = 1e-6;
 }  // namespace
 
 namespace covering
@@ -26,27 +26,28 @@ namespace covering
 class CellFeaturePair
 {
 public:
-  CellFeaturePair() = default;
+  CellFeaturePair() : m_cellLo(0), m_cellHi(0), m_feature(0) {}
+
   CellFeaturePair(uint64_t cell, uint32_t feature)
-    : m_CellLo(UINT64_LO(cell)), m_CellHi(UINT64_HI(cell)), m_Feature(feature)
+    : m_cellLo(UINT64_LO(cell)), m_cellHi(UINT64_HI(cell)), m_feature(feature)
   {
   }
 
   bool operator<(CellFeaturePair const & rhs) const
   {
-    if (m_CellHi != rhs.m_CellHi)
-      return m_CellHi < rhs.m_CellHi;
-    if (m_CellLo != rhs.m_CellLo)
-      return m_CellLo < rhs.m_CellLo;
-    return m_Feature < rhs.m_Feature;
+    if (m_cellHi != rhs.m_cellHi)
+      return m_cellHi < rhs.m_cellHi;
+    if (m_cellLo != rhs.m_cellLo)
+      return m_cellLo < rhs.m_cellLo;
+    return m_feature < rhs.m_feature;
   }
 
-  uint64_t GetCell() const { return UINT64_FROM_UINT32(m_CellHi, m_CellLo); }
-  uint32_t GetFeature() const { return m_Feature; }
+  uint64_t GetCell() const { return UINT64_FROM_UINT32(m_cellHi, m_cellLo); }
+  uint32_t GetFeature() const { return m_feature; }
 private:
-  uint32_t m_CellLo;
-  uint32_t m_CellHi;
-  uint32_t m_Feature;
+  uint32_t m_cellLo;
+  uint32_t m_cellHi;
+  uint32_t m_feature;
 };
 static_assert(sizeof(CellFeaturePair) == 12, "");
 #ifndef OMIM_OS_LINUX
@@ -56,7 +57,7 @@ static_assert(is_trivially_copyable<CellFeaturePair>::value, "");
 class CellFeatureBucketTuple
 {
 public:
-  CellFeatureBucketTuple() = default;
+  CellFeatureBucketTuple() : m_bucket(0) {}
   CellFeatureBucketTuple(CellFeaturePair const & p, uint32_t bucket) : m_pair(p), m_bucket(bucket)
   {
   }
@@ -79,11 +80,15 @@ static_assert(sizeof(CellFeatureBucketTuple) == 16, "");
 static_assert(is_trivially_copyable<CellFeatureBucketTuple>::value, "");
 #endif
 
+/// Displacement manager filters incoming single-point features to simplify runtime
+/// feature visibility displacement.
 template <class TSorter>
 class DisplacementManager
 {
 public:
   DisplacementManager(TSorter & sorter) : m_sorter(sorter) {}
+
+  /// Add feature at bucket (zoom) to displacable queue if possible. Pass to bucket otherwise.
   template <class TFeature>
   void Add(vector<int64_t> const & cells, uint32_t bucket, TFeature const & ft, uint32_t index)
   {
@@ -97,6 +102,7 @@ public:
       m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, index), bucket));
   }
 
+  /// Check features intersection and pass result to sorter.
   void Displace()
   {
     m4::Tree<DisplaceableNode> acceptedNodes;
@@ -123,7 +129,7 @@ public:
         // Check if this node is displaced by higher features.
         m2::RectD const displacementRect(maxNode.center, maxNode.center);
         bool isDisplaced = false;
-        acceptedNodes.ForEachInRect( m2::Inflate(displacementRect, {delta, delta}),
+        acceptedNodes.ForEachInRect(m2::Inflate(displacementRect, {delta, delta}),
             [&isDisplaced, &maxNode, &delta, &scale](DisplaceableNode const & node)
             {
               if (maxNode.center.SquareLength(node.center) < delta * delta && node.maxScale > scale)
@@ -161,6 +167,7 @@ private:
     uint32_t priority;
 
     DisplaceableNode() : index(0), maxScale(0), priority(0) {}
+
     template <class TFeature>
     DisplaceableNode(vector<int64_t> const & cells, TFeature const & ft, uint32_t index,
                     int zoomLevel)
@@ -189,12 +196,11 @@ private:
     }
 
     bool operator<(DisplaceableNode const & node) const { return priority < node.priority; }
-    bool operator==(DisplaceableNode const & node) const { return index == node.index; }
     m2::RectD const GetLimitRect() const { return m2::RectD(center, center); }
   };
 
   template <class TFeature>
-  bool IsDisplaceable(TFeature const & ft) const noexcept
+  bool IsDisplaceable(TFeature const & ft) const
   {
     feature::TypesHolder const types(ft);
     return types.GetGeoType() == feature::GEOM_POINT;
