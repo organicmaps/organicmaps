@@ -52,7 +52,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -95,8 +95,8 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                             <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="whiteColor"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="whiteColor"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlue"/>
                     </userDefinedRuntimeAttributes>
                     <connections>

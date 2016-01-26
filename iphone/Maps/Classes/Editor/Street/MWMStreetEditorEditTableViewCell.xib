@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -36,6 +36,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="validatorName" value="MWMInputValidator"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="add_street"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="_placeholderLabel.colorName" value="blackHintText"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="delegate" destination="KGk-i7-Jjw" id="r4r-Wy-T2m"/>
@@ -64,7 +65,13 @@
                     <constraint firstItem="8Pj-WT-J59" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="wRV-57-6CZ"/>
                     <constraint firstAttribute="bottom" secondItem="wEp-rs-Mx2" secondAttribute="bottom" id="xaH-zy-7BF"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="textField" destination="8Pj-WT-J59" id="lqN-IV-C5E"/>
             </connections>

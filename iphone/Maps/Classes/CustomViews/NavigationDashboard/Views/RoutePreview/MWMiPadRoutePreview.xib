@@ -205,6 +205,9 @@
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-pb-L88">
                                     <rect key="frame" x="0.0" y="10" width="24" height="24"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                                    </userDefinedRuntimeAttributes>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -332,7 +335,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_checkmark" width="24" height="24"/>
+        <image name="ic_checkmark" width="28" height="28"/>
         <image name="ic_nav_bar_back" width="44" height="44"/>
     </resources>
 </document>

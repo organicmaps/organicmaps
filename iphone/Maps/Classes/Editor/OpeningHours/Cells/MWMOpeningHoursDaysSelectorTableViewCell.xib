@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -55,6 +55,9 @@
                             <constraint firstItem="eN6-Is-HP5" firstAttribute="top" secondItem="brZ-af-NfP" secondAttribute="bottom" constant="8" id="rZo-zS-ly1"/>
                             <constraint firstItem="tQj-bk-oM9" firstAttribute="top" secondItem="CCr-vZ-lZV" secondAttribute="top" id="z4X-lt-MRQ"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d7U-Vz-ZXn" userLabel="Day#2">
                         <rect key="frame" x="57" y="0.0" width="42" height="76"/>
@@ -97,6 +100,9 @@
                             <constraint firstItem="PA6-gY-SsH" firstAttribute="centerX" secondItem="d7U-Vz-ZXn" secondAttribute="centerX" id="nuB-5g-8P7"/>
                             <constraint firstItem="TX4-wv-r7d" firstAttribute="leading" secondItem="d7U-Vz-ZXn" secondAttribute="leading" id="uIH-NW-Yob"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8L-sr-yWu" userLabel="Day#3">
                         <rect key="frame" x="99" y="0.0" width="41" height="76"/>
@@ -139,6 +145,9 @@
                             <constraint firstItem="Ocy-4H-ZwH" firstAttribute="leading" secondItem="J8L-sr-yWu" secondAttribute="leading" id="qxq-5J-8be"/>
                             <constraint firstItem="eLh-R1-Lvc" firstAttribute="centerX" secondItem="J8L-sr-yWu" secondAttribute="centerX" id="vJl-bp-Rdn"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8q8-c5-QBM" userLabel="Day#4">
                         <rect key="frame" x="140" y="0.0" width="41" height="76"/>
@@ -181,6 +190,9 @@
                             <constraint firstItem="gSE-qV-osv" firstAttribute="leading" secondItem="8q8-c5-QBM" secondAttribute="leading" id="hxl-Gc-Ey0"/>
                             <constraint firstItem="gSE-qV-osv" firstAttribute="top" secondItem="8q8-c5-QBM" secondAttribute="top" constant="12" id="lfH-66-upM"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15A-tH-C45" userLabel="Day#5">
                         <rect key="frame" x="181" y="0.0" width="41" height="76"/>
@@ -223,6 +235,9 @@
                             <constraint firstItem="Otc-DJ-XJQ" firstAttribute="top" secondItem="15A-tH-C45" secondAttribute="top" id="jmD-7s-O2V"/>
                             <constraint firstAttribute="trailing" secondItem="JHH-2W-e7Q" secondAttribute="trailing" id="ns8-PY-dck"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tqf-QU-RCZ" userLabel="Day#6">
                         <rect key="frame" x="222" y="0.0" width="41" height="76"/>
@@ -265,6 +280,9 @@
                             <constraint firstAttribute="bottom" secondItem="Kid-OJ-nOc" secondAttribute="bottom" id="ff1-SR-Ci6"/>
                             <constraint firstAttribute="trailing" secondItem="Kid-OJ-nOc" secondAttribute="trailing" id="tHe-1w-a4t"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lBL-06-25g" userLabel="Day#7">
                         <rect key="frame" x="263" y="0.0" width="41" height="76"/>
@@ -307,6 +325,9 @@
                             <constraint firstItem="l5X-og-86Q" firstAttribute="leading" secondItem="lBL-06-25g" secondAttribute="leading" id="xfC-RT-CxJ"/>
                             <constraint firstItem="l5X-og-86Q" firstAttribute="top" secondItem="lBL-06-25g" secondAttribute="top" id="yir-ep-anV"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k47-ei-lEk" userLabel="Separator">
                         <rect key="frame" x="0.0" y="75" width="320" height="1"/>
@@ -352,7 +373,13 @@
                     <constraint firstAttribute="bottom" secondItem="CCr-vZ-lZV" secondAttribute="bottom" id="zPu-9q-ZMS"/>
                     <constraint firstItem="k47-ei-lEk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ze5-IH-JYq"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outletCollection property="buttons" destination="tQj-bk-oM9" id="pbb-m3-HUd"/>
                 <outletCollection property="buttons" destination="7fE-x8-2Vl" id="TmQ-vt-r6l"/>

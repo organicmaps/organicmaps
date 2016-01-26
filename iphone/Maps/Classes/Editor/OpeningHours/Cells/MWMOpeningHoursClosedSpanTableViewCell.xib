@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -20,6 +20,9 @@
                             <constraint firstAttribute="width" constant="44" id="6T7-Ur-RWl"/>
                         </constraints>
                         <state key="normal" image="ic_clear_sys"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="cancelTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UKS-mG-ZJG"/>
                         </connections>
@@ -43,6 +46,7 @@
                         <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackHintText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cC-7h-Nyb" userLabel="Expand Button">
@@ -83,7 +87,13 @@
                     <constraint firstItem="lia-DA-sOa" firstAttribute="leading" secondItem="eHW-h6-k3U" secondAttribute="trailing" id="sEk-K9-5ox"/>
                     <constraint firstAttribute="trailing" secondItem="lia-DA-sOa" secondAttribute="trailing" priority="250" constant="8" id="zjM-Hg-INM"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="hoursClosedLabel" destination="lia-DA-sOa" id="tUx-Cy-R9r"/>
                 <outlet property="hoursClosedTrailing" destination="zjM-Hg-INM" id="QKd-Py-tbi"/>

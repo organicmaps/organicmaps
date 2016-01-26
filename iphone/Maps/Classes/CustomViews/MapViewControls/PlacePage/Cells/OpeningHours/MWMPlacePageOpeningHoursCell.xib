@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -38,6 +38,7 @@
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00—20:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="140" translatesAutoresizingMaskIntoConstraints="NO" id="oTF-IZ-Un1">
@@ -82,6 +83,10 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="red"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pp_closed_now"/>
+                                </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray_down" translatesAutoresizingMaskIntoConstraints="NO" id="mGc-k4-uvQ">
                                 <rect key="frame" x="288" y="51" width="24" height="24"/>
@@ -89,6 +94,9 @@
                                     <constraint firstAttribute="width" constant="24" id="514-4Z-QO3"/>
                                     <constraint firstAttribute="height" constant="24" id="OJ4-4J-1uv"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMGray"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_placepage_open_hours" translatesAutoresizingMaskIntoConstraints="NO" id="pa0-fe-w8W">
                                 <rect key="frame" x="16" y="49" width="28" height="28"/>
@@ -96,6 +104,9 @@
                                     <constraint firstAttribute="width" constant="28" id="2AI-Zc-VlL"/>
                                     <constraint firstAttribute="height" constant="28" id="gd5-OU-PDF"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fa-V6-tC5" userLabel="Toggle Button">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="126"/>
@@ -194,7 +205,13 @@
                     <constraint firstAttribute="trailing" secondItem="9WP-gb-0Hl" secondAttribute="trailing" id="vof-Qq-rXP"/>
                     <constraint firstAttribute="trailing" secondItem="swk-um-XzG" secondAttribute="trailing" id="zir-No-59Q"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="bottomSeparatorLeadingOffset" destination="fCK-Qq-Hci" id="i0F-nq-2jd"/>
                 <outlet property="currentDay" destination="swk-um-XzG" id="CJG-LQ-Pu8"/>

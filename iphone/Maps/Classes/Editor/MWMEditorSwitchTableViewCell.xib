@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -22,6 +22,9 @@
                             <constraint firstAttribute="height" constant="28" id="Ce3-kg-QsX"/>
                             <constraint firstAttribute="width" constant="28" id="MT3-eQ-SOL"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="187" translatesAutoresizingMaskIntoConstraints="NO" id="QFf-wR-pPw">
                         <rect key="frame" x="60" y="0.0" width="187" height="44"/>
@@ -38,6 +41,9 @@
                     </label>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qvr-u3-nNo">
                         <rect key="frame" x="255" y="7" width="51" height="31"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="onTintColorName" value="linkBlue"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="valueChanged" destination="qme-9J-aMf" eventType="valueChanged" id="sak-SB-Nvi"/>
                         </connections>
@@ -67,7 +73,13 @@
                     <constraint firstItem="QFf-wR-pPw" firstAttribute="leading" secondItem="fpo-VO-awT" secondAttribute="leading" constant="60" id="mNR-IV-cek"/>
                     <constraint firstItem="qvr-u3-nNo" firstAttribute="centerY" secondItem="fpo-VO-awT" secondAttribute="centerYWithinMargins" id="opz-Nt-Q5b"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="bottomSeparatorLeadingOffset" destination="6dM-c2-MTO" id="Xub-cK-CiJ"/>
                 <outlet property="icon" destination="j3u-fF-pG6" id="nIz-cY-MCW"/>

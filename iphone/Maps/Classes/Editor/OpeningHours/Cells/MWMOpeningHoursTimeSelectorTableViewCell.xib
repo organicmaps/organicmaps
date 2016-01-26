@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -17,7 +17,6 @@
                 <subviews>
                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="GQP-ns-cE1">
                         <rect key="frame" x="16" y="0.0" width="128" height="180"/>
-                        <animations/>
                         <date key="date" timeIntervalSinceReferenceDate="470650837.69387299">
                             <!--2015-12-01 08:20:37 +0000-->
                         </date>
@@ -28,7 +27,6 @@
                     </datePicker>
                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="w7f-Rh-vzg">
                         <rect key="frame" x="176" y="0.0" width="128" height="180"/>
-                        <animations/>
                         <date key="date" timeIntervalSinceReferenceDate="470650837.69387299">
                             <!--2015-12-01 08:20:37 +0000-->
                         </date>
@@ -39,40 +37,39 @@
                     </datePicker>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="8" translatesAutoresizingMaskIntoConstraints="NO" id="6b2-fN-HrU">
                         <rect key="frame" x="72" y="80" width="8" height="21"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="CFL-td-w0X"/>
                             <constraint firstAttribute="width" constant="8" id="YVE-JC-Z8n"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="—" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="24" translatesAutoresizingMaskIntoConstraints="NO" id="ArA-iX-w8F">
                         <rect key="frame" x="148" y="80" width="24" height="21"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="CeN-3u-tRz"/>
                             <constraint firstAttribute="height" constant="21" id="oBr-Rr-mKP"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="8" translatesAutoresizingMaskIntoConstraints="NO" id="MQr-gL-ImO">
                         <rect key="frame" x="232" y="80" width="8" height="21"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="8" id="KIB-6H-1UD"/>
                             <constraint firstAttribute="height" constant="21" id="Xad-ok-Mz7"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAz-Sc-ynR" userLabel="BottomSeparator">
                         <rect key="frame" x="0.0" y="179" width="320" height="1"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="ARD-HS-urF"/>
@@ -82,7 +79,6 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="MQr-gL-ImO" firstAttribute="centerX" secondItem="w7f-Rh-vzg" secondAttribute="centerX" constant="-4" id="1aM-UN-taw"/>
                     <constraint firstItem="6b2-fN-HrU" firstAttribute="centerY" secondItem="GQP-ns-cE1" secondAttribute="centerY" id="CFO-NC-K5i"/>
@@ -102,8 +98,13 @@
                     <constraint firstItem="6b2-fN-HrU" firstAttribute="centerX" secondItem="GQP-ns-cE1" secondAttribute="centerX" constant="-4" id="nzt-Rr-b0u"/>
                     <constraint firstItem="ArA-iX-w8F" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zKO-lN-XyI"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
-            <animations/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="closeTimePicker" destination="w7f-Rh-vzg" id="jdP-dK-pwF"/>
                 <outlet property="openTimePicker" destination="GQP-ns-cE1" id="qnP-We-WvA"/>
