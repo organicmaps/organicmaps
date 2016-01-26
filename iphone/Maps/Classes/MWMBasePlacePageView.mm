@@ -11,11 +11,10 @@
 #import "Statistics.h"
 
 extern CGFloat const kBottomPlacePageOffset = 15.;
-
+extern CGFloat const kLabelsBetweenOffset = 8.;
 namespace
 {
 CGFloat const kLeftOffset = 16.;
-CGFloat const kTopOffset = 8.;
 CGFloat const kLabelsPadding = kLeftOffset * 2;
 CGFloat const kDirectionArrowSide = 20.;
 CGFloat const kOffsetFromTitleToDistance = 8.;
@@ -195,14 +194,16 @@ enum class AttributePosition
   [self.typeDescriptionView layoutNearPoint:{self.typeLabel.maxX, self.typeLabel.minY}];
   [self layoutDistanceBoxWithPosition:position];
   [self layoutTableViewWithPosition:position];
-  self.height = self.featureTable.height + self.separatorView.height + self.titleLabel.height + self.typeLabel.height + self.addressLabel.height + kBottomPlacePageOffset;
+  self.height = self.featureTable.height + self.separatorView.height + self.titleLabel.height +
+                (self.typeLabel.text.length > 0 ? self.typeLabel.height + kLabelsBetweenOffset : 0) +
+                (self.addressLabel.text.length > 0 ? self.addressLabel.height + kLabelsBetweenOffset : 0) + kBottomPlacePageOffset;
 }
 
 - (void)layoutLabels
 {
   self.titleLabel.origin = {kLeftOffset, 0};
-  self.typeLabel.origin = {kLeftOffset, self.titleLabel.maxY + kTopOffset};
-  self.addressLabel.origin = {kLeftOffset, self.typeLabel.maxY + kTopOffset};
+  self.typeLabel.origin = {kLeftOffset, self.titleLabel.maxY + kLabelsBetweenOffset};
+  self.addressLabel.origin = {kLeftOffset, self.typeLabel.maxY + kLabelsBetweenOffset};
 }
 
 - (void)layoutDistanceBoxWithPosition:(AttributePosition)position

@@ -13,7 +13,7 @@ namespace
 {
 
 NSString * const kOSMCuisineSeparator = @";";
-NSString * const kMWMCuisineSeparator = @", ";
+NSString * const kMWMCuisineSeparator = @" • ";
 
 array<MWMPlacePageCellType, 10> const gMetaFieldsMap{
     {MWMPlacePageCellTypePostcode, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite,
@@ -240,7 +240,7 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
           if (self.category.length == 0)
             self.category = cuisine;
           else if (![self.category isEqualToString:cuisine])
-            self.category = [NSString stringWithFormat:@"%@ • %@", self.category, cuisine];
+            self.category = [NSString stringWithFormat:@"%@%@%@", self.category, kMWMCuisineSeparator, cuisine];
           break;
         }
         case Metadata::FMD_ELE:
@@ -254,7 +254,7 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
         {
           NSString * bank = @(metadata.Get(type).c_str());
           if (self.category.length)
-            self.category = [NSString stringWithFormat:@"%@ • %@", self.category, bank];
+            self.category = [NSString stringWithFormat:@"%@%@%@", self.category, kMWMCuisineSeparator, bank];
           else
             self.category = bank;
           break;
