@@ -556,7 +556,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
     }
     else
     {
-      [self checkMigrationAndCallBlock:[self, idx, opt]
+      [self checkMigrationAndCallBlock:^
       {
         ActiveMapsLayout & layout = GetFramework().GetCountryTree().GetActiveMapLayout();
         LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
