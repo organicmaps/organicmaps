@@ -24,28 +24,29 @@
 
 namespace platform
 {
+
 namespace migrate
 {
-  // Set of functions to support migration between different versions of MWM
-  // with totaly incompatible formats.
-  // 160107 - Migrate to small single file MWM
-  uint32_t constexpr kRequiredVersion = 160107;
-  bool NeedMigrate()
-  {
-    uint32_t version;
-    if (!Settings::Get("LastMigration", version))
-      return true;
-
-    if (version >= kRequiredVersion)
-      return false;
-
+// Set of functions to support migration between different versions of MWM
+// with totaly incompatible formats.
+// 160107 - Migrate to small single file MWM
+uint32_t constexpr kMinRequiredVersion = 160107;
+bool NeedMigrate()
+{
+  uint32_t version;
+  if (!Settings::Get("LastMigration", version))
     return true;
-  }
 
-  void SetMigrationFlag()
-  {
-    Settings::Set("LastMigration", kRequiredVersion);
-  }
+  if (version >= kMinRequiredVersion)
+    return false;
+
+  return true;
+}
+
+void SetMigrationFlag()
+{
+  Settings::Set("LastMigration", kMinRequiredVersion);
+}
 }  // namespace migrate
 
 namespace

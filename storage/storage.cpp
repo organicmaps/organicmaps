@@ -125,11 +125,11 @@ void Storage::DeleteAllLocalMaps(vector<TIndex> * existedCountries /* = nullptr 
 {
   for (auto const & localFiles : m_localFiles)
   {
+    if (existedCountries)
+      existedCountries->push_back(localFiles.first);
     for (auto const & localFile : localFiles.second)
     {
-      LOG_SHORT(LINFO, ("Remove:", localFiles.first, DebugPrint(*localFile)));
-      if (existedCountries)
-        existedCountries->push_back(localFiles.first);
+      LOG_SHORT(LINFO, ("Removing:", localFiles.first, DebugPrint(*localFile)));
       localFile->SyncWithDisk();
       DeleteFromDiskWithIndexes(*localFile, MapOptions::MapWithCarRouting);
     }

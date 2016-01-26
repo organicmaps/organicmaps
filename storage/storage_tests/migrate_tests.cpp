@@ -8,7 +8,7 @@ using namespace platform;
 
 UNIT_TEST(StorageTest_FastMigrate)
 {
-  // Set clear state
+  // Set clear state.
   {
     Settings::Clear();
     Framework f;
@@ -36,7 +36,14 @@ UNIT_TEST(StorageTests_Migrate)
   auto & s = f.Storage();
   s.DeleteAllLocalMaps();
 
-  vector<storage::TIndex> const kOldCountries = { s.FindIndexByFile("Estonia")};
+  auto cleanup = [&]()
+  {
+    s.DeleteAllLocalMaps();
+    Settings::Clear();
+  };
+  MY_SCOPE_GUARD(cleanupAtExit, cleanup);
+
+  vector<storage::TIndex> const kOldCountries = {s.FindIndexByFile("Estonia")};
 
   auto stateChanged = [&](storage::TIndex const & id)
   {
@@ -57,7 +64,7 @@ UNIT_TEST(StorageTests_Migrate)
   for (auto const & countryId : kOldCountries)
     f.GetCountryTree().GetActiveMapLayout().DownloadMap(countryId, MapOptions::MapWithCarRouting);
 
-  // Wait for downloading complete.
+  // Wait for completion of downloading.
   QCoreApplication::exec();
 
   TEST_EQUAL(s.GetDownloadedFilesCount(), kOldCountries.size(), ());
@@ -66,18 +73,16 @@ UNIT_TEST(StorageTests_Migrate)
 
   f.Migrate();
 
-  vector<storage::TIndex> const kNewCountries = {s.FindIndexByFile("Estonia_East"), s.FindIndexByFile("Estonia_West")};
+  vector<storage::TIndex> const kNewCountries = {s.FindIndexByFile("Estonia_East"),
+                                                 s.FindIndexByFile("Estonia_West")};
 
   for (auto const & countryId : kNewCountries)
     f.GetCountryTree().GetActiveMapLayout().DownloadMap(countryId, MapOptions::Map);
 
-  // Wait for downloading complete.
+  // Wait for completion of downloading.
   QCoreApplication::exec();
 
   TEST_EQUAL(s.GetDownloadedFilesCount(), kNewCountries.size(), ());
   for (auto const & countryId : kNewCountries)
     TEST_EQUAL(storage::TStatus::EOnDisk, s.CountryStatusEx(countryId), (countryId));
-
-  s.DeleteAllLocalMaps();
-  Settings::Clear();
 }

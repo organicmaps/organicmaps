@@ -6,7 +6,6 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-#DEPENDENCIES = storage indexer platform_tests_support platform geometry coding base jansson tomcrypt stats_client succinct
 DEPENDENCIES = map drape_frontend routing search storage indexer drape platform_tests_support platform editor opening_hours geometry \
                coding base freetype expat fribidi tomcrypt jansson protobuf osrm stats_client \
                minizip succinct pugixml oauthcpp
