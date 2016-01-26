@@ -44,6 +44,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 extern NSString * const kUDWhatsNewWasShown = @"WhatsNewWithNightModeWasShown";
 extern char const * kAdForbiddenSettingsKey;
 extern char const * kAdServerForbiddenKey;
+extern char const * kAutoDownloadEnabledKey;
 
 typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 {
@@ -547,17 +548,17 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
   TLocationStateModeFn locationStateModeFn = (TLocationStateModeFn)[self methodForSelector:locationStateModeSelector];
   f.SetMyPositionModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
 
-  f.SetDownloadCountryListener([self, &f](storage::TIndex const & idx, int opt)
+  f.SetDownloadCountryListener([self](storage::TIndex const & idx, int opt)
   {
-    ActiveMapsLayout & layout = f.GetCountryTree().GetActiveMapLayout();
     if (opt == -1)
     {
-      layout.RetryDownloading(idx);
+      GetFramework().GetCountryTree().GetActiveMapLayout().RetryDownloading(idx);
     }
     else
     {
-      [self checkMigrationAndCallBlock:^
+      [self checkMigrationAndCallBlock:[self, idx, opt]
       {
+        ActiveMapsLayout & layout = GetFramework().GetCountryTree().GetActiveMapLayout();
         LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
         uint64_t sizeToDownload = sizes.first;
         MapOptions options = static_cast<MapOptions>(opt);
@@ -571,9 +572,9 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
           if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * MB)
           {
             [self.alertController presentnoWiFiAlertWithName:name downloadBlock:^
-             {
-               layout.DownloadMap(idx, static_cast<MapOptions>(opt));
-             }];
+            {
+              layout.DownloadMap(idx, static_cast<MapOptions>(opt));
+            }];
             return;
           }
         }
@@ -588,17 +589,22 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
     }
   });
 
-  f.SetDownloadCancelListener([self, &f](storage::TIndex const & idx)
+  f.SetDownloadCancelListener([self](storage::TIndex const & idx)
   {
-    ActiveMapsLayout & layout = f.GetCountryTree().GetActiveMapLayout();
-    layout.CancelDownloading(idx);
+    GetFramework().GetCountryTree().GetActiveMapLayout().CancelDownloading(idx);
   });
 
-  f.SetAutoDownloadListener([self, &f](storage::TIndex const & idx)
+  f.SetAutoDownloadListener([self](storage::TIndex const & idx)
   {
-    //TODO: check wifi, migration, settings, whatever and download or not download
-    ActiveMapsLayout & layout = f.GetCountryTree().GetActiveMapLayout();
-    layout.DownloadMap(idx, MapOptions::Map);
+    bool autoDownloadEnabled = false;
+    (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
+    if (!autoDownloadEnabled)
+      return;
+    [self checkMigrationAndCallBlock:[idx]
+    {
+      if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI)
+        GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(idx, MapOptions::MapWithCarRouting);
+    }];
   });
 
   f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
