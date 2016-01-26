@@ -1,4 +1,5 @@
 #include "indexer/classificator.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_meta.hpp"
@@ -17,6 +18,7 @@
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/chrono.hpp"
@@ -646,7 +648,6 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
     auto features = m_features;
 
     int uploadedFeaturesCount = 0, errorsCount = 0;
-    // TODO(AlexZ): insert usefull changeset comments.
     ChangesetWrapper changeset({key, secret}, tags);
     for (auto & id : features)
     {
@@ -690,8 +691,8 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           fti.m_uploadStatus = kDeletedFromOSMServer;
           fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError = ex.what();
-          LOG(LWARNING, (fti.m_uploadError, ex.what()));
           ++errorsCount;
+          LOG(LWARNING, (ex.what()));
         }
         catch (RootException const & ex)
         {
@@ -700,6 +701,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError = ex.what();
           ++errorsCount;
+          LOG(LWARNING, (ex.what()));
         }
         // Call Save every time we modify each feature's information.
         SaveUploadedInformation(fti);
@@ -764,6 +766,7 @@ void Editor::Invalidate()
 Editor::Stats Editor::GetStats() const
 {
   Stats stats;
+  LOG(LDEBUG, ("Edited features status:"));
   for (auto const & id : m_features)
   {
     for (auto const & index : id.second)
@@ -771,6 +774,9 @@ Editor::Stats Editor::GetStats() const
       Editor::FeatureTypeInfo const & fti = index.second;
       stats.m_edits.push_back(make_pair(FeatureID(id.first, index.first),
                                         fti.m_uploadStatus + " " + fti.m_uploadError));
+      LOG(LDEBUG, (fti.m_uploadAttemptTimestamp == my::INVALID_TIME_STAMP
+                   ? "NOT_UPLOADED_YET" : my::TimestampToString(fti.m_uploadAttemptTimestamp), fti.m_uploadStatus,
+                   fti.m_uploadError, fti.m_feature.GetFeatureType(), feature::GetCenter(fti.m_feature)));
       if (fti.m_uploadStatus == kUploaded)
       {
         ++stats.m_uploadedCount;
