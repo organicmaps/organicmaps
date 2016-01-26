@@ -64,6 +64,9 @@ uint32_t TodayAsYYMMDD()
 
 string TimestampToString(time_t time)
 {
+  if (time == INVALID_TIME_STAMP)
+    return string("INVALID_TIME_STAMP");
+
   tm * t = gmtime(&time);
   char buf[21] = { 0 };
 #ifdef OMIM_OS_WINDOWS
