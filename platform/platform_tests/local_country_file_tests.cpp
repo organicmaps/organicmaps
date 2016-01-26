@@ -116,10 +116,6 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
     TEST(localFile.OnDisk(MapOptions::CarRouting), ());
     TEST(localFile.OnDisk(MapOptions::MapWithCarRouting), ());
     TEST_EQUAL(3, localFile.GetSize(MapOptions::Map), ());
-
-    localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
-    TEST(!testMapFile.Exists(), (testMapFile, "wasn't deleted by LocalCountryFile."));
-    testMapFile.Reset();
   }
   else
   {
@@ -138,13 +134,14 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
     TEST_EQUAL(7, localFile.GetSize(MapOptions::CarRouting), ());
     TEST_EQUAL(10, localFile.GetSize(MapOptions::MapWithCarRouting), ());
 
-    localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
-    TEST(!testMapFile.Exists(), (testMapFile, "wasn't deleted by LocalCountryFile."));
-    testMapFile.Reset();
 
     TEST(!testRoutingFile.Exists(), (testRoutingFile, "wasn't deleted by LocalCountryFile."));
     testRoutingFile.Reset();
   }
+
+  localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
+  TEST(!testMapFile.Exists(), (testMapFile, "wasn't deleted by LocalCountryFile."));
+  testMapFile.Reset();
 }
 
 UNIT_TEST(LocalCountryFile_CleanupMapFiles)
