@@ -349,26 +349,26 @@ UNIT_TEST(StorageTest_SingleCountryDownloading)
   TaskRunner runner;
   InitStorage(storage, runner);
 
-  TIndex const azerbaijanIndex = storage.FindIndexByFile("Angola");
-  TEST(azerbaijanIndex.IsValid(), ());
+  TIndex const index = storage.FindIndexByFile("Angola");
+  TEST(index.IsValid(), ());
 
-  CountryFile azerbaijanFile = storage.GetCountryFile(azerbaijanIndex);
-  storage.DeleteCountry(azerbaijanIndex, MapOptions::MapWithCarRouting);
+  CountryFile azerbaijanFile = storage.GetCountryFile(index);
+  storage.DeleteCountry(index, MapOptions::MapWithCarRouting);
 
   {
     MY_SCOPE_GUARD(cleanupCountryFiles,
-                   bind(&Storage::DeleteCountry, &storage, azerbaijanIndex, MapOptions::Map));
+                   bind(&Storage::DeleteCountry, &storage, index, MapOptions::Map));
     unique_ptr<CountryDownloaderChecker> checker =
-        AbsentCountryDownloaderChecker(storage, azerbaijanIndex, MapOptions::MapWithCarRouting);
+        AbsentCountryDownloaderChecker(storage, index, MapOptions::MapWithCarRouting);
     checker->StartDownload();
     runner.Run();
   }
 
   {
-    MY_SCOPE_GUARD(cleanupCountryFiles, bind(&Storage::DeleteCountry, &storage, azerbaijanIndex,
+    MY_SCOPE_GUARD(cleanupCountryFiles, bind(&Storage::DeleteCountry, &storage, index,
                                              MapOptions::MapWithCarRouting));
     unique_ptr<CountryDownloaderChecker> checker =
-        AbsentCountryDownloaderChecker(storage, azerbaijanIndex, MapOptions::MapWithCarRouting);
+        AbsentCountryDownloaderChecker(storage, index, MapOptions::MapWithCarRouting);
     checker->StartDownload();
     runner.Run();
   }
@@ -380,22 +380,22 @@ UNIT_TEST(StorageTest_TwoCountriesDownloading)
   TaskRunner runner;
   InitStorage(storage, runner);
 
-  TIndex const uruguayIndex = storage.FindIndexByFile("Yemen");
-  TEST(uruguayIndex.IsValid(), ());
-  storage.DeleteCountry(uruguayIndex, MapOptions::Map);
+  TIndex const index1 = storage.FindIndexByFile("Yemen");
+  TEST(index1.IsValid(), ());
+  storage.DeleteCountry(index1, MapOptions::Map);
   MY_SCOPE_GUARD(cleanupUruguayFiles,
-                 bind(&Storage::DeleteCountry, &storage, uruguayIndex, MapOptions::Map));
+                 bind(&Storage::DeleteCountry, &storage, index1, MapOptions::Map));
 
-  TIndex const venezuelaIndex = storage.FindIndexByFile("Angola");
-  TEST(venezuelaIndex.IsValid(), ());
-  storage.DeleteCountry(venezuelaIndex, MapOptions::MapWithCarRouting);
-  MY_SCOPE_GUARD(cleanupVenezuelaFiles, bind(&Storage::DeleteCountry, &storage, venezuelaIndex,
+  TIndex const index2 = storage.FindIndexByFile("Angola");
+  TEST(index2.IsValid(), ());
+  storage.DeleteCountry(index2, MapOptions::MapWithCarRouting);
+  MY_SCOPE_GUARD(cleanupVenezuelaFiles, bind(&Storage::DeleteCountry, &storage, index2,
                                              MapOptions::MapWithCarRouting));
 
   unique_ptr<CountryDownloaderChecker> uruguayChecker =
-      AbsentCountryDownloaderChecker(storage, uruguayIndex, MapOptions::Map);
+      AbsentCountryDownloaderChecker(storage, index1, MapOptions::Map);
   unique_ptr<CountryDownloaderChecker> venezuelaChecker =
-      QueuedCountryDownloaderChecker(storage, venezuelaIndex, MapOptions::MapWithCarRouting);
+      QueuedCountryDownloaderChecker(storage, index2, MapOptions::MapWithCarRouting);
   uruguayChecker->StartDownload();
   venezuelaChecker->StartDownload();
   runner.Run();

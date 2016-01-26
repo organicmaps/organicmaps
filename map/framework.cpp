@@ -530,7 +530,7 @@ void Framework::RegisterAllMaps()
   m_storage.RegisterAllLocalMaps();
 
   // Fast migrate if possible.
-  if(platform::migrate::NeedMigrate())
+  if (platform::migrate::NeedMigrate())
   {
     bool disableFastMigrate = false;
     Settings::Get("DisableFastMigrate", disableFastMigrate);
@@ -1096,7 +1096,7 @@ void Framework::InitCountryInfoGetter()
   Platform const & platform = GetPlatform();
   try
   {
-    if(platform::migrate::NeedMigrate())
+    if (platform::migrate::NeedMigrate())
     {
       m_infoGetter.reset(new storage::CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE),
                                                         platform.GetReader(COUNTRIES_FILE)));

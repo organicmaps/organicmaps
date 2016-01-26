@@ -489,7 +489,7 @@ void Storage::LoadCountriesFile(bool forceReload)
   if (m_countries.SiblingsCount() == 0)
   {
     string json;
-    string name = migrate::NeedMigrate() ? COUNTRIES_FILE : COUNTRIES_MIGRATE_FILE;
+    string const name = migrate::NeedMigrate() ? COUNTRIES_FILE : COUNTRIES_MIGRATE_FILE;
     ReaderPtr<Reader>(GetPlatform().GetReader(name)).ReadAsString(json);
     m_currentVersion = LoadCountries(json, m_countries);
     if (m_currentVersion < 0)
