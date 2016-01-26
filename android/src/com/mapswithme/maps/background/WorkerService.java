@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Handler;
 import android.text.TextUtils;
 
+import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -81,7 +82,7 @@ public class WorkerService extends IntentService
 
   private static void handleActionCheckUpdate()
   {
-    if (!Framework.nativeIsDataVersionChanged())
+    if (!Framework.nativeIsDataVersionChanged() || ActiveCountryTree.isLegacyMode())
       return;
 
     final String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
