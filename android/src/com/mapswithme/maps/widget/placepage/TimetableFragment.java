@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class TimetableFragment extends BaseMwmFragment
     simpleMode();
 
     final Bundle args = getArguments();
-    if (args != null && args.containsKey(EXTRA_TIME))
+    if (args != null && !TextUtils.isEmpty(args.getString(EXTRA_TIME)))
       mSimpleModeFragment.setTimetables(OpeningHours.nativeTimetablesFromString(args.getString(EXTRA_TIME)));
   }
 

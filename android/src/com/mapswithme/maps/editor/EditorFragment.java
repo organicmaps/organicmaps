@@ -72,7 +72,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mEtPhone.setText(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
     mEtWebsite.setText(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_WEBSITE));
     mEtEmail.setText(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_EMAIL));
-    mTvCuisine.setText(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_CUISINE));
+    mTvCuisine.setText(mEditedPoi.getCuisine());
     mSwWifi.setChecked(!TextUtils.isEmpty(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_INTERNET)));
     refreshOpeningTime();
 
