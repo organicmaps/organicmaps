@@ -16,6 +16,7 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
@@ -213,6 +214,7 @@ uint32_t MigrateFeatureIndex(XMLFeature const & /*xml*/)
   // @TODO(mgsergio): Update feature's index when user has downloaded fresh MWM file and old indices point to other features.
   // Possible implementation: use function to load features in rect (center feature's point) and somehow compare/choose from them.
   // Probably we need to store more data about features in xml, e.g. types, may be other data, to match them correctly.
+  MYTHROW(RootException, ("TODO(mgsergio, AlexZ): Implement correct feature migrate code."));
   return 0;
 }
 
@@ -296,7 +298,9 @@ void Editor::LoadMapEdits()
         try
         {
           XMLFeature const xml(nodeOrWay.node());
-          uint32_t const featureIndex = mapVersion == id.GetInfo()->GetVersion() ? xml.GetMWMFeatureIndex() : MigrateFeatureIndex(xml);
+          // TODO(mgsergio, AlexZ): MigrateFeatureIndex() case will always throw now, so 'old' features are ignored.
+          uint32_t const featureIndex = mapVersion == id.GetInfo()->GetVersion() ? xml.GetMWMFeatureIndex()
+                                                                                 : MigrateFeatureIndex(xml);
           FeatureID const fid(id, featureIndex);
 
           FeatureTypeInfo & fti = m_features[id][fid.m_index];
