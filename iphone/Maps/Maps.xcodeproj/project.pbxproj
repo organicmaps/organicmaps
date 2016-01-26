@@ -107,7 +107,6 @@
 		3438CDFC1B862F5C0051AA78 /* MWMSearchContentView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDFB1B862F5C0051AA78 /* MWMSearchContentView.mm */; };
 		343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */; };
 		343F26301AEFDB1A00388A6D /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 343F262F1AEFDB1A00388A6D /* Framework.cpp */; };
-		343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
 		3445CEAE1C2D9E08006F4226 /* MWMAuthorizationSignupViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3445CEAD1C2D9E08006F4226 /* MWMAuthorizationSignupViewController.mm */; };
 		3445CEAF1C2D9E08006F4226 /* MWMAuthorizationSignupViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3445CEAD1C2D9E08006F4226 /* MWMAuthorizationSignupViewController.mm */; };
 		344825931B8DBADF00757B1B /* MWMSearchDownloadViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 344825911B8DBADF00757B1B /* MWMSearchDownloadViewController.mm */; };
@@ -263,7 +262,6 @@
 		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
 		34FF2CB51C0F13FA007A6FD2 /* MWMOpeningHoursTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FF2CB41C0F13FA007A6FD2 /* MWMOpeningHoursTableViewCell.mm */; };
 		34FF2CB61C0F13FA007A6FD2 /* MWMOpeningHoursTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FF2CB41C0F13FA007A6FD2 /* MWMOpeningHoursTableViewCell.mm */; };
-		45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */ = {isa = PBXBuildFile; fileRef = 45159BF81B0CA2D5009BFA85 /* resources-6plus */; };
 		4519503A1B7A3E070085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		4519503B1B7A3E390085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
@@ -733,7 +731,6 @@
 		97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		97F0817E19AF72590098FB0B /* BadgeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F0817D19AF72590098FB0B /* BadgeView.mm */; };
 		97F61794183E7445009919E2 /* LinkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.mm */; };
-		9DA46A081C47E92100EF52BA /* resources-hdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */; };
 		9DA46A091C47E92100EF52BA /* resources-hdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */; };
 		9DA46A0A1C47E92100EF52BA /* resources-mdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */; };
 		9DA46A0B1C47E92100EF52BA /* resources-mdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */; };
@@ -889,6 +886,8 @@
 		F6FE2C0F1B03A006009814AA /* MWMPlacePageNavigationBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FE2C0E1B03A006009814AA /* MWMPlacePageNavigationBar.mm */; };
 		F6FE2C111B03A016009814AA /* PlacePageNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FE2C101B03A015009814AA /* PlacePageNavigationBar.xib */; };
 		F6FE2C151B04A44E009814AA /* MWMPlacePageEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6FE2C141B04A44E009814AA /* MWMPlacePageEntity.mm */; };
+		F6FEA8291C57B583007223CC /* MWMEditorSpacerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA8281C57B583007223CC /* MWMEditorSpacerCell.m */; };
+		F6FEA82A1C57B583007223CC /* MWMEditorSpacerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA8281C57B583007223CC /* MWMEditorSpacerCell.m */; };
 		F6FF2E2B1B8C5C020063FD1F /* MWMNextTurnPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FF2E2A1B8C5C020063FD1F /* MWMNextTurnPanel.xib */; };
 		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
 		FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
@@ -1614,6 +1613,8 @@
 		F6FE2C101B03A015009814AA /* PlacePageNavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlacePageNavigationBar.xib; sourceTree = "<group>"; };
 		F6FE2C131B04A44E009814AA /* MWMPlacePageEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageEntity.h; sourceTree = "<group>"; };
 		F6FE2C141B04A44E009814AA /* MWMPlacePageEntity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageEntity.mm; sourceTree = "<group>"; };
+		F6FEA8271C57B583007223CC /* MWMEditorSpacerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorSpacerCell.h; sourceTree = "<group>"; };
+		F6FEA8281C57B583007223CC /* MWMEditorSpacerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMEditorSpacerCell.m; sourceTree = "<group>"; };
 		F6FF2E2A1B8C5C020063FD1F /* MWMNextTurnPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMNextTurnPanel.xib; sourceTree = "<group>"; };
 		F785EB3E16386FC4003A38A8 /* BookmarkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarkCell.h; path = Bookmarks/BookmarkCell.h; sourceTree = SOURCE_ROOT; };
 		F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BookmarkCell.mm; path = Bookmarks/BookmarkCell.mm; sourceTree = SOURCE_ROOT; };
@@ -2553,6 +2554,8 @@
 				3401CD7A1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.h */,
 				3401CD7B1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.mm */,
 				3401CD7C1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.xib */,
+				F6FEA8271C57B583007223CC /* MWMEditorSpacerCell.h */,
+				F6FEA8281C57B583007223CC /* MWMEditorSpacerCell.m */,
 				3401CD811C3D33040028C6F8 /* MWMEditorSpacerCell.xib */,
 			);
 			path = Editor;
@@ -3579,10 +3582,8 @@
 				34CFFE8D1B7DE71C009D0C9F /* MWMSearchView.xib in Resources */,
 				3401CD711C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib in Resources */,
 				34F9FB891C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.xib in Resources */,
-				F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */,
 				F6588E381B15D87A00EE1E58 /* MWMBookmarkColorCell.xib in Resources */,
 				3401CD691C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib in Resources */,
-				F607C1851C032A8800B53A87 /* resources-hdpi in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
 				4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */,
 				4A23D15D1B8B4DD700D4EB6F /* resources-mdpi_clear in Resources */,
@@ -3720,7 +3721,6 @@
 				6741A95C1BF340DE002C974C /* categories.txt in Resources */,
 				6741A95D1BF340DE002C974C /* types.txt in Resources */,
 				34181E901C0ECF210081B586 /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
-				6741A95E1BF340DE002C974C /* resources-mdpi in Resources */,
 				34181E9C1C0ECF210081B586 /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				6741A95F1BF340DE002C974C /* InfoPlist.strings in Resources */,
 				6741A9601BF340DE002C974C /* MWMRoutingDisclaimerAlert.xib in Resources */,
@@ -3741,7 +3741,6 @@
 				3491E7CE1C06F1F10042FE24 /* MWMPlacePageButtonCell.xib in Resources */,
 				6741A9691BF340DE002C974C /* PlacePageView.xib in Resources */,
 				34181EA01C0ECF210081B586 /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
-				6741A96A1BF340DE002C974C /* resources-xxhdpi in Resources */,
 				6741A96B1BF340DE002C974C /* MWMBottomMenuViewController.xib in Resources */,
 				6741A96C1BF340DE002C974C /* MWMDownloadTransitMapAlert.xib in Resources */,
 				6741A96D1BF340DE002C974C /* MWMLocationAlert.xib in Resources */,
@@ -3982,6 +3981,7 @@
 				977E26BE19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */,
 				34BF0CC61C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */,
 				97F0817E19AF72590098FB0B /* BadgeView.mm in Sources */,
+				F6FEA8291C57B583007223CC /* MWMEditorSpacerCell.m in Sources */,
 				34B82AC41B84608600180497 /* MWMSearchHistoryClearCell.mm in Sources */,
 				F64F4B741B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm in Sources */,
 				34F8ADD91B97229A004184CC /* MWMSearchTableView.mm in Sources */,
@@ -4207,6 +4207,7 @@
 				F6F6ACFC1C15C1010060FDD0 /* MWMRecentTrackSettingsController.mm in Sources */,
 				34BF0CC71C31304A00D097EB /* MWMAuthorizationCommon.mm in Sources */,
 				6741A9DF1BF340DE002C974C /* MWMSearchHistoryClearCell.mm in Sources */,
+				F6FEA82A1C57B583007223CC /* MWMEditorSpacerCell.m in Sources */,
 				6741A9E01BF340DE002C974C /* MWMDownloaderDialogHeader.mm in Sources */,
 				6741A9E11BF340DE002C974C /* MWMSearchTableView.mm in Sources */,
 				6741A9E21BF340DE002C974C /* MWMPlacePageTypeDescription.mm in Sources */,
