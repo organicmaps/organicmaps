@@ -627,6 +627,12 @@ bool Editor::HaveSomethingToUpload() const
 void Editor::UploadChanges(string const & key, string const & secret, TChangesetTags tags,
                            TFinishUploadCallback callBack)
 {
+  if (!HaveSomethingToUpload())
+  {
+    LOG(LDEBUG, ("There are no local edits to upload."));
+    return;
+  }
+
   tags["created_by"] = "MAPS.ME " OMIM_OS_NAME;
 
   // TODO(AlexZ): features access should be synchronized.
