@@ -164,6 +164,13 @@ using namespace osm;
   [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)forgotPassword
+{
+  OsmOAuth const auth = OsmOAuth::ServerAuth();
+  NSURL * url = [NSURL URLWithString:@(auth.GetResetPasswordURL().c_str())];
+  [[UIApplication sharedApplication] openURL:url];
+}
+
 #pragma mark - Properties
 
 - (void)setIsCorrect:(MWMFieldCorrect)isCorrect
