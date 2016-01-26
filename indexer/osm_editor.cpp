@@ -632,9 +632,12 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
     LOG(LDEBUG, ("There are no local edits to upload."));
     return;
   }
-
-  tags["created_by"] = "MAPS.ME " OMIM_OS_NAME;
-
+  {
+    auto const stats = GetStats();
+    tags["total_edits"] = strings::to_string(stats.m_edits.size());
+    tags["uploaded_edits"] = strings::to_string(stats.m_uploadedCount);
+    tags["created_by"] = "MAPS.ME " OMIM_OS_NAME;
+  }
   // TODO(AlexZ): features access should be synchronized.
   auto const lambda = [this](string key, string secret, TChangesetTags tags, TFinishUploadCallback callBack)
   {
