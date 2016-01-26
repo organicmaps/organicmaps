@@ -645,7 +645,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
     tags["created_by"] = "MAPS.ME " OMIM_OS_NAME;
   }
   // TODO(AlexZ): features access should be synchronized.
-  auto const lambda = [this](string key, string secret, TChangesetTags tags, TFinishUploadCallback callBack)
+  auto const upload = [this](string key, string secret, TChangesetTags tags, TFinishUploadCallback callBack)
   {
     // This lambda was designed to start after app goes into background. But for cases when user is immediately
     // coming back to the app we work with a copy, because 'for' loops below can take a significant amount of time.
@@ -724,10 +724,10 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
   };
 
   // Do not run more than one upload thread at a time.
-  static auto future = async(launch::async, lambda, key, secret, tags, callBack);
+  static auto future = async(launch::async, upload, key, secret, tags, callBack);
   auto const status = future.wait_for(milliseconds(0));
   if (status == future_status::ready)
-    future = async(launch::async, lambda, key, secret, tags, callBack);
+    future = async(launch::async, upload, key, secret, tags, callBack);
 }
 
 void Editor::SaveUploadedInformation(FeatureTypeInfo const & fromUploader)
