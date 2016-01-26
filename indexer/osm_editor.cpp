@@ -21,6 +21,7 @@
 #include "std/algorithm.hpp"
 #include "std/chrono.hpp"
 #include "std/future.hpp"
+#include "std/mutex.hpp"
 #include "std/target_os.hpp"
 #include "std/tuple.hpp"
 #include "std/unordered_map.hpp"
@@ -340,6 +341,10 @@ void Editor::LoadMapEdits()
 
 void Editor::Save(string const & fullFilePath) const
 {
+  // TODO(AlexZ): Improve synchronization in Editor code.
+  static mutex saveMutex;
+  lock_guard<mutex> lock(saveMutex);
+
   if (m_features.empty())
   {
     my::DeleteFileX(GetEditorFilePath());
