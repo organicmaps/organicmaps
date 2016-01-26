@@ -128,7 +128,7 @@ editor::XMLFeature FeatureType::ToXML() const
 
   for (auto const type : m_metadata.GetPresentTypes())
   {
-    auto const attributeName = DebugPrint(type);
+    auto const attributeName = DebugPrint(static_cast<Metadata::EType>(type));
     feature.SetTagValue(attributeName, m_metadata.Get(type));
   }
 
