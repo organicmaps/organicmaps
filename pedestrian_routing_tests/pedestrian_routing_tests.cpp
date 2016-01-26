@@ -91,19 +91,19 @@ unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
 
 unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index, storage::CountryInfoGetter & cig)
 {
-  auto fnUKGetter = [&](m2::PointD const & pt) { return cig.GetRegionFile(pt); };
+  auto UKGetter = [&](m2::PointD const & pt) { return cig.GetRegionFile(pt); };
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarRoutingAlgorithm());
-  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, fnUKGetter, move(vehicleModelFactory), move(algorithm), nullptr));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-pedestrian", index, UKGetter, move(vehicleModelFactory), move(algorithm), nullptr));
   return router;
 }
 
 unique_ptr<routing::IRouter> CreatePedestrianAStarBidirectionalTestRouter(Index & index, storage::CountryInfoGetter & cig)
 {
-  auto fnUKGetter = [&](m2::PointD const & pt) { return cig.GetRegionFile(pt); };
+  auto UKGetter = [&](m2::PointD const & pt) { return cig.GetRegionFile(pt); };
   unique_ptr<routing::IVehicleModelFactory> vehicleModelFactory(new SimplifiedPedestrianModelFactory());
   unique_ptr<routing::IRoutingAlgorithm> algorithm(new routing::AStarBidirectionalRoutingAlgorithm());
-  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, fnUKGetter, move(vehicleModelFactory), move(algorithm), nullptr));
+  unique_ptr<routing::IRouter> router(new routing::RoadGraphRouter("test-astar-bidirectional-pedestrian", index, UKGetter, move(vehicleModelFactory), move(algorithm), nullptr));
   return router;
 }
 
