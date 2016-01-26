@@ -534,7 +534,7 @@ void Framework::RegisterAllMaps()
   {
     bool disableFastMigrate = false;
     Settings::Get("DisableFastMigrate", disableFastMigrate);
-    if(!disableFastMigrate && !m_storage.HaveDownloadedCountries())
+    if (!disableFastMigrate && !m_storage.HaveDownloadedCountries())
     {
       Migrate();
       return;
@@ -931,7 +931,7 @@ void Framework::OnDownloadMapCallback(storage::TIndex const & countryIndex)
 void Framework::OnDownloadRetryCallback(storage::TIndex const & countryIndex)
 {
   if (m_downloadCountryListener != nullptr)
-    m_downloadCountryListener(countryIndex, -1);
+    m_downloadCountryListener(countryIndex, -1 /* option for retry downloading */);
   else
     m_activeMaps->RetryDownloading(countryIndex);
 }
