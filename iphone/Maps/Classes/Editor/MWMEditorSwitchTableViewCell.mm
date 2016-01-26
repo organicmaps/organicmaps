@@ -1,4 +1,5 @@
 #import "MWMEditorSwitchTableViewCell.h"
+#import "UIImageView+Coloring.h"
 
 @interface MWMEditorSwitchTableViewCell ()
 
@@ -21,6 +22,7 @@
 {
   self.delegate = delegate;
   self.icon.image = icon;
+  self.icon.mwm_coloring = MWMImageColoringBlack;
   self.label.text = text;
   self.switchControl.on = on;
   self.bottomSeparatorLeadingOffset.priority = lastCell ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;

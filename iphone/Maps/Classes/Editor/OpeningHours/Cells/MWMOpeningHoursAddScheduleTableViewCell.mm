@@ -10,6 +10,11 @@
 
 @implementation MWMOpeningHoursAddScheduleTableViewCell
 
+- (void)awakeFromNib
+{
+  self.backgroundColor = [UIColor clearColor];
+}
+
 + (CGFloat)height
 {
   return 84.0;

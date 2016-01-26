@@ -1,5 +1,6 @@
 #import "MWMOpeningHoursDaysSelectorTableViewCell.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIImageView+Coloring.h"
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -73,6 +74,7 @@ using namespace osmoh;
   {
     if (image.tag == tag)
       image.image = [UIImage imageNamed:selected ? @"radioBtnOn" : @"radioBtnOff"];
+    image.mwm_coloring = MWMImageColoringBlue;
   }
 }
 

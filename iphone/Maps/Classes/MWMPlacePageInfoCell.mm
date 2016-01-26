@@ -27,7 +27,7 @@
 {
   [super awakeFromNib];
   if ([self.textContainer isKindOfClass:[UITextView class]])
-    [(UITextView *)self.textContainer setTextContainerInset:{.top = 12, 0, 0, 0}];
+    [(UITextView *)self.textContainer setTextContainerInset:{.top = 12}];
 }
 
 - (void)configureWithType:(MWMPlacePageCellType)type info:(NSString *)info;

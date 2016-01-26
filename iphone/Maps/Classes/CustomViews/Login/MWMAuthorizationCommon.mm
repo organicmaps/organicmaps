@@ -1,5 +1,6 @@
 #import "MWMAuthorizationCommon.h"
 #import "UIButton+RuntimeAttributes.h"
+#import "UIColor+MapsMeColor.h"
 
 namespace
 {
@@ -16,8 +17,9 @@ UIColor * MWMAuthorizationButtonTextColor(MWMAuthorizationButtonType type)
     case MWMAuthorizationButtonTypeGoogle:
       return [UIColor blackColor];
     case MWMAuthorizationButtonTypeFacebook:
-    case MWMAuthorizationButtonTypeOSM:
       return [UIColor whiteColor];
+    case MWMAuthorizationButtonTypeOSM:
+      return [UIColor white];
   }
   return [UIColor clearColor];
 }
@@ -31,7 +33,7 @@ UIColor * MWMAuthorizationButtonBackgroundColor(MWMAuthorizationButtonType type)
     case MWMAuthorizationButtonTypeFacebook:
       return [UIColor colorWithRed:72. / 255. green:97. / 255. blue:163. / 255. alpha:1.];
     case MWMAuthorizationButtonTypeOSM:
-      return [UIColor colorWithRed:30. / 255. green:150. / 255. blue:240. / 255. alpha:1.];
+      return [UIColor linkBlue];
   }
   return [UIColor clearColor];
 }

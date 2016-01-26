@@ -2,6 +2,7 @@
 #import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMPlacePageOpeningHoursDayView.h"
 #import "Statistics.h"
+#import "UIImageView+Coloring.h"
 
 #include "3party/opening_hours/opening_hours.hpp"
 #include "editor/opening_hours_ui.hpp"
@@ -72,6 +73,7 @@ WeekDayView getWeekDayView()
   self.toggleButton.hidden = !delegate.forcedButton;
   self.expandImage.hidden = !delegate.forcedButton;
   self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray"];
+  self.expandImage.mwm_coloring = MWMImageColoringGray;
   self.bottomSeparatorLeadingOffset.constant = lastCell ? 0.0 : 60.0;
   NSAssert(info, @"Schedule can not be empty");
   osmoh::OpeningHours oh(info.UTF8String);
@@ -129,6 +131,8 @@ WeekDayView getWeekDayView()
       self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_up"];
     else
       self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_down"];
+
+    self.expandImage.mwm_coloring = MWMImageColoringGray;
     if (self.isExpanded)
       [self addClosedDays];
   }
