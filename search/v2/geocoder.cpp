@@ -231,13 +231,19 @@ bool IsStopWord(strings::UniString const & s)
   return kStopWords.count(s) > 0;
 }
 
-m2::RectD NormalizeViewport(m2::RectD const & viewport)
+m2::RectD NormalizeViewport(m2::RectD viewport)
 {
+  double constexpr kMinViewportRadiusM = 5.0 * 1000;
   double constexpr kMaxViewportRadiusM = 50.0 * 1000;
-  m2::RectD limit =
+
+  m2::RectD minViewport =
+      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMinViewportRadiusM);
+  viewport.Add(minViewport);
+
+  m2::RectD maxViewport =
       MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMaxViewportRadiusM);
-  VERIFY(limit.Intersect(viewport), ());
-  return limit;
+  VERIFY(viewport.Intersect(maxViewport), ());
+  return viewport;
 }
 
 m2::RectD GetRectAroundPoistion(m2::PointD const & position)
