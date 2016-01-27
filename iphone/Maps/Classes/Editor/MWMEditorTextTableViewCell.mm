@@ -36,11 +36,18 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+  [self.delegate cellBeginEditing:self];
+  return YES;
+}
+
 - (BOOL)textField:(UITextField *)textField
     shouldChangeCharactersInRange:(NSRange)range
                 replacementString:(NSString *)string
 {
-  NSString * newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+  NSString * newString =
+      [textField.text stringByReplacingCharactersInRange:range withString:string];
   BOOL const isCorrect = [textField.validator validateString:newString];
   if (isCorrect)
     [self.delegate cell:self changeText:newString];

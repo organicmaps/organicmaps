@@ -73,6 +73,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * tableViewBottomOffset;
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
+@property (weak, nonatomic) UITableViewCell * editCell;
 
 @property (nonatomic) BOOL needsReload;
 
@@ -130,14 +131,25 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   NSDictionary * info = [aNotification userInfo];
   CGFloat const kbYEnd = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
   CGFloat const kbYBeg = [info[UIKeyboardFrameBeginUserInfoKey] CGRectValue].origin.y;
-  UIViewAnimationCurve const curve = static_cast<UIViewAnimationCurve>([info[UIKeyboardAnimationCurveUserInfoKey] integerValue]);
+  UIViewAnimationCurve const curve =
+      static_cast<UIViewAnimationCurve>([info[UIKeyboardAnimationCurveUserInfoKey] integerValue]);
   NSTimeInterval const duration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
   [self.view layoutIfNeeded];
-  self.tableViewBottomOffset.constant = kbYEnd < kbYBeg ? kbYBeg - kbYEnd : 0.0;
+  UITableView * tv = self.tableView;
+  NSIndexPath * cellPath = [tv indexPathForCell:self.editCell];
+  [tv scrollToRowAtIndexPath:cellPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+  if (kbYEnd < kbYBeg)
+    self.tableViewBottomOffset.constant = kbYBeg - kbYEnd;
+  else if (kbYEnd > kbYBeg)
+    self.tableViewBottomOffset.constant = 0.0;
   [UIView animateWithDuration:duration delay:0.0 options:curve animations:^
   {
     [self.view layoutIfNeeded];
-  } completion:nil];
+  }
+  completion:^(BOOL finished)
+  {
+    [tv scrollToRowAtIndexPath:cellPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+  }];
 }
 
 #pragma mark - Actions
@@ -476,6 +488,11 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 }
 
 #pragma mark - MWMEditorCellProtocol
+
+- (void)cellBeginEditing:(UITableViewCell *)cell
+{
+  self.editCell = cell;
+}
 
 - (void)cell:(UITableViewCell *)cell changeText:(NSString *)changeText
 {
