@@ -5,8 +5,57 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/regex.hpp"
+#include "std/algorithm.hpp"
 #include "std/cctype.hpp"
+#include "std/unordered_set.hpp"
+
+namespace
+{
+
+constexpr char const * kOSMMultivalueDelimiter = ";";
+
+template <class T>
+void RemoveDuplicatesAndKeepOrder(vector<T> & vec)
+{
+  unordered_set<T> seen;
+  auto const predicate = [&seen](T const & value)
+  {
+    if (seen.find(value) != seen.end())
+      return true;
+    seen.insert(value);
+    return false;
+  };
+  vec.erase(std::remove_if(vec.begin(), vec.end(), predicate), vec.end());
+}
+
+// Also filters out duplicates.
+class MultivalueCollector
+{
+public:
+  void operator()(string const & value)
+  {
+    if (value.empty() || value == kOSMMultivalueDelimiter)
+      return;
+    m_values.push_back(value);
+  }
+  string GetString()
+  {
+    if (m_values.empty())
+      return string();
+
+    RemoveDuplicatesAndKeepOrder(m_values);
+    return strings::JoinStrings(m_values, kOSMMultivalueDelimiter);
+  }
+private:
+  vector<string> m_values;
+};
+
+void CollapseMultipleConsecutiveCharsIntoOne(char c, string & str)
+{
+  auto const comparator = [c](char lhs, char rhs) { return lhs == rhs && lhs == c; };
+  str.erase(unique(str.begin(), str.end(), comparator), str.end());
+}
+}  // namespace
 
 string MetadataTagProcessorImpl::ValidateAndFormat_maxspeed(string const & v) const
 {
@@ -128,10 +177,19 @@ string MetadataTagProcessorImpl::ValidateAndFormat_denomination(string const & v
 string MetadataTagProcessorImpl::ValidateAndFormat_cuisine(string v) const
 {
   strings::MakeLowerCaseInplace(v);
-  v = regex_replace(v, regex("[;,]\\s*"), ";");
-  v = regex_replace(v, regex("\\s+"), "_");
-  strings::Trim(v, ";_");
-  return v;
+  strings::SimpleTokenizer iter(v, ",;");
+  MultivalueCollector collector;
+  while (iter) {
+    string normalized = *iter;
+    strings::Trim(normalized, " ");
+    CollapseMultipleConsecutiveCharsIntoOne(' ', normalized);
+    replace(normalized.begin(), normalized.end(), ' ', '_');
+    if (normalized == "bbq" || normalized == "barbeque")
+      normalized = "barbecue";
+    collector(normalized);
+    ++iter;
+  }
+  return collector.GetString();
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_wikipedia(string v) const

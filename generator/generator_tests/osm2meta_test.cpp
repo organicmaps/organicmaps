@@ -11,4 +11,6 @@ UNIT_TEST(ValidateAndFormat_cuisine_test)
   TEST_EQUAL(tagProc.ValidateAndFormat_cuisine("abc bca"), "abc_bca", ());
   TEST_EQUAL(tagProc.ValidateAndFormat_cuisine("abc      def  gh"), "abc_def_gh", ());
   TEST_EQUAL(tagProc.ValidateAndFormat_cuisine(""), "", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_cuisine(" ; , "), "", ());
+  TEST_EQUAL(tagProc.ValidateAndFormat_cuisine(" Korean bbq;barbeque;grill,bbq; "), "korean_bbq;barbecue;grill", ());
 }
