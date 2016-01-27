@@ -435,7 +435,7 @@ if [ "$MODE" == "resources" ]; then
     echo -n > "$EXT_RES"
     UNAME="$(uname)"
     for file in "$TARGET"/World*.mwm "$TARGET"/*.ttf; do
-      if [[ "$file" != *roboto* ]]; then
+      if [[ "$file" != *roboto_reg* ]]; then
         if [ "$UNAME" == "Darwin" ]; then
           stat -f "%N %z" "$file" | sed 's#^.*/##' >> "$EXT_RES"
         else

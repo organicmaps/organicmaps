@@ -13,14 +13,15 @@ fi
 
 set -u # Fail on undefined variables
 
-OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
-TARGET="${TARGET:-$1}"
+SCRIPT_PATH="$(dirname "$0")"
+OMIM_PATH="${OMIM_PATH:-$(cd "$SCRIPT_PATH/../.."; pwd)}"
+TARGET="$(cd "${TARGET:-$1}"; pwd)"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
 DELTA_WITH=
 [ $# -gt 1 -a -d "${2-}" ] && DELTA_WITH="$2"
 
-source "$(dirname "$0")/find_generator_tool.sh"
+source "$SCRIPT_PATH/find_generator_tool.sh"
 
 # Step 1: analyze logs and find errors
 echo
@@ -47,30 +48,21 @@ if [ -d "$TARGET/borders" ]; then
     [ ! -f "$TARGET/$MWM" ] && echo "$MWM"
   done
 fi
-if [ -n "$(ls "$TARGET" | grep '\.mwm\.routing')" ]; then
-  # Only display missing routing files for existing MWMs
-  for mwm in "$TARGET"/*.mwm; do
-    if [[ "$mwm" != *World* ]]; then
-      [ ! -f "$mwm.routing" ] && echo "$(basename "$mwm").routing"
-    fi
-  done
-fi
 
 # Step 2.5: compare new files sizes with old
 if [ -n "$DELTA_WITH" ]; then
   echo
   echo "### SIZE DIFFERENCE WITH $DELTA_WITH"
-  python "$(dirname "$0")/diff_size.py" "$TARGET" "$DELTA_WITH" 5
+  python "$SCRIPT_PATH/diff_size.py" "$TARGET" "$DELTA_WITH" 5
 fi
 
 # For generator_tool, we create a temporary directory with symlinks to all maps
 # That way, it can be easily cleaned after routing engine creates a lot of temporary directories in it
-FTARGET="$TARGET/symlinked_copy"
+FTARGET="$TARGET/symlinked_copy/$(basename "$TARGET")"
 mkdir -p "$FTARGET"
-TARGET_PATH="$(cd "$TARGET"; pwd)"
 for file in "$TARGET"/*.mwm*; do
   BASENAME="$(basename "$file")"
-  ln -s "$TARGET_PATH/$BASENAME" "$FTARGET/$BASENAME"
+  ln -s "$TARGET/$BASENAME" "$FTARGET/$BASENAME"
 done
 
 # Step 3: run calc_statistics and check for sections
@@ -97,7 +89,7 @@ if [ -n "$DELTA_WITH" ]; then
     if [ -f "$DELTA_WITH/$BASENAME.mwm" ]; then
       "$GENERATOR_TOOL" --data_path="$FTARGET"    --user_resource_path="$OMIM_PATH/data/" --output="$BASENAME" --type_statistics >"${TMPBASE}_new" 2>/dev/null
       "$GENERATOR_TOOL" --data_path="$DELTA_WITH" --user_resource_path="$OMIM_PATH/data/" --output="$BASENAME" --type_statistics >"${TMPBASE}_old" 2>/dev/null
-      DIFFERENCE="$(python "$(dirname "$0")/diff_features.py" "${TMPBASE}_new" "${TMPBASE}_old" 50)"
+      DIFFERENCE="$(python "$SCRIPT_PATH/diff_features.py" "${TMPBASE}_new" "${TMPBASE}_old" 50)"
       if [ -n "$DIFFERENCE" ]; then
         echo
         echo "$BASENAME"
@@ -111,12 +103,12 @@ fi
 # Step 4: run intergation tests
 echo
 echo '### INTEGRATION TESTS'
-"$(dirname "$GENERATOR_TOOL")/routing_integration_tests" "--data_path=$FTARGET/" "--user_resource_path=$OMIM_PATH/data/" "--suppress=online_cross_tests.*" 2>&1
+"$(dirname "$GENERATOR_TOOL")/routing_integration_tests" "--data_path=$FTARGET/../" "--user_resource_path=$OMIM_PATH/data/" "--suppress=online_cross_tests.*" 2>&1
 
 # Step 5: run consistency tests
 echo
 echo '### CONSISTENCY TEST'
-"$(dirname "$GENERATOR_TOOL")/routing_consistency_test" "--data_path=$FTARGET/" "--user_resource_path=$OMIM_PATH/data/" "--input_file=$OMIM_PATH/data/routing_statistics.log" 2>&1
+"$(dirname "$GENERATOR_TOOL")/routing_consistency_test" "--data_path=$FTARGET/../" "--user_resource_path=$OMIM_PATH/data/" "--input_file=$OMIM_PATH/data/routing_statistics.log" 2>&1
 
 # Clean the temporary directory
 rm -r "$FTARGET"

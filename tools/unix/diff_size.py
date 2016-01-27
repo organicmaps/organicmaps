@@ -14,6 +14,8 @@ min_diff = 1024 * 1024
 for f in sorted(os.listdir(old_path)):
   new_file = os.path.join(new_path, f)
   old_file = os.path.join(old_path, f)
+  if '.mwm' not in new_file:
+    continue
   if os.path.isfile(new_file) and os.path.isfile(old_file):
     new_size = os.path.getsize(new_file)
     old_size = os.path.getsize(old_file)

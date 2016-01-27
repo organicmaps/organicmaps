@@ -1,4 +1,20 @@
 #!/usr/bin/python
+#
+# Produces countries.txt (either legacy or new format) from hierarchy.txt
+#
+# Hierarchy.txt format:
+#
+# Sample lines:
+# Iran;Q794;ir;fa
+#  Iran_South;Q794-South
+#
+# Number of leading spaces mean hierarchy depth. In above case, Iran_South is inside Iran.
+# Then follows a semicolon-separated list:
+# 1. MWM file name without extension
+# 2. Region name template using wikidata Qxxx codes and predefined strings
+# 3. Country ISO code (used for flags in the legacy format)
+# 4. Comma-separated list of language ISO codes for the region
+#
 import sys, json, re
 from optparse import OptionParser
 import os.path
