@@ -183,8 +183,16 @@ WeekDayView getWeekDayView()
   wd.currentDay = NO;
   wd.frame = {{0, self.weekDaysViewEstimatedHeight}, {self.weekDaysView.width, 0}};
   [wd setLabelText:stringFromOpeningDays(timeTable.GetOpeningDays()) isRed:NO];
-  [wd setOpenTimeText:stringFromTimeSpan(timeTable.GetOpeningTime())];
-  [wd setBreaks:arrayFromClosedTimes(timeTable.GetExcludeTime())];
+  if (timeTable.IsTwentyFourHours())
+  {
+    [wd setOpenTimeText:L(@"24/7")];
+    [wd setBreaks:@[]];
+  }
+  else
+  {
+    [wd setOpenTimeText:stringFromTimeSpan(timeTable.GetOpeningTime())];
+    [wd setBreaks:arrayFromClosedTimes(timeTable.GetExcludeTime())];
+  }
   [wd invalidate];
   [self.weekDaysView addSubview:wd];
   self.weekDaysViewEstimatedHeight += wd.viewHeight;
