@@ -107,11 +107,13 @@ public:
   // Retrieves from the search index corresponding to |value| all
   // features matching to |params|.
   WARN_UNUSED_RESULT static unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
-      MwmValue & value, my::Cancellable const & cancellable, SearchQueryParams const & params);
+      MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+      SearchQueryParams const & params);
 
   // Retrieves from the geometry index corresponding to |value| all features belonging to |rect|.
   WARN_UNUSED_RESULT static unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
-      MwmValue & value, my::Cancellable const & cancellable, m2::RectD const & rect, int scale);
+      MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+      m2::RectD const & rect, int scale);
 
   // Initializes retrieval process, sets up internal state, takes all
   // necessary system resources.

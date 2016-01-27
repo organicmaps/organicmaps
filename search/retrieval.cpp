@@ -5,11 +5,13 @@
 #include "interval_set.hpp"
 #include "mwm_traits.hpp"
 #include "search_index_values.hpp"
+#include "search_string_utils.hpp"
 #include "search_trie.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/index.hpp"
+#include "indexer/osm_editor.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/trie_reader.hpp"
 
@@ -24,6 +26,8 @@
 #include "std/algorithm.hpp"
 #include "std/cmath.hpp"
 #include "std/limits.hpp"
+
+using osm::Editor;
 
 namespace search
 {
@@ -53,17 +57,58 @@ void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
   result.insert(result.end(), intervals.begin(), intervals.end());
 }
 
+bool MatchFeatureByName(FeatureType const & ft, SearchQueryParams const & params)
+{
+  bool matched = false;
+  auto const matcher = [&](int8_t /*lang*/, string const & utf8Name) -> bool
+  {
+    auto const name = search::NormalizeAndSimplifyString(utf8Name);
+    for (auto const & prefix : params.m_prefixTokens)
+    {
+      if (strings::StartsWith(name, prefix))
+      {
+        matched = true;
+        return false;
+      }
+    }
+    for (auto const & synonyms : params.m_tokens)
+    {
+      for (auto const & token : synonyms)
+      {
+        if (token == name)
+        {
+          matched = true;
+          return false;
+        }
+      }
+    }
+    return true;  // To iterate all names.
+  };
+  ft.ForEachName(matcher);
+  return matched;
+}
+
 // Retrieves from the search index corresponding to |value| all
 // features matching to |params|.
 template <typename TValue>
 unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
-    MwmValue & value, my::Cancellable const & cancellable, SearchQueryParams const & params)
+    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+    SearchQueryParams const & params)
 {
   serial::CodingParams codingParams(trie::GetCodingParams(value.GetHeader().GetDefCodingParams()));
   ModelReaderPtr searchReader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
 
-  auto emptyFilter = [](uint32_t /* featureId */)
+  // Exclude from search all deleted/modified features and match all edited/created features separately.
+  Editor & editor = Editor::Instance();
+  auto const deleted = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Deleted);
+  // Modified features should be re-matched again.
+  auto const modified = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Modified);
+  auto const filter = [&](uint32_t featureIndex) -> bool
   {
+    if (binary_search(deleted.begin(), deleted.end(), featureIndex))
+      return false;
+    if (binary_search(modified.begin(), modified.end(), featureIndex))
+      return false;
     return true;
   };
 
@@ -74,29 +119,47 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
   // bit vectors are sorted in the search index.
   vector<uint64_t> features;
   uint32_t counter = 0;
-  auto collector = [&](TValue const & value)
+  auto const collector = [&](TValue const & value)
   {
     if ((++counter & 0xFF) == 0)
       BailIfCancelled(cancellable);
     features.push_back(value.m_featureId);
   };
 
-  MatchFeaturesInTrie(params, *trieRoot, emptyFilter, collector);
+  MatchFeaturesInTrie(params, *trieRoot, filter, collector);
+
+  // Match all edited/created features separately.
+  auto const matcher = [&](uint32_t featureIndex)
+  {
+    FeatureType ft;
+    VERIFY(editor.GetEditedFeature(id, featureIndex, ft), ());
+    // TODO(AlexZ): Should we match by some feature's metafields too?
+    if (MatchFeatureByName(ft, params))
+      features.push_back(featureIndex);
+  };
+  for_each(modified.begin(), modified.end(), matcher);
+  auto const created = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Created);
+  for_each(created.begin(), created.end(), matcher);
+
   return SortFeaturesAndBuildCBV(move(features));
 }
 
 // Retrieves from the geometry index corresponding to handle all
 // features from |coverage|.
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
-    MwmValue & value, my::Cancellable const & cancellable, covering::IntervalsT const & coverage,
-    int scale)
+    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+    covering::IntervalsT const & coverage, int scale)
 {
+  // TODO(AlexZ): Also add created features.
+  auto const deleted = Editor::Instance().GetFeaturesByStatus(id, Editor::FeatureStatus::Deleted);
   // TODO (@y, @m): remove this code as soon as geometry index will
   // have native support for bit vectors.
   vector<uint64_t> features;
   uint32_t counter = 0;
-  auto collector = [&](uint64_t featureId)
+  auto const collector = [&](uint64_t featureId)
   {
+    if (binary_search(deleted.begin(), deleted.end(), static_cast<uint32_t>(featureId)))
+      return;
     if ((++counter & 0xFF) == 0)
       BailIfCancelled(cancellable);
     features.push_back(featureId);
@@ -233,8 +296,9 @@ public:
       {
         covering::IntervalsT coverage;
         CoverRect(currViewport, m_coverageScale, coverage);
-        geometryFeatures = RetrieveGeometryFeaturesImpl(*m_handle.GetValue<MwmValue>(), cancellable,
-                                                        coverage, m_coverageScale);
+        geometryFeatures =
+            RetrieveGeometryFeaturesImpl(m_handle.GetId(), *m_handle.GetValue<MwmValue>(),
+                                         cancellable, coverage, m_coverageScale);
         for (auto const & interval : coverage)
           m_visited.Add(interval);
       }
@@ -267,8 +331,9 @@ public:
         for (auto const & interval : coverage)
           m_visited.SubtractFrom(interval, reducedCoverage);
 
-        geometryFeatures = RetrieveGeometryFeaturesImpl(*m_handle.GetValue<MwmValue>(), cancellable,
-                                                        reducedCoverage, m_coverageScale);
+        geometryFeatures =
+            RetrieveGeometryFeaturesImpl(m_handle.GetId(), *m_handle.GetValue<MwmValue>(),
+                                         cancellable, reducedCoverage, m_coverageScale);
 
         for (auto const & interval : reducedCoverage)
           m_visited.Add(interval);
@@ -367,7 +432,8 @@ Retrieval::Retrieval() : m_index(nullptr), m_featuresReported(0) {}
 
 // static
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
-    MwmValue & value, my::Cancellable const & cancellable, SearchQueryParams const & params)
+    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+    SearchQueryParams const & params)
 {
   MwmTraits mwmTraits(value.GetMwmVersion().format);
 
@@ -375,24 +441,25 @@ unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
       MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
   {
     using TValue = FeatureWithRankAndCenter;
-    return RetrieveAddressFeaturesImpl<TValue>(value, cancellable, params);
+    return RetrieveAddressFeaturesImpl<TValue>(id, value, cancellable, params);
   }
   else if (mwmTraits.GetSearchIndexFormat() ==
            MwmTraits::SearchIndexFormat::CompressedBitVector)
   {
     using TValue = FeatureIndexValue;
-    return RetrieveAddressFeaturesImpl<TValue>(value, cancellable, params);
+    return RetrieveAddressFeaturesImpl<TValue>(id, value, cancellable, params);
   }
   return unique_ptr<coding::CompressedBitVector>();
 }
 
 // static
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveGeometryFeatures(
-    MwmValue & value, my::Cancellable const & cancellable, m2::RectD const & rect, int scale)
+    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+    m2::RectD const & rect, int scale)
 {
   covering::IntervalsT coverage;
   CoverRect(rect, scale, coverage);
-  return RetrieveGeometryFeaturesImpl(value, cancellable, coverage, scale);
+  return RetrieveGeometryFeaturesImpl(id, value, cancellable, coverage, scale);
 }
 
 void Retrieval::Init(Index & index, vector<shared_ptr<MwmInfo>> const & infos,
@@ -526,8 +593,8 @@ bool Retrieval::InitBucketStrategy(Bucket & bucket, double scale)
   try
   {
     addressFeatures =
-        RetrieveAddressFeatures(*bucket.m_handle.GetValue<MwmValue>(), *this /* cancellable */,
-                                m_params);
+        RetrieveAddressFeatures(bucket.m_handle.GetId(), *bucket.m_handle.GetValue<MwmValue>(),
+                                *this /* cancellable */, m_params);
   }
   catch (CancelException &)
   {

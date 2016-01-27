@@ -460,9 +460,9 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       unique_ptr<coding::CompressedBitVector> viewportCBV;
       if (inViewport)
       {
-        viewportCBV = Retrieval::RetrieveGeometryFeatures(
-              m_context->m_value, cancellable,
-              m_params.m_viewport, m_params.m_scale);
+        viewportCBV =
+            Retrieval::RetrieveGeometryFeatures(m_context->m_id, m_context->m_value, cancellable,
+                                                m_params.m_viewport, m_params.m_scale);
       }
 
       // Creates a cache of posting lists for each token.
@@ -472,7 +472,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
         PrepareRetrievalParams(i, i + 1);
 
         m_addressFeatures[i] = Retrieval::RetrieveAddressFeatures(
-              m_context->m_value, cancellable, m_retrievalParams);
+            m_context->m_id, m_context->m_value, cancellable, m_retrievalParams);
         ASSERT(m_addressFeatures[i], ());
 
         if (viewportCBV)
@@ -535,7 +535,8 @@ void Geocoder::FillLocalitiesTable(MwmContext const & context)
   {
     PrepareRetrievalParams(i, i + 1);
     tokensCBV.push_back(Retrieval::RetrieveAddressFeatures(
-        context.m_value, static_cast<my::Cancellable const &>(*this), m_retrievalParams));
+        context.m_id, context.m_value, static_cast<my::Cancellable const &>(*this),
+        m_retrievalParams));
   }
 
   // 2. Get all locality candidates for the continuous token ranges.
@@ -1119,7 +1120,7 @@ coding::CompressedBitVector const * Geocoder::LoadStreets(MwmContext & context)
                                        {
                                          m_retrievalParams.m_tokens[0][0] = category;
                                          auto streets = Retrieval::RetrieveAddressFeatures(
-                                             context.m_value, *this /* cancellable */,
+                                             context.m_id, context.m_value, *this /* cancellable */,
                                              m_retrievalParams);
                                          if (!coding::CompressedBitVector::IsEmpty(streets))
                                            streetsList.push_back(move(streets));
@@ -1160,8 +1161,9 @@ coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(MwmContex
       return v.m_cbv.get();
   }
 
-  auto cbv = Retrieval::RetrieveGeometryFeatures(
-      context.m_value, static_cast<my::Cancellable const &>(*this), rect, m_params.m_scale);
+  auto cbv = Retrieval::RetrieveGeometryFeatures(context.m_id, context.m_value,
+                                                 static_cast<my::Cancellable const &>(*this), rect,
+                                                 m_params.m_scale);
 
   auto const * result = cbv.get();
   features.push_back({m2::Inflate(rect, kComparePoints, kComparePoints), move(cbv), id});
