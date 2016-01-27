@@ -161,7 +161,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     InputUtils.showKeyboard(mEtName);
 
     mEtDescription.setText(mBookmark.getBookmarkDescription());
-    mTvBookmarkGroup.setText(mBookmark.getCategoryName(getActivity()));
+    mTvBookmarkGroup.setText(mBookmark.getCategoryName());
     refreshColorMarker();
   }
 

@@ -215,6 +215,10 @@ public class MapObject implements Parcelable
 
   protected static MapObject readFromParcel(Parcel source)
   {
+    @MapObjectType int type = source.readInt();
+    if (type == BOOKMARK)
+      return new Bookmark(source);
+
     return new MapObject(source);
   }
 
@@ -227,6 +231,7 @@ public class MapObject implements Parcelable
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
+    dest.writeInt(mMapObjectType); // write map object type twice - first int is used to distinguish created object (MapObject or Bookmark)
     dest.writeInt(mMapObjectType);
     dest.writeString(mName);
     dest.writeDouble(mLat);

@@ -1,6 +1,6 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.Constants;
 
+// TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
+@SuppressLint("ParcelCreator")
 public class Bookmark extends MapObject
 {
   private final Icon mIcon;
@@ -40,29 +42,19 @@ public class Bookmark extends MapObject
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
+    super.writeToParcel(dest, flags);
     dest.writeInt(mCategoryId);
     dest.writeInt(mBookmarkId);
-    dest.writeString(mName);
   }
 
   protected Bookmark(Parcel source)
   {
-    this(source.readInt(), source.readInt(), source.readString());
+    super(source);
+    mCategoryId = source.readInt();
+    mBookmarkId = source.readInt();
+    mIcon = getIconInternal();
+    initXY();
   }
-
-  public final Creator<Bookmark> CREATOR = new Creator<Bookmark>() {
-    @Override
-    public Bookmark createFromParcel(Parcel source)
-    {
-      return new Bookmark(source);
-    }
-
-    @Override
-    public Bookmark[] newArray(int size)
-    {
-      return new Bookmark[size];
-    }
-  };
 
   @Override
   public double getScale()
@@ -98,12 +90,13 @@ public class Bookmark extends MapObject
     return getCategory().getName();
   }
 
-  public String getCategoryName(Context context)
+  public String getCategoryName()
   {
     return getCategory().getName();
   }
 
-  private @Nullable BookmarkCategory getCategory()
+  @Nullable
+  private BookmarkCategory getCategory()
   {
     return BookmarkManager.INSTANCE.getCategoryById(mCategoryId);
   }

@@ -464,7 +464,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     final Bookmark bookmark = (Bookmark) mMapObject;
     mEtBookmarkName.setText(bookmark.getName());
-    mTvBookmarkGroup.setText(bookmark.getCategoryName(getContext()));
+    mTvBookmarkGroup.setText(bookmark.getCategoryName());
     mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
     mIvBookmark.setImageResource(R.drawable.ic_bookmarks_on);
     final String notes = bookmark.getBookmarkDescription();
