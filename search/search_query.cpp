@@ -647,6 +647,14 @@ class PreResult2Maker
 
     m_query.GetBestMatchName(f, name);
 
+    // It's invalid for a building to have an empty name if it has a
+    // house number - it will be merged with other buildings in a
+    // MakePreResult2(). To prevent this, house number is used as a
+    // building name here, if the latter is empty.
+    auto const & checker = ftypes::IsBuildingChecker::Instance();
+    if (checker(f) && name.empty())
+      name = f.GetHouseNumber();
+
     // country (region) name is a file name if feature isn't from World.mwm
     if (m_pFV->IsWorld())
       country.clear();
@@ -973,7 +981,8 @@ public:
 
 void Query::GetBestMatchName(FeatureType const & f, string & name) const
 {
-  UNUSED_VALUE(f.ForEachName(impl::BestNameFinder(name, m_keywordsScorer)));
+  impl::BestNameFinder finder(name, m_keywordsScorer);
+  UNUSED_VALUE(f.ForEachName(finder));
 }
 
 /// Makes continuous range for tokens and prefix.
