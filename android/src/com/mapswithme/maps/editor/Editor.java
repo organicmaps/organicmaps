@@ -32,4 +32,6 @@ public final class Editor
   public static native boolean nativeIsNameEditable();
 
   public static native void nativeSetName(String name);
+
+  public static native @NonNull String[] nativeGetNearbyStreets();
 }
