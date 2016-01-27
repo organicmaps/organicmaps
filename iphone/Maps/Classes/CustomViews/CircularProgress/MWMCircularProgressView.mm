@@ -1,7 +1,7 @@
 #import "Common.h"
+#import "MWMButton.h"
 #import "MWMCircularProgress.h"
 #import "MWMCircularProgressView.h"
-#import "UIButton+Coloring.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
@@ -26,7 +26,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 @property (weak, nonatomic) IBOutlet MWMCircularProgress * owner;
 @property (weak, nonatomic) IBOutlet UIImageView * spinner;
-@property (weak, nonatomic) IBOutlet UIButton * button;
+@property (weak, nonatomic) IBOutlet MWMButton * button;
 
 @end
 
@@ -102,23 +102,23 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   {
     case MWMCircularProgressStateNormal:
       normalImage = self.images[@(MWMCircularProgressStateNormal)];
-      self.button.mwm_coloring = MWMButtonColoringBlack;
+      self.button.coloring = MWMButtonColoringBlack;
       break;
     case MWMCircularProgressStateSelected:
       normalImage = self.images[@(MWMCircularProgressStateSelected)];
-      self.button.mwm_coloring = MWMButtonColoringBlue;
+      self.button.coloring = MWMButtonColoringBlue;
       break;
     case MWMCircularProgressStateProgress:
       normalImage = self.images[@(MWMCircularProgressStateProgress)];
-      self.button.mwm_coloring = MWMButtonColoringBlue;
+      self.button.coloring = MWMButtonColoringBlue;
       break;
     case MWMCircularProgressStateFailed:
       normalImage = self.images[@(MWMCircularProgressStateFailed)];
-      self.button.mwm_coloring = MWMButtonColoringBlue;
+      self.button.coloring = MWMButtonColoringBlue;
       break;
     case MWMCircularProgressStateCompleted:
       normalImage = self.images[@(MWMCircularProgressStateCompleted)];
-      self.button.mwm_coloring = MWMButtonColoringBlue;
+      self.button.coloring = MWMButtonColoringBlue;
       break;
   }
   [self.button setImage:normalImage forState:UIControlStateNormal];

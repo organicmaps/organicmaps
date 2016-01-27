@@ -11,7 +11,6 @@
 #import "MWMRoutePreview.h"
 #import "MWMTextToSpeech.h"
 #import "Statistics.h"
-#import "UIButton+Coloring.h"
 
 static NSString * const kRoutePreviewXibName = @"MWMRoutePreview";
 static NSString * const kRoutePreviewIPADXibName = @"MWMiPadRoutePreview";

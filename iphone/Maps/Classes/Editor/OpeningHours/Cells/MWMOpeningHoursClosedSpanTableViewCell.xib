@@ -14,14 +14,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHW-h6-k3U" userLabel="Cancel Button">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHW-h6-k3U" userLabel="Cancel Button" customClass="MWMButton">
                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="6T7-Ur-RWl"/>
                         </constraints>
                         <state key="normal" image="ic_clear_sys"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="cancelTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UKS-mG-ZJG"/>

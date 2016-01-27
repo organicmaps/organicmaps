@@ -7,11 +7,11 @@
 #import "MWMBottomMenuLayout.h"
 #import "MWMBottomMenuView.h"
 #import "MWMBottomMenuViewController.h"
+#import "MWMButton.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMSearchManager.h"
 #import "SettingsAndMoreVC.h"
 #import "Statistics.h"
-#import "UIButton+Coloring.h"
 #import "UIImageView+Coloring.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIKitCategories.h"
@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 @property (weak, nonatomic) MapViewController * controller;
 @property (weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
 
-@property (weak, nonatomic) IBOutlet UIButton * locationButton;
+@property (weak, nonatomic) IBOutlet MWMButton * locationButton;
 @property (weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 @property (weak, nonatomic) IBOutlet UILabel * streetLabel;
 
@@ -219,27 +219,27 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
     }
     else
     {
-      UIButton * locBtn = self.locationButton;
+      MWMButton * locBtn = self.locationButton;
       switch (state)
       {
         case location::MODE_PENDING_POSITION:
-          locBtn.mwm_coloring = MWMButtonColoringBlue;
+          locBtn.coloring = MWMButtonColoringBlue;
           break;
         case location::MODE_UNKNOWN_POSITION:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow"] forState:UIControlStateNormal];
-          locBtn.mwm_coloring = MWMButtonColoringGray;
+          locBtn.coloring = MWMButtonColoringGray;
           break;
         case location::MODE_NOT_FOLLOW:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_get_position"] forState:UIControlStateNormal];
-          locBtn.mwm_coloring = MWMButtonColoringBlack;
+          locBtn.coloring = MWMButtonColoringBlack;
           break;
         case location::MODE_FOLLOW:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow"] forState:UIControlStateNormal];
-          locBtn.mwm_coloring = MWMButtonColoringBlue;
+          locBtn.coloring = MWMButtonColoringBlue;
           break;
         case location::MODE_ROTATE_AND_FOLLOW:
           [locBtn setImage:[UIImage imageNamed:@"ic_menu_location_follow_and_rotate"] forState:UIControlStateNormal];
-          locBtn.mwm_coloring = MWMButtonColoringBlue;
+          locBtn.coloring = MWMButtonColoringBlue;
           break;
       }
     }

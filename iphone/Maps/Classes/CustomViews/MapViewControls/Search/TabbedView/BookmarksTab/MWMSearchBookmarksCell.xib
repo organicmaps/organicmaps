@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNc-6m-i8r" userLabel="VisibilityButton">
+                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNc-6m-i8r" userLabel="VisibilityButton" customClass="MWMButton">
                         <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="g2n-JI-FYq"/>
@@ -24,7 +24,7 @@
                         </state>
                         <state key="selected" image="ic_show"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="toggleVisibility" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kEx-DN-uuu"/>

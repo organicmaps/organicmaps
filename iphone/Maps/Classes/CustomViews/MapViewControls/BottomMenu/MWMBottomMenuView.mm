@@ -2,8 +2,8 @@
 #import "EAGLView.h"
 #import "MWMBottomMenuView.h"
 #import "MWMBottomMenuViewController.h"
+#import "MWMButton.h"
 #import "MapsAppDelegate.h"
-#import "UIButton+Coloring.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
@@ -24,11 +24,11 @@
 
 @property(weak, nonatomic) IBOutlet UIView * downloadBadge;
 
-@property(weak, nonatomic) IBOutlet UIButton * locationButton;
-@property(weak, nonatomic) IBOutlet UIButton * p2pButton;
-@property(weak, nonatomic) IBOutlet UIButton * searchButton;
-@property(weak, nonatomic) IBOutlet UIButton * bookmarksButton;
-@property(weak, nonatomic) IBOutlet UIButton * menuButton;
+@property(weak, nonatomic) IBOutlet MWMButton * locationButton;
+@property(weak, nonatomic) IBOutlet MWMButton * p2pButton;
+@property(weak, nonatomic) IBOutlet MWMButton * searchButton;
+@property(weak, nonatomic) IBOutlet MWMButton * bookmarksButton;
+@property(weak, nonatomic) IBOutlet MWMButton * menuButton;
 
 @property(weak, nonatomic) IBOutlet UIButton * goButton;
 
@@ -298,11 +298,11 @@
 {
   if (!isIOSVersionLessThan(8))
     return;
-  auto const coloring = self.p2pButton.mwm_coloring;
-  self.p2pButton.mwm_coloring = coloring;
-  self.bookmarksButton.mwm_coloring = coloring;
-  self.locationButton.mwm_coloring = self.locationButton.mwm_coloring;
-  self.searchButton.mwm_coloring = self.searchButton.mwm_coloring;
+  auto const coloring = self.p2pButton.coloring;
+  self.p2pButton.coloring = coloring;
+  self.bookmarksButton.coloring = coloring;
+  self.locationButton.coloring = self.locationButton.coloring;
+  self.searchButton.coloring = self.searchButton.coloring;
 }
 
 #pragma mark - Properties

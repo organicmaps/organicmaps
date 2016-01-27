@@ -1660,14 +1660,14 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHU-D3-OHh">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHU-D3-OHh" customClass="MWMButton">
                                                 <rect key="frame" x="520" y="0.0" width="48" height="64"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="48" id="YRa-pI-t6A"/>
                                                 </constraints>
                                                 <state key="normal" image="ic_more"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMGray"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMGray"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="localChangesAction" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="Ycj-6E-vDD"/>
@@ -1715,6 +1715,7 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CCh-RG-hju">
@@ -1768,6 +1769,7 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
@@ -1824,6 +1826,27 @@ the world. Join us!</string>
                                     <constraint firstAttribute="width" constant="28" id="hdo-64-JVl"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4B-pb-aFf">
+                                <rect key="frame" x="16" y="394" width="568" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Mm9-WB-LKh"/>
+                                </constraints>
+                                <state key="normal" title="Login with Facebook"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_with_facebook"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loginFacebook" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="osd-dp-2jK"/>
+                                    <segue destination="anB-7S-ebY" kind="custom" identifier="" customClass="MWMSegue" id="KS5-GV-A1p"/>
+                                </connections>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_facebook" translatesAutoresizingMaskIntoConstraints="NO" id="bGN-fy-oFg">
                                 <rect key="frame" x="32" y="402" width="28" height="28"/>
                                 <constraints>
@@ -1898,27 +1921,6 @@ the world. Join us!</string>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="logout" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="BCT-mT-JzT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4B-pb-aFf">
-                                <rect key="frame" x="16" y="394" width="568" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Mm9-WB-LKh"/>
-                                </constraints>
-                                <state key="normal" title="Login with Facebook"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_with_facebook"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="loginFacebook" destination="iZ6-Zi-bkZ" eventType="touchUpInside" id="osd-dp-2jK"/>
-                                    <segue destination="anB-7S-ebY" kind="custom" identifier="" customClass="MWMSegue" id="KS5-GV-A1p"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2551,7 +2553,7 @@ the world. Join us!</string>
     <resources>
         <image name="btn_back_arrow" width="12" height="20"/>
         <image name="ic_arrow_gray" width="28" height="28"/>
-        <image name="ic_arrow_gray_down" width="14" height="8"/>
+        <image name="ic_arrow_gray_down" width="28" height="28"/>
         <image name="ic_device" width="28" height="28"/>
         <image name="ic_more" width="28" height="28"/>
         <image name="ic_upload" width="28" height="28"/>

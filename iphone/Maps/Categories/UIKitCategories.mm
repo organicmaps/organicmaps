@@ -1,5 +1,4 @@
 #import "Common.h"
-#import "UIButton+Coloring.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 #import "UIKitCategories.h"
@@ -246,7 +245,6 @@
 
 - (void)refresh
 {
-  [self changeColoringToOpposite];
   UIColor * oppositeNormal = [self titleColorForState:UIControlStateNormal].opposite;
   UIColor * oppositeSelected = [self titleColorForState:UIControlStateSelected].opposite;
   UIColor * oppositeHightlighted = [self titleColorForState:UIControlStateHighlighted].opposite;

@@ -3,7 +3,7 @@
 
 #include "platform/location.hpp"
 
-@class MapViewController;
+@class MapViewController, MWMButton;
 
 @protocol MWMBottomMenuControllerProtocol<NSObject>
 
@@ -15,7 +15,7 @@
 @interface MWMBottomMenuViewController : ViewController
 
 @property(nonatomic) MWMBottomMenuState state;
-@property(weak, nonatomic) IBOutlet UIButton * p2pButton;
+@property(weak, nonatomic) IBOutlet MWMButton * p2pButton;
 @property(nonatomic) CGFloat leftBound;
 
 - (instancetype)initWithParentController:(MapViewController *)controller

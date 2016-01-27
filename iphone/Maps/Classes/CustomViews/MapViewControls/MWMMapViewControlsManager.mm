@@ -189,7 +189,7 @@ extern NSString * const kAlohalyticsTapEventKey;
       [self.navigationManager.routePreview removeFromSuperview];
       [self didCancelRouting];
       self.navigationManager.state = MWMNavigationDashboardStateHidden;
-      self.menuController.p2pButton.selected = NO;
+      static_cast<UIButton *>(self.menuController.p2pButton).selected = NO;
     }];
   }
 }
@@ -285,7 +285,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)buildRouteFrom:(MWMRoutePoint const &)from to:(MWMRoutePoint const &)to
 {
-  self.menuController.p2pButton.selected = YES;
+  static_cast<UIButton *>(self.menuController.p2pButton).selected = YES;
   self.navigationManager.routePreview.extendButton.selected = NO;
   MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
   if (from == MWMRoutePoint::MWMRoutePointZero())
