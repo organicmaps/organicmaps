@@ -135,16 +135,9 @@ extern "C"
     HttpRequest::StatusT const status = req.Status();
     ASSERT_NOT_EQUAL(status, HttpRequest::EInProgress, ());
 
-    int errorCode = 0;
-    switch (status)
-    {
-    case HttpRequest::ECompleted:
+    int errorCode = ERR_DOWNLOAD_ERROR;
+    if (status == HttpRequest::ECompleted)
       errorCode = ERR_DOWNLOAD_SUCCESS;
-      break;
-    case HttpRequest::EFailed:
-      errorCode = ERR_DOWNLOAD_ERROR;
-      break;
-    };
 
     g_currentRequest.reset();
 
