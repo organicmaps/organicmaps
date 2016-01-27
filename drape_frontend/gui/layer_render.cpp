@@ -63,9 +63,6 @@ void LayerRenderer::Merge(ref_ptr<LayerRenderer> other)
     }
   }
 
-  if (!activeOverlayFound)
-    m_activeOverlay = nullptr;
-
   other->m_renderers.clear();
 }
 
