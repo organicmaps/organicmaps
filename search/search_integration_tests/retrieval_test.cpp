@@ -155,7 +155,7 @@ UNIT_TEST(Retrieval_Smoke)
         builder.Add(TestPOI(m2::PointD(x, y), "Whiskey bar", "en"));
     }
   }
-  TEST_EQUAL(MapOptions::Map, file.GetFiles(), ());
+  TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
 
   Index index;
   auto p = index.RegisterMap(file);

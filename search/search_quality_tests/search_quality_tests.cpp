@@ -113,8 +113,16 @@ void PrintTopResults(string const & query, vector<search::Result> const & result
 
 uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
 {
-  if (mwm.GetCountryName() == WORLD_FILE_NAME || mwm.GetCountryName() == WORLD_COASTS_FILE_NAME)
-    return mwm.GetVersion();
+  vector<string> specialFiles = {
+    WORLD_FILE_NAME,
+    WORLD_COASTS_FILE_NAME,
+    WORLD_COASTS_MIGRATE_FILE_NAME
+  };
+  for (auto const & name : specialFiles)
+  {
+    if (mwm.GetCountryName() == name)
+      return mwm.GetVersion();
+  }
 
   ModelReaderPtr reader = FilesContainerR(mwm.GetPath(MapOptions::Map)).GetReader(VERSION_FILE_TAG);
   ReaderSrc src(reader.GetPtr());

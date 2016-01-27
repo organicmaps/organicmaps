@@ -62,7 +62,6 @@ UNIT_TEST(GenerateTestMwm_Smoke)
   classificator::Load();
   ScopedMapFile scopedFile("BuzzTown");
   platform::LocalCountryFile & file = scopedFile.GetFile();
-
   {
     TestMwmBuilder builder(file, feature::DataHeader::country);
     builder.Add(TestPOI(m2::PointD(0, 0), "Wine shop", "en"));
@@ -70,7 +69,7 @@ UNIT_TEST(GenerateTestMwm_Smoke)
     builder.Add(TestPOI(m2::PointD(0, 1), "Brandy shop", "en"));
     builder.Add(TestPOI(m2::PointD(1, 1), "Russian vodka shop", "en"));
   }
-  TEST_EQUAL(MapOptions::Map, file.GetFiles(), ());
+  TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
 
   TestSearchEngine engine("en" /* locale */);
   auto ret = engine.RegisterMap(file);
@@ -110,7 +109,7 @@ UNIT_TEST(GenerateTestMwm_NotPrefixFreeNames)
     builder.Add(TestPOI(m2::PointD(2, 0), "aaa", "en"));
     builder.Add(TestPOI(m2::PointD(2, 1), "aaa", "en"));
   }
-  TEST_EQUAL(MapOptions::Map, file.GetFiles(), ());
+  TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
 
   TestSearchEngine engine("en" /* locale */);
   auto ret = engine.RegisterMap(file);

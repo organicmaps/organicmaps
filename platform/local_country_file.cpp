@@ -13,7 +13,7 @@
 namespace platform
 {
 LocalCountryFile::LocalCountryFile()
-    : m_version(0), m_files(MapOptions::Nothing), m_mapSize(0), m_routingSize()
+    : m_version(0), m_files(MapOptions::Nothing), m_mapSize(0), m_routingSize(0)
 {
 }
 
