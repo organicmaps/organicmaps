@@ -7,7 +7,7 @@ using namespace editor::ui;
 UNIT_TEST(TestTimeTable)
 {
   {
-    TimeTable tt;
+    TimeTable tt = TimeTable::GetUninitializedTimeTable();
     TEST(!tt.IsValid(), ());
   }
   {

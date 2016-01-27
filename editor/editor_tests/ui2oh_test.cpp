@@ -249,7 +249,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
       TEST(tt.Commit(), ());
     }
     {
-      TimeTable tt;
+      TimeTable tt = TimeTable::GetUninitializedTimeTable();
       TEST(tt.SetOpeningDays({
             osmoh::Weekday::Monday,
             osmoh::Weekday::Friday,
@@ -278,7 +278,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
       TEST(tt.Commit(), ());
     }
     {
-      TimeTable tt;
+      TimeTable tt = TimeTable::GetUninitializedTimeTable();
       TEST(tt.SetOpeningDays({
             osmoh::Weekday::Saturday,
             osmoh::Weekday::Sunday}), ());
@@ -326,7 +326,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
       TEST(tt.Commit(), ());
     }
     {
-      TimeTable tt;
+      TimeTable tt = TimeTable::GetUninitializedTimeTable();
       TEST(tt.SetOpeningDays({osmoh::Weekday::Saturday}), ());
 
       tt.SetTwentyFourHours(false);
