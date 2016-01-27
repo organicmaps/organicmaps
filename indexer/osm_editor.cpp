@@ -214,7 +214,7 @@ uint32_t MigrateFeatureIndex(XMLFeature const & /*xml*/)
   // @TODO(mgsergio): Update feature's index when user has downloaded fresh MWM file and old indices point to other features.
   // Possible implementation: use function to load features in rect (center feature's point) and somehow compare/choose from them.
   // Probably we need to store more data about features in xml, e.g. types, may be other data, to match them correctly.
-  MYTHROW(RootException, ("TODO(mgsergio, AlexZ): Implement correct feature migrate code."));
+  MYTHROW(RootException, ("TODO(mgsergio, AlexZ): Implement correct feature migrate code. Delete data/edits.xml to continue."));
   return 0;
 }
 
