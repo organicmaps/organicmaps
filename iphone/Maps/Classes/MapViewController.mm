@@ -682,9 +682,9 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
     case routing::IRouter::RouteNotFound:
     {
       [self.controlsManager handleRoutingError];
-      [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes block:^
+      [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes block:[=]
       {
-        [self checkMigrationAndCallBlock:^
+        [self checkMigrationAndCallBlock:[=]
         {
           auto & a = GetFramework().GetCountryTree().GetActiveMapLayout();
           for (auto const & index : absentCountries)
