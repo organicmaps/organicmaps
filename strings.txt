@@ -9937,7 +9937,7 @@
     pl = dania z grilla
     ko = 바베큐
     id = barbekyu
-    hu = barbecue
+    hu = grill
     de = Grill
     fr = barbecue
     nl = barbecue
@@ -10515,39 +10515,6 @@
     el = τάπας
     ar = تاباس
     he = טאפאס
-
-  [cuisine_bbq]
-    tags = android, ios
-    comment = Cuisine
-    en = bbq
-    ru = барбекю
-    uk = барбекю
-    tr = mangal
-    es = barbacoa
-    sv = grillat
-    sk = gril
-    pt = churrasco
-    ro = grătar
-    pl = dania z grilla
-    ko = 바베큐
-    id = bbq
-    hu = grill
-    de = Grill
-    fr = barbecue
-    nl = barbecue
-    fi = bbq
-    da = BBQ
-    cs = barbecue
-    it = barbecue
-    nb = grill
-    zh-Hant = 燒烤
-    zh-Hans = 烧烤
-    vi = thịt nướng ngoài trời
-    th = บาร์บีคิว
-    ja = bbq
-    el = μπάρμπεκιου
-    ar = مشويات
-    he = ברביקיו
 
   [cuisine_bagel]
     tags = android, ios
@@ -11703,39 +11670,6 @@
     el = μαροκινό
     ar = مطبخ مغربي
     he = מטבח מרוקאי
-
-  [cuisine_barbeque]
-    tags = android, ios
-    comment = Cuisine
-    en = barbeque
-    ru = барбекю
-    uk = барбекю
-    tr = barbekü
-    es = barbacoa
-    sv = grillat
-    sk = gril
-    pt = churrasco
-    ro = la grătar
-    pl = dania z grilla
-    ko = 바베큐
-    id = barbekyu
-    hu = barbeque
-    de = Grill
-    fr = barbecue
-    nl = barbecue
-    fi = grillaus
-    da = barbecue
-    cs = barbecue
-    it = barbecue
-    nb = grillmat
-    zh-Hant = 燒烤
-    zh-Hans = 烧烤
-    vi = thịt nướng ngoài trời
-    th = บาร์บีคิว
-    ja = バーベキュー
-    el = μπάρμπεκιου
-    ar = مشويات
-    he = ברביקיו
 
   [cuisine_peruvian]
     tags = android, ios
