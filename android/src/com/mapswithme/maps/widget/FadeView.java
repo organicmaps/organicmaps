@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
@@ -31,7 +30,7 @@ public class FadeView extends FrameLayout
 
   public interface Listener
   {
-    void onTouch();
+    boolean onTouch();
   }
 
   private Listener mListener;
@@ -68,7 +67,10 @@ public class FadeView extends FrameLayout
   public void fadeOut(boolean notify)
   {
     if (mListener != null && notify)
-      mListener.onTouch();
+    {
+      if (!mListener.onTouch())
+        return;
+    }
 
     ObjectAnimator animation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, FADE_ALPHA_VALUE, 0f);
     animation.addListener(mFadeOutListener);

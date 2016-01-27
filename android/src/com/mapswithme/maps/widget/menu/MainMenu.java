@@ -51,7 +51,7 @@ public class MainMenu
     }
   }
 
-  private static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
+  public static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
   private static final String TAG_COLLAPSE = MwmApplication.get().getString(R.string.tag_menu_collapse);
 
   private final int mButtonsWidth = UiUtils.dimen(R.dimen.menu_line_button_width);
@@ -561,5 +561,10 @@ public class MainMenu
   public Button getRouteStartButton()
   {
     return mRouteStartButton;
+  }
+
+  public boolean isAnimating()
+  {
+    return mAnimating;
   }
 }

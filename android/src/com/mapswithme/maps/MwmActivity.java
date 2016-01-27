@@ -24,6 +24,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.Serializable;
+import java.util.Stack;
+
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.country.DownloadFragment;
@@ -69,15 +72,12 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.io.Serializable;
-import java.util.Stack;
-
 import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
 
@@ -129,6 +129,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean mIsFragmentContainer;
   private boolean mIsFullscreen;
+  private boolean mIsFullscreenAnimating;
 
   private LocationPredictor mLocationPredictor;
   private FloatingSearchToolbarController mSearchController;
@@ -382,9 +383,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mFadeView.setListener(new FadeView.Listener()
     {
       @Override
-      public void onTouch()
+      public boolean onTouch()
       {
-        mMainMenu.close(true);
+        return mMainMenu.close(true);
       }
     });
 
@@ -498,6 +499,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void onItemClick(MainMenu.Item item)
       {
+        if (mIsFullscreenAnimating)
+          return;
+
         switch (item)
         {
         case TOGGLE:
@@ -1062,6 +1066,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mIsFullscreen = isFullscreen;
     if (isFullscreen)
     {
+      if (mMainMenu.isAnimating())
+        return;
+
+      mIsFullscreenAnimating = true;
       Animations.disappearSliding(mMainMenu.getFrame(), Animations.BOTTOM, new Runnable()
       {
         @Override
@@ -1070,6 +1078,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
           final int menuHeight = mMainMenu.getFrame().getHeight();
           adjustCompass(0, menuHeight);
           adjustRuler(0, menuHeight);
+
+          mIsFullscreenAnimating = false;
         }
       });
       if (showZoomButtons())
@@ -1100,7 +1110,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
-    if (!isVisible)
+    if (isVisible)
+    {
+      if (mMainMenu.isAnimating() || mMainMenu.isOpen())
+        UiThread.runLater(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            if (mMainMenu.close(true))
+              mFadeView.fadeOut(false);
+          }
+        }, MainMenu.ANIMATION_DURATION * 2);
+    }
+    else
     {
       Framework.deactivatePopup();
       mPlacePage.setMapObject(null);
