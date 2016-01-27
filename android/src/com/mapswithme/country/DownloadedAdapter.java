@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
 class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree.ActiveCountryListener
@@ -64,10 +65,7 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
     {
       final View view = super.getView(position, convertView, parent);
       final ViewHolder holder = (ViewHolder) view.getTag();
-      if (getGroupByAbsPosition(position) != ActiveCountryTree.GROUP_UP_TO_DATE)
-        holder.mPercent.setVisibility(View.GONE);
-      else
-        holder.mPercent.setVisibility(View.VISIBLE);
+      UiUtils.showIf(getGroupByAbsPosition(position) == ActiveCountryTree.GROUP_UP_TO_DATE, holder.mPercent);
       return view;
     }
   }
