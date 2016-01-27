@@ -7,6 +7,7 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
@@ -279,6 +280,9 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
   CountryFile const italyFile("Italy");
 
   ScopedDir testDir("10101");
+
+  Settings::Delete("LastMigration");
+
   ScopedFile testItalyMapFile(testDir, italyFile, MapOptions::Map, "Italy-map");
 
   vector<LocalCountryFile> localFiles;
