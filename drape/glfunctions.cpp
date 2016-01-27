@@ -381,6 +381,8 @@ void GLFunctions::Init()
   glDeleteVertexArrayFn = (TglDeleteVertexArrayFn)eglGetProcAddress("glDeleteVertexArraysOES");
   glMapBufferFn = &::glMapBufferOES;
   glUnmapBufferFn = &::glUnmapBufferOES;
+  glMapBufferRangeFn = (TglMapBufferRangeFn)eglGetProcAddress("glMapBufferRangeEXT");
+  glFlushMappedBufferRangeFn = (TglFlushMappedBufferRangeFn)eglGetProcAddress("glFlushMappedBufferRangeEXT");
 #elif defined(OMIM_OS_MOBILE)
   glGenVertexArraysFn = &glGenVertexArraysOES;
   glBindVertexArrayFn = &glBindVertexArrayOES;
