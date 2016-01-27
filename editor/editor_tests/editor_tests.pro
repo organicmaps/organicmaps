@@ -19,3 +19,4 @@ SOURCES += \
     xml_feature_test.cpp \
     ui2oh_test.cpp \
     osm_auth_test.cpp \
+    osm_feature_matcher_test.cpp \

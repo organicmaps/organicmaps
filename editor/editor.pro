@@ -12,6 +12,7 @@ SOURCES += \
   changeset_wrapper.cpp \
   opening_hours_ui.cpp \
   osm_auth.cpp \
+  osm_feature_matcher.cpp \
   server_api.cpp \
   ui2oh.cpp \
   xml_feature.cpp \
@@ -20,6 +21,7 @@ HEADERS += \
   changeset_wrapper.hpp \
   opening_hours_ui.hpp \
   osm_auth.hpp \
+  osm_feature_matcher.hpp \
   server_api.hpp \
   ui2oh.hpp \
   xml_feature.hpp \

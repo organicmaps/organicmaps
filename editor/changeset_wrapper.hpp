@@ -5,6 +5,8 @@
 
 #include "base/exception.hpp"
 
+#include "std/set.hpp"
+
 class FeatureType;
 
 namespace osm
@@ -29,7 +31,8 @@ public:
 
   /// Throws many exceptions from above list, plus including XMLNode's parsing ones.
   /// OsmObjectWasDeletedException means that node was deleted from OSM server by someone else.
-  editor::XMLFeature GetMatchingFeatureFromOSM(editor::XMLFeature const & ourPatch, FeatureType const & feature);
+  editor::XMLFeature GetMatchingNodeFeatureFromOSM(m2::PointD const & center);
+  editor::XMLFeature GetMatchingAreaFeatureFromOSM(set<m2::PointD> const & geomerty);
 
   /// Throws exceptions from above list.
   void ModifyNode(editor::XMLFeature node);

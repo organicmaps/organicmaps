@@ -243,6 +243,32 @@ bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
 
   return true;
 }
+
+XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw,
+                                     unique_ptr<FeatureType const> featurePtr)
+{
+  ASSERT(featurePtr->GetFeatureType() != feature::GEOM_LINE, ("Line features are not supported yet."));
+  if (featurePtr->GetFeatureType() == feature::GEOM_POINT)
+  {
+    return cw.GetMatchingNodeFeatureFromOSM(featurePtr->GetCenter());
+  }
+  else
+  {
+    // Set filters out duplicate points for closed ways or triangles' vertices.
+    set<m2::PointD> geometry;
+    featurePtr->ForEachTriangle([&geometry](m2::PointD const & p1,
+                                            m2::PointD const & p2, m2::PointD const & p3)
+    {
+      geometry.insert(p1);
+      geometry.insert(p2);
+      geometry.insert(p3);
+    }, FeatureType::BEST_GEOMETRY);
+
+    ASSERT_GREATER_OR_EQUAL(geometry.size(), 3, ("Is it an area feature?"));
+
+    return cw.GetMatchingAreaFeatureFromOSM(geometry);
+  }
+}
 } // namespace
 
 namespace osm
@@ -693,7 +719,8 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
 
         try
         {
-          XMLFeature osmFeature = changeset.GetMatchingFeatureFromOSM(feature, fti.m_feature);
+          XMLFeature osmFeature = GetMatchingFeatureFromOSM(changeset,
+                                                            m_getOriginalFeatureFn(fti.m_feature.GetID()));
           XMLFeature const osmFeatureCopy = osmFeature;
           osmFeature.ApplyPatch(feature);
           // Check to avoid duplicates.
