@@ -45,7 +45,7 @@ UNIT_TEST(WritableDir)
   }
   catch (Writer::OpenException const &)
   {
-    LOG(LCRITICAL, ("Can't create file"));
+    LOG(LCRITICAL, ("Can't create file", path));
     return;
   }
 
