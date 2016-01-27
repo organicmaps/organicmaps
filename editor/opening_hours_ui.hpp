@@ -15,6 +15,7 @@ using TOpeningDays = set<osmoh::Weekday>;
 class TimeTable
 {
 public:
+  static TimeTable GetUninitializedTimeTable() { return {}; }
   static TimeTable GetPredefinedTimeTable();
 
   bool IsTwentyFourHours() const { return m_isTwentyFourHours; }
@@ -41,6 +42,8 @@ public:
   osmoh::Timespan GetPredefinedExcludeTime() const;
 
 private:
+  TimeTable() = default;
+
   bool m_isTwentyFourHours;
   TOpeningDays m_weekdays;
   osmoh::Timespan m_openingTime;
