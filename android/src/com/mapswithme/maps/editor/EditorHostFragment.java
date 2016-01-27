@@ -12,7 +12,6 @@ import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
-import com.mapswithme.maps.widget.placepage.TimetableFragment;
 import com.mapswithme.util.Utils;
 
 
@@ -43,6 +42,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+    getArguments().setClassLoader(MapObject.class.getClassLoader());
     mEditedObject = getArguments().getParcelable(EditorHostFragment.EXTRA_MAP_OBJECT);
     editMapObject();
     mToolbarController.findViewById(R.id.save).setOnClickListener(this);
@@ -64,9 +64,11 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     case STREET:
     case CUISINE:
       editMapObject();
-      return true;
+      break;
+    default:
+      Utils.navigateToParent(getActivity());
     }
-    return false;
+    return true;
   }
 
   protected void editMapObject()
