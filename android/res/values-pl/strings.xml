@@ -616,8 +616,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">dania z grilla</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">bajgle</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">makarony</string>
@@ -687,8 +685,6 @@
 	<string name="cuisine_savory_pancakes">wytrawne naleśniki</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">kuchnia marokańska</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">dania z grilla</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">kuchnia peruwiańska</string>
 	<!-- Cuisine -->

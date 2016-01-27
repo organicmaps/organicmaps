@@ -619,8 +619,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">mangal</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">simit</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">makarna</string>
@@ -690,8 +688,6 @@
 	<string name="cuisine_savory_pancakes">açma</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">fas mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">barbekü</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">peru mutfağı</string>
 	<!-- Cuisine -->

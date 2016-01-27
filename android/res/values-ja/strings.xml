@@ -612,8 +612,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">タパス</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">bbq</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">ベーグル</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">パスタ</string>
@@ -683,8 +681,6 @@
 	<string name="cuisine_savory_pancakes">おいしいホットケーキ</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">モロッコ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">バーベキュー</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">ペルー料理</string>
 	<!-- Cuisine -->

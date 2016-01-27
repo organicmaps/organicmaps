@@ -937,7 +937,7 @@
 "cuisine_friture" = "olajban sütött ételek";
 
 /* Cuisine */
-"cuisine_barbecue" = "barbecue";
+"cuisine_barbecue" = "grill";
 
 /* Cuisine */
 "cuisine_bavarian" = "bajor konyha";
@@ -989,9 +989,6 @@
 
 /* Cuisine */
 "cuisine_tapas" = "tapas";
-
-/* Cuisine */
-"cuisine_bbq" = "grill";
 
 /* Cuisine */
 "cuisine_bagel" = "bagel";
@@ -1097,9 +1094,6 @@
 
 /* Cuisine */
 "cuisine_moroccan" = "marokkói konyha";
-
-/* Cuisine */
-"cuisine_barbeque" = "barbeque";
 
 /* Cuisine */
 "cuisine_peruvian" = "perui konyha";

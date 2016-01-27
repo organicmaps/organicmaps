@@ -615,8 +615,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">thịt nướng ngoài trời</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">bánh mì vòng bagel</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">mỳ ống</string>
@@ -686,8 +684,6 @@
 	<string name="cuisine_savory_pancakes">bánh kếp rau thơm</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">ẩm thực ma-rốc</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">thịt nướng ngoài trời</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">ẩm thực Pê-ru</string>
 	<!-- Cuisine -->

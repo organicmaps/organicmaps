@@ -991,9 +991,6 @@
 "cuisine_tapas" = "tapas";
 
 /* Cuisine */
-"cuisine_bbq" = "thịt nướng ngoài trời";
-
-/* Cuisine */
 "cuisine_bagel" = "bánh mì vòng bagel";
 
 /* Cuisine */
@@ -1097,9 +1094,6 @@
 
 /* Cuisine */
 "cuisine_moroccan" = "ẩm thực ma-rốc";
-
-/* Cuisine */
-"cuisine_barbeque" = "thịt nướng ngoài trời";
 
 /* Cuisine */
 "cuisine_peruvian" = "ẩm thực Pê-ru";

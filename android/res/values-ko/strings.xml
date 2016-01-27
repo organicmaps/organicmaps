@@ -605,8 +605,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">타파스</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">바베큐</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">베이글</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">파스타</string>
@@ -676,8 +674,6 @@
 	<string name="cuisine_savory_pancakes">맛좋은 팬케이크</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">모로코식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">바베큐</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">페루식 음식</string>
 	<!-- Cuisine -->

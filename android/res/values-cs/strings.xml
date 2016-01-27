@@ -622,8 +622,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">barbecue</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">bagel</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">těstoviny</string>
@@ -693,8 +691,6 @@
 	<string name="cuisine_savory_pancakes">pikantní palačinky</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">marocká kuchyně</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">barbecue</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">peruánská kuchyně</string>
 	<!-- Cuisine -->

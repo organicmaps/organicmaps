@@ -991,9 +991,6 @@
 "cuisine_tapas" = "kudapan spanyol";
 
 /* Cuisine */
-"cuisine_bbq" = "bbq";
-
-/* Cuisine */
 "cuisine_bagel" = "roti bagel";
 
 /* Cuisine */
@@ -1097,9 +1094,6 @@
 
 /* Cuisine */
 "cuisine_moroccan" = "masakan maroko";
-
-/* Cuisine */
-"cuisine_barbeque" = "barbekyu";
 
 /* Cuisine */
 "cuisine_peruvian" = "masakan peru";

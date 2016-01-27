@@ -991,9 +991,6 @@
 "cuisine_tapas" = "Tapas";
 
 /* Cuisine */
-"cuisine_bbq" = "Grill";
-
-/* Cuisine */
 "cuisine_bagel" = "Bagel";
 
 /* Cuisine */
@@ -1097,9 +1094,6 @@
 
 /* Cuisine */
 "cuisine_moroccan" = "Marokkanische Küche";
-
-/* Cuisine */
-"cuisine_barbeque" = "Grill";
 
 /* Cuisine */
 "cuisine_peruvian" = "Peruanische Küche";

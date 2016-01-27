@@ -580,7 +580,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_friture">olajban sütött ételek</string>
 	<!-- Cuisine -->
-	<string name="cuisine_barbecue">barbecue</string>
+	<string name="cuisine_barbecue">grill</string>
 	<!-- Cuisine -->
 	<string name="cuisine_bavarian">bajor konyha</string>
 	<!-- Cuisine -->
@@ -615,8 +615,6 @@
 	<string name="cuisine_breakfast">reggeli</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">grill</string>
 	<!-- Cuisine -->
 	<string name="cuisine_bagel">bagel</string>
 	<!-- Cuisine -->
@@ -687,8 +685,6 @@
 	<string name="cuisine_savory_pancakes">sós palacsinta</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">marokkói konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">barbeque</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">perui konyha</string>
 	<!-- Cuisine -->

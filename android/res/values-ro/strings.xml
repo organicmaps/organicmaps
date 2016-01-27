@@ -613,8 +613,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">grătar</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">chiflă</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">paste</string>
@@ -684,8 +682,6 @@
 	<string name="cuisine_savory_pancakes">clătite delicioase</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">bucătărie marocan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">la grătar</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">bucătărie peruan</string>
 	<!-- Cuisine -->

@@ -644,8 +644,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">тапас-бар</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">барбекю</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">бубличная</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">паста</string>
@@ -715,8 +713,6 @@
 	<string name="cuisine_savory_pancakes">несладкие блинчики</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">марокканская кухня</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">барбекю</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">перуанская кухня</string>
 	<!-- Cuisine -->

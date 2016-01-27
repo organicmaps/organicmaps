@@ -991,9 +991,6 @@
 "cuisine_tapas" = "塔帕斯";
 
 /* Cuisine */
-"cuisine_bbq" = "燒烤";
-
-/* Cuisine */
 "cuisine_bagel" = "貝格";
 
 /* Cuisine */
@@ -1097,9 +1094,6 @@
 
 /* Cuisine */
 "cuisine_moroccan" = "摩洛哥菜";
-
-/* Cuisine */
-"cuisine_barbeque" = "燒烤";
 
 /* Cuisine */
 "cuisine_peruvian" = "秘魯的";

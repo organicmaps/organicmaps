@@ -991,9 +991,6 @@
 "cuisine_tapas" = "タパス";
 
 /* Cuisine */
-"cuisine_bbq" = "bbq";
-
-/* Cuisine */
 "cuisine_bagel" = "ベーグル";
 
 /* Cuisine */
@@ -1097,9 +1094,6 @@
 
 /* Cuisine */
 "cuisine_moroccan" = "モロッコ料理";
-
-/* Cuisine */
-"cuisine_barbeque" = "バーベキュー";
 
 /* Cuisine */
 "cuisine_peruvian" = "ペルー料理";

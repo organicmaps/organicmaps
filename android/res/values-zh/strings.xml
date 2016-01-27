@@ -619,8 +619,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">塔帕斯</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">烧烤</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">贝格</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">意大利面</string>
@@ -690,8 +688,6 @@
 	<string name="cuisine_savory_pancakes">咸的_煎饼</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">摩洛哥菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">烧烤</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">秘鲁的</string>
 	<!-- Cuisine -->

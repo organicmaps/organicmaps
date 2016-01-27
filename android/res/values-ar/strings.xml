@@ -619,8 +619,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">تاباس</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">مشويات</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">كعك بولندي</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">مَعْكَرُونَة</string>
@@ -690,8 +688,6 @@
 	<string name="cuisine_savory_pancakes">بان كيك السافوري</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">مطبخ مغربي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">مشويات</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">بيرو</string>
 	<!-- Cuisine -->

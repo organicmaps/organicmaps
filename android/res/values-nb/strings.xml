@@ -615,8 +615,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">grill</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">bagel</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">pasta</string>
@@ -686,8 +684,6 @@
 	<string name="cuisine_savory_pancakes">fylte pannekaker</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">marokkansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">grillmat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">peruansk mat</string>
 	<!-- Cuisine -->

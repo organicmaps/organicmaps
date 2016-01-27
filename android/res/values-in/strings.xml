@@ -615,8 +615,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">kudapan spanyol</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">bbq</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">roti bagel</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">pasta</string>
@@ -686,8 +684,6 @@
 	<string name="cuisine_savory_pancakes">panekuk gurih</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">masakan maroko</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">barbekyu</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">masakan peru</string>
 	<!-- Cuisine -->

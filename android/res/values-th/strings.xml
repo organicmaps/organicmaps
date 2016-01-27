@@ -617,8 +617,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">ทาปาส</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">บาร์บีคิว</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">เบเกิล</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">พาสต้า</string>
@@ -688,8 +686,6 @@
 	<string name="cuisine_savory_pancakes">แพนเค้กแบบเค็ม</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">อาหารโมร็อกโก</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">บาร์บีคิว</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">อาหารเปรู</string>
 	<!-- Cuisine -->

@@ -610,8 +610,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">churrasco</string>
-	<!-- Cuisine -->
 	<string name="cuisine_bagel">bagel</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">massa</string>
@@ -681,8 +679,6 @@
 	<string name="cuisine_savory_pancakes">panquecas salgadas</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">cozinha marroquina</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">churrasco</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">cozinha peruana</string>
 	<!-- Cuisine -->
