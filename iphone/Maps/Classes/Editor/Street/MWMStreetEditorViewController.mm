@@ -54,13 +54,16 @@ namespace
 {
   self.streets = [[self.delegate getNearbyStreets] mutableCopy];
   NSString * currentStreet = [self.delegate getStreet];
-  if (currentStreet)
+  BOOL const haveCurrentStreet = (currentStreet && currentStreet.length != 0);
+  if (haveCurrentStreet)
   {
     [self.streets removeObject:currentStreet];
     [self.streets insertObject:currentStreet atIndex:0];
   }
   self.editedStreetName = @"";
-  self.selectedStreet = 0;
+  self.selectedStreet = haveCurrentStreet ? 0 : NSNotFound;
+  self.lastSelectedStreet = NSNotFound;
+  self.navigationItem.rightBarButtonItem.enabled = haveCurrentStreet;
 }
 
 - (void)configTable
@@ -118,6 +121,7 @@ namespace
 {
   if (text && text.length != 0)
   {
+    self.navigationItem.rightBarButtonItem.enabled = YES;
     self.editedStreetName = text;
     if (self.selectedStreet != NSNotFound)
     {
@@ -128,6 +132,7 @@ namespace
   else
   {
     self.selectedStreet = self.lastSelectedStreet;
+    self.navigationItem.rightBarButtonItem.enabled = (self.selectedStreet != NSNotFound);
   }
   for (UITableViewCell * cell in self.tableView.visibleCells)
   {
