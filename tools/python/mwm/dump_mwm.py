@@ -1,6 +1,5 @@
 #!/usr/bin/python
-import sys, os.path
-import itertools
+import sys, os.path, random
 from mwm import MWM
 
 if len(sys.argv) < 2:
@@ -16,9 +15,18 @@ for tag, value in mwm.tags.iteritems():
 print 'Version:', mwm.read_version()
 print 'Header:', mwm.read_header()
 print 'Metadata count:', len(mwm.read_metadata())
+
 cross = mwm.read_crossmwm()
 if cross:
   print 'Outgoing points:', len(cross['out']), 'incoming:', len(cross['in'])
   print 'Outgoing regions:', set(cross['neighbours'])
-for feature in itertools.islice(mwm.iter_features(), 10):
-  print feature
+
+print 'Sample features:'
+count = 5
+probability = 1.0 / 1000
+for feature in mwm.iter_features():
+  if random.random() < probability:
+    print feature
+    count -= 1
+    if count <= 0:
+      break
