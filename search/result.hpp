@@ -56,10 +56,10 @@ public:
 
   /// Strings that is displayed in the GUI.
   //@{
-  char const * GetString() const { return m_str.c_str(); }
-  char const * GetRegionString() const { return m_region.c_str(); }
-  char const * GetFeatureType() const { return m_type.c_str(); }
-  char const * GetCuisine() const { return m_metadata.m_cuisine.c_str(); }
+  string const & GetString() const { return m_str; }
+  string const & GetRegion() const { return m_region; }
+  string const & GetFeatureType() const { return m_type; }
+  string const & GetCuisine() const { return m_metadata.m_cuisine; }
   //@}
 
   bool IsClosed() const { return m_metadata.m_isClosed; }
@@ -186,8 +186,6 @@ struct AddressInfo
   string m_country, m_city, m_street, m_house, m_name;
   vector<string> m_types;
 
-  void MakeFrom(search::Result const & res);
-
   string GetPinName() const;    // Caroline
   string GetPinType() const;    // shop
 
@@ -197,6 +195,8 @@ struct AddressInfo
   string FormatNameAndAddress() const;  // Caroline, 7 vulica Frunze, Belarus
   string GetBestType() const;
   bool IsEmptyName() const;
+
+  friend string DebugPrint(AddressInfo const & info);
 
   void Clear();
 };

@@ -68,9 +68,11 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
 
   g_framework->NativeFramework()->LoadSearchResultMetadata(result);
 
+  auto const address = g_framework->NativeFramework()->GetSearchResultAddress(result);
+
   jstring featureType = jni::ToJavaString(env, result.GetFeatureType());
-  jstring region = jni::ToJavaString(env, result.GetRegionString());
-  jstring dist = jni::ToJavaString(env, distance.c_str());
+  jstring region = jni::ToJavaString(env, address.FormatAddress());
+  jstring dist = jni::ToJavaString(env, distance);
   jstring cuisine = jni::ToJavaString(env, result.GetCuisine());
   jobject desc = env->NewObject(g_descriptionClass, g_descriptionConstructor,
                                 featureType, region,
@@ -84,10 +86,9 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
   env->DeleteLocalRef(cuisine);
 
   jstring name = jni::ToJavaString(env, result.GetString());
+  ms::LatLon const ll = MercatorBounds::ToLatLon(result.GetFeatureCenter());
 
-  double const poiLat = MercatorBounds::YToLat(result.GetFeatureCenter().y);
-  double const poiLon = MercatorBounds::XToLon(result.GetFeatureCenter().x);
-  jobject ret = env->NewObject(g_resultClass, g_resultConstructor, name, desc, poiLat, poiLon, ranges);
+  jobject ret = env->NewObject(g_resultClass, g_resultConstructor, name, desc, ll.lat, ll.lon, ranges);
   ASSERT(ret, ());
   env->DeleteLocalRef(name);
   env->DeleteLocalRef(desc);

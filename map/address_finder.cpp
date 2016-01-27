@@ -464,8 +464,13 @@ search::AddressInfo Framework::GetAddressInfoAtPoint(m2::PointD const & mercator
   search::ReverseGeocoder coder(m_model.GetIndex());
   search::ReverseGeocoder::Address addr;
   coder.GetNearbyAddress(mercator, addr);
-  info.m_house = addr.GetHouseNumber();
-  info.m_street = addr.GetStreetName();
+
+  // Limit distance to nearest address with 200 meters.
+  if (addr.GetDistance() < 200.0)
+  {
+    info.m_house = addr.GetHouseNumber();
+    info.m_street = addr.GetStreetName();
+  }
   return info;
 }
 

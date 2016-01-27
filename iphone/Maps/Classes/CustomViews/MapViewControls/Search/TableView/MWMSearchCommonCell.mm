@@ -26,18 +26,15 @@
 - (void)config:(search::Result &)result forHeight:(BOOL)forHeight
 {
   [super config:result];
-  self.typeLabel.text = @(result.GetFeatureType()).capitalizedString;
-  search::AddressInfo info {};
-  info.MakeFrom(result);
-  string const address = info.FormatAddress();
-  string const location = address.empty() ? result.GetRegionString() : address;
-  self.locationLabel.text = @(location.c_str());
+  self.typeLabel.text = @(result.GetFeatureType().c_str()).capitalizedString;
+  search::AddressInfo const info = GetFramework().GetSearchResultAddress(result);
+  self.locationLabel.text = @(info.FormatAddress().c_str());
   [self.locationLabel sizeToFit];
 
   if (!forHeight)
   {
     NSUInteger const starsCount = result.GetStarsCount();
-    NSString * cuisine = @(result.GetCuisine());
+    NSString * cuisine = @(result.GetCuisine().c_str());
     if (starsCount > 0)
       [self setInfoRating:starsCount];
     else if (cuisine.length > 0)

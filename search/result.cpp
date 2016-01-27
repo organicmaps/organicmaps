@@ -149,13 +149,9 @@ pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
 
 void Result::AppendCity(string const & name)
 {
-  if (name.empty())
-    return;
-
-  if (m_region.empty())
+  // No need to store mwm file name if we have valid city name.
+  if (!name.empty())
     m_region = name;
-  else
-    m_region += (", " + name);
 }
 
 string Result::ToStringForStats() const
@@ -235,20 +231,6 @@ size_t Results::GetSuggestsCount() const
 // AddressInfo implementation
 ////////////////////////////////////////////////////////////////////////////////////
 
-void AddressInfo::MakeFrom(Result const & res)
-{
-  ASSERT_NOT_EQUAL(res.GetResultType(), Result::RESULT_SUGGEST_PURE, ());
-
-  string const & type = res.GetFeatureType();
-  if (!type.empty())
-    m_types.push_back(type);
-
-  // assign name if it's not equal with type
-  string const & name = res.GetString();
-  if (name != type)
-    m_name = name;
-}
-
 bool AddressInfo::IsEmptyName() const
 {
   return m_name.empty() && m_house.empty();
@@ -281,12 +263,12 @@ string AddressInfo::FormatPinText() const
 
 string AddressInfo::FormatAddress() const
 {
-  string result = m_house;
-  if (!m_street.empty())
+  string result = m_street;
+  if (!m_house.empty())
   {
     if (!result.empty())
-      result += ' ';
-    result += m_street;
+      result += ", ";
+    result += m_house;
   }
   if (!m_city.empty())
   {
@@ -340,6 +322,11 @@ void AddressInfo::Clear()
   m_house.clear();
   m_name.clear();
   m_types.clear();
+}
+
+string DebugPrint(AddressInfo const & info)
+{
+  return info.FormatNameAndAddress();
 }
 
 }  // namespace search

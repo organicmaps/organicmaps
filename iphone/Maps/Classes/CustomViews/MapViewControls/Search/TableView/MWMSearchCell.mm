@@ -25,7 +25,7 @@
   if (result.GetResultType() == search::Result::RESULT_FEATURE)
     GetFramework().LoadSearchResultMetadata(result);
 
-  NSString * title = @(result.GetString());
+  NSString * title = @(result.GetString().c_str());
   if (!title)
   {
     self.titleLabel.text = @"";

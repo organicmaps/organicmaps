@@ -11,6 +11,7 @@ namespace search
 {
 namespace v2
 {
+/// This checkers should be similar with ftypes::IsAddressObjectChecker, plus public transort.
 namespace
 {
 class OneLevelPOIChecker : public ftypes::BaseChecker
@@ -20,7 +21,7 @@ public:
   {
     Classificator const & c = classif();
 
-    auto paths = {"amenity", "historic", "office", "railway", "shop", "sport", "tourism"};
+    auto paths = { "amenity", "historic", "office", "railway", "shop", "sport", "tourism", "craft" };
     for (auto const & path : paths)
       m_types.push_back(c.GetTypeByPath({path}));
   }

@@ -147,6 +147,21 @@ IsStreetChecker const & IsStreetChecker::Instance()
   return inst;
 }
 
+IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
+{
+  auto paths = { "building", "amenity", "shop", "tourism", "historic", "office", "craft" };
+
+  Classificator const & c = classif();
+  for (auto const & p : paths)
+    m_types.push_back(c.GetTypeByPath({p}));
+}
+
+IsAddressObjectChecker const & IsAddressObjectChecker::Instance()
+{
+  static const IsAddressObjectChecker inst;
+  return inst;
+}
+
 IsVillageChecker::IsVillageChecker()
 {
   // TODO (@y, @m, @vng): this list must be up-to-date with

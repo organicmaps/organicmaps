@@ -403,13 +403,11 @@ public:
   void LoadSearchResultMetadata(search::Result & res) const;
 
   void ShowSearchResult(search::Result const & res);
+  size_t ShowSearchResults(search::Results const & results);
+  search::AddressInfo GetSearchResultAddress(search::Result const & res) const;
 
   void StartInteractiveSearch(search::SearchParams const & params);
-
-  size_t ShowSearchResults(search::Results const & results);
-
   bool IsInteractiveSearchActive() const { return !m_lastInteractiveSearchParams.m_query.empty(); }
-
   void CancelInteractiveSearch();
 
   list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }

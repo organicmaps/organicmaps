@@ -84,6 +84,13 @@ public:
   static IsStreetChecker const & Instance();
 };
 
+class IsAddressObjectChecker : public BaseChecker
+{
+  IsAddressObjectChecker();
+public:
+  static IsAddressObjectChecker const & Instance();
+};
+
 class IsVillageChecker : public BaseChecker
 {
   IsVillageChecker();

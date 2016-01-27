@@ -62,6 +62,7 @@ public:
 
     string GetHouseNumber() const { return m_building.m_name; }
     string GetStreetName() const { return m_street.m_name; }
+    double GetDistance() const { return m_building.m_distanceMeters; }
   };
 
   void GetNearbyStreets(m2::PointD const & center, vector<Street> & streets) const;

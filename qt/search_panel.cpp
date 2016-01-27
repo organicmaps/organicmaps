@@ -120,7 +120,7 @@ void SearchPanel::OnSearchResult(ResultsT * res)
     {
       ResultT const & e = *i;
 
-      QString s = QString::fromUtf8(e.GetString());
+      QString s = QString::fromUtf8(e.GetString().c_str());
       QString strHigh;
       int pos = 0;
       for (size_t r = 0; r < e.GetHighlightRangesCount(); ++r)
@@ -138,11 +138,11 @@ void SearchPanel::OnSearchResult(ResultsT * res)
       int const rowCount = m_pTable->rowCount();
       m_pTable->insertRow(rowCount);
       m_pTable->setCellWidget(rowCount, 1, new QLabel(strHigh));
-      m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(e.GetRegionString())));
+      m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(e.GetRegion().c_str())));
 
       if (e.GetResultType() == ResultT::RESULT_FEATURE)
       {
-        m_pTable->setItem(rowCount, 0, create_item(QString::fromUtf8(e.GetFeatureType())));
+        m_pTable->setItem(rowCount, 0, create_item(QString::fromUtf8(e.GetFeatureType().c_str())));
         m_pTable->setItem(rowCount, 3, create_item(m_pDrawWidget->GetDistance(e).c_str()));
       }
 
