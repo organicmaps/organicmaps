@@ -104,16 +104,21 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     downloader_tests.depends = 3party base coding platform platform_tests_support
     SUBDIRS *= downloader_tests
 
-    storage_tests.subdir = storage/storage_tests
-    storage_tests.depends = 3party base coding geometry platform storage indexer stats
-    SUBDIRS *= storage_tests
-
     search_tests.subdir = search/search_tests
     search_tests.depends = 3party base coding geometry platform indexer search
     SUBDIRS *= search_tests
 
     MapDepLibs = 3party base coding geometry platform storage indexer search map \
                  routing drape drape_frontend
+
+    # @TODO storage_tests.depends is equal to map_tests because now storage/migrate_tests.cpp
+    # is located in storage_tests. When the new map downloader is used and storage_integraion_tests
+    # is recovered storage/migrate_tests.cpp should be moved to storage_integraion_tests
+    # storage_tests.depends should be set to |3party base coding geometry platform storage indexer stats|
+    # as it was before.
+    storage_tests.subdir = storage/storage_tests
+    storage_tests.depends = $$MapDepLibs
+    SUBDIRS *= storage_tests
 
     map_tests.subdir = map/map_tests
     map_tests.depends = $$MapDepLibs
