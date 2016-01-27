@@ -596,15 +596,12 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 
   f.SetAutoDownloadListener([self](storage::TIndex const & idx)
   {
+    if (platform::migrate::NeedMigrate())
+      return;
     bool autoDownloadEnabled = false;
     (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
-    if (!autoDownloadEnabled)
-      return;
-    [self checkMigrationAndCallBlock:[idx]
-    {
-      if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI)
-        GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(idx, MapOptions::MapWithCarRouting);
-    }];
+    if (autoDownloadEnabled && Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI)
+      GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(idx, MapOptions::MapWithCarRouting);
   });
 
   f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
@@ -631,6 +628,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
     [self.alertController presentNeedMigrationAlertWithOkBlock:^
     {
       GetFramework().Migrate();
+      block();
     }];
   }
   else
