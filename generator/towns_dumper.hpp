@@ -27,14 +27,8 @@ public:
       string key(tag.key), value(tag.value);
       if (key == "population")
       {
-        try
-        {
-          strings::to_uint64(value, population);
-        }
-        catch (std::invalid_argument const &)
-        {
+        if (!strings::to_uint64(value, population))
           continue;
-        }
       }
       else if (key == "capital" && value == "yes")
       {
