@@ -4,7 +4,7 @@
 
 #include "std/string.hpp"
 
-namespace search
+namespace version
 {
 // This is a wrapper around mwm's version.  Allows users to get
 // information about versions of some data structures in mwm.
@@ -50,4 +50,4 @@ private:
 
 string DebugPrint(MwmTraits::SearchIndexFormat format);
 string DebugPrint(MwmTraits::HouseToStreetTableFormat format);
-}  // namespace search
+}  // namespace version

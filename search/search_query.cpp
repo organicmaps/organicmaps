@@ -7,7 +7,6 @@
 #include "search/indexed_value.hpp"
 #include "search/latlon_match.hpp"
 #include "search/locality.hpp"
-#include "search/mwm_traits.hpp"
 #include "search/region.hpp"
 #include "search/search_common.hpp"
 #include "search/search_delimiters.hpp"
@@ -28,6 +27,7 @@
 #include "indexer/scales.hpp"
 #include "indexer/trie_reader.hpp"
 
+#include "platform/mwm_traits.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/preferred_languages.hpp"
 
@@ -1640,16 +1640,16 @@ void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2
 
   auto codingParams = trie::GetCodingParams(pMwm->GetHeader().GetDefCodingParams());
 
-  MwmTraits mwmTraits(pMwm->GetHeader().GetFormat());
+  version::MwmTraits mwmTraits(pMwm->GetHeader().GetFormat());
 
   if (mwmTraits.GetSearchIndexFormat() ==
-      MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
+      version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
   {
     using TValue = FeatureWithRankAndCenter;
     SearchLocalityImpl<TValue>(this, pMwm, res1, res2, params, codingParams);
   }
   else if (mwmTraits.GetSearchIndexFormat() ==
-           MwmTraits::SearchIndexFormat::CompressedBitVector)
+           version::MwmTraits::SearchIndexFormat::CompressedBitVector)
   {
     using TValue = FeatureIndexValue;
     SearchLocalityImpl<TValue>(this, pMwm, res1, res2, params, codingParams);

@@ -1,8 +1,8 @@
 #include "search/v2/house_to_street_table.hpp"
 
-#include "search/mwm_traits.hpp"
-
 #include "indexer/index.hpp"
+
+#include "platform/mwm_traits.hpp"
 
 #include "coding/fixed_bits_ddvector.hpp"
 #include "coding/reader.hpp"
@@ -48,14 +48,14 @@ public:
 
 unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue & value)
 {
-  MwmTraits traits(value.GetMwmVersion().format);
+  version::MwmTraits traits(value.GetMwmVersion().format);
   auto const format = traits.GetHouseToStreetTableFormat();
 
   unique_ptr<HouseToStreetTable> result;
 
   try
   {
-    if (format == MwmTraits::HouseToStreetTableFormat::Fixed3BitsDDVector)
+    if (format == version::MwmTraits::HouseToStreetTableFormat::Fixed3BitsDDVector)
       result.reset(new Fixed3BitsTable(value));
   }
   catch (Reader::OpenException const & ex)

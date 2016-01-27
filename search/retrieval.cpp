@@ -3,7 +3,6 @@
 #include "cancel_exception.hpp"
 #include "feature_offset_match.hpp"
 #include "interval_set.hpp"
-#include "mwm_traits.hpp"
 #include "search_index_values.hpp"
 #include "search_string_utils.hpp"
 #include "search_trie.hpp"
@@ -15,6 +14,7 @@
 #include "indexer/scales.hpp"
 #include "indexer/trie_reader.hpp"
 
+#include "platform/mwm_traits.hpp"
 #include "platform/mwm_version.hpp"
 
 #include "coding/compressed_bit_vector.hpp"
@@ -435,16 +435,16 @@ unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
     MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
     SearchQueryParams const & params)
 {
-  MwmTraits mwmTraits(value.GetMwmVersion().format);
+  version::MwmTraits mwmTraits(value.GetMwmVersion().format);
 
   if (mwmTraits.GetSearchIndexFormat() ==
-      MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
+      version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
   {
     using TValue = FeatureWithRankAndCenter;
     return RetrieveAddressFeaturesImpl<TValue>(id, value, cancellable, params);
   }
   else if (mwmTraits.GetSearchIndexFormat() ==
-           MwmTraits::SearchIndexFormat::CompressedBitVector)
+           version::MwmTraits::SearchIndexFormat::CompressedBitVector)
   {
     using TValue = FeatureIndexValue;
     return RetrieveAddressFeaturesImpl<TValue>(id, value, cancellable, params);

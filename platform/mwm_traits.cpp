@@ -1,8 +1,8 @@
-#include "search/mwm_traits.hpp"
+#include "mwm_traits.hpp"
 
 #include "base/logging.hpp"
 
-namespace search
+namespace version
 {
 MwmTraits::MwmTraits(version::Format versionFormat) : m_versionFormat(versionFormat) {}
 
@@ -41,4 +41,4 @@ string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
     return "Unknown";
   }
 }
-}  // namespace search
+}  // namespace version
