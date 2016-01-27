@@ -209,6 +209,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mMetadataBlock = view.findViewById(R.id.cv__metadata);
     mEtName = findInput(view.findViewById(R.id.name));
     mTvStreet = (TextView) view.findViewById(R.id.street);
+    mTvStreet.setOnClickListener(this);
     mEtHouseNumber = findInput(view.findViewById(R.id.building));
     mPhoneBlock = view.findViewById(R.id.block_phone);
     mEtPhone = findInput(mPhoneBlock);
@@ -239,16 +240,14 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     switch (v.getId())
     {
     case R.id.tv__edit_oh:
-      editOpeningHours();
+      mParent.editTimetable();
       break;
     case R.id.block_wifi:
       mSwWifi.toggle();
       break;
+    case R.id.street:
+      mParent.editStreet();
+      break;
     }
-  }
-
-  private void editOpeningHours()
-  {
-    mParent.editTimetable();
   }
 }

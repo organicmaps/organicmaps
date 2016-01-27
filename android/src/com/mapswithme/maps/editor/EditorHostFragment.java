@@ -98,7 +98,13 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   protected void editStreet()
   {
     mMode = Mode.STREET;
-    // TODO choose street
+    mToolbarController.setTitle("Add Street");
+    final Bundle args = new Bundle();
+    args.putString(StreetFragment.EXTRA_CURRENT_STREET, mEditedObject.getStreet());
+    final Fragment streetFragment = Fragment.instantiate(getActivity(), StreetFragment.class.getName(), args);
+    getChildFragmentManager().beginTransaction()
+                             .replace(R.id.fragment_container, streetFragment, StreetFragment.class.getName())
+                             .commit();
   }
 
   protected void editCuisine()
@@ -110,9 +116,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   @Override
   public void onClick(View v)
   {
-    switch (v.getId())
+    if (v.getId() == R.id.save)
     {
-    case R.id.save:
       switch (mMode)
       {
       case OPENING_HOURS:
@@ -121,7 +126,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         editMapObject();
         break;
       case STREET:
-        // get street
+        final String street = ((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName())).getStreet();
+        mEditedObject.setStreet(street);
+        editMapObject();
         break;
       case CUISINE:
         // get cuisine
@@ -141,7 +148,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
           showAuthorization();
         break;
       }
-      break;
     }
   }
 
