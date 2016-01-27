@@ -30,7 +30,9 @@ namespace Settings
 
     try
     {
-      ReaderStreamBuf buffer(new FileReader(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)));
+      string settingsPath = GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME);
+      LOG(LINFO, ("Settings path:", settingsPath));
+      ReaderStreamBuf buffer(new FileReader(settingsPath));
       istream stream(&buffer);
 
       string line;
@@ -52,7 +54,7 @@ namespace Settings
     }
     catch (RootException const & ex)
     {
-      LOG(LWARNING, (ex.Msg()));
+      LOG(LWARNING, ("Loading settings:", ex.Msg()));
     }
   }
 
@@ -73,7 +75,7 @@ namespace Settings
     catch (RootException const & ex)
     {
       // Ignore all settings saving exceptions.
-      LOG(LWARNING, (ex.Msg()));
+      LOG(LWARNING, ("Saving settings:", ex.Msg()));
     }
   }
 
