@@ -6,6 +6,7 @@
                       icon:(UIImage *)icon
                       text:(NSString *)text
                placeholder:(NSString *)placeholder
+              keyboardType:(UIKeyboardType)keyboardType
                   lastCell:(BOOL)lastCell;
 
 @end

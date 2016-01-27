@@ -19,6 +19,7 @@
                       icon:(UIImage *)icon
                       text:(NSString *)text
                placeholder:(NSString *)placeholder
+              keyboardType:(UIKeyboardType)keyboardType
                   lastCell:(BOOL)lastCell
 {
   self.delegate = delegate;
@@ -29,6 +30,7 @@
   self.backgroundColor = isNameCell ? [UIColor clearColor] : [UIColor white];
   self.textField.text = text;
   self.textField.placeholder = placeholder;
+  self.textField.keyboardType = keyboardType;
   self.bottomSeparatorLeadingOffset.priority = lastCell ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
 }
 

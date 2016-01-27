@@ -272,6 +272,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:[UIImage imageNamed:@"ic_placepage_phone_number"]
                            text:entityValue
                     placeholder:L(@"phone")
+                   keyboardType:UIKeyboardTypePhonePad
                        lastCell:lastCell];
       break;
     }
@@ -282,6 +283,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:[UIImage imageNamed:@"ic_placepage_website"]
                            text:entityValue
                     placeholder:L(@"website")
+                   keyboardType:UIKeyboardTypeURL
                        lastCell:lastCell];
       break;
     }
@@ -292,6 +294,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:[UIImage imageNamed:@"ic_placepage_email"]
                            text:entityValue
                     placeholder:L(@"email")
+                   keyboardType:UIKeyboardTypeEmailAddress
                        lastCell:lastCell];
       break;
     }
@@ -320,6 +323,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:nil
                            text:entityValue
                     placeholder:L(@"name")
+                   keyboardType:UIKeyboardTypeDefault
                        lastCell:lastCell];
       break;
     }
@@ -340,6 +344,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:nil
                            text:entityValue
                     placeholder:L(@"building")
+                   keyboardType:UIKeyboardTypeDefault
                        lastCell:lastCell];
       break;
     }
