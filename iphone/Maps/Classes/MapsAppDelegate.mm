@@ -405,14 +405,20 @@ void InitLocalizedStrings()
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  static mutex fetchTaskMutex;
+  // At the moment, we need to perform 3 asynchronous background tasks simultaneously.
+  // We will force complete fetch before backgroundTimeRemaining.
+  // However if all scheduled tasks complete before backgroundTimeRemaining, fetch completes as soon as last task finishes.
+  // fetchResultPriority is used to determine result we must send to fetch completion block.
+  // Threads synchronization is made through dispatch_async on the main queue.
   static NSUInteger fetchRunningTasks;
   static UIBackgroundFetchResult fetchResult;
+  static NSUInteger fetchStamp = 0;
+  NSUInteger const taskFetchStamp = fetchStamp;
 
   fetchRunningTasks = 0;
   fetchResult = UIBackgroundFetchResultNewData;
 
-  auto fetchResultPriority = ^NSUInteger(UIBackgroundFetchResult result)
+  auto const fetchResultPriority = ^NSUInteger(UIBackgroundFetchResult result)
   {
     switch (result)
     {
@@ -421,32 +427,37 @@ void InitLocalizedStrings()
     case UIBackgroundFetchResultFailed: return 3;
     }
   };
-  auto callback = ^(UIBackgroundFetchResult result)
+  auto const callback = ^(UIBackgroundFetchResult result)
   {
-    lock_guard<mutex> lock(fetchTaskMutex);
-    if (fetchResultPriority(fetchResult) < fetchResultPriority(result))
-      fetchResult = result;
-    if (--fetchRunningTasks == 0)
-      completionHandler(fetchResult);
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+      if (taskFetchStamp != fetchStamp)
+        return;
+      if (fetchResultPriority(fetchResult) < fetchResultPriority(result))
+        fetchResult = result;
+      if (--fetchRunningTasks == 0)
+      {
+        fetchStamp++;
+        completionHandler(fetchResult);
+      }
+    });
   };
-  using TTaskBlock = void(^)();
-  auto runFetchTask = ^(TTaskBlock task)
+  auto const runFetchTask = ^(TMWMVoidBlock task)
   {
-    lock_guard<mutex> lock(fetchTaskMutex);
     ++fetchRunningTasks;
     task();
   };
 
-  dispatch_time_t const whenForceComplete = dispatch_time(
-      DISPATCH_TIME_NOW, static_cast<int64_t>(UIApplication.sharedApplication.backgroundTimeRemaining) * NSEC_PER_SEC);
-  dispatch_after(whenForceComplete, dispatch_get_main_queue(), ^
+  dispatch_time_t const forceCompleteTime = dispatch_time(
+      DISPATCH_TIME_NOW, static_cast<int64_t>(application.backgroundTimeRemaining) * NSEC_PER_SEC);
+  dispatch_after(forceCompleteTime, dispatch_get_main_queue(), ^
   {
-    lock_guard<mutex> lock(fetchTaskMutex);
-    fetchRunningTasks = 0;
-    completionHandler(fetchResult);
+    if (taskFetchStamp != fetchStamp)
+      return;
+    fetchRunningTasks = 1;
+    callback(fetchResult);
   });
 
-  // At the moment, we need to perform 3 asynchronous background tasks simultaneously:
   // 1. Try to send collected statistics (if any) to our server.
   runFetchTask(^
   {
