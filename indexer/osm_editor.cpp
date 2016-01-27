@@ -200,8 +200,10 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"tourism-viewpoint", {{}, true, false}},
   {"waterway-waterfall", {{EType::FMD_HEIGHT}, true, false}}};
 
-TypeDescription const * GetTypeDescription(uint32_t const type)
+TypeDescription const * GetTypeDescription(uint32_t type, uint8_t typeTruncateLevel = 2)
 {
+  // Truncate is needed to match, for example, amenity-restaurant-vegan as amenity-restaurant.
+  ftype::TruncValue(type, typeTruncateLevel);
   auto const readableType = classif().GetReadableObjectName(type);
   auto const it = gEditableTypes.find(readableType);
   if (it != end(gEditableTypes))
