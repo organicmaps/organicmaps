@@ -295,7 +295,6 @@ void ActiveMapsLayout::DeleteMap(TGroup const & group, int position, MapOptions 
 void ActiveMapsLayout::RetryDownloading(TGroup const & group, int position)
 {
   Item const & item = GetItemInGroup(group, position);
-  ASSERT(item.m_options != item.m_downloadRequest, ());
   m_framework.DownloadCountry(item.Index(), item.m_downloadRequest);
 }
 

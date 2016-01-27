@@ -171,8 +171,8 @@ public class RoutingController
       {
         cancel();
 
-        ActiveCountryTree.downloadMapsForIndices(mLastMissingCountries, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
-        ActiveCountryTree.downloadMapsForIndices(mLastMissingRoutes, StorageOptions.MAP_OPTION_CAR_ROUTING);
+        ActiveCountryTree.downloadMapsForIndices(mLastMissingCountries, StorageOptions.MAP_OPTION_MAP_ONLY);
+        ActiveCountryTree.downloadMapsForIndices(mLastMissingRoutes, StorageOptions.MAP_OPTION_MAP_ONLY);
 
         if (mContainer != null)
           mContainer.showDownloader(true);

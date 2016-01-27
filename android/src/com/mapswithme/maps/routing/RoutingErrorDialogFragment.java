@@ -16,6 +16,12 @@ import android.view.ViewTreeObserver;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.MwmApplication;
@@ -24,11 +30,6 @@ import com.mapswithme.maps.adapter.DisabledChildSimpleExpandableListAdapter;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
 {
@@ -71,7 +72,7 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
     {
       View view;
       if (hasSingleIndex(mMissingCountries) && !hasIndex(mMissingRoutes))
-        view = buildSingleMapView(titleMessage.second, mMissingCountries[0], StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+        view = buildSingleMapView(titleMessage.second, mMissingCountries[0], StorageOptions.MAP_OPTION_MAP_ONLY);
       else
         view = buildMultipleMapView(titleMessage.second);
 

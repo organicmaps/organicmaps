@@ -213,7 +213,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
   private int storageOptionsRequested()
   {
-    return StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING;
+    return StorageOptions.MAP_OPTION_MAP_ONLY;
   }
 
   private void selectMapForDownload()
