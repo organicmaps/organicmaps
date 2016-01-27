@@ -705,7 +705,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       // use this hard reset, because of caching different ViewHolders according to item's type
       mHandler.postDelayed(mDatasetChangedRunnable, ANIMATION_LENGTH);
 
-      if (item.getStatus() == MapStorage.DOWNLOAD_FAILED)
+      if (item.getStatus() == MapStorage.DOWNLOAD_FAILED && mFragment.getListAdapter() == this)
         UiUtils.checkConnectionAndShowAlert(mFragment.getActivity(), String.format(mFragment.getString(R.string.download_country_failed), item.getName()));
     }
   }
