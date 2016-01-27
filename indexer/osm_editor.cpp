@@ -563,6 +563,21 @@ bool Editor::GetEditedFeatureStreet(FeatureType const & feature, string & outFea
   return true;
 }
 
+vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, FeatureStatus status) const
+{
+  vector<uint32_t> features;
+  auto const matchedMwm = m_features.find(mwmId);
+  if (matchedMwm == m_features.end())
+    return features;
+  for (auto const & index : matchedMwm->second)
+  {
+    if (index.second.m_status == status)
+      features.push_back(index.first);
+  }
+  sort(features.begin(), features.end());
+  return features;
+}
+
 vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feature) const
 {
   // TODO(mgsergio): Load editable fields into memory from XML and query them here.

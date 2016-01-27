@@ -82,6 +82,9 @@ public:
   /// @param outFeatureStreet is valid only if true was returned.
   bool GetEditedFeatureStreet(FeatureType const & feature, string & outFeatureStreet) const;
 
+  /// @returns sorted features indices with specified status.
+  vector<uint32_t> GetFeaturesByStatus(MwmSet::MwmId const & mwmId, FeatureStatus status) const;
+
   /// Editor checks internally if any feature params were actually edited.
   /// House number is correctly updated for editedFeature (if it's valid).
   void EditFeature(FeatureType & editedFeature,
