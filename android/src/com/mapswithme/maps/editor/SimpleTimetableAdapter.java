@@ -1,4 +1,4 @@
-package com.mapswithme.maps.widget.placepage;
+package com.mapswithme.maps.editor;
 
 import android.support.annotation.IdRes;
 import android.support.annotation.IntRange;
@@ -22,7 +22,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.editor.OpeningHours;
 import com.mapswithme.maps.editor.data.HoursMinutes;
 import com.mapswithme.maps.editor.data.Timespan;
 import com.mapswithme.maps.editor.data.Timetable;

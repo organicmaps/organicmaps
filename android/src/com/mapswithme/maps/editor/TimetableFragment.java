@@ -1,4 +1,4 @@
-package com.mapswithme.maps.widget.placepage;
+package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,8 +13,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.editor.EditorHostFragment;
-import com.mapswithme.maps.editor.OpeningHours;
 import com.mapswithme.maps.editor.data.Timetable;
 
 public class TimetableFragment extends BaseMwmFragment

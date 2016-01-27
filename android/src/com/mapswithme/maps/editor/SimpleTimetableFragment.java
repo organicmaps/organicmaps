@@ -1,4 +1,4 @@
-package com.mapswithme.maps.widget.placepage;
+package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
