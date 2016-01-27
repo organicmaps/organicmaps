@@ -293,12 +293,12 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
     if (file.GetCountryName() == WORLD_FILE_NAME)
     {
       worldFound = true;
-      TEST_NOT_EQUAL(0, file.GetVersion(), ());
+      TEST_NOT_EQUAL(0, file.GetVersion(), (file));
     }
     if (file.GetCountryName() == WORLD_COASTS_FILE_NAME)
     {
       worldCoastsFound = true;
-      TEST_NOT_EQUAL(0, file.GetVersion(), ());
+      TEST_NOT_EQUAL(0, file.GetVersion(), (file));
     }
   }
   TEST(worldFound, ());
