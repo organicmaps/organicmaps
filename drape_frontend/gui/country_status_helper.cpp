@@ -55,6 +55,7 @@ void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload
 }
 
 char const * DownloadMapButtonID = "country_status_download";
+char const * DownloadMapWithoutSizeButtonID = "country_status_download_without_size";
 char const * TryAgainButtonID = "try_again";
 char const * DownloadCancelButtonID = "country_download_cancel";
 char const * DownloadingLabelID = "country_status_downloading";
@@ -222,10 +223,14 @@ void CountryStatusHelper::FillControlsForFailed()
 
 string CountryStatusHelper::FormatDownloadMap()
 {
-  size_t size;
-  string units;
-  FormatMapSize(m_countryInfo.m_mapSize, units, size);
-  return strings::Format(GetLocalizedString(DownloadMapButtonID), size, units);
+  if (m_countryInfo.m_showMapSize)
+  {
+    size_t size;
+    string units;
+    FormatMapSize(m_countryInfo.m_mapSize, units, size);
+    return strings::Format(GetLocalizedString(DownloadMapButtonID), size, units);
+  }
+  return GetLocalizedString(DownloadMapWithoutSizeButtonID);
 }
 
 string CountryStatusHelper::FormatInQueueMap()
@@ -245,8 +250,7 @@ string CountryStatusHelper::FormatTryAgain()
 
 string CountryStatusHelper::FormatCancel()
 {
-  //TODO: Uncomment after adding localization for country_download_cancel
-  return "Cancel";//GetLocalizedString(DownloadCancelButtonID);
+  return GetLocalizedString(DownloadCancelButtonID);
 }
 
 }  // namespace gui

@@ -20,6 +20,7 @@ struct CountryInfo
   string m_currentCountryName;
   size_t m_mapSize = 0;
   size_t m_downloadProgress = 0;
+  bool m_showMapSize = true;
 };
 
 class CountryStatusHelper
