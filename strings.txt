@@ -1856,7 +1856,7 @@
     da = Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app
     tr = Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın
     sv = Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.
-    he = אנא פנה שטח אחסון על ה SD card/USB  כדי להשתמש בישום
+    he = אנא פנה שטח אחסון על ה SD card/USB כדי להשתמש בישום
     id = Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi
     vi = Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng
     ro = Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.
@@ -2910,7 +2910,7 @@
     zh-Hant = 您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
     pl = Nie masz jeszcze żadnych zakładek.\nDotknij dowolnego miejsca na mapie, aby dodać zakładkę.\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
     pt = Ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
-    hu = Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
+    hu = Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
     th = คุณยังไม่มีบุ๊กมาร์ก\nแตะที่ใด ๆ บนแผนที่เพื่อเพิ่มบุ๊กมาร์ก\nสามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน MAPS.ME เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์
     zh-Hans = 您还没有书签。\n在地图任何位置轻触以添 加一个书签。\n其他来源的书签也可载入并 显示在 MAPS.ME 中。从邮件、 Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文 件。
     ar = ليس لديك أي إشارات مرجعية بعد.\nانقر على أي مكان على الخريطة لإضافة إشارة مرجعية.\nيمكنك أيضا استيراد الإشارات المرجعية من المصادر الأخرى وعرضها في MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الدبابيس المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
@@ -2918,7 +2918,7 @@
     tr = Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp MAPS.ME’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.
     sv = Du har inga bokmärken än.\nTryck var som helst på kartan för att lägga till ett bokmärke.\nBokmärken från andra källor kan också importeras och visas i MAPS.ME. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.
     he = לא יצרת רשימת אתרים עדיין. \n הקש במקום כלשהו על המפה כדי להוסיפה לרשימת האתרים.ניתן ליבא ולהציג ב MAPS.ME רשימות אתרים ממקורות אחרים. פתח קובץ  KML/KMZ באמצעות סיכות שמורות ממייל, Dropbox, או קישור לרשת.
-    id = Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ  tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.
+    id = Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.
     vi = Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong MAPS.ME. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ e-mail, Dropbox hoặc liên kết web.
     ro = Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe MAPS.ME și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din e-mail, Dropbox sau de la un link web.
     nb = Du har ingen bokmerker enda.\nTrykk på et hvilket som helst sted på kartet for å legge til et bokmerke.\nBokmerker fra andre kilder kan også importeres og vises i MAPS.ME. Åpne KML-/KMZ-filer med lagrede bokmerker fra e-post, Dropbox eller internettkobling.
@@ -2942,7 +2942,7 @@
     zh-Hant = 其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
     pl = Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
     pt = Os marcadores de outras fontes podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
-    hu = Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
+    hu = Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
     th = สามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน MAPS.ME เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์
     zh-Hans = 其他来源的书签也可载入并显示在 MAPS.ME中。从邮件、Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文件。
     ar = يمكن استيراد الإشارات المرجعية من المصادر الأخرى و عرضها على MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الإشارات المرجعية المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
@@ -3953,9 +3953,9 @@
     zh-Hans = 欢迎,\n\n附件是 MAPS.ME 离线地图中我 的书签。如果您已安装 MAPS.ME, 请打开它。若没有,请为您的 iOS 或安卓设 备下载此应用。下载链接: http://maps.me/get?kmz\n\n享 受 和 MAPS.ME 的旅行吧!
     ar = مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي: http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!
     da = Hej, vedhæftet er mine bogmærker fra MAPS.ME offline kort. Åbn venligst vedhæftet hvis du har MAPS.ME installeret. Hvis ikke, så download app'en til din iOS eller Android enhed fra dette link: http://maps.me/get?kmz.\n\ Nyd at rejse med MAPS.ME!
-    tr = Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME sende yüklü ise aç. Değilse  iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!
+    tr = Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME sende yüklü ise aç. Değilse iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!
     sv = Hej,\n\nMina bokmärken från MAPS.ME offline-kartor är bifogade. Öppna dem ifall du har MAPS.ME installerat. Om inte, ladda ner appen till din iOS- eller Android-enhet från denna länk: http://maps.me/get?kmz\n\nNjut av att resa med MAPS.ME!
-    he = . פתח אותה אם התקנת MAPS.ME מצ"ב רשימת האתרים שלי ממפות לא מקוונות שלברכות, או האנדרויד שלך מהאתר הבא: iOS. אם לא, הורד הישום למכשיר ה MAPS.ME! MAPS.ME  נסיעה מהנה עם http://maps.me/get?kmz
+    he = . פתח אותה אם התקנת MAPS.ME מצ"ב רשימת האתרים שלי ממפות לא מקוונות שלברכות, או האנדרויד שלך מהאתר הבא: iOS. אם לא, הורד הישום למכשיר ה MAPS.ME! MAPS.ME נסיעה מהנה עם http://maps.me/get?kmz
     id = Salam,\n\nTerlampir penanda lokasi saya dari peta offline MAPS.ME. Mohon dibuka jika Anda memasang MAPS.ME. Jika tidak, unduhlah aplikasinya untuk perangkat iOS atau Android Anda melalui tautan ini: http://maps.me/get?kmz\n\nNikmatilah bepergian menggunakan MAPS.ME!
     vi = Xin chào,\n\nPhần đính kèm là các điểm đánh dấu của tôi từ bản đồ ngoại tuyến MAPS.ME. Vui lòng mở nó nếu bạn đã cài đặt MAPS.ME. Nếu không, hãy tải xuống ứng dụng này cho thiết bị iOS hoặc Android của bạn theo liên kết sau: http://maps.me/get?kmz\n\nChúc bạn du lịch vui vẻ cùng MAPS.ME!
     ro = Salutări,\n\nAm atașat marcajele mele din hărțile offline MAPS.ME. Te rog să le deschizi, dacă ai MAPS.ME instalată. Dacă nu, poți descărca aplicația pentru dispozitivul tău iOS sau Android, urmând acest link: http://maps.me/get?kmz\n\nCălătorie plăcută cu MAPS.ME!
@@ -12527,7 +12527,6 @@
     nb = Ja
     fi = Kyllä
 
-
 [[Routing dialogs strings]]
 
   [dialog_routing_disclaimer_title]
@@ -12683,7 +12682,6 @@
     pl = — Prosimy zachować ostrożność na trasach w strefie nadgranicznej: wyznaczone przez naszą aplikację trasy mogą przecinać granice państw w niedozwolonych do przekroczenia miejscach;
     nl = — Wees voorzichtig met de routes in de grenszones: de routes die door onze app gecreëerd zijn, gaan wellicht door landgrenzen in ongeautoriseerde plaatsen;
     pt = — Use de cautela em rotas de zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;
-
 
   [dialog_routing_disclaimer_beware]
     tags = ios,android
@@ -13645,7 +13643,6 @@
     pl = Zawsze przekraczaj tę granicę
     nl = Deze grens altijd overschrijden
     pt = Sempre cruzar esse limite
-
 
 [[Strings for downloading map from search]]
 
