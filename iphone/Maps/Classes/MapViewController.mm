@@ -625,8 +625,10 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 {
   if (platform::migrate::NeedMigrate())
   {
+    [[Statistics instance] logEvent:kStatShowBig2SmallMWM];
     [self.alertController presentNeedMigrationAlertWithOkBlock:^
     {
+      [[Statistics instance] logEvent:kStatMigrationBig2SmallMWM];
       [self.controlsManager routingHidden];
       GetFramework().Migrate();
       block();

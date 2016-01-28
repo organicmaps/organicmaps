@@ -79,6 +79,7 @@ extern NSString * const MapsStatusChangedNotification;
 
 - (void)onDownloadAll
 {
+  [[Statistics instance] logEvent:kStatDownloadAll];
   self.tree.DownloadAll();
 }
 
