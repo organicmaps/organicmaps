@@ -274,7 +274,7 @@
 	<string name="share">Del</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Besked</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopier link</string>
@@ -767,7 +767,7 @@
 	<string name="dialog_routing_if_get_cross_route">Ønsker du at planlægge en mere direkte rute, der strækker sig over mere end ét kort?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Der findes en mere optimal rute, som strækker sig ud over dette korts grænser.</string>
 	<string name="dialog_routing_always_cross_that_border">Kryds altid denne grænse</string>
-	<string name="dialog_routing_not_now">Ikke nu</string>
+	<string name="not_now">Ikke nu</string>
 	<string name="dialog_routing_build_route">Opret</string>
 	<string name="dialog_routing_download_and_build_cross_route">Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?</string>
 	<string name="dialog_routing_download_cross_route">Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.</string>
@@ -847,4 +847,52 @@
 	<string name="download_all">Download alle</string>
 	<string name="delete_all">Slet alle</string>
 	<string name="autodownload">Automatisk download</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Lukket nu</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Daglig</string>
+	<string name="twentyfour_seven">Dag og nat</string>
+	<string name="day_off_today">Fridag i dag</string>
+	<string name="day_off">Fridag</string>
+	<string name="today">I dag</string>
+	<string name="sunrise_to_sunset">Fra solopgang til solnedgang</string>
+	<string name="add_opening_hours">Tilføj arbejdstid</string>
+	<string name="edit_opening_hours">Rediger arbejdstid</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Ingen konto på OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Tilmeld dig</string>
+	<string name="login">Log ind</string>
+	<string name="password">Adgangskode</string>
+	<string name="forgot_password">Glemt adgangskode?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Genopret adgangskode</string>
+	<string name="enter_email_address_to_reset_password">Indtast den e-mailadresse du anvendte under tilmelding, så sender vi dig linket til at forny din adgangskode.</string>
+	<string name="reset_password">Nulstil adgangskode</string>
+	<string name="username">Brugernavn</string>
+	<string name="osm_account">OSM-konto</string>
+	<string name="logout">Log ud</string>
+	<string name="login_and_edit_map_motivation_message">Log ind og rediger oplysninger for objekter på kortet, så sørger vi for, at de er tilgængelige for millioner af andre brugere. Lad os sammen gøre verden bedre.</string>
+	<string name="not_sent">Ikke sendt</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">ændringer</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Du har redigeret dit første objekt!</string>
+	<string name="thank_you">Mange tak</string>
+	<string name="login_with_openstreetmap">Log ind på www.openstreetmap.org</string>
+	<string name="edit_place">Redigér stedet</string>
+	<string name="place_name">Navn på sted</string>
+	<string name="place_name_caption">Indtast navnet, som det står på skiltet for stedet</string>
+	<string name="add_language">Tilføj et sprog</string>
+	<string name="address">Adresse</string>
+	<string name="street">Gade</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Bygning</string>
+	<string name="details">Oplysninger</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Tilføj en gade</string>
+	<string name="choose_language">Vælg et sprog</string>
+	<string name="choose_street">Vælg en gade</string>
+	<string name="postal_code">Postnummer</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-mail eller brugernavn</string>
 </resources>

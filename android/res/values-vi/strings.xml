@@ -272,7 +272,7 @@
 	<string name="share">Chia sẻ</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Tin nhắn</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Sao chép Liên kết</string>
@@ -767,7 +767,7 @@
 	<string name="dialog_routing_if_get_cross_route">Bạn có muốn tạo một tuyến đường thẳng hơn mà kéo dài trên nhiều bản đồ không?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Có một tuyến đường tối ưu hơn đi qua cạnh của bản đồ này.</string>
 	<string name="dialog_routing_always_cross_that_border">Luôn đi qua ranh giới này</string>
-	<string name="dialog_routing_not_now">Lúc khác</string>
+	<string name="not_now">Lúc khác</string>
 	<string name="dialog_routing_build_route">Tạo</string>
 	<string name="dialog_routing_download_and_build_cross_route">Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?</string>
 	<string name="dialog_routing_download_cross_route">Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.</string>
@@ -847,4 +847,52 @@
 	<string name="download_all">Tải về tất cả</string>
 	<string name="delete_all">Xóa tất cả</string>
 	<string name="autodownload">Tự động tải về</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Hiện đã đóng</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Hàng ngày</string>
+	<string name="twentyfour_seven">ngày và đêm</string>
+	<string name="day_off_today">Nghỉ hôm nay</string>
+	<string name="day_off">Ngày nghỉ</string>
+	<string name="today">Hôm nay</string>
+	<string name="sunrise_to_sunset">Từ bình minh đến hoàng hôn</string>
+	<string name="add_opening_hours">Thêm giờ làm việc</string>
+	<string name="edit_opening_hours">Sửa giờ làm việc</string>
+	<string name="profile">Hồ sơ</string>
+	<string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
+	<string name="register_at_openstreetmap">Đăng ký</string>
+	<string name="login">Đăng nhập</string>
+	<string name="password">Mật khẩu</string>
+	<string name="forgot_password">Quên mật khẩu?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Khôi phục mật khẩu</string>
+	<string name="enter_email_address_to_reset_password">Nhập địa chỉ email bạn đã sử dụng trong quá trình đăng ký và chúng tôi sẽ gửi cho bạn liên kết để tạo mới mật khẩu của bạn.</string>
+	<string name="reset_password">đặt lại mật khẩu</string>
+	<string name="username">Tên đăng nhập</string>
+	<string name="osm_account">Tài khoản OSM</string>
+	<string name="logout">Đăng xuất</string>
+	<string name="login_and_edit_map_motivation_message">Đăng nhập và chỉnh sửa thông tin của các đối tượng trên bản đồ và chúng tôi sẽ hiển thị chúng cho hàng triệu người dùng khác. Hãy cùng nhau làm cho thế giới tốt đẹp hơn.</string>
+	<string name="not_sent">Chưa được gửi</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">thay đổi</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Bạn đã chỉnh sửa đối tượng đầu tiên của mình!</string>
+	<string name="thank_you">Cảm ơn bạn</string>
+	<string name="login_with_openstreetmap">Đăng nhập tại www.openstreetmap.org</string>
+	<string name="edit_place">Chỉnh sửa địa điểm</string>
+	<string name="place_name">Tên địa điểm</string>
+	<string name="place_name_caption">Nhập tên như nó trên dấu hiệu của địa điểm</string>
+	<string name="add_language">Thêm ngôn ngữ</string>
+	<string name="address">Địa chỉ</string>
+	<string name="street">Đường</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Tòa nhà</string>
+	<string name="details">Chi tiết</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Thêm con đường</string>
+	<string name="choose_language">Đã chọn ngôn ngữ</string>
+	<string name="choose_street">Đã chọn con đường</string>
+	<string name="postal_code">Mã bưu chính</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-mail hoặc tên người dùng</string>
 </resources>

@@ -265,7 +265,7 @@
 	<string name="share">Compartir</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Mensaje</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Correo electrónico</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copiar enlace</string>
@@ -760,7 +760,7 @@
 	<string name="dialog_routing_if_get_cross_route">¿Desea crear una ruta más directa que abarca más de un mapa?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Está disponible una ruta mejor que cruza los límites de este mapa.</string>
 	<string name="dialog_routing_always_cross_that_border">Cruzar siempre este límite</string>
-	<string name="dialog_routing_not_now">No ahora</string>
+	<string name="not_now">No ahora</string>
 	<string name="dialog_routing_build_route">Crear</string>
 	<string name="dialog_routing_download_and_build_cross_route">¿Desea descargar el mapa y crear una ruta mejor que abarca más de un mapa?</string>
 	<string name="dialog_routing_download_cross_route">Descargar el mapa para crear una ruta mejor que cruza los límites de este mapa.</string>
@@ -842,4 +842,52 @@
 	<string name="download_all">Descargar todos</string>
 	<string name="delete_all">Eliminar todos</string>
 	<string name="autodownload">Descarga automática</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Cerrado ahora</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Diario</string>
+	<string name="twentyfour_seven">Día y noche</string>
+	<string name="day_off_today">Día libre hoy</string>
+	<string name="day_off">Día libre</string>
+	<string name="today">Hoy</string>
+	<string name="sunrise_to_sunset">Del amanecer al atardecer</string>
+	<string name="add_opening_hours">Añadir horas comerciales</string>
+	<string name="edit_opening_hours">Editar las horas comerciales</string>
+	<string name="profile">Perfil</string>
+	<string name="no_osm_account">¿No tienes cuenta en OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Registrarse</string>
+	<string name="login">Iniciar sesión</string>
+	<string name="password">Contraseña</string>
+	<string name="forgot_password">¿Has olvidado tu contraseña?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Restaurar contraseña</string>
+	<string name="enter_email_address_to_reset_password">Introduce la dirección de correo electrónico que utilizaste durante el registro y te enviaremos el enlace para restaurar tu contraseña.</string>
+	<string name="reset_password">Restablecer contraseña</string>
+	<string name="username">Usuario</string>
+	<string name="osm_account">Cuenta OSM</string>
+	<string name="logout">Cerrar sesión</string>
+	<string name="login_and_edit_map_motivation_message">Inicia sesión y edita la información de los objetos en el mapa y los pondremos a disposición de millones de otros usuarios. Hagamos de este mundo un lugar mejor.</string>
+	<string name="not_sent">No enviado</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">cambios</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">¡Has editado tu primer objeto!</string>
+	<string name="thank_you">Gracias</string>
+	<string name="login_with_openstreetmap">Iniciar sesión en www.openstreetmap.org</string>
+	<string name="edit_place">Editar el lugar</string>
+	<string name="place_name">Nombre del lugar</string>
+	<string name="place_name_caption">Introduce el nombre como está en la señal del lugar</string>
+	<string name="add_language">Añadir un idioma</string>
+	<string name="address">Dirección</string>
+	<string name="street">Calle</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Edificio</string>
+	<string name="details">Detalles</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Añadir una calle</string>
+	<string name="choose_language">Elegir un idioma</string>
+	<string name="choose_street">Elegir una calle</string>
+	<string name="postal_code">Código postal</string>
+	<!-- login text field -->
+	<string name="email_or_username">Correo electrónico o usuario</string>
 </resources>

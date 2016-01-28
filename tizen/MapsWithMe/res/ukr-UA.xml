@@ -93,8 +93,8 @@
 	<text id="IDS_SHARE">Подiлитись</text>
 	<!-- iOS share by Message button text (including SMS) -->
 	<text id="IDS_MESSAGE">Повідомлення</text>
-	<!-- Share by email button text -->
-	<text id="IDS_EMAIL">Електронна пошта</text>
+	<!-- Share by email button text, also used in editor. -->
+	<text id="IDS_EMAIL">Ел. пошта</text>
 	<!-- Copy Link -->
 	<text id="IDS_COPY_LINK">Копіювати посилання</text>
 	<!-- Used for bookmark editing -->

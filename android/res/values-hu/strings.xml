@@ -273,8 +273,8 @@
 	<string name="share">Megosztás</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Üzenet</string>
-	<!-- Share by email button text -->
-	<string name="email">Email</string>
+	<!-- Share by email button text, also used in editor. -->
+	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Hivatkozás másolása</string>
 	<!-- Text for the button that returns to caller application -->
@@ -768,7 +768,7 @@
 	<string name="dialog_routing_if_get_cross_route">Szeretne egy közvetlenebb útvonalat létrehozni, amely több, mint egy térképen terül el?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Elérhető egy optimálisabb útvonal, amely áthalad a jelenlegi térkép szélén.</string>
 	<string name="dialog_routing_always_cross_that_border">Mindig haladjon át ezen a határon</string>
-	<string name="dialog_routing_not_now">Most nem</string>
+	<string name="not_now">Most nem</string>
 	<string name="dialog_routing_build_route">Létrehozás</string>
 	<string name="dialog_routing_download_and_build_cross_route">Szeretné letölteni a térképet és létrehozni egy optimálisabb útvonalat, amely több, mint egy térképen terül el?</string>
 	<string name="dialog_routing_download_cross_route">Töltse le a térképet, hogy létrehozzon egy optimálisabb útvonalat, amely áthalad a jelenlegi térkép szélén.</string>
@@ -848,4 +848,52 @@
 	<string name="download_all">Összes letöltése</string>
 	<string name="delete_all">Összes térkép törlése</string>
 	<string name="autodownload">Automatikus letöltés</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Most zárva</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Naponta</string>
+	<string name="twentyfour_seven">Nappal és éjszaka</string>
+	<string name="day_off_today">Ma szabadnap</string>
+	<string name="day_off">Szabadnap</string>
+	<string name="today">Ma</string>
+	<string name="sunrise_to_sunset">Napkeltétől napnyugtáig</string>
+	<string name="add_opening_hours">Nyitvatartás hozzáadása</string>
+	<string name="edit_opening_hours">Nyitvatartás szerkesztése</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?</string>
+	<string name="register_at_openstreetmap">Regisztráció</string>
+	<string name="login">Bejelentkezés</string>
+	<string name="password">Jelszó</string>
+	<string name="forgot_password">Elfelejtett jelszó?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Jelszó visszaállítása</string>
+	<string name="enter_email_address_to_reset_password">Add meg a regisztrációkor használt e-mail-címedet és elküldjük neked a jelszavad megújításához szükséges linket.</string>
+	<string name="reset_password">Jelszó visszaállítása</string>
+	<string name="username">Felhasználónév</string>
+	<string name="osm_account">OSM-felhasználói fiók</string>
+	<string name="logout">Kijelentkezés</string>
+	<string name="login_and_edit_map_motivation_message">Jelentkezz be és szerkeszd az egyes objektumokhoz tartozó információkat a térképen, valamint tedd őket elérhetővé több millió felhasználó számára.</string>
+	<string name="not_sent">Nincs elküldve</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">változtatás</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Szerkesztetted az első objektumod!</string>
+	<string name="thank_you">Köszönjük</string>
+	<string name="login_with_openstreetmap">Jelentkezz be a www.openstreetmap.org oldalon</string>
+	<string name="edit_place">Hely szerkesztése</string>
+	<string name="place_name">Hely neve</string>
+	<string name="place_name_caption">Add meg a nevet, ami a helyet jelzi</string>
+	<string name="add_language">Nyelv hozzáadása</string>
+	<string name="address">Cím</string>
+	<string name="street">Utca</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Épület</string>
+	<string name="details">Részletek</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Utca hozzáadása</string>
+	<string name="choose_language">Nyelv kiválasztása</string>
+	<string name="choose_street">Utca kiválasztása</string>
+	<string name="postal_code">Irányítószám</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-mail vagy felhasználónév</string>
 </resources>

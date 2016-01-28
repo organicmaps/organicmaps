@@ -264,7 +264,7 @@
 	<string name="share">Delen</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Bericht</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopieer koppeling</string>
@@ -757,7 +757,7 @@
 	<string name="dialog_routing_if_get_cross_route">Wilt u een rechtstreeksere route samenstellen die meer dan één kaart beslaat?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Er is een betere route beschikbaar die de grenzen van deze kaart overschrijdt.</string>
 	<string name="dialog_routing_always_cross_that_border">Deze grens altijd overschrijden</string>
-	<string name="dialog_routing_not_now">Niet nu</string>
+	<string name="not_now">Niet nu</string>
 	<string name="dialog_routing_build_route">Samenstellen</string>
 	<string name="dialog_routing_download_and_build_cross_route">Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?</string>
 	<string name="dialog_routing_download_cross_route">Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.</string>
@@ -837,4 +837,52 @@
 	<string name="download_all">Alles downloaden</string>
 	<string name="delete_all">Alles verwijderen</string>
 	<string name="autodownload">Automatische download</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Nu gesloten</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Dagelijks</string>
+	<string name="twentyfour_seven">Nacht en dag</string>
+	<string name="day_off_today">Vrije dag vandaag</string>
+	<string name="day_off">Vrije dag</string>
+	<string name="today">Vandaag</string>
+	<string name="sunrise_to_sunset">Van zonsopgang tot zonsondergang</string>
+	<string name="add_opening_hours">Openingsuren toevoegen</string>
+	<string name="edit_opening_hours">Openingsuren bewerken</string>
+	<string name="profile">Profiel</string>
+	<string name="no_osm_account">Geen account bij OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Registeren</string>
+	<string name="login">Log in</string>
+	<string name="password">Wachtwoord</string>
+	<string name="forgot_password">Wachtwoord vergeten?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Wachtwoord herstellen</string>
+	<string name="enter_email_address_to_reset_password">Voer het e-mailadres in dat u heeft gebruikt tijdens de registratie, dan sturen wij u de link om uw wachtwoord te vernieuwen.</string>
+	<string name="reset_password">Wachtwoord resetten</string>
+	<string name="username">Gebruikersnaam</string>
+	<string name="osm_account">OSM-account</string>
+	<string name="logout">Uitloggen</string>
+	<string name="login_and_edit_map_motivation_message">Log in en bewerk gegevens van de objecten op de kaart, dan zullen wij ze beschikbaar maken voor miljoenen andere gebruikers. Laten we samen de wereld beter maken.</string>
+	<string name="not_sent">Niet verzonden</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">wijzigingen</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Je hebt je eerste object aangepast!</string>
+	<string name="thank_you">Dank je wel</string>
+	<string name="login_with_openstreetmap">Log in op www.openstreetmap.org</string>
+	<string name="edit_place">De locatie bewerken</string>
+	<string name="place_name">Locatienaam</string>
+	<string name="place_name_caption">Voer de naam in zoals die op het bord van de locatie wordt weergegeven</string>
+	<string name="add_language">Een taal toevoegen</string>
+	<string name="address">Adres</string>
+	<string name="street">Straat</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Gebouw</string>
+	<string name="details">Details</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Een straat toevoegen</string>
+	<string name="choose_language">Een taal kiezen</string>
+	<string name="choose_street">Een straat kiezen</string>
+	<string name="postal_code">Postcode</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-mailadres of gebruikersnaam</string>
 </resources>

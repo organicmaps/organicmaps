@@ -272,7 +272,7 @@
 	<string name="share">Del</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Melding</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-post</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopier kobling</string>
@@ -767,7 +767,7 @@
 	<string name="dialog_routing_if_get_cross_route">Vil du opprette en mer direkte rute som går over flere kart?</string>
 	<string name="dialog_routing_cross_route_is_optimal">En mer optimal rute som går utenfor dette kartet er tilgjengelig.</string>
 	<string name="dialog_routing_always_cross_that_border">Kryss alltid denne grensen</string>
-	<string name="dialog_routing_not_now">Ikke nå</string>
+	<string name="not_now">Ikke nå</string>
 	<string name="dialog_routing_build_route">Opprett</string>
 	<string name="dialog_routing_download_and_build_cross_route">Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?</string>
 	<string name="dialog_routing_download_cross_route">Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.</string>
@@ -847,4 +847,52 @@
 	<string name="download_all">Last ned alle</string>
 	<string name="delete_all">Slett alle</string>
 	<string name="autodownload">Automatisk nedlasting</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Lukket nå</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Daglig</string>
+	<string name="twentyfour_seven">Dag og natt</string>
+	<string name="day_off_today">Fridag i dag</string>
+	<string name="day_off">Fridag</string>
+	<string name="today">I dag</string>
+	<string name="sunrise_to_sunset">Fra morgen til kveld</string>
+	<string name="add_opening_hours">Legg til åpningstider</string>
+	<string name="edit_opening_hours">Rediger åpningstider</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Har du ingen konto hos OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Registrer deg</string>
+	<string name="login">Logg inn</string>
+	<string name="password">Passord</string>
+	<string name="forgot_password">Glemt passordet?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Gjenopprett passordet</string>
+	<string name="enter_email_address_to_reset_password">Skriv inn e-postadressen du brukte ved registreringen, så vil vi sende deg en kobling for å fornye passordet ditt.</string>
+	<string name="reset_password">Tilbakestill passord</string>
+	<string name="username">Brukernavn</string>
+	<string name="osm_account">OSM-konto</string>
+	<string name="logout">Logg ut</string>
+	<string name="login_and_edit_map_motivation_message">Logg deg inn og rediger informasjonen til objektene på kartet, så vil vi gjøre den tilgjengelig for millioner av andre brukere. La oss gjøre verden bedre sammen.</string>
+	<string name="not_sent">Ikke sendt</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">endringer</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Du har redigert ditt første objekt!</string>
+	<string name="thank_you">Takk skal du ha</string>
+	<string name="login_with_openstreetmap">Logg deg inn på www.openstreetmap.org</string>
+	<string name="edit_place">Rediger stedet</string>
+	<string name="place_name">Stedsnavn</string>
+	<string name="place_name_caption">Skriv inn navnet slik det står på stedets navneskilt</string>
+	<string name="add_language">Legg til et språk</string>
+	<string name="address">Adresse</string>
+	<string name="street">Gate</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Bygning</string>
+	<string name="details">Detaljer</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Legg til en gate</string>
+	<string name="choose_language">Velg et språk</string>
+	<string name="choose_street">Velg en gate</string>
+	<string name="postal_code">Postnummer</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-postadresse eller brukernavn</string>
 </resources>

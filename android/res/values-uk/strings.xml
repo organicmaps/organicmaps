@@ -277,8 +277,8 @@
 	<string name="share">Подiлитись</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Повідомлення</string>
-	<!-- Share by email button text -->
-	<string name="email">Електронна пошта</string>
+	<!-- Share by email button text, also used in editor. -->
+	<string name="email">Ел. пошта</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Копіювати посилання</string>
 	<!-- Text for the button that returns to caller application -->
@@ -770,7 +770,7 @@
 	<string name="dialog_routing_if_get_cross_route">Побудувати більш оптимальний маршрут з перетином межі карти?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Маршрут з перетином межі карти більш оптимальний.</string>
 	<string name="dialog_routing_always_cross_that_border">Завжди перетинати цю межу</string>
-	<string name="dialog_routing_not_now">Не зараз</string>
+	<string name="not_now">Не зараз</string>
 	<string name="dialog_routing_build_route">Побудувати</string>
 	<string name="dialog_routing_download_and_build_cross_route">Завантажити карту і побудувати більш оптимальний маршрут з перетином межі карти?</string>
 	<string name="dialog_routing_download_cross_route">Для побудови більш оптимального маршруту з перетином межі потрібно завантажити карту.</string>
@@ -850,4 +850,52 @@
 	<string name="download_all">Завантажити всі</string>
 	<string name="delete_all">Видалити всі</string>
 	<string name="autodownload">Автоматичне завантаження</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Зараз закрито</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Щоденно</string>
+	<string name="twentyfour_seven">Цілодобово</string>
+	<string name="day_off_today">Сьогодні вихідний</string>
+	<string name="day_off">Вихідний</string>
+	<string name="today">Сьогодні</string>
+	<string name="sunrise_to_sunset">Від світанку до заходу</string>
+	<string name="add_opening_hours">Додати години роботи</string>
+	<string name="edit_opening_hours">Редагувати години роботи</string>
+	<string name="profile">Профіль</string>
+	<string name="no_osm_account">Не зареєстровані в OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Зареєструватися</string>
+	<string name="login">Увійти</string>
+	<string name="password">Пароль</string>
+	<string name="forgot_password">Забули пароль?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Відновити пароль</string>
+	<string name="enter_email_address_to_reset_password">Введіть адресу ел. пошти, яку ви використали під час реєстрації і ми надішлемо вам посилання для відновлення паролю.</string>
+	<string name="reset_password">Змінити пароль</string>
+	<string name="username">Ім\&#39;я користувача</string>
+	<string name="osm_account">Обліковий запис OSM</string>
+	<string name="logout">Вийти</string>
+	<string name="login_and_edit_map_motivation_message">Увійдіть та редагуйте інформацію про об\&#39;єкти на карті, і ми зробимо їх доступними для мільйонів інших користувачів. Давайте зробимо світ кращим разом.</string>
+	<string name="not_sent">Не надіслано</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">змін</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Ви редагували свій перший об\&#39;єкт!</string>
+	<string name="thank_you">Дякуємо</string>
+	<string name="login_with_openstreetmap">Увійдіть на www.openstreetmap.org</string>
+	<string name="edit_place">Редагувати місце</string>
+	<string name="place_name">Назва</string>
+	<string name="place_name_caption">Введіть назву, як на вивісці або табличці</string>
+	<string name="add_language">Додати мову</string>
+	<string name="address">Адреса</string>
+	<string name="street">Вулиця</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Будинок</string>
+	<string name="details">Детальніше</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Додати вулицю</string>
+	<string name="choose_language">Вибрати мову</string>
+	<string name="choose_street">Вибрати вулицю</string>
+	<string name="postal_code">Поштовий індекс</string>
+	<!-- login text field -->
+	<string name="email_or_username">Ел. пошта або ім\&#39;я користувача</string>
 </resources>

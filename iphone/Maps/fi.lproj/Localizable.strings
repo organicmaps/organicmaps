@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Viesti";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "Sähköposti";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Ylitä aina tämä raja";
 
-"dialog_routing_not_now" = "Ei nyt";
+"not_now" = "Ei nyt";
 
 "dialog_routing_build_route" = "Luo";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "Olemme lisänneet yötilan helpottaaksemme MAPS.ME:n käyttöä pimeällä ajettaessa. Se menee automaattisesti päälle auringonlaskun jälkeen.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Lisää aikataulu";
 
 "editor_time_delete" = "Poista aikataulu";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Poista kaikki";
 
 "autodownload" = "Lataa automaattisesti";
+
+/* Place Page opening hours text */
+"closed_now" = "Suljettu nyt";
+
+/* Place Page opening hours text */
+"daily" = "Päivittäin";
+
+"twentyfour_seven" = "Päivin ja öin";
+
+"day_off_today" = "Vapaapäivä tänään";
+
+"day_off" = "Vapaapäivä";
+
+"today" = "Tänään";
+
+"sunrise_to_sunset" = "Auringonnoususta auringonlaskuun";
+
+"add_opening_hours" = "Lisää aukioloajat";
+
+"edit_opening_hours" = "Muokkaa aukioloaikoja";
+
+"profile" = "Profiili";
+
+"no_osm_account" = "Eikö sinulla ole tiliä OpenStreetMap?";
+
+"register_at_openstreetmap" = "Rekisteröidy";
+
+"login" = "Kirjaudu sisään";
+
+"password" = "Salasana";
+
+"forgot_password" = "Unohtuiko salasana?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Palauta salasana";
+
+"enter_email_address_to_reset_password" = "Syötä rekisteröitymisessä käyttämäsi sähköpostiosoite, niin lähetämme sinulle linkin salasanasi vaihtamista varten.";
+
+"reset_password" = "Aseta salasana uudelleen";
+
+"username" = "Käyttäjänimi";
+
+"osm_account" = "OSM-tili";
+
+"logout" = "Kirjaudu ulos";
+
+"login_and_edit_map_motivation_message" = "Kirjaudu sisään ja muokkaa kartan kohteiden tietoja, ja me asetamme kohteet miljoonien muiden käyttäjien saataville. Tehdään maailmasta yhdessä parempi paikka.";
+
+"not_sent" = "Ei lähetetty";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "muutosta";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Olet muokannut ensimmäistä kohdettasi!";
+
+"thank_you" = "Kiitos";
+
+"login_with_openstreetmap" = "Kirjaudu sisään osoitteessa www.openstreetmap.org";
+
+"edit_place" = "Muokkaa sijaintia";
+
+"place_name" = "Paikan nimi";
+
+"place_name_caption" = "Syötä paikan nimi siinä muodossa kun se kyltissä on";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Lisää kieli";
+
+"address" = "Osoite";
+
+"street" = "Katu";
+
+/* Editable House Number text field (in address block). */
+"house" = "Rakennus";
+
+"details" = "Lisätiedot";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Lisää katu";
+
+"choose_language" = "Valitse kieli";
+
+"choose_street" = "Valitse katu";
+
+"postal_code" = "Postikoodi";
+
+/* login text field */
+"email_or_username" = "Sähköposti tai käyttäjätunnus";

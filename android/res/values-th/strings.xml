@@ -274,7 +274,7 @@
 	<string name="share">แชร์</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">ข้อความ</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">อีเมล</string>
 	<!-- Copy Link -->
 	<string name="copy_link">คัดลอกลิงก์</string>
@@ -769,7 +769,7 @@
 	<string name="dialog_routing_if_get_cross_route">คุณต้องการสร้างเส้นทางที่อ้อมน้อยลงซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
 	<string name="dialog_routing_cross_route_is_optimal">มีเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้</string>
 	<string name="dialog_routing_always_cross_that_border">ข้ามขอบเขตนี้เสมอ</string>
-	<string name="dialog_routing_not_now">ไว้คราวหลัง</string>
+	<string name="not_now">ไว้คราวหลัง</string>
 	<string name="dialog_routing_build_route">สร้าง</string>
 	<string name="dialog_routing_download_and_build_cross_route">คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
 	<string name="dialog_routing_download_cross_route">ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้</string>
@@ -849,4 +849,52 @@
 	<string name="download_all">ดาวน์โหลดทั้งหมด</string>
 	<string name="delete_all">ลบทั้งหมด</string>
 	<string name="autodownload">ดาวน์โหลดอัตโนมัติ</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">ปิดตอนนี้</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">ทุกวัน</string>
+	<string name="twentyfour_seven">ทั้งกลางวันและกลางคืน</string>
+	<string name="day_off_today">ปิดในวันนี้</string>
+	<string name="day_off">วันปิด</string>
+	<string name="today">วันนี้</string>
+	<string name="sunrise_to_sunset">ตั้งแต่พระอาทิตย์ขึ้นจนพระอาทิตย์ตก</string>
+	<string name="add_opening_hours">เพิ่มชั่วโมงทำการ</string>
+	<string name="edit_opening_hours">แก้ไขชั่วโมงทำการ</string>
+	<string name="profile">โปรไฟล์</string>
+	<string name="no_osm_account">ไม่มีบัญชีใน OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">ลงทะเบียน</string>
+	<string name="login">ล็อกอิน</string>
+	<string name="password">รหัสผ่าน</string>
+	<string name="forgot_password">ลืมรหัสผ่าน?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">เรียกคืนรหัสผ่าน</string>
+	<string name="enter_email_address_to_reset_password">ใส่ที่อยู่อีเมลที่คุณใช้ระหว่างการลงทะเบียนแล้วเราจะส่งลิงก์ไปยังคุณเพื่อต่ออายุรหัสผ่านของคุณ</string>
+	<string name="reset_password">ตั้งรหัสผ่านใหม่</string>
+	<string name="username">ชื่อผู้ใช้</string>
+	<string name="osm_account">บัญชี OSM</string>
+	<string name="logout">ออกจากระบบ</string>
+	<string name="login_and_edit_map_motivation_message">ล็อกอินและแก้ไขข้อมูลวัตถุบนแผนที่ และเราจะทำให้มันสามารถใช้งานได้สำหรับผู้ใช้ท่านอื่น ๆ อีกนับล้าน มาช่วยกันทำให้โลกดียิ่งขึ้นร่วมกัน</string>
+	<string name="not_sent">ไม่มีการส่ง</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">การเปลี่ยนแปลง</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">คุณได้แก้ไขวัตถุแรกของคุณ!</string>
+	<string name="thank_you">ขอบพระคุณ</string>
+	<string name="login_with_openstreetmap">ล็อกอินที่ www.openstreetmap.org</string>
+	<string name="edit_place">แก้ไขสถานที่</string>
+	<string name="place_name">ชื่อสถานที่</string>
+	<string name="place_name_caption">ใส่ชื่อเนื่องจากมันอยู่บนสัญลักษณ์ของสถานที่</string>
+	<string name="add_language">เพิ่มภาษา</string>
+	<string name="address">ที่อยู่</string>
+	<string name="street">ถนน</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">อาคาร</string>
+	<string name="details">รายละเอียด</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">เพิ่มถนน</string>
+	<string name="choose_language">เลือกภาษา</string>
+	<string name="choose_street">เลือกถนน</string>
+	<string name="postal_code">รหัสไปรษณีย์</string>
+	<!-- login text field -->
+	<string name="email_or_username">อีเมลหรือชื่อผู้ใช้</string>
 </resources>

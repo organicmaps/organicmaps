@@ -431,8 +431,8 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Повідомлення";
 
-/* Share by email button text */
-"email" = "Електронна пошта";
+/* Share by email button text, also used in editor. */
+"email" = "Ел. пошта";
 
 /* Copy Link */
 "copy_link" = "Копіювати посилання";
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Завжди перетинати цю межу";
 
-"dialog_routing_not_now" = "Не зараз";
+"not_now" = "Не зараз";
 
 "dialog_routing_build_route" = "Побудувати";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "Для зручності використання MAPS.ME під час водіння автомобіля в темну пору доби ми додали нічний режим. Він запускається автоматично після заходу сонця.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Додати розклад";
 
 "editor_time_delete" = "Видалити розклад";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Видалити всі";
 
 "autodownload" = "Автоматичне завантаження";
+
+/* Place Page opening hours text */
+"closed_now" = "Зараз закрито";
+
+/* Place Page opening hours text */
+"daily" = "Щоденно";
+
+"twentyfour_seven" = "Цілодобово";
+
+"day_off_today" = "Сьогодні вихідний";
+
+"day_off" = "Вихідний";
+
+"today" = "Сьогодні";
+
+"sunrise_to_sunset" = "Від світанку до заходу";
+
+"add_opening_hours" = "Додати години роботи";
+
+"edit_opening_hours" = "Редагувати години роботи";
+
+"profile" = "Профіль";
+
+"no_osm_account" = "Не зареєстровані в OpenStreetMap?";
+
+"register_at_openstreetmap" = "Зареєструватися";
+
+"login" = "Увійти";
+
+"password" = "Пароль";
+
+"forgot_password" = "Забули пароль?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Відновити пароль";
+
+"enter_email_address_to_reset_password" = "Введіть адресу ел. пошти, яку ви використали під час реєстрації і ми надішлемо вам посилання для відновлення паролю.";
+
+"reset_password" = "Змінити пароль";
+
+"username" = "Ім'я користувача";
+
+"osm_account" = "Обліковий запис OSM";
+
+"logout" = "Вийти";
+
+"login_and_edit_map_motivation_message" = "Увійдіть та редагуйте інформацію про об'єкти на карті, і ми зробимо їх доступними для мільйонів інших користувачів. Давайте зробимо світ кращим разом.";
+
+"not_sent" = "Не надіслано";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "змін";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Ви редагували свій перший об'єкт!";
+
+"thank_you" = "Дякуємо";
+
+"login_with_openstreetmap" = "Увійдіть на www.openstreetmap.org";
+
+"edit_place" = "Редагувати місце";
+
+"place_name" = "Назва";
+
+"place_name_caption" = "Введіть назву, як на вивісці або табличці";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Додати мову";
+
+"address" = "Адреса";
+
+"street" = "Вулиця";
+
+/* Editable House Number text field (in address block). */
+"house" = "Будинок";
+
+"details" = "Детальніше";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Додати вулицю";
+
+"choose_language" = "Вибрати мову";
+
+"choose_street" = "Вибрати вулицю";
+
+"postal_code" = "Поштовий індекс";
+
+/* login text field */
+"email_or_username" = "Ел. пошта або ім'я користувача";

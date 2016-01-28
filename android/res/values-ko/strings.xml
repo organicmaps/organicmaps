@@ -268,7 +268,7 @@
 	<string name="share">공유</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">메시지</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">이메일</string>
 	<!-- Copy Link -->
 	<string name="copy_link">링크 복사하기</string>
@@ -757,7 +757,7 @@
 	<string name="dialog_routing_if_get_cross_route">두 개 이상의 지도를 통과하는 더 직접적인 경로를 설정하시겠습니까?</string>
 	<string name="dialog_routing_cross_route_is_optimal">이 지도의 경계를 통과하는 더 최적화된 경로를 사용할 수 있습니다.</string>
 	<string name="dialog_routing_always_cross_that_border">항상 이 경계 통과</string>
-	<string name="dialog_routing_not_now">나중에</string>
+	<string name="not_now">나중에</string>
 	<string name="dialog_routing_build_route">만들기</string>
 	<string name="dialog_routing_download_and_build_cross_route">지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?</string>
 	<string name="dialog_routing_download_cross_route">이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.</string>
@@ -837,4 +837,52 @@
 	<string name="download_all">모두 다운로드</string>
 	<string name="delete_all">모두 삭제</string>
 	<string name="autodownload">자동 다운로드</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">지금 닫힘</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">일별</string>
+	<string name="twentyfour_seven">24 시간</string>
+	<string name="day_off_today">오늘 휴가</string>
+	<string name="day_off">휴가</string>
+	<string name="today">오늘</string>
+	<string name="sunrise_to_sunset">일출에서 일몰로</string>
+	<string name="add_opening_hours">영업일 추가</string>
+	<string name="edit_opening_hours">영업일 편집</string>
+	<string name="profile">프로필</string>
+	<string name="no_osm_account">OpenStreetMap에서 계정이 없습니까?</string>
+	<string name="register_at_openstreetmap">등록</string>
+	<string name="login">로그인</string>
+	<string name="password">암호</string>
+	<string name="forgot_password">암호를 잊으 셨나요?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">암호 복원</string>
+	<string name="enter_email_address_to_reset_password">등록시 사용한 이메일 주소를 입력하면 암호를 갱신하도록 링크를 전송할 것입니다.</string>
+	<string name="reset_password">비밀번호 재 설정</string>
+	<string name="username">사용자 이름</string>
+	<string name="osm_account">OSM 계정</string>
+	<string name="logout">로그 아웃</string>
+	<string name="login_and_edit_map_motivation_message">로그인하고 지도 상의 개체 정보를 편집하면 다른 수백만 명의 사용자가 사용할 수 있도록 하겠습니다. 함께 더 나은 세상으로 만들어 봅시다.</string>
+	<string name="not_sent">전송되지 않음</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">가지 변경</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">로그인하고 전 세계 수백만 사람들을 위해 변화를 더하십시오!</string>
+	<string name="thank_you">고맙습니다.</string>
+	<string name="login_with_openstreetmap">www.openstreetmap.org에 로그인</string>
+	<string name="edit_place">장소 편집</string>
+	<string name="place_name">지명</string>
+	<string name="place_name_caption">이 장소의 기호와 같이 이름 입력</string>
+	<string name="add_language">언어 추가</string>
+	<string name="address">주소</string>
+	<string name="street">거리</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">건물</string>
+	<string name="details">세부 정보</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">거리 추가</string>
+	<string name="choose_language">언어 선택</string>
+	<string name="choose_street">거리 선택</string>
+	<string name="postal_code">우편 번호</string>
+	<!-- login text field -->
+	<string name="email_or_username">이메일 또는 사용자 이름</string>
 </resources>

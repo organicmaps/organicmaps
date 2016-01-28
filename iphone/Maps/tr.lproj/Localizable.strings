@@ -431,8 +431,8 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Mesaj";
 
-/* Share by email button text */
-"email" = "E-Posta";
+/* Share by email button text, also used in editor. */
+"email" = "E-posta";
 
 /* Copy Link */
 "copy_link" = "Bağlantıyı Kopyala";
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Bu sınırı her zaman geçin";
 
-"dialog_routing_not_now" = "Şimdi Değil";
+"not_now" = "Şimdi Değil";
 
 "dialog_routing_build_route" = "Oluşturun";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "Karanlıkta sürerken MAPS.ME kullanmayı kolaylaştırmak için gece modunu ekledik. Gün batımından sonra otomatik olarak devreye girer.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Plan Ekle";
 
 "editor_time_delete" = "Planı Sil";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Tümünü sil";
 
 "autodownload" = "Otomatik indir";
+
+/* Place Page opening hours text */
+"closed_now" = "Şu anda kapalı";
+
+/* Place Page opening hours text */
+"daily" = "Günlük";
+
+"twentyfour_seven" = "Gündüz ve gece";
+
+"day_off_today" = "Bugün izin günü";
+
+"day_off" = "İzin günü";
+
+"today" = "Bugün";
+
+"sunrise_to_sunset" = "Güneşin doğuşundan batışına kadar";
+
+"add_opening_hours" = "İş saatlerini ekle";
+
+"edit_opening_hours" = "İş saatlerini düzenle";
+
+"profile" = "Profil";
+
+"no_osm_account" = "OpenStreetMap' hesabın yok mu?";
+
+"register_at_openstreetmap" = "Kaydol";
+
+"login" = "Oturum aç";
+
+"password" = "Şifre";
+
+"forgot_password" = "Şifreni mi unuttun?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Şifreyi yenile";
+
+"enter_email_address_to_reset_password" = "Kayıt sırasında kullandığınız e-posta adresini girin ve şifrenizi yenileyeceğiniz bağlantıyı gönderelim.";
+
+"reset_password" = "Parolayı sıfırla";
+
+"username" = "Kullanıcı Adı";
+
+"osm_account" = "OSM Hesabı";
+
+"logout" = "Oturumu kapat";
+
+"login_and_edit_map_motivation_message" = "Oturum aç ve haritada nesne bilgilerini düzenleyip diğer milyonlarca kullanıcıya aç. Birlikte dünyayı daha iyi bir yer haline getirelim.";
+
+"not_sent" = "Gönderilmedi";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "değişiklik";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "İlk nesneni düzenledin!";
+
+"thank_you" = "Teşekkür ederiz";
+
+"login_with_openstreetmap" = "www.openstreetmap.org adresinden oturum aç";
+
+"edit_place" = "Yeri düzenle";
+
+"place_name" = "Yer ismi";
+
+"place_name_caption" = "Yerin adını tabelada olduğu şekliyle girin";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Bir dil ekle";
+
+"address" = "Adres";
+
+"street" = "Sokak";
+
+/* Editable House Number text field (in address block). */
+"house" = "Bina";
+
+"details" = "Detaylar";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Bir sokak ekle";
+
+"choose_language" = "Bir dil seç";
+
+"choose_street" = "Bir sokak seç";
+
+"postal_code" = "Posta kodu";
+
+/* login text field */
+"email_or_username" = "E-posta veya kullanıcı adı";

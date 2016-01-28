@@ -276,7 +276,7 @@
 	<string name="share">مشاركة</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">رسالة</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">البريد الالكتروني</string>
 	<!-- Copy Link -->
 	<string name="copy_link">نسخ الرابط</string>
@@ -771,7 +771,7 @@
 	<string name="dialog_routing_if_get_cross_route">هل تريد إنشاء مسار مباشر بشكل أكبر يمتد عبر أكثر من خريطة؟</string>
 	<string name="dialog_routing_cross_route_is_optimal">هناك مسار أفضل يعبر حافة هذه الخريطة.</string>
 	<string name="dialog_routing_always_cross_that_border">اعبر هذه الحدود دائمًا</string>
-	<string name="dialog_routing_not_now">ليس الآن</string>
+	<string name="not_now">ليس الآن</string>
 	<string name="dialog_routing_build_route">إنشاء</string>
 	<string name="dialog_routing_download_and_build_cross_route">هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟</string>
 	<string name="dialog_routing_download_cross_route">تنزيل الخريطة لإنشاء مسار أفضل يعبر حافة هذه الخريطة.</string>
@@ -851,4 +851,52 @@
 	<string name="download_all">تنزيل الكل</string>
 	<string name="delete_all">حذف الكل</string>
 	<string name="autodownload">التنزيل التلقائي</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">مغلق الآن</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">يوميا</string>
+	<string name="twentyfour_seven">ليلا ونهارا</string>
+	<string name="day_off_today">اليوم عطلة</string>
+	<string name="day_off">عطلة</string>
+	<string name="today">اليوم</string>
+	<string name="sunrise_to_sunset">من الشروق إلى المغيب</string>
+	<string name="add_opening_hours">اضف ساعات عمل</string>
+	<string name="edit_opening_hours">حرر ساعات عمل</string>
+	<string name="profile">الملف الشخصي</string>
+	<string name="no_osm_account">ليس لديك حساب في OpenStreetMap؟</string>
+	<string name="register_at_openstreetmap">التسجيل</string>
+	<string name="login">تسجيل الدخول</string>
+	<string name="password">كلمة المرور</string>
+	<string name="forgot_password">هل نسيت كلمة المرور؟</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">استعادة كلمة المرور</string>
+	<string name="enter_email_address_to_reset_password">أدخل عنوان البريد الإلكتروني الذي استخدمته عند التسجيل وسنرسل لك رابط لتجديد كلمة المرور</string>
+	<string name="reset_password">إعادة تعيين كلمة المرور</string>
+	<string name="username">اسم المستخدم</string>
+	<string name="osm_account">حساب OSM</string>
+	<string name="logout">تسجيل الخروج</string>
+	<string name="login_and_edit_map_motivation_message">قم بتسجيل الدخول وعدل البيانات الخاصة بالمكان على الخريطة وسنجعلها متاحة لملايين المستخدمين الآخرين. لنجعل العالم أفضل معا.</string>
+	<string name="not_sent">لم ترسل</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">تغييرات</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">لقد قمت بتعديلك الأول!</string>
+	<string name="thank_you">شكرا لك</string>
+	<string name="login_with_openstreetmap">قم بتسجيل الدخول في www.openstreetmap.org</string>
+	<string name="edit_place">تعديل المكان</string>
+	<string name="place_name">اسم المكان</string>
+	<string name="place_name_caption">أدخل الاسم كما هو مبين على الإشارة الخاصة بالمكان</string>
+	<string name="add_language">إضافة لغة</string>
+	<string name="address">العنوان</string>
+	<string name="street">الشارع</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">المبني</string>
+	<string name="details">التفاصيل</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">إضافة شارع</string>
+	<string name="choose_language">اختر اللغة</string>
+	<string name="choose_street">اختر الشارع</string>
+	<string name="postal_code">الرمز البريدي</string>
+	<!-- login text field -->
+	<string name="email_or_username">البريد الإلكتروني أو اسم المستخدم</string>
 </resources>

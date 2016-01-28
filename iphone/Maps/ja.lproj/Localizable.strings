@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "メッセージ";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "Eメール";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "常にこの境界を越える";
 
-"dialog_routing_not_now" = "あとで";
+"not_now" = "あとで";
 
 "dialog_routing_build_route" = "作成する";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "MAPS.MEを夜間の運転中に使いやすくするため、夜間モードを追加しました。日の入り後に自動的に切り替わります。";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "スケジュール追加";
 
 "editor_time_delete" = "スケジュール削除";
@@ -1394,3 +1388,103 @@
 "delete_all" = "すべて削除";
 
 "autodownload" = "自動ダウンロード";
+
+/* Place Page opening hours text */
+"closed_now" = "現在閉店";
+
+/* Place Page opening hours text */
+"daily" = "毎日";
+
+"twentyfour_seven" = "昼と夜";
+
+"day_off_today" = "今日は休み";
+
+"day_off" = "休み";
+
+"today" = "今日は";
+
+"sunrise_to_sunset" = "日の出から日没まで";
+
+"add_opening_hours" = "営業時間を追加";
+
+"edit_opening_hours" = "営業時間を編集";
+
+"profile" = "プロフィール";
+
+"no_osm_account" = "OpenStreetMapのアカウントがありませんか？";
+
+"register_at_openstreetmap" = "登録";
+
+"login" = "ログイン";
+
+"password" = "パスワード";
+
+"forgot_password" = "パスワードをお忘れですか？";
+
+/* Forgot Password dialog title */
+"restore_password" = "パスワードをf復元";
+
+"enter_email_address_to_reset_password" = "登録の際に使用したメールアドレスを入力してください。パスワードを更新するリンクをお送りします。";
+
+"reset_password" = "パスワードをリセット";
+
+"username" = "ユーザー名";
+
+"osm_account" = "OSMアカウント";
+
+"logout" = "ログアウト";
+
+"login_and_edit_map_motivation_message" = "ログインしてマップ上のオブジェクトの詳細を編集すると、何百万人もの他のユーザーがその情報を利用できるようになります。一緒により良い世界を作りましょう。";
+
+"not_sent" = "送信されませんでした";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "つの変更点";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "初めてオブジェクトを編集しました！";
+
+"thank_you" = "ありがとうございます";
+
+"login_with_openstreetmap" = "www.openstreetmap.orgでログインしてください";
+
+"edit_place" = "場所を編集";
+
+"place_name" = "場所の名前";
+
+"place_name_caption" = "この場所の看板通りに名前を入力してください";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "言語を追加";
+
+"address" = "住所";
+
+"street" = "通り";
+
+/* Editable House Number text field (in address block). */
+"house" = "建物";
+
+"details" = "詳細";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "通りを追加";
+
+"choose_language" = "言語を選択";
+
+"choose_street" = "通りを選択";
+
+"postal_code" = "郵便番号";
+
+/* login text field */
+"email_or_username" = "メールアドレスまたはユーザー名";

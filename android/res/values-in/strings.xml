@@ -272,7 +272,7 @@
 	<string name="share">Bagikan</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Pesan</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Surel</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Salin Tautan</string>
@@ -766,7 +766,7 @@
 	<string name="dialog_routing_if_get_cross_route">Apakah Anda ingin membuat rute yang lebih langsung yang meliputi lebih dari satu peta?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Ada rute yang lebih optimal yang melewati ujung peta ini.</string>
 	<string name="dialog_routing_always_cross_that_border">Selalu lewati batas ini</string>
-	<string name="dialog_routing_not_now">Jangan Sekarang</string>
+	<string name="not_now">Jangan Sekarang</string>
 	<string name="dialog_routing_build_route">Buat</string>
 	<string name="dialog_routing_download_and_build_cross_route">Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?</string>
 	<string name="dialog_routing_download_cross_route">Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.</string>
@@ -846,4 +846,52 @@
 	<string name="download_all">Unduh semua</string>
 	<string name="delete_all">Hapus semua</string>
 	<string name="autodownload">Unduhan otomatis</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Sekarang Tutup</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Setiap Hari</string>
+	<string name="twentyfour_seven">siang dan malam</string>
+	<string name="day_off_today">Hari ini libur</string>
+	<string name="day_off">Libur</string>
+	<string name="today">Hari ini</string>
+	<string name="sunrise_to_sunset">Dari matahari terbit sampai matahari terbenam</string>
+	<string name="add_opening_hours">Tambah jam kerja</string>
+	<string name="edit_opening_hours">Sunting jam kerja</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Tidak ada akun di OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Mendaftar</string>
+	<string name="login">Masuk</string>
+	<string name="password">Kata sandi</string>
+	<string name="forgot_password">Lupa kata sandi?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Pulihkan kata sandi</string>
+	<string name="enter_email_address_to_reset_password">Masukkan alamat surek yang Anda gunakan pada saat pendaftaran dan kami akan mengirim tautan untuk memperbarui kata sandi Anda.</string>
+	<string name="reset_password">Atur ulang kata sandi</string>
+	<string name="username">Nama pengguna</string>
+	<string name="osm_account">Akun OSM</string>
+	<string name="logout">Keluar</string>
+	<string name="login_and_edit_map_motivation_message">Masuk dan sunting informasi objek pada peta dan kami akan membuatnya tersedia bagi jutaan pengguna lain. Mari kita menjadikan dunia lebih baik bersama-sama.</string>
+	<string name="not_sent">Tidak terkirim</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">perubahan</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Anda menyunting objek pertama Anda!</string>
+	<string name="thank_you">Terima kasih</string>
+	<string name="login_with_openstreetmap">Masuk di www.openstreetmap.org</string>
+	<string name="edit_place">Sunting tempat</string>
+	<string name="place_name">Nama tempat</string>
+	<string name="place_name_caption">Masukkan nama seperti pada tanda tempat</string>
+	<string name="add_language">Tambahkan bahasa</string>
+	<string name="address">Alamat</string>
+	<string name="street">Jalan</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Bangunan</string>
+	<string name="details">Detail</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Tambahkan jalan</string>
+	<string name="choose_language">Pilih bahasa</string>
+	<string name="choose_street">Pilih jalan</string>
+	<string name="postal_code">Kode Pos</string>
+	<!-- login text field -->
+	<string name="email_or_username">Surel atau nama pengguna</string>
 </resources>

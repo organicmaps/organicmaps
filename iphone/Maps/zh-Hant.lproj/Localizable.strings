@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "消息";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "電子郵件";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "一律跨越邊界。";
 
-"dialog_routing_not_now" = "先不要";
+"not_now" = "先不要";
 
 "dialog_routing_build_route" = "產生";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "為了便於天黑行駛時使用MAPS.ME，我們增加了夜間模式。該模式在日落之後會自動開啟。";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "新增排程";
 
 "editor_time_delete" = "刪除排程";
@@ -1394,3 +1388,103 @@
 "delete_all" = "刪除全部";
 
 "autodownload" = "自動下載";
+
+/* Place Page opening hours text */
+"closed_now" = "現在關門";
+
+/* Place Page opening hours text */
+"daily" = "每天";
+
+"twentyfour_seven" = "白天和黑夜";
+
+"day_off_today" = "今天休息日";
+
+"day_off" = "休息日";
+
+"today" = "今天";
+
+"sunrise_to_sunset" = "從日出到日落";
+
+"add_opening_hours" = "添加工作時間";
+
+"edit_opening_hours" = "編輯工作時間";
+
+"profile" = "資料";
+
+"no_osm_account" = "OpenStreetMap上沒有賬戶嗎？";
+
+"register_at_openstreetmap" = "註冊";
+
+"login" = "登錄";
+
+"password" = "密碼";
+
+"forgot_password" = "忘記密碼";
+
+/* Forgot Password dialog title */
+"restore_password" = "恢復密碼";
+
+"enter_email_address_to_reset_password" = "輸入您在註冊時所用的郵箱地址，我們會給您發送鏈接更新密碼";
+
+"reset_password" = "重置密碼";
+
+"username" = "用戶名";
+
+"osm_account" = "OSM賬戶";
+
+"logout" = "登出";
+
+"login_and_edit_map_motivation_message" = "登錄並編輯地圖上的物品信息，我們就會讓數百萬其他用戶看到。";
+
+"not_sent" = "讓我們共同把世界變得更美好。";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "次改變";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "您已編輯您的第一件物品！";
+
+"thank_you" = "謝謝您";
+
+"login_with_openstreetmap" = "登錄到www.openstreetmap.org";
+
+"edit_place" = "編輯地點";
+
+"place_name" = "地點名稱";
+
+"place_name_caption" = "依照地點標牌輸入名稱";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "添加語言";
+
+"address" = "地址";
+
+"street" = "街道";
+
+/* Editable House Number text field (in address block). */
+"house" = "樓房";
+
+"details" = "詳細資訊";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "添加街道";
+
+"choose_language" = "選擇語言";
+
+"choose_street" = "選擇街道";
+
+"postal_code" = "郵政編碼";
+
+/* login text field */
+"email_or_username" = "郵箱或用戶名";

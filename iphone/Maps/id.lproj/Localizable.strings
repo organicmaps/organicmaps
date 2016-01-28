@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Pesan";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "Surel";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Selalu lewati batas ini";
 
-"dialog_routing_not_now" = "Jangan Sekarang";
+"not_now" = "Jangan Sekarang";
 
 "dialog_routing_build_route" = "Buat";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "Untuk memfasilitasi penggunaan MAPS.ME saat berkendara dalam gelap, kami telah menambahkan mode malam. Mode ini diaktifkan secara otomatis setelah matahari terbenam.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Tambah Jadwal";
 
 "editor_time_delete" = "Hapus Jadwal";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Hapus semua";
 
 "autodownload" = "Unduhan otomatis";
+
+/* Place Page opening hours text */
+"closed_now" = "Sekarang Tutup";
+
+/* Place Page opening hours text */
+"daily" = "Setiap Hari";
+
+"twentyfour_seven" = "siang dan malam";
+
+"day_off_today" = "Hari ini libur";
+
+"day_off" = "Libur";
+
+"today" = "Hari ini";
+
+"sunrise_to_sunset" = "Dari matahari terbit sampai matahari terbenam";
+
+"add_opening_hours" = "Tambah jam kerja";
+
+"edit_opening_hours" = "Sunting jam kerja";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Tidak ada akun di OpenStreetMap?";
+
+"register_at_openstreetmap" = "Mendaftar";
+
+"login" = "Masuk";
+
+"password" = "Kata sandi";
+
+"forgot_password" = "Lupa kata sandi?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Pulihkan kata sandi";
+
+"enter_email_address_to_reset_password" = "Masukkan alamat surek yang Anda gunakan pada saat pendaftaran dan kami akan mengirim tautan untuk memperbarui kata sandi Anda.";
+
+"reset_password" = "Atur ulang kata sandi";
+
+"username" = "Nama pengguna";
+
+"osm_account" = "Akun OSM";
+
+"logout" = "Keluar";
+
+"login_and_edit_map_motivation_message" = "Masuk dan sunting informasi objek pada peta dan kami akan membuatnya tersedia bagi jutaan pengguna lain. Mari kita menjadikan dunia lebih baik bersama-sama.";
+
+"not_sent" = "Tidak terkirim";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "perubahan";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Anda menyunting objek pertama Anda!";
+
+"thank_you" = "Terima kasih";
+
+"login_with_openstreetmap" = "Masuk di www.openstreetmap.org";
+
+"edit_place" = "Sunting tempat";
+
+"place_name" = "Nama tempat";
+
+"place_name_caption" = "Masukkan nama seperti pada tanda tempat";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Tambahkan bahasa";
+
+"address" = "Alamat";
+
+"street" = "Jalan";
+
+/* Editable House Number text field (in address block). */
+"house" = "Bangunan";
+
+"details" = "Detail";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Tambahkan jalan";
+
+"choose_language" = "Pilih bahasa";
+
+"choose_street" = "Pilih jalan";
+
+"postal_code" = "Kode Pos";
+
+/* login text field */
+"email_or_username" = "Surel atau nama pengguna";

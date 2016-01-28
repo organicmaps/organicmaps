@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Správa";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-mail";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Vždy prekročiť túto hranicu";
 
-"dialog_routing_not_now" = "Nie teraz";
+"not_now" = "Nie teraz";
 
 "dialog_routing_build_route" = "Vytvoriť";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "Na uľahčenie použitia MAPS.ME pri jazde za tmy sme pridali nočný režim. Automaticky sa zapne po západe slnka.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Pridať rozvrh";
 
 "editor_time_delete" = "Zmazať rozvrh";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Vymazať všetky";
 
 "autodownload" = "Automaticky stiahnuť";
+
+/* Place Page opening hours text */
+"closed_now" = "Teraz zatvorené";
+
+/* Place Page opening hours text */
+"daily" = "Denne";
+
+"twentyfour_seven" = "Deň a noc";
+
+"day_off_today" = "Dnes deň voľna";
+
+"day_off" = "Deň voľna";
+
+"today" = "Dnes";
+
+"sunrise_to_sunset" = "Od východu do západu slnka";
+
+"add_opening_hours" = "Pridať otváracie hodiny";
+
+"edit_opening_hours" = "Upraviť otváracie hodiny";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Nemáte účet v OpenStreetMap?";
+
+"register_at_openstreetmap" = "Zaregistrovať sa";
+
+"login" = "Prihlásiť sa";
+
+"password" = "Heslo";
+
+"forgot_password" = "Zabudli ste heslo?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Obnovenie hesla";
+
+"enter_email_address_to_reset_password" = "Zadajte e-mailovú adresu, ktorú ste použili pri registrácii, a my Vám zašleme odkaz na obnovenie hesla.";
+
+"reset_password" = "Obnoviť heslo";
+
+"username" = "Používateľské meno";
+
+"osm_account" = "OSM účet";
+
+"logout" = "Odhlásiť sa";
+
+"login_and_edit_map_motivation_message" = "Prihláste sa a upravte informácie o objektoch na mape, a my ich sprístupníme miliónom ďalších používateľov. Urobme svet spoločne lepším.";
+
+"not_sent" = "Neodoslaný";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "zmien";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Upravili ste svoj prvý objekt!";
+
+"thank_you" = "Ďakujeme Vám";
+
+"login_with_openstreetmap" = "Prihláste sa na adrese www.openstreetmap.org";
+
+"edit_place" = "Upraviť miesto";
+
+"place_name" = "Názov miesta";
+
+"place_name_caption" = "Zadajte skutočný názov miesta";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Pridať jazyk";
+
+"address" = "Adresa";
+
+"street" = "Ulica";
+
+/* Editable House Number text field (in address block). */
+"house" = "Budova";
+
+"details" = "Podrobnosti";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Pridať ulicu";
+
+"choose_language" = "Vybrať jazyk";
+
+"choose_street" = "Vybrať ulicu";
+
+"postal_code" = "PSČ";
+
+/* login text field */
+"email_or_username" = "E-mail alebo používateľské meno";

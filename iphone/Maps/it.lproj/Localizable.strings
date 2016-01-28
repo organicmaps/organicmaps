@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Messaggio";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-mail";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Oltrepassa sempre questo limite";
 
-"dialog_routing_not_now" = "Non ora";
+"not_now" = "Non ora";
 
 "dialog_routing_build_route" = "Crea";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "Per poter utilizzare al meglio MAPS.ME di sera o di notte, abbiamo aggiunto la modalità notturna. L'applicazione passerà automaticamente a questa modalità dopo il tramonto.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Aggiungi orari";
 
 "editor_time_delete" = "Elimina orari";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Elimina tutti";
 
 "autodownload" = "Scaricamento automatico";
+
+/* Place Page opening hours text */
+"closed_now" = "Ora chiuso";
+
+/* Place Page opening hours text */
+"daily" = "Tutti i giorni";
+
+"twentyfour_seven" = "Giorno e notte";
+
+"day_off_today" = "Oggi giorno di riposo";
+
+"day_off" = "Giorno di riposo";
+
+"today" = "Oggi";
+
+"sunrise_to_sunset" = "Dall'alba al tramonto";
+
+"add_opening_hours" = "Aggiungi orari di apertura";
+
+"edit_opening_hours" = "Modifica orari di apertura";
+
+"profile" = "Profilo";
+
+"no_osm_account" = "Non hai un account su OpenStreetMap?";
+
+"register_at_openstreetmap" = "Registrati";
+
+"login" = "Accedi";
+
+"password" = "Password";
+
+"forgot_password" = "Hai dimenticato la password?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Ripristina password";
+
+"enter_email_address_to_reset_password" = "Inserisci l'indirizzo email utilizzato durante la registrazione e ti invieremo un link per recuperare la password.";
+
+"reset_password" = "Reimpostare password";
+
+"username" = "Nome utente";
+
+"osm_account" = "Account OSM";
+
+"logout" = "Esci";
+
+"login_and_edit_map_motivation_message" = "Accedi e modifica le informazioni degli oggetti sulla mappa e noi provvederemo a renderli disponibili a milioni di altri utenti. Creiamo un mondo migliore assieme.";
+
+"not_sent" = "Non inviato";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "modifiche";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Hai modificato il tuo primo oggetto!";
+
+"thank_you" = "Grazie";
+
+"login_with_openstreetmap" = "Accedi su www.openstreetmap.org";
+
+"edit_place" = "Modifica il luogo";
+
+"place_name" = "Nome del luogo";
+
+"place_name_caption" = "Inserisci il nome così com'è scritto sul segnale del luogo";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Aggiungi una lingua";
+
+"address" = "Indirizzo";
+
+"street" = "Via";
+
+/* Editable House Number text field (in address block). */
+"house" = "Edificio";
+
+"details" = "Dettagli";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Aggiungi una strada";
+
+"choose_language" = "Scegli una lingua";
+
+"choose_street" = "Scegli una strada";
+
+"postal_code" = "Codice postale";
+
+/* login text field */
+"email_or_username" = "E-mail o nome utente";

@@ -93,7 +93,7 @@
 	<text id="IDS_SHARE">Поделиться</text>
 	<!-- iOS share by Message button text (including SMS) -->
 	<text id="IDS_MESSAGE">Сообщение</text>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<text id="IDS_EMAIL">E-mail</text>
 	<!-- Copy Link -->
 	<text id="IDS_COPY_LINK">Скопировать ссылку</text>

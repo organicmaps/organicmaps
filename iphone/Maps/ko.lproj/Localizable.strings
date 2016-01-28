@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "메시지";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "이메일";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "항상 이 경계 통과";
 
-"dialog_routing_not_now" = "나중에";
+"not_now" = "나중에";
 
 "dialog_routing_build_route" = "만들기";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "어두운 곳에서 운전할 때 MAPS.ME를 사용하는 걸 용이하게 하려면, 야간 모드에 추가됩니다. 이는 일몰 후 자동으로 전환됩니다.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "스케줄 추가";
 
 "editor_time_delete" = "스케줄 삭제";
@@ -1394,3 +1388,103 @@
 "delete_all" = "모두 삭제";
 
 "autodownload" = "자동 다운로드";
+
+/* Place Page opening hours text */
+"closed_now" = "지금 닫힘";
+
+/* Place Page opening hours text */
+"daily" = "일별";
+
+"twentyfour_seven" = "24 시간";
+
+"day_off_today" = "오늘 휴가";
+
+"day_off" = "휴가";
+
+"today" = "오늘";
+
+"sunrise_to_sunset" = "일출에서 일몰로";
+
+"add_opening_hours" = "영업일 추가";
+
+"edit_opening_hours" = "영업일 편집";
+
+"profile" = "프로필";
+
+"no_osm_account" = "OpenStreetMap에서 계정이 없습니까?";
+
+"register_at_openstreetmap" = "등록";
+
+"login" = "로그인";
+
+"password" = "암호";
+
+"forgot_password" = "암호를 잊으 셨나요?";
+
+/* Forgot Password dialog title */
+"restore_password" = "암호 복원";
+
+"enter_email_address_to_reset_password" = "등록시 사용한 이메일 주소를 입력하면 암호를 갱신하도록 링크를 전송할 것입니다.";
+
+"reset_password" = "비밀번호 재 설정";
+
+"username" = "사용자 이름";
+
+"osm_account" = "OSM 계정";
+
+"logout" = "로그 아웃";
+
+"login_and_edit_map_motivation_message" = "로그인하고 지도 상의 개체 정보를 편집하면 다른 수백만 명의 사용자가 사용할 수 있도록 하겠습니다. 함께 더 나은 세상으로 만들어 봅시다.";
+
+"not_sent" = "전송되지 않음";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "가지 변경";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "로그인하고 전 세계 수백만 사람들을 위해 변화를 더하십시오!";
+
+"thank_you" = "고맙습니다.";
+
+"login_with_openstreetmap" = "www.openstreetmap.org에 로그인";
+
+"edit_place" = "장소 편집";
+
+"place_name" = "지명";
+
+"place_name_caption" = "이 장소의 기호와 같이 이름 입력";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "언어 추가";
+
+"address" = "주소";
+
+"street" = "거리";
+
+/* Editable House Number text field (in address block). */
+"house" = "건물";
+
+"details" = "세부 정보";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "거리 추가";
+
+"choose_language" = "언어 선택";
+
+"choose_street" = "거리 선택";
+
+"postal_code" = "우편 번호";
+
+/* login text field */
+"email_or_username" = "이메일 또는 사용자 이름";

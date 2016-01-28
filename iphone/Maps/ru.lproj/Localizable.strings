@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Сообщение";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-mail";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Всегда пересекать эту границу";
 
-"dialog_routing_not_now" = "Не сейчас";
+"not_now" = "Не сейчас";
 
 "dialog_routing_build_route" = "Построить";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "Для удобства использования MAPS.ME во время вождения автомобиля в темное время суток мы добавили ночной режим. Он запускается автоматически после захода солнца.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Добавить место";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Редактировать место";
-
 "editor_time_add" = "Добавить расписание";
 
 "editor_time_delete" = "Удалить расписание";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Удалить все";
 
 "autodownload" = "Автоматическая загрузка";
+
+/* Place Page opening hours text */
+"closed_now" = "Сейчас закрыто";
+
+/* Place Page opening hours text */
+"daily" = "Ежедневно";
+
+"twentyfour_seven" = "Круглосуточно";
+
+"day_off_today" = "Сегодня выходной";
+
+"day_off" = "Выходной";
+
+"today" = "Сегодня";
+
+"sunrise_to_sunset" = "От рассвета до заката";
+
+"add_opening_hours" = "Добавить время работы";
+
+"edit_opening_hours" = "Редактировать время работы";
+
+"profile" = "Профиль";
+
+"no_osm_account" = "Не зарегистрированы в OpenStreetMap?";
+
+"register_at_openstreetmap" = "Зарегистрироваться";
+
+"login" = "Войти";
+
+"password" = "Пароль";
+
+"forgot_password" = "Забыли пароль?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Восстановление пароля";
+
+"enter_email_address_to_reset_password" = "Введите почтовый ящик, который вы использовали для регистрации, и мы вышлем на него ссылку для сброса пароля.";
+
+"reset_password" = "Cбросить пароль";
+
+"username" = "Имя пользователя";
+
+"osm_account" = "OSM Аккаунт";
+
+"logout" = "Выйти";
+
+"login_and_edit_map_motivation_message" = "Авторизуйтесь и редактируйте информацию об объектах на карте. А мы сделаем её доступной для миллионов пользователей. Улучшим мир вместе!";
+
+"not_sent" = "Не отправлено";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Последняя отправка";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "правок";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Вы отредактировали свой первый объект!";
+
+"thank_you" = "Спасибо";
+
+"login_with_openstreetmap" = "Войти через www.openstreetmap.org";
+
+"edit_place" = "Редактировать место";
+
+"place_name" = "Название";
+
+"place_name_caption" = "Введите название, как на вывеске или табличке";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Другие языки";
+
+/* small button to open list with names in different languages */
+"show_more" = "Показать больше";
+
+/* small button to close list with names in different languages */
+"show_less" = "Показать меньше";
+
+"add_language" = "Добавить язык";
+
+"address" = "Адрес";
+
+"street" = "Улица";
+
+/* Editable House Number text field (in address block). */
+"house" = "Дом";
+
+"details" = "Подробнее";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Добавить улицу";
+
+"choose_language" = "Выбрать язык";
+
+"choose_street" = "Выбрать улицу";
+
+"postal_code" = "Почтовый индекс";
+
+/* login text field */
+"email_or_username" = "Эл. почта или имя пользователя";

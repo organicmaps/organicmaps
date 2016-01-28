@@ -277,7 +277,7 @@
 	<string name="share">Поделиться</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Сообщение</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Скопировать ссылку</string>
@@ -796,7 +796,7 @@
 	<string name="dialog_routing_if_get_cross_route">Построить более оптимальный маршрут с пересечением границы карты?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Маршрут с пересечением границы карты более оптимальный.</string>
 	<string name="dialog_routing_always_cross_that_border">Всегда пересекать эту границу</string>
-	<string name="dialog_routing_not_now">Не сейчас</string>
+	<string name="not_now">Не сейчас</string>
 	<string name="dialog_routing_build_route">Построить</string>
 	<string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?</string>
 	<string name="dialog_routing_download_cross_route">Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.</string>
@@ -856,10 +856,6 @@
 	<string name="whats_new_next_button">Далее</string>
 	<string name="whats_new_night_caption">Ночной режим навигации</string>
 	<string name="whats_new_night_body">Для удобства использования MAPS.ME во время вождения автомобиля в темное время суток мы добавили ночной режим. Он запускается автоматически после захода солнца.</string>
-	<!-- «Add place» button in place page. -->
-	<string name="pp_place_add">Добавить место</string>
-	<!-- «Edit place» button in place page. -->
-	<string name="pp_place_edit">Редактировать место</string>
 	<string name="editor_time_add">Добавить расписание</string>
 	<string name="editor_time_delete">Удалить расписание</string>
 	<!-- Text for allday switch. -->
@@ -882,4 +878,60 @@
 	<string name="download_all">Загрузить все</string>
 	<string name="delete_all">Удалить все</string>
 	<string name="autodownload">Автоматическая загрузка</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Сейчас закрыто</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Ежедневно</string>
+	<string name="twentyfour_seven">Круглосуточно</string>
+	<string name="day_off_today">Сегодня выходной</string>
+	<string name="day_off">Выходной</string>
+	<string name="today">Сегодня</string>
+	<string name="sunrise_to_sunset">От рассвета до заката</string>
+	<string name="add_opening_hours">Добавить время работы</string>
+	<string name="edit_opening_hours">Редактировать время работы</string>
+	<string name="profile">Профиль</string>
+	<string name="no_osm_account">Не зарегистрированы в OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Зарегистрироваться</string>
+	<string name="login">Войти</string>
+	<string name="password">Пароль</string>
+	<string name="forgot_password">Забыли пароль?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Восстановление пароля</string>
+	<string name="enter_email_address_to_reset_password">Введите почтовый ящик, который вы использовали для регистрации, и мы вышлем на него ссылку для сброса пароля.</string>
+	<string name="reset_password">Cбросить пароль</string>
+	<string name="username">Имя пользователя</string>
+	<string name="osm_account">OSM Аккаунт</string>
+	<string name="logout">Выйти</string>
+	<string name="login_and_edit_map_motivation_message">Авторизуйтесь и редактируйте информацию об объектах на карте. А мы сделаем её доступной для миллионов пользователей. Улучшим мир вместе!</string>
+	<string name="not_sent">Не отправлено</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Последняя отправка</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">правок</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Вы отредактировали свой первый объект!</string>
+	<string name="thank_you">Спасибо</string>
+	<string name="login_with_openstreetmap">Войти через www.openstreetmap.org</string>
+	<string name="edit_place">Редактировать место</string>
+	<string name="place_name">Название</string>
+	<string name="place_name_caption">Введите название, как на вывеске или табличке</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Другие языки</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Показать больше</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Показать меньше</string>
+	<string name="add_language">Добавить язык</string>
+	<string name="address">Адрес</string>
+	<string name="street">Улица</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Дом</string>
+	<string name="details">Подробнее</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Добавить улицу</string>
+	<string name="choose_language">Выбрать язык</string>
+	<string name="choose_street">Выбрать улицу</string>
+	<string name="postal_code">Почтовый индекс</string>
+	<!-- login text field -->
+	<string name="email_or_username">Эл. почта или имя пользователя</string>
 </resources>

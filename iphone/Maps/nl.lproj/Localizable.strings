@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Bericht";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-mail";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Deze grens altijd overschrijden";
 
-"dialog_routing_not_now" = "Niet nu";
+"not_now" = "Niet nu";
 
 "dialog_routing_build_route" = "Samenstellen";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "Om het gebruik van MAPS.ME te vergemakkelijken tijdens het rijden in het donker, hebben we de nachtmodus toegevoegd. Deze wordt automatisch ingeschakeld na zonsondergang.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Schema toevoegen";
 
 "editor_time_delete" = "Schema verwijderen";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Alles verwijderen";
 
 "autodownload" = "Automatische download";
+
+/* Place Page opening hours text */
+"closed_now" = "Nu gesloten";
+
+/* Place Page opening hours text */
+"daily" = "Dagelijks";
+
+"twentyfour_seven" = "Nacht en dag";
+
+"day_off_today" = "Vrije dag vandaag";
+
+"day_off" = "Vrije dag";
+
+"today" = "Vandaag";
+
+"sunrise_to_sunset" = "Van zonsopgang tot zonsondergang";
+
+"add_opening_hours" = "Openingsuren toevoegen";
+
+"edit_opening_hours" = "Openingsuren bewerken";
+
+"profile" = "Profiel";
+
+"no_osm_account" = "Geen account bij OpenStreetMap?";
+
+"register_at_openstreetmap" = "Registeren";
+
+"login" = "Log in";
+
+"password" = "Wachtwoord";
+
+"forgot_password" = "Wachtwoord vergeten?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Wachtwoord herstellen";
+
+"enter_email_address_to_reset_password" = "Voer het e-mailadres in dat u heeft gebruikt tijdens de registratie, dan sturen wij u de link om uw wachtwoord te vernieuwen.";
+
+"reset_password" = "Wachtwoord resetten";
+
+"username" = "Gebruikersnaam";
+
+"osm_account" = "OSM-account";
+
+"logout" = "Uitloggen";
+
+"login_and_edit_map_motivation_message" = "Log in en bewerk gegevens van de objecten op de kaart, dan zullen wij ze beschikbaar maken voor miljoenen andere gebruikers. Laten we samen de wereld beter maken.";
+
+"not_sent" = "Niet verzonden";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "wijzigingen";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Je hebt je eerste object aangepast!";
+
+"thank_you" = "Dank je wel";
+
+"login_with_openstreetmap" = "Log in op www.openstreetmap.org";
+
+"edit_place" = "De locatie bewerken";
+
+"place_name" = "Locatienaam";
+
+"place_name_caption" = "Voer de naam in zoals die op het bord van de locatie wordt weergegeven";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Een taal toevoegen";
+
+"address" = "Adres";
+
+"street" = "Straat";
+
+/* Editable House Number text field (in address block). */
+"house" = "Gebouw";
+
+"details" = "Details";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Een straat toevoegen";
+
+"choose_language" = "Een taal kiezen";
+
+"choose_street" = "Een straat kiezen";
+
+"postal_code" = "Postcode";
+
+/* login text field */
+"email_or_username" = "E-mailadres of gebruikersnaam";

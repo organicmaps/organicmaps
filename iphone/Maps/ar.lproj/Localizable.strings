@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "رسالة";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "البريد الالكتروني";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "اعبر هذه الحدود دائمًا";
 
-"dialog_routing_not_now" = "ليس الآن";
+"not_now" = "ليس الآن";
 
 "dialog_routing_build_route" = "إنشاء";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "لتسهيل استخدام MAPS.ME أثناء القيادة في الظلام، فقد أضفنا وضع التجول الليلي. إنه يعمل تلقائيا بعد غروب الشمس.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "إضافة جدول";
 
 "editor_time_delete" = "حذف جدول";
@@ -1394,3 +1388,103 @@
 "delete_all" = "حذف الكل";
 
 "autodownload" = "التنزيل التلقائي";
+
+/* Place Page opening hours text */
+"closed_now" = "مغلق الآن";
+
+/* Place Page opening hours text */
+"daily" = "يوميا";
+
+"twentyfour_seven" = "ليلا ونهارا";
+
+"day_off_today" = "اليوم عطلة";
+
+"day_off" = "عطلة";
+
+"today" = "اليوم";
+
+"sunrise_to_sunset" = "من الشروق إلى المغيب";
+
+"add_opening_hours" = "اضف ساعات عمل";
+
+"edit_opening_hours" = "حرر ساعات عمل";
+
+"profile" = "الملف الشخصي";
+
+"no_osm_account" = "ليس لديك حساب في OpenStreetMap؟";
+
+"register_at_openstreetmap" = "التسجيل";
+
+"login" = "تسجيل الدخول";
+
+"password" = "كلمة المرور";
+
+"forgot_password" = "هل نسيت كلمة المرور؟";
+
+/* Forgot Password dialog title */
+"restore_password" = "استعادة كلمة المرور";
+
+"enter_email_address_to_reset_password" = "أدخل عنوان البريد الإلكتروني الذي استخدمته عند التسجيل وسنرسل لك رابط لتجديد كلمة المرور";
+
+"reset_password" = "إعادة تعيين كلمة المرور";
+
+"username" = "اسم المستخدم";
+
+"osm_account" = "حساب OSM";
+
+"logout" = "تسجيل الخروج";
+
+"login_and_edit_map_motivation_message" = "قم بتسجيل الدخول وعدل البيانات الخاصة بالمكان على الخريطة وسنجعلها متاحة لملايين المستخدمين الآخرين. لنجعل العالم أفضل معا.";
+
+"not_sent" = "لم ترسل";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "تغييرات";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "لقد قمت بتعديلك الأول!";
+
+"thank_you" = "شكرا لك";
+
+"login_with_openstreetmap" = "قم بتسجيل الدخول في www.openstreetmap.org";
+
+"edit_place" = "تعديل المكان";
+
+"place_name" = "اسم المكان";
+
+"place_name_caption" = "أدخل الاسم كما هو مبين على الإشارة الخاصة بالمكان";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "إضافة لغة";
+
+"address" = "العنوان";
+
+"street" = "الشارع";
+
+/* Editable House Number text field (in address block). */
+"house" = "المبني";
+
+"details" = "التفاصيل";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "إضافة شارع";
+
+"choose_language" = "اختر اللغة";
+
+"choose_street" = "اختر الشارع";
+
+"postal_code" = "الرمز البريدي";
+
+/* login text field */
+"email_or_username" = "البريد الإلكتروني أو اسم المستخدم";

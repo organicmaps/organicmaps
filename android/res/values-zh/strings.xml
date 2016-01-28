@@ -272,7 +272,7 @@
 	<string name="share">分享</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">消息</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">邮件</string>
 	<!-- Copy Link -->
 	<string name="copy_link">复制链接</string>
@@ -771,7 +771,7 @@
 	<string name="dialog_routing_if_get_cross_route">您是否要创建一条跨越多张地图的更直接路线？</string>
 	<string name="dialog_routing_cross_route_is_optimal">有一条跨越本地图边缘的更佳路线可用。</string>
 	<string name="dialog_routing_always_cross_that_border">始终跨越此边界线</string>
-	<string name="dialog_routing_not_now">现在不用</string>
+	<string name="not_now">现在不用</string>
 	<string name="dialog_routing_build_route">创建</string>
 	<string name="dialog_routing_download_and_build_cross_route">您是否要下载地图并创建一条跨越多张地图的更佳路线？</string>
 	<string name="dialog_routing_download_cross_route">下载地图，创建一条跨越此地图边缘的更佳路线。</string>
@@ -851,4 +851,52 @@
 	<string name="download_all">下载所有</string>
 	<string name="delete_all">删除全部</string>
 	<string name="autodownload">自动下载</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">现在关门</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">每天</string>
+	<string name="twentyfour_seven">白天和黑夜</string>
+	<string name="day_off_today">今天休息日</string>
+	<string name="day_off">休息日</string>
+	<string name="today">今天</string>
+	<string name="sunrise_to_sunset">从日出到日落</string>
+	<string name="add_opening_hours">添加工作时间</string>
+	<string name="edit_opening_hours">编辑工作时间</string>
+	<string name="profile">资料</string>
+	<string name="no_osm_account">OpenStreetMap上没有账户吗？</string>
+	<string name="register_at_openstreetmap">注册</string>
+	<string name="login">登录</string>
+	<string name="password">密码</string>
+	<string name="forgot_password">忘记密码</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">恢复密码</string>
+	<string name="enter_email_address_to_reset_password">输入您在注册时所用的邮箱地址，我们会给您发送链接更新密码</string>
+	<string name="reset_password">重置密码</string>
+	<string name="username">用户名</string>
+	<string name="osm_account">OSM账户</string>
+	<string name="logout">登出</string>
+	<string name="login_and_edit_map_motivation_message">登录并编辑地图上的物品信息，我们就会让数百万其他用户看到。</string>
+	<string name="not_sent">让我们共同把世界变得更美好。</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">次改变</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">您已编辑您的第一件物品！</string>
+	<string name="thank_you">谢谢您</string>
+	<string name="login_with_openstreetmap">登录到www.openstreetmap.org</string>
+	<string name="edit_place">编辑地点</string>
+	<string name="place_name">地点名</string>
+	<string name="place_name_caption">输入地点标志上的名称</string>
+	<string name="add_language">添加语言</string>
+	<string name="address">地址</string>
+	<string name="street">街道</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">楼房</string>
+	<string name="details">细节</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">添加街道</string>
+	<string name="choose_language">选择语言</string>
+	<string name="choose_street">选择街道</string>
+	<string name="postal_code">邮政编码</string>
+	<!-- login text field -->
+	<string name="email_or_username">邮箱或用户名</string>
 </resources>

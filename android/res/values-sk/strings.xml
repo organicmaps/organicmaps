@@ -271,7 +271,7 @@
 	<string name="share">Zdielať</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Správa</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Skopírovať odkaz</string>
@@ -770,7 +770,7 @@
 	<string name="dialog_routing_if_get_cross_route">Chceli by ste vytvoriť priamejšiu trasu, ktorá zahŕňa viac ako jednu mapu?</string>
 	<string name="dialog_routing_cross_route_is_optimal">K dispozícii je optimálnejšia trasa, ktorá presahuje hranice tejto mapy.</string>
 	<string name="dialog_routing_always_cross_that_border">Vždy prekročiť túto hranicu</string>
-	<string name="dialog_routing_not_now">Nie teraz</string>
+	<string name="not_now">Nie teraz</string>
 	<string name="dialog_routing_build_route">Vytvoriť</string>
 	<string name="dialog_routing_download_and_build_cross_route">Chcete si prevziať mapu a vytvoriť optimálnejšiu trasu, ktorá si vyžaduje viac ako jednu mapu?</string>
 	<string name="dialog_routing_download_cross_route">Prevezmite si mapu na vytvorenie optimálnejšej trasy, ktorá prekračuje okraje tejto mapy.</string>
@@ -850,4 +850,52 @@
 	<string name="download_all">Stiahnuť všetko</string>
 	<string name="delete_all">Vymazať všetky</string>
 	<string name="autodownload">Automaticky stiahnuť</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Teraz zatvorené</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Denne</string>
+	<string name="twentyfour_seven">Deň a noc</string>
+	<string name="day_off_today">Dnes deň voľna</string>
+	<string name="day_off">Deň voľna</string>
+	<string name="today">Dnes</string>
+	<string name="sunrise_to_sunset">Od východu do západu slnka</string>
+	<string name="add_opening_hours">Pridať otváracie hodiny</string>
+	<string name="edit_opening_hours">Upraviť otváracie hodiny</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Nemáte účet v OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Zaregistrovať sa</string>
+	<string name="login">Prihlásiť sa</string>
+	<string name="password">Heslo</string>
+	<string name="forgot_password">Zabudli ste heslo?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Obnovenie hesla</string>
+	<string name="enter_email_address_to_reset_password">Zadajte e-mailovú adresu, ktorú ste použili pri registrácii, a my Vám zašleme odkaz na obnovenie hesla.</string>
+	<string name="reset_password">Obnoviť heslo</string>
+	<string name="username">Používateľské meno</string>
+	<string name="osm_account">OSM účet</string>
+	<string name="logout">Odhlásiť sa</string>
+	<string name="login_and_edit_map_motivation_message">Prihláste sa a upravte informácie o objektoch na mape, a my ich sprístupníme miliónom ďalších používateľov. Urobme svet spoločne lepším.</string>
+	<string name="not_sent">Neodoslaný</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">zmien</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Upravili ste svoj prvý objekt!</string>
+	<string name="thank_you">Ďakujeme Vám</string>
+	<string name="login_with_openstreetmap">Prihláste sa na adrese www.openstreetmap.org</string>
+	<string name="edit_place">Upraviť miesto</string>
+	<string name="place_name">Názov miesta</string>
+	<string name="place_name_caption">Zadajte skutočný názov miesta</string>
+	<string name="add_language">Pridať jazyk</string>
+	<string name="address">Adresa</string>
+	<string name="street">Ulica</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Budova</string>
+	<string name="details">Podrobnosti</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Pridať ulicu</string>
+	<string name="choose_language">Vybrať jazyk</string>
+	<string name="choose_street">Vybrať ulicu</string>
+	<string name="postal_code">PSČ</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-mail alebo používateľské meno</string>
 </resources>

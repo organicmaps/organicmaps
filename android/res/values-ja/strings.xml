@@ -269,7 +269,7 @@
 	<string name="share">その他の共有</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">メッセージ</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Eメール</string>
 	<!-- Copy Link -->
 	<string name="copy_link">リンクをコピー</string>
@@ -764,7 +764,7 @@
 	<string name="dialog_routing_if_get_cross_route">複数マップを利用してより最適なルートを作成しますか？</string>
 	<string name="dialog_routing_cross_route_is_optimal">このマップの境界を越えて複数マップを利用すると、より最適なルートを作成できます。</string>
 	<string name="dialog_routing_always_cross_that_border">常にこの境界を越える</string>
-	<string name="dialog_routing_not_now">あとで</string>
+	<string name="not_now">あとで</string>
 	<string name="dialog_routing_build_route">作成する</string>
 	<string name="dialog_routing_download_and_build_cross_route">マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？</string>
 	<string name="dialog_routing_download_cross_route">このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。</string>
@@ -844,4 +844,52 @@
 	<string name="download_all">全てをダウンロード</string>
 	<string name="delete_all">すべて削除</string>
 	<string name="autodownload">自動ダウンロード</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">現在閉店</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">毎日</string>
+	<string name="twentyfour_seven">昼と夜</string>
+	<string name="day_off_today">今日は休み</string>
+	<string name="day_off">休み</string>
+	<string name="today">今日は</string>
+	<string name="sunrise_to_sunset">日の出から日没まで</string>
+	<string name="add_opening_hours">営業時間を追加</string>
+	<string name="edit_opening_hours">営業時間を編集</string>
+	<string name="profile">プロフィール</string>
+	<string name="no_osm_account">OpenStreetMapのアカウントがありませんか？</string>
+	<string name="register_at_openstreetmap">登録</string>
+	<string name="login">ログイン</string>
+	<string name="password">パスワード</string>
+	<string name="forgot_password">パスワードをお忘れですか？</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">パスワードをf復元</string>
+	<string name="enter_email_address_to_reset_password">登録の際に使用したメールアドレスを入力してください。パスワードを更新するリンクをお送りします。</string>
+	<string name="reset_password">パスワードをリセット</string>
+	<string name="username">ユーザー名</string>
+	<string name="osm_account">OSMアカウント</string>
+	<string name="logout">ログアウト</string>
+	<string name="login_and_edit_map_motivation_message">ログインしてマップ上のオブジェクトの詳細を編集すると、何百万人もの他のユーザーがその情報を利用できるようになります。一緒により良い世界を作りましょう。</string>
+	<string name="not_sent">送信されませんでした</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">つの変更点</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">初めてオブジェクトを編集しました！</string>
+	<string name="thank_you">ありがとうございます</string>
+	<string name="login_with_openstreetmap">www.openstreetmap.orgでログインしてください</string>
+	<string name="edit_place">場所を編集</string>
+	<string name="place_name">場所の名前</string>
+	<string name="place_name_caption">この場所の看板通りに名前を入力してください</string>
+	<string name="add_language">言語を追加</string>
+	<string name="address">住所</string>
+	<string name="street">通り</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">建物</string>
+	<string name="details">詳細</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">通りを追加</string>
+	<string name="choose_language">言語を選択</string>
+	<string name="choose_street">通りを選択</string>
+	<string name="postal_code">郵便番号</string>
+	<!-- login text field -->
+	<string name="email_or_username">メールアドレスまたはユーザー名</string>
 </resources>

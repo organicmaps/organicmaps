@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Tin nhắn";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-mail";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Întotdeauna să se treacă această limită";
 
-"dialog_routing_not_now" = "Nu acum";
+"not_now" = "Nu acum";
 
 "dialog_routing_build_route" = "Creare";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "Pentru a facilita utilizarea MAPS.ME atunci când conduceți noaptea, am adăugat modul nocturn. Acesta pornește automat după apusul soarelui.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Adăugare planificare";
 
 "editor_time_delete" = "Eliminare planificare";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Ștergere toate";
 
 "autodownload" = "Descărcare automată";
+
+/* Place Page opening hours text */
+"closed_now" = "Închis acum";
+
+/* Place Page opening hours text */
+"daily" = "Zilnic";
+
+"twentyfour_seven" = "Zi și noapte";
+
+"day_off_today" = "Zi liberă azi";
+
+"day_off" = "Zi liberă";
+
+"today" = "Azi";
+
+"sunrise_to_sunset" = "De la răsărit până la apus";
+
+"add_opening_hours" = "Adăugare ore de funcționare";
+
+"edit_opening_hours" = "Editare ore de funcționare";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Nu aveți un cont în OpenStreetMap?";
+
+"register_at_openstreetmap" = "Înregistrați-vă";
+
+"login" = "Autentificare";
+
+"password" = "Parolă";
+
+"forgot_password" = "Ați uitat parola?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Recuperare parolă";
+
+"enter_email_address_to_reset_password" = "Introduceți adresa de e-mail pe care ați utilizat-o în momentul înregistrării, iar noi vă vom trimite link-ul pentru a vă reînnoi parola.";
+
+"reset_password" = "Resetare parolă";
+
+"username" = "Nume de utilizator";
+
+"osm_account" = "Cont OSM";
+
+"logout" = "Ieșire";
+
+"login_and_edit_map_motivation_message" = "Autentificați-vă și editați informația despre obiectele de pe hartă, iar noi le vom face disponibile pentru milioane de alți utilizatori. Să facem împreună lumea mai bună.";
+
+"not_sent" = "Nu a fost trimis";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "modificări";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Ați editat primul dvs. obiect!";
+
+"thank_you" = "Vă mulțumim";
+
+"login_with_openstreetmap" = "Autentificați-vă pe www.openstreetmap.org";
+
+"edit_place" = "Editați loc";
+
+"place_name" = "Denumire loc";
+
+"place_name_caption" = "Introduceți denumirea astfel cum apare aceasta pe semnul locului";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Adăugare limbă";
+
+"address" = "Adresă";
+
+"street" = "Stradă";
+
+/* Editable House Number text field (in address block). */
+"house" = "Clădire";
+
+"details" = "Detalii";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Adăugare stradă";
+
+"choose_language" = "Alegeți o limbă";
+
+"choose_street" = "Alegeți o stradă";
+
+"postal_code" = "Cod postal";
+
+/* login text field */
+"email_or_username" = "Adresa de e-mail sau numele de utilizator";

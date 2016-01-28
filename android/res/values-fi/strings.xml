@@ -272,7 +272,7 @@
 	<string name="share">Jaa</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Viesti</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Sähköposti</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopioi linkki</string>
@@ -767,7 +767,7 @@
 	<string name="dialog_routing_if_get_cross_route">Haluatko luoda suoremman reitin, joka ylettyy usealle kartalle?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Tarjolla on suorempi reitti, joka ylittää tämän kartan reunan.</string>
 	<string name="dialog_routing_always_cross_that_border">Ylitä aina tämä raja</string>
-	<string name="dialog_routing_not_now">Ei nyt</string>
+	<string name="not_now">Ei nyt</string>
 	<string name="dialog_routing_build_route">Luo</string>
 	<string name="dialog_routing_download_and_build_cross_route">Haluatko ladata kartan ja luoda paremman reitin, joka ylettyy usealle kartalle?</string>
 	<string name="dialog_routing_download_cross_route">Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.</string>
@@ -847,4 +847,52 @@
 	<string name="download_all">Lataa kaikki</string>
 	<string name="delete_all">Poista kaikki</string>
 	<string name="autodownload">Lataa automaattisesti</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Suljettu nyt</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Päivittäin</string>
+	<string name="twentyfour_seven">Päivin ja öin</string>
+	<string name="day_off_today">Vapaapäivä tänään</string>
+	<string name="day_off">Vapaapäivä</string>
+	<string name="today">Tänään</string>
+	<string name="sunrise_to_sunset">Auringonnoususta auringonlaskuun</string>
+	<string name="add_opening_hours">Lisää aukioloajat</string>
+	<string name="edit_opening_hours">Muokkaa aukioloaikoja</string>
+	<string name="profile">Profiili</string>
+	<string name="no_osm_account">Eikö sinulla ole tiliä OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Rekisteröidy</string>
+	<string name="login">Kirjaudu sisään</string>
+	<string name="password">Salasana</string>
+	<string name="forgot_password">Unohtuiko salasana?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Palauta salasana</string>
+	<string name="enter_email_address_to_reset_password">Syötä rekisteröitymisessä käyttämäsi sähköpostiosoite, niin lähetämme sinulle linkin salasanasi vaihtamista varten.</string>
+	<string name="reset_password">Aseta salasana uudelleen</string>
+	<string name="username">Käyttäjänimi</string>
+	<string name="osm_account">OSM-tili</string>
+	<string name="logout">Kirjaudu ulos</string>
+	<string name="login_and_edit_map_motivation_message">Kirjaudu sisään ja muokkaa kartan kohteiden tietoja, ja me asetamme kohteet miljoonien muiden käyttäjien saataville. Tehdään maailmasta yhdessä parempi paikka.</string>
+	<string name="not_sent">Ei lähetetty</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">muutosta</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Olet muokannut ensimmäistä kohdettasi!</string>
+	<string name="thank_you">Kiitos</string>
+	<string name="login_with_openstreetmap">Kirjaudu sisään osoitteessa www.openstreetmap.org</string>
+	<string name="edit_place">Muokkaa sijaintia</string>
+	<string name="place_name">Paikan nimi</string>
+	<string name="place_name_caption">Syötä paikan nimi siinä muodossa kun se kyltissä on</string>
+	<string name="add_language">Lisää kieli</string>
+	<string name="address">Osoite</string>
+	<string name="street">Katu</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Rakennus</string>
+	<string name="details">Lisätiedot</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Lisää katu</string>
+	<string name="choose_language">Valitse kieli</string>
+	<string name="choose_street">Valitse katu</string>
+	<string name="postal_code">Postikoodi</string>
+	<!-- login text field -->
+	<string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
 </resources>

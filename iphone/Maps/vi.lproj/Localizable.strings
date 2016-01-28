@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Tin nhắn";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-mail";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Luôn đi qua ranh giới này";
 
-"dialog_routing_not_now" = "Lúc khác";
+"not_now" = "Lúc khác";
 
 "dialog_routing_build_route" = "Tạo";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "Để tạo điều kiện sử dụng MAPS.ME khi lái xe trong đêm tối, chúng tôi đã thêm chế độ ban đêm. Nó tự động mở sau khi mặt trời lặn.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Thêm lịch biểu";
 
 "editor_time_delete" = "Xóa lịch biểu";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Xóa tất cả";
 
 "autodownload" = "Tự động tải về";
+
+/* Place Page opening hours text */
+"closed_now" = "Hiện đã đóng";
+
+/* Place Page opening hours text */
+"daily" = "Hàng ngày";
+
+"twentyfour_seven" = "ngày và đêm";
+
+"day_off_today" = "Nghỉ hôm nay";
+
+"day_off" = "Ngày nghỉ";
+
+"today" = "Hôm nay";
+
+"sunrise_to_sunset" = "Từ bình minh đến hoàng hôn";
+
+"add_opening_hours" = "Thêm giờ làm việc";
+
+"edit_opening_hours" = "Sửa giờ làm việc";
+
+"profile" = "Hồ sơ";
+
+"no_osm_account" = "Bạn chưa có tài khoản tại OpenStreetMap ư?";
+
+"register_at_openstreetmap" = "Đăng ký";
+
+"login" = "Đăng nhập";
+
+"password" = "Mật khẩu";
+
+"forgot_password" = "Quên mật khẩu?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Khôi phục mật khẩu";
+
+"enter_email_address_to_reset_password" = "Nhập địa chỉ email bạn đã sử dụng trong quá trình đăng ký và chúng tôi sẽ gửi cho bạn liên kết để tạo mới mật khẩu của bạn.";
+
+"reset_password" = "đặt lại mật khẩu";
+
+"username" = "Tên đăng nhập";
+
+"osm_account" = "Tài khoản OSM";
+
+"logout" = "Đăng xuất";
+
+"login_and_edit_map_motivation_message" = "Đăng nhập và chỉnh sửa thông tin của các đối tượng trên bản đồ và chúng tôi sẽ hiển thị chúng cho hàng triệu người dùng khác. Hãy cùng nhau làm cho thế giới tốt đẹp hơn.";
+
+"not_sent" = "Chưa được gửi";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "thay đổi";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Bạn đã chỉnh sửa đối tượng đầu tiên của mình!";
+
+"thank_you" = "Cảm ơn bạn";
+
+"login_with_openstreetmap" = "Đăng nhập tại www.openstreetmap.org";
+
+"edit_place" = "Chỉnh sửa địa điểm";
+
+"place_name" = "Tên địa điểm";
+
+"place_name_caption" = "Nhập tên như nó trên dấu hiệu của địa điểm";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Thêm ngôn ngữ";
+
+"address" = "Địa chỉ";
+
+"street" = "Đường";
+
+/* Editable House Number text field (in address block). */
+"house" = "Tòa nhà";
+
+"details" = "Chi tiết";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Thêm con đường";
+
+"choose_language" = "Đã chọn ngôn ngữ";
+
+"choose_street" = "Đã chọn con đường";
+
+"postal_code" = "Mã bưu chính";
+
+/* login text field */
+"email_or_username" = "E-mail hoặc tên người dùng";

@@ -276,8 +276,8 @@
 	<string name="share">Paylaş</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Mesaj</string>
-	<!-- Share by email button text -->
-	<string name="email">E-Posta</string>
+	<!-- Share by email button text, also used in editor. -->
+	<string name="email">E-posta</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Bağlantıyı Kopyala</string>
 	<!-- Text for the button that returns to caller application -->
@@ -771,7 +771,7 @@
 	<string name="dialog_routing_if_get_cross_route">Bir haritadan daha fazlasına uzanan doğrudan bir güzergah oluşturmak ister misiniz?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Bu haritanın bir kısmından geçen daha uygun bir güzergah mevcut.</string>
 	<string name="dialog_routing_always_cross_that_border">Bu sınırı her zaman geçin</string>
-	<string name="dialog_routing_not_now">Şimdi Değil</string>
+	<string name="not_now">Şimdi Değil</string>
 	<string name="dialog_routing_build_route">Oluşturun</string>
 	<string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden fazla haritaya uzanan daha uygun bir güzergah oluşturmak ister misiniz?</string>
 	<string name="dialog_routing_download_cross_route">Bu haritanın bir kısmından geçen daha uygun bir güzergah oluşturmak için haritayı indirin.</string>
@@ -851,4 +851,52 @@
 	<string name="download_all">Tümünü indir</string>
 	<string name="delete_all">Tümünü sil</string>
 	<string name="autodownload">Otomatik indir</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Şu anda kapalı</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Günlük</string>
+	<string name="twentyfour_seven">Gündüz ve gece</string>
+	<string name="day_off_today">Bugün izin günü</string>
+	<string name="day_off">İzin günü</string>
+	<string name="today">Bugün</string>
+	<string name="sunrise_to_sunset">Güneşin doğuşundan batışına kadar</string>
+	<string name="add_opening_hours">İş saatlerini ekle</string>
+	<string name="edit_opening_hours">İş saatlerini düzenle</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">OpenStreetMap\&#39; hesabın yok mu?</string>
+	<string name="register_at_openstreetmap">Kaydol</string>
+	<string name="login">Oturum aç</string>
+	<string name="password">Şifre</string>
+	<string name="forgot_password">Şifreni mi unuttun?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Şifreyi yenile</string>
+	<string name="enter_email_address_to_reset_password">Kayıt sırasında kullandığınız e-posta adresini girin ve şifrenizi yenileyeceğiniz bağlantıyı gönderelim.</string>
+	<string name="reset_password">Parolayı sıfırla</string>
+	<string name="username">Kullanıcı Adı</string>
+	<string name="osm_account">OSM Hesabı</string>
+	<string name="logout">Oturumu kapat</string>
+	<string name="login_and_edit_map_motivation_message">Oturum aç ve haritada nesne bilgilerini düzenleyip diğer milyonlarca kullanıcıya aç. Birlikte dünyayı daha iyi bir yer haline getirelim.</string>
+	<string name="not_sent">Gönderilmedi</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">değişiklik</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">İlk nesneni düzenledin!</string>
+	<string name="thank_you">Teşekkür ederiz</string>
+	<string name="login_with_openstreetmap">www.openstreetmap.org adresinden oturum aç</string>
+	<string name="edit_place">Yeri düzenle</string>
+	<string name="place_name">Yer ismi</string>
+	<string name="place_name_caption">Yerin adını tabelada olduğu şekliyle girin</string>
+	<string name="add_language">Bir dil ekle</string>
+	<string name="address">Adres</string>
+	<string name="street">Sokak</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Bina</string>
+	<string name="details">Detaylar</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Bir sokak ekle</string>
+	<string name="choose_language">Bir dil seç</string>
+	<string name="choose_street">Bir sokak seç</string>
+	<string name="postal_code">Posta kodu</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-posta veya kullanıcı adı</string>
 </resources>

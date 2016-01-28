@@ -279,8 +279,8 @@
 	<string name="share">Share</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Message</string>
-	<!-- Share by email button text -->
-	<string name="email">E-mail</string>
+	<!-- Share by email button text, also used in editor. -->
+	<string name="email">Email</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copy Link</string>
 	<!-- Text for the button that returns to caller application -->
@@ -798,7 +798,7 @@
 	<string name="dialog_routing_if_get_cross_route">Would you like to create a more direct route that spans more than one map?</string>
 	<string name="dialog_routing_cross_route_is_optimal">A more optimal route that crosses the edge of this map is available.</string>
 	<string name="dialog_routing_always_cross_that_border">Always cross this boundary</string>
-	<string name="dialog_routing_not_now">Not Now</string>
+	<string name="not_now">Not Now</string>
 	<string name="dialog_routing_build_route">Create</string>
 	<string name="dialog_routing_download_and_build_cross_route">Would you like to download the map and create a more optimal route spanning more than one map?</string>
 	<string name="dialog_routing_download_cross_route">Download the map to create a more optimal route that crosses the edge of this map.</string>
@@ -860,10 +860,6 @@
 	<string name="whats_new_next_button">Next</string>
 	<string name="whats_new_night_caption">Night Mode Navigation</string>
 	<string name="whats_new_night_body">To facilitate using MAPS.ME when driving in the dark, we have added night mode. It switches on automatically after sunset.</string>
-	<!-- «Add place» button in place page. -->
-	<string name="pp_place_add">Add place</string>
-	<!-- «Edit place» button in place page. -->
-	<string name="pp_place_edit">Edit place</string>
 	<string name="editor_time_add">Add Schedule</string>
 	<string name="editor_time_delete">Delete Schedule</string>
 	<!-- Text for allday switch. -->
@@ -886,4 +882,60 @@
 	<string name="download_all">Download all</string>
 	<string name="delete_all">Delete all</string>
 	<string name="autodownload">Auto-download</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Closed now</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Daily</string>
+	<string name="twentyfour_seven">24/7</string>
+	<string name="day_off_today">Day off today</string>
+	<string name="day_off">Day off</string>
+	<string name="today">Today</string>
+	<string name="sunrise_to_sunset">From sunrise to sunset</string>
+	<string name="add_opening_hours">Add opening hours</string>
+	<string name="edit_opening_hours">Edit opening hours</string>
+	<string name="profile">Profile</string>
+	<string name="no_osm_account">Don\&#39;t have OpenStreetMap account?</string>
+	<string name="register_at_openstreetmap">Register at OpenStreetMap</string>
+	<string name="login">Log In</string>
+	<string name="password">Password</string>
+	<string name="forgot_password">Forgot password?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Restore password</string>
+	<string name="enter_email_address_to_reset_password">Enter the email address you used during registration and we will send you the link to reset your password.</string>
+	<string name="reset_password">Reset Password</string>
+	<string name="username">Username</string>
+	<string name="osm_account">OSM Account</string>
+	<string name="logout">Log Out</string>
+	<string name="login_and_edit_map_motivation_message">Log in and edit objects on the map, and we will make them available for millions of users. Let’s make the world better together.</string>
+	<string name="not_sent">Not Sent</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Last Upload</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">changes</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">You’ve edited your first object!</string>
+	<string name="thank_you">Thank You</string>
+	<string name="login_with_openstreetmap">Log in at www.openstreetmap.org</string>
+	<string name="edit_place">Edit Place</string>
+	<string name="place_name">Place Name</string>
+	<string name="place_name_caption">Enter the name as it is on the sign of the place</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Other Languages</string>
+	<!-- small button to open list with names in different languages -->
+	<string name="show_more">Show More</string>
+	<!-- small button to close list with names in different languages -->
+	<string name="show_less">Show Less</string>
+	<string name="add_language">Add a language</string>
+	<string name="address">Address</string>
+	<string name="street">Street</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">House</string>
+	<string name="details">Details</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Add a street</string>
+	<string name="choose_language">Choose a language</string>
+	<string name="choose_street">Choose a street</string>
+	<string name="postal_code">Postal Code</string>
+	<!-- login text field -->
+	<string name="email_or_username">Email or username</string>
 </resources>

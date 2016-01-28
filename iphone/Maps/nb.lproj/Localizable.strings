@@ -431,7 +431,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Melding";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-post";
 
 /* Copy Link */
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Kryss alltid denne grensen";
 
-"dialog_routing_not_now" = "Ikke nå";
+"not_now" = "Ikke nå";
 
 "dialog_routing_build_route" = "Opprett";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "For å tilrettelegge bruk av MAPS.ME under mørkekjøring har vi lagt til funksjonen nattmodus. Funksjonen skrues automatisk på etter solnedgang.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Legg til tidsrom";
 
 "editor_time_delete" = "Slett tidsrom";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Slett alle";
 
 "autodownload" = "Automatisk nedlasting";
+
+/* Place Page opening hours text */
+"closed_now" = "Lukket nå";
+
+/* Place Page opening hours text */
+"daily" = "Daglig";
+
+"twentyfour_seven" = "Dag og natt";
+
+"day_off_today" = "Fridag i dag";
+
+"day_off" = "Fridag";
+
+"today" = "I dag";
+
+"sunrise_to_sunset" = "Fra morgen til kveld";
+
+"add_opening_hours" = "Legg til åpningstider";
+
+"edit_opening_hours" = "Rediger åpningstider";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Har du ingen konto hos OpenStreetMap?";
+
+"register_at_openstreetmap" = "Registrer deg";
+
+"login" = "Logg inn";
+
+"password" = "Passord";
+
+"forgot_password" = "Glemt passordet?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Gjenopprett passordet";
+
+"enter_email_address_to_reset_password" = "Skriv inn e-postadressen du brukte ved registreringen, så vil vi sende deg en kobling for å fornye passordet ditt.";
+
+"reset_password" = "Tilbakestill passord";
+
+"username" = "Brukernavn";
+
+"osm_account" = "OSM-konto";
+
+"logout" = "Logg ut";
+
+"login_and_edit_map_motivation_message" = "Logg deg inn og rediger informasjonen til objektene på kartet, så vil vi gjøre den tilgjengelig for millioner av andre brukere. La oss gjøre verden bedre sammen.";
+
+"not_sent" = "Ikke sendt";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "endringer";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Du har redigert ditt første objekt!";
+
+"thank_you" = "Takk skal du ha";
+
+"login_with_openstreetmap" = "Logg deg inn på www.openstreetmap.org";
+
+"edit_place" = "Rediger stedet";
+
+"place_name" = "Stedsnavn";
+
+"place_name_caption" = "Skriv inn navnet slik det står på stedets navneskilt";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Legg til et språk";
+
+"address" = "Adresse";
+
+"street" = "Gate";
+
+/* Editable House Number text field (in address block). */
+"house" = "Bygning";
+
+"details" = "Detaljer";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Legg til en gate";
+
+"choose_language" = "Velg et språk";
+
+"choose_street" = "Velg en gate";
+
+"postal_code" = "Postnummer";
+
+/* login text field */
+"email_or_username" = "E-postadresse eller brukernavn";

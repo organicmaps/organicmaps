@@ -272,8 +272,8 @@
 	<string name="share">Dela</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Meddelande</string>
-	<!-- Share by email button text -->
-	<string name="email">E-mail</string>
+	<!-- Share by email button text, also used in editor. -->
+	<string name="email">E-post</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopiera Länk</string>
 	<!-- Text for the button that returns to caller application -->
@@ -769,7 +769,7 @@
 	<string name="dialog_routing_if_get_cross_route">Vill du skapa en mer direkt väg som sträcker sig över fler än en karta?</string>
 	<string name="dialog_routing_cross_route_is_optimal">En optimalare väg som sträcker sig utanför den här kartan är tillgänglig.</string>
 	<string name="dialog_routing_always_cross_that_border">Korsa alltid den här gränsen</string>
-	<string name="dialog_routing_not_now">Inte nu</string>
+	<string name="not_now">Inte nu</string>
 	<string name="dialog_routing_build_route">Skapa</string>
 	<string name="dialog_routing_download_and_build_cross_route">Vill du ladda ned kartan och skapa en optimalare väg som sträcker sig över fler än en karta?</string>
 	<string name="dialog_routing_download_cross_route">Ladda ned kartan för att skapa en optimalare väg som sträcker sig utanför den här kartan.</string>
@@ -849,4 +849,52 @@
 	<string name="download_all">Ladda ner alla</string>
 	<string name="delete_all">Radera alla</string>
 	<string name="autodownload">Automatisk nedladdning</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Stängt just nu</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Dagligen</string>
+	<string name="twentyfour_seven">dag och natt</string>
+	<string name="day_off_today">Stängt idag</string>
+	<string name="day_off">Stängt</string>
+	<string name="today">Idag</string>
+	<string name="sunrise_to_sunset">Från gryning till skymning</string>
+	<string name="add_opening_hours">Lägg till öppettider</string>
+	<string name="edit_opening_hours">Redigera öppettider</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Inget konto hos OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Registrera</string>
+	<string name="login">Logga in</string>
+	<string name="password">Lösenord</string>
+	<string name="forgot_password">Glömt lösenord?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Återställ lösenord?</string>
+	<string name="enter_email_address_to_reset_password">Mata in e-postadressen som du använde vid registrering så skickar vi en återställningslänk till dig.</string>
+	<string name="reset_password">återställ lösenord</string>
+	<string name="username">Användarnamn</string>
+	<string name="osm_account">OSM-konto</string>
+	<string name="logout">Logga ut</string>
+	<string name="login_and_edit_map_motivation_message">Logga in och redigera informationen om objekten på kartan så kommer vi att göra ändringarna tillgängliga för miljontals andra användare. Låt oss göra världen bättre tillsammans.</string>
+	<string name="not_sent">Ej skickat</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">ändringar</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Du har redigerat ditt första objekt!</string>
+	<string name="thank_you">Tack</string>
+	<string name="login_with_openstreetmap">Logga in på www.openstreetmap.org</string>
+	<string name="edit_place">Ändra platsen</string>
+	<string name="place_name">Platsens namn</string>
+	<string name="place_name_caption">Skriv in namnet så som det står på platsens skylt</string>
+	<string name="add_language">Lägg till ett språk</string>
+	<string name="address">Adress</string>
+	<string name="street">Gata</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Byggnad</string>
+	<string name="details">Detaljer</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Lägg till en gata</string>
+	<string name="choose_language">Välj ett språk</string>
+	<string name="choose_street">Välj en gata</string>
+	<string name="postal_code">Postkod</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-postadress eller användarnamn</string>
 </resources>

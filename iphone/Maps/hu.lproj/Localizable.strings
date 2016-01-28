@@ -431,8 +431,8 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Üzenet";
 
-/* Share by email button text */
-"email" = "Email";
+/* Share by email button text, also used in editor. */
+"email" = "E-mail";
 
 /* Copy Link */
 "copy_link" = "Hivatkozás másolása";
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Mindig haladjon át ezen a határon";
 
-"dialog_routing_not_now" = "Most nem";
+"not_now" = "Most nem";
 
 "dialog_routing_build_route" = "Létrehozás";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "A MAPS.ME használatának sötétben való vezetés közbeni elősegítése érdekében hozzáadtuk a funkciókhoz az éjszakai módot. Naplemente után automatikusan bekapcsol.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Időrend felvitele";
 
 "editor_time_delete" = "Időrend törlése";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Összes térkép törlése";
 
 "autodownload" = "Automatikus letöltés";
+
+/* Place Page opening hours text */
+"closed_now" = "Most zárva";
+
+/* Place Page opening hours text */
+"daily" = "Naponta";
+
+"twentyfour_seven" = "Nappal és éjszaka";
+
+"day_off_today" = "Ma szabadnap";
+
+"day_off" = "Szabadnap";
+
+"today" = "Ma";
+
+"sunrise_to_sunset" = "Napkeltétől napnyugtáig";
+
+"add_opening_hours" = "Nyitvatartás hozzáadása";
+
+"edit_opening_hours" = "Nyitvatartás szerkesztése";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?";
+
+"register_at_openstreetmap" = "Regisztráció";
+
+"login" = "Bejelentkezés";
+
+"password" = "Jelszó";
+
+"forgot_password" = "Elfelejtett jelszó?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Jelszó visszaállítása";
+
+"enter_email_address_to_reset_password" = "Add meg a regisztrációkor használt e-mail-címedet és elküldjük neked a jelszavad megújításához szükséges linket.";
+
+"reset_password" = "Jelszó visszaállítása";
+
+"username" = "Felhasználónév";
+
+"osm_account" = "OSM-felhasználói fiók";
+
+"logout" = "Kijelentkezés";
+
+"login_and_edit_map_motivation_message" = "Jelentkezz be és szerkeszd az egyes objektumokhoz tartozó információkat a térképen, valamint tedd őket elérhetővé több millió felhasználó számára.";
+
+"not_sent" = "Nincs elküldve";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "változtatás";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Szerkesztetted az első objektumod!";
+
+"thank_you" = "Köszönjük";
+
+"login_with_openstreetmap" = "Jelentkezz be a www.openstreetmap.org oldalon";
+
+"edit_place" = "Hely szerkesztése";
+
+"place_name" = "Hely neve";
+
+"place_name_caption" = "Add meg a nevet, ami a helyet jelzi";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Nyelv hozzáadása";
+
+"address" = "Cím";
+
+"street" = "Utca";
+
+/* Editable House Number text field (in address block). */
+"house" = "Épület";
+
+"details" = "Részletek";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Utca hozzáadása";
+
+"choose_language" = "Nyelv kiválasztása";
+
+"choose_street" = "Utca kiválasztása";
+
+"postal_code" = "Irányítószám";
+
+/* login text field */
+"email_or_username" = "E-mail vagy felhasználónév";

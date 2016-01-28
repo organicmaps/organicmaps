@@ -272,7 +272,7 @@
 	<string name="share">Chia sẻ</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Tin nhắn</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copiați link-ul</string>
@@ -764,7 +764,7 @@
 	<string name="dialog_routing_if_get_cross_route">Doriţi să creaţi un traseu mai direct care include mai mult decât o hartă?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Este disponibil un traseu mai adecvat care trece de limita acestei hărţi.</string>
 	<string name="dialog_routing_always_cross_that_border">Întotdeauna să se treacă această limită</string>
-	<string name="dialog_routing_not_now">Nu acum</string>
+	<string name="not_now">Nu acum</string>
 	<string name="dialog_routing_build_route">Creare</string>
 	<string name="dialog_routing_download_and_build_cross_route">Doriţi să descărcaţi harta şi să creaţi un traseu mai direct care include mai mult decât o hartă?</string>
 	<string name="dialog_routing_download_cross_route">Pentru a crea un traseu mai adecvat care trece de limita acestei hărţi, descărcaţi harta.</string>
@@ -844,4 +844,52 @@
 	<string name="download_all">Descarcă toate</string>
 	<string name="delete_all">Ștergere toate</string>
 	<string name="autodownload">Descărcare automată</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Închis acum</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Zilnic</string>
+	<string name="twentyfour_seven">Zi și noapte</string>
+	<string name="day_off_today">Zi liberă azi</string>
+	<string name="day_off">Zi liberă</string>
+	<string name="today">Azi</string>
+	<string name="sunrise_to_sunset">De la răsărit până la apus</string>
+	<string name="add_opening_hours">Adăugare ore de funcționare</string>
+	<string name="edit_opening_hours">Editare ore de funcționare</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Nu aveți un cont în OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Înregistrați-vă</string>
+	<string name="login">Autentificare</string>
+	<string name="password">Parolă</string>
+	<string name="forgot_password">Ați uitat parola?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Recuperare parolă</string>
+	<string name="enter_email_address_to_reset_password">Introduceți adresa de e-mail pe care ați utilizat-o în momentul înregistrării, iar noi vă vom trimite link-ul pentru a vă reînnoi parola.</string>
+	<string name="reset_password">Resetare parolă</string>
+	<string name="username">Nume de utilizator</string>
+	<string name="osm_account">Cont OSM</string>
+	<string name="logout">Ieșire</string>
+	<string name="login_and_edit_map_motivation_message">Autentificați-vă și editați informația despre obiectele de pe hartă, iar noi le vom face disponibile pentru milioane de alți utilizatori. Să facem împreună lumea mai bună.</string>
+	<string name="not_sent">Nu a fost trimis</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">modificări</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Ați editat primul dvs. obiect!</string>
+	<string name="thank_you">Vă mulțumim</string>
+	<string name="login_with_openstreetmap">Autentificați-vă pe www.openstreetmap.org</string>
+	<string name="edit_place">Editați loc</string>
+	<string name="place_name">Denumire loc</string>
+	<string name="place_name_caption">Introduceți denumirea astfel cum apare aceasta pe semnul locului</string>
+	<string name="add_language">Adăugare limbă</string>
+	<string name="address">Adresă</string>
+	<string name="street">Stradă</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Clădire</string>
+	<string name="details">Detalii</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Adăugare stradă</string>
+	<string name="choose_language">Alegeți o limbă</string>
+	<string name="choose_street">Alegeți o stradă</string>
+	<string name="postal_code">Cod postal</string>
+	<!-- login text field -->
+	<string name="email_or_username">Adresa de e-mail sau numele de utilizator</string>
 </resources>

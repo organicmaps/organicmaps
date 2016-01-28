@@ -431,8 +431,8 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Meddelande";
 
-/* Share by email button text */
-"email" = "E-mail";
+/* Share by email button text, also used in editor. */
+"email" = "E-post";
 
 /* Copy Link */
 "copy_link" = "Kopiera Länk";
@@ -1236,7 +1236,7 @@
 
 "dialog_routing_always_cross_that_border" = "Korsa alltid den här gränsen";
 
-"dialog_routing_not_now" = "Inte nu";
+"not_now" = "Inte nu";
 
 "dialog_routing_build_route" = "Skapa";
 
@@ -1348,12 +1348,6 @@
 
 "whats_new_night_body" = "För att underlätta användandet av MAPS.ME under mörkerkörning har vi lagt till nattläget. Det slås automatiskt på efter att solen gått ned.";
 
-/* «Add place» button in place page. */
-"pp_place_add" = "Add place";
-
-/* «Edit place» button in place page. */
-"pp_place_edit" = "Edit place";
-
 "editor_time_add" = "Lägg till schema";
 
 "editor_time_delete" = "Ta bort schema";
@@ -1394,3 +1388,103 @@
 "delete_all" = "Radera alla";
 
 "autodownload" = "Automatisk nedladdning";
+
+/* Place Page opening hours text */
+"closed_now" = "Stängt just nu";
+
+/* Place Page opening hours text */
+"daily" = "Dagligen";
+
+"twentyfour_seven" = "dag och natt";
+
+"day_off_today" = "Stängt idag";
+
+"day_off" = "Stängt";
+
+"today" = "Idag";
+
+"sunrise_to_sunset" = "Från gryning till skymning";
+
+"add_opening_hours" = "Lägg till öppettider";
+
+"edit_opening_hours" = "Redigera öppettider";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Inget konto hos OpenStreetMap?";
+
+"register_at_openstreetmap" = "Registrera";
+
+"login" = "Logga in";
+
+"password" = "Lösenord";
+
+"forgot_password" = "Glömt lösenord?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Återställ lösenord?";
+
+"enter_email_address_to_reset_password" = "Mata in e-postadressen som du använde vid registrering så skickar vi en återställningslänk till dig.";
+
+"reset_password" = "återställ lösenord";
+
+"username" = "Användarnamn";
+
+"osm_account" = "OSM-konto";
+
+"logout" = "Logga ut";
+
+"login_and_edit_map_motivation_message" = "Logga in och redigera informationen om objekten på kartan så kommer vi att göra ändringarna tillgängliga för miljontals andra användare. Låt oss göra världen bättre tillsammans.";
+
+"not_sent" = "Ej skickat";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Last Upload";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "ändringar";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Du har redigerat ditt första objekt!";
+
+"thank_you" = "Tack";
+
+"login_with_openstreetmap" = "Logga in på www.openstreetmap.org";
+
+"edit_place" = "Ändra platsen";
+
+"place_name" = "Platsens namn";
+
+"place_name_caption" = "Skriv in namnet så som det står på platsens skylt";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Other Languages";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Lägg till ett språk";
+
+"address" = "Adress";
+
+"street" = "Gata";
+
+/* Editable House Number text field (in address block). */
+"house" = "Byggnad";
+
+"details" = "Detaljer";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Lägg till en gata";
+
+"choose_language" = "Välj ett språk";
+
+"choose_street" = "Välj en gata";
+
+"postal_code" = "Postkod";
+
+/* login text field */
+"email_or_username" = "E-postadress eller användarnamn";
