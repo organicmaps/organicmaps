@@ -22,10 +22,12 @@ import java.util.List;
 
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountrySuggestFragment;
+import com.mapswithme.country.DownloadFragment;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
@@ -118,6 +120,7 @@ public class SearchFragment extends BaseMwmFragment
     }
   }
 
+  private View mTabFrame;
   private View mResultsFrame;
   private View mResultsPlaceholder;
 
@@ -171,7 +174,13 @@ public class SearchFragment extends BaseMwmFragment
              .commit();
   }
 
-  protected void updateFrames()
+  public void showDownloader()
+  {
+    UiUtils.hide(mResultsFrame, mResultsPlaceholder, mTabFrame);
+    ((BaseMwmFragmentActivity) getActivity()).replaceFragment(DownloadFragment.class, null, null);
+  }
+
+  private void updateFrames()
   {
     final boolean active = searchActive();
     UiUtils.showIf(active, mResultsFrame);
@@ -206,11 +215,11 @@ public class SearchFragment extends BaseMwmFragment
     readArguments();
 
     ViewGroup root = (ViewGroup) view;
-    View tabsFrame = root.findViewById(R.id.tab_frame);
-    ViewPager pager = (ViewPager) tabsFrame.findViewById(R.id.pages);
+    mTabFrame = root.findViewById(R.id.tab_frame);
+    ViewPager pager = (ViewPager) mTabFrame.findViewById(R.id.pages);
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-      UiUtils.hide(tabsFrame.findViewById(R.id.tabs_divider));
+      UiUtils.hide(mTabFrame.findViewById(R.id.tabs_divider));
 
     mToolbarController = new ToolbarController(view);
 
