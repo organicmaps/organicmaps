@@ -418,8 +418,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvTitle.setText(mMapObject.getName());
     if (mToolbar != null)
       mToolbar.setTitle(mMapObject.getName());
-    String subtitle = mMapObject.getCuisine().isEmpty() ? mMapObject.getTypeName()
-                                                        : mMapObject.getTypeName()  + ", " + mMapObject.getCuisine();
+    String subtitle = mMapObject.getFormattedCuisine().isEmpty() ? mMapObject.getTypeName()
+                                                                 : mMapObject.getTypeName()  + ", " + mMapObject.getFormattedCuisine();
     mTvSubtitle.setText(subtitle);
     mAvDirection.setVisibility(View.GONE);
   }
@@ -432,7 +432,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
-    refreshMetadataOrHide(mMapObject.getCuisine(), mCuisine, mTvCuisine);
+    refreshMetadataOrHide(mMapObject.getFormattedCuisine(), mCuisine, mTvCuisine);
     // TODO @yunikkk uncomment wiki display when data with correct wiki representation(urlencoded once) will be ready
     //    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);

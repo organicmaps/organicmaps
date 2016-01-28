@@ -110,7 +110,13 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   protected void editCuisine()
   {
     mMode = Mode.CUISINE;
-    // TODO choose cuisine
+    mToolbarController.setTitle("Cuisine");
+    final Bundle args = new Bundle();
+    args.putString(CuisineFragment.EXTRA_CURRENT_CUISINE, mEditedObject.getMetadata(Metadata.MetadataType.FMD_CUISINE));
+    final Fragment cuisineFragment = Fragment.instantiate(getActivity(), CuisineFragment.class.getName(), args);
+    getChildFragmentManager().beginTransaction()
+                             .replace(R.id.fragment_container, cuisineFragment, CuisineFragment.class.getName())
+                             .commit();
   }
 
   @Override
@@ -131,14 +137,16 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         editMapObject();
         break;
       case CUISINE:
-        // get cuisine
+        final String cuisine = ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).getCuisine();
+        mEditedObject.addMetadata(Metadata.MetadataType.FMD_CUISINE.toInt(), cuisine);
+        editMapObject();
         break;
       case MAP_OBJECT:
         final EditorFragment editorFragment = (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName());
         Editor.nativeSetMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt(), editorFragment.getPhone());
         Editor.nativeSetMetadata(Metadata.MetadataType.FMD_WEBSITE.toInt(), editorFragment.getWebsite());
         Editor.nativeSetMetadata(Metadata.MetadataType.FMD_EMAIL.toInt(), editorFragment.getEmail());
-        Editor.nativeSetMetadata(Metadata.MetadataType.FMD_CUISINE.toInt(), editorFragment.getCuisine());
+        Editor.nativeSetMetadata(Metadata.MetadataType.FMD_CUISINE.toInt(), mEditedObject.getMetadata(Metadata.MetadataType.FMD_CUISINE));
         Editor.nativeSetMetadata(Metadata.MetadataType.FMD_INTERNET.toInt(), editorFragment.getWifi());
         Editor.nativeSetName(editorFragment.getName());
         Editor.nativeEditFeature(editorFragment.getStreet(), editorFragment.getHouseNumber());

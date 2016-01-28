@@ -72,7 +72,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mEtPhone.setText(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
     mEtWebsite.setText(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_WEBSITE));
     mEtEmail.setText(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_EMAIL));
-    mTvCuisine.setText(mEditedPoi.getCuisine());
+    mTvCuisine.setText(mEditedPoi.getFormattedCuisine());
     mSwWifi.setChecked(!TextUtils.isEmpty(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_INTERNET)));
     refreshOpeningTime();
 
@@ -208,8 +208,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mAddressBlock = view.findViewById(R.id.cv__address);
     mMetadataBlock = view.findViewById(R.id.cv__metadata);
     mEtName = findInput(view.findViewById(R.id.name));
+    view.findViewById(R.id.block_street).setOnClickListener(this);
     mTvStreet = (TextView) view.findViewById(R.id.street);
-    mTvStreet.setOnClickListener(this);
     mEtHouseNumber = findInput(view.findViewById(R.id.building));
     mPhoneBlock = view.findViewById(R.id.block_phone);
     mEtPhone = findInput(mPhoneBlock);
@@ -218,6 +218,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mEmailBlock = view.findViewById(R.id.block_email);
     mEtEmail = findInput(mEmailBlock);
     mCuisineBlock = view.findViewById(R.id.block_cuisine);
+    mCuisineBlock.setOnClickListener(this);
     mTvCuisine = (TextView) view.findViewById(R.id.tv__cuisine);
     mWifiBlock = view.findViewById(R.id.block_wifi);
     mSwWifi = (SwitchCompat) view.findViewById(R.id.sw__wifi);
@@ -245,8 +246,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     case R.id.block_wifi:
       mSwWifi.toggle();
       break;
-    case R.id.street:
+    case R.id.block_street:
       mParent.editStreet();
+      break;
+    case R.id.block_cuisine:
+      mParent.editCuisine();
       break;
     }
   }

@@ -60,7 +60,57 @@ public class Metadata implements Parcelable
     }
   }
 
+  private static final String CUISINE_TRANSLATION_PREFIX = "cuisine_";
+
   private Map<MetadataType, String> mMetadataMap = new HashMap<>();
+
+  public static String osmCuisineToStringName(String cuisineKey)
+  {
+    return CUISINE_TRANSLATION_PREFIX + cuisineKey;
+  }
+
+  public static String stringNameToOsmCuisine(String cuisineTranslation)
+  {
+    return cuisineTranslation.replace(CUISINE_TRANSLATION_PREFIX, "");
+  }
+
+  public static boolean isCuisineString(String cuisineTranslation)
+  {
+    return cuisineTranslation.startsWith(CUISINE_TRANSLATION_PREFIX);
+  }
+
+  /**
+   * Cuisines translations can contain unsupported symbols,
+   * replace them with supported "_"( so ', ' and ' ' are replaced with underlines)
+   */
+  public static String normalizeCuisine(String cuisineRaw)
+  {
+    return cuisineRaw.replace(", ", "_").replace(' ', '_').toLowerCase();
+  }
+
+  /**
+   * Splits cuisine from osm format.
+   */
+  public static String[] splitCuisines(String cuisines)
+  {
+    return cuisines.split(";");
+  }
+
+  /**
+   * Combines cuisines to osm format.
+   */
+  public static String combineCuisines(@NonNull String[] cuisines)
+  {
+    final StringBuilder builder = new StringBuilder();
+    for (String cuisine : cuisines)
+    {
+      if (builder.length() > 0)
+        builder.append(";");
+      builder.append(cuisine);
+    }
+
+    return builder.toString();
+  }
 
   /**
    * Adds metadata with type code and value. Returns false if metaType is wrong or unknown

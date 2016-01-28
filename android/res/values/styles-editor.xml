@@ -23,6 +23,10 @@
     <item name="android:layout_marginBottom">@dimen/margin_base</item>
   </style>
 
+  <style name="MwmWidget.Editor.MetadataBlock.Clickable">
+    <item name="android:background">?clickableBackground</item>
+  </style>
+
   <style name="MwmWidget.Editor.MetadataIcon">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
@@ -53,6 +57,8 @@
   <style name="MwmWidget.Editor.FieldLayout">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
+    <item name="android:lines">1</item>
+    <item name="android:ellipsize">end</item>
     <item name="android:layout_marginLeft">@dimen/editor_margin_left</item>
     <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">@dimen/editor_margin_left</item>
   </style>

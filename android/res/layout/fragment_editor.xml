@@ -77,8 +77,8 @@
           tools:ignore="UnusedAttribute"/>
 
         <RelativeLayout
-          style="@style/MwmWidget.Editor.MetadataBlock"
-          android:background="?clickableBackground"
+          android:id="@+id/block_street"
+          style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
           android:paddingBottom="@dimen/margin_half"
           android:paddingTop="@dimen/margin_half">
 
@@ -100,7 +100,6 @@
             style="@style/MwmWidget.Editor.FieldLayout"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/margin_base"
-            android:background="?clickableBackground"
             android:drawableEnd="@drawable/ic_arrow_down"
             android:drawableRight="@drawable/ic_arrow_down"
             android:gravity="center_vertical"
@@ -252,7 +251,7 @@
 
         <RelativeLayout
           android:id="@+id/block_cuisine"
-          style="@style/MwmWidget.Editor.MetadataBlock"
+          style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
           android:paddingBottom="@dimen/margin_half"
           android:paddingTop="@dimen/margin_half">
 
@@ -265,6 +264,7 @@
             style="@style/MwmWidget.Editor.FieldLayout"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/margin_base"
+            android:drawableEnd="@drawable/ic_arrow_down"
             android:drawableRight="@drawable/ic_arrow_down"
             android:gravity="center_vertical"
             android:textAppearance="@style/MwmTextAppearance.Body1"
@@ -283,8 +283,7 @@
 
         <RelativeLayout
           android:id="@+id/block_wifi"
-          style="@style/MwmWidget.Editor.MetadataBlock"
-          android:background="?clickableBackground">
+          style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
 
           <ImageView
             style="@style/MwmWidget.Editor.MetadataIcon"
