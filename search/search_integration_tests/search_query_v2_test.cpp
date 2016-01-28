@@ -307,9 +307,10 @@ UNIT_TEST(SearchQueryV2_SearchInWorld)
   auto const result = engine.RegisterMap(testWorld);
   TEST_EQUAL(result.second, MwmSet::RegResult::Success, ());
 
-  auto worldId = result.first;
+  auto const worldId = result.first;
 
   m2::RectD const viewport(m2::PointD(-1.0, -1.0), m2::PointD(-0.5, -0.5));
+
   {
     TestSearchRequest request(engine, "Los Alamos", "en", search::SearchParams::ALL, viewport);
     request.Wait();

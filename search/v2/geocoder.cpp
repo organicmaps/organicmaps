@@ -337,8 +337,8 @@ Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
   , m_numTokens(0)
   , m_model(SearchModel::Instance())
   , m_streets(nullptr)
-  , m_matcher(nullptr)
   , m_villages(nullptr)
+  , m_matcher(nullptr)
   , m_finder(static_cast<my::Cancellable const &>(*this))
   , m_lastMatchedRegion(nullptr)
   , m_results(nullptr)
@@ -484,7 +484,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       m_context = move(context);
       MY_SCOPE_GUARD(cleanup, [&]()
                      {
-                       LOG(LDEBUG, (m_context->GetName(), "processing complete."));
+                       LOG(LDEBUG, (m_context->GetName(), "geocoding complete."));
                        m_matcher->OnQueryFinished();
                        m_matcher = nullptr;
                        m_context.reset();
@@ -853,15 +853,15 @@ void Geocoder::MatchRegions(RegionType type)
       // On the World.mwm we need to check that CITY - STATE - COUNTRY
       // form a nested sequence.  Otherwise, as mwm borders do not
       // intersect state or country boundaries, it's enough to check
-      // that the currently processing mwm belongs to region.
+      // mwm that is currently being processed belongs to region.
       if (isWorld)
       {
         matches = m_lastMatchedRegion == nullptr ||
                   m_infoGetter.IsBelongToRegions(region.m_center, m_lastMatchedRegion->m_ids);
       }
-      else if (m_infoGetter.IsBelongToRegions(fileName, region.m_ids))
+      else
       {
-        matches = true;
+        matches = m_infoGetter.IsBelongToRegions(fileName, region.m_ids);
       }
 
       if (!matches)
@@ -925,9 +925,7 @@ void Geocoder::MatchCities()
       if (m_context->GetInfo()->GetType() == MwmInfo::WORLD)
         continue;
 
-      // Unites features from all localities and uses the resulting bit
-      // vector as a filter for features retrieved during geocoding.
-      auto const * cityFeatures = RetrieveGeometryFeatures(*m_context, city.m_rect, CITY_ID);
+      auto const * cityFeatures = RetrieveGeometryFeatures(*m_context, city.m_rect, city.m_featureId);
 
       if (coding::CompressedBitVector::IsEmpty(cityFeatures))
         continue;
@@ -1103,7 +1101,7 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
         feature.ParseTypes();
         SearchModel::SearchType const searchType = m_model.GetSearchType(feature);
 
-        // All SEARCH_TYPE_CITY features were filtered in DoGeocodingWithLocalities().
+        // All SEARCH_TYPE_CITY features were filtered in MatchCities().
         // All SEARCH_TYPE_STREET features were filtered in GreedilyMatchStreets().
         if (searchType < SearchModel::SEARCH_TYPE_STREET)
           clusters[searchType].push_back(featureId);
@@ -1124,7 +1122,7 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
     for (size_t i = 0; i < ARRAY_SIZE(clusters); ++i)
     {
       // ATTENTION: DO NOT USE layer after recursive calls to
-      // DoGeocoding().  This may lead to use-after-free.
+      // MatchPOIsAndBuildings().  This may lead to use-after-free.
       auto & layer = m_layers.back();
       layer.m_sortedFeatures = &clusters[i];
 

@@ -136,9 +136,8 @@ private:
 
   enum
   {
-    VIEWPORT_ID,
-    POSITION_ID,
-    CITY_ID
+    VIEWPORT_ID = -1,
+    POSITION_ID = -2,
   };
 
   SearchQueryParams::TSynonymsVector const & GetTokens(size_t i) const;
