@@ -93,6 +93,7 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"amenity-car_sharing", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE}, true, false}},
   {"amenity-casino", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
   {"amenity-cinema", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
+  {"amenity-clinic", {{EType::FMD_OPERATOR}, true, true}},
   {"amenity-college", {{EType::FMD_OPERATOR}, true, true}},
   {"amenity-doctors", {{EType::FMD_INTERNET}, true, true}},
   {"amenity-drinking_water", {{}, true, false}},
