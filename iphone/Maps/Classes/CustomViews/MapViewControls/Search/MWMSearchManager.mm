@@ -278,7 +278,8 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   [self.parentView addSubview:self.rootView];
   self.rootView.compact = NO;
   self.rootView.isVisible = YES;
-  [self.searchTextField becomeFirstResponder];
+  if (![self.topController isEqual:self.downloadController])
+    [self.searchTextField becomeFirstResponder];
 }
 
 - (void)changeToTableSearchState
