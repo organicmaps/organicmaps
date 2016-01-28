@@ -84,6 +84,7 @@ private:
   void DisconnectFromCoreStorage();
 
 private:
+  void DownloadAllImpl(TIndex const & index);
   TIndex const & GetCurrentRoot() const;
   void SetRoot(TIndex index);
   TIndex const & GetChild(int childPosition) const;

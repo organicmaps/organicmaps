@@ -9,9 +9,8 @@ namespace storage
 
 namespace
 {
-  int const RootItemIndex = 0;
-  int const ChildItemsOffset = 1;
-}
+int const RootItemIndex = 0;
+int const ChildItemsOffset = 1;
 
 inline TIndex GetIndexChild(TIndex const & index, int i)
 {
@@ -39,6 +38,7 @@ inline TIndex GetIndexParent(TIndex const & index)
 
   return parent;
 }
+}  // namespace
 
 CountryTree::CountryTree(shared_ptr<ActiveMapsLayout> activeMaps)
 {
@@ -122,7 +122,7 @@ int CountryTree::GetChildCount() const
 
 bool CountryTree::IsLeaf(int childPosition) const
 {
-  return GetStorage().CountriesCount(GetChild(childPosition)) == 0;
+  return GetStorage().IsLeaf(GetChild(childPosition));
 }
 
 string const & CountryTree::GetChildName(int position) const
@@ -191,14 +191,26 @@ void CountryTree::RetryDownloading(int childPosition)
   GetActiveMapLayout().RetryDownloading(GetChild(childPosition));
 }
 
-void CountryTree::DownloadAll()
+void CountryTree::DownloadAllImpl(TIndex const & index)
 {
-  size_t const childCount = GetChildCount();
+  if (GetStorage().IsLeaf(index))
+  {
+    GetActiveMapLayout().DownloadMap(index, MapOptions::MapWithCarRouting);
+    return;
+  }
+
+  size_t const childCount = GetStorage().CountriesCount(index);
   for (size_t i = 0; i < childCount; ++i)
   {
-    if (IsLeaf(i))
-      DownloadCountry(i, MapOptions::MapWithCarRouting);
+    TIndex const child = GetIndexChild(index, i);
+    ASSERT_NOT_EQUAL(index, child, ());
+    DownloadAllImpl(child);
   }
+}
+
+void CountryTree::DownloadAll()
+{
+  DownloadAllImpl(GetCurrentRoot());
 }
 
 bool CountryTree::IsDownloadAllAvailable()

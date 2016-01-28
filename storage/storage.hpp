@@ -190,6 +190,8 @@ public:
   void SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader);
   void SetCurrentDataVersionForTesting(int64_t currentVersion);
 
+  bool IsLeaf(TIndex const & index) const { return CountriesCount(index) == 0; }
+
 private:
   friend void UnitTest_StorageTest_DeleteCountry();
 
