@@ -168,6 +168,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   if (!m_edited_cells.empty())
   {
     MWMAuthorizationSetNeedCheck(YES);
+    self.entity.cuisines = self.cuisines;
     [self.entity saveEditedCells:m_edited_cells];
   }
   [self onCancel];

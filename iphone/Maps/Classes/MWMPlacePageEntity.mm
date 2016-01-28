@@ -15,6 +15,18 @@ namespace
 NSString * const kOSMCuisineSeparator = @";";
 NSString * const kMWMCuisineSeparator = @" • ";
 
+NSString * makeOSMCuisineString(NSSet<NSString *> * cuisines)
+{
+  NSMutableArray<NSString *> * osmCuisines = [NSMutableArray arrayWithCapacity:cuisines.count];
+  for (NSString * cuisine in cuisines)
+    [osmCuisines addObject:cuisine];
+  [osmCuisines sortUsingComparator:^NSComparisonResult(NSString * s1, NSString * s2)
+  {
+    return [s1 compare:s2];
+  }];
+  return [osmCuisines componentsJoinedByString:kOSMCuisineSeparator];
+}
+
 array<MWMPlacePageCellType, 10> const gMetaFieldsMap{
     {MWMPlacePageCellTypePostcode, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite,
      MWMPlacePageCellTypeURL, MWMPlacePageCellTypeEmail, MWMPlacePageCellTypeOpenHours,
@@ -48,11 +60,6 @@ void initFieldsMap()
   ASSERT_EQUAL(kMetaFieldsMap[MWMPlacePageCellTypePostcode], Metadata::FMD_POSTCODE, ());
   ASSERT_EQUAL(kMetaFieldsMap[MWMPlacePageCellTypeSpacer], 0, ());
   ASSERT_EQUAL(kMetaFieldsMap[Metadata::FMD_MAXSPEED], 0, ());
-}
-
-NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
-{
-  return [mwmCuisine stringByReplacingOccurrencesOfString:kMWMCuisineSeparator withString:kOSMCuisineSeparator];
 }
 } // namespace
 
@@ -400,7 +407,7 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
       {
         Metadata::EType const fmdType = static_cast<Metadata::EType>(kMetaFieldsMap[cell.first]);
         NSAssert(fmdType > 0 && fmdType < Metadata::FMD_COUNT, @"Incorrect enum value");
-        NSString * osmCuisineStr = mwmToOSMCuisineString(@(cell.second.c_str()));
+        NSString * osmCuisineStr = makeOSMCuisineString(self.cuisines);
         metadata.Set(fmdType, osmCuisineStr.UTF8String);
         break;
       }
