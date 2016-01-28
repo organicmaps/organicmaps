@@ -22,7 +22,8 @@ struct MwmContext
   FeaturesVector m_vector;
   ScaleIndex<ModelReaderPtr> m_index;
 
-  string const & GetMwmName() const;
+  string const & GetName() const;
+  shared_ptr<MwmInfo> const & GetInfo() const;
 
   DISALLOW_COPY_AND_MOVE(MwmContext);
 };

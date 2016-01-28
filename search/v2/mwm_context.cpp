@@ -15,10 +15,8 @@ MwmContext::MwmContext(MwmSet::MwmHandle handle)
 {
 }
 
-string const & MwmContext::GetMwmName() const
-{
-  return m_id.GetInfo()->GetCountryName();
-}
+string const & MwmContext::GetName() const { return m_id.GetInfo()->GetCountryName(); }
 
+shared_ptr<MwmInfo> const & MwmContext::GetInfo() const { return m_id.GetInfo(); }
 }  // namespace v2
 }  // namespace search

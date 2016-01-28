@@ -111,10 +111,11 @@ private:
   // is used to filter maps before search.
   struct Region : public Locality
   {
-    Region(Locality const & l, RegionType type) : Locality(l), m_type(type) {}
+    Region(Locality const & l, RegionType type) : Locality(l), m_center(0, 0), m_type(type) {}
 
     storage::CountryInfoGetter::IdSet m_ids;
     string m_enName;
+    m2::PointD m_center;
     RegionType m_type;
   };
 
@@ -133,7 +134,12 @@ private:
   template <typename TLocality>
   using TLocalitiesCache = map<pair<size_t, size_t>, vector<TLocality>>;
 
-  enum { VIEWPORT_ID = -1, POSITION_ID = -2 };
+  enum
+  {
+    VIEWPORT_ID,
+    POSITION_ID,
+    CITY_ID
+  };
 
   SearchQueryParams::TSynonymsVector const & GetTokens(size_t i) const;
 
@@ -277,6 +283,9 @@ private:
 
   // Search query params prepared for retrieval.
   SearchQueryParams m_retrievalParams;
+
+  // Pointer to the most nested region filled during geocoding.
+  Region const * m_lastMatchedRegion;
 
   // Stack of layers filled during geocoding.
   vector<FeaturesLayer> m_layers;

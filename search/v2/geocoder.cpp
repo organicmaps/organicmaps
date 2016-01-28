@@ -60,7 +60,7 @@ size_t constexpr kMaxNumLocalities = kMaxNumCities + kMaxNumStates + kMaxNumCoun
 
 // List of countries we're supporting search by state. Elements of the
 // list should be valid prefixes of corresponding mwms names.
-string const kCountriesWithStates[] = {"USA_", "Canada_"};
+string const kCountriesWithStates[] = {"US_", "Canada_"};
 double constexpr kComparePoints = MercatorBounds::GetCellID2PointAbsEpsilon();
 
 template <typename T>
@@ -193,7 +193,7 @@ void GetEnglishName(FeatureType const & ft, string & name)
       continue;
     strings::AsciiToLower(name);
     if (HasAllSubstrings(name, kUSA))
-      name = "usa";
+      name = "us";
     else if (HasAllSubstrings(name, kUK))
       name = "uk";
     else
@@ -340,6 +340,7 @@ Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
   , m_matcher(nullptr)
   , m_villages(nullptr)
   , m_finder(static_cast<my::Cancellable const &>(*this))
+  , m_lastMatchedRegion(nullptr)
   , m_results(nullptr)
 {
 }
@@ -483,7 +484,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       m_context = move(context);
       MY_SCOPE_GUARD(cleanup, [&]()
                      {
-                       LOG(LDEBUG, (m_context->GetMwmName(), "processing complete."));
+                       LOG(LDEBUG, (m_context->GetName(), "processing complete."));
                        m_matcher->OnQueryFinished();
                        m_matcher = nullptr;
                        m_context.reset();
@@ -529,6 +530,8 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
                      });
 
       m_usedTokens.assign(m_numTokens, false);
+
+      m_lastMatchedRegion = nullptr;
       MatchRegions(REGION_TYPE_COUNTRY);
 
       if (index < numIntersectingMaps || m_results->empty())
@@ -709,6 +712,7 @@ void Geocoder::FillLocalitiesTable()
       if (numStates < kMaxNumStates && ft.GetFeatureType() == feature::GEOM_POINT)
       {
         Region state(l, REGION_TYPE_STATE);
+        state.m_center = ft.GetCenter();
 
         string name;
         GetEnglishName(ft, name);
@@ -735,6 +739,8 @@ void Geocoder::FillLocalitiesTable()
       if (numCountries < kMaxNumCountries && ft.GetFeatureType() == feature::GEOM_POINT)
       {
         Region country(l, REGION_TYPE_COUNTRY);
+        country.m_center = ft.GetCenter();
+
         GetEnglishName(ft, country.m_enName);
 
         m_infoGetter.GetMatchedRegions(country.m_enName, country.m_ids);
@@ -794,7 +800,7 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && 
   for (size_t i = 0; i < infos.size(); ++i)
   {
     auto const & info = infos[i];
-    if (info->GetType() != MwmInfo::COUNTRY)
+    if (info->GetType() != MwmInfo::COUNTRY && info->GetType() != MwmInfo::WORLD)
       continue;
     auto handle = m_index.GetMwmHandleById(MwmSet::MwmId(info));
     if (!handle.IsAlive())
@@ -827,7 +833,8 @@ void Geocoder::MatchRegions(RegionType type)
 
   auto const & regions = m_regions[type];
 
-  auto const & fileName = m_context->GetMwmName();
+  auto const & fileName = m_context->GetName();
+  bool const isWorld = m_context->GetInfo()->GetType() == MwmInfo::WORLD;
 
   // Try to match regions.
   for (auto const & p : regions)
@@ -839,83 +846,95 @@ void Geocoder::MatchRegions(RegionType type)
     if (HasUsedTokensInRange(startToken, endToken))
       continue;
 
-    ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
-    if (AllTokensUsed())
-    {
-      // Region matches to search query, we need to emit it as is.
-      for (auto const & region : p.second)
-        m_results->emplace_back(m_worldId, region.m_featureId);
-      continue;
-    }
-
-    bool matches = false;
     for (auto const & region : p.second)
     {
-      if (m_infoGetter.IsBelongToRegions(fileName, region.m_ids))
+      bool matches = false;
+
+      // On the World.mwm we need to check that CITY - STATE - COUNTRY
+      // form a nested sequence.  Otherwise, as mwm borders do not
+      // intersect state or country boundaries, it's enough to check
+      // that the currently processing mwm belongs to region.
+      if (isWorld)
+      {
+        matches = m_lastMatchedRegion == nullptr ||
+                  m_infoGetter.IsBelongToRegions(region.m_center, m_lastMatchedRegion->m_ids);
+      }
+      else if (m_infoGetter.IsBelongToRegions(fileName, region.m_ids))
       {
         matches = true;
-        break;
       }
-    }
 
-    if (!matches)
-      continue;
+      if (!matches)
+        continue;
 
-    switch (type)
-    {
-      case REGION_TYPE_STATE:
-        MatchCities();
-        break;
-      case REGION_TYPE_COUNTRY:
-        MatchRegions(REGION_TYPE_STATE);
-        break;
-      case REGION_TYPE_COUNT:
-        ASSERT(false, ("Invalid region type."));
-        break;
+      ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
+      if (AllTokensUsed())
+      {
+        // Region matches to search query, we need to emit it as is.
+        m_results->emplace_back(m_worldId, region.m_featureId);
+        continue;
+      }
+
+      m_lastMatchedRegion = &region;
+      MY_SCOPE_GUARD(cleanup, [this]() { m_lastMatchedRegion = nullptr; });
+      switch (type)
+      {
+        case REGION_TYPE_STATE:
+          MatchCities();
+          break;
+        case REGION_TYPE_COUNTRY:
+          MatchRegions(REGION_TYPE_STATE);
+          break;
+        case REGION_TYPE_COUNT:
+          ASSERT(false, ("Invalid region type."));
+          break;
+      }
     }
   }
 }
 
 void Geocoder::MatchCities()
 {
-  m2::RectD const countryBounds = m_context->m_value.GetHeader().GetBounds();
-
   // Localities are ordered my (m_startToken, m_endToken) pairs.
   for (auto const & p : m_cities)
   {
-    BailIfCancelled();
-
     size_t const startToken = p.first.first;
     size_t const endToken = p.first.second;
     if (HasUsedTokensInRange(startToken, endToken))
       continue;
 
-    ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
-    if (AllTokensUsed())
-    {
-      // Localities match to search query.
-      for (auto const & city : p.second)
-        m_results->emplace_back(city.m_countryId, city.m_featureId);
-      continue;
-    }
-
-    // Unites features from all localities and uses the resulting bit
-    // vector as a filter for features retrieved during geocoding.
-    CBVPtr allFeatures;
     for (auto const & city : p.second)
     {
-      m2::RectD rect = city.m_rect;
-      if (!rect.Intersect(countryBounds))
+      BailIfCancelled();
+
+      if (m_lastMatchedRegion &&
+          !m_infoGetter.IsBelongToRegions(city.m_rect.Center(), m_lastMatchedRegion->m_ids))
+      {
+        continue;
+      }
+
+      ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
+      if (AllTokensUsed())
+      {
+        // City matches to search query.
+        m_results->emplace_back(m_worldId, city.m_featureId);
+        continue;
+      }
+
+      // No need to search features in the World map.
+      if (m_context->GetInfo()->GetType() == MwmInfo::WORLD)
         continue;
 
-      allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, city.m_featureId));
+      // Unites features from all localities and uses the resulting bit
+      // vector as a filter for features retrieved during geocoding.
+      auto const * cityFeatures = RetrieveGeometryFeatures(*m_context, city.m_rect, CITY_ID);
+
+      if (coding::CompressedBitVector::IsEmpty(cityFeatures))
+        continue;
+
+      // Filter will be applied for all non-empty bit vectors.
+      LimitedSearch(cityFeatures, 0 /* filterThreshold */);
     }
-
-    if (allFeatures.IsEmpty())
-      continue;
-
-    // Filter will be applied for all non-empty bit vectors.
-    LimitedSearch(allFeatures.Get(), 0);
   }
 }
 
@@ -937,7 +956,7 @@ void Geocoder::MatchViewportAndPosition()
   }
 
   // Filter will be applied only for large bit vectors.
-  LimitedSearch(allFeatures.Get(), m_params.m_maxNumResults);
+  LimitedSearch(allFeatures.Get(), m_params.m_maxNumResults /* filterThreshold */);
 }
 
 void Geocoder::LimitedSearch(coding::CompressedBitVector const * filter, size_t filterThreshold)

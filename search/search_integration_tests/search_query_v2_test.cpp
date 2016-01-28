@@ -276,3 +276,59 @@ UNIT_TEST(SearchQueryV2_Smoke)
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 }
+
+UNIT_TEST(SearchQueryV2_SearchInWorld)
+{
+  my::ScopedLogLevelChanger const debugLogLevel(LDEBUG);
+
+  classificator::Load();
+  platform::LocalCountryFile testWorld(GetPlatform().WritableDir(),
+                                       platform::CountryFile("testWorld"), 0);
+  auto cleanup = [&]() {Cleanup(testWorld);};
+  cleanup();
+  MY_SCOPE_GUARD(cleanupAtExit, cleanup);
+
+  vector<storage::CountryDef> countries;
+  countries.emplace_back("Wonderland", m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
+
+  TestSearchEngine engine("en", make_unique<storage::CountryInfoGetterForTesting>(countries),
+                          make_unique<TestSearchQueryFactory>());
+
+  auto const wonderland = make_shared<TestCountry>(m2::PointD(0, 0), "Wonderland", "en");
+  auto const losAlamos =
+      make_shared<TestCity>(m2::PointD(0, 0), "Los Alamos", "en", 100 /* rank */);
+
+  {
+    TestMwmBuilder builder(testWorld, feature::DataHeader::world);
+    builder.Add(*wonderland);
+    builder.Add(*losAlamos);
+  }
+
+  auto const result = engine.RegisterMap(testWorld);
+  TEST_EQUAL(result.second, MwmSet::RegResult::Success, ());
+
+  auto worldId = result.first;
+
+  m2::RectD const viewport(m2::PointD(-1.0, -1.0), m2::PointD(-0.5, -0.5));
+  {
+    TestSearchRequest request(engine, "Los Alamos", "en", search::SearchParams::ALL, viewport);
+    request.Wait();
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(worldId, losAlamos)};
+    TEST(MatchResults(engine, rules, request.Results()), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "Wonderland", "en", search::SearchParams::ALL, viewport);
+    request.Wait();
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(worldId, wonderland)};
+    TEST(MatchResults(engine, rules, request.Results()), ());
+  }
+
+  {
+    TestSearchRequest request(engine, "Wonderland Los Alamos", "en", search::SearchParams::ALL,
+                              viewport);
+    request.Wait();
+    vector<shared_ptr<MatchingRule>> rules = {make_shared<ExactMatch>(worldId, losAlamos)};
+    TEST(MatchResults(engine, rules, request.Results()), ());
+  }
+}

@@ -86,7 +86,10 @@ bool Result::HasPoint() const
 
 FeatureID Result::GetFeatureID() const
 {
-  ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
+#if defined(DEBUG)
+  auto const type = GetResultType();
+  ASSERT(type == RESULT_FEATURE || type == RESULT_SUGGEST_FROM_FEATURE, (type));
+#endif
   return m_id;
 }
 
