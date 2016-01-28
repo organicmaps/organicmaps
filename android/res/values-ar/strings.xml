@@ -843,4 +843,12 @@
 	<string name="editor_example_values">أمثلة على القيم</string>
 	<string name="editor_correct_mistake">تصحيح الخطأ</string>
 	<string name="editor_correct_mistake_message">قمت بخطأ في التحرير. يرجى تصحيح الخطأ أو التبديل إلى الوضع البسيط.</string>
+	<string name="migrate_title">هام!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">لقد قسمنا الخرائط إلى أجزاء. الآن يمكنك تنزيل مناطق منفصلة، وليس البلد بأكمله. قبل البدء في تنزيل الخرائط الجديدة، يرجى إزالة النسخ القديمة.</string>
+	<string name="youve_been_asking">لقد طلبتم ذلك، وها نحن قد لبينا طلبكم</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">تنزيل الكل</string>
+	<string name="delete_all">حذف الكل</string>
+	<string name="autodownload">التنزيل التلقائي</string>
 </resources>

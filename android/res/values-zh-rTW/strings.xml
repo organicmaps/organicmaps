@@ -825,4 +825,12 @@
 	<string name="editor_example_values">範例值</string>
 	<string name="editor_correct_mistake">修正錯誤</string>
 	<string name="editor_correct_mistake_message">編輯時出錯。請修正或切換到簡易模式。</string>
+	<string name="migrate_title">重要！</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。您在開始下載新地圖前，請刪除老地圖。</string>
+	<string name="youve_been_asking">您一直在尋求，而我們已經完成</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">全部下載。</string>
+	<string name="delete_all">刪除全部</string>
+	<string name="autodownload">自動下載</string>
 </resources>

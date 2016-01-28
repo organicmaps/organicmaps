@@ -1383,4 +1383,14 @@
 
 "migrate_title" = "Important!";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă. Înainte de a începe să descărcați hărți noi, vă rugăm să le ștergeți pe cele vechi.";
+
+"youve_been_asking" = "Ne-ați cerut, iar noi am făcut";
+
+/* Android uses image instead of text. */
+"download_all" = "Descarcă toate";
+
+"delete_all" = "Ștergere toate";
+
+"autodownload" = "Descărcare automată";

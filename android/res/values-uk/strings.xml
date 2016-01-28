@@ -842,4 +842,12 @@
 	<string name="editor_example_values">Приклади значень</string>
 	<string name="editor_correct_mistake">Виправте помилку</string>
 	<string name="editor_correct_mistake_message">Під час редагування часу роботи ви зробили помилку. Виправте її або перейдіть у простий режим.</string>
+	<string name="migrate_title">Важливо!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Ми поділили великі мапи на частини: тепер можна завантажити необхідну область окремо від всієї країни. Перед тим як розпочати завантажувати зменьшені мапи, будь ласка, видаліть всі старі.</string>
+	<string name="youve_been_asking">Ви просили і ми це зробили</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Завантажити всі</string>
+	<string name="delete_all">Видалити всі</string>
+	<string name="autodownload">Автоматичне завантаження</string>
 </resources>

@@ -841,4 +841,12 @@
 	<string name="editor_example_values">Exempelvärden</string>
 	<string name="editor_correct_mistake">Korrigera fel</string>
 	<string name="editor_correct_mistake_message">Du har gjort ett fel i redigeringen. Var vänlig korrigera det eller byt till enkelt läge.</string>
+	<string name="migrate_title">Viktigt!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet. Innan du börjar ladda ner nya kartor, ta bort de gamla.</string>
+	<string name="youve_been_asking">Du har bett om det och vi har gjort det</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Ladda ner alla</string>
+	<string name="delete_all">Radera alla</string>
+	<string name="autodownload">Automatisk nedladdning</string>
 </resources>

@@ -839,4 +839,12 @@
 	<string name="editor_example_values">Giá trị ví dụ</string>
 	<string name="editor_correct_mistake">Sửa lỗi</string>
 	<string name="editor_correct_mistake_message">Bạn đã mắc lỗi chỉnh sửa. Vui lòng sửa lỗi hoặc chuyển qua chế độ đơn giản.</string>
+	<string name="migrate_title">Quan trọng!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia. Trước khi bạn bắt đầu tải những bản đồ mới, hãy loại bỏ những cái cũ.</string>
+	<string name="youve_been_asking">Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Tải về tất cả</string>
+	<string name="delete_all">Xóa tất cả</string>
+	<string name="autodownload">Tự động tải về</string>
 </resources>

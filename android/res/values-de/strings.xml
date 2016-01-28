@@ -861,4 +861,12 @@
 	<string name="editor_example_values">Beispiele</string>
 	<string name="editor_correct_mistake">Fehler korrigieren</string>
 	<string name="editor_correct_mistake_message">Es ist ein Bearbeitungsfehler aufgetreten. Bitte korrigieren oder zum Einfachmodus wechseln.</string>
+	<string name="migrate_title">Wichtig!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Wir haben die Karten aufgeteilt. Jetzt können Sie einzelne Regionen herunterladen, ohne das ganze Land herunterzuladen. Bevor Sie damit beginnen, neue Karten herunterzuladen, löschen Sie bitte Ihre alten Karten.</string>
+	<string name="youve_been_asking">Sie haben darum gebeten, und wir haben es geschafft</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Alle herunterladen</string>
+	<string name="delete_all">Alle löschen</string>
+	<string name="autodownload">Automatisch Herunterladen</string>
 </resources>

@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "Pengeditan salah. Koreksi atau ubah ke mode sederhana.";
 
-"migrate_title" = "Important!";
+"migrate_title" = "Penting!";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara. Sebelum Anda mulai mengunduh peta-peta baru, harap menghapus peta-peta yang lama.";
+
+"youve_been_asking" = "Anda memintanya dan kami telah malakukannya";
+
+/* Android uses image instead of text. */
+"download_all" = "Unduh semua";
+
+"delete_all" = "Hapus semua";
+
+"autodownload" = "Unduhan otomatis";

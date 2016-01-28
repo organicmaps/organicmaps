@@ -840,4 +840,12 @@
 	<string name="editor_example_values">Példa értékek</string>
 	<string name="editor_correct_mistake">Hiba javítása</string>
 	<string name="editor_correct_mistake_message">Szerkesztési hibát vétett. Javítsa ki vagy váltson egyszerű módba.</string>
+	<string name="migrate_title">Fontos!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Felosztottuk részekre a térképeket. Mostantól az egyes régiókat is letöltheted, nem csak az egész országot. Az új térképek letöltése előtt kérjük, távolítsd el a régieket.</string>
+	<string name="youve_been_asking">Te kérted, mi elkészítettük</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Összes letöltése</string>
+	<string name="delete_all">Összes térkép törlése</string>
+	<string name="autodownload">Automatikus letöltés</string>
 </resources>

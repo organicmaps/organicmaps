@@ -836,4 +836,12 @@
 	<string name="editor_example_values">Valori esemplificativi</string>
 	<string name="editor_correct_mistake">Correggi errore</string>
 	<string name="editor_correct_mistake_message">Hai commesso un errore nella modifica. Correggerlo o passare alla modalità semplice.</string>
+	<string name="migrate_title">Importante!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Abbiamo diviso le mappe in parti. Ora puoi scaricare le regioni separate, non l\&#39;intero paese. Prima di iniziare lo scaricamento di nuove mappe, elimina quelle vecchie.</string>
+	<string name="youve_been_asking">Ce lo avete chiesto e noi lo abbiamo fatto</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Scarica tutto</string>
+	<string name="delete_all">Elimina tutti</string>
+	<string name="autodownload">Scaricamento automatico</string>
 </resources>

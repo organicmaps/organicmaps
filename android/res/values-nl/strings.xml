@@ -829,4 +829,12 @@
 	<string name="editor_example_values">Voorbeeldwaarden</string>
 	<string name="editor_correct_mistake">Fout corrigeren</string>
 	<string name="editor_correct_mistake_message">U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.</string>
+	<string name="migrate_title">Belangrijk!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio\&#39;s downloaden in plaats van het hele land. Verwijder eerst de oude kaarten voordat uw nieuwe gaat downloaden.</string>
+	<string name="youve_been_asking">Op veler verzoek hebben we het voor elkaar gekregen</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Alles downloaden</string>
+	<string name="delete_all">Alles verwijderen</string>
+	<string name="autodownload">Automatische download</string>
 </resources>

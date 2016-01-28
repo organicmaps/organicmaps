@@ -836,4 +836,12 @@
 	<string name="editor_example_values">Exemple de valori</string>
 	<string name="editor_correct_mistake">Corectare greșeală</string>
 	<string name="editor_correct_mistake_message">Ați efectuat o eroare de editare. Corectați eroarea sau treceți în modul Simplu.</string>
+	<string name="migrate_title">Important!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă. Înainte de a începe să descărcați hărți noi, vă rugăm să le ștergeți pe cele vechi.</string>
+	<string name="youve_been_asking">Ne-ați cerut, iar noi am făcut</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Descarcă toate</string>
+	<string name="delete_all">Ștergere toate</string>
+	<string name="autodownload">Descărcare automată</string>
 </resources>

@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "Bạn đã mắc lỗi chỉnh sửa. Vui lòng sửa lỗi hoặc chuyển qua chế độ đơn giản.";
 
-"migrate_title" = "Important!";
+"migrate_title" = "Quan trọng!";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia. Trước khi bạn bắt đầu tải những bản đồ mới, hãy loại bỏ những cái cũ.";
+
+"youve_been_asking" = "Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó";
+
+/* Android uses image instead of text. */
+"download_all" = "Tải về tất cả";
+
+"delete_all" = "Xóa tất cả";
+
+"autodownload" = "Tự động tải về";

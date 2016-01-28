@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen malliin.";
 
-"migrate_title" = "Important!";
+"migrate_title" = "Tärkeää!";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "Olemme jakaneet kartat osiin, joten voitkin nyt ladata pelkkiä alueita lataamatta koko maan karttaa. Ennen uusien karttojen lataamista tulee sinun kuitenkin poistaa vanhat kartat laitteeltasi.";
+
+"youve_been_asking" = "Sitä on pyydetty, ja nyt se on tarjolla";
+
+/* Android uses image instead of text. */
+"download_all" = "Lataa kaikki";
+
+"delete_all" = "Poista kaikki";
+
+"autodownload" = "Lataa automaattisesti";

@@ -840,4 +840,12 @@
 	<string name="editor_example_values">Przykładowe wartości</string>
 	<string name="editor_correct_mistake">Popraw błąd</string>
 	<string name="editor_correct_mistake_message">Popełniono błąd podczas edycji. Popraw go lub przełącz się na tryb prosty.</string>
+	<string name="migrate_title">Ważne!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Podzieliliśmy mapy na części. Teraz możesz pobierać oddzielne regiony, zamiast całego kraju. Zanim rozpoczniesz pobieranie nowych map, usuń te stare.</string>
+	<string name="youve_been_asking">Prosiliście o to, więc to zrobiliśmy</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Pobierz wszystko</string>
+	<string name="delete_all">Usuń wszystkie</string>
+	<string name="autodownload">Automatyczne pobieranie</string>
 </resources>

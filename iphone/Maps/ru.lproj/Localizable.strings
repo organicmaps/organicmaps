@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.";
 
-"migrate_title" = "Important!";
+"migrate_title" = "Важно!";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "Мы разрезали большие карты на части: теперь можно загрузить только нужную область, а не всю страну целиком. Прежде чем начать загружать маленькие карты, пожалуйста, удалите все старые.";
+
+"youve_been_asking" = "Вы долго просили — мы наконец сделали";
+
+/* Android uses image instead of text. */
+"download_all" = "Загрузить все";
+
+"delete_all" = "Удалить все";
+
+"autodownload" = "Автоматическая загрузка";

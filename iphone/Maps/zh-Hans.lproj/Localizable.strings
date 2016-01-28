@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "出现编辑错误，请纠正或切换至简单模式。";
 
-"migrate_title" = "Important!";
+"migrate_title" = "重要！";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "我们将地图分成了几部分。现在，您可以下载独立的区域，而不是整个国家。在开始下载新地图前，请删除旧地图。";
+
+"youve_been_asking" = "我们满足了您一直以来的要求";
+
+/* Android uses image instead of text. */
+"download_all" = "下载所有";
+
+"delete_all" = "删除全部";
+
+"autodownload" = "自动下载";

@@ -846,4 +846,12 @@
 	<string name="editor_example_values">Vzorové hodnoty</string>
 	<string name="editor_correct_mistake">Opravit chybu</string>
 	<string name="editor_correct_mistake_message">Při úpravách jste udělali chybu. Opravte ji prosím, nebo přepněte do jednoduchého režimu.</string>
+	<string name="migrate_title">Důležité!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země. Než začnete stahovat nové mapy, prosím, odstraňte ty staré.</string>
+	<string name="youve_been_asking">Říkali jste si o to, a my to udělali</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Stáhnout vše</string>
+	<string name="delete_all">Odstranit vše</string>
+	<string name="autodownload">Automaticky stahovat</string>
 </resources>

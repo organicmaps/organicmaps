@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "Hai commesso un errore nella modifica. Correggerlo o passare alla modalità semplice.";
 
-"migrate_title" = "Important!";
+"migrate_title" = "Importante!";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "Abbiamo diviso le mappe in parti. Ora puoi scaricare le regioni separate, non l'intero paese. Prima di iniziare lo scaricamento di nuove mappe, elimina quelle vecchie.";
+
+"youve_been_asking" = "Ce lo avete chiesto e noi lo abbiamo fatto";
+
+/* Android uses image instead of text. */
+"download_all" = "Scarica tutto";
+
+"delete_all" = "Elimina tutti";
+
+"autodownload" = "Scaricamento automatico";

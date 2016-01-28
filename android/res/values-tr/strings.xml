@@ -843,4 +843,12 @@
 	<string name="editor_example_values">Örnek Değerler</string>
 	<string name="editor_correct_mistake">Hatayı düzelt</string>
 	<string name="editor_correct_mistake_message">Bir düzenleme hatası yaptınız. Lütfen düzeltin veya basit moda geçin.</string>
+	<string name="migrate_title">Önemli!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz. Yeni haritaları indirmeden önce lütfen eski haritaları kaldırın.</string>
+	<string name="youve_been_asking">Siz istediniz biz yaptık</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Tümünü indir</string>
+	<string name="delete_all">Tümünü sil</string>
+	<string name="autodownload">Otomatik indir</string>
 </resources>

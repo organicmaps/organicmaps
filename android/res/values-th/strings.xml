@@ -841,4 +841,12 @@
 	<string name="editor_example_values">ตัวอย่างของค่าที่ตั้งไว้</string>
 	<string name="editor_correct_mistake">แก้ไขข้อผิดพลาด</string>
 	<string name="editor_correct_mistake_message">มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย</string>
+	<string name="migrate_title">สำคัญ!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว ไม่ต้องโหลดทุกประเทศ ก่อนที่คุณจะเริ่มการดาวน์โหลดแผนที่ใหม่ ขอความกรุณาลบแผนที่อันเก่าออกไปก่อน</string>
+	<string name="youve_been_asking">คุณได้ขอมา เราจึงทำมัน</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">ดาวน์โหลดทั้งหมด</string>
+	<string name="delete_all">ลบทั้งหมด</string>
+	<string name="autodownload">ดาวน์โหลดอัตโนมัติ</string>
 </resources>

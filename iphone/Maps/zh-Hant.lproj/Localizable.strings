@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "編輯時出錯。請修正或切換到簡易模式。";
 
-"migrate_title" = "Important!";
+"migrate_title" = "重要！";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。您在開始下載新地圖前，請刪除老地圖。";
+
+"youve_been_asking" = "您一直在尋求，而我們已經完成";
+
+/* Android uses image instead of text. */
+"download_all" = "全部下載。";
+
+"delete_all" = "刪除全部";
+
+"autodownload" = "自動下載";

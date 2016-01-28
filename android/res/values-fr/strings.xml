@@ -850,4 +850,12 @@
 	<string name="editor_example_values">Exemple de valeurs</string>
 	<string name="editor_correct_mistake">Corriger l\&#39;erreur</string>
 	<string name="editor_correct_mistake_message">Vous avez fait une erreur d\&#39;édition. Veuillez la corriger ou passer en mode simple.</string>
+	<string name="migrate_title">Important !</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Nous avons divisé la carte en plusieurs parties. Désormais, vous pouvez télécharger des régions bien précises, et non plus le pays tout entier. Avant de commencer à télécharger de nouvelles cartes , veillez à effacer les anciennes.</string>
+	<string name="youve_been_asking">Vous avez été nombreux à nous le demander et nous avons satisfait votre requête.</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Tout télécharger</string>
+	<string name="delete_all">Supprimer tout</string>
+	<string name="autodownload">Téléchargement automatique</string>
 </resources>

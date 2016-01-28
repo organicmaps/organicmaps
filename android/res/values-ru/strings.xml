@@ -874,4 +874,12 @@
 	<string name="editor_example_values">Примеры значений</string>
 	<string name="editor_correct_mistake">Исправьте ошибку</string>
 	<string name="editor_correct_mistake_message">При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.</string>
+	<string name="migrate_title">Важно!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Мы разрезали большие карты на части: теперь можно загрузить только нужную область, а не всю страну целиком. Прежде чем начать загружать маленькие карты, пожалуйста, удалите все старые.</string>
+	<string name="youve_been_asking">Вы долго просили — мы наконец сделали</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Загрузить все</string>
+	<string name="delete_all">Удалить все</string>
+	<string name="autodownload">Автоматическая загрузка</string>
 </resources>

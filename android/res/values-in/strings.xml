@@ -838,4 +838,12 @@
 	<string name="editor_example_values">Contoh Nilai</string>
 	<string name="editor_correct_mistake">Koreksi kesalahan</string>
 	<string name="editor_correct_mistake_message">Pengeditan salah. Koreksi atau ubah ke mode sederhana.</string>
+	<string name="migrate_title">Penting!</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara. Sebelum Anda mulai mengunduh peta-peta baru, harap menghapus peta-peta yang lama.</string>
+	<string name="youve_been_asking">Anda memintanya dan kami telah malakukannya</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Unduh semua</string>
+	<string name="delete_all">Hapus semua</string>
+	<string name="autodownload">Unduhan otomatis</string>
 </resources>

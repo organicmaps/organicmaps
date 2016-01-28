@@ -836,4 +836,12 @@
 	<string name="editor_example_values">値の例</string>
 	<string name="editor_correct_mistake">間違いの訂正</string>
 	<string name="editor_correct_mistake_message">編集の間違いがあります。訂正するか、シンプルモードに切り替えてください。</string>
+	<string name="migrate_title">重要！</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">マップを分割し、国全体でなく個別の地域をダウンロードできるようにしました。新しいマップをダウンロードする前に、古いものを削除してください。</string>
+	<string name="youve_been_asking">皆様のご要望にお応えして、実現を果たしました</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">全てをダウンロード</string>
+	<string name="delete_all">すべて削除</string>
+	<string name="autodownload">自動ダウンロード</string>
 </resources>

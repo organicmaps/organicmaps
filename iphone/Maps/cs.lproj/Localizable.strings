@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "Při úpravách jste udělali chybu. Opravte ji prosím, nebo přepněte do jednoduchého režimu.";
 
-"migrate_title" = "Important!";
+"migrate_title" = "Důležité!";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země. Než začnete stahovat nové mapy, prosím, odstraňte ty staré.";
+
+"youve_been_asking" = "Říkali jste si o to, a my to udělali";
+
+/* Android uses image instead of text. */
+"download_all" = "Stáhnout vše";
+
+"delete_all" = "Odstranit vše";
+
+"autodownload" = "Automaticky stahovat";

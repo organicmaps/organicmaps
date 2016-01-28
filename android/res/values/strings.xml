@@ -879,5 +879,11 @@
 	<string name="editor_correct_mistake">Correct mistake</string>
 	<string name="editor_correct_mistake_message">You made an editing mistake. Please correct it or switch to simple mode.</string>
 	<string name="migrate_title">Important!</string>
-	<string name="migrate_subtitle">In order to support new data format we have to erase installed maps. Then you should download maps again.</string>
+	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
+	<string name="migrate_and_split_mwms_message">We have divided maps into parts. Now you can download separate regions, not the whole country. Before you start downloading new maps, please remove the old ones.</string>
+	<string name="youve_been_asking">Important!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Download all</string>
+	<string name="delete_all">Delete all</string>
+	<string name="autodownload">Auto-download</string>
 </resources>

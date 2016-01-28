@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "Du har lavet en redigeringsfejl. Ret den, eller skift til enkel tilstand.";
 
-"migrate_title" = "Important!";
+"migrate_title" = "Vigtigt!";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "Vi har delt kort op i dele. Nu kan man downloade separate regioner, ikke hele landet. Før du begynder på at downloade nye kort, så venligst fjern de gamle.";
+
+"youve_been_asking" = "I har bedt om det, og vi har gjort det";
+
+/* Android uses image instead of text. */
+"download_all" = "Download alle";
+
+"delete_all" = "Slet alle";
+
+"autodownload" = "Automatisk download";

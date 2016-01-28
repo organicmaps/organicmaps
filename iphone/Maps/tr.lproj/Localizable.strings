@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "Bir düzenleme hatası yaptınız. Lütfen düzeltin veya basit moda geçin.";
 
-"migrate_title" = "Important!";
+"migrate_title" = "Önemli!";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz. Yeni haritaları indirmeden önce lütfen eski haritaları kaldırın.";
+
+"youve_been_asking" = "Siz istediniz biz yaptık";
+
+/* Android uses image instead of text. */
+"download_all" = "Tümünü indir";
+
+"delete_all" = "Tümünü sil";
+
+"autodownload" = "Otomatik indir";

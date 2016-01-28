@@ -1381,6 +1381,16 @@
 
 "editor_correct_mistake_message" = "U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.";
 
-"migrate_title" = "Important!";
+"migrate_title" = "Belangrijk!";
 
-"migrate_subtitle" = "In order to support new data format we have to erase installed maps. Then you should download maps again.";
+/* Used in 2 places: What's new and Delete All maps dialog. */
+"migrate_and_split_mwms_message" = "We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio's downloaden in plaats van het hele land. Verwijder eerst de oude kaarten voordat uw nieuwe gaat downloaden.";
+
+"youve_been_asking" = "Op veler verzoek hebben we het voor elkaar gekregen";
+
+/* Android uses image instead of text. */
+"download_all" = "Alles downloaden";
+
+"delete_all" = "Alles verwijderen";
+
+"autodownload" = "Automatische download";
