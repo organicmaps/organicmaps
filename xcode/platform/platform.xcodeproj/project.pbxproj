@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		670E8C751BB318AB00094197 /* platform_ios.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E8C731BB318AB00094197 /* platform_ios.hpp */; };
 		670E8C761BB318AB00094197 /* platform_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C741BB318AB00094197 /* platform_ios.mm */; };
 		670E8C911BB31A2F00094197 /* ios_video_timer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C901BB31A2F00094197 /* ios_video_timer.mm */; };
 		671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C62041AE9014C00076BD0 /* measurement_utils.cpp */; };
@@ -98,7 +97,6 @@
 
 /* Begin PBXFileReference section */
 		670D05A71B0E03BF0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
-		670E8C731BB318AB00094197 /* platform_ios.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = platform_ios.hpp; sourceTree = "<group>"; };
 		670E8C741BB318AB00094197 /* platform_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = platform_ios.mm; sourceTree = "<group>"; };
 		670E8C901BB31A2F00094197 /* ios_video_timer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ios_video_timer.mm; sourceTree = "<group>"; };
 		671C62041AE9014C00076BD0 /* measurement_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = measurement_utils.cpp; sourceTree = "<group>"; };
@@ -321,7 +319,6 @@
 				675343971A3F5D5A00A0A8C3 /* location.hpp */,
 				675343981A3F5D5A00A0A8C3 /* platform_android.cpp */,
 				6753439A1A3F5D5A00A0A8C3 /* platform_linux.cpp */,
-				670E8C731BB318AB00094197 /* platform_ios.hpp */,
 				670E8C741BB318AB00094197 /* platform_ios.mm */,
 				6753439B1A3F5D5A00A0A8C3 /* platform_mac.mm */,
 				6753439C1A3F5D5A00A0A8C3 /* platform_qt.cpp */,
@@ -384,7 +381,6 @@
 				6741250D1B4C00CC00A3E828 /* local_country_file_utils.hpp in Headers */,
 				675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */,
 				671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */,
-				670E8C751BB318AB00094197 /* platform_ios.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,6 +764,7 @@
 				675340E21C58C405002CF0D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		675340F11C58C496002CF0D9 /* Build configuration list for PBXNativeTarget "platform_tests_support" */ = {
 			isa = XCConfigurationList;
@@ -776,6 +773,7 @@
 				675340F31C58C496002CF0D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		675343731A3F5CF500A0A8C3 /* Build configuration list for PBXProject "platform" */ = {
 			isa = XCConfigurationList;
