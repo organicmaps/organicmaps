@@ -627,6 +627,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
   {
     [self.alertController presentNeedMigrationAlertWithOkBlock:^
     {
+      [self.controlsManager routingHidden];
       GetFramework().Migrate();
       block();
     }];
