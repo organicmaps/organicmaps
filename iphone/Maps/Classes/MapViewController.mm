@@ -598,7 +598,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
   {
     if (platform::migrate::NeedMigrate())
       return;
-    bool autoDownloadEnabled = false;
+    bool autoDownloadEnabled = true;
     (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
     if (autoDownloadEnabled && Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI)
       GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(idx, MapOptions::MapWithCarRouting);

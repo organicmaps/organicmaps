@@ -134,11 +134,11 @@ typedef NS_ENUM(NSUInteger, Section)
     // Auto download
     case 2:
     {
-      bool autoDownloadEnabled = false;
+      bool autoDownloadEnabled = true;
       (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = static_cast<SwitchCell *>(cell);
-      customCell.titleLabel.text = L(@"pref_auto_download_title");
+      customCell.titleLabel.text = L(@"mwm_autodownload");
       customCell.switchButton.on = autoDownloadEnabled;
       customCell.delegate = self;
       break;
