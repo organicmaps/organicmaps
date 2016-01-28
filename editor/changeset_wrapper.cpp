@@ -58,7 +58,6 @@ XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & ce
   // Throws!
   LoadXmlFromOSM(ll, doc);
 
-  // feature must be the original one, not patched!
   pugi::xml_node const bestNode = GetBestOsmNode(doc, ll);
   if (bestNode.empty())
     MYTHROW(OsmObjectWasDeletedException,
@@ -77,7 +76,6 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(set<m2::PointD> const
     // Throws!
     LoadXmlFromOSM(ll, doc);
 
-    // TODO(AlexZ): Select best matching OSM way from possible many ways.
     pugi::xml_node const bestWay = GetBestOsmWay(doc, geometry);
     if (bestWay.empty())
       continue;
@@ -86,7 +84,8 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(set<m2::PointD> const
     if (!way.IsArea())
       continue;
 
-    // TODO: Check that this way is really match our feature.
+    // AlexZ: TODO: Check that this way is really match our feature.
+    // If we had some way to check it, why not to use it in selecting our feature?
 
     return way;
   }

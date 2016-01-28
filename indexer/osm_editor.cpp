@@ -262,6 +262,9 @@ XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw,
       geometry.insert(p1);
       geometry.insert(p2);
       geometry.insert(p3);
+      // Warning: geometry is cached in FeatureTyped. So if it wasn't BEST_GEOMETRY
+      // We can never have it. Features here came from editors loader and should
+      // have BEST_GEOMETRY geometry.
     }, FeatureType::BEST_GEOMETRY);
 
     ASSERT_GREATER_OR_EQUAL(geometry.size(), 3, ("Is it an area feature?"));

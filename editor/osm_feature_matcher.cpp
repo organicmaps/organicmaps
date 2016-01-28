@@ -4,16 +4,18 @@
 
 namespace osm
 {
+double constexpr kPointDiffEps = MercatorBounds::GetCellID2PointAbsEpsilon();
+
 bool LatLonEqual(ms::LatLon const & a, ms::LatLon const & b)
 {
-  double constexpr eps = MercatorBounds::GetCellID2PointAbsEpsilon();
-  return a.EqualDxDy(b, eps);
+  return a.EqualDxDy(b, kPointDiffEps);
 }
 
 double ScoreLatLon(XMLFeature const & xmlFt, ms::LatLon const & latLon)
 {
-  // TODO: Find proper score values;
-  return LatLonEqual(latLon, xmlFt.GetCenter()) ? 10 : -10;
+  auto const a = MercatorBounds::FromLatLon(xmlFt.GetCenter());
+  auto const b = MercatorBounds::FromLatLon(latLon);
+  return 1.0 - (a.Length(b) / kPointDiffEps);
 }
 
 double ScoreGeometry(pugi::xml_document const & osmResponse, pugi::xml_node const & way,
@@ -31,7 +33,7 @@ double ScoreGeometry(pugi::xml_document const & osmResponse, pugi::xml_node cons
   {
     ++total;
     string const nodeRef = xNodeRef.attribute().value();
-    auto const node = osmResponse.select_node(("node[@ref='" + nodeRef + "']").data()).node();
+    auto const node = osmResponse.select_node(("osm/node[@id='" + nodeRef + "']").data()).node();
     if (!node)
     {
       LOG(LDEBUG, ("OSM response have ref", nodeRef,
@@ -46,92 +48,13 @@ double ScoreGeometry(pugi::xml_document const & osmResponse, pugi::xml_node cons
       {
         ++matched;
         geometry.erase(pointIt);
+        break;
       }
     }
   }
 
-  return static_cast<double>(matched) / total * 100;
+  return static_cast<double>(matched) / total - 0.5;
 }
-
-// double ScoreNames(XMLFeature const & xmlFt, StringUtf8Multilang const & names)
-// {
-//   double score = 0;
-//   names.ForEach([&score, &xmlFt](uint8_t const langCode, string const & name)
-//                 {
-//                   if (xmlFt.GetName(langCode) == name)
-//                     score += 1;
-//                   return true;
-//                 });
-
-//   // TODO(mgsergio): Deafult name match should have greater wieght. Should it?
-
-//   return score;
-// }
-
-// vector<string> GetOsmOriginalTagsForType(feature::Metadata::EType const et)
-// {
-//   static multimap<feature::Metadata::EType, string> const kFmd2Osm = {
-//     {feature::Metadata::EType::FMD_CUISINE, "cuisine"},
-//     {feature::Metadata::EType::FMD_OPEN_HOURS, "opening_hours"},
-//     {feature::Metadata::EType::FMD_PHONE_NUMBER, "phone"},
-//     {feature::Metadata::EType::FMD_PHONE_NUMBER, "contact:phone"},
-//     {feature::Metadata::EType::FMD_FAX_NUMBER, "fax"},
-//     {feature::Metadata::EType::FMD_FAX_NUMBER, "contact:fax"},
-//     {feature::Metadata::EType::FMD_STARS, "stars"},
-//     {feature::Metadata::EType::FMD_OPERATOR, "operator"},
-//     {feature::Metadata::EType::FMD_URL, "url"},
-//     {feature::Metadata::EType::FMD_WEBSITE, "website"},
-//     {feature::Metadata::EType::FMD_WEBSITE, "contact:website"},
-//     // TODO: {feature::Metadata::EType::FMD_INTERNET, ""},
-//     {feature::Metadata::EType::FMD_ELE, "ele"},
-//     {feature::Metadata::EType::FMD_TURN_LANES, "turn:lanes"},
-//     {feature::Metadata::EType::FMD_TURN_LANES_FORWARD, "turn:lanes:forward"},
-//     {feature::Metadata::EType::FMD_TURN_LANES_BACKWARD, "turn:lanes:backward"},
-//     {feature::Metadata::EType::FMD_EMAIL, "email"},
-//     {feature::Metadata::EType::FMD_EMAIL, "contact:email"},
-//     {feature::Metadata::EType::FMD_POSTCODE, "addr:postcode"},
-//     {feature::Metadata::EType::FMD_WIKIPEDIA, "wikipedia"},
-//     {feature::Metadata::EType::FMD_MAXSPEED, "maxspeed"},
-//     {feature::Metadata::EType::FMD_FLATS, "addr:flats"},
-//     {feature::Metadata::EType::FMD_HEIGHT, "height"},
-//     {feature::Metadata::EType::FMD_MIN_HEIGHT, "min_height"},
-//     {feature::Metadata::EType::FMD_MIN_HEIGHT, "building:min_level"},
-//     {feature::Metadata::EType::FMD_DENOMINATION, "denomination"},
-//     {feature::Metadata::EType::FMD_BUILDING_LEVELS, "building:levels"},
-//   };
-
-//   vector<string> result;
-//   auto const range = kFmd2Osm.equal_range(et);
-//   for (auto it = range.first; it != range.second; ++it)
-//     result.emplace_back(it->second);
-
-//   return result;
-// }
-
-// double ScoreMetadata(XMLFeature const & xmlFt, feature::Metadata const & metadata)
-// {
-//   double score = 0;
-
-//   for (auto const type : metadata.GetPresentTypes())
-//   {
-//     for (auto const osm_tag : GetOsmOriginalTagsForType(static_cast<feature::Metadata::EType>(type)))
-//     {
-//       if (xmlFt.GetTagValue(osm_tag) == metadata.Get(type))
-//       {
-//         score += 1;
-//         break;
-//       }
-//     }
-//   }
-
-//   return score;
-// }
-
-// bool TypesEqual(XMLFeature const & xmlFt, feature::TypesHolder const & types)
-// {
-//   // TODO: Use mapcss-mapping.csv to correctly match types.
-//   return true;
-// }
 
 pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon const latLon)
 {
@@ -144,6 +67,7 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
     {
       XMLFeature xmlFt(xNode.node());
 
+      // TODO:
       // if (!TypesEqual(xmlFt, feature::TypesHolder(ft)))
       //   continue;
 
@@ -151,6 +75,7 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
       if (nodeScore < 0)
         continue;
 
+      // TODO:
       // nodeScore += ScoreNames(xmlFt, ft.GetNames());
       // nodeScore += ScoreMetadata(xmlFt, ft.GetMetadata());
 
@@ -167,8 +92,8 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
     }
   }
 
-  // TODO(mgsergio): Add a properly defined threshold.
-  // if (bestScore < minimumScoreThreshold)
+  // TODO(mgsergio): Add a properly defined threshold when more fields will be compared.
+  // if (bestScore < kMiniScoreThreshold)
   //   return pugi::xml_node;
 
   return bestMatchNode;
@@ -185,6 +110,7 @@ pugi::xml_node GetBestOsmWay(pugi::xml_document const & osmResponse, set<m2::Poi
     {
       XMLFeature xmlFt(xWay.node());
 
+      // TODO:
       // if (!TypesEqual(xmlFt, feature::TypesHolder(ft)))
       //   continue;
 
@@ -192,6 +118,7 @@ pugi::xml_node GetBestOsmWay(pugi::xml_document const & osmResponse, set<m2::Poi
       if (nodeScore < 0)
         continue;
 
+      // TODO:
       // nodeScore += ScoreNames(xmlFt, ft.GetNames());
       // nodeScore += ScoreMetadata(xmlFt, ft.GetMetadata());
 
@@ -208,8 +135,8 @@ pugi::xml_node GetBestOsmWay(pugi::xml_document const & osmResponse, set<m2::Poi
     }
   }
 
-  // TODO(mgsergio): Add a properly defined threshold.
-  // if (bestScore < minimumScoreThreshold)
+  // TODO(mgsergio): Add a properly defined threshold when more fields will be compared.
+  // if (bestScore < kMiniScoreThreshold)
   //   return pugi::xml_node;
 
   return bestMatchWay;
