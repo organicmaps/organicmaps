@@ -16,6 +16,7 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
 
 public class DownloadFragment extends BaseMwmListFragment implements View.OnClickListener, ActiveCountryTree.ActiveCountryListener, OnBackPressListener
 {
@@ -251,6 +252,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
       break;
 
     case R.id.download_all:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MAP_DOWNLOAD_ALL);
       CountryTree.downloadGroup();
       getDownloadAdapter().notifyDataSetInvalidated();
       break;

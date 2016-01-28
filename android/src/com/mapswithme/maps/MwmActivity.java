@@ -284,6 +284,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   void showMigrateDialog()
   {
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATE_DIALOG_SEEN);
+
     new AlertDialog.Builder(MwmActivity.this)
         .setTitle(R.string.migrate_title)
         .setMessage(R.string.migrate_and_split_mwms_message)
@@ -293,6 +295,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATE_PERFORMED);
+
             RoutingController.get().cancel();
             ActiveCountryTree.migrate();
             showDownloader(false);

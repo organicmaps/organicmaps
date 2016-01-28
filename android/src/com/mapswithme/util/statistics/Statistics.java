@@ -34,10 +34,13 @@ public enum Statistics
 
   public static class EventName
   {
-    // actions with maps
+    // Downloader
     public static final String DOWNLOADER_MAP_DOWNLOAD = "Country download";
+    public static final String DOWNLOADER_MAP_DOWNLOAD_ALL = "Download all country clicks counter";
     public static final String DOWNLOADER_MAP_UPDATE = "Country update";
     public static final String DOWNLOADER_MAP_DELETE = "Country delete";
+    public static final String DOWNLOADER_MIGRATE_DIALOG_SEEN = "Big mwms to small mwms dialog appearing counter";
+    public static final String DOWNLOADER_MIGRATE_PERFORMED = "Big mwms to small mwms migration counter";
     public static final String MAP_DOWNLOADED = "DownloadMap";
     public static final String MAP_UPDATED = "UpdateMap";
     // bookmarks
