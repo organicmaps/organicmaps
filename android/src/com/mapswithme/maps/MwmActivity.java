@@ -293,6 +293,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
+            RoutingController.get().cancel();
             ActiveCountryTree.migrate();
             showDownloader(false);
           }
