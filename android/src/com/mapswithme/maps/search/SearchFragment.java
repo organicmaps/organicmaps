@@ -176,8 +176,8 @@ public class SearchFragment extends BaseMwmFragment
 
   public void showDownloader()
   {
+    ((BaseMwmFragmentActivity)getActivity()).replaceFragment(DownloadFragment.class, null, null);
     UiUtils.hide(mResultsFrame, mResultsPlaceholder, mTabFrame);
-    ((BaseMwmFragmentActivity) getActivity()).replaceFragment(DownloadFragment.class, null, null);
   }
 
   private void updateFrames()

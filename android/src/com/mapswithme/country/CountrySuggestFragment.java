@@ -211,14 +211,14 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     ActiveCountryTree.downloadMapForIndex(mCurrentLocationCountryIndex, storageOptionsRequested());
   }
 
-  private int storageOptionsRequested()
+  private static int storageOptionsRequested()
   {
     return StorageOptions.MAP_OPTION_MAP_ONLY;
   }
 
   private void selectMapForDownload()
   {
-    SearchFragment parent = (SearchFragment) getParentFragment();
+    SearchFragment parent = (SearchFragment)getParentFragment();
     parent.showDownloader();
   }
 
