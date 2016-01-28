@@ -213,8 +213,9 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
 
 - (void)configureWithFeature:(FeatureType const *)feature andCustomName:(NSString *)customName
 {
+  NSString * emptyName = L(@"dropped_pin");
   // Custom name is used in shared links and should override default feature's name in PP.
-  self.title = customName;
+  self.title = customName.length > 0 ? customName : emptyName;
   // feature can be nullptr if user selected any empty area.
   if (feature)
   {
@@ -222,7 +223,7 @@ NSString * mwmToOSMCuisineString(NSString * mwmCuisine)
     feature::Metadata const & metadata = feature->GetMetadata();
     NSString * const name = @(info.GetPinName().c_str());
     if (0 == self.title.length)
-      self.title = name.length > 0 ? name : L(@"dropped_pin");
+      self.title = name.length > 0 ? name : emptyName;
     self.category = @(info.GetPinType().c_str());
     self.address = @(info.FormatAddress().c_str());
 
