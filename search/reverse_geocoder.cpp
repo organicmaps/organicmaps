@@ -110,6 +110,7 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr
   unique_ptr<search::v2::HouseToStreetTable> table;
   MwmSet::MwmHandle mwmHandle;
 
+  int triesCount = 0;
   for (auto const & b : buildings)
   {
     if (!table || mwmHandle.GetId() != b.m_id.m_mwmId)
@@ -129,6 +130,10 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr
       addr.m_street = streets[ind];
       return;
     }
+
+    // Do not analyze more than 5 houses to get exact address.
+    if (++triesCount == 5)
+      return;
   }
 }
 
