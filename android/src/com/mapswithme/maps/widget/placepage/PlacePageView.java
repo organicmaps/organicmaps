@@ -450,8 +450,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     else
     {
       UiUtils.show(mEditor);
-      mTvEditor.setText(mMapObject.getIsDroppedPin() ? R.string.pp_place_add
-                                                     : R.string.pp_place_edit);
+      mTvEditor.setText(R.string.edit_place);
     }
   }
 

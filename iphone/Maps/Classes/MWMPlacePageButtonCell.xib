@@ -28,7 +28,7 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pp_place_edit"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="edit_place"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="editPlaceButtonTouchUpIndide" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZyS-5r-oKK"/>
