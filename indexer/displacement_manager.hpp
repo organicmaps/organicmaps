@@ -18,7 +18,7 @@
 
 namespace
 {
-double constexpr kPOIPerTileSizeCount = 6;
+double constexpr kPOIPerTileSizeCount = 5;
 }  // namespace
 
 namespace covering
@@ -88,94 +88,81 @@ class DisplacementManager
 public:
   DisplacementManager(TSorter & sorter) : m_sorter(sorter) {}
 
-  /// Add feature at bucket (zoom) to displacable queue if possible. Pass to bucket otherwise.
+  /// Add feature at bucket (zoom) to displaceable queue if possible. Pass to bucket otherwise.
   template <class TFeature>
   void Add(vector<int64_t> const & cells, uint32_t bucket, TFeature const & ft, uint32_t index)
   {
+    // Add to displaceable storage if we need to displace POI.
     if (bucket != scales::GetUpperScale() && IsDisplaceable(ft))
     {
-      m_storage[bucket].emplace_back(cells, ft, index, bucket);
+      m_storage.emplace_back(cells, ft, index, bucket);
       return;
     }
 
+    // Pass feature to the index otherwise.
     for (auto const & cell : cells)
       m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, index), bucket));
   }
 
-  /// Check features intersection and pass result to sorter.
+  /// Check features intersection and supress drawing of intersected features.
+  /// As a result some features may have bigger scale parameter than style describes.
+  /// But every feature has MaxScale at least.
+  /// After all features passed to sorter.
   void Displace()
   {
     m4::Tree<DisplaceableNode> acceptedNodes;
-    list<DisplaceableNode> deferredNodes;
-    for (uint32_t scale = 0; scale < scales::GetUpperScale(); ++scale)
+
+    sort(m_storage.begin(), m_storage.end());
+    for (auto const & node : m_storage)
     {
-      // Initialize queue.
-      priority_queue<DisplaceableNode> displaceableQueue;
-      for (auto const & node : m_storage[scale])
-        displaceableQueue.push(node);
-      for (auto const & node : deferredNodes)
-        displaceableQueue.push(node);
-      deferredNodes.clear();
-
-      float const delta = CalculateDeltaForZoom(scale);
-      size_t accepted = 0;
-
-      // Process queue.
-      while (!displaceableQueue.empty())
+      uint32_t scale = node.m_minScale;
+      for (; scale < scales::GetUpperScale(); ++scale)
       {
-        DisplaceableNode const maxNode = displaceableQueue.top();
-        displaceableQueue.pop();
+        float const delta = CalculateDeltaForZoom(scale);
+        float const squaredDelta = delta * delta;
 
-        // Check if this node is displaced by higher features.
-        m2::RectD const displacementRect(maxNode.center, maxNode.center);
+        m2::RectD const displacementRect(node.m_center, node.m_center);
         bool isDisplaced = false;
         acceptedNodes.ForEachInRect(m2::Inflate(displacementRect, {delta, delta}),
-            [&isDisplaced, &maxNode, &delta, &scale](DisplaceableNode const & node)
+            [&isDisplaced, &node, &squaredDelta, &scale](DisplaceableNode const & rhs)
             {
-              if (maxNode.center.SquareLength(node.center) < delta * delta && node.maxScale > scale)
+              if (node.m_center.SquareLength(rhs.m_center) < squaredDelta && rhs.m_maxScale > scale)
                 isDisplaced = true;
             });
         if (isDisplaced)
-        {
-          deferredNodes.push_back(maxNode);
           continue;
-        }
 
         // Add feature to index otherwise.
-        AddNodeToSorter(maxNode, scale);
-        acceptedNodes.Add(maxNode);
-        accepted++;
+        AddNodeToSorter(node, scale);
+        acceptedNodes.Add(node);
+        break;
       }
-
-      LOG(LINFO, ("Displacement for scale", scale, "Features accepted:", accepted,
-                  "Features discarded:", deferredNodes.size()));
+      if (scale == scales::GetUpperScale())
+        AddNodeToSorter(node, scale);
     }
-
-    // Add all fully displaced features to the bottom scale.
-    for (auto const & node : deferredNodes)
-      AddNodeToSorter(node, scales::GetUpperScale());
   }
 
 private:
   struct DisplaceableNode
   {
-    uint32_t index;
-    m2::PointD center;
-    vector<int64_t> cells;
+    uint32_t m_index;
+    m2::PointD m_center;
+    vector<int64_t> m_cells;
 
-    int maxScale;
-    uint32_t priority;
+    int m_minScale;
+    int m_maxScale;
+    uint32_t m_priority;
 
-    DisplaceableNode() : index(0), maxScale(0), priority(0) {}
+    DisplaceableNode() : m_index(0), m_minScale(0), m_maxScale(0), m_priority(0) {}
 
     template <class TFeature>
     DisplaceableNode(vector<int64_t> const & cells, TFeature const & ft, uint32_t index,
                     int zoomLevel)
-      : index(index), center(ft.GetCenter()), cells(cells)
+      : m_index(index), m_center(ft.GetCenter()), m_cells(cells), m_minScale(zoomLevel)
     {
       feature::TypesHolder const types(ft);
       auto scaleRange = feature::GetDrawableScaleRange(types);
-      maxScale = scaleRange.second;
+      m_maxScale = scaleRange.second;
 
       // Calculate depth field
       drule::KeysT keys;
@@ -192,15 +179,15 @@ private:
       float const kMaxDepth = 100000.0f;
       float const d = my::clamp(depth, kMinDepth, kMaxDepth) - kMinDepth;
       uint8_t rank = ft.GetRank();
-      priority = (static_cast<uint32_t>(d) << 8) | rank;
+      m_priority = (static_cast<uint32_t>(d) << 8) | rank;
     }
 
-    bool operator<(DisplaceableNode const & node) const { return priority < node.priority; }
-    m2::RectD const GetLimitRect() const { return m2::RectD(center, center); }
+    bool operator<(DisplaceableNode const & rhs) const { return m_priority < rhs.m_priority; }
+    m2::RectD const GetLimitRect() const { return m2::RectD(m_center, m_center); }
   };
 
   template <class TFeature>
-  bool IsDisplaceable(TFeature const & ft) const
+  static bool IsDisplaceable(TFeature const & ft)
   {
     feature::TypesHolder const types(ft);
     return types.GetGeoType() == feature::GEOM_POINT;
@@ -216,11 +203,11 @@ private:
 
   void AddNodeToSorter(DisplaceableNode const & node, uint32_t scale)
   {
-    for (auto const & cell : node.cells)
-      m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, node.index), scale));
+    for (auto const & cell : node.m_cells)
+      m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, node.m_index), scale));
   }
 
   TSorter & m_sorter;
-  map<uint32_t, vector<DisplaceableNode>> m_storage;
+  vector<DisplaceableNode> m_storage;
 };
 }  // namespace indexer
