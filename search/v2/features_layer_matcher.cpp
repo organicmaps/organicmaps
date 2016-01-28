@@ -107,14 +107,15 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
 {
   auto const & streets = GetNearbyStreets(houseId, houseFeature);
 
-  uint32_t streetId = kInvalidId;
-  uint32_t streetIndex;
-  if (!m_houseToStreetTable->Get(houseId, streetIndex))
-    streetIndex = streets.size();
+  uint32_t index;
+  if (m_houseToStreetTable->Get(houseId, index) && index < streets.size())
+    return streets[index].m_id.m_index;
 
-  if (streetIndex < streets.size() && streets[streetIndex].m_id.m_mwmId == m_context->m_id)
-    streetId = streets[streetIndex].m_id.m_index;
-  return streetId;
+  // If there is no saved street for feature, assume that it's a nearest street if it's too close.
+  if (!streets.empty() && streets[0].m_distanceMeters < 100.0)
+    return streets[0].m_id.m_index;
+
+  return kInvalidId;
 }
 
 }  // namespace v2
