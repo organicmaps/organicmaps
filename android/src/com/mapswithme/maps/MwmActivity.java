@@ -286,7 +286,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     new AlertDialog.Builder(MwmActivity.this)
         .setTitle(R.string.migrate_title)
-        .setMessage(R.string.migrate_subtitle)
+        .setMessage(R.string.migrate_and_split_mwms_message)
         .setNegativeButton(android.R.string.cancel, null)
         .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
         {
