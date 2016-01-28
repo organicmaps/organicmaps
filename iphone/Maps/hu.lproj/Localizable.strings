@@ -271,10 +271,10 @@
 "set" = "Csoport";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.";
+"bookmarks_usage_hint" = "Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.";
+"bookmarks_usage_hint_import_only" = "Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.";
 
 /* Settings button in system menu */
 "settings" = "Beállítások";

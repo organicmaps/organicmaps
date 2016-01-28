@@ -172,7 +172,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ  tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
+	<string name="bookmarks_usage_hint">Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">Penanda dari sumber lainnya dapat diimpor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
 	<!-- Settings button in system menu -->

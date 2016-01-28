@@ -369,7 +369,7 @@
 "share_bookmarks_email_subject" = "Paylaşılan MAPS.ME yer imleri";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME sende yüklü ise aç. Değilse  iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!";
+"share_bookmarks_email_body" = "Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME sende yüklü ise aç. Değilse iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!";
 
 /* message title of loading file */
 "load_kmz_title" = "Yer İmleri Yükleniyor";

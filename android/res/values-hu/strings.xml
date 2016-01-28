@@ -167,9 +167,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Csoport</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
+	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
+	<string name="bookmarks_usage_hint_import_only">Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Beállítások</string>
 	<!-- Header of settings activity where user defines storage path -->
