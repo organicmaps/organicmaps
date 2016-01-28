@@ -69,7 +69,7 @@ void InitLocalizedStrings()
   f.AddString("country_status_download", [L(@"country_status_download") UTF8String]);
   f.AddString("country_status_download_without_routing", [L(@"country_status_download_without_routing") UTF8String]);
   f.AddString("country_status_download_failed", [L(@"country_status_download_failed") UTF8String]);
-  f.AddString("country_download_cancel", [L(@"cancel") UTF8String]);
+  f.AddString("cancel", [L(@"cancel") UTF8String]);
   f.AddString("try_again", [L(@"try_again") UTF8String]);
   // Default texts for bookmarks added in C++ code (by URL Scheme API)
   f.AddString("dropped_pin", [L(@"dropped_pin") UTF8String]);

@@ -278,7 +278,7 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("country_status_download_without_size", "Download map");
   m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading\n^\nhas failed");
   m_stringsBundle.SetDefaultString("country_status_download_without_routing", "Download map\nwithout routing (^ ^)");
-  m_stringsBundle.SetDefaultString("country_download_cancel", "Cancel");
+  m_stringsBundle.SetDefaultString("cancel", "Cancel");
   m_stringsBundle.SetDefaultString("try_again", "Try Again");
   m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space for downloading");
 

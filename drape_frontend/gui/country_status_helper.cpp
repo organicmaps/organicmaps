@@ -57,7 +57,7 @@ void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload
 char const * DownloadMapButtonID = "country_status_download";
 char const * DownloadMapWithoutSizeButtonID = "country_status_download_without_size";
 char const * TryAgainButtonID = "try_again";
-char const * DownloadCancelButtonID = "country_download_cancel";
+char const * DownloadCancelButtonID = "cancel";
 char const * DownloadingLabelID = "country_status_downloading";
 char const * DownloadingFailedID = "country_status_download_failed";
 char const * InQueueID = "country_status_added_to_queue";
