@@ -153,6 +153,7 @@ public class MwmApplication extends Application
     nativeAddLocalization("my_places", getString(R.string.my_places));
     nativeAddLocalization("my_position", getString(R.string.my_position));
     nativeAddLocalization("routes", getString(R.string.routes));
+    nativeAddLocalization("cancel", getString(R.string.cancel));
 
     nativeAddLocalization("routing_failed_unknown_my_position", getString(R.string.routing_failed_unknown_my_position));
     nativeAddLocalization("routing_failed_has_no_routing_file", getString(R.string.routing_failed_has_no_routing_file));
