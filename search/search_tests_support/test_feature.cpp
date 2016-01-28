@@ -103,9 +103,10 @@ string TestCity::ToString() const
   return os.str();
 }
 
-// TestVillage ----------------------------------------------------------------------------------------
+// TestVillage
+// ----------------------------------------------------------------------------------------
 TestVillage::TestVillage(m2::PointD const & center, string const & name, string const & lang,
-                   uint8_t rank)
+                         uint8_t rank)
   : TestFeature(center, name, lang), m_rank(rank)
 {
 }

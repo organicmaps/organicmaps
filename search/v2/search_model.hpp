@@ -29,7 +29,7 @@ public:
     SEARCH_TYPE_STREET,
     SEARCH_TYPE_VILLAGE,
     SEARCH_TYPE_CITY,
-    SEARCH_TYPE_STATE, // US or Canadian states
+    SEARCH_TYPE_STATE,  // US or Canadian states
     SEARCH_TYPE_COUNTRY,
     SEARCH_TYPE_COUNT
   };

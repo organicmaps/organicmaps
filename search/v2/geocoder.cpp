@@ -128,10 +128,7 @@ public:
     return binary_search(m_categories.cbegin(), m_categories.cend(), category);
   }
 
-  vector<strings::UniString> const & GetCategories() const
-  {
-    return m_categories;
-  }
+  vector<strings::UniString> const & GetCategories() const { return m_categories; }
 
 private:
   StreetCategories()
@@ -517,7 +514,8 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       if (viewportCBV)
       {
         for (size_t i = 0; i < m_numTokens; ++i)
-          m_addressFeatures[i] = coding::CompressedBitVector::Intersect(*m_addressFeatures[i], *viewportCBV);
+          m_addressFeatures[i] =
+              coding::CompressedBitVector::Intersect(*m_addressFeatures[i], *viewportCBV);
       }
 
       m_streets = LoadStreets(*m_context);
@@ -526,9 +524,9 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       auto citiesFromWorld = m_cities;
       FillVillageLocalities();
       MY_SCOPE_GUARD(remove_villages, [&]()
-      {
-         m_cities = citiesFromWorld;
-      });
+                     {
+                       m_cities = citiesFromWorld;
+                     });
 
       m_usedTokens.assign(m_numTokens, false);
       MatchRegions(REGION_TYPE_COUNTRY);
@@ -581,7 +579,8 @@ void Geocoder::PrepareAddressFeatures()
   {
     PrepareRetrievalParams(i, i + 1);
     m_addressFeatures[i] = Retrieval::RetrieveAddressFeatures(
-         m_context->m_id, m_context->m_value, static_cast<my::Cancellable const &>(*this), m_retrievalParams);
+        m_context->m_id, m_context->m_value, static_cast<my::Cancellable const &>(*this),
+        m_retrievalParams);
     ASSERT(m_addressFeatures[i], ());
   }
 }
@@ -693,7 +692,7 @@ void Geocoder::FillLocalitiesTable()
         ++numCities;
         City city = l;
         city.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
-            ft.GetCenter(), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
+            feature::GetCenter(ft), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
 
 #if defined(DEBUG)
         string name;
@@ -767,29 +766,25 @@ void Geocoder::FillVillageLocalities()
     FeatureType ft;
     m_context->m_vector.GetByIndex(l.m_featureId, ft);
 
-    switch (m_model.GetSearchType(ft))
-    {
-    case SearchModel::SEARCH_TYPE_VILLAGE:
-    {
-      if (numVillages < kMaxNumVillages && ft.GetFeatureType() == feature::GEOM_POINT)
-      {
-        ++numVillages;
-        City village = l;
-        village.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
-            ft.GetCenter(), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
+    if (m_model.GetSearchType(ft) != SearchModel::SEARCH_TYPE_VILLAGE)
+      continue;
+    if (ft.GetFeatureType() != feature::GEOM_POINT)
+      continue;
+    if (numVillages >= kMaxNumVillages)
+      continue;
+
+    ++numVillages;
+    City village = l;
+    village.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
+        feature::GetCenter(ft), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
 
 #if defined(DEBUG)
-        string name;
-        ft.GetName(StringUtf8Multilang::DEFAULT_CODE, name);
-        LOG(LDEBUG, ("Village =", name));
+    string name;
+    ft.GetName(StringUtf8Multilang::DEFAULT_CODE, name);
+    LOG(LDEBUG, ("Village =", name));
 #endif
 
-        m_cities[{l.m_startToken, l.m_endToken}].push_back(village);
-      }
-      break;
-    }
-    default: break;
-    }
+    m_cities[{l.m_startToken, l.m_endToken}].push_back(village);
   }
 }
 
@@ -1199,7 +1194,8 @@ void Geocoder::FindPaths()
 unique_ptr<coding::CompressedBitVector> Geocoder::LoadCategories(
     MwmContext & context, vector<strings::UniString> const & categories)
 {
-  ASSERT(context.m_handle.IsAlive() && HasSearchIndex(context.m_value), ());
+  ASSERT(context.m_handle.IsAlive(), ());
+  ASSERT(HasSearchIndex(context.m_value), ());
 
   m_retrievalParams.m_tokens.resize(1);
   m_retrievalParams.m_tokens[0].resize(1);
@@ -1211,7 +1207,8 @@ unique_ptr<coding::CompressedBitVector> Geocoder::LoadCategories(
            {
              m_retrievalParams.m_tokens[0][0] = category;
              auto cbv = Retrieval::RetrieveAddressFeatures(
-                 context.m_id, context.m_value, static_cast<my::Cancellable const &>(*this), m_retrievalParams);
+                 context.m_id, context.m_value, static_cast<my::Cancellable const &>(*this),
+                 m_retrievalParams);
              if (!coding::CompressedBitVector::IsEmpty(cbv))
                cbvs.push_back(move(cbv));
            });

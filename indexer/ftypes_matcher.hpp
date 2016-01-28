@@ -87,6 +87,7 @@ public:
 class IsVillageChecker : public BaseChecker
 {
   IsVillageChecker();
+
 public:
   template <typename TFn>
   void ForEachType(TFn && fn) const
