@@ -88,6 +88,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)viewDidLoad
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatEdit, kStatOpen)];
   [super viewDidLoad];
   [self configTable];
   [self configNavBar];
@@ -167,6 +168,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
   if (!m_edited_cells.empty())
   {
+    [[Statistics instance] logEvent:kStatEventName(kStatEdit, kStatSave)];
     MWMAuthorizationSetNeedCheck(YES);
     self.entity.cuisines = self.cuisines;
     [self.entity saveEditedCells:m_edited_cells];

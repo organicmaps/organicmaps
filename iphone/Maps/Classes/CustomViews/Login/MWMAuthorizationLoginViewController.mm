@@ -4,6 +4,7 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "editor/osm_auth.hpp"
@@ -45,6 +46,7 @@ using namespace osm;
 
 - (void)viewDidLoad
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatOpen)];
   [super viewDidLoad];
   self.backgroundImage.image = [UIImage imageWithColor:[UIColor primary]];
   [self checkConnection];
@@ -191,16 +193,22 @@ using namespace osm;
 
 - (IBAction)loginGoogle
 {
-  // TODO: Add login
+  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatGoogle)];
 }
 
 - (IBAction)loginFacebook
 {
-  // TODO: Add login
+  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatFacebook)];
+}
+
+- (IBAction)loginOSM
+{
+  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatOSM)];
 }
 
 - (IBAction)signup
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatSignup)];
   OsmOAuth const auth = OsmOAuth::ServerAuth();
   NSURL * url = [NSURL URLWithString:@(auth.GetRegistrationURL().c_str())];
   [[UIApplication sharedApplication] openURL:url];
@@ -208,6 +216,7 @@ using namespace osm;
 
 - (IBAction)logout
 {
+  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatLogout)];
   MWMAuthorizationStoreCredentials({});
   [self cancel];
 }
