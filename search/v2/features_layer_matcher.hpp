@@ -158,21 +158,19 @@ private:
     if (queryTokens.empty())
       return;
 
-    vector<ReverseGeocoder::Building> nearbyBuildings;
     for (size_t i = 0; i < pois.size(); ++i)
     {
-      // TODO (@y, @m, @vng): implement a faster version
-      // ReverseGeocoder::GetNearbyBuildings() for only one (current)
-      // map.
-      nearbyBuildings.clear();
-      m_reverseGeocoder.GetNearbyBuildings(poiCenters[i], kBuildingRadiusMeters, nearbyBuildings);
-      for (auto const & building : nearbyBuildings)
-      {
-        if (building.m_id.m_mwmId != m_context->m_id || building.m_distanceMeters > kBuildingRadiusMeters)
-          continue;
-        if (HouseNumbersMatch(strings::MakeUniString(building.m_name), queryTokens))
-          fn(pois[i], building.m_id.m_index);
-      }
+      m_context->ForEachFeature(
+            MercatorBounds::RectByCenterXYAndSizeInMeters(poiCenters[i], kBuildingRadiusMeters),
+            [&](FeatureType & ft)
+            {
+              if (HouseNumbersMatch(strings::MakeUniString(ft.GetHouseNumber()), queryTokens))
+              {
+                double const distanceM = MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), poiCenters[i]);
+                if (distanceM < kBuildingRadiusMeters)
+                  fn(pois[i], ft.GetID().m_index);
+              }
+            });
     }
   }
 
@@ -191,17 +189,8 @@ private:
     {
       for (uint32_t poiId : pois)
       {
-        // TODO (@y, @m, @vng): implement a faster version
-        // ReverseGeocoder::GetNearbyStreets() for only one (current)
-        // map.
         for (auto const & street : GetNearbyStreets(poiId))
         {
-          if (street.m_id.m_mwmId != m_context->m_id ||
-              street.m_distanceMeters > ReverseGeocoder::kLookupRadiusM)
-          {
-            continue;
-          }
-
           uint32_t const streetId = street.m_id.m_index;
           if (binary_search(streets.begin(), streets.end(), streetId))
             fn(poiId, streetId);
@@ -331,20 +320,20 @@ private:
   // Returns id of a street feature corresponding to a |houseId|, or
   // kInvalidId if there're not such street.
   uint32_t GetMatchingStreet(uint32_t houseId);
-
   uint32_t GetMatchingStreet(uint32_t houseId, FeatureType & houseFeature);
-
-  vector<ReverseGeocoder::Street> const & GetNearbyStreets(uint32_t featureId);
-
-  vector<ReverseGeocoder::Street> const & GetNearbyStreets(uint32_t featureId,
-                                                           FeatureType & feature);
-
   uint32_t GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature);
+
+  using TStreet = ReverseGeocoder::Street;
+
+  vector<TStreet> const & GetNearbyStreets(uint32_t featureId);
+  vector<TStreet> const & GetNearbyStreets(uint32_t featureId,
+                                                           FeatureType & feature);
+  void GetNearbyStreetsImpl(FeatureType & feature, vector<TStreet> & streets);
 
   inline void GetByIndex(uint32_t id, FeatureType & ft) const
   {
     /// @todo Add Cache for feature id -> (point, name / house number).
-    m_context->m_vector.GetByIndex(id, ft);
+    m_context->GetFeature(id, ft);
   }
 
   MwmContext * m_context;
@@ -353,7 +342,7 @@ private:
 
   // Cache of streets in a feature's vicinity. All lists in the cache
   // are ordered by distance from the corresponding feature.
-  Cache<uint32_t, vector<ReverseGeocoder::Street>> m_nearbyStreetsCache;
+  Cache<uint32_t, vector<TStreet>> m_nearbyStreetsCache;
 
   // Cache of correct streets for buildings. Current search algorithm
   // supports only one street for a building, whereas buildings can be

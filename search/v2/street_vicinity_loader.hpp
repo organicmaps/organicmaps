@@ -37,6 +37,9 @@ public:
     m2::RectD m_rect;
     unique_ptr<ProjectionOnStreetCalculator> m_calculator;
 
+    /// @todo Cache GetProjection results for features here, because
+    /// feature::GetCenter and ProjectionOnStreetCalculator::GetProjection are not so fast.
+
     DISALLOW_COPY(Street);
   };
 
@@ -61,7 +64,7 @@ public:
         continue;
 
       FeatureType ft;
-      m_context->m_vector.GetByIndex(id, ft);
+      m_context->GetFeature(id, ft);
       if (!calculator.GetProjection(feature::GetCenter(ft, FeatureType::WORST_GEOMETRY), proj))
         continue;
 

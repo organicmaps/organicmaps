@@ -527,10 +527,10 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
                        m_villages = nullptr;
                      });
 
-      auto it = m_matchersCache.find(m_context->m_id);
+      auto it = m_matchersCache.find(m_context->GetId());
       if (it == m_matchersCache.end())
       {
-        it = m_matchersCache.insert(make_pair(m_context->m_id, make_unique<FeaturesLayerMatcher>(
+        it = m_matchersCache.insert(make_pair(m_context->GetId(), make_unique<FeaturesLayerMatcher>(
                     m_index, cancellable))).first;
       }
       m_matcher = it->second.get();
@@ -540,7 +540,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       if (inViewport)
       {
         viewportCBV =
-            Retrieval::RetrieveGeometryFeatures(m_context->m_id, m_context->m_value, cancellable,
+            Retrieval::RetrieveGeometryFeatures(m_context->GetId(), m_context->m_value, cancellable,
                                                 m_params.m_viewport, m_params.m_scale);
       }
 
@@ -616,7 +616,7 @@ void Geocoder::PrepareAddressFeatures()
   {
     PrepareRetrievalParams(i, i + 1);
     m_addressFeatures[i] = Retrieval::RetrieveAddressFeatures(
-        m_context->m_id, m_context->m_value, static_cast<my::Cancellable const &>(*this),
+        m_context->GetId(), m_context->m_value, static_cast<my::Cancellable const &>(*this),
         m_retrievalParams);
     ASSERT(m_addressFeatures[i], ());
   }
@@ -644,7 +644,7 @@ void Geocoder::FillLocalityCandidates(coding::CompressedBitVector const * filter
                                                      [&](uint32_t featureId)
                                                      {
                                                        Locality l;
-                                                       l.m_countryId = m_context->m_id;
+                                                       l.m_countryId = m_context->GetId();
                                                        l.m_featureId = featureId;
                                                        l.m_startToken = startToken;
                                                        l.m_endToken = endToken;
@@ -675,7 +675,7 @@ void Geocoder::FillLocalitiesTable()
   for (auto & l : preLocalities)
   {
     FeatureType ft;
-    m_context->m_vector.GetByIndex(l.m_featureId, ft);
+    m_context->GetFeature(l.m_featureId, ft);
 
     switch (m_model.GetSearchType(ft))
     {
@@ -1220,7 +1220,7 @@ void Geocoder::FindPaths()
     ASSERT(result.IsValid(), ());
     // TODO(@y, @m, @vng): use rest fields of IntersectionResult for
     // better scoring.
-    m_results->emplace_back(m_context->m_id, result.InnermostResult());
+    m_results->emplace_back(m_context->GetId(), result.InnermostResult());
   });
 }
 
@@ -1277,7 +1277,7 @@ unique_ptr<coding::CompressedBitVector> Geocoder::LoadCategories(
            {
              m_retrievalParams.m_tokens[0][0] = category;
              auto cbv = Retrieval::RetrieveAddressFeatures(
-                 context.m_id, context.m_value, static_cast<my::Cancellable const &>(*this),
+                 context.GetId(), context.m_value, static_cast<my::Cancellable const &>(*this),
                  m_retrievalParams);
              if (!coding::CompressedBitVector::IsEmpty(cbv))
                cbvs.push_back(move(cbv));
@@ -1323,14 +1323,14 @@ coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(MwmContex
   /// - Implement more smart strategy according to id.
   /// - Move all rect limits here
 
-  auto & features = m_geometryFeatures[context.m_id];
+  auto & features = m_geometryFeatures[context.GetId()];
   for (auto const & v : features)
   {
     if (v.m_rect.IsRectInside(rect))
       return v.m_cbv.get();
   }
 
-  auto cbv = Retrieval::RetrieveGeometryFeatures(context.m_id, context.m_value,
+  auto cbv = Retrieval::RetrieveGeometryFeatures(context.GetId(), context.m_value,
                                                  static_cast<my::Cancellable const &>(*this), rect,
                                                  m_params.m_scale);
 

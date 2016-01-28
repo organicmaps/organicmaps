@@ -49,7 +49,7 @@ StreetVicinityLoader::Street const & StreetVicinityLoader::GetStreet(uint32_t fe
 void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
 {
   FeatureType feature;
-  m_context->m_vector.GetByIndex(featureId, feature);
+  m_context->GetFeature(featureId, feature);
 
   if (feature.GetFeatureType() != feature::GEOM_LINE)
     return;

@@ -65,7 +65,8 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId, FeatureType &
   return entry.first;
 }
 
-vector<ReverseGeocoder::Street> const & FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId)
+vector<FeaturesLayerMatcher::TStreet> const &
+FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId)
 {
   auto entry = m_nearbyStreetsCache.Get(featureId);
   if (!entry.second)
@@ -74,19 +75,32 @@ vector<ReverseGeocoder::Street> const & FeaturesLayerMatcher::GetNearbyStreets(u
   FeatureType feature;
   GetByIndex(featureId, feature);
 
-  m_reverseGeocoder.GetNearbyStreets(feature::GetCenter(feature), entry.first);
+  GetNearbyStreetsImpl(feature, entry.first);
   return entry.first;
 }
 
-vector<ReverseGeocoder::Street> const & FeaturesLayerMatcher::GetNearbyStreets(
-    uint32_t featureId, FeatureType & feature)
+vector<FeaturesLayerMatcher::TStreet> const &
+FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId, FeatureType & feature)
 {
   auto entry = m_nearbyStreetsCache.Get(featureId);
   if (!entry.second)
     return entry.first;
 
-  m_reverseGeocoder.GetNearbyStreets(feature::GetCenter(feature), entry.first);
+  GetNearbyStreetsImpl(feature, entry.first);
   return entry.first;
+}
+
+void FeaturesLayerMatcher::GetNearbyStreetsImpl(FeatureType & feature, vector<TStreet> & streets)
+{
+  m_reverseGeocoder.GetNearbyStreets(feature, streets);
+  for (size_t i = 0; i < streets.size(); ++i)
+  {
+    if (streets[i].m_distanceMeters > ReverseGeocoder::kLookupRadiusM)
+    {
+      streets.resize(i);
+      return;
+    }
+  }
 }
 
 uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature)

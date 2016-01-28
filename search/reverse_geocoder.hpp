@@ -33,6 +33,7 @@ class ReverseGeocoder
   };
 
 public:
+  /// All "Nearby" functions work in this lookup radius.
   static double const kLookupRadiusM;
 
   explicit ReverseGeocoder(Index const & index);
@@ -65,17 +66,22 @@ public:
     double GetDistance() const { return m_building.m_distanceMeters; }
   };
 
-  void GetNearbyStreets(m2::PointD const & center, vector<Street> & streets) const;
+  /// @return Sorted by distance streets vector for the specified MwmId.
+  //@{
+  void GetNearbyStreets(MwmSet::MwmId id, m2::PointD const & center,
+                        vector<Street> & streets) const;
+  void GetNearbyStreets(FeatureType & ft, vector<Street> & streets) const;
+  //@}
 
-  void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
-
-  /// @returns street segments (can be duplicate names) sorted by distance to feature's center.
-  /// uint32_t, if less than vector.size(), contains index of exact feature's street specified in OSM data.
+  /// @todo Leave const reference for now to support client's legacy code.
+  /// It's better to use honest non-const reference when feature can be modified in any way.
   pair<vector<Street>, uint32_t> GetNearbyFeatureStreets(FeatureType const & feature) const;
 
-  void GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings) const;
+  /// @return The nearest exact address where building has house number and valid street match.
+  void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
 
-  void GetNearbyBuildings(m2::PointD const & center, double radiusM, vector<Building> & buildings) const;
+  /// @return Sorted by distance houses vector with valid house number.
+  void GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings) const;
 
 private:
   static m2::RectD GetLookupRect(m2::PointD const & center, double radiusM);
