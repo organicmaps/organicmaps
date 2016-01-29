@@ -69,7 +69,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Oa-hg-icC">
-                                <rect key="frame" x="140" y="35" width="140" height="58"/>
+                                <rect key="frame" x="140" y="36" width="140" height="58"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="RWf-JS-tim"/>
@@ -133,10 +133,11 @@
                             <constraint firstItem="pa0-fe-w8W" firstAttribute="centerY" secondItem="swk-um-XzG" secondAttribute="centerY" id="CXB-0i-wxj"/>
                             <constraint firstItem="mGc-k4-uvQ" firstAttribute="centerY" secondItem="swk-um-XzG" secondAttribute="centerY" id="DQP-gP-Lv1"/>
                             <constraint firstItem="pa0-fe-w8W" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" constant="16" id="Dgv-BZ-60x"/>
-                            <constraint firstItem="oTF-IZ-Un1" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" priority="300" id="KGY-T0-s0P"/>
+                            <constraint firstItem="7Oa-hg-icC" firstAttribute="top" secondItem="hpw-oR-ZSb" secondAttribute="top" id="J7A-De-gPK"/>
+                            <constraint firstItem="oTF-IZ-Un1" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" priority="250" id="KGY-T0-s0P"/>
                             <constraint firstItem="3Fa-V6-tC5" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" id="LUO-vn-JQ8"/>
-                            <constraint firstItem="7Oa-hg-icC" firstAttribute="leading" secondItem="oTF-IZ-Un1" secondAttribute="leading" id="RBf-8S-CYY"/>
-                            <constraint firstItem="7Oa-hg-icC" firstAttribute="top" secondItem="oTF-IZ-Un1" secondAttribute="bottom" constant="4" id="Urv-Lw-rBo"/>
+                            <constraint firstItem="7Oa-hg-icC" firstAttribute="leading" secondItem="oTF-IZ-Un1" secondAttribute="leading" priority="300" id="RBf-8S-CYY"/>
+                            <constraint firstItem="7Oa-hg-icC" firstAttribute="trailing" secondItem="oTF-IZ-Un1" secondAttribute="trailing" priority="300" id="XqV-8v-RkG"/>
                             <constraint firstItem="ZdV-4y-cz4" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" constant="60" id="YId-0j-rvE"/>
                             <constraint firstItem="Ot5-QJ-jhp" firstAttribute="leading" secondItem="swk-um-XzG" secondAttribute="leading" constant="60" id="ZcQ-Ll-hiP"/>
                             <constraint firstItem="hpw-oR-ZSb" firstAttribute="leading" secondItem="Ot5-QJ-jhp" secondAttribute="leading" id="dpq-9g-Kme"/>
@@ -146,7 +147,6 @@
                             <constraint firstItem="mGc-k4-uvQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oTF-IZ-Un1" secondAttribute="trailing" priority="750" constant="8" id="iiH-Tm-ybN"/>
                             <constraint firstItem="Ot5-QJ-jhp" firstAttribute="top" secondItem="swk-um-XzG" secondAttribute="top" constant="12" id="n1a-Y2-Nfo"/>
                             <constraint firstAttribute="bottom" secondItem="EcD-Q8-7zu" secondAttribute="bottom" constant="12" id="qwA-KB-e9x"/>
-                            <constraint firstItem="7Oa-hg-icC" firstAttribute="width" secondItem="oTF-IZ-Un1" secondAttribute="width" id="txT-Kq-5WC"/>
                             <constraint firstAttribute="bottom" secondItem="3Fa-V6-tC5" secondAttribute="bottom" id="yQH-xd-Fjr"/>
                         </constraints>
                         <connections>

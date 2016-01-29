@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -48,6 +48,7 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="light12"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_hours_closed"/>
                     </userDefinedRuntimeAttributes>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="skl-yW-xDB">
@@ -62,12 +63,12 @@
             <constraints>
                 <constraint firstItem="skl-yW-xDB" firstAttribute="trailing" secondItem="Pzb-84-nVN" secondAttribute="trailing" id="2Qa-dX-CKF"/>
                 <constraint firstItem="skl-yW-xDB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LY3-Eu-ESE" secondAttribute="trailing" priority="310" constant="8" id="4HL-o3-GlG"/>
-                <constraint firstItem="skl-yW-xDB" firstAttribute="top" secondItem="Pzb-84-nVN" secondAttribute="bottom" constant="4" id="7E6-i1-gWY"/>
                 <constraint firstItem="Pzb-84-nVN" firstAttribute="centerY" secondItem="DqS-ds-oj4" secondAttribute="centerY" id="D6k-RM-Cx8"/>
                 <constraint firstItem="skl-yW-xDB" firstAttribute="leading" secondItem="Pzb-84-nVN" secondAttribute="leading" id="H3w-tN-bFd"/>
                 <constraint firstItem="LY3-Eu-ESE" firstAttribute="top" secondItem="DqS-ds-oj4" secondAttribute="bottom" constant="4" id="MKr-pT-3ET"/>
                 <constraint firstItem="LY3-Eu-ESE" firstAttribute="leading" secondItem="DqS-ds-oj4" secondAttribute="leading" id="OFa-uz-HMs"/>
                 <constraint firstItem="DqS-ds-oj4" firstAttribute="top" secondItem="SUx-BN-Qk1" secondAttribute="top" constant="4" id="gGO-xk-DeA"/>
+                <constraint firstItem="skl-yW-xDB" firstAttribute="top" secondItem="LY3-Eu-ESE" secondAttribute="top" id="iut-jl-BrW"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Pzb-84-nVN" secondAttribute="trailing" priority="750" constant="32" id="rPc-Jd-cW6"/>
                 <constraint firstItem="DqS-ds-oj4" firstAttribute="leading" secondItem="SUx-BN-Qk1" secondAttribute="leading" constant="60" id="sqM-DI-KUl"/>
                 <constraint firstItem="Pzb-84-nVN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DqS-ds-oj4" secondAttribute="trailing" priority="310" constant="8" id="vtQ-YR-qDv"/>
