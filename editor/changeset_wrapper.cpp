@@ -1,15 +1,15 @@
-#include "base/logging.hpp"
-
-#include "indexer/feature.hpp"
-
 #include "editor/changeset_wrapper.hpp"
 #include "editor/osm_feature_matcher.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/sstream.hpp"
-#include "std/map.hpp"
+#include "indexer/feature.hpp"
 
 #include "geometry/mercator.hpp"
+
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+
+#include "std/algorithm.hpp"
+#include "std/sstream.hpp"
 
 #include "private.h"
 
@@ -60,13 +60,15 @@ XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & ce
 
   pugi::xml_node const bestNode = GetBestOsmNode(doc, ll);
   if (bestNode.empty())
+  {
     MYTHROW(OsmObjectWasDeletedException,
             ("OSM does not have any nodes at the coordinates", ll, ", server has returned:", doc));
+  }
 
   return XMLFeature(bestNode);
 }
 
-XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(set<m2::PointD> const & geometry)
+XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> const & geometry)
 {
   // TODO: Make two/four requests using points on inscribed rectagle.
   for (auto const & pt : geometry)
@@ -81,16 +83,14 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(set<m2::PointD> const
       continue;
 
     XMLFeature const way(bestWay);
-    if (!way.IsArea())
-      continue;
+    ASSERT(way.IsArea(), ("Best way must be area."));
 
     // AlexZ: TODO: Check that this way is really match our feature.
     // If we had some way to check it, why not to use it in selecting our feature?
 
     return way;
   }
-  MYTHROW(OsmObjectWasDeletedException,
-          ("OSM does not have any matching way for feature"));
+  MYTHROW(OsmObjectWasDeletedException, ("OSM does not have any matching way for feature"));
 }
 
 void ChangesetWrapper::ModifyNode(XMLFeature node)

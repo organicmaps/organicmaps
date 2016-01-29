@@ -1,11 +1,14 @@
 #pragma once
 
+#include "base/exception.hpp"
+
 #include "editor/server_api.hpp"
 #include "editor/xml_feature.hpp"
 
-#include "base/exception.hpp"
+#include "geometry/point2d.hpp"
 
 #include "std/set.hpp"
+#include "std/vector.hpp"
 
 class FeatureType;
 
@@ -32,7 +35,7 @@ public:
   /// Throws many exceptions from above list, plus including XMLNode's parsing ones.
   /// OsmObjectWasDeletedException means that node was deleted from OSM server by someone else.
   editor::XMLFeature GetMatchingNodeFeatureFromOSM(m2::PointD const & center);
-  editor::XMLFeature GetMatchingAreaFeatureFromOSM(set<m2::PointD> const & geomerty);
+  editor::XMLFeature GetMatchingAreaFeatureFromOSM(vector<m2::PointD> const & geomerty);
 
   /// Throws exceptions from above list.
   void ModifyNode(editor::XMLFeature node);

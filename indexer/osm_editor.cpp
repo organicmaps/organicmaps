@@ -19,6 +19,7 @@
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
@@ -262,30 +263,29 @@ bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
 XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw,
                                      unique_ptr<FeatureType const> featurePtr)
 {
-  ASSERT(featurePtr->GetFeatureType() != feature::GEOM_LINE, ("Line features are not supported yet."));
+  ASSERT_NOT_EQUAL(featurePtr->GetFeatureType(), feature::GEOM_LINE,
+                   ("Line features are not supported yet."));
   if (featurePtr->GetFeatureType() == feature::GEOM_POINT)
-  {
     return cw.GetMatchingNodeFeatureFromOSM(featurePtr->GetCenter());
-  }
-  else
-  {
-    // Set filters out duplicate points for closed ways or triangles' vertices.
-    set<m2::PointD> geometry;
-    featurePtr->ForEachTriangle([&geometry](m2::PointD const & p1,
-                                            m2::PointD const & p2, m2::PointD const & p3)
-    {
-      geometry.insert(p1);
-      geometry.insert(p2);
-      geometry.insert(p3);
-      // Warning: geometry is cached in FeatureTyped. So if it wasn't BEST_GEOMETRY
-      // We can never have it. Features here came from editors loader and should
-      // have BEST_GEOMETRY geometry.
-    }, FeatureType::BEST_GEOMETRY);
 
-    ASSERT_GREATER_OR_EQUAL(geometry.size(), 3, ("Is it an area feature?"));
+  vector<m2::PointD> geometry;
+  featurePtr->ForEachTriangle(
+      [&geometry](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+      {
+        geometry.push_back(p1);
+        geometry.push_back(p2);
+        geometry.push_back(p3);
+        // Warning: geometry is cached in FeatureType. So if it wasn't BEST_GEOMETRY,
+        // we can never have it. Features here came from editors loader and should
+        // have BEST_GEOMETRY geometry.
+      },
+      FeatureType::BEST_GEOMETRY);
+  // Filters out duplicate points for closed ways or triangles' vertices.
+  my::SortUnique(geometry);
 
-    return cw.GetMatchingAreaFeatureFromOSM(geometry);
-  }
+  ASSERT_GREATER_OR_EQUAL(geometry.size(), 3, ("Is it an area feature?"));
+
+  return cw.GetMatchingAreaFeatureFromOSM(geometry);
 }
 } // namespace
 
@@ -751,8 +751,8 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           feature.SetTagValue(kAddrStreetTag, fti.m_street);
         try
         {
-          XMLFeature osmFeature = GetMatchingFeatureFromOSM(changeset,
-                                                            m_getOriginalFeatureFn(fti.m_feature.GetID()));
+          XMLFeature osmFeature =
+              GetMatchingFeatureFromOSM(changeset, m_getOriginalFeatureFn(fti.m_feature.GetID()));
           XMLFeature const osmFeatureCopy = osmFeature;
           osmFeature.ApplyPatch(feature);
           // Check to avoid duplicates.
