@@ -1418,6 +1418,37 @@
     nb = Last ned kart\n(^ ^)
     fi = Lataa kartta\n(^ ^)
 
+  [country_status_download_without_size]
+    comment = Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown
+    en = Download Map
+    th = ดาวน์โหลดแผนที่
+    uk = Завантажити мапу
+    tr = Haritayı İndir
+    es = Descargar mapa
+    sv = Ladda ner karta
+    pl = Pobierz mapę
+    pt = Descarregar Mapa
+    sk = Stiahnite si Mapu
+    ja = 地図をダウンロード
+    ko = 지도 다운로드
+    he = הורידו מפה
+    it = Scarica Map
+    de = Karte herunterladen
+    da = Download kort
+    nl = Kaart downloaden
+    zh-Hans = 下载地图
+    zh-Hant = 下載地圖
+    cs = Stáhnout mapu
+    ar = تحميل الخريطة
+    hu = Térkép letöltése
+    ru = Загрузить карту
+    fr = Téléchargez la carte
+    id = Unduh Peta
+    vi = Tải xuống Bản đồ
+    ro = Descărcare hartă
+    nb = Last ned kart
+    fi = Lataa kartta
+
   [country_status_download_without_routing]
     comment = Button text for the button at the center of the screen when the country is not downloaded
     en = Download map\nwithout routing (^ ^)
