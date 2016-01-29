@@ -138,7 +138,7 @@ typedef NS_ENUM(NSUInteger, Section)
       (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = static_cast<SwitchCell *>(cell);
-      customCell.titleLabel.text = L(@"mwm_autodownload");
+      customCell.titleLabel.text = L(@"autodownload");
       customCell.switchButton.on = autoDownloadEnabled;
       customCell.delegate = self;
       break;
