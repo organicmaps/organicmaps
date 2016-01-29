@@ -231,7 +231,7 @@
     <activity
       android:name="com.mapswithme.maps.editor.EditorActivity"
       android:configChanges="orientation|screenLayout|screenSize"
-      android:label="@string/pp_place_edit"
+      android:label="@string/edit_place"
       android:theme="@style/MwmTheme.EditorActivity"
       android:parentActivityName="com.mapswithme.maps.MwmActivity">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
