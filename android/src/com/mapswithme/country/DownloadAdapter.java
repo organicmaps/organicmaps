@@ -172,7 +172,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
     if (item.hasChildren())      // expand next level
       expandGroup(adjustPosition(position));
     else
-      showCountryContextMenu(item, view, position);
+      onCountryClick(item, view, position);
   }
 
   @Override

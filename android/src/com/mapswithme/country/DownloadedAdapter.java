@@ -155,15 +155,15 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
   @Override
   public void onItemClick(int position, View view)
   {
-    showCountryContextMenu(getItem(position), view, position);
+    onCountryClick(getItem(position), view, position);
   }
 
-  protected boolean containsOutdated()
+  private boolean containsOutdated()
   {
     return mOutdatedCount != 0;
   }
 
-  protected boolean containsUpdated()
+  private boolean containsUpdated()
   {
     return mUpdatedCount != 0;
   }

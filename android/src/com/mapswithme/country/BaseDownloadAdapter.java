@@ -3,7 +3,6 @@ package com.mapswithme.country;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
@@ -162,25 +161,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MAP_DOWNLOAD);
       }
     });
-  }
-
-  private void confirmDownloadCancellation(final ViewHolder holder, final int position, final String name)
-  {
-    final Dialog dlg = new AlertDialog.Builder(mFragment.getActivity())
-        .setTitle(name)
-        .setMessage(R.string.are_you_sure)
-        .setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            stopItemDownloading(holder, position);
-            dlg.dismiss();
-          }
-        })
-        .create();
-    dlg.setCanceledOnTouchOutside(true);
-    dlg.show();
   }
 
   private void processOutOfDate(final String name, final int position, final int newOptions)
@@ -413,7 +393,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onClick(View v)
         {
-          confirmDownloadCancellation(holder, position, item.getName());
+          stopItemDownloading(holder, position);
         }
       });
 
@@ -494,7 +474,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onClick(View v)
         {
-          confirmDownloadCancellation(holder, position, item.getName());
+          stopItemDownloading(holder, position);
         }
       });
       holder.mInfoSlided.setVisibility(View.VISIBLE);
@@ -732,49 +712,53 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     return false;
   }
 
-  void showCountryContextMenu(final CountryItem countryItem, final View anchor, final int position)
+  void onCountryClick(CountryItem countryItem, View anchor, final int position)
   {
     if (countryItem == null || anchor.getParent() == null)
       return;
 
-    final int MENU_CANCEL = 0;
-    final int MENU_UPDATE = 1;
-    final int MENU_DOWNLOAD = 2;
-    final int MENU_EXPLORE = 3;
-    final int MENU_DELETE = 4;
-    final int MENU_RETRY = 5;
+    final int MENU_UPDATE = 0;
+    final int MENU_EXPLORE = 1;
+    final int MENU_DELETE = 2;
 
+    final ViewHolder holder = (ViewHolder) anchor.getTag();
     final int status = countryItem.getStatus();
     final String name = countryItem.getName();
     final int adjustedPosition = adjustPosition(position);
+
+    switch (status)
+    {
+    case MapStorage.DOWNLOADING:
+    case MapStorage.IN_QUEUE:
+      stopItemDownloading(holder, position);
+      return;
+
+    case MapStorage.NOT_DOWNLOADED:
+      processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_ONLY, holder);
+      return;
+
+    case MapStorage.DOWNLOAD_FAILED:
+      processFailed(holder, adjustedPosition);
+      return;
+    }
 
     OnMenuItemClickListener menuItemClickListener = new OnMenuItemClickListener()
     {
       @Override
       public boolean onMenuItemClick(MenuItem item)
       {
-        final int id = item.getItemId();
-
-        ViewHolder holder = (ViewHolder) anchor.getTag();
-        switch (id)
+        switch (item.getItemId())
         {
         case MENU_DELETE:
           processOnDisk(name, adjustedPosition, StorageOptions.MAP_OPTION_MAP_ONLY);
           break;
-        case MENU_CANCEL:
-          confirmDownloadCancellation(holder, position, name);
-          break;
+
         case MENU_EXPLORE:
           showCountry(adjustedPosition);
           break;
-        case MENU_DOWNLOAD:
-          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_ONLY, holder);
-          break;
+
         case MENU_UPDATE:
           processOutOfDate(name, adjustedPosition, StorageOptions.MAP_OPTION_MAP_ONLY);
-          break;
-        case MENU_RETRY:
-          processFailed(holder, adjustedPosition);
           break;
         }
 
@@ -786,37 +770,18 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     BottomSheetHelper.Builder bs = BottomSheetHelper.create(mFragment.getActivity(), name)
                                                     .listener(menuItemClickListener);
-
-    if (status == MapStorage.ON_DISK_OUT_OF_DATE)
+    switch (status)
     {
+    case MapStorage.ON_DISK_OUT_OF_DATE:
       BottomSheetHelper.sheet(bs, MENU_UPDATE, R.drawable.ic_update,
                               mFragment.getString(R.string.downloader_update_map) + ", " +
                               StringUtils.getFileSizeString(remoteSizes[0]));
-    }
+    // No break
 
-    if (status == MapStorage.ON_DISK || status == MapStorage.ON_DISK_OUT_OF_DATE)
-    {
+    case MapStorage.ON_DISK:
       bs.sheet(MENU_EXPLORE, R.drawable.ic_explore, R.string.zoom_to_country);
 
       bs.sheet(MENU_DELETE, R.drawable.ic_delete, R.string.downloader_delete_map);
-    }
-
-    switch (status)
-    {
-    case MapStorage.DOWNLOADING:
-    case MapStorage.IN_QUEUE:
-      bs.sheet(MENU_CANCEL, R.drawable.ic_cancel, R.string.cancel_download);
-      break;
-
-    case MapStorage.NOT_DOWNLOADED:
-      BottomSheetHelper.sheet(bs, MENU_DOWNLOAD, R.drawable.ic_download_map,
-                              mFragment.getString(R.string.downloader_download_map) + ", " +
-                              StringUtils.getFileSizeString(remoteSizes[1]));
-      break;
-
-    case MapStorage.DOWNLOAD_FAILED:
-      bs.sheet(MENU_RETRY, R.drawable.ic_retry, R.string.downloader_retry);
-      break;
     }
 
     bs.tint().show();
