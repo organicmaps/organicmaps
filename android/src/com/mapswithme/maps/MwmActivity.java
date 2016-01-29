@@ -287,10 +287,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATE_DIALOG_SEEN);
 
     new AlertDialog.Builder(MwmActivity.this)
-        .setTitle(R.string.migrate_title)
+        .setTitle(R.string.youve_been_asking)
         .setMessage(R.string.migrate_and_split_mwms_message)
-        .setNegativeButton(android.R.string.cancel, null)
-        .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+        .setNegativeButton(R.string.not_now, null)
+        .setPositiveButton(R.string.delete_all, new Dialog.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dialog, int which)
