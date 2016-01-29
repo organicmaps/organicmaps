@@ -15452,8 +15452,7 @@
     es = Llevas tiempo pidiéndolo y lo hemos hecho
     pl = Prosiliście o to, więc to zrobiliśmy
     nl = Op veler verzoek hebben we het voor elkaar gekregen
-    pt = Vocês têm pedido por isso e nós atendemos  [migrate_title]
-    en = Important!
+    pt = Vocês têm pedido por isso e nós atendemos
 
   [download_all]
     tags = ios
