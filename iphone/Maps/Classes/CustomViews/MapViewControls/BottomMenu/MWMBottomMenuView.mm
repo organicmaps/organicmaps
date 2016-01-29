@@ -292,6 +292,8 @@
   self.layoutDuration = kDefaultAnimationDuration;
   [self setNeedsLayout];
   [self refreshButtonsColor];
+  if (self.state == MWMBottomMenuStateInactive)
+    [self updateBadge];
 }
 
 - (void)refreshButtonsColor
@@ -303,6 +305,11 @@
   self.bookmarksButton.coloring = coloring;
   self.locationButton.coloring = self.locationButton.coloring;
   self.searchButton.coloring = self.searchButton.coloring;
+}
+
+- (void)updateBadge
+{
+  self.downloadBadge.hidden = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount() == 0;
 }
 
 #pragma mark - Properties
@@ -326,8 +333,7 @@
   case MWMBottomMenuStateInactive:
     if (MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
       _leftBound = 0.0;
-    self.downloadBadge.hidden =
-        GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount() == 0;
+    [self updateBadge];
     self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
     self.layoutDuration =
         (_state == MWMBottomMenuStateCompact && !IPAD) ? 0.0 : kDefaultAnimationDuration;

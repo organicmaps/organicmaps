@@ -639,6 +639,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
       [[Statistics instance] logEvent:kStatMigrationBig2SmallMWM];
       [self.controlsManager routingHidden];
       GetFramework().Migrate();
+      [self.controlsManager refreshLayout];
       block();
     }];
   }
