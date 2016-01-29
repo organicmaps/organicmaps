@@ -596,7 +596,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 
   f.SetAutoDownloadListener([self](storage::TIndex const & idx)
   {
-    if (platform::migrate::NeedMigrate())
+    if (![self isEqual:self.navigationController.topViewController] || platform::migrate::NeedMigrate())
       return;
     bool autoDownloadEnabled = true;
     (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
