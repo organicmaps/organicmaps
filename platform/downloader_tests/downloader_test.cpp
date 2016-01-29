@@ -34,7 +34,8 @@ using namespace downloader;
 class DownloadObserver
 {
   bool m_progressWasCalled;
-  unique_ptr<HttpRequest::StatusT> m_status;
+  // Chunked downloads can return one status per chunk (thread).
+  vector<HttpRequest::StatusT> m_statuses;
   // Interrupt download after this number of chunks
   int m_chunksToFail;
 
@@ -53,20 +54,22 @@ public:
   void Reset()
   {
     m_progressWasCalled = false;
-    m_status.reset();
+    m_statuses.clear();
   }
 
   void TestOk()
   {
+    TEST_NOT_EQUAL(0, m_statuses.size(), ("Observer was not called."));
     TEST(m_progressWasCalled, ("Download progress wasn't called"));
-    TEST(m_status.get(), ());
-    TEST_EQUAL(*m_status, HttpRequest::ECompleted, ());
+    for (auto const & status : m_statuses)
+      TEST_EQUAL(status, HttpRequest::ECompleted, ());
   }
 
   void TestFailed()
   {
-    TEST(m_status.get(), ());
-    TEST_EQUAL(*m_status, HttpRequest::EFailed, ());
+    TEST_NOT_EQUAL(0, m_statuses.size(), ("Observer was not called."));
+    for (auto const & status : m_statuses)
+      TEST_EQUAL(status, HttpRequest::EFailed, ());
   }
 
   void OnDownloadProgress(HttpRequest & request)
@@ -87,14 +90,13 @@ public:
     }
   }
 
-  void OnDownloadFinish(HttpRequest & request)
+  virtual void OnDownloadFinish(HttpRequest & request)
   {
-    TEST(!m_status.get(), ());
-    m_status.reset(new HttpRequest::StatusT(request.Status()));
-    TEST(*m_status == HttpRequest::EFailed || *m_status == HttpRequest::ECompleted, ());
+    auto const status = request.Status();
+    m_statuses.emplace_back(status);
+    TEST(status == HttpRequest::EFailed || status == HttpRequest::ECompleted, ());
     QCoreApplication::quit();
   }
-
 };
 
 struct CancelDownload
