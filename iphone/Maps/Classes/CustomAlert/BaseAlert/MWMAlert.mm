@@ -132,7 +132,7 @@
 
 - (void)rotate:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-  if (isIOSVersionLessThan(8) && [self respondsToSelector:@selector(setTransform:)])
+  if (isIOS7 && [self respondsToSelector:@selector(setTransform:)])
   {
     [UIView animateWithDuration:duration animations:^
     {

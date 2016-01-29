@@ -39,7 +39,7 @@
 
 - (void)showAlert:(NSString *)alert withButtonTitle:(NSString *)buttonTitle
 {
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
   {
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:alert
                                                          message:nil

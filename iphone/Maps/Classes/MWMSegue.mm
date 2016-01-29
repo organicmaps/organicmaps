@@ -7,7 +7,7 @@
 {
   UINavigationController * nc = self.sourceViewController.navigationController;
   UIViewController * dvc = self.destinationViewController;
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
   {
     if ([dvc isMemberOfClass:[UINavigationController class]])
       [nc presentViewController:dvc animated:YES completion:nil];

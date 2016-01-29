@@ -38,7 +38,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   NSString * title = L(@"location_is_disabled_long_text");
   NSString * cancel = L(@"cancel");
   NSString * openSettings = L(@"settings");
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
   {
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:cancel otherButtonTitles:nil];
     [alertView show];
@@ -121,12 +121,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)displayAlert:(MWMAlert *)alert
 {
-  BOOL const iOS7 = isIOSVersionLessThan(8);
   alert.alertController = self;
   [self.ownerViewController addChildViewController:self];
   self.view.alpha = 0.;
   alert.alpha = 0.;
-  if (!iOS7)
+  if (!isIOS7)
   {
     CGFloat const scale = 1.1;
     alert.transform = CGAffineTransformMakeScale(scale, scale);
@@ -135,7 +134,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   {
     self.view.alpha = 1.;
     alert.alpha = 1.;
-    if (!iOS7)
+    if (!isIOS7)
       alert.transform = CGAffineTransformIdentity;
   }];
 }

@@ -639,7 +639,7 @@ void InitLocalizedStrings()
   navigationBar.shadowImage = [UIImage imageWithColor:[UIColor fadeBackground]];
   navigationBar.titleTextAttributes = [self navigationBarTextAttributes];
   // Workaround for ios 7 crash.
-  if (!isIOSVersionLessThan(8))
+  if (!isIOS7)
     navigationBar.translucent = NO;
 }
 

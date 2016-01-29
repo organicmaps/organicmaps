@@ -49,7 +49,7 @@ typedef NS_ENUM(NSUInteger, Section)
   self.tableView.backgroundView = nil;
   bool adServerForbidden = false;
   (void)Settings::Get(kAdServerForbiddenKey, adServerForbidden);
-  if (isIOSVersionLessThan(8) || adServerForbidden)
+  if (isIOS7 || adServerForbidden)
     sections = {SectionMetrics, SectionMap, SectionRouting, SectionCalibration, SectionStatistics};
   else
     sections = {SectionMetrics, SectionMap, SectionRouting, SectionCalibration, SectionAd, SectionStatistics};

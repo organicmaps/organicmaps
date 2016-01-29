@@ -68,7 +68,7 @@ static NSString * const kKeyPath = @"subviews";
 
 - (BOOL)isVisible
 {
-  if (isIOSVersionLessThan(9))
+  if (isIOS7 || isIOS8)
     return _isVisible;
   return NO;
 }
@@ -77,7 +77,7 @@ static NSString * const kKeyPath = @"subviews";
 {
   // Status bar in iOS 9 already provides back button if the app has been launched from another app.
   // For iOS version less than 9 we just try to mimic the default iOS 9 status bar.
-  if (!isIOSVersionLessThan(9))
+  if (!(isIOS7 || isIOS8))
     return;
   if (_isVisible == isVisible)
     return;

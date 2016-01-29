@@ -138,7 +138,7 @@
 
 - (void)rateVersionFrom:(NSString *)launchPlaceName
 {
-  NSString * urlString = isIOSVersionLessThan(8) ?
+  NSString * urlString = isIOS7 ?
   [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id510623322?mt=8&at=1l3v7ya&ct=%@", launchPlaceName] :
   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=510623322&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software";
   [self openURL:[NSURL URLWithString:urlString]];
@@ -306,7 +306,7 @@
 
 - (void)makeImageAlwaysTemplate
 {
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
     self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 

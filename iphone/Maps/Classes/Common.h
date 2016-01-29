@@ -59,6 +59,9 @@ static inline BOOL isIOSVersionLessThan(NSUInteger version)
   return isIOSVersionLessThan([NSString stringWithFormat:@"%@", @(version)]);
 }
 
+static BOOL const isIOS7 = isIOSVersionLessThan(8);
+static BOOL const isIOS8 = !isIOS7 && isIOSVersionLessThan(9);
+
 static uint64_t const KB = 1024;
 static uint64_t const MB = 1024 * 1024;
 

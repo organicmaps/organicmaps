@@ -236,7 +236,7 @@ using namespace osm;
 {
   NSString * cancel = L(@"cancel");
   NSString * del = L(@"delete");
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
   {
     UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:del otherButtonTitles:nil];
     [actionSheet showInView:self.view];

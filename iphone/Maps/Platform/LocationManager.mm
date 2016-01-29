@@ -36,7 +36,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
     m_locationManager.delegate = self;
     [UIDevice currentDevice].batteryMonitoringEnabled = YES;
     [self refreshAccuracy];
-    if (!isIOSVersionLessThan(9))
+    if (!(isIOS7 || isIOS8))
       m_locationManager.allowsBackgroundLocationUpdates = YES;
     m_locationManager.pausesLocationUpdatesAutomatically = YES;
     m_locationManager.headingFilter = 3.0;

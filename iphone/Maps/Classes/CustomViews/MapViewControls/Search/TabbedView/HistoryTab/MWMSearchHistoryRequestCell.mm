@@ -24,7 +24,7 @@
 {
   self.title.text = title;
   [self.title sizeToFit];
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
     [self layoutIfNeeded];
 }
 

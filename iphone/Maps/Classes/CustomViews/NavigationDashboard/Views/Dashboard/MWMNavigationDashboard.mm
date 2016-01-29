@@ -13,7 +13,7 @@
 - (void)setCenter:(CGPoint)center
 {
 //TODO(Vlad): There is hack for "cut" iOS7.
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
     return;
   [super setCenter:center];
 }

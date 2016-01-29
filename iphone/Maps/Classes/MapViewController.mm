@@ -306,7 +306,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 
 - (BOOL)hasForceTouch
 {
-  if (isIOSVersionLessThan(9))
+  if (isIOS7 || isIOS8)
     return NO;
   return self.view.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
 }
@@ -443,7 +443,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 
 - (void)showWhatsNewIfNeeded
 {
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
     return;
     
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
@@ -477,7 +477,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
                      animated:(BOOL)flag
                    completion:(TMWMVoidBlock)completion
 {
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
     self.menuRestoreState = self.controlsManager.menuState;
   [super presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
@@ -765,7 +765,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
   (void)Settings::Get(kAdServerForbiddenKey, adServerForbidden);
   bool adForbidden = false;
   (void)Settings::Get(kAdForbiddenSettingsKey, adForbidden);
-  if (isIOSVersionLessThan(8) || adServerForbidden || adForbidden)
+  if (isIOS7 || adServerForbidden || adForbidden)
   {
     self.appWallAd = nil;
     return;

@@ -53,7 +53,7 @@ static NSString * const kStatisticsEvent = @"Pedestrian Share Alert";
   [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
   [Alohalytics logEvent:kStatisticsEvent withValue:@"shareTap"];
   MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForPedestrianRoutesToast];
-  if (IPAD && !isIOSVersionLessThan(8))
+  if (IPAD && !isIOS7)
   {
     shareVC.completionWithItemsHandler = ^(NSString * activityType, BOOL completed, NSArray * returnedItems,
                                            NSError * activityError)

@@ -26,7 +26,7 @@ double correctContentScale()
 {
   UIScreen * uiScreen = [UIScreen mainScreen];
   
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
     return [uiScreen respondsToSelector:@selector(scale)] ? [uiScreen scale] : 1.f;
   else
     return [uiScreen respondsToSelector:@selector(nativeScale)] ? [uiScreen nativeScale] : 1.f;

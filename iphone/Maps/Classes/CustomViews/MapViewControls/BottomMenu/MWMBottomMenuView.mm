@@ -270,7 +270,7 @@
         break;
       }
       UIImage * image = [UIImage imageNamed:name];
-      if (isIOSVersionLessThan(8))
+      if (isIOS7)
         image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
       [btn setImage:image forState:UIControlStateNormal];
     }
@@ -298,7 +298,7 @@
 
 - (void)refreshButtonsColor
 {
-  if (!isIOSVersionLessThan(8))
+  if (!isIOS7)
     return;
   auto const coloring = self.p2pButton.coloring;
   self.p2pButton.coloring = coloring;

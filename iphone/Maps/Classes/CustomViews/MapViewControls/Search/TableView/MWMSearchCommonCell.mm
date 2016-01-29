@@ -60,7 +60,7 @@
       self.distanceLabel.text = @(distanceStr.c_str());
     }
   }
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
     [self layoutIfNeeded];
 }
 
