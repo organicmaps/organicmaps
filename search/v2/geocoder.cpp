@@ -927,7 +927,7 @@ void Geocoder::MatchCities()
       if (AllTokensUsed())
       {
         // City matches to search query.
-        m_results->emplace_back(m_worldId, city.m_featureId);
+        m_results->emplace_back(city.m_countryId, city.m_featureId);
         continue;
       }
 
