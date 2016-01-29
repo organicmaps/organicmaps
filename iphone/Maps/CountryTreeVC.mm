@@ -303,9 +303,25 @@ extern NSString * const MapsStatusChangedNotification;
     self.selectedPosition = static_cast<int>(indexPath.row);
     if (self.tree.IsLeaf(self.selectedPosition))
     {
-      MapCell * cell = [self cellAtPositionInNode:self.selectedPosition];
-      UIActionSheet * actionSheet = [self actionSheetToPerformActionOnSelectedMap];
-      [actionSheet showFromRect:cell.frame inView:cell.superview animated:YES];
+      switch ([self selectedMapStatus])
+      {
+        case TStatus::ENotDownloaded:
+        case TStatus::EDownloadFailed:
+        case TStatus::EOutOfMemFailed:
+          self.tree.DownloadCountry(self.selectedPosition, MapOptions::Map);
+          break;
+        case TStatus::EDownloading:
+        case TStatus::EInQueue:
+          self.tree.CancelDownloading(self.selectedPosition);
+          break;
+        default:
+        {
+          MapCell * cell = [self cellAtPositionInNode:self.selectedPosition];
+          UIActionSheet * actionSheet = [self actionSheetToPerformActionOnSelectedMap];
+          [actionSheet showFromRect:cell.frame inView:cell.superview animated:YES];
+          break;
+        }
+      }
     }
     else
     {

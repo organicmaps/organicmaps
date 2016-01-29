@@ -95,18 +95,10 @@
       [self addButtonWithTitle:L(@"downloader_delete_map") action:DownloaderActionDeleteMap toActionSheet:actionSheet];
       actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
       break;
-    case TStatus::ENotDownloaded:
-    case TStatus::EDownloadFailed:
-    case TStatus::EOutOfMemFailed:
-      [self addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", L(@"downloader_download_map"), fullSize] action:DownloaderActionDownloadMap toActionSheet:actionSheet];
-      break;
-    case TStatus::EDownloading:
-    case TStatus::EInQueue:
-      [self addButtonWithTitle:L(@"cancel_download") action:DownloaderActionCancelDownloading toActionSheet:actionSheet];
-      actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
-      break;
     case TStatus::EUnknown:
       NSAssert(NO, @"Invalid status");
+      break;
+    default:
       break;
   }
 
