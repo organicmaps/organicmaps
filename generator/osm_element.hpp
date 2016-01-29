@@ -129,6 +129,7 @@ struct OsmElement
     m_members.emplace_back(ref, type, role);
   }
   void AddTag(string const & k, string const & v);
+  bool UpdateTag(string const & k, string const & v);
 };
 
 string DebugPrint(OsmElement const & e);

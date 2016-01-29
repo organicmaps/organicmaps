@@ -62,6 +62,18 @@ void OsmElement::AddTag(string const & k, string const & v)
   m_tags.emplace_back(k, v);
 }
 
+bool OsmElement::UpdateTag(string const & k, string const & v)
+{
+  for (auto & tag : m_tags)
+  {
+    if (tag.key == k)
+    {
+      tag.value = v;
+      return true;
+    }
+  }
+  return false;
+}
 
 string OsmElement::ToString(string const & shift) const
 {

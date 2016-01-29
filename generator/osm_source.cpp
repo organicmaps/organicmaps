@@ -505,7 +505,7 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info)
         bucketer, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
         info.GetAddressesFileName());
 
-    TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways",".csv"));
+    TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways",".csv"), info.GetIntermediateFileName("towns",".csv"));
     // Here we can add new tags to element!!!
     auto fn = [&parser, &tagAdmixer](OsmElement * e) { parser.EmitElement(tagAdmixer(e)); };
 
