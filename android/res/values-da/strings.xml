@@ -93,6 +93,8 @@
 	<string name="country_status_downloading">Downloader\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Download kort\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Download kort</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Download kort uden\nruteplanlægning (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->

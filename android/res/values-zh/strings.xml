@@ -91,6 +91,8 @@
 	<string name="country_status_downloading">下载 \n^\n^中</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">下载地图\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">下载地图</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">下载不带路线的地图\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->

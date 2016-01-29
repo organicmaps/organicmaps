@@ -95,6 +95,8 @@
 	<string name="country_status_downloading">Đang tải xuống\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Tải xuống Bản đồ\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Tải xuống Bản đồ</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Tải về bản đồ không\ncó chỉ đường (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->

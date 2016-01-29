@@ -95,6 +95,8 @@
 	<string name="country_status_downloading">Ladataan\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Lataa kartta\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Lataa kartta</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Lataa kartta\nilman reititystä (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->

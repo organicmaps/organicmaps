@@ -95,6 +95,8 @@
 	<string name="country_status_downloading">กำลังดาวน์โหลด\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">ดาวน์โหลดแผนที่\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">ดาวน์โหลดแผนที่</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->

@@ -144,6 +144,9 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Last ned kart\n(^ ^)";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Last ned kart";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "Last ned kart\nuten veiviserfunksjon (^ ^)";
 

@@ -144,6 +144,9 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Stiahnite si Mapu\n(^ ^)";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Stiahnite si Mapu";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "Stiahnite si mapu\nbez smerovania (^ ^)";
 

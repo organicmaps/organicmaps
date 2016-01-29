@@ -86,6 +86,8 @@
 	<string name="country_status_downloading">aan het downloaden\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Kaart downloaden\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Kaart downloaden</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Download kaart\nzonder routeplanning (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->

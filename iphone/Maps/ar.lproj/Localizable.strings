@@ -144,6 +144,9 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "(^ ^)\nتحميل الخريطة";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "تحميل الخريطة";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "(^ ^)\nتنزيل خريطة بدون تحديد خط السير";
 

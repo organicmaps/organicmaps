@@ -89,6 +89,8 @@
 	<string name="country_status_downloading">다운로드 중\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">지도 다운로드\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">지도 다운로드</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">라우팅없이 지도 다운로드\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->

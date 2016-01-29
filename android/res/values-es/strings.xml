@@ -88,6 +88,8 @@
 	<string name="country_status_downloading">Descargando\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Descargar mapa\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Descargar mapa</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Descargar mapa\nsin ruta (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->

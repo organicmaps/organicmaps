@@ -95,6 +95,8 @@
 	<string name="country_status_downloading">Se descarcă\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Descărcare hartă\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Descărcare hartă</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Descărcare hartă\nfără rutare (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
