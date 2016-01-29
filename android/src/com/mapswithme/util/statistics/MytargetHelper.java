@@ -130,13 +130,14 @@ public final class MytargetHelper
 
   public void displayShowcase()
   {
-    mShowcase.handleBannerClick(mShowcase.getBanners().get(0));
+    if (!mShowcase.getBanners().isEmpty())
+      mShowcase.handleBannerClick(mShowcase.getBanners().get(0));
   }
 
   public static boolean isShowcaseSwitchedOnLocal()
   {
     return PreferenceManager.getDefaultSharedPreferences(MwmApplication.get())
-                             .getBoolean(MwmApplication.get().getString(R.string.pref_showcase_switched_on), false);
+                            .getBoolean(MwmApplication.get().getString(R.string.pref_showcase_switched_on), false);
   }
 
   public static boolean isShowcaseSwitchedOnServer()

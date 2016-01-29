@@ -815,6 +815,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           mMainMenu.showShowcase(false);
           return;
         }
+
         final NativeAppwallBanner menuBanner = nativeAppwallAd.getBanners().get(0);
         mMainMenu.setShowcaseText(menuBanner.getTitle());
         mMainMenu.showShowcase(true);
