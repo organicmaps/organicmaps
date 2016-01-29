@@ -608,7 +608,15 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
   {
     dispatch_async(dispatch_get_main_queue(), [=]
     {
-      [self processRoutingBuildingEvent:code countries:absentCountries routes:absentRoutes];
+      if (code != routing::IRouter::ResultCode::NoError && platform::migrate::NeedMigrate())
+      {
+        [self.controlsManager routingHidden];
+        [self checkMigrationAndCallBlock:^{}];
+      }
+      else
+      {
+        [self processRoutingBuildingEvent:code countries:absentCountries routes:absentRoutes];
+      }
     });
   });
   
@@ -687,14 +695,11 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
       [self.controlsManager handleRoutingError];
       [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes block:[=]
       {
-        [self checkMigrationAndCallBlock:[=]
-        {
-          auto & a = GetFramework().GetCountryTree().GetActiveMapLayout();
-          for (auto const & index : absentCountries)
-            a.DownloadMap(index, MapOptions::MapWithCarRouting);
-          for (auto const & index : absentRoutes)
-            a.DownloadMap(index, MapOptions::CarRouting);
-        }];
+        auto & a = GetFramework().GetCountryTree().GetActiveMapLayout();
+        for (auto const & index : absentCountries)
+          a.DownloadMap(index, MapOptions::MapWithCarRouting);
+        for (auto const & index : absentRoutes)
+          a.DownloadMap(index, MapOptions::CarRouting);
       }];
       self.forceRoutingStateChange = ForceRoutingStateChangeNone;
       break;
