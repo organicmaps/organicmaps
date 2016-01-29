@@ -32,6 +32,7 @@
 #include <iomanip>
 #include <ios>
 #include <ostream>
+#include <type_traits>
 #include <vector>
 
 namespace
@@ -94,8 +95,10 @@ class StreamFlagsKeeper
   std::ios_base::fmtflags m_flags;
 };
 
-void PrintPaddedNumber(std::ostream & ost, uint32_t const number, uint32_t const padding = 1)
+template <typename TNumber>
+void PrintPaddedNumber(std::ostream & ost, TNumber const number, uint32_t const padding = 1)
 {
+  static_assert(std::is_integral<TNumber>::value, "number should be of integral type.");
   StreamFlagsKeeper keeper(ost);
   ost << std::setw(padding) << std::setfill('0') << number;
 }
