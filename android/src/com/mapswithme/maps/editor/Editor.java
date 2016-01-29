@@ -38,6 +38,7 @@ public final class Editor
            Editor.nativeIsNameEditable();
   }
 
+  @WorkerThread
   public static void uploadChanges()
   {
     if (nativeHasSomethingToUpload() &&
@@ -64,5 +65,5 @@ public final class Editor
   public static native boolean nativeHasSomethingToUpload();
 
   @WorkerThread
-  public static native void nativeUploadChanges(String token, String secret);
+  private static native void nativeUploadChanges(String token, String secret);
 }
