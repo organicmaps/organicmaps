@@ -1201,26 +1201,6 @@
     nb = Vi anbefaler å bruke WiFi når du skal laste ned store kart
     fi = WiFi-yhteyttä suositellaan suurten karttojen lataamiseen
 
-  [new_map_data_format_upgrade_dialog]
-    en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
-    comment = NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2
-    cs = Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžete vybrat ke stažení pouze region/stát, který potřebujete. Pokud však chcete používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.
-    sk = Aktualizovali sme mapovú databázu a zmenšili objem máp. U väčších krajín si teraz môžete vybrať na stiahnutie iba región, ktorý potrebujete. Keď však chcete používať nové mapy, bude treba odstrániť všetky staré mapové podklady, ktoré už boli stiahnuté.
-    de = Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewählte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie vorher heruntergeladene Karten.
-    es = Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberías antes borrar los anteriormente descargados.
-    fr = Nous avons mis à jour les données de la carte et les avons réduites. Pour les pays plus grands, vous pouvez maintenant choisir de télécharger uniquement la région/l'état/la province dont vous avez besoin. Cependant, pour utiliser les nouvelles cartes, vous devriez supprimer toutes les anciennes données cartographiques téléchargées.
-    nl = Wij hebben de kaart geupdate en hem verkleind. Met grote landen kunt u nu ervoor kiezen om allen de regio/staat te downloaden die u nodig heeft. Om de nieuwe kaarten te gebruiken moet u alle oude kaarten verwijderen.
-    ru = Мы обновили карты и уменьшили их размер. Для больших стран вы сможете выборочно загружать нужные вам штаты или регионы. Однако, чтобы воспользоваться новыми картами, необходимо предварительно удалить старыe.
-    uk = Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.
-    zh-Hant = “我們已經更新並縮小了地圖資料，而較大的國家，您可以只選擇您所需的地區/國家來下載即可。如果您要使用新地圖，則需先刪除先前已下載的圖資後方能使用!”
-    pl = Zaktualizowaliśmy dane map i zmniejszyliśmy ich rozmiar. W przypadku większych krajów możesz teraz pobrać tylko te regiony/stany, które są ci potrzebne. Jednak by korzystać z nowych map powinieneś skasować wszystkie stare mapy, które kiedyś pobrałeś.
-    hu = Frissítettük a térképadatokat. Nagyobb országokban most egyes régiók külön is letölthetőek. Az új térképek használata előtt kérjük törölje le a régi térképeket.
-    id = Kami telah memperbarui data peta dan membuatnya lebih kecil. Untuk negara-negara yang lebih besar, kini Anda dapat memilih untuk mengunduh hanya daerah/negara bagian yang Anda perlukan. Namun, untuk menggunakan peta yang baru Anda harus menghapus data peta lama apa pun yang telah diunduh sebelumnya.
-    vi = Chúng tôi đã cập nhật dữ liệu bản đồ và nén nó cho nhỏ hơn. Với các quốc gia lớn hơn, giờ đây bạn đã có thể chọn chỉ tải xuống khu vực/tiểu bang mà bạn cần. Tuy nhiên, để sử dụng bản đồ mới bạn nên xóa bất kỳ dữ liệu bản đồ cũ nào đã được tải xuống trước đây.
-    ro = Am actualizat datele cartografice și le-am făcut mai mici. În cazul țărilor mari, acum puteți alege să descărcați doar regiunea/statul de care aveți nevoie. Totuși, pentru a putea utiliza hărțile noi, trebuie să ștergeți orice date cartografice descărcate anterior.
-    nb = Vi har oppdatert kartdata og gjort dem mindre. For større land kan du nå velge å laste ned bare det området du trenger. For å bruke de nye kartene bør du imidlertid slette eldre kartdata som du har lastet ned tidligere.
-    fi = Olemme päivittäneet karttoja ja pienentäneet niitä. Suuremmissa kartoissa voit valita lataavasi vain tarvitsemasi alueen/osavaltion. Uusia karttoja käyttääksesi sinun tulee kuitenkin ensin poistaa vanhat aiemmin lataamasi kartat.
-
   [which_measurement_system]
     en = Which measurement system do you prefer?
     comment = Choose measurement on first launch alert - title
@@ -2799,7 +2779,7 @@
   [address]
     en = Address
     tags = ios
-    comment = Add bookmark dialog - bookmark address
+    comment = Editor title above street and house number
     cs = Adresa
     sk = Adresa
     de = Adresse
@@ -16495,36 +16475,6 @@
     pl = Dodaj język
     nl = Een taal toevoegen
     pt = Adicionar um idioma
-
-  [address]
-    tags = ios, android
-    en = Address
-    ru = Адрес
-    fr = Adresse
-    da = Adresse
-    id = Alamat
-    ko = 주소
-    sv = Adress
-    tr = Adres
-    uk = Адреса
-    vi = Địa chỉ
-    hu = Cím
-    de = Adresse
-    fi = Osoite
-    cs = Adresa
-    it = Indirizzo
-    nb = Adresse
-    zh-Hant = 地址
-    zh-Hans = 地址
-    th = ที่อยู่
-    ja = 住所
-    ro = Adresă
-    ar = العنوان
-    sk = Adresa
-    es = Dirección
-    pl = Adres
-    nl = Adres
-    pt = Endereço
 
   [street]
     tags = ios, android
