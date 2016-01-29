@@ -960,10 +960,6 @@ void Framework::OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::P
 
   if (currentIndex != newCountryIndex)
   {
-    // Enable auto-downloading after return from the world map.
-    if (!currentIndex.IsValid())
-      m_autoDownloadingOn = true;
-
     if (m_autoDownloadingOn && m_autoDownloadListener != nullptr)
       m_autoDownloadListener(newCountryIndex);
 
@@ -1440,6 +1436,10 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     if (!screen.GlobalRect().EqualDxDy(m_currentModelView.GlobalRect(), 1.0E-4))
       UpdateUserViewportChanged();
     m_currentModelView = screen;
+
+    // Enable auto-downloading after return from the world map.
+    if (GetDrawScale() <= scales::GetUpperWorldScale())
+      m_autoDownloadingOn = true;
   });
   m_drapeEngine->SetTapEventInfoListener(bind(&Framework::OnTapEvent, this, _1, _2, _3, _4));
   m_drapeEngine->SetUserPositionListener(bind(&Framework::OnUserPositionChanged, this, _1));
