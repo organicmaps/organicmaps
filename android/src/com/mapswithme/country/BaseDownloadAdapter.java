@@ -183,6 +183,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     new AlertDialog.Builder(mFragment.getActivity())
         .setTitle(name)
         .setMessage(R.string.are_you_sure)
+        .setNegativeButton(android.R.string.cancel, null)
         .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener()
         {
           @Override
@@ -512,6 +513,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   {
     holder.setPercentText(mFragment.getString(R.string.downloader_queued));
     holder.setPercentColor(mFragment.getResources().getColor(R.color.downloader_gray));
+    holder.setProgress(0);
     holder.mProgress.setVisibility(View.VISIBLE);
 
     ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mProgress, PROPERTY_TRANSLATION_X, 0,
