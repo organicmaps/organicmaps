@@ -161,7 +161,7 @@
 	<string name="my_places">Mine Steder</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Navn</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adresse</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Fjern knappenål</string>
@@ -883,7 +883,6 @@
 	<string name="place_name">Navn på sted</string>
 	<string name="place_name_caption">Indtast navnet, som det står på skiltet for stedet</string>
 	<string name="add_language">Tilføj et sprog</string>
-	<string name="address">Adresse</string>
 	<string name="street">Gade</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Bygning</string>

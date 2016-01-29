@@ -123,9 +123,6 @@
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Chúng tôi khuyên bạn nên sử dụng WiFi để tải xuống các bảnđồ lớn.";
 
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Chúng tôi đã cập nhật dữ liệu bản đồ và nén nó cho nhỏ hơn. Với các quốc gia lớn hơn, giờ đây bạn đã có thể chọn chỉ tải xuống khu vực/tiểu bang mà bạn cần. Tuy nhiên, để sử dụng bản đồ mới bạn nên xóa bất kỳ dữ liệu bản đồ cũ nào đã được tải xuống trước đây.";
-
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Bạn thích sử dụng hệ thống đo lường nào?";
 
@@ -261,7 +258,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Tên";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Địa chỉ";
 
 /* Place Page - Remove Pin button */
@@ -1467,8 +1464,6 @@
 "show_less" = "Show Less";
 
 "add_language" = "Thêm ngôn ngữ";
-
-"address" = "Địa chỉ";
 
 "street" = "Đường";
 

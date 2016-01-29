@@ -163,7 +163,7 @@
 	<string name="my_places">Yerlerim</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Adı</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adres</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Pini Kaldır</string>
@@ -887,7 +887,6 @@
 	<string name="place_name">Yer ismi</string>
 	<string name="place_name_caption">Yerin adını tabelada olduğu şekliyle girin</string>
 	<string name="add_language">Bir dil ekle</string>
-	<string name="address">Adres</string>
 	<string name="street">Sokak</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Bina</string>

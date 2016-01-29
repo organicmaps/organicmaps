@@ -123,9 +123,6 @@
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Vă recomandăm să utilizați WiFi pentru a descărca hărți mari.";
 
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Am actualizat datele cartografice și le-am făcut mai mici. În cazul țărilor mari, acum puteți alege să descărcați doar regiunea/statul de care aveți nevoie. Totuși, pentru a putea utiliza hărțile noi, trebuie să ștergeți orice date cartografice descărcate anterior.";
-
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Ce sistem de măsură preferați?";
 
@@ -261,7 +258,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Nume";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Adresă";
 
 /* Place Page - Remove Pin button */
@@ -1467,8 +1464,6 @@
 "show_less" = "Show Less";
 
 "add_language" = "Adăugare limbă";
-
-"address" = "Adresă";
 
 "street" = "Stradă";
 

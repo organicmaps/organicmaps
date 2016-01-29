@@ -123,9 +123,6 @@
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "我们推荐使用 WiFi 来下载大的地图";
 
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.";
-
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "您喜欢哪种测量系统?";
 
@@ -261,7 +258,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "名字";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "地址";
 
 /* Place Page - Remove Pin button */
@@ -1467,8 +1464,6 @@
 "show_less" = "Show Less";
 
 "add_language" = "添加语言";
-
-"address" = "地址";
 
 "street" = "街道";
 

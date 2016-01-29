@@ -158,7 +158,7 @@
 	<string name="my_places">マイロケーション</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名称</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">住所</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">ピンを削除</string>
@@ -880,7 +880,6 @@
 	<string name="place_name">場所の名前</string>
 	<string name="place_name_caption">この場所の看板通りに名前を入力してください</string>
 	<string name="add_language">言語を追加</string>
-	<string name="address">住所</string>
 	<string name="street">通り</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">建物</string>

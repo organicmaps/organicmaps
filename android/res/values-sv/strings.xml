@@ -159,7 +159,7 @@
 	<string name="my_places">Mina Platser</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Namn</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adress</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Ta bort knappnål</string>
@@ -885,7 +885,6 @@
 	<string name="place_name">Platsens namn</string>
 	<string name="place_name_caption">Skriv in namnet så som det står på platsens skylt</string>
 	<string name="add_language">Lägg till ett språk</string>
-	<string name="address">Adress</string>
 	<string name="street">Gata</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Byggnad</string>

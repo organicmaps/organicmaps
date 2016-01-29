@@ -81,8 +81,6 @@
 	<string name="use_cellular_data">Ja</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Wir haben die Karten aktualisiert und kleiner gemacht. Für grosse Länder können Sie ausgewählte Regionen einzeln herunterladen. Um die neuen Karten zu benutzen, löschen Sie vorher heruntergeladene Karten.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Welches Einheitensystem bevorzugen Sie?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -165,7 +163,7 @@
 	<string name="my_places">Meine Orte</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Name</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adresse</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Stecknadel entfernen</string>
@@ -905,7 +903,6 @@
 	<string name="place_name">Name des Platzes</string>
 	<string name="place_name_caption">Geben Sie den Namen ein, der auf dem Schild des Platzes steht</string>
 	<string name="add_language">Eine Sprache hinzufügen</string>
-	<string name="address">Adresse</string>
 	<string name="street">Straße</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Gebäude</string>

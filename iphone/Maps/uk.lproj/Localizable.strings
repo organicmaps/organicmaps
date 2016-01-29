@@ -123,9 +123,6 @@
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Ми рекомендуємо завантажувати великі країни через WiFi";
 
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.";
-
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Якій системі вимірювання ви віддаєте перевагу?";
 
@@ -261,7 +258,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Iм'я";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Адреса";
 
 /* Place Page - Remove Pin button */
@@ -1467,8 +1464,6 @@
 "show_less" = "Show Less";
 
 "add_language" = "Додати мову";
-
-"address" = "Адреса";
 
 "street" = "Вулиця";
 

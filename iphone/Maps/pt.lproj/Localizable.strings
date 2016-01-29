@@ -123,9 +123,6 @@
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Recomendamos a utilização de WiFi para descarregar grandes mapas";
 
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.";
-
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Que sistema de medidas prefere?";
 
@@ -261,7 +258,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Nome";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Endereço";
 
 /* Place Page - Remove Pin button */
@@ -1467,8 +1464,6 @@
 "show_less" = "Show Less";
 
 "add_language" = "Adicionar um idioma";
-
-"address" = "Endereço";
 
 "street" = "Rua";
 

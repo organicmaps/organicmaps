@@ -81,8 +81,6 @@
 	<string name="use_cellular_data">Có</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Chúng tôi khuyên bạn nên sử dụng WiFi để tải xuống các bảnđồ lớn.</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Chúng tôi đã cập nhật dữ liệu bản đồ và nén nó cho nhỏ hơn. Với các quốc gia lớn hơn, giờ đây bạn đã có thể chọn chỉ tải xuống khu vực/tiểu bang mà bạn cần. Tuy nhiên, để sử dụng bản đồ mới bạn nên xóa bất kỳ dữ liệu bản đồ cũ nào đã được tải xuống trước đây.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Bạn thích sử dụng hệ thống đo lường nào?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -165,7 +163,7 @@
 	<string name="my_places">Các Địa chỉ của Tôi</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Tên</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Địa chỉ</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Xóa Con Dấu</string>
@@ -883,7 +881,6 @@
 	<string name="place_name">Tên địa điểm</string>
 	<string name="place_name_caption">Nhập tên như nó trên dấu hiệu của địa điểm</string>
 	<string name="add_language">Thêm ngôn ngữ</string>
-	<string name="address">Địa chỉ</string>
 	<string name="street">Đường</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Tòa nhà</string>

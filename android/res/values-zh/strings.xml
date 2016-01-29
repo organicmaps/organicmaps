@@ -159,7 +159,7 @@
 	<string name="my_places">我的位置</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名字</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">地址</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">移除图钉</string>
@@ -887,7 +887,6 @@
 	<string name="place_name">地点名</string>
 	<string name="place_name_caption">输入地点标志上的名称</string>
 	<string name="add_language">添加语言</string>
-	<string name="address">地址</string>
 	<string name="street">街道</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">楼房</string>

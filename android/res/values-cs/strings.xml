@@ -76,8 +76,6 @@
 	<string name="use_cellular_data">Ano</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Pro stahování větších map doporučujeme používat WiFi</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžete vybrat ke stažení pouze region/stát, který potřebujete. Pokud však chcete používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Jaký systém pro měření preferujete?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -160,7 +158,7 @@
 	<string name="my_places">Moje místa</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Název</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adresa</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Odstranit špendlík</string>
@@ -890,7 +888,6 @@
 	<string name="place_name">Název místa</string>
 	<string name="place_name_caption">Zadejte název, jak je uveden na vývěsním štítu místa</string>
 	<string name="add_language">Přidat jazyk</string>
-	<string name="address">Adresa</string>
 	<string name="street">Ulice</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Budova</string>

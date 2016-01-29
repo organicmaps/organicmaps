@@ -163,7 +163,7 @@
 	<string name="my_places">สถานที่ของฉัน</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">ชื่อ</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">ที่อยู่</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">ลบหมุด</string>
@@ -885,7 +885,6 @@
 	<string name="place_name">ชื่อสถานที่</string>
 	<string name="place_name_caption">ใส่ชื่อเนื่องจากมันอยู่บนสัญลักษณ์ของสถานที่</string>
 	<string name="add_language">เพิ่มภาษา</string>
-	<string name="address">ที่อยู่</string>
 	<string name="street">ถนน</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">อาคาร</string>

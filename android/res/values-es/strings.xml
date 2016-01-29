@@ -74,8 +74,6 @@
 	<string name="use_cellular_data">Sí</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Recomendamos usar WiFi para descarga de los países grandes</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Hemos actualizado los datos de los mapas. Ahora puede seleccionar descargarse solo las regiones que necesites, pero para utilizar los nuevos mapas deberías antes borrar los anteriormente descargados.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">¿Cual sistema de medición prefieres?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -156,7 +154,7 @@
 	<string name="my_places">Mis lugares</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nombre</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Dirección</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Quitar la etiqueta</string>
@@ -878,7 +876,6 @@
 	<string name="place_name">Nombre del lugar</string>
 	<string name="place_name_caption">Introduce el nombre como está en la señal del lugar</string>
 	<string name="add_language">Añadir un idioma</string>
-	<string name="address">Dirección</string>
 	<string name="street">Calle</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Edificio</string>

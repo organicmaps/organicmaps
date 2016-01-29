@@ -123,9 +123,6 @@
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "WiFi használatát javasoljuk nagy térképek letöltéséhez";
 
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Frissítettük a térképadatokat. Nagyobb országokban most egyes régiók külön is letölthetőek. Az új térképek használata előtt kérjük törölje le a régi térképeket.";
-
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Milyen mértékegységet használjunk?";
 
@@ -261,7 +258,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Név";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Cím";
 
 /* Place Page - Remove Pin button */
@@ -1467,8 +1464,6 @@
 "show_less" = "Show Less";
 
 "add_language" = "Nyelv hozzáadása";
-
-"address" = "Cím";
 
 "street" = "Utca";
 

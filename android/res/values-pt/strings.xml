@@ -156,7 +156,7 @@
 	<string name="my_places">Os meus locais</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nome</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Endereço</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Retirar o marcador</string>
@@ -878,7 +878,6 @@
 	<string name="place_name">Nome do local</string>
 	<string name="place_name_caption">Insira o nome da forma que está na placa do local</string>
 	<string name="add_language">Adicionar um idioma</string>
-	<string name="address">Endereço</string>
 	<string name="street">Rua</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Edifício</string>

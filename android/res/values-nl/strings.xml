@@ -72,8 +72,6 @@
 	<string name="use_cellular_data">Ja</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">We raden WiFi aan om grote kaarten te downloaden</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Wij hebben de kaart geupdate en hem verkleind. Met grote landen kunt u nu ervoor kiezen om allen de regio/staat te downloaden die u nodig heeft. Om de nieuwe kaarten te gebruiken moet u alle oude kaarten verwijderen.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Welk meetstelsel heeft u liever?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -153,7 +151,7 @@
 	<string name="my_places">Mijn Plaatsen</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Naam</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adres</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Verwijder speld</string>
@@ -873,7 +871,6 @@
 	<string name="place_name">Locatienaam</string>
 	<string name="place_name_caption">Voer de naam in zoals die op het bord van de locatie wordt weergegeven</string>
 	<string name="add_language">Een taal toevoegen</string>
-	<string name="address">Adres</string>
 	<string name="street">Straat</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Gebouw</string>

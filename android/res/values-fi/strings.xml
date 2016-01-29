@@ -81,8 +81,6 @@
 	<string name="use_cellular_data">Kyllä</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">WiFi-yhteyttä suositellaan suurten karttojen lataamiseen</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Olemme päivittäneet karttoja ja pienentäneet niitä. Suuremmissa kartoissa voit valita lataavasi vain tarvitsemasi alueen/osavaltion. Uusia karttoja käyttääksesi sinun tulee kuitenkin ensin poistaa vanhat aiemmin lataamasi kartat.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Mitä mittayksikköä haluat käyttää?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -165,7 +163,7 @@
 	<string name="my_places">Paikkani</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nimi</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Osoite</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Poista nasta</string>
@@ -883,7 +881,6 @@
 	<string name="place_name">Paikan nimi</string>
 	<string name="place_name_caption">Syötä paikan nimi siinä muodossa kun se kyltissä on</string>
 	<string name="add_language">Lisää kieli</string>
-	<string name="address">Osoite</string>
 	<string name="street">Katu</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Rakennus</string>

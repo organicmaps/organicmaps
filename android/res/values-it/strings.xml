@@ -156,7 +156,7 @@
 	<string name="dropped_pin">Pin trascinato</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">I miei luoghi</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Indirizzo</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Rimuovi il Pin</string>
@@ -880,7 +880,6 @@
 	<string name="place_name">Nome del luogo</string>
 	<string name="place_name_caption">Inserisci il nome così com\&#39;è scritto sul segnale del luogo</string>
 	<string name="add_language">Aggiungi una lingua</string>
-	<string name="address">Indirizzo</string>
 	<string name="street">Via</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Edificio</string>

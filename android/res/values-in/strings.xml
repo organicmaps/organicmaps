@@ -81,8 +81,6 @@
 	<string name="use_cellular_data">Ya</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Kami merekomendasi gunakan WiFi untuk mengunduh peta yang berukuran besar</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Kami telah memperbarui data peta dan membuatnya lebih kecil. Untuk negara-negara yang lebih besar, kini Anda dapat memilih untuk mengunduh hanya daerah/negara bagian yang Anda perlukan. Namun, untuk menggunakan peta yang baru Anda harus menghapus data peta lama apa pun yang telah diunduh sebelumnya.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Sistem pengukuran manakah yang lebih Anda sukai?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -165,7 +163,7 @@
 	<string name="my_places">Tempat-tempat Saya</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nama</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Alamat</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Hapus Pin</string>
@@ -882,7 +880,6 @@
 	<string name="place_name">Nama tempat</string>
 	<string name="place_name_caption">Masukkan nama seperti pada tanda tempat</string>
 	<string name="add_language">Tambahkan bahasa</string>
-	<string name="address">Alamat</string>
 	<string name="street">Jalan</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Bangunan</string>

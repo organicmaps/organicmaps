@@ -81,8 +81,6 @@
 	<string name="use_cellular_data">Yes</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">We recommend using WiFi to download large maps</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">We\&#39;ve updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Which measurement system do you prefer?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -166,7 +164,7 @@
 	<string name="my_places">My Places</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Name</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Address</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Remove Pin</string>
@@ -926,7 +924,6 @@
 	<!-- small button to close list with names in different languages -->
 	<string name="show_less">Show Less</string>
 	<string name="add_language">Add a language</string>
-	<string name="address">Address</string>
 	<string name="street">Street</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">House</string>

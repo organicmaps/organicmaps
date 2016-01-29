@@ -81,8 +81,6 @@
 	<string name="use_cellular_data">Ja</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Vi anbefaler å bruke WiFi når du skal laste ned store kart</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Vi har oppdatert kartdata og gjort dem mindre. For større land kan du nå velge å laste ned bare det området du trenger. For å bruke de nye kartene bør du imidlertid slette eldre kartdata som du har lastet ned tidligere.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Hvilket målesystem foretrekker du?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -165,7 +163,7 @@
 	<string name="my_places">Mine steder</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Navn</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adresse</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Fjern merke</string>
@@ -883,7 +881,6 @@
 	<string name="place_name">Stedsnavn</string>
 	<string name="place_name_caption">Skriv inn navnet slik det står på stedets navneskilt</string>
 	<string name="add_language">Legg til et språk</string>
-	<string name="address">Adresse</string>
 	<string name="street">Gate</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Bygning</string>

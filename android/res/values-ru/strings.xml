@@ -80,8 +80,6 @@
 	<string name="use_cellular_data">Да</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Мы рекомендуем загружать большие страны через WiFi</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Мы обновили карты и уменьшили их размер. Для больших стран вы сможете выборочно загружать нужные вам штаты или регионы. Однако, чтобы воспользоваться новыми картами, необходимо предварительно удалить старыe.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Какую систему измерения вы предпочитаете?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -164,7 +162,7 @@
 	<string name="my_places">Мои Метки</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Название</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Адрес</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Удалить метку</string>
@@ -922,7 +920,6 @@
 	<!-- small button to close list with names in different languages -->
 	<string name="show_less">Показать меньше</string>
 	<string name="add_language">Добавить язык</string>
-	<string name="address">Адрес</string>
 	<string name="street">Улица</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Дом</string>

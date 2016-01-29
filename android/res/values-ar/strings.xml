@@ -163,7 +163,7 @@
 	<string name="my_places">أماكني</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">الاسم</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">العنوان</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">إزالة الدبوس</string>
@@ -887,7 +887,6 @@
 	<string name="place_name">اسم المكان</string>
 	<string name="place_name_caption">أدخل الاسم كما هو مبين على الإشارة الخاصة بالمكان</string>
 	<string name="add_language">إضافة لغة</string>
-	<string name="address">العنوان</string>
 	<string name="street">الشارع</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">المبني</string>

@@ -81,8 +81,6 @@
 	<string name="use_cellular_data">Da</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Vă recomandăm să utilizați WiFi pentru a descărca hărți mari.</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Am actualizat datele cartografice și le-am făcut mai mici. În cazul țărilor mari, acum puteți alege să descărcați doar regiunea/statul de care aveți nevoie. Totuși, pentru a putea utiliza hărțile noi, trebuie să ștergeți orice date cartografice descărcate anterior.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Ce sistem de măsură preferați?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -165,7 +163,7 @@
 	<string name="my_places">Locurile mele</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nume</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adresă</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Poziție eliminată</string>
@@ -880,7 +878,6 @@
 	<string name="place_name">Denumire loc</string>
 	<string name="place_name_caption">Introduceți denumirea astfel cum apare aceasta pe semnul locului</string>
 	<string name="add_language">Adăugare limbă</string>
-	<string name="address">Adresă</string>
 	<string name="street">Stradă</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">Clădire</string>

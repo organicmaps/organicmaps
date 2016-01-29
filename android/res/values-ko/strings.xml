@@ -157,7 +157,7 @@
 	<string name="my_places">내 장소</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">이름</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">주소</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">핀 제거</string>
@@ -873,7 +873,6 @@
 	<string name="place_name">지명</string>
 	<string name="place_name_caption">이 장소의 기호와 같이 이름 입력</string>
 	<string name="add_language">언어 추가</string>
-	<string name="address">주소</string>
 	<string name="street">거리</string>
 	<!-- Editable House Number text field (in address block). -->
 	<string name="house">건물</string>
