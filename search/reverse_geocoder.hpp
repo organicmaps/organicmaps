@@ -68,7 +68,7 @@ public:
 
   /// @return Sorted by distance streets vector for the specified MwmId.
   //@{
-  void GetNearbyStreets(MwmSet::MwmId id, m2::PointD const & center,
+  void GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
                         vector<Street> & streets) const;
   void GetNearbyStreets(FeatureType & ft, vector<Street> & streets) const;
   //@}

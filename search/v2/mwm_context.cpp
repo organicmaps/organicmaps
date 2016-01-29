@@ -13,6 +13,5 @@ MwmContext::MwmContext(MwmSet::MwmHandle handle)
 {
 }
 
-shared_ptr<MwmInfo> const & MwmContext::GetInfo() const { return GetId().GetInfo(); }
 }  // namespace v2
 }  // namespace search

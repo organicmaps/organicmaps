@@ -23,7 +23,7 @@ struct MwmContext
 
   inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   inline string const & GetName() const { return GetInfo()->GetCountryName(); }
-  shared_ptr<MwmInfo> const & GetInfo() const;
+  inline shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
 
   template <class TFn> void ForEachFeature(m2::RectD const & rect, TFn && fn)
   {
@@ -56,5 +56,6 @@ struct MwmContext
 
   DISALLOW_COPY_AND_MOVE(MwmContext);
 };
+
 }  // namespace v2
 }  // namespace search

@@ -149,7 +149,7 @@ IsStreetChecker const & IsStreetChecker::Instance()
 
 IsAddressObjectChecker::IsAddressObjectChecker() : BaseChecker(1 /* level */)
 {
-  auto paths = { "building", "amenity", "shop", "tourism", "historic", "office", "craft" };
+  auto const paths = { "building", "amenity", "shop", "tourism", "historic", "office", "craft" };
 
   Classificator const & c = classif();
   for (auto const & p : paths)
