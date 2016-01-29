@@ -29,7 +29,8 @@
   self.icon.hidden = isNameCell;
   self.backgroundColor = isNameCell ? [UIColor clearColor] : [UIColor white];
   self.textField.text = text;
-  self.textField.placeholder = placeholder;
+  self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:
+                                          @{NSForegroundColorAttributeName : [UIColor blackHintText]}];
   self.textField.keyboardType = keyboardType;
   self.bottomSeparatorLeadingOffset.priority = lastCell ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
 }
