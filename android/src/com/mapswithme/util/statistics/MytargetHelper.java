@@ -130,7 +130,7 @@ public final class MytargetHelper
 
   public void displayShowcase()
   {
-    mShowcase.show();
+    mShowcase.handleBannerClick(mShowcase.getBanners().get(0));
   }
 
   public static boolean isShowcaseSwitchedOnLocal()
