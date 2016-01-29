@@ -1172,7 +1172,7 @@ void Framework::LoadSearchResultMetadata(search::Result & res) const
   if (res.m_metadata.m_isInitialized)
     return;
 
-  FeatureID const id = res.GetFeatureID();
+  FeatureID const & id = res.GetFeatureID();
   if (id.IsValid())
   {
     Index::FeaturesLoaderGuard loader(m_model.GetIndex(), id.m_mwmId);

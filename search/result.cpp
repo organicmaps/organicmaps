@@ -84,7 +84,7 @@ bool Result::HasPoint() const
   return (GetResultType() != RESULT_SUGGEST_PURE);
 }
 
-FeatureID Result::GetFeatureID() const
+FeatureID const & Result::GetFeatureID() const
 {
 #if defined(DEBUG)
   auto const type = GetResultType();
