@@ -126,7 +126,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 + (instancetype)needMigrationAlertWithOkBlock:(TMWMVoidBlock)block
 {
-  return [self defaultAlertWithTitle:@"migrate_title"
+  return [self defaultAlertWithTitle:@"youve_been_asking"
                              message:@"migrate_and_split_mwms_message"
                     rightButtonTitle:@"delete_all"
                      leftButtonTitle:@"not_now"
