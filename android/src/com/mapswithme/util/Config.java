@@ -19,6 +19,7 @@ public final class Config
 
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   private static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
+  private static final String KEY_PREF_AUTODOWNLOAD = "AutoDownloadEnabled";
 
   private static final String KEY_LIKES_RATED_DIALOG = "RatedDialog";
   private static final String KEY_LIKES_LAST_RATED_SESSION = "LastRatedSession";
@@ -213,6 +214,16 @@ public final class Config
     setBool(KEY_PREF_STATISTICS, enabled);
   }
 
+  public static boolean isAutoDownloadEnabled()
+  {
+    return getBool(KEY_PREF_AUTODOWNLOAD, true);
+  }
+
+  public static void setAutoDownloadEnabled(boolean enabled)
+  {
+    setBool(KEY_PREF_AUTODOWNLOAD, enabled);
+  }
+
   public static boolean isRatingApplied(Class<? extends DialogFragment> dialogFragmentClass)
   {
     return getBool(KEY_LIKES_RATED_DIALOG + dialogFragmentClass.getSimpleName());
@@ -220,7 +231,7 @@ public final class Config
 
   public static void setRatingApplied(Class<? extends DialogFragment> dialogFragmentClass)
   {
-    setBool(KEY_LIKES_RATED_DIALOG + dialogFragmentClass.getSimpleName(), true);
+    setBool(KEY_LIKES_RATED_DIALOG + dialogFragmentClass.getSimpleName());
   }
 
   public static boolean isSessionRated(int session)
@@ -240,7 +251,7 @@ public final class Config
 
   public static void acceptRoutingDisclaimer()
   {
-    setBool(KEY_MISC_DISCLAIMER_ACCEPTED, true);
+    setBool(KEY_MISC_DISCLAIMER_ACCEPTED);
   }
 
   public static boolean isKitKatMigrationComplete()

@@ -394,13 +394,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       }
     });
 
-    mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.FRAGMENT_TAG);
+    mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.class.getName());
     if (mMapFragment == null)
     {
       mMapFragment = (MapFragment) MapFragment.instantiate(this, MapFragment.class.getName(), null);
       getSupportFragmentManager()
           .beginTransaction()
-          .replace(R.id.map_fragment_container, mMapFragment, MapFragment.FRAGMENT_TAG)
+          .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
           .commit();
     }
     mFrame.setOnTouchListener(this);

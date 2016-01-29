@@ -58,12 +58,10 @@ public class MapFragment extends BaseMwmFragment
   private boolean mEngineCreated;
   private static boolean sWasCopyrightDisplayed;
 
-  public interface MapRenderingListener
+  interface MapRenderingListener
   {
     void onRenderingInitialized();
   }
-
-  public static final String FRAGMENT_TAG = MapFragment.class.getName();
 
   private void setupWidgets(int width, int height)
   {
@@ -224,7 +222,14 @@ public class MapFragment extends BaseMwmFragment
     super.onViewCreated(view, savedInstanceState);
     final SurfaceView surfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
     surfaceView.getHolder().addCallback(this);
-    nativeConnectDownloadButton();
+    nativeConnectDownloaderListeners();
+  }
+
+  @Override
+  public void onDestroyView()
+  {
+    super.onDestroyView();
+    nativeDisconnectListeners();
   }
 
   @Override
@@ -276,7 +281,7 @@ public class MapFragment extends BaseMwmFragment
   }
 
   @SuppressWarnings("UnusedDeclaration")
-  public void onDownloadCountryClicked(final int group, final int country, final int region, final int options)
+  public void onDownloadClicked(final int group, final int country, final int region, final int options)
   {
     UiThread.run(new Runnable()
     {
@@ -309,7 +314,8 @@ public class MapFragment extends BaseMwmFragment
     });
   }
 
-  private native void nativeConnectDownloadButton();
+  private native void nativeConnectDownloaderListeners();
+  private static native void nativeDisconnectListeners();
   private static native void nativeDownloadCountry(MapStorage.Index index, int options);
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
   static native void nativeScalePlus();
