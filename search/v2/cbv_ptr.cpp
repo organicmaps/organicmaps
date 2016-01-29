@@ -6,6 +6,10 @@ namespace search
 {
 namespace v2
 {
+CBVPtr::CBVPtr(coding::CompressedBitVector const * p, bool isOwner)
+{
+  Set(p, isOwner);
+}
 
 void CBVPtr::Release()
 {

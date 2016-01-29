@@ -383,9 +383,7 @@ void Geocoder::SetParams(Params const & params)
     auto & synonyms = m_params.GetTokens(i);
     ASSERT(!synonyms.empty(), ());
 
-    auto const & token = synonyms.front();
-
-    if (IsStreetSynonym(token))
+    if (IsStreetSynonym(synonyms.front()))
     {
       auto b = synonyms.begin();
       auto e = synonyms.end();
@@ -1004,8 +1002,6 @@ void Geocoder::GreedilyMatchStreets()
       if (feature::IsHouseNumber(token) &&
           !coding::CompressedBitVector::IsEmpty(allFeatures))
       {
-        if (m_filter.NeedToFilter(*allFeatures))
-          allFeatures = m_filter.Filter(*allFeatures);
         CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
       }
 
@@ -1023,8 +1019,6 @@ void Geocoder::GreedilyMatchStreets()
 
     if (coding::CompressedBitVector::IsEmpty(allFeatures))
       continue;
-    if (m_filter.NeedToFilter(*allFeatures))
-      allFeatures = m_filter.Filter(*allFeatures);
 
     CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
   }
@@ -1037,6 +1031,10 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(
 
   if (coding::CompressedBitVector::IsEmpty(features))
     return;
+
+  CBVPtr filtered(features.get(), false /* isOwner */);
+  if (m_filter.NeedToFilter(*features))
+    filtered.Set(m_filter.Filter(*features).release(), true /* isOwner */);
 
   m_layers.emplace_back();
   MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &m_layers));
@@ -1051,7 +1049,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(
 
   vector<uint32_t> sortedFeatures;
   sortedFeatures.reserve(features->PopCount());
-  coding::CompressedBitVectorEnumerator::ForEach(*features, MakeBackInsertFunctor(sortedFeatures));
+  coding::CompressedBitVectorEnumerator::ForEach(*filtered, MakeBackInsertFunctor(sortedFeatures));
   layer.m_sortedFeatures = &sortedFeatures;
 
   ScopedMarkTokens mark(m_usedTokens, startToken, endToken);

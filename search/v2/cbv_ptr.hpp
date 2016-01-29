@@ -25,6 +25,7 @@ class CBVPtr
 
 public:
   CBVPtr() = default;
+  CBVPtr(coding::CompressedBitVector const * p, bool isOwner);
   ~CBVPtr() { Release(); }
 
   inline void SetFull()
@@ -36,6 +37,8 @@ public:
   void Set(coding::CompressedBitVector const * p, bool isOwner = false);
 
   inline coding::CompressedBitVector const * Get() const { return m_ptr; }
+
+  coding::CompressedBitVector const & operator*() const { return *m_ptr; }
 
   bool IsEmpty() const;
 
