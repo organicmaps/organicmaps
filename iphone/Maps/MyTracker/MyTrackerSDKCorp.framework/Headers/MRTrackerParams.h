@@ -1,6 +1,6 @@
 //
 //  MRTrackerParams.h
-//  myTrackerSDKCorp 1.3.2
+//  myTrackerSDKCorp 1.4.0
 //
 //  Created by Igor Glotov on 20.03.15.
 //  Copyright © 2015 Mail.ru Group. All rights reserved.
@@ -14,7 +14,10 @@
 
 @property (strong, nonatomic) NSString *trackerId;
 //Отслеживать ли Launch
-@property (nonatomic) BOOL trackAppLaunch;
+@property (atomic) BOOL trackAppLaunch;
+//Timeout for assuming app was started again - 30..7200 sec.,  default - 30 sec.
+@property (atomic) NSTimeInterval launchTimeout;
+
 
 - (void)setLanguage:(NSString *)lang;
 - (void)setAge:(NSNumber *)age;

@@ -1,6 +1,6 @@
 //
 //  MyTrackerSDKCorp.h
-//  myTrackerSDKCorp 1.3.2
+//  myTrackerSDKCorp 1.4.0
 //
 //  Created by Anton Bulankin on 05.10.15.
 //  Copyright © 2015 Mail.ru Group. All rights reserved.

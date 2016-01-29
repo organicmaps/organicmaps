@@ -1,17 +1,20 @@
 //
 //  MRTracker.h
-//  myTrackerSDKCorp 1.3.2
+//  myTrackerSDKCorp 1.4.0
 //
 //  Created by Igor Glotov on 22.07.14.
 //  Copyright © 2014 Mail.ru Group. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <MyTrackerSDKCorp/MRTrackerParams.h>
 
 @interface MRTracker : NSObject
 
 + (BOOL)debugMode;
 + (void)setDebugMode:(BOOL)enable;
+
+- (MRTrackerParams *)getTrackerParams;
 
 - (void)setup;
 - (BOOL)isInitialized;
