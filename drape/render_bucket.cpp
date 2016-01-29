@@ -119,7 +119,8 @@ void RenderBucket::RenderDebug(ScreenBase const & screen) const
         if (screen.isPerspective() && !screen.PixelRectIn3d().IsIntersect(m2::RectD(rect)))
           continue;
 
-        DebugRectRenderer::Instance().DrawRect(screen, rect);
+        DebugRectRenderer::Instance().DrawRect(screen, rect, handle->IsVisible() ?
+                                               dp::Color::Green() : dp::Color::Red());
       }
     }
   }

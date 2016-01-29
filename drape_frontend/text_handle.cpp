@@ -2,6 +2,8 @@
 
 #include "drape/texture_manager.hpp"
 
+#include "base/logging.hpp"
+
 namespace df
 {
 
@@ -76,5 +78,14 @@ void TextHandle::SetForceUpdateNormals(bool forceUpdate) const
 {
   m_forceUpdateNormals = forceUpdate;
 }
+
+#ifdef DEBUG_OVERLAYS_OUTPUT
+string TextHandle::GetOverlayDebugInfo()
+{
+  ostringstream out;
+  out << "Text Priority(" << GetPriority() << ") " << GetFeatureID().m_index << " " << strings::ToUtf8(m_text);
+  return out.str();
+}
+#endif
 
 } // namespace df

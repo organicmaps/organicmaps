@@ -4,6 +4,7 @@
 
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/map_data_provider.hpp"
+#include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/viewport.hpp"
 
@@ -64,7 +65,6 @@ private:
   public:
     Routine(BackendRenderer & renderer);
 
-    // threads::IRoutine overrides:
     void Do() override;
 
   private:
@@ -83,6 +83,8 @@ private:
   gui::LayerCacher m_guiCacher;
 
   ref_ptr<RequestedTiles> m_requestedTiles;
+
+  TOverlaysRenderData m_overlays;
 
 #ifdef DEBUG
   bool m_isTeardowned;

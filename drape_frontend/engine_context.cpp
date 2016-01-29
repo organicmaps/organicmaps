@@ -3,6 +3,8 @@
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape/texture_manager.hpp"
 
+#include "std/algorithm.hpp"
+
 namespace df
 {
 
@@ -12,6 +14,8 @@ EngineContext::EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commuta
   , m_commutator(commutator)
   , m_texMng(texMng)
 {
+  int const kAverageShapesCount = 300;
+  m_overlayShapes.reserve(kAverageShapesCount);
 }
 
 ref_ptr<dp::TextureManager> EngineContext::GetTextureManager() const
@@ -29,8 +33,21 @@ void EngineContext::Flush(TMapShapes && shapes)
   PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, move(shapes)));
 }
 
+void EngineContext::FlushOverlays(TMapShapes && shapes)
+{
+  m_overlayShapes.reserve(m_overlayShapes.size() + shapes.size());
+  move(shapes.begin(), shapes.end(), back_inserter(m_overlayShapes));
+}
+
 void EngineContext::EndReadTile()
 {
+  if (!m_overlayShapes.empty())
+  {
+    TMapShapes overlayShapes;
+    overlayShapes.swap(m_overlayShapes);
+    PostMessage(make_unique_dp<OverlayMapShapeReadedMessage>(m_tileKey, move(overlayShapes)));
+  }
+
   PostMessage(make_unique_dp<TileReadEndMessage>(m_tileKey));
 }
 

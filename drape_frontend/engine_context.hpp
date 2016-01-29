@@ -28,6 +28,7 @@ public:
 
   void BeginReadTile();
   void Flush(TMapShapes && shapes);
+  void FlushOverlays(TMapShapes && shapes);
   void EndReadTile();
 
 private:
@@ -36,6 +37,7 @@ private:
   TileKey m_tileKey;
   ref_ptr<ThreadsCommutator> m_commutator;
   ref_ptr<dp::TextureManager> m_texMng;
+  TMapShapes m_overlayShapes;
 };
 
 } // namespace df

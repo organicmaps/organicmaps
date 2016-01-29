@@ -37,6 +37,10 @@ public:
 
   void SetForceUpdateNormals(bool forceUpdate) const;
 
+#ifdef DEBUG_OVERLAYS_OUTPUT
+  virtual string GetOverlayDebugInfo() override;
+#endif
+
 protected:
   gpu::TTextDynamicVertexBuffer m_buffer;
   mutable bool m_forceUpdateNormals;

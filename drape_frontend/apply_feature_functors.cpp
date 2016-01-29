@@ -222,6 +222,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   params.m_primaryOffset = GetOffset(primaryProto);
   params.m_primaryOptional = primaryProto->has_is_optional() ? primaryProto->is_optional() : true;
   params.m_secondaryOptional = true;
+  params.m_hasMark = m_captions.HasMark();
 
   if (secondaryProto)
   {
@@ -286,7 +287,10 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_rank = m_rank;
     params.m_posZ = m_posZ;
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
-      m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params, hasPOI));
+    {
+      m_insertShape(make_unique_dp<TextShape>(m_centerPoint, params, hasPOI, 0 /* textIndex */,
+                                              true /* affectedByZoomPriority */));
+    }
   }
 }
 
@@ -558,6 +562,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     CaptionDefProtoToFontDecl(pCaptionRule, fontDecl);
 
     PathTextViewParams params;
+    params.m_featureID = m_id;
     params.m_depth = depth;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
@@ -639,7 +644,7 @@ void ApplyLineFeature::Finish()
     viewParams.m_minVisibleScale = m_minVisibleScale;
     viewParams.m_rank = m_rank;
     viewParams.m_anchor = dp::Center;
-    viewParams.m_featureID = FeatureID();
+    viewParams.m_featureID = m_id;
     viewParams.m_primaryText = roadNumber;
     viewParams.m_primaryTextFont = font;
     viewParams.m_primaryOffset = m2::PointF(0, 0);
@@ -648,11 +653,13 @@ void ApplyLineFeature::Finish()
     viewParams.m_extendingSize = m_shieldRule->has_min_distance() ? mainScale * m_shieldRule->min_distance() : 0;
 
     m2::Spline::iterator it = m_spline.CreateIterator();
+    size_t textIndex = 0;
     while (!it.BeginAgain())
     {
       m_insertShape(make_unique_dp<TextShape>(it.m_pos, viewParams, false /* hasPOI */,
-                                              false /* affectedByZoomPriority */));
+                                              textIndex, false /* affectedByZoomPriority */));
       it.Advance(splineStep);
+      textIndex++;
     }
   }
 }

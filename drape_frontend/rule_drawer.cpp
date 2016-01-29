@@ -11,6 +11,8 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
+
 #include "std/bind.hpp"
 
 //#define DRAW_TILE_NET
@@ -27,13 +29,6 @@ namespace df
 
 int const kLineSimplifyLevelStart = 10;
 int const kLineSimplifyLevelEnd = 12;
-
-size_t kMinFlushSizes[df::PrioritiesCount] =
-{
-  1, // AreaPriority
-  5, // TextAndPoiPriority
-  10, // LinePriority
-};
 
 RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
                        TCheckCancelledCallback const & checkCancelled,
@@ -58,8 +53,8 @@ RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
   geometryConvertor.SetFromRect(m2::AnyRectD(r));
   m_currentScaleGtoP = 1.0f / geometryConvertor.GetScale();
 
-  for (size_t i = 0; i < m_mapShapes.size(); i++)
-    m_mapShapes[i].reserve(kMinFlushSizes[i] + 1);
+  int const kAverageOverlaysCount = 200;
+  m_mapShapes[df::OverlayType].reserve(kAverageOverlaysCount);
 }
 
 RuleDrawer::~RuleDrawer()
@@ -67,15 +62,14 @@ RuleDrawer::~RuleDrawer()
   if (m_wasCancelled)
     return;
 
-  for (auto & shapes : m_mapShapes)
+  for (auto const & shape : m_mapShapes[df::OverlayType])
+    shape->Prepare(m_context->GetTextureManager());
+
+  if (!m_mapShapes[df::OverlayType].empty())
   {
-    if (shapes.empty())
-      continue;
-
-    for (auto const & shape : shapes)
-      shape->Prepare(m_context->GetTextureManager());
-
-    m_context->Flush(move(shapes));
+    TMapShapes overlayShapes;
+    overlayShapes.swap(m_mapShapes[df::OverlayType]);
+    m_context->FlushOverlays(move(overlayShapes));
   }
 }
 
@@ -127,7 +121,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   auto insertShape = [this](drape_ptr<MapShape> && shape)
   {
-    int const index = static_cast<int>(shape->GetPriority());
+    int const index = static_cast<int>(shape->GetType());
     ASSERT_LESS(index, m_mapShapes.size(), ());
     m_mapShapes[index].push_back(move(shape));
   };
@@ -257,23 +251,20 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   tp.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
 
-  insertShape(make_unique_dp<TextShape>(r.Center(), tp, false));
+  insertShape(make_unique_dp<TextShape>(r.Center(), tp, false, 0, true));
 #endif
 
   if (CheckCancelled())
     return;
 
-  for (size_t i = 0; i < m_mapShapes.size(); i++)
+  for (auto const & shape : m_mapShapes[df::GeometryType])
+    shape->Prepare(m_context->GetTextureManager());
+
+  if (!m_mapShapes[df::GeometryType].empty())
   {
-    if (m_mapShapes[i].size() < kMinFlushSizes[i])
-      continue;
-
-    for (auto const & shape : m_mapShapes[i])
-      shape->Prepare(m_context->GetTextureManager());
-
-    TMapShapes mapShapes;
-    mapShapes.swap(m_mapShapes[i]);
-    m_context->Flush(move(mapShapes));
+    TMapShapes geomShapes;
+    geomShapes.swap(m_mapShapes[df::GeometryType]);
+    m_context->Flush(move(geomShapes));
   }
 }
 

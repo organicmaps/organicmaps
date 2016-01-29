@@ -54,6 +54,7 @@ SOURCES += \
     my_position.cpp \
     my_position_controller.cpp \
     navigator.cpp \
+    overlay_batcher.cpp \
     path_symbol_shape.cpp \
     path_text_shape.cpp \
     poi_symbol_shape.cpp \
@@ -146,6 +147,7 @@ HEADERS += \
     my_position.hpp \
     my_position_controller.hpp \
     navigator.hpp \
+    overlay_batcher.hpp \
     path_symbol_shape.hpp \
     path_text_shape.hpp \
     poi_symbol_shape.hpp \

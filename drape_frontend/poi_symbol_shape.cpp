@@ -55,6 +55,7 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
                                                                          dp::Center,
                                                                          m_pt, pixelSize,
                                                                          GetOverlayPriority(),
+                                                                         m_params.m_symbolName,
                                                                          true);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);

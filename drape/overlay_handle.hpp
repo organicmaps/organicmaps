@@ -14,10 +14,10 @@
 
 #include "base/buffer_vector.hpp"
 
-#include "std/chrono.hpp"
-
 namespace dp
 {
+
+//#define DEBUG_OVERLAYS_OUTPUT
 
 enum OverlayRank
 {
@@ -90,7 +90,9 @@ public:
   int GetOverlayRank() const { return m_overlayRank; }
   void SetOverlayRank(int overlayRank) { m_overlayRank = overlayRank; }
 
-  bool IsMinVisibilityTimeUp() const;
+#ifdef DEBUG_OVERLAYS_OUTPUT
+  virtual string GetOverlayDebugInfo() { return ""; }
+#endif
 
 protected:
   FeatureID const m_id;
@@ -100,8 +102,6 @@ protected:
   int m_overlayRank;
   double m_extendingSize;
   double m_pivotZ;
-
-  steady_clock::time_point m_visibilityTimestamp;
 
   typedef pair<BindingInfo, MutateRegion> TOffsetNode;
   TOffsetNode const & GetOffsetNode(uint8_t bufferID) const;
@@ -137,14 +137,23 @@ public:
                m2::PointD const & gbPivot,
                m2::PointD const & pxSize,
                uint64_t priority,
+               string const & debugStr,
                bool isBillboard = false);
 
   virtual m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override;
 
+#ifdef DEBUG_OVERLAYS_OUTPUT
+  virtual string GetOverlayDebugInfo() override;
+#endif
+
 private:
   m2::PointD m_gbPivot;
   m2::PointD m_pxHalfSize;
+
+#ifdef DEBUG_OVERLAYS_OUTPUT
+  string m_debugStr;
+#endif
 };
 
 uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth);

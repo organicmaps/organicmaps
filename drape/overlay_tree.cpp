@@ -8,9 +8,7 @@ namespace dp
 
 int const kFrameUpdarePeriod = 10;
 int const kFrameUpdarePeriodIn3d = 30;
-int const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 100 };
-
-using TOverlayContainer = buffer_vector<detail::OverlayInfo, 8>;
+int const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
 
 namespace
 {
@@ -18,16 +16,20 @@ namespace
 class HandleComparator
 {
 public:
-  HandleComparator(bool followingMode) : m_followingMode(followingMode) {}
+  HandleComparator(bool enableMask, bool followingMode)
+    : m_followingMode(followingMode)
+    , m_enableMask(enableMask)
+  {}
 
   bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
-  {  
+  {
     return IsGreater(l, r);
   }
 
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
-    uint64_t const mask = l->GetPriorityMask() & r->GetPriorityMask();
+    uint64_t const mask = m_enableMask ? l->GetPriorityMask() & r->GetPriorityMask() :
+                                         dp::kPriorityMaskAll;
     uint64_t const priorityLeft = (m_followingMode ? l->GetPriorityInFollowingMode() :
                                                      l->GetPriority()) & mask;
     uint64_t const priorityRight = (m_followingMode ? r->GetPriorityInFollowingMode() :
@@ -39,6 +41,7 @@ public:
     {
       auto const & hashLeft = l->GetFeatureID();
       auto const & hashRight = r->GetFeatureID();
+
       if (hashLeft < hashRight)
         return true;
 
@@ -51,6 +54,7 @@ public:
 
 private:
   bool m_followingMode;
+  bool m_enableMask;
 };
 
 } // namespace
@@ -101,20 +105,34 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   ASSERT(IsNeedUpdate(), ());
 
   ScreenBase const & modelView = GetModelView();
-  bool const is3dMode = modelView.isPerspective();
 
   handle->SetIsVisible(false);
 
   if (!handle->Update(modelView))
     return;
 
+  // Clip handles which are out of screen.
+  double const kScreenRectScale = 1.2;
   m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
-
-  if (!modelView.PixelRect().IsIntersect(handle->GetPixelRect(modelView, false)) ||
-      (is3dMode && !modelView.PixelRectIn3d().IsIntersect(pixelRect)))
+  if (modelView.isPerspective())
   {
-    handle->SetIsVisible(false);
-    return;
+    m2::RectD screenRect = modelView.PixelRectIn3d();
+    screenRect.Scale(kScreenRectScale);
+    if (!screenRect.IsIntersect(pixelRect) || modelView.IsReverseProjection3d(pixelRect.Center()))
+    {
+      handle->SetIsVisible(false);
+      return;
+    }
+  }
+  else
+  {
+    m2::RectD screenRect = modelView.PixelRect();
+    screenRect.Scale(kScreenRectScale);
+    if (!screenRect.IsIntersect(pixelRect))
+    {
+      handle->SetIsVisible(false);
+      return;
+    }
   }
 
   int const rank = handle->GetOverlayRank();
@@ -123,104 +141,122 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
 }
 
 void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
-                               detail::OverlayInfo const & parentOverlay)
+                               ref_ptr<OverlayHandle> const & parentOverlay)
 {
   ASSERT(IsNeedUpdate(), ());
 
-  ScreenBase const & modelView = GetModelView();
-  bool const is3dMode = modelView.isPerspective();
+#ifdef DEBUG_OVERLAYS_OUTPUT
+  string str = handle->GetOverlayDebugInfo();
+  if (!str.empty())
+    LOG(LINFO, (str));
+#endif
 
+  ScreenBase const & modelView = GetModelView();
   m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
 
-  TOverlayContainer elements;
+  TOverlayContainer rivals;
+  HandleComparator comparator(true /* enableMask */, m_followingMode);
 
   // Find elements that already on OverlayTree and it's pixel rect
   // intersect with handle pixel rect ("Intersected elements").
-  ForEachInRect(pixelRect, [&] (detail::OverlayInfo const & info)
+  ForEachInRect(pixelRect, [&] (ref_ptr<OverlayHandle> const & h)
   {
-    bool const isParent = (info == parentOverlay);
-    if (!isParent && handle->IsIntersect(modelView, info.m_handle))
-      elements.push_back(info);
+    bool const isParent = (h == parentOverlay);
+    if (!isParent && handle->IsIntersect(modelView, h))
+      rivals.push_back(h);
   });
 
-  if (handle->IsMinVisibilityTimeUp())
+  // If handle is bound to its parent, parent's handle will be used.
+  ref_ptr<OverlayHandle> handleToCompare = handle;
+  bool const boundToParent = (parentOverlay != nullptr && handle->IsBound());
+  if (boundToParent)
+    handleToCompare = parentOverlay;
+
+  // In this loop we decide which element must be visible.
+  // If input element "handle" more priority than all "Intersected elements"
+  // than we remove all "Intersected elements" and insert input element "handle".
+  // But if some of already inserted elements more priority than we don't insert "handle".
+  for (auto const & rivalHandle : rivals)
   {
-    bool const boundToParent = (parentOverlay.m_handle != nullptr && handle->IsBound());
-
-    // If handle is bound to its parent, parent's handle will be used.
-    ref_ptr<OverlayHandle> handleToCompare = handle;
-    if (boundToParent)
-      handleToCompare = parentOverlay.m_handle;
-
-    double const posY = handleToCompare->GetPivot(modelView, is3dMode).y;
-    // In this loop we decide which element must be visible.
-    // If input element "handle" more priority than all "Intersected elements"
-    // than we remove all "Intersected elements" and insert input element "handle".
-    // But if some of already inserted elements more priority than we don't insert "handle".
-    HandleComparator comparator(m_followingMode);
-    for (auto const & info : elements)
+    bool rejectByDepth = false;
+    if (modelView.isPerspective())
     {
-      bool const pathTextComparation = handle->HasDynamicAttributes() || info.m_handle->HasDynamicAttributes();
-      bool const rejectByDepth = is3dMode ? !pathTextComparation &&
-                                            posY > info.m_handle->GetPivot(modelView, is3dMode).y
-                                          : false;
-      bool const rejectByTime = !info.m_handle->IsMinVisibilityTimeUp();
-      if (rejectByDepth || rejectByTime || comparator.IsGreater(info.m_handle, handleToCompare))
-      {
-        // Handle is displaced and bound to its parent, parent will be displaced too.
-        if (boundToParent)
-        {
-          Erase(parentOverlay);
+      bool const pathTextComparation = handle->HasDynamicAttributes() || rivalHandle->HasDynamicAttributes();
+      rejectByDepth = !pathTextComparation &&
+                      handleToCompare->GetPivot(modelView, true).y > rivalHandle->GetPivot(modelView, true).y;
+    }
 
-        #ifdef COLLECT_DISPLACEMENT_INFO
-          m_displacementInfo.emplace_back(DisplacementData(handle->GetPixelRect(modelView, is3dMode).Center(),
-                                                           parentOverlay.m_handle->GetPixelRect(modelView, is3dMode).Center(),
-                                                           dp::Color(0, 255, 0, 255)));
-        #endif
-        }
+    if (rejectByDepth || comparator.IsGreater(rivalHandle, handleToCompare))
+    {
+      // Handle is displaced and bound to its parent, parent will be displaced too.
+      if (boundToParent)
+      {
+        Erase(parentOverlay);
+
+      #ifdef DEBUG_OVERLAYS_OUTPUT
+        LOG(LINFO, ("Displace (0):", handle->GetOverlayDebugInfo(), "->", parentOverlay->GetOverlayDebugInfo()));
+      #endif
 
       #ifdef COLLECT_DISPLACEMENT_INFO
-        m_displacementInfo.emplace_back(DisplacementData(info.m_handle->GetPixelRect(modelView, is3dMode).Center(),
-                                                         handle->GetPixelRect(modelView, is3dMode).Center(),
-                                                         dp::Color(0, 0, 255, 255)));
+        m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
+                                                         parentOverlay->GetExtendedPixelRect(modelView).Center(),
+                                                         dp::Color(0, 255, 0, 255)));
       #endif
-        return;
       }
+
+    #ifdef DEBUG_OVERLAYS_OUTPUT
+      LOG(LINFO, ("Displace (1):", rivalHandle->GetOverlayDebugInfo(), "->", handle->GetOverlayDebugInfo()));
+    #endif
+
+    #ifdef COLLECT_DISPLACEMENT_INFO
+      m_displacementInfo.emplace_back(DisplacementData(rivalHandle->GetExtendedPixelRect(modelView).Center(),
+                                                       handle->GetExtendedPixelRect(modelView).Center(),
+                                                       dp::Color(0, 0, 255, 255)));
+    #endif
+      return;
     }
   }
 
   // Current overlay displaces other overlay, delete them.
-  for (auto const & info : elements)
-    AddHandleToDelete(info);
+  for (auto const & rivalHandle : rivals)
+    AddHandleToDelete(rivalHandle);
 
   for (auto const & handleToDelete : m_handlesToDelete)
   {
     Erase(handleToDelete);
 
-#ifdef COLLECT_DISPLACEMENT_INFO
-  m_displacementInfo.emplace_back(DisplacementData(handle->GetPixelRect(modelView, is3dMode).Center(),
-                                                   handleToDelete.m_handle->GetPixelRect(modelView, is3dMode).Center(),
-                                                   dp::Color(0, 0, 255, 255)));
-#endif
+  #ifdef DEBUG_OVERLAYS_OUTPUT
+    LOG(LINFO, ("Displace (2):", handle->GetOverlayDebugInfo(), "->", handleToDelete->GetOverlayDebugInfo()));
+  #endif
+
+  #ifdef COLLECT_DISPLACEMENT_INFO
+    m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
+                                                     handleToDelete->GetExtendedPixelRect(modelView).Center(),
+                                                     dp::Color(0, 0, 255, 255)));
+  #endif
   }
 
   m_handlesToDelete.clear();
 
-  TBase::Add(detail::OverlayInfo(handle), pixelRect);
+  TBase::Add(handle, pixelRect);
 }
 
 void OverlayTree::EndOverlayPlacing()
 {
   ASSERT(IsNeedUpdate(), ());
 
-  HandleComparator comparator(m_followingMode);
+#ifdef DEBUG_OVERLAYS_OUTPUT
+  LOG(LINFO, ("- BEGIN OVERLAYS PLACING"));
+#endif
+
+  HandleComparator comparator(false /* enableMask */, m_followingMode);
 
   for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
   {
     sort(m_handles[rank].begin(), m_handles[rank].end(), comparator);
     for (auto const & handle : m_handles[rank])
     {
-      detail::OverlayInfo parentOverlay;
+      ref_ptr<OverlayHandle> parentOverlay;
       if (!CheckHandle(handle, rank, parentOverlay))
         continue;
 
@@ -230,56 +266,59 @@ void OverlayTree::EndOverlayPlacing()
     m_handles[rank].clear();
   }
 
-  ForEach([] (detail::OverlayInfo const & info)
+  ForEach([] (ref_ptr<OverlayHandle> const & h)
   {
-    info.m_handle->SetIsVisible(true);
+    h->SetIsVisible(true);
   });
 
   m_frameCounter = 0;
+
+#ifdef DEBUG_OVERLAYS_OUTPUT
+  LOG(LINFO, ("- END OVERLAYS PLACING"));
+#endif
 }
 
 bool OverlayTree::CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
-                              detail::OverlayInfo & parentOverlay) const
+                              ref_ptr<OverlayHandle> & parentOverlay) const
 {
   if (currentRank == dp::OverlayRank0)
     return true;
 
   int const seachingRank = currentRank - 1;
-  return FindNode([&](detail::OverlayInfo const & info) -> bool
+  return FindNode([&](ref_ptr<OverlayHandle> const & h) -> bool
   {
-    if (info.m_handle->GetFeatureID() == handle->GetFeatureID() &&
-        info.m_handle->GetOverlayRank() == seachingRank)
+    if (h->GetFeatureID() == handle->GetFeatureID() && h->GetOverlayRank() == seachingRank)
     {
-      parentOverlay = info;
+      parentOverlay = h;
       return true;
     }
     return false;
   });
 }
 
-void OverlayTree::AddHandleToDelete(detail::OverlayInfo const & overlay)
+void OverlayTree::AddHandleToDelete(ref_ptr<OverlayHandle> const & handle)
 {
-  if (overlay.m_handle->IsBound())
+  if (handle->IsBound())
   {
-    ForEach([&](detail::OverlayInfo const & info)
+    ForEach([&](ref_ptr<OverlayHandle> const & h)
     {
-      if (info.m_handle->GetFeatureID() == overlay.m_handle->GetFeatureID())
+      if (h->GetFeatureID() == handle->GetFeatureID())
       {
         if (find(m_handlesToDelete.begin(),
-                 m_handlesToDelete.end(), info) == m_handlesToDelete.end())
-          m_handlesToDelete.push_back(info);
+                 m_handlesToDelete.end(), h) == m_handlesToDelete.end())
+          m_handlesToDelete.push_back(h);
       }
     });
   }
   else
   {
     if (find(m_handlesToDelete.begin(),
-             m_handlesToDelete.end(), overlay) == m_handlesToDelete.end())
-      m_handlesToDelete.push_back(overlay);
+             m_handlesToDelete.end(), handle) == m_handlesToDelete.end())
+      m_handlesToDelete.push_back(handle);
   }
 }
 
-void OverlayTree::Select(m2::PointD const & glbPoint, TSelectResult & result) const
+void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result) const
 {
   ScreenBase const & screen = m_traits.m_modelView;
   m2::PointD const pxPoint = screen.GtoP(glbPoint);
@@ -288,27 +327,27 @@ void OverlayTree::Select(m2::PointD const & glbPoint, TSelectResult & result) co
   m2::RectD rect(pxPoint, pxPoint);
   rect.Inflate(kSearchRectHalfSize, kSearchRectHalfSize);
 
-  ForEach([&](detail::OverlayInfo const & info)
+  ForEach([&](ref_ptr<OverlayHandle> const & h)
   {
-    if (rect.IsPointInside(info.m_handle->GetPivot(screen, false)))
-      result.push_back(info.m_handle);
+    if (rect.IsPointInside(h->GetPivot(screen, false)))
+      result.push_back(h);
   });
 }
 
-void OverlayTree::Select(m2::RectD const & rect, TSelectResult & result) const
+void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) const
 {
   ScreenBase screen = m_traits.m_modelView;
-  ForEachInRect(rect, [&](detail::OverlayInfo const & info)
+  ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
   {
-    if (info.m_handle->IsVisible() && info.m_handle->GetFeatureID().IsValid())
+    if (h->IsVisible() && h->GetFeatureID().IsValid())
     {
       OverlayHandle::Rects shape;
-      info.m_handle->GetPixelShape(screen, shape, screen.isPerspective());
+      h->GetPixelShape(screen, shape, screen.isPerspective());
       for (m2::RectF const & rShape : shape)
       {
         if (rShape.IsIntersect(m2::RectF(rect)))
         {
-          result.push_back(info.m_handle);
+          result.push_back(h);
           break;
         }
       }

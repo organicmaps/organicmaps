@@ -13,7 +13,6 @@ class PathSymbolShape : public MapShape
 public:
   PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params);
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
-  MapShapePriority GetPriority() const override { return MapShapePriority::LinePriority; }
 
 private:
   PathSymbolViewParams m_params;

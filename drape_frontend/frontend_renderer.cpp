@@ -249,14 +249,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       dp::GLState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-      ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
-      ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
-      bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
-      if (isPerspective)
-        program3d->Bind();
-      else
-        program->Bind();
-      bucket->GetBuffer()->Build(isPerspective ? program3d : program);
+      PrepareBucket(state, bucket);
       if (!IsUserMarkLayer(key))
       {
         if (CheckTileGenerations(key))
@@ -264,8 +257,29 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       else
       {
+        ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+        ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
+
         m_userMarkRenderGroups.emplace_back(make_unique_dp<UserMarkRenderGroup>(state, key, move(bucket)));
         m_userMarkRenderGroups.back()->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
+      }
+      break;
+    }
+
+  case Message::FlushOverlays:
+    {
+      ref_ptr<FlushOverlaysMessage> msg = message;
+      int const zoom = GetCurrentZoomLevelForData();
+      TOverlaysRenderData renderData = msg->AcceptRenderData();
+      for (auto & overlayRenderData : renderData)
+      {
+        ASSERT(!IsUserMarkLayer(overlayRenderData.m_tileKey), ());
+        if (CheckTileGenerations(overlayRenderData.m_tileKey))
+        {
+          PrepareBucket(overlayRenderData.m_state, overlayRenderData.m_bucket);
+          m_tileTree->ProcessTile(overlayRenderData.m_tileKey, zoom,
+                                  overlayRenderData.m_state, move(overlayRenderData.m_bucket));
+        }
       }
       break;
     }
@@ -415,7 +429,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         double offsetZ = 0.0;
         if (m_userEventStream.GetCurrentScreen().isPerspective())
         {
-          dp::OverlayTree::TSelectResult selectResult;
+          dp::TOverlayContainer selectResult;
           m_overlayTree->Select(msg->GetPosition(), selectResult);
           for (ref_ptr<dp::OverlayHandle> handle : selectResult)
             offsetZ = max(offsetZ, handle->GetPivotZ());
@@ -844,7 +858,7 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint) const
 FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect) const
 {
   m2::PointD pt = pixelRect.Center();
-  dp::OverlayTree::TSelectResult selectResult;
+  dp::TOverlayContainer selectResult;
   m_overlayTree->Select(pixelRect, selectResult);
 
   double dist = numeric_limits<double>::max();
@@ -1032,6 +1046,18 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
   EndUpdateOverlayTree();
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
+}
+
+void FrontendRenderer::PrepareBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> & bucket)
+{
+  ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+  ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
+  bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
+  if (isPerspective)
+    program3d->Bind();
+  else
+    program->Bind();
+  bucket->GetBuffer()->Build(isPerspective ? program3d : program);
 }
 
 void FrontendRenderer::MergeBuckets()
@@ -1423,7 +1449,7 @@ void FrontendRenderer::Routine::Do()
     if (activityTimer.ElapsedSeconds() > kMaxInactiveSeconds)
     {
       // Process a message or wait for a message.
-      m_renderer.ProcessSingleMessage();
+      m_renderer.ProcessSingleMessage(false);
       activityTimer.Reset();
     }
     else

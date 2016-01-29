@@ -411,3 +411,15 @@ m2::PointD ScreenBase::P3dtoP(m2::PointD const & pt) const
 
   return pixelPointOriginal;
 }
+
+bool ScreenBase::IsReverseProjection3d(m2::PointD const & pt) const
+{
+  if (!m_isPerspective)
+    return false;
+
+  Vector3dT const normalizedPoint{float(2.0 * pt.x / m_PixelRect.SizeX() - 1.0),
+                                  -float(2.0 * pt.y / m_PixelRect.SizeY() - 1.0), 0.0, 1.0};
+
+  Vector3dT const perspectivePoint = normalizedPoint * m_Pto3d;
+  return perspectivePoint(0, 3) < 0.0;
+}
