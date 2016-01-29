@@ -226,9 +226,10 @@ enum class AttributePosition
   CGFloat const distanceX = placePageWidth() - kLeftOffset - self.distanceLabel.width;
   CGFloat const directionX = distanceX - kOffsetFromDistanceToArrow - kDirectionArrowSide;
   CGFloat const y = getY(position);
-  self.directionArrow.center = {directionX + kDirectionArrowSide / 2, y};
+  CGPoint const center = {directionX + kDirectionArrowSide / 2, y};
+  self.directionArrow.center = center;
+  self.directionButton.origin = {center.x - self.directionButton.width / 2, center.y - self.directionButton.height / 2};
   self.distanceLabel.center = {distanceX + self.distanceLabel.width / 2, self.directionArrow.center.y};
-  self.directionButton.center = self.directionArrow.center;
 }
 
 - (void)layoutTableViewWithPosition:(AttributePosition)position
