@@ -877,7 +877,7 @@
 	<string name="migrate_title">Important!</string>
 	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
 	<string name="migrate_and_split_mwms_message">We have divided maps into parts. Now you can download separate regions, not the whole country. Before you start downloading new maps, please remove the old ones.</string>
-	<string name="youve_been_asking">Important!</string>
+	<string name="youve_been_asking">You\&#39;ve been asking for it and we\&#39;ve done it</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Download all</string>
 	<string name="delete_all">Delete all</string>

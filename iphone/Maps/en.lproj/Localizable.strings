@@ -1380,7 +1380,7 @@
 /* Used in 2 places: What's new and Delete All maps dialog. */
 "migrate_and_split_mwms_message" = "We have divided maps into parts. Now you can download separate regions, not the whole country. Before you start downloading new maps, please remove the old ones.";
 
-"youve_been_asking" = "Important!";
+"youve_been_asking" = "You've been asking for it and we've done it";
 
 /* Android uses image instead of text. */
 "download_all" = "Download all";

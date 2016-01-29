@@ -1380,7 +1380,7 @@
 /* Used in 2 places: What's new and Delete All maps dialog. */
 "migrate_and_split_mwms_message" = "Dividimos os mapas em partes. Agora vocês podem baixar regiões separadas em vez do país inteiro. Antes de começarem a baixar novos mapas, apaguem os mapas antigos.";
 
-"youve_been_asking" = "Vocês têm pedido por isso e nós atendemos  [migrate_title]";
+"youve_been_asking" = "Vocês têm pedido por isso e nós atendemos";
 
 /* Android uses image instead of text. */
 "download_all" = "Baixar tudo";
