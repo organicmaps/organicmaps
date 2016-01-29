@@ -75,21 +75,6 @@ public:
     size_t m_maxNumResults;
   };
 
-  Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter);
-
-  ~Geocoder() override;
-
-  // Sets search query params.
-  void SetParams(Params const & params);
-
-  // Starts geocoding, retrieved features will be appended to
-  // |results|.
-  void GoEverywhere(vector<FeatureID> & results);
-  void GoInViewport(vector<FeatureID> & results);
-
-  void ClearCaches();
-
-private:
   enum RegionType
   {
     REGION_TYPE_STATE,
@@ -97,14 +82,19 @@ private:
     REGION_TYPE_COUNT
   };
 
-  void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
-
   struct Locality
   {
+    Locality() : m_featureId(0), m_startToken(0), m_endToken(0) {}
+
+    Locality(uint32_t featureId, size_t startToken, size_t endToken)
+      : m_featureId(featureId), m_startToken(startToken), m_endToken(endToken)
+    {
+    }
+
     MwmSet::MwmId m_countryId;
-    uint32_t m_featureId = 0;
-    size_t m_startToken = 0;
-    size_t m_endToken = 0;
+    uint32_t m_featureId;
+    size_t m_startToken;
+    size_t m_endToken;
   };
 
   // This struct represents a country or US- or Canadian- state.  It
@@ -130,6 +120,23 @@ private:
 
     m2::RectD m_rect;
   };
+
+  Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter);
+
+  ~Geocoder() override;
+
+  // Sets search query params.
+  void SetParams(Params const & params);
+
+  // Starts geocoding, retrieved features will be appended to
+  // |results|.
+  void GoEverywhere(vector<FeatureID> & results);
+  void GoInViewport(vector<FeatureID> & results);
+
+  void ClearCaches();
+
+private:
+  void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   template <typename TLocality>
   using TLocalitiesCache = map<pair<size_t, size_t>, vector<TLocality>>;
@@ -295,5 +302,7 @@ private:
   // Non-owning pointer to a vector of results.
   vector<FeatureID> * m_results;
 };
+
+string DebugPrint(Geocoder::Locality const & locality);
 }  // namespace v2
 }  // namespace search

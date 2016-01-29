@@ -25,6 +25,7 @@ SOURCES += \
     keyword_matcher_test.cpp \
     latlon_match_test.cpp \
     locality_finder_test.cpp \
+    locality_scorer_test.cpp \
     query_saver_tests.cpp \
     search_string_utils_test.cpp \
     string_intersection_test.cpp \

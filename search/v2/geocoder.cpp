@@ -6,6 +6,7 @@
 #include "search/search_string_utils.hpp"
 #include "search/v2/cbv_ptr.hpp"
 #include "search/v2/features_layer_matcher.hpp"
+#include "search/v2/locality_scorer.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_decl.hpp"
@@ -33,6 +34,7 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/iterator.hpp"
+#include "std/sstream.hpp"
 #include "std/target_os.hpp"
 #include "std/transform_iterator.hpp"
 
@@ -95,23 +97,47 @@ struct ScopedMarkTokens
   size_t const m_to;
 };
 
-struct LazyRankTable
+class LazyRankTable : public RankTable
 {
+ public:
   LazyRankTable(MwmValue const & value) : m_value(value) {}
 
-  uint8_t Get(uint64_t i)
+  uint8_t Get(uint64_t i) const override
   {
-    if (!m_table)
-    {
-      m_table = search::RankTable::Load(m_value.m_cont);
-      if (!m_table)
-        m_table = make_unique<search::DummyRankTable>();
-    }
+    EnsureTableLoaded();
     return m_table->Get(i);
   }
 
+  uint64_t Size() const override
+  {
+    EnsureTableLoaded();
+    return m_table->Size();
+  }
+
+  RankTable::Version GetVersion() const override
+  {
+    EnsureTableLoaded();
+    return m_table->GetVersion();
+  }
+
+  void Serialize(Writer & writer, bool preserveHostEndiannes) override
+  {
+    EnsureTableLoaded();
+    m_table->Serialize(writer, preserveHostEndiannes);
+  }
+
+ private:
+   void EnsureTableLoaded() const
+   {
+     if (m_table)
+       return;
+     m_table = search::RankTable::Load(m_value.m_cont);
+     if (!m_table)
+       m_table = make_unique<search::DummyRankTable>();
+   }
+
   MwmValue const & m_value;
-  unique_ptr<search::RankTable> m_table;
+  mutable unique_ptr<search::RankTable> m_table;
 };
 
 class StreetCategories
@@ -624,7 +650,6 @@ void Geocoder::FillLocalityCandidates(coding::CompressedBitVector const * filter
                                                        l.m_endToken = endToken;
                                                        preLocalities.push_back(l);
                                                      });
-
       if (endToken < m_numTokens)
       {
         intersection.Intersect(m_addressFeatures[endToken].get());
@@ -634,51 +659,9 @@ void Geocoder::FillLocalityCandidates(coding::CompressedBitVector const * filter
     }
   }
 
-  auto const tokensCountFn = [&](Locality const & l)
-  {
-    // Important! Prefix match costs 1 while token match costs 2 for locality comparison.
-    size_t d = 2 * (l.m_endToken - l.m_startToken);
-    ASSERT_GREATER(d, 0, ());
-    if (l.m_endToken == m_numTokens && !m_params.m_prefixTokens.empty())
-      d -= 1;
-    return d;
-  };
-
-  // Unique preLocalities with featureId but leave the longest range if equal.
-  sort(preLocalities.begin(), preLocalities.end(),
-       [&](Locality const & l1, Locality const & l2)
-       {
-         if (l1.m_featureId != l2.m_featureId)
-           return l1.m_featureId < l2.m_featureId;
-         return tokensCountFn(l1) > tokensCountFn(l2);
-       });
-
-  preLocalities.erase(unique(preLocalities.begin(), preLocalities.end(),
-                             [](Locality const & l1, Locality const & l2)
-                             {
-                               return l1.m_featureId == l2.m_featureId;
-                             }),
-                      preLocalities.end());
-
   LazyRankTable rankTable(m_context->m_value);
-
-  // Leave the most popular localities.
-  if (preLocalities.size() > maxNumLocalities)
-  {
-    /// @todo Calculate match costs according to the exact locality name
-    /// (for 'york' query "york city" is better than "new york").
-
-    sort(preLocalities.begin(), preLocalities.end(),
-                [&](Locality const & l1, Locality const & l2)
-                {
-                  auto const d1 = tokensCountFn(l1);
-                  auto const d2 = tokensCountFn(l2);
-                  if (d1 != d2)
-                    return d1 > d2;
-                  return rankTable.Get(l1.m_featureId) > rankTable.Get(l2.m_featureId);
-                });
-    preLocalities.resize(maxNumLocalities);
-  }
+  LocalityScorer scorer(rankTable, m_params);
+  scorer.LeaveTopLocalities(maxNumLocalities, preLocalities);
 }
 
 void Geocoder::FillLocalitiesTable()
@@ -999,11 +982,8 @@ void Geocoder::GreedilyMatchStreets()
       if (IsStreetSynonym(token))
         continue;
 
-      if (feature::IsHouseNumber(token) &&
-          !coding::CompressedBitVector::IsEmpty(allFeatures))
-      {
+      if (feature::IsHouseNumber(token))
         CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
-      }
 
       unique_ptr<coding::CompressedBitVector> buffer;
       if (startToken == curToken || coding::CompressedBitVector::IsEmpty(allFeatures))
@@ -1016,9 +996,6 @@ void Geocoder::GreedilyMatchStreets()
 
       allFeatures.swap(buffer);
     }
-
-    if (coding::CompressedBitVector::IsEmpty(allFeatures))
-      continue;
 
     CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
   }
@@ -1327,6 +1304,14 @@ bool Geocoder::AllTokensUsed() const
 bool Geocoder::HasUsedTokensInRange(size_t from, size_t to) const
 {
   return any_of(m_usedTokens.begin() + from, m_usedTokens.begin() + to, Id<bool>());
+}
+
+string DebugPrint(Geocoder::Locality const & locality)
+{
+  ostringstream os;
+  os << "Locality [" << DebugPrint(locality.m_countryId) << ", " << locality.m_featureId << ", "
+     << locality.m_startToken << ", " << locality.m_endToken << "]";
+  return os.str();
 }
 }  // namespace v2
 }  // namespace search
