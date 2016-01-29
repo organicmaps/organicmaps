@@ -528,7 +528,7 @@ vector<string> Framework::GetNearbyFeatureStreets(FeatureType const & ft) const
   // Need to filter out duplicate street names.
   auto const streets = coder.GetNearbyFeatureStreets(ft);
   // Reasonable number of different nearby street names to display in UI.
-  size_t const kMinNumberOfNearbyStreets = 5;
+  size_t const kMinNumberOfNearbyStreets = 8;
   vector<string> results;
   // Feature's street from OSM data, if exists, always goes first.
   if (streets.second < streets.first.size())
