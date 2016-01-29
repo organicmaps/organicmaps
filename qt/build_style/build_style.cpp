@@ -84,12 +84,12 @@ void RunRecalculationGeometryScript(QString const & mapcssFile)
 
   QStringList params;
   params << "python" <<
-            GetRecalculateGeometryScriptPath() <<
-            resourceDir <<
-            writableDir <<
-            generatorToolPath <<
-            appPath <<
-            mapcssFile;
+            '"' + GetRecalculateGeometryScriptPath() + '"' <<
+            '"' + resourceDir + '"' <<
+            '"' + writableDir + '"' <<
+            '"' + generatorToolPath + '"' <<
+            '"' + appPath + '"' <<
+            '"' + mapcssFile + '"';
   QString const cmd = params.join(' ');
 
   auto const res = ExecProcess(cmd);
