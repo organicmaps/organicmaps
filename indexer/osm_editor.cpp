@@ -747,6 +747,8 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         if (feature.GetType() != XMLFeature::Type::Node)
           continue;
 
+        if (!fti.m_street.empty())
+          feature.SetTagValue(kAddrStreetTag, fti.m_street);
         try
         {
           XMLFeature osmFeature = GetMatchingFeatureFromOSM(changeset,
