@@ -553,6 +553,11 @@ public class MainMenu
                                                  : showcaseInFrame);
   }
 
+  public void setShowcaseText(String text)
+  {
+    ((TextView) mItemViews.get(Item.SHOWCASE)).setText(text);
+  }
+
   public Button getRouteStartButton()
   {
     return mRouteStartButton;
