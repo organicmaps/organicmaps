@@ -19,7 +19,6 @@ SOURCES += ../../testing/testingmain.cpp \
 #    blob_storage_test.cpp \
     coder_util_test.cpp \
     compressed_bit_vector_test.cpp \
-#    compressed_varnum_vector_test.cpp \
     dd_vector_test.cpp \
     diff_test.cpp \
     endianness_test.cpp \
