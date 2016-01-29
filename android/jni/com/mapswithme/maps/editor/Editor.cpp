@@ -94,4 +94,18 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetNearbyStreets(JNIEnv * env, jcla
     env->SetObjectArrayElement(jStreets, i, jni::TScopedLocalRef(env, jni::ToJavaString(env, streets[i])).get());
   return jStreets;
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeHasSomethingToUpload(JNIEnv * env, jclass clazz)
+{
+  return Editor::Instance().HaveSomethingToUpload();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token, jstring secret)
+{
+  Editor::Instance().UploadChanges(jni::ToNativeString(env, token),
+                                   jni::ToNativeString(env, secret),
+                                   {{"version", "TODO android"}}, nullptr);
+}
 } // extern "C"

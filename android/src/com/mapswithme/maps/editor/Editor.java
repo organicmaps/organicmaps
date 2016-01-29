@@ -1,9 +1,11 @@
 package com.mapswithme.maps.editor;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 
-import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.background.AppBackgroundTracker;
+import com.mapswithme.maps.background.WorkerService;
 
 
 /**
@@ -12,7 +14,22 @@ import com.mapswithme.maps.bookmarks.data.Metadata;
  */
 public final class Editor
 {
+  private static AppBackgroundTracker.OnTransitionListener sOsmUploader = new AppBackgroundTracker.OnTransitionListener()
+  {
+    @Override
+    public void onTransit(boolean foreground)
+    {
+      if (!foreground)
+        WorkerService.startActionUploadOsmChanges();
+    }
+  };
+
   private Editor() {}
+
+  public static void init()
+  {
+    MwmApplication.backgroundTracker().addListener(sOsmUploader);
+  }
 
   public static boolean hasEditableAttributes()
   {
@@ -21,7 +38,15 @@ public final class Editor
            Editor.nativeIsNameEditable();
   }
 
-  public static native @NonNull int[] nativeGetEditableMetadata();
+  public static void uploadChanges()
+  {
+    if (nativeHasSomethingToUpload() &&
+        OsmOAuth.isAuthorized())
+      nativeUploadChanges(OsmOAuth.getAuthToken(), OsmOAuth.getAuthSecret());
+  }
+
+  @NonNull
+  public static native int[] nativeGetEditableMetadata();
 
   public static native void nativeSetMetadata(int type, String value);
 
@@ -31,7 +56,13 @@ public final class Editor
 
   public static native boolean nativeIsNameEditable();
 
+  @NonNull
+  public static native String[] nativeGetNearbyStreets();
+
   public static native void nativeSetName(String name);
 
-  public static native @NonNull String[] nativeGetNearbyStreets();
+  public static native boolean nativeHasSomethingToUpload();
+
+  @WorkerThread
+  public static native void nativeUploadChanges(String token, String secret);
 }

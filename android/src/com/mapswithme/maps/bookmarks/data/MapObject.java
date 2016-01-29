@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.lang.annotation.Retention;
@@ -131,6 +132,7 @@ public class MapObject implements Parcelable
     return mIsDroppedPin;
   }
 
+  @Nullable
   public String getMetadata(Metadata.MetadataType type)
   {
     return mMetadata.getMetadata(type);

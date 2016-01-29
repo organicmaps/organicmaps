@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -135,9 +136,7 @@ public class Metadata implements Parcelable
     return true;
   }
 
-  /**
-   * @return null if metadata doesn't exist
-   */
+  @Nullable
   public String getMetadata(MetadataType type)
   {
     return mMetadataMap.get(type);

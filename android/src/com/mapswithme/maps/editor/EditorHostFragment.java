@@ -137,7 +137,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         editMapObject();
         break;
       case CUISINE:
-        final String cuisine = ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).getCuisine();
+        String cuisine = ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).getCuisine();
         mEditedObject.addMetadata(Metadata.MetadataType.FMD_CUISINE.toInt(), cuisine);
         editMapObject();
         break;
@@ -146,7 +146,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         Editor.nativeSetMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt(), editorFragment.getPhone());
         Editor.nativeSetMetadata(Metadata.MetadataType.FMD_WEBSITE.toInt(), editorFragment.getWebsite());
         Editor.nativeSetMetadata(Metadata.MetadataType.FMD_EMAIL.toInt(), editorFragment.getEmail());
-        Editor.nativeSetMetadata(Metadata.MetadataType.FMD_CUISINE.toInt(), mEditedObject.getMetadata(Metadata.MetadataType.FMD_CUISINE));
+        cuisine = mEditedObject.getMetadata(Metadata.MetadataType.FMD_CUISINE);
+        Editor.nativeSetMetadata(Metadata.MetadataType.FMD_CUISINE.toInt(), cuisine == null ? "" : cuisine);
         Editor.nativeSetMetadata(Metadata.MetadataType.FMD_INTERNET.toInt(), editorFragment.getWifi());
         Editor.nativeSetName(editorFragment.getName());
         Editor.nativeEditFeature(editorFragment.getStreet(), editorFragment.getHouseNumber());

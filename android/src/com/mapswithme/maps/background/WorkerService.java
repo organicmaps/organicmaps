@@ -13,12 +13,14 @@ import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.util.LocationUtils;
 
 public class WorkerService extends IntentService
 {
   private static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
   private static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
+  private static final String ACTION_UPLOAD_OSM_CHANGES = "com.mapswithme.maps.action.upload_osm_changes";
 
   private static final MwmApplication APP = MwmApplication.get();
   private static final SharedPreferences PREFS = MwmApplication.prefs();
@@ -26,8 +28,6 @@ public class WorkerService extends IntentService
   /**
    * Starts this service to check map updates available with the given parameters. If the
    * service is already performing a task this action will be queued.
-   *
-   * @see IntentService
    */
   static void startActionCheckUpdate(Context context)
   {
@@ -39,14 +39,22 @@ public class WorkerService extends IntentService
   /**
    * Starts this service to check if map download for current location is available. If the
    * service is already performing a task this action will be queued.
-   *
-   * @see IntentService
    */
   static void startActionDownload(Context context)
   {
     final Intent intent = new Intent(context, WorkerService.class);
     intent.setAction(WorkerService.ACTION_DOWNLOAD_COUNTRY);
     context.startService(intent);
+  }
+
+  /**
+   * Starts this service to upload map edits to osm servers.
+   */
+  public static void startActionUploadOsmChanges()
+  {
+    final Intent intent = new Intent(MwmApplication.get(), WorkerService.class);
+    intent.setAction(WorkerService.ACTION_UPLOAD_OSM_CHANGES);
+    MwmApplication.get().startService(intent);
   }
 
   public WorkerService()
@@ -76,10 +84,12 @@ public class WorkerService extends IntentService
       case ACTION_DOWNLOAD_COUNTRY:
         handleActionCheckLocation();
         break;
+      case ACTION_UPLOAD_OSM_CHANGES:
+        handleActionUploadOsmChanges();
+        break;
       }
     }
   }
-
   private static void handleActionCheckUpdate()
   {
     if (!Framework.nativeIsDataVersionChanged() || ActiveCountryTree.isLegacyMode())
@@ -111,6 +121,11 @@ public class WorkerService extends IntentService
         }
       }, delayMillis);
     }
+  }
+
+  private void handleActionUploadOsmChanges()
+  {
+    Editor.uploadChanges();
   }
 
   /**
