@@ -1,6 +1,6 @@
 //
 //  MRCustomParamsProvider.h
-//  myTrackerSDKCorp 1.3.2
+//  myTrackerSDKCorp 1.4.0
 //
 //  Created by Igor Glotov on 22.08.14.
 //  Copyright © 2014 Mail.ru Group. All rights reserved.

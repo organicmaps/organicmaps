@@ -1,6 +1,6 @@
 //
 //  MRTrackerParams+Corp.h
-//  myTrackerSDKCorp 1.3.2
+//  myTrackerSDKCorp 1.4.0
 //
 //  Created by Igor Glotov on 24.03.15.
 //  Copyright © 2015 Mail.ru Group. All rights reserved.
@@ -13,9 +13,5 @@
 @interface MRTrackerParams (Corp)
 
 - (MRCustomParamsProvider *)getCustomParams;
-
-- (NSTimeInterval)launchTimeout;
-- (void)setLaunchTimeout:(NSTimeInterval)launchTimeout;
-
 
 @end
