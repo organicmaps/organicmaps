@@ -49,4 +49,6 @@ namespace search { struct AddressInfo; }
 @property (nonatomic) m2::PointD restoreRouteDestination;
 @property (nonatomic) MWMAPIBar * apiBar;
 
+@property (nonatomic) BOOL skipPlacePageDismissOnViewDisappear;
+
 @end

@@ -1,4 +1,5 @@
 #import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMBookmarkColorViewController.h"
 #import "MWMBookmarkDescriptionViewController.h"
@@ -177,8 +178,10 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 - (void)changeBookmarkCategory
 {
   MWMPlacePageViewManager * manager = self.manager;
+  MapViewController * ovc = static_cast<MapViewController *>(manager.ownerViewController);
+  ovc.skipPlacePageDismissOnViewDisappear = YES;
   SelectSetVC * vc = [[SelectSetVC alloc] initWithPlacePageManager:manager];
-  [manager.ownerViewController.navigationController pushViewController:vc animated:YES];
+  [ovc.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)changeBookmarkColor
@@ -190,8 +193,11 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 - (void)changeBookmarkDescription
 {
-  MWMBookmarkDescriptionViewController * viewController = [[MWMBookmarkDescriptionViewController alloc] initWithPlacePageManager:self.manager];
-  [self.manager.ownerViewController.navigationController pushViewController:viewController animated:YES];
+  MWMPlacePageViewManager * manager = self.manager;
+  MapViewController * ovc = static_cast<MapViewController *>(manager.ownerViewController);
+  ovc.skipPlacePageDismissOnViewDisappear = YES;
+  MWMBookmarkDescriptionViewController * viewController = [[MWMBookmarkDescriptionViewController alloc] initWithPlacePageManager:manager];
+  [ovc.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)reloadBookmark

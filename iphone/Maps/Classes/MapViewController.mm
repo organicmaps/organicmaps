@@ -111,8 +111,6 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 
 @property (nonatomic) BOOL skipForceTouch;
 
-@property (nonatomic) BOOL skipDismissOnViewDisappear;
-
 @end
 
 @implementation MapViewController
@@ -409,7 +407,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
     return;
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 
-  self.skipDismissOnViewDisappear = NO;
+  self.skipPlacePageDismissOnViewDisappear = NO;
   [self.controlsManager reloadPlacePage];
   self.controlsManager.menuState = self.menuRestoreState;
 
@@ -470,7 +468,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 {
   [super viewWillDisappear:animated];
   self.menuRestoreState = self.controlsManager.menuState;
-  if (!self.skipDismissOnViewDisappear)
+  if (!self.skipPlacePageDismissOnViewDisappear)
     [self dismissPlacePage];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
@@ -897,7 +895,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 {
   if ([segue.identifier isEqualToString:@"Map2EditorSegue"])
   {
-    self.skipDismissOnViewDisappear = YES;
+    self.skipPlacePageDismissOnViewDisappear = YES;
     UINavigationController * dvc = segue.destinationViewController;
     MWMEditorViewController * editorVC = (MWMEditorViewController *)[dvc topViewController];
     editorVC.entity = sender;
