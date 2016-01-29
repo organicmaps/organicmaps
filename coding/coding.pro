@@ -12,8 +12,6 @@ INCLUDEPATH *= $$ROOT_DIR/3party/tomcrypt/src/headers
 SOURCES += \
     $$ROOT_DIR/3party/lodepng/lodepng.cpp \
     base64.cpp \
-#    blob_indexer.cpp \
-#    blob_storage.cpp \
     compressed_bit_vector.cpp \
     file_container.cpp \
     file_name_utils.cpp \
@@ -42,8 +40,6 @@ HEADERS += \
     $$ROOT_DIR/3party/lodepng/lodepng_io_private.hpp \
     base64.hpp \
     bit_streams.hpp \
-#    blob_indexer.hpp \
-#    blob_storage.hpp \
     buffer_reader.hpp \
     byte_stream.hpp \
     coder.hpp \
