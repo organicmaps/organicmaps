@@ -1174,14 +1174,7 @@ void Framework::LoadSearchResultMetadata(search::Result & res) const
 
   FeatureID const & id = res.GetFeatureID();
   if (id.IsValid())
-  {
-    Index::FeaturesLoaderGuard loader(m_model.GetIndex(), id.m_mwmId);
-
-    FeatureType ft;
-    loader.GetFeatureByIndex(id.m_index, ft);
-
-    search::ProcessMetadata(ft, res.m_metadata);
-  }
+    search::ProcessMetadata(*GetFeatureByID(id), res.m_metadata);
   res.m_metadata.m_isInitialized = true;
 }
 
@@ -1323,7 +1316,12 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
 
     Result const & r = results.GetResult(i);
     if (r.HasPoint())
-      guard.m_controller.CreateUserMark(r.GetFeatureCenter());
+    {
+      UserMark * mark = guard.m_controller.CreateUserMark(r.GetFeatureCenter());
+      // Store feature from the search result.
+      // TODO(AlexZ): Refactor all usermarks code.
+      mark->SetFeature(GetFeatureByID(r.GetFeatureID()));
+    }
   }
 }
 
@@ -1939,9 +1937,13 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   if (mark != nullptr)
   {
     // TODO(AlexZ): Refactor out together with UserMarks.
-    const_cast<UserMark *>(mark)->SetFeature(fid.IsValid() ?
-                                             GetFeatureByID(fid) :
-                                             GetFeatureAtMercatorPoint(mark->GetPivot()));
+    // Do not reset feature if it's already there (e.g. from Search results).
+    if (nullptr == mark->GetFeature())
+    {
+      const_cast<UserMark *>(mark)->SetFeature(fid.IsValid() ?
+                                               GetFeatureByID(fid) :
+                                               GetFeatureAtMercatorPoint(mark->GetPivot()));
+    }
     return mark;
   }
 
