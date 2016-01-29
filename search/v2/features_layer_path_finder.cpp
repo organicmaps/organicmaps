@@ -45,9 +45,9 @@ uint64_t CalcBottomUpPassCost(vector<FeaturesLayer const *> const & layers)
   return CalcPassCost(layers.begin(), layers.end());
 }
 
-bool LooksLikeHouseNumber(string const & query)
+bool LooksLikeHouseNumber(strings::UniString const & query)
 {
-  vector<string> tokens;
+  vector<strings::UniString> tokens;
   NormalizeHouseNumber(query, tokens);
   return !tokens.empty() && feature::IsHouseNumber(tokens.front());
 }

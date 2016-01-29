@@ -56,12 +56,18 @@ size_t constexpr kMaxNumCities = 5;
 size_t constexpr kMaxNumStates = 5;
 size_t constexpr kMaxNumVillages = 5;
 size_t constexpr kMaxNumCountries = 5;
+
+// This constant limits number of localities that will be extracted
+// from World map.  Villages are not counted here as they're not
+// included into World map.
 size_t constexpr kMaxNumLocalities = kMaxNumCities + kMaxNumStates + kMaxNumCountries;
 
 // List of countries we're supporting search by state. Elements of the
 // list should be valid prefixes of corresponding mwms names.
 string const kCountriesWithStates[] = {"US_", "Canada_"};
 double constexpr kComparePoints = MercatorBounds::GetCellID2PointAbsEpsilon();
+
+strings::UniString const kUniSpace(strings::MakeUniString(" "));
 
 template <typename T>
 struct Id
@@ -149,19 +155,19 @@ private:
 };
 
 void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t endToken,
-                     string const & sep, string & res)
+                     strings::UniString const & sep, strings::UniString & res)
 {
   ASSERT_LESS_OR_EQUAL(curToken, endToken, ());
   for (size_t i = curToken; i < endToken; ++i)
   {
     if (i < params.m_tokens.size())
     {
-      res.append(strings::ToUtf8(params.m_tokens[i].front()));
+      res.append(params.m_tokens[i].front());
     }
     else
     {
       ASSERT_EQUAL(i, params.m_tokens.size(), ());
-      res.append(strings::ToUtf8(params.m_prefixTokens.front()));
+      res.append(params.m_prefixTokens.front());
     }
 
     if (i + 1 != endToken)
@@ -375,7 +381,11 @@ void Geocoder::SetParams(Params const & params)
   for (size_t i = 0; i < m_numTokens; ++i)
   {
     auto & synonyms = m_params.GetTokens(i);
-    if (!synonyms.empty() && IsStreetSynonym(synonyms.front()))
+    ASSERT(!synonyms.empty(), ());
+
+    auto const & token = synonyms.front();
+
+    if (IsStreetSynonym(token))
     {
       auto b = synonyms.begin();
       auto e = synonyms.end();
@@ -971,24 +981,35 @@ void Geocoder::LimitedSearch(coding::CompressedBitVector const * filter, size_t 
 
 void Geocoder::GreedilyMatchStreets()
 {
-  ASSERT(m_layers.empty(), ());
-  m_layers.emplace_back();
-
-  MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &m_layers));
   for (size_t startToken = 0; startToken < m_numTokens; ++startToken)
   {
     if (m_usedTokens[startToken])
       continue;
 
-    unique_ptr<coding::CompressedBitVector> buffer;
+    // Here we try to match as many tokens as possible while
+    // intersection is a non-empty bit vector of streets.  All tokens
+    // that are synonyms to streets are ignored.  Moreover, each time
+    // a token that looks like a beginning of a house number is met,
+    // we try to use current intersection of tokens as a street layer
+    // and try to match buildings or pois.
     unique_ptr<coding::CompressedBitVector> allFeatures;
 
     size_t curToken = startToken;
     for (; curToken < m_numTokens && !m_usedTokens[curToken]; ++curToken)
     {
-      if (IsStreetSynonym(m_params.GetTokens(curToken).front()))
+      auto const & token = m_params.GetTokens(curToken).front();
+      if (IsStreetSynonym(token))
         continue;
 
+      if (feature::IsHouseNumber(token) &&
+          !coding::CompressedBitVector::IsEmpty(allFeatures))
+      {
+        if (m_filter.NeedToFilter(*allFeatures))
+          allFeatures = m_filter.Filter(*allFeatures);
+        CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
+      }
+
+      unique_ptr<coding::CompressedBitVector> buffer;
       if (startToken == curToken || coding::CompressedBitVector::IsEmpty(allFeatures))
         buffer = coding::CompressedBitVector::Intersect(*m_streets, *m_addressFeatures[curToken]);
       else
@@ -1002,25 +1023,39 @@ void Geocoder::GreedilyMatchStreets()
 
     if (coding::CompressedBitVector::IsEmpty(allFeatures))
       continue;
-
     if (m_filter.NeedToFilter(*allFeatures))
       allFeatures = m_filter.Filter(*allFeatures);
 
-    auto & layer = m_layers.back();
-    layer.Clear();
-    layer.m_type = SearchModel::SEARCH_TYPE_STREET;
-    layer.m_startToken = startToken;
-    layer.m_endToken = curToken;
-    JoinQueryTokens(m_params, layer.m_startToken, layer.m_endToken, " " /* sep */,
-                    layer.m_subQuery);
-    vector<uint32_t> sortedFeatures;
-    coding::CompressedBitVectorEnumerator::ForEach(*allFeatures,
-                                                   MakeBackInsertFunctor(sortedFeatures));
-    layer.m_sortedFeatures = &sortedFeatures;
-
-    ScopedMarkTokens mark(m_usedTokens, startToken, curToken);
-    MatchPOIsAndBuildings(0 /* curToken */);
+    CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
   }
+}
+
+void Geocoder::CreateStreetsLayerAndMatchLowerLayers(
+    size_t startToken, size_t endToken, unique_ptr<coding::CompressedBitVector> const & features)
+{
+  ASSERT(m_layers.empty(), ());
+
+  if (coding::CompressedBitVector::IsEmpty(features))
+    return;
+
+  m_layers.emplace_back();
+  MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &m_layers));
+
+  auto & layer = m_layers.back();
+  layer.Clear();
+  layer.m_type = SearchModel::SEARCH_TYPE_STREET;
+  layer.m_startToken = startToken;
+  layer.m_endToken = endToken;
+  JoinQueryTokens(m_params, layer.m_startToken, layer.m_endToken, kUniSpace /* sep */,
+                  layer.m_subQuery);
+
+  vector<uint32_t> sortedFeatures;
+  sortedFeatures.reserve(features->PopCount());
+  coding::CompressedBitVectorEnumerator::ForEach(*features, MakeBackInsertFunctor(sortedFeatures));
+  layer.m_sortedFeatures = &sortedFeatures;
+
+  ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
+  MatchPOIsAndBuildings(0 /* curToken */);
 }
 
 void Geocoder::MatchPOIsAndBuildings(size_t curToken)
@@ -1063,7 +1098,7 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
       layer.Clear();
       layer.m_startToken = curToken;
       layer.m_endToken = curToken + n;
-      JoinQueryTokens(m_params, layer.m_startToken, layer.m_endToken, " " /* sep */,
+      JoinQueryTokens(m_params, layer.m_startToken, layer.m_endToken, kUniSpace /* sep */,
                       layer.m_subQuery);
     }
 

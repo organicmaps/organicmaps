@@ -29,8 +29,10 @@ namespace feature
     return str;
   }
 
+  bool IsDigit(int c);
   bool IsNumber(strings::UniString const & s);
 
   bool IsHouseNumber(string const & s);
+  bool IsHouseNumber(strings::UniString const & s);
   bool IsHouseNumberDeepCheck(strings::UniString const & s);
 }

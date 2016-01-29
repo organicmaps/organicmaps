@@ -24,6 +24,7 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
@@ -151,7 +152,7 @@ private:
     // |buildings| doesn't contain buildings matching by house number,
     // so following code reads buildings in POIs vicinities and checks
     // house numbers.
-    vector<string> queryTokens;
+    vector<strings::UniString> queryTokens;
     NormalizeHouseNumber(parent.m_subQuery, queryTokens);
     if (queryTokens.empty())
       return;
@@ -168,7 +169,7 @@ private:
       {
         if (building.m_id.m_mwmId != m_context->m_id || building.m_distanceMeters > kBuildingRadiusMeters)
           continue;
-        if (HouseNumbersMatch(building.m_name, queryTokens))
+        if (HouseNumbersMatch(strings::MakeUniString(building.m_name), queryTokens))
           fn(pois[i], building.m_id.m_index);
       }
     }
@@ -240,7 +241,7 @@ private:
       return;
     }
 
-    vector<string> queryTokens;
+    vector<strings::UniString> queryTokens;
     NormalizeHouseNumber(child.m_subQuery, queryTokens);
 
     auto const & checker = ftypes::IsBuildingChecker::Instance();
@@ -272,7 +273,7 @@ private:
       if (!child.m_hasDelayedFeatures)
         return false;
 
-      string const houseNumber = feature.GetHouseNumber();
+      strings::UniString const houseNumber(strings::MakeUniString(feature.GetHouseNumber()));
       if (!feature::IsHouseNumber(houseNumber))
         return false;
       return HouseNumbersMatch(houseNumber, queryTokens);

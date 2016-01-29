@@ -1,7 +1,7 @@
 #include "search_string_utils.hpp"
 
+#include "std/set.hpp"
 #include "std/transform_iterator.hpp"
-#include "std/unordered_set.hpp"
 
 #include "base/macros.hpp"
 

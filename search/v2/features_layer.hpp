@@ -2,6 +2,8 @@
 
 #include "search/v2/search_model.hpp"
 
+#include "base/string_utils.hpp"
+
 #include "std/vector.hpp"
 
 namespace search
@@ -20,7 +22,7 @@ struct FeaturesLayer
   // Non-owning ptr to a sorted vector of features.
   vector<uint32_t> const * m_sortedFeatures;
 
-  string m_subQuery;
+  strings::UniString m_subQuery;
 
   size_t m_startToken;
   size_t m_endToken;

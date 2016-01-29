@@ -153,23 +153,19 @@ void HouseNumberTokenizer::Tokenize(UniString const & s, vector<Token> & ts)
   }
 }
 
-void NormalizeHouseNumber(string const & s, vector<string> & ts)
+void NormalizeHouseNumber(strings::UniString const & s, vector<strings::UniString> & ts)
 {
   vector<HouseNumberTokenizer::Token> tokens;
-  HouseNumberTokenizer::Tokenize(MakeLowerCase(MakeUniString(s)), tokens);
-
-  vector<UniString> mergedTokens;
-  MergeTokens(tokens, mergedTokens);
-
-  transform(mergedTokens.begin(), mergedTokens.end(), back_inserter(ts), &ToUtf8);
+  HouseNumberTokenizer::Tokenize(MakeLowerCase(s), tokens);
+  MergeTokens(tokens, ts);
 }
 
-bool HouseNumbersMatch(string const & houseNumber, string const & query)
+bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query)
 {
   if (houseNumber == query)
     return true;
 
-  vector<string> queryTokens;
+  vector<strings::UniString> queryTokens;
   NormalizeHouseNumber(query, queryTokens);
 
   if (!queryTokens.empty())
@@ -178,14 +174,14 @@ bool HouseNumbersMatch(string const & houseNumber, string const & query)
   return HouseNumbersMatch(houseNumber, queryTokens);
 }
 
-bool HouseNumbersMatch(string const & houseNumber, vector<string> const & queryTokens)
+bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<strings::UniString> const & queryTokens)
 {
   if (houseNumber.empty() || queryTokens.empty())
     return false;
   if (queryTokens[0][0] != houseNumber[0])
     return false;
 
-  vector<string> houseNumberTokens;
+  vector<strings::UniString> houseNumberTokens;
   NormalizeHouseNumber(houseNumber, houseNumberTokens);
 
   if (houseNumberTokens.empty())

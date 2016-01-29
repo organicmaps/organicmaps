@@ -67,4 +67,8 @@ bool IsHouseNumber(string const & s)
   return (!s.empty() && IsDigit(s[0]));
 }
 
+bool IsHouseNumber(strings::UniString const & s)
+{
+  return (!s.empty() && IsDigit(s[0]));
+}
 }

@@ -9,6 +9,22 @@
 using namespace strings;
 using namespace search::v2;
 
+namespace
+{
+void NormalizeHouseNumber(string const & s, vector<string> & ts)
+{
+  vector<strings::UniString> tokens;
+  search::v2::NormalizeHouseNumber(strings::MakeUniString(s), tokens);
+  for (auto const & token : tokens)
+    ts.push_back(strings::ToUtf8(token));
+}
+
+bool HouseNumbersMatch(string const & houseNumber, string const & query)
+{
+  return search::v2::HouseNumbersMatch(strings::MakeUniString(houseNumber),
+                                       strings::MakeUniString(query));
+}
+
 void CheckTokenizer(string const & utf8s, vector<string> const & expected)
 {
   UniString utf32s = MakeUniString(utf8s);
@@ -35,6 +51,7 @@ void CheckNormalizer(string const & utf8s, string const & expected)
   }
   TEST_EQUAL(actual, expected, ());
 }
+}  // namespace
 
 UNIT_TEST(HouseNumberTokenizer_Smoke)
 {

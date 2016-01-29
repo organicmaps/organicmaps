@@ -25,7 +25,7 @@ string DebugPrint(FeaturesLayer const & layer)
   ostringstream os;
   os << "FeaturesLayer [ size of m_sortedFeatures: "
      << (layer.m_sortedFeatures ? layer.m_sortedFeatures->size() : 0)
-     << ", m_subQuery: " << layer.m_subQuery << ", m_startToken: " << layer.m_startToken
+     << ", m_subQuery: " << DebugPrint(layer.m_subQuery) << ", m_startToken: " << layer.m_startToken
      << ", m_endToken: " << layer.m_endToken << ", m_type: " << DebugPrint(layer.m_type) << " ]";
   return os.str();
 }

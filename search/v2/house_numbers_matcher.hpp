@@ -38,12 +38,13 @@ public:
 };
 
 // Splits house number by tokens, removes blanks and separators.
-void NormalizeHouseNumber(string const & s, vector<string> & ts);
+void NormalizeHouseNumber(strings::UniString const & s, vector<strings::UniString> & ts);
 
 // Returns true when |query| matches to |houseNumber|.
-bool HouseNumbersMatch(string const & houseNumber, string const & query);
+bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query);
 
 // Returns true when |queryTokens| match to |houseNumber|.
-bool HouseNumbersMatch(string const & houseNumber, vector<string> const & queryTokens);
+bool HouseNumbersMatch(strings::UniString const & houseNumber,
+                       vector<strings::UniString> const & queryTokens);
 }  // namespace v2
 }  // namespace search
