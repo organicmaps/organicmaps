@@ -9,8 +9,8 @@ namespace storage
 
 namespace
 {
-int const RootItemIndex = 0;
-int const ChildItemsOffset = 1;
+int const kRootItemIndex = 0;
+int const kChildItemsOffset = 1;
 
 inline TIndex GetIndexChild(TIndex const & index, int i)
 {
@@ -117,7 +117,7 @@ bool CountryTree::HasParent() const
 int CountryTree::GetChildCount() const
 {
   ASSERT(HasRoot(), ());
-  return m_levelItems.size() - ChildItemsOffset;
+  return m_levelItems.size() - kChildItemsOffset;
 }
 
 bool CountryTree::IsLeaf(int childPosition) const
@@ -191,19 +191,19 @@ void CountryTree::RetryDownloading(int childPosition)
   GetActiveMapLayout().RetryDownloading(GetChild(childPosition));
 }
 
-void CountryTree::DownloadAllImpl(TIndex const & index)
+void CountryTree::DownloadAllImpl(TIndex const & localRootIndex)
 {
-  if (GetStorage().IsLeaf(index))
+  if (GetStorage().IsLeaf(localRootIndex))
   {
-    GetActiveMapLayout().DownloadMap(index, MapOptions::MapWithCarRouting);
+    GetActiveMapLayout().DownloadMap(localRootIndex, MapOptions::Map);
     return;
   }
 
-  size_t const childCount = GetStorage().CountriesCount(index);
+  size_t const childCount = GetStorage().CountriesCount(localRootIndex);
   for (size_t i = 0; i < childCount; ++i)
   {
-    TIndex const child = GetIndexChild(index, i);
-    ASSERT_NOT_EQUAL(index, child, ());
+    TIndex const child = GetIndexChild(localRootIndex, i);
+    ASSERT_NOT_EQUAL(localRootIndex, child, ());
     DownloadAllImpl(child);
   }
 }
@@ -269,7 +269,7 @@ void CountryTree::DisconnectFromCoreStorage()
 TIndex const & CountryTree::GetCurrentRoot() const
 {
   ASSERT(HasRoot(), ());
-  return m_levelItems[RootItemIndex];
+  return m_levelItems[kRootItemIndex];
 }
 
 void CountryTree::SetRoot(TIndex index)
@@ -277,7 +277,7 @@ void CountryTree::SetRoot(TIndex index)
   ResetRoot();
 
   size_t const count = GetStorage().CountriesCount(index);
-  m_levelItems.reserve(ChildItemsOffset + count);
+  m_levelItems.reserve(kChildItemsOffset + count);
   m_levelItems.push_back(index);
   for (size_t i = 0; i < count; ++i)
     m_levelItems.push_back(GetIndexChild(index, i));
@@ -286,7 +286,7 @@ void CountryTree::SetRoot(TIndex index)
 TIndex const & CountryTree::GetChild(int childPosition) const
 {
   ASSERT(childPosition < GetChildCount(), ());
-  return m_levelItems[ChildItemsOffset + childPosition];
+  return m_levelItems[kChildItemsOffset + childPosition];
 }
 
 int CountryTree::GetChildPosition(TIndex const & index)
@@ -296,7 +296,7 @@ int CountryTree::GetChildPosition(TIndex const & index)
   {
     auto iter = find(m_levelItems.begin(), m_levelItems.end(), index);
     if (iter != m_levelItems.end())
-      result = distance(m_levelItems.begin(), iter) - ChildItemsOffset;
+      result = distance(m_levelItems.begin(), iter) - kChildItemsOffset;
   }
 
   return result;
