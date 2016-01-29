@@ -13,7 +13,6 @@ include($$ROOT_DIR/common.pri)
 DEFINES += OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
 
 SOURCES += ../../testing/testingmain.cpp \
-    arithmetic_codec_test.cpp \
     base64_for_user_id_test.cpp \
     base64_test.cpp \
     bit_streams_test.cpp \
