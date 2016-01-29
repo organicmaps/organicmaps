@@ -114,7 +114,7 @@ extern NSString * const MapsStatusChangedNotification;
   {
     LocalAndRemoteSizeT const size = self.mapsLayout.GetRemoteCountrySizes(group, position);
 
-    cell.sizeLabel.text = [NSString stringWithFormat:@"%@ / %@", formattedSize(size.first), formattedSize(size.second)];
+    cell.sizeLabel.text = formattedSize(size.first);
   }
   else if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
     cell.sizeLabel.text = formattedSize(self.mapsLayout.GetCountrySize(group, position, options).second);
