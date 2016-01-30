@@ -1060,15 +1060,21 @@ void FrontendRenderer::MergeBuckets()
     for (size_t i = 0; i < groupsCount; ++i)
     {
       ref_ptr<RenderGroup> group = make_ref(layer.m_renderGroups[i]);
-      dp::GLState state = group->GetState();
-      ASSERT_EQUAL(state.GetDepthLayer(), dp::GLState::GeometryLayer, ());
-      forMerge[MergedGroupKey(state, group->GetTileKey())].push_back(move(layer.m_renderGroups[i]));
+      if (!group->IsPendingOnDelete())
+      {
+        dp::GLState state = group->GetState();
+        ASSERT_EQUAL(state.GetDepthLayer(), dp::GLState::GeometryLayer, ());
+        forMerge[MergedGroupKey(state, group->GetTileKey())].push_back(move(layer.m_renderGroups[i]));
+      }
+      else
+        newGroups.push_back(move(layer.m_renderGroups[i]));
     }
 
     for (TGroupMap::value_type & node : forMerge)
       BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective);
 
     layer.m_renderGroups = move(newGroups);
+    layer.m_isDirty = true;
   };
 
   bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
@@ -1567,7 +1573,7 @@ void FrontendRenderer::RenderLayer::Sort()
     return;
 
   RenderGroupComparator comparator;
-  sort(m_renderGroups.begin(), m_renderGroups.end(), comparator);
+  sort(m_renderGroups.begin(), m_renderGroups.end(), ref(comparator));
   m_isDirty = comparator.m_pendingOnDeleteFound;
 
   while (!m_renderGroups.empty() && m_renderGroups.back()->CanBeDeleted())
