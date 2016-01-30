@@ -139,7 +139,7 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(m2::RectD const & latLonRec
 
 OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(double lat, double lon) const
 {
-  double const kInflateEpsilon = MercatorBounds::GetCellID2PointAbsEpsilon();
+  double const kInflateEpsilon = MercatorBounds::GetCellID2PointAbsEpsilon() / 2;
   m2::RectD rect(lon, lat, lon, lat);
   rect.Inflate(kInflateEpsilon, kInflateEpsilon);
   return GetXmlFeaturesInRect(rect);
