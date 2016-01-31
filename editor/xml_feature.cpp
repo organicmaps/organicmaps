@@ -1,6 +1,5 @@
 #include "editor/xml_feature.hpp"
 
-#include "base/assert.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
@@ -31,37 +30,25 @@ ms::LatLon PointFromLatLon(pugi::xml_node const & node)
 {
   ms::LatLon ll;
   if (!strings::to_double(node.attribute("lat").value(), ll.lat))
-  {
-    MYTHROW(editor::XMLFeatureNoLatLonError,
-            ("Can't parse lat attribute: " + string(node.attribute("lat").value())));
-  }
+    MYTHROW(editor::NoLatLon, ("Can't parse lat attribute: " + string(node.attribute("lat").value())));
   if (!strings::to_double(node.attribute("lon").value(), ll.lon))
-  {
-    MYTHROW(editor::XMLFeatureNoLatLonError,
-            ("Can't parse lon attribute: " + string(node.attribute("lon").value())));
-  }
+    MYTHROW(editor::NoLatLon, ("Can't parse lon attribute: " + string(node.attribute("lon").value())));
   return ll;
 }
 
-void ValidateNode(pugi::xml_node const & node)
+void ValidateElement(pugi::xml_node const & nodeOrWay)
 {
-  if (!node)
-    MYTHROW(editor::XMLFeatureNoNodeError, ("Document has no node"));
+  if (!nodeOrWay)
+    MYTHROW(editor::InvalidXML, ("Document has no valid root element."));
 
-  // Check if point can be parsed. Throws if it's can't.
-  UNUSED_VALUE(PointFromLatLon(node));
+  string const type = nodeOrWay.name();
+  if (type == kNodeType)
+    UNUSED_VALUE(PointFromLatLon(nodeOrWay));
+  else if (type != kWayType)
+    MYTHROW(editor::InvalidXML, ("XMLFeature does not support root tag", type));
 
-  if (!node.attribute(kTimestamp))
-    MYTHROW(editor::XMLFeatureNoTimestampError, ("Node has no timestamp attribute"));
-}
-
-void ValidateWay(pugi::xml_node const & way)
-{
-  if (!way)
-    MYTHROW(editor::XMLFeatureNoNodeError, ("Document has no node"));
-
-  if (!way.attribute(kTimestamp))
-    MYTHROW(editor::XMLFeatureNoTimestampError, ("Way has no timestamp attribute"));
+  if (!nodeOrWay.attribute(kTimestamp))
+    MYTHROW(editor::NoTimestamp, ("Node has no timestamp attribute"));
 }
 
 } // namespace
@@ -80,23 +67,20 @@ XMLFeature::XMLFeature(Type const type)
 XMLFeature::XMLFeature(string const & xml)
 {
   m_document.load(xml.data());
-  auto const r = GetRootNode();
-  r.name() == kNodeType ? ValidateNode(r) : ValidateWay(r);
+  ValidateElement(GetRootNode());
 }
 
 XMLFeature::XMLFeature(pugi::xml_document const & xml)
 {
   m_document.reset(xml);
-  auto const r = GetRootNode();
-  r.name() == kNodeType ? ValidateNode(r) : ValidateWay(r);
+  ValidateElement(GetRootNode());
 }
 
 XMLFeature::XMLFeature(pugi::xml_node const & xml)
 {
   m_document.reset();
   m_document.append_copy(xml);
-  auto const r = GetRootNode();
-  r.name() == kNodeType ? ValidateNode(r) : ValidateWay(r);
+  ValidateElement(GetRootNode());
 }
 
 bool XMLFeature::operator==(XMLFeature const & other) const
@@ -104,9 +88,31 @@ bool XMLFeature::operator==(XMLFeature const & other) const
   return ToOSMString() == other.ToOSMString();
 }
 
+vector<XMLFeature> XMLFeature::FromOSM(string const & osmXml)
+{
+  pugi::xml_document doc;
+  if (doc.load_string(osmXml.c_str()).status != pugi::status_ok)
+    MYTHROW(editor::InvalidXML, ("Not valid XML:", osmXml));
+
+  vector<XMLFeature> features;
+  for (auto const n : doc.child("osm").children())
+  {
+    string const name(n.name());
+    // TODO(AlexZ): Add relation support.
+    if (name == kNodeType || name == kWayType)
+      features.push_back(XMLFeature(n));  // TODO(AlexZ): Use emplace_back when pugi supports it.
+  }
+  return features;
+}
+
 XMLFeature::Type XMLFeature::GetType() const
 {
   return strcmp(GetRootNode().name(), "node") == 0 ? Type::Node : Type::Way;
+}
+
+string XMLFeature::GetTypeString() const
+{
+  return GetRootNode().name();
 }
 
 bool XMLFeature::IsArea() const
@@ -154,12 +160,16 @@ ms::LatLon XMLFeature::GetCenter() const
   return PointFromLatLon(GetRootNode());
 }
 
+void XMLFeature::SetCenter(ms::LatLon const & ll)
+{
+  ASSERT_EQUAL(GetRootNode().name(), string(kNodeType), ());
+  SetAttribute("lat", strings::to_string_dac(ll.lat, kLatLonTolerance));
+  SetAttribute("lon", strings::to_string_dac(ll.lon, kLatLonTolerance));
+}
+
 void XMLFeature::SetCenter(m2::PointD const & mercatorCenter)
 {
-  SetAttribute("lat", strings::to_string_dac(MercatorBounds::YToLat(mercatorCenter.y),
-                                             kLatLonTolerance));
-  SetAttribute("lon", strings::to_string_dac(MercatorBounds::XToLon(mercatorCenter.x),
-                                             kLatLonTolerance));
+  SetCenter(MercatorBounds::ToLatLon(mercatorCenter));
 }
 
 string XMLFeature::GetName(string const & lang) const

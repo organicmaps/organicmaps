@@ -135,61 +135,7 @@ UNIT_TEST(XMLFeature_IsArea)
   TEST(!XMLFeature(node).IsArea(), ());
 }
 
-// UNIT_TEST(XMLFeature_FromXml)
-// {
-//   auto const srcString = R"(<?xml version="1.0"?>
-// <node
-//   lat="55.7978998"
-//   lon="37.474528"
-//   timestamp="2015-11-27T21:13:32Z">
-//   <tag
-//     k="name"
-//     v="Gorki Park" />
-//   <tag
-//     k="name:en"
-//     v="Gorki Park" />
-//   <tag
-//     k="name:ru"
-//     v="Парк Горького" />
-//   <tag
-//     k="addr:housenumber"
-//     v="10" />
-//   <tag
-//     k="opening_hours"
-//     v="Mo-Fr 08:15-17:30" />
-//   <tag
-//     k="amenity"
-//     v="atm" />
-// </node>
-// )";
-
-//   XMLFeature feature(srcString);
-
-//   stringstream sstr;
-//   feature.Save(sstr);
-//   TEST_EQUAL(srcString, sstr.str(), ());
-
-//   TEST(feature.HasKey("opening_hours"), ());
-//   TEST(feature.HasKey("lat"), ());
-//   TEST(feature.HasKey("lon"), ());
-//   TEST(!feature.HasKey("FooBarBaz"), ());
-
-//   TEST_EQUAL(feature.GetHouse(), "10", ());
-//   TEST_EQUAL(feature.GetCenter(), MercatorBounds::FromLatLon(55.7978998, 37.4745280), ());
-//   TEST_EQUAL(feature.GetName(), "Gorki Park", ());
-//   TEST_EQUAL(feature.GetName("default"), "Gorki Park", ());
-//   TEST_EQUAL(feature.GetName("en"), "Gorki Park", ());
-//   TEST_EQUAL(feature.GetName("ru"), "Парк Горького", ());
-//   TEST_EQUAL(feature.GetName("No such language"), "", ());
-
-//   TEST_EQUAL(feature.GetTagValue("opening_hours"), "Mo-Fr 08:15-17:30", ());
-//   TEST_EQUAL(feature.GetTagValue("amenity"), "atm", ());
-//   TEST_EQUAL(my::TimestampToString(feature.GetModificationTime()), "2015-11-27T21:13:32Z", ());
-// }
-
-UNIT_TEST(XMLFeature_ForEachName)
-{
-  auto const srcString = R"(<?xml version="1.0"?>
+auto const kTestNode = R"(<?xml version="1.0"?>
 <node lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
   <tag k="name" v="Gorki Park" />
   <tag k="name:en" v="Gorki Park" />
@@ -200,7 +146,35 @@ UNIT_TEST(XMLFeature_ForEachName)
 </node>
 )";
 
-  XMLFeature feature(srcString);
+UNIT_TEST(XMLFeature_FromXml)
+{
+  XMLFeature feature(kTestNode);
+
+  stringstream sstr;
+  feature.Save(sstr);
+  TEST_EQUAL(kTestNode, sstr.str(), ());
+
+  TEST(feature.HasKey("opening_hours"), ());
+  TEST(feature.HasKey("lat"), ());
+  TEST(feature.HasKey("lon"), ());
+  TEST(!feature.HasKey("FooBarBaz"), ());
+
+  TEST_EQUAL(feature.GetHouse(), "10", ());
+  TEST_EQUAL(feature.GetCenter(), ms::LatLon(55.7978998, 37.4745280), ());
+  TEST_EQUAL(feature.GetName(), "Gorki Park", ());
+  TEST_EQUAL(feature.GetName("default"), "Gorki Park", ());
+  TEST_EQUAL(feature.GetName("en"), "Gorki Park", ());
+  TEST_EQUAL(feature.GetName("ru"), "Парк Горького", ());
+  TEST_EQUAL(feature.GetName("No such language"), "", ());
+
+  TEST_EQUAL(feature.GetTagValue("opening_hours"), "Mo-Fr 08:15-17:30", ());
+  TEST_EQUAL(feature.GetTagValue("amenity"), "atm", ());
+  TEST_EQUAL(my::TimestampToString(feature.GetModificationTime()), "2015-11-27T21:13:32Z", ());
+}
+
+UNIT_TEST(XMLFeature_ForEachName)
+{
+  XMLFeature feature(kTestNode);
   map<string, string> names;
 
   feature.ForEachName([&names](string const & lang, string const & name)
@@ -211,4 +185,30 @@ UNIT_TEST(XMLFeature_ForEachName)
   TEST_EQUAL(names, (map<string, string>{
                         {"default", "Gorki Park"}, {"en", "Gorki Park"}, {"ru", "Парк Горького"}}),
              ());
+}
+
+auto const kTestNodeWay = R"(<?xml version="1.0"?>
+<osm>
+<node id="4" lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z"/>
+<node id="5" lat="55.7977777" lon="37.474528" timestamp="2015-11-27T21:13:33Z"/>
+<way id="3" timestamp="2015-11-27T21:13:34Z">
+  <nd ref="4"/>
+  <nd ref="5"/>
+  <tag k="hi" v="test"/>
+</way>
+</osm>
+)";
+
+
+UNIT_TEST(XMLFeature_FromOSM)
+{
+  TEST_ANY_THROW(XMLFeature::FromOSM(""), ());
+  TEST_ANY_THROW(XMLFeature::FromOSM("This is not XML"), ());
+  TEST_ANY_THROW(XMLFeature::FromOSM("<?xml version=\"1.0\"?>"), ());
+  TEST_NO_THROW(XMLFeature::FromOSM("<?xml version=\"1.0\"?><osm></osm>"), ());
+  TEST_ANY_THROW(XMLFeature::FromOSM("<?xml version=\"1.0\"?><osm><node lat=\"11.11\"/></osm>"), ());
+  vector<XMLFeature> features;
+  TEST_NO_THROW(features = XMLFeature::FromOSM(kTestNodeWay), ());
+  TEST_EQUAL(3, features.size(), ());
+  TEST_EQUAL(features[2].GetTagValue("hi"), "test", ());
 }

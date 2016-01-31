@@ -9,16 +9,17 @@
 
 #include "std/ctime.hpp"
 #include "std/iostream.hpp"
+#include "std/vector.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
 
 namespace editor
 {
 DECLARE_EXCEPTION(XMLFeatureError, RootException);
-DECLARE_EXCEPTION(XMLFeatureNoNodeError, XMLFeatureError);
-DECLARE_EXCEPTION(XMLFeatureNoLatLonError, XMLFeatureError);
-DECLARE_EXCEPTION(XMLFeatureNoTimestampError, XMLFeatureError);
-DECLARE_EXCEPTION(XMLFeatureNoHeaderError, XMLFeatureError);
+DECLARE_EXCEPTION(InvalidXML, XMLFeatureError);
+DECLARE_EXCEPTION(NoLatLon, XMLFeatureError);
+DECLARE_EXCEPTION(NoTimestamp, XMLFeatureError);
+DECLARE_EXCEPTION(NoHeader, XMLFeatureError);
 
 class XMLFeature
 {
@@ -40,6 +41,8 @@ public:
   XMLFeature(pugi::xml_node const & xml);
   XMLFeature(XMLFeature const & feature) : XMLFeature(feature.m_document) {}
   bool operator==(XMLFeature const & other) const;
+  /// @returns nodes and ways from osmXml. Vector can be empty.
+  static vector<XMLFeature> FromOSM(string const & osmXml);
 
   void Save(ostream & ost) const;
   string ToOSMString() const;
@@ -48,11 +51,13 @@ public:
   void ApplyPatch(XMLFeature const & featureWithChanges);
 
   Type GetType() const;
+  string GetTypeString() const;
 
   /// @returns true only if it is a way and it is closed (area).
   bool IsArea() const;
 
   ms::LatLon GetCenter() const;
+  void SetCenter(ms::LatLon const & ll);
   void SetCenter(m2::PointD const & mercatorCenter);
 
   string GetName(string const & lang) const;
