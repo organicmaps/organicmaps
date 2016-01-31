@@ -1164,6 +1164,9 @@ extern "C"
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetActiveMapObject(JNIEnv * env, jclass thiz)
   {
-    return usermark_helper::CreateMapObject(g_framework->GetActiveUserMark());
+    UserMark const * mark = g_framework->GetActiveUserMark();
+    if (!mark)
+      return nullptr;
+    return usermark_helper::CreateMapObject(mark);
   }
 } // extern "C"
