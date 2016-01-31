@@ -71,6 +71,14 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     return true;
   }
 
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    saveEditedPoi();
+    outState.putParcelable(EXTRA_MAP_OBJECT, mEditedObject);
+  }
+
   protected void editMapObject()
   {
     mMode = Mode.MAP_OBJECT;
@@ -85,6 +93,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editTimetable()
   {
+    saveEditedPoi();
     mMode = Mode.OPENING_HOURS;
     mToolbarController.setTitle("Opening hours");
     final Bundle args = new Bundle();
@@ -97,6 +106,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editStreet()
   {
+    saveEditedPoi();
     mMode = Mode.STREET;
     mToolbarController.setTitle("Add Street");
     final Bundle args = new Bundle();
@@ -109,6 +119,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editCuisine()
   {
+    saveEditedPoi();
     mMode = Mode.CUISINE;
     mToolbarController.setTitle("Cuisine");
     final Bundle args = new Bundle();
@@ -117,6 +128,20 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, cuisineFragment, CuisineFragment.class.getName())
                              .commit();
+  }
+
+  protected void saveEditedPoi()
+  {
+    final EditorFragment editorFragment = (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName());
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt(), editorFragment.getPhone());
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_WEBSITE.toInt(), editorFragment.getWebsite());
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_EMAIL.toInt(), editorFragment.getEmail());
+    final String cuisine = mEditedObject.getMetadata(Metadata.MetadataType.FMD_CUISINE);
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_CUISINE.toInt(), cuisine == null ? "" : cuisine);
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_INTERNET.toInt(), editorFragment.getWifi());
+    mEditedObject.setName(editorFragment.getName());
+    mEditedObject.setStreet(editorFragment.getStreet());
+    mEditedObject.setHouseNumber(editorFragment.getHouseNumber());
   }
 
   @Override

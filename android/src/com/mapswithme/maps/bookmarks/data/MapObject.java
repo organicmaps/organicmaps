@@ -183,6 +183,16 @@ public class MapObject implements Parcelable
     return mSearchId;
   }
 
+  public void setName(String name)
+  {
+    mName = name;
+  }
+
+  public void setHouseNumber(String houseNumber)
+  {
+    mHouseNumber = houseNumber;
+  }
+
   public void setLat(double lat)
   {
     mLat = lat;
