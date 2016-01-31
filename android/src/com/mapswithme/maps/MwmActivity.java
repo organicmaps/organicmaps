@@ -640,7 +640,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (savedInstanceState.getBoolean(STATE_PP_OPENED))
     {
-      mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT));
+      mPlacePage.setMapObject(Framework.nativeGetActiveMapObject(), false);
       mPlacePage.setState(State.PREVIEW);
     }
 
@@ -784,7 +784,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     invalidateLocationState();
 
     mSearchController.refreshToolbar();
-    mPlacePage.onResume();
+    mPlacePage.setMapObject(Framework.nativeGetActiveMapObject(), true);
 
     if (!RoutingController.get().isNavigating())
     {
@@ -1039,10 +1039,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     setFullscreen(false);
-    if (mPlacePage.hasMapObject(object))
+    if (MapObject.same(mPlacePage.getMapObject(), object))
       return;
 
-    mPlacePage.setMapObject(object);
+    mPlacePage.setMapObject(object, false);
     mPlacePage.setState(State.PREVIEW);
 
     if (UiUtils.isVisible(mFadeView))
@@ -1052,7 +1052,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onDismiss()
   {
-    if (mPlacePage.hasMapObject(null))
+    if (mPlacePage.getMapObject() == null)
     {
       if ((mPanelAnimator != null && mPanelAnimator.isVisible()) ||
           UiUtils.isVisible(mSearchController.getToolbar()))
@@ -1131,7 +1131,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       Framework.deactivatePopup();
-      mPlacePage.setMapObject(null);
+      mPlacePage.setMapObject(null, false);
       mMainMenu.show(true);
     }
   }
@@ -1250,7 +1250,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onCategoryChanged(int bookmarkId, int newCategoryId)
   {
-    mPlacePage.setMapObject(BookmarkManager.INSTANCE.getBookmark(newCategoryId, bookmarkId));
+    mPlacePage.setMapObject(BookmarkManager.INSTANCE.getBookmark(newCategoryId, bookmarkId), false);
   }
 
   @Override

@@ -344,9 +344,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     return mMapObject;
   }
 
-  public void setMapObject(MapObject mapObject)
+  /**
+   * @param mapObject new MapObject
+   * @param force if true, new object'll be set without comparison with the old one
+   */
+  public void setMapObject(MapObject mapObject, boolean force)
   {
-    if (hasMapObject(mapObject))
+    if (!force && MapObject.same(mMapObject, mapObject))
       return;
 
     if (!(mapObject instanceof Bookmark))
@@ -354,16 +358,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     mMapObject = mapObject;
     refreshViews();
-  }
-
-  public boolean hasMapObject(MapObject mo)
-  {
-    if (mo == null && mMapObject == null)
-      return true;
-    else if (mMapObject != null)
-      return mMapObject.sameAs(mo);
-
-    return false;
   }
 
   public void refreshViews()
@@ -443,7 +437,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataStars(mMapObject.getMetadata(Metadata.MetadataType.FMD_STARS));
     UiUtils.setTextAndHideIfEmpty(mTvElevation, mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE));
 
-    if (hasMapObject(null) || !Editor.hasEditableAttributes())
+    if (mMapObject == null || !Editor.hasEditableAttributes())
     {
       UiUtils.hide(mEditor);
     }
@@ -610,56 +604,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mAnimationController.setOnVisibilityChangedListener(listener);
   }
 
-  public void onResume()
-  {
-    if (mMapObject == null)
-      return;
-
-    checkBookmarkWasDeleted();
-    checkApiWasCanceled();
-  }
-
-  // TODO remove that method completely. host activity should check that itself
-  private void checkApiWasCanceled()
-  {
-    if (MapObject.isOfType(MapObject.API_POINT, mMapObject) && !ParsedMwmRequest.hasRequest())
-      setMapObject(null);
-  }
-
-  // TODO refactor processing of bookmarks.
-  private void checkBookmarkWasDeleted()
-  {
-    // We need to check, if content of body is still valid
-    if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
-    {
-      final Bookmark bmk = (Bookmark) mMapObject;
-      boolean deleted = false;
-
-      if (BookmarkManager.INSTANCE.nativeGetCategoriesCount() <= bmk.getCategoryId())
-        deleted = true;
-      else if (BookmarkManager.INSTANCE.getCategoryById(bmk.getCategoryId()).getBookmarksCount() <= bmk.getBookmarkId())
-        deleted = true;
-      else if (BookmarkManager.INSTANCE.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId()).getLat() != bmk.getLat())
-        deleted = true;
-      // We can do check above, because lat/lon cannot be changed from edit screen.
-
-      if (deleted)
-      {
-        // Make Poi from bookmark
-        final MapObject p = new MapObject(MapObject.POI, mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), "", "", "");
-        setMapObject(p);
-        // TODO how to handle the case, when bookmark was moved to another group?
-      }
-      else
-      {
-        // Update data for current bookmark
-        final Bookmark updatedBmk = BookmarkManager.INSTANCE.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
-        setMapObject(null);
-        setMapObject(updatedBmk);
-      }
-    }
-  }
-
   private void saveBookmarkNameIfUpdated()
   {
     // Can't save bookmark name if current object is not bookmark.
@@ -694,7 +638,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       public void onSaved(Bookmark bookmark)
       {
         final Bookmark updatedBookmark = BookmarkManager.INSTANCE.getBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId());
-        setMapObject(updatedBookmark);
+        setMapObject(updatedBookmark, false);
         Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_DESCRIPTION_CHANGED);
       }
     });
@@ -822,7 +766,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       else
         p = Framework.nativeGetMapObjectForPoint(mMapObject.getLat(), mMapObject.getLon());
 
-      setMapObject(p);
+      setMapObject(p, false);
       setState(State.DETAILS);
       BookmarkManager.INSTANCE.deleteBookmark(currentBookmark);
     }
@@ -830,7 +774,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     {
       mBookmarkedMapObject = mMapObject;
       final Bookmark newBmk = BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon());
-      setMapObject(newBmk);
+      setMapObject(newBmk, false);
       // FIXME this hack is necessary to get correct views height in animation controller. remove after further investigation.
       post(new Runnable()
       {
@@ -876,7 +820,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
         bmk.setParams(bmk.getName(), newIcon, bmk.getBookmarkDescription());
         bmk = BookmarkManager.INSTANCE.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
-        setMapObject(bmk);
+        setMapObject(bmk, false);
       }
     });
 
