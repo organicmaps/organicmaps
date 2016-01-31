@@ -105,17 +105,23 @@ using namespace osm;
 {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
   {
-    OsmOAuth auth = OsmOAuth::ServerAuth();
-    auth.SetToken(MWMAuthorizationGetCredentials());
-    ServerApi06 api(auth);
-    UserPreferences prefs;
-    if (api.GetUserPreferences(prefs) != OsmOAuth::ResponseCode::OK)
-      return;
-    dispatch_async(dispatch_get_main_queue(), ^
+    ServerApi06 const api(OsmOAuth::ServerAuth(MWMAuthorizationGetCredentials()));
+    try
     {
-      self.title = @(prefs.m_displayName.c_str());
-    });
+      UserPreferences const prefs = api.GetUserPreferences();
+      dispatch_async(dispatch_get_main_queue(), ^
+      {
+        self.title = @(prefs.m_displayName.c_str());
+      });
+    }
+    catch (exception const & ex)
+    {
+      // TODO(@igrechuhin): Should we display some error here?
+      LOG(LWARNING, ("Can't load user preferences from OSM server:", ex.what()));
+    }
   });
+  // TODO(@igrechuhin): Cache user name and other info to display while offline.
+  // Note that this cache should be reset if user logs out.
   self.title = @"";
   self.message.hidden = YES;
   self.loginGoogleButton.hidden = YES;

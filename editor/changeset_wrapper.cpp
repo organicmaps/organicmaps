@@ -5,7 +5,6 @@
 
 #include "geometry/mercator.hpp"
 
-#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
@@ -26,25 +25,31 @@ namespace osm
 {
 
 ChangesetWrapper::ChangesetWrapper(TKeySecret const & keySecret,
-                                   ServerApi06::TKeyValueTags const & comments)
-  : m_changesetComments(comments),
-    m_api(OsmOAuth::ServerAuth().SetToken(keySecret))
+                                   ServerApi06::TKeyValueTags const & comments) noexcept
+  : m_changesetComments(comments), m_api(OsmOAuth::ServerAuth(keySecret))
 {
 }
 
 ChangesetWrapper::~ChangesetWrapper()
 {
   if (m_changesetId)
-    m_api.CloseChangeSet(m_changesetId);
+  {
+    try
+    {
+      m_api.CloseChangeSet(m_changesetId);
+    }
+    catch (std::exception const & ex)
+    {
+      LOG(LWARNING, (ex.what()));
+    }
+  }
 }
 
 void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc)
 {
   auto const response = m_api.GetXmlFeaturesAtLatLon(ll.lat, ll.lon);
-  if (response.first == OsmOAuth::ResponseCode::NetworkError)
-    MYTHROW(NetworkErrorException, ("NetworkError with GetXmlFeaturesAtLatLon request."));
-  if (response.first != OsmOAuth::ResponseCode::OK)
-    MYTHROW(HttpErrorException, ("HTTP error", response.first, "with GetXmlFeaturesAtLatLon", ll));
+  if (response.first != OsmOAuth::HTTP::OK)
+    MYTHROW(HttpErrorException, ("HTTP error", response, "with GetXmlFeaturesAtLatLon", ll));
 
   if (pugi::status_ok != doc.load(response.second.c_str()).status)
     MYTHROW(OsmXmlParseException, ("Can't parse OSM server response for GetXmlFeaturesAtLatLon request", response.second));
@@ -93,21 +98,14 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> co
   MYTHROW(OsmObjectWasDeletedException, ("OSM does not have any matching way for feature"));
 }
 
-void ChangesetWrapper::ModifyNode(XMLFeature node)
+void ChangesetWrapper::Modify(XMLFeature node)
 {
-  // TODO(AlexZ): ServerApi can be much better with exceptions.
-  if (m_changesetId == kInvalidChangesetId && !m_api.CreateChangeSet(m_changesetComments, m_changesetId))
-    MYTHROW(CreateChangeSetFailedException, ("CreateChangeSetFailedException"));
-
-  uint64_t nodeId;
-  if (!strings::to_uint64(node.GetAttribute("id"), nodeId))
-    MYTHROW(CreateChangeSetFailedException, ("CreateChangeSetFailedException"));
+  if (m_changesetId == kInvalidChangesetId)
+    m_changesetId = m_api.CreateChangeSet(m_changesetComments);
 
   // Changeset id should be updated for every OSM server commit.
   node.SetAttribute("changeset", strings::to_string(m_changesetId));
-
-  if (!m_api.ModifyNode(node.ToOSMString(), nodeId))
-    MYTHROW(ModifyNodeFailedException, ("ModifyNodeFailedException"));
+  m_api.ModifyElement(node);
 }
 
 } // namespace osm

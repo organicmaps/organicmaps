@@ -743,10 +743,6 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           continue;
 
         XMLFeature feature = fti.m_feature.ToXML();
-        // TODO(AlexZ): Add areas(ways) upload support.
-        if (feature.GetType() != XMLFeature::Type::Node)
-          continue;
-
         if (!fti.m_street.empty())
           feature.SetTagValue(kAddrStreetTag, fti.m_street);
         try
@@ -758,12 +754,12 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           // Check to avoid duplicates.
           if (osmFeature == osmFeatureCopy)
           {
-            LOG(LWARNING, ("Local changes are equal to OSM, feature was not uploaded, local changes were deleted.", feature));
+            LOG(LWARNING, ("Local changes are equal to OSM, feature was not uploaded, local changes were deleted.", osmFeatureCopy));
             // TODO(AlexZ): Delete local change.
             continue;
           }
           LOG(LDEBUG, ("Uploading patched feature", osmFeature));
-          changeset.ModifyNode(osmFeature);
+          changeset.Modify(osmFeature);
           fti.m_uploadStatus = kUploaded;
           fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError.clear();

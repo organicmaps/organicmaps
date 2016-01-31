@@ -6,6 +6,7 @@
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
 #include "std/sstream.hpp"
 
@@ -19,13 +20,10 @@ ServerApi06::ServerApi06(OsmOAuth const & auth)
 {
 }
 
-bool ServerApi06::CreateChangeSet(TKeyValueTags const & kvTags, uint64_t & outChangeSetId) const
+uint64_t ServerApi06::CreateChangeSet(TKeyValueTags const & kvTags) const
 {
   if (!m_auth.IsAuthorized())
-  {
-    LOG(LWARNING, ("Not authorized"));
-    return false;
-  }
+    MYTHROW(NotAuthorized, ("Not authorized."));
 
   ostringstream stream;
   stream << "<osm>\n"
@@ -36,91 +34,101 @@ bool ServerApi06::CreateChangeSet(TKeyValueTags const & kvTags, uint64_t & outCh
   "</osm>\n";
 
   OsmOAuth::Response const response = m_auth.Request("/changeset/create", "PUT", stream.str());
-  if (response.first == OsmOAuth::ResponseCode::OK)
-  {
-    if (strings::to_uint64(response.second, outChangeSetId))
-      return true;
-    LOG(LWARNING, ("Can't parse changeset ID from server response."));
-  }
-  else
-    LOG(LWARNING, ("CreateChangeSet request has failed:", response.first));
+  if (response.first != OsmOAuth::HTTP::OK)
+    MYTHROW(CreateChangeSetHasFailed, ("CreateChangeSet request has failed:", response));
 
-  return false;
+  uint64_t id;
+  if (!strings::to_uint64(response.second, id))
+    MYTHROW(CantParseServerResponse, ("Can't parse changeset ID from server response."));
+  return id;
 }
 
-bool ServerApi06::CreateNode(string const & nodeXml, uint64_t & outCreatedNodeId) const
+uint64_t ServerApi06::CreateElement(editor::XMLFeature const & element) const
 {
-  OsmOAuth::Response const response = m_auth.Request("/node/create", "PUT", nodeXml);
-  if (response.first == OsmOAuth::ResponseCode::OK)
-  {
-    if (strings::to_uint64(response.second, outCreatedNodeId))
-      return true;
-    LOG(LWARNING, ("Can't parse created node ID from server response."));
-  }
-  else
-    LOG(LWARNING, ("CreateNode request has failed:", response.first));
-
-  return false;
+  OsmOAuth::Response const response = m_auth.Request("/" + element.GetTypeString() + "/create",
+                                                     "PUT", element.ToOSMString());
+  if (response.first != OsmOAuth::HTTP::OK)
+    MYTHROW(CreateElementHasFailed, ("CreateElement request has failed:", response, "for", element));
+  uint64_t id;
+  if (!strings::to_uint64(response.second, id))
+    MYTHROW(CantParseServerResponse, ("Can't parse created node ID from server response."));
+  return id;
 }
 
-bool ServerApi06::ModifyNode(string const & nodeXml, uint64_t nodeId) const
+void ServerApi06::CreateElementAndSetAttributes(editor::XMLFeature & element) const
 {
-  OsmOAuth::Response const response = m_auth.Request("/node/" + strings::to_string(nodeId), "PUT", nodeXml);
-  if (response.first == OsmOAuth::ResponseCode::OK)
-    return true;
-
-  LOG(LWARNING, ("ModifyNode request has failed:", response.first, response.second));
-  return false;
+  uint64_t const id = CreateElement(element);
+  element.SetAttribute("id", strings::to_string(id));
+  element.SetAttribute("version", "1");
 }
 
-ServerApi06::DeleteResult ServerApi06::DeleteNode(string const & nodeXml, uint64_t nodeId) const
+uint64_t ServerApi06::ModifyElement(editor::XMLFeature const & element) const
 {
-  OsmOAuth::Response const response = m_auth.Request("/node/" + strings::to_string(nodeId), "DELETE", nodeXml);
-  if (response.first == OsmOAuth::ResponseCode::OK)
-    return DeleteResult::ESuccessfullyDeleted;
-  else if (static_cast<int>(response.first) >= 400)
-  {
-    LOG(LWARNING, ("Server can't delete node, replied:", response.second));
-    // Tons of reasons, see http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_16
-    return DeleteResult::ECanNotBeDeleted;
-  }
+  string const id = element.GetAttribute("id");
+  if (id.empty())
+    MYTHROW(ModifiedElementHasNoIdAttribute, ("Please set id attribute for", element));
 
-  LOG(LWARNING, ("DeleteNode request has failed:", response.first));
-  return DeleteResult::EFailed;
+  OsmOAuth::Response const response = m_auth.Request("/" + element.GetTypeString() + "/" + id,
+                                                     "PUT", element.ToOSMString());
+  if (response.first != OsmOAuth::HTTP::OK)
+    MYTHROW(ModifyElementHasFailed, ("ModifyElement request has failed:", response, "for", element));
+  uint64_t version;
+  if (!strings::to_uint64(response.second, version))
+    MYTHROW(CantParseServerResponse, ("Can't parse element version from server response."));
+  return version;
 }
 
-bool ServerApi06::CloseChangeSet(uint64_t changesetId) const
+void ServerApi06::ModifyElementAndSetVersion(editor::XMLFeature & element) const
+{
+  uint64_t const version = ModifyElement(element);
+  element.SetAttribute("version", strings::to_string(version));
+}
+
+bool ServerApi06::DeleteElement(editor::XMLFeature const & element) const
+{
+  string const id = element.GetAttribute("id");
+  if (id.empty())
+    MYTHROW(DeletedElementHasNoIdAttribute, ("Please set id attribute for", element));
+
+  OsmOAuth::Response const response = m_auth.Request("/" + element.GetTypeString() + "/" + id,
+                                                     "DELETE", element.ToOSMString());
+  return (response.first == OsmOAuth::HTTP::OK || response.first == OsmOAuth::HTTP::Gone);
+}
+
+void ServerApi06::CloseChangeSet(uint64_t changesetId) const
 {
   OsmOAuth::Response const response = m_auth.Request("/changeset/" + strings::to_string(changesetId) + "/close", "PUT");
-  if (response.first == OsmOAuth::ResponseCode::OK)
-    return true;
-
-  LOG(LWARNING, ("CloseChangeSet request has failed:", response.first));
-  return false;
+  if (response.first != OsmOAuth::HTTP::OK)
+    MYTHROW(ErrorClosingChangeSet, ("CloseChangeSet request has failed:", response));
 }
 
-OsmOAuth::ResponseCode ServerApi06::TestUserExists(string const & userName)
+bool ServerApi06::TestOSMUser(string const & userName)
 {
   string const method = "/user/" + UrlEncode(userName);
-  return m_auth.DirectRequest(method, false).first;
+  return m_auth.DirectRequest(method, false).first == OsmOAuth::HTTP::OK;
 }
 
-OsmOAuth::ResponseCode ServerApi06::GetUserPreferences(UserPreferences & pref) const
+UserPreferences ServerApi06::GetUserPreferences() const
 {
   OsmOAuth::Response const response = m_auth.Request("/user/details");
-  if (response.first != OsmOAuth::ResponseCode::OK)
-    return response.first;
+  if (response.first != OsmOAuth::HTTP::OK)
+    MYTHROW(CantGetUserPreferences, (response));
+
   pugi::xml_document details;
   if (!details.load_string(response.second.c_str()))
-    return OsmOAuth::ResponseCode::NotFound;
-  pugi::xml_node user = details.child("osm").child("user");
+    MYTHROW(CantParseUserPreferences, (response));
+
+  pugi::xml_node const user = details.child("osm").child("user");
   if (!user || !user.attribute("id"))
-    return OsmOAuth::ResponseCode::BadXML;
+    MYTHROW(CantParseUserPreferences, ("No <user> or 'id' attribute", response));
+
+  UserPreferences pref;
   pref.m_id = user.attribute("id").as_ullong();
   pref.m_displayName = user.attribute("display_name").as_string();
+  pref.m_accountCreated = my::StringToTimestamp(user.attribute("account_created").as_string());
   pref.m_imageUrl = user.child("img").attribute("href").as_string();
   pref.m_changesets = user.child("changesets").attribute("count").as_uint();
-  return OsmOAuth::ResponseCode::OK;
+  return pref;
 }
 
 OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(m2::RectD const & latLonRect) const

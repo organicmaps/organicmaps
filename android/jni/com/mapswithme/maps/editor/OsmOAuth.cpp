@@ -18,12 +18,13 @@ jobjectArray ToStringArray(JNIEnv * env, TKeySecret const & secret)
   return resultArray;
 }
 
-jobjectArray ToStringArray(JNIEnv * env, string const & secret, string const & token, string const & url)
+// @returns [url, key, secret]
+jobjectArray ToStringArray(JNIEnv * env, OsmOAuth::TUrlRequestToken const & uks)
 {
   jobjectArray resultArray = env->NewObjectArray(3, GetStringClass(env), nullptr);
-  env->SetObjectArrayElement(resultArray, 0, ToJavaString(env, secret));
-  env->SetObjectArrayElement(resultArray, 1, ToJavaString(env, token));
-  env->SetObjectArrayElement(resultArray, 2, ToJavaString(env, url));
+  env->SetObjectArrayElement(resultArray, 0, ToJavaString(env, uks.first));
+  env->SetObjectArrayElement(resultArray, 1, ToJavaString(env, uks.second.first));
+  env->SetObjectArrayElement(resultArray, 2, ToJavaString(env, uks.second.second));
   return resultArray;
 }
 } // namespace
@@ -36,36 +37,64 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeAuthWithPassword(JNIEnv * env, jc
                                                                 jstring login, jstring password)
 {
   OsmOAuth auth = OsmOAuth::ServerAuth();
-  auto authResult = auth.AuthorizePassword(ToNativeString(env, login), ToNativeString(env, password));
-  return authResult == OsmOAuth::AuthResult::OK ? ToStringArray(env, auth.GetToken())
-                                                : nullptr;
+  try
+  {
+    if (auth.AuthorizePassword(ToNativeString(env, login), ToNativeString(env, password)))
+      return ToStringArray(env, auth.GetKeySecret());
+    LOG(LWARNING, ("nativeAuthWithPassword: invalid login or password."));
+  }
+  catch (exception const & ex)
+  {
+    LOG(LWARNING, ("nativeAuthWithPassword error ", ex.what()));
+  }
+  return nullptr;
 }
 
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_OsmOAuth_nativeAuthWithWebviewToken(JNIEnv * env, jclass clazz,
-                                                                    jstring secret, jstring token, jstring verifier)
+                                                                    jstring key, jstring secret, jstring verifier)
 {
-  OsmOAuth auth = OsmOAuth::ServerAuth();
-  TKeySecret outKeySecret;
-  TKeySecret inKeySecret(ToNativeString(env, secret), ToNativeString(env, token));
-  auto authResult = auth.FinishAuthorization(inKeySecret, ToNativeString(env, verifier), outKeySecret);
-  if (authResult != OsmOAuth::AuthResult::OK)
+  try
+  {
+    TRequestToken const rt = { ToNativeString(env, key), ToNativeString(env, secret) };
+    OsmOAuth auth = OsmOAuth::ServerAuth();
+    TKeySecret const ks = auth.FinishAuthorization(rt, ToNativeString(env, verifier));
+    return ToStringArray(env, ks);
+  }
+  catch (exception const & ex)
+  {
+    LOG(LWARNING, ("nativeAuthWithWebviewToken error ", ex.what()));
     return nullptr;
-  auth.FinishAuthorization(inKeySecret, ToNativeString(env, token), outKeySecret);
-  return ToStringArray(env, outKeySecret);
+  }
 }
 
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetFacebookAuthUrl(JNIEnv * env, jclass clazz)
 {
-  OsmOAuth::TUrlKeySecret keySecret = OsmOAuth::ServerAuth().GetFacebookOAuthURL();
-  return ToStringArray(env, keySecret.first, keySecret.second.first, keySecret.second.second);
+  try
+  {
+    OsmOAuth::TUrlRequestToken const uks = OsmOAuth::ServerAuth().GetFacebookOAuthURL();
+    return ToStringArray(env, uks);
+  }
+  catch (exception const & ex)
+  {
+    LOG(LWARNING, ("nativeGetFacebookAuthUrl error ", ex.what()));
+    return nullptr;
+  }
 }
 
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_OsmOAuth_nativeGetGoogleAuthUrl(JNIEnv * env, jclass clazz)
 {
-  OsmOAuth::TUrlKeySecret keySecret = OsmOAuth::ServerAuth().GetGoogleOAuthURL();
-  return ToStringArray(env, keySecret.first, keySecret.second.first, keySecret.second.second);
+  try
+  {
+    OsmOAuth::TUrlRequestToken const uks = OsmOAuth::ServerAuth().GetGoogleOAuthURL();
+    return ToStringArray(env, uks);
+  }
+  catch (exception const & ex)
+  {
+    LOG(LWARNING, ("nativeGetGoogleAuthUrl error ", ex.what()));
+    return nullptr;
+  }
 }
 } // extern "C"

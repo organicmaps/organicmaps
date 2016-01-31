@@ -89,7 +89,7 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
         bestMatchNode = xNode.node();
       }
     }
-    catch (editor::XMLFeatureNoLatLonError const & ex)
+    catch (editor::NoLatLon const & ex)
     {
       LOG(LWARNING, ("No lat/lon attribute in osm response node.", ex.Msg()));
       continue;

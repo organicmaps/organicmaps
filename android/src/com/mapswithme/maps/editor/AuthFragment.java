@@ -152,6 +152,9 @@ public class AuthFragment extends BaseMwmToolbarFragment implements View.OnClick
       @Override
       public void run()
       {
+        // TODO(@yunikkk): auth can be nullptr in case of errors.
+        // Need to handle it in UI.
+        // [url, key, secret]
         final String[] auth = facebook ? OsmOAuth.nativeGetFacebookAuthUrl()
                                        : OsmOAuth.nativeGetGoogleAuthUrl();
 
@@ -199,13 +202,13 @@ public class AuthFragment extends BaseMwmToolbarFragment implements View.OnClick
     webview.loadUrl(authUrl);
   }
 
-  private void finishWebviewAuth(final String token, final String secret, final String verifier)
+  private void finishWebviewAuth(final String key, final String secret, final String verifier)
   {
     ThreadPool.getWorker().execute(new Runnable() {
       @Override
       public void run()
       {
-        final String[] auth = OsmOAuth.nativeAuthWithWebviewToken(token, secret, verifier);
+        final String[] auth = OsmOAuth.nativeAuthWithWebviewToken(key, secret, verifier);
         UiThread.run(new Runnable() {
           @Override
           public void run()

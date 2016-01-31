@@ -7,6 +7,7 @@
 #include "private.h"
 #include "editor/server_api.hpp"
 #include "platform/platform.hpp"
+#include "base/logging.hpp"
 
 typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
 {
@@ -137,13 +138,20 @@ using namespace osm;
       string const username = self.loginTextField.text.UTF8String;
       string const password = self.passwordTextField.text.UTF8String;
       OsmOAuth auth = OsmOAuth::ServerAuth();
-      OsmOAuth::AuthResult const result = auth.AuthorizePassword(username, password);
+      try
+      {
+        auth.AuthorizePassword(username, password);
+      }
+      catch (exception const & ex)
+      {
+        LOG(LWARNING, ("Error login", ex.what()));
+      }
       dispatch_async(dispatch_get_main_queue(), ^
       {
         [self stopSpinner];
-        if (result == OsmOAuth::AuthResult::OK)
+        if (auth.IsAuthorized())
         {
-          MWMAuthorizationStoreCredentials(auth.GetToken());
+          MWMAuthorizationStoreCredentials(auth.GetKeySecret());
           [self dismissViewControllerAnimated:YES completion:nil];
         }
         else

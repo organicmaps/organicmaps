@@ -4,6 +4,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/iostream.hpp"
 #include "std/map.hpp"
@@ -25,10 +26,6 @@ constexpr char const * kGoogleOAuthPart = "/auth/google?referer=%2Foauth%2Fautho
 
 namespace
 {
-inline bool IsKeySecretValid(TKeySecret const & t)
-{
-  return !(t.first.empty() || t.second.empty());
-}
 
 string FindAuthenticityToken(string const & body)
 {
@@ -61,269 +58,306 @@ bool IsLoggedIn(string const & contents)
 {
   return contents.find("<form id=\"login_form\"") == string::npos;
 }
+
+// TODO(AlexZ): DebugPrint doesn't detect this overload. Fix it.
+string DP(alohalytics::HTTPClientPlatformWrapper const & request)
+{
+  string str = "HTTP " + strings::to_string(request.error_code()) + " url [" + request.url_requested() + "]";
+  if (request.was_redirected())
+    str += " was redirected to [" + request.url_received() + "]";
+  if (!request.server_response().empty())
+    str += " response: " + request.server_response();
+  return str;
+}
+
 }  // namespace
 
-OsmOAuth::OsmOAuth(string const & consumerKey, string const & consumerSecret, string const & baseUrl, string const & apiUrl)
+// static
+bool OsmOAuth::IsValid(TKeySecret const & ks) noexcept
+{
+  return !(ks.first.empty() || ks.second.empty());
+}
+// static
+bool OsmOAuth::IsValid(TUrlRequestToken const & urt) noexcept
+{
+  return !(urt.first.empty() || urt.second.first.empty() || urt.second.second.empty());
+}
+
+OsmOAuth::OsmOAuth(string const & consumerKey, string const & consumerSecret,
+                   string const & baseUrl, string const & apiUrl) noexcept
   : m_consumerKeySecret(consumerKey, consumerSecret), m_baseUrl(baseUrl), m_apiUrl(apiUrl)
 {
 }
-
-OsmOAuth OsmOAuth::IZServerAuth()
+// static
+OsmOAuth OsmOAuth::ServerAuth() noexcept
+{
+  // TODO(AlexZ): Replace with ProductionServerAuth before release.
+  return IZServerAuth();
+}
+// static
+OsmOAuth OsmOAuth::ServerAuth(TKeySecret const & userKeySecret) noexcept
+{
+  OsmOAuth auth = ServerAuth();
+  auth.SetKeySecret(userKeySecret);
+  return auth;
+}
+// static
+OsmOAuth OsmOAuth::IZServerAuth() noexcept
 {
   constexpr char const * kIZTestServer = "http://188.166.112.124:3000";
   constexpr char const * kIZConsumerKey = "QqwiALkYZ4Jd19lo1dtoPhcwGQUqMCMeVGIQ8Ahb";
   constexpr char const * kIZConsumerSecret = "wi9HZKFoNYS06Yad5s4J0bfFo2hClMlH7pXaXWS3";
   return OsmOAuth(kIZConsumerKey, kIZConsumerSecret, kIZTestServer, kIZTestServer);
 }
-
-OsmOAuth OsmOAuth::DevServerAuth()
+// static
+OsmOAuth OsmOAuth::DevServerAuth() noexcept
 {
   constexpr char const * kOsmDevServer = "http://master.apis.dev.openstreetmap.org";
   constexpr char const * kOsmDevConsumerKey = "eRtN6yKZZf34oVyBnyaVbsWtHIIeptLArQKdTwN3";
   constexpr char const * kOsmDevConsumerSecret = "lC124mtm2VqvKJjSh35qBpKfrkeIjpKuGe38Hd1H";
   return OsmOAuth(kOsmDevConsumerKey, kOsmDevConsumerSecret, kOsmDevServer, kOsmDevServer);
 }
-
-OsmOAuth OsmOAuth::ProductionServerAuth()
+// static
+OsmOAuth OsmOAuth::ProductionServerAuth() noexcept
 {
   constexpr char const * kOsmMainSiteURL = "https://www.openstreetmap.org";
   constexpr char const * kOsmApiURL = "https://api.openstreetmap.org";
   return OsmOAuth(OSM_CONSUMER_KEY, OSM_CONSUMER_SECRET, kOsmMainSiteURL, kOsmApiURL);
 }
 
-OsmOAuth OsmOAuth::ServerAuth()
-{
-  // TODO(AlexZ): Replace with ProductionServerAuth before release.
-  return IZServerAuth();
-}
+void OsmOAuth::SetKeySecret(TKeySecret const & keySecret) noexcept { m_tokenKeySecret = keySecret; }
+
+TKeySecret const & OsmOAuth::GetKeySecret() const noexcept { return m_tokenKeySecret; }
+
+bool OsmOAuth::IsAuthorized() const noexcept{ return IsValid(m_tokenKeySecret); }
 
 // Opens a login page and extract a cookie and a secret token.
-OsmOAuth::AuthResult OsmOAuth::FetchSessionId(OsmOAuth::SessionID & sid, string const & subUrl) const
+OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl) const
 {
-  HTTPClientPlatformWrapper request(m_baseUrl + subUrl + "?cookie_test=true");
+  string const url = m_baseUrl + subUrl + "?cookie_test=true";
+  HTTPClientPlatformWrapper request(url);
   if (!request.RunHTTPRequest())
-    return AuthResult::NetworkError;
-  if (request.error_code() != 200)
-    return AuthResult::ServerError;
-  sid.m_cookies = request.combined_cookies();
-  sid.m_token = FindAuthenticityToken(request.server_response());
-  return !sid.m_cookies.empty() && !sid.m_token.empty() ? AuthResult::OK : AuthResult::FailCookie;
+    MYTHROW(NetworkError, ("FetchSessionId Network error while connecting to", url));
+  if (request.was_redirected())
+    MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", url));
+  if (request.error_code() != HTTP::OK)
+    MYTHROW(FetchSessionIdError, (DP(request)));
+
+  SessionID const sid = { request.combined_cookies(), FindAuthenticityToken(request.server_response()) };
+  if (sid.m_cookies.empty() || sid.m_token.empty())
+    MYTHROW(FetchSessionIdError, ("Cookies and/or token are empty for request", DP(request)));
+  return sid;
 }
 
-// Log a user out.
-OsmOAuth::AuthResult OsmOAuth::LogoutUser(SessionID const & sid) const
+void OsmOAuth::LogoutUser(SessionID const & sid) const
 {
   HTTPClientPlatformWrapper request(m_baseUrl + "/logout");
   request.set_cookies(sid.m_cookies);
   if (!request.RunHTTPRequest())
-    return AuthResult::NetworkError;
-  if (request.error_code() != 200)
-    return AuthResult::ServerError;
-  return AuthResult::OK;
+    MYTHROW(NetworkError, ("LogoutUser Network error while connecting to", request.url_requested()));
+  if (request.error_code() != HTTP::OK)
+    MYTHROW(LogoutUserError, (DP(request)));
 }
 
-// Signs a user id using login and password.
-OsmOAuth::AuthResult OsmOAuth::LoginUserPassword(string const & login, string const & password, SessionID const & sid) const
+bool OsmOAuth::LoginUserPassword(string const & login, string const & password, SessionID const & sid) const
 {
-  map<string, string> params;
-  params["username"] = login;
-  params["password"] = password;
-  params["referer"] = "/";
-  params["commit"] = "Login";
-  params["authenticity_token"] = sid.m_token;
+  map<string, string> const params =
+  {
+    {"username", login},
+    {"password", password},
+    {"referer", "/"},
+    {"commit", "Login"},
+    {"authenticity_token", sid.m_token}
+  };
   HTTPClientPlatformWrapper request(m_baseUrl + "/login");
   request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded");
   request.set_cookies(sid.m_cookies);
   if (!request.RunHTTPRequest())
-    return AuthResult::NetworkError;
-  if (request.error_code() != 200)
-    return AuthResult::ServerError;
+    MYTHROW(NetworkError, ("LoginUserPassword Network error while connecting to", request.url_requested()));
+  if (request.error_code() != HTTP::OK)
+    MYTHROW(LoginUserPasswordServerError, (DP(request)));
+
+  // Not redirected page is a 100% signal that login and/or password are invalid.
   if (!request.was_redirected())
-    return AuthResult::FailLogin;
-  // Since we don't know whether the request was redirected or not, we need to check page contents.
-  return IsLoggedIn(request.server_response()) ? AuthResult::OK : AuthResult::FailLogin;
+    return false;
+  // Parse redirected page contents to make sure that it's not some router in-between.
+  return IsLoggedIn(request.server_response());
 }
 
-// Signs a user in using a facebook token.
-OsmOAuth::AuthResult OsmOAuth::LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const
+bool OsmOAuth::LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const
 {
   string const url = m_baseUrl + callbackPart + socialToken;
   HTTPClientPlatformWrapper request(url);
   request.set_cookies(sid.m_cookies);
   if (!request.RunHTTPRequest())
-    return AuthResult::NetworkError;
-  if (request.error_code() != 200)
-    return AuthResult::ServerError;
+    MYTHROW(NetworkError, ("LoginSocial Network error while connecting to", request.url_requested()));
+  if (request.error_code() != HTTP::OK)
+    MYTHROW(LoginSocialServerError, (DP(request)));
+
+  // Not redirected page is a 100% signal that social login has failed.
   if (!request.was_redirected())
-    return AuthResult::FailLogin;
-  return IsLoggedIn(request.server_response()) ? AuthResult::OK : AuthResult::FailLogin;
+    return false;
+  // Parse redirected page contents to make sure that it's not some router in-between.
+  return IsLoggedIn(request.server_response());
 }
 
-// Fakes a buttons press, so a user accepts requested permissions.
+// Fakes a buttons press to automatically accept requested permissions.
 string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const & sid) const
 {
-  map<string, string> params;
-  params["oauth_token"] = requestTokenKey;
-  params["oauth_callback"] = "";
-  params["authenticity_token"] = sid.m_token;
-  params["allow_read_prefs"] = "yes";
-  params["allow_write_api"] = "yes";
-  params["allow_write_gpx"] = "yes";
-  params["allow_write_notes"] = "yes";
-  params["commit"] = "Save changes";
+  map<string, string> const params =
+  {
+    {"oauth_token", requestTokenKey},
+    {"oauth_callback", ""},
+    {"authenticity_token", sid.m_token},
+    {"allow_read_prefs", "yes"},
+    {"allow_write_api", "yes"},
+    {"allow_write_gpx", "yes"},
+    {"allow_write_notes", "yes"},
+    {"commit", "Save changes"}
+  };
   HTTPClientPlatformWrapper request(m_baseUrl + "/oauth/authorize");
   request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded");
   request.set_cookies(sid.m_cookies);
-
   if (!request.RunHTTPRequest())
-    return string();
+    MYTHROW(NetworkError, ("SendAuthRequest Network error while connecting to", request.url_requested()));
 
   string const callbackURL = request.url_received();
   string const vKey = "oauth_verifier=";
   auto const pos = callbackURL.find(vKey);
   if (pos == string::npos)
-    return string();
+    MYTHROW(SendAuthRequestError, ("oauth_verifier is not found", DP(request)));
+
   auto const end = callbackURL.find("&", pos);
   return callbackURL.substr(pos + vKey.length(), end == string::npos ? end : end - pos - vKey.length());
 }
 
-TKeySecret OsmOAuth::FetchRequestToken() const
+TRequestToken OsmOAuth::FetchRequestToken() const
 {
   OAuth::Consumer const consumer(m_consumerKeySecret.first, m_consumerKeySecret.second);
   OAuth::Client oauth(&consumer);
   string const requestTokenUrl = m_baseUrl + "/oauth/request_token";
   string const requestTokenQuery = oauth.getURLQueryString(OAuth::Http::Get, requestTokenUrl + "?oauth_callback=oob");
   HTTPClientPlatformWrapper request(requestTokenUrl + "?" + requestTokenQuery);
-  if (!(request.RunHTTPRequest() && request.error_code() == 200 && !request.was_redirected()))
-    return TKeySecret(string(), string());
-  OAuth::Token reqToken = OAuth::Token::extract(request.server_response());
-  return TKeySecret(reqToken.key(), reqToken.secret());
+  if (!request.RunHTTPRequest())
+    MYTHROW(NetworkError, ("FetchRequestToken Network error while connecting to", request.url_requested()));
+  if (request.error_code() != HTTP::OK)
+    MYTHROW(FetchRequestTokenServerError, (DP(request)));
+  if (request.was_redirected())
+    MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", request.url_requested()));
+
+  // Throws std::runtime_error.
+  OAuth::Token const reqToken = OAuth::Token::extract(request.server_response());
+  return { reqToken.key(), reqToken.secret() };
 }
 
-OsmOAuth::AuthResult OsmOAuth::FinishAuthorization(TKeySecret const & requestToken, string const & verifier, TKeySecret & outKeySecret) const
+TKeySecret OsmOAuth::FinishAuthorization(TRequestToken const & requestToken, string const & verifier) const
 {
   OAuth::Consumer const consumer(m_consumerKeySecret.first, m_consumerKeySecret.second);
   OAuth::Token const reqToken(requestToken.first, requestToken.second, verifier);
   OAuth::Client oauth(&consumer, &reqToken);
   string const accessTokenUrl = m_baseUrl + "/oauth/access_token";
   string const queryString = oauth.getURLQueryString(OAuth::Http::Get, accessTokenUrl, "", true);
-  HTTPClientPlatformWrapper request2(accessTokenUrl + "?" + queryString);
-  if (!(request2.RunHTTPRequest() && request2.error_code() == 200 && !request2.was_redirected()))
-    return AuthResult::NoAccess;
-  OAuth::KeyValuePairs responseData = OAuth::ParseKeyValuePairs(request2.server_response());
-  OAuth::Token accessToken = OAuth::Token::extract(responseData);
+  HTTPClientPlatformWrapper request(accessTokenUrl + "?" + queryString);
+  if (!request.RunHTTPRequest())
+    MYTHROW(NetworkError, ("FinishAuthorization Network error while connecting to", request.url_requested()));
+  if (request.error_code() != HTTP::OK)
+    MYTHROW(FinishAuthorizationServerError, (DP(request)));
+  if (request.was_redirected())
+    MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", request.url_requested()));
 
-  outKeySecret.first = accessToken.key();
-  outKeySecret.second = accessToken.secret();
-  return AuthResult::OK;
+  OAuth::KeyValuePairs const responseData = OAuth::ParseKeyValuePairs(request.server_response());
+  // Throws std::runtime_error.
+  OAuth::Token const accessToken = OAuth::Token::extract(responseData);
+  return { accessToken.key(), accessToken.secret() };
 }
 
 // Given a web session id, fetches an OAuth access token.
-OsmOAuth::AuthResult OsmOAuth::FetchAccessToken(SessionID const & sid, TKeySecret & outKeySecret) const
+TKeySecret OsmOAuth::FetchAccessToken(SessionID const & sid) const
 {
   // Aquire a request token.
-  TKeySecret const requestToken = FetchRequestToken();
-  if (requestToken.first.empty())
-    return AuthResult::NoOAuth;
+  TRequestToken const requestToken = FetchRequestToken();
 
   // Faking a button press for access rights.
   string const pin = SendAuthRequest(requestToken.first, sid);
-  if (pin.empty())
-    return AuthResult::FailAuth;
   LogoutUser(sid);
 
   // Got pin, exchange it for the access token.
-  return FinishAuthorization(requestToken, pin, outKeySecret);
+  return FinishAuthorization(requestToken, pin);
 }
 
-OsmOAuth::AuthResult OsmOAuth::AuthorizePassword(string const & login, string const & password, TKeySecret & outKeySecret) const
+bool OsmOAuth::AuthorizePassword(string const & login, string const & password)
 {
-  SessionID sid;
-  AuthResult result = FetchSessionId(sid);
-  if (result != AuthResult::OK)
-    return result;
-
-  result = LoginUserPassword(login, password, sid);
-  if (result != AuthResult::OK)
-    return result;
-
-  return FetchAccessToken(sid, outKeySecret);
+  SessionID const sid = FetchSessionId();
+  if (!LoginUserPassword(login, password, sid))
+    return false;
+  m_tokenKeySecret = FetchAccessToken(sid);
+  return true;
 }
 
-OsmOAuth::AuthResult OsmOAuth::AuthorizeFacebook(string const & facebookToken, TKeySecret & outKeySecret) const
+bool OsmOAuth::AuthorizeFacebook(string const & facebookToken)
 {
-  SessionID sid;
-  AuthResult result = FetchSessionId(sid);
-  if (result != AuthResult::OK)
-    return result;
-
-  result = LoginSocial(kFacebookCallbackPart, facebookToken, sid);
-  if (result != AuthResult::OK)
-    return result;
-
-  return FetchAccessToken(sid, outKeySecret);
+  SessionID const sid = FetchSessionId();
+  if (!LoginSocial(kFacebookCallbackPart, facebookToken, sid))
+    return false;
+  m_tokenKeySecret = FetchAccessToken(sid);
+  return true;
 }
 
-OsmOAuth::AuthResult OsmOAuth::AuthorizeGoogle(string const & googleToken, TKeySecret & outKeySecret) const
+bool OsmOAuth::AuthorizeGoogle(string const & googleToken)
 {
-  SessionID sid;
-  AuthResult result = FetchSessionId(sid);
-  if (result != AuthResult::OK)
-    return result;
-
-  result = LoginSocial(kGoogleCallbackPart, googleToken, sid);
-  if (result != AuthResult::OK)
-    return result;
-
-  return FetchAccessToken(sid, outKeySecret);
+  SessionID const sid = FetchSessionId();
+  if (!LoginSocial(kGoogleCallbackPart, googleToken, sid))
+    return false;
+  m_tokenKeySecret = FetchAccessToken(sid);
+  return true;
 }
 
-OsmOAuth::TUrlKeySecret OsmOAuth::GetFacebookOAuthURL() const
+OsmOAuth::TUrlRequestToken OsmOAuth::GetFacebookOAuthURL() const
 {
-  TKeySecret const requestToken = FetchRequestToken();
-  if (requestToken.first.empty())
-    return TUrlKeySecret(string(), requestToken);
+  TRequestToken const requestToken = FetchRequestToken();
   string const url = m_baseUrl + kFacebookOAuthPart + requestToken.first;
-  return TUrlKeySecret(url, requestToken);
+  return TUrlRequestToken(url, requestToken);
 }
 
-OsmOAuth::TUrlKeySecret OsmOAuth::GetGoogleOAuthURL() const
+OsmOAuth::TUrlRequestToken OsmOAuth::GetGoogleOAuthURL() const
 {
-  TKeySecret const requestToken = FetchRequestToken();
-  if (requestToken.first.empty())
-    return TUrlKeySecret(string(), requestToken);
+  TRequestToken const requestToken = FetchRequestToken();
   string const url = m_baseUrl + kGoogleOAuthPart + requestToken.first;
-  return TUrlKeySecret(url, requestToken);
+  return TUrlRequestToken(url, requestToken);
 }
 
-OsmOAuth::AuthResult OsmOAuth::ResetPassword(string const & email) const
+bool OsmOAuth::ResetPassword(string const & email) const
 {
   string const kForgotPasswordUrlPart = "/user/forgot-password";
 
-  SessionID sid;
-  AuthResult result = FetchSessionId(sid, kForgotPasswordUrlPart);
-  if (result != AuthResult::OK)
-    return result;
-
-  map<string, string> params;
-  params["user[email]"] = email;
-  params["authenticity_token"] = sid.m_token;
-  params["commit"] = "Reset password";
+  SessionID const sid = FetchSessionId(kForgotPasswordUrlPart);
+  map<string, string> const params =
+  {
+    {"user[email]", email},
+    {"authenticity_token", sid.m_token},
+    {"commit", "Reset password"}
+  };
   HTTPClientPlatformWrapper request(m_baseUrl + kForgotPasswordUrlPart);
   request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded");
   request.set_cookies(sid.m_cookies);
 
   if (!request.RunHTTPRequest())
-    return AuthResult::NetworkError;
+    MYTHROW(NetworkError, ("ResetPassword Network error while connecting to", request.url_requested()));
+  if (request.error_code() != HTTP::OK)
+    MYTHROW(ResetPasswordServerError, (DP(request)));
 
-  return request.was_redirected() && request.url_received().find(m_baseUrl) != string::npos ? AuthResult::OK : AuthResult::NoEmail;
+  if (request.was_redirected() && request.url_received().find(m_baseUrl) != string::npos)
+    return true;
+  return false;
 }
 
-OsmOAuth::Response OsmOAuth::Request(TKeySecret const & keySecret, string const & method, string const & httpMethod, string const & body) const
+OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpMethod, string const & body) const
 {
-  CHECK(IsKeySecretValid(keySecret), ("Empty request token"));
+  if (!IsValid(m_tokenKeySecret))
+    MYTHROW(InvalidKeySecret, ("User token (key and secret) are empty."));
+
   OAuth::Consumer const consumer(m_consumerKeySecret.first, m_consumerKeySecret.second);
-  OAuth::Token const oatoken(keySecret.first, keySecret.second);
+  OAuth::Token const oatoken(m_tokenKeySecret.first, m_tokenKeySecret.second);
   OAuth::Client oauth(&consumer, &oatoken);
 
   OAuth::Http::RequestType reqType;
@@ -336,10 +370,7 @@ OsmOAuth::Response OsmOAuth::Request(TKeySecret const & keySecret, string const 
   else if (httpMethod == "DELETE")
     reqType = OAuth::Http::Delete;
   else
-  {
-    ASSERT(false, ("Unsupported OSM API request method", httpMethod));
-    return Response(ResponseCode::NetworkError, string());
-  }
+    MYTHROW(UnsupportedApiRequestMethod, ("Unsupported OSM API request method", httpMethod));
 
   string const url = m_apiUrl + kApiVersion + method;
   string const query = oauth.getURLQueryString(reqType, url);
@@ -347,9 +378,12 @@ OsmOAuth::Response OsmOAuth::Request(TKeySecret const & keySecret, string const 
   HTTPClientPlatformWrapper request(url + "?" + query);
   if (httpMethod != "GET")
     request.set_body_data(body, "application/xml", httpMethod);
-  if (!request.RunHTTPRequest() || request.was_redirected())
-    return Response(ResponseCode::NetworkError, string());
-  return Response(static_cast<ResponseCode>(request.error_code()), request.server_response());
+  if (!request.RunHTTPRequest())
+    MYTHROW(NetworkError, ("Request Network error while connecting to", url));
+  if (request.was_redirected())
+    MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", url));
+
+  return Response(request.error_code(), request.server_response());
 }
 
 OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) const
@@ -357,86 +391,36 @@ OsmOAuth::Response OsmOAuth::DirectRequest(string const & method, bool api) cons
   string const url = api ? m_apiUrl + kApiVersion + method : m_baseUrl + method;
   HTTPClientPlatformWrapper request(url);
   if (!request.RunHTTPRequest())
-    return Response(ResponseCode::NetworkError, string());
-  // TODO(AlexZ): Static cast causes big problems if doesn't match ResponseCode enum.
-  return Response(static_cast<ResponseCode>(request.error_code()), request.server_response());
+    MYTHROW(NetworkError, ("DirectRequest Network error while connecting to", url));
+  if (request.was_redirected())
+    MYTHROW(UnexpectedRedirect, ("Redirected to", request.url_received(), "from", url));
+
+  return Response(request.error_code(), request.server_response());
 }
 
-OsmOAuth & OsmOAuth::SetToken(TKeySecret const & keySecret)
+string DebugPrint(OsmOAuth::Response const & code)
 {
-  m_tokenKeySecret = keySecret;
-  return *this;
-}
-
-TKeySecret const & OsmOAuth::GetToken() const { return m_tokenKeySecret; }
-
-bool OsmOAuth::IsAuthorized() const { return IsKeySecretValid(m_tokenKeySecret); }
-
-OsmOAuth::AuthResult OsmOAuth::FetchAccessToken(SessionID const & sid)
-{
-  return FetchAccessToken(sid, m_tokenKeySecret);
-}
-
-OsmOAuth::AuthResult OsmOAuth::FinishAuthorization(TKeySecret const & requestToken, string const & verifier)
-{
-  return FinishAuthorization(requestToken, verifier, m_tokenKeySecret);
-}
-
-OsmOAuth::AuthResult OsmOAuth::AuthorizePassword(string const & login, string const & password)
-{
-  return AuthorizePassword(login, password, m_tokenKeySecret);
-}
-
-OsmOAuth::AuthResult OsmOAuth::AuthorizeFacebook(string const & facebookToken)
-{
-  return AuthorizeFacebook(facebookToken, m_tokenKeySecret);
-}
-
-OsmOAuth::AuthResult OsmOAuth::AuthorizeGoogle(string const & googleToken)
-{
-  return AuthorizeGoogle(googleToken, m_tokenKeySecret);
-}
-
-OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpMethod, string const & body) const
-{
-  return Request(m_tokenKeySecret, method, httpMethod, body);
-}
-
-string DebugPrint(OsmOAuth::AuthResult const res)
-{
-  switch (res)
+  string r;
+  switch (code.first)
   {
-  case OsmOAuth::AuthResult::OK: return "OK";
-  case OsmOAuth::AuthResult::FailCookie: return "FailCookie";
-  case OsmOAuth::AuthResult::FailLogin: return "FailLogin";
-  case OsmOAuth::AuthResult::NoOAuth: return "NoOAuth";
-  case OsmOAuth::AuthResult::FailAuth: return "FailAuth";
-  case OsmOAuth::AuthResult::NoAccess: return "NoAccess";
-  case OsmOAuth::AuthResult::NetworkError: return "NetworkError";
-  case OsmOAuth::AuthResult::ServerError: return "ServerError";
-  case OsmOAuth::AuthResult::NoEmail: return "NoEmail";
+  case OsmOAuth::HTTP::OK: r = "OK"; break;
+  case OsmOAuth::HTTP::BadXML: r = "BadXML"; break;
+  case OsmOAuth::HTTP::BadAuth: r = "BadAuth"; break;
+  case OsmOAuth::HTTP::Redacted: r = "Redacted"; break;
+  case OsmOAuth::HTTP::NotFound: r = "NotFound"; break;
+  case OsmOAuth::HTTP::WrongMethod: r = "WrongMethod"; break;
+  case OsmOAuth::HTTP::Conflict: r = "Conflict"; break;
+  case OsmOAuth::HTTP::Gone: r = "Gone"; break;
+  case OsmOAuth::HTTP::PreconditionFailed: r = "PreconditionFailed"; break;
+  case OsmOAuth::HTTP::URITooLong: r = "URITooLong"; break;
+  case OsmOAuth::HTTP::TooMuchData: r = "TooMuchData"; break;
+  default:
+    // No data from server in case of NetworkError.
+    if (code.first < 0)
+      return "NetworkError " + strings::to_string(code.first);
+    r = "HTTP " + strings::to_string(code.first);
   }
-  return "Unknown";
-}
-
-string DebugPrint(OsmOAuth::ResponseCode const code)
-{
-  switch (code)
-  {
-  case OsmOAuth::ResponseCode::NetworkError: return "NetworkError";
-  case OsmOAuth::ResponseCode::OK: return "OK";
-  case OsmOAuth::ResponseCode::BadXML: return "BadXML";
-  case OsmOAuth::ResponseCode::BadAuth: return "BadAuth";
-  case OsmOAuth::ResponseCode::Redacted: return "Redacted";
-  case OsmOAuth::ResponseCode::NotFound: return "NotFound";
-  case OsmOAuth::ResponseCode::WrongMethod: return "WrongMethod";
-  case OsmOAuth::ResponseCode::Conflict: return "Conflict";
-  case OsmOAuth::ResponseCode::Gone: return "Gone";
-  case OsmOAuth::ResponseCode::RefError: return "RefError";
-  case OsmOAuth::ResponseCode::URITooLong: return "URITooLong";
-  case OsmOAuth::ResponseCode::TooMuchData: return "TooMuchData";
-  }
-  return "Unknown";
+  return r + ": " + code.second;
 }
 
 }  // namespace osm

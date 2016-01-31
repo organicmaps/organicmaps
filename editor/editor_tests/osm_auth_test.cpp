@@ -3,6 +3,7 @@
 #include "editor/osm_auth.hpp"
 
 using osm::OsmOAuth;
+using osm::TKeySecret;
 
 namespace
 {
@@ -17,34 +18,37 @@ constexpr char const * kFacebookToken = "CAAYYoGXMFUcBAHZBpDFyFPFQroYRMtzdCzXVFi
 UNIT_TEST(OSM_Auth_InvalidLogin)
 {
   OsmOAuth auth = OsmOAuth::IZServerAuth();
-  auto const result = auth.AuthorizePassword(kIZTestUser, kIZInvalidPassword);
-  TEST_EQUAL(result, OsmOAuth::AuthResult::FailLogin, ("invalid password"));
+  bool result;
+  TEST_NO_THROW(result = auth.AuthorizePassword(kIZTestUser, kIZInvalidPassword), ());
+  TEST_EQUAL(result, false, ("invalid password"));
   TEST(!auth.IsAuthorized(), ("Should not be authorized."));
 }
 
 UNIT_TEST(OSM_Auth_Login)
 {
   OsmOAuth auth = OsmOAuth::IZServerAuth();
-  auto const result = auth.AuthorizePassword(kIZTestUser, kIZTestPassword);
-  TEST_EQUAL(result, OsmOAuth::AuthResult::OK, ("login to test server"));
+  bool result;
+  TEST_NO_THROW(result = auth.AuthorizePassword(kIZTestUser, kIZTestPassword), ());
+  TEST_EQUAL(result, true, ("login to test server"));
   TEST(auth.IsAuthorized(), ("Should be authorized."));
   OsmOAuth::Response const perm = auth.Request("/permissions");
-  TEST_EQUAL(perm.first, OsmOAuth::ResponseCode::OK, ("permission request ok"));
-  TEST(perm.second.find("write_api") != string::npos, ("can write to api"));
+  TEST_EQUAL(perm.first, OsmOAuth::HTTP::OK, ("permission request ok"));
+  TEST_NOT_EQUAL(perm.second.find("write_api"), string::npos, ("can write to api"));
 }
 
 UNIT_TEST(OSM_Auth_Facebook)
 {
   OsmOAuth auth = OsmOAuth::IZServerAuth();
-  auto const result = auth.AuthorizeFacebook(kFacebookToken);
-  TEST_EQUAL(result, OsmOAuth::AuthResult::OK, ("login via facebook"));
+  bool result;
+  TEST_NO_THROW(result = auth.AuthorizeFacebook(kFacebookToken), ());
+  TEST_EQUAL(result, true, ("login via facebook"));
   TEST(auth.IsAuthorized(), ("Should be authorized."));
   OsmOAuth::Response const perm = auth.Request("/permissions");
-  TEST_EQUAL(perm.first, OsmOAuth::ResponseCode::OK, ("permission with stored token request ok"));
-  TEST(perm.second.find("write_api") != string::npos, ("can write to api"));
+  TEST_EQUAL(perm.first, OsmOAuth::HTTP::OK, ("permission with stored token request ok"));
+  TEST_NOT_EQUAL(perm.second.find("write_api"), string::npos, ("can write to api"));
 }
 
-
+// TODO(@Zverik): Fix Google auth and uncomment test.
 /*UNIT_TEST(OSM_Auth_Google)
 {
   OsmOAuth auth(kConsumerKey, kConsumerSecret, kTestServer, kTestServer);
@@ -59,8 +63,9 @@ UNIT_TEST(OSM_Auth_Facebook)
 UNIT_TEST(OSM_Auth_ForgotPassword)
 {
   OsmOAuth auth = OsmOAuth::IZServerAuth();
-  auto result = auth.ResetPassword(kIZForgotPasswordEmail);
-  TEST_EQUAL(result, OsmOAuth::AuthResult::OK, ("Correct email"));
-  result = auth.ResetPassword("not@registered.email");
-  TEST_EQUAL(result, OsmOAuth::AuthResult::NoEmail, ("Incorrect email"));
+  bool result;
+  TEST_NO_THROW(result = auth.ResetPassword(kIZForgotPasswordEmail), ());
+  TEST_EQUAL(result, true, ("Correct email"));
+  TEST_NO_THROW(result = auth.ResetPassword("not@registered.email"), ());
+  TEST_EQUAL(result, false, ("Incorrect email"));
 }

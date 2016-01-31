@@ -2,6 +2,7 @@
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMCircularProgress.h"
 
+#include "base/logging.hpp"
 #include "editor/osm_auth.hpp"
 
 using namespace osm;
@@ -48,7 +49,7 @@ NSString * getVerifier(NSString * urlString)
 
 @implementation MWMAuthorizationWebViewLoginViewController
 {
-  TKeySecret m_keySecret;
+  TRequestToken m_requestToken;
 }
 
 - (void)viewDidLoad
@@ -75,28 +76,35 @@ NSString * getVerifier(NSString * urlString)
   [self startSpinner];
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
   {
-    // TODO(AlexZ): Change to production.
     OsmOAuth const auth = OsmOAuth::ServerAuth();
-    OsmOAuth::TUrlKeySecret urlKey;
-    switch (self.authType)
+    try
     {
+      OsmOAuth::TUrlRequestToken urt;
+      switch (self.authType)
+      {
       case MWMWebViewAuthorizationTypeGoogle:
-        urlKey = auth.GetGoogleOAuthURL();
+        urt = auth.GetGoogleOAuthURL();
         break;
       case MWMWebViewAuthorizationTypeFacebook:
-        urlKey = auth.GetFacebookOAuthURL();
+        urt = auth.GetFacebookOAuthURL();
         break;
+      }
+      self->m_requestToken = urt.second;
+      NSURL * url = [NSURL URLWithString:@(urt.first.c_str())];
+      NSURLRequest * request = [NSURLRequest requestWithURL:url];
+      dispatch_async(dispatch_get_main_queue(), ^
+      {
+        [self stopSpinner];
+        self.webView.hidden = NO;
+        [self.webView loadRequest:request];
+      });
     }
-
-    self->m_keySecret = urlKey.second;
-    NSURL * url = [NSURL URLWithString:@(urlKey.first.c_str())];
-    NSURLRequest * request = [NSURLRequest requestWithURL:url];
-    dispatch_async(dispatch_get_main_queue(), ^
+    catch (exception const & ex)
     {
-      [self stopSpinner];
-      self.webView.hidden = NO;
-      [self.webView loadRequest:request];
-    });
+      // TODO(@igrechuhin): What should we do in the error case?
+      // Stop spinner? Show some dialog?
+      LOG(LWARNING, ("Can't loadAuthorizationPage", ex.what()));
+    }
   });
 }
 
@@ -122,16 +130,22 @@ NSString * getVerifier(NSString * urlString)
   [self startSpinner];
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
   {
-    TKeySecret outKeySecret;
-    // TODO(AlexZ): Change to production.
     OsmOAuth const auth = OsmOAuth::ServerAuth();
-    OsmOAuth::AuthResult const result = auth.FinishAuthorization(self->m_keySecret, verifier.UTF8String, outKeySecret);
+    TKeySecret ks;
+    try
+    {
+      ks = auth.FinishAuthorization(self->m_requestToken, verifier.UTF8String);
+    }
+    catch (exception const & ex)
+    {
+      LOG(LWARNING, ("checkAuthorization error", ex.what()));
+    }
     dispatch_async(dispatch_get_main_queue(), ^
     {
       [self stopSpinner];
-      if (result == OsmOAuth::AuthResult::OK)
+      if (OsmOAuth::IsValid(ks))
       {
-        MWMAuthorizationStoreCredentials(outKeySecret);
+        MWMAuthorizationStoreCredentials(ks);
         [self dismissViewControllerAnimated:NO completion:nil];
       }
       else

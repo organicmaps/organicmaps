@@ -103,18 +103,27 @@ void OsmAuthDialog::OnAction()
     }
 
     OsmOAuth auth = osm::OsmOAuth::ServerAuth();
-    OsmOAuth::AuthResult const res = auth.AuthorizePassword(login, password);
-    if (res != OsmOAuth::AuthResult::OK)
+    try
     {
-      setWindowTitle(("Auth failed: " + DebugPrint(res)).c_str());
+      if (auth.AuthorizePassword(login, password))
+      {
+        auto const token = auth.GetKeySecret();
+        Settings::Set(kTokenKeySetting, token.first);
+        Settings::Set(kTokenSecretSetting, token.second);
+
+        SwitchToLogout(this);
+      }
+      else
+      {
+        setWindowTitle("Auth failed: invalid login or password");
+        return;
+      }
+    }
+    catch (exception const & ex)
+    {
+      setWindowTitle((string("Auth failed: ") + ex.what()).c_str());
       return;
     }
-
-    auto const token = auth.GetToken();
-    Settings::Set(kTokenKeySetting, token.first);
-    Settings::Set(kTokenSecretSetting, token.second);
-
-    SwitchToLogout(this);
   }
   else
   {

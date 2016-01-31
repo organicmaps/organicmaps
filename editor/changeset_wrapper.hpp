@@ -29,7 +29,7 @@ public:
   DECLARE_EXCEPTION(ModifyNodeFailedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(LinearFeaturesAreNotSupportedException, ChangesetWrapperException);
 
-  ChangesetWrapper(TKeySecret const & keySecret, ServerApi06::TKeyValueTags const & comments);
+  ChangesetWrapper(TKeySecret const & keySecret, ServerApi06::TKeyValueTags const & comments) noexcept;
   ~ChangesetWrapper();
 
   /// Throws many exceptions from above list, plus including XMLNode's parsing ones.
@@ -38,7 +38,8 @@ public:
   editor::XMLFeature GetMatchingAreaFeatureFromOSM(vector<m2::PointD> const & geomerty);
 
   /// Throws exceptions from above list.
-  void ModifyNode(editor::XMLFeature node);
+  /// Node should have correct OSM "id" attribute set.
+  void Modify(editor::XMLFeature node);
 
 private:
   /// Unfortunately, pugi can't return xml_documents from methods.

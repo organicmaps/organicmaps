@@ -187,21 +187,22 @@ UNIT_TEST(XMLFeature_ForEachName)
              ());
 }
 
-auto const kTestNodeWay = R"(<?xml version="1.0"?>
-<osm>
-<node id="4" lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z"/>
-<node id="5" lat="55.7977777" lon="37.474528" timestamp="2015-11-27T21:13:33Z"/>
-<way id="3" timestamp="2015-11-27T21:13:34Z">
-  <nd ref="4"/>
-  <nd ref="5"/>
-  <tag k="hi" v="test"/>
-</way>
-</osm>
-)";
-
-
 UNIT_TEST(XMLFeature_FromOSM)
 {
+  auto const kTestNodeWay = R"(<?xml version="1.0"?>
+  <osm>
+  <node id="4" lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
+    <tag k="test" v="value"/>
+  </node>
+  <node id="5" lat="55.7977777" lon="37.474528" timestamp="2015-11-27T21:13:33Z"/>
+  <way id="3" timestamp="2015-11-27T21:13:34Z">
+    <nd ref="4"/>
+    <nd ref="5"/>
+    <tag k="hi" v="test"/>
+  </way>
+  </osm>
+  )";
+
   TEST_ANY_THROW(XMLFeature::FromOSM(""), ());
   TEST_ANY_THROW(XMLFeature::FromOSM("This is not XML"), ());
   TEST_ANY_THROW(XMLFeature::FromOSM("<?xml version=\"1.0\"?>"), ());
@@ -210,5 +211,28 @@ UNIT_TEST(XMLFeature_FromOSM)
   vector<XMLFeature> features;
   TEST_NO_THROW(features = XMLFeature::FromOSM(kTestNodeWay), ());
   TEST_EQUAL(3, features.size(), ());
+  XMLFeature const & node = features[0];
+  TEST_EQUAL(node.GetAttribute("id"), "4", ());
+  TEST_EQUAL(node.GetTagValue("test"), "value", ());
   TEST_EQUAL(features[2].GetTagValue("hi"), "test", ());
+}
+
+UNIT_TEST(XMLFeature_FromXmlNode)
+{
+  auto const kTestNode = R"(<?xml version="1.0"?>
+  <osm>
+  <node id="4" lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
+    <tag k="amenity" v="fountain"/>
+  </node>
+  </osm>
+  )";
+
+  pugi::xml_document doc;
+  doc.load_string(kTestNode);
+  XMLFeature const feature(doc.child("osm").child("node"));
+  TEST_EQUAL(feature.GetAttribute("id"), "4", ());
+  TEST_EQUAL(feature.GetTagValue("amenity"), "fountain", ());
+  XMLFeature copy(feature);
+  TEST_EQUAL(copy.GetAttribute("id"), "4", ());
+  TEST_EQUAL(copy.GetTagValue("amenity"), "fountain", ());
 }
