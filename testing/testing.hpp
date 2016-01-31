@@ -80,3 +80,20 @@ CommandLineOptions const & GetTestingOptions();
   ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST(!my::AlmostEqualULPs("#X", "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
+
+// TODO(AlexZ): Add more cool macroses (or switch all unit tests to gtest).
+#define TEST_THROW(X, exception, msg) { bool expected_exception = false; \
+  try { X; } catch (exception const &) { expected_exception = true; } \
+  catch (...) { ::my::OnTestFailed(SRC(), ::my::impl::Message("Unexpected exception at TEST("#X")", \
+                                                              ::my::impl::Message msg)); } \
+  if (!expected_exception) \
+    ::my::OnTestFailed(SRC(), ::my::impl::Message("Expected exception "#exception" was not thrown in TEST("#X")", \
+                                                  ::my::impl::Message msg));}
+#define TEST_NO_THROW(X, msg) { \
+  try { X; } catch (...) { ::my::OnTestFailed(SRC(), ::my::impl::Message("Unexpected exception at TEST("#X")", \
+                                                              ::my::impl::Message msg));}}
+#define TEST_ANY_THROW(X, msg) { bool was_exception = false; \
+  try { X; } catch (...) { was_exception = true; } \
+  if (!was_exception) \
+    ::my::OnTestFailed(SRC(), ::my::impl::Message("No exceptions were thrown in TEST("#X")", \
+                                                  ::my::impl::Message msg));}
