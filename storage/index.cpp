@@ -21,4 +21,4 @@ namespace storage
   {
     return countryId != kInvalidCountryId;
   }
-}
+} // namespace storage

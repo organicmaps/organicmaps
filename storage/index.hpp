@@ -11,7 +11,7 @@ namespace storage
 
   extern const storage::TCountryId kInvalidCountryId;
 
-  // @TODO(bykoianko) Check in counrtry tree if the countryId valid.
+  // @TODO(bykoianko) Check in country tree if the countryId valid.
   bool IsCountryIdValid(TCountryId const & countryId);
 
   struct TIndex

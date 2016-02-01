@@ -28,7 +28,7 @@ struct NodeAttrs
   /// belongs to the node. If the node isn't expandable |m_mapsDownloaded| == 1.
   uint32_t m_mwmCounter;
 
-  /// Number of mwms belonging to the node which has been donwloaded.
+  /// Number of mwms belonging to the node which has been downloaded.
   uint32_t m_localMwmCounter;
 
   /// If it's not an expandable node, |m_nodeSize| is size of one mwm according to countries.txt.
