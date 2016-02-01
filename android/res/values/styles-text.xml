@@ -11,12 +11,6 @@
     <item name="android:textColor">?android:textColorPrimary</item>
   </style>
 
-  <style name="MwmTextAppearance.Toolbar">
-    <item name="android:textSize">@dimen/text_size_toolbar</item>
-    <item name="android:textColor">@color/text_light</item>
-    <item name="android:textColorHint">@color/text_light_hint</item>
-  </style>
-
   <style name="MwmTextAppearance.Title">
     <item name="android:textSize">@dimen/text_size_title</item>
     <item name="android:textColor">?android:textColorPrimary</item>
@@ -69,8 +63,18 @@
     <item name="android:textAllCaps">true</item>
   </style>
 
+  <style name="MwmTextAppearance.Toolbar"/>
+
+  <style name="MwmTextAppearance.Toolbar.Search">
+    <item name="android:textSize">@dimen/text_size_toolbar</item>
+    <item name="android:textColor">@color/text_light</item>
+    <item name="android:textColorHint">@color/text_light_hint</item>
+  </style>
+
   <style name="MwmTextAppearance.Toolbar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
     <item name="android:textSize">@dimen/text_size_toolbar</item>
+    <item name="android:textColor">@color/text_light</item>
+    <item name="android:textColorHint">@color/text_light_hint</item>
   </style>
 
   <style name="MwmTextAppearance.Toolbar.Title.Light">

@@ -10,7 +10,7 @@
   android:orientation="horizontal">
   <EditText
     android:id="@+id/query"
-    style="@style/MwmTextAppearance.Toolbar"
+    style="@style/MwmTextAppearance.Toolbar.Search"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1"

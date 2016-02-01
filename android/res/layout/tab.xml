@@ -4,5 +4,5 @@
   xmlns:tools="http://schemas.android.com/tools"
   style="@style/MwmWidget.Tab"
   android:textAppearance="@style/MwmTextAppearance.Body4"
-  tools:drawableLeft="@drawable/ic_menu_open"
+  tools:drawableTop="@drawable/ic_menu_open"
   tools:text="Some tab"/>

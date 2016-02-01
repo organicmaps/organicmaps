@@ -24,11 +24,10 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   private DownloadedAdapter mDownloadedAdapter;
   private TextView mTvUpdateAll;
   private View mDownloadAll;
-  private int mMode = MODE_DISABLED;
+  private int mMode = MODE_NONE;
   private int mListenerSlotId;
   private LayoutInflater mLayoutInflater;
 
-  private static final int MODE_DISABLED = -1;
   private static final int MODE_NONE = 0;
   private static final int MODE_UPDATE_ALL = 1;
   private static final int MODE_CANCEL_ALL = 2;
@@ -70,7 +69,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     {
       mDownloadAdapter = getDownloadAdapter();
       setListAdapter(mDownloadAdapter);
-      mMode = MODE_DISABLED;
+      mMode = MODE_NONE;
       mListenerSlotId = ActiveCountryTree.addListener(this);
     }
   }
@@ -130,7 +129,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     }
     else if (getListAdapter() instanceof DownloadedAdapter)
     {
-      mMode = MODE_DISABLED;
+      mMode = MODE_NONE;
       mDownloadedAdapter.onPause();
       mDownloadAdapter = getDownloadAdapter();
       mDownloadAdapter.onResume(getListView());
@@ -147,7 +146,9 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   {
     if (mTvUpdateAll == null || !isAdded())
       return;
-    if (mMode == MODE_DISABLED)
+
+    updateMode();
+    if (mMode == MODE_NONE)
     {
       mTvUpdateAll.setVisibility(View.GONE);
       UiUtils.showIf(CountryTree.hasParent() && CountryTree.isDownloadableGroup(), mDownloadAll);
@@ -156,7 +157,6 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
 
     UiUtils.hide(mDownloadAll);
 
-    updateMode();
     switch (mMode)
     {
     case MODE_CANCEL_ALL:
@@ -166,9 +166,6 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     case MODE_UPDATE_ALL:
       mTvUpdateAll.setText(getString(R.string.downloader_update_all));
       mTvUpdateAll.setVisibility(View.VISIBLE);
-      break;
-    case MODE_NONE:
-      mTvUpdateAll.setVisibility(View.GONE);
       break;
     }
   }
