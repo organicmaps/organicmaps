@@ -1,18 +1,15 @@
 
 #import <Foundation/Foundation.h>
 #import "MapsObservers.h"
-#import "MWMWatchNotification.h"
 #import "Common.h"
 
 ActiveMapsObserver::ActiveMapsObserver(id<ActiveMapsObserverProtocol> delegateObject)
 : m_delegateObject(delegateObject)
-, m_notificationCenter([[MWMWatchNotification alloc] init])
 {
 }
 
 ActiveMapsObserver::~ActiveMapsObserver()
 {
-  m_notificationCenter = nil;
   m_delegateObject = nil;
 }
 
@@ -38,7 +35,6 @@ void ActiveMapsObserver::CountryOptionsChanged(ActiveMapsLayout::TGroup const & 
 
 void ActiveMapsObserver::DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group, int position, LocalAndRemoteSizeT const & progress)
 {
-  [m_notificationCenter passMessageObject:@((double)progress.first / progress.second)  identifier:kDownloadingProgressUpdateNotificationId];
   if ([m_delegateObject respondsToSelector:@selector(countryDownloadingProgressChanged:atPosition:inGroup:)])
     [m_delegateObject countryDownloadingProgressChanged:progress atPosition:position inGroup:group];
 }

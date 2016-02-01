@@ -40,7 +40,6 @@ public:
 
 private:
   id<ActiveMapsObserverProtocol> m_delegateObject;
-  MWMWatchNotification * m_notificationCenter;
 };
 
 

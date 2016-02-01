@@ -29,8 +29,6 @@
 		3438CDF81B8616760051AA78 /* MWMSearchShowOnMapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDF61B8616760051AA78 /* MWMSearchShowOnMapCell.mm */; };
 		3438CDF91B8616760051AA78 /* MWMSearchShowOnMapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3438CDF71B8616760051AA78 /* MWMSearchShowOnMapCell.xib */; };
 		3438CDFC1B862F5C0051AA78 /* MWMSearchContentView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3438CDFB1B862F5C0051AA78 /* MWMSearchContentView.mm */; };
-		343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */; };
-		343F26301AEFDB1A00388A6D /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 343F262F1AEFDB1A00388A6D /* Framework.cpp */; };
 		344825931B8DBADF00757B1B /* MWMSearchDownloadViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 344825911B8DBADF00757B1B /* MWMSearchDownloadViewController.mm */; };
 		344825941B8DBADF00757B1B /* MWMSearchDownloadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 344825921B8DBADF00757B1B /* MWMSearchDownloadViewController.xib */; };
 		344825971B8DCEC400757B1B /* MWMSearchDownloadView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 344825961B8DCEC400757B1B /* MWMSearchDownloadView.mm */; };
@@ -42,17 +40,10 @@
 		34570A3D1B13223000E6D4FD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3C1B13223000E6D4FD /* libsqlite3.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		34570A3F1B13225500E6D4FD /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3E1B13225500E6D4FD /* Accounts.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		34570A411B13229300E6D4FD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A401B13229300E6D4FD /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		345C31711AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.mm */; };
-		345C31721AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */; };
-		345C31781AE799B600EA0CC2 /* MWMSearchResultCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31751AE799B600EA0CC2 /* MWMSearchResultCell.mm */; };
-		345C31791AE799B600EA0CC2 /* MWMSearchResultController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */; };
 		34634B1B1BB42D270013573C /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34634B1A1BB42D270013573C /* MWMBottomMenuCollectionViewLandscapeCell.xib */; };
 		3465E7D81B6658C000854C4D /* MWMAPIBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3465E7D71B6658C000854C4D /* MWMAPIBar.mm */; };
 		346EDADB1B9F0E35004F8DB5 /* MWMMultilineLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 346EDADA1B9F0E35004F8DB5 /* MWMMultilineLabel.mm */; };
 		347274731B0F4EE000756B37 /* me.maps.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274721B0F4EE000756B37 /* me.maps.entitlements */; };
-		347274771B0F4F3900756B37 /* me.maps.watchkitextension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */; };
-		347274791B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */; };
-		3472747B1B0F4FF100756B37 /* me.maps.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */; };
 		3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */; };
 		34751E9E1BFB8E73005299B7 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */; };
 		3476B8CC1BFDCB6700874594 /* MWMTTSSettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F668F6551BCD4507002D6FFC /* MWMTTSSettingsViewController.mm */; };
@@ -65,7 +56,6 @@
 		347FDDA11BB59B4E00871410 /* Mapsme.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347FDDA01BB59B4E00871410 /* Mapsme.storyboard */; };
 		3485C0121B85C20E00F7712D /* MWMSearchTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3485C0101B85C20E00F7712D /* MWMSearchTableViewController.mm */; };
 		3485C0131B85C20E00F7712D /* MWMSearchTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3485C0111B85C20E00F7712D /* MWMSearchTableViewController.xib */; };
-		348E578E1B0F3752000FA02A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
 		34921F6A1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */; };
 		34921F6B1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */; };
 		3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */; };
@@ -81,8 +71,6 @@
 		349C26B51BB02C6F0005DF2F /* MWMBottomMenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B31BB02C6F0005DF2F /* MWMBottomMenuViewController.mm */; };
 		349C26B61BB02C6F0005DF2F /* MWMBottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */; };
 		349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B81BB04ED30005DF2F /* MWMBottomMenuView.mm */; };
-		34A742FE1AE5461A00CE15EB /* index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FD1AE5461A00CE15EB /* index.cpp */; };
-		34A743001AE5468200CE15EB /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FF1AE5468200CE15EB /* storage.cpp */; };
 		34B16C451B72655D000D3A0D /* MWMPedestrianShareAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */; };
 		34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */; };
 		34B82AB21B8344E300180497 /* MWMSearchTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34B82AB11B8344E300180497 /* MWMSearchTextField.mm */; };
@@ -108,8 +96,6 @@
 		34BC722A1B0DECAE0012A34B /* MWMZoomButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC721F1B0DECAE0012A34B /* MWMZoomButtonsView.mm */; };
 		34BC722B1B0DECAE0012A34B /* MWMZoomButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BC72201B0DECAE0012A34B /* MWMZoomButtonsView.xib */; };
 		34C659471BD12A77009DC20A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C659451BD12A77009DC20A /* InfoPlist.strings */; };
-		34C659481BD12A77009DC20A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C659451BD12A77009DC20A /* InfoPlist.strings */; };
-		34C6594C1BD12A89009DC20A /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		34CA57181C292F17004D9C89 /* MyTrackerSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */; };
 		34CA57191C292F50004D9C89 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */; };
 		34CC4C091B81F3B500E44C1F /* MWMSearchTabbedViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CC4C071B81F3B500E44C1F /* MWMSearchTabbedViewController.mm */; };
@@ -122,42 +108,19 @@
 		34CFFE901B7DE83D009D0C9F /* MWMSearchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CFFE8F1B7DE83D009D0C9F /* MWMSearchView.mm */; };
 		34D15BA81BD8F93C00C8BCBE /* AddSetTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.mm */; };
 		34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */; };
-		34DF4D111AE77B9F0012702D /* MWMWKInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */; };
+		34EB844C1C07337B0004689F /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
 		34F45E8E1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F45E8D1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm */; };
 		34F45E901B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */; };
 		34F8ADD91B97229A004184CC /* MWMSearchTableView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */; };
+		34FDF4BB1C5F8D6D00542F62 /* UIButton+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FDF4BA1C5F8D6D00542F62 /* UIButton+Coloring.mm */; };
+		34FDF4BC1C5F8D6D00542F62 /* UIButton+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FDF4BA1C5F8D6D00542F62 /* UIButton+Coloring.mm */; };
+		34FDF4C11C5F923700542F62 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FDF4BD1C5F923700542F62 /* libdrape_frontend.a */; };
+		34FDF4C21C5F923700542F62 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FDF4BE1C5F923700542F62 /* libdrape.a */; };
+		34FDF4C31C5F923700542F62 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FDF4BF1C5F923700542F62 /* libsdf_image.a */; };
+		34FDF4C41C5F923700542F62 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FDF4C01C5F923700542F62 /* libstb_image.a */; };
 		34FE4C451BCC013500066718 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
 		4519503A1B7A3E070085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
-		4519503B1B7A3E390085DA05 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		452FCA3B1B6A3DF7007019AB /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
-		452FCA3E1B6A3E83007019AB /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
-		454040621AD2D75E007A9B12 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
-		454040631AD2D83A007A9B12 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
-		454040641AD2D862007A9B12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		454040661AD2D88A007A9B12 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
-		454040671AD2D897007A9B12 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
-		4540406A1AD2D8FD007A9B12 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
-		4540406B1AD2D919007A9B12 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
-		4540406C1AD2D92D007A9B12 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
-		4540406D1AD2D958007A9B12 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; };
-		4540406F1AD2D9C5007A9B12 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540406E1AD2D9C5007A9B12 /* WatchKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		454040761AD2DD73007A9B12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		4579C8951AD2F98B001D6B90 /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
-		4579C8961AD2F9A1001D6B90 /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
-		4579C8971AD2F9A1001D6B90 /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
-		4579C8981AD2F9A2001D6B90 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
-		4579C8991AD2F9A2001D6B90 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
-		4579C89A1AD2F9A2001D6B90 /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
-		4579C89B1AD2F9A2001D6B90 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
-		4579C89C1AD2F9A2001D6B90 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
-		4579C89D1AD2F9E6001D6B90 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
-		4579C89F1AD2FA36001D6B90 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
-		4579C8A01AD2FAB1001D6B90 /* 07_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */; };
-		4579C8A11AD2FAB1001D6B90 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
-		4579C8A31AD2FAB1001D6B90 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
-		4579C8A41AD2FAB1001D6B90 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
-		4579C8A51AD2FAB1001D6B90 /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E9134C4968003A9827 /* 05_khmeros.ttf */; };
-		4579C8A61AD2FAB1001D6B90 /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
@@ -173,65 +136,6 @@
 		4A7D89C81B2EBF3B00AC843E /* resources-xxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */; };
 		5605022F1B6211E100169CAD /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		560634F21B78806100F3D670 /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = 560634F11B78806100F3D670 /* MWMTextToSpeech.mm */; };
-		6741A8E01BF3407C002C974C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6D434581AD2AB96007C7728 /* Interface.storyboard */; };
-		6741A8E11BF3407C002C974C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F672A6B61AD423A7009060C3 /* Images.xcassets */; };
-		6741A8F21BF340D1002C974C /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 343F262F1AEFDB1A00388A6D /* Framework.cpp */; };
-		6741A8F31BF340D1002C974C /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FF1AE5468200CE15EB /* storage.cpp */; };
-		6741A8F41BF340D1002C974C /* index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FD1AE5461A00CE15EB /* index.cpp */; };
-		6741A8F51BF340D1002C974C /* MWMWatchNotification.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */; };
-		6741A8F61BF340D1002C974C /* MWMCategoriesInterfaceCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.mm */; };
-		6741A8F71BF340D1002C974C /* MWMFinishInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6CFBB8761AD84E1C009845A3 /* MWMFinishInterfaceController.mm */; };
-		6741A8F81BF340D1002C974C /* MWMNoMapInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */; };
-		6741A8F91BF340D1002C974C /* MWMMapController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68CEF731AD8852A00563FBA /* MWMMapController.mm */; };
-		6741A8FA1BF340D1002C974C /* MWMNoLocationInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C47C8C41AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm */; };
-		6741A8FB1BF340D1002C974C /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
-		6741A8FC1BF340D1002C974C /* MWMSearchResultCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31751AE799B600EA0CC2 /* MWMSearchResultCell.mm */; };
-		6741A8FD1BF340D1002C974C /* MWMWatchLocationTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C6FE1F1AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm */; };
-		6741A8FE1BF340D1002C974C /* MWMWKInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */; };
-		6741A8FF1BF340D1002C974C /* MWMFrameworkUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */; };
-		6741A9021BF340D1002C974C /* MWMSearchResultController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */; };
-		6741A9031BF340D1002C974C /* MWMCategoriesInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */; };
-		6741A9051BF340D1002C974C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3A1B13222600E6D4FD /* libz.dylib */; };
-		6741A9061BF340D1002C974C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
-		6741A9071BF340D1002C974C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
-		6741A9081BF340D1002C974C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		6741A9091BF340D1002C974C /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540406E1AD2D9C5007A9B12 /* WatchKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		6741A90A1BF340D1002C974C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; };
-		6741A90B1BF340D1002C974C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
-		6741A90C1BF340D1002C974C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
-		6741A90D1BF340D1002C974C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
-		6741A90E1BF340D1002C974C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
-		6741A90F1BF340D1002C974C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
-		6741A9101BF340D1002C974C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		6741A9111BF340D1002C974C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
-		6741A9121BF340D1002C974C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
-		6741A9141BF340D1002C974C /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */; };
-		6741A9151BF340D1002C974C /* resources-xhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */; };
-		6741A9161BF340D1002C974C /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */; };
-		6741A9181BF340D1002C974C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
-		6741A9191BF340D1002C974C /* 07_roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */; };
-		6741A91A1BF340D1002C974C /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
-		6741A91B1BF340D1002C974C /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
-		6741A91C1BF340D1002C974C /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
-		6741A91D1BF340D1002C974C /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
-		6741A91E1BF340D1002C974C /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E9134C4968003A9827 /* 05_khmeros.ttf */; };
-		6741A91F1BF340D1002C974C /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
-		6741A9201BF340D1002C974C /* me.maps.watchkitextension.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */; };
-		6741A9211BF340D1002C974C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34C659451BD12A77009DC20A /* InfoPlist.strings */; };
-		6741A9221BF340D1002C974C /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
-		6741A9231BF340D1002C974C /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
-		6741A9241BF340D1002C974C /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
-		6741A9261BF340D1002C974C /* me.maps.watchkitextension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */; };
-		6741A9271BF340D1002C974C /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
-		6741A9281BF340D1002C974C /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
-		6741A9291BF340D1002C974C /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
-		6741A92A1BF340D1002C974C /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
-		6741A92B1BF340D1002C974C /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
-		6741A92C1BF340D1002C974C /* me.maps.production.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */; };
-		6741A92D1BF340D1002C974C /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
-		6741A92E1BF340D1002C974C /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
-		6741A92F1BF340D1002C974C /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
-		6741A9301BF340D1002C974C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D4344D1AD2AB96007C7728 /* Images.xcassets */; };
 		6741A9421BF340DE002C974C /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 5605022E1B6211E100169CAD /* sound-strings */; };
 		6741A9431BF340DE002C974C /* MWMPlacePageDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67BC26E1B254B1F00FE1D7B /* MWMPlacePageDescriptionView.xib */; };
 		6741A9441BF340DE002C974C /* PlacePageBookmarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 342BB7AA1BC7CC5C00DF6443 /* PlacePageBookmarkCell.xib */; };
@@ -348,7 +252,6 @@
 		6741A9B91BF340DE002C974C /* MWMRateAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */; };
 		6741A9BA1BF340DE002C974C /* MWMRoutePointCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BB6CC51BB18C0900DF1DF2 /* MWMRoutePointCell.m */; };
 		6741A9BB1BF340DE002C974C /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
-		6741A9BD1BF340DE002C974C /* MWMWatchNotification.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */; };
 		6741A9BE1BF340DE002C974C /* UILabel+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm */; };
 		6741A9BF1BF340DE002C974C /* MWMSearchTabbedCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CC4C0C1B82069C00E44C1F /* MWMSearchTabbedCollectionViewCell.mm */; };
 		6741A9C01BF340DE002C974C /* MWMTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E2B1B15C26700EE1E58 /* MWMTextView.mm */; };
@@ -456,7 +359,6 @@
 		6741AA271BF340DE002C974C /* MWMBasePlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63732951AE9431E00A03764 /* MWMBasePlacePageView.mm */; };
 		6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19861AB81A00006EAF7E /* MWMAlert.mm */; };
 		6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
-		6741AA2A1BF340DE002C974C /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
 		6741AA2B1BF340DE002C974C /* CircleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.mm */; };
 		6741AA2C1BF340DE002C974C /* MWMSearchBookmarksManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340E10621B949D1900D975D5 /* MWMSearchBookmarksManager.mm */; };
 		6741AA2D1BF340DE002C974C /* AddSetTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.mm */; };
@@ -494,8 +396,6 @@
 		6741AA4F1BF340DE002C974C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
 		6741AA501BF340DE002C974C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
 		6741AA511BF340DE002C974C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
-		6741AA601BF34EBD002C974C /* xcmaps.me WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6741A93B1BF340D1002C974C /* xcmaps.me WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		6741AA611BF350A1002C974C /* xcmaps.me WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 6741A8EB1BF3407C002C974C /* xcmaps.me WatchKit App.app */; };
 		6741AABD1BF356BA002C974C /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA21BF356B9002C974C /* libagg.a */; };
 		6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA31BF356B9002C974C /* libalohalitics.a */; };
 		6741AAC01BF356BA002C974C /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA51BF356B9002C974C /* libapi.a */; };
@@ -519,53 +419,12 @@
 		6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABA1BF356BA002C974C /* libstorage.a */; };
 		6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABB1BF356BA002C974C /* libsuccinct.a */; };
 		6741AAD71BF356BA002C974C /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABC1BF356BA002C974C /* libtomcrypt.a */; };
-		674A7E241C0DA55E003D48E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */; };
-		674A7E251C0DA55E003D48E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E211C0DA55E003D48E1 /* libdrape.a */; };
-		674A7E261C0DA55E003D48E1 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E221C0DA55E003D48E1 /* libsdf_image.a */; };
-		674A7E271C0DA55E003D48E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E231C0DA55E003D48E1 /* libstb_image.a */; };
-		674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E231C0DA55E003D48E1 /* libstb_image.a */; };
-		674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E221C0DA55E003D48E1 /* libsdf_image.a */; };
-		674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E211C0DA55E003D48E1 /* libdrape.a */; };
-		674A7E2B1C0DA57C003D48E1 /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */; };
 		674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34FE4C441BCC013500066718 /* MWMMapWidgets.mm */; };
 		676507601C10559800830BB3 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 451950391B7A3E070085DA05 /* patterns.txt */; };
 		676507611C10559B00830BB3 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
-		676507621C1055B200830BB3 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
+		676507631C1055BB00830BB3 /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */; };
 		677A2DE21C0DD50900635A00 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
-		67E504401BFA355B001F34BA /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA21BF356B9002C974C /* libagg.a */; };
-		67E504411BFA355B001F34BA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA31BF356B9002C974C /* libalohalitics.a */; };
-		67E504431BFA355B001F34BA /* libapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA51BF356B9002C974C /* libapi.a */; };
-		67E504441BFA355B001F34BA /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA61BF356B9002C974C /* libbase.a */; };
-		67E504451BFA355B001F34BA /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA71BF356B9002C974C /* libcoding.a */; };
-		67E504461BFA355B001F34BA /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA81BF356B9002C974C /* libexpat.a */; };
-		67E504471BFA355B001F34BA /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAA91BF356B9002C974C /* libfreetype.a */; };
-		67E504481BFA355B001F34BA /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAA1BF356B9002C974C /* libfribidi.a */; };
-		67E504491BFA355B001F34BA /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAB1BF356B9002C974C /* libgeometry.a */; };
-		67E5044C1BFA355B001F34BA /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAE1BF356B9002C974C /* libindexer.a */; };
-		67E5044D1BFA355B001F34BA /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAAF1BF356B9002C974C /* libjansson.a */; };
-		67E5044E1BFA355B001F34BA /* liblodepng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB01BF356B9002C974C /* liblodepng.a */; };
-		67E5044F1BFA355B001F34BA /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB11BF356B9002C974C /* libmap.a */; };
-		67E504501BFA355B001F34BA /* libminizip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB21BF356B9002C974C /* libminizip.a */; };
-		67E504511BFA355B001F34BA /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB31BF356B9002C974C /* libopening_hours.a */; };
-		67E504521BFA355B001F34BA /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB41BF356B9002C974C /* libosrm.a */; };
-		67E504531BFA355B001F34BA /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB51BF356B9002C974C /* libplatform.a */; };
-		67E504541BFA355B001F34BA /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB61BF356BA002C974C /* libprotobuf.a */; };
-		67E504561BFA355B001F34BA /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB81BF356BA002C974C /* librouting.a */; };
-		67E504571BFA355B001F34BA /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AAB91BF356BA002C974C /* libsearch.a */; };
-		67E504581BFA355B001F34BA /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABA1BF356BA002C974C /* libstorage.a */; };
-		67E504591BFA355B001F34BA /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABB1BF356BA002C974C /* libsuccinct.a */; };
-		67E5045A1BFA355B001F34BA /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6741AABC1BF356BA002C974C /* libtomcrypt.a */; };
-		6B53A1B21B83C25400E4CDAD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3A1B13222600E6D4FD /* libz.dylib */; };
-		6B8A738A1B2616E90085EFE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */; };
-		6C24A3AD1AD7CA1000A47B99 /* MWMNoMapInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */; };
-		6C24A3B21AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
-		6C24A3B31AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
-		6C47C8BF1AD6C47E000C52C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
-		6C47C8C51AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C47C8C41AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm */; };
-		6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */; };
-		6C93FAED1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */; };
-		6CFBB8771AD84E1C009845A3 /* MWMFinishInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6CFBB8761AD84E1C009845A3 /* MWMFinishInterfaceController.mm */; };
 		974386DD19373EA400FD5659 /* ToastView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.mm */; };
 		9747264318323080006B7CB7 /* UIKitCategories.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.mm */; };
 		9747278418338F0C006B7CB7 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */; };
@@ -596,7 +455,6 @@
 		97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		97F0817E19AF72590098FB0B /* BadgeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F0817D19AF72590098FB0B /* BadgeView.mm */; };
 		97F61794183E7445009919E2 /* LinkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.mm */; };
-		9DA46A081C47E92100EF52BA /* resources-hdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */; };
 		9DA46A091C47E92100EF52BA /* resources-hdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A041C47E92100EF52BA /* resources-hdpi_legacy */; };
 		9DA46A0A1C47E92100EF52BA /* resources-mdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */; };
 		9DA46A0B1C47E92100EF52BA /* resources-mdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A051C47E92100EF52BA /* resources-mdpi_legacy */; };
@@ -608,11 +466,6 @@
 		9DA46A131C47E95700EF52BA /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */; };
 		9DA46A141C47E95700EF52BA /* resources-6plus_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A111C47E95700EF52BA /* resources-6plus_legacy */; };
 		9DA46A151C47E95700EF52BA /* resources-6plus_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A111C47E95700EF52BA /* resources-6plus_legacy */; };
-		9DA46A161C47E95A00EF52BA /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */; };
-		9DA46A171C47E95B00EF52BA /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A101C47E95700EF52BA /* drules_proto_legacy.bin */; };
-		9DA46A181C47E96400EF52BA /* resources-xhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */; };
-		9DA46A191C47E96500EF52BA /* resources-xhdpi_legacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA46A061C47E92100EF52BA /* resources-xhdpi_legacy */; };
-		9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D491A14980500E54A65 /* iosOGLContext.mm */; };
 		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
 		A367C93B1B17334800E2B6E7 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
@@ -654,10 +507,8 @@
 		F626D52E1C3E6CAA00C17D15 /* MWMTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */; };
 		F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */; };
 		F626D5301C3E840600C17D15 /* MWMNightModeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */; };
-		F626D5321C3E845600C17D15 /* UIButton+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62F1D971C32B968006CF38E /* UIButton+Coloring.mm */; };
 		F626D5331C3E846E00C17D15 /* UIImageView+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */; };
 		F62F1D951C3281F1006CF38E /* UIImageView+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */; };
-		F62F1D981C32B968006CF38E /* UIButton+Coloring.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62F1D971C32B968006CF38E /* UIButton+Coloring.mm */; };
 		F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63732951AE9431E00A03764 /* MWMBasePlacePageView.mm */; };
 		F63774E71B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */; };
 		F63774EA1B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm */; };
@@ -687,19 +538,16 @@
 		F66A8FAC1B09F137001B9C97 /* MWMiPadPlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F66A8FAB1B09F137001B9C97 /* MWMiPadPlacePage.mm */; };
 		F66A8FB01B09F268001B9C97 /* MWMPlacePage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F66A8FAF1B09F268001B9C97 /* MWMPlacePage.mm */; };
 		F66A8FB21B0A0954001B9C97 /* PlacePageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66A8FB11B0A0954001B9C97 /* PlacePageView.xib */; };
-		F672A6B71AD423A7009060C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F672A6B61AD423A7009060C3 /* Images.xcassets */; };
 		F6791B131C43DEA7007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
 		F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */; };
 		F67BC26F1B254B2000FE1D7B /* MWMPlacePageDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67BC26E1B254B1F00FE1D7B /* MWMPlacePageDescriptionView.xib */; };
 		F67BC2751B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm in Sources */ = {isa = PBXBuildFile; fileRef = F67BC2741B254F5500FE1D7B /* MWMPlacePageTypeDescription.mm */; };
 		F681DE971BFB390A00B547C7 /* MWMWhatsNewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F681DE961BFB390A00B547C7 /* MWMWhatsNewController.mm */; };
 		F6830F111B85F6B900C42AAE /* MWMLanesPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6830F101B85F6B900C42AAE /* MWMLanesPanel.mm */; };
-		F68CEF741AD8852A00563FBA /* MWMMapController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68CEF731AD8852A00563FBA /* MWMMapController.mm */; };
 		F68E6BD21B8DB7AE0040566D /* MWMRouteHelperPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68E6BD11B8DB7AE0040566D /* MWMRouteHelperPanel.mm */; };
 		F696CCBB1C2816FB00150DFD /* MyTrackerSDKCorp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */; };
 		F6A750B91BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A750B81BE8C74400981B41 /* MWMSearchHistoryMyPositionCell.mm */; };
 		F6A750BB1BE8C7BA00981B41 /* MWMSearchHistoryMyPositionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6A750BA1BE8C7BA00981B41 /* MWMSearchHistoryMyPositionCell.xib */; };
-		F6B283151C1B23680081957A /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */; };
 		F6B2E61F1C3D5F31005562DF /* MWMNightModeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6B2E61E1C3D5F31005562DF /* MWMNightModeController.mm */; };
 		F6BB6CBE1BB15A5E00DF1DF2 /* MWMRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BB6CBD1BB15A5E00DF1DF2 /* MWMRoutePreview.xib */; };
 		F6BB6CC01BB17D7000DF1DF2 /* MWMRoutePointCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BB6CBF1BB17D7000DF1DF2 /* MWMRoutePointCell.xib */; };
@@ -718,10 +566,6 @@
 		F6BD33841B6240F200F2CE18 /* MWMNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33831B6240F200F2CE18 /* MWMNavigationView.mm */; };
 		F6BD33871B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD33861B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm */; };
 		F6C641B01C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C641AF1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm */; };
-		F6C6FE201AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C6FE1F1AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm */; };
-		F6C7B7121BA840A4004233F4 /* resources-xhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */; };
-		F6C7B7131BA840A4004233F4 /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */; };
-		F6C7B7141BA8443C004233F4 /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */; };
 		F6C9343C1AE4F94A00DDC624 /* MWMAnimator.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C9343B1AE4F94A00DDC624 /* MWMAnimator.mm */; };
 		F6C934401AE64E4200DDC624 /* MWMSpringAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C9343F1AE64E4200DDC624 /* MWMSpringAnimation.mm */; };
 		F6CB215C1AEE704D00FB8963 /* PlacePageInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6CB215B1AEE704D00FB8963 /* PlacePageInfoCell.xib */; };
@@ -731,10 +575,6 @@
 		F6CB21681AEFC6AA00FB8963 /* MWMPlacePageActionBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6CB21671AEFC6AA00FB8963 /* MWMPlacePageActionBar.mm */; };
 		F6CB216D1AF13EBD00FB8963 /* MWMPlacePageBookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6CB216C1AF13EBD00FB8963 /* MWMPlacePageBookmarkCell.mm */; };
 		F6D409FA1B319BD70041730F /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6D409F91B319BD70041730F /* ContextViews.mm */; };
-		F6D4344E1AD2AB96007C7728 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D4344D1AD2AB96007C7728 /* Images.xcassets */; };
-		F6D434521AD2AB96007C7728 /* maps.me WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 348E57D71B0F49EE000FA02A /* maps.me WatchKit App.app */; };
-		F6D4345A1AD2AB96007C7728 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6D434581AD2AB96007C7728 /* Interface.storyboard */; };
-		F6D4345F1AD2AB96007C7728 /* maps.me WatchKit Extension WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 348E57C81B0F49EE000FA02A /* maps.me WatchKit Extension WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F6D5822D1BFDB7C6009409E8 /* MWMPageController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6D5822C1BFDB7C6009409E8 /* MWMPageController.mm */; };
 		F6D5822E1BFDC9FF009409E8 /* MWMWhatsNewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F681DE961BFB390A00B547C7 /* MWMWhatsNewController.mm */; };
 		F6D5822F1BFDCA03009409E8 /* MWMPageController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6D5822C1BFDB7C6009409E8 /* MWMPageController.mm */; };
@@ -773,37 +613,6 @@
 		FAFF422A1347F101009BBB14 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		6741AA621BF3514C002C974C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6741A8ED1BF340D1002C974C;
-			remoteInfo = "xcmaps.me WatchKit Extension";
-		};
-		6741AAD81BF35ACB002C974C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6741A8DE1BF3407C002C974C;
-			remoteInfo = "xcmaps.me WatchKit App";
-		};
-		F6D434531AD2AB96007C7728 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F6D434501AD2AB96007C7728;
-			remoteInfo = "maps.me beta WatchKit App";
-		};
-		F6D4345D1AD2AB96007C7728 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F6D434451AD2AB96007C7728;
-			remoteInfo = "maps.me beta WatchKit Extension";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		6741AA521BF340DE002C974C /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -811,7 +620,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				6741AA601BF34EBD002C974C /* xcmaps.me WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -822,7 +630,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				F6D4345F1AD2AB96007C7728 /* maps.me WatchKit Extension WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -884,9 +691,6 @@
 		3438CDF71B8616760051AA78 /* MWMSearchShowOnMapCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchShowOnMapCell.xib; sourceTree = "<group>"; };
 		3438CDFA1B862F5C0051AA78 /* MWMSearchContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchContentView.h; sourceTree = "<group>"; };
 		3438CDFB1B862F5C0051AA78 /* MWMSearchContentView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchContentView.mm; sourceTree = "<group>"; };
-		343F262C1AEFC4A300388A6D /* MWMFrameworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkUtils.h; sourceTree = "<group>"; };
-		343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkUtils.mm; sourceTree = "<group>"; };
-		343F262F1AEFDB1A00388A6D /* Framework.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Framework.cpp; path = ../../Classes/Framework.cpp; sourceTree = "<group>"; };
 		344825901B8DBADF00757B1B /* MWMSearchDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchDownloadViewController.h; sourceTree = "<group>"; };
 		344825911B8DBADF00757B1B /* MWMSearchDownloadViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchDownloadViewController.mm; sourceTree = "<group>"; };
 		344825921B8DBADF00757B1B /* MWMSearchDownloadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchDownloadViewController.xib; sourceTree = "<group>"; };
@@ -900,15 +704,6 @@
 		34570A3C1B13223000E6D4FD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		34570A3E1B13225500E6D4FD /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		34570A401B13229300E6D4FD /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = Statistics/FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		345C31681AE7860600EA0CC2 /* MWMWatchLocationTrackerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMWatchLocationTrackerDelegate.h; sourceTree = "<group>"; };
-		345C316D1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCategoriesInterfaceCell.h; sourceTree = "<group>"; };
-		345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCategoriesInterfaceCell.mm; sourceTree = "<group>"; };
-		345C316F1AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCategoriesInterfaceController.h; sourceTree = "<group>"; };
-		345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCategoriesInterfaceController.mm; sourceTree = "<group>"; };
-		345C31741AE799B600EA0CC2 /* MWMSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchResultCell.h; sourceTree = "<group>"; };
-		345C31751AE799B600EA0CC2 /* MWMSearchResultCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchResultCell.mm; sourceTree = "<group>"; };
-		345C31761AE799B600EA0CC2 /* MWMSearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchResultController.h; sourceTree = "<group>"; };
-		345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchResultController.mm; sourceTree = "<group>"; };
 		3460B4C11BF369A2003EE796 /* StatisticsStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatisticsStrings.h; sourceTree = "<group>"; };
 		34634B1A1BB42D270013573C /* MWMBottomMenuCollectionViewLandscapeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBottomMenuCollectionViewLandscapeCell.xib; sourceTree = "<group>"; };
 		3465E7D61B6658C000854C4D /* MWMAPIBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBar.h; sourceTree = "<group>"; };
@@ -920,8 +715,6 @@
 		346F27951BD12AA80092D801 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		346F27961BD12AA80092D801 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		347274721B0F4EE000756B37 /* me.maps.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.entitlements; sourceTree = "<group>"; };
-		347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.watchkitextension.entitlements; sourceTree = "<group>"; };
-		347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.watchkitextension.production.entitlements; sourceTree = "<group>"; };
 		3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.production.entitlements; sourceTree = "<group>"; };
 		3472EC031B4D44BE0085CB79 /* UIFont+MapsMeFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+MapsMeFonts.h"; sourceTree = "<group>"; };
 		3472EC041B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIFont+MapsMeFonts.mm"; sourceTree = "<group>"; };
@@ -937,8 +730,6 @@
 		3485C0111B85C20E00F7712D /* MWMSearchTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchTableViewController.xib; sourceTree = "<group>"; };
 		348D1DF91C525B8300860465 /* MWMTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTypes.h; sourceTree = "<group>"; };
 		348E57981B0F49D8000FA02A /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		348E57C81B0F49EE000FA02A /* maps.me WatchKit Extension WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "maps.me WatchKit Extension WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		348E57D71B0F49EE000FA02A /* maps.me WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyTargetSDKCorp.framework; sourceTree = "<group>"; };
 		3497A9361B5CF8A900F51E55 /* MWMNavigationDashboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNavigationDashboardManager.h; sourceTree = "<group>"; };
 		3497A9371B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardManager.mm; sourceTree = "<group>"; };
@@ -962,8 +753,6 @@
 		349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBottomMenuViewController.xib; sourceTree = "<group>"; };
 		349C26B71BB04ED30005DF2F /* MWMBottomMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuView.h; sourceTree = "<group>"; };
 		349C26B81BB04ED30005DF2F /* MWMBottomMenuView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBottomMenuView.mm; sourceTree = "<group>"; };
-		34A742FD1AE5461A00CE15EB /* index.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = index.cpp; path = ../../../storage/index.cpp; sourceTree = "<group>"; };
-		34A742FF1AE5468200CE15EB /* storage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = storage.cpp; path = ../../../storage/storage.cpp; sourceTree = "<group>"; };
 		34B16C431B72655D000D3A0D /* MWMPedestrianShareAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPedestrianShareAlert.h; sourceTree = "<group>"; };
 		34B16C441B72655D000D3A0D /* MWMPedestrianShareAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPedestrianShareAlert.mm; sourceTree = "<group>"; };
 		34B6CF5C1BBBFC6B009203C6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1023,13 +812,17 @@
 		34D15BA51BD8F93C00C8BCBE /* AddSetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSetTableViewCell.h; sourceTree = "<group>"; };
 		34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AddSetTableViewCell.mm; sourceTree = "<group>"; };
 		34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSetTableViewCell.xib; sourceTree = "<group>"; };
-		34DF4D0F1AE77B9F0012702D /* MWMWKInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWKInterfaceController.h; sourceTree = "<group>"; };
-		34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWKInterfaceController.mm; sourceTree = "<group>"; };
 		34F45E8C1B96E88100AC93F8 /* MWMSearchTabButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTabButtonsView.h; sourceTree = "<group>"; };
 		34F45E8D1B96E88100AC93F8 /* MWMSearchTabButtonsView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchTabButtonsView.mm; sourceTree = "<group>"; };
 		34F45E8F1B96E8B100AC93F8 /* MWMSearchTabButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchTabButtonsView.xib; sourceTree = "<group>"; };
 		34F8ADD71B97229A004184CC /* MWMSearchTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchTableView.h; sourceTree = "<group>"; };
 		34F8ADD81B97229A004184CC /* MWMSearchTableView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchTableView.mm; sourceTree = "<group>"; };
+		34FDF4B91C5F8D6D00542F62 /* UIButton+Coloring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Coloring.h"; sourceTree = "<group>"; };
+		34FDF4BA1C5F8D6D00542F62 /* UIButton+Coloring.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIButton+Coloring.mm"; sourceTree = "<group>"; };
+		34FDF4BD1C5F923700542F62 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
+		34FDF4BE1C5F923700542F62 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
+		34FDF4BF1C5F923700542F62 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
+		34FDF4C01C5F923700542F62 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
 		34FE4C431BCC013500066718 /* MWMMapWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgets.h; sourceTree = "<group>"; };
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		3D443C9C19E421EE0025C2FC /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1056,8 +849,6 @@
 		5605022E1B6211E100169CAD /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "sound-strings"; path = "../../data/sound-strings"; sourceTree = "<group>"; };
 		560634F01B78804C00F3D670 /* MWMTextToSpeech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTextToSpeech.h; sourceTree = "<group>"; };
 		560634F11B78806100F3D670 /* MWMTextToSpeech.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextToSpeech.mm; sourceTree = "<group>"; };
-		6741A8EB1BF3407C002C974C /* xcmaps.me WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "xcmaps.me WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6741A93B1BF340D1002C974C /* xcmaps.me WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "xcmaps.me WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AA5D1BF340DE002C974C /* xcMAPS.ME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xcMAPS.ME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AA5F1BF34185002C974C /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../../xcode/defaults.xcconfig; sourceTree = "<group>"; };
 		6741AAA21BF356B9002C974C /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1083,22 +874,8 @@
 		6741AABA1BF356BA002C974C /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AABB1BF356BA002C974C /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6741AABC1BF356BA002C974C /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
-		674A7E211C0DA55E003D48E1 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
-		674A7E221C0DA55E003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
-		674A7E231C0DA55E003D48E1 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
 		6BA0BCCF1B74DDBA00CC9969 /* MWMCustomFacebookEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCustomFacebookEvents.h; sourceTree = "<group>"; };
 		6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCustomFacebookEvents.mm; sourceTree = "<group>"; };
-		6C24A3B01AD7D65500A47B99 /* MWMWatchEventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchEventInfo.h; sourceTree = "<group>"; };
-		6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWatchEventInfo.mm; sourceTree = "<group>"; };
-		6C47C8C31AD6C78A000C52C1 /* MWMNoLocationInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoLocationInterfaceController.h; sourceTree = "<group>"; };
-		6C47C8C41AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoLocationInterfaceController.mm; sourceTree = "<group>"; };
-		6C47C8C71AD6C825000C52C1 /* MWMNoMapInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoMapInterfaceController.h; sourceTree = "<group>"; };
-		6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoMapInterfaceController.mm; sourceTree = "<group>"; };
-		6C93FAEA1AD8063900A2C4AE /* MWMWatchNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchNotification.h; sourceTree = "<group>"; };
-		6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWatchNotification.mm; sourceTree = "<group>"; };
-		6CFBB8751AD84E1C009845A3 /* MWMFinishInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFinishInterfaceController.h; sourceTree = "<group>"; };
-		6CFBB8761AD84E1C009845A3 /* MWMFinishInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFinishInterfaceController.mm; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7794829519A4E66A005F57B9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1222,8 +999,6 @@
 		F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTableViewCell.mm; sourceTree = "<group>"; };
 		F62F1D931C3281F1006CF38E /* UIImageView+Coloring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Coloring.h"; sourceTree = "<group>"; };
 		F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+Coloring.mm"; sourceTree = "<group>"; };
-		F62F1D961C32B968006CF38E /* UIButton+Coloring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Coloring.h"; sourceTree = "<group>"; };
-		F62F1D971C32B968006CF38E /* UIButton+Coloring.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIButton+Coloring.mm"; sourceTree = "<group>"; };
 		F63732941AE9431E00A03764 /* MWMBasePlacePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBasePlacePageView.h; sourceTree = "<group>"; };
 		F63732951AE9431E00A03764 /* MWMBasePlacePageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBasePlacePageView.mm; sourceTree = "<group>"; };
 		F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutingDisclaimerAlert.xib; sourceTree = "<group>"; };
@@ -1274,8 +1049,6 @@
 		F66A8FAE1B09F268001B9C97 /* MWMPlacePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePage.h; sourceTree = "<group>"; };
 		F66A8FAF1B09F268001B9C97 /* MWMPlacePage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePage.mm; sourceTree = "<group>"; };
 		F66A8FB11B0A0954001B9C97 /* PlacePageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlacePageView.xib; sourceTree = "<group>"; };
-		F672A6B61AD423A7009060C3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F673E9151AD2B65B0064EB7F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		F6791B111C43DEA7007A8A6E /* MWMStartButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStartButton.h; sourceTree = "<group>"; };
 		F6791B121C43DEA7007A8A6E /* MWMStartButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStartButton.mm; sourceTree = "<group>"; };
 		F67BC26E1B254B1F00FE1D7B /* MWMPlacePageDescriptionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPlacePageDescriptionView.xib; sourceTree = "<group>"; };
@@ -1285,8 +1058,6 @@
 		F681DE961BFB390A00B547C7 /* MWMWhatsNewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWhatsNewController.mm; sourceTree = "<group>"; };
 		F6830F0F1B85F6B900C42AAE /* MWMLanesPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLanesPanel.h; sourceTree = "<group>"; };
 		F6830F101B85F6B900C42AAE /* MWMLanesPanel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLanesPanel.mm; sourceTree = "<group>"; };
-		F68CEF721AD8852A00563FBA /* MWMMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapController.h; sourceTree = "<group>"; };
-		F68CEF731AD8852A00563FBA /* MWMMapController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapController.mm; sourceTree = "<group>"; };
 		F68E6BD01B8DB7AE0040566D /* MWMRouteHelperPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouteHelperPanel.h; sourceTree = "<group>"; };
 		F68E6BD11B8DB7AE0040566D /* MWMRouteHelperPanel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouteHelperPanel.mm; sourceTree = "<group>"; };
 		F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MyTrackerSDKCorp.framework; path = MyTracker/MyTrackerSDKCorp.framework; sourceTree = "<group>"; };
@@ -1321,8 +1092,6 @@
 		F6BD33861B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardEntity.mm; sourceTree = "<group>"; };
 		F6C641AE1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRecentTrackSettingsController.h; sourceTree = "<group>"; };
 		F6C641AF1C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRecentTrackSettingsController.mm; sourceTree = "<group>"; };
-		F6C6FE1E1AD6BEA0009FDED7 /* MWMWatchLocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchLocationTracker.h; sourceTree = "<group>"; };
-		F6C6FE1F1AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWatchLocationTracker.mm; sourceTree = "<group>"; };
 		F6C9343A1AE4F94A00DDC624 /* MWMAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAnimator.h; sourceTree = "<group>"; };
 		F6C9343B1AE4F94A00DDC624 /* MWMAnimator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAnimator.mm; sourceTree = "<group>"; };
 		F6C9343E1AE64E4200DDC624 /* MWMSpringAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSpringAnimation.h; sourceTree = "<group>"; };
@@ -1338,10 +1107,6 @@
 		F6CB216C1AF13EBD00FB8963 /* MWMPlacePageBookmarkCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageBookmarkCell.mm; sourceTree = "<group>"; };
 		F6D409F81B319BD70041730F /* ContextViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextViews.h; sourceTree = "<group>"; };
 		F6D409F91B319BD70041730F /* ContextViews.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContextViews.mm; sourceTree = "<group>"; };
-		F6D434491AD2AB96007C7728 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F6D4344D1AD2AB96007C7728 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F6D434571AD2AB96007C7728 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F6D434591AD2AB96007C7728 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		F6D5822B1BFDB7C6009409E8 /* MWMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPageController.h; sourceTree = "<group>"; };
 		F6D5822C1BFDB7C6009409E8 /* MWMPageController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPageController.mm; sourceTree = "<group>"; };
 		F6DBF9B41AA8779300F2EC2C /* CALayer+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RuntimeAttributes.h"; sourceTree = "<group>"; };
@@ -1457,58 +1222,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6741A9041BF340D1002C974C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				674A7E241C0DA55E003D48E1 /* libdrape_frontend.a in Frameworks */,
-				674A7E251C0DA55E003D48E1 /* libdrape.a in Frameworks */,
-				674A7E261C0DA55E003D48E1 /* libsdf_image.a in Frameworks */,
-				674A7E271C0DA55E003D48E1 /* libstb_image.a in Frameworks */,
-				6741A9051BF340D1002C974C /* libz.dylib in Frameworks */,
-				6741A9061BF340D1002C974C /* SystemConfiguration.framework in Frameworks */,
-				67E504431BFA355B001F34BA /* libapi.a in Frameworks */,
-				6741A9071BF340D1002C974C /* CoreLocation.framework in Frameworks */,
-				67E5044F1BFA355B001F34BA /* libmap.a in Frameworks */,
-				67E504481BFA355B001F34BA /* libfribidi.a in Frameworks */,
-				67E5045A1BFA355B001F34BA /* libtomcrypt.a in Frameworks */,
-				67E5044E1BFA355B001F34BA /* liblodepng.a in Frameworks */,
-				67E504441BFA355B001F34BA /* libbase.a in Frameworks */,
-				67E504521BFA355B001F34BA /* libosrm.a in Frameworks */,
-				67E504571BFA355B001F34BA /* libsearch.a in Frameworks */,
-				67E504561BFA355B001F34BA /* librouting.a in Frameworks */,
-				67E504541BFA355B001F34BA /* libprotobuf.a in Frameworks */,
-				67E504411BFA355B001F34BA /* libalohalitics.a in Frameworks */,
-				67E504491BFA355B001F34BA /* libgeometry.a in Frameworks */,
-				67E5044D1BFA355B001F34BA /* libjansson.a in Frameworks */,
-				67E504501BFA355B001F34BA /* libminizip.a in Frameworks */,
-				6741A9081BF340D1002C974C /* UIKit.framework in Frameworks */,
-				6741A9091BF340D1002C974C /* WatchKit.framework in Frameworks */,
-				6741A90A1BF340D1002C974C /* AdSupport.framework in Frameworks */,
-				67E504531BFA355B001F34BA /* libplatform.a in Frameworks */,
-				6741A90B1BF340D1002C974C /* iAd.framework in Frameworks */,
-				67E504581BFA355B001F34BA /* libstorage.a in Frameworks */,
-				67E5044C1BFA355B001F34BA /* libindexer.a in Frameworks */,
-				6741A90C1BF340D1002C974C /* QuartzCore.framework in Frameworks */,
-				6741A90D1BF340D1002C974C /* CoreData.framework in Frameworks */,
-				67E504461BFA355B001F34BA /* libexpat.a in Frameworks */,
-				67E504451BFA355B001F34BA /* libcoding.a in Frameworks */,
-				6741A90E1BF340D1002C974C /* CoreMedia.framework in Frameworks */,
-				67E504511BFA355B001F34BA /* libopening_hours.a in Frameworks */,
-				6741A90F1BF340D1002C974C /* CoreGraphics.framework in Frameworks */,
-				67E504471BFA355B001F34BA /* libfreetype.a in Frameworks */,
-				6741A9101BF340D1002C974C /* Foundation.framework in Frameworks */,
-				6741A9111BF340D1002C974C /* AVFoundation.framework in Frameworks */,
-				67E504401BFA355B001F34BA /* libagg.a in Frameworks */,
-				6741A9121BF340D1002C974C /* OpenGLES.framework in Frameworks */,
-				67E504591BFA355B001F34BA /* libsuccinct.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6741AA311BF340DE002C974C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34FDF4C11C5F923700542F62 /* libdrape_frontend.a in Frameworks */,
+				34FDF4C21C5F923700542F62 /* libdrape.a in Frameworks */,
+				34FDF4C31C5F923700542F62 /* libsdf_image.a in Frameworks */,
+				34FDF4C41C5F923700542F62 /* libstb_image.a in Frameworks */,
 				34921F6B1BFA0CDC00737D6E /* MyTargetSDKCorp.framework in Frameworks */,
 				6741AABD1BF356BA002C974C /* libagg.a in Frameworks */,
 				6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */,
@@ -1520,7 +1241,6 @@
 				6741AAC51BF356BA002C974C /* libfribidi.a in Frameworks */,
 				6741AAC61BF356BA002C974C /* libgeometry.a in Frameworks */,
 				34CA57191C292F50004D9C89 /* MediaPlayer.framework in Frameworks */,
-				674A7E291C0DA576003D48E1 /* libsdf_image.a in Frameworks */,
 				34CA57181C292F17004D9C89 /* MyTrackerSDKCorp.framework in Frameworks */,
 				6741AAC91BF356BA002C974C /* libindexer.a in Frameworks */,
 				341876B51C280272005A0C9A /* CoreVideo.framework in Frameworks */,
@@ -1533,7 +1253,6 @@
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
 				6741AAD11BF356BA002C974C /* libprotobuf.a in Frameworks */,
 				6741AAD31BF356BA002C974C /* librouting.a in Frameworks */,
-				674A7E281C0DA573003D48E1 /* libstb_image.a in Frameworks */,
 				6741AAD41BF356BA002C974C /* libsearch.a in Frameworks */,
 				6741AAD51BF356BA002C974C /* libstorage.a in Frameworks */,
 				6741AAD61BF356BA002C974C /* libsuccinct.a in Frameworks */,
@@ -1544,7 +1263,6 @@
 				6741AA351BF340DE002C974C /* libsqlite3.dylib in Frameworks */,
 				6741AA361BF340DE002C974C /* libz.dylib in Frameworks */,
 				6741AA371BF340DE002C974C /* AudioToolbox.framework in Frameworks */,
-				674A7E2B1C0DA57C003D48E1 /* libdrape_frontend.a in Frameworks */,
 				6741AA381BF340DE002C974C /* Bolts.framework in Frameworks */,
 				6741AA391BF340DE002C974C /* Parse.framework in Frameworks */,
 				6741AA3A1BF340DE002C974C /* ParseFacebookUtilsV4.framework in Frameworks */,
@@ -1554,7 +1272,6 @@
 				6741AA3F1BF340DE002C974C /* PassKit.framework in Frameworks */,
 				6741AA401BF340DE002C974C /* libFlurry_7.1.0.a in Frameworks */,
 				6741AA411BF340DE002C974C /* CoreMedia.framework in Frameworks */,
-				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
 				6741AA421BF340DE002C974C /* CoreData.framework in Frameworks */,
 				6741AA431BF340DE002C974C /* AVFoundation.framework in Frameworks */,
 				6741AA441BF340DE002C974C /* CFNetwork.framework in Frameworks */,
@@ -1574,27 +1291,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F6D434431AD2AB96007C7728 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6B53A1B21B83C25400E4CDAD /* libz.dylib in Frameworks */,
-				6B8A738A1B2616E90085EFE6 /* SystemConfiguration.framework in Frameworks */,
-				348E578E1B0F3752000FA02A /* CoreLocation.framework in Frameworks */,
-				454040761AD2DD73007A9B12 /* UIKit.framework in Frameworks */,
-				4540406F1AD2D9C5007A9B12 /* WatchKit.framework in Frameworks */,
-				4540406D1AD2D958007A9B12 /* AdSupport.framework in Frameworks */,
-				4540406C1AD2D92D007A9B12 /* iAd.framework in Frameworks */,
-				4540406B1AD2D919007A9B12 /* QuartzCore.framework in Frameworks */,
-				454040661AD2D88A007A9B12 /* CoreData.framework in Frameworks */,
-				4540406A1AD2D8FD007A9B12 /* CoreMedia.framework in Frameworks */,
-				454040671AD2D897007A9B12 /* CoreGraphics.framework in Frameworks */,
-				454040641AD2D862007A9B12 /* Foundation.framework in Frameworks */,
-				454040631AD2D83A007A9B12 /* AVFoundation.framework in Frameworks */,
-				454040621AD2D75E007A9B12 /* OpenGLES.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1607,7 +1303,6 @@
 				340837101B7243B500B5C185 /* Share */,
 				340F24601B1490ED00F874CD /* RouteState */,
 				F6588E291B15C25C00EE1E58 /* TextView */,
-				F62A73A71AD8950900175470 /* WatchEventHandler */,
 				F64F195F1AB8125C006EAF7E /* CustomAlert */,
 				97B4E9271851DAB300BEC5D7 /* Custom Views */,
 				FA4135DF120A25B90062D5B4 /* Settings */,
@@ -1643,10 +1338,6 @@
 			isa = PBXGroup;
 			children = (
 				348E57981B0F49D8000FA02A /* maps.me dbg.app */,
-				348E57C81B0F49EE000FA02A /* maps.me WatchKit Extension WatchKit Extension.appex */,
-				348E57D71B0F49EE000FA02A /* maps.me WatchKit App.app */,
-				6741A8EB1BF3407C002C974C /* xcmaps.me WatchKit App.app */,
-				6741A93B1BF340D1002C974C /* xcmaps.me WatchKit Extension.appex */,
 				6741AA5D1BF340DE002C974C /* xcMAPS.ME.app */,
 			);
 			name = Products;
@@ -1666,8 +1357,6 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				FA065FC61286143F00FEA989 /* External Resources */,
-				F6D434471AD2AB96007C7728 /* maps.me WatchKit Extension */,
-				F6D434551AD2AB96007C7728 /* maps.me WatchKit App */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				8D1107310486CEB800E47090 /* MAPSME.plist */,
@@ -1703,11 +1392,11 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34FDF4BD1C5F923700542F62 /* libdrape_frontend.a */,
+				34FDF4BE1C5F923700542F62 /* libdrape.a */,
+				34FDF4BF1C5F923700542F62 /* libsdf_image.a */,
+				34FDF4C01C5F923700542F62 /* libstb_image.a */,
 				F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */,
-				674A7E201C0DA55E003D48E1 /* libdrape_frontend.a */,
-				674A7E211C0DA55E003D48E1 /* libdrape.a */,
-				674A7E221C0DA55E003D48E1 /* libsdf_image.a */,
-				674A7E231C0DA55E003D48E1 /* libstb_image.a */,
 				34921F691BFA0CDC00737D6E /* MyTargetSDKCorp.framework */,
 				6741AAA21BF356B9002C974C /* libagg.a */,
 				6741AAA31BF356B9002C974C /* libalohalitics.a */,
@@ -1742,7 +1431,6 @@
 				34570A351B13217C00E6D4FD /* ParseFacebookUtilsV4.framework */,
 				4540406E1AD2D9C5007A9B12 /* WatchKit.framework */,
 				454040681AD2D8D2007A9B12 /* CoreVideo.framework */,
-				F673E9151AD2B65B0064EB7F /* GLKit.framework */,
 				F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */,
 				F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */,
 				B00511051A1101FC00A61AA4 /* CoreMedia.framework */,
@@ -1802,15 +1490,6 @@
 			path = Console;
 			sourceTree = "<group>";
 		};
-		343F262B1AEFC4A300388A6D /* FrameworkUtils */ = {
-			isa = PBXGroup;
-			children = (
-				343F262C1AEFC4A300388A6D /* MWMFrameworkUtils.h */,
-				343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */,
-			);
-			path = FrameworkUtils;
-			sourceTree = "<group>";
-		};
 		3448258F1B8DB05C00757B1B /* DownloadView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1821,52 +1500,6 @@
 				344825921B8DBADF00757B1B /* MWMSearchDownloadViewController.xib */,
 			);
 			path = DownloadView;
-			sourceTree = "<group>";
-		};
-		345C316A1AE7939B00EA0CC2 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				F62A73A41AD8947400175470 /* Finish */,
-				F62A739E1AD893F300175470 /* Map */,
-				6C47C8C61AD6C7E6000C52C1 /* MapDownload */,
-				6C47C8C21AD6C76A000C52C1 /* Location */,
-				345C316B1AE798A700EA0CC2 /* Search */,
-				34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */,
-				34DF4D0F1AE77B9F0012702D /* MWMWKInterfaceController.h */,
-				343F262F1AEFDB1A00388A6D /* Framework.cpp */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		345C316B1AE798A700EA0CC2 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				345C31731AE799B600EA0CC2 /* SearchResult */,
-				345C316C1AE798DD00EA0CC2 /* Categories */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
-		345C316C1AE798DD00EA0CC2 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				345C316D1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.h */,
-				345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.mm */,
-				345C316F1AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.h */,
-				345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
-		345C31731AE799B600EA0CC2 /* SearchResult */ = {
-			isa = PBXGroup;
-			children = (
-				345C31741AE799B600EA0CC2 /* MWMSearchResultCell.h */,
-				345C31751AE799B600EA0CC2 /* MWMSearchResultCell.mm */,
-				345C31761AE799B600EA0CC2 /* MWMSearchResultController.h */,
-				345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */,
-			);
-			path = SearchResult;
 			sourceTree = "<group>";
 		};
 		3465E7D51B66589900854C4D /* APIBar */ = {
@@ -1897,24 +1530,6 @@
 			children = (
 				347274721B0F4EE000756B37 /* me.maps.entitlements */,
 				3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */,
-			);
-			path = Entitlements;
-			sourceTree = "<group>";
-		};
-		347274741B0F4EF600756B37 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				347274751B0F4F2C00756B37 /* Entitlements */,
-				F6D4344D1AD2AB96007C7728 /* Images.xcassets */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		347274751B0F4F2C00756B37 /* Entitlements */ = {
-			isa = PBXGroup;
-			children = (
-				347274761B0F4F3900756B37 /* me.maps.watchkitextension.entitlements */,
-				347274781B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements */,
 			);
 			path = Entitlements;
 			sourceTree = "<group>";
@@ -2192,33 +1807,15 @@
 			path = Sound;
 			sourceTree = "<group>";
 		};
-		6C47C8C21AD6C76A000C52C1 /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				6C47C8C31AD6C78A000C52C1 /* MWMNoLocationInterfaceController.h */,
-				6C47C8C41AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm */,
-			);
-			path = Location;
-			sourceTree = "<group>";
-		};
-		6C47C8C61AD6C7E6000C52C1 /* MapDownload */ = {
-			isa = PBXGroup;
-			children = (
-				6C47C8C71AD6C825000C52C1 /* MWMNoMapInterfaceController.h */,
-				6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */,
-			);
-			path = MapDownload;
-			sourceTree = "<group>";
-		};
 		974726401832306C006B7CB7 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				34FDF4B91C5F8D6D00542F62 /* UIButton+Coloring.h */,
+				34FDF4BA1C5F8D6D00542F62 /* UIButton+Coloring.mm */,
 				342AD7701B53D32F00E0B997 /* UIView+RuntimeAttributes.h */,
 				342AD7711B53D32F00E0B997 /* UIView+RuntimeAttributes.mm */,
 				342AD76D1B53D30C00E0B997 /* UIButton+RuntimeAttributes.h */,
 				342AD76E1B53D30C00E0B997 /* UIButton+RuntimeAttributes.mm */,
-				F62F1D961C32B968006CF38E /* UIButton+Coloring.h */,
-				F62F1D971C32B968006CF38E /* UIButton+Coloring.mm */,
 				F62F1D931C3281F1006CF38E /* UIImageView+Coloring.h */,
 				F62F1D941C3281F1006CF38E /* UIImageView+Coloring.mm */,
 				9747264218323080006B7CB7 /* UIKitCategories.h */,
@@ -2342,45 +1939,6 @@
 				F6FF2E2A1B8C5C020063FD1F /* MWMNextTurnPanel.xib */,
 			);
 			name = "Next Turn";
-			sourceTree = "<group>";
-		};
-		F62A739E1AD893F300175470 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				F68CEF721AD8852A00563FBA /* MWMMapController.h */,
-				F68CEF731AD8852A00563FBA /* MWMMapController.mm */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
-		F62A73A11AD8945200175470 /* LocationTracker */ = {
-			isa = PBXGroup;
-			children = (
-				F6C6FE1E1AD6BEA0009FDED7 /* MWMWatchLocationTracker.h */,
-				F6C6FE1F1AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm */,
-				345C31681AE7860600EA0CC2 /* MWMWatchLocationTrackerDelegate.h */,
-			);
-			path = LocationTracker;
-			sourceTree = "<group>";
-		};
-		F62A73A41AD8947400175470 /* Finish */ = {
-			isa = PBXGroup;
-			children = (
-				6CFBB8751AD84E1C009845A3 /* MWMFinishInterfaceController.h */,
-				6CFBB8761AD84E1C009845A3 /* MWMFinishInterfaceController.mm */,
-			);
-			path = Finish;
-			sourceTree = "<group>";
-		};
-		F62A73A71AD8950900175470 /* WatchEventHandler */ = {
-			isa = PBXGroup;
-			children = (
-				6C24A3B01AD7D65500A47B99 /* MWMWatchEventInfo.h */,
-				6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */,
-				6C93FAEA1AD8063900A2C4AE /* MWMWatchNotification.h */,
-				6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.mm */,
-			);
-			path = WatchEventHandler;
 			sourceTree = "<group>";
 		};
 		F63774E51B59374F00BCF54D /* RoutingDisclaimerAlert */ = {
@@ -2654,46 +2212,6 @@
 			name = ActionBar;
 			sourceTree = "<group>";
 		};
-		F6D434471AD2AB96007C7728 /* maps.me WatchKit Extension */ = {
-			isa = PBXGroup;
-			children = (
-				F62A73A11AD8945200175470 /* LocationTracker */,
-				343F262B1AEFC4A300388A6D /* FrameworkUtils */,
-				345C316A1AE7939B00EA0CC2 /* Controllers */,
-				347274741B0F4EF600756B37 /* Resources */,
-				F6D434481AD2AB96007C7728 /* Supporting Files */,
-			);
-			path = "maps.me WatchKit Extension";
-			sourceTree = "<group>";
-		};
-		F6D434481AD2AB96007C7728 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				34A742FD1AE5461A00CE15EB /* index.cpp */,
-				34A742FF1AE5468200CE15EB /* storage.cpp */,
-				F6D434491AD2AB96007C7728 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F6D434551AD2AB96007C7728 /* maps.me WatchKit App */ = {
-			isa = PBXGroup;
-			children = (
-				F6D434581AD2AB96007C7728 /* Interface.storyboard */,
-				F672A6B61AD423A7009060C3 /* Images.xcassets */,
-				F6D434561AD2AB96007C7728 /* Supporting Files */,
-			);
-			path = "maps.me WatchKit App";
-			sourceTree = "<group>";
-		};
-		F6D434561AD2AB96007C7728 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F6D434571AD2AB96007C7728 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		F6F722F51AE156A000DA3DA1 /* PlacePage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2874,45 +2392,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				F6D4345E1AD2AB96007C7728 /* PBXTargetDependency */,
 			);
 			name = MAPS.ME;
 			productName = Maps;
 			productReference = 348E57981B0F49D8000FA02A /* maps.me dbg.app */;
 			productType = "com.apple.product-type.application";
-		};
-		6741A8DE1BF3407C002C974C /* xcmaps.me WatchKit App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6741A8E21BF3407C002C974C /* Build configuration list for PBXNativeTarget "xcmaps.me WatchKit App" */;
-			buildPhases = (
-				6741A8DF1BF3407C002C974C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "xcmaps.me WatchKit App";
-			productName = "maps.me beta WatchKit App";
-			productReference = 6741A8EB1BF3407C002C974C /* xcmaps.me WatchKit App.app */;
-			productType = "com.apple.product-type.application.watchapp";
-		};
-		6741A8ED1BF340D1002C974C /* xcmaps.me WatchKit Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6741A9321BF340D1002C974C /* Build configuration list for PBXNativeTarget "xcmaps.me WatchKit Extension" */;
-			buildPhases = (
-				6741A8F11BF340D1002C974C /* Sources */,
-				6741A9041BF340D1002C974C /* Frameworks */,
-				6741A9131BF340D1002C974C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6741AAD91BF35ACB002C974C /* PBXTargetDependency */,
-			);
-			name = "xcmaps.me WatchKit Extension";
-			productName = "maps.me beta WatchKit Extension";
-			productReference = 6741A93B1BF340D1002C974C /* xcmaps.me WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit-extension";
 		};
 		6741A93D1BF340DE002C974C /* xcMAPS.ME */ = {
 			isa = PBXNativeTarget;
@@ -2926,46 +2410,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				6741AA631BF3514C002C974C /* PBXTargetDependency */,
 			);
 			name = xcMAPS.ME;
 			productName = Maps;
 			productReference = 6741AA5D1BF340DE002C974C /* xcMAPS.ME.app */;
 			productType = "com.apple.product-type.application";
-		};
-		F6D434451AD2AB96007C7728 /* maps.me WatchKit Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F6D434711AD2AB97007C7728 /* Build configuration list for PBXNativeTarget "maps.me WatchKit Extension" */;
-			buildPhases = (
-				45AD93611AD2F2470009C01B /* ShellScript */,
-				F6D434421AD2AB96007C7728 /* Sources */,
-				F6D434431AD2AB96007C7728 /* Frameworks */,
-				F6D434441AD2AB96007C7728 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F6D434541AD2AB96007C7728 /* PBXTargetDependency */,
-			);
-			name = "maps.me WatchKit Extension";
-			productName = "maps.me beta WatchKit Extension";
-			productReference = 348E57C81B0F49EE000FA02A /* maps.me WatchKit Extension WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit-extension";
-		};
-		F6D434501AD2AB96007C7728 /* maps.me WatchKit App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F6D434701AD2AB97007C7728 /* Build configuration list for PBXNativeTarget "maps.me WatchKit App" */;
-			buildPhases = (
-				F6D4344F1AD2AB96007C7728 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "maps.me WatchKit App";
-			productName = "maps.me beta WatchKit App";
-			productReference = 348E57D71B0F49EE000FA02A /* maps.me WatchKit App.app */;
-			productType = "com.apple.product-type.application.watchapp";
 		};
 /* End PBXNativeTarget section */
 
@@ -2973,7 +2422,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
@@ -2987,26 +2436,7 @@
 							};
 						};
 					};
-					6741A8DE1BF3407C002C974C = {
-						DevelopmentTeam = XMK5825GXK;
-					};
-					6741A8ED1BF340D1002C974C = {
-						DevelopmentTeam = XMK5825GXK;
-					};
 					6741A93D1BF340DE002C974C = {
-						DevelopmentTeam = XMK5825GXK;
-					};
-					F6D434451AD2AB96007C7728 = {
-						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = XMK5825GXK;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
-					F6D434501AD2AB96007C7728 = {
-						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = XMK5825GXK;
 					};
 				};
@@ -3055,11 +2485,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* MAPS.ME */,
-				F6D434451AD2AB96007C7728 /* maps.me WatchKit Extension */,
-				F6D434501AD2AB96007C7728 /* maps.me WatchKit App */,
 				6741A93D1BF340DE002C974C /* xcMAPS.ME */,
-				6741A8ED1BF340D1002C974C /* xcmaps.me WatchKit Extension */,
-				6741A8DE1BF3407C002C974C /* xcmaps.me WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -3132,7 +2558,6 @@
 				F6ED13561B16439E0095C6DE /* MWMDirectionView.xib in Resources */,
 				34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
-				9DA46A081C47E92100EF52BA /* resources-hdpi_legacy in Resources */,
 				34CFFE8D1B7DE71C009D0C9F /* MWMSearchView.xib in Resources */,
 				F6588E381B15D87A00EE1E58 /* MWMBookmarkColorCell.xib in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
@@ -3171,52 +2596,6 @@
 				347BAC691B733D540010FF78 /* MWMPedestrianShareAlert.xib in Resources */,
 				F6FF2E2B1B8C5C020063FD1F /* MWMNextTurnPanel.xib in Resources */,
 				FAF30A95173AB23900818BF6 /* 07_roboto_medium.ttf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6741A8DF1BF3407C002C974C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6741A8E01BF3407C002C974C /* Interface.storyboard in Resources */,
-				6741A8E11BF3407C002C974C /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6741A9131BF340D1002C974C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6741AA611BF350A1002C974C /* xcmaps.me WatchKit App.app in Resources */,
-				6741A9141BF340D1002C974C /* drules_proto_clear.bin in Resources */,
-				6741A9151BF340D1002C974C /* resources-xhdpi_clear in Resources */,
-				6741A9161BF340D1002C974C /* resources-xhdpi_dark in Resources */,
-				6741A9181BF340D1002C974C /* Localizable.strings in Resources */,
-				9DA46A191C47E96500EF52BA /* resources-xhdpi_legacy in Resources */,
-				6741A9191BF340D1002C974C /* 07_roboto_medium.ttf in Resources */,
-				6741A91A1BF340D1002C974C /* 01_dejavusans.ttf in Resources */,
-				6741A91B1BF340D1002C974C /* 02_droidsans-fallback.ttf in Resources */,
-				6741A91C1BF340D1002C974C /* 03_jomolhari-id-a3d.ttf in Resources */,
-				6741A91D1BF340D1002C974C /* 04_padauk.ttf in Resources */,
-				6741A91E1BF340D1002C974C /* 05_khmeros.ttf in Resources */,
-				6741A91F1BF340D1002C974C /* 06_code2000.ttf in Resources */,
-				6741A9201BF340D1002C974C /* me.maps.watchkitextension.production.entitlements in Resources */,
-				6741A9211BF340D1002C974C /* InfoPlist.strings in Resources */,
-				6741A9221BF340D1002C974C /* packed_polygons.bin in Resources */,
-				6741A9231BF340D1002C974C /* sound-strings in Resources */,
-				6741A9241BF340D1002C974C /* drules_proto_dark.bin in Resources */,
-				6741A9261BF340D1002C974C /* me.maps.watchkitextension.entitlements in Resources */,
-				6741A9271BF340D1002C974C /* categories.txt in Resources */,
-				9DA46A171C47E95B00EF52BA /* drules_proto_legacy.bin in Resources */,
-				6741A9281BF340D1002C974C /* types.txt in Resources */,
-				6741A9291BF340D1002C974C /* fonts_blacklist.txt in Resources */,
-				6741A92A1BF340D1002C974C /* fonts_whitelist.txt in Resources */,
-				6741A92B1BF340D1002C974C /* unicode_blocks.txt in Resources */,
-				6741A92C1BF340D1002C974C /* me.maps.production.entitlements in Resources */,
-				6741A92D1BF340D1002C974C /* countries.txt in Resources */,
-				6741A92E1BF340D1002C974C /* classificator.txt in Resources */,
-				6741A92F1BF340D1002C974C /* synonyms.txt in Resources */,
-				6741A9301BF340D1002C974C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3329,70 +2708,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F6D434441AD2AB96007C7728 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				452FCA3E1B6A3E83007019AB /* colors.txt in Resources */,
-				4519503B1B7A3E390085DA05 /* patterns.txt in Resources */,
-				F6C7B7141BA8443C004233F4 /* drules_proto_clear.bin in Resources */,
-				F6C7B7121BA840A4004233F4 /* resources-xhdpi_clear in Resources */,
-				F6C7B7131BA840A4004233F4 /* resources-xhdpi_dark in Resources */,
-				6C47C8BF1AD6C47E000C52C1 /* Localizable.strings in Resources */,
-				4579C8A11AD2FAB1001D6B90 /* 01_dejavusans.ttf in Resources */,
-				9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */,
-				4579C8A31AD2FAB1001D6B90 /* 03_jomolhari-id-a3d.ttf in Resources */,
-				4579C8A41AD2FAB1001D6B90 /* 04_padauk.ttf in Resources */,
-				4579C8A51AD2FAB1001D6B90 /* 05_khmeros.ttf in Resources */,
-				4579C8A61AD2FAB1001D6B90 /* 06_code2000.ttf in Resources */,
-				4579C8A01AD2FAB1001D6B90 /* 07_roboto_medium.ttf in Resources */,
-				347274791B0F4FD900756B37 /* me.maps.watchkitextension.production.entitlements in Resources */,
-				34C659481BD12A77009DC20A /* InfoPlist.strings in Resources */,
-				9DA46A181C47E96400EF52BA /* resources-xhdpi_legacy in Resources */,
-				4579C89F1AD2FA36001D6B90 /* packed_polygons.bin in Resources */,
-				34C6594C1BD12A89009DC20A /* sound-strings in Resources */,
-				4579C89D1AD2F9E6001D6B90 /* drules_proto_dark.bin in Resources */,
-				347274771B0F4F3900756B37 /* me.maps.watchkitextension.entitlements in Resources */,
-				4579C8961AD2F9A1001D6B90 /* categories.txt in Resources */,
-				4579C8971AD2F9A1001D6B90 /* types.txt in Resources */,
-				4579C8981AD2F9A2001D6B90 /* fonts_blacklist.txt in Resources */,
-				4579C8991AD2F9A2001D6B90 /* fonts_whitelist.txt in Resources */,
-				4579C89A1AD2F9A2001D6B90 /* unicode_blocks.txt in Resources */,
-				3472747B1B0F4FF100756B37 /* me.maps.production.entitlements in Resources */,
-				4579C89B1AD2F9A2001D6B90 /* countries.txt in Resources */,
-				9DA46A161C47E95A00EF52BA /* drules_proto_legacy.bin in Resources */,
-				4579C89C1AD2F9A2001D6B90 /* classificator.txt in Resources */,
-				4579C8951AD2F98B001D6B90 /* synonyms.txt in Resources */,
-				F6D4344E1AD2AB96007C7728 /* Images.xcassets in Resources */,
-				F6D434521AD2AB96007C7728 /* maps.me WatchKit App.app in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F6D4344F1AD2AB96007C7728 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F6D4345A1AD2AB96007C7728 /* Interface.storyboard in Resources */,
-				F672A6B71AD423A7009060C3 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		45AD93611AD2F2470009C01B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = ". run-script-for-target.sh";
-		};
 		FA3A60E715AD5BBD00F40D20 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3442,7 +2760,6 @@
 				F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */,
 				F6BB6CC61BB18C0900DF1DF2 /* MWMRoutePointCell.m in Sources */,
 				A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */,
-				6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */,
 				F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm in Sources */,
 				34CC4C0E1B82069C00E44C1F /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				F6588E2C1B15C26700EE1E58 /* MWMTextView.mm in Sources */,
@@ -3509,6 +2826,7 @@
 				F6C641B01C15BBE6008FCAF3 /* MWMRecentTrackSettingsController.mm in Sources */,
 				F6588E2F1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm in Sources */,
 				349A358E1B53EABC009677EE /* MWMSearchDownloadMapRequestView.mm in Sources */,
+				34FDF4BB1C5F8D6D00542F62 /* UIButton+Coloring.mm in Sources */,
 				A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */,
 				FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */,
 				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
@@ -3555,12 +2873,10 @@
 				3472EC051B4D44BE0085CB79 /* UIFont+MapsMeFonts.mm in Sources */,
 				342AD76F1B53D30C00E0B997 /* UIButton+RuntimeAttributes.mm in Sources */,
 				349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */,
-				F62F1D981C32B968006CF38E /* UIButton+Coloring.mm in Sources */,
 				349A358C1B53EABC009677EE /* MWMSearchDownloadMapRequest.mm in Sources */,
 				F63732961AE9431E00A03764 /* MWMBasePlacePageView.mm in Sources */,
 				F64F199B1AB81A00006EAF7E /* MWMAlert.mm in Sources */,
 				ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */,
-				6C24A3B21AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */,
 				ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 				340E10631B949D1900D975D5 /* MWMSearchBookmarksManager.mm in Sources */,
 				34D15BA81BD8F93C00C8BCBE /* AddSetTableViewCell.mm in Sources */,
@@ -3568,29 +2884,6 @@
 				F62F1D951C3281F1006CF38E /* UIImageView+Coloring.mm in Sources */,
 				F6FE2C151B04A44E009814AA /* MWMPlacePageEntity.mm in Sources */,
 				34B82AB21B8344E300180497 /* MWMSearchTextField.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6741A8F11BF340D1002C974C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6741A8F21BF340D1002C974C /* Framework.cpp in Sources */,
-				6741A8F31BF340D1002C974C /* storage.cpp in Sources */,
-				6741A8F41BF340D1002C974C /* index.cpp in Sources */,
-				6741A8F51BF340D1002C974C /* MWMWatchNotification.mm in Sources */,
-				6741A8F61BF340D1002C974C /* MWMCategoriesInterfaceCell.mm in Sources */,
-				6741A8F71BF340D1002C974C /* MWMFinishInterfaceController.mm in Sources */,
-				6741A8F81BF340D1002C974C /* MWMNoMapInterfaceController.mm in Sources */,
-				6741A8F91BF340D1002C974C /* MWMMapController.mm in Sources */,
-				6741A8FA1BF340D1002C974C /* MWMNoLocationInterfaceController.mm in Sources */,
-				6741A8FB1BF340D1002C974C /* MWMWatchEventInfo.mm in Sources */,
-				6741A8FC1BF340D1002C974C /* MWMSearchResultCell.mm in Sources */,
-				6741A8FD1BF340D1002C974C /* MWMWatchLocationTracker.mm in Sources */,
-				6741A8FE1BF340D1002C974C /* MWMWKInterfaceController.mm in Sources */,
-				6741A8FF1BF340D1002C974C /* MWMFrameworkUtils.mm in Sources */,
-				6741A9021BF340D1002C974C /* MWMSearchResultController.mm in Sources */,
-				6741A9031BF340D1002C974C /* MWMCategoriesInterfaceController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3625,7 +2918,6 @@
 				6741A9B91BF340DE002C974C /* MWMRateAlert.mm in Sources */,
 				6741A9BA1BF340DE002C974C /* MWMRoutePointCell.m in Sources */,
 				6741A9BB1BF340DE002C974C /* LocationPredictor.mm in Sources */,
-				6741A9BD1BF340DE002C974C /* MWMWatchNotification.mm in Sources */,
 				6741A9BE1BF340DE002C974C /* UILabel+RuntimeAttributes.mm in Sources */,
 				6741A9BF1BF340DE002C974C /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
 				6741A9C01BF340DE002C974C /* MWMTextView.mm in Sources */,
@@ -3657,7 +2949,7 @@
 				F6D5822F1BFDCA03009409E8 /* MWMPageController.mm in Sources */,
 				6741A9D81BF340DE002C974C /* RouteState.mm in Sources */,
 				6741A9D91BF340DE002C974C /* MWMLanesPanel.mm in Sources */,
-				F6B283151C1B23680081957A /* MWMTTSLanguageViewController.mm in Sources */,
+				676507631C1055BB00830BB3 /* MWMTTSLanguageViewController.mm in Sources */,
 				6741A9DA1BF340DE002C974C /* UIKitCategories.mm in Sources */,
 				6741A9DB1BF340DE002C974C /* MWMRoutePreview.mm in Sources */,
 				6741A9DC1BF340DE002C974C /* MWMRoutePointLayout.mm in Sources */,
@@ -3692,8 +2984,8 @@
 				6741A9F71BF340DE002C974C /* MWMPedestrianShareAlert.mm in Sources */,
 				6741A9F81BF340DE002C974C /* MWMSharePedestrianRoutesToastActivityItem.mm in Sources */,
 				6741A9F91BF340DE002C974C /* MWMSearchSuggestionCell.mm in Sources */,
-				F626D5321C3E845600C17D15 /* UIButton+Coloring.mm in Sources */,
 				6741A9FA1BF340DE002C974C /* MWMBookmarkColorViewController.mm in Sources */,
+				34FDF4BC1C5F8D6D00542F62 /* UIButton+Coloring.mm in Sources */,
 				6741A9FB1BF340DE002C974C /* MWMSearchDownloadMapRequestView.mm in Sources */,
 				6741A9FC1BF340DE002C974C /* iosOGLContextFactory.mm in Sources */,
 				6741A9FD1BF340DE002C974C /* Framework.cpp in Sources */,
@@ -3710,7 +3002,6 @@
 				6741AA071BF340DE002C974C /* MWMBottomMenuLayout.mm in Sources */,
 				6741AA081BF340DE002C974C /* TableViewController.mm in Sources */,
 				6741AA091BF340DE002C974C /* BookmarkCell.mm in Sources */,
-				676507621C1055B200830BB3 /* MWMSegue.mm in Sources */,
 				6741AA0A1BF340DE002C974C /* MWMBottomMenuCollectionViewCell.mm in Sources */,
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
 				6741AA0C1BF340DE002C974C /* MWMNavigationDashboard.mm in Sources */,
@@ -3745,7 +3036,7 @@
 				6741AA271BF340DE002C974C /* MWMBasePlacePageView.mm in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				6741AA291BF340DE002C974C /* ColorPickerView.mm in Sources */,
-				6741AA2A1BF340DE002C974C /* MWMWatchEventInfo.mm in Sources */,
+				34EB844C1C07337B0004689F /* MWMSegue.mm in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.mm in Sources */,
 				6741AA2C1BF340DE002C974C /* MWMSearchBookmarksManager.mm in Sources */,
 				6741AA2D1BF340DE002C974C /* AddSetTableViewCell.mm in Sources */,
@@ -3755,53 +3046,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F6D434421AD2AB96007C7728 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				343F26301AEFDB1A00388A6D /* Framework.cpp in Sources */,
-				34A743001AE5468200CE15EB /* storage.cpp in Sources */,
-				34A742FE1AE5461A00CE15EB /* index.cpp in Sources */,
-				6C93FAED1AD8063900A2C4AE /* MWMWatchNotification.mm in Sources */,
-				345C31711AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.mm in Sources */,
-				6CFBB8771AD84E1C009845A3 /* MWMFinishInterfaceController.mm in Sources */,
-				6C24A3AD1AD7CA1000A47B99 /* MWMNoMapInterfaceController.mm in Sources */,
-				F68CEF741AD8852A00563FBA /* MWMMapController.mm in Sources */,
-				6C47C8C51AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm in Sources */,
-				6C24A3B31AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */,
-				345C31781AE799B600EA0CC2 /* MWMSearchResultCell.mm in Sources */,
-				F6C6FE201AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm in Sources */,
-				34DF4D111AE77B9F0012702D /* MWMWKInterfaceController.mm in Sources */,
-				343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */,
-				345C31791AE799B600EA0CC2 /* MWMSearchResultController.mm in Sources */,
-				345C31721AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6741AA631BF3514C002C974C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6741A8ED1BF340D1002C974C /* xcmaps.me WatchKit Extension */;
-			targetProxy = 6741AA621BF3514C002C974C /* PBXContainerItemProxy */;
-		};
-		6741AAD91BF35ACB002C974C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6741A8DE1BF3407C002C974C /* xcmaps.me WatchKit App */;
-			targetProxy = 6741AAD81BF35ACB002C974C /* PBXContainerItemProxy */;
-		};
-		F6D434541AD2AB96007C7728 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F6D434501AD2AB96007C7728 /* maps.me WatchKit App */;
-			targetProxy = F6D434531AD2AB96007C7728 /* PBXContainerItemProxy */;
-		};
-		F6D4345E1AD2AB96007C7728 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F6D434451AD2AB96007C7728 /* maps.me WatchKit Extension */;
-			targetProxy = F6D4345D1AD2AB96007C7728 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		34C659451BD12A77009DC20A /* InfoPlist.strings */ = {
@@ -3846,14 +3091,6 @@
 			name = LocalNotifications.plist;
 			sourceTree = "<group>";
 		};
-		F6D434581AD2AB96007C7728 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F6D434591AD2AB96007C7728 /* Base */,
-			);
-			name = Interface.storyboard;
-			sourceTree = "<group>";
-		};
 		FA99CB71147089B100689A9A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3891,356 +3128,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		6741A8E31BF3407C002C974C /* Simulator */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = Simulator;
-		};
-		6741A8E41BF3407C002C974C /* Simulator Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = "Simulator Release";
-		};
-		6741A8E51BF3407C002C974C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6741AA5F1BF34185002C974C /* defaults.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = Debug;
-		};
-		6741A8E71BF3407C002C974C /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = AdHoc;
-		};
-		6741A8E81BF3407C002C974C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6741AA5F1BF34185002C974C /* defaults.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = Release;
-		};
-		6741A8EA1BF3407C002C974C /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = "Production Full";
-		};
-		6741A9331BF340D1002C974C /* Simulator */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Simulator;
-		};
-		6741A9341BF340D1002C974C /* Simulator Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = "Simulator Release";
-		};
-		6741A9351BF340D1002C974C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6741AA5F1BF34185002C974C /* defaults.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				HEADER_SEARCH_PATHS = (
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		6741A9371BF340D1002C974C /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = AdHoc;
-		};
-		6741A9381BF340D1002C974C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6741AA5F1BF34185002C974C /* defaults.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				HEADER_SEARCH_PATHS = (
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		6741A93A1BF340D1002C974C /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.production.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				HEADER_SEARCH_PATHS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = "Production Full";
-		};
 		6741AA551BF340DE002C974C /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4449,320 +3336,6 @@
 			};
 			name = "Production Full";
 		};
-		F6D434601AD2AB97007C7728 /* Simulator */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Simulator;
-		};
-		F6D434611AD2AB97007C7728 /* Simulator Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = "Simulator Release";
-		};
-		F6D434621AD2AB97007C7728 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		F6D434641AD2AB97007C7728 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = AdHoc;
-		};
-		F6D434651AD2AB97007C7728 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		F6D434671AD2AB97007C7728 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.production.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER).watchkitextension";
-				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = "Production Full";
-		};
-		F6D434681AD2AB97007C7728 /* Simulator */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = Simulator;
-		};
-		F6D434691AD2AB97007C7728 /* Simulator Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = "Simulator Release";
-		};
-		F6D4346A1AD2AB97007C7728 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = Debug;
-		};
-		F6D4346C1AD2AB97007C7728 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = AdHoc;
-		};
-		F6D4346D1AD2AB97007C7728 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = Release;
-		};
-		F6D4346F1AD2AB97007C7728 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
-				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "${BUNDLE_IDENTIFIER}.watchkitapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = "Production Full";
-		};
 		FAAB4119149BA83500C245B1 /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4845,6 +3418,7 @@
 					"-lsuccinct",
 					"-ObjC",
 					"-lopening_hours",
+					"-lpugixml",
 				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
@@ -4965,6 +3539,7 @@
 					"-lsuccinct",
 					"-ObjC",
 					"-lopening_hours",
+					"-lpugixml",
 				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
@@ -5087,6 +3662,7 @@
 					"-lsuccinct",
 					"-ObjC",
 					"-lopening_hours",
+					"-lpugixml",
 				);
 				PRODUCT_NAME = "maps.me beta";
 				SDKROOT = iphoneos;
@@ -5210,6 +3786,7 @@
 					"-lsuccinct",
 					"-ObjC",
 					"-lopening_hours",
+					"-lpugixml",
 				);
 				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
@@ -5332,6 +3909,7 @@
 					"-lsuccinct",
 					"-ObjC",
 					"-lopening_hours",
+					"-lpugixml",
 				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
@@ -5452,6 +4030,7 @@
 					"-lsuccinct",
 					"-ObjC",
 					"-lopening_hours",
+					"-lpugixml",
 				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
@@ -5504,32 +4083,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = AdHoc;
 		};
-		6741A8E21BF3407C002C974C /* Build configuration list for PBXNativeTarget "xcmaps.me WatchKit App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6741A8E31BF3407C002C974C /* Simulator */,
-				6741A8E41BF3407C002C974C /* Simulator Release */,
-				6741A8E51BF3407C002C974C /* Debug */,
-				6741A8E71BF3407C002C974C /* AdHoc */,
-				6741A8E81BF3407C002C974C /* Release */,
-				6741A8EA1BF3407C002C974C /* Production Full */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
-		};
-		6741A9321BF340D1002C974C /* Build configuration list for PBXNativeTarget "xcmaps.me WatchKit Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6741A9331BF340D1002C974C /* Simulator */,
-				6741A9341BF340D1002C974C /* Simulator Release */,
-				6741A9351BF340D1002C974C /* Debug */,
-				6741A9371BF340D1002C974C /* AdHoc */,
-				6741A9381BF340D1002C974C /* Release */,
-				6741A93A1BF340D1002C974C /* Production Full */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
-		};
 		6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "xcMAPS.ME" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5552,32 +4105,6 @@
 				FAAB411D149BA85500C245B1 /* AdHoc */,
 				FABB561E149CD957006969C0 /* Release */,
 				FAAB411F149BA86000C245B1 /* Production Full */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
-		};
-		F6D434701AD2AB97007C7728 /* Build configuration list for PBXNativeTarget "maps.me WatchKit App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F6D434681AD2AB97007C7728 /* Simulator */,
-				F6D434691AD2AB97007C7728 /* Simulator Release */,
-				F6D4346A1AD2AB97007C7728 /* Debug */,
-				F6D4346C1AD2AB97007C7728 /* AdHoc */,
-				F6D4346D1AD2AB97007C7728 /* Release */,
-				F6D4346F1AD2AB97007C7728 /* Production Full */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
-		};
-		F6D434711AD2AB97007C7728 /* Build configuration list for PBXNativeTarget "maps.me WatchKit Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F6D434601AD2AB97007C7728 /* Simulator */,
-				F6D434611AD2AB97007C7728 /* Simulator Release */,
-				F6D434621AD2AB97007C7728 /* Debug */,
-				F6D434641AD2AB97007C7728 /* AdHoc */,
-				F6D434651AD2AB97007C7728 /* Release */,
-				F6D434671AD2AB97007C7728 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = AdHoc;

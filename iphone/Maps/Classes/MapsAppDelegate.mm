@@ -5,7 +5,6 @@
 #import "LocationManager.h"
 #import "MWMAlertViewController.h"
 #import "MWMTextToSpeech.h"
-#import "MWMWatchEventInfo.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Preferences.h"
@@ -28,7 +27,7 @@
 
 #include "platform/http_thread_apple.h"
 #include "platform/settings.hpp"
-#include "platform/platform_ios.hpp"
+#include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
@@ -44,9 +43,6 @@ static NSString * const kUDLastRateRequestDate = @"LastRateRequestDate";
 extern NSString * const kUDAlreadySharedKey = @"UserAlreadyShared";
 static NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
 static NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
-static NSString * const kNewWatchUserEventKey = @"NewWatchUser";
-static NSString * const kOldWatchUserEventKey = @"OldWatchUser";
-static NSString * const kUDWatchEventAlreadyTracked = @"WatchEventAlreadyTracked";
 static NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 static NSString * const kIOSIDFA = @"IFA";
 static NSString * const kBundleVersion = @"BundleVersion";
@@ -232,7 +228,6 @@ void InitLocalizedStrings()
 - (void)commonInit
 {
   [HttpThread setDownloadIndicatorProtocol:self];
-  [self trackWatchUser];
   InitLocalizedStrings();
   [Preferences setup];
   [self subscribeToStorage];
@@ -356,8 +351,6 @@ void InitLocalizedStrings()
     returnValue = YES;
 
   [HttpThread setDownloadIndicatorProtocol:self];
-
-  [self trackWatchUser];
 
   InitLocalizedStrings();
   [self determineMapStyle];
@@ -623,45 +616,6 @@ void InitLocalizedStrings()
 - (void)outOfDateCountriesCountChanged:(NSNotification *)notification
 {
   [UIApplication sharedApplication].applicationIconBadgeNumber = [[notification userInfo][@"OutOfDate"] integerValue];
-}
-
-- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply
-{
-  switch (userInfo.watchEventInfoRequest)
-  {
-    case MWMWatchEventInfoRequestMoveWritableDir:
-      static_cast<CustomIOSPlatform &>(GetPlatform()).MigrateWritableDirForAppleWatch();
-      reply([NSDictionary dictionary]);
-      break;
-  }
-  NSUserDefaults * settings = [[NSUserDefaults alloc] initWithSuiteName:kApplicationGroupIdentifier()];
-  [settings setBool:YES forKey:kHaveAppleWatch];
-  [settings synchronize];
-}
-
-- (void)trackWatchUser
-{
-  if (isIOSVersionLessThan(8))
-    return;
-
-  NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
-  BOOL const userLaunchAppleWatch = [[[NSUserDefaults alloc] initWithSuiteName:kApplicationGroupIdentifier()] boolForKey:kHaveAppleWatch];
-  BOOL const appleWatchLaunchingEventAlreadyTracked = [standartDefaults boolForKey:kUDWatchEventAlreadyTracked];
-  if (userLaunchAppleWatch && !appleWatchLaunchingEventAlreadyTracked)
-  {
-    if (self.userIsNew)
-    {
-      [Alohalytics logEvent:kNewWatchUserEventKey];
-      [[Statistics instance] logEvent:kNewWatchUserEventKey];
-    }
-    else
-    {
-      [Alohalytics logEvent:kOldWatchUserEventKey];
-      [[Statistics instance] logEvent:kOldWatchUserEventKey];
-    }
-    [standartDefaults setBool:YES forKey:kUDWatchEventAlreadyTracked];
-    [standartDefaults synchronize];
-  }
 }
 
 - (void)setRoutingPlaneMode:(MWMRoutingPlaneMode)routingPlaneMode
