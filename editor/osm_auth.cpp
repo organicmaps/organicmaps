@@ -95,7 +95,7 @@ OsmOAuth OsmOAuth::ServerAuth() noexcept
   return IZServerAuth();
 #else
   return ProductionServerAuth();
-#elif
+#endif
 }
 // static
 OsmOAuth OsmOAuth::ServerAuth(TKeySecret const & userKeySecret) noexcept
