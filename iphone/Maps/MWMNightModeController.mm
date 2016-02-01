@@ -38,6 +38,7 @@
     self.off.accessoryType = UITableViewCellAccessoryCheckmark;
     _selectedCell = self.off;
     break;
+  case MapStyleMerged:
   case MapStyleCount:
     break;
   }
