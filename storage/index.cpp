@@ -14,4 +14,11 @@ namespace storage
     out << "storage::TIndex(" << r.m_group << ", " << r.m_country << ", " << r.m_region << ")";
     return out.str();
   }
+
+  storage::TCountryId const kInvalidCountryId;
+
+  bool IsCountryIdValid(TCountryId const & countryId)
+  {
+    return countryId != kInvalidCountryId;
+  }
 }
