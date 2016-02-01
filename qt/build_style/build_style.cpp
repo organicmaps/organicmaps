@@ -30,6 +30,12 @@ QString GetGeometryToolPath()
   return resourceDir + "generator_tool.app/Contents/MacOS/generator_tool";
 }
 
+QString GetGeometryToolDir()
+{
+  QString const resourceDir = GetPlatform().ResourcesDir().c_str();
+  return resourceDir + "generator_tool.app/Contents/MacOS/";
+}
+
 }  // namespace
 
 namespace build_style
@@ -66,6 +72,13 @@ void RunRecalculationGeometryScript(QString const & mapcssFile)
   QString const dataPath = resourceDir;
   QString const generatorToolPath = GetGeometryToolPath();
   QString const appPath = QCoreApplication::applicationFilePath();
+
+  QString const geometryToolDir = GetGeometryToolDir();
+
+  if (!CopyFile(resourceDir + "drules_proto.bin", geometryToolDir + "drules_proto.bin"))
+    throw runtime_error("Cannot copy drawing rules file");
+  if (!CopyFile(resourceDir + "classificator.txt", geometryToolDir + "classificator.txt"))
+    throw runtime_error("Cannot copy classificator file");
 
   QStringList params;
   params << "python" <<
