@@ -19,14 +19,14 @@ BookmarkCategory * getBmCategory(jint c)
 extern "C"
 {
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_isVisible(
+Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeIsVisible(
     JNIEnv * env, jobject thiz, jint id)
 {
   return getBmCategory(id)->IsVisible();
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_setVisibility(
+Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeSetVisibility(
     JNIEnv * env, jobject thiz, jint id, jboolean b)
 {
   BookmarkCategory * pCat = getBmCategory(id);
@@ -38,7 +38,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_setVisibility(
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_setName(
+Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeSetName(
     JNIEnv * env, jobject thiz, jint id, jstring n)
 {
   BookmarkCategory * pCat = getBmCategory(id);
@@ -47,14 +47,14 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_setName(
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getName(
+Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetName(
      JNIEnv * env, jobject thiz, jint id)
 {
   return jni::ToJavaString(env, getBmCategory(id)->GetName());
 }
 
 JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getSize(
+Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetSize(
      JNIEnv * env, jobject thiz, jint id)
 {
   BookmarkCategory * category = getBmCategory(id);
@@ -62,40 +62,40 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getSize(
 }
 
 JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getBookmarksCount(
+Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetBookmarksCount(
      JNIEnv * env, jobject thiz, jint id)
 {
   return getBmCategory(id)->GetUserMarkCount();
 }
 
 JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getTracksCount(
+Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetTracksCount(
      JNIEnv * env, jobject thiz, jint id)
 {
   return getBmCategory(id)->GetTracksCount();
 }
 
 JNIEXPORT jobject JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getBookmark(
-     JNIEnv * env, jobject thiz, jint id, jint index)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetBookmark(
+     JNIEnv * env, jobject thiz, jint id, jint bmkId)
 {
-  return usermark_helper::CreateMapObject(getBmCategory(id)->GetUserMark(index));
+  return usermark_helper::CreateMapObject(getBmCategory(id)->GetUserMark(bmkId));
 }
 
 static uint32_t shift(uint32_t v, uint8_t bitCount) { return v << bitCount; }
 
 JNIEXPORT jobject JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getTrack(
-     JNIEnv * env, jobject thiz, jint id, jint index, jclass trackClazz)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetTrack(
+      JNIEnv * env, jobject thiz, jint id, jint bmkId, jclass trackClazz)
 {
   // Track(int trackId, int categoryId, String name, String lengthString, int color)
-  static jmethodID cId = env->GetMethodID(trackClazz, "<init>",
-                                          "(IILjava/lang/String;Ljava/lang/String;I)V");
+  static jmethodID const cId = jni::GetConstructorID(env, trackClazz,
+                                  "(IILjava/lang/String;Ljava/lang/String;I)V");
 
   BookmarkCategory * category = getBmCategory(id);
-  Track const * nTrack = category->GetTrack(index);
+  Track const * nTrack = category->GetTrack(bmkId);
 
-  ASSERT(nTrack, ("Track must not be null with index:)", index));
+  ASSERT(nTrack, ("Track must not be null with index:)", bmkId));
 
   string formattedLenght;
   MeasurementUtils::FormatDistance(nTrack->GetLengthMeters(), formattedLenght);
@@ -108,7 +108,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getTrack(
                       nColor.GetBlue();
 
   return env->NewObject(trackClazz, cId,
-                        index, id, jni::ToJavaString(env, nTrack->GetName()),
+                        bmkId, id, jni::ToJavaString(env, nTrack->GetName()),
                         jni::ToJavaString(env, formattedLenght), androidColor);
 }
 } // extern "C"

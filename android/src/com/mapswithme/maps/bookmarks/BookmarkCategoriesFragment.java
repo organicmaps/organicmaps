@@ -69,7 +69,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   public void onSaveText(String text)
   {
-    final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition);
+    final BookmarkCategory category = BookmarkManager.INSTANCE.getCategory(mSelectedPosition);
     category.setName(text);
     getAdapter().notifyDataSetChanged();
   }
@@ -95,7 +95,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
     case R.id.set_edit:
       EditTextDialogFragment.show(getString(R.string.bookmark_set_name),
-                                  BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition).getName(),
+                                  BookmarkManager.INSTANCE.getCategory(mSelectedPosition).getName(),
                                   getString(R.string.rename), getString(R.string.cancel), this);
       break;
     }
@@ -108,7 +108,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     mSelectedPosition = position;
 
-    BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition);
+    BookmarkCategory category = BookmarkManager.INSTANCE.getCategory(mSelectedPosition);
     BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), category.getName())
                                                     .sheet(R.menu.menu_bookmark_categories)
                                                     .listener(this);

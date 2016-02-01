@@ -3,7 +3,7 @@ package com.mapswithme.maps.bookmarks.data;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.support.annotation.IntRange;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.Constants;
@@ -87,6 +87,7 @@ public class Bookmark extends MapObject
   @Override
   public String getTypeName()
   {
+    // TODO get correct value
     return getCategory().getName();
   }
 
@@ -95,10 +96,10 @@ public class Bookmark extends MapObject
     return getCategory().getName();
   }
 
-  @Nullable
+  @NonNull
   private BookmarkCategory getCategory()
   {
-    return BookmarkManager.INSTANCE.getCategoryById(mCategoryId);
+    return BookmarkManager.INSTANCE.getCategory(mCategoryId);
   }
 
   public void setCategoryId(@IntRange(from = 0) int catId)

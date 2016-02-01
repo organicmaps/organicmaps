@@ -28,6 +28,6 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
 
   public BookmarkCategory getItem(int position)
   {
-    return BookmarkManager.INSTANCE.getCategoryById(position);
+    return BookmarkManager.INSTANCE.getCategory(position);
   }
 }

@@ -44,7 +44,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
     super.onCreate(savedInstanceState);
 
     mCategoryIndex = getArguments().getInt(ChooseBookmarkCategoryFragment.CATEGORY_ID, -1);
-    mCategory = BookmarkManager.INSTANCE.getCategoryById(mCategoryIndex);
+    mCategory = BookmarkManager.INSTANCE.getCategory(mCategoryIndex);
   }
 
   @Override

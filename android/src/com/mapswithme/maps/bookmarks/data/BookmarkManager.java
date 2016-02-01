@@ -1,11 +1,9 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.mapswithme.maps.R;
@@ -55,24 +53,23 @@ public enum BookmarkManager
     nativeDeleteTrack(track.getCategoryId(), track.getTrackId());
   }
 
-  public @Nullable BookmarkCategory getCategoryById(int catId)
+  public @NonNull BookmarkCategory getCategory(int catId)
   {
     if (catId < nativeGetCategoriesCount())
       return new BookmarkCategory(catId);
 
-    return null;
+    throw new IndexOutOfBoundsException("Invalid category ID!");
   }
 
   public void toggleCategoryVisibility(int catId)
   {
-    BookmarkCategory category = getCategoryById(catId);
-    if (category != null)
-      category.setVisibility(!category.isVisible());
+    BookmarkCategory category = getCategory(catId);
+    category.setVisibility(!category.isVisible());
   }
 
   public Bookmark getBookmark(int catId, int bmkId)
   {
-    return getCategoryById(catId).getBookmark(bmkId);
+    return getCategory(catId).getBookmark(bmkId);
   }
 
   public Bookmark addNewBookmark(String name, double lat, double lon)

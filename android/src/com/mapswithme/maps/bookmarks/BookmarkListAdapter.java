@@ -128,7 +128,7 @@ public class BookmarkListAdapter extends BaseAdapter
   public Object getItem(int position)
   {
     if (getItemViewType(position) == TYPE_TRACK)
-      return mCategory.getTrack(position - 1);
+      return mCategory.nativeGetTrack(position - 1);
     else
       return mCategory.getBookmark(position - 1
           - (isSectionEmpty(SECTION_TRACKS) ? 0 : mCategory.getTracksCount() + 1));
