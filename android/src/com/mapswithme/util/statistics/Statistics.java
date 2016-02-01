@@ -21,8 +21,8 @@ import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
-import ru.mail.android.mytracker.MyTracker;
-import ru.mail.android.mytracker.MyTrackerParams;
+import ru.mail.android.mytracker.MRMyTracker;
+import ru.mail.android.mytracker.MRMyTrackerParams;
 
 public enum Statistics
 {
@@ -178,13 +178,12 @@ public enum Statistics
       FlurryAgent.setCaptureUncaughtExceptions(false);
       FlurryAgent.init(context, PrivateVariables.flurryKey());
 
-      MyTracker.setDebugMode(BuildConfig.DEBUG);
-      MyTracker.createTracker(PrivateVariables.myTrackerKey(), context);
-      final MyTrackerParams myParams = MyTracker.getTrackerParams();
-      // TODO get MyTracker version with preinstall tracking
-      //      myParams.setTrackingPreinstallsEnabled(true);
+      MRMyTracker.setDebugMode(BuildConfig.DEBUG);
+      MRMyTracker.createTracker(PrivateVariables.myTrackerKey(), context);
+      final MRMyTrackerParams myParams = MRMyTracker.getTrackerParams();
+      myParams.setTrackingPreinstallsEnabled(true);
       myParams.setTrackingLaunchEnabled(true);
-      MyTracker.initTracker();
+      MRMyTracker.initTracker();
     }
     // At the moment, need to always initialize engine for correct JNI http part reusing.
     // Statistics is still enabled/disabled separately and never sent anywhere if turned off.
@@ -222,7 +221,7 @@ public enum Statistics
     {
       FlurryAgent.onStartSession(activity);
       AppEventsLogger.activateApp(activity);
-      MyTracker.onStartActivity(activity);
+      MRMyTracker.onStartActivity(activity);
       org.alohalytics.Statistics.onStart(activity);
     }
   }
@@ -233,7 +232,7 @@ public enum Statistics
     {
       FlurryAgent.onEndSession(activity);
       AppEventsLogger.deactivateApp(activity);
-      MyTracker.onStopActivity(activity);
+      MRMyTracker.onStopActivity(activity);
       org.alohalytics.Statistics.onStop(activity);
     }
   }
@@ -308,13 +307,13 @@ public enum Statistics
     else
       trackEvent(EventName.ACTIVE_CONNECTION, params().add(EventParam.CONNECTION_TYPE, "Not connected."));
   }
-
+  
   public void trackMapChanged(String event)
   {
     if (mEnabled)
     {
       final ParameterBuilder params = params().add(EventParam.COUNT, String.valueOf(ActiveCountryTree.getTotalDownloadedCount()));
-      MyTracker.trackEvent(event, params.get());
+      MRMyTracker.trackEvent(event, params.get());
       trackEvent(event, params);
     }
   }
