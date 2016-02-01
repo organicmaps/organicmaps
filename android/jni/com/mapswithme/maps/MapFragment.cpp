@@ -34,24 +34,17 @@ extern "C"
 
 #pragma clang pop_options
 
-  static void CallOnDownloadClicked(shared_ptr<jobject> const & obj, TIndex const & idx, int options, jmethodID methodID)
-  {
-    JNIEnv * env = jni::GetEnv();
-    env->CallVoidMethod(*obj.get(), methodID, idx.m_group, idx.m_country, idx.m_region, options);
-  }
-
-  static void OnCancelDownload(TIndex const & idx)
-  {
-    GetMapLayout().CancelDownloading(idx);
-  }
+  static jobject g_this = nullptr;
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapFragment_nativeConnectDownloaderListeners(JNIEnv * env, jobject thiz)
   {
-    g_framework->NativeFramework()->SetDownloadCountryListener([env, thiz](TIndex const & idx, int options)
+    g_this = env->NewGlobalRef(thiz);
+    g_framework->NativeFramework()->SetDownloadCountryListener([](TIndex const & idx, int options)
     {
-      jmethodID methodID = jni::GetMethodID(env, thiz, "onDownloadClicked", "(IIII)V");
-      env->CallVoidMethod(thiz, methodID, idx.m_group, idx.m_country, idx.m_region, options);
+      JNIEnv * env = jni::GetEnv();
+      jmethodID methodID = jni::GetMethodID(env, g_this, "onDownloadClicked", "(IIII)V");
+      env->CallVoidMethod(g_this, methodID, idx.m_group, idx.m_country, idx.m_region, options);
     });
 
     g_framework->NativeFramework()->SetDownloadCancelListener([](TIndex const & idx)
@@ -78,6 +71,12 @@ extern "C"
     g_framework->NativeFramework()->SetDownloadCountryListener(nullptr);
     g_framework->NativeFramework()->SetDownloadCancelListener(nullptr);
     g_framework->NativeFramework()->SetAutoDownloadListener(nullptr);
+
+    if (g_this)
+    {
+      env->DeleteGlobalRef(g_this);
+      g_this = nullptr;
+    }
   }
 
   JNIEXPORT void JNICALL
