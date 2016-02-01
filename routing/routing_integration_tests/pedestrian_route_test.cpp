@@ -97,7 +97,7 @@ UNIT_TEST(AustriaWein_AvoidTrunk)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(48.233, 16.3562), {0., 0.},
-      MercatorBounds::FromLatLon(48.2458, 16.3704), 2145.);
+      MercatorBounds::FromLatLon(48.2458, 16.3704), 2301.);
 }
 
 UNIT_TEST(FranceParis_AvoidBridleway)
