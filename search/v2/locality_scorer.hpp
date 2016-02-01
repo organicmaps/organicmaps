@@ -16,7 +16,8 @@ class LocalityScorer
 public:
   LocalityScorer(RankTable const & rankTable, SearchQueryParams const & params);
 
-  void LeaveTopLocalities(size_t const limit, vector<Geocoder::Locality> & localities) const;
+  // *NOTE* after call, elements of |localities| may be in any order.
+  void LeaveTopLocalities(size_t limit, vector<Geocoder::Locality> & localities) const;
 
 private:
   size_t GetTokensScore(Geocoder::Locality const & locality) const;

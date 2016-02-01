@@ -20,8 +20,7 @@ LocalityScorer::LocalityScorer(RankTable const & rankTable, SearchQueryParams co
 {
 }
 
-void LocalityScorer::LeaveTopLocalities(size_t const limit,
-                                        vector<Geocoder::Locality> & localities) const
+void LocalityScorer::LeaveTopLocalities(size_t limit, vector<Geocoder::Locality> & localities) const
 {
   // Unique localities by featureId but leave the longest range if equal.
   sort(localities.begin(), localities.end(), [&](Geocoder::Locality const & lhs, Geocoder::Locality const & rhs)
