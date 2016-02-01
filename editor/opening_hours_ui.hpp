@@ -89,6 +89,8 @@ public:
   size_t Size() const { return m_table.size(); }
   bool Empty() const { return m_table.empty(); }
 
+  bool IsTwentyFourPerSeven() const;
+
   bool Append(TimeTable const & tt);
   bool Remove(size_t const index);
 

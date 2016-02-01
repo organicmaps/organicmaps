@@ -161,6 +161,14 @@ namespace editor
 osmoh::OpeningHours MakeOpeningHours(ui::TimeTableSet const & tts)
 {
   ASSERT_GREATER(tts.Size(), 0, ("At least one time table must present."));
+
+  if (tts.IsTwentyFourPerSeven())
+  {
+    osmoh::RuleSequence rulePart;
+    rulePart.SetTwentyFourHours(true);
+    return osmoh::OpeningHours({rulePart});
+  }
+
   osmoh::TRuleSequences rule;
   for (auto const & tt : tts)
   {

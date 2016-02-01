@@ -183,6 +183,10 @@ UNIT_TEST(TimeTableSt2OpeningHours)
 {
   {
     TimeTableSet tts;
+    TEST_EQUAL(ToString(MakeOpeningHours(tts)), "24/7", ());
+  }
+  {
+    TimeTableSet tts;
     auto tt = tts.Front();
     TEST(tt.SetOpeningDays({
           osmoh::Weekday::Monday,

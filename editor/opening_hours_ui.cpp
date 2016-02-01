@@ -315,6 +315,15 @@ TimeTable TimeTableSet::GetComplementTimeTable() const
   return tt;
 }
 
+bool TimeTableSet::IsTwentyFourPerSeven() const
+{
+  return GetUnhandledDays().empty() &&
+         all_of(::begin(m_table), ::end(m_table), [](TimeTable const & tt)
+                {
+                  return tt.IsTwentyFourHours();
+                });
+}
+
 bool TimeTableSet::Append(TimeTable const & tt)
 {
   auto copy = *this;
