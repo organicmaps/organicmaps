@@ -91,8 +91,7 @@ OsmOAuth::OsmOAuth(string const & consumerKey, string const & consumerSecret,
 // static
 OsmOAuth OsmOAuth::ServerAuth() noexcept
 {
-  // TODO(AlexZ): Replace with ProductionServerAuth before release.
-  return IZServerAuth();
+  return ProductionServerAuth();
 }
 // static
 OsmOAuth OsmOAuth::ServerAuth(TKeySecret const & userKeySecret) noexcept
