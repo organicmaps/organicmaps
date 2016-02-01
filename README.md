@@ -10,6 +10,10 @@ for [iOS](https://itunes.apple.com/app/id510623322) and
 This repository contains submodules. Clone it with `git clone --recursive`. If you forgot,
 run `git submodule update --init --recursive`.
 
+## Translations
+
+If you want to improve app translations or add more search synonyms, please check our [wiki](https://github.com/mapsme/omim/wiki).
+
 ## Compilation
 
 To compile the project, you would need to initialize private key files. Run
