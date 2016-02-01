@@ -68,7 +68,7 @@ ko:1환전|돈|교환을
 ja:1為替|マネー|お金|通貨|金|両替
 cs:3směnárna|peníze
 sk:3zmenáreň|peniaze
-nl:3geld wisselen|3wisselen|geld
+nl:3wisselkantoor|3geld wisselen|wisselen|geld
 zh-Hant:1匯率|理財|外幣|兌換|貨幣
 pl:4kantor|5wymiana|pieniądze
 pt:3câmbio|3troca|dinheiro
@@ -97,7 +97,7 @@ ko:바|술집|맥주|음료|음식
 ja:1居酒屋|バー|パブ|ビール|飲食|飲み屋|呑み屋|酒
 cs:2bar|pivo|pití|jídlo|voda|pitná voda|tekutiny
 sk:2bar|pivo|pitie|jedlo|voda|pitná voda|tekutiny
-nl:2bar|2pub|bier|drinken|eten
+nl:2bar|2pub|2café|bier|drinken|eten
 zh-Hant:1酒吧|酒館|飲酒|PUB|吧台|飲食
 pl:2bar|2pub|piwo|napoje|jedzenie
 pt:2bar|2pub|cerveja|beber|alimentação
@@ -126,7 +126,7 @@ ko:1카페|레스토랑|음식
 ja:1カフェ|喫茶|食べ物|飲食|コーヒー|珈琲|お茶|茶|紅茶|食事|軽食
 cs:3kavárna|restaurace|hospoda|jídlo
 sk:3kaviareň|reštaurácia|pohostinstvo|jedlo
-nl:3café|3restaurant|3eten
+nl:3tearoom|3brasserie|3café|3restaurant|3eten
 zh-Hant:2咖啡廳|咖啡|3cafe|餐廳|飲食
 pl:3kawiarnia|4restauracja|kawa|jedzenie
 pt:3café|3restaurante|alimentação
@@ -155,7 +155,7 @@ ko:1패스트 푸드|레스토랑|카페|테이크 아웃|푸드
 ja:1ファストフード|レストラン|テイクアウト|持ち帰り|軽食|飲食|食事
 cs:2rychlé občerstvení|4fastfood|kavárna|restaurace|jídlo
 sk:2rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia|jedlo
-nl:4fast food|3restaurant|3cafe|afhaaleten|3eten
+nl:4fast food|3frituur|fritkot|3restaurant|afhaaleten|3eten
 zh-Hant:1速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|飲食
 pl:4fast food|restauracja szybkiej obsługi|5na wynos|jedzenie
 pt:4comida de plástico|comida para levar|3café|3alimentação
@@ -213,7 +213,7 @@ ko:1가스가 역|연료|가스
 ja:1ガソリンスタンド|ガスステーション|ガス|燃料|軽油|給油
 cs:3čerpací stanice|2pumpa
 sk:3čerpacia stanica|3benzínová pumpa
-nl:3tankstation|2benzine
+nl:3tankstation|2benzine|3brandstof
 zh-Hant:1加油站|2加氣站|汽油|加油|天然氣
 pl:3stacja benzynowa|3benzyna|4paliwo
 pt:3combustível|gás
@@ -242,7 +242,7 @@ ko:1베이커리|쇼핑
 ja:1パン屋|ベーカリー|パン|軽食|持ち帰り
 cs:3pekárna|obchod
 sk:3pekáreň|obchod
-nl:3bakker|winkel
+nl:3bakkerij|winkel
 zh-Hant:1麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
 pl:4piekarnia|sklep
 pt:3padaria|compras
@@ -343,7 +343,7 @@ ar:ججزارة|متجر|المتجر
 sk:mäsiar|2obchod
 es:carnicería|2tienda
 pl:rzeźnik|3sklep|towary
-nl:slager|2winkel
+nl:slager|beenhouwer|2winkel
 pt:açougueiro|2loja|compras
 
 shop-furniture
@@ -430,7 +430,7 @@ ar:مكتبة لبيع الكتب|متجر|المتجر
 sk:kníhkupectvo|2obchod
 es:librería|2tienda
 pl:księgarnia|3sklep|towary
-nl:boekwinkel|2winkel
+nl:boekenwinkel|boekwinkel|2winkel
 pt:livraria|2loja|compras
 
 shop-shoes
@@ -459,7 +459,7 @@ ar:متجر أحذية|متجر|المتجر
 sk:obuvníctvo|2obchod
 es:zapatería|2tienda
 pl:sklep obuwniczy|3sklep|towary
-nl:schoenenwinkel|2winkel
+nl:schoenenwinkel|schoenwinkel|2winkel
 pt:sapataria|loja de calçados|2loja|compras
 
 shop-electronics
@@ -633,7 +633,7 @@ ar:مركز أدوات تجميل|متجر|المتجر
 sk:drogéria|2obchod
 es:tienda de productos de belleza|2tienda
 pl:sklep kosmetyczny|3sklep|towary
-nl:winkel voor schoonheidsproducten|2winkel
+nl:cosmeticawinkel|winkel voor schoonheidsproducten|2winkel
 pt:loja de cosméticos|2loja|compras
 
 shop-greengrocer
@@ -662,7 +662,7 @@ ar:محل خضراوات|متجر|المتجر
 sk:zelovoc|2obchod
 es:frutería|2tienda
 pl:warzywniak|3sklep|towary
-nl:groenteboer|2winkel
+nl:groentenwinkel|groenteboer|2winkel
 pt:quitanda|2loja|compras
 
 shop-sports
@@ -793,7 +793,7 @@ ko:1자동차 가게|쇼핑
 ja:1カーディーラー|車|車販売|ディーラー
 cs:obchod s auty|obchod
 sk:predajňa áut|obchod
-nl:auto winkel
+nl:autohandelaar|winkel
 zh-Hant:1買車|購車
 pl:3salon samochodowy|samochody|sklep
 pt:loja de carros|compras
@@ -1025,7 +1025,7 @@ ko:1나룻배|수송
 ja:1フェリー|交通機関
 cs:3trajekt|doprava
 sk:3trajekt|doprava
-nl:2pont|transport
+nl:3veerpont|veerboot|veer|pont|overzetboot|transport
 zh-Hant:1渡船|運輸
 pl:2prom|transport
 pt:2balsa|transporte
@@ -1170,7 +1170,7 @@ ko:1관점|관 광|명소|관광
 ja:1観光スポット|見どころ|観光|名所|観光名所
 cs:3vyhlídka|zajímavost|pamětihodnost
 sk:3vyhliadka|pamätihodnosť
-nl:4uitzicht|toerisme
+nl:4uitzicht|panorama|toerisme
 zh-Hant:1視野|景觀|景點|觀光|3旅遊景點
 pl:3punkt widokowy|widok|krajobraz|osobliwości miasta
 pt:4ponto de vista|turismo|vistas
@@ -1199,7 +1199,7 @@ ko:1관광 정보|정보|명소|관광
 ja:1インフォメーション|観光情報|情報|案内
 cs:4infocentrum|4turistické informace|pamětihodnost|Íčko
 sk:4infocentrum|4turistické informácie|pamätihodnosť
-nl:4toeristen informatie|4informatie|toerisme
+nl:4toeristische informatie|3VVV|4informatie|toerisme
 zh-Hant:2觀光諮詢|旅遊中心|旅遊問題|資訊|旅遊資訊
 pl:4informacja turystyczna|punkt informacji|osobliwości miasta
 pt:4informações turísticas|4informação|vistas
@@ -1228,7 +1228,7 @@ ko:1소풍 사이트|명소|피크닉|관광
 ja:1ピクニック|ピクニックサイト|観光|ハイキング
 cs:3piknik|picnic|picnik|pamětihodnost
 sk:3piknik|pamätihodnosť
-nl:3picnic locatie|toerisme
+nl:3picnicplaats|3picnicweide|3picnictafel|toerisme
 zh-Hant:1野餐|旅遊
 pl:4pole piknikowe|plener|piknik|osobliwości miasta
 pt:4local de piquenique|vistas
@@ -1257,7 +1257,7 @@ ko:1예배 장소|사찰|볼거리|관광
 ja:1礼拝|寺院|神社|仏閣|教会|歴史|観光スポット|観光|お寺
 cs:4chrám|posvátné místo|pamětihodnost
 sk:4kostol|posvätné miesto|pamätihodnosť
-nl:tempel|4temple|toerisme
+nl:gebedsplaats|gebedshuis|toerisme
 zh-Hant:1寺廟|佛|景點|寺院|教堂|做禮拜|觀光|古蹟|歷史|拜拜|燒香|禱告|寺|精舍|禪寺
 pl:4świątynia|kościół|turystyka|osobliwości miasta
 pt:local de culto|4templo|vistas
@@ -1348,7 +1348,7 @@ fr:3cascade|site touristique
 it:3cascata|turistico
 ja:滝|観光
 ko:1폭포|관광
-nl:2waterval|toerisme
+nl:2watervallen|waterval|toerisme
 ru:2водопад|достопримечательность
 uk:2водоспад|пам’ятні місця
 zh-Hant:1瀑布|旅遊景點
@@ -1466,7 +1466,7 @@ ko:대저택|관광
 ja:城|観光|お城|砦|城砦
 cs:zámek|zajímavost|pamětihodnost
 sk:zámok|atrakcia|pamätihodnosť
-nl:kasteel|attractie|toerisme
+nl:kasteel|burcht|attractie|toerisme
 zh-Hant:城堡|堡|古蹟|歷史|旅遊景點
 pl:3zamek|turystyka|zwiedzanie|osobliwości miasta
 pt:castelo|turismo|vistas
@@ -1495,7 +1495,7 @@ ko:1발굴|관광
 ja:1考古遺跡|発掘|観光|発掘現場|考古学|遺跡
 cs:vykopávky|zajímavost|pamětihodnost
 sk:vykopávky|pamätihodnosť
-nl:archeologische opgraving|attractie|toerisme
+nl:archeologische site|opgravingen|attractie|toerisme
 zh-Hant:1考古遺址|考古|遺址|古蹟|歷史|旅遊景點
 pl:5miejsce arhceologiczne|wykopaliska|osobliwości miasta
 pt:sítio arqueológico|turismo|vistas
@@ -1553,7 +1553,7 @@ ko:1벤치|작업대
 ja:ベンチ|縁台|椅子
 cs:lavička
 sk:lavička
-nl:bankje
+nl:zitbank|bankje
 zh-Hant:1長板凳|板凳|長椅|長椅子|條凳
 pl:ławka
 pt:banco
@@ -1611,7 +1611,7 @@ ko:1자동차 공유|자동차|자동차 임대|임대의
 ja:1カーシェアリング|車|レンタカー|レンタル
 cs:3půjčovna aut|auto|pronájem|nájemné
 sk:3autopožičovňa|požičovňa áut
-nl:3autoverhuur|auto|huur
+nl:3autoverhuur|autodelen|auto|huur
 zh-Hant:1租車|出租|租金|租錢
 pl:Wynajem samochodów|samochód|auto|Wynajem
 pt:aluguel de automóveis|carro|aluguel
@@ -1640,7 +1640,7 @@ ko:1영화|엔터테인먼트
 ja:1映画館|シネマ|エンターテイメント|映画
 cs:3kino|biograf|zábava
 sk:3kino|zábava
-nl:3bioscoop|uitgaan
+nl:3bioscoop|cinema|uitgaan
 zh-Hant:1電影院|電影|娛樂
 pl:3kino|filmy|rozrywka
 pt:3cinema|entretenimento
@@ -1669,7 +1669,7 @@ ko:1연극|엔터테인먼트
 ja:1劇場|エンターテイメント|シアター
 cs:3divadlo|zábava
 sk:3divadlo|zábava
-nl:3theater|uitgaan
+nl:3theater|schouwburg|uitgaan
 zh-Hant:1劇場|戲院|劇院|娛樂
 pl:3teatr|rozrywka
 pt:3teatro|entretenimento
@@ -1698,7 +1698,7 @@ ko:1나이트 클럽|엔터테인먼트
 ja:1ナイトクラブ|クラブ|ダンス|エンターテイメント
 cs:4noční klub|3disco|3klub|zábava
 sk:4nočný klub|3disco|3nightclub|zábava
-nl:3nightclub|3disco|dansen|uitgaan
+nl:3discotheek|3disco|dansen|uitgaan
 zh-Hant:1夜店|2俱樂部|酒|喝酒|跳舞|舞|2夜生活|娛樂
 pl:3dyskoteka|klub nocny|rozrywka
 pt:3discoteca|3dançar|entretenimento
@@ -1756,7 +1756,7 @@ ko:카지노|엔터테인먼트
 ja:カジノ|エンターテイメント
 cs:casino|zábava
 sk:kasíno|zábava
-nl:casino|uitgaan
+nl:casino|goktent|uitgaan
 zh-Hant:賭場|娛樂
 pl:kasyno|rozrywka
 pt:casino|entretenimento
@@ -1785,7 +1785,7 @@ ko:1칼리지|대학
 ja:1大学|カレッジ
 cs:vysoká škola
 sk:vysoká škola
-nl:college
+nl:hogeschool|hoger beroepsonderwijs|hbo
 zh-Hant:1大學|學院|專科院校|院校
 pl:szkoła wyższa|college
 pt:faculdade
@@ -1902,7 +1902,7 @@ ko:1묘소
 ja:1墓地|墓場|お墓|墓苑|霊場
 cs:hřbitov
 sk:cintorín
-nl:begraafplaats
+nl:begraafplaats|kerkhof
 zh-Hant:1墓地
 pl:3cmentarz|pochówek
 pt:cemitério
@@ -1931,7 +1931,7 @@ ko:1병원|병원|의사|의사가
 ja:1病院|クリニック|医師|医者|ドクター|救急|診療
 cs:3nemocnice|klinika|pohotovost|zdravotnické centrum|3lékař|doktor
 sk:3nemocnica|klinika|pohotovosť|zdravotnícke zariadenie|3lekár|doktor
-nl:3ziekenhuis|kliniek|3dokter
+nl:3ziekenhuis|kliniek|hospitaal|tandarts|3dokter
 zh-Hant:1醫院|醫生|診所|醫療|診療
 pl:3szpital|klinika|lekarz|doktor|leczenie
 pt:3clínica|clínica|3médico
@@ -2046,7 +2046,7 @@ ko:1주차
 ja:1駐車場|パーキング|コインパーキング
 cs:3parkoviště
 sk:3parkovisko
-nl:3parkeerplaats
+nl:3parkeerplaats|parking
 zh-Hant:1停車場|停車|泊車
 pl:3parking
 pt:3parking
@@ -2133,7 +2133,7 @@ ko:1우편
 ja:1郵便局
 cs:3pošta
 sk:3pošta|poštový úrad
-nl:3post
+nl:3postkantoor|post
 zh-Hant:1郵局|郵筒
 pl:4poczta|listy
 pt:3correios
@@ -2162,7 +2162,7 @@ ko:1휴지통|휴지통|쓰레기
 ja:1ごみ箱|ゴミ|ごみ|リサイクル|再利用|ダストボックス
 cs:koš|odpadkový koš|popelnice|uložiště odpadu
 sk:kôš na smeti|odpadkový kôš
-nl:recycling|afval|prullenbak|vuilnis
+nl:recyclage|afval|prullenbak|vuilnis
 zh-Hant:1垃圾桶|垃圾|回收|回收場
 pl:3recykling|ponowne odtworzenie|odpady
 pt:reciclagem|lixo
@@ -2191,7 +2191,7 @@ ko:1학교
 ja:1学校
 cs:3škola
 sk:3škola
-nl:3school
+nl:3school|basisschool|middelbare school
 zh-Hant:1學校
 pl:3szkoła
 pt:3escola
@@ -2249,7 +2249,7 @@ ko:1전화
 ja:1公衆電話|電話|緑電話|電話ボックス
 cs:2telefon|telefonní budka|telefonní automat
 sk:2telefón|telefónna búdka|telefónny automat
-nl:2telefoon
+nl:2telefoon|publieke telefoon
 zh-Hant:1電話|2電話亭|2公共電話|3公用電話
 pl:3telefon|budka telefoniczna
 pt:telefone
@@ -2365,7 +2365,7 @@ ko:1나라
 ja:国|国家
 cs:země
 sk:krajina
-nl:land
+nl:land|staat
 zh-Hant:國|國家
 pl:kraj|państwo
 pt:país
@@ -2394,7 +2394,7 @@ ko:1도시|타운
 ja:市|町
 cs:velkoměsto
 sk:mesto
-nl:stad|dorp
+nl:stad
 zh-Hant:1城鎮|城市|市|鎮市
 pl:miasto|metropolia
 pt:cidade
@@ -2481,7 +2481,7 @@ ko:군
 ja:郡
 cs:země
 sk:krajina
-nl:land
+nl:graafschap
 zh-Hant:縣
 pl:wieś|ląd
 pt:município
@@ -2510,7 +2510,7 @@ ko:1상태|지역
 ja:州
 cs:země|provincie|kraj
 sk:štát|kraj
-nl:regio|provincie
+nl:deelstaat|regio|provincie
 zh-Hant:省|州
 pl:3stan|4region|5prowincja
 pt:estado|província
@@ -2568,7 +2568,7 @@ ko:섬
 ja:島|小島|島嶼|群島
 cs:ostrov
 sk:ostrov
-nl:eiland
+nl:eilandje
 zh-Hant:島|小島|島嶼
 pl:4wyspa
 pt:ilha
@@ -2597,7 +2597,7 @@ ko:1교외|지역
 ja:1区|地区
 cs:předměstí|městská část|městská zóna
 sk:predmestie|mestská časť
-nl:buitenwijken|wijk
+nl:buitenwijken|voorstad|wijk
 zh-Hant:1郊區|近郊
 pl:5przedmieścia|okolice miasta
 pt:subúrbio|distrito
@@ -2626,7 +2626,7 @@ ko:1햄릿|마을
 ja:村
 cs:vesnička
 sk:dedina
-nl:dorpje|dorp
+nl:gehucht|buurschap|dorpje|dorp
 zh-Hant:村|1村莊|鄉下
 pl:wieś|wioska
 pt:lugarejo
@@ -2684,7 +2684,7 @@ ko:1장소
 ja:1地域|僻地
 cs:lokalita
 sk:lokalita
-nl:lokaal
+nl:plaats|localiteit
 zh-Hant:1當地|地方
 pl:lokalne|region
 pt:localidade
@@ -2742,7 +2742,7 @@ ko:강
 ja:河川|川|河|流域|河川流域
 cs:řeka
 sk:rieka
-nl:rivier
+nl:rivier|beek|stroom|waterloop
 zh-Hant:1河流|河
 pl:3rzeka|strumień
 pt:rio
@@ -2771,7 +2771,7 @@ ko:1운하
 ja:1運河
 cs:kanál
 sk:kanál
-nl:kanaal
+nl:kanaal|waterloop|gracht
 zh-Hant:1運河
 pl:4kanał
 pt:canal
@@ -2829,7 +2829,7 @@ ko:1경로
 ja:1歩道|小道|小路|小径|階段|獣道|遊歩道|パス
 cs:cesta
 sk:cesta
-nl:pad
+nl:pad|voetweg|trappen
 zh-Hant:1人行步道|步道
 pl:3ścieżka|dróżka|droga
 pt:caminho
@@ -2858,7 +2858,7 @@ ko:1거리|가도
 ja:1ストリート|通り|道路|辻|筋
 cs:ulice|cesta|silnice|ul
 sk:ulica|cesta|ul
-nl:straat|st|str|laan
+nl:straat|st|str|laan|weg
 zh-Hant:路|街
 pl:3ulica|droga
 pt:rua
@@ -2884,7 +2884,7 @@ de:4Ausfahrt|Abfahrt
 cs:dopravní uzel|3dálnice
 sk:dopravný uzol|3diaľnica
 ja:1ジャンクション|料金所|高速道路|インターチェンジ
-nl:3uitgang|3kruising
+nl:3afrit|3uitgang|3kruising
 zh-Hant:1交流道|出口處|高速公路|公路
 pl:3wyjazd|wyjście
 pt:4saída|3junção
@@ -2913,7 +2913,7 @@ ko:1피크|산
 ja:1山頂|山|頂|頂上|峰
 cs:hora|pohoří
 sk:hora|pohorie
-nl:top|berg
+nl:top|berg|bergtop|heuvel|heuveltop
 zh-Hant:1山峰|1山脈|山|峰
 pl:3góra|szczyt|wierzchołek
 pt:pico|montanha
@@ -3029,7 +3029,7 @@ ko:숲
 ja:1森林|森|林|人工林|自然林
 cs:les
 sk:les
-nl:bos
+nl:bos|woud
 zh-Hant:1樹林|森林|樹木
 pl:las
 pt:floresta
@@ -3087,7 +3087,7 @@ ko:1호스텔
 ja:1ホステル|宿泊|宿|ホテル|民宿
 cs:3hostel|hotel|ubytovna|motel
 sk:3hostel|hotel|ubytovňa|motel
-nl:3hostel|hotel|motel
+nl:3hostel|jeugdherberg|hotel|motel
 zh-Hant:1旅舍|旅館|青年旅舍|青年旅館|住宿|飯店|3汽車旅館|3motel
 pl:4hostel|4hotel|4motel
 pt:3pousada|4hotel|motel
@@ -3145,7 +3145,7 @@ ko:1영빈관|호텔|호스텔
 ja:1ゲストハウス|ホテル|ホステル|民宿
 cs:penzion|hotel|hostel|ubytovna
 sk:penzión|hotel|hostel|ubytovňa
-nl:gasthuis|hotel|hostel
+nl:gasthuis|hotel|B&B|bed and breakfast|hostel
 zh-Hant:1賓館|旅館|飯店|酒店|旅舍|住宿|招待所
 pl:4pensjonat|hotel|hostel|gościnne pokoje
 pt:casa de hóspedes|pousada|motel
@@ -3319,7 +3319,7 @@ ko:1운동장
 ja:1児童公園|公園|遊び場
 cs:hřiště
 sk:ihrisko
-nl:speelplaats
+nl:speeltuin|speelplaats
 zh-Hant:1遊樂場
 pl:4plac zabaw
 pt:recreio
@@ -3667,7 +3667,7 @@ ko:1대상 사이트
 ja:1キャラバンサイト
 cs:kemp pro obytné přívěsy
 sk:kemp pre karavany|kemp pre obytné prívesy
-nl:caravan site
+nl:caravan site|camping
 zh-Hant:1營區|營地
 pl:4pole namiotowe
 pt:4parque de campismo|caravanismo
@@ -3864,10 +3864,12 @@ vi:camera tốc độ
 id:kamera kecepatan
 ro:radar
 nb:fartskamera
+nl:flitscamera|snelheidscamera
 de:Blitzer
 fi:nopeuskamera
 
 man_made-lighthouse
 en:lighthouse
+nl:vuurtoren
 ru:маяк
 de:Leuchtturm
