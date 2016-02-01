@@ -91,7 +91,11 @@ OsmOAuth::OsmOAuth(string const & consumerKey, string const & consumerSecret,
 // static
 OsmOAuth OsmOAuth::ServerAuth() noexcept
 {
+#ifdef DEBUG
+  return IZServerAuth();
+#else
   return ProductionServerAuth();
+#elif
 }
 // static
 OsmOAuth OsmOAuth::ServerAuth(TKeySecret const & userKeySecret) noexcept
