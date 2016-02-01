@@ -38,7 +38,7 @@ using namespace osm;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = L(@"osm_login");
+  self.title = L(@"osm_account").capitalizedString;
   self.isCorrect = MWMFieldCorrectNO;
   [self checkConnection];
   [self stopSpinner];
@@ -163,7 +163,7 @@ using namespace osm;
   }
   else
   {
-    [self showAlert:L(@"no_internet_connection") withButtonTitle:L(@"ok")];
+    [self showAlert:L(@"no_internet_connection_detected") withButtonTitle:L(@"ok")];
   }
 }
 

@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = L(@"forgotten_password");
+  self.title = L(@"forgot_password").capitalizedString;
   self.isCorrect = NO;
 }
 

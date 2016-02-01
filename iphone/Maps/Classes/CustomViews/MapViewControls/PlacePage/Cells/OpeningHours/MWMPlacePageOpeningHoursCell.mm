@@ -37,7 +37,7 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 
 NSString * stringFromTimeSpan(Timespan const & timeSpan)
 {
-  return [NSString stringWithFormat:@"%@-%@", stringFromTime(timeSpan.GetStart()), stringFromTime(timeSpan.GetEnd())];
+  return [NSString stringWithFormat:@"%@ - %@", stringFromTime(timeSpan.GetStart()), stringFromTime(timeSpan.GetEnd())];
 }
 
 NSArray<NSString *> * arrayFromClosedTimes(TTimespans const & closedTimes)
@@ -149,7 +149,7 @@ WeekDayView getWeekDayView()
 
   if (timeTable.IsTwentyFourHours())
   {
-    label = L(@"24/7");
+    label = L(@"twentyfour_seven");
     openTime = @"";
     breaks = @[];
   }
@@ -157,7 +157,7 @@ WeekDayView getWeekDayView()
   {
     BOOL const everyDay = (timeTable.GetOpeningDays().size() == 7);
     self.haveExpandSchedule |= !everyDay;
-    label = everyDay ? L(@"every_day") : L(@"today");
+    label = everyDay ? L(@"daily") : L(@"today");
     openTime = stringFromTimeSpan(timeTable.GetOpeningTime());
     breaks = arrayFromClosedTimes(timeTable.GetExcludeTime());
   }
@@ -171,7 +171,7 @@ WeekDayView getWeekDayView()
 - (void)addEmptyCurrentDay
 {
   WeekDayView cd = self.currentDay;
-  [cd setLabelText:L(@"closed_today") isRed:YES];
+  [cd setLabelText:L(@"day_off_today") isRed:YES];
   [cd setOpenTimeText:@""];
   [cd setBreaks:@[]];
   [cd setClosed:NO];
@@ -185,7 +185,7 @@ WeekDayView getWeekDayView()
   [wd setLabelText:stringFromOpeningDays(timeTable.GetOpeningDays()) isRed:NO];
   if (timeTable.IsTwentyFourHours())
   {
-    [wd setOpenTimeText:L(@"24/7")];
+    [wd setOpenTimeText:L(@"twentyfour_seven")];
     [wd setBreaks:@[]];
   }
   else
@@ -207,7 +207,7 @@ WeekDayView getWeekDayView()
   wd.currentDay = NO;
   wd.frame = {{0, self.weekDaysViewEstimatedHeight}, {self.weekDaysView.width, 0}};
   [wd setLabelText:stringFromOpeningDays(closedDays) isRed:NO];
-  [wd setOpenTimeText:L(@"closed_this_day")];
+  [wd setOpenTimeText:L(@"day_off")];
   [wd setBreaks:@[]];
   [wd invalidate];
   [self.weekDaysView addSubview:wd];

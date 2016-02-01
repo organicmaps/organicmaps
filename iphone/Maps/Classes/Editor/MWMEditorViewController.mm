@@ -105,7 +105,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)configNavBar
 {
-  self.title = L(@"edit_poi");
+  self.title = L(@"edit_place").capitalizedString;
   self.navigationItem.leftBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                     target:self
@@ -316,7 +316,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypeOpenHours:
     {
       MWMPlacePageOpeningHoursCell * tCell = (MWMPlacePageOpeningHoursCell *)cell;
-      NSString * text = entityValue ? entityValue : L(@"editor_time_title");
+      NSString * text = entityValue ? entityValue : L(@"add_opening_hours");
       [tCell configWithDelegate:self info:text lastCell:lastCell];
       break;
     }
@@ -348,7 +348,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_adress"]
                            text:entityValue
-                    placeholder:L(@"street")
+                    placeholder:L(@"add_street")
                        lastCell:lastCell];
       break;
     }
@@ -358,7 +358,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       [tCell configWithDelegate:self
                            icon:nil
                            text:entityValue
-                    placeholder:L(@"building")
+                    placeholder:L(@"house")
                    keyboardType:UIKeyboardTypeDefault
                        lastCell:lastCell];
       break;

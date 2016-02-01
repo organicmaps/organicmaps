@@ -101,8 +101,11 @@ NSString * getVerifier(NSString * urlString)
     }
     catch (exception const & ex)
     {
-      // TODO(@igrechuhin): What should we do in the error case?
-      // Stop spinner? Show some dialog?
+      dispatch_async(dispatch_get_main_queue(), ^
+      {
+        [self stopSpinner];
+        [self showAlert:L(@"dialog_routing_system_error") withButtonTitle:L(@"ok")];
+      });
       LOG(LWARNING, ("Can't loadAuthorizationPage", ex.what()));
     }
   });
@@ -151,8 +154,7 @@ NSString * getVerifier(NSString * urlString)
       else
       {
         [self loadAuthorizationPage];
-        // TODO Add error handling
-        [self showAlert:L(@"authorization_error") withButtonTitle:L(@"ok")];
+        [self showAlert:L(@"invalid_username_or_password") withButtonTitle:L(@"ok")];
       }
     });
   });
@@ -192,8 +194,8 @@ NSString * getVerifier(NSString * urlString)
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-  // TODO Add error handling
-  [self showAlert:L(@"authorization_error") withButtonTitle:L(@"ok")];
+  // TODO Rename string
+  [self showAlert:L(@"dialog_routing_system_error") withButtonTitle:L(@"ok")];
 }
 
 @end

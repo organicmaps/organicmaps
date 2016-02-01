@@ -85,7 +85,7 @@
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="red"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="pp_closed_now"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="closed_now"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray_down" translatesAutoresizingMaskIntoConstraints="NO" id="mGc-k4-uvQ">

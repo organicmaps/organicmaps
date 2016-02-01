@@ -10,6 +10,12 @@
 #include "editor/osm_auth.hpp"
 #include "editor/server_api.hpp"
 
+namespace
+{
+NSString * const kWebViewAuthSegue = @"Authorization2WebViewAuthorizationSegue";
+NSString * const kOSMAuthSegue = @"Authorization2OSMAuthorizationSegue";
+} // namespace
+
 using namespace osm;
 
 @interface MWMAuthorizationLoginViewController () <UIActionSheetDelegate>
@@ -116,13 +122,12 @@ using namespace osm;
     }
     catch (exception const & ex)
     {
-      // TODO(@igrechuhin): Should we display some error here?
       LOG(LWARNING, ("Can't load user preferences from OSM server:", ex.what()));
     }
   });
   // TODO(@igrechuhin): Cache user name and other info to display while offline.
   // Note that this cache should be reset if user logs out.
-  self.title = @"";
+  self.title = L(@"osm_account").capitalizedString;
   self.message.hidden = YES;
   self.loginGoogleButton.hidden = YES;
   self.loginFacebookButton.hidden = YES;
@@ -148,14 +153,14 @@ using namespace osm;
   self.logoutButton.hidden = YES;
   if (isAfterFirstEdit)
   {
-    self.title = L(@"thank_you");
-    self.message.text = L(@"thank_you_message");
+    self.title = L(@"thank_you").capitalizedString;
+    self.message.text = L(@"you_have_edited_your_first_object");
     self.leftBarButton.image = [UIImage imageNamed:@"ic_nav_bar_close"];
   }
   else
   {
-    self.title = L(@"profile");
-    self.message.text = L(@"profile_message");
+    self.title = L(@"profile").capitalizedString;
+    self.message.text = L(@"login_and_edit_map_motivation_message");
     self.leftBarButton.image = [UIImage imageNamed:@"btn_back_arrow"];
   }
 }
@@ -174,7 +179,7 @@ using namespace osm;
     size_t const uploadedChanges = stats.m_uploadedCount;
     size_t const localChanges = totalChanges - uploadedChanges;
 
-    self.localChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"changes"), @(localChanges).stringValue];
+    self.localChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"changes").capitalizedString, @(localChanges)];
     BOOL const noLocalChanges = (localChanges == 0);
     self.localChangesNotUploadedLabel.hidden = noLocalChanges;
     self.localChangesActionButton.hidden = noLocalChanges;
@@ -182,13 +187,16 @@ using namespace osm;
     self.localChangesLabelCenter.priority = noLocalChanges ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
 
     BOOL const noUploadedChanges = (uploadedChanges == 0);
-    self.uploadedChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"changes"), @(uploadedChanges).stringValue];
+    self.uploadedChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"changes").capitalizedString, @(uploadedChanges)];
     self.lastUploadLabel.hidden = noUploadedChanges;
     if (!noUploadedChanges)
-      self.lastUploadLabel.text = [NSDateFormatter
+    {
+      NSString * lastUploadDate = [NSDateFormatter
           localizedStringFromDate:[NSDate dateWithTimeIntervalSince1970:stats.m_lastUploadTimestamp]
                         dateStyle:NSDateFormatterShortStyle
                         timeStyle:NSDateFormatterNoStyle];
+      self.lastUploadLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"last_upload"), lastUploadDate];
+    }
     self.uploadedChangesViewHeight.constant = noUploadedChanges ? 44.0 : 64.0;
     self.uploadedChangesLabelCenter.priority = noUploadedChanges ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
     self.messageTopOffset.priority = UILayoutPriorityDefaultLow;
@@ -197,27 +205,50 @@ using namespace osm;
 
 #pragma mark - Actions
 
+- (void)performOnlineAction:(TMWMVoidBlock)block
+{
+  if (Platform::IsConnected())
+    block();
+  else
+    [self showAlert:L(@"no_internet_connection_detected") withButtonTitle:L(@"ok")];
+}
+
 - (IBAction)loginGoogle
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatGoogle)];
+  [self performOnlineAction:^
+  {
+    [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatGoogle)];
+    [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginGoogleButton];
+  }];
 }
 
 - (IBAction)loginFacebook
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatFacebook)];
+  [self performOnlineAction:^
+  {
+    [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatFacebook)];
+    [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginFacebookButton];
+  }];
 }
 
 - (IBAction)loginOSM
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatOSM)];
+  [self performOnlineAction:^
+  {
+    [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatOSM)];
+    [self performSegueWithIdentifier:kOSMAuthSegue sender:self.loginOSMButton];
+  }];
 }
 
 - (IBAction)signup
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatSignup)];
-  OsmOAuth const auth = OsmOAuth::ServerAuth();
-  NSURL * url = [NSURL URLWithString:@(auth.GetRegistrationURL().c_str())];
-  [[UIApplication sharedApplication] openURL:url];
+  [self performOnlineAction:^
+  {
+    [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatSignup)];
+    OsmOAuth const auth = OsmOAuth::ServerAuth();
+    NSURL * url = [NSURL URLWithString:@(auth.GetRegistrationURL().c_str())];
+    [[UIApplication sharedApplication] openURL:url];
+  }];
 }
 
 - (IBAction)logout

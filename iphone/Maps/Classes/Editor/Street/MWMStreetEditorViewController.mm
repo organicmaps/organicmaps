@@ -38,7 +38,7 @@ namespace
 
 - (void)configNavBar
 {
-  self.title = L(@"street");
+  self.title = L(@"choose_street").capitalizedString;
   self.navigationItem.leftBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                     target:self
