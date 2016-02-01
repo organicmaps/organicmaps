@@ -1,5 +1,6 @@
 package com.mapswithme.maps;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.MapStorage.Index;
@@ -57,17 +58,17 @@ public class Framework
 
   public static native void nativeShowTrackRect(int category, int track);
 
-  public static native int getDrawScale();
+  public static native int nativeGetDrawScale();
 
-  public static native double[] getScreenRectCenter();
+  public static native double[] nativeGetScreenRectCenter();
 
   public static native DistanceAndAzimut nativeGetDistanceAndAzimut(double dstMerX, double dstMerY, double srcLat, double srcLon, double north);
 
   public static native DistanceAndAzimut nativeGetDistanceAndAzimutFromLatLon(double dstLat, double dstLon, double srcLat, double srcLon, double north);
 
-  public static native String nativeFormatLatLon(double lat, double lon, boolean useDMSFormat);
+  public static native String nativeFormatLatLon(double lat, double lon, boolean useDmsFormat);
 
-  public static native String[] nativeFormatLatLonToArr(double lat, double lon, boolean useDMSFormat);
+  public static native String[] nativeFormatLatLonToArr(double lat, double lon, boolean useDmsFormat);
 
   public static native String nativeFormatAltitude(double alt);
 
@@ -75,9 +76,7 @@ public class Framework
 
   public static native String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
 
-  public static native String nativeGetNameAndAddress4Point(double lat, double lon);
-
-  public static native MapObject nativeGetMapObjectForPoint(double lat, double lon);
+  public static native String nativeGetNameAndAddress(double lat, double lon);
 
   public static native void nativeSetMapObjectListener(MapObjectListener listener);
 
@@ -93,7 +92,7 @@ public class Framework
 
   public static native void nativeClearApiPoints();
 
-  public static native void deactivatePopup();
+  public static native void nativeDeactivatePopup();
 
   public static native String[] nativeGetMovableFilesExts();
 
@@ -147,9 +146,9 @@ public class Framework
   public static native void nativeShowCountry(Index idx, boolean zoomToDownloadButton);
 
   // TODO consider removal of that methods
-  public static native void downloadCountry(Index idx);
+  public static native void nativeDownloadCountry(Index idx);
 
-  public static native double[] predictLocation(double lat, double lon, double accuracy, double bearing, double speed, double elapsedSeconds);
+  public static native double[] nativePredictLocation(double lat, double lon, double accuracy, double bearing, double speed, double elapsedSeconds);
 
   public static native void nativeSetMapStyle(int mapStyle);
 
@@ -197,4 +196,7 @@ public class Framework
 
   @Nullable
   public static native MapObject nativeGetActiveMapObject();
+
+  @NonNull
+  public static native MapObject nativeActivateMapObject(double lat, double lon);
 }

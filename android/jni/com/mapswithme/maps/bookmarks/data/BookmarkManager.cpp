@@ -96,12 +96,16 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
     JNIEnv * env, jobject thiz, jstring name, double lat, double lon)
 {
-  const m2::PointD glbPoint(MercatorBounds::FromLatLon(lat, lon));
+  m2::PointD const glbPoint(MercatorBounds::FromLatLon(lat, lon));
   ::Framework * f = frm();
-  BookmarkData bmk(ToNativeString(env, name), f->LastEditedBMType());
-  BookmarkAndCategory const bmkAndCat = g_framework->AddBookmark(f->LastEditedBMCategory(), glbPoint, bmk);
-  BookmarkCategory const * category = f->GetBookmarkManager().GetBmCategory(bmkAndCat.first);
-  return usermark_helper::CreateMapObject(category->GetUserMark(bmkAndCat.second));
+  BookmarkData bmkData(ToNativeString(env, name), f->LastEditedBMType());
+  BookmarkAndCategory const bmkAndCat = g_framework->AddBookmark(f->LastEditedBMCategory(), glbPoint, bmkData);
+  BookmarkCategory::Guard guard(*f->GetBookmarkManager().GetBmCategory(bmkAndCat.first));
+  UserMark * newBookmark = guard.m_controller.GetUserMarkForEdit(bmkAndCat.second);
+  // TODO @deathbaba or @yunikkk - remove that hack after BookmarkManager will correctly set features for bookmarks.
+  newBookmark->SetFeature(f->GetFeatureAtMercatorPoint(glbPoint));
+  g_framework->SetActiveUserMark(newBookmark);
+  return usermark_helper::CreateMapObject(newBookmark);
 }
 
 JNIEXPORT jint JNICALL

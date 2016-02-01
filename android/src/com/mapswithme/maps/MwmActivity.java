@@ -268,8 +268,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final Location loc = LocationHelper.INSTANCE.getLastLocation();
     if (loc != null)
     {
-      final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
-      final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
+      final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.nativeGetDrawScale(), "");
+      final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.nativeGetDrawScale(), "");
       final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
       ShareOption.ANY.share(this, body);
       return;
@@ -438,7 +438,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return false;
 
     mPlacePage.hide();
-    Framework.deactivatePopup();
+    Framework.nativeDeactivatePopup();
     return true;
   }
 
@@ -1130,7 +1130,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      Framework.deactivatePopup();
+      Framework.nativeDeactivatePopup();
       mPlacePage.setMapObject(null, false);
       mMainMenu.show(true);
     }
@@ -1222,7 +1222,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public boolean run(MwmActivity target)
     {
       if (mDoAutoDownload)
-        Framework.downloadCountry(mIndex);
+        Framework.nativeDownloadCountry(mIndex);
       Framework.nativeShowCountry(mIndex, mDoAutoDownload);
       return true;
     }

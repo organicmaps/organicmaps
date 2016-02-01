@@ -62,6 +62,7 @@ Framework::Framework()
   : m_lastCompass(0.0)
   , m_currentMode(location::MODE_UNKNOWN_POSITION)
   , m_isCurrentModeInitialized(false)
+  , m_activeUserMark(nullptr)
 {
   ASSERT_EQUAL ( g_framework, 0, () );
   g_framework = this;
@@ -643,7 +644,7 @@ extern "C"
   /// @name JNI EXPORTS
   //@{
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress4Point(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+  Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
     search::AddressInfo const info = frm()->GetMercatorAddressInfo(MercatorBounds::FromLatLon(lat, lon));
     return jni::ToJavaString(env, info.FormatNameAndAddress());
@@ -768,13 +769,13 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_Framework_getDrawScale(JNIEnv * env, jclass clazz)
+  Java_com_mapswithme_maps_Framework_nativeGetDrawScale(JNIEnv * env, jclass clazz)
   {
     return static_cast<jint>(frm()->GetDrawScale());
   }
 
   JNIEXPORT jdoubleArray JNICALL
-  Java_com_mapswithme_maps_Framework_getScreenRectCenter(JNIEnv * env, jclass clazz)
+  Java_com_mapswithme_maps_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclass clazz)
   {
     const m2::PointD center = frm()->GetViewportCenter();
 
@@ -982,12 +983,6 @@ extern "C"
     return result;
   }
 
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetMapObjectForPoint(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
-  {
-    return usermark_helper::CreateMapObject(frm()->GetAddressMark(MercatorBounds::FromLatLon(lat, lon)));
-  }
-
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetCountryNameIfAbsent(JNIEnv * env, jobject thiz,
                                                                   jdouble lat, jdouble lon)
@@ -1036,19 +1031,19 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_downloadCountry(JNIEnv * env, jobject thiz, jobject idx)
+  Java_com_mapswithme_maps_Framework_nativeDownloadCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
     storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), MapOptions::Map);
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_deactivatePopup(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_Framework_nativeDeactivatePopup(JNIEnv * env, jobject thiz)
   {
     return g_framework->DeactivatePopup();
   }
 
   JNIEXPORT jdoubleArray JNICALL
-  Java_com_mapswithme_maps_Framework_predictLocation(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon, jdouble accuracy,
+  Java_com_mapswithme_maps_Framework_nativePredictLocation(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon, jdouble accuracy,
                                                      jdouble bearing, jdouble speed, jdouble elapsedSeconds)
   {
     double latitude = lat;
@@ -1167,6 +1162,14 @@ extern "C"
     UserMark const * mark = g_framework->GetActiveUserMark();
     if (!mark)
       return nullptr;
+    return usermark_helper::CreateMapObject(mark);
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeActivateMapObject(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+  {
+    UserMark const * mark = frm()->GetAddressMark(MercatorBounds::FromLatLon(lat, lon));
+    g_framework->SetActiveUserMark(mark);
     return usermark_helper::CreateMapObject(mark);
   }
 } // extern "C"

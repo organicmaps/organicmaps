@@ -433,7 +433,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
         mProgress.setMax((int) MapStorage.INSTANCE.countryRemoteSizeInBytes(mCountryIndex, StorageOptions.MAP_OPTION_MAP_ONLY));
         mProgress.setProgress(0);
 
-        Framework.downloadCountry(mCountryIndex);
+        Framework.nativeDownloadCountry(mCountryIndex);
 
         setAction(PROCEED_TO_MAP);
       }

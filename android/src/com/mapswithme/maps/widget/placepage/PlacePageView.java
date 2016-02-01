@@ -61,7 +61,6 @@ import com.mapswithme.maps.widget.ObservableScrollView;
 import com.mapswithme.maps.widget.ScrollViewShadowController;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.InputUtils;
-import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -127,8 +126,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private MwmActivity.LeftAnimationTrackListener mLeftAnimationTrackListener;
   // Data
   private MapObject mMapObject;
-
-  private MapObject mBookmarkedMapObject;
   private boolean mIsLatLonDms;
 
 
@@ -427,8 +424,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     refreshMetadataOrHide(mMapObject.getFormattedCuisine(), mCuisine, mTvCuisine);
-    // TODO @yunikkk uncomment wiki display when data with correct wiki representation(urlencoded once) will be ready
-    //    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     // TODO throw away parsing hack when data will be parsed correctly in core
@@ -759,22 +755,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
     {
       final Bookmark currentBookmark = (Bookmark) mMapObject;
-      MapObject p;
-      if (mBookmarkedMapObject != null && LocationUtils.areLatLonEqual(mMapObject, mBookmarkedMapObject))
-        // use cached POI of bookmark, if it corresponds to current object
-        p = mBookmarkedMapObject;
-      else
-        p = Framework.nativeGetMapObjectForPoint(mMapObject.getLat(), mMapObject.getLon());
-
-      setMapObject(p, false);
+      setMapObject(Framework.nativeActivateMapObject(mMapObject.getLat(), mMapObject.getLon()), false);
       setState(State.DETAILS);
       BookmarkManager.INSTANCE.deleteBookmark(currentBookmark);
     }
     else
     {
-      mBookmarkedMapObject = mMapObject;
-      final Bookmark newBmk = BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon());
-      setMapObject(newBmk, false);
+      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()), false);
       // FIXME this hack is necessary to get correct views height in animation controller. remove after further investigation.
       post(new Runnable()
       {
