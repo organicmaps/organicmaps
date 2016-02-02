@@ -112,7 +112,8 @@ public:
 
   SimpleTree<T> const & Child(size_t index) const
   {
-    return m_children.at(index);
+    ASSERT_LESS(index, m_children.size(), ());
+    return m_children[index];
   }
 
   size_t ChildrenCount() const
@@ -124,7 +125,7 @@ public:
   template <class TFunctor>
   void ForEachChild(TFunctor && f)
   {
-    for (auto const & child : m_children)
+    for (auto & child : m_children)
       f(child);
   }
 
@@ -160,7 +161,7 @@ public:
   void ForEachInSubtree(TFunctor && f)
   {
     f(*this);
-    for (auto const & child: m_children)
+    for (auto & child: m_children)
       child.ForEachInSubtree(f);
   }
 
