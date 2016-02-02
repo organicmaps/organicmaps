@@ -69,7 +69,7 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
                                                  interval.first, interval.second, m_scale);
   }
 
-  street.m_calculator = make_unique<ProjectionOnStreetCalculator>(points, m_offsetMeters);
+  street.m_calculator = make_unique<ProjectionOnStreetCalculator>(points);
 }
 }  // namespace v2
 }  // namespace search

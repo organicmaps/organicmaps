@@ -29,9 +29,7 @@ struct ProjectionOnStreet
 class ProjectionOnStreetCalculator
 {
 public:
-  static int constexpr kDefaultMaxDistMeters = 200;
-
-  ProjectionOnStreetCalculator(vector<m2::PointD> const & points, double maxDistMeters);
+  explicit ProjectionOnStreetCalculator(vector<m2::PointD> const & points);
 
   // Finds nearest point on the street to the |point|. If such point
   // is located within |m_maxDistMeters|, stores projection in |proj|
@@ -40,9 +38,6 @@ public:
   bool GetProjection(m2::PointD const & point, ProjectionOnStreet & proj) const;
 
 private:
-  void Init(vector<m2::PointD> const & points);
-
   vector<m2::ProjectionToSection<m2::PointD>> m_segProjs;
-  double const m_maxDistMeters;
 };
 }  // namespace search

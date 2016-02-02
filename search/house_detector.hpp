@@ -245,7 +245,7 @@ class HouseDetector
 
   template <class ProjectionCalcT>
   void ReadHouse(FeatureType const & f, Street * st, ProjectionCalcT & calc);
-  void ReadHouses(Street * st, double offsetMeters);
+  void ReadHouses(Street * st);
 
   void SetMetres2Mercator(double factor);
 
@@ -259,7 +259,7 @@ public:
   /// @return number of different joined streets.
   int MergeStreets();
 
-  static int const DEFAULT_OFFSET_M = ProjectionOnStreetCalculator::kDefaultMaxDistMeters;
+  static int const DEFAULT_OFFSET_M = 200;
   void ReadAllHouses(double offsetMeters = DEFAULT_OFFSET_M);
 
   void GetHouseForName(string const & houseNumber, vector<HouseResult> & res);

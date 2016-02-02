@@ -10,8 +10,6 @@ namespace search
 {
 namespace v2
 {
-// static
-double const FeaturesLayerMatcher::kBuildingRadiusMeters = 50;
 
 FeaturesLayerMatcher::FeaturesLayerMatcher(Index & index, my::Cancellable const & cancellable)
   : m_context(nullptr)

@@ -4,14 +4,9 @@
 
 #include "geometry/robust_orientation.hpp"
 
-#include "base/assert.hpp"
-
 
 namespace search
 {
-namespace
-{
-}  // namespace
 
 // ProjectionOnStreet ------------------------------------------------------------------------------
 ProjectionOnStreet::ProjectionOnStreet()
@@ -20,11 +15,15 @@ ProjectionOnStreet::ProjectionOnStreet()
 }
 
 // ProjectionOnStreetCalculator --------------------------------------------------------------------
-ProjectionOnStreetCalculator::ProjectionOnStreetCalculator(vector<m2::PointD> const & points,
-                                                           double maxDistMeters)
-  : m_maxDistMeters(maxDistMeters)
+ProjectionOnStreetCalculator::ProjectionOnStreetCalculator(vector<m2::PointD> const & points)
 {
-  Init(points);
+  size_t const count = points.size();
+  if (count < 2)
+    return;
+
+  m_segProjs.resize(count - 1);
+  for (size_t i = 0; i + 1 != count; ++i)
+    m_segProjs[i].SetBounds(points[i], points[i + 1]);
 }
 
 bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
@@ -49,17 +48,7 @@ bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
     }
   }
 
-  return (proj.m_segIndex < kInvalidIndex && proj.m_distMeters <= m_maxDistMeters);
+  return (proj.m_segIndex < kInvalidIndex);
 }
 
-void ProjectionOnStreetCalculator::Init(vector<m2::PointD> const & points)
-{
-  size_t const count = points.size();
-  if (count < 2)
-    return;
-
-  m_segProjs.resize(count - 1);
-  for (size_t i = 0; i + 1 != count; ++i)
-    m_segProjs[i].SetBounds(points[i], points[i + 1]);
-}
 }  // namespace search
