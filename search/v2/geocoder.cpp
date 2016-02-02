@@ -982,8 +982,12 @@ void Geocoder::GreedilyMatchStreets()
       if (IsStreetSynonym(token))
         continue;
 
+      bool lowerLayersMatched = false;
       if (feature::IsHouseNumber(token))
+      {
+        lowerLayersMatched = true;
         CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
+      }
 
       unique_ptr<coding::CompressedBitVector> buffer;
       if (startToken == curToken || coding::CompressedBitVector::IsEmpty(allFeatures))
@@ -992,12 +996,14 @@ void Geocoder::GreedilyMatchStreets()
         buffer = coding::CompressedBitVector::Intersect(*allFeatures, *m_addressFeatures[curToken]);
 
       if (coding::CompressedBitVector::IsEmpty(buffer))
+      {
+        if (!lowerLayersMatched)
+          CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
         break;
+      }
 
       allFeatures.swap(buffer);
     }
-
-    CreateStreetsLayerAndMatchLowerLayers(startToken, curToken, allFeatures);
   }
 }
 

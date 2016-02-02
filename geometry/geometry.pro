@@ -17,6 +17,7 @@ SOURCES += \
   region2d/binary_operators.cpp \
   robust_orientation.cpp \
   screenbase.cpp \
+  segment2d.cpp \
   spline.cpp \
   triangle2d.cpp \
 
@@ -43,6 +44,7 @@ HEADERS += \
   region2d/boost_concept.hpp \
   robust_orientation.hpp \
   screenbase.hpp \
+  segment2d.hpp \
   simplification.hpp \
   spline.hpp \
   transformations.hpp \
