@@ -2,57 +2,56 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 
-namespace
+namespace osm_auth_ios
 {
+
 NSString * const kOSMRequestToken = @"OSMRequestToken";
 NSString * const kOSMRequestSecret = @"OSMRequestSecret";
 NSString * const kAuthUserSkip = @"AuthUserSkip";
 NSString * const kAuthNeedCheck = @"AuthNeedCheck";
-}  // namespace
 
-UIColor * MWMAuthorizationButtonTextColor(MWMAuthorizationButtonType type)
+UIColor * AuthorizationButtonTextColor(AuthorizationButtonType type)
 {
   switch (type)
   {
-    case MWMAuthorizationButtonTypeGoogle:
+    case AuthorizationButtonType::AuthorizationButtonTypeGoogle:
       return [UIColor blackColor];
-    case MWMAuthorizationButtonTypeFacebook:
+    case AuthorizationButtonType::AuthorizationButtonTypeFacebook:
       return [UIColor whiteColor];
-    case MWMAuthorizationButtonTypeOSM:
+    case AuthorizationButtonType::AuthorizationButtonTypeOSM:
       return [UIColor white];
   }
   return [UIColor clearColor];
 }
 
-UIColor * MWMAuthorizationButtonBackgroundColor(MWMAuthorizationButtonType type)
+UIColor * AuthorizationButtonBackgroundColor(AuthorizationButtonType type)
 {
   switch (type)
   {
-    case MWMAuthorizationButtonTypeGoogle:
+    case AuthorizationButtonType::AuthorizationButtonTypeGoogle:
       return [UIColor whiteColor];
-    case MWMAuthorizationButtonTypeFacebook:
+    case AuthorizationButtonType::AuthorizationButtonTypeFacebook:
       return [UIColor colorWithRed:72. / 255. green:97. / 255. blue:163. / 255. alpha:1.];
-    case MWMAuthorizationButtonTypeOSM:
+    case AuthorizationButtonType::AuthorizationButtonTypeOSM:
       return [UIColor linkBlue];
   }
   return [UIColor clearColor];
 }
 
-void MWMAuthorizationConfigButton(UIButton * btn, MWMAuthorizationButtonType type)
+void AuthorizationConfigButton(UIButton * btn, AuthorizationButtonType type)
 {
-  UIColor * txtCol = MWMAuthorizationButtonTextColor(type);
-  UIColor * bgCol = MWMAuthorizationButtonBackgroundColor(type);
+  UIColor * txtCol = AuthorizationButtonTextColor(type);
+  UIColor * bgCol = AuthorizationButtonBackgroundColor(type);
 
+  CGFloat const highlightedAlpha = 0.3;
   [btn setTitleColor:txtCol forState:UIControlStateNormal];
-  [btn setTitleColor:bgCol forState:UIControlStateHighlighted];
+  [btn setTitleColor:[txtCol colorWithAlphaComponent:highlightedAlpha] forState:UIControlStateHighlighted];
 
   [btn setBackgroundColor:bgCol forState:UIControlStateNormal];
-  [btn setBackgroundColor:[UIColor clearColor] forState:UIControlStateHighlighted];
-
-  btn.layer.borderColor = bgCol.CGColor;
+  [btn setBackgroundColor:[bgCol colorWithAlphaComponent:highlightedAlpha] forState:UIControlStateHighlighted];
 }
 
-void MWMAuthorizationStoreCredentials(osm::TKeySecret const & keySecret)
+void AuthorizationStoreCredentials(osm::TKeySecret const & keySecret)
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   if (keySecret.first.empty() || keySecret.second.empty())
@@ -68,7 +67,7 @@ void MWMAuthorizationStoreCredentials(osm::TKeySecret const & keySecret)
   [ud synchronize];
 }
 
-BOOL MWMAuthorizationHaveCredentials()
+BOOL AuthorizationHaveCredentials()
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   NSString * requestToken = [ud stringForKey:kOSMRequestToken];
@@ -76,7 +75,7 @@ BOOL MWMAuthorizationHaveCredentials()
   return requestToken && requestSecret;
 }
 
-osm::TKeySecret MWMAuthorizationGetCredentials()
+osm::TKeySecret AuthorizationGetCredentials()
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   NSString * requestToken = [ud stringForKey:kOSMRequestToken];
@@ -86,26 +85,28 @@ osm::TKeySecret MWMAuthorizationGetCredentials()
   return {};
 }
 
-void MWMAuthorizationSetUserSkip()
+void AuthorizationSetUserSkip()
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setObject:[NSDate date] forKey:kAuthUserSkip];
   [ud synchronize];
 }
 
-BOOL MWMAuthorizationIsUserSkip()
+BOOL AuthorizationIsUserSkip()
 {
   return [[NSUserDefaults standardUserDefaults] objectForKey:kAuthUserSkip] != nil;
 }
 
-void MWMAuthorizationSetNeedCheck(BOOL needCheck)
+void AuthorizationSetNeedCheck(BOOL needCheck)
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   [ud setBool:needCheck forKey:kAuthNeedCheck];
   [ud synchronize];
 }
 
-BOOL MWMAuthorizationIsNeedCheck()
+BOOL AuthorizationIsNeedCheck()
 {
   return [[NSUserDefaults standardUserDefaults] boolForKey:kAuthNeedCheck];
 }
+
+} // namespace osm_auth_ios

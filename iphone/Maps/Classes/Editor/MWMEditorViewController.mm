@@ -169,7 +169,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   if (!m_edited_cells.empty())
   {
     [[Statistics instance] logEvent:kStatEventName(kStatEdit, kStatSave)];
-    MWMAuthorizationSetNeedCheck(YES);
+    osm_auth_ios::AuthorizationSetNeedCheck(YES);
     self.entity.cuisines = self.cuisines;
     [self.entity saveEditedCells:m_edited_cells];
   }

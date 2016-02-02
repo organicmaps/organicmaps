@@ -34,12 +34,12 @@ using namespace osm;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem * leftBarButton;
 
 @property (weak, nonatomic) IBOutlet UIView * profileView;
+@property (weak, nonatomic) IBOutlet UIView * localChangesView;
 @property (weak, nonatomic) IBOutlet UILabel * localChangesLabel;
-@property (weak, nonatomic) IBOutlet UILabel * localChangesNotUploadedLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * localChangesViewHeight;
 @property (weak, nonatomic) IBOutlet UIButton * localChangesActionButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * localChangesLabelCenter;
 
+@property (weak, nonatomic) IBOutlet UIView * uploadedChangesView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * uploadedChangesViewTopOffset;
 @property (weak, nonatomic) IBOutlet UILabel * uploadedChangesLabel;
 @property (weak, nonatomic) IBOutlet UILabel * lastUploadLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * uploadedChangesViewHeight;
@@ -49,6 +49,8 @@ using namespace osm;
 @end
 
 @implementation MWMAuthorizationLoginViewController
+
+using namespace osm_auth_ios;
 
 - (void)viewDidLoad
 {
@@ -61,10 +63,10 @@ using namespace osm;
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  if (MWMAuthorizationHaveCredentials())
+  if (AuthorizationHaveCredentials())
     [self configHaveAuth];
   else
-    [self configNoAuth:MWMAuthorizationIsNeedCheck() && !MWMAuthorizationIsUserSkip()];
+    [self configNoAuth:AuthorizationIsNeedCheck() && !AuthorizationIsUserSkip()];
 
   [self configChanges];
   UINavigationBar * navBar = self.navigationController.navigationBar;
@@ -75,7 +77,7 @@ using namespace osm;
   navBar.shadowImage = [[UIImage alloc] init];
   [navBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
   navBar.translucent = YES;
-  MWMAuthorizationSetNeedCheck(NO);
+  AuthorizationSetNeedCheck(NO);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -96,9 +98,9 @@ using namespace osm;
   self.loginFacebookButton.enabled = isConnected;
   self.signupButton.enabled = isConnected;
 
-  MWMAuthorizationConfigButton(self.loginGoogleButton, MWMAuthorizationButtonTypeGoogle);
-  MWMAuthorizationConfigButton(self.loginFacebookButton, MWMAuthorizationButtonTypeFacebook);
-  MWMAuthorizationConfigButton(self.loginOSMButton, MWMAuthorizationButtonTypeOSM);
+  AuthorizationConfigButton(self.loginGoogleButton, AuthorizationButtonType::AuthorizationButtonTypeGoogle);
+  AuthorizationConfigButton(self.loginFacebookButton, AuthorizationButtonType::AuthorizationButtonTypeFacebook);
+  AuthorizationConfigButton(self.loginOSMButton, AuthorizationButtonType::AuthorizationButtonTypeOSM);
 
   if (!isConnected)
   {
@@ -111,7 +113,7 @@ using namespace osm;
 {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
   {
-    ServerApi06 const api(OsmOAuth::ServerAuth(MWMAuthorizationGetCredentials()));
+    ServerApi06 const api(OsmOAuth::ServerAuth(AuthorizationGetCredentials()));
     try
     {
       UserPreferences const prefs = api.GetUserPreferences();
@@ -168,7 +170,7 @@ using namespace osm;
 - (void)configChanges
 {
   auto const stats = Editor::Instance().GetStats();
-  if (stats.m_edits.empty() && !MWMAuthorizationHaveCredentials())
+  if (stats.m_edits.empty() && !AuthorizationHaveCredentials())
   {
     self.profileView.hidden = YES;
     self.messageTopOffset.priority = UILayoutPriorityDefaultHigh;
@@ -179,14 +181,13 @@ using namespace osm;
     size_t const uploadedChanges = stats.m_uploadedCount;
     size_t const localChanges = totalChanges - uploadedChanges;
 
-    self.localChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"changes").capitalizedString, @(localChanges)];
     BOOL const noLocalChanges = (localChanges == 0);
-    self.localChangesNotUploadedLabel.hidden = noLocalChanges;
-    self.localChangesActionButton.hidden = noLocalChanges;
-    self.localChangesViewHeight.constant = noLocalChanges ? 44.0 : 64.0;
-    self.localChangesLabelCenter.priority = noLocalChanges ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+    [self setLocalChangesHidden:noLocalChanges];
+    if (!noLocalChanges)
+      self.localChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"not_sent").capitalizedString, @(localChanges)];
 
     BOOL const noUploadedChanges = (uploadedChanges == 0);
+    [self setUploadedChangesDisabled:noUploadedChanges];
     self.uploadedChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"changes").capitalizedString, @(uploadedChanges)];
     self.lastUploadLabel.hidden = noUploadedChanges;
     if (!noUploadedChanges)
@@ -201,6 +202,17 @@ using namespace osm;
     self.uploadedChangesLabelCenter.priority = noUploadedChanges ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
     self.messageTopOffset.priority = UILayoutPriorityDefaultLow;
   }
+}
+
+- (void)setLocalChangesHidden:(BOOL)isHidden
+{
+  self.localChangesView.hidden = isHidden;
+  self.uploadedChangesViewTopOffset.priority = isHidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+}
+
+- (void)setUploadedChangesDisabled:(BOOL)isDisabled
+{
+  self.uploadedChangesView.alpha = isDisabled ? 0.4 : 1.;
 }
 
 #pragma mark - Actions
@@ -254,14 +266,14 @@ using namespace osm;
 - (IBAction)logout
 {
   [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatLogout)];
-  MWMAuthorizationStoreCredentials({});
+  AuthorizationStoreCredentials({});
   [self cancel];
 }
 
 - (IBAction)cancel
 {
   if (!self.isCalledFromSettings)
-    MWMAuthorizationSetUserSkip();
+    AuthorizationSetUserSkip();
   UINavigationController * parentNavController = self.navigationController.navigationController;
   if (parentNavController)
     [parentNavController popViewControllerAnimated:YES];

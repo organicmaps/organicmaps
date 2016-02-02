@@ -106,6 +106,8 @@ void InitLocalizedStrings()
   ActiveMapsObserver * m_mapsObserver;
 }
 
+using namespace osm_auth_ios;
+
 + (MapsAppDelegate *)theApp
 {
   return (MapsAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -464,7 +466,7 @@ void InitLocalizedStrings()
     [Alohalytics forceUpload:callback];
   });
   // 2. Upload map edits (if any).
-  if (osm::Editor::Instance().HaveSomethingToUpload() && MWMAuthorizationHaveCredentials())
+  if (osm::Editor::Instance().HaveSomethingToUpload() && AuthorizationHaveCredentials())
   {
     runFetchTask(^
     {
@@ -477,7 +479,7 @@ void InitLocalizedStrings()
           case UploadResult::Error: callback(UIBackgroundFetchResultFailed); break;
           case UploadResult::NothingToUpload: callback(UIBackgroundFetchResultNoData); break;
         }
-      } with:MWMAuthorizationGetCredentials()];
+      } with:AuthorizationGetCredentials()];
     });
   }
   // 3. Check if map for current location is already downloaded, and if not - notify user to download it.
@@ -506,7 +508,7 @@ void InitLocalizedStrings()
   }
   // Upload map edits if any, but only if we have Internet connection and user has already been authorized.
   if (osm::Editor::Instance().HaveSomethingToUpload() &&
-      MWMAuthorizationHaveCredentials() &&
+      AuthorizationHaveCredentials() &&
       Platform::EConnectionType::CONNECTION_NONE != Platform::ConnectionStatus())
   {
     void (^finishEditorUploadTaskBlock)() = ^
@@ -524,7 +526,7 @@ void InitLocalizedStrings()
     [MapsAppDelegate uploadLocalMapEdits:^(osm::Editor::UploadResult /*ignore it here*/)
     {
       finishEditorUploadTaskBlock();
-    } with:MWMAuthorizationGetCredentials()];
+    } with:AuthorizationGetCredentials()];
   }
 }
 

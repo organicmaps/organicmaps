@@ -151,7 +151,7 @@ using namespace osm;
         [self stopSpinner];
         if (auth.IsAuthorized())
         {
-          MWMAuthorizationStoreCredentials(auth.GetKeySecret());
+          osm_auth_ios::AuthorizationStoreCredentials(auth.GetKeySecret());
           [self dismissViewControllerAnimated:YES completion:nil];
         }
         else

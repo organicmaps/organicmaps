@@ -1,23 +1,27 @@
-
 #include "editor/osm_auth.hpp"
 
-typedef NS_OPTIONS(NSUInteger, MWMAuthorizationButtonType)
+namespace osm_auth_ios
 {
-  MWMAuthorizationButtonTypeGoogle,
-  MWMAuthorizationButtonTypeFacebook,
-  MWMAuthorizationButtonTypeOSM
+
+enum class AuthorizationButtonType
+{
+  AuthorizationButtonTypeGoogle,
+  AuthorizationButtonTypeFacebook,
+  AuthorizationButtonTypeOSM
 };
 
-UIColor * MWMAuthorizationButtonBackgroundColor(MWMAuthorizationButtonType type);
-void MWMAuthorizationConfigButton(UIButton * btn, MWMAuthorizationButtonType type);
+UIColor * AuthorizationButtonBackgroundColor(AuthorizationButtonType type);
+void AuthorizationConfigButton(UIButton * btn, AuthorizationButtonType type);
 
 // Deletes any stored credentials if called with empty key or secret.
-void MWMAuthorizationStoreCredentials(osm::TKeySecret const & keySecret);
-BOOL MWMAuthorizationHaveCredentials();
+void AuthorizationStoreCredentials(osm::TKeySecret const & keySecret);
+BOOL AuthorizationHaveCredentials();
 // Returns empty key and secret if user has not beed authorized.
-osm::TKeySecret MWMAuthorizationGetCredentials();
+osm::TKeySecret AuthorizationGetCredentials();
 
-void MWMAuthorizationSetUserSkip();
-BOOL MWMAuthorizationIsUserSkip();
-void MWMAuthorizationSetNeedCheck(BOOL needCheck);
-BOOL MWMAuthorizationIsNeedCheck();
+void AuthorizationSetUserSkip();
+BOOL AuthorizationIsUserSkip();
+void AuthorizationSetNeedCheck(BOOL needCheck);
+BOOL AuthorizationIsNeedCheck();
+
+} // namespace osm_auth_ios

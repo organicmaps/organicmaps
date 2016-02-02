@@ -148,7 +148,7 @@ NSString * getVerifier(NSString * urlString)
       [self stopSpinner];
       if (OsmOAuth::IsValid(ks))
       {
-        MWMAuthorizationStoreCredentials(ks);
+        osm_auth_ios::AuthorizationStoreCredentials(ks);
         [self dismissViewControllerAnimated:NO completion:nil];
       }
       else

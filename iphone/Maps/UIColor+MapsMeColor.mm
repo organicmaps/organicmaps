@@ -38,6 +38,7 @@ NSDictionary<NSString *, UIColor *> * night =
   @"orange" : [UIColor colorWithRed:250. green:scaled(190.) blue:scaled(10.) alpha:alpha100],
   // Blue color (use for links and phone numbers)
   @"linkBlue" : [UIColor colorWithRed:scaled(255.) green:scaled(230.) blue:scaled(140.) alpha:alpha100],
+  @"linkBlueHighlighted" : [UIColor colorWithRed:scaled(255.) green:scaled(230.) blue:scaled(140.) alpha:alpha30],
   @"linkBlueDark" : [UIColor colorWithRed:scaled(200.) green:scaled(180.) blue:scaled(110.) alpha:alpha100],
   @"blackPrimaryText" : [UIColor colorWithWhite:1. alpha:alpha90],
   @"blackSecondaryText" : [UIColor colorWithWhite:1. alpha:alpha70],
@@ -66,6 +67,7 @@ NSDictionary<NSString *, UIColor *> * day =
   @"orange" : [UIColor colorWithRed:1. green:scaled(120.) blue:scaled(5.) alpha:alpha100],
   // Blue color (use for links and phone numbers)
   @"linkBlue" : [UIColor colorWithRed:scaled(30.) green:scaled(150.) blue:scaled(240.) alpha:alpha100],
+  @"linkBlueHighlighted" : [UIColor colorWithRed:scaled(30.) green:scaled(150.) blue:scaled(240.) alpha:alpha30],
   @"linkBlueDark" : [UIColor colorWithRed:scaled(25.) green:scaled(135.) blue:scaled(215.) alpha:alpha100],
   @"blackPrimaryText" : [UIColor colorWithWhite:0. alpha:alpha87],
   @"blackSecondaryText" : [UIColor colorWithWhite:0. alpha:alpha54],
@@ -158,6 +160,11 @@ UIColor * color(SEL cmd)
   return color(_cmd);
 }
 
++ (UIColor *)linkBlueHighlighted
+{
+  return color(_cmd);
+}
+
 + (UIColor *)linkBlueDark
 {
   return color(_cmd);
@@ -196,6 +203,12 @@ UIColor * color(SEL cmd)
 + (UIColor *)whitePrimaryText
 {
   return [UIColor colorWithWhite:1. alpha:alpha87];
+}
+
++ (UIColor *)whitePrimaryTextHighlighted
+{
+  // use only for highlighted colors!
+  return [UIColor colorWithWhite:1. alpha:alpha30];
 }
 
 + (UIColor *)whiteSecondaryText

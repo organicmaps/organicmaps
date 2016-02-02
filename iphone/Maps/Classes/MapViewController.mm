@@ -726,7 +726,8 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 
 - (void)checkAuthorization
 {
-  BOOL const isAfterFirstEdit = MWMAuthorizationIsNeedCheck() && !MWMAuthorizationHaveCredentials() && !MWMAuthorizationIsUserSkip();
+  using namespace osm_auth_ios;
+  BOOL const isAfterFirstEdit = AuthorizationIsNeedCheck() && !AuthorizationHaveCredentials() && !AuthorizationIsUserSkip();
   if (isAfterFirstEdit)
   {
     [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEditTime)
