@@ -189,7 +189,7 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"shop-doityourself", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
   {"shop-electronics", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
   {"shop-florist", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-furniture", {{EType::FMD_INTERNET}, false, true}},
+  {"shop-furniture", {{EType::FMD_INTERNET}, true, true}},
   {"shop-garden_centre", {{EType::FMD_INTERNET}, true, true}},
   {"shop-gift", {{EType::FMD_INTERNET}, true, true}},
   {"shop-greengrocer", {{EType::FMD_INTERNET}, true, true}},
