@@ -15,6 +15,8 @@
 		670E8C911BB31A2F00094197 /* ios_video_timer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C901BB31A2F00094197 /* ios_video_timer.mm */; };
 		671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C62041AE9014C00076BD0 /* measurement_utils.cpp */; };
 		671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671C62051AE9014C00076BD0 /* measurement_utils.hpp */; };
+		67247FFD1C60BD6500EDE56A /* write_dir_changer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FFB1C60BD6500EDE56A /* write_dir_changer.cpp */; };
+		67247FFE1C60BD6500EDE56A /* write_dir_changer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FFC1C60BD6500EDE56A /* write_dir_changer.hpp */; };
 		674125081B4C00CC00A3E828 /* country_defines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125001B4C00CC00A3E828 /* country_defines.cpp */; };
 		674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674125011B4C00CC00A3E828 /* country_defines.hpp */; };
 		6741250A1B4C00CC00A3E828 /* country_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125021B4C00CC00A3E828 /* country_file.cpp */; };
@@ -109,6 +111,8 @@
 		670E8C901BB31A2F00094197 /* ios_video_timer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ios_video_timer.mm; sourceTree = "<group>"; };
 		671C62041AE9014C00076BD0 /* measurement_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = measurement_utils.cpp; sourceTree = "<group>"; };
 		671C62051AE9014C00076BD0 /* measurement_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = measurement_utils.hpp; sourceTree = "<group>"; };
+		67247FFB1C60BD6500EDE56A /* write_dir_changer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = write_dir_changer.cpp; sourceTree = "<group>"; };
+		67247FFC1C60BD6500EDE56A /* write_dir_changer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = write_dir_changer.hpp; sourceTree = "<group>"; };
 		674125001B4C00CC00A3E828 /* country_defines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_defines.cpp; sourceTree = "<group>"; };
 		674125011B4C00CC00A3E828 /* country_defines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_defines.hpp; sourceTree = "<group>"; };
 		674125021B4C00CC00A3E828 /* country_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_file.cpp; sourceTree = "<group>"; };
@@ -244,6 +248,8 @@
 		675340E41C58C43A002CF0D9 /* platform_tests_support */ = {
 			isa = PBXGroup;
 			children = (
+				67247FFB1C60BD6500EDE56A /* write_dir_changer.cpp */,
+				67247FFC1C60BD6500EDE56A /* write_dir_changer.hpp */,
 				675340F41C58C4B3002CF0D9 /* scoped_dir.cpp */,
 				675340F51C58C4B3002CF0D9 /* scoped_dir.hpp */,
 				675340F61C58C4B3002CF0D9 /* scoped_file.cpp */,
@@ -386,6 +392,7 @@
 				675343D21A3F5D5A00A0A8C3 /* servers_list.hpp in Headers */,
 				675343BA1A3F5D5A00A0A8C3 /* http_thread_callback.hpp in Headers */,
 				675343B41A3F5D5A00A0A8C3 /* chunks_download_strategy.hpp in Headers */,
+				67247FFE1C60BD6500EDE56A /* write_dir_changer.hpp in Headers */,
 				674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */,
 				675343CD1A3F5D5A00A0A8C3 /* platform.hpp in Headers */,
 				675343D81A3F5D5A00A0A8C3 /* video_timer.hpp in Headers */,
@@ -535,6 +542,7 @@
 				670E8C761BB318AB00094197 /* platform_ios.mm in Sources */,
 				67A2526A1BB40E100063F8A8 /* platform_qt.cpp in Sources */,
 				675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */,
+				67247FFD1C60BD6500EDE56A /* write_dir_changer.cpp in Sources */,
 				6741250C1B4C00CC00A3E828 /* local_country_file_utils.cpp in Sources */,
 				67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */,
 				671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */,

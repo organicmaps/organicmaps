@@ -14,6 +14,7 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
+#include "platform/platform_tests_support/write_dir_changer.hpp"
 #include "platform/settings.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -33,7 +34,6 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-#include "storage/storage_tests/write_dir_changer.hpp"
 
 #include <QtCore/QCoreApplication>
 
