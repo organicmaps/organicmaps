@@ -6,12 +6,11 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
+#include "platform/platform_tests_support/write_dir_changer.hpp"
 
 #include "coding/file_name_utils.hpp"
 
 #include "storage/storage.hpp"
-
-#include "storage/storage_integration_tests/write_dir_changer.hpp"
 
 #include "base/assert.hpp"
 
@@ -19,8 +18,6 @@
 #include "std/mutex.hpp"
 #include "std/set.hpp"
 #include "std/unique_ptr.hpp"
-
-#include <QtCore/QCoreApplication>
 
 using namespace platform;
 using namespace storage;
@@ -77,7 +74,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
     if (!storage.IsDownloadInProgress())
     {
       // end waiting when all chilren will be downloaded
-      QCoreApplication::exit();
+      testing::StopEventLoop();
     }
   };
 
@@ -102,6 +99,25 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   storage.GetDownloadedChildren(kGroupCountryId, v);
   TEST(v.empty(), ());
 
+  // Check status for the all children nodes is set to ENotDownloaded
+  size_t totalGroupSize = 0;
+  for (auto const & countryId : children)
+  {
+    TEST_EQUAL(TStatus::ENotDownloaded, storage.CountryStatusEx(countryId), ());
+    NodeAttrs attrs;
+    storage.GetNodeAttrs(countryId, attrs);
+    TEST_EQUAL(TStatus::ENotDownloaded, attrs.m_status, ());
+    TEST_GREATER(attrs.m_mwmSize, 0, ());
+    totalGroupSize += attrs.m_mwmSize;
+  }
+
+  // Check status for the group node is set to ENotDownloaded
+  NodeAttrs attrs;
+  storage.GetNodeAttrs(kGroupCountryId, attrs);
+  TEST_EQUAL(TStatus::ENotDownloaded, attrs.m_status, ());
+  TEST_EQUAL(attrs.m_mwmSize, totalGroupSize, ());
+  attrs = NodeAttrs();
+
   // Check there is no mwm or any other files for the children nodes
   for (auto const & countryId : children)
   {
@@ -124,24 +140,23 @@ void DownloadGroup(Storage & storage, bool oneByOne)
     storage.DownloadNode(kGroupCountryId);
   }
   // wait for downloading of all children
-  QCoreApplication::exec();
+  testing::RunEventLoop();
 
   // Check all children nodes have been downloaded and changed.
   TEST_EQUAL(changed, children, ());
   TEST_EQUAL(downloaded, children, ());
 
-  // Check state for the group node is set to UpToDate and NoError
-  NodeAttrs attrs;
+  // Check status for the group node is set to EOnDisk
   storage.GetNodeAttrs(kGroupCountryId, attrs);
-  // TEST_EQUAL(NodeStatus::UpToDate, attrs.m_status, ()); // DOES NOT WORK
+  TEST_EQUAL(TStatus::EOnDisk, attrs.m_status, ());
 
-  // Check state for the all children nodes is set to UpToDate and NoError
+  // Check status for the all children nodes is set to EOnDisk
   for (auto const & countryId : children)
   {
     TEST_EQUAL(TStatus::EOnDisk, storage.CountryStatusEx(countryId), ());
     NodeAttrs attrs;
     storage.GetNodeAttrs(countryId, attrs);
-    // TEST_EQUAL(NodeStatus::UpToDate, attrs.m_status, ()); // DOES NOT WORK
+    TEST_EQUAL(TStatus::EOnDisk, attrs.m_status, ());
   }
 
   // Check there is only mwm files are present and no any other for the children nodes
@@ -211,7 +226,7 @@ void DeleteGroup(Storage & storage, bool oneByOne)
   // Check state for the group node is set to UpToDate and NoError
   NodeAttrs attrs;
   storage.GetNodeAttrs(kGroupCountryId, attrs);
-  // TEST_EQUAL(NodeStatus::NotDownloaded, attrs.m_status, ()); // DOES NOT WORK
+  TEST_EQUAL(TStatus::ENotDownloaded, attrs.m_status, ());
 
   // Check state for the all children nodes is set to UpToDate and NoError
   for (auto const & countryId : children)
@@ -219,7 +234,7 @@ void DeleteGroup(Storage & storage, bool oneByOne)
     TEST_EQUAL(TStatus::ENotDownloaded, storage.CountryStatusEx(countryId), ());
     NodeAttrs attrs;
     storage.GetNodeAttrs(countryId, attrs);
-    // TEST_EQUAL(NodeStatus::NotDownloaded, attrs.m_status, ()); // DOES NOT WORK
+    TEST_EQUAL(TStatus::ENotDownloaded, attrs.m_status, ());
   }
 
   // Check there are no mwm files for the children nodes

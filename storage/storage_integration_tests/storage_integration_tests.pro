@@ -6,8 +6,9 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map drape_frontend routing search storage indexer platform_tests_support drape platform geometry coding base \
-               freetype expat fribidi tomcrypt jansson protobuf osrm stats_client minizip succinct
+DEPENDENCIES = map drape_frontend routing search storage indexer drape platform_tests_support platform editor opening_hours geometry \
+               coding base freetype expat fribidi tomcrypt jansson protobuf osrm stats_client \
+               minizip succinct pugixml oauthcpp
 
 include($$ROOT_DIR/common.pri)
 
@@ -28,5 +29,7 @@ HEADERS += \
 SOURCES += \
   ../../testing/testingmain.cpp \
   migrate_tests.cpp \
+  storage_downloading_tests.cpp \
   storage_group_download_tests.cpp \
   storage_http_tests.cpp \
+  storage_update_tests.cpp \

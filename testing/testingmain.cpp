@@ -32,6 +32,33 @@
   #endif
 #endif
 
+namespace testing
+{
+
+void RunEventLoop()
+{
+#ifdef OMIM_OS_IPHONE_DEVICE
+  CFRunLoopRun();
+#else
+# ifdef QAPP
+  QAPP::exec();
+# endif
+#endif
+}
+
+void StopEventLoop()
+{
+#ifdef OMIM_OS_IPHONE_DEVICE
+  CFRunLoopStop(CFRunLoopGetMain());
+#else
+# ifdef QAPP
+  QAPP::exit();
+# endif
+#endif
+}
+
+} //  namespace testing
+
 namespace
 {
 bool g_bLastTestOK = true;

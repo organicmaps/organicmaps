@@ -5,17 +5,15 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
+#include "platform/platform_tests_support/write_dir_changer.hpp"
 
 #include "coding/file_name_utils.hpp"
-#include "coding/internal/file_data.hpp"
 
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 #include "base/thread.hpp"
 
 #include "std/string.hpp"
-
-#include "write_dir_changer.hpp"
 
 using namespace platform;
 using namespace storage;
@@ -36,7 +34,6 @@ UNIT_TEST(StorageFastMigrationTests)
   Settings::Get("LastMigration", version);
 
   TEST_GREATER_OR_EQUAL(s.GetCurrentDataVersion(), version, ());
-  Settings::Clear();
 }
 
 UNIT_TEST(StorageMigrationTests)
@@ -46,7 +43,7 @@ UNIT_TEST(StorageMigrationTests)
   TCountriesVec const kPrefetchCountries = {"Russia_Moscow"};
 
   WritableDirChanger writableDirChanger(kMapTestDir);
-  Settings::Clear();
+
   Settings::Set("DisableFastMigrate", true);
 
   Framework f;
@@ -86,15 +83,15 @@ UNIT_TEST(StorageMigrationTests)
     s.DownloadNode(countryId);
 
   // Wait for downloading complete.
-  testing::EventLoop();
+  testing::RunEventLoop();
 
   TEST_EQUAL(s.GetDownloadedFilesCount(), kOldCountries.size(), ());
   for (auto const & countryId : kOldCountries)
     TEST(s.IsNodeDownloaded(countryId), (countryId));
 
-  f.PreMigrate(curPos, statePrefetchChanged, progressChanged);
+  // f.PreMigrate(curPos, statePrefetchChanged, progressChanged);
   // Wait for downloading complete.
-  testing::EventLoop();
+  testing::RunEventLoop();
 
   TEST_EQUAL(s.GetDownloadedFilesCount(), kPrefetchCountries.size(), ());
   for (auto const & countryId : kPrefetchCountries)
@@ -102,7 +99,7 @@ UNIT_TEST(StorageMigrationTests)
 
   f.Migrate();
   // Wait for downloading complete.
-  testing::EventLoop();
+  testing::RunEventLoop();
 
   TEST_EQUAL(s.GetDownloadedFilesCount(), kPrefetchCountries.size() + kNewCountries.size(), ());
   for (auto const & countryId : kNewCountries)

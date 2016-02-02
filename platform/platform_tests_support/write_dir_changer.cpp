@@ -8,7 +8,7 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 
-WritableDirChanger::WritableDirChanger(string testDir)
+WritableDirChanger::WritableDirChanger(string const & testDir)
   : m_writableDirBeforeTest(GetPlatform().WritableDir())
   , m_testDirFullPath(m_writableDirBeforeTest + testDir)
 {

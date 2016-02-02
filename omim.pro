@@ -120,6 +120,10 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     storage_tests.depends = $$MapDepLibs
     SUBDIRS *= storage_tests
 
+    storage_integration_tests.subdir = storage/storage_integration_tests
+    storage_integration_tests.depends = $$MapDepLibs
+    SUBDIRS *= storage_integration_tests
+
     map_tests.subdir = map/map_tests
     map_tests.depends = $$MapDepLibs
     SUBDIRS *= map_tests

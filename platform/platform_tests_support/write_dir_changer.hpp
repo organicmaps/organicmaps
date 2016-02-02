@@ -3,7 +3,7 @@
 class WritableDirChanger
 {
 public:
-  WritableDirChanger(string testDir);
+  WritableDirChanger(string const & testDir);
   ~WritableDirChanger();
 
 private:
