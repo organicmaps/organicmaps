@@ -3,7 +3,6 @@
 #include "map/ge0_parser.hpp"
 #include "map/geourl_process.hpp"
 #include "map/gps_tracker.hpp"
-#include "map/storage_bridge.hpp"
 
 #include "defines.hpp"
 
@@ -255,10 +254,6 @@ Framework::Framework()
   : m_bmManager(*this)
   , m_fixedSearchResults(0)
 {
-  m_activeMaps.reset(new ActiveMapsLayout(*this));
-  m_globalCntTree = storage::CountryTree(m_activeMaps);
-  m_storageBridge = make_unique_dp<StorageBridge>(m_activeMaps, bind(&Framework::UpdateCountryInfo, this, _1, false));
-
   // Restore map style before classificator loading
   int mapStyle = MapStyleLight;
   if (!Settings::Get(kMapStyleKey, mapStyle))
@@ -368,8 +363,6 @@ Framework::~Framework()
 {
   m_drapeEngine.reset();
 
-  m_storageBridge.reset();
-  m_activeMaps.reset();
   m_model.SetOnMapDeregisteredCallback(nullptr);
 }
 
@@ -559,14 +552,11 @@ void Framework::RegisterAllMaps()
     minFormat = min(minFormat, static_cast<int>(id.GetInfo()->m_version.format));
   }
 
-  m_activeMaps->Init(maps);
-
   m_searchEngine->SetSupportOldFormat(minFormat < static_cast<int>(version::Format::v3));
 }
 
 void Framework::DeregisterAllMaps()
 {
-  m_activeMaps->Clear();
   m_model.Clear();
   m_storage.Clear();
 }
@@ -924,29 +914,16 @@ void Framework::SetAutoDownloadListener(TAutoDownloadListener const & listener)
 
 void Framework::OnDownloadMapCallback(storage::TIndex const & countryIndex)
 {
-  if (m_downloadCountryListener != nullptr)
-    m_downloadCountryListener(countryIndex, static_cast<int>(MapOptions::Map));
-  else
-    m_activeMaps->DownloadMap(countryIndex, MapOptions::Map);
 }
 
 void Framework::OnDownloadRetryCallback(storage::TIndex const & countryIndex)
 {
-  if (m_downloadCountryListener != nullptr)
-    m_downloadCountryListener(countryIndex, -1 /* option for retry downloading */);
-  else
-    m_activeMaps->RetryDownloading(countryIndex);
 }
 
 void Framework::OnDownloadCancelCallback(storage::TIndex const & countryIndex)
 {
   // Any cancel leads to disable auto-downloading.
   m_autoDownloadingOn = false;
-
-  if (m_downloadCancelListener != nullptr)
-    m_downloadCancelListener(countryIndex);
-  else
-    m_activeMaps->CancelDownloading(countryIndex);
 }
 
 void Framework::OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt)
@@ -969,8 +946,6 @@ void Framework::OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::P
 
 void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isCurrentCountry)
 {
-  ASSERT(m_activeMaps != nullptr, ());
-
   if (!m_drapeEngine)
     return;
 
@@ -984,15 +959,8 @@ void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isC
   gui::CountryInfo countryInfo;
 
   countryInfo.m_countryIndex = countryIndex;
-  countryInfo.m_currentCountryName = m_activeMaps->GetFormatedCountryName(countryIndex);
-  countryInfo.m_mapSize = m_activeMaps->GetRemoteCountrySizes(countryIndex).first;
-  countryInfo.m_showMapSize = !platform::migrate::NeedMigrate();
-  countryInfo.m_countryStatus = m_activeMaps->GetCountryStatus(countryIndex);
   if (countryInfo.m_countryStatus == storage::TStatus::EDownloading)
-  {
-    storage::LocalAndRemoteSizeT progress = m_activeMaps->GetDownloadableCountrySize(countryIndex);
-    countryInfo.m_downloadProgress = progress.first * 100 / progress.second;
-  }
+    countryInfo.m_downloadProgress = 50;
 
   m_drapeEngine->SetCountryInfo(countryInfo, isCurrentCountry);
 }

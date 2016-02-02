@@ -130,61 +130,6 @@ namespace qt
     // skip group items
     if (st.CountriesCount(countryIndex) > 0)
       return;
-
-    switch (m_framework.GetActiveMaps()->GetCountryStatus(countryIndex))
-    {
-    case TStatus::EOnDiskOutOfDate:
-      {
-        // map is already downloaded, so ask user about deleting!
-        QMessageBox ask(this);
-        ask.setIcon(QMessageBox::Question);
-        ask.setText(tr("Do you want to update or delete %1?").arg(item->text(KColumnIndexCountry)));
-
-        QPushButton * btns[3];
-        btns[0] = ask.addButton(tr("Update"), QMessageBox::ActionRole);
-        btns[1] = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
-        btns[2] = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
-
-        (void)ask.exec();
-
-        QAbstractButton * res = ask.clickedButton();
-
-        if (res == btns[0])
-          m_framework.GetActiveMaps()->DownloadMap(countryIndex, MapOptions::MapWithCarRouting);
-
-        if (res == btns[1])
-          m_framework.GetActiveMaps()->DeleteMap(countryIndex, MapOptions::MapWithCarRouting);
-      }
-      break;
-
-    case TStatus::EOnDisk:
-      {
-        // map is already downloaded, so ask user about deleting!
-        QMessageBox ask(this);
-        ask.setIcon(QMessageBox::Question);
-        ask.setText(tr("Do you want to delete %1?").arg(item->text(KColumnIndexCountry)));
-        ask.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        ask.setDefaultButton(QMessageBox::No);
-
-        if (ask.exec() == QMessageBox::Yes)
-          m_framework.GetActiveMaps()->DeleteMap(countryIndex, MapOptions::MapWithCarRouting);
-      }
-      break;
-
-    case TStatus::ENotDownloaded:
-    case TStatus::EDownloadFailed:
-      m_framework.GetActiveMaps()->DownloadMap(countryIndex, MapOptions::MapWithCarRouting);
-      break;
-
-    case TStatus::EInQueue:
-    case TStatus::EDownloading:
-      m_framework.GetActiveMaps()->DeleteMap(countryIndex, MapOptions::MapWithCarRouting);
-      break;
-
-    default:
-      ASSERT(false, ("We shouldn't be here"));
-      break;
-    }
   }
 
   QTreeWidgetItem * MatchedItem(QTreeWidgetItem & parent, int index)
