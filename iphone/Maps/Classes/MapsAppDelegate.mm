@@ -753,6 +753,8 @@ void InitLocalizedStrings()
 
 - (void)showAlertIfRequired
 {
+  if (GetFramework().IsRoutingActive())
+    return;
   if ([self shouldShowRateAlert])
     [self performSelector:@selector(showRateAlert) withObject:nil afterDelay:30.0];
   else if ([self shouldShowFacebookAlert])

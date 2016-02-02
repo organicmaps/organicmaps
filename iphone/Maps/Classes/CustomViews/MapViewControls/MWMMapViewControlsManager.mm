@@ -488,6 +488,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if ([MapsAppDelegate isAutoNightMode])
     [MapsAppDelegate resetToDefaultMapStyle];
   GetFramework().CloseRouting();
+  [MapsAppDelegate.theApp showAlertIfRequired];
 }
 
 - (void)swapPointsAndRebuildRouteIfPossible
