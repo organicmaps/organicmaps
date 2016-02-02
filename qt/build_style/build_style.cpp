@@ -30,10 +30,10 @@ QString GetGeometryToolPath()
   return resourceDir + "generator_tool.app/Contents/MacOS/generator_tool";
 }
 
-QString GetGeometryToolDir()
+QString GetGeometryToolResourceDir()
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  return resourceDir + "generator_tool.app/Contents/MacOS/";
+  return resourceDir + "generator_tool.app/Contents/Resources/";
 }
 
 }  // namespace
@@ -68,22 +68,25 @@ void BuildAndApply(QString const & mapcssFile)
 void RunRecalculationGeometryScript(QString const & mapcssFile)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
+  QString const writableDir = GetPlatform().WritableDir().c_str();
 
-  QString const dataPath = resourceDir;
   QString const generatorToolPath = GetGeometryToolPath();
   QString const appPath = QCoreApplication::applicationFilePath();
 
-  QString const geometryToolDir = GetGeometryToolDir();
+  QString const geometryToolResourceDir = GetGeometryToolResourceDir();
 
-  if (!CopyFile(resourceDir + "drules_proto.bin", geometryToolDir + "drules_proto.bin"))
+  if (!CopyFile(resourceDir + "drules_proto.bin", geometryToolResourceDir + "drules_proto.bin"))
     throw runtime_error("Cannot copy drawing rules file");
-  if (!CopyFile(resourceDir + "classificator.txt", geometryToolDir + "classificator.txt"))
+  if (!CopyFile(resourceDir + "classificator.txt", geometryToolResourceDir + "classificator.txt"))
     throw runtime_error("Cannot copy classificator file");
+  if (!CopyFile(resourceDir + "types.txt", geometryToolResourceDir + "types.txt"))
+    throw runtime_error("Cannot copy types file");
 
   QStringList params;
   params << "python" <<
             GetRecalculateGeometryScriptPath() <<
-            dataPath <<
+            resourceDir <<
+            writableDir <<
             generatorToolPath <<
             appPath <<
             mapcssFile;
