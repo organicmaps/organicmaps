@@ -67,6 +67,4 @@ int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries
 void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info);
 
 void LoadCountryCode2File(string const & jsonBuffer, multimap<string, string> & code2file);
-
-bool SaveCountries(int64_t version, CountriesContainerT const & countries, string & jsonBuffer);
 }  // namespace storage

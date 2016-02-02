@@ -34,7 +34,6 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-
 #include <QtCore/QCoreApplication>
 
 using namespace platform;

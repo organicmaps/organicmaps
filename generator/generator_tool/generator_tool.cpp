@@ -10,7 +10,6 @@
 #include "generator/search_index_builder.hpp"
 #include "generator/statistics.hpp"
 #include "generator/unpack_mwm.hpp"
-#include "generator/update_generator.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -31,10 +30,6 @@
 #include "defines.hpp"
 
 #include "3party/gflags/src/gflags/gflags.h"
-
-
-DEFINE_bool(generate_update, false,
-              "If specified, update.maps file will be generated from cells in the data path");
 
 DEFINE_bool(generate_classif, false, "Generate classificator.");
 
@@ -208,13 +203,6 @@ int main(int argc, char ** argv)
       if (!search::RankTableBuilder::CreateIfNotExists(datFile))
         LOG(LCRITICAL, ("Error generating rank table."));
     }
-  }
-
-  // Create http update list for countries and corresponding files.
-  if (FLAGS_generate_update)
-  {
-    LOG(LINFO, ("Updating countries file..."));
-    update::UpdateCountries(path);
   }
 
   string const datFile = path + FLAGS_output + DATA_FILE_EXTENSION;

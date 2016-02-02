@@ -34,7 +34,6 @@ SOURCES += \
     tesselator.cpp \
     towns_dumper.cpp \
     unpack_mwm.cpp \
-    update_generator.cpp \
 
 HEADERS += \
     borders_generator.hpp \
@@ -66,7 +65,6 @@ HEADERS += \
     tesselator.hpp \
     towns_dumper.hpp \
     unpack_mwm.hpp \
-    update_generator.hpp \
     ways_merger.hpp \
     world_map_generator.hpp \
 
