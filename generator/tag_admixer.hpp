@@ -25,8 +25,9 @@ public:
     string oneLine;
     while (getline(input, oneLine, '\n'))
     {
+      // String format: <<id;tag>>.
       auto pos = oneLine.find(';');
-      if (pos < oneLine.length())
+      if (pos != string::npos)
       {
         uint64_t wayId;
         CHECK(strings::to_uint64(oneLine.substr(0, pos), wayId),());
@@ -49,12 +50,23 @@ public:
     string oneLine;
     while (getline(input, oneLine, '\n'))
     {
+      // String format: <<lat;lon;id;is_capital>>.
+      // First ';'.
       auto pos = oneLine.find(";");
-      if (pos < oneLine.length())
+      if (pos != string::npos)
       {
-        uint64_t nodeId;
-        if (strings::to_uint64(oneLine.substr(0, pos), nodeId))
-          m_capitals.insert(nodeId);
+        // Second ';'.
+        pos = oneLine.find(";", pos + 1);
+        if (pos != string::npos)
+        {
+          uint64_t nodeId;
+          // Third ';'.
+          auto endPos = oneLine.find(";", pos + 1);
+          if (endPos == string::npos)
+            endPos = oneLine.length() - 1;
+          if (strings::to_uint64(oneLine.substr(pos + 1, endPos - pos), nodeId))
+            m_capitals.insert(nodeId);
+        }
       }
     }
   }
@@ -88,7 +100,7 @@ public:
     }
     catch (ifstream::failure const &)
     {
-      LOG(LWARNING, ("Can't read the world level capitals file! Generating world without roads. Path:", capitalsFile));
+      LOG(LWARNING, ("Can't read the world level capitals file! Generating world without towns admixing. Path:", capitalsFile));
       return;
     }
   }

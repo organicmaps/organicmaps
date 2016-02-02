@@ -6,6 +6,7 @@
 
 #include "base/string_utils.hpp"
 
+#include "std/limits.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -22,12 +23,18 @@ public:
     uint64_t population = 1;
     bool town = false;
     bool capital = false;
+    int admin_level = numeric_limits<int>::max();
     for (auto const & tag : em.Tags())
     {
       string key(tag.key), value(tag.value);
       if (key == "population")
       {
         if (!strings::to_uint64(value, population))
+          continue;
+      }
+      else if (key == "admin_level")
+      {
+        if (!strings::to_int(value, admin_level))
           continue;
       }
       else if (key == "capital" && value == "yes")
@@ -39,6 +46,11 @@ public:
         town = true;
       }
     }
+
+    // Ignore regional capitals.
+    if (capital && admin_level > 2)
+      capital = false;
+
     if (town || capital)
       m_records.emplace_back(em.lat, em.lon, em.id, capital, population);
   }
