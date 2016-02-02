@@ -15964,6 +15964,66 @@
     nl = Registeren
     pt = Cadastrar-se
 
+  [password_8_chars_min]
+    tags = ios, android
+    en = Password (8 characters minimum)
+    ru = Пароль (минимум 8 символов)
+    fr = Mot de passe (8 caractères minimum)
+    da = Adgangskode (mindst 8 tegn)
+    id = Kata Sandi (minimal 8 karakter)
+    ko = 암호(최소 8자)
+    sv = Lösenord (minst 8 tecken)
+    tr = Şifre (en az 8 karakter)
+    uk = Пароль (мінімум 8 символів)
+    vi = Mật khẩu (tối thiểu 8 ký tự)
+    hu = Jelszó (legalább 8 karakter)
+    de = Passwort (mindestens 8 Zeichen)
+    fi = Salasana (vähintään 8 merkkiä)
+    cs = Heslo (minimálně 8 znaků)
+    it = Password (minimo 8 caratteri)
+    nb = Passord (minimum 8 tegn)
+    zh-Hant = 密碼（最少8個字符）
+    zh-Hans = 密码（最少8个字符）
+    th = รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)
+    ja = パスワード(最低8文字)
+    ro = Parolă (minim 8 caractere)
+    ar = كلمة المرور (8 أحرف بحد أدنى)
+    sk = Heslo (8 minimálne znakov)
+    es = Contraseña (mínimo 8 caracteres)
+    pl = Hasło (minimum 8 znaków)
+    nl = Wachtwoord (minimaal 8 tekens)
+    pt = Senha (mínimo de 8 caracteres)
+
+  [invalid_username_or_password]
+    tags = ios, android
+    en = Invalid username or password.
+    ru = Неверное имя пользователя или пароль.
+    fr = Nom d'utilisateur ou mot de passe invalide.
+    da = Ugyldigt brugernavn eller adgangskode.
+    id = Nama pengguna dan Kata sandi tidak valid.
+    ko = 잘못된 사용자 이름 또는 암호.
+    sv = Fel användarnamn eller lösenord.
+    tr = Geçersiz Kullanıcı Adı veya Şifre.
+    uk = Невірне ім'я користувача або пароль.
+    vi = Sai Tên người dùng hoặc Mật khẩu.
+    hu = Érvénytelen felhasználónév vagy jelszó.
+    de = Ungültiger Benutzername oder Passwort.
+    fi = Virheellinen Käyttäjätunnus tai Salasana
+    cs = Neplatné uživatelské jméno nebo heslo.
+    it = Username o password non corretti.
+    nb = Ugyldig brukernavn eller passord.
+    zh-Hant = 無效的用戶名或密碼。
+    zh-Hans = 无效的用户名或密码。
+    th = ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง
+    ja = ユーザー名またはパスワードが無効です。
+    ro = Nume de utilizator sau parolă incorecte.
+    ar = اسم المستخدم أو كلمة المرور غير صالحة.
+    sk = Nesprávne používateľské meno alebo heslo.
+    es = Usuario o contraseña incorrectos.
+    pl = Nieprawidłowa nazwa użytkownika lub hasło.
+    nl = Ongeldige gebruikersnaam of ongeldig wachtwoord.
+    pt = Nome de usuário ou senha inválida.
+
   [login]
     tags = ios, android
     en = Log In
@@ -16418,35 +16478,95 @@
     nl = Dank je wel
     pt = Obrigado
 
+  [login_with_google]
+    tags = ios, android
+    en = Login with Google
+    ru = Войти через Google
+    fr = Connectez-vous avec Google
+    da = Log ind med Google
+    id = Masuk menggunakan Google
+    ko = Google로 로그인
+    sv = Logga in med Google
+    tr = Google ile giriş
+    uk = Увійти за допомогою Google
+    vi = Đăng nhập với Google
+    hu = Bejelentkezés Google- vel
+    de = Mit Google anmelden
+    fi = Kirjaudu sisään Google-tunnuksillasi
+    cs = Přihlásit se pomocí účtu Google
+    it = Accedi con Google
+    nb = Logg inn med Google
+    zh-Hant = 用谷歌登陸
+    zh-Hans = 用谷歌登陆
+    th = ล็อกอินด้วย Google
+    ja = Googleでログイン
+    ro = Logați-vă cu contul de Google
+    ar = تسجيل الدخول عبر جوجل
+    sk = Prihlásiť sa cez Google
+    es = Iniciar sesión con Google
+    pl = Zaloguj się przez Google
+    nl = Aanmelden met Google
+    pt = Entrar com Google
+
+  [login_with_facebook]
+    tags = ios, android
+    en = Login with Facebook
+    ru = Войти через Facebook
+    fr = Connectez-vous avec Facebook
+    da = Log ind med Facebook
+    id = Masuk menggunakan Facebook
+    ko = Facebook으로 로그인
+    sv = Logga in med Facebook
+    tr = Facebook ile giriş
+    uk = Увійти за допомогою Facebook
+    vi = Đăng nhập với Facebook
+    hu = Bejelentkezés Facebookkal
+    de = Mit Facebook anmelden
+    fi = Kirjaudu sisään Facebook-tunnuksillasi
+    cs = Přihlásit se pomocí účtu Facebook
+    it = Accedi con Facebook
+    nb = Logg inn med Facebook
+    zh-Hant = 用臉書登陸
+    zh-Hans = 用脸书登陆
+    th = ล็อกอินด้วย Facebook
+    ja = Facebookでログイン
+    ro = Logați-vă cu contul de Facebook
+    ar = تسجيل الدخول عبر فيسبوك
+    sk = Prihlásiť sa cez Facebook
+    es = Iniciar sesión con Facebook
+    pl = Zaloguj się przez Facebooka
+    nl = Aanmelden met Facebook
+    pt = Entrar com Facebook
+
   [login_with_openstreetmap]
     tags = ios, android
-    en = Log in at www.openstreetmap.org
+    en = Log in with www.openstreetmap.org
     ru = Войти через www.openstreetmap.org
     fr = Connectez-vous sur www.openstreetmap.org
-    da = Log ind på www.openstreetmap.org
-    id = Masuk di www.openstreetmap.org
+    da = Log ind med www.openstreetmap.org
+    id = Masuk menggunakan www.openstreetmap.org
     ko = www.openstreetmap.org에 로그인
-    sv = Logga in på www.openstreetmap.org
+    sv = Logga in med www.openstreetmap.org
     tr = www.openstreetmap.org adresinden oturum aç
-    uk = Увійдіть на www.openstreetmap.org
-    vi = Đăng nhập tại www.openstreetmap.org
+    uk = Увійти за допомогою www.openstreetmap.org
+    vi = Đăng nhập với www.openstreetmap.org
     hu = Jelentkezz be a www.openstreetmap.org oldalon
-    de = Anmelden bei www.openstreetmap.org
+    de = Mit www.openstreetmap.org anmelden
     fi = Kirjaudu sisään osoitteessa www.openstreetmap.org
-    cs = Log in at www.openstreetmap.org
-    it = Accedi su www.openstreetmap.org
-    nb = Logg deg inn på www.openstreetmap.org
+    cs = Přihlásit se pomocí účtu www.openstreetmap.org
+    it = Accedi con www.openstreetmap.org
+    nb = Logg inn med www.openstreetmap.org
     zh-Hant = 登錄到www.openstreetmap.org
     zh-Hans = 登录到www.openstreetmap.org
     th = ล็อกอินที่ www.openstreetmap.org
     ja = www.openstreetmap.orgでログインしてください
-    ro = Autentificați-vă pe www.openstreetmap.org
+    ro = Logați-vă cu contul de www.openstreetmap.org
     ar = قم بتسجيل الدخول في www.openstreetmap.org
-    sk = Prihláste sa na adrese www.openstreetmap.org
-    es = Iniciar sesión en www.openstreetmap.org
-    pl = Zaloguj się na www.openstreetmap.org
-    nl = Log in op www.openstreetmap.org
-    pt = Acessar em www.openstreetmap.org
+    sk = Prihlásiť sa cez www.openstreetmap.org
+    es = Iniciar sesión con www.openstreetmap.org
+    pl = Zaloguj się przez www.openstreetmap.org
+    nl = Aanmelden met www.openstreetmap.org
+    pt = Entrar com www.openstreetmap.org
 
   [edit_place]
     tags = ios, android
@@ -16518,7 +16638,7 @@
     ko = 기호 또는 이름판으로 이름 입력
     sv = Ange namnet som på skylten eller på namnbrickan
     tr = İşaret veya tabeladaki gibi ismi girin
-    uk = Введіть назву, як на вивісці або табличці
+    uk = Введіть назву як на вивісці або табличці
     vi = Nhập tên theo như trên chữ ký hoặc biển tên
     hu = Adja meg a táblán vagy az utcatáblán megjelenő nevet
     de = Den Namen wie auf dem Schild oder dem Namensschild angegeben eingeben
@@ -16823,6 +16943,66 @@
     nl = Postcode
     pt = Código postal
 
+  [cuisine]
+    tags = ios, android
+    en = Cuisine
+    ru = Кухня
+    fr = Cuisine
+    da = Køkken
+    id = Masakan
+    ko = 요리
+    sv = Kök
+    tr = Mutfak
+    uk = Кухня
+    vi = Ẩm thực
+    hu = Konyha
+    de = Küche
+    fi = Ruokalaji
+    cs = Kuchyně
+    it = Cucina
+    nb = Matrett
+    zh-Hant = 菜肴
+    zh-Hans = 菜肴
+    th = ประเภทอาหาร
+    ja = 料理
+    ro = Bucătărie
+    ar = المطبخ
+    sk = Kuchyňa
+    es = Cocina
+    pl = Kuchnia
+    nl = Keuken
+    pt = Culinária
+
+  [select_cuisine]
+    tags = ios, android
+    en = Select Cuisine
+    ru = Выбрать кухню
+    fr = Sélectionner une cuisine
+    da = Vælg køkken
+    id = Pilih Masakan
+    ko = 요리 선택
+    sv = Välj kök
+    tr = Mutfak Seç
+    uk = Вибрати кухню
+    vi = Chọn Ẩm thực
+    hu = Válassz Konyhát
+    de = Küche auswählen
+    fi = Valitse Ruokalaji
+    cs = Vybrat kuchyni
+    it = Seleziona la cucina
+    nb = Velg matrett
+    zh-Hant = 選擇菜肴
+    zh-Hans = 选择菜肴
+    th = เลือกประเภทอาหาร
+    ja = 料理を選択
+    ro = Selectați tipul de bucătărie
+    ar = اختر المطبخ
+    sk = Vyberte si kuchyňu
+    es = Seleccionar Cocina
+    pl = Wybierz kuchnię
+    nl = Selecteer Keuken
+    pt = Selecione a Culinária
+
   [email_or_username]
     tags = ios, android
     comment = login text field
@@ -16853,6 +17033,36 @@
     pl = E-mail lub nazwa użytkownika
     nl = E-mailadres of gebruikersnaam
     pt = E-mail ou nome de usuário
+
+  [phone]
+    tags = ios, android
+    en = Phone
+    ru = Телефон
+    fr = Numéro de téléphone
+    da = Telefon
+    id = Telepon
+    ko = 전화
+    sv = Telefon
+    tr = Telefon
+    uk = Телефон
+    vi = Điện thoại
+    hu = Telefonszám
+    de = Telefon
+    fi = Puhelinnumero
+    cs = Telefon
+    it = Telefono
+    nb = Telefon
+    zh-Hant = 電話
+    zh-Hans = 电话
+    th = โทรศัพท์
+    ja = 電話
+    ro = Telefon
+    ar = الهاتف
+    sk = Telefón
+    es = Teléfono
+    pl = Telefon
+    nl = Telefoonnummer
+    pt = Telefone
 
   [whats_new_editor_caption]
     tags = ios, android
