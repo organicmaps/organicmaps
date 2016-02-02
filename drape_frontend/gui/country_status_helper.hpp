@@ -15,7 +15,7 @@ namespace gui
 
 struct CountryInfo
 {
-  storage::TIndex m_countryIndex = storage::TIndex::INVALID;
+  storage::TCountryId m_countryIndex = storage::kInvalidCountryId;
   storage::TStatus m_countryStatus = storage::TStatus::EUnknown;
   string m_currentCountryName;
   size_t m_mapSize = 0;
@@ -62,7 +62,7 @@ public:
   void SetCountryInfo(CountryInfo const & countryInfo);
   void Clear();
 
-  storage::TIndex GetCountryIndex() const;
+  storage::TCountryId GetCountryIndex() const;
   ECountryState GetState() const;
   /// CountryStatusHandle work on FrontendRenderer and call this function to check "is visible"
   /// or state has already changed.

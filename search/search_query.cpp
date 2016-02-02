@@ -1317,7 +1317,7 @@ void Query::SearchAddress(Results & res)
           // Candidates for search around locality. Initially filled
           // with mwms containing city center.
           TMWMVector localityMwms;
-          string const localityFile = m_infoGetter.GetRegionFile(cityCenter);
+          string const localityFile = m_infoGetter.GetRegionCountryId(cityCenter);
           auto localityMismatch = [&localityFile](shared_ptr<MwmInfo> const & info)
           {
             return info->GetCountryName() != localityFile;

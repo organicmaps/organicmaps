@@ -40,7 +40,7 @@ public:
 
   inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
   inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
-  inline string const & GetCountryFileName() const { return m_file.GetCountryFile().GetNameWithoutExt(); }
+  inline string const & GetCountryFileName() const { return m_file.GetCountryFile().GetName(); }
 };
 
 class Index : public MwmSet

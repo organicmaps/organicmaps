@@ -29,7 +29,10 @@ public:
   // MapOptions::Map is used as a parameter of CountryFile::GetNameWithExt() method.
   LocalFileGenerator(string const & fileName)
       : m_countryFile(fileName),
-        m_testDataFile(m_countryFile.GetNameWithExt(MapOptions::Map), "routing"),
+        m_testMapFile(platform::GetFileName(m_countryFile.GetName(), MapOptions::Map,
+                                            version::FOR_TESTING_TWO_COMPONENT_MWM1), "map"),
+        m_testRoutingFile(platform::GetFileName(m_countryFile.GetName(), MapOptions::CarRouting,
+                                                version::FOR_TESTING_TWO_COMPONENT_MWM1), "map"),
         m_localFile(GetPlatform().WritableDir(), m_countryFile, 0 /* version */)
   {
     m_localFile.SyncWithDisk();
@@ -43,23 +46,26 @@ public:
 
   TestMwmSet & GetMwmSet() { return m_testSet; }
 
-  string const & GetCountryName() { return m_countryFile.GetNameWithoutExt(); }
+  string const & GetCountryName() { return m_countryFile.GetName(); }
 
   size_t GetNumRefs() { return m_result.first.GetInfo()->GetNumRefs(); }
 
 private:
   void GenerateNecessarySections(LocalCountryFile const & localFile)
   {
-    FilesContainerW dataCont(localFile.GetPath(MapOptions::CarRouting));
+    FilesContainerW routingCont(localFile.GetPath(MapOptions::CarRouting));
+    // Write version for routing file that is equal to correspondent mwm file.
+    FilesContainerW mwmCont(localFile.GetPath(MapOptions::Map));
 
-    FileWriter w1 = dataCont.GetWriter(VERSION_FILE_TAG);
+    FileWriter w1 = routingCont.GetWriter(VERSION_FILE_TAG);
+    FileWriter w2 = mwmCont.GetWriter(VERSION_FILE_TAG);
     version::WriteVersion(w1, my::TodayAsYYMMDD());
-    FileWriter w2 = dataCont.GetWriter(ROUTING_MATRIX_FILE_TAG);
-    w2.Write("smth", 4);
+    version::WriteVersion(w2, my::TodayAsYYMMDD());
   }
 
   CountryFile m_countryFile;
-  ScopedFile m_testDataFile;
+  ScopedFile m_testMapFile;
+  ScopedFile m_testRoutingFile;
   LocalCountryFile m_localFile;
   TestMwmSet m_testSet;
   pair<MwmSet::MwmId, MwmSet::RegResult> m_result;

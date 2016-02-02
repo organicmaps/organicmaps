@@ -8,10 +8,10 @@ namespace storage
 UNIT_TEST(QueuedCountry_AddOptions)
 {
   Storage storage;
-  TIndex const index = storage.FindIndexByFile("Angola");
-  QueuedCountry country(index, MapOptions::CarRouting);
+  TCountryId const countryId = storage.FindCountryIdByFile("USA_Georgia");
+  QueuedCountry country(countryId, MapOptions::CarRouting);
 
-  TEST_EQUAL(index, country.GetIndex(), ());
+  TEST_EQUAL(countryId, country.GetCountryId(), ());
   TEST_EQUAL(MapOptions::CarRouting, country.GetInitOptions(), ());
   TEST_EQUAL(MapOptions::CarRouting, country.GetCurrentFile(), ());
 
@@ -31,10 +31,10 @@ UNIT_TEST(QueuedCountry_AddOptions)
 UNIT_TEST(QueuedCountry_RemoveOptions)
 {
   Storage storage;
-  TIndex const index = storage.FindIndexByFile("Angola");
+  TCountryId const countryId = storage.FindCountryIdByFile("USA_Georgia");
 
   {
-    QueuedCountry country(index, MapOptions::MapWithCarRouting);
+    QueuedCountry country(countryId, MapOptions::MapWithCarRouting);
     TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
     TEST_EQUAL(MapOptions::Map, country.GetCurrentFile(), ());
     TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
@@ -51,7 +51,7 @@ UNIT_TEST(QueuedCountry_RemoveOptions)
   }
 
   {
-    QueuedCountry country(index, MapOptions::MapWithCarRouting);
+    QueuedCountry country(countryId, MapOptions::MapWithCarRouting);
     TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
     TEST_EQUAL(MapOptions::Map, country.GetCurrentFile(), ());
     TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
@@ -68,7 +68,7 @@ UNIT_TEST(QueuedCountry_RemoveOptions)
   }
 
   {
-    QueuedCountry country(index, MapOptions::MapWithCarRouting);
+    QueuedCountry country(countryId, MapOptions::MapWithCarRouting);
     TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetInitOptions(), ());
     TEST_EQUAL(MapOptions::Map, country.GetCurrentFile(), ());
     TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
@@ -88,19 +88,5 @@ UNIT_TEST(QueuedCountry_RemoveOptions)
     TEST_EQUAL(MapOptions::Nothing, country.GetCurrentFile(), ());
     TEST_EQUAL(MapOptions::CarRouting, country.GetDownloadedFiles(), ());
   }
-}
-
-UNIT_TEST(QueuedCountry_Bits)
-{
-  Storage storage;
-  TIndex const index = storage.FindIndexByFile("Angola");
-  QueuedCountry country(index, MapOptions::MapWithCarRouting);
-  TEST_EQUAL(MapOptions::Nothing, country.GetDownloadedFiles(), ());
-
-  TEST(country.SwitchToNextFile(), ());
-  TEST_EQUAL(MapOptions::Map, country.GetDownloadedFiles(), ());
-
-  TEST(!country.SwitchToNextFile(), ());
-  TEST_EQUAL(MapOptions::MapWithCarRouting, country.GetDownloadedFiles(), ());
 }
 }  // namespace storage

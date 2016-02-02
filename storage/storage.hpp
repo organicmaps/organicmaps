@@ -10,7 +10,6 @@
 
 #include "std/function.hpp"
 #include "std/list.hpp"
-#include "std/set.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
@@ -28,7 +27,7 @@ struct NodeAttrs
   /// belongs to the node. If the node isn't expandable |m_mapsDownloaded| == 1.
   uint32_t m_mwmCounter;
 
-  /// Number of mwms belonging to the node which has been downloaded.
+  /// Number of mwms belonging to the node which has been donwloaded.
   uint32_t m_localMwmCounter;
 
   /// If it's not an expandable node, |m_nodeSize| is size of one mwm according to countries.txt.
@@ -66,12 +65,14 @@ struct NodeAttrs
   TStatus m_status;
 };
 
-/// Can be used to store local maps and/or maps available for download
+/// This class is used for downloading, updating and deleting maps.
 class Storage
 {
 public:
   struct StatusCallback;
   using TUpdate = function<void(platform::LocalCountryFile const &)>;
+  using TChangeCountryFunction = function<void(TCountryId const &)>;
+  using TProgressFunction = function<void(TCountryId const &, LocalAndRemoteSizeT const &)>;
 
 private:
   /// We support only one simultaneous request at the moment
@@ -80,9 +81,9 @@ private:
   /// stores timestamp for update checks
   int64_t m_currentVersion;
 
-  CountriesContainerT m_countries;
+  TCountriesContainer m_countries;
 
-  typedef list<QueuedCountry> TQueue;
+  using TQueue = list<QueuedCountry>;
 
   /// @todo. It appeared that our application uses m_queue from
   /// different threads without any synchronization. To reproduce it
@@ -93,11 +94,10 @@ private:
   TQueue m_queue;
 
   /// stores countries whose download has failed recently
-  typedef set<TIndex> TCountriesSet;
   TCountriesSet m_failedCountries;
 
   using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
-  map<TIndex, list<TLocalFilePtr>> m_localFiles;
+  map<TCountryId, list<TLocalFilePtr>> m_localFiles;
 
   // Our World.mwm and WorldCoasts.mwm are fake countries, together with any custom mwm in data
   // folder.
@@ -109,10 +109,10 @@ private:
 
   /// @name Communicate with GUI
   //@{
-  typedef function<void(TIndex const &)> TChangeCountryFunction;
-  typedef function<void(TIndex const &, LocalAndRemoteSizeT const &)> TProgressFunction;
 
   int m_currentSlotId;
+
+  list<StatusCallback> m_statusCallbacks;
 
   struct CountryObservers
   {
@@ -129,11 +129,25 @@ private:
   // country were successfully downloaded.
   TUpdate m_update;
 
+  // If |m_dataDir| is not empty Storage will create version directories and download maps in
+  // platform::WritableDir/|m_dataDir|/. Not empty |m_dataDir| can be used only for
+  // downloading maps to a special place but not for continue working with them from this place.
+  string m_dataDir;
+
+  // A list of urls for downloading maps. It's necessary for storage integration tests.
+  // For example {"http://new-search.mapswithme.com/"}.
+  vector<string> m_downloadingUrlsForTesting;
+
+  // |m_downloadMapOnTheMap| is called when an end user clicks on download map or retry button
+  // on the map.
+  TDownloadFn m_downloadMapOnTheMap;
+
   void DownloadNextCountryFromQueue();
 
-  void LoadCountriesFile(bool forceReload);
+  void LoadCountriesFile(string const & pathToCountriesFile,
+                         string const & dataDir, TMapping * mapping = nullptr);
 
-  void ReportProgress(TIndex const & index, pair<int64_t, int64_t> const & p);
+  void ReportProgress(TCountryId const & countryId, pair<int64_t, int64_t> const & p);
 
   /// Called on the main thread by MapFilesDownloader when list of
   /// suitable servers is received.
@@ -147,16 +161,36 @@ private:
   /// during the downloading process.
   void OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & progress);
 
-  bool RegisterDownloadedFiles(TIndex const & index, MapOptions files);
-  void OnMapDownloadFinished(TIndex const & index, bool success, MapOptions files);
+  bool RegisterDownloadedFiles(TCountryId const & countryId, MapOptions files);
+  void OnMapDownloadFinished(TCountryId const & countryId, bool success, MapOptions files);
 
   /// Initiates downloading of the next file from the queue.
   void DownloadNextFile(QueuedCountry const & country);
 
 public:
-  Storage();
+  /// \brief Storage will create its directories in Writable Directory
+  /// (gotten with platform::WritableDir) by default.
+  /// \param pathToCountriesFile is a name of countries.txt file.
+  /// \param dataDir If |dataDir| is not empty Storage will create its directory in WritableDir/|dataDir|.
+  /// \note if |dataDir| is not empty the instance of Storage can be used only for downloading map files
+  /// but not for continue working with them.
+  /// If |dataDir| is not empty the work flow is
+  /// * create a instance of Storage with a special countries.txt and |dataDir|
+  /// * download some maps to WritableDir/|dataDir|
+  /// * destroy the instance of Storage and move the downloaded maps to proper place
+  Storage(string const & pathToCountriesFile = COUNTRIES_FILE, string const & dataDir = string());
+  /// \brief This constructor should be used for testing only.
+  Storage(string const & referenceCountriesTxtJsonForTesting,
+          unique_ptr<MapFilesDownloader> mapDownloaderForTesting);
 
-  void Init(TUpdate const & update);
+  /// @name Interface with clients (Android/iOS).
+  /// \brief It represents the interface which can be used by clients (Android/iOS).
+  /// The term node means an mwm or a group of mwm like a big country.
+  /// The term node id means a string id of mwm or a group of mwm. The sting contains
+  /// a name of file with mwm of a name country(territory).
+  //@{
+  using TOnSearchResultCallback = function<void (TCountryId const &)>;
+  using TOnStatusChangedCallback = function<void (TCountryId const &)>;
 
   /// \brief Information for "Update all mwms" button.
   struct UpdateInfo
@@ -165,13 +199,20 @@ public:
     size_t m_totalUpdateSizeInBytes;
   };
 
-  /// Switch on new storage version, remove old mwm
-  /// and add required mwm's into download queue.
-  void Migrate();
-  bool HaveDownloadedCountries();
-  void DeleteAllLocalMaps(vector<TIndex> * existedCountries = nullptr);
+  struct StatusCallback
+  {
+    /// \brief m_onStatusChanged is called by MapRepository when status of
+    /// a node is changed. If this method is called for an mwm it'll be called for
+    /// every its parent and grandparents.
+    /// \param CountryId is id of mwm or an mwm group which status has been changed.
+    TOnStatusChangedCallback m_onStatusChanged;
+  };
 
-  // New downloader interface.
+  unique_ptr<Storage> m_prefetchStorage;
+  void PrefetchMigrateData();
+  void SaveDownloadQueue();
+  void RestoreDownloadQueue();
+
   /// \brief Returns root country id of the county tree.
   TCountryId const GetRootId() const;
   /// \param childrenId is filled with children node ids by a parent. For example GetChildren(GetRootId())
@@ -193,6 +234,8 @@ public:
   /// countries. That means all mwm of the countries have been downloaded.
   void GetCountyListToDownload(TCountriesVec & countryList) const;
 
+  /// \brief Returns current version for mwms which are available on the server.
+  inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
   /// \brief Returns true if the node with countryId has been downloaded and false othewise.
   /// If countryId is a expandable returns true if all mwms which belongs to it have downloaded.
   /// Returns false if countryId is an unknown string.
@@ -231,6 +274,41 @@ public:
   /// \brief Get information for mwm update button.
   /// \return true if updateInfo is filled correctly and false otherwise.
   bool GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInfo) const { return true; }
+  /// \brief Update all mwm in case of changing mwm hierarchy of mwm borders.
+  /// This method:
+  /// * removes all mwms
+  /// * downloads mwms with the same coverage
+  /// \note This method is used in very rare case.
+  /// \return false in case of error and true otherwise.
+  bool UpdateAllAndChangeHierarchy();
+
+  /// \brief Subscribe on change status callback.
+  /// \returns a unique index of added status callback structure.
+  size_t SubscribeStatusCallback(StatusCallback const & statusCallbacks);
+  /// \brief Unsubscribe from change status callback.
+  /// \param index is a unique index of callback retruned by SubscribeStatusCallback.
+  void UnsubscribeStatusCallback(size_t index);
+  /// \brief Sets callback which will be called in case of a click on download map button on the map.
+  void SetCallbackForClickOnDownloadMap(TDownloadFn & downloadFn) { m_downloadMapOnTheMap  = downloadFn; }
+  /// \brief Calls |m_downloadMapOnTheMap| if one has been set.
+  /// \param |countryId| is country id of a leaf. That means it's a file name.
+  /// \note This method should be called for a click of download map button
+  /// and for a click for retry downloading map button on the map.
+  void DoClickOnDownloadMap(TCountryId const & countryId);
+  //@}
+
+  /// \returns real (not fake) local maps contained in countries.txt.
+  /// So this method does not return custom user local maps and World and WorldCoosts country id.
+  void GetLocalRealMaps(TCountriesVec & localMaps) const;
+
+  void Init(TUpdate const & update);
+
+  /// Delete local maps and aggregate their Id if needed
+  void DeleteAllLocalMaps(TCountriesVec * existedCountries = nullptr);
+
+  /// Switch on new storage version, remove old mwm
+  /// and add required mwm's into download queue.
+  void Migrate(TCountriesVec const & existedCountries);
 
   // Clears local files registry and downloader's queue.
   void Clear();
@@ -250,96 +328,90 @@ public:
   int Subscribe(TChangeCountryFunction const & change, TProgressFunction const & progress);
   void Unsubscribe(int slotId);
 
-  Country const & CountryByIndex(TIndex const & index) const;
-  TIndex FindIndexByFile(string const & name) const;
+  Country const & CountryLeafByCountryId(TCountryId const & countryId) const;
+  Country const & CountryByCountryId(TCountryId const & countryId) const;
+
+  TCountryId FindCountryIdByFile(string const & name) const;
   /// @todo Temporary function to gel all associated indexes for the country file name.
   /// Will be removed in future after refactoring.
-  vector<TIndex> FindAllIndexesByFile(string const & name) const;
-  void GetGroupAndCountry(TIndex const & index, string & group, string & country) const;
+  TCountriesVec FindAllIndexesByFile(string const & name) const;
+  void GetGroupAndCountry(TCountryId const & countryId, string & group, string & country) const;
 
-  size_t CountriesCount(TIndex const & index) const;
-  string const & CountryName(TIndex const & index) const;
-  string const & CountryFlag(TIndex const & index) const;
+  size_t CountriesCount(TCountryId const & countryId) const;
+  string const & CountryName(TCountryId const & countryId) const;
+  bool IsCoutryIdInCountryTree(TCountryId const & countryId) const;
 
-  LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index, MapOptions opt) const;
-  platform::CountryFile const & GetCountryFile(TIndex const & index) const;
+  LocalAndRemoteSizeT CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const;
+  platform::CountryFile const & GetCountryFile(TCountryId const & countryId) const;
   TLocalFilePtr GetLatestLocalFile(platform::CountryFile const & countryFile) const;
-  TLocalFilePtr GetLatestLocalFile(TIndex const & index) const;
+  TLocalFilePtr GetLatestLocalFile(TCountryId const & countryId) const;
 
-  /// Fast version, doesn't check if country is out of date
-  TStatus CountryStatus(TIndex const & index) const;
   /// Slow version, but checks if country is out of date
-  TStatus CountryStatusEx(TIndex const & index) const;
-  void CountryStatusEx(TIndex const & index, TStatus & status, MapOptions & options) const;
+  TStatus CountryStatusEx(TCountryId const & countryId) const;
 
-  /// Puts country denoted by index into the downloader's queue.
+  /// Puts country denoted by countryId into the downloader's queue.
   /// During downloading process notifies observers about downloading
   /// progress and status changes.
-  void DownloadCountry(TIndex const & index, MapOptions opt);
+  void DownloadCountry(TCountryId const & countryId, MapOptions opt);
 
   /// Removes country files (for all versions) from the device.
   /// Notifies observers about country status change.
-  void DeleteCountry(TIndex const & index, MapOptions opt);
+  void DeleteCountry(TCountryId const & countryId, MapOptions opt);
 
   /// Removes country files of a particular version from the device.
   /// Notifies observers about country status change.
   void DeleteCustomCountryVersion(platform::LocalCountryFile const & localFile);
 
-  /// \return True iff country denoted by index was successfully
+  /// \return True iff country denoted by countryId was successfully
   ///          deleted from the downloader's queue.
-  bool DeleteFromDownloader(TIndex const & index);
+  bool DeleteFromDownloader(TCountryId const & countryId);
   bool IsDownloadInProgress() const;
 
-  TIndex GetCurrentDownloadingCountryIndex() const;
+  TCountryId GetCurrentDownloadingCountryId() const;
 
-  void NotifyStatusChanged(TIndex const & index);
+  void NotifyStatusChanged(TCountryId const & countryId);
 
-  /// get download url by index & options(first search file name by index, then format url)
-  string GetFileDownloadUrl(string const & baseUrl, TIndex const & index, MapOptions file) const;
+  /// get download url by countryId & options(first search file name by countryId, then format url)
+  string GetFileDownloadUrl(string const & baseUrl, TCountryId const & countryId, MapOptions file) const;
   /// get download url by base url & file name
   string GetFileDownloadUrl(string const & baseUrl, string const & fName) const;
 
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(vector<Country const *> & countries) const;
 
-  inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
-
   void SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader);
   void SetCurrentDataVersionForTesting(int64_t currentVersion);
-
-  bool IsLeaf(TIndex const & index) const { return CountriesCount(index) == 0; }
+  void SetDownloadingUrlsForTesting(vector<string> const & downloadingUrls)
+  {
+    m_downloadingUrlsForTesting = downloadingUrls;
+  }
 
 private:
   friend void UnitTest_StorageTest_DeleteCountry();
 
-  TStatus CountryStatusWithoutFailed(TIndex const & index) const;
-  TStatus CountryStatusFull(TIndex const & index, TStatus const status) const;
-
-  // Modifies file set of requested files - always adds a map file
-  // when routing file is requested for downloading, but drops all
-  // already downloaded and up-to-date files.
-  MapOptions NormalizeDownloadFileSet(TIndex const & index, MapOptions options) const;
+  TStatus CountryStatusWithoutFailed(TCountryId const & countryId) const;
+  TStatus CountryStatusFull(TCountryId const & countryId, TStatus const status) const;
 
   // Modifies file set of file to deletion - always adds (marks for
   // removal) a routing file when map file is marked for deletion.
   MapOptions NormalizeDeleteFileSet(MapOptions options) const;
 
   // Returns a pointer to a country in the downloader's queue.
-  QueuedCountry * FindCountryInQueue(TIndex const & index);
+  QueuedCountry * FindCountryInQueue(TCountryId const & countryId);
 
   // Returns a pointer to a country in the downloader's queue.
-  QueuedCountry const * FindCountryInQueue(TIndex const & index) const;
+  QueuedCountry const * FindCountryInQueue(TCountryId const & countryId) const;
 
   // Returns true when country is in the downloader's queue.
-  bool IsCountryInQueue(TIndex const & index) const;
+  bool IsCountryInQueue(TCountryId const & countryId) const;
 
   // Returns true when country is first in the downloader's queue.
-  bool IsCountryFirstInQueue(TIndex const & index) const;
+  bool IsCountryFirstInQueue(TCountryId const & countryId) const;
 
   // Returns local country files of a particular version, or wrapped
   // nullptr if there're no country files corresponding to the
   // version.
-  TLocalFilePtr GetLocalFile(TIndex const & index, int64_t version) const;
+  TLocalFilePtr GetLocalFile(TCountryId const & countryId, int64_t version) const;
 
   // Tries to register disk files for a real (listed in countries.txt)
   // country. If map files of the same version were already
@@ -347,18 +419,18 @@ private:
   void RegisterCountryFiles(TLocalFilePtr localFile);
 
   // Registers disk files for a country. This method must be used only
-  // for real (listed in counties.txt) countries.
-  void RegisterCountryFiles(TIndex const & index, string const & directory, int64_t version);
+  // for real (listed in countries.txt) countries.
+  void RegisterCountryFiles(TCountryId const & countryId, string const & directory, int64_t version);
 
   // Registers disk files for a country. This method must be used only
   // for custom (made by user) map files.
   void RegisterFakeCountryFiles(platform::LocalCountryFile const & localFile);
 
   // Removes disk files for all versions of a country.
-  void DeleteCountryFiles(TIndex const & index, MapOptions opt);
+  void DeleteCountryFiles(TCountryId const & countryId, MapOptions opt);
 
   // Removes country files from downloader.
-  bool DeleteCountryFilesFromDownloader(TIndex const & index, MapOptions opt);
+  bool DeleteCountryFilesFromDownloader(TCountryId const & countryId, MapOptions opt);
 
   // Returns download size of the currently downloading file for the
   // queued country.
@@ -366,6 +438,14 @@ private:
 
   // Returns a path to a place on disk downloader can use for
   // downloaded files.
-  string GetFileDownloadPath(TIndex const & index, MapOptions file) const;
+  string GetFileDownloadPath(TCountryId const & countryId, MapOptions file) const;
+
+  void CountryStatusEx(TCountryId const & countryId, TStatus & status, MapOptions & options) const;
+  /// Fast version, doesn't check if country is out of date
+  TStatus CountryStatus(TCountryId const & countryId) const;
+  /// Returns status for a node (group node or not)
+  TStatus NodeStatus(TCountriesContainer const & node) const;
 };
+
+bool HasCountryId(TCountriesVec const & sorted, TCountryId const & countyId);
 }  // storage

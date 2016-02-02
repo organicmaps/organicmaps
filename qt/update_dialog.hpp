@@ -27,8 +27,8 @@ namespace qt
 
     /// @name Called from downloader to notify GUI
     //@{
-    void OnCountryChanged(storage::TIndex const & index);
-    void OnCountryDownloadProgress(storage::TIndex const & index,
+    void OnCountryChanged(storage::TCountryId const & countryId);
+    void OnCountryDownloadProgress(storage::TCountryId const & countryId,
                                    pair<int64_t, int64_t> const & progress);
     //@}
 
@@ -40,10 +40,10 @@ namespace qt
 
   private:
     void FillTree();
-    void UpdateRowWithCountryInfo(storage::TIndex const & index);
+    void UpdateRowWithCountryInfo(storage::TCountryId const & countryId);
 
-    QTreeWidgetItem * CreateTreeItem(storage::TIndex const & index, int value, QTreeWidgetItem * parent);
-    int GetChildsCount(storage::TIndex const & index) const;
+    QTreeWidgetItem * CreateTreeItem(storage::TCountryId const & countryId, int value, QTreeWidgetItem * parent);
+    int GetChildsCount(storage::TCountryId const & countryId) const;
 
   private:
     inline storage::Storage & GetStorage() const { return m_framework.Storage(); }

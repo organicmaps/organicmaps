@@ -76,7 +76,7 @@ namespace integration
     shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(
         &index, [&infoGetter](m2::PointD const & pt)
         {
-          return infoGetter.GetRegionFile(pt);
+          return infoGetter.GetRegionCountryId(pt);
         }
         ));
     return osrmRouter;
@@ -87,7 +87,7 @@ namespace integration
   {
     auto countryFileGetter = [&infoGetter](m2::PointD const & pt)
     {
-      return infoGetter.GetRegionFile(pt);
+      return infoGetter.GetRegionCountryId(pt);
     };
     unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, countryFileGetter);
     return shared_ptr<IRouter>(move(router));
@@ -270,7 +270,7 @@ namespace integration
   {
     auto countryFileGetter = [&routerComponents](m2::PointD const & p) -> string
     {
-      return routerComponents.GetCountryInfoGetter().GetRegionFile(p);
+      return routerComponents.GetCountryInfoGetter().GetRegionCountryId(p);
     };
     auto localFileGetter =
         [&routerComponents](string const & countryFile) -> shared_ptr<LocalCountryFile>
@@ -305,7 +305,7 @@ namespace integration
 
     for (m2::PointD const & point : points)
     {
-      string const mwmName = routerComponents.GetCountryInfoGetter().GetRegionFile(point);
+      string const mwmName = routerComponents.GetCountryInfoGetter().GetRegionCountryId(point);
       TEST(find(expected.begin(), expected.end(), mwmName) != expected.end(),
            ("Can't find ", mwmName));
       foundMwms.insert(mwmName);

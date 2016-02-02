@@ -3,6 +3,7 @@
 #include "testing/testing.hpp"
 
 #include "platform/country_file.hpp"
+#include "platform/mwm_version.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -29,8 +30,9 @@ ScopedFile::ScopedFile(string const & relativePath, string const & contents)
 
 ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapOptions file,
                        string const & contents)
-    : ScopedFile(my::JoinFoldersToPath(dir.GetRelativePath(), countryFile.GetNameWithExt(file)),
-                 contents)
+  : ScopedFile(my::JoinFoldersToPath(dir.GetRelativePath(),
+                                     GetFileName(countryFile.GetName(), file, version::FOR_TESTING_TWO_COMPONENT_MWM1)),
+               contents)
 {
 }
 

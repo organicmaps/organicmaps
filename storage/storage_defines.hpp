@@ -1,6 +1,9 @@
 #pragma once
 
+#include "storage/index.hpp"
+
 #include "std/cstdint.hpp"
+#include "std/function.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
 
@@ -24,4 +27,6 @@ namespace storage
   string DebugPrint(TStatus status);
 
   typedef pair<uint64_t, uint64_t> LocalAndRemoteSizeT;
-  }  // namespace storage
+}  // namespace storage
+
+using TDownloadFn = function<void (storage::TCountryId const &)>;

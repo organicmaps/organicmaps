@@ -20,7 +20,11 @@ void SetMigrationFlag();
 }
 
 // Removes all files downloader creates during downloading of a country.
-void DeleteDownloaderFilesForCountry(CountryFile const & countryFile, int64_t version);
+// Note. The the maps are deleted from writable dir/|dataDir|/|version| directory.
+// If |dataDir| is empty (or is not set) the function deletes maps from writable dir.
+void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countryFile);
+void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir,
+                                     CountryFile const & countryFile);
 
 // Finds all local map files in |directory|. Version of these files is
 // passed as an argument. Also, performs cleanup described in comment
@@ -44,7 +48,11 @@ void FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t ver
 //
 // Also, this method performs cleanup described in a comment for
 // CleanupMapsDirectory().
+// Note. The the maps are looked for writable dir/|dataDir|/|version| directory.
+// If |dataDir| is empty (or is not set) the function looks for maps in writable dir.
 void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> & localFiles);
+void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
+                                vector<LocalCountryFile> & localFiles);
 
 // This method removes:
 // * partially downloaded non-latest maps (with version less than |latestVersion|)
@@ -61,10 +69,17 @@ bool ParseVersion(string const & s, int64_t & version);
 
 // When version is zero, uses writable directory, otherwise, creates
 // directory with name equal to decimal representation of version.
-shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(CountryFile const & countryFile,
-                                                         int64_t version);
+// Note. The function assumes the maps are located in writable dir/|dataDir|/|version| directory.
+// If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
+shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, CountryFile const & countryFile);
+shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string const & dataDir,
+                                                         CountryFile const & countryFile);
 
-string GetFileDownloadPath(CountryFile const & countryFile, MapOptions file, int64_t version);
+// Note. The function assumes the maps are located in writable dir/|dataDir|/|version| directory.
+// If |dataDir| is empty (or is not set) the function assumes that maps are in writable dir.
+string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, MapOptions file);
+string GetFileDownloadPath(int64_t version, string const & dataDir,
+                           CountryFile const & countryFile, MapOptions file);
 
 ModelReader * GetCountryReader(LocalCountryFile const & file, MapOptions options);
 

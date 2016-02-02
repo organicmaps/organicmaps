@@ -2,23 +2,12 @@
 
 #include "std/sstream.hpp"
 
-
 namespace storage
 {
-  // GCC bug? Can't move initialization to hpp file (linker error).
-  const int TIndex::INVALID = -1;
+storage::TCountryId const kInvalidCountryId;
 
-  string DebugPrint(TIndex const & r)
-  {
-    ostringstream out;
-    out << "storage::TIndex(" << r.m_group << ", " << r.m_country << ", " << r.m_region << ")";
-    return out.str();
-  }
-
-  storage::TCountryId const kInvalidCountryId;
-
-  bool IsCountryIdValid(TCountryId const & countryId)
-  {
-    return countryId != kInvalidCountryId;
-  }
-} // namespace storage
+bool IsCountryIdValid(TCountryId const & countryId)
+{
+  return countryId != kInvalidCountryId;
+}
+} //  namespace storage

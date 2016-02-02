@@ -67,7 +67,7 @@ void TestMwmBuilder::Finish()
   feature::GenerateInfo info;
   info.m_targetDir = m_file.GetDirectory();
   info.m_tmpDir = m_file.GetDirectory();
-  CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetNameWithoutExt(), m_type),
+  CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetName(), m_type),
         ("Can't sort features."));
 
   CHECK(my::DeleteFileX(tmpFilePath), ());

@@ -104,7 +104,7 @@ void CountryStatusHelper::Clear()
   SetState(COUNTRY_STATE_LOADED);
 }
 
-storage::TIndex CountryStatusHelper::GetCountryIndex() const
+storage::TCountryId CountryStatusHelper::GetCountryIndex() const
 {
   return m_countryInfo.m_countryIndex;
 }

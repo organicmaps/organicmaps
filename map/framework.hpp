@@ -95,9 +95,9 @@ class Framework
 
 protected:
   using TDrapeFunction = function<void (df::DrapeEngine *)>;
-  using TDownloadCountryListener = function<void(storage::TIndex const &, int)>;
-  using TDownloadCancelListener = function<void(storage::TIndex const &)>;
-  using TAutoDownloadListener = function<void(storage::TIndex const &)>;
+  using TDownloadCountryListener = function<void(storage::TCountryId const &, int)>;
+  using TDownloadCancelListener = function<void(storage::TCountryId const &)>;
+  using TAutoDownloadListener = function<void(storage::TCountryId const &)>;
 
   StringsBundle m_stringsBundle;
 
@@ -188,23 +188,22 @@ public:
   /// @name This functions is used by Downloader UI.
   //@{
   /// options - flags that signal about parts of map that must be deleted
-  void DeleteCountry(storage::TIndex const & index, MapOptions opt);
+  void DeleteCountry(storage::TCountryId const & index, MapOptions opt);
   /// options - flags that signal about parts of map that must be downloaded
-  void DownloadCountry(storage::TIndex const & index, MapOptions opt);
+  void DownloadCountry(storage::TCountryId const & index, MapOptions opt);
 
   void SetDownloadCountryListener(TDownloadCountryListener const & listener);
   void SetDownloadCancelListener(TDownloadCancelListener const & listener);
   void SetAutoDownloadListener(TAutoDownloadListener const & listener);
 
-  storage::TStatus GetCountryStatus(storage::TIndex const & index) const;
-  string GetCountryName(storage::TIndex const & index) const;
+  storage::TStatus GetCountryStatus(storage::TCountryId const & index) const;
+  string GetCountryName(storage::TCountryId const & index) const;
 
   /// Get country rect from borders (not from mwm file).
   /// @param[in] file Pass country file name without extension as an id.
-  m2::RectD GetCountryBounds(string const & file) const;
-  m2::RectD GetCountryBounds(storage::TIndex const & index) const;
+  m2::RectD GetCountryBounds(storage::TCountryId const & countryId) const;
 
-  void ShowCountry(storage::TIndex const & index);
+  void ShowCountry(storage::TCountryId const & index);
 
   /// Checks, whether the country which contains the specified point is loaded.
   bool IsCountryLoaded(m2::PointD const & pt) const;
@@ -216,14 +215,9 @@ public:
 
   /// @name Get any country info by point.
   //@{
-  storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
+  storage::TCountryId GetCountryIndex(m2::PointD const & pt) const;
 
   string GetCountryName(m2::PointD const & pt) const;
-  /// @param[in] id Country file name without an extension.
-  string GetCountryName(string const & id) const;
-
-  /// @return country code in ISO 3166-1 alpha-2 format (two small letters) or empty string
-  string GetCountryCode(m2::PointD const & pt) const;
   //@}
 
   storage::Storage & Storage() { return m_storage; }
@@ -363,12 +357,12 @@ private:
 
   void FillSearchResultsMarks(search::Results const & results);
 
-  void OnDownloadMapCallback(storage::TIndex const & countryIndex);
-  void OnDownloadRetryCallback(storage::TIndex const & countryIndex);
-  void OnDownloadCancelCallback(storage::TIndex const & countryIndex);
+  void OnDownloadMapCallback(storage::TCountryId const & countryIndex);
+  void OnDownloadRetryCallback(storage::TCountryId const & countryIndex);
+  void OnDownloadCancelCallback(storage::TCountryId const & countryIndex);
 
-  void OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt);
-  void UpdateCountryInfo(storage::TIndex const & countryIndex, bool isCurrentCountry);
+  void OnUpdateCountryIndex(storage::TCountryId const & currentIndex, m2::PointF const & pt);
+  void UpdateCountryInfo(storage::TCountryId const & countryIndex, bool isCurrentCountry);
 
   // Search query params and viewport for the latest search
   // query. These fields are used to check whether a new search query
@@ -540,8 +534,8 @@ public:
 
 public:
   using TRouteBuildingCallback = function<void(routing::IRouter::ResultCode,
-                                               vector<storage::TIndex> const &,
-                                               vector<storage::TIndex> const &)>;
+                                               storage::TCountriesVec const &,
+                                               storage::TCountriesVec const &)>;
   using TRouteProgressCallback = function<void(float)>;
 
   /// @name Routing mode
@@ -607,8 +601,8 @@ private:
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
   void CallRouteBuilded(routing::IRouter::ResultCode code,
-                        vector<storage::TIndex> const & absentCountries,
-                        vector<storage::TIndex> const & absentRoutingFiles);
+                        storage::TCountriesVec const & absentCountries,
+                        storage::TCountriesVec const & absentRoutingFiles);
   void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo) const;
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 

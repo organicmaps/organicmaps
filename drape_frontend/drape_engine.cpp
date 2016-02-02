@@ -5,6 +5,8 @@
 #include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 
+#include "storage/index.hpp"
+
 #include "drape/texture_manager.hpp"
 
 #include "platform/platform.hpp"
@@ -18,15 +20,15 @@ namespace df
 namespace
 {
 
-void ConnectDownloadFn(gui::CountryStatusHelper::EButtonType buttonType, MapDataProvider::TDownloadFn downloadFn)
+void ConnectDownloadFn(gui::CountryStatusHelper::EButtonType buttonType, TDownloadFn downloadFn)
 {
   gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
   guiSubsystem.ConnectOnButtonPressedHandler(buttonType, [downloadFn, &guiSubsystem]()
   {
-    storage::TIndex countryIndex = guiSubsystem.GetCountryStatusHelper().GetCountryIndex();
-    ASSERT(countryIndex != storage::TIndex::INVALID, ());
+    storage::TCountryId countryId = guiSubsystem.GetCountryStatusHelper().GetCountryIndex();
+    ASSERT(countryId != storage::kInvalidCountryId, ());
     if (downloadFn != nullptr)
-      downloadFn(countryIndex);
+      downloadFn(countryId);
   });
 }
 

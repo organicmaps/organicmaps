@@ -62,7 +62,7 @@ public:
   }
 
   inline string const & GetDirectory() const { return m_directory; }
-  inline string const & GetCountryName() const { return m_countryFile.GetNameWithoutExt(); }
+  inline string const & GetCountryName() const { return m_countryFile.GetName(); }
   inline int64_t GetVersion() const { return m_version; }
   inline CountryFile const & GetCountryFile() const { return m_countryFile; }
 
@@ -82,7 +82,7 @@ private:
   friend string DebugPrint(LocalCountryFile const &);
   friend void UnitTest_LocalCountryFile_DirectoryLookup();
   friend void FindAllLocalMapsAndCleanup(int64_t latestVersion,
-                                         vector<LocalCountryFile> & localFiles);
+                                         string const & dataDir, vector<LocalCountryFile> & localFiles);
 
   /// @note! If directory is empty, the file is stored in resources.
   /// In this case, the only valid params are m_countryFile and m_version.
@@ -92,7 +92,11 @@ private:
 
   MapOptions m_files;
 
+  /// Size of file which contains map section in bytes. It's mwm file in any case.
   uint64_t m_mapSize;
+  /// Size of file which contains routing section in bytes.
+  /// It's .mwm.routing file in case of big (two component) mwms.
+  /// And m_routingSize == 0 for small (one compontent) mwms.
   uint64_t m_routingSize;
 };
 

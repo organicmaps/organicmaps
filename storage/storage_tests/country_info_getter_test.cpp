@@ -40,15 +40,12 @@ UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
   // Minsk
   getter->GetRegionInfo(MercatorBounds::FromLatLon(53.9022651, 27.5618818), info);
   TEST_EQUAL(info.m_name, "Belarus", ());
-  TEST_EQUAL(info.m_flag, "by", ());
 
   getter->GetRegionInfo(MercatorBounds::FromLatLon(-6.4146288, -38.0098101), info);
   TEST_EQUAL(info.m_name, "Brazil, Northeast", ());
-  TEST_EQUAL(info.m_flag, "br", ());
 
   getter->GetRegionInfo(MercatorBounds::FromLatLon(34.6509, 135.5018), info);
   TEST_EQUAL(info.m_name, "Japan, Kinki", ());
-  TEST_EQUAL(info.m_flag, "jp", ());
 }
 
 UNIT_TEST(CountryInfoGetter_ValidName_Smoke)
@@ -57,7 +54,8 @@ UNIT_TEST(CountryInfoGetter_ValidName_Smoke)
   ReaderPtr<Reader>(GetPlatform().GetReader(COUNTRIES_FILE)).ReadAsString(buffer);
 
   map<string, CountryInfo> id2info;
-  storage::LoadCountryFile2CountryInfo(buffer, id2info);
+  bool isSingleMwm;
+  storage::LoadCountryFile2CountryInfo(buffer, id2info, isSingleMwm);
 
   TEST(!IsEmptyName(id2info, "Germany_Baden-Wurttemberg"), ());
   TEST(!IsEmptyName(id2info, "France_Paris & Ile-de-France"), ());

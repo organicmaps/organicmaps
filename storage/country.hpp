@@ -1,6 +1,7 @@
 #pragma once
 
 #include "storage/country_decl.hpp"
+#include "storage/index.hpp"
 #include "storage/simple_tree.hpp"
 #include "storage/storage_defines.hpp"
 
@@ -12,8 +13,6 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "base/buffer_vector.hpp"
-
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -24,47 +23,49 @@ class SizeUpdater;
 
 namespace storage
 {
+using TMapping = map<TCountryId, TCountriesSet>;
+
 /// Serves as a proxy between GUI and downloaded files
 class Country
 {
   friend class update::SizeUpdater;
   /// Name in the country node tree
-  string m_name;
-  /// Flag to display
-  string m_flag;
-  /// stores squares with world pieces which are part of the country
-  buffer_vector<platform::CountryFile, 1> m_files;
+  TCountryId m_name;
+  /// |m_file| is a CountryFile of mwm with id == |m_name|.
+  /// if |m_name| is node id of a group of mwms, |m_file| is empty.
+  platform::CountryFile m_file;
+  /// The number of descendant mwm files of |m_name|. Only files (leaves in tree) are counted.
+  /// If |m_name| is a mwm file name |m_childrenNumber| == 1.
+  uint32_t m_subtreeMwmNumber;
+  /// Size of descendant mwm files of |m_name|.
+  /// If |m_name| is a mwm file name |m_subtreeMwmSizeBytes| is equal to size of the mwm.
+  size_t m_subtreeMwmSizeBytes;
 
 public:
-  Country() {}
-  Country(string const & name, string const & flag = "") : m_name(name), m_flag(flag) {}
+  Country() = default;
+  Country(TCountryId const & name) : m_name(name) {}
 
   bool operator<(Country const & other) const { return Name() < other.Name(); }
-
-  void AddFile(platform::CountryFile const & file);
-
-  size_t GetFilesCount() const { return m_files.size(); }
+  void SetFile(platform::CountryFile const & file) { m_file = file; }
+  void SetSubtreeAttrs(uint32_t subtreeMwmNumber, size_t subtreeMwmSizeBytes)
+  {
+    m_subtreeMwmNumber = subtreeMwmNumber;
+    m_subtreeMwmSizeBytes = subtreeMwmSizeBytes;
+  }
+  uint32_t GetSubtreeMwmCounter() const { return m_subtreeMwmNumber; }
+  size_t GetSubtreeMwmSizeBytes() const { return m_subtreeMwmSizeBytes; }
 
   /// This function valid for current logic - one file for one country (region).
   /// If the logic will be changed, replace GetFile with ForEachFile.
-  platform::CountryFile const & GetFile() const
-  {
-    ASSERT_EQUAL(m_files.size(), 1, (m_name));
-    return m_files.front();
-  }
-
-  string const & Name() const { return m_name; }
-  string const & Flag() const { return m_flag; }
-
-  uint64_t Size(MapOptions opt) const;
+  platform::CountryFile const & GetFile() const { return m_file; }
+  TCountryId const & Name() const { return m_name; }
 };
 
-typedef SimpleTree<Country> CountriesContainerT;
+typedef SimpleTree<Country> TCountriesContainer;
 
 /// @return version of country file or -1 if error was encountered
-int64_t LoadCountries(string const & jsonBuffer, CountriesContainerT & countries);
+int64_t LoadCountries(string const & jsonBuffer, TCountriesContainer & countries, TMapping * mapping = nullptr);
 
-void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info);
-
-void LoadCountryCode2File(string const & jsonBuffer, multimap<string, string> & code2file);
+void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info,
+                                 bool & isSingleMwm);
 }  // namespace storage

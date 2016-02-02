@@ -4,11 +4,15 @@
 
 #include "indexer/geometry_serialization.hpp"
 
+#include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/region2d.hpp"
 
 #include "coding/read_write_utils.hpp"
 
 #include "base/string_utils.hpp"
+
+#include "3party/Alohalytics/src/alohalytics.h"
 
 #include "std/bind.hpp"
 #include "std/function.hpp"
@@ -46,10 +50,21 @@ private:
 }  // namespace
 
 // CountryInfoGetter -------------------------------------------------------------------------------
-string CountryInfoGetter::GetRegionFile(m2::PointD const & pt) const
+TCountryId CountryInfoGetter::GetRegionCountryId(m2::PointD const & pt) const
 {
   IdType const id = FindFirstCountry(pt);
-  return id != kInvalidId ? m_countries[id].m_name : string();
+  return id != kInvalidId ? m_countries[id].m_name : TCountryId();
+}
+
+void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, TCountriesVec & closestCoutryIds)
+{
+  // @TODO(bykoianko) Now this method fills |closestCoutryIds| with only a country id of mwm
+  // which covers |pt|. This method should fill |closestCoutryIds| with several mwms
+  // which cover |pt| and close to |pt|.
+  closestCoutryIds.clear();
+  TCountryId countryId = GetRegionCountryId(pt);
+  if (!countryId.empty())
+    closestCoutryIds.emplace_back(countryId);
 }
 
 void CountryInfoGetter::GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const
@@ -127,6 +142,11 @@ CountryInfoGetter::IdType CountryInfoGetter::FindFirstCountry(m2::PointD const &
     if (m_countries[id].m_rect.IsPointInside(pt) && IsBelongToRegionImpl(id, pt))
       return id;
   }
+
+  ms::LatLon const latLon = MercatorBounds::ToLatLon(pt);
+  alohalytics::LogEvent(m_isSingleMwm ? "Small mwm case. CountryInfoGetter could not find any mwm by point."
+                                      : "Big mwm case. CountryInfoGetter could not find any mwm by point.",
+                        alohalytics::Location::FromLatLon(latLon.lat, latLon.lon));
   return kInvalidId;
 }
 
@@ -142,14 +162,14 @@ void CountryInfoGetter::ForEachCountry(string const & prefix, ToDo && toDo) cons
 
 // CountryInfoReader -------------------------------------------------------------------------------
 CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR)
-  : m_reader(polyR), m_cache(3)
+  : CountryInfoGetter(true), m_reader(polyR), m_cache(3)
 {
   ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
   rw::Read(src, m_countries);
 
   string buffer;
   countryR.ReadAsString(buffer);
-  LoadCountryFile2CountryInfo(buffer, m_id2info);
+  LoadCountryFile2CountryInfo(buffer, m_id2info, m_isSingleMwm);
 }
 
 void CountryInfoReader::ClearCachesImpl() const
@@ -192,6 +212,7 @@ bool CountryInfoReader::IsBelongToRegionImpl(size_t id, m2::PointD const & pt) c
 
 // CountryInfoGetterForTesting ---------------------------------------------------------------------
 CountryInfoGetterForTesting::CountryInfoGetterForTesting(vector<CountryDef> const & countries)
+  : CountryInfoGetter(true)
 {
   for (auto const & country : countries)
     AddCountry(country);

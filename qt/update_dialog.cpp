@@ -111,25 +111,9 @@ namespace qt
   /// when user clicks on any map row in the table
   void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int /*column*/)
   {
-    // calculate index of clicked item
-    QList<int> treeIndex;
-    {
-      QTreeWidgetItem * parent = item;
-      while (parent)
-      {
-        treeIndex.insert(0, parent->data(KColumnIndexCountry, Qt::UserRole).toInt());
-        parent = parent->parent();
-      }
-      while (treeIndex.size() < 3)
-        treeIndex.append(TIndex::INVALID);
-    }
-
-    TIndex const countryIndex(treeIndex[0], treeIndex[1], treeIndex[2]);
-    Storage & st = GetStorage();
-
-    // skip group items
-    if (st.CountriesCount(countryIndex) > 0)
-      return;
+    // @TODO(bykoianko) Implement when an end user clicks on the map.
+    // If the map has been downloaded ask if he wants to delete it.
+    // If It hasn't been just download it.
   }
 
   QTreeWidgetItem * MatchedItem(QTreeWidgetItem & parent, int index)
@@ -146,28 +130,11 @@ namespace qt
     return NULL;
   }
 
-  /// @return can be null if index is invalid
-  QTreeWidgetItem * GetTreeItemByIndex(QTreeWidget & tree, TIndex const & index)
+  /// @return can be null if countryId is invalid
+  QTreeWidgetItem * GetTreeItemByIndex(QTreeWidget & tree, TCountryId const & countryId)
   {
     QTreeWidgetItem * item = 0;
-    if (index.m_group >= 0)
-    {
-      for (int i = 0; i < tree.topLevelItemCount(); ++i)
-      {
-        QTreeWidgetItem * grItem = tree.topLevelItem(i);
-        if (index.m_group == grItem->data(KColumnIndexCountry, Qt::UserRole).toInt())
-        {
-          item = grItem;
-          break;
-        }
-      }
-    }
-    if (item && index.m_country >= 0)
-    {
-      item = MatchedItem(*item, index.m_country);
-      if (item && index.m_region >= 0)
-        item = MatchedItem(*item, index.m_region);
-    }
+    // @TODO(bykoianko) With the help of MatchedItem find item in tree by countryId.
     return item;
   }
 
@@ -183,9 +150,9 @@ namespace qt
       item.setTextColor(column, color);
   }
 
-  void UpdateDialog::UpdateRowWithCountryInfo(TIndex const & index)
+  void UpdateDialog::UpdateRowWithCountryInfo(TCountryId const & countryId)
   {
-    QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, index);
+    QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, countryId);
     if (item)
     {
       QColor rowColor;
@@ -195,13 +162,13 @@ namespace qt
       MapOptions const options = MapOptions::MapWithCarRouting;
 
       Storage const & st = GetStorage();
-      switch (m_framework.GetCountryStatus(index))
+      switch (m_framework.GetCountryStatus(countryId))
       {
       case TStatus::ENotDownloaded:
-        if (st.CountriesCount(index) == 0)
+        if (st.CountriesCount(countryId) == 0)
         {
-          size = st.CountrySizeInBytes(index, options);
-          ASSERT(size.second > 0, (index));
+          size = st.CountrySizeInBytes(countryId, options);
+          ASSERT(size.second > 0, (countryId));
           statusString = tr("Click to download");
         }
         rowColor = COLOR_NOTDOWNLOADED;
@@ -210,19 +177,19 @@ namespace qt
       case TStatus::EOnDisk:
         statusString = tr("Installed (click to delete)");
         rowColor = COLOR_ONDISK;
-        size = st.CountrySizeInBytes(index, options);
+        size = st.CountrySizeInBytes(countryId, options);
         break;
 
       case TStatus::EOnDiskOutOfDate:
         statusString = tr("Out of date (click to update or delete)");
         rowColor = COLOR_OUTOFDATE;
-        size = st.CountrySizeInBytes(index, options);
+        size = st.CountrySizeInBytes(countryId, options);
         break;
 
       case TStatus::EDownloadFailed:
         statusString = tr("Download has failed");
         rowColor = COLOR_DOWNLOADFAILED;
-        size = st.CountrySizeInBytes(index, options);
+        size = st.CountrySizeInBytes(countryId, options);
         break;
 
       case TStatus::EDownloading:
@@ -233,7 +200,7 @@ namespace qt
       case TStatus::EInQueue:
         statusString = tr("Marked for download");
         rowColor = COLOR_INQUEUE;
-        size = st.CountrySizeInBytes(index, options);
+        size = st.CountrySizeInBytes(countryId, options);
         break;
 
       default:
@@ -270,9 +237,9 @@ namespace qt
     }
   }
 
-  QTreeWidgetItem * UpdateDialog::CreateTreeItem(TIndex const & index, int value, QTreeWidgetItem * parent)
+  QTreeWidgetItem * UpdateDialog::CreateTreeItem(TCountryId const & countryId, int value, QTreeWidgetItem * parent)
   {
-    QString const text = QString::fromUtf8(GetStorage().CountryName(index).c_str());
+    QString const text = QString::fromUtf8(GetStorage().CountryName(countryId).c_str());
     QTreeWidgetItem * item = new QTreeWidgetItem(parent, QStringList(text));
     item->setData(KColumnIndexCountry, Qt::UserRole, QVariant(value));
 
@@ -281,9 +248,9 @@ namespace qt
     return item;
   }
 
-  int UpdateDialog::GetChildsCount(TIndex const & index) const
+  int UpdateDialog::GetChildsCount(TCountryId const & countryId) const
   {
-    return static_cast<int>(GetStorage().CountriesCount(index));
+    return static_cast<int>(GetStorage().CountriesCount(countryId));
   }
 
   void UpdateDialog::FillTree()
@@ -291,29 +258,7 @@ namespace qt
     m_tree->setSortingEnabled(false);
     m_tree->clear();
 
-    int const gCount = GetChildsCount(TIndex());
-    for (int group = 0; group < gCount; ++group)
-    {
-      TIndex const grIndex(group);
-      QTreeWidgetItem * groupItem = CreateTreeItem(grIndex, group, 0);
-      UpdateRowWithCountryInfo(grIndex);
-
-      int const cCount = GetChildsCount(grIndex);
-      for (int country = 0; country < cCount; ++country)
-      {
-        TIndex const cIndex(group, country);
-        QTreeWidgetItem * countryItem = CreateTreeItem(cIndex, country, groupItem);
-        UpdateRowWithCountryInfo(cIndex);
-
-        int const rCount = GetChildsCount(cIndex);
-        for (int region = 0; region < rCount; ++region)
-        {
-          TIndex const rIndex(group, country, region);
-          (void)CreateTreeItem(rIndex, region, countryItem);
-          UpdateRowWithCountryInfo(rIndex);
-        }
-      }
-    }
+    // @TODO(bykoianko) Fill m_tree. Use UpdateRowWithCountryInfo for it.
 
     m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
     m_tree->setSortingEnabled(true);
@@ -326,15 +271,15 @@ namespace qt
 #endif
   }
 
-  void UpdateDialog::OnCountryChanged(TIndex const & index)
+  void UpdateDialog::OnCountryChanged(TCountryId const & countryId)
   {
-    UpdateRowWithCountryInfo(index);
+    UpdateRowWithCountryInfo(countryId);
   }
 
-  void UpdateDialog::OnCountryDownloadProgress(TIndex const & index,
+  void UpdateDialog::OnCountryDownloadProgress(TCountryId const & countryId,
                                                pair<int64_t, int64_t> const & progress)
   {
-    QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, index);
+    QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, countryId);
     if (item)
       item->setText(KColumnIndexSize, QString("%1%").arg(progress.first * 100 / progress.second));
   }

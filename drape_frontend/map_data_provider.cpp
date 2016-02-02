@@ -32,9 +32,9 @@ void MapDataProvider::ReadFeatures(TReadCallback<FeatureType> const & fn, vector
   m_featureReader(fn, ids);
 }
 
-void MapDataProvider::UpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt)
+void MapDataProvider::UpdateCountryIndex(storage::TCountryId const & currentId, m2::PointF const & pt)
 {
-  m_countryIndexUpdater(currentIndex, pt);
+  m_countryIndexUpdater(currentId, pt);
 }
 
 MapDataProvider::TIsCountryLoadedFn const & MapDataProvider::GetIsCountryLoadedFn() const
@@ -42,17 +42,17 @@ MapDataProvider::TIsCountryLoadedFn const & MapDataProvider::GetIsCountryLoadedF
   return m_isCountryLoadedFn;
 }
 
-MapDataProvider::TDownloadFn const & MapDataProvider::GetDownloadMapHandler() const
+TDownloadFn const & MapDataProvider::GetDownloadMapHandler() const
 {
   return m_downloadMapHandler;
 }
 
-MapDataProvider::TDownloadFn const & MapDataProvider::GetDownloadRetryHandler() const
+TDownloadFn const & MapDataProvider::GetDownloadRetryHandler() const
 {
   return m_downloadRetryHandler;
 }
 
-MapDataProvider::TDownloadFn const & MapDataProvider::GetDownloadCancelHandler() const
+TDownloadFn const & MapDataProvider::GetDownloadCancelHandler() const
 {
   return m_downloadCancelHandler;
 }

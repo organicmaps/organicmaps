@@ -75,7 +75,7 @@ MwmSet::MwmHandle & MwmSet::MwmHandle::operator=(MwmHandle && handle)
 
 MwmSet::MwmId MwmSet::GetMwmIdByCountryFileImpl(CountryFile const & countryFile) const
 {
-  string const & name = countryFile.GetNameWithoutExt();
+  string const & name = countryFile.GetName();
   ASSERT(!name.empty(), ());
   auto const it = m_info.find(name);
   if (it == m_info.cend() || it->second.empty())
@@ -115,7 +115,7 @@ pair<MwmSet::MwmId, MwmSet::RegResult> MwmSet::Register(LocalCountryFile const &
       return;
     }
 
-    string const name = countryFile.GetNameWithoutExt();
+    string const name = countryFile.GetName();
     // Update the status of the mwm with the same version.
     if (info->GetVersion() == localFile.GetVersion())
     {

@@ -23,12 +23,19 @@ public:
   using IdType = size_t;
   using IdSet = vector<IdType>;
 
+  CountryInfoGetter(bool isSingleMwm) : m_isSingleMwm(isSingleMwm) {}
   virtual ~CountryInfoGetter() = default;
 
   // Returns country file name without an extension for a country |pt|
   // belongs to. If there are no such country, returns an empty
   // string.
-  string GetRegionFile(m2::PointD const & pt) const;
+  TCountryId GetRegionCountryId(m2::PointD const & pt) const;
+
+  // Returns a list of country ids by a |pt| in mercator.
+  // |closestCoutryIds| is filled with country ids of mwm which covers |pt| or close to it.
+  // |closestCoutryIds| is not filled with country world.mwm country id and with custom mwm.
+  // If |pt| is covered by a sea or a ocean closestCoutryIds may be left empty.
+  void GetRegionsCountryId(m2::PointD const & pt, TCountriesVec & closestCoutryIds);
 
   // Returns info for a region |pt| belongs to.
   void GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const;
@@ -81,6 +88,11 @@ protected:
 
   // Maps country file name without an extension to a country info.
   map<string, CountryInfo> m_id2info;
+
+  // m_isSingleMwm == true if the system is currently working with single (small) mwms
+  // and false otherwise.
+  // @TODO(bykoianko) Init m_isSingleMwm correctly.
+  bool m_isSingleMwm;
 };
 
 // This class reads info about countries from polygons file and

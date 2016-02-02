@@ -243,7 +243,8 @@ void Framework::Migrate()
   Storage().DeleteAllLocalMaps();
   DeregisterAllMaps();
   m_model.Clear();
-  Storage().Migrate();
+  // @TODO(syershov) Implement it correctly please.
+  // Storage().Migrate();
   InitCountryInfoGetter();
   InitSearchEngine();
   RegisterAllMaps();
@@ -431,7 +432,7 @@ bool Framework::IsWatchFrameRendererInited() const
   return m_cpuDrawer != nullptr;
 }
 
-void Framework::DeleteCountry(storage::TIndex const & index, MapOptions opt)
+void Framework::DeleteCountry(storage::TCountryId const & index, MapOptions opt)
 {
   switch (opt)
   {
@@ -444,7 +445,7 @@ void Framework::DeleteCountry(storage::TIndex const & index, MapOptions opt)
       // m_model will notify us when latest map file will be deleted via
       // OnMapDeregistered call.
       if (m_model.DeregisterMap(countryFile))
-        InvalidateRect(GetCountryBounds(countryFile.GetNameWithoutExt()));
+        InvalidateRect(GetCountryBounds(countryFile.GetName()));
 
       // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmHandles. Thus,
       // it won' be needed to reset it after maps update.
@@ -458,37 +459,28 @@ void Framework::DeleteCountry(storage::TIndex const & index, MapOptions opt)
   }
 }
 
-void Framework::DownloadCountry(TIndex const & index, MapOptions opt)
+void Framework::DownloadCountry(storage::TCountryId const & index, MapOptions opt)
 {
   m_storage.DownloadCountry(index, opt);
 }
 
-TStatus Framework::GetCountryStatus(TIndex const & index) const
+TStatus Framework::GetCountryStatus(storage::TCountryId const & index) const
 {
   return m_storage.CountryStatusEx(index);
 }
 
-string Framework::GetCountryName(TIndex const & index) const
+string Framework::GetCountryName(storage::TCountryId const & countryId) const
 {
-  string group, name;
-  m_storage.GetGroupAndCountry(index, group, name);
-  return (!group.empty() ? group + ", " + name : name);
+  return countryId;
 }
 
-m2::RectD Framework::GetCountryBounds(string const & file) const
+m2::RectD Framework::GetCountryBounds(storage::TCountryId const & countryId) const
 {
-  m2::RectD const bounds = m_infoGetter->CalcLimitRect(file);
-  ASSERT(bounds.IsValid(), ());
-  return bounds;
+  CountryFile const & file = m_storage.GetCountryFile(countryId);
+  return GetCountryBounds(file.GetName());
 }
 
-m2::RectD Framework::GetCountryBounds(TIndex const & index) const
-{
-  CountryFile const & file = m_storage.GetCountryFile(index);
-  return GetCountryBounds(file.GetNameWithoutExt());
-}
-
-void Framework::ShowCountry(TIndex const & index)
+void Framework::ShowCountry(storage::TCountryId const & index)
 {
   StopLocationFollow();
 
@@ -530,11 +522,12 @@ void Framework::RegisterAllMaps()
   {
     bool disableFastMigrate = false;
     Settings::Get("DisableFastMigrate", disableFastMigrate);
-    if (!disableFastMigrate && !m_storage.HaveDownloadedCountries())
-    {
-      Migrate();
-      return;
-    }
+    // @TODO(syershov) Implement it correctly please.
+//    if (!disableFastMigrate && !m_storage.HaveDownloadedCountries())
+//    {
+//      Migrate();
+//      return;
+//    }
   }
 
   int minFormat = numeric_limits<int>::max();
@@ -853,7 +846,7 @@ bool Framework::IsCountryLoaded(m2::PointD const & pt) const
   // obfuscating and should be fixed.
 
   // Correct, but slow version (check country polygon).
-  string const fName = m_infoGetter->GetRegionFile(pt);
+  string const fName = m_infoGetter->GetRegionCountryId(pt);
   if (fName.empty())
     return true;
 
@@ -912,44 +905,44 @@ void Framework::SetAutoDownloadListener(TAutoDownloadListener const & listener)
   m_autoDownloadListener = listener;
 }
 
-void Framework::OnDownloadMapCallback(storage::TIndex const & countryIndex)
+void Framework::OnDownloadMapCallback(storage::TCountryId const & countryId)
 {
 }
 
-void Framework::OnDownloadRetryCallback(storage::TIndex const & countryIndex)
+void Framework::OnDownloadRetryCallback(storage::TCountryId const & countryId)
 {
 }
 
-void Framework::OnDownloadCancelCallback(storage::TIndex const & countryIndex)
+void Framework::OnDownloadCancelCallback(storage::TCountryId const & countryId)
 {
   // Any cancel leads to disable auto-downloading.
   m_autoDownloadingOn = false;
 }
 
-void Framework::OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt)
+void Framework::OnUpdateCountryIndex(storage::TCountryId const & currentId, m2::PointF const & pt)
 {
-  storage::TIndex newCountryIndex = GetCountryIndex(m2::PointD(pt));
-  if (!newCountryIndex.IsValid())
+  storage::TCountryId newCountryId = GetCountryIndex(m2::PointD(pt));
+  if (newCountryId != storage::kInvalidCountryId)
   {
     m_drapeEngine->SetInvalidCountryInfo();
     return;
   }
 
-  if (currentIndex != newCountryIndex)
+  if (currentId != newCountryId)
   {
     if (m_autoDownloadingOn && m_autoDownloadListener != nullptr)
-      m_autoDownloadListener(newCountryIndex);
+      m_autoDownloadListener(newCountryId);
 
-    UpdateCountryInfo(newCountryIndex, true /* isCurrentCountry */);
+    UpdateCountryInfo(newCountryId, true /* isCurrentCountry */);
   }
 }
 
-void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isCurrentCountry)
+void Framework::UpdateCountryInfo(storage::TCountryId const & countryId, bool isCurrentCountry)
 {
   if (!m_drapeEngine)
     return;
 
-  string const & fileName = m_storage.CountryByIndex(countryIndex).GetFile().GetNameWithoutExt();
+  string const & fileName = countryId;
   if (m_model.IsLoaded(fileName))
   {
     m_drapeEngine->SetInvalidCountryInfo();
@@ -958,7 +951,7 @@ void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isC
 
   gui::CountryInfo countryInfo;
 
-  countryInfo.m_countryIndex = countryIndex;
+  countryInfo.m_countryIndex = countryId;
   if (countryInfo.m_countryStatus == storage::TStatus::EDownloading)
     countryInfo.m_downloadProgress = 50;
 
@@ -1096,22 +1089,15 @@ void Framework::InitSearchEngine()
   }
 }
 
-TIndex Framework::GetCountryIndex(m2::PointD const & pt) const
+storage::TCountryId Framework::GetCountryIndex(m2::PointD const & pt) const
 {
-  return m_storage.FindIndexByFile(m_infoGetter->GetRegionFile(pt));
+  return m_infoGetter->GetRegionCountryId(pt);
 }
 
 string Framework::GetCountryName(m2::PointD const & pt) const
 {
   storage::CountryInfo info;
   m_infoGetter->GetRegionInfo(pt, info);
-  return info.m_name;
-}
-
-string Framework::GetCountryName(string const & id) const
-{
-  storage::CountryInfo info;
-  m_infoGetter->GetRegionInfo(id, info);
   return info.m_name;
 }
 
@@ -1383,7 +1369,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   using TReadFeaturesFn = df::MapDataProvider::TReadFeaturesFn;
   using TUpdateCountryIndexFn = df::MapDataProvider::TUpdateCountryIndexFn;
   using TIsCountryLoadedFn = df::MapDataProvider::TIsCountryLoadedFn;
-  using TDownloadFn = df::MapDataProvider::TDownloadFn;
 
   TReadIDsFn idReadFn = [this](df::MapDataProvider::TReadCallback<FeatureID> const & fn, m2::RectD const & r, int scale) -> void
   {
@@ -1395,27 +1380,27 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     m_model.ReadFeatures(fn, ids);
   };
 
-  TUpdateCountryIndexFn updateCountryIndex = [this](storage::TIndex const & currentIndex, m2::PointF const & pt)
+  TUpdateCountryIndexFn updateCountryIndex = [this](storage::TCountryId const & currentId, m2::PointF const & pt)
   {
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnUpdateCountryIndex, this, currentIndex, pt));
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnUpdateCountryIndex, this, currentId, pt));
   };
 
   TIsCountryLoadedFn isCountryLoadedFn = bind(&Framework::IsCountryLoaded, this, _1);
   auto isCountryLoadedByNameFn = bind(&Framework::IsCountryLoadedByName, this, _1);
 
-  TDownloadFn downloadMapFn = [this](storage::TIndex const & countryIndex)
+  TDownloadFn downloadMapFn = [this](storage::TCountryId const & countryId)
   {
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapCallback, this, countryIndex));
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapCallback, this, countryId));
   };
 
-  TDownloadFn downloadRetryFn = [this](storage::TIndex const & countryIndex)
+  TDownloadFn downloadRetryFn = [this](storage::TCountryId const & countryId)
   {
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadRetryCallback, this, countryIndex));
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadRetryCallback, this, countryId));
   };
 
-  TDownloadFn downloadCancelFn = [this](storage::TIndex const & countryIndex)
+  TDownloadFn downloadCancelFn = [this](storage::TCountryId const & countryId)
   {
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadCancelCallback, this, countryIndex));
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadCancelCallback, this, countryId));
   };
 
   bool allow3d;
@@ -1597,13 +1582,6 @@ gui::TWidgetsSizeInfo const & Framework::GetWidgetSizes()
 {
   ASSERT(m_drapeEngine != nullptr, ());
   return m_drapeEngine->GetWidgetSizes();
-}
-
-string Framework::GetCountryCode(m2::PointD const & pt) const
-{
-  storage::CountryInfo info;
-  m_infoGetter->GetRegionInfo(pt, info);
-  return info.m_flag;
 }
 
 bool Framework::ShowMapForURL(string const & url)
@@ -2045,7 +2023,7 @@ void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
   m2::PointD start;
   if (!m_drapeEngine->GetMyPosition(start))
   {
-    CallRouteBuilded(IRouter::NoCurrentPosition, vector<storage::TIndex>(), vector<storage::TIndex>());
+    CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec(), storage::TCountriesVec());
     return;
   }
 
@@ -2065,8 +2043,8 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
 
   auto readyCallback = [this] (Route const & route, IRouter::ResultCode code)
   {
-    vector<storage::TIndex> absentCountries;
-    vector<storage::TIndex> absentRoutingIndexes;
+    storage::TCountriesVec absentCountries;
+    storage::TCountriesVec absentRoutingIndexes;
     if (code == IRouter::NoError)
     {
       double const kRouteScaleMultiplier = 1.5;
@@ -2080,11 +2058,11 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
     {
       for (string const & name : route.GetAbsentCountries())
       {
-        storage::TIndex fileIndex = m_storage.FindIndexByFile(name);
-        if (m_storage.GetLatestLocalFile(fileIndex))
-          absentRoutingIndexes.push_back(fileIndex);
+        storage::TCountryId fileCountryId = name;
+        if (m_storage.GetLatestLocalFile(fileCountryId))
+          absentRoutingIndexes.push_back(fileCountryId);
         else
-          absentCountries.push_back(fileIndex);
+          absentCountries.push_back(fileCountryId);
       }
 
       if (code != IRouter::NeedMoreMaps)
@@ -2143,7 +2121,7 @@ void Framework::SetRouterImpl(RouterType type)
   {
     // TODO (@gorshenin): fix CountryInfoGetter to return CountryFile
     // instances instead of plain strings.
-    return m_infoGetter->GetRegionFile(p);
+    return m_infoGetter->GetRegionCountryId(p);
   };
 
   if (type == RouterType::Pedestrian)
@@ -2238,7 +2216,8 @@ void Framework::MatchLocationToRoute(location::GpsInfo & location, location::Rou
   m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
-void Framework::CallRouteBuilded(IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutingFiles)
+void Framework::CallRouteBuilded(IRouter::ResultCode code, storage::TCountriesVec const & absentCountries,
+                                 storage::TCountriesVec const & absentRoutingFiles)
 {
   if (code == IRouter::Cancelled)
     return;
@@ -2289,7 +2268,7 @@ RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD co
     // Return on a short distance the vehicle router flag only if we are already have routing files.
     auto countryFileGetter = [this](m2::PointD const & pt)
     {
-      return m_infoGetter->GetRegionFile(pt);
+      return m_infoGetter->GetRegionCountryId(pt);
     };
     if (!OsrmRouter::CheckRoutingAbility(startPoint, finalPoint, countryFileGetter,
                                          &m_model.GetIndex()))

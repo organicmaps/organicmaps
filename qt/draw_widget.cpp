@@ -7,6 +7,8 @@
 
 #include "search/result.hpp"
 
+#include "storage/index.hpp"
+
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
@@ -92,8 +94,8 @@ DrawWidget::DrawWidget(QWidget * parent)
   });
 
   m_framework->SetRouteBuildingListener([](routing::IRouter::ResultCode,
-                                           vector<storage::TIndex> const &,
-                                           vector<storage::TIndex> const &)
+                                           storage::TCountriesVec const &,
+                                           storage::TCountriesVec const &)
   {
   });
 
