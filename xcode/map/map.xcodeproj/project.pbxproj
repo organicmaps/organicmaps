@@ -263,6 +263,13 @@
 		674A2A341B2700B2001A525C /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				67F183871BD5050900AB1840 /* SystemConfiguration.framework */,
+				67F183851BD504ED00AB1840 /* libsystem_configuration.tbd */,
+				67F1837D1BD5049500AB1840 /* libagg.a */,
+				67F1837E1BD5049500AB1840 /* liblodepng.a */,
+				67F1837F1BD5049500AB1840 /* libminizip.a */,
+				67F183801BD5049500AB1840 /* libtess2.a */,
+				67F183741BD5041700AB1840 /* libz.tbd */,
 				674A2A321B26FFE9001A525C /* OpenGL.framework */,
 				674A2A2D1B26FF4F001A525C /* Cocoa.framework */,
 				674A2A2B1B26FF38001A525C /* IOKit.framework */,
@@ -298,13 +305,6 @@
 		675345B21A4054AD00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				67F183871BD5050900AB1840 /* SystemConfiguration.framework */,
-				67F183851BD504ED00AB1840 /* libsystem_configuration.tbd */,
-				67F1837D1BD5049500AB1840 /* libagg.a */,
-				67F1837E1BD5049500AB1840 /* liblodepng.a */,
-				67F1837F1BD5049500AB1840 /* libminizip.a */,
-				67F183801BD5049500AB1840 /* libtess2.a */,
-				67F183741BD5041700AB1840 /* libz.tbd */,
 				670D05A41B0DF4250013A7AC /* defaults.xcconfig */,
 				674A2A341B2700B2001A525C /* libs */,
 				675345BD1A4054AD00A0A8C3 /* map */,

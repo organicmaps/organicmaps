@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		340DF9D01C1FF04D00B5C7EC /* osm_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340DF9CF1C1FF04D00B5C7EC /* osm_editor.cpp */; };
-		340DF9D21C1FF09400B5C7EC /* osm_editor.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 340DF9D11C1FF09400B5C7EC /* osm_editor.hpp */; };
 		347F337B1C454242009758CC /* rank_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F33721C454242009758CC /* rank_table.cpp */; };
 		347F337C1C454242009758CC /* rank_table.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33731C454242009758CC /* rank_table.hpp */; };
 		347F337D1C454242009758CC /* succinct_trie_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33741C454242009758CC /* succinct_trie_builder.hpp */; };
@@ -632,7 +631,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				340DF9D21C1FF09400B5C7EC /* osm_editor.hpp in Sources */,
 				340DF9D01C1FF04D00B5C7EC /* osm_editor.cpp in Sources */,
 				67F183731BD4FCF500AB1840 /* map_style.cpp in Sources */,
 				670D04AB1B0BA8580013A7AC /* feature_loader_101.cpp in Sources */,
