@@ -185,28 +185,28 @@ void LoadCountryCode2File(string const & jsonBuffer, multimap<string, string> & 
 template <class T>
 void SaveImpl(T const & v, json_t * jParent)
 {
-  size_t const siblingsCount = v.SiblingsCount();
-  CHECK_GREATER(siblingsCount, 0, ());
+  size_t const childrenCount = v.ChildrenCount();
+  CHECK_GREATER(childrenCount, 0, ());
 
   my::JsonHandle jArray;
   jArray.AttachNew(json_array());
-  for (size_t i = 0; i < siblingsCount; ++i)
+  for (size_t i = 0; i < childrenCount; ++i)
   {
     my::JsonHandle jCountry;
     jCountry.AttachNew(json_object());
 
-    string const strName = v[i].Value().Name();
+    string const strName = v.Child(i).Value().Name();
     CHECK(!strName.empty(), ("Empty country name?"));
     json_object_set_new(jCountry.get(), "n", json_string(strName.c_str()));
-    string const strFlag = v[i].Value().Flag();
+    string const strFlag = v.Child(i).Value().Flag();
     if (!strFlag.empty())
       json_object_set_new(jCountry.get(), "c", json_string(strFlag.c_str()));
 
-    size_t countriesCount = v[i].Value().GetFilesCount();
+    size_t countriesCount = v.Child(i).Value().GetFilesCount();
     ASSERT_LESS_OR_EQUAL(countriesCount, 1, ());
     if (countriesCount > 0)
     {
-      CountryFile const & file = v[i].Value().GetFile();
+      CountryFile const & file = v.Child(i).Value().GetFile();
       string const & strFile = file.GetNameWithoutExt();
       if (strFile != strName)
         json_object_set_new(jCountry.get(), "f", json_string(strFile.c_str()));
@@ -215,8 +215,8 @@ void SaveImpl(T const & v, json_t * jParent)
                           json_integer(file.GetRemoteSize(MapOptions::CarRouting)));
     }
 
-    if (v[i].SiblingsCount())
-      SaveImpl(v[i], jCountry.get());
+    if (v.Child(i).ChildrenCount())
+      SaveImpl(v.Child(i), jCountry.get());
 
     json_array_append(jArray.get(), jCountry.get());
   }

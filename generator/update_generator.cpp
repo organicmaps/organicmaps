@@ -130,7 +130,7 @@ namespace update
 
       // using move semantics for mwmFiles
       SizeUpdater sizeUpdater(dataDir, mwmFiles);
-      countries.ForEachChildren(sizeUpdater);
+      countries.ForEachDescendant(sizeUpdater);
     }
 
     storage::SaveCountries(my::TodayAsYYMMDD(), countries, jsonBuffer);

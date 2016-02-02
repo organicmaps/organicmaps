@@ -205,19 +205,19 @@ size_t Storage::GetDownloadedFilesCount() const
 CountriesContainerT const & NodeFromIndex(CountriesContainerT const & root, TIndex const & index)
 {
   // complex logic to avoid [] out_of_bounds exceptions
-  if (index.m_group == TIndex::INVALID || index.m_group >= static_cast<int>(root.SiblingsCount()))
+  if (index.m_group == TIndex::INVALID || index.m_group >= static_cast<int>(root.ChildrenCount()))
     return root;
   if (index.m_country == TIndex::INVALID ||
-      index.m_country >= static_cast<int>(root[index.m_group].SiblingsCount()))
+      index.m_country >= static_cast<int>(root.Child(index.m_group).ChildrenCount()))
   {
-    return root[index.m_group];
+    return root.Child(index.m_group);
   }
   if (index.m_region == TIndex::INVALID ||
-      index.m_region >= static_cast<int>(root[index.m_group][index.m_country].SiblingsCount()))
+      index.m_region >= static_cast<int>(root.Child(index.m_group).Child(index.m_country).ChildrenCount()))
   {
-    return root[index.m_group][index.m_country];
+    return root.Child(index.m_group).Child(index.m_country);
   }
-  return root[index.m_group][index.m_country][index.m_region];
+  return root.Child(index.m_group).Child(index.m_country).Child(index.m_region);
 }
 
 Country const & Storage::CountryByIndex(TIndex const & index) const
@@ -234,7 +234,7 @@ void Storage::GetGroupAndCountry(TIndex const & index, string & group, string & 
 
 size_t Storage::CountriesCount(TIndex const & index) const
 {
-  return NodeFromIndex(m_countries, index).SiblingsCount();
+  return NodeFromIndex(m_countries, index).ChildrenCount();
 }
 
 string const & Storage::CountryName(TIndex const & index) const
@@ -487,7 +487,7 @@ void Storage::LoadCountriesFile(bool forceReload)
   if (forceReload)
     m_countries.Clear();
 
-  if (m_countries.SiblingsCount() == 0)
+  if (m_countries.ChildrenCount() == 0)
   {
     string json;
     string const name = migrate::NeedMigrate() ? COUNTRIES_FILE : COUNTRIES_MIGRATE_FILE;
@@ -669,19 +669,19 @@ TIndex Storage::FindIndexByFile(string const & name) const
 {
   EqualFileName fn(name);
 
-  for (size_t i = 0; i < m_countries.SiblingsCount(); ++i)
+  for (size_t i = 0; i < m_countries.ChildrenCount(); ++i)
   {
-    if (fn(m_countries[i]))
+    if (fn(m_countries.Child(i)))
       return TIndex(static_cast<int>(i));
 
-    for (size_t j = 0; j < m_countries[i].SiblingsCount(); ++j)
+    for (size_t j = 0; j < m_countries.Child(i).ChildrenCount(); ++j)
     {
-      if (fn(m_countries[i][j]))
+      if (fn(m_countries.Child(i).Child(j)))
         return TIndex(static_cast<int>(i), static_cast<int>(j));
 
-      for (size_t k = 0; k < m_countries[i][j].SiblingsCount(); ++k)
+      for (size_t k = 0; k < m_countries.Child(i).Child(j).ChildrenCount(); ++k)
       {
-        if (fn(m_countries[i][j][k]))
+        if (fn(m_countries.Child(i).Child(j).Child(k)))
           return TIndex(static_cast<int>(i), static_cast<int>(j), static_cast<int>(k));
       }
     }
@@ -695,19 +695,19 @@ vector<TIndex> Storage::FindAllIndexesByFile(string const & name) const
   EqualFileName fn(name);
   vector<TIndex> res;
 
-  for (size_t i = 0; i < m_countries.SiblingsCount(); ++i)
+  for (size_t i = 0; i < m_countries.ChildrenCount(); ++i)
   {
-    if (fn(m_countries[i]))
+    if (fn(m_countries.Child(i)))
       res.emplace_back(static_cast<int>(i));
 
-    for (size_t j = 0; j < m_countries[i].SiblingsCount(); ++j)
+    for (size_t j = 0; j < m_countries.Child(i).ChildrenCount(); ++j)
     {
-      if (fn(m_countries[i][j]))
+      if (fn(m_countries.Child(i).Child(j)))
         res.emplace_back(static_cast<int>(i), static_cast<int>(j));
 
-      for (size_t k = 0; k < m_countries[i][j].SiblingsCount(); ++k)
+      for (size_t k = 0; k < m_countries.Child(i).Child(j).ChildrenCount(); ++k)
       {
-        if (fn(m_countries[i][j][k]))
+        if (fn(m_countries.Child(i).Child(j).Child(k)))
           res.emplace_back(static_cast<int>(i), static_cast<int>(j), static_cast<int>(k));
       }
     }
