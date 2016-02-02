@@ -32,6 +32,23 @@
 		67247FF91C60BD5900EDE56A /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF71C60BD5900EDE56A /* libalohalitics.a */; };
 		67247FFA1C60BD5900EDE56A /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF81C60BD5900EDE56A /* libtomcrypt.a */; };
 		672480001C60BD7E00EDE56A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FFF1C60BD7E00EDE56A /* libz.tbd */; };
+		672480131C60CE9300EDE56A /* migrate_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6724800D1C60CE7300EDE56A /* migrate_tests.cpp */; };
+		672480141C60CE9300EDE56A /* storage_group_download_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6724800E1C60CE7300EDE56A /* storage_group_download_tests.cpp */; };
+		672480151C60CE9300EDE56A /* storage_http_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6724800F1C60CE7300EDE56A /* storage_http_tests.cpp */; };
+		672480161C60CE9700EDE56A /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FD71C60BA9900EDE56A /* testingmain.cpp */; };
+		672480171C60CF7000EDE56A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FFF1C60BD7E00EDE56A /* libz.tbd */; };
+		672480181C60CF7500EDE56A /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF71C60BD5900EDE56A /* libalohalitics.a */; };
+		672480191C60CF7500EDE56A /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF81C60BD5900EDE56A /* libtomcrypt.a */; };
+		6724801A1C60CF7500EDE56A /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF31C60BD4000EDE56A /* libcoding.a */; };
+		6724801B1C60CF7500EDE56A /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF41C60BD4000EDE56A /* libjansson.a */; };
+		6724801C1C60CF7500EDE56A /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FF11C60BD1400EDE56A /* libindexer.a */; };
+		6724801D1C60CF7500EDE56A /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FEC1C60BC0D00EDE56A /* libbase.a */; };
+		6724801E1C60CF7500EDE56A /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FED1C60BC0D00EDE56A /* libgeometry.a */; };
+		6724801F1C60CF7A00EDE56A /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FE31C60BBCE00EDE56A /* libplatform.a */; };
+		672480201C60CF7C00EDE56A /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FE21C60BBCE00EDE56A /* libplatform_tests_support.a */; };
+		672480211C60CF8000EDE56A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FEA1C60BC0000EDE56A /* IOKit.framework */; };
+		672480221C60CF8000EDE56A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FE81C60BBF600EDE56A /* SystemConfiguration.framework */; };
+		672480231C60CF8000EDE56A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FE61C60BBE700EDE56A /* Cocoa.framework */; };
 		6741251E1B4C05FA00A3E828 /* http_map_files_downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674125181B4C05FA00A3E828 /* http_map_files_downloader.cpp */; };
 		6741251F1B4C05FA00A3E828 /* http_map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674125191B4C05FA00A3E828 /* http_map_files_downloader.hpp */; };
 		674125201B4C05FA00A3E828 /* map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6741251A1B4C05FA00A3E828 /* map_files_downloader.hpp */; };
@@ -55,6 +72,15 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		67247FBA1C60B89B00EDE56A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		672480041C60CE3D00EDE56A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -92,6 +118,10 @@
 		67247FF71C60BD5900EDE56A /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
 		67247FF81C60BD5900EDE56A /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
 		67247FFF1C60BD7E00EDE56A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		672480061C60CE3D00EDE56A /* storage_integration_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = storage_integration_tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		6724800D1C60CE7300EDE56A /* migrate_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = migrate_tests.cpp; sourceTree = "<group>"; };
+		6724800E1C60CE7300EDE56A /* storage_group_download_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_group_download_tests.cpp; sourceTree = "<group>"; };
+		6724800F1C60CE7300EDE56A /* storage_http_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_http_tests.cpp; sourceTree = "<group>"; };
 		674125181B4C05FA00A3E828 /* http_map_files_downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_map_files_downloader.cpp; sourceTree = "<group>"; };
 		674125191B4C05FA00A3E828 /* http_map_files_downloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_map_files_downloader.hpp; sourceTree = "<group>"; };
 		6741251A1B4C05FA00A3E828 /* map_files_downloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_files_downloader.hpp; sourceTree = "<group>"; };
@@ -133,6 +163,26 @@
 				67247FE41C60BBCE00EDE56A /* libplatform_tests_support.a in Frameworks */,
 				67247FE51C60BBCE00EDE56A /* libplatform.a in Frameworks */,
 				67247FE11C60BBCD00EDE56A /* libstorage.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		672480031C60CE3D00EDE56A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				672480191C60CF7500EDE56A /* libtomcrypt.a in Frameworks */,
+				6724801B1C60CF7500EDE56A /* libjansson.a in Frameworks */,
+				6724801D1C60CF7500EDE56A /* libbase.a in Frameworks */,
+				6724801A1C60CF7500EDE56A /* libcoding.a in Frameworks */,
+				672480211C60CF8000EDE56A /* IOKit.framework in Frameworks */,
+				672480171C60CF7000EDE56A /* libz.tbd in Frameworks */,
+				672480181C60CF7500EDE56A /* libalohalitics.a in Frameworks */,
+				6724801C1C60CF7500EDE56A /* libindexer.a in Frameworks */,
+				672480231C60CF8000EDE56A /* Cocoa.framework in Frameworks */,
+				6724801F1C60CF7A00EDE56A /* libplatform.a in Frameworks */,
+				672480201C60CF7C00EDE56A /* libplatform_tests_support.a in Frameworks */,
+				672480221C60CF8000EDE56A /* SystemConfiguration.framework in Frameworks */,
+				6724801E1C60CF7500EDE56A /* libgeometry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +235,17 @@
 			name = libs;
 			sourceTree = "<group>";
 		};
+		672480071C60CE3D00EDE56A /* storage_integration_tests */ = {
+			isa = PBXGroup;
+			children = (
+				6724800D1C60CE7300EDE56A /* migrate_tests.cpp */,
+				6724800E1C60CE7300EDE56A /* storage_group_download_tests.cpp */,
+				6724800F1C60CE7300EDE56A /* storage_http_tests.cpp */,
+			);
+			name = storage_integration_tests;
+			path = ../../storage/storage_integration_tests;
+			sourceTree = "<group>";
+		};
 		675342D71A3F59EF00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +253,7 @@
 				672480011C60BF2F00EDE56A /* libs */,
 				675342E21A3F59EF00A0A8C3 /* storage */,
 				67247FBD1C60B89B00EDE56A /* storage_tests */,
+				672480071C60CE3D00EDE56A /* storage_integration_tests */,
 				675342E11A3F59EF00A0A8C3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -201,6 +263,7 @@
 			children = (
 				675342E01A3F59EF00A0A8C3 /* libstorage.a */,
 				67247FBC1C60B89B00EDE56A /* storage_tests */,
+				672480061C60CE3D00EDE56A /* storage_integration_tests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,6 +339,23 @@
 			productReference = 67247FBC1C60B89B00EDE56A /* storage_tests */;
 			productType = "com.apple.product-type.tool";
 		};
+		672480051C60CE3D00EDE56A /* storage_integration_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6724800A1C60CE3D00EDE56A /* Build configuration list for PBXNativeTarget "storage_integration_tests" */;
+			buildPhases = (
+				672480021C60CE3D00EDE56A /* Sources */,
+				672480031C60CE3D00EDE56A /* Frameworks */,
+				672480041C60CE3D00EDE56A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = storage_integration_tests;
+			productName = storage_integration_tests;
+			productReference = 672480061C60CE3D00EDE56A /* storage_integration_tests */;
+			productType = "com.apple.product-type.tool";
+		};
 		675342DF1A3F59EF00A0A8C3 /* storage */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 675342EB1A3F59EF00A0A8C3 /* Build configuration list for PBXNativeTarget "storage" */;
@@ -305,6 +385,9 @@
 					67247FBB1C60B89B00EDE56A = {
 						CreatedOnToolsVersion = 7.2;
 					};
+					672480051C60CE3D00EDE56A = {
+						CreatedOnToolsVersion = 7.2;
+					};
 					675342DF1A3F59EF00A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -324,6 +407,7 @@
 			targets = (
 				675342DF1A3F59EF00A0A8C3 /* storage */,
 				67247FBB1C60B89B00EDE56A /* storage_tests */,
+				672480051C60CE3D00EDE56A /* storage_integration_tests */,
 			);
 		};
 /* End PBXProject section */
@@ -341,6 +425,17 @@
 				67247FDA1C60BAC500EDE56A /* country_info_getter_test.cpp in Sources */,
 				67247FDC1C60BAC500EDE56A /* queued_country_tests.cpp in Sources */,
 				67247FDF1C60BAC500EDE56A /* task_runner.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		672480021C60CE3D00EDE56A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				672480151C60CE9300EDE56A /* storage_http_tests.cpp in Sources */,
+				672480141C60CE9300EDE56A /* storage_group_download_tests.cpp in Sources */,
+				672480131C60CE9300EDE56A /* migrate_tests.cpp in Sources */,
+				672480161C60CE9700EDE56A /* testingmain.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +465,10 @@
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				GCC_NO_COMMON_BLOCKS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					QtCore,
@@ -396,7 +494,62 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				GCC_NO_COMMON_BLOCKS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				GCC_PREPROCESSOR_DEFINITIONS = "OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1";
+				OTHER_LDFLAGS = (
+					"-framework",
+					QtCore,
+					"-framework",
+					QtNetwork,
+					"-framework",
+					QtWidgets,
+					"-framework",
+					QtOpenGL,
+					"-framework",
+					QtGui,
+					"-framework",
+					SystemConfiguration,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		6724800B1C60CE3D00EDE56A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					QtCore,
+					"-framework",
+					QtNetwork,
+					"-framework",
+					QtWidgets,
+					"-framework",
+					QtOpenGL,
+					"-framework",
+					QtGui,
+					"-framework",
+					SystemConfiguration,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6724800C1C60CE3D00EDE56A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1";
 				OTHER_LDFLAGS = (
 					"-framework",
 					QtCore,
@@ -536,6 +689,15 @@
 			buildConfigurations = (
 				67247FC01C60B89B00EDE56A /* Debug */,
 				67247FC11C60B89B00EDE56A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6724800A1C60CE3D00EDE56A /* Build configuration list for PBXNativeTarget "storage_integration_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6724800B1C60CE3D00EDE56A /* Debug */,
+				6724800C1C60CE3D00EDE56A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
