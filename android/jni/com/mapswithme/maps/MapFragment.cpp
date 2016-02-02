@@ -1,8 +1,6 @@
 #include "Framework.hpp"
 #include "MapStorage.hpp"
 
-#include "../country/country_helper.hpp"
-
 #include "../core/jni_helper.hpp"
 
 #include "../platform/Platform.hpp"
@@ -34,60 +32,61 @@ extern "C"
 
 #pragma clang pop_options
 
-  static jobject g_this = nullptr;
+// TODO (trashkalmar): Connect to new downloader
+//  static jobject g_this = nullptr;
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapFragment_nativeConnectDownloaderListeners(JNIEnv * env, jobject thiz)
   {
-    g_this = env->NewGlobalRef(thiz);
-    g_framework->NativeFramework()->SetDownloadCountryListener([](TIndex const & idx, int options)
-    {
-      JNIEnv * env = jni::GetEnv();
-      jmethodID methodID = jni::GetMethodID(env, g_this, "onDownloadClicked", "(IIII)V");
-      env->CallVoidMethod(g_this, methodID, idx.m_group, idx.m_country, idx.m_region, options);
-    });
-
-    g_framework->NativeFramework()->SetDownloadCancelListener([](TIndex const & idx)
-    {
-      GetMapLayout().CancelDownloading(idx);
-    });
-
-    g_framework->NativeFramework()->SetAutoDownloadListener([](TIndex const & idx)
-    {
-      if (g_framework->NeedMigrate())
-        return;
-
-      bool autoDownload = true;
-      Settings::Get("AutoDownloadEnabled", autoDownload);
-
-      if (autoDownload && Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI)
-        GetMapLayout().DownloadMap(idx, MapOptions::Map);
-    });
+//    g_this = env->NewGlobalRef(thiz);
+//    g_framework->NativeFramework()->SetDownloadCountryListener([](TIndex const & idx, int options)
+//    {
+//      JNIEnv * env = jni::GetEnv();
+//      jmethodID methodID = jni::GetMethodID(env, g_this, "onDownloadClicked", "(IIII)V");
+//      env->CallVoidMethod(g_this, methodID, idx.m_group, idx.m_country, idx.m_region, options);
+//    });
+//
+//    g_framework->NativeFramework()->SetDownloadCancelListener([](TIndex const & idx)
+//    {
+//      GetMapLayout().CancelDownloading(idx);
+//    });
+//
+//    g_framework->NativeFramework()->SetAutoDownloadListener([](TIndex const & idx)
+//    {
+//      if (g_framework->NeedMigrate())
+//        return;
+//
+//      bool autoDownload = true;
+//      Settings::Get("AutoDownloadEnabled", autoDownload);
+//
+//      if (autoDownload && Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI)
+//        GetMapLayout().DownloadMap(idx, MapOptions::Map);
+//    });
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapFragment_nativeDisconnectListeners(JNIEnv * env, jclass clazz)
   {
-    g_framework->NativeFramework()->SetDownloadCountryListener(nullptr);
-    g_framework->NativeFramework()->SetDownloadCancelListener(nullptr);
-    g_framework->NativeFramework()->SetAutoDownloadListener(nullptr);
-
-    if (g_this)
-    {
-      env->DeleteGlobalRef(g_this);
-      g_this = nullptr;
-    }
+//    g_framework->NativeFramework()->SetDownloadCountryListener(nullptr);
+//    g_framework->NativeFramework()->SetDownloadCancelListener(nullptr);
+//    g_framework->NativeFramework()->SetAutoDownloadListener(nullptr);
+//
+//    if (g_this)
+//    {
+//      env->DeleteGlobalRef(g_this);
+//      g_this = nullptr;
+//    }
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapFragment_nativeDownloadCountry(JNIEnv * env, jclass clazz, jobject idx, jint options)
   {
-    TIndex index = ToNative(idx);
-    ActiveMapsLayout & layout = storage_utils::GetMapLayout();
-    if (options == -1)
-      layout.RetryDownloading(index);
-    else
-      layout.DownloadMap(index, storage_utils::ToOptions(options));
+//    TIndex index = ToNative(idx);
+//    ActiveMapsLayout & layout = storage_utils::GetMapLayout();
+//    if (options == -1)
+//      layout.RetryDownloading(index);
+//    else
+//      layout.DownloadMap(index, storage_utils::ToOptions(options));
   }
 
   JNIEXPORT void JNICALL

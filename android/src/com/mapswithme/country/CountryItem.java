@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 
 import com.mapswithme.maps.MapStorage;
 
+@Deprecated
 public class CountryItem
 {
   public static final CountryItem EMPTY = new CountryItem("", MapStorage.NOT_DOWNLOADED, StorageOptions.MAP_OPTION_MAP_ONLY, false);

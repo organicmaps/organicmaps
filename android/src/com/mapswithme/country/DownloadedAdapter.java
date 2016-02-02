@@ -11,6 +11,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
+@Deprecated
 class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree.ActiveCountryListener
 {
   private static final String TAG = DownloadedAdapter.class.getSimpleName();

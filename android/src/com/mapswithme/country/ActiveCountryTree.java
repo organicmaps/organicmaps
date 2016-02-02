@@ -2,6 +2,7 @@ package com.mapswithme.country;
 
 import com.mapswithme.maps.MapStorage.Index;
 
+@Deprecated
 public class ActiveCountryTree
 {
   private ActiveCountryTree() {}

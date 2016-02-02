@@ -14,7 +14,6 @@ extern JavaVM * GetJVM()
 }
 
 // caching is necessary to create class from native threads
-jclass g_indexClazz;
 jclass g_mapObjectClazz;
 jclass g_bookmarkClazz;
 
@@ -28,7 +27,6 @@ extern "C"
     jni::InitAssertLog();
 
     JNIEnv * env = jni::GetEnv();
-    g_indexClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/MapStorage$Index");
     g_mapObjectClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/MapObject");
     g_bookmarkClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/Bookmark");
 
@@ -40,7 +38,6 @@ extern "C"
   {
     g_jvm = 0;
     JNIEnv * env = jni::GetEnv();
-    env->DeleteGlobalRef(g_indexClazz);
     env->DeleteGlobalRef(g_mapObjectClazz);
     env->DeleteGlobalRef(g_bookmarkClazz);
   }

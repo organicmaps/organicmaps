@@ -64,7 +64,6 @@ LOCAL_HEADER_FILES := \
 	com/mapswithme/core/ScopedLocalRef.hpp \
 	com/mapswithme/core/logging.hpp \
 	com/mapswithme/maps/Framework.hpp \
-	com/mapswithme/maps/MapStorage.hpp \
 	com/mapswithme/platform/Platform.hpp \
 	com/mapswithme/platform/MethodRef.hpp \
 	com/mapswithme/platform/http_thread_android.hpp \
@@ -75,9 +74,6 @@ LOCAL_HEADER_FILES := \
 LOCAL_SRC_FILES := \
 	com/mapswithme/core/jni_helper.cpp \
 	com/mapswithme/core/logging.cpp \
-	com/mapswithme/country/country_helper.cpp \
-	com/mapswithme/country/CountryTree.cpp \
-	com/mapswithme/country/ActiveCountryTree.cpp \
 	com/mapswithme/maps/Framework.cpp \
 	com/mapswithme/maps/bookmarks/data/Bookmark.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp \
@@ -88,7 +84,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/LocationState.cpp \
 	com/mapswithme/maps/LocationHelper.cpp \
 	com/mapswithme/maps/TrackRecorder.cpp \
-	com/mapswithme/maps/MapStorage.cpp \
+	com/mapswithme/maps/MapManager.cpp \
 	com/mapswithme/maps/DownloadResourcesActivity.cpp \
 	com/mapswithme/maps/PrivateVariables.cpp \
 	com/mapswithme/maps/SearchEngine.cpp \

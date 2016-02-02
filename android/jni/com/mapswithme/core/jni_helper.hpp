@@ -9,7 +9,6 @@
 #include "std/string.hpp"
 #include "std/shared_ptr.hpp"
 
-extern jclass g_indexClazz;
 extern jclass g_mapObjectClazz;
 extern jclass g_bookmarkClazz;
 

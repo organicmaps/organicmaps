@@ -1,5 +1,6 @@
 package com.mapswithme.country;
 
+@Deprecated
 public class CountryTree
 {
   // interface for listening callbacks from native

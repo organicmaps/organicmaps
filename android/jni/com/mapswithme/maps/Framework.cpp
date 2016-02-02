@@ -1,8 +1,6 @@
 #include "Framework.hpp"
-#include "MapStorage.hpp"
 #include "UserMarkHelper.hpp"
 #include "com/mapswithme/core/jni_helper.hpp"
-#include "com/mapswithme/country/country_helper.hpp"
 #include "com/mapswithme/opengl/androidoglcontextfactory.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 
@@ -67,12 +65,12 @@ Framework::Framework()
 {
   ASSERT_EQUAL ( g_framework, 0, () );
   g_framework = this;
-  m_activeMapsConnectionID = m_work.GetCountryTree().GetActiveMapLayout().AddListener(this);
+  //m_activeMapsConnectionID = m_work.GetCountryTree().GetActiveMapLayout().AddListener(this);
 }
 
 Framework::~Framework()
 {
-  m_work.GetCountryTree().GetActiveMapLayout().RemoveListener(m_activeMapsConnectionID);
+  //m_work.GetCountryTree().GetActiveMapLayout().RemoveListener(m_activeMapsConnectionID);
 }
 
 void Framework::OnLocationError(int errorCode)
@@ -220,7 +218,7 @@ Storage & Framework::Storage()
   return m_work.Storage();
 }
 
-void Framework::ShowCountry(TIndex const & idx, bool zoomToDownloadButton)
+void Framework::ShowCountry(TCountryId const & idx, bool zoomToDownloadButton)
 {
   if (zoomToDownloadButton)
   {
@@ -233,10 +231,12 @@ void Framework::ShowCountry(TIndex const & idx, bool zoomToDownloadButton)
     m_work.ShowCountry(idx);
 }
 
+/* TODO (trashkalmar): remove old downloader's stuff
 TStatus Framework::GetCountryStatus(TIndex const & idx) const
 {
   return m_work.GetCountryStatus(idx);
 }
+*/
 
 void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer)
 {
@@ -270,6 +270,7 @@ void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t 
   m_work.TouchEvent(event);
 }
 
+/* TODO (trashkalmar): remove old downloader's stuff
 TIndex Framework::GetCountryIndex(double lat, double lon) const
 {
   return m_work.GetCountryIndex(MercatorBounds::FromLatLon(lat, lon));
@@ -279,14 +280,15 @@ string Framework::GetCountryCode(double lat, double lon) const
 {
   return m_work.GetCountryCode(MercatorBounds::FromLatLon(lat, lon));
 }
-
+*/
 string Framework::GetCountryNameIfAbsent(m2::PointD const & pt) const
 {
+/* TODO (trashkalmar): remove old downloader's stuff
   TIndex const idx = m_work.GetCountryIndex(pt);
   TStatus const status = m_work.GetCountryStatus(idx);
   if (status != TStatus::EOnDisk && status != TStatus::EOnDiskOutOfDate)
     return m_work.GetCountryName(idx);
-  else
+  else*/
     return string();
 }
 
@@ -375,12 +377,12 @@ void Framework::ShowTrack(int category, int track)
 void Framework::SetCountryTreeListener(shared_ptr<jobject> objPtr)
 {
   m_javaCountryListener = objPtr;
-  m_work.GetCountryTree().SetListener(this);
+  //m_work.GetCountryTree().SetListener(this);
 }
 
 void Framework::ResetCountryTreeListener()
 {
-  m_work.GetCountryTree().ResetListener();
+  //m_work.GetCountryTree().ResetListener();
   m_javaCountryListener.reset();
 }
 
@@ -441,6 +443,7 @@ void Framework::SetupMeasurementSystem()
 //////////////////////////////////////////////////////////////////////////////////////////
 void Framework::ItemStatusChanged(int childPosition)
 {
+  /* TODO (trashkalmar): remove old downloader's stuff
   if (m_javaCountryListener == NULL)
     return;
 
@@ -449,9 +452,10 @@ void Framework::ItemStatusChanged(int childPosition)
                                                      "onItemStatusChanged", "(I)V");
   ASSERT ( methodID, () );
 
-  env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition);
+  env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition);*/
 }
 
+/* TODO (trashkalmar): remove old downloader's stuff
 void Framework::ItemProgressChanged(int childPosition, LocalAndRemoteSizeT const & sizes)
 {
   if (m_javaCountryListener == NULL)
@@ -518,6 +522,7 @@ void Framework::DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group
     env->CallVoidMethod(*(it->second), methodID, group, position, storage_utils::ToArray(env, progress));
   }
 }
+*/
 
 void Framework::PostDrapeTask(TDrapeTask && task)
 {
@@ -601,9 +606,9 @@ extern "C"
     CallOnMapObjectActivatedListener(obj, mapObject.get());
   }
 
-  void CallRoutingListener(shared_ptr<jobject> obj, int errorCode, vector<storage::TIndex> const & absentCountries, vector<storage::TIndex> const & absentRoutes)
+  void CallRoutingListener(shared_ptr<jobject> obj, int errorCode, vector<storage::TCountryId> const & absentCountries, vector<storage::TCountryId> const & absentRoutes)
   {
-    JNIEnv * env = jni::GetEnv();
+    /*JNIEnv * env = jni::GetEnv();
     // cache methodID - it cannot change after class is loaded.
     // http://developer.android.com/training/articles/perf-jni.html#jclass_jmethodID_and_jfieldID more details here
     static jmethodID const methodId = jni::GetMethodID(env, *obj.get(), "onRoutingEvent",
@@ -628,7 +633,7 @@ extern "C"
 
     env->CallVoidMethod(*obj.get(), methodId, errorCode, countriesJava, routesJava);
 
-    env->DeleteLocalRef(countriesJava);
+    env->DeleteLocalRef(countriesJava);*/
   }
 
   void CallRouteProgressListener(shared_ptr<jobject> sharedListener, float progress)
@@ -1001,19 +1006,20 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeGetCountryIndex(JNIEnv * env, jobject thiz,
                                                            jdouble lat, jdouble lon)
   {
+    /* TODO (trashkalmar): remove old downloader's stuff
     TIndex const idx = g_framework->GetCountryIndex(lat, lon);
 
     // Return 0 if no any country.
     if (idx.IsValid())
       return ToJava(idx);
-    else
+    else*/
       return 0;
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jobject idx, jboolean zoomToDownloadButton)
+  Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jobject countryId, jboolean zoomToDownloadButton)
   {
-    g_framework->ShowCountry(ToNative(idx), (bool) zoomToDownloadButton);
+    g_framework->ShowCountry(ToNative(countryId), (bool) zoomToDownloadButton);
   }
 
   JNIEXPORT void JNICALL
@@ -1031,7 +1037,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeDownloadCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), MapOptions::Map);
+    //storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), MapOptions::Map);
   }
 
   JNIEXPORT void JNICALL

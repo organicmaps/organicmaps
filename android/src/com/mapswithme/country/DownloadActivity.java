@@ -3,10 +3,10 @@ package com.mapswithme.country;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
+@Deprecated
 public class DownloadActivity extends BaseMwmFragmentActivity
 {
   public static final String EXTRA_OPEN_DOWNLOADED_LIST = "open_downloaded";

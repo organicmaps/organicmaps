@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
+@Deprecated
 class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.CountryTreeListener
 {
   private static final int EXTENDED_VIEWS_COUNT = 2; // 3 more views at the top of baseadapter

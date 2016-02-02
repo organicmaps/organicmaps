@@ -8,6 +8,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
 
+@Deprecated
 public class DownloadHelper
 {
   private DownloadHelper() {}
@@ -28,7 +29,6 @@ public class DownloadHelper
       listener.onDownload();
     else
       new AlertDialog.Builder(activity)
-          .setCancelable(true)
           .setMessage(String.format(activity.getString(R.string.no_wifi_ask_cellular_download), name))
           .setPositiveButton(activity.getString(R.string.ok), new DialogInterface.OnClickListener()
           {
@@ -39,15 +39,7 @@ public class DownloadHelper
               dlg.dismiss();
             }
           })
-          .setNegativeButton(activity.getString(R.string.close), new DialogInterface.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dlg, int which)
-            {
-              dlg.dismiss();
-            }
-          })
-          .create()
+          .setNegativeButton(activity.getString(R.string.close), null)
           .show();
   }
 }

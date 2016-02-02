@@ -31,6 +31,7 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
+@Deprecated
 abstract class BaseDownloadAdapter extends BaseAdapter
 {
   static final int TYPE_GROUP = 0;
