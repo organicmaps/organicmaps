@@ -11,17 +11,17 @@ namespace
 {
 using P = m2::PointD;
 
-template <typename IterT>
-void CheckSelfIntersections(IterT beg, IterT end, bool res)
+template <typename TIt>
+void CheckSelfIntersections(TIt beg, TIt end, bool res)
 {
   TEST_EQUAL(CheckPolygonSelfIntersections(beg, end), res, ());
-  using ReverseIterT = reverse_iterator<IterT>;
-  TEST_EQUAL(CheckPolygonSelfIntersections(ReverseIterT(end), ReverseIterT(beg)), res, ());
+  using TRevIt = reverse_iterator<TIt>;
+  TEST_EQUAL(CheckPolygonSelfIntersections(TRevIt(end), TRevIt(beg)), res, ());
 }
 
-bool InsideSegment(P const & p, P const ps[])
+bool OnSegment(P const & p, P const ps[])
 {
-  return IsPointInsideSegment(p, ps[0], ps[1]);
+  return IsPointOnSegment(p, ps[0], ps[1]);
 }
 
 bool InsideTriangle(P const & p, P const ps[])
@@ -42,26 +42,48 @@ UNIT_TEST(Segment_Smoke)
   double constexpr eps = 1.0E-10;
   {
     P ps[] = {{0, 0}, {1, 0}};
-    TEST(InsideSegment(ps[0], ps), ());
-    TEST(InsideSegment(ps[1], ps), ());
-    TEST(InsideSegment(P(0.5, 0), ps), ());
+    TEST(OnSegment(ps[0], ps), ());
+    TEST(OnSegment(ps[1], ps), ());
+    TEST(OnSegment(P(0.5, 0), ps), ());
 
-    TEST(InsideSegment(P(eps, 0), ps), ());
-    TEST(InsideSegment(P(1.0 - eps, 0), ps), ());
+    TEST(OnSegment(P(eps, 0), ps), ());
+    TEST(OnSegment(P(1.0 - eps, 0), ps), ());
 
-    TEST(!InsideSegment(P(-eps, 0), ps), ());
-    TEST(!InsideSegment(P(1.0 + eps, 0), ps), ());
-    TEST(!InsideSegment(P(eps, eps), ps), ());
-    TEST(!InsideSegment(P(eps, -eps), ps), ());
+    TEST(!OnSegment(P(-eps, 0), ps), ());
+    TEST(!OnSegment(P(1.0 + eps, 0), ps), ());
+    TEST(!OnSegment(P(eps, eps), ps), ());
+    TEST(!OnSegment(P(eps, -eps), ps), ());
   }
 
   {
     P ps[] = {{10, 10}, {10, 10}};
-    TEST(InsideSegment(ps[0], ps), ());
-    TEST(InsideSegment(ps[1], ps), ());
-    TEST(!InsideSegment(P(10 - eps, 10), ps), ());
-    TEST(!InsideSegment(P(10 + eps, 10), ps), ());
-    TEST(!InsideSegment(P(0, 0), ps), ());
+    TEST(OnSegment(ps[0], ps), ());
+    TEST(OnSegment(ps[1], ps), ());
+    TEST(!OnSegment(P(10 - eps, 10), ps), ());
+    TEST(!OnSegment(P(10 + eps, 10), ps), ());
+    TEST(!OnSegment(P(0, 0), ps), ());
+  }
+
+  // Paranoid tests.
+  {
+    P ps[] = {{0, 0}, {1e100, 1e100}};
+    TEST(OnSegment(ps[0], ps), ());
+    TEST(OnSegment(ps[1], ps), ());
+    TEST(OnSegment(P(1e50, 1e50), ps), ());
+    TEST(!OnSegment(P(1e50, 1.00000000001e50), ps), ());
+
+    TEST(OnSegment(P(1e-100, 1e-100), ps), ());
+    TEST(!OnSegment(P(1e-100, 1e-100 + 1e-115), ps), ());
+  }
+
+  {
+    P ps[] = {{0, 0}, {2e100, 1e100}};
+    TEST(OnSegment(P(2.0 / 3.0, 1.0 / 3.0), ps), ());
+  }
+
+  {
+    P ps[] = {{0, 0}, {1e-15, 1e-15}};
+    TEST(!OnSegment(P(1e-16, 2.0 * 1e-16), ps), ());
   }
 }
 

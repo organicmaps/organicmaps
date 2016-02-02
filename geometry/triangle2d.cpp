@@ -18,8 +18,8 @@ bool IsPointInsideTriangle(m2::PointD const & pt, m2::PointD const & p1,
   // on (p1, p2), (p2, p3) or (p3, p1).
   if (s1 == 0.0 && s2 == 0.0 && s3 == 0.0)
   {
-    return IsPointInsideSegment(pt, p1, p2) || IsPointInsideSegment(pt, p2, p3) ||
-           IsPointInsideSegment(pt, p3, p1);
+    return IsPointOnSegment(pt, p1, p2) || IsPointOnSegment(pt, p2, p3) ||
+           IsPointOnSegment(pt, p3, p1);
   }
 
   return ((s1 >= 0.0 && s2 >= 0.0 && s3 >= 0.0) ||
