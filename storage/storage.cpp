@@ -88,13 +88,7 @@ Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */, stri
   : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId(0), m_dataDir(dataDir),
     m_downloadMapOnTheMap(nullptr)
 {
-
-
   LoadCountriesFile(pathToCountriesFile, m_dataDir);
-
-  // WARNING! RestoreDownloadQueue should be called after RegisterAllLocalMaps
-  // otherwise RegisterAllLocalMaps breaks downloading queue.
-  // RestoreDownloadQueue();
 }
 
 Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
@@ -160,15 +154,15 @@ void Storage::Migrate(TCountriesVec const & existedCountries)
     my::RenameFileX(prefetchedFilename, localFilename);
   }
 
-  // Cover old big maps with small ones and add them into download queue
+  // Cover old big maps with small ones and prepare them to add into download queue
+  stringstream ss;
   for (auto const & country : existedCountries)
   {
     ASSERT(!mapping[country].empty(), ());
     for (auto const & smallCountry : mapping[country])
-    {
-      DownloadCountry(smallCountry, MapOptions::Map);
-    }
+      ss << (ss.str().empty() ? "" : ";") << smallCountry;
   }
+  Settings::Set("DownloadQueue", ss.str());
 }
 
 void Storage::Clear()
@@ -228,6 +222,7 @@ void Storage::RegisterAllLocalMaps()
 
     i = j;
   }
+  RestoreDownloadQueue();
 }
 
 void Storage::GetLocalMaps(vector<TLocalFilePtr> & maps) const
