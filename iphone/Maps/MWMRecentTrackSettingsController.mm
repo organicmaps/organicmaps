@@ -1,5 +1,6 @@
 #import "MWMRecentTrackSettingsController.h"
 #import "SelectableCell.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -68,29 +69,36 @@ typedef NS_ENUM(NSUInteger, DurationInHours)
 {
   _selectedCell = selectedCell;
   auto & f = GetFramework();
+  auto & tracker = GpsTracker::Instance();
+  NSString * statValue = nil;
   if ([selectedCell isEqual:self.none])
   {
     f.DisconnectFromGpsTracker();
-    GpsTracker::Instance().SetEnabled(false);
+    tracker.SetEnabled(false);
+    statValue = kStatOff;
   }
   else
   {
-    if (!GpsTracker::Instance().IsEnabled())
-      GpsTracker::Instance().SetEnabled(true);
+    if (!tracker.IsEnabled())
+      tracker.SetEnabled(true);
     f.ConnectToGpsTracker();
 
     if ([selectedCell isEqual:self.oneHour])
-      GpsTracker::Instance().SetDuration(hours(One));
+      tracker.SetDuration(hours(One));
     else if ([selectedCell isEqual:self.twoHours])
-      GpsTracker::Instance().SetDuration(hours(Two));
+      tracker.SetDuration(hours(Two));
     else if ([selectedCell isEqual:self.sixHours])
-      GpsTracker::Instance().SetDuration(hours(Six));
+      tracker.SetDuration(hours(Six));
     else if ([selectedCell isEqual:self.twelveHours])
-      GpsTracker::Instance().SetDuration(hours(Twelve));
+      tracker.SetDuration(hours(Twelve));
     else 
-      GpsTracker::Instance().SetDuration(hours(Day));
+      tracker.SetDuration(hours(Day));
+
+    statValue = [NSString stringWithFormat:@"%@ hour(s)", @(tracker.GetDuration().count())];
   }
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+  [[Statistics instance] logEvent:kStatChangeRecentTrack
+                   withParameters:@{kStatValue : statValue}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
