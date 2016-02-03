@@ -116,8 +116,7 @@
 	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
 	<string name="not_enough_memory">Uygulamayı başlatmak için yeterli hafıza yok</string>
 	<string name="free_space_for_country">%2$s indirebilmeniz için lütfen ilk önce cihazınızda %1$s alan boşaltın</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %1$.1f%2$s’si gerekli.</string>
+	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %s’si gerekli.</string>
 	<string name="getting_position">Geçerli konum alınıyor</string>
 	<string name="download_resources_continue">Haritaya Git</string>
 	<string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya\ngidebilirsiniz.</string>
@@ -431,10 +430,6 @@
 	<string name="downloader_cancel_all">Tümünü İptal Et</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">İndirilenler</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">İndirilen haritalar</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Haritalarım</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">sıraya alındı</string>
 	<!-- Disclaimer message -->
@@ -785,7 +780,6 @@
 	<string name="search_without_internet_advertisement">Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin ve artık internet bağlantısına ihtiyacınız yok.</string>
 	<string name="search_select_map">Haritayi Seçin</string>
 	<string name="search_select_other_map">Başka Bir Harita Seçin</string>
-	<string name="search_vehicle_routes">Trafik yönleri</string>
 	<!-- «Show» context menu -->
 	<string name="show">Göster</string>
 	<!-- «Hide» context menu -->

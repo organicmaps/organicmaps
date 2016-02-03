@@ -111,8 +111,7 @@
 	<string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l\&#39;app</string>
 	<string name="not_enough_memory">Memoria insufficiente per lanciare l\&#39;app</string>
 	<string name="free_space_for_country">Libera %1$s sul dispositivo prima per poter scaricare %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %1$.1f%2$s.</string>
+	<string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %s.</string>
 	<string name="getting_position">Ottieni la posizione corrente</string>
 	<string name="download_resources_continue">Vai alla mappa</string>
 	<string name="downloading_country_can_proceed">Sto scaricando %s. Puoi ora\nprocedere con la mappa.</string>
@@ -424,10 +423,6 @@
 	<string name="downloader_cancel_all">Annulla tutto</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Scaricate</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Mappe scaricate</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Le mie mappe</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">in coda</string>
 	<!-- Disclaimer message -->
@@ -778,7 +773,6 @@
 	<string name="search_without_internet_advertisement">Per iniziare a cercare e a creare i percorsi, scarica la mappa e non avrai più bisogno di una connessione a internet.</string>
 	<string name="search_select_map">Seleziona mappa</string>
 	<string name="search_select_other_map">Seleziona un\&#39;altra mappa</string>
-	<string name="search_vehicle_routes">Indicazioni stradali</string>
 	<!-- «Show» context menu -->
 	<string name="show">Mostra</string>
 	<!-- «Hide» context menu -->

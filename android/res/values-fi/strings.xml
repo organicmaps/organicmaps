@@ -116,8 +116,7 @@
 	<string name="not_enough_free_space_on_sdcard">Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta</string>
 	<string name="not_enough_memory">Ei tarpeeksi muistia sovelluksen avaamiseksi</string>
 	<string name="free_space_for_country">Ole hyvä ja vapauta ensin %1$s laitteeltasi ladataksesi %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %1$.1f%2$s dataa.</string>
+	<string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %s dataa.</string>
 	<string name="getting_position">Etsitään sijaintia</string>
 	<string name="download_resources_continue">Siirry karttaan</string>
 	<string name="downloading_country_can_proceed">Ladataan %s. Voit nyt jatkaa kartalle.</string>
@@ -425,10 +424,6 @@
 	<string name="downloader_cancel_all">Peruuta kaikki</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Ladattu</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Ladatut kartat</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Karttani</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">jonossa</string>
 	<!-- Disclaimer message -->
@@ -779,7 +774,6 @@
 	<string name="search_without_internet_advertisement">Lataa kartta aloittaksesi haun ja luodaksesi reittejä. Tämän jälkeen et enää tule tarvitsemaan Internet-yhteyttä.</string>
 	<string name="search_select_map">Valitse kartta</string>
 	<string name="search_select_other_map">Valitse toinen kartta</string>
-	<string name="search_vehicle_routes">Ajo-ohjeet</string>
 	<!-- «Show» context menu -->
 	<string name="show">Näytä</string>
 	<!-- «Hide» context menu -->

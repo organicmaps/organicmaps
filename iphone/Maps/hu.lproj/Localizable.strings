@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Kérjük szabadítson fel %1$@-t az eszközön %2$@ letöltéséhez!";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Első használat előtt letöltjük a világtérképet.\n%.1f%@ tárolóhely szükséges.";
+"download_resources" = "Első használat előtt letöltjük a világtérképet.\n%s tárolóhely szükséges.";
 
 "getting_position" = "Aktuális pozíció meghatározása…";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Letöltve";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Letöltött térképek";
-
-/* My maps category */
-"downloader_my_maps" = "Térképeim";
-
 /* Country queued for download */
 "downloader_queued" = "várólistás";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Amikor útvonalakat készít a MAPS.ME appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Jelöld ki a térképet";
 
 "search_select_other_map" = "Jelölj ki másik térképet";
-
-"search_vehicle_routes" = "Útvonaltervezés";
 
 /* «Show» context menu */
 "show" = "Mutat";

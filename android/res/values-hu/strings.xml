@@ -111,8 +111,7 @@
 	<string name="not_enough_free_space_on_sdcard">Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!</string>
 	<string name="not_enough_memory">Nincs elegendő memória az alkalmazás futtatásához</string>
 	<string name="free_space_for_country">Kérjük szabadítson fel %1$s-t az eszközön %2$s letöltéséhez!</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Első használat előtt letöltjük a világtérképet.\n%1$.1f%2$s tárolóhely szükséges.</string>
+	<string name="download_resources">Első használat előtt letöltjük a világtérképet.\n%s tárolóhely szükséges.</string>
 	<string name="getting_position">Aktuális pozíció meghatározása…</string>
 	<string name="download_resources_continue">Térképhez ugrás</string>
 	<string name="downloading_country_can_proceed">%s letöltése. Mos továbbléphet\na térképhez.</string>
@@ -426,10 +425,6 @@
 	<string name="downloader_cancel_all">Mindent visszavon</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Letöltve</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Letöltött térképek</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Térképeim</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">várólistás</string>
 	<!-- Disclaimer message -->
@@ -780,7 +775,6 @@
 	<string name="search_without_internet_advertisement">Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.</string>
 	<string name="search_select_map">Jelöld ki a térképet</string>
 	<string name="search_select_other_map">Jelölj ki másik térképet</string>
-	<string name="search_vehicle_routes">Útvonaltervezés</string>
 	<!-- «Show» context menu -->
 	<string name="show">Mutat</string>
 	<!-- «Hide» context menu -->

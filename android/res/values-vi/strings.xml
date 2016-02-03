@@ -116,8 +116,7 @@
 	<string name="not_enough_free_space_on_sdcard">Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng</string>
 	<string name="not_enough_memory">Không đủ bộ nhớ để chạy ứng dụng</string>
 	<string name="free_space_for_country">Bạn vui lòng giải phóng %1$s trên thiết bị của mình để có thể tải xuống %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %1$.1f%2$s dữ liệu.</string>
+	<string name="download_resources">Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %s dữ liệu.</string>
 	<string name="getting_position">Đang tìm vị trí hiện tại</string>
 	<string name="download_resources_continue">Đến Bản đồ</string>
 	<string name="downloading_country_can_proceed">Đang tải xuống %s. Bây giờ bạn đã có thể\nvào bản đồ.</string>
@@ -425,10 +424,6 @@
 	<string name="downloader_cancel_all">Hủy tất cả</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Đã tải xuống</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Bản đồ đã tải xuống</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Bản đồ của tôi</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">đã xếp hàng chờ</string>
 	<!-- Disclaimer message -->
@@ -779,7 +774,6 @@
 	<string name="search_without_internet_advertisement">Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.</string>
 	<string name="search_select_map">Chọn bản đồ</string>
 	<string name="search_select_other_map">Chọn bản đồ khác</string>
-	<string name="search_vehicle_routes">Hướng dẫn lái xe</string>
 	<!-- «Show» context menu -->
 	<string name="show">Hiện</string>
 	<!-- «Hide» context menu -->

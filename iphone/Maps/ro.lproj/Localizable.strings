@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Vă rugăm să eliberați %1$@ spațiu pe dispozitivul dvs., pentru a putea descărca %2$@.";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %.1f%@ de date.";
+"download_resources" = "Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %s de date.";
 
 "getting_position" = "Se obține poziția actuală";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Descărcate";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Hărți descărcate";
-
-/* My maps category */
-"downloader_my_maps" = "Hărțile mele";
-
 /* Country queued for download */
 "downloader_queued" = "în lista de așteptare";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Selectați harta";
 
 "search_select_other_map" = "Selectați altă hartă";
-
-"search_vehicle_routes" = "Indicații rutiere";
 
 /* «Show» context menu */
 "show" = "Afișare";

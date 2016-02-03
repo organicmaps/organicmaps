@@ -115,8 +115,7 @@
 	<string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
 	<string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
 	<string name="free_space_for_country">Для загрузки %2$s нужно %1$s свободного места</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %1$.1f%2$s данных.</string>
+	<string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %s данных.</string>
 	<string name="getting_position">Получаем местоположение</string>
 	<string name="download_resources_continue">Перейти на карту</string>
 	<string name="downloading_country_can_proceed">Пока загружается %s\nвы можете пользоваться приложением.</string>
@@ -452,12 +451,10 @@
 	<string name="downloader_cancel_all">Отменить все</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Загружено</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Загруженные карты</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Мои карты</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">в очереди</string>
+	<string name="downloader_near_me">Рядом со мной</string>
+	<string name="downloader_updatable_template">Карт: %1$d (%2$s)</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!</string>
 	<!-- Outdated maps category -->
@@ -806,7 +803,6 @@
 	<string name="search_without_internet_advertisement">Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.</string>
 	<string name="search_select_map">Выбрать карту</string>
 	<string name="search_select_other_map">Выбрать другую карту</string>
-	<string name="search_vehicle_routes">Автомобильные маршруты</string>
 	<!-- «Show» context menu -->
 	<string name="show">Показать</string>
 	<!-- «Hide» context menu -->

@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Frigør venligst %1$@ på din enhed først for at downloade %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %.1f%@ af data.";
+"download_resources" = "Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %s af data.";
 
 "getting_position" = "Henter nuværende lokation";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Downloadede";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Downloadede kort";
-
-/* My maps category */
-"downloader_my_maps" = "Mine kort";
-
 /* Country queued for download */
 "downloader_queued" = "i kø";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Vælk kortet";
 
 "search_select_other_map" = "Vælg et andet kort";
-
-"search_vehicle_routes" = "Kørselsvejledning";
 
 /* «Show» context menu */
 "show" = "Vis";

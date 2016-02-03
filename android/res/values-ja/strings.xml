@@ -111,8 +111,7 @@
 	<string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
 	<string name="not_enough_memory">メモリ不足のためアプリを起動できません</string>
 	<string name="free_space_for_country">%2$sをダウンロードするにはデバイスに%1$sの空き容量が必要です</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%1$.1f%2$sの空き容量が必要です。</string>
+	<string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。</string>
 	<string name="getting_position">現在地を取得中</string>
 	<string name="download_resources_continue">マップを表示</string>
 	<string name="downloading_country_can_proceed">%sをダウンロードしました\nマップを表示可能です</string>
@@ -424,10 +423,6 @@
 	<string name="downloader_cancel_all">すべてキャンセル</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">ダウンロード済</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">ダウンロード済みのマップ</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">マイマップ</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
 	<!-- Disclaimer message -->
@@ -778,7 +773,6 @@
 	<string name="search_without_internet_advertisement">検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は必要なくなります。</string>
 	<string name="search_select_map">地図を選択</string>
 	<string name="search_select_other_map">別の地図を選択</string>
-	<string name="search_vehicle_routes">道案内</string>
 	<!-- «Show» context menu -->
 	<string name="show">表示する</string>
 	<!-- «Hide» context menu -->

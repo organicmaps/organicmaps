@@ -116,8 +116,7 @@
 	<string name="not_enough_free_space_on_sdcard">Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen</string>
 	<string name="not_enough_memory">Nicht genügend Speicher, um die Anwendung zu starten</string>
 	<string name="free_space_for_country">Bitte zuerst %1$s Platz schaffen, um %2$s herunterzuladen</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Bevor Sie loslegen, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %1$.1f%2$s Speicherplatz benötigt.</string>
+	<string name="download_resources">Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %s Speicherplatz benötigt.</string>
 	<string name="getting_position">Ermittle momentane Position</string>
 	<string name="download_resources_continue">Zur Karte</string>
 	<string name="downloading_country_can_proceed">Lade %s herunter. Sie können jetzt\nzur Karte weitergehen.</string>
@@ -447,10 +446,6 @@
 	<string name="downloader_cancel_all">Alle abbrechen</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Heruntergeladen</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Heruntergeladene Karten</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Meine Karten</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">in der Warteschlange</string>
 	<!-- Disclaimer message -->
@@ -801,7 +796,6 @@
 	<string name="search_without_internet_advertisement">Um mit der Suche und dem Erstellen von Routen zu beginnen, laden Sie bitte die Karte herunter. Sie benötigen danach keine Internetverbindung mehr.</string>
 	<string name="search_select_map">Karte auswählen</string>
 	<string name="search_select_other_map">Eine andere Karte auswählen</string>
-	<string name="search_vehicle_routes">Fahranweisungen</string>
 	<!-- «Show» context menu -->
 	<string name="show">Anzeigen</string>
 	<!-- «Hide» context menu -->

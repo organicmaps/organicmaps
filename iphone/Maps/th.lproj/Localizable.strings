@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "โปรดเพิ่ม %1$@ บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %.1f%@ ของข้อมูล";
+"download_resources" = "ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %s ของข้อมูล";
 
 "getting_position" = "กำลังรับตำแหน่งปัจจุบัน";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "ดาวน์โหลดเสร็จ";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "แผนที่ที่ดาวน์โหลดลงมา";
-
-/* My maps category */
-"downloader_my_maps" = "แผนที่ของฉัน";
-
 /* Country queued for download */
 "downloader_queued" = "ต่อแถว";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "การสร้างเส้นทางในแอป MAPS.ME มีสิ่งที่ควรทราบดังต่อไปนี้:\n\n  - พึงพิจารณาเส้นทางที่แนะนำไว้ในฐานะที่เป็นการแนะนำเท่านั้น\n - สภาพถนน กฎจราจรและป้ายมีความสำคัญมากกว่าคำแนะนำในการนำทาง\n - แผนที่อาจไม่ถูกต้องหรือล้าสมัย และอาจไม่ได้มีการสร้างเส้นทางในรูปแบบพอจะเป็นไปได้ที่ดีที่สุด\n\n  ขอให้ปลอดภัยบนท้องถนนและดูแลตัวคุณเองด้วย!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "เลือกแผนที่";
 
 "search_select_other_map" = "เลือกแผนที่อื่น";
-
-"search_vehicle_routes" = "เส้นทางการขับรถ";
 
 /* «Show» context menu */
 "show" = "แสดง";

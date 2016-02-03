@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Mohon bebaskan %1$@ pada perangkat Anda terlebih dahulu untuk mengunduh %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %.1f%@.";
+"download_resources" = "Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %s.";
 
 "getting_position" = "Sedang mencari lokasi saat ini";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Telah Diunduh";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Peta yang telah diunduh";
-
-/* My maps category */
-"downloader_my_maps" = "Peta saya";
-
 /* Country queued for download */
 "downloader_queued" = "telah diantrekan";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Dalam membuat rute di aplikasi MAPS.ME, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Pilih Peta";
 
 "search_select_other_map" = "Pilih Peta Lain";
-
-"search_vehicle_routes" = "Petunjuk arah mengemudi";
 
 /* «Show» context menu */
 "show" = "Tampilkan";

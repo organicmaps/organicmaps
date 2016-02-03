@@ -114,8 +114,7 @@
 	<string name="not_enough_free_space_on_sdcard">Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app</string>
 	<string name="not_enough_memory">Ikke nok hukommelse til at åbne app</string>
 	<string name="free_space_for_country">Frigør venligst %1$s på din enhed først for at downloade %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %1$.1f%2$s af data.</string>
+	<string name="download_resources">Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %s af data.</string>
 	<string name="getting_position">Henter nuværende lokation</string>
 	<string name="download_resources_continue">Gå til kort</string>
 	<string name="downloading_country_can_proceed">Downloader %s. Du kan nu\nfortsætte til kortet.</string>
@@ -429,10 +428,6 @@
 	<string name="downloader_cancel_all">Aflys Alt</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Downloadede</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Downloadede kort</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Mine kort</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">i kø</string>
 	<!-- Outdated maps category -->
@@ -781,7 +776,6 @@
 	<string name="search_without_internet_advertisement">For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.</string>
 	<string name="search_select_map">Vælk kortet</string>
 	<string name="search_select_other_map">Vælg et andet kort</string>
-	<string name="search_vehicle_routes">Kørselsvejledning</string>
 	<!-- «Show» context menu -->
 	<string name="show">Vis</string>
 	<!-- «Hide» context menu -->

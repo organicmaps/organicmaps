@@ -112,8 +112,7 @@
 	<string name="not_enough_free_space_on_sdcard">Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.</string>
 	<string name="not_enough_memory">Inte tillräckligt med utrymme för att starta appen</string>
 	<string name="free_space_for_country">Vänligen frigör %1$s på din enhet för att kunna ladda ner %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %1$.1f%2$s data.</string>
+	<string name="download_resources">Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %s data.</string>
 	<string name="getting_position">Hämtar nuvarande position</string>
 	<string name="download_resources_continue">Gå till karta</string>
 	<string name="downloading_country_can_proceed">Laddar ner %s. Du kan nu\n fortsätta till kartan.</string>
@@ -429,10 +428,6 @@
 	<string name="downloader_cancel_all">Avbryt alla</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Nedladdade</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Nedladdade kartor</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Mina kartor</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Köade</string>
 	<!-- Disclaimer message -->
@@ -783,7 +778,6 @@
 	<string name="search_without_internet_advertisement">För att börja söka och skapa rutter, ladda ner kartan, och du behöver inte Internet-anslutning längre.</string>
 	<string name="search_select_map">Välj kartan</string>
 	<string name="search_select_other_map">Välj en annan karta</string>
-	<string name="search_vehicle_routes">Vägbeskrivning</string>
 	<!-- «Show» context menu -->
 	<string name="show">Visa</string>
 	<!-- «Hide» context menu -->

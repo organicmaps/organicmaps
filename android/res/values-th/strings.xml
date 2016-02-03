@@ -116,8 +116,7 @@
 	<string name="not_enough_free_space_on_sdcard">โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป</string>
 	<string name="not_enough_memory">มีหน่วยความจำไม่เพียงพอสำหรับการเปิดแอป</string>
 	<string name="free_space_for_country">โปรดเพิ่ม %1$s บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %1$.1f%2$s ของข้อมูล</string>
+	<string name="download_resources">ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %s ของข้อมูล</string>
 	<string name="getting_position">กำลังรับตำแหน่งปัจจุบัน</string>
 	<string name="download_resources_continue">ไปยังแผนที่</string>
 	<string name="downloading_country_can_proceed">กำลังดาวน์โหลด %s ตอนนี้คุณสามารถ\nดำเนินการต่อไปยังแผนที่</string>
@@ -429,10 +428,6 @@
 	<string name="downloader_cancel_all">ยกเลิกทั้งหมด</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">ดาวน์โหลดเสร็จ</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">แผนที่ที่ดาวน์โหลดลงมา</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">แผนที่ของฉัน</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ต่อแถว</string>
 	<!-- Disclaimer message -->
@@ -783,7 +778,6 @@
 	<string name="search_without_internet_advertisement">เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป</string>
 	<string name="search_select_map">เลือกแผนที่</string>
 	<string name="search_select_other_map">เลือกแผนที่อื่น</string>
-	<string name="search_vehicle_routes">เส้นทางการขับรถ</string>
 	<!-- «Show» context menu -->
 	<string name="show">แสดง</string>
 	<!-- «Hide» context menu -->

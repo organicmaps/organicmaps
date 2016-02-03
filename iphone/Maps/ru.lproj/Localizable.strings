@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Для загрузки %2$@ нужно %1$@ свободного места";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %.1f%@ данных.";
+"download_resources" = "Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %s данных.";
 
 "getting_position" = "Получаем местоположение";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Загружено";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Загруженные карты";
-
-/* My maps category */
-"downloader_my_maps" = "Мои карты";
-
 /* Country queued for download */
 "downloader_queued" = "в очереди";
+
+"downloader_near_me" = "Рядом со мной";
+
+"downloader_updatable_template" = "Карт: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Выбрать карту";
 
 "search_select_other_map" = "Выбрать другую карту";
-
-"search_vehicle_routes" = "Автомобильные маршруты";
 
 /* «Show» context menu */
 "show" = "Показать";

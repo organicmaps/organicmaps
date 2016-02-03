@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Prosím, uvolněte nejprve %1$@ ve svém zařízení, aby bylo možné stáhnout %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %.1f%@.";
+"download_resources" = "Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %s.";
 
 "getting_position" = "Získávání aktuální polohy";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Stažené";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Stažené mapy";
-
-/* My maps category */
-"downloader_my_maps" = "Moje mapy";
-
 /* Country queued for download */
 "downloader_queued" = "ve frontě";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Vybrat mapu";
 
 "search_select_other_map" = "Vybrat jinou mapu";
-
-"search_vehicle_routes" = "Pokyny pro řízení";
 
 /* «Show» context menu */
 "show" = "Ukázat";

@@ -115,8 +115,7 @@
 	<string name="not_enough_free_space_on_sdcard">Veuillez d\&#39;abord libérer de l\&#39;espace sur la carte SD/le stockage USB afin d\&#39;utiliser l\&#39;appli</string>
 	<string name="not_enough_memory">Mémoire insuffisante pour lancer l\&#39;appli</string>
 	<string name="free_space_for_country">Veuillez d\&#39;abord libérer %1$s sur votre appareil avant de télécharger %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%1$.1f%2$s de données sont nécessaires.</string>
+	<string name="download_resources">Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%s de données sont nécessaires.</string>
 	<string name="getting_position">Obtention de la position actuelle</string>
 	<string name="download_resources_continue">Aller sur la carte</string>
 	<string name="downloading_country_can_proceed">%s en téléchargement. Vous pouvez\nmaintenant aller sur la carte.</string>
@@ -436,10 +435,6 @@
 	<string name="downloader_cancel_all">Tout annuler</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Téléchargé</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Cartes téléchargées</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Mes cartes</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">en file d\&#39;attente</string>
 	<!-- Disclaimer message -->
@@ -790,7 +785,6 @@
 	<string name="search_without_internet_advertisement">Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte, et vous n\&#39;aurez plus besoin de connexion Internet.</string>
 	<string name="search_select_map">Sélectionner la carte</string>
 	<string name="search_select_other_map">Sélectionner une autre carte</string>
-	<string name="search_vehicle_routes">Indications routières</string>
 	<!-- «Show» context menu -->
 	<string name="show">Afficher</string>
 	<!-- «Hide» context menu -->

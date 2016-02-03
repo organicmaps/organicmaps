@@ -111,8 +111,7 @@
 	<string name="not_enough_free_space_on_sdcard">Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji</string>
 	<string name="not_enough_memory">Za mało pamięci by uruchomić aplikację</string>
 	<string name="free_space_for_country">Proszę zwolnić %1$s na swoim urządzeniu zanim rozpoczniesz pobieranie %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\nWymaga to %1$.1f%2$s danych.</string>
+	<string name="download_resources">Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\nWymaga to %s danych.</string>
 	<string name="getting_position">Otrzymywanie informacji o aktualnej pozycji</string>
 	<string name="download_resources_continue">Idź do mapy</string>
 	<string name="downloading_country_can_proceed">Pobieranie %s. Możesz teraz\notworzyć mapę.</string>
@@ -426,10 +425,6 @@
 	<string name="downloader_cancel_all">Anuluj wszystko</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Pobrane</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Pobrane mapy</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Moje mapy</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">w kolejce</string>
 	<!-- Disclaimer message -->
@@ -780,7 +775,6 @@
 	<string name="search_without_internet_advertisement">Aby rozpocząć wyszukiwanie i tworzenie tras, pobierz mapę, a nie będzie ci już potrzebne połączenie z Internetem.</string>
 	<string name="search_select_map">Wybierz mapę</string>
 	<string name="search_select_other_map">Wybierz inną mapę</string>
-	<string name="search_vehicle_routes">Wskazówki dojazdu</string>
 	<!-- «Show» context menu -->
 	<string name="show">Pokaż</string>
 	<!-- «Hide» context menu -->

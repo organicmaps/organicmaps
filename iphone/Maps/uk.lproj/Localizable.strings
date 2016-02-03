@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Для завантаження %2$@ треба %1$@ вільного місця";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %.1f%@ даних.";
+"download_resources" = "Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %s даних.";
 
 "getting_position" = "Oтримуємо розташування";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Завантажено";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Завантажені карти";
-
-/* My maps category */
-"downloader_my_maps" = "Мої карти";
-
 /* Country queued for download */
 "downloader_queued" = "в черзі";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Вибрати карту";
 
 "search_select_other_map" = "Вибрати іншу карту";
-
-"search_vehicle_routes" = "Напрямки руху";
 
 /* «Show» context menu */
 "show" = "Показати";

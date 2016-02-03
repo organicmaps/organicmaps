@@ -117,8 +117,7 @@
 	<string name="not_enough_free_space_on_sdcard">Please free some space on SD card/USB storage first in order to use the app</string>
 	<string name="not_enough_memory">Not enough memory to launch app</string>
 	<string name="free_space_for_country">Please free %1$s on your device first in order to download %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Before you start let us download general world map into your device.\nIt needs %1$.1f%2$s of data.</string>
+	<string name="download_resources">Before you start let us download general world map into your device.\nIt needs %s of data.</string>
 	<string name="getting_position">Getting current position</string>
 	<string name="download_resources_continue">Go to Map</string>
 	<string name="downloading_country_can_proceed">Downloading %s. You can now\nproceed to the map.</string>
@@ -454,12 +453,10 @@
 	<string name="downloader_cancel_all">Cancel All</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Downloaded</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Downloaded maps</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">My maps</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">queued</string>
+	<string name="downloader_near_me">Near me</string>
+	<string name="downloader_updatable_template">Maps: %1$d (%2$s)</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!</string>
 	<!-- Outdated maps category -->
@@ -808,7 +805,6 @@
 	<string name="search_without_internet_advertisement">To start searching and creating routes, please download the map, and you will not need Internet connection anymore.</string>
 	<string name="search_select_map">Select Map</string>
 	<string name="search_select_other_map">Select Another Map</string>
-	<string name="search_vehicle_routes">Driving directions</string>
 	<!-- «Show» context menu -->
 	<string name="show">Show</string>
 	<!-- «Hide» context menu -->

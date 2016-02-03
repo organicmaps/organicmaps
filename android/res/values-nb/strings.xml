@@ -116,8 +116,7 @@
 	<string name="not_enough_free_space_on_sdcard">Frigjør plass på SD-kortet/USB-enheten først for å bruke appen</string>
 	<string name="not_enough_memory">Ikke nok minne til å starte appen</string>
 	<string name="free_space_for_country">Frigjør %1$s på enheten først for å laste ned %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %1$.1f%2$s med data.</string>
+	<string name="download_resources">Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.</string>
 	<string name="getting_position">Henter nåværende posisjon</string>
 	<string name="download_resources_continue">Gå til kart</string>
 	<string name="downloading_country_can_proceed">Laster ned %s. Du kan nå\nfortsette til kartet.</string>
@@ -425,10 +424,6 @@
 	<string name="downloader_cancel_all">Avbryt alle</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Lastet ned</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Nedlastede kart</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Mine kart</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">lagt i kø</string>
 	<!-- Disclaimer message -->
@@ -779,7 +774,6 @@
 	<string name="search_without_internet_advertisement">Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.</string>
 	<string name="search_select_map">Velg kartet</string>
 	<string name="search_select_other_map">Velg et annet kart</string>
-	<string name="search_vehicle_routes">Veibeskrivelser</string>
 	<!-- «Show» context menu -->
 	<string name="show">Vis</string>
 	<!-- «Hide» context menu -->

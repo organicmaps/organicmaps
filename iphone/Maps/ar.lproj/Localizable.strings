@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "الرجاء إخلاء %1$@ على جهازك أولا من أجل تنزيل %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %.1f%@ من البيانات.";
+"download_resources" = "قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %s من البيانات.";
 
 "getting_position" = "الحصول على الموقع الحالي";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "المُنزَّلة";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "الخرائط المُنزَّلة";
-
-/* My maps category */
-"downloader_my_maps" = "خرائطي";
-
 /* Country queued for download */
 "downloader_queued" = "مَصْفوف";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "اختيار الخريطة";
 
 "search_select_other_map" = "اختيار خريطة أخرى";
-
-"search_vehicle_routes" = "اتجاهات القيادة";
 
 /* «Show» context menu */
 "show" = "عرض";

@@ -110,8 +110,7 @@
 	<string name="not_enough_free_space_on_sdcard">응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오</string>
 	<string name="not_enough_memory">응용 프로그램을 실행하기위한 메모리가 충분하지 않다</string>
 	<string name="free_space_for_country">%2$s를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$s를주세요</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%1$.1f%2$s 데이터가 필요합니다.</string>
+	<string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다.</string>
 	<string name="getting_position">현재 위치 얻기</string>
 	<string name="download_resources_continue">지도로 이동</string>
 	<string name="downloading_country_can_proceed">%s다운로드. 이제지도를 진행할 수 있습니다.</string>
@@ -417,10 +416,6 @@
 	<string name="downloader_cancel_all">모두 취소</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">다운로드</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">다운로드한 지도</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">내 지도</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">대기</string>
 	<!-- Disclaimer message -->
@@ -771,7 +766,6 @@
 	<string name="search_without_internet_advertisement">경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</string>
 	<string name="search_select_map">지도 선택</string>
 	<string name="search_select_other_map">다른 지도 선택</string>
-	<string name="search_vehicle_routes">운전 방향</string>
 	<!-- «Show» context menu -->
 	<string name="show">표시</string>
 	<!-- «Hide» context menu -->

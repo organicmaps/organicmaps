@@ -111,8 +111,7 @@
 	<string name="not_enough_free_space_on_sdcard">Por favor liberte primeiro algum espaço no cartão SD/armazenamento USB para utilizar a app</string>
 	<string name="not_enough_memory">Não há memória suficiente para executar a app</string>
 	<string name="free_space_for_country">Por favor liberte primeiro %1$s no seu dispositivo para descarregar %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %1$.1f%2$s de dados.</string>
+	<string name="download_resources">Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %s de dados.</string>
 	<string name="getting_position">A obter a posição atual</string>
 	<string name="download_resources_continue">Ir para o mapa</string>
 	<string name="downloading_country_can_proceed">A descarregar %s. Pode agora\ncontinuar para o mapa.</string>
@@ -422,10 +421,6 @@
 	<string name="downloader_cancel_all">Cancelar Tudo</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Descarregados</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Mapas descarregados</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Os meus mapas</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Na fila</string>
 	<!-- Disclaimer message -->
@@ -776,7 +771,6 @@
 	<string name="search_without_internet_advertisement">Para começar a pesquisar e criar rotas, por favor, baixe o mapa e você não precisará mais de conexão com a internet.</string>
 	<string name="search_select_map">Selecionar o Mapa</string>
 	<string name="search_select_other_map">Selecionar Outro Mapa</string>
-	<string name="search_vehicle_routes">Instruções de direção</string>
 	<!-- «Show» context menu -->
 	<string name="show">Mostrar</string>
 	<!-- «Hide» context menu -->

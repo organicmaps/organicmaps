@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Maak %1$@ aan ruimte vrij op uw apparaat om %2$@ te downloaden";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %.1f%@ in beslag.";
+"download_resources" = "Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %s in beslag.";
 
 "getting_position" = "Huidige locatie opvragen";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Gedownload";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Gedownloade kaarten";
-
-/* My maps category */
-"downloader_my_maps" = "Mijn kaarten";
-
 /* Country queued for download */
 "downloader_queued" = "in de wachtrij";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Bij het creëren van routes in MAPS.ME-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Selecteer de kaart";
 
 "search_select_other_map" = "Selecteer een andere kaart";
-
-"search_vehicle_routes" = "Routebeschrijving";
 
 /* «Show» context menu */
 "show" = "Tonen";

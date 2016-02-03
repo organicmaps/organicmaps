@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "%2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%.1f%@ 데이터가 필요합니다.";
+"download_resources" = "시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다.";
 
 "getting_position" = "현재 위치 얻기";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "다운로드";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "다운로드한 지도";
-
-/* My maps category */
-"downloader_my_maps" = "내 지도";
-
 /* Country queued for download */
 "downloader_queued" = "대기";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "지도 선택";
 
 "search_select_other_map" = "다른 지도 선택";
-
-"search_vehicle_routes" = "운전 방향";
 
 /* «Show» context menu */
 "show" = "표시";

@@ -116,8 +116,7 @@
 	<string name="not_enough_free_space_on_sdcard">Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.</string>
 	<string name="not_enough_memory">Nu este suficientă memorie pentru a lansa aplicația.</string>
 	<string name="free_space_for_country">Vă rugăm să eliberați %1$s spațiu pe dispozitivul dvs., pentru a putea descărca %2$s.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %1$.1f%2$s de date.</string>
+	<string name="download_resources">Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %s de date.</string>
 	<string name="getting_position">Se obține poziția actuală</string>
 	<string name="download_resources_continue">Mergeți la hartă.</string>
 	<string name="downloading_country_can_proceed">Se descarcă %s. Puteți\ntrece la hartă.</string>
@@ -423,10 +422,6 @@
 	<string name="downloader_cancel_all">Anulare toate</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Descărcate</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Hărți descărcate</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Hărțile mele</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">în lista de așteptare</string>
 	<!-- Disclaimer message -->
@@ -776,7 +771,6 @@
 	<string name="search_without_internet_advertisement">Pentru a putea începe căutarea și crearea unor rute, vă rugăm să descărcați harta, iar apoi nu veți mai avea nevoie de conexiune la internet.</string>
 	<string name="search_select_map">Selectați harta</string>
 	<string name="search_select_other_map">Selectați altă hartă</string>
-	<string name="search_vehicle_routes">Indicații rutiere</string>
 	<!-- «Show» context menu -->
 	<string name="show">Afișare</string>
 	<!-- «Hide» context menu -->

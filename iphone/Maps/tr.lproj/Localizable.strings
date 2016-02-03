@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "%2$@ indirebilmeniz için lütfen ilk önce cihazınızda %1$@ alan boşaltın";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %.1f%@’si gerekli.";
+"download_resources" = "Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %s’si gerekli.";
 
 "getting_position" = "Geçerli konum alınıyor";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "İndirilenler";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "İndirilen haritalar";
-
-/* My maps category */
-"downloader_my_maps" = "Haritalarım";
-
 /* Country queued for download */
 "downloader_queued" = "sıraya alındı";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "MAPS.ME uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Haritayi Seçin";
 
 "search_select_other_map" = "Başka Bir Harita Seçin";
-
-"search_vehicle_routes" = "Trafik yönleri";
 
 /* «Show» context menu */
 "show" = "Göster";

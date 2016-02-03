@@ -112,8 +112,7 @@
 	<string name="not_enough_free_space_on_sdcard">如要繼續使用，請先釋放一些SD卡/ USB儲存空間</string>
 	<string name="not_enough_memory">沒有足夠的記憶體以啟用程式</string>
 	<string name="free_space_for_country">請先釋放 %1$s 系統空間以下載 %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %1$.1f%2$s 。</string>
+	<string name="download_resources">在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %s。</string>
 	<string name="getting_position">取得目前所在位置</string>
 	<string name="download_resources_continue">跳到地圖</string>
 	<string name="downloading_country_can_proceed">正在下載 %s. 您現在 可以繼續使用地圖了</string>
@@ -415,10 +414,6 @@
 	<string name="downloader_cancel_all">取消全部</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">已下載</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">已下載的地圖</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">我的地圖</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已佇列</string>
 	<!-- Disclaimer message -->
@@ -765,7 +760,6 @@
 	<string name="search_without_internet_advertisement">要開始搜索和創建路線，請下載地圖，那您就不再需要網絡連接了。</string>
 	<string name="search_select_map">選擇地圖</string>
 	<string name="search_select_other_map">選擇另一個地圖</string>
-	<string name="search_vehicle_routes">駕車路線</string>
 	<!-- «Show» context menu -->
 	<string name="show">顯示</string>
 	<!-- «Hide» context menu -->

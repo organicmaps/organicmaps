@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Frigjør %1$@ på enheten først for å laste ned %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %.1f%@ med data.";
+"download_resources" = "Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.";
 
 "getting_position" = "Henter nåværende posisjon";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Lastet ned";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Nedlastede kart";
-
-/* My maps category */
-"downloader_my_maps" = "Mine kart";
-
 /* Country queued for download */
 "downloader_queued" = "lagt i kø";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Velg kartet";
 
 "search_select_other_map" = "Velg et annet kart";
-
-"search_vehicle_routes" = "Veibeskrivelser";
 
 /* «Show» context menu */
 "show" = "Vis";

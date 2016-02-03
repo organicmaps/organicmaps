@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Por favor liberar %1$@ primero para descargar %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %.1f%@ de datos.";
+"download_resources" = "Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %s de datos.";
 
 "getting_position" = "Buscando su ubicación actual";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Descargados";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Mapas descargados";
-
-/* My maps category */
-"downloader_my_maps" = "Mis mapas";
-
 /* Country queued for download */
 "downloader_queued" = "En cola";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Creando rutas en la aplicación MAPS.ME, por favor, tenga en cuenta lo siguiente:\n\n  - Las rutas sugeridas se pueden considerar únicamente como recomendaciones.\n - Las condiciones de la carretera, las normas y las señales de tráfico tienen mayor prioridad que el consejo de navegación.\n - El mapa podría ser incorrecto o estar obsoleto y las rutas pueden no crear el mejor camino posible.\n\n  ¡Esté seguro en las carreteras y cuídese!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Seleccionar el mapa";
 
 "search_select_other_map" = "Seleccionar otro mapa";
-
-"search_vehicle_routes" = "Direcciones de conducción";
 
 /* «Show» context menu */
 "show" = "Mostrar";

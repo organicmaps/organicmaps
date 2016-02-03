@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "请在您的设备上释放%1$@ 以便于下载%2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "在您开始前请让我们下载通用世界地 图至您的设备中。\n它需要%.1f%@的 数据。";
+"download_resources" = "在您开始前请让我们下载通用世界地 图至您的设备中。\n它需要%s@的 数据。";
 
 "getting_position" = "获取当前位置";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "已下载";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "已下载的地图";
-
-/* My maps category */
-"downloader_my_maps" = "我的地图";
-
 /* Country queued for download */
 "downloader_queued" = "已排队";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "选择地图";
 
 "search_select_other_map" = "选择另一个地图";
-
-"search_vehicle_routes" = "驾车路线";
 
 /* «Show» context menu */
 "show" = "显示";

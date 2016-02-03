@@ -105,8 +105,7 @@
 	<string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken</string>
 	<string name="not_enough_memory">Not genoeg geheugen om app te starten</string>
 	<string name="free_space_for_country">Maak %1$s aan ruimte vrij op uw apparaat om %2$s te downloaden</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %1$.1f%2$s in beslag.</string>
+	<string name="download_resources">Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %s in beslag.</string>
 	<string name="getting_position">Huidige locatie opvragen</string>
 	<string name="download_resources_continue">Ga naar de Kaart</string>
 	<string name="downloading_country_can_proceed">%s aan het downloaden. U kunt doorgaan\nnaar de kaart</string>
@@ -417,10 +416,6 @@
 	<string name="downloader_cancel_all">Alles annuleren</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Gedownload</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Gedownloade kaarten</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Mijn kaarten</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">in de wachtrij</string>
 	<!-- Disclaimer message -->
@@ -769,7 +764,6 @@
 	<string name="search_without_internet_advertisement">Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.</string>
 	<string name="search_select_map">Selecteer de kaart</string>
 	<string name="search_select_other_map">Selecteer een andere kaart</string>
-	<string name="search_vehicle_routes">Routebeschrijving</string>
 	<!-- «Show» context menu -->
 	<string name="show">Tonen</string>
 	<!-- «Hide» context menu -->

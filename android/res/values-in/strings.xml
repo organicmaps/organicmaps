@@ -116,8 +116,7 @@
 	<string name="not_enough_free_space_on_sdcard">Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi</string>
 	<string name="not_enough_memory">Memori tidak cukup untuk meluncurkan aplikasi</string>
 	<string name="free_space_for_country">Mohon bebaskan %1$s pada perangkat Anda terlebih dahulu untuk mengunduh %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %1$.1f%2$s.</string>
+	<string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %s.</string>
 	<string name="getting_position">Sedang mencari lokasi saat ini</string>
 	<string name="download_resources_continue">Pergi ke Peta</string>
 	<string name="downloading_country_can_proceed">Sedang mengunduh %s. Sekarang Anda dapat melanjutkan ke peta.</string>
@@ -425,10 +424,6 @@
 	<string name="downloader_cancel_all">Batalkan Semuanya</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Telah Diunduh</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Peta yang telah diunduh</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Peta saya</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">telah diantrekan</string>
 	<!-- Disclaimer message -->
@@ -778,7 +773,6 @@
 	<string name="search_without_internet_advertisement">Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.</string>
 	<string name="search_select_map">Pilih Peta</string>
 	<string name="search_select_other_map">Pilih Peta Lain</string>
-	<string name="search_vehicle_routes">Petunjuk arah mengemudi</string>
 	<!-- «Show» context menu -->
 	<string name="show">Tampilkan</string>
 	<!-- «Hide» context menu -->

@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Vänligen frigör %1$@ på din enhet för att kunna ladda ner %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %.1f%@ data.";
+"download_resources" = "Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %s data.";
 
 "getting_position" = "Hämtar nuvarande position";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Nedladdade";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Nedladdade kartor";
-
-/* My maps category */
-"downloader_my_maps" = "Mina kartor";
-
 /* Country queued for download */
 "downloader_queued" = "Köade";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Välj kartan";
 
 "search_select_other_map" = "Välj en annan karta";
-
-"search_vehicle_routes" = "Vägbeskrivning";
 
 /* «Show» context menu */
 "show" = "Visa";

@@ -111,8 +111,7 @@
 	<string name="not_enough_free_space_on_sdcard">Prosím, uvolněte nejprve místo na SD kartě/USB uložišti</string>
 	<string name="not_enough_memory">Nedostatek paměti ke spuštění aplikace</string>
 	<string name="free_space_for_country">Prosím, uvolněte nejprve %1$s ve svém zařízení, aby bylo možné stáhnout %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %1$.1f%2$s.</string>
+	<string name="download_resources">Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %s.</string>
 	<string name="getting_position">Získávání aktuální polohy</string>
 	<string name="download_resources_continue">Přejít na mapu</string>
 	<string name="downloading_country_can_proceed">Stahování %s. Nyní můžete\npřejít na mapu.</string>
@@ -432,10 +431,6 @@
 	<string name="downloader_cancel_all">Zrušit vše</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Stažené</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Stažené mapy</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Moje mapy</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ve frontě</string>
 	<!-- Disclaimer message -->
@@ -786,7 +781,6 @@
 	<string name="search_without_internet_advertisement">Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.</string>
 	<string name="search_select_map">Vybrat mapu</string>
 	<string name="search_select_other_map">Vybrat jinou mapu</string>
-	<string name="search_vehicle_routes">Pokyny pro řízení</string>
 	<!-- «Show» context menu -->
 	<string name="show">Ukázat</string>
 	<!-- «Hide» context menu -->

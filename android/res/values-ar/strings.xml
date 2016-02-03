@@ -116,8 +116,7 @@
 	<string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.</string>
 	<string name="not_enough_memory">لا يوجد ذاكرة كافية لتشغيل التطبيق.</string>
 	<string name="free_space_for_country">الرجاء إخلاء %1$s على جهازك أولا من أجل تنزيل %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %1$.1f%2$s من البيانات.</string>
+	<string name="download_resources">قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %s من البيانات.</string>
 	<string name="getting_position">الحصول على الموقع الحالي</string>
 	<string name="download_resources_continue">الذهاب الى الخريطة</string>
 	<string name="downloading_country_can_proceed">تنزيل %s. يمكنك الآن\nالمتابعة الى الخريطة.</string>
@@ -431,10 +430,6 @@
 	<string name="downloader_cancel_all">إلغاء الكل</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">المُنزَّلة</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">الخرائط المُنزَّلة</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">خرائطي</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">مَصْفوف</string>
 	<!-- Disclaimer message -->
@@ -785,7 +780,6 @@
 	<string name="search_without_internet_advertisement">لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، وسوف لن تحتاج إلى اتصال بالإنترنت بعد الآن.</string>
 	<string name="search_select_map">اختيار الخريطة</string>
 	<string name="search_select_other_map">اختيار خريطة أخرى</string>
-	<string name="search_vehicle_routes">اتجاهات القيادة</string>
 	<!-- «Show» context menu -->
 	<string name="show">عرض</string>
 	<!-- «Hide» context menu -->

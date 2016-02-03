@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Proszę zwolnić %1$@ na swoim urządzeniu zanim rozpoczniesz pobieranie %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\nWymaga to %.1f%@ danych.";
+"download_resources" = "Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\nWymaga to %s danych.";
 
 "getting_position" = "Otrzymywanie informacji o aktualnej pozycji";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Pobrane";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Pobrane mapy";
-
-/* My maps category */
-"downloader_my_maps" = "Moje mapy";
-
 /* Country queued for download */
 "downloader_queued" = "w kolejce";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Podczas tworzenia tras w aplikacji MAPS.ME pamiętaj o poniższych zasadach:\n\n  - Sugerowane trasy mogą być traktowane jedynie jako propozycje.\n - Warunki na drodze, przepisy ruchu drogowego i znaki mają większy priorytet niż wskazówki nawigacyjne.\n - Mapa może okazać się nieprawidłowa lub nieaktualna a trasy mogą nie zostać utworzone w sposób najlepszy z możliwych.\n\n  Szerokiej drogi, uważaj na siebie!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Wybierz mapę";
 
 "search_select_other_map" = "Wybierz inną mapę";
-
-"search_vehicle_routes" = "Wskazówki dojazdu";
 
 /* «Show» context menu */
 "show" = "Pokaż";

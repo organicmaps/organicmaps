@@ -115,8 +115,7 @@
 	<string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\&#39;яті пристрою для використання програми</string>
 	<string name="not_enough_memory">Недостатньо пам\&#39;яті для запуску програми</string>
 	<string name="free_space_for_country">Для завантаження %2$s треба %1$s вільного місця</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %1$.1f%2$s даних.</string>
+	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %s даних.</string>
 	<string name="getting_position">Oтримуємо розташування</string>
 	<string name="download_resources_continue">Перейти на карту</string>
 	<string name="downloading_country_can_proceed">Поки завантажується %s\nви можете користуватися програмою.</string>
@@ -428,10 +427,6 @@
 	<string name="downloader_cancel_all">Скасувати всі</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Завантажено</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Завантажені карти</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Мої карти</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">в черзі</string>
 	<!-- Disclaimer message -->
@@ -782,7 +777,6 @@
 	<string name="search_without_internet_advertisement">Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте карту і вам більше ніколи не знадобиться інтернет-з’єднання.</string>
 	<string name="search_select_map">Вибрати карту</string>
 	<string name="search_select_other_map">Вибрати іншу карту</string>
-	<string name="search_vehicle_routes">Напрямки руху</string>
 	<!-- «Show» context menu -->
 	<string name="show">Показати</string>
 	<!-- «Hide» context menu -->

@@ -184,8 +184,7 @@
 
 "free_space_for_country" = "Ole hyvä ja vapauta ensin %1$@ laitteeltasi ladataksesi %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %.1f%@ dataa.";
+"download_resources" = "Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %s dataa.";
 
 "getting_position" = "Etsitään sijaintia";
 
@@ -703,14 +702,12 @@
 /* Downloaded maps category */
 "downloader_downloaded" = "Ladattu";
 
-/* Downloaded maps category */
-"downloader_downloaded_maps" = "Ladatut kartat";
-
-/* My maps category */
-"downloader_my_maps" = "Karttani";
-
 /* Country queued for download */
 "downloader_queued" = "jonossa";
+
+"downloader_near_me" = "Near me";
+
+"downloader_updatable_template" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Pidä mielessä seuraavat seikat luodessasi reittejä MAPS.ME -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!";
@@ -1253,8 +1250,6 @@
 "search_select_map" = "Valitse kartta";
 
 "search_select_other_map" = "Valitse toinen kartta";
-
-"search_vehicle_routes" = "Ajo-ohjeet";
 
 /* «Show» context menu */
 "show" = "Näytä";
