@@ -650,7 +650,6 @@
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -711,7 +710,6 @@
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
