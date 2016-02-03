@@ -75,7 +75,7 @@ static int gStorageSubscriptionId = kNotSubscribed;
     {
       if (gStorageSubscriptionId == kNotSubscribed)
       {
-        gStorageSubscriptionId = GetFramework().Storage().Subscribe([](storage::TIndex const &)
+        gStorageSubscriptionId = GetFramework().Storage().Subscribe([](storage::TCountryId const &)
         {
           if (GetFramework().Storage().GetDownloadedFilesCount() >= 2)
           {
@@ -89,7 +89,7 @@ static int gStorageSubscriptionId = kNotSubscribed;
             });
             [Alohalytics logEvent:kDownloadedSecondMapEvent];
           }
-        }, [](storage::TIndex const &, storage::LocalAndRemoteSizeT const &){});
+        }, [](storage::TCountryId const &, storage::LocalAndRemoteSizeT const &){});
       }
     }
   }

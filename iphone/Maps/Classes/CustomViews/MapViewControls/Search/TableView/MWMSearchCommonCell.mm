@@ -5,6 +5,8 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
+#include "Framework.h"
+
 #include "geometry/mercator.hpp"
 #include "platform/measurement_utils.hpp"
 

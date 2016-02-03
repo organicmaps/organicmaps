@@ -1,11 +1,9 @@
 #import "Common.h"
-#import "CountryTreeVC.h"
 #import "EAGLView.h"
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
-#import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
+#import "MWMAlertViewController.h"
 #import "MWMBottomMenuViewController.h"
+#import "MWMButton.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
@@ -13,6 +11,8 @@
 #import "MWMSearchManager.h"
 #import "MWMSearchView.h"
 #import "MWMZoomButtons.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "RouteState.h"
 #import "Statistics.h"
 
@@ -24,7 +24,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @interface MWMMapViewControlsManager ()<
     MWMPlacePageViewManagerProtocol, MWMNavigationDashboardManagerProtocol,
-    MWMSearchManagerProtocol, MWMSearchViewProtocol, MWMBottomMenuControllerProtocol, MWMRoutePreviewDataSource>
+    MWMSearchManagerProtocol, MWMSearchViewProtocol, MWMBottomMenuControllerProtocol,
+    MWMRoutePreviewDataSource, MWMFrameworkRouteBuilderObserver>
 
 @property (nonatomic) MWMZoomButtons * zoomButtons;
 @property (nonatomic) MWMBottomMenuViewController * menuController;
@@ -44,12 +45,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 @end
 
 @implementation MWMMapViewControlsManager
-
-- (void)setMyPositionMode:(location::EMyPositionMode)mode
-{
-  _myPositionMode = mode;
-  [self.menuController onLocationStateModeChanged:mode];
-}
 
 - (instancetype)initWithParentController:(MapViewController *)controller
 {
@@ -71,7 +66,36 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.routeSource = m.lastLocationIsValid ? MWMRoutePoint(m.lastLocation.mercator) :
                                              MWMRoutePoint::MWMRoutePointZero();
   self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
+
+  [[MWMFrameworkListener listener] addObserver:self];
   return self;
+}
+
+#pragma mark - MWMFrameworkRouteBuilderObserver
+
+- (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
+                       countries:(storage::TCountriesVec const &)absentCountries
+                          routes:(storage::TCountriesVec const &)absentRoutes
+{
+  switch (code)
+  {
+    case routing::IRouter::ResultCode::NoError:
+    {
+      [self.navigationManager setRouteBuilderProgress:100];
+      self.searchHidden = YES;
+      break;
+    }
+    case routing::IRouter::Cancelled:
+      break;
+    default:
+      [self handleRoutingError];
+      break;
+  }
+}
+
+- (void)processRouteBuilderProgress:(CGFloat)progress
+{
+  [self.navigationManager setRouteBuilderProgress:progress];
 }
 
 #pragma mark - Layout
@@ -127,9 +151,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.placePageManager hidePlacePage];
 }
 
-- (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
+- (void)showPlacePage
 {
-  [self.placePageManager showPlacePageWithUserMark:move(userMark)];
+  [self.placePageManager showPlacePage];
   [self refreshHelperPanels:UIInterfaceOrientationIsLandscape(self.ownerController.interfaceOrientation)];
 }
 
@@ -144,6 +168,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 }
 
 #pragma mark - MWMSearchManagerProtocol
+
+- (MWMAlertViewController *)alertController
+{
+  return self.ownerController.alertController;
+}
 
 - (void)searchViewDidEnterState:(MWMSearchManagerState)state
 {
@@ -189,7 +218,7 @@ extern NSString * const kAlohalyticsTapEventKey;
       [self.navigationManager.routePreview removeFromSuperview];
       [self didCancelRouting];
       self.navigationManager.state = MWMNavigationDashboardStateHidden;
-      static_cast<UIButton *>(self.menuController.p2pButton).selected = NO;
+      self.menuController.p2pButton.selected = NO;
     }];
   }
 }
@@ -207,7 +236,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)actionDownloadMaps
 {
-  [self.ownerController downloadMaps];
+  [self.ownerController openMapsDownloader];
 }
 
 #pragma mark - MWMBottomMenuControllerProtocol
@@ -285,7 +314,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)buildRouteFrom:(MWMRoutePoint const &)from to:(MWMRoutePoint const &)to
 {
-  static_cast<UIButton *>(self.menuController.p2pButton).selected = YES;
+  self.menuController.p2pButton.selected = YES;
   self.navigationManager.routePreview.extendButton.selected = NO;
   MapsAppDelegate.theApp.routingPlaneMode = MWMRoutingPlaneModePlacePage;
   if (from == MWMRoutePoint::MWMRoutePointZero())
@@ -413,7 +442,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
   [self.menuController setPlanning];
   GetFramework().BuildRoute(self.routeSource.Point(), self.routeDestination.Point(), 0 /* timeoutSec */);
-  [self.navigationManager setRouteBuildingProgress:0.];
+  [self.navigationManager setRouteBuilderProgress:0.];
 }
 
 - (BOOL)isPossibleToBuildRoute
@@ -448,14 +477,13 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     MWMAlertViewController * controller = [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
     LocationManager * manager = MapsAppDelegate.theApp.m_locationManager;
-    auto const m = self.myPositionMode;
+    auto const m = [MWMFrameworkListener listener].myPositionMode;
     BOOL const needToRebuild = manager.lastLocationIsValid &&
                                m != location::MODE_PENDING_POSITION &&
-                               m != location::MODE_UNKNOWN_POSITION &&
-                               !isDestinationMyPosition;
+                               m != location::MODE_UNKNOWN_POSITION && !isDestinationMyPosition;
+    m2::PointD const locationPoint = manager.lastLocation.mercator;
     [controller presentPoint2PointAlertWithOkBlock:^
     {
-      m2::PointD const locationPoint = manager.lastLocation.mercator;
       self.routeSource = MWMRoutePoint(locationPoint);
       [self buildRoute];
     } needToRebuild:needToRebuild];
@@ -566,11 +594,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     [[MapsAppDelegate theApp] disableStandby];
   else
     [[MapsAppDelegate theApp] enableStandby];
-}
-
-- (void)setRouteBuildingProgress:(CGFloat)progress
-{
-  [self.navigationManager setRouteBuildingProgress:progress];
 }
 
 #pragma mark - MWMRoutePreviewDataSource

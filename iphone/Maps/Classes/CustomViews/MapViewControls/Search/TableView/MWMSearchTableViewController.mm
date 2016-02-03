@@ -9,7 +9,7 @@
 #import "Statistics.h"
 #import "ToastView.h"
 
-#include "std/vector.hpp"
+#include "search/params.hpp"
 
 static NSString * const kTableShowOnMapCell = @"MWMSearchShowOnMapCell";
 static NSString * const kTableSuggestionCell = @"MWMSearchSuggestionCell";

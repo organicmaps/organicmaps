@@ -4,8 +4,6 @@
 
 @protocol MWMPlacePageViewManagerProtocol <MWMRoutingProtocol>
 
-@property (nonatomic, readonly) location::EMyPositionMode myPositionMode;
-
 - (void)dragPlacePage:(CGRect)frame;
 - (void)addPlacePageViews:(NSArray *)views;
 - (void)updateStatusBarStyle;

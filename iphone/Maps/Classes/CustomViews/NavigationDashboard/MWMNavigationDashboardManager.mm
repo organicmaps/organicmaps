@@ -271,7 +271,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 #pragma mark - MWMRoutePreview
 
-- (void)setRouteBuildingProgress:(CGFloat)progress
+- (void)setRouteBuilderProgress:(CGFloat)progress
 {
   [self.activeRouteTypeButton setProgress:progress / 100.];
 }

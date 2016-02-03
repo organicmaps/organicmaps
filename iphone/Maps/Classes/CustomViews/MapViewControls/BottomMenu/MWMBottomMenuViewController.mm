@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   MWMBottomMenuViewCellCount
 };
 
-@interface MWMBottomMenuViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MWMBottomMenuViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, MWMFrameworkMyPositionObserver>
 
 @property (weak, nonatomic) MapViewController * controller;
 @property (weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
@@ -77,6 +77,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
                                              selector:@selector(searchStateWillChange:)
                                                  name:kSearchStateWillChangeNotification
                                                object:nil];
+    [[MWMFrameworkListener listener] addObserver:self];
   }
   return self;
 }
@@ -163,14 +164,14 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   self.state = MWMBottomMenuStateGo;
 }
 
-#pragma mark - Location button
+#pragma mark - MWMFrameworkMyPositionObserver
 
-- (void)onLocationStateModeChanged:(location::EMyPositionMode)state
+- (void)processMyPositionStateModeChange:(location::EMyPositionMode)mode
 {
   UIButton * locBtn = self.locationButton;
   [locBtn.imageView stopAnimating];
   [locBtn.imageView.layer removeAllAnimations];
-  switch (state)
+  switch (mode)
   {
     case location::MODE_UNKNOWN_POSITION:
     case location::MODE_NOT_FOLLOW:
@@ -206,8 +207,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
       break;
     }
   }
-  [self refreshLocationButtonState:state];
+  [self refreshLocationButtonState:mode];
 }
+
+#pragma mark - Location button
 
 - (void)refreshLocationButtonState:(location::EMyPositionMode)state
 {
@@ -275,11 +278,12 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   {
   case MWMBottomMenuViewCellDownload:
   {
-    NSUInteger const badgeCount =
-        GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
+    auto & s = GetFramework().Storage();
+    storage::Storage::UpdateInfo updateInfo{};
+    s.GetUpdateInfo(s.GetRootId(), updateInfo);
     [cell configureWithImageName:@"ic_menu_download"
                            label:L(@"download_maps")
-                      badgeCount:badgeCount];
+                      badgeCount:updateInfo.m_numberOfMwmFilesToUpdate];
   }
   break;
   case MWMBottomMenuViewCellSettings:

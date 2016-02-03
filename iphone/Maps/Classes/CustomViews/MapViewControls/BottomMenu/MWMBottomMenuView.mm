@@ -309,7 +309,10 @@
 
 - (void)updateBadge
 {
-  self.downloadBadge.hidden = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount() == 0;
+  auto & s = GetFramework().Storage();
+  storage::Storage::UpdateInfo updateInfo{};
+  s.GetUpdateInfo(s.GetRootId(), updateInfo);
+  self.downloadBadge.hidden = (updateInfo.m_numberOfMwmFilesToUpdate == 0);
 }
 
 #pragma mark - Properties
@@ -326,51 +329,51 @@
   if (_state == state)
     return;
   [self refreshLayout];
+  BOOL updateMenuButton = YES;
   switch (state)
   {
-  case MWMBottomMenuStateHidden:
-    break;
-  case MWMBottomMenuStateInactive:
-    if (MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
-      _leftBound = 0.0;
-    [self updateBadge];
-    self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
-    self.layoutDuration =
-        (_state == MWMBottomMenuStateCompact && !IPAD) ? 0.0 : kDefaultAnimationDuration;
-    if (_state != MWMBottomMenuStateGo && _state != MWMBottomMenuStatePlanning &&
-        _state != MWMBottomMenuStateText)
+    case MWMBottomMenuStateHidden:
+      updateMenuButton = NO;
+      break;
+    case MWMBottomMenuStateInactive:
+    {
+      if (MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
+        _leftBound = 0.0;
+      [self updateBadge];
+      self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
+      self.layoutDuration = (_state == MWMBottomMenuStateCompact && !IPAD) ? 0.0 : kDefaultAnimationDuration;
+      updateMenuButton = (_state != MWMBottomMenuStateGo && _state != MWMBottomMenuStatePlanning &&
+                          _state != MWMBottomMenuStateText);
+      break;
+    }
+    case MWMBottomMenuStateActive:
+      self.restoreState = _state;
       [self updateMenuButtonFromState:_state toState:state];
-    break;
-  case MWMBottomMenuStateActive:
-    self.restoreState = _state;
-    [self updateMenuButtonFromState:_state toState:state];
-    self.additionalButtons.hidden = NO;
-    self.bookmarksButton.hidden = NO;
-    self.p2pButton.hidden = NO;
-    self.searchButton.hidden = NO;
-    self.separator.hidden = NO;
-    break;
-  case MWMBottomMenuStateCompact:
-    self.layoutDuration = IPAD ? kDefaultAnimationDuration : 0.0;
-    [self updateMenuButtonFromState:_state toState:state];
-    break;
-  case MWMBottomMenuStatePlanning:
-    self.goButton.enabled = NO;
-    self.goButton.hidden = NO;
-    [self updateMenuButtonFromState:_state toState:state];
-    break;
-  case MWMBottomMenuStateGo:
-    self.goButton.enabled = YES;
-    self.goButton.hidden = NO;
-    [self updateMenuButtonFromState:_state toState:state];
-    break;
-  case MWMBottomMenuStateText:
-    self.streetLabel.font = [UIFont medium16];
-    self.streetLabel.hidden = NO;
-    self.streetLabel.textColor = [UIColor blackSecondaryText];
-    [self updateMenuButtonFromState:_state toState:state];
-    break;
+      self.additionalButtons.hidden = NO;
+      self.bookmarksButton.hidden = NO;
+      self.p2pButton.hidden = NO;
+      self.searchButton.hidden = NO;
+      self.separator.hidden = NO;
+      break;
+    case MWMBottomMenuStateCompact:
+      self.layoutDuration = IPAD ? kDefaultAnimationDuration : 0.0;
+      break;
+    case MWMBottomMenuStatePlanning:
+      self.goButton.enabled = NO;
+      self.goButton.hidden = NO;
+      break;
+    case MWMBottomMenuStateGo:
+      self.goButton.enabled = YES;
+      self.goButton.hidden = NO;
+      break;
+    case MWMBottomMenuStateText:
+      self.streetLabel.font = [UIFont medium16];
+      self.streetLabel.hidden = NO;
+      self.streetLabel.textColor = [UIColor blackSecondaryText];
+      break;
   }
+  if (updateMenuButton)
+    [self updateMenuButtonFromState:_state toState:state];
   _state = state;
 }
 

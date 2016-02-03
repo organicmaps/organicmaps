@@ -136,15 +136,6 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   }
 }
 
-+ (instancetype)needMigrationAlertWithOkBlock:(TMWMVoidBlock)block
-{
-  return [self defaultAlertWithTitle:@"youve_been_asking"
-                             message:@"migrate_and_split_mwms_message"
-                    rightButtonTitle:@"delete_all"
-                     leftButtonTitle:@"not_now"
-                   rightButtonAction:block];
-}
-
 + (instancetype)defaultAlertWithTitle:(nonnull NSString *)title message:(nullable NSString *)message rightButtonTitle:(nonnull NSString *)rightButtonTitle leftButtonTitle:(nullable NSString *)leftButtonTitle rightButtonAction:(nullable TMWMVoidBlock)action
 {
   [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];

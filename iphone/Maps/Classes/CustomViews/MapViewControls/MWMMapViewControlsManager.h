@@ -14,7 +14,6 @@
 @property (nonatomic) MWMBottomMenuState menuState;
 @property (nonatomic, readonly) MWMNavigationDashboardState navigationState;
 @property (nonatomic) BOOL searchHidden;
-@property (nonatomic) location::EMyPositionMode myPositionMode;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
@@ -34,7 +33,7 @@
 @property (nonatomic, readonly) BOOL isDirectionViewShown;
 
 - (void)dismissPlacePage;
-- (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
+- (void)showPlacePage;
 - (void)reloadPlacePage;
 
 #pragma mark - MWMNavigationDashboardManager
@@ -46,6 +45,5 @@
 - (void)routingPrepare;
 - (void)routingNavigation;
 - (void)handleRoutingError;
-- (void)setRouteBuildingProgress:(CGFloat)progress;
 
 @end

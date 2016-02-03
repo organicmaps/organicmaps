@@ -11,11 +11,10 @@
 @property (nonatomic) CGFloat topBound;
 @property (nonatomic) CGFloat leftBound;
 @property (nonatomic, readonly) BOOL isDirectionViewShown;
-@property (nonatomic, readonly) location::EMyPositionMode myPositionMode;
 
 - (instancetype)initWithViewController:(UIViewController *)viewController
                               delegate:(id<MWMPlacePageViewManagerProtocol>)delegate;
-- (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
+- (void)showPlacePage;
 - (void)reloadPlacePage;
 - (void)refreshPlacePage;
 - (void)mwm_refreshUI;

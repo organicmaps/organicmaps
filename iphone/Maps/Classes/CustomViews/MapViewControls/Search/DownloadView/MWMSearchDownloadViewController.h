@@ -2,6 +2,8 @@
 
 @protocol MWMSearchDownloadProtocol <NSObject>
 
+@property (nonnull, nonatomic, readonly) MWMAlertViewController * alertController;
+
 - (void)selectMapsAction;
 
 @end

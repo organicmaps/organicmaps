@@ -11,19 +11,26 @@
 #include "Framework.h"
 
 #include "platform/platform.hpp"
+#include "storage/country_info_getter.hpp"
 #include "storage/storage_defines.hpp"
+#include "storage/storage_helpers.hpp"
 
-static NSString * const kDownloadMapActionName = @"DownloadMapAction";
+namespace
+{
+NSString * const kDownloadMapActionKey = @"DownloadMapActionKey";
+NSString * const kDownloadMapActionName = @"DownloadMapActionName";
+NSString * const kDownloadMapCountryId = @"DownloadMapCountryId";
 
-static NSString * const kFlagsKey = @"DownloadMapNotificationFlags";
-static double constexpr kRepeatedNotificationIntervalInSeconds = 3 * 30 * 24 * 60 * 60; // three months
+NSString * const kFlagsKey = @"DownloadMapNotificationFlags";
+
+NSTimeInterval constexpr kRepeatedNotificationIntervalInSeconds = 3 * 30 * 24 * 60 * 60; // three months
+} // namespace
 
 using namespace storage;
 
 @interface LocalNotificationManager () <CLLocationManagerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) CLLocationManager * locationManager;
-@property (nonatomic) TIndex countryIndex;
 @property (copy, nonatomic) CompletionHandler downloadMapCompletionHandler;
 @property (weak, nonatomic) NSTimer * timer;
 
@@ -50,13 +57,20 @@ using namespace storage;
 - (void)processNotification:(UILocalNotification *)notification onLaunch:(BOOL)onLaunch
 {
   NSDictionary * userInfo = [notification userInfo];
-  if ([userInfo[@"Action"] isEqualToString:kDownloadMapActionName])
+  if ([userInfo[kDownloadMapActionKey] isEqualToString:kDownloadMapActionName])
   {
     [[Statistics instance] logEvent:@"'Download Map' Notification Clicked"];
-    [[MapsAppDelegate theApp].mapViewController.navigationController popToRootViewControllerAnimated:NO];
+    MapViewController * mapViewController = [MapsAppDelegate theApp].mapViewController;
+    [mapViewController.navigationController popToRootViewControllerAnimated:NO];
 
-    TIndex const index = TIndex([userInfo[@"Group"] intValue], [userInfo[@"Country"] intValue], [userInfo[@"Region"] intValue]);
-    [self downloadCountryWithIndex:index];
+    NSString * notificationCountryId = userInfo[kDownloadMapCountryId];
+    TCountryId const countryId = notificationCountryId.UTF8String;
+    [MapsAppDelegate downloadCountry:countryId alertController:mapViewController.alertController onDownload:^
+    {
+      auto & f = GetFramework();
+      double const defaultZoom = 10;
+      f.ShowRect(f.GetCountryBounds(countryId), defaultZoom);
+    }];
   }
 }
 
@@ -65,11 +79,16 @@ using namespace storage;
 - (void)showDownloadMapNotificationIfNeeded:(CompletionHandler)completionHandler
 {
   NSTimeInterval const completionTimeIndent = 2.0;
-  NSTimeInterval const backgroundTimeRemaining = UIApplication.sharedApplication.backgroundTimeRemaining - completionTimeIndent;
+  NSTimeInterval const backgroundTimeRemaining =
+      UIApplication.sharedApplication.backgroundTimeRemaining - completionTimeIndent;
   if ([CLLocationManager locationServicesEnabled] && backgroundTimeRemaining > 0.0)
   {
     self.downloadMapCompletionHandler = completionHandler;
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:backgroundTimeRemaining target:self selector:@selector(timerSelector:) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:backgroundTimeRemaining
+                                                  target:self
+                                                selector:@selector(timerSelector:)
+                                                userInfo:nil
+                                                 repeats:NO];
     [self.locationManager startUpdatingLocation];
   }
   else
@@ -79,24 +98,26 @@ using namespace storage;
   }
 }
 
-- (void)markNotificationShowingForIndex:(TIndex)index
+- (BOOL)shouldShowNotificationForCountryId:(NSString *)countryId
 {
-  NSMutableDictionary * flags = [[[NSUserDefaults standardUserDefaults] objectForKey:kFlagsKey] mutableCopy];
-  if (!flags)
-    flags = [[NSMutableDictionary alloc] init];
-  
-  flags[[self flagStringForIndex:index]] = [NSDate date];
-  
-  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-  [userDefaults setObject:flags forKey:kFlagsKey];
-  [userDefaults synchronize];
+  if (!countryId || countryId.length == 0)
+    return NO;
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSDictionary<NSString *, NSDate *> * flags = [ud objectForKey:kFlagsKey];
+  NSDate * lastShowDate = flags[countryId];
+  return !lastShowDate ||
+         [[NSDate date] timeIntervalSinceDate:lastShowDate] > kRepeatedNotificationIntervalInSeconds;
 }
 
-- (BOOL)shouldShowNotificationForIndex:(TIndex)index
+- (void)markNotificationShownForCountryId:(NSString *)countryId
 {
-  NSDictionary * flags = [[NSUserDefaults standardUserDefaults] objectForKey:kFlagsKey];
-  NSDate * lastShowDate = flags[[self flagStringForIndex:index]];
-  return !lastShowDate || [[NSDate date] timeIntervalSinceDate:lastShowDate] > kRepeatedNotificationIntervalInSeconds;
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSMutableDictionary<NSString *, NSDate *> * flags = [[ud objectForKey:kFlagsKey] mutableCopy];
+  if (!flags)
+    flags = [NSMutableDictionary dictionary];
+  flags[countryId] = [NSDate date];
+  [ud setObject:flags forKey:kFlagsKey];
+  [ud synchronize];
 }
 
 - (void)timerSelector:(id)sender
@@ -104,30 +125,6 @@ using namespace storage;
   // Location still was not received but it's time to finish up so system will not kill us.
   [self.locationManager stopUpdatingLocation];
   [self performCompletionHandler:UIBackgroundFetchResultFailed];
-}
-
-- (void)downloadCountryWithIndex:(TIndex)index
-{
-  /// @todo Fix this logic after Framework -> CountryTree -> ActiveMapLayout refactoring.
-  /// Call download via Framework.
-  Framework & f = GetFramework();
-  f.GetActiveMaps()->DownloadMap(index, MapOptions::Map);
-  double const defaultZoom = 10;
-  f.ShowRect(f.GetCountryBounds(index), defaultZoom);
-}
-
-- (NSString *)flagStringForIndex:(TIndex)index
-{
-  return [NSString stringWithFormat:@"%i_%i_%i", index.m_group, index.m_country, index.m_region];
-}
-
-- (TIndex)indexWithFlagString:(NSString *)flag
-{
-  NSArray * components = [flag componentsSeparatedByString:@"_"];
-  if ([components count] == 3)
-    return TIndex([components[0] intValue], [components[1] intValue], [components[2] intValue]);
-  
-  return TIndex();
 }
 
 - (void)performCompletionHandler:(UIBackgroundFetchResult)result
@@ -151,7 +148,8 @@ using namespace storage;
   return _locationManager;
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
   [self.timer invalidate];
   [self.locationManager stopUpdatingLocation];
@@ -162,33 +160,35 @@ using namespace storage;
   BOOL const onWiFi = (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI);
   if (inBackground && onWiFi)
   {
-    Framework & f = GetFramework();
     CLLocation * lastLocation = [locations lastObject];
-    TIndex const index = f.GetCountryIndex(lastLocation.mercator);
-    
-    if (index.IsValid() && [self shouldShowNotificationForIndex:index])
+    auto const & mercator = lastLocation.mercator;
+    auto & f = GetFramework();
+    auto const & countryInfoGetter = f.CountryInfoGetter();
+    if (!IsPointCoveredByDownloadedMaps(mercator, f.Storage(), countryInfoGetter))
     {
-      TStatus const status = f.GetCountryStatus(index);
-      if (status == TStatus::ENotDownloaded)
+      NSString * countryId = @(countryInfoGetter.GetRegionCountryId(mercator).c_str());
+      if ([self shouldShowNotificationForCountryId:countryId])
       {
-        [self markNotificationShowingForIndex:index];
-        
+        [self markNotificationShownForCountryId:countryId];
+
         UILocalNotification * notification = [[UILocalNotification alloc] init];
         notification.alertAction = L(@"download");
         notification.alertBody = L(@"download_map_notification");
         notification.soundName = UILocalNotificationDefaultSoundName;
-        notification.userInfo = @{@"Action" : kDownloadMapActionName, @"Group" : @(index.m_group), @"Country" : @(index.m_country), @"Region" : @(index.m_region)};
-        
+        notification.userInfo =
+            @{kDownloadMapActionKey : kDownloadMapActionName, kDownloadMapCountryId : countryId};
+
         UIApplication * application = [UIApplication sharedApplication];
         [application presentLocalNotificationNow:notification];
 
-        [Alohalytics logEvent:@"suggestedToDownloadMissingMapForCurrentLocation" atLocation:lastLocation];
+        [Alohalytics logEvent:@"suggestedToDownloadMissingMapForCurrentLocation"
+                   atLocation:lastLocation];
         flurryEventName = @"'Download Map' Notification Scheduled";
         result = UIBackgroundFetchResultNewData;
       }
     }
   }
-  [[Statistics instance] logEvent:flurryEventName withParameters:@{@"WiFi" : @(onWiFi)}];
+  [[Statistics instance] logEvent:flurryEventName withParameters:@{ @"WiFi" : @(onWiFi) }];
   [self performCompletionHandler:result];
 }
 

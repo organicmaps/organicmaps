@@ -8,6 +8,7 @@
 #import "MWMPedestrianShareAlert.h"
 #import "MWMRateAlert.h"
 #import "MWMRoutingDisclaimerAlert.h"
+#import "MWMUpdateMapsAlert.h"
 
 @implementation MWMAlert
 
@@ -29,11 +30,6 @@
 + (MWMAlert *)point2PointAlertWithOkBlock:(TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
 {
   return [MWMDefaultAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild];
-}
-
-+ (MWMAlert *)needMigrationAlertWithOkBlock:(TMWMVoidBlock)block
-{
-  return [MWMDefaultAlert needMigrationAlertWithOkBlock:block];
 }
 
 + (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation
@@ -61,8 +57,8 @@
   return [MWMDefaultAlert locationServiceNotSupportedAlert];
 }
 
-+ (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries
-                                          routes:(vector<storage::TIndex> const &)routes
++ (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
+                                          routes:(storage::TCountriesVec const &)routes
                                             code:(routing::IRouter::ResultCode)code
                                            block:(TMWMVoidBlock)block
 {

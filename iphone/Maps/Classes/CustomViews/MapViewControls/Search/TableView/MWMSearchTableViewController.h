@@ -3,6 +3,13 @@
 #import "MWMSearchTextField.h"
 #import "MWMViewController.h"
 
+#include "Framework.h"
+
+namespace search
+{
+  class Result;
+}
+
 @protocol MWMSearchTableViewProtocol <MWMSearchTabbedViewProtocol>
 
 @property (weak, nonatomic) MWMSearchTextField * searchTextField;

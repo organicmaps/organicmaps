@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
-- (void)setRouteBuildingProgress:(CGFloat)progress;
+- (void)setRouteBuilderProgress:(CGFloat)progress;
 - (void)showHelperPanels;
 - (void)hideHelperPanels;
 - (void)setupActualRoute;

@@ -7,8 +7,8 @@
 @property (weak, nonatomic) MWMAlertViewController * alertController;
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
-+ (MWMAlert *)downloaderAlertWithAbsentCountries:(vector<storage::TIndex> const &)countries
-                                          routes:(vector<storage::TIndex> const &)routes
++ (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
+                                          routes:(storage::TCountriesVec const &)routes
                                             code:(routing::IRouter::ResultCode)code
                                            block:(TMWMVoidBlock)block;
 + (MWMAlert *)rateAlert;
@@ -23,7 +23,7 @@
 + (MWMAlert *)internalErrorAlert;
 + (MWMAlert *)invalidUserNameOrPasswordAlert;
 + (MWMAlert *)point2PointAlertWithOkBlock:(TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild;
-+ (MWMAlert *)needMigrationAlertWithOkBlock:(TMWMVoidBlock)block;
++ (MWMAlert *)updateMapsAlertWithOkBlock:(TMWMVoidBlock)block;
 - (void)close;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;

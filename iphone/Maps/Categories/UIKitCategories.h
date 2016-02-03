@@ -34,7 +34,6 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 + (UIColor *)applicationColor;
 + (UIColor *)navigationBarColor;
 
-
 @end
 
 @interface UIView (Coordinates)

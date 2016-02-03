@@ -3,7 +3,7 @@
 
 @implementation UIViewController (Navigation)
 
-- (void)showBackButton
+- (UIButton *)backButton
 {
   UIImage * backImage = [UIImage imageNamed:@"ic_nav_bar_back"];
   CGFloat const imageSide = backImage.size.width;
@@ -11,8 +11,12 @@
   [button setImage:backImage forState:UIControlStateNormal];
   [button addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
   button.imageEdgeInsets = UIEdgeInsetsMake(0., -32, 0., 0.);
-  UIBarButtonItem * leftItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-  self.navigationItem.leftBarButtonItem = leftItem;
+  return button;
+}
+
+- (void)showBackButton
+{
+  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self backButton]];
 }
 
 - (void)backTap

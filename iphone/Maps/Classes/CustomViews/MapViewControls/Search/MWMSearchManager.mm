@@ -1,7 +1,7 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
-#import "MapsObservers.h"
 #import "MWMConsole.h"
+#import "MWMFrameworkListener.h"
 #import "MWMRoutingProtocol.h"
 #import "MWMSearchDownloadViewController.h"
 #import "MWMSearchManager.h"
@@ -12,16 +12,17 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#include "storage/storage_helpers.hpp"
+
 #include "Framework.h"
-#include "map/active_maps_layout.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kSearchStateWillChangeNotification = @"SearchStateWillChangeNotification";
 extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 @interface MWMSearchManager ()<MWMSearchTableViewProtocol, MWMSearchDownloadProtocol,
-                               MWMSearchTabbedViewProtocol, ActiveMapsObserverProtocol,
-                               MWMSearchTabButtonsViewProtocol, UITextFieldDelegate>
+                               MWMSearchTabbedViewProtocol, MWMSearchTabButtonsViewProtocol,
+                               UITextFieldDelegate, MWMFrameworkStorageObserver>
 
 @property (weak, nonatomic) UIView * parentView;
 @property (nonatomic) IBOutlet MWMSearchView * rootView;
@@ -40,7 +41,6 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 @implementation MWMSearchManager
 {
-  unique_ptr<ActiveMapsObserver> m_mapsObserver;
   int m_mapsObserverSlotId;
 }
 
@@ -55,6 +55,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
     self.rootView.delegate = delegate;
     self.parentView = view;
     self.state = MWMSearchManagerStateHidden;
+    [[MWMFrameworkListener listener] addObserver:self];
   }
   return self;
 }
@@ -200,24 +201,17 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   self.state = MWMSearchManagerStateHidden;
 }
 
-#pragma mark - MWMSearchDownloadMapRequest
+#pragma mark - MWMFrameworkStorageObserver
 
-- (void)selectMapsAction
+- (void)processCountryEvent:(storage::TCountryId const &)countryId
 {
-  [self.delegate actionDownloadMaps];
-}
-
-#pragma mark - ActiveMapsObserverProtocol
-
-- (void)countryStatusChangedAtPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
-{
-  auto const status =
-      GetFramework().GetCountryTree().GetActiveMapLayout().GetCountryStatus(group, position);
+  using namespace storage;
   [self updateTopController];
-  if (status == TStatus::EDownloadFailed)
+  NodeAttrs attrs;
+  GetFramework().Storage().GetNodeAttrs(countryId, attrs);
+  if (IsDownloadFailed(attrs.m_status))
     [self.downloadController setDownloadFailed];
-  if (self.state == MWMSearchManagerStateTableSearch ||
-      self.state == MWMSearchManagerStateMapSearch)
+  if (self.state == MWMSearchManagerStateTableSearch || self.state == MWMSearchManagerStateMapSearch)
   {
     NSString * text = self.searchTextField.text;
     if (text.length > 0)
@@ -226,16 +220,26 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   }
 }
 
-- (void)countryDownloadingProgressChanged:(LocalAndRemoteSizeT const &)progress
-                               atPosition:(int)position
-                                  inGroup:(ActiveMapsLayout::TGroup const &)group
+- (void)processCountry:(storage::TCountryId const &)countryId progress:(storage::LocalAndRemoteSizeT const &)progress
 {
+  using namespace storage;
   CGFloat const normProgress = (CGFloat)progress.first / progress.second;
-  ActiveMapsLayout & activeMapLayout = GetFramework().GetCountryTree().GetActiveMapLayout();
-  NSString * countryName =
-      @(activeMapLayout.GetFormatedCountryName(activeMapLayout.GetCoreIndex(group, position))
-            .c_str());
+  NodeAttrs attrs;
+  GetFramework().Storage().GetNodeAttrs(countryId, attrs);
+  NSString * countryName = @(attrs.m_nodeLocalName.c_str());
   [self.downloadController downloadProgress:normProgress countryName:countryName];
+}
+
+#pragma mark - MWMSearchDownloadProtocol
+
+- (MWMAlertViewController *)alertController
+{
+  return self.delegate.alertController;
+}
+
+- (void)selectMapsAction
+{
+  [self.delegate actionDownloadMaps];
 }
 
 #pragma mark - State changes
@@ -252,17 +256,9 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   [self.navigationController setViewControllers:viewControllers animated:NO];
 }
 
-- (void)changeFromHiddenState
-{
-  __weak auto weakSelf = self;
-  m_mapsObserver.reset(new ActiveMapsObserver(weakSelf));
-  m_mapsObserverSlotId = GetFramework().GetCountryTree().GetActiveMapLayout().AddListener(m_mapsObserver.get());
-}
-
 - (void)changeToHiddenState
 {
   [self endSearch];
-  GetFramework().GetCountryTree().GetActiveMapLayout().RemoveListener(m_mapsObserverSlotId);
   [self.tabbedController resetSelectedTab];
   self.tableViewController = nil;
   self.downloadController = nil;
@@ -290,7 +286,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (void)changeToMapSearchState
 {
-  Framework & f = GetFramework();
+  auto & f = GetFramework();
   UITextField * textField = self.searchTextField;
 
   string const locale = textField.textInputMode.primaryLanguage ?
@@ -318,11 +314,11 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (UIViewController *)topController
 {
-  auto & f = GetFramework();
-  auto & activeMapLayout = f.GetCountryTree().GetActiveMapLayout();
-  int const outOfDate = activeMapLayout.GetCountInGroup(storage::ActiveMapsLayout::TGroup::EOutOfDate);
-  int const upToDate = activeMapLayout.GetCountInGroup(storage::ActiveMapsLayout::TGroup::EUpToDate);
-  BOOL const haveMap = outOfDate > 0 || upToDate > 0;
+  using namespace storage;
+  auto & s = GetFramework().Storage();
+  TCountriesVec downloadedCountries;
+  s.GetDownloadedChildren(s.GetRootId(), downloadedCountries);
+  BOOL const haveMap = (downloadedCountries.size() != 0);
   return haveMap ? self.tabbedController : self.downloadController;
 }
 
@@ -377,8 +373,6 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
                                                     userInfo:@{
                                                       kSearchStateKey : @(state)
                                                     }];
-  if (_state == MWMSearchManagerStateHidden)
-    [self changeFromHiddenState];
   _state = state;
   switch (state)
   {

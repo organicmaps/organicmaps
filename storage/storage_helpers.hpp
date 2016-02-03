@@ -2,6 +2,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include "storage_defines.hpp"
+
 namespace storage
 {
 class CountryInfoGetter;
@@ -14,4 +16,5 @@ bool IsPointCoveredByDownloadedMaps(m2::PointD const & position,
                                     Storage const & storage,
                                     CountryInfoGetter const & countryInfoGetter);
 
+bool IsDownloadFailed(TStatus status);
 } // namespace storage

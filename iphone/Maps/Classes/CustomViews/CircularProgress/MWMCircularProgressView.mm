@@ -18,8 +18,8 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 @property (nonatomic) CAShapeLayer * backgroundLayer;
 @property (nonatomic) CAShapeLayer * progressLayer;
 
-@property (nonatomic, readonly) CGColorRef backgroundColor;
-@property (nonatomic, readonly) CGColorRef progressColor;
+@property (nonatomic, readonly) CGColorRef backgroundLayerColor;
+@property (nonatomic, readonly) CGColorRef progressLayerColor;
 
 @property (nonatomic) NSMutableDictionary * images;
 @property (nonatomic) NSMutableDictionary * colors;
@@ -93,8 +93,8 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 {
   self.backgroundLayer.fillColor = self.progressLayer.fillColor = UIColor.clearColor.CGColor;
   self.backgroundLayer.lineWidth = self.progressLayer.lineWidth = kLineWidth;
-  self.backgroundLayer.strokeColor = self.backgroundColor;
-  self.progressLayer.strokeColor = self.progressColor;
+  self.backgroundLayer.strokeColor = self.backgroundLayerColor;
+  self.progressLayer.strokeColor = self.progressLayerColor;
   CGRect rect = CGRectInset(self.bounds, kLineWidth, kLineWidth);
   self.backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
   UIImage * normalImage = nil;
@@ -203,7 +203,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   [self refreshProgress];
 }
 
-- (CGColorRef)backgroundColor
+- (CGColorRef)backgroundLayerColor
 {
   switch (self.state)
   {
@@ -214,7 +214,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   }
 }
 
-- (CGColorRef)progressColor
+- (CGColorRef)progressLayerColor
 {
   UIColor * color = self.colors[@(self.state)];
   return color.CGColor;
