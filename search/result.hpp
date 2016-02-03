@@ -112,7 +112,7 @@ private:
 
   // The position that this result occupied in the vector returned
   // by a search query. -1 if undefined.
-  int32_t m_positionInResults;
+  int32_t m_positionInResults = -1;
 
 public:
   Metadata m_metadata;
@@ -207,5 +207,7 @@ struct AddressInfo
 
   void Clear();
 };
+
+string DebugPrint(search::Result const &);
 
 }  // namespace search

@@ -1,5 +1,6 @@
 #include "search_engine.hpp"
 
+#include "categories_holder.hpp"
 #include "geometry_utils.hpp"
 #include "search_query.hpp"
 #include "search_string_utils.hpp"
@@ -18,6 +19,7 @@
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/map.hpp"
 #include "std/vector.hpp"

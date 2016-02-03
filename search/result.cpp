@@ -346,4 +346,15 @@ string DebugPrint(AddressInfo const & info)
   return info.FormatNameAndAddress();
 }
 
+string DebugPrint(Result const & r)
+{
+  string s;
+  s.append(r.GetString());
+  s.append("|");
+  s.append(r.GetFeatureType());
+  s.append("|");
+  s.append(r.IsSuggest() ? "1" : "0");
+  return s;
+}
+
 }  // namespace search
