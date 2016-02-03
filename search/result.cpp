@@ -313,4 +313,15 @@ void AddressInfo::Clear()
   m_types.clear();
 }
 
+string DebugPrint(Result const & r)
+{
+  string s;
+  s.append(r.GetString());
+  s.append("|");
+  s.append(r.GetFeatureType());
+  s.append("|");
+  s.append(r.IsSuggest() ? "1" : "0");
+  return s;
+}
+
 }  // namespace search

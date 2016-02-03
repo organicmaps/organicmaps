@@ -187,4 +187,6 @@ struct AddressInfo
   void Clear();
 };
 
-}
+string DebugPrint(search::Result const &);
+
+}  // namespace search

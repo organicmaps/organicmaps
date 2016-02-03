@@ -7,19 +7,20 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/search_string_utils.hpp"
-#include "geometry/mercator.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/classificator.hpp"
 
 #include "platform/platform.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/stl_add.hpp"
 
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
 #include "std/map.hpp"
 #include "std/vector.hpp"
-#include "std/bind.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
@@ -151,11 +152,34 @@ void Engine::SetViewportAsync(m2::RectD const & viewport)
   m_query->SetViewport(r, true);
 }
 
-void Engine::EmitResults(SearchParams const & params, Results & res)
+void Engine::EmitResults(SearchParams const & params, m2::RectD const & viewport, Results & res)
 {
-  // Basic test of our statistics engine.
-  alohalytics::LogEvent("searchEmitResults",
-                        alohalytics::TStringMap({{params.m_query, strings::to_string(res.GetCount())}}));
+  size_t const kMaxNumResultsToSend = 10;
+
+  size_t numResultsToSend = min(kMaxNumResultsToSend, res.GetCount());
+  string resultString = strings::to_string(numResultsToSend);
+  for (size_t i = 0; i < numResultsToSend; ++i)
+    resultString.append("\t" + DebugPrint(static_cast<search::Result const &>(res.GetResult(i))));
+
+  double lat = -1;
+  double lon = -1;
+  if (params.IsValidPosition())
+  {
+    lat = params.m_lat;
+    lon = params.m_lon;
+  }
+
+  alohalytics::TStringMap stats = {
+      {"lat", strings::to_string(lat)},
+      {"lon", strings::to_string(lon)},
+      {"viewportMinX", strings::to_string(viewport.minX())},
+      {"viewportMinY", strings::to_string(viewport.minY())},
+      {"viewportMaxX", strings::to_string(viewport.maxX())},
+      {"viewportMaxY", strings::to_string(viewport.maxY())},
+      {"query", params.m_query},
+      {"results", resultString},
+  };
+  alohalytics::LogEvent("searchEmitResults", stats);
 
   params.m_callback(res);
 }
@@ -237,7 +261,7 @@ void Engine::SearchAsync()
       m_query->SearchViewportPoints(res);
 
       if (res.GetCount() > 0)
-        EmitResults(params, res);
+        EmitResults(params, viewport, res);
     }
     else
     {
@@ -253,7 +277,7 @@ void Engine::SearchAsync()
         bool const exit = (oneTimeSearch || !isInflated || newCount >= RESULTS_COUNT);
 
         if (exit || oldCount != newCount)
-          EmitResults(params, res);
+          EmitResults(params, viewport, res);
 
         if (exit)
           break;
@@ -278,7 +302,7 @@ void Engine::SearchAsync()
 
     // Emit if we have more results.
     if (res.GetCount() > count)
-      EmitResults(params, res);
+      EmitResults(params, MercatorBounds::FullRect(), res);
   }
 
   // Emit finish marker to client.
