@@ -3,9 +3,10 @@
 #include "generator/tag_admixer.hpp"
 
 #include "std/map.hpp"
+#include "std/set.hpp"
 #include "std/sstream.hpp"
 
-UNIT_TEST(ParserTests)
+UNIT_TEST(WaysParserTests)
 {
   map<uint64_t, string> ways;
   WaysParserHelper parser(ways);
@@ -18,4 +19,16 @@ UNIT_TEST(ParserTests)
   TEST(ways.find(294584441) != ways.end(), ());
   TEST_EQUAL(ways[294584441], string("world_level"), ());
   TEST(ways.find(140247101) == ways.end(), ());
+}
+
+UNIT_TEST(CapitalsParserTests)
+{
+  set<uint64_t> capitals;
+  CapitalsParserHelper parser(capitals);
+  istringstream stream("-21.1343401;-175.201808;1082208696;t\n-16.6934156;-179.87995;242715809;f\n19.0534159;169.919199;448768937;t");
+  parser.ParseStream(stream);
+  TEST(capitals.find(1082208696) != capitals.end(), ());
+  TEST(capitals.find(242715809) != capitals.end(), ());
+  TEST(capitals.find(448768937) != capitals.end(), ());
+  TEST(capitals.find(140247101) == capitals.end(), ());
 }

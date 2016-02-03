@@ -64,7 +64,7 @@ public:
           auto endPos = oneLine.find(";", pos + 1);
           if (endPos == string::npos)
             endPos = oneLine.length() - 1;
-          if (strings::to_uint64(oneLine.substr(pos + 1, endPos - pos), nodeId))
+          if (strings::to_uint64(oneLine.substr(pos + 1, endPos - pos - 1), nodeId))
             m_capitals.insert(nodeId);
         }
       }
@@ -72,7 +72,7 @@ public:
   }
 
 private:
-  set<uint64_t> m_capitals;
+  set<uint64_t> & m_capitals;
 };
 
 class TagAdmixer
