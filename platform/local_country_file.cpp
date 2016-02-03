@@ -39,7 +39,11 @@ void LocalCountryFile::SyncWithDisk()
     m_files = SetOptions(m_files, MapOptions::Map);
 
   if (version::IsSingleMwm(GetVersion()))
+  {
+    if (m_files == MapOptions::Map)
+      m_files = SetOptions(m_files, MapOptions::CarRouting);
     return;
+  }
 
   string const routingPath = GetPath(MapOptions::CarRouting);
   if (platform.GetFileSizeByFullPath(routingPath, m_routingSize))

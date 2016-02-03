@@ -35,6 +35,10 @@ public:
 
   // Syncs internal state like availability of map and routing files,
   // their sizes etc. with disk.
+  // In case of one component (single) mwm this method assumed the every mwm has a routing section.
+  // Generality speaking it's not always true. To know it for sure it's necessary to read a mwm in
+  // this method but it's not implemented by performance reasons. This check is done on
+  // building routes stage.
   void SyncWithDisk();
 
   // Removes specified files from disk if they're known for LocalCountryFile, i.e.
