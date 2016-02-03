@@ -36,7 +36,7 @@ public:
         m_localFile(GetPlatform().WritableDir(), m_countryFile, 0 /* version */)
   {
     m_localFile.SyncWithDisk();
-    TEST(m_localFile.OnDisk(MapOptions::MapWithCarRouting), ());
+    TEST(m_localFile.OnDisk(MapOptions::Map), ());
     GenerateNecessarySections(m_localFile);
 
     m_result = m_testSet.Register(m_localFile);

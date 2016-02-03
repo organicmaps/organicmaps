@@ -33,11 +33,13 @@ void LocalCountryFile::SyncWithDisk()
   m_files = MapOptions::Nothing;
   m_mapSize = 0;
   m_routingSize = 0;
-
   Platform & platform = GetPlatform();
 
   if (platform.GetFileSizeByFullPath(GetPath(MapOptions::Map), m_mapSize))
     m_files = SetOptions(m_files, MapOptions::Map);
+
+  if (version::IsSingleMwm(GetVersion()))
+    return;
 
   string const routingPath = GetPath(MapOptions::CarRouting);
   if (platform.GetFileSizeByFullPath(routingPath, m_routingSize))
@@ -69,8 +71,9 @@ uint32_t LocalCountryFile::GetSize(MapOptions filesMask) const
   uint64_t size64 = 0;
   if (HasOptions(filesMask, MapOptions::Map))
     size64 += m_mapSize;
-  if (HasOptions(filesMask, MapOptions::CarRouting))
+  if (!version::IsSingleMwm(GetVersion()) && HasOptions(filesMask, MapOptions::CarRouting))
     size64 += m_routingSize;
+
   uint32_t const size32 = static_cast<uint32_t>(size64);
   ASSERT_EQUAL(size32, size64, ());
   return size32;

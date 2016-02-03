@@ -62,6 +62,15 @@ RoutingMapping::RoutingMapping(string const & countryFile, MwmSet & index)
     return;
 
   LocalCountryFile const & localFile = m_handle.GetInfo()->GetLocalFile();
+
+  if (version::IsSingleMwm(localFile.GetVersion()))
+  {
+    m_container.Open(localFile.GetPath(MapOptions::Map));
+    m_mwmId = m_handle.GetId();
+    m_error = IRouter::ResultCode::NoError;
+    return;
+  }
+
   if (!HasOptions(localFile.GetFiles(), MapOptions::MapWithCarRouting))
   {
     m_error = IRouter::ResultCode::RouteFileNotExist;
