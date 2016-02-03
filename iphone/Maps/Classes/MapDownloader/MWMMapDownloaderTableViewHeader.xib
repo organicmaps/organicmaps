@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="b49-gZ-yx0" customClass="MWMMapDownloaderTableViewHeader">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="28"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PMw-UJ-6y5" userLabel="SeparatorUp">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="FH1-BN-bpf"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Near Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="315" translatesAutoresizingMaskIntoConstraints="NO" id="1oa-vX-tyu">
+                    <rect key="frame" x="16" y="7" width="49" height="15"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3BJ-0r-JzZ" userLabel="SeparatorDown">
+                    <rect key="frame" x="0.0" y="27" width="375" height="1"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="L1j-JT-Ndn"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="3BJ-0r-JzZ" secondAttribute="trailing" id="3LM-mW-2ZP"/>
+                <constraint firstItem="3BJ-0r-JzZ" firstAttribute="leading" secondItem="b49-gZ-yx0" secondAttribute="leading" id="9ho-C1-Gtc"/>
+                <constraint firstItem="PMw-UJ-6y5" firstAttribute="leading" secondItem="b49-gZ-yx0" secondAttribute="leading" id="E6R-dv-UcP"/>
+                <constraint firstAttribute="trailing" secondItem="PMw-UJ-6y5" secondAttribute="trailing" id="LbV-hu-3hY"/>
+                <constraint firstItem="1oa-vX-tyu" firstAttribute="leading" secondItem="b49-gZ-yx0" secondAttribute="leading" priority="750" constant="16" id="e0S-e8-4Db"/>
+                <constraint firstItem="1oa-vX-tyu" firstAttribute="centerY" secondItem="b49-gZ-yx0" secondAttribute="centerY" id="o6C-03-A3I"/>
+                <constraint firstAttribute="bottom" secondItem="3BJ-0r-JzZ" secondAttribute="bottom" id="uii-fZ-QtZ"/>
+                <constraint firstItem="PMw-UJ-6y5" firstAttribute="top" secondItem="b49-gZ-yx0" secondAttribute="top" id="x6d-eE-mk8"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="separatorDown" destination="3BJ-0r-JzZ" id="gIO-RV-OmV"/>
+                <outlet property="title" destination="1oa-vX-tyu" id="aPF-QZ-120"/>
+            </connections>
+            <point key="canvasLocation" x="179" y="357"/>
+        </view>
+    </objects>
+</document>

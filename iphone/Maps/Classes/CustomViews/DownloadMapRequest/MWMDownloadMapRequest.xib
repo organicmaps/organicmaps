@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMDownloadMapRequest">
             <connections>
                 <outlet property="downloadMapButton" destination="ANW-J1-K9x" id="8Ul-49-KUb"/>
+                <outlet property="downloadRoutesButton" destination="Ns9-3f-AnX" id="LQp-vW-Qxs"/>
                 <outlet property="mapTitleLabel" destination="ldF-A5-Jo3" id="r20-cg-aHn"/>
                 <outlet property="progressViewWrapper" destination="Axo-F2-0Xb" id="MY3-o4-9hX"/>
                 <outlet property="rootView" destination="wdy-tr-47e" id="vKe-K9-3Io"/>
@@ -52,7 +53,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -62,6 +63,26 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="downloadMapTouchUpInside:" destination="-1" eventType="touchUpInside" id="tMi-t3-4NI"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ns9-3f-AnX">
+                    <rect key="frame" x="40" y="87" width="240" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="FMy-No-TLl"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Автомобильные маршруты" image="radioBtnOff">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="radioBtnOn"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_vehicle_routes"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="downloadRoutesTouchUpInside:" destination="-1" eventType="touchUpInside" id="0Zh-cL-WYE"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ваше местоположение не определено" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="0HQ-hc-mvu">
@@ -95,8 +116,8 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                             <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="whiteColor"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="whiteColor"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlue"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -109,28 +130,37 @@
                 <constraint firstItem="ANW-J1-K9x" firstAttribute="top" secondItem="ldF-A5-Jo3" secondAttribute="bottom" constant="10" id="8ct-NO-wGh"/>
                 <constraint firstItem="ldF-A5-Jo3" firstAttribute="top" secondItem="wdy-tr-47e" secondAttribute="top" id="DSk-Dw-hDB"/>
                 <constraint firstAttribute="trailing" secondItem="ldF-A5-Jo3" secondAttribute="trailing" constant="16" id="KsU-Ev-FCI"/>
+                <constraint firstItem="q7R-7R-aMD" firstAttribute="top" secondItem="Ns9-3f-AnX" secondAttribute="bottom" constant="44" id="SM5-r0-AS2"/>
                 <constraint firstItem="Axo-F2-0Xb" firstAttribute="top" secondItem="ldF-A5-Jo3" secondAttribute="bottom" constant="24" id="SnX-Nf-mt9"/>
+                <constraint firstItem="Ns9-3f-AnX" firstAttribute="centerX" secondItem="ANW-J1-K9x" secondAttribute="centerX" id="fir-kl-M8E"/>
                 <constraint firstItem="ANW-J1-K9x" firstAttribute="width" secondItem="q7R-7R-aMD" secondAttribute="width" id="gY4-nk-yaY"/>
                 <constraint firstItem="ANW-J1-K9x" firstAttribute="centerX" secondItem="q7R-7R-aMD" secondAttribute="centerX" id="gfS-3M-5zg"/>
+                <constraint firstItem="Ns9-3f-AnX" firstAttribute="width" secondItem="ANW-J1-K9x" secondAttribute="width" id="hQI-Kw-RlX"/>
                 <constraint firstItem="ldF-A5-Jo3" firstAttribute="centerX" secondItem="ANW-J1-K9x" secondAttribute="centerX" id="lWc-tH-1Oi"/>
                 <constraint firstItem="ldF-A5-Jo3" firstAttribute="leading" secondItem="wdy-tr-47e" secondAttribute="leading" constant="16" id="mFv-Dr-2pb"/>
                 <constraint firstAttribute="trailing" secondItem="0HQ-hc-mvu" secondAttribute="trailing" constant="16" id="o8v-fv-loA"/>
                 <constraint firstItem="0HQ-hc-mvu" firstAttribute="leading" secondItem="wdy-tr-47e" secondAttribute="leading" constant="16" id="tED-fC-gYF"/>
-                <constraint firstItem="q7R-7R-aMD" firstAttribute="top" secondItem="ANW-J1-K9x" secondAttribute="bottom" constant="80" id="twy-WR-Wmb"/>
                 <constraint firstItem="q7R-7R-aMD" firstAttribute="top" secondItem="0HQ-hc-mvu" secondAttribute="bottom" constant="22" id="u95-8m-bpq"/>
+                <constraint firstItem="Ns9-3f-AnX" firstAttribute="top" secondItem="ANW-J1-K9x" secondAttribute="bottom" constant="12" id="uJa-y4-6sW"/>
                 <constraint firstItem="ldF-A5-Jo3" firstAttribute="centerX" secondItem="Axo-F2-0Xb" secondAttribute="centerX" id="w4N-6B-zSQ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="downloadMapButton" destination="ANW-J1-K9x" id="yVE-8n-ezQ"/>
+                <outlet property="downloadRoutesButton" destination="Ns9-3f-AnX" id="Mh2-Di-igv"/>
                 <outlet property="mapTitleLabel" destination="ldF-A5-Jo3" id="SCT-Zb-Xxq"/>
                 <outlet property="progressViewWrapper" destination="Axo-F2-0Xb" id="haF-S7-daI"/>
                 <outlet property="selectAnotherMapButton" destination="q7R-7R-aMD" id="pyE-n2-tck"/>
                 <outlet property="undefinedLocationLabel" destination="0HQ-hc-mvu" id="qCF-gw-Ll7"/>
                 <outlet property="unknownPositionLabelBottomOffset" destination="u95-8m-bpq" id="qXZ-7m-zS1"/>
+                <outlet property="verticalFreeSpace" destination="SM5-r0-AS2" id="aXL-lW-az3"/>
             </connections>
             <point key="canvasLocation" x="71" y="403.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="radioBtnOff" width="22" height="22"/>
+        <image name="radioBtnOn" width="22" height="22"/>
+    </resources>
 </document>

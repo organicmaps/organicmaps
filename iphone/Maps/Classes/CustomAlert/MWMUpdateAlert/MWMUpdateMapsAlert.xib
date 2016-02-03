@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment version="2048" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Medium</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <view contentMode="scaleToFill" id="pWH-NL-pHM" customClass="MWMUpdateMapsAlert">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pGZ-bY-bgx" userLabel="ContainerView">
+                    <rect key="frame" x="-100" y="-16" width="520" height="600"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qJH-qq-M9S" userLabel="BoundsView">
+                            <rect key="frame" x="16" y="40" width="488" height="422"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3e-cV-Z5C" userLabel="CenteredView">
+                                    <rect key="frame" x="44" y="45" width="400" height="333"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="ofj-3h-Ct1">
+                                            <rect key="frame" x="80" y="0.0" width="240" height="240"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="120" id="N3W-6C-YPH"/>
+                                                <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="240" id="hVh-af-qOI"/>
+                                                <constraint firstAttribute="width" secondItem="ofj-3h-Ct1" secondAttribute="height" multiplier="1:1" id="qOg-uz-iU8"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Меньше карты, быстрее загрузка" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHa-H5-DTT" userLabel="Title">
+                                            <rect key="frame" x="0.0" y="260" width="400" height="24"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="update_maps_title"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мы разделили большие карты на части. И теперь они будут быстрее загружаться. Попробуйте." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVj-pR-3Vu" userLabel="Text">
+                                            <rect key="frame" x="0.0" y="300" width="400" height="33"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="update_maps_text"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
+                                    <constraints>
+                                        <constraint firstItem="ofj-3h-Ct1" firstAttribute="top" secondItem="C3e-cV-Z5C" secondAttribute="top" id="2wP-bN-o4E"/>
+                                        <constraint firstItem="ofj-3h-Ct1" firstAttribute="centerX" secondItem="C3e-cV-Z5C" secondAttribute="centerX" id="3Kh-Zg-Pnc"/>
+                                        <constraint firstItem="bVj-pR-3Vu" firstAttribute="centerX" secondItem="C3e-cV-Z5C" secondAttribute="centerX" id="Ndr-MK-PBP"/>
+                                        <constraint firstItem="bVj-pR-3Vu" firstAttribute="top" secondItem="GHa-H5-DTT" secondAttribute="bottom" constant="16" id="QRe-rD-mZP"/>
+                                        <constraint firstItem="GHa-H5-DTT" firstAttribute="top" secondItem="ofj-3h-Ct1" secondAttribute="bottom" priority="750" constant="20" id="dE8-ir-zch"/>
+                                        <constraint firstItem="GHa-H5-DTT" firstAttribute="top" secondItem="C3e-cV-Z5C" secondAttribute="top" priority="740" id="dkj-Yp-pTB"/>
+                                        <constraint firstItem="bVj-pR-3Vu" firstAttribute="width" secondItem="C3e-cV-Z5C" secondAttribute="width" id="eYb-0m-h13"/>
+                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="fxA-gD-HWp"/>
+                                        <constraint firstAttribute="bottom" secondItem="bVj-pR-3Vu" secondAttribute="bottom" id="gIH-Qs-sWe"/>
+                                        <constraint firstItem="GHa-H5-DTT" firstAttribute="centerX" secondItem="C3e-cV-Z5C" secondAttribute="centerX" id="hXJ-uk-f0J"/>
+                                        <constraint firstItem="GHa-H5-DTT" firstAttribute="width" secondItem="C3e-cV-Z5C" secondAttribute="width" id="hbP-LS-ypg"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" identifier="BoundsView"/>
+                            <constraints>
+                                <constraint firstItem="C3e-cV-Z5C" firstAttribute="height" relation="lessThanOrEqual" secondItem="qJH-qq-M9S" secondAttribute="height" id="GVh-oV-7tp"/>
+                                <constraint firstItem="C3e-cV-Z5C" firstAttribute="centerY" secondItem="qJH-qq-M9S" secondAttribute="centerY" id="Hfu-dT-8Vm"/>
+                                <constraint firstItem="C3e-cV-Z5C" firstAttribute="leading" secondItem="qJH-qq-M9S" secondAttribute="leading" priority="999" id="XSZ-jS-9nm"/>
+                                <constraint firstAttribute="trailing" secondItem="C3e-cV-Z5C" secondAttribute="trailing" priority="999" id="k9k-Aj-1xo"/>
+                                <constraint firstItem="C3e-cV-Z5C" firstAttribute="centerX" secondItem="qJH-qq-M9S" secondAttribute="centerX" id="lx7-pD-5w0"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lw4-bo-kWG" userLabel="UpdateAllMaps">
+                            <rect key="frame" x="140" y="482" width="240" height="44"/>
+                            <color key="backgroundColor" red="0.12549019610000001" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="7vT-GX-bKa"/>
+                                <constraint firstAttribute="width" constant="240" id="CzK-9Y-9QT"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <state key="normal" title="Update All Maps">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="update_all_maps"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueDark"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="updateAllMapsAcrion" destination="pWH-NL-pHM" eventType="touchUpInside" id="dur-AJ-p2Q"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnY-H8-xZB" userLabel="NotNow">
+                            <rect key="frame" x="140" y="536" width="240" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="240" id="PZo-Dq-EYs"/>
+                                <constraint firstAttribute="height" constant="44" id="s0x-cV-c3v"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <state key="normal" title="Not Now">
+                                <color key="titleColor" red="0.01176470588" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="whiteColor"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="layer.borderColorName" value="buttonEnabledBlueText"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="not_now"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonEnabledBlueText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="clearColor"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="buttonEnabledBlueText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="notNowAction" destination="pWH-NL-pHM" eventType="touchUpInside" id="VcY-hu-nBA"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration" identifier="ContainerView"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="WnY-H8-xZB" secondAttribute="bottom" constant="20" id="Gg8-7b-2dW"/>
+                        <constraint firstAttribute="width" constant="520" id="IyT-x4-C7K"/>
+                        <constraint firstItem="WnY-H8-xZB" firstAttribute="centerX" secondItem="pGZ-bY-bgx" secondAttribute="centerX" id="J3i-Cf-Dmb"/>
+                        <constraint firstItem="qJH-qq-M9S" firstAttribute="top" secondItem="pGZ-bY-bgx" secondAttribute="top" constant="40" id="KJy-Oh-VbF"/>
+                        <constraint firstAttribute="height" constant="600" id="Uxl-VU-6P4"/>
+                        <constraint firstItem="WnY-H8-xZB" firstAttribute="top" secondItem="Lw4-bo-kWG" secondAttribute="bottom" constant="10" id="VKL-If-rVP"/>
+                        <constraint firstItem="Lw4-bo-kWG" firstAttribute="centerX" secondItem="pGZ-bY-bgx" secondAttribute="centerX" id="cxf-Ml-IPa"/>
+                        <constraint firstAttribute="trailing" secondItem="qJH-qq-M9S" secondAttribute="trailing" constant="16" id="f5Z-Ou-aJt"/>
+                        <constraint firstItem="Lw4-bo-kWG" firstAttribute="top" secondItem="qJH-qq-M9S" secondAttribute="bottom" constant="20" id="hDe-Oo-n8r"/>
+                        <constraint firstItem="qJH-qq-M9S" firstAttribute="leading" secondItem="pGZ-bY-bgx" secondAttribute="leading" constant="16" id="i2d-SU-jrz"/>
+                        <constraint firstItem="ofj-3h-Ct1" firstAttribute="height" secondItem="pGZ-bY-bgx" secondAttribute="height" multiplier="0.3" priority="750" id="wTo-Kd-FOo"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                            <size key="value" width="0.0" height="3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="whiteColor"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="pGZ-bY-bgx" secondAttribute="centerY" id="8II-Zw-Sfx"/>
+                <constraint firstAttribute="centerX" secondItem="pGZ-bY-bgx" secondAttribute="centerX" id="Bzb-Vi-8MN"/>
+            </constraints>
+            <connections>
+                <outlet property="containerHeight" destination="Uxl-VU-6P4" id="f7y-bi-6sC"/>
+                <outlet property="containerWidth" destination="IyT-x4-C7K" id="9nO-EH-kO3"/>
+                <outlet property="image" destination="ofj-3h-Ct1" id="8av-oU-Alw"/>
+                <outlet property="imageHeight" destination="wTo-Kd-FOo" id="dr6-3s-Mc6"/>
+                <outlet property="imageMinHeight" destination="N3W-6C-YPH" id="Y59-xu-Gph"/>
+                <outlet property="titleImageOffset" destination="dE8-ir-zch" id="YJe-vb-ZSO"/>
+                <outlet property="titleTopOffset" destination="dkj-Yp-pTB" id="UZs-RM-Hxo"/>
+            </connections>
+            <point key="canvasLocation" x="609" y="114"/>
+        </view>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+    </objects>
+    <resources>
+        <image name="ic_placeholder" width="240" height="240"/>
+    </resources>
+</document>
