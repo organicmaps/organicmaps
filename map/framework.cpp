@@ -2052,6 +2052,14 @@ void Framework::RemoveRoute(bool deactivateFollowing)
 
 void Framework::CloseRouting()
 {
+  if (m_routingSession.IsActive())
+  {
+    auto lastGoodPoint = m_routingSession.GetRoute().GetFollowedPolyline().GetCurrentIter().m_pt;
+    alohalytics::Stats::Instance().LogEvent("RouteTracking_RouteClosing", {
+        {"percent", strings::to_string(strings::to_string(m_routingSession.GetCompletionPercent()))},
+        {"lastCoordinateLat", strings::to_string_dac(MercatorBounds::YToLat(lastGoodPoint.y), 5 /*precision*/)},
+        {"lastCoordinateLon", strings::to_string_dac(MercatorBounds::XToLon(lastGoodPoint.x), 5 /*precision*/)}});
+  }
   m_routingSession.Reset();
   RemoveRoute(true /* deactivateFollowing */);
 }
