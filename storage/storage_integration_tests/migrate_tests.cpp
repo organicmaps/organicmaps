@@ -31,7 +31,7 @@ UNIT_TEST(StorageFastMigrationTests)
   auto & s = f.Storage();
 
   uint32_t version;
-  Settings::Get("LastMigration", version);
+  TEST(Settings::Get("LastMigration", version), ("LastMigration didn't set"));
 
   TEST_GREATER_OR_EQUAL(s.GetCurrentDataVersion(), version, ());
 }
@@ -89,7 +89,7 @@ UNIT_TEST(StorageMigrationTests)
   for (auto const & countryId : kOldCountries)
     TEST(s.IsNodeDownloaded(countryId), (countryId));
 
-  // f.PreMigrate(curPos, statePrefetchChanged, progressChanged);
+  f.PreMigrate(curPos, statePrefetchChanged, progressChanged);
   // Wait for downloading complete.
   testing::RunEventLoop();
 
