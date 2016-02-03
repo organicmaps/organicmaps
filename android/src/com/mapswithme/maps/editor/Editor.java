@@ -6,6 +6,7 @@ import android.support.annotation.WorkerThread;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.WorkerService;
+import com.mapswithme.maps.bookmarks.data.Metadata;
 
 
 /**
@@ -48,6 +49,11 @@ public final class Editor
 
   @NonNull
   public static native int[] nativeGetEditableMetadata();
+
+  public static void setMetadata(Metadata.MetadataType type, String value)
+  {
+    nativeSetMetadata(type.toInt(), value);
+  }
 
   public static native void nativeSetMetadata(int type, String value);
 

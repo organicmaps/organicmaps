@@ -6,6 +6,6 @@
     android:color="@android:color/white"
     android:state_enabled="true"/>
 
-  <!--<item-->
-    <!--android:color="@color/editor_complement_text_disabled"/>-->
+  <item
+    android:color="@color/text_editor_add_disabled"/>
 </selector>

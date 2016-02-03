@@ -52,33 +52,23 @@
           android:id="@+id/tv__examples_title"
           android:layout_width="match_parent"
           android:layout_height="@dimen/base_block_size"
-          android:layout_toLeftOf="@+id/iv__indicator"
-          android:layout_toStartOf="@+id/iv__indicator"
-          android:background="@null"
+          android:background="?clickableBackground"
+          android:drawableEnd="@drawable/ic_expand_more"
           android:drawableLeft="@drawable/ic_type_text"
           android:drawablePadding="@dimen/margin_base"
+          android:drawableRight="@drawable/ic_expand_more"
           android:drawableStart="@drawable/ic_type_text"
           android:gravity="center_vertical"
           android:padding="@dimen/margin_base"
           android:text="Example values"
-          android:textAppearance="@style/MwmTextAppearance.Body3"/>
-          <!--android:textColor="@color/base_blue_light"/>-->
-
-        <ImageView
-          android:id="@+id/iv__indicator"
-          android:layout_width="wrap_content"
-          android:layout_height="@dimen/base_block_size"
-          android:layout_alignParentEnd="true"
-          android:layout_alignParentRight="true"
-          android:gravity="center_vertical"
-          android:scaleType="center"
-          tools:src="@drawable/ic_expand_more"/>
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          android:textColor="@color/base_accent"/>
 
         <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_below="@id/tv__examples_title"/>
-          <!--android:background="@color/divider_standard"/>-->
+          android:layout_below="@id/tv__examples_title"
+          android:background="@color/divider"/>
 
         <TextView
           android:id="@+id/tv__examples"

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
@@ -19,9 +19,9 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
 {
   private boolean mIsExampleShown;
   private EditText mInput;
-  private View mExample;
-  private ImageView mIndicator;
+  private TextView mExample;
   private Timetable[] mInitTimetables;
+  private TextView mExamplesTitle;
 
   @Nullable
   @Override
@@ -50,8 +50,8 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
   {
     view.findViewById(R.id.examples).setOnClickListener(this);
     mInput = (EditText) view.findViewById(R.id.et__timetable);
-    mExample = view.findViewById(R.id.tv__examples);
-    mIndicator = (ImageView) view.findViewById(R.id.iv__indicator);
+    mExample = (TextView) view.findViewById(R.id.tv__examples);
+    mExamplesTitle = (TextView) view.findViewById(R.id.tv__examples_title);
   }
 
   private void showExample(boolean show)
@@ -60,13 +60,12 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
     if (mIsExampleShown)
     {
       UiUtils.show(mExample);
-      // TODO yunikkk animate indicator
-      mIndicator.setImageResource(R.drawable.ic_expand_less);
+      mExamplesTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_type_text, 0, R.drawable.ic_expand_less, 0);
     }
     else
     {
       UiUtils.hide(mExample);
-      mIndicator.setImageResource(R.drawable.ic_expand_more);
+      mExamplesTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_type_text, 0, R.drawable.ic_expand_more, 0);
     }
   }
 

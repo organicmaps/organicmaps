@@ -12,6 +12,7 @@
     android:layout_height="36dp"
     android:layout_gravity="center"
     android:background="@drawable/timetable_add_complement"
+    android:enabled="false"
     android:text="@string/editor_time_add"
     android:textAllCaps="true"
     android:textAppearance="@style/MwmTextAppearance.Body3.Light"

@@ -133,12 +133,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   protected void saveEditedPoi()
   {
     final EditorFragment editorFragment = (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName());
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt(), editorFragment.getPhone());
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_WEBSITE.toInt(), editorFragment.getWebsite());
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_EMAIL.toInt(), editorFragment.getEmail());
-    final String cuisine = mEditedObject.getMetadata(Metadata.MetadataType.FMD_CUISINE);
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_CUISINE.toInt(), cuisine == null ? "" : cuisine);
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_INTERNET.toInt(), editorFragment.getWifi());
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, editorFragment.getPhone());
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_WEBSITE, editorFragment.getWebsite());
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_EMAIL, editorFragment.getEmail());
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_CUISINE, editorFragment.getCuisine());
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_INTERNET, editorFragment.getWifi());
+    mEditedObject.addMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, editorFragment.getOpeningHours());
     mEditedObject.setName(editorFragment.getName());
     mEditedObject.setStreet(editorFragment.getStreet());
     mEditedObject.setHouseNumber(editorFragment.getHouseNumber());
@@ -153,7 +153,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       {
       case OPENING_HOURS:
         final TimetableFragment fragment = (TimetableFragment) getChildFragmentManager().findFragmentByTag(TimetableFragment.class.getName());
-        mEditedObject.addMetadata(Metadata.MetadataType.FMD_OPEN_HOURS.toInt(), fragment.getTimetable());
+        mEditedObject.addMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, fragment.getTimetable());
         editMapObject();
         break;
       case STREET:
@@ -163,17 +163,17 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         break;
       case CUISINE:
         String cuisine = ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).getCuisine();
-        mEditedObject.addMetadata(Metadata.MetadataType.FMD_CUISINE.toInt(), cuisine);
+        mEditedObject.addMetadata(Metadata.MetadataType.FMD_CUISINE, cuisine);
         editMapObject();
         break;
       case MAP_OBJECT:
         final EditorFragment editorFragment = (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName());
-        Editor.nativeSetMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER.toInt(), editorFragment.getPhone());
-        Editor.nativeSetMetadata(Metadata.MetadataType.FMD_WEBSITE.toInt(), editorFragment.getWebsite());
-        Editor.nativeSetMetadata(Metadata.MetadataType.FMD_EMAIL.toInt(), editorFragment.getEmail());
-        cuisine = mEditedObject.getMetadata(Metadata.MetadataType.FMD_CUISINE);
-        Editor.nativeSetMetadata(Metadata.MetadataType.FMD_CUISINE.toInt(), cuisine == null ? "" : cuisine);
-        Editor.nativeSetMetadata(Metadata.MetadataType.FMD_INTERNET.toInt(), editorFragment.getWifi());
+        Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, editorFragment.getPhone());
+        Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, editorFragment.getWebsite());
+        Editor.setMetadata(Metadata.MetadataType.FMD_EMAIL, editorFragment.getEmail());
+        Editor.setMetadata(Metadata.MetadataType.FMD_CUISINE, editorFragment.getCuisine());
+        Editor.setMetadata(Metadata.MetadataType.FMD_INTERNET, editorFragment.getWifi());
+        Editor.setMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, editorFragment.getOpeningHours());
         Editor.nativeSetName(editorFragment.getName());
         Editor.nativeEditFeature(editorFragment.getStreet(), editorFragment.getHouseNumber());
         if (OsmOAuth.isAuthorized())

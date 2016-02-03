@@ -50,11 +50,13 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
   {
     mFragment = fragment;
     mItems = new ArrayList<>(Arrays.asList(OpeningHours.nativeGetDefaultTimetables()));
+    refreshComplement();
   }
 
   public void setTimetables(Timetable[] tts)
   {
     mItems = new ArrayList<>(Arrays.asList(tts));
+    refreshComplement();
     notifyDataSetChanged();
   }
 
