@@ -1,6 +1,7 @@
 #import "MapsAppDelegate.h"
 #import "MWMNightModeController.h"
 #import "SelectableCell.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
@@ -52,6 +53,7 @@
   _selectedCell = cell;
   auto & f = GetFramework();
   auto const style = f.GetMapStyle();
+  NSString * statValue = nil;
   if ([cell isEqual:self.on])
   {
     [MapsAppDelegate setAutoNightModeOff:YES];
@@ -60,6 +62,7 @@
     f.SetMapStyle(MapStyleDark);
     [UIColor setNightMode:YES];
     [self refresh];
+    statValue = kStatOn;
   }
   else if ([cell isEqual:self.off])
   {
@@ -69,6 +72,7 @@
     f.SetMapStyle(MapStyleClear);
     [UIColor setNightMode:NO];
     [self refresh];
+    statValue = kStatOff;
   }
   else if ([cell isEqual:self.autoSwitch])
   {
@@ -79,7 +83,11 @@
     [UIColor setNightMode:NO];
     f.SetMapStyle(MapStyleClear);
     [self refresh];
+    statValue = kStatValue;
   }
+
+  [[Statistics instance] logEvent:kStatNightMode
+                   withParameters:@{kStatValue : statValue}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
