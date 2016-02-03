@@ -13,8 +13,8 @@ Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
   , m_region(region)
   , m_type(type)
   , m_featureType(featureType)
-  , m_metadata(meta)
   , m_positionInResults(-1)
+  , m_metadata(meta)
 {
   Init(true /* metadataInitialized */);
 }
@@ -152,6 +152,17 @@ void Result::AppendCity(string const & name)
     m_region += (", " + name);
 }
 
+string Result::ToStringForStats() const
+{
+  string s;
+  s.append(GetString());
+  s.append("|");
+  s.append(GetFeatureType());
+  s.append("|");
+  s.append(IsSuggest() ? "1" : "0");
+  return s;
+}
+
 bool Results::AddResult(Result && res)
 {
   // Find first feature result.
@@ -176,6 +187,13 @@ bool Results::AddResult(Result && res)
       if (res.IsEqualSuggest(*i))
         return false;
 
+    for (auto i = it; i != m_vec.end(); ++i)
+    {
+      auto & r = *i;
+      auto const oldPos = r.GetPositionInResults();
+      r.SetPositionInResults(oldPos + 1);
+    }
+    res.SetPositionInResults(distance(m_vec.begin(), it));
     m_vec.insert(it, move(res));
   }
   else
@@ -184,6 +202,7 @@ bool Results::AddResult(Result && res)
       if (res.IsEqualFeature(*it))
         return false;
 
+    res.SetPositionInResults(m_vec.size());
     m_vec.push_back(move(res));
   }
 
@@ -315,17 +334,6 @@ void AddressInfo::Clear()
   m_house.clear();
   m_name.clear();
   m_types.clear();
-}
-
-string DebugPrint(Result const & r)
-{
-  string s;
-  s.append(r.GetString());
-  s.append("|");
-  s.append(r.GetFeatureType());
-  s.append("|");
-  s.append(r.IsSuggest() ? "1" : "0");
-  return s;
 }
 
 }  // namespace search

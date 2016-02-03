@@ -57,7 +57,7 @@ private:
   void SetViewportAsync(m2::RectD const & viewport);
   void SearchAsync();
 
-  void EmitResults(SearchParams const & params, m2::RectD const & viewport, Results & res);
+  void EmitResults(SearchParams const & params, Results const & res);
 
   threads::Mutex m_searchMutex;
   threads::Mutex m_updateMutex;

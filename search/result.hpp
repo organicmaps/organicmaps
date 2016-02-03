@@ -94,6 +94,11 @@ public:
   int32_t GetPositionInResults() const { return m_positionInResults; }
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }
 
+  // Returns a representation of this result that is
+  // sent to the statistics servers and later used to measure
+  // the quality of our search engine.
+  string ToStringForStats() const;
+
 private:
   void Init(bool metadataInitialized);
 
@@ -144,6 +149,7 @@ public:
   /// Used in viewport search only.
   void AddResultNoChecks(Result && res)
   {
+    res.SetPositionInResults(m_vec.size());
     m_vec.push_back(move(res));
   }
 
@@ -193,7 +199,5 @@ struct AddressInfo
 
   void Clear();
 };
-
-string DebugPrint(search::Result const &);
 
 }  // namespace search

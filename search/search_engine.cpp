@@ -70,7 +70,35 @@ public:
   }
 };
 
+void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Results const & res)
+{
+  size_t const kMaxNumResultsToSend = 10;
+
+  size_t const numResultsToSend = min(kMaxNumResultsToSend, res.GetCount());
+  string resultString = strings::to_string(numResultsToSend);
+  for (size_t i = 0; i < numResultsToSend; ++i)
+    resultString.append("\t" + res.GetResult(i).ToStringForStats());
+
+  string posX, posY;
+  if (params.IsValidPosition())
+  {
+    posX = strings::to_string(MercatorBounds::LonToX(params.m_lon));
+    posY = strings::to_string(MercatorBounds::LatToY(params.m_lat));
+  }
+
+  alohalytics::TStringMap const stats = {
+      {"posX", posX},
+      {"posY", posY},
+      {"viewportMinX", strings::to_string(viewport.minX())},
+      {"viewportMinY", strings::to_string(viewport.minY())},
+      {"viewportMaxX", strings::to_string(viewport.maxX())},
+      {"viewportMaxY", strings::to_string(viewport.maxY())},
+      {"query", params.m_query},
+      {"results", resultString},
+  };
+  alohalytics::LogEvent("searchEmitResultsAndCoords", stats);
 }
+}  // namespace
 
 Engine::Engine(Index & index, Reader * categoriesR, storage::CountryInfoGetter const & infoGetter,
                string const & locale, unique_ptr<SearchQueryFactory> && factory)
@@ -152,38 +180,8 @@ void Engine::SetViewportAsync(m2::RectD const & viewport)
   m_query->SetViewport(r, true);
 }
 
-void Engine::EmitResults(SearchParams const & params, m2::RectD const & viewport, Results & res)
+void Engine::EmitResults(SearchParams const & params, Results const & res)
 {
-  size_t const kMaxNumResultsToSend = 10;
-
-  size_t numResultsToSend = min(kMaxNumResultsToSend, res.GetCount());
-  string resultString = strings::to_string(numResultsToSend);
-  for (size_t i = 0; i < numResultsToSend; ++i)
-    resultString.append("\t" + DebugPrint(static_cast<search::Result const &>(res.GetResult(i))));
-
-  double lat = -1;
-  double lon = -1;
-  if (params.IsValidPosition())
-  {
-    lat = params.m_lat;
-    lon = params.m_lon;
-  }
-
-  alohalytics::TStringMap stats = {
-      {"lat", strings::to_string(lat)},
-      {"lon", strings::to_string(lon)},
-      {"viewportMinX", strings::to_string(viewport.minX())},
-      {"viewportMinY", strings::to_string(viewport.minY())},
-      {"viewportMaxX", strings::to_string(viewport.maxX())},
-      {"viewportMaxY", strings::to_string(viewport.maxY())},
-      {"query", params.m_query},
-      {"results", resultString},
-  };
-  alohalytics::LogEvent("searchEmitResults", stats);
-
-  for (size_t i = 0; i < res.GetCount(); ++i)
-    res.GetResult(i).SetPositionInResults(i);
-
   params.m_callback(res);
 }
 
@@ -264,7 +262,7 @@ void Engine::SearchAsync()
       m_query->SearchViewportPoints(res);
 
       if (res.GetCount() > 0)
-        EmitResults(params, viewport, res);
+        EmitResults(params, res);
     }
     else
     {
@@ -280,7 +278,7 @@ void Engine::SearchAsync()
         bool const exit = (oneTimeSearch || !isInflated || newCount >= RESULTS_COUNT);
 
         if (exit || oldCount != newCount)
-          EmitResults(params, viewport, res);
+          EmitResults(params, res);
 
         if (exit)
           break;
@@ -305,8 +303,11 @@ void Engine::SearchAsync()
 
     // Emit if we have more results.
     if (res.GetCount() > count)
-      EmitResults(params, MercatorBounds::FullRect(), res);
+      EmitResults(params, res);
   }
+
+  if (!viewportSearch && !m_query->IsCancelled())
+    SendStatistics(params, viewport, res);
 
   // Emit finish marker to client.
   params.m_callback(Results::GetEndMarker(m_query->IsCancelled()));
