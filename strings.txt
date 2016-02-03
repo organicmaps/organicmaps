@@ -1935,35 +1935,34 @@
     fi = Ole hyvä ja vapauta ensin %1$@ laitteeltasi ladataksesi %2$@
 
   [download_resources]
-    en = Before you start let us download general world map into your device.\nIt needs %.1f%@ of data.
-    comment = REMOVE THIS STRING AFTER REFACTORING
-    cs = Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %.1f%@.
-    sk = Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %.1f%@.
-    de = Bevor Sie loslegen, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %.1f%@ Speicherplatz benötigt.
-    es = Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %.1f%@ de datos.
-    fr = Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%.1f%@ de données sont nécessaires.
-    it = Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %.1f%@.
-    ja = 利用を開始する前におおまかな世界地図をダウンロードします。これには%.1f%@の空き容量が必要です。
-    ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%.1f%@ 데이터가 필요합니다.
-    nl = Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %.1f%@ in beslag.
-    ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %.1f%@ данных.
-    uk = Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %.1f%@ даних.
-    zh-Hant = 在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %.1f%@ 。
-    pl = Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\nWymaga to %.1f%@ danych.
-    pt = Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %.1f%@ de dados.
-    hu = Első használat előtt letöltjük a világtérképet.\n%.1f%@ tárolóhely szükséges.
-    th = ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %.1f%@ ของข้อมูล
-    zh-Hans = 在您开始前请让我们下载通用世界地 图至您的设备中。\n它需要%.1f%@的 数据。
-    ar = قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %.1f%@ من البيانات.
-    da = Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %.1f%@ af data.
-    tr = Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %.1f%@’si gerekli.
-    sv = Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %.1f%@ data.
-    he = תחילה, נוריד למכשירך מפה כללית של העולם.\nIt דורש  %.1f%@ של נתונים.
-    id = Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %.1f%@.
-    vi = Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %.1f%@ dữ liệu.
-    ro = Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %.1f%@ de date.
-    nb = Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %.1f%@ med data.
-    fi = Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %.1f%@ dataa.
+    en = Before you start let us download general world map into your device.\nIt needs %s of data.
+    cs = Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %s.
+    sk = Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %s.
+    de = Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %s Speicherplatz benötigt.
+    es = Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %s de datos.
+    fr = Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%s de données sont nécessaires.
+    it = Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %s.
+    ja = 利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。
+    ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다.
+    nl = Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %s in beslag.
+    ru = Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %s данных.
+    uk = Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %s даних.
+    zh-Hant = 在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %s。
+    pl = Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\nWymaga to %s danych.
+    pt = Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %s de dados.
+    hu = Első használat előtt letöltjük a világtérképet.\n%s tárolóhely szükséges.
+    th = ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %s ของข้อมูล
+    zh-Hans = 在您开始前请让我们下载通用世界地 图至您的设备中。\n它需要%s@的 数据。
+    ar = قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %s من البيانات.
+    da = Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %s af data.
+    tr = Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %s’si gerekli.
+    sv = Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %s data.
+    he = תחילה, נוריד למכשירך מפה כללית של העולם.\nIt דורש  %s של נתונים.
+    id = Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %s.
+    vi = Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %s dữ liệu.
+    ro = Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %s de date.
+    nb = Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.
+    fi = Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %s dataa.
 
   [getting_position]
     en = Getting current position
@@ -7414,70 +7413,6 @@
     nb = Lastet ned
     fi = Ladattu
 
-  [downloader_downloaded_maps]
-    tags = ios,android,tizen
-    comment = Downloaded maps category
-    en = Downloaded maps
-    ru = Загруженные карты
-    ja = ダウンロード済みのマップ
-    ko = 다운로드한 지도
-    it = Mappe scaricate
-    hu = Letöltött térképek
-    fr = Cartes téléchargées
-    de = Heruntergeladene Karten
-    nl = Gedownloade kaarten
-    zh-Hant = 已下載的地圖
-    cs = Stažené mapy
-    es = Mapas descargados
-    uk = Завантажені карти
-    pl = Pobrane mapy
-    pt = Mapas descarregados
-    ar = الخرائط المُنزَّلة
-    da = Downloadede kort
-    tr = İndirilen haritalar
-    zh-Hans = 已下载的地图
-    th = แผนที่ที่ดาวน์โหลดลงมา
-    he = מפות שהורדו
-    sv = Nedladdade kartor
-    sk = Stiahnuté mapy
-    id = Peta yang telah diunduh
-    vi = Bản đồ đã tải xuống
-    ro = Hărți descărcate
-    nb = Nedlastede kart
-    fi = Ladatut kartat
-
-  [downloader_my_maps]
-    tags = ios,android,tizen
-    comment = My maps category
-    en = My maps
-    ru = Мои карты
-    ja = マイマップ
-    ko = 내 지도
-    it = Le mie mappe
-    hu = Térképeim
-    fr = Mes cartes
-    de = Meine Karten
-    nl = Mijn kaarten
-    zh-Hant = 我的地圖
-    cs = Moje mapy
-    es = Mis mapas
-    uk = Мої карти
-    pl = Moje mapy
-    pt = Os meus mapas
-    ar = خرائطي
-    da = Mine kort
-    tr = Haritalarım
-    zh-Hans = 我的地图
-    th = แผนที่ของฉัน
-    he =המפות שלי
-    sv =Mina kartor
-    sk =Moje mapy
-    id = Peta saya
-    vi = Bản đồ của tôi
-    ro = Hărțile mele
-    nb = Mine kart
-    fi = Karttani
-
   [downloader_queued]
     tags = ios,android,tizen
     comment = Country queued for download
@@ -7509,6 +7444,14 @@
     ro = în lista de așteptare
     nb = lagt i kø
     fi = jonossa
+
+  [downloader_near_me]
+    en = Near me
+    ru = Рядом со мной
+
+  [downloader_updatable_template]
+    en = Maps: %1$d (%2$s)
+    ru = Карт: %1$d (%2$s)
 
   [routing_disclaimer]
     tags = ios,android,tizen
@@ -13776,37 +13719,6 @@
     pl = Wybierz inną mapę
     nl = Selecteer een andere kaart
     pt = Selecionar Outro Mapa
-
-  [search_vehicle_routes]
-    tags = ios,android
-    en = Driving directions
-    ru = Автомобильные маршруты
-    fr = Indications routières
-    da = Kørselsvejledning
-    id = Petunjuk arah mengemudi
-    ko = 운전 방향
-    sv = Vägbeskrivning
-    tr = Trafik yönleri
-    uk = Напрямки руху
-    vi = Hướng dẫn lái xe
-    hu = Útvonaltervezés
-    de = Fahranweisungen
-    fi = Ajo-ohjeet
-    cs = Pokyny pro řízení
-    it = Indicazioni stradali
-    nb = Veibeskrivelser
-    zh-Hant = 駕車路線
-    zh-Hans = 驾车路线
-    th = เส้นทางการขับรถ
-    ja = 道案内
-    ro = Indicații rutiere
-    ar = اتجاهات القيادة
-    he = הוראות נסיעה
-    sk = Smer jazdy
-    es = Direcciones de conducción
-    pl = Wskazówki dojazdu
-    nl = Routebeschrijving
-    pt = Instruções de direção
 
   [show]
     tags = android
