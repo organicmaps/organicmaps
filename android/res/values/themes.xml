@@ -59,9 +59,13 @@
 
   <style name="MwmTheme.EditorActivity">
     <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/MwmWidget.Editor.TimePicker</item>
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
   </style>
 
-  <style name="MwmTheme.Night.EditorActivity" parent="MwmTheme.EditorActivity"/>
+  <style name="MwmTheme.Night.EditorActivity">
+    <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/MwmWidget.Editor.TimePicker</item>
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustResize</item>
+  </style>
 
   <style name="MwmTheme.DialogFragment.TitleStyle" parent="Base.DialogWindowTitle.AppCompat">
     <item name="android:textAppearance">@style/MwmTextAppearance.Title</item>
