@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "From sunrise to sunset";
 
+"sunset_to_sunrise" = "From sunset to sunrise";
+
 "add_opening_hours" = "Add opening hours";
 
 "edit_opening_hours" = "Edit opening hours";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "Don't have OpenStreetMap account?";
 
 "register_at_openstreetmap" = "Register at OpenStreetMap";
+
+"password_8_chars_min" = "Password (8 characters minimum)";
+
+"invalid_username_or_password" = "Invalid username or password.";
 
 "login" = "Log In";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "Not Sent";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "Last upload";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "changes";
@@ -1449,13 +1455,17 @@
 
 "thank_you" = "Thank You";
 
-"login_with_openstreetmap" = "Log in at www.openstreetmap.org";
+"login_with_google" = "Login with Google";
+
+"login_with_facebook" = "Login with Facebook";
+
+"login_with_openstreetmap" = "Log in with www.openstreetmap.org";
 
 "edit_place" = "Edit Place";
 
 "place_name" = "Place Name";
 
-"place_name_caption" = "Enter the name as it is on the sign of the place";
+"place_name_caption" = "Enter the name as on the sign or nameplate";
 
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Other Languages";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "Postal Code";
 
+"cuisine" = "Cuisine";
+
+"select_cuisine" = "Select Cuisine";
+
 /* login text field */
 "email_or_username" = "Email or username";
+
+"phone" = "Phone";
+
+"whats_new_editor_caption" = "Edit the map directly from MAPS.ME";
+
+"whats_new_editor_message" = "Your changes will help millions of users. Let's improve the world together!";

@@ -617,7 +617,7 @@
 "settings_and_more" = "Beállítások és egyéb";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Honlap";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "Napkeltétől napnyugtáig";
 
+"sunset_to_sunrise" = "Napkeltétől napnyugtáig";
+
 "add_opening_hours" = "Nyitvatartás hozzáadása";
 
 "edit_opening_hours" = "Nyitvatartás szerkesztése";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?";
 
 "register_at_openstreetmap" = "Regisztráció";
+
+"password_8_chars_min" = "Jelszó (legalább 8 karakter)";
+
+"invalid_username_or_password" = "Érvénytelen felhasználónév vagy jelszó.";
 
 "login" = "Bejelentkezés";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "Nincs elküldve";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "Utolsó frissítés";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "változtatás";
@@ -1449,16 +1455,20 @@
 
 "thank_you" = "Köszönjük";
 
+"login_with_google" = "Bejelentkezés Google- vel";
+
+"login_with_facebook" = "Bejelentkezés Facebookkal";
+
 "login_with_openstreetmap" = "Jelentkezz be a www.openstreetmap.org oldalon";
 
 "edit_place" = "Hely szerkesztése";
 
 "place_name" = "Hely neve";
 
-"place_name_caption" = "Add meg a nevet, ami a helyet jelzi";
+"place_name_caption" = "Adja meg a táblán vagy az utcatáblán megjelenő nevet";
 
 /* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Other Languages";
+"other_languages" = "Más nyelv";
 
 /* small button to open list with names in different languages */
 "show_more" = "Show More";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "Irányítószám";
 
+"cuisine" = "Konyha";
+
+"select_cuisine" = "Válassz Konyhát";
+
 /* login text field */
 "email_or_username" = "E-mail vagy felhasználónév";
+
+"phone" = "Telefonszám";
+
+"whats_new_editor_caption" = "Térkép szerkesztése közvetlenül a MAPS.ME-ből";
+
+"whats_new_editor_message" = "Javításaid felhasználóik millióinak fognak majd segíteni. Javítsunk együtt a világon!";

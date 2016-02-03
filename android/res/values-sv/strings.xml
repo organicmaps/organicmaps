@@ -388,6 +388,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Inställningar &amp; Mer</string>
 	<!-- Text in menu -->
+	<string name="website">Webbplats</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME Gemenskap</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Gilla på Facebook</string>
@@ -860,11 +862,14 @@
 	<string name="day_off">Stängt</string>
 	<string name="today">Idag</string>
 	<string name="sunrise_to_sunset">Från gryning till skymning</string>
+	<string name="sunset_to_sunrise">Från soluppgång till solnedgång</string>
 	<string name="add_opening_hours">Lägg till öppettider</string>
 	<string name="edit_opening_hours">Redigera öppettider</string>
 	<string name="profile">Profil</string>
 	<string name="no_osm_account">Inget konto hos OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registrera</string>
+	<string name="password_8_chars_min">Lösenord (minst 8 tecken)</string>
+	<string name="invalid_username_or_password">Fel användarnamn eller lösenord.</string>
 	<string name="login">Logga in</string>
 	<string name="password">Lösenord</string>
 	<string name="forgot_password">Glömt lösenord?</string>
@@ -877,15 +882,21 @@
 	<string name="logout">Logga ut</string>
 	<string name="login_and_edit_map_motivation_message">Logga in och redigera informationen om objekten på kartan så kommer vi att göra ändringarna tillgängliga för miljontals andra användare. Låt oss göra världen bättre tillsammans.</string>
 	<string name="not_sent">Ej skickat</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Senast uppladdad</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">ändringar</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Du har redigerat ditt första objekt!</string>
 	<string name="thank_you">Tack</string>
-	<string name="login_with_openstreetmap">Logga in på www.openstreetmap.org</string>
+	<string name="login_with_google">Logga in med Google</string>
+	<string name="login_with_facebook">Logga in med Facebook</string>
+	<string name="login_with_openstreetmap">Logga in med www.openstreetmap.org</string>
 	<string name="edit_place">Ändra platsen</string>
 	<string name="place_name">Platsens namn</string>
-	<string name="place_name_caption">Skriv in namnet så som det står på platsens skylt</string>
+	<string name="place_name_caption">Ange namnet som på skylten eller på namnbrickan</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Övriga språk</string>
 	<string name="add_language">Lägg till ett språk</string>
 	<string name="street">Gata</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -896,6 +907,11 @@
 	<string name="choose_language">Välj ett språk</string>
 	<string name="choose_street">Välj en gata</string>
 	<string name="postal_code">Postkod</string>
+	<string name="cuisine">Kök</string>
+	<string name="select_cuisine">Välj kök</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-postadress eller användarnamn</string>
+	<string name="phone">Telefon</string>
+	<string name="whats_new_editor_caption">Redigera kartan direkt från MAPS.ME</string>
+	<string name="whats_new_editor_message">Dina ändringar kommer att hjälpa miljontals användare. Låt oss förbättra världen tillsammans!</string>
 </resources>

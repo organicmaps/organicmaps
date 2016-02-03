@@ -374,6 +374,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">설정 및 기타</string>
 	<!-- Text in menu -->
+	<string name="website">웹사이트</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME 커뮤니티</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebook에서 좋아요</string>
@@ -848,11 +850,14 @@
 	<string name="day_off">휴가</string>
 	<string name="today">오늘</string>
 	<string name="sunrise_to_sunset">일출에서 일몰로</string>
+	<string name="sunset_to_sunrise">일출에서 일몰까지</string>
 	<string name="add_opening_hours">영업일 추가</string>
 	<string name="edit_opening_hours">영업일 편집</string>
 	<string name="profile">프로필</string>
 	<string name="no_osm_account">OpenStreetMap에서 계정이 없습니까?</string>
 	<string name="register_at_openstreetmap">등록</string>
+	<string name="password_8_chars_min">암호(최소 8자)</string>
+	<string name="invalid_username_or_password">잘못된 사용자 이름 또는 암호.</string>
 	<string name="login">로그인</string>
 	<string name="password">암호</string>
 	<string name="forgot_password">암호를 잊으 셨나요?</string>
@@ -865,15 +870,21 @@
 	<string name="logout">로그 아웃</string>
 	<string name="login_and_edit_map_motivation_message">로그인하고 지도 상의 개체 정보를 편집하면 다른 수백만 명의 사용자가 사용할 수 있도록 하겠습니다. 함께 더 나은 세상으로 만들어 봅시다.</string>
 	<string name="not_sent">전송되지 않음</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">마지막 업로드</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">가지 변경</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">로그인하고 전 세계 수백만 사람들을 위해 변화를 더하십시오!</string>
 	<string name="thank_you">고맙습니다.</string>
+	<string name="login_with_google">Google로 로그인</string>
+	<string name="login_with_facebook">Facebook으로 로그인</string>
 	<string name="login_with_openstreetmap">www.openstreetmap.org에 로그인</string>
 	<string name="edit_place">장소 편집</string>
 	<string name="place_name">지명</string>
-	<string name="place_name_caption">이 장소의 기호와 같이 이름 입력</string>
+	<string name="place_name_caption">기호 또는 이름판으로 이름 입력</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">다른 언어</string>
 	<string name="add_language">언어 추가</string>
 	<string name="street">거리</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -884,6 +895,11 @@
 	<string name="choose_language">언어 선택</string>
 	<string name="choose_street">거리 선택</string>
 	<string name="postal_code">우편 번호</string>
+	<string name="cuisine">요리</string>
+	<string name="select_cuisine">요리 선택</string>
 	<!-- login text field -->
 	<string name="email_or_username">이메일 또는 사용자 이름</string>
+	<string name="phone">전화</string>
+	<string name="whats_new_editor_caption">MAPS.ME 와 직접 지도 편집</string>
+	<string name="whats_new_editor_message">귀하의 변화는 수 백만 사용자를 도울 것입니다. 자 함께 세상의 발전을!</string>
 </resources>

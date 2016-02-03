@@ -388,6 +388,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Ayarlar &amp; Fazlası</string>
 	<!-- Text in menu -->
+	<string name="website">Web Sitesi</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME Topluluğu</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebook\&#39;da beğen</string>
@@ -862,11 +864,14 @@
 	<string name="day_off">İzin günü</string>
 	<string name="today">Bugün</string>
 	<string name="sunrise_to_sunset">Güneşin doğuşundan batışına kadar</string>
+	<string name="sunset_to_sunrise">Gün doğumundan gün batımına</string>
 	<string name="add_opening_hours">İş saatlerini ekle</string>
 	<string name="edit_opening_hours">İş saatlerini düzenle</string>
 	<string name="profile">Profil</string>
 	<string name="no_osm_account">OpenStreetMap\&#39; hesabın yok mu?</string>
 	<string name="register_at_openstreetmap">Kaydol</string>
+	<string name="password_8_chars_min">Şifre (en az 8 karakter)</string>
+	<string name="invalid_username_or_password">Geçersiz Kullanıcı Adı veya Şifre.</string>
 	<string name="login">Oturum aç</string>
 	<string name="password">Şifre</string>
 	<string name="forgot_password">Şifreni mi unuttun?</string>
@@ -879,15 +884,21 @@
 	<string name="logout">Oturumu kapat</string>
 	<string name="login_and_edit_map_motivation_message">Oturum aç ve haritada nesne bilgilerini düzenleyip diğer milyonlarca kullanıcıya aç. Birlikte dünyayı daha iyi bir yer haline getirelim.</string>
 	<string name="not_sent">Gönderilmedi</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Son yükleme</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">değişiklik</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">İlk nesneni düzenledin!</string>
 	<string name="thank_you">Teşekkür ederiz</string>
+	<string name="login_with_google">Google ile giriş</string>
+	<string name="login_with_facebook">Facebook ile giriş</string>
 	<string name="login_with_openstreetmap">www.openstreetmap.org adresinden oturum aç</string>
 	<string name="edit_place">Yeri düzenle</string>
 	<string name="place_name">Yer ismi</string>
-	<string name="place_name_caption">Yerin adını tabelada olduğu şekliyle girin</string>
+	<string name="place_name_caption">İşaret veya tabeladaki gibi ismi girin</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Diğer Diller</string>
 	<string name="add_language">Bir dil ekle</string>
 	<string name="street">Sokak</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -898,6 +909,11 @@
 	<string name="choose_language">Bir dil seç</string>
 	<string name="choose_street">Bir sokak seç</string>
 	<string name="postal_code">Posta kodu</string>
+	<string name="cuisine">Mutfak</string>
+	<string name="select_cuisine">Mutfak Seç</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-posta veya kullanıcı adı</string>
+	<string name="phone">Telefon</string>
+	<string name="whats_new_editor_caption">Haritayı doğrudan MAPS.ME\&#39;den düzenleyin</string>
+	<string name="whats_new_editor_message">Değişiklikleriniz milyonlarca kullanıcıya yardımcı olacaktır. Haydi dünyayı birlikte geliştirelim!</string>
 </resources>

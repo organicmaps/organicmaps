@@ -617,7 +617,7 @@
 "settings_and_more" = "Indstillinger & Mere";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Hjemmeside";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "Fra solopgang til solnedgang";
 
+"sunset_to_sunrise" = "Fra solnedgang til solopgang";
+
 "add_opening_hours" = "Tilføj arbejdstid";
 
 "edit_opening_hours" = "Rediger arbejdstid";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "Ingen konto på OpenStreetMap?";
 
 "register_at_openstreetmap" = "Tilmeld dig";
+
+"password_8_chars_min" = "Adgangskode (mindst 8 tegn)";
+
+"invalid_username_or_password" = "Ugyldigt brugernavn eller adgangskode.";
 
 "login" = "Log ind";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "Ikke sendt";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "Sidste overførsel";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "ændringer";
@@ -1449,16 +1455,20 @@
 
 "thank_you" = "Mange tak";
 
-"login_with_openstreetmap" = "Log ind på www.openstreetmap.org";
+"login_with_google" = "Log ind med Google";
+
+"login_with_facebook" = "Log ind med Facebook";
+
+"login_with_openstreetmap" = "Log ind med www.openstreetmap.org";
 
 "edit_place" = "Redigér stedet";
 
 "place_name" = "Navn på sted";
 
-"place_name_caption" = "Indtast navnet, som det står på skiltet for stedet";
+"place_name_caption" = "Indtast navnet, som det står på skiltet eller navneskiltet";
 
 /* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Other Languages";
+"other_languages" = "Andre sprog";
 
 /* small button to open list with names in different languages */
 "show_more" = "Show More";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "Postnummer";
 
+"cuisine" = "Køkken";
+
+"select_cuisine" = "Vælg køkken";
+
 /* login text field */
 "email_or_username" = "E-mail eller brugernavn";
+
+"phone" = "Telefon";
+
+"whats_new_editor_caption" = "Redigér kortet direkte fra MAPS.ME";
+
+"whats_new_editor_message" = "Dine ændringer vil hjælpe millioner af brugere. Lad os forbedre verden sammen!";

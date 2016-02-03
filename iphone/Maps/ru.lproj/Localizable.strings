@@ -617,7 +617,7 @@
 "settings_and_more" = "Настройки и другое";
 
 /* Text in menu */
-"website" = "Сайт";
+"website" = "Вебсайт";
 
 /* Text in menu */
 "blog" = "Блог";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "От рассвета до заката";
 
+"sunset_to_sunrise" = "От заката до рассвета";
+
 "add_opening_hours" = "Добавить время работы";
 
 "edit_opening_hours" = "Редактировать время работы";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "Не зарегистрированы в OpenStreetMap?";
 
 "register_at_openstreetmap" = "Зарегистрироваться";
+
+"password_8_chars_min" = "Пароль (минимум 8 символов)";
+
+"invalid_username_or_password" = "Неверное имя пользователя или пароль.";
 
 "login" = "Войти";
 
@@ -1449,13 +1455,17 @@
 
 "thank_you" = "Спасибо";
 
+"login_with_google" = "Войти через Google";
+
+"login_with_facebook" = "Войти через Facebook";
+
 "login_with_openstreetmap" = "Войти через www.openstreetmap.org";
 
 "edit_place" = "Редактировать место";
 
 "place_name" = "Название";
 
-"place_name_caption" = "Введите название, как на вывеске или табличке";
+"place_name_caption" = "Введите название как на табличке или вывеске";
 
 /* title above languages list cells in the editor, below editable name text field. */
 "other_languages" = "Другие языки";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "Почтовый индекс";
 
+"cuisine" = "Кухня";
+
+"select_cuisine" = "Выбрать кухню";
+
 /* login text field */
 "email_or_username" = "Эл. почта или имя пользователя";
+
+"phone" = "Телефон";
+
+"whats_new_editor_caption" = "Редактируйте карту прямо из MAPS.ME";
+
+"whats_new_editor_message" = "Ваши изменения помогут миллионам пользователей. Улучшим мир вместе!";

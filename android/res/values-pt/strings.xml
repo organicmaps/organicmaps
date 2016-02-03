@@ -379,6 +379,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Definições e Mais</string>
 	<!-- Text in menu -->
+	<string name="website">Site</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">Comunidade MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Gostar no Facebook</string>
@@ -853,11 +855,14 @@
 	<string name="day_off">Dia de folga</string>
 	<string name="today">Hoje</string>
 	<string name="sunrise_to_sunset">Do amanhecer ao anoitecer</string>
+	<string name="sunset_to_sunrise">Do pôr do sol ao amanhecer</string>
 	<string name="add_opening_hours">Adicionar horário de funcionamento</string>
 	<string name="edit_opening_hours">Editar horário de funcionamento</string>
 	<string name="profile">Perfil</string>
 	<string name="no_osm_account">Sem conta no OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Cadastrar-se</string>
+	<string name="password_8_chars_min">Senha (mínimo de 8 caracteres)</string>
+	<string name="invalid_username_or_password">Nome de usuário ou senha inválida.</string>
 	<string name="login">Acessar</string>
 	<string name="password">Senha</string>
 	<string name="forgot_password">Esqueceu sua senha?</string>
@@ -870,15 +875,21 @@
 	<string name="logout">Encerrar sessão</string>
 	<string name="login_and_edit_map_motivation_message">Acesse e edite informações dos objetos no mapa e eles serão disponibilizados para milhões de outros usuários. Vamos melhorar o mundo juntos.</string>
 	<string name="not_sent">Não enviado</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Último upload</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">alterações</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Você editou o seu primeiro objeto!</string>
 	<string name="thank_you">Obrigado</string>
-	<string name="login_with_openstreetmap">Acessar em www.openstreetmap.org</string>
+	<string name="login_with_google">Entrar com Google</string>
+	<string name="login_with_facebook">Entrar com Facebook</string>
+	<string name="login_with_openstreetmap">Entrar com www.openstreetmap.org</string>
 	<string name="edit_place">Editar o local</string>
 	<string name="place_name">Nome do local</string>
-	<string name="place_name_caption">Insira o nome da forma que está na placa do local</string>
+	<string name="place_name_caption">Informe o nome como está indicado na sinalização ou na placa</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Outros idiomas</string>
 	<string name="add_language">Adicionar um idioma</string>
 	<string name="street">Rua</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -889,6 +900,11 @@
 	<string name="choose_language">Escolher um idioma</string>
 	<string name="choose_street">Escolher uma rua</string>
 	<string name="postal_code">Código postal</string>
+	<string name="cuisine">Culinária</string>
+	<string name="select_cuisine">Selecione a Culinária</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-mail ou nome de usuário</string>
+	<string name="phone">Telefone</string>
+	<string name="whats_new_editor_caption">Modifique o mapa diretamente do MAPS.ME</string>
+	<string name="whats_new_editor_message">As suas alterações vão ajudar milhões de usuários. Vamos melhorar o mundo juntos!</string>
 </resources>

@@ -390,6 +390,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">设置及更多</string>
 	<!-- Text in menu -->
+	<string name="website">网站</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME社区</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">在Facebook 上点赞</string>
@@ -862,11 +864,14 @@
 	<string name="day_off">休息日</string>
 	<string name="today">今天</string>
 	<string name="sunrise_to_sunset">从日出到日落</string>
+	<string name="sunset_to_sunrise">从日落到日出</string>
 	<string name="add_opening_hours">添加工作时间</string>
 	<string name="edit_opening_hours">编辑工作时间</string>
 	<string name="profile">资料</string>
 	<string name="no_osm_account">OpenStreetMap上没有账户吗？</string>
 	<string name="register_at_openstreetmap">注册</string>
+	<string name="password_8_chars_min">密码（最少8个字符）</string>
+	<string name="invalid_username_or_password">无效的用户名或密码。</string>
 	<string name="login">登录</string>
 	<string name="password">密码</string>
 	<string name="forgot_password">忘记密码</string>
@@ -879,15 +884,21 @@
 	<string name="logout">登出</string>
 	<string name="login_and_edit_map_motivation_message">登录并编辑地图上的物品信息，我们就会让数百万其他用户看到。</string>
 	<string name="not_sent">让我们共同把世界变得更美好。</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">上次上传</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">次改变</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">您已编辑您的第一件物品！</string>
 	<string name="thank_you">谢谢您</string>
+	<string name="login_with_google">用谷歌登陆</string>
+	<string name="login_with_facebook">用脸书登陆</string>
 	<string name="login_with_openstreetmap">登录到www.openstreetmap.org</string>
 	<string name="edit_place">编辑地点</string>
 	<string name="place_name">地点名</string>
-	<string name="place_name_caption">输入地点标志上的名称</string>
+	<string name="place_name_caption">输入标识或名牌上的名称</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">其他语言</string>
 	<string name="add_language">添加语言</string>
 	<string name="street">街道</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -898,6 +909,11 @@
 	<string name="choose_language">选择语言</string>
 	<string name="choose_street">选择街道</string>
 	<string name="postal_code">邮政编码</string>
+	<string name="cuisine">菜肴</string>
+	<string name="select_cuisine">选择菜肴</string>
 	<!-- login text field -->
 	<string name="email_or_username">邮箱或用户名</string>
+	<string name="phone">电话</string>
+	<string name="whats_new_editor_caption">直接从MAPS.ME编辑地图</string>
+	<string name="whats_new_editor_message">您的修改将帮助上百万用户。让我们一起让世界变好！</string>
 </resources>

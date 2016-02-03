@@ -617,7 +617,7 @@
 "settings_and_more" = "Setări și altele";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Site web";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "De la răsărit până la apus";
 
+"sunset_to_sunrise" = "De la apus până la răsărit";
+
 "add_opening_hours" = "Adăugare ore de funcționare";
 
 "edit_opening_hours" = "Editare ore de funcționare";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "Nu aveți un cont în OpenStreetMap?";
 
 "register_at_openstreetmap" = "Înregistrați-vă";
+
+"password_8_chars_min" = "Parolă (minim 8 caractere)";
+
+"invalid_username_or_password" = "Nume de utilizator sau parolă incorecte.";
 
 "login" = "Autentificare";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "Nu a fost trimis";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "Ultima încărcare";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "modificări";
@@ -1449,16 +1455,20 @@
 
 "thank_you" = "Vă mulțumim";
 
-"login_with_openstreetmap" = "Autentificați-vă pe www.openstreetmap.org";
+"login_with_google" = "Logați-vă cu contul de Google";
+
+"login_with_facebook" = "Logați-vă cu contul de Facebook";
+
+"login_with_openstreetmap" = "Logați-vă cu contul de www.openstreetmap.org";
 
 "edit_place" = "Editați loc";
 
 "place_name" = "Denumire loc";
 
-"place_name_caption" = "Introduceți denumirea astfel cum apare aceasta pe semnul locului";
+"place_name_caption" = "Introduceți denumirea așa cum apare ea pe indicator sau plăcuță";
 
 /* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Other Languages";
+"other_languages" = "Alte limbi";
 
 /* small button to open list with names in different languages */
 "show_more" = "Show More";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "Cod postal";
 
+"cuisine" = "Bucătărie";
+
+"select_cuisine" = "Selectați tipul de bucătărie";
+
 /* login text field */
 "email_or_username" = "Adresa de e-mail sau numele de utilizator";
+
+"phone" = "Telefon";
+
+"whats_new_editor_caption" = "Editează harta direct de pe MAPS.ME";
+
+"whats_new_editor_message" = "Modificările tale vor ajuta milioane de utilizatori. Hai să facem lumea mai bună împreună!";

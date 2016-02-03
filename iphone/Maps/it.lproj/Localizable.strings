@@ -617,7 +617,7 @@
 "settings_and_more" = "Impostazioni e Altro";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Sito web";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "Dall'alba al tramonto";
 
+"sunset_to_sunrise" = "Dal tramonto all'alba";
+
 "add_opening_hours" = "Aggiungi orari di apertura";
 
 "edit_opening_hours" = "Modifica orari di apertura";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "Non hai un account su OpenStreetMap?";
 
 "register_at_openstreetmap" = "Registrati";
+
+"password_8_chars_min" = "Password (minimo 8 caratteri)";
+
+"invalid_username_or_password" = "Username o password non corretti.";
 
 "login" = "Accedi";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "Non inviato";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "Ultimo caricamento";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "modifiche";
@@ -1449,16 +1455,20 @@
 
 "thank_you" = "Grazie";
 
-"login_with_openstreetmap" = "Accedi su www.openstreetmap.org";
+"login_with_google" = "Accedi con Google";
+
+"login_with_facebook" = "Accedi con Facebook";
+
+"login_with_openstreetmap" = "Accedi con www.openstreetmap.org";
 
 "edit_place" = "Modifica il luogo";
 
 "place_name" = "Nome del luogo";
 
-"place_name_caption" = "Inserisci il nome così com'è scritto sul segnale del luogo";
+"place_name_caption" = "Inserisci il nome riportato nel segnale o nella targhetta";
 
 /* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Other Languages";
+"other_languages" = "Altre lingue";
 
 /* small button to open list with names in different languages */
 "show_more" = "Show More";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "Codice postale";
 
+"cuisine" = "Cucina";
+
+"select_cuisine" = "Seleziona la cucina";
+
 /* login text field */
 "email_or_username" = "E-mail o nome utente";
+
+"phone" = "Telefono";
+
+"whats_new_editor_caption" = "Modifica la mappa direttamente da MAPS.ME";
+
+"whats_new_editor_message" = "Le tue modifiche aiuteranno milioni di utenti. Cerchiamo di migliorare il mondo insieme!";

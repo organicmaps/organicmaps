@@ -617,7 +617,7 @@
 "settings_and_more" = "설정 및 기타";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "웹사이트";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "일출에서 일몰로";
 
+"sunset_to_sunrise" = "일출에서 일몰까지";
+
 "add_opening_hours" = "영업일 추가";
 
 "edit_opening_hours" = "영업일 편집";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "OpenStreetMap에서 계정이 없습니까?";
 
 "register_at_openstreetmap" = "등록";
+
+"password_8_chars_min" = "암호(최소 8자)";
+
+"invalid_username_or_password" = "잘못된 사용자 이름 또는 암호.";
 
 "login" = "로그인";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "전송되지 않음";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "마지막 업로드";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "가지 변경";
@@ -1449,16 +1455,20 @@
 
 "thank_you" = "고맙습니다.";
 
+"login_with_google" = "Google로 로그인";
+
+"login_with_facebook" = "Facebook으로 로그인";
+
 "login_with_openstreetmap" = "www.openstreetmap.org에 로그인";
 
 "edit_place" = "장소 편집";
 
 "place_name" = "지명";
 
-"place_name_caption" = "이 장소의 기호와 같이 이름 입력";
+"place_name_caption" = "기호 또는 이름판으로 이름 입력";
 
 /* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Other Languages";
+"other_languages" = "다른 언어";
 
 /* small button to open list with names in different languages */
 "show_more" = "Show More";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "우편 번호";
 
+"cuisine" = "요리";
+
+"select_cuisine" = "요리 선택";
+
 /* login text field */
 "email_or_username" = "이메일 또는 사용자 이름";
+
+"phone" = "전화";
+
+"whats_new_editor_caption" = "MAPS.ME 와 직접 지도 편집";
+
+"whats_new_editor_message" = "귀하의 변화는 수 백만 사용자를 도울 것입니다. 자 함께 세상의 발전을!";

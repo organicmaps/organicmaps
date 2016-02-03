@@ -891,11 +891,14 @@
 	<string name="day_off">Day off</string>
 	<string name="today">Today</string>
 	<string name="sunrise_to_sunset">From sunrise to sunset</string>
+	<string name="sunset_to_sunrise">From sunset to sunrise</string>
 	<string name="add_opening_hours">Add opening hours</string>
 	<string name="edit_opening_hours">Edit opening hours</string>
 	<string name="profile">Profile</string>
 	<string name="no_osm_account">Don\&#39;t have OpenStreetMap account?</string>
 	<string name="register_at_openstreetmap">Register at OpenStreetMap</string>
+	<string name="password_8_chars_min">Password (8 characters minimum)</string>
+	<string name="invalid_username_or_password">Invalid username or password.</string>
 	<string name="login">Log In</string>
 	<string name="password">Password</string>
 	<string name="forgot_password">Forgot password?</string>
@@ -909,16 +912,18 @@
 	<string name="login_and_edit_map_motivation_message">Log in and edit objects on the map, and we will make them available for millions of users. Let’s make the world better together.</string>
 	<string name="not_sent">Not Sent</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
-	<string name="last_upload">Last Upload</string>
+	<string name="last_upload">Last upload</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">changes</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">You’ve edited your first object!</string>
 	<string name="thank_you">Thank You</string>
-	<string name="login_with_openstreetmap">Log in at www.openstreetmap.org</string>
+	<string name="login_with_google">Login with Google</string>
+	<string name="login_with_facebook">Login with Facebook</string>
+	<string name="login_with_openstreetmap">Log in with www.openstreetmap.org</string>
 	<string name="edit_place">Edit Place</string>
 	<string name="place_name">Place Name</string>
-	<string name="place_name_caption">Enter the name as it is on the sign of the place</string>
+	<string name="place_name_caption">Enter the name as on the sign or nameplate</string>
 	<!-- title above languages list cells in the editor, below editable name text field. -->
 	<string name="other_languages">Other Languages</string>
 	<!-- small button to open list with names in different languages -->
@@ -935,6 +940,11 @@
 	<string name="choose_language">Choose a language</string>
 	<string name="choose_street">Choose a street</string>
 	<string name="postal_code">Postal Code</string>
+	<string name="cuisine">Cuisine</string>
+	<string name="select_cuisine">Select Cuisine</string>
 	<!-- login text field -->
 	<string name="email_or_username">Email or username</string>
+	<string name="phone">Phone</string>
+	<string name="whats_new_editor_caption">Edit the map directly from MAPS.ME</string>
+	<string name="whats_new_editor_message">Your changes will help millions of users. Let\&#39;s improve the world together!</string>
 </resources>

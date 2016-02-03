@@ -617,7 +617,7 @@
 "settings_and_more" = "Thiết lập &amp; Khác";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Trang web";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "Từ bình minh đến hoàng hôn";
 
+"sunset_to_sunrise" = "Từ hoàng hôn đến bình minh";
+
 "add_opening_hours" = "Thêm giờ làm việc";
 
 "edit_opening_hours" = "Sửa giờ làm việc";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "Bạn chưa có tài khoản tại OpenStreetMap ư?";
 
 "register_at_openstreetmap" = "Đăng ký";
+
+"password_8_chars_min" = "Mật khẩu (tối thiểu 8 ký tự)";
+
+"invalid_username_or_password" = "Sai Tên người dùng hoặc Mật khẩu.";
 
 "login" = "Đăng nhập";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "Chưa được gửi";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "Tải lên mới nhất";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "thay đổi";
@@ -1449,16 +1455,20 @@
 
 "thank_you" = "Cảm ơn bạn";
 
-"login_with_openstreetmap" = "Đăng nhập tại www.openstreetmap.org";
+"login_with_google" = "Đăng nhập với Google";
+
+"login_with_facebook" = "Đăng nhập với Facebook";
+
+"login_with_openstreetmap" = "Đăng nhập với www.openstreetmap.org";
 
 "edit_place" = "Chỉnh sửa địa điểm";
 
 "place_name" = "Tên địa điểm";
 
-"place_name_caption" = "Nhập tên như nó trên dấu hiệu của địa điểm";
+"place_name_caption" = "Nhập tên theo như trên chữ ký hoặc biển tên";
 
 /* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Other Languages";
+"other_languages" = "Ngôn ngữ khác";
 
 /* small button to open list with names in different languages */
 "show_more" = "Show More";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "Mã bưu chính";
 
+"cuisine" = "Ẩm thực";
+
+"select_cuisine" = "Chọn Ẩm thực";
+
 /* login text field */
 "email_or_username" = "E-mail hoặc tên người dùng";
+
+"phone" = "Điện thoại";
+
+"whats_new_editor_caption" = "Chỉnh sửa bản đồ trực tiếp từ MAPS.ME";
+
+"whats_new_editor_message" = "Thay đổi của bạn sẽ giúp cho hàng triệu người dùng. Hãy cùng nhau cải thiện thế giới!";

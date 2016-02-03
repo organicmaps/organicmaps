@@ -617,7 +617,7 @@
 "settings_and_more" = "设置及更多";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "网站";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "从日出到日落";
 
+"sunset_to_sunrise" = "从日落到日出";
+
 "add_opening_hours" = "添加工作时间";
 
 "edit_opening_hours" = "编辑工作时间";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "OpenStreetMap上没有账户吗？";
 
 "register_at_openstreetmap" = "注册";
+
+"password_8_chars_min" = "密码（最少8个字符）";
+
+"invalid_username_or_password" = "无效的用户名或密码。";
 
 "login" = "登录";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "让我们共同把世界变得更美好。";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "上次上传";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "次改变";
@@ -1449,16 +1455,20 @@
 
 "thank_you" = "谢谢您";
 
+"login_with_google" = "用谷歌登陆";
+
+"login_with_facebook" = "用脸书登陆";
+
 "login_with_openstreetmap" = "登录到www.openstreetmap.org";
 
 "edit_place" = "编辑地点";
 
 "place_name" = "地点名";
 
-"place_name_caption" = "输入地点标志上的名称";
+"place_name_caption" = "输入标识或名牌上的名称";
 
 /* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Other Languages";
+"other_languages" = "其他语言";
 
 /* small button to open list with names in different languages */
 "show_more" = "Show More";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "邮政编码";
 
+"cuisine" = "菜肴";
+
+"select_cuisine" = "选择菜肴";
+
 /* login text field */
 "email_or_username" = "邮箱或用户名";
+
+"phone" = "电话";
+
+"whats_new_editor_caption" = "直接从MAPS.ME编辑地图";
+
+"whats_new_editor_message" = "您的修改将帮助上百万用户。让我们一起让世界变好！";

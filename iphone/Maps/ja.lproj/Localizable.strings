@@ -617,7 +617,7 @@
 "settings_and_more" = "設定&その他";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "ウェブサイト";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "日の出から日没まで";
 
+"sunset_to_sunrise" = "日の出から日没まで";
+
 "add_opening_hours" = "営業時間を追加";
 
 "edit_opening_hours" = "営業時間を編集";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "OpenStreetMapのアカウントがありませんか？";
 
 "register_at_openstreetmap" = "登録";
+
+"password_8_chars_min" = "パスワード(最低8文字)";
+
+"invalid_username_or_password" = "ユーザー名またはパスワードが無効です。";
 
 "login" = "ログイン";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "送信されませんでした";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "最終更新";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "つの変更点";
@@ -1449,16 +1455,20 @@
 
 "thank_you" = "ありがとうございます";
 
+"login_with_google" = "Googleでログイン";
+
+"login_with_facebook" = "Facebookでログイン";
+
 "login_with_openstreetmap" = "www.openstreetmap.orgでログインしてください";
 
 "edit_place" = "場所を編集";
 
 "place_name" = "場所の名前";
 
-"place_name_caption" = "この場所の看板通りに名前を入力してください";
+"place_name_caption" = "標識や表札の地名を入力";
 
 /* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Other Languages";
+"other_languages" = "その他の言語";
 
 /* small button to open list with names in different languages */
 "show_more" = "Show More";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "郵便番号";
 
+"cuisine" = "料理";
+
+"select_cuisine" = "料理を選択";
+
 /* login text field */
 "email_or_username" = "メールアドレスまたはユーザー名";
+
+"phone" = "電話";
+
+"whats_new_editor_caption" = "MAPS.MEで直接地図を編集可能";
+
+"whats_new_editor_message" = "地図を修正すると、何百万人ものユーザーの役に立ちます。一緒に世界を改善していきましょう！";

@@ -382,6 +382,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Thiết lập &amp;amp; Khác</string>
 	<!-- Text in menu -->
+	<string name="website">Trang web</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">Cộng đồng MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Thích trên Facebook</string>
@@ -856,11 +858,14 @@
 	<string name="day_off">Ngày nghỉ</string>
 	<string name="today">Hôm nay</string>
 	<string name="sunrise_to_sunset">Từ bình minh đến hoàng hôn</string>
+	<string name="sunset_to_sunrise">Từ hoàng hôn đến bình minh</string>
 	<string name="add_opening_hours">Thêm giờ làm việc</string>
 	<string name="edit_opening_hours">Sửa giờ làm việc</string>
 	<string name="profile">Hồ sơ</string>
 	<string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
 	<string name="register_at_openstreetmap">Đăng ký</string>
+	<string name="password_8_chars_min">Mật khẩu (tối thiểu 8 ký tự)</string>
+	<string name="invalid_username_or_password">Sai Tên người dùng hoặc Mật khẩu.</string>
 	<string name="login">Đăng nhập</string>
 	<string name="password">Mật khẩu</string>
 	<string name="forgot_password">Quên mật khẩu?</string>
@@ -873,15 +878,21 @@
 	<string name="logout">Đăng xuất</string>
 	<string name="login_and_edit_map_motivation_message">Đăng nhập và chỉnh sửa thông tin của các đối tượng trên bản đồ và chúng tôi sẽ hiển thị chúng cho hàng triệu người dùng khác. Hãy cùng nhau làm cho thế giới tốt đẹp hơn.</string>
 	<string name="not_sent">Chưa được gửi</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Tải lên mới nhất</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">thay đổi</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Bạn đã chỉnh sửa đối tượng đầu tiên của mình!</string>
 	<string name="thank_you">Cảm ơn bạn</string>
-	<string name="login_with_openstreetmap">Đăng nhập tại www.openstreetmap.org</string>
+	<string name="login_with_google">Đăng nhập với Google</string>
+	<string name="login_with_facebook">Đăng nhập với Facebook</string>
+	<string name="login_with_openstreetmap">Đăng nhập với www.openstreetmap.org</string>
 	<string name="edit_place">Chỉnh sửa địa điểm</string>
 	<string name="place_name">Tên địa điểm</string>
-	<string name="place_name_caption">Nhập tên như nó trên dấu hiệu của địa điểm</string>
+	<string name="place_name_caption">Nhập tên theo như trên chữ ký hoặc biển tên</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Ngôn ngữ khác</string>
 	<string name="add_language">Thêm ngôn ngữ</string>
 	<string name="street">Đường</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -892,6 +903,11 @@
 	<string name="choose_language">Đã chọn ngôn ngữ</string>
 	<string name="choose_street">Đã chọn con đường</string>
 	<string name="postal_code">Mã bưu chính</string>
+	<string name="cuisine">Ẩm thực</string>
+	<string name="select_cuisine">Chọn Ẩm thực</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-mail hoặc tên người dùng</string>
+	<string name="phone">Điện thoại</string>
+	<string name="whats_new_editor_caption">Chỉnh sửa bản đồ trực tiếp từ MAPS.ME</string>
+	<string name="whats_new_editor_message">Thay đổi của bạn sẽ giúp cho hàng triệu người dùng. Hãy cùng nhau cải thiện thế giới!</string>
 </resources>

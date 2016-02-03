@@ -617,7 +617,7 @@
 "settings_and_more" = "Ayarlar & Fazlası";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Web Sitesi";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "Güneşin doğuşundan batışına kadar";
 
+"sunset_to_sunrise" = "Gün doğumundan gün batımına";
+
 "add_opening_hours" = "İş saatlerini ekle";
 
 "edit_opening_hours" = "İş saatlerini düzenle";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "OpenStreetMap' hesabın yok mu?";
 
 "register_at_openstreetmap" = "Kaydol";
+
+"password_8_chars_min" = "Şifre (en az 8 karakter)";
+
+"invalid_username_or_password" = "Geçersiz Kullanıcı Adı veya Şifre.";
 
 "login" = "Oturum aç";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "Gönderilmedi";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "Son yükleme";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "değişiklik";
@@ -1449,16 +1455,20 @@
 
 "thank_you" = "Teşekkür ederiz";
 
+"login_with_google" = "Google ile giriş";
+
+"login_with_facebook" = "Facebook ile giriş";
+
 "login_with_openstreetmap" = "www.openstreetmap.org adresinden oturum aç";
 
 "edit_place" = "Yeri düzenle";
 
 "place_name" = "Yer ismi";
 
-"place_name_caption" = "Yerin adını tabelada olduğu şekliyle girin";
+"place_name_caption" = "İşaret veya tabeladaki gibi ismi girin";
 
 /* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Other Languages";
+"other_languages" = "Diğer Diller";
 
 /* small button to open list with names in different languages */
 "show_more" = "Show More";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "Posta kodu";
 
+"cuisine" = "Mutfak";
+
+"select_cuisine" = "Mutfak Seç";
+
 /* login text field */
 "email_or_username" = "E-posta veya kullanıcı adı";
+
+"phone" = "Telefon";
+
+"whats_new_editor_caption" = "Haritayı doğrudan MAPS.ME'den düzenleyin";
+
+"whats_new_editor_message" = "Değişiklikleriniz milyonlarca kullanıcıya yardımcı olacaktır. Haydi dünyayı birlikte geliştirelim!";

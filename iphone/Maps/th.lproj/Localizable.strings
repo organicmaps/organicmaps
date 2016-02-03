@@ -617,7 +617,7 @@
 "settings_and_more" = "การตั้งค่า & อื่น ๆ";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "เว็บไซต์";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1405,6 +1405,8 @@
 
 "sunrise_to_sunset" = "ตั้งแต่พระอาทิตย์ขึ้นจนพระอาทิตย์ตก";
 
+"sunset_to_sunrise" = "ตั้งแต่พระอาทิตย์ตกจนพระอาทิตย์ขึ้น";
+
 "add_opening_hours" = "เพิ่มชั่วโมงทำการ";
 
 "edit_opening_hours" = "แก้ไขชั่วโมงทำการ";
@@ -1414,6 +1416,10 @@
 "no_osm_account" = "ไม่มีบัญชีใน OpenStreetMap?";
 
 "register_at_openstreetmap" = "ลงทะเบียน";
+
+"password_8_chars_min" = "รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)";
+
+"invalid_username_or_password" = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
 
 "login" = "ล็อกอิน";
 
@@ -1439,7 +1445,7 @@
 "not_sent" = "ไม่มีการส่ง";
 
 /* Information text: "Last upload 11.01.2016" */
-"last_upload" = "Last Upload";
+"last_upload" = "อัปโหลดครั้งสุดท้าย";
 
 /* The number of changes made. As in "changes: 123". */
 "changes" = "การเปลี่ยนแปลง";
@@ -1449,16 +1455,20 @@
 
 "thank_you" = "ขอบพระคุณ";
 
+"login_with_google" = "ล็อกอินด้วย Google";
+
+"login_with_facebook" = "ล็อกอินด้วย Facebook";
+
 "login_with_openstreetmap" = "ล็อกอินที่ www.openstreetmap.org";
 
 "edit_place" = "แก้ไขสถานที่";
 
 "place_name" = "ชื่อสถานที่";
 
-"place_name_caption" = "ใส่ชื่อเนื่องจากมันอยู่บนสัญลักษณ์ของสถานที่";
+"place_name_caption" = "กรอกชื่อตามที่แสดงในสัญลักษณ์หรือป้ายแสดงชื่อ";
 
 /* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Other Languages";
+"other_languages" = "ภาษาอื่น ๆ";
 
 /* small button to open list with names in different languages */
 "show_more" = "Show More";
@@ -1484,5 +1494,15 @@
 
 "postal_code" = "รหัสไปรษณีย์";
 
+"cuisine" = "ประเภทอาหาร";
+
+"select_cuisine" = "เลือกประเภทอาหาร";
+
 /* login text field */
 "email_or_username" = "อีเมลหรือชื่อผู้ใช้";
+
+"phone" = "โทรศัพท์";
+
+"whats_new_editor_caption" = "แก้ไขแผนที่โดยตรงจาก MAPS.ME";
+
+"whats_new_editor_message" = "การแก้ไขของคุณจะช่วยผู้ใช้หลายล้านคนได้ มาช่วยทำให้โลกน่าอยู่ขึ้น!";

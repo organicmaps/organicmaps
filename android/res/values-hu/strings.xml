@@ -383,6 +383,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Beállítások és egyéb</string>
 	<!-- Text in menu -->
+	<string name="website">Honlap</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME közösség</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Lájkolj minket Facebookon</string>
@@ -857,11 +859,14 @@
 	<string name="day_off">Szabadnap</string>
 	<string name="today">Ma</string>
 	<string name="sunrise_to_sunset">Napkeltétől napnyugtáig</string>
+	<string name="sunset_to_sunrise">Napkeltétől napnyugtáig</string>
 	<string name="add_opening_hours">Nyitvatartás hozzáadása</string>
 	<string name="edit_opening_hours">Nyitvatartás szerkesztése</string>
 	<string name="profile">Profil</string>
 	<string name="no_osm_account">Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?</string>
 	<string name="register_at_openstreetmap">Regisztráció</string>
+	<string name="password_8_chars_min">Jelszó (legalább 8 karakter)</string>
+	<string name="invalid_username_or_password">Érvénytelen felhasználónév vagy jelszó.</string>
 	<string name="login">Bejelentkezés</string>
 	<string name="password">Jelszó</string>
 	<string name="forgot_password">Elfelejtett jelszó?</string>
@@ -874,15 +879,21 @@
 	<string name="logout">Kijelentkezés</string>
 	<string name="login_and_edit_map_motivation_message">Jelentkezz be és szerkeszd az egyes objektumokhoz tartozó információkat a térképen, valamint tedd őket elérhetővé több millió felhasználó számára.</string>
 	<string name="not_sent">Nincs elküldve</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Utolsó frissítés</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">változtatás</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Szerkesztetted az első objektumod!</string>
 	<string name="thank_you">Köszönjük</string>
+	<string name="login_with_google">Bejelentkezés Google- vel</string>
+	<string name="login_with_facebook">Bejelentkezés Facebookkal</string>
 	<string name="login_with_openstreetmap">Jelentkezz be a www.openstreetmap.org oldalon</string>
 	<string name="edit_place">Hely szerkesztése</string>
 	<string name="place_name">Hely neve</string>
-	<string name="place_name_caption">Add meg a nevet, ami a helyet jelzi</string>
+	<string name="place_name_caption">Adja meg a táblán vagy az utcatáblán megjelenő nevet</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Más nyelv</string>
 	<string name="add_language">Nyelv hozzáadása</string>
 	<string name="street">Utca</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -893,6 +904,11 @@
 	<string name="choose_language">Nyelv kiválasztása</string>
 	<string name="choose_street">Utca kiválasztása</string>
 	<string name="postal_code">Irányítószám</string>
+	<string name="cuisine">Konyha</string>
+	<string name="select_cuisine">Válassz Konyhát</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-mail vagy felhasználónév</string>
+	<string name="phone">Telefonszám</string>
+	<string name="whats_new_editor_caption">Térkép szerkesztése közvetlenül a MAPS.ME-ből</string>
+	<string name="whats_new_editor_message">Javításaid felhasználóik millióinak fognak majd segíteni. Javítsunk együtt a világon!</string>
 </resources>

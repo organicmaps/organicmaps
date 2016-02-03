@@ -374,6 +374,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Instellingen &amp; meer</string>
 	<!-- Text in menu -->
+	<string name="website">Website</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">Gemeenschap van MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Ons leuk vinden op Facebook</string>
@@ -846,11 +848,14 @@
 	<string name="day_off">Vrije dag</string>
 	<string name="today">Vandaag</string>
 	<string name="sunrise_to_sunset">Van zonsopgang tot zonsondergang</string>
+	<string name="sunset_to_sunrise">Van zonsondergang tot zonsopgang</string>
 	<string name="add_opening_hours">Openingsuren toevoegen</string>
 	<string name="edit_opening_hours">Openingsuren bewerken</string>
 	<string name="profile">Profiel</string>
 	<string name="no_osm_account">Geen account bij OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registeren</string>
+	<string name="password_8_chars_min">Wachtwoord (minimaal 8 tekens)</string>
+	<string name="invalid_username_or_password">Ongeldige gebruikersnaam of ongeldig wachtwoord.</string>
 	<string name="login">Log in</string>
 	<string name="password">Wachtwoord</string>
 	<string name="forgot_password">Wachtwoord vergeten?</string>
@@ -863,15 +868,21 @@
 	<string name="logout">Uitloggen</string>
 	<string name="login_and_edit_map_motivation_message">Log in en bewerk gegevens van de objecten op de kaart, dan zullen wij ze beschikbaar maken voor miljoenen andere gebruikers. Laten we samen de wereld beter maken.</string>
 	<string name="not_sent">Niet verzonden</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Laatste upload</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">wijzigingen</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Je hebt je eerste object aangepast!</string>
 	<string name="thank_you">Dank je wel</string>
-	<string name="login_with_openstreetmap">Log in op www.openstreetmap.org</string>
+	<string name="login_with_google">Aanmelden met Google</string>
+	<string name="login_with_facebook">Aanmelden met Facebook</string>
+	<string name="login_with_openstreetmap">Aanmelden met www.openstreetmap.org</string>
 	<string name="edit_place">De locatie bewerken</string>
 	<string name="place_name">Locatienaam</string>
-	<string name="place_name_caption">Voer de naam in zoals die op het bord van de locatie wordt weergegeven</string>
+	<string name="place_name_caption">Voer de naam in zoals die op het bord of naamplaatje wordt weergegeven</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Overige talen</string>
 	<string name="add_language">Een taal toevoegen</string>
 	<string name="street">Straat</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -882,6 +893,11 @@
 	<string name="choose_language">Een taal kiezen</string>
 	<string name="choose_street">Een straat kiezen</string>
 	<string name="postal_code">Postcode</string>
+	<string name="cuisine">Keuken</string>
+	<string name="select_cuisine">Selecteer Keuken</string>
 	<!-- login text field -->
 	<string name="email_or_username">E-mailadres of gebruikersnaam</string>
+	<string name="phone">Telefoonnummer</string>
+	<string name="whats_new_editor_caption">Bewerk de kaart direct vanuit MAPS.ME</string>
+	<string name="whats_new_editor_message">Jouw wijzigingen zullen miljoenen gebruikers helpen. Laten we samen de wereld verbeteren!</string>
 </resources>

@@ -381,6 +381,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">設定&amp;その他</string>
 	<!-- Text in menu -->
+	<string name="website">ウェブサイト</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.MEコミュニティ</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebookでいいねをクリック</string>
@@ -855,11 +857,14 @@
 	<string name="day_off">休み</string>
 	<string name="today">今日は</string>
 	<string name="sunrise_to_sunset">日の出から日没まで</string>
+	<string name="sunset_to_sunrise">日の出から日没まで</string>
 	<string name="add_opening_hours">営業時間を追加</string>
 	<string name="edit_opening_hours">営業時間を編集</string>
 	<string name="profile">プロフィール</string>
 	<string name="no_osm_account">OpenStreetMapのアカウントがありませんか？</string>
 	<string name="register_at_openstreetmap">登録</string>
+	<string name="password_8_chars_min">パスワード(最低8文字)</string>
+	<string name="invalid_username_or_password">ユーザー名またはパスワードが無効です。</string>
 	<string name="login">ログイン</string>
 	<string name="password">パスワード</string>
 	<string name="forgot_password">パスワードをお忘れですか？</string>
@@ -872,15 +877,21 @@
 	<string name="logout">ログアウト</string>
 	<string name="login_and_edit_map_motivation_message">ログインしてマップ上のオブジェクトの詳細を編集すると、何百万人もの他のユーザーがその情報を利用できるようになります。一緒により良い世界を作りましょう。</string>
 	<string name="not_sent">送信されませんでした</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">最終更新</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">つの変更点</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">初めてオブジェクトを編集しました！</string>
 	<string name="thank_you">ありがとうございます</string>
+	<string name="login_with_google">Googleでログイン</string>
+	<string name="login_with_facebook">Facebookでログイン</string>
 	<string name="login_with_openstreetmap">www.openstreetmap.orgでログインしてください</string>
 	<string name="edit_place">場所を編集</string>
 	<string name="place_name">場所の名前</string>
-	<string name="place_name_caption">この場所の看板通りに名前を入力してください</string>
+	<string name="place_name_caption">標識や表札の地名を入力</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">その他の言語</string>
 	<string name="add_language">言語を追加</string>
 	<string name="street">通り</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -891,6 +902,11 @@
 	<string name="choose_language">言語を選択</string>
 	<string name="choose_street">通りを選択</string>
 	<string name="postal_code">郵便番号</string>
+	<string name="cuisine">料理</string>
+	<string name="select_cuisine">料理を選択</string>
 	<!-- login text field -->
 	<string name="email_or_username">メールアドレスまたはユーザー名</string>
+	<string name="phone">電話</string>
+	<string name="whats_new_editor_caption">MAPS.MEで直接地図を編集可能</string>
+	<string name="whats_new_editor_message">地図を修正すると、何百万人ものユーザーの役に立ちます。一緒に世界を改善していきましょう！</string>
 </resources>

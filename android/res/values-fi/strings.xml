@@ -382,6 +382,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Asetukset &amp;amp; Lisää</string>
 	<!-- Text in menu -->
+	<string name="website">Kotisivut</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME -yhteisö</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Tykkää meistä Facebookissa</string>
@@ -856,11 +858,14 @@
 	<string name="day_off">Vapaapäivä</string>
 	<string name="today">Tänään</string>
 	<string name="sunrise_to_sunset">Auringonnoususta auringonlaskuun</string>
+	<string name="sunset_to_sunrise">Auringonnoususta auringonlaskuun</string>
 	<string name="add_opening_hours">Lisää aukioloajat</string>
 	<string name="edit_opening_hours">Muokkaa aukioloaikoja</string>
 	<string name="profile">Profiili</string>
 	<string name="no_osm_account">Eikö sinulla ole tiliä OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Rekisteröidy</string>
+	<string name="password_8_chars_min">Salasana (vähintään 8 merkkiä)</string>
+	<string name="invalid_username_or_password">Virheellinen Käyttäjätunnus tai Salasana</string>
 	<string name="login">Kirjaudu sisään</string>
 	<string name="password">Salasana</string>
 	<string name="forgot_password">Unohtuiko salasana?</string>
@@ -873,15 +878,21 @@
 	<string name="logout">Kirjaudu ulos</string>
 	<string name="login_and_edit_map_motivation_message">Kirjaudu sisään ja muokkaa kartan kohteiden tietoja, ja me asetamme kohteet miljoonien muiden käyttäjien saataville. Tehdään maailmasta yhdessä parempi paikka.</string>
 	<string name="not_sent">Ei lähetetty</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Viimeisin lisäys</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">muutosta</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">Olet muokannut ensimmäistä kohdettasi!</string>
 	<string name="thank_you">Kiitos</string>
+	<string name="login_with_google">Kirjaudu sisään Google-tunnuksillasi</string>
+	<string name="login_with_facebook">Kirjaudu sisään Facebook-tunnuksillasi</string>
 	<string name="login_with_openstreetmap">Kirjaudu sisään osoitteessa www.openstreetmap.org</string>
 	<string name="edit_place">Muokkaa sijaintia</string>
 	<string name="place_name">Paikan nimi</string>
-	<string name="place_name_caption">Syötä paikan nimi siinä muodossa kun se kyltissä on</string>
+	<string name="place_name_caption">Syötä nimi kuten nimikyltissä kirjoitettu</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Muut Kielet</string>
 	<string name="add_language">Lisää kieli</string>
 	<string name="street">Katu</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -892,6 +903,11 @@
 	<string name="choose_language">Valitse kieli</string>
 	<string name="choose_street">Valitse katu</string>
 	<string name="postal_code">Postikoodi</string>
+	<string name="cuisine">Ruokalaji</string>
+	<string name="select_cuisine">Valitse Ruokalaji</string>
 	<!-- login text field -->
 	<string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
+	<string name="phone">Puhelinnumero</string>
+	<string name="whats_new_editor_caption">Muokkaa karttoja suoraan MAPS.ME -sovelluksessa</string>
+	<string name="whats_new_editor_message">Muokkauksesi auttavat miljoonia käyttäjiä — parannetaan maailmaa yhdessä!</string>
 </resources>

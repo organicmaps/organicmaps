@@ -388,6 +388,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">الإعدادات والمزيد</string>
 	<!-- Text in menu -->
+	<string name="website">الموقع الإلكتروني</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">مجتمع MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">أعجبني على الفيسبوك</string>
@@ -862,11 +864,14 @@
 	<string name="day_off">عطلة</string>
 	<string name="today">اليوم</string>
 	<string name="sunrise_to_sunset">من الشروق إلى المغيب</string>
+	<string name="sunset_to_sunrise">من غروب الشمس وحتى الشروق</string>
 	<string name="add_opening_hours">اضف ساعات عمل</string>
 	<string name="edit_opening_hours">حرر ساعات عمل</string>
 	<string name="profile">الملف الشخصي</string>
 	<string name="no_osm_account">ليس لديك حساب في OpenStreetMap؟</string>
 	<string name="register_at_openstreetmap">التسجيل</string>
+	<string name="password_8_chars_min">كلمة المرور (8 أحرف بحد أدنى)</string>
+	<string name="invalid_username_or_password">اسم المستخدم أو كلمة المرور غير صالحة.</string>
 	<string name="login">تسجيل الدخول</string>
 	<string name="password">كلمة المرور</string>
 	<string name="forgot_password">هل نسيت كلمة المرور؟</string>
@@ -879,15 +884,21 @@
 	<string name="logout">تسجيل الخروج</string>
 	<string name="login_and_edit_map_motivation_message">قم بتسجيل الدخول وعدل البيانات الخاصة بالمكان على الخريطة وسنجعلها متاحة لملايين المستخدمين الآخرين. لنجعل العالم أفضل معا.</string>
 	<string name="not_sent">لم ترسل</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">آخر تحميل</string>
 	<!-- The number of changes made. As in "changes: 123". -->
 	<string name="changes">تغييرات</string>
 	<!-- Motivates user to login/register, title above login buttons. -->
 	<string name="you_have_edited_your_first_object">لقد قمت بتعديلك الأول!</string>
 	<string name="thank_you">شكرا لك</string>
+	<string name="login_with_google">تسجيل الدخول عبر جوجل</string>
+	<string name="login_with_facebook">تسجيل الدخول عبر فيسبوك</string>
 	<string name="login_with_openstreetmap">قم بتسجيل الدخول في www.openstreetmap.org</string>
 	<string name="edit_place">تعديل المكان</string>
 	<string name="place_name">اسم المكان</string>
-	<string name="place_name_caption">أدخل الاسم كما هو مبين على الإشارة الخاصة بالمكان</string>
+	<string name="place_name_caption">أدخل الاسم كما هو مبين على العلامة أو اللافتة</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">لغات أخرى</string>
 	<string name="add_language">إضافة لغة</string>
 	<string name="street">الشارع</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -898,6 +909,11 @@
 	<string name="choose_language">اختر اللغة</string>
 	<string name="choose_street">اختر الشارع</string>
 	<string name="postal_code">الرمز البريدي</string>
+	<string name="cuisine">المطبخ</string>
+	<string name="select_cuisine">اختر المطبخ</string>
 	<!-- login text field -->
 	<string name="email_or_username">البريد الإلكتروني أو اسم المستخدم</string>
+	<string name="phone">الهاتف</string>
+	<string name="whats_new_editor_caption">حرر خريطتك على MAPS.ME</string>
+	<string name="whats_new_editor_message">تغييراتك سوف تساعد الملايين من المستخدمين. هيا نطور من العالم سويا!</string>
 </resources>
