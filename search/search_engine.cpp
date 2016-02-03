@@ -181,6 +181,9 @@ void Engine::EmitResults(SearchParams const & params, m2::RectD const & viewport
   };
   alohalytics::LogEvent("searchEmitResults", stats);
 
+  for (size_t i = 0; i < res.GetCount(); ++i)
+    res.GetResult(i).SetPositionInResults(i);
+
   params.m_callback(res);
 }
 
