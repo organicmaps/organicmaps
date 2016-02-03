@@ -10,6 +10,7 @@ static NSString * const kStatAdd = @"Add";
 static NSString * const kStatAlert = @"Alert";
 static NSString * const kStatApplication = @"Application";
 static NSString * const kStatApply = @"Apply";
+static NSString * const kStatAuto = @"Auto";
 static NSString * const kStatBack = @"Back";
 static NSString * const kStatBannerDescription = @"Banner description";
 static NSString * const kStatBannerTitle = @"Banner title";
