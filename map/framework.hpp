@@ -150,6 +150,9 @@ public:
   Framework();
   virtual ~Framework();
 
+  /// Migrate to new version of very different data.
+  void PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & change,
+                  storage::Storage::TProgressFunction const & progress);
   void Migrate();
 
   void InitWatchFrameRenderer(float visualScale);

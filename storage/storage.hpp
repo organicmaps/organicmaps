@@ -208,11 +208,6 @@ public:
     TOnStatusChangedCallback m_onStatusChanged;
   };
 
-  unique_ptr<Storage> m_prefetchStorage;
-  void PrefetchMigrateData();
-  void SaveDownloadQueue();
-  void RestoreDownloadQueue();
-
   /// \brief Returns root country id of the county tree.
   TCountryId const GetRootId() const;
   /// \param childrenId is filled with children node ids by a parent. For example GetChildren(GetRootId())
@@ -302,6 +297,17 @@ public:
   void GetLocalRealMaps(TCountriesVec & localMaps) const;
 
   void Init(TUpdate const & update);
+
+  /// Do we have downloaded countries
+  bool HaveDownloadedCountries() const;
+
+  /// Prefetch MWMs before migrate
+  unique_ptr<Storage> m_prefetchStorage;
+  void PrefetchMigrateData();
+
+  void SaveDownloadQueue();
+  void RestoreDownloadQueue();
+
 
   /// Delete local maps and aggregate their Id if needed
   void DeleteAllLocalMaps(TCountriesVec * existedCountries = nullptr);

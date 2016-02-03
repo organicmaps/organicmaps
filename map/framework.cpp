@@ -236,15 +236,30 @@ void Framework::StopLocationFollow()
   CallDrapeFunction(bind(&df::DrapeEngine::StopLocationFollow, _1));
 }
 
+void Framework::PreMigrate(ms::LatLon const & position,
+                           storage::Storage::TChangeCountryFunction const & change,
+                           storage::Storage::TProgressFunction const & progress)
+{
+  Storage().PrefetchMigrateData();
+
+  storage::CountryInfoReader infoGetter(GetPlatform().GetReader(PACKED_POLYGONS_MIGRATE_FILE),
+                                        GetPlatform().GetReader(COUNTRIES_MIGRATE_FILE));
+
+  TCountryId currentCountryId = infoGetter.GetRegionCountryId(MercatorBounds::FromLatLon(position));
+
+  Storage().m_prefetchStorage->Subscribe(change, progress);
+  Storage().m_prefetchStorage->DownloadNode(currentCountryId);
+}
+
 void Framework::Migrate()
 {
   m_searchEngine.reset();
   m_infoGetter.reset();
-  Storage().DeleteAllLocalMaps();
+  TCountriesVec existedCountries;
+  Storage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
   m_model.Clear();
-  // @TODO(syershov) Implement it correctly please.
-  // Storage().Migrate();
+  Storage().Migrate(existedCountries);
   InitCountryInfoGetter();
   InitSearchEngine();
   RegisterAllMaps();
@@ -522,12 +537,11 @@ void Framework::RegisterAllMaps()
   {
     bool disableFastMigrate = false;
     Settings::Get("DisableFastMigrate", disableFastMigrate);
-    // @TODO(syershov) Implement it correctly please.
-//    if (!disableFastMigrate && !m_storage.HaveDownloadedCountries())
-//    {
-//      Migrate();
-//      return;
-//    }
+    if (!disableFastMigrate && !m_storage.HaveDownloadedCountries())
+    {
+      Migrate();
+      return;
+    }
   }
 
   int minFormat = numeric_limits<int>::max();

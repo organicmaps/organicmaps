@@ -123,6 +123,11 @@ void Storage::DeleteAllLocalMaps(TCountriesVec * existedCountries /* = nullptr *
   }
 }
 
+bool Storage::HaveDownloadedCountries() const
+{
+  return !m_localFiles.empty();
+}
+
 void Storage::PrefetchMigrateData()
 {
   m_prefetchStorage.reset(new Storage(COUNTRIES_MIGRATE_FILE, "migrate"));
