@@ -539,6 +539,7 @@ void Framework::RegisterAllMaps()
     Settings::Get("DisableFastMigrate", disableFastMigrate);
     if (!disableFastMigrate && !m_storage.HaveDownloadedCountries())
     {
+      Storage().PrefetchMigrateData();
       Migrate();
       return;
     }
