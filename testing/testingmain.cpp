@@ -37,23 +37,19 @@ namespace testing
 
 void RunEventLoop()
 {
-#ifdef OMIM_OS_IPHONE_DEVICE
+#if defined(OMIM_OS_IPHONE_DEVICE)
   CFRunLoopRun();
-#else
-# ifdef QAPP
+#elif defined (QAPP)
   QAPP::exec();
-# endif
 #endif
 }
 
 void StopEventLoop()
 {
-#ifdef OMIM_OS_IPHONE_DEVICE
+#if defined(OMIM_OS_IPHONE_DEVICE)
   CFRunLoopStop(CFRunLoopGetMain());
-#else
-# ifdef QAPP
+#elif defined(QAPP)
   QAPP::exit();
-# endif
 #endif
 }
 

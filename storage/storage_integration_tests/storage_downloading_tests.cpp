@@ -14,6 +14,7 @@
 #include "base/string_utils.hpp"
 #include "base/thread.hpp"
 
+#include "std/bind.hpp"
 #include "std/exception.hpp"
 #include "std/string.hpp"
 
@@ -29,12 +30,29 @@ string const kTestWebServer = "http://new-search.mapswithme.com/";
 
 string const kMapTestDir = "map-tests";
 
+class InterruptException : public exception {};
+
 void Update(LocalCountryFile const & localCountryFile)
 {
   TEST_EQUAL(localCountryFile.GetCountryName(), kCountryId, ());
 }
 
-class InterruptException : public exception {};
+void ChangeCountry(Storage & storage, TCountryId const & countryId)
+{
+  TEST_EQUAL(countryId, kCountryId, ());
+
+  if (!storage.IsDownloadInProgress())
+    testing::StopEventLoop();
+}
+
+void InitStorage(Storage & storage, Storage::TProgressFunction const & onProgressFn)
+{
+  storage.Init(Update);
+  storage.RegisterAllLocalMaps();
+  storage.RestoreDownloadQueue();
+  storage.Subscribe(bind(&ChangeCountry, ref(storage), _1), onProgressFn);
+  storage.SetDownloadingUrlsForTesting({kTestWebServer});
+}
 
 } // namespace
 
@@ -43,6 +61,7 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
   WritableDirChanger writableDirChanger(kMapTestDir);
 
   // Start download but interrupt it
+
   try
   {
     Storage storage(COUNTRIES_MIGRATE_FILE);
@@ -50,20 +69,14 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
 
     auto onProgressFn = [](TCountryId const & countryId, LocalAndRemoteSizeT const & mapSize)
     {
+      TEST_EQUAL(countryId, kCountryId, ());
       // Interrupt download
       throw InterruptException();
     };
 
-    auto onChangeCountryFn = [&](TCountryId const & countryId)
-    {
-      if (!storage.IsDownloadInProgress())
-        testing::StopEventLoop();
-    };
+    InitStorage(storage, onProgressFn);
 
-    storage.Init(Update);
-    storage.RegisterAllLocalMaps();
-    storage.Subscribe(onChangeCountryFn, onProgressFn);
-    storage.SetDownloadingUrlsForTesting({kTestWebServer});
+    TEST(!storage.IsDownloadInProgress(), ());
 
     storage.DownloadNode(kCountryId);
     testing::RunEventLoop();
@@ -77,18 +90,12 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
 
   Storage storage(COUNTRIES_MIGRATE_FILE);
 
-  auto onProgressFn = [](TCountryId const & countryId, LocalAndRemoteSizeT const & mapSize) {};
-  auto onChangeCountryFn = [&](TCountryId const & countryId)
+  auto onProgressFn = [](TCountryId const & countryId, LocalAndRemoteSizeT const & mapSize)
   {
-    if (!storage.IsDownloadInProgress())
-      testing::StopEventLoop();
+    TEST_EQUAL(countryId, kCountryId, ());
   };
 
-  storage.Init(Update);
-  storage.RegisterAllLocalMaps();
-  storage.RestoreDownloadQueue();
-  storage.Subscribe(onChangeCountryFn, onProgressFn);
-  storage.SetDownloadingUrlsForTesting({kTestWebServer});
+  InitStorage(storage, onProgressFn);
 
   TEST(storage.IsDownloadInProgress(), ());
 

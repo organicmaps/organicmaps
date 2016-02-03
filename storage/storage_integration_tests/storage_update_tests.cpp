@@ -65,7 +65,7 @@ string GetCountriesTxtWebUrl(string const version)
 
 string GetCountriesTxtFilePath()
 {
-  return GetPlatform().WritableDir() + "countries.txt";
+  return my::JoinFoldersToPath(GetPlatform().WritableDir(), "countries.txt");
 }
 
 string GetMwmFilePath(string const & version, TCountryId const & countryId)
