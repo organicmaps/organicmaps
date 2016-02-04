@@ -16,8 +16,6 @@
 
 #include "std/string.hpp"
 
-#include <QtCore/QCoreApplication>
-
 using namespace platform;
 using namespace storage;
 
