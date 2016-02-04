@@ -119,11 +119,17 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   int const minVisibleScale = feature::GetMinDrawableScale(f);
 
-  auto insertShape = [this](drape_ptr<MapShape> && shape)
+  uint32_t shapesCount = 0;
+  auto insertShape = [this, zoomLevel, &shapesCount, &f](drape_ptr<MapShape> && shape)
   {
     int const index = static_cast<int>(shape->GetType());
     ASSERT_LESS(index, m_mapShapes.size(), ());
+
+    m2::RectD const limitRect = f.GetLimitRect(zoomLevel);
+    shape->SetFeatureInfo(dp::FeatureGeometryId(f.GetID(), shapesCount));
+    shape->SetFeatureLimitRect(limitRect);
     m_mapShapes[index].push_back(move(shape));
+    ++shapesCount;
   };
 
   if (s.AreaStyleExists())

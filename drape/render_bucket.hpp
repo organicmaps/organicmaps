@@ -1,6 +1,9 @@
 #pragma once
 
+#include "drape/feature_geometry_decl.hpp"
 #include "drape/pointers.hpp"
+
+#include "std/function.hpp"
 
 class ScreenBase;
 
@@ -46,7 +49,35 @@ public:
       todo(make_ref(h));
   }
 
+  void StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect);
+  void EndFeatureRecord(bool featureCompleted);
+
+  using TCheckFeaturesWaiting = function<bool(m2::RectD const &)>;
+  bool IsFeaturesWaiting(TCheckFeaturesWaiting isFeaturesWaiting)
+  {
+    for (auto const & featureRange : m_featuresRanges)
+      if (isFeaturesWaiting(featureRange.second.m_limitRect))
+        return true;
+    return false;
+  }
+
 private:
+  struct FeatureGeometryInfo
+  {
+    FeatureGeometryInfo(m2::RectD const & limitRect)
+      : m_limitRect(limitRect)
+    {}
+
+    m2::RectD m_limitRect;
+    bool m_featureCompleted = true;
+  };
+  using TFeaturesRanges = map<FeatureGeometryId, FeatureGeometryInfo>;
+
+  FeatureGeometryId m_featureInfo;
+  m2::RectD m_featureLimitRect;
+  uint32_t m_featureStartIndex;
+  TFeaturesRanges m_featuresRanges;
+
   vector<drape_ptr<OverlayHandle> > m_overlay;
   drape_ptr<VertexArrayBuffer> m_buffer;
 };

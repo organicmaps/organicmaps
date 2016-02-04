@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape/attribute_provider.hpp"
+#include "drape/feature_geometry_decl.hpp"
 #include "drape/glstate.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/pointers.hpp"
@@ -49,6 +50,9 @@ public:
   void StartSession(TFlushFn const & flusher);
   void EndSession();
 
+  void StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect);
+  void EndFeatureRecord();
+
 private:
   template<typename TBacher>
   IndicesRange InsertTriangles(GLState const & state, ref_ptr<AttributeProvider> params,
@@ -70,6 +74,9 @@ private:
 
   uint32_t m_indexBufferSize;
   uint32_t m_vertexBufferSize;
+
+  FeatureGeometryId m_currentFeature;
+  m2::RectD m_featureLimitRect;
 };
 
 class BatcherFactory

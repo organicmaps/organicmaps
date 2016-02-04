@@ -94,12 +94,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
   case Message::UpdateReadManager:
     {
-      TTilesCollection tiles = m_requestedTiles->GetTiles();
+      uint64_t tileRequestGeneration;
+      TTilesCollection tiles = m_requestedTiles->GetTiles(tileRequestGeneration);
       if (!tiles.empty())
       {
         ScreenBase const screen = m_requestedTiles->GetScreen();
         bool const is3dBuildings = m_requestedTiles->Is3dBuildings();
-        m_readManager->UpdateCoverage(screen, is3dBuildings, tiles, m_texMng);
+        m_readManager->UpdateCoverage(screen, is3dBuildings, tileRequestGeneration, tiles, m_texMng);
 
         gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();
         if ((*tiles.begin()).m_zoomLevel > scales::GetUpperWorldScale())
@@ -163,7 +164,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
 
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<FinishReadingMessage>(move(msg->MoveTiles())),
+                                make_unique_dp<FinishReadingMessage>(move(msg->MoveTiles()),
+                                                                     msg->GetTileRequestGeneration()),
                                 MessagePriority::Normal);
       break;
     }
@@ -175,7 +177,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         ref_ptr<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(tileKey);
         for (drape_ptr<MapShape> const & shape : msg->GetShapes())
+        {
+          batcher->StartFeatureRecord(shape->GetFeatureInfo(), shape->GetFeatureLimitRect());
           shape->Draw(batcher, m_texMng);
+          batcher->EndFeatureRecord();
+        }
       }
       break;
     }

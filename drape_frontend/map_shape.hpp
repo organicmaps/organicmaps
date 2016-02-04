@@ -3,6 +3,7 @@
 #include "drape_frontend/message.hpp"
 #include "drape_frontend/tile_key.hpp"
 
+#include "drape/feature_geometry_decl.hpp"
 #include "drape/pointers.hpp"
 
 namespace dp
@@ -29,6 +30,16 @@ public:
   virtual void Prepare(ref_ptr<dp::TextureManager> textures) const {}
   virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const = 0;
   virtual MapShapeType GetType() const { return MapShapeType::GeometryType; }
+
+  void SetFeatureInfo(dp::FeatureGeometryId const & feature) { m_featureInfo = feature; }
+  dp::FeatureGeometryId GetFeatureInfo() const { return m_featureInfo; }
+
+  void SetFeatureLimitRect(m2::RectD rect) { m_limitRect = rect; }
+  m2::RectD const & GetFeatureLimitRect() const { return m_limitRect; }
+
+private:
+  dp::FeatureGeometryId m_featureInfo;
+  m2::RectD m_limitRect;
 };
 
 using TMapShapes = vector<drape_ptr<MapShape>>;

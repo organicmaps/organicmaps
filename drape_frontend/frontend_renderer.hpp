@@ -282,6 +282,10 @@ private:
   TTapEventInfoFn m_tapEventInfoFn;
   TUserPositionChangedFn m_userPositionChangedFn;
 
+  uint64_t m_tileRequestGeneration = 0;
+  ScreenBase m_lastReadModelView;
+  TTilesCollection m_notFinishedTiles;
+
   unique_ptr<TileTree> m_tileTree;
   int m_currentZoomLevel = -1;
 

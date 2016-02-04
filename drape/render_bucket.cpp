@@ -102,6 +102,24 @@ void RenderBucket::Render(ScreenBase const & screen)
   m_buffer->Render();
 }
 
+void RenderBucket::StartFeatureRecord(FeatureGeometryId feature, const m2::RectD & limitRect)
+{
+  m_featureInfo = feature;
+  m_featureLimitRect = limitRect;
+  m_featureStartIndex = m_buffer->GetIndexCount();
+  m_featuresRanges.insert(make_pair(feature, FeatureGeometryInfo(limitRect)));
+}
+
+void RenderBucket::EndFeatureRecord(bool featureCompleted)
+{
+  auto it = m_featuresRanges.find(m_featureInfo);
+  ASSERT(it != m_featuresRanges.end(), ());
+  it->second.m_featureCompleted = featureCompleted;
+  if (m_featureStartIndex == m_buffer->GetIndexCount())
+    m_featuresRanges.erase(it);
+  m_featureInfo = FeatureGeometryId();
+}
+
 void RenderBucket::RenderDebug(ScreenBase const & screen) const
 {
 #ifdef RENDER_DEBUG_RECTS

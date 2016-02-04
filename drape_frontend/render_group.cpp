@@ -46,6 +46,7 @@ bool BaseRenderGroup::IsOverlay() const
 RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
   : TBase(state, tileKey)
   , m_pendingOnDelete(false)
+  , m_sharedFeaturesWaiting(false)
 {
 }
 
@@ -178,14 +179,22 @@ void RenderGroup::Disappear()
   //  m_disappearAnimation = make_unique<OpacityAnimation>(0.1 /* duration */, 0.1 /* delay */,
   //                                                       1.0 /* startOpacity */, 0.0 /* endOpacity */);
   //}
-  //else
+}
+
+bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting)
+{
+  bool statusChanged = false;
+
+  if (m_sharedFeaturesWaiting)
   {
-    // Create separate disappearing animation for area objects to eliminate flickering.
-    if (m_state.GetProgramIndex() == gpu::AREA_PROGRAM ||
-        m_state.GetProgramIndex() == gpu::AREA_3D_PROGRAM)
-      m_disappearAnimation = make_unique<OpacityAnimation>(0.01 /* duration */, 0.25 /* delay */,
-                                                           1.0 /* startOpacity */, 1.0 /* endOpacity */);
+    for (auto const & bucket : m_renderBuckets)
+      if (bucket->IsFeaturesWaiting(isFeaturesWaiting))
+        return statusChanged;
+
+    m_sharedFeaturesWaiting = false;
+    statusChanged = true;
   }
+  return statusChanged;
 }
 
 bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r)

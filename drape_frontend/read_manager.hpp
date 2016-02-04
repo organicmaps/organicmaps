@@ -30,8 +30,8 @@ class ReadManager
 public:
   ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings);
 
-  void UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, TTilesCollection const & tiles,
-                      ref_ptr<dp::TextureManager> texMng);
+  void UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, uint64_t tileRequestGeneration,
+                      TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng);
   void Invalidate(TTilesCollection const & keyStorage);
   void InvalidateAll();
   void Stop();
@@ -79,10 +79,11 @@ private:
   set<TileKey> m_finishedTiles;
   mutex m_finishedTilesMutex;
   uint64_t m_generationCounter;
+  uint64_t m_tileRequestGeneration;
 
   void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);
-  void IncreaseCounter(int value);
+  int IncreaseCounter(int value, uint64_t tileRequestGeneration);
 };
 
 } // namespace df

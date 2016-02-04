@@ -67,6 +67,7 @@ HEADERS += \
     $$DRAPE_DIR/depth_constants.hpp \
     $$DRAPE_DIR/drape_global.hpp \
     $$DRAPE_DIR/dynamic_texture.hpp \
+    $$DRAPE_DIR/feature_geometry_decl.hpp \
     $$DRAPE_DIR/font_texture.hpp \
     $$DRAPE_DIR/fribidi.hpp \
     $$DRAPE_DIR/glconstants.hpp \
