@@ -7,19 +7,20 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/search_string_utils.hpp"
-#include "geometry/mercator.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/classificator.hpp"
 
 #include "platform/platform.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/stl_add.hpp"
 
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
 #include "std/map.hpp"
 #include "std/vector.hpp"
-#include "std/bind.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
@@ -69,7 +70,35 @@ public:
   }
 };
 
+void SendStatistics(SearchParams const & params, m2::RectD const & viewport, Results const & res)
+{
+  size_t const kMaxNumResultsToSend = 10;
+
+  size_t const numResultsToSend = min(kMaxNumResultsToSend, res.GetCount());
+  string resultString = strings::to_string(numResultsToSend);
+  for (size_t i = 0; i < numResultsToSend; ++i)
+    resultString.append("\t" + res.GetResult(i).ToStringForStats());
+
+  string posX, posY;
+  if (params.IsValidPosition())
+  {
+    posX = strings::to_string(MercatorBounds::LonToX(params.m_lon));
+    posY = strings::to_string(MercatorBounds::LatToY(params.m_lat));
+  }
+
+  alohalytics::TStringMap const stats = {
+      {"posX", posX},
+      {"posY", posY},
+      {"viewportMinX", strings::to_string(viewport.minX())},
+      {"viewportMinY", strings::to_string(viewport.minY())},
+      {"viewportMaxX", strings::to_string(viewport.maxX())},
+      {"viewportMaxY", strings::to_string(viewport.maxY())},
+      {"query", params.m_query},
+      {"results", resultString},
+  };
+  alohalytics::LogEvent("searchEmitResultsAndCoords", stats);
 }
+}  // namespace
 
 Engine::Engine(Index & index, Reader * categoriesR, storage::CountryInfoGetter const & infoGetter,
                string const & locale, unique_ptr<SearchQueryFactory> && factory)
@@ -151,12 +180,8 @@ void Engine::SetViewportAsync(m2::RectD const & viewport)
   m_query->SetViewport(r, true);
 }
 
-void Engine::EmitResults(SearchParams const & params, Results & res)
+void Engine::EmitResults(SearchParams const & params, Results const & res)
 {
-  // Basic test of our statistics engine.
-  alohalytics::LogEvent("searchEmitResults",
-                        alohalytics::TStringMap({{params.m_query, strings::to_string(res.GetCount())}}));
-
   params.m_callback(res);
 }
 
@@ -280,6 +305,9 @@ void Engine::SearchAsync()
     if (res.GetCount() > count)
       EmitResults(params, res);
   }
+
+  if (!viewportSearch && !m_query->IsCancelled())
+    SendStatistics(params, viewport, res);
 
   // Emit finish marker to client.
   params.m_callback(Results::GetEndMarker(m_query->IsCancelled()));

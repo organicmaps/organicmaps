@@ -13,18 +13,40 @@ Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
   , m_region(region)
   , m_type(type)
   , m_featureType(featureType)
+  , m_positionInResults(-1)
   , m_metadata(meta)
 {
   Init(true /* metadataInitialized */);
 }
 
 Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str, string const & type)
-  : m_id(id)
-  , m_center(pt)
-  , m_str(str)
-  , m_type(type)
+  : m_id(id), m_center(pt), m_str(str), m_type(type), m_positionInResults(-1)
 {
   Init(false /* metadataInitialized */);
+}
+
+Result::Result(m2::PointD const & pt, string const & str, string const & region,
+               string const & type)
+  : m_center(pt), m_str(str), m_region(region), m_type(type), m_positionInResults(-1)
+{
+}
+
+Result::Result(string const & str, string const & suggest)
+  : m_str(str), m_suggestionStr(suggest), m_positionInResults(-1)
+{
+}
+
+Result::Result(Result const & res, string const & suggest)
+  : m_id(res.m_id)
+  , m_center(res.m_center)
+  , m_str(res.m_str)
+  , m_region(res.m_region)
+  , m_type(res.m_type)
+  , m_featureType(res.m_featureType)
+  , m_suggestionStr(suggest)
+  , m_hightlightRanges(res.m_hightlightRanges)
+  , m_positionInResults(-1)
+{
 }
 
 void Result::Init(bool metadataInitialized)
@@ -34,24 +56,6 @@ void Result::Init(bool metadataInitialized)
     m_str = m_type;
 
   m_metadata.m_isInitialized = metadataInitialized;
-}
-
-Result::Result(m2::PointD const & pt, string const & str,
-               string const & region, string const & type)
-  : m_center(pt), m_str(str), m_region(region), m_type(type)
-{
-}
-
-Result::Result(string const & str, string const & suggest)
-  : m_str(str), m_suggestionStr(suggest)
-{
-}
-
-Result::Result(Result const & res, string const & suggest)
-  : m_id(res.m_id), m_center(res.m_center), m_str(res.m_str),
-    m_region(res.m_region), m_type(res.m_type), m_featureType(res.m_featureType),
-    m_suggestionStr(suggest), m_hightlightRanges(res.m_hightlightRanges)
-{
 }
 
 Result::ResultType Result::GetResultType() const
@@ -148,6 +152,17 @@ void Result::AppendCity(string const & name)
     m_region += (", " + name);
 }
 
+string Result::ToStringForStats() const
+{
+  string s;
+  s.append(GetString());
+  s.append("|");
+  s.append(GetFeatureType());
+  s.append("|");
+  s.append(IsSuggest() ? "1" : "0");
+  return s;
+}
+
 bool Results::AddResult(Result && res)
 {
   // Find first feature result.
@@ -172,6 +187,13 @@ bool Results::AddResult(Result && res)
       if (res.IsEqualSuggest(*i))
         return false;
 
+    for (auto i = it; i != m_vec.end(); ++i)
+    {
+      auto & r = *i;
+      auto const oldPos = r.GetPositionInResults();
+      r.SetPositionInResults(oldPos + 1);
+    }
+    res.SetPositionInResults(distance(m_vec.begin(), it));
     m_vec.insert(it, move(res));
   }
   else
@@ -180,6 +202,7 @@ bool Results::AddResult(Result && res)
       if (res.IsEqualFeature(*it))
         return false;
 
+    res.SetPositionInResults(m_vec.size());
     m_vec.push_back(move(res));
   }
 

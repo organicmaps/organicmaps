@@ -1082,6 +1082,10 @@ void Framework::ShowSearchResult(search::Result const & res)
   using namespace search;
   using namespace feature;
 
+  alohalytics::TStringMap const stats = {{"pos", strings::to_string(res.GetPositionInResults())},
+                                         {"result", res.ToStringForStats()}};
+  alohalytics::LogEvent("searchShowResult", stats);
+
   switch (res.GetResultType())
   {
     case Result::RESULT_FEATURE:

@@ -10,11 +10,10 @@
 
 #include "base/mutex.hpp"
 
-#include "std/unique_ptr.hpp"
-#include "std/string.hpp"
-#include "std/function.hpp"
 #include "std/atomic.hpp"
-
+#include "std/function.hpp"
+#include "std/string.hpp"
+#include "std/unique_ptr.hpp"
 
 class Index;
 
@@ -58,7 +57,7 @@ private:
   void SetViewportAsync(m2::RectD const & viewport);
   void SearchAsync();
 
-  void EmitResults(SearchParams const & params, Results & res);
+  void EmitResults(SearchParams const & params, Results const & res);
 
   threads::Mutex m_searchMutex;
   threads::Mutex m_updateMutex;
