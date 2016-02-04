@@ -69,8 +69,8 @@ public:
     infoGetter.AddCountry(storage::CountryDef(name, rect));
   }
 
-  template <typename TFn>
-  MwmSet::MwmId RegisterMwm(string const & name, feature::DataHeader::MapType type, TFn && fn)
+  template <typename TBuildFn>
+  MwmSet::MwmId BuildMwm(string const & name, feature::DataHeader::MapType type, TBuildFn && fn)
   {
     m_files.emplace_back(m_platform.WritableDir(), platform::CountryFile(name), 0 /* version */);
     auto & file = m_files.back();
@@ -161,39 +161,39 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
   auto const lantern1 = make_shared<TestPOI>(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
   auto const lantern2 = make_shared<TestPOI>(m2::PointD(10.0006, 10.0005), "lantern 2", "en");
 
-  RegisterMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
-              {
-                builder.Add(*wonderlandCountry);
-                builder.Add(*losAlamosCity);
-                builder.Add(*mskCity);
-              });
+  BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
+           {
+             builder.Add(*wonderlandCountry);
+             builder.Add(*losAlamosCity);
+             builder.Add(*mskCity);
+           });
   auto wonderlandId =
-      RegisterMwm("wonderland", feature::DataHeader::country, [&](TestMwmBuilder & builder)
-                  {
-                    builder.Add(*losAlamosCity);
-                    builder.Add(*mskCity);
-                    builder.Add(*longPondVillage);
+      BuildMwm("wonderland", feature::DataHeader::country, [&](TestMwmBuilder & builder)
+               {
+                 builder.Add(*losAlamosCity);
+                 builder.Add(*mskCity);
+                 builder.Add(*longPondVillage);
 
-                    builder.Add(*feynmanStreet);
-                    builder.Add(*bohrStreet1);
-                    builder.Add(*bohrStreet2);
-                    builder.Add(*bohrStreet3);
-                    builder.Add(*firstAprilStreet);
+                 builder.Add(*feynmanStreet);
+                 builder.Add(*bohrStreet1);
+                 builder.Add(*bohrStreet2);
+                 builder.Add(*bohrStreet3);
+                 builder.Add(*firstAprilStreet);
 
-                    builder.Add(*feynmanHouse);
-                    builder.Add(*bohrHouse);
-                    builder.Add(*hilbertHouse);
-                    builder.Add(*descartesHouse);
-                    builder.Add(*bornHouse);
+                 builder.Add(*feynmanHouse);
+                 builder.Add(*bohrHouse);
+                 builder.Add(*hilbertHouse);
+                 builder.Add(*descartesHouse);
+                 builder.Add(*bornHouse);
 
-                    builder.Add(*busStop);
-                    builder.Add(*tramStop);
-                    builder.Add(*quantumTeleport1);
-                    builder.Add(*quantumTeleport2);
-                    builder.Add(*quantumCafe);
-                    builder.Add(*lantern1);
-                    builder.Add(*lantern2);
-                  });
+                 builder.Add(*busStop);
+                 builder.Add(*tramStop);
+                 builder.Add(*quantumTeleport1);
+                 builder.Add(*quantumTeleport2);
+                 builder.Add(*quantumCafe);
+                 builder.Add(*lantern1);
+                 builder.Add(*lantern2);
+               });
 
   RegisterCountry("wonderland", m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(10.1, 10.1)));
 
@@ -269,12 +269,12 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
   auto const losAlamos =
       make_shared<TestCity>(m2::PointD(0, 0), "Los Alamos", "en", 100 /* rank */);
 
-  auto testWorldId = RegisterMwm("testWorld", feature::DataHeader::world,
-                                 [&](TestMwmBuilder & builder)
-                                 {
-                                   builder.Add(*wonderland);
-                                   builder.Add(*losAlamos);
-                                 });
+  auto testWorldId = BuildMwm("testWorld", feature::DataHeader::world,
+                              [&](TestMwmBuilder & builder)
+                              {
+                                builder.Add(*wonderland);
+                                builder.Add(*losAlamos);
+                              });
 
   RegisterCountry("Wonderland", m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
 
@@ -301,15 +301,15 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
                                                m2::PointD(1.5, 1.5), m2::PointD(0.5, 1.5)},
                             "Hyde Park", "en");
 
-  RegisterMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
-              {
-                builder.Add(*london);
-              });
-  auto wonderlandId = RegisterMwm("wonderland", feature::DataHeader::country,
-                                 [&](TestMwmBuilder & builder)
-                                 {
-                                   builder.Add(*hydePark);
-                                 });
+  BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
+           {
+             builder.Add(*london);
+           });
+  auto wonderlandId = BuildMwm("wonderland", feature::DataHeader::country,
+                               [&](TestMwmBuilder & builder)
+                               {
+                                 builder.Add(*hydePark);
+                               });
   RegisterCountry("Wonderland", m2::RectD(m2::PointD(0, 0), m2::PointD(2, 2)));
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(-0.9, -0.9)));
@@ -317,4 +317,5 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
   TRules rules = {make_shared<ExactMatch>(wonderlandId, hydePark)};
   TEST(ResultsMatch("hyde park", rules), ());
   TEST(ResultsMatch("london hyde park", rules), ());
+  TEST(ResultsMatch("hyde london park", TRules()), ());
 }

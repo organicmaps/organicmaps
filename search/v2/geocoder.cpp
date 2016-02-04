@@ -1227,6 +1227,14 @@ void Geocoder::FindPaths()
 void Geocoder::MatchUnclassified(size_t curToken)
 {
   ASSERT(m_layers.empty(), ());
+
+  // We need to match all unused tokens to UNCLASSIFIED features,
+  // therefore unused tokens must be adjacent to each other.  For
+  // example, as parks are UNCLASSIFIED now, it's ok to match "London
+  // Hyde Park", because London will be matched as a city and rest
+  // adjacent tokens will be matched to "Hyde Park", whereas it's not
+  // ok to match something to "Park London Hyde", because tokens
+  // "Park" and "Hyde" are not adjacent.
   if (NumUnusedTokensGroups() != 1)
     return;
 
@@ -1239,7 +1247,10 @@ void Geocoder::MatchUnclassified(size_t curToken)
     allFeatures.Intersect(m_addressFeatures[curToken].get());
   }
 
-  if (coding::CompressedBitVector::IsEmpty(allFeatures.Get()))
+  if (m_filter.NeedToFilter(*allFeatures))
+    allFeatures.Set(m_filter.Filter(*allFeatures).release(), true /* isOwner */);
+
+  if (allFeatures.IsEmpty())
     return;
 
   auto emitUnclassified = [&](uint32_t featureId)
@@ -1352,17 +1363,13 @@ bool Geocoder::HasUsedTokensInRange(size_t from, size_t to) const
 
 size_t Geocoder::NumUnusedTokensGroups() const
 {
-  if (m_usedTokens.begin() == m_usedTokens.end())
-    return 0;
-
-  size_t numBorders = 0;
-  for (size_t i = 1; i < m_usedTokens.size(); ++i)
+  size_t numGroups = 0;
+  for (size_t i = 0; i < m_usedTokens.size(); ++i)
   {
-    if (m_usedTokens[i] != m_usedTokens[i - 1])
-      ++numBorders;
+    if (!m_usedTokens[i] && (i == 0 || m_usedTokens[i - 1]))
+      ++numGroups;
   }
-  size_t const numGroups = numBorders + 1;
-  return m_usedTokens[0] ? numGroups / 2 : (numGroups + 1) / 2;
+  return numGroups;
 }
 
 size_t Geocoder::SkipUsedTokens(size_t curToken) const

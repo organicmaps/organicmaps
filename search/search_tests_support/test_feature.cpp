@@ -194,8 +194,6 @@ void TestBuilding::Serialize(FeatureBuilder1 & fb) const
 
   auto const & classificator = classif();
   fb.SetType(classificator.GetTypeByPath({"building"}));
-
-  fb.PreSerialize();
 }
 
 bool TestBuilding::Matches(FeatureType const & feature) const
@@ -229,8 +227,6 @@ void TestPark::Serialize(FeatureBuilder1 & fb) const
 
   auto const & classificator = classif();
   fb.SetType(classificator.GetTypeByPath({"leisure", "park"}));
-
-  fb.PreSerialize();
 }
 
 string TestPark::ToString() const

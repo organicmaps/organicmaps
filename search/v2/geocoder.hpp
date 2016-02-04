@@ -234,7 +234,7 @@ private:
   // it uses pre-loaded lists of streets and villages.
   SearchModel::SearchType GetSearchTypeInGeocoding(uint32_t featureId);
 
-  // Returns true if all tokens are used.
+  // Returns true iff all tokens are used.
   bool AllTokensUsed() const;
 
   // Returns true if there exists at least one used token in [from,
@@ -245,7 +245,7 @@ private:
   size_t NumUnusedTokensGroups() const;
 
   // Advances |curToken| to the nearest unused token, or to the end of
-  // |m_usedTokens| if there're no unused tokens.
+  // |m_usedTokens| if there are no unused tokens.
   size_t SkipUsedTokens(size_t curToken) const;
 
   Index & m_index;

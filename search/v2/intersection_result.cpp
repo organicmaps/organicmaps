@@ -19,23 +19,15 @@ void IntersectionResult::Set(SearchModel::SearchType type, uint32_t id)
 {
   switch (type)
   {
-  case SearchModel::SEARCH_TYPE_POI:
-    m_poi = id;
-    break;
-  case SearchModel::SEARCH_TYPE_BUILDING:
-    m_building = id;
-    break;
-  case SearchModel::SEARCH_TYPE_STREET:
-    m_street = id;
-    break;
+  case SearchModel::SEARCH_TYPE_POI: m_poi = id; break;
+  case SearchModel::SEARCH_TYPE_BUILDING: m_building = id; break;
+  case SearchModel::SEARCH_TYPE_STREET: m_street = id; break;
   case SearchModel::SEARCH_TYPE_CITY:
   case SearchModel::SEARCH_TYPE_VILLAGE:
   case SearchModel::SEARCH_TYPE_STATE:
   case SearchModel::SEARCH_TYPE_COUNTRY:
   case SearchModel::SEARCH_TYPE_UNCLASSIFIED:
-    case SearchModel::SEARCH_TYPE_COUNT:
-    ASSERT(false, ("Unsupported types."));
-    break;
+  case SearchModel::SEARCH_TYPE_COUNT: ASSERT(false, ("Unsupported type.")); break;
   }
 }
 
