@@ -1166,17 +1166,28 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   storage.GetNodeAttrs("Abkhazia", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 4689718, ());
-  TEST_EQUAL(nodeAttrs.m_status, TStatus::ENotDownloaded, ());
+  TEST_EQUAL(nodeAttrs.m_status, TNodeStatus::NotDownloaded, ());
+  TEST_EQUAL(nodeAttrs.m_error, TErrNodeStatus::NoError, ());
 
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 2, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 90878678, ());
-  TEST_EQUAL(nodeAttrs.m_status, TStatus::ENotDownloaded, ());
+  TEST_EQUAL(nodeAttrs.m_status, TNodeStatus::NotDownloaded, ());
+  TEST_EQUAL(nodeAttrs.m_error, TErrNodeStatus::NoError, ());
 
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 48394664, ());
-  TEST_EQUAL(nodeAttrs.m_status, TStatus::ENotDownloaded, ());
+  TEST_EQUAL(nodeAttrs.m_status, TNodeStatus::NotDownloaded, ());
+  TEST_EQUAL(nodeAttrs.m_error, TErrNodeStatus::NoError, ());
 }
-
+UNIT_TEST(StorageTest_ParseStatus)
+{
+  TEST_EQUAL(TStatusAndError(TNodeStatus::Undefined, TErrNodeStatus::NoError),
+             ParseStatus(TStatus::EUndefined), ());
+  TEST_EQUAL(TStatusAndError(TNodeStatus::Error, TErrNodeStatus::NoInetConnection),
+             ParseStatus(TStatus::EDownloadFailed), ());
+  TEST_EQUAL(TStatusAndError(TNodeStatus::Downloading, TErrNodeStatus::NoError),
+             ParseStatus(TStatus::EDownloading), ());
+}
 }  // namespace storage

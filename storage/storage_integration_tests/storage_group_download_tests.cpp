@@ -106,7 +106,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
     TEST_EQUAL(TStatus::ENotDownloaded, storage.CountryStatusEx(countryId), ());
     NodeAttrs attrs;
     storage.GetNodeAttrs(countryId, attrs);
-    TEST_EQUAL(TStatus::ENotDownloaded, attrs.m_status, ());
+    TEST_EQUAL(TNodeStatus::NotDownloaded, attrs.m_status, ());
     TEST_GREATER(attrs.m_mwmSize, 0, ());
     totalGroupSize += attrs.m_mwmSize;
   }
@@ -114,7 +114,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   // Check status for the group node is set to ENotDownloaded
   NodeAttrs attrs;
   storage.GetNodeAttrs(kGroupCountryId, attrs);
-  TEST_EQUAL(TStatus::ENotDownloaded, attrs.m_status, ());
+  TEST_EQUAL(TNodeStatus::NotDownloaded, attrs.m_status, ());
   TEST_EQUAL(attrs.m_mwmSize, totalGroupSize, ());
   attrs = NodeAttrs();
 
@@ -148,7 +148,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
 
   // Check status for the group node is set to EOnDisk
   storage.GetNodeAttrs(kGroupCountryId, attrs);
-  TEST_EQUAL(TStatus::EOnDisk, attrs.m_status, ());
+  TEST_EQUAL(TNodeStatus::OnDisk, attrs.m_status, ());
 
   // Check status for the all children nodes is set to EOnDisk
   for (auto const & countryId : children)
@@ -156,7 +156,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
     TEST_EQUAL(TStatus::EOnDisk, storage.CountryStatusEx(countryId), ());
     NodeAttrs attrs;
     storage.GetNodeAttrs(countryId, attrs);
-    TEST_EQUAL(TStatus::EOnDisk, attrs.m_status, ());
+    TEST_EQUAL(TNodeStatus::OnDisk, attrs.m_status, ());
   }
 
   // Check there is only mwm files are present and no any other for the children nodes
@@ -226,7 +226,7 @@ void DeleteGroup(Storage & storage, bool oneByOne)
   // Check state for the group node is set to UpToDate and NoError
   NodeAttrs attrs;
   storage.GetNodeAttrs(kGroupCountryId, attrs);
-  TEST_EQUAL(TStatus::ENotDownloaded, attrs.m_status, ());
+  TEST_EQUAL(TNodeStatus::NotDownloaded, attrs.m_status, ());
 
   // Check state for the all children nodes is set to UpToDate and NoError
   for (auto const & countryId : children)
@@ -234,7 +234,7 @@ void DeleteGroup(Storage & storage, bool oneByOne)
     TEST_EQUAL(TStatus::ENotDownloaded, storage.CountryStatusEx(countryId), ());
     NodeAttrs attrs;
     storage.GetNodeAttrs(countryId, attrs);
-    TEST_EQUAL(TStatus::ENotDownloaded, attrs.m_status, ());
+    TEST_EQUAL(TNodeStatus::NotDownloaded, attrs.m_status, ());
   }
 
   // Check there are no mwm files for the children nodes
