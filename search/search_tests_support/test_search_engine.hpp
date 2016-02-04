@@ -36,6 +36,8 @@ public:
   weak_ptr<search::QueryHandle> Search(search::SearchParams const & params,
                                        m2::RectD const & viewport);
 
+  storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
+
 private:
   Platform & m_platform;
   unique_ptr<storage::CountryInfoGetter> m_infoGetter;

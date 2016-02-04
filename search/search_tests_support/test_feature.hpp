@@ -113,6 +113,19 @@ protected:
   string const m_streetName;
 };
 
+class TestPark : public TestFeature
+{
+public:
+  TestPark(vector<m2::PointD> const & boundary, string const & name, string const & lang);
+
+  // TestFeature overrides:
+  void Serialize(FeatureBuilder1 & fb) const override;
+  string ToString() const override;
+
+private:
+  vector<m2::PointD> m_boundary;
+};
+
 string DebugPrint(TestFeature const & feature);
 }  // namespace tests_support
 }  // namespace search

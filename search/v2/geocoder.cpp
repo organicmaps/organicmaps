@@ -958,6 +958,7 @@ void Geocoder::LimitedSearch(coding::CompressedBitVector const * filter, size_t 
   // The order is rather important. Match streets first, then all other stuff.
   GreedilyMatchStreets();
   MatchPOIsAndBuildings(0 /* curToken */);
+  MatchUnclassified(0 /* curToken */);
 }
 
 void Geocoder::GreedilyMatchStreets()
@@ -1045,12 +1046,9 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(
 
 void Geocoder::MatchPOIsAndBuildings(size_t curToken)
 {
-  // Skip used tokens.
-  while (curToken != m_numTokens && m_usedTokens[curToken])
-    ++curToken;
-
   BailIfCancelled();
 
+  curToken = SkipUsedTokens(curToken);
   if (curToken == m_numTokens)
   {
     // All tokens were consumed, find paths through layers, emit
@@ -1113,16 +1111,11 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
     {
       auto clusterize = [&](uint32_t featureId)
       {
-        if (m_streets->GetBit(featureId))
-          return;
+        auto const searchType = GetSearchTypeInGeocoding(featureId);
 
-        FeatureType feature;
-        m_context->m_vector.GetByIndex(featureId, feature);
-        feature.ParseTypes();
-        SearchModel::SearchType const searchType = m_model.GetSearchType(feature);
-
-        // All SEARCH_TYPE_CITY features were filtered in MatchCities().
-        // All SEARCH_TYPE_STREET features were filtered in GreedilyMatchStreets().
+        // All SEARCH_TYPE_CITY features were filtered in
+        // MatchCities().  All SEARCH_TYPE_STREET features were
+        // filtered in GreedilyMatchStreets().
         if (searchType < SearchModel::SEARCH_TYPE_STREET)
           clusters[searchType].push_back(featureId);
       };
@@ -1187,19 +1180,22 @@ bool Geocoder::IsLayerSequenceSane() const
 
     if (layer.m_type == SearchModel::SEARCH_TYPE_BUILDING)
       buildingIndex = i;
-    if (layer.m_type == SearchModel::SEARCH_TYPE_STREET)
+    else if (layer.m_type == SearchModel::SEARCH_TYPE_STREET)
       streetIndex = i;
+  }
 
-    // Checks that building and street layers are neighbours.
-    if (buildingIndex != m_layers.size() && streetIndex != m_layers.size())
+  bool const hasBuildings = buildingIndex != m_layers.size();
+  bool const hasStreets = streetIndex != m_layers.size();
+
+  // Checks that building and street layers are neighbours.
+  if (hasBuildings && hasStreets)
+  {
+    auto const & buildings = m_layers[buildingIndex];
+    auto const & streets = m_layers[streetIndex];
+    if (buildings.m_startToken != streets.m_endToken &&
+        buildings.m_endToken != streets.m_startToken)
     {
-      auto & buildings = m_layers[buildingIndex];
-      auto & streets = m_layers[streetIndex];
-      if (buildings.m_startToken != streets.m_endToken &&
-          buildings.m_endToken != streets.m_startToken)
-      {
-        return false;
-      }
+      return false;
     }
   }
 
@@ -1226,6 +1222,32 @@ void Geocoder::FindPaths()
     // better scoring.
     m_results->emplace_back(m_context->m_id, result.InnermostResult());
   });
+}
+
+void Geocoder::MatchUnclassified(size_t curToken)
+{
+  ASSERT(m_layers.empty(), ());
+  if (NumUnusedTokensGroups() != 1)
+    return;
+
+  CBVPtr allFeatures;
+  allFeatures.SetFull();
+
+  for (curToken = SkipUsedTokens(curToken); curToken < m_numTokens && !m_usedTokens[curToken];
+       ++curToken)
+  {
+    allFeatures.Intersect(m_addressFeatures[curToken].get());
+  }
+
+  if (coding::CompressedBitVector::IsEmpty(allFeatures.Get()))
+    return;
+
+  auto emitUnclassified = [&](uint32_t featureId)
+  {
+    if (GetSearchTypeInGeocoding(featureId) == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
+      m_results->emplace_back(m_context->m_id, featureId);
+  };
+  coding::CompressedBitVectorEnumerator::ForEach(*allFeatures, emitUnclassified);
 }
 
 unique_ptr<coding::CompressedBitVector> Geocoder::LoadCategories(
@@ -1306,6 +1328,18 @@ coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(MwmContex
   return result;
 }
 
+SearchModel::SearchType Geocoder::GetSearchTypeInGeocoding(uint32_t featureId)
+{
+  if (m_streets->GetBit(featureId))
+    return SearchModel::SEARCH_TYPE_STREET;
+  if (m_villages->GetBit(featureId))
+    return SearchModel::SEARCH_TYPE_VILLAGE;
+
+  FeatureType feature;
+  m_context->m_vector.GetByIndex(featureId, feature);
+  return m_model.GetSearchType(feature);
+}
+
 bool Geocoder::AllTokensUsed() const
 {
   return all_of(m_usedTokens.begin(), m_usedTokens.end(), Id<bool>());
@@ -1314,6 +1348,28 @@ bool Geocoder::AllTokensUsed() const
 bool Geocoder::HasUsedTokensInRange(size_t from, size_t to) const
 {
   return any_of(m_usedTokens.begin() + from, m_usedTokens.begin() + to, Id<bool>());
+}
+
+size_t Geocoder::NumUnusedTokensGroups() const
+{
+  if (m_usedTokens.begin() == m_usedTokens.end())
+    return 0;
+
+  size_t numBorders = 0;
+  for (size_t i = 1; i < m_usedTokens.size(); ++i)
+  {
+    if (m_usedTokens[i] != m_usedTokens[i - 1])
+      ++numBorders;
+  }
+  size_t const numGroups = numBorders + 1;
+  return m_usedTokens[0] ? numGroups / 2 : (numGroups + 1) / 2;
+}
+
+size_t Geocoder::SkipUsedTokens(size_t curToken) const
+{
+  while (curToken != m_usedTokens.size() && m_usedTokens[curToken])
+    ++curToken;
+  return curToken;
 }
 
 string DebugPrint(Geocoder::Locality const & locality)

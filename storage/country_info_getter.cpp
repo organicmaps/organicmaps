@@ -193,12 +193,15 @@ bool CountryInfoReader::IsBelongToRegionImpl(size_t id, m2::PointD const & pt) c
 // CountryInfoGetterForTesting ---------------------------------------------------------------------
 CountryInfoGetterForTesting::CountryInfoGetterForTesting(vector<CountryDef> const & countries)
 {
-  m_countries.assign(countries.begin(), countries.end());
-  for (auto const & country : m_countries)
-  {
-    string const & name = country.m_name;
-    m_id2info[name].m_name = name;
-  }
+  for (auto const & country : countries)
+    AddCountry(country);
+}
+
+void CountryInfoGetterForTesting::AddCountry(CountryDef const & country)
+{
+  m_countries.push_back(country);
+  string const & name = country.m_name;
+  m_id2info[name].m_name = name;
 }
 
 void CountryInfoGetterForTesting::ClearCachesImpl() const {}

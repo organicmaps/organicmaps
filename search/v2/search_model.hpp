@@ -27,6 +27,8 @@ public:
     SEARCH_TYPE_POI,
     SEARCH_TYPE_BUILDING,
     SEARCH_TYPE_STREET,
+    SEARCH_TYPE_UNCLASSIFIED,  // all low-level features except POI,
+                               // BUILDING and STREET
     SEARCH_TYPE_VILLAGE,
     SEARCH_TYPE_CITY,
     SEARCH_TYPE_STATE,  // US or Canadian states

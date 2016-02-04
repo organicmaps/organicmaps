@@ -82,7 +82,7 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
     {
     case NONE:
       ASSERT(false, ("Unknown locality."));
-      return SEARCH_TYPE_COUNT;
+      return SEARCH_TYPE_UNCLASSIFIED;
     case STATE:
       return SEARCH_TYPE_STATE;
     case COUNTRY:
@@ -93,36 +93,29 @@ SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) 
     case VILLAGE:
       return SEARCH_TYPE_VILLAGE;
     case LOCALITY_COUNT:
-      return SEARCH_TYPE_COUNT;
+      return SEARCH_TYPE_UNCLASSIFIED;
     }
   }
 
   if (poiChecker(feature))
     return SEARCH_TYPE_POI;
 
-  return SEARCH_TYPE_COUNT;
+  return SEARCH_TYPE_UNCLASSIFIED;
 }
 
 string DebugPrint(SearchModel::SearchType type)
 {
   switch (type)
   {
-  case SearchModel::SEARCH_TYPE_POI:
-    return "POI";
-  case SearchModel::SEARCH_TYPE_BUILDING:
-    return "BUILDING";
-  case SearchModel::SEARCH_TYPE_STREET:
-    return "STREET";
-  case SearchModel::SEARCH_TYPE_CITY:
-    return "CITY";
-  case SearchModel::SEARCH_TYPE_VILLAGE:
-    return "VILLAGE";
-  case SearchModel::SEARCH_TYPE_STATE:
-    return "STATE";
-  case SearchModel::SEARCH_TYPE_COUNTRY:
-    return "COUNTRY";
-  case SearchModel::SEARCH_TYPE_COUNT:
-    return "COUNT";
+  case SearchModel::SEARCH_TYPE_POI: return "POI";
+  case SearchModel::SEARCH_TYPE_BUILDING: return "BUILDING";
+  case SearchModel::SEARCH_TYPE_STREET: return "STREET";
+  case SearchModel::SEARCH_TYPE_CITY: return "CITY";
+  case SearchModel::SEARCH_TYPE_VILLAGE: return "VILLAGE";
+  case SearchModel::SEARCH_TYPE_STATE: return "STATE";
+  case SearchModel::SEARCH_TYPE_COUNTRY: return "COUNTRY";
+  case SearchModel::SEARCH_TYPE_UNCLASSIFIED: return "UNCLASSIFIED";
+  case SearchModel::SEARCH_TYPE_COUNT: return "COUNT";
   }
   ASSERT(false, ("Unknown search type:", static_cast<int>(type)));
   return string();

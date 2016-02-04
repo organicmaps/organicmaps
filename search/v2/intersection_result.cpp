@@ -32,7 +32,8 @@ void IntersectionResult::Set(SearchModel::SearchType type, uint32_t id)
   case SearchModel::SEARCH_TYPE_VILLAGE:
   case SearchModel::SEARCH_TYPE_STATE:
   case SearchModel::SEARCH_TYPE_COUNTRY:
-  case SearchModel::SEARCH_TYPE_COUNT:
+  case SearchModel::SEARCH_TYPE_UNCLASSIFIED:
+    case SearchModel::SEARCH_TYPE_COUNT:
     ASSERT(false, ("Unsupported types."));
     break;
   }

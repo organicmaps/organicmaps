@@ -74,7 +74,8 @@ public:
     case SearchModel::SEARCH_TYPE_VILLAGE:
     case SearchModel::SEARCH_TYPE_STATE:
     case SearchModel::SEARCH_TYPE_COUNTRY:
-    case SearchModel::SEARCH_TYPE_COUNT:
+    case SearchModel::SEARCH_TYPE_UNCLASSIFIED:
+      case SearchModel::SEARCH_TYPE_COUNT:
       ASSERT(false, ("Invalid parent layer type:", parent.m_type));
       break;
     case SearchModel::SEARCH_TYPE_BUILDING:

@@ -214,6 +214,32 @@ string TestBuilding::ToString() const
   return os.str();
 }
 
+// TestPark ----------------------------------------------------------------------------------------
+TestPark::TestPark(vector<m2::PointD> const & boundary, string const & name, string const & lang)
+  : TestFeature(name, lang), m_boundary(boundary)
+{
+}
+
+void TestPark::Serialize(FeatureBuilder1 & fb) const
+{
+  TestFeature::Serialize(fb);
+  for (auto const & point : m_boundary)
+    fb.AddPoint(point);
+  fb.SetArea();
+
+  auto const & classificator = classif();
+  fb.SetType(classificator.GetTypeByPath({"leisure", "park"}));
+
+  fb.PreSerialize();
+}
+
+string TestPark::ToString() const
+{
+  ostringstream os;
+  os << "TestPark [" << m_name << ", " << m_lang << "]";
+  return os.str();
+}
+
 string DebugPrint(TestFeature const & feature) { return feature.ToString(); }
 }  // namespace tests_support
 }  // namespace search

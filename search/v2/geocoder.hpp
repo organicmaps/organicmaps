@@ -187,6 +187,9 @@ private:
   // retrieved, viewport is used to throw away excess features.
   void MatchViewportAndPosition();
 
+  // Tries to do geocoding in a limited scope, assuming that knowledge
+  // about high-level features, like cities or countries, is
+  // incorporated into |filter|.
   void LimitedSearch(coding::CompressedBitVector const * filter, size_t filterThreshold);
 
   // Tries to match some adjacent tokens in the query as streets and
@@ -210,6 +213,11 @@ private:
   // the lowest layer.
   void FindPaths();
 
+  // Tries to match unclassified objects from lower layers, like
+  // parks, forests, lakes, rivers, etc. This method finds all
+  // UNCLASSIFIED objects that match to all currently unused tokens.
+  void MatchUnclassified(size_t curToken);
+
   unique_ptr<coding::CompressedBitVector> LoadCategories(
       MwmContext & context, vector<strings::UniString> const & categories);
 
@@ -222,9 +230,23 @@ private:
   coding::CompressedBitVector const * RetrieveGeometryFeatures(
       MwmContext const & context, m2::RectD const & rect, int id);
 
+  // This is a faster wrapper around SearchModel::GetSearchType(), as
+  // it uses pre-loaded lists of streets and villages.
+  SearchModel::SearchType GetSearchTypeInGeocoding(uint32_t featureId);
+
+  // Returns true if all tokens are used.
   bool AllTokensUsed() const;
 
+  // Returns true if there exists at least one used token in [from,
+  // to).
   bool HasUsedTokensInRange(size_t from, size_t to) const;
+
+  // Counts number of groups of consecutive unused tokens.
+  size_t NumUnusedTokensGroups() const;
+
+  // Advances |curToken| to the nearest unused token, or to the end of
+  // |m_usedTokens| if there're no unused tokens.
+  size_t SkipUsedTokens(size_t curToken) const;
 
   Index & m_index;
 

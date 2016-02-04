@@ -106,7 +106,10 @@ protected:
 class CountryInfoGetterForTesting : public CountryInfoGetter
 {
 public:
+  CountryInfoGetterForTesting() = default;
   CountryInfoGetterForTesting(vector<CountryDef> const & countries);
+
+  void AddCountry(CountryDef const & country);
 
 protected:
   // CountryInfoGetter overrides:
