@@ -157,7 +157,7 @@ namespace qt
     {
       QColor rowColor;
       QString statusString;
-      LocalAndRemoteSizeT size(0, 0);
+      TLocalAndRemoteSize size(0, 0);
 
       MapOptions const options = MapOptions::MapWithCarRouting;
 

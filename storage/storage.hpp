@@ -23,7 +23,7 @@ struct NodeAttrs
 {
   NodeAttrs() : m_mwmCounter(0), m_localMwmCounter(0), m_mwmSize(0), m_localMwmSize(0),
     m_downloadingMwmSize(0), m_downloadingProgress(0),
-    m_status(TNodeStatus::Undefined), m_error(TErrNodeStatus::NoError) {}
+    m_status(TNodeStatus::Undefined), m_error(TNodeErrorCode::NoError) {}
   /// If the node is expandable (a big country) |m_mwmCounter| is number of mwm files (leaves)
   /// belongs to the node. If the node isn't expandable |m_mapsDownloaded| == 1.
   uint32_t m_mwmCounter;
@@ -64,7 +64,7 @@ struct NodeAttrs
   uint8_t m_downloadingProgress;
 
   TNodeStatus m_status;
-  TErrNodeStatus m_error;
+  TNodeErrorCode m_error;
 };
 
 /// This class is used for downloading, updating and deleting maps.
@@ -74,7 +74,7 @@ public:
   struct StatusCallback;
   using TUpdate = function<void(platform::LocalCountryFile const &)>;
   using TChangeCountryFunction = function<void(TCountryId const &)>;
-  using TProgressFunction = function<void(TCountryId const &, LocalAndRemoteSizeT const &)>;
+  using TProgressFunction = function<void(TCountryId const &, TLocalAndRemoteSize const &)>;
 
 private:
   /// We support only one simultaneous request at the moment
@@ -349,7 +349,7 @@ public:
   string const & CountryName(TCountryId const & countryId) const;
   bool IsCoutryIdInCountryTree(TCountryId const & countryId) const;
 
-  LocalAndRemoteSizeT CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const;
+  TLocalAndRemoteSize CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const;
   platform::CountryFile const & GetCountryFile(TCountryId const & countryId) const;
   TLocalFilePtr GetLatestLocalFile(platform::CountryFile const & countryFile) const;
   TLocalFilePtr GetLatestLocalFile(TCountryId const & countryId) const;

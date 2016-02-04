@@ -79,7 +79,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   };
 
   TCountriesSet downloaded;
-  auto onProgressFn = [&](TCountryId const & countryId, LocalAndRemoteSizeT const & mapSize)
+  auto onProgressFn = [&](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
   {
     TEST(children.find(countryId) != children.end(), ());
     if (mapSize.first == mapSize.second)

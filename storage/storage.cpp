@@ -291,18 +291,18 @@ bool Storage::IsCoutryIdInCountryTree(TCountryId const & countryId) const
   return m_countries.Find(Country(countryId)) != nullptr;
 }
 
-LocalAndRemoteSizeT Storage::CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const
+TLocalAndRemoteSize Storage::CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const
 {
   QueuedCountry const * queuedCountry = FindCountryInQueue(countryId);
   TLocalFilePtr localFile = GetLatestLocalFile(countryId);
   CountryFile const & countryFile = GetCountryFile(countryId);
   if (queuedCountry == nullptr)
   {
-    return LocalAndRemoteSizeT(GetLocalSize(localFile, opt),
+    return TLocalAndRemoteSize(GetLocalSize(localFile, opt),
                                GetRemoteSize(countryFile, opt, GetCurrentDataVersion()));
   }
 
-  LocalAndRemoteSizeT sizes(0, GetRemoteSize(countryFile, opt, GetCurrentDataVersion()));
+  TLocalAndRemoteSize sizes(0, GetRemoteSize(countryFile, opt, GetCurrentDataVersion()));
   if (!m_downloader->IsIdle() && IsCountryFirstInQueue(countryId))
   {
     sizes.first = m_downloader->GetDownloadingProgress().first +
@@ -1130,9 +1130,9 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   Country const & nodeValue = node->Value();
   nodeAttrs.m_mwmCounter = nodeValue.GetSubtreeMwmCounter();
   nodeAttrs.m_mwmSize = nodeValue.GetSubtreeMwmSizeBytes();
-  TStatusAndError statusAndErr = ParseStatus(NodeStatus(*node));
-  nodeAttrs.m_status = statusAndErr.first;
-  nodeAttrs.m_error = statusAndErr.second;
+  StatusAndError statusAndErr = ParseStatus(NodeStatus(*node));
+  nodeAttrs.m_status = statusAndErr.status;
+  nodeAttrs.m_error = statusAndErr.error;
   // @TODO(bykoianko) NodeAttrs::m_nodeLocalName should be in local language.
   nodeAttrs.m_nodeLocalName = countryId;
 }

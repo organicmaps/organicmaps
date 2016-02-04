@@ -1,5 +1,7 @@
 #include "storage/storage_defines.hpp"
 
+#include "std/sstream.hpp"
+
 namespace storage
 {
 string DebugPrint(TStatus status)
@@ -52,45 +54,53 @@ string DebugPrint(TNodeStatus status)
   }
 }
 
-string DebugPrint(TErrNodeStatus status)
+string DebugPrint(TNodeErrorCode status)
 {
   switch (status)
   {
-  case TErrNodeStatus::NoError:
+  case TNodeErrorCode::NoError:
     return string("NoError");
-  case TErrNodeStatus::UnknownError:
+  case TNodeErrorCode::UnknownError:
     return string("UnknownError");
-  case TErrNodeStatus::OutOfMemFailed:
+  case TNodeErrorCode::OutOfMemFailed:
     return string("OutOfMemFailed");
-  case TErrNodeStatus::NoInetConnection:
+  case TNodeErrorCode::NoInetConnection:
     return string("NoInetConnection");
   }
 }
 
-TStatusAndError ParseStatus(TStatus innerStatus)
+StatusAndError ParseStatus(TStatus innerStatus)
 {
   switch (innerStatus)
   {
   case TStatus::EUndefined:
-    return TStatusAndError(TNodeStatus::Undefined, TErrNodeStatus::NoError);
+    return StatusAndError(TNodeStatus::Undefined, TNodeErrorCode::NoError);
   case TStatus::EOnDisk:
-    return TStatusAndError(TNodeStatus::OnDisk, TErrNodeStatus::NoError);
+    return StatusAndError(TNodeStatus::OnDisk, TNodeErrorCode::NoError);
   case TStatus::ENotDownloaded:
-    return TStatusAndError(TNodeStatus::NotDownloaded, TErrNodeStatus::NoError);
+    return StatusAndError(TNodeStatus::NotDownloaded, TNodeErrorCode::NoError);
   case TStatus::EDownloadFailed:
-    return TStatusAndError(TNodeStatus::Error, TErrNodeStatus::NoInetConnection);
+    return StatusAndError(TNodeStatus::Error, TNodeErrorCode::NoInetConnection);
   case TStatus::EDownloading:
-    return TStatusAndError(TNodeStatus::Downloading, TErrNodeStatus::NoError);
+    return StatusAndError(TNodeStatus::Downloading, TNodeErrorCode::NoError);
   case TStatus::EInQueue:
-    return TStatusAndError(TNodeStatus::InQueue, TErrNodeStatus::NoError);
+    return StatusAndError(TNodeStatus::InQueue, TNodeErrorCode::NoError);
   case TStatus::EUnknown:
-    return TStatusAndError(TNodeStatus::Error, TErrNodeStatus::UnknownError);
+    return StatusAndError(TNodeStatus::Error, TNodeErrorCode::UnknownError);
   case TStatus::EOnDiskOutOfDate:
-    return TStatusAndError(TNodeStatus::OnDiskOutOfDate, TErrNodeStatus::NoError);
+    return StatusAndError(TNodeStatus::OnDiskOutOfDate, TNodeErrorCode::NoError);
   case TStatus::EOutOfMemFailed:
-    return TStatusAndError(TNodeStatus::Error, TErrNodeStatus::OutOfMemFailed);
+    return StatusAndError(TNodeStatus::Error, TNodeErrorCode::OutOfMemFailed);
   case TStatus::EMixed:
-    return TStatusAndError(TNodeStatus::Mixed, TErrNodeStatus::NoError);
+    return StatusAndError(TNodeStatus::Mixed, TNodeErrorCode::NoError);
   }
+}
+
+string DebugPrint(StatusAndError statusAndError)
+{
+  ostringstream out;
+  out << "StatusAndError[" << DebugPrint(statusAndError.status)
+      << ", " << DebugPrint(statusAndError.error) << "]";
+  return out.str();
 }
 }  // namespace storage

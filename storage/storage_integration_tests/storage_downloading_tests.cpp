@@ -67,7 +67,7 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
     Storage storage(COUNTRIES_MIGRATE_FILE);
     TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
-    auto onProgressFn = [](TCountryId const & countryId, LocalAndRemoteSizeT const & mapSize)
+    auto onProgressFn = [](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
     {
       TEST_EQUAL(countryId, kCountryId, ());
       // Interrupt download
@@ -90,7 +90,7 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
 
   Storage storage(COUNTRIES_MIGRATE_FILE);
 
-  auto onProgressFn = [](TCountryId const & countryId, LocalAndRemoteSizeT const & mapSize)
+  auto onProgressFn = [](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
   {
     TEST_EQUAL(countryId, kCountryId, ());
   };

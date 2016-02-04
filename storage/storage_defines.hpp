@@ -38,19 +38,33 @@ namespace storage
   };
   string DebugPrint(TNodeStatus status);
 
-  enum class TErrNodeStatus
+  enum class TNodeErrorCode
   {
     NoError,
     UnknownError,     /**< Downloading failed because of unknown error. */
     OutOfMemFailed,   /**< Downloading failed because it's not enough memory */
     NoInetConnection, /**< Downloading failed because internet connection was interrupted */
   };
-  string DebugPrint(TErrNodeStatus status);
+  string DebugPrint(TNodeErrorCode status);
 
-  using TStatusAndError = pair<TNodeStatus, TErrNodeStatus>;
-  using LocalAndRemoteSizeT = pair<uint64_t, uint64_t>;
+  struct StatusAndError
+  {
+    StatusAndError(TNodeStatus nodeStatus, TNodeErrorCode nodeError) :
+      status(nodeStatus), error(nodeError) {}
 
-  TStatusAndError ParseStatus(TStatus innerStatus);
+    bool operator==(StatusAndError const & other)
+    {
+      return other.status == status && other.error == error;
+    }
+
+    TNodeStatus status;
+    TNodeErrorCode error;
+  };
+  string DebugPrint(StatusAndError statusAndError);
+
+  using TLocalAndRemoteSize = pair<uint64_t, uint64_t>;
+
+  StatusAndError ParseStatus(TStatus innerStatus);
 }  // namespace storage
 
 using TDownloadFn = function<void (storage::TCountryId const &)>;

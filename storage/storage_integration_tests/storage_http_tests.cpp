@@ -30,7 +30,7 @@ string const kMapTestDir = "map-tests";
 
 string const kTestWebServer = "http://new-search.mapswithme.com/";
 
-void ProgressFunction(TCountryId const & countryId, LocalAndRemoteSizeT const & mapSize)
+void ProgressFunction(TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
 {
   TEST_EQUAL(countryId, kCountryId, ());
 }

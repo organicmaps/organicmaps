@@ -193,13 +193,13 @@ protected:
     ++m_currStatus;
     if (m_transitionList[m_currStatus] == TStatus::EDownloading)
     {
-      LocalAndRemoteSizeT localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
+      TLocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
       m_totalBytesToDownload = localAndRemoteSize.second;
     }
   }
 
   virtual void OnCountryDownloadingProgress(TCountryId const & countryId,
-                                            LocalAndRemoteSizeT const & progress)
+                                            TLocalAndRemoteSize const & progress)
   {
     if (countryId != m_countryId)
       return;
@@ -210,7 +210,7 @@ protected:
     m_bytesDownloaded = progress.first;
     TEST_LESS_OR_EQUAL(m_bytesDownloaded, m_totalBytesToDownload, (m_countryFile));
 
-    LocalAndRemoteSizeT localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
+    TLocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
     TEST_EQUAL(m_totalBytesToDownload, localAndRemoteSize.second, (m_countryFile));
   }
 
@@ -241,7 +241,7 @@ public:
 protected:
   // CountryDownloaderChecker overrides:
   void OnCountryDownloadingProgress(TCountryId const & countryId,
-                                    LocalAndRemoteSizeT const & progress) override
+                                    TLocalAndRemoteSize const & progress) override
   {
     CountryDownloaderChecker::OnCountryDownloadingProgress(countryId, progress);
 
@@ -331,7 +331,7 @@ private:
   }
 
   void OnCountryDownloadingProgress(TCountryId const & /* countryId */,
-                                    LocalAndRemoteSizeT const & /* progress */)
+                                    TLocalAndRemoteSize const & /* progress */)
   {
     TEST(false, ("Unexpected country downloading progress."));
   }
@@ -382,7 +382,7 @@ public:
     QCoreApplication::exit();
   }
 
-  void OnProgress(TCountryId const & /* countryId */, LocalAndRemoteSizeT const & /* progress */) {}
+  void OnProgress(TCountryId const & /* countryId */, TLocalAndRemoteSize const & /* progress */) {}
 
 private:
   Storage & m_storage;
@@ -1167,27 +1167,28 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 4689718, ());
   TEST_EQUAL(nodeAttrs.m_status, TNodeStatus::NotDownloaded, ());
-  TEST_EQUAL(nodeAttrs.m_error, TErrNodeStatus::NoError, ());
+  TEST_EQUAL(nodeAttrs.m_error, TNodeErrorCode::NoError, ());
 
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 2, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 90878678, ());
   TEST_EQUAL(nodeAttrs.m_status, TNodeStatus::NotDownloaded, ());
-  TEST_EQUAL(nodeAttrs.m_error, TErrNodeStatus::NoError, ());
+  TEST_EQUAL(nodeAttrs.m_error, TNodeErrorCode::NoError, ());
 
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 48394664, ());
   TEST_EQUAL(nodeAttrs.m_status, TNodeStatus::NotDownloaded, ());
-  TEST_EQUAL(nodeAttrs.m_error, TErrNodeStatus::NoError, ());
+  TEST_EQUAL(nodeAttrs.m_error, TNodeErrorCode::NoError, ());
 }
+
 UNIT_TEST(StorageTest_ParseStatus)
 {
-  TEST_EQUAL(TStatusAndError(TNodeStatus::Undefined, TErrNodeStatus::NoError),
+  TEST_EQUAL(StatusAndError(TNodeStatus::Undefined, TNodeErrorCode::NoError),
              ParseStatus(TStatus::EUndefined), ());
-  TEST_EQUAL(TStatusAndError(TNodeStatus::Error, TErrNodeStatus::NoInetConnection),
+  TEST_EQUAL(StatusAndError(TNodeStatus::Error, TNodeErrorCode::NoInetConnection),
              ParseStatus(TStatus::EDownloadFailed), ());
-  TEST_EQUAL(TStatusAndError(TNodeStatus::Downloading, TErrNodeStatus::NoError),
+  TEST_EQUAL(StatusAndError(TNodeStatus::Downloading, TNodeErrorCode::NoError),
              ParseStatus(TStatus::EDownloading), ());
 }
 }  // namespace storage

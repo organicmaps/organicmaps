@@ -228,7 +228,7 @@ bool SearchPanel::TryMigrate(QString const & str)
     }
   };
 
-  auto progressChanged = [](storage::TCountryId const & id, storage::LocalAndRemoteSizeT const & sz)
+  auto progressChanged = [](storage::TCountryId const & id, storage::TLocalAndRemoteSize const & sz)
   {
     LOG(LINFO, (id, "downloading progress:", sz));
   };

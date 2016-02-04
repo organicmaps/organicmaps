@@ -69,7 +69,7 @@ UNIT_TEST(StorageMigrationTests)
     }
   };
 
-  auto progressChanged = [](TCountryId const & id, LocalAndRemoteSizeT const & sz)
+  auto progressChanged = [](TCountryId const & id, TLocalAndRemoteSize const & sz)
   {
     LOG_SHORT(LINFO, (id, "downloading progress:", sz));
   };
