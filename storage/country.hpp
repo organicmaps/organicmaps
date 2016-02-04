@@ -29,8 +29,10 @@ using TMapping = map<TCountryId, TCountriesSet>;
 class Country
 {
   friend class update::SizeUpdater;
-  /// Name in the country node tree
+  /// Name in the country node tree. In single mwm case it's a country id.
   TCountryId m_name;
+  /// Country id of parent of m_name in country tree. m_parent == kInvalidCountryId for the root.
+  TCountryId m_parent;
   /// |m_file| is a CountryFile of mwm with id == |m_name|.
   /// if |m_name| is node id of a group of mwms, |m_file| is empty.
   platform::CountryFile m_file;
@@ -43,7 +45,8 @@ class Country
 
 public:
   Country() = default;
-  Country(TCountryId const & name) : m_name(name) {}
+  explicit Country(TCountryId const & name, TCountryId const & parent = kInvalidCountryId)
+    : m_name(name), m_parent(parent) {}
 
   bool operator<(Country const & other) const { return Name() < other.Name(); }
   void SetFile(platform::CountryFile const & file) { m_file = file; }
@@ -54,6 +57,7 @@ public:
   }
   uint32_t GetSubtreeMwmCounter() const { return m_subtreeMwmNumber; }
   size_t GetSubtreeMwmSizeBytes() const { return m_subtreeMwmSizeBytes; }
+  TCountryId GetParent() const { return m_parent; }
 
   /// This function valid for current logic - one file for one country (region).
   /// If the logic will be changed, replace GetFile with ForEachFile.

@@ -766,7 +766,7 @@ TCountriesVec Storage::FindAllIndexesByFile(string const & name) const
   // @TODO(bykoianko) This method should be rewritten. At list now name and the param of Find
   // have different types: string and TCountryId.
   TCountriesVec result;
-  if (m_countries.Find(name))
+  if (m_countries.Find(Country(name)))
     result.push_back(name);
   return result;
 }
@@ -976,7 +976,7 @@ TCountryId const Storage::GetRootId() const
 
 void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childrenId) const
 {
-  TCountriesContainer const * parentNode = m_countries.Find(parent);
+  TCountriesContainer const * parentNode = m_countries.Find(Country(parent));
   if (parentNode == nullptr)
   {
     ASSERT(false, ("TCountryId =", parent, "not found in m_countries."));
@@ -1001,7 +1001,7 @@ void Storage::GetLocalRealMaps(TCountriesVec & localMaps) const
 
 void Storage::GetDownloadedChildren(TCountryId const & parent, TCountriesVec & localChildren) const
 {
-  TCountriesContainer const * parentNode = m_countries.Find(parent);
+  TCountriesContainer const * parentNode = m_countries.Find(Country(parent));
   if (parentNode == nullptr)
   {
     ASSERT(false, ("TCountryId =", parent, "not found in m_countries."));
@@ -1069,7 +1069,7 @@ bool Storage::DownloadNode(TCountryId const & countryId)
 {
   // @TODO(bykoianko) Before downloading it's necessary to check if file(s) has been downloaded.
   // If so, the method should be left with false.
-  TCountriesContainer const * const node = m_countries.Find(countryId);
+  TCountriesContainer const * const node = m_countries.Find(Country(countryId));
   CHECK(node, ());
   node->ForEachInSubtree([this](TCountriesContainer const & descendantNode)
                          {
@@ -1086,7 +1086,7 @@ bool Storage::DeleteNode(TCountryId const & countryId)
 {
   // @TODO(bykoianko) Before deleting it's necessary to check if file(s) has been deleted.
   // If so, the method should be left with false.
-  TCountriesContainer const * const node = m_countries.Find(countryId);
+  TCountriesContainer const * const node = m_countries.Find(Country(countryId));
   CHECK(node, ());
   node->ForEachInSubtree([this](TCountriesContainer const & descendantNode)
                          {
@@ -1124,7 +1124,7 @@ Status Storage::NodeStatus(TCountriesContainer const & node) const
 
 void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) const
 {
-  TCountriesContainer const * const node = m_countries.Find(countryId);
+  TCountriesContainer const * const node = m_countries.Find(Country(countryId));
   CHECK(node, ());
 
   Country const & nodeValue = node->Value();
