@@ -25,6 +25,7 @@ import random
 import socket
 import subprocess
 import testserver
+import time
 import urllib2
 
 import logging
@@ -93,6 +94,7 @@ class TestRunner:
     def start_server(self):
         server = testserver.TestServer()
         server.start_serving()
+        time.sleep(3)
 
 
     def stop_server(self):
