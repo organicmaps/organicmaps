@@ -16,5 +16,5 @@ bool IsPointCoveredByDownloadedMaps(m2::PointD const & position,
                                     Storage const & storage,
                                     CountryInfoGetter const & countryInfoGetter);
 
-bool IsDownloadFailed(TStatus status);
+bool IsDownloadFailed(Status status);
 } // namespace storage

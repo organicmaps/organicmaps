@@ -51,7 +51,7 @@ UNIT_TEST(StorageMigrationTests)
 
   auto statePrefetchChanged = [&](TCountryId const & id)
   {
-    TStatus const nextStatus = f.Storage().m_prefetchStorage->CountryStatusEx(id);
+    Status const nextStatus = f.Storage().m_prefetchStorage->CountryStatusEx(id);
     LOG_SHORT(LINFO, (id, "status :", nextStatus));
     if (!f.Storage().m_prefetchStorage->IsDownloadInProgress())
     {

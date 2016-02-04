@@ -13,9 +13,9 @@ bool IsPointCoveredByDownloadedMaps(m2::PointD const & position,
   return storage.IsNodeDownloaded(countryInfoGetter.GetRegionCountryId(position));
 }
 
-bool IsDownloadFailed(TStatus status)
+bool IsDownloadFailed(Status status)
 {
-  return status == TStatus::EDownloadFailed || status == TStatus::EOutOfMemFailed ||
-         status == TStatus::EUnknown;
+  return status == Status::EDownloadFailed || status == Status::EOutOfMemFailed ||
+         status == Status::EUnknown;
 }
 } // namespace storage

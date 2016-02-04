@@ -164,7 +164,7 @@ namespace qt
       Storage const & st = GetStorage();
       switch (m_framework.GetCountryStatus(countryId))
       {
-      case TStatus::ENotDownloaded:
+      case Status::ENotDownloaded:
         if (st.CountriesCount(countryId) == 0)
         {
           size = st.CountrySizeInBytes(countryId, options);
@@ -174,30 +174,30 @@ namespace qt
         rowColor = COLOR_NOTDOWNLOADED;
         break;
 
-      case TStatus::EOnDisk:
+      case Status::EOnDisk:
         statusString = tr("Installed (click to delete)");
         rowColor = COLOR_ONDISK;
         size = st.CountrySizeInBytes(countryId, options);
         break;
 
-      case TStatus::EOnDiskOutOfDate:
+      case Status::EOnDiskOutOfDate:
         statusString = tr("Out of date (click to update or delete)");
         rowColor = COLOR_OUTOFDATE;
         size = st.CountrySizeInBytes(countryId, options);
         break;
 
-      case TStatus::EDownloadFailed:
+      case Status::EDownloadFailed:
         statusString = tr("Download has failed");
         rowColor = COLOR_DOWNLOADFAILED;
         size = st.CountrySizeInBytes(countryId, options);
         break;
 
-      case TStatus::EDownloading:
+      case Status::EDownloading:
         statusString = tr("Downloading ...");
         rowColor = COLOR_INPROGRESS;
         break;
 
-      case TStatus::EInQueue:
+      case Status::EInQueue:
         statusString = tr("Marked for download");
         rowColor = COLOR_INQUEUE;
         size = st.CountrySizeInBytes(countryId, options);

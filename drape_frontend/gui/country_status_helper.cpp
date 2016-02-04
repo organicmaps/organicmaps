@@ -78,17 +78,17 @@ void CountryStatusHelper::SetCountryInfo(CountryInfo const & countryInfo)
   CountryStatusHelper::ECountryState state = CountryStatusHelper::COUNTRY_STATE_LOADED;
   switch(m_countryInfo.m_countryStatus)
   {
-  case storage::TStatus::ENotDownloaded:
+  case storage::Status::ENotDownloaded:
     state = CountryStatusHelper::COUNTRY_STATE_EMPTY;
     break;
-  case storage::TStatus::EDownloading:
+  case storage::Status::EDownloading:
     state = CountryStatusHelper::COUNTRY_STATE_LOADING;
     break;
-  case storage::TStatus::EInQueue:
+  case storage::Status::EInQueue:
     state = CountryStatusHelper::COUNTRY_STATE_IN_QUEUE;
     break;
-  case storage::TStatus::EDownloadFailed:
-  case storage::TStatus::EOutOfMemFailed:
+  case storage::Status::EDownloadFailed:
+  case storage::Status::EOutOfMemFailed:
     state = CountryStatusHelper::COUNTRY_STATE_FAILED;
     break;
   default:

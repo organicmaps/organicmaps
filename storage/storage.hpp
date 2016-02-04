@@ -23,7 +23,7 @@ struct NodeAttrs
 {
   NodeAttrs() : m_mwmCounter(0), m_localMwmCounter(0), m_mwmSize(0), m_localMwmSize(0),
     m_downloadingMwmSize(0), m_downloadingProgress(0),
-    m_status(TNodeStatus::Undefined), m_error(TNodeErrorCode::NoError) {}
+    m_status(NodeStatus::Undefined), m_error(NodeErrorCode::NoError) {}
   /// If the node is expandable (a big country) |m_mwmCounter| is number of mwm files (leaves)
   /// belongs to the node. If the node isn't expandable |m_mapsDownloaded| == 1.
   uint32_t m_mwmCounter;
@@ -63,8 +63,8 @@ struct NodeAttrs
   /// |m_downloadingProgress| == 0.
   uint8_t m_downloadingProgress;
 
-  TNodeStatus m_status;
-  TNodeErrorCode m_error;
+  NodeStatus m_status;
+  NodeErrorCode m_error;
 };
 
 /// This class is used for downloading, updating and deleting maps.
@@ -355,7 +355,7 @@ public:
   TLocalFilePtr GetLatestLocalFile(TCountryId const & countryId) const;
 
   /// Slow version, but checks if country is out of date
-  TStatus CountryStatusEx(TCountryId const & countryId) const;
+  Status CountryStatusEx(TCountryId const & countryId) const;
 
   /// Puts country denoted by countryId into the downloader's queue.
   /// During downloading process notifies observers about downloading
@@ -398,8 +398,8 @@ private:
   friend void UnitTest_StorageTest_DeleteCountrySingleMwm();
   friend void UnitTest_StorageTest_DeleteCountryTwoComponentsMwm();
 
-  TStatus CountryStatusWithoutFailed(TCountryId const & countryId) const;
-  TStatus CountryStatusFull(TCountryId const & countryId, TStatus const status) const;
+  Status CountryStatusWithoutFailed(TCountryId const & countryId) const;
+  Status CountryStatusFull(TCountryId const & countryId, Status const status) const;
 
   // Modifies file set of file to deletion - always adds (marks for
   // removal) a routing file when map file is marked for deletion.
@@ -449,11 +449,11 @@ private:
   // downloaded files.
   string GetFileDownloadPath(TCountryId const & countryId, MapOptions file) const;
 
-  void CountryStatusEx(TCountryId const & countryId, TStatus & status, MapOptions & options) const;
+  void CountryStatusEx(TCountryId const & countryId, Status & status, MapOptions & options) const;
   /// Fast version, doesn't check if country is out of date
-  TStatus CountryStatus(TCountryId const & countryId) const;
+  Status CountryStatus(TCountryId const & countryId) const;
   /// Returns status for a node (group node or not)
-  TStatus NodeStatus(TCountriesContainer const & node) const;
+  Status NodeStatus(TCountriesContainer const & node) const;
 };
 
 bool HasCountryId(TCountriesVec const & sorted, TCountryId const & countyId);

@@ -480,7 +480,7 @@ void Framework::DownloadCountry(storage::TCountryId const & index, MapOptions op
   m_storage.DownloadCountry(index, opt);
 }
 
-TStatus Framework::GetCountryStatus(storage::TCountryId const & index) const
+Status Framework::GetCountryStatus(storage::TCountryId const & index) const
 {
   return m_storage.CountryStatusEx(index);
 }
@@ -968,7 +968,7 @@ void Framework::UpdateCountryInfo(storage::TCountryId const & countryId, bool is
   gui::CountryInfo countryInfo;
 
   countryInfo.m_countryIndex = countryId;
-  if (countryInfo.m_countryStatus == storage::TStatus::EDownloading)
+  if (countryInfo.m_countryStatus == storage::Status::EDownloading)
     countryInfo.m_downloadProgress = 50;
 
   m_drapeEngine->SetCountryInfo(countryInfo, isCurrentCountry);

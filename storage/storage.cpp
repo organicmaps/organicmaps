@@ -350,34 +350,34 @@ Storage::TLocalFilePtr Storage::GetLatestLocalFile(TCountryId const & countryId)
   return latest;
 }
 
-TStatus Storage::CountryStatus(TCountryId const & countryId) const
+Status Storage::CountryStatus(TCountryId const & countryId) const
 {
   // Check if we already downloading this country or have it in the queue
   if (IsCountryInQueue(countryId))
   {
     if (IsCountryFirstInQueue(countryId))
-      return TStatus::EDownloading;
+      return Status::EDownloading;
     else
-      return TStatus::EInQueue;
+      return Status::EInQueue;
   }
 
   // Check if this country has failed while downloading.
   if (m_failedCountries.count(countryId) > 0)
-    return TStatus::EDownloadFailed;
+    return Status::EDownloadFailed;
 
-  return TStatus::EUnknown;
+  return Status::EUnknown;
 }
 
-TStatus Storage::CountryStatusEx(TCountryId const & countryId) const
+Status Storage::CountryStatusEx(TCountryId const & countryId) const
 {
   return CountryStatusFull(countryId, CountryStatus(countryId));
 }
 
-void Storage::CountryStatusEx(TCountryId const & countryId, TStatus & status, MapOptions & options) const
+void Storage::CountryStatusEx(TCountryId const & countryId, Status & status, MapOptions & options) const
 {
   status = CountryStatusEx(countryId);
 
-  if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
+  if (status == Status::EOnDisk || status == Status::EOnDiskOutOfDate)
   {
     options = MapOptions::Map;
 
@@ -786,30 +786,30 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
   }
 }
 
-TStatus Storage::CountryStatusWithoutFailed(TCountryId const & countryId) const
+Status Storage::CountryStatusWithoutFailed(TCountryId const & countryId) const
 {
   // First, check if we already downloading this country or have in in the queue.
   if (!IsCountryInQueue(countryId))
-    return CountryStatusFull(countryId, TStatus::EUnknown);
-  return IsCountryFirstInQueue(countryId) ? TStatus::EDownloading : TStatus::EInQueue;
+    return CountryStatusFull(countryId, Status::EUnknown);
+  return IsCountryFirstInQueue(countryId) ? Status::EDownloading : Status::EInQueue;
 }
 
-TStatus Storage::CountryStatusFull(TCountryId const & countryId, TStatus const status) const
+Status Storage::CountryStatusFull(TCountryId const & countryId, Status const status) const
 {
-  if (status != TStatus::EUnknown)
+  if (status != Status::EUnknown)
     return status;
 
   TLocalFilePtr localFile = GetLatestLocalFile(countryId);
   if (!localFile || !localFile->OnDisk(MapOptions::Map))
-    return TStatus::ENotDownloaded;
+    return Status::ENotDownloaded;
 
   CountryFile const & countryFile = GetCountryFile(countryId);
   if (GetRemoteSize(countryFile, MapOptions::Map, GetCurrentDataVersion()) == 0)
-    return TStatus::EUnknown;
+    return Status::EUnknown;
 
   if (localFile->GetVersion() != GetCurrentDataVersion())
-    return TStatus::EOnDiskOutOfDate;
-  return TStatus::EOnDisk;
+    return Status::EOnDiskOutOfDate;
+  return Status::EOnDisk;
 }
 
 // @TODO(bykoianko) This method does nothing and should be removed.
@@ -1099,19 +1099,19 @@ bool Storage::DeleteNode(TCountryId const & countryId)
     return true;
 }
 
-TStatus Storage::NodeStatus(TCountriesContainer const & node) const
+Status Storage::NodeStatus(TCountriesContainer const & node) const
 {
   if (node.ChildrenCount() == 0)
     return CountryStatusEx(node.Value().Name());
 
-  TStatus result = TStatus::EUndefined;
+  Status result = Status::EUndefined;
   bool returnMixStatus = false;
   auto groupStatusCalculator = [&result, &returnMixStatus, this](TCountriesContainer const & nodeInSubtree)
   {
     if (returnMixStatus || nodeInSubtree.ChildrenCount() != 0)
       return;
-    TStatus status = this->CountryStatusEx(nodeInSubtree.Value().Name());
-    if (result == TStatus::EUndefined)
+    Status status = this->CountryStatusEx(nodeInSubtree.Value().Name());
+    if (result == Status::EUndefined)
       result = status;
     if (result != status)
       returnMixStatus = true;
@@ -1119,7 +1119,7 @@ TStatus Storage::NodeStatus(TCountriesContainer const & node) const
 
   node.ForEachDescendant(groupStatusCalculator);
 
-  return (returnMixStatus ? TStatus::EMixed : result);
+  return (returnMixStatus ? Status::EMixed : result);
 }
 
 void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) const

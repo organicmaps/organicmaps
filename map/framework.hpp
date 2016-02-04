@@ -199,7 +199,7 @@ public:
   void SetDownloadCancelListener(TDownloadCancelListener const & listener);
   void SetAutoDownloadListener(TAutoDownloadListener const & listener);
 
-  storage::TStatus GetCountryStatus(storage::TCountryId const & index) const;
+  storage::Status GetCountryStatus(storage::TCountryId const & index) const;
   string GetCountryName(storage::TCountryId const & index) const;
 
   /// Get country rect from borders (not from mwm file).

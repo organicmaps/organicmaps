@@ -16,7 +16,7 @@ namespace gui
 struct CountryInfo
 {
   storage::TCountryId m_countryIndex = storage::kInvalidCountryId;
-  storage::TStatus m_countryStatus = storage::TStatus::EUnknown;
+  storage::Status m_countryStatus = storage::Status::EUnknown;
   string m_currentCountryName;
   size_t m_mapSize = 0;
   size_t m_downloadProgress = 0;

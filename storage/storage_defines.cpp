@@ -4,95 +4,95 @@
 
 namespace storage
 {
-string DebugPrint(TStatus status)
+string DebugPrint(Status status)
 {
   switch (status)
   {
-  case TStatus::EUndefined:
+  case Status::EUndefined:
     return string("EUndefined");
-  case TStatus::EOnDisk:
+  case Status::EOnDisk:
     return string("OnDisk");
-  case TStatus::ENotDownloaded:
+  case Status::ENotDownloaded:
     return string("NotDownloaded");
-  case TStatus::EDownloadFailed:
+  case Status::EDownloadFailed:
     return string("DownloadFailed");
-  case TStatus::EDownloading:
+  case Status::EDownloading:
     return string("Downloading");
-  case TStatus::EInQueue:
+  case Status::EInQueue:
     return string("InQueue");
-  case TStatus::EUnknown:
+  case Status::EUnknown:
     return string("Unknown");
-  case TStatus::EOnDiskOutOfDate:
+  case Status::EOnDiskOutOfDate:
     return string("OnDiskOutOfDate");
-  case TStatus::EOutOfMemFailed:
+  case Status::EOutOfMemFailed:
     return string("OutOfMemFailed");
-  case TStatus::EMixed:
+  case Status::EMixed:
     return string("EMixed");
   }
 }
 
-string DebugPrint(TNodeStatus status)
+string DebugPrint(NodeStatus status)
 {
   switch (status)
   {
-  case TNodeStatus::Undefined:
+  case NodeStatus::Undefined:
     return string("Undefined");
-  case TNodeStatus::Error:
+  case NodeStatus::Error:
     return string("Error");
-  case TNodeStatus::OnDisk:
+  case NodeStatus::OnDisk:
     return string("OnDisk");
-  case TNodeStatus::NotDownloaded:
+  case NodeStatus::NotDownloaded:
     return string("NotDownloaded");
-  case TNodeStatus::Downloading:
+  case NodeStatus::Downloading:
     return string("Downloading");
-  case TNodeStatus::InQueue:
+  case NodeStatus::InQueue:
     return string("InQueue");
-  case TNodeStatus::OnDiskOutOfDate:
+  case NodeStatus::OnDiskOutOfDate:
     return string("OnDiskOutOfDate");
-  case TNodeStatus::Mixed:
+  case NodeStatus::Mixed:
     return string("Mixed");
   }
 }
 
-string DebugPrint(TNodeErrorCode status)
+string DebugPrint(NodeErrorCode status)
 {
   switch (status)
   {
-  case TNodeErrorCode::NoError:
+  case NodeErrorCode::NoError:
     return string("NoError");
-  case TNodeErrorCode::UnknownError:
+  case NodeErrorCode::UnknownError:
     return string("UnknownError");
-  case TNodeErrorCode::OutOfMemFailed:
+  case NodeErrorCode::OutOfMemFailed:
     return string("OutOfMemFailed");
-  case TNodeErrorCode::NoInetConnection:
+  case NodeErrorCode::NoInetConnection:
     return string("NoInetConnection");
   }
 }
 
-StatusAndError ParseStatus(TStatus innerStatus)
+StatusAndError ParseStatus(Status innerStatus)
 {
   switch (innerStatus)
   {
-  case TStatus::EUndefined:
-    return StatusAndError(TNodeStatus::Undefined, TNodeErrorCode::NoError);
-  case TStatus::EOnDisk:
-    return StatusAndError(TNodeStatus::OnDisk, TNodeErrorCode::NoError);
-  case TStatus::ENotDownloaded:
-    return StatusAndError(TNodeStatus::NotDownloaded, TNodeErrorCode::NoError);
-  case TStatus::EDownloadFailed:
-    return StatusAndError(TNodeStatus::Error, TNodeErrorCode::NoInetConnection);
-  case TStatus::EDownloading:
-    return StatusAndError(TNodeStatus::Downloading, TNodeErrorCode::NoError);
-  case TStatus::EInQueue:
-    return StatusAndError(TNodeStatus::InQueue, TNodeErrorCode::NoError);
-  case TStatus::EUnknown:
-    return StatusAndError(TNodeStatus::Error, TNodeErrorCode::UnknownError);
-  case TStatus::EOnDiskOutOfDate:
-    return StatusAndError(TNodeStatus::OnDiskOutOfDate, TNodeErrorCode::NoError);
-  case TStatus::EOutOfMemFailed:
-    return StatusAndError(TNodeStatus::Error, TNodeErrorCode::OutOfMemFailed);
-  case TStatus::EMixed:
-    return StatusAndError(TNodeStatus::Mixed, TNodeErrorCode::NoError);
+  case Status::EUndefined:
+    return StatusAndError(NodeStatus::Undefined, NodeErrorCode::NoError);
+  case Status::EOnDisk:
+    return StatusAndError(NodeStatus::OnDisk, NodeErrorCode::NoError);
+  case Status::ENotDownloaded:
+    return StatusAndError(NodeStatus::NotDownloaded, NodeErrorCode::NoError);
+  case Status::EDownloadFailed:
+    return StatusAndError(NodeStatus::Error, NodeErrorCode::NoInetConnection);
+  case Status::EDownloading:
+    return StatusAndError(NodeStatus::Downloading, NodeErrorCode::NoError);
+  case Status::EInQueue:
+    return StatusAndError(NodeStatus::InQueue, NodeErrorCode::NoError);
+  case Status::EUnknown:
+    return StatusAndError(NodeStatus::Error, NodeErrorCode::UnknownError);
+  case Status::EOnDiskOutOfDate:
+    return StatusAndError(NodeStatus::OnDiskOutOfDate, NodeErrorCode::NoError);
+  case Status::EOutOfMemFailed:
+    return StatusAndError(NodeStatus::Error, NodeErrorCode::OutOfMemFailed);
+  case Status::EMixed:
+    return StatusAndError(NodeStatus::Mixed, NodeErrorCode::NoError);
   }
 }
 

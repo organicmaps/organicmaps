@@ -101,11 +101,11 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
 
   NodeAttrs attrs;
   storage.GetNodeAttrs(kCountryId, attrs);
-  TEST_EQUAL(TNodeStatus::Downloading, attrs.m_status, ());
+  TEST_EQUAL(NodeStatus::Downloading, attrs.m_status, ());
 
   storage.DownloadNode(kCountryId);
   testing::RunEventLoop();
 
   storage.GetNodeAttrs(kCountryId, attrs);
-  TEST_EQUAL(TNodeStatus::OnDisk, attrs.m_status, ());
+  TEST_EQUAL(NodeStatus::OnDisk, attrs.m_status, ());
 }
