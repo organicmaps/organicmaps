@@ -18,6 +18,7 @@ namespace editor
 DECLARE_EXCEPTION(XMLFeatureError, RootException);
 DECLARE_EXCEPTION(InvalidXML, XMLFeatureError);
 DECLARE_EXCEPTION(NoLatLon, XMLFeatureError);
+DECLARE_EXCEPTION(NoXY, XMLFeatureError);
 DECLARE_EXCEPTION(NoTimestamp, XMLFeatureError);
 DECLARE_EXCEPTION(NoHeader, XMLFeatureError);
 
@@ -33,6 +34,8 @@ public:
     Node,
     Way
   };
+
+  using TMercatorGeometry = vector<m2::PointD>;
 
   /// Creates empty node or way.
   XMLFeature(Type const type);
@@ -59,6 +62,12 @@ public:
   ms::LatLon GetCenter() const;
   void SetCenter(ms::LatLon const & ll);
   void SetCenter(m2::PointD const & mercatorCenter);
+
+  TMercatorGeometry GetGeometry() const;
+
+  /// Sets geometry in mercator to match against FeatureType's geometry in mwm
+  /// when megrating to a new mwm build.
+  void SetGeometry(TMercatorGeometry const & geometry);
 
   string GetName(string const & lang) const;
   string GetName(uint8_t const langCode = StringUtf8Multilang::DEFAULT_CODE) const;
@@ -133,5 +142,5 @@ private:
 };
 
 string DebugPrint(XMLFeature const & feature);
-
+string DebugPrint(XMLFeature::Type const type);
 } // namespace editor

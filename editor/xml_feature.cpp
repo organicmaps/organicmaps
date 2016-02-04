@@ -26,7 +26,7 @@ pugi::xml_node FindTag(pugi::xml_document const & document, string const & key)
   return document.select_node(("//tag[@k='" + key + "']").data()).node();
 }
 
-ms::LatLon PointFromLatLon(pugi::xml_node const & node)
+ms::LatLon GetLatLonFromNode(pugi::xml_node const & node)
 {
   ms::LatLon ll;
   if (!strings::to_double(node.attribute("lat").value(), ll.lat))
@@ -36,6 +36,16 @@ ms::LatLon PointFromLatLon(pugi::xml_node const & node)
   return ll;
 }
 
+m2::PointD GetMercatorPointFromNode(pugi::xml_node const & node)
+{
+  m2::PointD p;
+  if (!strings::to_double(node.attribute("x").value(), p.x))
+    MYTHROW(editor::NoXY, ("Can't parse x attribute: " + string(node.attribute("x").value())));
+  if (!strings::to_double(node.attribute("y").value(), p.y))
+    MYTHROW(editor::NoXY, ("Can't parse y attribute: " + string(node.attribute("y").value())));
+  return p;
+}
+
 void ValidateElement(pugi::xml_node const & nodeOrWay)
 {
   if (!nodeOrWay)
@@ -43,14 +53,13 @@ void ValidateElement(pugi::xml_node const & nodeOrWay)
 
   string const type = nodeOrWay.name();
   if (type == kNodeType)
-    UNUSED_VALUE(PointFromLatLon(nodeOrWay));
+    UNUSED_VALUE(GetLatLonFromNode(nodeOrWay));
   else if (type != kWayType)
     MYTHROW(editor::InvalidXML, ("XMLFeature does not support root tag", type));
 
   if (!nodeOrWay.attribute(kTimestamp))
     MYTHROW(editor::NoTimestamp, ("Node has no timestamp attribute"));
 }
-
 } // namespace
 
 namespace editor
@@ -157,7 +166,7 @@ void XMLFeature::ApplyPatch(XMLFeature const & featureWithChanges)
 
 ms::LatLon XMLFeature::GetCenter() const
 {
-  return PointFromLatLon(GetRootNode());
+  return GetLatLonFromNode(GetRootNode());
 }
 
 void XMLFeature::SetCenter(ms::LatLon const & ll)
@@ -170,6 +179,32 @@ void XMLFeature::SetCenter(ms::LatLon const & ll)
 void XMLFeature::SetCenter(m2::PointD const & mercatorCenter)
 {
   SetCenter(MercatorBounds::ToLatLon(mercatorCenter));
+}
+
+XMLFeature::TMercatorGeometry XMLFeature::GetGeometry() const
+{
+  ASSERT_EQUAL(GetType(), Type::Way, ("Only ways have geometry"));
+  TMercatorGeometry geometry;
+  for (auto const xCenter : GetRootNode().select_nodes("nd"))
+  {
+    ASSERT(xCenter.node(), ("no nd attribute."));
+    geometry.emplace_back(GetMercatorPointFromNode(xCenter.node()));
+  }
+  return geometry;
+}
+
+/// Geometry points are now stored in <nd x="..." y="..." /> nodes like in osm <way>.
+/// But they are not the same as osm's. I.e. osm's one stores reference to a <node>
+/// with it's own data and lat, lon. Here we store only cooridanes in mercator.
+void XMLFeature::SetGeometry(TMercatorGeometry const & geometry)
+{
+  ASSERT_EQUAL(GetType(), Type::Way, ("Only ways have geometry"));
+  for (auto const & point : geometry)
+  {
+    auto nd = GetRootNode().append_child("nd");
+    nd.append_attribute("x") = strings::to_string_dac(point.x, kLatLonTolerance).data();
+    nd.append_attribute("y") = strings::to_string_dac(point.y, kLatLonTolerance).data();
+  }
 }
 
 string XMLFeature::GetName(string const & lang) const
@@ -332,4 +367,12 @@ string DebugPrint(XMLFeature const & feature)
   return ost.str();
 }
 
+string DebugPrint(XMLFeature::Type const type)
+{
+  switch (type)
+  {
+  case XMLFeature::Type::Node: return "Node";
+  case XMLFeature::Type::Way: return "Way";
+  }
+}
 } // namespace editor

@@ -236,3 +236,20 @@ UNIT_TEST(XMLFeature_FromXmlNode)
   TEST_EQUAL(copy.GetAttribute("id"), "4", ());
   TEST_EQUAL(copy.GetTagValue("amenity"), "fountain", ());
 }
+
+UNIT_TEST(XMLFeature_Geometry)
+{
+  XMLFeature::TMercatorGeometry const geometry = {
+    {28.7206411, 3.7182409},
+    {46.7569003, 47.0774689},
+    {22.5909217, 41.6994874},
+    {14.7537008, 17.7788229},
+    {55.1261701, 10.3199476},
+    {28.6519654, 50.0305930},
+    {28.7206411, 3.7182409}
+  };
+
+  XMLFeature feature(XMLFeature::Type::Way);
+  feature.SetGeometry(geometry);
+  TEST_EQUAL(feature.GetGeometry(), geometry, ());
+}

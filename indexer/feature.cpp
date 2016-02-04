@@ -96,10 +96,15 @@ editor::XMLFeature FeatureType::ToXML() const
                                  ? editor::XMLFeature::Type::Node
                                  : editor::XMLFeature::Type::Way);
 
-  // Only Poins are completely serialized and deserialized.
-  // Other types could only be patched.
   if (GetFeatureType() == feature::GEOM_POINT)
+  {
     feature.SetCenter(GetCenter());
+  }
+  else
+  {
+    ParseTriangles(BEST_GEOMETRY);
+    feature.SetGeometry({begin(m_triangles), end(m_triangles)});
+  }
 
   ForEachName([&feature](uint8_t const & lang, string const & name)
               {
@@ -124,7 +129,7 @@ editor::XMLFeature FeatureType::ToXML() const
   //     feature.SetTagValue(tag.first, tag.second);
   // }
 
-  for (auto const type : m_metadata.GetPresentTypes())
+  for (auto const type : GetMetadata().GetPresentTypes())
   {
     auto const attributeName = DebugPrint(static_cast<Metadata::EType>(type));
     feature.SetTagValue(attributeName, m_metadata.Get(type));
