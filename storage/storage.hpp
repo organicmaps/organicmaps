@@ -393,7 +393,8 @@ public:
   }
 
 private:
-  friend void UnitTest_StorageTest_DeleteCountry();
+  friend void UnitTest_StorageTest_DeleteCountrySingleMwm();
+  friend void UnitTest_StorageTest_DeleteCountryTwoComponentsMwm();
 
   TStatus CountryStatusWithoutFailed(TCountryId const & countryId) const;
   TStatus CountryStatusFull(TCountryId const & countryId, TStatus const status) const;

@@ -2,9 +2,11 @@
 
 #include "storage/country_info_getter.hpp"
 #include "storage/country.hpp"
+#include "storage/storage.hpp"
 
 #include "geometry/mercator.hpp"
 
+#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
@@ -57,11 +59,18 @@ UNIT_TEST(CountryInfoGetter_ValidName_Smoke)
   bool isSingleMwm;
   storage::LoadCountryFile2CountryInfo(buffer, id2info, isSingleMwm);
 
-  TEST(!IsEmptyName(id2info, "Germany_Baden-Wurttemberg"), ());
-  TEST(!IsEmptyName(id2info, "France_Paris & Ile-de-France"), ());
+  Storage storage;
 
-  TEST(IsEmptyName(id2info, "Russia_Far Eastern"), ());
-  TEST(IsEmptyName(id2info, "UK_Northern Ireland"), ());
+  if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
+  {
+    TEST(!IsEmptyName(id2info, "Belgium_West Flanders"), ());
+    TEST(!IsEmptyName(id2info, "France_Ile-de-France_Paris"), ());
+  }
+  else
+  {
+    TEST(!IsEmptyName(id2info, "Germany_Baden-Wurttemberg"), ());
+    TEST(!IsEmptyName(id2info, "France_Paris & Ile-de-France"), ());
+  }
 }
 
 UNIT_TEST(CountryInfoGetter_SomeRects)
