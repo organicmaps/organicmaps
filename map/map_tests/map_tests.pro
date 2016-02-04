@@ -30,6 +30,7 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   address_tests.cpp \
   bookmarks_test.cpp \
+  feature_getters_tests.cpp \
   ge0_parser_tests.cpp  \
   geourl_test.cpp \
   gps_track_collection_test.cpp \

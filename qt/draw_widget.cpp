@@ -494,19 +494,24 @@ void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
     menu.addAction(QString::fromUtf8(s.c_str()));
   };
 
-  search::AddressInfo const info = m_framework->GetMercatorAddressInfo(m_framework->PtoG(pt));
-  for (auto const & type : info.m_types)
-    addStringFn(type);
-
-  menu.addSeparator();
-
-  if (!info.m_name.empty())
+  m_framework->ForEachFeatureAtMercatorPoint([&](FeatureType const & ft)
   {
-    addStringFn(info.m_name);
-    menu.addSeparator();
-  }
+    search::AddressInfo const info = m_framework->GetFeatureAddressInfo(ft);
 
-  addStringFn(info.FormatAddress());
+    string concat;
+    for (auto const & type : info.m_types)
+      concat += type + " ";
+    addStringFn(concat);
+
+    if (!info.m_name.empty())
+      addStringFn(info.m_name);
+
+    string const addr = info.FormatAddress();
+    if (!addr.empty())
+      addStringFn(addr);
+
+    menu.addSeparator();
+  }, m_framework->PtoG(pt));
 
   menu.exec(e->pos());
 }
