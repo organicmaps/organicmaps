@@ -7,11 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="YVz-dp-XE1" customClass="MWMEditorSpacerCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="YVz-dp-XE1" customClass="MWMEditorSpacerCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="16"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YVz-dp-XE1" id="XSE-UM-CqW">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="15.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="15"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYv-33-2sa">

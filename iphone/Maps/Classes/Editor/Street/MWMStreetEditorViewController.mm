@@ -5,15 +5,12 @@
 namespace
 {
   NSString * const kStreetEditorCommonCell = @"MWMStreetEditorCommonTableViewCell";
-  NSString * const kStreetEditorSpacerCell = @"MWMEditorSpacerCell";
   NSString * const kStreetEditorEditCell = @"MWMStreetEditorEditTableViewCell";
 } // namespace
 
 @interface MWMStreetEditorViewController ()<UITableViewDelegate, UITableViewDataSource,
                                              MWMStreetEditorCommonTableViewCellProtocol,
                                              MWMStreetEditorEditCellProtocol>
-
-@property (weak, nonatomic) IBOutlet UITableView * tableView;
 
 @property (nonatomic) NSMutableArray<NSString *> * streets;
 
@@ -70,8 +67,6 @@ namespace
 {
   [self.tableView registerNib:[UINib nibWithNibName:kStreetEditorCommonCell bundle:nil]
        forCellReuseIdentifier:kStreetEditorCommonCell];
-  [self.tableView registerNib:[UINib nibWithNibName:kStreetEditorSpacerCell bundle:nil]
-       forCellReuseIdentifier:kStreetEditorSpacerCell];
   [self.tableView registerNib:[UINib nibWithNibName:kStreetEditorEditCell bundle:nil]
        forCellReuseIdentifier:kStreetEditorEditCell];
 }
@@ -150,22 +145,23 @@ namespace
   NSUInteger const streetsCount = self.streets.count;
   if (streetsCount == 0)
     return [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
-  NSUInteger const index = indexPath.row;
-  if (index < streetsCount)
+  if (indexPath.section == 0)
     return [tableView dequeueReusableCellWithIdentifier:kStreetEditorCommonCell];
-  else if (index == streetsCount)
-    return [tableView dequeueReusableCellWithIdentifier:kStreetEditorSpacerCell];
   else
     return [tableView dequeueReusableCellWithIdentifier:kStreetEditorEditCell];
 }
 
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section
 {
-  NSUInteger count = self.streets.count;
-  if (count != 0)
-    count++; // Spacer cell;
-  count++;
+  NSUInteger const count = self.streets.count;
+  if ((section == 0 && count == 0) || section != 0)
+    return 1;
   return count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return self.streets.count > 0 ? 2 : 1;
 }
 
 #pragma mark - UITableViewDelegate
