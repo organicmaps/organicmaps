@@ -136,8 +136,6 @@ public enum Statistics
     public static final String COUNT = "Count";
     public static final String CHANNEL = "Channel";
     public static final String CALLER_ID = "Caller ID";
-    public static final String HAD_VALID_LOCATION = "Had valid location";
-    public static final String DELAY_MILLIS = "Delay in milliseconds";
     public static final String ENABLED = "Enabled";
     public static final String RATING = "Rating";
     public static final String CONNECTION_TYPE = "Connection name";
@@ -272,17 +270,6 @@ public enum Statistics
     trackEvent(EventName.API_CALLED, params().add(EventParam.CALLER_ID, request.getCallerInfo() == null ?
                                                                         "null" :
                                                                         request.getCallerInfo().packageName));
-  }
-
-  public void trackWifiConnected(boolean hasValidLocation)
-  {
-    trackEvent(EventName.WIFI_CONNECTED, params().add(EventParam.HAD_VALID_LOCATION, String.valueOf(hasValidLocation)));
-  }
-
-  public void trackWifiConnectedAfterDelay(boolean isLocationExpired, long delayMillis)
-  {
-    trackEvent(EventName.WIFI_CONNECTED, params().add(EventParam.HAD_VALID_LOCATION, String.valueOf(isLocationExpired))
-                                                 .add(EventParam.DELAY_MILLIS, String.valueOf(delayMillis)));
   }
 
   public void trackRatingDialog(float rating)

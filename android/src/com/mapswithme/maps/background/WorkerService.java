@@ -13,7 +13,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 public class WorkerService extends IntentService
 {
@@ -96,7 +95,6 @@ public class WorkerService extends IntentService
   {
     final long delayMillis = 60000; // 60 seconds
     boolean isLocationValid = processLocation();
-    Statistics.INSTANCE.trackWifiConnected(isLocationValid);
     if (!isLocationValid)
     {
       final Handler handler = new Handler();
@@ -105,7 +103,7 @@ public class WorkerService extends IntentService
         @Override
         public void run()
         {
-          Statistics.INSTANCE.trackWifiConnectedAfterDelay(processLocation(), delayMillis);
+          processLocation();
         }
       }, delayMillis);
     }
