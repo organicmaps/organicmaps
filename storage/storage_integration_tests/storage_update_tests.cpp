@@ -24,11 +24,13 @@ string const kTestWebServer = "http://new-search.mapswithme.com/";
 
 string const kMapTestDir = "map-tests";
 
-string const kMwmVersion1 = "160107";
-size_t const kCountriesTxtFileSize1 = 131488;
+string const kCountriesTxtFile = "countries_migrate.txt";
 
-string const kMwmVersion2 = "160118";
-size_t const kCountriesTxtFileSize2 = 131485;
+string const kMwmVersion1 = "160126";
+size_t const kCountriesTxtFileSize1 = 131201;
+
+string const kMwmVersion2 = "160128";
+size_t const kCountriesTxtFileSize2 = 127870;
 
 string const kGroupCountryId = "Belarus";
 
@@ -60,12 +62,12 @@ bool DownloadFile(string const & url,
 
 string GetCountriesTxtWebUrl(string const version)
 {
-  return kTestWebServer + "/direct/" + version + "/countries.txt";
+  return kTestWebServer + "/direct/" + version + "/" + kCountriesTxtFile;
 }
 
 string GetCountriesTxtFilePath()
 {
-  return my::JoinFoldersToPath(GetPlatform().WritableDir(), "countries.txt");
+  return my::JoinFoldersToPath(GetPlatform().WritableDir(), kCountriesTxtFile);
 }
 
 string GetMwmFilePath(string const & version, TCountryId const & countryId)
