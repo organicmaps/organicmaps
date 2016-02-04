@@ -47,6 +47,8 @@ namespace storage
 {
 namespace
 {
+string const kMapTestDir = "map-tests";
+
 using TLocalFilePtr = shared_ptr<LocalCountryFile>;
 
 string const kSingleMwmCountriesTxt =
@@ -773,7 +775,7 @@ UNIT_TEST(StorageTest_DownloadTwoCountriesAndDeleteTwoComponentMwm)
 
 UNIT_TEST(StorageTest_CancelDownloadingWhenAlmostDone)
 {
-  Storage storage(COUNTRIES_FILE, "map-tests");
+  Storage storage(COUNTRIES_FILE, kMapTestDir);
   TaskRunner runner;
   InitStorage(storage, runner);
 
@@ -794,7 +796,7 @@ UNIT_TEST(StorageTest_CancelDownloadingWhenAlmostDone)
 
 UNIT_TEST(StorageTest_DeleteCountrySingleMwm)
 {
-  Storage storage(COUNTRIES_MIGRATE_FILE, "map-tests");
+  Storage storage(COUNTRIES_MIGRATE_FILE, kMapTestDir);
   TaskRunner runner;
   InitStorage(storage, runner);
 
