@@ -62,7 +62,6 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
 
   // Start download but interrupt it
 
-  try
   {
     Storage storage(COUNTRIES_MIGRATE_FILE);
     TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
@@ -71,7 +70,7 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
     {
       TEST_EQUAL(countryId, kCountryId, ());
       // Interrupt download
-      throw InterruptException();
+      testing::StopEventLoop();
     };
 
     InitStorage(storage, onProgressFn);
@@ -81,31 +80,31 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
     storage.DownloadNode(kCountryId);
     testing::RunEventLoop();
 
-    TEST(false, ()); // If code reaches this point, test fails
+    TEST(storage.IsDownloadInProgress(), ());
   }
-  catch (InterruptException const &)
-  {}
 
   // Continue download
 
-  Storage storage(COUNTRIES_MIGRATE_FILE);
-
-  auto onProgressFn = [](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
   {
-    TEST_EQUAL(countryId, kCountryId, ());
-  };
+    Storage storage(COUNTRIES_MIGRATE_FILE);
 
-  InitStorage(storage, onProgressFn);
+    auto onProgressFn = [](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
+    {
+      TEST_EQUAL(countryId, kCountryId, ());
+    };
 
-  TEST(storage.IsDownloadInProgress(), ());
+    InitStorage(storage, onProgressFn);
 
-  NodeAttrs attrs;
-  storage.GetNodeAttrs(kCountryId, attrs);
-  TEST_EQUAL(NodeStatus::Downloading, attrs.m_status, ());
+    TEST(storage.IsDownloadInProgress(), ());
 
-  storage.DownloadNode(kCountryId);
-  testing::RunEventLoop();
+    NodeAttrs attrs;
+    storage.GetNodeAttrs(kCountryId, attrs);
+    TEST_EQUAL(NodeStatus::Downloading, attrs.m_status, ());
 
-  storage.GetNodeAttrs(kCountryId, attrs);
-  TEST_EQUAL(NodeStatus::OnDisk, attrs.m_status, ());
+    storage.DownloadNode(kCountryId);
+    testing::RunEventLoop();
+
+    storage.GetNodeAttrs(kCountryId, attrs);
+    TEST_EQUAL(NodeStatus::OnDisk, attrs.m_status, ());
+  }
 }
