@@ -86,6 +86,8 @@ void InitLocalizedStrings()
   f.AddString("routing_failed_internal_error", [L(@"routing_failed_internal_error") UTF8String]);
 }
 
+using namespace osm_auth_ios;
+
 @interface MapsAppDelegate ()
 
 @property (nonatomic) NSInteger standbyCounter;
@@ -105,8 +107,6 @@ void InitLocalizedStrings()
   NSString * m_sourceApplication;
   ActiveMapsObserver * m_mapsObserver;
 }
-
-using namespace osm_auth_ios;
 
 + (MapsAppDelegate *)theApp
 {

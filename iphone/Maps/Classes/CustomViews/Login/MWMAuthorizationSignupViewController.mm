@@ -12,6 +12,8 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
   MWMFieldCorrectAll = MWMFieldCorrectEmail | MWMFieldCorrectLogin | MWMFieldCorrectPassword
 };
 
+using namespace osm_auth_ios;
+
 @interface MWMAuthorizationSignupViewController ()  <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton * signupGoogleButton;
@@ -28,8 +30,6 @@ typedef NS_OPTIONS(NSUInteger, MWMFieldCorrect)
 @end
 
 @implementation MWMAuthorizationSignupViewController
-
-using namespace osm_auth_ios;
 
 - (void)viewDidLoad
 {

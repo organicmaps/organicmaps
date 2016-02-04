@@ -1,6 +1,10 @@
+#import "Common.h"
 #import "MWMAuthorizationCommon.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
+
+#include "base/logging.hpp"
+#include "editor/server_api.hpp"
 
 namespace osm_auth_ios
 {
@@ -9,6 +13,33 @@ NSString * const kOSMRequestToken = @"OSMRequestToken";
 NSString * const kOSMRequestSecret = @"OSMRequestSecret";
 NSString * const kAuthUserSkip = @"AuthUserSkip";
 NSString * const kAuthNeedCheck = @"AuthNeedCheck";
+NSString * const kOSMUserName = @"UDOsmUserName";
+
+void SetOSMUserNameWithCredentials(osm::TKeySecret const & keySecret)
+{
+  using namespace osm;
+  dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
+  {
+    ServerApi06 const api {OsmOAuth::ServerAuth(keySecret)};
+    try
+    {
+      NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+      [ud setObject:@(api.GetUserPreferences().m_displayName.c_str()) forKey:kOSMUserName];
+      [ud synchronize];
+    }
+    catch (exception const & ex)
+    {
+       LOG(LWARNING, ("Can't load user preferences from OSM server:", ex.what()));
+    }
+  });
+}
+
+void SetEmptyOSMUserName()
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setObject:nil forKey:kOSMUserName];
+  [ud synchronize];
+}
 
 UIColor * AuthorizationButtonTextColor(AuthorizationButtonType type)
 {
@@ -58,11 +89,13 @@ void AuthorizationStoreCredentials(osm::TKeySecret const & keySecret)
   {
     [ud removeObjectForKey:kOSMRequestToken];
     [ud removeObjectForKey:kOSMRequestSecret];
+    SetEmptyOSMUserName();
   }
   else
   {
     [ud setObject:@(keySecret.first.c_str()) forKey:kOSMRequestToken];
     [ud setObject:@(keySecret.second.c_str()) forKey:kOSMRequestSecret];
+    SetOSMUserNameWithCredentials(keySecret);
   }
   [ud synchronize];
 }
@@ -107,6 +140,11 @@ void AuthorizationSetNeedCheck(BOOL needCheck)
 BOOL AuthorizationIsNeedCheck()
 {
   return [[NSUserDefaults standardUserDefaults] boolForKey:kAuthNeedCheck];
+}
+
+NSString * OSMUserName()
+{
+  return [[NSUserDefaults standardUserDefaults] stringForKey:kOSMUserName];
 }
 
 } // namespace osm_auth_ios

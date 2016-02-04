@@ -1,4 +1,5 @@
 #import "CommunityVC.h"
+#import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "RichTextVC.h"
 #import "SettingsAndMoreVC.h"
@@ -86,6 +87,12 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
                                 @{@"Id" : @"Copyright", @"Title" : L(@"copyright"), @"Icon" : @"IconCopyright"}]}];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark - TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -122,7 +129,8 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[UITableViewCell className]];
 
   cell.backgroundColor = [UIColor white];
-  cell.textLabel.text = item[@"Title"];
+  NSString * osmUserName = osm_auth_ios::OSMUserName();
+  cell.textLabel.text = [item[@"Id"] isEqualToString:@"Authorization"] && osmUserName ? osmUserName : item[@"Title"];
   cell.imageView.image = [UIImage imageNamed:item[@"Icon"]];
   cell.imageView.mwm_coloring = MWMImageColoringBlack;
   cell.textLabel.textColor = [UIColor blackPrimaryText];

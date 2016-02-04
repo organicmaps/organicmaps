@@ -1,13 +1,11 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 
-#include "editor/osm_auth.hpp"
 #include "editor/server_api.hpp"
 
 namespace
@@ -17,6 +15,7 @@ NSString * const kOSMAuthSegue = @"Authorization2OSMAuthorizationSegue";
 } // namespace
 
 using namespace osm;
+using namespace osm_auth_ios;
 
 @interface MWMAuthorizationLoginViewController () <UIActionSheetDelegate>
 
@@ -49,8 +48,6 @@ using namespace osm;
 @end
 
 @implementation MWMAuthorizationLoginViewController
-
-using namespace osm_auth_ios;
 
 - (void)viewDidLoad
 {
@@ -111,25 +108,8 @@ using namespace osm_auth_ios;
 
 - (void)configHaveAuth
 {
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
-  {
-    ServerApi06 const api(OsmOAuth::ServerAuth(AuthorizationGetCredentials()));
-    try
-    {
-      UserPreferences const prefs = api.GetUserPreferences();
-      dispatch_async(dispatch_get_main_queue(), ^
-      {
-        self.title = @(prefs.m_displayName.c_str());
-      });
-    }
-    catch (exception const & ex)
-    {
-      LOG(LWARNING, ("Can't load user preferences from OSM server:", ex.what()));
-    }
-  });
-  // TODO(@igrechuhin): Cache user name and other info to display while offline.
-  // Note that this cache should be reset if user logs out.
-  self.title = L(@"osm_account").capitalizedString;
+  NSString * osmUserName = OSMUserName();
+  self.title = osmUserName.length > 0 ? osmUserName : L(@"osm_account").capitalizedString;
   self.message.hidden = YES;
   self.loginGoogleButton.hidden = YES;
   self.loginFacebookButton.hidden = YES;

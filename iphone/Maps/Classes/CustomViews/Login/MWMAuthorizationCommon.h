@@ -23,5 +23,6 @@ void AuthorizationSetUserSkip();
 BOOL AuthorizationIsUserSkip();
 void AuthorizationSetNeedCheck(BOOL needCheck);
 BOOL AuthorizationIsNeedCheck();
+NSString * OSMUserName();
 
 } // namespace osm_auth_ios
