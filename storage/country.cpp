@@ -32,7 +32,7 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * group, ToDo & toDo)
     if (!id)
       MYTHROW(my::Json::Exception, ("LoadGroupImpl. Id is missing.", id));
 
-    size_t const nodeSize = static_cast<size_t>(json_integer_value(json_object_get(j, "s")));
+    uint32_t const nodeSize = static_cast<uint32_t>(json_integer_value(json_object_get(j, "s")));
     // We expect that mwm and routing files should be less than 2GB.
     Country * addedNode = toDo(id, nodeSize, depth);
 
@@ -150,7 +150,7 @@ class DoStoreCountriesSingleMwms
 public:
   DoStoreCountriesSingleMwms(TCountriesContainer & cont) : m_cont(cont) {}
 
-  Country * operator()(string const & id, size_t mapSize, int depth)
+  Country * operator()(string const & id, uint32_t mapSize, int depth)
   {
     Country country(id);
     if (mapSize)
