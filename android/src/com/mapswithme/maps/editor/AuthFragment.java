@@ -1,11 +1,9 @@
 package com.mapswithme.maps.editor;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.v7.app.AlertDialog;
@@ -14,39 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmToolbarFragment;
-import com.mapswithme.maps.widget.ToolbarController;
-import com.mapswithme.util.Constants;
-import com.mapswithme.util.Graphics;
 import com.mapswithme.maps.widget.InputWebView;
-import com.mapswithme.util.ThemeUtils;
-import com.mapswithme.util.Utils;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 
-public class AuthFragment extends BaseMwmToolbarFragment implements View.OnClickListener
+public class AuthFragment extends BaseAuthFragment implements View.OnClickListener
 {
-  protected static class AuthToolbarController extends ToolbarController
-  {
-    public AuthToolbarController(View root, Activity activity)
-    {
-      super(root, activity);
-      mToolbar.setNavigationIcon(Graphics.tint(activity, ThemeUtils.getResource(activity, R.attr.homeAsUpIndicator)));
-    }
-
-    @Override
-    public void onUpClick()
-    {
-      super.onUpClick();
-    }
-  }
-
-  private EditText mEtLogin;
-  private EditText mEtPassword;
-
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -58,20 +32,11 @@ public class AuthFragment extends BaseMwmToolbarFragment implements View.OnClick
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mToolbarController.setTitle("Log In");
+    mToolbarController.setTitle("Thank you!");
     view.findViewById(R.id.login_osm).setOnClickListener(this);
-    mEtLogin = (EditText) view.findViewById(R.id.osm_username);
-    mEtPassword = (EditText) view.findViewById(R.id.osm_password);
     view.findViewById(R.id.login_facebook).setOnClickListener(this);
     view.findViewById(R.id.login_google).setOnClickListener(this);
-    view.findViewById(R.id.lost_password).setOnClickListener(this);
     view.findViewById(R.id.register).setOnClickListener(this);
-  }
-
-  @Override
-  protected ToolbarController onCreateToolbarController(@NonNull View root)
-  {
-    return new AuthToolbarController(root, getActivity());
   }
 
   @Override
@@ -98,51 +63,12 @@ public class AuthFragment extends BaseMwmToolbarFragment implements View.OnClick
     }
   }
 
-  private void loginOsm()
+  protected void loginOsm()
   {
-    final String username = mEtLogin.getText().toString();
-    final String password = mEtPassword.getText().toString();
-
-    ThreadPool.getWorker().execute(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        final String[] auth;
-        auth = OsmOAuth.nativeAuthWithPassword(username, password);
-
-        UiThread.run(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            if (!isAdded())
-              return;
-
-            processAuth(auth);
-          }
-        });
-      }
-    });
+    getMwmActivity().replaceFragment(OsmAuthFragment.class, null, null);
   }
 
-  private void processAuth(@Size(2) String[] auth)
-  {
-    if (auth == null)
-    {
-      if (isAdded())
-      {
-        new AlertDialog.Builder(getActivity()).setTitle("Auth error!")
-                                              .setPositiveButton(android.R.string.ok, null).show();
-      }
-      return;
-    }
-
-    OsmOAuth.setAuthorization(auth[0], auth[1]);
-    Utils.navigateToParent(getActivity());
-  }
-
-  private void loginWebview(final boolean facebook)
+  protected void loginWebview(final boolean facebook)
   {
     final WebView webview = new InputWebView(getActivity());
     final AlertDialog dialog = new AlertDialog.Builder(getActivity()).setView(webview).create();
@@ -152,9 +78,6 @@ public class AuthFragment extends BaseMwmToolbarFragment implements View.OnClick
       @Override
       public void run()
       {
-        // TODO(@yunikkk): auth can be nullptr in case of errors.
-        // Need to handle it in UI.
-        // [url, key, secret]
         final String[] auth = facebook ? OsmOAuth.nativeGetFacebookAuthUrl()
                                        : OsmOAuth.nativeGetGoogleAuthUrl();
 
@@ -173,8 +96,14 @@ public class AuthFragment extends BaseMwmToolbarFragment implements View.OnClick
     dialog.show();
   }
 
-  private void loadWebviewAuth(final AlertDialog dialog, final WebView webview, @Size(3) final String[] auth)
+  protected void loadWebviewAuth(final AlertDialog dialog, final WebView webview, @Size(3) final String[] auth)
   {
+    if (auth == null)
+    {
+      // TODO show some dialog
+      return;
+    }
+
     final String authUrl = auth[0];
     webview.setWebViewClient(new WebViewClient()
     {
@@ -202,7 +131,7 @@ public class AuthFragment extends BaseMwmToolbarFragment implements View.OnClick
     webview.loadUrl(authUrl);
   }
 
-  private void finishWebviewAuth(final String key, final String secret, final String verifier)
+  protected void finishWebviewAuth(final String key, final String secret, final String verifier)
   {
     ThreadPool.getWorker().execute(new Runnable() {
       @Override
@@ -220,12 +149,12 @@ public class AuthFragment extends BaseMwmToolbarFragment implements View.OnClick
     });
   }
 
-  private void recoverPassword()
+  protected void recoverPassword()
   {
     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.OSM_RECOVER_PASSWORD)));
   }
 
-  private void register()
+  protected void register()
   {
     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.OSM_REGISTER)));
   }

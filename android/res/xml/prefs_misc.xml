@@ -16,4 +16,8 @@
     android:title="Google Play Services"
     android:summary="@string/pref_use_google_play"
     android:defaultValue="true"/>
+
+  <Preference
+    android:key="@string/pref_osm_profile"
+    android:title="OSM profile"/>
 </PreferenceScreen>

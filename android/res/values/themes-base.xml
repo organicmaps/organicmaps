@@ -34,6 +34,7 @@
     <item name="dividerHorizontal">@color/divider</item>
 
     <item name="buttonAccent">@drawable/accent_button</item>
+    <item name="circleAccent">@drawable/circle_accent</item>
     <item name="buttonLight">@drawable/editor_light_button</item>
     <item name="ppBackground">@color/bg_cards</item>
     <item name="ppButtonsBackground">?panel</item>
@@ -86,6 +87,7 @@
     <item name="dividerHorizontal">@color/divider_night</item>
 
     <item name="buttonAccent">@drawable/accent_button_night</item>
+    <item name="circleAccent">@drawable/circle_accent_night</item>
     <item name="buttonLight">@drawable/editor_light_button_night</item>
     <item name="ppBackground">@color/bg_cards_night</item>
     <item name="ppButtonsBackground">@color/bg_window_night</item>

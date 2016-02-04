@@ -11,15 +11,27 @@
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/bg_cards"
+    android:background="?colorPrimary"
     android:gravity="end|center_vertical"
-    android:theme="@style/MwmWidget.ToolbarTheme.Light"
-    tools:ignore="UnusedAttribute"/>
+    android:theme="@style/MwmWidget.ToolbarTheme"
+    tools:ignore="UnusedAttribute">
+
+    <ImageView
+      android:id="@+id/logout"
+      android:layout_width="?actionBarSize"
+      android:layout_height="?actionBarSize"
+      android:layout_gravity="end|center_vertical"
+      android:background="?selectableItemBackgroundBorderless"
+      android:scaleType="center"
+      android:src="@drawable/ic_download_map"
+      android:visibility="gone"/>
+
+  </android.support.v7.widget.Toolbar>
 
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_cards"
+    android:background="?colorPrimary"
     android:fillViewport="true"
     tools:ignore="DuplicateIds">
 
@@ -30,88 +42,111 @@
       android:padding="@dimen/margin_base"
       tools:ignore="ScrollViewSize">
 
-      <Button
-        android:id="@+id/login_google"
+      <LinearLayout
+        android:id="@+id/block_edits"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/editor_auth_btn_height"
-        android:layout_marginBottom="@dimen/margin_base"
-        android:background="?buttonLight"
-        android:text="Google"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
-      <Button
-        android:id="@+id/login_facebook"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/editor_auth_btn_height"
-        android:background="@color/bg_editor_login_fb"
-        android:text="Facebook"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
-
-      <com.mapswithme.maps.widget.CustomTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/base_block_size"
-        android:layout_marginTop="60dp">
-
-        <EditText
-          android:id="@+id/osm_username"
-          style="@style/MwmWidget.Editor.FieldLayout.EditText"
-          android:hint="Email address or username"
-          android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
-      </com.mapswithme.maps.widget.CustomTextInputLayout>
-
-      <com.mapswithme.maps.widget.CustomTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/base_block_size"
-        android:layout_marginTop="@dimen/margin_base_plus">
-
-        <EditText
-          android:id="@+id/osm_password"
-          style="@style/MwmWidget.Editor.FieldLayout.EditText"
-          android:hint="Password"
-          android:inputType="textPassword"
-          android:textAppearance="@style/MwmTextAppearance.Body1"/>
-
-      </com.mapswithme.maps.widget.CustomTextInputLayout>
-
-      <Button
-        android:id="@+id/login_osm"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/editor_auth_btn_height"
-        android:layout_marginBottom="@dimen/margin_base"
-        android:background="?buttonAccent"
-        android:text="Log in"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
-
-      <TextView
-        android:id="@+id/lost_password"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="@dimen/margin_base"
-        android:background="?clickableBackground"
-        android:padding="@dimen/margin_half"
-        android:text="Lost password"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body3"/>
+        android:orientation="vertical"
+        android:visibility="gone">
 
-      <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        <include
+          android:id="@+id/local_edits"
+          layout="@layout/item_osm_edits"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/margin_half"/>
 
-      <Button
-        android:id="@+id/register"
+        <include
+          android:id="@+id/sent_edits"
+          layout="@layout/item_osm_edits"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/margin_half"/>
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/block_auth"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/editor_auth_btn_height"
-        android:layout_marginTop="@dimen/margin_base"
-        android:background="?buttonLight"
-        android:text="Register"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+          android:id="@+id/first_osm_edit"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/margin_base"
+          android:text="You first object!"
+          android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
+
+        <Button
+          android:id="@+id/login_google"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/editor_auth_btn_height"
+          android:layout_marginBottom="@dimen/margin_half_plus"
+          android:background="?buttonLight"
+          android:drawableLeft="@drawable/ic_login_google"
+          android:drawableStart="@drawable/ic_login_google"
+          android:fontFamily="@string/robotoMedium"
+          android:paddingEnd="@dimen/margin_half"
+          android:paddingLeft="@dimen/margin_half"
+          android:paddingRight="@dimen/margin_half"
+          android:paddingStart="@dimen/margin_half"
+          android:text="Google"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body1"
+          tools:targetApi="jelly_bean"/>
+
+        <Button
+          android:id="@+id/login_facebook"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/editor_auth_btn_height"
+          android:layout_marginBottom="@dimen/margin_half_plus"
+          android:background="@color/bg_editor_login_fb"
+          android:drawableLeft="@drawable/ic_login_fb"
+          android:drawableStart="@drawable/ic_login_fb"
+          android:fontFamily="@string/robotoMedium"
+          android:paddingEnd="@dimen/margin_half"
+          android:paddingLeft="@dimen/margin_half"
+          android:paddingRight="@dimen/margin_half"
+          android:paddingStart="@dimen/margin_half"
+          android:text="Facebook"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"
+          tools:targetApi="jelly_bean"/>
+
+        <Button
+          android:id="@+id/login_osm"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/editor_auth_btn_height"
+          android:background="?buttonAccent"
+          android:fontFamily="@string/robotoMedium"
+          android:text="Log in with osm"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"
+          tools:targetApi="jelly_bean"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_double"
+          android:text="Do you have OSM account?"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
+
+        <TextView
+          android:id="@+id/register"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_half"
+          android:background="?clickableBackground"
+          android:paddingBottom="@dimen/margin_half"
+          android:paddingTop="@dimen/margin_half"
+          android:text="Register"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+
+      </LinearLayout>
 
     </LinearLayout>
 

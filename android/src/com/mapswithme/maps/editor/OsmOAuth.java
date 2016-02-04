@@ -82,13 +82,13 @@ public final class OsmOAuth
    * @return url for web auth, and token with secret for finishing authorization later
    */
   @Size(3)
-  @NonNull
+  @Nullable
   public static native String[] nativeGetFacebookAuthUrl();
 
   /**
    * @return url for web auth, and token with secret for finishing authorization later
    */
   @Size(3)
-  @NonNull
+  @Nullable
   public static native String[] nativeGetGoogleAuthUrl();
 }

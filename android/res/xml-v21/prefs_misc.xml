@@ -22,4 +22,8 @@
     android:defaultValue="true"
     android:switchTextOff=""
     android:switchTextOn=""/>
+
+  <Preference
+    android:key="@string/pref_osm_profile"
+    android:title="OSM profile"/>
 </PreferenceScreen>

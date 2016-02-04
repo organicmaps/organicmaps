@@ -13,6 +13,7 @@
     <attr name="iconTintLight" format="color"/>
     <attr name="counterTextColor" format="color"/>
     <attr name="buttonAccent" format="reference"/>
+    <attr name="circleAccent" format="reference"/>
     <attr name="buttonLight" format="reference"/>
 
     <attr name="zoomPlus" format="reference"/>

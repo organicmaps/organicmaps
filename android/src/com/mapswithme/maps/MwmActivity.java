@@ -220,7 +220,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void replaceFragment(Class<? extends Fragment> fragmentClass, Bundle args, Runnable completionListener)
+  public void replaceFragment(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args, @Nullable Runnable completionListener)
   {
     if (mPanelAnimator.isVisible() && getFragment(fragmentClass) != null)
     {

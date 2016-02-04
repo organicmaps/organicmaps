@@ -59,7 +59,7 @@
       </com.mapswithme.maps.widget.CustomTextInputLayout>
 
       <Button
-        android:id="@+id/login_osm"
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="@dimen/editor_auth_btn_height"
         android:layout_marginBottom="@dimen/margin_base"
