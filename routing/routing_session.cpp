@@ -45,15 +45,16 @@ double constexpr kCompletionPercentAccuracy = 5;
 namespace routing
 {
 RoutingSession::RoutingSession()
-    : m_router(nullptr),
-      m_route(string()),
-      m_state(RoutingNotActive),
-      m_isFollowing(false),
-      m_endPoint(m2::PointD::Zero()),
-      m_lastWarnedSpeedCameraIndex(0),
-      m_lastCheckedSpeedCameraIndex(0),
-      m_speedWarningSignal(false),
-      m_passedDistanceOnRouteMeters(0.0)
+  : m_router(nullptr)
+  , m_route(string())
+  , m_state(RoutingNotActive)
+  , m_isFollowing(false)
+  , m_endPoint(m2::PointD::Zero())
+  , m_lastWarnedSpeedCameraIndex(0)
+  , m_lastCheckedSpeedCameraIndex(0)
+  , m_speedWarningSignal(false)
+  , m_passedDistanceOnRouteMeters(0.0)
+  , m_lastCompletionPercent(0.0)
 {
 }
 
@@ -87,6 +88,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   RemoveRoute();
   m_state = RouteBuilding;
   m_routingRebuildCount++;
+  m_lastCompletionPercent = 0;
 
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
@@ -147,6 +149,7 @@ void RoutingSession::Reset()
   m_lastFoundCamera = SpeedCameraRestriction();
   m_speedWarningSignal = false;
   m_isFollowing = false;
+  m_lastCompletionPercent = 0;
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & info, Index const & index)
@@ -226,13 +229,15 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     {
       m_passedDistanceOnRouteMeters += m_route.GetCurrentDistanceFromBeginMeters();
       m_state = RouteNeedRebuild;
-      alohalytics::TStringMap params = {{"router", m_route.GetRouterId()},
-                                        {"lastCoordinateLat", strings::to_string_dac(MercatorBounds::YToLat(lastGoodPoint.y), 5 /*precision*/)},
-                                        {"lastCoordinateLon", strings::to_string_dac(MercatorBounds::XToLon(lastGoodPoint.x), 5 /*precision*/)},
-                                        {"percent", strings::to_string(strings::to_string(GetCompletionPercent()))},
-                                        {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
-                                        {"rebuildCount", strings::to_string(m_routingRebuildCount)}};
-      alohalytics::LogEvent("RouteTracking_RouteNeedRebuild", params);
+      alohalytics::TStringMap params = {
+          {"router", m_route.GetRouterId()},
+          {"percent", strings::to_string(GetCompletionPercent())},
+          {"passedDistance", strings::to_string(m_passedDistanceOnRouteMeters)},
+          {"rebuildCount", strings::to_string(m_routingRebuildCount)}};
+      alohalytics::LogEvent(
+          "RouteTracking_RouteNeedRebuild", params,
+          alohalytics::Location::FromLatLon(MercatorBounds::YToLat(lastGoodPoint.y),
+                                            MercatorBounds::XToLon(lastGoodPoint.x)));
     }
   }
 
@@ -323,13 +328,13 @@ double RoutingSession::GetCompletionPercent() const
   double const percent = 100.0 *
     (m_passedDistanceOnRouteMeters + m_route.GetCurrentDistanceFromBeginMeters()) /
     (m_passedDistanceOnRouteMeters + m_route.GetTotalDistanceMeters());
-  if (percent - m_lastCompletionPercent < kCompletionPercentAccuracy)
+  if (percent - m_lastCompletionPercent > kCompletionPercentAccuracy)
   {
-    auto lastGoodPoint = m_route.GetFollowedPolyline().GetCurrentIter().m_pt;
-    alohalytics::Stats::Instance().LogEvent("RouteTracking_PercentUpdate", {
-        {"percent", strings::to_string(strings::to_string(percent))},
-        {"lastCoordinateLat", strings::to_string_dac(MercatorBounds::YToLat(lastGoodPoint.y), 5 /*precision*/)},
-        {"lastCoordinateLon", strings::to_string_dac(MercatorBounds::XToLon(lastGoodPoint.x), 5 /*precision*/)}});
+    auto const lastGoodPoint =
+        MercatorBounds::ToLatLon(m_route.GetFollowedPolyline().GetCurrentIter().m_pt);
+    alohalytics::Stats::Instance().LogEvent(
+        "RouteTracking_PercentUpdate", {{"percent", strings::to_string(percent)}},
+        alohalytics::Location::FromLatLon(lastGoodPoint.lat, lastGoodPoint.lon));
     m_lastCompletionPercent = percent;
   }
   return percent;
