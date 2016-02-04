@@ -214,8 +214,6 @@ void CaptionDescription::FormatCaptions(FeatureType const & f,
     {
       if (m_mainText.empty() || m_houseNumber.find(m_mainText) != string::npos)
         m_houseNumber.swap(m_mainText);
-      else
-        m_mainText += (" (" + m_houseNumber + ")");
     }
   }
 }
