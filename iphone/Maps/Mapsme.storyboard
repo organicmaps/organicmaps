@@ -1872,7 +1872,7 @@ the world. Join us!</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have OpenStreetMap account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="340" translatesAutoresizingMaskIntoConstraints="NO" id="nhm-W1-U8A">
-                                <rect key="frame" x="16" y="507" width="568" height="16"/>
+                                <rect key="frame" x="16" y="498" width="568" height="16"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1883,7 +1883,7 @@ the world. Join us!</string>
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0p-dL-PG8">
-                                <rect key="frame" x="16" y="540" width="568" height="44"/>
+                                <rect key="frame" x="16" y="534" width="568" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="V0s-db-tR6"/>
                                 </constraints>
@@ -1931,7 +1931,7 @@ the world. Join us!</string>
                             <constraint firstAttribute="trailing" secondItem="NhV-I9-K6M" secondAttribute="trailing" constant="16" id="4BY-jE-0fC"/>
                             <constraint firstItem="7X8-ED-Si4" firstAttribute="top" secondItem="Yup-ms-er9" secondAttribute="bottom" constant="-64" id="658-9q-R3b"/>
                             <constraint firstAttribute="trailing" secondItem="Swf-Rn-H3g" secondAttribute="trailing" constant="16" id="7vm-OB-zwd"/>
-                            <constraint firstItem="nhm-W1-U8A" firstAttribute="top" secondItem="Gqm-JS-hos" secondAttribute="bottom" priority="680" constant="52" id="9F6-2k-EQ9"/>
+                            <constraint firstItem="nhm-W1-U8A" firstAttribute="top" secondItem="Gqm-JS-hos" secondAttribute="bottom" priority="680" constant="32" id="9F6-2k-EQ9"/>
                             <constraint firstAttribute="trailing" secondItem="7X8-ED-Si4" secondAttribute="trailing" id="AcN-Oh-T4S"/>
                             <constraint firstItem="U4B-pb-aFf" firstAttribute="top" secondItem="cT8-b7-zTj" secondAttribute="bottom" constant="16" id="Amy-BS-LqC"/>
                             <constraint firstItem="bGN-fy-oFg" firstAttribute="centerY" secondItem="U4B-pb-aFf" secondAttribute="centerY" id="DXy-dr-Yu1"/>
@@ -1949,7 +1949,7 @@ the world. Join us!</string>
                             <constraint firstItem="y41-VX-XhB" firstAttribute="top" secondItem="7X8-ED-Si4" secondAttribute="bottom" id="aG5-m9-gqr"/>
                             <constraint firstItem="Swf-Rn-H3g" firstAttribute="leading" secondItem="i64-CY-UO1" secondAttribute="leading" constant="16" id="amU-cV-Q0n"/>
                             <constraint firstItem="NhV-I9-K6M" firstAttribute="leading" secondItem="i64-CY-UO1" secondAttribute="leading" constant="16" id="brj-PM-84f"/>
-                            <constraint firstItem="s0p-dL-PG8" firstAttribute="top" secondItem="nhm-W1-U8A" secondAttribute="bottom" constant="16" id="bwY-xm-IHw"/>
+                            <constraint firstItem="s0p-dL-PG8" firstAttribute="top" secondItem="nhm-W1-U8A" secondAttribute="bottom" constant="20" id="bwY-xm-IHw"/>
                             <constraint firstItem="Gqm-JS-hos" firstAttribute="top" secondItem="U4B-pb-aFf" secondAttribute="bottom" constant="16" id="dFA-jj-DJD"/>
                             <constraint firstItem="7X8-ED-Si4" firstAttribute="leading" secondItem="i64-CY-UO1" secondAttribute="leading" id="esZ-Zk-Cdc"/>
                             <constraint firstItem="VTY-T1-l6q" firstAttribute="leading" secondItem="cT8-b7-zTj" secondAttribute="leading" constant="16" id="g5Q-O7-mZx"/>
