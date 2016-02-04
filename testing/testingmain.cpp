@@ -138,7 +138,7 @@ int main(int argc, char * argv[])
 #endif
 
   my::ScopedLogLevelChanger const infoLogLevel(LINFO);
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX) || defined(OMIM_OS_IPHONE)
   my::SetLogMessageFn(my::LogMessageTests);
 #endif
 
