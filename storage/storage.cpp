@@ -1130,7 +1130,9 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   Country const & nodeValue = node->Value();
   nodeAttrs.m_mwmCounter = nodeValue.GetSubtreeMwmCounter();
   nodeAttrs.m_mwmSize = nodeValue.GetSubtreeMwmSizeBytes();
-  nodeAttrs.m_status = NodeStatus(*node);
+  TStatusAndError statusAndErr = ParseStatus(NodeStatus(*node));
+  nodeAttrs.m_status = statusAndErr.first;
+  nodeAttrs.m_error = statusAndErr.second;
   // @TODO(bykoianko) NodeAttrs::m_nodeLocalName should be in local language.
   nodeAttrs.m_nodeLocalName = countryId;
 }

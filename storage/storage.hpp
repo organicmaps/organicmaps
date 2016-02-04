@@ -22,7 +22,8 @@ namespace storage
 struct NodeAttrs
 {
   NodeAttrs() : m_mwmCounter(0), m_localMwmCounter(0), m_mwmSize(0), m_localMwmSize(0),
-    m_downloadingMwmSize(0), m_downloadingProgress(0), m_status(TStatus::EUndefined) {}
+    m_downloadingMwmSize(0), m_downloadingProgress(0),
+    m_status(TNodeStatus::Undefined), m_error(TErrNodeStatus::NoError) {}
   /// If the node is expandable (a big country) |m_mwmCounter| is number of mwm files (leaves)
   /// belongs to the node. If the node isn't expandable |m_mapsDownloaded| == 1.
   uint32_t m_mwmCounter;
@@ -62,7 +63,8 @@ struct NodeAttrs
   /// |m_downloadingProgress| == 0.
   uint8_t m_downloadingProgress;
 
-  TStatus m_status;
+  TNodeStatus m_status;
+  TErrNodeStatus m_error;
 };
 
 /// This class is used for downloading, updating and deleting maps.
