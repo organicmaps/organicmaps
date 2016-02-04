@@ -140,7 +140,7 @@ private:
 
 } // namespace
 
-TriangleBatch::TriangleBatch(BatchCallbacks const & callbacks)
+TriangleBatch::TriangleBatch(BatchCallbacks & callbacks)
   : m_callbacks(callbacks)
   , m_canDevideStreams(true)
 {
@@ -169,38 +169,32 @@ void TriangleBatch::FlushData(ref_ptr<AttributeProvider> streams, uint32_t verte
 
 void TriangleBatch::FlushData(BindingInfo const & info, void const * data, uint32_t elementCount) const
 {
-  ASSERT(m_callbacks.m_flushVertex != NULL, ());
-  return m_callbacks.m_flushVertex(info, data, elementCount);
+  m_callbacks.FlushData(info, data, elementCount);
 }
 
 void * TriangleBatch::GetIndexStorage(uint32_t indexCount, uint32_t & startIndex)
 {
-  ASSERT(m_callbacks.m_getIndexStorage, ());
-  return m_callbacks.m_getIndexStorage(indexCount, startIndex);
+  return m_callbacks.GetIndexStorage(indexCount, startIndex);
 }
 
 void TriangleBatch::SubmitIndex()
 {
-  ASSERT(m_callbacks.m_submitIndex, ());
-  m_callbacks.m_submitIndex();
+  m_callbacks.SubmitIndeces();
 }
 
 uint32_t TriangleBatch::GetAvailableVertexCount() const
 {
-  ASSERT(m_callbacks.m_getAvailableVertex!= NULL, ());
-  return m_callbacks.m_getAvailableVertex();
+  return m_callbacks.GetAvailableVertexCount();
 }
 
 uint32_t TriangleBatch::GetAvailableIndexCount() const
 {
-  ASSERT(m_callbacks.m_getAvailableIndex != NULL, ());
-  return m_callbacks.m_getAvailableIndex();
+  return m_callbacks.GetAvailableIndexCount();
 }
 
 void TriangleBatch::ChangeBuffer() const
 {
-  ASSERT(m_callbacks.m_changeBuffer != NULL, ());
-  m_callbacks.m_changeBuffer();
+  return m_callbacks.ChangeBuffer();
 }
 
 uint8_t TriangleBatch::GetVertexStride() const
@@ -213,7 +207,7 @@ bool TriangleBatch::IsBufferFilled(uint32_t availableVerticesCount, uint32_t ava
   return availableVerticesCount < 3 || availableIndicesCount < 3;
 }
 
-TriangleListBatch::TriangleListBatch(BatchCallbacks const & callbacks) : TBase(callbacks) {}
+TriangleListBatch::TriangleListBatch(BatchCallbacks & callbacks) : TBase(callbacks) {}
 
 void TriangleListBatch::BatchData(ref_ptr<AttributeProvider> streams)
 {
@@ -252,7 +246,7 @@ void TriangleListBatch::BatchData(ref_ptr<AttributeProvider> streams)
   }
 }
 
-FanStripHelper::FanStripHelper(BatchCallbacks const & callbacks)
+FanStripHelper::FanStripHelper(BatchCallbacks & callbacks)
   : TBase(callbacks)
   , m_isFullUploaded(false)
 {
@@ -336,7 +330,7 @@ uint32_t FanStripHelper::AlignICount(uint32_t iCount) const
   return iCount - iCount % 3;
 }
 
-TriangleStripBatch::TriangleStripBatch(BatchCallbacks const & callbacks)
+TriangleStripBatch::TriangleStripBatch(BatchCallbacks & callbacks)
  : TBase(callbacks)
 {
 }
@@ -362,7 +356,7 @@ void TriangleStripBatch::GenerateIndexes(void * indexStorage, uint32_t count, ui
   GenerateIndices<StripIndexGenerator>(indexStorage, count, startIndex);
 }
 
-TriangleFanBatch::TriangleFanBatch(BatchCallbacks const & callbacks) : TBase(callbacks) {}
+TriangleFanBatch::TriangleFanBatch(BatchCallbacks & callbacks) : TBase(callbacks) {}
 
 
 /*
@@ -469,7 +463,7 @@ void TriangleFanBatch::GenerateIndexes(void * indexStorage, uint32_t count, uint
   GenerateIndices<FanIndexGenerator>(indexStorage, count, startIndex);
 }
 
-TriangleListOfStripBatch::TriangleListOfStripBatch(BatchCallbacks const & callbacks)
+TriangleListOfStripBatch::TriangleListOfStripBatch(BatchCallbacks & callbacks)
  : TBase(callbacks)
 {
 }

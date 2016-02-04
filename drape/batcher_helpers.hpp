@@ -13,24 +13,18 @@ class BindingInfo;
 class BatchCallbacks
 {
 public:
-  typedef function<void (BindingInfo const &, void const *, uint32_t)> TFlushVertexFn;
-  typedef function<void * (uint32_t, uint32_t &)> TGetIndexStorageFn;
-  typedef function<void ()> TSubmitIndexFn;
-  typedef function<uint32_t ()> TGetAvailableFn;
-  typedef function<void ()> ChangeBufferFn;
-
-  TFlushVertexFn      m_flushVertex;
-  TGetIndexStorageFn m_getIndexStorage;
-  TSubmitIndexFn      m_submitIndex;
-  TGetAvailableFn     m_getAvailableVertex;
-  TGetAvailableFn     m_getAvailableIndex;
-  ChangeBufferFn     m_changeBuffer;
+  virtual void FlushData(BindingInfo const & binding, void const * data, uint32_t count) = 0;
+  virtual void * GetIndexStorage(uint32_t indexCount, uint32_t & startIndex) = 0;
+  virtual void SubmitIndeces() = 0;
+  virtual uint32_t GetAvailableVertexCount() const = 0;
+  virtual uint32_t GetAvailableIndexCount() const = 0;
+  virtual void ChangeBuffer() = 0;
 };
 
 class TriangleBatch
 {
 public:
-  TriangleBatch(BatchCallbacks const & callbacks);
+  TriangleBatch(BatchCallbacks & callbacks);
   virtual ~TriangleBatch(){}
 
   virtual void BatchData(ref_ptr<AttributeProvider> streams) = 0;
@@ -51,7 +45,7 @@ protected:
   virtual bool IsBufferFilled(uint32_t availableVerticesCount, uint32_t availableIndicesCount) const;
 
 private:
-  BatchCallbacks m_callbacks;
+  BatchCallbacks & m_callbacks;
   bool m_canDevideStreams;
   uint8_t m_vertexStride;
 };
@@ -61,7 +55,7 @@ class TriangleListBatch : public TriangleBatch
   typedef TriangleBatch TBase;
 
 public:
-  TriangleListBatch(BatchCallbacks const & callbacks);
+  TriangleListBatch(BatchCallbacks & callbacks);
 
   virtual void BatchData(ref_ptr<AttributeProvider> streams);
 };
@@ -71,7 +65,7 @@ class FanStripHelper : public TriangleBatch
   typedef TriangleBatch TBase;
 
 public:
-  FanStripHelper(BatchCallbacks const & callbacks);
+  FanStripHelper(BatchCallbacks & callbacks);
 
 protected:
   uint32_t BatchIndexes(uint32_t vertexCount);
@@ -94,7 +88,7 @@ class TriangleStripBatch : public FanStripHelper
   typedef FanStripHelper TBase;
 
 public:
-  TriangleStripBatch(BatchCallbacks const & callbacks);
+  TriangleStripBatch(BatchCallbacks & callbacks);
 
   virtual void BatchData(ref_ptr<AttributeProvider> streams);
 protected:
@@ -106,7 +100,7 @@ class TriangleFanBatch : public FanStripHelper
   typedef FanStripHelper TBase;
 
 public:
-  TriangleFanBatch(BatchCallbacks const & callbacks);
+  TriangleFanBatch(BatchCallbacks & callbacks);
 
   virtual void BatchData(ref_ptr<AttributeProvider> streams);
 protected:
@@ -118,7 +112,7 @@ class TriangleListOfStripBatch : public FanStripHelper
   typedef FanStripHelper TBase;
 
 public:
-  TriangleListOfStripBatch(BatchCallbacks const & callbacks);
+  TriangleListOfStripBatch(BatchCallbacks & callbacks);
 
   virtual void BatchData(ref_ptr<AttributeProvider> streams);
 

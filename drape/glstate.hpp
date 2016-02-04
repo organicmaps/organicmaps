@@ -38,7 +38,6 @@ public:
   {
     /// Do not change order
     GeometryLayer,
-    DynamicGeometry,
     OverlayLayer,
     UserMarkLayer,
     Gui

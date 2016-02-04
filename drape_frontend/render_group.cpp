@@ -190,20 +190,14 @@ void RenderGroup::Disappear()
 
 bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r)
 {
-  dp::GLState const & lState = l->GetState();
-  dp::GLState const & rState = r->GetState();
-
-  if (!l->CanBeDeleted() && l->IsEmpty())
-    l->DeleteLater();
-
-  if (!r->CanBeDeleted() && r->IsEmpty())
-    r->DeleteLater();
-
+  m_pendingOnDeleteFound |= (l->IsPendingOnDelete() || r->IsPendingOnDelete());
   bool const lCanBeDeleted = l->CanBeDeleted();
   bool const rCanBeDeleted = r->CanBeDeleted();
 
   if (rCanBeDeleted == lCanBeDeleted)
   {
+    dp::GLState const & lState = l->GetState();
+    dp::GLState const & rState = r->GetState();
     dp::GLState::DepthLayer lDepth = lState.GetDepthLayer();
     dp::GLState::DepthLayer rDepth = rState.GetDepthLayer();
     if (lDepth != rDepth)

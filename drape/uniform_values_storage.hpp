@@ -24,8 +24,11 @@ public:
 
   void SetMatrix4x4Value(string const & name, float const * matrixValue);
 
-  typedef function<void (UniformValue const & )> enum_uniforms_fn;
-  void ForeachValue(enum_uniforms_fn action) const;
+  template<typename TFunctor>
+  void ForeachValue(TFunctor & functor) const
+  {
+    for_each(m_uniforms.begin(), m_uniforms.end(), functor);
+  }
 
   bool operator< (UniformValuesStorage const & other) const;
 

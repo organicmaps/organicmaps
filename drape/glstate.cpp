@@ -105,15 +105,26 @@ bool GLState::operator==(GLState const & other) const
 
 namespace
 {
-  void ApplyUniformValue(UniformValue const & value, ref_ptr<GpuProgram> program)
+
+struct UniformApplyer
+{
+  ref_ptr<GpuProgram> m_program;
+
+  void operator()(UniformValue const & value) const
   {
-    value.Apply(program);
+    ASSERT(m_program != nullptr, ());
+    value.Apply(m_program);
   }
-}
+};
+
+} // namespace
 
 void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program)
 {
-  uniforms.ForeachValue(bind(&ApplyUniformValue, _1, program));
+  static UniformApplyer applyer;
+  applyer.m_program = program;
+  uniforms.ForeachValue(applyer);
+  applyer.m_program = nullptr;
 }
 
 void ApplyTextures(GLState state, ref_ptr<GpuProgram> program)

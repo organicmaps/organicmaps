@@ -58,6 +58,97 @@ struct MergedGroupKey
   }
 };
 
+template <typename ToDo>
+bool RemoveGroups(ToDo & filter, vector<drape_ptr<RenderGroup>> & groups)
+{
+  size_t startCount = groups.size();
+  size_t count = startCount;
+  size_t current = 0;
+  while (current < count)
+  {
+    drape_ptr<RenderGroup> & group = groups[current];
+    if (filter(move(group)))
+    {
+      swap(group, groups.back());
+      groups.pop_back();
+      --count;
+    }
+    else
+      ++current;
+  }
+
+  return startCount != count;
+}
+
+struct ActivateTilePredicate
+{
+  TileKey const & m_tileKey;
+
+  ActivateTilePredicate(TileKey const & tileKey)
+    : m_tileKey(tileKey)
+  {
+  }
+
+  bool operator()(drape_ptr<RenderGroup> & group) const
+  {
+    if (group->GetTileKey() == m_tileKey)
+    {
+      group->Appear();
+      return true;
+    }
+
+    return false;
+  }
+};
+
+struct RemoveTilePredicate
+{
+  mutable bool m_deletionMark = false;
+  function<bool(drape_ptr<RenderGroup> const &)> const & m_predicate;
+
+  RemoveTilePredicate(function<bool(drape_ptr<RenderGroup> const &)> const & predicate)
+    : m_predicate(predicate)
+  {
+  }
+
+  bool operator()(drape_ptr<RenderGroup> && group) const
+  {
+    if (m_predicate(group))
+    {
+      group->Disappear();
+      group->DeleteLater();
+      m_deletionMark = true;
+      return group->CanBeDeleted();
+    }
+
+    return false;
+  }
+};
+
+template <typename TPredicate>
+struct MoveTileFunctor
+{
+  TPredicate m_predicate;
+  vector<drape_ptr<RenderGroup>> & m_targetGroups;
+
+  MoveTileFunctor(TPredicate predicate, vector<drape_ptr<RenderGroup>> & groups)
+    : m_predicate(predicate)
+    , m_targetGroups(groups)
+  {
+  }
+
+  bool operator()(drape_ptr<RenderGroup> && group)
+  {
+    if (m_predicate(group))
+    {
+      m_targetGroups.push_back(move(group));
+      return true;
+    }
+
+    return false;
+  }
+};
+
 } // namespace
 
 FrontendRenderer::FrontendRenderer(Params const & params)
@@ -435,8 +526,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_tileTree->Invalidate();
 
       // Clear all graphics.
-      m_renderGroups.clear();
-      m_deferredRenderGroups.clear();
+      for (RenderLayer & layer : m_layers)
+      {
+        layer.m_renderGroups.clear();
+        layer.m_deferredRenderGroups.clear();
+        layer.m_isDirty = false;
+      }
 
       // Invalidate read manager.
       {
@@ -613,20 +708,17 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
     m_tileTree->Invalidate();
     ResolveTileKeys(rect, tiles);
 
-    auto eraseFunction = [&tiles](vector<drape_ptr<RenderGroup>> & groups)
+    auto eraseFunction = [&tiles](drape_ptr<RenderGroup> && group)
     {
-      vector<drape_ptr<RenderGroup> > newGroups;
-      for (drape_ptr<RenderGroup> & group : groups)
-      {
-        if (tiles.find(group->GetTileKey()) == tiles.end())
-          newGroups.push_back(move(group));
-      }
-
-      swap(groups, newGroups);
+        return tiles.count(group->GetTileKey()) == 0;
     };
 
-    eraseFunction(m_renderGroups);
-    eraseFunction(m_deferredRenderGroups);
+    for (RenderLayer & layer : m_layers)
+    {
+      RemoveGroups(eraseFunction, layer.m_renderGroups);
+      RemoveGroups(eraseFunction, layer.m_deferredRenderGroups);
+      layer.m_isDirty = true;
+    }
 
     BaseBlockingMessage::Blocker blocker;
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
@@ -673,30 +765,26 @@ void FrontendRenderer::AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
 void FrontendRenderer::OnAddRenderGroup(TileKey const & tileKey, dp::GLState const & state,
                                         drape_ptr<dp::RenderBucket> && renderBucket)
 {
-  AddToRenderGroup(m_renderGroups, state, move(renderBucket), tileKey);
-  m_renderGroups.back()->Appear();
+  RenderLayer::RenderLayerID id = RenderLayer::GetLayerID(state);
+  RenderLayer & layer = m_layers[id];
+  AddToRenderGroup(layer.m_renderGroups, state, move(renderBucket), tileKey);
+  layer.m_renderGroups.back()->Appear();
+  layer.m_isDirty = true;
 }
 
 void FrontendRenderer::OnDeferRenderGroup(TileKey const & tileKey, dp::GLState const & state,
                                           drape_ptr<dp::RenderBucket> && renderBucket)
 {
-  AddToRenderGroup(m_deferredRenderGroups, state, move(renderBucket), tileKey);
+  RenderLayer::RenderLayerID id = RenderLayer::GetLayerID(state);
+  AddToRenderGroup(m_layers[id].m_deferredRenderGroups, state, move(renderBucket), tileKey);
 }
 
 void FrontendRenderer::OnActivateTile(TileKey const & tileKey)
 {
-  for(auto it = m_deferredRenderGroups.begin(); it != m_deferredRenderGroups.end();)
+  for (RenderLayer & layer : m_layers)
   {
-    if ((*it)->GetTileKey() == tileKey)
-    {
-      m_renderGroups.push_back(move(*it));
-      it = m_deferredRenderGroups.erase(it);
-      m_renderGroups.back()->Appear();
-    }
-    else
-    {
-      ++it;
-    }
+    MoveTileFunctor<ActivateTilePredicate> f(ActivateTilePredicate(tileKey), layer.m_renderGroups);
+    layer.m_isDirty |= RemoveGroups(f, layer.m_deferredRenderGroups);
   }
 }
 
@@ -714,19 +802,13 @@ void FrontendRenderer::RemoveRenderGroups(TRenderGroupRemovePredicate const & pr
   ASSERT(predicate != nullptr, ());
   m_overlayTree->ForceUpdate();
 
-  for(auto const & group : m_renderGroups)
+  for (RenderLayer & layer : m_layers)
   {
-    if (predicate(group))
-    {
-      group->DeleteLater();
-      group->Disappear();
-    }
+    RemoveTilePredicate f(predicate);
+    RemoveGroups(f, layer.m_renderGroups);
+    RemoveGroups(predicate, layer.m_deferredRenderGroups);
+    layer.m_isDirty |= f.m_deletionMark;
   }
-
-  m_deferredRenderGroups.erase(remove_if(m_deferredRenderGroups.begin(),
-                                         m_deferredRenderGroups.end(),
-                                         predicate),
-                               m_deferredRenderGroups.end());
 }
 
 bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
@@ -817,78 +899,17 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   bool const isPerspective = modelView.isPerspective();
 
-  RenderGroupComparator comparator;
-  sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderGroupComparator::operator (), &comparator, _1, _2));
-
-  BeginUpdateOverlayTree(modelView);
-  size_t eraseCount = 0;
   GLFunctions::glEnable(gl_const::GLDepthTest);
-  for (size_t i = 0; i < m_renderGroups.size(); ++i)
-  {
-    drape_ptr<RenderGroup> & group = m_renderGroups[i];
-    if (group->IsEmpty())
-      continue;
-
-    if (group->CanBeDeleted())
-    {
-      group.reset();
-      ++eraseCount;
-      continue;
-    }
-
-    switch (group->GetState().GetDepthLayer())
-    {
-    case dp::GLState::OverlayLayer:
-      UpdateOverlayTree(modelView, group);
-      break;
-    case dp::GLState::DynamicGeometry:
-      group->Update(modelView);
-      break;
-    default:
-      break;
-    }
-  }
-  EndUpdateOverlayTree();
-  m_renderGroups.resize(m_renderGroups.size() - eraseCount);
-
   m_viewport.Apply();
   RefreshBgColor();
   GLFunctions::glClear();
 
-  dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
-  size_t currentRenderGroup = 0;
-  bool has3dAreas = false;
-  size_t area3dRenderGroupStart = 0;
-  size_t area3dRenderGroupEnd = 0;
-  for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
-  {
-    drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
+  Render2dLayer(modelView);
 
-    dp::GLState const & state = group->GetState();
-
-    if ((isPerspective || m_isIsometry) && state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
-    {
-      if (!has3dAreas)
-      {
-        area3dRenderGroupStart = currentRenderGroup;
-        has3dAreas = true;
-      }
-      area3dRenderGroupEnd = currentRenderGroup;
-      continue;
-    }
-
-    dp::GLState::DepthLayer layer = state.GetDepthLayer();
-    if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
-      break;
-
-    prevLayer = layer;
-    RenderSingleGroup(modelView, make_ref(group));
-  }
-
-  GLFunctions::glDisable(gl_const::GLDepthTest);
   bool hasSelectedPOI = false;
   if (m_selectionShape != nullptr)
   {
+    GLFunctions::glDisable(gl_const::GLDepthTest);
     SelectionShape::ESelectedObject selectedObject = m_selectionShape->GetSelectedObject();
     if (selectedObject == SelectionShape::OBJECT_MY_POSITION)
     {
@@ -898,7 +919,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     }
     else if (selectedObject == SelectionShape::OBJECT_POI)
     {
-      if (!isPerspective && !has3dAreas)
+      if (!isPerspective && m_layers[RenderLayer::Geometry3dID].m_renderGroups.empty())
         m_selectionShape->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
       else
         hasSelectedPOI = true;
@@ -908,34 +929,20 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   m_myPositionController->Render(MyPositionController::RenderAccuracy,
                                  modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
 
-  if (has3dAreas)
+  if (m_framebuffer->IsSupported())
   {
-    if (m_framebuffer->IsSupported())
-    {
-      m_framebuffer->Enable();
-      GLFunctions::glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-      GLFunctions::glClear();
-      GLFunctions::glClearDepth();
-    }
-    else
-    {
-      GLFunctions::glClearDepth();
-    }
-
-    GLFunctions::glEnable(gl_const::GLDepthTest);
-    for (size_t index = area3dRenderGroupStart; index <= area3dRenderGroupEnd; ++index)
-    {
-      drape_ptr<RenderGroup> const & group = m_renderGroups[index];
-      if (group->GetState().GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
-        RenderSingleGroup(modelView, make_ref(group));
-    }
-
-    if (m_framebuffer->IsSupported())
-    {
-      m_framebuffer->Disable();
-      GLFunctions::glDisable(gl_const::GLDepthTest);
-      m_transparentLayer->Render(m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
-    }
+    m_framebuffer->Enable();
+    GLFunctions::glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    GLFunctions::glClear();
+    Render3dLayer(modelView);
+    m_framebuffer->Disable();
+    GLFunctions::glDisable(gl_const::GLDepthTest);
+    m_transparentLayer->Render(m_framebuffer->GetTextureId(), make_ref(m_gpuProgramManager));
+  }
+  else
+  {
+    GLFunctions::glClearDepth();
+    Render3dLayer(modelView);
   }
 
   if (hasSelectedPOI)
@@ -946,11 +953,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClearDepth();
-  for (; currentRenderGroup < m_renderGroups.size(); ++currentRenderGroup)
-  {
-    drape_ptr<RenderGroup> const & group = m_renderGroups[currentRenderGroup];
-    RenderSingleGroup(modelView, make_ref(group));
-  }
+  RenderOverlayLayer(modelView);
 
   m_gpsTrackRenderer->RenderTrack(modelView, GetCurrentZoomLevel(),
                                   make_ref(m_gpuProgramManager), m_generalUniforms);
@@ -1001,6 +1004,36 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   MergeBuckets();
 }
 
+void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
+{
+  RenderLayer & layer2d = m_layers[RenderLayer::Geometry2dID];
+  layer2d.Sort();
+
+  for (drape_ptr<RenderGroup> const & group : layer2d.m_renderGroups)
+    RenderSingleGroup(modelView, make_ref(group));
+}
+
+void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
+{
+  GLFunctions::glEnable(gl_const::GLDepthTest);
+  RenderLayer & layer = m_layers[RenderLayer::Geometry3dID];
+  layer.Sort();
+  for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
+    RenderSingleGroup(modelView, make_ref(group));
+}
+
+void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
+{
+  RenderLayer & overlay = m_layers[RenderLayer::OverlayID];
+  overlay.Sort();
+  BeginUpdateOverlayTree(modelView);
+  for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
+    UpdateOverlayTree(modelView, group);
+  EndUpdateOverlayTree();
+  for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
+    RenderSingleGroup(modelView, make_ref(group));
+}
+
 void FrontendRenderer::MergeBuckets()
 {
   if (BatchMergeHelper::IsMergeSupported() == false)
@@ -1010,37 +1043,43 @@ void FrontendRenderer::MergeBuckets()
   if (m_mergeBucketsCounter < 60)
     return;
 
-  if (m_renderGroups.empty())
-    return;
-
-  using TGroupMap = map<MergedGroupKey, vector<drape_ptr<RenderGroup>>>;
-  TGroupMap forMerge;
-
-  vector<drape_ptr<RenderGroup>> newGroups;
-  newGroups.reserve(m_renderGroups.size());
-
   m_mergeBucketsCounter = 0;
-  size_t groupsCount = m_renderGroups.size();
-  for (size_t i = 0; i < groupsCount; ++i)
+
+  auto mergeFn = [](RenderLayer & layer, bool isPerspective)
   {
-    ref_ptr<RenderGroup> group = make_ref(m_renderGroups[i]);
-    dp::GLState state = group->GetState();
-    if (state.GetDepthLayer() == dp::GLState::GeometryLayer && !group->IsPendingOnDelete())
+    if (layer.m_renderGroups.empty())
+      return;
+
+    using TGroupMap = map<MergedGroupKey, vector<drape_ptr<RenderGroup>>>;
+    TGroupMap forMerge;
+
+    vector<drape_ptr<RenderGroup>> newGroups;
+    newGroups.reserve(layer.m_renderGroups.size());
+
+    size_t groupsCount = layer.m_renderGroups.size();
+    for (size_t i = 0; i < groupsCount; ++i)
     {
-      MergedGroupKey const key(state, group->GetTileKey());
-      forMerge[key].push_back(move(m_renderGroups[i]));
+      ref_ptr<RenderGroup> group = make_ref(layer.m_renderGroups[i]);
+      if (!group->IsPendingOnDelete())
+      {
+        dp::GLState state = group->GetState();
+        ASSERT_EQUAL(state.GetDepthLayer(), dp::GLState::GeometryLayer, ());
+        forMerge[MergedGroupKey(state, group->GetTileKey())].push_back(move(layer.m_renderGroups[i]));
+      }
+      else
+        newGroups.push_back(move(layer.m_renderGroups[i]));
     }
-    else
-    {
-      newGroups.push_back(move(m_renderGroups[i]));
-    }
-  }
+
+    for (TGroupMap::value_type & node : forMerge)
+      BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective);
+
+    layer.m_renderGroups = move(newGroups);
+    layer.m_isDirty = true;
+  };
 
   bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
-  for (TGroupMap::value_type & node : forMerge)
-    BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective);
-
-  m_renderGroups = move(newGroups);
+  mergeFn(m_layers[RenderLayer::Geometry2dID], isPerspective);
+  mergeFn(m_layers[RenderLayer::Geometry3dID], isPerspective);
 }
 
 bool FrontendRenderer::IsPerspective() const
@@ -1426,8 +1465,11 @@ void FrontendRenderer::Routine::Do()
 void FrontendRenderer::ReleaseResources()
 {
   m_tileTree.reset();
-  m_renderGroups.clear();
-  m_deferredRenderGroups.clear();
+  for (RenderLayer & layer : m_layers)
+  {
+    layer.m_renderGroups.clear();
+    layer.m_deferredRenderGroups.clear();
+  }
   m_userMarkRenderGroups.clear();
   m_guiRenderer.reset();
   m_myPositionController.reset();
@@ -1512,6 +1554,30 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
 {
   m_modelViewChangedFn(modelView);
+}
+
+FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetLayerID(dp::GLState const & state)
+{
+  if (state.GetDepthLayer() == dp::GLState::OverlayLayer)
+    return OverlayID;
+
+  if (state.GetProgram3dIndex() == gpu::AREA_3D_PROGRAM)
+    return Geometry3dID;
+
+  return Geometry2dID;
+}
+
+void FrontendRenderer::RenderLayer::Sort()
+{
+  if (!m_isDirty)
+    return;
+
+  RenderGroupComparator comparator;
+  sort(m_renderGroups.begin(), m_renderGroups.end(), ref(comparator));
+  m_isDirty = comparator.m_pendingOnDeleteFound;
+
+  while (!m_renderGroups.empty() && m_renderGroups.back()->CanBeDeleted())
+    m_renderGroups.pop_back();
 }
 
 } // namespace df
