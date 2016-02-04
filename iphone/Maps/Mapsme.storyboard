@@ -1550,17 +1550,19 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <state key="normal" title="Log In"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlue"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="clearColor"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="login" destination="4R7-Vk-fQr" eventType="touchUpInside" id="IIp-Wz-gj1"/>

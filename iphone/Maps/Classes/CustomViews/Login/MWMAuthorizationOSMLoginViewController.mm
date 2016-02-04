@@ -54,13 +54,6 @@ using namespace osm;
   self.forgotButton.enabled = Platform::IsConnected();
 }
 
-- (void)setLoginButtonEnabled:(BOOL)enabled
-{
-  self.loginButton.enabled = enabled;
-  CALayer * layer = self.loginButton.layer;
-  layer.borderColor = (enabled ? [UIColor buttonEnabledBlueText] : [UIColor clearColor]).CGColor;
-}
-
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -184,7 +177,7 @@ using namespace osm;
 - (void)setIsCorrect:(MWMFieldCorrect)isCorrect
 {
   _isCorrect = isCorrect;
-  [self setLoginButtonEnabled:isCorrect == MWMFieldCorrectAll];
+  self.loginButton.enabled = isCorrect == MWMFieldCorrectAll;
 }
 
 @end
