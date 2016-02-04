@@ -13,6 +13,10 @@
 #include "std/target_os.hpp"
 #include "std/vector.hpp"
 
+#ifdef TARGET_OS_IPHONE
+# include <CoreFoundation/CoreFoundation.h>
+#endif
+
 #ifndef OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
 # include "platform/platform.hpp"
 #endif
@@ -37,7 +41,7 @@ namespace testing
 
 void RunEventLoop()
 {
-#if defined(OMIM_OS_IPHONE_DEVICE)
+#if defined(OMIM_OS_IPHONE)
   CFRunLoopRun();
 #elif defined (QAPP)
   QAPP::exec();
@@ -46,7 +50,7 @@ void RunEventLoop()
 
 void StopEventLoop()
 {
-#if defined(OMIM_OS_IPHONE_DEVICE)
+#if defined(OMIM_OS_IPHONE)
   CFRunLoopStop(CFRunLoopGetMain());
 #elif defined(QAPP)
   QAPP::exit();
