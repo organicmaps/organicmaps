@@ -267,7 +267,8 @@ void Framework::Migrate()
 }
 
 Framework::Framework()
-  : m_bmManager(*this)
+  : m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_FILE : COUNTRIES_MIGRATE_FILE)
+  , m_bmManager(*this)
   , m_fixedSearchResults(0)
 {
   // Restore map style before classificator loading
