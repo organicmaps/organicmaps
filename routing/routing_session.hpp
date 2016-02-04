@@ -121,6 +121,7 @@ public:
   void SetTurnNotificationsLocale(string const & locale);
   string GetTurnNotificationsLocale() const;
   void GenerateTurnNotifications(vector<string> & turnNotifications);
+  double GetCompletionPercent() const;
 
 private:
   struct DoReadyCallback
@@ -182,5 +183,6 @@ private:
   double m_passedDistanceOnRouteMeters;
   // Rerouting count
   int m_routingRebuildCount;
+  mutable double m_lastCompletionPercent;
 };
 }  // namespace routing
