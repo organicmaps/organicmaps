@@ -12,6 +12,9 @@ namespace
 {
 NSString * const kWebViewAuthSegue = @"Authorization2WebViewAuthorizationSegue";
 NSString * const kOSMAuthSegue = @"Authorization2OSMAuthorizationSegue";
+
+// I don't use block here because there is big chance to get retain cycle and std::function syntax looks prety easy and cute.
+using TActionSheetFunctor = std::function<void()>;
 } // namespace
 
 using namespace osm;
@@ -45,6 +48,8 @@ using namespace osm_auth_ios;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * uploadedChangesLabelCenter;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * messageTopOffset;
+
+@property (nonatomic) TActionSheetFunctor actionSheetFunctor;
 @end
 
 @implementation MWMAuthorizationLoginViewController
@@ -245,9 +250,13 @@ using namespace osm_auth_ios;
 
 - (IBAction)logout
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatLogout)];
-  AuthorizationStoreCredentials({});
-  [self cancel];
+  self.actionSheetFunctor = [self]
+  {
+    [[Statistics instance] logEvent:kStatEventName(kStatAuthorization, kStatLogout)];
+    AuthorizationStoreCredentials({});
+    [self cancel];
+  };
+  [self showWarningActionSheetWithActionTitle:L(@"logout")];
 }
 
 - (IBAction)cancel
@@ -263,24 +272,34 @@ using namespace osm_auth_ios;
 
 - (IBAction)localChangesAction
 {
+  self.actionSheetFunctor = [self]
+  {
+    Editor::Instance().ClearAllLocalEdits();
+    [self configChanges];
+  };
+  [self showWarningActionSheetWithActionTitle:L(@"delete")];
+}
+
+#pragma mark - ActionSheet
+
+- (void)showWarningActionSheetWithActionTitle:(NSString *)title
+{
   NSString * cancel = L(@"cancel");
-  NSString * del = L(@"delete");
   if (isIOS7)
   {
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:del otherButtonTitles:nil];
+    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:cancel destructiveButtonTitle:title otherButtonTitles:nil];
     [actionSheet showInView:self.view];
   }
   else
   {
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction * openSettingsAction = [UIAlertAction actionWithTitle:del style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action)
+    UIAlertAction * commonAction = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action)
     {
-      Editor::Instance().ClearAllLocalEdits();
-      [self configChanges];
+      [self performActionSheetFunctor];
     }];
     [alertController addAction:cancelAction];
-    [alertController addAction:openSettingsAction];
+    [alertController addAction:commonAction];
     [self presentViewController:alertController animated:YES completion:nil];
   }
 }
@@ -291,8 +310,15 @@ using namespace osm_auth_ios;
 {
   if (actionSheet.destructiveButtonIndex != buttonIndex)
     return;
-  Editor::Instance().ClearAllLocalEdits();
-  [self configChanges];
+  [self performActionSheetFunctor];
+}
+
+- (void)performActionSheetFunctor
+{
+  if (!self.actionSheetFunctor)
+    return;
+  self.actionSheetFunctor();
+  self.actionSheetFunctor = nullptr;
 }
 
 #pragma mark - Segue
