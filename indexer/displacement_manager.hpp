@@ -116,6 +116,13 @@ public:
     for (auto const & node : m_storage)
     {
       uint32_t scale = node.m_minScale;
+      // Do not filter high level objects.
+      if (scale < 10)
+      {
+        AddNodeToSorter(node,scale);
+        acceptedNodes.Add(node);
+        continue;
+      }
       for (; scale < scales::GetUpperScale(); ++scale)
       {
         float const delta = CalculateDeltaForZoom(scale);
