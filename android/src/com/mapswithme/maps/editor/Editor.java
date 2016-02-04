@@ -72,4 +72,9 @@ public final class Editor
 
   @WorkerThread
   private static native void nativeUploadChanges(String token, String secret);
+
+  /**
+   * @return array [total edits count, uploaded edits count, last upload timestamp]
+   */
+  public static native long[] nativeGetStats();
 }

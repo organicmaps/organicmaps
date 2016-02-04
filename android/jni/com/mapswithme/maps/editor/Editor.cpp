@@ -1,4 +1,4 @@
-#include <jni.h>
+﻿#include <jni.h>
 
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/maps/Framework.hpp"
@@ -107,5 +107,15 @@ Java_com_mapswithme_maps_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass 
   Editor::Instance().UploadChanges(jni::ToNativeString(env, token),
                                    jni::ToNativeString(env, secret),
                                    {{"version", "TODO android"}}, nullptr);
+}
+
+JNIEXPORT jlongArray JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetStats(JNIEnv * env, jclass clazz)
+{
+  auto const stats = Editor::Instance().GetStats();
+  jlongArray result = env->NewLongArray(3);
+  jlong buf[] = {stats.m_edits.size(), stats.m_uploadedCount, stats.m_lastUploadTimestamp};
+  env->SetLongArrayRegion(result, 0, 3, buf);
+  return result;
 }
 } // extern "C"
