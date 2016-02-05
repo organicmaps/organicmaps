@@ -1135,6 +1135,9 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   nodeAttrs.m_error = statusAndErr.error;
   // @TODO(bykoianko) NodeAttrs::m_nodeLocalName should be in local language.
   nodeAttrs.m_nodeLocalName = countryId;
+  nodeAttrs.m_parentCountryId = nodeValue.GetParent();
+  // @TODO(bykoianko) NodeAttrs::m_parentLocalName should be in local language.
+  nodeAttrs.m_parentLocalName = nodeAttrs.m_parentCountryId;
 }
 
 void Storage::DoClickOnDownloadMap(TCountryId const & countryId)
