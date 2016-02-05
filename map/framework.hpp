@@ -494,7 +494,7 @@ public:
   /// @returns nullptr if no feature was found at the given mercator point.
   unique_ptr<FeatureType> GetFeatureAtPoint(m2::PointD const & mercator) const;
   using TFeatureTypeFn = function<void(FeatureType &)>;
-  size_t ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator) const;
+  void ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator) const;
   /// Set parse to false if you don't need all feature fields ready.
   unique_ptr<FeatureType> GetFeatureByID(FeatureID const & fid, bool parse = true) const;
 

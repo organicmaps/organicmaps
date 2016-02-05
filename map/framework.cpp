@@ -1687,36 +1687,29 @@ bool Framework::ShowMapForURL(string const & url)
   return false;
 }
 
-size_t Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator) const
+void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator) const
 {
   constexpr double kSelectRectWidthInMeters = 1.1;
   constexpr double kMetersToLinearFeature = 3;
   constexpr int kScale = scales::GetUpperScale();
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
-  size_t processedFeaturesCount = 0;
   m_model.ForEachFeature(rect, [&](FeatureType & ft)
   {
     switch (ft.GetFeatureType())
     {
     case feature::GEOM_POINT:
       if (rect.IsPointInside(ft.GetCenter()))
-      {
         fn(ft);
-        ++processedFeaturesCount;
-      }
       break;
     case feature::GEOM_LINE:
       if (feature::GetMinDistanceMeters(ft, mercator) < kMetersToLinearFeature)
-      {
         fn(ft);
-        ++processedFeaturesCount;
-      }
       break;
     case feature::GEOM_AREA:
-      if (ft.GetLimitRect(kScale).IsPointInside(mercator) && feature::GetMinDistanceMeters(ft, mercator) == 0.0)
+      if (ft.GetLimitRect(kScale).IsPointInside(mercator) &&
+          feature::GetMinDistanceMeters(ft, mercator) == 0.0)
       {
         fn(ft);
-        ++processedFeaturesCount;
       }
       break;
     case feature::GEOM_UNDEFINED:
@@ -1724,7 +1717,6 @@ size_t Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const &
       break;
     }
   }, kScale);
-  return processedFeaturesCount;
 }
 
 unique_ptr<FeatureType> Framework::GetFeatureAtPoint(m2::PointD const & mercator) const

@@ -494,7 +494,7 @@ void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
     menu.addAction(QString::fromUtf8(s.c_str()));
   };
 
-  m_framework->ForEachFeatureAtPoint([&](FeatureType const & ft)
+  m_framework->ForEachFeatureAtPoint([&](FeatureType & ft)
   {
     search::AddressInfo const info = m_framework->GetFeatureAddressInfo(ft);
 
