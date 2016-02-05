@@ -1,7 +1,5 @@
 #pragma once
 
-#include "search/search_tests_support/test_feature.hpp"
-
 #include "search/result.hpp"
 
 #include "indexer/mwm_set.hpp"
@@ -17,6 +15,8 @@ namespace search
 {
 namespace tests_support
 {
+class TestFeature;
+
 class MatchingRule
 {
 public:
@@ -29,7 +29,7 @@ public:
 class ExactMatch : public MatchingRule
 {
 public:
-  ExactMatch(MwmSet::MwmId const & mwmId, shared_ptr<TestFeature> feature);
+  ExactMatch(MwmSet::MwmId const & mwmId, TestFeature & feature);
 
   // MatchingRule overrides:
   bool Matches(FeatureType const & feature) const override;
@@ -37,7 +37,7 @@ public:
 
 private:
   MwmSet::MwmId m_mwmId;
-  shared_ptr<TestFeature> m_feature;
+  TestFeature & m_feature;
 };
 
 class AlternativesMatch : public MatchingRule

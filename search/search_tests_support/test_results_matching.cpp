@@ -1,5 +1,7 @@
 #include "search/search_tests_support/test_results_matching.hpp"
 
+#include "search/search_tests_support/test_feature.hpp"
+
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
 
@@ -9,7 +11,7 @@ namespace search
 {
 namespace tests_support
 {
-ExactMatch::ExactMatch(MwmSet::MwmId const & mwmId, shared_ptr<TestFeature> feature)
+ExactMatch::ExactMatch(MwmSet::MwmId const & mwmId, TestFeature & feature)
   : m_mwmId(mwmId), m_feature(feature)
 {
 }
@@ -18,13 +20,13 @@ bool ExactMatch::Matches(FeatureType const & feature) const
 {
   if (m_mwmId != feature.GetID().m_mwmId)
     return false;
-  return m_feature->Matches(feature);
+  return m_feature.Matches(feature);
 }
 
 string ExactMatch::ToString() const
 {
   ostringstream os;
-  os << "ExactMatch [ " << DebugPrint(m_mwmId) << ", " << DebugPrint(*m_feature) << " ]";
+  os << "ExactMatch [ " << DebugPrint(m_mwmId) << ", " << DebugPrint(m_feature) << " ]";
   return os.str();
 }
 

@@ -114,85 +114,73 @@ private:
 
 UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
 {
-  auto const wonderlandCountry =
-      make_shared<TestCountry>(m2::PointD(10, 10), "Wonderland", "en");
+  TestCountry wonderlandCountry(m2::PointD(10, 10), "Wonderland", "en");
 
-  auto const losAlamosCity =
-      make_shared<TestCity>(m2::PointD(10, 10), "Los Alamos", "en", 100 /* rank */);
-  auto const mskCity = make_shared<TestCity>(m2::PointD(0, 0), "Moscow", "en", 100 /* rank */);
-  auto const longPondVillage =
-      make_shared<TestVillage>(m2::PointD(15, 15), "Long Pond Village", "en", 10 /* rank */);
-
-  auto const feynmanStreet = make_shared<TestStreet>(
+  TestCity losAlamosCity(m2::PointD(10, 10), "Los Alamos", "en", 100 /* rank */);
+  TestCity mskCity(m2::PointD(0, 0), "Moscow", "en", 100 /* rank */);
+  TestVillage longPondVillage(m2::PointD(15, 15), "Long Pond Village", "en", 10 /* rank */);
+  TestStreet feynmanStreet(
       vector<m2::PointD>{m2::PointD(9.999, 9.999), m2::PointD(10, 10), m2::PointD(10.001, 10.001)},
       "Feynman street", "en");
-  auto const bohrStreet1 = make_shared<TestStreet>(
+  TestStreet bohrStreet1(
       vector<m2::PointD>{m2::PointD(9.999, 10.001), m2::PointD(10, 10), m2::PointD(10.001, 9.999)},
       "Bohr street", "en");
-  auto const bohrStreet2 = make_shared<TestStreet>(
-      vector<m2::PointD>{m2::PointD(10.001, 9.999), m2::PointD(10.002, 9.998)}, "Bohr street",
-      "en");
-  auto const bohrStreet3 = make_shared<TestStreet>(
-      vector<m2::PointD>{m2::PointD(10.002, 9.998), m2::PointD(10.003, 9.997)}, "Bohr street",
-      "en");
-  auto const firstAprilStreet = make_shared<TestStreet>(
-      vector<m2::PointD>{m2::PointD(14.998, 15), m2::PointD(15.002, 15)}, "1st April street", "en");
+  TestStreet bohrStreet2(vector<m2::PointD>{m2::PointD(10.001, 9.999), m2::PointD(10.002, 9.998)},
+                         "Bohr street", "en");
+  TestStreet bohrStreet3(vector<m2::PointD>{m2::PointD(10.002, 9.998), m2::PointD(10.003, 9.997)},
+                         "Bohr street", "en");
+  TestStreet firstAprilStreet(vector<m2::PointD>{m2::PointD(14.998, 15), m2::PointD(15.002, 15)},
+                              "1st April street", "en");
 
-  auto const feynmanHouse = make_shared<TestBuilding>(m2::PointD(10, 10), "Feynman house",
-                                                      "1 unit 1", *feynmanStreet, "en");
-  auto const bohrHouse =
-      make_shared<TestBuilding>(m2::PointD(10, 10), "Bohr house", "1 unit 1", *bohrStreet1, "en");
-  auto const hilbertHouse = make_shared<TestBuilding>(
+  TestBuilding feynmanHouse(m2::PointD(10, 10), "Feynman house", "1 unit 1", feynmanStreet, "en");
+  TestBuilding bohrHouse(m2::PointD(10, 10), "Bohr house", "1 unit 1", bohrStreet1, "en");
+  TestBuilding hilbertHouse(
       vector<m2::PointD>{
           {10.0005, 10.0005}, {10.0006, 10.0005}, {10.0006, 10.0006}, {10.0005, 10.0006}},
-      "Hilbert house", "1 unit 2", *bohrStreet1, "en");
-  auto const descartesHouse =
-      make_shared<TestBuilding>(m2::PointD(10, 10), "Descartes house", "2", "en");
-  auto const bornHouse =
-      make_shared<TestBuilding>(m2::PointD(14.999, 15), "Born house", "8", *firstAprilStreet, "en");
+      "Hilbert house", "1 unit 2", bohrStreet1, "en");
+  TestBuilding descartesHouse(m2::PointD(10, 10), "Descartes house", "2", "en");
+  TestBuilding bornHouse(m2::PointD(14.999, 15), "Born house", "8", firstAprilStreet, "en");
 
-  auto const busStop = make_shared<TestPOI>(m2::PointD(0, 0), "Bus stop", "en");
-  auto const tramStop = make_shared<TestPOI>(m2::PointD(0.0001, 0.0001), "Tram stop", "en");
-  auto const quantumTeleport1 =
-      make_shared<TestPOI>(m2::PointD(0.0002, 0.0002), "Quantum teleport 1", "en");
-  auto const quantumTeleport2 =
-      make_shared<TestPOI>(m2::PointD(10, 10), "Quantum teleport 2", "en");
-  auto const quantumCafe = make_shared<TestPOI>(m2::PointD(-0.0002, -0.0002), "Quantum cafe", "en");
-  auto const lantern1 = make_shared<TestPOI>(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
-  auto const lantern2 = make_shared<TestPOI>(m2::PointD(10.0006, 10.0005), "lantern 2", "en");
+  TestPOI busStop(m2::PointD(0, 0), "Bus stop", "en");
+  TestPOI tramStop(m2::PointD(0.0001, 0.0001), "Tram stop", "en");
+  TestPOI quantumTeleport1(m2::PointD(0.0002, 0.0002), "Quantum teleport 1", "en");
+  TestPOI quantumTeleport2(m2::PointD(10, 10), "Quantum teleport 2", "en");
+  TestPOI quantumCafe(m2::PointD(-0.0002, -0.0002), "Quantum cafe", "en");
+  TestPOI lantern1(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
+  TestPOI lantern2(m2::PointD(10.0006, 10.0005), "lantern 2", "en");
 
   BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
            {
-             builder.Add(*wonderlandCountry);
-             builder.Add(*losAlamosCity);
-             builder.Add(*mskCity);
+             builder.Add(wonderlandCountry);
+             builder.Add(losAlamosCity);
+             builder.Add(mskCity);
            });
   auto wonderlandId =
       BuildMwm("wonderland", feature::DataHeader::country, [&](TestMwmBuilder & builder)
                {
-                 builder.Add(*losAlamosCity);
-                 builder.Add(*mskCity);
-                 builder.Add(*longPondVillage);
+                 builder.Add(losAlamosCity);
+                 builder.Add(mskCity);
+                 builder.Add(longPondVillage);
 
-                 builder.Add(*feynmanStreet);
-                 builder.Add(*bohrStreet1);
-                 builder.Add(*bohrStreet2);
-                 builder.Add(*bohrStreet3);
-                 builder.Add(*firstAprilStreet);
+                 builder.Add(feynmanStreet);
+                 builder.Add(bohrStreet1);
+                 builder.Add(bohrStreet2);
+                 builder.Add(bohrStreet3);
+                 builder.Add(firstAprilStreet);
 
-                 builder.Add(*feynmanHouse);
-                 builder.Add(*bohrHouse);
-                 builder.Add(*hilbertHouse);
-                 builder.Add(*descartesHouse);
-                 builder.Add(*bornHouse);
+                 builder.Add(feynmanHouse);
+                 builder.Add(bohrHouse);
+                 builder.Add(hilbertHouse);
+                 builder.Add(descartesHouse);
+                 builder.Add(bornHouse);
 
-                 builder.Add(*busStop);
-                 builder.Add(*tramStop);
-                 builder.Add(*quantumTeleport1);
-                 builder.Add(*quantumTeleport2);
-                 builder.Add(*quantumCafe);
-                 builder.Add(*lantern1);
-                 builder.Add(*lantern2);
+                 builder.Add(busStop);
+                 builder.Add(tramStop);
+                 builder.Add(quantumTeleport1);
+                 builder.Add(quantumTeleport2);
+                 builder.Add(quantumCafe);
+                 builder.Add(lantern1);
+                 builder.Add(lantern2);
                });
 
   RegisterCountry("wonderland", m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(10.1, 10.1)));
@@ -265,15 +253,14 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
 
 UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
 {
-  auto const wonderland = make_shared<TestCountry>(m2::PointD(0, 0), "Wonderland", "en");
-  auto const losAlamos =
-      make_shared<TestCity>(m2::PointD(0, 0), "Los Alamos", "en", 100 /* rank */);
+  TestCountry wonderland(m2::PointD(0, 0), "Wonderland", "en");
+  TestCity losAlamos(m2::PointD(0, 0), "Los Alamos", "en", 100 /* rank */);
 
   auto testWorldId = BuildMwm("testWorld", feature::DataHeader::world,
                               [&](TestMwmBuilder & builder)
                               {
-                                builder.Add(*wonderland);
-                                builder.Add(*losAlamos);
+                                builder.Add(wonderland);
+                                builder.Add(losAlamos);
                               });
 
   RegisterCountry("Wonderland", m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
@@ -295,20 +282,19 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
 
 UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
 {
-  auto const london = make_shared<TestCity>(m2::PointD(1, 1), "London", "en", 100 /* rank */);
-  auto const hydePark =
-      make_shared<TestPark>(vector<m2::PointD>{m2::PointD(0.5, 0.5), m2::PointD(1.5, 0.5),
-                                               m2::PointD(1.5, 1.5), m2::PointD(0.5, 1.5)},
-                            "Hyde Park", "en");
+  TestCity london(m2::PointD(1, 1), "London", "en", 100 /* rank */);
+  TestPark hydePark(vector<m2::PointD>{m2::PointD(0.5, 0.5), m2::PointD(1.5, 0.5),
+                                       m2::PointD(1.5, 1.5), m2::PointD(0.5, 1.5)},
+                    "Hyde Park", "en");
 
   BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
            {
-             builder.Add(*london);
+             builder.Add(london);
            });
   auto wonderlandId = BuildMwm("wonderland", feature::DataHeader::country,
                                [&](TestMwmBuilder & builder)
                                {
-                                 builder.Add(*hydePark);
+                                 builder.Add(hydePark);
                                });
   RegisterCountry("Wonderland", m2::RectD(m2::PointD(0, 0), m2::PointD(2, 2)));
 

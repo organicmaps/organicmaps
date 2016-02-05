@@ -343,26 +343,26 @@ UNIT_TEST(Retrieval_CafeMTV)
     Cleanup({msk, mtv, testWorld});
   });
 
-  auto const mskCity = make_shared<TestCity>(m2::PointD(1, 0), "Moscow", "en", 100 /* rank */);
-  auto const mtvCafe = make_shared<TestPOI>(m2::PointD(1, 0), "Cafe MTV", "en");
+  TestCity mskCity(m2::PointD(1, 0), "Moscow", "en", 100 /* rank */);
+  TestPOI mtvCafe(m2::PointD(1, 0), "Cafe MTV", "en");
 
-  auto const mtvCity = make_shared<TestCity>(m2::PointD(-1, 0), "MTV", "en", 100 /* rank */);
-  auto const mskCafe = make_shared<TestPOI>(m2::PointD(-1, 0), "Cafe Moscow", "en");
+  TestCity mtvCity(m2::PointD(-1, 0), "MTV", "en", 100 /* rank */);
+  TestPOI mskCafe(m2::PointD(-1, 0), "Cafe Moscow", "en");
 
   {
     TestMwmBuilder builder(msk, feature::DataHeader::country);
-    builder.Add(*mskCity);
-    builder.Add(*mtvCafe);
+    builder.Add(mskCity);
+    builder.Add(mtvCafe);
   }
   {
     TestMwmBuilder builder(mtv, feature::DataHeader::country);
-    builder.Add(*mtvCity);
-    builder.Add(*mskCafe);
+    builder.Add(mtvCity);
+    builder.Add(mskCafe);
   }
   {
     TestMwmBuilder builder(testWorld, feature::DataHeader::world);
-    builder.Add(*mskCity);
-    builder.Add(*mtvCity);
+    builder.Add(mskCity);
+    builder.Add(mtvCity);
   }
 
   m2::RectD const mskViewport(m2::PointD(0.99, -0.1), m2::PointD(1.01, 0.1));
