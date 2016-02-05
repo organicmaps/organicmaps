@@ -90,7 +90,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="downloader_update_all"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="allMapsAction" destination="eCI-mf-eCv" eventType="touchUpInside" id="iOm-Tm-DBV"/>
+                                            <action selector="allMapsAction" destination="eCI-mf-eCv" eventType="touchUpInside" id="slj-0v-XS7"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -234,7 +234,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="downloader_download_all"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="allMapsAction" destination="eCI-mf-eCv" eventType="touchUpInside" id="d0V-lN-czG"/>
+                                            <action selector="allMapsAction" destination="cIk-gU-IeI" eventType="touchUpInside" id="BFl-NK-h9n"/>
                                         </connections>
                                     </button>
                                 </subviews>

@@ -48,12 +48,7 @@
   [super configAllMapsView];
   // TODO (igrechuhin) Add implementation
   self.allMapsLabel.text = @"5 Outdated Maps (108 MB)";
-  self.showAllMapsView = YES;
-}
-
-- (IBAction)allMapsAction
-{
-  // TODO (igrechuhin) Add implementation
+  self.showAllMapsView = NO;
 }
 
 #pragma mark - Fill cells with data

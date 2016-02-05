@@ -32,8 +32,6 @@
 #include "platform/preferred_languages.hpp"
 #include "storage/storage_defines.hpp"
 
-#include "std/mutex.hpp"
-
 // If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
 #import "../../../private.h"
 

@@ -16,10 +16,13 @@ NSString * const kCountryCellIdentifier = @"MWMMapDownloaderCountryTableViewCell
 NSString * const kLargeCountryCellIdentifier = @"MWMMapDownloaderLargeCountryTableViewCell";
 NSString * const kSubplaceCellIdentifier = @"MWMMapDownloaderSubplaceTableViewCell";
 NSString * const kPlaceCellIdentifier = @"MWMMapDownloaderPlaceTableViewCell";
+
+NSString * const kDownloadActionTitle = L(@"downloader_download_map");
+NSString * const kShowActionTitle = L(@"zoom_to_country");
+NSString * const kCancelActionTitle = L(@"cancel");
+
+using TAlertAction = void (^)(UIAlertAction *);
 } // namespace
-
-
-typedef void (^AlertActionType)(UIAlertAction *);
 
 @interface MWMBaseMapDownloaderViewController () <UIActionSheetDelegate>
 
@@ -33,12 +36,8 @@ typedef void (^AlertActionType)(UIAlertAction *);
 
 @property (nonatomic) CGFloat lastScrollOffset;
 
-@property (copy, nonatomic) AlertActionType downloadAction;
-@property (copy, nonatomic) AlertActionType showAction;
-
-@property (copy, nonatomic) NSString * downloadActionTitle;
-@property (copy, nonatomic) NSString * showActionTitle;
-@property (copy, nonatomic) NSString * cancelActionTitle;
+@property (copy, nonatomic) TAlertAction downloadAction;
+@property (copy, nonatomic) TAlertAction showAction;
 
 @property (nonatomic) NSArray<NSString *> * indexes;
 @property (nonatomic) NSDictionary<NSString *, NSArray<NSString *> *> * countryIds;
@@ -52,6 +51,7 @@ using namespace storage;
 @implementation MWMBaseMapDownloaderViewController
 {
   TCountryId m_rootId;
+  TCountryId m_actionSheetId;
 }
 
 - (void)viewDidLoad
@@ -167,6 +167,63 @@ using namespace storage;
   return self.isParentRoot ? kCountryCellIdentifier : kPlaceCellIdentifier;
 }
 
+- (void)showActionSheetForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  auto const & s = GetFramework().Storage();
+  NodeAttrs nodeAttrs;
+  m_actionSheetId = [self countryIdForIndexPath:indexPath];
+  s.GetNodeAttrs(m_actionSheetId, nodeAttrs);
+  BOOL const isDownloaded = (nodeAttrs.m_status == NodeStatus::OnDisk ||
+                             nodeAttrs.m_status == NodeStatus::OnDiskOutOfDate);
+  NSString * title = @(nodeAttrs.m_nodeLocalName.c_str());
+  NSString * message = self.isParentRoot ? @(nodeAttrs.m_parentLocalName.c_str()) : nil;
+  NSString * downloadActionTitle = [NSString stringWithFormat:@"%@, %@", kDownloadActionTitle, formattedSize(nodeAttrs.m_mwmSize)];
+  if (isIOS7)
+  {
+    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title
+                                                              delegate:self
+                                                     cancelButtonTitle:nil
+                                                destructiveButtonTitle:nil
+                                                     otherButtonTitles:nil];
+    [actionSheet addButtonWithTitle:downloadActionTitle];
+    if (isDownloaded)
+      [actionSheet addButtonWithTitle:kShowActionTitle];
+    if (!IPAD)
+    {
+      [actionSheet addButtonWithTitle:kCancelActionTitle];
+      actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
+    }
+    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [actionSheet showFromRect:cell.frame inView:cell.superview animated:YES];
+  }
+  else
+  {
+    UIAlertController * alertController =
+        [UIAlertController alertControllerWithTitle:title
+                                            message:message
+                                     preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction * downloadAction = [UIAlertAction actionWithTitle:downloadActionTitle
+                                                              style:UIAlertActionStyleDefault
+                                                            handler:self.downloadAction];
+    [alertController addAction:downloadAction];
+
+    if (isDownloaded)
+    {
+      UIAlertAction * showAction = [UIAlertAction actionWithTitle:kShowActionTitle
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:self.showAction];
+      [alertController addAction:showAction];
+    }
+
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:kCancelActionTitle
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:nil];
+    [alertController addAction:cancelAction];
+
+    [self presentViewController:alertController animated:YES completion:nil];
+  }
+}
+
 #pragma mark - Offscreen cells
 
 - (MWMMapDownloaderTableViewCell *)offscreenCellForIdentifier:(NSString *)reuseIdentifier
@@ -200,8 +257,15 @@ using namespace storage;
 
 - (void)configAllMapsView
 {
-// TODO (igrechuhin) Add implementation
-  self.allMapsLabel.text = @"14 Maps (291 MB)";
+  if (self.isParentRoot)
+    return;
+  auto const & s = GetFramework().Storage();
+  NodeAttrs nodeAttrs;
+  s.GetNodeAttrs(m_rootId, nodeAttrs);
+  self.allMapsLabel.text =
+      [NSString stringWithFormat:@"%@ %@ (%@)", L(@"maps"),
+                                 @(nodeAttrs.m_mwmCounter - nodeAttrs.m_localMwmCounter),
+                                 formattedSize(nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize)];
   self.showAllMapsView = YES;
 }
 
@@ -236,7 +300,7 @@ using namespace storage;
 
 - (IBAction)allMapsAction
 {
-  // TODO (igrechuhin) Add implementation
+  GetFramework().Storage().DownloadNode(m_rootId);
 }
 
 #pragma mark - Fill cells with data
@@ -335,47 +399,7 @@ using namespace storage;
   }
   else
   {
-// TODO (igrechuhin) Add implementation
-//  NSString * title = @"Alessandria";
-//  NSString * message = @"Italy, Piemont";
-//  NSString * downloadActionTitle = [self.downloadActionTitle stringByAppendingString:@", 38 MB"];
-//  if (isIOSVersionLessThan(8))
-//  {
-//    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:message
-//                                                              delegate:self
-//                                                     cancelButtonTitle:nil
-//                                                destructiveButtonTitle:nil
-//                                                     otherButtonTitles:nil];
-//    [actionSheet addButtonWithTitle:downloadActionTitle];
-//    [actionSheet addButtonWithTitle:self.showActionTitle];
-//    if (!IPAD)
-//    {
-//      [actionSheet addButtonWithTitle:self.cancelActionTitle];
-//      actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1;
-//    }
-//    UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
-//    [actionSheet showFromRect:cell.frame inView:cell.superview animated:YES];
-//  }
-//  else
-//  {
-//    UIAlertController * alertController =
-//        [UIAlertController alertControllerWithTitle:title
-//                                            message:message
-//                                     preferredStyle:UIAlertControllerStyleActionSheet];
-//    UIAlertAction * downloadAction = [UIAlertAction actionWithTitle:downloadActionTitle
-//                                                              style:UIAlertActionStyleDefault
-//                                                            handler:self.downloadAction];
-//    UIAlertAction * showAction = [UIAlertAction actionWithTitle:self.showActionTitle
-//                                                          style:UIAlertActionStyleDefault
-//                                                        handler:self.showAction];
-//    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:self.cancelActionTitle
-//                                                            style:UIAlertActionStyleCancel
-//                                                          handler:nil];
-//    [alertController addAction:downloadAction];
-//    [alertController addAction:showAction];
-//    [alertController addAction:cancelAction];
-//    [self presentViewController:alertController animated:YES completion:nil];
-//  }
+    [self showActionSheetForRowAtIndexPath:indexPath];
   }
 }
 
@@ -410,9 +434,9 @@ using namespace storage;
 - (void)actionSheet:(UIActionSheet * _Nonnull)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
   NSString * btnTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-  if ([btnTitle hasPrefix:self.downloadActionTitle])
+  if ([btnTitle hasPrefix:kDownloadActionTitle])
     self.downloadAction(nil);
-  else if ([btnTitle isEqualToString:self.showActionTitle])
+  else if ([btnTitle isEqualToString:kShowActionTitle])
     self.showAction(nil);
 }
 
@@ -420,19 +444,17 @@ using namespace storage;
 
 - (void)configActions
 {
+  __weak auto weakSelf = self;
   self.downloadAction = ^(UIAlertAction * action)
   {
-    // TODO (igrechuhin) Add implementation
+    __strong auto self = weakSelf;
+    GetFramework().Storage().DownloadNode(self->m_actionSheetId);
   };
 
   self.showAction = ^(UIAlertAction * action)
   {
     // TODO (igrechuhin) Add implementation
   };
-
-  self.downloadActionTitle = L(@"downloader_download_map");
-  self.showActionTitle = L(@"zoom_to_country");
-  self.cancelActionTitle = L(@"cancel");
 }
 
 #pragma mark - Managing the Status Bar

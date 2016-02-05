@@ -3,6 +3,8 @@
 
 #include "Framework.h"
 
+#include "std/mutex.hpp"
+
 namespace
 {
 using TObserver = id<MWMFrameworkObserver>;
@@ -47,6 +49,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 @implementation MWMFrameworkListener
 {
   unique_ptr<UserMarkCopy> m_userMark;
+  mutex m_userMarkMutex;
 }
 
 + (MWMFrameworkListener *)listener
@@ -97,14 +100,14 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   auto & f = GetFramework();
   f.SetRouteBuildingListener([observers](IRouter::ResultCode code, TCountriesVec const & absentCountries, TCountriesVec const & absentRoutes)
   {
-    loopWrappers(observers, ^(TRouteBuildingObserver observer)
+    loopWrappers(observers, [code, absentCountries, absentRoutes](TRouteBuildingObserver observer)
     {
       [observer processRouteBuilderEvent:code countries:absentCountries routes:absentRoutes];
     });
   });
   f.SetRouteProgressListener([observers](float progress)
   {
-    loopWrappers(observers, ^(TRouteBuildingObserver observer)
+    loopWrappers(observers, [progress](TRouteBuildingObserver observer)
     {
       if ([observer respondsToSelector:@selector(processRouteBuilderProgress:)])
         [observer processRouteBuilderProgress:progress];
@@ -121,7 +124,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   f.SetMyPositionModeListener([self, observers](location::EMyPositionMode mode)
   {
     self.myPositionMode = mode;
-    loopWrappers(observers, ^(TMyPositionObserver observer)
+    loopWrappers(observers, [mode](TMyPositionObserver observer)
     {
       [observer processMyPositionStateModeChange:mode];
     });
@@ -136,10 +139,15 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   auto & f = GetFramework();
   f.SetUserMarkActivationListener([self, observers](unique_ptr<UserMarkCopy> mark)
   {
+    lock_guard<mutex> lock(m_userMarkMutex);
     m_userMark = move(mark);
-    loopWrappers(observers, ^(TUsermarkObserver observer)
+    loopWrappers(observers, [self](TUsermarkObserver observer)
     {
-      [observer processUserMarkActivation:self->m_userMark->GetUserMark()];
+      lock_guard<mutex> lock(self->m_userMarkMutex);
+      if (self->m_userMark != nullptr)
+        [observer processUserMarkActivation:self->m_userMark->GetUserMark()];
+      else
+        [observer processUserMarkActivation:nullptr];
     });
   });
 }
@@ -149,18 +157,17 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 - (void)registerStorageObserver
 {
   TObservers * observers = self.storageObservers;
-  auto & f = GetFramework();
-  auto & s = f.Storage();
+  auto & s = GetFramework().Storage();
   s.Subscribe([observers](storage::TCountryId const & countryId)
   {
-    loopWrappers(observers, ^(TStorageObserver observer)
+    loopWrappers(observers, [countryId](TStorageObserver observer)
     {
       [observer processCountryEvent:countryId];
     });
   },
   [observers](storage::TCountryId const & countryId, storage::TLocalAndRemoteSize const & progress)
   {
-    loopWrappers(observers, ^(TStorageObserver observer)
+    loopWrappers(observers, [countryId, progress](TStorageObserver observer)
     {
       if ([observer respondsToSelector:@selector(processCountry:progress:)])
         [observer processCountry:countryId progress:progress];
