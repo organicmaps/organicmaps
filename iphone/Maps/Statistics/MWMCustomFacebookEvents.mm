@@ -89,7 +89,7 @@ static int gStorageSubscriptionId = kNotSubscribed;
             });
             [Alohalytics logEvent:kDownloadedSecondMapEvent];
           }
-        }, [](storage::TCountryId const &, storage::LocalAndRemoteSizeT const &){});
+        }, [](storage::TCountryId const &, storage::TLocalAndRemoteSize const &){});
       }
     }
   }

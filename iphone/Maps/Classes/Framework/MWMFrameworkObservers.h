@@ -38,6 +38,7 @@
 
 @optional
 
-- (void)processCountry:(storage::TCountryId const &)countryId progress:(storage::LocalAndRemoteSizeT const &)progress;
+- (void)processCountry:(storage::TCountryId const &)countryId progress:(storage::TLocalAndRemoteSize const &)progress;
 
 @end
+

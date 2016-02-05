@@ -209,7 +209,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   [self updateTopController];
   NodeAttrs attrs;
   GetFramework().Storage().GetNodeAttrs(countryId, attrs);
-  if (IsDownloadFailed(attrs.m_status))
+  if (attrs.m_status == NodeStatus::Error)
     [self.downloadController setDownloadFailed];
   if (self.state == MWMSearchManagerStateTableSearch || self.state == MWMSearchManagerStateMapSearch)
   {
@@ -220,7 +220,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   }
 }
 
-- (void)processCountry:(storage::TCountryId const &)countryId progress:(storage::LocalAndRemoteSizeT const &)progress
+- (void)processCountry:(storage::TCountryId const &)countryId progress:(storage::TLocalAndRemoteSize const &)progress
 {
   using namespace storage;
   CGFloat const normProgress = (CGFloat)progress.first / progress.second;

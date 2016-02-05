@@ -158,7 +158,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
       [observer processCountryEvent:countryId];
     });
   },
-  [observers](storage::TCountryId const & countryId, storage::LocalAndRemoteSizeT const & progress)
+  [observers](storage::TCountryId const & countryId, storage::TLocalAndRemoteSize const & progress)
   {
     loopWrappers(observers, ^(TStorageObserver observer)
     {
