@@ -14,14 +14,14 @@
 
   <View
     android:layout_width="match_parent"
-    android:layout_height="@dimen/base_block_size"
+    android:layout_height="@dimen/height_block_base"
     android:layout_alignParentBottom="true"
     android:background="@android:color/white"/>
 
   <TextView
     android:id="@+id/tv__mode_switch"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/base_block_size"
+    android:layout_height="@dimen/height_block_base"
     android:layout_alignParentBottom="true"
     android:background="?clickableBackground"
     android:gravity="center_vertical"

@@ -7,7 +7,7 @@
   android:layout_height="wrap_content"
   android:background="?attr/clickableBackground"
   android:gravity="center_vertical"
-  android:minHeight="@dimen/base_block_size"
+  android:minHeight="@dimen/height_block_base"
   android:paddingEnd="@dimen/margin_base"
   android:paddingLeft="@dimen/margin_half"
   android:paddingRight="@dimen/margin_base"

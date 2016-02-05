@@ -51,7 +51,7 @@
         <TextView
           android:id="@+id/tv__examples_title"
           android:layout_width="match_parent"
-          android:layout_height="@dimen/base_block_size"
+          android:layout_height="@dimen/height_block_base"
           android:background="?clickableBackground"
           android:drawableEnd="@drawable/ic_expand_more"
           android:drawableLeft="@drawable/ic_type_text"

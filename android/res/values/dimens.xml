@@ -25,11 +25,12 @@
   <dimen name="neg_margin_base">-16dp</dimen>
   <dimen name="neg_margin_double">-32dp</dimen>
 
-  <!-- margins -->
-
   <dimen name="margin_navigation_buttons">@dimen/margin_quarter</dimen>
 
-  <dimen name="base_block_size">48dp</dimen>
+  <!-- base sizes -->
+  <dimen name="height_block_base">48dp</dimen>
+  <dimen name="height_item_oneline">56dp</dimen>
+  <dimen name="height_item_edit_bookmark">72dp</dimen>
 
   <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
@@ -38,9 +39,7 @@
   <dimen name="place_page_width">360dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>
 
-  <dimen name="progress_wheel_width">48dp</dimen>
-  <dimen name="progress_wheel_height">40dp</dimen>
-  <dimen name="progress_wheel_width_neg">-48dp</dimen>
+  <dimen name="downloader_status_size">48dp</dimen>
   <dimen name="search_progress_size">32dp</dimen>
 
   <dimen name="panel_width">360dp</dimen>
@@ -51,9 +50,6 @@
   <dimen name="margin_direction_side">32dp</dimen>
   <dimen name="margin_direction_mid">24dp</dimen>
   <dimen name="margin_direction_around_center">40dp</dimen>
-
-  <dimen name="height_item_oneline">56dp</dimen>
-  <dimen name="height_item_edit_bookmark">72dp</dimen>
 
   <dimen name="zoom_buttons_top_required_space">266dp</dimen>
   <dimen name="zoom_buttons_bottom_max_space">228dp</dimen>

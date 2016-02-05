@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
-        android:minHeight="@dimen/base_block_size">
+        android:minHeight="@dimen/height_block_base">
 
         <EditText
           android:id="@+id/osm_username"
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
-        android:minHeight="@dimen/base_block_size">
+        android:minHeight="@dimen/height_block_base">
 
         <EditText
           android:id="@+id/osm_password"

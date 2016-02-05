@@ -10,9 +10,9 @@
   <android.support.design.widget.TabLayout
     android:id="@+id/tabs"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/base_block_size"
-    android:background="@android:color/white"
+    android:layout_height="@dimen/height_block_base"
     android:elevation="@dimen/appbar_elevation"
+    android:background="@android:color/white"
     app:tabGravity="fill"
     app:tabIndicatorColor="?colorAccent"
     app:tabMode="fixed"

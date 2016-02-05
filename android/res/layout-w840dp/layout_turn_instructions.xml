@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/btn__close"
-        android:layout_width="@dimen/base_block_size"
-        android:layout_height="@dimen/base_block_size"
+        android:layout_width="@dimen/height_block_base"
+        android:layout_height="@dimen/height_block_base"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/margin_base"
         android:layout_weight="0"

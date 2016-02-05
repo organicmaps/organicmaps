@@ -8,8 +8,8 @@
 
   <ImageView
     android:id="@+id/iv__remove_closed"
-    android:layout_width="@dimen/base_block_size"
-    android:layout_height="@dimen/base_block_size"
+    android:layout_width="@dimen/height_block_base"
+    android:layout_height="@dimen/height_block_base"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:layout_centerVertical="true"

@@ -173,7 +173,7 @@
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
     <activity
-        android:name="com.mapswithme.country.DownloadActivity"
+        android:name="com.mapswithme.maps.downloader.DownloaderActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/download_maps"
         android:parentActivityName="com.mapswithme.maps.MwmActivity">

@@ -43,7 +43,7 @@
         <TextView
           android:id="@+id/name_multilang"
           android:layout_width="match_parent"
-          android:layout_height="@dimen/base_block_size"
+          android:layout_height="@dimen/height_block_base"
           android:background="?clickableBackground"
           android:drawableEnd="@drawable/ic_arrow_down"
           android:drawableRight="@drawable/ic_arrow_down"
@@ -175,7 +175,7 @@
           style="@style/MwmWidget.Editor.FieldLayout"
           android:background="?clickableBackground"
           android:gravity="center_vertical"
-          android:minHeight="@dimen/base_block_size"
+          android:minHeight="@dimen/height_block_base"
           android:text="@string/edit_opening_hours"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1"

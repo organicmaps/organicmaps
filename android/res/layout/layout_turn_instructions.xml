@@ -17,8 +17,8 @@
       android:padding="@dimen/margin_quarter">
     <ImageView
         android:id="@+id/btn__close"
-        android:layout_width="@dimen/base_block_size"
-        android:layout_height="@dimen/base_block_size"
+        android:layout_width="@dimen/height_block_base"
+        android:layout_height="@dimen/height_block_base"
         android:layout_weight="0"
         android:background="?selectableItemBackgroundBorderless"
         android:tint="?iconTint"
