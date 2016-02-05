@@ -14597,6 +14597,13 @@
     nl = Aanbiedingen weergeven
     pt = Mostrar ofertas
 
+  [showcase_plan_your_trip]
+    tags = ios
+    comment = Showcase menu item.
+    en = Plan your trip
+    ru = Подготовься к путешествию
+    es = Planifica tu viaje
+
   [showcase_more_apps]
     tags = ios, android
     en = More My.com Apps
