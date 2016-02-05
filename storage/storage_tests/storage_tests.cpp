@@ -1202,18 +1202,28 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_mwmSize, 4689718, ());
   TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
+  TEST_EQUAL(nodeAttrs.m_parentCountryId, "Countries", ());
 
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 2, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 90878678, ());
   TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
+  TEST_EQUAL(nodeAttrs.m_parentCountryId, "Countries", ());
+
+  storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
+  TEST_EQUAL(nodeAttrs.m_mwmSize, 66701534, ());
+  TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
+  TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
+  TEST_EQUAL(nodeAttrs.m_parentCountryId, "Algeria", ());
 
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 48394664, ());
   TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
+  TEST_EQUAL(nodeAttrs.m_parentCountryId, "Countries", ());
 }
 
 UNIT_TEST(StorageTest_ParseStatus)
