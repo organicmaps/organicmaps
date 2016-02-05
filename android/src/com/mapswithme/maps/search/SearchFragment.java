@@ -20,9 +20,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mapswithme.country.ActiveCountryTree;
-import com.mapswithme.country.CountrySuggestFragment;
-import com.mapswithme.country.DownloadFragment;
+import com.mapswithme.maps.downloader.country.OldActiveCountryTree;
+import com.mapswithme.maps.downloader.country.OldDownloadFragment;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -30,6 +29,7 @@ import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.downloader.CountrySuggestFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.SearchToolbarController;
@@ -42,8 +42,7 @@ import com.mapswithme.util.statistics.Statistics;
 
 
 public class SearchFragment extends BaseMwmFragment
-                         implements LocationHelper.LocationListener,
-                                    OnBackPressListener,
+                         implements OnBackPressListener,
                                     NativeSearchListener,
                                     SearchToolbarController.Container,
                                     CategoriesAdapter.OnCategorySelectedListener
@@ -144,9 +143,21 @@ public class SearchFragment extends BaseMwmFragment
   private String mInitialQuery;
   private boolean mFromRoutePlan;
 
+  private final LocationHelper.LocationListener mLocationListener = new LocationHelper.SimpleLocationListener()
+  {
+    @Override
+    public void onLocationUpdated(Location l)
+    {
+      mLastPosition.set(l.getLatitude(), l.getLongitude());
+
+      if (!TextUtils.isEmpty(getQuery()))
+        mSearchAdapter.notifyDataSetChanged();
+    }
+  };
+
   private static boolean doShowDownloadSuggest()
   {
-    return ActiveCountryTree.getTotalDownloadedCount() == 0;
+    return OldActiveCountryTree.getTotalDownloadedCount() == 0;
   }
 
   private void showDownloadSuggest()
@@ -176,7 +187,7 @@ public class SearchFragment extends BaseMwmFragment
 
   public void showDownloader()
   {
-    ((BaseMwmFragmentActivity)getActivity()).replaceFragment(DownloadFragment.class, null, null);
+    ((BaseMwmFragmentActivity)getActivity()).replaceFragment(OldDownloadFragment.class, null, null);
     UiUtils.hide(mResultsFrame, mResultsPlaceholder, mTabFrame);
   }
 
@@ -272,13 +283,13 @@ public class SearchFragment extends BaseMwmFragment
   public void onResume()
   {
     super.onResume();
-    LocationHelper.INSTANCE.addLocationListener(this, true);
+    LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
   }
 
   @Override
   public void onPause()
   {
-    LocationHelper.INSTANCE.removeLocationListener(this);
+    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
     super.onPause();
   }
 
@@ -386,21 +397,6 @@ public class SearchFragment extends BaseMwmFragment
 
     Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
   }
-
-  @Override
-  public void onLocationUpdated(final Location l)
-  {
-    mLastPosition.set(l.getLatitude(), l.getLongitude());
-
-    if (!TextUtils.isEmpty(getQuery()))
-      mSearchAdapter.notifyDataSetChanged();
-  }
-
-  @Override
-  public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy) {}
-
-  @Override
-  public void onLocationError(int errorCode) {}
 
   private void onSearchEnd()
   {

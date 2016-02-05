@@ -23,7 +23,6 @@ import com.mapswithme.util.Graphics;
 
 
 public class BookmarkListAdapter extends BaseAdapter
-    implements LocationHelper.LocationListener
 {
   private final Activity mActivity;
   private final BookmarkCategory mCategory;
@@ -36,6 +35,15 @@ public class BookmarkListAdapter extends BaseAdapter
   private static final int SECTION_TRACKS = 0;
   private static final int SECTION_BMKS = 1;
 
+  private final LocationHelper.LocationListener mLocationListener = new LocationHelper.SimpleLocationListener()
+  {
+    @Override
+    public void onLocationUpdated(Location l)
+    {
+      notifyDataSetChanged();
+    }
+  };
+
   public BookmarkListAdapter(Activity activity, BookmarkCategory cat)
   {
     mActivity = activity;
@@ -44,12 +52,12 @@ public class BookmarkListAdapter extends BaseAdapter
 
   public void startLocationUpdate()
   {
-    LocationHelper.INSTANCE.addLocationListener(this, true);
+    LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
   }
 
   public void stopLocationUpdate()
   {
-    LocationHelper.INSTANCE.removeLocationListener(this);
+    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
   }
 
   @Override
@@ -138,23 +146,6 @@ public class BookmarkListAdapter extends BaseAdapter
   public long getItemId(int position)
   {
     return position;
-  }
-
-  @Override
-  public void onLocationUpdated(final Location l)
-  {
-    notifyDataSetChanged();
-  }
-
-  @Override
-  public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
-  {
-    // We don't show any arrows for bookmarks any more.
-  }
-
-  @Override
-  public void onLocationError(int errorCode)
-  {
   }
 
   private class PinHolder

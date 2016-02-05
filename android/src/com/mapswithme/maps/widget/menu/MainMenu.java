@@ -18,11 +18,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.widget.RotateByAlphaDrawable;
 import com.mapswithme.maps.widget.TrackedTransitionDrawable;
@@ -314,8 +315,10 @@ public class MainMenu
 
   private void updateMarker()
   {
-    int count = ActiveCountryTree.getOutOfDateCount();
-    boolean show = (ActiveCountryTree.isLegacyMode() || count > 0) &&
+    UpdateInfo info = MapManager.nativeGetUpdateInfo();
+    int count = (info == null ? 0 : info.filesCount);
+
+    boolean show = (MapManager.nativeIsLegacyMode() || count > 0) &&
                    (!mCollapsed || mCollapseViews.isEmpty()) &&
                    !isOpen();
 

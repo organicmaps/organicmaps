@@ -50,6 +50,18 @@ public enum LocationHelper implements SensorEventListener
     void onLocationError(int errorCode);
   }
 
+  public static class SimpleLocationListener implements LocationListener
+  {
+    @Override
+    public void onLocationUpdated(Location l) {}
+
+    @Override
+    public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy) {}
+
+    @Override
+    public void onLocationError(int errorCode) {}
+  }
+
   private final Listeners<LocationListener> mListeners = new Listeners<>();
 
   private boolean mActive;

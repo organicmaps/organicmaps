@@ -38,7 +38,7 @@ public final class TrackRecorder
   private static Boolean sEnableLogging;
   private static Logger sLogger;
 
-  private static final LocationHelper.LocationListener sLocationListener = new LocationHelper.LocationListener()
+  private static final LocationHelper.LocationListener sLocationListener = new LocationHelper.SimpleLocationListener()
   {
     @Override
     public void onLocationUpdated(Location location)
@@ -57,9 +57,6 @@ public final class TrackRecorder
       // Unrecoverable error occured: GPS disabled or inaccessible
       setEnabled(false);
     }
-
-    @Override
-    public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy) {}
   };
 
   private TrackRecorder() {}
