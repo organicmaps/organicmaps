@@ -5,40 +5,17 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
-  <android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar"
-    style="@style/MwmWidget.ToolbarStyle"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:theme="@style/MwmWidget.ToolbarTheme">
-    <TextView
-      android:id="@+id/tv__update_all"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_gravity="right"
-      android:background="?attr/selectableItemBackgroundBorderless"
-      android:gravity="center_vertical"
-      android:padding="@dimen/margin_half"
-      android:text="@string/downloader_update_all"
-      android:textAppearance="@style/MwmTextAppearance.Toolbar.Title.Button"/>
+  <include layout="@layout/toolbar_downloader"/>
 
-    <ImageView
-      android:id="@+id/download_all"
-      android:layout_width="?actionBarSize"
-      android:layout_height="?actionBarSize"
-      android:layout_gravity="end|center_vertical"
-      android:background="?selectableItemBackgroundBorderless"
-      android:scaleType="center"
-      android:src="@drawable/ic_download_map"/>
-  </android.support.v7.widget.Toolbar>
-
-  <FrameLayout
-    style="@style/MwmWidget.FrameLayout.Elevation"
+  <include
+    layout="@layout/recycler_default"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ListView
-      android:id="@android:id/list"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
-  </FrameLayout>
+    android:layout_height="0dp"
+    android:layout_weight="1"/>
+
+  <include
+    android:id="@+id/bottom_panel"
+    layout="@layout/downloader_bottom_panel"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"/>
 </LinearLayout>

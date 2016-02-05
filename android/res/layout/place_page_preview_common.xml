@@ -14,8 +14,7 @@
       android:layout_height="wrap_content"
       android:ellipsize="end"
       android:maxLines="@integer/pp_title_lines"
-      android:textAppearance="@style/MwmTextAppearance.Title"
-      android:textSize="@dimen/text_size_headline"/>
+      android:textAppearance="@style/MwmTextAppearance.Headline"/>
 
     <TextView
       android:id="@+id/tv__subtitle"

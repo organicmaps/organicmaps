@@ -8,8 +8,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
 
-@Deprecated
-public class DownloadHelper
+public final class DownloadHelper
 {
   private DownloadHelper() {}
 
@@ -18,7 +17,7 @@ public class DownloadHelper
     void onDownload();
   }
 
-  public static boolean canDownloadWithoutWarning(long size)
+  private static boolean canDownloadWithoutWarning(long size)
   {
     return size < 50 * Constants.MB || ConnectionState.isWifiConnected();
   }
@@ -26,20 +25,22 @@ public class DownloadHelper
   public static void downloadWithCellularCheck(Activity activity, long size, String name, final OnDownloadListener listener)
   {
     if (canDownloadWithoutWarning(size))
+    {
       listener.onDownload();
-    else
-      new AlertDialog.Builder(activity)
-          .setMessage(String.format(activity.getString(R.string.no_wifi_ask_cellular_download), name))
-          .setPositiveButton(activity.getString(R.string.ok), new DialogInterface.OnClickListener()
+      return;
+    }
+
+    new AlertDialog.Builder(activity)
+        .setMessage(String.format(activity.getString(R.string.no_wifi_ask_cellular_download), name))
+        .setNegativeButton(activity.getString(R.string.close), null)
+        .setPositiveButton(activity.getString(R.string.ok), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
           {
-            @Override
-            public void onClick(DialogInterface dlg, int which)
-            {
-              listener.onDownload();
-              dlg.dismiss();
-            }
-          })
-          .setNegativeButton(activity.getString(R.string.close), null)
-          .show();
+            listener.onDownload();
+            dlg.dismiss();
+          }
+        }).show();
   }
 }

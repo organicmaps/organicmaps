@@ -15,17 +15,18 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
 public class SearchToolbarController extends ToolbarController
-                                  implements View.OnClickListener
+  implements View.OnClickListener
 {
   public interface Container
   {
     SearchToolbarController getController();
   }
 
-  private final EditText mQuery;
-  private final View mProgress;
-  private final View mClear;
-  private final View mVoiceInput;
+  protected final View mContainer;
+  protected final EditText mQuery;
+  protected final View mProgress;
+  protected final View mClear;
+  protected final View mVoiceInput;
 
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(mActivity);
 
@@ -43,7 +44,9 @@ public class SearchToolbarController extends ToolbarController
   {
     super(root, activity);
 
-    mQuery = (EditText) mToolbar.findViewById(R.id.query);
+    mContainer = mToolbar.findViewById(R.id.frame);
+
+    mQuery = (EditText) mContainer.findViewById(R.id.query);
     mQuery.setOnClickListener(this);
     mQuery.addTextChangedListener(mTextWatcher);
     mQuery.setOnEditorActionListener(new TextView.OnEditorActionListener()
@@ -61,12 +64,12 @@ public class SearchToolbarController extends ToolbarController
       }
     });
 
-    mProgress = mToolbar.findViewById(R.id.progress);
+    mProgress = mContainer.findViewById(R.id.progress);
 
-    mVoiceInput = mToolbar.findViewById(R.id.voice_input);
+    mVoiceInput = mContainer.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
 
-    mClear = mToolbar.findViewById(R.id.clear);
+    mClear = mContainer.findViewById(R.id.clear);
     mClear.setOnClickListener(this);
 
     showProgress(false);
@@ -134,17 +137,22 @@ public class SearchToolbarController extends ToolbarController
   {
     switch (v.getId())
     {
-      case R.id.query:
-        onQueryClick(getQuery());
-        break;
+    case R.id.query:
+      onQueryClick(getQuery());
+      break;
 
-      case R.id.clear:
-        onClearClick();
-        break;
+    case R.id.clear:
+      onClearClick();
+      break;
 
-      case R.id.voice_input:
-        onVoiceInputClick();
-        break;
+    case R.id.voice_input:
+      onVoiceInputClick();
+      break;
     }
+  }
+
+  public void show(boolean show)
+  {
+    UiUtils.showIf(show, mContainer);
   }
 }

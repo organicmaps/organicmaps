@@ -20,7 +20,7 @@
       android:layout_gravity="end|center_vertical"
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
-      android:src="@drawable/ic_toolbar_check"/>
+      android:src="@drawable/ic_done"/>
 
   </android.support.v7.widget.Toolbar>
 
