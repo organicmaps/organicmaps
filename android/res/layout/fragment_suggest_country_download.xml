@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:wheel="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -49,24 +50,12 @@
 
         <Button
           android:id="@+id/btn__download_map"
-          style="@style/MwmWidget.Button.Green"
+          style="@style/MwmWidget.Button.Accent"
           android:layout_width="match_parent"
-          android:layout_height="@dimen/base_block_size"
+          android:layout_height="@dimen/height_block_base"
           android:layout_marginTop="@dimen/margin_half"
           android:text="@string/downloader_download_map"
-          android:textAllCaps="true"
-          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
-
-        <Button
-          android:id="@+id/btn__select_other_map"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/base_block_size"
-          android:layout_marginTop="@dimen/margin_base_plus"
-          android:background="?clickableBackground"
-          android:text="@string/search_select_other_map"
-          android:textAllCaps="true"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          android:textColor="?colorAccent"/>
+          android:textAppearance="@style/MwmTextAppearance.Body1"/>
       </LinearLayout>
 
       <LinearLayout
@@ -78,7 +67,7 @@
         tools:visibility="visible">
         <TextView
           android:layout_width="match_parent"
-          android:layout_height="@dimen/base_block_size"
+          android:layout_height="@dimen/height_block_base"
           android:layout_marginTop="@dimen/margin_half"
           android:gravity="center"
           android:text="@string/unknown_current_position"
@@ -86,13 +75,22 @@
 
         <Button
           android:id="@+id/btn__select_map"
-          style="@style/MwmWidget.Button.Green"
+          style="@style/MwmWidget.Button"
           android:layout_width="match_parent"
-          android:layout_height="@dimen/base_block_size"
+          android:layout_height="@dimen/height_block_base"
           android:layout_marginTop="@dimen/margin_half"
           android:text="@string/search_select_map"
-          android:textAllCaps="true"
-          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+          android:textAppearance="@style/MwmTextAppearance.Body1"/>
+
+        <Button
+          android:id="@+id/btn__select_other_map"
+          style="@style/MwmWidget.Button"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/height_block_base"
+          android:layout_marginTop="@dimen/margin_base_plus"
+          android:text="@string/search_select_other_map"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          android:textColor="?colorAccent"/>
       </LinearLayout>
     </LinearLayout>
   </ScrollView>
@@ -109,17 +107,16 @@
     <TextView
       android:id="@+id/tv__active_country_name"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/base_block_size"
+      android:layout_height="@dimen/height_block_base"
       android:textAppearance="@style/MwmTextAppearance.Title"/>
 
     <com.mapswithme.maps.widget.WheelProgressView
       android:id="@+id/wpv__download_progress"
-      xmlns:wheel="http://schemas.android.com/apk/res-auto"
-      android:layout_width="@dimen/progress_wheel_height"
-      android:layout_height="@dimen/progress_wheel_height"
+      android:layout_width="@dimen/downloader_status_size"
+      android:layout_height="@dimen/downloader_status_size"
       android:layout_marginTop="@dimen/margin_half_plus"
       android:background="?clickableBackground"
-      wheel:wheelProgressColor="@color/base_green"
+      wheel:wheelProgressColor="?colorAccent"
       wheel:wheelSecondaryColor="?dividerHorizontal"
       wheel:wheelThickness="@dimen/margin_quarter"/>
   </LinearLayout>

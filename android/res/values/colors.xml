@@ -8,9 +8,6 @@
   <color name="text_light_subtitle">#B3FFFFFF</color>
   <color name="text_light_hint">#4CFFFFFF</color>
 
-  <color name="base_green">#FF1F9952</color>
-  <color name="darker_green">#FF197E46</color>
-
   <color name="base_accent">#FF1E96F0</color>
   <color name="base_accent_night">#FFFFE68C</color>
   <color name="base_accent_pressed">#FF1C85D6</color>
@@ -30,7 +27,7 @@
   <!-- Backgrounds -->
   <color name="bg_window">#FFF5F5F5</color>
   <color name="bg_window_night">#FF32363A</color>
-  <color name="bg_primary">@color/base_green</color>
+  <color name="bg_primary">#FF1F9952</color>
   <color name="bg_primary_night">#FF1E2226</color>
   <color name="bg_cards">@android:color/white</color>
   <color name="bg_cards_night">#FF3C4044</color>
@@ -47,16 +44,40 @@
   <color name="bg_menu_closed">#CCFFFFFF</color>
   <color name="bg_menu_closed_night">#CC2D3237</color>
 
-  <color name="bg_statusbar">@color/darker_green</color>
+  <color name="bg_statusbar">#FF197E46</color>
   <color name="bg_statusbar_night">#FF000000</color>
 
   <color name="bg_azimut_arrow">#1D414651</color>
   <color name="fg_azimut_arrow">#FFFFFFFF</color>
 
-  <!-- Downloader -->
+  <!-- Buttons -->
+  <color name="button">@color/button_normal</color>
+  <color name="button_night">@color/button_normal_night</color>
+  <color name="button_normal">#00000000</color>
+  <color name="button_normal_night">#00000000</color>
+  <color name="button_pressed">#66999999</color>
+  <color name="button_pressed_night">#40CCCCCC</color>
+  <color name="button_disabled">#00000000</color>
+  <color name="button_disabled_night">#00000000</color>
+  <color name="button_text">#FF000000</color>
+  <color name="button_text_night">#FFFFFFFF</color>
+  <color name="button_text_disabled">#42000000</color>
+  <color name="button_text_disabled_night">#4CFFFFFF</color>
+
+  <color name="button_accent">@color/button_accent_normal</color>
+  <color name="button_accent_night">@color/button_accent_normal_night</color>
+  <color name="button_accent_normal">@color/base_accent</color>
+  <color name="button_accent_normal_night">@color/base_accent_night</color>
+  <color name="button_accent_pressed">#FF1C85D6</color>
+  <color name="button_accent_pressed_night">#FFCCB870</color>
+  <color name="button_accent_disabled">#FFEFEFEF</color>
+  <color name="button_accent_disabled_night">#FF505050</color>
+  <color name="button_accent_text">#FFFFFFFF</color>
+  <color name="button_accent_text_night">#FF000000</color>
+  <color name="button_accent_text_disabled">#42000000</color>
+  <color name="button_accent_text_disabled_night">#4CFFFFFF</color>
+
   <color name="downloader_gray">#FF999999</color>
-  <color name="downloader_spacer">#FFEFEFF4</color>
-  <color name="downloader_spacer_night">@color/divider_night</color>
 
   <!-- Routing-->
   <color name="routing_progress">#FF757575</color>
@@ -65,17 +86,6 @@
   <color name="routing_slot_background_pressed">#FFF0F0F0</color>
   <color name="routing_slot_background_pressed_night">@color/bg_window_night</color>
   <color name="routing_slot_shadow">#3D000000</color>
-
-  <color name="routing_start">@color/base_accent</color>
-  <color name="routing_start_night">@color/base_accent_night</color>
-  <color name="routing_start_pressed">#FF1C85D6</color>
-  <color name="routing_start_pressed_night">#FFCCB870</color>
-  <color name="routing_start_disabled">#FFEFEFEF</color>
-  <color name="routing_start_disabled_night">#FF505050</color>
-  <color name="routing_start_text">#FFFFFFFF</color>
-  <color name="routing_start_text_night">#FF000000</color>
-  <color name="routing_start_text_disabled">#42000000</color>
-  <color name="routing_start_text_disabled_night">#4CFFFFFF</color>
 
   <color name="bs_divider_color">@color/divider</color>
   <color name="bs_dark_divider_color">@color/divider_night</color>

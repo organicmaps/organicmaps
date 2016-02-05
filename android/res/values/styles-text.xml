@@ -16,6 +16,11 @@
     <item name="android:textColor">?android:textColorPrimary</item>
   </style>
 
+  <style name="MwmTextAppearance.Headline">
+    <item name="android:textSize">@dimen/text_size_headline</item>
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
   <style name="MwmTextAppearance.Body1">
     <item name="android:textSize">@dimen/text_size_body_1</item>
     <item name="android:textColor">?android:textColorPrimary</item>

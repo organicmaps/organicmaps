@@ -9,7 +9,7 @@
     <item name="android:textColorPrimaryInverse">@color/text_light</item>
     <item name="android:textColorSecondary">@color/text_dark_subtitle</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
-    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/darker_green</item>
+    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/bg_statusbar</item>
     <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
@@ -33,9 +33,6 @@
     <item name="secondary">@color/text_dark_hint</item>
     <item name="dividerHorizontal">@color/divider</item>
 
-    <item name="buttonAccent">@drawable/accent_button</item>
-    <item name="circleAccent">@drawable/circle_accent</item>
-    <item name="buttonLight">@drawable/editor_light_button</item>
     <item name="ppBackground">@color/bg_cards</item>
     <item name="ppButtonsBackground">?panel</item>
     <item name="ppPreviewHead">@drawable/bg_place_page_back</item>
@@ -43,9 +40,17 @@
     <item name="routingSlot">@drawable/routing_slot_background</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker</item>
-    <item name="routingStartButton">@drawable/routing_start_button</item>
-    <item name="routingStartButtonTextColor">@color/routing_start_text</item>
-    <item name="routingStartButtonTextColorDisabled">@color/routing_start_text_disabled</item>
+
+    <item name="buttonBackground">@drawable/button</item>
+    <item name="buttonTextColor">@color/button_text</item>
+    <item name="buttonTextColorDisabled">@color/button_text_disabled</item>
+
+    <item name="accentButtonBackground">@drawable/button_accent</item>
+    <item name="accentButtonTextColor">@color/button_accent_text</item>
+    <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled</item>
+
+    <item name="circleAccent">@drawable/circle_accent</item>
+    <item name="buttonLight">@drawable/editor_light_button</item>
 
     <item name="menuBackgroundClosed">@color/bg_menu_closed</item>
     <item name="menuBackgroundOpen">@color/bg_menu_open</item>
@@ -67,7 +72,7 @@
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
-    <item name="clickableBackground">?attr/selectableItemBackground</item>
+    <item name="clickableBackground">?selectableItemBackground</item>
 
     <item name="alertDialogTheme">@style/MwmTheme.Night.DialogFragment</item>
     <item name="windowBackgroundForced">@color/bg_window_night</item>
@@ -86,9 +91,6 @@
     <item name="secondary">@color/text_light_hint</item>
     <item name="dividerHorizontal">@color/divider_night</item>
 
-    <item name="buttonAccent">@drawable/accent_button_night</item>
-    <item name="circleAccent">@drawable/circle_accent_night</item>
-    <item name="buttonLight">@drawable/editor_light_button_night</item>
     <item name="ppBackground">@color/bg_cards_night</item>
     <item name="ppButtonsBackground">@color/bg_window_night</item>
     <item name="ppPreviewHead">@drawable/bg_place_page_back_night</item>
@@ -96,9 +98,17 @@
     <item name="routingSlot">@drawable/routing_slot_background_night</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>
     <item name="routingSlotMarker">@drawable/routing_slot_marker_night</item>
-    <item name="routingStartButton">@drawable/routing_start_button_night</item>
-    <item name="routingStartButtonTextColor">@color/routing_start_text_night</item>
-    <item name="routingStartButtonTextColorDisabled">@color/routing_start_text_disabled_night</item>
+
+    <item name="buttonBackground">@drawable/button_night</item>
+    <item name="buttonTextColor">@color/button_text_night</item>
+    <item name="buttonTextColorDisabled">@color/button_text_disabled_night</item>
+
+    <item name="accentButtonBackground">@drawable/button_accent_night</item>
+    <item name="accentButtonTextColor">@color/button_accent_text_night</item>
+    <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled_night</item>
+
+    <item name="circleAccent">@drawable/circle_accent_night</item>
+    <item name="buttonLight">@drawable/editor_light_button_night</item>
 
     <item name="menuBackgroundClosed">@color/bg_menu_closed_night</item>
     <item name="menuBackgroundOpen">@color/bg_menu_open_night</item>

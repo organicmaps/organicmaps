@@ -66,11 +66,10 @@
 
         <Button
           android:id="@+id/login"
+          style="@style/MwmWidget.Button.Accent"
           android:layout_width="match_parent"
           android:layout_height="@dimen/editor_auth_btn_height"
-          android:background="?buttonAccent"
           android:text="Log in"
-          android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
         <ProgressBar

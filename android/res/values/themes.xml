@@ -21,22 +21,6 @@
     <item name="colorSwitchThumbNormal">?android:colorControlNormal</item>
   </style>
 
-  <style name="MwmTheme.Downloader">
-    <item name="countrySeparator">@color/downloader_spacer</item>
-    <item name="countryDownloaded">?android:textColorPrimary</item>
-    <item name="countryOutdated">?android:textColorSecondary</item>
-    <item name="countryNotDownloaded">?secondary</item>
-    <item name="countryFailed">@color/base_red</item>
-  </style>
-
-  <style name="MwmTheme.Night.Downloader">
-    <item name="countrySeparator">@color/downloader_spacer_night</item>
-    <item name="countryDownloaded">?android:textColorPrimary</item>
-    <item name="countryOutdated">?android:textColorSecondary</item>
-    <item name="countryNotDownloaded">?secondary</item>
-    <item name="countryFailed">@color/base_red</item>
-  </style>
-
   <style name="MwmTheme.DialogFragment" parent="android:Theme.Holo.Light.Dialog.NoActionBar">
     <item name="android:windowIsFloating">true</item>
     <item name="clickableBackground">?attr/selectableItemBackground</item>
@@ -73,7 +57,7 @@
   </style>
 
   <style name="MwmTheme.DialogFragment.Fullscreen" parent="Theme.AppCompat.Light">
-    <item name="colorPrimary">@color/base_green</item>
+    <item name="colorPrimary">@color/bg_primary</item>
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="colorControlNormal">?secondary</item>

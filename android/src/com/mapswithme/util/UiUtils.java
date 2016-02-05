@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
@@ -318,7 +319,18 @@ public final class UiUtils
     return (int) (dp * sScreenDensity + 0.5);
   }
 
+  public static void updateButton(Button button)
+  {
+    button.setTextColor(ThemeUtils.getColor(button.getContext(), button.isEnabled() ? R.attr.buttonTextColor
+                                                                                    : R.attr.buttonTextColorDisabled));
+  }
+
+  public static void updateAccentButton(Button button)
+  {
+    button.setTextColor(ThemeUtils.getColor(button.getContext(), button.isEnabled() ? R.attr.accentButtonTextColor
+                                                                                    : R.attr.accentButtonTextColorDisabled));
+  }
+
   // utility class
-  private UiUtils()
-  {}
+  private UiUtils() {}
 }

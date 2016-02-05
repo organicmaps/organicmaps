@@ -2,10 +2,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
            xmlns:tools="http://schemas.android.com/tools">
   <style name="MwmWidget"/>
-  <style name="MwmWidget.Button"/>
   <style name="MwmWidget.ProgressWheel"/>
   <style name="MwmWidget.FrameLayout"/>
-
+  <style name="MwmWidget.Downloader"/>
 
   <style name="BottomSheet.Icon">
     <item name="android:layout_width">0dp</item>
@@ -21,8 +20,13 @@
     <item name="android:background">@null</item>
   </style>
 
-  <style name="MwmWidget.Button.Green">
-    <item name="android:background">@drawable/bg_btn_green</item>
+  <style name="MwmWidget.Button">
+    <item name="android:background">?buttonBackground</item>
+    <item name="android:textAllCaps">true</item>
+  </style>
+
+  <style name="MwmWidget.Button.Accent">
+    <item name="android:background">?accentButtonBackground</item>
   </style>
 
   <style name="MwmWidget.ProgressWheel.RoutingPlan">
@@ -169,4 +173,12 @@
     <item name="android:gravity">center</item>
   </style>
 
+  <style name="MwmWidget.Downloader.ToolbarButton">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_gravity">right</item>
+    <item name="android:background">?selectableItemBackgroundBorderless</item>
+    <item name="android:padding">@dimen/margin_half</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Toolbar.Title.Button</item>
+  </style>
 </resources>
