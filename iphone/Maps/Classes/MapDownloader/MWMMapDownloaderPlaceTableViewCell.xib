@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,21 +11,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1KI-85-wsU" id="mRF-11-OKU">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="61.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yb5-r1-Z2X">
                         <rect key="frame" x="12" y="13" width="36" height="36"/>
-                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="OjM-Wz-G8P"/>
                             <constraint firstAttribute="width" constant="36" id="vYF-tP-Wtw"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="London" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="3Db-Yq-FlD">
-                        <rect key="frame" x="60" y="12" width="180" height="20"/>
-                        <animations/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="London" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="3Db-Yq-FlD">
+                        <rect key="frame" x="60" y="12" width="199" height="20"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -34,9 +32,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UK" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="fev-4l-MY3">
-                        <rect key="frame" x="60" y="36" width="180" height="14"/>
-                        <animations/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UK" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="fev-4l-MY3">
+                        <rect key="frame" x="60" y="36" width="199" height="14"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -45,12 +42,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45 MB" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="60" translatesAutoresizingMaskIntoConstraints="NO" id="rqh-iy-Sx9">
-                        <rect key="frame" x="244" y="23" width="60" height="17"/>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="60" id="P36-iZ-zUP"/>
-                        </constraints>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="45 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="60" translatesAutoresizingMaskIntoConstraints="NO" id="rqh-iy-Sx9">
+                        <rect key="frame" x="263" y="23" width="41" height="16"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -61,7 +54,6 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ncN-br-N9Y" userLabel="Separator">
                         <rect key="frame" x="60" y="61" width="260" height="1"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Oen-mP-flU"/>
@@ -71,31 +63,34 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="3Db-Yq-FlD" firstAttribute="leading" secondItem="mRF-11-OKU" secondAttribute="leading" constant="60" id="2CW-BR-iT1"/>
                     <constraint firstItem="ncN-br-N9Y" firstAttribute="leading" secondItem="3Db-Yq-FlD" secondAttribute="leading" id="2c6-d4-P8T"/>
                     <constraint firstItem="Yb5-r1-Z2X" firstAttribute="leading" secondItem="mRF-11-OKU" secondAttribute="leading" constant="12" id="GGp-H1-htH"/>
                     <constraint firstItem="3Db-Yq-FlD" firstAttribute="top" secondItem="mRF-11-OKU" secondAttribute="top" constant="12" id="Jhy-gy-RcP"/>
+                    <constraint firstItem="rqh-iy-Sx9" firstAttribute="leading" secondItem="3Db-Yq-FlD" secondAttribute="trailing" constant="4" id="NhL-qc-Mcu"/>
                     <constraint firstAttribute="bottom" secondItem="ncN-br-N9Y" secondAttribute="bottom" id="Wsy-j3-UTP"/>
                     <constraint firstAttribute="trailing" secondItem="ncN-br-N9Y" secondAttribute="trailing" id="Ye2-gP-1ci"/>
-                    <constraint firstAttribute="trailing" secondItem="3Db-Yq-FlD" secondAttribute="trailing" constant="80" id="biw-hU-l2o"/>
                     <constraint firstAttribute="trailing" secondItem="rqh-iy-Sx9" secondAttribute="trailing" constant="16" id="dil-Rw-64e"/>
-                    <constraint firstItem="fev-4l-MY3" firstAttribute="top" secondItem="3Db-Yq-FlD" secondAttribute="bottom" constant="4" id="ePz-Xy-IoM"/>
+                    <constraint firstItem="fev-4l-MY3" firstAttribute="top" secondItem="3Db-Yq-FlD" secondAttribute="bottom" priority="500" constant="4" id="ePz-Xy-IoM"/>
+                    <constraint firstAttribute="bottom" secondItem="3Db-Yq-FlD" secondAttribute="bottom" priority="250" constant="12" id="ffv-VG-1xY"/>
                     <constraint firstItem="Yb5-r1-Z2X" firstAttribute="centerY" secondItem="mRF-11-OKU" secondAttribute="centerY" id="g72-Dp-9Ky"/>
-                    <constraint firstItem="fev-4l-MY3" firstAttribute="trailing" secondItem="3Db-Yq-FlD" secondAttribute="trailing" id="hnC-c3-eZ1"/>
                     <constraint firstItem="fev-4l-MY3" firstAttribute="leading" secondItem="3Db-Yq-FlD" secondAttribute="leading" id="kP7-cA-GeN"/>
-                    <constraint firstAttribute="bottom" secondItem="fev-4l-MY3" secondAttribute="bottom" constant="12" id="mJE-YM-1uE"/>
+                    <constraint firstAttribute="bottom" secondItem="fev-4l-MY3" secondAttribute="bottom" priority="500" constant="12" id="mJE-YM-1uE"/>
                     <constraint firstItem="rqh-iy-Sx9" firstAttribute="centerY" secondItem="mRF-11-OKU" secondAttribute="centerY" id="qZa-yl-a6W"/>
+                    <constraint firstItem="rqh-iy-Sx9" firstAttribute="leading" secondItem="fev-4l-MY3" secondAttribute="trailing" constant="4" id="rqB-DG-k9N"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="area" destination="fev-4l-MY3" id="JQg-RJ-YjR"/>
                 <outlet property="downloadSize" destination="rqh-iy-Sx9" id="iEN-WT-NXv"/>
+                <outlet property="downloadSizeTrailingOffset" destination="dil-Rw-64e" id="sfH-cS-c93"/>
                 <outlet property="separator" destination="ncN-br-N9Y" id="H0z-Eg-8zn"/>
                 <outlet property="stateWrapper" destination="Yb5-r1-Z2X" id="4BR-Rb-3iF"/>
                 <outlet property="title" destination="3Db-Yq-FlD" id="jG8-xD-51V"/>
+                <outlet property="titleBottomOffset" destination="ffv-VG-1xY" id="i4r-Nh-hWQ"/>
+                <outlet property="titleLeadingOffset" destination="2CW-BR-iT1" id="FxC-Er-pcN"/>
+                <outlet property="titleSizeOffset" destination="NhL-qc-Mcu" id="0ZG-R3-48N"/>
             </connections>
             <point key="canvasLocation" x="282" y="403"/>
         </tableViewCell>
