@@ -846,6 +846,7 @@
 	<string name="clear_search">Clear Search History</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Show offers</string>
+	<string name="showcase_plan_your_trip">Plan your trip</string>
 	<string name="showcase_more_apps">More My.com Apps</string>
 	<!-- Place Page link to Wikipedia article (if map object has it). -->
 	<string name="read_in_wikipedia">Wikipedia</string>

@@ -1320,6 +1320,8 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "Mostrar ofertas";
 
+"showcase_plan_your_trip" = "Plan your trip";
+
 "showcase_more_apps" = "Mais aplicativos do My.com";
 
 /* Place Page link to Wikipedia article (if map object has it). */
