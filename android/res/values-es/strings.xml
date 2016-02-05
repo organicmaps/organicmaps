@@ -808,6 +808,7 @@
 	<string name="clear_search">Eliminar el historial de búsqueda</string>
 	<!-- Title for settings to enable/disable showcase menu button -->
 	<string name="showcase_settings_title">Mostrar ofertas</string>
+	<string name="showcase_plan_your_trip">Planifica tu viaje</string>
 	<string name="showcase_more_apps">Más apps de My.com</string>
 	<string name="p2p_route_planning">Planificación de ruta</string>
 	<string name="p2p_your_location">Tu ubicación</string>

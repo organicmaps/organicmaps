@@ -292,7 +292,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   {
     MTRGNativeAppwallBanner * banner = [self.controller.appWallAd.banners firstObject];
     [self.controller.appWallAd handleShow:banner];
-    [cell configureWithImageName:@"ic_menu_showcase" label:L(@"showcase_more_apps") badgeCount:0];
+    [cell configureWithImageName:@"ic_menu_showcase" label:L(@"showcase_plan_your_trip") badgeCount:0];
   }
     break;
   case MWMBottomMenuViewCellCount:
