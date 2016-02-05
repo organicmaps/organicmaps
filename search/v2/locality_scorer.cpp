@@ -37,21 +37,19 @@ void LocalityScorer::LeaveTopLocalities(size_t limit, vector<Geocoder::Locality>
                    localities.end());
 
   // Leave the most popular localities.
+  /// @todo Calculate match costs according to the exact locality name
+  /// (for 'york' query "york city" is better than "new york").
+  sort(localities.begin(), localities.end(),
+       [&](Geocoder::Locality const & lhs, Geocoder::Locality const & rhs)
+       {
+         auto const ls = GetTokensScore(lhs);
+         auto const rs = GetTokensScore(rhs);
+         if (ls != rs)
+           return ls > rs;
+         return m_rankTable.Get(lhs.m_featureId) > m_rankTable.Get(rhs.m_featureId);
+       });
   if (localities.size() > limit)
-  {
-    /// @todo Calculate match costs according to the exact locality name
-    /// (for 'york' query "york city" is better than "new york").
-    sort(localities.begin(), localities.end(),
-         [&](Geocoder::Locality const & lhs, Geocoder::Locality const & rhs)
-         {
-           auto const ls = GetTokensScore(lhs);
-           auto const rs = GetTokensScore(rhs);
-           if (ls != rs)
-             return ls > rs;
-           return m_rankTable.Get(lhs.m_featureId) > m_rankTable.Get(rhs.m_featureId);
-         });
     localities.resize(limit);
-  }
 }
 
 size_t LocalityScorer::GetTokensScore(Geocoder::Locality const & locality) const

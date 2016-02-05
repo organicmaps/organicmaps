@@ -16,7 +16,9 @@ class LocalityScorer
 public:
   LocalityScorer(RankTable const & rankTable, SearchQueryParams const & params);
 
-  // *NOTE* after call, elements of |localities| may be in any order.
+  // After the call there will be no more than |limit| unique elements
+  // in |localities|, in descending order by number of matched tokens
+  // and ranks.
   void LeaveTopLocalities(size_t limit, vector<Geocoder::Locality> & localities) const;
 
 private:
