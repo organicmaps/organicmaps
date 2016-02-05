@@ -376,3 +376,8 @@ task obbPush(dependsOn: ['obbGenerate', 'obbPushMain', 'obbPushPatch']) {
     commandLine android.getAdbExe(), 'push', propObbFontsOutput, "${obbPath}worlds.obb"
   }
 }
+
+task patchNdkR10E(type: Exec, description: 'Patches NDK r10e for bug described here https://code.google.com/p/android/issues/detail?id=179410') {
+  def cxxabiPath = "${android.getNdkDirectory().getAbsolutePath()}/sources/cxx-stl/gabi++/src/cxxabi.cc"
+  commandLine 'bash', '-c', "patch -p1 ${cxxabiPath} < ../tools/android/cxxabi.cc_patch"
+}
