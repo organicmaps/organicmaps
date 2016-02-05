@@ -116,17 +116,22 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
         }
         else if (url.contains(OsmOAuth.URL_PARAM_VERIFIER))
         {
-          UrlQuerySanitizer sanitizer = new UrlQuerySanitizer();
-          sanitizer.setAllowUnregisteredParamaters(true);
-          sanitizer.parseUrl(url);
-          final String verifier = sanitizer.getValue(OsmOAuth.URL_PARAM_VERIFIER);
-          finishWebviewAuth(auth[1], auth[2], verifier);
+          finishWebviewAuth(auth[1], auth[2], getVerifierFromUrl(url));
           dialog.cancel();
           return true;
         }
 
         return false;
       }
+
+      private String getVerifierFromUrl(String authUrl)
+      {
+        UrlQuerySanitizer sanitizer = new UrlQuerySanitizer();
+        sanitizer.setAllowUnregisteredParamaters(true);
+        sanitizer.parseUrl(authUrl);
+        return sanitizer.getValue(OsmOAuth.URL_PARAM_VERIFIER);
+      }
+
     });
     webview.loadUrl(authUrl);
   }

@@ -20,9 +20,9 @@ import com.mapswithme.util.concurrency.UiThread;
 
 public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickListener
 {
-  protected static class AuthToolbarController extends ToolbarController
+  private static class AuthToolbarController extends ToolbarController
   {
-    public AuthToolbarController(View root, Activity activity)
+    AuthToolbarController(View root, Activity activity)
     {
       super(root, activity);
       mToolbar.setNavigationIcon(Graphics.tint(activity,
