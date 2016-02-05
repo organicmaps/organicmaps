@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,18 +22,20 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.mapswithme.country.StorageOptions;
-import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.MwmActivity.MapTask;
 import com.mapswithme.maps.MwmActivity.OpenUrlTask;
+import com.mapswithme.maps.OldMapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.downloader.CountryItem;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
@@ -40,9 +44,11 @@ import com.mapswithme.util.statistics.Statistics;
 
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesActivity extends BaseMwmFragmentActivity
-    implements LocationHelper.LocationListener, MapStorage.Listener
 {
   private static final String TAG = DownloadResourcesActivity.class.getName();
+
+  static final String EXTRA_COUNTRY_INDEX = ".extra.index";
+  static final String EXTRA_AUTODOWNLOAD_COUNTRY = ".extra.autodownload";
 
   // Error codes, should match the same codes in JNI
   private static final int ERR_DOWNLOAD_SUCCESS = 0;
@@ -59,8 +65,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private Button mBtnDownload;
   private CheckBox mChbDownloadCountry;
 
-  private int mStorageSlotId;
-  private Index mCountryIndex;
+  private String mCurrentCountry;
   private MapTask mMapTaskToForward;
 
   private boolean mIsReadingAttachment;
@@ -76,6 +81,15 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private View.OnClickListener mBtnListeners[];
   private String mBtnNames[];
 
+  private int mCountryDownloadListenerSlot;
+
+  @SuppressWarnings("unused")
+  private interface Listener
+  {
+    void onProgress(int progress);
+    void onFinish(int errorCode);
+  }
+
   private final IntentProcessor[] mIntentProcessors = {
       new GeoIntentProcessor(),
       new HttpGe0IntentProcessor(),
@@ -86,8 +100,101 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       new KmzKmlProcessor()
   };
 
-  public static final String EXTRA_COUNTRY_INDEX = ".extra.index";
-  public static final String EXTRA_AUTODOWNLOAD_COUNTRY = ".extra.autodownload";
+  private final LocationHelper.LocationListener mLocationListener = new LocationHelper.SimpleLocationListener()
+  {
+    @Override
+    public void onLocationUpdated(Location l)
+    {
+      if (mCurrentCountry != null)
+        return;
+
+      final double lat = l.getLatitude();
+      final double lon = l.getLongitude();
+      mCurrentCountry = MapManager.nativeFindCountry(lat, lon);
+      if (TextUtils.isEmpty(mCurrentCountry))
+      {
+        mCurrentCountry = null;
+        return;
+      }
+
+      CountryItem item = new CountryItem(mCurrentCountry);
+      MapManager.nativeGetAttributes(item);
+
+      UiUtils.show(mTvLocation);
+
+      if (item.status == CountryItem.STATUS_DONE)
+        mTvLocation.setText(String.format(getString(R.string.download_location_map_up_to_date), item.name));
+      else
+      {
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.chb__download_country);
+        UiUtils.show(checkBox);
+
+        String locationText;
+        String checkBoxText;
+
+        if (item.status == CountryItem.STATUS_UPDATABLE)
+        {
+          locationText = getString(R.string.download_location_update_map_proposal);
+          checkBoxText = String.format(getString(R.string.update_country_ask), item.name);
+        }
+        else
+        {
+          locationText = getString(R.string.download_location_map_proposal);
+          checkBoxText = String.format(getString(R.string.download_country_ask), item.name);
+        }
+
+        mTvLocation.setText(locationText);
+        checkBox.setText(checkBoxText);
+      }
+
+      LocationHelper.INSTANCE.removeLocationListener(this);
+    }
+  };
+
+  private final Listener mResourcesDownloadListener = new Listener()
+  {
+    @Override
+    public void onProgress(final int progress)
+    {
+      if (!isFinishing())
+        mProgress.setProgress(progress);
+    }
+
+    @Override
+    public void onFinish(final int errorCode)
+    {
+      if (isFinishing())
+        return;
+
+      if (errorCode == ERR_DOWNLOAD_SUCCESS)
+      {
+        final int res = nativeStartNextFileDownload(mResourcesDownloadListener);
+        if (res == ERR_NO_MORE_FILES)
+          finishFilesDownload(res);
+      }
+      else
+        finishFilesDownload(errorCode);
+    }
+  };
+
+  private final MapManager.StorageCallback mCountryDownloadListener = new MapManager.StorageCallback()
+  {
+    @Override
+    public void onStatusChanged(String countryId, int newStatus)
+    {
+      if (newStatus == CountryItem.STATUS_DONE)
+      {
+        mAreResourcesDownloaded = true;
+        showMap();
+      }
+    }
+
+    @Override
+    public void onProgress(String countryId, long localSize, long remoteSize)
+    {
+      mProgress.setProgress((int)localSize);
+    }
+  };
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -99,14 +206,24 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     dispatchIntent();
     setContentView(R.layout.activity_download_resources);
     initViewsAndListeners();
-    mStorageSlotId = MapStorage.INSTANCE.subscribe(this);
 
     if (prepareFilesDownload())
     {
       setAction(DOWNLOAD);
 
       if (ConnectionState.isWifiConnected())
-        onDownloadClicked(mBtnDownload);
+        onDownloadClicked();
+    }
+  }
+
+  @Override
+  protected void onDestroy()
+  {
+    super.onDestroy();
+    if (mCountryDownloadListenerSlot != 0)
+    {
+      MapManager.nativeUnsubscribe(mCountryDownloadListenerSlot);
+      mCountryDownloadListenerSlot = 0;
     }
   }
 
@@ -114,122 +231,14 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
-
-    LocationHelper.INSTANCE.addLocationListener(this, true);
+    LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
   }
 
   @Override
   protected void onPause()
   {
     super.onPause();
-
-    LocationHelper.INSTANCE.removeLocationListener(this);
-  }
-
-  @Override
-  protected void onDestroy()
-  {
-    super.onDestroy();
-
-    MapStorage.INSTANCE.unsubscribe(mStorageSlotId);
-  }
-
-  // TODO change communication with native thread so that it does not send us callbacks after activity destroy
-  @SuppressWarnings("unused")
-  public void onDownloadProgress(int currentTotal, int currentProgress, int globalTotal, int globalProgress)
-  {
-    if (!isFinishing())
-      mProgress.setProgress(globalProgress);
-  }
-
-  // TODO change communication with native thread so that it does not send us callbacks after activity destroy
-  @SuppressWarnings("unused")
-  public void onDownloadFinished(int errorCode)
-  {
-    if (isFinishing())
-      return;
-
-    if (errorCode == ERR_DOWNLOAD_SUCCESS)
-    {
-      final int res = startNextFileDownload(this);
-      if (res == ERR_NO_MORE_FILES)
-        finishFilesDownload(res);
-    }
-    else
-      finishFilesDownload(errorCode);
-  }
-
-  @Override
-  public void onLocationUpdated(final Location l)
-  {
-    if (mCountryIndex != null)
-      return;
-
-    final double lat = l.getLatitude();
-    final double lon = l.getLongitude();
-    Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
-
-    mCountryIndex = Framework.nativeGetCountryIndex(lat, lon);
-    if (mCountryIndex == null)
-      return;
-
-    UiUtils.show(mTvLocation);
-
-    final int countryStatus = MapStorage.INSTANCE.countryStatus(mCountryIndex);
-    final String name = MapStorage.INSTANCE.countryName(mCountryIndex);
-
-    if (countryStatus == MapStorage.ON_DISK)
-      mTvLocation.setText(String.format(getString(R.string.download_location_map_up_to_date), name));
-    else
-    {
-      final CheckBox checkBox = (CheckBox) findViewById(R.id.chb__download_country);
-      UiUtils.show(checkBox);
-
-      String locationText;
-      String checkBoxText;
-
-      if (countryStatus == MapStorage.ON_DISK_OUT_OF_DATE)
-      {
-        locationText = getString(R.string.download_location_update_map_proposal);
-        checkBoxText = String.format(getString(R.string.update_country_ask), name);
-      }
-      else
-      {
-        locationText = getString(R.string.download_location_map_proposal);
-        checkBoxText = String.format(getString(R.string.download_country_ask), name);
-      }
-
-      mTvLocation.setText(locationText);
-      checkBox.setText(checkBoxText);
-    }
-
-    LocationHelper.INSTANCE.removeLocationListener(this);
-  }
-
-  @Override
-  public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy) {}
-
-  @Override
-  public void onLocationError(int errorCode) {}
-
-  @Override
-  public void onCountryStatusChanged(MapStorage.Index idx)
-  {
-    final int status = MapStorage.INSTANCE.countryStatus(idx);
-
-    if (status == MapStorage.ON_DISK)
-    {
-      mAreResourcesDownloaded = true;
-      showMap();
-    }
-  }
-
-  @Override
-  public void onCountryProgress(MapStorage.Index idx, long current, long total)
-  {
-    // Important check - activity can be destroyed but notifications from downloading thread are coming.
-    if (!isFinishing())
-      mProgress.setProgress((int) current);
+    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
   }
 
   private void suggestRemoveLiteOrSamsung()
@@ -241,20 +250,12 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
   private void setDownloadMessage(int bytesToDownload)
   {
-    Log.d(TAG, "prepareFilesDownload, bytesToDownload:" + bytesToDownload);
-
-    if (bytesToDownload < Constants.MB)
-      mTvMessage.setText(String.format(getString(R.string.download_resources),
-          (float) bytesToDownload / Constants.KB, getString(R.string.kb)));
-    else
-      mTvMessage.setText(String.format(getString(R.string.download_resources),
-          (float) bytesToDownload / Constants.MB, getString(R.string.mb)));
-
+    mTvMessage.setText(getString(R.string.download_resources, StringUtils.getFileSizeString(bytesToDownload)));
   }
 
   private boolean prepareFilesDownload()
   {
-    final int bytes = getBytesToDownload();
+    final int bytes = nativeGetBytesToDownload();
 
     if (bytes == 0)
     {
@@ -290,35 +291,50 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     mBtnListeners[DOWNLOAD] = new View.OnClickListener()
     {
       @Override
-      public void onClick(View v) { onDownloadClicked(v); }
+      public void onClick(View v)
+      {
+        onDownloadClicked();
+      }
     };
     mBtnNames[DOWNLOAD] = getString(R.string.download);
 
     mBtnListeners[PAUSE] = new View.OnClickListener()
     {
       @Override
-      public void onClick(View v) { onPauseClicked(v); }
+      public void onClick(View v)
+      {
+        onPauseClicked();
+      }
     };
     mBtnNames[PAUSE] = getString(R.string.pause);
 
     mBtnListeners[RESUME] = new View.OnClickListener()
     {
       @Override
-      public void onClick(View v) { onResumeClicked(v); }
+      public void onClick(View v)
+      {
+        onResumeClicked();
+      }
     };
     mBtnNames[RESUME] = getString(R.string.continue_download);
 
     mBtnListeners[TRY_AGAIN] = new View.OnClickListener()
     {
       @Override
-      public void onClick(View v) { onTryAgainClicked(v); }
+      public void onClick(View v)
+      {
+        onTryAgainClicked();
+      }
     };
     mBtnNames[TRY_AGAIN] = getString(R.string.try_again);
 
     mBtnListeners[PROCEED_TO_MAP] = new View.OnClickListener()
     {
       @Override
-      public void onClick(View v) { onProceedToMapClicked(v); }
+      public void onClick(View v)
+      {
+        onProceedToMapClicked();
+      }
     };
     mBtnNames[PROCEED_TO_MAP] = getString(R.string.download_resources_continue);
   }
@@ -331,29 +347,29 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
   private void doDownload()
   {
-    if (startNextFileDownload(this) == ERR_NO_MORE_FILES)
+    if (nativeStartNextFileDownload(mResourcesDownloadListener) == ERR_NO_MORE_FILES)
       finishFilesDownload(ERR_NO_MORE_FILES);
   }
 
-  private void onDownloadClicked(View v)
+  private void onDownloadClicked()
   {
     setAction(PAUSE);
     doDownload();
   }
 
-  private void onPauseClicked(View v)
+  private void onPauseClicked()
   {
     setAction(RESUME);
-    cancelCurrentFile();
+    nativeCancelCurrentFile();
   }
 
-  private void onResumeClicked(View v)
+  private void onResumeClicked()
   {
     setAction(PAUSE);
     doDownload();
   }
 
-  private void onTryAgainClicked(View v)
+  private void onTryAgainClicked()
   {
     if (prepareFilesDownload())
     {
@@ -362,36 +378,28 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void onProceedToMapClicked(View v)
+  private void onProceedToMapClicked()
   {
     mAreResourcesDownloaded = true;
     showMap();
   }
 
-  public String getErrorMessage(int res)
+  private static @StringRes int getErrorMessage(int res)
   {
-    int id;
     switch (res)
     {
     case ERR_NOT_ENOUGH_FREE_SPACE:
-      id = R.string.not_enough_free_space_on_sdcard;
-      break;
+      return R.string.not_enough_free_space_on_sdcard;
+
     case ERR_STORAGE_DISCONNECTED:
-      id = R.string.disconnect_usb_cable;
-      break;
+      return R.string.disconnect_usb_cable;
 
     case ERR_DOWNLOAD_ERROR:
-      if (ConnectionState.isConnected())
-        id = R.string.download_has_failed;
-      else
-        id = R.string.no_internet_connection_detected;
-      break;
-
+      return (ConnectionState.isConnected() ? R.string.download_has_failed
+                                            : R.string.no_internet_connection_detected);
     default:
-      id = R.string.not_enough_memory;
+      return R.string.not_enough_memory;
     }
-
-    return getString(id);
   }
 
   private void showMap()
@@ -424,17 +432,18 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       // TODO fix the hack when separate download of World-s will be removed or refactored
       Framework.nativeDeregisterMaps();
       Framework.nativeRegisterMaps();
-      if (mCountryIndex != null && mChbDownloadCountry.isChecked())
+      if (mCurrentCountry != null && mChbDownloadCountry.isChecked())
       {
-        UiUtils.hide(mChbDownloadCountry, mTvLocation);
-        mTvMessage.setText(String.format(getString(R.string.downloading_country_can_proceed),
-            MapStorage.INSTANCE.countryName(mCountryIndex)));
+        CountryItem item = new CountryItem(mCurrentCountry);
+        MapManager.nativeGetAttributes(item);
 
-        mProgress.setMax((int) MapStorage.INSTANCE.countryRemoteSizeInBytes(mCountryIndex, StorageOptions.MAP_OPTION_MAP_ONLY));
+        UiUtils.hide(mChbDownloadCountry, mTvLocation);
+        mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
+        mProgress.setMax((int)item.totalSize);
         mProgress.setProgress(0);
 
-        Framework.nativeDownloadCountry(mCountryIndex);
-
+        mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);
+        MapManager.nativeDownload(mCurrentCountry);
         setAction(PROCEED_TO_MAP);
       }
       else
@@ -447,7 +456,6 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     {
       mTvMessage.setText(getErrorMessage(result));
       mTvMessage.setTextColor(Color.RED);
-
       setAction(TRY_AGAIN);
     }
   }
@@ -719,9 +727,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private native int getBytesToDownload();
-
-  private native int startNextFileDownload(Object observer);
-
-  private native void cancelCurrentFile();
+  private static native int nativeGetBytesToDownload();
+  private static native int nativeStartNextFileDownload(Listener listener);
+  private static native void nativeCancelCurrentFile();
 }
