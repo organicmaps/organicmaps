@@ -1,5 +1,5 @@
-#import "MWMMapCountryDownloaderViewController.h"
+#import "MWMBaseMapDownloaderViewController.h"
 
-@interface MWMMapDownloaderViewController : MWMMapCountryDownloaderViewController
+@interface MWMMapDownloaderViewController : MWMBaseMapDownloaderViewController
 
 @end

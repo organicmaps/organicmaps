@@ -3,6 +3,11 @@
 
 @implementation MWMSegue
 
++ (void)segueFrom:(UIViewController *)source to:(UIViewController *)destination
+{
+  [[[MWMSegue alloc] initWithIdentifier:@"" source:source destination:destination] perform];
+}
+
 - (void)perform
 {
   UINavigationController * nc = self.sourceViewController.navigationController;

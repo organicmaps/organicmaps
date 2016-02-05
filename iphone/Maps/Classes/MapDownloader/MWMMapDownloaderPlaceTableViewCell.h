@@ -2,6 +2,6 @@
 
 @interface MWMMapDownloaderPlaceTableViewCell : MWMMapDownloaderTableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel * area;
+- (void)setAreaText:(NSString *)text;
 
 @end

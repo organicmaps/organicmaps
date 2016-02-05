@@ -1,10 +1,11 @@
-@interface MWMMapDownloaderTableViewCell : UITableViewCell
+#import "MWMTableViewCell.h"
+
+@interface MWMMapDownloaderTableViewCell : MWMTableViewCell
 
 @property (nonatomic, readonly) CGFloat estimatedHeight;
 
-@property (weak, nonatomic) IBOutlet UIView * stateWrapper;
-@property (weak, nonatomic) IBOutlet UILabel * title;
-@property (weak, nonatomic) IBOutlet UILabel * downloadSize;
-@property (weak, nonatomic) IBOutlet UIView * separator;
+- (void)setTitleText:(NSString *)text;
+- (void)setDownloadSizeText:(NSString *)text;
+- (void)setLastCell:(BOOL)isLast;
 
 @end

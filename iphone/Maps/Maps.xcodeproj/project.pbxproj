@@ -40,7 +40,7 @@
 		3411387D1C15AE73002E3B3E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3411387C1C15AE73002E3B3E /* libeditor.a */; };
 		341138801C15B50B002E3B3E /* MWMOpeningHoursModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3411387F1C15B50B002E3B3E /* MWMOpeningHoursModel.mm */; };
 		341138811C15B50B002E3B3E /* MWMOpeningHoursModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3411387F1C15B50B002E3B3E /* MWMOpeningHoursModel.mm */; };
-		341223BB1BEB58FA007227E9 /* MWMMapCountryDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341223BA1BEB58FA007227E9 /* MWMMapCountryDownloaderViewController.mm */; };
+		341223BB1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */; };
 		341522BF1B666A550077AA8F /* MWMAPIBarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341522BE1B666A550077AA8F /* MWMAPIBarView.mm */; };
 		34181EB91C0ED1C30081B586 /* MWMOpeningHoursSection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34181EB81C0ED1C30081B586 /* MWMOpeningHoursSection.mm */; };
 		34181EBA1C0ED1C30081B586 /* MWMOpeningHoursSection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34181EB81C0ED1C30081B586 /* MWMOpeningHoursSection.mm */; };
@@ -240,7 +240,7 @@
 		34DDD5321BFDAFFE00407F2F /* MWMUpdateMapsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3419AAA61BDFD047003DC110 /* MWMUpdateMapsAlert.mm */; };
 		34DDD5331BFDB00D00407F2F /* MWMUpdateMapsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3419AAA81BDFD0B0003DC110 /* MWMUpdateMapsAlert.xib */; };
 		34DDD5341BFDB0B600407F2F /* MWMMapDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342AF0DF1BE24E9A0016F3AE /* MWMMapDownloaderViewController.mm */; };
-		34DDD5351BFDB0C600407F2F /* MWMMapCountryDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341223BA1BEB58FA007227E9 /* MWMMapCountryDownloaderViewController.mm */; };
+		34DDD5351BFDB0C600407F2F /* MWMBaseMapDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */; };
 		34DDD5361BFDB0CF00407F2F /* MWMMapDownloaderTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D7B0521BE8E947003C2A60 /* MWMMapDownloaderTableViewCell.mm */; };
 		34DDD5371BFDB0D300407F2F /* MWMMapDownloaderCountryTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AF5FB31BE38863002AEAEE /* MWMMapDownloaderCountryTableViewCell.mm */; };
 		34DDD5381BFDB0DA00407F2F /* MWMMapDownloaderCountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34212C021BE8972E00DB4B18 /* MWMMapDownloaderCountryTableViewCell.xib */; };
@@ -816,8 +816,8 @@
 		3411387C1C15AE73002E3B3E /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
 		3411387E1C15B50B002E3B3E /* MWMOpeningHoursModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursModel.h; sourceTree = "<group>"; };
 		3411387F1C15B50B002E3B3E /* MWMOpeningHoursModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMOpeningHoursModel.mm; sourceTree = "<group>"; };
-		341223B91BEB58FA007227E9 /* MWMMapCountryDownloaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapCountryDownloaderViewController.h; sourceTree = "<group>"; };
-		341223BA1BEB58FA007227E9 /* MWMMapCountryDownloaderViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapCountryDownloaderViewController.mm; sourceTree = "<group>"; };
+		341223B91BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBaseMapDownloaderViewController.h; sourceTree = "<group>"; };
+		341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBaseMapDownloaderViewController.mm; sourceTree = "<group>"; };
 		341522BD1B666A550077AA8F /* MWMAPIBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAPIBarView.h; sourceTree = "<group>"; };
 		341522BE1B666A550077AA8F /* MWMAPIBarView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAPIBarView.mm; sourceTree = "<group>"; };
 		34181EB71C0ED1C30081B586 /* MWMOpeningHoursSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursSection.h; sourceTree = "<group>"; };
@@ -1762,8 +1762,8 @@
 		342AF0DD1BE24E7C0016F3AE /* MapDownloader */ = {
 			isa = PBXGroup;
 			children = (
-				341223B91BEB58FA007227E9 /* MWMMapCountryDownloaderViewController.h */,
-				341223BA1BEB58FA007227E9 /* MWMMapCountryDownloaderViewController.mm */,
+				341223B91BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.h */,
+				341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */,
 				342AF0DE1BE24E9A0016F3AE /* MWMMapDownloaderViewController.h */,
 				342AF0DF1BE24E9A0016F3AE /* MWMMapDownloaderViewController.mm */,
 				34D7B0511BE8E947003C2A60 /* MWMMapDownloaderTableViewCell.h */,
@@ -3310,7 +3310,7 @@
 				F6ED13911B1EF96B0095C6DE /* MWMBookmarkDescriptionViewController.mm in Sources */,
 				349A35851B53E967009677EE /* MWMDownloadMapRequestView.mm in Sources */,
 				F64F19991AB81A00006EAF7E /* MWMAlertViewController.mm in Sources */,
-				341223BB1BEB58FA007227E9 /* MWMMapCountryDownloaderViewController.mm in Sources */,
+				341223BB1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				34C9BD091C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */,
 				340C21111C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm in Sources */,
@@ -3501,7 +3501,7 @@
 				6741A9CC1BF340DE002C974C /* MWMSearchTableViewController.mm in Sources */,
 				34479C7D1C60C6130065D261 /* MWMFrameworkListener.mm in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
-				34DDD5351BFDB0C600407F2F /* MWMMapCountryDownloaderViewController.mm in Sources */,
+				34DDD5351BFDB0C600407F2F /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				6741A9CE1BF340DE002C974C /* MWMSearchManager.mm in Sources */,
 				6741A9CF1BF340DE002C974C /* MWMLocationAlert.mm in Sources */,
 				34ABA62D1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */,

@@ -4,6 +4,10 @@
 @interface MWMMapDownloaderTableViewCell () <MWMCircularProgressProtocol>
 
 @property (nonatomic) MWMCircularProgress * progressView;
+@property (weak, nonatomic) IBOutlet UIView * stateWrapper;
+@property (weak, nonatomic) IBOutlet UILabel * title;
+@property (weak, nonatomic) IBOutlet UILabel * downloadSize;
+@property (weak, nonatomic) IBOutlet UIView * separator;
 
 @end
 
@@ -26,6 +30,34 @@
 - (CGFloat)estimatedHeight
 {
   return 52.0;
+}
+
+- (void)setTitleText:(NSString *)text
+{
+  self.title.text = text;
+}
+
+- (void)setDownloadSizeText:(NSString *)text
+{
+  self.downloadSize.text = text;
+}
+
+- (void)setLastCell:(BOOL)isLast
+{
+  self.separator.hidden = isLast;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  UIColor * color = self.separator.backgroundColor;
+  [super setSelected:selected animated:animated];
+  self.separator.backgroundColor = color;
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+  UIColor * color = self.separator.backgroundColor;
+  [super setHighlighted:highlighted animated:animated];
+  self.separator.backgroundColor = color;
 }
 
 #pragma mark - MWMCircularProgressDelegate

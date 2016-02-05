@@ -2,6 +2,6 @@
 
 @interface MWMMapDownloaderLargeCountryTableViewCell : MWMMapDownloaderTableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel * mapsCount;
+- (void)setMapCountText:(NSString *)text;
 
 @end

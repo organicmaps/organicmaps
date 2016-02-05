@@ -6,6 +6,7 @@
 #include "platform/location.hpp"
 
 @class MapViewController;
+@class MWMPlacePageEntity;
 
 @interface MWMMapViewControlsManager : NSObject <MWMRoutingProtocol>
 
@@ -13,6 +14,7 @@
 @property (nonatomic) BOOL zoomHidden;
 @property (nonatomic) MWMBottomMenuState menuState;
 @property (nonatomic, readonly) MWMNavigationDashboardState navigationState;
+@property (nonatomic, readonly) MWMPlacePageEntity * placePageEntity;
 @property (nonatomic) BOOL searchHidden;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));

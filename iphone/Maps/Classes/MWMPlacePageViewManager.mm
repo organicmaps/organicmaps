@@ -1,20 +1,21 @@
 #import "Common.h"
 #import "LocationManager.h"
-#import "MapsAppDelegate.h"
-#import "MWMActivityViewController.h"
 #import "MWMAPIBar.h"
+#import "MWMActivityViewController.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMDirectionView.h"
 #import "MWMFrameworkListener.h"
-#import "MWMiPadPlacePage.h"
-#import "MWMiPhoneLandscapePlacePage.h"
-#import "MWMiPhonePortraitPlacePage.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
+#import "MWMiPadPlacePage.h"
+#import "MWMiPhoneLandscapePlacePage.h"
+#import "MWMiPhonePortraitPlacePage.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -282,8 +283,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)editPlace
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
-  [self.ownerViewController performSegueWithIdentifier:@"Map2EditorSegue" sender:self.entity];
+  [(MapViewController *)self.ownerViewController openEditor];
 }
 
 - (void)addBookmark
