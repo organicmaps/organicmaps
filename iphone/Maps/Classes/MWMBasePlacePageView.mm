@@ -9,6 +9,7 @@
 #import "MWMPlacePageTypeDescription.h"
 #import "MWMPlacePageViewManager.h"
 #import "Statistics.h"
+#import "UIColor+MapsMeColor.h"
 
 extern CGFloat const kBottomPlacePageOffset = 15.;
 extern CGFloat const kLabelsBetweenOffset = 8.;
@@ -76,6 +77,7 @@ enum class AttributePosition
   [super awakeFromNib];
   self.featureTable.delegate = self;
   self.featureTable.dataSource = self;
+  self.featureTable.separatorColor = [UIColor blackDividers];
   for (auto const & type : gCellType2ReuseIdentifier)
   {
     NSString * identifier = @(type.second.c_str());
@@ -371,7 +373,7 @@ enum class AttributePosition
       [(MWMPlacePageBookmarkCell *)cell config:self.ownerPlacePage forHeight:NO];
       break;
     case MWMPlacePageCellTypeOpenHours:
-      [(MWMPlacePageOpeningHoursCell *)cell configWithDelegate:self info:[entity getCellValue:cellType] lastCell:NO];
+      [(MWMPlacePageOpeningHoursCell *)cell configWithDelegate:self info:[entity getCellValue:cellType]];
       break;
     case MWMPlacePageCellTypeEditButton:
       [(MWMPlacePageButtonCell *)cell config:self.ownerPlacePage];

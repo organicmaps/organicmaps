@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DKh-ne-anv" id="M4j-cz-kSo">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DT5-2i-vCG">
@@ -41,27 +41,14 @@
                             <outlet property="delegate" destination="DKh-ne-anv" id="KQo-Mn-gqx"/>
                         </connections>
                     </textView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZSw-Rd-B64" userLabel="Separator">
-                        <rect key="frame" x="60" y="43" width="260" height="1"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="hIQ-vD-PeI"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="ZSw-Rd-B64" firstAttribute="top" secondItem="T5l-Sb-Hfo" secondAttribute="bottom" id="9BA-P2-SVl"/>
                     <constraint firstItem="T5l-Sb-Hfo" firstAttribute="leading" secondItem="M4j-cz-kSo" secondAttribute="leading" constant="60" id="9CI-ss-zAr"/>
+                    <constraint firstAttribute="bottom" secondItem="T5l-Sb-Hfo" secondAttribute="bottom" id="Ejg-Ht-2JQ"/>
                     <constraint firstItem="DT5-2i-vCG" firstAttribute="centerY" secondItem="M4j-cz-kSo" secondAttribute="centerY" id="MX4-xc-kFl"/>
                     <constraint firstItem="T5l-Sb-Hfo" firstAttribute="top" secondItem="M4j-cz-kSo" secondAttribute="top" id="Vw0-bf-uUe"/>
-                    <constraint firstAttribute="bottom" secondItem="ZSw-Rd-B64" secondAttribute="bottom" id="bJ8-qw-Eah"/>
-                    <constraint firstItem="ZSw-Rd-B64" firstAttribute="leading" secondItem="M4j-cz-kSo" secondAttribute="leading" constant="60" id="d7O-pD-dIE"/>
                     <constraint firstItem="DT5-2i-vCG" firstAttribute="leading" secondItem="M4j-cz-kSo" secondAttribute="leading" constant="16" id="gle-Hg-xi1"/>
-                    <constraint firstAttribute="trailing" secondItem="ZSw-Rd-B64" secondAttribute="trailing" id="n1d-lY-EC3"/>
                     <constraint firstAttribute="trailing" secondItem="T5l-Sb-Hfo" secondAttribute="trailing" constant="32" id="ot9-cN-XF3"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
@@ -69,7 +56,6 @@
                 </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <inset key="separatorInset" minX="48" minY="0.0" maxX="0.0" maxY="0.0"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>

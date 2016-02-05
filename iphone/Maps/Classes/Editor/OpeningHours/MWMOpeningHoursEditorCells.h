@@ -8,6 +8,5 @@ typedef NS_ENUM (NSUInteger, MWMOpeningHoursEditorCells)
   MWMOpeningHoursEditorClosedSpanCell,
   MWMOpeningHoursEditorAddClosedCell,
   MWMOpeningHoursEditorDeleteScheduleCell,
-  MWMOpeningHoursEditorSpacerCell,
   MWMOpeningHoursEditorAddScheduleCell
 };

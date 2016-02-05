@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qme-9J-aMf" id="fpo-VO-awT">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j3u-fF-pG6">
@@ -48,27 +48,13 @@
                             <action selector="valueChanged" destination="qme-9J-aMf" eventType="valueChanged" id="sak-SB-Nvi"/>
                         </connections>
                     </switch>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ztq-3s-Oo8" userLabel="Bottom Separator">
-                        <rect key="frame" x="60" y="43" width="260" height="1"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="nN0-hv-vOT"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="QFf-wR-pPw" firstAttribute="top" secondItem="fpo-VO-awT" secondAttribute="top" id="3mH-Ua-EUl"/>
                     <constraint firstItem="j3u-fF-pG6" firstAttribute="centerY" secondItem="fpo-VO-awT" secondAttribute="centerY" id="4xr-PJ-Dl2"/>
-                    <constraint firstItem="Ztq-3s-Oo8" firstAttribute="leading" secondItem="fpo-VO-awT" secondAttribute="leading" priority="250" id="6dM-c2-MTO"/>
-                    <constraint firstItem="Ztq-3s-Oo8" firstAttribute="leading" secondItem="QFf-wR-pPw" secondAttribute="leading" priority="500" id="MOz-01-ymI"/>
-                    <constraint firstAttribute="trailing" secondItem="Ztq-3s-Oo8" secondAttribute="trailing" id="RV1-LZ-lJp"/>
                     <constraint firstAttribute="trailing" secondItem="qvr-u3-nNo" secondAttribute="trailing" constant="16" id="T2E-Dp-9aj"/>
                     <constraint firstItem="j3u-fF-pG6" firstAttribute="leading" secondItem="fpo-VO-awT" secondAttribute="leading" constant="16" id="TFM-QG-P2e"/>
                     <constraint firstAttribute="bottom" secondItem="QFf-wR-pPw" secondAttribute="bottom" id="YAg-Wx-DLo"/>
-                    <constraint firstAttribute="bottom" secondItem="Ztq-3s-Oo8" secondAttribute="bottom" id="kkO-W7-ngX"/>
                     <constraint firstItem="qvr-u3-nNo" firstAttribute="leading" secondItem="QFf-wR-pPw" secondAttribute="trailing" constant="8" id="m7G-DT-9Wm"/>
                     <constraint firstItem="QFf-wR-pPw" firstAttribute="leading" secondItem="fpo-VO-awT" secondAttribute="leading" constant="60" id="mNR-IV-cek"/>
                     <constraint firstItem="qvr-u3-nNo" firstAttribute="centerY" secondItem="fpo-VO-awT" secondAttribute="centerYWithinMargins" id="opz-Nt-Q5b"/>
@@ -77,11 +63,11 @@
                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                 </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="bottomSeparatorLeadingOffset" destination="6dM-c2-MTO" id="Xub-cK-CiJ"/>
                 <outlet property="icon" destination="j3u-fF-pG6" id="nIz-cY-MCW"/>
                 <outlet property="label" destination="QFf-wR-pPw" id="1MO-Vf-bt6"/>
                 <outlet property="switchControl" destination="qvr-u3-nNo" id="hfe-x6-0cw"/>

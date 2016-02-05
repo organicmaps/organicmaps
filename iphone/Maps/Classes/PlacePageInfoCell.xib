@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VAd-kw-ZEC" id="KHz-zH-ymS">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xwC-DR-6Il">
@@ -39,16 +39,6 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNm-TR-GPW" userLabel="Separator">
-                        <rect key="frame" x="60" y="43" width="260" height="1"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="fPa-eO-g5X"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_placepage_change" translatesAutoresizingMaskIntoConstraints="NO" id="RZw-oW-agi" userLabel="Toggle Image">
                         <rect key="frame" x="288" y="10" width="24" height="24"/>
                         <constraints>
@@ -74,17 +64,14 @@
                     <constraint firstItem="xwC-DR-6Il" firstAttribute="leading" secondItem="KHz-zH-ymS" secondAttribute="leading" constant="16" id="4B0-o5-ixn"/>
                     <constraint firstAttribute="bottom" secondItem="viE-zJ-wsl" secondAttribute="bottom" constant="12" id="5Me-Rj-yun"/>
                     <constraint firstAttribute="trailing" secondItem="vu9-VL-9jn" secondAttribute="trailing" id="8ig-bw-zGd"/>
-                    <constraint firstAttribute="bottom" secondItem="CNm-TR-GPW" secondAttribute="bottom" id="9fe-9S-IXI"/>
                     <constraint firstItem="xwC-DR-6Il" firstAttribute="centerY" secondItem="KHz-zH-ymS" secondAttribute="centerY" id="CYL-hn-gD1"/>
                     <constraint firstAttribute="bottom" secondItem="vu9-VL-9jn" secondAttribute="bottom" id="GwU-YF-i08"/>
                     <constraint firstItem="viE-zJ-wsl" firstAttribute="top" secondItem="KHz-zH-ymS" secondAttribute="top" constant="12" id="HFr-xw-JHR"/>
                     <constraint firstItem="viE-zJ-wsl" firstAttribute="leading" secondItem="KHz-zH-ymS" secondAttribute="leading" constant="60" id="OiU-eg-c9z"/>
-                    <constraint firstItem="CNm-TR-GPW" firstAttribute="leading" secondItem="KHz-zH-ymS" secondAttribute="leading" constant="60" id="YBm-HI-8QY"/>
                     <constraint firstItem="RZw-oW-agi" firstAttribute="leading" secondItem="viE-zJ-wsl" secondAttribute="trailing" id="b4Y-Av-Oa4"/>
                     <constraint firstItem="vu9-VL-9jn" firstAttribute="leading" secondItem="KHz-zH-ymS" secondAttribute="leading" id="bwh-x8-HDj"/>
                     <constraint firstItem="RZw-oW-agi" firstAttribute="centerY" secondItem="KHz-zH-ymS" secondAttribute="centerY" id="ftp-Ze-2yH"/>
                     <constraint firstItem="vu9-VL-9jn" firstAttribute="top" secondItem="KHz-zH-ymS" secondAttribute="top" id="hAZ-rE-oQa"/>
-                    <constraint firstAttribute="trailing" secondItem="CNm-TR-GPW" secondAttribute="trailing" id="j04-QC-yoJ"/>
                     <constraint firstAttribute="trailing" secondItem="RZw-oW-agi" secondAttribute="trailing" constant="8" id="q5W-GA-34D"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>

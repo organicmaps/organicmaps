@@ -1,5 +1,6 @@
 #import "MWMCuisineEditorTableViewCell.h"
 #import "MWMCuisineEditorViewController.h"
+#import "UIColor+MapsMeColor.h"
 
 namespace
 {
@@ -18,6 +19,11 @@ namespace
 @end
 
 @implementation MWMCuisineEditorViewController
+
+- (void)awakeFromNib
+{
+  self.tableView.separatorColor = [UIColor blackDividers];
+}
 
 - (void)viewDidLoad
 {

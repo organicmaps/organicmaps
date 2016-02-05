@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="264" translatesAutoresizingMaskIntoConstraints="NO" id="hOY-VB-nFg">
@@ -34,16 +34,6 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOz-Wd-phb" userLabel="Bottom Separator">
-                        <rect key="frame" x="16" y="43" width="304" height="1"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="Z6O-bd-0y9"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Pe-AU-T9A">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <connections>
@@ -55,11 +45,8 @@
                     <constraint firstItem="3Pe-AU-T9A" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="0AO-q7-CzE"/>
                     <constraint firstAttribute="trailing" secondItem="hOY-VB-nFg" secondAttribute="trailing" constant="40" id="2gu-wq-Y7B"/>
                     <constraint firstItem="mIn-6M-GtU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5ie-0h-fd1"/>
-                    <constraint firstAttribute="bottom" secondItem="lOz-Wd-phb" secondAttribute="bottom" id="7QM-4d-uCH"/>
                     <constraint firstAttribute="bottom" secondItem="hOY-VB-nFg" secondAttribute="bottom" constant="12" id="8e2-Vf-KRD"/>
-                    <constraint firstAttribute="trailing" secondItem="lOz-Wd-phb" secondAttribute="trailing" id="RpO-Ou-auC"/>
                     <constraint firstAttribute="bottom" secondItem="3Pe-AU-T9A" secondAttribute="bottom" id="SBx-de-g1Q"/>
-                    <constraint firstItem="lOz-Wd-phb" firstAttribute="leading" secondItem="hOY-VB-nFg" secondAttribute="leading" id="ZKA-PM-NZB"/>
                     <constraint firstItem="3Pe-AU-T9A" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="dMo-wQ-AZ7"/>
                     <constraint firstItem="hOY-VB-nFg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="fqp-n8-snv"/>
                     <constraint firstItem="hOY-VB-nFg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="jFG-ai-aHe"/>

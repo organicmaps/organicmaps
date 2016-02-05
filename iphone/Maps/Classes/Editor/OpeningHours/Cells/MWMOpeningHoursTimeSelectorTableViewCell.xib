@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="179.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="GQP-ns-cE1">
@@ -68,34 +68,33 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAz-Sc-ynR" userLabel="BottomSeparator">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="rOS-aO-0gb">
                         <rect key="frame" x="0.0" y="179" width="320" height="1"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="ARD-HS-urF"/>
+                            <constraint firstAttribute="height" constant="1" id="etc-9t-7gU"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
                         </userDefinedRuntimeAttributes>
-                    </view>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="MQr-gL-ImO" firstAttribute="centerX" secondItem="w7f-Rh-vzg" secondAttribute="centerX" constant="-4" id="1aM-UN-taw"/>
+                    <constraint firstAttribute="bottom" secondItem="rOS-aO-0gb" secondAttribute="bottom" constant="-0.5" id="48x-fh-WrH"/>
                     <constraint firstItem="6b2-fN-HrU" firstAttribute="centerY" secondItem="GQP-ns-cE1" secondAttribute="centerY" id="CFO-NC-K5i"/>
                     <constraint firstItem="MQr-gL-ImO" firstAttribute="centerY" secondItem="w7f-Rh-vzg" secondAttribute="centerY" id="IAa-cP-AKa"/>
-                    <constraint firstItem="cAz-Sc-ynR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="IMq-wC-qsF"/>
                     <constraint firstItem="ArA-iX-w8F" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Jwt-Hj-rB5"/>
-                    <constraint firstAttribute="trailing" secondItem="cAz-Sc-ynR" secondAttribute="trailing" id="LaU-d6-0eM"/>
                     <constraint firstAttribute="bottom" secondItem="GQP-ns-cE1" secondAttribute="bottom" id="MD6-2s-qbb"/>
                     <constraint firstItem="GQP-ns-cE1" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="1:2" id="TAR-AD-a1X"/>
                     <constraint firstItem="GQP-ns-cE1" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.4" id="TeT-Yf-UeO"/>
+                    <constraint firstAttribute="trailing" secondItem="rOS-aO-0gb" secondAttribute="trailing" id="W3v-cq-ONy"/>
                     <constraint firstItem="w7f-Rh-vzg" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.4" id="fYI-wR-woS"/>
                     <constraint firstAttribute="bottom" secondItem="w7f-Rh-vzg" secondAttribute="bottom" id="hf6-7a-fuy"/>
                     <constraint firstItem="GQP-ns-cE1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jAC-6F-GVz"/>
                     <constraint firstItem="w7f-Rh-vzg" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" multiplier="3:2" id="kaE-sT-Ycx"/>
                     <constraint firstItem="w7f-Rh-vzg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ke4-wU-x0k"/>
-                    <constraint firstAttribute="bottom" secondItem="cAz-Sc-ynR" secondAttribute="bottom" id="ndI-s1-MZS"/>
                     <constraint firstItem="6b2-fN-HrU" firstAttribute="centerX" secondItem="GQP-ns-cE1" secondAttribute="centerX" constant="-4" id="nzt-Rr-b0u"/>
+                    <constraint firstItem="rOS-aO-0gb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="t8r-sp-fRg"/>
                     <constraint firstItem="ArA-iX-w8F" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zKO-lN-XyI"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
@@ -111,4 +110,7 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
 </document>

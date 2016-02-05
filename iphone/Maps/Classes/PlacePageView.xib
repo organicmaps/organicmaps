@@ -68,11 +68,18 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hZM-Gs-BbS">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" id="TRO-vz-04P">
+                            <rect key="frame" x="0.0" y="75" width="320" height="1"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="hZM-Gs-BbS">
                             <rect key="frame" x="0.0" y="84" width="320" height="384"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
@@ -80,14 +87,6 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </tableView>
-                        <view contentMode="scaleToFill" id="Spo-tb-t0A">
-                            <rect key="frame" x="0.0" y="75" width="320" height="1"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                            </userDefinedRuntimeAttributes>
-                        </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kGT-CI-UsC">
                             <rect key="frame" x="259" y="25" width="57" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -100,14 +99,14 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_direction_light" id="ExH-ug-j1j">
-                            <rect key="frame" x="235" y="23.5" width="20" height="20"/>
+                            <rect key="frame" x="235" y="23" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="mwm_name" value="img_direction"/>
                             </userDefinedRuntimeAttributes>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="X4O-iK-cA2">
-                            <rect key="frame" x="228" y="13.5" width="84" height="43"/>
+                            <rect key="frame" x="228" y="13" width="84" height="43"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,7 +124,7 @@
                         <outlet property="distanceLabel" destination="kGT-CI-UsC" id="xLt-R1-jy2"/>
                         <outlet property="featureTable" destination="hZM-Gs-BbS" id="iBU-Iq-8go"/>
                         <outlet property="ownerPlacePage" destination="-1" id="ptD-bf-NPp"/>
-                        <outlet property="separatorView" destination="Spo-tb-t0A" id="y6P-TK-Wws"/>
+                        <outlet property="separatorView" destination="TRO-vz-04P" id="zgT-Vz-9R2"/>
                         <outlet property="titleLabel" destination="T1Y-Oq-6fg" id="ifK-nU-q7x"/>
                         <outlet property="typeLabel" destination="TNu-JO-vJi" id="mWV-cH-KMk"/>
                     </connections>
@@ -153,5 +152,6 @@
     </objects>
     <resources>
         <image name="img_direction_light" width="32" height="32"/>
+        <image name="separator_image" width="1" height="1"/>
     </resources>
 </document>

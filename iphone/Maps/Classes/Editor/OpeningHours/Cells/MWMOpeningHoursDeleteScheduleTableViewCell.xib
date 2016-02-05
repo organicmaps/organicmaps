@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sA-sN-4Dk">
@@ -31,25 +31,24 @@
                             <action selector="deleteScheduleTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Wrd-G9-gDM"/>
                         </connections>
                     </button>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ruz-hb-yNT" userLabel="Separator">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="pwt-wM-TFm">
                         <rect key="frame" x="0.0" y="43" width="320" height="1"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="jzr-EO-Xyw"/>
+                            <constraint firstAttribute="height" constant="1" id="uj7-UU-MSZ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
                         </userDefinedRuntimeAttributes>
-                    </view>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Ruz-hb-yNT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="2Qw-h7-SDr"/>
                     <constraint firstAttribute="bottom" secondItem="6sA-sN-4Dk" secondAttribute="bottom" id="HqD-nd-D5C"/>
-                    <constraint firstAttribute="bottom" secondItem="Ruz-hb-yNT" secondAttribute="bottom" id="Zqm-NG-5hj"/>
                     <constraint firstAttribute="trailing" secondItem="6sA-sN-4Dk" secondAttribute="trailing" id="ajb-sy-7f6"/>
                     <constraint firstItem="6sA-sN-4Dk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fyt-5F-eSU"/>
+                    <constraint firstItem="pwt-wM-TFm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jD1-ee-pdn"/>
+                    <constraint firstAttribute="bottom" secondItem="pwt-wM-TFm" secondAttribute="bottom" constant="-0.5" id="jr1-UN-iiO"/>
+                    <constraint firstAttribute="trailing" secondItem="pwt-wM-TFm" secondAttribute="trailing" id="uAP-Dw-Gir"/>
                     <constraint firstItem="6sA-sN-4Dk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ywG-MR-eI2"/>
-                    <constraint firstAttribute="trailing" secondItem="Ruz-hb-yNT" secondAttribute="trailing" id="zb8-8w-hsL"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
@@ -60,4 +59,7 @@
             </userDefinedRuntimeAttributes>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
 </document>

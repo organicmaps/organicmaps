@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="249"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="248.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="swk-um-XzG" customClass="MWMPlacePageOpeningHoursDayView">
@@ -164,16 +164,15 @@
                             <outlet property="openTime" destination="oTF-IZ-Un1" id="oSf-bK-Va1"/>
                         </connections>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q9R-jU-fIk" userLabel="Middle Separator">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="0kQ-hh-2Cy">
                         <rect key="frame" x="60" y="126" width="228" height="1"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="5pG-41-JyY"/>
+                            <constraint firstAttribute="height" constant="1" id="5lV-kq-jGM"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
                         </userDefinedRuntimeAttributes>
-                    </view>
+                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fNU-1q-AiR">
                         <rect key="frame" x="0.0" y="127" width="320" height="122"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -181,43 +180,30 @@
                             <constraint firstAttribute="height" constant="122" id="Ifb-EB-LIb"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9WP-gb-0Hl" userLabel="Bottom Separator">
-                        <rect key="frame" x="60" y="248" width="260" height="1"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="ISb-za-hzz"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="fNU-1q-AiR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="08I-np-9jr"/>
                     <constraint firstAttribute="trailing" secondItem="fNU-1q-AiR" secondAttribute="trailing" id="2Hz-cA-KuN"/>
-                    <constraint firstAttribute="trailing" secondItem="q9R-jU-fIk" secondAttribute="trailing" constant="32" id="GqM-0e-qyu"/>
-                    <constraint firstItem="q9R-jU-fIk" firstAttribute="top" secondItem="swk-um-XzG" secondAttribute="bottom" id="HNR-8z-cc0"/>
-                    <constraint firstItem="fNU-1q-AiR" firstAttribute="top" secondItem="q9R-jU-fIk" secondAttribute="bottom" id="JFR-YU-rAy"/>
-                    <constraint firstAttribute="bottom" secondItem="9WP-gb-0Hl" secondAttribute="bottom" id="LMU-EI-Vr9"/>
+                    <constraint firstItem="0kQ-hh-2Cy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="KwF-TF-PmH"/>
+                    <constraint firstAttribute="trailing" secondItem="0kQ-hh-2Cy" secondAttribute="trailing" constant="32" id="RqH-0b-AyG"/>
                     <constraint firstItem="swk-um-XzG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VsQ-qI-dIi"/>
-                    <constraint firstItem="q9R-jU-fIk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="eUW-RI-gaa"/>
-                    <constraint firstItem="9WP-gb-0Hl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="fCK-Qq-Hci"/>
+                    <constraint firstItem="0kQ-hh-2Cy" firstAttribute="top" secondItem="swk-um-XzG" secondAttribute="bottom" id="Xrh-Vg-VYg"/>
                     <constraint firstItem="swk-um-XzG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="p14-Mi-kcR"/>
-                    <constraint firstAttribute="trailing" secondItem="9WP-gb-0Hl" secondAttribute="trailing" id="vof-Qq-rXP"/>
+                    <constraint firstItem="fNU-1q-AiR" firstAttribute="top" secondItem="0kQ-hh-2Cy" secondAttribute="bottom" id="uKD-bb-yHT"/>
                     <constraint firstAttribute="trailing" secondItem="swk-um-XzG" secondAttribute="trailing" id="zir-No-59Q"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                 </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="bottomSeparatorLeadingOffset" destination="fCK-Qq-Hci" id="i0F-nq-2jd"/>
                 <outlet property="currentDay" destination="swk-um-XzG" id="CJG-LQ-Pu8"/>
                 <outlet property="expandImage" destination="mGc-k4-uvQ" id="ohq-Yq-hLX"/>
-                <outlet property="middleSeparator" destination="q9R-jU-fIk" id="vcZ-Lb-HgY"/>
+                <outlet property="middleSeparator" destination="0kQ-hh-2Cy" id="TJM-Ch-7E0"/>
                 <outlet property="openTime" destination="oTF-IZ-Un1" id="hsY-uV-wWE"/>
                 <outlet property="openTimeLeadingOffset" destination="KGY-T0-s0P" id="rHG-56-gHg"/>
                 <outlet property="toggleButton" destination="3Fa-V6-tC5" id="8FI-Je-uFy"/>
@@ -229,5 +215,6 @@
     <resources>
         <image name="ic_arrow_gray_down" width="28" height="28"/>
         <image name="ic_placepage_open_hours" width="28" height="28"/>
+        <image name="separator_image" width="1" height="1"/>
     </resources>
 </document>

@@ -1,3 +1,4 @@
+#import "MWMEditorCommon.h"
 #import "MWMEditorTextTableViewCell.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
@@ -7,7 +8,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView * icon;
 @property (weak, nonatomic) IBOutlet UITextField * textField;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * bottomSeparatorLeadingOffset;
 
 @property (weak, nonatomic) id<MWMEditorCellProtocol> delegate;
 
@@ -15,24 +15,25 @@
 
 @implementation MWMEditorTextTableViewCell
 
+- (void)awakeFromNib
+{
+  self.backgroundColor = [UIColor white];
+}
+
 - (void)configWithDelegate:(id<MWMEditorCellProtocol>)delegate
                       icon:(UIImage *)icon
                       text:(NSString *)text
                placeholder:(NSString *)placeholder
               keyboardType:(UIKeyboardType)keyboardType
-                  lastCell:(BOOL)lastCell
 {
   self.delegate = delegate;
   self.icon.image = icon;
   self.icon.mwm_coloring = MWMImageColoringBlack;
-  BOOL isNameCell = (icon == nil);
-  self.icon.hidden = isNameCell;
-  self.backgroundColor = isNameCell ? [UIColor clearColor] : [UIColor white];
+  self.icon.hidden = (icon == nil);
   self.textField.text = text;
   self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:
                                           @{NSForegroundColorAttributeName : [UIColor blackHintText]}];
   self.textField.keyboardType = keyboardType;
-  self.bottomSeparatorLeadingOffset.priority = lastCell ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
 }
 
 #pragma mark - UITextFieldDelegate

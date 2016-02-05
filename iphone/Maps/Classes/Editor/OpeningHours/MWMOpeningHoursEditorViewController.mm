@@ -12,7 +12,6 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
   @(MWMOpeningHoursEditorClosedSpanCell) : @"MWMOpeningHoursClosedSpanTableViewCell",
   @(MWMOpeningHoursEditorAddClosedCell) : @"MWMOpeningHoursAddClosedTableViewCell",
   @(MWMOpeningHoursEditorDeleteScheduleCell) : @"MWMOpeningHoursDeleteScheduleTableViewCell",
-  @(MWMOpeningHoursEditorSpacerCell) : @"MWMOpeningHoursSpacerTableViewCell",
   @(MWMOpeningHoursEditorAddScheduleCell) : @"MWMOpeningHoursAddScheduleTableViewCell",
 };
 

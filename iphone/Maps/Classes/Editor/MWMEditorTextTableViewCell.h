@@ -1,4 +1,4 @@
-#import "MWMEditorCommon.h"
+@protocol MWMEditorCellProtocol;
 
 @interface MWMEditorTextTableViewCell : UITableViewCell
 
@@ -6,7 +6,6 @@
                       icon:(UIImage *)icon
                       text:(NSString *)text
                placeholder:(NSString *)placeholder
-              keyboardType:(UIKeyboardType)keyboardType
-                  lastCell:(BOOL)lastCell;
+              keyboardType:(UIKeyboardType)keyboardType;
 
 @end

@@ -61,13 +61,11 @@ using namespace osmoh;
   NSUInteger const numberOfRows = self.numberOfRows;
   BOOL const firstSection = (self.index == 0);
 
-  if (row == numberOfRows - 1)
-    return MWMOpeningHoursEditorSpacerCell;
-  else if (firstSection && row == numberOfRows - 2)
+  if (firstSection && row == numberOfRows - 1)
     return MWMOpeningHoursEditorAddClosedCell;
-  else if (!firstSection && row == numberOfRows - 2)
+  else if (!firstSection && row == numberOfRows - 1)
     return MWMOpeningHoursEditorDeleteScheduleCell;
-  else if (!firstSection && row == numberOfRows - 3)
+  else if (!firstSection && row == numberOfRows - 2)
     return MWMOpeningHoursEditorAddClosedCell;
   else if (row == 2)
     return MWMOpeningHoursEditorTimeSpanCell;
@@ -80,7 +78,7 @@ using namespace osmoh;
 
 - (NSUInteger)numberOfRowsForAllDay:(BOOL)allDay
 {
-  NSUInteger rowsCount = 3; // MWMOpeningHoursDaysSelectorTableViewCell, MWMOpeningHoursAllDayTableViewCell, MWMOpeningHoursSpacerTableViewCell
+  NSUInteger rowsCount = 2; // MWMOpeningHoursDaysSelectorTableViewCell, MWMOpeningHoursAllDayTableViewCell
   if (!allDay)
   {
     rowsCount += 2; // MWMOpeningHoursTimeSpanTableViewCell, MWMOpeningHoursAddClosedTableViewCell
@@ -278,7 +276,7 @@ using namespace osmoh;
   for (NSUInteger row = minRows; row < maxRows; ++row)
     [indexes addObject:[NSIndexPath indexPathForRow:row inSection:self.index]];
 
-  NSUInteger const reloadRow = [self firstRowForKey:MWMOpeningHoursEditorAllDayCell] + 1;
+  NSUInteger const reloadRow = [self firstRowForKey:MWMOpeningHoursEditorAllDayCell];
   NSIndexPath * reloadPath = [NSIndexPath indexPathForRow:reloadRow inSection:self.index];
   MWMOpeningHoursTableViewCell * reloadCell = [tableView cellForRowAtIndexPath:reloadPath];
   [reloadCell hide];

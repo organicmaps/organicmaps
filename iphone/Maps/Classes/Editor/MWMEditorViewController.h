@@ -1,8 +1,8 @@
 #import "MWMOpeningHoursEditorViewController.h"
 #import "MWMPlacePageEntity.h"
-#import "ViewController.h"
+#import "TableViewController.h"
 
-@interface MWMEditorViewController : ViewController <MWMOpeningHoursEditorProtocol>
+@interface MWMEditorViewController : TableViewController <MWMOpeningHoursEditorProtocol>
 
 @property (nonatomic) MWMPlacePageEntity * entity;
 

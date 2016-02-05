@@ -5,7 +5,6 @@
 - (void)configWithDelegate:(id<MWMEditorCellProtocol>)delegate
                       icon:(UIImage *)icon
                       text:(NSString *)text
-                        on:(BOOL)on
-                  lastCell:(BOOL)lastCell;
+                        on:(BOOL)on;
 
 @end

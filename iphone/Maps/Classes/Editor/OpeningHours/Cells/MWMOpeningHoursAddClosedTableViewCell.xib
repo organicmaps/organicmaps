@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPW-UE-5UN">
@@ -31,25 +31,24 @@
                             <action selector="addClosedTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="HxR-3Y-SiG"/>
                         </connections>
                     </button>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhy-0r-XYI" userLabel="Separator">
-                        <rect key="frame" x="0.0" y="42" width="320" height="1"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="6P1-ZO-JMA">
+                        <rect key="frame" x="0.0" y="43" width="320" height="1"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="naN-vv-7Hw"/>
+                            <constraint firstAttribute="height" constant="1" id="ckb-Sc-MTJ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
                         </userDefinedRuntimeAttributes>
-                    </view>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="DPW-UE-5UN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="4Li-Xr-b3S"/>
                     <constraint firstItem="DPW-UE-5UN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ng6-qX-haA"/>
-                    <constraint firstItem="lhy-0r-XYI" firstAttribute="top" secondItem="DPW-UE-5UN" secondAttribute="bottom" id="Nip-7c-kmh"/>
-                    <constraint firstAttribute="bottom" secondItem="lhy-0r-XYI" secondAttribute="bottom" id="ZK2-xr-mlC"/>
+                    <constraint firstItem="6P1-ZO-JMA" firstAttribute="top" secondItem="DPW-UE-5UN" secondAttribute="bottom" constant="1" id="b8H-yj-uLc"/>
                     <constraint firstAttribute="trailing" secondItem="DPW-UE-5UN" secondAttribute="trailing" id="bAd-QF-f1s"/>
-                    <constraint firstItem="lhy-0r-XYI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="cMf-sJ-a11"/>
-                    <constraint firstAttribute="trailing" secondItem="lhy-0r-XYI" secondAttribute="trailing" id="vWV-47-g9W"/>
+                    <constraint firstAttribute="bottom" secondItem="6P1-ZO-JMA" secondAttribute="bottom" constant="-0.5" id="edX-pE-hpk"/>
+                    <constraint firstAttribute="trailing" secondItem="6P1-ZO-JMA" secondAttribute="trailing" id="uJU-yO-Xeh"/>
+                    <constraint firstItem="6P1-ZO-JMA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="yxQ-et-0D2"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
@@ -63,4 +62,7 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
 </document>

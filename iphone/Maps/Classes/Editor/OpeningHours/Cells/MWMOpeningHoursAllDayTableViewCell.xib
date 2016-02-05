@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Day (24 hours)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="223" translatesAutoresizingMaskIntoConstraints="NO" id="0Ni-TD-6Ia">
@@ -26,8 +26,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0BP-HJ-Tdq">
-                        <rect key="frame" x="255" y="7" width="51" height="31"/>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0BP-HJ-Tdq">
+                        <rect key="frame" x="255" y="6" width="51" height="30"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="onTintColorName" value="linkBlue"/>
                         </userDefinedRuntimeAttributes>
@@ -35,26 +35,26 @@
                             <action selector="onSwitch" destination="KGk-i7-Jjw" eventType="valueChanged" id="qZA-HV-PB6"/>
                         </connections>
                     </switch>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="72V-nI-evJ" userLabel="Separator">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" translatesAutoresizingMaskIntoConstraints="NO" id="lbK-kB-c4p">
                         <rect key="frame" x="0.0" y="43" width="320" height="1"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="qaa-Np-Mlw"/>
+                            <constraint firstAttribute="height" constant="1" id="JvF-ZU-maq"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
                         </userDefinedRuntimeAttributes>
-                    </view>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="0BP-HJ-Tdq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerYWithinMargins" id="1kG-H0-QmS"/>
                     <constraint firstItem="0Ni-TD-6Ia" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4y2-py-cgM"/>
-                    <constraint firstItem="72V-nI-evJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6oD-sE-c88"/>
-                    <constraint firstAttribute="bottom" secondItem="72V-nI-evJ" secondAttribute="bottom" id="9S8-o4-dMI"/>
+                    <constraint firstAttribute="trailing" secondItem="lbK-kB-c4p" secondAttribute="trailing" id="797-Uf-0Jb"/>
+                    <constraint firstItem="lbK-kB-c4p" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Dv4-Kj-kii"/>
                     <constraint firstAttribute="trailing" secondItem="0BP-HJ-Tdq" secondAttribute="trailing" constant="16" id="Ejw-wu-5pE"/>
+                    <constraint firstItem="lbK-kB-c4p" firstAttribute="top" secondItem="0BP-HJ-Tdq" secondAttribute="bottom" constant="7" id="KIL-OP-roj"/>
                     <constraint firstItem="0BP-HJ-Tdq" firstAttribute="leading" secondItem="0Ni-TD-6Ia" secondAttribute="trailing" constant="16" id="cgf-7m-Kki"/>
                     <constraint firstItem="0Ni-TD-6Ia" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="gZM-Zt-RId"/>
-                    <constraint firstAttribute="trailing" secondItem="72V-nI-evJ" secondAttribute="trailing" id="sWi-1h-Y7Z"/>
+                    <constraint firstAttribute="bottom" secondItem="lbK-kB-c4p" secondAttribute="bottom" constant="-0.5" id="jbG-hH-bln"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
@@ -68,4 +68,7 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="separator_image" width="1" height="1"/>
+    </resources>
 </document>

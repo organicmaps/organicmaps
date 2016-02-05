@@ -1,3 +1,0 @@
-@interface MWMEditorSpacerCell : UITableViewCell
-
-@end

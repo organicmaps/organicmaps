@@ -27,7 +27,6 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * weekDaysViewHeight;
 @property (nonatomic) CGFloat weekDaysViewEstimatedHeight;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * bottomSeparatorLeadingOffset;
 @property (weak, nonatomic) id<MWMPlacePageOpeningHoursCellProtocol> delegate;
 
 @property (nonatomic) BOOL isClosed;
@@ -64,7 +63,6 @@ WeekDayView getWeekDayView()
 
 - (void)configWithDelegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate
                       info:(NSString *)info
-                  lastCell:(BOOL)lastCell
 {
   self.delegate = delegate;
   WeekDayView cd = self.currentDay;
@@ -74,7 +72,6 @@ WeekDayView getWeekDayView()
   self.expandImage.hidden = !delegate.forcedButton;
   self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray"];
   self.expandImage.mwm_coloring = MWMImageColoringGray;
-  self.bottomSeparatorLeadingOffset.constant = lastCell ? 0.0 : 60.0;
   NSAssert(info, @"Schedule can not be empty");
   osmoh::OpeningHours oh(info.UTF8String);
   if (MakeTimeTableSet(oh, timeTableSet))

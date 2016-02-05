@@ -3,7 +3,6 @@
 #import "MWMEditorCommon.h"
 #import "MWMEditorSelectTableViewCell.h"
 #import "MWMEditorSwitchTableViewCell.h"
-#import "MWMEditorTableViewHeader.h"
 #import "MWMEditorTextTableViewCell.h"
 #import "MWMEditorViewController.h"
 #import "MWMOpeningHoursEditorViewController.h"
@@ -29,12 +28,11 @@ typedef NS_ENUM(NSUInteger, MWMEditorSection)
 vector<MWMPlacePageCellType> const gSectionNameCellTypes{MWMPlacePageCellTypeName};
 
 vector<MWMPlacePageCellType> const gSectionAddressCellTypes{
-    {MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding, MWMPlacePageCellTypeSpacer}};
+    {MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding}};
 
 vector<MWMPlacePageCellType> const gSectionDetailsCellTypes{
     {MWMPlacePageCellTypeOpenHours, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite,
-     MWMPlacePageCellTypeEmail, MWMPlacePageCellTypeCuisine, MWMPlacePageCellTypeWiFi,
-     MWMPlacePageCellTypeSpacer}};
+     MWMPlacePageCellTypeEmail, MWMPlacePageCellTypeCuisine, MWMPlacePageCellTypeWiFi}};
 
 using CellTypesSectionMap = pair<vector<MWMPlacePageCellType>, MWMEditorSection>;
 
@@ -52,8 +50,7 @@ MWMPlacePageCellTypeValueMap const gCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeWebsite, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeEmail, "MWMEditorTextTableViewCell"},
     {MWMPlacePageCellTypeCuisine, "MWMEditorSelectTableViewCell"},
-    {MWMPlacePageCellTypeWiFi, "MWMEditorSwitchTableViewCell"},
-    {MWMPlacePageCellTypeSpacer, "MWMEditorSpacerCell"}};
+    {MWMPlacePageCellTypeWiFi, "MWMEditorSwitchTableViewCell"}};
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
@@ -64,13 +61,10 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 }
 } // namespace
 
-@interface MWMEditorViewController ()<UITableViewDelegate, UITableViewDataSource,
+@interface MWMEditorViewController() <UITableViewDelegate, UITableViewDataSource,
                                       UITextFieldDelegate, MWMPlacePageOpeningHoursCellProtocol,
                                       MWMEditorCellProtocol, MWMCuisineEditorProtocol,
                                       MWMStreetEditorProtocol>
-
-@property (weak, nonatomic) IBOutlet UITableView * tableView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * tableViewBottomOffset;
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
 @property (weak, nonatomic) UITableViewCell * editCell;
@@ -92,7 +86,6 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   [super viewDidLoad];
   [self configTable];
   [self configNavBar];
-  [self configKeyboardObserver];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,42 +108,6 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                                                     target:self
                                                     action:@selector(onSave)];
   self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-}
-
-- (void)configKeyboardObserver
-{
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWillChangeFrame:)
-                                               name:UIKeyboardWillChangeFrameNotification
-                                             object:nil];
-}
-
-#pragma mark - Observers
-
-- (void)keyboardWillChangeFrame:(NSNotification *)aNotification
-{
-  NSDictionary * info = [aNotification userInfo];
-  CGFloat const kbYEnd = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
-  CGFloat const kbYBeg = [info[UIKeyboardFrameBeginUserInfoKey] CGRectValue].origin.y;
-  UIViewAnimationCurve const curve =
-      static_cast<UIViewAnimationCurve>([info[UIKeyboardAnimationCurveUserInfoKey] integerValue]);
-  NSTimeInterval const duration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-  [self.view layoutIfNeeded];
-  UITableView * tv = self.tableView;
-  NSIndexPath * cellPath = [tv indexPathForCell:self.editCell];
-  [tv scrollToRowAtIndexPath:cellPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
-  if (kbYEnd < kbYBeg)
-    self.tableViewBottomOffset.constant = kbYBeg - kbYEnd;
-  else if (kbYEnd > kbYBeg)
-    self.tableViewBottomOffset.constant = 0.0;
-  [UIView animateWithDuration:duration delay:0.0 options:curve animations:^
-  {
-    [self.view layoutIfNeeded];
-  }
-  completion:^(BOOL finished)
-  {
-    [tv scrollToRowAtIndexPath:cellPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
-  }];
 }
 
 #pragma mark - Actions
@@ -255,29 +212,12 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   return reuseIdentifier(cellType);
 }
 
-- (BOOL)isLastCellInSection:(NSIndexPath *)indexPath
-{
-  NSUInteger const row = indexPath.row;
-  NSUInteger const section = indexPath.section;
-  NSUInteger const rowsInSection = m_cells[m_sections[section]].size();
-  BOOL const isLastCell = rowsInSection - 1 == row;
-  if (isLastCell)
-    return YES;
-  BOOL const isPenultimateCell = rowsInSection - 2 == row;
-  if (!isPenultimateCell)
-    return NO;
-  NSIndexPath * lastIndexPath = [NSIndexPath indexPathForRow:row + 1 inSection:section];
-  BOOL const isLastCellSeparator = ([self cellTypeForIndexPath:lastIndexPath] == MWMPlacePageCellTypeSpacer);
-  return isLastCellSeparator;
-}
-
 #pragma mark - Fill cells with data
 
 - (void)fillCell:(UITableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   NSString * entityValue = [self getCellValue:cellType];
-  BOOL const lastCell = [self isLastCellInSection:indexPath];
   switch (cellType)
   {
     case MWMPlacePageCellTypePhoneNumber:
@@ -287,8 +227,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:[UIImage imageNamed:@"ic_placepage_phone_number"]
                            text:entityValue
                     placeholder:L(@"phone")
-                   keyboardType:UIKeyboardTypePhonePad
-                       lastCell:lastCell];
+                   keyboardType:UIKeyboardTypePhonePad];
       break;
     }
     case MWMPlacePageCellTypeWebsite:
@@ -298,8 +237,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:[UIImage imageNamed:@"ic_placepage_website"]
                            text:entityValue
                     placeholder:L(@"website")
-                   keyboardType:UIKeyboardTypeURL
-                       lastCell:lastCell];
+                   keyboardType:UIKeyboardTypeURL];
       break;
     }
     case MWMPlacePageCellTypeEmail:
@@ -309,15 +247,14 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:[UIImage imageNamed:@"ic_placepage_email"]
                            text:entityValue
                     placeholder:L(@"email")
-                   keyboardType:UIKeyboardTypeEmailAddress
-                       lastCell:lastCell];
+                   keyboardType:UIKeyboardTypeEmailAddress];
       break;
     }
     case MWMPlacePageCellTypeOpenHours:
     {
       MWMPlacePageOpeningHoursCell * tCell = (MWMPlacePageOpeningHoursCell *)cell;
       NSString * text = entityValue ? entityValue : L(@"add_opening_hours");
-      [tCell configWithDelegate:self info:text lastCell:lastCell];
+      [tCell configWithDelegate:self info:text];
       break;
     }
     case MWMPlacePageCellTypeWiFi:
@@ -327,8 +264,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_wifi"]
                            text:L(@"wifi")
-                            on:on
-                       lastCell:lastCell];
+                             on:on];
       break;
     }
     case MWMPlacePageCellTypeName:
@@ -338,8 +274,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:nil
                            text:entityValue
                     placeholder:L(@"name")
-                   keyboardType:UIKeyboardTypeDefault
-                       lastCell:lastCell];
+                   keyboardType:UIKeyboardTypeDefault];
       break;
     }
     case MWMPlacePageCellTypeStreet:
@@ -348,8 +283,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_adress"]
                            text:entityValue
-                    placeholder:L(@"add_street")
-                       lastCell:lastCell];
+                    placeholder:L(@"add_street")];
       break;
     }
     case MWMPlacePageCellTypeBuilding:
@@ -359,8 +293,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                            icon:nil
                            text:entityValue
                     placeholder:L(@"house")
-                   keyboardType:UIKeyboardTypeDefault
-                       lastCell:lastCell];
+                   keyboardType:UIKeyboardTypeDefault];
       break;
     }
     case MWMPlacePageCellTypeCuisine:
@@ -370,12 +303,9 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_cuisine"]
                            text:text
-                    placeholder:L(@"select_cuisine")
-                       lastCell:lastCell];
+                    placeholder:L(@"select_cuisine")];
       break;
     }
-    case MWMPlacePageCellTypeSpacer:
-      break;
     default:
       NSAssert(false, @"Invalid field for editor");
       break;
@@ -431,35 +361,28 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   [self fillCell:cell atIndexPath:indexPath];
 }
 
-- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  MWMEditorTableViewHeader * headerView =
-      [[[NSBundle mainBundle] loadNibNamed:@"MWMEditorTableViewHeader"
-                                     owner:nil
-                                   options:nil] firstObject];
   switch (m_sections[section])
   {
-    case MWMEditorSectionName:
-      return nil;
-    case MWMEditorSectionAddress:
-      [headerView config:L(@"address")];
-      break;
-    case MWMEditorSectionDetails:
-      [headerView config:L(@"details")];
-      break;
+  case MWMEditorSectionName:
+    return nil;
+  case MWMEditorSectionAddress:
+    return L(@"address");
+  case MWMEditorSectionDetails:
+    return L(@"details");
   }
-  return headerView;
 }
 
-- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
   switch (m_sections[section])
   {
-    case MWMEditorSectionName:
-      return 0.0;
-    case MWMEditorSectionAddress:
-    case MWMEditorSectionDetails:
-      return 36.0;
+  case MWMEditorSectionName:
+    return L(@"place_name_caption");
+  case MWMEditorSectionAddress:
+  case MWMEditorSectionDetails:
+    return nil;
   }
 }
 
