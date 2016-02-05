@@ -163,6 +163,34 @@ elif [ "$1" == "online" ]; then
   else
       echo "Failed to create $OSRM_FILE" >> "$LOG"
   fi
+elif [ "$1" == "server" ]; then
+  OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
+  OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OMIM_PATH/../osrm-backend-release}"
+  [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
+
+  OSRM_THREADS=${OSRM_THREADS:-15}
+  OSRM_MEMORY=${OSRM_MEMORY:-50}
+
+  export STXXLCFG="$HOME/.stxxl"
+  OSRM_FILE="$INTDIR/planet.osrm"
+  PORT="10012"
+  RESTRICTIONS_FILE="$OSRM_FILE.restrictions"
+  LOG="$LOG_PATH/planet.log"
+  if [ -s "$OSRM_FILE" ]; then
+    echo "Starting: $OSRM_FILE" >> "$LOG"
+    pkill osrm-routed
+    echo "killed: $OSRM_FILE" >> "$LOG"
+    "$OSRM_BUILD_PATH/osrm-routed" "$OSRM_FILE" --borders "$OMIM_PATH/data/" --port "$PORT" >> "$LOG" 2>&1 &
+    echo "started: $OSRM_FILE" >> "$LOG"
+
+    echo "Waiting until OSRM server starts:" >> "$LOG"
+    until $(curl --output /dev/null --silent --head --fail http://localhost:$PORT/mapsme); do
+      printf '.' >> "$LOG"
+      sleep 5
+    done
+   else
+    echo "Can't find OSRM file: $OSRM_FILE" >> "$LOG"
+ fi
 
 else
   fail "Incorrect parameter: $1"
