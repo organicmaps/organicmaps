@@ -1,4 +1,5 @@
 #import "MWMEditorSwitchTableViewCell.h"
+#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 @interface MWMEditorSwitchTableViewCell ()
@@ -23,11 +24,19 @@
   self.icon.mwm_coloring = MWMImageColoringBlack;
   self.label.text = text;
   self.switchControl.on = on;
+  [self setTextColorWithSwithValue:on];
+}
+
+- (void)setTextColorWithSwithValue:(BOOL)value
+{
+  self.label.textColor = value ? [UIColor blackPrimaryText] : [UIColor blackHintText];
 }
 
 - (IBAction)valueChanged
 {
-  [self.delegate cell:self changeSwitch:self.switchControl.on];
+  BOOL const value = self.switchControl.on;
+  [self.delegate cell:self changeSwitch:value];
+  [self setTextColorWithSwithValue:value];
 }
 
 @end

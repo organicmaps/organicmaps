@@ -32,7 +32,7 @@
   else
   {
     self.label.text = placeholder;
-    self.label.textColor = [UIColor blackSecondaryText];
+    self.label.textColor = [UIColor blackHintText];
   }
   self.label.preferredMaxLayoutWidth = self.width - self.labelLeadingOffset.constant - self.labelTrailingOffset.constant;
 }

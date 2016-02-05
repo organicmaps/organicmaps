@@ -82,7 +82,7 @@
 - (void)setCompatibilityText:(NSString *)text isPlaceholder:(BOOL)isPlaceholder
 {
   self.compatibilityLabel.text = text;
-  self.compatibilityLabel.textColor = isPlaceholder ? [UIColor blackSecondaryText] : [UIColor blackPrimaryText];
+  self.compatibilityLabel.textColor = isPlaceholder ? [UIColor blackHintText] : [UIColor blackPrimaryText];
 }
 
 - (void)invalidate
