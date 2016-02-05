@@ -81,6 +81,8 @@
 		675343D91A3F5D5A00A0A8C3 /* wifi_info_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */; };
 		675343DA1A3F5D5A00A0A8C3 /* wifi_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */; };
 		675343DB1A3F5D5A00A0A8C3 /* wifi_location_service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */; };
+		676C84201C64CD3300DC9603 /* mwm_traits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 676C841E1C64CD3300DC9603 /* mwm_traits.cpp */; };
+		676C84211C64CD3300DC9603 /* mwm_traits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 676C841F1C64CD3300DC9603 /* mwm_traits.hpp */; };
 		67A2526A1BB40E100063F8A8 /* platform_qt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753439C1A3F5D5A00A0A8C3 /* platform_qt.cpp */; };
 		67A2526B1BB40E520063F8A8 /* platform_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6753439B1A3F5D5A00A0A8C3 /* platform_mac.mm */; };
 		67AB92DC1B7B3D7300AB5194 /* mwm_version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB92DA1B7B3D7300AB5194 /* mwm_version.cpp */; };
@@ -184,6 +186,8 @@
 		675343AE1A3F5D5A00A0A8C3 /* wifi_info_windows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wifi_info_windows.cpp; sourceTree = "<group>"; };
 		675343AF1A3F5D5A00A0A8C3 /* wifi_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = wifi_info.hpp; sourceTree = "<group>"; };
 		675343B01A3F5D5A00A0A8C3 /* wifi_location_service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wifi_location_service.cpp; sourceTree = "<group>"; };
+		676C841E1C64CD3300DC9603 /* mwm_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_traits.cpp; sourceTree = "<group>"; };
+		676C841F1C64CD3300DC9603 /* mwm_traits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_traits.hpp; sourceTree = "<group>"; };
 		67AB92DA1B7B3D7300AB5194 /* mwm_version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_version.cpp; sourceTree = "<group>"; };
 		67AB92DB1B7B3D7300AB5194 /* mwm_version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_version.hpp; sourceTree = "<group>"; };
 		67AB92E81B7B3E9100AB5194 /* get_text_by_id.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = get_text_by_id.cpp; sourceTree = "<group>"; };
@@ -391,6 +395,7 @@
 				675343CA1A3F5D5A00A0A8C3 /* platform_unix_impl.hpp in Headers */,
 				675343D21A3F5D5A00A0A8C3 /* servers_list.hpp in Headers */,
 				675343BA1A3F5D5A00A0A8C3 /* http_thread_callback.hpp in Headers */,
+				676C84211C64CD3300DC9603 /* mwm_traits.hpp in Headers */,
 				675343B41A3F5D5A00A0A8C3 /* chunks_download_strategy.hpp in Headers */,
 				67247FFE1C60BD6500EDE56A /* write_dir_changer.hpp in Headers */,
 				674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */,
@@ -533,6 +538,7 @@
 			files = (
 				675343D11A3F5D5A00A0A8C3 /* servers_list.cpp in Sources */,
 				675343C91A3F5D5A00A0A8C3 /* platform_unix_impl.cpp in Sources */,
+				676C84201C64CD3300DC9603 /* mwm_traits.cpp in Sources */,
 				67AB92DC1B7B3D7300AB5194 /* mwm_version.cpp in Sources */,
 				67A2526B1BB40E520063F8A8 /* platform_mac.mm in Sources */,
 				6741250A1B4C00CC00A3E828 /* country_file.cpp in Sources */,
