@@ -284,8 +284,17 @@ public:
   string GetRoadNumber() const;
   bool HasInternet() const;
 
-  inline feature::Metadata const & GetMetadata() const { return m_metadata; }
-  inline feature::Metadata & GetMetadata() { return m_metadata; }
+  inline feature::Metadata const & GetMetadata() const
+  {
+    ParseMetadata();
+    return m_metadata;
+  }
+
+  inline feature::Metadata & GetMetadata()
+  {
+    ParseMetadata();
+    return m_metadata;
+  }
 
   /// @name Statistic functions.
   //@{

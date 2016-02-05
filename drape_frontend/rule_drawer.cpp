@@ -149,7 +149,6 @@ void RuleDrawer::operator()(FeatureType const & f)
     float areaMinHeight = 0.0f;
     if (is3dBuilding)
     {
-      f.ParseMetadata();
       feature::Metadata const & md = f.GetMetadata();
 
       constexpr double kDefaultHeightInMeters = 3.0;

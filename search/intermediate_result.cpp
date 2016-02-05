@@ -28,7 +28,6 @@ double const DIST_SAME_STREET = 5000.0;
 
 void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 {
-  ft.ParseMetadata();
   feature::Metadata const & src = ft.GetMetadata();
 
   meta.m_cuisine = src.Get(feature::Metadata::FMD_CUISINE);

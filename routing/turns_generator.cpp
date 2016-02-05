@@ -528,7 +528,6 @@ void LoadedPathSegment::LoadPathGeometry(buffer_vector<TSeg, 8> const & buffer, 
     if (buffer.back() == segment)
     {
       using feature::Metadata;
-      ft.ParseMetadata();
       Metadata const & md = ft.GetMetadata();
 
       auto directionType = Metadata::FMD_TURN_LANES;

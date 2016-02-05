@@ -281,9 +281,9 @@ void LoaderCurrent::ParseMetadata()
       ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetMetadataReader());
       src.Skip(it->value);
       if (m_Info.GetMWMFormat() >= version::Format::v8)
-        m_pF->GetMetadata().Deserialize(src);
+        m_pF->m_metadata.Deserialize(src);
       else
-        m_pF->GetMetadata().DeserializeFromMWMv7OrLower(src);
+        m_pF->m_metadata.DeserializeFromMWMv7OrLower(src);
     }
   }
   catch (Reader::OpenException const &)

@@ -1806,7 +1806,6 @@ public:
     FeatureType ft;
     guard.GetFeatureByIndex(m_id.m_index, ft);
 
-    ft.ParseMetadata();
     metadata = ft.GetMetadata();
   }
 };
