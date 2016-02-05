@@ -19,9 +19,9 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.Utils;
 
 @SuppressWarnings("unused")
-class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
+class ChunkTask extends AsyncTask<Void, byte[], Boolean>
 {
-  private static final String TAG = "DownloadChunkTask";
+  private static final String TAG = "ChunkTask";
 
   private static final int TIMEOUT_IN_SECONDS = 60;
 
@@ -44,12 +44,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
 
   private static final Executor sExecutors = Executors.newFixedThreadPool(4);
 
-  native boolean onWrite(long httpCallbackID, long beg, byte[] data, long size);
-
-  native void onFinish(long httpCallbackID, long httpCode, long beg, long end);
-
-  public DownloadChunkTask(long httpCallbackID, String url, long beg, long end,
-                           long expectedFileSize, byte[] postBody, String userAgent)
+  public ChunkTask(long httpCallbackID, String url, long beg, long end,
+                   long expectedFileSize, byte[] postBody, String userAgent)
   {
     mHttpCallbackID = httpCallbackID;
     mUrl = url;
@@ -61,11 +57,12 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   }
 
   @Override
-  protected void onPreExecute()
-  {
-  }
+  protected void onPreExecute() {}
 
-  private long getChunkID() { return mBeg; }
+  private long getChunkID()
+  {
+    return mBeg;
+  }
 
   @Override
   protected void onPostExecute(Boolean success)
@@ -78,7 +75,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     // start activity when no connection is present.
 
     if (!isCancelled())
-      onFinish(mHttpCallbackID, success ? 200 : mHttpErrorCode, mBeg, mEnd);
+      nativeOnFinish(mHttpCallbackID, success ? 200 : mHttpErrorCode, mBeg, mEnd);
   }
 
   @Override
@@ -87,13 +84,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     if (!isCancelled())
     {
       // Use progress event to save downloaded bytes.
-      if (onWrite(mHttpCallbackID, mBeg + mDownloadedBytes, data[0], data[0].length))
+      if (nativeOnWrite(mHttpCallbackID, mBeg + mDownloadedBytes, data[0], data[0].length))
         mDownloadedBytes += data[0].length;
       else
       {
         // Cancel downloading and notify about error.
         cancel(false);
-        onFinish(mHttpCallbackID, WRITE_ERROR, mBeg, mEnd);
+        nativeOnFinish(mHttpCallbackID, WRITE_ERROR, mBeg, mEnd);
       }
     }
   }
@@ -284,4 +281,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     // -1 - means the end of the stream (success), else - some error occurred
     return (readBytes == -1 ? 0 : -1);
   }
+
+  private static native boolean nativeOnWrite(long httpCallbackID, long beg, byte[] data, long size);
+  private static native void nativeOnFinish(long httpCallbackID, long httpCode, long beg, long end);
 }

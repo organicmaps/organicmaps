@@ -65,8 +65,6 @@ LOCAL_HEADER_FILES := \
 	com/mapswithme/core/logging.hpp \
 	com/mapswithme/maps/Framework.hpp \
 	com/mapswithme/platform/Platform.hpp \
-	com/mapswithme/platform/MethodRef.hpp \
-	com/mapswithme/platform/http_thread_android.hpp \
 	com/mapswithme/opengl/android_gl_utils.hpp \
 	com/mapswithme/opengl/androidoglcontext.hpp \
 	com/mapswithme/opengl/androidoglcontextfactory.hpp \
@@ -94,7 +92,6 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
 	com/mapswithme/platform/Language.cpp \
-	com/mapswithme/platform/MethodRef.cpp \
 	com/mapswithme/platform/PThreadImpl.cpp \
 	com/mapswithme/util/StringUtils.cpp \
 	com/mapswithme/util/Config.cpp \

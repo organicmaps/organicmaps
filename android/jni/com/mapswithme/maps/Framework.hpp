@@ -177,10 +177,10 @@ namespace android
     void Migrate();
 
   public:
+  /* TODO (trashkalmar): remove old downloader's stuff
     virtual void ItemStatusChanged(int childPosition);
     virtual void ItemProgressChanged(int childPosition, storage::LocalAndRemoteSizeT const & sizes);
 
-/*  TODO (trashkalmar): remove old downloader's stuff
     virtual void CountryGroupChanged(storage::ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
                                      storage::ActiveMapsLayout::TGroup const & newGroup, int newPosition);
     virtual void CountryStatusChanged(storage::ActiveMapsLayout::TGroup const & group, int position,

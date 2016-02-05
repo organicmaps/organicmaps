@@ -90,17 +90,17 @@ Platform::EConnectionType Platform::ConnectionStatus()
 
 namespace android
 {
-  Platform::Platform()
-    : m_runOnUI("runNativeFunctorOnUiThread", "(J)V")
-  {
-  }
-
   void Platform::Initialize(JNIEnv * env,
+                            jobject functorProcessObject,
                             jstring apkPath, jstring storagePath,
                             jstring tmpPath, jstring obbGooglePath,
                             jstring flavorName, jstring buildType,
                             bool isYota, bool isTablet)
   {
+    m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
+    jclass const functorProcessClass = env->GetObjectClass(functorProcessObject);
+    m_functorProcessMethod = env->GetMethodID(functorProcessClass, "processFunctor", "(J)V");
+
     string const flavor = jni::ToNativeString(env, flavorName);
     string const build = jni::ToNativeString(env, buildType);
     LOG(LINFO, ("Flavor name:", flavor));
@@ -145,12 +145,7 @@ namespace android
     (void) ConnectionStatus();
   }
 
-  void Platform::InitAppMethodRefs(jobject appObject)
-  {
-    m_runOnUI.Init(appObject);
-  }
-
-  void Platform::CallNativeFunctor(jlong functionPointer)
+  void Platform::ProcessFunctor(jlong functionPointer)
   {
     TFunctor * fn = reinterpret_cast<TFunctor *>(functionPointer);
     (*fn)();
@@ -191,7 +186,9 @@ namespace android
 
   void Platform::RunOnGuiThread(TFunctor const & fn)
   {
-    m_runOnUI.CallVoid(reinterpret_cast<jlong>(new TFunctor(fn)));
+    // Pointer will be deleted in Platform::ProcessFunctor
+    TFunctor * functor = new TFunctor(fn);
+    jni::GetEnv()->CallVoidMethod(m_functorProcessObject, m_functorProcessMethod, reinterpret_cast<jlong>(functor));
   }
 }
 

@@ -1,5 +1,4 @@
 #include "Framework.hpp"
-#include "MapStorage.hpp"
 
 #include "defines.hpp"
 
@@ -14,6 +13,8 @@
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+
+#include "com/mapswithme/core/jni_helper.hpp"
 
 #include "std/vector.hpp"
 #include "std/string.hpp"
@@ -51,18 +52,25 @@ static shared_ptr<HttpRequest> g_currentRequest;
 
 extern "C"
 {
-  int HasSpaceForFiles(Platform & pl, string const & sdcardPath, size_t fileSize)
+  typedef HttpRequest::CallbackT CallbackT;
+
+  static int HasSpaceForFiles(Platform & pl, string const & sdcardPath, size_t fileSize)
   {
     switch (pl.GetWritableStorageStatus(fileSize))
     {
-      case Platform::STORAGE_DISCONNECTED: return ERR_STORAGE_DISCONNECTED;
-      case Platform::NOT_ENOUGH_SPACE: return ERR_NOT_ENOUGH_FREE_SPACE;
-      default: return fileSize;
+      case Platform::STORAGE_DISCONNECTED:
+        return ERR_STORAGE_DISCONNECTED;
+
+      case Platform::NOT_ENOUGH_SPACE:
+        return ERR_NOT_ENOUGH_FREE_SPACE;
+
+      default:
+        return fileSize;
     }
   }
 
   // Check if we need to download mandatory resource file.
-  bool NeedToDownload(Platform & pl, string const & name, int size)
+  static bool NeedToDownload(Platform & pl, string const & name, int size)
   {
     try
     {
@@ -80,7 +88,7 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_getBytesToDownload(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeGetBytesToDownload(JNIEnv * env, jclass clazz)
   {
     // clear all
     g_filesToDownload.clear();
@@ -107,7 +115,7 @@ extern "C"
 
       if (NeedToDownload(pl, name, size))
       {
-        LOG(LDEBUG, ("Should download", name, "sized", size, "bytes"));
+        LOG(LDEBUG, ("Should download", name, "size", size, "bytes"));
 
         FileToDownload f;
         f.m_pathOnSdcard = path + name;
@@ -130,7 +138,7 @@ extern "C"
     return res;
   }
 
-  void DownloadFileFinished(shared_ptr<jobject> obj, HttpRequest const & req)
+  static void DownloadFileFinished(shared_ptr<jobject> obj, HttpRequest const & req)
   {
     HttpRequest::StatusT const status = req.Status();
     ASSERT_NOT_EQUAL(status, HttpRequest::EInProgress, ());
@@ -144,11 +152,9 @@ extern "C"
     if (errorCode == ERR_DOWNLOAD_SUCCESS)
     {
       FileToDownload & curFile = g_filesToDownload.back();
-
-      LOG(LDEBUG, ("finished downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
+      LOG(LDEBUG, ("finished downloading", curFile.m_fileName, "size", curFile.m_fileSize, "bytes"));
 
       g_totalDownloadedBytes += curFile.m_fileSize;
-
       LOG(LDEBUG, ("totalDownloadedBytes:", g_totalDownloadedBytes));
 
       g_filesToDownload.pop_back();
@@ -156,33 +162,20 @@ extern "C"
 
     JNIEnv * env = jni::GetEnv();
 
-    jmethodID methodID = jni::GetMethodID(env, *obj.get(), "onDownloadFinished", "(I)V");
+    jmethodID methodID = jni::GetMethodID(env, *obj.get(), "onFinish", "(I)V");
     env->CallVoidMethod(*obj.get(), methodID, errorCode);
   }
 
-  void DownloadFileProgress(shared_ptr<jobject> obj, HttpRequest const & req)
+  static void DownloadFileProgress(shared_ptr<jobject> listener, HttpRequest const & req)
   {
-    //LOG(LDEBUG, (req.Progress().first, "bytes for", g_filesToDownload.back().m_fileName, "was downloaded"));
-
     FileToDownload & curFile = g_filesToDownload.back();
 
-    jint curTotal = req.Progress().second;
-    jint curProgress = req.Progress().first;
-    jint glbTotal = g_totalBytesToDownload;
-    jint glbProgress = g_totalDownloadedBytes + req.Progress().first;
-
     JNIEnv * env = jni::GetEnv();
-
-    jmethodID methodID = jni::GetMethodID(env, *obj.get(), "onDownloadProgress", "(IIII)V");
-    env->CallVoidMethod(*obj.get(), methodID,
-                        curTotal, curProgress,
-                        glbTotal, glbProgress);
+    static jmethodID methodID = jni::GetMethodID(env, *listener.get(), "onProgress", "(I)V");
+    env->CallVoidMethod(*listener.get(), methodID, static_cast<jint>(g_totalDownloadedBytes + req.Progress().first));
   }
 
-  typedef HttpRequest::CallbackT CallbackT;
-
-  void DownloadURLListFinished(HttpRequest const & req,
-                               CallbackT const & onFinish, CallbackT const & onProgress)
+  static void DownloadURLListFinished(HttpRequest const & req, CallbackT const & onFinish, CallbackT const & onProgress)
   {
     FileToDownload & curFile = g_filesToDownload.back();
 
@@ -197,22 +190,11 @@ extern "C"
       LOG(LDEBUG, (curFile.m_urls[i]));
     }
 
-    g_currentRequest.reset(HttpRequest::GetFile(
-        curFile.m_urls, curFile.m_pathOnSdcard, curFile.m_fileSize,
-        onFinish, onProgress,
-        512 * 1024, false));
+    g_currentRequest.reset(HttpRequest::GetFile(curFile.m_urls, curFile.m_pathOnSdcard, curFile.m_fileSize, onFinish, onProgress, 512 * 1024, false));
   }
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_cancelCurrentFile(JNIEnv * env, jobject thiz)
-  {
-    LOG(LDEBUG, ("cancelCurrentFile, currentRequest=", g_currentRequest.get()));
-    g_currentRequest.reset();
-  }
-
-  JNIEXPORT int JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_startNextFileDownload(JNIEnv * env,
-      jobject thiz, jobject observer)
+  JNIEXPORT jint JNICALL
+  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeStartNextFileDownload(JNIEnv * env, jclass clazz, jobject listener)
   {
     if (g_filesToDownload.empty())
       return ERR_NO_MORE_FILES;
@@ -221,13 +203,18 @@ extern "C"
 
     LOG(LDEBUG, ("downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
 
-    CallbackT onFinish(bind(&DownloadFileFinished, jni::make_global_ref(observer), _1));
-    CallbackT onProgress(bind(&DownloadFileProgress, jni::make_global_ref(observer), _1));
+    CallbackT onFinish(bind(&DownloadFileFinished, jni::make_global_ref(listener), _1));
+    CallbackT onProgress(bind(&DownloadFileProgress, jni::make_global_ref(listener), _1));
 
-    g_currentRequest.reset(HttpRequest::PostJson(
-        GetPlatform().ResourcesMetaServerUrl(), curFile.m_fileName,
-        bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
-
+    g_currentRequest.reset(HttpRequest::PostJson(GetPlatform().ResourcesMetaServerUrl(), curFile.m_fileName,
+                                                 bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
     return ERR_FILE_IN_PROGRESS;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_DownloadResourcesActivity_nativeCancelCurrentFile(JNIEnv * env, jclass clazz)
+  {
+    LOG(LDEBUG, ("cancelCurrentFile, currentRequest=", g_currentRequest.get()));
+    g_currentRequest.reset();
   }
 }

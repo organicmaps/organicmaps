@@ -40,6 +40,11 @@ public class Utils
 {
   private static final String TAG = "Utils";
 
+  public interface Proc<T>
+  {
+    void invoke(T param);
+  }
+
   private Utils() {}
 
   public static void closeStream(Closeable stream)

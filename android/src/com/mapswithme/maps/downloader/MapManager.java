@@ -6,33 +6,94 @@ import java.util.List;
 
 public final class MapManager
 {
+  @SuppressWarnings("unused")
   public interface StorageCallback
   {
-    void onStatusChanged(String countryId);
+    void onStatusChanged(String countryId, int newStatus);
     void onProgress(String countryId, long localSize, long remoteSize);
   }
 
   private MapManager() {}
 
-
-  // Determines whether the legacy (large MWMs) mode is used.
+  /**
+   * Determines whether the legacy (large MWMs) mode is used.
+   */
   public static native boolean nativeIsLegacyMode();
 
-  // Returns info about updatable data. Returns null on error.
+  /**
+   * Performs migration from old (large MWMs) mode.
+   */
+  public static native void nativeMigrate();
+
+  /**
+   * Returns country ID of the root node.
+   */
+  public static native String nativeGetRootNode();
+
+  /**
+   * Returns info about updatable data or null on error.
+   */
   public static native @Nullable UpdateInfo nativeGetUpdateInfo();
 
-  // Retrieves list of country items with its status info. Use root as parent if parent is null.
+  /**
+   * Retrieves list of country items with its status info. Uses root as parent if {@code root} is null.
+   */
   public static native void nativeListItems(@Nullable String root, List<CountryItem> result);
 
-  // Enqueue country in downloader.
-  public static native boolean nativeStartDownload(String countryId);
+  /**
+   * Sets following attributes of the given {@code item}:
+   * <pre>
+   * <ul>
+   *   <li>name;</li>
+   *   <li>size;</li>
+   *   <li>totalSize;</li>
+   *   <li>childCount;</li>
+   *   <li>totalChildCount;</li>
+   *   <li>status;</li>
+   *   <li>errorCode</li>
+   * </ul>
+   * </pre>
+   */
+  public static native void nativeGetAttributes(CountryItem item);
 
-  // Remove downloading country from downloader.
-  public static native boolean nativeCancelDownload(String countryId);
+  /**
+   * Returns country ID corresponding to given coordinates or {@code null} on error.
+   */
+  public static native @Nullable String nativeFindCountry(double lat, double lon);
 
-  // Registers callback about storage status changed. Returns slot ID which is should be used to unsubscribe.
-  public static native int nativeSubscribe(StorageCallback listener);
+  /**
+   * Determines whether something is downloading now.
+   */
+  public static native boolean nativeIsDownloading();
 
-  // Unregisters storage status changed callback.
+  /**
+   * Enqueues given {@code root} node and its children in downloader.
+   */
+  public static native boolean nativeDownload(String root);
+
+  /**
+   * Enqueues given {@code root} node with its children in downloader.
+   */
+  public static native boolean nativeUpdate(String root);
+
+  /**
+   * Removes given currently downloading {@code root} node and its children from downloader.
+   */
+  public static native boolean nativeCancel(String root);
+
+  /**
+   * Deletes given installed {@code root} node with its children.
+   */
+  public static native boolean nativeDelete(String root);
+
+  /**
+   * Registers {@code callback} of storage status changed. Returns slot ID which is should be used to unsubscribe in {@link #nativeUnsubscribe(int)}.
+   */
+  public static native int nativeSubscribe(StorageCallback callback);
+
+  /**
+   * Unregisters storage status changed callback.
+   * @param slot Slot ID returned from {@link #nativeSubscribe(StorageCallback)} while registering.
+   */
   public static native void nativeUnsubscribe(int slot);
 }

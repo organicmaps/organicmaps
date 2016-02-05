@@ -441,9 +441,9 @@ void Framework::SetupMeasurementSystem()
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
+/* TODO (trashkalmar): remove old downloader's stuff
 void Framework::ItemStatusChanged(int childPosition)
 {
-  /* TODO (trashkalmar): remove old downloader's stuff
   if (m_javaCountryListener == NULL)
     return;
 
@@ -452,10 +452,9 @@ void Framework::ItemStatusChanged(int childPosition)
                                                      "onItemStatusChanged", "(I)V");
   ASSERT ( methodID, () );
 
-  env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition);*/
+  env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition);
 }
 
-/* TODO (trashkalmar): remove old downloader's stuff
 void Framework::ItemProgressChanged(int childPosition, LocalAndRemoteSizeT const & sizes)
 {
   if (m_javaCountryListener == NULL)
@@ -1017,9 +1016,9 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jobject countryId, jboolean zoomToDownloadButton)
+  Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jstring countryId, jboolean zoomToDownloadButton)
   {
-    g_framework->ShowCountry(ToNative(countryId), (bool) zoomToDownloadButton);
+    g_framework->ShowCountry(jni::ToNativeString(env, countryId), (bool) zoomToDownloadButton);
   }
 
   JNIEXPORT void JNICALL

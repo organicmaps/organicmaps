@@ -17,17 +17,7 @@ enum ItemCategory : uint32_t
 {
   NEAR_ME,
   DOWNLOADED,
-  OTHER,
-};
-
-enum ItemStatus : uint32_t
-{
-  UPDATABLE,
-  DOWNLOADABLE,
-  ENQUEUED,
-  DONE,
-  PROGRESS,
-  FAILED,
+  ALL,
 };
 
 jclass g_listClass;
@@ -49,7 +39,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_countryItemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/CountryItem");
 }
 
-string GetLocalizedName(string const & id)
+string GetLocalizedName(TCountryId const & id)
 {
   // TODO
   return id;
@@ -67,18 +57,31 @@ using namespace data;
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeIsLegacyMode(JNIEnv * env, jclass clazz)
 {
-  // TODO (trashkalmar): use appropriate method
-  return version::IsSingleMwm(g_framework->Storage().GetCurrentDataVersion());
+  return g_framework->NeedMigrate();
+}
+
+// static void nativeMigrate();
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeMigrate(JNIEnv * env, jclass clazz)
+{
+  g_framework->Migrate();
+}
+
+// static String nativeGetRootNode();
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetRootNode(JNIEnv * env, jclass clazz)
+{
+  return jni::ToJavaString(env, Storage().GetRootId());
 }
 
 // static @Nullable UpdateInfo nativeGetUpdateInfo();
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz)
 {
-  // FIXME (trashkalmar): Uncomment after Storage::GetUpdateInfo() is implemented
   static Storage::UpdateInfo info = { 0 };
-  //if (!GetStorage().GetUpdateInfo(info))
-  //  return nullptr;
+  // FIXME (trashkalmar): GetUpdateInfo()'s signature might be changed in the near future.
+  if (!GetStorage().GetUpdateInfo(nullptr, info))
+    return nullptr;
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/UpdateInfo");
   ASSERT(infoClass, (jni::DescribeException()));
@@ -88,30 +91,55 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env,
   return env->NewObject(infoClass, ctor, info.m_numberOfMwmFilesToUpdate, info.m_totalUpdateSizeInBytes);
 }
 
-static void PutItemsToList(JNIEnv * env, jobject const list,  vector<TCountryId> const & children, TCountryId const & parent, function<void (jobject const)> const & callback)
+static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
 {
-  static jmethodID const countryItemCtor = env->GetMethodID(g_countryItemClass, "<init>", "()V");
-  static jfieldID const countryItemFieldId = env->GetFieldID(g_countryItemClass, "id", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
   static jfieldID const countryItemFieldName = env->GetFieldID(g_countryItemClass, "name", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldParentName = env->GetFieldID(g_countryItemClass, "parentName", "Ljava/lang/String;");
+  static jfieldID const countryItemFieldSize = env->GetFieldID(g_countryItemClass, "size", "J");
+  static jfieldID const countryItemFieldTotalSize = env->GetFieldID(g_countryItemClass, "totalSize", "J");
+  static jfieldID const countryItemFieldChildCount = env->GetFieldID(g_countryItemClass, "childCount", "I");
+  static jfieldID const countryItemFieldTotalChildCount = env->GetFieldID(g_countryItemClass, "totalChildCount", "I");
+  static jfieldID const countryItemFieldStatus = env->GetFieldID(g_countryItemClass, "status", "I");
+  static jfieldID const countryItemFieldErrorCode = env->GetFieldID(g_countryItemClass, "errorCode", "I");
+
+  // Localized name
+  jstring name = jni::ToJavaString(env, attrs.m_nodeLocalName);
+  env->SetObjectField(item, countryItemFieldName, name);
+  env->DeleteLocalRef(name);
+
+  // Sizes
+  env->SetLongField(item, countryItemFieldSize, attrs.m_localMwmSize);
+  env->SetLongField(item, countryItemFieldTotalSize, attrs.m_mwmSize);
+
+  // Child counts
+  env->SetIntField(item, countryItemFieldChildCount, attrs.m_localMwmCounter);
+  env->SetIntField(item, countryItemFieldTotalChildCount, attrs.m_mwmCounter);
+
+  // Status and error code
+  env->SetIntField(item, countryItemFieldStatus, static_cast<jint>(attrs.m_status));
+  env->SetIntField(item, countryItemFieldErrorCode, static_cast<jint>(attrs.m_error));
+}
+
+static void PutItemsToList(JNIEnv * env, jobject const list,  vector<TCountryId> const & children, TCountryId const & parent,
+                           int category, function<void (jobject const)> const & callback)
+{
+  static jmethodID const countryItemCtor = env->GetMethodID(g_countryItemClass, "<init>", "(Ljava/lang/String;)V");
+  static jfieldID const countryItemFieldCategory = env->GetFieldID(g_countryItemClass, "category", "I");
+  static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
 
   jstring parentId = jni::ToJavaString(env, parent);
-  jstring parentName = jni::ToJavaString(env, GetLocalizedName(parent));
+  NodeAttrs attrs;
 
   for (TCountryId const & child : children)
   {
-    jobject item = env->NewObject(g_countryItemClass, countryItemCtor);
+    GetStorage().GetNodeAttrs(child, attrs);
 
-    // ID and parent`s ID
     jstring id = jni::ToJavaString(env, child);
-    env->SetObjectField(item, countryItemFieldId, id);
+    jobject item = env->NewObject(g_countryItemClass, countryItemCtor, id);
+    env->SetIntField(item, countryItemFieldCategory, category);
+
     env->SetObjectField(item, countryItemFieldParentId, parentId);
 
-    // Localized name and parent`s name
-    jstring name = jni::ToJavaString(env, GetLocalizedName(child));
-    env->SetObjectField(item, countryItemFieldName, name);
-    env->SetObjectField(item, countryItemFieldParentName, parentName);
+    UpdateItem(env, item, attrs);
 
     // Let the caller do special processing
     callback(item);
@@ -122,7 +150,6 @@ static void PutItemsToList(JNIEnv * env, jobject const list,  vector<TCountryId>
     // Drop local refs
     env->DeleteLocalRef(item);
     env->DeleteLocalRef(id);
-    env->DeleteLocalRef(name);
   }
 }
 
@@ -135,13 +162,19 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   Storage const & storage = GetStorage();
   TCountryId const parentId = (parent ? jni::ToNativeString(env, parent) : storage.GetRootId());
 
+  static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
+  static jfieldID const countryItemFieldParentName = env->GetFieldID(g_countryItemClass, "parentName", "Ljava/lang/String;");
+
   if (parent)
   {
     vector<TCountryId> children;
     storage.GetChildren(parentId, children);
-    PutItemsToList(env, result, children, parentId, [](jobject const item)
-    {
 
+    jstring parentName = jni::ToJavaString(env, GetLocalizedName(parentId));
+    PutItemsToList(env, result, children, parentId, ItemCategory::ALL, [env, parent, parentName](jobject const item)
+    {
+      env->SetObjectField(item, countryItemFieldParentId, parent);
+      env->SetObjectField(item, countryItemFieldParentName, parentName);
     });
   }
   else
@@ -151,47 +184,97 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
     // Downloaded
     vector<TCountryId> children;
     storage.GetDownloadedChildren(parentId, children);
+    PutItemsToList(env, result, children, parentId, ItemCategory::DOWNLOADED, [env](jobject const item)
+    {
 
-    PutItemsToList(env, result, children, parentId, [](jobject const item)
+    });
+
+    // All
+    storage.GetChildren(parentId, children);
+    PutItemsToList(env, result, children, parentId, ItemCategory::ALL, [env](jobject const item)
     {
 
     });
 
     //
   }
-
-  //vector<TCountryId> const children = storage::GetChildren(parentId);
 }
 
-// static boolean nativeStartDownload(String countryId);
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeStartDownload(JNIEnv * env, jclass clazz, jstring countryId)
+// static void nativeUpdateItem(CountryItem item);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetAttributes(JNIEnv * env, jclass clazz, jobject item)
 {
-  // FIXME (trashkalmar): Uncomment after Storage::DownloadNode() is implemented
-  return true;//GetStorage().DownloadNode(jni::ToNativeString(env, countryId));
+  PrepareClassRefs(env);
+
+  NodeAttrs attrs;
+  static jfieldID countryItemFieldId = env->GetFieldID(g_countryItemClass, "id", "Ljava/lang/String;");
+  jstring id = static_cast<jstring>(env->GetObjectField(item, countryItemFieldId));
+  GetStorage().GetNodeAttrs(jni::ToNativeString(env, id), attrs);
+
+  UpdateItem(env, item, attrs);
 }
 
-// static boolean nativeCancelDownload(String countryId);
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeCancelDownload(JNIEnv * env, jclass clazz, jstring countryId)
+// static @Nullable String nativeFindCountry(double lat, double lon);
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeFindCountry(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
 {
-  // FIXME (trashkalmar): Uncomment after Storage::DeleteNode() is implemented
-  return true;//GetStorage().DeleteNode(jni::ToNativeString(env, countryId));
+  return jni::ToJavaString(env, g_framework->NativeFramework()->CountryInfoGetter().GetRegionCountryId(MercatorBounds::FromLatLon(lat, lon)));
+}
+
+// static boolean nativeIsDownloading();
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeIsDownloading(JNIEnv * env, jclass clazz)
+{
+  return GetStorage().IsDownloadInProgress();
+}
+
+// static boolean nativeDownload(String root);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeDownload(JNIEnv * env, jclass clazz, jstring root)
+{
+  return GetStorage().DownloadNode(jni::ToNativeString(env, root));
+}
+
+// static boolean nativeUpdate(String root);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeUpdate(JNIEnv * env, jclass clazz, jstring root)
+{
+  // FIXME (trashkalmar): Uncomment after method is implemented.
+  //return GetStorage().UpdateNode(jni::ToNativeString(env, root));
+  return true;
+}
+
+// static boolean nativeCancel(String root);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeCancel(JNIEnv * env, jclass clazz, jstring root)
+{
+  return GetStorage().CancelDownloadNode(jni::ToNativeString(env, root));
+}
+
+// static boolean nativeDelete(String root);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeDelete(JNIEnv * env, jclass clazz, jstring root)
+{
+  return GetStorage().DeleteNode(jni::ToNativeString(env, root));
 }
 
 static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCountryId const & countryId)
 {
   JNIEnv * env = jni::GetEnv();
 
-  jmethodID const methodID = jni::GetJavaMethodID(env, *listenerRef.get(), "onStatusChanged", "(Ljava/lang/String;)V");
-  env->CallVoidMethod(*listenerRef.get(), methodID, jni::ToJavaString(env, countryId));
+  // TODO: The core will do this itself
+  NodeAttrs attrs;
+  GetStorage().GetNodeAttrs(countryId, attrs);
+
+  static jmethodID const methodID = jni::GetMethodID(env, *listenerRef.get(), "onStatusChanged", "(Ljava/lang/String;I)V");
+  env->CallVoidMethod(*listenerRef.get(), methodID, jni::ToJavaString(env, countryId), attrs.m_status);
 }
 
-static void ProgressChangedCallback(shared_ptr<jobject> const & listenerRef, TCountryId const & countryId, LocalAndRemoteSizeT const & sizes)
+static void ProgressChangedCallback(shared_ptr<jobject> const & listenerRef, TCountryId const & countryId, TLocalAndRemoteSize const & sizes)
 {
   JNIEnv * env = jni::GetEnv();
 
-  jmethodID const methodID = jni::GetJavaMethodID(env, *listenerRef.get(), "onProgress", "(Ljava/lang/String;JJ)V");
+  static jmethodID const methodID = jni::GetMethodID(env, *listenerRef.get(), "onProgress", "(Ljava/lang/String;JJ)V");
   env->CallVoidMethod(*listenerRef.get(), methodID, jni::ToJavaString(env, countryId), sizes.first, sizes.second);
 }
 
@@ -199,6 +282,7 @@ static void ProgressChangedCallback(shared_ptr<jobject> const & listenerRef, TCo
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeSubscribe(JNIEnv * env, jclass clazz, jobject listener)
 {
+  PrepareClassRefs(env);
   return GetStorage().Subscribe(bind(&StatusChangedCallback, jni::make_global_ref(listener), _1),
                                 bind(&ProgressChangedCallback, jni::make_global_ref(listener), _1, _2));
 }

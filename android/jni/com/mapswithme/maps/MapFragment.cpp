@@ -1,5 +1,4 @@
 #include "Framework.hpp"
-#include "MapStorage.hpp"
 
 #include "../core/jni_helper.hpp"
 
@@ -12,8 +11,6 @@
 #include "platform/file_logging.hpp"
 #include "platform/settings.hpp"
 
-using namespace storage;
-using namespace storage_utils;
 
 extern "C"
 {
