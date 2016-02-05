@@ -103,7 +103,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastE
   BookmarkCategory::Guard guard(*f->GetBookmarkManager().GetBmCategory(bmkAndCat.first));
   UserMark * newBookmark = guard.m_controller.GetUserMarkForEdit(bmkAndCat.second);
   // TODO @deathbaba or @yunikkk - remove that hack after BookmarkManager will correctly set features for bookmarks.
-  newBookmark->SetFeature(f->GetFeatureAtMercatorPoint(glbPoint));
+  newBookmark->SetFeature(f->GetFeatureAtPoint(glbPoint));
   g_framework->SetActiveUserMark(newBookmark);
   return usermark_helper::CreateMapObject(newBookmark);
 }

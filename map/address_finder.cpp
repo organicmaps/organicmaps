@@ -453,7 +453,7 @@ namespace
   }
 }
 */
-search::AddressInfo Framework::GetMercatorAddressInfo(m2::PointD const & mercator) const
+search::AddressInfo Framework::GetAddressInfoAtPoint(m2::PointD const & mercator) const
 {
   search::AddressInfo info;
   // @TODO(vng): insert correct implementation from new search.

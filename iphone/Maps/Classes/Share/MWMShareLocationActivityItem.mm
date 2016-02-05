@@ -85,7 +85,7 @@ NSString * httpGe0Url(NSString * shortUrl)
   NSString * url = [self url:NO];
   if (!self.myPosition)
     return [NSString stringWithFormat:L(@"bookmark_share_email"), self.title, url, httpGe0Url(url)];
-  search::AddressInfo const info = GetFramework().GetMercatorAddressInfo(MercatorBounds::FromLatLon(self.location.longitude, self.location.latitude));
+  search::AddressInfo const info = GetFramework().GetAddressInfoAtPoint(MercatorBounds::FromLatLon(self.location.longitude, self.location.latitude));
   NSString * nameAndAddress = @(info.FormatNameAndAddress().c_str());
   return [NSString stringWithFormat:L(@"my_position_share_email"), nameAndAddress, url, httpGe0Url(url)];
 }

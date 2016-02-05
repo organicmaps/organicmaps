@@ -1229,7 +1229,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   if (ft)
     mark->SetFeature(move(ft));
   else
-    mark->SetFeature(GetFeatureAtMercatorPoint(center));
+    mark->SetFeature(GetFeatureAtPoint(center));
 
   ActivateUserMark(mark, false);
 }
@@ -1687,7 +1687,7 @@ bool Framework::ShowMapForURL(string const & url)
   return false;
 }
 
-size_t Framework::ForEachFeatureAtMercatorPoint(TFeatureTypeFn && fn, m2::PointD const & mercator) const
+size_t Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator) const
 {
   constexpr double kSelectRectWidthInMeters = 1.1;
   constexpr double kMetersToLinearFeature = 3;
@@ -1727,10 +1727,10 @@ size_t Framework::ForEachFeatureAtMercatorPoint(TFeatureTypeFn && fn, m2::PointD
   return processedFeaturesCount;
 }
 
-unique_ptr<FeatureType> Framework::GetFeatureAtMercatorPoint(m2::PointD const & mercator) const
+unique_ptr<FeatureType> Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
 {
   unique_ptr<FeatureType> poi, line, area;
-  ForEachFeatureAtMercatorPoint([&](FeatureType & ft)
+  ForEachFeatureAtPoint([&](FeatureType & ft)
   {
     switch (ft.GetFeatureType())
     {
@@ -1844,7 +1844,7 @@ PoiMarkPoint * Framework::GetAddressMark(m2::PointD const & globalPoint) const
 {
   PoiMarkPoint * mark = UserMarkContainer::UserMarkForPoi();
   mark->SetPtOrg(globalPoint);
-  mark->SetFeature(GetFeatureAtMercatorPoint(globalPoint));
+  mark->SetFeature(GetFeatureAtPoint(globalPoint));
   return mark;
 }
 
@@ -1963,7 +1963,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
     {
       const_cast<UserMark *>(mark)->SetFeature(fid.IsValid() ?
                                                GetFeatureByID(fid) :
-                                               GetFeatureAtMercatorPoint(mark->GetPivot()));
+                                               GetFeatureAtPoint(mark->GetPivot()));
     }
     return mark;
   }
@@ -1982,7 +1982,7 @@ UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool
   {
     mercatorPivot = m_currentModelView.PtoG(pxPoint2d);
     // TODO(AlexZ): Should we change mercatorPivot to found feature's center?
-    feature = GetFeatureAtMercatorPoint(mercatorPivot);
+    feature = GetFeatureAtPoint(mercatorPivot);
     needMark = true;
   }
 

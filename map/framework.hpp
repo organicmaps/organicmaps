@@ -482,7 +482,7 @@ private:
   bool ParseEditorDebugCommand(search::SearchParams const & params);
 public:
   /// @returns address of nearby building with house number in approx 1km distance.
-  search::AddressInfo GetMercatorAddressInfo(m2::PointD const & mercator) const;
+  search::AddressInfo GetAddressInfoAtPoint(m2::PointD const & mercator) const;
   /// @returns valid street address only if it was specified in OSM for given feature; used in the editor.
   search::AddressInfo GetFeatureAddressInfo(FeatureType const & ft) const;
   vector<string> GetPrintableFeatureTypes(FeatureType const & ft) const;
@@ -492,9 +492,9 @@ public:
   vector<string> GetNearbyFeatureStreets(FeatureType const & ft) const;
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// @returns nullptr if no feature was found at the given mercator point.
-  unique_ptr<FeatureType> GetFeatureAtMercatorPoint(m2::PointD const & mercator) const;
+  unique_ptr<FeatureType> GetFeatureAtPoint(m2::PointD const & mercator) const;
   using TFeatureTypeFn = function<void(FeatureType &)>;
-  size_t ForEachFeatureAtMercatorPoint(TFeatureTypeFn && fn, m2::PointD const & mercator) const;
+  size_t ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & mercator) const;
   /// Set parse to false if you don't need all feature fields ready.
   unique_ptr<FeatureType> GetFeatureByID(FeatureID const & fid, bool parse = true) const;
 

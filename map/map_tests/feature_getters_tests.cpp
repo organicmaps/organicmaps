@@ -11,7 +11,7 @@
 #include "std/algorithm.hpp"
 #include "std/vector.hpp"
 
-UNIT_TEST(Framework_ForEachFeatureAtMercatorPoint_And_Others)
+UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
 {
   Framework frm;
   frm.DeregisterAllMaps();
@@ -25,7 +25,7 @@ UNIT_TEST(Framework_ForEachFeatureAtMercatorPoint_And_Others)
     "amenity|parking|",
     "barrier|lift_gate|"
   };
-  TEST_EQUAL(4, frm.ForEachFeatureAtMercatorPoint([&](FeatureType & ft)
+  TEST_EQUAL(4, frm.ForEachFeatureAtPoint([&](FeatureType & ft)
   {
     ft.ForEachType([&types](uint32_t type)
     {
@@ -40,7 +40,7 @@ UNIT_TEST(Framework_ForEachFeatureAtMercatorPoint_And_Others)
   ftypes::IsBuildingChecker const & isBuilding = ftypes::IsBuildingChecker::Instance();
   {
     // Restaurant in the building.
-    auto const feature = frm.GetFeatureAtMercatorPoint(MercatorBounds::FromLatLon(53.89395, 27.567365));
+    auto const feature = frm.GetFeatureAtPoint(MercatorBounds::FromLatLon(53.89395, 27.567365));
     string name;
     TEST(feature->GetName(FeatureType::DEFAULT_LANG, name), ());
     TEST_EQUAL("Родны Кут", name, ());
@@ -49,7 +49,7 @@ UNIT_TEST(Framework_ForEachFeatureAtMercatorPoint_And_Others)
 
   {
     // Same building as above, very close to the restaurant.
-    auto const feature = frm.GetFeatureAtMercatorPoint(MercatorBounds::FromLatLon(53.893603, 27.567032));
+    auto const feature = frm.GetFeatureAtPoint(MercatorBounds::FromLatLon(53.893603, 27.567032));
     TEST(feature, ());
     TEST(isBuilding(*feature), ());
   }

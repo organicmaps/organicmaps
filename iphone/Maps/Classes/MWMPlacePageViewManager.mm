@@ -311,7 +311,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   UserMark const * bookmark = guard.m_controller.GetUserMark(bookmarkIndex);
   // TODO(AlexZ): Refactor bookmarks code together to hide this code in the Framework/Drape.
   // UI code should never know about any guards, pointers to UserMark etc.
-  const_cast<UserMark *>(bookmark)->SetFeature(f.GetFeatureAtMercatorPoint(mercator));
+  const_cast<UserMark *>(bookmark)->SetFeature(f.GetFeatureAtPoint(mercator));
   m_userMark.reset(new UserMarkCopy(bookmark, false));
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
