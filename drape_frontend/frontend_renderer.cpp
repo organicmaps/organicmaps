@@ -1592,11 +1592,16 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 
   m_gpsTrackRenderer->Update();
 
-  //auto removePredicate = [this](drape_ptr<RenderGroup> const & group)
-  //{
-  //  return group->IsOverlay() && group->GetTileKey().m_styleZoomLevel > GetCurrentZoomLevel();
-  //};
-  //RemoveRenderGroups(removePredicate);
+  auto removePredicate = [this](drape_ptr<RenderGroup> const & group)
+  {
+    return group->IsOverlay() && group->GetTileKey().m_styleZoomLevel > GetCurrentZoomLevel();
+  };
+  for (RenderLayer & layer : m_layers)
+  {
+    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_deferredRenderGroups);
+    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups);
+  }
+  m_overlayTree->ForceUpdate();
 
   if (m_lastReadModelView != modelView)
   {

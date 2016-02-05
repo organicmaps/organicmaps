@@ -106,7 +106,7 @@ void RenderBucket::StartFeatureRecord(FeatureGeometryId feature, const m2::RectD
 {
   m_featureInfo = feature;
   m_featureLimitRect = limitRect;
-  m_featureStartIndex = m_buffer->GetIndexCount();
+  m_buffer->ResetChangingTracking();
   m_featuresRanges.insert(make_pair(feature, FeatureGeometryInfo(limitRect)));
 }
 
@@ -115,7 +115,7 @@ void RenderBucket::EndFeatureRecord(bool featureCompleted)
   auto it = m_featuresRanges.find(m_featureInfo);
   ASSERT(it != m_featuresRanges.end(), ());
   it->second.m_featureCompleted = featureCompleted;
-  if (m_featureStartIndex == m_buffer->GetIndexCount())
+  if (!m_buffer->IsChanged())
     m_featuresRanges.erase(it);
   m_featureInfo = FeatureGeometryId();
 }

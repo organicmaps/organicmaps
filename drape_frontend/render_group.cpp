@@ -65,7 +65,7 @@ void RenderGroup::Update(ScreenBase const & modelView)
 
 void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 {
-  if (m_pendingOnDelete || GetOpacity() < 1.0)
+  if (CanBeDeleted() || GetOpacity() < 1.0)
     return;
 
   ASSERT(m_shader != nullptr, ());

@@ -16,6 +16,7 @@ VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBuff
   , m_program()
   , m_isPreflushed(false)
   , m_moveToGpuOnBuild(false)
+  , m_isChanged(false)
 {
   m_indexBuffer = make_unique_dp<IndexBuffer>(indexBufferSize);
 
@@ -120,6 +121,8 @@ void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const *
   else
     buffer = GetOrCreateDynamicBuffer(bindingInfo);
 
+  if (count > 0)
+    m_isChanged = true;
   buffer->GetBuffer()->UploadData(data, count);
 }
 

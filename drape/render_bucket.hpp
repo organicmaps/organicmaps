@@ -69,7 +69,6 @@ private:
 
   FeatureGeometryId m_featureInfo;
   m2::RectD m_featureLimitRect;
-  uint32_t m_featureStartIndex;
   TFeaturesRanges m_featuresRanges;
 
   vector<drape_ptr<OverlayHandle> > m_overlay;
