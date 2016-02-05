@@ -43,9 +43,10 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
   @Override
   public void onBackPressed()
   {
-    final Fragment fragment = getSupportFragmentManager().findFragmentByTag(getFragmentClass().getName());
-    if ((fragment == null) || !fragment.isAdded() ||
-        !((OnBackPressListener) fragment).onBackPressed())
-      super.onBackPressed();
+    for (Fragment f : getSupportFragmentManager().getFragments())
+      if ((f instanceof OnBackPressListener) && ((OnBackPressListener)f).onBackPressed())
+        return;
+
+    super.onBackPressed();
   }
 }
