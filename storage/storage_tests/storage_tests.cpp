@@ -142,6 +142,12 @@ string const kTwoComponentMwmCountriesTxt =
                }
             ]}]})");
 
+bool ParentOf(Storage const & storage, string const & parent, string const & country)
+{
+  Country const c = storage.CountryByCountryId(country);
+  return c.GetParent() == parent;
+}
+
 // This class checks steps Storage::DownloadMap() performs to download a map.
 class CountryDownloaderChecker
 {
@@ -1162,34 +1168,20 @@ UNIT_TEST(StorageTest_ParentSingleMwm)
 {
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
-  Country const abkhaziaCountry = storage.CountryByCountryId("Abkhazia");
-  TEST_EQUAL(abkhaziaCountry.GetParent(), "Countries", ());
-
-  Country const algeriaCentralCountry = storage.CountryByCountryId("Algeria_Central");
-  TEST_EQUAL(algeriaCentralCountry.GetParent(), "Algeria", ());
-
-  Country const southKoreaCountry = storage.CountryByCountryId("South Korea_South");
-  TEST_EQUAL(southKoreaCountry.GetParent(), "Countries", ());
-
-  Country const countries = storage.CountryByCountryId("Countries");
-  TEST_EQUAL(countries.GetParent(), kInvalidCountryId, ());
+  TEST(ParentOf(storage, "Countries", "Abkhazia"), ());
+  TEST(ParentOf(storage, "Algeria", "Algeria_Central"), ());
+  TEST(ParentOf(storage, "Countries", "South Korea_South"), ());
+  TEST(ParentOf(storage, kInvalidCountryId, "Countries"), ());
 }
 
 UNIT_TEST(StorageTest_ParentTwoComponentsMwm)
 {
   Storage storage(kTwoComponentMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
-  Country const africaCountry = storage.CountryByCountryId("Africa");
-  TEST_EQUAL(africaCountry.GetParent(), "Countries", ());
-
-  Country const algeriaCountry = storage.CountryByCountryId("Algeria");
-  TEST_EQUAL(algeriaCountry.GetParent(), "Africa", ());
-
-  Country const alsaceCountry = storage.CountryByCountryId("France_Alsace");
-  TEST_EQUAL(alsaceCountry.GetParent(), "France", ());
-
-  Country const countries = storage.CountryByCountryId("Countries");
-  TEST_EQUAL(countries.GetParent(), kInvalidCountryId, ());
+  TEST(ParentOf(storage, "Countries", "Africa"), ());
+  TEST(ParentOf(storage, "Africa", "Algeria"), ());
+  TEST(ParentOf(storage, "France", "France_Alsace"), ());
+  TEST(ParentOf(storage, kInvalidCountryId, "Countries"), ());
 }
 
 UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
