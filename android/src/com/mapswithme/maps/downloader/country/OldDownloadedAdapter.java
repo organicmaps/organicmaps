@@ -1,4 +1,4 @@
-package com.mapswithme.country;
+package com.mapswithme.maps.downloader.country;
 
 import android.util.Log;
 import android.util.Pair;
@@ -12,9 +12,9 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
 @Deprecated
-class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree.ActiveCountryListener
+public class OldDownloadedAdapter extends OldBaseDownloadAdapter implements OldActiveCountryTree.ActiveCountryListener
 {
-  private static final String TAG = DownloadedAdapter.class.getSimpleName();
+  private static final String TAG = OldDownloadedAdapter.class.getSimpleName();
   private static final int TYPE_HEADER = 5;
   private static final int VIEW_TYPE_COUNT = TYPES_COUNT + 1;
 
@@ -30,7 +30,7 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
   private int mInProgressCount;
   private int mListenerSlotId;
 
-  DownloadedAdapter(DownloadFragment fragment)
+  OldDownloadedAdapter(OldDownloadFragment fragment)
   {
     super(fragment);
   }
@@ -41,11 +41,11 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
     final int viewType = getItemViewType(position);
     if (viewType == TYPE_HEADER)
     {
-      View view;
+      View view = null;
       ViewHolder holder;
       if (convertView == null)
       {
-        view = mInflater.inflate(R.layout.download_item_updated, parent, false);
+        //view = mInflater.inflate(R.layout.download_item_updated, parent, false);
         holder = new ViewHolder();
         holder.initFromView(view);
         view.setTag(holder);
@@ -66,7 +66,7 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
     {
       final View view = super.getView(position, convertView, parent);
       final ViewHolder holder = (ViewHolder) view.getTag();
-      UiUtils.showIf(getGroupByAbsPosition(position) == ActiveCountryTree.GROUP_UP_TO_DATE, holder.mPercent);
+      UiUtils.showIf(getGroupByAbsPosition(position) == OldActiveCountryTree.GROUP_UP_TO_DATE, holder.mPercent);
       return view;
     }
   }
@@ -77,8 +77,8 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
     final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "getRemoteItemSizes. Cannot get correct positions.");
     if (groupAndPosition != null)
     {
-      long mapSize = ActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, StorageOptions.MAP_OPTION_MAP_ONLY, false);
-      long routingSize = ActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, StorageOptions.MAP_OPTION_CAR_ROUTING, false);
+      long mapSize = OldActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, OldStorageOptions.MAP_OPTION_MAP_ONLY, false);
+      long routingSize = OldActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, OldStorageOptions.MAP_OPTION_CAR_ROUTING, false);
       return new long[]{mapSize, mapSize + routingSize};
     }
 
@@ -91,8 +91,8 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
     final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "getDownloadableItemSizes. Cannot get correct positions.");
     if (groupAndPosition != null)
     {
-      long currentSize = ActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, -1, true);
-      long totalSize = ActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, -1, false);
+      long currentSize = OldActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, -1, true);
+      long totalSize = OldActiveCountryTree.getCountrySize(groupAndPosition.first, groupAndPosition.second, -1, false);
       return new long[]{currentSize, totalSize};
     }
 
@@ -108,22 +108,22 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
 
   private void updateGroupCounters()
   {
-    mInProgressCount = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_NEW);
-    mUpdatedCount = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_UP_TO_DATE);
-    mOutdatedCount = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_OUT_OF_DATE);
+    mInProgressCount = OldActiveCountryTree.getCountInGroup(OldActiveCountryTree.GROUP_NEW);
+    mUpdatedCount = OldActiveCountryTree.getCountInGroup(OldActiveCountryTree.GROUP_UP_TO_DATE);
+    mOutdatedCount = OldActiveCountryTree.getCountInGroup(OldActiveCountryTree.GROUP_OUT_OF_DATE);
   }
 
   @Override
-  public CountryItem getItem(int position)
+  public OldCountryItem getItem(int position)
   {
     if (isHeader(position))
       return null;
 
     final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "getItem. Cannot get correct positions.");
     if (groupAndPosition != null)
-      return ActiveCountryTree.getCountryItem(groupAndPosition.first, groupAndPosition.second);
+      return OldActiveCountryTree.getCountryItem(groupAndPosition.first, groupAndPosition.second);
 
-    return CountryItem.EMPTY;
+    return OldCountryItem.EMPTY;
   }
 
   @Override
@@ -173,15 +173,15 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
   {
     final int newGroupEnd = mInProgressCount;
     if (position < newGroupEnd)
-      return ActiveCountryTree.GROUP_NEW;
+      return OldActiveCountryTree.GROUP_NEW;
 
     final int outdatedGroupEnd = containsOutdated() ? newGroupEnd + mOutdatedCount + 1 : newGroupEnd;
     if (position < outdatedGroupEnd)
-      return ActiveCountryTree.GROUP_OUT_OF_DATE;
+      return OldActiveCountryTree.GROUP_OUT_OF_DATE;
 
     final int updatedGroupEnd = containsUpdated() ? outdatedGroupEnd + mUpdatedCount + 1 : outdatedGroupEnd;
     if (position < updatedGroupEnd)
-      return ActiveCountryTree.GROUP_UP_TO_DATE;
+      return OldActiveCountryTree.GROUP_UP_TO_DATE;
 
     return INVALID_POSITION;
   }
@@ -207,9 +207,9 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
   {
     switch (group)
     {
-    case ActiveCountryTree.GROUP_NEW:
+    case OldActiveCountryTree.GROUP_NEW:
       return position;
-    case ActiveCountryTree.GROUP_OUT_OF_DATE:
+    case OldActiveCountryTree.GROUP_OUT_OF_DATE:
       return position + mInProgressCount + 1;
     default:
       return position + mInProgressCount + 1 + (containsOutdated() ? mOutdatedCount + 1 : 0);
@@ -233,7 +233,7 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
   {
     final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "cancelDownload. Cannot get correct positions.");
     if (groupAndPosition != null)
-      ActiveCountryTree.cancelDownloading(groupAndPosition.first, groupAndPosition.second);
+      OldActiveCountryTree.cancelDownloading(groupAndPosition.first, groupAndPosition.second);
   }
 
   @Override
@@ -241,7 +241,7 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
   {
     final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "retryDownload. Cannot get correct positions.");
     if (groupAndPosition != null)
-      ActiveCountryTree.retryDownloading(groupAndPosition.first, groupAndPosition.second);
+      OldActiveCountryTree.retryDownloading(groupAndPosition.first, groupAndPosition.second);
   }
 
   @Override
@@ -261,13 +261,13 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
   protected void setCountryListener()
   {
     if (mListenerSlotId == 0)
-      mListenerSlotId = ActiveCountryTree.addListener(this);
+      mListenerSlotId = OldActiveCountryTree.addListener(this);
   }
 
   @Override
   protected void resetCountryListener()
   {
-    ActiveCountryTree.removeListener(mListenerSlotId);
+    OldActiveCountryTree.removeListener(mListenerSlotId);
     mListenerSlotId = 0;
   }
 
@@ -276,7 +276,7 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
   {
     final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "updateCountry. Cannot get correct positions.");
     if (groupAndPosition != null)
-      ActiveCountryTree.downloadMap(groupAndPosition.first, groupAndPosition.second, options);
+      OldActiveCountryTree.downloadMap(groupAndPosition.first, groupAndPosition.second, options);
   }
 
   @Override
@@ -284,7 +284,7 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
   {
     final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "downloadCountry. Cannot get correct positions.");
     if (groupAndPosition != null)
-      ActiveCountryTree.downloadMap(groupAndPosition.first, groupAndPosition.second, options);
+      OldActiveCountryTree.downloadMap(groupAndPosition.first, groupAndPosition.second, options);
   }
 
   @Override
@@ -292,7 +292,7 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
   {
     final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "downloadCountry. Cannot get correct positions.");
     if (groupAndPosition != null)
-      ActiveCountryTree.deleteMap(groupAndPosition.first, groupAndPosition.second, options);
+      OldActiveCountryTree.deleteMap(groupAndPosition.first, groupAndPosition.second, options);
   }
 
   @Override
@@ -301,7 +301,7 @@ class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree
     final Pair<Integer, Integer> groupAndPosition = splitAbsolutePosition(position, "showCountry. Cannot get correct positions.");
     if (groupAndPosition != null)
     {
-      ActiveCountryTree.showOnMap(groupAndPosition.first, groupAndPosition.second);
+      OldActiveCountryTree.showOnMap(groupAndPosition.first, groupAndPosition.second);
       resetCountryListener();
       Utils.navigateToParent(mFragment.getActivity());
     }

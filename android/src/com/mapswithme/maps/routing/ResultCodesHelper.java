@@ -5,7 +5,7 @@ import android.util.Pair;
 
 import com.mapswithme.maps.LocationState;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.MapStorage;
+import com.mapswithme.maps.downloader.country.OldMapStorage;
 import com.mapswithme.maps.R;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ class ResultCodesHelper
   public static final int INTERNAL_ERROR = 10;
   public static final int FILE_TOO_OLD = 11;
 
-  public static Pair<String, String> getDialogTitleSubtitle(int errorCode, MapStorage.Index[] missingCountries)
+  public static Pair<String, String> getDialogTitleSubtitle(int errorCode, OldMapStorage.Index[] missingCountries)
   {
     int missingCount = 0;
     if (missingCountries != null)

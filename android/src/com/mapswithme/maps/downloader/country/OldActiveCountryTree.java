@@ -1,13 +1,13 @@
-package com.mapswithme.country;
+package com.mapswithme.maps.downloader.country;
 
-import com.mapswithme.maps.MapStorage.Index;
+import com.mapswithme.maps.downloader.country.OldMapStorage.Index;
 
 @Deprecated
-public class ActiveCountryTree
+public class OldActiveCountryTree
 {
-  private ActiveCountryTree() {}
+  private OldActiveCountryTree() {}
 
-  public interface ActiveCountryListener extends CountryTree.BaseListener
+  public interface ActiveCountryListener extends OldCountryTree.BaseListener
   {
     void onCountryProgressChanged(int group, int position, long[] sizes);
 
@@ -47,7 +47,7 @@ public class ActiveCountryTree
     return getCountInGroup(GROUP_OUT_OF_DATE) + getCountInGroup(GROUP_UP_TO_DATE);
   }
 
-  public static native CountryItem getCountryItem(int group, int position);
+  public static native OldCountryItem getCountryItem(int group, int position);
 
   // returns array of two elements : local and remote size.
   public static native long getCountrySize(int group, int position, int options, boolean isLocal);

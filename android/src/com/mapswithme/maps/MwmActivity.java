@@ -27,11 +27,8 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.Stack;
 
-import com.mapswithme.country.ActiveCountryTree;
-import com.mapswithme.country.DownloadActivity;
-import com.mapswithme.country.DownloadFragment;
 import com.mapswithme.maps.Framework.MapObjectListener;
-import com.mapswithme.maps.MapStorage.Index;
+import com.mapswithme.maps.downloader.country.OldMapStorage.Index;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
@@ -41,6 +38,11 @@ import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.downloader.DownloaderActivity;
+import com.mapswithme.maps.downloader.DownloaderFragment;
+import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.downloader.country.OldActiveCountryTree;
+import com.mapswithme.maps.downloader.country.OldDownloadFragment;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.location.LocationHelper;
@@ -97,7 +99,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
-                                                     DownloadFragment.class.getName(),
+                                                     OldDownloadFragment.class.getName(),
                                                      RoutingPlanFragment.class.getName(),
                                                      EditorHostFragment.class.getName() };
   // Instance state
@@ -298,32 +300,32 @@ public class MwmActivity extends BaseMwmFragmentActivity
             Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATE_PERFORMED);
 
             RoutingController.get().cancel();
-            ActiveCountryTree.migrate();
+            MapManager.nativeMigrate();
             showDownloader(false);
           }
         }).show();
   }
 
   @Override
-  public void showDownloader(boolean openDownloadedList)
+  public void showDownloader(boolean openDownloaded)
   {
-    if (ActiveCountryTree.isLegacyMode())
+    if (MapManager.nativeIsLegacyMode())
     {
       showMigrateDialog();
       return;
     }
 
     final Bundle args = new Bundle();
-    args.putBoolean(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, openDownloadedList);
+    args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
     if (mIsFragmentContainer)
     {
       SearchEngine.cancelSearch();
       mSearchController.refreshToolbar();
-      replaceFragment(DownloadFragment.class, args, null);
+      replaceFragment(DownloaderFragment.class, args, null);
     }
     else
     {
-      startActivity(new Intent(this, DownloadActivity.class).putExtras(args));
+      startActivity(new Intent(this, DownloaderActivity.class).putExtras(args));
     }
   }
 
@@ -661,7 +663,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       addTask(intent);
     else if (intent.hasExtra(EXTRA_UPDATE_COUNTRIES))
     {
-      ActiveCountryTree.updateAll();
+      OldActiveCountryTree.updateAll();
       showDownloader(true);
     }
   }

@@ -12,11 +12,12 @@ import android.util.Log;
 import java.io.File;
 
 import com.google.gson.Gson;
-import com.mapswithme.country.ActiveCountryTree;
-import com.mapswithme.country.CountryItem;
+import com.mapswithme.maps.downloader.country.OldActiveCountryTree;
+import com.mapswithme.maps.downloader.country.OldCountryItem;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.downloader.country.OldMapStorage;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.sound.TtsPlayer;
@@ -33,7 +34,7 @@ import com.parse.ParseInstallation;
 import com.parse.SaveCallback;
 
 public class MwmApplication extends Application
-                         implements ActiveCountryTree.ActiveCountryListener
+                         implements OldActiveCountryTree.ActiveCountryListener
 {
   private final static String TAG = "MwmApplication";
 
@@ -85,19 +86,19 @@ public class MwmApplication extends Application
   public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
   {
     Notifier.cancelDownloadSuggest();
-    if (newStatus == MapStorage.DOWNLOAD_FAILED)
+    if (newStatus == OldMapStorage.DOWNLOAD_FAILED)
     {
-      CountryItem item = ActiveCountryTree.getCountryItem(group, position);
-      Notifier.notifyDownloadFailed(ActiveCountryTree.getCoreIndex(group, position), item.getName());
+      OldCountryItem item = OldActiveCountryTree.getCountryItem(group, position);
+      Notifier.notifyDownloadFailed(OldActiveCountryTree.getCoreIndex(group, position), item.getName());
     }
   }
 
   @Override
   public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition)
   {
-    if (oldGroup == ActiveCountryTree.GROUP_NEW && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE)
+    if (oldGroup == OldActiveCountryTree.GROUP_NEW && newGroup == OldActiveCountryTree.GROUP_UP_TO_DATE)
       Statistics.INSTANCE.trackMapChanged(Statistics.EventName.MAP_DOWNLOADED);
-    else if (oldGroup == ActiveCountryTree.GROUP_OUT_OF_DATE && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE)
+    else if (oldGroup == OldActiveCountryTree.GROUP_OUT_OF_DATE && newGroup == OldActiveCountryTree.GROUP_UP_TO_DATE)
       Statistics.INSTANCE.trackMapChanged(Statistics.EventName.MAP_UPDATED);
   }
 
@@ -127,7 +128,7 @@ public class MwmApplication extends Application
       return;
 
     nativeInitFramework();
-    ActiveCountryTree.addListener(this);
+    //OldActiveCountryTree.addListener(this);
     initNativeStrings();
     BookmarkManager.nativeLoadBookmarks();
     TtsPlayer.INSTANCE.init(this);
@@ -209,23 +210,6 @@ public class MwmApplication extends Application
     System.loadLibrary("mapswithme");
   }
 
-  /**
-   * Initializes native Platform with paths. Should be called before usage of any other native components.
-   */
-  private native void nativeInitPlatform(String apkPath, String storagePath, String tmpPath, String obbGooglePath,
-                                         String flavorName, String buildType, boolean isYota, boolean isTablet);
-
-  private native void nativeInitFramework();
-
-  private native void nativeAddLocalization(String name, String value);
-
-  /**
-   * Check if device have at least {@code size} bytes free.
-   */
-  public native boolean hasFreeSpace(long size);
-
-  private native void runNativeFunctor(final long functorPointer);
-
   /*
    * init Parse SDK
    */
@@ -276,22 +260,34 @@ public class MwmApplication extends Application
   }
 
   @SuppressWarnings("unused")
-  public void runNativeFunctorOnUiThread(final long functorPointer)
+  void processFunctor(final long functorPointer)
   {
     Message m = Message.obtain(mMainLoopHandler, new Runnable()
     {
       @Override
       public void run()
       {
-        runNativeFunctor(functorPointer);
+        nativeProcessFunctor(functorPointer);
       }
     });
     m.obj = mMainQueueToken;
     mMainLoopHandler.sendMessage(m);
   }
 
-  public void clearFunctorsOnUiThread()
+  void clearFunctorsOnUiThread()
   {
     mMainLoopHandler.removeCallbacksAndMessages(mMainQueueToken);
   }
+
+  /**
+   * Initializes native Platform with paths. Should be called before usage of any other native components.
+   */
+  private native void nativeInitPlatform(String apkPath, String storagePath, String tmpPath, String obbGooglePath,
+                                         String flavorName, String buildType, boolean isYota, boolean isTablet);
+
+  private static native void nativeInitFramework();
+
+  private static native void nativeAddLocalization(String name, String value);
+
+  private static native void nativeProcessFunctor(long functorPointer);
 }

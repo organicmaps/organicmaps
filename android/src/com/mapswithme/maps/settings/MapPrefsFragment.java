@@ -10,7 +10,7 @@ import android.support.v7.app.AlertDialog;
 
 import java.util.List;
 
-import com.mapswithme.country.ActiveCountryTree;
+import com.mapswithme.maps.downloader.country.OldActiveCountryTree;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.TrackRecorder;
@@ -66,7 +66,7 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       @Override
       public boolean onPreferenceClick(Preference preference)
       {
-        if (ActiveCountryTree.isDownloadingActive())
+        if (OldActiveCountryTree.isDownloadingActive())
           new AlertDialog.Builder(getActivity())
               .setTitle(getString(R.string.downloading_is_active))
               .setMessage(getString(R.string.cant_change_this_setting))

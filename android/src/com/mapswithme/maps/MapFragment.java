@@ -15,9 +15,10 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.downloader.DownloadHelper;
+import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.downloader.country.OldMapStorage;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 
@@ -191,7 +192,7 @@ public class MapFragment extends BaseMwmFragment
       nativeDetachSurface();
   }
 
-  public void destroyEngine()
+  void destroyEngine()
   {
     if (!mEngineCreated)
       return;
@@ -288,21 +289,21 @@ public class MapFragment extends BaseMwmFragment
       @Override
       public void run()
       {
-        if (ActiveCountryTree.isLegacyMode())
+        if (MapManager.nativeIsLegacyMode())
         {
           ((MwmActivity)getActivity()).showMigrateDialog();
           return;
         }
 
-        final MapStorage.Index index = new MapStorage.Index(group, country, region);
+        final OldMapStorage.Index index = new OldMapStorage.Index(group, country, region);
         if (options == -1)
         {
           nativeDownloadCountry(index, options);
           return;
         }
 
-        final long size = MapStorage.INSTANCE.countryRemoteSizeInBytes(index, options);
-        DownloadHelper.downloadWithCellularCheck(getActivity(), size, MapStorage.INSTANCE.countryName(index), new DownloadHelper.OnDownloadListener()
+        final long size = OldMapStorage.INSTANCE.countryRemoteSizeInBytes(index, options);
+        DownloadHelper.downloadWithCellularCheck(getActivity(), size, OldMapStorage.INSTANCE.countryName(index), new DownloadHelper.OnDownloadListener()
         {
           @Override
           public void onDownload()
@@ -316,7 +317,7 @@ public class MapFragment extends BaseMwmFragment
 
   private native void nativeConnectDownloaderListeners();
   private static native void nativeDisconnectListeners();
-  private static native void nativeDownloadCountry(MapStorage.Index index, int options);
+  private static native void nativeDownloadCountry(OldMapStorage.Index index, int options);
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
   static native void nativeScalePlus();
   static native void nativeScaleMinus();

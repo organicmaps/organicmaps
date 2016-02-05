@@ -1,4 +1,4 @@
-package com.mapswithme.country;
+package com.mapswithme.maps.downloader.country;
 
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -12,17 +12,15 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.util.Config;
-import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 @Deprecated
-public class DownloadFragment extends BaseMwmListFragment implements View.OnClickListener, ActiveCountryTree.ActiveCountryListener, OnBackPressListener
+public class OldDownloadFragment extends BaseMwmListFragment implements View.OnClickListener, OldActiveCountryTree.ActiveCountryListener, OnBackPressListener
 {
-  private DownloadAdapter mDownloadAdapter;
-  private DownloadedAdapter mDownloadedAdapter;
+  private OldDownloadAdapter mDownloadAdapter;
+  private OldDownloadedAdapter mDownloadedAdapter;
   private TextView mTvUpdateAll;
   private View mDownloadAll;
   private int mMode = MODE_NONE;
@@ -33,30 +31,10 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   private static final int MODE_UPDATE_ALL = 1;
   private static final int MODE_CANCEL_ALL = 2;
 
-  private static int getTheme()
-  {
-    String theme = Config.getCurrentUiTheme();
-    if (ThemeUtils.isDefaultTheme(theme))
-      return R.style.MwmTheme_Downloader;
-
-    if (ThemeUtils.isNightTheme(theme))
-      return R.style.MwmTheme_Night_Downloader;
-
-    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
-  }
-
-  LayoutInflater getLayoutInflater()
-  {
-    if (mLayoutInflater == null)
-      mLayoutInflater = ThemeUtils.themedInflater(getActivity().getLayoutInflater(), getTheme());
-
-    return mLayoutInflater;
-  }
-
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    return getLayoutInflater().inflate(R.layout.fragment_downloader, container, false);
+    return inflater.inflate(R.layout.fragment_downloader, container, false);
   }
 
   @Override
@@ -64,14 +42,14 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   {
     super.onViewCreated(view, savedInstanceState);
     initToolbar();
-    if (getArguments() != null && getArguments().getBoolean(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, false))
+    if (getArguments() != null && getArguments().getBoolean(OldDownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, false))
       openDownloadedList();
     else
     {
       mDownloadAdapter = getDownloadAdapter();
       setListAdapter(mDownloadAdapter);
       mMode = MODE_NONE;
-      mListenerSlotId = ActiveCountryTree.addListener(this);
+      mListenerSlotId = OldActiveCountryTree.addListener(this);
     }
   }
 
@@ -88,7 +66,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
       }
     });
 
-    mTvUpdateAll = (TextView) toolbar.findViewById(R.id.tv__update_all);
+    //mTvUpdateAll = (TextView) toolbar.findViewById(R.id.tv__update_all);
     mTvUpdateAll.setOnClickListener(this);
 
     mDownloadAll = toolbar.findViewById(R.id.download_all);
@@ -101,7 +79,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   {
     super.onDestroy();
 
-    ActiveCountryTree.removeListener(mListenerSlotId);
+    OldActiveCountryTree.removeListener(mListenerSlotId);
   }
 
   @Override
@@ -128,7 +106,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
       setSelection(0);
       updateToolbar();
     }
-    else if (getListAdapter() instanceof DownloadedAdapter)
+    else if (getListAdapter() instanceof OldDownloadedAdapter)
     {
       mMode = MODE_NONE;
       mDownloadedAdapter.onPause();
@@ -152,7 +130,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     if (mMode == MODE_NONE)
     {
       mTvUpdateAll.setVisibility(View.GONE);
-      UiUtils.showIf(CountryTree.hasParent() && CountryTree.isDownloadableGroup(), mDownloadAll);
+      UiUtils.showIf(OldCountryTree.hasParent() && OldCountryTree.isDownloadableGroup(), mDownloadAll);
       return;
     }
 
@@ -173,9 +151,9 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
 
   private void updateMode()
   {
-    if (ActiveCountryTree.isDownloadingActive())
+    if (OldActiveCountryTree.isDownloadingActive())
       mMode = MODE_CANCEL_ALL;
-    else if (ActiveCountryTree.getOutOfDateCount() > 0)
+    else if (OldActiveCountryTree.getOutOfDateCount() > 0)
       mMode = MODE_UPDATE_ALL;
     else
       mMode = MODE_NONE;
@@ -184,7 +162,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   @Override
   public void onListItemClick(ListView l, View v, int position, long id)
   {
-    if (getListAdapter().getItemViewType(position) == DownloadAdapter.TYPE_EXTENDED)
+    if (getListAdapter().getItemViewType(position) == OldDownloadAdapter.TYPE_EXTENDED)
       openDownloadedList();
   }
 
@@ -198,11 +176,11 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     mDownloadedAdapter.onResume(getListView());
   }
 
-  BaseDownloadAdapter getDownloadedAdapter()
+  OldBaseDownloadAdapter getDownloadedAdapter()
   {
     if (mDownloadedAdapter == null)
     {
-      mDownloadedAdapter = new DownloadedAdapter(this);
+      mDownloadedAdapter = new OldDownloadedAdapter(this);
       mDownloadedAdapter.registerDataSetObserver(new DataSetObserver()
       {
         @Override
@@ -217,11 +195,11 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     return mDownloadedAdapter;
   }
 
-  private DownloadAdapter getDownloadAdapter()
+  private OldDownloadAdapter getDownloadAdapter()
   {
     if (mDownloadAdapter == null)
     {
-      mDownloadAdapter = new DownloadAdapter(this);
+      mDownloadAdapter = new OldDownloadAdapter(this);
       mDownloadAdapter.registerDataSetObserver(new DataSetObserver()
       {
         @Override
@@ -241,17 +219,17 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
   {
     switch (v.getId())
     {
-    case R.id.tv__update_all:
+    /*case R.id.tv__update_all:
       if (mMode == MODE_UPDATE_ALL)
-        ActiveCountryTree.updateAll();
+        OldActiveCountryTree.updateAll();
       else
-        ActiveCountryTree.cancelAll();
+        OldActiveCountryTree.cancelAll();
       updateToolbar();
-      break;
+      break;*/
 
     case R.id.download_all:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MAP_DOWNLOAD_ALL);
-      CountryTree.downloadGroup();
+      OldCountryTree.downloadGroup();
       getDownloadAdapter().notifyDataSetInvalidated();
       break;
     }
@@ -266,7 +244,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
     if (isAdded())
     {
       updateToolbar();
-      Utils.keepScreenOn(ActiveCountryTree.isDownloadingActive(), getActivity().getWindow());
+      Utils.keepScreenOn(OldActiveCountryTree.isDownloadingActive(), getActivity().getWindow());
     }
   }
 

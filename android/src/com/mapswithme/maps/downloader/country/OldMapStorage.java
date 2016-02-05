@@ -1,8 +1,9 @@
-package com.mapswithme.maps;
+package com.mapswithme.maps.downloader.country;
 
 import java.io.Serializable;
 
-public enum MapStorage
+@Deprecated
+public enum OldMapStorage
 {
   INSTANCE;
 

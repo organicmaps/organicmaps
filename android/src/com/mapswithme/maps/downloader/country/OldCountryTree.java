@@ -1,7 +1,7 @@
-package com.mapswithme.country;
+package com.mapswithme.maps.downloader.country;
 
 @Deprecated
-public class CountryTree
+public class OldCountryTree
 {
   // interface for listening callbacks from native
   public interface BaseListener {}
@@ -13,7 +13,7 @@ public class CountryTree
     void onItemStatusChanged(int position);
   }
 
-  private CountryTree() {}
+  private OldCountryTree() {}
 
   public static native void setDefaultRoot();
 
@@ -27,7 +27,7 @@ public class CountryTree
 
   public static native int getChildCount();
 
-  public static native CountryItem getChildItem(int position);
+  public static native OldCountryItem getChildItem(int position);
 
   public static native void downloadCountry(int position, int options);
 

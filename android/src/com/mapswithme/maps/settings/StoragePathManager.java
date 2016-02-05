@@ -11,7 +11,7 @@ import android.util.Log;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MapStorage;
+import com.mapswithme.maps.downloader.country.OldMapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
@@ -377,7 +377,7 @@ public class StoragePathManager
     {
       for (int i = 0; i < oldFiles.length; ++i)
       {
-        if (!MapStorage.nativeMoveFile(oldFiles[i].getAbsolutePath(), newFiles[i].getAbsolutePath()))
+        if (!OldMapStorage.nativeMoveFile(oldFiles[i].getAbsolutePath(), newFiles[i].getAbsolutePath()))
         {
           File parent = newFiles[i].getParentFile();
           if (parent != null)

@@ -3,7 +3,7 @@ package com.mapswithme.maps;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mapswithme.maps.MapStorage.Index;
+import com.mapswithme.maps.downloader.country.OldMapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingInfo;

@@ -24,7 +24,7 @@ import java.io.OutputStream;
 
 import com.mapswithme.maps.MwmActivity.MapTask;
 import com.mapswithme.maps.MwmActivity.OpenUrlTask;
-import com.mapswithme.maps.OldMapStorage.Index;
+import com.mapswithme.maps.downloader.country.OldMapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;

@@ -9,10 +9,10 @@ import android.location.LocationManager;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.util.LocationUtils;
 
@@ -92,7 +92,7 @@ public class WorkerService extends IntentService
   }
   private static void handleActionCheckUpdate()
   {
-    if (!Framework.nativeIsDataVersionChanged() || ActiveCountryTree.isLegacyMode())
+    if (!Framework.nativeIsDataVersionChanged() || MapManager.nativeIsLegacyMode())
       return;
 
     final String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
@@ -104,7 +104,7 @@ public class WorkerService extends IntentService
 
   private void handleActionCheckLocation()
   {
-    if (ActiveCountryTree.isLegacyMode())
+    if (MapManager.nativeIsLegacyMode())
       return;
 
     final long delayMillis = 60000; // 60 seconds

@@ -1,15 +1,14 @@
-package com.mapswithme.country;
+package com.mapswithme.maps.downloader.country;
 
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
 @Deprecated
-class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.CountryTreeListener
+public class OldDownloadAdapter extends OldBaseDownloadAdapter implements OldCountryTree.CountryTreeListener
 {
   private static final int EXTENDED_VIEWS_COUNT = 2; // 3 more views at the top of baseadapter
   private static final int DOWNLOADED_ITEM_POSITION = 0;
@@ -19,7 +18,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
 
   private int mLastDownloadedCount = -1;
 
-  private static class ViewHolder extends BaseDownloadAdapter.ViewHolder
+  private static class ViewHolder extends OldBaseDownloadAdapter.ViewHolder
   {
     TextView tvCount;
 
@@ -27,7 +26,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
     void initFromView(View v)
     {
       super.initFromView(v);
-      tvCount = (TextView) v.findViewById(R.id.tv__count);
+      //tvCount = (TextView) v.findViewById(R.id.tv__count);
     }
   }
 
@@ -49,10 +48,10 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
     return position;
   }
 
-  DownloadAdapter(DownloadFragment fragment)
+  public OldDownloadAdapter(OldDownloadFragment fragment)
   {
     super(fragment);
-    CountryTree.setDefaultRoot();
+    OldCountryTree.setDefaultRoot();
 
     mFragment.getDownloadedAdapter().registerDataSetObserver(new DataSetObserver()
     {
@@ -117,7 +116,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
     {
       final View view = getExtendedView(parent);
       holder.initFromView(view);
-      final int count = ActiveCountryTree.getOutOfDateCount();
+      final int count = OldActiveCountryTree.getOutOfDateCount();
       if (count > 0)
       {
         holder.tvCount.setVisibility(View.VISIBLE);
@@ -134,12 +133,12 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
 
   private View getPlaceholderView(ViewGroup parent)
   {
-    return mInflater.inflate(R.layout.download_item_placeholder, parent, false);
+    return null;//mInflater.inflate(R.layout.download_item_placeholder, parent, false);
   }
 
   private View getExtendedView(ViewGroup parent)
   {
-    return mInflater.inflate(R.layout.download_item_extended, parent, false);
+    return null;//mInflater.inflate(R.layout.download_item_extended, parent, false);
   }
 
   private void onDownloadedCountChanged(int newCount)
@@ -157,7 +156,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
     if (mLastDownloadedCount == -1)
       mLastDownloadedCount = mFragment.getDownloadedAdapter().getCount();
 
-    return !CountryTree.hasParent() && (mLastDownloadedCount > 0);
+    return !OldCountryTree.hasParent() && (mLastDownloadedCount > 0);
   }
 
   @Override
@@ -166,7 +165,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
     if (position >= getCount())
       return; // we have reports at GP that it crashes.
 
-    final CountryItem item = getItem(position);
+    final OldCountryItem item = getItem(position);
     if (item == null)
       return;
 
@@ -179,7 +178,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   @Override
   public int getCount()
   {
-    int res = CountryTree.getChildCount();
+    int res = OldCountryTree.getChildCount();
 
     if (hasHeaderItems())
       res += EXTENDED_VIEWS_COUNT;
@@ -188,15 +187,15 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   }
 
   @Override
-  public CountryItem getItem(int position)
+  public OldCountryItem getItem(int position)
   {
-    return CountryTree.getChildItem(adjustPosition(position));
+    return OldCountryTree.getChildItem(adjustPosition(position));
   }
 
   @Override
   protected void showCountry(int position)
   {
-    CountryTree.showLeafOnMap(position);
+    OldCountryTree.showLeafOnMap(position);
     resetCountryListener();
     Utils.navigateToParent(mFragment.getActivity());
   }
@@ -204,17 +203,17 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   @Override
   protected void expandGroup(int position)
   {
-    CountryTree.setChildAsRoot(position);
+    OldCountryTree.setChildAsRoot(position);
     notifyDataSetChanged();
   }
 
   @Override
   public boolean onBackPressed()
   {
-    if (!CountryTree.hasParent())
+    if (!OldCountryTree.hasParent())
       return false;
 
-    CountryTree.setParentAsRoot();
+    OldCountryTree.setParentAsRoot();
     notifyDataSetChanged();
     return true;
   }
@@ -222,57 +221,57 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   @Override
   protected void deleteCountry(int position, int options)
   {
-    CountryTree.deleteCountry(position, options);
+    OldCountryTree.deleteCountry(position, options);
   }
 
   @Override
   protected long[] getRemoteItemSizes(int position)
   {
-    long mapOnly = CountryTree.getLeafSize(position, StorageOptions.MAP_OPTION_MAP_ONLY, false);
-    return new long[] { mapOnly, mapOnly + CountryTree.getLeafSize(position, StorageOptions.MAP_OPTION_CAR_ROUTING, false) };
+    long mapOnly = OldCountryTree.getLeafSize(position, OldStorageOptions.MAP_OPTION_MAP_ONLY, false);
+    return new long[] { mapOnly, mapOnly + OldCountryTree.getLeafSize(position, OldStorageOptions.MAP_OPTION_CAR_ROUTING, false) };
   }
 
   @Override
   protected long[] getDownloadableItemSizes(int position)
   {
-    return new long[] { CountryTree.getLeafSize(position, -1, true),
-                        CountryTree.getLeafSize(position, -1, false) };
+    return new long[] { OldCountryTree.getLeafSize(position, -1, true),
+                        OldCountryTree.getLeafSize(position, -1, false) };
   }
 
   @Override
   protected void cancelDownload(int position)
   {
-    CountryTree.cancelDownloading(position);
+    OldCountryTree.cancelDownloading(position);
   }
 
   @Override
   protected void retryDownload(int position)
   {
-    CountryTree.retryDownloading(position);
+    OldCountryTree.retryDownloading(position);
   }
 
   @Override
   protected void setCountryListener()
   {
-    CountryTree.setListener(this);
+    OldCountryTree.setListener(this);
   }
 
   @Override
   protected void resetCountryListener()
   {
-    CountryTree.resetListener();
+    OldCountryTree.resetListener();
   }
 
   @Override
   protected void updateCountry(int position, int options)
   {
-    CountryTree.downloadCountry(position, options);
+    OldCountryTree.downloadCountry(position, options);
   }
 
   @Override
   protected void downloadCountry(int position, int options)
   {
-    CountryTree.downloadCountry(position, options);
+    OldCountryTree.downloadCountry(position, options);
   }
 
   @Override

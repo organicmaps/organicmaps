@@ -1,9 +1,9 @@
-package com.mapswithme.country;
+package com.mapswithme.maps.downloader.country;
 
 @Deprecated
-public class StorageOptions
+public class OldStorageOptions
 {
-  private StorageOptions() {}
+  private OldStorageOptions() {}
 
   public static final int MAP_OPTION_MAP_ONLY = 1;
   public static final int MAP_OPTION_CAR_ROUTING = 2;

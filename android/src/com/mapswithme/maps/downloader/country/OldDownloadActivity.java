@@ -1,4 +1,4 @@
-package com.mapswithme.country;
+package com.mapswithme.maps.downloader.country;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
 @Deprecated
-public class DownloadActivity extends BaseMwmFragmentActivity
+public class OldDownloadActivity extends BaseMwmFragmentActivity
 {
   public static final String EXTRA_OPEN_DOWNLOADED_LIST = "open_downloaded";
 
@@ -16,9 +16,9 @@ public class DownloadActivity extends BaseMwmFragmentActivity
   {
     super.onCreate(savedInstanceState);
 
-    final String fragmentClassName = DownloadFragment.class.getName();
+    final String fragmentClassName = OldDownloadFragment.class.getName();
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    DownloadFragment downloadFragment = (DownloadFragment) Fragment.instantiate(this, fragmentClassName, getIntent().getExtras());
+    OldDownloadFragment downloadFragment = (OldDownloadFragment) Fragment.instantiate(this, fragmentClassName, getIntent().getExtras());
     transaction.replace(android.R.id.content, downloadFragment, fragmentClassName);
     transaction.commit();
   }
@@ -26,7 +26,7 @@ public class DownloadActivity extends BaseMwmFragmentActivity
   @Override
   public void onBackPressed()
   {
-    DownloadFragment fragment = (DownloadFragment) getSupportFragmentManager().findFragmentByTag(DownloadFragment.class.getName());
+    OldDownloadFragment fragment = (OldDownloadFragment) getSupportFragmentManager().findFragmentByTag(OldDownloadFragment.class.getName());
     if (fragment != null && fragment.onBackPressed())
       return;
 
