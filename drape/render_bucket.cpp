@@ -120,6 +120,15 @@ void RenderBucket::EndFeatureRecord(bool featureCompleted)
   m_featureInfo = FeatureGeometryId();
 }
 
+bool RenderBucket::IsFeaturesWaiting(TCheckFeaturesWaiting isFeaturesWaiting)
+{
+  ASSERT(!m_featuresRanges.empty(), ());
+  for (auto const & featureRange : m_featuresRanges)
+    if (isFeaturesWaiting(featureRange.second.m_limitRect))
+      return true;
+  return false;
+}
+
 void RenderBucket::RenderDebug(ScreenBase const & screen) const
 {
 #ifdef RENDER_DEBUG_RECTS

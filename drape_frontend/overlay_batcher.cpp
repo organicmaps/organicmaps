@@ -26,7 +26,9 @@ OverlayBatcher::OverlayBatcher(TileKey const & key)
 
 void OverlayBatcher::Batch(drape_ptr<MapShape> const & shape, ref_ptr<dp::TextureManager> texMng)
 {
+  m_batcher.StartFeatureRecord(shape->GetFeatureInfo(), shape->GetFeatureLimitRect());
   shape->Draw(make_ref(&m_batcher), texMng);
+  m_batcher.EndFeatureRecord();
 }
 
 void OverlayBatcher::Finish(TOverlaysRenderData & data)

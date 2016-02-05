@@ -53,13 +53,7 @@ public:
   void EndFeatureRecord(bool featureCompleted);
 
   using TCheckFeaturesWaiting = function<bool(m2::RectD const &)>;
-  bool IsFeaturesWaiting(TCheckFeaturesWaiting isFeaturesWaiting)
-  {
-    for (auto const & featureRange : m_featuresRanges)
-      if (isFeaturesWaiting(featureRange.second.m_limitRect))
-        return true;
-    return false;
-  }
+  bool IsFeaturesWaiting(TCheckFeaturesWaiting isFeaturesWaiting);
 
 private:
   struct FeatureGeometryInfo

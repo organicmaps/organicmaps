@@ -165,7 +165,8 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, 
       if (prevTaskCount == 0 && rereadTiles.empty() && inputRects.empty())
       {
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<FinishReadingMessage>(m_finishedTiles, m_tileRequestGeneration),
+                                  make_unique_dp<FinishReadingMessage>(m_finishedTiles, m_tileRequestGeneration,
+                                                                       false /* enableFlushOverlays */),
                                   MessagePriority::Normal);
         m_finishedTiles.clear();
       }

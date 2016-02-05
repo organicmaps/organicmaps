@@ -1476,7 +1476,7 @@ void FrontendRenderer::Routine::Do()
     if (activityTimer.ElapsedSeconds() > kMaxInactiveSeconds)
     {
       // Process a message or wait for a message.
-      m_renderer.ProcessSingleMessage(false);
+      m_renderer.ProcessSingleMessage();
       activityTimer.Reset();
     }
     else

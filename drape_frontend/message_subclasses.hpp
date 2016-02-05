@@ -91,9 +91,10 @@ private:
 class FinishReadingMessage : public Message
 {
 public:
-  template<typename T> FinishReadingMessage(T && tiles, uint64_t tileRequestGeneration)
+  template<typename T> FinishReadingMessage(T && tiles, uint64_t tileRequestGeneration, bool enableFlushOverlays = true)
     : m_tiles(forward<T>(tiles))
     , m_tileRequestGeneration(tileRequestGeneration)
+    , m_enableFlushOverlays(enableFlushOverlays)
   {}
 
   Type GetType() const override { return Message::FinishReading; }
@@ -101,10 +102,12 @@ public:
   TTilesCollection const & GetTiles() const { return m_tiles; }
   TTilesCollection && MoveTiles() { return move(m_tiles); }
   uint64_t GetTileRequestGeneration() const { return m_tileRequestGeneration; }
+  bool IsEnableFlushOverlays() const { return m_enableFlushOverlays; }
 
 private:
   TTilesCollection m_tiles;
   uint64_t m_tileRequestGeneration;
+  bool m_enableFlushOverlays;
 };
 
 class FlushRenderBucketMessage : public BaseTileMessage
