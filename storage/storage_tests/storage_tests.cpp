@@ -1158,6 +1158,40 @@ UNIT_TEST(StorageTest_ChildrenSizeSingleMwm)
   TEST_EQUAL(southKoreaCountry.GetSubtreeMwmSizeBytes(), 48394664, ());
 }
 
+UNIT_TEST(StorageTest_ParentSingleMwm)
+{
+  Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
+
+  Country const abkhaziaCountry = storage.CountryByCountryId("Abkhazia");
+  TEST_EQUAL(abkhaziaCountry.GetParent(), "Countries", ());
+
+  Country const algeriaCentralCountry = storage.CountryByCountryId("Algeria_Central");
+  TEST_EQUAL(algeriaCentralCountry.GetParent(), "Algeria", ());
+
+  Country const southKoreaCountry = storage.CountryByCountryId("South Korea_South");
+  TEST_EQUAL(southKoreaCountry.GetParent(), "Countries", ());
+
+  Country const countries = storage.CountryByCountryId("Countries");
+  TEST_EQUAL(countries.GetParent(), kInvalidCountryId, ());
+}
+
+UNIT_TEST(StorageTest_ParentTwoComponentsMwm)
+{
+  Storage storage(kTwoComponentMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
+
+  Country const africaCountry = storage.CountryByCountryId("Africa");
+  TEST_EQUAL(africaCountry.GetParent(), "Countries", ());
+
+  Country const algeriaCountry = storage.CountryByCountryId("Algeria");
+  TEST_EQUAL(algeriaCountry.GetParent(), "Africa", ());
+
+  Country const alsaceCountry = storage.CountryByCountryId("France_Alsace");
+  TEST_EQUAL(alsaceCountry.GetParent(), "France", ());
+
+  Country const countries = storage.CountryByCountryId("Countries");
+  TEST_EQUAL(countries.GetParent(), kInvalidCountryId, ());
+}
+
 UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
 {
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
