@@ -1,5 +1,9 @@
 #pragma once
+
 #include "map/framework.hpp"
+
+#include "std/unordered_map.hpp"
+#include "std/vector.hpp"
 
 #include <QtWidgets/QApplication>
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -40,10 +44,13 @@ namespace qt
 
   private:
     void FillTree();
+    void FillTreeImpl(QTreeWidgetItem * parent, storage::TCountryId const & countryId);
     void UpdateRowWithCountryInfo(storage::TCountryId const & countryId);
+    void UpdateRowWithCountryInfo(QTreeWidgetItem * item, storage::TCountryId const & countryId);
 
-    QTreeWidgetItem * CreateTreeItem(storage::TCountryId const & countryId, int value, QTreeWidgetItem * parent);
-    int GetChildsCount(storage::TCountryId const & countryId) const;
+    QTreeWidgetItem * CreateTreeItem(storage::TCountryId const & countryId, QTreeWidgetItem * parent);
+    vector<QTreeWidgetItem *> GetTreeItemsByCountryId(storage::TCountryId const & countryId);
+    storage::TCountryId GetCountryIdByTreeItem(QTreeWidgetItem *);
 
   private:
     inline storage::Storage & GetStorage() const { return m_framework.Storage(); }
@@ -51,5 +58,7 @@ namespace qt
     QTreeWidget * m_tree;
     Framework & m_framework;
     int m_observerSlotId;
+
+    unordered_multimap<storage::TCountryId, QTreeWidgetItem *> m_treeItemByCountryId;
   };
 } // namespace qt
