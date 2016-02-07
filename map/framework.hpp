@@ -274,6 +274,10 @@ public:
   bool HasActiveUserMark();
   void InvalidateUserMarks();
   PoiMarkPoint * GetAddressMark(m2::PointD const & globalPoint) const;
+  // TODO(AlexZ): Temporary workaround to get last active UserMark on Android.
+  // Refactor it out together with UserMarks.
+  /// @returns nullptr if there is no selection on the map.
+  UserMark const * GetActiveUserMark() const;
 
   using TActivateCallbackFn = function<void (unique_ptr<UserMarkCopy> mark)>;
   void SetUserMarkActivationListener(TActivateCallbackFn const & fn) { m_activateUserMarkFn = fn; }
@@ -292,8 +296,7 @@ private:
 #endif
 
   void OnTapEvent(df::TapInfo const & tapInfo);
-  UserMark const * OnTapEventImpl(df::TapInfo const & tapInfo);
-  //@}
+  UserMark const * OnTapEventImpl(df::TapInfo const & tapInfo) const;
 
   TActivateCallbackFn m_activateUserMarkFn;
 

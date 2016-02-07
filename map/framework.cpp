@@ -1893,6 +1893,13 @@ bool Framework::HasActiveUserMark()
   return m_drapeEngine->GetSelectedObject() != df::SelectionShape::OBJECT_EMPTY;
 }
 
+UserMark const * Framework::GetActiveUserMark() const
+{
+  if (m_lastTapEvent)
+    return OnTapEventImpl(*m_lastTapEvent);
+  return nullptr;
+}
+
 void Framework::InvalidateUserMarks()
 {
   m_bmManager.InitBookmarks();
@@ -1928,7 +1935,7 @@ void Framework::InvalidateRendering()
     m_drapeEngine->Invalidate();
 }
 
-UserMark const * Framework::OnTapEventImpl(const df::TapInfo & tapInfo)
+UserMark const * Framework::OnTapEventImpl(const df::TapInfo & tapInfo) const
 {
   m2::PointD const pxPoint2d = m_currentModelView.P3dtoP(tapInfo.m_pixelPoint);
 
