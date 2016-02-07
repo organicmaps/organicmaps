@@ -188,7 +188,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
     ApplyAreaFeature apply(insertShape, f.GetID(), areaMinHeight, areaHeight,
                            minVisibleScale, f.GetRank(), s.GetCaptionDescription());
-    f.ForEachTriangleRef(apply, zoomLevel);
+    f.ForEachTriangle(apply, zoomLevel);
 
     if (s.PointStyleExists())
       apply(feature::GetCenter(f, zoomLevel));
@@ -205,7 +205,7 @@ void RuleDrawer::operator()(FeatureType const & f)
                            s.GetCaptionDescription(), m_currentScaleGtoP,
                            zoomLevel >= kLineSimplifyLevelStart && zoomLevel <= kLineSimplifyLevelEnd,
                            f.GetPointsCount());
-    f.ForEachPointRef(apply, zoomLevel);
+    f.ForEachPoint(apply, zoomLevel);
 
     if (CheckCancelled())
       return;
@@ -218,7 +218,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   {
     ASSERT(s.PointStyleExists(), ());
     ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription(), 0.0f /* posZ */);
-    f.ForEachPointRef(apply, zoomLevel);
+    f.ForEachPoint(apply, zoomLevel);
 
     if (CheckCancelled())
       return;

@@ -195,8 +195,8 @@ public:
 
   bool IsEmptyGeometry(int scale) const;
 
-  template <typename FunctorT>
-  void ForEachPointRef(FunctorT & f, int scale) const
+  template <typename TFunctor>
+  void ForEachPoint(TFunctor && f, int scale) const
   {
     ParseGeometry(scale);
 
@@ -225,14 +225,8 @@ public:
     return m_points[i];
   }
 
-  template <typename FunctorT>
-  void ForEachPoint(FunctorT f, int scale) const
-  {
-    ForEachPointRef(f, scale);
-  }
-
-  template <typename FunctorT>
-  void ForEachTriangleRef(FunctorT & f, int scale) const
+  template <typename TFunctor>
+  void ForEachTriangle(TFunctor && f, int scale) const
   {
     ParseTriangles(scale);
 
@@ -243,17 +237,11 @@ public:
     }
   }
 
-  template <typename FunctorT>
-  void ForEachTriangle(FunctorT f, int scale) const
-  {
-    ForEachTriangleRef(f, scale);
-  }
-
-  template <typename FunctorT>
-  void ForEachTriangleExRef(FunctorT & f, int scale) const
+  template <typename TFunctor>
+  void ForEachTriangleEx(TFunctor && f, int scale) const
   {
     f.StartPrimitive(m_triangles.size());
-    ForEachTriangleRef(f, scale);
+    ForEachTriangle(forward<TFunctor>(f), scale);
     f.EndPrimitive();
   }
   //@}

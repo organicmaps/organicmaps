@@ -241,7 +241,7 @@ FeatureStyler::FeatureStyler(FeatureType const & f,
     p.m_intervals = &m_intervals;
 
     functor_t fun(p);
-    f.ForEachPointRef(fun, zoom);
+    f.ForEachPoint(fun, zoom);
 
     LayoutTexts(fun.m_length);
   }

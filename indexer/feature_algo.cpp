@@ -113,7 +113,7 @@ m2::PointD GetCenter(FeatureType const & f, int scale)
   case GEOM_LINE:
     {
       CalculateLineCenter doCalc;
-      f.ForEachPointRef(doCalc, scale);
+      f.ForEachPoint(doCalc, scale);
       return doCalc.GetCenter();
     }
 
@@ -121,7 +121,7 @@ m2::PointD GetCenter(FeatureType const & f, int scale)
     {
       ASSERT_EQUAL(type, GEOM_AREA, ());
       CalculatePointOnSurface doCalc(f.GetLimitRect(scale));
-      f.ForEachTriangleRef(doCalc, scale);
+      f.ForEachTriangle(doCalc, scale);
       return doCalc.GetCenter();
     }
   }
