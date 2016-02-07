@@ -144,6 +144,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
 void Framework::DeleteDrapeEngine()
 {
   SaveState();
+  m_work.EnterBackground();
+
   m_work.DestroyDrapeEngine();
 }
 
@@ -160,7 +162,7 @@ void Framework::Resize(int w, int h)
 
 void Framework::DetachSurface()
 {
-  m_work.EnterBackground();
+  m_work.SetRenderingEnabled(false);
 
   ASSERT(m_contextFactory != nullptr, ());
   AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
@@ -173,7 +175,7 @@ void Framework::AttachSurface(JNIEnv * env, jobject jSurface)
   AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
   factory->SetSurface(env, jSurface);
 
-  m_work.EnterForeground();
+  m_work.SetRenderingEnabled(true);
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)

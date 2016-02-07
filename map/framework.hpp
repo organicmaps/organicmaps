@@ -327,6 +327,8 @@ public:
   void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);
   ref_ptr<df::DrapeEngine> GetDrapeEngine();
   void DestroyDrapeEngine();
+  /// Called when graphics engine should be temporarily paused and then resumed.
+  void SetRenderingEnabled(bool enable);
 
   void ConnectToGpsTracker();
   void DisconnectFromGpsTracker();

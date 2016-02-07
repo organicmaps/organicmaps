@@ -1047,8 +1047,7 @@ void Framework::MemoryWarning()
 
 void Framework::EnterBackground()
 {
-  if (m_drapeEngine)
-    m_drapeEngine->SetRenderingEnabled(false);
+  SetRenderingEnabled(false);
 
   ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
@@ -1068,8 +1067,11 @@ void Framework::EnterForeground()
   m_startForegroundTime = my::Timer::LocalTime();
 
   // Drape can be not initialized here in case of the first launch
-  if (m_drapeEngine)
-    m_drapeEngine->SetRenderingEnabled(true);
+  // TODO(AlexZ): Why it can't be initialized here? Is it because we call EnterForeground in Android for every
+  // time when activity is created? If yes, then this code should be refactored:
+  // EnterForeground and EnterBackground should be called only when user opens the app and
+  // when user completely leaves the app (and is not just switching between app's activities).
+  SetRenderingEnabled(true);
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
@@ -1493,6 +1495,12 @@ void Framework::DestroyDrapeEngine()
 {
   GpsTracker::Instance().Disconnect();
   m_drapeEngine.reset();
+}
+
+void Framework::SetRenderingEnabled(bool enable)
+{
+  if (m_drapeEngine)
+    m_drapeEngine->SetRenderingEnabled(enable);
 }
 
 void Framework::ConnectToGpsTracker()
