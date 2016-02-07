@@ -59,7 +59,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                     make_ref(m_textureManager), m_viewport,
                                     bind(&DrapeEngine::ModelViewChanged, this, _1),
                                     params.m_model.GetIsCountryLoadedFn(),
-                                    bind(&DrapeEngine::TapEvent, this, _1, _2, _3, _4),
+                                    bind(&DrapeEngine::TapEvent, this, _1),
                                     bind(&DrapeEngine::UserPositionChanged, this, _1),
                                     bind(&DrapeEngine::MyPositionModeChanged, this, _1),
                                     mode, make_ref(m_requestedTiles), params.m_allow3dBuildings);
@@ -235,12 +235,12 @@ void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode)
   });
 }
 
-void DrapeEngine::TapEvent(m2::PointD const & pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature)
+void DrapeEngine::TapEvent(TapInfo const & tapInfo)
 {
   GetPlatform().RunOnGuiThread([=]()
   {
     if (m_tapListener)
-      m_tapListener(pxPoint, isLong, isMyPosition, feature);
+      m_tapListener(tapInfo);
   });
 }
 

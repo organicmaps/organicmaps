@@ -131,7 +131,7 @@ private:
   void ModelViewChangedGuiThread(ScreenBase const & screen);
 
   void MyPositionModeChanged(location::EMyPositionMode mode);
-  void TapEvent(m2::PointD const & pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature);
+  void TapEvent(TapInfo const & tapInfo);
   void UserPositionChanged(m2::PointD const & position);
 
   void ResizeImpl(int w, int h);

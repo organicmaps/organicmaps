@@ -283,21 +283,16 @@ public:
   void InvalidateRendering();
 
 private:
-  struct TapEventData
-  {
-    m2::PointD m_pxPoint;
-    bool m_isLong;
-    bool m_isMyPosition;
-    FeatureID m_feature;
-  };
-  unique_ptr<TapEventData> m_lastTapEvent;
+  /// UI callback is called when tap event is "restored" after Drape engine restart.
+  void SimulateLastTapEventIfNeeded();
+  unique_ptr<df::TapInfo> m_lastTapEvent;
 #ifdef OMIM_OS_ANDROID
   unique_ptr<location::CompassInfo> m_lastCompassInfo;
   unique_ptr<location::GpsInfo> m_lastGPSInfo;
 #endif
 
-  void OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature);
-  UserMark const * OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature);
+  void OnTapEvent(df::TapInfo const & tapInfo);
+  UserMark const * OnTapEventImpl(df::TapInfo const & tapInfo);
   //@}
 
   TActivateCallbackFn m_activateUserMarkFn;

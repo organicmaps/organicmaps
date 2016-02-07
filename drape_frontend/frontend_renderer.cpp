@@ -1211,7 +1211,7 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
     isMyPosition = selectRect.IsPointInside(pt);
   }
 
-  m_tapEventInfoFn(pt, isLongTap, isMyPosition, GetVisiblePOI(selectRect));
+  m_tapEventInfoFn({pt, isLongTap, isMyPosition, GetVisiblePOI(selectRect)});
 }
 
 void FrontendRenderer::OnForceTap(m2::PointD const & pt)
