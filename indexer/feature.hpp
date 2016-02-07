@@ -216,6 +216,7 @@ public:
     ASSERT(m_bPointsParsed, ());
     return m_points.size();
   }
+
   inline m2::PointD const & GetPoint(size_t i) const
   {
     ASSERT_LESS(i, m_points.size(), ());
@@ -233,6 +234,12 @@ public:
       f(m_triangles[i], m_triangles[i+1], m_triangles[i+2]);
       i += 3;
     }
+  }
+
+  inline vector<m2::PointD> GetTriangesAsPoints(int scale) const
+  {
+    ParseTriangles(scale);
+    return {begin(m_triangles), end(m_triangles)};
   }
 
   template <typename TFunctor>

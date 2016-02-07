@@ -19,6 +19,7 @@ HEADERS += \
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  algorithm_test.cpp \
   angle_test.cpp \
   anyrect_test.cpp \
   cellid_test.cpp \

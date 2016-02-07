@@ -29,6 +29,9 @@ class XMLFeature
   static char const * const kDefaultLang;
 
 public:
+  // Used in point to string serialization.
+  static constexpr int kLatLonTolerance = 7;
+
   enum class Type
   {
     Node,
@@ -67,7 +70,26 @@ public:
 
   /// Sets geometry in mercator to match against FeatureType's geometry in mwm
   /// when megrating to a new mwm build.
-  void SetGeometry(TMercatorGeometry const & geometry);
+  /// Geometry points are now stored in <nd x="..." y="..." /> nodes like in osm <way>.
+  /// But they are not the same as osm's. I.e. osm's one stores reference to a <node>
+  /// with it's own data and lat, lon. Here we store only cooridanes in mercator.
+  template <typename TIterator>
+  void SetGeometry(TIterator begin, TIterator end)
+  {
+    ASSERT_EQUAL(GetType(), Type::Way, ("Only ways have geometry"));
+    for (; begin != end; ++begin)
+    {
+      auto nd = GetRootNode().append_child("nd");
+      nd.append_attribute("x") = strings::to_string_dac(begin->x, kLatLonTolerance).data();
+      nd.append_attribute("y") = strings::to_string_dac(begin->y, kLatLonTolerance).data();
+    }
+  }
+
+  template <typename TCollection>
+  void SetGeometry(TCollection const & geometry)
+  {
+    SetGeometry(begin(geometry), end(geometry));
+  }
 
   string GetName(string const & lang) const;
   string GetName(uint8_t const langCode = StringUtf8Multilang::DEFAULT_CODE) const;

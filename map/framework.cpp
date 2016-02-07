@@ -360,6 +360,7 @@ Framework::Framework()
       return streets.first[streets.second].m_name;
     return {};
   });
+  editor.SetForEachFeatureAtPointFn(bind(&Framework::ForEachFeatureAtPoint, this, _1, _2));
   editor.LoadMapEdits();
 }
 

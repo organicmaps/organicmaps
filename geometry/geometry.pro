@@ -9,6 +9,7 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
+  algorithm.cpp \
   angles.cpp \
   distance_on_sphere.cpp \
   latlon.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
   triangle2d.cpp \
 
 HEADERS += \
+  algorithm.hpp \
   angles.hpp \
   any_rect2d.hpp \
   avg_vector.hpp \

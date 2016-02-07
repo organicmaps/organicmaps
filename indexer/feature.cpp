@@ -103,7 +103,7 @@ editor::XMLFeature FeatureType::ToXML() const
   else
   {
     ParseTriangles(BEST_GEOMETRY);
-    feature.SetGeometry({begin(m_triangles), end(m_triangles)});
+    feature.SetGeometry(begin(m_triangles), end(m_triangles));
   }
 
   ForEachName([&feature](uint8_t const & lang, string const & name)

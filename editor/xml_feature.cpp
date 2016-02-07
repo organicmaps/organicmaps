@@ -10,7 +10,6 @@
 
 namespace
 {
-constexpr int const kLatLonTolerance = 7;
 constexpr char const * kTimestamp = "timestamp";
 constexpr char const * kIndex = "mwm_file_index";
 constexpr char const * kUploadTimestamp = "upload_timestamp";
@@ -191,20 +190,6 @@ XMLFeature::TMercatorGeometry XMLFeature::GetGeometry() const
     geometry.emplace_back(GetMercatorPointFromNode(xCenter.node()));
   }
   return geometry;
-}
-
-/// Geometry points are now stored in <nd x="..." y="..." /> nodes like in osm <way>.
-/// But they are not the same as osm's. I.e. osm's one stores reference to a <node>
-/// with it's own data and lat, lon. Here we store only cooridanes in mercator.
-void XMLFeature::SetGeometry(TMercatorGeometry const & geometry)
-{
-  ASSERT_EQUAL(GetType(), Type::Way, ("Only ways have geometry"));
-  for (auto const & point : geometry)
-  {
-    auto nd = GetRootNode().append_child("nd");
-    nd.append_attribute("x") = strings::to_string_dac(point.x, kLatLonTolerance).data();
-    nd.append_attribute("y") = strings::to_string_dac(point.y, kLatLonTolerance).data();
-  }
 }
 
 string XMLFeature::GetName(string const & lang) const

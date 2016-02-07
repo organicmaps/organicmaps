@@ -1,4 +1,5 @@
 #include "indexer/classificator.hpp"
+#include "indexer/edits_migration.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_impl.hpp"
@@ -16,6 +17,8 @@
 #include "editor/xml_feature.hpp"
 
 #include "coding/internal/file_data.hpp"
+
+#include "geometry/algorithm.hpp"
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
@@ -230,15 +233,6 @@ TypeDescription const * GetTypeDescription(uint32_t type, uint8_t typeTruncateLe
   return nullptr;
 }
 
-uint32_t MigrateFeatureIndex(XMLFeature const & /*xml*/)
-{
-  // @TODO(mgsergio): Update feature's index when user has downloaded fresh MWM file and old indices point to other features.
-  // Possible implementation: use function to load features in rect (center feature's point) and somehow compare/choose from them.
-  // Probably we need to store more data about features in xml, e.g. types, may be other data, to match them correctly.
-  MYTHROW(RootException, ("TODO(mgsergio, AlexZ): Implement correct feature migrate code. Delete data/edits.xml to continue."));
-  return 0;
-}
-
 /// Compares editable fields connected with feature ignoring street.
 bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
 {
@@ -268,18 +262,11 @@ XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw,
   if (featurePtr->GetFeatureType() == feature::GEOM_POINT)
     return cw.GetMatchingNodeFeatureFromOSM(featurePtr->GetCenter());
 
-  vector<m2::PointD> geometry;
-  featurePtr->ForEachTriangle(
-      [&geometry](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-      {
-        geometry.push_back(p1);
-        geometry.push_back(p2);
-        geometry.push_back(p3);
-        // Warning: geometry is cached in FeatureType. So if it wasn't BEST_GEOMETRY,
-        // we can never have it. Features here came from editors loader and should
-        // have BEST_GEOMETRY geometry.
-      },
-      FeatureType::BEST_GEOMETRY);
+  // Warning: geometry is cached in FeatureType. So if it wasn't BEST_GEOMETRY,
+  // we can never have it. Features here came from editors loader and should
+  // have BEST_GEOMETRY geometry.
+  auto geometry = featurePtr->GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
+
   // Filters out duplicate points for closed ways or triangles' vertices.
   my::SortUnique(geometry);
 
@@ -328,17 +315,18 @@ void Editor::LoadMapEdits()
   }};
   int deleted = 0, modified = 0, created = 0;
 
+  bool needRewriteEdits = false;
+
   for (xml_node mwm : doc.child(kXmlRootNode).children(kXmlMwmNode))
   {
     string const mapName = mwm.attribute("name").as_string("");
     int64_t const mapVersion = mwm.attribute("version").as_llong(0);
-    MwmSet::MwmId const id = m_mwmIdByMapNameFn(mapName);
-    if (!id.IsAlive())
-    {
-      // TODO(AlexZ): MWM file was deleted, but changes remain. What should we do in this case?
-      LOG(LWARNING, (mapName, "version", mapVersion, "references not existing MWM file."));
-      continue;
-    }
+    MwmSet::MwmId const mwmId = m_mwmIdByMapNameFn(mapName);
+    // TODO(mgsergio, AlexZ): Get rid of mapVersion and switch to upload_time.
+    // TODO(mgsergio, AlexZ): Is it normal to have isMwmIdAlive and mapVersion
+    // NOT equal to mwmId.GetInfo()->GetVersion() at the same time?
+    auto const needMigrateEdits = !mwmId.IsAlive() || mapVersion != mwmId.GetInfo()->GetVersion();
+    needRewriteEdits |= needMigrateEdits;
 
     for (auto const & section : sections)
     {
@@ -347,12 +335,11 @@ void Editor::LoadMapEdits()
         try
         {
           XMLFeature const xml(nodeOrWay.node());
-          // TODO(mgsergio, AlexZ): MigrateFeatureIndex() case will always throw now, so 'old' features are ignored.
-          uint32_t const featureIndex = mapVersion == id.GetInfo()->GetVersion() ? xml.GetMWMFeatureIndex()
-                                                                                 : MigrateFeatureIndex(xml);
-          FeatureID const fid(id, featureIndex);
+          auto const fid = needMigrateEdits
+                               ? MigrateFeatureIndex(m_forEachFeatureAtPointFn, xml)
+                               : FeatureID(mwmId, xml.GetMWMFeatureIndex());
 
-          FeatureTypeInfo & fti = m_features[id][fid.m_index];
+          FeatureTypeInfo & fti = m_features[fid.m_mwmId][fid.m_index];
 
           if (section.first == FeatureStatus::Created)
           {
@@ -387,10 +374,17 @@ void Editor::LoadMapEdits()
           nodeOrWay.node().print(s, "  ");
           LOG(LERROR, (ex.what(), "Can't create XMLFeature in section", section.second, s.str()));
         }
+        catch (editor::MigrationError const & ex)
+        {
+          LOG(LWARNING, (ex.Msg(), "mwmId =", mwmId, XMLFeature(nodeOrWay.node())));
+        }
       } // for nodes
     } // for sections
   } // for mwms
 
+  // Save edits with new indexes and mwm version to avoid another migration on next startup.
+  if (needRewriteEdits)
+    Save(GetEditorFilePath());
   LOG(LINFO, ("Loaded", modified, "modified,", created, "created and", deleted, "deleted features."));
 }
 
@@ -623,10 +617,6 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, Featur
 
 vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feature) const
 {
-  // Cannot edit old mwm data.
-  if (platform::migrate::NeedMigrate())
-    return {};
-
   // TODO(mgsergio): Load editable fields into memory from XML and query them here.
   feature::TypesHolder const types(feature);
   set<Metadata::EType> fields;
@@ -658,10 +648,6 @@ vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feat
 
 bool Editor::IsNameEditable(FeatureType const & feature) const
 {
-  // Cannot edit old mwm data.
-  if (platform::migrate::NeedMigrate())
-    return false;
-
   feature::TypesHolder const types(feature);
   for (auto type : types)
   {
@@ -674,10 +660,6 @@ bool Editor::IsNameEditable(FeatureType const & feature) const
 
 bool Editor::IsAddressEditable(FeatureType const & feature) const
 {
-  // Cannot edit old mwm data.
-  if (platform::migrate::NeedMigrate())
-    return false;
-
   feature::TypesHolder const types(feature);
   auto & isBuilding = ftypes::IsBuildingChecker::Instance();
   for (auto type : types)

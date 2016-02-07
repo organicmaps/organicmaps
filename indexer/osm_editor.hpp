@@ -2,6 +2,7 @@
 
 #include "geometry/rect2d.hpp"
 
+#include "indexer/feature.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -15,10 +16,6 @@
 #include "std/set.hpp"
 #include "std/string.hpp"
 
-struct FeatureID;
-class FeatureType;
-class Index;
-
 namespace osm
 {
 class Editor final
@@ -26,10 +23,14 @@ class Editor final
   Editor() = default;
 
 public:
+  using TFeatureTypeFn = function<void(FeatureType &)>;  // Mimics Framework::TFeatureTypeFn.
+
   using TMwmIdByMapNameFn = function<MwmSet::MwmId(string const & /*map*/)>;
   using TInvalidateFn = function<void()>;
   using TFeatureLoaderFn = function<unique_ptr<FeatureType> (FeatureID const & /*fid*/)>;
   using TFeatureOriginalStreetFn = function<string(FeatureType const & /*ft*/)>;
+  using TForEachFeaturesNearByFn =
+      function<void(TFeatureTypeFn && /*fn*/, m2::PointD const & /*mercator*/)>;
   enum class UploadResult
   {
     Success,
@@ -52,6 +53,7 @@ public:
   void SetInvalidateFn(TInvalidateFn const & fn) { m_invalidateFn = fn; }
   void SetFeatureLoaderFn(TFeatureLoaderFn const & fn) { m_getOriginalFeatureFn = fn; }
   void SetFeatureOriginalStreetFn(TFeatureOriginalStreetFn const & fn) { m_getOriginalFeatureStreetFn = fn; }
+  void SetForEachFeatureAtPointFn(TForEachFeaturesNearByFn const & fn) { m_forEachFeatureAtPointFn = fn; }
 
   void LoadMapEdits();
   /// Resets editor to initial state: no any edits or created/deleted features.
@@ -146,6 +148,8 @@ private:
   TFeatureLoaderFn m_getOriginalFeatureFn;
   /// Get feature original street name or empty string.
   TFeatureOriginalStreetFn m_getOriginalFeatureStreetFn;
+  /// Iterate over all features in some area that includes given point.
+  TForEachFeaturesNearByFn m_forEachFeatureAtPointFn;
 };  // class Editor
 
 string DebugPrint(Editor::FeatureStatus fs);

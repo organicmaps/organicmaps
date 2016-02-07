@@ -19,6 +19,7 @@ SOURCES += \
     drawing_rules.cpp \
     drules_selector.cpp \
     drules_selector_parser.cpp \
+    edits_migration.cpp \
     feature.cpp \
     feature_algo.cpp \
     feature_covering.cpp \
@@ -61,6 +62,7 @@ HEADERS += \
     drules_include.hpp \
     drules_selector.hpp \
     drules_selector_parser.hpp \
+    edits_migration.hpp \
     feature.hpp \
     feature_algo.hpp \
     feature_covering.hpp \
