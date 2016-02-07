@@ -119,7 +119,8 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   }
 #endif
 
-  LoadState();
+  // Always show on full screen.
+  showMaximized();
 
 #ifndef NO_DOWNLOADER
   // Show intro dialog if necessary
@@ -176,27 +177,6 @@ bool MainWindow::winEvent(MSG * msg, long * result)
   return false;
 }
 #endif
-
-MainWindow::~MainWindow()
-{
-  SaveState();
-}
-
-void MainWindow::SaveState()
-{
-  pair<int, int> xAndY(x(), y());
-  pair<int, int> widthAndHeight(width(), height());
-  Settings::Set("MainWindowXY", xAndY);
-  Settings::Set("MainWindowSize", widthAndHeight);
-
-  m_pDrawWidget->SaveState();
-}
-
-void MainWindow::LoadState()
-{
-  // do always show on full screen
-  showMaximized();
-}
 
 void MainWindow::LocationStateModeChanged(location::EMyPositionMode mode)
 {

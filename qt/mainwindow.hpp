@@ -34,15 +34,12 @@ namespace qt
 
   public:
     MainWindow();
-    virtual ~MainWindow();
 
     virtual void OnLocationError(location::TLocationError errorCode);
     virtual void OnLocationUpdated(location::GpsInfo const & info);
 
   protected:
     string GetIniFile();
-    void SaveState();
-    void LoadState();
 
     void LocationStateModeChanged(location::EMyPositionMode mode);
 

@@ -329,7 +329,13 @@ public:
   void DestroyDrapeEngine();
   /// Called when graphics engine should be temporarily paused and then resumed.
   void SetRenderingEnabled(bool enable);
+private:
+  /// Depends on initialized Drape engine.
+  void SaveViewport();
+  /// Depends on initialized Drape engine.
+  void LoadViewport();
 
+public:
   void ConnectToGpsTracker();
   void DisconnectFromGpsTracker();
 
@@ -422,9 +428,6 @@ public:
   inline m2::PointD PtoG(m2::PointD const & p) const { return m_currentModelView.PtoG(p); }
   inline m2::PointD GtoP(m2::PointD const & p) const { return m_currentModelView.GtoP(p); }
   inline m2::PointD GtoP3d(m2::PointD const & p) const { return m_currentModelView.PtoP3d(m_currentModelView.GtoP(p)); }
-
-  void SaveState();
-  void LoadState();
 
   /// Show all model by it's world rect.
   void ShowAll();

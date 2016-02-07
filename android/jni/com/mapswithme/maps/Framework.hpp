@@ -112,9 +112,6 @@ namespace android
     string GetLastSearchQuery() { return m_searchQuery; }
     void ClearLastSearchQuery() { m_searchQuery.clear(); }
 
-    void LoadState();
-    void SaveState();
-
     void AddLocalMaps();
     void RemoveLocalMaps();
 

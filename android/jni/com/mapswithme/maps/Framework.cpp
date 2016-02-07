@@ -130,8 +130,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   m_work.CreateDrapeEngine(make_ref(m_contextFactory), move(p));
   m_work.EnterForeground();
 
-  // Load initial state of the map and execute drape tasks which set up custom state.
-  LoadState();
+  // Execute drape tasks which set up custom state.
   {
     lock_guard<mutex> lock(m_drapeQueueMutex);
     if (!m_drapeTasksQueue.empty())
@@ -143,7 +142,6 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
 
 void Framework::DeleteDrapeEngine()
 {
-  SaveState();
   m_work.EnterBackground();
 
   m_work.DestroyDrapeEngine();
@@ -307,16 +305,6 @@ bool Framework::Search(search::SearchParams const & params)
 {
   m_searchQuery = params.m_query;
   return m_work.Search(params);
-}
-
-void Framework::LoadState()
-{
-  m_work.LoadState();
-}
-
-void Framework::SaveState()
-{
-  m_work.SaveState();
 }
 
 void Framework::AddLocalMaps()

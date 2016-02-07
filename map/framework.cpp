@@ -726,7 +726,7 @@ void Framework::PrepareToShutdown()
   DestroyDrapeEngine();
 }
 
-void Framework::SaveState()
+void Framework::SaveViewport()
 {
   m2::AnyRectD rect;
   if (m_currentModelView.isPerspective())
@@ -742,7 +742,7 @@ void Framework::SaveState()
   Settings::Set("ScreenClipRect", rect);
 }
 
-void Framework::LoadState()
+void Framework::LoadViewport()
 {
   m2::AnyRectD rect;
   if (Settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
@@ -1048,6 +1048,7 @@ void Framework::MemoryWarning()
 void Framework::EnterBackground()
 {
   SetRenderingEnabled(false);
+  SaveViewport();
 
   ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
@@ -1471,6 +1472,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
+
+  LoadViewport();
 
   // In case of the engine reinitialization simulate the last tap to show selection mark.
   SimulateLastTapEventIfNeeded();

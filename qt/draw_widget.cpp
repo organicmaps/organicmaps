@@ -105,6 +105,7 @@ DrawWidget::DrawWidget(QWidget * parent)
 
 DrawWidget::~DrawWidget()
 {
+  m_framework->EnterBackground();
   m_framework.reset();
 }
 
@@ -124,17 +125,6 @@ void DrawWidget::PrepareShutdown()
 void DrawWidget::UpdateAfterSettingsChanged()
 {
   m_framework->EnterForeground();
-}
-
-void DrawWidget::LoadState()
-{
-  m_framework->LoadState();
-  m_framework->LoadBookmarks();
-}
-
-void DrawWidget::SaveState()
-{
-  m_framework->SaveState();
 }
 
 void DrawWidget::ScalePlus()
@@ -210,7 +200,9 @@ void DrawWidget::initializeGL()
 
   emit BeforeEngineCreation();
   CreateEngine();
-  LoadState();
+
+  m_framework->LoadBookmarks();
+  m_framework->EnterForeground();
 }
 
 void DrawWidget::paintGL()

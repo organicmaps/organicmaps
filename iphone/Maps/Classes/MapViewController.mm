@@ -374,17 +374,13 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 
 - (void)onTerminate
 {
-  GetFramework().SaveState();
   [(EAGLView *)self.view deallocateNative];
 }
 
 - (void)onEnterBackground
 {
   // Save state and notify about entering background.
-
-  Framework & f = GetFramework();
-  f.SaveState();
-  f.EnterBackground();
+  GetFramework().EnterBackground();
 }
 
 - (void)setMapStyle:(MapStyle)mapStyle

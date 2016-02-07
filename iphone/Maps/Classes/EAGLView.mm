@@ -137,7 +137,6 @@ double getExactDPI(double contentScaleFactor)
   if (GetFramework().GetDrapeEngine() == nullptr)
   {
     [self createDrapeEngineWithWidth:w height:h];
-    GetFramework().LoadState();
     return;
   }
 

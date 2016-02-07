@@ -22,7 +22,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeShowBookmarkOnMap(
   g_framework->PostDrapeTask([bnc]()
   {
     frm()->ShowBookmark(bnc);
-    frm()->SaveState();
   });
 }
 

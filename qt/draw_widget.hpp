@@ -54,9 +54,6 @@ namespace qt
 
     void OnLocationUpdate(location::GpsInfo const & info);
 
-    void SaveState();
-    void LoadState();
-
     void UpdateAfterSettingsChanged();
 
     void PrepareShutdown();
