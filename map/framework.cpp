@@ -1047,7 +1047,10 @@ void Framework::MemoryWarning()
 
 void Framework::EnterBackground()
 {
-  const ms::LatLon ll = MercatorBounds::ToLatLon(GetViewportCenter());
+  if (m_drapeEngine)
+    m_drapeEngine->SetRenderingEnabled(false);
+
+  ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
   alohalytics::Stats::Instance().LogEvent("Framework::EnterBackground", {{"zoom", strings::to_string(GetDrawScale())},
                                           {"foregroundSeconds", strings::to_string(
                                            static_cast<int>(my::Timer::LocalTime() - m_startForegroundTime))}},
@@ -1058,9 +1061,6 @@ void Framework::EnterBackground()
 #ifndef OMIM_OS_ANDROID
   ClearAllCaches();
 #endif
-
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetRenderingEnabled(false);
 }
 
 void Framework::EnterForeground()
@@ -1068,7 +1068,7 @@ void Framework::EnterForeground()
   m_startForegroundTime = my::Timer::LocalTime();
 
   // Drape can be not initialized here in case of the first launch
-  if (m_drapeEngine != nullptr)
+  if (m_drapeEngine)
     m_drapeEngine->SetRenderingEnabled(true);
 }
 
