@@ -28,6 +28,7 @@ bool IsSpecialDirName(string const & dirName)
 // BEFORE MERGE TO MASTER. THESE CHANGES ARE FOR TESTING PURPOSES
 // ONLY.
 #define METASERVER_URL ""
+#define RESOURCES_METASERVER_URL ""
 #define DEFAULT_URLS_JSON "[\"http://new-search.mapswithme.com/\"]"
 
 // static
