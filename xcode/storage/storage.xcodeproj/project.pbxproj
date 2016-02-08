@@ -1105,6 +1105,7 @@
 				676C83BA1C637A4300DC9603 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

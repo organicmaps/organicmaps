@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		670E39441C46C76900E9C0A6 /* sunrise_sunset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E39421C46C76900E9C0A6 /* sunrise_sunset.cpp */; };
 		670E39451C46C76900E9C0A6 /* sunrise_sunset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E39431C46C76900E9C0A6 /* sunrise_sunset.hpp */; };
-		34CB447E1C0C34C50061F6A0 /* timegm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34CB447C1C0C34C50061F6A0 /* timegm.cpp */; };
-		34CB447F1C0C34C50061F6A0 /* timegm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34CB447D1C0C34C50061F6A0 /* timegm.hpp */; };
-		674A28AD1B160437001A525C /* deferred_task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A28AB1B160437001A525C /* deferred_task.cpp */; };
-		674A28AE1B160437001A525C /* deferred_task.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A28AC1B160437001A525C /* deferred_task.hpp */; };
 		674A7E2E1C0DB03D003D48E1 /* timegm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A7E2C1C0DB03D003D48E1 /* timegm.cpp */; };
 		674A7E2F1C0DB03D003D48E1 /* timegm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A7E2D1C0DB03D003D48E1 /* timegm.hpp */; };
 		675341CB1A3F57E400A0A8C3 /* array_adapters.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675341851A3F57E400A0A8C3 /* array_adapters.hpp */; };
