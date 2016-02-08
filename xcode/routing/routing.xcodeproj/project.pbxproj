@@ -23,6 +23,53 @@
 		671F58BE1B874EC80032311E /* followed_polyline.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671F58BC1B874EC80032311E /* followed_polyline.hpp */; };
 		6741AA9C1BF35331002C974C /* turns_notification_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6741AA9A1BF35331002C974C /* turns_notification_manager.cpp */; };
 		6741AA9D1BF35331002C974C /* turns_notification_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6741AA9B1BF35331002C974C /* turns_notification_manager.hpp */; };
+		6742ACC31C68A0B1009CB89E /* road_graph_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6742ACB01C68A0B1009CB89E /* road_graph_builder.hpp */; };
+		6742AD261C68A9DF009CB89E /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACDE1C68A13F009CB89E /* testingmain.cpp */; };
+		6742AD271C68A9DF009CB89E /* astar_algorithm_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACA61C68A0B1009CB89E /* astar_algorithm_test.cpp */; };
+		6742AD281C68A9DF009CB89E /* astar_progress_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACA71C68A0B1009CB89E /* astar_progress_test.cpp */; };
+		6742AD291C68A9DF009CB89E /* astar_router_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACA81C68A0B1009CB89E /* astar_router_test.cpp */; };
+		6742AD2A1C68A9DF009CB89E /* async_router_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACA91C68A0B1009CB89E /* async_router_test.cpp */; };
+		6742AD2B1C68A9DF009CB89E /* cross_routing_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAA1C68A0B1009CB89E /* cross_routing_tests.cpp */; };
+		6742AD2C1C68A9DF009CB89E /* followed_polyline_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAB1C68A0B1009CB89E /* followed_polyline_test.cpp */; };
+		6742AD2D1C68A9DF009CB89E /* nearest_edge_finder_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAC1C68A0B1009CB89E /* nearest_edge_finder_tests.cpp */; };
+		6742AD2E1C68A9DF009CB89E /* online_cross_fetcher_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAD1C68A0B1009CB89E /* online_cross_fetcher_test.cpp */; };
+		6742AD2F1C68A9DF009CB89E /* osrm_router_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAE1C68A0B1009CB89E /* osrm_router_test.cpp */; };
+		6742AD301C68A9DF009CB89E /* road_graph_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACAF1C68A0B1009CB89E /* road_graph_builder.cpp */; };
+		6742AD311C68A9DF009CB89E /* road_graph_nearest_edges_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB11C68A0B1009CB89E /* road_graph_nearest_edges_test.cpp */; };
+		6742AD321C68A9DF009CB89E /* route_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB21C68A0B1009CB89E /* route_tests.cpp */; };
+		6742AD331C68A9DF009CB89E /* routing_mapping_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB31C68A0B1009CB89E /* routing_mapping_test.cpp */; };
+		6742AD341C68A9DF009CB89E /* routing_session_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB41C68A0B1009CB89E /* routing_session_test.cpp */; };
+		6742AD351C68A9DF009CB89E /* turns_generator_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB51C68A0B1009CB89E /* turns_generator_test.cpp */; };
+		6742AD361C68A9DF009CB89E /* turns_sound_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB61C68A0B1009CB89E /* turns_sound_test.cpp */; };
+		6742AD371C68A9DF009CB89E /* turns_tts_text_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB71C68A0B1009CB89E /* turns_tts_text_tests.cpp */; };
+		6742AD381C68A9DF009CB89E /* vehicle_model_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB81C68A0B1009CB89E /* vehicle_model_test.cpp */; };
+		6742AD391C68AA04009CB89E /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD041C68A317009CB89E /* libplatform_tests_support.a */; };
+		6742AD3A1C68AA04009CB89E /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD051C68A317009CB89E /* libsuccinct.a */; };
+		6742AD3B1C68AA04009CB89E /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFE1C68A2F4009CB89E /* libjansson.a */; };
+		6742AD3C1C68AA04009CB89E /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFF1C68A2F4009CB89E /* libtomcrypt.a */; };
+		6742AD3D1C68AA04009CB89E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */; };
+		6742AD3E1C68AA04009CB89E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACFB1C68A2D7009CB89E /* libprotobuf.a */; };
+		6742AD3F1C68AA04009CB89E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACF81C68A2C8009CB89E /* libeditor.a */; };
+		6742AD401C68AA04009CB89E /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEC1C68A27C009CB89E /* libosrm.a */; };
+		6742AD411C68AA04009CB89E /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACED1C68A27C009CB89E /* libplatform.a */; };
+		6742AD421C68AA04009CB89E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEE1C68A27C009CB89E /* libpugixml.a */; };
+		6742AD431C68AA04009CB89E /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACEF1C68A27C009CB89E /* libsearch.a */; };
+		6742AD441C68AA04009CB89E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE61C68A23B009CB89E /* libalohalitics.a */; };
+		6742AD451C68AA04009CB89E /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE71C68A23B009CB89E /* libgeometry.a */; };
+		6742AD461C68AA04009CB89E /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE81C68A23B009CB89E /* libindexer.a */; };
+		6742AD471C68AA04009CB89E /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE21C68A203009CB89E /* libbase.a */; };
+		6742AD481C68AA04009CB89E /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742ACE31C68A203009CB89E /* libcoding.a */; };
+		6742AD491C68AA2F009CB89E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742AD021C68A303009CB89E /* libz.tbd */; };
+		6742AD4D1C68AA59009CB89E /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343F81A3F640D00A0A8C3 /* librouting.a */; };
+		6742AD541C68C77B009CB89E /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD531C68BB14009CB89E /* classificator.txt */; };
+		6742AD561C68C7D7009CB89E /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD551C68C7C1009CB89E /* types.txt */; };
+		6742AD5C1C68C7FA009CB89E /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */; };
+		6742AD5D1C68C7FA009CB89E /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */; };
+		6742AD5E1C68C7FA009CB89E /* drules_proto_legacy.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD591C68C7F6009CB89E /* drules_proto_legacy.bin */; };
+		6742AD5F1C68C7FA009CB89E /* drules_proto-bw.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */; };
+		6742AD601C68C7FA009CB89E /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD5B1C68C7F6009CB89E /* drules_proto.bin */; };
+		6742AD621C68F747009CB89E /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD611C68F747009CB89E /* sound-strings */; };
+		6742AD641C68F8B4009CB89E /* MAPSME.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD631C68F8B4009CB89E /* MAPSME.plist */; };
 		674A28B11B1605D2001A525C /* osrm_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A28AF1B1605D2001A525C /* osrm_engine.cpp */; };
 		674A28B21B1605D2001A525C /* osrm_engine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674A28B01B1605D2001A525C /* osrm_engine.hpp */; };
 		674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BBA1B0A580E00704FFA /* async_router.cpp */; };
@@ -94,6 +141,53 @@
 		671F58BC1B874EC80032311E /* followed_polyline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = followed_polyline.hpp; sourceTree = "<group>"; };
 		6741AA9A1BF35331002C974C /* turns_notification_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_notification_manager.cpp; sourceTree = "<group>"; };
 		6741AA9B1BF35331002C974C /* turns_notification_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns_notification_manager.hpp; sourceTree = "<group>"; };
+		6742ACA61C68A0B1009CB89E /* astar_algorithm_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = astar_algorithm_test.cpp; sourceTree = "<group>"; };
+		6742ACA71C68A0B1009CB89E /* astar_progress_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = astar_progress_test.cpp; sourceTree = "<group>"; };
+		6742ACA81C68A0B1009CB89E /* astar_router_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = astar_router_test.cpp; sourceTree = "<group>"; };
+		6742ACA91C68A0B1009CB89E /* async_router_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = async_router_test.cpp; sourceTree = "<group>"; };
+		6742ACAA1C68A0B1009CB89E /* cross_routing_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_routing_tests.cpp; sourceTree = "<group>"; };
+		6742ACAB1C68A0B1009CB89E /* followed_polyline_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = followed_polyline_test.cpp; sourceTree = "<group>"; };
+		6742ACAC1C68A0B1009CB89E /* nearest_edge_finder_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nearest_edge_finder_tests.cpp; sourceTree = "<group>"; };
+		6742ACAD1C68A0B1009CB89E /* online_cross_fetcher_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = online_cross_fetcher_test.cpp; sourceTree = "<group>"; };
+		6742ACAE1C68A0B1009CB89E /* osrm_router_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_router_test.cpp; sourceTree = "<group>"; };
+		6742ACAF1C68A0B1009CB89E /* road_graph_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph_builder.cpp; sourceTree = "<group>"; };
+		6742ACB01C68A0B1009CB89E /* road_graph_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_graph_builder.hpp; sourceTree = "<group>"; };
+		6742ACB11C68A0B1009CB89E /* road_graph_nearest_edges_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph_nearest_edges_test.cpp; sourceTree = "<group>"; };
+		6742ACB21C68A0B1009CB89E /* route_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_tests.cpp; sourceTree = "<group>"; };
+		6742ACB31C68A0B1009CB89E /* routing_mapping_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_mapping_test.cpp; sourceTree = "<group>"; };
+		6742ACB41C68A0B1009CB89E /* routing_session_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_session_test.cpp; sourceTree = "<group>"; };
+		6742ACB51C68A0B1009CB89E /* turns_generator_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_generator_test.cpp; sourceTree = "<group>"; };
+		6742ACB61C68A0B1009CB89E /* turns_sound_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_sound_test.cpp; sourceTree = "<group>"; };
+		6742ACB71C68A0B1009CB89E /* turns_tts_text_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_tts_text_tests.cpp; sourceTree = "<group>"; };
+		6742ACB81C68A0B1009CB89E /* vehicle_model_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vehicle_model_test.cpp; sourceTree = "<group>"; };
+		6742ACDE1C68A13F009CB89E /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		6742ACE21C68A203009CB89E /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
+		6742ACE31C68A203009CB89E /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
+		6742ACE61C68A23B009CB89E /* libalohalitics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalohalitics.a; path = "../../../omim-xcode-build/Debug/libalohalitics.a"; sourceTree = "<group>"; };
+		6742ACE71C68A23B009CB89E /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug/libgeometry.a"; sourceTree = "<group>"; };
+		6742ACE81C68A23B009CB89E /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
+		6742ACEC1C68A27C009CB89E /* libosrm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosrm.a; path = "../../../omim-xcode-build/Debug/libosrm.a"; sourceTree = "<group>"; };
+		6742ACED1C68A27C009CB89E /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
+		6742ACEE1C68A27C009CB89E /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-xcode-build/Debug/libpugixml.a"; sourceTree = "<group>"; };
+		6742ACEF1C68A27C009CB89E /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<group>"; };
+		6742ACF81C68A2C8009CB89E /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
+		6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
+		6742ACFB1C68A2D7009CB89E /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = "<group>"; };
+		6742ACFE1C68A2F4009CB89E /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
+		6742ACFF1C68A2F4009CB89E /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtomcrypt.a; path = "../../../omim-xcode-build/Debug/libtomcrypt.a"; sourceTree = "<group>"; };
+		6742AD021C68A303009CB89E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		6742AD041C68A317009CB89E /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "../../../omim-xcode-build/Debug/libplatform_tests_support.a"; sourceTree = "<group>"; };
+		6742AD051C68A317009CB89E /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
+		6742AD0E1C68A91B009CB89E /* routing_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = routing_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6742AD531C68BB14009CB89E /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = classificator.txt; sourceTree = "<group>"; };
+		6742AD551C68C7C1009CB89E /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = types.txt; sourceTree = "<group>"; };
+		6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_clear.bin; sourceTree = "<group>"; };
+		6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
+		6742AD591C68C7F6009CB89E /* drules_proto_legacy.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_legacy.bin; sourceTree = "<group>"; };
+		6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "drules_proto-bw.bin"; sourceTree = "<group>"; };
+		6742AD5B1C68C7F6009CB89E /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto.bin; sourceTree = "<group>"; };
+		6742AD611C68F747009CB89E /* sound-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "sound-strings"; sourceTree = "<group>"; };
+		6742AD631C68F8B4009CB89E /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MAPSME.plist; path = ../../iphone/Maps/MAPSME.plist; sourceTree = "<group>"; };
 		674A28AF1B1605D2001A525C /* osrm_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_engine.cpp; sourceTree = "<group>"; };
 		674A28B01B1605D2001A525C /* osrm_engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm_engine.hpp; sourceTree = "<group>"; };
 		674F9BBA1B0A580E00704FFA /* async_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = async_router.cpp; sourceTree = "<group>"; };
@@ -142,13 +236,38 @@
 		A1616E291B6B60AB003F078E /* router_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = router_delegate.cpp; sourceTree = "<group>"; };
 		A1616E2A1B6B60AB003F078E /* router_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = router_delegate.hpp; sourceTree = "<group>"; };
 		A1616E2D1B6B60B3003F078E /* astar_progress.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = astar_progress.hpp; sourceTree = "<group>"; };
-		A17B42961BCFBD0E00A1EAE4 /* osrm_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osrm_helpers.cpp; path = ../../routing/osrm_helpers.cpp; sourceTree = "<group>"; };
-		A17B42971BCFBD0E00A1EAE4 /* osrm_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = osrm_helpers.hpp; path = ../../routing/osrm_helpers.hpp; sourceTree = "<group>"; };
+		A17B42961BCFBD0E00A1EAE4 /* osrm_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_helpers.cpp; sourceTree = "<group>"; };
+		A17B42971BCFBD0E00A1EAE4 /* osrm_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm_helpers.hpp; sourceTree = "<group>"; };
 		A1876BC41BB19C4300C9C743 /* speed_camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera.cpp; sourceTree = "<group>"; };
 		A1876BC51BB19C4300C9C743 /* speed_camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6742AD0B1C68A91B009CB89E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6742AD4D1C68AA59009CB89E /* librouting.a in Frameworks */,
+				6742AD401C68AA04009CB89E /* libosrm.a in Frameworks */,
+				6742AD3B1C68AA04009CB89E /* libjansson.a in Frameworks */,
+				6742AD451C68AA04009CB89E /* libgeometry.a in Frameworks */,
+				6742AD421C68AA04009CB89E /* libpugixml.a in Frameworks */,
+				6742AD3C1C68AA04009CB89E /* libtomcrypt.a in Frameworks */,
+				6742AD481C68AA04009CB89E /* libcoding.a in Frameworks */,
+				6742AD471C68AA04009CB89E /* libbase.a in Frameworks */,
+				6742AD491C68AA2F009CB89E /* libz.tbd in Frameworks */,
+				6742AD3D1C68AA04009CB89E /* liboauthcpp.a in Frameworks */,
+				6742AD431C68AA04009CB89E /* libsearch.a in Frameworks */,
+				6742AD391C68AA04009CB89E /* libplatform_tests_support.a in Frameworks */,
+				6742AD3F1C68AA04009CB89E /* libeditor.a in Frameworks */,
+				6742AD3E1C68AA04009CB89E /* libprotobuf.a in Frameworks */,
+				6742AD411C68AA04009CB89E /* libplatform.a in Frameworks */,
+				6742AD461C68AA04009CB89E /* libindexer.a in Frameworks */,
+				6742AD3A1C68AA04009CB89E /* libsuccinct.a in Frameworks */,
+				6742AD441C68AA04009CB89E /* libalohalitics.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		675343F51A3F640D00A0A8C3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,13 +289,91 @@
 			path = base;
 			sourceTree = "<group>";
 		};
+		6742ACA01C68A07C009CB89E /* routing_tests */ = {
+			isa = PBXGroup;
+			children = (
+				6742ACDE1C68A13F009CB89E /* testingmain.cpp */,
+				6742ACA61C68A0B1009CB89E /* astar_algorithm_test.cpp */,
+				6742ACA71C68A0B1009CB89E /* astar_progress_test.cpp */,
+				6742ACA81C68A0B1009CB89E /* astar_router_test.cpp */,
+				6742ACA91C68A0B1009CB89E /* async_router_test.cpp */,
+				6742ACAA1C68A0B1009CB89E /* cross_routing_tests.cpp */,
+				6742ACAB1C68A0B1009CB89E /* followed_polyline_test.cpp */,
+				6742ACAC1C68A0B1009CB89E /* nearest_edge_finder_tests.cpp */,
+				6742ACAD1C68A0B1009CB89E /* online_cross_fetcher_test.cpp */,
+				6742ACAE1C68A0B1009CB89E /* osrm_router_test.cpp */,
+				6742ACAF1C68A0B1009CB89E /* road_graph_builder.cpp */,
+				6742ACB01C68A0B1009CB89E /* road_graph_builder.hpp */,
+				6742ACB11C68A0B1009CB89E /* road_graph_nearest_edges_test.cpp */,
+				6742ACB21C68A0B1009CB89E /* route_tests.cpp */,
+				6742ACB31C68A0B1009CB89E /* routing_mapping_test.cpp */,
+				6742ACB41C68A0B1009CB89E /* routing_session_test.cpp */,
+				6742ACB51C68A0B1009CB89E /* turns_generator_test.cpp */,
+				6742ACB61C68A0B1009CB89E /* turns_sound_test.cpp */,
+				6742ACB71C68A0B1009CB89E /* turns_tts_text_tests.cpp */,
+				6742ACB81C68A0B1009CB89E /* vehicle_model_test.cpp */,
+			);
+			name = routing_tests;
+			path = ../../routing/routing_tests;
+			sourceTree = "<group>";
+		};
+		6742AD251C68A923009CB89E /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				6742AD041C68A317009CB89E /* libplatform_tests_support.a */,
+				6742AD051C68A317009CB89E /* libsuccinct.a */,
+				6742ACFE1C68A2F4009CB89E /* libjansson.a */,
+				6742ACFF1C68A2F4009CB89E /* libtomcrypt.a */,
+				6742ACFA1C68A2D7009CB89E /* liboauthcpp.a */,
+				6742ACFB1C68A2D7009CB89E /* libprotobuf.a */,
+				6742ACF81C68A2C8009CB89E /* libeditor.a */,
+				6742ACEC1C68A27C009CB89E /* libosrm.a */,
+				6742ACED1C68A27C009CB89E /* libplatform.a */,
+				6742ACEE1C68A27C009CB89E /* libpugixml.a */,
+				6742ACEF1C68A27C009CB89E /* libsearch.a */,
+				6742ACE61C68A23B009CB89E /* libalohalitics.a */,
+				6742ACE71C68A23B009CB89E /* libgeometry.a */,
+				6742ACE81C68A23B009CB89E /* libindexer.a */,
+				6742ACE21C68A203009CB89E /* libbase.a */,
+				6742ACE31C68A203009CB89E /* libcoding.a */,
+				6742AD021C68A303009CB89E /* libz.tbd */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
+		6742AD501C68BAC3009CB89E /* Support files */ = {
+			isa = PBXGroup;
+			children = (
+				6742AD631C68F8B4009CB89E /* MAPSME.plist */,
+			);
+			name = "Support files";
+			sourceTree = "<group>";
+		};
+		6742AD511C68BAEE009CB89E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */,
+				6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */,
+				6742AD591C68C7F6009CB89E /* drules_proto_legacy.bin */,
+				6742AD5A1C68C7F6009CB89E /* drules_proto-bw.bin */,
+				6742AD5B1C68C7F6009CB89E /* drules_proto.bin */,
+				6742AD551C68C7C1009CB89E /* types.txt */,
+				6742AD531C68BB14009CB89E /* classificator.txt */,
+				6742AD611C68F747009CB89E /* sound-strings */,
+			);
+			name = Resources;
+			path = ../../data;
+			sourceTree = "<group>";
+		};
 		675343EF1A3F640D00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				A17B42961BCFBD0E00A1EAE4 /* osrm_helpers.cpp */,
-				A17B42971BCFBD0E00A1EAE4 /* osrm_helpers.hpp */,
 				670D05A61B0E02560013A7AC /* defaults.xcconfig */,
+				6742AD251C68A923009CB89E /* libs */,
 				675343FA1A3F640D00A0A8C3 /* routing */,
+				6742ACA01C68A07C009CB89E /* routing_tests */,
+				6742AD511C68BAEE009CB89E /* Resources */,
+				6742AD501C68BAC3009CB89E /* Support files */,
 				675343F91A3F640D00A0A8C3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -185,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				675343F81A3F640D00A0A8C3 /* librouting.a */,
+				6742AD0E1C68A91B009CB89E /* routing_tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,6 +390,8 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				A17B42961BCFBD0E00A1EAE4 /* osrm_helpers.cpp */,
+				A17B42971BCFBD0E00A1EAE4 /* osrm_helpers.hpp */,
 				6741AA9A1BF35331002C974C /* turns_notification_manager.cpp */,
 				6741AA9B1BF35331002C974C /* turns_notification_manager.hpp */,
 				A1876BC41BB19C4300C9C743 /* speed_camera.cpp */,
@@ -292,6 +492,7 @@
 				674F9BCD1B0A580E00704FFA /* features_road_graph.hpp in Headers */,
 				670EE5741B664796001E8064 /* pedestrian_directions.hpp in Headers */,
 				6753441D1A3F644F00A0A8C3 /* router.hpp in Headers */,
+				6742ACC31C68A0B1009CB89E /* road_graph_builder.hpp in Headers */,
 				A1616E2E1B6B60B3003F078E /* astar_progress.hpp in Headers */,
 				670EE5721B664796001E8064 /* directions_engine.hpp in Headers */,
 				A1876BC71BB19C4300C9C743 /* speed_camera.hpp in Headers */,
@@ -308,6 +509,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		6742AD0D1C68A91B009CB89E /* routing_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6742AD221C68A91B009CB89E /* Build configuration list for PBXNativeTarget "routing_tests" */;
+			buildPhases = (
+				6742AD0A1C68A91B009CB89E /* Sources */,
+				6742AD0B1C68A91B009CB89E /* Frameworks */,
+				6742AD0C1C68A91B009CB89E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = routing_tests;
+			productName = routing_device_tests;
+			productReference = 6742AD0E1C68A91B009CB89E /* routing_tests.app */;
+			productType = "com.apple.product-type.application";
+		};
 		675343F71A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 675344031A3F640D00A0A8C3 /* Build configuration list for PBXNativeTarget "routing" */;
@@ -334,6 +552,9 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
+					6742AD0D1C68A91B009CB89E = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
 					675343F71A3F640D00A0A8C3 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -345,6 +566,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 675343EF1A3F640D00A0A8C3;
 			productRefGroup = 675343F91A3F640D00A0A8C3 /* Products */;
@@ -352,11 +574,57 @@
 			projectRoot = "";
 			targets = (
 				675343F71A3F640D00A0A8C3 /* routing */,
+				6742AD0D1C68A91B009CB89E /* routing_tests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		6742AD0C1C68A91B009CB89E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6742AD5F1C68C7FA009CB89E /* drules_proto-bw.bin in Resources */,
+				6742AD5C1C68C7FA009CB89E /* drules_proto_clear.bin in Resources */,
+				6742AD561C68C7D7009CB89E /* types.txt in Resources */,
+				6742AD641C68F8B4009CB89E /* MAPSME.plist in Resources */,
+				6742AD541C68C77B009CB89E /* classificator.txt in Resources */,
+				6742AD601C68C7FA009CB89E /* drules_proto.bin in Resources */,
+				6742AD621C68F747009CB89E /* sound-strings in Resources */,
+				6742AD5D1C68C7FA009CB89E /* drules_proto_dark.bin in Resources */,
+				6742AD5E1C68C7FA009CB89E /* drules_proto_legacy.bin in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		6742AD0A1C68A91B009CB89E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6742AD311C68A9DF009CB89E /* road_graph_nearest_edges_test.cpp in Sources */,
+				6742AD2E1C68A9DF009CB89E /* online_cross_fetcher_test.cpp in Sources */,
+				6742AD381C68A9DF009CB89E /* vehicle_model_test.cpp in Sources */,
+				6742AD291C68A9DF009CB89E /* astar_router_test.cpp in Sources */,
+				6742AD371C68A9DF009CB89E /* turns_tts_text_tests.cpp in Sources */,
+				6742AD2B1C68A9DF009CB89E /* cross_routing_tests.cpp in Sources */,
+				6742AD2C1C68A9DF009CB89E /* followed_polyline_test.cpp in Sources */,
+				6742AD331C68A9DF009CB89E /* routing_mapping_test.cpp in Sources */,
+				6742AD341C68A9DF009CB89E /* routing_session_test.cpp in Sources */,
+				6742AD261C68A9DF009CB89E /* testingmain.cpp in Sources */,
+				6742AD361C68A9DF009CB89E /* turns_sound_test.cpp in Sources */,
+				6742AD2F1C68A9DF009CB89E /* osrm_router_test.cpp in Sources */,
+				6742AD271C68A9DF009CB89E /* astar_algorithm_test.cpp in Sources */,
+				6742AD351C68A9DF009CB89E /* turns_generator_test.cpp in Sources */,
+				6742AD301C68A9DF009CB89E /* road_graph_builder.cpp in Sources */,
+				6742AD2D1C68A9DF009CB89E /* nearest_edge_finder_tests.cpp in Sources */,
+				6742AD321C68A9DF009CB89E /* route_tests.cpp in Sources */,
+				6742AD2A1C68A9DF009CB89E /* async_router_test.cpp in Sources */,
+				6742AD281C68A9DF009CB89E /* astar_progress_test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		675343F41A3F640D00A0A8C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -398,6 +666,42 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		6742AD231C68A91B009CB89E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.routing-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6742AD241C68A91B009CB89E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.routing-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		675344011A3F640D00A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 670D05A61B0E02560013A7AC /* defaults.xcconfig */;
@@ -518,6 +822,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6742AD221C68A91B009CB89E /* Build configuration list for PBXNativeTarget "routing_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6742AD231C68A91B009CB89E /* Debug */,
+				6742AD241C68A91B009CB89E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		675343F31A3F640D00A0A8C3 /* Build configuration list for PBXProject "routing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
