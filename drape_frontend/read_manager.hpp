@@ -81,9 +81,12 @@ private:
   uint64_t m_generationCounter;
   uint64_t m_tileRequestGeneration;
 
+  using TTileInfoCollection = buffer_vector<shared_ptr<TileInfo>, 8>;
+
   void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);
-  int IncreaseCounter(int value, uint64_t tileRequestGeneration);
+  void IncreaseCounter(int value, uint64_t tileRequestGeneration,
+                       TTileInfoCollection * readyTiles = nullptr);
 };
 
 } // namespace df

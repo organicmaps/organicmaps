@@ -62,11 +62,8 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
 
     // add finished tile to collection
     if (!task->IsCancelled())
-    {
-      // Erase tile key because it must be updated with actual style zoom level.
-      m_finishedTiles.erase(t->GetTileKey());
       m_finishedTiles.emplace(t->GetTileKey());
-    }
+
     // decrement counter
     ASSERT(m_counter > 0, ());
     --m_counter;
@@ -107,7 +104,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, 
   else
   {
     // Find rects that go out from viewport
-    buffer_vector<shared_ptr<TileInfo>, 8> outdatedTiles;
+    TTileInfoCollection outdatedTiles;
 #ifdef _MSC_VER
     vs_bug::
 #endif
@@ -125,7 +122,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, 
                    back_inserter(inputRects), LessCoverageCell());
 
     // Find tiles which must be re-read.
-    buffer_vector<shared_ptr<TileInfo>, 8> presentTiles;
+    TTileInfoCollection presentTiles;
 #ifdef _MSC_VER
     vs_bug::
 #endif
@@ -133,7 +130,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, 
                    outdatedTiles.begin(), outdatedTiles.end(),
                    back_inserter(presentTiles), LessCoverageCell());
 
-    buffer_vector<shared_ptr<TileInfo>, 8> rereadTiles;
+    TTileInfoCollection rereadTiles;
     for (shared_ptr<TileInfo> const & tile : presentTiles)
     {
       for (shared_ptr<TileInfo> & outTile : outdatedTiles)
@@ -146,10 +143,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, 
       }
     }
 
-    int const prevTaskCount = IncreaseCounter(static_cast<int>(inputRects.size() + rereadTiles.size()),
-                                              tileRequestGeneration);
-
-    buffer_vector<shared_ptr<TileInfo>, 8> readyTiles;
+    TTileInfoCollection readyTiles;
 #ifdef _MSC_VER
     vs_bug::
 #endif
@@ -157,25 +151,14 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, 
                    rereadTiles.begin(), rereadTiles.end(),
                    back_inserter(readyTiles), LessCoverageCell());
 
-    {
-      lock_guard<mutex> lock(m_finishedTilesMutex);
-      for (shared_ptr<TileInfo> & tile : readyTiles)
-        m_finishedTiles.emplace(tile->GetTileKey());
-
-      if (prevTaskCount == 0 && rereadTiles.empty() && inputRects.empty())
-      {
-        m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<FinishReadingMessage>(m_finishedTiles, m_tileRequestGeneration,
-                                                                       false /* enableFlushOverlays */),
-                                  MessagePriority::Normal);
-        m_finishedTiles.clear();
-      }
-    }
+    IncreaseCounter(static_cast<int>(inputRects.size() + rereadTiles.size()),
+                    tileRequestGeneration, &readyTiles);
 
     for_each(outdatedTiles.begin(), outdatedTiles.end(), bind(&ReadManager::ClearTileInfo, this, _1));
     for_each(rereadTiles.begin(), rereadTiles.end(), bind(&ReadManager::PushTaskFront, this, _1));
     for_each(inputRects.begin(), inputRects.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1, texMng));
   }
+
   m_currentViewport = screen;
 }
 
@@ -268,13 +251,28 @@ void ReadManager::ClearTileInfo(shared_ptr<TileInfo> const & tileToClear)
   m_tileInfos.erase(tileToClear);
 }
 
-int ReadManager::IncreaseCounter(int value, uint64_t tileRequestGeneration)
+void ReadManager::IncreaseCounter(int value, uint64_t tileRequestGeneration,
+                                  TTileInfoCollection * readyTiles)
 {
   lock_guard<mutex> lock(m_finishedTilesMutex);
-  int prevValue = m_counter;
   m_counter += value;
   m_tileRequestGeneration = tileRequestGeneration;
-  return prevValue;
+
+  if (readyTiles != nullptr)
+  {
+    bool const enableFlushOverlays = !m_finishedTiles.empty();
+    for (shared_ptr<TileInfo> & tile : *readyTiles)
+      m_finishedTiles.emplace(tile->GetTileKey());
+
+    if (m_counter == 0)
+    {
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                make_unique_dp<FinishReadingMessage>(m_finishedTiles, m_tileRequestGeneration,
+                                                                     enableFlushOverlays),
+                                MessagePriority::Normal);
+      m_finishedTiles.clear();
+    }
+  }
 }
 
 void ReadManager::Allow3dBuildings(bool allow3dBuildings)
