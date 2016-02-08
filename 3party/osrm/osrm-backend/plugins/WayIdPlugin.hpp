@@ -44,6 +44,8 @@ public:
   int HandleRequest(const RouteParameters & route_parameters,
                     osrm::json::Object & reply) override final
   {
+    double constexpr kMaxDistanceToFindMeters = 1000.0;
+
     // We process only two points case
     if (route_parameters.coordinates.size() != 2)
       return 400;
@@ -57,17 +59,23 @@ public:
 
     for (const auto i : osrm::irange<std::size_t>(0, route_parameters.coordinates.size()))
     {
-      std::vector<PhantomNode> phantom_node_vector;
-      // FixedPointCoordinate &coordinate = route_parameters.coordinates[i];
-      if (m_facade->IncrementalFindPhantomNodeForCoordinate(route_parameters.coordinates[i],
-                                                            phantom_node_vector, 1))
+      std::vector<std::pair<PhantomNode, double>> phantom_node_vector;
+      //FixedPointCoordinate &coordinate = route_parameters.coordinates[i];
+      if (m_facade->IncrementalFindPhantomNodeForCoordinateWithMaxDistance(route_parameters.coordinates[i],
+                                                                           phantom_node_vector, kMaxDistanceToFindMeters,
+                                                                           0 /*min_number_of_phantom_nodes*/, 2 /*max_number_of_phantom_nodes*/))
       {
-        BOOST_ASSERT(!phantom_node_vector.empty());
-        phantom_node_pair_list[i].first = phantom_node_vector.front();
-        if (phantom_node_vector.size() > 1)
-        {
-          phantom_node_pair_list[i].second = phantom_node_vector.back();
-        }
+          BOOST_ASSERT(!phantom_node_vector.empty());
+          // Don't know why, but distance may be higher that maxDistance.
+          if (phantom_node_vector.front().second > kMaxDistanceToFindMeters)
+            continue;
+          phantom_node_pair_list[i].first = phantom_node_vector.front().first;
+          if (phantom_node_vector.size() > 1)
+          {
+            if (phantom_node_vector.back().second > kMaxDistanceToFindMeters)
+              continue;
+            phantom_node_pair_list[i].second = phantom_node_vector.back().first;
+          }
       }
     }
 
