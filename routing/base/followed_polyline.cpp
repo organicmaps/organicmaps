@@ -43,14 +43,22 @@ double FollowedPolyline::GetDistanceM(Iter const & it1, Iter const & it2) const
 
 double FollowedPolyline::GetTotalDistanceM() const
 {
-  ASSERT(IsValid(), ());
+  if (!IsValid())
+  {
+    ASSERT(IsValid(), ());
+    return 0;
+  }
   return m_segDistance.back();
 }
 
 double FollowedPolyline::GetDistanceFromBeginM() const
 {
-  ASSERT(IsValid(), ());
-  ASSERT(m_current.IsValid(), ());
+  if (!IsValid() || !m_current.IsValid())
+  {
+    ASSERT(IsValid(), ());
+    ASSERT(m_current.IsValid(), ());
+    return 0;
+  }
 
   return (m_current.m_ind > 0 ? m_segDistance[m_current.m_ind - 1] : 0.0) +
          MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind));
