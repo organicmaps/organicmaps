@@ -120,6 +120,7 @@ protected:
   double m_startForegroundTime;
 
   storage::Storage m_storage;
+  bool m_autoDownloadingOn = true;
 
   location::TMyPositionModeChanged m_myPositionListener;
 

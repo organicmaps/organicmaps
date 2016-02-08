@@ -292,7 +292,7 @@ public:
 
   /// \brief Get information for mwm update button.
   /// \return true if updateInfo is filled correctly and false otherwise.
-  bool GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInfo) const { return true; }
+  bool GetUpdateInfo(UpdateInfo & updateInfo) const { return true; }
 
   /// \brief Update all mwm in case of changing mwm hierarchy of mwm borders.
   /// This method:
