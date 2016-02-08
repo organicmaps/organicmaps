@@ -32,8 +32,9 @@
 
       <com.mapswithme.maps.widget.CustomTextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/base_block_size"
-        android:layout_marginTop="@dimen/margin_base">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:minHeight="@dimen/base_block_size">
 
         <EditText
           android:id="@+id/osm_username"
@@ -45,9 +46,9 @@
 
       <com.mapswithme.maps.widget.CustomTextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/base_block_size"
-        android:layout_marginBottom="@dimen/margin_base"
-        android:layout_marginTop="@dimen/margin_base">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:minHeight="@dimen/base_block_size">
 
         <EditText
           android:id="@+id/osm_password"
@@ -58,15 +59,29 @@
 
       </com.mapswithme.maps.widget.CustomTextInputLayout>
 
-      <Button
-        android:id="@+id/login"
+      <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/editor_auth_btn_height"
-        android:layout_marginBottom="@dimen/margin_base"
-        android:background="?buttonAccent"
-        android:text="Log in"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_base">
+
+        <Button
+          android:id="@+id/login"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/editor_auth_btn_height"
+          android:background="?buttonAccent"
+          android:text="Log in"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+
+        <ProgressBar
+          android:id="@+id/osm_login_progress"
+          android:layout_width="@dimen/editor_auth_btn_height"
+          android:layout_height="@dimen/editor_auth_btn_height"
+          android:layout_gravity="center"
+          android:elevation="@dimen/fab_elevation"
+          tools:targetApi="lollipop"/>
+
+      </FrameLayout>
 
       <TextView
         android:id="@+id/lost_password"

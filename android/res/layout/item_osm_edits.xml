@@ -61,6 +61,7 @@
       android:id="@+id/more"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
+      android:background="?selectableItemBackgroundBorderless"
       android:padding="@dimen/margin_half"
       android:scaleType="center"
       android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"

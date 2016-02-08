@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.annotation.WorkerThread;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.MwmApplication;
 
@@ -32,7 +33,8 @@ public final class OsmOAuth
 
   public static boolean isAuthorized()
   {
-    return MwmApplication.prefs().contains(PREF_OSM_TOKEN) && MwmApplication.prefs().contains(PREF_OSM_SECRET);
+    return MwmApplication.prefs().contains(PREF_OSM_TOKEN) &&
+           MwmApplication.prefs().contains(PREF_OSM_SECRET);
   }
 
   public static String getAuthToken()
@@ -50,7 +52,15 @@ public final class OsmOAuth
     MwmApplication.prefs().edit()
                   .putString(PREF_OSM_TOKEN, token)
                   .putString(PREF_OSM_SECRET, secret)
-                  .commit();
+                  .apply();
+  }
+
+  public static void clearAuthorization()
+  {
+    MwmApplication.prefs().edit()
+                  .remove(PREF_OSM_TOKEN)
+                  .remove(PREF_OSM_SECRET)
+                  .apply();
   }
 
   /**

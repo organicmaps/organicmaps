@@ -2,6 +2,7 @@ package com.mapswithme.maps.editor;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.LightingColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,16 +11,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 
 public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickListener
 {
+  private ProgressBar mProgress;
+  private TextView mTvLogin;
+  private View mTvLostPassword;
+
   private static class AuthToolbarController extends ToolbarController
   {
     AuthToolbarController(View root, Activity activity)
@@ -27,6 +36,7 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
       super(root, activity);
       mToolbar.setNavigationIcon(Graphics.tint(activity,
                                                activity.getResources().getDrawable(R.drawable.ic_cancel)));
+      mToolbar.setTitleTextColor(MwmApplication.get().getResources().getColor(R.color.text_dark));
     }
 
     @Override
@@ -53,8 +63,13 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
     mToolbarController.setTitle("Log In");
     mEtLogin = (EditText) view.findViewById(R.id.osm_username);
     mEtPassword = (EditText) view.findViewById(R.id.osm_password);
-    view.findViewById(R.id.login).setOnClickListener(this);
-    view.findViewById(R.id.lost_password).setOnClickListener(this);
+    mTvLogin = (TextView) view.findViewById(R.id.login);
+    mTvLogin.setOnClickListener(this);
+    mTvLostPassword = view.findViewById(R.id.lost_password);
+    mTvLostPassword.setOnClickListener(this);
+    mProgress = (ProgressBar) view.findViewById(R.id.osm_login_progress);
+    mProgress.getIndeterminateDrawable().setColorFilter(new LightingColorFilter(0xFF000000, 0xFFFFFF));
+    UiUtils.hide(mProgress);
   }
 
   @Override
@@ -66,7 +81,6 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
   @Override
   public void onClick(View v)
   {
-    // TODO show/hide spinners
     switch (v.getId())
     {
     case R.id.login:
@@ -82,14 +96,16 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
   {
     final String username = mEtLogin.getText().toString();
     final String password = mEtPassword.getText().toString();
+    enableInput(false);
+    UiUtils.show(mProgress);
+    mTvLogin.setText("");
 
     ThreadPool.getWorker().execute(new Runnable()
     {
       @Override
       public void run()
       {
-        final String[] auth;
-        auth = OsmOAuth.nativeAuthWithPassword(username, password);
+        final String[] auth = OsmOAuth.nativeAuthWithPassword(username, password);
 
         UiThread.run(new Runnable()
         {
@@ -99,11 +115,22 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
             if (!isAdded())
               return;
 
+            enableInput(true);
+            UiUtils.hide(mProgress);
+            mTvLogin.setText("Login");
             processAuth(auth);
           }
         });
       }
     });
+  }
+
+  private void enableInput(boolean enable)
+  {
+    mEtPassword.setEnabled(enable);
+    mEtLogin.setEnabled(enable);
+    mTvLogin.setEnabled(enable);
+    mTvLostPassword.setEnabled(enable);
   }
 
   private void recoverPassword()

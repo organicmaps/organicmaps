@@ -23,7 +23,7 @@
       android:layout_gravity="end|center_vertical"
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
-      android:src="@drawable/ic_download_map"
+      android:src="@drawable/ic_logout"
       android:visibility="gone"/>
 
   </android.support.v7.widget.Toolbar>

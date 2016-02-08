@@ -3,11 +3,14 @@ package com.mapswithme.maps.editor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.UiUtils;
 
 public class ProfileFragment extends AuthFragment implements View.OnClickListener
@@ -39,6 +42,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     ((ImageView) localEdits.findViewById(R.id.image)).setImageResource(R.drawable.ic_device);
     mEditsLocal = (TextView) localEdits.findViewById(R.id.title);
     mEditsMore = localEdits.findViewById(R.id.more);
+    mEditsMore.setOnClickListener(this);
     UiUtils.hide(localEdits.findViewById(R.id.subtitle), localEdits.findViewById(R.id.more));
     final View sentEdits = mEditsBlock.findViewById(R.id.sent_edits);
     ((ImageView) sentEdits.findViewById(R.id.image)).setImageResource(R.drawable.ic_upload);
@@ -68,18 +72,32 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     else
     // FIXME fix stats[2] element - now it wrongly contains seconds instead of millis
       UiUtils.setTextAndShow(mEditsSentDate, "Upload date : " + DateUtils.formatDateTime(getActivity(), stats[2] * 1000, 0));
+
+    UiUtils.showIf(stats[1] != stats[0], mEditsMore);
   }
 
   @Override
   public void onClick(View v)
   {
-    // TODO show/hide spinners
-    // TODO process clicks
     switch (v.getId())
     {
     case R.id.logout:
+      OsmOAuth.clearAuthorization();
+      refreshViews();
       break;
     case R.id.more:
+      BottomSheetHelper.create(getActivity())
+                       .sheet(Menu.NONE, R.drawable.ic_delete, R.string.delete)
+                       .listener(new MenuItem.OnMenuItemClickListener()
+                       {
+                         @Override
+                         public boolean onMenuItemClick(MenuItem menuItem)
+                         {
+                           Editor.nativeClearLocalEdits();
+                           refreshViews();
+                           return false;
+                         }
+                       }).tint().show();
       break;
     default:
       super.onClick(v);
