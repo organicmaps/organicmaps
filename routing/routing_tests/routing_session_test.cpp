@@ -230,4 +230,59 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   TEST(rebuildTimedSignal.WaitUntil(time), ("Route was not built."));
   TEST(session.IsFollowing(), ());
 }
+
+UNIT_TEST(TestFollowRoutePercentTest)
+{
+  Index index;
+  RoutingSession session;
+  session.Init(nullptr, nullptr);
+  vector<m2::PointD> routePoints = kTestRoute;
+  Route masterRoute("dummy", routePoints.begin(), routePoints.end());
+  size_t counter = 0;
+  unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
+  session.SetRouter(move(router), nullptr);
+
+  // Get completion percent of unexisted route.
+  TEST_EQUAL(session.GetCompletionPercent(), 0, ());
+  // Go along the route.
+  TimedSignal alongTimedSignal;
+  session.BuildRoute(kTestRoute.front(), kTestRoute.back(),
+                     [&alongTimedSignal](Route const &, IRouter::ResultCode)
+                     {
+                       alongTimedSignal.Signal();
+                     },
+                     nullptr, 0);
+  // Manual check of the routeBuilded mutex to avoid spurious results.
+  auto time = steady_clock::now() + kRouteBuildingMaxDuration;
+  TEST(alongTimedSignal.WaitUntil(time), ("Route was not built."));
+
+  // Get completion percent of unstarted route.
+  TEST_EQUAL(session.GetCompletionPercent(), 0, ());
+
+  location::GpsInfo info;
+  info.m_horizontalAccuracy = 0.01;
+  info.m_verticalAccuracy = 0.01;
+
+  // Go through the route.
+  info.m_longitude = 0.;
+  info.m_latitude = 1.;
+  session.OnLocationPositionChanged(info, index);
+  TEST(my::AlmostEqualAbs(session.GetCompletionPercent(), 0., 0.5), ());
+
+  info.m_longitude = 0.;
+  info.m_latitude = 2.;
+  session.OnLocationPositionChanged(info, index);
+  TEST(my::AlmostEqualAbs(session.GetCompletionPercent(), 33.3, 0.5), ());
+
+
+  info.m_longitude = 0.;
+  info.m_latitude = 3.;
+  session.OnLocationPositionChanged(info, index);
+  TEST(my::AlmostEqualAbs(session.GetCompletionPercent(), 66.6, 0.5), ());
+
+  info.m_longitude = 0.;
+  info.m_latitude = 3.99;
+  session.OnLocationPositionChanged(info, index);
+  TEST(my::AlmostEqualAbs(session.GetCompletionPercent(), 100., 0.5), ());
+}
 }  // namespace routing

@@ -325,6 +325,10 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
 double RoutingSession::GetCompletionPercent() const
 {
+  // Uncreated route can't have completion percents.
+  if (!m_route.IsValid())
+    return 0;
+
   double const percent = 100.0 *
     (m_passedDistanceOnRouteMeters + m_route.GetCurrentDistanceFromBeginMeters()) /
     (m_passedDistanceOnRouteMeters + m_route.GetTotalDistanceMeters());
