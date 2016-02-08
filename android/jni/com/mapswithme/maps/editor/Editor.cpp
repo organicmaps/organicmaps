@@ -118,4 +118,10 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetStats(JNIEnv * env, jclass clazz
   env->SetLongArrayRegion(result, 0, 3, buf);
   return result;
 }
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeClearLocalEdits(JNIEnv * env, jclass clazz)
+{
+  Editor::Instance().ClearAllLocalEdits();
+}
 } // extern "C"

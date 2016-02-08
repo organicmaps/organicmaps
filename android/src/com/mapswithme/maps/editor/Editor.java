@@ -77,4 +77,6 @@ public final class Editor
    * @return array [total edits count, uploaded edits count, last upload timestamp]
    */
   public static native long[] nativeGetStats();
+
+  public static native void nativeClearLocalEdits();
 }
