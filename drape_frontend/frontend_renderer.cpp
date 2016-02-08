@@ -999,7 +999,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   AfterDrawFrame();
 #endif
 
-  //MergeBuckets();
+  MergeBuckets();
 }
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)

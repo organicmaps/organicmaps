@@ -104,26 +104,29 @@ void RenderBucket::Render(ScreenBase const & screen)
 
 void RenderBucket::StartFeatureRecord(FeatureGeometryId feature, const m2::RectD & limitRect)
 {
-  m_featureInfo = feature;
-  m_featureLimitRect = limitRect;
+  m_featureInfo = make_pair(feature, FeatureGeometryInfo(limitRect));
   m_buffer->ResetChangingTracking();
-  m_featuresRanges.insert(make_pair(feature, FeatureGeometryInfo(limitRect)));
 }
 
 void RenderBucket::EndFeatureRecord(bool featureCompleted)
 {
-  auto it = m_featuresRanges.find(m_featureInfo);
-  ASSERT(it != m_featuresRanges.end(), ());
-  it->second.m_featureCompleted = featureCompleted;
-  if (!m_buffer->IsChanged())
-    m_featuresRanges.erase(it);
-  m_featureInfo = FeatureGeometryId();
+  ASSERT(m_featureInfo.first.IsValid(), ());
+  m_featureInfo.second.m_featureCompleted = featureCompleted;
+  if (m_buffer->IsChanged())
+    m_featuresGeometryInfo.insert(m_featureInfo);
+  m_featureInfo = TFeatureInfo();
+}
+
+void RenderBucket::AddFeaturesInfo(RenderBucket const & bucket)
+{
+  for (auto const & info : bucket.m_featuresGeometryInfo)
+    m_featuresGeometryInfo.insert(info);
 }
 
 bool RenderBucket::IsFeaturesWaiting(TCheckFeaturesWaiting isFeaturesWaiting)
 {
-  ASSERT(!m_featuresRanges.empty(), ());
-  for (auto const & featureRange : m_featuresRanges)
+  ASSERT(!m_featuresGeometryInfo.empty(), ());
+  for (auto const & featureRange : m_featuresGeometryInfo)
     if (isFeaturesWaiting(featureRange.second.m_limitRect))
       return true;
   return false;

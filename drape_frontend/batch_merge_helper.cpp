@@ -145,6 +145,8 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
         allocateFn(bucket, newBuffer);
       }
 
+      bucket->AddFeaturesInfo(*b);
+
       uint32_t indexOffset = newBuffer->GetStartIndexValue();
 
       for (auto const & vboNode : buffer->m_staticBuffers)

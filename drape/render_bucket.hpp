@@ -55,21 +55,24 @@ public:
   using TCheckFeaturesWaiting = function<bool(m2::RectD const &)>;
   bool IsFeaturesWaiting(TCheckFeaturesWaiting isFeaturesWaiting);
 
+  void AddFeaturesInfo(RenderBucket const & bucket);
+
 private:
   struct FeatureGeometryInfo
   {
+    FeatureGeometryInfo() = default;
     FeatureGeometryInfo(m2::RectD const & limitRect)
       : m_limitRect(limitRect)
     {}
 
     m2::RectD m_limitRect;
-    bool m_featureCompleted = true;
+    bool m_featureCompleted = false;
   };
-  using TFeaturesRanges = map<FeatureGeometryId, FeatureGeometryInfo>;
+  using TFeaturesGeometryInfo = map<FeatureGeometryId, FeatureGeometryInfo>;
+  using TFeatureInfo = pair<FeatureGeometryId, FeatureGeometryInfo>;
 
-  FeatureGeometryId m_featureInfo;
-  m2::RectD m_featureLimitRect;
-  TFeaturesRanges m_featuresRanges;
+  TFeatureInfo m_featureInfo;
+  TFeaturesGeometryInfo m_featuresGeometryInfo;
 
   vector<drape_ptr<OverlayHandle> > m_overlay;
   drape_ptr<VertexArrayBuffer> m_buffer;
