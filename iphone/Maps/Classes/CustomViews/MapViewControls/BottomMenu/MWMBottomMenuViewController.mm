@@ -105,9 +105,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   [self refreshLayout];
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.view refresh];
+  [self.view mwm_refreshUI];
 }
 
 #pragma mark - Refresh Collection View layout

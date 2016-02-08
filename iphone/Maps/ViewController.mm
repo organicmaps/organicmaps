@@ -11,12 +11,12 @@
   return NO;
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.navigationController.navigationBar refresh];
-  [self.view refresh];
+  [self.navigationController.navigationBar mwm_refreshUI];
+  [self.view mwm_refreshUI];
   if (![self isKindOfClass:[MapViewController class]])
-    [[MapsAppDelegate theApp].mapViewController refresh];
+    [[MapsAppDelegate theApp].mapViewController mwm_refreshUI];
 }
 
 - (void)viewDidLoad

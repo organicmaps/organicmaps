@@ -76,9 +76,9 @@ LocationObserver>
   [self setupTableView];
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.view refresh];
+  [self.view mwm_refreshUI];
 }
 
 - (void)setupTableView

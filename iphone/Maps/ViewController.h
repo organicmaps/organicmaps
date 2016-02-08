@@ -1,6 +1,6 @@
 @interface ViewController : UIViewController
 
-- (void)refresh;
+- (void)mwm_refreshUI;
 - (void)showAlert:(NSString *)alert withButtonTitle:(NSString *)buttonTitle;
 
 @end

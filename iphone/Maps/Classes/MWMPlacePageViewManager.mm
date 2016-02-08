@@ -157,10 +157,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self updateDistance];
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.placePage.extendedPlacePageView refresh];
-  [self.placePage.actionBar refresh];
+  [self.placePage.extendedPlacePageView mwm_refreshUI];
+  [self.placePage.actionBar mwm_refreshUI];
 }
 
 - (BOOL)hasPlacePage

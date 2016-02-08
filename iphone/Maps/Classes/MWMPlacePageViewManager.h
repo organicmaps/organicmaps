@@ -18,7 +18,7 @@
 - (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
 - (void)reloadPlacePage;
 - (void)refreshPlacePage;
-- (void)refresh;
+- (void)mwm_refreshUI;
 - (BOOL)hasPlacePage;
 - (void)dismissPlacePage;
 - (void)hidePlacePage;

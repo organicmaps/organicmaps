@@ -167,7 +167,7 @@
 
 @implementation UIView (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   UIColor * opposite = self.backgroundColor.opposite;
   if (opposite)
@@ -175,8 +175,8 @@
 
   for (UIView * v in self.subviews)
   {
-    if ([v respondsToSelector:@selector(refresh)])
-      [v refresh];
+    if ([v respondsToSelector:@selector(mwm_refreshUI)])
+      [v mwm_refreshUI];
   }
   [self setNeedsDisplay];
 }
@@ -185,17 +185,17 @@
 
 @implementation UITableViewCell (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
-  [self.selectedBackgroundView refresh];
+  [super mwm_refreshUI];
+  [self.selectedBackgroundView mwm_refreshUI];
 }
 
 @end
 
 @implementation UINavigationBar (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   UIColor * oppositeTint = self.tintColor.opposite;
   UIColor * oppositeBar = self.barTintColor.opposite;
@@ -209,9 +209,9 @@
 
 @implementation UILabel (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
+  [super mwm_refreshUI];
   UIColor * oppositeText = self.textColor.opposite;
   if (oppositeText)
     self.textColor = oppositeText;
@@ -221,7 +221,7 @@
 
 @implementation UISlider (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   UIColor * opposite = self.minimumTrackTintColor.opposite;
   if (opposite)
@@ -232,7 +232,7 @@
 
 @implementation UISwitch (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   UIColor * opposite = self.onTintColor.opposite;
   if (opposite)
@@ -243,7 +243,7 @@
 
 @implementation UIButton (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   UIColor * oppositeNormal = [self titleColorForState:UIControlStateNormal].opposite;
   UIColor * oppositeSelected = [self titleColorForState:UIControlStateSelected].opposite;
@@ -263,9 +263,9 @@
 
 @implementation UITextView (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
+  [super mwm_refreshUI];
   UIColor * oppositeText = self.textColor.opposite;
   UIColor * oppositeTint = self.tintColor.opposite;
   if (oppositeText)
@@ -278,9 +278,9 @@
 
 @implementation UITextField (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
+  [super mwm_refreshUI];
   UIColor * oppositeText = self.textColor.opposite;
   UILabel * placeholder = [self valueForKey:@"_placeholderLabel"];
   UIColor * oppositePlaceholder = placeholder.textColor.opposite;
@@ -294,9 +294,9 @@
 
 @implementation UIImageView (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
+  [super mwm_refreshUI];
   [self changeColoringToOpposite];
 }
 

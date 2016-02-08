@@ -27,7 +27,7 @@
 - (void)setGo;
 
 - (void)refreshLayout;
-- (void)refresh;
+- (void)mwm_refreshUI;
 
 - (void)onLocationStateModeChanged:(location::EMyPositionMode)state;
 

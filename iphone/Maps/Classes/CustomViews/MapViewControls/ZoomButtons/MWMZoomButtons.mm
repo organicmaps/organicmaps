@@ -64,9 +64,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   GetFramework().Scale(Framework::SCALE_MIN, true);
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.zoomView refresh];
+  [self.zoomView mwm_refreshUI];
 }
 
 #pragma mark - Actions

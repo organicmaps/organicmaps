@@ -3,9 +3,9 @@
 
 @implementation MWMStartButton
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
+  [super mwm_refreshUI];
   [self setBackgroundImage:[UIImage imageWithColor:[UIColor linkBlue]] forState:UIControlStateNormal];
   [self setBackgroundImage:[UIImage imageWithColor:[UIColor linkBlueDark]] forState:UIControlStateHighlighted];
 }

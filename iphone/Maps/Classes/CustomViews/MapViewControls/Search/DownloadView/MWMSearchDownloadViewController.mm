@@ -30,9 +30,9 @@
       [[MWMDownloadMapRequest alloc] initWithParentView:self.downloadRequestHolder delegate:self];
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.view refresh];
+  [self.view mwm_refreshUI];
 }
 
 - (void)viewDidAppear:(BOOL)animated

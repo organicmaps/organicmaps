@@ -16,10 +16,10 @@ namespace
   [self setDefaultImages];
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   [self changeColoringToOpposite];
-  [super refresh];
+  [super mwm_refreshUI];
 }
 
 - (void)setColoring:(MWMButtonColoring)coloring

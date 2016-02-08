@@ -60,7 +60,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   [self setColor:clearColor forState:MWMCircularProgressStateCompleted];
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   [self setupColors];
 }

@@ -56,9 +56,9 @@ BOOL isOffsetInButton(CGFloat offset, MWMSearchTabButtonsView * button)
   [self resetSelectedTab];
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.view refresh];
+  [self.view mwm_refreshUI];
 }
 
 - (void)resetSelectedTab

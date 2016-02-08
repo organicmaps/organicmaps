@@ -303,7 +303,7 @@ using namespace osm_auth_ios;
     return;
   f.SetMapStyle(MapStyleClear);
   [UIColor setNightMode:NO];
-  [static_cast<ViewController *>(app.mapViewController.navigationController.topViewController) refresh];
+  [static_cast<ViewController *>(app.mapViewController.navigationController.topViewController) mwm_refreshUI];
   [app stopMapStyleChecker];
 }
 
@@ -328,7 +328,7 @@ using namespace osm_auth_ios;
       {
         f.SetMapStyle(MapStyleClear);
         [UIColor setNightMode:NO];
-        [vc refresh];
+        [vc mwm_refreshUI];
       }
       break;
     case DayTimeType::Night:
@@ -337,7 +337,7 @@ using namespace osm_auth_ios;
       {
         f.SetMapStyle(MapStyleDark);
         [UIColor setNightMode:YES];
-        [vc refresh];
+        [vc mwm_refreshUI];
       }
       break;
     }

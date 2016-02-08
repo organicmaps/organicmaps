@@ -2,6 +2,6 @@
 
 @interface TableViewController : UITableViewController
 
-- (void)refresh;
+- (void)mwm_refreshUI;
 
 @end

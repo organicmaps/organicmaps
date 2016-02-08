@@ -374,11 +374,11 @@ extern NSString * const kTTSStatusWasChangedNotification;
   [self.routePreview selectProgress:self.activeRouteTypeButton];
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.navigationDashboardLandscape refresh];
-  [self.navigationDashboardPortrait refresh];
-  [self.routePreview refresh];
+  [self.navigationDashboardLandscape mwm_refreshUI];
+  [self.navigationDashboardPortrait mwm_refreshUI];
+  [self.routePreview mwm_refreshUI];
 }
 
 #pragma mark - Properties

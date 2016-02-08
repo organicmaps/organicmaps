@@ -13,16 +13,16 @@
   return NO;
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.navigationController.navigationBar refresh];
+  [self.navigationController.navigationBar mwm_refreshUI];
   MapViewController * mapViewController = [MapsAppDelegate theApp].mapViewController;
   for (UIViewController * vc in self.navigationController.viewControllers.reverseObjectEnumerator)
   {
     if (![vc isEqual:mapViewController])
-      [vc.view refresh];
+      [vc.view mwm_refreshUI];
   }
-  [mapViewController refresh];
+  [mapViewController mwm_refreshUI];
 }
 
 - (void)viewDidLoad

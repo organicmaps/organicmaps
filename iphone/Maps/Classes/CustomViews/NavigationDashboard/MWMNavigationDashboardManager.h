@@ -50,6 +50,6 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 - (void)showHelperPanels;
 - (void)hideHelperPanels;
 - (void)setupActualRoute;
-- (void)refresh;
+- (void)mwm_refreshUI;
 
 @end

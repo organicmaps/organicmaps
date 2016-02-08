@@ -59,13 +59,13 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   return self;
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.rootView refresh];
+  [self.rootView mwm_refreshUI];
   if (self.state == MWMSearchManagerStateHidden)
     return;
-  [self.tabbedController refresh];
-  [self.tableViewController refresh];
+  [self.tabbedController mwm_refreshUI];
+  [self.tableViewController mwm_refreshUI];
 }
 
 - (void)beginSearch

@@ -81,13 +81,13 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.menuController refreshLayout];
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.zoomButtons refresh];
-  [self.navigationManager refresh];
-  [self.searchManager refresh];
-  [self.menuController refresh];
-  [self.placePageManager refresh];
+  [self.zoomButtons mwm_refreshUI];
+  [self.navigationManager mwm_refreshUI];
+  [self.searchManager mwm_refreshUI];
+  [self.menuController mwm_refreshUI];
+  [self.placePageManager mwm_refreshUI];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
