@@ -18,6 +18,7 @@ NSString * const kSubplaceCellIdentifier = @"MWMMapDownloaderSubplaceTableViewCe
 NSString * const kPlaceCellIdentifier = @"MWMMapDownloaderPlaceTableViewCell";
 
 NSString * const kDownloadActionTitle = L(@"downloader_download_map");
+NSString * const kDeleteActionTitle = L(@"downloader_delete_map");
 NSString * const kShowActionTitle = L(@"zoom_to_country");
 NSString * const kCancelActionTitle = L(@"cancel");
 
@@ -37,6 +38,7 @@ using TAlertAction = void (^)(UIAlertAction *);
 @property (nonatomic) CGFloat lastScrollOffset;
 
 @property (copy, nonatomic) TAlertAction downloadAction;
+@property (copy, nonatomic) TAlertAction deleteAction;
 @property (copy, nonatomic) TAlertAction showAction;
 
 @property (nonatomic) NSArray<NSString *> * indexes;
@@ -176,7 +178,7 @@ using namespace storage;
   BOOL const isDownloaded = (nodeAttrs.m_status == NodeStatus::OnDisk ||
                              nodeAttrs.m_status == NodeStatus::OnDiskOutOfDate);
   NSString * title = @(nodeAttrs.m_nodeLocalName.c_str());
-  NSString * message = self.isParentRoot ? @(nodeAttrs.m_parentLocalName.c_str()) : nil;
+  NSString * message = self.isParentRoot ? nil : @(nodeAttrs.m_parentLocalName.c_str());
   NSString * downloadActionTitle = [NSString stringWithFormat:@"%@, %@", kDownloadActionTitle, formattedSize(nodeAttrs.m_mwmSize)];
   if (isIOS7)
   {
@@ -185,9 +187,16 @@ using namespace storage;
                                                      cancelButtonTitle:nil
                                                 destructiveButtonTitle:nil
                                                      otherButtonTitles:nil];
-    [actionSheet addButtonWithTitle:downloadActionTitle];
     if (isDownloaded)
+    {
       [actionSheet addButtonWithTitle:kShowActionTitle];
+      [actionSheet addButtonWithTitle:kDeleteActionTitle];
+      actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
+    }
+    else
+    {
+      [actionSheet addButtonWithTitle:downloadActionTitle];
+    }
     if (!IPAD)
     {
       [actionSheet addButtonWithTitle:kCancelActionTitle];
@@ -202,19 +211,24 @@ using namespace storage;
         [UIAlertController alertControllerWithTitle:title
                                             message:message
                                      preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction * downloadAction = [UIAlertAction actionWithTitle:downloadActionTitle
-                                                              style:UIAlertActionStyleDefault
-                                                            handler:self.downloadAction];
-    [alertController addAction:downloadAction];
-
     if (isDownloaded)
     {
       UIAlertAction * showAction = [UIAlertAction actionWithTitle:kShowActionTitle
                                                             style:UIAlertActionStyleDefault
                                                           handler:self.showAction];
       [alertController addAction:showAction];
+      UIAlertAction * deleteAction = [UIAlertAction actionWithTitle:kDeleteActionTitle
+                                                              style:UIAlertActionStyleDestructive
+                                                            handler:self.deleteAction];
+      [alertController addAction:deleteAction];
     }
-
+    else
+    {
+      UIAlertAction * downloadAction = [UIAlertAction actionWithTitle:downloadActionTitle
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:self.downloadAction];
+      [alertController addAction:downloadAction];
+    }
     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:kCancelActionTitle
                                                             style:UIAlertActionStyleCancel
                                                           handler:nil];
@@ -436,6 +450,8 @@ using namespace storage;
   NSString * btnTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
   if ([btnTitle hasPrefix:kDownloadActionTitle])
     self.downloadAction(nil);
+  else if ([btnTitle isEqualToString:kDeleteActionTitle])
+    self.deleteAction(nil);
   else if ([btnTitle isEqualToString:kShowActionTitle])
     self.showAction(nil);
 }
@@ -449,6 +465,12 @@ using namespace storage;
   {
     __strong auto self = weakSelf;
     GetFramework().Storage().DownloadNode(self->m_actionSheetId);
+  };
+
+  self.deleteAction = ^(UIAlertAction * action)
+  {
+    __strong auto self = weakSelf;
+    GetFramework().Storage().DeleteNode(self->m_actionSheetId);
   };
 
   self.showAction = ^(UIAlertAction * action)
