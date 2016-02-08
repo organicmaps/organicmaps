@@ -12,6 +12,10 @@ class Index;
 
 namespace search
 {
+namespace v2
+{
+class HouseToStreetTable;
+}
 
 class ReverseGeocoder
 {
@@ -23,7 +27,7 @@ class ReverseGeocoder
     double m_distanceMeters;
     string m_name;
 
-    Object() : m_distanceMeters(0.0) {}
+    Object() : m_distanceMeters(-1.0) {}
     Object(FeatureID const & id, double dist, string const & name)
       : m_id(id), m_distanceMeters(dist), m_name(name)
     {
@@ -75,15 +79,32 @@ public:
 
   /// @todo Leave const reference for now to support client's legacy code.
   /// It's better to use honest non-const reference when feature can be modified in any way.
-  pair<vector<Street>, uint32_t> GetNearbyFeatureStreets(FeatureType const & feature) const;
+  pair<vector<Street>, uint32_t> GetNearbyFeatureStreets(FeatureType const & ft) const;
 
   /// @return The nearest exact address where building has house number and valid street match.
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
+  /// @return The exact address for feature.
+  /// @precondition ft Should have house number.
+  void GetNearbyAddress(FeatureType & ft, Address & addr) const;
+
+private:
+
+  /// Helper class to incapsulate house 2 street table reloading.
+  class HouseTable
+  {
+    unique_ptr<search::v2::HouseToStreetTable> m_table;
+    MwmSet::MwmHandle m_mwmHandle;
+  public:
+    bool Get(Index const & index, FeatureID fId,
+             vector<Street> const & streets, uint32_t & stIndex);
+  };
+
+  bool GetNearbyAddress(HouseTable & table, Building const & bld, Address & addr) const;
 
   /// @return Sorted by distance houses vector with valid house number.
   void GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings) const;
 
-private:
+  static Building FromFeature(FeatureType & ft, double distMeters);
   static m2::RectD GetLookupRect(m2::PointD const & center, double radiusM);
 };
 

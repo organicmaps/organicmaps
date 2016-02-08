@@ -185,6 +185,7 @@ struct AddressInfo
 {
   string m_country, m_city, m_street, m_house, m_name;
   vector<string> m_types;
+  double m_distanceMeters = -1.0;
 
   string GetPinName() const;    // Caroline
   string GetPinType() const;    // shop

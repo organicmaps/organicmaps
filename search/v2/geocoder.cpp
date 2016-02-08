@@ -1247,7 +1247,7 @@ void Geocoder::MatchUnclassified(size_t curToken)
   auto emitUnclassified = [&](uint32_t featureId)
   {
     if (GetSearchTypeInGeocoding(featureId) == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
-      m_results->emplace_back(m_context->m_id, featureId);
+      m_results->emplace_back(m_context->GetId(), featureId);
   };
   coding::CompressedBitVectorEnumerator::ForEach(*allFeatures, emitUnclassified);
 }

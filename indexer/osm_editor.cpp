@@ -590,9 +590,8 @@ bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index, Featu
   return true;
 }
 
-bool Editor::GetEditedFeatureStreet(FeatureType const & feature, string & outFeatureStreet) const
+bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureStreet) const
 {
-  FeatureID const & fid = feature.GetID();
   // TODO(AlexZ): Reuse common code or better make better getters/setters for edited features.
   auto const matchedMwm = m_features.find(fid.m_mwmId);
   if (matchedMwm == m_features.end())

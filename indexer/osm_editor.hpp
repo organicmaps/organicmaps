@@ -80,7 +80,7 @@ public:
 
   /// @returns false if feature wasn't edited.
   /// @param outFeatureStreet is valid only if true was returned.
-  bool GetEditedFeatureStreet(FeatureType const & feature, string & outFeatureStreet) const;
+  bool GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureStreet) const;
 
   /// @returns sorted features indices with specified status.
   vector<uint32_t> GetFeaturesByStatus(MwmSet::MwmId const & mwmId, FeatureStatus status) const;

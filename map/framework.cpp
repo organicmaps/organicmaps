@@ -1311,8 +1311,8 @@ search::AddressInfo Framework::GetSearchResultAddress(search::Result const & res
   if (res.IsSuggest())
     return info;
 
-  /// @todo Optimize this stuff according to the facct, that feature is
-  /// already reading in many cases during process search result.
+  /// @todo Optimize this stuff according to the fact that feature is
+  /// already reading in many cases during search results processing.
   auto const & id = res.GetFeatureID();
   if (id.IsValid())
   {
@@ -1326,7 +1326,9 @@ search::AddressInfo Framework::GetSearchResultAddress(search::Result const & res
     }
   }
 
-  info = GetMercatorAddressInfo(res.GetFeatureCenter());
+  info = GetAddressInfoAtPoint(res.GetFeatureCenter());
+  if (info.m_distanceMeters > 50.0)
+    info.Clear();
 
   string const & type = res.GetFeatureType();
   if (!type.empty())

@@ -453,28 +453,21 @@ namespace
   }
 }
 */
-search::AddressInfo Framework::GetAddressInfoAtPoint(m2::PointD const & mercator) const
+search::AddressInfo Framework::GetAddressInfoAtPoint(m2::PointD const & pt) const
 {
   search::AddressInfo info;
-  // @TODO(vng): insert correct implementation from new search.
-  //info.m_country = GetCountryName(mercator);
-  // @TODO(vng): Rewrite code to get it from LocalityFinder.
-  //GetLocality(pt, info);
 
-  search::ReverseGeocoder coder(m_model.GetIndex());
+  search::ReverseGeocoder const coder(m_model.GetIndex());
   search::ReverseGeocoder::Address addr;
-  coder.GetNearbyAddress(mercator, addr);
+  coder.GetNearbyAddress(pt, addr);
+  info.m_house = addr.GetHouseNumber();
+  info.m_street = addr.GetStreetName();
+  info.m_distanceMeters = addr.GetDistance();
 
-  // Limit distance to nearest address with 200 meters.
-  if (addr.GetDistance() < 200.0)
-  {
-    info.m_house = addr.GetHouseNumber();
-    info.m_street = addr.GetStreetName();
-  }
   return info;
 }
 
-search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType const & ft) const
+search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType & ft) const
 {
   search::AddressInfo info;
   // @TODO(vng): insert correct implementation from new search.
@@ -482,15 +475,11 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType const & ft) con
   // @TODO(vng): Temporarily commented - it's slow and not used in UI.
   //GetLocality(pt, info);
 
-  info.m_house = ft.GetHouseNumber();
-  // Street can be added/edited by user in the Editor.
-  if (!osm::Editor::Instance().GetEditedFeatureStreet(ft, info.m_street))
-  {
-    search::ReverseGeocoder const coder(m_model.GetIndex());
-    auto const streets = coder.GetNearbyFeatureStreets(ft);
-    if (streets.second < streets.first.size())
-      info.m_street = streets.first[streets.second].m_name;
-  }
+  search::ReverseGeocoder const coder(m_model.GetIndex());
+  search::ReverseGeocoder::Address addr;
+  coder.GetNearbyAddress(ft, addr);
+  info.m_house = addr.GetHouseNumber();
+  info.m_street = addr.GetStreetName();
 
   // TODO(vng): Why AddressInfo is responsible for types and names? Refactor out.
   string defaultName, intName;

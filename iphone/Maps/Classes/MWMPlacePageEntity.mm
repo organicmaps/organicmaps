@@ -217,7 +217,7 @@ void initFieldsMap()
   [self addMetaField:MWMPlacePageCellTypeCoordinate];
 }
 
-- (void)configureWithFeature:(FeatureType const *)feature andCustomName:(NSString *)customName
+- (void)configureWithFeature:(FeatureType *)feature andCustomName:(NSString *)customName
 {
   NSString * emptyName = L(@"dropped_pin");
   // Custom name is used in shared links and should override default feature's name in PP.
@@ -326,7 +326,7 @@ void initFieldsMap()
 
 - (void)processStreets
 {
-  FeatureType const * feature = self.delegate.userMark->GetFeature();
+  FeatureType * feature = self.delegate.userMark->GetFeature();
   if (!feature)
     return;
 

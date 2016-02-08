@@ -29,7 +29,7 @@ using feature::Metadata;
 constexpr char const * kStreetObjectName = "addr:street";
 constexpr char const * kHouseNumberObjectName = "addr:housenumber";
 
-EditorDialog::EditorDialog(QWidget * parent, FeatureType const & feature, Framework & frm) : QDialog(parent)
+EditorDialog::EditorDialog(QWidget * parent, FeatureType & feature, Framework & frm) : QDialog(parent)
 {
   osm::Editor & editor = osm::Editor::Instance();
 

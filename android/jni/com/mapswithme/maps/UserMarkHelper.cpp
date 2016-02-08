@@ -51,7 +51,7 @@ pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, Metadat
 void FillAddressAndMetadata(UserMark const * mark, AddressInfo & info, Metadata & metadata)
 {
   Framework * frm = g_framework->NativeFramework();
-  auto const * feature = mark->GetFeature();
+  auto * feature = mark->GetFeature();
   if (feature)
   {
     info = frm->GetFeatureAddressInfo(*feature);

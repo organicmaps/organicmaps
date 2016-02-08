@@ -483,9 +483,9 @@ private:
   bool ParseEditorDebugCommand(search::SearchParams const & params);
 public:
   /// @returns address of nearby building with house number in approx 1km distance.
-  search::AddressInfo GetAddressInfoAtPoint(m2::PointD const & mercator) const;
+  search::AddressInfo GetAddressInfoAtPoint(m2::PointD const & pt) const;
   /// @returns valid street address only if it was specified in OSM for given feature; used in the editor.
-  search::AddressInfo GetFeatureAddressInfo(FeatureType const & ft) const;
+  search::AddressInfo GetFeatureAddressInfo(FeatureType & ft) const;
   vector<string> GetPrintableFeatureTypes(FeatureType const & ft) const;
   /// If feature does not have explicit street in OSM data, first value can be a closest named street.
   /// If it does have explicit street name in OSM, it goes first in the returned vector.

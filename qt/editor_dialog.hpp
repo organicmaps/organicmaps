@@ -16,7 +16,7 @@ class EditorDialog : public QDialog
 {
   Q_OBJECT
 public:
-  EditorDialog(QWidget * parent, FeatureType const & feature, Framework & frm);
+  EditorDialog(QWidget * parent, FeatureType & feature, Framework & frm);
   StringUtf8Multilang GetEditedNames() const;
   feature::Metadata GetEditedMetadata() const;
   string GetEditedStreet() const;
