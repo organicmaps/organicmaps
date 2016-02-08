@@ -4,6 +4,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.mapswithme.maps.downloader.country.OldMapStorage;
-import com.mapswithme.maps.downloader.country.*;
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.downloader.country.OldCountryItem;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.StringUtils;
@@ -24,17 +21,6 @@ import com.mapswithme.util.UiUtils;
 
 public class CountrySuggestFragment extends BaseMwmFragment implements View.OnClickListener
 {
-  public static final String EXTRA_LAT = "Latitude";
-  public static final String EXTRA_LON = "Longitude";
-
-  private double mLat;
-  private double mLon;
-  private OldMapStorage.Index mCurrentLocationCountryIndex;
-  private int mCountryListenerId;
-  private OldCountryItem mDownloadingCountry;
-  private int mDownloadingPosition;
-  private int mDownloadingGroup;
-
   private LinearLayout mLlWithLocation;
   private LinearLayout mLlNoLocation;
   private LinearLayout mLlSelectDownload;
@@ -43,6 +29,10 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
   private TextView mTvCountry;
   private TextView mTvActiveCountry;
   private Button mBtnDownloadMap;
+
+  private CountryItem mCurrentCountry;
+  private CountryItem mDownloadingCountry;
+  private int mListenerSlot;
 
   @Nullable
   @Override
@@ -57,41 +47,44 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     super.onViewCreated(view, savedInstanceState);
 
     initViews(view);
-    mCountryListenerId = OldActiveCountryTree.addListener(new OldActiveCountryTree.SimpleCountryTreeListener()
+    mListenerSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
     {
       @Override
-      public void onCountryProgressChanged(int group, int position, long[] sizes)
-      {
-        if (mDownloadingCountry == null)
-        {
-          mDownloadingCountry = OldActiveCountryTree.getCountryItem(group, position);
-          mDownloadingPosition = position;
-          mDownloadingGroup = position;
-        }
-        refreshViews();
-        refreshCountryProgress(sizes);
-      }
-
-      @Override
-      public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition)
-      {
-        refreshViews();
-      }
-
-      @Override
-      public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
+      public void onStatusChanged(String countryId, int newStatus)
       {
         if (!isAdded())
           return;
 
         refreshViews();
-        final OldCountryItem countryItem = OldActiveCountryTree.getCountryItem(group, position);
-        if (newStatus == OldMapStorage.DOWNLOAD_FAILED)
-          UiUtils.checkConnectionAndShowAlert(getActivity(), String.format(getString(R.string.download_country_failed), countryItem.getName()));
-        else if (newStatus == OldMapStorage.DOWNLOADING)
-          mDownloadingCountry = countryItem;
-        else if (newStatus == OldMapStorage.ON_DISK && oldStatus == OldMapStorage.DOWNLOADING)
+
+        switch (newStatus)
+        {
+        case CountryItem.STATUS_FAILED:
+          UiUtils.checkConnectionAndShowAlert(getActivity(), getString(R.string.download_country_failed, mDownloadingCountry.name));
+          break;
+
+        case CountryItem.STATUS_DONE:
           exitFragment();
+          break;
+        }
+      }
+
+      @Override
+      public void onProgress(String countryId, long localSize, long remoteSize)
+      {
+        if (!isAdded())
+          return;
+
+        if (mDownloadingCountry == null)
+        {
+          mDownloadingCountry = new CountryItem(countryId);
+          MapManager.nativeGetAttributes(mDownloadingCountry);
+        }
+
+        refreshViews();
+
+        int percent = (int)(localSize * 100 / remoteSize);
+        mWpvDownloadProgress.setProgress(percent);
       }
     });
   }
@@ -107,13 +100,17 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
   {
     super.onResume();
 
-    readArguments();
-    if (mLat == 0 || mLon == 0)
+    Location loc = LocationHelper.INSTANCE.getLastLocation();
+    if (loc != null)
     {
-      final Location last = LocationHelper.INSTANCE.getLastLocation();
-      if (last != null)
-        setLatLon(last.getLatitude(), last.getLongitude());
+      String id = MapManager.nativeFindCountry(loc.getLatitude(), loc.getLongitude());
+      if (!TextUtils.isEmpty(id))
+      {
+        mCurrentCountry = new CountryItem(id);
+        MapManager.nativeGetAttributes(mCurrentCountry);
+      }
     }
+
     refreshViews();
   }
 
@@ -121,29 +118,25 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
   public void onDestroy()
   {
     super.onDestroy();
-    OldActiveCountryTree.removeListener(mCountryListenerId);
+    MapManager.nativeUnsubscribe(mListenerSlot);
   }
 
-  private void setLatLon(double latitude, double longitude)
+  private void refreshCountryName()
   {
-    mLat = latitude;
-    mLon = longitude;
-    mCurrentLocationCountryIndex = Framework.nativeGetCountryIndex(mLat, mLon);
-  }
-
-  private void refreshCountryName(String name)
-  {
-    mTvCountry.setText(name);
-    mTvActiveCountry.setText(name);
-  }
-
-  private void readArguments()
-  {
-    final Bundle args = getArguments();
-    if (args == null)
+    if (mDownloadingCountry == null || !isAdded())
       return;
 
-    setLatLon(args.getDouble(EXTRA_LAT), args.getDouble(EXTRA_LON));
+    mTvCountry.setText(mDownloadingCountry.name);
+    mTvActiveCountry.setText(mDownloadingCountry.name);
+  }
+
+  private void refreshCountrySize()
+  {
+    if (mCurrentCountry == null || !isAdded())
+      return;
+
+    mBtnDownloadMap.setText(getString(R.string.downloader_download_map) +
+                            " (" + StringUtils.getFileSizeString(mCurrentCountry.totalSize) + ")");
   }
 
   private void initViews(View view)
@@ -168,33 +161,25 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
   private void refreshViews()
   {
-    if (OldActiveCountryTree.getTotalDownloadedCount() != 0 || !isAdded())
+    if (!isAdded() || MapManager.nativeHasDownloadedMaps())
       return;
 
-    if (OldActiveCountryTree.isDownloadingActive())
+    boolean downloading = MapManager.nativeIsDownloading();
+    UiUtils.showIf(downloading, mLlActiveDownload);
+    UiUtils.showIf(!downloading, mLlSelectDownload);
+
+    if (downloading)
     {
-      mLlSelectDownload.setVisibility(View.GONE);
-      mLlActiveDownload.setVisibility(View.VISIBLE);
-      if (mDownloadingCountry != null)
-        refreshCountryName(mDownloadingCountry.getName());
+      refreshCountryName();
+      return;
     }
-    else
-    {
-      mLlSelectDownload.setVisibility(View.VISIBLE);
-      mLlActiveDownload.setVisibility(View.GONE);
-      if (mLon == 0 || mLat == 0)
-      {
-        mLlNoLocation.setVisibility(View.VISIBLE);
-        mLlWithLocation.setVisibility(View.GONE);
-      }
-      else
-      {
-        mLlNoLocation.setVisibility(View.GONE);
-        mLlWithLocation.setVisibility(View.VISIBLE);
-        refreshCountryName(OldMapStorage.INSTANCE.countryName(mCurrentLocationCountryIndex));
-        refreshCountrySize();
-      }
-    }
+
+    boolean hasLocation = (mCurrentCountry != null);
+    UiUtils.showIf(hasLocation, mLlWithLocation);
+    UiUtils.showIf(!hasLocation, mLlNoLocation);
+
+    refreshCountryName();
+    refreshCountrySize();
   }
 
   @Override
@@ -203,52 +188,16 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     switch (v.getId())
     {
     case R.id.btn__download_map:
-      downloadCurrentLocationMap();
+      MapManager.nativeDownload(mCurrentCountry.id);
       break;
+
     case R.id.btn__select_map:
-      selectMapForDownload();
+      getMwmActivity().replaceFragment(DownloaderFragment.class, null, null);
       break;
+
     case R.id.wpv__download_progress:
-      cancelCurrentDownload();
+      MapManager.nativeCancel(mDownloadingCountry.id);
       break;
     }
-  }
-
-  private void downloadCurrentLocationMap()
-  {
-    OldActiveCountryTree.downloadMapForIndex(mCurrentLocationCountryIndex, storageOptionsRequested());
-  }
-
-  private int storageOptionsRequested()
-  {
-    return OldStorageOptions.MAP_OPTION_MAP_ONLY;
-  }
-
-  private void selectMapForDownload()
-  {
-    getMwmActivity().replaceFragment(OldDownloadFragment.class, null, null);
-  }
-
-  private void cancelCurrentDownload()
-  {
-    OldActiveCountryTree.cancelDownloading(mDownloadingGroup, mDownloadingPosition);
-  }
-
-  private void refreshCountrySize()
-  {
-    if (!isAdded())
-      return;
-
-    mBtnDownloadMap.setText(getString(R.string.downloader_download_map) +
-                            " (" + StringUtils.getFileSizeString(OldMapStorage.INSTANCE.countryRemoteSizeInBytes(mCurrentLocationCountryIndex, storageOptionsRequested())) + ")");
-  }
-
-  private void refreshCountryProgress(long[] sizes)
-  {
-    if (!isAdded())
-      return;
-
-    final int percent = (int) (sizes[0] * 100 / sizes[1]);
-    mWpvDownloadProgress.setProgress(percent);
   }
 }
