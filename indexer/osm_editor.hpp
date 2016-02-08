@@ -51,7 +51,7 @@ public:
   void SetMwmIdByNameAndVersionFn(TMwmIdByMapNameFn const & fn) { m_mwmIdByMapNameFn = fn; }
   void SetInvalidateFn(TInvalidateFn const & fn) { m_invalidateFn = fn; }
   void SetFeatureLoaderFn(TFeatureLoaderFn const & fn) { m_getOriginalFeatureFn = fn; }
-  void SetFeatureOriginalStretFn(TFeatureOriginalStreetFn const & fn) { m_getOriginalFeatureStreetFn = fn; }
+  void SetFeatureOriginalStreetFn(TFeatureOriginalStreetFn const & fn) { m_getOriginalFeatureStreetFn = fn; }
 
   void LoadMapEdits();
   /// Resets editor to initial state: no any edits or created/deleted features.

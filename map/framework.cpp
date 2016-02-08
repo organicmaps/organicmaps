@@ -352,7 +352,7 @@ Framework::Framework()
     feature->ParseEverything();
     return feature;
   });
-  editor.SetFeatureOriginalStretFn([this](FeatureType const & ft) -> string
+  editor.SetFeatureOriginalStreetFn([this](FeatureType const & ft) -> string
   {
     search::ReverseGeocoder const coder(m_model.GetIndex());
     auto const streets = coder.GetNearbyFeatureStreets(ft);
@@ -1311,8 +1311,8 @@ search::AddressInfo Framework::GetSearchResultAddress(search::Result const & res
   if (res.IsSuggest())
     return info;
 
-  /// @todo Optimize this stuff according to the fact that feature is
-  /// already reading in many cases during search results processing.
+  /// @todo Optimize here according to the fact that feature is
+  /// already read in many cases during search results processing.
   auto const & id = res.GetFeatureID();
   if (id.IsValid())
   {
@@ -1327,8 +1327,6 @@ search::AddressInfo Framework::GetSearchResultAddress(search::Result const & res
   }
 
   info = GetAddressInfoAtPoint(res.GetFeatureCenter());
-  if (info.m_distanceMeters > 50.0)
-    info.Clear();
 
   string const & type = res.GetFeatureType();
   if (!type.empty())

@@ -71,7 +71,7 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
   auto const address = g_framework->NativeFramework()->GetSearchResultAddress(result);
 
   jstring featureType = jni::ToJavaString(env, result.GetFeatureType());
-  jstring region = jni::ToJavaString(env, address.FormatAddress());
+  jstring region = jni::ToJavaString(env, address.FormatAddress(search::AddressInfo::SEARCH_RESULT));
   jstring dist = jni::ToJavaString(env, distance);
   jstring cuisine = jni::ToJavaString(env, result.GetCuisine());
   jobject desc = env->NewObject(g_descriptionClass, g_descriptionConstructor,

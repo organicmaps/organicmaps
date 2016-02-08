@@ -28,7 +28,7 @@
   [super config:result];
   self.typeLabel.text = @(result.GetFeatureType().c_str()).capitalizedString;
   search::AddressInfo const info = GetFramework().GetSearchResultAddress(result);
-  self.locationLabel.text = @(info.FormatAddress().c_str());
+  self.locationLabel.text = @(info.FormatAddress(search::AddressInfo::SEARCH_RESULT).c_str());
   [self.locationLabel sizeToFit];
 
   if (!forHeight)

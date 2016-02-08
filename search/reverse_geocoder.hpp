@@ -1,5 +1,7 @@
 #pragma once
 
+#include "search/v2/house_to_street_table.hpp"
+
 #include "indexer/feature_decl.hpp"
 
 #include "std/string.hpp"
@@ -12,10 +14,6 @@ class Index;
 
 namespace search
 {
-namespace v2
-{
-class HouseToStreetTable;
-}
 
 class ReverseGeocoder
 {
@@ -38,7 +36,7 @@ class ReverseGeocoder
 
 public:
   /// All "Nearby" functions work in this lookup radius.
-  static double const kLookupRadiusM;
+  static int constexpr kLookupRadiusM = 500;
 
   explicit ReverseGeocoder(Index const & index);
 
@@ -92,11 +90,12 @@ private:
   /// Helper class to incapsulate house 2 street table reloading.
   class HouseTable
   {
+    Index const & m_index;
     unique_ptr<search::v2::HouseToStreetTable> m_table;
-    MwmSet::MwmHandle m_mwmHandle;
+    MwmSet::MwmHandle m_handle;
   public:
-    bool Get(Index const & index, FeatureID fId,
-             vector<Street> const & streets, uint32_t & stIndex);
+    explicit HouseTable(Index const & index) : m_index(index) {}
+    bool Get(FeatureID const & fid, uint32_t & streetIndex);
   };
 
   bool GetNearbyAddress(HouseTable & table, Building const & bld, Address & addr) const;

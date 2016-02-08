@@ -86,10 +86,8 @@ NSString * httpGe0Url(NSString * shortUrl)
   if (!self.myPosition)
     return [NSString stringWithFormat:L(@"bookmark_share_email"), self.title, url, httpGe0Url(url)];
 
-  search::AddressInfo info = GetFramework().GetAddressInfoAtPoint(
+  search::AddressInfo const info = GetFramework().GetAddressInfoAtPoint(
                                               MercatorBounds::FromLatLon(self.location.latitude, self.location.longitude));
-  if (info.m_distanceMeters > 200.0)
-    info.Clear();
 
   NSString * nameAndAddress = @(info.FormatNameAndAddress().c_str());
   return [NSString stringWithFormat:L(@"my_position_share_email"), nameAndAddress, url, httpGe0Url(url)];

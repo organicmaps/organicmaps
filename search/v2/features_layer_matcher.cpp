@@ -11,6 +11,10 @@ namespace search
 namespace v2
 {
 
+/// Max distance from house to street where we do search matching
+/// even if there is no exact street written for this house.
+int constexpr kMaxApproxStreetDistanceM = 100;
+
 FeaturesLayerMatcher::FeaturesLayerMatcher(Index & index, my::Cancellable const & cancellable)
   : m_context(nullptr)
   , m_reverseGeocoder(index)
@@ -63,7 +67,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId, FeatureType &
   return entry.first;
 }
 
-vector<FeaturesLayerMatcher::TStreet> const &
+FeaturesLayerMatcher::TStreets const &
 FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId)
 {
   auto entry = m_nearbyStreetsCache.Get(featureId);
@@ -77,7 +81,7 @@ FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId)
   return entry.first;
 }
 
-vector<FeaturesLayerMatcher::TStreet> const &
+FeaturesLayerMatcher::TStreets const &
 FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId, FeatureType & feature)
 {
   auto entry = m_nearbyStreetsCache.Get(featureId);
@@ -88,7 +92,7 @@ FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId, FeatureType & feature
   return entry.first;
 }
 
-void FeaturesLayerMatcher::GetNearbyStreetsImpl(FeatureType & feature, vector<TStreet> & streets)
+void FeaturesLayerMatcher::GetNearbyStreetsImpl(FeatureType & feature, TStreets & streets)
 {
   m_reverseGeocoder.GetNearbyStreets(feature, streets);
   for (size_t i = 0; i < streets.size(); ++i)
@@ -110,7 +114,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
     return streets[index].m_id.m_index;
 
   // If there is no saved street for feature, assume that it's a nearest street if it's too close.
-  if (!streets.empty() && streets[0].m_distanceMeters < 100.0)
+  if (!streets.empty() && streets[0].m_distanceMeters < kMaxApproxStreetDistanceM)
     return streets[0].m_id.m_index;
 
   return kInvalidId;

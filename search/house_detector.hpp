@@ -113,9 +113,9 @@ public:
   vector<HouseProjection> m_houses;
   double m_length;      /// Length in mercator
   int m_number;         /// Some ordered number after merging
-  bool m_housesReaded;
+  bool m_housesRead;
 
-  Street() : m_length(0.0), m_number(-1), m_housesReaded(false) {}
+  Street() : m_length(0.0), m_number(-1), m_housesRead(false) {}
 
   void Reverse();
   void SortHousesProjection();
@@ -146,7 +146,7 @@ public:
 
   string const & GetDbgName() const;
   string const & GetName() const;
-  bool IsHousesReaded() const;
+  bool IsHousesRead() const;
   void FinishReadingHouses();
 
   HouseProjection const * GetHousePivot(bool isOdd, bool & sign) const;

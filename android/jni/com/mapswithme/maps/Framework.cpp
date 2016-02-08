@@ -635,9 +635,7 @@ extern "C"
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
-    search::AddressInfo info = frm()->GetAddressInfoAtPoint(MercatorBounds::FromLatLon(lat, lon));
-    if (info.m_distanceMeters > 200.0)
-      info.Clear();
+    search::AddressInfo const info = frm()->GetAddressInfoAtPoint(MercatorBounds::FromLatLon(lat, lon));
     return jni::ToJavaString(env, info.FormatNameAndAddress());
   }
 

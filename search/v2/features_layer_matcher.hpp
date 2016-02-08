@@ -57,8 +57,8 @@ class FeaturesLayerMatcher
 {
 public:
   static uint32_t const kInvalidId = numeric_limits<uint32_t>::max();
-  static int const kMatchPoiToBuildingRadiusMeters = 50;
-  static int const kMatchPoiToStreetRadiusMeters = 100;
+  static int constexpr kBuildingRadiusMeters = 50;
+  static int constexpr kStreetRadiusMeters = 100;
 
   FeaturesLayerMatcher(Index & index, my::Cancellable const & cancellable);
   void SetContext(MwmContext * context);
@@ -139,7 +139,7 @@ private:
           continue;
 
         double const distMeters = feature::GetMinDistanceMeters(buildingFt, poiCenters[j]);
-        if (distMeters <= kMatchPoiToBuildingRadiusMeters)
+        if (distMeters <= kBuildingRadiusMeters)
         {
           fn(pois[j], buildings[i]);
           isPOIProcessed[j] = true;
@@ -162,13 +162,13 @@ private:
     for (size_t i = 0; i < pois.size(); ++i)
     {
       m_context->ForEachFeature(
-            MercatorBounds::RectByCenterXYAndSizeInMeters(poiCenters[i], kMatchPoiToBuildingRadiusMeters),
+            MercatorBounds::RectByCenterXYAndSizeInMeters(poiCenters[i], kBuildingRadiusMeters),
             [&](FeatureType & ft)
             {
               if (HouseNumbersMatch(strings::MakeUniString(ft.GetHouseNumber()), queryTokens))
               {
                 double const distanceM = MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), poiCenters[i]);
-                if (distanceM < kMatchPoiToBuildingRadiusMeters)
+                if (distanceM < kBuildingRadiusMeters)
                   fn(pois[i], ft.GetID().m_index);
               }
             });
@@ -192,7 +192,7 @@ private:
       {
         for (auto const & street : GetNearbyStreets(poiId))
         {
-          if (street.m_distanceMeters > kMatchPoiToStreetRadiusMeters)
+          if (street.m_distanceMeters > kStreetRadiusMeters)
             break;
 
           uint32_t const streetId = street.m_id.m_index;
@@ -206,7 +206,7 @@ private:
     for (uint32_t streetId : streets)
     {
       BailIfCancelled(m_cancellable);
-      m_loader.ForEachInVicinity(streetId, pois, kMatchPoiToStreetRadiusMeters,
+      m_loader.ForEachInVicinity(streetId, pois, kStreetRadiusMeters,
                                  bind(fn, _1, streetId));
     }
   }
@@ -329,12 +329,11 @@ private:
   uint32_t GetMatchingStreet(uint32_t houseId, FeatureType & houseFeature);
   uint32_t GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature);
 
-  using TStreet = ReverseGeocoder::Street;
+  using TStreets = vector<ReverseGeocoder::Street>;
 
-  vector<TStreet> const & GetNearbyStreets(uint32_t featureId);
-  vector<TStreet> const & GetNearbyStreets(uint32_t featureId,
-                                                           FeatureType & feature);
-  void GetNearbyStreetsImpl(FeatureType & feature, vector<TStreet> & streets);
+  TStreets const & GetNearbyStreets(uint32_t featureId);
+  TStreets const & GetNearbyStreets(uint32_t featureId, FeatureType & feature);
+  void GetNearbyStreetsImpl(FeatureType & feature, TStreets & streets);
 
   inline void GetByIndex(uint32_t id, FeatureType & ft) const
   {
@@ -348,7 +347,7 @@ private:
 
   // Cache of streets in a feature's vicinity. All lists in the cache
   // are ordered by distance from the corresponding feature.
-  Cache<uint32_t, vector<TStreet>> m_nearbyStreetsCache;
+  Cache<uint32_t, TStreets> m_nearbyStreetsCache;
 
   // Cache of correct streets for buildings. Current search algorithm
   // supports only one street for a building, whereas buildings can be

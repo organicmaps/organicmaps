@@ -191,11 +191,17 @@ struct AddressInfo
   string GetPinType() const;    // shop
 
   string FormatPinText() const; // Caroline (clothes shop)
-  string FormatAddress() const; // 7 vulica Frunze, Belarus
   string FormatTypes() const;   // clothes shop
-  string FormatNameAndAddress() const;  // Caroline, 7 vulica Frunze, Belarus
   string GetBestType() const;
   bool IsEmptyName() const;
+
+  enum AddressType { DEFAULT, SEARCH_RESULT };
+  // 7 vulica Frunze
+  string FormatHouseAndStreet(AddressType type = DEFAULT) const;
+  // 7 vulica Frunze, Minsk, Belarus
+  string FormatAddress(AddressType type = DEFAULT) const;
+  // Caroline, 7 vulica Frunze, Minsk, Belarus
+  string FormatNameAndAddress(AddressType type = DEFAULT) const;
 
   friend string DebugPrint(AddressInfo const & info);
 

@@ -318,8 +318,8 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
 
   Index mwmIndex;
   /// @ todo Make some better solution, or legalize MakeTemporary.
-  auto const mwmId = mwmIndex.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
-  ASSERT_EQUAL(mwmId.second, MwmSet::RegResult::Success, ());
+  auto const res = mwmIndex.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
+  ASSERT_EQUAL(res.second, MwmSet::RegResult::Success, ());
   search::ReverseGeocoder rgc(mwmIndex);
 
   {
@@ -339,7 +339,7 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
       {
         FeatureType ft;
         features.GetVector().GetByIndex(index, ft);
-        ft.SetID(FeatureID(mwmId.first, index));
+        ft.SetID({res.first, index});
 
         using TStreet = search::ReverseGeocoder::Street;
         vector<TStreet> streets;

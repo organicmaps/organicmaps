@@ -544,10 +544,10 @@ string const & MergedStreet::GetName() const
   return m_cont.front()->GetName();
 }
 
-bool MergedStreet::IsHousesReaded() const
+bool MergedStreet::IsHousesRead() const
 {
   ASSERT(!m_cont.empty(), ());
-  return m_cont.front()->m_housesReaded;
+  return m_cont.front()->m_housesRead;
 }
 
 void MergedStreet::Next(Index & i) const
@@ -579,7 +579,7 @@ void MergedStreet::FinishReadingHouses()
         m_cont[i]->m_houses[j].m_streetDistance += length;
 
     length += m_cont[i]->m_length;
-    m_cont[i]->m_housesReaded = true;
+    m_cont[i]->m_housesRead = true;
   }
 
   // Unique projections for merged street.
@@ -694,7 +694,7 @@ void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalc
 
 void HouseDetector::ReadHouses(Street * st)
 {
-  if (st->m_housesReaded)
+  if (st->m_housesRead)
     return;
 
   //offsetMeters = max(HN_MIN_READ_OFFSET_M, min(GetApprLengthMeters(st->m_number) / 2, offsetMeters));
@@ -716,19 +716,19 @@ void HouseDetector::ReadAllHouses(double offsetMeters)
 
   for (auto & st : m_streets)
   {
-    if (!st.IsHousesReaded())
+    if (!st.IsHousesRead())
       st.FinishReadingHouses();
   }
 }
 
 void HouseDetector::ClearCaches()
 {
-  for (StreetMapT::iterator it = m_id2st.begin(); it != m_id2st.end(); ++it)
-    delete it->second;
+  for (auto & st : m_id2st)
+    delete st.second;
   m_id2st.clear();
 
-  for (HouseMapT::iterator it = m_id2house.begin(); it != m_id2house.end(); ++it)
-    delete it->second;
+  for (auto & h : m_id2house)
+    delete h.second;
 
   m_streetNum = 0;
 
