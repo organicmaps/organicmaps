@@ -48,6 +48,8 @@ namespace
 namespace android
 {
 
+static const string kAutodownloadPrefKey = "AutoDownloadEnabled";
+
 enum MultiTouchAction
 {
   MULTITOUCH_UP    =   0x00000001,
@@ -231,13 +233,6 @@ void Framework::ShowCountry(TCountryId const & idx, bool zoomToDownloadButton)
     m_work.ShowCountry(idx);
 }
 
-/* TODO (trashkalmar): remove old downloader's stuff
-TStatus Framework::GetCountryStatus(TIndex const & idx) const
-{
-  return m_work.GetCountryStatus(idx);
-}
-*/
-
 void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer)
 {
   MultiTouchAction eventType = static_cast<MultiTouchAction>(action);
@@ -270,17 +265,6 @@ void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t 
   m_work.TouchEvent(event);
 }
 
-/* TODO (trashkalmar): remove old downloader's stuff
-TIndex Framework::GetCountryIndex(double lat, double lon) const
-{
-  return m_work.GetCountryIndex(MercatorBounds::FromLatLon(lat, lon));
-}
-
-string Framework::GetCountryCode(double lat, double lon) const
-{
-  return m_work.GetCountryCode(MercatorBounds::FromLatLon(lat, lon));
-}
-*/
 string Framework::GetCountryNameIfAbsent(m2::PointD const & pt) const
 {
 /* TODO (trashkalmar): remove old downloader's stuff
@@ -560,6 +544,18 @@ void Framework::Migrate()
   m_work.Migrate();
 }
 
+bool Framework::IsAutodownloadMaps() const
+{
+  bool autoDownload = true;
+  Settings::Get(kAutodownloadPrefKey, autoDownload);
+  return autoDownload;
+}
+
+void Framework::SetAutodownloadMaps(bool enable) const
+{
+  Settings::Set(kAutodownloadPrefKey, enable);
+}
+
 } // namespace android
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
@@ -710,10 +706,8 @@ extern "C"
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeFormatLatLon(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jboolean useDMSFormat)
   {
-    if (useDMSFormat)
-      return jni::ToJavaString(env,  MeasurementUtils::FormatLatLonAsDMS(lat, lon, 2));
-    else
-      return jni::ToJavaString(env,  MeasurementUtils::FormatLatLon(lat, lon, 6));
+    return jni::ToJavaString(env, (useDMSFormat ? MeasurementUtils::FormatLatLonAsDMS(lat, lon, 2)
+                                                : MeasurementUtils::FormatLatLon(lat, lon, 6)));
   }
 
   JNIEXPORT jobjectArray JNICALL

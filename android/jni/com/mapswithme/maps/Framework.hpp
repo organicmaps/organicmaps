@@ -67,9 +67,7 @@ namespace android
 
     storage::Storage & Storage();
 
-    void ShowCountry(storage::TCountryId const & idx, bool zoomToDownloadButton);
-    // TODO (trashkalmar): remove old downloader's stuff
-    //storage::TStatus GetCountryStatus(storage::TIndex const & idx) const;
+    void ShowCountry(storage::TCountryId const & countryId, bool zoomToDownloadButton);
 
     void OnLocationError(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(location::GpsInfo const & info);
@@ -118,10 +116,6 @@ namespace android
 
     void AddLocalMaps();
     void RemoveLocalMaps();
-
-//  TODO (trashkalmar): remove old downloader's stuff
-//    storage::TIndex GetCountryIndex(double lat, double lon) const;
-//    string GetCountryCode(double lat, double lon) const;
 
     string GetCountryNameIfAbsent(m2::PointD const & pt) const;
     m2::PointD GetViewportCenter() const;
@@ -176,7 +170,9 @@ namespace android
     bool NeedMigrate();
     void Migrate();
 
-  public:
+    bool IsAutodownloadMaps() const;
+    void SetAutodownloadMaps(bool enable) const;
+
   /* TODO (trashkalmar): remove old downloader's stuff
     virtual void ItemStatusChanged(int childPosition);
     virtual void ItemProgressChanged(int childPosition, storage::LocalAndRemoteSizeT const & sizes);

@@ -19,7 +19,6 @@ public final class Config
 
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   private static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
-  private static final String KEY_PREF_AUTODOWNLOAD = "AutoDownloadEnabled";
 
   private static final String KEY_LIKES_RATED_DIALOG = "RatedDialog";
   private static final String KEY_LIKES_LAST_RATED_SESSION = "LastRatedSession";
@@ -117,7 +116,7 @@ public final class Config
    * Increments counter of app starts.
    * @return Previous value before increment.
    */
-  public static int incrementLaunchNumber()
+  private static int incrementLaunchNumber()
   {
     return increment(KEY_APP_LAUNCH_NUMBER);
   }
@@ -212,16 +211,6 @@ public final class Config
   public static void setStatisticsEnabled(boolean enabled)
   {
     setBool(KEY_PREF_STATISTICS, enabled);
-  }
-
-  public static boolean isAutoDownloadEnabled()
-  {
-    return getBool(KEY_PREF_AUTODOWNLOAD, true);
-  }
-
-  public static void setAutoDownloadEnabled(boolean enabled)
-  {
-    setBool(KEY_PREF_AUTODOWNLOAD, enabled);
   }
 
   public static boolean isRatingApplied(Class<? extends DialogFragment> dialogFragmentClass)
