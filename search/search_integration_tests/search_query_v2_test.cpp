@@ -44,7 +44,13 @@ class TestSearchQueryFactory : public search::SearchQueryFactory
   }
 };
 
-class SearchQueryV2Test
+class TestWithClassificator
+{
+public:
+  TestWithClassificator() { classificator::Load(); }
+};
+
+class SearchQueryV2Test : public TestWithClassificator
 {
 public:
   SearchQueryV2Test()
@@ -53,7 +59,6 @@ public:
     , m_engine("en", make_unique<storage::CountryInfoGetterForTesting>(),
                make_unique<TestSearchQueryFactory>())
   {
-    classificator::Load();
   }
 
   ~SearchQueryV2Test()
