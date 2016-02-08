@@ -1777,6 +1777,9 @@ unique_ptr<FeatureType> Framework::GetFeatureAtPoint(m2::PointD const & mercator
   unique_ptr<FeatureType> poi, line, area;
   ForEachFeatureAtPoint([&](FeatureType & ft)
   {
+    // TODO @alexz
+    // remove manual parsing after refactoring with usermarks'll be finished
+    ft.ParseEverything();
     switch (ft.GetFeatureType())
     {
     case feature::GEOM_POINT:
