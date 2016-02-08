@@ -84,7 +84,7 @@ void ServerApi06::ModifyElementAndSetVersion(editor::XMLFeature & element) const
   element.SetAttribute("version", strings::to_string(version));
 }
 
-bool ServerApi06::DeleteElement(editor::XMLFeature const & element) const
+void ServerApi06::DeleteElement(editor::XMLFeature const & element) const
 {
   string const id = element.GetAttribute("id");
   if (id.empty())
@@ -92,7 +92,8 @@ bool ServerApi06::DeleteElement(editor::XMLFeature const & element) const
 
   OsmOAuth::Response const response = m_auth.Request("/" + element.GetTypeString() + "/" + id,
                                                      "DELETE", element.ToOSMString());
-  return (response.first == OsmOAuth::HTTP::OK || response.first == OsmOAuth::HTTP::Gone);
+  if (response.first != OsmOAuth::HTTP::OK && response.first != OsmOAuth::HTTP::Gone)
+    MYTHROW(ErrorDeletingElement, ("Could not delete an element:", response));
 }
 
 void ServerApi06::CloseChangeSet(uint64_t changesetId) const
@@ -100,6 +101,29 @@ void ServerApi06::CloseChangeSet(uint64_t changesetId) const
   OsmOAuth::Response const response = m_auth.Request("/changeset/" + strings::to_string(changesetId) + "/close", "PUT");
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(ErrorClosingChangeSet, ("CloseChangeSet request has failed:", response));
+}
+
+uint64_t ServerApi06::CreateNote(ms::LatLon const & ll, string const & message) const
+{
+  CHECK(!message.empty(), ("Note content should not be empty."));
+  string const params = "?lat=" + strings::to_string_dac(ll.lat, 7) + "&lon=" + strings::to_string_dac(ll.lon, 7) + "&text=" + UrlEncode(message);
+  OsmOAuth::Response const response = m_auth.Request("/notes" + params, "POST");
+  if (response.first != OsmOAuth::HTTP::OK)
+    MYTHROW(ErrorAddingNote, ("Could not post a new note:", response));
+  pugi::xml_document details;
+  if (!details.load_string(response.second.c_str()))
+    MYTHROW(CantParseServerResponse, ("Could not parse a note XML response", response));
+  pugi::xml_node const uid = details.child("osm").child("note").child("id");
+  if (!uid)
+    MYTHROW(CantParseServerResponse, ("Caould not find a note id", response));
+  return uid.text().as_ullong();
+}
+
+void ServerApi06::CloseNote(uint64_t const id) const
+{
+  OsmOAuth::Response const response = m_auth.Request("/notes/" + strings::to_string(id) + "/close", "POST");
+  if (response.first != OsmOAuth::HTTP::OK)
+    MYTHROW(ErrorDeletingElement, ("Could not close a note:", response));
 }
 
 bool ServerApi06::TestOSMUser(string const & userName)

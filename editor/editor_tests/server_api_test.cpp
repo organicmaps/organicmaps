@@ -56,7 +56,7 @@ void DeleteOSMNodeIfExists(ServerApi06 const & api, uint64_t changeSetId, ms::La
   {
     node.attribute("changeset") = changeSetId;
     node.remove_child("tag");
-    TEST(api.DeleteElement(editor::XMLFeature(node)), ());
+    TEST_NO_THROW(api.DeleteElement(editor::XMLFeature(node)), ());
   }
 }
 
@@ -111,5 +111,15 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
   MY_SCOPE_GUARD(guard, changesetCloser);
   // New changeset has new id.
   node.SetAttribute("changeset", strings::to_string(changeSetId));
-  TEST(api.DeleteElement(node), ());
+  TEST_NO_THROW(api.DeleteElement(node), ());
+}
+
+UNIT_TEST(OSM_ServerAPI_Notes)
+{
+  ms::LatLon const pos(59.9, 30.5);
+  ServerApi06 const api = CreateAPI();
+  uint64_t id;
+  TEST_NO_THROW(id = api.CreateNote(pos, "A test note"), ("Creating a note"));
+  TEST_GREATER(id, 0, ("Note id should be a positive integer"));
+  TEST_NO_THROW(api.CloseNote(id), ("Closing a note"));
 }

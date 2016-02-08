@@ -38,7 +38,9 @@ public:
   DECLARE_EXCEPTION(ModifiedElementHasNoIdAttribute, ServerApi06Exception);
   DECLARE_EXCEPTION(ModifyElementHasFailed, ServerApi06Exception);
   DECLARE_EXCEPTION(ErrorClosingChangeSet, ServerApi06Exception);
+  DECLARE_EXCEPTION(ErrorAddingNote, ServerApi06Exception);
   DECLARE_EXCEPTION(DeletedElementHasNoIdAttribute, ServerApi06Exception);
+  DECLARE_EXCEPTION(ErrorDeletingElement, ServerApi06Exception);
   DECLARE_EXCEPTION(CantGetUserPreferences, ServerApi06Exception);
   DECLARE_EXCEPTION(CantParseUserPreferences, ServerApi06Exception);
 
@@ -67,8 +69,11 @@ public:
   /// Some nodes can't be deleted if they are used in ways or relations.
   /// @param element should already have all attributes set, including "id", "version", "changeset".
   /// @returns true if element was successfully deleted (or was already deleted).
-  bool DeleteElement(editor::XMLFeature const & element) const;
+  void DeleteElement(editor::XMLFeature const & element) const;
   void CloseChangeSet(uint64_t changesetId) const;
+  /// @returns id of a created note.
+  uint64_t CreateNote(ms::LatLon const & ll, string const & message) const;
+  void CloseNote(uint64_t const id) const;
 
   /// @returns OSM xml string with features in the bounding box or empty string on error.
   OsmOAuth::Response GetXmlFeaturesInRect(m2::RectD const & latLonRect) const;
