@@ -2056,7 +2056,7 @@ void Framework::RemoveRoute(bool deactivateFollowing)
 
 void Framework::CloseRouting()
 {
-  if (m_routingSession.IsActive())
+  if (m_routingSession.IsBuilt())
   {
     auto const lastGoodPoint = MercatorBounds::ToLatLon(
         m_routingSession.GetRoute().GetFollowedPolyline().GetCurrentIter().m_pt);
