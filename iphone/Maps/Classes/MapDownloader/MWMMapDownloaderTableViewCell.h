@@ -6,6 +6,5 @@
 
 - (void)setTitleText:(NSString *)text;
 - (void)setDownloadSizeText:(NSString *)text;
-- (void)setLastCell:(BOOL)isLast;
 
 @end

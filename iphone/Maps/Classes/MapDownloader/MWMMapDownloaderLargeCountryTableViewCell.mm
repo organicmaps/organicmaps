@@ -1,19 +1,8 @@
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 
-@interface MWMMapDownloaderTableViewCell ()
-
-@property (weak, nonatomic) IBOutlet UILabel * title;
-@property (weak, nonatomic) IBOutlet UILabel * downloadSize;
-
-@end
-
 @interface MWMMapDownloaderLargeCountryTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel * mapsCount;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleLeadingOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleSizeOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * downloadSizeTrailingOffset;
 
 @end
 
@@ -21,12 +10,8 @@
 
 - (void)layoutSubviews
 {
-  CGFloat const preferredMaxLayoutWidth =
-      CGRectGetWidth(self.bounds) - self.titleLeadingOffset.constant -
-      self.titleSizeOffset.constant - CGRectGetWidth(self.downloadSize.bounds) -
-      self.downloadSizeTrailingOffset.constant;
-  self.title.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
-  self.mapsCount.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+  [super layoutSubviews];
+  self.mapsCount.preferredMaxLayoutWidth = self.mapsCount.width;
   [super layoutSubviews];
 }
 

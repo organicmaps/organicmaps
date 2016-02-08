@@ -1,8 +1,5 @@
-#import "MWMMapDownloaderTableViewCell.h"
+#import "MWMMapDownloaderPlaceTableViewCell.h"
 
-@interface MWMMapDownloaderSubplaceTableViewCell : MWMMapDownloaderTableViewCell
-
-@property (weak, nonatomic) IBOutlet UILabel * area;
-@property (weak, nonatomic) IBOutlet UILabel * subPlace;
+@interface MWMMapDownloaderSubplaceTableViewCell : MWMMapDownloaderPlaceTableViewCell
 
 @end

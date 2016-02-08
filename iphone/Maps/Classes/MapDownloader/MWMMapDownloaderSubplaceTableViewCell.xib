@@ -22,8 +22,8 @@
                             <constraint firstAttribute="width" constant="36" id="vYF-tP-Wtw"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="760" text="Mossel Bay" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="x7m-Zm-8y6">
-                        <rect key="frame" x="60" y="12" width="199" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="760" text="Mossel Bay" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="198" translatesAutoresizingMaskIntoConstraints="NO" id="x7m-Zm-8y6">
+                        <rect key="frame" x="60" y="12" width="198" height="16"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -32,8 +32,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="760" text="London" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="3Db-Yq-FlD">
-                        <rect key="frame" x="60" y="32" width="199" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="760" text="London" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="198" translatesAutoresizingMaskIntoConstraints="NO" id="3Db-Yq-FlD">
+                        <rect key="frame" x="60" y="32" width="198" height="20"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -42,8 +42,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UK" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="fev-4l-MY3">
-                        <rect key="frame" x="60" y="56" width="199" height="13"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UK" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="198" translatesAutoresizingMaskIntoConstraints="NO" id="fev-4l-MY3">
+                        <rect key="frame" x="60" y="56" width="198" height="14"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -52,8 +52,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="45 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="60" translatesAutoresizingMaskIntoConstraints="NO" id="rqh-iy-Sx9">
-                        <rect key="frame" x="262" y="33" width="42" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="45 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="41" translatesAutoresizingMaskIntoConstraints="NO" id="rqh-iy-Sx9">
+                        <rect key="frame" x="262" y="33" width="41" height="16"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -62,30 +62,16 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ncN-br-N9Y" userLabel="Separator">
-                        <rect key="frame" x="60" y="81" width="260" height="1"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="Oen-mP-flU"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="3Db-Yq-FlD" firstAttribute="leading" secondItem="mRF-11-OKU" secondAttribute="leading" constant="60" id="4Sj-Yh-d4y"/>
-                    <constraint firstItem="ncN-br-N9Y" firstAttribute="top" secondItem="fev-4l-MY3" secondAttribute="bottom" constant="12" id="AC9-aZ-n7D"/>
                     <constraint firstItem="3Db-Yq-FlD" firstAttribute="top" secondItem="x7m-Zm-8y6" secondAttribute="bottom" constant="4" id="AFW-TD-ADw"/>
                     <constraint firstItem="x7m-Zm-8y6" firstAttribute="top" secondItem="mRF-11-OKU" secondAttribute="top" constant="12" id="E4o-jw-VEZ"/>
                     <constraint firstItem="Yb5-r1-Z2X" firstAttribute="leading" secondItem="mRF-11-OKU" secondAttribute="leading" constant="12" id="GGp-H1-htH"/>
                     <constraint firstItem="rqh-iy-Sx9" firstAttribute="leading" secondItem="x7m-Zm-8y6" secondAttribute="trailing" constant="4" id="GsC-fa-5kk"/>
                     <constraint firstItem="rqh-iy-Sx9" firstAttribute="leading" secondItem="3Db-Yq-FlD" secondAttribute="trailing" constant="4" id="I7Q-yY-JMS"/>
-                    <constraint firstAttribute="bottom" secondItem="ncN-br-N9Y" secondAttribute="bottom" id="Wsy-j3-UTP"/>
-                    <constraint firstAttribute="trailing" secondItem="ncN-br-N9Y" secondAttribute="trailing" id="Ye2-gP-1ci"/>
                     <constraint firstItem="fev-4l-MY3" firstAttribute="leading" secondItem="3Db-Yq-FlD" secondAttribute="leading" id="Yk6-jH-hKS"/>
                     <constraint firstAttribute="trailing" secondItem="rqh-iy-Sx9" secondAttribute="trailing" constant="16" id="dil-Rw-64e"/>
-                    <constraint firstItem="ncN-br-N9Y" firstAttribute="leading" secondItem="3Db-Yq-FlD" secondAttribute="leading" id="eMb-9Q-1zY"/>
                     <constraint firstItem="Yb5-r1-Z2X" firstAttribute="centerY" secondItem="mRF-11-OKU" secondAttribute="centerY" id="g72-Dp-9Ky"/>
                     <constraint firstItem="rqh-iy-Sx9" firstAttribute="leading" secondItem="fev-4l-MY3" secondAttribute="trailing" constant="4" id="oqd-UU-h0T"/>
                     <constraint firstItem="fev-4l-MY3" firstAttribute="top" secondItem="3Db-Yq-FlD" secondAttribute="bottom" constant="4" id="pwP-cL-stJ"/>
@@ -93,16 +79,13 @@
                     <constraint firstItem="rqh-iy-Sx9" firstAttribute="centerY" secondItem="mRF-11-OKU" secondAttribute="centerY" id="qZa-yl-a6W"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
-                <outlet property="area" destination="fev-4l-MY3" id="JQg-RJ-YjR"/>
-                <outlet property="downloadSize" destination="rqh-iy-Sx9" id="iEN-WT-NXv"/>
-                <outlet property="downloadSizeTrailingOffset" destination="dil-Rw-64e" id="MLH-Dw-Q9M"/>
-                <outlet property="separator" destination="ncN-br-N9Y" id="H0z-Eg-8zn"/>
-                <outlet property="stateWrapper" destination="Yb5-r1-Z2X" id="4BR-Rb-3iF"/>
-                <outlet property="subPlace" destination="x7m-Zm-8y6" id="tgY-04-gfe"/>
-                <outlet property="title" destination="3Db-Yq-FlD" id="jG8-xD-51V"/>
-                <outlet property="titleLeadingOffset" destination="4Sj-Yh-d4y" id="5QR-E0-ROS"/>
-                <outlet property="titleSizeOffset" destination="I7Q-yY-JMS" id="InJ-7Q-cWM"/>
+                <outlet property="area" destination="fev-4l-MY3" id="3BY-9T-0E9"/>
+                <outlet property="downloadSize" destination="rqh-iy-Sx9" id="q4T-Pv-DrI"/>
+                <outlet property="stateWrapper" destination="Yb5-r1-Z2X" id="eb8-Ut-gh5"/>
+                <outlet property="subPlace" destination="x7m-Zm-8y6" id="63W-Bc-FdX"/>
+                <outlet property="title" destination="3Db-Yq-FlD" id="JdN-yn-xLw"/>
             </connections>
             <point key="canvasLocation" x="282" y="403"/>
         </tableViewCell>

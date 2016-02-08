@@ -22,7 +22,7 @@
                             <constraint firstAttribute="width" constant="36" id="WtB-IW-uuH"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="People's Republic of China" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="452" translatesAutoresizingMaskIntoConstraints="NO" id="cum-4j-JlQ">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="People's Republic of China" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="171" translatesAutoresizingMaskIntoConstraints="NO" id="cum-4j-JlQ">
                         <rect key="frame" x="60" y="12" width="171" height="20"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
@@ -32,8 +32,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14 maps" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="428" translatesAutoresizingMaskIntoConstraints="NO" id="851-fC-gEN">
-                        <rect key="frame" x="60" y="36" width="172" height="14"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="14 maps" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="171" translatesAutoresizingMaskIntoConstraints="NO" id="851-fC-gEN">
+                        <rect key="frame" x="60" y="36" width="171" height="14"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -42,8 +42,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="405 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="60" translatesAutoresizingMaskIntoConstraints="NO" id="9Ni-mb-fA5">
-                        <rect key="frame" x="235" y="23" width="49" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="405 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="49" translatesAutoresizingMaskIntoConstraints="NO" id="9Ni-mb-fA5">
+                        <rect key="frame" x="234" y="23" width="49" height="17"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -62,24 +62,11 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMGray"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDd-h3-T3H" userLabel="Separator">
-                        <rect key="frame" x="60" y="61" width="260" height="1"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="r9R-Mg-a13"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="PDd-h3-T3H" firstAttribute="leading" secondItem="cum-4j-JlQ" secondAttribute="leading" id="0qs-Oj-qMt"/>
                     <constraint firstItem="cum-4j-JlQ" firstAttribute="leading" secondItem="rFT-0r-5zy" secondAttribute="leading" constant="60" id="6W7-tW-rcf"/>
-                    <constraint firstAttribute="trailing" secondItem="PDd-h3-T3H" secondAttribute="trailing" id="AhB-T2-BQG"/>
                     <constraint firstAttribute="trailing" secondItem="9Ni-mb-fA5" secondAttribute="trailing" constant="36" id="C7I-fY-Gfw"/>
                     <constraint firstAttribute="trailing" secondItem="7HN-EK-QXO" secondAttribute="trailing" constant="8" id="EZJ-3g-VZ0"/>
-                    <constraint firstAttribute="bottom" secondItem="PDd-h3-T3H" secondAttribute="bottom" id="EdR-aB-CpX"/>
                     <constraint firstItem="3NQ-tT-U9b" firstAttribute="leading" secondItem="rFT-0r-5zy" secondAttribute="leading" constant="12" id="Km2-Bp-fFb"/>
                     <constraint firstItem="851-fC-gEN" firstAttribute="leading" secondItem="cum-4j-JlQ" secondAttribute="leading" id="NHY-P5-axf"/>
                     <constraint firstItem="cum-4j-JlQ" firstAttribute="top" secondItem="rFT-0r-5zy" secondAttribute="top" constant="12" id="SEx-Ax-stg"/>
@@ -92,15 +79,12 @@
                     <constraint firstItem="3NQ-tT-U9b" firstAttribute="centerY" secondItem="rFT-0r-5zy" secondAttribute="centerY" id="zd3-Ex-VJY"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
-                <outlet property="downloadSize" destination="9Ni-mb-fA5" id="PZc-Y9-r5f"/>
-                <outlet property="downloadSizeTrailingOffset" destination="C7I-fY-Gfw" id="oyQ-zT-0aG"/>
-                <outlet property="mapsCount" destination="851-fC-gEN" id="xhc-zO-2AU"/>
-                <outlet property="separator" destination="PDd-h3-T3H" id="QrT-DH-LYt"/>
-                <outlet property="stateWrapper" destination="3NQ-tT-U9b" id="y81-vb-Txw"/>
-                <outlet property="title" destination="cum-4j-JlQ" id="O2m-lR-MDt"/>
-                <outlet property="titleLeadingOffset" destination="6W7-tW-rcf" id="w5I-tt-cOu"/>
-                <outlet property="titleSizeOffset" destination="hV0-8P-jwr" id="qIP-i9-NT2"/>
+                <outlet property="downloadSize" destination="9Ni-mb-fA5" id="btQ-8t-pIV"/>
+                <outlet property="mapsCount" destination="851-fC-gEN" id="dY0-zX-KS2"/>
+                <outlet property="stateWrapper" destination="3NQ-tT-U9b" id="PJw-9U-8b3"/>
+                <outlet property="title" destination="cum-4j-JlQ" id="f9c-KC-2dR"/>
             </connections>
             <point key="canvasLocation" x="282" y="403"/>
         </tableViewCell>

@@ -7,11 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMMapDownloaderCountryTableViewCell" rowHeight="52" id="Igh-sI-4cU" customClass="MWMMapDownloaderCountryTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="52"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MWMMapDownloaderTableViewCell" rowHeight="52" id="Igh-sI-4cU" customClass="MWMMapDownloaderTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Igh-sI-4cU" id="hYr-eg-wbg">
-                <rect key="frame" x="0.0" y="0.0" width="600" height="51"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rTN-aw-5k7">
@@ -22,8 +22,8 @@
                             <constraint firstAttribute="height" constant="36" id="aA3-Ok-RSD"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Algeria" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="467" translatesAutoresizingMaskIntoConstraints="NO" id="5kc-K7-7K8">
-                        <rect key="frame" x="60" y="16" width="466" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Algeria" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="186" translatesAutoresizingMaskIntoConstraints="NO" id="5kc-K7-7K8">
+                        <rect key="frame" x="60" y="16" width="186" height="20"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -32,8 +32,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="30 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="41" translatesAutoresizingMaskIntoConstraints="NO" id="lgA-X0-501">
-                        <rect key="frame" x="542" y="18" width="41" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="30 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="lgA-X0-501">
+                        <rect key="frame" x="262" y="17" width="42" height="17"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -42,41 +42,25 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAY-zI-IKA" userLabel="Separator">
-                        <rect key="frame" x="60" y="51" width="540" height="1"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="8dG-WK-cuW"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="lgA-X0-501" firstAttribute="centerY" secondItem="hYr-eg-wbg" secondAttribute="centerY" id="5QG-IM-adn"/>
                     <constraint firstItem="5kc-K7-7K8" firstAttribute="leading" secondItem="hYr-eg-wbg" secondAttribute="leading" constant="60" id="6Dv-Pw-tTy"/>
                     <constraint firstAttribute="trailing" secondItem="lgA-X0-501" secondAttribute="trailing" constant="16" id="Af9-0B-Y6q"/>
-                    <constraint firstItem="wAY-zI-IKA" firstAttribute="leading" secondItem="5kc-K7-7K8" secondAttribute="leading" id="Alq-ia-ppm"/>
                     <constraint firstItem="rTN-aw-5k7" firstAttribute="leading" secondItem="hYr-eg-wbg" secondAttribute="leading" constant="12" id="Jfc-5q-LZI"/>
-                    <constraint firstAttribute="bottom" secondItem="wAY-zI-IKA" secondAttribute="bottom" id="O5X-ir-xc2"/>
                     <constraint firstAttribute="bottom" secondItem="5kc-K7-7K8" secondAttribute="bottom" constant="16" id="ZLY-Tp-hnL"/>
                     <constraint firstItem="lgA-X0-501" firstAttribute="leading" secondItem="5kc-K7-7K8" secondAttribute="trailing" constant="16" id="Zwe-tB-xNb"/>
                     <constraint firstItem="5kc-K7-7K8" firstAttribute="top" secondItem="hYr-eg-wbg" secondAttribute="top" constant="16" id="anV-3S-XAR"/>
-                    <constraint firstAttribute="trailing" secondItem="wAY-zI-IKA" secondAttribute="trailing" id="oFp-tD-lQg"/>
                     <constraint firstItem="rTN-aw-5k7" firstAttribute="centerY" secondItem="hYr-eg-wbg" secondAttribute="centerY" id="tND-fx-OhO"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
-                <outlet property="downloadSize" destination="lgA-X0-501" id="1Hz-cl-E29"/>
-                <outlet property="downloadSizeTrailingOffset" destination="Af9-0B-Y6q" id="OB0-mk-QBg"/>
-                <outlet property="separator" destination="wAY-zI-IKA" id="bIO-Ht-cnQ"/>
-                <outlet property="stateWrapper" destination="rTN-aw-5k7" id="MVz-RD-Tpp"/>
-                <outlet property="title" destination="5kc-K7-7K8" id="WSX-fJ-3kK"/>
-                <outlet property="titleLeadingOffset" destination="6Dv-Pw-tTy" id="Bd3-L2-Sgw"/>
-                <outlet property="titleSizeOffset" destination="Zwe-tB-xNb" id="s6k-fw-UYa"/>
+                <outlet property="downloadSize" destination="lgA-X0-501" id="Dl4-r1-7lU"/>
+                <outlet property="stateWrapper" destination="rTN-aw-5k7" id="3jJ-Zp-S0C"/>
+                <outlet property="title" destination="5kc-K7-7K8" id="SDA-Yd-DD2"/>
             </connections>
-            <point key="canvasLocation" x="285" y="375"/>
+            <point key="canvasLocation" x="285" y="406"/>
         </tableViewCell>
     </objects>
 </document>

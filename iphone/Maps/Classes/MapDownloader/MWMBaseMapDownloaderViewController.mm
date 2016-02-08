@@ -1,10 +1,9 @@
 #import "Common.h"
 #import "MWMBaseMapDownloaderViewController.h"
-#import "MWMMapDownloaderCountryTableViewCell.h"
+#import "MWMMapDownloaderTableViewCell.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
-#import "MWMMapDownloaderTableViewHeader.h"
 #import "MWMSegue.h"
 #import "UIColor+MapsMeColor.h"
 
@@ -12,7 +11,7 @@
 
 namespace
 {
-NSString * const kCountryCellIdentifier = @"MWMMapDownloaderCountryTableViewCell";
+NSString * const kCellIdentifier = @"MWMMapDownloaderTableViewCell";
 NSString * const kLargeCountryCellIdentifier = @"MWMMapDownloaderLargeCountryTableViewCell";
 NSString * const kSubplaceCellIdentifier = @"MWMMapDownloaderSubplaceTableViewCell";
 NSString * const kPlaceCellIdentifier = @"MWMMapDownloaderPlaceTableViewCell";
@@ -86,12 +85,12 @@ using namespace storage;
   navBar.shadowImage = self.navBarShadow;
 }
 
-#pragma mark - Data
-
 - (void)configNavBar
 {
   self.title = self.isParentRoot ? L(@"download_maps") : L(@([self GetRootCountryId].c_str()));
 }
+
+#pragma mark - Data
 
 - (void)configData
 {
@@ -151,9 +150,10 @@ using namespace storage;
 
 - (void)configTable
 {
+  self.tableView.separatorColor = [UIColor blackDividers];
   self.offscreenCells = [NSMutableDictionary dictionary];
   [self registerCellWithIdentifier:kPlaceCellIdentifier];
-  [self registerCellWithIdentifier:kCountryCellIdentifier];
+  [self registerCellWithIdentifier:kCellIdentifier];
   [self registerCellWithIdentifier:kLargeCountryCellIdentifier];
   [self registerCellWithIdentifier:kSubplaceCellIdentifier];
 }
@@ -166,7 +166,7 @@ using namespace storage;
   BOOL const haveChildren = !children.empty();
   if (haveChildren)
     return kLargeCountryCellIdentifier;
-  return self.isParentRoot ? kCountryCellIdentifier : kPlaceCellIdentifier;
+  return self.isParentRoot ? kCellIdentifier : kPlaceCellIdentifier;
 }
 
 - (void)showActionSheetForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -319,15 +319,13 @@ using namespace storage;
 
 #pragma mark - Fill cells with data
 
-- (void)fillCell:(MWMMapDownloaderTableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (void)fillCell:(MWMMapDownloaderTableViewCell *)cell forCountryId:(TCountryId const &)countryId
 {
   auto const & s = GetFramework().Storage();
   NodeAttrs nodeAttrs;
-  TCountryId countryId = [self countryIdForIndexPath:indexPath];
   s.GetNodeAttrs(countryId, nodeAttrs);
   [cell setTitleText:@(nodeAttrs.m_nodeLocalName.c_str())];
   [cell setDownloadSizeText:formattedSize(nodeAttrs.m_mwmSize)];
-  [cell setLastCell:[self isLastRowForIndexPath:indexPath]];
 
   if ([cell isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]])
   {
@@ -381,25 +379,12 @@ using namespace storage;
   return index;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+  return self.isParentRoot ? self.indexes[section] : nil;
+}
+
 #pragma mark - UITableViewDelegate
-
-- (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section
-{
-  if (!self.isParentRoot)
-    return nil;
-  MWMMapDownloaderTableViewHeader * headerView =
-      [[[NSBundle mainBundle] loadNibNamed:@"MWMMapDownloaderTableViewHeader"
-                                     owner:nil
-                                   options:nil] firstObject];
-  headerView.lastSection = (section == tableView.numberOfSections - 1);
-  headerView.title.text = self.indexes[section];
-  return headerView;
-}
-
-- (CGFloat)tableView:(UITableView * _Nonnull)tableView heightForHeaderInSection:(NSInteger)section
-{
-  return self.isParentRoot ? [MWMMapDownloaderTableViewHeader height] : 0.0;
-}
 
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
@@ -421,14 +406,15 @@ using namespace storage;
 {
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
   MWMMapDownloaderTableViewCell * cell = [self offscreenCellForIdentifier:reuseIdentifier];
-  [self fillCell:cell atIndexPath:indexPath];
+  TCountryId countryId = [self countryIdForIndexPath:indexPath];
+  [self fillCell:cell forCountryId:countryId];
   [cell setNeedsUpdateConstraints];
   [cell updateConstraintsIfNeeded];
   cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
   [cell setNeedsLayout];
   [cell layoutIfNeeded];
   CGSize const size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-  return size.height;
+  return ceil(size.height + 0.5);
 }
 
 - (CGFloat)tableView:(UITableView * _Nonnull)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
@@ -440,7 +426,7 @@ using namespace storage;
 
 - (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(MWMMapDownloaderTableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  [self fillCell:cell atIndexPath:indexPath];
+  [self fillCell:cell forCountryId:[self countryIdForIndexPath:indexPath]];
 }
 
 #pragma mark - UIActionSheetDelegate

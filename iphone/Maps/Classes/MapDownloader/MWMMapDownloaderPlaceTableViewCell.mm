@@ -1,19 +1,9 @@
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 
-@interface MWMMapDownloaderTableViewCell ()
-
-@property (weak, nonatomic) IBOutlet UILabel * title;
-@property (weak, nonatomic) IBOutlet UILabel * downloadSize;
-
-@end
-
 @interface MWMMapDownloaderPlaceTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel * area;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleBottomOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleLeadingOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleSizeOffset;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * downloadSizeTrailingOffset;
 
 @end
 
@@ -21,12 +11,8 @@
 
 - (void)layoutSubviews
 {
-  CGFloat const preferredMaxLayoutWidth =
-      CGRectGetWidth(self.bounds) - self.titleLeadingOffset.constant -
-      self.titleSizeOffset.constant - CGRectGetWidth(self.downloadSize.bounds) -
-      self.downloadSizeTrailingOffset.constant;
-  self.title.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
-  self.area.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+  [super layoutSubviews];
+  self.area.preferredMaxLayoutWidth = self.area.width;
   [super layoutSubviews];
 }
 
