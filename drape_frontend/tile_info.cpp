@@ -100,7 +100,7 @@ void TileInfo::ProcessID(FeatureID const & id)
 void TileInfo::InitStylist(FeatureType const & f, Stylist & s)
 {
   CheckCanceled();
-  df::InitStylist(f, m_context->GetTileKey().m_styleZoomLevel, m_is3dBuildings, s);
+  df::InitStylist(f, m_context->GetTileKey().m_zoomLevel, m_is3dBuildings, s);
 }
 
 bool TileInfo::DoNeedReadIndex() const
@@ -116,8 +116,7 @@ void TileInfo::CheckCanceled() const
 
 int TileInfo::GetZoomLevel() const
 {
-  ASSERT_LESS_OR_EQUAL(m_context->GetTileKey().m_zoomLevel, scales::GetUpperScale(), ());
-  return m_context->GetTileKey().m_zoomLevel;
+  return ClipTileZoomByMaxDataZoom(m_context->GetTileKey().m_zoomLevel);
 }
 
 } // namespace df

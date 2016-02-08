@@ -75,8 +75,6 @@ SOURCES += \
     threads_commutator.cpp \
     tile_info.cpp \
     tile_key.cpp \
-    tile_tree.cpp \
-    tile_tree_builder.cpp \
     tile_utils.cpp \
     transparent_layer.cpp \
     user_event_stream.cpp \
@@ -169,8 +167,6 @@ HEADERS += \
     threads_commutator.hpp \
     tile_info.hpp \
     tile_key.hpp \
-    tile_tree.hpp \
-    tile_tree_builder.hpp \
     tile_utils.hpp \
     transparent_layer.hpp \
     user_event_stream.hpp \

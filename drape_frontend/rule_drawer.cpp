@@ -47,7 +47,7 @@ RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
   m_globalRect = m_context->GetTileKey().GetGlobalRect();
 
   int32_t tileSize = df::VisualParams::Instance().GetTileSize();
-  m2::RectD const r = m_context->GetTileKey().GetGlobalRect(true /* considerStyleZoom */);
+  m2::RectD const r = m_context->GetTileKey().GetGlobalRect(false /* clipByDataMaxZoom */);
   ScreenBase geometryConvertor;
   geometryConvertor.OnSize(0, 0, tileSize, tileSize);
   geometryConvertor.SetFromRect(m2::AnyRectD(r));
