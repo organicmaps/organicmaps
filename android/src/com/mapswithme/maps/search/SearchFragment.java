@@ -20,8 +20,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mapswithme.maps.downloader.country.OldActiveCountryTree;
-import com.mapswithme.maps.downloader.country.OldDownloadFragment;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -30,6 +28,8 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.CountrySuggestFragment;
+import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.downloader.country.OldDownloadFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.SearchToolbarController;
@@ -157,7 +157,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private static boolean doShowDownloadSuggest()
   {
-    return OldActiveCountryTree.getTotalDownloadedCount() == 0;
+    return (!MapManager.nativeHasDownloadedMaps() && !MapManager.nativeIsDownloading());
   }
 
   private void showDownloadSuggest()

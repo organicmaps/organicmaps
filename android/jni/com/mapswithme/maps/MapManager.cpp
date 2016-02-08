@@ -2,6 +2,7 @@
 
 #include "../core/jni_helper.hpp"
 
+#include "coding/internal/file_data.hpp"
 #include "platform/mwm_version.hpp"
 #include "storage/storage.hpp"
 
@@ -53,6 +54,14 @@ extern "C"
 using namespace storage;
 using namespace data;
 
+
+// static boolean nativeMoveFile(String oldFile, String newFile);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_MapStorage_nativeMoveFile(JNIEnv * env, jclass clazz, jstring oldFile, jstring newFile)
+{
+  return my::RenameFileX(jni::ToNativeString(env, oldFile), jni::ToNativeString(env, newFile));
+}
+
 // static native boolean nativeIsLegacyMode();
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeIsLegacyMode(JNIEnv * env, jclass clazz)
@@ -67,6 +76,27 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeMigrate(JNIEnv * env, jclas
   g_framework->Migrate();
 }
 
+// static boolean nativeIsAutodownload();
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeIsAutodownload(JNIEnv * env, jclass clazz)
+{
+  return g_framework->IsAutodownloadMaps();
+}
+
+// static void nativeSetAutodownload(boolean enabled);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeSetAutodownload(JNIEnv * env, jclass clazz, jboolean enable)
+{
+  g_framework->SetAutodownloadMaps(enable);
+}
+
+// static boolean nativeHasDownloadedMaps();
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeHasDownloadedMaps(JNIEnv * env, jclass clazz)
+{
+  return (GetStorage().GetDownloadedFilesCount() != 0);
+}
+
 // static String nativeGetRootNode();
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetRootNode(JNIEnv * env, jclass clazz)
@@ -79,8 +109,7 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz)
 {
   static Storage::UpdateInfo info = { 0 };
-  // FIXME (trashkalmar): GetUpdateInfo()'s signature might be changed in the near future.
-  if (!GetStorage().GetUpdateInfo(nullptr, info))
+  if (!GetStorage().GetUpdateInfo(info))
     return nullptr;
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/UpdateInfo");

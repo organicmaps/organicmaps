@@ -2,26 +2,32 @@ package com.mapswithme.maps.settings;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.downloader.country.OldMapStorage;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
-
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.util.*;
 
 public class StoragePathManager
 {
@@ -336,7 +342,7 @@ public class StoragePathManager
   }
 
   @SuppressWarnings("ResultOfMethodCallIgnored")
-  private int changeStorage(StorageItem newStorage, StorageItem oldStorage)
+  private static int changeStorage(StorageItem newStorage, StorageItem oldStorage)
   {
     final String fullNewPath = newStorage.getFullPath();
 
@@ -377,7 +383,7 @@ public class StoragePathManager
     {
       for (int i = 0; i < oldFiles.length; ++i)
       {
-        if (!OldMapStorage.nativeMoveFile(oldFiles[i].getAbsolutePath(), newFiles[i].getAbsolutePath()))
+        if (!MapManager.nativeMoveFile(oldFiles[i].getAbsolutePath(), newFiles[i].getAbsolutePath()))
         {
           File parent = newFiles[i].getParentFile();
           if (parent != null)

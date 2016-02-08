@@ -16,9 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.DownloadHelper;
 import com.mapswithme.maps.downloader.MapManager;
-import com.mapswithme.maps.downloader.country.OldMapStorage;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 
@@ -282,7 +282,7 @@ public class MapFragment extends BaseMwmFragment
   }
 
   @SuppressWarnings("UnusedDeclaration")
-  public void onDownloadClicked(final int group, final int country, final int region, final int options)
+  public void onDownloadClicked(final String countryId)
   {
     UiThread.run(new Runnable()
     {
@@ -295,20 +295,14 @@ public class MapFragment extends BaseMwmFragment
           return;
         }
 
-        final OldMapStorage.Index index = new OldMapStorage.Index(group, country, region);
-        if (options == -1)
-        {
-          nativeDownloadCountry(index, options);
-          return;
-        }
-
-        final long size = OldMapStorage.INSTANCE.countryRemoteSizeInBytes(index, options);
-        DownloadHelper.downloadWithCellularCheck(getActivity(), size, OldMapStorage.INSTANCE.countryName(index), new DownloadHelper.OnDownloadListener()
+        CountryItem item = new CountryItem(countryId);
+        MapManager.nativeGetAttributes(item);
+        DownloadHelper.downloadWithCellularCheck(getActivity(), item.size, item.name, new DownloadHelper.OnDownloadListener()
         {
           @Override
           public void onDownload()
           {
-            nativeDownloadCountry(index, options);
+            MapManager.nativeDownload(countryId);
           }
         });
       }
@@ -317,7 +311,7 @@ public class MapFragment extends BaseMwmFragment
 
   private native void nativeConnectDownloaderListeners();
   private static native void nativeDisconnectListeners();
-  private static native void nativeDownloadCountry(OldMapStorage.Index index, int options);
+
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
   static native void nativeScalePlus();
   static native void nativeScaleMinus();

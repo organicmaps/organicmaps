@@ -16,6 +16,11 @@ public final class MapManager
   private MapManager() {}
 
   /**
+   * Moves a file from one place to another.
+   */
+  public static native boolean nativeMoveFile(String oldFile, String newFile);
+
+  /**
    * Determines whether the legacy (large MWMs) mode is used.
    */
   public static native boolean nativeIsLegacyMode();
@@ -26,9 +31,25 @@ public final class MapManager
   public static native void nativeMigrate();
 
   /**
+   * Determines whether the maps should be auto-downloaded on Wi-Fi (i.e., on zooming in).
+   */
+  public static native boolean nativeIsAutodownload();
+
+  /**
+   * Sets whether the maps should be auto-downloaded on Wi-Fi (i.e., on zooming in).
+   */
+  public static native void nativeSetAutodownload(boolean enabled);
+
+  /**
    * Returns country ID of the root node.
+   * KILLME (trashkalmar): Unused?
    */
   public static native String nativeGetRootNode();
+
+  /**
+   * Determines if any downloaded map is present (excluding fake MWMs).
+   */
+  public static native boolean nativeHasDownloadedMaps();
 
   /**
    * Returns info about updatable data or null on error.
@@ -87,7 +108,7 @@ public final class MapManager
   public static native boolean nativeDelete(String root);
 
   /**
-   * Registers {@code callback} of storage status changed. Returns slot ID which is should be used to unsubscribe in {@link #nativeUnsubscribe(int)}.
+   * Registers {@code callback} of storage status changed. Returns slot ID which should be used to unsubscribe in {@link #nativeUnsubscribe(int)}.
    */
   public static native int nativeSubscribe(StorageCallback callback);
 
