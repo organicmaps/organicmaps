@@ -62,7 +62,7 @@ void TestMapping(InputDataT const & data,
   platform::tests_support::ScopedMwm mapMwm(
       platform::GetFileName(localFile.GetCountryFile().GetName(), MapOptions::Map,
                             version::FOR_TESTING_TWO_COMPONENT_MWM1));
-  static char const ftSegsPath[] = "test1.tmp";
+  static string const ftSegsPath = GetPlatform().WritablePathForFile("test1.tmp");
 
   platform::CountryIndexes::PreparePlaceOnDisk(localFile);
   string const & featuresOffsetsTablePath =
