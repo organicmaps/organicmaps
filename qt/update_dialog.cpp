@@ -7,6 +7,7 @@
 
 #include "base/assert.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/bind.hpp"
 
 #include <QtCore/QDateTime>
@@ -20,6 +21,7 @@
   #include <QtGui/QHeaderView>
   #include <QtGui/QMessageBox>
   #include <QtGui/QProgressBar>
+  #include <QtGui/QLineEdit>
 #else
   #include <QtWidgets/QVBoxLayout>
   #include <QtWidgets/QHBoxLayout>
@@ -29,6 +31,7 @@
   #include <QtWidgets/QHeaderView>
   #include <QtWidgets/QMessageBox>
   #include <QtWidgets/QProgressBar>
+  #include <QtWidgets/QLineEdit>
 #endif
 
 #define CHECK_FOR_UPDATE "Check for update"
@@ -90,7 +93,11 @@ namespace qt
     horizontalLayout->addStretch();
     horizontalLayout->addWidget(closeButton);
 
+    QLineEdit * edit = new QLineEdit(this);
+    connect(edit, SIGNAL(textChanged(QString const &)), this , SLOT(OnTextChanged(QString const &)));
+
     QVBoxLayout * verticalLayout = new QVBoxLayout();
+    verticalLayout->addWidget(edit);
     verticalLayout->addWidget(m_tree);
     verticalLayout->addLayout(horizontalLayout);
     setLayout(verticalLayout);
@@ -191,6 +198,15 @@ namespace qt
   void UpdateDialog::OnCloseClick()
   {
     done(0);
+  }
+
+  void UpdateDialog::OnTextChanged(const QString & s)
+  {
+    m_tree->clear();
+    m_treeItemByCountryId.clear();
+
+    string const filter = s.toUtf8().constData();
+    FillTree(filter);
   }
 
   /// Changes row's text color
@@ -324,31 +340,68 @@ namespace qt
     return item->data(KColumnIndexCountry, Qt::UserRole).toString().toUtf8().constData();
   }
 
-  void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, TCountryId const & countryId)
+  bool Matches(string countryId, string filter)
   {
-    QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+    transform(filter.begin(), filter.end(), filter.begin(), toupper);
+    transform(countryId.begin(), countryId.end(), countryId.begin(), toupper);
+    return countryId.find(filter) != string::npos;
+  }
 
-    UpdateRowWithCountryInfo(item, countryId);
-
+  void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, TCountryId const & countryId, string const & filter)
+  {
     TCountriesVec children;
     GetStorage().GetChildren(countryId, children);
 
-    for (auto const & child : children)
-      FillTreeImpl(item, child);
+    if (children.empty())
+    {
+      // filter leafs by matching
+      if (!filter.empty() && !Matches(countryId, filter))
+        return;
+
+      QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+      UpdateRowWithCountryInfo(item, countryId);
+    }
+    else
+    {
+      if (!filter.empty() && Matches(countryId, filter))
+      {
+        // filter matches to the group name, do not filter the group
+        QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+        UpdateRowWithCountryInfo(item, countryId);
+
+        for (auto const & child : children)
+          FillTreeImpl(item, child, string()); // do no filter children
+      }
+      else
+      {
+        // filter does not match to the group, but children can do
+        QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+        UpdateRowWithCountryInfo(item, countryId);
+
+        for (auto const & child : children)
+          FillTreeImpl(item, child, filter);
+
+        // but if item has no children, then drop it
+        if (!filter.empty() && 0 == item->childCount() && parent != nullptr)
+        {
+          parent->removeChild(item);
+          item = nullptr;
+        }
+      }
+    }
   }
 
-  void UpdateDialog::FillTree()
+  void UpdateDialog::FillTree(string const & filter)
   {
     m_tree->setSortingEnabled(false);
     m_tree->clear();
 
     TCountryId const rootId = m_framework.Storage().GetRootId();
-    FillTreeImpl(nullptr /* parent */, rootId);
+    FillTreeImpl(nullptr /* parent */, rootId, filter);
 
-    auto const rootItems = GetTreeItemsByCountryId(rootId);
-    ASSERT_EQUAL(rootItems.size(), 1, ());
-    for (auto const item : rootItems)
-      item->setExpanded(true);
+    // expand the root
+    ASSERT_EQUAL(1, m_tree->topLevelItemCount(), ());
+    m_tree->topLevelItem(0)->setExpanded(true);
 
     m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
     m_tree->setSortingEnabled(true);
@@ -386,7 +439,7 @@ namespace qt
   {
     // if called for first time
     if (!m_tree->topLevelItemCount())
-      FillTree();
+      FillTree(string());
 
     exec();
   }

@@ -41,10 +41,11 @@ namespace qt
   private slots:
     void OnItemClick(QTreeWidgetItem * item, int column);
     void OnCloseClick();
+    void OnTextChanged(const QString &);
 
   private:
-    void FillTree();
-    void FillTreeImpl(QTreeWidgetItem * parent, storage::TCountryId const & countryId);
+    void FillTree(string const & filter);
+    void FillTreeImpl(QTreeWidgetItem * parent, storage::TCountryId const & countryId, string const & filter);
     void UpdateRowWithCountryInfo(storage::TCountryId const & countryId);
     void UpdateRowWithCountryInfo(QTreeWidgetItem * item, storage::TCountryId const & countryId);
 
