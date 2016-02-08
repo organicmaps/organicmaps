@@ -29,6 +29,11 @@ void CBVPtr::Set(coding::CompressedBitVector const * p, bool isOwner/* = false*/
   m_isOwner = p && isOwner;
 }
 
+void CBVPtr::Set(unique_ptr<coding::CompressedBitVector> p)
+{
+  Set(p.release(), true /* isOwner */);
+}
+
 void CBVPtr::Union(coding::CompressedBitVector const * p)
 {
   if (!p || m_isFull)

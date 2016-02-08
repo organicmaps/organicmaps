@@ -5,6 +5,7 @@
 #include "search/search_delimiters.hpp"
 #include "search/search_string_utils.hpp"
 #include "search/v2/cbv_ptr.hpp"
+#include "search/v2/features_filter.hpp"
 #include "search/v2/features_layer_matcher.hpp"
 #include "search/v2/locality_scorer.hpp"
 
@@ -370,6 +371,7 @@ Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
   , m_model(SearchModel::Instance())
   , m_streets(nullptr)
   , m_villages(nullptr)
+  , m_filter(nullptr)
   , m_matcher(nullptr)
   , m_finder(static_cast<my::Cancellable const &>(*this))
   , m_lastMatchedRegion(nullptr)
@@ -921,8 +923,8 @@ void Geocoder::MatchCities()
       if (coding::CompressedBitVector::IsEmpty(cityFeatures))
         continue;
 
-      // Filter will be applied for all non-empty bit vectors.
-      LimitedSearch(cityFeatures, 0 /* filterThreshold */);
+      LocalityFilter filter(*cityFeatures);
+      LimitedSearch(filter);
     }
   }
 }
@@ -944,16 +946,17 @@ void Geocoder::MatchViewportAndPosition()
     allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, POSITION_ID));
   }
 
-  // Filter will be applied only for large bit vectors.
-  LimitedSearch(allFeatures.Get(), m_params.m_maxNumResults /* filterThreshold */);
+  if (!allFeatures.Get())
+    return;
+
+  ViewportFilter filter(*allFeatures, m_params.m_maxNumResults /* threshold */);
+  LimitedSearch(filter);
 }
 
-void Geocoder::LimitedSearch(coding::CompressedBitVector const * filter, size_t filterThreshold)
+void Geocoder::LimitedSearch(FeaturesFilter const & filter)
 {
-  m_filter.SetFilter(filter);
-  MY_SCOPE_GUARD(resetFilter, [&]() { m_filter.SetFilter(nullptr); });
-
-  m_filter.SetThreshold(filterThreshold);
+  m_filter = &filter;
+  MY_SCOPE_GUARD(resetFilter, [&]() { m_filter = nullptr; });
 
   // The order is rather important. Match streets first, then all other stuff.
   GreedilyMatchStreets();
@@ -1021,8 +1024,8 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(
     return;
 
   CBVPtr filtered(features.get(), false /* isOwner */);
-  if (m_filter.NeedToFilter(*features))
-    filtered.Set(m_filter.Filter(*features).release(), true /* isOwner */);
+  if (m_filter->NeedToFilter(*features))
+    filtered.Set(m_filter->Filter(*features).release(), true /* isOwner */);
 
   m_layers.emplace_back();
   MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &m_layers));
@@ -1064,15 +1067,15 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
   // list of ids.
   vector<uint32_t> clusters[SearchModel::SEARCH_TYPE_STREET];
 
-  unique_ptr<coding::CompressedBitVector> intersection;
-  coding::CompressedBitVector * features = nullptr;
+  CBVPtr features;
+  features.SetFull();
 
   // Try to consume [curToken, m_numTokens) tokens range.
   for (size_t n = 1; curToken + n <= m_numTokens && !m_usedTokens[curToken + n - 1]; ++n)
   {
-    // At this point |intersection| is the intersection of
-    // m_addressFeatures[curToken], m_addressFeatures[curToken + 1], ...,
-    // m_addressFeatures[curToken + n - 2], iff n > 2.
+    // At this point |features| is the intersection of
+    // m_addressFeatures[curToken], m_addressFeatures[curToken + 1],
+    // ..., m_addressFeatures[curToken + n - 2].
 
     BailIfCancelled();
 
@@ -1085,26 +1088,14 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
                       layer.m_subQuery);
     }
 
-    if (n == 1)
-    {
-      features = m_addressFeatures[curToken].get();
-      if (m_filter.NeedToFilter(*features))
-      {
-        intersection = m_filter.Filter(*features);
-        features = intersection.get();
-      }
-    }
-    else
-    {
-      intersection =
-          coding::CompressedBitVector::Intersect(*features, *m_addressFeatures[curToken + n - 1]);
-      features = intersection.get();
-    }
-    ASSERT(features, ());
+    features.Intersect(m_addressFeatures[curToken + n - 1].get());
+    if (m_filter->NeedToFilter(*features))
+      features.Set(m_filter->Filter(*features));
+    ASSERT(features.Get(), ());
 
     bool const looksLikeHouseNumber = feature::IsHouseNumber(m_layers.back().m_subQuery);
 
-    if (coding::CompressedBitVector::IsEmpty(features) && !looksLikeHouseNumber)
+    if (coding::CompressedBitVector::IsEmpty(features.Get()) && !looksLikeHouseNumber)
       break;
 
     if (n == 1)
@@ -1247,8 +1238,8 @@ void Geocoder::MatchUnclassified(size_t curToken)
     allFeatures.Intersect(m_addressFeatures[curToken].get());
   }
 
-  if (m_filter.NeedToFilter(*allFeatures))
-    allFeatures.Set(m_filter.Filter(*allFeatures).release(), true /* isOwner */);
+  if (m_filter->NeedToFilter(*allFeatures))
+    allFeatures.Set(m_filter->Filter(*allFeatures).release(), true /* isOwner */);
 
   if (allFeatures.IsEmpty())
     return;

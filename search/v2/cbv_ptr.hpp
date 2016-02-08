@@ -35,10 +35,12 @@ public:
   }
 
   void Set(coding::CompressedBitVector const * p, bool isOwner = false);
+  void Set(unique_ptr<coding::CompressedBitVector> p);
 
   inline coding::CompressedBitVector const * Get() const { return m_ptr; }
 
   coding::CompressedBitVector const & operator*() const { return *m_ptr; }
+  coding::CompressedBitVector const * operator->() const { return m_ptr; }
 
   bool IsEmpty() const;
 

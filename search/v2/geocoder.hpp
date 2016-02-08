@@ -2,7 +2,6 @@
 
 #include "search/cancel_exception.hpp"
 #include "search/search_query_params.hpp"
-#include "search/v2/features_filter.hpp"
 #include "search/v2/features_layer.hpp"
 #include "search/v2/features_layer_path_finder.hpp"
 #include "search/v2/mwm_context.hpp"
@@ -44,6 +43,7 @@ namespace search
 {
 namespace v2
 {
+class FeaturesFilter;
 class FeaturesLayerMatcher;
 class SearchModel;
 
@@ -188,9 +188,9 @@ private:
   void MatchViewportAndPosition();
 
   // Tries to do geocoding in a limited scope, assuming that knowledge
-  // about high-level features, like cities or countries, is
+  // about high-level features, like cities or countries, is somehow
   // incorporated into |filter|.
-  void LimitedSearch(coding::CompressedBitVector const * filter, size_t filterThreshold);
+  void LimitedSearch(FeaturesFilter const & filter);
 
   // Tries to match some adjacent tokens in the query as streets and
   // then performs geocoding in street vicinities.
@@ -303,7 +303,7 @@ private:
   vector<bool> m_usedTokens;
 
   // This filter is used to throw away excess features.
-  FeaturesFilter m_filter;
+  FeaturesFilter const * m_filter;
 
   // Features matcher for layers intersection.
   map<MwmSet::MwmId, unique_ptr<FeaturesLayerMatcher>> m_matchersCache;
