@@ -639,10 +639,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onRestoreInstanceState(savedInstanceState);
 
     if (savedInstanceState.getBoolean(STATE_PP_OPENED))
-    {
-      mPlacePage.setMapObject(Framework.nativeGetActiveMapObject(), false);
       mPlacePage.setState(State.PREVIEW);
-    }
 
     if (!mIsFragmentContainer && RoutingController.get().isPlanning())
       mRoutingPlanInplaceController.restoreState(savedInstanceState);
@@ -784,7 +781,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     invalidateLocationState();
 
     mSearchController.refreshToolbar();
-    mPlacePage.setMapObject(Framework.nativeGetActiveMapObject(), true);
 
     if (!RoutingController.get().isNavigating())
     {
@@ -1033,17 +1029,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
       object.setTypeName(request.getCallerName(MwmApplication.get()).toString());
 
     }
-    else if (MapObject.isOfType(MapObject.MY_POSITION, object))
+    else if (MapObject.isOfType(MapObject.MY_POSITION, object) &&
+             Framework.nativeIsRoutingActive())
     {
-      if (Framework.nativeIsRoutingActive())
-        return;
+      return;
     }
 
     setFullscreen(false);
-    if (MapObject.same(mPlacePage.getMapObject(), object))
-      return;
 
-    mPlacePage.setMapObject(object, false);
+    mPlacePage.setMapObject(object, true);
     mPlacePage.setState(State.PREVIEW);
 
     if (UiUtils.isVisible(mFadeView))
