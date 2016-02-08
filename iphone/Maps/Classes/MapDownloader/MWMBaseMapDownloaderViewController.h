@@ -3,7 +3,7 @@
 
 #include "storage/index.hpp"
 
-@interface MWMMapCountryDownloaderViewController : MWMViewController <UITableViewDelegate, UITableViewDataSource>
+@interface MWMBaseMapDownloaderViewController : MWMViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UILabel * allMapsLabel;
 

@@ -492,7 +492,7 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 - (void)openBookmarks
 {
   BOOL const oneCategory = (GetFramework().GetBmCategoriesCount() == 1);
-  TableViewController * vc = oneCategory ? [[BookmarksVC alloc] initWithCategory:0] : [[BookmarksRootVC alloc] init];
+  MWMTableViewController * vc = oneCategory ? [[BookmarksVC alloc] initWithCategory:0] : [[BookmarksRootVC alloc] init];
   [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -604,16 +604,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
     self.controlsManager.hidden = NO;
     [self.controlsManager showPlacePage];
   }
-}
-
-#pragma mark - Bookmarks
-
-- (void)openBookmarks
-{
-  BOOL const oneCategory = (GetFramework().GetBmCategoriesCount() == 1);
-  MWMTableViewController * vc =
-      oneCategory ? [[BookmarksVC alloc] initWithCategory:0] : [[BookmarksRootVC alloc] init];
-  [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Authorization
