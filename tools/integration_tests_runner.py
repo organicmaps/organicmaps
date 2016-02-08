@@ -1,12 +1,15 @@
 from __future__ import print_function
-from optparse import OptionParser
-import subprocess
+
+import logging
 import multiprocessing
+from optparse import OptionParser
+from os import path
+import shutil
+import subprocess
+import tempfile
 from threading import Lock
 from threading import Thread
 import traceback
-import logging
-from os import path
 
 
 from Queue import Queue
@@ -17,16 +20,19 @@ from run_desktop_tests import tests_on_disk
 __author__ = 't.danshin'
 
 
+TEMPFOLDER_TESTS = ["search_integration_tests"]
+
+
 class IntegrationRunner:
     def __init__(self):
         self.process_cli()
 
         self.proc_count = multiprocessing.cpu_count()
-        logging.info("Number of processors is: {}".format(self.proc_count))
+        logging.info("Number of processors is: {nproc}".format(nproc=self.proc_count))
 
         self.file_lock = Lock()
-
         self.tests = Queue()
+
 
     def run_tests(self):
         for exec_file in self.runlist:
@@ -58,17 +64,31 @@ class IntegrationRunner:
                     return
 
                 test_file, test = self.tests.get()
-                self.exec_test(test_file, test)
+                self.exec_test(test_file, test, clean_env=(test_file in TEMPFOLDER_TESTS))
+
             except:
                 logging.error(traceback.format_exc())
+                return
 
 
-    def exec_test(self, test_file, test):
-        out, err, result = self.get_tests_from_exec_file(test_file, '--filter={test}'.format(test=test))
+    def exec_test(self, test_file, test, clean_env=False):
+        keys = '--filter={test}'.format(test=test)
+        if clean_env:
+            tmpdir = tempfile.mkdtemp()
+            logging.debug("Temp dir: {tmpdir}".format(tmpdir=tmpdir))
+
+        out, err, result = self.get_tests_from_exec_file(test_file, keys)
+
+        if clean_env:
+            try:
+                shutil.rmtree(tmpdir)
+            except:
+                logging.error("Failed to remove tempdir {tmpdir}".format(tmpdir=tmpdir))
+
         with self.file_lock:
-            self.file.write("BEGIN: {}\n".format(test_file))
+            self.file.write("BEGIN: {file}\n".format(file=test_file))
             self.file.write(str(err))
-            self.file.write("\nEND: {} | result: {}\n\n".format(test_file, result))
+            self.file.write("\nEND: {file} | result: {res}\n\n".format(file=test_file, res=result))
             self.file.flush()
 
 
