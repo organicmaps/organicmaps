@@ -25,6 +25,7 @@ win32*|linux* {
 }
 
 HEADERS += \
+  create_country_info_getter.hpp \
   fake_map_files_downloader.hpp \
   task_runner.hpp \
   test_map_files_downloader.hpp \
@@ -32,6 +33,7 @@ HEADERS += \
 SOURCES += \
   ../../testing/testingmain.cpp \
   country_info_getter_test.cpp \
+  create_country_info_getter.cpp \
   fake_map_files_downloader.cpp \
   queued_country_tests.cpp \
   simple_tree_test.cpp \
