@@ -54,9 +54,10 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   {
     if (IsValidEdgeWeight(weights[i]))
     {
-      BorderCross nextCross = ConstructBorderCross(outgoingNodes[i], startMapping);
-      if (nextCross.toNode.IsValid())
-        dummyEdges.emplace_back(nextCross, weights[i]);
+      vector<BorderCross> nextCrosses = ConstructBorderCross(outgoingNodes[i], startMapping);
+      for (auto const & nextCross : nextCrosses)
+        if (nextCross.toNode.IsValid())
+          dummyEdges.emplace_back(nextCross, weights[i]);
     }
   }
 
@@ -126,8 +127,8 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   return IRouter::NoError;
 }
 
-BorderCross CrossMwmGraph::ConstructBorderCross(OutgoingCrossNode const & startNode,
-                                                TRoutingMappingPtr const & currentMapping) const
+vector<BorderCross> CrossMwmGraph::ConstructBorderCross(OutgoingCrossNode const & startNode,
+                                                        TRoutingMappingPtr const & currentMapping) const
 {
   // Check cached crosses.
   auto const key = make_pair(startNode.m_nodeId, currentMapping->GetMwmId());
@@ -136,33 +137,33 @@ BorderCross CrossMwmGraph::ConstructBorderCross(OutgoingCrossNode const & startN
     return it->second;
 
   // Cache miss case.
-  BorderCross cross;
-  if (!ConstructBorderCrossImpl(startNode, currentMapping, cross))
-    return BorderCross();
-  m_cachedNextNodes.insert(make_pair(key, cross));
-  return cross;
+  vector<BorderCross> crosses;
+  if (!ConstructBorderCrossImpl(startNode, currentMapping, crosses))
+    return vector<BorderCross>();
+  m_cachedNextNodes.insert(make_pair(key, crosses));
+  return crosses;
 }
 
 bool CrossMwmGraph::ConstructBorderCrossImpl(OutgoingCrossNode const & startNode,
                                              TRoutingMappingPtr const & currentMapping,
-                                             BorderCross & cross) const
+                                             vector<BorderCross> & crosses) const
 {
   string const & nextMwm = currentMapping->m_crossContext.GetOutgoingMwmName(startNode);
   TRoutingMappingPtr nextMapping = m_indexManager.GetMappingByName(nextMwm);
   // If we haven't this routing file, we skip this path.
   if (!nextMapping->IsValid())
     return false;
+  crosses.clear();
   nextMapping->LoadCrossContext();
-
-  IngoingCrossNode ingoingNode;
-  if (nextMapping->m_crossContext.FindIngoingNodeByPoint(startNode.m_point, ingoingNode))
+  nextMapping->m_crossContext.ForEachIngoingNode([&](IngoingCrossNode const & node)
   {
-    auto const & targetPoint = ingoingNode.m_point;
-    cross = BorderCross(CrossNode(startNode.m_nodeId, currentMapping->GetMwmId(), targetPoint),
-                        CrossNode(ingoingNode.m_nodeId, nextMapping->GetMwmId(), targetPoint));
-    return true;
-  }
-  return false;
+    if (node.m_point == startNode.m_point)
+    {
+      crosses.emplace_back(CrossNode(startNode.m_nodeId, currentMapping->GetMwmId(), node.m_point),
+                         CrossNode(node.m_nodeId, nextMapping->GetMwmId(), node.m_point));
+    }
+  });
+  return !crosses.empty();
 }
 
 void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
@@ -204,9 +205,10 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
                                        EdgeWeight const outWeight = currentContext.GetAdjacencyCost(ingoingNode, node);
                                        if (outWeight != kInvalidContextEdgeWeight && outWeight != 0)
                                        {
-                                         BorderCross target = ConstructBorderCross(node, currentMapping);
-                                         if (target.toNode.IsValid())
-                                           adj.emplace_back(target, outWeight);
+                                         vector<BorderCross> targets = ConstructBorderCross(node, currentMapping);
+                                         for (auto const & target : targets)
+                                           if (target.toNode.IsValid())
+                                             adj.emplace_back(target, outWeight);
                                        }
                                      });
 }
