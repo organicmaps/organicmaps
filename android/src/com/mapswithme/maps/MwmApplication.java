@@ -12,12 +12,11 @@ import android.util.Log;
 import java.io.File;
 
 import com.google.gson.Gson;
-import com.mapswithme.maps.downloader.country.OldActiveCountryTree;
-import com.mapswithme.maps.downloader.country.OldCountryItem;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.downloader.country.OldMapStorage;
+import com.mapswithme.maps.downloader.CountryItem;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.sound.TtsPlayer;
@@ -27,14 +26,12 @@ import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.SaveCallback;
 
 public class MwmApplication extends Application
-                         implements OldActiveCountryTree.ActiveCountryListener
 {
   private final static String TAG = "MwmApplication";
 
@@ -52,6 +49,20 @@ public class MwmApplication extends Application
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
+
+  private final MapManager.StorageCallback mStorageCallbacks = new MapManager.StorageCallback()
+  {
+    @Override
+    public void onStatusChanged(String countryId, int newStatus)
+    {
+      Notifier.cancelDownloadSuggest();
+      if (newStatus == CountryItem.STATUS_FAILED)
+        Notifier.notifyDownloadFailed(countryId);
+    }
+
+    @Override
+    public void onProgress(String countryId, long localSize, long remoteSize) {}
+  };
 
   public MwmApplication()
   {
@@ -80,32 +91,6 @@ public class MwmApplication extends Application
   }
 
   @Override
-  public void onCountryProgressChanged(int group, int position, long[] sizes) {}
-
-  @Override
-  public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
-  {
-    Notifier.cancelDownloadSuggest();
-    if (newStatus == OldMapStorage.DOWNLOAD_FAILED)
-    {
-      OldCountryItem item = OldActiveCountryTree.getCountryItem(group, position);
-      Notifier.notifyDownloadFailed(OldActiveCountryTree.getCoreIndex(group, position), item.getName());
-    }
-  }
-
-  @Override
-  public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition)
-  {
-    if (oldGroup == OldActiveCountryTree.GROUP_NEW && newGroup == OldActiveCountryTree.GROUP_UP_TO_DATE)
-      Statistics.INSTANCE.trackMapChanged(Statistics.EventName.MAP_DOWNLOADED);
-    else if (oldGroup == OldActiveCountryTree.GROUP_OUT_OF_DATE && newGroup == OldActiveCountryTree.GROUP_UP_TO_DATE)
-      Statistics.INSTANCE.trackMapChanged(Statistics.EventName.MAP_UPDATED);
-  }
-
-  @Override
-  public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions) {}
-
-  @Override
   public void onCreate()
   {
     super.onCreate();
@@ -128,7 +113,9 @@ public class MwmApplication extends Application
       return;
 
     nativeInitFramework();
-    //OldActiveCountryTree.addListener(this);
+
+    MapManager.nativeSubscribe(mStorageCallbacks);
+
     initNativeStrings();
     BookmarkManager.nativeLoadBookmarks();
     TtsPlayer.INSTANCE.init(this);
