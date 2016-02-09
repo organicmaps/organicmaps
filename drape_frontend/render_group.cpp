@@ -183,27 +183,27 @@ void RenderGroup::Disappear()
 
 bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting)
 {
-  if (m_sharedFeaturesWaiting)
-  {
-    m2::RectD const tileRect = GetTileKey().GetGlobalRect();
-    bool const isTileVisible = isFeaturesWaiting(tileRect);
+  if (!m_sharedFeaturesWaiting)
+    return false;
 
-    for (size_t i = 0; i < m_renderBuckets.size(); )
+  m2::RectD const tileRect = GetTileKey().GetGlobalRect();
+  bool const isTileVisible = isFeaturesWaiting(tileRect);
+
+  for (size_t i = 0; i < m_renderBuckets.size(); )
+  {
+    bool visibleBucket = m_renderBuckets[i]->IsShared() ? m_renderBuckets[i]->IsFeaturesWaiting(isFeaturesWaiting)
+                                                        : isTileVisible;
+    if (!visibleBucket)
     {
-      bool visibleBucket = m_renderBuckets[i]->IsShared() ? m_renderBuckets[i]->IsFeaturesWaiting(isFeaturesWaiting)
-                                                          : isTileVisible;
-      if (!visibleBucket)
-      {
-        swap(m_renderBuckets[i], m_renderBuckets.back());
-        m_renderBuckets.pop_back();
-      }
-      else
-      {
-        ++i;
-      }
+      swap(m_renderBuckets[i], m_renderBuckets.back());
+      m_renderBuckets.pop_back();
     }
-    m_sharedFeaturesWaiting = !m_renderBuckets.empty();
+    else
+    {
+      ++i;
+    }
   }
+  m_sharedFeaturesWaiting = !m_renderBuckets.empty();
   return m_renderBuckets.empty();
 }
 

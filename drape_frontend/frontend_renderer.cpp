@@ -882,9 +882,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   m2::RectD const & screenRect = modelView.ClipRect();
   auto isFeaturesWaiting = [&screenRect, waitFeatures](m2::RectD const & rect)
   {
-    if (waitFeatures && rect.IsIntersect(screenRect))
-      return true;
-    return false;
+    return waitFeatures && rect.IsIntersect(screenRect);
   };
 
   for (RenderLayer & layer : m_layers)
