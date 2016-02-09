@@ -191,9 +191,8 @@ bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWa
 
   for (size_t i = 0; i < m_renderBuckets.size(); )
   {
-    bool visibleBucket =
-        m_renderBuckets[i]->GetQuadrantId() > 0 ? m_renderBuckets[i]->IsFeaturesWaiting(isFeaturesWaiting)
-                                                : isTileVisible;
+    bool visibleBucket = m_renderBuckets[i]->IsShared() ? m_renderBuckets[i]->IsFeaturesWaiting(isFeaturesWaiting)
+                                                        : isTileVisible;
     if (!visibleBucket)
     {
       swap(m_renderBuckets[i], m_renderBuckets.back());

@@ -25,20 +25,4 @@ struct FeatureGeometryId
   }
 };
 
-struct FeatureShapeInfo
-{
-  dp::FeatureGeometryId m_geomId;
-  m2::RectD m_limitRect;
-  uint32_t m_quadrantId = 0;
-
-  FeatureShapeInfo() = default;
-  FeatureShapeInfo(dp::FeatureGeometryId const & geomId, m2::RectD limitRect, uint32_t quadrantId)
-    : m_geomId(geomId)
-    , m_limitRect(limitRect)
-    , m_quadrantId(quadrantId)
-  {}
-
-  bool IsValid() const { return m_geomId.IsValid(); }
-};
-
 } // namespace dp

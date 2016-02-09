@@ -62,7 +62,7 @@ bool BatchMergeHelper::IsMergeSupported()
 
 void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
                                     vector<drape_ptr<RenderGroup>> & mergedBatches,
-                                    bool isPerspective, uint32_t quadrantId)
+                                    bool isPerspective, bool sharedFeatures)
 {
   ASSERT(!batches.empty(), ());
   if (batches.size() < 2)
@@ -133,7 +133,7 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
   {
     for (drape_ptr<TBucket> const & b : group->m_renderBuckets)
     {
-      if (b->GetQuadrantId() != quadrantId)
+      if (b->IsShared() != sharedFeatures)
         continue;
       ASSERT(b->m_overlay.empty(), ());
       ref_ptr<TBuffer> buffer = b->GetBuffer();
@@ -147,11 +147,9 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
         allocateFn(bucket, newBuffer);
       }
 
-      if (b->GetQuadrantId() > 0)
-      {
-        bucket->SetQuadrantId(b->GetQuadrantId());
+      if (b->IsShared())
         bucket->AddFeaturesInfo(*b);
-      }
+
       uint32_t indexOffset = newBuffer->GetStartIndexValue();
 
       for (auto const & vboNode : buffer->m_staticBuffers)

@@ -50,7 +50,7 @@ public:
   void StartSession(TFlushFn const & flusher);
   void EndSession();
 
-  void StartFeatureRecord(FeatureShapeInfo const & feature);
+  void StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect);
   void EndFeatureRecord();
 
 private:
@@ -72,20 +72,20 @@ private:
   struct BucketId
   {
     BucketId() = default;
-    BucketId(GLState const & state, uint32_t quadrantId)
+    BucketId(GLState const & state, bool sharedFeatures)
       : m_state(state)
-      , m_quadrantId(quadrantId)
+      , m_sharedFeatures(sharedFeatures)
     {}
 
     bool operator < (BucketId const & other) const
     {
       if (m_state == other.m_state)
-        return m_quadrantId < other.m_quadrantId;
+        return m_sharedFeatures < other.m_sharedFeatures;
       return m_state < other.m_state;
     }
 
     GLState m_state;
-    uint32_t m_quadrantId = 0;
+    bool m_sharedFeatures;
   };
 
   using TBuckets = map<BucketId, drape_ptr<RenderBucket>>;
@@ -94,7 +94,8 @@ private:
   uint32_t m_indexBufferSize;
   uint32_t m_vertexBufferSize;
 
-  FeatureShapeInfo m_currentFeature;
+  FeatureGeometryId m_currentFeature;
+  m2::RectD m_featureLimitRect;
 };
 
 class BatcherFactory

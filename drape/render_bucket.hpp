@@ -49,9 +49,7 @@ public:
       todo(make_ref(h));
   }
 
-  void SetQuadrantId(uint32_t quadrantId) { m_quadrantId = quadrantId; }
-  uint32_t GetQuadrantId() const { return m_quadrantId; }
-
+  bool IsShared() const { return !m_featuresGeometryInfo.empty(); }
   void StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect);
   void EndFeatureRecord(bool featureCompleted);
 
@@ -74,7 +72,6 @@ private:
   using TFeaturesGeometryInfo = map<FeatureGeometryId, FeatureGeometryInfo>;
   using TFeatureInfo = pair<FeatureGeometryId, FeatureGeometryInfo>;
 
-  uint32_t m_quadrantId = 0;
   TFeatureInfo m_featureInfo;
   TFeaturesGeometryInfo m_featuresGeometryInfo;
 

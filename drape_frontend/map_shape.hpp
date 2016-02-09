@@ -31,11 +31,15 @@ public:
   virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const = 0;
   virtual MapShapeType GetType() const { return MapShapeType::GeometryType; }
 
-  void SetFeatureInfo(dp::FeatureShapeInfo const & featureInfo) { m_featureInfo = featureInfo; }
-  dp::FeatureShapeInfo const & GetFeatureInfo() const { return m_featureInfo; }
+  void SetFeatureInfo(dp::FeatureGeometryId const & feature) { m_featureInfo = feature; }
+  dp::FeatureGeometryId const & GetFeatureInfo() const { return m_featureInfo; }
+
+  void SetFeatureLimitRect(m2::RectD rect) { m_limitRect = rect; }
+  m2::RectD const & GetFeatureLimitRect() const { return m_limitRect; }
 
 private:
-  dp::FeatureShapeInfo m_featureInfo;
+  dp::FeatureGeometryId m_featureInfo;
+  m2::RectD m_limitRect;
 };
 
 using TMapShapes = vector<drape_ptr<MapShape>>;

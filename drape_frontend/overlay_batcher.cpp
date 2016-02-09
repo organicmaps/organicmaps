@@ -28,7 +28,7 @@ void OverlayBatcher::Batch(drape_ptr<MapShape> const & shape, ref_ptr<dp::Textur
 {
   bool const sharedFeature = shape->GetFeatureInfo().IsValid();
   if (sharedFeature)
-    m_batcher.StartFeatureRecord(shape->GetFeatureInfo());
+    m_batcher.StartFeatureRecord(shape->GetFeatureInfo(), shape->GetFeatureLimitRect());
   shape->Draw(make_ref(&m_batcher), texMng);
   if (sharedFeature)
     m_batcher.EndFeatureRecord();
