@@ -1095,7 +1095,7 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
 
     bool const looksLikeHouseNumber = feature::IsHouseNumber(m_layers.back().m_subQuery);
 
-    if (coding::CompressedBitVector::IsEmpty(features.Get()) && !looksLikeHouseNumber)
+    if (features.IsEmpty() && !looksLikeHouseNumber)
       break;
 
     if (n == 1)

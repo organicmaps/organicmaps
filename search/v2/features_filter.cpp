@@ -43,15 +43,7 @@ unique_ptr<coding::CompressedBitVector> ViewportFilter::Filter(
   auto result = coding::CompressedBitVector::Intersect(m_filter, cbv);
   if (!coding::CompressedBitVector::IsEmpty(result))
     return result;
-
-  uint64_t limit = std::min(static_cast<uint64_t>(m_threshold), cbv.PopCount());
-  vector<uint64_t> positions;
-  for (uint64_t pos = 0; positions.size() != limit; ++pos)
-  {
-    if (cbv.GetBit(pos))
-      positions.push_back(pos);
-  }
-  return coding::CompressedBitVectorBuilder::FromBitPositions(move(positions));
+  return cbv.LeaveFirstSetNBits(m_threshold);
 }
 }  // namespace v2
 }  // namespace search

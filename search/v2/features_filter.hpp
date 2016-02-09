@@ -13,7 +13,7 @@ namespace v2
 {
 // A lightweight filter of features.
 //
-// NOTE: this class and it's subclasses *ARE* thread-safe.
+// NOTE: this class and its subclasses *ARE* thread-safe.
 class FeaturesFilter
 {
 public:
@@ -31,8 +31,8 @@ protected:
   uint32_t const m_threshold;
 };
 
-// Exact filter - leaves only features belonging to the set it had
-// been constructed from.
+// Exact filter - leaves only features belonging to the set it was
+// constructed from.
 class LocalityFilter : public FeaturesFilter
 {
 public:
@@ -44,10 +44,10 @@ public:
 };
 
 // Fuzzy filter - tries to leave only features belonging to the set it
-// had been constructed from, but if the result is empty, leaves at
-// most first |threshold| features. This property is quite useful when
-// there are no matching features in viewport but it's ok to process a
-// limited number of features outside the viewport.
+// was constructed from, but if the result is empty, leaves at most
+// first |threshold| features instead. This property is quite useful
+// when there are no matching features in viewport but it's ok to
+// process a limited number of features outside the viewport.
 class ViewportFilter : public FeaturesFilter
 {
 public:

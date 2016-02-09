@@ -415,7 +415,7 @@ UNIT_TEST(CompressedBitVector_DenseLeaveFirstNBits)
 
   {
     vector<uint64_t> setBits;
-    for (int i = 0; i < 100; ++i)
+    for (uint64_t i = 0; i < 100; ++i)
       setBits.push_back(2 * i);
     auto cbv = coding::CompressedBitVectorBuilder::FromBitPositions(setBits);
     TEST_EQUAL(cbv->PopCount(), 100, ());
@@ -425,7 +425,7 @@ UNIT_TEST(CompressedBitVector_DenseLeaveFirstNBits)
     TEST_EQUAL(cbv->PopCount(), 50, ());
     TEST_EQUAL(cbv->GetStorageStrategy(), coding::CompressedBitVector::StorageStrategy::Dense, ());
 
-    for (int i = 0; i < 50; ++i)
+    for (uint64_t i = 0; i < 50; ++i)
     {
       TEST(cbv->GetBit(2 * i), ());
       TEST(!cbv->GetBit(2 * i + 1), ());
@@ -436,15 +436,15 @@ UNIT_TEST(CompressedBitVector_DenseLeaveFirstNBits)
 UNIT_TEST(CompressedBitVector_SparseLeaveFirstNBits)
 {
   vector<uint64_t> setBits;
-  for (int p = 0; p < 20; ++p)
+  for (int p = 0; p < 10; ++p)
     setBits.push_back(static_cast<uint64_t>(1) << p);
   auto cbv = coding::CompressedBitVectorBuilder::FromBitPositions(setBits);
-  TEST_EQUAL(cbv->PopCount(), 20, ());
+  TEST_EQUAL(cbv->PopCount(), 10, ());
   TEST_EQUAL(cbv->GetStorageStrategy(), coding::CompressedBitVector::StorageStrategy::Sparse, ());
 
   cbv = cbv->LeaveFirstSetNBits(100);
-  TEST_EQUAL(cbv->PopCount(), 20, ());
-  for (uint64_t bit = 0; bit < (1 << 20); ++bit)
+  TEST_EQUAL(cbv->PopCount(), 10, ());
+  for (uint64_t bit = 0; bit < (1 << 10); ++bit)
   {
     if (bit != 0 && (bit & (bit - 1)) == 0)
       TEST(cbv->GetBit(bit), (bit));
@@ -452,11 +452,11 @@ UNIT_TEST(CompressedBitVector_SparseLeaveFirstNBits)
       TEST(!cbv->GetBit(bit), (bit));
   }
 
-  cbv = cbv->LeaveFirstSetNBits(10);
-  TEST_EQUAL(cbv->PopCount(), 10, ());
-  for (uint64_t bit = 0; bit < (1 << 20); ++bit)
+  cbv = cbv->LeaveFirstSetNBits(8);
+  TEST_EQUAL(cbv->PopCount(), 8, ());
+  for (uint64_t bit = 0; bit < (1 << 10); ++bit)
   {
-    if (bit != 0 && (bit & (bit - 1)) == 0 && bit < (1 << 10))
+    if (bit != 0 && (bit & (bit - 1)) == 0 && bit < (1 << 8))
       TEST(cbv->GetBit(bit), (bit));
     else
       TEST(!cbv->GetBit(bit), (bit));
@@ -464,6 +464,6 @@ UNIT_TEST(CompressedBitVector_SparseLeaveFirstNBits)
 
   cbv = cbv->LeaveFirstSetNBits(0);
   TEST_EQUAL(cbv->PopCount(), 0, ());
-  for (uint64_t bit = 0; bit < (1 << 20); ++bit)
+  for (uint64_t bit = 0; bit < (1 << 10); ++bit)
     TEST(!cbv->GetBit(bit), (bit));
 }

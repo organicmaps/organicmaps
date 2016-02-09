@@ -58,6 +58,8 @@ public:
   // Would operator[] look better?
   virtual bool GetBit(uint64_t pos) const = 0;
 
+  // Returns a subset of the current bit vector with first
+  // min(PopCount(), |n|) set bits.
   virtual unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const = 0;
 
   // Returns the strategy used when storing this bit vector.

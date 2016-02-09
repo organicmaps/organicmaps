@@ -188,7 +188,7 @@ private:
   void MatchViewportAndPosition();
 
   // Tries to do geocoding in a limited scope, assuming that knowledge
-  // about high-level features, like cities or countries, is somehow
+  // about high-level features, like cities or countries, is
   // incorporated into |filter|.
   void LimitedSearch(FeaturesFilter const & filter);
 
