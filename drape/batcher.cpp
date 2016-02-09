@@ -171,16 +171,16 @@ void Batcher::EndSession()
   m_flushInterface = TFlushFn();
 }
 
-void Batcher::StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect)
+void Batcher::StartFeatureRecord(const FeatureShapeInfo & feature)
 {
   m_currentFeature = feature;
-  m_featureLimitRect = limitRect;
 
   if (!m_currentFeature.IsValid())
     return;
 
   for (auto it = m_buckets.begin(); it != m_buckets.end(); ++it)
-    it->second->StartFeatureRecord(feature, limitRect);
+    if (it->first.m_quadrantId == feature.m_quadrantId)
+      it->second->StartFeatureRecord(feature.m_geomId, feature.m_limitRect);
 }
 
 void Batcher::EndFeatureRecord()
@@ -188,10 +188,11 @@ void Batcher::EndFeatureRecord()
   if (!m_currentFeature.IsValid())
     return;
 
-  m_currentFeature = FeatureGeometryId();
-
   for (auto it = m_buckets.begin(); it != m_buckets.end(); ++it)
-    it->second->EndFeatureRecord(true);
+    if (it->first.m_quadrantId == m_currentFeature.m_quadrantId)
+      it->second->EndFeatureRecord(true);
+
+  m_currentFeature = FeatureShapeInfo();
 }
 
 void Batcher::ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper)
@@ -205,24 +206,25 @@ void Batcher::ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper)
 
 ref_ptr<RenderBucket> Batcher::GetBucket(GLState const & state)
 {
-  TBuckets::iterator it = m_buckets.find(BucketId(state, m_currentFeature.IsValid()));
+  TBuckets::iterator it = m_buckets.find(BucketId(state, m_currentFeature.m_quadrantId));
   if (it != m_buckets.end())
     return make_ref(it->second);
 
   drape_ptr<VertexArrayBuffer> vao = make_unique_dp<VertexArrayBuffer>(m_indexBufferSize, m_vertexBufferSize);
   drape_ptr<RenderBucket> buffer = make_unique_dp<RenderBucket>(move(vao));
   ref_ptr<RenderBucket> result = make_ref(buffer);
+  result->SetQuadrantId(m_currentFeature.m_quadrantId);
   if (m_currentFeature.IsValid())
-    result->StartFeatureRecord(m_currentFeature, m_featureLimitRect);
+    result->StartFeatureRecord(m_currentFeature.m_geomId, m_currentFeature.m_limitRect);
 
-  m_buckets.emplace(BucketId(state, m_currentFeature.IsValid()), move(buffer));
+  m_buckets.emplace(BucketId(state, m_currentFeature.m_quadrantId), move(buffer));
 
   return result;
 }
 
 void Batcher::FinalizeBucket(GLState const & state)
 {
-  BucketId bucketId(state, m_currentFeature.IsValid());
+  BucketId bucketId(state, m_currentFeature.m_quadrantId);
   TBuckets::iterator it = m_buckets.find(bucketId);
   ASSERT(it != m_buckets.end(), ("Have no bucket for finalize with given state"));
   drape_ptr<RenderBucket> bucket = move(it->second);

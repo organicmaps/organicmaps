@@ -182,7 +182,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         {
           bool const sharedFeature = shape->GetFeatureInfo().IsValid();
           if (sharedFeature)
-            batcher->StartFeatureRecord(shape->GetFeatureInfo(), shape->GetFeatureLimitRect());
+            batcher->StartFeatureRecord(shape->GetFeatureInfo());
 
           shape->Draw(batcher, m_texMng);
 

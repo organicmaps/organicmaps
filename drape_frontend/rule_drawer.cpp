@@ -129,8 +129,12 @@ void RuleDrawer::operator()(FeatureType const & f)
     m2::RectD const limitRect = f.GetLimitRect(zoomLevel);
     if (!tileRect.IsRectInside(limitRect))
     {
-      shape->SetFeatureInfo(dp::FeatureGeometryId(f.GetID(), shapesCount));
-      shape->SetFeatureLimitRect(limitRect);
+      m2::PointD const tileCenter = tileRect.Center();
+      m2::PointD const featureCenter = limitRect.Center();
+      uint32_t quadrantId = ((uint32_t(featureCenter.x > tileCenter.x) << 1) | uint32_t(featureCenter.y > tileCenter.y)) + 1;
+
+      shape->SetFeatureInfo(dp::FeatureShapeInfo(dp::FeatureGeometryId(f.GetID(), shapesCount),
+                                                 limitRect, quadrantId));
     }
     m_mapShapes[index].push_back(move(shape));
     ++shapesCount;

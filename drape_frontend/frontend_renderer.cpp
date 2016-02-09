@@ -1082,8 +1082,8 @@ void FrontendRenderer::MergeBuckets()
         newGroups.emplace_back(move(node.second.front()));
       else
       {
-        BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective, true);
-        BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective, false);
+        for (uint32_t quadrantId = 0; quadrantId < 5 /* number of quadrants */; ++quadrantId)
+          BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective, quadrantId);
       }
     }
 
