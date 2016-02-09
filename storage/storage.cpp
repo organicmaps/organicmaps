@@ -1145,4 +1145,19 @@ void Storage::DoClickOnDownloadMap(TCountryId const & countryId)
   if (m_downloadMapOnTheMap)
     m_downloadMapOnTheMap(countryId);
 }
+
+void Storage::ForEachInSubtree(TCountryId const & parent, TForEachFunction && forEach) const
+{
+  TCountriesContainer const * parentNode = m_countries.Find(Country(parent));
+  if (parentNode == nullptr)
+  {
+    ASSERT(false, ("TCountryId =", parent, "not found in m_countries."));
+    return;
+  }
+  parentNode->ForEachInSubtree([&forEach](TCountriesContainer const & countryContainer)
+  {
+    Country const & value = countryContainer.Value();
+    forEach(value.Name(), value.GetSubtreeMwmCounter() != 1 /* It's a leaf. */);
+  });
+}
 }  // namespace storage

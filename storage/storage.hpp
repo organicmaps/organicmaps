@@ -25,7 +25,8 @@ struct NodeAttrs
     m_downloadingMwmSize(0), m_downloadingProgress(0),
     m_status(NodeStatus::Undefined), m_error(NodeErrorCode::NoError) {}
   /// If the node is expandable (a big country) |m_mwmCounter| is number of mwm files (leaves)
-  /// belongs to the node. If the node isn't expandable |m_mapsDownloaded| == 1.
+  /// belongs to the node. If the node isn't expandable |m_mwmCounter| == 1.
+  /// Note. For every expandable node |m_mwmCounter| >= 2.
   uint32_t m_mwmCounter;
 
   /// Number of mwms belonging to the node which has been donwloaded.
@@ -75,6 +76,7 @@ public:
   using TUpdate = function<void(platform::LocalCountryFile const &)>;
   using TChangeCountryFunction = function<void(TCountryId const &)>;
   using TProgressFunction = function<void(TCountryId const &, TLocalAndRemoteSize const &)>;
+  using TForEachFunction = function<void(TCountryId const & /* descendantCountryId */, bool /* expandableNode */)>;
 
 private:
   /// We support only one simultaneous request at the moment
@@ -230,6 +232,9 @@ public:
   /// a list of available maps. They are all available countries expect for fully downloaded
   /// countries. That means all mwm of the countries have been downloaded.
   void GetCountyListToDownload(TCountriesVec & countryList) const;
+  /// \brief Calls |forEach| for each node for subtree with parent == |parent|.
+  /// For example GetAllLeavesInSubtree(GetRootId()) calls |forEach| for every node including the root.
+  void ForEachInSubtree(TCountryId const & parent, TForEachFunction && forEach) const;
 
   /// \brief Returns current version for mwms which are available on the server.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
