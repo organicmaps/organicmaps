@@ -7,30 +7,80 @@ namespace
   NSString * const kCuisineEditorCell = @"MWMCuisineEditorTableViewCell";
 } // namespace
 
-@interface MWMCuisineEditorViewController ()<UITableViewDelegate, UITableViewDataSource,
-                                             MWMCuisineEditorTableViewCellProtocol>
+@interface MWMCuisineEditorViewController ()<MWMCuisineEditorTableViewCellProtocol, UISearchBarDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView * tableView;
 
-@property (nonatomic) NSArray<NSString *> * cuisineKeys;
+@property (copy, nonatomic) NSArray<NSString *> * cuisineKeys;
+@property (copy, nonatomic) NSArray<NSString *> * filtredKeys;
 
 @property (nonatomic) NSMutableSet<NSString *> * selectedCuisines;
+
+@property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
 
 @end
 
 @implementation MWMCuisineEditorViewController
 
-- (void)awakeFromNib
-{
-  self.tableView.separatorColor = [UIColor blackDividers];
-}
-
 - (void)viewDidLoad
 {
   [super viewDidLoad];
   [self configNavBar];
+  [self configSearchBar];
   [self configData];
   [self configTable];
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+  self.filtredKeys = [_cuisineKeys filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString * value, NSDictionary<NSString *,id> *)
+  {
+    if (!searchText.length)
+      return YES;
+    NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", value];
+    return [[L(cuisine) capitalizedStringWithLocale:[NSLocale currentLocale]] containsString:searchText];
+  }]];
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+  [self searchBar:searchBar setActiveState:YES];
+  return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+  if (searchBar.text.length == 0)
+  {
+    [self searchBar:searchBar setActiveState:NO];
+    self.filtredKeys = nil;
+  }
+  return YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+  [searchBar resignFirstResponder];
+  searchBar.text = @"";
+  [self searchBar:searchBar setActiveState:NO];
+  self.filtredKeys = nil;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+  [searchBar resignFirstResponder];
+}
+
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar
+{
+  return UIBarPositionTopAttached;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar setActiveState:(BOOL)isActiveState
+{
+  [searchBar setShowsCancelButton:isActiveState animated:YES];
+  [self.navigationController setNavigationBarHidden:isActiveState animated:YES];
 }
 
 #pragma mark - Configuration
@@ -47,6 +97,15 @@ namespace
                                                     target:self
                                                     action:@selector(onDone)];
   self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+}
+
+- (void)configSearchBar
+{
+  self.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor primary]];
+  self.searchBar.placeholder = L(@"search_in_cuisine");
+  UITextField * textFiled = [self.searchBar valueForKey:@"searchField"];
+  UILabel * placeholder = [textFiled valueForKey:@"_placeholderLabel"];
+  placeholder.textColor = [UIColor blackHintText];
 }
 
 - (void)configData
@@ -74,6 +133,19 @@ namespace
 {
   [self.tableView registerNib:[UINib nibWithNibName:kCuisineEditorCell bundle:nil]
        forCellReuseIdentifier:kCuisineEditorCell];
+}
+
+#pragma mark - Accessors
+
+- (NSArray<NSString *> *)cuisineKeys
+{
+  return self.filtredKeys != nil ? self.filtredKeys : _cuisineKeys;
+}
+
+- (void)setFiltredKeys:(NSArray<NSString *> *)filtredKeys
+{
+  _filtredKeys = filtredKeys;
+  [self.tableView reloadData];
 }
 
 #pragma mark - Actions

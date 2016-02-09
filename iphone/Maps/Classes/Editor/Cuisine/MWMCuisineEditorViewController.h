@@ -1,4 +1,4 @@
-#import "ViewController.h"
+#import "TableViewController.h"
 
 @protocol MWMCuisineEditorProtocol <NSObject>
 
@@ -6,7 +6,7 @@
 
 @end
 
-@interface MWMCuisineEditorViewController : ViewController
+@interface MWMCuisineEditorViewController : TableViewController
 
 @property (weak, nonatomic) id<MWMCuisineEditorProtocol> delegate;
 
