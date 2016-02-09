@@ -32,7 +32,7 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mToolbarController.setTitle("Thank you!");
+    mToolbarController.setTitle(R.string.thank_you);
     view.findViewById(R.id.login_osm).setOnClickListener(this);
     view.findViewById(R.id.login_facebook).setOnClickListener(this);
     view.findViewById(R.id.login_google).setOnClickListener(this);

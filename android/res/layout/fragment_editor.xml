@@ -34,11 +34,12 @@
           <EditText
             android:id="@+id/input"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
-            android:hint="@string/name"
+            android:hint="@string/place_name"
             android:singleLine="true"/>
 
         </com.mapswithme.maps.widget.CustomTextInputLayout>
 
+        <!-- TODO set translated text -->
         <TextView
           android:id="@+id/name_multilang"
           android:layout_width="match_parent"
@@ -92,7 +93,7 @@
             android:layout_marginLeft="@dimen/editor_margin_left"
             android:layout_marginStart="@dimen/editor_margin_left"
             android:gravity="center_vertical"
-            android:text="Street"
+            android:text="@string/street"
             android:textAppearance="@style/MwmTextAppearance.Body4"/>
 
           <TextView
@@ -132,7 +133,7 @@
             <EditText
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
-              android:hint="building"
+              android:hint="@string/house"
               tools:text="79-59"/>
 
           </com.mapswithme.maps.widget.CustomTextInputLayout>
@@ -161,7 +162,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_base"
           android:fontFamily="@string/robotoMedium"
-          android:text="Details"
+          android:text="@string/details"
           android:textAppearance="@style/MwmTextAppearance.Body3"
           tools:ignore="UnusedAttribute"/>
 
@@ -175,7 +176,7 @@
           android:background="?clickableBackground"
           android:gravity="center_vertical"
           android:minHeight="@dimen/base_block_size"
-          android:text="Edit opening hours"
+          android:text="@string/edit_opening_hours"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1"
           android:textColor="?colorAccent"/>
@@ -195,7 +196,7 @@
             <EditText
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
-              android:hint="phone"
+              android:hint="@string/phone"
               android:textAppearance="@style/MwmTextAppearance.Body1"
               tools:text="+937 99 92"/>
 
@@ -218,7 +219,7 @@
             <EditText
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
-              android:hint="web"
+              android:hint="@string/website"
               android:textAppearance="@style/MwmTextAppearance.Body1"
               tools:text="maps.me"/>
 
@@ -241,7 +242,7 @@
             <EditText
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
-              android:hint="email"
+              android:hint="@string/email"
               android:textAppearance="@style/MwmTextAppearance.Body1"
               tools:text="bugs@maps.me"/>
 
@@ -298,7 +299,7 @@
             android:layout_marginStart="@dimen/editor_margin_left"
             android:layout_toLeftOf="@+id/sw__wifi"
             android:layout_toStartOf="@+id/sw__wifi"
-            android:text="Wi-Fi"/>
+            android:text="@string/wifi"/>
 
           <android.support.v7.widget.SwitchCompat
             android:id="@+id/sw__wifi"

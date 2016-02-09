@@ -118,7 +118,8 @@ public class TimetableFragment extends BaseMwmFragment
     return fragment != null && fragment.isAdded();
   }
 
-  private @Nullable Timetable[] getFilledTimetables(Fragment fragment, TimetableProvider provider)
+  @Nullable
+  private Timetable[] getFilledTimetables(Fragment fragment, TimetableProvider provider)
   {
     if (!hasFilledTimetables(fragment))
       return null;
@@ -126,9 +127,8 @@ public class TimetableFragment extends BaseMwmFragment
     final Timetable[] timetables = provider.getTimetables();
     if (timetables == null)
     {
-      // FIXME @yunikkk add correct text
       new AlertDialog.Builder(getActivity())
-          .setMessage("Invalid formatted timetable!")
+          .setMessage(R.string.editor_correct_mistake)
           .create();
       return null;
     }

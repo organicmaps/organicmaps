@@ -60,7 +60,7 @@
           android:drawableStart="@drawable/ic_type_text"
           android:gravity="center_vertical"
           android:padding="@dimen/margin_base"
-          android:text="Example values"
+          android:text="@string/editor_example_values"
           android:textAppearance="@style/MwmTextAppearance.Body3"
           android:textColor="@color/base_accent"/>
 
@@ -70,6 +70,7 @@
           android:layout_below="@id/tv__examples_title"
           android:background="@color/divider"/>
 
+        <!-- TODO set correct text of example -->
         <TextView
           android:id="@+id/tv__examples"
           android:layout_width="match_parent"

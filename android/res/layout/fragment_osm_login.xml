@@ -39,7 +39,7 @@
         <EditText
           android:id="@+id/osm_username"
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
-          android:hint="Email address or username"
+          android:hint="@string/email_or_username"
           android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
       </com.mapswithme.maps.widget.CustomTextInputLayout>
@@ -53,7 +53,7 @@
         <EditText
           android:id="@+id/osm_password"
           style="@style/MwmWidget.Editor.FieldLayout.EditText"
-          android:hint="Password"
+          android:hint="@string/password"
           android:inputType="textPassword"
           android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
@@ -87,10 +87,10 @@
         android:id="@+id/lost_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:background="?clickableBackground"
         android:padding="@dimen/margin_half"
-        android:text="Lost password"
+        android:text="@string/forgot_password"
         android:textAllCaps="true"
         android:textAppearance="@style/MwmTextAppearance.Body3"/>
 

@@ -60,7 +60,7 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mToolbarController.setTitle("Log In");
+    mToolbarController.setTitle(R.string.login);
     mEtLogin = (EditText) view.findViewById(R.id.osm_username);
     mEtPassword = (EditText) view.findViewById(R.id.osm_password);
     mTvLogin = (TextView) view.findViewById(R.id.login);
@@ -117,7 +117,7 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
 
             enableInput(true);
             UiUtils.hide(mProgress);
-            mTvLogin.setText("Login");
+            mTvLogin.setText(R.string.login);
             processAuth(auth);
           }
         });

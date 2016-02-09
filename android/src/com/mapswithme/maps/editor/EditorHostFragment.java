@@ -82,7 +82,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   protected void editMapObject()
   {
     mMode = Mode.MAP_OBJECT;
-    mToolbarController.setTitle("Edit POI");
+    mToolbarController.setTitle(R.string.edit_place);
     final Bundle args = new Bundle();
     args.putParcelable(EXTRA_MAP_OBJECT, mEditedObject);
     final Fragment editorFragment = Fragment.instantiate(getActivity(), EditorFragment.class.getName(), args);
@@ -95,7 +95,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     saveEditedPoi();
     mMode = Mode.OPENING_HOURS;
-    mToolbarController.setTitle("Opening hours");
+    mToolbarController.setTitle(R.string.editor_time_title);
     final Bundle args = new Bundle();
     args.putString(TimetableFragment.EXTRA_TIME, mEditedObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
     final Fragment editorFragment = Fragment.instantiate(getActivity(), TimetableFragment.class.getName(), args);
@@ -108,7 +108,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     saveEditedPoi();
     mMode = Mode.STREET;
-    mToolbarController.setTitle("Add Street");
+    mToolbarController.setTitle(R.string.choose_street);
     final Bundle args = new Bundle();
     args.putString(StreetFragment.EXTRA_CURRENT_STREET, mEditedObject.getStreet());
     final Fragment streetFragment = Fragment.instantiate(getActivity(), StreetFragment.class.getName(), args);
@@ -121,7 +121,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     saveEditedPoi();
     mMode = Mode.CUISINE;
-    mToolbarController.setTitle("Cuisine");
+    mToolbarController.setTitle(R.string.select_cuisine);
     final Bundle args = new Bundle();
     args.putString(CuisineFragment.EXTRA_CURRENT_CUISINE, mEditedObject.getMetadata(Metadata.MetadataType.FMD_CUISINE));
     final Fragment cuisineFragment = Fragment.instantiate(getActivity(), CuisineFragment.class.getName(), args);

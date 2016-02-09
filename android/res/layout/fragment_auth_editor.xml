@@ -76,7 +76,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/margin_base"
-          android:text="You first object!"
+          android:padding="@dimen/margin_half"
+          android:text="@string/you_have_edited_your_first_object"
           android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
 
         <Button
@@ -92,7 +93,7 @@
           android:paddingLeft="@dimen/margin_half"
           android:paddingRight="@dimen/margin_half"
           android:paddingStart="@dimen/margin_half"
-          android:text="Google"
+          android:text="@string/login_with_google"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1"
           tools:targetApi="jelly_bean"/>
@@ -110,7 +111,7 @@
           android:paddingLeft="@dimen/margin_half"
           android:paddingRight="@dimen/margin_half"
           android:paddingStart="@dimen/margin_half"
-          android:text="Facebook"
+          android:text="@string/login_with_facebook"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"
           tools:targetApi="jelly_bean"/>
@@ -121,7 +122,7 @@
           android:layout_height="@dimen/editor_auth_btn_height"
           android:background="?buttonAccent"
           android:fontFamily="@string/robotoMedium"
-          android:text="Log in with osm"
+          android:text="@string/login_with_openstreetmap"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"
           tools:targetApi="jelly_bean"/>
@@ -130,7 +131,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_double"
-          android:text="Do you have OSM account?"
+          android:padding="@dimen/margin_half"
+          android:text="@string/no_osm_account"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
 
@@ -140,9 +142,8 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_half"
           android:background="?clickableBackground"
-          android:paddingBottom="@dimen/margin_half"
-          android:paddingTop="@dimen/margin_half"
-          android:text="Register"
+          android:padding="@dimen/margin_half"
+          android:text="@string/register_at_openstreetmap"
           android:textAllCaps="true"
           android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 

@@ -25,7 +25,7 @@
     android:layout_marginStart="@dimen/margin_base"
     android:layout_toLeftOf="@id/iv__remove_closed"
     android:layout_toStartOf="@id/iv__remove_closed"
-    android:text="Hours closed"
+    android:text="@string/editor_hours_closed"
     android:textAppearance="@style/MwmTextAppearance.Body3"/>
 
   <TextView
@@ -44,7 +44,7 @@
   <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:layout_alignParentBottom="true"/>
-    <!--android:background="@color/base_black_divider"/>-->
+    android:layout_alignParentBottom="true"
+    android:background="@color/divider"/>
 
 </RelativeLayout>

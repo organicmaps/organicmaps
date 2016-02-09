@@ -27,7 +27,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mToolbarController.setTitle("OSM profile.");
+    mToolbarController.setTitle(R.string.profile);
     initViews(view);
     refreshViews();
   }
@@ -50,6 +50,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     mEditsSentDate = (TextView) sentEdits.findViewById(R.id.subtitle);
     UiUtils.hide(sentEdits.findViewById(R.id.more));
     mAuthBlock = view.findViewById(R.id.block_auth);
+    ((TextView) mAuthBlock.findViewById(R.id.first_osm_edit)).setText(R.string.login_and_edit_map_motivation_message);
   }
 
   protected void refreshViews()
@@ -65,8 +66,8 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
       UiUtils.hide(mLogout);
     }
     final long[] stats = Editor.nativeGetStats();
-    mEditsLocal.setText("Local edits : " + stats[0]);
-    mEditsSent.setText("Uploaded edits : " + stats[1]);
+    mEditsLocal.setText(getString(R.string.not_sent) + ": " + stats[0]);
+    mEditsSent.setText(getString(R.string.changes) + ": " + stats[1]);
     if (stats[1] == 0)
       UiUtils.hide(mEditsSentDate);
     else
