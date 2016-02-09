@@ -18,19 +18,19 @@ bool IsDownloadFailed(Status status)
          status == Status::EUnknown;
 }
 
-m2::RectD CalcLimitRect(TCountryId countryId,
+m2::RectD CalcLimitRect(TCountryId const & countryId,
                         Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter)
 {
   m2::RectD boundingBox;
-  auto const accumulater =
-      [&countryInfoGetter, &boundingBox](TCountryId const & descendantCountryId, bool expandableNode)
+  auto const accumulator =
+      [&countryInfoGetter, &boundingBox](TCountryId const & descendantId, bool expandableNode)
   {
     if (!expandableNode)
-      boundingBox.Add(countryInfoGetter.CalcLimitRectForLeaf(descendantCountryId));
+      boundingBox.Add(countryInfoGetter.GetLimitRectForLeaf(descendantId));
   };
 
-  storage.ForEachInSubtree(countryId, accumulater);
+  storage.ForEachInSubtree(countryId, accumulator);
 
   ASSERT(boundingBox.IsValid(), ());
   return boundingBox;

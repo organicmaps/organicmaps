@@ -76,7 +76,7 @@ public:
   using TUpdate = function<void(platform::LocalCountryFile const &)>;
   using TChangeCountryFunction = function<void(TCountryId const &)>;
   using TProgressFunction = function<void(TCountryId const &, TLocalAndRemoteSize const &)>;
-  using TForEachFunction = function<void(TCountryId const & /* descendantCountryId */, bool /* expandableNode */)>;
+  using TForEachFunction = function<void(TCountryId const & /* descendantId */, bool /* expandableNode */)>;
 
 private:
   /// We support only one simultaneous request at the moment
@@ -232,9 +232,10 @@ public:
   /// a list of available maps. They are all available countries expect for fully downloaded
   /// countries. That means all mwm of the countries have been downloaded.
   void GetCountyListToDownload(TCountriesVec & countryList) const;
-  /// \brief Calls |forEach| for each node for subtree with parent == |parent|.
-  /// For example ForEachInSubtree(GetRootId()) calls |forEach| for every node including the root.
-  void ForEachInSubtree(TCountryId const & parent, TForEachFunction const & forEach) const;
+  /// \brief Calls |toDo| for each node for subtree with |root|.
+  /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including
+  /// the result of GetRootId() call.
+  void ForEachInSubtree(TCountryId const & root, TForEachFunction && toDo) const;
 
   /// \brief Returns current version for mwms which are available on the server.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }

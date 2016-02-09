@@ -102,7 +102,7 @@ m2::RectD CountryInfoGetter::CalcLimitRect(string const & prefix) const
   return rect;
 }
 
-m2::RectD CountryInfoGetter::CalcLimitRectForLeaf(TCountryId leafCountryId) const
+m2::RectD CountryInfoGetter::GetLimitRectForLeaf(TCountryId const & leafCountryId) const
 {
   auto const it = this->m_countryIndex.find(leafCountryId);
   ASSERT(it != this->m_countryIndex.end(), ());

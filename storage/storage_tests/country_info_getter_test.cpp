@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "storage/storage_tests/create_country_info_getter.hpp"
+#include "storage/storage_tests/helpers.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/country.hpp"
@@ -82,30 +82,30 @@ UNIT_TEST(CountryInfoGetter_SomeRects)
   LOG(LINFO, ("Canada: ", getter->CalcLimitRect("Canada_")));
 }
 
-UNIT_TEST(CountryInfoGetter_CalcLimitRectForLeafSingleMwm)
+UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
 {
   auto const getter = CreateCountryInfoGetterMigrate();
   Storage storage(COUNTRIES_MIGRATE_FILE);
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
 
-  m2::RectD const boundingBox = getter->CalcLimitRectForLeaf("Angola");
+  m2::RectD const boundingBox = getter->GetLimitRectForLeaf("Angola");
   m2::RectD const expectedBoundingBox = {9.205259 /* minX */, -18.34456 /* minY */,
                                          24.08212 /* maxX */, -4.393187 /* maxY */};
 
-  TestAlmostEqualRectsAbs(boundingBox, expectedBoundingBox);
+  TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
 }
 
-UNIT_TEST(CountryInfoGetter_CalcLimitRectForLeafTwoComponentMwm)
+UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafTwoComponentMwm)
 {
   auto const getter = CreateCountryInfoGetter();
   Storage storage(COUNTRIES_FILE);
   if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
 
-  m2::RectD const boundingBox = getter->CalcLimitRectForLeaf("Angola");
+  m2::RectD const boundingBox = getter->GetLimitRectForLeaf("Angola");
   m2::RectD const expectedBoundingBox = {11.50151 /* minX */, -18.344569 /* minY */,
                                          24.08212 /* maxX */, -4.393187 /* maxY */};
 
-  TestAlmostEqualRectsAbs(boundingBox, expectedBoundingBox);
+  TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
 }

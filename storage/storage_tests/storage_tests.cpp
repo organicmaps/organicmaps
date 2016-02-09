@@ -5,8 +5,8 @@
 #include "storage/storage_defines.hpp"
 #include "storage/storage_helpers.hpp"
 
-#include "storage/storage_tests/create_country_info_getter.hpp"
 #include "storage/storage_tests/fake_map_files_downloader.hpp"
+#include "storage/storage_tests/helpers.hpp"
 #include "storage/storage_tests/task_runner.hpp"
 #include "storage/storage_tests/test_map_files_downloader.hpp"
 
@@ -1227,10 +1227,10 @@ UNIT_TEST(StorageTest_ForEachInSubtree)
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
   TCountriesVec leafVec;
-  auto const forEach = [&leafVec](TCountryId const & descendantCountryId, bool expandableNode)
+  auto const forEach = [&leafVec](TCountryId const & descendantId, bool expandableNode)
   {
     if (!expandableNode)
-      leafVec.push_back(descendantCountryId);
+      leafVec.push_back(descendantId);
   };
   storage.ForEachInSubtree(storage.GetRootId(), forEach);
 
@@ -1240,7 +1240,7 @@ UNIT_TEST(StorageTest_ForEachInSubtree)
 
 UNIT_TEST(StorageTest_CalcLimitRect)
 {
-  Storage storage(COUNTRIES_FILE);
+  Storage storage(COUNTRIES_MIGRATE_FILE);
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
 
@@ -1254,6 +1254,6 @@ UNIT_TEST(StorageTest_CalcLimitRect)
   m2::RectD const expectedBoundingBox = {-8.6689 /* minX */, 19.32443 /* minY */,
                                          11.99734 /* maxX */, 40.2488 /* maxY */};
 
-  TestAlmostEqualRectsAbs(boundingBox, expectedBoundingBox);
+  TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
 }
 }  // namespace storage
