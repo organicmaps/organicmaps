@@ -11,7 +11,6 @@ import android.util.Log;
 
 import java.io.File;
 
-import com.google.gson.Gson;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -42,7 +41,6 @@ public class MwmApplication extends Application
   private static MwmApplication sSelf;
   private SharedPreferences mPrefs;
   private AppBackgroundTracker mBackgroundTracker;
-  private final Gson mGson = new Gson();
 
   private boolean mAreCountersInitialized;
   private boolean mIsFrameworkInitialized;
@@ -73,11 +71,6 @@ public class MwmApplication extends Application
   public static MwmApplication get()
   {
     return sSelf;
-  }
-
-  public static Gson gson()
-  {
-    return sSelf.mGson;
   }
 
   public static AppBackgroundTracker backgroundTracker()
