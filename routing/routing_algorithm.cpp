@@ -145,8 +145,9 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
 
   my::Cancellable const & cancellable = delegate;
   progress.Initialize(startPos.GetPoint(), finalPos.GetPoint());
+  double cost = 0;
   TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPath(
-      RoadGraph(graph), startPos, finalPos, path, cancellable, onVisitJunctionFn);
+      RoadGraph(graph), startPos, finalPos, path, cost, cancellable, onVisitJunctionFn);
   return Convert(res);
 }
 

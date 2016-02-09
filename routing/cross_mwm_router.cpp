@@ -11,7 +11,7 @@ namespace
 /// Function to run AStar Algorithm from the base.
 IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross const & finalPos,
                                    CrossMwmGraph const & roadGraph, vector<BorderCross> & route,
-                                   RouterDelegate const & delegate)
+                                   double & cost, RouterDelegate const & delegate)
 {
   using TAlgorithm = AStarAlgorithm<CrossMwmGraph>;
 
@@ -23,7 +23,7 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
 
   my::HighResTimer timer(true);
   TAlgorithm::Result const result =
-      TAlgorithm().FindPath(roadGraph, startPos, finalPos, route, delegate, onVisitedVertex);
+      TAlgorithm().FindPath(roadGraph, startPos, finalPos, route, cost, delegate, onVisitedVertex);
   LOG(LINFO, ("Duration of the cross MWM path finding", timer.ElapsedNano()));
   switch (result)
   {
@@ -43,6 +43,7 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
 IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
                                           TRoutingNodes const & finalGraphNodes,
                                           RoutingIndexManager & indexManager,
+                                          double & cost,
                                           RouterDelegate const & delegate, TCheckedPath & route)
 {
   CrossMwmGraph roadGraph(indexManager);
@@ -88,7 +89,7 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
 
   // Finding path through maps.
   vector<BorderCross> tempRoad;
-  code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad,
+  code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad, cost,
                         delegate);
   if (code != IRouter::NoError)
     return code;

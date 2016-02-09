@@ -294,6 +294,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
   // 4. Find route.
   RawRoutingResult routingResult;
+  double crossCost = 0;
+  TCheckedPath finalPath;
 
   // Manually load facade to avoid unmaping files we routing on.
   startMapping->LoadFacade();
@@ -306,11 +308,32 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                   {
                                     indexPair.second->FreeCrossContext();
                                   });
+    ResultCode crossCode = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossCost,
+                                                 delegate, finalPath);
+    LOG(LINFO, ("Found cross path", timer.ElapsedNano()));
     if (!FindRouteFromCases(startTask, m_cachedTargets, startMapping->m_dataFacade,
                             routingResult))
     {
+      if (crossCode == NoError)
+      {
+        LOG(LINFO, ("Found only cross path."));
+        auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
+        LOG(LINFO, ("Make final route", timer.ElapsedNano()));
+        return code;
+      }
       return RouteNotFound;
     }
+    INTERRUPT_WHEN_CANCELLED(delegate);
+
+    if (crossCode == NoError && crossCost < routingResult.shortestPathLength)
+    {
+      LOG(LINFO, ("Cross mwm path shorter. Cross cost:", crossCost, "single cost:", routingResult.shortestPathLength));
+      auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
+      LOG(LINFO, ("Make final route", timer.ElapsedNano()));
+      timer.Reset();
+      return code;
+    }
+
     INTERRUPT_WHEN_CANCELLED(delegate);
     delegate.OnProgress(kPathFoundProgress);
 
@@ -335,9 +358,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   else //4.2 Multiple mwm case
   {
     LOG(LINFO, ("Multiple mwm routing case"));
-    TCheckedPath finalPath;
-    ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, delegate,
-                                            finalPath);
+    ResultCode code = CalculateCrossMwmPath(startTask, m_cachedTargets, m_indexManager, crossCost,
+                                            delegate, finalPath);
     timer.Reset();
     INTERRUPT_WHEN_CANCELLED(delegate);
     delegate.OnProgress(kCrossPathFoundProgress);

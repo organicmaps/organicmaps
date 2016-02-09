@@ -49,6 +49,7 @@ public:
   Result FindPath(TGraphType const & graph,
                   TVertexType const & startVertex, TVertexType const & finalVertex,
                   vector<TVertexType> & path,
+                  double & distance,
                   my::Cancellable const & cancellable = my::Cancellable(),
                   TOnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
 
@@ -170,6 +171,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     TGraphType const & graph,
     TVertexType const & startVertex, TVertexType const & finalVertex,
     vector<TVertexType> & path,
+    double & distance,
     my::Cancellable const & cancellable,
     TOnVisitedVertexCallback onVisitedVertexCallback) const
 {
@@ -205,6 +207,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     if (stateV.vertex == finalVertex)
     {
       ReconstructPath(stateV.vertex, parent, path);
+      distance = stateV.distance;
       return Result::OK;
     }
 

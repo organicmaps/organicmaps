@@ -62,9 +62,10 @@ void TestAStar(UndirectedGraph const & graph, vector<unsigned> const & expectedR
   using TAlgorithm = AStarAlgorithm<UndirectedGraph>;
 
   TAlgorithm algo;
+  double cost = 0;
 
   vector<unsigned> actualRoute;
-  TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPath(graph, 0u, 4u, actualRoute), ());
+  TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPath(graph, 0u, 4u, actualRoute, cost), ());
   TEST_EQUAL(expectedRoute, actualRoute, ());
 
   actualRoute.clear();

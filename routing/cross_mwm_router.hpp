@@ -34,11 +34,12 @@ using TCheckedPath = vector<RoutePathCross>;
  * \param finalGraphNodes The vector of final routing graph nodes.
  * \param route Storage for the result records about crossing maps.
  * \param indexManager Manager for getting indexes of new countries.
+ * \param cost Found path cost.
  * \param RoutingVisualizerFn Debug visualization function.
  * \return NoError if the path exists, error code otherwise.
  */
 IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
                                           TRoutingNodes const & finalGraphNodes,
-                                          RoutingIndexManager & indexManager,
+                                          RoutingIndexManager & indexManager, double & cost,
                                           RouterDelegate const & delegate, TCheckedPath & route);
 }  // namespace routing
