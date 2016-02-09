@@ -252,7 +252,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       PrepareBucket(state, bucket);
       if (!IsUserMarkLayer(key))
       {
-        if (CheckTileGenerations(key))
+        if (key.m_zoomLevel == m_currentZoomLevel && CheckTileGenerations(key))
           AddToRenderGroup(state, move(bucket), key);
       }
       else
@@ -273,7 +273,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       for (auto & overlayRenderData : renderData)
       {
         ASSERT(!IsUserMarkLayer(overlayRenderData.m_tileKey), ());
-        if (CheckTileGenerations(overlayRenderData.m_tileKey))
+        if (overlayRenderData.m_tileKey.m_zoomLevel == m_currentZoomLevel &&
+            CheckTileGenerations(overlayRenderData.m_tileKey))
         {
           PrepareBucket(overlayRenderData.m_state, overlayRenderData.m_bucket);
           AddToRenderGroup(overlayRenderData.m_state, move(overlayRenderData.m_bucket), overlayRenderData.m_tileKey);
