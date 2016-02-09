@@ -29,6 +29,7 @@ HEADERS += \
 SOURCES += \
   ../../testing/testingmain.cpp \
   migrate_tests.cpp \
+  storage_3levels_tests.cpp \
   storage_downloading_tests.cpp \
   storage_group_download_tests.cpp \
   storage_http_tests.cpp \
