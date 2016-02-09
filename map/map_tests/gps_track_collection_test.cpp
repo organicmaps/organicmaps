@@ -98,7 +98,7 @@ UNIT_TEST(GpsTrackCollection_EvictedByTimestamp)
 
   collection.ForEach([&](location::GpsTrackInfo const & info, size_t id)->bool
   {
-    TEST_EQUAL(id, 2, ())
+    TEST_EQUAL(id, 2, ());
     TEST_EQUAL(info.m_latitude, lastInfo.m_latitude, ());
     TEST_EQUAL(info.m_longitude, lastInfo.m_longitude, ());
     TEST_EQUAL(info.m_speed, lastInfo.m_speed, ());

@@ -170,7 +170,7 @@ UNIT_TEST(GpsTrack_EvictedByAdd)
   TEST(callback.WaitForCallback(kWaitForCallbackTimeout), ());
 
   // Check pt1 was added
-  TEST_EQUAL(1, callback.m_toAdd.size(), ())
+  TEST_EQUAL(1, callback.m_toAdd.size(), ());
   TEST_EQUAL(0, callback.m_toAdd[0].first, ());
   TEST_EQUAL(pt1.m_timestamp, callback.m_toAdd[0].second.m_timestamp, ());
   TEST_EQUAL(pt1.m_speed, callback.m_toAdd[0].second.m_speed, ());
@@ -187,7 +187,7 @@ UNIT_TEST(GpsTrack_EvictedByAdd)
   TEST(callback.WaitForCallback(kWaitForCallbackTimeout), ());
 
   // Check pt2 was added
-  TEST_EQUAL(1, callback.m_toAdd.size(), ())
+  TEST_EQUAL(1, callback.m_toAdd.size(), ());
   TEST_EQUAL(1, callback.m_toAdd[0].first, ());
   TEST_EQUAL(pt2.m_timestamp, callback.m_toAdd[0].second.m_timestamp, ());
   TEST_EQUAL(pt2.m_speed, callback.m_toAdd[0].second.m_speed, ());

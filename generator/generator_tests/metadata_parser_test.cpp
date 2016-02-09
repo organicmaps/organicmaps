@@ -37,40 +37,40 @@ UNIT_TEST(Metadata_ValidateAndFormat_stars)
 
   // Check correct values.
   p("stars", "1");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "1", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "1", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "2");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "2", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "2", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "3");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "3", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "3", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "4");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "4", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "4", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "5");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "5", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "5", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "6");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "6", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "6", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "7");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "7", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "7", ());
   md.Drop(Metadata::FMD_STARS);
 
   // Check almost correct values.
   p("stars", "4+");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "4", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "4", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "5s");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "5", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "5", ());
   md.Drop(Metadata::FMD_STARS);
 
 }

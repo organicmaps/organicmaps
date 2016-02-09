@@ -59,54 +59,171 @@ struct CommandLineOptions
 };
 CommandLineOptions const & GetTestingOptions();
 
-#define TEST(X, msg) { if (X) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X")", ::my::impl::Message msg));}}
-#define TEST_EQUAL(X, Y, msg) { if ((X) == (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" == "#Y")", \
-                                                 ::my::impl::Message(X, Y), \
-                                                 ::my::impl::Message msg));}}
-#define TEST_NOT_EQUAL(X, Y, msg) { if ((X) != (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" != "#Y")", \
-                                                 ::my::impl::Message(X, Y), \
-                                                 ::my::impl::Message msg));}}
-#define TEST_LESS(X, Y, msg) { if ((X) < (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" < "#Y")", \
-                                                 ::my::impl::Message(X, Y), \
-                                                 ::my::impl::Message msg));}}
-#define TEST_LESS_OR_EQUAL(X, Y, msg) { if ((X) <= (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" <= "#Y")", \
-                                                 ::my::impl::Message(X, Y), \
-                                                 ::my::impl::Message msg));}}
-#define TEST_GREATER(X, Y, msg) { if ((X) > (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" > "#Y")", \
-                                                 ::my::impl::Message(X, Y), \
-                                                 ::my::impl::Message msg));}}
-#define TEST_GREATER_OR_EQUAL(X, Y, msg) { if ((X) >= (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" >= "#Y")", \
-                                                 ::my::impl::Message(X, Y), \
-                                                 ::my::impl::Message msg));}}
-#define TEST_ALMOST_EQUAL_ULPS(X, Y, msg) { if (::my::AlmostEqualULPs(X, Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST(my::AlmostEqualULPs("#X", "#Y")", \
-                                                 ::my::impl::Message(X, Y), \
-                                                 ::my::impl::Message msg));}}
-#define TEST_NOT_ALMOST_EQUAL_ULPS(X, Y, msg) { if (!::my::AlmostEqualULPs(X, Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST(!my::AlmostEqualULPs("#X", "#Y")", \
-                                                 ::my::impl::Message(X, Y), \
-                                                 ::my::impl::Message msg));}}
+#define TEST(X, msg)                                                                           \
+  do                                                                                           \
+  {                                                                                            \
+    if (X)                                                                                     \
+    {                                                                                          \
+    }                                                                                          \
+    else                                                                                       \
+    {                                                                                          \
+      ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST(" #X ")", ::my::impl::Message msg)); \
+    }                                                                                          \
+  } while (0)
+#define TEST_EQUAL(X, Y, msg)                                                                     \
+  do                                                                                              \
+  {                                                                                               \
+    if ((X) == (Y))                                                                               \
+    {                                                                                             \
+    }                                                                                             \
+    else                                                                                          \
+    {                                                                                             \
+      ::my::OnTestFailed(SRC(),                                                                   \
+                         ::my::impl::Message("TEST(" #X " == " #Y ")", ::my::impl::Message(X, Y), \
+                                             ::my::impl::Message msg));                           \
+    }                                                                                             \
+  } while (0)
+#define TEST_NOT_EQUAL(X, Y, msg)                                                                 \
+  do                                                                                              \
+  {                                                                                               \
+    if ((X) != (Y))                                                                               \
+    {                                                                                             \
+    }                                                                                             \
+    else                                                                                          \
+    {                                                                                             \
+      ::my::OnTestFailed(SRC(),                                                                   \
+                         ::my::impl::Message("TEST(" #X " != " #Y ")", ::my::impl::Message(X, Y), \
+                                             ::my::impl::Message msg));                           \
+    }                                                                                             \
+  } while (0)
+#define TEST_LESS(X, Y, msg)                                                                     \
+  do                                                                                             \
+  {                                                                                              \
+    if ((X) < (Y))                                                                               \
+    {                                                                                            \
+    }                                                                                            \
+    else                                                                                         \
+    {                                                                                            \
+      ::my::OnTestFailed(SRC(),                                                                  \
+                         ::my::impl::Message("TEST(" #X " < " #Y ")", ::my::impl::Message(X, Y), \
+                                             ::my::impl::Message msg));                          \
+    }                                                                                            \
+  } while (0)
+#define TEST_LESS_OR_EQUAL(X, Y, msg)                                                             \
+  do                                                                                              \
+  {                                                                                               \
+    if ((X) <= (Y))                                                                               \
+    {                                                                                             \
+    }                                                                                             \
+    else                                                                                          \
+    {                                                                                             \
+      ::my::OnTestFailed(SRC(),                                                                   \
+                         ::my::impl::Message("TEST(" #X " <= " #Y ")", ::my::impl::Message(X, Y), \
+                                             ::my::impl::Message msg));                           \
+    }                                                                                             \
+  } while (0)
+#define TEST_GREATER(X, Y, msg)                                                                  \
+  do                                                                                             \
+  {                                                                                              \
+    if ((X) > (Y))                                                                               \
+    {                                                                                            \
+    }                                                                                            \
+    else                                                                                         \
+    {                                                                                            \
+      ::my::OnTestFailed(SRC(),                                                                  \
+                         ::my::impl::Message("TEST(" #X " > " #Y ")", ::my::impl::Message(X, Y), \
+                                             ::my::impl::Message msg));                          \
+    }                                                                                            \
+  } while (0)
+#define TEST_GREATER_OR_EQUAL(X, Y, msg)                                                          \
+  do                                                                                              \
+  {                                                                                               \
+    if ((X) >= (Y))                                                                               \
+    {                                                                                             \
+    }                                                                                             \
+    else                                                                                          \
+    {                                                                                             \
+      ::my::OnTestFailed(SRC(),                                                                   \
+                         ::my::impl::Message("TEST(" #X " >= " #Y ")", ::my::impl::Message(X, Y), \
+                                             ::my::impl::Message msg));                           \
+    }                                                                                             \
+  } while (0)
+#define TEST_ALMOST_EQUAL_ULPS(X, Y, msg)                                                          \
+  do                                                                                               \
+  {                                                                                                \
+    if (::my::AlmostEqualULPs(X, Y))                                                               \
+    {                                                                                              \
+    }                                                                                              \
+    else                                                                                           \
+    {                                                                                              \
+      ::my::OnTestFailed(SRC(),                                                                    \
+                         ::my::impl::Message("TEST(my::AlmostEqualULPs(" #X ", " #Y ")",           \
+                                             ::my::impl::Message(X, Y), ::my::impl::Message msg)); \
+    }                                                                                              \
+  } while (0)
+#define TEST_NOT_ALMOST_EQUAL_ULPS(X, Y, msg)                                                      \
+  do                                                                                               \
+  {                                                                                                \
+    if (!::my::AlmostEqualULPs(X, Y))                                                              \
+    {                                                                                              \
+    }                                                                                              \
+    else                                                                                           \
+    {                                                                                              \
+      ::my::OnTestFailed(SRC(),                                                                    \
+                         ::my::impl::Message("TEST(!my::AlmostEqualULPs(" #X ", " #Y ")",          \
+                                             ::my::impl::Message(X, Y), ::my::impl::Message msg)); \
+    }                                                                                              \
+  } while (0)
 
 // TODO(AlexZ): Add more cool macroses (or switch all unit tests to gtest).
-#define TEST_THROW(X, exception, msg) { bool expected_exception = false; \
-  try { X; } catch (exception const &) { expected_exception = true; } \
-  catch (...) { ::my::OnTestFailed(SRC(), ::my::impl::Message("Unexpected exception at TEST("#X")", \
-                                                              ::my::impl::Message msg)); } \
-  if (!expected_exception) \
-    ::my::OnTestFailed(SRC(), ::my::impl::Message("Expected exception "#exception" was not thrown in TEST("#X")", \
-                                                  ::my::impl::Message msg));}
-#define TEST_NO_THROW(X, msg) { \
-  try { X; } catch (...) { ::my::OnTestFailed(SRC(), ::my::impl::Message("Unexpected exception at TEST("#X")", \
-                                                              ::my::impl::Message msg));}}
-#define TEST_ANY_THROW(X, msg) { bool was_exception = false; \
-  try { X; } catch (...) { was_exception = true; } \
-  if (!was_exception) \
-    ::my::OnTestFailed(SRC(), ::my::impl::Message("No exceptions were thrown in TEST("#X")", \
-                                                  ::my::impl::Message msg));}
+#define TEST_THROW(X, exception, msg)                                                       \
+  do                                                                                        \
+  {                                                                                         \
+    bool expected_exception = false;                                                        \
+    try                                                                                     \
+    {                                                                                       \
+      X;                                                                                    \
+    }                                                                                       \
+    catch (exception const &)                                                               \
+    {                                                                                       \
+      expected_exception = true;                                                            \
+    }                                                                                       \
+    catch (...)                                                                             \
+    {                                                                                       \
+      ::my::OnTestFailed(SRC(), ::my::impl::Message("Unexpected exception at TEST(" #X ")", \
+                                                    ::my::impl::Message msg));              \
+    }                                                                                       \
+    if (!expected_exception)                                                                \
+      ::my::OnTestFailed(SRC(), ::my::impl::Message("Expected exception " #exception        \
+                                                    " was not thrown in TEST(" #X ")",      \
+                                                    ::my::impl::Message msg));              \
+  } while (0)
+#define TEST_NO_THROW(X, msg)                                                               \
+  do                                                                                        \
+  {                                                                                         \
+    try                                                                                     \
+    {                                                                                       \
+      X;                                                                                    \
+    }                                                                                       \
+    catch (...)                                                                             \
+    {                                                                                       \
+      ::my::OnTestFailed(SRC(), ::my::impl::Message("Unexpected exception at TEST(" #X ")", \
+                                                    ::my::impl::Message msg));              \
+    }                                                                                       \
+  } while (0)
+#define TEST_ANY_THROW(X, msg)                                                                   \
+  do                                                                                             \
+  {                                                                                              \
+    bool was_exception = false;                                                                  \
+    try                                                                                          \
+    {                                                                                            \
+      X;                                                                                         \
+    }                                                                                            \
+    catch (...)                                                                                  \
+    {                                                                                            \
+      was_exception = true;                                                                      \
+    }                                                                                            \
+    if (!was_exception)                                                                          \
+      ::my::OnTestFailed(SRC(), ::my::impl::Message("No exceptions were thrown in TEST(" #X ")", \
+                                                    ::my::impl::Message msg));                   \
+  } while (0)
