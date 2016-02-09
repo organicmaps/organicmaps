@@ -104,10 +104,10 @@ m2::RectD CountryInfoGetter::CalcLimitRect(string const & prefix) const
 
 m2::RectD CountryInfoGetter::CalcLimitRectForLeaf(TCountryId leafCountryId) const
 {
-  auto const index = this->m_countryIndex.find(leafCountryId);
-  ASSERT(index != this->m_countryIndex.end(), ());
-  ASSERT_LESS(index->second, this->m_countries.size(), ());
-  return m_countries[index->second].m_rect;
+  auto const it = this->m_countryIndex.find(leafCountryId);
+  ASSERT(it != this->m_countryIndex.end(), ());
+  ASSERT_LESS(it->second, this->m_countries.size(), ());
+  return m_countries[it->second].m_rect;
 }
 
 void CountryInfoGetter::GetMatchedRegions(string const & enNamePrefix, IdSet & regions) const

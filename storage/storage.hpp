@@ -233,8 +233,8 @@ public:
   /// countries. That means all mwm of the countries have been downloaded.
   void GetCountyListToDownload(TCountriesVec & countryList) const;
   /// \brief Calls |forEach| for each node for subtree with parent == |parent|.
-  /// For example GetAllLeavesInSubtree(GetRootId()) calls |forEach| for every node including the root.
-  void ForEachInSubtree(TCountryId const & parent, TForEachFunction && forEach) const;
+  /// For example ForEachInSubtree(GetRootId()) calls |forEach| for every node including the root.
+  void ForEachInSubtree(TCountryId const & parent, TForEachFunction const & forEach) const;
 
   /// \brief Returns current version for mwms which are available on the server.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }

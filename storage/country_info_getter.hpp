@@ -54,7 +54,7 @@ public:
   // |prefix|.
   m2::RectD CalcLimitRect(string const & prefix) const;
   // Calculates limit rect for |countryId| (non-expandable node).
-  // Returns bound box in mercator coordinates if |countryId| is a country id of non-expandable node
+  // Returns bounding box in mercator coordinates if |countryId| is a country id of non-expandable node
   // and zero rect otherwise.
   m2::RectD CalcLimitRectForLeaf(TCountryId leafCountryId) const;
 

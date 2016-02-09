@@ -1227,20 +1227,19 @@ UNIT_TEST(StorageTest_ForEachInSubtree)
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
   TCountriesVec leafVec;
-  auto forEach = [&leafVec](TCountryId const & descendantCountryId, bool expandableNode)
+  auto const forEach = [&leafVec](TCountryId const & descendantCountryId, bool expandableNode)
   {
     if (!expandableNode)
       leafVec.push_back(descendantCountryId);
   };
   storage.ForEachInSubtree(storage.GetRootId(), forEach);
 
-  TCountriesVec expectedLeafVec = {"Abkhazia", "Algeria_Central", "Algeria_Coast", "South Korea_South"};
+  TCountriesVec const expectedLeafVec = {"Abkhazia", "Algeria_Central", "Algeria_Coast", "South Korea_South"};
   TEST_EQUAL(leafVec, expectedLeafVec, ());
 }
 
 UNIT_TEST(StorageTest_CalcLimitRect)
 {
-  double constexpr kEpsilon = 1e-3;
   Storage storage(COUNTRIES_FILE);
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
@@ -1251,10 +1250,10 @@ UNIT_TEST(StorageTest_CalcLimitRect)
   auto const countryInfoGetter = CreateCountryInfoGetterMigrate();
   ASSERT(countryInfoGetter, ());
 
-  m2::RectD algeriaBoundBox = CalcLimitRect("Algeria", storage, *countryInfoGetter);
-  TEST(my::AlmostEqualAbs(algeriaBoundBox.maxX(), 11.99734, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(algeriaBoundBox.maxY(), 40.2488, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(algeriaBoundBox.minX(), -8.6689, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(algeriaBoundBox.minY(), 19.32443, kEpsilon), ());
+  m2::RectD const boundingBox = CalcLimitRect("Algeria", storage, *countryInfoGetter);
+  m2::RectD const expectedBoundingBox = {-8.6689 /* minX */, 19.32443 /* minY */,
+                                         11.99734 /* maxX */, 40.2488 /* maxY */};
+
+  TestAlmostEqualRectsAbs(boundingBox, expectedBoundingBox);
 }
 }  // namespace storage

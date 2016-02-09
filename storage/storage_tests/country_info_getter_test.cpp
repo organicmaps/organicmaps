@@ -20,8 +20,6 @@ using namespace storage;
 
 namespace
 {
-double constexpr kEpsilon = 1e-3;
-
 bool IsEmptyName(map<string, CountryInfo> const & id2info, string const & id)
 {
   auto const it = id2info.find(id);
@@ -91,23 +89,23 @@ UNIT_TEST(CountryInfoGetter_CalcLimitRectForLeafSingleMwm)
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
 
-  m2::RectD leafBoundBox = getter->CalcLimitRectForLeaf("Angola");
-  TEST(my::AlmostEqualAbs(leafBoundBox.maxX(), 24.08212, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(leafBoundBox.maxY(), -4.393187, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(leafBoundBox.minX(), 9.205259, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(leafBoundBox.minY(), -18.34456, kEpsilon), ());
+  m2::RectD const boundingBox = getter->CalcLimitRectForLeaf("Angola");
+  m2::RectD const expectedBoundingBox = {9.205259 /* minX */, -18.34456 /* minY */,
+                                         24.08212 /* maxX */, -4.393187 /* maxY */};
+
+  TestAlmostEqualRectsAbs(boundingBox, expectedBoundingBox);
 }
 
 UNIT_TEST(CountryInfoGetter_CalcLimitRectForLeafTwoComponentMwm)
 {
-  auto const getter = CreateCountryInfoGetterMigrate();
-  Storage storage(COUNTRIES_MIGRATE_FILE);
+  auto const getter = CreateCountryInfoGetter();
+  Storage storage(COUNTRIES_FILE);
   if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
 
-  m2::RectD leafBoundBox = getter->CalcLimitRectForLeaf("Angola");
-  TEST(my::AlmostEqualAbs(leafBoundBox.maxX(), 24.08212, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(leafBoundBox.maxY(), -4.393187, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(leafBoundBox.minX(), 11.50151, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(leafBoundBox.minY(), -18.344569, kEpsilon), ());
+  m2::RectD const boundingBox = getter->CalcLimitRectForLeaf("Angola");
+  m2::RectD const expectedBoundingBox = {11.50151 /* minX */, -18.344569 /* minY */,
+                                         24.08212 /* maxX */, -4.393187 /* maxY */};
+
+  TestAlmostEqualRectsAbs(boundingBox, expectedBoundingBox);
 }

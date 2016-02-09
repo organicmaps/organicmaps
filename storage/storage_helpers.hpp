@@ -21,7 +21,7 @@ bool IsPointCoveredByDownloadedMaps(m2::PointD const & position,
 bool IsDownloadFailed(Status status);
 
 /// \brief Calculates limit rect for |countryId| (non expandable or not).
-/// \returns bound box in mercator coordinates.
+/// \returns bounding box in mercator coordinates.
 m2::RectD CalcLimitRect(TCountryId countryId,
                         Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter);
