@@ -29,8 +29,7 @@
 // TODO (trashkalmar): remove old downloader's stuff
 namespace android
 {
-  class Framework //: public storage::CountryTree::CountryTreeListener,
-                  //  public storage::ActiveMapsLayout::ActiveMapsListener
+  class Framework
   {
   private:
     drape_ptr<dp::ThreadSafeFactory> m_contextFactory;

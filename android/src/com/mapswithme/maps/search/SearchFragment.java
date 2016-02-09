@@ -28,8 +28,8 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.CountrySuggestFragment;
+import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
-import com.mapswithme.maps.downloader.country.OldDownloadFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.SearchToolbarController;
@@ -157,7 +157,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private static boolean doShowDownloadSuggest()
   {
-    return (!MapManager.nativeHasDownloadedMaps() && !MapManager.nativeIsDownloading());
+    return (MapManager.nativeGetDownloadedCount() == 0 && !MapManager.nativeIsDownloading());
   }
 
   private void showDownloadSuggest()
@@ -187,7 +187,7 @@ public class SearchFragment extends BaseMwmFragment
 
   public void showDownloader()
   {
-    ((BaseMwmFragmentActivity)getActivity()).replaceFragment(OldDownloadFragment.class, null, null);
+    ((BaseMwmFragmentActivity)getActivity()).replaceFragment(DownloaderFragment.class, null, null);
     UiUtils.hide(mResultsFrame, mResultsPlaceholder, mTabFrame);
   }
 

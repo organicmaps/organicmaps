@@ -13,12 +13,12 @@ import java.util.Map;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
-import com.mapswithme.maps.downloader.country.OldActiveCountryTree;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import ru.mail.android.mytracker.MRMyTracker;
@@ -302,7 +302,7 @@ public enum Statistics
   {
     if (mEnabled)
     {
-      final ParameterBuilder params = params().add(EventParam.COUNT, String.valueOf(OldActiveCountryTree.getTotalDownloadedCount()));
+      final ParameterBuilder params = params().add(EventParam.COUNT, String.valueOf(MapManager.nativeGetDownloadedCount()));
       MRMyTracker.trackEvent(event, params.get());
       trackEvent(event, params);
     }

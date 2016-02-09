@@ -84,6 +84,13 @@ public final class CountryItem implements Comparable<CountryItem>
     return name.compareTo(another.name);
   }
 
+  public static CountryItem fill(String countryId)
+  {
+    CountryItem res = new CountryItem(countryId);
+    MapManager.nativeGetAttributes(res);
+    return res;
+  }
+
   @Override
   public String toString()
   {

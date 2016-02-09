@@ -47,9 +47,9 @@ public final class MapManager
   public static native String nativeGetRootNode();
 
   /**
-   * Determines if any downloaded map is present (excluding fake MWMs).
+   * Return count of fully downloaded maps (excluding fake MWMs).
    */
-  public static native boolean nativeHasDownloadedMaps();
+  public static native int nativeGetDownloadedCount();
 
   /**
    * Returns info about updatable data or null on error.

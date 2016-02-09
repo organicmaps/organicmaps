@@ -16,13 +16,11 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import com.mapswithme.maps.downloader.country.OldMapStorage;
-import com.mapswithme.maps.downloader.country.OldActiveCountryTree;
-import com.mapswithme.maps.downloader.country.OldStorageOptions;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.StringUtils;
@@ -91,15 +89,14 @@ public class RoutingController
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
   private int mLastResultCode;
-  private OldMapStorage.Index[] mLastMissingCountries;
-  private OldMapStorage.Index[] mLastMissingRoutes;
+  private String[] mLastMissingMaps;
   private RoutingInfo mCachedRoutingInfo;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
   {
     @Override
-    public void onRoutingEvent(final int resultCode, final OldMapStorage.Index[] missingCountries, final OldMapStorage.Index[] missingRoutes)
+    public void onRoutingEvent(final int resultCode, final String[] missingMaps)
     {
       Log.d(TAG, "onRoutingEvent(resultCode: " + resultCode + ")");
 
@@ -109,8 +106,7 @@ public class RoutingController
         public void run()
         {
           mLastResultCode = resultCode;
-          mLastMissingCountries = missingCountries;
-          mLastMissingRoutes = missingRoutes;
+          mLastMissingMaps = missingMaps;
           mContainsCachedResult = true;
 
           if (mLastResultCode == ResultCodesHelper.NO_ERROR)
@@ -163,7 +159,7 @@ public class RoutingController
     mLastBuildProgress = 0;
     updateProgress();
 
-    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingCountries, mLastMissingRoutes);
+    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
     fragment.setListener(new RoutingErrorDialogFragment.Listener()
     {
       @Override
@@ -171,8 +167,8 @@ public class RoutingController
       {
         cancel();
 
-        OldActiveCountryTree.downloadMapsForIndices(mLastMissingCountries, OldStorageOptions.MAP_OPTION_MAP_ONLY);
-        OldActiveCountryTree.downloadMapsForIndices(mLastMissingRoutes, OldStorageOptions.MAP_OPTION_MAP_ONLY);
+        for (String map: mLastMissingMaps)
+          MapManager.nativeDownload(map);
 
         if (mContainer != null)
           mContainer.showDownloader(true);
@@ -364,7 +360,7 @@ public class RoutingController
     MapObject my = LocationHelper.INSTANCE.getMyPosition();
     if (my == null)
     {
-      mRoutingListener.onRoutingEvent(ResultCodesHelper.NO_POSITION, null, null);
+      mRoutingListener.onRoutingEvent(ResultCodesHelper.NO_POSITION, null);
       return;
     }
 

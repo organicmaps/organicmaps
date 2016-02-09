@@ -90,11 +90,11 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeSetAutodownload(JNIEnv * en
   g_framework->SetAutodownloadMaps(enable);
 }
 
-// static boolean nativeHasDownloadedMaps();
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeHasDownloadedMaps(JNIEnv * env, jclass clazz)
+// static int nativeGetDownloadedCount();
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetDownloadedCount(JNIEnv * env, jclass clazz)
 {
-  return (GetStorage().GetDownloadedFilesCount() != 0);
+  return GetStorage().GetDownloadedFilesCount();
 }
 
 // static String nativeGetRootNode();

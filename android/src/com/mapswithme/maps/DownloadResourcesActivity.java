@@ -24,7 +24,6 @@ import java.io.OutputStream;
 
 import com.mapswithme.maps.MwmActivity.MapTask;
 import com.mapswithme.maps.MwmActivity.OpenUrlTask;
-import com.mapswithme.maps.downloader.country.OldMapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -47,8 +46,8 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 {
   private static final String TAG = DownloadResourcesActivity.class.getName();
 
-  static final String EXTRA_COUNTRY_INDEX = ".extra.index";
-  static final String EXTRA_AUTODOWNLOAD_COUNTRY = ".extra.autodownload";
+  static final String EXTRA_COUNTRY = "country";
+  static final String EXTRA_AUTODOWNLOAD = "autodownload";
 
   // Error codes, should match the same codes in JNI
   private static final int ERR_DOWNLOAD_SUCCESS = 0;
@@ -117,8 +116,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
         return;
       }
 
-      CountryItem item = new CountryItem(mCurrentCountry);
-      MapManager.nativeGetAttributes(item);
+      CountryItem item = CountryItem.fill(mCurrentCountry);
 
       UiUtils.show(mTvLocation);
 
@@ -434,8 +432,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
       Framework.nativeRegisterMaps();
       if (mCurrentCountry != null && mChbDownloadCountry.isChecked())
       {
-        CountryItem item = new CountryItem(mCurrentCountry);
-        MapManager.nativeGetAttributes(item);
+        CountryItem item = CountryItem.fill(mCurrentCountry);
 
         UiUtils.hide(mChbDownloadCountry, mTvLocation);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
@@ -600,18 +597,21 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     @Override
     public boolean isSupported(Intent intent)
     {
-      return intent.hasExtra(EXTRA_COUNTRY_INDEX);
+      return intent.hasExtra(EXTRA_COUNTRY);
     }
 
     @Override
     public boolean process(Intent intent)
     {
-      final Index index = (Index) intent.getSerializableExtra(EXTRA_COUNTRY_INDEX);
-      final boolean autoDownload = intent.getBooleanExtra(EXTRA_AUTODOWNLOAD_COUNTRY, false);
+      String countryId = intent.getStringExtra(EXTRA_COUNTRY);
+      final boolean autoDownload = intent.getBooleanExtra(EXTRA_AUTODOWNLOAD, false);
       if (autoDownload)
         Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED);
-      mMapTaskToForward = new MwmActivity.ShowCountryTask(index, autoDownload);
-      org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process", new String[]{"autoDownload", String.valueOf(autoDownload)}, LocationHelper.INSTANCE.getLastLocation());
+
+      mMapTaskToForward = new MwmActivity.ShowCountryTask(countryId, autoDownload);
+      org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process",
+                                          new String[] { "autoDownload", String.valueOf(autoDownload) },
+                                          LocationHelper.INSTANCE.getLastLocation());
       return true;
     }
   }

@@ -3,7 +3,6 @@ package com.mapswithme.maps;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mapswithme.maps.downloader.country.OldMapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingInfo;
@@ -33,7 +32,7 @@ public class Framework
   @SuppressWarnings("unused")
   public interface RoutingListener
   {
-    void onRoutingEvent(int resultCode, Index[] missingCountries, Index[] missingRoutes);
+    void onRoutingEvent(int resultCode, String[] missingMaps);
   }
 
   @SuppressWarnings("unused")
@@ -137,16 +136,7 @@ public class Framework
 
   public static native void nativeSetRouteProgressListener(RoutingProgressListener listener);
 
-  public static native String nativeGetCountryNameIfAbsent(double lat, double lon);
-
-  public static native Index nativeGetCountryIndex(double lat, double lon);
-
-  public static native String nativeGetViewportCountryNameIfAbsent();
-
-  public static native void nativeShowCountry(Index idx, boolean zoomToDownloadButton);
-
-  // TODO consider removal of that methods
-  public static native void nativeDownloadCountry(Index idx);
+  public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 
   public static native double[] nativePredictLocation(double lat, double lon, double accuracy, double bearing, double speed, double elapsedSeconds);
 

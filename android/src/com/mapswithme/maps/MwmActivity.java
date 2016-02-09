@@ -28,7 +28,6 @@ import java.io.Serializable;
 import java.util.Stack;
 
 import com.mapswithme.maps.Framework.MapObjectListener;
-import com.mapswithme.maps.downloader.country.OldMapStorage.Index;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
@@ -41,8 +40,6 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
-import com.mapswithme.maps.downloader.country.OldActiveCountryTree;
-import com.mapswithme.maps.downloader.country.OldDownloadFragment;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.location.LocationHelper;
@@ -99,7 +96,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
-                                                     OldDownloadFragment.class.getName(),
+                                                     DownloaderFragment.class.getName(),
                                                      RoutingPlanFragment.class.getName(),
                                                      EditorHostFragment.class.getName() };
   // Instance state
@@ -160,11 +157,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
+  public static Intent createShowMapIntent(Context context, String countryId, boolean doAutoDownload)
   {
     return new Intent(context, DownloadResourcesActivity.class)
-        .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY_INDEX, index)
-        .putExtra(DownloadResourcesActivity.EXTRA_AUTODOWNLOAD_COUNTRY, doAutoDownload);
+               .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY, countryId)
+               .putExtra(DownloadResourcesActivity.EXTRA_AUTODOWNLOAD, doAutoDownload);
   }
 
   public static Intent createUpdateMapsIntent()
@@ -663,7 +660,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       addTask(intent);
     else if (intent.hasExtra(EXTRA_UPDATE_COUNTRIES))
     {
-      OldActiveCountryTree.updateAll();
+      // TODO (trashkalmar): Update all maps in downloader
+      //OldActiveCountryTree.updateAll();
       showDownloader(true);
     }
   }
@@ -1206,12 +1204,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static class ShowCountryTask implements MapTask
   {
     private static final long serialVersionUID = 1L;
-    private final Index mIndex;
+    private final String mCountryId;
     private final boolean mDoAutoDownload;
 
-    public ShowCountryTask(Index index, boolean doAutoDownload)
+    public ShowCountryTask(String countryId, boolean doAutoDownload)
     {
-      mIndex = index;
+      mCountryId = countryId;
       mDoAutoDownload = doAutoDownload;
     }
 
@@ -1219,8 +1217,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public boolean run(MwmActivity target)
     {
       if (mDoAutoDownload)
-        Framework.nativeDownloadCountry(mIndex);
-      Framework.nativeShowCountry(mIndex, mDoAutoDownload);
+        MapManager.nativeDownload(mCountryId);
+
+      Framework.nativeShowCountry(mCountryId, mDoAutoDownload);
       return true;
     }
   }

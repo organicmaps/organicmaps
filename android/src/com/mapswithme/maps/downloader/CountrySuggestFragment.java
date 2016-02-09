@@ -76,10 +76,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
           return;
 
         if (mDownloadingCountry == null)
-        {
-          mDownloadingCountry = new CountryItem(countryId);
-          MapManager.nativeGetAttributes(mDownloadingCountry);
-        }
+          mDownloadingCountry = CountryItem.fill(countryId);
 
         refreshViews();
 
@@ -105,10 +102,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     {
       String id = MapManager.nativeFindCountry(loc.getLatitude(), loc.getLongitude());
       if (!TextUtils.isEmpty(id))
-      {
-        mCurrentCountry = new CountryItem(id);
-        MapManager.nativeGetAttributes(mCurrentCountry);
-      }
+        mCurrentCountry = CountryItem.fill(id);
     }
 
     refreshViews();
@@ -161,7 +155,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
   private void refreshViews()
   {
-    if (!isAdded() || MapManager.nativeHasDownloadedMaps())
+    if (!isAdded() || MapManager.nativeGetDownloadedCount() > 0)
       return;
 
     boolean downloading = MapManager.nativeIsDownloading();

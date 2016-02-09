@@ -295,8 +295,7 @@ public class MapFragment extends BaseMwmFragment
           return;
         }
 
-        CountryItem item = new CountryItem(countryId);
-        MapManager.nativeGetAttributes(item);
+        CountryItem item = CountryItem.fill(countryId);
         DownloadHelper.downloadWithCellularCheck(getActivity(), item.size, item.name, new DownloadHelper.OnDownloadListener()
         {
           @Override
