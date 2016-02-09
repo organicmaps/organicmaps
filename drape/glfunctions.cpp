@@ -39,6 +39,7 @@ inline GLboolean convert(bool v)
 typedef void (DP_APIENTRY *TglClearColorFn)(GLfloat r, GLfloat g, GLfloat b, GLfloat a);
 typedef void (DP_APIENTRY *TglClearFn)(GLbitfield mask);
 typedef void (DP_APIENTRY *TglViewportFn)(GLint x, GLint y, GLsizei w, GLsizei h);
+typedef void (DP_APIENTRY *TglScissorFn)(GLint x, GLint y, GLsizei w, GLsizei h);
 typedef void (DP_APIENTRY *TglFlushFn)();
 
 typedef void (DP_APIENTRY *TglActiveTextureFn)(GLenum texture);
@@ -105,6 +106,7 @@ typedef GLenum(DP_APIENTRY *TglCheckFramebufferStatusFn)(GLenum target);
 TglClearColorFn glClearColorFn = nullptr;
 TglClearFn glClearFn = nullptr;
 TglViewportFn glViewportFn = nullptr;
+TglScissorFn glScissorFn = nullptr;
 TglFlushFn glFlushFn = nullptr;
 
 TglActiveTextureFn glActiveTextureFn = nullptr;
@@ -406,6 +408,7 @@ void GLFunctions::Init()
   glClearColorFn = &::glClearColor;
   glClearFn = &::glClear;
   glViewportFn = &::glViewport;
+  glScissorFn = &::glScissor;
   glFlushFn = &::glFlush;
 
   glActiveTextureFn = LOAD_GL_FUNC(TglActiveTextureFn, glActiveTexture);
@@ -519,6 +522,12 @@ void GLFunctions::glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
   ASSERT(glViewportFn != nullptr, ());
   GLCHECK(glViewportFn(x, y, w, h));
+}
+
+void GLFunctions::glScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+{
+  ASSERT(glScissorFn != nullptr, ());
+  GLCHECK(glScissorFn(x, y, w, h));
 }
 
 void GLFunctions::glFlush()

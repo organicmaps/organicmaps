@@ -1375,6 +1375,7 @@ void FrontendRenderer::Routine::Do()
   GLFunctions::glFrontFace(gl_const::GLClockwise);
   GLFunctions::glCullFace(gl_const::GLBack);
   GLFunctions::glEnable(gl_const::GLCullFace);
+  GLFunctions::glEnable(gl_const::GLScissorTest);
 
   m_renderer.m_gpuProgramManager->Init();
 

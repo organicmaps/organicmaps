@@ -181,6 +181,7 @@ const glConst GLOneMinusDstAlfa     = GL_ONE_MINUS_DST_ALPHA;
 const glConst GLDepthTest           = GL_DEPTH_TEST;
 const glConst GLBlending            = GL_BLEND;
 const glConst GLCullFace            = GL_CULL_FACE;
+const glConst GLScissorTest         = GL_SCISSOR_TEST;
 
 const glConst GLClockwise           = GL_CW;
 const glConst GLCounterClockwise    = GL_CCW;
