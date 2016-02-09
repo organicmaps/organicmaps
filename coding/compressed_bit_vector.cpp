@@ -309,6 +309,36 @@ bool DenseCBV::GetBit(uint64_t pos) const
   return ((bitGroup >> (pos % kBlockSize)) & 1) > 0;
 }
 
+unique_ptr<CompressedBitVector> DenseCBV::LeaveFirstSetNBits(uint64_t n) const
+{
+  if (PopCount() <= n)
+    return Clone();
+
+  vector<uint64_t> groups;
+  for (size_t i = 0; i < m_bitGroups.size() && n != 0; ++i)
+  {
+    uint64_t group = m_bitGroups[i];
+    uint32_t const bits = bits::PopCount(group);
+    if (bits <= n)
+    {
+      n -= bits;
+      groups.push_back(group);
+    }
+    else
+    {
+      uint64_t part = 0;
+      while (n != 0)
+      {
+        part = part | (group & -group);
+        group = group & (group - 1);
+        --n;
+      }
+      groups.push_back(part);
+    }
+  }
+  return CompressedBitVectorBuilder::FromBitGroups(move(groups));
+}
+
 CompressedBitVector::StorageStrategy DenseCBV::GetStorageStrategy() const
 {
   return CompressedBitVector::StorageStrategy::Dense;
@@ -350,6 +380,14 @@ uint64_t SparseCBV::PopCount() const { return m_positions.size(); }
 bool SparseCBV::GetBit(uint64_t pos) const
 {
   return binary_search(m_positions.begin(), m_positions.end(), pos);
+}
+
+unique_ptr<CompressedBitVector> SparseCBV::LeaveFirstSetNBits(uint64_t n) const
+{
+  if (PopCount() <= n)
+    return Clone();
+  vector<uint64_t> positions(m_positions.begin(), m_positions.begin() + n);
+  return CompressedBitVectorBuilder::FromBitPositions(move(positions));
 }
 
 CompressedBitVector::StorageStrategy SparseCBV::GetStorageStrategy() const
@@ -420,10 +458,8 @@ string DebugPrint(CompressedBitVector::StorageStrategy strat)
 {
   switch (strat)
   {
-    case CompressedBitVector::StorageStrategy::Dense:
-      return "Dense";
-    case CompressedBitVector::StorageStrategy::Sparse:
-      return "Sparse";
+  case CompressedBitVector::StorageStrategy::Dense: return "Dense";
+  case CompressedBitVector::StorageStrategy::Sparse: return "Sparse";
   }
 }
 

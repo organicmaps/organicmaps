@@ -58,6 +58,8 @@ public:
   // Would operator[] look better?
   virtual bool GetBit(uint64_t pos) const = 0;
 
+  virtual unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const = 0;
+
   // Returns the strategy used when storing this bit vector.
   virtual StorageStrategy GetStorageStrategy() const = 0;
 
@@ -114,6 +116,7 @@ public:
   // CompressedBitVector overrides:
   uint64_t PopCount() const override;
   bool GetBit(uint64_t pos) const override;
+  unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const override;
   StorageStrategy GetStorageStrategy() const override;
   void Serialize(Writer & writer) const override;
   unique_ptr<CompressedBitVector> Clone() const override;
@@ -148,6 +151,7 @@ public:
   // CompressedBitVector overrides:
   uint64_t PopCount() const override;
   bool GetBit(uint64_t pos) const override;
+  unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const override;
   StorageStrategy GetStorageStrategy() const override;
   void Serialize(Writer & writer) const override;
   unique_ptr<CompressedBitVector> Clone() const override;
