@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "storage/storage_tests/create_country_info_getter.hpp"
+
 #include "storage/country_info_getter.hpp"
 #include "storage/country.hpp"
 #include "storage/storage.hpp"
@@ -18,12 +20,7 @@ using namespace storage;
 
 namespace
 {
-unique_ptr<CountryInfoGetter> CreateCountryInfoGetter()
-{
-  Platform & platform = GetPlatform();
-  return make_unique<CountryInfoReader>(platform.GetReader(PACKED_POLYGONS_FILE),
-                                        platform.GetReader(COUNTRIES_FILE));
-}
+double constexpr kEpsilon = 1e-3;
 
 bool IsEmptyName(map<string, CountryInfo> const & id2info, string const & id)
 {
@@ -85,4 +82,32 @@ UNIT_TEST(CountryInfoGetter_SomeRects)
   LOG(LINFO, ("Hawaii: ", rects[2]));
 
   LOG(LINFO, ("Canada: ", getter->CalcLimitRect("Canada_")));
+}
+
+UNIT_TEST(CountryInfoGetter_CalcLimitRectForLeafSingleMwm)
+{
+  auto const getter = CreateCountryInfoGetterMigrate();
+  Storage storage(COUNTRIES_MIGRATE_FILE);
+  if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
+    return;
+
+  m2::RectD leafBoundBox = getter->CalcLimitRectForLeaf("Angola");
+  TEST(my::AlmostEqualAbs(leafBoundBox.maxX(), 24.08212, kEpsilon), ());
+  TEST(my::AlmostEqualAbs(leafBoundBox.maxY(), -4.393187, kEpsilon), ());
+  TEST(my::AlmostEqualAbs(leafBoundBox.minX(), 9.205259, kEpsilon), ());
+  TEST(my::AlmostEqualAbs(leafBoundBox.minY(), -18.34456, kEpsilon), ());
+}
+
+UNIT_TEST(CountryInfoGetter_CalcLimitRectForLeafTwoComponentMwm)
+{
+  auto const getter = CreateCountryInfoGetterMigrate();
+  Storage storage(COUNTRIES_MIGRATE_FILE);
+  if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
+    return;
+
+  m2::RectD leafBoundBox = getter->CalcLimitRectForLeaf("Angola");
+  TEST(my::AlmostEqualAbs(leafBoundBox.maxX(), 24.08212, kEpsilon), ());
+  TEST(my::AlmostEqualAbs(leafBoundBox.maxY(), -4.393187, kEpsilon), ());
+  TEST(my::AlmostEqualAbs(leafBoundBox.minX(), 11.50151, kEpsilon), ());
+  TEST(my::AlmostEqualAbs(leafBoundBox.minY(), -18.344569, kEpsilon), ());
 }
