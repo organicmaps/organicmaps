@@ -6,9 +6,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = search indexer platform editor geometry coding base protobuf tomcrypt succinct pugixml
+DEPENDENCIES = search indexer platform editor geometry coding base protobuf jansson tomcrypt succinct pugixml
 
 include($$ROOT_DIR/common.pri)
+
+INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
 QT *= core
 
@@ -27,6 +29,7 @@ SOURCES += \
     locality_scorer_test.cpp \
     query_saver_tests.cpp \
     ranking_tests.cpp \
+    sample_test.cpp \
     string_intersection_test.cpp \
     string_match_test.cpp \
 

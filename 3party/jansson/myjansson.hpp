@@ -6,10 +6,8 @@
 
 #include <jansson.h>
 
-
 namespace my
 {
-
 class Json
 {
   JsonHandle m_handle;
@@ -27,5 +25,4 @@ public:
 
   json_t * get() const { return m_handle.get(); }
 };
-
-}
+}  // namespace my
