@@ -125,7 +125,7 @@ void RenderBucket::AddFeaturesInfo(RenderBucket const & bucket)
 
 bool RenderBucket::IsFeaturesWaiting(TCheckFeaturesWaiting isFeaturesWaiting)
 {
-  ASSERT(!m_featuresGeometryInfo.empty(), ());
+  ASSERT(IsShared(), ());
   for (auto const & featureRange : m_featuresGeometryInfo)
     if (isFeaturesWaiting(featureRange.second.m_limitRect))
       return true;

@@ -183,18 +183,28 @@ void RenderGroup::Disappear()
 
 bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting)
 {
-  bool statusChanged = false;
-
   if (m_sharedFeaturesWaiting)
   {
-    for (auto const & bucket : m_renderBuckets)
-      if (bucket->IsFeaturesWaiting(isFeaturesWaiting))
-        return statusChanged;
+    m2::RectD const tileRect = GetTileKey().GetGlobalRect();
+    bool const isTileVisible = isFeaturesWaiting(tileRect);
 
-    m_sharedFeaturesWaiting = false;
-    statusChanged = true;
+    for (size_t i = 0; i < m_renderBuckets.size(); )
+    {
+      bool visibleBucket = m_renderBuckets[i]->IsShared() ? m_renderBuckets[i]->IsFeaturesWaiting(isFeaturesWaiting)
+                                                          : isTileVisible;
+      if (!visibleBucket)
+      {
+        swap(m_renderBuckets[i], m_renderBuckets.back());
+        m_renderBuckets.pop_back();
+      }
+      else
+      {
+        ++i;
+      }
+    }
+    m_sharedFeaturesWaiting = !m_renderBuckets.empty();
   }
-  return statusChanged;
+  return m_renderBuckets.empty();
 }
 
 bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r)

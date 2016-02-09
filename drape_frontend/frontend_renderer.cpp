@@ -53,7 +53,6 @@ struct MergedGroupKey
   {
     if (!(m_state == other.m_state))
       return m_state < other.m_state;
-
     return m_key.LessStrict(other.m_key);
   }
 };
@@ -891,8 +890,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   for (RenderLayer & layer : m_layers)
   {
     for (auto & group : layer.m_renderGroups)
-      if (group->UpdateFeaturesWaitingStatus(isFeaturesWaiting))
-        layer.m_isDirty = true;
+      layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(isFeaturesWaiting);
   }
 
   bool const isPerspective = modelView.isPerspective();
@@ -1081,7 +1079,15 @@ void FrontendRenderer::MergeBuckets()
     }
 
     for (TGroupMap::value_type & node : forMerge)
-      BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective);
+    {
+      if (node.second.size() < 2)
+        newGroups.emplace_back(move(node.second.front()));
+      else
+      {
+        BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective, true);
+        BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective, false);
+      }
+    }
 
     layer.m_renderGroups = move(newGroups);
     layer.m_isDirty = true;

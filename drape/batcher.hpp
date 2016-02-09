@@ -69,7 +69,26 @@ private:
   TFlushFn m_flushInterface;
 
 private:
-  using TBuckets = map<GLState, drape_ptr<RenderBucket>>;
+  struct BucketId
+  {
+    BucketId() = default;
+    BucketId(GLState const & state, bool sharedFeatures)
+      : m_state(state)
+      , m_sharedFeatures(sharedFeatures)
+    {}
+
+    bool operator < (BucketId const & other) const
+    {
+      if (m_state == other.m_state)
+        return m_sharedFeatures < other.m_sharedFeatures;
+      return m_state < other.m_state;
+    }
+
+    GLState m_state;
+    bool m_sharedFeatures;
+  };
+
+  using TBuckets = map<BucketId, drape_ptr<RenderBucket>>;
   TBuckets m_buckets;
 
   uint32_t m_indexBufferSize;

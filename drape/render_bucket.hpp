@@ -49,6 +49,7 @@ public:
       todo(make_ref(h));
   }
 
+  bool IsShared() const { return !m_featuresGeometryInfo.empty(); }
   void StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect);
   void EndFeatureRecord(bool featureCompleted);
 

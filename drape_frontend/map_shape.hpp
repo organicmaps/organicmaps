@@ -32,7 +32,7 @@ public:
   virtual MapShapeType GetType() const { return MapShapeType::GeometryType; }
 
   void SetFeatureInfo(dp::FeatureGeometryId const & feature) { m_featureInfo = feature; }
-  dp::FeatureGeometryId GetFeatureInfo() const { return m_featureInfo; }
+  dp::FeatureGeometryId const & GetFeatureInfo() const { return m_featureInfo; }
 
   void SetFeatureLimitRect(m2::RectD rect) { m_limitRect = rect; }
   m2::RectD const & GetFeatureLimitRect() const { return m_limitRect; }

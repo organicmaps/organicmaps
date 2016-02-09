@@ -205,7 +205,7 @@ void Batcher::ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper)
 
 ref_ptr<RenderBucket> Batcher::GetBucket(GLState const & state)
 {
-  TBuckets::iterator it = m_buckets.find(state);
+  TBuckets::iterator it = m_buckets.find(BucketId(state, m_currentFeature.IsValid()));
   if (it != m_buckets.end())
     return make_ref(it->second);
 
@@ -215,17 +215,18 @@ ref_ptr<RenderBucket> Batcher::GetBucket(GLState const & state)
   if (m_currentFeature.IsValid())
     result->StartFeatureRecord(m_currentFeature, m_featureLimitRect);
 
-  m_buckets.emplace(state, move(buffer));
+  m_buckets.emplace(BucketId(state, m_currentFeature.IsValid()), move(buffer));
 
   return result;
 }
 
 void Batcher::FinalizeBucket(GLState const & state)
 {
-  TBuckets::iterator it = m_buckets.find(state);
+  BucketId bucketId(state, m_currentFeature.IsValid());
+  TBuckets::iterator it = m_buckets.find(bucketId);
   ASSERT(it != m_buckets.end(), ("Have no bucket for finalize with given state"));
   drape_ptr<RenderBucket> bucket = move(it->second);
-  m_buckets.erase(state);
+  m_buckets.erase(bucketId);
   if (m_currentFeature.IsValid())
     bucket->EndFeatureRecord(false);
 
@@ -242,7 +243,7 @@ void Batcher::Flush()
     if (m_currentFeature.IsValid())
       bucket.second->EndFeatureRecord(true);
     bucket.second->GetBuffer()->Preflush();
-    m_flushInterface(bucket.first, move(bucket.second));
+    m_flushInterface(bucket.first.m_state, move(bucket.second));
   });
 
   m_buckets.clear();

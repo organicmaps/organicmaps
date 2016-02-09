@@ -180,9 +180,14 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         ref_ptr<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(tileKey);
         for (drape_ptr<MapShape> const & shape : msg->GetShapes())
         {
-          batcher->StartFeatureRecord(shape->GetFeatureInfo(), shape->GetFeatureLimitRect());
+          bool const sharedFeature = shape->GetFeatureInfo().IsValid();
+          if (sharedFeature)
+            batcher->StartFeatureRecord(shape->GetFeatureInfo(), shape->GetFeatureLimitRect());
+
           shape->Draw(batcher, m_texMng);
-          batcher->EndFeatureRecord();
+
+          if (sharedFeature)
+            batcher->EndFeatureRecord();
         }
       }
       break;
