@@ -102,6 +102,14 @@ m2::RectD CountryInfoGetter::CalcLimitRect(string const & prefix) const
   return rect;
 }
 
+m2::RectD CountryInfoGetter::CalcLimitRectForLeaf(TCountryId leafCountryId) const
+{
+  auto const index = this->m_countryIndex.find(leafCountryId);
+  ASSERT(index != this->m_countryIndex.end(), ());
+  ASSERT_LESS(index->second, this->m_countries.size(), ());
+  return m_countries[index->second].m_rect;
+}
+
 void CountryInfoGetter::GetMatchedRegions(string const & enNamePrefix, IdSet & regions) const
 {
   for (size_t i = 0; i < m_countries.size(); ++i)
@@ -166,6 +174,11 @@ CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countr
 {
   ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
   rw::Read(src, m_countries);
+
+  size_t const countrySz = m_countries.size();
+  m_countryIndex.reserve(countrySz);
+  for (size_t i = 0; i < countrySz; ++i)
+    m_countryIndex[m_countries[i].m_name] = i;
 
   string buffer;
   countryR.ReadAsString(buffer);
