@@ -64,6 +64,7 @@
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="label" destination="0Ni-TD-6Ia" id="zLO-3p-8E4"/>
                 <outlet property="switcher" destination="0BP-HJ-Tdq" id="mHZ-4O-ve2"/>
             </connections>
         </tableViewCell>

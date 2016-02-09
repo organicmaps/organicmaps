@@ -35,9 +35,8 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                 <integer key="value" value="1"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="clearColor"/>
-                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlue"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="addScheduleTap" destination="KGk-i7-Jjw" eventType="touchUpInside" id="u6e-fL-daC"/>

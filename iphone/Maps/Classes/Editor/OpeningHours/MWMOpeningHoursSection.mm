@@ -276,13 +276,6 @@ using namespace osmoh;
   for (NSUInteger row = minRows; row < maxRows; ++row)
     [indexes addObject:[NSIndexPath indexPathForRow:row inSection:self.index]];
 
-  NSUInteger const reloadRow = [self firstRowForKey:MWMOpeningHoursEditorAllDayCell];
-  NSIndexPath * reloadPath = [NSIndexPath indexPathForRow:reloadRow inSection:self.index];
-  MWMOpeningHoursTableViewCell * reloadCell = [tableView cellForRowAtIndexPath:reloadPath];
-  [reloadCell hide];
-  [tableView reloadRowsAtIndexPaths:@[ reloadPath ]
-                   withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
-
   if (addRows)
     [tableView insertRowsAtIndexPaths:indexes withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
   else
