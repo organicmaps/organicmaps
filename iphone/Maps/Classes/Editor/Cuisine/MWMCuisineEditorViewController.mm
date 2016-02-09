@@ -34,12 +34,17 @@ namespace
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-  self.filtredKeys = [_cuisineKeys filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString * value, NSDictionary<NSString *,id> *)
+  if (!searchText.length)
   {
-    if (!searchText.length)
-      return YES;
+    self.filtredKeys = nil;
+    return;
+  }
+  NSLocale * locale = [NSLocale currentLocale];
+  NSString * query = [searchText lowercaseStringWithLocale:locale];
+  self.filtredKeys = [self.cuisineKeys filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString * value, NSDictionary<NSString *,id> *)
+  {
     NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", value];
-    return [[L(cuisine) capitalizedStringWithLocale:[NSLocale currentLocale]] containsString:searchText];
+    return [[L(cuisine) lowercaseStringWithLocale:locale] containsString:query];
   }]];
 }
 
@@ -51,11 +56,8 @@ namespace
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
 {
-  if (searchBar.text.length == 0)
-  {
+  if (!searchBar.text.length)
     [self searchBar:searchBar setActiveState:NO];
-    self.filtredKeys = nil;
-  }
   return YES;
 }
 
@@ -137,9 +139,9 @@ namespace
 
 #pragma mark - Accessors
 
-- (NSArray<NSString *> *)cuisineKeys
+- (NSArray<NSString *> *)displayKeys
 {
-  return self.filtredKeys != nil ? self.filtredKeys : _cuisineKeys;
+  return self.filtredKeys != nil ? self.filtredKeys : self.cuisineKeys;
 }
 
 - (void)setFiltredKeys:(NSArray<NSString *> *)filtredKeys
@@ -180,7 +182,7 @@ namespace
 
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return self.cuisineKeys.count;
+  return self.displayKeys.count;
 }
 
 #pragma mark - UITableViewDelegate
@@ -188,7 +190,7 @@ namespace
 - (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(MWMCuisineEditorTableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   NSInteger const index = indexPath.row;
-  NSString * cuisine = self.cuisineKeys[index];
+  NSString * cuisine = self.displayKeys[index];
   BOOL const selected = [self.selectedCuisines containsObject:cuisine];
   [cell configWithDelegate:self key:cuisine selected:selected];
 }

@@ -666,7 +666,12 @@ using namespace osm_auth_ios;
 
   UISearchBar * searchBar = [UISearchBar appearance];
   searchBar.barTintColor = [UIColor primary];
-  UITextField * textFieldInSearchBar = [UITextField appearanceWhenContainedIn:[UISearchBar class], nil];
+  UITextField * textFieldInSearchBar = nil;
+  if (isIOS7 || isIOS8)
+    textFieldInSearchBar = [UITextField appearanceWhenContainedIn:[UISearchBar class], nil];
+  else
+    textFieldInSearchBar = [UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]];
+
   textField.backgroundColor = [UIColor white];
   textFieldInSearchBar.defaultTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackPrimaryText]};
 }
