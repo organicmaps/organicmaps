@@ -258,7 +258,7 @@ if [ "$MODE" == "coast" ]; then
       # Preprocess coastlines to separate intermediate directory
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
-      if [ -z "$OSRM_URL" ]; then
+      if [ -z "${OSRM_URL-}" ]; then
         log "OSRM_URL variable not set. World roads will not be calculated."
       else
         python "$ROADS_SCRIPT" "$INTCOASTSDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
