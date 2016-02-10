@@ -264,6 +264,13 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeDownload(JNIEnv * env, jcla
   return GetStorage().DownloadNode(jni::ToNativeString(env, root));
 }
 
+// static boolean nativeRetry(String root);
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeRetry(JNIEnv * env, jclass clazz, jstring root)
+{
+  return GetStorage().RetryDownloadNode(jni::ToNativeString(env, root));
+}
+
 // static boolean nativeUpdate(String root);
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeUpdate(JNIEnv * env, jclass clazz, jstring root)
@@ -295,7 +302,7 @@ static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCoun
   NodeAttrs attrs;
   GetStorage().GetNodeAttrs(countryId, attrs);
 
-  static jmethodID const methodID = jni::GetMethodID(env, *listenerRef.get(), "onStatusChanged", "(Ljava/lang/String;I)V");
+  jmethodID const methodID = jni::GetMethodID(env, *listenerRef.get(), "onStatusChanged", "(Ljava/lang/String;I)V");
   env->CallVoidMethod(*listenerRef.get(), methodID, jni::ToJavaString(env, countryId), attrs.m_status);
 }
 
@@ -303,7 +310,7 @@ static void ProgressChangedCallback(shared_ptr<jobject> const & listenerRef, TCo
 {
   JNIEnv * env = jni::GetEnv();
 
-  static jmethodID const methodID = jni::GetMethodID(env, *listenerRef.get(), "onProgress", "(Ljava/lang/String;JJ)V");
+  jmethodID const methodID = jni::GetMethodID(env, *listenerRef.get(), "onProgress", "(Ljava/lang/String;JJ)V");
   env->CallVoidMethod(*listenerRef.get(), methodID, jni::ToJavaString(env, countryId), sizes.first, sizes.second);
 }
 

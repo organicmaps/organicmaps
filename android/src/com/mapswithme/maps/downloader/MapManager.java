@@ -93,6 +93,11 @@ public final class MapManager
   public static native boolean nativeDownload(String root);
 
   /**
+   * Enqueues failed items under given {@code root} node in downloader.
+   */
+  public static native boolean nativeRetry(String root);
+
+  /**
    * Enqueues given {@code root} node with its children in downloader.
    */
   public static native boolean nativeUpdate(String root);

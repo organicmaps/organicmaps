@@ -572,8 +572,8 @@ extern "C"
   void CallOnMapObjectActivatedListener(shared_ptr<jobject> listener, jobject mapObject)
   {
     JNIEnv * env = jni::GetEnv();
-    static jmethodID const methodId = jni::GetMethodID(env, *listener.get(), "onMapObjectActivated",
-                                                       "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
+    jmethodID const methodId = jni::GetMethodID(env, *listener.get(), "onMapObjectActivated",
+                                                "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
     //public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName)
     env->CallVoidMethod(*listener.get(), methodId, mapObject);
   }
@@ -581,7 +581,7 @@ extern "C"
   void CallOnDismissListener(shared_ptr<jobject> obj)
   {
     JNIEnv * env = jni::GetEnv();
-    static jmethodID const methodId = jni::GetMethodID(env, *obj.get(), "onDismiss", "()V");
+    jmethodID const methodId = jni::GetMethodID(env, *obj.get(), "onDismiss", "()V");
     ASSERT(methodId, ());
     env->CallVoidMethod(*obj.get(), methodId);
   }
@@ -601,42 +601,30 @@ extern "C"
     CallOnMapObjectActivatedListener(obj, mapObject.get());
   }
 
-  void CallRoutingListener(shared_ptr<jobject> obj, int errorCode, vector<storage::TCountryId> const & absentCountries, vector<storage::TCountryId> const & absentRoutes)
-  {
-    /*JNIEnv * env = jni::GetEnv();
-    // cache methodID - it cannot change after class is loaded.
-    // http://developer.android.com/training/articles/perf-jni.html#jclass_jmethodID_and_jfieldID more details here
-    static jmethodID const methodId = jni::GetMethodID(env, *obj.get(), "onRoutingEvent",
-                                                           "(I[Lcom/mapswithme/maps/MapStorage$Index;[Lcom/mapswithme/maps/MapStorage$Index;)V");
-    ASSERT(methodId, ());
-
-    jobjectArray const countriesJava = env->NewObjectArray(absentCountries.size(), g_indexClazz, 0);
-    for (size_t i = 0; i < absentCountries.size(); i++)
-    {
-      jobject country = storage::ToJava(absentCountries[i]);
-      env->SetObjectArrayElement(countriesJava, i, country);
-      env->DeleteLocalRef(country);
-    }
-
-    jobjectArray const routesJava = env->NewObjectArray(absentRoutes.size(), g_indexClazz, 0);
-    for (size_t i = 0; i < absentRoutes.size(); i++)
-    {
-      jobject route = storage::ToJava(absentRoutes[i]);
-      env->SetObjectArrayElement(routesJava, i, route);
-      env->DeleteLocalRef(route);
-    }
-
-    env->CallVoidMethod(*obj.get(), methodId, errorCode, countriesJava, routesJava);
-
-    env->DeleteLocalRef(countriesJava);*/
-  }
-
-  void CallRouteProgressListener(shared_ptr<jobject> sharedListener, float progress)
+  // TODO (gardster or trashkalmar): Remove absentRoutes param after core is modified
+  void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<storage::TCountryId> const & absentMaps, vector<storage::TCountryId> const & absentRoutes)
   {
     JNIEnv * env = jni::GetEnv();
-    jobject listener = *sharedListener.get();
-    static jmethodID const methodId = jni::GetMethodID(env, listener, "onRouteBuildingProgress", "(F)V");
-    env->CallVoidMethod(listener, methodId, progress);
+    jmethodID const method = jni::GetMethodID(env, *listener.get(), "onRoutingEvent", "(I[Ljava/lang/String;)V");
+    ASSERT(method, ());
+
+    jobjectArray const countries = env->NewObjectArray(absentMaps.size(), jni::GetStringClass(env), 0);
+    for (size_t i = 0; i < absentMaps.size(); i++)
+    {
+      jstring id = jni::ToJavaString(env, absentMaps[i]);
+      env->SetObjectArrayElement(countries, i, static_cast<jobject>(id));
+      env->DeleteLocalRef(id);
+    }
+
+    env->CallVoidMethod(*listener.get(), method, errorCode, countries);
+    env->DeleteLocalRef(countries);
+  }
+
+  void CallRouteProgressListener(shared_ptr<jobject> listener, float progress)
+  {
+    JNIEnv * env = jni::GetEnv();
+    jmethodID const methodId = jni::GetMethodID(env, *listener.get(), "onRouteBuildingProgress", "(F)V");
+    env->CallVoidMethod(*listener.get(), methodId, progress);
   }
 
   /// @name JNI EXPORTS
@@ -979,36 +967,6 @@ extern "C"
     return result;
   }
 
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetCountryNameIfAbsent(JNIEnv * env, jobject thiz,
-                                                                  jdouble lat, jdouble lon)
-  {
-    string const name = g_framework->GetCountryNameIfAbsent(MercatorBounds::FromLatLon(lat, lon));
-
-    return (name.empty() ? 0 : jni::ToJavaString(env, name));
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetViewportCountryNameIfAbsent(JNIEnv * env, jobject thiz)
-  {
-    string const name = g_framework->GetCountryNameIfAbsent(g_framework->GetViewportCenter());
-    return (name.empty() ? 0 : jni::ToJavaString(env, name));
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetCountryIndex(JNIEnv * env, jobject thiz,
-                                                           jdouble lat, jdouble lon)
-  {
-    /* TODO (trashkalmar): remove old downloader's stuff
-    TIndex const idx = g_framework->GetCountryIndex(lat, lon);
-
-    // Return 0 if no any country.
-    if (idx.IsValid())
-      return ToJava(idx);
-    else*/
-      return 0;
-  }
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jstring countryId, jboolean zoomToDownloadButton)
   {
@@ -1025,12 +983,6 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeSetRouteProgressListener(JNIEnv * env, jobject thiz, jobject listener)
   {
     frm()->SetRouteProgressListener(bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeDownloadCountry(JNIEnv * env, jobject thiz, jobject idx)
-  {
-    //storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), MapOptions::Map);
   }
 
   JNIEXPORT void JNICALL
