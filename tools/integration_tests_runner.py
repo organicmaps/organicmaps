@@ -72,9 +72,10 @@ class IntegrationRunner:
 
 
     def exec_test(self, test_file, test, clean_env=False):
-        keys = '--filter={test}'.format(test=test)
+        keys = '"--filter={test}"'.format(test=test)
         if clean_env:
             tmpdir = tempfile.mkdtemp()
+            keys = '{old_key} "--user_resource_path={tmpdir}"'.format(old_key=keys, tmpdir=tmpdir)
             logging.debug("Temp dir: {tmpdir}".format(tmpdir=tmpdir))
 
         out, err, result = self.get_tests_from_exec_file(test_file, keys)
@@ -94,6 +95,7 @@ class IntegrationRunner:
 
     def get_tests_from_exec_file(self, test, keys):
         spell = "{test} {keys}".format(test=path.join(self.workspace_path, test), keys=keys)
+        logging.debug(">> {spell}".format(spell=spell))
 
         process = subprocess.Popen(spell.split(" "),
                                    stdout=subprocess.PIPE,
