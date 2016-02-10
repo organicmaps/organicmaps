@@ -25,3 +25,4 @@ HEADERS += \
   server_api.hpp \
   ui2oh.hpp \
   xml_feature.hpp \
+  yes_no_unknown.hpp \
