@@ -61,8 +61,8 @@ HEADERS += \
     drawing_rule_def.hpp \
     drawing_rules.hpp \
     drules_include.hpp \
-    drules_selector.cpp \
-    drules_selector_parser.cpp \
+    drules_selector.hpp \
+    drules_selector_parser.hpp \
     feature.hpp \
     feature_algo.hpp \
     feature_covering.hpp \
