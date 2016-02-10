@@ -35,14 +35,10 @@ bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
 void GetServerListFromRequest(HttpRequest const & request, vector<string> & urls)
 {
   if (request.Status() == HttpRequest::ECompleted && ParseServerList(request.Data(), urls))
-  {
     return;
-  }
-  else
-  {
-    VERIFY(ParseServerList(GetPlatform().DefaultUrlsJSON(), urls), ());
-    LOG(LWARNING, ("Can't get servers list from request, using default servers:", urls));
-  }
+
+  VERIFY(ParseServerList(GetPlatform().DefaultUrlsJSON(), urls), ());
+  LOG(LWARNING, ("Can't get servers list from request, using default servers:", urls));
 }
 
 } // namespace downloader

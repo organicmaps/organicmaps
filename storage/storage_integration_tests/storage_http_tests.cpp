@@ -62,10 +62,6 @@ UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
   string const version = strings::to_string(storage.GetCurrentDataVersion());
   tests_support::ScopedDir cleanupVersionDir(version);
-  MY_SCOPE_GUARD(cleanup,
-                 bind(&Storage::DeleteNode, &storage, kCountryId));
-  DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(),
-                                  kMapTestDir, CountryFile(kCountryId));
 
   string const mwmFullPath = my::JoinFoldersToPath({GetPlatform().WritableDir(), version},
                                                    kCountryId + DATA_FILE_EXTENSION);

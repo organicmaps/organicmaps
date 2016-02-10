@@ -277,7 +277,9 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
         (void)my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
 
         // Rename finished file to it's original name.
-        (void)my::DeleteFileX(m_filePath);
+        uint64_t sz = 0;
+        if (my::GetFileSize(m_filePath, sz))
+          (void)my::DeleteFileX(m_filePath);
         CHECK(my::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath), ());
 
         DisableBackupForFile(m_filePath);
