@@ -76,7 +76,6 @@ public:
   using TUpdate = function<void(platform::LocalCountryFile const &)>;
   using TChangeCountryFunction = function<void(TCountryId const &)>;
   using TProgressFunction = function<void(TCountryId const &, TLocalAndRemoteSize const &)>;
-  using TForEachFunction = function<void(TCountryId const & /* descendantId */, bool /* expandableNode */)>;
 
 private:
   /// We support only one simultaneous request at the moment
@@ -232,10 +231,6 @@ public:
   /// a list of available maps. They are all available countries expect for fully downloaded
   /// countries. That means all mwm of the countries have been downloaded.
   void GetCountyListToDownload(TCountriesVec & countryList) const;
-  /// \brief Calls |toDo| for each node for subtree with |root|.
-  /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including
-  /// the result of GetRootId() call.
-  void ForEachInSubtree(TCountryId const & root, TForEachFunction && toDo) const;
 
   /// \brief Returns current version for mwms which are available on the server.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
@@ -284,6 +279,25 @@ public:
   /// \note This method is used in very rare case.
   /// \return false in case of error and true otherwise.
   bool UpdateAllAndChangeHierarchy();
+
+  /// \brief Calls |toDo| for each node for subtree with |root|.
+  /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including
+  /// the result of GetRootId() call.
+  template <class ToDo>
+  void ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
+  {
+    TCountriesContainer const * const rootNode = m_countries.Find(Country(root));
+    if (rootNode == nullptr)
+    {
+      ASSERT(false, ("TCountryId =", root, "not found in m_countries."));
+      return;
+    }
+    rootNode->ForEachInSubtree([&toDo](TCountriesContainer const & countryContainer)
+    {
+      Country const & value = countryContainer.Value();
+      toDo(value.Name(), value.GetSubtreeMwmCounter() != 1 /* expandableNode. */);
+    });
+  }
 
   /// \brief Subscribe on change status callback.
   /// \returns a unique index of added status callback structure.
