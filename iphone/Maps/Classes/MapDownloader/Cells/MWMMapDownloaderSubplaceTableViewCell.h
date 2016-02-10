@@ -2,4 +2,6 @@
 
 @interface MWMMapDownloaderSubplaceTableViewCell : MWMMapDownloaderPlaceTableViewCell
 
+- (void)setSubplaceText:(NSString *)text;
+
 @end

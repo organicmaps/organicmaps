@@ -11,10 +11,9 @@
 
 @property (nonatomic) BOOL showAllMapsView;
 
+@property (nonatomic) storage::TCountryId parentCountryId;
+
 - (void)configTable;
 - (void)configAllMapsView;
-
-- (storage::TCountryId)GetRootCountryId;
-- (void)SetRootCountryId:(storage::TCountryId)rootId;
 
 @end

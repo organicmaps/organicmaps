@@ -785,7 +785,7 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
   else if ([segue.identifier isEqualToString:kDownloaderSegue])
   {
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
-    [dvc SetRootCountryId:GetFramework().Storage().GetRootId()];
+    dvc.parentCountryId = GetFramework().Storage().GetRootId();
   }
 }
 
