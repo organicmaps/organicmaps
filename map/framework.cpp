@@ -1813,51 +1813,6 @@ unique_ptr<FeatureType> Framework::GetFeatureByID(FeatureID const & fid, bool pa
   return feature;
 }
 
-namespace
-{
-
-/// POI - is a point or area feature.
-class DoFindClosestPOI
-{
-  m2::PointD const & m_pt;
-  double m_distMeters;
-  FeatureID m_id;
-
-public:
-  DoFindClosestPOI(m2::PointD const & pt, double tresholdMeters)
-    : m_pt(pt), m_distMeters(tresholdMeters)
-  {
-  }
-
-  void operator() (FeatureType & ft)
-  {
-    if (ft.GetFeatureType() == feature::GEOM_LINE)
-      return;
-
-    double const dist = MercatorBounds::DistanceOnEarth(m_pt, feature::GetCenter(ft));
-    if (dist < m_distMeters)
-    {
-      m_distMeters = dist;
-      m_id = ft.GetID();
-    }
-  }
-
-  void LoadMetadata(model::FeaturesFetcher const & model, feature::Metadata & metadata) const
-  {
-    if (!m_id.IsValid())
-      return;
-
-    Index::FeaturesLoaderGuard guard(model.GetIndex(), m_id.m_mwmId);
-
-    FeatureType ft;
-    guard.GetFeatureByIndex(m_id.m_index, ft);
-
-    metadata = ft.GetMetadata();
-  }
-};
-
-}
-
 BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
 {
   BookmarkAndCategory empty = MakeEmptyBookmarkAndCategory();
