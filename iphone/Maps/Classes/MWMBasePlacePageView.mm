@@ -13,6 +13,8 @@
 
 extern CGFloat const kBottomPlacePageOffset = 15.;
 extern CGFloat const kLabelsBetweenOffset = 8.;
+extern NSString * const kMWMCuisineSeparator;
+
 namespace
 {
 CGFloat const kLeftOffset = 16.;
@@ -106,7 +108,18 @@ enum class AttributePosition
   else
   {
     self.titleLabel.text = entity.title;
-    self.typeLabel.text = [entity.category capitalizedString];
+    NSString * typeString = entity.category.capitalizedString;
+    NSRange const range = [typeString rangeOfString:kMWMCuisineSeparator];
+    if (range.location != NSNotFound)
+    {
+      NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:typeString];
+      [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:range];
+      self.typeLabel.attributedText = str;
+    }
+    else
+    {
+      self.typeLabel.text = typeString;
+    }
   }
 
   [self.typeDescriptionView removeFromSuperview];

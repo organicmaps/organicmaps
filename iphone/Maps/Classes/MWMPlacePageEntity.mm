@@ -8,12 +8,12 @@
 using feature::Metadata;
 
 extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
+extern NSString * const kMWMCuisineSeparator = @" • ";
 
 namespace
 {
 
 NSString * const kOSMCuisineSeparator = @";";
-NSString * const kMWMCuisineSeparator = @" • ";
 
 NSString * makeOSMCuisineString(NSSet<NSString *> * cuisines)
 {
