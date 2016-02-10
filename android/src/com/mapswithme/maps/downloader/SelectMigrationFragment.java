@@ -3,7 +3,6 @@ package com.mapswithme.maps.downloader;
 import android.support.v7.widget.RecyclerView;
 
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
-import com.mapswithme.maps.downloader.country.OldDownloadAdapter;
 
 public class SelectMigrationFragment extends BaseMwmRecyclerFragment
 {
