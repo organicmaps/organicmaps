@@ -265,7 +265,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
   [self.routePreview selectProgress:progress];
   if (!self.delegate.isPossibleToBuildRoute)
     return;
-  [progress startSpinner];
+  [progress startSpinner:NO];
   [self.delegate buildRoute];
 }
 
@@ -336,7 +336,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
   [self removePanel:self.nextTurnPanel];
 //  [self removePanel:self.lanesPanel];
   [self setupActualRoute];
-  [self.activeRouteTypeButton startSpinner];
+  [self.activeRouteTypeButton startSpinner:NO];
 }
 
 - (void)showStateReady

@@ -41,10 +41,10 @@
 
 #pragma mark - Spinner
 
-- (void)startSpinner
+- (void)startSpinner:(BOOL)isInvert
 {
   [self reset];
-  [self.rootView startSpinner];
+  [self.rootView startSpinner:isInvert];
 }
 
 - (void)stopSpinner

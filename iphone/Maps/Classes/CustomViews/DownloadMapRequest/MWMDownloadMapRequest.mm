@@ -121,7 +121,7 @@
   if (progress.state == MWMCircularProgressStateFailed)
   {
     activeMapLayout.RetryDownloading(self.currentCountryIndex);
-    [self.progressView startSpinner];
+    [self.progressView startSpinner:NO];
   }
   else
   {
@@ -138,7 +138,7 @@
   GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(self.currentCountryIndex, MapOptions::MapWithCarRouting);
   self.progressView.progress = 0.0;
   [self showRequest];
-  [self.progressView startSpinner];
+  [self.progressView startSpinner:NO];
 }
 
 - (IBAction)selectMapTouchUpInside:(nonnull UIButton *)sender

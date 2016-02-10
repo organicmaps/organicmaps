@@ -13,7 +13,7 @@
 - (void)animateFromValue:(CGFloat)fromValue toValue:(CGFloat)toValue;
 
 - (void)updatePath:(CGFloat)progress;
-- (void)startSpinner;
+- (void)startSpinner:(BOOL)isInvert;
 - (void)stopSpinner;
 
 @end

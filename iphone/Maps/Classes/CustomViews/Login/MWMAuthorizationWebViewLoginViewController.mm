@@ -115,7 +115,7 @@ NSString * getVerifier(NSString * urlString)
 {
   self.spinnerView.hidden = NO;
   self.spinner = [[MWMCircularProgress alloc] initWithParentView:self.spinnerView];
-  [self.spinner startSpinner];
+  [self.spinner startSpinner:YES];
   self.webView.userInteractionEnabled = NO;
 }
 

@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, MWMCircularProgressState)
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
 - (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView;
 - (void)reset;
-- (void)startSpinner;
+- (void)startSpinner:(BOOL)isInvert;
 - (void)stopSpinner;
 
 @end

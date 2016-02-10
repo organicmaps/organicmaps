@@ -98,7 +98,7 @@ using namespace osm;
 {
   self.spinnerView.hidden = NO;
   self.spinner = [[MWMCircularProgress alloc] initWithParentView:self.spinnerView];
-  [self.spinner startSpinner];
+  [self.spinner startSpinner:YES];
   self.loginTextField.enabled = NO;
   self.passwordTextField.enabled = NO;
   self.forgotButton.enabled = NO;

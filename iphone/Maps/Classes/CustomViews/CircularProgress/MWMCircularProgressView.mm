@@ -144,7 +144,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 #pragma mark - Spinner
 
-- (void)startSpinner
+- (void)startSpinner:(BOOL)isInvert
 {
   if (!self.spinner.hidden)
     return;
@@ -154,9 +154,9 @@ static inline CGFloat angleWithProgress(CGFloat progress)
     self.backgroundLayer.hidden = self.progressLayer.hidden = YES;
     NSUInteger const animationImagesCount = 12;
     NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
+    NSString * postfix = ([UIColor isNightMode] && !isInvert) || (![UIColor isNightMode] && isInvert) ? @"dark" : @"light";
     for (NSUInteger i = 0; i < animationImagesCount; ++i)
-      animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i+1),
-                                                [UIColor isNightMode] ? @"dark" : @"light"]];
+      animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i+1), postfix]];
 
     self.spinner.animationImages = animationImages;
     [self.spinner startAnimating];
