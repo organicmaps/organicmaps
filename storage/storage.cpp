@@ -410,7 +410,6 @@ void Storage::RestoreDownloadQueue()
   }
 }
 
-
 void Storage::DownloadCountry(TCountryId const & countryId, MapOptions opt)
 {
   if (opt == MapOptions::Nothing)
