@@ -1,17 +1,17 @@
 #pragma once
 #include "indexer/feature_decl.hpp"
+#include "indexer/feature_meta.hpp"
 
 #include "geometry/point2d.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
-#include "coding/value_opt_string.hpp"
 #include "coding/reader.hpp"
+#include "coding/value_opt_string.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
-#include "std/algorithm.hpp"
-
-#include "indexer/feature_meta.hpp"
+#include "std/utility.hpp"
 
 struct FeatureParamsBase;
 class FeatureBase;
@@ -36,7 +36,7 @@ namespace feature
     HEADER_GEOM_POINT_EX = 3U << 5  /// point feature (addinfo = house)
   };
 
-  static const int max_types_count = HEADER_TYPE_MASK + 1;
+  static constexpr int kMaxTypesCount = HEADER_TYPE_MASK + 1;
 
   enum ELayerFlags
   {
@@ -50,7 +50,7 @@ namespace feature
 
   class TypesHolder
   {
-    uint32_t m_types[max_types_count];
+    uint32_t m_types[kMaxTypesCount];
     size_t m_size;
 
     EGeomType m_geoType;
@@ -66,7 +66,11 @@ namespace feature
     }
 
     /// Accumulation function.
-    inline void operator() (uint32_t t) { m_types[m_size++] = t; }
+    inline void operator() (uint32_t type)
+    {
+      ASSERT_LESS(m_size, kMaxTypesCount, ());
+      m_types[m_size++] = type;
+    }
 
     /// @name Selectors.
     //@{
@@ -89,13 +93,13 @@ namespace feature
     }
     //@}
 
-    template <class FnT> bool RemoveIf(FnT fn)
+    template <class TFn> bool RemoveIf(TFn && fn)
     {
       if (m_size > 0)
       {
         size_t const oldSize = m_size;
 
-        uint32_t * e = remove_if(m_types, m_types + m_size, fn);
+        uint32_t * e = remove_if(m_types, m_types + m_size, forward<TFn>(fn));
         m_size = distance(m_types, e);
 
         return (m_size != oldSize);
@@ -103,9 +107,7 @@ namespace feature
       return false;
     }
 
-    void Remove(uint32_t t);
-
-    string DebugPrint() const;
+    void Remove(uint32_t type);
 
     /// Sort types by it's specification (more detailed type goes first).
     void SortBySpec();
@@ -115,14 +117,11 @@ namespace feature
     bool Equals(TypesHolder const & other) const;
   };
 
-  inline string DebugPrint(TypesHolder const & t)
-  {
-    return t.DebugPrint();
-  }
+  string DebugPrint(TypesHolder const & holder);
 
   uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const headerGeomType,
                           FeatureParamsBase const & params);
-}
+}  // namespace feature
 
 /// Feature description struct.
 struct FeatureParamsBase

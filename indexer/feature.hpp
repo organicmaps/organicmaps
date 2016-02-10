@@ -27,8 +27,6 @@ namespace old_101 { namespace feature
 /// Base feature class for storing common data (without geometry).
 class FeatureBase
 {
-  static const int m_maxTypesCount = feature::max_types_count;
-
 public:
 
   using TBuffer = char const *;
@@ -131,7 +129,7 @@ protected:
 
   uint8_t m_header;
 
-  mutable uint32_t m_types[m_maxTypesCount];
+  mutable uint32_t m_types[feature::kMaxTypesCount];
 
   mutable FeatureParamsBase m_params;
 

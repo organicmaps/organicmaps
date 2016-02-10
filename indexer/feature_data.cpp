@@ -16,6 +16,18 @@ using namespace feature;
 // TypesHolder implementation
 ////////////////////////////////////////////////////////////////////////////////////
 
+namespace feature
+{
+string DebugPrint(TypesHolder const & holder)
+{
+  Classificator const & c = classif();
+  string s;
+  for (uint32_t type : holder)
+    s += c.GetFullObjectName(type) + " ";
+  return s;
+}
+}  // namespace feature
+
 TypesHolder::TypesHolder(FeatureBase const & f)
 : m_size(0), m_geoType(f.GetFeatureType())
 {
@@ -25,19 +37,9 @@ TypesHolder::TypesHolder(FeatureBase const & f)
   });
 }
 
-string TypesHolder::DebugPrint() const
+void TypesHolder::Remove(uint32_t type)
 {
-  Classificator const & c = classif();
-
-  string s;
-  for (uint32_t t : *this)
-    s += c.GetFullObjectName(t) + "  ";
-  return s;
-}
-
-void TypesHolder::Remove(uint32_t t)
-{
-  (void) RemoveIf(EqualFunctor<uint32_t>(t));
+  UNUSED_VALUE(RemoveIf(EqualFunctor<uint32_t>(type)));
 }
 
 bool TypesHolder::Equals(TypesHolder const & other) const
@@ -444,8 +446,8 @@ bool FeatureParams::FinishAddingTypes()
 
   m_Types.swap(newTypes);
 
-  if (m_Types.size() > max_types_count)
-    m_Types.resize(max_types_count);
+  if (m_Types.size() > kMaxTypesCount)
+    m_Types.resize(kMaxTypesCount);
 
   return !m_Types.empty();
 }
@@ -489,7 +491,7 @@ uint32_t FeatureParams::FindType(uint32_t comp, uint8_t level) const
 
 bool FeatureParams::CheckValid() const
 {
-  CHECK(!m_Types.empty() && m_Types.size() <= max_types_count, ());
+  CHECK(!m_Types.empty() && m_Types.size() <= kMaxTypesCount, ());
   CHECK_NOT_EQUAL(m_geomType, 0xFF, ());
 
   return FeatureParamsBase::CheckValid();

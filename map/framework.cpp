@@ -2427,7 +2427,7 @@ namespace feature
 {
 string GetPrintableTypes(FeatureType const & ft)
 {
-  return feature::TypesHolder(ft).DebugPrint();
+  return DebugPrint(feature::TypesHolder(ft));
 }
 uint32_t GetBestType(FeatureType const & ft)
 {
@@ -2451,7 +2451,7 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       feature::TypesHolder const types(*feature);
       search::Result::Metadata smd;
       results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*feature), name, edit.second,
-                                           types.DebugPrint(), types.GetBestType(), smd));
+                                               DebugPrint(types), types.GetBestType(), smd));
     }
     params.m_callback(results);
     params.m_callback(search::Results::GetEndMarker(false));
