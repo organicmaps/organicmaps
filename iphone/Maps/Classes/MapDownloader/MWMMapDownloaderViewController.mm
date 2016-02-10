@@ -119,7 +119,7 @@ using namespace storage;
 - (void)setupSearchParams
 {
   __weak auto weakSelf = self;
-  m_searchParams.SetSearchMode(search::SearchParams::SEARCH_WORLD);
+  m_searchParams.SetMode(search::Mode::World);
   m_searchParams.m_callback = ^(search::Results const & results)
   {
     __strong auto self = weakSelf;
