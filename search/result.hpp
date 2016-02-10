@@ -1,6 +1,8 @@
 #pragma once
 #include "indexer/feature_decl.hpp"
 
+#include "editor/yes_no_unknown.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -30,7 +32,7 @@ public:
   {
     string m_cuisine;         // Valid only if not empty. Used for restaurants.
     int m_stars = 0;          // Valid only if not 0. Used for hotels.
-    bool m_isClosed = false;  // Valid for any result.
+    osm::YesNoUnknown m_isOpenNow = osm::Unknown;  // Valid for any result.
 
     /// True if the struct is already assigned or need to be calculated otherwise.
     bool m_isInitialized = false;
@@ -62,7 +64,7 @@ public:
   string const & GetCuisine() const { return m_metadata.m_cuisine; }
   //@}
 
-  bool IsClosed() const { return m_metadata.m_isClosed; }
+  osm::YesNoUnknown IsOpenNow() const { return m_metadata.m_isOpenNow; }
   int GetStarsCount() const { return m_metadata.m_stars; }
 
   bool IsSuggest() const;

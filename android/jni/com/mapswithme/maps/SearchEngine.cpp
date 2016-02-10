@@ -78,7 +78,7 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
                                 featureType, region,
                                 dist, cuisine,
                                 result.GetStarsCount(),
-                                result.IsClosed());
+                                static_cast<jint>(result.IsOpenNow()));
   ASSERT(desc, ());
   env->DeleteLocalRef(featureType);
   env->DeleteLocalRef(region);

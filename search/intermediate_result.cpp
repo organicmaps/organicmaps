@@ -35,19 +35,18 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
   string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())
   {
-    osmoh::OpeningHours oh(openHours);
-
-    // TODO(mgsergio): Switch to three-stated model instead of two-staed
-    // I.e. set unknown if we can't parse or can't answer whether it's open.
-    if (oh.IsValid())
-     meta.m_isClosed = oh.IsClosed(time(nullptr));
-    else
-      meta.m_isClosed = false;
+    osmoh::OpeningHours const oh(openHours);
+    // TODO: We should check closed/open time for specific feature's timezone.
+    time_t const now = time(nullptr);
+    if (oh.IsValid() && !oh.IsUnknown(now))
+      meta.m_isOpenNow = oh.IsOpen(now) ? osm::Yes : osm::No;
+    // In else case value us osm::Unknown, it's set in preview's constructor.
   }
 
-  meta.m_stars = 0;
-  (void) strings::to_int(src.Get(feature::Metadata::FMD_STARS), meta.m_stars);
-  meta.m_stars = my::clamp(meta.m_stars, 0, 5);
+  if (strings::to_int(src.Get(feature::Metadata::FMD_STARS), meta.m_stars))
+    meta.m_stars = my::clamp(meta.m_stars, 0, 5);
+  else
+    meta.m_stars = 0;
 }
 
 namespace impl

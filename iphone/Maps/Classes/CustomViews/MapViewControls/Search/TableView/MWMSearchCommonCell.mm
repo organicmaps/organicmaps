@@ -42,7 +42,17 @@
     else
       [self clearInfo];
 
-    self.closedView.hidden = !result.IsClosed();
+    switch (result.IsOpenNow())
+    {
+      case osm::Unknown:
+      // TODO: Correctly handle Open Now = YES value (show "OPEN" mark).
+      case osm::Yes:
+        self.closedView.hidden = YES;
+        break;
+      case osm::No:
+        self.closedView.hidden = NO;
+        break;
+    }
     if (result.HasPoint())
     {
       string distanceStr;
