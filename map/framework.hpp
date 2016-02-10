@@ -95,9 +95,6 @@ class Framework
 
 protected:
   using TDrapeFunction = function<void (df::DrapeEngine *)>;
-  using TDownloadCountryListener = function<void(storage::TCountryId const &, int)>;
-  using TDownloadCancelListener = function<void(storage::TCountryId const &)>;
-  using TAutoDownloadListener = function<void(storage::TCountryId const &)>;
 
   StringsBundle m_stringsBundle;
 
@@ -121,11 +118,6 @@ protected:
   drape_ptr<df::watch::CPUDrawer> m_cpuDrawer;
 
   double m_startForegroundTime;
-
-  TDownloadCountryListener m_downloadCountryListener;
-  TDownloadCancelListener m_downloadCancelListener;
-  TAutoDownloadListener m_autoDownloadListener;
-  bool m_autoDownloadingOn = true;
 
   storage::Storage m_storage;
 
@@ -194,10 +186,6 @@ public:
   void DeleteCountry(storage::TCountryId const & index, MapOptions opt);
   /// options - flags that signal about parts of map that must be downloaded
   void DownloadCountry(storage::TCountryId const & index, MapOptions opt);
-
-  void SetDownloadCountryListener(TDownloadCountryListener const & listener);
-  void SetDownloadCancelListener(TDownloadCancelListener const & listener);
-  void SetAutoDownloadListener(TAutoDownloadListener const & listener);
 
   storage::Status GetCountryStatus(storage::TCountryId const & index) const;
   string GetCountryName(storage::TCountryId const & index) const;
@@ -280,6 +268,9 @@ public:
   void EnableChoosePositionMode(bool enable);
   void BlockTapEvents(bool block);
 
+  using TCurrentCountryChanged = function<void(storage::TCountryId const &)>;
+  void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
+
 private:
   /// UI callback is called when tap event is "restored" after Drape engine restart.
   void SimulateLastTapEventIfNeeded();
@@ -361,12 +352,9 @@ private:
 
   void FillSearchResultsMarks(search::Results const & results);
 
-  void OnDownloadMapCallback(storage::TCountryId const & countryIndex);
-  void OnDownloadRetryCallback(storage::TCountryId const & countryIndex);
-  void OnDownloadCancelCallback(storage::TCountryId const & countryIndex);
+  void OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel);
 
-  void OnUpdateCountryIndex(storage::TCountryId const & currentIndex, m2::PointF const & pt);
-  void UpdateCountryInfo(storage::TCountryId const & countryIndex, bool isCurrentCountry);
+  TCurrentCountryChanged m_currentCountryChanged;
 
   // Search query params and viewport for the latest search
   // query. These fields are used to check whether a new search query

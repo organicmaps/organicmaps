@@ -26,8 +26,6 @@ public:
     GuiRecache,
     GuiLayerLayout,
     MyPositionShape,
-    CountryInfoUpdate,
-    CountryStatusRecache,
     StopRendering,
     ChangeMyPostitionMode,
     CompassInfo,

@@ -2,7 +2,6 @@
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 
 #include "storage/index.hpp"
@@ -20,18 +19,6 @@ namespace df
 namespace
 {
 
-void ConnectDownloadFn(gui::CountryStatusHelper::EButtonType buttonType, TDownloadFn downloadFn)
-{
-  gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
-  guiSubsystem.ConnectOnButtonPressedHandler(buttonType, [downloadFn, &guiSubsystem]()
-  {
-    storage::TCountryId countryId = guiSubsystem.GetCountryStatusHelper().GetCountryIndex();
-    ASSERT(countryId != storage::kInvalidCountryId, ());
-    if (downloadFn != nullptr)
-      downloadFn(countryId);
-  });
-}
-
 string const LocationStateMode = "LastLocationStateMode";
 
 }
@@ -44,10 +31,6 @@ DrapeEngine::DrapeEngine(Params && params)
   gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
   guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
   guiSubsystem.SetSurfaceSize(m2::PointF(m_viewport.GetWidth(), m_viewport.GetHeight()));
-
-  ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TYPE_MAP, params.m_model.GetDownloadMapHandler());
-  ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TRY_AGAIN, params.m_model.GetDownloadRetryHandler());
-  ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_CANCEL, params.m_model.GetDownloadCancelHandler());
 
   m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();
@@ -70,8 +53,9 @@ DrapeEngine::DrapeEngine(Params && params)
   m_frontend = make_unique_dp<FrontendRenderer>(frParams);
 
   BackendRenderer::Params brParams(frParams.m_commutator, frParams.m_oglContextFactory,
-                                   frParams.m_texMng, params.m_model, make_ref(m_requestedTiles),
-                                   params.m_allow3dBuildings);
+                                   frParams.m_texMng, params.m_model,
+                                   params.m_model.UpdateCurrentCountryFn(),
+                                   make_ref(m_requestedTiles), params.m_allow3dBuildings);
   m_backend = make_unique_dp<BackendRenderer>(brParams);
 
   m_widgetsInfo = move(params.m_info);
@@ -268,20 +252,6 @@ void DrapeEngine::ResizeImpl(int w, int h)
   gui::DrapeGui::Instance().SetSurfaceSize(m2::PointF(w, h));
   m_viewport.SetViewport(0, 0, w, h);
   AddUserEvent(ResizeEvent(w, h));
-}
-
-void DrapeEngine::SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry)
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CountryInfoUpdateMessage>(info, isCurrentCountry),
-                                  MessagePriority::Normal);
-}
-
-void DrapeEngine::SetInvalidCountryInfo()
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CountryInfoUpdateMessage>(),
-                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::SetCompassInfo(location::CompassInfo const & info)

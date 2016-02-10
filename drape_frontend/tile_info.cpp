@@ -100,7 +100,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
                       bind(&TileInfo::IsCancelled, this),
                       bind(&TileInfo::SetFeatureOwner, this, _1, ref(memIndex)),
                       bind(&TileInfo::DiscardFeatureInfo, this, _1, ref(memIndex)),
-                      model.m_isCountryLoadedByNameFn,
+                      model.m_isCountryLoadedByName,
                       make_ref(m_context), m_is3dBuildings);
     model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
   }

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/gui/skin.hpp"
 
@@ -310,37 +309,6 @@ public:
 
 private:
   gui::TWidgetsLayoutInfo m_layoutInfo;
-};
-
-class CountryInfoUpdateMessage : public Message
-{
-public:
-  CountryInfoUpdateMessage()
-    : m_needShow(false)
-  {}
-
-  CountryInfoUpdateMessage(gui::CountryInfo const & info, bool isCurrentCountry)
-    : m_countryInfo(info)
-    , m_isCurrentCountry(isCurrentCountry)
-    , m_needShow(true)
-  {}
-
-  Type GetType() const override { return Message::CountryInfoUpdate;}
-  gui::CountryInfo const & GetCountryInfo() const { return m_countryInfo; }
-  bool IsCurrentCountry() const { return m_isCurrentCountry; }
-  bool NeedShow() const { return m_needShow; }
-
-private:
-  gui::CountryInfo m_countryInfo;
-  bool m_isCurrentCountry;
-  bool m_needShow;
-};
-
-class CountryStatusRecacheMessage : public Message
-{
-public:
-  CountryStatusRecacheMessage() = default;
-  Type GetType() const override { return Message::CountryStatusRecache; }
 };
 
 class ShowChoosePositionMarkMessage : public Message

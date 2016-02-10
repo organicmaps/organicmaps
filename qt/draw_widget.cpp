@@ -99,16 +99,72 @@ DrawWidget::DrawWidget(QWidget * parent)
   {
   });
 
+  m_framework->SetCurrentCountryChangedListener([this](storage::TCountryId const & countryId)
+  {
+    m_countryId = countryId;
+    UpdateCountryStatus(countryId);
+  });
+
   QTimer * timer = new QTimer(this);
   VERIFY(connect(timer, SIGNAL(timeout()), this, SLOT(update())), ());
   timer->setSingleShot(false);
   timer->start(30);
+
+  QTimer * countryStatusTimer = new QTimer(this);
+  VERIFY(connect(countryStatusTimer, SIGNAL(timeout()), this, SLOT(OnUpdateCountryStatusByTimer())), ());
+  countryStatusTimer->setSingleShot(false);
+  countryStatusTimer->start(1000);
 }
 
 DrawWidget::~DrawWidget()
 {
   m_framework->EnterBackground();
   m_framework.reset();
+}
+
+void DrawWidget::UpdateCountryStatus(storage::TCountryId const & countryId)
+{
+  if (m_currentCountryChanged != nullptr)
+  {
+    // TODO @bykoianko
+    string countryName = countryId;
+    uint8_t progress = 50;
+
+    auto status = m_framework->Storage().CountryStatusEx(countryId);
+
+    uint64_t sizeInBytes = 0;
+    if (!countryId.empty())
+    {
+      storage::NodeAttrs nodeAttrs;
+      m_framework->Storage().GetNodeAttrs(countryId, nodeAttrs);
+      sizeInBytes = nodeAttrs.m_mwmSize;
+    }
+
+    m_currentCountryChanged(countryId, countryName, status, sizeInBytes, progress);
+  }
+}
+
+void DrawWidget::OnUpdateCountryStatusByTimer()
+{
+  if (!m_countryId.empty())
+    UpdateCountryStatus(m_countryId);
+}
+
+void DrawWidget::SetCurrentCountryChangedListener(DrawWidget::TCurrentCountryChanged const & listener)
+{
+  m_currentCountryChanged = listener;
+}
+
+void DrawWidget::DownloadCountry(storage::TCountryId const & countryId)
+{
+  m_framework->Storage().DownloadNode(countryId);
+  if (!m_countryId.empty())
+    UpdateCountryStatus(m_countryId);
+}
+
+void DrawWidget::RetryToDownloadCountry(storage::TCountryId const & countryId)
+{
+  // TODO @bykoianko
 }
 
 void DrawWidget::SetScaleControl(QScaleSlider * pScale)

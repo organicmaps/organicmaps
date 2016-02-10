@@ -28,17 +28,13 @@ BackendRenderer::BackendRenderer(Params const & params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model, params.m_allow3dBuildings))
   , m_requestedTiles(params.m_requestedTiles)
+  , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
 {
 #ifdef DEBUG
   m_isTeardowned = false;
 #endif
 
-  gui::DrapeGui::Instance().SetRecacheCountryStatusSlot([this]()
-  {
-    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<CountryStatusRecacheMessage>(),
-                              MessagePriority::High);
-  });
+  ASSERT(m_updateCurrentCountryFn != nullptr, ());
 
   m_routeBuilder = make_unique_dp<RouteBuilder>([this](drape_ptr<RouteData> && routeData)
   {
@@ -62,7 +58,6 @@ BackendRenderer::~BackendRenderer()
 
 void BackendRenderer::Teardown()
 {
-  gui::DrapeGui::Instance().ClearRecacheCountryStatusSlot();
   StopThread();
 #ifdef DEBUG
   m_isTeardowned = true;
@@ -79,13 +74,6 @@ void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, gui::TW
 {
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(initInfo, sizeInfo, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer), needResetOldGui);
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
-}
-
-void BackendRenderer::RecacheCountryStatus()
-{
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheCountryStatus(m_texMng);
-  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer), false);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
 }
 
@@ -109,12 +97,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         ScreenBase const screen = m_requestedTiles->GetScreen();
         bool const is3dBuildings = m_requestedTiles->Is3dBuildings();
         m_readManager->UpdateCoverage(screen, is3dBuildings, tileRequestGeneration, tiles, m_texMng);
-
-        gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();
-        if ((*tiles.begin()).m_zoomLevel > scales::GetUpperWorldScale())
-          m_model.UpdateCountryIndex(helper.GetCountryIndex(), screen.ClipRect().Center());
-        else
-          helper.Clear();
+        m_updateCurrentCountryFn(screen.ClipRect().Center(), (*tiles.begin()).m_zoomLevel);
       }
       break;
     }
@@ -125,11 +108,6 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_readManager->InvalidateAll();
       else
         m_readManager->Invalidate(msg->GetTilesForInvalidate());
-      break;
-    }
-  case Message::CountryStatusRecache:
-    {
-      RecacheCountryStatus();
       break;
     }
   case Message::ShowChoosePositionMark:
@@ -149,7 +127,6 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<GuiLayerLayoutMessage>(msg->AcceptLayoutInfo()),
                                 MessagePriority::Normal);
-      RecacheCountryStatus();
       break;
     }
   case Message::TileReadStarted:
@@ -243,26 +220,6 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_batchersPool->ReleaseBatcher(key);
       }
       msg->EndProcess();
-      break;
-    }
-  case Message::CountryInfoUpdate:
-    {
-      ref_ptr<CountryInfoUpdateMessage> msg = message;
-      gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();
-      if (!msg->NeedShow())
-      {
-        // Country is already loaded, so there is no need to show status GUI
-        // even if this country is updating.
-        helper.Clear();
-      }
-      else
-      {
-        gui::CountryInfo const & info = msg->GetCountryInfo();
-        if (msg->IsCurrentCountry() || helper.GetCountryIndex() == info.m_countryIndex)
-        {
-          helper.SetCountryInfo(info);
-        }
-      }
       break;
     }
   case Message::AddRoute:

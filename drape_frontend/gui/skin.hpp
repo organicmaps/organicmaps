@@ -16,8 +16,7 @@ enum EWidget
   WIDGET_COPYRIGHT = 0x4,
   WIDGET_SCALE_LABEL = 0x8,
   /// Following widgets controlled by rendering kernel. Don't use them in platform code
-  WIDGET_COUNTRY_STATUS = 0x8000,
-  WIDGET_CHOOSE_POSITION_MARK = 0x8001
+  WIDGET_CHOOSE_POSITION_MARK = 0x8000
 };
 
 enum EGuiHandle

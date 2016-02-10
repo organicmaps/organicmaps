@@ -1,7 +1,6 @@
 #include "choose_position_mark.hpp"
 #include "compass.hpp"
 #include "copyright_label.hpp"
-#include "country_status.hpp"
 #include "drape_gui.hpp"
 #include "gui_text.hpp"
 #include "layer_render.hpp"
@@ -164,13 +163,6 @@ private:
   int m_scale;
 };
 
-void RegisterButtonHandler(CountryStatus::TButtonHandlers & handlers,
-                           CountryStatusHelper::EButtonType buttonType)
-{
-  handlers[buttonType] = bind(&DrapeGui::CallOnButtonPressedHandler,
-                              &DrapeGui::Instance(), buttonType);
-}
-
 } // namespace
 
 drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & initInfo,
@@ -200,25 +192,6 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & in
   return renderer;
 }
 
-drape_ptr<LayerRenderer> LayerCacher::RecacheCountryStatus(ref_ptr<dp::TextureManager> textures)
-{
-  m2::PointF surfSize = DrapeGui::Instance().GetSurfaceSize();
-  drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
-  CountryStatus countryStatus = CountryStatus(Position(surfSize * 0.5f, dp::Center));
-
-  CountryStatus::TButtonHandlers handlers;
-  RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TYPE_MAP);
-  RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TRY_AGAIN);
-  RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_CANCEL);
-
-  renderer->AddShapeRenderer(WIDGET_COUNTRY_STATUS, countryStatus.Draw(textures, handlers));
-
-  // Flush gui geometry.
-  GLFunctions::glFlush();
-
-  return renderer;
-}
-
 drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures)
 {
   m2::PointF const surfSize = DrapeGui::Instance().GetSurfaceSize();
@@ -232,7 +205,6 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::Text
 
   return renderer;
 }
-
 
 m2::PointF LayerCacher::CacheCompass(Position const & position, ref_ptr<LayerRenderer> renderer,
                                      ref_ptr<dp::TextureManager> textures)
@@ -286,4 +258,4 @@ m2::PointF LayerCacher::CacheScaleLabel(Position const & position, ref_ptr<Layer
   return size;
 }
 
-}
+} // namespace gui

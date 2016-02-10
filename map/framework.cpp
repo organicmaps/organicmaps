@@ -21,9 +21,7 @@
 
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
-#include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/visual_params.hpp"
-#include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/watch/cpu_drawer.hpp"
 #include "drape_frontend/watch/feature_processor.hpp"
 
@@ -284,16 +282,6 @@ Framework::Framework()
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
   // It's better to use strings form strings.txt intead of hardcoding them here.
-  m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^\nis added to the downloading queue");
-  m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading\n^\n^");
-  m_stringsBundle.SetDefaultString("country_status_download", "Download map\n(^ ^)");
-  m_stringsBundle.SetDefaultString("country_status_download_without_size", "Download map");
-  m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading\n^\nhas failed");
-  m_stringsBundle.SetDefaultString("country_status_download_without_routing", "Download map\nwithout routing (^ ^)");
-  m_stringsBundle.SetDefaultString("cancel", "Cancel");
-  m_stringsBundle.SetDefaultString("try_again", "Try Again");
-  m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space for downloading");
-
   m_stringsBundle.SetDefaultString("dropped_pin", "Dropped Pin");
   m_stringsBundle.SetDefaultString("my_places", "My Places");
   m_stringsBundle.SetDefaultString("routes", "Routes");
@@ -906,72 +894,22 @@ void Framework::ClearAllCaches()
   m_searchEngine->ClearCaches();
 }
 
-void Framework::SetDownloadCountryListener(TDownloadCountryListener const & listener)
+void Framework::OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel)
 {
-  m_downloadCountryListener = listener;
-}
+  storage::TCountryId newCountryId;
+  if (zoomLevel > scales::GetUpperWorldScale())
+    newCountryId = m_storage.FindCountryIdByFile(m_infoGetter->GetRegionCountryId(m2::PointD(pt)));
 
-void Framework::SetDownloadCancelListener(TDownloadCancelListener const & listener)
-{
-  m_downloadCancelListener = listener;
-}
-
-void Framework::SetAutoDownloadListener(TAutoDownloadListener const & listener)
-{
-  m_autoDownloadListener = listener;
-}
-
-void Framework::OnDownloadMapCallback(storage::TCountryId const & countryId)
-{
-}
-
-void Framework::OnDownloadRetryCallback(storage::TCountryId const & countryId)
-{
-}
-
-void Framework::OnDownloadCancelCallback(storage::TCountryId const & countryId)
-{
-  // Any cancel leads to disable auto-downloading.
-  m_autoDownloadingOn = false;
-}
-
-void Framework::OnUpdateCountryIndex(storage::TCountryId const & currentId, m2::PointF const & pt)
-{
-  storage::TCountryId newCountryId = GetCountryIndex(m2::PointD(pt));
-  if (newCountryId != storage::kInvalidCountryId)
+  GetPlatform().RunOnGuiThread([this, newCountryId]()
   {
-    m_drapeEngine->SetInvalidCountryInfo();
-    return;
-  }
-
-  if (currentId != newCountryId)
-  {
-    if (m_autoDownloadingOn && m_autoDownloadListener != nullptr)
-      m_autoDownloadListener(newCountryId);
-
-    UpdateCountryInfo(newCountryId, true /* isCurrentCountry */);
-  }
+    if (m_currentCountryChanged != nullptr)
+      m_currentCountryChanged(newCountryId);
+  });
 }
 
-void Framework::UpdateCountryInfo(storage::TCountryId const & countryId, bool isCurrentCountry)
+void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener)
 {
-  if (!m_drapeEngine)
-    return;
-
-  string const & fileName = countryId;
-  if (m_model.IsLoaded(fileName))
-  {
-    m_drapeEngine->SetInvalidCountryInfo();
-    return;
-  }
-
-  gui::CountryInfo countryInfo;
-
-  countryInfo.m_countryIndex = countryId;
-  if (countryInfo.m_countryStatus == storage::Status::EDownloading)
-    countryInfo.m_downloadProgress = 50;
-
-  m_drapeEngine->SetCountryInfo(countryInfo, isCurrentCountry);
+  m_currentCountryChanged = listener;
 }
 
 void Framework::UpdateUserViewportChanged()
@@ -1381,43 +1319,21 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
 
 void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params)
 {
-  using TReadIDsFn = df::MapDataProvider::TReadIDsFn;
-  using TReadFeaturesFn = df::MapDataProvider::TReadFeaturesFn;
-  using TUpdateCountryIndexFn = df::MapDataProvider::TUpdateCountryIndexFn;
-  using TIsCountryLoadedFn = df::MapDataProvider::TIsCountryLoadedFn;
-
-  TReadIDsFn idReadFn = [this](df::MapDataProvider::TReadCallback<FeatureID> const & fn, m2::RectD const & r, int scale) -> void
+  auto idReadFn = [this](df::MapDataProvider::TReadCallback<FeatureID> const & fn,
+                         m2::RectD const & r, int scale) -> void
   {
     m_model.ForEachFeatureID(r, fn, scale);
   };
 
-  TReadFeaturesFn featureReadFn = [this](df::MapDataProvider::TReadCallback<FeatureType> const & fn, vector<FeatureID> const & ids) -> void
+  auto featureReadFn = [this](df::MapDataProvider::TReadCallback<FeatureType> const & fn,
+                              vector<FeatureID> const & ids) -> void
   {
     m_model.ReadFeatures(fn, ids);
   };
 
-  TUpdateCountryIndexFn updateCountryIndex = [this](storage::TCountryId const & currentId, m2::PointF const & pt)
-  {
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnUpdateCountryIndex, this, currentId, pt));
-  };
-
-  TIsCountryLoadedFn isCountryLoadedFn = bind(&Framework::IsCountryLoaded, this, _1);
+  auto isCountryLoadedFn = bind(&Framework::IsCountryLoaded, this, _1);
   auto isCountryLoadedByNameFn = bind(&Framework::IsCountryLoadedByName, this, _1);
-
-  TDownloadFn downloadMapFn = [this](storage::TCountryId const & countryId)
-  {
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapCallback, this, countryId));
-  };
-
-  TDownloadFn downloadRetryFn = [this](storage::TCountryId const & countryId)
-  {
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadRetryCallback, this, countryId));
-  };
-
-  TDownloadFn downloadCancelFn = [this](storage::TCountryId const & countryId)
-  {
-    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadCancelCallback, this, countryId));
-  };
+  auto updateCurrentCountryFn = bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
   bool allow3d;
   bool allow3dBuildings;
@@ -1426,11 +1342,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
                             df::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
-                            df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex,
-                                                isCountryLoadedFn, isCountryLoadedByNameFn,
-                                                downloadMapFn, downloadRetryFn, downloadCancelFn),
-                            params.m_visualScale,
-                            move(params.m_widgetsInitInfo),
+                            df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedFn,
+                                                isCountryLoadedByNameFn, updateCurrentCountryFn),
+                            params.m_visualScale, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
                             allow3dBuildings, params.m_isChoosePositionMode, params.m_isChoosePositionMode);
 
@@ -1440,10 +1354,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     if (!screen.GlobalRect().EqualDxDy(m_currentModelView.GlobalRect(), 1.0E-4))
       UpdateUserViewportChanged();
     m_currentModelView = screen;
-
-    // Enable auto-downloading after return from the world map.
-    if (GetDrawScale() <= scales::GetUpperWorldScale())
-      m_autoDownloadingOn = true;
   });
   m_drapeEngine->SetTapEventInfoListener(bind(&Framework::OnTapEvent, this, _1));
   m_drapeEngine->SetUserPositionListener(bind(&Framework::OnUserPositionChanged, this, _1));
