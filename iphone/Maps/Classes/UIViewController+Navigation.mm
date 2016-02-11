@@ -5,12 +5,12 @@
 
 - (void)showBackButton
 {
-  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
+  UIImage * backImage = [UIImage imageNamed:@"ic_nav_bar_back"];
   CGFloat const imageSide = backImage.size.width;
   UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., imageSide, imageSide)];
   [button setImage:backImage forState:UIControlStateNormal];
   [button addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
-  button.imageEdgeInsets = UIEdgeInsetsMake(0., -imageSide, 0., 0.);
+  button.imageEdgeInsets = UIEdgeInsetsMake(0., -32, 0., 0.);
   UIBarButtonItem * leftItem = [[UIBarButtonItem alloc] initWithCustomView:button];
   self.navigationItem.leftBarButtonItem = leftItem;
 }
