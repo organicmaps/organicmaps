@@ -311,10 +311,17 @@ namespace qt
     //    SetRowColor(*item, rowColor);
   }
 
-  QTreeWidgetItem * UpdateDialog::CreateTreeItem(TCountryId const & countryId, QTreeWidgetItem * parent)
+  QString UpdateDialog::GetNodeName(storage::TCountryId const & countryId)
   {
     // QString const text = QString::fromUtf8(GetStorage().CountryName(countryId).c_str()); // ???
-    QString const text = countryId.c_str();
+    storage::NodeAttrs attrs;
+    GetStorage().GetNodeAttrs(countryId, attrs);
+    return attrs.m_nodeLocalName.c_str();
+  }
+
+  QTreeWidgetItem * UpdateDialog::CreateTreeItem(TCountryId const & countryId, QTreeWidgetItem * parent)
+  {
+    QString const text = GetNodeName(countryId);
     QTreeWidgetItem * item = new QTreeWidgetItem(parent, QStringList(text));
     item->setData(KColumnIndexCountry, Qt::UserRole, QVariant(countryId.c_str()));
 

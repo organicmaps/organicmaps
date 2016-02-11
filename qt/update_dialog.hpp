@@ -48,6 +48,7 @@ namespace qt
     void FillTreeImpl(QTreeWidgetItem * parent, storage::TCountryId const & countryId, string const & filter);
     void UpdateRowWithCountryInfo(storage::TCountryId const & countryId);
     void UpdateRowWithCountryInfo(QTreeWidgetItem * item, storage::TCountryId const & countryId);
+    QString GetNodeName(storage::TCountryId const & countryId);
 
     QTreeWidgetItem * CreateTreeItem(storage::TCountryId const & countryId, QTreeWidgetItem * parent);
     vector<QTreeWidgetItem *> GetTreeItemsByCountryId(storage::TCountryId const & countryId);
