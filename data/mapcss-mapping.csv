@@ -1051,3 +1051,4 @@ amenity|place_of_worship|taoist;[amenity=place_of_worship][religion=taoist];;nam
 man_made|water_tower;[man_made=water_tower];;name;int_name;1051;
 highway|world_level;[highway=world_level];;name;int_name;1052;
 highway|world_towns_level;[highway=world_towns_level];;name;int_name;1053;
+building|train_station;[building=train_station];;name;int_name;1054;
