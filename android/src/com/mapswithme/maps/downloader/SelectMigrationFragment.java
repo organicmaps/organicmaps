@@ -10,6 +10,6 @@ public class SelectMigrationFragment extends BaseMwmRecyclerFragment
   protected RecyclerView.Adapter createAdapter()
   {
     // TODO customize download adapter to allow selections
-    return new DownloaderAdapter(getRecyclerView());
+    return new DownloaderAdapter(getRecyclerView(), getActivity());
   }
 }

@@ -10,7 +10,8 @@
   android:background="?attr/clickableBackground"
   android:paddingLeft="@dimen/margin_half"
   android:paddingRight="@dimen/margin_half"
-  android:gravity="center_vertical">
+  android:gravity="center_vertical"
+  android:baselineAligned="false">
   <FrameLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

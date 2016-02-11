@@ -214,7 +214,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   {
     if (mAdapter == null)
     {
-      mAdapter = new DownloaderAdapter(getRecyclerView());
+      mAdapter = new DownloaderAdapter(getRecyclerView(), getActivity());
       mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
       {
         @Override
