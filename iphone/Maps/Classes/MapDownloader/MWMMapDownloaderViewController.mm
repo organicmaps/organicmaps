@@ -55,9 +55,14 @@ using namespace storage;
 - (void)configAllMapsView
 {
   [super configAllMapsView];
-  // TODO (igrechuhin) Add implementation
-  self.allMapsLabel.text = @"5 Outdated Maps (108 MB)";
+
   self.showAllMapsView = NO;
+  auto const & s = GetFramework().Storage();
+  Storage::UpdateInfo updateInfo{};
+  if (!s.GetUpdateInfo(s.GetRootId(), updateInfo) || updateInfo.m_numberOfMwmFilesToUpdate == 0)
+    return;
+  self.allMapsLabel.text = [NSString stringWithFormat:@"%@: %@ (%@)", L(@"downloader_outdated_maps"), @(updateInfo.m_numberOfMwmFilesToUpdate), formattedSize(updateInfo.m_totalUpdateSizeInBytes)];
+  self.showAllMapsView = YES;
 }
 
 #pragma mark - UISearchBarDelegate

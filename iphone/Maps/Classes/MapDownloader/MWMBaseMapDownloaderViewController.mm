@@ -20,6 +20,7 @@ extern NSString * const kLargeCountryCellIdentifier = @"MWMMapDownloaderLargeCou
 namespace
 {
 NSString * const kDownloadActionTitle = L(@"downloader_download_map");
+NSString * const kUpdateActionTitle = L(@"downloader_status_outdated");
 NSString * const kDeleteActionTitle = L(@"downloader_delete_map");
 NSString * const kShowActionTitle = L(@"zoom_to_country");
 NSString * const kCancelActionTitle = L(@"cancel");
@@ -40,6 +41,7 @@ using TAlertAction = void (^)(UIAlertAction *);
 @property (nonatomic) CGFloat lastScrollOffset;
 
 @property (copy, nonatomic) TAlertAction downloadAction;
+@property (copy, nonatomic) TAlertAction updateAction;
 @property (copy, nonatomic) TAlertAction deleteAction;
 @property (copy, nonatomic) TAlertAction showAction;
 
@@ -112,8 +114,8 @@ using namespace storage;
   NodeAttrs nodeAttrs;
   m_actionSheetId = [self.dataSource countryIdForIndexPath:indexPath];
   s.GetNodeAttrs(m_actionSheetId, nodeAttrs);
-  BOOL const isDownloaded = (nodeAttrs.m_status == NodeStatus::OnDisk ||
-                             nodeAttrs.m_status == NodeStatus::OnDiskOutOfDate);
+  BOOL const needsUpdate = (nodeAttrs.m_status == NodeStatus::OnDiskOutOfDate);
+  BOOL const isDownloaded = (needsUpdate || nodeAttrs.m_status == NodeStatus::OnDisk);
   NSString * title = @(nodeAttrs.m_nodeLocalName.c_str());
   NSString * message = self.dataSource.isParentRoot ? nil : @(nodeAttrs.m_parentLocalName.c_str());
   NSString * downloadActionTitle = [NSString stringWithFormat:@"%@, %@", kDownloadActionTitle, formattedSize(nodeAttrs.m_mwmSize)];
@@ -127,6 +129,8 @@ using namespace storage;
     if (isDownloaded)
     {
       [actionSheet addButtonWithTitle:kShowActionTitle];
+      if (needsUpdate)
+        [actionSheet addButtonWithTitle:kUpdateActionTitle];
       [actionSheet addButtonWithTitle:kDeleteActionTitle];
       actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
     }
@@ -154,6 +158,13 @@ using namespace storage;
                                                             style:UIAlertActionStyleDefault
                                                           handler:self.showAction];
       [alertController addAction:showAction];
+      if (needsUpdate)
+      {
+        UIAlertAction * updateAction = [UIAlertAction actionWithTitle:kUpdateActionTitle
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:self.updateAction];
+        [alertController addAction:updateAction];
+      }
       UIAlertAction * deleteAction = [UIAlertAction actionWithTitle:kDeleteActionTitle
                                                               style:UIAlertActionStyleDestructive
                                                             handler:self.deleteAction];
@@ -214,7 +225,7 @@ using namespace storage;
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(self.parentCountryId, nodeAttrs);
   self.allMapsLabel.text =
-      [NSString stringWithFormat:@"%@ %@ (%@)", L(@"maps"),
+      [NSString stringWithFormat:@"%@: %@ (%@)", L(@"maps"),
                                  @(nodeAttrs.m_mwmCounter - nodeAttrs.m_localMwmCounter),
                                  formattedSize(nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize)];
   self.showAllMapsView = YES;
@@ -251,7 +262,11 @@ using namespace storage;
 
 - (IBAction)allMapsAction
 {
-  GetFramework().Storage().DownloadNode(self.parentCountryId);
+  auto & s = GetFramework().Storage();
+  if (self.parentCountryId == s.GetRootId())
+    s.UpdateNode(self.parentCountryId);
+  else
+    s.DownloadNode(self.parentCountryId);
 }
 
 #pragma mark - UITableViewDelegate
@@ -314,13 +329,22 @@ using namespace storage;
   self.downloadAction = ^(UIAlertAction * action)
   {
     __strong auto self = weakSelf;
-    GetFramework().Storage().DownloadNode(self->m_actionSheetId);
+    if (self)
+      GetFramework().Storage().DownloadNode(self->m_actionSheetId);
+  };
+
+  self.updateAction = ^(UIAlertAction * action)
+  {
+    __strong auto self = weakSelf;
+    if (self)
+      GetFramework().Storage().UpdateNode(self->m_actionSheetId);
   };
 
   self.deleteAction = ^(UIAlertAction * action)
   {
     __strong auto self = weakSelf;
-    GetFramework().Storage().DeleteNode(self->m_actionSheetId);
+    if (self)
+      GetFramework().Storage().DeleteNode(self->m_actionSheetId);
   };
 
   self.showAction = ^(UIAlertAction * action)

@@ -53,7 +53,7 @@ using namespace storage;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
-  UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  MWMMapDownloaderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   [self fillCell:cell atIndexPath:indexPath];
   return cell;
 }
