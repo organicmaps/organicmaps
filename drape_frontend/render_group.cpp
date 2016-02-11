@@ -74,6 +74,12 @@ void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
     renderBucket->CollectOverlayHandles(tree);
 }
 
+void RenderGroup::RemoveOverlay(ref_ptr<dp::OverlayTree> tree)
+{
+  for (auto & renderBucket : m_renderBuckets)
+    renderBucket->RemoveOverlayHandles(tree);
+}
+
 void RenderGroup::Render(ScreenBase const & screen)
 {
   BaseRenderGroup::Render(screen);
@@ -93,13 +99,13 @@ void RenderGroup::Render(ScreenBase const & screen)
     dp::ApplyUniforms(m_uniforms, shader);
 
     for(auto & renderBucket : m_renderBuckets)
-      renderBucket->Render(screen);
+      renderBucket->Render();
 
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
     m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
     dp::ApplyUniforms(m_uniforms, shader);
     for(auto & renderBucket : m_renderBuckets)
-      renderBucket->Render(screen);
+      renderBucket->Render();
   }
   else if (programIndex == gpu::TEXT_PROGRAM ||
            program3dIndex == gpu::TEXT_BILLBOARD_PROGRAM)
@@ -107,14 +113,14 @@ void RenderGroup::Render(ScreenBase const & screen)
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
     dp::ApplyUniforms(m_uniforms, shader);
     for(auto & renderBucket : m_renderBuckets)
-      renderBucket->Render(screen);
+      renderBucket->Render();
   }
   else
   {
     dp::ApplyUniforms(m_uniforms, shader);
 
     for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
-      renderBucket->Render(screen);
+      renderBucket->Render();
   }
 
 #ifdef RENDER_DEBUG_RECTS
@@ -181,7 +187,7 @@ void RenderGroup::Disappear()
   //}
 }
 
-bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting)
+bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting, ref_ptr<dp::OverlayTree> tree)
 {
   if (!m_sharedFeaturesWaiting)
     return false;
@@ -195,6 +201,7 @@ bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWa
                                                         : isTileVisible;
     if (!visibleBucket)
     {
+      m_renderBuckets[i]->RemoveOverlayHandles(tree);
       swap(m_renderBuckets[i], m_renderBuckets.back());
       m_renderBuckets.pop_back();
     }
@@ -268,7 +275,7 @@ void UserMarkRenderGroup::Render(ScreenBase const & screen)
   if (m_renderBucket != nullptr)
   {
     m_renderBucket->GetBuffer()->Build(shader);
-    m_renderBucket->Render(screen);
+    m_renderBucket->Render();
   }
 }
 

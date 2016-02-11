@@ -33,11 +33,8 @@ TextHandle::TextHandle(FeatureID const & id, strings::UniString const & text,
   , m_glyphsReady(false)
 {}
 
-void TextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                                      ScreenBase const & screen) const
+void TextHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const
 {
-  UNUSED_VALUE(screen);
-
   bool const isVisible = IsVisible();
   if (!m_forceUpdateNormals && m_isLastVisible == isVisible)
     return;

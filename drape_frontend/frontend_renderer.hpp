@@ -241,7 +241,7 @@ private:
     vector<drape_ptr<RenderGroup>> m_renderGroups;
     bool m_isDirty = false;
 
-    inline void Sort();
+    void Sort(ref_ptr<dp::OverlayTree> overlayTree);
   };
 
   array<RenderLayer, RenderLayer::LayerCountID> m_layers;

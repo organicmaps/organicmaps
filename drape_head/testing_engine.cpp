@@ -398,7 +398,7 @@ void TestingEngine::Draw()
     for (size_t i = 0; i < buckets.size(); ++i)
       buckets[i]->CollectOverlayHandles(make_ref(&tree));
     for (size_t i = 0; i < buckets.size(); ++i)
-      buckets[i]->Render(m_modelView);
+      buckets[i]->Render();
     tree.EndOverlayPlacing();
   }
 }

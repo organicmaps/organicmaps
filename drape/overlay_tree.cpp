@@ -7,7 +7,6 @@ namespace dp
 {
 
 int const kFrameUpdarePeriod = 10;
-int const kFrameUpdarePeriodIn3d = 30;
 int const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
 
 namespace
@@ -67,13 +66,13 @@ OverlayTree::OverlayTree()
     m_handles[i].reserve(kAverageHandlesCount[i]);
 }
 
-bool OverlayTree::Frame(bool is3d)
+bool OverlayTree::Frame()
 {
   if (IsNeedUpdate())
     return true;
 
   m_frameCounter++;
-  if (m_frameCounter >= (is3d ? kFrameUpdarePeriodIn3d : kFrameUpdarePeriod))
+  if (m_frameCounter >= kFrameUpdarePeriod)
     m_frameCounter = -1;
 
   return IsNeedUpdate();
@@ -84,20 +83,25 @@ bool OverlayTree::IsNeedUpdate() const
   return m_frameCounter == -1;
 }
 
-void OverlayTree::ForceUpdate()
-{
-  m_frameCounter = -1;
-}
-
 void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
 {
   ASSERT(IsNeedUpdate(), ());
   Clear();
+  m_handlesCache.clear();
   m_traits.m_modelView = screen;
 
 #ifdef COLLECT_DISPLACEMENT_INFO
   m_displacementInfo.clear();
 #endif
+}
+
+void OverlayTree::Remove(ref_ptr<OverlayHandle> handle)
+{
+  if (m_frameCounter == -1)
+    return;
+
+  if (m_handlesCache.find(GetHandleKey(handle)) != m_handlesCache.end())
+    m_frameCounter = -1;
 }
 
 void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
@@ -107,6 +111,10 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   ScreenBase const & modelView = GetModelView();
 
   handle->SetIsVisible(false);
+  handle->SetCachingEnable(true);
+
+  if (m_handlesCache.find(GetHandleKey(handle)) != m_handlesCache.end())
+    return;
 
   if (!handle->Update(modelView))
     return;
@@ -191,7 +199,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
       // Handle is displaced and bound to its parent, parent will be displaced too.
       if (boundToParent)
       {
-        Erase(parentOverlay);
+        DeleteHandle(parentOverlay);
 
       #ifdef DEBUG_OVERLAYS_OUTPUT
         LOG(LINFO, ("Displace (0):", handle->GetOverlayDebugInfo(), "->", parentOverlay->GetOverlayDebugInfo()));
@@ -219,25 +227,51 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
 
   // Current overlay displaces other overlay, delete them.
   for (auto const & rivalHandle : rivals)
-    AddHandleToDelete(rivalHandle);
-
-  for (auto const & handleToDelete : m_handlesToDelete)
   {
-    Erase(handleToDelete);
+    if (rivalHandle->IsBound())
+    {
+      // Delete rival handle and all handles bound to it.
+      for (auto it = m_handlesCache.begin(); it != m_handlesCache.end();)
+      {
+        if (it->second->GetFeatureID() == rivalHandle->GetFeatureID())
+        {
+          Erase(it->second);
 
-  #ifdef DEBUG_OVERLAYS_OUTPUT
-    LOG(LINFO, ("Displace (2):", handle->GetOverlayDebugInfo(), "->", handleToDelete->GetOverlayDebugInfo()));
-  #endif
+        #ifdef DEBUG_OVERLAYS_OUTPUT
+          LOG(LINFO, ("Displace (2):", handle->GetOverlayDebugInfo(), "->", it->second->GetOverlayDebugInfo()));
+        #endif
 
-  #ifdef COLLECT_DISPLACEMENT_INFO
-    m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
-                                                     handleToDelete->GetExtendedPixelRect(modelView).Center(),
-                                                     dp::Color(0, 0, 255, 255)));
-  #endif
+        #ifdef COLLECT_DISPLACEMENT_INFO
+          m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
+                                                           it->second->GetExtendedPixelRect(modelView).Center(),
+                                                           dp::Color(0, 0, 255, 255)));
+        #endif
+
+          it = m_handlesCache.erase(it);
+        }
+        else
+        {
+          ++it;
+        }
+      }
+    }
+    else
+    {
+      DeleteHandle(rivalHandle);
+
+    #ifdef DEBUG_OVERLAYS_OUTPUT
+      LOG(LINFO, ("Displace (3):", handle->GetOverlayDebugInfo(), "->", handleToDelete->GetOverlayDebugInfo()));
+    #endif
+
+    #ifdef COLLECT_DISPLACEMENT_INFO
+      m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
+                                                       rivalHandle->GetExtendedPixelRect(modelView).Center(),
+                                                       dp::Color(0, 0, 255, 255)));
+    #endif
+    }
   }
 
-  m_handlesToDelete.clear();
-
+  m_handlesCache.insert(make_pair(GetHandleKey(handle), handle));
   TBase::Add(handle, pixelRect);
 }
 
@@ -266,10 +300,11 @@ void OverlayTree::EndOverlayPlacing()
     m_handles[rank].clear();
   }
 
-  ForEach([] (ref_ptr<OverlayHandle> const & h)
+  for (auto it = m_handlesCache.begin(); it != m_handlesCache.end(); ++it)
   {
-    h->SetIsVisible(true);
-  });
+    it->second->SetIsVisible(true);
+    it->second->SetCachingEnable(false);
+  }
 
   m_frameCounter = 0;
 
@@ -285,37 +320,30 @@ bool OverlayTree::CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
     return true;
 
   int const seachingRank = currentRank - 1;
-  return FindNode([&](ref_ptr<OverlayHandle> const & h) -> bool
+  for (auto it = m_handlesCache.begin(); it != m_handlesCache.end(); ++it)
   {
-    if (h->GetFeatureID() == handle->GetFeatureID() && h->GetOverlayRank() == seachingRank)
+    if (it->second->GetFeatureID() == handle->GetFeatureID() &&
+        it->second->GetOverlayRank() == seachingRank)
     {
-      parentOverlay = h;
+      parentOverlay = it->second;
       return true;
     }
-    return false;
-  });
+  }
+
+  return false;
 }
 
-void OverlayTree::AddHandleToDelete(ref_ptr<OverlayHandle> const & handle)
+void OverlayTree::DeleteHandle(ref_ptr<OverlayHandle> const & handle)
 {
-  if (handle->IsBound())
-  {
-    ForEach([&](ref_ptr<OverlayHandle> const & h)
-    {
-      if (h->GetFeatureID() == handle->GetFeatureID())
-      {
-        if (find(m_handlesToDelete.begin(),
-                 m_handlesToDelete.end(), h) == m_handlesToDelete.end())
-          m_handlesToDelete.push_back(h);
-      }
-    });
-  }
-  else
-  {
-    if (find(m_handlesToDelete.begin(),
-             m_handlesToDelete.end(), handle) == m_handlesToDelete.end())
-      m_handlesToDelete.push_back(handle);
-  }
+  size_t const deletedCount = m_handlesCache.erase(GetHandleKey(handle));
+  ASSERT_NOT_EQUAL(deletedCount, 0, ());
+  if (deletedCount != 0)
+    Erase(handle);
+}
+
+uint64_t OverlayTree::GetHandleKey(ref_ptr<OverlayHandle> const & handle) const
+{
+  return reinterpret_cast<uint64_t>(handle.get());
 }
 
 void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result) const
@@ -327,11 +355,11 @@ void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result
   m2::RectD rect(pxPoint, pxPoint);
   rect.Inflate(kSearchRectHalfSize, kSearchRectHalfSize);
 
-  ForEach([&](ref_ptr<OverlayHandle> const & h)
+  for (auto it = m_handlesCache.begin(); it != m_handlesCache.end(); ++it)
   {
-    if (rect.IsPointInside(h->GetPivot(screen, false)))
-      result.push_back(h);
-  });
+    if (rect.IsPointInside(it->second->GetPivot(screen, false)))
+      result.push_back(it->second);
+  }
 }
 
 void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) const

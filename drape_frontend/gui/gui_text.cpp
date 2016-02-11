@@ -455,11 +455,8 @@ MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::Point
   , m_glyphsReady(false)
 {}
 
-void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                                              ScreenBase const & screen) const
+void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const
 {
-  UNUSED_VALUE(screen);
-
   if (!m_isContentDirty)
     return;
 

@@ -162,12 +162,11 @@ public:
     }
   }
 
-  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                            ScreenBase const & screen) const override
+  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override
   {
     // for visible text paths we always update normals
     SetForceUpdateNormals(IsVisible());
-    TextHandle::GetAttributeMutation(mutator, screen);
+    TextHandle::GetAttributeMutation(mutator);
   }
 
   uint64_t GetPriorityMask() const override

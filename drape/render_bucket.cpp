@@ -71,7 +71,13 @@ void RenderBucket::CollectOverlayHandles(ref_ptr<OverlayTree> tree)
     tree->Add(make_ref(overlayHandle));
 }
 
-void RenderBucket::Render(ScreenBase const & screen)
+void RenderBucket::RemoveOverlayHandles(ref_ptr<OverlayTree> tree)
+{
+  for (drape_ptr<OverlayHandle> const & overlayHandle : m_overlay)
+    tree->Remove(make_ref(overlayHandle));
+}
+
+void RenderBucket::Render()
 {
   ASSERT(m_buffer != nullptr, ());
 
@@ -94,7 +100,7 @@ void RenderBucket::Render(ScreenBase const & screen)
       }
 
       if (handle->HasDynamicAttributes())
-        handle->GetAttributeMutation(rfpAttrib, screen);
+        handle->GetAttributeMutation(rfpAttrib);
     }
 
     m_buffer->ApplyMutation(hasIndexMutation ? rfpIndex : nullptr, rfpAttrib);

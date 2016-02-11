@@ -36,7 +36,8 @@ public:
 
   void Update(ScreenBase const & modelView);
   void CollectOverlayHandles(ref_ptr<OverlayTree> tree);
-  void Render(ScreenBase const & screen);
+  void RemoveOverlayHandles(ref_ptr<OverlayTree> tree);
+  void Render();
 
   // Only for testing! Don't use this function in production code!
   void RenderDebug(ScreenBase const & screen) const;

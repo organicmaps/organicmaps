@@ -68,11 +68,8 @@ GpsTrackHandle::GpsTrackHandle(size_t pointsCount)
   m_buffer.resize(pointsCount * dp::Batcher::VertexPerQuad);
 }
 
-void GpsTrackHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                                          ScreenBase const & screen) const
+void GpsTrackHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const
 {
-  UNUSED_VALUE(screen);
-
   if (!m_needUpdate)
     return;
 

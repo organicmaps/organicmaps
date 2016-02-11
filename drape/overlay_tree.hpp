@@ -9,6 +9,7 @@
 
 #include "std/array.hpp"
 #include "std/vector.hpp"
+#include "std/unordered_map.hpp"
 
 namespace dp
 {
@@ -39,12 +40,12 @@ class OverlayTree : public m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTrait
 public:
   OverlayTree();
 
-  bool Frame(bool is3d);
+  bool Frame();
   bool IsNeedUpdate() const;
-  void ForceUpdate();
 
   void StartOverlayPlacing(ScreenBase const & screen);
   void Add(ref_ptr<OverlayHandle> handle);
+  void Remove(ref_ptr<OverlayHandle> handle);
   void EndOverlayPlacing();
 
   void Select(m2::RectD const & rect, TOverlayContainer & result) const;
@@ -72,11 +73,16 @@ private:
                     ref_ptr<OverlayHandle> const & parentOverlay);
   bool CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
                    ref_ptr<OverlayHandle> & parentOverlay) const;
-  void AddHandleToDelete(ref_ptr<OverlayHandle> const & handle);
+  void DeleteHandle(ref_ptr<OverlayHandle> const & handle);
+
+  uint64_t GetHandleKey(ref_ptr<OverlayHandle> const & handle) const;
 
   int m_frameCounter;
   array<vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
   vector<ref_ptr<OverlayHandle>> m_handlesToDelete;
+
+  unordered_map<uint64_t, ref_ptr<OverlayHandle>> m_handlesCache;
+
   bool m_followingMode;
 
 #ifdef COLLECT_DISPLACEMENT_INFO

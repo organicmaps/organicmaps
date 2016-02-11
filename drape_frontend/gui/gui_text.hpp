@@ -150,8 +150,7 @@ public:
   MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
                      ref_ptr<dp::TextureManager> textures);
 
-  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                            ScreenBase const & screen) const override;
+  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
 
   bool Update(ScreenBase const & screen) override;
 

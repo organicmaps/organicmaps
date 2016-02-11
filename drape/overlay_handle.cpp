@@ -34,7 +34,16 @@ OverlayHandle::OverlayHandle(FeatureID const & id,
   , m_pivotZ(0.0)
   , m_isBillboard(isBillboard)
   , m_isVisible(false)
+  , m_enableCaching(false)
+  , m_extendedRectsDirty(true)
+  , m_extendedRectDirty(true)
+{}
+
+void OverlayHandle::SetCachingEnable(bool enable)
 {
+  m_enableCaching = enable;
+  m_extendedRectsDirty = true;
+  m_extendedRectDirty = true;
 }
 
 bool OverlayHandle::IsVisible() const
@@ -76,11 +85,8 @@ m2::PointD OverlayHandle::GetPivot(ScreenBase const & screen, bool perspective) 
 
 bool OverlayHandle::IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle> const h) const
 {
-  Rects ar1;
-  Rects ar2;
-
-  GetExtendedPixelShape(screen, ar1);
-  h->GetExtendedPixelShape(screen, ar2);
+  Rects const & ar1 = GetExtendedPixelShape(screen);
+  Rects const & ar2 = h->GetExtendedPixelShape(screen);
 
   for (size_t i = 0; i < ar1.size(); ++i)
     for (size_t j = 0; j < ar2.size(); ++j)
@@ -102,11 +108,9 @@ void OverlayHandle::GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const
   mutator->AppendIndexes(m_indexes.GetRawConst(), m_indexes.Size());
 }
 
-void OverlayHandle::GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator,
-                                         ScreenBase const & screen) const
+void OverlayHandle::GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator) const
 {
   UNUSED_VALUE(mutator);
-  UNUSED_VALUE(screen);
 }
 
 bool OverlayHandle::HasDynamicAttributes() const
@@ -140,16 +144,26 @@ OverlayHandle::TOffsetNode const & OverlayHandle::GetOffsetNode(uint8_t bufferID
 
 m2::RectD OverlayHandle::GetExtendedPixelRect(ScreenBase const & screen) const
 {
-  m2::RectD rect = GetPixelRect(screen, screen.isPerspective());
-  rect.Inflate(m_extendingSize, m_extendingSize);
-  return rect;
+  if (m_enableCaching && !m_extendedRectDirty)
+    return m_extendedRectCache;
+
+  m_extendedRectCache = GetPixelRect(screen, screen.isPerspective());
+  m_extendedRectCache.Inflate(m_extendingSize, m_extendingSize);
+  m_extendedRectDirty = false;
+  return m_extendedRectCache;
 }
 
-void OverlayHandle::GetExtendedPixelShape(ScreenBase const & screen, Rects & rects) const
+OverlayHandle::Rects const & OverlayHandle::GetExtendedPixelShape(ScreenBase const & screen) const
 {
-  GetPixelShape(screen, rects, screen.isPerspective());
-  for (auto & rect : rects)
+  if (m_enableCaching && !m_extendedRectsDirty)
+    return m_extendedRectsCache;
+
+  m_extendedRectsCache.clear();
+  GetPixelShape(screen, m_extendedRectsCache, screen.isPerspective());
+  for (auto & rect : m_extendedRectsCache)
     rect.Inflate(m_extendingSize, m_extendingSize);
+  m_extendedRectsDirty = false;
+  return m_extendedRectsCache;
 }
 
 m2::RectD OverlayHandle::GetPerspectiveRect(m2::RectD const & pixelRect, ScreenBase const & screen) const

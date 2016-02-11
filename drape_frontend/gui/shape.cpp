@@ -116,7 +116,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
         {
           dp::AttributeBufferMutator mutator;
           ref_ptr<dp::AttributeBufferMutator> mutatorRef = make_ref(&mutator);
-          info.m_handle->GetAttributeMutation(mutatorRef, screen);
+          info.m_handle->GetAttributeMutation(mutatorRef);
           info.m_buffer->ApplyMutation(nullptr, mutatorRef);
         }
 

@@ -58,7 +58,8 @@ struct MergedGroupKey
 };
 
 template <typename ToDo>
-bool RemoveGroups(ToDo & filter, vector<drape_ptr<RenderGroup>> & groups)
+bool RemoveGroups(ToDo & filter, vector<drape_ptr<RenderGroup>> & groups,
+                  ref_ptr<dp::OverlayTree> tree)
 {
   size_t startCount = groups.size();
   size_t count = startCount;
@@ -66,8 +67,9 @@ bool RemoveGroups(ToDo & filter, vector<drape_ptr<RenderGroup>> & groups)
   while (current < count)
   {
     drape_ptr<RenderGroup> & group = groups[current];
-    if (filter(move(group)))
+    if (filter(group))
     {
+      group->RemoveOverlay(tree);
       swap(group, groups.back());
       groups.pop_back();
       --count;
@@ -81,27 +83,6 @@ bool RemoveGroups(ToDo & filter, vector<drape_ptr<RenderGroup>> & groups)
   return startCount != count;
 }
 
-struct ActivateTilePredicate
-{
-  TileKey const & m_tileKey;
-
-  ActivateTilePredicate(TileKey const & tileKey)
-    : m_tileKey(tileKey)
-  {
-  }
-
-  bool operator()(drape_ptr<RenderGroup> & group) const
-  {
-    if (group->GetTileKey() == m_tileKey)
-    {
-      group->Appear();
-      return true;
-    }
-
-    return false;
-  }
-};
-
 struct RemoveTilePredicate
 {
   mutable bool m_deletionMark = false;
@@ -109,10 +90,9 @@ struct RemoveTilePredicate
 
   RemoveTilePredicate(function<bool(drape_ptr<RenderGroup> const &)> const & predicate)
     : m_predicate(predicate)
-  {
-  }
+  {}
 
-  bool operator()(drape_ptr<RenderGroup> && group) const
+  bool operator()(drape_ptr<RenderGroup> const & group) const
   {
     if (m_predicate(group))
     {
@@ -120,30 +100,6 @@ struct RemoveTilePredicate
       group->DeleteLater();
       m_deletionMark = true;
       return group->CanBeDeleted();
-    }
-
-    return false;
-  }
-};
-
-template <typename TPredicate>
-struct MoveTileFunctor
-{
-  TPredicate m_predicate;
-  vector<drape_ptr<RenderGroup>> & m_targetGroups;
-
-  MoveTileFunctor(TPredicate predicate, vector<drape_ptr<RenderGroup>> & groups)
-    : m_predicate(predicate)
-    , m_targetGroups(groups)
-  {
-  }
-
-  bool operator()(drape_ptr<RenderGroup> && group)
-  {
-    if (m_predicate(group))
-    {
-      m_targetGroups.push_back(move(group));
-      return true;
     }
 
     return false;
@@ -723,14 +679,14 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
   {
     ResolveTileKeys(rect, tiles);
 
-    auto eraseFunction = [&tiles](drape_ptr<RenderGroup> && group)
+    auto eraseFunction = [&tiles](drape_ptr<RenderGroup> const & group)
     {
       return tiles.count(group->GetTileKey()) == 0;
     };
 
     for (RenderLayer & layer : m_layers)
     {
-      RemoveGroups(eraseFunction, layer.m_renderGroups);
+      RemoveGroups(eraseFunction, layer.m_renderGroups, make_ref(m_overlayTree));
       layer.m_isDirty = true;
     }
 
@@ -783,12 +739,11 @@ void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
 void FrontendRenderer::RemoveRenderGroups(TRenderGroupRemovePredicate const & predicate)
 {
   ASSERT(predicate != nullptr, ());
-  m_overlayTree->ForceUpdate();
 
   for (RenderLayer & layer : m_layers)
   {
     RemoveTilePredicate f(predicate);
-    RemoveGroups(f, layer.m_renderGroups);
+    RemoveGroups(f, layer.m_renderGroups, make_ref(m_overlayTree));
     layer.m_isDirty |= f.m_deletionMark;
   }
 }
@@ -855,7 +810,7 @@ void FrontendRenderer::PrepareGpsTrackPoints(size_t pointsCount)
 
 void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
 {
-  if (m_overlayTree->Frame(modelView.isPerspective()))
+  if (m_overlayTree->Frame())
     m_overlayTree->StartOverlayPlacing(modelView);
 }
 
@@ -889,7 +844,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   for (RenderLayer & layer : m_layers)
   {
     for (auto & group : layer.m_renderGroups)
-      layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(isFeaturesWaiting);
+      layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(isFeaturesWaiting, make_ref(m_overlayTree));
   }
 
   bool const isPerspective = modelView.isPerspective();
@@ -1002,7 +957,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
 {
   RenderLayer & layer2d = m_layers[RenderLayer::Geometry2dID];
-  layer2d.Sort();
+  layer2d.Sort(make_ref(m_overlayTree));
 
   for (drape_ptr<RenderGroup> const & group : layer2d.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
@@ -1012,7 +967,7 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
 {
   GLFunctions::glEnable(gl_const::GLDepthTest);
   RenderLayer & layer = m_layers[RenderLayer::Geometry3dID];
-  layer.Sort();
+  layer.Sort(make_ref(m_overlayTree));
   for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
 }
@@ -1020,7 +975,7 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
 void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
 {
   RenderLayer & overlay = m_layers[RenderLayer::OverlayID];
-  overlay.Sort();
+  overlay.Sort(make_ref(m_overlayTree));
   BeginUpdateOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
     UpdateOverlayTree(modelView, group);
@@ -1545,9 +1500,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
     return group->IsOverlay() && group->GetTileKey().m_zoomLevel > m_currentZoomLevel;
   };
   for (RenderLayer & layer : m_layers)
-    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups);
-
-  m_overlayTree->ForceUpdate();
+    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
 
   if (m_lastReadModelView != modelView)
   {
@@ -1576,7 +1529,7 @@ FrontendRenderer::RenderLayer::RenderLayerID FrontendRenderer::RenderLayer::GetL
   return Geometry2dID;
 }
 
-void FrontendRenderer::RenderLayer::Sort()
+void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)
 {
   if (!m_isDirty)
     return;
@@ -1587,6 +1540,7 @@ void FrontendRenderer::RenderLayer::Sort()
 
   while (!m_renderGroups.empty() && m_renderGroups.back()->CanBeDeleted())
   {
+    m_renderGroups.back()->RemoveOverlay(overlayTree);
     m_renderGroups.pop_back();
   }
 }

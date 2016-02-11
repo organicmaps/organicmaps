@@ -64,15 +64,14 @@ public:
   double GetExtendingSize() const { return m_extendingSize; }
   void SetExtendingSize(double extendingSize) { m_extendingSize = extendingSize; }
   m2::RectD GetExtendedPixelRect(ScreenBase const & screen) const;
-  void GetExtendedPixelShape(ScreenBase const & screen, Rects & rects) const;
+  Rects const & GetExtendedPixelShape(ScreenBase const & screen) const;
 
   bool IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle> const h) const;
 
   virtual bool IndexesRequired() const { return true; }
   void * IndexStorage(uint32_t size);
   void GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const;
-  virtual void GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator,
-                                    ScreenBase const & screen) const;
+  virtual void GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator) const;
 
   bool HasDynamicAttributes() const;
   void AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count);
@@ -89,6 +88,8 @@ public:
 
   int GetOverlayRank() const { return m_overlayRank; }
   void SetOverlayRank(int overlayRank) { m_overlayRank = overlayRank; }
+
+  void SetCachingEnable(bool enable);
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
   virtual string GetOverlayDebugInfo() { return ""; }
@@ -125,6 +126,12 @@ private:
   struct OffsetNodeFinder;
 
   set<TOffsetNode, LessOffsetNode> m_offsets;
+
+  bool m_enableCaching;
+  mutable Rects m_extendedRectsCache;
+  mutable bool m_extendedRectsDirty;
+  mutable m2::RectD m_extendedRectCache;
+  mutable bool m_extendedRectDirty;
 };
 
 class SquareHandle : public OverlayHandle
