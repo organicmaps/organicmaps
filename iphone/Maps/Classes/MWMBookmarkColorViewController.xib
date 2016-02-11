@@ -7,37 +7,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMBookmarkColorViewController">
             <connections>
-                <outlet property="tableView" destination="07I-Yr-hrI" id="cuQ-HB-occ"/>
-                <outlet property="tableViewHeight" destination="Q3E-d1-c2p" id="4be-XT-doO"/>
-                <outlet property="view" destination="TjH-fk-Ez1" id="avG-d0-UHK"/>
+                <outlet property="view" destination="TDK-os-A99" id="sVU-ZA-N7j"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="TjH-fk-Ez1">
+        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="TDK-os-A99">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="07I-Yr-hrI">
-                    <rect key="frame" x="0.0" y="22" width="320" height="352"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="352" id="Q3E-d1-c2p"/>
-                    </constraints>
-                    <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="sfi-es-NXL"/>
-                        <outlet property="delegate" destination="-1" id="C78-4z-O7V"/>
-                    </connections>
-                </tableView>
-            </subviews>
-            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="07I-Yr-hrI" secondAttribute="trailing" id="VBs-Fh-muY"/>
-                <constraint firstItem="07I-Yr-hrI" firstAttribute="leading" secondItem="TjH-fk-Ez1" secondAttribute="leading" id="eMR-5m-KpO"/>
-                <constraint firstItem="07I-Yr-hrI" firstAttribute="top" secondItem="TjH-fk-Ez1" secondAttribute="top" constant="22" id="l4B-e3-TRl"/>
-            </constraints>
-            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-            <point key="canvasLocation" x="931" y="273"/>
-        </view>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <point key="canvasLocation" x="877" y="211"/>
+        </tableView>
     </objects>
 </document>

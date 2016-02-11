@@ -1,8 +1,8 @@
-#import "ViewController.h"
+#import "TableViewController.h"
 
 @class MWMPlacePageViewManager;
 
-@interface MWMBookmarkColorViewController : ViewController
+@interface MWMBookmarkColorViewController : TableViewController
 
 @property (weak, nonatomic) MWMPlacePageViewManager * placePageManager;
 @property (weak, nonatomic) UINavigationController * iPadOwnerNavigationController;

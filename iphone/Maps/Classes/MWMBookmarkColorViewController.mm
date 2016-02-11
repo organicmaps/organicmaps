@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMBookmarkColorCell.h"
 #import "MWMBookmarkColorViewController.h"
 #import "MWMPlacePageEntity.h"
@@ -6,7 +7,10 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIViewController+navigation.h"
 
-static NSArray * const kBookmarkColorsVariant = @[
+namespace
+{
+
+NSArray<NSString *> * const kBookmarkColorsVariant = @[
   @"placemark-red",
   @"placemark-yellow",
   @"placemark-blue",
@@ -17,17 +21,15 @@ static NSArray * const kBookmarkColorsVariant = @[
   @"placemark-pink"
 ];
 
-static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
+NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
+
+} // namespace
+
 
 @interface MWMBookmarkColorViewController ()
 
-@property (weak, nonatomic) IBOutlet UITableView * tableView;
 @property (nonatomic) BOOL colorWasChanged;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * tableViewHeight;
 
-@end
-
-@interface MWMBookmarkColorViewController (TableView) <UITableViewDataSource, UITableViewDelegate>
 @end
 
 @implementation MWMBookmarkColorViewController
@@ -36,8 +38,6 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 {
   [super viewDidLoad];
   self.title = L(@"bookmark_color");
-  self.tableView.separatorColor = [UIColor blackDividers];
-  self.view.backgroundColor = [UIColor pressBackground];
   [self.tableView registerNib:[UINib nibWithNibName:kBookmarkColorCellIdentifier bundle:nil] forCellReuseIdentifier:kBookmarkColorCellIdentifier];
   self.colorWasChanged = NO;
 }
@@ -45,15 +45,17 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  [self configureTableViewForOrientation:self.interfaceOrientation];
-  [self.tableView reloadData];
   if (!self.iPadOwnerNavigationController)
     return;
 
   [self.iPadOwnerNavigationController setNavigationBarHidden:NO];
-  CGFloat const bottomOffset = 88.;
-  self.iPadOwnerNavigationController.view.height = self.tableView.height + bottomOffset;
   [self showBackButton];
+  CGFloat const navBarHeight = self.navigationController.navigationBar.height;
+  [self.tableView reloadData];
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+  {
+    [self.placePageManager changeHeight:self.tableView.contentSize.height + navBarHeight];
+  }];
 }
 
 - (void)backTap
@@ -62,42 +64,6 @@ static NSString * const kBookmarkColorCellIdentifier = @"MWMBookmarkColorCell";
    [self.iPadOwnerNavigationController setNavigationBarHidden:YES];
   [self.placePageManager reloadBookmark];
   [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)configureTableViewForOrientation:(UIInterfaceOrientation)orientation
-{
-  if (self.iPadOwnerNavigationController)
-    return;
-
-  CGSize const size = self.navigationController.view.bounds.size;
-  CGFloat const defaultHeight = 352.;
-  switch (orientation)
-  {
-    case UIInterfaceOrientationPortrait:
-    case UIInterfaceOrientationPortraitUpsideDown:
-    case UIInterfaceOrientationUnknown:
-      self.tableViewHeight.constant = defaultHeight;
-      break;
-    case UIInterfaceOrientationLandscapeLeft:
-    case UIInterfaceOrientationLandscapeRight:
-    {
-      CGFloat const topOffset = 24.;
-      CGFloat const navBarHeight = 64.;
-      self.tableViewHeight.constant = MIN(defaultHeight, MIN(size.width, size.height) - 2 * topOffset - navBarHeight);
-      break;
-    }
-  }
-  [self.tableView setNeedsLayout];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-  [self configureTableViewForOrientation:self.interfaceOrientation];
-}
-
-- (BOOL)shouldAutorotate
-{
-  return YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
