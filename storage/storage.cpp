@@ -1154,7 +1154,10 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   nodeAttrs.m_error = statusAndErr.error;
   nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);
   nodeAttrs.m_parentCountryId = nodeValue.GetParent();
-  nodeAttrs.m_parentLocalName = m_countryNameGetter(nodeAttrs.m_parentCountryId);
+  if (nodeAttrs.m_parentCountryId.empty())
+    nodeAttrs.m_parentLocalName.clear();
+  else
+    nodeAttrs.m_parentLocalName = m_countryNameGetter(nodeAttrs.m_parentCountryId);
 }
 
 void Storage::DoClickOnDownloadMap(TCountryId const & countryId)
