@@ -225,12 +225,9 @@ IsLinkChecker const & IsLinkChecker::Instance()
   return inst;
 }
 
-IsBuildingChecker::IsBuildingChecker()
+IsBuildingChecker::IsBuildingChecker() : BaseChecker(1 /* level */)
 {
-  Classificator const & c = classif();
-
-  m_types.push_back(c.GetTypeByPath({ "building" }));
-  m_types.push_back(c.GetTypeByPath({ "building", "address" }));
+  m_types.push_back(classif().GetTypeByPath({ "building" }));
 }
 
 IsBuildingChecker const & IsBuildingChecker::Instance()
@@ -257,7 +254,7 @@ IsLocalityChecker::IsLocalityChecker()
     m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
 }
 
-IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1)
+IsBuildingPartChecker::IsBuildingPartChecker() : BaseChecker(1 /* level */)
 {
   m_types.push_back(classif().GetTypeByPath({"building:part"}));
 }
@@ -268,7 +265,7 @@ IsBuildingPartChecker const & IsBuildingPartChecker::Instance()
   return inst;
 }
 
-IsBridgeChecker::IsBridgeChecker() : BaseChecker(3)
+IsBridgeChecker::IsBridgeChecker() : BaseChecker(3 /* level */)
 { 
 }
 
@@ -283,7 +280,7 @@ bool IsBridgeChecker::IsMatched(uint32_t type) const
   return IsTypeConformed(type, {"highway", "*", "bridge"});
 }
 
-IsTunnelChecker::IsTunnelChecker() : BaseChecker(3)
+IsTunnelChecker::IsTunnelChecker() : BaseChecker(3 /* level */)
 {
 }
 
