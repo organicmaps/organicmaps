@@ -129,6 +129,7 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   static jfieldID const countryItemFieldTotalChildCount = env->GetFieldID(g_countryItemClass, "totalChildCount", "I");
   static jfieldID const countryItemFieldStatus = env->GetFieldID(g_countryItemClass, "status", "I");
   static jfieldID const countryItemFieldErrorCode = env->GetFieldID(g_countryItemClass, "errorCode", "I");
+  static jfieldID const countryItemFieldPresent = env->GetFieldID(g_countryItemClass, "present", "Z");
 
   // Localized name
   jstring name = jni::ToJavaString(env, attrs.m_nodeLocalName);
@@ -146,6 +147,9 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   // Status and error code
   env->SetIntField(item, countryItemFieldStatus, static_cast<jint>(attrs.m_status));
   env->SetIntField(item, countryItemFieldErrorCode, static_cast<jint>(attrs.m_error));
+
+  // Presence flag
+  env->SetBooleanField(item, countryItemFieldPresent, attrs.m_present);
 }
 
 static void PutItemsToList(JNIEnv * env, jobject const list,  vector<TCountryId> const & children, TCountryId const & parent,

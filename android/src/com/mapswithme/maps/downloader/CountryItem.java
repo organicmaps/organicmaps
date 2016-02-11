@@ -45,6 +45,7 @@ public final class CountryItem implements Comparable<CountryItem>
   public int category;
   public int status;
   public int errorCode;
+  public boolean present;
 
   public int progress;
 
@@ -91,17 +92,24 @@ public final class CountryItem implements Comparable<CountryItem>
     return res;
   }
 
+  public boolean isExpandable()
+  {
+    return (totalChildCount > 1);
+  }
+
   @Override
   public String toString()
   {
     return "{ id: \"" + id +
            "\", parentId: \"" + parentId +
-           "\", category: " + category +
-           ", status: " + status +
-           ", headerId: " + headerId +
+           "\", category: \"" + category +
+           "\", present: " + present +
            ", name: \"" + name +
            "\", parentName: \"" + parentName +
-           "\", size: " + size +
+           "\", status: " + status +
+           ", errorCode: " + errorCode +
+           ", headerId: " + headerId +
+           ", size: " + size +
            ", totalSize: " + totalSize +
            ", childCount: " + childCount +
            ", totalChildCount: " + totalChildCount +

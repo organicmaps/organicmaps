@@ -30,14 +30,14 @@ struct NodeAttrs
 {
   NodeAttrs() : m_mwmCounter(0), m_localMwmCounter(0), m_mwmSize(0), m_localMwmSize(0),
     m_downloadingMwmSize(0), m_downloadingProgress(0),
-    m_status(NodeStatus::Undefined), m_error(NodeErrorCode::NoError) {}
+    m_status(NodeStatus::Undefined), m_error(NodeErrorCode::NoError), m_present(false) {}
 
   /// If the node is expandable (a big country) |m_mwmCounter| is number of mwm files (leaves)
   /// belonging to the node. If the node isn't expandable |m_mwmCounter| == 1.
   /// Note. For every expandable node |m_mwmCounter| >= 2.
   uint32_t m_mwmCounter;
 
-  /// Number of mwms belonging to the node which have been donwloaded.
+  /// Number of mwms belonging to the node which have been downloaded.
   uint32_t m_localMwmCounter;
 
   /// If it's not an expandable node, |m_mwmSize| is size of one mwm according to countries.txt.
@@ -74,6 +74,11 @@ struct NodeAttrs
 
   NodeStatus m_status;
   NodeErrorCode m_error;
+
+  /// Indicates that the map is currently downloaded and connected to storage.
+  /// Can be used to distinguish downloadable and updatable maps.
+  /// @todo. Set appropriate value.
+  bool m_present;
 };
 
 /// This class is used for downloading, updating and deleting maps.

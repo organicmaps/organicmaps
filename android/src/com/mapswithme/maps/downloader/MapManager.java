@@ -71,7 +71,8 @@ public final class MapManager
    *   <li>childCount;</li>
    *   <li>totalChildCount;</li>
    *   <li>status;</li>
-   *   <li>errorCode</li>
+   *   <li>errorCode;</li>
+   *   <li>present</li>
    * </ul>
    * </pre>
    */
