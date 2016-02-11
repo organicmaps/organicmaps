@@ -1316,9 +1316,8 @@ area|z16[building],
 node|z16[building],
 area|z16[addr:housenumber][addr:street],
 node|z16[addr:housenumber][addr:street],
-
 {
-  text:  "addr:housename";
+  text: addr:housename;
   font-size: 9;
   text-color: @housename;
   text-position: center;
@@ -1412,7 +1411,6 @@ node|z15-[landuse=construction],
 node|z15-[landuse=landfill],
 node|z15-[landuse=railway],
 node|z15-[landuse=quarry],
-
 {
   text: name;
   font-size: 10;
@@ -1421,24 +1419,14 @@ node|z15-[landuse=quarry],
 }
 /* COMMERCIAL */
 
-area|z17-[landuse=commercial]{
+area|z17-[landuse=commercial]
+{
   text: name;
   font-size: 10;
   text-color: @poi_label;
   text-position: center;
 }
 
-
-/*
-area|z16[addr:housenumber][addr:street],
-node|z16[addr:housenumber][addr:street]
-{
-  text: "addr:housenumber";
-  font-size: 10;
-  text-color: @addr_z16;
-  text-position: center;
-}
-*/
 
 /* NATURAL LABELS - курсив бы */
 
@@ -1522,10 +1510,12 @@ line[waterway]
 area|z10-[natural=lake][bbox_area>=4000000],
 area|z10-[landuse=reservoir][bbox_area>=4000000],
 area|z10-[natural=water][bbox_area>=4000000]
-{text: name;
-font-size: 9;
-text-color: @water_label;
-z-index: 10000;}
+{
+  text: name;
+  font-size: 9;
+  text-color: @water_label;
+  z-index: 10000;
+}
 
 area|z10-[natural=lake][bbox_area<4000000],
 area|z10-[landuse=reservoir][bbox_area<4000000],
@@ -1535,16 +1525,18 @@ area|z10-[natural=water][bbox_area<4000000]
 area|z12-[natural=lake][bbox_area>=10000000],
 area|z12-[landuse=reservoir][bbox_area>=10000000],
 area|z12-[natural=water][bbox_area>=10000000]
-  {text: name;
+{
+  text: name;
   font-size: 10;
   text-color: @water_label;
-  z-index: 300;}
+  z-index: 300;
+}
 
 area|z12-[natural=lake][bbox_area<10000000],
 area|z12-[landuse=reservoir][bbox_area<10000000],
 area|z12-[natural=water][bbox_area<10000000]
-  {}
-  */
+{}
+*/
 
 line[waterway] {
     text-position: line;
@@ -1725,13 +1717,15 @@ line|z17-[route=ferry_motorcar]
 area|z10-[natural=lake][bbox_area>=100000000000],
 area|z10-[landuse=reservoir][bbox_area>=100000000000],
 area|z10-[natural=water][bbox_area>=100000000000]
-{text: name;
-font-size: 20;
-text-color: #090909;
-text-halo-opacity: 0.1;
-text-halo-color: @halo_water_lable;
-text-halo-radius: 0;
-z-index: 100000;}
+{
+  text: name;
+  font-size: 20;
+  text-color: #090909;
+  text-halo-opacity: 0.1;
+  text-halo-color: @halo_water_lable;
+  text-halo-radius: 0;
+  z-index: 100000;
+}
 
 area|z10-[natural=lake][bbox_area<100000000000],
 area|z10-[landuse=reservoir][bbox_area<100000000000],
@@ -1753,8 +1747,9 @@ area|z14-[landuse=forest][name] {
   text-halo-opacity: 0.8;
 }
 area|z14-[leisure=park][!name],
-area|z14-[landuse=forest][!name] {
-}
+area|z14-[landuse=forest][!name]
+{}
+
 area|z14-[leisure=park][name]::int_name,
 area|z14-[landuse=forest][name]::int_name {
   text-offset: 18;
@@ -1799,10 +1794,9 @@ area|z15[leisure=garden][name] {
 }
 */
 area|z15[leisure=park][!name],
-area|z15[landuse=forest][!name]
-/*area|z15[leisure=garden][!name]*/ {
-
-}
+area|z15[landuse=forest][!name],
+/*area|z15[leisure=garden][!name]*/
+{}
 
 area|z16[leisure=park][name],
 area|z16[landuse=forest][name]{
@@ -1828,8 +1822,9 @@ area|z16[leisure=garden][name] {
 }
 area|z16[leisure=park][!name],
 area|z16[leisure=garden][!name],
-area|z16[landuse=forest][!name] {
-}
+area|z16[landuse=forest][!name]
+{}
+
 area|z16[leisure=park][name]::int_name,
 area|z16[leisure=garden][name]::int_name,
 area|z16[landuse=forest][name]::int_name {
@@ -1843,9 +1838,8 @@ area|z16[landuse=forest][name]::int_name {
 }
 area|z16[leisure=park][!name]::int_name,
 area|z16[leisure=garden][!name]::int_name,
-area|z16[landuse=forest][!name]::int_name {
-
-}
+area|z16[landuse=forest][!name]::int_name
+{}
 
 area|z17[leisure=park][name],
 area|z17[landuse=forest][name] {
@@ -1871,11 +1865,10 @@ area|z17[leisure=garden][name] {
   icon-min-distance: 10;
 }
 area|z17[leisure=park][!name],
-area|z17[landuse=forest][!name] {
-}
+area|z17[landuse=forest][!name],
+area|z17[leisure=garden][!name],
+{}
 
-area|z17[leisure=garden][!name] {
-}
 area|z17[leisure=park][name]::int_name,
 area|z17[leisure=garden][name]::int_name,
 area|z17[leisure=forest][name]::int_name
@@ -1890,9 +1883,8 @@ area|z17[leisure=forest][name]::int_name
 }
 area|z17[leisure=park][!name]::int_name,
 area|z17[leisure=garden][!name]::int_name,
-area|z17[leisure=forest][!name]::int_name {
-
-}
+area|z17[leisure=forest][!name]::int_name,
+{}
 
 area|z18-[leisure=park],
 area|z18-[landuse=forest]{
@@ -1964,7 +1956,6 @@ area|z17-[landuse=vineyard],
   text-color: @poi_label;
 }
 
-
 /* MILITARY */
 
 area|z17-[landuse=military],
@@ -1976,6 +1967,7 @@ node|z17-[landuse=military] {
   text-color: @poi_label;
   z-index: 1000;
 }
+
 /* CEMETRY */
 
 area|z15-16[landuse=cemetery] {
@@ -2013,7 +2005,7 @@ line|z17-[man_made=pier],
 line|z17-[man_made=breakwater],
 node|z17-[man_made=pier],
 node|z17-[man_made=breakwater]
- {
+{
   text: name;
   font-size: 10;
   text-color:@poi_label;
@@ -2036,7 +2028,8 @@ node|z15-[waterway=wair]
 
 node|z14-[natural=cape],
 area|z14-[natural=cape]
-{font-size: 8;
-text: name;
-text-color: @poi_label;
-  }
+{
+  font-size: 8;
+  text: name;
+  text-color: @poi_label;
+}
