@@ -48,8 +48,6 @@ namespace
 namespace android
 {
 
-static const string kAutodownloadPrefKey = "AutoDownloadEnabled";
-
 enum MultiTouchAction
 {
   MULTITOUCH_UP    =   0x00000001,
@@ -358,29 +356,6 @@ void Framework::ShowTrack(int category, int track)
   NativeFramework()->ShowTrack(*nTrack);
 }
 
-void Framework::SetCountryTreeListener(shared_ptr<jobject> objPtr)
-{
-  m_javaCountryListener = objPtr;
-  //m_work.GetCountryTree().SetListener(this);
-}
-
-void Framework::ResetCountryTreeListener()
-{
-  //m_work.GetCountryTree().ResetListener();
-  m_javaCountryListener.reset();
-}
-
-int Framework::AddActiveMapsListener(shared_ptr<jobject> obj)
-{
-  m_javaActiveMapListeners[m_currentSlotID] = obj;
-  return m_currentSlotID++;
-}
-
-void Framework::RemoveActiveMapsListener(int slotID)
-{
-  m_javaActiveMapListeners.erase(slotID);
-}
-
 void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)
 {
   m_myPositionModeSignal = fn;
@@ -424,89 +399,6 @@ void Framework::SetupMeasurementSystem()
   m_work.SetupMeasurementSystem();
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////
-/* TODO (trashkalmar): remove old downloader's stuff
-void Framework::ItemStatusChanged(int childPosition)
-{
-  if (m_javaCountryListener == NULL)
-    return;
-
-  JNIEnv * env = jni::GetEnv();
-  static jmethodID const methodID = jni::GetMethodID(env, *m_javaCountryListener,
-                                                     "onItemStatusChanged", "(I)V");
-  ASSERT ( methodID, () );
-
-  env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition);
-}
-
-void Framework::ItemProgressChanged(int childPosition, LocalAndRemoteSizeT const & sizes)
-{
-  if (m_javaCountryListener == NULL)
-    return;
-
-  JNIEnv * env = jni::GetEnv();
-  static jmethodID const methodID = jni::GetMethodID(env, *m_javaCountryListener,
-                                                     "onItemProgressChanged", "(I[J)V");
-  ASSERT ( methodID, () );
-
-  env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition, storage_utils::ToArray(env, sizes));
-}
-
-void Framework::CountryGroupChanged(ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
-                                    ActiveMapsLayout::TGroup const & newGroup, int newPosition)
-{
-  JNIEnv * env = jni::GetEnv();
-  for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
-  {
-    jmethodID const methodID = jni::GetMethodID(env, *(it->second), "onCountryGroupChanged", "(IIII)V");
-    ASSERT ( methodID, () );
-
-    env->CallVoidMethod(*(it->second), methodID, oldGroup, oldPosition, newGroup, newPosition);
-  }
-}
-
-void Framework::CountryStatusChanged(ActiveMapsLayout::TGroup const & group, int position,
-                                     TStatus const & oldStatus, TStatus const & newStatus)
-{
-  JNIEnv * env = jni::GetEnv();
-  for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
-  {
-    jmethodID const methodID = jni::GetMethodID(env, *(it->second), "onCountryStatusChanged", "(IIII)V");
-    ASSERT ( methodID, () );
-
-    env->CallVoidMethod(*(it->second), methodID, group, position,
-                           static_cast<jint>(oldStatus), static_cast<jint>(newStatus));
-  }
-}
-
-void Framework::CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, int position,
-                                      MapOptions const & oldOpt, MapOptions const & newOpt)
-{
-  JNIEnv * env = jni::GetEnv();
-  for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
-  {
-    jmethodID const methodID = jni::GetMethodID(env, *(it->second), "onCountryOptionsChanged", "(IIII)V");
-    ASSERT ( methodID, () );
-
-    env->CallVoidMethod(*(it->second), methodID, group, position,
-                            static_cast<jint>(oldOpt), static_cast<jint>(newOpt));
-  }
-}
-
-void Framework::DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group, int position,
-                                          LocalAndRemoteSizeT const & progress)
-{
-  JNIEnv * env = jni::GetEnv();
-  for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
-  {
-    jmethodID const methodID = jni::GetMethodID(env, *(it->second), "onCountryProgressChanged", "(II[J)V");
-    ASSERT ( methodID, () );
-
-    env->CallVoidMethod(*(it->second), methodID, group, position, storage_utils::ToArray(env, progress));
-  }
-}
-*/
-
 void Framework::PostDrapeTask(TDrapeTask && task)
 {
   ASSERT(task != nullptr, ());
@@ -542,18 +434,6 @@ bool Framework::NeedMigrate()
 void Framework::Migrate()
 {
   m_work.Migrate();
-}
-
-bool Framework::IsAutodownloadMaps() const
-{
-  bool autoDownload = true;
-  Settings::Get(kAutodownloadPrefKey, autoDownload);
-  return autoDownload;
-}
-
-void Framework::SetAutodownloadMaps(bool enable) const
-{
-  Settings::Set(kAutodownloadPrefKey, enable);
 }
 
 } // namespace android

@@ -76,20 +76,6 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeMigrate(JNIEnv * env, jclas
   g_framework->Migrate();
 }
 
-// static boolean nativeIsAutodownload();
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeIsAutodownload(JNIEnv * env, jclass clazz)
-{
-  return g_framework->IsAutodownloadMaps();
-}
-
-// static void nativeSetAutodownload(boolean enabled);
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeSetAutodownload(JNIEnv * env, jclass clazz, jboolean enable)
-{
-  g_framework->SetAutodownloadMaps(enable);
-}
-
 // static int nativeGetDownloadedCount();
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetDownloadedCount(JNIEnv * env, jclass clazz)

@@ -34,38 +34,21 @@ using namespace storage;
 static jobject g_this = nullptr;
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_MapFragment_nativeConnectDownloaderListeners(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_MapFragment_nativeSubscribeOnCountryChanged(JNIEnv * env, jobject thiz)
 {
   g_this = env->NewGlobalRef(thiz);
-  g_framework->NativeFramework()->SetDownloadCountryListener([](TCountryId const & countryId)
+  g_framework->NativeFramework()->SetCurrentCountryChangedListener([](TCountryId const & countryId)
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID methodID = jni::GetMethodID(env, g_this, "onDownloadClicked", "(Ljava/lang/String;)V");
+    jmethodID methodID = jni::GetMethodID(env, g_this, "onCountryChanged", "(Ljava/lang/String;)V");
     env->CallVoidMethod(g_this, methodID, jni::ToJavaString(env, countryId));
-  });
-
-  g_framework->NativeFramework()->SetDownloadCancelListener([](TCountryId const & countryId)
-  {
-    g_framework->Storage().CancelDownloadNode(countryId);
-  });
-
-  g_framework->NativeFramework()->SetAutoDownloadListener([](TCountryId const & countryId)
-  {
-    if (!g_framework->NeedMigrate() &&
-        g_framework->IsAutodownloadMaps() &&
-        Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI)
-    {
-      g_framework->Storage().DownloadNode(countryId);
-    }
   });
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_MapFragment_nativeDisconnectListeners(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_MapFragment_nativeUnsubscribeOnCountryChanged(JNIEnv * env, jclass clazz)
 {
-  g_framework->NativeFramework()->SetDownloadCountryListener(nullptr);
-  g_framework->NativeFramework()->SetDownloadCancelListener(nullptr);
-  g_framework->NativeFramework()->SetAutoDownloadListener(nullptr);
+  g_framework->NativeFramework()->SetCurrentCountryChangedListener(nullptr);
 
   if (g_this)
   {

@@ -19,6 +19,7 @@ public final class Config
 
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   private static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
+  private static final String KEY_PREF_AUTODOWNLOAD = "AutoDownloadEnabled";
 
   private static final String KEY_LIKES_RATED_DIALOG = "RatedDialog";
   private static final String KEY_LIKES_LAST_RATED_SESSION = "LastRatedSession";
@@ -297,6 +298,16 @@ public final class Config
 
     setString(KEY_MISC_UI_THEME_SETTINGS, theme);
     return true;
+  }
+
+  public static boolean isAutodownloadMaps()
+  {
+    return getBool(KEY_PREF_AUTODOWNLOAD, true);
+  }
+
+  public static void setAutodownloadMaps(boolean set)
+  {
+    setBool(KEY_PREF_AUTODOWNLOAD, set);
   }
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);

@@ -26,7 +26,6 @@
 #include "std/unique_ptr.hpp"
 #include "std/cstdint.hpp"
 
-// TODO (trashkalmar): remove old downloader's stuff
 namespace android
 {
   class Framework
@@ -34,14 +33,6 @@ namespace android
   private:
     drape_ptr<dp::ThreadSafeFactory> m_contextFactory;
     ::Framework m_work;
-
-    typedef shared_ptr<jobject> TJobject;
-    TJobject m_javaCountryListener;
-    typedef map<int, TJobject> TListenerMap;
-    TListenerMap m_javaActiveMapListeners;
-    int m_currentSlotID;
-
-    //int m_activeMapsConnectionID;
 
     math::LowPassVector<float, 3> m_sensors[2];
     double m_lastCompass;
@@ -139,12 +130,6 @@ namespace android
 
     void ShowTrack(int category, int track);
 
-    void SetCountryTreeListener(shared_ptr<jobject> objPtr);
-    void ResetCountryTreeListener();
-
-    int AddActiveMapsListener(shared_ptr<jobject> obj);
-    void RemoveActiveMapsListener(int slotID);
-
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
     location::EMyPositionMode GetMyPositionMode() const;
     void SetMyPositionMode(location::EMyPositionMode mode);
@@ -169,23 +154,6 @@ namespace android
     bool NeedMigrate();
     void Migrate();
 
-    bool IsAutodownloadMaps() const;
-    void SetAutodownloadMaps(bool enable) const;
-
-  /* TODO (trashkalmar): remove old downloader's stuff
-    virtual void ItemStatusChanged(int childPosition);
-    virtual void ItemProgressChanged(int childPosition, storage::LocalAndRemoteSizeT const & sizes);
-
-    virtual void CountryGroupChanged(storage::ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
-                                     storage::ActiveMapsLayout::TGroup const & newGroup, int newPosition);
-    virtual void CountryStatusChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
-                                      storage::TStatus const & oldStatus, storage::TStatus const & newStatus);
-    virtual void CountryOptionsChanged(storage::ActiveMapsLayout::TGroup const & group,
-                                       int position, MapOptions const & oldOpt,
-                                       MapOptions const & newOpt);
-    virtual void DownloadingProgressUpdate(storage::ActiveMapsLayout::TGroup const & group, int position,
-                                           storage::LocalAndRemoteSizeT const & progress);
-*/
   private:
     vector<TDrapeTask> m_drapeTasksQueue;
     mutex m_drapeQueueMutex;

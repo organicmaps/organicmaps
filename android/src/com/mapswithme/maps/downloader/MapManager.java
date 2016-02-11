@@ -31,16 +31,6 @@ public final class MapManager
   public static native void nativeMigrate();
 
   /**
-   * Determines whether the maps should be auto-downloaded on Wi-Fi (i.e., on zooming in).
-   */
-  public static native boolean nativeIsAutodownload();
-
-  /**
-   * Sets whether the maps should be auto-downloaded on Wi-Fi (i.e., on zooming in).
-   */
-  public static native void nativeSetAutodownload(boolean enabled);
-
-  /**
    * Returns country ID of the root node.
    * KILLME (trashkalmar): Unused?
    */

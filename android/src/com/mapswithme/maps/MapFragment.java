@@ -16,11 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.downloader.CountryItem;
-import com.mapswithme.maps.downloader.DownloadHelper;
-import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.concurrency.UiThread;
 
 public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
@@ -223,14 +219,14 @@ public class MapFragment extends BaseMwmFragment
     super.onViewCreated(view, savedInstanceState);
     final SurfaceView surfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
     surfaceView.getHolder().addCallback(this);
-    nativeConnectDownloaderListeners();
+    nativeSubscribeOnCountryChanged();
   }
 
   @Override
   public void onDestroyView()
   {
     super.onDestroyView();
-    nativeDisconnectListeners();
+    nativeUnsubscribeOnCountryChanged();
   }
 
   @Override
@@ -282,34 +278,13 @@ public class MapFragment extends BaseMwmFragment
   }
 
   @SuppressWarnings("UnusedDeclaration")
-  public void onDownloadClicked(final String countryId)
+  public void onCountryChanged(final String countryId)
   {
-    UiThread.run(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        if (MapManager.nativeIsLegacyMode())
-        {
-          ((MwmActivity)getActivity()).showMigrateDialog();
-          return;
-        }
-
-        CountryItem item = CountryItem.fill(countryId);
-        DownloadHelper.downloadWithCellularCheck(getActivity(), item.size, item.name, new DownloadHelper.OnDownloadListener()
-        {
-          @Override
-          public void onDownload()
-          {
-            MapManager.nativeDownload(countryId);
-          }
-        });
-      }
-    });
+    // TODO
   }
 
-  private native void nativeConnectDownloaderListeners();
-  private static native void nativeDisconnectListeners();
+  private native void nativeSubscribeOnCountryChanged();
+  private static native void nativeUnsubscribeOnCountryChanged();
 
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
   static native void nativeScalePlus();

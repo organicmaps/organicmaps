@@ -137,13 +137,13 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
     });
 
     TwoStatePreference prefAutodownload = (TwoStatePreference)findPreference(getString(R.string.pref_autodownload));
-    prefAutodownload.setChecked(MapManager.nativeIsAutodownload());
+    prefAutodownload.setChecked(Config.isAutodownloadMaps());
     prefAutodownload.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        MapManager.nativeSetAutodownload((Boolean)newValue);
+        Config.setAutodownloadMaps((Boolean)newValue);
         return true;
       }
     });
