@@ -1178,7 +1178,7 @@ void Framework::LoadSearchResultMetadata(search::Result & res) const
   FeatureID const & id = res.GetFeatureID();
   if (id.IsValid())
     search::ProcessMetadata(*GetFeatureByID(id), res.m_metadata);
-  res.m_metadata.m_isInitialized = true;
+  // res.m_metadata.m_isInitialized is set to true in ProcessMetadata.
 }
 
 void Framework::ShowSearchResult(search::Result const & res)

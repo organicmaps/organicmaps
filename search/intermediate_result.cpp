@@ -28,6 +28,9 @@ double const DIST_SAME_STREET = 5000.0;
 
 void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 {
+  if (meta.m_isInitialized)
+    return;
+
   feature::Metadata const & src = ft.GetMetadata();
 
   meta.m_cuisine = src.Get(feature::Metadata::FMD_CUISINE);
@@ -47,6 +50,7 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
     meta.m_stars = my::clamp(meta.m_stars, 0, 5);
   else
     meta.m_stars = 0;
+  meta.m_isInitialized = true;
 }
 
 namespace impl
