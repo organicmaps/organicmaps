@@ -130,7 +130,7 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
 }
 
 vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(OutgoingCrossNode const & startNode,
-                                                                TRoutingMappingPtr const & currentMapping) const
+                                                        TRoutingMappingPtr const & currentMapping) const
 {
   // Check cached crosses.
   auto const key = make_pair(startNode.m_nodeId, currentMapping->GetMwmId());
@@ -148,6 +148,7 @@ bool CrossMwmGraph::ConstructBorderCrossImpl(OutgoingCrossNode const & startNode
                                              TRoutingMappingPtr const & currentMapping,
                                              vector<BorderCross> & crosses) const
 {
+  auto const fromCross = CrossNode(startNode.m_nodeId, currentMapping->GetMwmId(), startNode.m_point);
   string const & nextMwm = currentMapping->m_crossContext.GetOutgoingMwmName(startNode);
   TRoutingMappingPtr nextMapping = m_indexManager.GetMappingByName(nextMwm);
   // If we haven't this routing file, we skip this path.
@@ -156,9 +157,13 @@ bool CrossMwmGraph::ConstructBorderCrossImpl(OutgoingCrossNode const & startNode
   crosses.clear();
   nextMapping->LoadCrossContext();
   nextMapping->m_crossContext.ForEachIngoingNodeNearPoint(startNode.m_point, [&](IngoingCrossNode const & node)
-  {
-      crosses.emplace_back(CrossNode(startNode.m_nodeId, currentMapping->GetMwmId(), node.m_point),
-                           CrossNode(node.m_nodeId, nextMapping->GetMwmId(), node.m_point));
+    {
+    if (node.m_point == startNode.m_point)
+    {
+      auto const toCross = CrossNode(node.m_nodeId, nextMapping->GetMwmId(), node.m_point);
+      if (toCross.IsValid())
+        crosses.emplace_back(fromCross, toCross);
+    }
   });
   return !crosses.empty();
 }
@@ -187,12 +192,12 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
   IngoingCrossNode ingoingNode;
   bool found = false;
   auto findingFn = [&ingoingNode, &v, &found](IngoingCrossNode const & node)
-                                             {
+  {
                                                if (node.m_nodeId == v.toNode.node)
-                                               {
+                                      {
                                                  found = true;
-                                                 ingoingNode = node;
-                                               }
+                                          ingoingNode = node;
+  }
                                              };
   CHECK(currentContext.ForEachIngoingNodeNearPoint(v.toNode.point, findingFn), ());
 

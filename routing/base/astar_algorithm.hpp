@@ -12,6 +12,13 @@
 namespace routing
 {
 
+template <typename TVertexType>
+struct RoutingResult
+{
+  vector<TVertexType> path;
+  double distance;
+};
+
 template <typename TGraph>
 class AStarAlgorithm
 {
@@ -48,14 +55,13 @@ public:
 
   Result FindPath(TGraphType const & graph,
                   TVertexType const & startVertex, TVertexType const & finalVertex,
-                  vector<TVertexType> & path,
-                  double & distance,
+                  RoutingResult<TVertexType> & result,
                   my::Cancellable const & cancellable = my::Cancellable(),
                   TOnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
 
   Result FindPathBidirectional(TGraphType const & graph,
                                TVertexType const & startVertex, TVertexType const & finalVertex,
-                               vector<TVertexType> & path,
+                               RoutingResult<TVertexType> & result,
                                my::Cancellable const & cancellable = my::Cancellable(),
                                TOnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
 
@@ -170,11 +176,12 @@ template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     TGraphType const & graph,
     TVertexType const & startVertex, TVertexType const & finalVertex,
-    vector<TVertexType> & path,
-    double & distance,
+    RoutingResult<TVertexType> & result,
     my::Cancellable const & cancellable,
     TOnVisitedVertexCallback onVisitedVertexCallback) const
 {
+  result.distance = 0;
+  result.path.clear();
   if (nullptr == onVisitedVertexCallback)
     onVisitedVertexCallback = [](TVertexType const &, TVertexType const &){};
 
@@ -206,8 +213,8 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
 
     if (stateV.vertex == finalVertex)
     {
-      ReconstructPath(stateV.vertex, parent, path);
-      distance = stateV.distance;
+      ReconstructPath(stateV.vertex, parent, result.path);
+      result.distance = stateV.distance;
       return Result::OK;
     }
 
@@ -244,7 +251,7 @@ template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirectional(
     TGraphType const & graph,
     TVertexType const & startVertex, TVertexType const & finalVertex,
-    vector<TVertexType> & path,
+    RoutingResult<TVertexType> & result,
     my::Cancellable const & cancellable,
     TOnVisitedVertexCallback onVisitedVertexCallback) const
 {
@@ -305,10 +312,11 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       if (curTop + nxtTop >= bestPathReducedLength - kEpsilon)
       {
         ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent,
-                                     path);
-        CHECK(!path.empty(), ());
+                                     result.path);
+        result.distance = bestPathReducedLength;
+        CHECK(!result.path.empty(), ());
         if (!cur->forward)
-          reverse(path.begin(), path.end());
+          reverse(result.path.begin(), result.path.end());
         return Result::OK;
       }
     }

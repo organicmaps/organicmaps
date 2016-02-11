@@ -128,7 +128,7 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
                                                                 Junction const & startPos,
                                                                 Junction const & finalPos,
                                                                 RouterDelegate const & delegate,
-                                                                vector<Junction> & path)
+                                                                RoutingResult<Junction> & path)
 {
   AStarProgress progress(0, 100);
 
@@ -145,9 +145,8 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
 
   my::Cancellable const & cancellable = delegate;
   progress.Initialize(startPos.GetPoint(), finalPos.GetPoint());
-  double cost = 0;
   TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPath(
-      RoadGraph(graph), startPos, finalPos, path, cost, cancellable, onVisitJunctionFn);
+      RoadGraph(graph), startPos, finalPos, path, cancellable, onVisitJunctionFn);
   return Convert(res);
 }
 
@@ -155,7 +154,7 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
 
 IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(
     IRoadGraph const & graph, Junction const & startPos, Junction const & finalPos,
-    RouterDelegate const & delegate, vector<Junction> & path)
+    RouterDelegate const & delegate, RoutingResult<Junction> & path)
 {
   AStarProgress progress(0, 100);
 

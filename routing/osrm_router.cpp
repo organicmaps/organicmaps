@@ -318,7 +318,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
       {
         LOG(LINFO, ("Found only cross path."));
         auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
-        LOG(LINFO, ("Make final route", timer.ElapsedNano()));
+        LOG(LINFO, ("Made final route in", timer.ElapsedNano(), "ns."));
         return code;
       }
       return RouteNotFound;
@@ -329,7 +329,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     {
       LOG(LINFO, ("Cross mwm path shorter. Cross cost:", crossCost, "single cost:", routingResult.shortestPathLength));
       auto code = MakeRouteFromCrossesPath(finalPath, delegate, route);
-      LOG(LINFO, ("Make final route", timer.ElapsedNano()));
+      LOG(LINFO, ("Made final route in", timer.ElapsedNano(), "ns."));
       timer.Reset();
       return code;
     }
@@ -373,7 +373,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                     {
                                       indexPair.second->FreeCrossContext();
                                     });
-      LOG(LINFO, ("Make final route", timer.ElapsedNano()));
+      LOG(LINFO, ("Made final route in", timer.ElapsedNano(), "ns."));
       timer.Reset();
       return code;
     }
