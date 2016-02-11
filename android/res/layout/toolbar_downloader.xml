@@ -22,7 +22,7 @@
       android:layout_gravity="end|center_vertical"
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
-      android:src="@drawable/ic_download_map"/>
+      android:src="@drawable/ic_download"/>
 
     <TextView
       android:id="@+id/update_all"
