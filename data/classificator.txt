@@ -162,6 +162,7 @@ world  +
         {}
     building  +
         address  -
+        train_station  -
         {}
     building:part  -
     communication  +
