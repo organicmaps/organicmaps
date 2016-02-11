@@ -1256,4 +1256,89 @@ UNIT_TEST(StorageTest_CalcLimitRect)
 
   TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
 }
+
+UNIT_TEST(StorageTest_CountriesNamesTest)
+{
+  string const ruJson =
+      "\
+      {\
+      \"Countries\":\"Весь мир\",\
+      \"Abkhazia\":\"Абхазия\",\
+      \"Algeria\":\"Алжир\",\
+      \"Algeria_Central\":\"Алжир (центральная часть)\",\
+      \"Algeria_Coast\":\"Алжир (побережье)\"\
+      }";
+
+  string const frJson =
+      "\
+      {\
+      \"Countries\":\"Des pays\",\
+      \"Abkhazia\":\"Abkhazie\",\
+      \"Algeria\":\"Algérie\",\
+      \"Algeria_Central\":\"Algérie (partie centrale)\",\
+      \"Algeria_Coast\":\"Algérie (Côte)\"\
+      }";
+
+  Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
+
+  // set russian locale
+
+  storage.SetLocaleForTesting(ruJson, "ru");
+  TEST_EQUAL(string("ru"), storage.GetLocale(), ());
+
+  NodeAttrs nodeAttrs;
+  storage.GetNodeAttrs("Abkhazia", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Абхазия", ());
+  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Весь мир", ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("Algeria", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Алжир", ());
+  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Весь мир", ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Алжир (побережье)", ());
+  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Алжир", ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("Algeria_Central", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Алжир (центральная часть)", ());
+  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Алжир", ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("South Korea_South", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "South Korea_South", ());
+  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Весь мир", ());
+
+  // set french locale
+
+  storage.SetLocaleForTesting(frJson, "fr");
+  TEST_EQUAL(string("fr"), storage.GetLocale(), ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("Abkhazia", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Abkhazie", ());
+  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Des pays", ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("Algeria", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Algérie", ());
+  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Des pays", ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Algérie (Côte)", ());
+  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Algérie", ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("Algeria_Central", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Algérie (partie centrale)", ());
+  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Algérie", ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("South Korea_South", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "South Korea_South", ());
+  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Des pays", ());
+}
 }  // namespace storage

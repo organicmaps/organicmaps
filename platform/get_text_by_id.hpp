@@ -11,7 +11,8 @@ namespace platform
 // For the time being it's only strings for TTS.
 enum class TextSource
 {
-  TtsSound = 0
+  TtsSound = 0, // maneuvers text to speech strings
+  Countries // countries names strings
 };
 
 class GetTextById;

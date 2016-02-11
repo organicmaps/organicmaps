@@ -1,6 +1,7 @@
 #pragma once
 
 #include "storage/country.hpp"
+#include "storage/country_name_getter.hpp"
 #include "storage/index.hpp"
 #include "storage/map_files_downloader.hpp"
 #include "storage/queued_country.hpp"
@@ -145,6 +146,8 @@ private:
   // |m_downloadMapOnTheMap| is called when an end user clicks on download map or retry button
   // on the map.
   TDownloadFn m_downloadMapOnTheMap;
+
+  CountryNameGetter m_countryNameGetter;
 
   void DownloadNextCountryFromQueue();
 
@@ -411,13 +414,15 @@ public:
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(vector<Country const *> & countries) const;
 
+  /// Sets and gets locale, which is used to get localized counries names
+  void SetLocale(string const & locale);
+  string GetLocale() const;
+
   // for testing:
   void SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader);
   void SetCurrentDataVersionForTesting(int64_t currentVersion);
-  void SetDownloadingUrlsForTesting(vector<string> const & downloadingUrls)
-  {
-    m_downloadingUrlsForTesting = downloadingUrls;
-  }
+  void SetDownloadingUrlsForTesting(vector<string> const & downloadingUrls);
+  void SetLocaleForTesting(string const & jsonBuffer, string const & locale);
 
 private:
   friend void UnitTest_StorageTest_DeleteCountrySingleMwm();

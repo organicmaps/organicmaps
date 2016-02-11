@@ -17,8 +17,10 @@ string GetTextSourceString(platform::TextSource textSource)
 {
   switch (textSource)
   {
-    case platform::TextSource::TtsSound:
-      return string("sound-strings");
+  case platform::TextSource::TtsSound:
+    return string("sound-strings");
+  case platform::TextSource::Countries:
+    return string("countries-strings");
   }
   ASSERT(false, ());
   return string();

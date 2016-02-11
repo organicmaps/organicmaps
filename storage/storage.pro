@@ -14,6 +14,7 @@ HEADERS += \
   country.hpp \
   country_decl.hpp \
   country_info_getter.hpp \
+  country_name_getter.hpp \
   country_polygon.hpp \
   http_map_files_downloader.hpp \
   index.hpp \
@@ -28,6 +29,7 @@ SOURCES += \
   country.cpp \
   country_decl.cpp \
   country_info_getter.cpp \
+  country_name_getter.cpp \
   http_map_files_downloader.cpp \
   index.cpp \
   queued_country.cpp \

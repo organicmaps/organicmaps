@@ -842,6 +842,16 @@ bool Storage::IsCountryFirstInQueue(TCountryId const & countryId) const
   return !m_queue.empty() && m_queue.front().GetCountryId() == countryId;
 }
 
+void Storage::SetLocale(string const & locale)
+{
+  m_countryNameGetter.SetLocale(locale);
+}
+
+string Storage::GetLocale() const
+{
+  return m_countryNameGetter.GetLocale();
+}
+
 void Storage::SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader)
 {
   m_downloader = move(downloader);
@@ -850,6 +860,16 @@ void Storage::SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && download
 void Storage::SetCurrentDataVersionForTesting(int64_t currentVersion)
 {
   m_currentVersion = currentVersion;
+}
+
+void Storage::SetDownloadingUrlsForTesting(vector<string> const & downloadingUrls)
+{
+  m_downloadingUrlsForTesting = downloadingUrls;
+}
+
+void Storage::SetLocaleForTesting(string const & jsonBuffer, string const & locale)
+{
+  m_countryNameGetter.SetLocaleForTesting(jsonBuffer, locale);
 }
 
 Storage::TLocalFilePtr Storage::GetLocalFile(TCountryId const & countryId, int64_t version) const
@@ -1132,11 +1152,9 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   StatusAndError statusAndErr = ParseStatus(NodeStatus(*node));
   nodeAttrs.m_status = statusAndErr.status;
   nodeAttrs.m_error = statusAndErr.error;
-  // @TODO(bykoianko) NodeAttrs::m_nodeLocalName should be in local language.
-  nodeAttrs.m_nodeLocalName = countryId;
+  nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);
   nodeAttrs.m_parentCountryId = nodeValue.GetParent();
-  // @TODO(bykoianko) NodeAttrs::m_parentLocalName should be in local language.
-  nodeAttrs.m_parentLocalName = nodeAttrs.m_parentCountryId;
+  nodeAttrs.m_parentLocalName = m_countryNameGetter(nodeAttrs.m_parentCountryId);
 }
 
 void Storage::DoClickOnDownloadMap(TCountryId const & countryId)
