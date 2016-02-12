@@ -1158,23 +1158,21 @@ bool Storage::DownloadNode(TCountryId const & countryId)
   return true;
 }
 
-bool Storage::DeleteNode(TCountryId const & countryId)
+void Storage::DeleteNode(TCountryId const & countryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  // @TODO(bykoianko) Before deleting it's necessary to check if file(s) has been deleted.
-  // If so, the method should be left with false.
   TCountriesContainer const * const node = m_countries.FindFirst(Country(countryId));
-  CHECK(node, ());
-  node->ForEachInSubtree([this](TCountriesContainer const & descendantNode)
-                         {
-                           if (descendantNode.ChildrenCount() == 0)
-                           {
-                             this->DeleteCountry(descendantNode.Value().Name(),
-                                                 MapOptions::MapWithCarRouting);
-                           }
-                         });
-    return true;
+
+  if (!node)
+    return;
+
+  auto deleteAction = [this](TCountriesContainer const & descendantNode)
+  {
+    if (descendantNode.ChildrenCount() == 0)
+      this->DeleteCountry(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
+  };
+  node->ForEachInSubtree(deleteAction);
 }
 
 Status Storage::NodeStatus(TCountriesContainer const & node) const

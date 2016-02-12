@@ -278,8 +278,8 @@ public:
   /// until they havn't been downloaded before. Update all downloaded mwm if it's necessary.
   bool DownloadNode(TCountryId const & countryId);
 
-  /// \brief Delete one node (expandable or not).
-  bool DeleteNode(TCountryId const & countryId);
+  /// \brief Delete node with all children (expandable or not).
+  void DeleteNode(TCountryId const & countryId);
 
   /// \brief Updates one node (expandable or not).
   /// \note If you want to update all the maps and this update is without changing
