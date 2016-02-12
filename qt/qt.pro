@@ -106,6 +106,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     osm_auth_dialog.cpp \
+    place_page_dialog.cpp \
     preferences_dialog.cpp \
     proxystyle.cpp \
     qtoglcontext.cpp \
@@ -121,6 +122,7 @@ HEADERS += \
     info_dialog.hpp \
     mainwindow.hpp \
     osm_auth_dialog.hpp \
+    place_page_dialog.hpp \
     preferences_dialog.hpp \
     proxystyle.hpp \
     qtoglcontext.hpp \
