@@ -1,6 +1,7 @@
-#include "platform/http_request.hpp"
 #include "platform/chunks_download_strategy.hpp"
+#include "platform/http_request.hpp"
 #include "platform/http_thread_callback.hpp"
+#include "platform/platform.hpp"
 
 #include "defines.hpp"
 
@@ -277,8 +278,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
         (void)my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
 
         // Rename finished file to it's original name.
-        uint64_t sz = 0;
-        if (my::GetFileSize(m_filePath, sz))
+        if (Platform::IsFileExistsByFullPath(m_filePath))
           (void)my::DeleteFileX(m_filePath);
         CHECK(my::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath), ());
 
