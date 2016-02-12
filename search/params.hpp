@@ -1,5 +1,7 @@
 #pragma once
 
+#include "search/mode.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -23,19 +25,8 @@ namespace search
     bool IsForceSearch() const { return m_forceSearch; }
     //@}
 
-    /// @name Search modes.
-    //@{
-    enum SearchModeT
-    {
-      IN_VIEWPORT_ONLY = 1,
-      SEARCH_WORLD = 2,
-      SEARCH_ADDRESS = 4,
-      ALL = SEARCH_WORLD | SEARCH_ADDRESS
-    };
-
-    inline void SetSearchMode(int mode) { m_searchMode = mode; }
-    inline bool HasSearchMode(SearchModeT mode) const { return ((m_searchMode & mode) != 0); }
-    //@}
+    inline void SetMode(Mode mode) { m_mode = mode; }
+    inline Mode GetMode() const { return m_mode; }
 
     void SetPosition(double lat, double lon);
     bool IsValidPosition() const { return m_validPos; }
@@ -66,8 +57,7 @@ namespace search
 
   private:
     double m_searchRadiusM;
-    int m_searchMode;
+    Mode m_mode;
     bool m_forceSearch, m_validPos;
   };
-
 } // namespace search

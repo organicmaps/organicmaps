@@ -221,7 +221,7 @@ void Engine::PostTask(function<void()> && task)
 void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
                       shared_ptr<QueryHandle> handle)
 {
-  bool const viewportSearch = params.HasSearchMode(SearchParams::IN_VIEWPORT_ONLY);
+  bool const viewportSearch = params.GetMode() == Mode::Viewport;
 
   // Initialize query.
   m_query->Init(viewportSearch);
@@ -242,7 +242,12 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
   else
     m_query->SetPosition(viewport.Center());
 
-  m_query->SetSearchInWorld(params.HasSearchMode(SearchParams::SEARCH_WORLD));
+  m_query->SetMode(params.GetMode());
+
+  // This flag is needed for consistency with old search algorithm
+  // only. It will gone away when we will remove old search code.
+  m_query->SetSearchInWorld(true);
+
   m_query->SetInputLocale(params.m_inputLocale);
 
   ASSERT(!params.m_query.empty(), ());

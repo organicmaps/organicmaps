@@ -37,6 +37,7 @@ void SearchQueryV2::Search(Results & res, size_t resCount)
 
   Geocoder::Params params;
   InitParams(false /* localitySearch */, params);
+  params.m_mode = m_mode;
   params.m_viewport = m_viewport[CURRENT_V];
   params.m_position = m_position;
   params.m_maxNumResults = max(resCount, kPreResultsCount);

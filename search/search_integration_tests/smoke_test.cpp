@@ -80,14 +80,14 @@ UNIT_TEST(GenerateTestMwm_Smoke)
   TestFeaturesCount(engine, m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 1.5)), 2);
 
   {
-    TestSearchRequest request(engine, "wine ", "en", search::SearchParams::IN_VIEWPORT_ONLY,
+    TestSearchRequest request(engine, "wine ", "en", search::Mode::Viewport,
                               m2::RectD(m2::PointD(0, 0), m2::PointD(100, 100)));
     request.Wait();
     TEST_EQUAL(1, request.Results().size(), ());
   }
 
   {
-    TestSearchRequest request(engine, "shop ", "en", search::SearchParams::IN_VIEWPORT_ONLY,
+    TestSearchRequest request(engine, "shop ", "en", search::Mode::Viewport,
                               m2::RectD(m2::PointD(0, 0), m2::PointD(100, 100)));
     request.Wait();
     TEST_EQUAL(4, request.Results().size(), ());
@@ -119,19 +119,19 @@ UNIT_TEST(GenerateTestMwm_NotPrefixFreeNames)
   TestFeaturesCount(engine, m2::RectD(m2::PointD(0, 0), m2::PointD(2, 2)), 6);
 
   {
-    TestSearchRequest request(engine, "a ", "en", search::SearchParams::IN_VIEWPORT_ONLY,
+    TestSearchRequest request(engine, "a ", "en", search::Mode::Viewport,
                               m2::RectD(m2::PointD(0, 0), m2::PointD(100, 100)));
     request.Wait();
     TEST_EQUAL(1, request.Results().size(), ());
   }
   {
-    TestSearchRequest request(engine, "aa ", "en", search::SearchParams::IN_VIEWPORT_ONLY,
+    TestSearchRequest request(engine, "aa ", "en", search::Mode::Viewport,
                               m2::RectD(m2::PointD(0, 0), m2::PointD(100, 100)));
     request.Wait();
     TEST_EQUAL(2, request.Results().size(), ());
   }
   {
-    TestSearchRequest request(engine, "aaa ", "en", search::SearchParams::IN_VIEWPORT_ONLY,
+    TestSearchRequest request(engine, "aaa ", "en", search::Mode::Viewport,
                               m2::RectD(m2::PointD(0, 0), m2::PointD(100, 100)));
     request.Wait();
     TEST_EQUAL(3, request.Results().size(), ());

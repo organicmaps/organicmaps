@@ -231,7 +231,7 @@ int main(int argc, char * argv[])
     string const & query = queries[i] + " ";
     my::Timer timer;
     // todo(@m) Viewport and position should belong to the query info.
-    TestSearchRequest request(engine, query, FLAGS_locale, search::SearchParams::ALL, viewport);
+    TestSearchRequest request(engine, query, FLAGS_locale, search::Mode::Everywhere, viewport);
     request.Wait();
 
     responseTimes[i] = timer.ElapsedSeconds();

@@ -361,7 +361,7 @@ void UniteCBVs(vector<unique_ptr<coding::CompressedBitVector>> & cbvs)
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
-Geocoder::Params::Params() : m_position(0, 0), m_maxNumResults(0) {}
+Geocoder::Params::Params() : m_mode(Mode::Everywhere), m_position(0, 0), m_maxNumResults(0) {}
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
@@ -795,6 +795,9 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && 
     auto const & info = infos[i];
     if (info->GetType() != MwmInfo::COUNTRY && info->GetType() != MwmInfo::WORLD)
       continue;
+    if (info->GetType() == MwmInfo::COUNTRY && m_params.m_mode == Mode::World)
+      continue;
+
     auto handle = m_index.GetMwmHandleById(MwmSet::MwmId(info));
     if (!handle.IsAlive())
       continue;

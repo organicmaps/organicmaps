@@ -25,6 +25,7 @@ HEADERS += \
     latlon_match.hpp \
     locality.hpp \
     locality_finder.hpp \
+    mode.hpp \
     params.hpp \
     projection_on_street.hpp \
     query_saver.hpp \
@@ -72,6 +73,7 @@ SOURCES += \
     latlon_match.cpp \
     locality.cpp \
     locality_finder.cpp \
+    mode.cpp \
     params.cpp \
     projection_on_street.cpp \
     query_saver.cpp \

@@ -886,8 +886,7 @@ void Framework::StartInteractiveSearch(search::SearchParams const & params)
 
   m_lastInteractiveSearchParams = params;
   m_lastInteractiveSearchParams.SetForceSearch(false);
-  m_lastInteractiveSearchParams.SetSearchMode(SearchParams::IN_VIEWPORT_ONLY |
-                                              SearchParams::SEARCH_WORLD);
+  m_lastInteractiveSearchParams.SetMode(Mode::Viewport);
   m_lastInteractiveSearchParams.m_callback = [this](Results const & results)
   {
     if (!results.IsEndMarker())

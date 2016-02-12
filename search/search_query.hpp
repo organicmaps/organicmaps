@@ -1,6 +1,7 @@
 #pragma once
 #include "search/intermediate_result.hpp"
 #include "search/keyword_lang_matcher.hpp"
+#include "search/mode.hpp"
 #include "search/retrieval.hpp"
 #include "search/search_trie.hpp"
 #include "search/suggest.hpp"
@@ -87,6 +88,7 @@ public:
   inline string const & GetPivotRegion() const { return m_region; }
   inline void SetPosition(m2::PointD const & position) { m_position = position; }
 
+  inline void SetMode(Mode mode) { m_mode = mode; }
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
 
   /// Suggestions language code, not the same as we use in mwm data
@@ -238,6 +240,7 @@ protected:
   m2::RectD m_viewport[COUNT_V];
   m2::PointD m_pivot;
   m2::PointD m_position;
+  Mode m_mode;
   bool m_worldSearch;
   Retrieval m_retrieval;
 

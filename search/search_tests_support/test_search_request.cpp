@@ -10,8 +10,7 @@ namespace search
 namespace tests_support
 {
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
-                                     string const & locale, search::SearchParams::SearchModeT mode,
-                                     m2::RectD const & viewport)
+                                     string const & locale, Mode mode, m2::RectD const & viewport)
   : m_done(false)
 {
   search::SearchParams params;
@@ -21,7 +20,7 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   {
     Done(results);
   };
-  params.SetSearchMode(mode);
+  params.SetMode(mode);
   engine.Search(params, viewport);
 }
 

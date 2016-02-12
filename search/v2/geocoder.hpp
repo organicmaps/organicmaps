@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/cancel_exception.hpp"
+#include "search/mode.hpp"
 #include "search/search_query_params.hpp"
 #include "search/v2/features_layer.hpp"
 #include "search/v2/features_layer_path_finder.hpp"
@@ -69,6 +70,7 @@ public:
   {
     Params();
 
+    Mode m_mode;
     m2::RectD m_viewport;
     /// User's position or viewport center if there is no valid position.
     m2::PointD m_position;

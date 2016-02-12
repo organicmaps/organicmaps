@@ -23,7 +23,7 @@ class TestSearchRequest
 {
 public:
   TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
-                    search::SearchParams::SearchModeT mode, m2::RectD const & viewport);
+                    Mode mode, m2::RectD const & viewport);
 
   void Wait();
 

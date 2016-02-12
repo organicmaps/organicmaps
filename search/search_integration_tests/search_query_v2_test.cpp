@@ -94,7 +94,14 @@ public:
 
   bool ResultsMatch(string const & query, vector<shared_ptr<MatchingRule>> const & rules)
   {
-    TestSearchRequest request(m_engine, query, "en", search::SearchParams::ALL, m_viewport);
+    TestSearchRequest request(m_engine, query, "en", search::Mode::Everywhere, m_viewport);
+    request.Wait();
+    return MatchResults(m_engine, rules, request.Results());
+  }
+
+  bool ResultsMatch(string const & query, search::Mode mode, vector<shared_ptr<MatchingRule>> const & rules)
+  {
+    TestSearchRequest request(m_engine, query, "en", mode, m_viewport);
     request.Wait();
     return MatchResults(m_engine, rules, request.Results());
   }
@@ -299,22 +306,37 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
   TestPark hydePark(vector<m2::PointD>{m2::PointD(0.5, 0.5), m2::PointD(1.5, 0.5),
                                        m2::PointD(1.5, 1.5), m2::PointD(0.5, 1.5)},
                     "Hyde Park", "en");
+  TestPOI cafe(m2::PointD(1.0, 1.0), "London Cafe", "en");
 
-  BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
-           {
-             builder.Add(london);
-           });
+  auto worldId = BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
+                          {
+                            builder.Add(london);
+                          });
   auto wonderlandId = BuildMwm("wonderland", feature::DataHeader::country,
                                [&](TestMwmBuilder & builder)
                                {
                                  builder.Add(hydePark);
+                                 builder.Add(cafe);
                                });
   RegisterCountry("Wonderland", m2::RectD(m2::PointD(0, 0), m2::PointD(2, 2)));
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(-0.9, -0.9)));
 
-  TRules rules = {make_shared<ExactMatch>(wonderlandId, hydePark)};
-  TEST(ResultsMatch("hyde park", rules), ());
-  TEST(ResultsMatch("london hyde park", rules), ());
-  TEST(ResultsMatch("hyde london park", TRules()), ());
+  {
+    TRules rules = {make_shared<ExactMatch>(wonderlandId, hydePark)};
+    TEST(ResultsMatch("hyde park", rules), ());
+    TEST(ResultsMatch("london hyde park", rules), ());
+    TEST(ResultsMatch("hyde london park", TRules()), ());
+  }
+
+  SetViewport(m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)));
+  {
+    TRules rules = {make_shared<ExactMatch>(worldId, london)};
+    TEST(ResultsMatch("london", search::Mode::World, rules), ());
+  }
+  {
+    TRules rules = {make_shared<ExactMatch>(worldId, london),
+                    make_shared<ExactMatch>(wonderlandId, cafe)};
+    TEST(ResultsMatch("london", search::Mode::Everywhere, rules), ());
+  }
 }

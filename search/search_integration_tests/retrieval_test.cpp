@@ -384,7 +384,7 @@ UNIT_TEST(Retrieval_CafeMTV)
   auto const testWorldId = engine.GetMwmIdByCountryFile(testWorld.GetCountryFile());
 
   {
-    TestSearchRequest request(engine, "Moscow ", "en", search::SearchParams::ALL, mskViewport);
+    TestSearchRequest request(engine, "Moscow ", "en", search::Mode::Everywhere, mskViewport);
     request.Wait();
 
     initializer_list<shared_ptr<MatchingRule>> mskCityAlts = {
@@ -395,7 +395,7 @@ UNIT_TEST(Retrieval_CafeMTV)
   }
 
   {
-    TestSearchRequest request(engine, "MTV ", "en", search::SearchParams::ALL, mtvViewport);
+    TestSearchRequest request(engine, "MTV ", "en", search::Mode::Everywhere, mtvViewport);
     request.Wait();
 
     initializer_list<shared_ptr<MatchingRule>> mtvCityAlts = {
@@ -406,7 +406,7 @@ UNIT_TEST(Retrieval_CafeMTV)
   }
 
   {
-    TestSearchRequest request(engine, "Moscow MTV ", "en", search::SearchParams::ALL, mtvViewport);
+    TestSearchRequest request(engine, "Moscow MTV ", "en", search::Mode::Everywhere, mtvViewport);
     request.Wait();
 
     initializer_list<shared_ptr<MatchingRule>> alternatives = {
