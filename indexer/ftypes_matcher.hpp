@@ -30,8 +30,6 @@ public:
   bool operator() (feature::TypesHolder const & types) const;
   bool operator() (FeatureType const & ft) const;
   bool operator() (vector<uint32_t> const & types) const;
-  // Simple type equality comparison. No magic like in IsMatched.
-  bool HasTypeValue(uint32_t const type) const;
 
   static uint32_t PrepareToMatch(uint32_t type, uint8_t level);
 };

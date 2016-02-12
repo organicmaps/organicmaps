@@ -13,11 +13,20 @@
 #include "std/ctime.hpp"
 #include "std/function.hpp"
 #include "std/map.hpp"
-#include "std/set.hpp"
 #include "std/string.hpp"
+#include "std/vector.hpp"
 
 namespace osm
 {
+/// Holds information to construct editor's UI.
+struct EditableProperties
+{
+  bool m_name = false;
+  bool m_address = false;
+  vector<feature::Metadata::EType> m_metadata;
+  bool IsEditable() const { return m_name || m_address || !m_metadata.empty(); }
+};
+
 class Editor final
 {
   Editor() = default;
@@ -93,11 +102,7 @@ public:
                    string const & editedStreet = "",
                    string const & editedHouseNumber = "");
 
-  vector<feature::Metadata::EType> EditableMetadataForType(FeatureType const & feature) const;
-  /// @returns true if feature's name is editable.
-  bool IsNameEditable(FeatureType const & feature) const;
-  /// @returns true if street and house number are editable.
-  bool IsAddressEditable(FeatureType const & feature) const;
+  EditableProperties GetEditableProperties(FeatureType const & feature) const;
 
   bool HaveSomethingToUpload() const;
   using TChangesetTags = map<string, string>;

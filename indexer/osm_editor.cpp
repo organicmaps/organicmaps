@@ -445,7 +445,7 @@ void Editor::Save(string const & fullFilePath) const
 
   if (doc)
   {
-    auto const & tmpFileName = fullFilePath + ".tmp";
+    string const tmpFileName = fullFilePath + ".tmp";
     if (!doc.save_file(tmpFileName.data(), "  "))
       LOG(LERROR, ("Can't save map edits into", tmpFileName));
     else if (!my::RenameFileX(tmpFileName, fullFilePath))
@@ -619,63 +619,45 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, Featur
   return features;
 }
 
-vector<Metadata::EType> Editor::EditableMetadataForType(FeatureType const & feature) const
+EditableProperties Editor::GetEditableProperties(FeatureType const & feature) const
 {
-  // TODO(mgsergio): Load editable fields into memory from XML and query them here.
+  // TODO(mgsergio): Load editable fields into memory from XML config and query them here.
+  EditableProperties editable;
   feature::TypesHolder const types(feature);
-  set<Metadata::EType> fields;
-  auto const & isBuilding = ftypes::IsBuildingChecker::Instance();
-  for (auto type : types)
+  for (uint32_t const type : types)
   {
+    // TODO(mgsergio): If some fields for one type are marked as "NOT edited" in the config,
+    // they should have priority over same "edited" fields in other feature's types.
     auto const * desc = GetTypeDescription(type);
     if (desc)
     {
-      for (auto field : desc->m_fields)
-        fields.insert(field);
-      // If address is editable, many metadata fields are editable too.
-      if (desc->m_address)
-      {
-        fields.insert(EType::FMD_EMAIL);
-        fields.insert(EType::FMD_OPEN_HOURS);
-        fields.insert(EType::FMD_PHONE_NUMBER);
-        fields.insert(EType::FMD_WEBSITE);
-      }
-    }
-    else if (isBuilding.HasTypeValue(type))
-    {
-      // Post boxes and post offices have editable postcode field defined separately.
-      fields.insert(EType::FMD_POSTCODE);
+      editable.m_name = desc->m_name;
+      editable.m_address = desc->m_address;
+
+      for (EType const field : desc->m_fields)
+        editable.m_metadata.push_back(field);
     }
   }
-  return {begin(fields), end(fields)};
-}
+  // Buildings are processed separately.
+  // TODO(mgsergio): Activate this code by XML config variable.
+  if (ftypes::IsBuildingChecker::Instance()(feature))
+    editable.m_address = true;
 
-bool Editor::IsNameEditable(FeatureType const & feature) const
-{
-  feature::TypesHolder const types(feature);
-  for (auto type : types)
+  // If address is editable, many metadata fields are editable too.
+  if (editable.m_address)
   {
-    auto const * typeDesc = GetTypeDescription(type);
-    if (typeDesc && typeDesc->m_name)
-      return true;
+    // TODO(mgsergio): Load address-related editable properties from XML config.
+    editable.m_metadata.push_back(EType::FMD_EMAIL);
+    editable.m_metadata.push_back(EType::FMD_OPEN_HOURS);
+    editable.m_metadata.push_back(EType::FMD_PHONE_NUMBER);
+    editable.m_metadata.push_back(EType::FMD_WEBSITE);
+    // Post boxes and post offices should have editable postcode field defined separately.
+    editable.m_metadata.push_back(EType::FMD_POSTCODE);
   }
-  return false;
-}
 
-bool Editor::IsAddressEditable(FeatureType const & feature) const
-{
-  feature::TypesHolder const types(feature);
-  auto & isBuilding = ftypes::IsBuildingChecker::Instance();
-  for (auto type : types)
-  {
-    // Building addresses are always editable.
-    if (isBuilding.HasTypeValue(type))
-      return true;
-    auto const * typeDesc = GetTypeDescription(type);
-    if (typeDesc && typeDesc->m_address)
-      return true;
-  }
-  return false;
+  // Avoid possible duplicates.
+  my::SortUnique(editable.m_metadata);
+  return editable;
 }
 
 bool Editor::HaveSomethingToUpload() const

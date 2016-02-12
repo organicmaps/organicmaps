@@ -56,14 +56,15 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType & feature, Framework & 
   typesRow->addWidget(new QLabel(QString::fromStdString(strTypes)));
   vLayout->addLayout(typesRow);
 
-  bool const readOnlyName = !editor.IsNameEditable(feature);
+  osm::EditableProperties const editable = editor.GetEditableProperties(feature);
+
   // Rows block: Name(s) label(s) and text input.
   char const * defaultLangStr = StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::DEFAULT_CODE);
   // Default name editor is always displayed, even if feature name is empty.
   QHBoxLayout * defaultNameRow = new QHBoxLayout();
   defaultNameRow->addWidget(new QLabel(QString("name")));
   QLineEdit * defaultNamelineEdit = new QLineEdit();
-  defaultNamelineEdit->setReadOnly(readOnlyName);
+  defaultNamelineEdit->setReadOnly(!editable.m_name);
   defaultNamelineEdit->setObjectName(defaultLangStr);
   defaultNameRow->addWidget(defaultNamelineEdit);
   vLayout->addLayout(defaultNameRow);
@@ -78,7 +79,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType & feature, Framework & 
       char const * langStr = StringUtf8Multilang::GetLangByCode(langCode);
       nameRow->addWidget(new QLabel(QString("name:") + langStr));
       QLineEdit * lineEditName = new QLineEdit(QString::fromStdString(name));
-      lineEditName->setReadOnly(readOnlyName);
+      lineEditName->setReadOnly(!editable.m_name);
       lineEditName->setObjectName(langStr);
       nameRow->addWidget(lineEditName);
       vLayout->addLayout(nameRow);
@@ -87,7 +88,6 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType & feature, Framework & 
   });
 
   // Address rows.
-  bool const readOnlyAddress = !editor.IsAddressEditable(feature);
   vector<string> nearbyStreets = frm.GetNearbyFeatureStreets(feature);
   // If feature does not have a specified street, display empty combo box.
   search::AddressInfo const info = frm.GetFeatureAddressInfo(feature);
@@ -98,24 +98,23 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType & feature, Framework & 
   QComboBox * cmb = new QComboBox();
   for (auto const & street : nearbyStreets)
     cmb->addItem(street.c_str());
-  cmb->setEditable(!readOnlyAddress);
-  cmb->setEnabled(!readOnlyAddress);
+  cmb->setEditable(editable.m_address);
+  cmb->setEnabled(editable.m_address);
   cmb->setObjectName(kStreetObjectName);
-  streetRow->addWidget(cmb) ;
+  streetRow->addWidget(cmb);
   vLayout->addLayout(streetRow);
   QHBoxLayout * houseRow = new QHBoxLayout();
   houseRow->addWidget(new QLabel(QString(kHouseNumberObjectName)));
   QLineEdit * houseLineEdit = new QLineEdit();
   houseLineEdit->setText(info.m_house.c_str());
-  houseLineEdit->setReadOnly(readOnlyAddress);
+  houseLineEdit->setReadOnly(!editable.m_address);
   houseLineEdit->setObjectName(kHouseNumberObjectName);
   houseRow->addWidget(houseLineEdit);
   vLayout->addLayout(houseRow);
 
   // All  metadata rows.
   QVBoxLayout * metaRows = new QVBoxLayout();
-  vector<Metadata::EType> const editableMetadataFields = editor.EditableMetadataForType(feature);
-  for (Metadata::EType const field : editableMetadataFields)
+  for (Metadata::EType const field : editable.m_metadata)
   {
     QString const fieldName = QString::fromStdString(DebugPrint(field));
     QHBoxLayout * fieldRow = new QHBoxLayout();

@@ -349,20 +349,17 @@ void initFieldsMap()
   if (!feature)
     return;
 
-  auto & editor = osm::Editor::Instance();
-  vector<Metadata::EType> const editableTypes = editor.EditableMetadataForType(*feature);
-  bool const isNameEditable = editor.IsNameEditable(*feature);
-  bool const isAddressEditable = editor.IsAddressEditable(*feature);
-  if (!editableTypes.empty() || isAddressEditable || isNameEditable)
+  osm::EditableProperties const editable = osm::Editor::Instance().GetEditableProperties(*feature);
+  if (editable.IsEditable())
     [self addEditField];
-  if (isNameEditable)
+  if (editable.m_name)
     m_editableFields.insert(MWMPlacePageCellTypeName);
-  if (isAddressEditable)
+  if (editable.m_address)
   {
     m_editableFields.insert(MWMPlacePageCellTypeStreet);
     m_editableFields.insert(MWMPlacePageCellTypeBuilding);
   }
-  for (auto const & type : editableTypes)
+  for (feature::Metadata::EType const type : editable.m_metadata)
   {
     NSAssert(kMetaFieldsMap[type] >= Metadata::FMD_COUNT || kMetaFieldsMap[type] == 0, @"Incorrect enum value");
     MWMPlacePageCellType const field = static_cast<MWMPlacePageCellType>(kMetaFieldsMap[type]);

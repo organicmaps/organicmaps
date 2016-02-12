@@ -46,13 +46,12 @@ JNIEXPORT jintArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetEditableMetadata(JNIEnv * env, jclass clazz)
 {
   auto const * feature = activeFeature();
-  auto const & editableTypes = feature ? Editor::Instance().EditableMetadataForType(*feature)
-                                       : vector<Metadata::EType>{};
-  int const size = editableTypes.size();
+  auto const editable = feature ? Editor::Instance().GetEditableProperties(*feature) : osm::EditableProperties();
+  int const size = editable.m_metadata.size();
   jintArray jEditableTypes = env->NewIntArray(size);
   jint * arr = env->GetIntArrayElements(jEditableTypes, 0);
   for (int i = 0; i < size; i++)
-    arr[i] = static_cast<jint>(editableTypes[i]);
+    arr[i] = static_cast<jint>(editable.m_metadata[i]);
   env->ReleaseIntArrayElements(jEditableTypes, arr, 0);
 
   return jEditableTypes;
@@ -62,14 +61,14 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsAddressEditable(JNIEnv * env, jclass clazz)
 {
   auto const * feature = activeFeature();
-  return feature && Editor::Instance().IsAddressEditable(*feature);
+  return feature && Editor::Instance().GetEditableProperties(*feature).m_address;
 }
 
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsNameEditable(JNIEnv * env, jclass clazz)
 {
   auto const * feature = activeFeature();
-  return feature && Editor::Instance().IsNameEditable(*feature);
+  return feature && Editor::Instance().GetEditableProperties(*feature).m_name;
 }
 
 JNIEXPORT void JNICALL
