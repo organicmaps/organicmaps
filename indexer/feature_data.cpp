@@ -23,7 +23,9 @@ string DebugPrint(TypesHolder const & holder)
   Classificator const & c = classif();
   string s;
   for (uint32_t type : holder)
-    s += c.GetFullObjectName(type) + " ";
+    s += c.GetReadableObjectName(type) + " ";
+  if (!s.empty())
+    s.pop_back();
   return s;
 }
 }  // namespace feature
