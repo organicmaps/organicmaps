@@ -223,12 +223,12 @@ void DeleteGroup(Storage & storage, bool oneByOne)
     storage.DeleteNode(kGroupCountryId);
   }
 
-  // Check state for the group node is set to UpToDate and NoError
+  // Check state for the group node is set to NotDownloaded and NoError
   NodeAttrs attrs;
   storage.GetNodeAttrs(kGroupCountryId, attrs);
   TEST_EQUAL(NodeStatus::NotDownloaded, attrs.m_status, ());
 
-  // Check state for the all children nodes is set to UpToDate and NoError
+  // Check state for the all children nodes is set to NotDownloaded and NoError
   for (auto const & countryId : children)
   {
     TEST_EQUAL(Status::ENotDownloaded, storage.CountryStatusEx(countryId), ());
