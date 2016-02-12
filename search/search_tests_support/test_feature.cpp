@@ -4,6 +4,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
@@ -16,6 +17,11 @@ namespace search
 {
 namespace tests_support
 {
+namespace
+{
+double const kTestPrecision = 1e-4;
+}  // namespace
+
 // TestFeature -------------------------------------------------------------------------------------
 TestFeature::TestFeature(string const & name, string const & lang)
   : m_center(0, 0), m_hasCenter(false), m_name(name), m_lang(lang)
@@ -38,27 +44,16 @@ bool TestFeature::Matches(FeatureType const & feature) const
 {
   uint8_t const langIndex = StringUtf8Multilang::GetLangIndex(m_lang);
   string name;
-  return feature.GetName(langIndex, name) && m_name == name;
-}
-
-// TestPOI -----------------------------------------------------------------------------------------
-TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & lang)
-  : TestFeature(center, name, lang)
-{
-}
-
-void TestPOI::Serialize(FeatureBuilder1 & fb) const
-{
-  TestFeature::Serialize(fb);
-  auto const & classificator = classif();
-  fb.SetType(classificator.GetTypeByPath({"railway", "station"}));
-}
-
-string TestPOI::ToString() const
-{
-  ostringstream os;
-  os << "TestPOI [" << m_name << ", " << m_lang << ", " << DebugPrint(m_center) << "]";
-  return os.str();
+  bool const nameMatches = feature.GetName(langIndex, name) && m_name == name;
+  if (!nameMatches)
+    return false;
+  if (m_hasCenter)
+  {
+    auto const center = feature::GetCenter(feature);
+    if (!m_center.EqualDxDy(center, kTestPrecision))
+      return false;
+  }
+  return true;
 }
 
 // TestCountry -------------------------------------------------------------------------------------
@@ -153,6 +148,40 @@ string TestStreet::ToString() const
   return os.str();
 }
 
+// TestPOI -----------------------------------------------------------------------------------------
+TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & lang)
+  : TestFeature(center, name, lang)
+{
+}
+
+void TestPOI::Serialize(FeatureBuilder1 & fb) const
+{
+  TestFeature::Serialize(fb);
+  auto const & classificator = classif();
+  fb.SetType(classificator.GetTypeByPath({"railway", "station"}));
+  if (!m_houseNumber.empty())
+    fb.AddHouseNumber(m_houseNumber);
+  if (!m_streetName.empty())
+    fb.AddStreet(m_streetName);
+}
+
+bool TestPOI::Matches(FeatureType const & feature) const
+{
+  return TestFeature::Matches(feature) && m_houseNumber == feature.GetHouseNumber();
+}
+
+string TestPOI::ToString() const
+{
+  ostringstream os;
+  os << "TestPOI [" << m_name << ", " << m_lang << ", " << DebugPrint(m_center);
+  if (!m_houseNumber.empty())
+    os << ", " << m_houseNumber;
+  if (!m_streetName.empty())
+    os << ", " << m_streetName;
+  os << "]";
+  return os.str();
+}
+
 // TestBuilding ------------------------------------------------------------------------------------
 TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
                            string const & houseNumber, string const & lang)
@@ -177,6 +206,7 @@ TestBuilding::TestBuilding(vector<m2::PointD> const & boundary, string const & n
   , m_houseNumber(houseNumber)
   , m_streetName(street.GetName())
 {
+  ASSERT(!m_boundary.empty(), ());
 }
 
 void TestBuilding::Serialize(FeatureBuilder1 & fb) const
@@ -201,7 +231,22 @@ bool TestBuilding::Matches(FeatureType const & feature) const
   auto const & checker = ftypes::IsBuildingChecker::Instance();
   if (!checker(feature))
     return false;
-  return TestFeature::Matches(feature) && m_houseNumber == feature.GetHouseNumber();
+  if (!TestFeature::Matches(feature))
+    return false;
+  if (m_houseNumber != feature.GetHouseNumber())
+    return false;
+
+  // TODO(@y): consider to check m_boundary.
+  if (!m_hasCenter && !m_boundary.empty())
+  {
+    m2::PointD center(0, 0);
+    for (auto const & p : m_boundary)
+      center += p;
+    center = center / m_boundary.size();
+    if (!center.EqualDxDy(feature::GetCenter(feature), kTestPrecision))
+      return false;
+  }
+  return true;
 }
 
 string TestBuilding::ToString() const

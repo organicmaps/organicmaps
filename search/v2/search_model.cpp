@@ -1,6 +1,7 @@
 #include "search/v2/search_model.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/macros.hpp"
@@ -21,7 +22,7 @@ public:
   {
     Classificator const & c = classif();
 
-    auto paths = { "amenity", "historic", "office", "railway", "shop", "sport", "tourism", "craft" };
+    auto paths = {"amenity", "historic", "office", "railway", "shop", "sport", "tourism", "craft"};
     for (auto const & path : paths)
       m_types.push_back(c.GetTypeByPath({path}));
   }
@@ -54,6 +55,21 @@ private:
   OneLevelPOIChecker const m_oneLevel;
   TwoLevelPOIChecker const m_twoLevel;
 };
+
+class CustomIsBuildingChecker
+{
+public:
+  static CustomIsBuildingChecker const & Instance()
+  {
+    static const CustomIsBuildingChecker inst;
+    return inst;
+  }
+
+  bool operator()(FeatureType const & ft) const { return !ft.GetHouseNumber().empty(); }
+
+private:
+  CustomIsBuildingChecker() {}
+};
 }  // namespace
 
 // static
@@ -65,7 +81,7 @@ SearchModel const & SearchModel::Instance()
 
 SearchModel::SearchType SearchModel::GetSearchType(FeatureType const & feature) const
 {
-  static auto const & buildingChecker = IsBuildingChecker::Instance();
+  static auto const & buildingChecker = CustomIsBuildingChecker::Instance();
   static auto const & streetChecker = IsStreetChecker::Instance();
   static auto const & localityChecker = IsLocalityChecker::Instance();
   static auto const & poiChecker = IsPoiChecker::Instance();

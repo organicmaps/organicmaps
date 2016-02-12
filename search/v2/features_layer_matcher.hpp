@@ -239,7 +239,6 @@ private:
     vector<strings::UniString> queryTokens;
     NormalizeHouseNumber(child.m_subQuery, queryTokens);
 
-    auto const & checker = ftypes::IsBuildingChecker::Instance();
     uint32_t numFilterInvocations = 0;
     auto houseNumberFilter = [&](uint32_t id, FeatureType & feature, bool & loaded) -> bool
     {
@@ -261,9 +260,6 @@ private:
         GetByIndex(id, feature);
         loaded = true;
       }
-
-      if (!checker(feature))
-        return false;
 
       if (!child.m_hasDelayedFeatures)
         return false;

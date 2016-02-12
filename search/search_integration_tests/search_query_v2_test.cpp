@@ -149,7 +149,11 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
   TestPOI busStop(m2::PointD(0, 0), "Bus stop", "en");
   TestPOI tramStop(m2::PointD(0.0001, 0.0001), "Tram stop", "en");
   TestPOI quantumTeleport1(m2::PointD(0.0002, 0.0002), "Quantum teleport 1", "en");
+
   TestPOI quantumTeleport2(m2::PointD(10, 10), "Quantum teleport 2", "en");
+  quantumTeleport2.SetHouseNumber("3");
+  quantumTeleport2.SetStreet(feynmanStreet);
+
   TestPOI quantumCafe(m2::PointD(-0.0002, -0.0002), "Quantum cafe", "en");
   TestPOI lantern1(m2::PointD(10.0005, 10.0005), "lantern 1", "en");
   TestPOI lantern2(m2::PointD(10.0006, 10.0005), "lantern 2", "en");
@@ -213,6 +217,10 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
   {
     TRules rules = {make_shared<ExactMatch>(wonderlandId, quantumTeleport2)};
     TEST(ResultsMatch("teleport feynman street", rules), ());
+  }
+  {
+    TRules rules = {make_shared<ExactMatch>(wonderlandId, quantumTeleport2)};
+    TEST(ResultsMatch("feynman street 3", rules), ());
   }
   {
     TRules rules = {make_shared<ExactMatch>(wonderlandId, feynmanHouse),

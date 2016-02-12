@@ -24,11 +24,18 @@ class SearchModel
 public:
   enum SearchType
   {
+    // Low-level features such as amenities, offices, shops, buildings
+    // without house number, etc.
     SEARCH_TYPE_POI,
+
+    // All features with set house number.
     SEARCH_TYPE_BUILDING,
+
     SEARCH_TYPE_STREET,
-    SEARCH_TYPE_UNCLASSIFIED,  // all low-level features except POI,
-                               // BUILDING and STREET
+
+    // All low-level features except POI, BUILDING and STREET.
+    SEARCH_TYPE_UNCLASSIFIED,
+
     SEARCH_TYPE_VILLAGE,
     SEARCH_TYPE_CITY,
     SEARCH_TYPE_STATE,  // US or Canadian states
