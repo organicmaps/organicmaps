@@ -177,7 +177,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
 
   vector<pair<Edge, m2::PointD>> finalVicinity;
   FindClosestEdges(*m_roadGraph, finalPoint, finalVicinity);
-  
+
   if (finalVicinity.empty())
     return EndPointNotFound;
 
@@ -221,6 +221,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
     ASSERT(!result.path.empty(), ());
     ASSERT_EQUAL(result.path.front(), startPos, ());
     ASSERT_EQUAL(result.path.back(), finalPos, ());
+    ASSERT_GREATER(result.distance, 0., ());
     ReconstructRoute(move(result.path), route, delegate);
   }
 
