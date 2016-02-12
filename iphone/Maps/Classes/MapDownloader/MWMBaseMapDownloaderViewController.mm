@@ -1,10 +1,12 @@
 #import "Common.h"
+#import "MapsAppDelegate.h"
+#import "MWMAlertViewController.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
-#import "MWMMapDownloaderViewController.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 #import "MWMMapDownloaderTableViewCell.h"
+#import "MWMMapDownloaderViewController.h"
 #import "MWMSegue.h"
 #import "UIColor+MapsMeColor.h"
 
@@ -262,11 +264,10 @@ using namespace storage;
 
 - (IBAction)allMapsAction
 {
-  auto & s = GetFramework().Storage();
-  if (self.parentCountryId == s.GetRootId())
-    s.UpdateNode(self.parentCountryId);
+  if (self.parentCountryId == GetFramework().Storage().GetRootId())
+    [MapsAppDelegate updateNode:self.parentCountryId alertController:self.alertController];
   else
-    s.DownloadNode(self.parentCountryId);
+    [MapsAppDelegate downloadNode:self.parentCountryId alertController:self.alertController onSuccess:nil];
 }
 
 #pragma mark - UITableViewDelegate
@@ -330,21 +331,21 @@ using namespace storage;
   {
     __strong auto self = weakSelf;
     if (self)
-      GetFramework().Storage().DownloadNode(self->m_actionSheetId);
+      [MapsAppDelegate downloadNode:self->m_actionSheetId alertController:self.alertController onSuccess:nil];
   };
 
   self.updateAction = ^(UIAlertAction * action)
   {
     __strong auto self = weakSelf;
     if (self)
-      GetFramework().Storage().UpdateNode(self->m_actionSheetId);
+      [MapsAppDelegate updateNode:self->m_actionSheetId alertController:self.alertController];
   };
 
   self.deleteAction = ^(UIAlertAction * action)
   {
     __strong auto self = weakSelf;
     if (self)
-      GetFramework().Storage().DeleteNode(self->m_actionSheetId);
+      [MapsAppDelegate deleteNode:self->m_actionSheetId];
   };
 
   self.showAction = ^(UIAlertAction * action)

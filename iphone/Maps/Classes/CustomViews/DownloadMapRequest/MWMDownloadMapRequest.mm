@@ -141,7 +141,7 @@
 - (IBAction)downloadMapTouchUpInside:(nonnull UIButton *)sender
 {
   [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatDownloadMap)];
-  [MapsAppDelegate downloadCountry:m_countryId alertController:self.delegate.alertController onDownload:^
+  [MapsAppDelegate downloadNode:m_countryId alertController:self.delegate.alertController onSuccess:^
   {
     self.progressView.progress = 0.0;
     [self showRequest];

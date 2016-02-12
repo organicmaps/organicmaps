@@ -107,6 +107,11 @@
   return [MWMDefaultAlert invalidUserNameOrPasswordAlert];
 }
 
++ (MWMAlert *)updateMapsAlertWithOkBlock:(TMWMVoidBlock)block
+{
+  return [MWMDefaultAlert internalErrorAlert];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
 // Should override this method if you want custom relayout after rotation.

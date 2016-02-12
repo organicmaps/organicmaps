@@ -65,7 +65,7 @@ using namespace storage;
 
     NSString * notificationCountryId = userInfo[kDownloadMapCountryId];
     TCountryId const countryId = notificationCountryId.UTF8String;
-    [MapsAppDelegate downloadCountry:countryId alertController:mapViewController.alertController onDownload:^
+    [MapsAppDelegate downloadNode:countryId alertController:mapViewController.alertController onSuccess:^
     {
       auto & f = GetFramework();
       double const defaultZoom = 10;

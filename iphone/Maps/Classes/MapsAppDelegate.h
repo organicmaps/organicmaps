@@ -34,7 +34,9 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode)
 @property (nonatomic, readonly) MWMFrameworkListener * frameworkListener;
 
 + (MapsAppDelegate *)theApp;
-+ (void)downloadCountry:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onDownload:(TMWMVoidBlock)onDownload;
++ (void)downloadNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess;
++ (void)updateNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController;
++ (void)deleteNode:(storage::TCountryId const &)countryId;
 
 - (void)enableStandby;
 - (void)disableStandby;
