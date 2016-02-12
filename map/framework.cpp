@@ -1645,7 +1645,7 @@ bool Framework::ShowMapForURL(string const & url)
   m2::PointD point;
   m2::RectD rect;
   string name;
-  UserMark const * apiMark = 0;
+  ApiMarkPoint const * apiMark = nullptr;
 
   enum ResultT { FAILED, NEED_CLICK, NO_NEED_CLICK };
   ResultT result = FAILED;

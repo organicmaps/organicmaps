@@ -207,7 +207,7 @@ bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
   }
 }
 
-UserMark const * ParsedMapApi::GetSinglePoint() const
+ApiMarkPoint const * ParsedMapApi::GetSinglePoint() const
 {
   ASSERT(m_bmManager != nullptr, ());
   UserMarkControllerGuard guard(*m_bmManager, UserMarkType::API_MARK);
@@ -215,7 +215,7 @@ UserMark const * ParsedMapApi::GetSinglePoint() const
   if (guard.m_controller.GetUserMarkCount() != 1)
     return nullptr;
 
-  return guard.m_controller.GetUserMark(0);
+  return static_cast<ApiMarkPoint const *>(guard.m_controller.GetUserMark(0));
 }
 
 }
