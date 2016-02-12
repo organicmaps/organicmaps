@@ -1,5 +1,5 @@
-#import "ViewController.h"
+#import "MWMViewController.h"
 
-@interface MWMAuthorizationSignupViewController : ViewController
+@interface MWMAuthorizationSignupViewController : MWMViewController
 
 @end

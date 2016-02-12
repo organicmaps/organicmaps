@@ -1,3 +1,4 @@
+#import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
 #import "MWMCircularProgress.h"
@@ -104,7 +105,7 @@ NSString * getVerifier(NSString * urlString)
       dispatch_async(dispatch_get_main_queue(), ^
       {
         [self stopSpinner];
-        [self showAlert:L(@"dialog_routing_system_error") withButtonTitle:L(@"ok")];
+        [self.alertController presentInternalErrorAlert];
       });
       LOG(LWARNING, ("Can't loadAuthorizationPage", ex.what()));
     }
@@ -154,7 +155,7 @@ NSString * getVerifier(NSString * urlString)
       else
       {
         [self loadAuthorizationPage];
-        [self showAlert:L(@"invalid_username_or_password") withButtonTitle:L(@"ok")];
+        [self.alertController presentInvalidUserNameOrPasswordAlert];
       }
     });
   });
@@ -194,8 +195,7 @@ NSString * getVerifier(NSString * urlString)
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-  // TODO Rename string
-  [self showAlert:L(@"dialog_routing_system_error") withButtonTitle:L(@"ok")];
+  [self.alertController presentInternalErrorAlert];
 }
 
 @end

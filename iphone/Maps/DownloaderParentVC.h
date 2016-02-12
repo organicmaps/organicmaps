@@ -1,8 +1,6 @@
-
-#import <UIKit/UIKit.h>
 #import "MapsObservers.h"
 #import "MapCell.h"
-#import "ViewController.h"
+#import "MWMViewController.h"
 
 #include "storage/storage_defines.hpp"
 #include "platform/preferred_languages.hpp"
@@ -17,7 +15,7 @@ typedef NS_ENUM(NSUInteger, DownloaderAction)
 
 using namespace storage;
 
-@interface DownloaderParentVC : ViewController <MapCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface DownloaderParentVC : MWMViewController <MapCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 - (BOOL)canDownloadSelectedMap;
 - (UIActionSheet *)actionSheetToCancelDownloadingSelectedMap;

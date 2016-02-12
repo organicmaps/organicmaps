@@ -1,4 +1,4 @@
-#import "ViewController.h"
+#import "MWMViewController.h"
 
 @protocol MWMOpeningHoursEditorProtocol <NSObject>
 
@@ -6,7 +6,7 @@
 
 @end
 
-@interface MWMOpeningHoursEditorViewController : ViewController
+@interface MWMOpeningHoursEditorViewController : MWMViewController
 
 @property (copy, nonatomic) NSString * openingHours;
 @property (weak, nonatomic) id<MWMOpeningHoursEditorProtocol> delegate;

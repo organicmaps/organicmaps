@@ -1,4 +1,4 @@
-#import "TableViewController.h"
+#import "MWMTableViewController.h"
 
 @protocol MWMStreetEditorProtocol <NSObject>
 
@@ -9,7 +9,7 @@
 
 @end
 
-@interface MWMStreetEditorViewController : TableViewController
+@interface MWMStreetEditorViewController : MWMTableViewController
 
 @property (weak, nonatomic) id<MWMStreetEditorProtocol> delegate;
 

@@ -1,6 +1,7 @@
 #import "DownloadIndicatorProtocol.h"
 #import "MapsObservers.h"
-#import "NavigationController.h"
+#import "MWMAlertViewController.h"
+#import "MWMNavigationController.h"
 
 #include "indexer/map_style.hpp"
 

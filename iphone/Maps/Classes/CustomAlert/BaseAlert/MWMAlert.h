@@ -20,6 +20,8 @@
 + (MWMAlert *)noConnectionAlert;
 + (MWMAlert *)locationServiceNotSupportedAlert;
 + (MWMAlert *)pedestrianToastShareAlert:(BOOL)isFirstLaunch;
++ (MWMAlert *)internalErrorAlert;
++ (MWMAlert *)invalidUserNameOrPasswordAlert;
 + (MWMAlert *)point2PointAlertWithOkBlock:(TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild;
 + (MWMAlert *)needMigrationAlertWithOkBlock:(TMWMVoidBlock)block;
 - (void)close;

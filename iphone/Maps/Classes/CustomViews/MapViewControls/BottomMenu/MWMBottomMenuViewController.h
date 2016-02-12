@@ -1,5 +1,5 @@
 #import "MWMBottomMenuView.h"
-#import "ViewController.h"
+#import "MWMViewController.h"
 
 #include "platform/location.hpp"
 
@@ -12,7 +12,7 @@
 
 @end
 
-@interface MWMBottomMenuViewController : ViewController
+@interface MWMBottomMenuViewController : MWMViewController
 
 @property(nonatomic) MWMBottomMenuState state;
 @property(weak, nonatomic) IBOutlet MWMButton * p2pButton;
@@ -27,7 +27,6 @@
 - (void)setGo;
 
 - (void)refreshLayout;
-- (void)mwm_refreshUI;
 
 - (void)onLocationStateModeChanged:(location::EMyPositionMode)state;
 

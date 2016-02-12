@@ -1,5 +1,5 @@
-#import "TableViewController.h"
+#import "MWMTableViewController.h"
 
-@interface MWMTTSLanguageViewController : TableViewController
+@interface MWMTTSLanguageViewController : MWMTableViewController
 
 @end

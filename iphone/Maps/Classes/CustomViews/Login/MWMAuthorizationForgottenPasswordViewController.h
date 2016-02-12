@@ -1,5 +1,5 @@
-#import "ViewController.h"
+#import "MWMViewController.h"
 
-@interface MWMAuthorizationForgottenPasswordViewController : ViewController
+@interface MWMAuthorizationForgottenPasswordViewController : MWMViewController
 
 @end

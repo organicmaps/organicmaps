@@ -1,5 +1,5 @@
-#import "TableViewController.h"
+#import "MWMTableViewController.h"
 
-@interface SettingsAndMoreVC : TableViewController
+@interface SettingsAndMoreVC : MWMTableViewController
 
 @end

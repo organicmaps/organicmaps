@@ -66,7 +66,7 @@
   if (connection != Platform::EConnectionType::CONNECTION_NONE)
   {
     if (connection == Platform::EConnectionType::CONNECTION_WWAN && size > 50 * MB)
-      [alert presentnoWiFiAlertWithName:name downloadBlock:^{[self download];}];
+      [alert presentNoWiFiAlertWithName:name downloadBlock:^{[self download];}];
     else
       return YES;
   }

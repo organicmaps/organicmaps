@@ -1,4 +1,4 @@
-#import "ViewController.h"
+#import "MWMViewController.h"
 
 typedef NS_ENUM(NSUInteger, MWMWebViewAuthorizationType)
 {
@@ -6,7 +6,7 @@ typedef NS_ENUM(NSUInteger, MWMWebViewAuthorizationType)
   MWMWebViewAuthorizationTypeFacebook
 };
 
-@interface MWMAuthorizationWebViewLoginViewController : ViewController
+@interface MWMAuthorizationWebViewLoginViewController : MWMViewController
 
 @property (nonatomic) MWMWebViewAuthorizationType authType;
 

@@ -79,11 +79,23 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return [self defaultAlertWithTitle:@"dialog_routing_change_start" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
++ (instancetype)internalRoutingErrorAlert
+{
+  kStatisticsEvent = @"Internal Routing Error Alert";
+  NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_application_error"), L(@"dialog_routing_try_again")];
+  return [self defaultAlertWithTitle:@"dialog_routing_system_error" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+}
+
 + (instancetype)internalErrorAlert
 {
   kStatisticsEvent = @"Internal Error Alert";
-  NSString * message = [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_application_error"), L(@"dialog_routing_try_again")];
-  return [self defaultAlertWithTitle:@"dialog_routing_system_error" message:message rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+  return [self defaultAlertWithTitle:@"dialog_routing_system_error" message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
+}
+
++ (instancetype)invalidUserNameOrPasswordAlert
+{
+  kStatisticsEvent = @"Invalid User Name or Password Alert";
+  return [self defaultAlertWithTitle:@"invalid_username_or_password" message:nil rightButtonTitle:@"ok" leftButtonTitle:nil rightButtonAction:nil];
 }
 
 + (instancetype)noCurrentPositionAlert

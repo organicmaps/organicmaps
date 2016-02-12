@@ -3,11 +3,12 @@
 #import "EAGLView.h"
 #import "LocalNotificationManager.h"
 #import "LocationManager.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
+#import "MWMController.h"
 #import "MWMTextToSpeech.h"
-#import "MapViewController.h"
-#import "MapsAppDelegate.h"
 #import "Preferences.h"
 #import "RouteState.h"
 #import "Statistics.h"
@@ -303,7 +304,7 @@ using namespace osm_auth_ios;
     return;
   f.SetMapStyle(MapStyleClear);
   [UIColor setNightMode:NO];
-  [static_cast<ViewController *>(app.mapViewController.navigationController.topViewController) mwm_refreshUI];
+  [static_cast<id<MWMController>>(app.mapViewController.navigationController.topViewController) mwm_refreshUI];
   [app stopMapStyleChecker];
 }
 
@@ -318,7 +319,7 @@ using namespace osm_auth_ios;
   dispatch_async(dispatch_get_main_queue(), [&f, l, self, app]
   {
     auto const dayTime = GetDayTime(static_cast<time_t>(NSDate.date.timeIntervalSince1970), l.coordinate.latitude, l.coordinate.longitude);
-    ViewController * vc = static_cast<ViewController *>(app.mapViewController.navigationController.topViewController);
+    id<MWMController> vc = static_cast<id<MWMController>>(app.mapViewController.navigationController.topViewController);
     auto style = f.GetMapStyle();
     switch (dayTime)
     {

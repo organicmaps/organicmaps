@@ -13,6 +13,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMPageController.h"
 #import "MWMPlacePageEntity.h"
+#import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
 #import "RouteState.h"
 #import "Statistics.h"
@@ -565,7 +566,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
         {
           if (connection == Platform::EConnectionType::CONNECTION_WWAN && sizeToDownload > 50 * MB)
           {
-            [self.alertController presentnoWiFiAlertWithName:name downloadBlock:^
+            [self.alertController presentNoWiFiAlertWithName:name downloadBlock:^
             {
               layout.DownloadMap(idx, static_cast<MapOptions>(opt));
             }];
@@ -713,7 +714,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 - (void)openBookmarks
 {
   BOOL const oneCategory = (GetFramework().GetBmCategoriesCount() == 1);
-  TableViewController * vc =
+  MWMTableViewController * vc =
       oneCategory ? [[BookmarksVC alloc] initWithCategory:0] : [[BookmarksRootVC alloc] init];
   [self.navigationController pushViewController:vc animated:YES];
 }
@@ -834,15 +835,6 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
   [self.alertController presentRoutingDisclaimerAlert];
 }
 
-#pragma mark - Getters
-
-- (MWMAlertViewController *)alertController
-{
-  if (!_alertController)
-    _alertController = [[MWMAlertViewController alloc] initWithViewController:self];
-  return _alertController;
-}
-
 #pragma mark - Private methods
 
 - (void)destroyPopover
@@ -925,6 +917,11 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
   BOOL const haveAppWall = (self.appWallAd != nil);
   BOOL const haveBanners = (self.appWallAd.banners && self.appWallAd.banners != 0);
   return haveAppWall && haveBanners;
+}
+
+- (BOOL)hasNavigationBar
+{
+  return NO;
 }
 
 @end

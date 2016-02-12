@@ -88,7 +88,7 @@
     case routing::IRouter::FileTooOld:
       return [MWMDefaultAlert routeFileNotExistAlert];
     case routing::IRouter::InternalError:
-      return [MWMDefaultAlert internalErrorAlert];
+      return [MWMDefaultAlert internalRoutingErrorAlert];
     case routing::IRouter::Cancelled:
     case routing::IRouter::NoError:
     case routing::IRouter::NeedMoreMaps:
@@ -99,6 +99,16 @@
 + (MWMAlert *)pedestrianToastShareAlert:(BOOL)isFirstLaunch
 {
   return [MWMPedestrianShareAlert alert:isFirstLaunch];
+}
+
++ (MWMAlert *)internalErrorAlert
+{
+  return [MWMDefaultAlert internalErrorAlert];
+}
+
++ (MWMAlert *)invalidUserNameOrPasswordAlert
+{
+  return [MWMDefaultAlert invalidUserNameOrPasswordAlert];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation

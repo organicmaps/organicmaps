@@ -1,10 +1,10 @@
 #import "MWMAlert.h"
-#import "ViewController.h"
+#import "MWMViewController.h"
 
 #include "routing/router.hpp"
 #include "storage/storage.hpp"
 
-@interface MWMAlertViewController : ViewController
+@interface MWMAlertViewController : MWMViewController
 
 @property (weak, nonatomic, readonly) UIViewController * ownerViewController;
 
@@ -23,8 +23,10 @@
 - (void)presentLocationAlert;
 - (void)presentLocationServiceNotSupportedAlert;
 - (void)presentNoConnectionAlert;
-- (void)presentnoWiFiAlertWithName:(nonnull NSString *)name downloadBlock:(nullable TMWMVoidBlock)block;
+- (void)presentNoWiFiAlertWithName:(nonnull NSString *)name downloadBlock:(nullable TMWMVoidBlock)block;
 - (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch;
+- (void)presentInternalErrorAlert;
+- (void)presentInvalidUserNameOrPasswordAlert;
 - (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));

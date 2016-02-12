@@ -1,3 +1,4 @@
+#import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationOSMLoginViewController.h"
 #import "MWMCircularProgress.h"
@@ -149,14 +150,14 @@ using namespace osm;
         }
         else
         {
-          [self showAlert:L(@"invalid_username_or_password") withButtonTitle:L(@"ok")];
+          [self.alertController presentInvalidUserNameOrPasswordAlert];
         }
       });
     });
   }
   else
   {
-    [self showAlert:L(@"no_internet_connection_detected") withButtonTitle:L(@"ok")];
+    [self.alertController presentNoConnectionAlert];
   }
 }
 

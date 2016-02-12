@@ -1,6 +1,6 @@
 #import "LocationManager.h"
 #import "LocationPredictor.h"
-#import "ViewController.h"
+#import "MWMViewController.h"
 #import <MyTargetSDKCorp/MTRGNativeAppwallAd.h>
 
 #include "geometry/point2d.hpp"
@@ -12,7 +12,7 @@ namespace search { struct AddressInfo; }
 @class MWMMapViewControlsManager;
 @class MWMAPIBar;
 
-@interface MapViewController : ViewController <LocationObserver, UIPopoverControllerDelegate>
+@interface MapViewController : MWMViewController <LocationObserver, UIPopoverControllerDelegate>
 {
   CGPoint m_popoverPos;
   

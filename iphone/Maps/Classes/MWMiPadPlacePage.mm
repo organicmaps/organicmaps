@@ -5,17 +5,17 @@
 #import "MWMiPadPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageViewManager.h"
+#import "MWMViewController.h"
 #import "SelectSetVC.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
-#import "ViewController.h"
 
 static CGFloat const kLeftOffset = 12.;
 static CGFloat const kTopOffset = 36.;
 static CGFloat const kBottomOffset = 60.;
 static CGFloat const kKeyboardOffset = 12.;
 
-@interface MWMiPadPlacePageViewController : ViewController
+@interface MWMiPadPlacePageViewController : MWMViewController
 
 @property (nonatomic) UIView * placePageView;
 @property (nonatomic) UIView * actionBarView;

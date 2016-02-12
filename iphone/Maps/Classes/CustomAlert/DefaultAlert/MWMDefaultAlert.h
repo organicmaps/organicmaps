@@ -6,7 +6,9 @@
 + (instancetype)routeFileNotExistAlert;
 + (instancetype)endPointNotFoundAlert;
 + (instancetype)startPointNotFoundAlert;
++ (instancetype)internalRoutingErrorAlert;
 + (instancetype)internalErrorAlert;
++ (instancetype)invalidUserNameOrPasswordAlert;
 + (instancetype)noCurrentPositionAlert;
 + (instancetype)pointsInDifferentMWMAlert;
 + (instancetype)disabledLocationAlert;

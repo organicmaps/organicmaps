@@ -1,6 +1,6 @@
-#import "ViewController.h"
+#import "MWMViewController.h"
 
-@interface MWMAuthorizationLoginViewController : ViewController
+@interface MWMAuthorizationLoginViewController : MWMViewController
 
 @property (nonatomic) BOOL isCalledFromSettings;
 
