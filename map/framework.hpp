@@ -354,6 +354,7 @@ private:
 
   void OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel);
 
+  storage::TCountryId m_lastReportedCountry;
   TCurrentCountryChanged m_currentCountryChanged;
 
   // Search query params and viewport for the latest search

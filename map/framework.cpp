@@ -268,6 +268,7 @@ Framework::Framework()
   : m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_FILE : COUNTRIES_MIGRATE_FILE)
   , m_bmManager(*this)
   , m_fixedSearchResults(0)
+  , m_lastReportedCountry(kInvalidCountryId)
 {
   // Restore map style before classificator loading
   int mapStyle = MapStyleLight;
@@ -900,6 +901,11 @@ void Framework::OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel)
   if (zoomLevel > scales::GetUpperWorldScale())
     newCountryId = m_storage.FindCountryIdByFile(m_infoGetter->GetRegionCountryId(m2::PointD(pt)));
 
+  if (newCountryId == m_lastReportedCountry)
+    return;
+
+  m_lastReportedCountry = newCountryId;
+
   GetPlatform().RunOnGuiThread([this, newCountryId]()
   {
     if (m_currentCountryChanged != nullptr)
@@ -910,6 +916,7 @@ void Framework::OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel)
 void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener)
 {
   m_currentCountryChanged = listener;
+  m_lastReportedCountry = kInvalidCountryId;
 }
 
 void Framework::UpdateUserViewportChanged()
