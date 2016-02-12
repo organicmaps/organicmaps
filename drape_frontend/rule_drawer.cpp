@@ -32,10 +32,14 @@ int const kLineSimplifyLevelEnd = 12;
 
 RuleDrawer::RuleDrawer(TDrawerCallback const & fn,
                        TCheckCancelledCallback const & checkCancelled,
+                       TSetOwnerCallback const & setOwnerFn,
+                       TDiscardFeature const & discardFeature,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
                        ref_ptr<EngineContext> context, bool is3dBuildings)
   : m_callback(fn)
   , m_checkCancelled(checkCancelled)
+  , m_setOwnerFn(setOwnerFn)
+  , m_discardFeatureFn(discardFeature)
   , m_isLoadedFn(isLoadedFn)
   , m_context(context)
   , m_is3dBuidings(is3dBuildings)
@@ -81,13 +85,28 @@ bool RuleDrawer::CheckCancelled()
 
 void RuleDrawer::operator()(FeatureType const & f)
 {
+  if (CheckCancelled())
+    return;
+
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
+
+  m2::RectD const limitRect = f.GetLimitRect(zoomLevel);
+  m2::RectD const tileRect = m_context->GetTileKey().GetGlobalRect();
+
+  if (!tileRect.IsIntersect(limitRect))
+  {
+    m_discardFeatureFn(f.GetID());
+    return;
+  }
+
+  if (!m_setOwnerFn(f.GetID()))
+    return;
+
   Stylist s;
   m_callback(f, s);
 
   if (s.IsEmpty())
     return;
-
-  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
   if (s.IsCoastLine() &&
       zoomLevel > scales::GetUpperWorldScale() &&
@@ -119,14 +138,12 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   int const minVisibleScale = feature::GetMinDrawableScale(f);
 
-  m2::RectD const tileRect = m_context->GetTileKey().GetGlobalRect();
   uint32_t shapesCount = 0;
-  auto insertShape = [this, zoomLevel, &tileRect, &shapesCount, &f](drape_ptr<MapShape> && shape)
+  auto insertShape = [this, zoomLevel, &tileRect, &limitRect, &shapesCount, &f](drape_ptr<MapShape> && shape)
   {
     int const index = static_cast<int>(shape->GetType());
     ASSERT_LESS(index, m_mapShapes.size(), ());
 
-    m2::RectD const limitRect = f.GetLimitRect(zoomLevel);
     if (!tileRect.IsRectInside(limitRect))
     {
       shape->SetFeatureInfo(dp::FeatureGeometryId(f.GetID(), shapesCount));

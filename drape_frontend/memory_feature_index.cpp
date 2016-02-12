@@ -3,31 +3,34 @@
 namespace df
 {
 
-void MemoryFeatureIndex::ReadFeaturesRequest(TFeaturesInfo & features, vector<FeatureID> & featuresToRead)
+void MemoryFeatureIndex::ReadFeaturesRequest(TFeaturesInfo const & features, vector<FeatureID> & featuresToRead)
 {
   ASSERT(m_isLocked, ());
 
-  for (FeatureInfo & info : features)
+  for (auto const & featureInfo : features)
   {
-    ASSERT(m_features.find(info.m_id) != m_features.end() || !info.m_isOwner,());
-    if (!info.m_isOwner && m_features.insert(info.m_id).second)
-    {
-      featuresToRead.push_back(info.m_id);
-      info.m_isOwner = true;
-    }
+    if (m_features.find(featureInfo.first) == m_features.end())
+      featuresToRead.push_back(featureInfo.first);
   }
+}
+
+bool MemoryFeatureIndex::SetFeatureOwner(FeatureID const & feature)
+{
+  ASSERT(m_isLocked, ());
+
+  return m_features.insert(feature).second;
 }
 
 void MemoryFeatureIndex::RemoveFeatures(TFeaturesInfo & features)
 {
   ASSERT(m_isLocked, ());
 
-  for (FeatureInfo & info : features)
+  for (auto & featureInfo : features)
   {
-    if (info.m_isOwner)
+    if (featureInfo.second)
     {
-      VERIFY(m_features.erase(info.m_id) == 1, ());
-      info.m_isOwner = false;
+      VERIFY(m_features.erase(featureInfo.first) == 1, ());
+      featureInfo.second = false;
     }
   }
 }

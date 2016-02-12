@@ -13,30 +13,7 @@
 namespace df
 {
 
-struct FeatureInfo
-{
-  FeatureInfo()
-    : m_isOwner(false) {}
-
-  FeatureInfo(FeatureID const & id)
-    : m_id(id), m_isOwner(false) {}
-
-  bool operator < (FeatureInfo const & other) const
-  {
-    if (m_id != other.m_id)
-      return m_id < other.m_id;
-
-    return m_isOwner < other.m_isOwner;
-  }
-
-  FeatureID m_id;
-  bool m_isOwner;
-};
-
-// It is better for TileInfo to have size that is equal or slightly less
-// than several memory pages.
-size_t const kAverageFeaturesCount = 2040;
-using TFeaturesInfo = buffer_vector<FeatureInfo, kAverageFeaturesCount>;
+using TFeaturesInfo = map<FeatureID, bool>;
 
 class MemoryFeatureIndex : private noncopyable
 {
@@ -59,7 +36,8 @@ public:
     }
   };
 
-  void ReadFeaturesRequest(TFeaturesInfo & features, vector<FeatureID> & featuresToRead);
+  void ReadFeaturesRequest(const TFeaturesInfo & features, vector<FeatureID> & featuresToRead);
+  bool SetFeatureOwner(const FeatureID & feature);
   void RemoveFeatures(TFeaturesInfo & features);
 
 private:

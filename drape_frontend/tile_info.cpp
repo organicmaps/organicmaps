@@ -31,24 +31,50 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
   if (DoNeedReadIndex())
   {
     CheckCanceled();
-    model.ReadFeaturesID(bind(&TileInfo::ProcessID, this, _1), GetGlobalRect(), GetZoomLevel());
 
-    //sort(m_featureInfo.begin(), m_featureInfo.end());
-    // Do debug check instead of useless sorting.
 #ifdef DEBUG
     set<MwmSet::MwmId> existing;
-    auto i = m_featureInfo.begin();
-    while (i != m_featureInfo.end())
+    MwmSet::MwmId lastMwm;
+    model.ReadFeaturesID([this, &existing, &lastMwm](FeatureID const & id)
     {
-      auto const & id = i->m_id.m_mwmId;
-      ASSERT(existing.insert(id).second, ());
-      i = find_if(i+1, m_featureInfo.end(), [&id](FeatureInfo const & info)
+      if (existing.empty() || lastMwm != id.m_mwmId)
       {
-        return (id != info.m_id.m_mwmId);
-      });
-    }
+        ASSERT(existing.insert(id.m_mwmId).second, ());
+        lastMwm = id.m_mwmId;
+      }
+#else
+    model.ReadFeaturesID([this](FeatureID const & id)
+    {
 #endif
+      m_featureInfo.insert(make_pair(id, false));
+    }, GetGlobalRect(), GetZoomLevel());
   }
+}
+
+void TileInfo::DiscardFeatureInfo(FeatureID const & featureId, MemoryFeatureIndex & memIndex)
+{
+  CheckCanceled();
+
+  MemoryFeatureIndex::Lock lock(memIndex);
+  UNUSED_VALUE(lock);
+
+  m_featureInfo.erase(featureId);
+}
+
+bool TileInfo::SetFeatureOwner(FeatureID const & featureId, MemoryFeatureIndex & memIndex)
+{
+  CheckCanceled();
+
+  MemoryFeatureIndex::Lock lock(memIndex);
+  UNUSED_VALUE(lock);
+
+  if (!m_featureInfo[featureId])
+  {
+    bool isOwner = memIndex.SetFeatureOwner(featureId);
+    m_featureInfo[featureId] = isOwner;
+    return isOwner;
+  }
+  return false;
 }
 
 void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & memIndex)
@@ -65,14 +91,15 @@ void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & 
 
     ReadFeatureIndex(model);
     CheckCanceled();
-    featuresToRead.reserve(kAverageFeaturesCount);
     memIndex.ReadFeaturesRequest(m_featureInfo, featuresToRead);
   }
 
   if (!featuresToRead.empty())
   {
-    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2),
+    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1, _2),
                       bind(&TileInfo::IsCancelled, this),
+                      bind(&TileInfo::SetFeatureOwner, this, _1, ref(memIndex)),
+                      bind(&TileInfo::DiscardFeatureInfo, this, _1, ref(memIndex)),
                       model.m_isCountryLoadedByNameFn,
                       make_ref(m_context), m_is3dBuildings);
     model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
@@ -90,11 +117,6 @@ void TileInfo::Cancel(MemoryFeatureIndex & memIndex)
 bool TileInfo::IsCancelled() const
 {
   return m_isCanceled;
-}
-
-void TileInfo::ProcessID(FeatureID const & id)
-{
-  m_featureInfo.push_back(id);
 }
 
 void TileInfo::InitStylist(FeatureType const & f, Stylist & s)

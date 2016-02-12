@@ -30,6 +30,8 @@ public:
   void ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & memIndex);
   void Cancel(MemoryFeatureIndex & memIndex);
   bool IsCancelled() const;
+  bool SetFeatureOwner(FeatureID const & featureId, MemoryFeatureIndex & memIndex);
+  void DiscardFeatureInfo(FeatureID const & featureId, MemoryFeatureIndex & memIndex);
 
   void Set3dBuildings(bool buildings3d) { m_is3dBuildings = buildings3d; }
   bool Get3dBuildings() const { return m_is3dBuildings; }
@@ -40,7 +42,6 @@ public:
 
 private:
   void ReadFeatureIndex(MapDataProvider const & model);
-  void ProcessID(FeatureID const & id);
   void InitStylist(FeatureType const & f, Stylist & s);
   void CheckCanceled() const;
   bool DoNeedReadIndex() const;

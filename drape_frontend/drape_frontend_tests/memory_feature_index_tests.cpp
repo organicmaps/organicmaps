@@ -37,8 +37,20 @@ public:
   virtual void Do()
   {
     vector<FeatureID> result;
+    {
+      df::MemoryFeatureIndex::Lock lock(m_index);
+      m_index.ReadFeaturesRequest(m_features, result);
+    }
+
+    for (size_t i = 0, count = result.size(); i < count; ++i)
+      SetFeatureOwner(result[i]);
+  }
+
+  void SetFeatureOwner(FeatureID const & feature)
+  {
     df::MemoryFeatureIndex::Lock lock(m_index);
-    m_index.ReadFeaturesRequest(m_features, result);
+    if (!m_features[feature])
+      m_features[feature] = m_index.SetFeatureOwner(feature);
   }
 
 private:
@@ -50,7 +62,7 @@ void GenerateFeatures(df::TFeaturesInfo & features, int taskIndex)
 {
   int const kCount = 10000;
   for (int i = 0; i < kCount; ++i)
-    features.push_back(df::FeatureInfo(FeatureID(MwmSet::MwmId(), taskIndex * kCount / 2 + i)));
+    features.insert(make_pair(FeatureID(MwmSet::MwmId(), taskIndex * kCount / 2 + i), false));
 }
 
 } // namespace
@@ -89,11 +101,11 @@ UNIT_TEST(MemoryFeatureIndex_MT_Test)
 
   for (int i = 0; i < TASK_COUNT; ++i)
   {
-    for (size_t j = 0; j < features[i].size(); ++j)
+    for (auto it = features[i].begin(); it != features[i].end(); ++it)
     {
-      allFeatures.insert(features[i][j].m_id);
-      if (features[i][j].m_isOwner == true)
-        TEST_EQUAL(readedFeatures.insert(features[i][j].m_id).second, true, ());
+      allFeatures.insert(it->first);
+      if (it->second == true)
+        TEST_EQUAL(readedFeatures.insert(it->first).second, true, ());
     }
   }
 
