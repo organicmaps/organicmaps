@@ -52,7 +52,7 @@ static shared_ptr<HttpRequest> g_currentRequest;
 
 extern "C"
 {
-  typedef HttpRequest::CallbackT CallbackT;
+  using TCallback = HttpRequest::CallbackT;
 
   static int HasSpaceForFiles(Platform & pl, string const & sdcardPath, size_t fileSize)
   {
@@ -175,7 +175,7 @@ extern "C"
     env->CallVoidMethod(*listener.get(), methodID, static_cast<jint>(g_totalDownloadedBytes + req.Progress().first));
   }
 
-  static void DownloadURLListFinished(HttpRequest const & req, CallbackT const & onFinish, CallbackT const & onProgress)
+  static void DownloadURLListFinished(HttpRequest const & req, TCallback const & onFinish, TCallback const & onProgress)
   {
     FileToDownload & curFile = g_filesToDownload.back();
 
@@ -203,8 +203,8 @@ extern "C"
 
     LOG(LDEBUG, ("downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
 
-    CallbackT onFinish(bind(&DownloadFileFinished, jni::make_global_ref(listener), _1));
-    CallbackT onProgress(bind(&DownloadFileProgress, jni::make_global_ref(listener), _1));
+    TCallback onFinish(bind(&DownloadFileFinished, jni::make_global_ref(listener), _1));
+    TCallback onProgress(bind(&DownloadFileProgress, jni::make_global_ref(listener), _1));
 
     g_currentRequest.reset(HttpRequest::PostJson(GetPlatform().ResourcesMetaServerUrl(), curFile.m_fileName,
                                                  bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
