@@ -152,7 +152,7 @@ using namespace osm_auth_ios;
       GetFramework().Storage().GetNodeAttrs(countryId, attrs);
       size_t const warningSizeForWWAN = 50 * MB;
       if (attrs.m_mwmSize > warningSizeForWWAN)
-        [alertController presentNoWiFiAlertWithName:@(attrs.m_nodeLocalName.c_str()) downloadBlock:action];
+        [alertController presentNoWiFiAlertWithName:@(attrs.m_nodeLocalName.c_str()) okBlock:action];
       else
         action();
       break;

@@ -16,14 +16,18 @@
 + (MWMAlert *)locationAlert;
 + (MWMAlert *)routingDisclaimerAlertWithInitialOrientation:(UIInterfaceOrientation)orientation;
 + (MWMAlert *)disabledLocationAlert;
-+ (MWMAlert *)noWiFiAlertWithName:(NSString *)name downloadBlock:(TMWMVoidBlock)block;
++ (MWMAlert *)noWiFiAlertWithName:(NSString *)name okBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)noConnectionAlert;
 + (MWMAlert *)locationServiceNotSupportedAlert;
 + (MWMAlert *)pedestrianToastShareAlert:(BOOL)isFirstLaunch;
 + (MWMAlert *)internalErrorAlert;
 + (MWMAlert *)invalidUserNameOrPasswordAlert;
-+ (MWMAlert *)point2PointAlertWithOkBlock:(TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild;
-+ (MWMAlert *)updateMapsAlertWithOkBlock:(TMWMVoidBlock)block;
++ (MWMAlert *)point2PointAlertWithOkBlock:(TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
++ (MWMAlert *)updateMapsAlertWithOkBlock:(TMWMVoidBlock)okBlock;
++ (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock;
++ (MWMAlert *)downloaderNotEnoughSpaceAlert;
++ (MWMAlert *)downloaderInternalErrorAlertForMap:(NSString *)name okBlock:(TMWMVoidBlock)okBlock;
++ (MWMAlert *)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 - (void)close;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;

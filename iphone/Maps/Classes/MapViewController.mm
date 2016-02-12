@@ -567,7 +567,7 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
     case routing::IRouter::FileTooOld:
     case routing::IRouter::RouteNotFound:
     {
-      [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes block:[=]
+      [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes okBlock:[=]
       {
         auto & s = GetFramework().Storage();
         for (auto const & countryId : absentCountries)
@@ -699,10 +699,10 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
                      countries:(storage::TCountriesVec const &)countries
                         routes:(storage::TCountriesVec const &)routes
-                         block:(TMWMVoidBlock)block
+                       okBlock:(TMWMVoidBlock)okBlock
 {
   if (countries.size() || routes.size())
-    [self.alertController presentDownloaderAlertWithCountries:countries routes:routes code:code block:block];
+    [self.alertController presentDownloaderAlertWithCountries:countries routes:routes code:code okBlock:okBlock];
   else
     [self presentDefaultAlert:code];
 }

@@ -89,7 +89,7 @@ static NSString * const kStatisticsEvent = @"Map download Alert";
 + (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)maps
                                  routes:(storage::TCountriesVec const &)routes
                                    code:(routing::IRouter::ResultCode)code
-                                  block:(TMWMVoidBlock)block
+                                okBlock:(TMWMVoidBlock)okBlock
 {
   [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMDownloadTransitMapAlert * alert = [self alertWithMaps:maps routes:routes];
@@ -113,7 +113,7 @@ static NSString * const kStatisticsEvent = @"Map download Alert";
       NSAssert(false, @"Incorrect code!");
       break;
   }
-  alert.downloaderBlock = block;
+  alert.downloaderBlock = okBlock;
   return alert;
 }
 

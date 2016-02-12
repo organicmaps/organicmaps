@@ -61,9 +61,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 //  });
 }
 
-- (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
+- (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild
 {
-  [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild]];
+  [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:okBlock needToRebuild:needToRebuild]];
 }
 
 - (void)presentFacebookAlert
@@ -78,12 +78,12 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentNoConnectionAlert
 {
-  [self displayAlert:MWMAlert.noConnectionAlert];
+  [self displayAlert:[MWMAlert noConnectionAlert]];
 }
 
-- (void)presentNoWiFiAlertWithName:(nonnull NSString *)name downloadBlock:(nullable TMWMVoidBlock)block
+- (void)presentNoWiFiAlertWithName:(nonnull NSString *)name okBlock:(nullable TMWMVoidBlock)okBlock
 {
-  [self displayAlert:[MWMAlert noWiFiAlertWithName:name downloadBlock:block]];
+  [self displayAlert:[MWMAlert noWiFiAlertWithName:name okBlock:okBlock]];
 }
 
 - (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch
@@ -101,17 +101,17 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert invalidUserNameOrPasswordAlert]];
 }
 
-- (void)presentUpdateMapsAlertWithOkBlock:(nonnull TMWMVoidBlock)block
+- (void)presentUpdateMapsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
 {
-  [self displayAlert:[MWMAlert updateMapsAlertWithOkBlock:block]];
+  [self displayAlert:[MWMAlert updateMapsAlertWithOkBlock:okBlock]];
 }
 
 - (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
                                      routes:(storage::TCountriesVec const &)routes
                                        code:(routing::IRouter::ResultCode)code
-                                      block:(TMWMVoidBlock)block
+                                    okBlock:(TMWMVoidBlock)okBlock
 {
-  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes code:code block:block]];
+  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes code:code block:okBlock]];
 }
 
 - (void)presentRoutingDisclaimerAlert
@@ -147,6 +147,26 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
     if (!isIOS7)
       alert.transform = CGAffineTransformIdentity;
   }];
+}
+
+- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert downloaderNoConnectionAlertWithOkBlock:okBlock]];
+}
+
+- (void)presentDownloaderNotEnoughSpaceAlert
+{
+  [self displayAlert:[MWMAlert downloaderNotEnoughSpaceAlert]];
+}
+
+- (void)presentDownloaderInternalErrorAlertForMap:(nonnull NSString *)name okBlock:(nonnull TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert downloaderInternalErrorAlertForMap:name okBlock:okBlock]];
+}
+
+- (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert downloaderNeedUpdateAlertWithOkBlock:okBlock]];
 }
 
 - (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion

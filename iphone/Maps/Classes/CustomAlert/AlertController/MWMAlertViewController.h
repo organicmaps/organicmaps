@@ -13,20 +13,24 @@
 - (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
                                      routes:(storage::TCountriesVec const &)routes
                                        code:(routing::IRouter::ResultCode)code
-                                      block:(nonnull TMWMVoidBlock)block;
+                                    okBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentRateAlert;
 - (void)presentFacebookAlert;
-- (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild;
-- (void)presentUpdateMapsAlertWithOkBlock:(nonnull TMWMVoidBlock)block;
+- (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
+- (void)presentUpdateMapsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentRoutingDisclaimerAlert;
 - (void)presentDisabledLocationAlert;
 - (void)presentLocationAlert;
 - (void)presentLocationServiceNotSupportedAlert;
 - (void)presentNoConnectionAlert;
-- (void)presentNoWiFiAlertWithName:(nonnull NSString *)name downloadBlock:(nullable TMWMVoidBlock)block;
+- (void)presentNoWiFiAlertWithName:(nonnull NSString *)name okBlock:(nullable TMWMVoidBlock)okBlock;
 - (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch;
 - (void)presentInternalErrorAlert;
 - (void)presentInvalidUserNameOrPasswordAlert;
+- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
+- (void)presentDownloaderNotEnoughSpaceAlert;
+- (void)presentDownloaderInternalErrorAlertForMap:(nonnull NSString *)name okBlock:(nonnull TMWMVoidBlock)okBlock;
+- (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));
