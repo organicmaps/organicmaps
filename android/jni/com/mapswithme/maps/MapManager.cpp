@@ -118,9 +118,8 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   static jfieldID const countryItemFieldPresent = env->GetFieldID(g_countryItemClass, "present", "Z");
 
   // Localized name
-  jstring name = jni::ToJavaString(env, attrs.m_nodeLocalName);
-  env->SetObjectField(item, countryItemFieldName, name);
-  env->DeleteLocalRef(name);
+  jni::TScopedLocalRef const name(env, jni::ToJavaString(env, attrs.m_nodeLocalName));
+  env->SetObjectField(item, countryItemFieldName, name.get());
 
   // Sizes
   env->SetLongField(item, countryItemFieldSize, attrs.m_localMwmSize);
@@ -152,23 +151,19 @@ static void PutItemsToList(JNIEnv * env, jobject const list,  vector<TCountryId>
   {
     GetStorage().GetNodeAttrs(child, attrs);
 
-    jstring id = jni::ToJavaString(env, child);
-    jobject item = env->NewObject(g_countryItemClass, countryItemCtor, id);
-    env->SetIntField(item, countryItemFieldCategory, category);
+    jni::TScopedLocalRef const id(env, jni::ToJavaString(env, child));
+    jni::TScopedLocalRef const item(env, env->NewObject(g_countryItemClass, countryItemCtor, id.get()));
+    env->SetIntField(item.get(), countryItemFieldCategory, category);
 
-    env->SetObjectField(item, countryItemFieldParentId, parentId);
+    env->SetObjectField(item.get(), countryItemFieldParentId, parentId);
 
-    UpdateItem(env, item, attrs);
+    UpdateItem(env, item.get(), attrs);
 
     // Let the caller do special processing
-    callback(item);
+    callback(item.get());
 
     // Put to resulting list
-    env->CallBooleanMethod(list, g_listAddMethod, item);
-
-    // Drop local refs
-    env->DeleteLocalRef(item);
-    env->DeleteLocalRef(id);
+    env->CallBooleanMethod(list, g_listAddMethod, item.get());
   }
 }
 
