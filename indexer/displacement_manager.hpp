@@ -117,7 +117,7 @@ public:
     {
       uint32_t scale = node.m_minScale;
       // Do not filter high level objects.
-      if (scale < 10)
+      if (scale <= scales::GetUpperWorldScale())
       {
         AddNodeToSorter(node,scale);
         acceptedNodes.Add(node);

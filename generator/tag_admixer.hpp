@@ -62,10 +62,11 @@ public:
           uint64_t nodeId;
           // Third ';'.
           auto endPos = oneLine.find(";", pos + 1);
-          if (endPos == string::npos)
-            endPos = oneLine.length() - 1;
-          if (strings::to_uint64(oneLine.substr(pos + 1, endPos - pos - 1), nodeId))
-            m_capitals.insert(nodeId);
+          if (endPos != string::npos)
+          {
+            if (strings::to_uint64(oneLine.substr(pos + 1, endPos - pos - 1), nodeId))
+              m_capitals.insert(nodeId);
+          }
         }
       }
     }
