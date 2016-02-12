@@ -180,15 +180,16 @@ UNIT_TEST(GetFileSize)
   TEST(!pl.GetFileSizeByName("adsmngfuwrbfyfwe", size), ());
   TEST(!pl.IsFileExistsByFullPath("adsmngfuwrbfyfwe"), ());
 
+  string const fileName = pl.WritablePathForFile(TEST_FILE_NAME);
   {
-    FileWriter testFile(TEST_FILE_NAME);
+    FileWriter testFile(fileName);
     testFile.Write("HOHOHO", 6);
   }
   size = 0;
-  TEST(Platform::GetFileSizeByFullPath(TEST_FILE_NAME, size), ());
+  TEST(Platform::GetFileSizeByFullPath(fileName, size), ());
   TEST_EQUAL(size, 6, ());
 
-  FileWriter::DeleteFileX(TEST_FILE_NAME);
+  FileWriter::DeleteFileX(fileName);
 
   {
     FileWriter testFile(pl.WritablePathForFile(TEST_FILE_NAME));
