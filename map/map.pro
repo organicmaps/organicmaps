@@ -25,6 +25,7 @@ HEADERS += \
     gps_track_storage.hpp \
     gps_tracker.hpp \
     mwm_url.hpp \
+    place_page_info.hpp \
     styled_point.hpp \
     track.hpp \
     user_mark.hpp \
@@ -46,6 +47,7 @@ SOURCES += \
     gps_track_storage.cpp \
     gps_tracker.cpp \
     mwm_url.cpp \
+    place_page_info.cpp \
     styled_point.cpp \
     track.cpp \
     user_mark.cpp \
