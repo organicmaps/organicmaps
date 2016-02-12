@@ -686,9 +686,11 @@
 				67F90B741C6A277900CD458E /* storage_tests.cpp in Sources */,
 				67F90B731C6A277900CD458E /* simple_tree_test.cpp in Sources */,
 				67F90B761C6A277900CD458E /* test_map_files_downloader.cpp in Sources */,
+				678338681C6CF17B00FD6263 /* country_name_getter_test.cpp in Sources */,
 				67F90B711C6A277900CD458E /* fake_map_files_downloader.cpp in Sources */,
 				67F90B701C6A277900CD458E /* country_info_getter_test.cpp in Sources */,
 				67F90B721C6A277900CD458E /* queued_country_tests.cpp in Sources */,
+				678338671C6CF17600FD6263 /* helpers.cpp in Sources */,
 				67F90B751C6A277900CD458E /* task_runner.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

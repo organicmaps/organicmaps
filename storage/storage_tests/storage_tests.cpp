@@ -1424,4 +1424,17 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Pays 1", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_localName, "Pays 2", ());
 }
+
+UNIT_TEST(StorageTest_DeleteNodeWithoutDownloading)
+{
+  Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
+  TaskRunner runner;
+  InitStorage(storage, runner);
+
+  storage.DeleteNode("Illegal_countryId");
+  storage.DeleteNode("Algeria_Central");
+  NodeAttrs nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("Algeria_Central", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
+}
 }  // namespace storage
