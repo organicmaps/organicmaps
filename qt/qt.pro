@@ -99,34 +99,34 @@ macx-* {
 }
 
 SOURCES += \
+    about.cpp \
+    draw_widget.cpp \
+    editor_dialog.cpp \
+    info_dialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    draw_widget.cpp \
-    proxystyle.cpp \
-    slider_ctrl.cpp \
-    about.cpp \
-    info_dialog.cpp \
+    osm_auth_dialog.cpp \
     preferences_dialog.cpp \
-    search_panel.cpp \
-    update_dialog.cpp \
+    proxystyle.cpp \
     qtoglcontext.cpp \
     qtoglcontextfactory.cpp \
-    editor_dialog.cpp \
-    osm_auth_dialog.cpp
+    search_panel.cpp \
+    slider_ctrl.cpp \
+    update_dialog.cpp \
 
 HEADERS += \
-    mainwindow.hpp \
-    draw_widget.hpp \
-    proxystyle.hpp \
-    slider_ctrl.hpp \
     about.hpp \
+    draw_widget.hpp \
+    editor_dialog.hpp \
     info_dialog.hpp \
+    mainwindow.hpp \
+    osm_auth_dialog.hpp \
     preferences_dialog.hpp \
-    search_panel.hpp \
-    update_dialog.hpp \
+    proxystyle.hpp \
     qtoglcontext.hpp \
     qtoglcontextfactory.hpp \
-    editor_dialog.hpp \
-    osm_auth_dialog.hpp
+    search_panel.hpp \
+    slider_ctrl.hpp \
+    update_dialog.hpp \
 
 RESOURCES += res/resources.qrc
