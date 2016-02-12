@@ -8,6 +8,8 @@ import urllib2
 import socket
 from subprocess import Popen, PIPE
 from time import sleep
+import sys
+
 
 import logging
 
@@ -89,7 +91,7 @@ class SiblingKiller:
 
     def siblings(self):
         my_name = self.my_process_name()
-        return filter(lambda x: x < self.__my_pid, 
+        return filter(lambda x: x < self.__my_pid,
                           map(lambda x: int(x.split(" ")[1]), 
                               filter(lambda x: my_name in x, self.all_processes)))
 
@@ -129,9 +131,7 @@ class SiblingKiller:
 
 
     def my_process_name(self):
-        return map(lambda x : x[1],  
-                   filter(lambda x: x[0] == str(self.__my_pid), 
-                          map(lambda x: x.split(" ", 7)[1:8:6], self.all_processes)))[0]
+        return " ".join(sys.argv)
 
 
     def ps_dash_w(self):
