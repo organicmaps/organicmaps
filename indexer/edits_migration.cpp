@@ -5,6 +5,7 @@
 #include "indexer/feature.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_iterator.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/unique_ptr.hpp"
@@ -14,46 +15,37 @@ namespace
 m2::PointD CalculateCenter(vector<m2::PointD> const & geometry)
 {
   ASSERT(!geometry.empty() && geometry.size() % 3 == 0,
-         ("Invalid geometry should be handled in caller."));
+         ("Invalid geometry should be handled in caller. geometry.size() =", geometry.size()));
 
-  m2::CalculateBoundingBox doCalcBox;
-  for (auto const & p : geometry)
-    doCalcBox(p);
-
-  m2::CalculatePointOnSurface doCalcCenter(doCalcBox.GetBoundingBox());
-  for (auto i = 0; i < geometry.size() - 3; i += 3)
-    doCalcCenter(geometry[i], geometry[i + 1], geometry[i + 2]);
-
-  return doCalcCenter.GetCenter();
+  auto const boundingBox = ApplyCalculator(begin(geometry), end(geometry),
+                                           m2::CalculateBoundingBox());
+  return ApplyCalculator(begin(geometry), end(geometry), m2::CalculatePointOnSurface(boundingBox));
 }
 
-uint32_t GetGeometriesIntersectionCapacity(vector<m2::PointD> g1,
-                                           vector<m2::PointD> g2)
+uint32_t GetGeometriesIntersectionSize(vector<m2::PointD> g1,
+                                       vector<m2::PointD> g2)
 {
-  struct Counter
-  {
-    Counter & operator++() { return *this; }
-    Counter & operator*() { return *this; }
-    Counter & operator=(m2::PointD const &)
-    {
-      ++m_count;
-      return *this;
-    }
-    uint32_t m_count = 0;
-  };
-
   sort(begin(g1), end(g1));
   sort(begin(g2), end(g2));
 
-  Counter counter;
-  set_intersection(begin(g1), end(g1),
-                   begin(g2), end(g2),
-                   counter, [](m2::PointD const & p1, m2::PointD const & p2)
-                   {
-                     // TODO(mgsergio): Use 1e-7 everyware instead of MercatotBounds::GetCellID2PointAbsEpsilon
-                     return p1 < p2 && !p1.EqualDxDy(p2, 1e-7);
-                   });
-  return counter.m_count;
+  // The default comparison operator used in sort above (cmp1) and one that is
+  // used in set_itersection (cmp2) are compatible in that sence that
+  // cmp2(a, b) :- cmp1(a, b) and
+  // cmp1(a, b) :- cmp2(a, b) || a almost equal b.
+  // You can think of cmp2 as !(a >= b).
+  // But cmp2 is not transitive:
+  // i.e. !cmp(a, b) && !cmp(b, c) does NOT implies !cmp(a, c),
+  // |a, b| < eps, |b, c| < eps.
+  // This could lead to unexpected results in set_itersection (with greedy implementation),
+  // but we assume such situation is very unlikely.
+  return set_intersection(begin(g1), end(g1),
+                          begin(g2), end(g2),
+                          CounterIterator(), [](m2::PointD const & p1, m2::PointD const & p2)
+                          {
+                            // TODO(mgsergio): Use 1e-7 everyware instead of
+                            // MercatotBounds::GetCellID2PointAbsEpsilon
+                            return p1 < p2 && !p1.EqualDxDy(p2, 1e-7);
+                          }).GetCount();
 }
 }  // namespace
 
@@ -104,7 +96,7 @@ FeatureID MigrateWayFeatureIndex(osm::Editor::TForEachFeaturesNearByFn & forEach
           return;
         ++count;
         auto const ftGeometry = ft.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
-        auto matched = GetGeometriesIntersectionCapacity(ftGeometry, geometry);
+        auto matched = GetGeometriesIntersectionSize(ftGeometry, geometry);
         auto const score = static_cast<double>(matched) / geometry.size();
         if (score > bestScore)
         {

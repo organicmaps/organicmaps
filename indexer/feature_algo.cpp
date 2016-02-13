@@ -25,7 +25,7 @@ m2::PointD GetCenter(FeatureType const & f, int scale)
     {
       m2::CalculatePolyLineCenter doCalc;
       f.ForEachPoint(doCalc, scale);
-      return doCalc.GetCenter();
+      return doCalc.GetResult();
     }
 
   default:
@@ -33,7 +33,7 @@ m2::PointD GetCenter(FeatureType const & f, int scale)
       ASSERT_EQUAL(type, GEOM_AREA, ());
       m2::CalculatePointOnSurface doCalc(f.GetLimitRect(scale));
       f.ForEachTriangle(doCalc, scale);
-      return doCalc.GetCenter();
+      return doCalc.GetResult();
     }
   }
 }

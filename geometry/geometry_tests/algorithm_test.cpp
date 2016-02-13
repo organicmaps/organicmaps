@@ -14,28 +14,24 @@ namespace
 {
 PointD GetPolyLineCenter(vector<PointD> const & points)
 {
-  CalculatePolyLineCenter doCalc;
-  for (auto const & p : points)
-    doCalc(p);
-  return doCalc.GetCenter();
+  return m2::ApplyCalculator(points, m2::CalculatePolyLineCenter());
 }
 
 RectD GetBoundingBox(vector<PointD> const & points)
 {
-  CalculateBoundingBox doCalc;
-  for (auto const p : points)
-    doCalc(p);
-  return doCalc.GetBoundingBox();
+  return m2::ApplyCalculator(points, m2::CalculateBoundingBox());
 }
 
 PointD GetPointOnSurface(vector<PointD> const & points)
 {
-  ASSERT(!points.empty() && points.size() % 3 == 0, ());
-  CalculatePointOnSurface doCalc(GetBoundingBox(points));
-  for (auto i = 0; i < points.size() - 3; i += 3)
-    doCalc(points[i], points[i + 1], points[i + 2]);
-  return doCalc.GetCenter();
+  ASSERT(!points.empty() && points.size() % 3 == 0, ("points.size() =", points.size()));
+  auto const boundingBox = GetBoundingBox(points);
+  return m2::ApplyCalculator(points, m2::CalculatePointOnSurface(boundingBox));
+}
 
+bool PointsAlmostEqual(PointD const & p1, PointD const & p2)
+{
+  return p1.EqualDxDy(p2, 1e-7);
 }
 }  // namespace
 
@@ -146,21 +142,24 @@ UNIT_TEST(CalculatePointOnSurface)
   {
     vector<PointD> const points {
       {0, 0}, {1, 1}, {2, 0},
-      {1, 1}, {2, 0}, {3, 1},
+      {1, 1}, {2, 0}, {3, 1},  // Center of this triangle is used as a result.
       {2, 0}, {3, 1}, {4, 0},
 
       {4, 0}, {3, 1}, {4, 2},
-      {3, 1}, {4, 2}, {3, 3},
+      {3, 1}, {4, 2}, {3, 3},  // Or this.
       {4, 2}, {3, 3}, {4, 4},
 
       {3, 3}, {4, 4}, {2, 4},
-      {3, 3}, {2, 4}, {1, 3},
+      {3, 3}, {2, 4}, {1, 3},  // Or this.
       {1, 3}, {2, 4}, {0, 4},
 
       {0, 4}, {1, 3}, {0, 2},
-      {1, 3}, {0, 2}, {1, 1},  // Center of this triangle is used as a result.
+      {1, 3}, {0, 2}, {1, 1},  // Or this
       {0, 2}, {1, 1}, {0, 0},
     };
-    TEST_EQUAL(GetPointOnSurface(points), PointD(2.0 / 3.0, 2), ());
+    auto const result = GetPointOnSurface(points);
+    TEST(PointsAlmostEqual(result, {10.0 / 3.0, 2}) || PointsAlmostEqual(result, {2, 2.0 / 3.0}) ||
+         PointsAlmostEqual(result, {2, 10.0 / 3.0}) || PointsAlmostEqual(result, {2.0 / 3.0, 2}),
+         ("result = ", result));
   }
 }

@@ -3,6 +3,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "std/type_traits.hpp"
+#include "std/array.hpp"
 #include "std/vector.hpp"
 
 namespace m2
@@ -16,7 +18,7 @@ public:
   CalculatePolyLineCenter() : m_length(0.0) {}
   void operator()(PointD const & pt);
 
-  PointD GetCenter() const;
+  PointD GetResult() const;
 
 private:
   struct Value
@@ -40,7 +42,7 @@ public:
   CalculatePointOnSurface(RectD const & rect);
 
   void operator()(PointD const & p1, PointD const & p2, PointD const & p3);
-  PointD GetCenter() const { return m_center; }
+  PointD GetResult() const { return m_center; }
 private:
   PointD m_rectCenter;
   PointD m_center;
@@ -52,8 +54,67 @@ class CalculateBoundingBox
 {
 public:
   void operator()(PointD const & p);
-  RectD GetBoundingBox() const { return m_boundingBox; }
+  RectD GetResult() const { return m_boundingBox; }
 private:
   RectD m_boundingBox;
 };
+
+namespace impl
+{
+template <typename TCalculator, typename TIterator>
+m2::PointD ApplyPointOnSurfaceCalculator(TIterator begin, TIterator end, TCalculator && calc)
+{
+  array<m2::PointD, 3> triangle;
+  while (begin != end)
+  {
+    for (auto i = 0; i < 3; ++i)
+    {
+      // Cannot use ASSERT_NOT_EQUAL, due to absence of an approbriate DebugPrint.
+      ASSERT(begin != end, ("Not enough points to calculate point on surface"));
+      triangle[i] = *begin++;
+    }
+    calc(triangle[0], triangle[1], triangle[2]);
+  }
+  return calc.GetResult();
+}
+
+template <typename TCalculator, typename TIterator>
+auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc)
+    -> decltype(calc.GetResult())
+{
+  for (; begin != end; ++begin)
+    calc(*begin);
+  return calc.GetResult();
+}
+
+template <typename TCalculator, typename TIterator>
+auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc, true_type const &)
+    -> decltype(calc.GetResult())
+{
+  return impl::ApplyPointOnSurfaceCalculator(begin, end, forward<TCalculator>(calc));
+}
+
+template <typename TCalculator, typename TIterator>
+auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc, false_type const &)
+    -> decltype(calc.GetResult())
+{
+  return impl::ApplyCalculator(begin, end, forward<TCalculator>(calc));
+}
+}  // namespace impl
+
+template <typename TCalculator, typename TIterator>
+auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc)
+    -> decltype(calc.GetResult())
+{
+  return impl::SelectImplementation(begin, end, forward<TCalculator>(calc),
+                                    is_same<CalculatePointOnSurface,
+                                            typename remove_reference<TCalculator>::type>());
+}
+
+template <typename TCalculator, typename TCollection>
+auto ApplyCalculator(TCollection && collection, TCalculator && calc)
+    -> decltype(calc.GetResult())
+{
+  return ApplyCalculator(begin(collection), end(collection), forward<TCalculator>(calc));
+}
 }  // namespace m2

@@ -13,7 +13,7 @@ void CalculatePolyLineCenter::operator()(m2::PointD const & pt)
   m_poly.emplace_back(pt, m_length);
 }
 
-PointD CalculatePolyLineCenter::GetCenter() const
+PointD CalculatePolyLineCenter::GetResult() const
 {
   using TIter = vector<Value>::const_iterator;
 
