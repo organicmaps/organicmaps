@@ -297,10 +297,6 @@ public:
   /// \return false in case of error and true otherwise.
   bool RetryDownloadNode(TCountryId const & countryId) { return true; }
 
-  /// \brief Shows a node (expandable or not) on the map.
-  /// \return false in case of error and true otherwise.
-  bool ShowNode(TCountryId const & countryId) { return true; }
-
   /// \brief Get information for mwm update button.
   /// \return true if updateInfo is filled correctly and false otherwise.
   bool GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInfo) const { return true; }
