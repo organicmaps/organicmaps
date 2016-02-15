@@ -67,7 +67,7 @@ public:
                      ref_ptr<AttributeBufferMutator> attrMutator);
 
   void ResetChangingTracking() { m_isChanged = false; }
-  bool IsChanged() { return m_isChanged; }
+  bool IsChanged() const { return m_isChanged; }
 
 private:
   ref_ptr<DataBuffer> GetOrCreateStaticBuffer(BindingInfo const & bindingInfo);

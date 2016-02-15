@@ -834,7 +834,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   BeforeDrawFrame();
 #endif
 
-  bool waitFeatures = !m_notFinishedTiles.empty();
+  bool const waitFeatures = !m_notFinishedTiles.empty();
   m2::RectD const & screenRect = modelView.ClipRect();
   auto isFeaturesWaiting = [&screenRect, waitFeatures](m2::RectD const & rect)
   {

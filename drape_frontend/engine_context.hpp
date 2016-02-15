@@ -6,8 +6,6 @@
 
 #include "drape/pointers.hpp"
 
-#include "std/mutex.hpp"
-
 namespace dp
 {
 class TextureManager;
@@ -39,8 +37,6 @@ private:
   TileKey m_tileKey;
   ref_ptr<ThreadsCommutator> m_commutator;
   ref_ptr<dp::TextureManager> m_texMng;
-  TMapShapes m_overlayShapes;
-  mutex m_overlayShapesMutex;
 };
 
 } // namespace df

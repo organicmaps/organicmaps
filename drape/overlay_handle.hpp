@@ -128,8 +128,8 @@ private:
   set<TOffsetNode, LessOffsetNode> m_offsets;
 
   bool m_enableCaching;
-  mutable Rects m_extendedRectsCache;
-  mutable bool m_extendedRectsDirty;
+  mutable Rects m_extendedShapeCache;
+  mutable bool m_extendedShapeDirty;
   mutable m2::RectD m_extendedRectCache;
   mutable bool m_extendedRectDirty;
 };

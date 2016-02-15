@@ -9,7 +9,7 @@
 
 #include "std/array.hpp"
 #include "std/vector.hpp"
-#include "std/unordered_map.hpp"
+#include "std/unordered_set.hpp"
 
 namespace dp
 {
@@ -26,6 +26,16 @@ struct OverlayTraits
   inline m2::RectD const LimitRect(ref_ptr<OverlayHandle> const & handle)
   {
     return handle->GetExtendedPixelRect(m_modelView);
+  }
+};
+
+struct OverlayHasher
+{
+  hash<OverlayHandle*> m_hasher;
+
+  size_t operator()(ref_ptr<OverlayHandle> const & handle) const
+  {
+    return m_hasher(handle.get());
   }
 };
 
@@ -75,14 +85,9 @@ private:
                    ref_ptr<OverlayHandle> & parentOverlay) const;
   void DeleteHandle(ref_ptr<OverlayHandle> const & handle);
 
-  uint64_t GetHandleKey(ref_ptr<OverlayHandle> const & handle) const;
-
   int m_frameCounter;
   array<vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
-  vector<ref_ptr<OverlayHandle>> m_handlesToDelete;
-
-  unordered_map<uint64_t, ref_ptr<OverlayHandle>> m_handlesCache;
-
+  unordered_set<ref_ptr<OverlayHandle>, detail::OverlayHasher> m_handlesCache;
   bool m_followingMode;
 
 #ifdef COLLECT_DISPLACEMENT_INFO

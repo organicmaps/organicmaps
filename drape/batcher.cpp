@@ -179,8 +179,8 @@ void Batcher::StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & li
   if (!m_currentFeature.IsValid())
     return;
 
-  for (auto it = m_buckets.begin(); it != m_buckets.end(); ++it)
-    it->second->StartFeatureRecord(feature, limitRect);
+  for (auto const & bucket : m_buckets)
+    bucket.second->StartFeatureRecord(feature, limitRect);
 }
 
 void Batcher::EndFeatureRecord()
@@ -190,8 +190,8 @@ void Batcher::EndFeatureRecord()
 
   m_currentFeature = FeatureGeometryId();
 
-  for (auto it = m_buckets.begin(); it != m_buckets.end(); ++it)
-    it->second->EndFeatureRecord(true);
+  for (auto const & bucket : m_buckets)
+    bucket.second->EndFeatureRecord(true);
 }
 
 void Batcher::ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper)

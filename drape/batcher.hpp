@@ -50,6 +50,7 @@ public:
   void StartSession(TFlushFn const & flusher);
   void EndSession();
 
+  // Begin/end processing of feature with FeatureGeometryId in the batcher.
   void StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect);
   void EndFeatureRecord();
 
@@ -79,13 +80,13 @@ private:
 
     bool operator < (BucketId const & other) const
     {
-      if (m_state == other.m_state)
-        return m_sharedFeatures < other.m_sharedFeatures;
-      return m_state < other.m_state;
+      if (m_state != other.m_state)
+        return m_state < other.m_state;
+      return m_sharedFeatures < other.m_sharedFeatures;
     }
 
     GLState m_state;
-    bool m_sharedFeatures;
+    bool m_sharedFeatures = false;
   };
 
   using TBuckets = map<BucketId, drape_ptr<RenderBucket>>;

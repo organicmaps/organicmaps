@@ -13,10 +13,7 @@ EngineContext::EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commuta
   : m_tileKey(tileKey)
   , m_commutator(commutator)
   , m_texMng(texMng)
-{
-  int const kAverageShapesCount = 300;
-  m_overlayShapes.reserve(kAverageShapesCount);
-}
+{}
 
 ref_ptr<dp::TextureManager> EngineContext::GetTextureManager() const
 {
@@ -35,21 +32,11 @@ void EngineContext::Flush(TMapShapes && shapes)
 
 void EngineContext::FlushOverlays(TMapShapes && shapes)
 {
-  lock_guard<mutex> lock(m_overlayShapesMutex);
-  m_overlayShapes.reserve(m_overlayShapes.size() + shapes.size());
-  move(shapes.begin(), shapes.end(), back_inserter(m_overlayShapes));
+  PostMessage(make_unique_dp<OverlayMapShapeReadedMessage>(m_tileKey, move(shapes)));
 }
 
 void EngineContext::EndReadTile()
 {
-  lock_guard<mutex> lock(m_overlayShapesMutex);
-  if (!m_overlayShapes.empty())
-  {
-    TMapShapes overlayShapes;
-    overlayShapes.swap(m_overlayShapes);
-    PostMessage(make_unique_dp<OverlayMapShapeReadedMessage>(m_tileKey, move(overlayShapes)));
-  }
-
   PostMessage(make_unique_dp<TileReadEndMessage>(m_tileKey));
 }
 

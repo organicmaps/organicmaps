@@ -103,6 +103,11 @@ bool GLState::operator==(GLState const & other) const
          m_maskTexture == other.m_maskTexture;
 }
 
+bool GLState::operator!=(GLState const & other) const
+{
+  return !operator==(other);
+}
+
 namespace
 {
 
