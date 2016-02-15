@@ -115,6 +115,7 @@ public:
     FMD_MIN_HEIGHT = 20,
     FMD_DENOMINATION = 21,
     FMD_BUILDING_LEVELS = 22,
+    FMD_TEST_ID = 23,
     FMD_COUNT
   };
 

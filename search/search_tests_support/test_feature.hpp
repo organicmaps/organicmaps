@@ -17,16 +17,17 @@ class TestFeature
 public:
   virtual ~TestFeature() = default;
 
-  virtual void Serialize(FeatureBuilder1 & fb) const;
-  virtual bool Matches(FeatureType const & feature) const;
-  virtual string ToString() const = 0;
-
+  bool Matches(FeatureType const & feature) const;
   inline string const & GetName() const { return m_name; }
+
+  virtual void Serialize(FeatureBuilder1 & fb) const;
+  virtual string ToString() const = 0;
 
 protected:
   TestFeature(string const & name, string const & lang);
   TestFeature(m2::PointD const & center, string const & name, string const & lang);
 
+  uint64_t const m_id;
   m2::PointD const m_center;
   bool const m_hasCenter;
   string const m_name;
@@ -89,7 +90,6 @@ public:
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  bool Matches(FeatureType const & feature) const override;
   string ToString() const override;
 
   inline void SetHouseNumber(string const & houseNumber) { m_houseNumber = houseNumber; }
@@ -112,7 +112,6 @@ public:
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
-  bool Matches(FeatureType const & feature) const override;
   string ToString() const override;
 
 private:

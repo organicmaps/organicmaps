@@ -33,6 +33,8 @@ public:
 
   void SetRank(uint8_t rank);
 
+  void SetTestId(uint64_t id);
+
   void AddHouseNumber(string const & houseNumber);
 
   void AddStreet(string const & streetName);

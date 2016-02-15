@@ -5,12 +5,14 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_meta.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 
 #include "base/assert.hpp"
 
+#include "std/atomic.hpp"
 #include "std/sstream.hpp"
 
 namespace search
@@ -19,41 +21,38 @@ namespace tests_support
 {
 namespace
 {
-double const kTestPrecision = 1e-4;
+uint64_t GenUniqueId()
+{
+  static atomic<uint64_t> id;
+  return id.fetch_add(1);
+}
 }  // namespace
 
 // TestFeature -------------------------------------------------------------------------------------
 TestFeature::TestFeature(string const & name, string const & lang)
-  : m_center(0, 0), m_hasCenter(false), m_name(name), m_lang(lang)
+  : m_id(GenUniqueId()), m_center(0, 0), m_hasCenter(false), m_name(name), m_lang(lang)
 {
 }
 
 TestFeature::TestFeature(m2::PointD const & center, string const & name, string const & lang)
-  : m_center(center), m_hasCenter(true), m_name(name), m_lang(lang)
+  : m_id(GenUniqueId()), m_center(center), m_hasCenter(true), m_name(name), m_lang(lang)
 {
-}
-
-void TestFeature::Serialize(FeatureBuilder1 & fb) const
-{
-  if (m_hasCenter)
-    fb.SetCenter(m_center);
-  CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
 }
 
 bool TestFeature::Matches(FeatureType const & feature) const
 {
-  uint8_t const langIndex = StringUtf8Multilang::GetLangIndex(m_lang);
-  string name;
-  bool const nameMatches = feature.GetName(langIndex, name) && m_name == name;
-  if (!nameMatches)
-    return false;
+  istringstream is(feature.GetMetadata().Get(feature::Metadata::FMD_TEST_ID));
+  uint64_t id;
+  is >> id;
+  return id == m_id;
+}
+
+void TestFeature::Serialize(FeatureBuilder1 & fb) const
+{
+  fb.SetTestId(m_id);
   if (m_hasCenter)
-  {
-    auto const center = feature::GetCenter(feature);
-    if (!m_center.EqualDxDy(center, kTestPrecision))
-      return false;
-  }
-  return true;
+    fb.SetCenter(m_center);
+  CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
 }
 
 // TestCountry -------------------------------------------------------------------------------------
@@ -165,11 +164,6 @@ void TestPOI::Serialize(FeatureBuilder1 & fb) const
     fb.AddStreet(m_streetName);
 }
 
-bool TestPOI::Matches(FeatureType const & feature) const
-{
-  return TestFeature::Matches(feature) && m_houseNumber == feature.GetHouseNumber();
-}
-
 string TestPOI::ToString() const
 {
   ostringstream os;
@@ -224,29 +218,6 @@ void TestBuilding::Serialize(FeatureBuilder1 & fb) const
 
   auto const & classificator = classif();
   fb.SetType(classificator.GetTypeByPath({"building"}));
-}
-
-bool TestBuilding::Matches(FeatureType const & feature) const
-{
-  auto const & checker = ftypes::IsBuildingChecker::Instance();
-  if (!checker(feature))
-    return false;
-  if (!TestFeature::Matches(feature))
-    return false;
-  if (m_houseNumber != feature.GetHouseNumber())
-    return false;
-
-  // TODO(@y): consider to check m_boundary.
-  if (!m_hasCenter && !m_boundary.empty())
-  {
-    m2::PointD center(0, 0);
-    for (auto const & p : m_boundary)
-      center += p;
-    center = center / m_boundary.size();
-    if (!center.EqualDxDy(feature::GetCenter(feature), kTestPrecision))
-      return false;
-  }
-  return true;
 }
 
 string TestBuilding::ToString() const

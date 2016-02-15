@@ -14,6 +14,7 @@
 #include "coding/byte_stream.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/cstring.hpp"
 #include "std/algorithm.hpp"
@@ -74,6 +75,11 @@ void FeatureBuilder1::SetCenter(m2::PointD const & p)
 void FeatureBuilder1::SetRank(uint8_t rank)
 {
   m_params.rank = rank;
+}
+
+void FeatureBuilder1::SetTestId(uint64_t id)
+{
+  m_params.GetMetadata().Set(Metadata::FMD_TEST_ID, strings::to_string(id));
 }
 
 void FeatureBuilder1::AddHouseNumber(string const & houseNumber)
