@@ -25,6 +25,7 @@ Trinidad and Tobago;Q754;tt;en
 United States Virgin Islands;Q11703;vi;en
 Argentina;Q414;ar;es
  Campo de Hielo Sur;Q1031467
+ Argentina_Buenos Aires_Buenos Aires;Q1486
  Argentina_Buenos Aires_North;Q44754-North
  Argentina_Buenos Aires_South;Q44754-South
  Argentina_Patagonia;Q1507
@@ -32,13 +33,16 @@ Argentina;Q414;ar;es
  Argentina_Mesopotamia;Q1056116
  Argentina_Northwest;Q1437320
  Argentina_Pampas;Q184382
+ Argentina_Santa Fe;Q44823
 Armenia;Q399;am;hy
 Austria;Q40;at;de
  Austria_Burgenland;Q43210
  Austria_Carinthia;Q37985
  Austria_Lower Austria_Wien;Q1741
- Austria_Styria;Q41358
- Austria_Upper Austria;Q41967
+ Austria_Styria_Graz;Q41358-Q13298
+ Austria_Styria_Leoben;Q41358-Q485294
+ Austria_Upper Austria_Linz;Q41967-Q41329
+ Austria_Upper Austria_Wels;Q41967-Q178582
  Austria_Lower Austria_West;Q42497-West
  Austria_Tyrol;Q42880
  Austria_Salzburg;Q43325
@@ -53,6 +57,8 @@ Australia;Q408;au;en
  Australia_Tasmania;Q34366
  Australia_Victoria;Q36687
  Australia_Western Australia;Q3206
+ Australia_Brisbane;Q34932
+ Australia_Sydney;Q3130
 Azerbaijan Region;Q227;az;az
  Nagorno-Karabakh;Q44302
  Azerbaijan;Q227;;az
@@ -81,6 +87,8 @@ Benin;Q962;bj;fr
 Bermuda;Q23635;bm;en
 Bhutan;Q917;bt;dz
 Bolivia;Q750;bo;es,ay,qu,gn
+ Bolivia_North;Q750-North
+ Bolivia_South;Q750-South
 Bosnia and Herzegovina;Q225;ba;sr
  Bosnia and Herzegovina_Entity Federation of Bosnia and Herzegovina;Q11198;;hr,sr,bs
  Bosnia and Herzegovina_Brcko district of Bosnia and Herzegowina;Q194483
@@ -88,16 +96,21 @@ Bosnia and Herzegovina;Q225;ba;sr
 Botswana;Q963;bw;en,tn
 Brazil;Q155;br;pt
  Brazil_Bahia;Q40430
- Brazil_Goias;Q41587
+ Brazil_Goias_North;Q41587-North
+ Brazil_Goias_Brasilia;Q41587-Q2844
  Brazil_Mato Grosso Do Sul;Q43319
  Brazil_Mato Grosso;Q42824
- Brazil_North Region;Q478465
- Brazil_Northeast Region;Q1136194
+ Brazil_North Region_East;Q478465-East
+ Brazil_North Region_West;Q478465-West
+ Brazil_Northeast Region_East;Q1136194-East
+ Brazil_Northeast Region_West;Q1136194-West
  Brazil_Paraiba;Q38088
- Brazil_Parana;Q15499
+ Brazil_Parana_East;Q15499-East
+ Brazil_Parana_West;Q15499-West
  Brazil_Rio Grande do Norte;Q43255
  Brazil_Santa Catarina;Q41115
- Brazil_South Region;Q1060042
+ Brazil_South Region_East;Q1060042-East
+ Brazil_South Region_West;Q1060042-West
  Brazil_Southeast Region_Espirito Santo;Q43233
  Brazil_Southeast Region_Minas Gerais_Contagem;Q39109-Q271333
  Brazil_Southeast Region_Minas Gerais_North;Q39109-North
@@ -107,6 +120,8 @@ Brazil;Q155;br;pt
  Brazil_Southeast Region_Sao Paulo_West;Q175-Q188892
 Brunei;Q921;bn;ms
 Bulgaria;Q219;bg;bg
+ Bulgaria_East;Q219-East
+ Bulgaria_West;Q219-West
 Burkina Faso;Q965;bf;fr
 Burundi;Q967;bi;fr,rn
 Cambodia;Q424;kh;km
@@ -169,6 +184,7 @@ Canada;Q16;ca;fr,en
   Canada_Quebec_Quebec;Q2145
   Canada_Quebek_Far North;Q176-North
   Canada_Quebek_Montreal;Q340
+  Canada_Quebek_Lachute;Q142250
   Canada_Quebek_North;Q141699
   Canada_Quebek_Southeast_Rimouski;Q1336
   Canada_Quebek_Southeast_Saguenay;Q139229
@@ -176,7 +192,8 @@ Canada;Q16;ca;fr,en
   Canada_Quebek_West_Rouyn-Noranda;Q141804
  Canada_Saskatchewan;Q1989
   Canada_Saskatchewan_North;Q1989-North
-  Canada_Saskatchewan_South;Q1989-South
+  Canada_Saskatchewan_Saskatoon;Q10566
+  Canada_Saskatchewan_Regina;Q2123
  Canada_Yukon;Q2009
   Canada_Yukon_North;Q2009-North
   Canada_Yukon_Whitehorse;Q2058
@@ -191,9 +208,13 @@ Colombia;Q739;co;es
 Comoros;Q970;km;fr,ar
 Congo-Brazzaville;Q971;cg;fr
 Congo-Kinshasa;Q974;cd;fr
+ Congo-Kinshasa_West;Q974-West
+ Congo-Kinshasa_Kivu;Q1743993
 Cook Islands;Q26988;ck;en
 Costa Rica;Q800;cr;es
 Croatia;Q224;hr;hr
+ Croatia_Central;Q224-Centre
+ Croatia_West;Q224-West
 Cuba;Q241;cu;es
 Cyprus;Q229;cy;tr
 Czech Republic;Q213;cz;cs
@@ -224,9 +245,12 @@ Dominican Republic;Q786;do;es
 East Timor;Q574;tl;pt
 Chile;Q298;cl;es
  Campo de Hielo Sur;Q1031467
+ Chile_Central;Q298-Centre
  Chile_North;Q298-North
  Chile_South;Q298-South
 Ecuador;Q736;ec;es
+ Ecuador_East;Q736-East
+ Ecuador_West;Q736-West
 Egypt;Q79;eg;ar
 El Salvador;Q792;sv;es
 Equatorial Guinea;Q983;gq
@@ -239,9 +263,11 @@ Faroe Islands;Q4628;fo;da,fo
 Federated States of Micronesia;Q702;fm
 Fiji;Q712;fj;en,fj
 Finland;Q33;fi;fi,sv
- Finland_Western Finland;Q192759
+ Finland_Western Finland_Jyvaskyla;Q192759-Q134620
+ Finland_Western Finland_Tampere;Q192759-Q40840
  Finland_Northern Finland;Q3745730
- Finland_Eastern Finland;Q194073
+ Finland_Eastern Finland_North;Q194073-North
+ Finland_Eastern Finland_South;Q194073-South
  Finland_Southern Finland_West;Q5712
  Finland_Southern Finland_Helsinki;Q188752-Q1757
  Finland_Southern Finland_Lappeenranta;Q188752-Q181854
@@ -279,7 +305,8 @@ France;Q142;fr;fr
   France_Centre-Val de Loire_Loiret;Q12574
  France_Champagne-Ardenne;Q14103
  France_Corsica;Q14112
- France_Free County;Q16394
+ France_Free County_North;Q16394-North
+ France_Free County_South;Q16394-South
  France_French Guiana;Q3769;;fr
  France_Ile-de-France;Q13917
   France_Ile-de-France_Essonne;Q3368
@@ -321,7 +348,8 @@ France;Q142;fr;fr
   France_Nord-Pas-de-Calais_Lille;Q648
   France_Nord-Pas-de-Calais_Pas-de-Calais;Q12689
  France_Pays de la Loire;Q16994
-  France_Pays de la Loire_Loire-Atlantique;Q3068
+  France_Pays de la Loire_Loire-Atlantique_Nantes;Q3068-Q12191
+  France_Pays de la Loire_Loire-Atlantique_Saint-Nazaire;Q3068-Q152027
   France_Pays de la Loire_Maine-et-Loire;Q12584
   France_Pays de la Loire_Mayenne;Q12620
   France_Pays de la Loire_Sarthe;Q12740
@@ -375,6 +403,7 @@ Germany;Q183;de;de
   Germany_Free State of Bavaria_Upper Bavaria_East;Q10562-East
   Germany_Free State of Bavaria_Upper Bavaria_Ingolstadt;Q10562-Q3004
   Germany_Free State of Bavaria_Upper Bavaria_Munchen;Q10562-Q1726
+  Germany_Free State of Bavaria_Upper Bavaria_South;Q10562-South
   Germany_Free State of Bavaria_Upper Franconia;Q10554
   Germany_Free State of Bavaria_Upper Palatinate;Q10555
  Germany_Hamburg_main;Q1055
@@ -386,6 +415,7 @@ Germany;Q183;de;de
   Germany_Lower Saxony_Bremen_Bremen;Q1209
   Germany_Lower Saxony_Bremen_Munster;Q3920
   Germany_Lower Saxony_Hannover;Q1715
+  Germany_Lower Saxony_Braunschweig;Q2773
   Germany_Lower Saxony_Oldenburg;Q2936
  Germany_Mecklenburg-Vorpommern;Q1196
  Germany_North Rhine-Westphalia;Q1198
@@ -402,10 +432,12 @@ Germany;Q183;de;de
  Germany_Rhineland-Palatinate_Koblenz;Q1200-Q3104
  Germany_Rhineland-Palatinate_South;Q1200-Q1720
  Germany_Saarland;Q1201
- Germany_Saxony-Anhalt;Q1206
+ Germany_Saxony-Anhalt_Magdeburg;Q1206-Q1733
+ Germany_Saxony-Anhalt_Halle;Q1206-Q2814
  Germany_Saxony_Dresden;Q1202-Q1731
  Germany_Saxony_Leipzig;Q1202-Q2079
- Germany_Schleswig-Holstein;Q1194
+ Germany_Schleswig-Holstein_Kiel;Q1194-Q1707
+ Germany_Schleswig-Holstein_Flensburg;Q1194-Q3798
  Germany_Thuringia;Q1205
 Ghana;Q117;gh;en
 Gibraltar;Q1410;gi;en
@@ -441,7 +473,8 @@ India;Q668;in;hi,mr,en,gu,ta,te,bn,as,kn,ml,pa
  India_Tamil Nadu;Q1445;;ta
  India_Haryana;Q1174;;hi
  India_Goa;Q1171
- India_Karnataka;Q1185
+ India_Karnataka_North;Q1185-North
+ India_Karnataka_South;Q1185-South
  India_Maharashtra;Q1191;;mr
  India_Telangana;Q677037
  India_Delhi;Q1353;;hi,ur,en,pa
@@ -473,9 +506,12 @@ Indonesia;Q252;id;id
  Indonesia_Jawa Timur;Q3586
  Indonesia_East;Q252-East
 Iran;Q794;ir;fa
+ Iran_East;Q794-East
  Iran_South;Q794-South
  Iran_North;Q794-North
 Iraq;Q796;iq;ar,ku
+ Iraq_North;Q796-North
+ Iraq_South;Q796-South
 Isle of Man;Q9676;im;en,gv
 Israel Region;Q801;il;he
  Jerusalem;Q1218
@@ -545,7 +581,8 @@ Italy;Q38;it;it
 Jamaica;Q766;jm;en
 Japan;Q17;jp;ja
  Japan_Chubu Region;Q134638
-  Japan_Chubu Region_Aichi;Q80434
+  Japan_Chubu Region_Aichi_Nagoya;Q80434-Q11751
+  Japan_Chubu Region_Aichi_Toyohashi;Q80434-Q336431
   Japan_Chubu Region_Fukui;Q133879
   Japan_Chubu Region_Gifu;Q131277
   Japan_Chubu Region_Ishikawa;Q131281
@@ -564,6 +601,7 @@ Japan;Q17;jp;ja
   Japan_Hokkaido Region_East;Q35581-East
   Japan_Hokkaido Region_North;Q35581-North
   Japan_Hokkaido Region_West;Q35581-West
+  Japan_Hokkaido Region_Sapporo;Q37951
  Japan_Kanto;Q132480
   Japan_Kanto_Chiba;Q80011
   Japan_Kanto_Gunma;Q129499
@@ -575,7 +613,8 @@ Japan;Q17;jp;ja
  Japan_Kinki Region;Q164256
   Japan_Kinki Region_Mie;Q128196
   Japan_Kinki Region_Nara;Q131287
-  Japan_Kinki Region_Osaka;Q122723
+  Japan_Kinki Region_Osaka_Osaka;Q35765
+  Japan_Kinki Region_Osaka_West;Q122723-West
   Japan_Kinki Region_Wakayama;Q131314
  Japan_Kyushu Region;Q13987
   Japan_Kyushu Region_Fukuoka;Q123258
@@ -602,6 +641,8 @@ Japan;Q17;jp;ja
 Jersey;Q785;je;fr,en
 Jordan;Q810;jo;ar
 Kazakhstan;Q232;kz;kk
+ Kazakhstan_North;Q232-North
+ Kazakhstan_South;Q232-South
 Kenya;Q114;ke;en,sw
 Kingdom of Lesotho;Q1013;;en,st
 Kiribati;Q710;ki;en
@@ -614,6 +655,8 @@ Liberia;Q1014;lr;en
 Libya;Q1016;ly;ar
 Liechtenstein;Q347;li;de
 Lithuania;Q37;lt;lt
+ Lithuania_East;Q37-East
+ Lithuania_West;Q37-West
 Luxembourg;Q32;lu;fr
 Macedonia;Q221;mk;mk
 Madagascar;Q1019;mg
@@ -626,12 +669,13 @@ Marshall Islands;Q709;mh;en,mh
 Mauritania;Q1025;mr
 Mauritius;Q1027;mu
 Mexico;Q96;mx;es
- Mexico_North;Q96-North
  Mexico_California;Q58731
  Mexico_Central_East;Q15282
  Mexico_Central_West;Q79920
  Mexico_East;Q96-East
  Mexico_Mexico;Q1489
+ Mexico_Chihuahua;Q655
+ Mexico_Sonora;Q46422
  Mexico_South;Q96-South
 Moldova;Q217;md;ro
 Monaco;Q235;mc;fr
@@ -647,20 +691,28 @@ Myanmar;Q836;;my
 Namibia;Q1030;na;en
 Nauru;Q697;nr;na
 Nepal;Q837;np;ne
- Nepal_West;Q837-West
- Nepal_East;Q837-East
+ Nepal_West;Q28462
+ Nepal_Kathmandu;Q3037
+ Nepal_Madhyamanchal;Q28579
+ Nepal_Purwanchal;Q28576
 Nicaragua;Q811;ni;es
 Niger;Q1032;ne;fr
 Nigeria;Q1033;ng;en
+ Nigeria_South;Q1033-South
+ Nigeria_North;Q1033-North
 Niue;Q34020;nu;en
 North Korea;Q423;kp;ko
 Norway;Q20;no;no
  Norway_Northern;Q214041
+ Norway_Hordaland;Q50625
+ Norway_Nordland;Q50630
  Norway_Svalbard;Q25231
  Norway_Oppland;Q50617
+ Norway_Rogaland;Q50624
  Norway_Hedmark;Q50616
  Norway_Jan Mayen;Q14056
- Norway_Trondelag;Q127676
+ Norway_North Trondelag;Q50629
+ Norway_South Trondelag;Q50628
  Norway_Southern;Q648851
  Norway_Western;Q127598
  Norway_Central;Q585
@@ -700,9 +752,11 @@ People's Republic of China;Q148;cn;zh
  China_Xinjiang;Q34800
  China_Yunnan;Q43194
  China_Zhejiang;Q16967
- Taiwan;Q865
+ Taiwan_North;Q865-North
+ Taiwan_South;Q865-South
 Peru;Q419;pe
  Peru_North;Q419-North
+ Peru_Lima;Q2868
  Peru_South;Q419-South
 Philippines;Q928;ph;en
  Philippines_Mindanao;Q124873
@@ -729,8 +783,10 @@ Poland;Q36;pl;pl
  Poland_Opole Voivodeship;Q54171
  Poland_Swietokrzyskie Voivodeship;Q54183
 Portugal;Q45;pt;pt
- Portugal_North;Q45-North
+ Portugal_Porto;Q36433
  Portugal_South;Q45-South
+ Portugal_Islands;Q7213935
+ Portugal_Viseu;Q117676
 Qatar;Q846;qa;ar
 Republic of Kosovo;Q1246;xk;sq,sr
 Romania;Q218;ro;ro
@@ -774,7 +830,8 @@ Russian Federation;Q159;ru;ru
  Russia_Kostroma Oblast;Q2596
  Russia_Krasnodar Krai;Q3680-North
  Russia_Krasnodar Krai_Adygeya;Q3680,Q3734
- Russia_Krasnoyarsk Krai;Q6563
+ Russia_Krasnoyarsk Krai_North;Q6563-North
+ Russia_Krasnoyarsk Krai_South;Q6563-South
  Russia_Kurgan Oblast;Q5741
  Russia_Kursk Oblast;Q3178
  Russia_Leningradskaya Oblast_Karelsky;Q2191-North
@@ -782,7 +839,8 @@ Russian Federation;Q159;ru;ru
  Russia_Lipetsk Oblast;Q3510
  Russia_Magadan Oblast;Q7971
  Russia_Mari El;Q5446;;ru
- Russia_Moscow Oblast;Q1697
+ Russia_Moscow Oblast_East;Q1697-East
+ Russia_Moscow Oblast_West;Q1697-West
  Russia_Moscow;Q649
  Russia_Murmansk Oblast;Q1759
  Russia_Nenets Autonomous Okrug;Q2164
@@ -794,12 +852,14 @@ Russian Federation;Q159;ru;ru
  Russia_Orenburg Oblast;Q5338
  Russia_Oryol Oblast;Q3129
  Russia_Penza Oblast;Q5545
- Russia_Perm Krai;Q5400
+ Russia_Perm Krai_North;Q5400-North
+ Russia_Perm Krai_South;Q5400-South
  Russia_Primorsky Krai;Q4341
  Russia_Pskov Oblast;Q2218
  Russia_Republic of Dagestan;Q5118;;ru,az,av,ce
  Russia_Republic of Kalmykia;Q3953;;ru
- Russia_Republic of Karelia;Q1914;;ru
+ Russia_Republic of Karelia_North;Q1914-North
+ Russia_Republic of Karelia_South;Q1914-South
  Russia_Republic of Mordovia;Q5340;;ru
  Russia_Rostov Oblast;Q3573
  Russia_Ryazan Oblast;Q2753
@@ -810,7 +870,8 @@ Russian Federation;Q159;ru;ru
  Russia_Saratov Oblast;Q5334
  Russia_Smolensk Oblast;Q2347
  Russia_Stavropol Krai;Q5207
- Russia_Sverdlovsk Oblast;Q5462
+ Russia_Sverdlovsk Oblast_Ekaterinburg;Q5462-Q887
+ Russia_Sverdlovsk Oblast_North;Q5462-North
  Russia_Tambov Oblast;Q3550
  Russia_Tatarstan;Q5481;;ru,tt
  Russia_Tomsk Oblast;Q5884
@@ -826,7 +887,8 @@ Russian Federation;Q159;ru;ru
  Russia_Voronezh Oblast;Q3447
  Russia_Yamalo-Nenets Autonomous Okrug;Q6407
  Russia_Yaroslavl Oblast;Q2448
- Russia_Yugra;Q6320
+ Russia_Yugra_Khanty;Q6320-Q6329
+ Russia_Yugra_Surgut;Q6320-Q183002
  Russia_Zabaykalsky Krai;Q6838
 Rwanda;Q1037;rw;fr,en,rw
 Sahrawi Arab Democratic Republic;Q40362;eh
@@ -834,6 +896,8 @@ Saint Helena Ascension and Tristan da Cunha;Q192184;sh
 Samoa;Q683;ws;en,sm
 San Marino;Q238;;it
 Saudi Arabia;Q851;sa;ar
+ Saudi Arabia_South;Q851-South
+ Saudi Arabia_North;Q851-North
 Senegal;Q1041;sn;fr
 Serbia;Q403;rs;sr
 Seychelles;Q1042;sc;fr,en
@@ -849,6 +913,8 @@ Slovakia;Q214;sk;sk
  Slovakia_Region of Bratislava;Q183498
  Slovakia_Region of Zilina;Q184228
 Slovenia;Q215;si;sl
+ Slovenia_East;Q215-East
+ Slovenia_West;Q215-West
 Solomon Islands;Q685;sb;en
 Somalia;Q1045;so;so,ar
 South Africa;Q258;za;en,zu,xh,af,ve,ss,tn,ts,st,nr
@@ -865,13 +931,15 @@ South Georgia and the South Sandwich Islands;Q35086;gs;en
 South Ossetia;Q23427;;ru,ka,os
 South Sudan;Q958;ss;en
 Spain;Q29;es;es
- Spain_Andalusia;Q5783
+ Spain_Andalusia_Granada;Q5783-Q8810
+ Spain_Andalusia_Sevilla;Q5783-Q8717
  Spain_Aragon;Q4040
  Spain_Balearic Islands;Q5765;;es,ca
  Spain_Basque Country;Q3995
  Spain_Canary Islands;Q5813
  Spain_Cantabria;Q3946
- Spain_Castile and Leon;Q5739
+ Spain_Castile and Leon_West;Q5739-West
+ Spain_Castile and Leon_East;Q5739-East
  Spain_Castile-La Mancha;Q5748
  Spain_Catalonia_Provincia de Barcelona;Q81949;;es,ca
  Spain_Catalonia_Provincia de Girona;Q7194;;es,ca
@@ -881,7 +949,8 @@ Spain;Q29;es;es
  Spain_Community of Madrid;Q5756
  Spain_Comunidad Foral de Navarra;Q4018;;es,eu
  Spain_Extremadura;Q5777
- Spain_Galicia;Q3908
+ Spain_Galicia_North;Q3908-North
+ Spain_Galicia_South;Q3908-South
  Spain_La Rioja;Q5727
  Spain_Melilla;Q5831
  Spain_Principado de Asturias;Q3934
@@ -892,20 +961,24 @@ Palestine Region;Q219060;ps;ar
  Palestine;Q219060;;ar
 Sri Lanka;Q854;lk;ta,si
 Sudan;Q1049;sd;en,ar
+ Sudan_East;Q1049-East
+ Sudan_West;Q1049-West
 Suriname;Q730;sr;nl
 Swaziland;Q1050;sz;en,ss
 Sweden;Q34;se;fi,yi,sv
- Sweden_Malardalen;Mälardalen
- Sweden_Ostra Gotaland;Östra Götaland
- Sweden_Norra Sverige;Norra Sverige
+ Sweden_Malardalen;Capital Region
+ Sweden_Stockholm;Q1754
+ Sweden_Ostra Gotaland;Eastern Götaland
+ Sweden_Norra Sverige;Northern Sweden
  Sweden_Mellannorrland;Mellannorrland
  Sweden_Bergslagen;Bergslagen
- Sweden_Vastra Gotaland;Västra Götaland
- Sweden_Sodra Gotaland;Södra Götaland
+ Sweden_Vastra Gotaland;Western Götaland
+ Sweden_Sodra Gotaland;Southern Götaland
 Switzerland;Q39;ch;fr,de,it,rm
  Switzerland_Eastern;Q31003
  Switzerland_Central;Q30978
- Switzerland_Espace Mittelland;Q30983
+ Switzerland_Espace Mittelland_Bern;Q30983-Q70
+ Switzerland_Espace Mittelland_East;Q30983-East
  Switzerland_Ticino;Q12724;;it
  Switzerland_Northwestern;Q676537
  Switzerland_Lake Geneva region;Q27714
@@ -916,6 +989,7 @@ Tajikistan;Q863;tj;ru,tg
 Tanzania;Q924;tz;en,sw
 Thailand;Q869;th;th
  Thailand_North;Q869-North
+ Thailand_Central;Q869-Centre
  Thailand_South;Q869-South
 The Bahamas;Q778;bs;en
 The Gambia;Q1005;gm;en
@@ -950,10 +1024,12 @@ Tunisia;Q948;tn;ar
 Turkey;Q43;tr;tr
  Turkey_Mediterranean Region;Q155552
  Turkey_Southeastern Anatolia Region;Q155638
- Turkey_Marmara Region;Q155583
+ Turkey_Marmara Region_Istanbul;Q155583-Q406
+ Turkey_Marmara Region_Bursa;Q155583-Q40738
  Turkey_Eastern Anatolia Region;Q155542
  Turkey_Black Sea Region;Q155533
- Central Anatolia Region;Q155526
+ Turkey_Central Anatolia Region_Ankara;Q155526-Q3640
+ Turkey_Central Anatolia Region_Kayseri;Q155526-Q48338
  Turkey_Aegean Region;Q155564
 Turkmenistan;Q874;tm;tk
 Turks and Caicos Islands;Q18221;tc
@@ -994,7 +1070,8 @@ United Kingdom;Q145;gb;en
  UK_England_East of England_Norfolk;Q48006-Q23109
  UK_England_Greater London;Q23306
  UK_England_North East England;Q47983
- UK_England_North West England;Q47967
+ UK_England_North West England_Manchester;Q47967-Q18125
+ UK_England_North West England_Lancaster;Q47967-Q205905
  UK_England_South East_Brighton;Q48015-Q131491
  UK_England_South East_Oxford;Q48015-Q34217
  UK_England_South West England_Bristol;Q48026-Q23154
@@ -1020,6 +1097,8 @@ United States of America;Q30;us
   US_Arizona_Phoenix;Q16556
   US_Arizona_Tucson;Q18575
  US_Arkansas;Q1612;;en
+  US_Arkansas_North;Q1612-North
+  US_Arkansas_South;Q1612-South
  California;Q99;;en
   US_California_Chico;Q432152
   US_California_Bakersfield_Bakersfield;Q49256
@@ -1044,6 +1123,7 @@ United States of America;Q30;us
   US_Florida_Miami;Q8652
   US_Florida_Orlando;Q49233
   US_Florida_Tampa;Q49255
+  US_Florida_Gainesville;Q487999
  US_Georgia;Q1428;;en
   US_Georgia_Atlanta;Q23556
   US_Georgia_Macon;Q219656
@@ -1052,6 +1132,8 @@ United States of America;Q30;us
  US_Guam;Q16635;;en,ch
  US_Hawaii;Q782;;en
  US_Idaho;Q1221;;en
+  US_Idaho_North;Q1221-North
+  US_Idaho_South;Q1221-South
  Illinois;Q1204;;en
   US_Illinois_South;Q1204-South
   US_Illinois_Chickago;Q1297
@@ -1060,7 +1142,8 @@ United States of America;Q30;us
   US_Illinois_Springfield;Q28515
  Indiana;Q1415;;en
   US_Indiana_North;Q1415-North
-  US_Indiana_South;Q1415-South
+  US_Indiana_Evansville;Q486459
+  US_Indiana_Indianapolis;Q6346
  Iowa;Q1546;;en
   US_Iowa_Des Moines;Q39709
   US_Iowa_Waterloo;Q496381
@@ -1068,9 +1151,11 @@ United States of America;Q30;us
  Kansas;Q1558;;en
   US_Kansas_East;Q1558-East
   US_Kansas_West;Q1558-West
+  US_Kansas_Wichita;Q49266
  Kentucky;Q1603;;en
   US_Kentucky_East;Q1603-East
   US_Kentucky_West;Q1603-West
+  US_Kentucky_Louisville;Q43668
  Louisiana;Q1588
   US_Louisiana_Central;Q1588-West
   US_Louisiana_New Orleans;Q34404
@@ -1087,24 +1172,35 @@ United States of America;Q30;us
  Michigan;Q1166
   US_Michigan_Detroit;Q12439
   US_Michigan_North;Q1166-North
-  US_Michigan_South;Q1166-South
+  US_Michigan_Grand Rapids;Q184587
+  US_Michigan_Lansing;Q28237
  Minnesota;Q1527
   US_Minnesota_Rochester;Q486479
   US_Minnesota_Minneapolis;Q36091
   US_Minnesota_North;Q1527-North
   US_Minnesota_Saint Cloud;Q736834
  US_Mississippi;Q1494;;en
+  US_Mississippi_Gulfport;Q490587
+  US_Mississippi_North;Q1494-North
  Missouri;Q1581
   US_Missouri_East;Q1581-East
-  US_Missouri_West;Q1581-West
+  US_Missouri_Springfield;Q135615
+  US_Missouri_Kansas;Q41819
+  US_Missouri_St Louis;Q38022
  US_Montana;Q1212;;en
+  US_Montana_East;Q1212-East
+  US_Montana_West;Q1212-West
  US_Nebraska;Q1553;;en
+  US_Nebraska_East;Q1553-East
+  US_Nebraska_West;Q1553-West
  US_Nevada;Q1227
  US_New Hampshire;Q759;;en
  New Jersey;Q1408;;en
   US_New Jersey_North;Q1408-North
   US_New Jersey_South;Q1408-South
  US_New Mexico;Q1522
+  US_New Mexico_Albuquerque;Q34804
+  US_New Mexico_Roswell;Q33561
  New York;Q1384
   US_New York_East;Q1384-East
   US_New York_New York;Q1384-Q60
@@ -1123,10 +1219,14 @@ United States of America;Q30;us
   US_North Dakota_Minot;Q487201
  Ohio;Q1397
   US_Ohio_Cleveland;Q37320
-  US_Ohio_Dayton;Q34739
+  US_Ohio_Cincinnati;Q43196
+  US_Ohio_Columbus;Q16567
+  US_Ohio_Toledo;Q49239
  Oklahoma;Q1649;;en
   US_Oklahoma_East;Q1649-East
   US_Oklahoma_West;Q1649-West
+  US_Oklahoma_Tulsa;Q44989
+  US_Oklahoma_Oklahoma;Q34863
  Oregon;Q824
   US_Oregon_Eugene;Q171224
   US_Oregon_Portland;Q6106
@@ -1139,6 +1239,7 @@ United States of America;Q30;us
  US_Puerto Rico;Q1183;;es,en
  US_Rhode Island;Q1387
  South Carolina;Q1456;;en
+  US_South Carolina_Charleston;Q47716
   US_South Carolina_Columbia;Q38453
   US_South Carolina_Florence;Q597842
  US_South Dakota;Q1211;;en
@@ -1147,9 +1248,11 @@ United States of America;Q30;us
   US_Tennessee_West;Q1509-West
  Texas;Q1439
   US_Texas_Austin;Q16559
+  US_Texas_Victoria;Q784496
   US_Texas_Dallas;Q16557
   US_Texas_Houston;Q16555
-  US_Texas_Northwest;Q51691
+  US_Texas_Amarillo;Q51691
+  US_Texas_Lubbock;Q49273
   US_Texas_San Antonio;Q975
   US_Texas_Southwest;Q16868
   US_Texas_Tyler;Q499169
@@ -1157,12 +1260,15 @@ United States of America;Q30;us
   US_Texas_West;Q128361
  US_United States Minor Outlying Islands;Q16645
  US_Utah;Q829;;en
+  US_Utah_South;Q829-South
+  US_Utah_North;Q829-North
  US_Vermont;Q16551
  Virginia;Q1370;;en
   US_Virginia_Roanoke;Q501796
-  US_Virginia_Chesapeake;Q49222
+  US_Virginia_Norfolk;Q49231
   US_Virginia_Lynchburg;Q844012
   US_Virginia_Richmond;Q43421
+  US_Virginia_Alexandria;Q88
  Washington;Q1223
   US_Washington_Coast;Q199797
   US_Washington_Seattle;Q5083
@@ -1171,11 +1277,15 @@ United States of America;Q30;us
  Wisconsin;Q1537
   US_Wisconsin_Milwaukee;Q37836
   US_Wisconsin_North;Q122563
+  US_Wisconsin_Madison;Q43788
+  US_Wisconsin_Eau Claire;Q122563
  US_Wyoming;Q1214;;en
 Uruguay;Q77;uy;es
 Uzbekistan;Q265;uz;uz,ru
 Vanuatu;Q686;vu;fr,en,bi
 Venezuela;Q717;ve;es
+ Venezuela_North;Q717-North
+ Venezuela_South;Q717-South
 Vietnam;Q881;vn;vi
 Yemen;Q805;ye;ar
 Zambia;Q953;zm;en

@@ -272,17 +272,17 @@ if [ "$MODE" == "coast" ]; then
           fail
         fi
       fi
-      if [ -z "$OSRM_URL-" ]; then
-        log "OSRM_URL variable not set. World roads will not be calculated."
-      else
-        python "$ROADS_SCRIPT" "$INTCOASTSDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
-      fi
     fi
   done
   # make a working copy of generated coastlines file
   if [ -n "$OPT_COAST" ]; then
     cp "$INTCOASTSDIR"/WorldCoasts.*geom "$INTDIR"
     cp "$INTCOASTSDIR"/*.csv "$INTDIR" || true
+    if [ -z "${OSRM_URL-}" ]; then
+      log "OSRM_URL variable not set. World roads will not be calculated."
+    else
+      python "$ROADS_SCRIPT" "$INTCOASTSDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
+    fi
   fi
   [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
   if [ -n "$OPT_ROUTING" -o -n "$OPT_WORLD" -o -z "$NO_REGIONS" ]; then
