@@ -77,14 +77,22 @@ public:
   /// @TODO(bykoianko) The complexity of the method is O(n). But the structure (tree) is built on the start of the program
   /// and then actively used on run time. This method (and class) should be redesigned to make the function work faster.
   /// A hash table is being planned to use.
-  SimpleTree<T> const * const Find(T const & value) const
+  void Find(T const & value, vector<SimpleTree<T> const *> & found) const
+  {
+    if (IsEqual(m_value, value))
+      found.push_back(this);
+    for (auto const & child : m_children)
+      child.Find(value, found);
+  }
+
+  SimpleTree<T> const * const FindFirst(T const & value) const
   {
     if (IsEqual(m_value, value))
       return this;
 
     for (auto const & child : m_children)
     {
-      SimpleTree<T> const * const found = child.Find(value);
+      SimpleTree<T> const * const found = child.FindFirst(value);
       if (found != nullptr)
         return found;
     }
@@ -96,14 +104,14 @@ public:
   /// When new countries.txt with unique ids will be added FindLeaf will be removed
   /// and Find will be used intead.
   /// @TODO(bykoianko) Remove this method on countries.txt update.
-  SimpleTree<T> const * const FindLeaf(T const & value) const
+  SimpleTree<T> const * const FindFirstLeaf(T const & value) const
   {
     if (IsEqual(m_value, value) && m_children.empty())
       return this; // It's a leaf.
 
     for (auto const & child : m_children)
     {
-      SimpleTree<T> const * const found = child.FindLeaf(value);
+      SimpleTree<T> const * const found = child.FindFirstLeaf(value);
       if (found != nullptr)
         return found;
     }

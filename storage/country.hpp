@@ -25,7 +25,16 @@ namespace storage
 {
 using TMapping = map<TCountryId, TCountriesSet>;
 
-/// Serves as a proxy between GUI and downloaded files
+/// This class keep all the information about a country in countre tree (TCountriesContainer).
+/// It is guaranteed that every node represent a unique region has a unique |m_name| in country tree.
+/// If several nodes have the same |m_name| they represents the same region.
+/// It could happend in case of disputed territories.
+/// That means that
+/// * if several leaf nodes have the same |m_name| one mwm file corresponds
+/// to all of them
+/// * if several expandable (not leaf) nodes have the same |m_name|
+/// the same hierarchy, the same set of mwm files and the same attributes correspond to all of them.
+/// So in most cases it's enough to find the first inclusion of |Country| in country tree.
 class Country
 {
   friend class update::SizeUpdater;

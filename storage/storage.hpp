@@ -18,6 +18,12 @@
 
 namespace storage
 {
+struct CountryIdAndName
+{
+  TCountryId m_id;
+  string m_localName;
+};
+
 /// \brief Contains all properties for a node in the country tree.
 /// It's applicable for expandable and not expandable node id.
 struct NodeAttrs
@@ -54,12 +60,12 @@ struct NodeAttrs
   /// a device locale.
   string m_nodeLocalName;
 
-  /// The name of the parent in a local language. That means the language dependent on
-  /// a device locale. For countries and for the root m_parentLocalName == "".
-  string m_parentLocalName;
-
-  /// Node id of the parent of the node. For the root m_parentLocalName == "".
-  TCountryId m_parentCountryId;
+  /// Node id and local name of the parents of the node.
+  /// For the root m_parentInfo.m_id == "" and m_parentInfo.m_localName == "".
+  /// Locale language is a language set by Storage::SetLocale().
+  /// Note. Most number of nodes have only one parent. But in case of a disputed territories
+  /// an mwm could have two or even more parents. See Country description for details.
+  vector<CountryIdAndName> m_parentInfo;
 
   /// A number for 0 to 99. It reflects downloading progress in case of
   /// downloading and updating mwm. If downloading or updating is not in progress
@@ -367,7 +373,7 @@ public:
 
   /// @todo Temporary function to gel all associated indexes for the country file name.
   /// Will be removed in future after refactoring.
-  TCountriesVec FindAllIndexesByFile(string const & name) const;
+  TCountriesVec FindAllIndexesByFile(TCountryId const & name) const;
 
   void GetGroupAndCountry(TCountryId const & countryId, string & group, string & country) const;
 
@@ -491,7 +497,7 @@ private:
 template <class ToDo>
 void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
 {
-  TCountriesContainer const * const rootNode = m_countries.Find(Country(root));
+  TCountriesContainer const * const rootNode = m_countries.FindFirst(Country(root));
   if (rootNode == nullptr)
   {
     ASSERT(false, ("TCountryId =", root, "not found in m_countries."));
