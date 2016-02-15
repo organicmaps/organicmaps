@@ -119,8 +119,12 @@ using namespace storage;
   BOOL const needsUpdate = (nodeAttrs.m_status == NodeStatus::OnDiskOutOfDate);
   BOOL const isDownloaded = (needsUpdate || nodeAttrs.m_status == NodeStatus::OnDisk);
   NSString * title = @(nodeAttrs.m_nodeLocalName.c_str());
-  NSString * message = self.dataSource.isParentRoot ? nil : @(nodeAttrs.m_parentLocalName.c_str());
-  NSString * downloadActionTitle = [NSString stringWithFormat:@"%@, %@", kDownloadActionTitle, formattedSize(nodeAttrs.m_mwmSize)];
+  BOOL const isMultiParent = (nodeAttrs.m_parentInfo.size() > 1);
+  NSString * message = (self.dataSource.isParentRoot || isMultiParent)
+                           ? nil
+                           : @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
+  NSString * downloadActionTitle = [NSString
+      stringWithFormat:@"%@, %@", kDownloadActionTitle, formattedSize(nodeAttrs.m_mwmSize)];
   if (isIOS7)
   {
     UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title

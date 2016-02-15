@@ -68,7 +68,7 @@ extern NSString * const kPlaceCellIdentifier;
   NSString * matchedResult = [self searchMatchedResultForCountryId:countryId];
   if (![nodeLocalName isEqualToString:matchedResult])
     return kSubplaceCellIdentifier;
-  if (nodeAttrs.m_parentCountryId == s.GetRootId())
+  if (nodeAttrs.m_parentInfo.size() == 1 && nodeAttrs.m_parentInfo[0].m_id == s.GetRootId())
     return kCountryCellIdentifier;
   return kPlaceCellIdentifier;
 }

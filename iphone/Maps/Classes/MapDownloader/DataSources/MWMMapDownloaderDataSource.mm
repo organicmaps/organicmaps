@@ -29,7 +29,10 @@ using namespace storage;
   else if ([cell isKindOfClass:[MWMMapDownloaderPlaceTableViewCell class]])
   {
     MWMMapDownloaderPlaceTableViewCell * tCell = (MWMMapDownloaderPlaceTableViewCell *)cell;
-    NSString * areaText = self.isParentRoot ? @(nodeAttrs.m_parentLocalName.c_str()) : @"";
+    BOOL const isSingleParent = (nodeAttrs.m_parentInfo.size() == 1);
+    NSString * areaText = (self.isParentRoot && isSingleParent)
+                              ? @(nodeAttrs.m_parentInfo[0].m_localName.c_str())
+                              : @"";
     [tCell setAreaText:areaText];
     if ([cell isKindOfClass:[MWMMapDownloaderSubplaceTableViewCell class]])
     {
