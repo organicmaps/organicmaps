@@ -41,8 +41,6 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-#include <QtCore/QCoreApplication>
-
 using namespace platform;
 
 namespace storage
@@ -426,7 +424,7 @@ public:
     m_finished = true;
     m_cv.notify_one();
 
-    QCoreApplication::exit();
+    testing::StopEventLoop();
   }
 
   void OnProgress(TCountryId const & /* countryId */, TLocalAndRemoteSize const & /* progress */) {}
@@ -914,7 +912,7 @@ UNIT_TEST(StorageTest_FailedDownloading)
   {
     FailedDownloadingWaiter waiter(storage, countryId);
     storage.DownloadCountry(countryId, MapOptions::Map);
-    QCoreApplication::exec();
+    testing::RunEventLoop();
   }
 
   // File wasn't downloaded, but temprorary downloader files must exist.
