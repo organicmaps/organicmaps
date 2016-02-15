@@ -486,11 +486,13 @@ public:
   search::AddressInfo GetAddressInfoAtPoint(m2::PointD const & pt) const;
   /// @returns valid street address only if it was specified in OSM for given feature; used in the editor.
   search::AddressInfo GetFeatureAddressInfo(FeatureType & ft) const;
+  search::AddressInfo GetFeatureAddressInfo(FeatureID const & fid) const;
   vector<string> GetPrintableFeatureTypes(FeatureType const & ft) const;
   /// If feature does not have explicit street in OSM data, first value can be a closest named street.
   /// If it does have explicit street name in OSM, it goes first in the returned vector.
   /// @returns empty vector if no named streets were found around feature.
   vector<string> GetNearbyFeatureStreets(FeatureType const & ft) const;
+  vector<string> GetNearbyFeatureStreets(FeatureID const & fid) const;
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// @returns nullptr if no feature was found at the given mercator point.
   unique_ptr<FeatureType> GetFeatureAtPoint(m2::PointD const & mercator) const;
