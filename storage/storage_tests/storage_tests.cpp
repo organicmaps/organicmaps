@@ -90,6 +90,45 @@ string const kSingleMwmCountriesTxt =
                 "old": [
                  "South Korea"
                 ]
+               },
+
+               {
+                "id": "Country1",
+                "g": [
+                 {
+                  "id": "Disputable Territory",
+                  "s": 1234,
+                  "old": [
+                   "Country1"
+                  ]
+                 },
+                 {
+                  "id": "Indisputable Territory Of Country1",
+                  "s": 1111,
+                  "old": [
+                   "Country1"
+                  ]
+                 }
+                ]
+               },
+               {
+                "id": "Country2",
+                "g": [
+                 {
+                  "id": "Indisputable Territory Of Country2",
+                  "s": 2222,
+                  "old": [
+                   "Country2"
+                  ]
+                 },
+                 {
+                  "id": "Disputable Territory",
+                  "s": 1234,
+                  "old": [
+                   "Country2"
+                  ]
+                 }
+                ]
                }
             ]})");
 
@@ -933,9 +972,9 @@ UNIT_TEST(StorageTest_GetChildren)
 
   TCountriesVec countriesList;
   storage.GetChildren(world, countriesList);
-  TEST_EQUAL(countriesList.size(), 3, ());
+  TEST_EQUAL(countriesList.size(), 5, ());
   TEST_EQUAL(countriesList.front(), "Abkhazia", ());
-  TEST_EQUAL(countriesList.back(), "South Korea_South", ());
+  TEST_EQUAL(countriesList.back(), "Country2", ());
 
   TCountriesVec abkhaziaList;
   storage.GetChildren("Abkhazia", abkhaziaList);
@@ -1188,28 +1227,42 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_mwmSize, 4689718, ());
   TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
-  TEST_EQUAL(nodeAttrs.m_parentCountryId, "Countries", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
 
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 2, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 90878678, ());
   TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
-  TEST_EQUAL(nodeAttrs.m_parentCountryId, "Countries", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
 
   storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 66701534, ());
   TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
-  TEST_EQUAL(nodeAttrs.m_parentCountryId, "Algeria", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Algeria", ());
 
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 48394664, ());
   TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
-  TEST_EQUAL(nodeAttrs.m_parentCountryId, "Countries", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
+
+  storage.GetNodeAttrs("Disputable Territory", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
+  TEST_EQUAL(nodeAttrs.m_mwmSize, 1234, ());
+  TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
+  TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
+  vector<TCountryId> expectedParents = {"Country1", "Country2"};
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Country1", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_id, "Country2", ());
 }
 
 UNIT_TEST(StorageTest_ParseStatus)
@@ -1234,7 +1287,9 @@ UNIT_TEST(StorageTest_ForEachInSubtree)
   };
   storage.ForEachInSubtree(storage.GetRootId(), forEach);
 
-  TCountriesVec const expectedLeafVec = {"Abkhazia", "Algeria_Central", "Algeria_Coast", "South Korea_South"};
+  TCountriesVec const expectedLeafVec = {"Abkhazia", "Algeria_Central", "Algeria_Coast", "South Korea_South",
+                                         "Disputable Territory", "Indisputable Territory Of Country1",
+                                         "Indisputable Territory Of Country2", "Disputable Territory"};
   TEST_EQUAL(leafVec, expectedLeafVec, ());
 }
 
@@ -1259,86 +1314,116 @@ UNIT_TEST(StorageTest_CalcLimitRect)
 
 UNIT_TEST(StorageTest_CountriesNamesTest)
 {
-  string const ruJson =
-      "\
-      {\
-      \"Countries\":\"Весь мир\",\
-      \"Abkhazia\":\"Абхазия\",\
-      \"Algeria\":\"Алжир\",\
-      \"Algeria_Central\":\"Алжир (центральная часть)\",\
-      \"Algeria_Coast\":\"Алжир (побережье)\"\
-      }";
+  string const kRuJson =
+      string(R"json({
+             "Countries":"Весь мир",
+             "Abkhazia":"Абхазия",
+             "Algeria":"Алжир",
+             "Algeria_Central":"Алжир (центральная часть)",
+             "Algeria_Coast":"Алжир (побережье)",
+             "Country1":"Страна 1",
+             "Disputable Territory":"Спорная территория",
+             "Indisputable Territory Of Country1":"Бесспорная территория страны 1",
+             "Country2":"Страна 2",
+             "Indisputable Territory Of Country2":"Бесспорная территория страны 2"
+             })json");
 
-  string const frJson =
-      "\
-      {\
-      \"Countries\":\"Des pays\",\
-      \"Abkhazia\":\"Abkhazie\",\
-      \"Algeria\":\"Algérie\",\
-      \"Algeria_Central\":\"Algérie (partie centrale)\",\
-      \"Algeria_Coast\":\"Algérie (Côte)\"\
-      }";
+  string const kFrJson =
+      string(R"json({
+             "Countries":"Des pays",
+             "Abkhazia":"Abkhazie",
+             "Algeria":"Algérie",
+             "Algeria_Central":"Algérie (partie centrale)",
+             "Algeria_Coast":"Algérie (Côte)",
+             "Country1":"Pays 1",
+             "Disputable Territory":"Territoire contesté",
+             "Indisputable Territory Of Country1":"Territoire incontestable. Pays 1.",
+             "Country2":"Pays 2",
+             "Indisputable Territory Of Country2":"Territoire incontestable. Pays 2"
+             })json");
 
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
   // set russian locale
-
-  storage.SetLocaleForTesting(ruJson, "ru");
+  storage.SetLocaleForTesting(kRuJson, "ru");
   TEST_EQUAL(string("ru"), storage.GetLocale(), ());
 
   NodeAttrs nodeAttrs;
   storage.GetNodeAttrs("Abkhazia", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Абхазия", ());
-  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Весь мир", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Весь мир", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Алжир", ());
-  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Весь мир", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Весь мир", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Алжир (побережье)", ());
-  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Алжир", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Алжир", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria_Central", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Алжир (центральная часть)", ());
-  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Алжир", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Алжир", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "South Korea_South", ());
-  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Весь мир", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Весь мир", ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("Disputable Territory", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Спорная территория", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Страна 1", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_localName, "Страна 2", ());
 
   // set french locale
-
-  storage.SetLocaleForTesting(frJson, "fr");
+  storage.SetLocaleForTesting(kFrJson, "fr");
   TEST_EQUAL(string("fr"), storage.GetLocale(), ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Abkhazia", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Abkhazie", ());
-  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Des pays", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Des pays", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Algérie", ());
-  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Des pays", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Des pays", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Algérie (Côte)", ());
-  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Algérie", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Algérie", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("Algeria_Central", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Algérie (partie centrale)", ());
-  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Algérie", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Algérie", ());
 
   nodeAttrs = NodeAttrs();
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_nodeLocalName, "South Korea_South", ());
-  TEST_EQUAL(nodeAttrs.m_parentLocalName, "Des pays", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Des pays", ());
+
+  nodeAttrs = NodeAttrs();
+  storage.GetNodeAttrs("Disputable Territory", nodeAttrs);
+  TEST_EQUAL(nodeAttrs.m_nodeLocalName, "Territoire contesté", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Pays 1", ());
+  TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_localName, "Pays 2", ());
 }
 }  // namespace storage
