@@ -245,7 +245,7 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
   m_query->SetMode(params.GetMode());
 
   // This flag is needed for consistency with old search algorithm
-  // only. It will gone away when we will remove old search code.
+  // only. It will be gone when we remove old search code.
   m_query->SetSearchInWorld(true);
 
   m_query->SetInputLocale(params.m_inputLocale);
