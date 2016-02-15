@@ -76,6 +76,14 @@ void DeleteFromDiskWithIndexes(LocalCountryFile const & localFile, MapOptions op
   DeleteCountryIndexes(localFile);
   localFile.DeleteFromDisk(options);
 }
+
+TCountriesContainer const & LeafNodeFromCountryId(TCountriesContainer const & root,
+                                                  TCountryId const & countryId)
+{
+  SimpleTree<Country> const * node = root.FindFirstLeaf(Country(countryId));
+  CHECK(node, ("Node with id =", countryId, "not found in country tree as a leaf."));
+  return *node;
+}
 }  // namespace
 
 bool HasCountryId(TCountriesVec const & sortedCountryIds, TCountryId const & countryId)
@@ -241,17 +249,9 @@ size_t Storage::GetDownloadedFilesCount() const
   return m_localFiles.size();
 }
 
-TCountriesContainer const & NodeFromCountryId(TCountriesContainer const & root,
-                                              TCountryId const & countryId)
-{
-  SimpleTree<Country> const * node = root.FindFirstLeaf(Country(countryId));
-  CHECK(node, ("Node with id =", countryId, "not found in country tree as a leaf."));
-  return *node;
-}
-
 Country const & Storage::CountryLeafByCountryId(TCountryId const & countryId) const
 {
-  return NodeFromCountryId(m_countries, countryId).Value();
+  return LeafNodeFromCountryId(m_countries, countryId).Value();
 }
 
 Country const & Storage::CountryByCountryId(TCountryId const & countryId) const
@@ -278,12 +278,12 @@ void Storage::GetGroupAndCountry(TCountryId const & countryId, string & group, s
 
 size_t Storage::CountriesCount(TCountryId const & countryId) const
 {
-  return NodeFromCountryId(m_countries, countryId).ChildrenCount();
+  return LeafNodeFromCountryId(m_countries, countryId).ChildrenCount();
 }
 
 string const & Storage::CountryName(TCountryId const & countryId) const
 {
-  return NodeFromCountryId(m_countries, countryId).Value().Name();
+  return LeafNodeFromCountryId(m_countries, countryId).Value().Name();
 }
 
 bool Storage::IsCoutryIdInCountryTree(TCountryId const & countryId) const
@@ -1160,6 +1160,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);
 
   nodeAttrs.m_parentInfo.clear();
+  nodeAttrs.m_parentInfo.reserve(nodes.size());
   for (auto const & n : nodes)
   {
     Country const & nValue = n->Value();

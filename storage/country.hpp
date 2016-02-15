@@ -25,10 +25,10 @@ namespace storage
 {
 using TMapping = map<TCountryId, TCountriesSet>;
 
-/// This class keep all the information about a country in countre tree (TCountriesContainer).
+/// This class keeps all the information about a country in countre tree (TCountriesContainer).
 /// It is guaranteed that every node represent a unique region has a unique |m_name| in country tree.
-/// If several nodes have the same |m_name| they represents the same region.
-/// It could happend in case of disputed territories.
+/// If several nodes have the same |m_name| they represent the same region.
+/// It happends in case of disputed territories.
 /// That means that
 /// * if several leaf nodes have the same |m_name| one mwm file corresponds
 /// to all of them
