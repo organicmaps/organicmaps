@@ -143,6 +143,7 @@ public:
   virtual ~Framework();
 
   /// Migrate to new version of very different data.
+  bool IsEnoughSpaceForMigrate() const;
   void PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & change,
                   storage::Storage::TProgressFunction const & progress);
   void Migrate();

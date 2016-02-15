@@ -168,6 +168,7 @@ public:
     NOT_ENOUGH_SPACE
   };
   TStorageStatus GetWritableStorageStatus(uint64_t neededSize) const;
+  uint64_t GetWritableStorageSpace() const;
 
   /// @name Functions for concurrent tasks.
   //@{

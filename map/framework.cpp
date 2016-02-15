@@ -234,6 +234,12 @@ void Framework::StopLocationFollow()
   CallDrapeFunction(bind(&df::DrapeEngine::StopLocationFollow, _1));
 }
 
+bool Framework::IsEnoughSpaceForMigrate() const
+{
+  uint64_t const kSpaceSize = 100 /*Mb*/ * 1024 * 1024;
+  return GetPlatform().GetWritableStorageStatus(kSpaceSize) == Platform::TStorageStatus::STORAGE_OK;
+}
+
 void Framework::PreMigrate(ms::LatLon const & position,
                            storage::Storage::TChangeCountryFunction const & change,
                            storage::Storage::TProgressFunction const & progress)

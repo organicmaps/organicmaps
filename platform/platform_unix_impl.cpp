@@ -199,6 +199,18 @@ Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
   return STORAGE_OK;
 }
 
+uint64_t Platform::GetWritableStorageSpace() const
+{
+  struct statfs st;
+  int const ret = statfs(m_writableDir.c_str(), &st);
+
+  LOG(LDEBUG, ("statfs return = ", ret,
+               "; block size = ", st.f_bsize,
+               "; blocks available = ", st.f_bavail));
+
+  return (ret != 0) ? 0 : st.f_bsize * st.f_bavail;
+}
+
 namespace pl
 {
 void EnumerateFilesByRegExp(string const & directory, string const & regexp,
