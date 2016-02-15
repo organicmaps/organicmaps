@@ -1,9 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "search/retrieval.hpp"
-#include "search/search_delimiters.hpp"
 #include "search/search_query_params.hpp"
-#include "search/search_string_utils.hpp"
 #include "search/search_tests_support/test_feature.hpp"
 #include "search/search_tests_support/test_mwm_builder.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
@@ -14,6 +12,8 @@
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "storage/country_decl.hpp"
 #include "storage/country_info_getter.hpp"

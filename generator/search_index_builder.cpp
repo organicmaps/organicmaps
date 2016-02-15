@@ -1,12 +1,10 @@
 #include "search_index_builder.hpp"
 
-#include "search/categories_holder.hpp"
 #include "search/reverse_geocoder.hpp"
-#include "search/search_delimiters.hpp"
 #include "search/search_index_values.hpp"
-#include "search/search_string_utils.hpp"
 #include "search/search_trie.hpp"
 
+#include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
@@ -14,6 +12,8 @@
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
+#include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
 #include "indexer/types_skipper.hpp"
 

@@ -1,9 +1,10 @@
 #include "testing/testing.hpp"
 
 #include "search/dummy_rank_table.hpp"
-#include "search/search_delimiters.hpp"
-#include "search/search_string_utils.hpp"
 #include "search/v2/locality_scorer.hpp"
+
+#include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"

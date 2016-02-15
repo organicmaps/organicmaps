@@ -17,7 +17,6 @@ macx-*: LIBS *= "-framework IOKit"
 SOURCES += \
     ../../testing/testingmain.cpp \
     algos_tests.cpp \
-    categories_test.cpp \
     house_detector_tests.cpp \
     house_numbers_matcher_test.cpp \
     interval_set_test.cpp \
@@ -27,7 +26,6 @@ SOURCES += \
     locality_finder_test.cpp \
     locality_scorer_test.cpp \
     query_saver_tests.cpp \
-    search_string_utils_test.cpp \
     string_intersection_test.cpp \
     string_match_test.cpp \
 

@@ -1,5 +1,4 @@
 #include "reverse_geocoder.hpp"
-#include "search_string_utils.hpp"
 
 #include "search/v2/mwm_context.hpp"
 
@@ -8,6 +7,7 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "base/stl_helpers.hpp"
 

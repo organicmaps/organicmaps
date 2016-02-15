@@ -1,10 +1,10 @@
 #include "search/search_tests_support/test_search_engine.hpp"
 
-#include "search/categories_holder.hpp"
 #include "search/search_query.hpp"
 #include "search/search_query_factory.hpp"
 #include "search/suggest.hpp"
 
+#include "indexer/categories_holder.hpp"
 #include "indexer/scales.hpp"
 
 #include "storage/country_info_getter.hpp"

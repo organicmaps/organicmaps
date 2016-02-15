@@ -10,6 +10,7 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
+    categories_holder.cpp \
     classificator.cpp \
     classificator_loader.cpp \
     coding_params.cpp \
@@ -46,10 +47,13 @@ SOURCES += \
     point_to_int64.cpp \
     rank_table.cpp \
     scales.cpp \
+    search_delimiters.cpp \    # it's in indexer because of CategoriesHolder dependency.
+    search_string_utils.cpp \  # it's in indexer because of CategoriesHolder dependency.
     types_mapping.cpp \
     types_skipper.cpp \
 
 HEADERS += \
+    categories_holder.hpp \
     cell_coverer.hpp \
     cell_id.hpp \
     classificator.hpp \
@@ -96,6 +100,8 @@ HEADERS += \
     scale_index.hpp \
     scale_index_builder.hpp \
     scales.hpp \
+    search_delimiters.hpp \      # it's in indexer because of CategoriesHolder dependency.
+    search_string_utils.hpp \    # it's in indexer because of CategoriesHolder dependency.
     succinct_trie_builder.hpp \
     succinct_trie_reader.hpp \
     tesselator_decl.hpp \

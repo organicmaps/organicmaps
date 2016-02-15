@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/search_string_utils.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "base/string_utils.hpp"
 

@@ -1,10 +1,10 @@
 #include "testing/testing.hpp"
 
 #include "search/reverse_geocoder.hpp"
-#include "search/search_string_utils.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/index.hpp"
+#include "indexer/search_string_utils.hpp"
 
 
 using namespace search;

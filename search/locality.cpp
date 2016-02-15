@@ -1,7 +1,7 @@
 #include "locality.hpp"
 
-#include "search_delimiters.hpp"
-#include "search_string_utils.hpp"
+#include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "base/assert.hpp"
 

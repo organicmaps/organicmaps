@@ -1,14 +1,14 @@
 #include "search_engine.hpp"
 
-#include "categories_holder.hpp"
 #include "geometry_utils.hpp"
 #include "search_query.hpp"
-#include "search_string_utils.hpp"
 
 #include "storage/country_info_getter.hpp"
 
+#include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "platform/platform.hpp"
 

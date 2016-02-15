@@ -1,12 +1,12 @@
-#include "categories_holder.hpp"
 #include "intermediate_result.hpp"
 #include "geometry_utils.hpp"
 
 #include "storage/country_info_getter.hpp"
 
-#include "indexer/ftypes_matcher.hpp"
+#include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/angles.hpp"

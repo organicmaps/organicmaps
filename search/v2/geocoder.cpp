@@ -2,8 +2,6 @@
 
 #include "search/dummy_rank_table.hpp"
 #include "search/retrieval.hpp"
-#include "search/search_delimiters.hpp"
-#include "search/search_string_utils.hpp"
 #include "search/v2/cbv_ptr.hpp"
 #include "search/v2/features_filter.hpp"
 #include "search/v2/features_layer_matcher.hpp"
@@ -16,6 +14,8 @@
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
+#include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "storage/country_info_getter.hpp"
 

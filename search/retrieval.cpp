@@ -4,7 +4,6 @@
 #include "feature_offset_match.hpp"
 #include "interval_set.hpp"
 #include "search_index_values.hpp"
-#include "search_string_utils.hpp"
 #include "search_trie.hpp"
 
 #include "indexer/feature.hpp"
@@ -12,6 +11,7 @@
 #include "indexer/index.hpp"
 #include "indexer/osm_editor.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/search_string_utils.hpp"
 #include "indexer/trie_reader.hpp"
 
 #include "platform/mwm_traits.hpp"

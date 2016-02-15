@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/categories_holder.hpp"
-
+#include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 

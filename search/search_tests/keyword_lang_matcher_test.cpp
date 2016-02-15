@@ -1,8 +1,9 @@
 #include "testing/testing.hpp"
 
 #include "search/keyword_lang_matcher.hpp"
-#include "search/search_delimiters.hpp"
-#include "search/search_string_utils.hpp"
+
+#include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "base/stl_add.hpp"
 
