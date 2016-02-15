@@ -105,8 +105,6 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 @property (nonatomic) ForceRoutingStateChange forceRoutingStateChange;
 @property (nonatomic) BOOL disableStandbyOnLocationStateMode;
 
-@property (nonatomic) MWMAlertViewController * alertController;
-
 @property (nonatomic) UserTouchesAction userTouchesAction;
 @property (nonatomic) MWMPageController * pageViewController;
 
