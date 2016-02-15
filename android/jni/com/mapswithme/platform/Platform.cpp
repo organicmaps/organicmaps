@@ -99,7 +99,7 @@ namespace android
   {
     m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
     jclass const functorProcessClass = env->GetObjectClass(functorProcessObject);
-    m_functorProcessMethod = env->GetMethodID(functorProcessClass, "processFunctor", "(J)V");
+    m_functorProcessMethod = env->GetMethodID(functorProcessClass, "forwardToMainThread", "(J)V");
 
     string const flavor = jni::ToNativeString(env, flavorName);
     string const build = jni::ToNativeString(env, buildType);

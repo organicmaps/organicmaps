@@ -3,6 +3,7 @@ package com.mapswithme.maps.downloader;
 import android.app.Activity;
 import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -95,7 +96,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     final @DrawableRes int icon;
     final @StringRes int title;
 
-    MenuItem(int icon, int title)
+    MenuItem(@DrawableRes int icon, @StringRes int title)
     {
       this.icon = icon;
       this.title = title;
@@ -240,12 +241,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     {
       super(frame);
 
-      mProgress = (WheelProgressView)frame.findViewById(R.id.progress);
-      mStatus = (ImageView)frame.findViewById(status);
-      mName = (TextView)frame.findViewById(R.id.name);
-      mParentName = (TextView)frame.findViewById(R.id.parent);
-      mSizes = (TextView)frame.findViewById(R.id.sizes);
-      mCounts = (TextView)frame.findViewById(R.id.counts);
+      mProgress = (WheelProgressView) frame.findViewById(R.id.progress);
+      mStatus = (ImageView) frame.findViewById(status);
+      mName = (TextView) frame.findViewById(R.id.name);
+      mParentName = (TextView) frame.findViewById(R.id.parent);
+      mSizes = (TextView) frame.findViewById(R.id.sizes);
+      mCounts = (TextView) frame.findViewById(R.id.counts);
 
       frame.setOnClickListener(new View.OnClickListener()
       {
@@ -253,12 +254,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         public void onClick(View v)
         {
           if (mItem.isExpandable())
-          {
             goDeeper(mItem.id);
-            return;
-          }
-
-          processClick();
+          else
+            processClick();
         }
       });
 
@@ -447,8 +445,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    View frame = LayoutInflater.from(mActivity).inflate(R.layout.downloader_item, parent, false);
-    return new ViewHolder(frame);
+    return new ViewHolder(LayoutInflater.from(mActivity).inflate(R.layout.downloader_item, parent, false));
   }
 
   @Override
@@ -460,8 +457,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   @Override
   public HeaderViewHolder onCreateHeaderViewHolder(ViewGroup parent)
   {
-    View frame = LayoutInflater.from(mActivity).inflate(R.layout.downloader_item_header, parent, false);
-    return new HeaderViewHolder(frame);
+    return new HeaderViewHolder(LayoutInflater.from(mActivity).inflate(R.layout.downloader_item_header, parent, false));
   }
 
   @Override
@@ -485,6 +481,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private void goDeeper(String child)
   {
     LinearLayoutManager lm = (LinearLayoutManager)mRecycler.getLayoutManager();
+
+    // Save scroll positions (top item + item`s offset) for current hierarchy level
     int position = lm.findFirstVisibleItemPosition();
     int offset = lm.findViewByPosition(position).getTop();
 
@@ -511,7 +509,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     return true;
   }
 
-  String getCurrentParent()
+  @Nullable String getCurrentParent()
   {
     return (canGoUpdwards() ? mPath.peek().countryId : null);
   }

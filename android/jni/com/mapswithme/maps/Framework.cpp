@@ -65,12 +65,6 @@ Framework::Framework()
 {
   ASSERT_EQUAL ( g_framework, 0, () );
   g_framework = this;
-  //m_activeMapsConnectionID = m_work.GetCountryTree().GetActiveMapLayout().AddListener(this);
-}
-
-Framework::~Framework()
-{
-  //m_work.GetCountryTree().GetActiveMapLayout().RemoveListener(m_activeMapsConnectionID);
 }
 
 void Framework::OnLocationError(int errorCode)
@@ -261,17 +255,6 @@ void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t 
 
   event.SetFirstMaskedPointer(maskedPointer);
   m_work.TouchEvent(event);
-}
-
-string Framework::GetCountryNameIfAbsent(m2::PointD const & pt) const
-{
-/* TODO (trashkalmar): remove old downloader's stuff
-  TIndex const idx = m_work.GetCountryIndex(pt);
-  TStatus const status = m_work.GetCountryStatus(idx);
-  if (status != TStatus::EOnDisk && status != TStatus::EOnDiskOutOfDate)
-    return m_work.GetCountryName(idx);
-  else*/
-    return string();
 }
 
 m2::PointD Framework::GetViewportCenter() const
@@ -488,16 +471,14 @@ extern "C"
     jmethodID const method = jni::GetMethodID(env, *listener.get(), "onRoutingEvent", "(I[Ljava/lang/String;)V");
     ASSERT(method, ());
 
-    jobjectArray const countries = env->NewObjectArray(absentMaps.size(), jni::GetStringClass(env), 0);
+    jni::ScopedLocalRef<jobjectArray> const countries(env, env->NewObjectArray(absentMaps.size(), jni::GetStringClass(env), 0));
     for (size_t i = 0; i < absentMaps.size(); i++)
     {
-      jstring id = jni::ToJavaString(env, absentMaps[i]);
-      env->SetObjectArrayElement(countries, i, static_cast<jobject>(id));
-      env->DeleteLocalRef(id);
+      jni::TScopedLocalRef id(env, jni::ToJavaString(env, absentMaps[i]));
+      env->SetObjectArrayElement(countries.get(), i, id.get());
     }
 
-    env->CallVoidMethod(*listener.get(), method, errorCode, countries);
-    env->DeleteLocalRef(countries);
+    env->CallVoidMethod(*listener.get(), method, errorCode, countries.get());
   }
 
   void CallRouteProgressListener(shared_ptr<jobject> listener, float progress)

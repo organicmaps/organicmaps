@@ -37,12 +37,6 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     }
   };
 
-  @Override
-  public boolean onBackPressed()
-  {
-    return mAdapter.goUpwards();
-  }
-
   private class ToolbarController extends SearchToolbarController
   {
     private final View mDownloadAll;
@@ -201,6 +195,12 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   {
     super.onDestroy();
     getRecyclerView().removeOnScrollListener(mScrollListener);
+  }
+
+  @Override
+  public boolean onBackPressed()
+  {
+    return mAdapter.goUpwards();
   }
 
   @Override

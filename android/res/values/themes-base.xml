@@ -14,7 +14,7 @@
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
-    <item name="clickableBackground">?attr/selectableItemBackground</item>
+    <item name="clickableBackground">?selectableItemBackground</item>
 
     <item name="alertDialogTheme">@style/MwmTheme.DialogFragment</item>
     <item name="windowBackgroundForced">@color/bg_window</item>

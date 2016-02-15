@@ -240,7 +240,7 @@ public class MwmApplication extends Application
   }
 
   @SuppressWarnings("unused")
-  void processFunctor(final long functorPointer)
+  void forwardToMainThread(final long functorPointer)
   {
     Message m = Message.obtain(mMainLoopHandler, new Runnable()
     {

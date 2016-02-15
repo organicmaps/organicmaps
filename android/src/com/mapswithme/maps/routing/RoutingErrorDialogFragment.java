@@ -77,12 +77,8 @@ public class RoutingErrorDialogFragment extends BaseMwmDialogFragment
                       }
                     }).create();
 
-    View view;
-    if (mMissingMaps.size() == 1)
-      view = buildSingleMapView(titleMessage.second, mMissingMaps.get(0));
-    else
-      view = buildMultipleMapView(titleMessage.second);
-
+    View view = (mMissingMaps.size() == 1 ? buildSingleMapView(titleMessage.second, mMissingMaps.get(0))
+                                          : buildMultipleMapView(titleMessage.second));
     return builder.setView(view)
                   .setNegativeButton(android.R.string.cancel, null)
                   .setPositiveButton(R.string.download, new Dialog.OnClickListener()

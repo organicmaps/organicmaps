@@ -100,7 +100,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env,
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/UpdateInfo");
   ASSERT(infoClass, (jni::DescribeException()));
-  static jmethodID const ctor = env->GetMethodID(infoClass, "<init>", "(II)V");
+  static jmethodID const ctor = jni::GetConstructorID(env, infoClass, "(II)V");
   ASSERT(ctor, (jni::DescribeException()));
 
   return env->NewObject(infoClass, ctor, info.m_numberOfMwmFilesToUpdate, info.m_totalUpdateSizeInBytes);
@@ -140,7 +140,7 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
 static void PutItemsToList(JNIEnv * env, jobject const list,  vector<TCountryId> const & children, TCountryId const & parent,
                            int category, function<void (jobject const)> const & callback)
 {
-  static jmethodID const countryItemCtor = env->GetMethodID(g_countryItemClass, "<init>", "(Ljava/lang/String;)V");
+  static jmethodID const countryItemCtor = jni::GetConstructorID(env, g_countryItemClass, "(Ljava/lang/String;)V");
   static jfieldID const countryItemFieldCategory = env->GetFieldID(g_countryItemClass, "category", "I");
   static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
 
@@ -198,19 +198,11 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
     // Downloaded
     vector<TCountryId> children;
     storage.GetDownloadedChildren(parentId, children);
-    PutItemsToList(env, result, children, parentId, ItemCategory::DOWNLOADED, [env](jobject const item)
-    {
-
-    });
+    PutItemsToList(env, result, children, parentId, ItemCategory::DOWNLOADED, [env](jobject const item) {});
 
     // All
     storage.GetChildren(parentId, children);
-    PutItemsToList(env, result, children, parentId, ItemCategory::ALL, [env](jobject const item)
-    {
-
-    });
-
-    //
+    PutItemsToList(env, result, children, parentId, ItemCategory::ALL, [env](jobject const item) {});
   }
 }
 
