@@ -7,7 +7,6 @@
 #include "indexer/drules_include.hpp"
 #include "indexer/scales.hpp"
 
-#include "std/bind.hpp"
 #include "std/limits.hpp"
 
 namespace df
@@ -87,17 +86,18 @@ public:
              feature::EGeomType type,
              int const zoomLevel,
              int const keyCount,
-             bool isNameExists)
+             CaptionDescription & descr)
     : m_pointStyleFound(false)
     , m_lineStyleFound(false)
     , m_iconFound(false)
     , m_captionWithoutOffsetFound(false)
     , m_auxCaptionFound(false)
     , m_mainTextType(drule::text_type_name)
+    , m_descrInit(false)
     , m_f(f)
     , m_geomType(type)
     , m_zoomLevel(zoomLevel)
-    , m_isNameExists(isNameExists)
+    , m_descr(descr)
   {
     m_rules.reserve(keyCount);
     Init();
@@ -122,16 +122,19 @@ public:
     else if (IsTypeOf(key, Area))
       depth -= m_priorityModifier;
 
-    drule::BaseRule const * dRule = drule::rules().Find(key);
+    drule::BaseRule const * const dRule = drule::rules().Find(key);
     m_rules.push_back(make_pair(dRule, depth));
 
-    bool isNonEmptyCaption = IsTypeOf(key, Caption) && m_isNameExists;
+    if (dRule->GetCaption(0) != nullptr)
+    {
+      InitCaptionDescription();
+      m_mainTextType = dRule->GetCaptionTextType(0);
+    }
+
+    bool const isNonEmptyCaption = IsTypeOf(key, Caption) && IsNameExists();
     m_pointStyleFound |= (IsTypeOf(key, Symbol | Circle) || isNonEmptyCaption);
     m_lineStyleFound  |= IsTypeOf(key, Line);
     m_auxCaptionFound |= (dRule->GetCaption(1) != nullptr);
-
-    if (dRule->GetCaption(0) != nullptr)
-      m_mainTextType = dRule->GetCaptionTextType(0);
   }
 
   bool m_pointStyleFound;
@@ -141,6 +144,7 @@ public:
   bool m_auxCaptionFound;
   buffer_vector<Stylist::TRuleWrapper, 8> m_rules;
   drule::text_type_t m_mainTextType;
+  bool m_descrInit;
 
 private:
   void Init()
@@ -158,13 +162,28 @@ private:
     }
   }
 
+  void InitCaptionDescription()
+  {
+    if (!m_descrInit)
+    {
+      m_descr.Init(m_f, m_zoomLevel);
+      m_descrInit = true;
+    }
+  }
+
+  inline bool IsNameExists() const
+  {
+    ASSERT(m_descrInit, ());
+    return m_descr.IsNameExists();
+  }
+
 private:
   FeatureType const & m_f;
   feature::EGeomType m_geomType;
   int const m_zoomLevel;
-  bool const m_isNameExists;
   double m_priorityModifier;
   int m_depthLayer;
+  CaptionDescription & m_descr;
 };
 
 const uint8_t CoastlineFlag  = 1;
@@ -340,7 +359,7 @@ bool InitStylist(FeatureType const & f, int const zoomLevel, bool buildings3d, S
     return false;
 
   drule::KeysT keys;
-  pair<int, bool> geomType = feature::GetDrawRule(types, zoomLevel, keys);
+  pair<int, bool> const geomType = feature::GetDrawRule(types, zoomLevel, keys);
 
   FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
@@ -348,6 +367,7 @@ bool InitStylist(FeatureType const & f, int const zoomLevel, bool buildings3d, S
     return false;
 
   drule::MakeUnique(keys);
+
   if (geomType.second)
     s.RaiseCoastlineFlag();
 
@@ -370,10 +390,10 @@ bool InitStylist(FeatureType const & f, int const zoomLevel, bool buildings3d, S
   }
 
   CaptionDescription & descr = s.GetCaptionDescriptionImpl();
-  descr.Init(f, zoomLevel);
 
-  KeyFunctor keyFunctor(f, mainGeomType, zoomLevel, keys.size(), descr.IsNameExists());
-  for_each(keys.begin(), keys.end(), bind(&KeyFunctor::ProcessKey, &keyFunctor, _1));
+  KeyFunctor keyFunctor(f, mainGeomType, zoomLevel, keys.size(), descr);
+  for (auto const & key : keys)
+    keyFunctor.ProcessKey(key);
 
   if (keyFunctor.m_pointStyleFound)
     s.RaisePointStyleFlag();
@@ -381,7 +401,10 @@ bool InitStylist(FeatureType const & f, int const zoomLevel, bool buildings3d, S
     s.RaiseLineStyleFlag();
 
   s.m_rules.swap(keyFunctor.m_rules);
-  descr.FormatCaptions(f, mainGeomType, keyFunctor.m_mainTextType, keyFunctor.m_auxCaptionFound);
+
+  if (keyFunctor.m_descrInit)
+    descr.FormatCaptions(f, mainGeomType, keyFunctor.m_mainTextType, keyFunctor.m_auxCaptionFound);
+
   return true;
 }
 
@@ -394,8 +417,11 @@ double GetFeaturePriority(FeatureType const & f, int const zoomLevel)
 
   feature::EGeomType const mainGeomType = feature::EGeomType(geomType.first);
 
-  KeyFunctor keyFunctor(f, mainGeomType, zoomLevel, keys.size(), false /* isNameExists */);
-  for_each(keys.begin(), keys.end(), bind(&KeyFunctor::ProcessKey, &keyFunctor, _1));
+  CaptionDescription descr;
+
+  KeyFunctor keyFunctor(f, mainGeomType, zoomLevel, keys.size(), descr);
+  for (auto const & key : keys)
+    keyFunctor.ProcessKey(key);
 
   double maxPriority = kMinPriority;
   for (auto const & rule : keyFunctor.m_rules)
