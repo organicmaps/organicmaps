@@ -152,7 +152,8 @@ public:
   /// Used in viewport search only.
   void AddResultNoChecks(Result && res)
   {
-    res.SetPositionInResults(m_vec.size());
+    ASSERT_LESS(m_vec.size(), numeric_limits<int32_t>::max(), ());
+    res.SetPositionInResults(static_cast<int32_t>(m_vec.size()));
     m_vec.push_back(move(res));
   }
 
