@@ -647,6 +647,10 @@
 		F64F4B711B4A41D40081A24A /* MWMDownloaderDialogHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F4B701B4A41D40081A24A /* MWMDownloaderDialogHeader.xib */; };
 		F64F4B741B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F4B731B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm */; };
 		F65243351B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm in Sources */ = {isa = PBXBuildFile; fileRef = F65243341B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm */; };
+		F652B2EA1C6DE8E500D20C8C /* MWMDropDown.xib in Resources */ = {isa = PBXBuildFile; fileRef = F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */; };
+		F653CE0E1C6DEB2E00A453F1 /* MWMDropDown.xib in Resources */ = {isa = PBXBuildFile; fileRef = F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */; };
+		F653CE111C6DEB5A00A453F1 /* MWMDropDown.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE101C6DEB5A00A453F1 /* MWMDropDown.mm */; };
+		F653CE121C6DEC8E00A453F1 /* MWMDropDown.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE101C6DEB5A00A453F1 /* MWMDropDown.mm */; };
 		F653D4231AE9398700282659 /* MWMPlacePageViewManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653D4221AE9398700282659 /* MWMPlacePageViewManager.mm */; };
 		F6588E2C1B15C26700EE1E58 /* MWMTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E2B1B15C26700EE1E58 /* MWMTextView.mm */; };
 		F6588E2F1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6588E2E1B15D2BC00EE1E58 /* MWMBookmarkColorViewController.mm */; };
@@ -1255,6 +1259,9 @@
 		F64F4B731B4A45FD0081A24A /* MWMDownloaderDialogHeader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloaderDialogHeader.mm; sourceTree = "<group>"; };
 		F65243331B0B634F00BFA9D4 /* MWMPlacePage+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMPlacePage+Animation.h"; sourceTree = "<group>"; };
 		F65243341B0B634F00BFA9D4 /* MWMPlacePage+Animation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMPlacePage+Animation.mm"; sourceTree = "<group>"; };
+		F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDropDown.xib; sourceTree = "<group>"; };
+		F653CE0F1C6DEB5A00A453F1 /* MWMDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDropDown.h; sourceTree = "<group>"; };
+		F653CE101C6DEB5A00A453F1 /* MWMDropDown.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDropDown.mm; sourceTree = "<group>"; };
 		F653D4211AE9398700282659 /* MWMPlacePageViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageViewManager.h; sourceTree = "<group>"; };
 		F653D4221AE9398700282659 /* MWMPlacePageViewManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageViewManager.mm; sourceTree = "<group>"; };
 		F6588E2A1B15C26700EE1E58 /* MWMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTextView.h; sourceTree = "<group>"; };
@@ -1791,6 +1798,7 @@
 		346EDAD81B9F0E15004F8DB5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F652B2E81C6DE8CF00D20C8C /* DropDown */,
 				346EDAD91B9F0E35004F8DB5 /* MWMMultilineLabel.h */,
 				346EDADA1B9F0E35004F8DB5 /* MWMMultilineLabel.mm */,
 				F6791B111C43DEA7007A8A6E /* MWMStartButton.h */,
@@ -2460,6 +2468,16 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		F652B2E81C6DE8CF00D20C8C /* DropDown */ = {
+			isa = PBXGroup;
+			children = (
+				F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */,
+				F653CE0F1C6DEB5A00A453F1 /* MWMDropDown.h */,
+				F653CE101C6DEB5A00A453F1 /* MWMDropDown.mm */,
+			);
+			name = DropDown;
+			sourceTree = "<group>";
+		};
 		F6588E291B15C25C00EE1E58 /* TextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2941,6 +2959,7 @@
 				34C659471BD12A77009DC20A /* InfoPlist.strings in Resources */,
 				F63774E71B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				4A7D89C71B2EBF3B00AC843E /* resources-xhdpi_dark in Resources */,
+				F652B2EA1C6DE8E500D20C8C /* MWMDropDown.xib in Resources */,
 				97D40C0A184D031900A1D572 /* Images.xcassets in Resources */,
 				344825941B8DBADF00757B1B /* MWMSearchDownloadViewController.xib in Resources */,
 				9DA46A141C47E95700EF52BA /* resources-6plus_legacy in Resources */,
@@ -3045,6 +3064,7 @@
 				34CCFDE31C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				6741A94D1BF340DE002C974C /* resources-xxhdpi_clear in Resources */,
 				6741A94E1BF340DE002C974C /* MWMLandscapeNavigationDashboard.xib in Resources */,
+				F653CE0E1C6DEB2E00A453F1 /* MWMDropDown.xib in Resources */,
 				6741A94F1BF340DE002C974C /* MWMDefaultAlert.xib in Resources */,
 				6741A9501BF340DE002C974C /* fonts_whitelist.txt in Resources */,
 				6741A9511BF340DE002C974C /* MWMDownloaderDialogHeader.xib in Resources */,
@@ -3313,6 +3333,7 @@
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				3401CD671C3C03A80028C6F8 /* MWMEditorTextTableViewCell.mm in Sources */,
 				340837131B7243CE00B5C185 /* MWMActivityViewController.mm in Sources */,
+				F653CE111C6DEB5A00A453F1 /* MWMDropDown.mm in Sources */,
 				3401CD761C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				3497A93A1B5CF8A900F51E55 /* MWMNavigationDashboardManager.mm in Sources */,
 				344825931B8DBADF00757B1B /* MWMSearchDownloadViewController.mm in Sources */,
@@ -3511,6 +3532,7 @@
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */,
 				34FF2CB61C0F13FA007A6FD2 /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				3401CD681C3C03A80028C6F8 /* MWMEditorTextTableViewCell.mm in Sources */,
+				F653CE121C6DEC8E00A453F1 /* MWMDropDown.mm in Sources */,
 				6741AA071BF340DE002C974C /* MWMBottomMenuLayout.mm in Sources */,
 				3401CD771C3CED1E0028C6F8 /* MWMEditorSelectTableViewCell.mm in Sources */,
 				34181E9E1C0ECF210081B586 /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,
