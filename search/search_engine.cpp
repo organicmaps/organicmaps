@@ -112,9 +112,9 @@ void QueryHandle::Detach()
   m_query = nullptr;
 }
 
-Engine::Engine(Index & index, Reader * categoriesR, storage::CountryInfoGetter const & infoGetter,
+Engine::Engine(Index & index, CategoriesHolder const & categories, storage::CountryInfoGetter const & infoGetter,
                string const & locale, unique_ptr<SearchQueryFactory> && factory)
-  : m_categories(categoriesR), m_factory(move(factory)), m_shutdown(false)
+  : m_categories(categories), m_factory(move(factory)), m_shutdown(false)
 {
   InitSuggestions doInit;
   m_categories.ForEachName(bind<void>(ref(doInit), _1));

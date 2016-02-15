@@ -5,6 +5,7 @@
 #include "indexer/classificator_loader.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
+#include "coding/reader.hpp"
 
 #include "std/sstream.hpp"
 
@@ -86,10 +87,7 @@ UNIT_TEST(LoadCategories)
 {
   classificator::Load();
 
-  CategoriesHolder h;
-  istringstream buffer(TEST_STRING);
-  h.LoadFromStream(buffer);
-
+  CategoriesHolder h(new MemReader(TEST_STRING, strlen(TEST_STRING)));
   size_t count = 0;
   Checker f(count);
   h.ForEachCategory(f);

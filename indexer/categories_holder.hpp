@@ -44,10 +44,7 @@ private:
   Name2CatContT m_name2type;
 
 public:
-  CategoriesHolder() {}
-  /// Takes ownership of reader.
   explicit CategoriesHolder(Reader * reader);
-
   void LoadFromStream(istream & s);
 
   template <class ToDo>
@@ -104,3 +101,6 @@ inline void swap(CategoriesHolder & a, CategoriesHolder & b)
 {
   return a.Swap(b);
 }
+
+// Defined in categories_holder_loader.cpp.
+CategoriesHolder const & GetDefaultCategories();

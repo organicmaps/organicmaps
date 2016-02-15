@@ -78,7 +78,7 @@ class Engine
 {
 public:
   // Doesn't take ownership of index. Takes ownership of categoriesR.
-  Engine(Index & index, Reader * categoriesR, storage::CountryInfoGetter const & infoGetter,
+  Engine(Index & index, CategoriesHolder const & categories, storage::CountryInfoGetter const & infoGetter,
          string const & locale, unique_ptr<SearchQueryFactory> && factory);
   ~Engine();
 
@@ -112,7 +112,7 @@ private:
 
   void DoClearCaches();
 
-  CategoriesHolder m_categories;
+  CategoriesHolder const & m_categories;
   vector<Suggest> m_suggests;
 
   unique_ptr<Query> m_query;

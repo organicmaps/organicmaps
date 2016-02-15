@@ -11,6 +11,7 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
     categories_holder.cpp \
+    categories_holder_loader.cpp \
     classificator.cpp \
     classificator_loader.cpp \
     coding_params.cpp \

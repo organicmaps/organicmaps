@@ -1116,12 +1116,10 @@ void Framework::InitSearchEngine()
 {
   ASSERT(!m_searchEngine.get(), ("InitSearchEngine() must be called only once."));
   ASSERT(m_infoGetter.get(), ());
-  Platform const & platform = GetPlatform();
-
   try
   {
     m_searchEngine.reset(new search::Engine(
-        const_cast<Index &>(m_model.GetIndex()), platform.GetReader(SEARCH_CATEGORIES_FILE_NAME),
+        const_cast<Index &>(m_model.GetIndex()), GetDefaultCategories(),
         *m_infoGetter, languages::GetCurrentOrig(), make_unique<search::SearchQueryFactory>()));
   }
   catch (RootException const & e)
