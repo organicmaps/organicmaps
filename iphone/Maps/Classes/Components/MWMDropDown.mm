@@ -25,8 +25,8 @@ CGFloat const kTopOffset = 25.;
   CGFloat const superviewWidth = self.superview.width;
   self.message.width = superviewWidth - 2 * kLeadingOffset;
   [self.message sizeToFit];
+  self.size = {superviewWidth, kTopOffset + kBottomOffset + self.message.height};
   self.message.midX = self.superview.midX;
-  self.height = kTopOffset + kBottomOffset + self.message.height;
   [super layoutSubviews];
 }
 
