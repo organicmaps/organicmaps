@@ -35,12 +35,14 @@ void EngineContext::Flush(TMapShapes && shapes)
 
 void EngineContext::FlushOverlays(TMapShapes && shapes)
 {
+  lock_guard<mutex> lock(m_overlayShapesMutex);
   m_overlayShapes.reserve(m_overlayShapes.size() + shapes.size());
   move(shapes.begin(), shapes.end(), back_inserter(m_overlayShapes));
 }
 
 void EngineContext::EndReadTile()
 {
+  lock_guard<mutex> lock(m_overlayShapesMutex);
   if (!m_overlayShapes.empty())
   {
     TMapShapes overlayShapes;
