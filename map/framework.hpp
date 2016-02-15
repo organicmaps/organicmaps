@@ -270,6 +270,7 @@ public:
   void BlockTapEvents(bool block);
 
   using TCurrentCountryChanged = function<void(storage::TCountryId const &)>;
+  storage::TCountryId const & GetLastReportedCountry() { return m_lastReportedCountry; }
   void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
 
 private:

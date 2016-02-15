@@ -219,14 +219,6 @@ public class MapFragment extends BaseMwmFragment
     super.onViewCreated(view, savedInstanceState);
     final SurfaceView surfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
     surfaceView.getHolder().addCallback(this);
-    nativeSubscribeOnCountryChanged();
-  }
-
-  @Override
-  public void onDestroyView()
-  {
-    super.onDestroyView();
-    nativeUnsubscribeOnCountryChanged();
   }
 
   @Override
@@ -276,15 +268,6 @@ public class MapFragment extends BaseMwmFragment
         return true;
     }
   }
-
-  @SuppressWarnings("UnusedDeclaration")
-  public void onCountryChanged(final String countryId)
-  {
-    // TODO
-  }
-
-  private native void nativeSubscribeOnCountryChanged();
-  private static native void nativeUnsubscribeOnCountryChanged();
 
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
   static native void nativeScalePlus();

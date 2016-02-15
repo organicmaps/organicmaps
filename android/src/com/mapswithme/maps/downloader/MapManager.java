@@ -13,6 +13,12 @@ public final class MapManager
     void onProgress(String countryId, long localSize, long remoteSize);
   }
 
+  @SuppressWarnings("unused")
+  public interface CurrentCountryChangedListener
+  {
+    void onCurrentCountryChanged(String countryId);
+  }
+
   private MapManager() {}
 
   /**
@@ -113,4 +119,14 @@ public final class MapManager
    * @param slot Slot ID returned from {@link #nativeSubscribe(StorageCallback)} while registering.
    */
   public static native void nativeUnsubscribe(int slot);
+
+  /**
+   * Subscribes to current country changes.
+   */
+  public static native void nativeSubscribeOnCountryChanged(CurrentCountryChangedListener listener);
+
+  /**
+   * Unregisters current country changed callback.
+   */
+  public static native void nativeUnsubscribeOnCountryChanged();
 }

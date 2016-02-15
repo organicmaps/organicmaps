@@ -307,4 +307,38 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeUnsubscribe(JNIEnv * env, j
   GetStorage().Unsubscribe(slot);
 }
 
+static jobject g_countryChangedListener;
+
+// static void nativeSubscribeOnCountryChanged(CurrentCountryChangedListener listener);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeSubscribeOnCountryChanged(JNIEnv * env, jclass clazz, jobject listener)
+{
+  ASSERT(!g_countryChangedListener, ());
+  g_countryChangedListener = env->NewGlobalRef(listener);
+
+  auto const callback = [](TCountryId const & countryId)
+  {
+    JNIEnv * env = jni::GetEnv();
+    jmethodID methodID = jni::GetMethodID(env, g_countryChangedListener, "onCurrentCountryChanged", "(Ljava/lang/String;)V");
+    env->CallVoidMethod(g_countryChangedListener, methodID, jni::ToJavaString(env, countryId));
+  };
+
+  TCountryId const & prev = g_framework->NativeFramework()->GetLastReportedCountry();
+  g_framework->NativeFramework()->SetCurrentCountryChangedListener(callback);
+
+  // Report previous value
+  callback(prev);
+}
+
+// static void nativeUnsubscribeOnCountryChanged();
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeUnsubscribeOnCountryChanged(JNIEnv * env, jclass clazz)
+{
+  g_framework->NativeFramework()->SetCurrentCountryChangedListener(nullptr);
+
+  ASSERT(g_countryChangedListener, ());
+  env->DeleteGlobalRef(g_countryChangedListener);
+  g_countryChangedListener = nullptr;
+}
+
 } // extern "C"

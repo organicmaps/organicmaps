@@ -31,32 +31,6 @@ using namespace storage;
 
 #pragma clang pop_options
 
-static jobject g_this = nullptr;
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_MapFragment_nativeSubscribeOnCountryChanged(JNIEnv * env, jobject thiz)
-{
-  g_this = env->NewGlobalRef(thiz);
-  g_framework->NativeFramework()->SetCurrentCountryChangedListener([](TCountryId const & countryId)
-  {
-    JNIEnv * env = jni::GetEnv();
-    jmethodID methodID = jni::GetMethodID(env, g_this, "onCountryChanged", "(Ljava/lang/String;)V");
-    env->CallVoidMethod(g_this, methodID, jni::ToJavaString(env, countryId));
-  });
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_MapFragment_nativeUnsubscribeOnCountryChanged(JNIEnv * env, jclass clazz)
-{
-  g_framework->NativeFramework()->SetCurrentCountryChangedListener(nullptr);
-
-  if (g_this)
-  {
-    env->DeleteGlobalRef(g_this);
-    g_this = nullptr;
-  }
-}
-
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeStorageConnected(JNIEnv * env, jclass clazz)
 {
