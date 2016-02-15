@@ -165,8 +165,8 @@ public:
 typedef TokenizeIterator<SimpleDelimiter,
                          ::utf8::unchecked::iterator<string::const_iterator> > SimpleTokenizer;
 
-template <typename FunctorT>
-void Tokenize(string const & str, char const * delims, FunctorT f)
+template <typename TFunctor>
+void Tokenize(string const & str, char const * delims, TFunctor && f)
 {
   SimpleTokenizer iter(str, delims);
   while (iter)
