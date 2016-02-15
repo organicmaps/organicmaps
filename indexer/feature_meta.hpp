@@ -34,9 +34,15 @@ protected:
   }
 
 public:
+  bool Has(uint8_t type) const
+  {
+    auto const it = m_metadata.find(type);
+    return it != m_metadata.end();
+  }
+
   string Get(uint8_t type) const
   {
-    auto it = m_metadata.find(type);
+    auto const it = m_metadata.find(type);
     return (it == m_metadata.end()) ? string() : it->second;
   }
 
