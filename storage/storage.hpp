@@ -172,6 +172,7 @@ private:
                          string const & dataDir, TMapping * mapping = nullptr);
 
   void ReportProgress(TCountryId const & countryId, pair<int64_t, int64_t> const & p);
+  void ReportProgressForHierarchy(TCountryId const & countryId, pair<int64_t, int64_t> const & p);
 
   /// Called on the main thread by MapFilesDownloader when list of
   /// suitable servers is received.
@@ -314,6 +315,8 @@ public:
   /// the result of GetRootId() call.
   template <class ToDo>
   void ForEachInSubtree(TCountryId const & root, ToDo && toDo) const;
+  template <class ToDo>
+  void ForEachParentExceptForTheRoot(TCountryId const & childId, ToDo && toDo) const;
 
   /// \brief Subscribe on change status callback.
   /// \returns a unique index of added status callback structure.
@@ -511,6 +514,31 @@ void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
     Country const & value = countryContainer.Value();
     toDo(value.Name(), value.GetSubtreeMwmCounter() != 1 /* expandableNode. */);
   });
+}
+
+template <class ToDo>
+void Storage::ForEachParentExceptForTheRoot(TCountryId const & childId, ToDo && toDo) const
+{
+  vector<SimpleTree<Country> const *> nodes;
+  m_countries.Find(Country(childId), nodes);
+  if (nodes.empty())
+  {
+    ASSERT(false, ("TCountryId =", childId, "not found in m_countries."));
+    return;
+  }
+
+  for (auto const & node : nodes)
+  {
+    node->ForEachParentExceptForTheRoot([&toDo](TCountriesContainer const & countryContainer)
+    {
+      TCountriesVec descendantCountryId;
+      countryContainer.ForEachDescendant([&descendantCountryId](TCountriesContainer const & countryContainer)
+      {
+        descendantCountryId.push_back(countryContainer.Value().Name());
+      });
+      toDo(countryContainer.Value().Name(), descendantCountryId);
+    });
+  }
 }
 
 bool HasCountryId(TCountriesVec const & sorted, TCountryId const & countyId);
