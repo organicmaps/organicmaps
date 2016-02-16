@@ -44,6 +44,14 @@ Platform::EError Platform::ErrnoToError()
       return ERR_DIRECTORY_NOT_EMPTY;
     case EEXIST:
       return ERR_FILE_ALREADY_EXISTS;
+    case ENAMETOOLONG:
+      return ERR_NAME_TOO_LONG;
+    case ENOTDIR:
+      return ERR_NOT_A_DIRECTORY;
+    case ELOOP:
+      return ERR_SYMLINK_LOOP;
+    case EIO:
+      return ERR_IO_ERROR;
     default:
       return ERR_UNKNOWN;
   }
