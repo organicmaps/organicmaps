@@ -184,11 +184,26 @@ extern "C"
 
     if (isMapAndTable)
     {
-      params.m_onResults = bind(&OnResults, _1, timestamp, isMapAndTable,
-                               false /* hasPosition */, 0, 0);
+      params.m_onResults = bind(&OnResults, _1, timestamp, isMapAndTable, false /* hasPosition */, 0, 0);
       if (g_framework->NativeFramework()->Search(params))
         g_queryTimestamp = timestamp;
     }
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearchMaps(JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp)
+  {
+    search::SearchParams params;
+    params.m_query = jni::ToNativeString(env, bytes);
+    params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
+    params.SetForceSearch(true);
+    params.SetSearchMode(search::SearchParams::SearchModeT::SEARCH_WORLD);
+    params.m_callback = bind(&OnResults, _1, timestamp, false /* isMapAndTable */, false /* hasPosition */, 0.0, 0.0);
+
+    bool const searchStarted = g_framework->NativeFramework()->Search(params);
+    if (searchStarted)
+      g_queryTimestamp = timestamp;
+    return searchStarted;
   }
 
   JNIEXPORT void JNICALL

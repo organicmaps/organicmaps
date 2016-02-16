@@ -34,7 +34,6 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.InputUtils;
-import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -391,7 +390,7 @@ public class SearchFragment extends BaseMwmFragment
     final String query = getQuery();
     SearchRecents.add(query);
     mLastQueryTimestamp = System.nanoTime();
-    SearchEngine.runInteractiveSearch(query, Language.getKeyboardLocale(), mLastQueryTimestamp, false /* isMapAndTable */);
+    SearchEngine.searchInteractive(query, mLastQueryTimestamp, false /* isMapAndTable */);
     SearchEngine.showAllResults(query);
     Utils.navigateToParent(getActivity());
 
@@ -419,14 +418,11 @@ public class SearchFragment extends BaseMwmFragment
     // TODO @yunitsky Implement more elegant solution.
     if (getActivity() instanceof MwmActivity)
     {
-      SearchEngine.runInteractiveSearch(getQuery(), Language.getKeyboardLocale(),
-              mLastQueryTimestamp, true /* isMapAndTable */);
+      SearchEngine.searchInteractive(getQuery(), mLastQueryTimestamp, true /* isMapAndTable */);
     }
     else
     {
-      final boolean searchStarted = SearchEngine.runSearch(getQuery(), Language.getKeyboardLocale(), mLastQueryTimestamp, true,
-                                                           mLastPosition.valid, mLastPosition.lat, mLastPosition.lon);
-      if (!searchStarted)
+      if (!SearchEngine.search(getQuery(), mLastQueryTimestamp, true, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
         return;
     }
 
