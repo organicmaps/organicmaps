@@ -1291,6 +1291,29 @@ UNIT_TEST(StorageTest_ForEachInSubtree)
   TEST_EQUAL(leafVec, expectedLeafVec, ());
 }
 
+UNIT_TEST(StorageTest_ForEachParentExceptForTheRoot)
+{
+  Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
+
+  auto const forEach = [](TCountryId const & parentId, TCountriesVec const & descendants)
+  {
+    if (parentId == "Country1")
+    {
+      TCountriesVec const expectedDescendants = {"Disputable Territory", "Indisputable Territory Of Country1"};
+      TEST_EQUAL(descendants, expectedDescendants, ());
+      return;
+    }
+    if (parentId == "Country2")
+    {
+      TCountriesVec const expectedDescendants = {"Indisputable Territory Of Country2", "Disputable Territory"};
+      TEST_EQUAL(descendants, expectedDescendants, ());
+      return;
+    }
+    TEST(false, ());
+  };
+  storage.ForEachParentExceptForTheRoot("Disputable Territory", forEach);
+}
+
 UNIT_TEST(StorageTest_CalcLimitRect)
 {
   Storage storage(COUNTRIES_MIGRATE_FILE);
