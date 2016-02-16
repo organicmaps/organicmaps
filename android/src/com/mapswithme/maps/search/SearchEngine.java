@@ -25,6 +25,7 @@ public enum SearchEngine implements NativeSearchListener
       {
         for (NativeSearchListener listener : mListeners)
           listener.onResultsUpdate(results, timestamp);
+        mListeners.finishIterate();
       }
     });
   }

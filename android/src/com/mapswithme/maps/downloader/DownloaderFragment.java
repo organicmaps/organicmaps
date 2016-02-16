@@ -1,6 +1,7 @@
 package com.mapswithme.maps.downloader;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.search.NativeSearchListener;
+import com.mapswithme.maps.search.SearchEngine;
+import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
@@ -34,6 +38,21 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     {
       if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
         mToolbarController.deactivate();
+    }
+  };
+
+  private final NativeSearchListener mSearchListener = new NativeSearchListener()
+  {
+    @Override
+    public void onResultsUpdate(SearchResult[] results, long timestamp)
+    {
+
+    }
+
+    @Override
+    public void onResultsEnd(long timestamp)
+    {
+
     }
   };
 
@@ -113,6 +132,12 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
       UiUtils.showIf(download, mDownloadAll);
       UiUtils.showIf(onTop, mQuery);
     }
+
+    @Override
+    protected void startVoiceRecognition(Intent intent, int code)
+    {
+      startActivityForResult(intent, code);
+    }
   }
 
   private void updateBottomPanel()
@@ -152,6 +177,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
       @Override
       public void onProgress(String countryId, long localSize, long remoteSize) {}
     });
+
+    SearchEngine.INSTANCE.addListener(mSearchListener);
   }
 
   @Override
@@ -163,6 +190,9 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
       MapManager.nativeUnsubscribe(mSubscriberSlot);
       mSubscriberSlot = 0;
     }
+
+    SearchEngine.INSTANCE.removeListener(mSearchListener);
+    SearchEngine.cancelSearch();
   }
 
   @Override
@@ -229,5 +259,12 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     }
 
     return mAdapter;
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    mToolbarController.onActivityResult(requestCode, resultCode, data);
   }
 }

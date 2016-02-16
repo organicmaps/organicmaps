@@ -37,8 +37,7 @@
     android:background="?attr/selectableItemBackgroundBorderless"
     android:contentDescription="@null"
     android:scaleType="center"
-    android:src="@drawable/ic_cancel"
-    android:tint="?iconTint"/>
+    android:src="@drawable/ic_cancel"/>
 
   <ImageView
     android:id="@+id/voice_input"
