@@ -40,7 +40,7 @@ class InitSuggestions
 public:
   void operator()(CategoriesHolder::Category::Name const & name)
   {
-    if (name.m_prefixLengthToSuggest != CategoriesHolder::Category::EMPTY_PREFIX_LENGTH)
+    if (name.m_prefixLengthToSuggest != CategoriesHolder::Category::kEmptyPrefixLength)
     {
       strings::UniString const uniName = NormalizeAndSimplifyString(name.m_name);
 

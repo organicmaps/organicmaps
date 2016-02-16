@@ -41,7 +41,7 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
 
     for (size_t i = 0; i < p->m_synonyms.size(); ++i)
     {
-      ASSERT(p->m_synonyms[i].m_locale != UNSUPPORTED_LOCALE_CODE, ());
+      ASSERT(p->m_synonyms[i].m_locale != kUnsupportedLocaleCode, ());
 
       StringT const uniName = search::NormalizeAndSimplifyString(p->m_synonyms[i].m_name);
 
@@ -128,7 +128,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
         }
 
         int8_t const langCode = MapLocaleToInteger(*iter);
-        CHECK(langCode != UNSUPPORTED_LOCALE_CODE, ("Invalid language code:", *iter, "at line:", lineNumber));
+        CHECK(langCode != kUnsupportedLocaleCode, ("Invalid language code:", *iter, "at line:", lineNumber));
 
         while (++iter)
         {
@@ -148,7 +148,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
             name.m_name = name.m_name.substr(1);
           }
           else
-            name.m_prefixLengthToSuggest = Category::EMPTY_PREFIX_LENGTH;
+            name.m_prefixLengthToSuggest = Category::kEmptyPrefixLength;
 
           // Process emoji symbols.
           using namespace strings;
@@ -263,5 +263,5 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     return 17; // Simplified Chinese by default for all other cases
   }
 
-  return UNSUPPORTED_LOCALE_CODE;
+  return kUnsupportedLocaleCode;
 }
