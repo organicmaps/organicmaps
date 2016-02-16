@@ -26,6 +26,10 @@
 		3401CD7E1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3401CD7B1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.mm */; };
 		3401CD7F1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3401CD7C1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.xib */; };
 		3401CD801C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3401CD7C1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.xib */; };
+		3406FA151C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */; };
+		3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */; };
+		3406FA181C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
+		3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */; };
 		340837131B7243CE00B5C185 /* MWMActivityViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837121B7243CE00B5C185 /* MWMActivityViewController.mm */; };
 		340837161B72451A00B5C185 /* MWMShareLocationActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340837151B72451A00B5C185 /* MWMShareLocationActivityItem.mm */; };
 		340C20E31C3E565600111D22 /* MWMCuisineEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 340C20E21C3E565600111D22 /* MWMCuisineEditorViewController.mm */; };
@@ -800,6 +804,9 @@
 		3401CD7B1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorSwitchTableViewCell.mm; sourceTree = "<group>"; };
 		3401CD7C1C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MWMMapViewControlsCommon.h; path = APIBar/MWMMapViewControlsCommon.h; sourceTree = "<group>"; };
+		3406FA131C6E0C3300E9FAD2 /* MWMMapDownloadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloadDialog.h; sourceTree = "<group>"; };
+		3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloadDialog.mm; sourceTree = "<group>"; };
+		3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMMapDownloadDialog.xib; sourceTree = "<group>"; };
 		340837111B7243CE00B5C185 /* MWMActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMActivityViewController.h; sourceTree = "<group>"; };
 		340837121B7243CE00B5C185 /* MWMActivityViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMActivityViewController.mm; sourceTree = "<group>"; };
 		340837141B72451A00B5C185 /* MWMShareLocationActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMShareLocationActivityItem.h; sourceTree = "<group>"; };
@@ -2277,6 +2284,9 @@
 			children = (
 				34FE4C431BCC013500066718 /* MWMMapWidgets.h */,
 				34FE4C441BCC013500066718 /* MWMMapWidgets.mm */,
+				3406FA131C6E0C3300E9FAD2 /* MWMMapDownloadDialog.h */,
+				3406FA141C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm */,
+				3406FA171C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -3012,6 +3022,7 @@
 				EEA61603134C496A003A9827 /* 03_jomolhari-id-a3d.ttf in Resources */,
 				347FD8711C60B2CE002FB65E /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				EEA61604134C496A003A9827 /* 04_padauk.ttf in Resources */,
+				3406FA181C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */,
 				341F99E31C6B1165001C67B8 /* MWMMapDownloaderTableViewCell.xib in Resources */,
 				341F99D71C6B1165001C67B8 /* MWMMapDownloaderLargeCountryTableViewCell.xib in Resources */,
 				EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */,
@@ -3152,6 +3163,7 @@
 				6741A9591BF340DE002C974C /* 05_khmeros.ttf in Resources */,
 				677A2DE21C0DD50900635A00 /* resources-default in Resources */,
 				6741A95A1BF340DE002C974C /* me.maps.entitlements in Resources */,
+				3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */,
 				4A300ED51C6DCFD400140018 /* countries-strings in Resources */,
 				3476B8E11BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
 				6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */,
@@ -3340,6 +3352,7 @@
 				341223BB1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				34C9BD091C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */,
+				3406FA151C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
 				340C21111C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.mm in Sources */,
 				34C9BD021C6DB693000DC38D /* MWMTableViewController.mm in Sources */,
 				F63BA3711BCD5B520044C504 /* MWMTTSLanguageViewController.mm in Sources */,
@@ -3543,6 +3556,7 @@
 				3476B8CC1BFDCB6700874594 /* MWMTTSSettingsViewController.mm in Sources */,
 				6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.mm in Sources */,
+				3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
 				6741A9D51BF340DE002C974C /* WebViewController.mm in Sources */,
 				34C9BD031C6DB693000DC38D /* MWMTableViewController.mm in Sources */,
 				6741A9D61BF340DE002C974C /* MWMPlacePageNavigationBar.mm in Sources */,
