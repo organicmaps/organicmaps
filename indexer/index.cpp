@@ -75,22 +75,10 @@ unique_ptr<MwmSet::MwmValueBase> Index::CreateValue(MwmInfo & info) const
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Index::RegisterMap(LocalCountryFile const & localFile)
 {
-  auto result = Register(localFile);
-  if (result.first.IsAlive() && result.second == MwmSet::RegResult::Success)
-    m_observers.ForEach(&Observer::OnMapRegistered, localFile);
-  return result;
+  return Register(localFile);
 }
 
 bool Index::DeregisterMap(CountryFile const & countryFile) { return Deregister(countryFile); }
-
-bool Index::AddObserver(Observer & observer) { return m_observers.Add(observer); }
-
-bool Index::RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
-
-void Index::OnMwmDeregistered(LocalCountryFile const & localFile)
-{
-  m_observers.ForEach(&Observer::OnMapDeregistered, localFile);
-}
 
 //////////////////////////////////////////////////////////////////////////////////
 // Index::FeaturesLoaderGuard implementation

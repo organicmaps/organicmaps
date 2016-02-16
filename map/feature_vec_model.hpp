@@ -2,6 +2,7 @@
 
 #include "indexer/data_header.hpp"
 #include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/point2d.hpp"
@@ -15,7 +16,7 @@ namespace model
 {
 //#define USE_BUFFER_READER
 
-class FeaturesFetcher : public Index::Observer
+class FeaturesFetcher : public MwmSet::Observer
   {
   public:
 #ifdef USE_BUFFER_READER
@@ -61,7 +62,9 @@ class FeaturesFetcher : public Index::Observer
       return m_multiIndex.IsLoaded(platform::CountryFile(countryFileName));
     }
 
-    // Index::Observer overrides:
+    // MwmSet::Observer overrides:
+    void OnMapUpdated(platform::LocalCountryFile const & newFile,
+                      platform::LocalCountryFile const & oldFile) override;
     void OnMapDeregistered(platform::LocalCountryFile const & localFile) override;
 
     //bool IsLoaded(m2::PointD const & pt) const;

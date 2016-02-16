@@ -14,7 +14,6 @@
 #include "defines.hpp"
 
 #include "base/macros.hpp"
-#include "base/observer_list.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/limits.hpp"
@@ -52,28 +51,9 @@ protected:
   unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const override;
 
   unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const override;
-
-  void OnMwmDeregistered(platform::LocalCountryFile const & localFile) override;
   //@}
 
 public:
-  /// An Observer interface to MwmSet. Note that these functions can
-  /// be called from *ANY* thread because most signals are sent when
-  /// some thread releases its MwmHandle, so overrides must be as fast
-  /// as possible and non-blocking when it's possible.
-  class Observer
-  {
-  public:
-    virtual ~Observer() = default;
-
-    /// Called when a map is registered for a first time and can be
-    /// used.
-    virtual void OnMapRegistered(platform::LocalCountryFile const & localFile) {}
-
-    /// Called when a map is deregistered and can not be used.
-    virtual void OnMapDeregistered(platform::LocalCountryFile const & localFile) {}
-  };
-
   /// Registers a new map.
   pair<MwmId, RegResult> RegisterMap(platform::LocalCountryFile const & localFile);
 
@@ -83,10 +63,6 @@ public:
   /// \return True if the map was successfully deregistered. If map is locked
   ///         now, returns false.
   bool DeregisterMap(platform::CountryFile const & countryFile);
-
-  bool AddObserver(Observer & observer);
-
-  bool RemoveObserver(Observer const & observer);
 
 private:
 
@@ -370,6 +346,4 @@ private:
       editor.ForEachFeatureInMwmRectAndScale(worldID[1], f, rect, scale);
     }
   }
-
-  my::ObserverList<Observer> m_observers;
 };

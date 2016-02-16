@@ -18,6 +18,7 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+#include "base/observer_list.hpp"
 
 /// Information about stored mwm.
 class MwmInfo
@@ -69,7 +70,12 @@ public:
   uint8_t GetNumRefs() const { return m_numRefs; }
 
 private:
-  inline void SetStatus(Status status) { m_status = status; }
+  inline Status SetStatus(Status status)
+  {
+    Status result = m_status;
+    m_status = status;
+    return result;
+  }
 
   platform::LocalCountryFile m_file;  ///< Path to the mwm file.
   atomic<Status> m_status;            ///< Current country status.
@@ -92,6 +98,7 @@ public:
     {
       return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED);
     }
+    shared_ptr<MwmInfo> & GetInfo() { return m_info; }
     shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
 
     inline bool operator==(MwmId const & rhs) const { return GetInfo() == rhs.GetInfo(); }
@@ -153,6 +160,58 @@ public:
     DISALLOW_COPY(MwmHandle);
   };
 
+  struct Event
+  {
+    enum Type
+    {
+      TYPE_REGISTERED,
+      TYPE_DEREGISTERED,
+      TYPE_UPDATED,
+    };
+
+    Event() = default;
+    Event(Type type, platform::LocalCountryFile const & file)
+      : m_type(type), m_file(file)
+    {
+    }
+    Event(Type type, platform::LocalCountryFile const & newFile,
+          platform::LocalCountryFile const & oldFile)
+      : m_type(type), m_file(newFile), m_oldFile(oldFile)
+    {
+    }
+
+    inline bool operator==(Event const & rhs) const
+    {
+      return m_type == rhs.m_type && m_file == rhs.m_file && m_oldFile == rhs.m_oldFile;
+    }
+
+    inline bool operator!=(Event const & rhs) const { return !(*this == rhs); }
+
+    Type m_type;
+    platform::LocalCountryFile m_file;
+    platform::LocalCountryFile m_oldFile;
+  };
+
+  class EventList
+  {
+  public:
+    EventList() = default;
+
+    inline void Add(Event const & event) { m_events.push_back(event); }
+
+    inline void Append(EventList const & events)
+    {
+      m_events.insert(m_events.end(), events.m_events.begin(), events.m_events.end());
+    }
+
+    vector<Event> const & Get() const { return m_events; }
+
+  private:
+    vector<Event> m_events;
+
+    DISALLOW_COPY_AND_MOVE(EventList);
+  };
+
   enum class RegResult
   {
     Success,
@@ -160,6 +219,26 @@ public:
     VersionTooOld,
     UnsupportedFileFormat,
     BadFile
+  };
+
+  // An Observer interface to MwmSet. Note that these functions can
+  // be called from *ANY* thread because most signals are sent when
+  // some thread releases its MwmHandle, so overrides must be as fast
+  // as possible and non-blocking when it's possible.
+  class Observer
+  {
+  public:
+    virtual ~Observer() = default;
+
+    // Called when a map is registered for a first time and can be
+    // used.
+    virtual void OnMapRegistered(platform::LocalCountryFile const & localFile) {}
+
+    // Called when a map is updated to a newer version.
+    virtual void OnMapUpdated(platform::LocalCountryFile const & newFile, platform::LocalCountryFile const & oldFile) {}
+
+    // Called when a map is deregistered and can not be used.
+    virtual void OnMapDeregistered(platform::LocalCountryFile const & localFile) {}
   };
 
   /// Registers a new map.
@@ -170,7 +249,7 @@ public:
   /// are older than the localFile (in this case mwm handle will point
   /// to just-registered file).
 protected:
-  pair<MwmId, RegResult> RegisterImpl(platform::LocalCountryFile const & localFile);
+  pair<MwmId, RegResult> RegisterImpl(platform::LocalCountryFile const & localFile, EventList & events);
 
 public:
   pair<MwmId, RegResult> Register(platform::LocalCountryFile const & localFile);
@@ -185,13 +264,17 @@ protected:
   /// \return True if the map was successfully deregistered. If map is locked
   ///         now, returns false.
   //@{
-  bool DeregisterImpl(MwmId const & id);
-  bool DeregisterImpl(platform::CountryFile const & countryFile);
+  bool DeregisterImpl(MwmId const & id, EventList & events);
+  bool DeregisterImpl(platform::CountryFile const & countryFile, EventList & events);
   //@}
 
 public:
   bool Deregister(platform::CountryFile const & countryFile);
   //@}
+
+  inline bool AddObserver(Observer & observer) { return m_observers.Add(observer); }
+
+  inline bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
 
   /// Returns true when country is registered and can be used.
   bool IsLoaded(platform::CountryFile const & countryFile) const;
@@ -226,13 +309,37 @@ protected:
 private:
   typedef deque<pair<MwmId, unique_ptr<MwmValueBase>>> CacheType;
 
+  // This is the only valid way to take |m_lock| and use *Impl()
+  // functions. The reason is that event processing requires
+  // triggering of observers, but it's generally unsafe to call
+  // user-provided functions while |m_lock| is taken, as it may lead
+  // to deadlocks or locks without any time guarantees. Instead, a
+  // list of Events is used to collect all events and then send them
+  // to observers without |m_lock| protection.
+  template <typename TFn>
+  void WithEventLog(TFn && fn)
+  {
+    EventList events;
+    {
+      lock_guard<mutex> lock(m_lock);
+      fn(events);
+    }
+    ProcessEventList(events);
+  }
+
+  // Sets |status| in |info|, adds corresponding event to |event|.
+  void SetStatus(MwmInfo & info, MwmInfo::Status status, EventList & events);
+
+  // Triggers observers on each event in |events|.
+  void ProcessEventList(EventList & events);
+
   /// @precondition This function is always called under mutex m_lock.
-  MwmHandle GetMwmHandleByIdImpl(MwmId const & id);
+  MwmHandle GetMwmHandleByIdImpl(MwmId const & id, EventList & events);
 
   unique_ptr<MwmValueBase> LockValue(MwmId const & id);
-  unique_ptr<MwmValueBase> LockValueImpl(MwmId const & id);
+  unique_ptr<MwmValueBase> LockValueImpl(MwmId const & id, EventList & events);
   void UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> && p);
-  void UnlockValueImpl(MwmId const & id, unique_ptr<MwmValueBase> && p);
+  void UnlockValueImpl(MwmId const & id, unique_ptr<MwmValueBase> && p, EventList & events);
 
   /// Do the cleaning for [beg, end) without acquiring the mutex.
   /// @precondition This function is always called under mutex m_lock.
@@ -249,19 +356,14 @@ protected:
   /// @precondition This function is always called under mutex m_lock.
   MwmId GetMwmIdByCountryFileImpl(platform::CountryFile const & countryFile) const;
 
-  /// @precondition This function is always called under mutex m_lock.
-  WARN_UNUSED_RESULT inline MwmHandle GetLock(MwmId const & id)
-  {
-    return MwmHandle(*this, id, LockValueImpl(id));
-  }
-
-  // This method is called under m_lock when mwm is removed from a
-  // registry.
-  virtual void OnMwmDeregistered(platform::LocalCountryFile const & localFile) {}
-
   map<string, vector<shared_ptr<MwmInfo>>> m_info;
 
   mutable mutex m_lock;
+
+private:
+  my::ObserverList<Observer> m_observers;
 };
 
 string DebugPrint(MwmSet::RegResult result);
+string DebugPrint(MwmSet::Event::Type type);
+string DebugPrint(MwmSet::Event const & event);

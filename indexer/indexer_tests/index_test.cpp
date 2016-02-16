@@ -2,6 +2,7 @@
 
 #include "indexer/data_header.hpp"
 #include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
@@ -23,133 +24,161 @@ using platform::LocalCountryFile;
 
 namespace
 {
-class Observer : public Index::Observer
+class IndexTest : public MwmSet::Observer
 {
 public:
-  Observer() : m_numRegisteredCalls(0), m_numDeregisteredCalls(0) {}
+  IndexTest() { TEST(m_index.AddObserver(*this), ()); }
 
-  ~Observer() { CheckExpectations(); }
+  ~IndexTest() override { TEST(m_index.RemoveObserver(*this), ()); }
 
-  void ExpectRegisteredMap(platform::LocalCountryFile const & localFile)
+  void ExpectRegistered(platform::LocalCountryFile const & localFile)
   {
-    m_expectedRegisteredMaps.push_back(localFile);
+    AddEvent(m_expected, MwmSet::Event::TYPE_REGISTERED, localFile);
   }
 
-  void ExpectDeregisteredMap(platform::LocalCountryFile const & localFile)
+  void ExpectUpdated(platform::LocalCountryFile const & newFile,
+                     platform::LocalCountryFile const & oldFile)
   {
-    m_expectedDeregisteredMaps.push_back(localFile);
+    AddEvent(m_expected, MwmSet::Event::TYPE_UPDATED, newFile, oldFile);
   }
 
-  void CheckExpectations()
+  void ExpectDeregistered(platform::LocalCountryFile const & localFile)
   {
-    CHECK_EQUAL(m_numRegisteredCalls, m_expectedRegisteredMaps.size(), ());
-    CHECK_EQUAL(m_numDeregisteredCalls, m_expectedDeregisteredMaps.size(), ());
+    AddEvent(m_expected, MwmSet::Event::TYPE_DEREGISTERED, localFile);
   }
 
-  // Index::Observer overrides:
+  // Checks expectations and clears them.
+  bool Check()
+  {
+    bool ok = true;
+
+    size_t i = 0;
+    for (; i < m_actual.size() && m_expected.size(); ++i)
+    {
+      if (m_actual[i] != m_expected[i])
+      {
+        LOG(LINFO, ("Check failed: expected:", m_expected[i], "actual:", m_actual[i]));
+        ok = false;
+      }
+    }
+    for (; i < m_actual.size(); ++i)
+    {
+      LOG(LINFO, ("Unexpected event:", m_actual[i]));
+      ok = false;
+    }
+    for (; i < m_expected.size(); ++i)
+    {
+      LOG(LINFO, ("Unmet expectation:", m_expected[i]));
+      ok = false;
+    }
+
+    m_actual.clear();
+    m_expected.clear();
+    return ok;
+  }
+
+  // MwmSet::Observer overrides:
   void OnMapRegistered(platform::LocalCountryFile const & localFile) override
   {
-    CHECK_LESS(m_numRegisteredCalls, m_expectedRegisteredMaps.size(),
-               ("Unexpected OnMapRegistered() call (", m_numRegisteredCalls, "): ", localFile));
-    CHECK_EQUAL(m_expectedRegisteredMaps[m_numRegisteredCalls], localFile, (m_numRegisteredCalls));
-    ++m_numRegisteredCalls;
+    AddEvent(m_actual, MwmSet::Event::TYPE_REGISTERED, localFile);
+  }
+
+  void OnMapUpdated(platform::LocalCountryFile const & newFile,
+                    platform::LocalCountryFile const & oldFile) override
+  {
+    AddEvent(m_actual, MwmSet::Event::TYPE_UPDATED, newFile, oldFile);
   }
 
   void OnMapDeregistered(platform::LocalCountryFile const & localFile) override
   {
-    CHECK_LESS(m_numDeregisteredCalls, m_expectedDeregisteredMaps.size(),
-               ("Unexpected OnMapDeregistered() call (", m_numDeregisteredCalls, "): ", localFile));
-    CHECK_EQUAL(m_expectedDeregisteredMaps[m_numDeregisteredCalls], localFile,
-                (m_numDeregisteredCalls));
-    ++m_numDeregisteredCalls;
+    AddEvent(m_actual, MwmSet::Event::TYPE_DEREGISTERED, localFile);
   }
 
-  inline size_t MapRegisteredCalls() const { return m_numRegisteredCalls; }
-  inline size_t MapDeregisteredCalls() const { return m_numDeregisteredCalls; }
+protected:
+  template <typename... Args>
+  void AddEvent(vector<MwmSet::Event> & events, Args... args)
+  {
+    events.emplace_back(forward<Args>(args)...);
+  }
 
-private:
-  size_t m_numRegisteredCalls;
-  size_t m_numDeregisteredCalls;
-
-  vector<LocalCountryFile> m_expectedRegisteredMaps;
-  vector<LocalCountryFile> m_expectedDeregisteredMaps;
+  Index m_index;
+  vector<MwmSet::Event> m_expected;
+  vector<MwmSet::Event> m_actual;
 };
 }  // namespace
 
-UNIT_TEST(Index_Parse)
+UNIT_CLASS_TEST(IndexTest, Parse)
 {
-  Index index;
-  UNUSED_VALUE(index.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass")));
+  UNUSED_VALUE(m_index.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass")));
 
   // Make sure that index is actually parsed.
   NoopFunctor fn;
-  index.ForEachInScale(fn, 15);
+  m_index.ForEachInScale(fn, 15);
 }
 
-UNIT_TEST(Index_MwmStatusNotifications)
+UNIT_CLASS_TEST(IndexTest, StatusNotifications)
 {
-  Platform & platform = GetPlatform();
-  string const mapsDir = platform.WritableDir();
-  CountryFile const countryFile("minsk-pass");
+  string const mapsDir = GetPlatform().WritableDir();
+  CountryFile const country("minsk-pass");
 
   // These two classes point to the same file, but will be considered
   // by Index as distinct files because versions are artificially set
   // to different numbers.
-  LocalCountryFile const localFileV1(mapsDir, countryFile, 1 /* version */);
-  LocalCountryFile const localFileV2(mapsDir, countryFile, 2 /* version */);
+  LocalCountryFile const file1(mapsDir, country, 1 /* version */);
+  LocalCountryFile const file2(mapsDir, country, 2 /* version */);
 
-  Index index;
-  Observer observer;
-  index.AddObserver(observer);
-
-  TEST_EQUAL(0, observer.MapRegisteredCalls(), ());
-
-  MwmSet::MwmId localFileV1Id;
+  MwmSet::MwmId id1;
 
   // Checks that observers are triggered after map registration.
   {
-    observer.ExpectRegisteredMap(localFileV1);
-    auto p = index.RegisterMap(localFileV1);
-    TEST(p.first.IsAlive(), ());
-    TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
-    observer.CheckExpectations();
-    localFileV1Id = p.first;
+    auto result = m_index.RegisterMap(file1);
+    TEST_EQUAL(MwmSet::RegResult::Success, result.second, ());
+
+    id1 = result.first;
+    TEST(id1.IsAlive(), ());
+
+    ExpectRegistered(file1);
+    TEST(Check(), ());
   }
 
   // Checks that map can't registered twice.
   {
-    auto p = index.RegisterMap(localFileV1);
-    TEST(p.first.IsAlive(), ());
-    TEST_EQUAL(MwmSet::RegResult::VersionAlreadyExists, p.second, ());
-    observer.CheckExpectations();
-    TEST_EQUAL(localFileV1Id, p.first, ());
+    auto result = m_index.RegisterMap(file1);
+    TEST_EQUAL(MwmSet::RegResult::VersionAlreadyExists, result.second, ());
+
+    TEST(result.first.IsAlive(), ());
+    TEST_EQUAL(id1, result.first, ());
+
+    TEST(Check(), ());
   }
 
   // Checks that observers are notified when map is updated.
-  MwmSet::MwmId localFileV2Id;
+  MwmSet::MwmId id2;
   {
-    observer.ExpectRegisteredMap(localFileV2);
-    observer.ExpectDeregisteredMap(localFileV1);
-    auto p = index.RegisterMap(localFileV2);
-    TEST(p.first.IsAlive(), ());
-    TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
-    observer.CheckExpectations();
-    localFileV2Id = p.first;
-    TEST_NOT_EQUAL(localFileV1Id, localFileV2Id, ());
+    auto result = m_index.RegisterMap(file2);
+    TEST_EQUAL(MwmSet::RegResult::Success, result.second, ());
+
+    id2 = result.first;
+    TEST(id2.IsAlive(), ());
+    TEST_NOT_EQUAL(id1, id2, ());
+
+    ExpectUpdated(file2, file1);
+    TEST(Check(), ());
   }
 
   // Tries to deregister a map in presence of an active lock. Map
   // should be marked "to be removed" but can't be deregistered. After
   // leaving the inner block the map should be deregistered.
   {
-    MwmSet::MwmHandle const handle = index.GetMwmHandleByCountryFile(countryFile);
-    TEST(handle.IsAlive(), ());
+    {
+      MwmSet::MwmHandle const handle = m_index.GetMwmHandleByCountryFile(country);
+      TEST(handle.IsAlive(), ());
 
-    TEST(!index.DeregisterMap(countryFile), ());
-    observer.CheckExpectations();
+      TEST(!m_index.DeregisterMap(country), ());
+      TEST(Check(), ());
+    }
 
-    observer.ExpectDeregisteredMap(localFileV2);
+    ExpectDeregistered(file2);
+    TEST(Check(), ());
   }
-  observer.CheckExpectations();
-  index.RemoveObserver(observer);
 }
