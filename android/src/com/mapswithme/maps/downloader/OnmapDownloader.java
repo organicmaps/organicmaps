@@ -9,17 +9,17 @@ import android.widget.TextView;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.WheelProgressView;
+import com.mapswithme.util.Config;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
 public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 {
-  private final MwmActivity mActivity;
   private final View mFrame;
   private final TextView mParent;
   private final TextView mTitle;
   private final TextView mSize;
-  private final View mControlsFrame;
   private final WheelProgressView mProgress;
   private final Button mButton;
 
@@ -56,8 +56,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     public void onCurrentCountryChanged(String countryId)
     {
       mCurrentCountry = (TextUtils.isEmpty(countryId) ? null : CountryItem.fill(countryId));
-      if (mCurrentCountry != null)
-        mTitle.setText(mCurrentCountry.name);
       updateState();
     }
   };
@@ -83,14 +81,19 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         if (!TextUtils.isEmpty(mCurrentCountry.parentName))
           mParent.setText(mCurrentCountry.parentName);
 
+        mTitle.setText(mCurrentCountry.name);
         mSize.setText(StringUtils.getFileSizeString(mCurrentCountry.totalSize));
 
         if (showProgress)
           mProgress.setProgress((int)(mCurrentCountry.progress * 100 / mCurrentCountry.totalSize));
         else
         {
-          mButton.setText(mCurrentCountry.status == CountryItem.STATUS_FAILED ? R.string.downloader_retry
-                                                                              : R.string.download);
+          boolean failed = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
+          if (!failed && Config.isAutodownloadMaps() && ConnectionState.isWifiConnected())
+            MapManager.nativeDownload(mCurrentCountry.id);
+
+          mButton.setText(failed ? R.string.downloader_retry
+                                 : R.string.download);
         }
       }
     }
@@ -100,14 +103,14 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
   public OnmapDownloader(MwmActivity activity)
   {
-    mActivity = activity;
-    mFrame = mActivity.findViewById(R.id.onmap_downloader);
+    mFrame = activity.findViewById(R.id.onmap_downloader);
     mParent = (TextView)mFrame.findViewById(R.id.downloader_parent);
     mTitle = (TextView)mFrame.findViewById(R.id.downloader_title);
     mSize = (TextView)mFrame.findViewById(R.id.downloader_size);
-    mControlsFrame = mFrame.findViewById(R.id.downloader_controls_frame);
-    mProgress = (WheelProgressView)mControlsFrame.findViewById(R.id.downloader_progress);
-    mButton = (Button)mControlsFrame.findViewById(R.id.downloader_button);
+
+    View controls = mFrame.findViewById(R.id.downloader_controls_frame);
+    mProgress = (WheelProgressView) controls.findViewById(R.id.downloader_progress);
+    mButton = (Button) controls.findViewById(R.id.downloader_button);
 
     mProgress.setOnClickListener(new View.OnClickListener()
     {
