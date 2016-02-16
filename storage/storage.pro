@@ -23,6 +23,7 @@ HEADERS += \
   simple_tree.hpp \
   storage.hpp \
   storage_defines.hpp \
+  storage_helpers.hpp \
 
 SOURCES += \
   country.cpp \
@@ -34,3 +35,4 @@ SOURCES += \
   queued_country.cpp \
   storage.cpp \
   storage_defines.cpp \
+  storage_helpers.cpp \
