@@ -89,7 +89,10 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         else
         {
           boolean failed = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
-          if (!failed && Config.isAutodownloadMaps() && ConnectionState.isWifiConnected())
+          if (!failed &&
+              !MapManager.nativeIsLegacyMode() &&
+              Config.isAutodownloadMaps() &&
+              ConnectionState.isWifiConnected())
             MapManager.nativeDownload(mCurrentCountry.id);
 
           mButton.setText(failed ? R.string.downloader_retry
@@ -126,6 +129,12 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       @Override
       public void onClick(View v)
       {
+        if (MapManager.nativeIsLegacyMode())
+        {
+          // TODO
+          return;
+        }
+
         if (mCurrentCountry.status == CountryItem.STATUS_FAILED)
           MapManager.nativeRetry(mCurrentCountry.id);
         else
