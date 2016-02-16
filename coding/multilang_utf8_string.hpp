@@ -37,15 +37,28 @@ class StringUtf8Multilang
 public:
   static int8_t constexpr kUnsupportedLanguageCode = -1;
   static int8_t constexpr kDefaultCode = 0;
+  static int8_t constexpr kInternationalCode = 7;
   /// How many languages we support on indexing stage. See full list in cpp file.
   /// TODO(AlexZ): Review and replace invalid languages by valid ones.
   static int8_t constexpr kMaxSupportedLanguages = 64;
 
+  struct Lang
+  {
+    /// OSM language code (e.g. for name:en it's "en" part).
+    char const * m_code;
+    /// Native language name.
+    char const * m_name;
+  };
+  using Languages = array<Lang, kMaxSupportedLanguages>;
+
+  static Languages const & GetSupportedLanguages();
 
   /// @returns kUnsupportedLanguageCode if language is not recognized.
   static int8_t GetLangIndex(string const & lang);
   /// @returns empty string if langCode is invalid.
   static char const * GetLangByCode(int8_t langCode);
+  /// @returns empty string if langCode is invalid.
+  static char const * GetLangNameByCode(int8_t langCode);
 
   inline bool operator== (StringUtf8Multilang const & rhs) const
   {
