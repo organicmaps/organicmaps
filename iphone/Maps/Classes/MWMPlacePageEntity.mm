@@ -411,7 +411,7 @@ void initFieldsMap()
       {
         // TODO(AlexZ): Make sure that we display and save name in the same language (default?).
         auto names = feature->GetNames();
-        names.AddString(StringUtf8Multilang::DEFAULT_CODE, cell.second);
+        names.AddString(StringUtf8Multilang::kDefaultCode, cell.second);
         feature->SetNames(names);
         break;
       }

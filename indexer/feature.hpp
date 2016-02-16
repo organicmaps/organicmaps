@@ -268,7 +268,7 @@ public:
   /// Get one most suitable name for user.
   void GetReadableName(string & name) const;
 
-  static int8_t const DEFAULT_LANG = StringUtf8Multilang::DEFAULT_CODE;
+  static int8_t const DEFAULT_LANG = StringUtf8Multilang::kDefaultCode;
   bool GetName(int8_t lang, string & name) const;
   //@}
 

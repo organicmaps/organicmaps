@@ -692,7 +692,7 @@ void Geocoder::FillLocalitiesTable()
 
 #if defined(DEBUG)
         string name;
-        ft.GetName(StringUtf8Multilang::DEFAULT_CODE, name);
+        ft.GetName(StringUtf8Multilang::kDefaultCode, name);
         LOG(LDEBUG, ("City =", name));
 #endif
 
@@ -779,7 +779,7 @@ void Geocoder::FillVillageLocalities()
 
 #if defined(DEBUG)
     string name;
-    ft.GetName(StringUtf8Multilang::DEFAULT_CODE, name);
+    ft.GetName(StringUtf8Multilang::kDefaultCode, name);
     LOG(LDEBUG, ("Village =", name));
 #endif
 

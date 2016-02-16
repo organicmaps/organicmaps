@@ -236,7 +236,7 @@ bool FeatureParams::AddName(string const & lang, string const & s)
 
 bool FeatureParams::AddHouseName(string const & s)
 {
-  if (IsDummyName(s) || name.FindString(s) != StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE)
+  if (IsDummyName(s) || name.FindString(s) != StringUtf8Multilang::kUnsupportedLanguageCode)
     return false;
 
   // Most names are house numbers by statistics.
@@ -245,9 +245,9 @@ bool FeatureParams::AddHouseName(string const & s)
 
   // Add as a default name if we don't have it yet.
   string dummy;
-  if (!name.GetString(StringUtf8Multilang::DEFAULT_CODE, dummy))
+  if (!name.GetString(StringUtf8Multilang::kDefaultCode, dummy))
   {
-    name.AddString(StringUtf8Multilang::DEFAULT_CODE, s);
+    name.AddString(StringUtf8Multilang::kDefaultCode, s);
     return true;
   }
 

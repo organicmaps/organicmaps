@@ -17,13 +17,14 @@ static char const * gLangs[] = {
 
 int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 {
-  static_assert(ARRAY_SIZE(gLangs) == MAX_SUPPORTED_LANGUAGES, "With current encoding we are limited to 64 languages max.");
+  static_assert(ARRAY_SIZE(gLangs) == kMaxSupportedLanguages,
+                "With current encoding we are limited to 64 languages max.");
 
   for (size_t i = 0; i < ARRAY_SIZE(gLangs); ++i)
     if (lang == gLangs[i])
       return static_cast<int8_t>(i);
 
-  return UNSUPPORTED_LANGUAGE_CODE;
+  return kUnsupportedLanguageCode;
 }
 
 char const * StringUtf8Multilang::GetLangByCode(int8_t langCode)

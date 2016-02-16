@@ -65,7 +65,7 @@ namespace editor
 {
 
 char const * const XMLFeature::kDefaultLang =
-    StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::DEFAULT_CODE);
+    StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode);
 
 XMLFeature::XMLFeature(Type const type)
 {

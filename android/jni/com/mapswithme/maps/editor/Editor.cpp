@@ -77,7 +77,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeSetName(JNIEnv * env, jclass clazz,
   auto * feature = activeFeature();
   CHECK(feature, ("Feature is not editable!"));
   auto names = feature->GetNames();
-  names.AddString(StringUtf8Multilang::DEFAULT_CODE, jni::ToNativeString(env, name));
+  names.AddString(StringUtf8Multilang::kDefaultCode, jni::ToNativeString(env, name));
   feature->SetNames(names);
 }
 

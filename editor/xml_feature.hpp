@@ -92,7 +92,7 @@ public:
   }
 
   string GetName(string const & lang) const;
-  string GetName(uint8_t const langCode = StringUtf8Multilang::DEFAULT_CODE) const;
+  string GetName(uint8_t const langCode = StringUtf8Multilang::kDefaultCode) const;
 
   template <typename TFunc>
   void ForEachName(TFunc && func) const

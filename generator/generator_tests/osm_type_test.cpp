@@ -611,7 +611,7 @@ UNIT_TEST(OsmType_Dibrugarh)
   TEST_EQUAL(params.m_Types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), (params));
   string name;
-  TEST(params.name.GetString(StringUtf8Multilang::DEFAULT_CODE, name), (params));
+  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
   TEST_EQUAL(name, "Dibrugarh", (params));
 }
 

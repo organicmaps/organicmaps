@@ -113,7 +113,7 @@ void RuleDrawer::operator()(FeatureType const & f)
       f.GetID().m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS)
   {
     string name;
-    if (f.GetName(StringUtf8Multilang::DEFAULT_CODE, name))
+    if (f.GetName(StringUtf8Multilang::kDefaultCode, name))
     {
       ASSERT(!name.empty(), ());
       strings::SimpleTokenizer iter(name, ";");

@@ -178,7 +178,7 @@ public:
   inline bool IsCoastCell() const { return (m_coastCell != -1); }
 
   bool AddName(string const & lang, string const & name);
-  string GetName(int8_t lang = StringUtf8Multilang::DEFAULT_CODE) const;
+  string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
 
   uint8_t GetRank() const { return m_params.rank; }
 

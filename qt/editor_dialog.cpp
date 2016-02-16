@@ -59,7 +59,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType & feature, Framework & 
   osm::EditableProperties const editable = editor.GetEditableProperties(feature);
 
   // Rows block: Name(s) label(s) and text input.
-  char const * defaultLangStr = StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::DEFAULT_CODE);
+  char const * defaultLangStr = StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode);
   // Default name editor is always displayed, even if feature name is empty.
   QHBoxLayout * defaultNameRow = new QHBoxLayout();
   defaultNameRow->addWidget(new QLabel(QString("name")));
@@ -71,7 +71,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType & feature, Framework & 
 
   feature.ForEachName([&](int8_t langCode, string const & name) -> bool
   {
-    if (langCode == StringUtf8Multilang::DEFAULT_CODE)
+    if (langCode == StringUtf8Multilang::kDefaultCode)
       defaultNamelineEdit->setText(QString::fromStdString(name));
     else
     {
@@ -150,7 +150,7 @@ EditorDialog::EditorDialog(QWidget * parent, FeatureType & feature, Framework & 
 StringUtf8Multilang EditorDialog::GetEditedNames() const
 {
   StringUtf8Multilang names;
-  for (int8_t langCode = StringUtf8Multilang::DEFAULT_CODE; langCode < StringUtf8Multilang::MAX_SUPPORTED_LANGUAGES; ++langCode)
+  for (int8_t langCode = StringUtf8Multilang::kDefaultCode; langCode < StringUtf8Multilang::kMaxSupportedLanguages; ++langCode)
   {
     QLineEdit * le = findChild<QLineEdit *>(StringUtf8Multilang::GetLangByCode(langCode));
     if (!le)

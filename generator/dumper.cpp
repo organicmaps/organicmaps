@@ -219,7 +219,7 @@ namespace feature
     auto printName = [&](int8_t langCode, string const & name) -> bool
     {
       CHECK(!name.empty(), ("Feature name is empty"));
-      if (langIndex == StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE)
+      if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
         cout << StringUtf8Multilang::GetLangByCode(langCode) << ' ' << name << endl;
       else if (langCode == langIndex)
         cout << name << endl;
