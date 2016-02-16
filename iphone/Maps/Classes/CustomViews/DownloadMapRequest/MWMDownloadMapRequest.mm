@@ -75,15 +75,13 @@
   }
   else
   {
-    // TODO (igrechuhin) Replace with invalid country id
-    m_countryId = storage::TCountryId();
+    m_countryId = kInvalidCountryId;
     auto const & countryInfoGetter = f.CountryInfoGetter();
     LocationManager * locationManager = [MapsAppDelegate theApp].m_locationManager;
     if (locationManager.lastLocationIsValid)
       m_countryId = countryInfoGetter.GetRegionCountryId(locationManager.lastLocation.mercator);
 
-    // TODO (igrechuhin) Replace with real check
-    if (!m_countryId.empty())
+    if (m_countryId != kInvalidCountryId)
     {
       storage::NodeAttrs attrs;
       s.GetNodeAttrs(m_countryId, attrs);
