@@ -32,6 +32,19 @@ public:
     return m_value;
   }
 
+  void ReserveAtDepth(int level, size_t n)
+  {
+    SimpleTree<T> * node = this;
+    while (level-- > 0 && !node->m_children.empty())
+      node = &node->m_children.back();
+    return node->Reserve(n);
+  }
+
+  void Reserve(size_t n)
+  {
+    m_children.reserve(n);
+  }
+
   /// @return reference is valid only up to the next tree structure modification
   T & Value()
   {
@@ -184,20 +197,20 @@ public:
   }
 
   template <class TFunctor>
-  void ForEachParent(TFunctor && f)
+  void ForEachParentExceptForTheRoot(TFunctor && f)
   {
-    if (m_parent == nullptr)
+    if (m_parent == nullptr || m_parent->m_parent == nullptr)
       return;
     f(*m_parent);
-    m_parent->ForEachParent(f);
+    m_parent->ForEachParentExceptForTheRoot(f);
   }
 
   template <class TFunctor>
-  void ForEachParent(TFunctor && f) const
+  void ForEachParentExceptForTheRoot(TFunctor && f) const
   {
-    if (m_parent == nullptr)
+    if (m_parent == nullptr || m_parent->m_parent == nullptr)
       return;
     f(*m_parent);
-    m_parent->ForEachParent(f);
+    m_parent->ForEachParentExceptForTheRoot(f);
   }
 };
