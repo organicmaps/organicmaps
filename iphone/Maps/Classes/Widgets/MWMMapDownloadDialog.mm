@@ -36,7 +36,7 @@ using namespace storage;
   MWMMapDownloadDialog * dialog = [[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil].firstObject;
   dialog.autoresizingMask = UIViewAutoresizingFlexibleHeight;
   dialog.controller = controller;
-  [[MWMFrameworkListener listener] addObserver:dialog];
+  [MWMFrameworkListener addObserver:dialog];
   return dialog;
 }
 

@@ -68,7 +68,7 @@ extern NSString * const kAlohalyticsTapEventKey;
                                              MWMRoutePoint::MWMRoutePointZero();
   self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
 
-  [[MWMFrameworkListener listener] addObserver:self];
+  [MWMFrameworkListener addObserver:self];
   return self;
 }
 

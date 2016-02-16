@@ -486,7 +486,7 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
   self.userTouchesAction = UserTouchesActionNone;
   self.menuRestoreState = MWMBottomMenuStateInactive;
   GetFramework().LoadBookmarks();
-  [[MWMFrameworkListener listener] addObserver:self];
+  [MWMFrameworkListener addObserver:self];
 }
 
 #pragma mark - Open controllers
@@ -512,7 +512,7 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 
 #pragma mark - MWMFrameworkMyPositionObserver
 
-- (void)processMyPositionStateModeChange:(location::EMyPositionMode)mode
+- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
 {
   [m_predictor setMode:mode];
 
@@ -591,7 +591,7 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 
 #pragma mark - MWMFrameworkUserMarkObserver
 
-- (void)processUserMarkActivation:(UserMark const *)mark
+- (void)processUserMarkEvent:(UserMark const *)mark
 {
   if (mark == nullptr)
   {

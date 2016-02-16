@@ -55,7 +55,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
     self.rootView.delegate = delegate;
     self.parentView = view;
     self.state = MWMSearchManagerStateHidden;
-    [[MWMFrameworkListener listener] addObserver:self];
+    [MWMFrameworkListener addObserver:self];
   }
   return self;
 }

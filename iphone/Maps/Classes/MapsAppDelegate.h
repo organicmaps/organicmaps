@@ -31,8 +31,6 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode)
 @property (nonatomic, readonly) MapViewController * mapViewController;
 @property (nonatomic, readonly) LocationManager * m_locationManager;
 
-@property (nonatomic, readonly) MWMFrameworkListener * frameworkListener;
-
 + (MapsAppDelegate *)theApp;
 + (void)downloadNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess;
 + (void)updateNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController;

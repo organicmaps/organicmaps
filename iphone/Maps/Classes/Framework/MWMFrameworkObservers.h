@@ -4,6 +4,8 @@
 #include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
 
+using namespace storage;
+
 @protocol MWMFrameworkObserver <NSObject>
 
 @end
@@ -11,8 +13,8 @@
 @protocol MWMFrameworkRouteBuilderObserver <MWMFrameworkObserver>
 
 - (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
-                       countries:(storage::TCountriesVec const &)absentCountries
-                          routes:(storage::TCountriesVec const &)absentRoutes;
+                       countries:(TCountriesVec const &)absentCountries
+                          routes:(TCountriesVec const &)absentRoutes;
 
 @optional
 
@@ -22,23 +24,28 @@
 
 @protocol MWMFrameworkMyPositionObserver <MWMFrameworkObserver>
 
-- (void)processMyPositionStateModeChange:(location::EMyPositionMode)mode;
+- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
 
 @end
 
 @protocol MWMFrameworkUserMarkObserver <MWMFrameworkObserver>
 
-- (void)processUserMarkActivation:(UserMark const *)mark;
+- (void)processUserMarkEvent:(UserMark const *)mark;
 
 @end
 
 @protocol MWMFrameworkStorageObserver <MWMFrameworkObserver>
 
-- (void)processCountryEvent:(storage::TCountryId const &)countryId;
+- (void)processCountryEvent:(TCountryId const &)countryId;
 
 @optional
 
-- (void)processCountry:(storage::TCountryId const &)countryId progress:(storage::TLocalAndRemoteSize const &)progress;
+- (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress;
 
 @end
 
+@protocol MWMFrameworkDrapeObserver <MWMFrameworkObserver>
+
+- (void)processViewportCountryEvent:(TCountryId const &)countryId;
+
+@end

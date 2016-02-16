@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   MWMBottomMenuViewCellCount
 };
 
-@interface MWMBottomMenuViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, MWMFrameworkMyPositionObserver>
+@interface MWMBottomMenuViewController () <UICollectionViewDataSource, UICollectionViewDelegate, MWMFrameworkMyPositionObserver>
 
 @property (weak, nonatomic) MapViewController * controller;
 @property (weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
                                              selector:@selector(searchStateWillChange:)
                                                  name:kSearchStateWillChangeNotification
                                                object:nil];
-    [[MWMFrameworkListener listener] addObserver:self];
+    [MWMFrameworkListener addObserver:self];
   }
   return self;
 }
@@ -166,7 +166,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 
 #pragma mark - MWMFrameworkMyPositionObserver
 
-- (void)processMyPositionStateModeChange:(location::EMyPositionMode)mode
+- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
 {
   UIButton * locBtn = self.locationButton;
   [locBtn.imageView stopAnimating];

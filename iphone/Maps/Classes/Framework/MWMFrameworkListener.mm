@@ -12,6 +12,7 @@ using TRouteBuildingObserver = id<MWMFrameworkRouteBuilderObserver>;
 using TMyPositionObserver = id<MWMFrameworkMyPositionObserver>;
 using TUsermarkObserver = id<MWMFrameworkUserMarkObserver>;
 using TStorageObserver = id<MWMFrameworkStorageObserver>;
+using TDrapeObserver = id<MWMFrameworkDrapeObserver>;
 
 using TObservers = NSHashTable<__kindof TObserver>;
 
@@ -19,6 +20,7 @@ Protocol * pRouteBuildingObserver = @protocol(MWMFrameworkRouteBuilderObserver);
 Protocol * pMyPositionObserver = @protocol(MWMFrameworkMyPositionObserver);
 Protocol * pUserMarkObserver = @protocol(MWMFrameworkUserMarkObserver);
 Protocol * pStorageObserver = @protocol(MWMFrameworkStorageObserver);
+Protocol * pDrapeObserver = @protocol(MWMFrameworkDrapeObserver);
 
 using TLoopBlock = void (^)(__kindof TObserver observer);
 
@@ -41,6 +43,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 @property (nonatomic) TObservers * myPositionObservers;
 @property (nonatomic) TObservers * userMarkObservers;
 @property (nonatomic) TObservers * storageObservers;
+@property (nonatomic) TObservers * drapeObservers;
 
 @property (nonatomic, readwrite) location::EMyPositionMode myPositionMode;
 
@@ -54,10 +57,31 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 
 + (MWMFrameworkListener *)listener
 {
-  return MapsAppDelegate.theApp.frameworkListener;
+  static MWMFrameworkListener * listener;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{ listener = [[super alloc] initListener]; });
+  return listener;
 }
 
-- (instancetype)init
++ (void)addObserver:(TObserver)observer
+{
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    MWMFrameworkListener * listener = [MWMFrameworkListener listener];
+    if ([observer conformsToProtocol:pRouteBuildingObserver])
+      [listener.routeBuildingObservers addObject:observer];
+    if ([observer conformsToProtocol:pMyPositionObserver])
+      [listener.myPositionObservers addObject:observer];
+    if ([observer conformsToProtocol:pUserMarkObserver])
+      [listener.userMarkObservers addObject:observer];
+    if ([observer conformsToProtocol:pStorageObserver])
+      [listener.storageObservers addObject:observer];
+    if ([observer conformsToProtocol:pDrapeObserver])
+      [listener.drapeObservers addObject:observer];
+  });
+}
+
+- (instancetype)initListener
 {
   self = [super init];
   if (self)
@@ -66,28 +90,15 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
     _myPositionObservers = [TObservers weakObjectsHashTable];
     _userMarkObservers = [TObservers weakObjectsHashTable];
     _storageObservers = [TObservers weakObjectsHashTable];
+    _drapeObservers = [TObservers weakObjectsHashTable];
 
     [self registerRouteBuilderListener];
     [self registerMyPositionListener];
     [self registerUserMarkObserver];
     [self registerStorageObserver];
+    [self registerDrapeObserver];
   }
   return self;
-}
-
-- (void)addObserver:(TObserver)observer
-{
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
-    if ([observer conformsToProtocol:pRouteBuildingObserver])
-      [self.routeBuildingObservers addObject:observer];
-    if ([observer conformsToProtocol:pMyPositionObserver])
-      [self.myPositionObservers addObject:observer];
-    if ([observer conformsToProtocol:pUserMarkObserver])
-      [self.userMarkObservers addObject:observer];
-    if ([observer conformsToProtocol:pStorageObserver])
-      [self.storageObservers addObject:observer];
-  });
 }
 
 #pragma mark - MWMFrameworkRouteBuildingObserver
@@ -126,7 +137,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
     self.myPositionMode = mode;
     loopWrappers(observers, [mode](TMyPositionObserver observer)
     {
-      [observer processMyPositionStateModeChange:mode];
+      [observer processMyPositionStateModeEvent:mode];
     });
   });
 }
@@ -145,9 +156,9 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
     {
       lock_guard<mutex> lock(self->m_userMarkMutex);
       if (self->m_userMark != nullptr)
-        [observer processUserMarkActivation:self->m_userMark->GetUserMark()];
+        [observer processUserMarkEvent:self->m_userMark->GetUserMark()];
       else
-        [observer processUserMarkActivation:nullptr];
+        [observer processUserMarkEvent:nullptr];
     });
   });
 }
@@ -158,19 +169,34 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 {
   TObservers * observers = self.storageObservers;
   auto & s = GetFramework().Storage();
-  s.Subscribe([observers](storage::TCountryId const & countryId)
+  s.Subscribe([observers](TCountryId const & countryId)
   {
     loopWrappers(observers, [countryId](TStorageObserver observer)
     {
       [observer processCountryEvent:countryId];
     });
   },
-  [observers](storage::TCountryId const & countryId, storage::TLocalAndRemoteSize const & progress)
+  [observers](TCountryId const & countryId, TLocalAndRemoteSize const & progress)
   {
     loopWrappers(observers, [countryId, progress](TStorageObserver observer)
     {
       if ([observer respondsToSelector:@selector(processCountry:progress:)])
         [observer processCountry:countryId progress:progress];
+    });
+  });
+}
+
+#pragma mark - MWMFrameworkDrapeObserver
+
+- (void)registerDrapeObserver
+{
+  TObservers * observers = self.drapeObservers;
+  auto & f = GetFramework();
+  f.SetCurrentCountryChangedListener([observers](TCountryId const & countryId)
+  {
+    loopWrappers(observers, [countryId](TDrapeObserver observer)
+    {
+      [observer processViewportCountryEvent:countryId];
     });
   });
 }
@@ -182,7 +208,7 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   return m_userMark ? m_userMark->GetUserMark() : nullptr;
 }
 
-- (void)setUserMark:(const UserMark *)userMark
+- (void)setUserMark:(UserMark const *)userMark
 {
   if (userMark)
     m_userMark.reset(new UserMarkCopy(userMark, false));
