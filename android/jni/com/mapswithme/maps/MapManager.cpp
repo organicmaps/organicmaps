@@ -123,10 +123,10 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   {
     CountryIdAndName const & info = attrs.m_parentInfo[0];
 
-    jni::ScopedLocalRef<jstring> const parentId(env, jni::ToJavaString(env, info.m_id));
+    jni::TScopedLocalRef const parentId(env, jni::ToJavaString(env, info.m_id));
     env->SetObjectField(item, countryItemFieldParentId, parentId.get());
 
-    jni::ScopedLocalRef<jstring> const parentName(env, jni::ToJavaString(env, info.m_localName));
+    jni::TScopedLocalRef const parentName(env, jni::ToJavaString(env, info.m_localName));
     env->SetObjectField(item, countryItemFieldParentName, parentName.get());
   }
   else
@@ -321,7 +321,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeSubscribeOnCountryChanged(J
   {
     JNIEnv * env = jni::GetEnv();
     jmethodID methodID = jni::GetMethodID(env, g_countryChangedListener, "onCurrentCountryChanged", "(Ljava/lang/String;)V");
-    env->CallVoidMethod(g_countryChangedListener, methodID, jni::ToJavaString(env, countryId));
+    env->CallVoidMethod(g_countryChangedListener, methodID, jni::TScopedLocalRef(env, jni::ToJavaString(env, countryId)).get());
   };
 
   TCountryId const & prev = g_framework->NativeFramework()->GetLastReportedCountry();

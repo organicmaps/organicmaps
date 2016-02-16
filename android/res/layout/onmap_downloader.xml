@@ -16,7 +16,7 @@
     android:layout_gravity="center"
     android:gravity="center_horizontal"
     android:background="?cardFrame"
-    android:visibility="visible"
+    android:visibility="gone"
     tools:visibility="visible"
     tools:ignore="UselessParent">
     <TextView

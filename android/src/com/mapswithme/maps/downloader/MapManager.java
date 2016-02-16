@@ -124,12 +124,12 @@ public final class MapManager
   public static native void nativeUnsubscribe(int slot);
 
   /**
-   * Subscribes to current country changes.
+   * Sets callback about current country change. Single subscriber only.
    */
   public static native void nativeSubscribeOnCountryChanged(CurrentCountryChangedListener listener);
 
   /**
-   * Unregisters current country changed callback.
+   * Removes callback about current country change.
    */
   public static native void nativeUnsubscribeOnCountryChanged();
 }
