@@ -28,6 +28,4 @@
 
 - (void)refreshLayout;
 
-- (void)onLocationStateModeChanged:(location::EMyPositionMode)state;
-
 @end
