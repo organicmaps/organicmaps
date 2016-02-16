@@ -505,19 +505,9 @@ vector<string> Framework::GetPrintableFeatureTypes(FeatureType const & ft) const
   feature::TypesHolder types(ft);
   types.SortBySpec();
   // Try to add types from categories.
+  CategoriesHolder const & cats = GetDefaultCategories();
   for (uint32_t type : types)
-  {
-    string s;
-    if (m_searchEngine->GetNameByType(type, locale, s))
-      results.push_back(s);
-  }
-  // If nothing added - return raw classificator types.
-  if (results.empty())
-  {
-    Classificator const & c = classif();
-    for (uint32_t type : types)
-      results.push_back(c.GetReadableObjectName(type));
-  }
+    results.push_back(cats.GetReadableFeatureType(type, locale));
   return results;
 }
 

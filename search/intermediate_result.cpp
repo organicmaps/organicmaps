@@ -179,14 +179,14 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_id, GetCenter(), m_str, regionName, ReadableFeatureType(pCat, type, locale)
+    return Result(m_id, GetCenter(), m_str, regionName, pCat->GetReadableFeatureType(type, locale)
               #ifdef DEBUG
                   + ' ' + strings::to_string(int(m_rank))
               #endif
                   , type, m_metadata);
 
   case RESULT_BUILDING:
-    return Result(GetCenter(), m_str, regionName, ReadableFeatureType(pCat, type, locale));
+    return Result(GetCenter(), m_str, regionName, pCat->GetReadableFeatureType(type, locale));
 
   default:
     ASSERT_EQUAL(m_resultType, RESULT_LATLON, ());
@@ -200,7 +200,7 @@ Result PreResult2::GeneratePointResult(storage::CountryInfoGetter const & infoGe
 {
   uint32_t const type = GetBestType(pTypes);
   return Result(m_id, GetCenter(), m_str, GetRegionName(infoGetter, type),
-                ReadableFeatureType(pCat, type, locale));
+                pCat->GetReadableFeatureType(type, locale));
 }
 
 // static
@@ -296,20 +296,6 @@ uint32_t PreResult2::GetBestType(set<uint32_t> const * pPrefferedTypes) const
   uint32_t type = m_types.GetBestType();
   ftype::TruncValue(type, 2);
   return type;
-}
-
-string PreResult2::ReadableFeatureType(CategoriesHolder const * pCat,
-                                       uint32_t type, int8_t locale) const
-{
-  ASSERT_NOT_EQUAL(type, 0, ());
-  if (pCat)
-  {
-    string name;
-    if (pCat->GetNameByType(type, locale, name))
-      return name;
-  }
-
-  return classif().GetReadableObjectName(type);
 }
 
 void PreResult2::RegionInfo::GetRegion(storage::CountryInfoGetter const & infoGetter,

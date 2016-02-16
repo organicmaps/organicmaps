@@ -80,6 +80,9 @@ public:
   /// @return false if no categories for type.
   bool GetNameByType(uint32_t type, int8_t locale, string & name) const;
 
+  /// @returns raw classificator type if it's not localized in categories.txt.
+  string GetReadableFeatureType(uint32_t type, int8_t locale) const;
+
   bool IsTypeExist(uint32_t type) const;
 
   inline void Swap(CategoriesHolder & r)

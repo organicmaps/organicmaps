@@ -115,9 +115,6 @@ public:
 private:
   bool IsEqualCommon(PreResult2 const & r) const;
 
-  string ReadableFeatureType(CategoriesHolder const * pCat,
-                             uint32_t type, int8_t locale) const;
-
   FeatureID m_id;
   feature::TypesHolder m_types;
 

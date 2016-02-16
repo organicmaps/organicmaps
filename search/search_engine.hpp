@@ -91,8 +91,6 @@ public:
   // Posts request to clear caches to the queue.
   void ClearCaches();
 
-  bool GetNameByType(uint32_t type, int8_t lang, string & name) const;
-
 private:
   // *ALL* following methods are executed on the m_loop thread.
 

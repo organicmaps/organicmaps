@@ -150,25 +150,6 @@ void Engine::SetSupportOldFormat(bool support)
 
 void Engine::ClearCaches() { PostTask(bind(&Engine::DoClearCaches, this)); }
 
-bool Engine::GetNameByType(uint32_t type, int8_t locale, string & name) const
-{
-  uint8_t level = ftype::GetLevel(type);
-  ASSERT_GREATER(level, 0, ());
-
-  while (true)
-  {
-    if (m_categories.GetNameByType(type, locale, name))
-      return true;
-
-    if (--level == 0)
-      break;
-
-    ftype::TruncValue(type, level);
-  }
-
-  return false;
-}
-
 void Engine::SetRankPivot(SearchParams const & params,
                           m2::RectD const & viewport, bool viewportSearch)
 {
