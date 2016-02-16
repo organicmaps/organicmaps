@@ -5,7 +5,9 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:padding="@dimen/margin_base">
+  android:padding="@dimen/margin_base"
+  android:visibility="gone"
+  tools:visibility="visible">
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -16,8 +18,6 @@
     android:layout_gravity="center"
     android:gravity="center_horizontal"
     android:background="?cardFrame"
-    android:visibility="gone"
-    tools:visibility="visible"
     tools:ignore="UselessParent">
     <TextView
       android:id="@+id/downloader_parent"
