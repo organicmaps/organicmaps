@@ -151,6 +151,7 @@ double getExactDPI(double contentScaleFactor)
     CGSize const s = self.bounds.size;
     [self onSize:s.width withHeight:s.height];
   }
+  [super layoutSubviews];
 }
 
 - (void)deallocateNative
