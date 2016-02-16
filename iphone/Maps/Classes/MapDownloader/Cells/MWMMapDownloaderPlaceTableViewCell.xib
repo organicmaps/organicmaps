@@ -69,6 +69,9 @@
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="area" destination="fev-4l-MY3" id="6xU-Oo-rem"/>
                 <outlet property="downloadSize" destination="rqh-iy-Sx9" id="g9R-G7-dxQ"/>

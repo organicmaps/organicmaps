@@ -80,6 +80,9 @@
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="downloadSize" destination="9Ni-mb-fA5" id="btQ-8t-pIV"/>
                 <outlet property="mapsCount" destination="851-fC-gEN" id="dY0-zX-KS2"/>
