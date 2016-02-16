@@ -9,10 +9,12 @@ template <class T>
 class SimpleTree
 {
   T m_value;
-  // @TODO(bykoianko) Remove on unnecessary methods of SimpleTree if any.
 
   /// \brief m_children contains all first generation descendants of the node.
+  /// Note. Once created the order of elements of |m_children| should not be changed.
+  /// See implementation of AddAtDepth and Add methods for details.
   vector<SimpleTree<T>> m_children;
+  SimpleTree<T> * m_parent;
 
   static bool IsEqual(T const & v1, T const & v2)
   {
@@ -20,7 +22,7 @@ class SimpleTree
   }
 
 public:
-  SimpleTree(T const & value = T()) : m_value(value)
+  SimpleTree(T const & value = T(), SimpleTree<T> * parent = nullptr) : m_value(value), m_parent(parent)
   {
   }
 
@@ -48,7 +50,7 @@ public:
   /// @return reference is valid only up to the next tree structure modification
   T & Add(T const & value)
   {
-    m_children.emplace_back(SimpleTree(value));
+    m_children.emplace_back(SimpleTree(value, this));
     return m_children.back().Value();
   }
 
@@ -61,14 +63,6 @@ public:
   bool operator<(SimpleTree<T> const & other) const
   {
     return Value() < other.Value();
-  }
-
-  /// sorts children independently on each level by default
-  void Sort()
-  {
-    sort(m_children.begin(), m_children.end());
-    for (auto & child : m_children)
-      child.Sort();
   }
 
   /// \brief Checks all nodes in tree to find an equal one. If there're several equal nodes
@@ -116,6 +110,14 @@ public:
         return found;
     }
     return nullptr;
+  }
+
+  bool HasParent() const { return m_parent != nullptr; }
+
+  SimpleTree<T> const & Parent() const
+  {
+    CHECK(HasParent(), ());
+    return *m_parent;
   }
 
   SimpleTree<T> const & Child(size_t index) const
@@ -179,5 +181,23 @@ public:
     f(*this);
     for (auto const & child: m_children)
       child.ForEachInSubtree(f);
+  }
+
+  template <class TFunctor>
+  void ForEachParent(TFunctor && f)
+  {
+    if (m_parent == nullptr)
+      return;
+    f(*m_parent);
+    m_parent->ForEachParent(f);
+  }
+
+  template <class TFunctor>
+  void ForEachParent(TFunctor && f) const
+  {
+    if (m_parent == nullptr)
+      return;
+    f(*m_parent);
+    m_parent->ForEachParent(f);
   }
 };
