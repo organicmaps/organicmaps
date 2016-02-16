@@ -40,6 +40,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.downloader.OnmapDownloader;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.location.LocationHelper;
@@ -107,7 +108,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private final Stack<MapTask> mTasks = new Stack<>();
   private final StoragePathManager mPathManager = new StoragePathManager();
 
-  private View mFrame;
+  private View mMapFrame;
 
   // map
   private MapFragment mMapFragment;
@@ -119,6 +120,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private MainMenu mMainMenu;
   private PanelAnimator mPanelAnimator;
+  private OnmapDownloader mOnmapDownloader;
   private MytargetHelper mMytargetHelper;
 
   private FadeView mFadeView;
@@ -377,11 +379,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController = new NavigationController(this);
     RoutingController.get().attach(this);
     initMenu();
+    initOnmapDownloader();
   }
 
   private void initMap()
   {
-    mFrame = findViewById(R.id.map_fragment_container);
+    mMapFrame = findViewById(R.id.map_fragment_container);
 
     mFadeView = (FadeView) findViewById(R.id.fade_view);
     mFadeView.setListener(new FadeView.Listener()
@@ -402,7 +405,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           .replace(R.id.map_fragment_container, mMapFragment, MapFragment.class.getName())
           .commit();
     }
-    mFrame.setOnTouchListener(this);
+    mMapFrame.setOnTouchListener(this);
   }
 
   private void initNavigationButtons()
@@ -600,13 +603,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mIsFragmentContainer)
     {
-      mPanelAnimator = new PanelAnimator(this, mMainMenu.getLeftAnimationTrackListener());
+      mPanelAnimator = new PanelAnimator(this);
+      mPanelAnimator.registerListener(mMainMenu.getLeftAnimationTrackListener());
       return;
     }
 
     mRoutingPlanInplaceController.setStartButton();
     if (mPlacePage.isDocked())
       mPlacePage.setLeftAnimationTrackListener(mMainMenu.getLeftAnimationTrackListener());
+  }
+
+  private void initOnmapDownloader()
+  {
+    mOnmapDownloader = new OnmapDownloader(this);
+    if (mIsFragmentContainer)
+      mPanelAnimator.registerListener(mOnmapDownloader);
   }
 
   @Override
@@ -789,6 +800,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     mMainMenu.onResume();
+    mOnmapDownloader.onResume();
   }
 
   @Override
@@ -848,12 +860,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!show)
       return;
 
-    mFrame.post(new Runnable()
+    mMapFrame.post(new Runnable()
     {
       @Override
       public void run()
       {
-        int height = mFrame.getMeasuredHeight();
+        int height = mMapFrame.getMeasuredHeight();
         int top = UiUtils.dimen(R.dimen.zoom_buttons_top_required_space);
         int bottom = UiUtils.dimen(R.dimen.zoom_buttons_bottom_max_space);
 
@@ -878,6 +890,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     pauseLocation();
     TtsPlayer.INSTANCE.stop();
     LikesManager.INSTANCE.cancelDialogs();
+    mOnmapDownloader.onPause();
     super.onPause();
   }
 

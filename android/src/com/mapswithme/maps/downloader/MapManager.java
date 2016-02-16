@@ -62,13 +62,16 @@ public final class MapManager
    * <pre>
    * <ul>
    *   <li>name;</li>
+   *   <li>parentId;</li>
+   *   <li>parentName;</li>
    *   <li>size;</li>
    *   <li>totalSize;</li>
    *   <li>childCount;</li>
    *   <li>totalChildCount;</li>
    *   <li>status;</li>
    *   <li>errorCode;</li>
-   *   <li>present</li>
+   *   <li>present;</li>
+   *   <li>progress</li>
    * </ul>
    * </pre>
    */

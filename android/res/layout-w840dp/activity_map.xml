@@ -5,11 +5,14 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-
   <FrameLayout
     android:id="@+id/map_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
+
+  <include
+    android:id="@+id/onmap_downloader"
+    layout="@layout/onmap_downloader"/>
 
   <include
     android:id="@+id/navigation_buttons"

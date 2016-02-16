@@ -15,6 +15,7 @@
     <item name="android:layout_marginBottom">@dimen/margin_base</item>
     <item name="android:background">?panel</item>
     <item name="android:padding">@dimen/margin_base</item>
+    <item name="cardPreventCornerOverlap">false</item>
   </style>
 
   <style name="MwmWidget.Editor.MetadataBlock">

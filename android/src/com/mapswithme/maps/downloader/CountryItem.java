@@ -10,9 +10,9 @@ import android.support.annotation.NonNull;
 public final class CountryItem implements Comparable<CountryItem>
 {
   // Must correspond to ItemCategory in MapManager.cpp
-  public static final int CATEGORY_NEAR_ME = 0;
-  public static final int CATEGORY_DOWNLOADED = 1;
-  public static final int CATEGORY_ALL = 2;
+  static final int CATEGORY_NEAR_ME = 0;
+  static final int CATEGORY_DOWNLOADED = 1;
+  static final int CATEGORY_ALL = 2;
 
   // Must correspond to NodeStatus in storage_defines.hpp
   public static final int STATUS_UNKNOWN = 0;
@@ -85,10 +85,15 @@ public final class CountryItem implements Comparable<CountryItem>
     return name.compareTo(another.name);
   }
 
+  public void update()
+  {
+    MapManager.nativeGetAttributes(this);
+  }
+
   public static CountryItem fill(String countryId)
   {
     CountryItem res = new CountryItem(countryId);
-    MapManager.nativeGetAttributes(res);
+    res.update();
     return res;
   }
 

@@ -40,12 +40,6 @@ void PrepareClassRefs(JNIEnv * env)
   g_countryItemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/CountryItem");
 }
 
-string GetLocalizedName(TCountryId const & id)
-{
-  // TODO
-  return id;
-}
-
 } // namespace data
 
 extern "C"
@@ -109,6 +103,8 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env,
 static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
 {
   static jfieldID const countryItemFieldName = env->GetFieldID(g_countryItemClass, "name", "Ljava/lang/String;");
+  static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
+  static jfieldID const countryItemFieldParentName = env->GetFieldID(g_countryItemClass, "parentName", "Ljava/lang/String;");
   static jfieldID const countryItemFieldSize = env->GetFieldID(g_countryItemClass, "size", "J");
   static jfieldID const countryItemFieldTotalSize = env->GetFieldID(g_countryItemClass, "totalSize", "J");
   static jfieldID const countryItemFieldChildCount = env->GetFieldID(g_countryItemClass, "childCount", "I");
@@ -116,10 +112,28 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   static jfieldID const countryItemFieldStatus = env->GetFieldID(g_countryItemClass, "status", "I");
   static jfieldID const countryItemFieldErrorCode = env->GetFieldID(g_countryItemClass, "errorCode", "I");
   static jfieldID const countryItemFieldPresent = env->GetFieldID(g_countryItemClass, "present", "Z");
+  static jfieldID const countryItemFieldProgress = env->GetFieldID(g_countryItemClass, "progress", "I");
 
   // Localized name
   jni::TScopedLocalRef const name(env, jni::ToJavaString(env, attrs.m_nodeLocalName));
   env->SetObjectField(item, countryItemFieldName, name.get());
+
+  // Info about parent[s]. Do not specify if there are multiple parents or none.
+  if (attrs.m_parentInfo.size() == 1)
+  {
+    CountryIdAndName const & info = attrs.m_parentInfo[0];
+
+    jni::ScopedLocalRef<jstring> const parentId(env, jni::ToJavaString(env, info.m_id));
+    env->SetObjectField(item, countryItemFieldParentId, parentId.get());
+
+    jni::ScopedLocalRef<jstring> const parentName(env, jni::ToJavaString(env, info.m_localName));
+    env->SetObjectField(item, countryItemFieldParentName, parentName.get());
+  }
+  else
+  {
+    env->SetObjectField(item, countryItemFieldParentId, nullptr);
+    env->SetObjectField(item, countryItemFieldParentName, nullptr);
+  }
 
   // Sizes
   env->SetLongField(item, countryItemFieldSize, attrs.m_localMwmSize);
@@ -135,18 +149,17 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
 
   // Presence flag
   env->SetBooleanField(item, countryItemFieldPresent, attrs.m_present);
+
+  // Progress
+  env->SetIntField(item, countryItemFieldProgress,static_cast<jint>(attrs.m_downloadingMwmSize));
 }
 
-static void PutItemsToList(JNIEnv * env, jobject const list,  vector<TCountryId> const & children, TCountryId const & parent,
-                           int category, function<void (jobject const)> const & callback)
+static void PutItemsToList(JNIEnv * env, jobject const list,  vector<TCountryId> const & children, TCountryId const & parent, int category)
 {
   static jmethodID const countryItemCtor = jni::GetConstructorID(env, g_countryItemClass, "(Ljava/lang/String;)V");
   static jfieldID const countryItemFieldCategory = env->GetFieldID(g_countryItemClass, "category", "I");
-  static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
 
-  jstring parentId = jni::ToJavaString(env, parent);
   NodeAttrs attrs;
-
   for (TCountryId const & child : children)
   {
     GetStorage().GetNodeAttrs(child, attrs);
@@ -155,12 +168,7 @@ static void PutItemsToList(JNIEnv * env, jobject const list,  vector<TCountryId>
     jni::TScopedLocalRef const item(env, env->NewObject(g_countryItemClass, countryItemCtor, id.get()));
     env->SetIntField(item.get(), countryItemFieldCategory, category);
 
-    env->SetObjectField(item.get(), countryItemFieldParentId, parentId);
-
     UpdateItem(env, item.get(), attrs);
-
-    // Let the caller do special processing
-    callback(item.get());
 
     // Put to resulting list
     env->CallBooleanMethod(list, g_listAddMethod, item.get());
@@ -177,19 +185,12 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   TCountryId const parentId = (parent ? jni::ToNativeString(env, parent) : storage.GetRootId());
 
   static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
-  static jfieldID const countryItemFieldParentName = env->GetFieldID(g_countryItemClass, "parentName", "Ljava/lang/String;");
 
   if (parent)
   {
     vector<TCountryId> children;
     storage.GetChildren(parentId, children);
-
-    jstring parentName = jni::ToJavaString(env, GetLocalizedName(parentId));
-    PutItemsToList(env, result, children, parentId, ItemCategory::ALL, [env, parent, parentName](jobject const item)
-    {
-      env->SetObjectField(item, countryItemFieldParentId, parent);
-      env->SetObjectField(item, countryItemFieldParentName, parentName);
-    });
+    PutItemsToList(env, result, children, parentId, ItemCategory::ALL);
   }
   else
   {
@@ -198,11 +199,11 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
     // Downloaded
     vector<TCountryId> children;
     storage.GetDownloadedChildren(parentId, children);
-    PutItemsToList(env, result, children, parentId, ItemCategory::DOWNLOADED, [env](jobject const item) {});
+    PutItemsToList(env, result, children, parentId, ItemCategory::DOWNLOADED);
 
     // All
     storage.GetChildren(parentId, children);
-    PutItemsToList(env, result, children, parentId, ItemCategory::ALL, [env](jobject const item) {});
+    PutItemsToList(env, result, children, parentId, ItemCategory::ALL);
   }
 }
 
