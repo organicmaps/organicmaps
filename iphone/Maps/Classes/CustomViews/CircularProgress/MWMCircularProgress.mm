@@ -27,6 +27,7 @@
   _progress = 0.;
   [self.rootView updatePath:0.];
   self.nextProgressToAnimate = nil;
+  self.state = MWMCircularProgressStateNormal;
 }
 
 - (void)setImage:(nonnull UIImage *)image forState:(MWMCircularProgressState)state
@@ -75,7 +76,10 @@
 - (void)setProgress:(CGFloat)progress
 {
   if (progress <= _progress)
+  {
+    [self reset];
     return;
+  }
   if (self.rootView.animating)
   {
     if (progress > self.nextProgressToAnimate.floatValue)
