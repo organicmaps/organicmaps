@@ -86,51 +86,53 @@ MwmSet::MwmId MwmSet::GetMwmIdByCountryFileImpl(CountryFile const & countryFile)
 pair<MwmSet::MwmId, MwmSet::RegResult> MwmSet::Register(LocalCountryFile const & localFile)
 {
   pair<MwmSet::MwmId, MwmSet::RegResult> result;
-  WithEventLog([&](EventList & events)
-               {
-                 CountryFile const & countryFile = localFile.GetCountryFile();
-                 MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
-                 if (!id.IsAlive())
-                 {
-                   result = RegisterImpl(localFile, events);
-                   return;
-                 }
+  auto registerFile = [&](EventList & events)
+  {
+    CountryFile const & countryFile = localFile.GetCountryFile();
+    MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
+    if (!id.IsAlive())
+    {
+      result = RegisterImpl(localFile, events);
+      return;
+    }
 
-                 shared_ptr<MwmInfo> info = id.GetInfo();
+    shared_ptr<MwmInfo> info = id.GetInfo();
 
-                 // Deregister old mwm for the country.
-                 if (info->GetVersion() < localFile.GetVersion())
-                 {
-                   EventList subEvents;
-                   DeregisterImpl(id, subEvents);
-                   result = RegisterImpl(localFile, subEvents);
+    // Deregister old mwm for the country.
+    if (info->GetVersion() < localFile.GetVersion())
+    {
+      EventList subEvents;
+      DeregisterImpl(id, subEvents);
+      result = RegisterImpl(localFile, subEvents);
 
-                   // In the case of success all sub-events are
-                   // replaced with a single UPDATE event. Otherwise,
-                   // sub-events are reported as is.
-                   if (result.second == MwmSet::RegResult::Success)
-                     events.Add(Event(Event::TYPE_UPDATED, localFile, info->GetLocalFile()));
-                   else
-                     events.Append(subEvents);
-                   return;
-                 }
+      // In the case of success all sub-events are
+      // replaced with a single UPDATE event. Otherwise,
+      // sub-events are reported as is.
+      if (result.second == MwmSet::RegResult::Success)
+        events.Add(Event(Event::TYPE_UPDATED, localFile, info->GetLocalFile()));
+      else
+        events.Append(subEvents);
+      return;
+    }
 
-                 string const name = countryFile.GetNameWithoutExt();
-                 // Update the status of the mwm with the same version.
-                 if (info->GetVersion() == localFile.GetVersion())
-                 {
-                   LOG(LINFO, ("Updating already registered mwm:", name));
-                   SetStatus(*info, MwmInfo::STATUS_REGISTERED, events);
-                   info->m_file = localFile;
-                   result = make_pair(id, RegResult::VersionAlreadyExists);
-                   return;
-                 }
+    string const name = countryFile.GetNameWithoutExt();
+    // Update the status of the mwm with the same version.
+    if (info->GetVersion() == localFile.GetVersion())
+    {
+      LOG(LINFO, ("Updating already registered mwm:", name));
+      SetStatus(*info, MwmInfo::STATUS_REGISTERED, events);
+      info->m_file = localFile;
+      result = make_pair(id, RegResult::VersionAlreadyExists);
+      return;
+    }
 
-                 LOG(LWARNING, ("Trying to add too old (", localFile.GetVersion(), ") mwm (",
-                                name, "), current version:", info->GetVersion()));
-                 result = make_pair(MwmId(), RegResult::VersionTooOld);
-                 return;
-               });
+    LOG(LWARNING, ("Trying to add too old (", localFile.GetVersion(), ") mwm (", name,
+                   "), current version:", info->GetVersion()));
+    result = make_pair(MwmId(), RegResult::VersionTooOld);
+    return;
+  };
+
+  WithEventLog(registerFile);
   return result;
 }
 
@@ -292,7 +294,7 @@ unique_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId const & id, EventLi
   }
 }
 
-void MwmSet::UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> && p)
+void MwmSet::UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> p)
 {
   WithEventLog([&](EventList & events)
                {
@@ -300,9 +302,10 @@ void MwmSet::UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> && p)
                });
 }
 
-void MwmSet::UnlockValueImpl(MwmId const & id, unique_ptr<MwmValueBase> && p, EventList & events)
+void MwmSet::UnlockValueImpl(MwmId const & id, unique_ptr<MwmValueBase> p, EventList & events)
 {
-  ASSERT(id.IsAlive() && p, (id));
+  ASSERT(id.IsAlive(), (id));
+  ASSERT(p.get() != nullptr, ());
   if (!id.IsAlive() || !p)
     return;
 

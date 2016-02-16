@@ -84,7 +84,7 @@ void FeaturesFetcher::ClearCaches()
 }
 
 void FeaturesFetcher::OnMapUpdated(platform::LocalCountryFile const & newFile,
-                      platform::LocalCountryFile const & oldFile)
+                                   platform::LocalCountryFile const & oldFile)
 {
   if (m_onMapDeregistered)
     m_onMapDeregistered(oldFile);

@@ -234,10 +234,12 @@ public:
     // used.
     virtual void OnMapRegistered(platform::LocalCountryFile const & localFile) {}
 
-    // Called when a map is updated to a newer version.
+    // Called when a map is updated to a newer version. Feel free to
+    // treat it as combined OnMapRegistered(newFile) +
+    // OnMapRegistered(oldFile).
     virtual void OnMapUpdated(platform::LocalCountryFile const & newFile, platform::LocalCountryFile const & oldFile) {}
 
-    // Called when a map is deregistered and can not be used.
+    // Called when a map is deregistered and can no longer be used.
     virtual void OnMapDeregistered(platform::LocalCountryFile const & localFile) {}
   };
 
@@ -338,8 +340,8 @@ private:
 
   unique_ptr<MwmValueBase> LockValue(MwmId const & id);
   unique_ptr<MwmValueBase> LockValueImpl(MwmId const & id, EventList & events);
-  void UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> && p);
-  void UnlockValueImpl(MwmId const & id, unique_ptr<MwmValueBase> && p, EventList & events);
+  void UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> p);
+  void UnlockValueImpl(MwmId const & id, unique_ptr<MwmValueBase> p, EventList & events);
 
   /// Do the cleaning for [beg, end) without acquiring the mutex.
   /// @precondition This function is always called under mutex m_lock.

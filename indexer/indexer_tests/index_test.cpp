@@ -16,6 +16,7 @@
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/string.hpp"
 
@@ -48,30 +49,14 @@ public:
   }
 
   // Checks expectations and clears them.
-  bool Check()
+  bool CheckExpectations()
   {
     bool ok = true;
-
-    size_t i = 0;
-    for (; i < m_actual.size() && m_expected.size(); ++i)
+    if (m_actual != m_expected)
     {
-      if (m_actual[i] != m_expected[i])
-      {
-        LOG(LINFO, ("Check failed: expected:", m_expected[i], "actual:", m_actual[i]));
-        ok = false;
-      }
-    }
-    for (; i < m_actual.size(); ++i)
-    {
-      LOG(LINFO, ("Unexpected event:", m_actual[i]));
+      LOG(LINFO, ("Check failed. Expected:", m_expected, "actual:", m_actual));
       ok = false;
     }
-    for (; i < m_expected.size(); ++i)
-    {
-      LOG(LINFO, ("Unmet expectation:", m_expected[i]));
-      ok = false;
-    }
-
     m_actual.clear();
     m_expected.clear();
     return ok;
@@ -95,10 +80,10 @@ public:
   }
 
 protected:
-  template <typename... Args>
-  void AddEvent(vector<MwmSet::Event> & events, Args... args)
+  template <typename... TArgs>
+  void AddEvent(vector<MwmSet::Event> & events, TArgs... args)
   {
-    events.emplace_back(forward<Args>(args)...);
+    events.emplace_back(forward<TArgs>(args)...);
   }
 
   Index m_index;
@@ -138,7 +123,7 @@ UNIT_CLASS_TEST(IndexTest, StatusNotifications)
     TEST(id1.IsAlive(), ());
 
     ExpectRegistered(file1);
-    TEST(Check(), ());
+    TEST(CheckExpectations(), ());
   }
 
   // Checks that map can't registered twice.
@@ -149,7 +134,7 @@ UNIT_CLASS_TEST(IndexTest, StatusNotifications)
     TEST(result.first.IsAlive(), ());
     TEST_EQUAL(id1, result.first, ());
 
-    TEST(Check(), ());
+    TEST(CheckExpectations(), ());
   }
 
   // Checks that observers are notified when map is updated.
@@ -163,10 +148,10 @@ UNIT_CLASS_TEST(IndexTest, StatusNotifications)
     TEST_NOT_EQUAL(id1, id2, ());
 
     ExpectUpdated(file2, file1);
-    TEST(Check(), ());
+    TEST(CheckExpectations(), ());
   }
 
-  // Tries to deregister a map in presence of an active lock. Map
+  // Tries to deregister a map in presence of an active handle. Map
   // should be marked "to be removed" but can't be deregistered. After
   // leaving the inner block the map should be deregistered.
   {
@@ -175,10 +160,10 @@ UNIT_CLASS_TEST(IndexTest, StatusNotifications)
       TEST(handle.IsAlive(), ());
 
       TEST(!m_index.DeregisterMap(country), ());
-      TEST(Check(), ());
+      TEST(CheckExpectations(), ());
     }
 
     ExpectDeregistered(file2);
-    TEST(Check(), ());
+    TEST(CheckExpectations(), ());
   }
 }
