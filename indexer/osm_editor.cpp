@@ -335,10 +335,14 @@ void Editor::LoadMapEdits()
         try
         {
           XMLFeature const xml(nodeOrWay.node());
-          auto const fid = needMigrateEdits
-                               ? MigrateFeatureIndex(m_forEachFeatureAtPointFn, xml)
-                               : FeatureID(mwmId, xml.GetMWMFeatureIndex());
 
+          // TODO(mgsergio):
+          // if (needMigrateEdits && TimestampOf(mwm) >= UploadTimestamp(xml))
+          //   remove that fature from edits.xml.
+
+          auto const fid = needMigrateEdits
+                               ? editor::MigrateFeatureIndex(m_forEachFeatureAtPointFn, xml)
+                               : FeatureID(mwmId, xml.GetMWMFeatureIndex());
           FeatureTypeInfo & fti = m_features[fid.m_mwmId][fid.m_index];
 
           if (section.first == FeatureStatus::Created)
