@@ -1227,6 +1227,9 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingMwmSize, 0, ());
 
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 2, ());
@@ -1235,6 +1238,9 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingMwmSize, 0, ());
 
   storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
@@ -1243,6 +1249,9 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Algeria", ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingMwmSize, 0, ());
 
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
@@ -1251,16 +1260,22 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingMwmSize, 0, ());
 
   storage.GetNodeAttrs("Disputable Territory", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 1234, ());
   TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
-  vector<TCountryId> expectedParents = {"Country1", "Country2"};
+  vector<TCountryId> const expectedParents = {"Country1", "Country2"};
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Country1", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_id, "Country2", ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingMwmSize, 0, ());
 }
 
 UNIT_TEST(StorageTest_ParseStatus)
