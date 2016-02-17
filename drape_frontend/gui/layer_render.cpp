@@ -221,7 +221,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheCountryStatus(ref_ptr<dp::TextureMa
 
 drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures)
 {
-  m2::PointF surfSize = DrapeGui::Instance().GetSurfaceSize();
+  m2::PointF const surfSize = DrapeGui::Instance().GetSurfaceSize();
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
 
   ChoosePositionMark positionMark = ChoosePositionMark(Position(surfSize * 0.5f, dp::Center));

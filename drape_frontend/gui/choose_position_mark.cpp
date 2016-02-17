@@ -42,14 +42,14 @@ public:
   }
 };
 
-}
+} // namespace
 
 drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::TextureManager> tex) const
 {
   dp::TextureManager::SymbolRegion region;
   tex->GetSymbolRegion("cross_geoposition", region);
-  glsl::vec2 halfSize = glsl::ToVec2(m2::PointD(region.GetPixelSize()) * 0.5);
-  m2::RectF texRect = region.GetTexRect();
+  glsl::vec2 const halfSize = glsl::ToVec2(m2::PointD(region.GetPixelSize()) * 0.5);
+  m2::RectF const texRect = region.GetTexRect();
 
   ASSERT_EQUAL(m_position.m_anchor, dp::Center, ());
   ChoosePositionMarkVertex vertexes[] =

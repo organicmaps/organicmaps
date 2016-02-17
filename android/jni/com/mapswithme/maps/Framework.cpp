@@ -208,11 +208,11 @@ void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
   m_work.Load3dMode(allow3d, allow3dBuildings);
 }
 
-void Framework::SetChoosePositionMode(bool enable)
+void Framework::SetChoosePositionMode(bool isChoosePositionMode)
 {
-  m_isChoosePositionMode = enable;
-  m_work.BlockTapEvents(enable);
-  m_work.EnableChoosePositionMode(enable);
+  m_isChoosePositionMode = isChoosePositionMode;
+  m_work.BlockTapEvents(isChoosePositionMode);
+  m_work.EnableChoosePositionMode(isChoosePositionMode);
 }
 
 Storage & Framework::Storage()
