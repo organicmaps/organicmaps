@@ -55,7 +55,8 @@ public:
   drape_ptr<LayerRenderer> RecacheWidgets(TWidgetsInitInfo const & initInfo,
                                           TWidgetsSizeInfo & sizeInfo,
                                           ref_ptr<dp::TextureManager> textures);
-  drape_ptr<LayerRenderer> RecacheCountryStatus(ref_ptr<dp::TextureManager> texMng);
+  drape_ptr<LayerRenderer> RecacheCountryStatus(ref_ptr<dp::TextureManager> textures);
+  drape_ptr<LayerRenderer> RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures);
 
 private:
   m2::PointF CacheCompass(Position const & position, ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);

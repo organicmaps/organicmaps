@@ -119,6 +119,7 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_enablePerspectiveInNavigation(false)
   , m_enable3dBuildings(params.m_allow3dBuildings)
   , m_isIsometry(false)
+  , m_blockTapEvents(params.m_blockTapEvents)
   , m_viewport(params.m_viewport)
   , m_userEventStream(params.m_isCountryLoadedFn)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
@@ -294,6 +295,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<GuiLayerRecachedMessage> msg = message;
       drape_ptr<gui::LayerRenderer> renderer = move(msg->AcceptRenderer());
       renderer->Build(make_ref(m_gpuProgramManager));
+      if (msg->NeedResetOldGui())
+        m_guiRenderer.release();
       if (m_guiRenderer == nullptr)
         m_guiRenderer = move(renderer);
       else
@@ -635,6 +638,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::ClearGpsTrackPoints:
     {
       m_gpsTrackRenderer->Clear();
+      break;
+    }
+
+  case Message::BlockTapEvents:
+    {
+      ref_ptr<BlockTapEventsMessage> msg = message;
+      m_blockTapEvents = msg->NeedBlock();
       break;
     }
 
@@ -1158,6 +1168,9 @@ void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 
 void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
 {
+  if (m_blockTapEvents)
+    return;
+
   double halfSize = VisualParams::Instance().GetTouchRectRadius();
   m2::PointD sizePoint(halfSize, halfSize);
   m2::RectD selectRect(pt - sizePoint, pt + sizePoint);

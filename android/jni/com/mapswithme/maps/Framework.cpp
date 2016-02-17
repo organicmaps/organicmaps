@@ -62,6 +62,7 @@ Framework::Framework()
   : m_lastCompass(0.0)
   , m_currentMode(location::MODE_UNKNOWN_POSITION)
   , m_isCurrentModeInitialized(false)
+  , m_isChoosePositionMode(false)
   , m_activeUserMark(nullptr)
 {
   ASSERT_EQUAL ( g_framework, 0, () );
@@ -121,6 +122,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   p.m_visualScale = dp::VisualScale(densityDpi);
   p.m_hasMyPositionState = m_isCurrentModeInitialized;
   p.m_initialMyPositionState = m_currentMode;
+  p.m_isChoosePositionMode = m_isChoosePositionMode;
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
   p.m_widgetsInitInfo = m_guiPositions;
 
@@ -204,6 +206,13 @@ void Framework::Set3dMode(bool allow3d, bool allow3dBuildings)
 void Framework::Get3dMode(bool & allow3d, bool & allow3dBuildings)
 {
   m_work.Load3dMode(allow3d, allow3dBuildings);
+}
+
+void Framework::SetChoosePositionMode(bool enable)
+{
+  m_isChoosePositionMode = enable;
+  m_work.BlockTapEvents(enable);
+  m_work.EnableChoosePositionMode(enable);
 }
 
 Storage & Framework::Storage()

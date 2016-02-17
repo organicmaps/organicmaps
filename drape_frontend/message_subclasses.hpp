@@ -258,34 +258,42 @@ private:
 class GuiLayerRecachedMessage : public Message
 {
 public:
-  GuiLayerRecachedMessage(drape_ptr<gui::LayerRenderer> && renderer)
-    : m_renderer(move(renderer)) {}
+  GuiLayerRecachedMessage(drape_ptr<gui::LayerRenderer> && renderer, bool needResetOldGui)
+    : m_renderer(move(renderer))
+    , m_needResetOldGui(needResetOldGui)
+  {}
 
   Type GetType() const override { return Message::GuiLayerRecached; }
 
   drape_ptr<gui::LayerRenderer> && AcceptRenderer() { return move(m_renderer); }
+  bool NeedResetOldGui() const { return m_needResetOldGui; }
 
 private:
   drape_ptr<gui::LayerRenderer> m_renderer;
+  bool const m_needResetOldGui;
 };
 
 class GuiRecacheMessage : public BaseBlockingMessage
 {
 public:
-  GuiRecacheMessage(Blocker & blocker, gui::TWidgetsInitInfo const & initInfo, gui::TWidgetsSizeInfo & resultInfo)
+  GuiRecacheMessage(Blocker & blocker, gui::TWidgetsInitInfo const & initInfo, gui::TWidgetsSizeInfo & resultInfo,
+                    bool needResetOldGui)
     : BaseBlockingMessage(blocker)
     , m_initInfo(initInfo)
     , m_sizeInfo(resultInfo)
-  {
-  }
+    , m_needResetOldGui(needResetOldGui)
+  {}
 
   Type GetType() const override { return Message::GuiRecache;}
+
   gui::TWidgetsInitInfo const & GetInitInfo() const { return m_initInfo; }
   gui::TWidgetsSizeInfo & GetSizeInfoMap() const { return m_sizeInfo; }
+  bool NeedResetOldGui() const { return m_needResetOldGui; }
 
 private:
   gui::TWidgetsInitInfo m_initInfo;
   gui::TWidgetsSizeInfo & m_sizeInfo;
+  bool const m_needResetOldGui;
 };
 
 class GuiLayerLayoutMessage : public Message
@@ -331,8 +339,30 @@ private:
 class CountryStatusRecacheMessage : public Message
 {
 public:
-  CountryStatusRecacheMessage() {}
-  Type GetType() const override { return Message::CountryStatusRecache ;}
+  CountryStatusRecacheMessage() = default;
+  Type GetType() const override { return Message::CountryStatusRecache; }
+};
+
+class ShowChoosePositionMarkMessage : public Message
+{
+public:
+  ShowChoosePositionMarkMessage() = default;
+  Type GetType() const override { return Message::ShowChoosePositionMark; }
+};
+
+class BlockTapEventsMessage : public Message
+{
+public:
+  BlockTapEventsMessage(bool block)
+    : m_needBlock(block)
+  {}
+
+  Type GetType() const override { return Message::BlockTapEvents; }
+
+  bool NeedBlock() const { return m_needBlock; }
+
+private:
+  bool const m_needBlock;
 };
 
 class MyPositionShapeMessage : public Message

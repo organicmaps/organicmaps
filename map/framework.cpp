@@ -1463,7 +1463,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
                             params.m_visualScale,
                             move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
-                            allow3dBuildings);
+                            allow3dBuildings, params.m_isChoosePositionMode, params.m_isChoosePositionMode);
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   AddViewportListener([this](ScreenBase const & screen)
@@ -2374,6 +2374,16 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 
   if (!Settings::Get(kAllow3dBuildingsKey, allow3dBuildings))
     allow3dBuildings = true;
+}
+
+void Framework::EnableChoosePositionMode(bool enable)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::EnableChoosePositionMode, _1, enable));
+}
+
+void Framework::BlockTapEvents(bool block)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::BlockTapEvents, _1, block));
 }
 
 namespace feature

@@ -56,6 +56,8 @@ namespace android
     location::EMyPositionMode m_currentMode;
     bool m_isCurrentModeInitialized;
 
+    bool m_isChoosePositionMode;
+
     UserMark const * m_activeUserMark;
 
   public:
@@ -154,6 +156,8 @@ namespace android
     void Save3dMode(bool allow3d, bool allow3dBuildings);
     void Set3dMode(bool allow3d, bool allow3dBuildings);
     void Get3dMode(bool & allow3d, bool & allow3dBuildings);
+
+    void SetChoosePositionMode(bool enable);
 
     void SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor);
     void ApplyWidgets();

@@ -20,6 +20,7 @@ SOURCES += \
     animation/perspective_animation.cpp \
     animation/show_hide_animation.cpp \
     gui/button.cpp \
+    gui/choose_position_mark.cpp \
     gui/compass.cpp \
     gui/copyright_label.cpp \
     gui/country_status.cpp \
@@ -105,6 +106,7 @@ HEADERS += \
     animation/show_hide_animation.hpp \
     animation/value_mapping.hpp \
     gui/button.hpp \
+    gui/choose_position_mark.hpp \
     gui/compass.hpp \
     gui/copyright_label.hpp \
     gui/country_status.hpp \

@@ -41,7 +41,9 @@ public:
            double vs,
            gui::TWidgetsInitInfo && info,
            pair<location::EMyPositionMode, bool> const & initialMyPositionMode,
-           bool allow3dBuildings)
+           bool allow3dBuildings,
+           bool blockTapEvents,
+           bool showChoosePositionMark)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_viewport(viewport)
@@ -50,6 +52,8 @@ public:
       , m_info(move(info))
       , m_initialMyPositionMode(initialMyPositionMode)
       , m_allow3dBuildings(allow3dBuildings)
+      , m_blockTapEvents(blockTapEvents)
+      , m_showChoosePositionMark(showChoosePositionMark)
     {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
@@ -60,6 +64,8 @@ public:
     gui::TWidgetsInitInfo m_info;
     pair<location::EMyPositionMode, bool> m_initialMyPositionMode;
     bool m_allow3dBuildings;
+    bool m_blockTapEvents;
+    bool m_showChoosePositionMark;
   };
 
   DrapeEngine(Params && params);
@@ -125,6 +131,9 @@ public:
   void UpdateGpsTrackPoints(vector<df::GpsTrackPoint> && toAdd, vector<uint32_t> && toRemove);
   void ClearGpsTrackPoints();
 
+  void EnableChoosePositionMode(bool enable);
+  void BlockTapEvents(bool block);
+
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);
@@ -135,6 +144,7 @@ private:
   void UserPositionChanged(m2::PointD const & position);
 
   void ResizeImpl(int w, int h);
+  void RecacheGui(bool needResetOldGui);
 
 private:
   drape_ptr<FrontendRenderer> m_frontend;

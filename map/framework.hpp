@@ -286,6 +286,9 @@ public:
 
   void InvalidateRendering();
 
+  void EnableChoosePositionMode(bool enable);
+  void BlockTapEvents(bool block);
+
 private:
   /// UI callback is called when tap event is "restored" after Drape engine restart.
   void SimulateLastTapEventIfNeeded();
@@ -325,6 +328,8 @@ public:
 
     bool m_hasMyPositionState = false;
     location::EMyPositionMode m_initialMyPositionState = location::MODE_UNKNOWN_POSITION;
+
+    bool m_isChoosePositionMode = false;
   };
 
   void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);

@@ -62,7 +62,8 @@ DrapeEngine::DrapeEngine(Params && params)
                                     bind(&DrapeEngine::TapEvent, this, _1),
                                     bind(&DrapeEngine::UserPositionChanged, this, _1),
                                     bind(&DrapeEngine::MyPositionModeChanged, this, _1),
-                                    mode, make_ref(m_requestedTiles), params.m_allow3dBuildings);
+                                    mode, make_ref(m_requestedTiles), params.m_allow3dBuildings,
+                                    params.m_blockTapEvents);
 
   m_frontend = make_unique_dp<FrontendRenderer>(frParams);
 
@@ -73,10 +74,10 @@ DrapeEngine::DrapeEngine(Params && params)
 
   m_widgetsInfo = move(params.m_info);
 
-  GuiRecacheMessage::Blocker blocker;
-  drape_ptr<GuiRecacheMessage> message(new GuiRecacheMessage(blocker, m_widgetsInfo, m_widgetSizes));
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(message), MessagePriority::High);
-  blocker.Wait();
+  RecacheGui(false);
+
+  if (params.m_showChoosePositionMark)
+    EnableChoosePositionMode(true);
 
   ResizeImpl(m_viewport.GetWidth(), m_viewport.GetHeight());
 }
@@ -197,15 +198,22 @@ void DrapeEngine::UpdateMapStyle()
 
   // Recache gui after updating of style.
   {
-    GuiRecacheMessage::Blocker blocker;
-    drape_ptr<GuiRecacheMessage> message(new GuiRecacheMessage(blocker, m_widgetsInfo, m_widgetSizes));
-    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(message), MessagePriority::High);
-    blocker.Wait();
+    RecacheGui(false);
 
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<GuiLayerLayoutMessage>(m_widgetsLayout),
                                     MessagePriority::High);
   }
+}
+
+void DrapeEngine::RecacheGui(bool needResetOldGui)
+{
+  GuiRecacheMessage::Blocker blocker;
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<GuiRecacheMessage>(blocker, m_widgetsInfo,
+                                                                    m_widgetSizes, needResetOldGui),
+                                  MessagePriority::High);
+  blocker.Wait();
 }
 
 void DrapeEngine::AddUserEvent(UserEvent const & e)
@@ -461,6 +469,27 @@ void DrapeEngine::ClearGpsTrackPoints()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<ClearGpsTrackPointsMessage>(),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::EnableChoosePositionMode(bool enable)
+{
+  if (enable)
+  {
+    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                    make_unique_dp<ShowChoosePositionMarkMessage>(),
+                                    MessagePriority::High);
+  }
+  else
+  {
+    RecacheGui(true);
+  }
+}
+
+void DrapeEngine::BlockTapEvents(bool block)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<BlockTapEventsMessage>(block),
                                   MessagePriority::Normal);
 }
 

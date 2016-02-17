@@ -42,6 +42,8 @@ namespace qt
     void SliderPressed();
     void SliderReleased();
 
+    void ChoosePositionModeEnable();
+    void ChoosePositionModeDisable();
   public:
     DrawWidget(QWidget * parent);
     ~DrawWidget();

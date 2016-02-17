@@ -172,6 +172,18 @@ void DrawWidget::SliderReleased()
   m_enableScaleUpdate = true;
 }
 
+void DrawWidget::ChoosePositionModeEnable()
+{
+  m_framework->BlockTapEvents(true);
+  m_framework->EnableChoosePositionMode(true);
+}
+
+void DrawWidget::ChoosePositionModeDisable()
+{
+  m_framework->EnableChoosePositionMode(false);
+  m_framework->BlockTapEvents(false);
+}
+
 void DrawWidget::CreateEngine()
 {
   Framework::DrapeCreationParams p;

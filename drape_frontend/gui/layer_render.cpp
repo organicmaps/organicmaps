@@ -1,3 +1,4 @@
+#include "choose_position_mark.hpp"
 #include "compass.hpp"
 #include "copyright_label.hpp"
 #include "country_status.hpp"
@@ -203,7 +204,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheCountryStatus(ref_ptr<dp::TextureMa
 {
   m2::PointF surfSize = DrapeGui::Instance().GetSurfaceSize();
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
-  CountryStatus countryStatus = CountryStatus(Position(surfSize * 0.5, dp::Center));
+  CountryStatus countryStatus = CountryStatus(Position(surfSize * 0.5f, dp::Center));
 
   CountryStatus::TButtonHandlers handlers;
   RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TYPE_MAP);
@@ -217,6 +218,21 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheCountryStatus(ref_ptr<dp::TextureMa
 
   return renderer;
 }
+
+drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures)
+{
+  m2::PointF surfSize = DrapeGui::Instance().GetSurfaceSize();
+  drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
+
+  ChoosePositionMark positionMark = ChoosePositionMark(Position(surfSize * 0.5f, dp::Center));
+  renderer->AddShapeRenderer(WIDGET_CHOOSE_POSITION_MARK, positionMark.Draw(textures));
+
+  // Flush gui geometry.
+  GLFunctions::glFlush();
+
+  return renderer;
+}
+
 
 m2::PointF LayerCacher::CacheCompass(Position const & position, ref_ptr<LayerRenderer> renderer,
                                      ref_ptr<dp::TextureManager> textures)

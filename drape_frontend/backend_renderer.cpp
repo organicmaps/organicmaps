@@ -74,17 +74,25 @@ unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
   return make_unique<Routine>(*this);
 }
 
-void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, gui::TWidgetsSizeInfo & sizeInfo)
+void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, gui::TWidgetsSizeInfo & sizeInfo,
+                                 bool needResetOldGui)
 {
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(initInfo, sizeInfo, m_texMng);
-  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer));
+  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer), needResetOldGui);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
 }
 
 void BackendRenderer::RecacheCountryStatus()
 {
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheCountryStatus(m_texMng);
-  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer));
+  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer), false);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
+}
+
+void BackendRenderer::RecacheChoosePositionMark()
+{
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheChoosePositionMark(m_texMng);
+  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer), false);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
 }
 
@@ -124,10 +132,15 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       RecacheCountryStatus();
       break;
     }
+  case Message::ShowChoosePositionMark:
+    {
+      RecacheChoosePositionMark();
+      break;
+    }
   case Message::GuiRecache:
     {
       ref_ptr<GuiRecacheMessage> msg = message;
-      RecacheGui(msg->GetInitInfo(), msg->GetSizeInfoMap());
+      RecacheGui(msg->GetInitInfo(), msg->GetSizeInfoMap(), msg->NeedResetOldGui());
       break;
     }
   case Message::GuiLayerLayout:

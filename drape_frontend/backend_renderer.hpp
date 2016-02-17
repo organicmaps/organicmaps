@@ -54,8 +54,9 @@ protected:
   unique_ptr<threads::IRoutine> CreateRoutine() override;
 
 private:
-  void RecacheGui(gui::TWidgetsInitInfo const  & initInfo, gui::TWidgetsSizeInfo & sizeInfo);
+  void RecacheGui(gui::TWidgetsInitInfo const  & initInfo, gui::TWidgetsSizeInfo & sizeInfo, bool needResetOldGui);
   void RecacheCountryStatus();
+  void RecacheChoosePositionMark();
   void RecacheMyPosition();
 
   void AcceptMessage(ref_ptr<Message> message) override;

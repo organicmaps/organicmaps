@@ -81,7 +81,8 @@ public:
            location::TMyPositionModeChanged myPositionModeCallback,
            location::EMyPositionMode initMode,
            ref_ptr<RequestedTiles> requestedTiles,
-           bool allow3dBuildings)
+           bool allow3dBuildings,
+           bool blockTapEvents)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
@@ -92,6 +93,7 @@ public:
       , m_initMyPositionMode(initMode)
       , m_requestedTiles(requestedTiles)
       , m_allow3dBuildings(allow3dBuildings)
+      , m_blockTapEvents(blockTapEvents)
     {}
 
     Viewport m_viewport;
@@ -103,6 +105,7 @@ public:
     location::EMyPositionMode m_initMyPositionMode;
     ref_ptr<RequestedTiles> m_requestedTiles;
     bool m_allow3dBuildings;
+    bool m_blockTapEvents;
   };
 
   FrontendRenderer(Params const & params);
@@ -263,6 +266,8 @@ private:
   bool m_enablePerspectiveInNavigation;
   bool m_enable3dBuildings;
   bool m_isIsometry;
+
+  bool m_blockTapEvents;
 
   Viewport m_viewport;
   UserEventStream m_userEventStream;

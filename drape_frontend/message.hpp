@@ -52,7 +52,9 @@ public:
     CacheGpsTrackPoints,
     FlushGpsTrackPoints,
     UpdateGpsTrackPoints,
-    ClearGpsTrackPoints
+    ClearGpsTrackPoints,
+    ShowChoosePositionMark,
+    BlockTapEvents
   };
 
   virtual ~Message() {}
