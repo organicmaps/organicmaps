@@ -889,11 +889,6 @@ void Geocoder::MatchRegions(RegionType type)
   }
 }
 
-void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t featureId)
-{
-  m_results->emplace_back(mwmId, featureId);
-}
-
 void Geocoder::MatchCities()
 {
   // Localities are ordered my (m_startToken, m_endToken) pairs.
@@ -1221,6 +1216,11 @@ void Geocoder::FindPaths()
     // better scoring.
     EmitResult(m_context->GetId(), result.InnermostResult());
   });
+}
+
+void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t featureId)
+{
+  m_results->emplace_back(mwmId, featureId);
 }
 
 void Geocoder::MatchUnclassified(size_t curToken)

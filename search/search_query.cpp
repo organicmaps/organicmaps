@@ -888,14 +888,16 @@ void Query::GetSuggestion(string const & name, string & suggest) const
     auto const & token = tokens[i];
     if (find(m_tokens.begin(), m_tokens.end(), token) != m_tokens.end())
       tokensMatched[i] = true;
-    else if (token.size() >= m_prefix.size() && StartsWith(token, m_prefix))
+    else if (StartsWith(token, m_prefix))
     {
       prefixMatched = true;
       fullPrefixMatched = token.size() == m_prefix.size();
     }
   }
 
-  // Name doesn't match prefix - do nothing.
+  // When |name| does not match prefix or when prefix equals to some
+  // token of the |name| (for example, when user entered "Moscow"
+  // without space at the end), we should not suggest anything.
   if (!prefixMatched || fullPrefixMatched)
     return;
 
@@ -906,8 +908,8 @@ void Query::GetSuggestion(string const & name, string & suggest) const
   {
     if (tokensMatched[i])
       continue;
-    suggest += strings::ToUtf8(tokens[i]);
-    suggest += " ";
+    suggest.append(strings::ToUtf8(tokens[i]));
+    suggest.push_back(' ');
   }
 }
 
