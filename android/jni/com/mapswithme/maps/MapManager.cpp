@@ -89,7 +89,7 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz)
 {
   static Storage::UpdateInfo info = { 0 };
-  if (!GetStorage().GetUpdateInfo(info))
+  if (!GetStorage().GetUpdateInfo(GetStorage().GetRootId(), info))
     return nullptr;
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/UpdateInfo");
