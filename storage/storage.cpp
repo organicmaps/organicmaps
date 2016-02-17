@@ -261,16 +261,6 @@ Country const & Storage::CountryByCountryId(TCountryId const & countryId) const
   return node->Value();
 }
 
-size_t Storage::CountriesCount(TCountryId const & countryId) const
-{
-  return LeafNodeFromCountryId(m_countries, countryId).ChildrenCount();
-}
-
-string const & Storage::CountryName(TCountryId const & countryId) const
-{
-  return LeafNodeFromCountryId(m_countries, countryId).Value().Name();
-}
-
 bool Storage::IsCoutryIdInCountryTree(TCountryId const & countryId) const
 {
   return m_countries.FindFirst(Country(countryId)) != nullptr;

@@ -297,7 +297,7 @@ public:
 
   /// \brief Get information for mwm update button.
   /// \return true if updateInfo is filled correctly and false otherwise.
-  bool GetUpdateInfo(UpdateInfo & updateInfo) const { return true; }
+  bool GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInfo) const { return true; }
 
   /// \brief Update all mwm in case of changing mwm hierarchy of mwm borders.
   /// This method:
@@ -376,8 +376,6 @@ public:
 
   TCountryId FindCountryIdByFile(string const & name) const;
 
-  size_t CountriesCount(TCountryId const & countryId) const;
-  string const & CountryName(TCountryId const & countryId) const;
   bool IsCoutryIdInCountryTree(TCountryId const & countryId) const;
 
   TLocalAndRemoteSize CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const;
