@@ -10,64 +10,117 @@
 
 namespace
 {
-void ParsePosition(json_t * json, m2::PointD & pos)
-{
-  if (!json_is_object(json))
-    MYTHROW(my::Json::Exception, ("Position must be a json object."));
+void FromJSONObject(json_t * root, string & result) { result = string(json_string_value(root)); }
 
-  json_t * posX = json_object_get(json, "x");
-  json_t * posY = json_object_get(json, "y");
-  if (!posX || !posY)
-    MYTHROW(my::Json::Exception, ("Position must have both x and y set."));
-  if (!json_is_number(posX) || !json_is_number(posY))
-    MYTHROW(my::Json::Exception, ("Position's x and y must be numbers."));
-  pos.x = json_number_value(posX);
-  pos.y = json_number_value(posY);
+void FromJSONObject(json_t * root, string const & field, string & result)
+{
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  if (!json_is_string(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json string."));
+  result = string(json_string_value(val));
 }
 
-string ParseObligatoryString(json_t * root, string const & fieldName)
+void FromJSONObject(json_t * root, string const & field, strings::UniString & result)
 {
-  json_t * str = json_object_get(root, fieldName.c_str());
-  if (!str)
-    MYTHROW(my::Json::Exception, ("Obligatory field", fieldName, "is absent."));
-  if (!json_is_string(str))
-    MYTHROW(my::Json::Exception, ("The field", fieldName, "must contain a json string."));
-  return string(json_string_value(str));
+  string s;
+  FromJSONObject(root, field, s);
+  result = strings::MakeUniString(s);
 }
 
-void ParseResult(json_t * root, search::Sample::Result & result)
+void FromJSONObject(json_t * root, string const & field, double & result)
 {
-  json_t * position = json_object_get(root, "position");
-  if (!position)
-    MYTHROW(my::Json::Exception, ("Obligatory field", "position", "is absent."));
-  ParsePosition(position, result.m_pos);
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  if (!json_is_number(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
+  result = json_number_value(val);
+}
 
-  result.m_name = strings::MakeUniString(ParseObligatoryString(root, "name"));
+void FromJSONObject(json_t * root, string const & field, m2::PointD & result)
+{
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  FromJSONObject(val, "x", result.x);
+  FromJSONObject(val, "y", result.y);
+}
 
-  result.m_houseNumber = ParseObligatoryString(root, "houseNumber");
+void FromJSONObject(json_t * root, string const & field, m2::RectD & result)
+{
+  json_t * rect = json_object_get(root, field.c_str());
+  if (!rect)
+    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  double minX, minY, maxX, maxY;
+  FromJSONObject(rect, "minx", minX);
+  FromJSONObject(rect, "miny", minY);
+  FromJSONObject(rect, "maxx", maxX);
+  FromJSONObject(rect, "maxy", maxY);
+  result.setMinX(minX);
+  result.setMinY(minY);
+  result.setMaxX(maxX);
+  result.setMaxY(maxY);
+}
 
-  json_t * types = json_object_get(root, "types");
-  if (!types)
-    MYTHROW(my::Json::Exception, ("Obligatory field", "types", "is absent."));
-  if (!json_is_array(types))
-    MYTHROW(my::Json::Exception, ("The field", "types", "must contain a json array."));
-  size_t const numTypes = json_array_size(types);
-  result.m_types.resize(numTypes);
-  for (size_t i = 0; i < numTypes; ++i)
+void FromJSONObject(json_t * root, string const & field, vector<string> & result)
+{
+  json_t * arr = json_object_get(root, field.c_str());
+  if (!arr)
+    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  if (!json_is_array(arr))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json array."));
+  size_t const sz = json_array_size(arr);
+  result.resize(sz);
+  for (size_t i = 0; i < sz; ++i)
   {
-    json_t * type = json_array_get(types, i);
-    if (!json_is_string(type))
-      MYTHROW(my::Json::Exception, ("Result types must be strings."));
-    result.m_types[i] = json_string_value(type);
+    json_t * elem = json_array_get(arr, i);
+    if (!json_is_string(elem))
+      MYTHROW(my::Json::Exception, ("Wrong type:", field, "must contain an array of strings."));
+    result[i] = json_string_value(elem);
   }
+}
 
-  string relevance = ParseObligatoryString(root, "relevancy");
+void FromJSONObject(json_t * root, string const & field, search::Sample::Result::Relevance & r)
+{
+  string relevance;
+  FromJSONObject(root, field, relevance);
   if (relevance == "vital")
-    result.m_relevance = search::Sample::Result::Relevance::RELEVANCE_VITAL;
+    r = search::Sample::Result::Relevance::RELEVANCE_VITAL;
   else if (relevance == "relevant")
-    result.m_relevance = search::Sample::Result::Relevance::RELEVANCE_RELEVANT;
+    r = search::Sample::Result::Relevance::RELEVANCE_RELEVANT;
   else
-    result.m_relevance = search::Sample::Result::Relevance::RELEVANCE_IRRELEVANT;
+    r = search::Sample::Result::Relevance::RELEVANCE_IRRELEVANT;
+}
+
+void FromJSONObject(json_t * root, search::Sample::Result & result)
+{
+  FromJSONObject(root, "position", result.m_pos);
+  FromJSONObject(root, "name", result.m_name);
+  FromJSONObject(root, "houseNumber", result.m_houseNumber);
+  FromJSONObject(root, "types", result.m_types);
+  FromJSONObject(root, "relevancy", result.m_relevance);
+}
+
+template <typename T>
+void FromJSONObject(json_t * root, string const & field, vector<T> & result)
+{
+  json_t * arr = json_object_get(root, field.c_str());
+  if (!arr)
+    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  if (!json_is_array(arr))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json array."));
+  size_t sz = json_array_size(arr);
+  result.resize(sz);
+  for (size_t i = 0; i < sz; ++i)
+    FromJSONObject(json_array_get(arr, i), result[i]);
 }
 }  // namespace
 
@@ -130,31 +183,11 @@ string Sample::ToStringDebug() const
 
 void Sample::DeserializeFromJSONImpl(json_t * root)
 {
-  m_query = strings::MakeUniString(ParseObligatoryString(root, "query"));
-  m_locale = ParseObligatoryString(root, "locale");
-
-  json_t * position = json_object_get(root, "position");
-  if (!position)
-    MYTHROW(my::Json::Exception, ("Obligatory field", "position", "is absent."));
-  ParsePosition(position, m_pos);
-
-  json_t * viewport = json_object_get(root, "viewport");
-  if (!viewport)
-    MYTHROW(my::Json::Exception, ("Obligatory field", "viewport", "is absent."));
-  m_viewport.setMinX(json_number_value(json_object_get(viewport, "minx")));
-  m_viewport.setMinY(json_number_value(json_object_get(viewport, "miny")));
-  m_viewport.setMaxX(json_number_value(json_object_get(viewport, "maxx")));
-  m_viewport.setMaxY(json_number_value(json_object_get(viewport, "maxy")));
-
-  json_t * results = json_object_get(root, "results");
-  if (!results)
-    MYTHROW(my::Json::Exception, ("Obligatory field", "results", "is absent."));
-  if (!json_is_array(results))
-    MYTHROW(my::Json::Exception, ("The field", "results", "must contain a json array."));
-  size_t numResults = json_array_size(results);
-  m_results.resize(numResults);
-  for (size_t i = 0; i < numResults; ++i)
-    ParseResult(json_array_get(results, i), m_results[i]);
+  FromJSONObject(root, "query", m_query);
+  FromJSONObject(root, "locale", m_locale);
+  FromJSONObject(root, "position", m_pos);
+  FromJSONObject(root, "viewport", m_viewport);
+  FromJSONObject(root, "results", m_results);
 }
 
 string DebugPrint(Sample::Result::Relevance r)
@@ -187,5 +220,4 @@ string DebugPrint(Sample::Result const & r)
 }
 
 string DebugPrint(Sample const & s) { return s.ToStringDebug(); }
-
 }  // namespace search

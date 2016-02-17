@@ -23,21 +23,21 @@ public:
       RELEVANCE_VITAL
     };
 
-    m2::PointD m_pos;
+    m2::PointD m_pos = m2::PointD(0, 0);
     strings::UniString m_name;
     string m_houseNumber;
     vector<string> m_types;  // MAPS.ME types, not OSM types.
-    Relevance m_relevance;
+    Relevance m_relevance = RELEVANCE_IRRELEVANT;
   };
 
-  bool DeserializeFromJSON(string const &);
+  bool DeserializeFromJSON(string const & jsonStr);
 
-  static bool DeserializeFromJSON(string const &, vector<Sample> &);
+  static bool DeserializeFromJSON(string const & jsonStr, vector<Sample> & samples);
 
   string ToStringDebug() const;
 
 private:
-  void DeserializeFromJSONImpl(json_t *);
+  void DeserializeFromJSONImpl(json_t * root);
 
   strings::UniString m_query;
   string m_locale;
@@ -46,9 +46,9 @@ private:
   vector<Result> m_results;
 };
 
-string DebugPrint(Sample::Result::Relevance);
+string DebugPrint(Sample::Result::Relevance r);
 
-string DebugPrint(Sample::Result const &);
+string DebugPrint(Sample::Result const & r);
 
-string DebugPrint(Sample const &);
+string DebugPrint(Sample const & s);
 }  // namespace search
