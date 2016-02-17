@@ -186,9 +186,6 @@ namespace qt
       st.DeleteNode(countryId);
       break;
 
-    case NodeStatus::Mixed:
-      break;
-
     default:
       ASSERT(false, ("We shouldn't be here"));
       break;
@@ -271,11 +268,6 @@ namespace qt
     case NodeStatus::InQueue:
       statusString = tr("Marked for download");
       rowColor = COLOR_INQUEUE;
-      break;
-
-    case NodeStatus::Mixed:
-      statusString = tr("Mixed status");
-      rowColor = COLOR_MIXED;
       break;
 
     default:

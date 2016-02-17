@@ -1207,25 +1207,46 @@ void Storage::DeleteNode(TCountryId const & countryId)
 
 Status Storage::NodeStatus(TCountriesContainer const & node) const
 {
+  // Leaf node status.
   if (node.ChildrenCount() == 0)
     return CountryStatusEx(node.Value().Name());
 
-  Status result = Status::EUndefined;
-  bool returnMixStatus = false;
-  auto groupStatusCalculator = [&result, &returnMixStatus, this](TCountriesContainer const & nodeInSubtree)
+  // Expandable node status.
+  Status const kDownloadingInProgress = Status::EDownloading;
+  Status const kUsersAttentionNeeded =  Status::EDownloadFailed;
+  Status const kEverythingsOk = Status::EOnDisk;
+
+  Status result = kEverythingsOk;
+  auto groupStatusCalculator = [&result, this](TCountriesContainer const & nodeInSubtree)
   {
-    if (returnMixStatus || nodeInSubtree.ChildrenCount() != 0)
+    set<Status> const kDownloadingInProgressSet = { Status::EDownloading, Status::EInQueue };
+    set<Status> const kUsersAttentionNeededSet = { Status::EDownloadFailed, Status::EOutOfMemFailed,
+                                                   Status::EUnknown, Status::EOnDiskOutOfDate };
+    // The other statuses shows that everything is ok (kEverythingsOk).
+
+    if (result == kDownloadingInProgress || nodeInSubtree.ChildrenCount() != 0)
       return;
     Status status = this->CountryStatusEx(nodeInSubtree.Value().Name());
-    if (result == Status::EUndefined)
-      result = status;
-    if (result != status)
-      returnMixStatus = true;
+    ASSERT_NOT_EQUAL(status, Status::EUndefined, ());
+
+    if (kDownloadingInProgressSet.count(status) != 0)
+    {
+      result = kDownloadingInProgress;
+      return;
+    }
+
+    if (result == kUsersAttentionNeeded)
+      return;
+
+    if (kUsersAttentionNeededSet.count(status) != 0)
+    {
+      result = kUsersAttentionNeeded;
+      return;
+    }
   };
 
   node.ForEachDescendant(groupStatusCalculator);
-
-  return (returnMixStatus ? Status::EMixed : result);
+  return result;
 }
 
 void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) const

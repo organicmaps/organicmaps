@@ -1234,7 +1234,7 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 2, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 90878678, ());
-  TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
+  TEST_EQUAL(nodeAttrs.m_status, NodeStatus::OnDisk, ()); // It's a status of expandable node.
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());

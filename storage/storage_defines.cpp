@@ -26,8 +26,6 @@ string DebugPrint(Status status)
     return string("OnDiskOutOfDate");
   case Status::EOutOfMemFailed:
     return string("OutOfMemFailed");
-  case Status::EMixed:
-    return string("EMixed");
   }
 }
 
@@ -49,8 +47,6 @@ string DebugPrint(NodeStatus status)
     return string("InQueue");
   case NodeStatus::OnDiskOutOfDate:
     return string("OnDiskOutOfDate");
-  case NodeStatus::Mixed:
-    return string("Mixed");
   }
 }
 
@@ -91,8 +87,6 @@ StatusAndError ParseStatus(Status innerStatus)
     return StatusAndError(NodeStatus::OnDiskOutOfDate, NodeErrorCode::NoError);
   case Status::EOutOfMemFailed:
     return StatusAndError(NodeStatus::Error, NodeErrorCode::OutOfMemFailed);
-  case Status::EMixed:
-    return StatusAndError(NodeStatus::Mixed, NodeErrorCode::NoError);
   }
 }
 

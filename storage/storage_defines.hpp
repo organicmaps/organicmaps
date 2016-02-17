@@ -21,7 +21,6 @@ namespace storage
     EUnknown,         /**< Downloading failed because of unknown error. */
     EOnDiskOutOfDate, /**< An update for a downloaded mwm is ready according to counties.txt. */
     EOutOfMemFailed,  /**< Downloading failed because it's not enough memory */
-    EMixed,           /**< Descendants of a group node have different statuses. */
   };
   string DebugPrint(Status status);
 
@@ -34,7 +33,6 @@ namespace storage
     Downloading,      /**< Downloading a new mwm or updating an old one. */
     InQueue,          /**< A mwm is waiting for downloading in the queue. */
     OnDiskOutOfDate,  /**< An update for a downloaded mwm is ready according to counties.txt. */
-    Mixed,            /**< Descendants of a group node have different statuses. */
   };
   string DebugPrint(NodeStatus status);
 
