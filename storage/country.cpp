@@ -77,6 +77,7 @@ void LoadGroupTwoComponentMwmsImpl(int depth, json_t * group, TCountryId const &
   // @TODO(bykoianko) After we stop supporting two component mwms (with routing files)
   // remove code below.
   size_t const groupListSize = json_array_size(group);
+  toDo.ReserveAtDepth(depth, groupListSize);
   for (size_t i = 0; i < groupListSize; ++i)
   {
     json_t * j = json_array_get(group, i);
