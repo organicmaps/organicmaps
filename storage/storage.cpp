@@ -261,21 +261,6 @@ Country const & Storage::CountryByCountryId(TCountryId const & countryId) const
   return node->Value();
 }
 
-void Storage::GetGroupAndCountry(TCountryId const & countryId, string & group, string & country) const
-{
-  // @TODO(bykoianko) This method can work faster and more correctly.
-  // 1. To get id for filling group parameter it's better to use take the parent
-  //    of countryId parameter in m_countries tree. Just fill group
-  //    with its parent name if valid.
-  // 2. Use countryId as id for filling country parameter.
-  // 3. To translate the ids got in (1) and (2) into strings for filling group and country
-  //    use platform/get_text_by_id subsystem based on twine.
-
-  string fName = CountryLeafByCountryId(countryId).GetFile().GetName();
-  CountryInfo::FileName2FullName(fName);
-  CountryInfo::FullName2GroupAndMap(fName, group, country);
-}
-
 size_t Storage::CountriesCount(TCountryId const & countryId) const
 {
   return LeafNodeFromCountryId(m_countries, countryId).ChildrenCount();

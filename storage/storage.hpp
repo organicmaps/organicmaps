@@ -376,8 +376,6 @@ public:
 
   TCountryId FindCountryIdByFile(string const & name) const;
 
-  void GetGroupAndCountry(TCountryId const & countryId, string & group, string & country) const;
-
   size_t CountriesCount(TCountryId const & countryId) const;
   string const & CountryName(TCountryId const & countryId) const;
   bool IsCoutryIdInCountryTree(TCountryId const & countryId) const;
