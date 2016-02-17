@@ -376,10 +376,6 @@ public:
 
   TCountryId FindCountryIdByFile(string const & name) const;
 
-  /// @todo Temporary function to gel all associated indexes for the country file name.
-  /// Will be removed in future after refactoring.
-  TCountriesVec FindAllIndexesByFile(TCountryId const & name) const;
-
   void GetGroupAndCountry(TCountryId const & countryId, string & group, string & country) const;
 
   size_t CountriesCount(TCountryId const & countryId) const;
@@ -408,7 +404,7 @@ public:
   void DeleteCustomCountryVersion(platform::LocalCountryFile const & localFile);
 
   /// \return True iff country denoted by countryId was successfully
-  ///          deleted from the downloader's queue.
+  ///         deleted from the downloader's queue.
   bool DeleteFromDownloader(TCountryId const & countryId);
   bool IsDownloadInProgress() const;
 
@@ -497,6 +493,10 @@ private:
   Status NodeStatus(TCountriesContainer const & node) const;
 
   void NotifyStatusChanged(TCountryId const & countryId);
+
+  /// @todo Temporary function to gel all associated indexes for the country file name.
+  /// Will be removed in future after refactoring.
+  TCountriesVec FindAllIndexesByFile(TCountryId const & name) const;
 };
 
 template <class ToDo>
