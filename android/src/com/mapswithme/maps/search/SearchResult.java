@@ -45,12 +45,12 @@ public class SearchResult
   // Consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original query in result
   public final int[] highlightRanges;
 
-  public SearchResult(String name, String suggestion, int[] highlightRanges)
+  public SearchResult(String name, String suggestion, double lat, double lon, int[] highlightRanges)
   {
     this.name = name;
     this.suggestion = suggestion;
-    this.lat = 0.0;
-    this.lon = 0.0;
+    this.lat = lat;
+    this.lon = lon;
     description = null;
     type = TYPE_SUGGEST;
 

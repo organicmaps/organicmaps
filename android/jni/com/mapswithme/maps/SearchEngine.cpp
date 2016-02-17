@@ -37,25 +37,25 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
 
-  jintArray ranges = env->NewIntArray(result.GetHighlightRangesCount() * 2);
-  jint * rawArr = env->GetIntArrayElements(ranges, nullptr);
+  jni::ScopedLocalRef<jintArray> ranges(env, env->NewIntArray(result.GetHighlightRangesCount() * 2));
+  jint * rawArr = env->GetIntArrayElements(ranges.get(), nullptr);
   for (int i = 0; i < result.GetHighlightRangesCount(); i++)
   {
     auto const & range = result.GetHighlightRange(i);
     rawArr[2 * i] = range.first;
     rawArr[2 * i + 1] = range.second;
   }
-  env->ReleaseIntArrayElements(ranges, rawArr, 0);
+  env->ReleaseIntArrayElements(ranges.get(), rawArr, 0);
+
+  g_framework->NativeFramework()->LoadSearchResultMetadata(result);
+  ms::LatLon const ll = MercatorBounds::ToLatLon(result.GetFeatureCenter());
 
   if (result.IsSuggest())
   {
-    jstring name = jni::ToJavaString(env, result.GetString());
-    jstring suggest = jni::ToJavaString(env, result.GetSuggestionString());
-    jobject ret = env->NewObject(g_resultClass, g_suggestConstructor, name, suggest, ranges);
+    jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
+    jni::TScopedLocalRef suggest(env, jni::ToJavaString(env, result.GetSuggestionString()));
+    jobject ret = env->NewObject(g_resultClass, g_suggestConstructor, name.get(), suggest.get(), ll.lat, ll.lon, ranges.get());
     ASSERT(ret, ());
-    env->DeleteLocalRef(name);
-    env->DeleteLocalRef(suggest);
-    env->DeleteLocalRef(ranges);
     return ret;
   }
 
@@ -66,33 +66,22 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
     (void) g_framework->NativeFramework()->GetDistanceAndAzimut(result.GetFeatureCenter(), lat, lon, 0, distance, dummy);
   }
 
-  g_framework->NativeFramework()->LoadSearchResultMetadata(result);
 
   auto const address = g_framework->NativeFramework()->GetSearchResultAddress(result);
 
-  jstring featureType = jni::ToJavaString(env, result.GetFeatureType());
-  jstring region = jni::ToJavaString(env, address.FormatAddress(search::AddressInfo::SEARCH_RESULT));
-  jstring dist = jni::ToJavaString(env, distance);
-  jstring cuisine = jni::ToJavaString(env, result.GetCuisine());
-  jobject desc = env->NewObject(g_descriptionClass, g_descriptionConstructor,
-                                featureType, region,
-                                dist, cuisine,
-                                result.GetStarsCount(),
-                                static_cast<jint>(result.IsOpenNow()));
-  ASSERT(desc, ());
-  env->DeleteLocalRef(featureType);
-  env->DeleteLocalRef(region);
-  env->DeleteLocalRef(dist);
-  env->DeleteLocalRef(cuisine);
+  jni::TScopedLocalRef featureType (env, jni::ToJavaString(env, result.GetFeatureType()));
+  jni::TScopedLocalRef region(env, jni::ToJavaString(env, address.FormatAddress(search::AddressInfo::SEARCH_RESULT)));
+  jni::TScopedLocalRef dist(env, jni::ToJavaString(env, distance));
+  jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));
+  jni::TScopedLocalRef desc(env, env->NewObject(g_descriptionClass, g_descriptionConstructor,
+                                                featureType.get(), region.get(),
+                                                dist.get(), cuisine.get(),
+                                                result.GetStarsCount(),
+                                                static_cast<jint>(result.IsOpenNow())));
 
-  jstring name = jni::ToJavaString(env, result.GetString());
-  ms::LatLon const ll = MercatorBounds::ToLatLon(result.GetFeatureCenter());
-
-  jobject ret = env->NewObject(g_resultClass, g_resultConstructor, name, desc, ll.lat, ll.lon, ranges);
+  jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
+  jobject ret = env->NewObject(g_resultClass, g_resultConstructor, name.get(), desc.get(), ll.lat, ll.lon, ranges.get());
   ASSERT(ret, ());
-  env->DeleteLocalRef(name);
-  env->DeleteLocalRef(desc);
-  env->DeleteLocalRef(ranges);
 
   return ret;
 }
@@ -149,7 +138,7 @@ extern "C"
     g_endResultsId = jni::GetMethodID(env, g_javaListener, "onResultsEnd", "(J)V");
     g_resultClass = static_cast<jclass>(env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult")));
     g_resultConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;DD[I)V");
-    g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;[I)V");
+    g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I)V");
     g_descriptionClass = static_cast<jclass>(env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult$Description")));
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II)V");
   }
@@ -190,20 +179,18 @@ extern "C"
     }
   }
 
-  JNIEXPORT jboolean JNICALL
+  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearchMaps(JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp)
   {
     search::SearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);
     params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
     params.SetForceSearch(true);
-    params.SetSearchMode(search::SearchParams::SearchModeT::SEARCH_WORLD);
+    params.SetMode(search::Mode::World);
     params.m_callback = bind(&OnResults, _1, timestamp, false /* isMapAndTable */, false /* hasPosition */, 0.0, 0.0);
 
-    bool const searchStarted = g_framework->NativeFramework()->Search(params);
-    if (searchStarted)
-      g_queryTimestamp = timestamp;
-    return searchStarted;
+    g_framework->NativeFramework()->Search(params);
+    g_queryTimestamp = timestamp;
   }
 
   JNIEXPORT void JNICALL
