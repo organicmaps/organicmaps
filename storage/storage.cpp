@@ -84,6 +84,13 @@ TCountriesContainer const & LeafNodeFromCountryId(TCountriesContainer const & ro
   CHECK(node, ("Node with id =", countryId, "not found in country tree as a leaf."));
   return *node;
 }
+
+void HashFromQueue(Storage::TQueue const & queue, TCountriesUnorderedSet & hashQueue)
+{
+  hashQueue.reserve(queue.size());
+  for (auto const & queuedCountry : queue)
+    hashQueue.insert(queuedCountry.GetCountryId());
+}
 }  // namespace
 
 bool HasCountryId(TCountriesVec const & sortedCountryIds, TCountryId const & countryId)
@@ -676,36 +683,15 @@ void Storage::ReportProgressForHierarchy(TCountryId const & countryId,
 
   // Reporting progress for the parents of the leaf with |countryId|.
   TCountriesUnorderedSet hashQueue;
-  hashQueue.reserve(m_queue.size());
-  for (auto const & queuedCountry : m_queue)
-    hashQueue.insert(queuedCountry.GetCountryId());
+  HashFromQueue(m_queue, hashQueue);
 
   // This lambda will be called for every parent of countryId (except for the root)
   // to calculate and report parent's progress.
   auto forEachParentExceptForTheRoot = [this, &leafProgress, &hashQueue, &countryId]
-      (TCountryId const & parentId, TCountriesVec & descendants)
+      (TCountryId const & parentId, TCountriesVec const & descendants)
   {
-    pair<int64_t, int64_t> localAndRemoteBytes = make_pair(0, 0);
-    for (auto const & d : descendants)
-    {
-      if (d == countryId)
-        continue;
-
-      if (hashQueue.count(d) != 0)
-      {
-        CountryFile const & remoteCountryFile = GetCountryFile(d);
-        localAndRemoteBytes.second += remoteCountryFile.GetRemoteSize(MapOptions::Map);
-        continue;
-      }
-
-      if (m_justDownloaded.count(d) != 0)
-      {
-        CountryFile const & localCountryFile = GetCountryFile(d);
-        localAndRemoteBytes.second += localCountryFile.GetRemoteSize(MapOptions::Map);
-      }
-    }
-    localAndRemoteBytes.first += leafProgress.first;
-    localAndRemoteBytes.second += leafProgress.second;
+    pair<int64_t, int64_t> localAndRemoteBytes = CalculateProgress(descendants,
+                                                                   countryId, leafProgress, hashQueue);
     ReportProgress(parentId, localAndRemoteBytes);
   };
 
@@ -1262,10 +1248,21 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   nodeAttrs.m_error = statusAndErr.error;
   nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);
 
-  if (nodeAttrs.m_status == NodeStatus::Downloading)
-    ;
-  else
-    nodeAttrs.m_downloadingProgress = 0;
+  TCountriesVec descendants;
+  node->ForEachDescendant([&descendants](TCountriesContainer const & d)
+  {
+    descendants.push_back(d.Value().Name());
+  });
+  TCountryId const downloadingMwm = IsDownloadInProgress() ? GetCurrentDownloadingCountryId()
+                                                           : kInvalidCountryId;
+  MapFilesDownloader::TProgress downloadingMwmProgress =
+      m_downloader->IsIdle() ? make_pair(0LL, 0LL)
+                             : m_downloader->GetDownloadingProgress();
+  TCountriesUnorderedSet hashQueue;
+  HashFromQueue(m_queue, hashQueue);
+  nodeAttrs.m_downloadingProgress =
+      CalculateProgress(descendants, downloadingMwm, downloadingMwmProgress, hashQueue);
+  nodeAttrs.m_downloadingMwmSize = nodeAttrs.m_downloadingProgress.first;
 
   nodeAttrs.m_parentInfo.clear();
   nodeAttrs.m_parentInfo.reserve(nodes.size());
@@ -1295,5 +1292,38 @@ void Storage::DoClickOnDownloadMap(TCountryId const & countryId)
 
   if (m_downloadMapOnTheMap)
     m_downloadMapOnTheMap(countryId);
+}
+
+pair<int64_t, int64_t> Storage::CalculateProgress(TCountriesVec const & descendants,
+                                                  TCountryId const & downlaodingMwm,
+                                                  pair<int64_t, int64_t> const & downloadingMwmProgress,
+                                                  TCountriesUnorderedSet const & hashQueue) const
+{
+  pair<int64_t, int64_t> localAndRemoteBytes = make_pair(0, 0);
+  for (auto const & d : descendants)
+  {
+    if (d == downlaodingMwm)
+      continue;
+
+    if (hashQueue.count(d) != 0)
+    {
+      CountryFile const & remoteCountryFile = GetCountryFile(d);
+      localAndRemoteBytes.second += remoteCountryFile.GetRemoteSize(MapOptions::Map);
+      continue;
+    }
+
+    if (m_justDownloaded.count(d) != 0)
+    {
+      CountryFile const & localCountryFile = GetCountryFile(d);
+      localAndRemoteBytes.second += localCountryFile.GetRemoteSize(MapOptions::Map);
+    }
+  }
+  if (downlaodingMwm != kInvalidCountryId)
+  {
+    // Downloading is in progress right now.
+    localAndRemoteBytes.first += downloadingMwmProgress.first;
+    localAndRemoteBytes.second += downloadingMwmProgress.second;
+  }
+  return localAndRemoteBytes;
 }
 }  // namespace storage
