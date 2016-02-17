@@ -867,7 +867,7 @@ void Geocoder::MatchRegions(RegionType type)
       if (AllTokensUsed())
       {
         // Region matches to search query, we need to emit it as is.
-        m_results->emplace_back(m_worldId, region.m_featureId);
+        EmitResult(m_worldId, region.m_featureId);
         continue;
       }
 
@@ -887,6 +887,11 @@ void Geocoder::MatchRegions(RegionType type)
       }
     }
   }
+}
+
+void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t featureId)
+{
+  m_results->emplace_back(mwmId, featureId);
 }
 
 void Geocoder::MatchCities()
@@ -913,7 +918,7 @@ void Geocoder::MatchCities()
       if (AllTokensUsed())
       {
         // City matches to search query.
-        m_results->emplace_back(city.m_countryId, city.m_featureId);
+        EmitResult(city.m_countryId, city.m_featureId);
         continue;
       }
 
@@ -1214,7 +1219,7 @@ void Geocoder::FindPaths()
     ASSERT(result.IsValid(), ());
     // TODO(@y, @m, @vng): use rest fields of IntersectionResult for
     // better scoring.
-    m_results->emplace_back(m_context->GetId(), result.InnermostResult());
+    EmitResult(m_context->GetId(), result.InnermostResult());
   });
 }
 
@@ -1250,7 +1255,7 @@ void Geocoder::MatchUnclassified(size_t curToken)
   auto emitUnclassified = [&](uint32_t featureId)
   {
     if (GetSearchTypeInGeocoding(featureId) == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
-      m_results->emplace_back(m_context->GetId(), featureId);
+      EmitResult(m_context->GetId(), featureId);
   };
   coding::CompressedBitVectorEnumerator::ForEach(*allFeatures, emitUnclassified);
 }

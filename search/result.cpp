@@ -88,7 +88,7 @@ FeatureID const & Result::GetFeatureID() const
 {
 #if defined(DEBUG)
   auto const type = GetResultType();
-  ASSERT(type == RESULT_FEATURE || type == RESULT_SUGGEST_FROM_FEATURE, (type));
+  ASSERT(type == RESULT_FEATURE, (type));
 #endif
   return m_id;
 }

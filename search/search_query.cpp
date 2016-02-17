@@ -874,39 +874,41 @@ void Query::RemoveStringPrefix(string const & str, string & res) const
 
 void Query::GetSuggestion(string const & name, string & suggest) const
 {
-  // Split result's name on tokens.
+  // Splits result's name.
   search::Delimiters delims;
-  vector<strings::UniString> vName;
-  SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(vName), delims);
+  vector<strings::UniString> tokens;
+  SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), delims);
 
-  // Find tokens that already present in input query.
-  vector<bool> tokensMatched(vName.size());
+  // Finds tokens that are already present in the input query.
+  vector<bool> tokensMatched(tokens.size());
   bool prefixMatched = false;
-  for (size_t i = 0; i < vName.size(); ++i)
+  bool fullPrefixMatched = false;
+  for (size_t i = 0; i < tokens.size(); ++i)
   {
-    if (find(m_tokens.begin(), m_tokens.end(), vName[i]) != m_tokens.end())
+    auto const & token = tokens[i];
+    if (find(m_tokens.begin(), m_tokens.end(), token) != m_tokens.end())
       tokensMatched[i] = true;
-    else
-      if (vName[i].size() >= m_prefix.size() &&
-          StartsWith(vName[i].begin(), vName[i].end(), m_prefix.begin(), m_prefix.end()))
-      {
-        prefixMatched = true;
-      }
+    else if (token.size() >= m_prefix.size() && StartsWith(token, m_prefix))
+    {
+      prefixMatched = true;
+      fullPrefixMatched = token.size() == m_prefix.size();
+    }
   }
 
   // Name doesn't match prefix - do nothing.
-  if (!prefixMatched)
+  if (!prefixMatched || fullPrefixMatched)
     return;
 
   RemoveStringPrefix(m_query, suggest);
 
-  // Append unmatched result's tokens to the suggestion.
-  for (size_t i = 0; i < vName.size(); ++i)
-    if (!tokensMatched[i])
-    {
-      suggest += strings::ToUtf8(vName[i]);
-      suggest += " ";
-    }
+  // Appends unmatched result's tokens to the suggestion.
+  for (size_t i = 0; i < tokens.size(); ++i)
+  {
+    if (tokensMatched[i])
+      continue;
+    suggest += strings::ToUtf8(tokens[i]);
+    suggest += " ";
+  }
 }
 
 template <class T>

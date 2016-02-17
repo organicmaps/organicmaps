@@ -215,6 +215,8 @@ private:
   // the lowest layer.
   void FindPaths();
 
+  void EmitResult(MwmSet::MwmId const & mwmId, uint32_t featureId);
+
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all
   // UNCLASSIFIED objects that match to all currently unused tokens.
