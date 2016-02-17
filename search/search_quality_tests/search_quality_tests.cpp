@@ -6,10 +6,12 @@
 #include "indexer/mwm_set.hpp"
 
 #include "storage/country_info_getter.hpp"
+#include "storage/storage.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#include "search/result.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
@@ -23,6 +25,8 @@
 
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+#include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
 #include "std/algorithm.hpp"
@@ -33,10 +37,13 @@
 #include "std/iostream.hpp"
 #include "std/map.hpp"
 #include "std/numeric.hpp"
+#include "std/sstream.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
 #include "defines.hpp"
+
+#include <sys/resource.h>
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -50,6 +57,7 @@ DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 DEFINE_string(queries_path, "", "Path to the file with queries");
 DEFINE_int32(top, 1, "Number of top results to show for every query");
 DEFINE_string(viewport, "", "Viewport to use when searching (default, moscow, london, zurich)");
+DEFINE_string(check_completeness, "", "Path to the file with completeness data");
 
 map<string, m2::RectD> const kViewports = {
     {"default", m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0))},
@@ -59,6 +67,14 @@ map<string, m2::RectD> const kViewports = {
 
 string const kDefaultQueriesPathSuffix = "/../search/search_quality_tests/queries.txt";
 string const kEmptyResult = "<empty>";
+
+void ChangeMaxNumberOfOpenFiles(size_t n)
+{
+  struct rlimit rlp;
+  getrlimit(RLIMIT_NOFILE, &rlp);
+  rlp.rlim_cur = n;
+  setrlimit(RLIMIT_NOFILE, &rlp);
+}
 
 class SearchQueryV2Factory : public search::SearchQueryFactory
 {
@@ -160,8 +176,163 @@ void CalcStatistics(vector<double> const & a, double & avg, double & maximum, do
   stdDev = sqrt(var);
 }
 
+// Unlike strings::Tokenize, this function allows for empty tokens.
+void Split(string const & s, char delim, vector<string> & parts)
+{
+  istringstream iss(s);
+  string part;
+  while (getline(iss, part, delim))
+    parts.push_back(part);
+}
+
+// Returns the position of the result that is expected to be found by geocoder completeness
+// tests in the |result| vector or -1 if it does not occur there.
+int FindResult(TestSearchEngine & engine, string const & country, uint64_t const featureId,
+               double const lat, double const lon, vector<search::Result> const & results)
+{
+  auto const mwmId = engine.GetMwmIdByCountryFile(platform::CountryFile(country));
+  FeatureID const expectedFeatureId(mwmId, featureId);
+  for (size_t i = 0; i < results.size(); ++i)
+  {
+    auto const & r = results[i];
+    auto const featureId = r.GetFeatureID();
+    if (featureId == expectedFeatureId)
+      return i;
+  }
+
+  // Another attempt. If the queries are stale, feature id is useless.
+  // However, some information may be recovered from (lat, lon).
+  double const kEps = 1e-6;
+  for (size_t i = 0; i < results.size(); ++i)
+  {
+    auto const & r = results[i];
+    if (r.HasPoint() &&
+        my::AlmostEqualAbs(r.GetFeatureCenter(), MercatorBounds::FromLatLon(lat, lon), kEps))
+      return i;
+  }
+  return -1;
+}
+
+// Reads queries in the format
+//   CountryName.mwm:featureId;type;lon;lat;city;street;<housenumber or housename>
+// from |path|, executes them against the |engine| with viewport set to |viewport|
+// and reports the number of queries whose expected result is among the returned results.
+// Exact feature id is expected, but a close enough (lat, lon) is good too.
+void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSearchEngine & engine)
+{
+  ifstream stream(path.c_str());
+  CHECK(stream.is_open(), ("Can't open", path));
+
+  my::Timer timer;
+
+  uint32_t totalQueries = 0;
+  uint32_t malformedQueries = 0;
+  uint32_t expectedResultsFound = 0;
+  uint32_t expectedResultsTop1 = 0;
+
+  // todo(@m) Process the queries on the fly and do not keep them.
+  vector<string> queries;
+  vector<unique_ptr<TestSearchRequest>> requests;
+  vector<string> countries;
+  vector<uint64_t> featureIds;
+  vector<double> lats;
+  vector<double> lons;
+
+  string s;
+  while (getline(stream, s))
+  {
+    ++totalQueries;
+    s.append(" ");
+
+    vector<string> parts;
+    Split(s, ';', parts);
+    if (parts.size() != 7)
+    {
+      LOG(LINFO, ("Can't split", s, ", found", parts.size(), "parts:", parts));
+      ++malformedQueries;
+      continue;
+    }
+
+    auto idx = parts[0].find(':');
+    if (idx == string::npos)
+    {
+      LOG(LINFO, ("Could not find \':\':", s));
+      ++malformedQueries;
+      continue;
+    }
+    string const mwmName = parts[0].substr(0, idx);
+    string const kMwmSuffix = ".mwm";
+    if (!strings::EndsWith(mwmName, kMwmSuffix))
+    {
+      LOG(LINFO, ("Bad mwm name:", s));
+      ++malformedQueries;
+      continue;
+    }
+    string const featureIdStr = parts[0].substr(idx + 1);
+    uint64_t featureId;
+    if (!strings::to_uint64(featureIdStr, featureId))
+    {
+      LOG(LINFO, ("Bad feature id:", s));
+      ++malformedQueries;
+      continue;
+    }
+    string const type = parts[1];
+    double lon, lat;
+    if (!strings::to_double(parts[2].c_str(), lon) || !strings::to_double(parts[3].c_str(), lat))
+    {
+      LOG(LINFO, ("Bad lon-lat:", s));
+      ++malformedQueries;
+      continue;
+    }
+    string const city = parts[4];
+    string const street = parts[5];
+    string const house = parts[6];
+
+    string country = mwmName.substr(0, mwmName.size() - kMwmSuffix.size());
+    string const query = country + " " + city + " " + street + " " + house + " ";
+
+    requests.emplace_back(make_unique<TestSearchRequest>(engine, query, FLAGS_locale,
+                                                         search::Mode::Everywhere, viewport));
+    queries.push_back(query);
+    countries.push_back(move(country));
+    featureIds.push_back(featureId);
+    lats.push_back(lat);
+    lons.push_back(lon);
+  }
+
+  for (size_t i = 0; i < requests.size(); ++i)
+  {
+    requests[i]->Wait();
+
+    LOG(LINFO, (queries[i], requests[i]->Results()));
+    int pos =
+        FindResult(engine, countries[i], featureIds[i], lats[i], lons[i], requests[i]->Results());
+    if (pos >= 0)
+      ++expectedResultsFound;
+    if (pos == 0)
+      ++expectedResultsTop1;
+  }
+
+  double const expectedResultsFoundPercentage =
+      totalQueries == 0 ? 0 : 100.0 * static_cast<double>(expectedResultsFound) /
+                                  static_cast<double>(totalQueries);
+  double const expectedResultsTop1Percentage =
+      totalQueries == 0 ? 0 : 100.0 * static_cast<double>(expectedResultsTop1) /
+                                  static_cast<double>(totalQueries);
+
+  cout << "Time spent on checking completeness: " << timer.ElapsedSeconds() << "s." << endl;
+  cout << "Total queries: " << totalQueries << endl;
+  cout << "Malformed queries: " << malformedQueries << endl;
+  cout << "Expected results found: " << expectedResultsFound << " ("
+       << expectedResultsFoundPercentage << "%)." << endl;
+  cout << "Expected results found in the top1 slot: " << expectedResultsTop1 << " ("
+       << expectedResultsTop1Percentage << "%)." << endl;
+}
+
 int main(int argc, char * argv[])
 {
+  ChangeMaxNumberOfOpenFiles(4000);
+
   ios_base::sync_with_stdio(false);
   Platform & platform = GetPlatform();
 
@@ -222,6 +393,12 @@ int main(int argc, char * argv[])
     cout << "Viewport used in all search invocations: " << name << " " << DebugPrint(viewport)
          << endl
          << endl;
+  }
+
+  if (!FLAGS_check_completeness.empty())
+  {
+    CheckCompleteness(FLAGS_check_completeness, viewport, engine);
+    return 0;
   }
 
   vector<string> queries;

@@ -282,6 +282,8 @@ bool StartsWith(string const & s1, char const * s2);
 
 bool EndsWith(string const & s1, char const * s2);
 
+bool EndsWith(string const & s1, string const & s2);
+
 /// Try to guess if it's HTML or not. No guarantee.
 bool IsHTML(string const & utf8);
 

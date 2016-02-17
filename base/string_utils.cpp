@@ -195,6 +195,11 @@ bool EndsWith(string const & s1, char const * s2)
   return (s1.compare(n - m, m, s2) == 0);
 }
 
+bool EndsWith(string const & s1, string const & s2)
+{
+  return s1.size() >= s2.size() && s1.compare(s1.size() - s2.size(), s2.size(), s2) == 0;
+}
+
 string to_string_dac(double d, int dac)
 {
   dac = min(numeric_limits<double>::digits10, dac);

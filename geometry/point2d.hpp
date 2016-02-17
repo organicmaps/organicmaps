@@ -254,6 +254,12 @@ namespace m2
   }
 
   template <typename T>
+  bool AlmostEqualAbs(m2::Point<T> const & a, m2::Point<T> const & b, double const eps)
+  {
+    return my::AlmostEqualAbs(a.x, b.x, eps) && my::AlmostEqualAbs(a.y, b.y, eps);
+  }
+
+  template <typename T>
   bool AlmostEqualULPs(m2::Point<T> const & a, m2::Point<T> const & b, unsigned int maxULPs = 256)
   {
     return my::AlmostEqualULPs(a.x, b.x, maxULPs) && my::AlmostEqualULPs(a.y, b.y, maxULPs);
@@ -318,7 +324,7 @@ namespace m2
   typedef Point<uint64_t> PointU64;
   typedef Point<int32_t> PointI;
   typedef Point<int64_t> PointI64;
-}
+}  // namespace m2
 
 namespace my
 {
@@ -329,4 +335,10 @@ bool AlmostEqualULPs(m2::Point<T> const & p1, m2::Point<T> const & p2, unsigned 
   return m2::AlmostEqualULPs(p1, p2, maxULPs);
 }
 
+template <typename T>
+bool AlmostEqualAbs(m2::Point<T> const & p1, m2::Point<T> const & p2, double const & eps)
+{
+  return m2::AlmostEqualAbs(p1, p2, eps);
 }
+
+}  // namespace my
