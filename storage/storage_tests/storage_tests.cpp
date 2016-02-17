@@ -1295,7 +1295,9 @@ UNIT_TEST(StorageTest_ForEachParentExceptForTheRoot)
 {
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
-  auto const forEach = [](TCountryId const & parentId, TCountriesVec const & descendants)
+  // Two parent case.
+  auto const forEachParentDisputableTerritory
+      = [](TCountryId const & parentId, TCountriesVec const & descendants)
   {
     if (parentId == "Country1")
     {
@@ -1311,7 +1313,22 @@ UNIT_TEST(StorageTest_ForEachParentExceptForTheRoot)
     }
     TEST(false, ());
   };
-  storage.ForEachParentExceptForTheRoot("Disputable Territory", forEach);
+  storage.ForEachParentExceptForTheRoot("Disputable Territory", forEachParentDisputableTerritory);
+
+  // One parent case.
+  auto const forEachParentIndisputableTerritory
+      = [](TCountryId const & parentId, TCountriesVec const & descendants)
+  {
+    if (parentId == "Country1")
+    {
+      TCountriesVec const expectedDescendants = {"Disputable Territory", "Indisputable Territory Of Country1"};
+      TEST_EQUAL(descendants, expectedDescendants, ());
+      return;
+    }
+    TEST(false, ());
+  };
+  storage.ForEachParentExceptForTheRoot("Indisputable Territory Of Country1",
+                                        forEachParentIndisputableTerritory);
 }
 
 UNIT_TEST(StorageTest_CalcLimitRect)
