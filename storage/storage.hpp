@@ -516,6 +516,13 @@ void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
   });
 }
 
+/// Calls functor |toDo| with sigrature
+/// void(const TCountryId const & parentId, TCountriesVec const & descendantCountryId)
+/// for each parent (including indirect/great parents) except for the main root of the tree.
+/// |descendantsCountryId| is a vector of country id of descendats of |parentId|.
+/// Note. In case of disputable territories several nodes with the same name may be
+/// present in the country tree. In that case ForEachParentExceptForTheRoot calls
+/// |toDo| for parents of each branch in the country tree.
 template <class ToDo>
 void Storage::ForEachParentExceptForTheRoot(TCountryId const & childId, ToDo && toDo) const
 {
@@ -527,16 +534,18 @@ void Storage::ForEachParentExceptForTheRoot(TCountryId const & childId, ToDo && 
     return;
   }
 
+  // In most cases nodes.size() == 1. In case of disputable territories nodes.size()
+  // may be more than one. It means |childId| is present in the country tree more than once.
   for (auto const & node : nodes)
   {
     node->ForEachParentExceptForTheRoot([&toDo](TCountriesContainer const & countryContainer)
     {
-      TCountriesVec descendantCountryId;
-      countryContainer.ForEachDescendant([&descendantCountryId](TCountriesContainer const & countryContainer)
+      TCountriesVec descendantsCountryId;
+      countryContainer.ForEachDescendant([&descendantsCountryId](TCountriesContainer const & countryContainer)
       {
-        descendantCountryId.push_back(countryContainer.Value().Name());
+        descendantsCountryId.push_back(countryContainer.Value().Name());
       });
-      toDo(countryContainer.Value().Name(), descendantCountryId);
+      toDo(countryContainer.Value().Name(), descendantsCountryId);
     });
   }
 }
