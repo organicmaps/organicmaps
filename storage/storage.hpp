@@ -414,8 +414,6 @@ public:
 
   TCountryId GetCurrentDownloadingCountryId() const;
 
-  void NotifyStatusChanged(TCountryId const & countryId);
-
   /// get download url by countryId & options(first search file name by countryId, then format url)
   string GetFileDownloadUrl(string const & baseUrl, TCountryId const & countryId, MapOptions file) const;
 
@@ -497,6 +495,8 @@ private:
 
   /// Returns status for a node (group node or not)
   Status NodeStatus(TCountriesContainer const & node) const;
+
+  void NotifyStatusChanged(TCountryId const & countryId);
 };
 
 template <class ToDo>
