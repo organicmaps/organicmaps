@@ -110,6 +110,12 @@ private:
   /// can call all the methods from a single thread using
   /// RunOnUIThread.  If not, at least use a syncronization object.
   TQueue m_queue;
+  /// Set of mwm files which have been downloaded recently.
+  /// When a mwm file is downloaded it's moved from |m_queue| to |m_justDownloaded|.
+  /// When a new mwm file is added to |m_queue| |m_justDownloaded| is cleared.
+  /// Note. This set is necessary for implementation of downloading progress of
+  /// expandable mwm.
+  TCountriesUnorderedSet m_justDownloaded;
 
   /// stores countries whose download has failed recently
   TCountriesSet m_failedCountries;
@@ -172,7 +178,8 @@ private:
                          string const & dataDir, TMapping * mapping = nullptr);
 
   void ReportProgress(TCountryId const & countryId, pair<int64_t, int64_t> const & p);
-  void ReportProgressForHierarchy(TCountryId const & countryId, pair<int64_t, int64_t> const & p);
+  void ReportProgressForHierarchy(TCountryId const & countryId,
+                                  pair<int64_t, int64_t> const & leafProgress);
 
   /// Called on the main thread by MapFilesDownloader when list of
   /// suitable servers is received.

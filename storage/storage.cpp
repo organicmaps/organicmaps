@@ -434,6 +434,7 @@ void Storage::DownloadCountry(TCountryId const & countryId, MapOptions opt)
   }
 
   m_failedCountries.erase(countryId);
+  m_justDownloaded.clear();
   m_queue.push_back(QueuedCountry(countryId, opt));
   if (m_queue.size() == 1)
     DownloadNextCountryFromQueue();
@@ -524,6 +525,7 @@ void Storage::DownloadNextCountryFromQueue()
     OnMapDownloadFinished(countryId, false /* success */, queuedCountry.GetInitOptions());
     NotifyStatusChanged(countryId);
     m_queue.pop_front();
+    m_justDownloaded.insert(countryId);
     DownloadNextCountryFromQueue();
     return;
   }
@@ -650,6 +652,7 @@ void Storage::OnMapFileDownloadFinished(bool success,
 
   OnMapDownloadFinished(countryId, success, queuedCountry.GetInitOptions());
   m_queue.pop_front();
+  m_justDownloaded.insert(countryId);
   SaveDownloadQueue();
 
   NotifyStatusChanged(countryId);
@@ -663,6 +666,50 @@ void Storage::ReportProgress(TCountryId const & countryId, pair<int64_t, int64_t
 
   for (CountryObservers const & o : m_observers)
     o.m_progressFn(countryId, p);
+}
+
+void Storage::ReportProgressForHierarchy(TCountryId const & countryId,
+                                         pair<int64_t, int64_t> const & leafProgress)
+{
+  // Reporting progress for a leaf in country tree.
+  ReportProgress(countryId, leafProgress);
+
+  // Reporting progress for the parents of the leaf with |countryId|.
+  TCountriesUnorderedSet hashQueue;
+  hashQueue.reserve(m_queue.size());
+  for (auto const & queuedCountry : m_queue)
+    hashQueue.insert(queuedCountry.GetCountryId());
+
+  // This lambda will be called for every parent of countryId (except for the root)
+  // to calculate and report parent's progress.
+  auto forEachParentExceptForTheRoot = [this, &leafProgress, &hashQueue, &countryId]
+      (TCountryId const & parentId, TCountriesVec & descendants)
+  {
+    pair<int64_t, int64_t> localAndRemoteBytes = make_pair(0, 0);
+    for (auto const & d : descendants)
+    {
+      if (d == countryId)
+        continue;
+
+      if (hashQueue.count(d) != 0)
+      {
+        CountryFile const & remoteCountryFile = GetCountryFile(d);
+        localAndRemoteBytes.second += remoteCountryFile.GetRemoteSize(MapOptions::Map);
+        continue;
+      }
+
+      if (m_justDownloaded.count(d) != 0)
+      {
+        CountryFile const & localCountryFile = GetCountryFile(d);
+        localAndRemoteBytes.second += localCountryFile.GetRemoteSize(MapOptions::Map);
+      }
+    }
+    localAndRemoteBytes.first += leafProgress.first;
+    localAndRemoteBytes.second += leafProgress.second;
+    ReportProgress(parentId, localAndRemoteBytes);
+  };
+
+  ForEachParentExceptForTheRoot(countryId, forEachParentExceptForTheRoot);
 }
 
 void Storage::OnServerListDownloaded(vector<string> const & urls)
@@ -698,16 +745,10 @@ void Storage::OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & pr
   if (m_queue.empty())
     return;
 
-  if (!m_observers.empty())
-  {
-    QueuedCountry & queuedCountry = m_queue.front();
-    CountryFile const & countryFile = GetCountryFile(queuedCountry.GetCountryId());
-    MapFilesDownloader::TProgress p = progress;
-    p.first += GetRemoteSize(countryFile, queuedCountry.GetDownloadedFiles(), GetCurrentDataVersion());
-    p.second = GetRemoteSize(countryFile, queuedCountry.GetInitOptions(), GetCurrentDataVersion());
+  if (m_observers.empty())
+    return;
 
-    ReportProgress(m_queue.front().GetCountryId(), p);
-  }
+  ReportProgressForHierarchy(m_queue.front().GetCountryId(), progress);
 }
 
 bool Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions files)
@@ -1009,7 +1050,10 @@ bool Storage::DeleteCountryFilesFromDownloader(TCountryId const & countryId, Map
 
   // Remove country from the queue if there's nothing to download.
   if (queuedCountry->GetInitOptions() == MapOptions::Nothing)
+  {
     m_queue.erase(find(m_queue.begin(), m_queue.end(), countryId));
+    m_justDownloaded.insert(countryId);
+  }
 
   if (!m_queue.empty() && m_downloader->IsIdle())
   {
@@ -1217,6 +1261,11 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   nodeAttrs.m_status = statusAndErr.status;
   nodeAttrs.m_error = statusAndErr.error;
   nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);
+
+  if (nodeAttrs.m_status == NodeStatus::Downloading)
+    ;
+  else
+    nodeAttrs.m_downloadingProgress = 0;
 
   nodeAttrs.m_parentInfo.clear();
   nodeAttrs.m_parentInfo.reserve(nodes.size());
