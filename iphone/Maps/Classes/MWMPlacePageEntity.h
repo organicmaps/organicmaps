@@ -56,6 +56,7 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 @property (copy, nonatomic) NSString * bookmarkColor;
 @property (copy, nonatomic) NSSet<NSString *> * cuisines;
 @property (copy, nonatomic) NSArray<NSString *> * nearbyStreets;
+@property (nonatomic, readonly) BOOL canEditObject;
 
 @property (nonatomic) MWMPlacePageEntityType type;
 
@@ -66,16 +67,11 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 
 @property (nonatomic, readonly) ms::LatLon latlon;
 
-- (void)addBookmarkField;
-- (void)removeBookmarkField;
-
 - (instancetype)initWithDelegate:(id<MWMPlacePageEntityProtocol>)delegate;
 - (void)synchronize;
 
 - (void)toggleCoordinateSystem;
 
-- (NSUInteger)getCellsCount;
-- (MWMPlacePageCellType)getCellType:(NSUInteger)index;
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType;
 - (BOOL)isCellEditable:(MWMPlacePageCellType)cellType;
 - (void)saveEditedCells:(MWMPlacePageCellTypeValueMap const &)cells;

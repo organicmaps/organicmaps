@@ -18,13 +18,42 @@ extern NSString * const kMWMCuisineSeparator;
 namespace
 {
 CGFloat const kLeftOffset = 16.;
+CGFloat const kDefaultHeaderHeight = 16.;
 CGFloat const kLabelsPadding = kLeftOffset * 2;
 CGFloat const kDirectionArrowSide = 20.;
 CGFloat const kOffsetFromTitleToDistance = 8.;
 CGFloat const kOffsetFromDistanceToArrow = 5.;
 CGFloat const kMaximumWidth = 360.;
 
-MWMPlacePageCellTypeValueMap const gCellType2ReuseIdentifier{
+enum class PlacePageSection
+{
+  Bookmark,
+  Metadata,
+  Editing
+};
+
+vector<MWMPlacePageCellType> const kSectionBookmarkCellTypes {
+  MWMPlacePageCellTypeBookmark
+};
+
+vector<MWMPlacePageCellType> const kSectionMetadataCellTypes {
+    MWMPlacePageCellTypePostcode, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite, MWMPlacePageCellTypeURL,
+    MWMPlacePageCellTypeEmail, MWMPlacePageCellTypeOpenHours, MWMPlacePageCellTypeWiFi, MWMPlacePageCellTypeCoordinate
+};
+
+vector<MWMPlacePageCellType> const kSectionEditingCellTypes {
+  MWMPlacePageCellTypeEditButton
+};
+
+using TCellTypesSectionMap = pair<vector<MWMPlacePageCellType>, PlacePageSection>;
+
+vector<TCellTypesSectionMap> const kCellTypesSectionMap {
+  {kSectionBookmarkCellTypes, PlacePageSection::Bookmark},
+  {kSectionMetadataCellTypes, PlacePageSection::Metadata},
+  {kSectionEditingCellTypes, PlacePageSection::Editing}
+};
+
+MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypeWiFi, "PlacePageInfoCell"},
     {MWMPlacePageCellTypeCoordinate, "PlacePageInfoCell"},
     {MWMPlacePageCellTypePostcode, "PlacePageInfoCell"},
@@ -38,8 +67,8 @@ MWMPlacePageCellTypeValueMap const gCellType2ReuseIdentifier{
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
-  auto const it = gCellType2ReuseIdentifier.find(cellType);
-  BOOL const haveCell = (it != gCellType2ReuseIdentifier.end());
+  auto const it = kCellType2ReuseIdentifier.find(cellType);
+  BOOL const haveCell = (it != kCellType2ReuseIdentifier.end());
   ASSERT(haveCell, ());
   return haveCell ? @(it->second.c_str()) : @"";
 }
@@ -59,6 +88,10 @@ enum class AttributePosition
 } // namespace
 
 @interface MWMBasePlacePageView () <MWMPlacePageOpeningHoursCellProtocol>
+{
+  vector<PlacePageSection> m_sections;
+  map<PlacePageSection, vector<MWMPlacePageCellType>> m_cells;
+}
 
 @property (weak, nonatomic) MWMPlacePageEntity * entity;
 @property (weak, nonatomic) IBOutlet MWMPlacePage * ownerPlacePage;
@@ -80,7 +113,7 @@ enum class AttributePosition
   self.featureTable.delegate = self;
   self.featureTable.dataSource = self;
   self.featureTable.separatorColor = [UIColor blackDividers];
-  for (auto const & type : gCellType2ReuseIdentifier)
+  for (auto const & type : kCellType2ReuseIdentifier)
   {
     NSString * identifier = @(type.second.c_str());
     [self.featureTable registerNib:[UINib nibWithNibName:identifier bundle:nil]
@@ -92,7 +125,27 @@ enum class AttributePosition
 - (void)configureWithEntity:(MWMPlacePageEntity *)entity
 {
   self.entity = entity;
+  [self configTable];
   [self configure];
+}
+
+- (void)configTable
+{
+  m_sections.clear();
+  m_cells.clear();
+  for (auto const cellSection : kCellTypesSectionMap)
+  {
+    for (auto const cellType : cellSection.first)
+    {
+      if (![self.entity getCellValue:cellType])
+        continue;
+      m_sections.push_back(cellSection.second);
+      m_cells[cellSection.second].push_back(cellType);
+    }
+  }
+
+  sort(m_sections.begin(), m_sections.end());
+  m_sections.erase(unique(m_sections.begin(), m_sections.end()), m_sections.end());
 }
 
 - (void)configure
@@ -110,7 +163,7 @@ enum class AttributePosition
     self.titleLabel.text = entity.title;
     NSString * typeString = entity.category.capitalizedString;
     NSRange const range = [typeString rangeOfString:kMWMCuisineSeparator];
-    if (range.location != NSNotFound)
+    if (range.location != NSNotFound && typeString.length > 0)
     {
       NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:typeString];
       [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:range];
@@ -277,7 +330,11 @@ enum class AttributePosition
   [self.typeDescriptionView removeFromSuperview];
   self.typeDescriptionView = nil;
   [self.typeLabel sizeToFit];
-  [self.entity addBookmarkField];
+
+  m_sections.push_back(PlacePageSection::Bookmark);
+  m_cells[PlacePageSection::Bookmark].push_back(MWMPlacePageCellTypeBookmark);
+  sort(m_sections.begin(), m_sections.end());
+
   [self configure];
 }
 
@@ -286,7 +343,14 @@ enum class AttributePosition
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleBookmark)
                    withParameters:@{kStatValue : kStatRemove}];
   self.entity.type = MWMPlacePageEntityTypeRegular;
-  [self.entity removeBookmarkField];
+
+  auto const it = find(m_sections.begin(), m_sections.end(), PlacePageSection::Bookmark);
+  if (it != m_sections.end())
+  {
+    m_sections.erase(it);
+    m_cells.erase(PlacePageSection::Bookmark);
+  }
+
   [self configure];
 }
 
@@ -366,8 +430,7 @@ enum class AttributePosition
 
 - (MWMPlacePageCellType)cellTypeForIndexPath:(NSIndexPath *)indexPath
 {
-  MWMPlacePageCellType const cellType = [self.entity getCellType:indexPath.row];
-  return cellType;
+  return [self cellsForSection:indexPath.section][indexPath.row];
 }
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
@@ -433,13 +496,47 @@ enum class AttributePosition
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return [self.entity getCellsCount];
+  return [self cellsForSection:section].size();
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return m_sections.size();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
   return [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+  return section == m_sections.size() - 1 ? kDefaultHeaderHeight : 0.;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  return kDefaultHeaderHeight;
+}
+
+- (vector<MWMPlacePageCellType>)cellsForSection:(NSInteger)section
+{
+  switch (m_sections.size())
+  {
+    case 1:
+      return m_cells[PlacePageSection::Metadata];
+    case 2:
+      if (self.entity.canEditObject)
+        return section == 0 ? m_cells[PlacePageSection::Metadata] : m_cells[PlacePageSection::Editing];
+      else
+        return section == 0 ? m_cells[PlacePageSection::Bookmark] : m_cells[PlacePageSection::Metadata];
+    case 3:
+      return m_cells[static_cast<PlacePageSection>(section)];
+    default:
+      NSAssert(false, @"Invalid m_sections size");
+      return {};
+  }
 }
 
 @end
