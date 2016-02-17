@@ -280,7 +280,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   {
     auto & s = GetFramework().Storage();
     storage::Storage::UpdateInfo updateInfo{};
-    s.GetUpdateInfo(s.GetRootId(), updateInfo);
+    s.GetUpdateInfo(updateInfo);
     [cell configureWithImageName:@"ic_menu_download"
                            label:L(@"download_maps")
                       badgeCount:updateInfo.m_numberOfMwmFilesToUpdate];

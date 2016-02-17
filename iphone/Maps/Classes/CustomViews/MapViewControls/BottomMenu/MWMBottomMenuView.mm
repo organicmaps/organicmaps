@@ -311,7 +311,7 @@
 {
   auto & s = GetFramework().Storage();
   storage::Storage::UpdateInfo updateInfo{};
-  s.GetUpdateInfo(s.GetRootId(), updateInfo);
+  s.GetUpdateInfo(updateInfo);
   self.downloadBadge.hidden = (updateInfo.m_numberOfMwmFilesToUpdate == 0);
 }
 

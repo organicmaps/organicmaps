@@ -59,9 +59,12 @@ using namespace storage;
   self.showAllMapsView = NO;
   auto const & s = GetFramework().Storage();
   Storage::UpdateInfo updateInfo{};
-  if (!s.GetUpdateInfo(s.GetRootId(), updateInfo) || updateInfo.m_numberOfMwmFilesToUpdate == 0)
+  if (!s.GetUpdateInfo(updateInfo) || updateInfo.m_numberOfMwmFilesToUpdate == 0)
     return;
-  self.allMapsLabel.text = [NSString stringWithFormat:@"%@: %@ (%@)", L(@"downloader_outdated_maps"), @(updateInfo.m_numberOfMwmFilesToUpdate), formattedSize(updateInfo.m_totalUpdateSizeInBytes)];
+  self.allMapsLabel.text =
+      [NSString stringWithFormat:@"%@: %@ (%@)", L(@"downloader_outdated_maps"),
+                                 @(updateInfo.m_numberOfMwmFilesToUpdate),
+                                 formattedSize(updateInfo.m_totalUpdateSizeInBytes)];
   self.showAllMapsView = YES;
 }
 

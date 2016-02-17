@@ -794,7 +794,7 @@ using namespace osm_auth_ios;
 {
   auto & s = GetFramework().Storage();
   storage::Storage::UpdateInfo updateInfo{};
-  s.GetUpdateInfo(s.GetRootId(), updateInfo);
+  s.GetUpdateInfo(updateInfo);
   [UIApplication sharedApplication].applicationIconBadgeNumber = updateInfo.m_numberOfMwmFilesToUpdate;
 }
 
