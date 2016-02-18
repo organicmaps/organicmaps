@@ -362,7 +362,12 @@ namespace feature
         if (!IsPolygonCCW(points.begin(), points.end()))
         {
           reverse(points.begin(), points.end());
-          ASSERT ( IsPolygonCCW(points.begin(), points.end()), (points) );
+
+          // Actually this check doesn't work for some degenerate polygons.
+          // See IsPolygonCCW_DataSet tests for more details.
+          //ASSERT(IsPolygonCCW(points.begin(), points.end()), (points));
+          if (!IsPolygonCCW(points.begin(), points.end()))
+            return false;
         }
 
         size_t const index = FindSingleStrip(count,
