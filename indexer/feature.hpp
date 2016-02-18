@@ -15,14 +15,22 @@
 
 namespace feature
 {
-  class LoaderBase;
-  class LoaderCurrent;
+class LoaderBase;
+class LoaderCurrent;
 }
 
-namespace old_101 { namespace feature
+namespace old_101
 {
-  class LoaderImpl;
-}}
+namespace feature
+{
+class LoaderImpl;
+}
+}
+
+namespace osm
+{
+class EditableMapObject;
+}
 
 /// Base feature class for storing common data (without geometry).
 class FeatureBase
@@ -158,6 +166,7 @@ public:
 
   /// Rewrites all but geometry.
   void ApplyPatch(editor::XMLFeature const & xml);
+  void ApplyPatch(osm::EditableMapObject const & ef);
 
   editor::XMLFeature ToXML() const;
 

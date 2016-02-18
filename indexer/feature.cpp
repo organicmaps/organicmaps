@@ -91,6 +91,29 @@ void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
   m_bHeader2Parsed = true;
 }
 
+void FeatureType::ApplyPatch(osm::EditableMapObject const & emo)
+{
+  if (feature::GEOM_POINT == GetFeatureType())
+    m_center = emo.GetMercator();
+
+  m_params.name = emo.GetName();
+  string const & house = emo.GetHouseNumber();
+  if (house.empty())
+    m_params.house.Clear();
+  else
+    m_params.house.Set(house);
+  m_bCommonParsed = true;
+
+  m_metadata = emo.GetMetadata();
+  m_bMetadataParsed = true;
+
+  uint32_t typesCount = 0;
+  for (uint32_t const type : emo.GetTypes())
+    m_types[typesCount++] = type;
+  m_header = CalculateHeader(typesCount, Header() & HEADER_GEOTYPE_MASK, m_params);
+  m_bHeader2Parsed = true;
+}
+
 editor::XMLFeature FeatureType::ToXML() const
 {
   editor::XMLFeature feature(GetFeatureType() == feature::GEOM_POINT
