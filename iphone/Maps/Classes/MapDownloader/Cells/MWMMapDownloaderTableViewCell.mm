@@ -73,7 +73,7 @@
       self.progressView.state = MWMCircularProgressStateNormal;
       break;
     case NodeStatus::Downloading:
-      self.progressView.progress = static_cast<CGFloat>(nodeAttrs.m_downloadingProgress) / 100.0;
+      self.progressView.progress = static_cast<CGFloat>(nodeAttrs.m_downloadingProgress.first) / 100.0;
       break;
     case NodeStatus::InQueue:
       self.progressView.state = MWMCircularProgressStateSpinner;
@@ -87,8 +87,6 @@
       break;
     case NodeStatus::OnDiskOutOfDate:
       self.progressView.state = MWMCircularProgressStateSelected;
-      break;
-    case NodeStatus::Mixed:
       break;
   }
 }
@@ -144,7 +142,6 @@
       [self.delegate cancelNode:m_countryId];
       break;
     case NodeStatus::OnDisk:
-    case NodeStatus::Mixed:
       break;
   }
 }
