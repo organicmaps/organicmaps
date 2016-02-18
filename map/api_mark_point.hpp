@@ -28,18 +28,6 @@ public:
 
   void SetID(string const & id) { m_id = id; }
 
-  unique_ptr<UserMarkCopy> Copy() const override
-  {
-    return unique_ptr<UserMarkCopy>(
-          new UserMarkCopy(new ApiMarkPoint(m_name, m_id, m_style, m_ptOrg, m_container)));
-  }
-
-  void FillLogEvent(UserMark::TEventContainer & details) const override
-  {
-    UserMark::FillLogEvent(details);
-    details.emplace("name", GetName());
-  }
-
   void SetStyle(string const & style) { m_style = style; }
 
   // StyledPoint overrides:

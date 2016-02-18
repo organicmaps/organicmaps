@@ -1,10 +1,6 @@
 #pragma once
 
-#include "search/result.hpp"
-
 #include "drape_frontend/user_marks_provider.hpp"
-
-#include "indexer/feature.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
@@ -34,11 +30,6 @@ public:
   };
 
   UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
-
-  /// @returns nullptr if no feature was set.
-  FeatureType * GetFeature() const;
-  void SetFeature(unique_ptr<FeatureType> feature);
-
   virtual ~UserMark() {}
 
   ///////////////////////////////////////////////////////
@@ -53,30 +44,12 @@ public:
   UserMarkContainer const * GetContainer() const;
   ms::LatLon GetLatLon() const;
   virtual Type GetMarkType() const = 0;
-  virtual unique_ptr<UserMarkCopy> Copy() const = 0;
   // Need it to calculate POI rank from all taps to features via statistics.
   using TEventContainer = map<string, string>;
-  virtual void FillLogEvent(TEventContainer & details) const;
 
 protected:
   m2::PointD m_ptOrg;
   mutable UserMarkContainer * m_container;
-  /// Feature which is displayed (and edited) in Place Page.
-  /// It is initialized after user touches this UserMark.
-  unique_ptr<FeatureType> m_feature;
-};
-
-class UserMarkCopy
-{
-public:
-  UserMarkCopy(UserMark const * srcMark, bool needDestroy = true);
-  ~UserMarkCopy();
-
-  UserMark const * GetUserMark() const;
-
-private:
-  UserMark const * m_srcMark;
-  bool m_needDestroy;
 };
 
 class SearchMarkPoint : public UserMark
@@ -86,8 +59,6 @@ public:
 
   string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override;
-
-  unique_ptr<UserMarkCopy> Copy() const override;
 };
 
 class PoiMarkPoint : public SearchMarkPoint
@@ -95,16 +66,8 @@ class PoiMarkPoint : public SearchMarkPoint
 public:
   PoiMarkPoint(UserMarkContainer * container);
   UserMark::Type GetMarkType() const override;
-  unique_ptr<UserMarkCopy> Copy() const override;
 
   void SetPtOrg(m2::PointD const & ptOrg);
-  // TODO(AlexZ): Refactor out. Now we need it to pass custom name from shared links.
-  void SetCustomName(string const & customName);
-  string const & GetCustomName() const;
-
-private:
-  // If present, should override any feature's name for this user mark.
-  string m_customName;
 };
 
 class MyPositionMarkPoint : public PoiMarkPoint
@@ -133,5 +96,4 @@ public:
   string GetSymbolName() const override;
 
   Type GetMarkType() const override { return UserMark::Type::DEBUG_MARK; }
-  unique_ptr<UserMarkCopy> Copy() const override;
 };

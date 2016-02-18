@@ -2,6 +2,8 @@
 
 #include "geometry/rect2d.hpp"
 
+// TODO(AlexZ): Integrate editable feature into an editor.
+#include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/mwm_set.hpp"
