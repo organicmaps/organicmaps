@@ -80,7 +80,7 @@ uint8_t PopulationToRank(uint64_t p)
 
 uint64_t RankToPopulation(uint8_t r)
 {
-  return (r == 0 ? 1 : static_cast<uint64_t>(my::rounds(pow(1.1, r))));
+  return static_cast<uint64_t>(pow(1.1, r));
 }
 
 } // namespace feature
