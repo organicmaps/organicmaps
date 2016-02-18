@@ -65,8 +65,10 @@ using namespace storage;
   self.nodeSize.text = formattedSize(nodeAttrs.m_mwmSize);
   auto addSubview = ^
   {
+    UIView * parentView = self.controller.view;
     if (!self.superview)
-      [self.controller.view addSubview:self];
+      [parentView addSubview:self];
+    [parentView sendSubviewToBack:self];
   };
   auto removeSubview = ^
   {
