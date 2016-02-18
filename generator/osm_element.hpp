@@ -128,8 +128,24 @@ struct OsmElement
   {
     m_members.emplace_back(ref, type, role);
   }
+
   void AddTag(string const & k, string const & v);
-  bool UpdateTag(string const & k, string const & v);
+  template <class TFn> void UpdateTag(string const & k, TFn && fn)
+  {
+    for (auto & tag : m_tags)
+    {
+      if (tag.key == k)
+      {
+        fn(tag.value);
+        return;
+      }
+    }
+
+    string v;
+    fn(v);
+    if (!v.empty())
+      AddTag(k, v);
+  }
 };
 
 string DebugPrint(OsmElement const & e);

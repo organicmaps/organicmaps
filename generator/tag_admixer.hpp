@@ -9,11 +9,6 @@
 #include "std/map.hpp"
 #include "std/string.hpp"
 
-namespace
-{
-  constexpr char const kPopulationTag[] = "population";
-  constexpr char const kMinimalWorldLevelPopulation[] = "45000";
-}  // namespace
 
 class WaysParserHelper
 {
@@ -121,8 +116,15 @@ public:
     }
     else if (e->type == OsmElement::EntityType::Node && m_capitals.find(e->id) != m_capitals.end())
     {
-      if (!e->UpdateTag(kPopulationTag, kMinimalWorldLevelPopulation))
-        e->AddTag(kPopulationTag, kMinimalWorldLevelPopulation);
+      // Our goal here - to make some capitals visible in World map.
+      // The simplest way is to upgrade population to 45000,
+      // according to our visibility rules in mapcss files.
+      e->UpdateTag("population", [] (string & v)
+      {
+        uint64_t n;
+        if (!strings::to_uint64(v, n) || n < 45000)
+          v = "45000";
+      });
     }
     return e;
   }
