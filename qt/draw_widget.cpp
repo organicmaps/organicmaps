@@ -1,5 +1,6 @@
 #include "qt/draw_widget.hpp"
 #include "qt/editor_dialog.hpp"
+#include "qt/place_page_dialog.hpp"
 #include "qt/slider_ctrl.hpp"
 #include "qt/qtoglcontext.hpp"
 
@@ -8,6 +9,8 @@
 #include "search/result.hpp"
 
 #include "storage/index.hpp"
+
+#include "indexer/editable_map_object.hpp"
 
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
@@ -82,16 +85,10 @@ DrawWidget::DrawWidget(QWidget * parent)
     m_enableScaleUpdate(true),
     m_emulatingLocation(false)
 {
-  m_framework->SetUserMarkActivationListener([this](unique_ptr<UserMarkCopy> mark)
+  m_framework->SetMapSelectionListeners([this](place_page::Info const & info)
   {
-    // TODO: Why do we get empty mark in some cases?
-    if (mark)
-    {
-      FeatureType * feature = mark->GetUserMark()->GetFeature();
-      if (feature)
-        ShowPOIEditor(*feature);
-    }
-  });
+    ShowPlacePage(info);
+  }, [](bool /*switchFullScreenMode*/){}); // Empty deactivation listener.
 
   m_framework->SetRouteBuildingListener([](routing::IRouter::ResultCode,
                                            storage::TCountriesVec const &)
@@ -527,23 +524,38 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
     m_framework->BuildRoute(m_framework->PtoG(pt), 0 /* timeoutSec */);
 }
 
-void DrawWidget::ShowPOIEditor(FeatureType & feature)
+void DrawWidget::ShowPlacePage(place_page::Info const & info)
 {
-  // Show Edit POI dialog.
-  auto & editor = osm::Editor::Instance();
-  EditorDialog dlg(this, feature, *m_framework);
-  int const result = dlg.exec();
-  if (result == QDialog::Accepted)
+  search::AddressInfo address;
+  if (info.IsFeature())
+    address = m_framework->GetFeatureAddressInfo(info.GetID());
+  else
+    address = m_framework->GetAddressInfoAtPoint(info.GetMercator());
+
+  PlacePageDialog dlg(this, info, address);
+  if (dlg.exec() == QDialog::Accepted)
   {
-    feature.SetNames(dlg.GetEditedNames());
-    feature.SetMetadata(dlg.GetEditedMetadata());
-    // TODO(AlexZ): Check that street was actually changed/edited.
-    editor.EditFeature(feature, dlg.GetEditedStreet(), dlg.GetEditedHouseNumber());
+    osm::EditableMapObject emo;
+    if (m_framework->GetEditableMapObject(info.GetID(), emo))
+    {
+      EditorDialog dlg(this, emo);
+      int const result = dlg.exec();
+      if (result == QDialog::Accepted)
+      {
+        m_framework->SaveEditedMapObject(emo);
+        m_framework->UpdatePlacePageInfoForCurrentSelection();
+      }
+      else if (result == QDialogButtonBox::DestructiveRole)
+      {
+        m_framework->DeleteFeature(info.GetID());
+      }
+    }
+    else
+    {
+      LOG(LERROR, ("Error while trying to edit feature."));
+    }
   }
-  else if (result == QDialogButtonBox::DestructiveRole)
-  {
-    editor.DeleteFeature(feature);
-  }
+  m_framework->DeactivateMapSelection(false);
 }
 
 void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
