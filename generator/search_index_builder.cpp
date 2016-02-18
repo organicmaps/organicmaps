@@ -7,6 +7,7 @@
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
@@ -217,7 +218,7 @@ struct ValueBuilder<FeatureWithRankAndCenter>
 
     // get BEST geometry rect of feature
     v.m_pt = feature::GetCenter(ft);
-    v.m_rank = feature::GetSearchRank(types, v.m_pt, ft.GetPopulation());
+    v.m_rank = feature::PopulationToRank(ft.GetPopulation());
   }
 };
 

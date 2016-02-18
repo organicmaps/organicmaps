@@ -3,6 +3,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_impl.hpp"
 #include "indexer/feature_loader_base.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/osm_editor.hpp"
@@ -499,8 +500,7 @@ uint8_t FeatureType::GetRank() const
 
 uint32_t FeatureType::GetPopulation() const
 {
-  uint8_t const r = GetRank();
-  return (r == 0 ? 1 : static_cast<uint32_t>(pow(1.1, r)));
+  return feature::RankToPopulation(GetRank());
 }
 
 string FeatureType::GetRoadNumber() const

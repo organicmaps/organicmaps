@@ -78,69 +78,6 @@ public:
     return scale;
   }
 
-  uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population) const
-  {
-    for (uint32_t t : types)
-    {
-      if (IsEqual(t, m_TypeSmallVillage))
-        population = max(population, static_cast<uint32_t>(100));
-      else if (IsEqual(t, m_TypeVillage))
-        population = max(population, static_cast<uint32_t>(1000));
-      else if (t == m_TypeTown || IsEqual(t, m_TypeCounty))
-        population = max(population, static_cast<uint32_t>(10000));
-      else if (t == m_TypeState)
-      {
-        m2::RectD usaRects[] =
-        {
-          // Continental part of USA
-          m2::RectD(-125.73195962769162293, 25.168771674082393019,
-                    -66.925073086214325713, 56.956377399113392812),
-          // Alaska
-          m2::RectD(-151.0, 63.0, -148.0, 66.0),
-          // Hawaii
-          m2::RectD(-179.3665041396082529, 17.740790096801504205,
-                    -153.92127500280855656, 31.043358939740215874),
-          // Canada
-          m2::RectD(-141.00315086636985029, 45.927730040557435132,
-                    -48.663019303849921471, 162.92387487639103938)
-        };
-
-        bool isUSA = false;
-        for (size_t i = 0; i < ARRAY_SIZE(usaRects); ++i)
-          if (usaRects[i].IsPointInside(pt))
-          {
-            isUSA = true;
-            break;
-          }
-
-        if (isUSA)
-        {
-          //LOG(LINFO, ("USA state population = ", population));
-          // Get rank equal to city for USA's states.
-          population = max(population, static_cast<uint32_t>(500000));
-        }
-        else
-        {
-          //LOG(LINFO, ("Other state population = ", population));
-          // Reduce rank for other states.
-          population = population / 10;
-          population = max(population, static_cast<uint32_t>(10000));
-          population = min(population, static_cast<uint32_t>(500000));
-        }
-      }
-      else if (t == m_TypeCity)
-        population = max(population, static_cast<uint32_t>(500000));
-      else if (t == m_TypeCityCapital)
-        population = max(population, static_cast<uint32_t>(1000000));
-      else if (t == m_TypeCountry)
-        population = max(population, static_cast<uint32_t>(2000000));
-      else if (t == m_TypeContinent)
-        population = max(population, static_cast<uint32_t>(20000000));
-    }
-
-    return static_cast<uint8_t>(log(double(population)) / log(1.1));
-  }
-
 private:
   static int GetDefaultScale() { return scales::GetUpperComfortScale(); }
 
@@ -208,11 +145,6 @@ FeatureEstimator const & GetFeatureEstimator()
 int GetFeatureViewportScale(TypesHolder const & types)
 {
   return impl::GetFeatureEstimator().GetViewportScale(types);
-}
-
-uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population)
-{
-  return impl::GetFeatureEstimator().GetSearchRank(types, pt, population);
 }
 
 } // namespace feature

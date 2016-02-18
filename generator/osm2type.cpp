@@ -3,12 +3,13 @@
 #include "generator/osm_element.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature_impl.hpp"
 #include "indexer/feature_visibility.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
-#include "base/math.hpp"
 
 #include "std/vector.hpp"
 #include "std/bind.hpp"
@@ -197,7 +198,7 @@ namespace ftype
         {
           for (auto const & rule: rules)
           {
-            if (strcmp(e.key.data(), rule.key) != 0)
+            if (e.key != rule.key)
               continue;
             bool take = false;
             if (rule.value[0] == '*')
@@ -539,18 +540,19 @@ namespace ftype
       { "population", "*", [&params](string & k, string & v)
         {
           // Get population rank.
-          // TODO: similar formula with indexer/feature.cpp, possible need refactoring
           uint64_t n;
           if (strings::to_uint64(v, n))
-            params.rank = static_cast<uint8_t>(log(double(n)) / log(1.1));
+            params.rank = feature::PopulationToRank(n);
           k.clear(); v.clear();
-        }},
+        }
+      },
       { "ref", "*", [&params](string & k, string & v)
         {
           // Get reference (we process road numbers only).
           params.ref = v;
           k.clear(); v.clear();
-        }},
+        }
+      },
       { "layer", "*", [&params](string & k, string & v)
         {
           // Get layer.
@@ -560,7 +562,8 @@ namespace ftype
             int8_t const bound = 10;
             params.layer = my::clamp(params.layer, -bound, bound);
           }
-        }},
+        }
+      },
     });
 
     // Stage4: Match tags in classificator to find feature types.

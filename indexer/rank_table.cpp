@@ -2,9 +2,10 @@
 
 #include "indexer/data_header.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/features_vector.hpp"
-#include "indexer/types_skipper.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -246,18 +247,7 @@ unique_ptr<RankTable> LoadRankTable(unique_ptr<TRegion> && region)
 // Calculates search rank for a feature.
 uint8_t CalcSearchRank(FeatureType const & ft)
 {
-  static search::TypesSkipper skipIndex;
-
-  feature::TypesHolder types(ft);
-  skipIndex.SkipTypes(types);
-  if (types.Empty())
-    return 0;
-
-  // Rank (and population) is used for point features only at this moment.
-  if (ft.GetFeatureType() == feature::GEOM_POINT)
-    return feature::GetSearchRank(types, ft.GetCenter(), ft.GetPopulation());
-  else
-    return 0;
+  return feature::PopulationToRank(ftypes::GetPopulation(ft));
 }
 
 // Creates rank table if it does not exists in |rcont| or has wrong
