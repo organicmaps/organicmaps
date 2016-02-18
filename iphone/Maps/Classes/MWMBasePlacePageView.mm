@@ -522,21 +522,8 @@ enum class AttributePosition
 
 - (vector<MWMPlacePageCellType>)cellsForSection:(NSInteger)section
 {
-  switch (m_sections.size())
-  {
-    case 1:
-      return m_cells[PlacePageSection::Metadata];
-    case 2:
-      if (self.entity.canEditObject)
-        return section == 0 ? m_cells[PlacePageSection::Metadata] : m_cells[PlacePageSection::Editing];
-      else
-        return section == 0 ? m_cells[PlacePageSection::Bookmark] : m_cells[PlacePageSection::Metadata];
-    case 3:
-      return m_cells[static_cast<PlacePageSection>(section)];
-    default:
-      NSAssert(false, @"Invalid m_sections size");
-      return {};
-  }
+  NSAssert(m_sections.size() > section, @"Invalid section");
+  return m_cells[m_sections[section]];
 }
 
 @end
