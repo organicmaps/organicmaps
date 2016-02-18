@@ -71,13 +71,6 @@ using TEditableFields = vector<EType>;
 
 struct TypeDescription
 {
-  TypeDescription(TEditableFields const & fields, bool const name, bool const address) :
-      m_fields(fields),
-      m_name(name),
-      m_address(address)
-  {
-  }
-
   TEditableFields const m_fields;
   bool const m_name;
   // Address == true implies Street, House Number, Phone, Fax, Opening Hours, Website, EMail, Postcode.
