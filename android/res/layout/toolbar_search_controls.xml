@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools">
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/frame"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="horizontal"
+  android:baselineAligned="false"
+  android:gravity="center_vertical">
   <EditText
     android:id="@+id/query"
     style="@style/MwmTextAppearance.Toolbar.Search"
@@ -51,4 +57,4 @@
     android:src="@drawable/ic_mic_white"
     android:visibility="gone"
     tools:visibility="visible"/>
-</merge>
+</LinearLayout>

@@ -75,13 +75,13 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      tools:text="100 / 200 MB"/>
+      tools:text="200 MB"/>
 
     <TextView
       android:id="@+id/counts"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      tools:text="10 / 20"/>
+      tools:text="10"/>
   </LinearLayout>
 </LinearLayout>

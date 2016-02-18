@@ -7,19 +7,18 @@
   android:layout_width="match_parent"
   android:layout_height="?attr/actionBarSize">
   <LinearLayout
-    android:id="@+id/frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:baselineAligned="false"
-    android:gravity="center_vertical">
+    android:gravity="right|center_vertical">
     <include layout="@layout/toolbar_search_controls"/>
 
     <ImageView
       android:id="@+id/download_all"
       android:layout_width="?actionBarSize"
       android:layout_height="?actionBarSize"
-      android:layout_gravity="end|center_vertical"
+      android:layout_gravity="end"
       android:background="?selectableItemBackgroundBorderless"
       android:scaleType="center"
       android:src="@drawable/ic_download"/>

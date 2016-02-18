@@ -176,6 +176,7 @@
   <style name="MwmWidget.Downloader.ToolbarButton">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">match_parent</item>
+    <item name="android:gravity">center</item>
     <item name="android:layout_gravity">right</item>
     <item name="android:background">?selectableItemBackgroundBorderless</item>
     <item name="android:padding">@dimen/margin_half</item>

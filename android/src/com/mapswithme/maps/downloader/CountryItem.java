@@ -9,6 +9,8 @@ import android.support.annotation.NonNull;
 @SuppressWarnings("unused")
 public final class CountryItem implements Comparable<CountryItem>
 {
+  public static final String ROOT = MapManager.nativeGetRootNode();
+
   // Must correspond to ItemCategory in MapManager.cpp
   static final int CATEGORY_NEAR_ME = 0;
   static final int CATEGORY_DOWNLOADED = 1;
@@ -50,7 +52,7 @@ public final class CountryItem implements Comparable<CountryItem>
   public int progress;
 
   // Internal ID for grouping under headers in the list
-  public int headerId;
+  int headerId;
 
   public CountryItem(String id)
   {
@@ -118,6 +120,7 @@ public final class CountryItem implements Comparable<CountryItem>
            ", totalSize: " + totalSize +
            ", childCount: " + childCount +
            ", totalChildCount: " + totalChildCount +
+           ", progress: " + progress +
            "}";
   }
 }

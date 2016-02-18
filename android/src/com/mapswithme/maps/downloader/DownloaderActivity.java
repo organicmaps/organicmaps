@@ -1,6 +1,5 @@
 package com.mapswithme.maps.downloader;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
@@ -14,13 +13,6 @@ public class DownloaderActivity extends BaseMwmFragmentActivity
   protected Class<? extends Fragment> getFragmentClass()
   {
     return DownloaderFragment.class;
-  }
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState)
-  {
-    super.onCreate(savedInstanceState);
-
   }
 
   @Override

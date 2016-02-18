@@ -140,6 +140,11 @@ public class SearchToolbarController extends ToolbarController
     setQuery("");
   }
 
+  public boolean hasQuery()
+  {
+    return !getQuery().isEmpty();
+  }
+
   public void activate()
   {
     mQuery.requestFocus();
@@ -176,7 +181,7 @@ public class SearchToolbarController extends ToolbarController
     }
   }
 
-  public void show(boolean show)
+  public void showControls(boolean show)
   {
     UiUtils.showIf(show, mContainer);
   }

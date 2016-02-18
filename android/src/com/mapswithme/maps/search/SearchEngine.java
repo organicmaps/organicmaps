@@ -87,14 +87,12 @@ public enum SearchEngine implements NativeSearchListener
     } catch (UnsupportedEncodingException ignored) { }
   }
 
-  public static boolean searchMaps(String query)
+  public static void searchMaps(String query, long timestamp)
   {
     try
     {
-      return nativeRunSearchMaps(query.getBytes("utf-8"), Language.getKeyboardLocale(), System.nanoTime());
+      nativeRunSearchMaps(query.getBytes("utf-8"), Language.getKeyboardLocale(), timestamp);
     } catch (UnsupportedEncodingException ignored) { }
-
-    return false;
   }
 
   public static String getQuery()
@@ -140,7 +138,7 @@ public enum SearchEngine implements NativeSearchListener
   /**
    * @param bytes utf-8 formatted query bytes
    */
-  private static native boolean nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
+  private static native void nativeRunSearchMaps(byte[] bytes, String language, long timestamp);
 
   private static native void nativeShowResult(int index);
 

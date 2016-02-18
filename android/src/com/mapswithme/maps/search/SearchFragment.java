@@ -179,10 +179,10 @@ public class SearchFragment extends BaseMwmFragment
 
   private void updateFrames()
   {
-    final boolean active = searchActive();
-    UiUtils.showIf(active, mResultsFrame);
+    final boolean hasQuery = mToolbarController.hasQuery();
+    UiUtils.showIf(hasQuery, mResultsFrame);
 
-    if (active)
+    if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
       showDownloadSuggest();
@@ -194,7 +194,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     final boolean show = (!mSearchRunning &&
                           mSearchAdapter.getItemCount() == 0 &&
-                          searchActive());
+                          mToolbarController.hasQuery());
 
     UiUtils.showIf(show, mResultsPlaceholder);
   }
@@ -298,11 +298,6 @@ public class SearchFragment extends BaseMwmFragment
   void setQuery(String text)
   {
     mToolbarController.setQuery(text);
-  }
-
-  private boolean searchActive()
-  {
-    return !getQuery().isEmpty();
   }
 
   private void readArguments()
@@ -422,7 +417,7 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public void onResultsUpdate(SearchResult[] results, long timestamp)
   {
-    if (!isAdded() || !searchActive())
+    if (!isAdded() || !mToolbarController.hasQuery())
       return;
 
     // Search is running hence results updated.
@@ -455,7 +450,7 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public boolean onBackPressed()
   {
-    if (searchActive())
+    if (mToolbarController.hasQuery())
     {
       mToolbarController.clear();
       return true;
