@@ -179,18 +179,6 @@ public:
       platform::LocalCountryFile const & localFile);
   //@}
 
-  /// Deletes all disk files corresponding to country.
-  ///
-  /// @name This functions is used by Downloader UI.
-  //@{
-  /// options - flags that signal about parts of map that must be deleted
-  void DeleteCountry(storage::TCountryId const & index, MapOptions opt);
-  /// options - flags that signal about parts of map that must be downloaded
-  void DownloadCountry(storage::TCountryId const & index, MapOptions opt);
-
-  storage::Status GetCountryStatus(storage::TCountryId const & index) const;
-  string GetCountryName(storage::TCountryId const & index) const;
-
   /// Get country rect from borders (not from mwm file).
   /// @param[in] file Pass country file name without extension as an id.
   m2::RectD GetCountryBounds(storage::TCountryId const & countryId) const;

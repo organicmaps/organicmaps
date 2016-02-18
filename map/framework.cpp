@@ -443,48 +443,6 @@ bool Framework::IsWatchFrameRendererInited() const
   return m_cpuDrawer != nullptr;
 }
 
-void Framework::DeleteCountry(storage::TCountryId const & index, MapOptions opt)
-{
-  switch (opt)
-  {
-    case MapOptions::Nothing:
-      return;
-    case MapOptions::Map:  // fall through
-    case MapOptions::MapWithCarRouting:
-    {
-      CountryFile const & countryFile = m_storage.GetCountryFile(index);
-      // m_model will notify us when latest map file will be deleted via
-      // OnMapDeregistered call.
-      if (m_model.DeregisterMap(countryFile))
-        InvalidateRect(GetCountryBounds(countryFile.GetName()));
-
-      // TODO (@ldragunov, @gorshenin): rewrite routing session to use MwmHandles. Thus,
-      // it won' be needed to reset it after maps update.
-      m_routingSession.Reset();
-      return;
-    }
-    case MapOptions::CarRouting:
-      m_routingSession.Reset();
-      m_storage.DeleteCountry(index, opt);
-      return;
-  }
-}
-
-void Framework::DownloadCountry(storage::TCountryId const & index, MapOptions opt)
-{
-  m_storage.DownloadCountry(index, opt);
-}
-
-Status Framework::GetCountryStatus(storage::TCountryId const & index) const
-{
-  return m_storage.CountryStatusEx(index);
-}
-
-string Framework::GetCountryName(storage::TCountryId const & countryId) const
-{
-  return countryId;
-}
-
 m2::RectD Framework::GetCountryBounds(storage::TCountryId const & countryId) const
 {
   CountryFile const & file = m_storage.GetCountryFile(countryId);
