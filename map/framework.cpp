@@ -303,6 +303,7 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("dropped_pin", "Dropped Pin");
   m_stringsBundle.SetDefaultString("my_places", "My Places");
   m_stringsBundle.SetDefaultString("routes", "Routes");
+  m_stringsBundle.SetDefaultString("wifi", "WiFi");
 
   m_stringsBundle.SetDefaultString("routing_failed_unknown_my_position", "Current location is undefined. Please specify location to create route.");
   m_stringsBundle.SetDefaultString("routing_failed_has_no_routing_file", "Additional data is required to create the route. Download data now?");
@@ -602,6 +603,7 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
   guard.GetFeatureByIndex(fid.m_index, ft);
   info.SetFromFeatureType(ft);
   info.m_isEditable = osm::Editor::Instance().GetEditableProperties(ft).IsEditable();
+  info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
 }
 
 void Framework::FillPointInfo(m2::PointD const & mercator, string const & customTitle, place_page::Info & info) const
@@ -611,6 +613,7 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
   {
     info.SetFromFeatureType(*feature);
     info.m_isEditable = osm::Editor::Instance().GetEditableProperties(*feature).IsEditable();
+    info.m_localizedWifiString = m_stringsBundle.GetString("WiFi");
   }
   else
   {

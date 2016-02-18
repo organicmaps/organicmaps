@@ -77,6 +77,7 @@ void InitLocalizedStrings()
   f.AddString("my_places", [L(@"my_places") UTF8String]);
   f.AddString("my_position", [L(@"my_position") UTF8String]);
   f.AddString("routes", [L(@"routes") UTF8String]);
+  f.AddString("wifi", L(@"wifi").UTF8String);
 
   f.AddString("routing_failed_unknown_my_position", [L(@"routing_failed_unknown_my_position") UTF8String]);
   f.AddString("routing_failed_has_no_routing_file", [L(@"routing_failed_has_no_routing_file") UTF8String]);
