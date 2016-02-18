@@ -49,7 +49,6 @@ void InitStorage(Storage & storage, Storage::TProgressFunction const & onProgres
 {
   storage.Init(Update);
   storage.RegisterAllLocalMaps();
-  storage.RestoreDownloadQueue();
   storage.Subscribe(bind(&ChangeCountry, ref(storage), _1), onProgressFn);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
 }

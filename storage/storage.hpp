@@ -342,9 +342,6 @@ public:
   unique_ptr<Storage> m_prefetchStorage;
   void PrefetchMigrateData();
 
-  void SaveDownloadQueue();
-  void RestoreDownloadQueue();
-
   /// Delete local maps and aggregate their Id if needed
   void DeleteAllLocalMaps(TCountriesVec * existedCountries = nullptr);
 
@@ -428,6 +425,9 @@ public:
 private:
   friend void UnitTest_StorageTest_DeleteCountrySingleMwm();
   friend void UnitTest_StorageTest_DeleteCountryTwoComponentsMwm();
+
+  void SaveDownloadQueue();
+  void RestoreDownloadQueue();
 
   Status CountryStatusWithoutFailed(TCountryId const & countryId) const;
   Status CountryStatusFull(TCountryId const & countryId, Status const status) const;
