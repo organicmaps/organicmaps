@@ -14,6 +14,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.editor.data.TimeFormatUtils;
+import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.UiUtils;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
@@ -26,8 +28,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private EditText mEtName;
   private TextView mTvLocalizedNames;
   private TextView mTvStreet;
-  private View mOpeningHoursBlock;
-  private View mEditOpeningHours;
   private EditText mEtHouseNumber;
   private View mPhoneBlock;
   private EditText mEtPhone;
@@ -39,8 +39,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextView mTvCuisine;
   private View mWifiBlock;
   private SwitchCompat mSwWifi;
-  private TextView mEmptyOpeningHours;
+  private View mOpeningHoursBlock;
+  private View mEmptyOpeningHours;
   private TextView mOpeningHours;
+  private View mEditOpeningHours;
 
   protected EditorHostFragment mParent;
 
@@ -121,7 +123,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   public String getOpeningHours()
   {
-    return mOpeningHours.getText().toString();
+    return mEditedPoi.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
   }
 
   public Metadata getMetadata()
@@ -149,7 +151,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     }
 
     UiUtils.show(mMetadataBlock);
-    UiUtils.hide(mOpeningHoursBlock, mEditOpeningHours, mPhoneBlock, mWebBlock, mEmailBlock, mCuisineBlock, mWifiBlock);
+    UiUtils.hide(mOpeningHoursBlock, mPhoneBlock, mWebBlock, mEmailBlock, mCuisineBlock, mWifiBlock);
     boolean anyEditableMeta = false;
     for (int type : editableMeta)
     {
@@ -157,7 +159,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       {
       case FMD_OPEN_HOURS:
         anyEditableMeta = true;
-        UiUtils.show(mOpeningHoursBlock, mEditOpeningHours);
+        UiUtils.show(mOpeningHoursBlock);
         break;
       case FMD_PHONE_NUMBER:
         anyEditableMeta = true;
@@ -187,23 +189,18 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void refreshOpeningTime()
   {
-    final String openingTime = mEditedPoi.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-    if (TextUtils.isEmpty(openingTime))
+    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
+    if (timetables == null)
     {
       UiUtils.show(mEmptyOpeningHours);
-      UiUtils.hide(mOpeningHours);
+      UiUtils.hide(mOpeningHours, mEditOpeningHours);
     }
     else
     {
       UiUtils.hide(mEmptyOpeningHours);
-      UiUtils.setTextAndShow(mOpeningHours, formatOpeningHours(openingTime));
+      UiUtils.setTextAndShow(mOpeningHours, TimeFormatUtils.formatTimetables(timetables));
+      UiUtils.show(mEditOpeningHours);
     }
-  }
-
-  private String formatOpeningHours(String openingTime)
-  {
-    // TODO
-    return openingTime;
   }
 
   private void initViews(View view)
@@ -227,11 +224,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mWifiBlock = view.findViewById(R.id.block_wifi);
     mSwWifi = (SwitchCompat) view.findViewById(R.id.sw__wifi);
     mWifiBlock.setOnClickListener(this);
-    mOpeningHoursBlock = view.findViewById(R.id.opening_hours);
-    mEditOpeningHours = view.findViewById(R.id.tv__edit_oh);
+    mOpeningHoursBlock = view.findViewById(R.id.block_opening_hours);
+    mEditOpeningHours = mOpeningHoursBlock.findViewById(R.id.edit_opening_hours);
     mEditOpeningHours.setOnClickListener(this);
-    mEmptyOpeningHours = (TextView) view.findViewById(R.id.et__empty_schedule);
-    mOpeningHours = (TextView) view.findViewById(R.id.tv__place_schedule);
+    mEmptyOpeningHours = mOpeningHoursBlock.findViewById(R.id.empty_opening_hours);
+    mEmptyOpeningHours.setOnClickListener(this);
+    mOpeningHours = (TextView) mOpeningHoursBlock.findViewById(R.id.opening_hours);
+    mOpeningHours.setOnClickListener(this);
   }
 
   private EditText findInput(View view)
@@ -244,7 +243,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   {
     switch (v.getId())
     {
-    case R.id.tv__edit_oh:
+    case R.id.edit_opening_hours:
+    case R.id.empty_opening_hours:
+    case R.id.opening_hours:
       mParent.editTimetable();
       break;
     case R.id.block_wifi:

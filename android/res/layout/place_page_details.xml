@@ -25,7 +25,7 @@
 
       <include layout="@layout/place_page_placename"/>
 
-      <include layout="@layout/item_opening_hours"/>
+      <include layout="@layout/place_page_opening_hours"/>
 
       <include layout="@layout/place_page_entrance"/>
 

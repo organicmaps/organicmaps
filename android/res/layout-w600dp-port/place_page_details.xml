@@ -63,7 +63,7 @@
           android:orientation="vertical">
           <include layout="@layout/place_page_email"/>
 
-          <include layout="@layout/item_opening_hours"/>
+          <include layout="@layout/place_page_opening_hours"/>
 
           <include layout="@layout/place_page_latlon"/>
 

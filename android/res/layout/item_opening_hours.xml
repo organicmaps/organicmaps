@@ -1,64 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-  android:id="@+id/ll__place_schedule"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?attr/clickableBackground"
-  android:gravity="center_vertical"
-  android:minHeight="@dimen/height_block_base"
+  android:minHeight="@dimen/editor_height_field"
   android:paddingEnd="@dimen/margin_base"
   android:paddingLeft="@dimen/margin_half"
   android:paddingRight="@dimen/margin_base"
   android:paddingStart="@dimen/margin_half"
-  android:tag="schedule"
-  android:visibility="gone"
-  tools:visibility="visible">
+  android:tag="schedule">
 
   <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/margin_base_plus"
     android:layout_marginRight="@dimen/margin_base_plus"
-    android:layout_marginTop="@dimen/margin_half_plus"
+    android:layout_marginTop="@dimen/margin_base"
     android:src="@drawable/ic_operating_hours"
     android:tint="?iconTint"/>
 
-  <EditText
-    android:id="@+id/et__empty_schedule"
+  <LinearLayout
+    android:id="@+id/empty_opening_hours"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_marginLeft="@dimen/editor_margin_left"
+    android:layout_marginStart="@dimen/editor_margin_left"
+    android:orientation="vertical"
+    tools:visibility="gone">
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:enabled="false"
+      android:text="@string/editor_time_title"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textSize="@dimen/text_size_body_1"
+      android:visibility="visible"/>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginTop="@dimen/margin_half"
+      android:background="?dividerHorizontal"/>
+
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/opening_hours"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/editor_margin_left"
     android:layout_marginStart="@dimen/editor_margin_left"
-    android:enabled="false"
-    android:hint="Opening hours"
-    android:visibility="gone"
+    android:layout_marginTop="14dp"
+    android:lineSpacingExtra="@dimen/margin_base"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage"
+    android:visibility="visible"
+    tools:text="Mo-Fr 16:00-18.00\nSu 16:00-18.00"
     tools:visibility="visible"/>
 
   <TextView
-    android:id="@+id/tv__today_schedule"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="14dp"
-    android:layout_marginLeft="@dimen/editor_margin_left"
-    android:layout_marginStart="@dimen/editor_margin_left"
-    android:layout_marginTop="14dp"
-    android:textAppearance="@style/MwmTextAppearance.PlacePage"
-    android:visibility="gone"
-    tools:text="Today 16:00-18.00"
-    tools:textColor="@color/base_red"/>
-
-  <TextView
-    android:id="@+id/tv__place_schedule"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/tv__today_schedule"
-    android:layout_marginLeft="@dimen/editor_margin_left"
-    android:layout_marginStart="@dimen/editor_margin_left"
-    android:layout_marginTop="14dp"
-    android:textAppearance="@style/MwmTextAppearance.PlacePage"
-    tools:text="Mo-Fr 16:00-18.00"
-    tools:visibility="gone"/>
+    android:id="@+id/edit_opening_hours"
+    style="@style/MwmWidget.Editor.FieldLayout"
+    android:layout_below="@id/opening_hours"
+    android:layout_marginTop="@dimen/margin_base_plus"
+    android:background="?clickableBackground"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/height_block_base"
+    android:text="@string/edit_opening_hours"
+    android:textAllCaps="true"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:textColor="?colorAccent"
+    android:visibility="gone"/>
 
 </RelativeLayout>

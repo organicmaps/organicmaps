@@ -299,7 +299,8 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_OpeningHours_nativeTimetablesFromString(JNIEnv * env, jclass clazz, jstring jSource)
 {
   TimeTableSet tts;
-  if (MakeTimeTableSet(OpeningHours(jni::ToNativeString(env, jSource)), tts))
+  string const source = jni::ToNativeString(env, jSource);
+  if (source.length() != 0 && MakeTimeTableSet(OpeningHours(source), tts))
     return JavaTimetables(env, tts);
 
   return nullptr;

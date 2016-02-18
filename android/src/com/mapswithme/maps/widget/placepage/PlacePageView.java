@@ -5,11 +5,13 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,6 +40,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.mapswithme.maps.Framework;
@@ -53,6 +56,9 @@ import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.editor.Editor;
+import com.mapswithme.maps.editor.OpeningHours;
+import com.mapswithme.maps.editor.data.TimeFormatUtils;
+import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.ArrowView;
@@ -62,6 +68,7 @@ import com.mapswithme.maps.widget.ScrollViewShadowController;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
@@ -92,8 +99,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private View mWebsite;
   private TextView mTvWebsite;
   private TextView mTvLatlon;
-  private View mSchedule;
-  private TextView mTvSchedule;
+  private View mOpeningHours;
+  private TextView mFullOpeningHours;
+  private TextView mTodayOpeningHours;
   private View mWifi;
   private View mEmail;
   private TextView mTvEmail;
@@ -182,8 +190,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     LinearLayout latlon = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
     mTvLatlon = (TextView) mPpDetails.findViewById(R.id.tv__place_latlon);
-    mSchedule = mPpDetails.findViewById(R.id.ll__place_schedule);
-    mTvSchedule = (TextView) mPpDetails.findViewById(R.id.tv__place_schedule);
+    mOpeningHours = mPpDetails.findViewById(R.id.ll__place_schedule);
+    mFullOpeningHours = (TextView) mPpDetails.findViewById(R.id.opening_hours);
+    mTodayOpeningHours = (TextView) mPpDetails.findViewById(R.id.today_opening_hours);
     mWifi = mPpDetails.findViewById(R.id.ll__place_wifi);
     mIvColor = (ImageView) mPpDetails.findViewById(R.id.iv__bookmark_color);
     mIvColor.setOnClickListener(this);
@@ -206,7 +215,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     address.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
     mWebsite.setOnLongClickListener(this);
-    mSchedule.setOnLongClickListener(this);
+    mOpeningHours.setOnLongClickListener(this);
     mEmail.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
     mWiki.setOnLongClickListener(this);
@@ -427,9 +436,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
-    // TODO throw away parsing hack when data will be parsed correctly in core
-    final String rawSchedule = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-    refreshMetadataOrHide(TextUtils.isEmpty(rawSchedule) ? null : rawSchedule.replace("; ", "\n").replace(';', '\n'), mSchedule, mTvSchedule);
+    refreshOpeningHours();
     refreshMetadataStars(mMapObject.getMetadata(Metadata.MetadataType.FMD_STARS));
     UiUtils.setTextAndHideIfEmpty(mTvElevation, mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE));
 
@@ -442,6 +449,52 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       UiUtils.show(mEditor);
       mTvEditor.setText(R.string.edit_place);
     }
+  }
+
+  private void refreshOpeningHours()
+  {
+    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
+    if (timetables == null || timetables.length == 0)
+    {
+      UiUtils.hide(mOpeningHours);
+      return;
+    }
+
+    UiUtils.show(mOpeningHours);
+
+    final Resources resources = getResources();
+    if (timetables[0].isFullWeek())
+    {
+      refreshTodayOh((timetables[0].isFullday ? resources.getString(R.string.twentyfour_seven)
+                                              : resources.getString(R.string.daily) + " " + timetables[0].workingTimespan),
+                     ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary));
+      UiUtils.hide(mFullOpeningHours);
+      return;
+    }
+
+    boolean containsCurrentWeekday = false;
+    final int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+    for (Timetable tt : timetables)
+    {
+      if (tt.containsWeekday(currentDay))
+      {
+        containsCurrentWeekday = true;
+        refreshTodayOh(resources.getString(R.string.today) + " " + tt.workingTimespan,
+                       ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary));
+        break;
+      }
+    }
+
+    UiUtils.setTextAndShow(mFullOpeningHours, TimeFormatUtils.formatTimetables(timetables));
+    if (!containsCurrentWeekday)
+      refreshTodayOh(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
+  }
+
+  private void refreshTodayOh(String text, @ColorInt int color)
+  {
+    UiUtils.show(mTodayOpeningHours);
+    mTodayOpeningHours.setText(text);
+    mTodayOpeningHours.setTextColor(color);
   }
 
   private void hideBookmarkDetails()
@@ -850,7 +903,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       items.add(mTvPhone.getText().toString());
       break;
     case R.id.ll__place_schedule:
-      items.add(mTvSchedule.getText().toString());
+      items.add(mFullOpeningHours.getText().toString());
       break;
     case R.id.ll__place_operator:
       items.add(mTvOperator.getText().toString());

@@ -1,5 +1,6 @@
 package com.mapswithme.maps.editor.data;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 public class Timetable
@@ -15,6 +16,22 @@ public class Timetable
     this.closedTimespans = closedHours;
     this.isFullday = isFullday;
     this.weekdays = weekdays;
+  }
+
+  public boolean containsWeekday(@IntRange(from = 1, to = 7) int day)
+  {
+    for (int workingDay : weekdays)
+    {
+      if (workingDay == day)
+        return true;
+    }
+
+    return false;
+  }
+
+  public boolean isFullWeek()
+  {
+    return weekdays.length == 7;
   }
 
   @Override

@@ -167,19 +167,8 @@
           tools:ignore="UnusedAttribute"/>
 
         <include
-          android:id="@+id/opening_hours"
+          android:id="@+id/block_opening_hours"
           layout="@layout/item_opening_hours"/>
-
-        <TextView
-          android:id="@+id/tv__edit_oh"
-          style="@style/MwmWidget.Editor.FieldLayout"
-          android:background="?clickableBackground"
-          android:gravity="center_vertical"
-          android:minHeight="@dimen/height_block_base"
-          android:text="@string/edit_opening_hours"
-          android:textAllCaps="true"
-          android:textAppearance="@style/MwmTextAppearance.Body1"
-          android:textColor="?colorAccent"/>
 
         <RelativeLayout
           android:id="@+id/block_phone"

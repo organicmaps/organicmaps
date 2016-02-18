@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntRange;
 
+import java.util.Locale;
+
 public class HoursMinutes implements Parcelable
 {
   public final long hours;
@@ -24,7 +26,7 @@ public class HoursMinutes implements Parcelable
   @Override
   public String toString()
   {
-    return hours + "." + minutes;
+    return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes);
   }
 
   @Override

@@ -14,6 +14,6 @@ public class Timespan
   @Override
   public String toString()
   {
-    return "From : " + start + " to  : " + end;
+    return start + "-" + end;
   }
 }

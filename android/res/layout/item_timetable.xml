@@ -150,8 +150,8 @@
 
     <View
       android:layout_width="match_parent"
-      android:layout_height="1dp"/>
-    <!--android:background="@color/divider_standard"/>-->
+      android:layout_height="1dp"
+      android:background="?dividerHorizontal"/>
 
     <LinearLayout
       android:id="@+id/allday"
@@ -188,7 +188,7 @@
       <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/divider"/>
+        android:background="?dividerHorizontal"/>
 
       <LinearLayout
         android:id="@+id/time_open_close"
@@ -253,7 +253,7 @@
       <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/divider"/>
+        android:background="?dividerHorizontal"/>
 
 
       <LinearLayout

@@ -15,7 +15,6 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -23,6 +22,7 @@ import java.util.List;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.editor.data.HoursMinutes;
+import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timespan;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.UiUtils;
@@ -37,7 +37,6 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
   private static final int ID_OPENING = 0;
   private static final int ID_CLOSING = 1;
 
-  private final String[] SHORT_WEEKDAYS = DateFormatSymbols.getInstance().getShortWeekdays();
   private static final int[] DAYS = {R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6, R.id.day7};
 
   private final Fragment mFragment;
@@ -257,19 +256,11 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
       final int position = getAdapterPosition();
       final Timetable data = mItems.get(position);
       UiUtils.showIf(position > 0, deleteTimetable);
-      tvOpen.setText(formatHoursMinutes(data.workingTimespan.start));
-      tvClose.setText(formatHoursMinutes(data.workingTimespan.end));
+      tvOpen.setText(data.workingTimespan.start.toString());
+      tvClose.setText(data.workingTimespan.end.toString());
       showDays(data.weekdays);
       showSchedule(!data.isFullday);
       showClosedHours(data.closedTimespans);
-    }
-
-    private String formatHoursMinutes(HoursMinutes hoursMinutes)
-    {
-      // TODO @yunik add proper translated strings
-      return String.format("%02d", Long.valueOf(hoursMinutes.hours))
-                 + ":"
-                 + String.format("%02d", Long.valueOf(hoursMinutes.minutes));
     }
 
     @Override
@@ -338,10 +329,7 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
         else
         {
           UiUtils.show(closedHours[i]);
-          // TODO add localization
-          ((TextView) closedHours[i].findViewById(R.id.tv__closed)).setText(formatHoursMinutes(timespan.start)
-                                                                                + "-"
-                                                                                + formatHoursMinutes(timespan.end));
+          ((TextView) closedHours[i].findViewById(R.id.tv__closed)).setText(timespan.toString());
         }
 
         i++;
@@ -371,7 +359,7 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
         }
       });
 
-      ((TextView) day.findViewById(R.id.tv__day)).setText(SHORT_WEEKDAYS[dayIndex]);
+      ((TextView) day.findViewById(R.id.tv__day)).setText(TimeFormatUtils.formatShortWeekday(dayIndex));
     }
 
     private void switchWorkingDay(@IntRange(from = 1, to = 7) int dayIndex)
