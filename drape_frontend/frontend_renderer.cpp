@@ -854,7 +854,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   for (RenderLayer & layer : m_layers)
   {
     for (auto & group : layer.m_renderGroups)
-      layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(isFeaturesWaiting, make_ref(m_overlayTree));
+      layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(isFeaturesWaiting, m_currentZoomLevel, make_ref(m_overlayTree));
   }
 
   bool const isPerspective = modelView.isPerspective();

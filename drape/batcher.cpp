@@ -171,6 +171,14 @@ void Batcher::EndSession()
   m_flushInterface = TFlushFn();
 }
 
+void Batcher::SetFeatureMinZoom(int minZoom)
+{
+  m_featureMinZoom = minZoom;
+
+  for (auto const & bucket : m_buckets)
+    bucket.second->SetFeatureMinZoom(m_featureMinZoom);
+}
+
 void Batcher::StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect)
 {
   m_currentFeature = feature;
@@ -214,6 +222,7 @@ ref_ptr<RenderBucket> Batcher::GetBucket(GLState const & state)
   ref_ptr<RenderBucket> result = make_ref(buffer);
   if (m_currentFeature.IsValid())
     result->StartFeatureRecord(m_currentFeature, m_featureLimitRect);
+  result->SetFeatureMinZoom(m_featureMinZoom);
 
   m_buckets.emplace(BucketId(state, m_currentFeature.IsValid()), move(buffer));
 

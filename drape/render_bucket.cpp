@@ -108,6 +108,12 @@ void RenderBucket::Render()
   m_buffer->Render();
 }
 
+void RenderBucket::SetFeatureMinZoom(int minZoom)
+{
+  if (minZoom < m_featuresMinZoom)
+    m_featuresMinZoom = minZoom;
+}
+
 void RenderBucket::StartFeatureRecord(FeatureGeometryId feature, const m2::RectD & limitRect)
 {
   m_featureInfo = make_pair(feature, FeatureGeometryInfo(limitRect));

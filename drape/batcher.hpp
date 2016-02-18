@@ -53,6 +53,7 @@ public:
   // Begin/end processing of feature with FeatureGeometryId in the batcher.
   void StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect);
   void EndFeatureRecord();
+  void SetFeatureMinZoom(int minZoom);
 
 private:
   template<typename TBacher>
@@ -97,6 +98,7 @@ private:
 
   FeatureGeometryId m_currentFeature;
   m2::RectD m_featureLimitRect;
+  int m_featureMinZoom = 0;
 };
 
 class BatcherFactory

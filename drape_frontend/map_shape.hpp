@@ -37,9 +37,13 @@ public:
   void SetFeatureLimitRect(m2::RectD rect) { m_limitRect = rect; }
   m2::RectD const & GetFeatureLimitRect() const { return m_limitRect; }
 
+  void SetFeatureMinZoom(int minZoom) { m_minZoom = minZoom; }
+  int GetFeatureMinZoom() const { return m_minZoom; }
+
 private:
   dp::FeatureGeometryId m_featureInfo;
   m2::RectD m_limitRect;
+  int m_minZoom = 0;
 };
 
 using TMapShapes = vector<drape_ptr<MapShape>>;

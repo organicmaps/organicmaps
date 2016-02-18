@@ -187,7 +187,7 @@ void RenderGroup::Disappear()
   //}
 }
 
-bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting, ref_ptr<dp::OverlayTree> tree)
+bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting, int currentZoom, ref_ptr<dp::OverlayTree> tree)
 {
   if (!m_sharedFeaturesWaiting)
     return false;
@@ -197,8 +197,9 @@ bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWa
 
   for (size_t i = 0; i < m_renderBuckets.size(); )
   {
-    bool visibleBucket = m_renderBuckets[i]->IsShared() ? m_renderBuckets[i]->IsFeaturesWaiting(isFeaturesWaiting)
-                                                        : isTileVisible;
+    bool visibleBucket = (m_renderBuckets[i]->GetMinZoom() <= currentZoom) &&
+        (m_renderBuckets[i]->IsShared() ? m_renderBuckets[i]->IsFeaturesWaiting(isFeaturesWaiting)
+                                        : isTileVisible);
     if (!visibleBucket)
     {
       m_renderBuckets[i]->RemoveOverlayHandles(tree);

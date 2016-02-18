@@ -79,7 +79,7 @@ public:
   }
 
   using TCheckFeaturesWaiting = function<bool(m2::RectD const &)>;
-  bool UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting, ref_ptr<dp::OverlayTree> tree);
+  bool UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting, int currentZoom, ref_ptr<dp::OverlayTree> tree);
 
   bool IsLess(RenderGroup const & other) const;
 

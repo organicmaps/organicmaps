@@ -26,6 +26,7 @@ OverlayBatcher::OverlayBatcher(TileKey const & key)
 
 void OverlayBatcher::Batch(drape_ptr<MapShape> const & shape, ref_ptr<dp::TextureManager> texMng)
 {
+  m_batcher.SetFeatureMinZoom(shape->GetFeatureMinZoom());
   bool const sharedFeature = shape->GetFeatureInfo().IsValid();
   if (sharedFeature)
     m_batcher.StartFeatureRecord(shape->GetFeatureInfo(), shape->GetFeatureLimitRect());

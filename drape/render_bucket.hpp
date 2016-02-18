@@ -4,6 +4,7 @@
 #include "drape/pointers.hpp"
 
 #include "std/function.hpp"
+#include "std/limits.hpp"
 
 class ScreenBase;
 
@@ -54,6 +55,9 @@ public:
   void StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect);
   void EndFeatureRecord(bool featureCompleted);
 
+  void SetFeatureMinZoom(int minZoom);
+  int GetMinZoom() const { return m_featuresMinZoom; }
+
   using TCheckFeaturesWaiting = function<bool(m2::RectD const &)>;
   bool IsFeaturesWaiting(TCheckFeaturesWaiting isFeaturesWaiting);
 
@@ -73,6 +77,7 @@ private:
   using TFeaturesGeometryInfo = map<FeatureGeometryId, FeatureGeometryInfo>;
   using TFeatureInfo = pair<FeatureGeometryId, FeatureGeometryInfo>;
 
+  int m_featuresMinZoom = numeric_limits<int>::max();
   TFeatureInfo m_featureInfo;
   TFeaturesGeometryInfo m_featuresGeometryInfo;
 
