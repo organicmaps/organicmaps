@@ -32,11 +32,14 @@ public:
     return m_value;
   }
 
+  /// \brief Reserves child size vector. This method should be called once before filling
+  /// children vector with correct |n| size to prevent m_children relocation while filling.
   void ReserveAtDepth(int level, size_t n)
   {
     SimpleTree<T> * node = this;
     while (level-- > 0 && !node->m_children.empty())
       node = &node->m_children.back();
+    ASSERT_EQUAL(level, -1, ());
     return node->Reserve(n);
   }
 
@@ -57,6 +60,7 @@ public:
     SimpleTree<T> * node = this;
     while (level-- > 0 && !node->m_children.empty())
       node = &node->m_children.back();
+    ASSERT_EQUAL(level, -1, ());
     return node->Add(value);
   }
 
@@ -197,20 +201,20 @@ public:
   }
 
   template <class TFunctor>
-  void ForEachParentExceptForTheRoot(TFunctor && f)
+  void ForEachAncestorExceptForTheRoot(TFunctor && f)
   {
     if (m_parent == nullptr || m_parent->m_parent == nullptr)
       return;
     f(*m_parent);
-    m_parent->ForEachParentExceptForTheRoot(f);
+    m_parent->ForEachAncestorExceptForTheRoot(f);
   }
 
   template <class TFunctor>
-  void ForEachParentExceptForTheRoot(TFunctor && f) const
+  void ForEachAncestorExceptForTheRoot(TFunctor && f) const
   {
     if (m_parent == nullptr || m_parent->m_parent == nullptr)
       return;
     f(*m_parent);
-    m_parent->ForEachParentExceptForTheRoot(f);
+    m_parent->ForEachAncestorExceptForTheRoot(f);
   }
 };

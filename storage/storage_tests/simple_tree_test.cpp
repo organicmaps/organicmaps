@@ -56,7 +56,7 @@ UNIT_TEST(SimpleTree_Smoke)
   TEST_EQUAL(c2.count, 8, ());
 
   Calculator<TreeT> c3;
-  tree.Child(4).Child(0).ForEachParentExceptForTheRoot(c3);
+  tree.Child(4).Child(0).ForEachAncestorExceptForTheRoot(c3);
   TEST_EQUAL(c3.count, 1, ());
 
   tree.Clear();

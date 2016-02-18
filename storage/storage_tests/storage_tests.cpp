@@ -1306,7 +1306,7 @@ UNIT_TEST(StorageTest_ForEachInSubtree)
   TEST_EQUAL(leafVec, expectedLeafVec, ());
 }
 
-UNIT_TEST(StorageTest_ForEachParentExceptForTheRoot)
+UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
 {
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
@@ -1328,7 +1328,7 @@ UNIT_TEST(StorageTest_ForEachParentExceptForTheRoot)
     }
     TEST(false, ());
   };
-  storage.ForEachParentExceptForTheRoot("Disputable Territory", forEachParentDisputableTerritory);
+  storage.ForEachAncestorExceptForTheRoot("Disputable Territory", forEachParentDisputableTerritory);
 
   // One parent case.
   auto const forEachParentIndisputableTerritory
@@ -1342,8 +1342,8 @@ UNIT_TEST(StorageTest_ForEachParentExceptForTheRoot)
     }
     TEST(false, ());
   };
-  storage.ForEachParentExceptForTheRoot("Indisputable Territory Of Country1",
-                                        forEachParentIndisputableTerritory);
+  storage.ForEachAncestorExceptForTheRoot("Indisputable Territory Of Country1",
+                                          forEachParentIndisputableTerritory);
 }
 
 UNIT_TEST(StorageTest_CalcLimitRect)

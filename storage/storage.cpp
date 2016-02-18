@@ -88,8 +88,8 @@ TCountriesContainer const & LeafNodeFromCountryId(TCountriesContainer const & ro
 void HashFromQueue(Storage::TQueue const & queue, TCountriesUnorderedSet & hashQueue)
 {
   hashQueue.reserve(queue.size());
-  for (auto const & queuedCountry : queue)
-    hashQueue.insert(queuedCountry.GetCountryId());
+  for (auto const & country : queue)
+    hashQueue.insert(country.GetCountryId());
 }
 }  // namespace
 
@@ -687,7 +687,7 @@ void Storage::ReportProgressForHierarchy(TCountryId const & countryId,
 
   // This lambda will be called for every parent of countryId (except for the root)
   // to calculate and report parent's progress.
-  auto forEachParentExceptForTheRoot = [this, &leafProgress, &hashQueue, &countryId]
+  auto calcProgress = [this, &leafProgress, &hashQueue, &countryId]
       (TCountryId const & parentId, TCountriesVec const & descendants)
   {
     pair<int64_t, int64_t> localAndRemoteBytes = CalculateProgress(descendants,
@@ -695,7 +695,7 @@ void Storage::ReportProgressForHierarchy(TCountryId const & countryId,
     ReportProgress(parentId, localAndRemoteBytes);
   };
 
-  ForEachParentExceptForTheRoot(countryId, forEachParentExceptForTheRoot);
+  ForEachAncestorExceptForTheRoot(countryId, calcProgress);
 }
 
 void Storage::OnServerListDownloaded(vector<string> const & urls)
@@ -1222,7 +1222,7 @@ Status Storage::NodeStatus(TCountriesContainer const & node) const
     set<Status> const kDownloadingInProgressSet = { Status::EDownloading, Status::EInQueue };
     set<Status> const kUsersAttentionNeededSet = { Status::EDownloadFailed, Status::EOutOfMemFailed,
                                                    Status::EUnknown, Status::EOnDiskOutOfDate };
-    // The other statuses shows that everything is ok (kEverythingsOk).
+    // The other statuses say that everything is ok (kEverythingsOk).
 
     if (result == kDownloadingInProgress || nodeInSubtree.ChildrenCount() != 0)
       return;
@@ -1274,7 +1274,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   {
     descendants.push_back(d.Value().Name());
   });
-  TCountryId const downloadingMwm = IsDownloadInProgress() ? GetCurrentDownloadingCountryId()
+  TCountryId const & downloadingMwm = IsDownloadInProgress() ? GetCurrentDownloadingCountryId()
                                                            : kInvalidCountryId;
   MapFilesDownloader::TProgress downloadingMwmProgress =
       m_downloader->IsIdle() ? make_pair(0LL, 0LL)
@@ -1316,14 +1316,14 @@ void Storage::DoClickOnDownloadMap(TCountryId const & countryId)
 }
 
 pair<int64_t, int64_t> Storage::CalculateProgress(TCountriesVec const & descendants,
-                                                  TCountryId const & downlaodingMwm,
+                                                  TCountryId const & downloadingMwm,
                                                   pair<int64_t, int64_t> const & downloadingMwmProgress,
                                                   TCountriesUnorderedSet const & hashQueue) const
 {
   pair<int64_t, int64_t> localAndRemoteBytes = make_pair(0, 0);
   for (auto const & d : descendants)
   {
-    if (d == downlaodingMwm)
+    if (d == downloadingMwm)
       continue;
 
     if (hashQueue.count(d) != 0)
@@ -1339,7 +1339,7 @@ pair<int64_t, int64_t> Storage::CalculateProgress(TCountriesVec const & descenda
       localAndRemoteBytes.second += localCountryFile.GetRemoteSize(MapOptions::Map);
     }
   }
-  if (downlaodingMwm != kInvalidCountryId)
+  if (downloadingMwm != kInvalidCountryId)
   {
     // Downloading is in progress right now.
     localAndRemoteBytes.first += downloadingMwmProgress.first;

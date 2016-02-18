@@ -245,7 +245,7 @@ public:
     TOnStatusChangedCallback m_onStatusChanged;
   };
 
-  /// \brief Returns root country id of the county tree.
+  /// \brief Returns root country id of the country tree.
   TCountryId const GetRootId() const;
 
   /// \param childrenId is filled with children node ids by a parent. For example GetChildren(GetRootId())
@@ -325,7 +325,7 @@ public:
   template <class ToDo>
   void ForEachInSubtree(TCountryId const & root, ToDo && toDo) const;
   template <class ToDo>
-  void ForEachParentExceptForTheRoot(TCountryId const & childId, ToDo && toDo) const;
+  void ForEachAncestorExceptForTheRoot(TCountryId const & childId, ToDo && toDo) const;
 
   /// \brief Subscribe on change status callback.
   /// \returns a unique index of added status callback structure.
@@ -508,15 +508,15 @@ private:
   /// Will be removed in future after refactoring.
   TCountriesVec FindAllIndexesByFile(TCountryId const & name) const;
 
-  /// Calculates progress of downloading for non-expandable nodes in county tree.
+  /// Calculates progress of downloading for non-expandable nodes in country tree.
   /// |descendants| All descendants of the parent node.
-  /// |downlaodingMwm| Downloading leaf node country id if any. If not, downlaodingMwm == kInvalidCountryId.
-  /// if downlaodingMwm != kInvalidCountryId |downloadingMwmProgress| is a progress of downloading
+  /// |downloadingMwm| Downloading leaf node country id if any. If not, downloadingMwm == kInvalidCountryId.
+  /// If downloadingMwm != kInvalidCountryId |downloadingMwmProgress| is a progress of downloading
   /// the leaf node in bytes. |downloadingMwmProgress.first| == number of downloaded bytes.
   /// |downloadingMwmProgress.second| == number of bytes in downloading files.
   /// |hashQueue| hash table made from |m_queue|.
   pair<int64_t, int64_t> CalculateProgress(TCountriesVec const & descendants,
-                                           TCountryId const & downlaodingMwm,
+                                           TCountryId const & downloadingMwm,
                                            pair<int64_t, int64_t> const & downloadingMwmProgress,
                                            TCountriesUnorderedSet const & hashQueue) const;
 };
@@ -542,10 +542,10 @@ void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
 /// for each parent (including indirect/great parents) except for the main root of the tree.
 /// |descendantsCountryId| is a vector of country id of descendats of |parentId|.
 /// Note. In case of disputable territories several nodes with the same name may be
-/// present in the country tree. In that case ForEachParentExceptForTheRoot calls
+/// present in the country tree. In that case ForEachAncestorExceptForTheRoot calls
 /// |toDo| for parents of each branch in the country tree.
 template <class ToDo>
-void Storage::ForEachParentExceptForTheRoot(TCountryId const & childId, ToDo && toDo) const
+void Storage::ForEachAncestorExceptForTheRoot(TCountryId const & childId, ToDo && toDo) const
 {
   vector<SimpleTree<Country> const *> nodes;
   m_countries.Find(Country(childId), nodes);
@@ -559,7 +559,7 @@ void Storage::ForEachParentExceptForTheRoot(TCountryId const & childId, ToDo && 
   // may be more than one. It means |childId| is present in the country tree more than once.
   for (auto const & node : nodes)
   {
-    node->ForEachParentExceptForTheRoot([&toDo](TCountriesContainer const & countryContainer)
+    node->ForEachAncestorExceptForTheRoot([&toDo](TCountriesContainer const & countryContainer)
     {
       TCountriesVec descendantsCountryId;
       countryContainer.ForEachDescendant([&descendantsCountryId](TCountriesContainer const & countryContainer)
