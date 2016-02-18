@@ -16,16 +16,15 @@ namespace search
 
 struct LocalityItem
 {
-  m2::RectD m_rect;
   string m_name;
   uint32_t m_population;
 
   typedef uint32_t ID;
   ID m_id;
 
-  LocalityItem(m2::RectD const & rect, uint32_t population, ID id, string const & name);
+  LocalityItem(uint32_t population, ID id, string const & name);
 
-  m2::RectD const & GetLimitRect() const { return m_rect; }
+  friend string DebugPrint(LocalityItem const & item);
 };
 
 class LocalityFinder

@@ -53,8 +53,8 @@ public:
       if (!ft.GetName(0, name))
         return;
 
-    LocalityItem item(rect, population, id, name);
-    m_cache.m_tree.Add(item, item.GetLimitRect());
+    LocalityItem item(population, id, name);
+    m_cache.m_tree.Add(item, rect);
     m_cache.m_loaded.insert(id);
   }
 
@@ -73,9 +73,9 @@ public:
   {
   }
 
-  void operator() (LocalityItem const & item)
+  void operator() (m2::RectD const & rect, LocalityItem const & item)
   {
-    double const d = MercatorBounds::DistanceOnEarth(item.m_rect.Center(), m_point);
+    double const d = MercatorBounds::DistanceOnEarth(rect.Center(), m_point);
     double const value = ftypes::GetPopulationByRadius(d) / static_cast<double>(item.m_population);
     if (value < m_bestValue)
     {
@@ -91,10 +91,18 @@ private:
 };
 
 
-LocalityItem::LocalityItem(m2::RectD const & rect, uint32_t population, ID id, string const & name)
-  : m_rect(rect), m_name(name), m_population(population), m_id(id)
+LocalityItem::LocalityItem(uint32_t population, ID id, string const & name)
+  : m_name(name), m_population(population), m_id(id)
 {
 }
+
+string DebugPrint(LocalityItem const & item)
+{
+  stringstream ss;
+  ss << "Name = " << item.m_name << "Population = " << item.m_population << "ID = " << item.m_id;
+  return ss.str();
+}
+
 
 LocalityFinder::LocalityFinder(Index const * pIndex)
   : m_pIndex(pIndex), m_lang(0)
@@ -137,13 +145,11 @@ void LocalityFinder::RecreateCache(Cache & cache, m2::RectD rect) const
       ScaleIndex<ModelReaderPtr> index(pMwm->m_cont.GetReader(INDEX_FILE_TAG), pMwm->m_factory);
 
       FeaturesVector loader(pMwm->m_cont, header, pMwm->m_table);
-
+      DoLoader doLoader(*this, loader, cache);
       cache.m_rect = rect;
+
       for (size_t i = 0; i < interval.size(); ++i)
-      {
-        DoLoader doLoader(*this, loader, cache);
         index.ForEachInIntervalAndScale(doLoader, interval[i].first, interval[i].second, scale);
-      }
     }
   }
 }
@@ -226,7 +232,7 @@ void LocalityFinder::Cache::GetLocality(m2::PointD const & pt, string & name) co
     return;
 
   ++m_usage;
-  m_tree.ForEachInRect(m2::RectD(pt, pt), DoSelectLocality(name, pt));
+  m_tree.ForEachInRectEx(m2::RectD(pt, pt), DoSelectLocality(name, pt));
 }
 
 }
