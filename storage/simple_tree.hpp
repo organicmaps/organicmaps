@@ -3,6 +3,7 @@
 #include "base/assert.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
 template <class T>
@@ -13,7 +14,7 @@ class SimpleTree
   /// \brief m_children contains all first generation descendants of the node.
   /// Note. Once created the order of elements of |m_children| should not be changed.
   /// See implementation of AddAtDepth and Add methods for details.
-  vector<SimpleTree<T>> m_children;
+  vector<unique_ptr<SimpleTree<T>>> m_children;
   SimpleTree<T> * m_parent;
 
   static bool IsEqual(T const & v1, T const & v2)
@@ -22,7 +23,8 @@ class SimpleTree
   }
 
 public:
-  SimpleTree(T const & value = T(), SimpleTree<T> * parent = nullptr) : m_value(value), m_parent(parent)
+  SimpleTree(T const & value = T(), SimpleTree<T> * parent = nullptr)
+    : m_value(value), m_parent(parent)
   {
   }
 
@@ -38,7 +40,7 @@ public:
   {
     SimpleTree<T> * node = this;
     while (level-- > 0 && !node->m_children.empty())
-      node = &node->m_children.back();
+      node = node->m_children.back().get();
     ASSERT_EQUAL(level, -1, ());
     return node->Reserve(n);
   }
@@ -59,7 +61,7 @@ public:
   {
     SimpleTree<T> * node = this;
     while (level-- > 0 && !node->m_children.empty())
-      node = &node->m_children.back();
+      node = node->m_children.back().get();
     ASSERT_EQUAL(level, -1, ());
     return node->Add(value);
   }
@@ -67,8 +69,8 @@ public:
   /// @return reference is valid only up to the next tree structure modification
   T & Add(T const & value)
   {
-    m_children.emplace_back(SimpleTree(value, this));
-    return m_children.back().Value();
+    m_children.emplace_back(make_unique<SimpleTree<T>>(value, this));
+    return m_children.back()->Value();
   }
 
   /// Deletes all children and makes tree empty
@@ -93,7 +95,7 @@ public:
     if (IsEqual(m_value, value))
       found.push_back(this);
     for (auto const & child : m_children)
-      child.Find(value, found);
+      child->Find(value, found);
   }
 
   SimpleTree<T> const * const FindFirst(T const & value) const
@@ -103,7 +105,7 @@ public:
 
     for (auto const & child : m_children)
     {
-      SimpleTree<T> const * const found = child.FindFirst(value);
+      SimpleTree<T> const * const found = child->FindFirst(value);
       if (found != nullptr)
         return found;
     }
@@ -122,7 +124,7 @@ public:
 
     for (auto const & child : m_children)
     {
-      SimpleTree<T> const * const found = child.FindFirstLeaf(value);
+      SimpleTree<T> const * const found = child->FindFirstLeaf(value);
       if (found != nullptr)
         return found;
     }
@@ -140,7 +142,7 @@ public:
   SimpleTree<T> const & Child(size_t index) const
   {
     ASSERT_LESS(index, m_children.size(), ());
-    return m_children[index];
+    return *m_children[index];
   }
 
   size_t ChildrenCount() const
@@ -153,14 +155,14 @@ public:
   void ForEachChild(TFunctor && f)
   {
     for (auto & child : m_children)
-      f(child);
+      f(*child);
   }
 
   template <class TFunctor>
   void ForEachChild(TFunctor && f) const
   {
     for (auto const & child : m_children)
-      f(child);
+      f(*child);
   }
 
   /// \brief Calls functor f for all nodes (add descendant) in the tree.
@@ -169,8 +171,8 @@ public:
   {
     for (auto & child : m_children)
     {
-      f(child);
-      child.ForEachDescendant(f);
+      f(*child);
+      child->ForEachDescendant(f);
     }
   }
 
@@ -179,8 +181,8 @@ public:
   {
     for (auto const & child: m_children)
     {
-      f(child);
-      child.ForEachDescendant(f);
+      f(*child);
+      child->ForEachDescendant(f);
     }
   }
 
@@ -189,7 +191,7 @@ public:
   {
     f(*this);
     for (auto & child: m_children)
-      child.ForEachInSubtree(f);
+      child->ForEachInSubtree(f);
   }
 
   template <class TFunctor>
@@ -197,7 +199,7 @@ public:
   {
     f(*this);
     for (auto const & child: m_children)
-      child.ForEachInSubtree(f);
+      child->ForEachInSubtree(f);
   }
 
   template <class TFunctor>
