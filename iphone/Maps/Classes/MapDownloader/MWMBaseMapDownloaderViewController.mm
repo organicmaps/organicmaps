@@ -77,7 +77,7 @@ using namespace storage;
   UIColor * searchBarColor = [UIColor primary];
   [navBar setBackgroundImage:[UIImage imageWithColor:searchBarColor]
                forBarMetrics:UIBarMetricsDefault];
-  navBar.shadowImage = [UIImage imageWithColor:[UIColor clearColor]];
+  navBar.shadowImage = [[UIImage alloc] init];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
