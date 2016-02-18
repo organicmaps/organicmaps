@@ -1305,7 +1305,7 @@ UNIT_TEST(StorageTest_CalcLimitRect)
 
   m2::RectD const boundingBox = CalcLimitRect("Algeria", storage, *countryInfoGetter);
   m2::RectD const expectedBoundingBox = {-8.6689 /* minX */, 19.32443 /* minY */,
-                                         11.99734 /* maxX */, 40.2488 /* maxY */};
+                                         11.99734 /* maxX */, 45.23 /* maxY */};
 
   TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
 }
