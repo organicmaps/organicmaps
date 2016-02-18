@@ -87,7 +87,7 @@ struct TypeDescription
 static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"aeroway-aerodrome", {{EType::FMD_ELE, EType::FMD_OPERATOR}, false, true}},
   {"aeroway-airport", {{EType::FMD_ELE, EType::FMD_OPERATOR}, false, true}},
-  {"amenity-atm", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE}, true, false}},
+  {"amenity-atm", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE, EType::FMD_OPEN_HOURS}, true, false}},
   {"amenity-bank", {{EType::FMD_OPERATOR}, true, true}},
   {"amenity-bar", {{EType::FMD_CUISINE, EType::FMD_INTERNET}, true, true}},
   {"amenity-bicycle_rental", {{EType::FMD_OPERATOR}, true, false}},
