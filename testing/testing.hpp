@@ -15,18 +15,18 @@
         TestRegister g_TestRegister_##name(#name, __FILE__, &UnitTest_##name); \
     void UnitTest_##name()
 
-#define UNIT_CLASS_TEST(CLASS, NAME)             \
-  struct UnitClass_##CLASS_##NAME : public CLASS \
-  {                                              \
-  public:                                        \
-    void NAME();                                 \
-  };                                             \
-  UNIT_TEST(CLASS##_##NAME)                      \
-  {                                              \
-    UnitClass_##CLASS_##NAME instance;           \
-    instance.NAME();                             \
-  }                                              \
-  void UnitClass_##CLASS_##NAME::NAME()
+#define UNIT_CLASS_TEST(CLASS, NAME)                \
+  struct UnitClass_##CLASS##_##NAME : public CLASS  \
+  {                                                 \
+  public:                                           \
+    void NAME();                                    \
+  };                                                \
+  UNIT_TEST(CLASS##_##NAME)                         \
+  {                                                 \
+    UnitClass_##CLASS##_##NAME instance;            \
+    instance.NAME();                                \
+  }                                                 \
+  void UnitClass_##CLASS##_##NAME::NAME()
 
 DECLARE_EXCEPTION(TestFailureException, RootException);
 
