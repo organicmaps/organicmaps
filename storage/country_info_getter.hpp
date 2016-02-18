@@ -10,6 +10,7 @@
 
 #include "std/mutex.hpp"
 #include "std/unordered_map.hpp"
+#include "std/type_traits.hpp"
 
 namespace storage
 {
@@ -88,6 +89,9 @@ protected:
   // Returns true when |pt| belongs to a country identified by |id|.
   virtual bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const = 0;
 
+  // Returns true when the distance from |pt| to country identified by |id| less then |distance|.
+  virtual bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) = 0;
+
   // @TODO(bykoianko): consider to get rid of m_countryIndex.
   // The possibility should be considered.
   // List of all known countries.
@@ -115,6 +119,10 @@ protected:
   // CountryInfoGetter overrides:
   void ClearCachesImpl() const override;
   bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const override;
+  bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) override;
+
+  template <typename TFn>
+  typename result_of<TFn(vector<m2::RegionD>)>::type WithRegion(size_t id, TFn && fn) const;
 
   FilesContainerR m_reader;
   mutable my::Cache<uint32_t, vector<m2::RegionD>> m_cache;
@@ -136,5 +144,6 @@ protected:
   // CountryInfoGetter overrides:
   void ClearCachesImpl() const override;
   bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const override;
+  bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) override;
 };
 }  // namespace storage

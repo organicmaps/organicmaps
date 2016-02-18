@@ -58,13 +58,17 @@ TCountryId CountryInfoGetter::GetRegionCountryId(m2::PointD const & pt) const
 
 void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, TCountriesVec & closestCoutryIds)
 {
-  // @TODO(bykoianko) Now this method fills |closestCoutryIds| with only a country id of mwm
-  // which covers |pt|. This method should fill |closestCoutryIds| with several mwms
-  // which cover |pt| and close to |pt|.
+  double const kLookupRadiusM = 30 /* km */ * 1000;
+
   closestCoutryIds.clear();
-  TCountryId countryId = GetRegionCountryId(pt);
-  if (!countryId.empty())
-    closestCoutryIds.emplace_back(countryId);
+
+  m2::RectD const lookupRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, kLookupRadiusM);
+
+  for (size_t id = 0; id < m_countries.size(); ++id)
+  {
+    if (m_countries[id].m_rect.Intersect(lookupRect) && IsCloseEnough(id, pt, kLookupRadiusM))
+      closestCoutryIds.emplace_back(m_countries[id].m_name);
+  }
 }
 
 void CountryInfoGetter::GetRegionInfo(m2::PointD const & pt, CountryInfo & info) const
@@ -193,7 +197,8 @@ void CountryInfoReader::ClearCachesImpl() const
   m_cache.Reset();
 }
 
-bool CountryInfoReader::IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const
+template <typename TFn>
+typename result_of<TFn(vector<m2::RegionD>)>::type CountryInfoReader::WithRegion(size_t id, TFn && fn) const
 {
   lock_guard<mutex> lock(m_cacheMutex);
 
@@ -215,12 +220,39 @@ bool CountryInfoReader::IsBelongToRegionImpl(size_t id, m2::PointD const & pt) c
     }
   }
 
-  for (auto const & rgn : rgns)
+  return fn(rgns);
+}
+
+
+bool CountryInfoReader::IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const
+{
+  auto contains = [&pt](vector<m2::RegionD> const & regions)
   {
-    if (rgn.Contains(pt))
-      return true;
-  }
-  return false;
+    for (auto const & region : regions)
+    {
+      if (region.Contains(pt))
+        return true;
+    }
+    return false;
+  };
+
+  return WithRegion(id, contains);
+}
+
+bool CountryInfoReader::IsCloseEnough(size_t id, m2::PointD const & pt, double distance)
+{
+  m2::RectD const lookupRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, distance);
+  auto isCloseEnough = [&](vector<m2::RegionD> const & regions)
+  {
+    for (auto const & region : regions)
+    {
+      if (region.Contains(pt) || region.AtBorder(pt, lookupRect.SizeX() / 2))
+        return true;
+    }
+    return false;
+  };
+
+  return WithRegion(id, isCloseEnough);
 }
 
 // CountryInfoGetterForTesting ---------------------------------------------------------------------
@@ -245,5 +277,20 @@ bool CountryInfoGetterForTesting::IsBelongToRegionImpl(size_t id,
 {
   CHECK_LESS(id, m_countries.size(), ());
   return m_countries[id].m_rect.IsPointInside(pt);
+}
+
+bool CountryInfoGetterForTesting::IsCloseEnough(size_t id, m2::PointD const & pt, double distance)
+{
+  CHECK_LESS(id, m_countries.size(), ());
+
+  m2::RegionD rgn;
+  rgn.AddPoint(m_countries[id].m_rect.LeftTop());
+  rgn.AddPoint(m_countries[id].m_rect.RightTop());
+  rgn.AddPoint(m_countries[id].m_rect.RightBottom());
+  rgn.AddPoint(m_countries[id].m_rect.LeftBottom());
+  rgn.AddPoint(m_countries[id].m_rect.LeftTop());
+
+  m2::RectD const lookupRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, distance);
+  return rgn.Contains(pt) || rgn.AtBorder(pt, lookupRect.SizeX() / 2);
 }
 }  // namespace storage

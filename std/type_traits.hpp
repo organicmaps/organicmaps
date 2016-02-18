@@ -24,6 +24,8 @@ using std::make_unsigned;
 using std::remove_reference;
 using std::underlying_type;
 
+using std::result_of;
+
 using std::false_type;
 using std::true_type;
 

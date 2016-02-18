@@ -82,6 +82,36 @@ UNIT_TEST(CountryInfoGetter_SomeRects)
   LOG(LINFO, ("Canada: ", getter->CalcLimitRect("Canada_")));
 }
 
+UNIT_TEST(CountryInfoGetter_HitsInRadius)
+{
+  auto const getter = CreateCountryInfoGetterMigrate();
+  TCountriesVec results;
+  getter->GetRegionsCountryId(MercatorBounds::FromLatLon(56.1702, 28.1505), results);
+  TEST_EQUAL(results.size(), 3, ());
+  TEST(find(results.begin(), results.end(), "Belarus_Vitebsk Region") != results.end(), ());
+  TEST(find(results.begin(), results.end(), "Latvia") != results.end(), ());
+  TEST(find(results.begin(), results.end(), "Russia_Pskov Oblast") != results.end(), ());
+}
+
+UNIT_TEST(CountryInfoGetter_HitsOnLongLine)
+{
+  auto const getter = CreateCountryInfoGetterMigrate();
+  TCountriesVec results;
+  getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2507, -102.0753), results);
+  TEST_EQUAL(results.size(), 2, ());
+  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(), ());
+  TEST(find(results.begin(), results.end(), "Canada_Nunavut_South") != results.end(), ());
+}
+
+UNIT_TEST(CountryInfoGetter_HitsInTheMiddleOfNowhere)
+{
+  auto const getter = CreateCountryInfoGetterMigrate();
+  TCountriesVec results;
+  getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2900, -103.9423), results);
+  TEST_EQUAL(results.size(), 1, ());
+  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(), ());
+}
+
 UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
 {
   auto const getter = CreateCountryInfoGetterMigrate();
