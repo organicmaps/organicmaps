@@ -23,7 +23,6 @@
 + (MWMAlert *)internalErrorAlert;
 + (MWMAlert *)invalidUserNameOrPasswordAlert;
 + (MWMAlert *)point2PointAlertWithOkBlock:(TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
-+ (MWMAlert *)updateMapsAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)downloaderNotEnoughSpaceAlert;
 + (MWMAlert *)downloaderInternalErrorAlertForMap:(NSString *)name okBlock:(TMWMVoidBlock)okBlock;

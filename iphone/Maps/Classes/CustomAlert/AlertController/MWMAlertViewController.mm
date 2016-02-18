@@ -101,11 +101,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert invalidUserNameOrPasswordAlert]];
 }
 
-- (void)presentUpdateMapsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
-{
-  [self displayAlert:[MWMAlert updateMapsAlertWithOkBlock:okBlock]];
-}
-
 - (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
                                      routes:(storage::TCountriesVec const &)routes
                                        code:(routing::IRouter::ResultCode)code

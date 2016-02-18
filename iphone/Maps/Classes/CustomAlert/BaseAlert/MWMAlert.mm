@@ -8,7 +8,6 @@
 #import "MWMPedestrianShareAlert.h"
 #import "MWMRateAlert.h"
 #import "MWMRoutingDisclaimerAlert.h"
-#import "MWMUpdateMapsAlert.h"
 
 @implementation MWMAlert
 
@@ -105,11 +104,6 @@
 + (MWMAlert *)invalidUserNameOrPasswordAlert
 {
   return [MWMDefaultAlert invalidUserNameOrPasswordAlert];
-}
-
-+ (MWMAlert *)updateMapsAlertWithOkBlock:(TMWMVoidBlock)block
-{
-  return [MWMDefaultAlert internalErrorAlert];
 }
 
 + (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock

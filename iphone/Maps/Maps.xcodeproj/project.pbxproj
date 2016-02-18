@@ -50,8 +50,6 @@
 		34181EBA1C0ED1C30081B586 /* MWMOpeningHoursSection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34181EB81C0ED1C30081B586 /* MWMOpeningHoursSection.mm */; };
 		341876B41C28026D005A0C9A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454040681AD2D8D2007A9B12 /* CoreVideo.framework */; };
 		341876B51C280272005A0C9A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454040681AD2D8D2007A9B12 /* CoreVideo.framework */; };
-		3419AAA71BDFD047003DC110 /* MWMUpdateMapsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3419AAA61BDFD047003DC110 /* MWMUpdateMapsAlert.mm */; };
-		3419AAA91BDFD0B0003DC110 /* MWMUpdateMapsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3419AAA81BDFD0B0003DC110 /* MWMUpdateMapsAlert.xib */; };
 		341C2A571B72092A00AD41A1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */; };
 		341F09841C20138100F18AC5 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 341F09831C20138100F18AC5 /* libpugixml.a */; };
@@ -254,8 +252,6 @@
 		34CFFE901B7DE83D009D0C9F /* MWMSearchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CFFE8F1B7DE83D009D0C9F /* MWMSearchView.mm */; };
 		34D15BA81BD8F93C00C8BCBE /* AddSetTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.mm */; };
 		34D15BA91BD8F93C00C8BCBE /* AddSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */; };
-		34DDD5321BFDAFFE00407F2F /* MWMUpdateMapsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3419AAA61BDFD047003DC110 /* MWMUpdateMapsAlert.mm */; };
-		34DDD5331BFDB00D00407F2F /* MWMUpdateMapsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3419AAA81BDFD0B0003DC110 /* MWMUpdateMapsAlert.xib */; };
 		34DDD5341BFDB0B600407F2F /* MWMMapDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 342AF0DF1BE24E9A0016F3AE /* MWMMapDownloaderViewController.mm */; };
 		34DDD5351BFDB0C600407F2F /* MWMBaseMapDownloaderViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */; };
 		34EB84581C073DF70004689F /* MWMOpeningHoursEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EB84571C073DF70004689F /* MWMOpeningHoursEditorViewController.mm */; };
@@ -834,9 +830,6 @@
 		34181EB71C0ED1C30081B586 /* MWMOpeningHoursSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursSection.h; sourceTree = "<group>"; };
 		34181EB81C0ED1C30081B586 /* MWMOpeningHoursSection.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMOpeningHoursSection.mm; sourceTree = "<group>"; };
 		34181EBB1C0ED2680081B586 /* MWMOpeningHoursEditorCells.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursEditorCells.h; sourceTree = "<group>"; };
-		3419AAA51BDFD047003DC110 /* MWMUpdateMapsAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMUpdateMapsAlert.h; sourceTree = "<group>"; };
-		3419AAA61BDFD047003DC110 /* MWMUpdateMapsAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMUpdateMapsAlert.mm; sourceTree = "<group>"; };
-		3419AAA81BDFD0B0003DC110 /* MWMUpdateMapsAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMUpdateMapsAlert.xib; sourceTree = "<group>"; };
 		341C2A5A1B720B8A00AD41A1 /* MWMAPIBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAPIBarView.xib; sourceTree = "<group>"; };
 		341F09831C20138100F18AC5 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-xcode-build/Debug/libpugixml.a"; sourceTree = "<group>"; };
 		341F99C91C6B1165001C67B8 /* MWMMapDownloaderLargeCountryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderLargeCountryTableViewCell.h; sourceTree = "<group>"; };
@@ -1765,16 +1758,6 @@
 			path = RouteState;
 			sourceTree = "<group>";
 		};
-		3419AAA41BDFD003003DC110 /* MWMUpdateAlert */ = {
-			isa = PBXGroup;
-			children = (
-				3419AAA51BDFD047003DC110 /* MWMUpdateMapsAlert.h */,
-				3419AAA61BDFD047003DC110 /* MWMUpdateMapsAlert.mm */,
-				3419AAA81BDFD0B0003DC110 /* MWMUpdateMapsAlert.xib */,
-			);
-			path = MWMUpdateAlert;
-			sourceTree = "<group>";
-		};
 		341F99C81C6B1165001C67B8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -2441,7 +2424,6 @@
 		F64F195F1AB8125C006EAF7E /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
-				3419AAA41BDFD003003DC110 /* MWMUpdateAlert */,
 				F63774E51B59374F00BCF54D /* RoutingDisclaimerAlert */,
 				F6BBF2C31B4FFB56000CF8E2 /* LocationAlert */,
 				F64F19801AB81A00006EAF7E /* AlertController */,
@@ -3090,7 +3072,6 @@
 				9DA46A121C47E95700EF52BA /* drules_proto_legacy.bin in Resources */,
 				4A23D15B1B8B4DD700D4EB6F /* drules_proto_clear.bin in Resources */,
 				340C21131C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib in Resources */,
-				3419AAA91BDFD0B0003DC110 /* MWMUpdateMapsAlert.xib in Resources */,
 				341C2A5B1B720B8A00AD41A1 /* MWMAPIBarView.xib in Resources */,
 				34B82AC51B84608600180497 /* MWMSearchHistoryClearCell.xib in Resources */,
 				F6BB6CC01BB17D7000DF1DF2 /* MWMRoutePointCell.xib in Resources */,
@@ -3223,7 +3204,6 @@
 				6741A9831BF340DE002C974C /* Mapsme.storyboard in Resources */,
 				6741A9841BF340DE002C974C /* MWMSearchShowOnMapCell.xib in Resources */,
 				6741A9851BF340DE002C974C /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
-				34DDD5331BFDB00D00407F2F /* MWMUpdateMapsAlert.xib in Resources */,
 				9DA46A131C47E95700EF52BA /* drules_proto_legacy.bin in Resources */,
 				340C21141C3FFE3100111D22 /* MWMCuisineEditorTableViewCell.xib in Resources */,
 				6741A9871BF340DE002C974C /* drules_proto_clear.bin in Resources */,
@@ -3392,7 +3372,6 @@
 				978F9240183B660F000D6C7C /* SettingsViewController.mm in Sources */,
 				F6BD33871B62412E00F2CE18 /* MWMNavigationDashboardEntity.mm in Sources */,
 				F6CB21601AEE7A5B00FB8963 /* MWMPlacePageInfoCell.mm in Sources */,
-				3419AAA71BDFD047003DC110 /* MWMUpdateMapsAlert.mm in Sources */,
 				340E10601B944DAB00D975D5 /* MWMSearchHistoryManager.mm in Sources */,
 				F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.mm in Sources */,
 				347FD8731C60B2CE002FB65E /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
@@ -3522,7 +3501,6 @@
 				347D7C6A1C2C0703006B2D0A /* UITextView+RuntimeAttributes.mm in Sources */,
 				6741A9BE1BF340DE002C974C /* UILabel+RuntimeAttributes.mm in Sources */,
 				6741A9BF1BF340DE002C974C /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
-				34DDD5321BFDAFFE00407F2F /* MWMUpdateMapsAlert.mm in Sources */,
 				6741A9C01BF340DE002C974C /* MWMTextView.mm in Sources */,
 				6741A9C11BF340DE002C974C /* MWMNextTurnPanel.mm in Sources */,
 				6741A9C21BF340DE002C974C /* MWMiPhonePortraitPlacePage.mm in Sources */,
