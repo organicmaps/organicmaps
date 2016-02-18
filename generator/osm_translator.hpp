@@ -61,11 +61,11 @@ public:
   /// Check whether we need to replace place @r with place @this.
   bool IsBetterThan(Place const & r) const
   {
-    // Area places has priority before point places.
-    if (!r.IsPoint())
-      return false;
-    if (!IsPoint())
-      return true;
+    // Check ranks.
+    uint8_t const r1 = m_ft.GetRank();
+    uint8_t const r2 = r.m_ft.GetRank();
+    if (r1 != r2)
+      return (r2 < r1);
 
     // Check types length.
     // ("place-city-capital-2" is better than "place-city").
@@ -74,8 +74,8 @@ public:
     if (l1 != l2)
       return (l2 < l1);
 
-    // Check ranks.
-    return (r.m_ft.GetRank() < m_ft.GetRank());
+    // Assume that area places has better priority than point places at the very end ...
+    return !IsPoint();
   }
 };
 
@@ -119,6 +119,11 @@ protected:
     return false;
   }
 
+  void AddCustomTag(pair<string, string> const & p)
+  {
+    m_current->AddTag(p.first, p.second);
+  }
+
   virtual void Process(RelationElement const & e) = 0;
 
 protected:
@@ -149,7 +154,7 @@ protected:
           strings::StartsWith(p.first, "addr:"))
       {
         if (!TBase::IsKeyTagExists(p.first))
-          TBase::m_current->AddTag(p.first, p.second);
+          TBase::AddCustomTag(p);
       }
     }
   }
@@ -179,8 +184,7 @@ protected:
     if (TBase::IsSkipRelation(type) || type == "route")
       return;
 
-    bool const isWay = (TBase::m_current->type == OsmElement::EntityType::Way);
-    bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
+    bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
 
     for (auto const & p : e.tags)
     {
@@ -195,10 +199,10 @@ protected:
       if (!isBoundary && p.first == "boundary")
         continue;
 
-      if (isWay && p.first == "place")
+      if (p.first == "place")
         continue;
 
-      TBase::m_current->AddTag(p.first, p.second);
+      TBase::AddCustomTag(p);
     }
   }
 };
