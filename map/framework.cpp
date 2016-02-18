@@ -240,7 +240,7 @@ bool Framework::IsEnoughSpaceForMigrate() const
   return GetPlatform().GetWritableStorageStatus(kSpaceSize) == Platform::TStorageStatus::STORAGE_OK;
 }
 
-void Framework::PreMigrate(ms::LatLon const & position,
+bool Framework::PreMigrate(ms::LatLon const & position,
                            storage::Storage::TChangeCountryFunction const & change,
                            storage::Storage::TProgressFunction const & progress)
 {
@@ -251,11 +251,15 @@ void Framework::PreMigrate(ms::LatLon const & position,
 
   TCountryId currentCountryId = infoGetter.GetRegionCountryId(MercatorBounds::FromLatLon(position));
 
+  if (currentCountryId == kInvalidCountryId)
+    return false;
+
   Storage().m_prefetchStorage->Subscribe(change, progress);
   Storage().m_prefetchStorage->DownloadNode(currentCountryId);
+  return true;
 }
 
-void Framework::Migrate()
+void Framework::Migrate(bool keepDownloaded)
 {
   m_searchEngine.reset();
   m_infoGetter.reset();
@@ -263,7 +267,7 @@ void Framework::Migrate()
   Storage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
   m_model.Clear();
-  Storage().Migrate(existedCountries);
+  Storage().Migrate(keepDownloaded ? existedCountries : TCountriesVec());
   InitCountryInfoGetter();
   InitSearchEngine();
   RegisterAllMaps();
