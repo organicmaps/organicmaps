@@ -29,6 +29,8 @@
 #include "routing/router.hpp"
 #include "routing/routing_session.hpp"
 
+#include "editor/new_feature_categories.hpp"
+
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
@@ -614,6 +616,7 @@ public:
   bool GetEditableMapObject(FeatureID const & fid, osm:: EditableMapObject & emo) const;
   void SaveEditedMapObject(osm:: EditableMapObject const & emo) const;
   void DeleteFeature(FeatureID const & fid) const;
+  osm::NewFeatureCategories GetEditorCategories() const;
   //@}
 
 private:

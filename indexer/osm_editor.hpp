@@ -8,6 +8,7 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "editor/new_feature_categories.hpp"
 #include "editor/xml_feature.hpp"
 
 #include "base/timer.hpp"
@@ -103,6 +104,9 @@ public:
   /// @param[in] tags should provide additional information about client to use in changeset.
   void UploadChanges(string const & key, string const & secret, TChangesetTags tags,
                      TFinishUploadCallback callBack = TFinishUploadCallback());
+  // TODO(mgsergio): Test new types from new config but with old classificator (where these types are absent).
+  // Editor should silently ignore all types in config which are unknown to him.
+  NewFeatureCategories GetNewFeatureCategories() const;
 
   struct Stats
   {

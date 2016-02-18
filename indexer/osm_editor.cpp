@@ -1,3 +1,4 @@
+#include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/edits_migration.hpp"
 #include "indexer/feature_algo.hpp"
@@ -10,6 +11,7 @@
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 
 #include "editor/changeset_wrapper.hpp"
 #include "editor/osm_auth.hpp"
@@ -829,6 +831,41 @@ Editor::Stats Editor::GetStats() const
     }
   }
   return stats;
+}
+
+NewFeatureCategories Editor::GetNewFeatureCategories() const
+{
+  // TODO(mgsergio): Load types user can create from XML file.
+  // TODO: Not every editable type can be created by user.
+  CategoriesHolder const & cats = GetDefaultCategories();
+  int8_t const locale = CategoriesHolder::MapLocaleToInteger(languages::GetCurrentOrig());
+  Classificator const & cl = classif();
+  NewFeatureCategories res;
+  for (auto const & elem : gEditableTypes)
+  {
+    uint32_t const type = cl.GetTypeByReadableObjectName(elem.first);
+    if (type == 0)
+    {
+      LOG(LWARNING, ("Unknown type in Editor's config:", elem.first));
+      continue;
+    }
+    res.m_allSorted.emplace_back(type, cats.GetReadableFeatureType(type, locale));
+  }
+  sort(res.m_allSorted.begin(), res.m_allSorted.end(), [](Category const & c1, Category const & c2)
+  {
+    // TODO(AlexZ): Does it sort correctly?
+    return c1.m_name < c2.m_name;
+  });
+  // TODO(mgsergio): Store in Settings:: recent history of created types and use them here.
+  // Max history items count shoud be set in the config.
+  uint32_t const cafe = cl.GetTypeByPath({"amenity", "cafe"});
+  res.m_lastUsed.emplace_back(cafe, cats.GetReadableFeatureType(cafe, locale));
+  uint32_t const restaurant = cl.GetTypeByPath({"amenity", "restaurant"});
+  res.m_lastUsed.emplace_back(restaurant, cats.GetReadableFeatureType(restaurant, locale));
+  uint32_t const atm = cl.GetTypeByPath({"amenity", "atm"});
+  res.m_lastUsed.emplace_back(atm, cats.GetReadableFeatureType(atm, locale));
+
+  return res;
 }
 
 string DebugPrint(Editor::FeatureStatus fs)

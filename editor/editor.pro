@@ -19,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
   changeset_wrapper.hpp \
+  new_feature_categories.hpp \
   opening_hours_ui.hpp \
   osm_auth.hpp \
   osm_feature_matcher.hpp \
