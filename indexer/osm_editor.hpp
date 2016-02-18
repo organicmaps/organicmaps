@@ -22,6 +22,7 @@ namespace osm
 struct EditableProperties
 {
   bool m_name = false;
+  /// If true, enables editing of house number, street address and post code.
   bool m_address = false;
   vector<feature::Metadata::EType> m_metadata;
   bool IsEditable() const { return m_name || m_address || !m_metadata.empty(); }

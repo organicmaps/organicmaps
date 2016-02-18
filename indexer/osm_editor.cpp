@@ -638,11 +638,6 @@ EditableProperties Editor::GetEditableProperties(FeatureType const & feature) co
         editable.m_metadata.push_back(field);
     }
   }
-  // Buildings are processed separately.
-  // TODO(mgsergio): Activate this code by XML config variable.
-  if (ftypes::IsBuildingChecker::Instance()(feature))
-    editable.m_address = true;
-
   // If address is editable, many metadata fields are editable too.
   if (editable.m_address)
   {
@@ -652,6 +647,15 @@ EditableProperties Editor::GetEditableProperties(FeatureType const & feature) co
     editable.m_metadata.push_back(EType::FMD_PHONE_NUMBER);
     editable.m_metadata.push_back(EType::FMD_WEBSITE);
     // Post boxes and post offices should have editable postcode field defined separately.
+    editable.m_metadata.push_back(EType::FMD_POSTCODE);
+  }
+
+  // Buildings are processed separately.
+  // Please note that only house number, street and post code should be editable for buildings.
+  // TODO(mgsergio): Activate this code by XML config variable.
+  if (ftypes::IsBuildingChecker::Instance()(feature))
+  {
+    editable.m_address = true;
     editable.m_metadata.push_back(EType::FMD_POSTCODE);
   }
 
