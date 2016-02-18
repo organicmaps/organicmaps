@@ -64,6 +64,7 @@ namespace
 {
 NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
+NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
 } // namespace
 
@@ -501,7 +502,8 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 - (void)openMapsDownloader
 {
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
-  [self performSegueWithIdentifier:kDownloaderSegue sender:self];
+  bool const needMigrate = platform::migrate::NeedMigrate();
+  [self performSegueWithIdentifier:needMigrate ? kMigrationSegue : kDownloaderSegue sender:self];
 }
 
 - (void)openEditor

@@ -50,6 +50,11 @@ using namespace storage;
   self.searchBar.backgroundImage = [UIImage imageWithColor:searchBarColor];
 }
 
+- (void)backTap
+{
+  [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 #pragma mark - All Maps Action
 
 - (void)configAllMapsView
