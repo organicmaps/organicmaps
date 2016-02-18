@@ -234,7 +234,7 @@ namespace qt
     NodeAttrs attrs;
     st.GetNodeAttrs(countryId, attrs);
 
-    size.first = attrs.m_downloadingMwmSize;
+    size.first = attrs.m_downloadingProgress.first;
     size.second = attrs.m_mwmSize;
 
     switch (attrs.m_status)

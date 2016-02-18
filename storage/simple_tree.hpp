@@ -6,6 +6,10 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
+/// This class is developed for using in Storage. It's a implementation of a tree.
+/// It should be filled with AddAtDepth method. Before calling AddAtDepth for a node
+/// ReserveAtDepth should be called for the node. The tree can be filled only
+/// according to BFS order.
 template <class T>
 class SimpleTree
 {
@@ -34,8 +38,11 @@ public:
     return m_value;
   }
 
-  /// \brief Reserves child size vector. This method should be called once before filling
-  /// children vector with correct |n| size to prevent m_children relocation while filling.
+  /// \brief Reserves child size vector. This method should be called once for every node
+  /// just before filling children vector of the node to prevent m_children vector
+  /// relocation while filling.
+  /// \param level depth of node which children vector will be reserved.
+  /// \n number of vector elements will be reserved.
   void ReserveAtDepth(int level, size_t n)
   {
     SimpleTree<T> * node = this;

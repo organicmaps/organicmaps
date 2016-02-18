@@ -32,7 +32,7 @@ struct CountryIdAndName
 struct NodeAttrs
 {
   NodeAttrs() : m_mwmCounter(0), m_localMwmCounter(0), m_mwmSize(0), m_localMwmSize(0),
-    m_downloadingMwmSize(0), m_downloadingProgress(make_pair(0, 0)),
+    m_downloadingProgress(make_pair(0, 0)),
     m_status(NodeStatus::Undefined), m_error(NodeErrorCode::NoError), m_present(false) {}
 
   /// If the node is expandable (a big country) |m_mwmCounter| is number of mwm files (leaves)
@@ -52,12 +52,6 @@ struct NodeAttrs
   /// Otherwise |m_localNodeSize| is the sum of all mwm file sizes which belong to the group and
   /// have been downloaded.
   size_t m_localMwmSize;
-
-  /// If downloading or updating an mwm is in progress apart from a local mwm
-  /// which is currently used there's a partly downloading mwm of the same region.
-  /// |m_downloadingMwmSize| is size of partly downloaded mwm if downloading is in progress.
-  /// And |m_downloadingMwmSize| == 0 otherwise.
-  size_t m_downloadingMwmSize;
 
   /// The name of the node in a local language. That means the language dependent on
   /// a device locale.
@@ -116,7 +110,7 @@ private:
   /// When a mwm file is downloaded it's moved from |m_queue| to |m_justDownloaded|.
   /// When a new mwm file is added to |m_queue| |m_justDownloaded| is cleared.
   /// Note. This set is necessary for implementation of downloading progress of
-  /// expandable mwm.
+  /// mwm group.
   TCountriesUnorderedSet m_justDownloaded;
 
   /// stores countries whose download has failed recently
@@ -508,17 +502,17 @@ private:
   /// Will be removed in future after refactoring.
   TCountriesVec FindAllIndexesByFile(TCountryId const & name) const;
 
-  /// Calculates progress of downloading for non-expandable nodes in country tree.
+  /// Calculates progress of downloading for expandable nodes in country tree.
   /// |descendants| All descendants of the parent node.
   /// |downloadingMwm| Downloading leaf node country id if any. If not, downloadingMwm == kInvalidCountryId.
   /// If downloadingMwm != kInvalidCountryId |downloadingMwmProgress| is a progress of downloading
   /// the leaf node in bytes. |downloadingMwmProgress.first| == number of downloaded bytes.
   /// |downloadingMwmProgress.second| == number of bytes in downloading files.
-  /// |hashQueue| hash table made from |m_queue|.
+  /// |mwmsInQueue| hash table made from |m_queue|.
   pair<int64_t, int64_t> CalculateProgress(TCountriesVec const & descendants,
                                            TCountryId const & downloadingMwm,
                                            pair<int64_t, int64_t> const & downloadingMwmProgress,
-                                           TCountriesUnorderedSet const & hashQueue) const;
+                                           TCountriesUnorderedSet const & mwmsInQueue) const;
 };
 
 template <class ToDo>

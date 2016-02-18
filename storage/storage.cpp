@@ -441,7 +441,6 @@ void Storage::DownloadCountry(TCountryId const & countryId, MapOptions opt)
   }
 
   m_failedCountries.erase(countryId);
-  m_justDownloaded.clear();
   m_queue.push_back(QueuedCountry(countryId, opt));
   if (m_queue.size() == 1)
     DownloadNextCountryFromQueue();
@@ -532,7 +531,10 @@ void Storage::DownloadNextCountryFromQueue()
     OnMapDownloadFinished(countryId, false /* success */, queuedCountry.GetInitOptions());
     NotifyStatusChanged(countryId);
     m_queue.pop_front();
-    m_justDownloaded.insert(countryId);
+    if (m_queue.empty())
+      m_justDownloaded.clear();
+    else
+      m_justDownloaded.insert(countryId);
     DownloadNextCountryFromQueue();
     return;
   }
@@ -670,7 +672,6 @@ void Storage::OnMapFileDownloadFinished(bool success,
 void Storage::ReportProgress(TCountryId const & countryId, pair<int64_t, int64_t> const & p)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-
   for (CountryObservers const & o : m_observers)
     o.m_progressFn(countryId, p);
 }
@@ -1038,7 +1039,10 @@ bool Storage::DeleteCountryFilesFromDownloader(TCountryId const & countryId, Map
   if (queuedCountry->GetInitOptions() == MapOptions::Nothing)
   {
     m_queue.erase(find(m_queue.begin(), m_queue.end(), countryId));
-    m_justDownloaded.insert(countryId);
+    if (m_queue.empty())
+      m_justDownloaded.clear();
+    else
+      m_justDownloaded.insert(countryId);
   }
 
   if (!m_queue.empty() && m_downloader->IsIdle())
@@ -1275,7 +1279,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
     descendants.push_back(d.Value().Name());
   });
   TCountryId const & downloadingMwm = IsDownloadInProgress() ? GetCurrentDownloadingCountryId()
-                                                           : kInvalidCountryId;
+                                                             : kInvalidCountryId;
   MapFilesDownloader::TProgress downloadingMwmProgress =
       m_downloader->IsIdle() ? make_pair(0LL, 0LL)
                              : m_downloader->GetDownloadingProgress();
@@ -1283,7 +1287,6 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   HashFromQueue(m_queue, hashQueue);
   nodeAttrs.m_downloadingProgress =
       CalculateProgress(descendants, downloadingMwm, downloadingMwmProgress, hashQueue);
-  nodeAttrs.m_downloadingMwmSize = nodeAttrs.m_downloadingProgress.first;
 
   nodeAttrs.m_parentInfo.clear();
   nodeAttrs.m_parentInfo.reserve(nodes.size());
@@ -1318,7 +1321,7 @@ void Storage::DoClickOnDownloadMap(TCountryId const & countryId)
 pair<int64_t, int64_t> Storage::CalculateProgress(TCountriesVec const & descendants,
                                                   TCountryId const & downloadingMwm,
                                                   pair<int64_t, int64_t> const & downloadingMwmProgress,
-                                                  TCountriesUnorderedSet const & hashQueue) const
+                                                  TCountriesUnorderedSet const & mwmsInQueue) const
 {
   pair<int64_t, int64_t> localAndRemoteBytes = make_pair(0, 0);
   for (auto const & d : descendants)
@@ -1326,7 +1329,7 @@ pair<int64_t, int64_t> Storage::CalculateProgress(TCountriesVec const & descenda
     if (d == downloadingMwm)
       continue;
 
-    if (hashQueue.count(d) != 0)
+    if (mwmsInQueue.count(d) != 0)
     {
       CountryFile const & remoteCountryFile = GetCountryFile(d);
       localAndRemoteBytes.second += remoteCountryFile.GetRemoteSize(MapOptions::Map);
@@ -1336,7 +1339,8 @@ pair<int64_t, int64_t> Storage::CalculateProgress(TCountriesVec const & descenda
     if (m_justDownloaded.count(d) != 0)
     {
       CountryFile const & localCountryFile = GetCountryFile(d);
-      localAndRemoteBytes.second += localCountryFile.GetRemoteSize(MapOptions::Map);
+      localAndRemoteBytes.first += localCountryFile.GetRemoteSize(MapOptions::Map);
+      localAndRemoteBytes.second += localAndRemoteBytes.first;
     }
   }
   if (downloadingMwm != kInvalidCountryId)
