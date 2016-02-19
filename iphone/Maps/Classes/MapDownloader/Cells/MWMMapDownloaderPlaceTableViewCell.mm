@@ -16,12 +16,16 @@
   [super layoutSubviews];
 }
 
-- (void)setAreaText:(NSString *)text
+#pragma mark - Config
+
+- (void)config:(storage::NodeAttrs const &)nodeAttrs
 {
-  self.area.text = text;
-  BOOL const isAreaHidden = (text.length == 0);
-  self.area.hidden = isAreaHidden;
-  self.titleBottomOffset.priority = isAreaHidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+  [super config:nodeAttrs];
+  BOOL const isAreaVisible = (self.needDisplayArea && nodeAttrs.m_parentInfo.size() == 1);
+  if (isAreaVisible)
+    self.area.text = @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
+  self.area.hidden = !isAreaVisible;
+  self.titleBottomOffset.priority = isAreaVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 }
 
 #pragma mark - Properties

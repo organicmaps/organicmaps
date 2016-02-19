@@ -18,9 +18,9 @@ using namespace storage;
 
 @implementation MWMMapDownloaderExtendedDataSource
 
-- (instancetype)initForRootCountryId:(storage::TCountryId)countryId
+- (instancetype)initForRootCountryId:(storage::TCountryId)countryId delegate:(id<MWMMapDownloaderProtocol>)delegate
 {
-  self = [super initForRootCountryId:countryId];
+  self = [super initForRootCountryId:countryId delegate:delegate];
   if (self)
   {
     self.baseSectionShift = 0;

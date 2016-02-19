@@ -1,17 +1,22 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
+#import "MWMAlertViewController.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMigrationView.h"
 #import "MWMMigrationViewController.h"
+#import "MWMStorage.h"
 
 #include "Framework.h"
 
 #include "platform/platform.hpp"
+#include "storage/storage.hpp"
 
 namespace
 {
 NSString * const kDownloaderSegue = @"Migration2MapDownloaderSegue";
 } // namespace
+
+using namespace storage;
 
 @implementation MWMMigrationViewController
 
@@ -95,7 +100,7 @@ NSString * const kDownloaderSegue = @"Migration2MapDownloaderSegue";
     case NodeErrorCode::NoInetConnection:
       [avc presentDownloaderNoConnectionAlertWithOkBlock:^
       {
-        GetFramework().Storage().RetryDownloadNode(countryId);
+        [MWMStorage retryDownloadNode:countryId];
       }];
       break;
   }

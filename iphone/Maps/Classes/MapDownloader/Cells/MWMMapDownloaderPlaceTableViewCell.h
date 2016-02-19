@@ -2,6 +2,6 @@
 
 @interface MWMMapDownloaderPlaceTableViewCell : MWMMapDownloaderTableViewCell
 
-- (void)setAreaText:(NSString *)text;
+@property (nonatomic) BOOL needDisplayArea;
 
 @end

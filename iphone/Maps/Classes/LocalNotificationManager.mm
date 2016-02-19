@@ -3,6 +3,7 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "MWMStorage.h"
 #import "Statistics.h"
 #import "TimeUtils.h"
 
@@ -65,7 +66,7 @@ using namespace storage;
 
     NSString * notificationCountryId = userInfo[kDownloadMapCountryId];
     TCountryId const countryId = notificationCountryId.UTF8String;
-    [MapsAppDelegate downloadNode:countryId alertController:mapViewController.alertController onSuccess:^
+    [MWMStorage downloadNode:countryId alertController:mapViewController.alertController onSuccess:^
     {
       auto & f = GetFramework();
       double const defaultZoom = 10;

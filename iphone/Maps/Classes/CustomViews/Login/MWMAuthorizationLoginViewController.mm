@@ -1,5 +1,6 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
+#import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"

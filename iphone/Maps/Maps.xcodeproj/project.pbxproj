@@ -247,6 +247,8 @@
 		34CCFDE11C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CCFDDE1C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.mm */; };
 		34CCFDE21C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CCFDDF1C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.xib */; };
 		34CCFDE31C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CCFDDF1C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.xib */; };
+		34CE8A671C7740E100F4351A /* MWMStorage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CE8A661C7740E100F4351A /* MWMStorage.mm */; };
+		34CE8A681C7740E100F4351A /* MWMStorage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CE8A661C7740E100F4351A /* MWMStorage.mm */; };
 		34CFFE8B1B7DE6FD009D0C9F /* MWMSearchManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CFFE8A1B7DE6FD009D0C9F /* MWMSearchManager.mm */; };
 		34CFFE8D1B7DE71C009D0C9F /* MWMSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34CFFE8C1B7DE71C009D0C9F /* MWMSearchView.xib */; };
 		34CFFE901B7DE83D009D0C9F /* MWMSearchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34CFFE8F1B7DE83D009D0C9F /* MWMSearchView.mm */; };
@@ -1079,6 +1081,8 @@
 		34CCFDDE1C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageOpeningHoursCell.mm; sourceTree = "<group>"; };
 		34CCFDDF1C22A2EF00F28959 /* MWMPlacePageOpeningHoursCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPlacePageOpeningHoursCell.xib; sourceTree = "<group>"; };
 		34CE2ECB1C2AA83F007B59ED /* MWMOpeningHoursCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMOpeningHoursCommon.h; sourceTree = "<group>"; };
+		34CE8A651C7740E100F4351A /* MWMStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMStorage.h; sourceTree = "<group>"; };
+		34CE8A661C7740E100F4351A /* MWMStorage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMStorage.mm; sourceTree = "<group>"; };
 		34CFFE891B7DE6FD009D0C9F /* MWMSearchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchManager.h; sourceTree = "<group>"; };
 		34CFFE8A1B7DE6FD009D0C9F /* MWMSearchManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchManager.mm; sourceTree = "<group>"; };
 		34CFFE8C1B7DE71C009D0C9F /* MWMSearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSearchView.xib; sourceTree = "<group>"; };
@@ -1087,6 +1091,7 @@
 		34D15BA51BD8F93C00C8BCBE /* AddSetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSetTableViewCell.h; sourceTree = "<group>"; };
 		34D15BA61BD8F93C00C8BCBE /* AddSetTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AddSetTableViewCell.mm; sourceTree = "<group>"; };
 		34D15BA71BD8F93C00C8BCBE /* AddSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddSetTableViewCell.xib; sourceTree = "<group>"; };
+		34DCDE3D1C76195F00652CAC /* MWMMapDownloaderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderProtocol.h; sourceTree = "<group>"; };
 		34E2731F1C737A4100463965 /* MWMMigrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMigrationViewController.h; sourceTree = "<group>"; };
 		34E273201C737A4100463965 /* MWMMigrationViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMigrationViewController.mm; sourceTree = "<group>"; };
 		34E273231C73876500463965 /* MWMMigrationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMigrationView.h; sourceTree = "<group>"; };
@@ -1574,6 +1579,7 @@
 			isa = PBXGroup;
 			children = (
 				34479C741C60C6130065D261 /* Framework */,
+				34CE8A641C7740CF00F4351A /* Storage */,
 				34ABA61D1C2D514A00FE1BEC /* Input Validators */,
 				F607C18B1C047FCA00B53A87 /* Segue */,
 				34FE4C421BCC013500066718 /* Widgets */,
@@ -1805,6 +1811,7 @@
 		342AF0DD1BE24E7C0016F3AE /* MapDownloader */ = {
 			isa = PBXGroup;
 			children = (
+				34DCDE3D1C76195F00652CAC /* MWMMapDownloaderProtocol.h */,
 				341223B91BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.h */,
 				341223BA1BEB58FA007227E9 /* MWMBaseMapDownloaderViewController.mm */,
 				342AF0DE1BE24E9A0016F3AE /* MWMMapDownloaderViewController.h */,
@@ -2167,6 +2174,15 @@
 			);
 			name = OpeningHours;
 			path = CustomViews/MapViewControls/PlacePage/Cells/OpeningHours;
+			sourceTree = "<group>";
+		};
+		34CE8A641C7740CF00F4351A /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				34CE8A651C7740E100F4351A /* MWMStorage.h */,
+				34CE8A661C7740E100F4351A /* MWMStorage.mm */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		34CFFE881B7DE67F009D0C9F /* Search */ = {
@@ -3443,6 +3459,7 @@
 				34ABA6241C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				34B82AE21B84AC5E00180497 /* MWMSearchCategoriesManager.mm in Sources */,
 				34BC722A1B0DECAE0012A34B /* MWMZoomButtonsView.mm in Sources */,
+				34CE8A671C7740E100F4351A /* MWMStorage.mm in Sources */,
 				F6F533A31B3C248900C1940B /* UIColor+MapsMeColor.mm in Sources */,
 				346EDADB1B9F0E35004F8DB5 /* MWMMultilineLabel.mm in Sources */,
 				34C9BD041C6DB693000DC38D /* MWMViewController.mm in Sources */,
@@ -3648,6 +3665,7 @@
 				6741AA121BF340DE002C974C /* MWMZoomButtonsView.mm in Sources */,
 				6741AA131BF340DE002C974C /* UIColor+MapsMeColor.mm in Sources */,
 				34ABA6251C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
+				34CE8A681C7740E100F4351A /* MWMStorage.mm in Sources */,
 				6741AA141BF340DE002C974C /* MWMMultilineLabel.mm in Sources */,
 				6741AA151BF340DE002C974C /* Statistics.mm in Sources */,
 				34C9BD051C6DB693000DC38D /* MWMViewController.mm in Sources */,

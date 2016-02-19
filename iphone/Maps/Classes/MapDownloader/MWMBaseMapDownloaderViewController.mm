@@ -8,6 +8,7 @@
 #import "MWMMapDownloaderTableViewCell.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMSegue.h"
+#import "MWMStorage.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
@@ -26,8 +27,6 @@ NSString * const kUpdateActionTitle = L(@"downloader_status_outdated");
 NSString * const kDeleteActionTitle = L(@"downloader_delete_map");
 NSString * const kShowActionTitle = L(@"zoom_to_country");
 NSString * const kCancelActionTitle = L(@"cancel");
-
-using TAlertAction = void (^)(UIAlertAction *);
 } // namespace
 
 @interface MWMBaseMapDownloaderViewController () <UIActionSheetDelegate>
@@ -41,11 +40,6 @@ using TAlertAction = void (^)(UIAlertAction *);
 @property (nonatomic) UIImage * navBarShadow;
 
 @property (nonatomic) CGFloat lastScrollOffset;
-
-@property (copy, nonatomic) TAlertAction downloadAction;
-@property (copy, nonatomic) TAlertAction updateAction;
-@property (copy, nonatomic) TAlertAction deleteAction;
-@property (copy, nonatomic) TAlertAction showAction;
 
 @property (nonatomic) MWMMapDownloaderDataSource * dataSource;
 @property (nonatomic) MWMMapDownloaderDataSource * defaultDataSource;
@@ -65,7 +59,6 @@ using namespace storage;
   [self configNavBar];
   [self configTable];
   [self configAllMapsView];
-  [self configActions];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -155,32 +148,44 @@ using namespace storage;
   else
   {
     UIAlertController * alertController =
-        [UIAlertController alertControllerWithTitle:title
-                                            message:message
-                                     preferredStyle:UIAlertControllerStyleActionSheet];
+    [UIAlertController alertControllerWithTitle:title
+                                        message:message
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
     if (isDownloaded)
     {
       UIAlertAction * showAction = [UIAlertAction actionWithTitle:kShowActionTitle
                                                             style:UIAlertActionStyleDefault
-                                                          handler:self.showAction];
+                                                          handler:^(UIAlertAction * action)
+                                    {
+                                      [self showNode:self->m_actionSheetId];
+                                    }];
       [alertController addAction:showAction];
       if (needsUpdate)
       {
         UIAlertAction * updateAction = [UIAlertAction actionWithTitle:kUpdateActionTitle
                                                                 style:UIAlertActionStyleDefault
-                                                              handler:self.updateAction];
+                                                              handler:^(UIAlertAction * action)
+                                        {
+                                          [self updateNode:self->m_actionSheetId];
+                                        }];
         [alertController addAction:updateAction];
       }
       UIAlertAction * deleteAction = [UIAlertAction actionWithTitle:kDeleteActionTitle
                                                               style:UIAlertActionStyleDestructive
-                                                            handler:self.deleteAction];
+                                                            handler:^(UIAlertAction * action)
+                                      {
+                                        [self deleteNode:self->m_actionSheetId];
+                                      }];
       [alertController addAction:deleteAction];
     }
     else
     {
       UIAlertAction * downloadAction = [UIAlertAction actionWithTitle:downloadActionTitle
                                                                 style:UIAlertActionStyleDefault
-                                                              handler:self.downloadAction];
+                                                              handler:^(UIAlertAction * action)
+                                        {
+                                          [self downloadNode:self->m_actionSheetId];
+                                        }];
       [alertController addAction:downloadAction];
     }
     UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:kCancelActionTitle
@@ -269,9 +274,9 @@ using namespace storage;
 - (IBAction)allMapsAction
 {
   if (self.parentCountryId == GetFramework().Storage().GetRootId())
-    [MapsAppDelegate updateNode:self.parentCountryId alertController:self.alertController];
+    [MWMStorage updateNode:self.parentCountryId alertController:self.alertController];
   else
-    [MapsAppDelegate downloadNode:self.parentCountryId alertController:self.alertController onSuccess:nil];
+    [MWMStorage downloadNode:self.parentCountryId alertController:self.alertController onSuccess:nil];
 }
 
 #pragma mark - UITableViewDelegate
@@ -319,43 +324,46 @@ using namespace storage;
 {
   NSString * btnTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
   if ([btnTitle hasPrefix:kDownloadActionTitle])
-    self.downloadAction(nil);
+    [self downloadNode:m_actionSheetId];
   else if ([btnTitle isEqualToString:kDeleteActionTitle])
-    self.deleteAction(nil);
+    [self deleteNode:m_actionSheetId];
+  else if ([btnTitle isEqualToString:kUpdateActionTitle])
+    [self updateNode:m_actionSheetId];
   else if ([btnTitle isEqualToString:kShowActionTitle])
-    self.showAction(nil);
+    [self showNode:m_actionSheetId];
 }
 
-#pragma mark - Action Sheet actions
+#pragma mark - MWMMapDownloaderProtocol
 
-- (void)configActions
+- (void)downloadNode:(storage::TCountryId const &)countryId
 {
-  __weak auto weakSelf = self;
-  self.downloadAction = ^(UIAlertAction * action)
-  {
-    __strong auto self = weakSelf;
-    if (self)
-      [MapsAppDelegate downloadNode:self->m_actionSheetId alertController:self.alertController onSuccess:nil];
-  };
+  [MWMStorage downloadNode:countryId alertController:self.alertController onSuccess:nil];
+}
 
-  self.updateAction = ^(UIAlertAction * action)
-  {
-    __strong auto self = weakSelf;
-    if (self)
-      [MapsAppDelegate updateNode:self->m_actionSheetId alertController:self.alertController];
-  };
+- (void)retryDownloadNode:(storage::TCountryId const &)countryId
+{
+  [MWMStorage retryDownloadNode:countryId];
+}
 
-  self.deleteAction = ^(UIAlertAction * action)
-  {
-    __strong auto self = weakSelf;
-    if (self)
-      [MapsAppDelegate deleteNode:self->m_actionSheetId];
-  };
+- (void)updateNode:(storage::TCountryId const &)countryId
+{
+  [MWMStorage updateNode:countryId alertController:self.alertController];
+}
 
-  self.showAction = ^(UIAlertAction * action)
-  {
-    // TODO (igrechuhin) Add implementation
-  };
+- (void)deleteNode:(storage::TCountryId const &)countryId
+{
+  [MWMStorage deleteNode:countryId];
+}
+
+- (void)cancelNode:(storage::TCountryId const &)countryId
+{
+  [MWMStorage cancelDownloadNode:countryId];
+}
+
+- (void)showNode:(storage::TCountryId const &)countryId
+{
+  [MapsAppDelegate showNode:countryId];
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - Managing the Status Bar
@@ -386,7 +394,7 @@ using namespace storage;
 
 - (void)setParentCountryId:(TCountryId)parentId
 {
-  self.defaultDataSource = [[MWMMapDownloaderDefaultDataSource alloc] initForRootCountryId:parentId];
+  self.defaultDataSource = [[MWMMapDownloaderDefaultDataSource alloc] initForRootCountryId:parentId delegate:self];
 }
 
 - (void)setDataSource:(MWMMapDownloaderDataSource *)dataSource

@@ -1,3 +1,4 @@
+#import "MWMMapDownloaderProtocol.h"
 #import "MWMMapDownloaderTableViewCell.h"
 
 #include "storage/index.hpp"
@@ -17,5 +18,7 @@
 @end
 
 @interface MWMMapDownloaderDataSource : NSObject <MWMMapDownloaderDataSourceProtocol>
+
+- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol>)delegate;
 
 @end

@@ -1,9 +1,8 @@
+#import "MWMMapDownloaderProtocol.h"
 #import "MWMMapDownloaderTableViewCell.h"
 #import "MWMViewController.h"
 
-#include "storage/index.hpp"
-
-@interface MWMBaseMapDownloaderViewController : MWMViewController <UITableViewDelegate>
+@interface MWMBaseMapDownloaderViewController : MWMViewController <UITableViewDelegate, MWMMapDownloaderProtocol>
 
 @property (weak, nonatomic) IBOutlet UILabel * allMapsLabel;
 

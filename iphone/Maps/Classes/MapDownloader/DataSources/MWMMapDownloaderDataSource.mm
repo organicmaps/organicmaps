@@ -8,42 +8,42 @@
 
 using namespace storage;
 
+@interface MWMMapDownloaderDataSource ()
+
+@property (weak, nonatomic) id<MWMMapDownloaderProtocol> delegate;
+
+@end
+
 @implementation MWMMapDownloaderDataSource
+
+- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol>)delegate
+{
+  self = [super init];
+  if (self)
+    _delegate = delegate;
+  return self;
+}
 
 #pragma mark - Fill cells with data
 
 - (void)fillCell:(MWMMapDownloaderTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
   TCountryId const countryId = [self countryIdForIndexPath:indexPath];
-  auto const & s = GetFramework().Storage();
-  NodeAttrs nodeAttrs;
-  s.GetNodeAttrs(countryId, nodeAttrs);
-  [cell setTitleText:@(nodeAttrs.m_nodeLocalName.c_str())];
-  [cell setDownloadSizeText:formattedSize(nodeAttrs.m_mwmSize)];
 
-  if ([cell isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]])
+  if ([cell isKindOfClass:[MWMMapDownloaderPlaceTableViewCell class]])
+    static_cast<MWMMapDownloaderPlaceTableViewCell *>(cell).needDisplayArea = self.isParentRoot;
+
+  if ([cell isKindOfClass:[MWMMapDownloaderSubplaceTableViewCell class]])
   {
-    MWMMapDownloaderLargeCountryTableViewCell * tCell = (MWMMapDownloaderLargeCountryTableViewCell *)cell;
-    [tCell setMapCountText:@(nodeAttrs.m_mwmCounter).stringValue];
+    BOOL const correctDataSource = [self respondsToSelector:@selector(searchMatchedResultForCountryId:)];
+    NSAssert(correctDataSource, @"Invalid data source");
+    if (!correctDataSource)
+      return;
+    [static_cast<MWMMapDownloaderSubplaceTableViewCell *>(cell)
+        setSubplaceText:[self searchMatchedResultForCountryId:countryId]];
   }
-  else if ([cell isKindOfClass:[MWMMapDownloaderPlaceTableViewCell class]])
-  {
-    MWMMapDownloaderPlaceTableViewCell * tCell = (MWMMapDownloaderPlaceTableViewCell *)cell;
-    BOOL const isSingleParent = (nodeAttrs.m_parentInfo.size() == 1);
-    NSString * areaText = (self.isParentRoot && isSingleParent)
-                              ? @(nodeAttrs.m_parentInfo[0].m_localName.c_str())
-                              : @"";
-    [tCell setAreaText:areaText];
-    if ([cell isKindOfClass:[MWMMapDownloaderSubplaceTableViewCell class]])
-    {
-      BOOL const correctDataSource = [self respondsToSelector:@selector(searchMatchedResultForCountryId:)];
-      NSAssert(correctDataSource, @"Invalid data source");
-      if (!correctDataSource)
-        return;
-      MWMMapDownloaderSubplaceTableViewCell * tCell = (MWMMapDownloaderSubplaceTableViewCell *)cell;
-      [tCell setSubplaceText:[self searchMatchedResultForCountryId:countryId]];
-    }
-  }
+
+  [cell setCountryId:countryId];
 }
 
 #pragma mark - UITableViewDataSource
@@ -57,6 +57,8 @@ using namespace storage;
 {
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
   MWMMapDownloaderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  cell.delegate = self.delegate;
+  [cell registerObserver];
   [self fillCell:cell atIndexPath:indexPath];
   return cell;
 }

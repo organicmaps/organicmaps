@@ -15,9 +15,12 @@
   [super layoutSubviews];
 }
 
-- (void)setMapCountText:(NSString *)text
+#pragma mark - Config
+
+- (void)config:(storage::NodeAttrs const &)nodeAttrs
 {
-  self.mapsCount.text = text;
+  [super config:nodeAttrs];
+  self.mapsCount.text = @(nodeAttrs.m_mwmCounter).stringValue;
 }
 
 #pragma mark - Properties

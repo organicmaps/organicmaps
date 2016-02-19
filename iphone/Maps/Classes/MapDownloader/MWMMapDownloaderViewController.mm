@@ -141,7 +141,7 @@ using namespace storage;
     MWMMapDownloaderDataSource * dataSource = self.defaultDataSource;
     if (results.GetCount() != 0)
     {
-      self.searchDataSource = [[MWMMapDownloaderSearchDataSource alloc] initWithSearchResults:results];
+      self.searchDataSource = [[MWMMapDownloaderSearchDataSource alloc] initWithSearchResults:results delegate:self];
       dataSource = self.searchDataSource;
     }
     dispatch_async(dispatch_get_main_queue(), ^()
@@ -156,7 +156,7 @@ using namespace storage;
 
 - (void)setParentCountryId:(TCountryId)parentId
 {
-  self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId];
+  self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId delegate:self];
 }
 
 #pragma mark - Helpers

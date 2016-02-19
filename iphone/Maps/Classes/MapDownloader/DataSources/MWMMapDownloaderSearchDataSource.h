@@ -4,6 +4,6 @@
 
 @interface MWMMapDownloaderSearchDataSource : MWMMapDownloaderDataSource
 
-- (instancetype)initWithSearchResults:(search::Results const &)results;
+- (instancetype)initWithSearchResults:(search::Results const &)results delegate:(id<MWMMapDownloaderProtocol>)delegate;
 
 @end

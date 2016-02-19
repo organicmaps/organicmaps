@@ -2,6 +2,6 @@
 
 @interface MWMMapDownloaderDefaultDataSource : MWMMapDownloaderDataSource
 
-- (instancetype)initForRootCountryId:(storage::TCountryId)countryId;
+- (instancetype)initForRootCountryId:(storage::TCountryId)countryId delegate:(id<MWMMapDownloaderProtocol>)delegate;
 
 @end

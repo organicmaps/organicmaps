@@ -21,9 +21,9 @@ using namespace storage;
   TCountryId m_parentId;
 }
 
-- (instancetype)initForRootCountryId:(storage::TCountryId)countryId
+- (instancetype)initForRootCountryId:(storage::TCountryId)countryId delegate:(id<MWMMapDownloaderProtocol>)delegate
 {
-  self = [super init];
+  self = [super initWithDelegate:delegate];
   if (self)
     [self configData:countryId];
   return self;

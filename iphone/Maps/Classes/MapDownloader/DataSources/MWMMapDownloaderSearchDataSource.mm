@@ -17,9 +17,9 @@ extern NSString * const kPlaceCellIdentifier;
 
 @implementation MWMMapDownloaderSearchDataSource
 
-- (instancetype)initWithSearchResults:(search::Results const &)results
+- (instancetype)initWithSearchResults:(search::Results const &)results delegate:(id<MWMMapDownloaderProtocol>)delegate
 {
-  self = [super init];
+  self = [super initWithDelegate:delegate];
   if (self)
     [self configSearchResults:results];
   return self;

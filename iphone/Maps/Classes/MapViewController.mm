@@ -9,6 +9,8 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMEditorViewController.h"
+#import "MWMFrameworkListener.h"
+#import "MWMFrameworkObservers.h"
 #import "MWMMapDownloadDialog.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMapViewControlsManager.h"

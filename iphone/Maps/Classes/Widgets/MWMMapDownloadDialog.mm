@@ -1,7 +1,11 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
+#import "MWMAlertViewController.h"
 #import "MWMCircularProgress.h"
+#import "MWMFrameworkListener.h"
+#import "MWMFrameworkObservers.h"
 #import "MWMMapDownloadDialog.h"
+#import "MWMStorage.h"
 
 #include "Framework.h"
 
@@ -130,7 +134,7 @@ using namespace storage;
     case NodeErrorCode::NoInetConnection:
       [avc presentDownloaderNoConnectionAlertWithOkBlock:^
       {
-        GetFramework().Storage().RetryDownloadNode(self->m_countryId);
+        [MWMStorage retryDownloadNode:self->m_countryId];
       }];
       break;
   }
@@ -180,22 +184,22 @@ using namespace storage;
 - (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress
 {
   if (self.superview && m_countryId == countryId)
-    [self showDownloading:static_cast<CGFloat>(progress.first) / static_cast<CGFloat>(progress.second)];
+    [self showDownloading:static_cast<CGFloat>(progress.first) / progress.second];
 }
 
 #pragma mark - MWMCircularProgressDelegate
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
-  auto & s = GetFramework().Storage();
   if (progress.state == MWMCircularProgressStateFailed)
   {
-    s.RetryDownloadNode(m_countryId);
-    [self.progressView startSpinner:NO];
+    [self showInQueue];
+    [MWMStorage retryDownloadNode:m_countryId];
   }
   else
   {
-    s.CancelDownloadNode(m_countryId);
+    [self showDownloadRequest];
+    [MWMStorage cancelDownloadNode:m_countryId];
   }
 }
 
@@ -203,7 +207,7 @@ using namespace storage;
 
 - (IBAction)downloadAction
 {
-  [MapsAppDelegate downloadNode:m_countryId alertController:self.controller.alertController onSuccess:nil];
+  [MWMStorage downloadNode:m_countryId alertController:self.controller.alertController onSuccess:nil];
 }
 
 #pragma mark - Properties
@@ -217,6 +221,7 @@ using namespace storage;
     [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateNormal];
     [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSelected];
     [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
+    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSpinner];
     [_progressView setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
     [_progressView setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
   }

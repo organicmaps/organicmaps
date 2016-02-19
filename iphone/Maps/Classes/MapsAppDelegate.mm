@@ -8,6 +8,8 @@
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMController.h"
+#import "MWMFrameworkListener.h"
+#import "MWMFrameworkObservers.h"
 #import "MWMTextToSpeech.h"
 #import "Preferences.h"
 #import "RouteState.h"
@@ -111,53 +113,9 @@ using namespace osm_auth_ios;
   return (MapsAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
-#pragma mark - Storage
-
-+ (void)downloadNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController onSuccess:(TMWMVoidBlock)onSuccess
++ (void)showNode:(storage::TCountryId const &)countryId
 {
-  [self countryId:countryId alertController:alertController performAction:^
-  {
-    GetFramework().Storage().DownloadNode(countryId);
-    if (onSuccess)
-      onSuccess();
-  }];
-}
-
-+ (void)updateNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
-{
-  [self countryId:countryId alertController:alertController performAction:^
-  {
-    GetFramework().Storage().UpdateNode(countryId);
-  }];
-}
-
-+ (void)deleteNode:(storage::TCountryId const &)countryId
-{
-  GetFramework().Storage().DeleteNode(countryId);
-}
-
-+ (void)countryId:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController performAction:(TMWMVoidBlock)action
-{
-  switch (Platform::ConnectionStatus())
-  {
-    case Platform::EConnectionType::CONNECTION_NONE:
-      [alertController presentNoConnectionAlert];
-      break;
-    case Platform::EConnectionType::CONNECTION_WIFI:
-      action();
-      break;
-    case Platform::EConnectionType::CONNECTION_WWAN:
-    {
-      storage::NodeAttrs attrs;
-      GetFramework().Storage().GetNodeAttrs(countryId, attrs);
-      size_t const warningSizeForWWAN = 50 * MB;
-      if (attrs.m_mwmSize > warningSizeForWWAN)
-        [alertController presentNoWiFiAlertWithName:@(attrs.m_nodeLocalName.c_str()) okBlock:action];
-      else
-        action();
-      break;
-    }
-  }
+  // TODO (igrechuhin) Add implementation
 }
 
 #pragma mark - Notifications

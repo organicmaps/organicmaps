@@ -4,6 +4,7 @@
 #import "MWMCircularProgress.h"
 #import "MWMDownloadMapRequest.h"
 #import "MWMDownloadMapRequestView.h"
+#import "MWMStorage.h"
 #import "Statistics.h"
 
 #include "Framework.h"
@@ -76,13 +77,13 @@
   }
   else
   {
-    m_countryId = kInvalidCountryId;
+    m_countryId = storage::kInvalidCountryId;
     auto const & countryInfoGetter = f.CountryInfoGetter();
     LocationManager * locationManager = [MapsAppDelegate theApp].m_locationManager;
     if (locationManager.lastLocationIsValid)
       m_countryId = countryInfoGetter.GetRegionCountryId(locationManager.lastLocation.mercator);
 
-    if (m_countryId != kInvalidCountryId)
+    if (m_countryId != storage::kInvalidCountryId)
     {
       storage::NodeAttrs attrs;
       s.GetNodeAttrs(m_countryId, attrs);
@@ -121,15 +122,14 @@
 {
   [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatButton)
                    withParameters:@{kStatValue : kStatProgress}];
-  auto & s = GetFramework().Storage();
   if (progress.state == MWMCircularProgressStateFailed)
   {
-    s.RetryDownloadNode(m_countryId);
+    [MWMStorage retryDownloadNode:m_countryId];
     self.progressView.state = MWMCircularProgressStateSpinner;
   }
   else
   {
-    s.CancelDownloadNode(m_countryId);
+    [MWMStorage cancelDownloadNode:m_countryId];
   }
   [self showRequest];
 }
@@ -139,7 +139,7 @@
 - (IBAction)downloadMapTouchUpInside:(nonnull UIButton *)sender
 {
   [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatDownloadMap)];
-  [MapsAppDelegate downloadNode:m_countryId alertController:self.delegate.alertController onSuccess:^
+  [MWMStorage downloadNode:m_countryId alertController:self.delegate.alertController onSuccess:^
   {
     [self showRequest];
     self.progressView.state = MWMCircularProgressStateSpinner;
