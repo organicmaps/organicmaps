@@ -219,7 +219,7 @@ bool SearchPanel::TryMigrate(QString const & str)
 
   auto stateChanged = [&](storage::TCountryId const & id)
   {
-    storage::Status const nextStatus = m_pDrawWidget->GetFramework().Storage().m_prefetchStorage->CountryStatusEx(id);
+    storage::Status const nextStatus = m_pDrawWidget->GetFramework().Storage().GetPrefetchStorage()->CountryStatusEx(id);
     LOG_SHORT(LINFO, (id, "status :", nextStatus));
     if (nextStatus == storage::Status::EOnDisk)
     {

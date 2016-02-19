@@ -51,9 +51,9 @@ UNIT_TEST(StorageMigrationTests)
 
   auto statePrefetchChanged = [&](TCountryId const & id)
   {
-    Status const nextStatus = f.Storage().m_prefetchStorage->CountryStatusEx(id);
+    Status const nextStatus = f.Storage().GetPrefetchStorage()->CountryStatusEx(id);
     LOG_SHORT(LINFO, (id, "status :", nextStatus));
-    if (!f.Storage().m_prefetchStorage->IsDownloadInProgress())
+    if (!f.Storage().GetPrefetchStorage()->IsDownloadInProgress())
     {
       LOG_SHORT(LINFO, ("All prefetched. Ready to migrate."));
       testing::StopEventLoop();
@@ -95,7 +95,7 @@ UNIT_TEST(StorageMigrationTests)
 
   TEST_EQUAL(s.GetDownloadedFilesCount(), kPrefetchCountries.size(), ());
   for (auto const & countryId : kPrefetchCountries)
-    TEST(s.m_prefetchStorage->IsNodeDownloaded(countryId), (countryId));
+    TEST(s.GetPrefetchStorage()->IsNodeDownloaded(countryId), (countryId));
 
   f.Migrate();
   // Wait for downloading complete.

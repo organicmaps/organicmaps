@@ -108,10 +108,17 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
 }
 
-void Storage::Init(TUpdate const & update) { m_update = update; }
+void Storage::Init(TUpdate const & update)
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  m_update = update;
+}
 
 void Storage::DeleteAllLocalMaps(TCountriesVec * existedCountries /* = nullptr */)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   for (auto const & localFiles : m_localFiles)
   {
     for (auto const & localFile : localFiles.second)
@@ -127,11 +134,23 @@ void Storage::DeleteAllLocalMaps(TCountriesVec * existedCountries /* = nullptr *
 
 bool Storage::HaveDownloadedCountries() const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   return !m_localFiles.empty();
+}
+
+Storage * Storage::GetPrefetchStorage()
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(m_prefetchStorage.get() != nullptr, ());
+
+  return m_prefetchStorage.get();
 }
 
 void Storage::PrefetchMigrateData()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   m_prefetchStorage.reset(new Storage(COUNTRIES_MIGRATE_FILE, "migrate"));
   m_prefetchStorage->Init([](LocalCountryFile const &){});
   if (!m_downloadingUrlsForTesting.empty())
@@ -140,6 +159,8 @@ void Storage::PrefetchMigrateData()
 
 void Storage::Migrate(TCountriesVec const & existedCountries)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   platform::migrate::SetMigrationFlag();
 
   Clear();
@@ -187,6 +208,8 @@ void Storage::Clear()
 
 void Storage::RegisterAllLocalMaps()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   m_localFiles.clear();
   m_localFilesForFakeCountries.clear();
 
@@ -237,6 +260,8 @@ void Storage::RegisterAllLocalMaps()
 
 void Storage::GetLocalMaps(vector<TLocalFilePtr> & maps) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   for (auto const & p : m_localFiles)
     maps.push_back(GetLatestLocalFile(p.first));
 
@@ -248,6 +273,8 @@ void Storage::GetLocalMaps(vector<TLocalFilePtr> & maps) const
 
 size_t Storage::GetDownloadedFilesCount() const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   return m_localFiles.size();
 }
 
@@ -296,6 +323,8 @@ CountryFile const & Storage::GetCountryFile(TCountryId const & countryId) const
 
 Storage::TLocalFilePtr Storage::GetLatestLocalFile(CountryFile const & countryFile) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   TCountryId const countryId = FindCountryIdByFile(countryFile.GetName());
   if (IsCountryIdValid(countryId) && IsCoutryIdInCountryTree(countryId))
   {
@@ -313,6 +342,8 @@ Storage::TLocalFilePtr Storage::GetLatestLocalFile(CountryFile const & countryFi
 
 Storage::TLocalFilePtr Storage::GetLatestLocalFile(TCountryId const & countryId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   auto const it = m_localFiles.find(countryId);
   if (it == m_localFiles.end() || it->second.empty())
     return TLocalFilePtr();
@@ -527,6 +558,8 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
 
 bool Storage::DeleteFromDownloader(TCountryId const & countryId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   if (!DeleteCountryFilesFromDownloader(countryId, MapOptions::MapWithCarRouting))
     return false;
   NotifyStatusChanged(countryId);
@@ -1007,6 +1040,8 @@ TCountryId const Storage::GetRootId() const
 
 void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childrenId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   TCountriesContainer const * const parentNode = m_countries.FindFirst(Country(parent));
   if (parentNode == nullptr)
   {
@@ -1023,6 +1058,8 @@ void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childrenId)
 
 void Storage::GetLocalRealMaps(TCountriesVec & localMaps) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   localMaps.clear();
   localMaps.reserve(m_localFiles.size());
 
@@ -1032,6 +1069,8 @@ void Storage::GetLocalRealMaps(TCountriesVec & localMaps) const
 
 void Storage::GetDownloadedChildren(TCountryId const & parent, TCountriesVec & localChildren) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   TCountriesContainer const * const parentNode = m_countries.FindFirst(Country(parent));
   if (parentNode == nullptr)
   {
@@ -1081,6 +1120,8 @@ void Storage::GetDownloadedChildren(TCountryId const & parent, TCountriesVec & l
 
 bool Storage::IsNodeDownloaded(TCountryId const & countryId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   for(auto const & localeMap : m_localFiles)
   {
     if (countryId == localeMap.first)
@@ -1091,6 +1132,8 @@ bool Storage::IsNodeDownloaded(TCountryId const & countryId) const
 
 void Storage::GetCountyListToDownload(TCountriesVec & countryList) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   TCountriesVec countryIds;
   GetChildren(GetRootId(), countryIds);
   // @TODO(bykoianko) Implement this method. Remove from this method fully downloaded maps.
@@ -1098,6 +1141,8 @@ void Storage::GetCountyListToDownload(TCountriesVec & countryList) const
 
 bool Storage::DownloadNode(TCountryId const & countryId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   // @TODO(bykoianko) Before downloading it's necessary to check if file(s) has been downloaded.
   // If so, the method should be left with false.
   TCountriesContainer const * const node = m_countries.FindFirst(Country(countryId));
@@ -1115,6 +1160,8 @@ bool Storage::DownloadNode(TCountryId const & countryId)
 
 bool Storage::DeleteNode(TCountryId const & countryId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   // @TODO(bykoianko) Before deleting it's necessary to check if file(s) has been deleted.
   // If so, the method should be left with false.
   TCountriesContainer const * const node = m_countries.FindFirst(Country(countryId));
@@ -1155,6 +1202,8 @@ Status Storage::NodeStatus(TCountriesContainer const & node) const
 
 void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   vector<SimpleTree<Country> const *> nodes;
   m_countries.Find(Country(countryId), nodes);
   CHECK(!nodes.empty(), ());
@@ -1186,8 +1235,17 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   }
 }
 
+void Storage::SetCallbackForClickOnDownloadMap(TDownloadFn & downloadFn)
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  m_downloadMapOnTheMap = downloadFn;
+}
+
 void Storage::DoClickOnDownloadMap(TCountryId const & countryId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   if (m_downloadMapOnTheMap)
     m_downloadMapOnTheMap(countryId);
 }

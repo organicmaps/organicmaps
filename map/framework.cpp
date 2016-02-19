@@ -254,8 +254,8 @@ bool Framework::PreMigrate(ms::LatLon const & position,
   if (currentCountryId == kInvalidCountryId)
     return false;
 
-  Storage().m_prefetchStorage->Subscribe(change, progress);
-  Storage().m_prefetchStorage->DownloadNode(currentCountryId);
+  Storage().GetPrefetchStorage()->Subscribe(change, progress);
+  Storage().GetPrefetchStorage()->DownloadNode(currentCountryId);
   return true;
 }
 
