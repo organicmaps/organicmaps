@@ -2,6 +2,7 @@
 
 #include "drape/data_buffer.hpp"
 #include "drape/glconstants.hpp"
+#include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
 #include "drape/glstate.hpp"
 #include "drape/gpu_program_manager.hpp"
@@ -48,7 +49,8 @@ void TransparentLayer::Build(ref_ptr<dp::GpuProgram> prg)
 void TransparentLayer::Render(uint32_t textureId, ref_ptr<dp::GpuProgramManager> mng)
 {
   // Unbind current VAO, because glVertexAttributePointer and glEnableVertexAttribute can affect it.
-  GLFunctions::glBindVertexArray(0);
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+    GLFunctions::glBindVertexArray(0);
 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::TRANSPARENT_LAYER_PROGRAM);
   prg->Bind();
@@ -73,7 +75,6 @@ void TransparentLayer::Render(uint32_t textureId, ref_ptr<dp::GpuProgramManager>
 
   prg->Unbind();
   GLFunctions::glBindTexture(0);
-  GLFunctions::glBindVertexArray(0);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 

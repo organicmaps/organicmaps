@@ -3,6 +3,7 @@
 #include "drape_frontend/color_constants.hpp"
 
 #include "drape/glconstants.hpp"
+#include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
@@ -127,7 +128,8 @@ void Arrow3d::Build(ref_ptr<dp::GpuProgram> prg)
 void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng)
 {
   // Unbind current VAO, because glVertexAttributePointer and glEnableVertexAttribute can affect it.
-  GLFunctions::glBindVertexArray(0);
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+    GLFunctions::glBindVertexArray(0);
 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ARROW_3D_PROGRAM);
   prg->Bind();
