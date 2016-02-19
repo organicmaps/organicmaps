@@ -12,7 +12,7 @@ namespace
   return (g_framework ? g_framework->NativeFramework() : nullptr);
 }
 
-} // namespace
+}  // namespace
 
 extern "C"
 {

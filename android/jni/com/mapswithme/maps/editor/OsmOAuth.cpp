@@ -27,7 +27,7 @@ jobjectArray ToStringArray(JNIEnv * env, OsmOAuth::TUrlRequestToken const & uks)
   env->SetObjectArrayElement(resultArray, 2, ToJavaString(env, uks.second.second));
   return resultArray;
 }
-} // namespace
+}  // namespace
 
 extern "C"
 {

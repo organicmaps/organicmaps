@@ -39,4 +39,4 @@ private:
   void operator = (ScopedLocalRef const &) = delete;
 };
 
-} // namespace jni
+}  // namespace jni

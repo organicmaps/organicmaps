@@ -40,7 +40,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_countryItemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/CountryItem");
 }
 
-} // namespace
+}  // namespace
 
 extern "C"
 {
@@ -83,7 +83,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetRootNode(JNIEnv * env, j
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz)
 {
-  static Storage::UpdateInfo info = { 0 };
+  Storage::UpdateInfo info = { 0 };
   if (!GetStorage().GetUpdateInfo(GetStorage().GetRootId(), info))
     return nullptr;
 

@@ -176,7 +176,7 @@ TimeTableSet NativeTimetableSet(JNIEnv * env, jobjectArray jTimetables)
   return tts;
 }
 
-} // namespace
+}  // namespace
 
 extern "C"
 {

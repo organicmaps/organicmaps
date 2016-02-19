@@ -84,4 +84,4 @@ void AndroidOGLContext::resetSurface()
   m_surface = EGL_NO_SURFACE;
 }
 
-} // namespace android
+}  // namespace android

@@ -31,4 +31,4 @@ jobject CreateBookmark(int categoryId, int bookmarkId, string const & typeName, 
 jobject CreateMapObject(int mapObjectType, string const & name, double lat, double lon, string const & typeName, feature::Metadata const & metadata);
 
 jobject CreateMapObject(UserMark const * userMark);
-} // namespace usermark
+}  // namespace usermark

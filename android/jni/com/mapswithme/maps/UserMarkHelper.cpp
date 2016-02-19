@@ -152,4 +152,4 @@ jobject CreateMapObject(UserMark const * userMark)
 
   return mapObject;
 }
-} // namespace usermark_helper
+}  // namespace usermark_helper

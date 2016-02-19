@@ -19,7 +19,7 @@ FeatureType * activeFeature()
 {
   return g_framework->GetActiveUserMark()->GetFeature();
 }
-} // namespace
+}  // namespace
 
 extern "C"
 {

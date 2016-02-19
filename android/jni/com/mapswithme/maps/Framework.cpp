@@ -43,7 +43,7 @@ namespace
   return g_framework->NativeFramework();
 }
 
-} // namespace
+}  // namespace
 
 namespace android
 {
@@ -419,7 +419,7 @@ void Framework::Migrate()
   m_work.Migrate();
 }
 
-} // namespace android
+}  // namespace android
 
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
 /*            ____

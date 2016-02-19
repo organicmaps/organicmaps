@@ -194,4 +194,4 @@ namespace jni
     env->CallStaticVoidMethod(vm_class, dump_mid);
     env->DeleteLocalRef(vm_class);
   }
-} // namespace jni
+}  // namespace jni

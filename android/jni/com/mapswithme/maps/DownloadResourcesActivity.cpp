@@ -45,11 +45,13 @@ struct FileToDownload
 
 namespace
 {
+
 static vector<FileToDownload> g_filesToDownload;
 static int g_totalDownloadedBytes;
 static int g_totalBytesToDownload;
 static shared_ptr<HttpRequest> g_currentRequest;
-} // namespace
+
+}  // namespace
 
 extern "C"
 {

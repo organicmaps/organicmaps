@@ -291,4 +291,4 @@ bool AndroidOGLContextFactory::createPixelbufferSurface()
   return true;
 }
 
-} // namespace android
+}  // namespace android

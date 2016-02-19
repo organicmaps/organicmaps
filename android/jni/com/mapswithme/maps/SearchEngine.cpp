@@ -135,7 +135,7 @@ void OnResults(Results const & results, long long timestamp, bool isMapAndTable,
   env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults, static_cast<jlong>(timestamp));
   env->DeleteLocalRef(jResults);
 }
-} // namespace
+}  // namespace
 
 extern "C"
 {

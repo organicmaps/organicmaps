@@ -70,7 +70,7 @@ string GetEglError(EGLint error)
   }
 }
 
-} // namespace
+}  // namespace
 
 void CheckEGL(my::SrcPoint const & src)
 {
@@ -82,4 +82,4 @@ void CheckEGL(my::SrcPoint const & src)
   }
 }
 
-} // namespace android
+}  // namespace android

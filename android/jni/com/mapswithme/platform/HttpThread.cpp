@@ -96,7 +96,7 @@ namespace downloader
     delete request;
   }
 
-} // namespace downloader
+}  // namespace downloader
 
 extern "C"
 {
