@@ -470,7 +470,7 @@ extern "C"
     jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");
     ASSERT(method, ());
 
-    jni::ScopedLocalRef<jobjectArray> const countries(env, env->NewObjectArray(absentMaps.size(), jni::GetStringClass(env), 0));
+    jni::TScopedLocalObjectArrayRef const countries(env, env->NewObjectArray(absentMaps.size(), jni::GetStringClass(env), 0));
     for (size_t i = 0; i < absentMaps.size(); i++)
     {
       jni::TScopedLocalRef id(env, jni::ToJavaString(env, absentMaps[i]));

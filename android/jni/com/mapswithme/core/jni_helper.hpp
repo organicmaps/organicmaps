@@ -41,6 +41,8 @@ namespace jni
   shared_ptr<jobject> make_global_ref(jobject obj);
   using TScopedLocalRef = ScopedLocalRef<jobject>;
   using TScopedLocalClassRef = ScopedLocalRef<jclass>;
+  using TScopedLocalObjectArrayRef = ScopedLocalRef<jobjectArray>;
+  using TScopedLocalIntArrayRef = ScopedLocalRef<jintArray>;
 
   jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD const & point);
 

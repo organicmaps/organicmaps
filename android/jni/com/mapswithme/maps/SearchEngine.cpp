@@ -37,7 +37,7 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
 
-  jni::ScopedLocalRef<jintArray> ranges(env, env->NewIntArray(result.GetHighlightRangesCount() * 2));
+  jni::TScopedLocalIntArrayRef ranges(env, env->NewIntArray(result.GetHighlightRangesCount() * 2));
   jint * rawArr = env->GetIntArrayElements(ranges.get(), nullptr);
   for (int i = 0; i < result.GetHighlightRangesCount(); i++)
   {
