@@ -8,7 +8,7 @@ namespace
   typedef m2::RectD R;
 
   struct traits_t { m2::RectD LimitRect(m2::RectD const & r) const { return r; }};
-  typedef m4::Tree<R, traits_t> TreeT;
+  typedef m4::Tree<R, traits_t> TTree;
 
   template <class T> bool RTrue(T const &, T const &) { return true; }
   template <class T> bool RFalse(T const &, T const &) { return false; }
@@ -16,7 +16,7 @@ namespace
 
 UNIT_TEST(Tree4D_Smoke)
 {
-  TreeT theTree;
+  TTree theTree;
 
   R arr[] = {
     R(0, 0, 1, 1),
@@ -52,7 +52,7 @@ UNIT_TEST(Tree4D_Smoke)
 
 UNIT_TEST(Tree4D_ReplaceAllInRect)
 {
-  TreeT theTree;
+  TTree theTree;
 
   R arr[] = {
     R(8, 13, 554, 32), R(555, 13, 700, 32),
@@ -91,7 +91,7 @@ namespace
 {
   void CheckInRect(R const * arr, size_t count, R const & searchR, size_t expected)
   {
-    TreeT theTree;
+    TTree theTree;
 
     for (size_t i = 0; i < count; ++i)
       theTree.Add(arr[i], arr[i]);

@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "storage/simple_tree.hpp"
-
+#include "storage/country_tree.hpp"
 
 namespace
 {
@@ -17,10 +16,10 @@ struct Calculator
 };
 } // namespace
 
-UNIT_TEST(SimpleTree_Smoke)
+UNIT_TEST(CountryTree_Smoke)
 {
-  typedef SimpleTree<int> TreeT;
-  TreeT tree;
+  typedef CountryTree<int> TTree;
+  TTree tree;
 
   tree.Add(4);
   tree.Add(3);
@@ -47,20 +46,20 @@ UNIT_TEST(SimpleTree_Smoke)
   TEST_EQUAL(tree.Child(4).Child(0).Parent().Value(), 1, ());
   TEST_EQUAL(tree.Child(4).Child(2).Parent().Value(), 1, ());
 
-  Calculator<TreeT> c1;
+  Calculator<TTree> c1;
   tree.ForEachChild(c1);
   TEST_EQUAL(c1.count, 5, ());
 
-  Calculator<TreeT> c2;
+  Calculator<TTree> c2;
   tree.ForEachDescendant(c2);
   TEST_EQUAL(c2.count, 8, ());
 
-  Calculator<TreeT> c3;
+  Calculator<TTree> c3;
   tree.Child(4).Child(0).ForEachAncestorExceptForTheRoot(c3);
   TEST_EQUAL(c3.count, 1, ());
 
   tree.Clear();
-  Calculator<TreeT> c4;
+  Calculator<TTree> c4;
   tree.ForEachDescendant(c4);
   TEST_EQUAL(c4.count, 0, ("Tree should be empty"));
 }

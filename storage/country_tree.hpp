@@ -7,19 +7,19 @@
 #include "std/vector.hpp"
 
 /// This class is developed for using in Storage. It's a implementation of a tree.
-/// It should be filled with AddAtDepth method. Before calling AddAtDepth for a node
-/// ReserveAtDepth should be called for the node. The tree can be filled only
-/// according to BFS order.
+/// It should be filled with AddAtDepth method.
+/// This class is used in Storage and filled based on countries.txt (countries_migrate.txt).
+/// While filling CountryTree nodes in countries.txt should be visited in DFS order.
 template <class T>
-class SimpleTree
+class CountryTree
 {
   T m_value;
 
   /// \brief m_children contains all first generation descendants of the node.
   /// Note. Once created the order of elements of |m_children| should not be changed.
   /// See implementation of AddAtDepth and Add methods for details.
-  vector<unique_ptr<SimpleTree<T>>> m_children;
-  SimpleTree<T> * m_parent;
+  vector<unique_ptr<CountryTree<T>>> m_children;
+  CountryTree<T> * m_parent;
 
   static bool IsEqual(T const & v1, T const & v2)
   {
@@ -27,7 +27,7 @@ class SimpleTree
   }
 
 public:
-  SimpleTree(T const & value = T(), SimpleTree<T> * parent = nullptr)
+  CountryTree(T const & value = T(), CountryTree<T> * parent = nullptr)
     : m_value(value), m_parent(parent)
   {
   }
@@ -36,25 +36,6 @@ public:
   T const & Value() const
   {
     return m_value;
-  }
-
-  /// \brief Reserves child size vector. This method should be called once for every node
-  /// just before filling children vector of the node to prevent m_children vector
-  /// relocation while filling.
-  /// \param level depth of node which children vector will be reserved.
-  /// \n number of vector elements will be reserved.
-  void ReserveAtDepth(int level, size_t n)
-  {
-    SimpleTree<T> * node = this;
-    while (level-- > 0 && !node->m_children.empty())
-      node = node->m_children.back().get();
-    ASSERT_EQUAL(level, -1, ());
-    return node->Reserve(n);
-  }
-
-  void Reserve(size_t n)
-  {
-    m_children.reserve(n);
   }
 
   /// @return reference is valid only up to the next tree structure modification
@@ -66,7 +47,7 @@ public:
   /// @return reference is valid only up to the next tree structure modification
   T & AddAtDepth(int level, T const & value)
   {
-    SimpleTree<T> * node = this;
+    CountryTree<T> * node = this;
     while (level-- > 0 && !node->m_children.empty())
       node = node->m_children.back().get();
     ASSERT_EQUAL(level, -1, ());
@@ -76,7 +57,7 @@ public:
   /// @return reference is valid only up to the next tree structure modification
   T & Add(T const & value)
   {
-    m_children.emplace_back(make_unique<SimpleTree<T>>(value, this));
+    m_children.emplace_back(make_unique<CountryTree<T>>(value, this));
     return m_children.back()->Value();
   }
 
@@ -86,7 +67,7 @@ public:
     m_children.clear();
   }
 
-  bool operator<(SimpleTree<T> const & other) const
+  bool operator<(CountryTree<T> const & other) const
   {
     return Value() < other.Value();
   }
@@ -97,7 +78,7 @@ public:
   /// @TODO(bykoianko) The complexity of the method is O(n). But the structure (tree) is built on the start of the program
   /// and then actively used on run time. This method (and class) should be redesigned to make the function work faster.
   /// A hash table is being planned to use.
-  void Find(T const & value, vector<SimpleTree<T> const *> & found) const
+  void Find(T const & value, vector<CountryTree<T> const *> & found) const
   {
     if (IsEqual(m_value, value))
       found.push_back(this);
@@ -105,14 +86,14 @@ public:
       child->Find(value, found);
   }
 
-  SimpleTree<T> const * const FindFirst(T const & value) const
+  CountryTree<T> const * const FindFirst(T const & value) const
   {
     if (IsEqual(m_value, value))
       return this;
 
     for (auto const & child : m_children)
     {
-      SimpleTree<T> const * const found = child->FindFirst(value);
+      CountryTree<T> const * const found = child->FindFirst(value);
       if (found != nullptr)
         return found;
     }
@@ -124,14 +105,14 @@ public:
   /// When new countries.txt with unique ids will be added FindLeaf will be removed
   /// and Find will be used intead.
   /// @TODO(bykoianko) Remove this method on countries.txt update.
-  SimpleTree<T> const * const FindFirstLeaf(T const & value) const
+  CountryTree<T> const * const FindFirstLeaf(T const & value) const
   {
     if (IsEqual(m_value, value) && m_children.empty())
       return this; // It's a leaf.
 
     for (auto const & child : m_children)
     {
-      SimpleTree<T> const * const found = child->FindFirstLeaf(value);
+      CountryTree<T> const * const found = child->FindFirstLeaf(value);
       if (found != nullptr)
         return found;
     }
@@ -140,13 +121,13 @@ public:
 
   bool HasParent() const { return m_parent != nullptr; }
 
-  SimpleTree<T> const & Parent() const
+  CountryTree<T> const & Parent() const
   {
     CHECK(HasParent(), ());
     return *m_parent;
   }
 
-  SimpleTree<T> const & Child(size_t index) const
+  CountryTree<T> const & Child(size_t index) const
   {
     ASSERT_LESS(index, m_children.size(), ());
     return *m_children[index];

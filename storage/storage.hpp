@@ -69,7 +69,7 @@ struct NodeAttrs
   /// m_downloadingProgress.first is number of downloaded bytes.
   /// m_downloadingProgress.second is size of file(s) in bytes to download.
   /// So m_downloadingProgress.first <= m_downloadingProgress.second.
-  pair<int64_t, int64_t> m_downloadingProgress;
+  MapFilesDownloader::TProgress m_downloadingProgress;
 
   NodeStatus m_status;
   NodeErrorCode m_error;
@@ -111,7 +111,7 @@ private:
   /// When a new mwm file is added to |m_queue| |m_justDownloaded| is cleared.
   /// Note. This set is necessary for implementation of downloading progress of
   /// mwm group.
-  TCountriesUnorderedSet m_justDownloaded;
+  TCountriesSet m_justDownloaded;
 
   /// stores countries whose download has failed recently
   TCountriesSet m_failedCountries;
@@ -173,9 +173,9 @@ private:
   void LoadCountriesFile(string const & pathToCountriesFile,
                          string const & dataDir, TMapping * mapping = nullptr);
 
-  void ReportProgress(TCountryId const & countryId, pair<int64_t, int64_t> const & p);
+  void ReportProgress(TCountryId const & countryId, MapFilesDownloader::TProgress const & p);
   void ReportProgressForHierarchy(TCountryId const & countryId,
-                                  pair<int64_t, int64_t> const & leafProgress);
+                                  MapFilesDownloader::TProgress const & leafProgress);
 
   /// Called on the main thread by MapFilesDownloader when list of
   /// suitable servers is received.
@@ -509,10 +509,10 @@ private:
   /// the leaf node in bytes. |downloadingMwmProgress.first| == number of downloaded bytes.
   /// |downloadingMwmProgress.second| == number of bytes in downloading files.
   /// |mwmsInQueue| hash table made from |m_queue|.
-  pair<int64_t, int64_t> CalculateProgress(TCountriesVec const & descendants,
-                                           TCountryId const & downloadingMwm,
-                                           pair<int64_t, int64_t> const & downloadingMwmProgress,
-                                           TCountriesUnorderedSet const & mwmsInQueue) const;
+  MapFilesDownloader::TProgress CalculateProgress(TCountryId const & downloadingMwm,
+                                                  TCountriesVec const & descendants,
+                                                  MapFilesDownloader::TProgress const & downloadingMwmProgress,
+                                                  TCountriesSet const & mwmsInQueue) const;
 };
 
 template <class ToDo>
@@ -524,43 +524,43 @@ void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
     ASSERT(false, ("TCountryId =", root, "not found in m_countries."));
     return;
   }
-  rootNode->ForEachInSubtree([&toDo](TCountriesContainer const & countryContainer)
+  rootNode->ForEachInSubtree([&toDo](TCountriesContainer const & container)
   {
-    Country const & value = countryContainer.Value();
+    Country const & value = container.Value();
     toDo(value.Name(), value.GetSubtreeMwmCounter() != 1 /* expandableNode. */);
   });
 }
 
-/// Calls functor |toDo| with sigrature
+/// Calls functor |toDo| with signature
 /// void(const TCountryId const & parentId, TCountriesVec const & descendantCountryId)
-/// for each parent (including indirect/great parents) except for the main root of the tree.
+/// for each ancestor except for the main root of the tree.
 /// |descendantsCountryId| is a vector of country id of descendats of |parentId|.
 /// Note. In case of disputable territories several nodes with the same name may be
 /// present in the country tree. In that case ForEachAncestorExceptForTheRoot calls
-/// |toDo| for parents of each branch in the country tree.
+/// |toDo| for parents of each way to the root in the country tree.
 template <class ToDo>
-void Storage::ForEachAncestorExceptForTheRoot(TCountryId const & childId, ToDo && toDo) const
+void Storage::ForEachAncestorExceptForTheRoot(TCountryId const & countryId, ToDo && toDo) const
 {
-  vector<SimpleTree<Country> const *> nodes;
-  m_countries.Find(Country(childId), nodes);
+  vector<CountryTree<Country> const *> nodes;
+  m_countries.Find(Country(countryId), nodes);
   if (nodes.empty())
   {
-    ASSERT(false, ("TCountryId =", childId, "not found in m_countries."));
+    ASSERT(false, ("TCountryId =", countryId, "not found in m_countries."));
     return;
   }
 
+  TCountriesSet visitedAncestors;
   // In most cases nodes.size() == 1. In case of disputable territories nodes.size()
   // may be more than one. It means |childId| is present in the country tree more than once.
   for (auto const & node : nodes)
   {
-    node->ForEachAncestorExceptForTheRoot([&toDo](TCountriesContainer const & countryContainer)
+    node->ForEachAncestorExceptForTheRoot([&](TCountriesContainer const & container)
     {
-      TCountriesVec descendantsCountryId;
-      countryContainer.ForEachDescendant([&descendantsCountryId](TCountriesContainer const & countryContainer)
-      {
-        descendantsCountryId.push_back(countryContainer.Value().Name());
-      });
-      toDo(countryContainer.Value().Name(), descendantsCountryId);
+      TCountryId const ancestorId = container.Value().Name();
+      if (visitedAncestors.find(ancestorId) != visitedAncestors.end())
+        return;  // The node was visited before because countryId is present in the tree more than once.
+      visitedAncestors.insert(ancestorId);
+      toDo(ancestorId, container);
     });
   }
 }

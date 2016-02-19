@@ -2,7 +2,7 @@
 
 #include "storage/country_decl.hpp"
 #include "storage/index.hpp"
-#include "storage/simple_tree.hpp"
+#include "storage/country_tree.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -74,7 +74,7 @@ public:
   TCountryId const & Name() const { return m_name; }
 };
 
-typedef SimpleTree<Country> TCountriesContainer;
+typedef CountryTree<Country> TCountriesContainer;
 
 /// @return version of country file or -1 if error was encountered
 int64_t LoadCountries(string const & jsonBuffer, TCountriesContainer & countries, TMapping * mapping = nullptr);

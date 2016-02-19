@@ -24,7 +24,6 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * group, TCountryId c
   uint32_t mwmCounter = 0;
   size_t mwmSize = 0;
   size_t const groupListSize = json_array_size(group);
-  toDo.ReserveAtDepth(depth, groupListSize);
   for (size_t i = 0; i < groupListSize; ++i)
   {
     json_t * j = json_array_get(group, i);
@@ -77,7 +76,6 @@ void LoadGroupTwoComponentMwmsImpl(int depth, json_t * group, TCountryId const &
   // @TODO(bykoianko) After we stop supporting two component mwms (with routing files)
   // remove code below.
   size_t const groupListSize = json_array_size(group);
-  toDo.ReserveAtDepth(depth, groupListSize);
   for (size_t i = 0; i < groupListSize; ++i)
   {
     json_t * j = json_array_get(group, i);
@@ -175,8 +173,6 @@ public:
   }
 
   TMapping GetMapping() const { return m_idsMapping; }
-
-  void ReserveAtDepth(int level, size_t n) { m_cont.ReserveAtDepth(level, n); }
 };
 
 class DoStoreCountriesTwoComponentMwms
@@ -198,8 +194,6 @@ public:
     }
     m_cont.AddAtDepth(depth, country);
   }
-
-  void ReserveAtDepth(int level, size_t n) { m_cont.ReserveAtDepth(level, n); }
 };
 
 class DoStoreFile2InfoSingleMwms
@@ -226,7 +220,6 @@ public:
 
   void SetCountriesContainerAttrs(uint32_t, size_t) {}
   TMapping GetMapping() const { return m_idsMapping; }
-  void ReserveAtDepth(int, size_t) {}
 };
 
 class DoStoreFile2InfoTwoComponentMwms
@@ -247,7 +240,6 @@ public:
     CountryInfo info(id);
     m_file2info[id] = info;
   }
-  void ReserveAtDepth(int, size_t) {}
 };
 }  // namespace
 

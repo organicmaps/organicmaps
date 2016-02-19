@@ -16,11 +16,11 @@ HEADERS += \
   country_info_getter.hpp \
   country_name_getter.hpp \
   country_polygon.hpp \
+  country_tree.hpp \
   http_map_files_downloader.hpp \
   index.hpp \
   map_files_downloader.hpp \
   queued_country.hpp \
-  simple_tree.hpp \
   storage.hpp \
   storage_defines.hpp \
   storage_helpers.hpp \

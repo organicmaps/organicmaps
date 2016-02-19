@@ -33,7 +33,7 @@ namespace qt
     //@{
     void OnCountryChanged(storage::TCountryId const & countryId);
     void OnCountryDownloadProgress(storage::TCountryId const & countryId,
-                                   pair<int64_t, int64_t> const & progress);
+                                   storage::MapFilesDownloader::TProgress const & progress);
     //@}
 
     void ShowModal();

@@ -427,7 +427,7 @@ namespace qt
   }
 
   void UpdateDialog::OnCountryDownloadProgress(TCountryId const & countryId,
-                                               pair<int64_t, int64_t> const & progress)
+                                               MapFilesDownloader::TProgress const & progress)
   {
     auto const items = GetTreeItemsByCountryId(countryId);
     for (auto const item : items)

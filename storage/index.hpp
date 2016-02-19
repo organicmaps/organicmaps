@@ -10,7 +10,6 @@ namespace storage
 using TCountryId = string;
 using TCountriesSet = set<TCountryId>;
 using TCountriesVec = vector<TCountryId>;
-using TCountriesUnorderedSet = unordered_set<TCountryId>;
 
 extern const storage::TCountryId kInvalidCountryId;
 

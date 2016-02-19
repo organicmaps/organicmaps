@@ -1307,8 +1307,14 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
 
   // Two parent case.
   auto const forEachParentDisputableTerritory
-      = [](TCountryId const & parentId, TCountriesVec const & descendants)
+      = [](TCountryId const & parentId, TCountriesContainer const & parentNode)
   {
+    TCountriesVec descendants;
+    parentNode.ForEachDescendant([&descendants](TCountriesContainer const & container)
+    {
+      descendants.push_back(container.Value().Name());
+    });
+
     if (parentId == "Country1")
     {
       TCountriesVec const expectedDescendants = {"Disputable Territory", "Indisputable Territory Of Country1"};
@@ -1327,8 +1333,14 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
 
   // One parent case.
   auto const forEachParentIndisputableTerritory
-      = [](TCountryId const & parentId, TCountriesVec const & descendants)
+      = [](TCountryId const & parentId, TCountriesContainer const & parentNode)
   {
+    TCountriesVec descendants;
+    parentNode.ForEachDescendant([&descendants](TCountriesContainer const & container)
+    {
+      descendants.push_back(container.Value().Name());
+    });
+
     if (parentId == "Country1")
     {
       TCountriesVec const expectedDescendants = {"Disputable Territory", "Indisputable Territory Of Country1"};
