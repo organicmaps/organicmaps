@@ -105,14 +105,14 @@ namespace qt
     setWindowTitle(tr("Geographical Regions"));
     resize(700, 600);
 
-    // we want to receive all download progress and result events
+    // We want to receive all download progress and result events.
     m_observerSlotId = GetStorage().Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
                                               bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
   }
 
   UpdateDialog::~UpdateDialog()
   {
-    // tell download manager that we're gone...
+    // Tell download manager that we're gone.
     GetStorage().Unsubscribe(m_observerSlotId);
   }
 
@@ -129,7 +129,7 @@ namespace qt
     TCountriesVec children;
     st.GetChildren(countryId, children);
 
-    // For group process only click on the column #
+    // For group process only click on the column #.
     if (!children.empty() && column != 1)
       return;
 
@@ -137,7 +137,7 @@ namespace qt
     {
     case NodeStatus::OnDiskOutOfDate:
       {
-        // map is already downloaded, so ask user about deleting!
+        // Map is already downloaded, so ask user about deleting.
         QMessageBox ask(this);
         ask.setIcon(QMessageBox::Question);
         ask.setText(tr("Do you want to update or delete %1?").arg(countryId.c_str()));
@@ -159,7 +159,7 @@ namespace qt
 
     case NodeStatus::OnDisk:
       {
-        // map is already downloaded, so ask user about deleting!
+        // Map is already downloaded, so ask user about deleting.
         QMessageBox ask(this);
         ask.setIcon(QMessageBox::Question);
         ask.setText(tr("Do you want to delete %1?").arg(countryId.c_str()));
@@ -200,12 +200,12 @@ namespace qt
     done(0);
   }
 
-  void UpdateDialog::OnTextChanged(const QString & s)
+  void UpdateDialog::OnTextChanged(QString const & text)
   {
     m_tree->clear();
     m_treeItemByCountryId.clear();
 
-    string const filter = s.toUtf8().constData();
+    string const filter = text.toUtf8().constData();
     FillTree(filter);
   }
 
@@ -302,11 +302,11 @@ namespace qt
             uint((size.first + 1023) / 1024)).arg(uint((size.second + 1023) / 1024)));
       }
 
-      // needed for column sorting
+      // Needed for column sorting.
       item->setData(KColumnIndexSize, Qt::UserRole, QVariant(qint64(size.second)));
     }
 
-    // commented out because it looks terrible on black backgrounds
+    // Commented out because it looks terrible on black backgrounds.
     //  if (!statusString.isEmpty())
     //    SetRowColor(*item, rowColor);
   }
@@ -361,7 +361,7 @@ namespace qt
 
     if (children.empty())
     {
-      // filter leafs by matching
+      // Filter leafs by matching.
       if (!filter.empty() && !Matches(countryId, filter))
         return;
 
@@ -372,23 +372,23 @@ namespace qt
     {
       if (!filter.empty() && Matches(countryId, filter))
       {
-        // filter matches to the group name, do not filter the group
+        // Filter matches to the group name, do not filter the group.
         QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
         UpdateRowWithCountryInfo(item, countryId);
 
         for (auto const & child : children)
-          FillTreeImpl(item, child, string()); // do no filter children
+          FillTreeImpl(item, child, string()); // Do no filter children.
       }
       else
       {
-        // filter does not match to the group, but children can do
+        // Filter does not match to the group, but children can do.
         QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
         UpdateRowWithCountryInfo(item, countryId);
 
         for (auto const & child : children)
           FillTreeImpl(item, child, filter);
 
-        // but if item has no children, then drop it
+        // But if item has no children, then drop it.
         if (!filter.empty() && 0 == item->childCount() && parent != nullptr)
         {
           parent->removeChild(item);
@@ -406,7 +406,7 @@ namespace qt
     TCountryId const rootId = m_framework.Storage().GetRootId();
     FillTreeImpl(nullptr /* parent */, rootId, filter);
 
-    // expand the root
+    // Expand the root.
     ASSERT_EQUAL(1, m_tree->topLevelItemCount(), ());
     m_tree->topLevelItem(0)->setExpanded(true);
 
@@ -425,7 +425,7 @@ namespace qt
   {
     UpdateRowWithCountryInfo(countryId);
 
-    // now core does not support callbacks about parent country change, therefore emulate it
+    // Now core does not support callbacks about parent country change, therefore emulate it.
     auto const items = GetTreeItemsByCountryId(countryId);
     for (auto const item : items)
     {
@@ -444,7 +444,7 @@ namespace qt
 
   void UpdateDialog::ShowModal()
   {
-    // if called for first time
+    // If called for first time.
     if (!m_tree->topLevelItemCount())
       FillTree(string());
 

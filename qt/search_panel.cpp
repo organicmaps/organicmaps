@@ -217,7 +217,7 @@ bool SearchPanel::TryMigrate(QString const & str)
   m_pEditor->setText("");
   parentWidget()->hide();
 
-  auto stateChanged = [&](storage::TCountryId const & id)
+  auto const stateChanged = [&](storage::TCountryId const & id)
   {
     storage::Status const nextStatus = m_pDrawWidget->GetFramework().Storage().GetPrefetchStorage()->CountryStatusEx(id);
     LOG_SHORT(LINFO, (id, "status :", nextStatus));
@@ -228,7 +228,7 @@ bool SearchPanel::TryMigrate(QString const & str)
     }
   };
 
-  auto progressChanged = [](storage::TCountryId const & id, storage::TLocalAndRemoteSize const & sz)
+  auto const progressChanged = [](storage::TCountryId const & id, storage::TLocalAndRemoteSize const & sz)
   {
     LOG(LINFO, (id, "downloading progress:", sz));
   };
