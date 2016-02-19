@@ -4,6 +4,7 @@ typedef NS_ENUM(NSInteger, MWMCircularProgressState)
   MWMCircularProgressStateNormal,
   MWMCircularProgressStateSelected,
   MWMCircularProgressStateProgress,
+  MWMCircularProgressStateSpinner,
   MWMCircularProgressStateFailed,
   MWMCircularProgressStateCompleted
 };
@@ -24,11 +25,9 @@ typedef NS_ENUM(NSInteger, MWMCircularProgressState)
 
 - (void)setImage:(nonnull UIImage *)image forState:(MWMCircularProgressState)state;
 - (void)setColor:(nonnull UIColor *)color forState:(MWMCircularProgressState)state;
+- (void)setInvertColor:(BOOL)invertColor;
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
 - (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView;
-- (void)reset;
-- (void)startSpinner:(BOOL)isInvert;
-- (void)stopSpinner;
 
 @end

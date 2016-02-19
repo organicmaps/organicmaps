@@ -72,14 +72,13 @@
 {
   self.spinnerView.hidden = NO;
   self.spinner = [[MWMCircularProgress alloc] initWithParentView:self.spinnerView];
-  [self.spinner startSpinner:YES];
+  [self.spinner setInvertColor:YES];
+  self.spinner.state = MWMCircularProgressStateSpinner;
 }
 
 - (void)stopSpinner
 {
   self.spinnerView.hidden = YES;
-  [self.spinnerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-  [self.spinner stopSpinner];
   self.spinner = nil;
 }
 

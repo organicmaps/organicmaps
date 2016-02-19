@@ -163,7 +163,6 @@ extern NSString * const kTTSStatusWasChangedNotification;
 {
   [self.routePreview stateError];
   self.activeRouteTypeButton.state = MWMCircularProgressStateFailed;
-  [self.activeRouteTypeButton stopSpinner];
 }
 
 - (void)updateDashboard
@@ -248,7 +247,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
     [[Statistics instance]
               logEvent:kStatPointToPoint
         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatPedestrian}];
-    [self.routePreview.vehicleProgressView stopSpinner];
+    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateNormal;
     type = routing::RouterType::Pedestrian;
   }
   else
@@ -256,7 +255,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
     [[Statistics instance]
               logEvent:kStatPointToPoint
         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatVehicle}];
-    [self.routePreview.pedestrianProgressView stopSpinner];
+    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateNormal;
     type = routing::RouterType::Vehicle;
   }
   f.CloseRouting();
@@ -265,7 +264,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
   [self.routePreview selectProgress:progress];
   if (!self.delegate.isPossibleToBuildRoute)
     return;
-  [progress startSpinner:NO];
+  progress.state = MWMCircularProgressStateSpinner;
   [self.delegate buildRoute];
 }
 
@@ -336,7 +335,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
   [self removePanel:self.nextTurnPanel];
 //  [self removePanel:self.lanesPanel];
   [self setupActualRoute];
-  [self.activeRouteTypeButton startSpinner:NO];
+  self.activeRouteTypeButton.state = MWMCircularProgressStateSpinner;
 }
 
 - (void)showStateReady

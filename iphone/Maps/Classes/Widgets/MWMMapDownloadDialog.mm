@@ -153,7 +153,7 @@ using namespace storage;
 {
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
-  [self.progressView startSpinner:NO];
+  self.progressView.state = MWMCircularProgressStateSpinner;
 }
 
 #pragma mark - MWMFrameworkDrapeObserver

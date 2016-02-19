@@ -40,20 +40,21 @@
   {
     [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
     [parentView addSubview:self.rootView];
-    self.progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper];
-    self.progressView.delegate = self;
-    [self setupProgressImages];
+    [self setupProgressView];
     self.delegate = delegate;
     [self showRequest];
   }
   return self;
 }
 
-- (void)setupProgressImages
+- (void)setupProgressView
 {
+  self.progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper];
+  self.progressView.delegate = self;
   [self.progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
   [self.progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
   [self.progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
+  [self.progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSpinner];
   [self.progressView setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
   [self.progressView setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
 }
@@ -112,7 +113,6 @@
 - (void)setDownloadFailed
 {
   self.progressView.state = MWMCircularProgressStateFailed;
-  [self.progressView stopSpinner];
 }
 
 #pragma mark - MWMCircularProgressDelegate
@@ -125,7 +125,7 @@
   if (progress.state == MWMCircularProgressStateFailed)
   {
     s.RetryDownloadNode(m_countryId);
-    [self.progressView startSpinner:NO];
+    self.progressView.state = MWMCircularProgressStateSpinner;
   }
   else
   {
@@ -141,9 +141,8 @@
   [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatDownloadMap)];
   [MapsAppDelegate downloadNode:m_countryId alertController:self.delegate.alertController onSuccess:^
   {
-    self.progressView.progress = 0.0;
     [self showRequest];
-    [self.progressView startSpinner:NO];
+    self.progressView.state = MWMCircularProgressStateSpinner;
   }];
 }
 

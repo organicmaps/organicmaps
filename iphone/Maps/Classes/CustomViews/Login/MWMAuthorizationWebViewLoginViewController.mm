@@ -116,15 +116,14 @@ NSString * getVerifier(NSString * urlString)
 {
   self.spinnerView.hidden = NO;
   self.spinner = [[MWMCircularProgress alloc] initWithParentView:self.spinnerView];
-  [self.spinner startSpinner:YES];
+  [self.spinner setInvertColor:YES];
+  self.spinner.state = MWMCircularProgressStateSpinner;
   self.webView.userInteractionEnabled = NO;
 }
 
 - (void)stopSpinner
 {
   self.spinnerView.hidden = YES;
-  [self.spinnerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-  [self.spinner stopSpinner];
   self.spinner = nil;
   self.webView.userInteractionEnabled = YES;
 }

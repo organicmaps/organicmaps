@@ -99,7 +99,8 @@ using namespace osm;
 {
   self.spinnerView.hidden = NO;
   self.spinner = [[MWMCircularProgress alloc] initWithParentView:self.spinnerView];
-  [self.spinner startSpinner:YES];
+  [self.spinner setInvertColor:YES];
+  self.spinner.state = MWMCircularProgressStateSpinner;
   self.loginTextField.enabled = NO;
   self.passwordTextField.enabled = NO;
   self.forgotButton.enabled = NO;
@@ -109,8 +110,6 @@ using namespace osm;
 - (void)stopSpinner
 {
   self.spinnerView.hidden = YES;
-  [self.spinnerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-  [self.spinner stopSpinner];
   self.spinner = nil;
   self.loginTextField.enabled = YES;
   self.passwordTextField.enabled = YES;

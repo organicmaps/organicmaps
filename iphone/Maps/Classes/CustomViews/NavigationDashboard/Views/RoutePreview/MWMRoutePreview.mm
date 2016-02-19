@@ -57,12 +57,14 @@ static CGFloat const kAdditionalHeight = 20.;
   [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk"] forState:MWMCircularProgressStateFailed];
   [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk"] forState:MWMCircularProgressStateSelected];
   [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk"] forState:MWMCircularProgressStateProgress];
+  [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk"] forState:MWMCircularProgressStateSpinner];
   [self.pedestrianProgressView setImage:[UIImage imageNamed:@"ic_walk"] forState:MWMCircularProgressStateCompleted];
   self.vehicleProgressView = [[MWMCircularProgress alloc] initWithParentView:self.vehicle];
   [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateNormal];
   [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateFailed];
   [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateSelected];
   [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateProgress];
+  [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateSpinner];
   [self.vehicleProgressView setImage:[UIImage imageNamed:@"ic_drive"] forState:MWMCircularProgressStateCompleted];
 }
 
@@ -99,8 +101,8 @@ static CGFloat const kAdditionalHeight = 20.;
 
 - (void)statePrepare
 {
-  [self.pedestrianProgressView stopSpinner];
-  [self.vehicleProgressView stopSpinner];
+  self.pedestrianProgressView.state = MWMCircularProgressStateNormal;
+  self.vehicleProgressView.state = MWMCircularProgressStateNormal;
   self.arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
   self.goButton.hidden = NO;
   self.goButton.enabled = NO;
@@ -193,7 +195,6 @@ static CGFloat const kAdditionalHeight = 20.;
 - (void)deselectPedestrian
 {
   self.pedestrianProgressView.state = MWMCircularProgressStateNormal;
-  [self.pedestrianProgressView stopSpinner];
 }
 
 - (void)selectProgress:(MWMCircularProgress *)progress;
@@ -213,7 +214,6 @@ static CGFloat const kAdditionalHeight = 20.;
 - (void)deselectVehicle
 {
   self.vehicleProgressView.state = MWMCircularProgressStateNormal;
-  [self.vehicleProgressView stopSpinner];
 }
 
 - (void)layoutSubviews
