@@ -26,10 +26,10 @@ public:
   virtual string ToString() const = 0;
 };
 
-class ExactMatch : public MatchingRule
+class ExactMatchingRule : public MatchingRule
 {
 public:
-  ExactMatch(MwmSet::MwmId const & mwmId, TestFeature & feature);
+  ExactMatchingRule(MwmSet::MwmId const & mwmId, TestFeature & feature);
 
   // MatchingRule overrides:
   bool Matches(FeatureType const & feature) const override;
@@ -40,10 +40,10 @@ private:
   TestFeature & m_feature;
 };
 
-class AlternativesMatch : public MatchingRule
+class AlternativesMatchingRule : public MatchingRule
 {
 public:
-  AlternativesMatch(initializer_list<shared_ptr<MatchingRule>> rules);
+  AlternativesMatchingRule(initializer_list<shared_ptr<MatchingRule>> rules);
 
   // MatchingRule overrides:
   bool Matches(FeatureType const & feature) const override;
@@ -52,6 +52,18 @@ public:
 private:
   vector<shared_ptr<MatchingRule>> m_rules;
 };
+
+template <typename... TArgs>
+shared_ptr<MatchingRule> ExactMatch(TArgs &&... args)
+{
+  return make_shared<ExactMatchingRule>(forward<TArgs>(args)...);
+}
+
+template <typename... TArgs>
+shared_ptr<MatchingRule> AlternativesMatch(TArgs &&... args)
+{
+  return make_shared<AlternativesMatchingRule>(forward<TArgs>(args)...);
+}
 
 bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
                   vector<search::Result> const & actual);

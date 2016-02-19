@@ -34,6 +34,8 @@
 
 using namespace search::tests_support;
 
+using TRules = vector<shared_ptr<MatchingRule>>;
+
 namespace
 {
 void InitParams(string const & query, search::SearchQueryParams & params)
@@ -142,9 +144,9 @@ UNIT_TEST(Retrieval_Smoke)
   platform::LocalCountryFile file(platform.WritableDir(), platform::CountryFile("WhiskeyTown"), 0);
   Cleanup(file);
   MY_SCOPE_GUARD(deleteFile, [&]()
-  {
-    Cleanup(file);
-  });
+                 {
+                   Cleanup(file);
+                 });
 
   // Create a test mwm with 100 whiskey bars.
   {
@@ -228,9 +230,9 @@ UNIT_TEST(Retrieval_3Mwms)
   platform::LocalCountryFile zrh(platform.WritableDir(), platform::CountryFile("zrh"), 0);
   Cleanup({msk, mtv, zrh});
   MY_SCOPE_GUARD(cleanup, [&]()
-  {
-    Cleanup({msk, mtv, zrh});
-  });
+                 {
+                   Cleanup({msk, mtv, zrh});
+                 });
 
   {
     TestMwmBuilder builder(msk, feature::DataHeader::country);
@@ -339,7 +341,7 @@ UNIT_TEST(Retrieval_CafeMTV)
                                        0);
   Cleanup({msk, mtv, testWorld});
   MY_SCOPE_GUARD(cleanup, [&]()
-  {
+                 {
     Cleanup({msk, mtv, testWorld});
   });
 
@@ -387,10 +389,8 @@ UNIT_TEST(Retrieval_CafeMTV)
     TestSearchRequest request(engine, "Moscow ", "en", search::Mode::Everywhere, mskViewport);
     request.Wait();
 
-    initializer_list<shared_ptr<MatchingRule>> mskCityAlts = {
-        make_shared<ExactMatch>(testWorldId, mskCity), make_shared<ExactMatch>(mskId, mskCity)};
-    vector<shared_ptr<MatchingRule>> rules = {make_shared<AlternativesMatch>(mskCityAlts),
-                                              make_shared<ExactMatch>(mtvId, mskCafe)};
+    auto mskCityAlts = {ExactMatch(testWorldId, mskCity), ExactMatch(mskId, mskCity)};
+    TRules rules = {AlternativesMatch(mskCityAlts), ExactMatch(mtvId, mskCafe)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 
@@ -398,10 +398,8 @@ UNIT_TEST(Retrieval_CafeMTV)
     TestSearchRequest request(engine, "MTV ", "en", search::Mode::Everywhere, mtvViewport);
     request.Wait();
 
-    initializer_list<shared_ptr<MatchingRule>> mtvCityAlts = {
-        make_shared<ExactMatch>(testWorldId, mtvCity), make_shared<ExactMatch>(mtvId, mtvCity)};
-    vector<shared_ptr<MatchingRule>> rules = {make_shared<AlternativesMatch>(mtvCityAlts),
-                                              make_shared<ExactMatch>(mskId, mtvCafe)};
+    auto mtvCityAlts = {ExactMatch(testWorldId, mtvCity), ExactMatch(mtvId, mtvCity)};
+    TRules rules = {AlternativesMatch(mtvCityAlts), ExactMatch(mskId, mtvCafe)};
     TEST(MatchResults(engine, rules, request.Results()), ());
   }
 
@@ -409,9 +407,8 @@ UNIT_TEST(Retrieval_CafeMTV)
     TestSearchRequest request(engine, "Moscow MTV ", "en", search::Mode::Everywhere, mtvViewport);
     request.Wait();
 
-    initializer_list<shared_ptr<MatchingRule>> alternatives = {
-        make_shared<ExactMatch>(mskId, mtvCafe), make_shared<ExactMatch>(mtvId, mskCafe)};
-    vector<shared_ptr<MatchingRule>> rules = {make_shared<AlternativesMatch>(alternatives)};
+    auto alternatives = {ExactMatch(mskId, mtvCafe), ExactMatch(mtvId, mskCafe)};
+    TRules rules = {AlternativesMatch(alternatives)};
 
     // TODO (@gorshenin): current search algorithm can't retrieve both
     // Cafe Moscow @ MTV and Cafe MTV @ Moscow, it'll just return one

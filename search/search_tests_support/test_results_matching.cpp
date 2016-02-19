@@ -11,31 +11,31 @@ namespace search
 {
 namespace tests_support
 {
-ExactMatch::ExactMatch(MwmSet::MwmId const & mwmId, TestFeature & feature)
+ExactMatchingRule::ExactMatchingRule(MwmSet::MwmId const & mwmId, TestFeature & feature)
   : m_mwmId(mwmId), m_feature(feature)
 {
 }
 
-bool ExactMatch::Matches(FeatureType const & feature) const
+bool ExactMatchingRule::Matches(FeatureType const & feature) const
 {
   if (m_mwmId != feature.GetID().m_mwmId)
     return false;
   return m_feature.Matches(feature);
 }
 
-string ExactMatch::ToString() const
+string ExactMatchingRule::ToString() const
 {
   ostringstream os;
-  os << "ExactMatch [ " << DebugPrint(m_mwmId) << ", " << DebugPrint(m_feature) << " ]";
+  os << "ExactMatchingRule [ " << DebugPrint(m_mwmId) << ", " << DebugPrint(m_feature) << " ]";
   return os.str();
 }
 
-AlternativesMatch::AlternativesMatch(initializer_list<shared_ptr<MatchingRule>> rules)
+AlternativesMatchingRule::AlternativesMatchingRule(initializer_list<shared_ptr<MatchingRule>> rules)
   : m_rules(move(rules))
 {
 }
 
-bool AlternativesMatch::Matches(FeatureType const & feature) const
+bool AlternativesMatchingRule::Matches(FeatureType const & feature) const
 {
   for (auto const & rule : m_rules)
   {
@@ -45,7 +45,7 @@ bool AlternativesMatch::Matches(FeatureType const & feature) const
   return false;
 }
 
-string AlternativesMatch::ToString() const
+string AlternativesMatchingRule::ToString() const
 {
   ostringstream os;
   os << "OrRule [ ";

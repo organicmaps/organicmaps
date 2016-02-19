@@ -70,7 +70,7 @@ public:
   void RegisterCountry(string const & name, m2::RectD const & rect)
   {
     auto & infoGetter =
-        static_cast<storage::CountryInfoGetterForTesting&>(m_engine.GetCountryInfoGetter());
+        static_cast<storage::CountryInfoGetterForTesting &>(m_engine.GetCountryInfoGetter());
     infoGetter.AddCountry(storage::CountryDef(name, rect));
   }
 
@@ -99,7 +99,8 @@ public:
     return MatchResults(m_engine, rules, request.Results());
   }
 
-  bool ResultsMatch(string const & query, search::Mode mode, vector<shared_ptr<MatchingRule>> const & rules)
+  bool ResultsMatch(string const & query, search::Mode mode,
+                    vector<shared_ptr<MatchingRule>> const & rules)
   {
     TestSearchRequest request(m_engine, query, "en", mode, m_viewport);
     request.Wait();
@@ -204,69 +205,65 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
 
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, busStop)};
+    TRules rules = {ExactMatch(wonderlandId, busStop)};
     TEST(ResultsMatch("Bus stop", rules), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, quantumCafe),
-                    make_shared<ExactMatch>(wonderlandId, quantumTeleport1),
-                    make_shared<ExactMatch>(wonderlandId, quantumTeleport2)};
+    TRules rules = {ExactMatch(wonderlandId, quantumCafe),
+                    ExactMatch(wonderlandId, quantumTeleport1),
+                    ExactMatch(wonderlandId, quantumTeleport2)};
     TEST(ResultsMatch("quantum", rules), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, quantumCafe),
-                    make_shared<ExactMatch>(wonderlandId, quantumTeleport1)};
+    TRules rules = {ExactMatch(wonderlandId, quantumCafe),
+                    ExactMatch(wonderlandId, quantumTeleport1)};
     TEST(ResultsMatch("quantum Moscow ", rules), ());
   }
   {
     TEST(ResultsMatch("     ", TRules()), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, quantumTeleport2)};
+    TRules rules = {ExactMatch(wonderlandId, quantumTeleport2)};
     TEST(ResultsMatch("teleport feynman street", rules), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, quantumTeleport2)};
+    TRules rules = {ExactMatch(wonderlandId, quantumTeleport2)};
     TEST(ResultsMatch("feynman street 3", rules), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, feynmanHouse),
-                    make_shared<ExactMatch>(wonderlandId, lantern1)};
+    TRules rules = {ExactMatch(wonderlandId, feynmanHouse), ExactMatch(wonderlandId, lantern1)};
     TEST(ResultsMatch("feynman street 1", rules), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, bohrHouse),
-                    make_shared<ExactMatch>(wonderlandId, hilbertHouse),
-                    make_shared<ExactMatch>(wonderlandId, lantern1)};
+    TRules rules = {ExactMatch(wonderlandId, bohrHouse), ExactMatch(wonderlandId, hilbertHouse),
+                    ExactMatch(wonderlandId, lantern1)};
     TEST(ResultsMatch("bohr street 1", rules), ());
   }
   {
     TEST(ResultsMatch("bohr street 1 unit 3", TRules()), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, lantern1),
-                    make_shared<ExactMatch>(wonderlandId, lantern2)};
+    TRules rules = {ExactMatch(wonderlandId, lantern1), ExactMatch(wonderlandId, lantern2)};
     TEST(ResultsMatch("bohr street 1 lantern ", rules), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, feynmanHouse)};
+    TRules rules = {ExactMatch(wonderlandId, feynmanHouse)};
     TEST(ResultsMatch("wonderland los alamos feynman 1 unit 1 ", rules), ());
   }
   {
     // It's possible to find Descartes house by name.
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, descartesHouse)};
+    TRules rules = {ExactMatch(wonderlandId, descartesHouse)};
     TEST(ResultsMatch("Los Alamos Descartes", rules), ());
   }
   {
     // It's not possible to find Descartes house by house number,
     // because it doesn't belong to Los Alamos streets. But it still
     // exists.
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, lantern2),
-                    make_shared<ExactMatch>(wonderlandId, quantumTeleport2)};
+    TRules rules = {ExactMatch(wonderlandId, lantern2), ExactMatch(wonderlandId, quantumTeleport2)};
     TEST(ResultsMatch("Los Alamos 2", rules), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, bornHouse)};
+    TRules rules = {ExactMatch(wonderlandId, bornHouse)};
     TEST(ResultsMatch("long pond 1st april street 8", rules), ());
   }
 }
@@ -276,8 +273,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
   TestCountry wonderland(m2::PointD(0, 0), "Wonderland", "en");
   TestCity losAlamos(m2::PointD(0, 0), "Los Alamos", "en", 100 /* rank */);
 
-  auto testWorldId = BuildMwm("testWorld", feature::DataHeader::world,
-                              [&](TestMwmBuilder & builder)
+  auto testWorldId = BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
                               {
                                 builder.Add(wonderland);
                                 builder.Add(losAlamos);
@@ -287,15 +283,15 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(-0.5, -0.5)));
   {
-    TRules rules = {make_shared<ExactMatch>(testWorldId, losAlamos)};
+    TRules rules = {ExactMatch(testWorldId, losAlamos)};
     TEST(ResultsMatch("Los Alamos", rules), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(testWorldId, wonderland)};
+    TRules rules = {ExactMatch(testWorldId, wonderland)};
     TEST(ResultsMatch("Wonderland", rules), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(testWorldId, losAlamos)};
+    TRules rules = {ExactMatch(testWorldId, losAlamos)};
     TEST(ResultsMatch("Wonderland Los Alamos", rules), ());
   }
 }
@@ -312,18 +308,18 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
                           {
                             builder.Add(london);
                           });
-  auto wonderlandId = BuildMwm("wonderland", feature::DataHeader::country,
-                               [&](TestMwmBuilder & builder)
-                               {
-                                 builder.Add(hydePark);
-                                 builder.Add(cafe);
-                               });
+  auto wonderlandId =
+      BuildMwm("wonderland", feature::DataHeader::country, [&](TestMwmBuilder & builder)
+               {
+                 builder.Add(hydePark);
+                 builder.Add(cafe);
+               });
   RegisterCountry("Wonderland", m2::RectD(m2::PointD(0, 0), m2::PointD(2, 2)));
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(-0.9, -0.9)));
 
   {
-    TRules rules = {make_shared<ExactMatch>(wonderlandId, hydePark)};
+    TRules rules = {ExactMatch(wonderlandId, hydePark)};
     TEST(ResultsMatch("hyde park", rules), ());
     TEST(ResultsMatch("london hyde park", rules), ());
     TEST(ResultsMatch("hyde london park", TRules()), ());
@@ -331,12 +327,11 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
 
   SetViewport(m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)));
   {
-    TRules rules = {make_shared<ExactMatch>(worldId, london)};
+    TRules rules = {ExactMatch(worldId, london)};
     TEST(ResultsMatch("london", search::Mode::World, rules), ());
   }
   {
-    TRules rules = {make_shared<ExactMatch>(worldId, london),
-                    make_shared<ExactMatch>(wonderlandId, cafe)};
+    TRules rules = {ExactMatch(worldId, london), ExactMatch(wonderlandId, cafe)};
     TEST(ResultsMatch("london", search::Mode::Everywhere, rules), ());
   }
 }
