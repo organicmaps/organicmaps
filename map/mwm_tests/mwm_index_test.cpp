@@ -46,7 +46,7 @@ bool RunTest(string const & countryFileName, int lowS, int highS)
   MwmSet::MwmId const & id = p.first;
   ASSERT(id.IsAlive(), ());
 
-  version::Format const version = id.GetInfo()->m_version.format;
+  version::Format const version = id.GetInfo()->m_version.GetFormat();
   if (version == version::Format::unknownFormat)
     return false;
 

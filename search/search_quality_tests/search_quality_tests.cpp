@@ -132,7 +132,7 @@ uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
 
   version::MwmVersion version;
   version::ReadVersion(src, version);
-  return version.timestamp;
+  return version.GetVersion();
 }
 
 void CalcStatistics(vector<double> const & a, double & avg, double & maximum, double & var,

@@ -270,8 +270,8 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
           platform.GetReader(file + DATA_FILE_EXTENSION, GetSpecialFilesSearchScope()));
 
       // Assume that empty path means the resource file.
-      LocalCountryFile worldFile(string(), CountryFile(file),
-                                 version::ReadVersionTimestamp(reader));
+      LocalCountryFile worldFile{string(), CountryFile(file),
+                                 version::ReadVersionDate(reader)};
       worldFile.m_files = MapOptions::Map;
       if (i != localFiles.end())
       {

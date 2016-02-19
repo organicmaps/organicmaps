@@ -66,7 +66,7 @@ DEFINE_bool(make_cross_section, false, "Make corss section in routing file for c
 DEFINE_string(osm_file_name, "", "Input osm area file");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m]");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
-DEFINE_uint64(planet_version, my::TodayAsYYMMDD(), "Version as YYMMDD, by default - today");
+DEFINE_uint64(planet_version, my::SecondsSinceEpoch(), "Version as seconds since epoch, by default - now");
 
 int main(int argc, char ** argv)
 {

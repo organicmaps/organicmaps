@@ -59,3 +59,14 @@ UNIT_TEST(Timer_TimestampConversion)
   TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2100--1-02T11:08:34-10:00"), ());
   TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2012-12-02T11:08:34-25:88"), ());
 }
+
+UNIT_TEST(Timer_GenerateYYMMDD)
+{
+  TEST_EQUAL(my::GenerateYYMMDD(116, 0, 26), 160126, ());
+}
+
+UNIT_TEST(Timer_TimeTConversion)
+{
+  auto const now = ::time(nullptr);
+  TEST_EQUAL(my::SecondsSinceEpochToTimeT(my::TimeTToSecondsSinceEpoch(now)), now, ());
+}

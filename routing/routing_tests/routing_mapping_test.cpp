@@ -52,7 +52,7 @@ private:
     FilesContainerW dataCont(localFile.GetPath(MapOptions::CarRouting));
 
     FileWriter w1 = dataCont.GetWriter(VERSION_FILE_TAG);
-    version::WriteVersion(w1, my::TodayAsYYMMDD());
+    version::WriteVersion(w1, my::SecondsSinceEpoch());
     FileWriter w2 = dataCont.GetWriter(ROUTING_MATRIX_FILE_TAG);
     w2.Write("smth", 4);
   }

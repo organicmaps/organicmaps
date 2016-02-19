@@ -435,7 +435,7 @@ unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
     MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
     SearchQueryParams const & params)
 {
-  version::MwmTraits mwmTraits(value.GetMwmVersion().format);
+  version::MwmTraits mwmTraits(value.GetMwmVersion().GetFormat());
 
   if (mwmTraits.GetSearchIndexFormat() ==
       version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)

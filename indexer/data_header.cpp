@@ -110,7 +110,7 @@ namespace feature
     version::MwmVersion version;
 
     if (version::ReadVersion(cont, version))
-      Load(headerReader, version.format);
+      Load(headerReader, version.GetFormat());
     else
       LoadV1(headerReader);
   }

@@ -43,7 +43,7 @@ bool CheckMwmConsistency(LocalCountryFile const & localFile)
   version::MwmVersion version2;
   version::ReadVersion(src2, version2);
 
-  return version1.timestamp == version2.timestamp;
+  return version1.GetVersion() == version2.GetVersion();
 }
 } //  namespace
 

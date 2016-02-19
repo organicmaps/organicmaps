@@ -522,7 +522,7 @@ void Framework::RegisterAllMaps()
 
     MwmSet::MwmId const & id = p.first;
     ASSERT(id.IsAlive(), ());
-    minFormat = min(minFormat, static_cast<int>(id.GetInfo()->m_version.format));
+    minFormat = min(minFormat, static_cast<int>(id.GetInfo()->m_version.GetFormat()));
   }
 
   m_searchEngine->SetSupportOldFormat(minFormat < static_cast<int>(version::Format::v3));

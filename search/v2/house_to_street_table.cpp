@@ -48,7 +48,7 @@ public:
 
 unique_ptr<HouseToStreetTable> HouseToStreetTable::Load(MwmValue & value)
 {
-  version::MwmTraits traits(value.GetMwmVersion().format);
+  version::MwmTraits traits(value.GetMwmVersion().GetFormat());
   auto const format = traits.GetHouseToStreetTableFormat();
 
   unique_ptr<HouseToStreetTable> result;

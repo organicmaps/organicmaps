@@ -70,7 +70,7 @@ bool CheckMwmVersion(vector<pair<Edge, m2::PointD>> const & vicinities, vector<s
 
     version::MwmVersion version;
     version::ReadVersion(src, version);
-    if (version.timestamp < kMinPedestrianMwmVersion)
+    if (version.GetVersion() < kMinPedestrianMwmVersion)
       mwmNames.push_back(mwmInfo->GetCountryName());
   }
   return !mwmNames.empty();

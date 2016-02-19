@@ -10,6 +10,7 @@ include($$ROOT_DIR/common.pri)
 SOURCES += \
     base.cpp \
     condition.cpp \
+    gmtime.cpp \
     exception.cpp \
     internal/message.cpp \
     logging.cpp \
@@ -42,7 +43,8 @@ HEADERS += \
     condition.hpp \
     const_helper.hpp \
     exception.hpp \
-    internal/message.hpp \
+    gmtime.hpp \
+    internal/messagex.hpp \
     limited_priority_queue.hpp \
     logging.hpp \
     macros.hpp \
