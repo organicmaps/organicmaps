@@ -260,11 +260,11 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeCancel(JNIEnv * env, jclass
   return GetStorage().CancelDownloadNode(jni::ToNativeString(env, root));
 }
 
-// static boolean nativeDelete(String root);
-JNIEXPORT jboolean JNICALL
+// static void nativeDelete(String root);
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeDelete(JNIEnv * env, jclass clazz, jstring root)
 {
-  return GetStorage().DeleteNode(jni::ToNativeString(env, root));
+  GetStorage().DeleteNode(jni::ToNativeString(env, root));
 }
 
 static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCountryId const & countryId)

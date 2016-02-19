@@ -110,7 +110,7 @@ public final class MapManager
   /**
    * Deletes given installed {@code root} node with its children.
    */
-  public static native boolean nativeDelete(String root);
+  public static native void nativeDelete(String root);
 
   /**
    * Registers {@code callback} of storage status changed. Returns slot ID which should be used to unsubscribe in {@link #nativeUnsubscribe(int)}.

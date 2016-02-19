@@ -66,7 +66,7 @@ Java_com_mapswithme_maps_MapFragment_nativeShowMapForUrl(JNIEnv * env, jclass cl
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeCreateEngine(JNIEnv * env, jclass clazz, jobject surface, jint density)
 {
-  return static_cast<jboolean>(g_framework->CreateDrapeEngine(env, surface, static_cast<int>(density)));
+  return g_framework->CreateDrapeEngine(env, surface, density);
 }
 
 JNIEXPORT void JNICALL
@@ -78,7 +78,7 @@ Java_com_mapswithme_maps_MapFragment_nativeDestroyEngine(JNIEnv * env, jclass cl
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeIsEngineCreated(JNIEnv * env, jclass clazz)
 {
-  return static_cast<jboolean>(g_framework->IsDrapeEngineCreated());
+  return g_framework->IsDrapeEngineCreated();
 }
 
 JNIEXPORT void JNICALL
@@ -96,7 +96,7 @@ Java_com_mapswithme_maps_MapFragment_nativeDetachSurface(JNIEnv * env, jclass cl
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeSurfaceChanged(JNIEnv * env, jclass clazz, jint w, jint h)
 {
-  g_framework->Resize(static_cast<int>(w), static_cast<int>(h));
+  g_framework->Resize(w, h);
 }
 
 JNIEXPORT void JNICALL
@@ -105,7 +105,7 @@ Java_com_mapswithme_maps_MapFragment_nativeOnTouch(JNIEnv * env, jclass clazz, j
                                                    jint id2, jfloat x2, jfloat y2,
                                                    jint maskedPointer)
 {
-  g_framework->Touch(static_cast<int>(action),
+  g_framework->Touch(action,
                      android::Framework::Finger(id1, x1, y1),
                      android::Framework::Finger(id2, x2, y2), maskedPointer);
 }
@@ -113,7 +113,7 @@ Java_com_mapswithme_maps_MapFragment_nativeOnTouch(JNIEnv * env, jclass clazz, j
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeSetupWidget(JNIEnv * env, jclass clazz, jint widget, jfloat x, jfloat y, jint anchor)
 {
-  g_framework->SetupWidget(static_cast<gui::EWidget>(widget), static_cast<float>(x), static_cast<float>(y), static_cast<dp::Anchor>(anchor));
+  g_framework->SetupWidget(static_cast<gui::EWidget>(widget), x, y, static_cast<dp::Anchor>(anchor));
 }
 
 JNIEXPORT void JNICALL
