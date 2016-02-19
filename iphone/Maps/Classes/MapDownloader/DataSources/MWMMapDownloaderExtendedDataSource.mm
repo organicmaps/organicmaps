@@ -24,13 +24,13 @@ using namespace storage;
   if (self)
   {
     self.baseSectionShift = 0;
-    [self configNearMe];
-    [self configDownloaded];
+    [self configNearMeSection];
+    [self configDownloadedSection];
   }
   return self;
 }
 
-- (void)configNearMe
+- (void)configNearMeSection
 {
   self.closestCoutryIds = nil;
   self.closestCountriesSection = NSNotFound;
@@ -50,7 +50,7 @@ using namespace storage;
   }
 }
 
-- (void)configDownloaded
+- (void)configDownloadedSection
 {
   self.downloadedCoutryIds = nil;
   self.downloadedCountriesSection = NSNotFound;
