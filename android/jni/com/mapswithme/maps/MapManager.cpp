@@ -9,7 +9,7 @@
 #include "std/bind.hpp"
 #include "std/shared_ptr.hpp"
 
-namespace data
+namespace
 {
 
 using namespace storage;
@@ -21,9 +21,9 @@ enum ItemCategory : uint32_t
   ALL,
 };
 
-jclass g_listClass;
 jmethodID g_listAddMethod;
 jclass g_countryItemClass;
+jobject g_countryChangedListener;
 
 Storage & GetStorage()
 {
@@ -32,23 +32,18 @@ Storage & GetStorage()
 
 void PrepareClassRefs(JNIEnv * env)
 {
-  if (g_listClass)
+  if (g_listAddMethod)
     return;
 
-  g_listClass = jni::GetGlobalClassRef(env, "java/util/List");
-  g_listAddMethod = env->GetMethodID(g_listClass, "add", "(Ljava/lang/Object;)Z");
+  jclass listClass = env->FindClass("java/util/List");
+  g_listAddMethod = env->GetMethodID(listClass, "add", "(Ljava/lang/Object;)Z");
   g_countryItemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/CountryItem");
 }
 
-} // namespace data
+} // namespace
 
 extern "C"
 {
-
-using namespace storage;
-using namespace data;
-
-
 // static boolean nativeMoveFile(String oldFile, String newFile);
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_MapStorage_nativeMoveFile(JNIEnv * env, jclass clazz, jstring oldFile, jstring newFile)
@@ -307,8 +302,6 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeUnsubscribe(JNIEnv * env, j
 {
   GetStorage().Unsubscribe(slot);
 }
-
-static jobject g_countryChangedListener;
 
 // static void nativeSubscribeOnCountryChanged(CurrentCountryChangedListener listener);
 JNIEXPORT void JNICALL

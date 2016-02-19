@@ -43,12 +43,13 @@ struct FileToDownload
   uint64_t m_fileSize;
 };
 
-//static string g_apkPath;
-//static string g_sdcardPath;
+namespace
+{
 static vector<FileToDownload> g_filesToDownload;
 static int g_totalDownloadedBytes;
 static int g_totalBytesToDownload;
 static shared_ptr<HttpRequest> g_currentRequest;
+} // namespace
 
 extern "C"
 {
@@ -171,8 +172,8 @@ extern "C"
     FileToDownload & curFile = g_filesToDownload.back();
 
     JNIEnv * env = jni::GetEnv();
-    static jmethodID methodID = jni::GetMethodID(env, *listener.get(), "onProgress", "(I)V");
-    env->CallVoidMethod(*listener.get(), methodID, static_cast<jint>(g_totalDownloadedBytes + req.Progress().first));
+    static jmethodID methodID = jni::GetMethodID(env, *listener, "onProgress", "(I)V");
+    env->CallVoidMethod(*listener, methodID, static_cast<jint>(g_totalDownloadedBytes + req.Progress().first));
   }
 
   static void DownloadURLListFinished(HttpRequest const & req, TCallback const & onFinish, TCallback const & onProgress)

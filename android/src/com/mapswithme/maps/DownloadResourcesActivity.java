@@ -85,7 +85,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("unused")
   private interface Listener
   {
-    void onProgress(int progress);
+    void onProgress(int percent);
     void onFinish(int errorCode);
   }
 
@@ -152,10 +152,10 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private final Listener mResourcesDownloadListener = new Listener()
   {
     @Override
-    public void onProgress(final int progress)
+    public void onProgress(final int percent)
     {
       if (!isFinishing())
-        mProgress.setProgress(progress);
+        mProgress.setProgress(percent);
     }
 
     @Override
