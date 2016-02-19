@@ -60,7 +60,7 @@ using namespace storage;
   auto onStatusChanged = [self, migrate](TCountryId const & countryId)
   {
     auto & f = GetFramework();
-    auto & s = f.Storage().m_prefetchStorage;
+    auto s = f.Storage().GetPrefetchStorage();
     NodeAttrs nodeAttrs;
     s->GetNodeAttrs(countryId, nodeAttrs);
     switch (nodeAttrs.m_status)
