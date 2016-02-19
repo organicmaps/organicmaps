@@ -163,8 +163,8 @@ extern "C"
 
     JNIEnv * env = jni::GetEnv();
 
-    jmethodID methodID = jni::GetMethodID(env, *obj.get(), "onFinish", "(I)V");
-    env->CallVoidMethod(*obj.get(), methodID, errorCode);
+    jmethodID methodID = jni::GetMethodID(env, *obj, "onFinish", "(I)V");
+    env->CallVoidMethod(*obj, methodID, errorCode);
   }
 
   static void DownloadFileProgress(shared_ptr<jobject> listener, HttpRequest const & req)
@@ -215,7 +215,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_DownloadResourcesActivity_nativeCancelCurrentFile(JNIEnv * env, jclass clazz)
   {
-    LOG(LDEBUG, ("cancelCurrentFile, currentRequest=", g_currentRequest.get()));
+    LOG(LDEBUG, ("cancelCurrentFile, currentRequest=", g_currentRequest));
     g_currentRequest.reset();
   }
 }

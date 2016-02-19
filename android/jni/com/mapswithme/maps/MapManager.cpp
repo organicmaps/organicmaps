@@ -275,16 +275,16 @@ static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCoun
   NodeAttrs attrs;
   GetStorage().GetNodeAttrs(countryId, attrs);
 
-  jmethodID const methodID = jni::GetMethodID(env, *listenerRef.get(), "onStatusChanged", "(Ljava/lang/String;I)V");
-  env->CallVoidMethod(*listenerRef.get(), methodID, jni::ToJavaString(env, countryId), attrs.m_status);
+  jmethodID const methodID = jni::GetMethodID(env, *listenerRef, "onStatusChanged", "(Ljava/lang/String;I)V");
+  env->CallVoidMethod(*listenerRef, methodID, jni::ToJavaString(env, countryId), attrs.m_status);
 }
 
 static void ProgressChangedCallback(shared_ptr<jobject> const & listenerRef, TCountryId const & countryId, TLocalAndRemoteSize const & sizes)
 {
   JNIEnv * env = jni::GetEnv();
 
-  jmethodID const methodID = jni::GetMethodID(env, *listenerRef.get(), "onProgress", "(Ljava/lang/String;JJ)V");
-  env->CallVoidMethod(*listenerRef.get(), methodID, jni::ToJavaString(env, countryId), sizes.first, sizes.second);
+  jmethodID const methodID = jni::GetMethodID(env, *listenerRef, "onProgress", "(Ljava/lang/String;JJ)V");
+  env->CallVoidMethod(*listenerRef, methodID, jni::ToJavaString(env, countryId), sizes.first, sizes.second);
 }
 
 // static int nativeSubscribe(StorageCallback listener);

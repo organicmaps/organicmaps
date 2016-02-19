@@ -59,10 +59,10 @@ string Platform::GetMemoryInfo() const
   static shared_ptr<jobject> classMemLogging = jni::make_global_ref(env->FindClass("com/mapswithme/util/log/MemLogging"));
   ASSERT(classMemLogging, ());
 
-  static jmethodID const getMemoryInfoId = env->GetStaticMethodID(static_cast<jclass>(*classMemLogging.get()), "getMemoryInfo", "()Ljava/lang/String;");
+  static jmethodID const getMemoryInfoId = env->GetStaticMethodID(static_cast<jclass>(*classMemLogging), "getMemoryInfo", "()Ljava/lang/String;");
   ASSERT(getMemoryInfoId, ());
 
-  jstring const memInfoString = (jstring)env->CallStaticObjectMethod(static_cast<jclass>(*classMemLogging.get()), getMemoryInfoId);
+  jstring const memInfoString = (jstring)env->CallStaticObjectMethod(static_cast<jclass>(*classMemLogging), getMemoryInfoId);
   ASSERT(memInfoString, ());
 
   return jni::ToNativeString(env, memInfoString);
@@ -82,10 +82,10 @@ Platform::EConnectionType Platform::ConnectionStatus()
   static shared_ptr<jobject> clazzConnectionState = jni::make_global_ref(env->FindClass("com/mapswithme/util/ConnectionState"));
   ASSERT(clazzConnectionState, ());
 
-  static jmethodID const getConnectionMethodId = env->GetStaticMethodID(static_cast<jclass>(*clazzConnectionState.get()), "getConnectionState", "()B");
+  static jmethodID const getConnectionMethodId = env->GetStaticMethodID(static_cast<jclass>(*clazzConnectionState), "getConnectionState", "()B");
   ASSERT(getConnectionMethodId, ());
 
-  return static_cast<Platform::EConnectionType>(env->CallStaticByteMethod(static_cast<jclass>(*clazzConnectionState.get()), getConnectionMethodId));
+  return static_cast<Platform::EConnectionType>(env->CallStaticByteMethod(static_cast<jclass>(*clazzConnectionState), getConnectionMethodId));
 }
 
 namespace android

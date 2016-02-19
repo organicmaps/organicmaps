@@ -435,18 +435,18 @@ extern "C"
   void CallOnMapObjectActivatedListener(shared_ptr<jobject> listener, jobject mapObject)
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID const methodId = jni::GetMethodID(env, *listener.get(), "onMapObjectActivated",
+    jmethodID const methodId = jni::GetMethodID(env, *listener, "onMapObjectActivated",
                                                 "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
     //public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName)
-    env->CallVoidMethod(*listener.get(), methodId, mapObject);
+    env->CallVoidMethod(*listener, methodId, mapObject);
   }
 
   void CallOnDismissListener(shared_ptr<jobject> obj)
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID const methodId = jni::GetMethodID(env, *obj.get(), "onDismiss", "()V");
+    jmethodID const methodId = jni::GetMethodID(env, *obj, "onDismiss", "()V");
     ASSERT(methodId, ());
-    env->CallVoidMethod(*obj.get(), methodId);
+    env->CallVoidMethod(*obj, methodId);
   }
 
   void CallOnUserMarkActivated(shared_ptr<jobject> obj, unique_ptr<UserMarkCopy> markCopy)
@@ -468,7 +468,7 @@ extern "C"
   void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<storage::TCountryId> const & absentMaps, vector<storage::TCountryId> const & absentRoutes)
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID const method = jni::GetMethodID(env, *listener.get(), "onRoutingEvent", "(I[Ljava/lang/String;)V");
+    jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");
     ASSERT(method, ());
 
     jni::ScopedLocalRef<jobjectArray> const countries(env, env->NewObjectArray(absentMaps.size(), jni::GetStringClass(env), 0));
@@ -478,14 +478,14 @@ extern "C"
       env->SetObjectArrayElement(countries.get(), i, id.get());
     }
 
-    env->CallVoidMethod(*listener.get(), method, errorCode, countries.get());
+    env->CallVoidMethod(*listener, method, errorCode, countries.get());
   }
 
   void CallRouteProgressListener(shared_ptr<jobject> listener, float progress)
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID const methodId = jni::GetMethodID(env, *listener.get(), "onRouteBuildingProgress", "(F)V");
-    env->CallVoidMethod(*listener.get(), methodId, progress);
+    jmethodID const methodId = jni::GetMethodID(env, *listener, "onRouteBuildingProgress", "(F)V");
+    env->CallVoidMethod(*listener, methodId, progress);
   }
 
   /// @name JNI EXPORTS
