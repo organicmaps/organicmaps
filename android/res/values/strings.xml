@@ -456,7 +456,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">queued</string>
 	<string name="downloader_near_me">Near me</string>
-	<string name="downloader_updatable_template">Maps: %1$d (%2$s)</string>
+	<string name="downloader_maps_to_update">Maps: %1$d (%2$s)</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!</string>
 	<!-- Outdated maps category -->

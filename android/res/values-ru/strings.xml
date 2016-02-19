@@ -454,7 +454,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">в очереди</string>
 	<string name="downloader_near_me">Рядом со мной</string>
-	<string name="downloader_updatable_template">Карт: %1$d (%2$s)</string>
+	<string name="downloader_maps_to_update">Карт: %1$d (%2$s)</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!</string>
 	<!-- Outdated maps category -->

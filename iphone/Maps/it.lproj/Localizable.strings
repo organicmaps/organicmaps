@@ -184,7 +184,7 @@
 
 "free_space_for_country" = "Libera %1$@ sul dispositivo prima per poter scaricare %2$@";
 
-"download_resources" = "Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %s.";
+"download_resources" = "Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %@.";
 
 "getting_position" = "Ottieni la posizione corrente";
 
@@ -707,7 +707,7 @@
 
 "downloader_near_me" = "Near me";
 
-"downloader_updatable_template" = "Maps: %1$d (%2$s)";
+"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Creando percorsi nell'app MAPS.ME tieni a mente quanto segue:\n\n  - I percorsi suggeriti possono essere considerati solo come consigliati.\n - Le condizioni della strada, le regole del traffico e i segnali hanno una priorità maggiore rispetto ai consigli sulla circolazione.\n - La mappa potrebbe essere scorretta o datata e i percorsi potrebbero non aver creato la strada migliore possibile.\n\n  Stai attento sulle strade e prenditi cura di te!";

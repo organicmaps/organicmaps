@@ -184,7 +184,7 @@
 
 "free_space_for_country" = "Bạn vui lòng giải phóng %1$@ trên thiết bị của mình để có thể tải xuống %2$@";
 
-"download_resources" = "Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %s dữ liệu.";
+"download_resources" = "Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %@ dữ liệu.";
 
 "getting_position" = "Đang tìm vị trí hiện tại";
 
@@ -707,7 +707,7 @@
 
 "downloader_near_me" = "Near me";
 
-"downloader_updatable_template" = "Maps: %1$d (%2$s)";
+"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Tạo các tuyến đường trong ứng dụng MAPS.ME, xin lưu ý điều sau:\n\n – Các tuyến đường được gợi ý chỉ có thể được xem là đề xuất.\n – Điều kiện con đường, luật giao thông và biển báo có mức ưu tiên cao hơn lời khuyên dẫn hướng.\n – Bản đồ có thể không chính xác hoặc lỗi thời, tuyến đường có thể không được tạo theo cách tốt nhất có thể.\n\n Hãy lái xe an toàn trên đường và bảo trọng!";

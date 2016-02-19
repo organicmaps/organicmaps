@@ -184,7 +184,7 @@
 
 "free_space_for_country" = "Vänligen frigör %1$@ på din enhet för att kunna ladda ner %2$@";
 
-"download_resources" = "Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %s data.";
+"download_resources" = "Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %@ data.";
 
 "getting_position" = "Hämtar nuvarande position";
 
@@ -707,7 +707,7 @@
 
 "downloader_near_me" = "Near me";
 
-"downloader_updatable_template" = "Maps: %1$d (%2$s)";
+"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!";

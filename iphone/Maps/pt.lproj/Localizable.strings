@@ -184,7 +184,7 @@
 
 "free_space_for_country" = "Por favor liberte primeiro %1$@ no seu dispositivo para descarregar %2$@";
 
-"download_resources" = "Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %s de dados.";
+"download_resources" = "Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %@ de dados.";
 
 "getting_position" = "A obter a posição atual";
 
@@ -707,7 +707,7 @@
 
 "downloader_near_me" = "Near me";
 
-"downloader_updatable_template" = "Maps: %1$d (%2$s)";
+"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Ao criar rotas na aplicação MAPS.ME, por favor, lembre-se do seguinte:\n\n  - As rotas sugeridas podem apenas ser consideradas como recomendações.\n - As condições da estrada, regras de trânsito e sinais têm maior prioridade do que os conselhos de navegação.\n - O mapa poderá estar errado, ou desatualizado, e as rotas poderão não ser criadas da melhor forma possível.\n\n  Circule em segurança nas estradas e cuide do seu bem estar!";

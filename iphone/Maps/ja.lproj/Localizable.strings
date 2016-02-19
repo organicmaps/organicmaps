@@ -184,7 +184,7 @@
 
 "free_space_for_country" = "%2$@をダウンロードするにはデバイスに%1$@の空き容量が必要です";
 
-"download_resources" = "利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。";
+"download_resources" = "利用を開始する前におおまかな世界地図をダウンロードします。これには%@の空き容量が必要です。";
 
 "getting_position" = "現在地を取得中";
 
@@ -707,7 +707,7 @@
 
 "downloader_near_me" = "Near me";
 
-"downloader_updatable_template" = "Maps: %1$d (%2$s)";
+"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！";

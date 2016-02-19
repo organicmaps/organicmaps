@@ -184,7 +184,7 @@
 
 "free_space_for_country" = "Please free %1$@ on your device first in order to download %2$@";
 
-"download_resources" = "Before you start let us download general world map into your device.\nIt needs %s of data.";
+"download_resources" = "Before you start let us download general world map into your device.\nIt needs %@ of data.";
 
 "getting_position" = "Getting current position";
 
@@ -707,7 +707,7 @@
 
 "downloader_near_me" = "Near me";
 
-"downloader_updatable_template" = "Maps: %1$d (%2$s)";
+"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!";

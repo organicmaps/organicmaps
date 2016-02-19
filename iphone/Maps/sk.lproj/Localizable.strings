@@ -184,7 +184,7 @@
 
 "free_space_for_country" = "Prosím, uvoľnite najprv %1$@ vo vašom zariadení, abyste mohol/a stiahnuť %2$@";
 
-"download_resources" = "Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %s.";
+"download_resources" = "Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %@.";
 
 "getting_position" = "Získavanie aktuálnej polohy";
 
@@ -707,7 +707,7 @@
 
 "downloader_near_me" = "Near me";
 
-"downloader_updatable_template" = "Maps: %1$d (%2$s)";
+"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Tvorenie trás v aplikácii MAPS.ME, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!";

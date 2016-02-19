@@ -184,7 +184,7 @@
 
 "free_space_for_country" = "Frigjør %1$@ på enheten først for å laste ned %2$@";
 
-"download_resources" = "Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.";
+"download_resources" = "Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %@ med data.";
 
 "getting_position" = "Henter nåværende posisjon";
 
@@ -707,7 +707,7 @@
 
 "downloader_near_me" = "Near me";
 
-"downloader_updatable_template" = "Maps: %1$d (%2$s)";
+"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!";
