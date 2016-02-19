@@ -9,6 +9,8 @@
 
 #include "platform/local_country_file.hpp"
 
+#include "base/thread_checker.hpp"
+
 #include "std/function.hpp"
 #include "std/list.hpp"
 #include "std/shared_ptr.hpp"
@@ -159,6 +161,8 @@ private:
   TDownloadFn m_downloadMapOnTheMap;
 
   CountryNameGetter m_countryNameGetter;
+
+  DECLARE_THREAD_CHECKER(m_threadChecker);
 
   void DownloadNextCountryFromQueue();
 

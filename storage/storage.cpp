@@ -175,6 +175,8 @@ void Storage::Migrate(TCountriesVec const & existedCountries)
 
 void Storage::Clear()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   m_downloader->Reset();
   m_queue.clear();
   m_failedCountries.clear();
@@ -365,6 +367,8 @@ void Storage::CountryStatusEx(TCountryId const & countryId, Status & status, Map
 
 void Storage::SaveDownloadQueue()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   stringstream ss;
   for (auto const & item : m_queue)
     ss << (ss.str().empty() ? "" : ";") << item.GetCountryId();
@@ -387,6 +391,8 @@ void Storage::RestoreDownloadQueue()
 
 void Storage::DownloadCountry(TCountryId const & countryId, MapOptions opt)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   if (opt == MapOptions::Nothing)
     return;
 
@@ -463,12 +469,16 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
 
 void Storage::NotifyStatusChanged(TCountryId const & countryId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   for (CountryObservers const & observer : m_observers)
     observer.m_changeCountryFn(countryId);
 }
 
 void Storage::DownloadNextCountryFromQueue()
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   if (m_queue.empty())
     return;
 
@@ -523,10 +533,17 @@ bool Storage::DeleteFromDownloader(TCountryId const & countryId)
   return true;
 }
 
-bool Storage::IsDownloadInProgress() const { return !m_queue.empty(); }
+bool Storage::IsDownloadInProgress() const
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  return !m_queue.empty();
+}
 
 TCountryId Storage::GetCurrentDownloadingCountryId() const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   return IsDownloadInProgress() ? m_queue.front().GetCountryId() : storage::TCountryId();
 }
 
@@ -554,6 +571,8 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile,
 
 int Storage::Subscribe(TChangeCountryFunction const & change, TProgressFunction const & progress)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   CountryObservers obs;
 
   obs.m_changeCountryFn = change;
@@ -567,6 +586,8 @@ int Storage::Subscribe(TChangeCountryFunction const & change, TProgressFunction 
 
 void Storage::Unsubscribe(int slotId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   for (auto i = m_observers.begin(); i != m_observers.end(); ++i)
   {
     if (i->m_slotId == slotId)
@@ -580,6 +601,8 @@ void Storage::Unsubscribe(int slotId)
 void Storage::OnMapFileDownloadFinished(bool success,
                                         MapFilesDownloader::TProgress const & progress)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   if (m_queue.empty())
     return;
 
@@ -603,12 +626,16 @@ void Storage::OnMapFileDownloadFinished(bool success,
 
 void Storage::ReportProgress(TCountryId const & countryId, pair<int64_t, int64_t> const & p)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   for (CountryObservers const & o : m_observers)
     o.m_progressFn(countryId, p);
 }
 
 void Storage::OnServerListDownloaded(vector<string> const & urls)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   // Queue can be empty because countries were deleted from queue.
   if (m_queue.empty())
     return;
@@ -632,6 +659,8 @@ void Storage::OnServerListDownloaded(vector<string> const & urls)
 
 void Storage::OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & progress)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   // Queue can be empty because countries were deleted from queue.
   if (m_queue.empty())
     return;
@@ -797,12 +826,16 @@ MapOptions Storage::NormalizeDeleteFileSet(MapOptions options) const
 
 QueuedCountry * Storage::FindCountryInQueue(TCountryId const & countryId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   auto it = find(m_queue.begin(), m_queue.end(), countryId);
   return it == m_queue.end() ? nullptr : &*it;
 }
 
 QueuedCountry const * Storage::FindCountryInQueue(TCountryId const & countryId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   auto it = find(m_queue.begin(), m_queue.end(), countryId);
   return it == m_queue.end() ? nullptr : &*it;
 }
@@ -814,6 +847,8 @@ bool Storage::IsCountryInQueue(TCountryId const & countryId) const
 
 bool Storage::IsCountryFirstInQueue(TCountryId const & countryId) const
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   return !m_queue.empty() && m_queue.front().GetCountryId() == countryId;
 }
 
@@ -919,6 +954,8 @@ void Storage::DeleteCountryFiles(TCountryId const & countryId, MapOptions opt)
 
 bool Storage::DeleteCountryFilesFromDownloader(TCountryId const & countryId, MapOptions opt)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
   QueuedCountry * queuedCountry = FindCountryInQueue(countryId);
   if (!queuedCountry)
     return false;
