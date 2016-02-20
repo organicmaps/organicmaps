@@ -103,7 +103,7 @@ void GetSystemPreferred(vector<string> & languages)
 #elif defined(OMIM_OS_LINUX)
   // check environment variables
   char const * p = getenv("LANGUAGE");
-  if (p) // LANGUAGE can contain several values divided by ':'
+  if (p && strlen(p)) // LANGUAGE can contain several values divided by ':'
   {
     string const str(p);
     strings::SimpleTokenizer iter(str, ":");
