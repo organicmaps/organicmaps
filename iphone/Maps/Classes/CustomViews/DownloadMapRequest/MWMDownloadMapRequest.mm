@@ -17,7 +17,6 @@
 @property (nonatomic) IBOutlet MWMDownloadMapRequestView * rootView;
 @property (nonatomic) IBOutlet UILabel * mapTitleLabel;
 @property (nonatomic) IBOutlet UIButton * downloadMapButton;
-@property (nonatomic) IBOutlet UIButton * downloadRoutesButton;
 @property (nonatomic) IBOutlet UIView * progressViewWrapper;
 
 @property (nonatomic) MWMCircularProgress * progressView;
@@ -88,7 +87,7 @@
       storage::NodeAttrs attrs;
       s.GetNodeAttrs(m_countryId, attrs);
       self.mapTitleLabel.text = @(attrs.m_nodeLocalName.c_str());
-      self.mapAndRouteSize = @(attrs.m_downloadingMwmSize).stringValue;
+      self.mapAndRouteSize = formattedSize(attrs.m_mwmSize);
       [self.downloadMapButton setTitle:[NSString stringWithFormat:@"%@ (%@)",
                                         L(@"downloader_download_map"), self.mapAndRouteSize]
                               forState:UIControlStateNormal];
@@ -144,15 +143,6 @@
     [self showRequest];
     self.progressView.state = MWMCircularProgressStateSpinner;
   }];
-}
-
-- (IBAction)downloadRoutesTouchUpInside:(nonnull UIButton *)sender
-{
-  [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatDownloadRoute)];
-  sender.selected = !sender.selected;
-  [self.downloadMapButton setTitle:[NSString stringWithFormat:@"%@ (%@)",
-                                    L(@"downloader_download_map"), self.mapAndRouteSize]
-                          forState:UIControlStateNormal];
 }
 
 - (IBAction)selectMapTouchUpInside:(nonnull UIButton *)sender

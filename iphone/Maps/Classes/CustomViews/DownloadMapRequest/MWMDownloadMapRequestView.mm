@@ -2,6 +2,12 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 
+namespace
+{
+CGFloat const kButtonsCompactSpacing = 22.0;
+CGFloat const kButtonsLooseSpacing = 60.0;
+}
+
 @interface MWMDownloadMapRequestView ()
 
 @property (weak, nonatomic) IBOutlet UILabel * mapTitleLabel;
@@ -10,10 +16,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * unknownPositionLabelBottomOffset;
 
 @property (weak, nonatomic) IBOutlet UIButton * downloadMapButton;
-@property (weak, nonatomic) IBOutlet UIButton * downloadRoutesButton;
 @property (weak, nonatomic) IBOutlet UILabel * undefinedLocationLabel;
 @property (weak, nonatomic) IBOutlet UIButton * selectAnotherMapButton;
 @property (weak, nonatomic) IBOutlet UIView * progressViewWrapper;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * betweenButtonsSpace;
 
 @end
 
@@ -69,15 +76,14 @@
       self.progressViewWrapper.hidden = NO;
       self.mapTitleLabel.hidden = NO;
       self.downloadMapButton.hidden = YES;
-      self.downloadRoutesButton.hidden = YES;
       self.undefinedLocationLabel.hidden = YES;
       self.selectAnotherMapButton.hidden = YES;
+      self.betweenButtonsSpace.constant = kButtonsCompactSpacing;
       break;
     case MWMDownloadMapRequestStateRequestLocation:
       self.progressViewWrapper.hidden = YES;
       self.mapTitleLabel.hidden = NO;
       self.downloadMapButton.hidden = NO;
-      self.downloadRoutesButton.hidden = NO;
       self.undefinedLocationLabel.hidden = YES;
       self.selectAnotherMapButton.hidden = NO;
       [self.selectAnotherMapButton setTitle:L(@"search_select_other_map") forState:UIControlStateNormal];
@@ -85,12 +91,12 @@
       [self.selectAnotherMapButton setTitleColor:[UIColor white] forState:UIControlStateHighlighted];
       [self.selectAnotherMapButton setBackgroundColor:[UIColor white] forState:UIControlStateNormal];
       [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateHighlighted];
+      self.betweenButtonsSpace.constant = kButtonsCompactSpacing;
       break;
     case MWMDownloadMapRequestStateRequestUnknownLocation:
       self.progressViewWrapper.hidden = YES;
       self.mapTitleLabel.hidden = YES;
       self.downloadMapButton.hidden = YES;
-      self.downloadRoutesButton.hidden = YES;
       self.undefinedLocationLabel.hidden = NO;
       self.selectAnotherMapButton.hidden = NO;
       [self.selectAnotherMapButton setTitle:L(@"search_select_map") forState:UIControlStateNormal];
@@ -98,6 +104,7 @@
       [self.selectAnotherMapButton setTitleColor:[UIColor white] forState:UIControlStateNormal];
       [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
       [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlueDark] forState:UIControlStateHighlighted];
+      self.betweenButtonsSpace.constant = kButtonsLooseSpacing;
       break;
   }
 }
