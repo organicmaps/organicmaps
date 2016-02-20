@@ -10,7 +10,7 @@
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
                                           routes:(storage::TCountriesVec const &)routes
                                             code:(routing::IRouter::ResultCode)code
-                                           block:(TMWMVoidBlock)block;
+                                         okBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)facebookAlert;
 + (MWMAlert *)locationAlert;

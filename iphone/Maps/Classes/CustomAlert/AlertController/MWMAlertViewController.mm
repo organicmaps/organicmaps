@@ -106,7 +106,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
                                        code:(routing::IRouter::ResultCode)code
                                     okBlock:(TMWMVoidBlock)okBlock
 {
-  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes code:code block:okBlock]];
+  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes code:code okBlock:okBlock]];
 }
 
 - (void)presentRoutingDisclaimerAlert
