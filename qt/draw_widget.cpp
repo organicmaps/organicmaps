@@ -1,3 +1,4 @@
+#include "qt/create_feature_dialog.hpp"
 #include "qt/draw_widget.hpp"
 #include "qt/editor_dialog.hpp"
 #include "qt/place_page_dialog.hpp"
@@ -480,6 +481,26 @@ string DrawWidget::GetDistance(search::Result const & res) const
 void DrawWidget::ShowSearchResult(search::Result const & res)
 {
   m_framework->ShowSearchResult(res);
+}
+
+void DrawWidget::CreateFeature()
+{
+  CreateFeatureDialog dlg(this, m_framework->GetEditorCategories());
+  if (dlg.exec() == QDialog::Accepted)
+  {
+    osm::EditableMapObject emo;
+    if (m_framework->CreateMapObjectAtViewportCenter(dlg.GetSelectedType(), emo))
+    {
+      EditorDialog dlg(this, emo);
+      int const result = dlg.exec();
+      if (result == QDialog::Accepted)
+        m_framework->SaveEditedMapObject(emo);
+    }
+    else
+    {
+      LOG(LWARNING, ("Error creating new map object."));
+    }
+  }
 }
 
 void DrawWidget::OnLocationUpdate(location::GpsInfo const & info)

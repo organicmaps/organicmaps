@@ -100,6 +100,7 @@ macx-* {
 
 SOURCES += \
     about.cpp \
+    create_feature_dialog.cpp \
     draw_widget.cpp \
     editor_dialog.cpp \
     info_dialog.cpp \
@@ -117,6 +118,7 @@ SOURCES += \
 
 HEADERS += \
     about.hpp \
+    create_feature_dialog.hpp \
     draw_widget.hpp \
     editor_dialog.hpp \
     info_dialog.hpp \

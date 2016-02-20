@@ -27,6 +27,7 @@ namespace qt
   class MainWindow : public QMainWindow, location::LocationObserver
   {
     QAction * m_pMyPositionAction;
+    QAction * m_pCreateFeatureAction;
     QAction * m_pSearchAction;
     DrawWidget * m_pDrawWidget;
 
@@ -74,6 +75,7 @@ namespace qt
     void OnPreferences();
     void OnAbout();
     void OnMyPosition();
+    void OnCreateFeatureClicked();
     void OnSearchButtonClicked();
     void OnLoginMenuItem();
     void OnUploadEditsMenuItem();

@@ -258,14 +258,14 @@ void MainWindow::CreateNavigationBar()
   pToolBar->setIconSize(QSize(32, 32));
 
   {
-    // add navigation hot keys
-    hotkey_t arr[] = {
+    // Add navigation hot keys.
+    hotkey_t const arr[] = {
       { Qt::Key_Equal, SLOT(ScalePlus()) },
       { Qt::Key_Minus, SLOT(ScaleMinus()) },
       { Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight()) },
       { Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight()) },
       { Qt::Key_A, SLOT(ShowAll()) },
-      { Qt::Key_N, SLOT(ChoosePositionModeEnable()) },
+      // Use CMD+n (New Item hotkey) to activate Create Feature mode.
       { Qt::Key_Escape, SLOT(ChoosePositionModeDisable()) }
     };
 
@@ -279,7 +279,18 @@ void MainWindow::CreateNavigationBar()
   }
 
   {
-    // add search button with "checked" behavior
+    // TODO(AlexZ): Replace icon.
+    m_pCreateFeatureAction = pToolBar->addAction(QIcon(":/navig64/select.png"),
+                                           tr("Create Feature"),
+                                           this,
+                                           SLOT(OnCreateFeatureClicked()));
+    m_pCreateFeatureAction->setCheckable(true);
+    m_pCreateFeatureAction->setToolTip(tr("Please select position on a map."));
+    m_pCreateFeatureAction->setShortcut(QKeySequence::New);
+
+    pToolBar->addSeparator();
+
+    // Add search button with "checked" behavior.
     m_pSearchAction = pToolBar->addAction(QIcon(":/navig64/search.png"),
                                            tr("Search"),
                                            this,
@@ -451,6 +462,19 @@ void MainWindow::OnMyPosition()
 {
   if (m_pMyPositionAction->isEnabled())
     m_pDrawWidget->GetFramework().SwitchMyPositionNextMode();
+}
+
+void MainWindow::OnCreateFeatureClicked()
+{
+  if (m_pCreateFeatureAction->isChecked())
+  {
+    m_pDrawWidget->ChoosePositionModeEnable();
+  }
+  else
+  {
+    m_pDrawWidget->ChoosePositionModeDisable();
+    m_pDrawWidget->CreateFeature();
+  }
 }
 
 void MainWindow::OnSearchButtonClicked()

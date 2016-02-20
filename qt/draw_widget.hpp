@@ -56,6 +56,8 @@ namespace qt
     string GetDistance(search::Result const & res) const;
     void ShowSearchResult(search::Result const & res);
 
+    void CreateFeature();
+
     void OnLocationUpdate(location::GpsInfo const & info);
 
     void UpdateAfterSettingsChanged();
