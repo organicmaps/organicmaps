@@ -86,10 +86,7 @@
   }
   else
   {
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
-      [self.rootView animateFromValue:self->_progress toValue:progress];
-    });
+    [self.rootView animateFromValue:self->_progress toValue:progress];
     _progress = progress;
   }
 }

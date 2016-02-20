@@ -164,15 +164,18 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)animateFromValue:(CGFloat)fromValue toValue:(CGFloat)toValue
 {
-  [self updatePath:toValue];
-  CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-  animation.duration = kDefaultAnimationDuration;
-  animation.repeatCount = 1;
-  animation.fromValue = @(fromValue / toValue);
-  animation.toValue = @1;
-  animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-  animation.delegate = self.owner;
-  [self.progressLayer addAnimation:animation forKey:kAnimationKey];
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    [self updatePath:toValue];
+    CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animation.duration = kDefaultAnimationDuration;
+    animation.repeatCount = 1;
+    animation.fromValue = @(fromValue / toValue);
+    animation.toValue = @1;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.delegate = self.owner;
+    [self.progressLayer addAnimation:animation forKey:kAnimationKey];
+  });
 }
 
 #pragma mark - Properties
