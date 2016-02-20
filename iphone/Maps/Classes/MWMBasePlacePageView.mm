@@ -80,6 +80,30 @@ CGFloat placePageWidth()
   return IPAD ? kMaximumWidth : (size.width > size.height ? MIN(kMaximumWidth, size.height) : size.width);
 }
 
+vector<NSRange> separatorsLocationInString(NSString * str)
+{
+  vector<NSRange> r {};
+  if (str.length == 0)
+    return r;
+
+  NSRange searchRange = {0, str.length};
+  while (searchRange.location < str.length)
+  {
+    searchRange.length = str.length - searchRange.location;
+    NSRange const foundRange = [str rangeOfString:kMWMCuisineSeparator options:NSCaseInsensitiveSearch range:searchRange];
+    if (foundRange.location != NSNotFound)
+    {
+      searchRange.location = foundRange.location + foundRange.length;
+      r.push_back(foundRange);
+    }
+    else
+    {
+      break;
+    }
+  }
+  return r;
+}
+
 enum class AttributePosition
 {
   Title,
@@ -163,11 +187,13 @@ enum class AttributePosition
   {
     self.titleLabel.text = entity.title;
     NSString * typeString = entity.category.capitalizedString;
-    NSRange const range = [typeString rangeOfString:kMWMCuisineSeparator];
-    if (range.location != NSNotFound && typeString.length > 0)
+    auto const ranges = separatorsLocationInString(typeString);
+    if (!ranges.empty())
     {
       NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:typeString];
-      [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:range];
+      for (auto const & r : ranges)
+        [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:r];
+
       self.typeLabel.attributedText = str;
     }
     else
