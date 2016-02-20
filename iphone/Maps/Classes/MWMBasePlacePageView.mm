@@ -91,15 +91,10 @@ vector<NSRange> separatorsLocationInString(NSString * str)
   {
     searchRange.length = str.length - searchRange.location;
     NSRange const foundRange = [str rangeOfString:kMWMCuisineSeparator options:NSCaseInsensitiveSearch range:searchRange];
-    if (foundRange.location != NSNotFound)
-    {
-      searchRange.location = foundRange.location + foundRange.length;
-      r.push_back(foundRange);
-    }
-    else
-    {
+    if (foundRange.location == NSNotFound)
       break;
-    }
+    searchRange.location = foundRange.location + foundRange.length;
+    r.push_back(foundRange);
   }
   return r;
 }
