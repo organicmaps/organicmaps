@@ -1288,9 +1288,9 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   });
   TCountryId const & downloadingMwm = IsDownloadInProgress() ? GetCurrentDownloadingCountryId()
                                                              : kInvalidCountryId;
-  MapFilesDownloader::TProgress downloadingMwmProgress =
-      m_downloader->IsIdle() ? make_pair(0LL, 0LL)
-                             : m_downloader->GetDownloadingProgress();
+  MapFilesDownloader::TProgress downloadingMwmProgress(0, 0);
+  if (!m_downloader->IsIdle())
+    downloadingMwmProgress = m_downloader->GetDownloadingProgress();
 
   TCountriesSet setQueue;
   GetQueuedCountries(m_queue, setQueue);
