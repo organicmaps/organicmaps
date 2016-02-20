@@ -179,7 +179,6 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 {
   MWMPlacePageViewManager * manager = self.manager;
   MapViewController * ovc = static_cast<MapViewController *>(manager.ownerViewController);
-  ovc.skipPlacePageDismissOnViewDisappear = YES;
   SelectSetVC * vc = [[SelectSetVC alloc] initWithPlacePageManager:manager];
   [ovc.navigationController pushViewController:vc animated:YES];
 }
@@ -195,7 +194,6 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 {
   MWMPlacePageViewManager * manager = self.manager;
   MapViewController * ovc = static_cast<MapViewController *>(manager.ownerViewController);
-  ovc.skipPlacePageDismissOnViewDisappear = YES;
   MWMBookmarkDescriptionViewController * viewController = [[MWMBookmarkDescriptionViewController alloc] initWithPlacePageManager:manager];
   [ovc.navigationController pushViewController:viewController animated:YES];
 }

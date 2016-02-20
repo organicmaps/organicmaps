@@ -48,21 +48,17 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 - (void)configureWithPlacePage:(MWMPlacePage *)placePage
 {
   self.placePage = placePage;
-  switch (placePage.manager.entity.type)
-  {
-    case MWMPlacePageEntityTypeAPI:
-      [self setupApiBar];
-      break;
-    case MWMPlacePageEntityTypeBookmark:
-      [self setupBookmarkBar];
-      break;
-    case MWMPlacePageEntityTypeMyPosition:
-      [self setupMyPositionBar];
-      break;
-    default:
-      [self setupDefaultBar];
-      break;
-  }
+  MWMPlacePageEntity * entity = placePage.manager.entity;
+  if (entity.isApi)
+    [self setupApiBar];
+  // TODO(Vlad): API point can be a bookmark too. Probably "else if" shoud be replaced by "if".
+  else if (entity.isBookmark)
+    [self setupBookmarkBar];
+  else if (entity.isMyPosition)
+    [self setupMyPositionBar];
+  else
+    [self setupDefaultBar];
+
   self.autoresizingMask = UIViewAutoresizingNone;
   [self setNeedsLayout];
 }
@@ -167,35 +163,30 @@ static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
   CGFloat const maximumWidth = 360.;
   CGFloat const screenWidth = MIN(size.height, size.width);
   CGFloat const actualWidth = IPAD ? maximumWidth : (size.height < size.width ? MIN(screenWidth, maximumWidth) : screenWidth);
-  switch (self.placePage.manager.entity.type)
+  MWMPlacePageEntity * entity = self.placePage.manager.entity;
+  if (entity.isApi)
   {
-    case MWMPlacePageEntityTypeAPI:
-    {
-      CGFloat const boxWidth = 4 * buttonWidth;
-      CGFloat const leftOffset = (actualWidth - boxWidth) / 5.;
-      self.apiBackButton.minX = leftOffset;
-      self.shareButton.minX = self.apiBackButton.maxX + leftOffset;
-      self.bookmarkButton.minX = self.shareButton.maxX + leftOffset;
-      self.routeButton.minX = self.bookmarkButton.maxX;
-      break;
-    }
-    case MWMPlacePageEntityTypeMyPosition:
-    {
-      CGFloat const boxWidth = 2 * buttonWidth;
-      CGFloat const leftOffset = (actualWidth - boxWidth) / 3.;
-      self.shareButton.minX = leftOffset;
-      self.bookmarkButton.minX = actualWidth - leftOffset - buttonWidth;
-      break;
-    }
-    default:
-    {
-      CGFloat const boxWidth = 3 * buttonWidth;
-      CGFloat const leftOffset = (actualWidth - boxWidth) / 4.;
-      self.shareButton.minX = leftOffset;
-      self.bookmarkButton.minX = self.shareButton.maxX + leftOffset;
-      self.routeButton.minX = self.bookmarkButton.maxX + leftOffset;
-      break;
-    }
+    CGFloat const boxWidth = 4 * buttonWidth;
+    CGFloat const leftOffset = (actualWidth - boxWidth) / 5.;
+    self.apiBackButton.minX = leftOffset;
+    self.shareButton.minX = self.apiBackButton.maxX + leftOffset;
+    self.bookmarkButton.minX = self.shareButton.maxX + leftOffset;
+    self.routeButton.minX = self.bookmarkButton.maxX;
+  }
+  else if (entity.isMyPosition)
+  {
+    CGFloat const boxWidth = 2 * buttonWidth;
+    CGFloat const leftOffset = (actualWidth - boxWidth) / 3.;
+    self.shareButton.minX = leftOffset;
+    self.bookmarkButton.minX = actualWidth - leftOffset - buttonWidth;
+  }
+  else
+  {
+    CGFloat const boxWidth = 3 * buttonWidth;
+    CGFloat const leftOffset = (actualWidth - boxWidth) / 4.;
+    self.shareButton.minX = leftOffset;
+    self.bookmarkButton.minX = self.shareButton.maxX + leftOffset;
+    self.routeButton.minX = self.bookmarkButton.maxX + leftOffset;
   }
   self.apiBackLabel.minX = self.apiBackButton.minX;
   self.shareLabel.minX = self.shareButton.minX;

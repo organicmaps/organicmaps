@@ -27,12 +27,6 @@ using namespace storage;
 
 @end
 
-@protocol MWMFrameworkUserMarkObserver <MWMFrameworkObserver>
-
-- (void)processUserMarkEvent:(UserMark const *)mark;
-
-@end
-
 @protocol MWMFrameworkStorageObserver <MWMFrameworkObserver>
 
 - (void)processCountryEvent:(TCountryId const &)countryId;

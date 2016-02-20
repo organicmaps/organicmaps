@@ -1,11 +1,9 @@
-#import "MWMOpeningHoursEditorViewController.h"
-#import "MWMPlacePageEntity.h"
 #import "MWMTableViewController.h"
 
-@interface MWMEditorViewController : MWMTableViewController <MWMOpeningHoursEditorProtocol>
+struct FeatureID;
 
-@property (nonatomic) MWMPlacePageEntity * entity;
+@interface MWMEditorViewController : MWMTableViewController
 
-- (void)setOpeningHours:(NSString *)openingHours;
+- (void)setFeatureToEdit:(FeatureID const &)fid;
 
 @end

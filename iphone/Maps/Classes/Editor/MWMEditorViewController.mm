@@ -6,10 +6,12 @@
 #import "MWMEditorTextTableViewCell.h"
 #import "MWMEditorViewController.h"
 #import "MWMOpeningHoursEditorViewController.h"
+#import "MWMPlacePageEntity.h"
 #import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMStreetEditorViewController.h"
 #import "Statistics.h"
 
+#include "indexer/editable_map_object.hpp"
 #include "std/algorithm.hpp"
 
 namespace
@@ -62,14 +64,12 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 } // namespace
 
 @interface MWMEditorViewController() <UITableViewDelegate, UITableViewDataSource,
-                                      UITextFieldDelegate, MWMPlacePageOpeningHoursCellProtocol,
+                                      UITextFieldDelegate, MWMOpeningHoursEditorProtocol,
+                                      MWMPlacePageOpeningHoursCellProtocol,
                                       MWMEditorCellProtocol, MWMCuisineEditorProtocol,
                                       MWMStreetEditorProtocol>
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
-@property (weak, nonatomic) UITableViewCell * editCell;
-
-@property (nonatomic) BOOL needsReload;
 
 @end
 
@@ -77,7 +77,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
   vector<MWMEditorSection> m_sections;
   map<MWMEditorSection, vector<MWMPlacePageCellType>> m_cells;
-  MWMPlacePageCellTypeValueMap m_edited_cells;
+  osm::EditableMapObject m_mapObject;
 }
 
 - (void)viewDidLoad
@@ -88,10 +88,16 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   [self configNavBar];
 }
 
+- (void)setFeatureToEdit:(FeatureID const &)fid
+{
+  if (!GetFramework().GetEditableMapObject(fid, m_mapObject))
+    NSAssert(false, @"Incorrect featureID.");
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  [self reloadData];
+  [self.tableView reloadData];
 }
 
 #pragma mark - Configuration
@@ -123,12 +129,17 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)onSave
 {
-  if (!m_edited_cells.empty())
+  switch (GetFramework().SaveEditedMapObject(m_mapObject))
   {
-    [[Statistics instance] logEvent:kStatEventName(kStatEdit, kStatSave)];
-    osm_auth_ios::AuthorizationSetNeedCheck(YES);
-    self.entity.cuisines = self.cuisines;
-    [self.entity saveEditedCells:m_edited_cells];
+    case osm::Editor::NothingWasChanged:
+      break;
+    case osm::Editor::SavedSuccessfully:
+      [[Statistics instance] logEvent:kStatEventName(kStatEdit, kStatSave)];
+      osm_auth_ios::AuthorizationSetNeedCheck(YES);
+      break;
+    case osm::Editor::NoFreeSpaceError:
+      // TODO(Vlad): Show error dialog.
+      break;
   }
   [self onCancel];
 }
@@ -146,47 +157,46 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   return cell;
 }
 
-#pragma mark - Data source
-
-- (NSString *)getCellValue:(MWMPlacePageCellType)cellType
+// TODO(Vlad): This code can be much better.
+- (bool)hasField:(feature::Metadata::EType)field
 {
-  auto const it = m_edited_cells.find(cellType);
-  if (it != m_edited_cells.end())
-    return @(it->second.c_str());
-  return [self.entity getCellValue:cellType];
+  auto const & editable = m_mapObject.GetEditableFields();
+  return editable.end() != find(editable.begin(), editable.end(), field);
 }
-
-- (void)setCell:(MWMPlacePageCellType)cellType value:(NSString *)value
+// TODO(Vlad): This code can be much better.
+- (bool)isEditable:(MWMPlacePageCellType)cellType
 {
-  if ([value isEqualToString:[self getCellValue:cellType]])
-    return;
-  self.needsReload = YES;
-  m_edited_cells[cellType] = value.UTF8String;
-}
-
-#pragma mark - Table
-
-- (void)reloadData
-{
-  if (self.needsReload)
+  switch (cellType)
   {
-    [self.tableView reloadData];
-    self.needsReload = NO;
+    case MWMPlacePageCellTypePostcode: return [self hasField:feature::Metadata::FMD_POSTCODE];
+    case MWMPlacePageCellTypePhoneNumber: return [self hasField:feature::Metadata::FMD_PHONE_NUMBER];
+    case MWMPlacePageCellTypeWebsite: return [self hasField:feature::Metadata::FMD_WEBSITE];
+    // TODO(Vlad): We should not have URL field in the UI. Website should always be used instead.
+    case MWMPlacePageCellTypeURL: return [self hasField:feature::Metadata::FMD_URL];
+    case MWMPlacePageCellTypeEmail: return [self hasField:feature::Metadata::FMD_EMAIL];
+    case MWMPlacePageCellTypeOpenHours: return [self hasField:feature::Metadata::FMD_OPEN_HOURS];
+    case MWMPlacePageCellTypeWiFi: return [self hasField:feature::Metadata::FMD_INTERNET];
+    case MWMPlacePageCellTypeCuisine: return [self hasField:feature::Metadata::FMD_CUISINE];
+    // TODO(Vlad): return true when we allow coordinates editing.
+    case MWMPlacePageCellTypeCoordinate: return false;
+    case MWMPlacePageCellTypeName: return m_mapObject.IsNameEditable();
+    case MWMPlacePageCellTypeStreet: return m_mapObject.IsAddressEditable();
+    case MWMPlacePageCellTypeBuilding: return m_mapObject.IsAddressEditable();
+    default: NSAssert(false, @"Invalid cell type %d", cellType);
   }
+  return false;
 }
 
 - (void)configTable
 {
-  NSAssert(self.entity, @"Entity must be set");
   self.offscreenCells = [NSMutableDictionary dictionary];
   m_sections.clear();
   m_cells.clear();
-  m_edited_cells.clear();
-  for (auto cellsSection : gCellTypesSectionMap)
+  for (auto const & cellsSection : gCellTypesSectionMap)
   {
     for (auto cellType : cellsSection.first)
     {
-      if (![self.entity isCellEditable:cellType])
+      if (![self isEditable:cellType])
         continue;
       m_sections.emplace_back(cellsSection.second);
       m_cells[cellsSection.second].emplace_back(cellType);
@@ -217,7 +227,6 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 - (void)fillCell:(UITableViewCell * _Nonnull)cell atIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
-  NSString * entityValue = [self getCellValue:cellType];
   switch (cellType)
   {
     case MWMPlacePageCellTypePhoneNumber:
@@ -225,7 +234,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_phone_number"]
-                           text:entityValue
+                           text:@(m_mapObject.GetPhone().c_str())
                     placeholder:L(@"phone")
                    keyboardType:UIKeyboardTypePhonePad];
       break;
@@ -235,7 +244,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_website"]
-                           text:entityValue
+                           text:@(m_mapObject.GetWebsite().c_str())
                     placeholder:L(@"website")
                    keyboardType:UIKeyboardTypeURL];
       break;
@@ -245,7 +254,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_email"]
-                           text:entityValue
+                           text:@(m_mapObject.GetEmail().c_str())
                     placeholder:L(@"email")
                    keyboardType:UIKeyboardTypeEmailAddress];
       break;
@@ -253,18 +262,18 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypeOpenHours:
     {
       MWMPlacePageOpeningHoursCell * tCell = (MWMPlacePageOpeningHoursCell *)cell;
-      NSString * text = entityValue ? entityValue : L(@"add_opening_hours");
-      [tCell configWithDelegate:self info:text];
+      NSString * text = @(m_mapObject.GetOpeningHours().c_str());
+      [tCell configWithDelegate:self info:(text.length ? text : L(@"add_opening_hours"))];
       break;
     }
     case MWMPlacePageCellTypeWiFi:
     {
       MWMEditorSwitchTableViewCell * tCell = (MWMEditorSwitchTableViewCell *)cell;
-      BOOL const on = (entityValue != nil);
+      // TODO(Vlad, IgorTomko): Support all other possible Internet statuses.
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_wifi"]
                            text:L(@"wifi")
-                             on:on];
+                             on:m_mapObject.GetInternet() == osm::Internet::Wlan];
       break;
     }
     case MWMPlacePageCellTypeName:
@@ -272,7 +281,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
       [tCell configWithDelegate:self
                            icon:nil
-                           text:entityValue
+                           text:@(m_mapObject.GetDefaultName().c_str())
                     placeholder:L(@"name")
                    keyboardType:UIKeyboardTypeDefault];
       break;
@@ -282,7 +291,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       MWMEditorSelectTableViewCell * tCell = (MWMEditorSelectTableViewCell *)cell;
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_adress"]
-                           text:entityValue
+                           text:@(m_mapObject.GetStreet().c_str())
                     placeholder:L(@"add_street")];
       break;
     }
@@ -291,7 +300,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
       [tCell configWithDelegate:self
                            icon:nil
-                           text:entityValue
+                           text:@(m_mapObject.GetHouseNumber().c_str())
                     placeholder:L(@"house")
                    keyboardType:UIKeyboardTypeDefault];
       break;
@@ -299,10 +308,10 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypeCuisine:
     {
       MWMEditorSelectTableViewCell * tCell = (MWMEditorSelectTableViewCell *)cell;
-      NSString * text = [entityValue capitalizedStringWithLocale:[NSLocale currentLocale]];
+//      NSString * text = [entityValue capitalizedStringWithLocale:[NSLocale currentLocale]];
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_cuisine"]
-                           text:text
+                           text:@(m_mapObject.FormatCuisines().c_str())
                     placeholder:L(@"select_cuisine")];
       break;
     }
@@ -337,6 +346,8 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
   UITableViewCell * cell = [self offscreenCellForIdentifier:reuseIdentifier];
+  // TODO(Vlad, IGrechuhin): It's bad idea to fill cells here.
+  // heightForRowAtIndexPath is called way too often for the table.
   [self fillCell:cell atIndexPath:indexPath];
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   switch (cellType)
@@ -395,7 +406,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (BOOL)isPlaceholder
 {
-  return [self getCellValue:MWMPlacePageCellTypeOpenHours] == nil;
+  return m_mapObject.GetOpeningHours().empty();
 }
 
 - (BOOL)isEditor
@@ -417,25 +428,22 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)cellBeginEditing:(UITableViewCell *)cell
 {
-  self.editCell = cell;
 }
 
 - (void)cell:(UITableViewCell *)cell changeText:(NSString *)changeText
 {
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
+  string const val = changeText.UTF8String;
   switch (cellType)
   {
-    case MWMPlacePageCellTypeName:
-    case MWMPlacePageCellTypePhoneNumber:
-    case MWMPlacePageCellTypeWebsite:
-    case MWMPlacePageCellTypeEmail:
-    case MWMPlacePageCellTypeBuilding:
-      [self setCell:cellType value:changeText];
-      break;
-    default:
-      NSAssert(false, @"Invalid field for changeText");
-      break;
+    // TODO(Vlad): Support multilanguage names.
+    case MWMPlacePageCellTypeName: m_mapObject.SetName(val, StringUtf8Multilang::kDefaultCode); break;
+    case MWMPlacePageCellTypePhoneNumber: m_mapObject.SetPhone(val); break;
+    case MWMPlacePageCellTypeWebsite: m_mapObject.SetWebsite(val); break;
+    case MWMPlacePageCellTypeEmail: m_mapObject.SetEmail(val); break;
+    case MWMPlacePageCellTypeBuilding: m_mapObject.SetHouseNumber(val); break;
+    default: NSAssert(false, @"Invalid field for changeText");
   }
 }
 
@@ -446,12 +454,8 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   switch (cellType)
   {
     case MWMPlacePageCellTypeWiFi:
-    {
-      BOOL const on = ([self getCellValue:cellType] != nil);
-      if (changeSwitch != on)
-        [self setCell:cellType value:changeSwitch ? @"wlan" : @""];
+      m_mapObject.SetInternet(changeSwitch ? osm::Internet::Wlan : osm::Internet::Unknown);
       break;
-    }
     default:
       NSAssert(false, @"Invalid field for changeSwitch");
       break;
@@ -480,43 +484,40 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)setOpeningHours:(NSString *)openingHours
 {
-  [self setCell:MWMPlacePageCellTypeOpenHours value:openingHours];
+  m_mapObject.SetOpeningHours(openingHours.UTF8String);
 }
 
 #pragma mark - MWMCuisineEditorProtocol
 
-@synthesize cuisines = _cuisines;
-- (NSSet<NSString *> *)cuisines
+- (vector<string>)getSelectedCuisines
 {
-  if (_cuisines)
-    return _cuisines;
-  return self.entity.cuisines;
+  return m_mapObject.GetCuisines();
 }
 
-- (void)setCuisines:(NSSet<NSString *> *)cuisines
+- (void)setSelectedCuisines:(vector<string> const &)cuisines
 {
-  if ([self.cuisines isEqualToSet:cuisines])
-    return;
-  _cuisines = cuisines;
-  self.needsReload = YES;
-  [self setCell:MWMPlacePageCellTypeCuisine value:[MWMPlacePageEntity makeMWMCuisineString:cuisines]];
+  m_mapObject.SetCuisines(cuisines);
 }
 
 #pragma mark - MWMStreetEditorProtocol
 
 - (NSString *)getStreet
 {
-  return [self getCellValue:MWMPlacePageCellTypeStreet];
+  return @(m_mapObject.GetStreet().c_str());
 }
 
 - (void)setStreet:(NSString *)street
 {
-  [self setCell:MWMPlacePageCellTypeStreet value:street];
+  m_mapObject.SetStreet(street.UTF8String);
 }
 
 - (NSArray<NSString *> *)getNearbyStreets
 {
-  return self.entity.nearbyStreets;
+  auto const & streets = m_mapObject.GetNearbyStreets();
+  NSMutableArray * arr = [[NSMutableArray alloc] initWithCapacity:streets.size()];
+  for (auto const & street : streets)
+    [arr addObject:@(street.c_str())];
+  return arr;
 }
 
 #pragma mark - Segue
@@ -526,7 +527,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   if ([segue.identifier isEqualToString:kOpeningHoursEditorSegue])
   {
     MWMOpeningHoursEditorViewController * dvc = segue.destinationViewController;
-    dvc.openingHours = [self getCellValue:MWMPlacePageCellTypeOpenHours];
+    dvc.openingHours = @(m_mapObject.GetOpeningHours().c_str());
     dvc.delegate = self;
   }
   else if ([segue.identifier isEqualToString:kCuisineEditorSegue])

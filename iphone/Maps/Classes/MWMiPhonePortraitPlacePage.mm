@@ -345,7 +345,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhonePortraitPlacePageState)
   _targetPoint = targetPoint;
   __weak MWMiPhonePortraitPlacePage * weakSelf = self;
   if (self.state == MWMiPhonePortraitPlacePageStateClosed)
-    GetFramework().DeactivateUserMark();
+    GetFramework().DeactivateMapSelection(false);
   
   [self startAnimatingPlacePage:self initialVelocity:{0.0, self.panVelocity} completion:^
   {

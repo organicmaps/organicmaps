@@ -54,7 +54,7 @@ static NSString * const kKeyPath = @"subviews";
 {
   [[Statistics instance] logEvent:kStatEventName(kStatAPI, kStatBack)];
   Framework & f = GetFramework();
-  f.ActivateUserMark(nullptr, true);
+  f.DeactivateMapSelection(true);
   UserMarkControllerGuard guard(f.GetBookmarkManager(), UserMarkType::API_MARK);
   guard.m_controller.Clear();
   self.isVisible = NO;

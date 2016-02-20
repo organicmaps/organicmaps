@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   __weak MWMiPhoneLandscapePlacePage * weakSelf = self;
   BOOL const stateClosed = self.state == MWMiPhoneLandscapePlacePageStateClosed;
   if (stateClosed)
-    GetFramework().DeactivateUserMark();
+    GetFramework().DeactivateMapSelection(false);
   
   self.panRecognizer.enabled = !stateClosed;
   [self startAnimatingPlacePage:self initialVelocity:CGPointMake(self.panVelocity, 0.0) completion:^

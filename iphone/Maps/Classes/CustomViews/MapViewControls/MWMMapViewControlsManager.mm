@@ -153,15 +153,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.placePageManager hidePlacePage];
 }
 
-- (void)showPlacePage
+- (void)showPlacePage:(place_page::Info const &)info
 {
-  [self.placePageManager showPlacePage];
+  [self.placePageManager showPlacePage:info];
   [self refreshHelperPanels:UIInterfaceOrientationIsLandscape(self.ownerController.interfaceOrientation)];
-}
-
-- (void)reloadPlacePage
-{
-  [self.placePageManager reloadPlacePage];
 }
 
 - (void)apiBack

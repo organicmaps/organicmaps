@@ -15,7 +15,7 @@ namespace search { struct AddressInfo; }
 @interface MapViewController : MWMViewController <LocationObserver, UIPopoverControllerDelegate>
 {
   CGPoint m_popoverPos;
-  
+
   LocationPredictor * m_predictor;
 }
 
@@ -49,6 +49,5 @@ namespace search { struct AddressInfo; }
 @property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) m2::PointD restoreRouteDestination;
 @property (nonatomic) MWMAPIBar * apiBar;
-@property (nonatomic) BOOL skipPlacePageDismissOnViewDisappear;
 
 @end
