@@ -53,7 +53,7 @@ private:
 TCountryId CountryInfoGetter::GetRegionCountryId(m2::PointD const & pt) const
 {
   IdType const id = FindFirstCountry(pt);
-  return id != kInvalidId ? m_countries[id].m_name : TCountryId();
+  return id != kInvalidId ? m_countries[id].m_name : kInvalidCountryId;
 }
 
 void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, TCountriesVec & closestCoutryIds)

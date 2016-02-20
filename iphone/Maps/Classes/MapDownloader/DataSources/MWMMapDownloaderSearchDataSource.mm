@@ -35,9 +35,12 @@ extern NSString * const kPlaceCellIdentifier;
     if (!it->HasPoint())
       continue;
     auto const & mercator = it->GetFeatureCenter();
-    NSString * countryId = @(countryInfoGetter.GetRegionCountryId(mercator).c_str());
-    [nsSearchCoutryIds addObject:countryId];
-    nsSearchResults[countryId] = @(it->GetString().c_str());
+    TCountryId countryId = countryInfoGetter.GetRegionCountryId(mercator);
+    if (countryId == kInvalidCountryId)
+      continue;
+    NSString * nsCountryId = @(countryId.c_str());
+    [nsSearchCoutryIds addObject:nsCountryId];
+    nsSearchResults[nsCountryId] = @(it->GetString().c_str());
   }
   NSAssert(nsSearchCoutryIds.count != 0, @"Search results can not be empty.");
   self.searchCoutryIds = [nsSearchCoutryIds array];
