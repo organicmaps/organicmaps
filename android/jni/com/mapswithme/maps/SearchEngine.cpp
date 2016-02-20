@@ -173,7 +173,7 @@ extern "C"
 
     if (isMapAndTable)
     {
-      params.m_onResults = bind(&OnResults, _1, timestamp, isMapAndTable, false /* hasPosition */, 0, 0);
+      params.m_onResults = bind(&OnResults, _1, timestamp, isMapAndTable, false /* hasPosition */, 0.0, 0.0);
       if (g_framework->NativeFramework()->Search(params))
         g_queryTimestamp = timestamp;
     }
@@ -187,7 +187,7 @@ extern "C"
     params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
     params.SetForceSearch(true);
     params.SetMode(search::Mode::World);
-    params.m_callback = bind(&OnResults, _1, timestamp, false /* isMapAndTable */, false /* hasPosition */, 0.0, 0.0);
+    params.m_onResults = bind(&OnResults, _1, timestamp, false /* isMapAndTable */, false /* hasPosition */, 0.0, 0.0);
 
     g_framework->NativeFramework()->Search(params);
     g_queryTimestamp = timestamp;

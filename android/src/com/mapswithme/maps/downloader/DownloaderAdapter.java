@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -350,11 +349,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       mName.setText(mItem.name);
 
-      String parent = mItem.parentId;
-      parent = (CountryItem.ROOT.equals(parent) ? "" : mItem.parentName);
-
-      mParentName.setText(parent);
-      UiUtils.showIf(!TextUtils.isEmpty(parent), mParentName);
+      String parent = (CountryItem.ROOT.equals(mItem.parentId) ? "" : mItem.parentName);
+      UiUtils.setTextAndHideIfEmpty(mParentName, parent);
 
       mSizes.setText(StringUtils.getFileSizeString(mItem.totalSize));
 

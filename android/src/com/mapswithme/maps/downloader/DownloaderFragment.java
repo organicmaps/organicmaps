@@ -56,7 +56,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
       if (!mSearchRunning || timestamp != mCurrentSearch)
         return;
 
-      for (SearchResult result: results)
+      for (SearchResult result : results)
       {
         String id = MapManager.nativeFindCountry(result.lat, result.lon);
         if (!TextUtils.isEmpty(id) && !mResults.containsKey(id))
