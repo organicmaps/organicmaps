@@ -146,7 +146,7 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   env->SetBooleanField(item, countryItemFieldPresent, attrs.m_present);
 
   // Progress
-  env->SetIntField(item, countryItemFieldProgress,static_cast<jint>(attrs.m_downloadingMwmSize));
+  env->SetIntField(item, countryItemFieldProgress,static_cast<jint>(attrs.m_downloadingProgress.first));
 }
 
 static void PutItemsToList(JNIEnv * env, jobject const list,  vector<TCountryId> const & children, TCountryId const & parent, int category)
