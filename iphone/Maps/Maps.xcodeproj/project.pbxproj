@@ -579,6 +579,7 @@
 		676507631C1055BB00830BB3 /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */; };
 		677A2DE21C0DD50900635A00 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
 		6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */; };
+		845C891F1C78748000940D7F /* me.maps.enterprise.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 845C891E1C78748000940D7F /* me.maps.enterprise.entitlements */; };
 		974386DD19373EA400FD5659 /* ToastView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.mm */; };
 		9747264318323080006B7CB7 /* UIKitCategories.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.mm */; };
 		9747278418338F0C006B7CB7 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */; };
@@ -1172,6 +1173,7 @@
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7794829519A4E66A005F57B9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		845C891E1C78748000940D7F /* me.maps.enterprise.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.enterprise.entitlements; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		972CDCC51887F1B7006641CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		974386DB19373EA400FD5659 /* ToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastView.h; sourceTree = "<group>"; };
@@ -1891,6 +1893,7 @@
 		347274711B0F4EB300756B37 /* Entitlements */ = {
 			isa = PBXGroup;
 			children = (
+				845C891E1C78748000940D7F /* me.maps.enterprise.entitlements */,
 				347274721B0F4EE000756B37 /* me.maps.entitlements */,
 				3472747A1B0F4FF100756B37 /* me.maps.production.entitlements */,
 			);
@@ -2940,7 +2943,7 @@
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = XMK5825GXK;
+						DevelopmentTeam = L2QFT5NA2Q;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -3099,6 +3102,7 @@
 				4A23D15D1B8B4DD700D4EB6F /* resources-mdpi_clear in Resources */,
 				F6FE2C111B03A016009814AA /* PlacePageNavigationBar.xib in Resources */,
 				F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */,
+				845C891F1C78748000940D7F /* me.maps.enterprise.entitlements in Resources */,
 				347FD8791C60B2CE002FB65E /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
 				34634B1B1BB42D270013573C /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */,
 				347FDDA11BB59B4E00871410 /* Mapsme.storyboard in Resources */,
@@ -4245,7 +4249,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = me.maps.beta;
+				BUNDLE_IDENTIFIER = "com.my.maps-beta-enterprise";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -4346,7 +4350,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.enterprise.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
