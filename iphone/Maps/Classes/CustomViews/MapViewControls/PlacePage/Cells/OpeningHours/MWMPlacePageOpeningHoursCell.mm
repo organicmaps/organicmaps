@@ -101,7 +101,7 @@ WeekDayView getWeekDayView()
   Weekday currentDay = static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
   BOOL haveCurrentDay = NO;
   size_t timeTablesCount = timeTableSet.Size();
-  self.haveExpandSchedule = (timeTablesCount > 1);
+  self.haveExpandSchedule = (timeTablesCount > 1 || !timeTableSet.GetUnhandledDays().empty());
   self.weekDaysViewEstimatedHeight = 0.0;
   [self.weekDaysView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
   for (size_t idx = 0; idx < timeTablesCount; ++idx)
