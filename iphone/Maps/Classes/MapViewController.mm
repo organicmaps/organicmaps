@@ -102,7 +102,8 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 @end
 
 @interface MapViewController ()<MTRGNativeAppwallAdDelegate, MWMFrameworkRouteBuilderObserver,
-                                MWMFrameworkMyPositionObserver, MWMFrameworkUserMarkObserver>
+                                MWMFrameworkMyPositionObserver, MWMFrameworkUserMarkObserver,
+                                MWMFrameworkDrapeObserver>
 
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) MWMBottomMenuState menuRestoreState;
@@ -591,6 +592,16 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
       break;
   }
   self.forceRoutingStateChange = ForceRoutingStateChangeNone;
+}
+
+#pragma mark - MWMFrameworkDrapeObserver
+
+- (void)processViewportCountryEvent:(TCountryId const &)countryId
+{
+  if (countryId != kInvalidCountryId && platform::migrate::NeedMigrate())
+    [self performSegueWithIdentifier:kMigrationSegue sender:self];
+  else
+    [self.downloadDialog processViewportCountryEvent:countryId];
 }
 
 #pragma mark - MWMFrameworkUserMarkObserver

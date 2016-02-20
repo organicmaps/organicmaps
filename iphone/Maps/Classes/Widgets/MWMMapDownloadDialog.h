@@ -4,4 +4,6 @@
 
 + (instancetype)dialogForController:(MWMViewController *)controller;
 
+- (void)processViewportCountryEvent:(TCountryId const &)countryId;
+
 @end

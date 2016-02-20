@@ -15,7 +15,7 @@ extern char const * kAutoDownloadEnabledKey;
 
 using namespace storage;
 
-@interface MWMMapDownloadDialog ()<MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
+@interface MWMMapDownloadDialog ()<MWMFrameworkStorageObserver,
                                    MWMCircularProgressProtocol>
 @property (weak, nonatomic) IBOutlet UILabel * parentNode;
 @property (weak, nonatomic) IBOutlet UILabel * node;
@@ -159,8 +159,6 @@ using namespace storage;
   self.progressWrapper.hidden = NO;
   self.progressView.state = MWMCircularProgressStateSpinner;
 }
-
-#pragma mark - MWMFrameworkDrapeObserver
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId
 {
