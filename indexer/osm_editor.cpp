@@ -144,8 +144,8 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"historic-memorial", {{EType::FMD_WIKIPEDIA}, true, false}},
   {"historic-monument", {{EType::FMD_WIKIPEDIA}, true, false}},
   {"historic-ruins", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"internet-access", {{EType::FMD_INTERNET}, false, false}},
-  {"internet-access|wlan", {{EType::FMD_INTERNET}, false, false}},
+  {"internet_access", {{EType::FMD_INTERNET}, false, false}},
+  {"internet_access|wlan", {{EType::FMD_INTERNET}, false, false}},
   {"landuse-cemetery", {{EType::FMD_WIKIPEDIA}, true, false}},
   {"leisure-garden", {{EType::FMD_OPEN_HOURS, EType::FMD_INTERNET}, true, false}},
   {"leisure-sports_centre", {{EType::FMD_INTERNET}, true, true}},
@@ -153,7 +153,7 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"leisure-swimming_pool", {{EType::FMD_OPERATOR}, true, true}},
   {"natural-peak", {{EType::FMD_WIKIPEDIA, EType::FMD_ELE}, true, false}},
   {"natural-spring", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"natural-waterfall", {{EType::FMD_WIKIPEDIA}, true, false}},
+  {"natural-waterfall", {{EType::FMD_WIKIPEDIA, EType::FMD_HEIGHT}, true, false}},
   {"office", {{EType::FMD_INTERNET}, true, true}},
   {"office-company", {{}, true, true}},
   {"office-government", {{}, true, true}},
@@ -213,7 +213,7 @@ static unordered_map<string, TypeDescription> const gEditableTypes = {
   {"tourism-motel", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
   {"tourism-museum", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
   {"tourism-viewpoint", {{}, true, false}},
-  {"waterway-waterfall", {{EType::FMD_HEIGHT}, true, false}}};
+  {"waterway-waterfall", {{EType::FMD_WIKIPEDIA, EType::FMD_HEIGHT}, true, false}}};
 
 TypeDescription const * GetTypeDescription(uint32_t type, uint8_t typeTruncateLevel = 2)
 {
