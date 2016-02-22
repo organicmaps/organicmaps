@@ -209,9 +209,9 @@ void Framework::InvalidateMyPosition()
   CallDrapeFunction(bind(&df::DrapeEngine::InvalidateMyPosition, _1));
 }
 
-void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)
+void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
 {
-  m_myPositionListener = fn;
+  m_myPositionListener = move(fn);
 }
 
 void Framework::OnUserPositionChanged(m2::PointD const & position)

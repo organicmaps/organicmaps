@@ -284,7 +284,7 @@ public:
   void OnCompassUpdate(location::CompassInfo const & info);
   void SwitchMyPositionNextMode();
   void InvalidateMyPosition();
-  void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
+  void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 
 private:
   void OnUserPositionChanged(m2::PointD const & position);
