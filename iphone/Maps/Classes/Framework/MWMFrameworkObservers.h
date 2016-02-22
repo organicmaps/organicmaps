@@ -1,5 +1,3 @@
-#include "map/user_mark.hpp"
-#include "platform/location.hpp"
 #include "routing/router.hpp"
 #include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
@@ -18,12 +16,6 @@ using namespace storage;
 @optional
 
 - (void)processRouteBuilderProgress:(CGFloat)progress;
-
-@end
-
-@protocol MWMFrameworkMyPositionObserver <MWMFrameworkObserver>
-
-- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
 
 @end
 

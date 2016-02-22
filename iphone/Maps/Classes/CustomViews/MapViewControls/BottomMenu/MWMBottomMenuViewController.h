@@ -28,4 +28,6 @@
 
 - (void)refreshLayout;
 
+- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
+
 @end

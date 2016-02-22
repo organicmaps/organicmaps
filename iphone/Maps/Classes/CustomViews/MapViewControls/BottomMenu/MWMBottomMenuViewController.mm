@@ -40,7 +40,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   MWMBottomMenuViewCellCount
 };
 
-@interface MWMBottomMenuViewController () <UICollectionViewDataSource, UICollectionViewDelegate, MWMFrameworkMyPositionObserver>
+@interface MWMBottomMenuViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) MapViewController * controller;
 @property (weak, nonatomic) IBOutlet UICollectionView * buttonsCollectionView;
@@ -79,7 +79,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
                                              selector:@selector(searchStateWillChange:)
                                                  name:kSearchStateWillChangeNotification
                                                object:nil];
-    [MWMFrameworkListener addObserver:self];
   }
   return self;
 }
@@ -165,8 +164,6 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
     return;
   self.state = MWMBottomMenuStateGo;
 }
-
-#pragma mark - MWMFrameworkMyPositionObserver
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
 {

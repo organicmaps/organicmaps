@@ -102,8 +102,7 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 @end
 
 @interface MapViewController ()<MTRGNativeAppwallAdDelegate, MWMFrameworkRouteBuilderObserver,
-                                MWMFrameworkMyPositionObserver, MWMFrameworkDrapeObserver,
-                                MWMFrameworkStorageObserver>
+                                MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver>
 
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) MWMBottomMenuState menuRestoreState;
@@ -492,9 +491,20 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 - (void)initialize
 {
   Framework & f = GetFramework();
-
+  // TODO: Review and improve this code.
   f.SetMapSelectionListeners([self](place_page::Info const & info) { [self onMapObjectSelected:info]; },
-                             [self](bool switchFullScreen){ [self onMapObjectDeselected:switchFullScreen]; });
+                             [self](bool switchFullScreen) { [self onMapObjectDeselected:switchFullScreen]; });
+  // TODO: Review and improve this code.
+  f.SetMyPositionModeListener([self](location::EMyPositionMode mode)
+  {
+    MWMFrameworkListener.listener.myPositionMode = mode;
+    // Two global listeners are subscribed to the same event from the core.
+    // Probably it's better to subscribe only wnen needed and usubscribe in other cases.
+    // May be better solution would be multiobservers support in the C++ core.
+    [self processMyPositionStateModeEvent:mode];
+    [self.controlsManager.menuController processMyPositionStateModeEvent:mode];
+  });
+
   m_predictor = [[LocationPredictor alloc] initWithObserver:self];
   self.forceRoutingStateChange = ForceRoutingStateChangeNone;
   self.userTouchesAction = UserTouchesActionNone;
@@ -531,8 +541,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
   [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.placePageEntity];
 }
-
-#pragma mark - MWMFrameworkMyPositionObserver
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
 {

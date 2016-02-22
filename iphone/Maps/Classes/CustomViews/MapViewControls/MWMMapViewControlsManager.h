@@ -15,6 +15,7 @@
 @property (nonatomic) MWMBottomMenuState menuState;
 @property (nonatomic, readonly) MWMNavigationDashboardState navigationState;
 @property (nonatomic, readonly) MWMPlacePageEntity * placePageEntity;
+@property (nonatomic, readonly) MWMBottomMenuViewController * menuController;
 @property (nonatomic) BOOL searchHidden;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));

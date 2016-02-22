@@ -9,14 +9,12 @@ namespace
 {
 using TObserver = id<MWMFrameworkObserver>;
 using TRouteBuildingObserver = id<MWMFrameworkRouteBuilderObserver>;
-using TMyPositionObserver = id<MWMFrameworkMyPositionObserver>;
 using TStorageObserver = id<MWMFrameworkStorageObserver>;
 using TDrapeObserver = id<MWMFrameworkDrapeObserver>;
 
 using TObservers = NSHashTable<__kindof TObserver>;
 
 Protocol * pRouteBuildingObserver = @protocol(MWMFrameworkRouteBuilderObserver);
-Protocol * pMyPositionObserver = @protocol(MWMFrameworkMyPositionObserver);
 Protocol * pStorageObserver = @protocol(MWMFrameworkStorageObserver);
 Protocol * pDrapeObserver = @protocol(MWMFrameworkDrapeObserver);
 
@@ -38,11 +36,8 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
 @interface MWMFrameworkListener ()
 
 @property (nonatomic) TObservers * routeBuildingObservers;
-@property (nonatomic) TObservers * myPositionObservers;
 @property (nonatomic) TObservers * storageObservers;
 @property (nonatomic) TObservers * drapeObservers;
-
-@property (nonatomic, readwrite) location::EMyPositionMode myPositionMode;
 
 @end
 
@@ -63,8 +58,6 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
     MWMFrameworkListener * listener = [MWMFrameworkListener listener];
     if ([observer conformsToProtocol:pRouteBuildingObserver])
       [listener.routeBuildingObservers addObject:observer];
-    if ([observer conformsToProtocol:pMyPositionObserver])
-      [listener.myPositionObservers addObject:observer];
     if ([observer conformsToProtocol:pStorageObserver])
       [listener.storageObservers addObject:observer];
     if ([observer conformsToProtocol:pDrapeObserver])
@@ -78,7 +71,6 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   {
     MWMFrameworkListener * listener = [MWMFrameworkListener listener];
     [listener.routeBuildingObservers removeObject:observer];
-    [listener.myPositionObservers removeObject:observer];
     [listener.storageObservers removeObject:observer];
     [listener.drapeObservers removeObject:observer];
   });
@@ -90,12 +82,10 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   if (self)
   {
     _routeBuildingObservers = [TObservers weakObjectsHashTable];
-    _myPositionObservers = [TObservers weakObjectsHashTable];
     _storageObservers = [TObservers weakObjectsHashTable];
     _drapeObservers = [TObservers weakObjectsHashTable];
 
     [self registerRouteBuilderListener];
-    [self registerMyPositionListener];
     [self registerStorageObserver];
     [self registerDrapeObserver];
   }
@@ -128,22 +118,6 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
     {
       if ([observer respondsToSelector:@selector(processRouteBuilderProgress:)])
         [observer processRouteBuilderProgress:progress];
-    });
-  });
-}
-
-#pragma mark - MWMFrameworkMyPositionObserver
-
-- (void)registerMyPositionListener
-{
-  TObservers * observers = self.myPositionObservers;
-  auto & f = GetFramework();
-  f.SetMyPositionModeListener([self, observers](location::EMyPositionMode mode)
-  {
-    self.myPositionMode = mode;
-    loopWrappers(observers, [mode](TMyPositionObserver observer)
-    {
-      [observer processMyPositionStateModeEvent:mode];
     });
   });
 }

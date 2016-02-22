@@ -1,12 +1,14 @@
 #import "MWMFrameworkObservers.h"
 
+#include "platform/location.hpp"
+
 @interface MWMFrameworkListener : NSObject
 
 + (MWMFrameworkListener *)listener;
 + (void)addObserver:(id<MWMFrameworkObserver>)observer;
 + (void)removeObserver:(id<MWMFrameworkObserver>)observer;
 
-@property (nonatomic, readonly) location::EMyPositionMode myPositionMode;
+@property (nonatomic) location::EMyPositionMode myPositionMode;
 
 - (instancetype)init __attribute__((unavailable("call +listener instead")));
 - (instancetype)copy __attribute__((unavailable("call +listener instead")));
