@@ -123,14 +123,14 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 - (void)addBookmark
 {
-  [self.basePlacePageView addBookmark];
   [self.manager addBookmark];
+  [self.basePlacePageView addBookmark];
 }
 
 - (void)removeBookmark
 {
-  [self.basePlacePageView removeBookmark];
   [self.manager removeBookmark];
+  [self.basePlacePageView removeBookmark];
 }
 
 - (void)editPlace

@@ -240,6 +240,11 @@ void initFieldsMap()
   return @(m_info.GetApiUrl().c_str());
 }
 
+- (string)titleForNewBookmark
+{
+  return m_info.FormatNewBookmarkName();
+}
+
 - (NSString *)coordinate
 {
   BOOL const useDMSFormat =

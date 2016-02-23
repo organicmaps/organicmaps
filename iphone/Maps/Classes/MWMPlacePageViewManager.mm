@@ -252,10 +252,12 @@ extern NSString * const kBookmarksChangedNotification;
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
                    withParameters:@{kStatValue : kStatAdd}];
   Framework & f = GetFramework();
-  BookmarkData bmData = { self.entity.title.UTF8String, f.LastEditedBMType() };
+  BookmarkData bmData = { self.entity.titleForNewBookmark, f.LastEditedBMType() };
   size_t const categoryIndex = f.LastEditedBMCategory();
   size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, self.entity.mercator, bmData);
   self.entity.bac = {categoryIndex, bookmarkIndex};
+  self.entity.bookmarkTitle = @(bmData.GetName().c_str());
+  self.entity.bookmarkCategory = @(f.GetBmCategory(categoryIndex)->GetName().c_str());
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];
@@ -277,6 +279,8 @@ extern NSString * const kBookmarksChangedNotification;
     bookmarkCategory->SaveToKMLFile();
   }
   self.entity.bac = MakeEmptyBookmarkAndCategory();
+  self.entity.bookmarkTitle = nil;
+  self.entity.bookmarkCategory = nil;
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];
