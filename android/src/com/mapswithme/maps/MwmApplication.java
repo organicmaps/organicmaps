@@ -228,7 +228,12 @@ public class MwmApplication extends Application
    */
   private void initParse()
   {
-    Parse.initialize(this, PrivateVariables.parseApplicationId(), PrivateVariables.parseClientKey());
+    // Do not initialize Parse in default open-source version.
+    final String appId = PrivateVariables.parseApplicationId();
+    if (appId.isEmpty())
+      return;
+
+    Parse.initialize(this, appId, PrivateVariables.parseClientKey());
     ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback()
     {
       @Override

@@ -111,8 +111,13 @@ void InitLocalizedStrings()
 
 - (void)registerNotifications:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions
 {
-  [Parse enableLocalDatastore];
-  [Parse setApplicationId:@(PARSE_APPLICATION_ID) clientKey:@(PARSE_CLIENT_KEY)];
+  // Do not initialize Parse for open-source version due to an error:
+  // Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: ''applicationId' should not be nil.'
+  if (!string(PARSE_APPLICATION_ID).empty())
+  {
+    [Parse enableLocalDatastore];
+    [Parse setApplicationId:@(PARSE_APPLICATION_ID) clientKey:@(PARSE_CLIENT_KEY)];
+  }
   [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
   UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
   if ([application respondsToSelector: @selector(registerUserNotificationSettings:)])
