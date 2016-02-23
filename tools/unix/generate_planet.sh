@@ -63,6 +63,16 @@ putmode() {
   echo "$MFLAGS$MODE" > "$STATUS_FILE"
 }
 
+format_version() {
+  local planet_version=$1
+  local output_format=$2
+  if [ "$(uname -s)" == "Darwin" ]; then
+    echo $(date -j -u -f "%Y-%m-%dT%H:%M:%SZ" "$planet_version" "+$output_format")
+  else
+    echo $(date -d "$(echo "$planet_version" | sed -e 's/T/ /')" "+$output_format")
+  fi
+}
+
 # Do not start processing when there are no arguments
 [ $# -eq 0 ] && usage && fail
 # Parse command line parameters
@@ -152,7 +162,8 @@ SCRIPTS_PATH="$(dirname "$0")"
 ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
 ROADS_SCRIPT="$OMIM_PATH/tools/python/road_runner.py"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
-VERSION_FORMAT="%y%m%d"
+MWM_VERSION_FORMAT="%s"
+COUNTRIES_VERSION_FORMAT="%y%m%d"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
@@ -366,11 +377,11 @@ fi
 if [ -z "${VERSION-}" ]; then
   PLANET_VERSION="$("$OSMCTOOLS/osmconvert" --out-timestamp "$PLANET")"
   if [[ $PLANET_VERSION == *nvalid* ]]; then
-    VERSION="$(date "+$VERSION_FORMAT")"
-  elif [ "$(uname -s)" == "Darwin" ]; then
-    VERSION="$(date -j -u -f "%Y-%m-%dT%H:%M:%SZ" "$PLANET_VERSION" "+$VERSION_FORMAT")"
+    MWM_VERSION="$(date "+$MWM_VERSION_FORMAT")"
+    COUNTRIES_VERSION="$(date "+$COUNTRIES_VERSION_FORMAT")"
   else
-    VERSION="$(date -d "$(echo "$PLANET_VERSION" | sed -e 's/T/ /')" "+$VERSION_FORMAT")"
+    MWM_VERSION="$(format_version "$PLANET_VERSION" "$MWM_VERSION_FORMAT")"
+    COUNTRIES_VERSION="$(format_version "$PLANET_VERSION" "$COUNTRIES_VERSION_FORMAT")"
   fi
 fi
 
@@ -383,10 +394,10 @@ if [ "$MODE" == "mwm" ]; then
   PARAMS="--data_path=$TARGET --intermediate_data_path=$INTDIR/ --user_resource_path=$DATA_PATH/ --node_storage=$NODE_STORAGE -generate_geometry -generate_index"
   if [ -n "$OPT_WORLD" ]; then
     (
-      "$GENERATOR_TOOL" $PARAMS --planet_version="$VERSION" --output=World 2>> "$LOG_PATH/World.log"
-      "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$VERSION" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" $PARAMS --planet_version="$MWM_VERSION" --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$MWM_VERSION" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
     ) &
-    "$GENERATOR_TOOL" $PARAMS --planet_version="$VERSION" --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
+    "$GENERATOR_TOOL" $PARAMS --planet_version="$MWM_VERSION" --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
   fi
 
   if [ -z "$NO_REGIONS" ]; then
@@ -394,7 +405,7 @@ if [ "$MODE" == "mwm" ]; then
     for file in "$INTDIR"/tmp/*.mwm.tmp; do
       if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
         BASENAME="$(basename "$file" .mwm.tmp)"
-        "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --planet_version="$VERSION" --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
+        "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --planet_version="$MWM_VERSION" --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
         forky
       fi
     done
@@ -430,7 +441,7 @@ fi
 if [ "$MODE" == "resources" ]; then
   putmode "Step 7: Updating resource lists"
   # Update countries list
-  "$SCRIPTS_PATH/../python/hierarchy_to_countries.py" --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --version "$VERSION" \
+  "$SCRIPTS_PATH/../python/hierarchy_to_countries.py" --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --version "$COUNTRIES_VERSION" \
     --legacy --sort --names "$DATA_PATH/mwm_names_en.txt" --output "$TARGET/countries.txt" >> "$PLANET_LOG" 2>&1
 
   # Migration suffix
