@@ -84,8 +84,8 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
   {
     if (mMapObject != null && isResumed())
     {
-      mTvTitle.setText(mMapObject.getName());
-      mTvSubtitle.setText(mMapObject.getTypeName());
+      mTvTitle.setText(mMapObject.getTitle());
+      mTvSubtitle.setText(mMapObject.getSubtitle());
     }
   }
 

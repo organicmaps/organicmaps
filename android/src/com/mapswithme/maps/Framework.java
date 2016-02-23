@@ -188,5 +188,5 @@ public class Framework
   public static native MapObject nativeGetActiveMapObject();
 
   @NonNull
-  public static native MapObject nativeActivateMapObject(double lat, double lon);
+  public static native MapObject nativeDeleteBookmarkFromMapObject();
 }

@@ -79,7 +79,15 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_nativeGetBookmark(
      JNIEnv * env, jobject thiz, jint id, jint bmkId)
 {
-  return usermark_helper::CreateMapObject(getBmCategory(id)->GetUserMark(bmkId));
+  BookmarkCategory * category = getBmCategory(id);
+  // TODO(AlexZ): Get rid of UserMarks completely in UI code.
+  Bookmark const * bm = static_cast<Bookmark const *>(category->GetUserMark(bmkId));
+  // TODO(yunikkk): Refactor java code to get all necessary info without Bookmark wrapper, and without hierarchy.
+  // If bookmark information is needed in the BookmarkManager, it does not relate in any way to Place Page info
+  // and should be passed separately via simple name string and lat lon to calculate a distance.
+  ms::LatLon const ll = bm->GetLatLon();
+  return usermark_helper::CreateMapObject(env, usermark_helper::kBookmark, bm->GetName(), ll.lat, ll.lon,
+                                          bm->GetType(), "", "", {});
 }
 
 static uint32_t shift(uint32_t v, uint8_t bitCount) { return v << bitCount; }

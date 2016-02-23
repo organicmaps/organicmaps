@@ -5,10 +5,19 @@
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/maps/Framework.hpp"
 
-#include "map/user_mark.hpp"
+namespace place_page
+{
+class Info;
+}  // namespace place_page
 
+// TODO(yunikkk): this helper is redundant with new place page info approach.
+// It's better to refactor MapObject in Java, may be removing it at all, and to make simple jni getters for
+// globally stored place_page::Info object. Code should be clean and easy to support in this way.
 namespace usermark_helper
 {
+// TODO(yunikkk): PP can be POI and bookmark at the same time. And can be even POI + bookmark + API at the same time.
+// The same for search result: it can be also a POI and bookmark (and API!).
+// That is one of the reasons why existing solution should be refactored.
 // should be equal with definitions in MapObject.java
 static constexpr int kPoi = 0;
 static constexpr int kApiPoint = 1;
@@ -16,19 +25,14 @@ static constexpr int kBookmark = 2;
 static constexpr int kMyPosition = 3;
 static constexpr int kSearch = 4;
 
-// Fills mapobject's metadata from UserMark
-void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature::Metadata const & metadata);
+// Fills mapobject's metadata.
+//void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature::Metadata const & metadata);
 
-template <class T>
-T const * CastMark(UserMark const * data);
+//pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature::Metadata const & metadata);
 
-pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature::Metadata const & metadata);
+jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & name, double lat, double lon,
+                        string const & typeName, string const & street, string const & house,
+                        feature::Metadata const & metadata);
 
-void FillAddressAndMetadata(UserMark const * mark, search::AddressInfo & info, feature::Metadata & metadata);
-
-jobject CreateBookmark(int categoryId, int bookmarkId, string const & typeName, feature::Metadata const & metadata);
-
-jobject CreateMapObject(int mapObjectType, string const & name, double lat, double lon, string const & typeName, feature::Metadata const & metadata);
-
-jobject CreateMapObject(UserMark const * userMark);
-}  // namespace usermark
+jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
+}  // namespace usermark_helper

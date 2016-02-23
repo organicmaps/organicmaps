@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.bookmarks.data.MapObject;
+// TODO(yunikkk): why is feature metadata in bookmarks? How are they related to each other?
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.util.Utils;
 
@@ -18,8 +18,6 @@ import com.mapswithme.util.Utils;
 public class EditorHostFragment extends BaseMwmToolbarFragment
                              implements OnBackPressListener, View.OnClickListener
 {
-  public static final String EXTRA_MAP_OBJECT = "MapObject";
-
   enum Mode
   {
     MAP_OBJECT,
@@ -28,8 +26,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     CUISINE
   }
   private Mode mMode;
-
-  private MapObject mEditedObject;
 
   @Nullable
   @Override
@@ -42,8 +38,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    getArguments().setClassLoader(MapObject.class.getClassLoader());
-    mEditedObject = getArguments().getParcelable(EditorHostFragment.EXTRA_MAP_OBJECT);
     editMapObject();
     mToolbarController.findViewById(R.id.save).setOnClickListener(this);
     mToolbarController.getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
@@ -75,17 +69,14 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   public void onSaveInstanceState(Bundle outState)
   {
     super.onSaveInstanceState(outState);
-    saveEditedPoi();
-    outState.putParcelable(EXTRA_MAP_OBJECT, mEditedObject);
+    temporaryStoreEdits();
   }
 
   protected void editMapObject()
   {
     mMode = Mode.MAP_OBJECT;
     mToolbarController.setTitle(R.string.edit_place);
-    final Bundle args = new Bundle();
-    args.putParcelable(EXTRA_MAP_OBJECT, mEditedObject);
-    final Fragment editorFragment = Fragment.instantiate(getActivity(), EditorFragment.class.getName(), args);
+    final Fragment editorFragment = Fragment.instantiate(getActivity(), EditorFragment.class.getName());
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, editorFragment, EditorFragment.class.getName())
                              .commit();
@@ -93,11 +84,11 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editTimetable()
   {
-    saveEditedPoi();
+    temporaryStoreEdits();
     mMode = Mode.OPENING_HOURS;
     mToolbarController.setTitle(R.string.editor_time_title);
     final Bundle args = new Bundle();
-    args.putString(TimetableFragment.EXTRA_TIME, mEditedObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
+    args.putString(TimetableFragment.EXTRA_TIME, Editor.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
     final Fragment editorFragment = Fragment.instantiate(getActivity(), TimetableFragment.class.getName(), args);
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, editorFragment, TimetableFragment.class.getName())
@@ -106,11 +97,11 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editStreet()
   {
-    saveEditedPoi();
+    temporaryStoreEdits();
     mMode = Mode.STREET;
     mToolbarController.setTitle(R.string.choose_street);
     final Bundle args = new Bundle();
-    args.putString(StreetFragment.EXTRA_CURRENT_STREET, mEditedObject.getStreet());
+    args.putString(StreetFragment.EXTRA_CURRENT_STREET, Editor.nativeGetStreet());
     final Fragment streetFragment = Fragment.instantiate(getActivity(), StreetFragment.class.getName(), args);
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, streetFragment, StreetFragment.class.getName())
@@ -119,29 +110,29 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editCuisine()
   {
-    saveEditedPoi();
+    temporaryStoreEdits();
     mMode = Mode.CUISINE;
     mToolbarController.setTitle(R.string.select_cuisine);
     final Bundle args = new Bundle();
-    args.putString(CuisineFragment.EXTRA_CURRENT_CUISINE, mEditedObject.getMetadata(Metadata.MetadataType.FMD_CUISINE));
+    args.putString(CuisineFragment.EXTRA_CURRENT_CUISINE, Editor.getMetadata(Metadata.MetadataType.FMD_CUISINE));
     final Fragment cuisineFragment = Fragment.instantiate(getActivity(), CuisineFragment.class.getName(), args);
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, cuisineFragment, CuisineFragment.class.getName())
                              .commit();
   }
 
-  protected void saveEditedPoi()
+  protected void temporaryStoreEdits()
   {
     final EditorFragment editorFragment = (EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName());
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, editorFragment.getPhone());
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_WEBSITE, editorFragment.getWebsite());
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_EMAIL, editorFragment.getEmail());
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_CUISINE, editorFragment.getCuisine());
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_INTERNET, editorFragment.getWifi());
-    mEditedObject.addMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, editorFragment.getOpeningHours());
-    mEditedObject.setName(editorFragment.getName());
-    mEditedObject.setStreet(editorFragment.getStreet());
-    mEditedObject.setHouseNumber(editorFragment.getHouseNumber());
+    Editor.setMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, editorFragment.getOpeningHours());
+    Editor.setMetadata(Metadata.MetadataType.FMD_CUISINE, editorFragment.getCuisine());
+    Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, editorFragment.getPhone());
+    Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, editorFragment.getWebsite());
+    Editor.setMetadata(Metadata.MetadataType.FMD_EMAIL, editorFragment.getEmail());
+    Editor.setMetadata(Metadata.MetadataType.FMD_INTERNET, editorFragment.getWifi());
+    Editor.nativeSetDefaultName(editorFragment.getName());
+    Editor.nativeSetHouseNumber(editorFragment.getHouseNumber());
+    Editor.nativeSetStreet(editorFragment.getStreet());
   }
 
   @Override
@@ -153,17 +144,17 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       {
       case OPENING_HOURS:
         final TimetableFragment fragment = (TimetableFragment) getChildFragmentManager().findFragmentByTag(TimetableFragment.class.getName());
-        mEditedObject.addMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, fragment.getTimetable());
+        Editor.setMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, fragment.getTimetable());
         editMapObject();
         break;
       case STREET:
         final String street = ((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName())).getStreet();
-        mEditedObject.setStreet(street);
+        Editor.nativeSetStreet(street);
         editMapObject();
         break;
       case CUISINE:
         String cuisine = ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).getCuisine();
-        mEditedObject.addMetadata(Metadata.MetadataType.FMD_CUISINE, cuisine);
+        Editor.setMetadata(Metadata.MetadataType.FMD_CUISINE, cuisine);
         editMapObject();
         break;
       case MAP_OBJECT:
@@ -171,15 +162,23 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, editorFragment.getPhone());
         Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, editorFragment.getWebsite());
         Editor.setMetadata(Metadata.MetadataType.FMD_EMAIL, editorFragment.getEmail());
-        Editor.setMetadata(Metadata.MetadataType.FMD_CUISINE, editorFragment.getCuisine());
         Editor.setMetadata(Metadata.MetadataType.FMD_INTERNET, editorFragment.getWifi());
-        Editor.setMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, editorFragment.getOpeningHours());
-        Editor.nativeSetName(editorFragment.getName());
-        Editor.nativeEditFeature(editorFragment.getStreet(), editorFragment.getHouseNumber());
-        if (OsmOAuth.isAuthorized())
-          Utils.navigateToParent(getActivity());
+        Editor.nativeSetDefaultName(editorFragment.getName());
+        // Street, cuisine and opening hours are saved in separate cases.
+        Editor.nativeSetHouseNumber(editorFragment.getHouseNumber());
+        if (Editor.nativeSaveEditedFeature())
+        {
+          if (OsmOAuth.isAuthorized())
+            Utils.navigateToParent(getActivity());
+          else
+            // TODO(yunikkk): auth should be displayed only once, we should remember the time it was displayed.
+            // And if there is no connection, no auth should be displayed at all.
+            showAuthorization();
+        }
         else
-          showAuthorization();
+        {
+          // TODO(yunikkk): Show error dialog that changes can't be saved (for example, there is no free space).
+        }
         break;
       }
     }

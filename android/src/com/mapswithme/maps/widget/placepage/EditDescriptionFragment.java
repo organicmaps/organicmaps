@@ -102,7 +102,7 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
 
   private void saveDescription()
   {
-    mBookmark.setParams(mBookmark.getName(), null, mEtDescription.getText().toString());
+    mBookmark.setParams(mBookmark.getTitle(), null, mEtDescription.getText().toString());
 
     if (mListener != null)
     {

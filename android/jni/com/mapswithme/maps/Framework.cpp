@@ -4,8 +4,6 @@
 #include "com/mapswithme/opengl/androidoglcontextfactory.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 
-#include "map/user_mark.hpp"
-
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape/pointers.hpp"
@@ -61,7 +59,6 @@ Framework::Framework()
   , m_currentMode(location::MODE_UNKNOWN_POSITION)
   , m_isCurrentModeInitialized(false)
   , m_isChoosePositionMode(false)
-  , m_activeUserMark(nullptr)
 {
   ASSERT_EQUAL ( g_framework, 0, () );
   g_framework = this;
@@ -293,11 +290,6 @@ void Framework::RemoveLocalMaps()
   m_work.DeregisterAllMaps();
 }
 
-BookmarkAndCategory Framework::AddBookmark(size_t cat, m2::PointD const & pt, BookmarkData & bm)
-{
-  return BookmarkAndCategory(cat, m_work.AddBookmark(cat, pt, bm));
-}
-
 void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & bm)
 {
   m_work.ReplaceBookmark(ind.first, ind.second, bm);
@@ -315,7 +307,7 @@ bool Framework::ShowMapForURL(string const & url)
 
 void Framework::DeactivatePopup()
 {
-  m_work.DeactivateUserMark();
+  m_work.DeactivateMapSelection(false);
 }
 
 string Framework::GetOutdatedCountriesString()
@@ -399,14 +391,14 @@ void Framework::ExecuteDrapeTasks()
   m_drapeTasksQueue.clear();
 }
 
-void Framework::SetActiveUserMark(UserMark const * mark)
+void Framework::SetPlacePageInfo(place_page::Info const & info)
 {
-  m_activeUserMark = mark;
+  m_info = info;
 }
 
-UserMark const * Framework::GetActiveUserMark()
+place_page::Info & Framework::GetPlacePageInfo()
 {
-  return m_activeUserMark;
+  return m_info;
 }
 
 bool Framework::HasSpaceForMigration()
@@ -443,38 +435,6 @@ bool Framework::PreMigrate(ms::LatLon const & position, Storage::TChangeCountryF
 
 extern "C"
 {
-  void CallOnMapObjectActivatedListener(shared_ptr<jobject> listener, jobject mapObject)
-  {
-    JNIEnv * env = jni::GetEnv();
-    jmethodID const methodId = jni::GetMethodID(env, *listener, "onMapObjectActivated",
-                                                "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
-    //public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName)
-    env->CallVoidMethod(*listener, methodId, mapObject);
-  }
-
-  void CallOnDismissListener(shared_ptr<jobject> obj)
-  {
-    JNIEnv * env = jni::GetEnv();
-    jmethodID const methodId = jni::GetMethodID(env, *obj, "onDismiss", "()V");
-    ASSERT(methodId, ());
-    env->CallVoidMethod(*obj, methodId);
-  }
-
-  void CallOnUserMarkActivated(shared_ptr<jobject> obj, unique_ptr<UserMarkCopy> markCopy)
-  {
-    if (markCopy == nullptr)
-    {
-      g_framework->SetActiveUserMark(nullptr);
-      CallOnDismissListener(obj);
-      return;
-    }
-
-    UserMark const * mark = markCopy->GetUserMark();
-    g_framework->SetActiveUserMark(mark);
-    jni::TScopedLocalRef mapObject(jni::GetEnv(), usermark_helper::CreateMapObject(mark));
-    CallOnMapObjectActivatedListener(obj, mapObject.get());
-  }
-
   void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<storage::TCountryId> const & absentMaps)
   {
     JNIEnv * env = jni::GetEnv();
@@ -517,13 +477,34 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jclass clazz, jobject l)
   {
-    frm()->SetUserMarkActivationListener(bind(&CallOnUserMarkActivated, jni::make_global_ref(l), _1));
+    // TODO: We never clean up this global ref.
+    jobject const listener = env->NewGlobalRef(l);
+    frm()->SetMapSelectionListeners([listener](place_page::Info const & info)
+    {
+      // 1st listener: User has selected an object on a map.
+      JNIEnv * env = jni::GetEnv();
+      g_framework->SetPlacePageInfo(info);
+      jni::TScopedLocalRef mapObject(env, usermark_helper::CreateMapObject(env, info));
+      jmethodID const methodId = jni::GetMethodID(env, listener, "onMapObjectActivated",
+                                                  "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
+      //public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName)
+      env->CallVoidMethod(listener, methodId, mapObject.get());
+    }, [listener](bool /*enterFullScreenMode*/)
+    {
+      // 2nd listener: User has deselected object on a map, or tapped on an empty space (iOS toggles full screen mode in this case).
+      JNIEnv * env = jni::GetEnv();
+      // TODO(yunikkk): Do we really need the next line? UI should always know when this info is valid, right?
+      g_framework->SetPlacePageInfo({});
+      jmethodID const methodId = jni::GetMethodID(env, listener, "onDismiss", "()V");
+      ASSERT(methodId, ());
+      env->CallVoidMethod(listener, methodId);
+    });
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeRemoveMapObjectListener(JNIEnv * env, jobject thiz)
   {
-    frm()->SetUserMarkActivationListener(::Framework::TActivateCallbackFn());
+    frm()->SetMapSelectionListeners({}, {});
   }
 
   JNIEXPORT jstring JNICALL
@@ -979,17 +960,20 @@ extern "C"
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetActiveMapObject(JNIEnv * env, jclass thiz)
   {
-    UserMark const * mark = g_framework->GetActiveUserMark();
-    if (!mark)
-      return nullptr;
-    return usermark_helper::CreateMapObject(mark);
+    return usermark_helper::CreateMapObject(env, g_framework->GetPlacePageInfo());
   }
 
+  extern JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject, jint, jint);
+
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeActivateMapObject(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+  Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass clazz)
   {
-    UserMark const * mark = frm()->GetAddressMark(MercatorBounds::FromLatLon(lat, lon));
-    g_framework->SetActiveUserMark(mark);
-    return usermark_helper::CreateMapObject(mark);
+    place_page::Info & info = g_framework->GetPlacePageInfo();
+    // TODO(yunikkk): Reuse already existing implementation. It probably can be done better.
+    Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(nullptr, nullptr,
+        info.m_bac.first, info.m_bac.second);
+    info.m_bac = MakeEmptyBookmarkAndCategory();
+    return usermark_helper::CreateMapObject(env, info);
   }
 } // extern "C"

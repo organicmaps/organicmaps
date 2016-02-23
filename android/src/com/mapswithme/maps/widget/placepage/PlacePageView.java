@@ -415,11 +415,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void refreshPreview()
   {
-    mTvTitle.setText(mMapObject.getName());
+    mTvTitle.setText(mMapObject.getTitle());
     if (mToolbar != null)
-      mToolbar.setTitle(mMapObject.getName());
-    String subtitle = mMapObject.getFormattedCuisine().isEmpty() ? mMapObject.getTypeName()
-                                                                 : mMapObject.getTypeName()  + ", " + mMapObject.getFormattedCuisine();
+      mToolbar.setTitle(mMapObject.getTitle());
+    String subtitle = mMapObject.getSubtitle();
     mTvSubtitle.setText(subtitle);
     mAvDirection.setVisibility(View.GONE);
   }
@@ -432,7 +431,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
-    refreshMetadataOrHide(mMapObject.getFormattedCuisine(), mCuisine, mTvCuisine);
+    // TODO(AlexZ): Localize cuisines in the core.
+    refreshMetadataOrHide(MapObject.formatCuisine(mMapObject.getMetadata(Metadata.MetadataType.FMD_CUISINE)), mCuisine, mTvCuisine);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
@@ -440,7 +440,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataStars(mMapObject.getMetadata(Metadata.MetadataType.FMD_STARS));
     UiUtils.setTextAndHideIfEmpty(mTvElevation, mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE));
 
-    if (mMapObject == null || !Editor.hasEditableAttributes())
+    if (mMapObject == null || !Editor.nativeIsFeatureEditable())
     {
       UiUtils.hide(mEditor);
     }
@@ -504,7 +504,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private void showBookmarkDetails()
   {
     final Bookmark bookmark = (Bookmark) mMapObject;
-    mEtBookmarkName.setText(bookmark.getName());
+    mEtBookmarkName.setText(bookmark.getTitle());
     mTvBookmarkGroup.setText(bookmark.getCategoryName());
     mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
     mIvBookmark.setImageResource(R.drawable.ic_bookmarks_on);
@@ -694,7 +694,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void showEditor()
   {
-    ((MwmActivity) getContext()).showEditor(mMapObject);
+    ((MwmActivity) getContext()).showEditor();
   }
 
   @Override
@@ -725,7 +725,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       {
         final ParsedMwmRequest request = ParsedMwmRequest.getCurrentRequest();
         if (ParsedMwmRequest.isPickPointMode())
-          request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getName(), "");
+          request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getTitle(), "");
         request.sendResponseAndFinish(activity, true);
       }
       else
@@ -804,16 +804,17 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     if (mMapObject == null)
       return;
+    // TODO(yunikkk): this can be done by querying place_page::Info::IsBookmark(), without passing any
+    // specific Bookmark object instance.
     if (MapObject.isOfType(MapObject.BOOKMARK, mMapObject))
     {
       final Bookmark currentBookmark = (Bookmark) mMapObject;
-      setMapObject(Framework.nativeActivateMapObject(mMapObject.getLat(), mMapObject.getLon()), false);
+      setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), false);
       setState(State.DETAILS);
-      BookmarkManager.INSTANCE.deleteBookmark(currentBookmark);
     }
     else
     {
-      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()), false);
+      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(BookmarkManager.nativeFormatNewBookmarkName(), mMapObject.getLat(), mMapObject.getLon()), false);
       // FIXME this hack is necessary to get correct views height in animation controller. remove after further investigation.
       post(new Runnable()
       {
@@ -857,7 +858,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         if (!TextUtils.equals(from, to))
           Statistics.INSTANCE.trackColorChanged(from, to);
 
-        bmk.setParams(bmk.getName(), newIcon, bmk.getBookmarkDescription());
+        bmk.setParams(bmk.getTitle(), newIcon, bmk.getBookmarkDescription());
         bmk = BookmarkManager.INSTANCE.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
         setMapObject(bmk, false);
       }

@@ -102,7 +102,9 @@ public enum BookmarkManager
 
   public native int nativeGetLastEditedCategory();
 
-  public static native String nativeGenerateUniqueBookmarkName(String baseName);
+  public static native String nativeGenerateUniqueFileName(String baseName);
 
   public static native boolean nativeLoadKmzFile(String path);
+
+  public static native String nativeFormatNewBookmarkName();
 }

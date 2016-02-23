@@ -123,7 +123,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
       break;
 
     case BookmarkListAdapter.TYPE_BOOKMARK:
-      BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), ((Bookmark) item).getName())
+      BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), ((Bookmark) item).getTitle())
                                                       .sheet(R.menu.menu_bookmarks)
                                                       .listener(this);
       if (!ShareOption.SMS.isSupported(getActivity()))

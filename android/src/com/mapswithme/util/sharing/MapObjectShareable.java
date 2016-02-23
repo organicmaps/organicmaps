@@ -17,8 +17,8 @@ public class MapObjectShareable extends BaseShareable
     mMapObject = mapObject;
 
     final Activity activity = getActivity();
-    final String ge0Url = Framework.nativeGetGe0Url(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getName());
-    final String httpUrl = Framework.getHttpGe0Url(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getName());
+    final String ge0Url = Framework.nativeGetGe0Url(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getTitle());
+    final String httpUrl = Framework.getHttpGe0Url(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getScale(), mMapObject.getTitle());
     final String address = Framework.nativeGetNameAndAddress(mMapObject.getLat(), mMapObject.getLon());
     final int textId = MapObject.isOfType(MapObject.MY_POSITION, mMapObject) ? R.string.my_position_share_email
                                                                              : R.string.bookmark_share_email;

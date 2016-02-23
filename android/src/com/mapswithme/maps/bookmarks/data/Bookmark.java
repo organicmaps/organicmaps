@@ -24,7 +24,7 @@ public class Bookmark extends MapObject
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
-    mName = name;
+    mTitle = name;
     mIcon = getIconInternal();
     initXY();
   }
@@ -85,7 +85,7 @@ public class Bookmark extends MapObject
   }
 
   @Override
-  public String getTypeName()
+  public String getSubtitle()
   {
     // TODO get correct value
     return getCategory().getName();
@@ -116,10 +116,10 @@ public class Bookmark extends MapObject
     if (icon == null)
       icon = mIcon;
 
-    if (!name.equals(getName()) || icon != mIcon || !description.equals(getBookmarkDescription()))
+    if (!name.equals(getTitle()) || icon != mIcon || !description.equals(getBookmarkDescription()))
     {
       nativeSetBookmarkParams(mCategoryId, mBookmarkId, name, icon.getType(), description);
-      mName = name;
+      mTitle = name;
     }
   }
 

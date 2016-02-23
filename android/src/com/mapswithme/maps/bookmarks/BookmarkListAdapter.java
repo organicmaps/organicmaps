@@ -163,7 +163,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
     void setName(Bookmark bmk)
     {
-      name.setText(bmk.getName());
+      name.setText(bmk.getTitle());
     }
 
     void setName(Track trk)

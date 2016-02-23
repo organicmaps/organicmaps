@@ -16,10 +16,9 @@ public class EditorActivity extends BaseMwmFragmentActivity
     return EditorHostFragment.class;
   }
 
-  public static void start(@NonNull Activity activity, @NonNull MapObject point)
+  public static void start(@NonNull Activity activity)
   {
     final Intent intent = new Intent(activity, EditorActivity.class);
-    intent.putExtra(EditorHostFragment.EXTRA_MAP_OBJECT, point);
     activity.startActivity(intent);
   }
 }

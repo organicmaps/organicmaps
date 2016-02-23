@@ -1,15 +1,11 @@
 #include "UserMarkHelper.hpp"
 
+#include "map/place_page_info.hpp"
+
 namespace usermark_helper
 {
 using search::AddressInfo;
 using feature::Metadata;
-
-template <class T>
-T const * CastMark(UserMark const * data)
-{
-  return static_cast<T const *>(data);
-}
 
 void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, feature::Metadata const & metadata)
 {
@@ -48,41 +44,10 @@ pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, Metadat
   return make_pair(j_metaTypes, j_metaValues);
 }
 
-void FillAddressAndMetadata(UserMark const * mark, AddressInfo & info, Metadata & metadata)
+// TODO(yunikkk): displayed information does not need separate street and house.
+// There is an AddressInfo::FormatAddress() method which should be used instead.
+jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & name, double lat, double lon, string const & typeName, string const & street, string const & house, Metadata const & metadata)
 {
-  Framework * frm = g_framework->NativeFramework();
-  auto * feature = mark->GetFeature();
-  if (feature)
-  {
-    info = frm->GetFeatureAddressInfo(*feature);
-    metadata = feature->GetMetadata();
-  }
-  else
-  {
-    // Calculate at least country name for a point. Can we provide more address information?
-    info.m_country = frm->GetCountryName(mark->GetPivot());
-  }
-}
-
-jobject CreateBookmark(int categoryId, int bookmarkId, string const & typeName, Metadata const & metadata)
-{
-  JNIEnv * env = jni::GetEnv();
-  // Java signature :
-  // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String name)
-  static jmethodID const ctorId = jni::GetConstructorID(env, g_bookmarkClazz, "(IILjava/lang/String;)V");
-  jni::TScopedLocalRef name(env, jni::ToJavaString(env, typeName));
-  jobject mapObject = env->NewObject(g_bookmarkClazz, ctorId,
-                                     static_cast<jint>(categoryId),
-                                     static_cast<jint>(bookmarkId),
-                                     name.get());
-
-  InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
-  return mapObject;
-}
-
-jobject CreateMapObject(int mapObjectType, string const & name, double lat, double lon, string const & typeName, string const & street, string const & house, Metadata const & metadata)
-{
-  JNIEnv * env = jni::GetEnv();
   // Java signature :
   // public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName, String street, String house)
   static jmethodID const ctorId =
@@ -101,55 +66,43 @@ jobject CreateMapObject(int mapObjectType, string const & name, double lat, doub
   return mapObject;
 }
 
-jobject CreateMapObject(UserMark const * userMark)
+jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
-  search::AddressInfo info;
-  feature::Metadata metadata;
-  FillAddressAndMetadata(userMark, info, metadata);
-  jobject mapObject = nullptr;
-  ms::LatLon ll = userMark->GetLatLon();
-  switch (userMark->GetMarkType())
+  ms::LatLon const ll = info.GetLatLon();
+
+  if (info.IsMyPosition())
+    return CreateMapObject(env, kMyPosition, {}, ll.lat, ll.lon, {}, {}, {}, {});
+
+  // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
+  if (info.HasApiUrl())
+    return CreateMapObject(env, kApiPoint, info.GetTitle(), ll.lat, ll.lon, info.GetSubtitle(), {}, {}, info.GetMetadata());
+
+  // TODO(yunikkk): Bookmark can also be a feature.
+  if (info.IsBookmark())
   {
-    case UserMark::Type::API:
-    {
-      ApiMarkPoint const * apiMark = CastMark<ApiMarkPoint>(userMark);
-      mapObject = CreateMapObject(kApiPoint, apiMark->GetName(), ll.lat, ll.lon, apiMark->GetID(), "", "", metadata);
-      break;
-    }
-    case UserMark::Type::BOOKMARK:
-    {
-      BookmarkAndCategory bmAndCat = g_framework->NativeFramework()->FindBookmark(userMark);
-      Bookmark const * bookmark = CastMark<Bookmark>(userMark);
-      if (IsValid(bmAndCat))
-        mapObject = CreateBookmark(bmAndCat.first, bmAndCat.second, bookmark->GetName(), metadata);
-      break;
-    }
-    case UserMark::Type::POI:
-    {
-      // TODO(AlexZ): Refactor out passing custom name for shared links.
-      auto const & cn = CastMark<PoiMarkPoint>(userMark)->GetCustomName();
-      if (!cn.empty())
-        info.m_name = cn;
-      mapObject = CreateMapObject(kPoi, info.GetPinName(), ll.lat, ll.lon, info.GetPinType(), info.m_street, info.m_house, metadata);
-      break;
-    }
-    case UserMark::Type::SEARCH:
-    {
-      mapObject = CreateMapObject(kSearch, info.GetPinName(), ll.lat, ll.lon, info.GetPinType(), info.m_street, info.m_house, metadata);
-      break;
-    }
-    case UserMark::Type::MY_POSITION:
-    {
-      mapObject = CreateMapObject(kMyPosition, "", ll.lat, ll.lon, "", "", "", metadata);
-      break;
-    }
-    case UserMark::Type::DEBUG_MARK:
-    {
-      // Ignore clicks to debug marks.
-      break;
-    }
+    // Java signature :
+    // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String name)
+    static jmethodID const ctorId = jni::GetConstructorID(env, g_bookmarkClazz, "(IILjava/lang/String;)V");
+    jni::TScopedLocalRef jName(env, jni::ToJavaString(env, info.GetTitle()));
+    jobject mapObject = env->NewObject(g_bookmarkClazz, ctorId,
+                                       static_cast<jint>(info.m_bac.first),
+                                       static_cast<jint>(info.m_bac.second),
+                                       jName.get());
+    if (info.IsFeature())
+      InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
+    return mapObject;
   }
 
-  return mapObject;
+  Framework * frm = g_framework->NativeFramework();
+  if (info.IsFeature())
+  {
+    search::AddressInfo const address = frm->GetFeatureAddressInfo(info.GetID());
+    // TODO(yunikkk): Pass address.FormatAddress() to UI instead of separate house and street.
+    // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
+    return CreateMapObject(env, kPoi, info.GetTitle(), ll.lat, ll.lon, info.GetSubtitle(), address.m_street,
+                           address.m_house, info.GetMetadata());
+  }
+  // User have selected an empty place on a map with a long tap.
+  return CreateMapObject(env, kPoi, info.GetTitle(), ll.lat, ll.lon, info.GetSubtitle(), {}, {}, {});
 }
 }  // namespace usermark_helper

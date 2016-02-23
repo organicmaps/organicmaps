@@ -14,6 +14,8 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 
+// TODO(yunikkk): Refactor. Displayed information is different from edited information, and it's better to
+// separate them. Simple getters from jni place_page::Info and osm::EditableFeature should be enough.
 public class MapObject implements Parcelable
 {
   @Retention(RetentionPolicy.SOURCE)
@@ -28,10 +30,10 @@ public class MapObject implements Parcelable
 
   @MapObjectType protected final int mMapObjectType;
 
-  protected String mName;
+  protected String mTitle;
   protected double mLat;
   protected double mLon;
-  protected String mTypeName;
+  protected String mSubtitle;
   protected String mStreet;
   protected String mHouseNumber;
   protected Metadata mMetadata;
@@ -48,14 +50,14 @@ public class MapObject implements Parcelable
   public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName, String street, String house, Metadata metadata)
   {
     mMapObjectType = mapObjectType;
-    mName = name;
+    mTitle = name;
     mLat = lat;
     mLon = lon;
-    mTypeName = typeName;
+    mSubtitle = typeName;
     mStreet = street;
     mHouseNumber = house;
     mMetadata = metadata;
-    mIsDroppedPin = TextUtils.isEmpty(mName);
+    mIsDroppedPin = TextUtils.isEmpty(mTitle);
   }
 
   protected MapObject(Parcel source)
@@ -76,12 +78,12 @@ public class MapObject implements Parcelable
 
   public void setDefaultIfEmpty()
   {
-    if (TextUtils.isEmpty(mName))
-      mName = TextUtils.isEmpty(mTypeName) ? MwmApplication.get().getString(R.string.dropped_pin)
-                                           : mTypeName;
+    if (TextUtils.isEmpty(mTitle))
+      mTitle = TextUtils.isEmpty(mSubtitle) ? MwmApplication.get().getString(R.string.dropped_pin)
+                                           : mSubtitle;
 
-    if (TextUtils.isEmpty(mTypeName))
-      mTypeName = MwmApplication.get().getString(R.string.placepage_unsorted);
+    if (TextUtils.isEmpty(mSubtitle))
+      mSubtitle = MwmApplication.get().getString(R.string.placepage_unsorted);
   }
 
   /**
@@ -103,8 +105,8 @@ public class MapObject implements Parcelable
 
     return Double.doubleToLongBits(mLon) == Double.doubleToLongBits(other.mLon) &&
            Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat) &&
-           TextUtils.equals(mName, other.mName) &&
-           TextUtils.equals(mTypeName, other.mTypeName);
+           TextUtils.equals(mTitle, other.mTitle) &&
+           TextUtils.equals(mSubtitle, other.mSubtitle);
   }
 
   public static boolean same(MapObject one, MapObject another)
@@ -118,13 +120,13 @@ public class MapObject implements Parcelable
 
   public double getScale() { return 0; }
 
-  public String getName() { return mName; }
+  public String getTitle() { return mTitle; }
 
   public double getLat() { return mLat; }
 
   public double getLon() { return mLon; }
 
-  public String getTypeName() { return mTypeName; }
+  public String getSubtitle() { return mSubtitle; }
 
   public boolean getIsDroppedPin()
   {
@@ -142,16 +144,15 @@ public class MapObject implements Parcelable
    * @return properly formatted and translated cuisine string.
    */
   @NonNull
-  public String getFormattedCuisine()
+  static public String formatCuisine(String rawOsmCuisineValue)
   {
-    final String rawCuisines = mMetadata.getMetadata(Metadata.MetadataType.FMD_CUISINE);
-    if (TextUtils.isEmpty(rawCuisines))
+    if (TextUtils.isEmpty(rawOsmCuisineValue))
       return "";
 
     final StringBuilder result = new StringBuilder();
     // search translations for each cuisine
     final Resources resources = MwmApplication.get().getResources();
-    for (String rawCuisine : Metadata.splitCuisines(rawCuisines))
+    for (String rawCuisine : Metadata.splitCuisines(rawOsmCuisineValue))
     {
       int resId = resources.getIdentifier(Metadata.osmCuisineToStringName(Metadata.normalizeCuisine(rawCuisine)), "string", BuildConfig.APPLICATION_ID);
       if (result.length() > 0)
@@ -185,7 +186,7 @@ public class MapObject implements Parcelable
 
   public void setName(String name)
   {
-    mName = name;
+    mTitle = name;
   }
 
   public void setHouseNumber(String houseNumber)
@@ -205,7 +206,7 @@ public class MapObject implements Parcelable
 
   public void setTypeName(String typeName)
   {
-    mTypeName = typeName;
+    mSubtitle = typeName;
   }
 
   public void addMetadata(Metadata.MetadataType type, String value)
@@ -254,10 +255,10 @@ public class MapObject implements Parcelable
   {
     dest.writeInt(mMapObjectType); // write map object type twice - first int is used to distinguish created object (MapObject or Bookmark)
     dest.writeInt(mMapObjectType);
-    dest.writeString(mName);
+    dest.writeString(mTitle);
     dest.writeDouble(mLat);
     dest.writeDouble(mLon);
-    dest.writeString(mTypeName);
+    dest.writeString(mSubtitle);
     dest.writeString(mStreet);
     dest.writeString(mHouseNumber);
     dest.writeParcelable(mMetadata, 0);

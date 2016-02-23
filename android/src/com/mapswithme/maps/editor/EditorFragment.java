@@ -20,8 +20,6 @@ import com.mapswithme.util.UiUtils;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener
 {
-  private MapObject mEditedPoi;
-
   private View mNameBlock;
   private View mAddressBlock;
   private View mMetadataBlock;
@@ -62,19 +60,16 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     initViews(view);
 
-    mEditedPoi = getArguments().getParcelable(EditorHostFragment.EXTRA_MAP_OBJECT);
-    if (mEditedPoi == null)
-      throw new IllegalStateException("Valid MapObject should be passed to edit it.");
-    mEtName.setText(mEditedPoi.getName());
-    // TODO read names
-    //    mTvLocalizedNames.setText();
-    mTvStreet.setText(mEditedPoi.getStreet());
-    mEtHouseNumber.setText(mEditedPoi.getHouseNumber());
-    mEtPhone.setText(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
-    mEtWebsite.setText(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_WEBSITE));
-    mEtEmail.setText(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_EMAIL));
-    mTvCuisine.setText(mEditedPoi.getFormattedCuisine());
-    mSwWifi.setChecked(!TextUtils.isEmpty(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_INTERNET)));
+    // TODO(yunikkk): Add multilanguages support.
+    mEtName.setText(Editor.nativeGetDefaultName());
+    mTvStreet.setText(Editor.nativeGetStreet());
+    mEtHouseNumber.setText(Editor.nativeGetHouseNumber());
+    mEtPhone.setText(Editor.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
+    mEtWebsite.setText(Editor.getMetadata(Metadata.MetadataType.FMD_WEBSITE));
+    mEtEmail.setText(Editor.getMetadata(Metadata.MetadataType.FMD_EMAIL));
+    // TODO(AlexZ): Localize cuisines in the core.
+    mTvCuisine.setText(MapObject.formatCuisine(Editor.getMetadata(Metadata.MetadataType.FMD_CUISINE)));
+    mSwWifi.setChecked(Editor.nativeHasWifi());
     refreshOpeningTime();
 
     refreshEditableFields();
@@ -118,12 +113,12 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   public String getWifi()
   {
-    return mSwWifi.isChecked() ? "Yes" : "";
+    return mSwWifi.isChecked() ? "wlan" : "";
   }
 
   public String getOpeningHours()
   {
-    return mEditedPoi.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    return Editor.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
   }
 
   public Metadata getMetadata()
@@ -143,7 +138,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     UiUtils.showIf(Editor.nativeIsNameEditable(), mNameBlock);
     UiUtils.showIf(Editor.nativeIsAddressEditable(), mAddressBlock);
 
-    final int[] editableMeta = Editor.nativeGetEditableMetadata();
+    final int[] editableMeta = Editor.nativeGetEditableFields();
     if (editableMeta.length == 0)
     {
       UiUtils.hide(mMetadataBlock);
@@ -189,7 +184,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void refreshOpeningTime()
   {
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(mEditedPoi.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
+    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(Editor.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
     if (timetables == null)
     {
       UiUtils.show(mEmptyOpeningHours);

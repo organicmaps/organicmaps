@@ -3,6 +3,7 @@
 #include <jni.h>
 
 #include "map/framework.hpp"
+#include "map/place_page_info.hpp"
 
 #include "search/result.hpp"
 
@@ -49,7 +50,7 @@ namespace android
 
     bool m_isChoosePositionMode;
 
-    UserMark const * m_activeUserMark;
+    place_page::Info m_info;
 
   public:
     Framework();
@@ -112,7 +113,6 @@ namespace android
 
     void Scale(::Framework::EScaleMode mode);
 
-    BookmarkAndCategory AddBookmark(size_t category, m2::PointD const & pt, BookmarkData & bm);
     void ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & bm);
     size_t ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat);
 
@@ -146,8 +146,8 @@ namespace android
     // Posts a task which must be executed when Drape Engine is alive.
     void PostDrapeTask(TDrapeTask && task);
 
-    void SetActiveUserMark(UserMark const * mark);
-    UserMark const * GetActiveUserMark();
+    void SetPlacePageInfo(place_page::Info const & info);
+    place_page::Info & GetPlacePageInfo();
 
     bool HasSpaceForMigration();
     bool NeedMigrate();
