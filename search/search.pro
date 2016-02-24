@@ -53,6 +53,7 @@ HEADERS += \
     v2/locality_scorer.hpp \
     v2/mwm_context.hpp \
     v2/rank_table_cache.hpp \
+    v2/ranking_utils.hpp \
     v2/search_model.hpp \
     v2/search_query_v2.hpp \
     v2/stats_cache.hpp \
@@ -92,6 +93,7 @@ SOURCES += \
     v2/locality_scorer.cpp \
     v2/mwm_context.cpp \
     v2/rank_table_cache.cpp \
+    v2/ranking_utils.cpp \
     v2/search_model.cpp \
     v2/search_query_v2.cpp \
     v2/street_vicinity_loader.cpp \

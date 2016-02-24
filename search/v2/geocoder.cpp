@@ -141,6 +141,38 @@ class LazyRankTable : public RankTable
   mutable unique_ptr<search::RankTable> m_table;
 };
 
+class LocalityScorerDelegate : public LocalityScorer::Delegate
+{
+public:
+  LocalityScorerDelegate(MwmContext const & context)
+    : m_context(context), m_ranks(m_context.m_value)
+  {
+  }
+
+  // LocalityScorer::Delegate overrides:
+  void GetNames(uint32_t featureId, vector<string> & names) const override
+  {
+    static vector<int8_t> const kLangs = {StringUtf8Multilang::GetLangIndex("en"),
+                                          StringUtf8Multilang::GetLangIndex("int_name"),
+                                          StringUtf8Multilang::GetLangIndex("default")};
+
+    FeatureType ft;
+    m_context.GetFeature(featureId, ft);
+    for (auto const & lang : kLangs)
+    {
+      string name;
+      if (ft.GetName(lang, name))
+        names.push_back(name);
+    }
+  }
+
+  uint8_t GetRank(uint32_t featureId) const override { return m_ranks.Get(featureId); }
+
+private:
+  MwmContext const & m_context;
+  LazyRankTable m_ranks;
+};
+
 class StreetCategories
 {
 public:
@@ -661,9 +693,9 @@ void Geocoder::FillLocalityCandidates(coding::CompressedBitVector const * filter
     }
   }
 
-  LazyRankTable rankTable(m_context->m_value);
-  LocalityScorer scorer(rankTable, m_params);
-  scorer.LeaveTopLocalities(maxNumLocalities, preLocalities);
+  LocalityScorerDelegate delegate(*m_context);
+  LocalityScorer scorer(m_params, delegate);
+  scorer.GetTopLocalities(maxNumLocalities, preLocalities);
 }
 
 void Geocoder::FillLocalitiesTable()
@@ -1381,8 +1413,8 @@ size_t Geocoder::SkipUsedTokens(size_t curToken) const
 string DebugPrint(Geocoder::Locality const & locality)
 {
   ostringstream os;
-  os << "Locality [" << DebugPrint(locality.m_countryId) << ", " << locality.m_featureId << ", "
-     << locality.m_startToken << ", " << locality.m_endToken << "]";
+  os << "Locality [" << DebugPrint(locality.m_countryId) << ", featureId=" << locality.m_featureId
+     << ", startToken=" << locality.m_startToken << ", endToken=" << locality.m_endToken << "]";
   return os.str();
 }
 }  // namespace v2
