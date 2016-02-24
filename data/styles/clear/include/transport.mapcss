@@ -219,6 +219,15 @@ line|z16-[railway=abandoned]
 
 /* FUNICULAR */
 
+line|z12[railway=funicular]
+{
+  color: @railway;
+  opacity: 1;
+  width: 1.4;
+  z-index: 950;
+}
+
+
 line|z13-14[railway=funicular]
 {
   color: @railway;
@@ -238,6 +247,13 @@ line|z15-[railway=funicular]
 
 /* TRAM LINES */
 
+line|z13-14[railway=tram]
+{
+  color: @tram;
+  opacity: 1;
+  width: 0.6;
+  z-index: 950;
+}
 
 line|z15[railway=tram]
 {
@@ -321,9 +337,14 @@ node|z17-[highway=motorway_junction]
 
 /* TRAIN STATIONS */
 
-node|z12[railway=halt],
-{
-  icon-image: train-s.svg;
+node|z11[railway=halt],  {
+	icon-image: train-s.svg;
+	z-index: 2800;
+  icon-min-distance: 10;
+}
+
+node|z12[railway=halt]  {
+	icon-image: train-s.svg;
   text-offset: 6;
   z-index: 2800;
   font-size: 9;
@@ -486,7 +507,11 @@ area|z17-[building=train_station]::int_name,
 
 /* SUBWAY STATIONS - GENERIC STYLES  */
 
-
+node|z13[railway=station][transport=subway] {
+	icon-image: subway-s.svg;
+	z-index: 2900;
+  icon-min-distance: 1;
+}
 node|z14[railway=station][transport=subway] {
 	icon-image: subway-s.svg;
   text-offset: 6;
@@ -497,6 +522,7 @@ node|z14[railway=station][transport=subway] {
   text-halo-radius: 1;
   text-halo-opacity: 0.7;
   text-halo-color: @label_halo_light;
+  icon-min-distance: 1;
 }
 node|z14[railway=station][transport=subway]::int_name {
 	icon-image: subway-s.svg;
@@ -508,6 +534,7 @@ node|z14[railway=station][transport=subway]::int_name {
   text-halo-radius: 1;
   text-halo-opacity: 0.7;
   text-halo-color: @label_halo_light;
+  icon-min-distance: 1;
 }
 node|z15[railway=station][transport=subway] {
 	icon-image: subway-m.svg;
@@ -583,7 +610,7 @@ node|z18-[railway=subway_entrance]::int_name { text-offset: 8; font-size: 11; te
 /*  MOSCOW SUBWAY   */
 
 node|z11[railway=station][transport=subway][city=moscow]
-{ icon-image: subway-moscow-s.svg; z-index: 2900; }
+{ icon-image: subway-moscow-s.svg; z-index: 2900; icon-min-distance: 1;}
 
 node|z12-13[railway=station][transport=subway][city=moscow]
 {
@@ -596,6 +623,7 @@ node|z12-13[railway=station][transport=subway][city=moscow]
   text-halo-radius: 1;
   text-halo-opacity:0.7;
   text-halo-color: @label_halo_light;
+  icon-min-distance: 1;
 }
 
 node|z12-13[railway=station][transport=subway][city=moscow]::int_name {
@@ -651,11 +679,12 @@ node|z11[railway=station][transport=subway][city=spb]
  {
    icon-image: subway-spb-s.svg;
     z-index: 2900;
+     icon-min-distance: 1;
   }
 node|z12[railway=station][transport=subway][city=spb]
 {
   icon-image: subway-spb-s.svg;
-  text-offset: 8;
+  text-offset: 6;
   z-index: 2900;
   font-size: 10;
   text: name;
@@ -680,7 +709,7 @@ node|z12[railway=station][transport=subway][city=spb]::int_name
 node|z13[railway=station][transport=subway][city=spb]
 {
    icon-image: subway-spb-s.svg;
-   text-offset: 8;
+   text-offset: 6;
    z-index: 2900;
    font-size: 11;
    text: name;
@@ -717,7 +746,6 @@ node|z16[railway=station][transport=subway][city=spb]
 node|z16[railway=station][transport=subway][city=spb]::int_name
 { font-size: 9; text: int_name; text-color: @district_label; text-halo-radius: 0;z-index: 2900 }
 
-
 node|z17-[railway=station][transport=subway][city=spb]
 {  icon-image: subway-spb-m.svg; font-size: 10; text: name; text-color: @district_label; text-halo-radius: 0; z-index: 2900}
 node|z17-[railway=station][transport=subway][city=spb]::int_name
@@ -739,7 +767,7 @@ node|z18-[railway=subway_entrance][city=spb]::int_name
 { z-index: 2800; font-size: 12; text: int_name; text-color: @label_dark; text-halo-radius: 1; text-halo-opacity: 0.8; text-halo-color: @label_halo_light; }
 
 /* LONDON ICONS */
-node|z13[railway=station][transport=subway][city=london] { icon-image: subway-london-s.svg; }
+node|z13[railway=station][transport=subway][city=london] { icon-image: subway-london-s.svg; icon-min-distance: 1; }
 node|z14[railway=station][transport=subway][city=london] { icon-image: subway-london-s.svg; }
 node|z15[railway=station][transport=subway][city=london] { icon-image: subway-london-m.svg; }
 node|z16-[railway=station][transport=subway][city=london] { icon-image: subway-london-m.svg; }
@@ -747,7 +775,7 @@ node|z17[railway=subway_entrance][city=london] { icon-image: subway-london-s.svg
 node|z18-[railway=subway_entrance][city=london] { icon-image: subway-london-m.svg; }
 
 /* PARIS ICONS */
-node|z13[railway=station][transport=subway][city=paris] { icon-image: subway-paris-s.svg; }
+node|z13[railway=station][transport=subway][city=paris] { icon-image: subway-paris-s.svg; icon-min-distance: 1; }
 node|z14[railway=station][transport=subway][city=paris] { icon-image: subway-paris-s.svg; }
 node|z15[railway=station][transport=subway][city=paris] { icon-image: subway-paris-m.svg; }
 node|z16-[railway=station][transport=subway][city=paris] { icon-image: subway-paris-m.svg; }
@@ -755,7 +783,7 @@ node|z17-[railway=subway_entrance][city=paris] { icon-image: subway-paris-s.svg;
 
 /* BARCELONA ICONS */
 
-node|z13[railway=station][transport=subway][city=barcelona] { icon-image: subway-barcelona-s.svg; }
+node|z13[railway=station][transport=subway][city=barcelona] { icon-image: subway-barcelona-s.svg;  icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=barcelona] { icon-image: subway-barcelona-s.svg; }
 node|z15[railway=station][transport=subway][city=barcelona] { icon-image: subway-barcelona-m.svg; }
 node|z16-[railway=station][transport=subway][city=barcelona] { icon-image: subway-barcelona-m.svg; }
@@ -764,6 +792,7 @@ node|z18-[railway=subway_entrance][city=barcelona] { icon-image: subway-barcelon
 
 
 /* MADRID ICONS */
+node|z13[railway=station][transport=subway][city=madrid] { icon-image: subway-madrid-s.svg; icon-min-distance: 1; }
 node|z14[railway=station][transport=subway][city=madrid] { icon-image: subway-madrid-s.svg; }
 node|z15[railway=station][transport=subway][city=madrid] { icon-image: subway-madrid-m.svg; }
 node|z16-[railway=station][transport=subway][city=madrid] { icon-image: subway-madrid-m.svg; }
@@ -771,12 +800,14 @@ node|z17[railway=subway_entrance][city=madrid] { icon-image: subway-madrid-s.svg
 node|z18-[railway=subway_entrance][city=madrid] { icon-image: subway-madrid-m.svg; }
 
 /* BERLIN ICONS */
+node|z13[railway=station][transport=subway][city=berlin] { icon-image: subway-berlin-s.svg; icon-min-distance: 1; }
 node|z14[railway=station][transport=subway][city=berlin] { icon-image: subway-berlin-s.svg; }
 node|z15[railway=station][transport=subway][city=berlin] { icon-image: subway-berlin-m.svg; }
 node|z16-[railway=station][transport=subway][city=berlin] { icon-image: subway-berlin-m.svg; }
 node|z17-[railway=subway_entrance][city=berlin] { icon-image: subway-berlin-s.svg; }
 
 /* ROMA ICONS */
+node|z13[railway=station][transport=subway][city=roma] { icon-image: subway-rome-s.svg; icon-min-distance: 1; }
 node|z14[railway=station][transport=subway][city=roma] { icon-image: subway-rome-s.svg; }
 node|z15[railway=station][transport=subway][city=roma] { icon-image: subway-rome-m.svg; }
 node|z16[railway=station][transport=subway][city=roma] { icon-image: subway-rome-m.svg; }
@@ -784,7 +815,7 @@ node|z17-[railway=station][transport=subway][city=roma] { icon-image: none.svg; 
 node|z17-[railway=subway_entrance][city=roma] { icon-image: subway-rome-m.svg; }
 
 /* MINSK ICONS */
-node|z13[railway=station][transport=subway][city=minsk] { icon-image: subway-minsk-s.svg; text-offset: 4; z-index: 2800; font-size: 10; text: name; text-color: @label_dark; text-halo-radius: 1; text-halo-opacity: 0.7; text-halo-color: @label_halo_light;  }
+node|z13[railway=station][transport=subway][city=minsk] { icon-image: subway-minsk-s.svg; text-offset: 4; z-index: 2800; font-size: 10; text: name; text-color: @label_dark; text-halo-radius: 1; text-halo-opacity: 0.7; text-halo-color: @label_halo_light;  icon-min-distance: 1; }
 node|z14[railway=station][transport=subway][city=minsk] { icon-image: subway-minsk-s.svg; text-offset: 5; }
 node|z15[railway=station][transport=subway][city=minsk] { icon-image: subway-minsk-m.svg; text-offset: 5; }
 node|z16[railway=station][transport=subway][city=minsk] { icon-image: none.svg; font-size: 10; text: name; text-color: @district_label; text-halo-radius: 0; }
@@ -795,7 +826,7 @@ node|z18-[railway=subway_entrance][city=minsk] { icon-image: subway-minsk-m.svg;
 
 
 /* KIEV ICONS */
-node|z13[railway=station][transport=subway][city=kiev] { icon-image: subway-kiev-s.svg; text-offset: 8;	z-index: 2; font-size: 10; text: name; text-color: @label_dark; text-halo-radius: 1; text-halo-opacity: 0.7; text-halo-color: @label_halo_light; }
+node|z13[railway=station][transport=subway][city=kiev] { icon-image: subway-kiev-s.svg; text-offset: 8;	z-index: 2; font-size: 10; text: name; text-color: @label_dark; text-halo-radius: 1; text-halo-opacity: 0.7; text-halo-color: @label_halo_light; icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=kiev] { icon-image: subway-kiev-s.svg; }
 node|z15[railway=station][transport=subway][city=kiev] { icon-image: subway-kiev-m.svg; }
 node|z16-[railway=station][transport=subway][city=kiev]  { icon-image: none.svg; font-size: 10; text: name; text-color: @district_label; text-halo-radius: 0; }
@@ -804,7 +835,7 @@ node|z17[railway=subway_entrance][city=kiev] { icon-image: subway-kiev-m.svg; fo
 node|z18-[railway=subway_entrance][city=kiev] { icon-image: subway-kiev-m.svg; font-size: 13; }
 
 /* NEW YORK ICONS */
-node|z13[railway=station][transport=subway][city=newyork] { icon-image: subway-newyork-s.svg; }
+node|z13[railway=station][transport=subway][city=newyork] { icon-image: subway-newyork-s.svg; icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=newyork] { icon-image: subway-newyork-s.svg; }
 node|z15[railway=station][transport=subway][city=newyork] { icon-image: subway-newyork-m.svg; }
 node|z16-[railway=station][transport=subway][city=newyork] { icon-image: subway-newyork-l.svg; }
@@ -812,7 +843,11 @@ node|z17-[railway=subway_entrance][city=newyork] { icon-image: subway-newyork-s.
 
 
 /* TRAM STOPS */
-
+node|z14[railway=tram_stop],
+{
+  icon-image: tram-s.svg;
+  z-index: 2800;
+}
 
 node|z15-16[railway=tram_stop],
 area|z15-16[railway=tram_stop]
@@ -878,6 +913,13 @@ area|z18-[railway=tram_stop]::int_name
 
 /* BUS STOPS */
 
+node|z15[highway=bus_stop],
+area|z15[highway=bus_stop]
+{
+  icon-image: bus-m.svg;
+  z-index: 2700;
+  icon-min-distance: 15;
+}
 
 node|z16[highway=bus_stop],
 area|z16[highway=bus_stop]
@@ -932,10 +974,26 @@ area|z18-19[public_transport=station]::int_name
   text-halo-color: @label_halo_light;
 }
 
-node|z15[amenity=bus_station], area|z16-[amenity=bus_station] {
-  icon-image: bus-m.svg;
+node|z12-13[amenity=bus_station], area|z16-[amenity=bus_station] {
+  icon-image: bus-s.svg;
+  z-index: 2700;
+  icon-min-distance: 1;
+
 }
-node|z16[amenity=bus_station], area|z16-[amenity=bus_station] {
+
+node|z14[amenity=bus_station], area|z16-[amenity=bus_station] {
+  icon-image: bus-s.svg;
+  z-index: 2700;
+  text-offset: 6;
+  font-size: 10;
+  z-index: 2700;
+  text: name;
+  text-color: @label_dark;
+  text-halo-radius: 1;
+  text-halo-opacity: 0.8;
+  text-halo-color: @label_halo_light;
+}
+node|z15-16[amenity=bus_station], area|z16-[amenity=bus_station] {
   icon-image: bus-m.svg;
   text-offset: 8;
   font-size: 11;
@@ -1027,7 +1085,13 @@ node|z19-[amenity=bus_station]::int_name, area|z19-[amenity=bus_station]::int_na
 }
 /* FERRY */
 
-node|z14[amenity=ferry_terminal] {
+node|z11-12[amenity=ferry_terminal] {
+  icon-image: ship-s.svg;
+  z-index: 2700;
+  icon-min-distance: 12;
+}
+
+node|z13-14[amenity=ferry_terminal] {
   icon-image: ship-s.svg;
   z-index: 2700;
 }
@@ -1404,6 +1468,24 @@ line|z15-[aeroway=taxiway] { width: 1.2; opacity: 0.6; color: @unclassified;z-in
 
 /* AERIALWAYS */
 
+line|z12-13[aerialway=cable_car],
+line|z12-13[aerialway=chair_lift],
+line|z12-13[aerialway=gondola],
+line|z12-13[aerialway=mixed_lift],
+line|z12-13[aerialway=drag_lift],
+line|z12-13[aerialway=j-bar],
+line|z12-13[aerialway=t-bar],
+line|z12-13[aerialway=magic_carpet],
+line|z12-13[aerialway=platter],
+line|z12-13[aerialway=rope_tow],
+ {
+  color: @aerialway;
+  width: 0.5;
+  opacity: 1;
+  z-index: 1050;
+}
+
+
 line|z14-15[aerialway=cable_car],
 line|z14-15[aerialway=chair_lift],
 line|z14-15[aerialway=gondola],
@@ -1453,6 +1535,23 @@ line|z17-[aerialway=rope_tow],
   width: 1;
   z-index: 1050;
 }
+line|z12-13[aerialway=cable_car]::dash,
+line|z12-13[aerialway=chair_lift]::dash,
+line|z12-13[aerialway=gondola]::dash,
+line|z12-13[aerialway=mixed_lift]::dash,
+line|z12-13[aerialway=drag_lift] ::dash,
+line|z12-13[aerialway=j-bar]::dash,
+line|z12-13[aerialway=t-bar]::dash,
+line|z12-13[aerialway=magic_carpet]::dash,
+line|z12-13[aerialway=platter]::dash,
+line|z12-13[aerialway=rope_tow]::dash,
+ {
+  color: @aerialway;
+  width: 2;
+  opacity: 0.6;
+  z-index: 1049;
+  dashes: 0.9,18;
+}
 
 line|z14[aerialway=cable_car]::dash,
 line|z14[aerialway=chair_lift]::dash,
@@ -1488,6 +1587,25 @@ line|z15-[aerialway=rope_tow]::dash,
   z-index: 1049;
   dashes: 0.9,18;
 }
+
+
+node|z12[aerialway=station],
+node|z12[aerialway=cable_car],
+node|z12[aerialway=chair_lift],
+node|z12[aerialway=gondola],
+node|z12[aerialway=mixed_lift]
+ { icon-image: cable-car-s.svg;
+  z-index: 2600;
+  icon-min-distance: 10;}
+
+node|z13[aerialway=station],
+node|z13[aerialway=cable_car],
+node|z13[aerialway=chair_lift],
+node|z13[aerialway=gondola],
+node|z13[aerialway=mixed_lift]
+   { icon-image: cable-car-s.svg;
+    z-index: 2600;
+    icon-min-distance: 10;}
 
 node|z14[aerialway=station],
 node|z14[aerialway=cable_car],
