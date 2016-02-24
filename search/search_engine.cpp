@@ -208,21 +208,24 @@ void Engine::MainLoop(Query & query, queue<TTask> & tasks, queue<TTask> & broadc
     if (m_shutdown)
       break;
 
-    TTask task;
-    if (!broadcast.empty())
+    queue<TTask> ts;
+    // Execute all broadcast tasks at once.
+    ts.swap(broadcast);
+
+    if (!tasks.empty())
     {
-      task = move(broadcast.front());
-      broadcast.pop();
-    }
-    else
-    {
-      task = move(tasks.front());
+      // Execute only first task from the common pool.
+      ts.push(move(tasks.front()));
       tasks.pop();
     }
 
     lock.unlock();
 
-    task(query);
+    while (!ts.empty())
+    {
+      ts.front()(query);
+      ts.pop();
+    }
   }
 }
 

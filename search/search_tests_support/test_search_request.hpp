@@ -30,8 +30,8 @@ public:
   void Wait();
 
   // Call these functions only after call to Wait().
-  inline steady_clock::duration ResponseTime() const { return m_endTime - m_startTime; }
-  inline vector<search::Result> const & Results() const { return m_results; }
+  steady_clock::duration ResponseTime() const;
+  vector<search::Result> const & Results() const;
 
 private:
   void OnStarted();

@@ -31,6 +31,20 @@ void TestSearchRequest::Wait()
   });
 }
 
+steady_clock::duration TestSearchRequest::ResponseTime() const
+{
+  lock_guard<mutex> lock(m_mu);
+  CHECK(m_done, ("This function may be called only when request is processed."));
+  return m_endTime - m_startTime;
+}
+
+vector<search::Result> const & TestSearchRequest::Results() const
+{
+  lock_guard<mutex> lock(m_mu);
+  CHECK(m_done, ("This function may be called only when request is processed."));
+  return m_results;
+}
+
 void TestSearchRequest::OnStarted()
 {
   lock_guard<mutex> lock(m_mu);
