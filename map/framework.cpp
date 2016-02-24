@@ -247,7 +247,7 @@ bool Framework::PreMigrate(ms::LatLon const & position,
   Storage().PrefetchMigrateData();
 
   auto const infoGetter =
-      storage::CountryInfoReader::CreateCountryInfoReaderTwoComponentMwms(GetPlatform());
+      storage::CountryInfoReader::CreateCountryInfoReaderOneComponentMwms(GetPlatform());
 
   TCountryId currentCountryId =
       infoGetter->GetRegionCountryId(MercatorBounds::FromLatLon(position));
