@@ -1,6 +1,7 @@
 package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -10,8 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.settings.MiscPrefsFragment;
+import com.mapswithme.maps.settings.SettingsActivity;
+import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
 public class ProfileFragment extends AuthFragment implements View.OnClickListener
 {
@@ -22,6 +27,22 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
   protected TextView mEditsSentDate;
   protected View mLogout;
   private View mAuthBlock;
+
+  @Override
+  protected ToolbarController onCreateToolbarController(@NonNull View root)
+  {
+    return new ToolbarController(root, getActivity())
+    {
+      @Override
+      public void onUpClick()
+      {
+        final Bundle extras = new Bundle();
+        // Hack to open proper fragment in settings.
+        extras.putString(SettingsActivity.EXTRA_SHOW_FRAGMENT, MiscPrefsFragment.class.getName());
+        Utils.navigateToParent(mActivity, extras);
+      }
+    };
+  }
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)

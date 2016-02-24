@@ -73,7 +73,7 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
               .setPositiveButton(getString(R.string.ok), null)
               .show();
         else
-          ((SettingsActivity)getActivity()).switchToFragment(StoragePathFragment.class, R.string.maps_storage);
+          getSettingsActivity().switchToFragment(StoragePathFragment.class, R.string.maps_storage);
 
         return true;
       }

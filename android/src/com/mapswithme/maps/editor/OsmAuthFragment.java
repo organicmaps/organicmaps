@@ -19,6 +19,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
@@ -94,6 +95,7 @@ public class OsmAuthFragment extends BaseAuthFragment implements View.OnClickLis
 
   private void login()
   {
+    InputUtils.hideKeyboard(mEtLogin);
     final String username = mEtLogin.getText().toString();
     final String password = mEtPassword.getText().toString();
     enableInput(false);

@@ -31,4 +31,9 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragment
     org.alohalytics.Statistics.logEvent("$onPause", getClass().getSimpleName() + ":" +
                                                     UiUtils.deviceOrientationAsString(getActivity()));
   }
+
+  protected SettingsActivity getSettingsActivity()
+  {
+    return (SettingsActivity) getActivity();
+  }
 }

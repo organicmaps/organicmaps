@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-  android:id="@+id/ll__place_editor"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_editor"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?attr/clickableBackground"
@@ -10,12 +10,15 @@
   android:orientation="horizontal"
   android:paddingBottom="@dimen/margin_half"
   android:paddingTop="@dimen/margin_half">
+
   <ImageView
     style="@style/PlacePageMetadataIcon"
-    android:src="@drawable/ic_edit"/>
+    android:src="@drawable/ic_edit"
+    android:tint="?colorAccent"/>
 
   <TextView
     android:id="@+id/tv__editor"
     style="@style/PlacePageMetadataText"
-    tools:text="@string/pp_place_add"/>
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"
+    tools:text="@string/edit_place"/>
 </LinearLayout>

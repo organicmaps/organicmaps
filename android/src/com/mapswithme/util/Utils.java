@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
@@ -320,6 +321,13 @@ public class Utils
       ((CustomNavigateUpListener) activity).customOnNavigateUp();
     else
       NavUtils.navigateUpFromSameTask(activity);
+  }
+
+  public static void navigateToParent(@NonNull Activity activity, @NonNull Bundle extras)
+  {
+    final Intent intent = NavUtils.getParentActivityIntent(activity);
+    intent.putExtras(extras);
+    NavUtils.navigateUpTo(activity, intent);
   }
 
   public static SpannableStringBuilder formatUnitsText(@DimenRes int size, @DimenRes int units, String dimension, String unitText)
