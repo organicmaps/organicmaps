@@ -192,11 +192,12 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
     // TODO (trashkalmar): Countries near me
 
     // Downloaded
-    vector<TCountryId> children;
-    storage.GetDownloadedChildren(parentId, children);
-    PutItemsToList(env, result, children, parentId, ItemCategory::DOWNLOADED);
+    TCountriesVec downloaded, available;
+    storage.GetChildrenInGroups(parentId, downloaded, available);
+    PutItemsToList(env, result, downloaded, parentId, ItemCategory::DOWNLOADED);
 
     // All
+    TCountriesVec children;
     storage.GetChildren(parentId, children);
     PutItemsToList(env, result, children, parentId, ItemCategory::ALL);
   }
