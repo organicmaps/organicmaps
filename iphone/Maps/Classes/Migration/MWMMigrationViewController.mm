@@ -34,13 +34,12 @@ using namespace storage;
 
 - (void)checkState
 {
-  MWMMigrationView * mv = static_cast<MWMMigrationView *>(self.view);
   if (!GetFramework().IsEnoughSpaceForMigrate())
-    mv.state = MWMMigrationViewState::ErrorNoSpace;
+    [self setState:MWMMigrationViewState::ErrorNoSpace];
   else if (!Platform::IsConnected())
-    mv.state = MWMMigrationViewState::ErrorNoConnection;
+    [self setState:MWMMigrationViewState::ErrorNoConnection];
   else
-    mv.state = MWMMigrationViewState::Default;
+    [self setState:MWMMigrationViewState::Default];
 }
 
 - (void)performLimitedMigration:(BOOL)limited
@@ -79,7 +78,7 @@ using namespace storage;
   auto onProgressChanged = [](TCountryId const & countryId, TLocalAndRemoteSize const & progress){};
 
   if (f.PreMigrate(position, onStatusChanged, onProgressChanged))
-    static_cast<MWMMigrationView *>(self.view).state = MWMMigrationViewState::Processing;
+    [self setState:MWMMigrationViewState::Processing];
   else
     migrate();
 }
@@ -104,6 +103,12 @@ using namespace storage;
       }];
       break;
   }
+}
+
+- (void)setState:(MWMMigrationViewState)state
+{
+  static_cast<MWMMigrationView *>(self.view).state = state;
+  self.navigationItem.leftBarButtonItem.enabled = (state != MWMMigrationViewState::Processing);
 }
 
 #pragma mark - Segue
