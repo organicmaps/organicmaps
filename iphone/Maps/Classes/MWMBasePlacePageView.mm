@@ -173,16 +173,15 @@ enum class AttributePosition
   if (entity.isBookmark)
   {
     self.titleLabel.text = entity.bookmarkTitle.length > 0 ? entity.bookmarkTitle : entity.title;
-    self.typeLabel.text = [entity.bookmarkCategory capitalizedString];
+    self.typeLabel.text = entity.bookmarkCategory;
   }
   else
   {
     self.titleLabel.text = entity.title;
-    NSString * typeString = entity.category.capitalizedString;
-    auto const ranges = separatorsLocationInString(typeString);
+    auto const ranges = separatorsLocationInString(entity.category);
     if (!ranges.empty())
     {
-      NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:typeString];
+      NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:entity.category];
       for (auto const & r : ranges)
         [str addAttributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]} range:r];
 
@@ -190,7 +189,7 @@ enum class AttributePosition
     }
     else
     {
-      self.typeLabel.text = typeString;
+      self.typeLabel.text = entity.category;
     }
   }
 
