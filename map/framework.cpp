@@ -261,6 +261,11 @@ bool Framework::PreMigrate(ms::LatLon const & position,
 
 void Framework::Migrate(bool keepDownloaded)
 {
+  // Drape must be suspended while migration is performed since it access different parts of
+  // framework (i.e. m_infoGetter) which are reinitialized during migration process.
+  // If we do not suspend drape, it tries to access framework fields (i.e. m_infoGetter) which are null
+  // while migration is performed.
+  SetRenderingEnabled(false);
   m_searchEngine.reset();
   m_infoGetter.reset();
   TCountriesVec existedCountries;
@@ -271,6 +276,7 @@ void Framework::Migrate(bool keepDownloaded)
   InitCountryInfoGetter();
   InitSearchEngine();
   RegisterAllMaps();
+  SetRenderingEnabled(true);
   InvalidateRect(MercatorBounds::FullRect());
 }
 
