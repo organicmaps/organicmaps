@@ -363,6 +363,7 @@ public:
   // Returns number of downloaded maps (files), excluding fake countries (World*.mwm).
   size_t GetDownloadedFilesCount() const;
 
+  /// Guarantees that change and progress are called in the main thread context.
   /// @return unique identifier that should be used with Unsubscribe function
   int Subscribe(TChangeCountryFunction const & change, TProgressFunction const & progress);
   void Unsubscribe(int slotId);

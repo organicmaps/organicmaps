@@ -259,6 +259,7 @@ public:
 
   using TCurrentCountryChanged = function<void(storage::TCountryId const &)>;
   storage::TCountryId const & GetLastReportedCountry() { return m_lastReportedCountry; }
+  /// Guarantees that listener is called in the main thread context.
   void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
 
 private:
@@ -284,6 +285,7 @@ public:
   void OnCompassUpdate(location::CompassInfo const & info);
   void SwitchMyPositionNextMode();
   void InvalidateMyPosition();
+  /// Should be set before Drape initialization. Guarantees that fn is called in main thread context.
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 
 private:
@@ -534,7 +536,14 @@ public:
   // FollowRoute has a bug where the router follows the route even if the method hads't been called.
   // This method was added because we do not want to break the behaviour that is familiar to our users.
   bool DisableFollowMode();
+  /// @TODO(AlexZ): Warning! These two routing callbacks are the only callbacks which are not called in the main thread context.
+  /// UI code should take it into an account. This is a result of current implementation, that can be improved:
+  /// Drape core calls some RunOnGuiThread with "this" pointers, and it causes crashes on Android, when Drape engine is destroyed
+  /// while switching between activities. Current workaround cleans all callbacks when destroying Drape engine
+  /// (@see MwmApplication.clearFunctorsOnUiThread on Android). Better soulution can be fair copying of all needed information into
+  /// lambdas/functors before calling RunOnGuiThread.
   void SetRouteBuildingListener(TRouteBuildingCallback const & buildingCallback) { m_routingCallback = buildingCallback; }
+  /// See warning above.
   void SetRouteProgressListener(TRouteProgressCallback const & progressCallback) { m_progressCallback = progressCallback; }
   void FollowRoute();
   void CloseRouting();

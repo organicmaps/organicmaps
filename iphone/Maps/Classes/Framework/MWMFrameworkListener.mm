@@ -122,6 +122,11 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   using namespace storage;
   TObservers * observers = self.routeBuildingObservers;
   auto & f = GetFramework();
+  // TODO(ldragunov,rokuz): Thise two routing callbacks are the only framework callbacks which does not guarantee
+  // that they are called on a main UI thread context. Discuss it with Lev.
+  // Simplest solution is to insert RunOnGuiThread() call in the core where callbacks are called.
+  // This will help to avoid unnecessary parameters copying and will make all our framework callbacks
+  // consistent: every notification to UI will run on a main UI thread.
   f.SetRouteBuildingListener([observers](IRouter::ResultCode code, TCountriesVec const & absentCountries)
   {
     loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer)
@@ -184,18 +189,16 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   auto & s = GetFramework().Storage();
   s.Subscribe([observers](TCountryId const & countryId)
   {
-    loopWrappers(observers, [countryId](TStorageObserver observer)
-    {
+    for (TStorageObserver observer in observers)
       [observer processCountryEvent:countryId];
-    });
   },
   [observers](TCountryId const & countryId, TLocalAndRemoteSize const & progress)
   {
-    loopWrappers(observers, [countryId, progress](TStorageObserver observer)
+    for (TStorageObserver observer in observers)
     {
       if ([observer respondsToSelector:@selector(processCountry:progress:)])
         [observer processCountry:countryId progress:progress];
-    });
+    }
   });
 }
 
@@ -207,10 +210,8 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   auto & f = GetFramework();
   f.SetCurrentCountryChangedListener([observers](TCountryId const & countryId)
   {
-    loopWrappers(observers, [countryId](TDrapeObserver observer)
-    {
+    for (TDrapeObserver observer in observers)
       [observer processViewportCountryEvent:countryId];
-    });
   });
 }
 
