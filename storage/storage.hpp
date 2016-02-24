@@ -260,12 +260,6 @@ public:
   void GetChildrenInGroups(TCountryId const & parent,
                            TCountriesVec & downloadedChildren, TCountriesVec & availChildren) const;
 
-  /// \brief Gets list of available countries.
-  /// \param countryList is filled with a list of node id which an end user will see in
-  /// a list of available maps. They are all available countries expect for fully downloaded
-  /// countries. That means all mwm of the countries have been downloaded.
-  void GetCountyListToDownload(TCountriesVec & countryList) const;
-
   /// \brief Returns current version for mwms which are available on the server.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
 

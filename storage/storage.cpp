@@ -1188,15 +1188,6 @@ bool Storage::IsNodeDownloaded(TCountryId const & countryId) const
   return false;
 }
 
-void Storage::GetCountyListToDownload(TCountriesVec & countryList) const
-{
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
-
-  TCountriesVec countryIds;
-  GetChildren(GetRootId(), countryIds);
-  // @TODO(bykoianko) Implement this method. Remove from this method fully downloaded maps.
-}
-
 bool Storage::DownloadNode(TCountryId const & countryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
