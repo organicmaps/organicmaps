@@ -277,7 +277,7 @@ public:
   /// \brief Downloads one node (expandable or not) by countryId.
   /// If node is expandable downloads all children (grandchildren) by the node
   /// until they havn't been downloaded before. Update all downloaded mwm if it's necessary.
-  bool DownloadNode(TCountryId const & countryId);
+  void DownloadNode(TCountryId const & countryId);
 
   /// \brief Delete node with all children (expandable or not).
   void DeleteNode(TCountryId const & countryId);

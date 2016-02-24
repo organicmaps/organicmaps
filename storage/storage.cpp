@@ -1188,23 +1188,22 @@ bool Storage::IsNodeDownloaded(TCountryId const & countryId) const
   return false;
 }
 
-bool Storage::DownloadNode(TCountryId const & countryId)
+void Storage::DownloadNode(TCountryId const & countryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  // @TODO(bykoianko) Before downloading it's necessary to check if file(s) has been downloaded.
-  // If so, the method should be left with false.
   TCountriesContainer const * const node = m_countries.FindFirst(Country(countryId));
-  CHECK(node, ());
-  node->ForEachInSubtree([this](TCountriesContainer const & descendantNode)
-                         {
-                           if (descendantNode.ChildrenCount() == 0)
-                           {
-                             this->DownloadCountry(descendantNode.Value().Name(),
-                                                   MapOptions::MapWithCarRouting);
-                           }
-                         });
-  return true;
+
+  if (!node)
+    return;
+
+  auto downloadAction = [this](TCountriesContainer const & descendantNode)
+  {
+    if (descendantNode.ChildrenCount() == 0)
+      this->DownloadCountry(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
+  };
+
+  node->ForEachInSubtree(downloadAction);
 }
 
 void Storage::DeleteNode(TCountryId const & countryId)
