@@ -107,7 +107,7 @@ UNIT_TEST(SmallMwms_Update_Test)
     storage.GetChildren(kGroupCountryId, children);
 
     // Download group
-    TEST(storage.DownloadNode(kGroupCountryId), ());
+    storage.DownloadNode(kGroupCountryId);
     testing::RunEventLoop();
 
     // Check group node status is EOnDisk
