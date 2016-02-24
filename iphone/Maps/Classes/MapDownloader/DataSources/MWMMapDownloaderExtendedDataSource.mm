@@ -55,8 +55,8 @@ using namespace storage;
   self.downloadedCoutryIds = nil;
   self.downloadedCountriesSection = NSNotFound;
   auto const & s = GetFramework().Storage();
-  TCountriesVec downloadedCoutryIds;
-  s.GetDownloadedChildren(self.parentCountryId, downloadedCoutryIds);
+  TCountriesVec downloadedCoutryIds, availableCountryIds;
+  s.GetChildrenInGroups(self.parentCountryId, downloadedCoutryIds, availableCountryIds);
   NSMutableArray<NSString *> * nsDownloadedCoutryIds = [@[] mutableCopy];
   for (auto const & countryId : downloadedCoutryIds)
     [nsDownloadedCoutryIds addObject:@(countryId.c_str())];

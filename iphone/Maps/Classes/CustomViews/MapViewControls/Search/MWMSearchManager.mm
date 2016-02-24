@@ -316,8 +316,8 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 {
   using namespace storage;
   auto & s = GetFramework().Storage();
-  TCountriesVec downloadedCountries;
-  s.GetDownloadedChildren(s.GetRootId(), downloadedCountries);
+  TCountriesVec downloadedCountries, availCountries;
+  s.GetChildrenInGroups(s.GetRootId(), downloadedCountries, availCountries);
   BOOL const haveMap = (downloadedCountries.size() != 0);
   return haveMap ? self.tabbedController : self.downloadController;
 }
