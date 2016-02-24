@@ -321,14 +321,6 @@ public:
   template <class ToDo>
   void ForEachAncestorExceptForTheRoot(TCountryId const & childId, ToDo && toDo) const;
 
-  /// \brief Subscribe on change status callback.
-  /// \returns a unique index of added status callback structure.
-  size_t SubscribeStatusCallback(StatusCallback const & statusCallbacks) { return 0; }
-
-  /// \brief Unsubscribe from change status callback.
-  /// \param index is a unique index of callback retruned by SubscribeStatusCallback.
-  void UnsubscribeStatusCallback(size_t index) {}
-
   /// \brief Sets callback which will be called in case of a click on download map button on the map.
   void SetCallbackForClickOnDownloadMap(TDownloadFn & downloadFn);
 
@@ -497,6 +489,7 @@ private:
   Status NodeStatus(TCountriesContainer const & node) const;
 
   void NotifyStatusChanged(TCountryId const & countryId);
+  void NotifyStatusChangedForHierarchy(TCountryId const & countryId);
 
   /// @todo Temporary function to gel all associated indexes for the country file name.
   /// Will be removed in future after refactoring.

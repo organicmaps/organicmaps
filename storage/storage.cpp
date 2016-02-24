@@ -465,7 +465,7 @@ void Storage::DownloadCountry(TCountryId const & countryId, MapOptions opt)
   if (m_queue.size() == 1)
     DownloadNextCountryFromQueue();
   else
-    NotifyStatusChanged(countryId);
+    NotifyStatusChangedForHierarchy(countryId);
   SaveDownloadQueue();
 }
 
@@ -481,7 +481,7 @@ void Storage::DeleteCountry(TCountryId const & countryId, MapOptions opt)
   if (localFile)
     m_update(*localFile);
 
-  NotifyStatusChanged(countryId);
+  NotifyStatusChangedForHierarchy(countryId);
 }
 
 void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
@@ -505,7 +505,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
     return;
   }
 
-  MY_SCOPE_GUARD(notifyStatusChanged, bind(&Storage::NotifyStatusChanged, this, countryId));
+  MY_SCOPE_GUARD(notifyStatusChanged, bind(&Storage::NotifyStatusChangedForHierarchy, this, countryId));
 
   // If file version equals to current data version, delete from downloader all pending requests for
   // the country.
@@ -533,6 +533,18 @@ void Storage::NotifyStatusChanged(TCountryId const & countryId)
     observer.m_changeCountryFn(countryId);
 }
 
+void Storage::NotifyStatusChangedForHierarchy(TCountryId const & countryId)
+{
+  // Notification status changing for a leaf in country tree.
+  NotifyStatusChanged(countryId);
+
+  // Notification status changing for ancestors in country tree.
+  ForEachAncestorExceptForTheRoot(countryId, [&] (TCountryId const & parentId, TCountriesContainer const &)
+  {
+    NotifyStatusChanged(parentId);
+  });
+}
+
 void Storage::DownloadNextCountryFromQueue()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
@@ -549,7 +561,7 @@ void Storage::DownloadNextCountryFromQueue()
   if (!PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId)))
   {
     OnMapDownloadFinished(countryId, false /* success */, queuedCountry.GetInitOptions());
-    NotifyStatusChanged(countryId);
+    NotifyStatusChangedForHierarchy(countryId);
     CorrectJustDownloaded(m_queue.begin(), m_queue, m_justDownloaded);
     DownloadNextCountryFromQueue();
     return;
@@ -558,7 +570,7 @@ void Storage::DownloadNextCountryFromQueue()
   DownloadNextFile(queuedCountry);
 
   // New status for the country, "Downloading"
-  NotifyStatusChanged(queuedCountry.GetCountryId());
+  NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
 }
 
 void Storage::DownloadNextFile(QueuedCountry const & country)
@@ -589,7 +601,7 @@ bool Storage::DeleteFromDownloader(TCountryId const & countryId)
 
   if (!DeleteCountryFilesFromDownloader(countryId, MapOptions::MapWithCarRouting))
     return false;
-  NotifyStatusChanged(countryId);
+  NotifyStatusChangedForHierarchy(countryId);
   return true;
 }
 
@@ -679,7 +691,7 @@ void Storage::OnMapFileDownloadFinished(bool success,
   CorrectJustDownloaded(m_queue.begin(), m_queue, m_justDownloaded);
   SaveDownloadQueue();
 
-  NotifyStatusChanged(countryId);
+  NotifyStatusChangedForHierarchy(countryId);
   m_downloader->Reset();
   DownloadNextCountryFromQueue();
 }
