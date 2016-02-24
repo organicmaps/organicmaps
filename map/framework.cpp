@@ -850,7 +850,7 @@ void Framework::StartInteractiveSearch(search::SearchParams const & params)
   m_lastInteractiveSearchParams = params;
   m_lastInteractiveSearchParams.SetForceSearch(false);
   m_lastInteractiveSearchParams.SetMode(Mode::Viewport);
-  m_lastInteractiveSearchParams.m_callback = [this](Results const & results)
+  m_lastInteractiveSearchParams.m_onResults = [this](Results const & results)
   {
     if (!results.IsEndMarker())
     {
@@ -999,9 +999,12 @@ void Framework::InitSearchEngine()
   ASSERT(m_infoGetter.get(), ());
   try
   {
-    m_searchEngine.reset(new search::Engine(
-        const_cast<Index &>(m_model.GetIndex()), GetDefaultCategories(),
-        *m_infoGetter, languages::GetCurrentOrig(), make_unique<search::SearchQueryFactory>()));
+    search::Engine::Params params;
+    params.m_locale = languages::GetCurrentOrig();
+    params.m_numThreads = 1;
+    m_searchEngine.reset(new search::Engine(const_cast<Index &>(m_model.GetIndex()),
+                                            GetDefaultCategories(), *m_infoGetter,
+                                            make_unique<search::SearchQueryFactory>(), params));
   }
   catch (RootException const & e)
   {
@@ -2257,8 +2260,8 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       results.AddResultNoChecks(search::Result(fid, feature::GetCenter(*feature), name, edit.second,
                                                DebugPrint(types), types.GetBestType(), smd));
     }
-    params.m_callback(results);
-    params.m_callback(search::Results::GetEndMarker(false));
+    params.m_onResults(results);
+    params.m_onResults(search::Results::GetEndMarker(false));
     return true;
   }
   else if (params.m_query == "?eclear")

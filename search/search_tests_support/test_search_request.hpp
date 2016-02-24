@@ -10,6 +10,8 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
+#include "base/timer.hpp"
+
 namespace search
 {
 namespace tests_support
@@ -27,16 +29,23 @@ public:
 
   void Wait();
 
-  vector<search::Result> const & Results() const;
+  // Call these functions only after call to Wait().
+  inline steady_clock::duration ResponseTime() const { return m_endTime - m_startTime; }
+  inline vector<search::Result> const & Results() const { return m_results; }
 
 private:
-  void Done(search::Results const & results);
+  void OnStarted();
+  void OnResults(search::Results const & results);
 
   condition_variable m_cv;
   mutable mutex m_mu;
 
   vector<search::Result> m_results;
   bool m_done;
+
+  my::Timer m_timer;
+  steady_clock::duration m_startTime;
+  steady_clock::duration m_endTime;
 };
 }  // namespace tests_support
 }  // namespace search

@@ -56,8 +56,8 @@ public:
   SearchQueryV2Test()
     : m_platform(GetPlatform())
     , m_scopedLog(LDEBUG)
-    , m_engine("en", make_unique<storage::CountryInfoGetterForTesting>(),
-               make_unique<TestSearchQueryFactory>())
+    , m_engine(make_unique<storage::CountryInfoGetterForTesting>(),
+               make_unique<TestSearchQueryFactory>(), search::Engine::Params())
   {
   }
 

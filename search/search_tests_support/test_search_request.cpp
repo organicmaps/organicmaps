@@ -16,10 +16,8 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   search::SearchParams params;
   params.m_query = query;
   params.m_inputLocale = locale;
-  params.m_callback = [this](search::Results const & results)
-  {
-    Done(results);
-  };
+  params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
+  params.m_onResults = bind(&TestSearchRequest::OnResults, this, _1);
   params.SetMode(mode);
   engine.Search(params, viewport);
 }
@@ -33,19 +31,19 @@ void TestSearchRequest::Wait()
   });
 }
 
-vector<search::Result> const & TestSearchRequest::Results() const
+void TestSearchRequest::OnStarted()
 {
   lock_guard<mutex> lock(m_mu);
-  CHECK(m_done, ("Results can be get only when request will be completed."));
-  return m_results;
+  m_startTime = m_timer.TimeElapsed();
 }
 
-void TestSearchRequest::Done(search::Results const & results)
+void TestSearchRequest::OnResults(search::Results const & results)
 {
   lock_guard<mutex> lock(m_mu);
   if (results.IsEndMarker())
   {
     m_done = true;
+    m_endTime = m_timer.TimeElapsed();
     m_cv.notify_one();
   }
   else

@@ -74,7 +74,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   CHECK(connect(this, SIGNAL(SearchResultSignal(ResultsT *)),
                 this, SLOT(OnSearchResult(ResultsT *)), Qt::QueuedConnection), ());
 
-  m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
+  m_params.m_onResults = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
 }
 
 void SearchPanel::SearchResultThreadFunc(ResultsT const & result)

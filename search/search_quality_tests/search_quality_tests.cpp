@@ -44,6 +44,7 @@ using namespace search::tests_support;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(locale, "en", "Locale of all the search queries");
+DEFINE_int32(num_threads, 1, "Number of search engine threads");
 DEFINE_string(mwm_list_path, "", "Path to a file containing the names of available mwms, one per line");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 DEFINE_string(queries_path, "", "Path to the file with queries");
@@ -69,6 +70,8 @@ class SearchQueryV2Factory : public search::SearchQueryFactory
     return make_unique<search::v2::SearchQueryV2>(index, categories, suggests, infoGetter);
   }
 };
+
+string MakePrefixFree(string const & query) { return query + " "; }
 
 void ReadStringsFromFile(string const & path, vector<string> & result)
 {
@@ -176,7 +179,10 @@ int main(int argc, char * argv[])
 
   classificator::Load();
 
-  TestSearchEngine engine(FLAGS_locale, make_unique<SearchQueryV2Factory>());
+  search::Engine::Params params;
+  params.m_locale = FLAGS_locale;
+  params.m_numThreads = FLAGS_num_threads;
+  TestSearchEngine engine(make_unique<SearchQueryV2Factory>(), params);
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())
@@ -224,18 +230,21 @@ int main(int argc, char * argv[])
     queriesPath = my::JoinFoldersToPath(platform.WritableDir(), kDefaultQueriesPathSuffix);
   ReadStringsFromFile(queriesPath, queries);
 
-  vector<double> responseTimes(queries.size());
+  vector<unique_ptr<TestSearchRequest>> requests;
   for (size_t i = 0; i < queries.size(); ++i)
   {
     // todo(@m) Add a bool flag to search with prefixes?
-    string const & query = queries[i] + " ";
-    my::Timer timer;
-    // todo(@m) Viewport and position should belong to the query info.
-    TestSearchRequest request(engine, query, FLAGS_locale, search::Mode::Everywhere, viewport);
-    request.Wait();
+    requests.emplace_back(make_unique<TestSearchRequest>(
+        engine, MakePrefixFree(queries[i]), FLAGS_locale, search::Mode::Everywhere, viewport));
+  }
 
-    responseTimes[i] = timer.ElapsedSeconds();
-    PrintTopResults(query, request.Results(), FLAGS_top, responseTimes[i]);
+  vector<double> responseTimes(queries.size());
+  for (size_t i = 0; i < queries.size(); ++i)
+  {
+    requests[i]->Wait();
+    auto rt = duration_cast<milliseconds>(requests[i]->ResponseTime()).count();
+    responseTimes[i] = static_cast<double>(rt) / 1000;
+    PrintTopResults(MakePrefixFree(queries[i]), requests[i]->Results(), FLAGS_top, responseTimes[i]);
   }
 
   double averageTime;

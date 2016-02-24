@@ -50,38 +50,37 @@ namespace search
 {
 namespace tests_support
 {
-TestSearchEngine::TestSearchEngine(string const & locale)
+TestSearchEngine::TestSearchEngine(Engine::Params const & params)
   : m_platform(GetPlatform())
   , m_infoGetter(storage::CountryInfoReader::CreateCountryInfoReader(m_platform))
-  , m_engine(*this, GetDefaultCategories(), *m_infoGetter, locale,
-             make_unique<TestSearchQueryFactory>())
+  , m_engine(*this, GetDefaultCategories(), *m_infoGetter, make_unique<TestSearchQueryFactory>(),
+             params)
 {
 }
 
-TestSearchEngine::TestSearchEngine(string const & locale,
-                                   unique_ptr<storage::CountryInfoGetter> infoGetter)
+TestSearchEngine::TestSearchEngine(unique_ptr<storage::CountryInfoGetter> infoGetter,
+                                   Engine::Params const & params)
   : m_platform(GetPlatform())
   , m_infoGetter(move(infoGetter))
-  , m_engine(*this, GetDefaultCategories(), *m_infoGetter, locale,
-             make_unique<TestSearchQueryFactory>())
+  , m_engine(*this, GetDefaultCategories(), *m_infoGetter, make_unique<TestSearchQueryFactory>(),
+             params)
 {
 }
 
-TestSearchEngine::TestSearchEngine(string const & locale,
-                                   unique_ptr<storage::CountryInfoGetter> infoGetter,
-                                   unique_ptr<::search::SearchQueryFactory> factory)
+TestSearchEngine::TestSearchEngine(unique_ptr<storage::CountryInfoGetter> infoGetter,
+                                   unique_ptr<::search::SearchQueryFactory> factory,
+                                   Engine::Params const & params)
   : m_platform(GetPlatform())
   , m_infoGetter(move(infoGetter))
-  , m_engine(*this, GetDefaultCategories(), *m_infoGetter, locale,
-             move(factory))
+  , m_engine(*this, GetDefaultCategories(), *m_infoGetter, move(factory), params)
 {
 }
 
-TestSearchEngine::TestSearchEngine(string const & locale,
-                                   unique_ptr<::search::SearchQueryFactory> factory)
+TestSearchEngine::TestSearchEngine(unique_ptr<::search::SearchQueryFactory> factory,
+                                   Engine::Params const & params)
   : m_platform(GetPlatform())
   , m_infoGetter(storage::CountryInfoReader::CreateCountryInfoReader(m_platform))
-  , m_engine(*this, GetDefaultCategories(), *m_infoGetter, locale, move(factory))
+  , m_engine(*this, GetDefaultCategories(), *m_infoGetter, move(factory), params)
 {
 }
 

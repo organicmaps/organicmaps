@@ -71,7 +71,7 @@ UNIT_TEST(GenerateTestMwm_Smoke)
   }
   TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
 
-  TestSearchEngine engine("en" /* locale */);
+  TestSearchEngine engine{Engine::Params{}};
   auto ret = engine.RegisterMap(file);
   TEST_EQUAL(MwmSet::RegResult::Success, ret.second, ("Can't register generated map."));
   TEST(ret.first.IsAlive(), ("Can't get lock on a generated map."));
@@ -111,7 +111,7 @@ UNIT_TEST(GenerateTestMwm_NotPrefixFreeNames)
   }
   TEST_EQUAL(MapOptions::MapWithCarRouting, file.GetFiles(), ());
 
-  TestSearchEngine engine("en" /* locale */);
+  TestSearchEngine engine{Engine::Params{}};
   auto ret = engine.RegisterMap(file);
   TEST_EQUAL(MwmSet::RegResult::Success, ret.second, ("Can't register generated map."));
   TEST(ret.first.IsAlive(), ("Can't get lock on a generated map."));

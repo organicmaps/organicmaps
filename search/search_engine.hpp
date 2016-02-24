@@ -22,6 +22,7 @@
 #include "std/queue.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 #include "std/weak_ptr.hpp"
 
 class Index;
@@ -77,9 +78,23 @@ private:
 class Engine
 {
 public:
+  struct Params
+  {
+    Params();
+    Params(string const & locale, size_t numThreads);
+
+    string m_locale;
+
+    // This field controls number of threads SearchEngine will create
+    // to process queries. Use this field wisely as large values may
+    // negatively affect performance due to false sharing.
+    size_t m_numThreads;
+  };
+
   // Doesn't take ownership of index. Takes ownership of categoriesR.
-  Engine(Index & index, CategoriesHolder const & categories, storage::CountryInfoGetter const & infoGetter,
-         string const & locale, unique_ptr<SearchQueryFactory> && factory);
+  Engine(Index & index, CategoriesHolder const & categories,
+         storage::CountryInfoGetter const & infoGetter, unique_ptr<SearchQueryFactory> factory,
+         Params const & params);
   ~Engine();
 
   // Posts search request to the queue and returns its handle.
@@ -92,34 +107,46 @@ public:
   void ClearCaches();
 
 private:
-  // *ALL* following methods are executed on the m_loop thread.
+  using TTask = function<void(Query & query)>;
 
-  void SetRankPivot(SearchParams const & params, m2::RectD const & viewport, bool viewportSearch);
+  // *ALL* following methods are executed on the m_threads threads.
+  void SetRankPivot(SearchParams const & params, m2::RectD const & viewport, bool viewportSearch,
+                    Query & query);
 
   void EmitResults(SearchParams const & params, Results const & res);
 
-  // This method executes tasks from |m_tasks| in a FIFO manner.
-  void MainLoop();
+  // This method executes tasks from a common pool (|tasks|) in a FIFO
+  // manner.  |broadcast| contains per-thread tasks, but nevertheless
+  // all necessary synchronization primitives must be used to access
+  // |tasks| and |broadcast|.
+  void MainLoop(Query & query, queue<TTask> & tasks, queue<TTask> & broadcast);
 
-  void PostTask(function<void()> && task);
+  void PostTask(TTask && task);
+
+  void PostBroadcast(TTask const & task);
 
   void DoSearch(SearchParams const & params, m2::RectD const & viewport,
-                shared_ptr<QueryHandle> handle);
+                shared_ptr<QueryHandle> handle, Query & query);
 
-  void DoSupportOldFormat(bool support);
+  void DoSupportOldFormat(bool support, Query & query);
 
-  void DoClearCaches();
+  void DoClearCaches(Query & query);
 
   CategoriesHolder const & m_categories;
   vector<Suggest> m_suggests;
 
-  unique_ptr<Query> m_query;
-  unique_ptr<SearchQueryFactory> m_factory;
-
   bool m_shutdown;
   mutex m_mu;
   condition_variable m_cv;
-  queue<function<void()>> m_tasks;
-  threads::SimpleThread m_thread;
+
+  // List of per-thread pools, used to deliver broadcast messages to
+  // search threads.
+  vector<queue<TTask>> m_broadcast;
+
+  // Common pool of queries, used to store search tasks.
+  queue<TTask> m_tasks;
+
+  vector<unique_ptr<Query>> m_queries;
+  vector<threads::SimpleThread> m_threads;
 };
 }  // namespace search

@@ -376,7 +376,8 @@ UNIT_TEST(Retrieval_CafeMTV)
   countries.emplace_back(msk.GetCountryName(), mskViewport);
   countries.emplace_back(mtv.GetCountryName(), mtvViewport);
 
-  TestSearchEngine engine("en", make_unique<storage::CountryInfoGetterForTesting>(countries));
+  TestSearchEngine engine(make_unique<storage::CountryInfoGetterForTesting>(countries),
+                          search::Engine::Params());
   TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(msk).second, ());
   TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(mtv).second, ());
   TEST_EQUAL(MwmSet::RegResult::Success, engine.RegisterMap(testWorld).second, ());

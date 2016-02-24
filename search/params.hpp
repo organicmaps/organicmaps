@@ -12,7 +12,9 @@
 namespace search
 {
   class Results;
-  typedef function<void (Results const &)> SearchCallbackT;
+
+  using TOnStarted = function<void()>;
+  using TOnResults = function<void (Results const &)>;
 
   class SearchParams
   {
@@ -46,7 +48,8 @@ namespace search
     void Clear() { m_query.clear(); }
 
   public:
-    SearchCallbackT m_callback;
+    TOnStarted m_onStarted;
+    TOnResults m_onResults;
 
     string m_query;
     string m_inputLocale;
