@@ -179,26 +179,9 @@ void CountryInfoGetter::ForEachCountry(string const & prefix, ToDo && toDo) cons
 // static
 unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReader(Platform const & platform)
 {
-  try
-  {
-    CountryInfoReader * result;
-    if (platform::migrate::NeedMigrate())
-    {
-      result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE),
-                                     platform.GetReader(COUNTRIES_FILE));
-    }
-    else
-    {
-      result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_MIGRATE_FILE),
-                                     platform.GetReader(COUNTRIES_MIGRATE_FILE));
-    }
-    return unique_ptr<CountryInfoReader>(result);
-  }
-  catch (RootException const & e)
-  {
-    LOG(LCRITICAL, ("Can't load needed resources for storage::CountryInfoGetter:", e.Msg()));
-  }
-  return unique_ptr<CountryInfoReader>();
+  if (platform::migrate::NeedMigrate())
+    return CreateCountryInfoReaderTwoComponentMwms(platform);
+  return CreateCountryInfoReaderOneComponentMwms(platform);
 }
 
 // static
