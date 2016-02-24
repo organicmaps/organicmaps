@@ -1126,7 +1126,8 @@ void Storage::GetLocalRealMaps(TCountriesVec & localMaps) const
     localMaps.push_back(keyValue.first);
 }
 
-void Storage::GetDownloadedChildren(TCountryId const & parent, TCountriesVec & localChildren) const
+void Storage::GetChildrenInGroups(TCountryId const & parent,
+                                  TCountriesVec & downloadedChildren, TCountriesVec & availChildren) const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
@@ -1137,11 +1138,15 @@ void Storage::GetDownloadedChildren(TCountryId const & parent, TCountriesVec & l
     return;
   }
 
-  localChildren.clear();
+  downloadedChildren.clear();
+  availChildren.clear();
   TCountriesVec localMaps;
   GetLocalRealMaps(localMaps);
   if (localMaps.empty())
+  {
+    GetChildren(parent, availChildren);
     return;
+  }
 
   size_t const childrenCount = parentNode->ChildrenCount();
   sort(localMaps.begin(), localMaps.end());
@@ -1152,28 +1157,22 @@ void Storage::GetDownloadedChildren(TCountryId const & parent, TCountriesVec & l
     TCountryId const & childCountryId = child.Value().Name();
     if (HasCountryId(localMaps, childCountryId))
     { // CountryId of child is a name of an mwm.
-      localChildren.push_back(childCountryId);
+      downloadedChildren.push_back(childCountryId);
       continue;
     }
 
     // Child is a group of mwms.
-    size_t localMapsInChild = 0;
-    TCountryId lastCountryIdInLocalMaps;
+    bool hasDownloadedDescendant = false;
     child.ForEachDescendant([&](TCountriesContainer const & descendant)
                             {
                               TCountryId const & countryId = descendant.Value().Name();
                               if (HasCountryId(localMaps, countryId))
-                              {
-                                ++localMapsInChild;
-                                lastCountryIdInLocalMaps = countryId;
-                              }
+                                hasDownloadedDescendant = true;
                             });
-    if (localMapsInChild == 0)
-      continue; // No descendant of the child is in localMaps.
-    if (localMapsInChild == 1)
-      localChildren.push_back(lastCountryIdInLocalMaps); // One descendant of the child is in localMaps.
+    if (hasDownloadedDescendant == true)
+      downloadedChildren.push_back(childCountryId);
     else
-      localChildren.push_back(childCountryId); // Two or more descendants of the child is in localMaps.
+      availChildren.push_back(childCountryId);
   }
 }
 
