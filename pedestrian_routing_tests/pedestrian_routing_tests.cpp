@@ -85,8 +85,7 @@ private:
 unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
 {
   Platform & platform = GetPlatform();
-  return unique_ptr<storage::CountryInfoGetter>(new storage::CountryInfoReader(platform.GetReader(PACKED_POLYGONS_MIGRATE_FILE),
-                                                                               platform.GetReader(COUNTRIES_MIGRATE_FILE)));
+  return storage::CountryInfoReader::CreateCountryInfoReader(platform);
 }
 
 unique_ptr<routing::IRouter> CreatePedestrianAStarTestRouter(Index & index, storage::CountryInfoGetter & cig)

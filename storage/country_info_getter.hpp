@@ -2,6 +2,8 @@
 
 #include "storage/country_decl.hpp"
 
+#include "platform/platform.hpp"
+
 #include "geometry/region2d.hpp"
 
 #include "coding/file_container.hpp"
@@ -113,9 +115,25 @@ protected:
 class CountryInfoReader : public CountryInfoGetter
 {
 public:
-  CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR);
+  // This is the proper way to obtain a CountryInfoReader because
+  // it accounts for migration and such.
+  static unique_ptr<CountryInfoGetter> CreateCountryInfoReader(Platform const & platform);
+
+  // The older version. The polygons are read from a file that was
+  // used at the time when routing and map data were in different files.
+  // This is a legacy method and it is extremely unlikely that you need it in your code.
+  static unique_ptr<CountryInfoGetter> CreateCountryInfoReaderTwoComponentMwms(
+      Platform const & platform);
+
+  // The newer version. Use this one after the migration to single-component
+  // mwm files has been carried out.
+  // This is a legacy method and it is extremely unlikely that you need it in your code.
+  static unique_ptr<CountryInfoGetter> CreateCountryInfoReaderOneComponentMwms(
+      Platform const & platform);
 
 protected:
+  CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR);
+
   // CountryInfoGetter overrides:
   void ClearCachesImpl() const override;
   bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const override;

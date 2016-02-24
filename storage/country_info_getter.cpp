@@ -2,6 +2,8 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/country_polygon.hpp"
 
+#include "platform/local_country_file_utils.hpp"
+
 #include "indexer/geometry_serialization.hpp"
 
 #include "geometry/latlon.hpp"
@@ -10,6 +12,7 @@
 
 #include "coding/read_write_utils.hpp"
 
+#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
@@ -173,6 +176,66 @@ void CountryInfoGetter::ForEachCountry(string const & prefix, ToDo && toDo) cons
 }
 
 // CountryInfoReader -------------------------------------------------------------------------------
+// static
+unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReader(Platform const & platform)
+{
+  try
+  {
+    CountryInfoReader * result;
+    if (platform::migrate::NeedMigrate())
+    {
+      result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE),
+                                     platform.GetReader(COUNTRIES_FILE));
+    }
+    else
+    {
+      result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_MIGRATE_FILE),
+                                     platform.GetReader(COUNTRIES_MIGRATE_FILE));
+    }
+    return unique_ptr<CountryInfoReader>(result);
+  }
+  catch (RootException const & e)
+  {
+    LOG(LCRITICAL, ("Can't load needed resources for storage::CountryInfoGetter:", e.Msg()));
+  }
+  return unique_ptr<CountryInfoReader>();
+}
+
+// static
+unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReaderTwoComponentMwms(
+    Platform const & platform)
+{
+  try
+  {
+    CountryInfoReader * result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE),
+                                                       platform.GetReader(COUNTRIES_FILE));
+    return unique_ptr<CountryInfoReader>(result);
+  }
+  catch (RootException const & e)
+  {
+    LOG(LCRITICAL, ("Can't load needed resources for storage::CountryInfoGetter:", e.Msg()));
+  }
+  return unique_ptr<CountryInfoReader>();
+}
+
+// static
+unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReaderOneComponentMwms(
+    Platform const & platform)
+{
+  try
+  {
+    CountryInfoReader * result =
+        new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_MIGRATE_FILE),
+                              platform.GetReader(COUNTRIES_MIGRATE_FILE));
+    return unique_ptr<CountryInfoReader>(result);
+  }
+  catch (RootException const & e)
+  {
+    LOG(LCRITICAL, ("Can't load needed resources for storage::CountryInfoGetter:", e.Msg()));
+  }
+  return unique_ptr<CountryInfoReader>();
+}
+
 CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countryR)
   : CountryInfoGetter(true), m_reader(polyR), m_cache(3)
 {

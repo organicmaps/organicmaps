@@ -66,8 +66,7 @@ namespace integration
   unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
   {
     Platform const & platform = GetPlatform();
-    return make_unique<storage::CountryInfoReader>(platform.GetReader(PACKED_POLYGONS_MIGRATE_FILE),
-                                                   platform.GetReader(COUNTRIES_MIGRATE_FILE));
+    return storage::CountryInfoReader::CreateCountryInfoReader(platform);
   }
 
   shared_ptr<OsrmRouter> CreateOsrmRouter(Index & index,

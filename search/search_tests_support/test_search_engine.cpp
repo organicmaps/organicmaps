@@ -52,8 +52,7 @@ namespace tests_support
 {
 TestSearchEngine::TestSearchEngine(string const & locale)
   : m_platform(GetPlatform())
-  , m_infoGetter(new storage::CountryInfoReader(m_platform.GetReader(PACKED_POLYGONS_FILE),
-                                                m_platform.GetReader(COUNTRIES_FILE)))
+  , m_infoGetter(storage::CountryInfoReader::CreateCountryInfoReader(m_platform))
   , m_engine(*this, GetDefaultCategories(), *m_infoGetter, locale,
              make_unique<TestSearchQueryFactory>())
 {
@@ -81,10 +80,8 @@ TestSearchEngine::TestSearchEngine(string const & locale,
 TestSearchEngine::TestSearchEngine(string const & locale,
                                    unique_ptr<::search::SearchQueryFactory> factory)
   : m_platform(GetPlatform())
-  , m_infoGetter(new storage::CountryInfoReader(m_platform.GetReader(PACKED_POLYGONS_FILE),
-                                                m_platform.GetReader(COUNTRIES_FILE)))
-  , m_engine(*this, GetDefaultCategories(), *m_infoGetter, locale,
-             move(factory))
+  , m_infoGetter(storage::CountryInfoReader::CreateCountryInfoReader(m_platform))
+  , m_engine(*this, GetDefaultCategories(), *m_infoGetter, locale, move(factory))
 {
 }
 

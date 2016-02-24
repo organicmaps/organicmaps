@@ -246,10 +246,11 @@ bool Framework::PreMigrate(ms::LatLon const & position,
 {
   Storage().PrefetchMigrateData();
 
-  storage::CountryInfoReader infoGetter(GetPlatform().GetReader(PACKED_POLYGONS_MIGRATE_FILE),
-                                        GetPlatform().GetReader(COUNTRIES_MIGRATE_FILE));
+  auto const infoGetter =
+      storage::CountryInfoReader::CreateCountryInfoReaderTwoComponentMwms(GetPlatform());
 
-  TCountryId currentCountryId = infoGetter.GetRegionCountryId(MercatorBounds::FromLatLon(position));
+  TCountryId currentCountryId =
+      infoGetter->GetRegionCountryId(MercatorBounds::FromLatLon(position));
 
   if (currentCountryId == kInvalidCountryId)
     return false;
@@ -989,23 +990,7 @@ void Framework::InitCountryInfoGetter()
 {
   ASSERT(!m_infoGetter.get(), ("InitCountryInfoGetter() must be called only once."));
   Platform const & platform = GetPlatform();
-  try
-  {
-    if (platform::migrate::NeedMigrate())
-    {
-      m_infoGetter.reset(new storage::CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE),
-                                                        platform.GetReader(COUNTRIES_FILE)));
-    }
-    else
-    {
-      m_infoGetter.reset(new storage::CountryInfoReader(platform.GetReader(PACKED_POLYGONS_MIGRATE_FILE),
-                                                        platform.GetReader(COUNTRIES_MIGRATE_FILE)));
-    }
-  }
-  catch (RootException const & e)
-  {
-    LOG(LCRITICAL, ("Can't load needed resources for storage::CountryInfoGetter:", e.Msg()));
-  }
+  m_infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
 }
 
 void Framework::InitSearchEngine()
