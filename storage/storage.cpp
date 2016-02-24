@@ -1166,7 +1166,7 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
     child.ForEachDescendant([&](TCountriesContainer const & descendant)
                             {
                               TCountryId const & countryId = descendant.Value().Name();
-                              if (HasCountryId(localMaps, countryId))
+                              if (!hasDownloadedDescendant && HasCountryId(localMaps, countryId))
                                 hasDownloadedDescendant = true;
                             });
     if (hasDownloadedDescendant == true)

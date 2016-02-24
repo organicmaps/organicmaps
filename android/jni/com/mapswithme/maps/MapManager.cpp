@@ -197,8 +197,8 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
     PutItemsToList(env, result, downloaded, parentId, ItemCategory::DOWNLOADED);
 
     // All
-    TCountriesVec children;
-    storage.GetChildren(parentId, children);
+    TCountriesVec children(downloaded.begin(), downloaded.end());
+    children.insert(children.end(), available.begin(), available.end());
     PutItemsToList(env, result, children, parentId, ItemCategory::ALL);
   }
 }
