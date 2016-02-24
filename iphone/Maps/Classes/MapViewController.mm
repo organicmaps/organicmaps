@@ -598,6 +598,8 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId
 {
+  if (![self.navigationController.topViewController isEqual:self])
+    return;
   if (countryId != kInvalidCountryId && platform::migrate::NeedMigrate())
     [self performSegueWithIdentifier:kMigrationSegue sender:self];
   else
