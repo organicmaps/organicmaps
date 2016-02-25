@@ -191,7 +191,7 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Nella schermata</string>
 	<!-- Search Suggestion -->
-	<string name="food">Ristoranti</string>
+	<string name="food">Cibo</string>
 	<!-- Search Suggestion -->
 	<string name="transport">Transporto</string>
 	<!-- Search Suggestion -->

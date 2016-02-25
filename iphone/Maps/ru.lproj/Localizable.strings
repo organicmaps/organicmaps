@@ -1320,6 +1320,7 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "Показывать предложения";
 
+/* Showcase menu item. */
 "showcase_plan_your_trip" = "Подготовься к путешествию";
 
 "showcase_more_apps" = "Другие приложения My.com";

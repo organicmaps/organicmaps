@@ -313,7 +313,7 @@
 "search_mode_viewport" = "Nella schermata";
 
 /* Search Suggestion */
-"food" = "Ristoranti";
+"food" = "Cibo";
 
 /* Search Suggestion */
 "transport" = "Transporto";
@@ -1320,6 +1320,7 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "Mostra offerte";
 
+/* Showcase menu item. */
 "showcase_plan_your_trip" = "Plan your trip";
 
 "showcase_more_apps" = "Altre app su My.com";

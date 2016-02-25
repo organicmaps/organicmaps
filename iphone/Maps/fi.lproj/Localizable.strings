@@ -1320,6 +1320,7 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "Näytä tarjoukset";
 
+/* Showcase menu item. */
 "showcase_plan_your_trip" = "Plan your trip";
 
 "showcase_more_apps" = "Lisää My.com sovelluksia";

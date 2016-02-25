@@ -1320,6 +1320,7 @@
 /* Title for settings to enable/disable showcase menu button */
 "showcase_settings_title" = "추천 보기";
 
+/* Showcase menu item. */
 "showcase_plan_your_trip" = "Plan your trip";
 
 "showcase_more_apps" = "기타 My.com 앱";
