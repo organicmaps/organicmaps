@@ -96,7 +96,7 @@ fi:2Baari|ruoka
 fr:2Bar|2pub|bière|boisson|nourriture
 hu:2Bár|2kocsma|sör|ital|élelmiszer
 id:2Bar|2pub|minuman|makanan
-it:2Bar|2birra|pub|mangiare
+it:2Bar|2birra|pub|mangiare|cibo
 ja:1居酒屋|バー|パブ|ビール|飲食|飲み屋|呑み屋|酒
 ko:바|술집|맥주|음료|음식
 nb:2Bar|mat
@@ -125,7 +125,7 @@ fi:2Kahvila|ruoka
 fr:3Café|3restaurant|3resto|3nourriture
 hu:3Kávézó|3étterem|3élelmiszer
 id:3Kafe|3restoran|makanan
-it:3Caffè|3ristorante|pasto|mangiare
+it:3Caffè|3ristorante|pasto|mangiare|cibo
 ja:1カフェ|喫茶|食べ物|飲食|コーヒー|珈琲|お茶|茶|紅茶|食事|軽食
 ko:1카페|레스토랑|음식
 nb:2Kafé|mat
@@ -154,7 +154,7 @@ fi:3Pikaruokala|ruoka
 fr:4Restauration rapide|3restaurant|3café|à emporter|3nourriture|3resto
 hu:4Gyorsétterem|3étterem|3kávézó|3élelmiszer
 id:Cepat saji|3restoran|makanan
-it:4Fast food|takeaway|caffè|ristorante|pasto|mangiare
+it:4Fast food|takeaway|caffè|ristorante|pasto|mangiare|cibo
 ja:1ファストフード|レストラン|テイクアウト|持ち帰り|軽食|飲食|食事
 ko:1패스트 푸드|레스토랑|카페|테이크 아웃|푸드
 nb:3Hurtigmat|mat
@@ -183,7 +183,7 @@ fi:3Ravintola|ruoka
 fr:3Restaurant|3café|3nourriture|3resto
 hu:3Étterem|3kávézó|3élelmiszer
 id:Restoran|3kafe|makanan
-it:3Ristorante|3caffè|mangiare
+it:3Ristorante|3caffè|mangiare|cibo
 ja:1レストラン|食べ物|飲食|食事|2ファミレス
 ko:1레스토랑|카페|음식
 nb:3Restaurant|mat
