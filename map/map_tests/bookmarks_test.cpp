@@ -414,8 +414,8 @@ UNIT_TEST(Bookmarks_AddressInfo)
   fm.OnSize(800, 600);
 
   // Our code always uses "default" street name for addresses.
-  CheckPlace(fm, 53.8964918, 27.555559, { "Планета Pizza", "улица Карла Маркса", "10", "cafe" });
-  CheckPlace(fm, 53.8964365, 27.5554007, { "Нц Шашек И Шахмат", "улица Карла Маркса", "10", "hotel" });
+  CheckPlace(fm, 53.8964918, 27.555559, { "Планета Pizza", "улица Карла Маркса", "10", "Cafe" });
+  CheckPlace(fm, 53.8964365, 27.5554007, { "Нц Шашек И Шахмат", "улица Карла Маркса", "10", "Hotel" });
 }
 
 UNIT_TEST(Bookmarks_IllegalFileName)
