@@ -107,7 +107,40 @@ public:
   void ClearCaches();
 
 private:
-  using TTask = function<void(Query & query)>;
+  struct Message
+  {
+    using TFn = function<void(Query & query)>;
+
+    enum Type
+    {
+      TYPE_TASK,
+      TYPE_BROADCAST
+    };
+
+    Message(TFn && fn, Type type) : m_fn(move(fn)), m_type(type) {}
+    Message(Message const &) = default;
+    Message(Message &&) = default;
+
+    void operator()(Query & query) { m_fn(query); }
+
+    TFn m_fn;
+    Type m_type;
+  };
+
+  // alignas() is used here to prevent false-sharing between different
+  // threads.
+  struct alignas(64 /* the most common cache-line size */) Context
+  {
+    // This field *CAN* be accessed by other threads, so |m_mu| must
+    // be taken before access this queue.  Messages are ordered here
+    // by a timestamp and all timestamps are less than timestamps in
+    // the global |m_messages| queue.
+    queue<Message> m_messages;
+
+    // This field is thread-specific and *CAN NOT* be accessed by
+    // other threads.
+    unique_ptr<Query> m_query;
+  };
 
   // *ALL* following methods are executed on the m_threads threads.
   void SetRankPivot(SearchParams const & params, m2::RectD const & viewport, bool viewportSearch,
@@ -119,11 +152,10 @@ private:
   // manner.  |broadcast| contains per-thread tasks, but nevertheless
   // all necessary synchronization primitives must be used to access
   // |tasks| and |broadcast|.
-  void MainLoop(Query & query, queue<TTask> & tasks, queue<TTask> & broadcast);
+  void MainLoop(Context & context);
 
-  void PostTask(TTask && task);
-
-  void PostBroadcast(TTask const & task);
+  template <typename... TArgs>
+  void PostMessage(TArgs &&... args);
 
   void DoSearch(SearchParams const & params, m2::RectD const & viewport,
                 shared_ptr<QueryHandle> handle, Query & query);
@@ -139,14 +171,8 @@ private:
   mutex m_mu;
   condition_variable m_cv;
 
-  // List of per-thread pools, used to deliver broadcast messages to
-  // search threads.
-  vector<queue<TTask>> m_broadcast;
-
-  // Common pool of queries, used to store search tasks.
-  queue<TTask> m_tasks;
-
-  vector<unique_ptr<Query>> m_queries;
+  queue<Message> m_messages;
+  vector<Context> m_contexts;
   vector<threads::SimpleThread> m_threads;
 };
 }  // namespace search

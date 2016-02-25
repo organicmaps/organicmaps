@@ -131,21 +131,17 @@ Engine::Engine(Index & index, CategoriesHolder const & categories,
   m_categories.ForEachName(bind<void>(ref(doInit), _1));
   doInit.GetSuggests(m_suggests);
 
-  m_queries.reserve(params.m_numThreads);
+  m_contexts.resize(params.m_numThreads);
   for (size_t i = 0; i < params.m_numThreads; ++i)
   {
     auto query = factory->BuildSearchQuery(index, m_categories, m_suggests, infoGetter);
     query->SetPreferredLocale(params.m_locale);
-    m_queries.push_back(move(query));
+    m_contexts[i].m_query = move(query);
   }
 
-  m_broadcast.resize(params.m_numThreads);
   m_threads.reserve(params.m_numThreads);
   for (size_t i = 0; i < params.m_numThreads; ++i)
-  {
-    m_threads.emplace_back(&Engine::MainLoop, this, ref(*m_queries[i]), ref(m_tasks),
-                           ref(m_broadcast[i]));
-  }
+    m_threads.emplace_back(&Engine::MainLoop, this, ref(m_contexts[i]));
 }
 
 Engine::~Engine()
@@ -163,16 +159,19 @@ Engine::~Engine()
 weak_ptr<QueryHandle> Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
   shared_ptr<QueryHandle> handle(new QueryHandle());
-  PostTask(bind(&Engine::DoSearch, this, params, viewport, handle, _1));
+  PostMessage(bind(&Engine::DoSearch, this, params, viewport, handle, _1), Message::TYPE_TASK);
   return handle;
 }
 
 void Engine::SetSupportOldFormat(bool support)
 {
-  PostBroadcast(bind(&Engine::DoSupportOldFormat, this, support, _1));
+  PostMessage(bind(&Engine::DoSupportOldFormat, this, support, _1), Message::TYPE_BROADCAST);
 }
 
-void Engine::ClearCaches() { PostBroadcast(bind(&Engine::DoClearCaches, this, _1)); }
+void Engine::ClearCaches()
+{
+  PostMessage(bind(&Engine::DoClearCaches, this, _1), Message::TYPE_BROADCAST);
+}
 
 void Engine::SetRankPivot(SearchParams const & params, m2::RectD const & viewport,
                           bool viewportSearch, Query & query)
@@ -195,53 +194,62 @@ void Engine::EmitResults(SearchParams const & params, Results const & res)
   params.m_onResults(res);
 }
 
-void Engine::MainLoop(Query & query, queue<TTask> & tasks, queue<TTask> & broadcast)
+void Engine::MainLoop(Context & context)
 {
   while (true)
   {
     unique_lock<mutex> lock(m_mu);
     m_cv.wait(lock, [&]()
     {
-      return m_shutdown || !tasks.empty() || !broadcast.empty();
+      return m_shutdown || !m_messages.empty() || !context.m_messages.empty();
     });
 
     if (m_shutdown)
       break;
 
-    queue<TTask> ts;
-    // Execute all broadcast tasks at once.
-    ts.swap(broadcast);
-
-    if (!tasks.empty())
+    // As SearchEngine is thread-safe, there is a global order on
+    // public API requests, and this order is kept by the global
+    // |m_messages| queue.  When a broadcast message arrives, it must
+    // be executed by all threads, therefore the first free thread
+    // extracts it from |m_messages| and replicates to all
+    // thread-specific |m_messages| queues.
+    bool hasBroadcast = false;
+    while (!m_messages.empty() && m_messages.front().m_type == Message::TYPE_BROADCAST)
     {
-      // Execute only first task from the common pool.
-      ts.push(move(tasks.front()));
-      tasks.pop();
+      for (auto & b : m_contexts)
+        b.m_messages.push(m_messages.front());
+      m_messages.pop();
+      hasBroadcast = true;
     }
 
-    lock.unlock();
-
-    while (!ts.empty())
+    // Consumes first non-broadcast message, if any.
+    if (!m_messages.empty())
     {
-      ts.front()(query);
-      ts.pop();
+      context.m_messages.push(move(m_messages.front()));
+      m_messages.pop();
+    }
+
+    queue<Message> messages;
+    messages.swap(context.m_messages);
+
+    lock.unlock();
+    if (hasBroadcast)
+      m_cv.notify_all();
+
+    while (!messages.empty())
+    {
+      messages.front()(*context.m_query);
+      messages.pop();
     }
   }
 }
 
-void Engine::PostTask(TTask && task)
+template <typename... TArgs>
+void Engine::PostMessage(TArgs && ... args)
 {
   lock_guard<mutex> lock(m_mu);
-  m_tasks.push(move(task));
+  m_messages.emplace(forward<TArgs>(args)...);
   m_cv.notify_one();
-}
-
-void Engine::PostBroadcast(TTask const & task)
-{
-  lock_guard<mutex> lock(m_mu);
-  for (auto & pool : m_broadcast)
-    pool.push(task);
-  m_cv.notify_all();
 }
 
 void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
