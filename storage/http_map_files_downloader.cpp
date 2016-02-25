@@ -38,6 +38,7 @@ void HttpMapFilesDownloader::DownloadMapFile(vector<string> const & urls, string
 MapFilesDownloader::TProgress HttpMapFilesDownloader::GetDownloadingProgress()
 {
   ASSERT_THREAD_CHECKER(m_checker, ());
+  ASSERT(nullptr != m_request, ());
   return m_request->Progress();
 }
 
