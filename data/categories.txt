@@ -26,6 +26,7 @@ id:2Atm|uang
 ro:3Bancomat|bani
 nb:2Penger|minibank
 fi:2Raha|pankkiautomaatti
+sw:Benki|fedha
 
 amenity-bank
 en:3Bank|money|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -55,6 +56,7 @@ id:3Bank|uang
 ro:3Bancă|bani
 nb:3Bank
 fi:3Pankki
+sw:Benki|fedha
 
 amenity-bureau_de_change
 en:3Currency Exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
@@ -113,6 +115,7 @@ id:2Bar|2pub|minuman|makanan
 ro:2Bar|2cârciumă|băutură|alimentație
 nb:2Bar|mat
 fi:2Baari|ruoka
+sw:Baa|vinywaji
 
 amenity-cafe
 en:3Cafe|3restaurant|3food|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
@@ -142,6 +145,7 @@ id:3Kafe|3restoran|makanan
 ro:3Cafenea|3restaurant|alimentație
 nb:2Kafé|mat
 fi:2Kahvila|ruoka
+sw:Mgahawa|hoteli|chakula
 
 amenity-fast_food
 en:4Fast Food|3restaurant|3cafe|takeaway|3food|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374
@@ -200,6 +204,7 @@ id:Restoran|3kafe|makanan
 ro:3Restaurant|3cafenea|alimentație
 nb:3Restaurant|mat
 fi:3Ravintola|ruoka
+sw:Hoteli|restorenti|mgahawa|chakula
 
 amenity-fuel
 en:Gas Station|3fuel|2gas|U+26FD
@@ -229,6 +234,7 @@ id:Pompa bensin|bahan bakar
 ro:3Benzinărie|benzină
 nb:3Bensinstasjon|drivstoff
 fi:3Huoltoasema
+sw:Sheli|mafuta
 
 shop-bakery
 en:3Bakery|shop|U+1F35E
@@ -258,6 +264,7 @@ id:Toko roti|toko
 ro:3Brutărie|magazin
 nb:3Bakeri|butikk
 fi:3Leipomo|kauppa
+sw:Kituo cha kuwoka mikate
 
 shop|shop-convenience|shop-mall|shop-doityourself|shop-mobile_phone|shop-chemist|shop-garden_centre
 en:2Shop|U+1F3EA|U+1F3EC
@@ -287,6 +294,7 @@ id:2Toko
 ro:3Magazin
 nb:3Butikk
 fi:3Kauppa
+sw:Duka
 
 shop-florist
 en:Florist’s|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|2shop
@@ -722,6 +730,7 @@ id:3Supermarket|toko
 ro:3Supermarket|magazin
 nb:3Supermarked|butikk
 fi:3Supermarketti|kauppa
+sw:Supamaketi|duka
 
 amenity-marketplace
 en:3Marketplace|market|shop
@@ -751,6 +760,7 @@ id:2Toko
 ro:2Magazin
 nb:2Torg|butikk
 fi:3Kauppatori|kauppa
+sw:Soko|duka
 
 shop-clothes
 en:Clothes Shop|4clothes|U+1F45A|U+1F457|U+1F456|U+1F455
@@ -780,6 +790,7 @@ id:Toko baju|toko
 ro:Magazin de haine|magazin
 nb:Bilverksted|butikk
 fi:Vaatekauppa|kauppa
+sw:Duka la nguo|nguo
 
 shop-car
 en:Car Shop|U+1F697|U+1F698|U+1F699
@@ -809,6 +820,7 @@ id:3Bengkel mobil|toko
 ro:3Magazin auto|magazin
 nb:3Bensinstasjon|butikk
 fi:3Autokorjaamo|kauppa
+sw:Yadi|duka la gari|gari
 
 shop-bicycle
 en:4Bicycle Shop|cycle|bike|shop|U+1F6B2|U+1F6B4|U+1F6B5
@@ -838,6 +850,7 @@ id:3Sepeda|toko
 ro:3Bicicletă|magazin
 nb:3Sykkel|butikk
 fi:3Polkupyörä|kauppa
+sw:Duka la baiskeli|baiskeli
 
 shop-kiosk
 en:Kiosk|shop|U+1F4F0
@@ -867,6 +880,7 @@ id:Toko
 ro:Magazin
 nb:Butikk
 fi:Kauppa
+sw:Kioski|duka
 
 highway-bus_stop
 en:Bus Stop|2bus|stop|4transport|U+1F68C|U+1F68F|U+1F68E|U+1F690
@@ -896,6 +910,7 @@ id:3Halte bus|transportasi
 ro:3Stație de autobuz|transport
 nb:3Busstopp|transport
 fi:3Bussipysäkki|liikenne
+sw:Kituo cha basi|basi|usafiri
 
 railway-tram_stop
 en:Tram Stop|3tram|stop|4transport|U+1F683
@@ -954,6 +969,7 @@ id:3Stasiun bus|transportasi
 ro:3Stație de autobuz|transport
 nb:3Busstasjon|transport
 fi:3Bussiasema|liikenne
+sw:Stendi ya basi|basi|stendi|usafiri
 
 railway-station|railway-halt|building-train_station
 en:3Train Station|4railway|railroad|3train|4station|4transport|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
@@ -983,6 +999,7 @@ id:Rel kereta api|transportasi
 ro:Feroviar|transport
 nb:Togstasjon|transport
 fi:Rautatieasema|liikenne
+sw:Kituo cha treni|treni|usafiri
 
 railway-subway_entrance|railway-station-subway
 en:3Subway|3tube|3metro|3underground|transport|U+1F687
@@ -1012,6 +1029,7 @@ id:3Stasiun bawah tanah|transportasi
 ro:3Metrou|transport
 nb:2T-bane|undergrunnsbane|metro|transport
 fi:3Metro|liikenne
+sw:Reli ya chini
 
 amenity-ferry_terminal
 en:3Ferry|terminal|transport|U+1F6A2|U+1F6A4|U+2693
@@ -1041,6 +1059,7 @@ id:3Terminal|feri|transportasi
 ro:3Feribot|terminal|transport
 nb:3Ferje|terminal|transport
 fi:3Lautta|terminaali|kuljetus|liikenne
+sw:Bandali|kivuko
 
 amenity-taxi
 en:3Taxi|transport|U+1F695|U+1F696
@@ -1070,6 +1089,7 @@ id:3Taksi|transportasi
 ro:3Taxi|transport
 nb:3Drosje|transport
 fi:3Taksi|liikenne
+sw:Teksi|usafiri
 
 amenity-townhall
 en:3Town Hall|3tourism|3sights
@@ -1099,6 +1119,7 @@ id:3Balai kota|pemandangan
 ro:3Primărie|obiective turistice
 nb:3Rådhus|severdigheter
 fi:Kaupungintalo|nähtävyydet
+sw:Ukumbi|utalii
 
 tourism-attraction
 en:3Attraction|3tourism|3sights|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
@@ -1128,6 +1149,7 @@ id:3Atraksi|pemandangan
 ro:3Punct de atracție|obiective turistice
 nb:3Attraksjon|severdigheter
 fi:3Huvitus|nähtävyydet
+sw:Kivutio|utalii
 
 tourism-artwork
 en:3Artwork|3tourism|3sights|U+1F3A8
@@ -1157,6 +1179,7 @@ id:3Pariwisata|pemandangan
 ro:3Turism|obiective turistice
 nb:Kunstverk|severdigheter
 fi:Rautatieasema|nähtävyydet
+sw:Kazi ya kisanaa|utalii
 
 tourism-viewpoint
 en:4Viewpoint|tourism|sights
@@ -1186,6 +1209,7 @@ id:Titik pandang|pemandangan
 ro:3Punct de vedere|obiective turistice
 nb:3Utsiktspunkt|severdigheter
 fi:3Näköalatasanne|nähtävyydet
+sw:Genge|utalii
 
 tourism-information
 en:4Tourist Information|4information|sights|U+2139|U+1F481
@@ -1215,6 +1239,7 @@ id:3Informasi turis|pemandangan
 ro:3Informații turistice|obiective turistice
 nb:3Turistinformasjon|severdigheter
 fi:3Matkailuinfo|nähtävyydet
+sw:Taarifa ya utalii|taarifa
 
 tourism-picnic_site|amenity-bbq
 en:3Picnic Site|sights
@@ -1244,6 +1269,7 @@ id:3Lokasi piknik|pemandangan
 ro:3Locații picnic|obiective turistice
 nb:3Rasteplasser|severdigheter
 fi:3Piknikpaikat|nähtävyydet
+sw:Sehemu ya madhazi
 
 amenity-place_of_worship
 en:4Place of Worship|3temple|sights|U+1F64F
@@ -1273,6 +1299,7 @@ id:4Tempat ibadah|pemandangan
 ro:3Loc de cult|3templu|obiective turistice
 nb:3Gudshus|3tempel|severdigheter
 fi:4Uskonnollinen kohde|3temppeli|nähtävyydet
+sw:Sehemu ya kusali
 
 amenity-place_of_worship-christian
 en:Church|place of worship|temple|sights|U+1F64F|U+26EA|U+271D|U+2626
@@ -1505,6 +1532,7 @@ id:3Museum|pemandangan
 ro:3Muzeu|obiective turistice
 nb:3Museum|severdigheter
 fi:3Museo|nähtävyydet
+sw:Makumbusho|kivutio|utalii
 
 waterway-waterfall|natural-waterfall
 en:2Waterfall|sights
@@ -1534,6 +1562,7 @@ id:2Air terjun|pemandangan
 ro:3Cascadă|obiective turistice
 nb:3Foss|severdigheter
 fi:3Vesiputous|nähtävyydet
+sw:Maporomoko ya maji
 
 historic-memorial
 en:Memorial|monument|attraction|tourism|sights|U+1F5FC|U+1F5FD|U+1F5FF
@@ -1563,6 +1592,7 @@ id:3Tugu peringatan|pemandangan
 ro:3Comemorare|obiective turistice
 nb:3Minnesmerke|severdigheter
 fi:3Muistomerkki|nähtävyydet
+sw:Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 
 historic-monument
 en:Monument|attraction|tourism|sights|U+1F5FD|U+1F5FF
@@ -1592,6 +1622,7 @@ id:Monumen|pemandangan
 ro:Monument|obiective turistice
 nb:Monument|severdigheter
 fi:Monumentti|nähtävyydet
+sw:Makumbusho|kivutio|utalii
 
 historic-ruins
 en:Ruins|attraction|tourism|sights|U+1F5FF
@@ -1621,6 +1652,7 @@ id:Reruntuhan|pemandangan
 ro:Ruine|obiective turistice
 nb:Ruiner|severdigheter
 fi:Rauniot|nähtävyydet
+sw:Maeneo ya kale|jengo la kale|chakavu
 
 historic-castle
 en:Castle|attraction|tourism|sights|U+1F3EF|U+1F3F0|U+1F451|U+1F478
@@ -1650,6 +1682,7 @@ id:Kastel|pemandangan
 ro:Castel|obiective turistice
 nb:Slott|severdigheter
 fi:Linna|nähtävyydet
+sw:Ngome|kivutio|utalii
 
 historic-archaeological_site
 en:Archaeological Site|attraction|tourism|sights
@@ -1679,6 +1712,7 @@ id:Situs arkeologi|pemandangan
 ro:Sit arheologic|obiective turistice
 nb:Arkeologisk område|severdigheter
 fi:Arkeologinen kohde|nähtävyydet
+sw:Machimbo ya kihistoria|kivutio|utalii
 
 leisure-garden
 en:2Garden|sights
@@ -1708,6 +1742,7 @@ id:Situs arkeologi|pemandangan
 ro:Sit arheologic|obiective turistice
 nb:Hage|severdigheter
 fi:Puutarha|nähtävyydet
+sw:Bustani
 
 amenity-bench
 en:Bench
@@ -1737,6 +1772,7 @@ id:Bangku panjang
 ro:Bancă
 nb:Benk
 fi:Penkki
+sw:Benchi
 
 amenity-bicycle_rental
 en:4Bicycle Rental|cycle|bike|3rental|U+1F6B2|U+1F6B4|U+1F6B5
@@ -1766,6 +1802,7 @@ id:Sepeda
 ro:Bicicletă
 nb:Bilutleie
 fi:Polkupyörä
+sw:Kodi ya baiskeli|baiskeli|kodi
 
 amenity-car_sharing|amenity-car_rental
 en:3Car Rental|car|rental|sharing|U+1F697|U+1F698|U+1F699
@@ -1795,6 +1832,7 @@ id:Rental mobil
 ro:Închiriere mașini
 nb:Bilutleie
 fi:Autovuokraamo
+sw:Kodi ya gari|gari|kodi
 
 amenity-cinema
 en:3Cinema|entertainment|U+1F3A6|U+1F3AC
@@ -1824,6 +1862,7 @@ id:Bioskop|hiburan
 ro:Cinema|divertisment
 nb:Kino|underholdning
 fi:Elokuvateatteri|viihde
+sw:Sinema|burudani
 
 amenity-theatre
 en:3Theatre|theater|entertainment|U+1F3AD
@@ -1853,6 +1892,7 @@ id:Teater|hiburan
 ro:Teatru|divertisment
 nb:Teater|underholdning
 fi:Teatteri|viihde
+sw:Thieta|burudani|maonyesho
 
 amenity-nightclub
 en:3Nightclub|3disco|dance|entertainment|U+1F378|U+1F379|U+1F46F|U+1F483
@@ -1882,6 +1922,7 @@ id:Kelab malam|hiburan
 ro:Club de noapte|divertisment
 nb:Nattklubb|underholdning
 fi:Yökerho|viihde
+sw:Ukumbi wa starehe|klabu|burudani
 
 amenity-brothel
 en:Brothel|entertainment|U+1F3E9
@@ -1911,6 +1952,7 @@ id:Hiburan
 ro:Divertisment
 nb:Bordell|underholdning
 fi:Bordelli|viihde
+sw:Danguro
 
 amenity-casino
 en:Casino|entertainment|U+1F3B0|U+1F3B2|U+1F3B4
@@ -1940,6 +1982,7 @@ id:Hiburan
 ro:Divertisment
 nb:Kasino|underholdning
 fi:Casino|viihde
+sw:Kasino|burudani
 
 amenity-college
 en:College|U+1F3EB
@@ -1969,6 +2012,7 @@ id:Kampus
 ro:Colegiu
 nb:Høyskole
 fi:College
+sw:Chuo
 
 amenity-drinking_water
 en:4Drinking Water|U+1F6B0
@@ -1998,6 +2042,7 @@ id:Air minum
 ro:Apă de băut
 nb:Drikkevann
 fi:Juomavesi
+sw:Maji ya kunywa
 
 amenity-fire_station
 en:Fire Station|U+1F692
@@ -2027,6 +2072,7 @@ id:Kantor pemadam kebakaran
 ro:Unitate de pompieri
 nb:Brannstasjon
 fi:Paloasema
+sw:Kituo cha zimamoto
 
 amenity-fountain
 en:Fountain|U+26F2
@@ -2085,6 +2131,7 @@ id:Pemakaman
 ro:Cimitir
 nb:Gravplass
 fi:Hautausmaa
+sw:Makabulini
 
 amenity-hospital|amenity-doctors|amenity-dentist|amenity-clinic
 en:3Hospital|clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A
@@ -2114,6 +2161,7 @@ id:Rumah sakit
 ro:Spital
 nb:Sykehus
 fi:Sairaala
+sw:Hospitali|zahanati|daktari
 
 amenity-hunting_stand
 en:Hunting Stand
@@ -2142,6 +2190,7 @@ id:Lokasi berburu
 ro:Stand de vânătoare
 nb:Jaktpost
 fi:Metsästyspaikka
+sw:Uwanja wa mawindo
 
 amenity-kindergarten
 en:Kindergarten|U+1F476|U+1F37C|U+1F6BC
@@ -2171,6 +2220,7 @@ id:Taman kanak-kanak
 ro:Grădiniță
 nb:Barnehage
 fi:Päiväkoti
+sw:Chekechea
 
 amenity-library
 en:3Library|U+1F4D6
@@ -2200,6 +2250,7 @@ id:Perpustakaan
 ro:Bibliotecă
 nb:Bibliotek
 fi:Kirjasto
+sw:Maktaba
 
 amenity-parking
 en:3Parking|U+1F697|U+1F17F|U+1F698|U+1F699
@@ -2229,6 +2280,7 @@ id:3Parkir
 ro:3Parcare
 nb:3Parkering
 fi:3Parkkipaikka
+sw:Maegesho
 
 amenity-pharmacy
 en:3Pharmacy|3drugstore|apothecary|dispensary|U+1F489|U+1F48A
@@ -2258,6 +2310,7 @@ id:3Apotek
 ro:3Farmacie
 nb:3Apotek
 fi:3Apteekki
+sw:Duka la dawa
 
 amenity-post_box
 en:3Postbox|post|U+2709|U+1F4E8|U+1F4E9|U+1F4EA|U+1F4EB|U+1F4EE|U+1F4EC|U+1F4ED
@@ -2287,6 +2340,7 @@ id:Pos
 ro:Poştă
 nb:Postboks
 fi:Postilaatikko
+sw:Sanduku la posta
 
 amenity-post_office
 en:3Post|U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
@@ -2316,6 +2370,7 @@ id:Pos
 ro:Poştă
 nb:Post
 fi:Posti
+sw:Posta
 
 amenity-recycling|amenity-waste_disposal
 en:Recycling|trash|bin|garbage|U+1F6AE
@@ -2345,6 +2400,7 @@ id:Daur ulang
 ro:Reciclare
 nb:Resirkulering
 fi:Kierrätys
+sw:Chombo cha kutia taka
 
 amenity-school
 en:3School|U+1F392|U+1F3EB
@@ -2374,6 +2430,7 @@ id:Sekolah
 ro:Școală
 nb:Skole
 fi:Koulu
+sw:Shule|skuli
 
 amenity-shelter
 en:Shelter
@@ -2403,6 +2460,7 @@ id:Tempat penampungan
 ro:Adăpost
 nb:Tilfluktsrom
 fi:Turvapaikka
+sw:Malazi
 
 amenity-telephone
 en:2Phone|U+260E|U+1F4DE
@@ -2432,6 +2490,7 @@ id:Telepon
 ro:Telefon
 nb:Telefon
 fi:Puhelin
+sw:Simu
 
 amenity-toilets
 en:3Toilet|wc|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
@@ -2461,6 +2520,7 @@ id:Toilet
 ro:Toaletă
 nb:Toalett
 fi:Wc
+sw:Choo
 
 amenity-university
 en:4University|U+1F393
@@ -2490,6 +2550,7 @@ id:Universitas
 ro:Universitate
 nb:Universitet
 fi:Yliopisto
+sw:Chuo
 
 place-continent
 en:Continent|U+1F30D|U+1F30E|U+1F30F
@@ -2519,6 +2580,7 @@ id:Benua
 ro:Continent
 nb:Kontinent
 fi:Maanosa
+sw:Bara
 
 place-country
 en:Country
@@ -2548,6 +2610,7 @@ id:Benua
 ro:Continent
 nb:Land
 fi:Maa
+sw:Nchi
 
 place-city
 en:City|town
@@ -2577,6 +2640,7 @@ id:Kota
 ro:Municipiu
 nb:By
 fi:Kaupunki
+sw:Mji
 
 place-town
 en:Town|city
@@ -2606,6 +2670,7 @@ id:Kota
 ro:Oraș
 nb:By
 fi:Kaupunki
+sw:Mji mdogo
 
 place-city-capital
 en:Capital|city
@@ -2635,6 +2700,7 @@ id:Ibu kota
 ro:Capitală
 nb:Hovedstad
 fi:Pääkaupunki
+sw:Mji mkuu
 
 place-county
 en:County
@@ -2693,6 +2759,7 @@ id:Negara bagian
 ro:Stat
 nb:Stat
 fi:Lääni
+sw:Jimbo
 
 place-region
 en:Region
@@ -2722,6 +2789,7 @@ id:Wilayah
 ro:Regiune
 nb:Region
 fi:Alue
+sw:Mkoa
 
 place-island|place-islet
 en:Island|islet
@@ -2751,6 +2819,7 @@ id:Pulau
 ro:Insulă
 nb:Øy
 fi:Saari
+sw:Kisiwa
 
 place-suburb
 en:Suburb|district
@@ -2780,6 +2849,7 @@ id:Pinggiran kota
 ro:Suburbie
 nb:Forstad
 fi:Forstad
+sw:Kiunga
 
 place-hamlet
 en:Hamlet|village
@@ -2838,6 +2908,7 @@ id:Desa
 ro:Sat
 nb:Landsby
 fi:Kylä
+sw:Kijiji
 
 place-locality
 en:Locality
@@ -2867,6 +2938,7 @@ id:Wilayah
 ro:Localitate
 nb:Lokalitet
 fi:Paikkakunta
+sw:Mahali jirani
 
 place-farm
 en:Farm|U+1F411|U+1F414|U+1F417|U+1F42E|U+1F404|U+1F430|U+1F407|U+1F40F|U+1F410|U+1F413|U+1F424|U+1F437|U+1F43D|U+1F69C
@@ -2896,6 +2968,7 @@ id:Ladang
 ro:Fermă
 nb:Gård
 fi:Maatila
+sw:Shamba
 
 waterway-river|waterway-stream|waterway-riverbank
 en:River
@@ -2925,6 +2998,7 @@ id:Sungai
 ro:Râu
 nb:Elv
 fi:Joki
+sw:Mto
 
 waterway-canal
 en:Canal
@@ -2954,6 +3028,7 @@ id:Kanal
 ro:Canal
 nb:Kanal
 fi:Kanaali
+sw:Mfereji
 
 highway-raceway
 en:Racetrack|U+1F3C1
@@ -3012,6 +3087,7 @@ id:Jalur
 ro:Cale
 nb:Sti
 fi:Polku
+sw:Jia
 
 highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-motorway_link|highway-motorway
 en:Street|st|str|ave|road|rd
@@ -3041,6 +3117,7 @@ id:Jalan
 ro:Stradă
 nb:Gate
 fi:Katu
+sw:Barabara|mtaa|barabara kuu
 
 highway-motorway_junction
 en:3Exit|3junction
@@ -3067,6 +3144,7 @@ id:Keluar
 ro:Ieșire
 nb:Utgang|kryss
 fi:Poistumistie|liittymä
+sw:Njia panda
 
 natural-peak
 en:Peak|mountain|U+1F5FB|U+1F304
@@ -3096,6 +3174,7 @@ id:Puncak
 ro:Munte
 nb:Høydepunkt|fjell
 fi:Huippu|vuori
+sw:Kilele|mlima
 
 natural-water|landuse-basin|landuse-reservoir
 en:Water
@@ -3125,6 +3204,7 @@ id:Air
 ro:Apă
 nb:Vann
 fi:Vesi
+sw:Maji
 
 natural-pond
 en:Pond|water
@@ -3154,6 +3234,7 @@ id:Kolam
 ro:Heleșteu
 nb:Dam|vann
 fi:Lampi|vesi
+sw:Bwawa
 
 natural-lake
 en:Lake|water
@@ -3183,6 +3264,7 @@ id:Danau
 ro:Lac
 nb:Innsjø|vann
 fi:Järvi|vesi
+sw:Ziwa
 
 natural-wood|landuse-forest
 en:Forest|U+1F332|U+1F333
@@ -3212,6 +3294,7 @@ id:Hutan
 ro:Pădure
 nb:Skog
 fi:Metsä
+sw:Msitu
 
 leisure-park
 en:Park|U+1F332|U+1F333|U+1F60C
@@ -3241,6 +3324,7 @@ id:Taman
 ro:Parc
 nb:Park
 fi:Puisto
+sw:Mbuga
 
 tourism-hostel
 en:3Hostel|hotel|motel|U+1F3E8
@@ -3270,6 +3354,7 @@ id:Hostel|hotel
 ro:Hostel|hotel
 nb:Vandrerhjem|hotell
 fi:Hostelli|hotelli
+sw:Bweni
 
 tourism-hotel
 en:2Hotel|motel|U+1F3E8|U+1F62A|U+1F634
@@ -3299,6 +3384,7 @@ id:Hotel
 ro:Hotel
 nb:Hotell
 fi:Hotelli
+sw:Hoteli
 
 tourism-guest_house
 en:Guest House|hotel|hostel|U+1F3E8
@@ -3328,6 +3414,7 @@ id:Wisma tamu|hotel
 ro:Pensiune|hotel
 nb:Gjestehus|hotell
 fi:Majatalo|hotelli
+sw:Gesti
 
 tourism-motel
 en:3Motel|hotel|hostel|U+1F3E8
@@ -3415,6 +3502,7 @@ id:Penata rambut
 ro:Coafor
 nb:Frisør
 fi:Kampaamo
+sw:Saluni
 
 aeroway-aerodrome
 en:3Airport|3plane|U+2708
@@ -3444,6 +3532,7 @@ id:Bandar udara
 ro:Aeroport
 nb:Flyplass
 fi:Lentokenttä
+sw:Uwanja wa ndege
 
 leisure-stadium
 en:Stadium|4sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F4AA|U+1F3C9
@@ -3473,6 +3562,7 @@ id:Stadion
 ro:Stadion
 nb:Stadion
 fi:Stadion
+sw:Kiwanja cha michezo
 
 leisure-playground
 en:Playground
@@ -3502,6 +3592,7 @@ id:Taman bermain
 ro:Loc de joacă
 nb:Lekeplass
 fi:Leikkikenttä
+sw:Viwanja vya michezo
 
 leisure-sports_centre
 en:Sports Center|sport|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9
@@ -3531,6 +3622,7 @@ id:Olahraga
 ro:Sport
 nb:Sportssenter
 fi:Urheilukeskus
+sw:Viwanja vya michezo
 
 leisure-golf_course
 en:Golf Course|sport|U+26F3
@@ -3560,6 +3652,7 @@ id:Lapangan golf
 ro:Teren de golf
 nb:Golfbane
 fi:Golf-rata
+sw:Uwanja wa gofu|michezo
 
 leisure-pitch
 en:Sports Ground|sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F3C9|U+1F3C3
@@ -3589,6 +3682,7 @@ id:Lapangan olahraga|lapangan
 ro:Teren de sport|gazon
 nb:Sportssenter
 fi:Urheilukenttä|nimikkopaikka
+sw:Uwanja|michezo
 
 leisure-swimming_pool
 en:4Swimming Pool|sport|U+1F3CA
@@ -3618,6 +3712,7 @@ id:Kolam renang
 ro:Piscină
 nb:Svømmebasseng
 fi:Uima-allas
+sw:Bwawa la kuogelea
 
 building|building-address
 en:Building|U+1F3E0|U+1F3E1|U+1F3E2
@@ -3647,6 +3742,7 @@ id:Gedung
 ro:Clădire
 nb:Bygning
 fi:Rakennus
+sw:Jengo
 
 amenity-police
 en:4Police|U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
@@ -3676,6 +3772,7 @@ id:Polisi
 ro:Poliție
 nb:Politi
 fi:Poliisi
+sw:Polisi
 
 amenity-embassy
 en:4Embassy
@@ -3705,6 +3802,7 @@ id:Kedutaan
 ro:Ambasadă
 nb:Ambassade
 fi:Suurlähetystö
+sw:Ubalozi
 
 natural-bay
 en:Bay
@@ -3734,6 +3832,7 @@ id:Teluk
 ro:Golf
 nb:Bukt
 fi:Lahti
+sw:Ghuba
 
 natural-spring
 en:Spring
@@ -3763,6 +3862,7 @@ id:Mata air
 ro:Primăvară
 nb:Vår
 fi:Lähde
+sw:Chemchemi
 
 shop-car_repair
 en:3Car Repair Shop|4service station|auto|U+1F527
@@ -3792,6 +3892,7 @@ id:Bengkel mobil
 ro:Atelier de reparații auto
 nb:Bilverksted
 fi:Autokorjaamo
+sw:Fundi wa gari
 
 tourism-camp_site
 en:4Camping|campsite|campground|U+26FA
@@ -3821,6 +3922,7 @@ id:Perkemahan
 ro:Camping
 nb:Camping
 fi:Retkeily
+sw:Kambi
 
 tourism-caravan_site
 en:4Caravan Site|RV site|U+1F69A|U+26FA|U+1F69B
@@ -3879,6 +3981,7 @@ id:Kantor
 ro:Birou
 nb:Kontor
 fi:Toimisto
+sw:Ofisi|kampuni
 
 area:highway-footway|area:highway-pedestrian|area:highway-steps
 en:3Square
@@ -3937,6 +4040,7 @@ id:Laut
 ro:Mare
 nb:Sjø
 fi:Meri
+sw:Bahari
 
 place-ocean
 en:Ocean|U+1F30A
@@ -3966,6 +4070,7 @@ id:Samudra
 ro:Ocean
 nb:Hav
 fi:Valtameri
+sw:Bahari
 
 internet_access|internet_access-wlan
 en:WiFi|3Internet|U+1F4F6
@@ -3995,6 +4100,7 @@ id:WiFi|3Internet
 ro:WiFi|3Internet
 nb:WiFi|3Internet
 fi:WiFi|3Internet
+sw:WiFi|intaneti
 
 natural-beach
 en:Beach|U+1F459
@@ -4023,6 +4129,7 @@ id:Pantai
 ro:Plajă
 nb:Strand
 fi:Ranta
+sw:Pwani
 
 highway-speed_camera
 en:3Speed Camera

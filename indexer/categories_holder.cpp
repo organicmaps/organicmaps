@@ -242,6 +242,9 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     {"ro", 25 },
     {"nb", 26 },
     {"fi", 27 },
+    {"el", 28 },
+    {"he", 29 },
+    {"sw", 30 }
   };
   for (size_t i = 0; i < ARRAY_SIZE(mapping); ++i)
     if (locale.find(mapping[i].m_name) == 0)
