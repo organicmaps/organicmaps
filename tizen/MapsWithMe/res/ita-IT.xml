@@ -41,7 +41,7 @@
 	<!-- Detailed description of Measurement Units settings button -->
 	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Scegli tra miglia e chilometri</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_FOOD">Ristoranti</text>
+	<text id="IDS_FOOD">Cibo</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_TRANSPORT">Transporto</text>
 	<!-- Search Suggestion -->
