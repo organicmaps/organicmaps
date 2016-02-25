@@ -11,7 +11,7 @@
 
 namespace
 {
-string const kDefaultLanguage = "en";
+static constexpr char const * kDefaultLanguage = "en";
 
 string GetTextSourceString(platform::TextSource textSource)
 {
@@ -21,6 +21,8 @@ string GetTextSourceString(platform::TextSource textSource)
     return string("sound-strings");
   case platform::TextSource::Countries:
     return string("countries-strings");
+  case platform::TextSource::Cuisines:
+    return string("cuisine-strings");
   }
   ASSERT(false, ());
   return string();
