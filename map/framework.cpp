@@ -1920,7 +1920,7 @@ void Framework::BuildRoute(m2::PointD const & finish, uint32_t timeoutSec)
   m2::PointD start;
   if (!m_drapeEngine->GetMyPosition(start))
   {
-    CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec(), storage::TCountriesVec());
+    CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
     return;
   }
 
@@ -1941,7 +1941,6 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
   auto readyCallback = [this] (Route const & route, IRouter::ResultCode code)
   {
     storage::TCountriesVec absentCountries;
-    storage::TCountriesVec absentRoutingIndexes;
     if (code == IRouter::NoError)
     {
       double const kRouteScaleMultiplier = 1.5;
@@ -1953,19 +1952,12 @@ void Framework::BuildRoute(m2::PointD const & start, m2::PointD const & finish, 
     }
     else
     {
-      for (string const & name : route.GetAbsentCountries())
-      {
-        storage::TCountryId fileCountryId = name;
-        if (m_storage.GetLatestLocalFile(fileCountryId))
-          absentRoutingIndexes.push_back(fileCountryId);
-        else
-          absentCountries.push_back(fileCountryId);
-      }
+      absentCountries.assign(route.GetAbsentCountries().begin(), route.GetAbsentCountries().end());
 
       if (code != IRouter::NeedMoreMaps)
         RemoveRoute(true /* deactivateFollowing */);
     }
-    CallRouteBuilded(code, absentCountries, absentRoutingIndexes);
+    CallRouteBuilded(code, absentCountries);
   };
 
   m_routingSession.BuildRoute(start, finish, readyCallback, m_progressCallback, timeoutSec);
@@ -2028,13 +2020,13 @@ void Framework::SetRouterImpl(RouterType type)
   }
   else
   {
-    auto localFileGetter = [this](string const & countryFile) -> shared_ptr<LocalCountryFile>
+    auto localFileChecker = [this](string const & countryFile) -> bool
     {
-      return m_storage.GetLatestLocalFile(CountryFile(countryFile));
+      return m_model.GetIndex().GetMwmIdByCountryFile(CountryFile(countryFile)).IsAlive();
     };
 
     router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileGetter));
-    fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileGetter));
+    fetcher.reset(new OnlineAbsentCountriesFetcher(countryFileGetter, localFileChecker));
     m_routingSession.SetRoutingSettings(routing::GetCarRoutingSettings());
   }
 
@@ -2113,12 +2105,11 @@ void Framework::MatchLocationToRoute(location::GpsInfo & location, location::Rou
   m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
-void Framework::CallRouteBuilded(IRouter::ResultCode code, storage::TCountriesVec const & absentCountries,
-                                 storage::TCountriesVec const & absentRoutingFiles)
+void Framework::CallRouteBuilded(IRouter::ResultCode code, storage::TCountriesVec const & absentCountries)
 {
   if (code == IRouter::Cancelled)
     return;
-  m_routingCallback(code, absentCountries, absentRoutingFiles);
+  m_routingCallback(code, absentCountries);
 }
 
 string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)

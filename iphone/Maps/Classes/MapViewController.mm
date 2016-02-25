@@ -547,7 +547,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 
 - (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
                        countries:(storage::TCountriesVec const &)absentCountries
-                          routes:(storage::TCountriesVec const &)absentRoutes
 {
   switch (code)
   {
@@ -574,12 +573,10 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
     case routing::IRouter::FileTooOld:
     case routing::IRouter::RouteNotFound:
     {
-      [self presentDownloaderAlert:code countries:absentCountries routes:absentRoutes okBlock:[=]
+      [self presentDownloaderAlert:code countries:absentCountries okBlock:[=]
       {
         auto & s = GetFramework().Storage();
         for (auto const & countryId : absentCountries)
-          s.DownloadNode(countryId);
-        for (auto const & countryId : absentRoutes)
           s.DownloadNode(countryId);
         [self openMapsDownloader];
       }];
@@ -717,11 +714,10 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
                      countries:(storage::TCountriesVec const &)countries
-                        routes:(storage::TCountriesVec const &)routes
                        okBlock:(TMWMVoidBlock)okBlock
 {
-  if (countries.size() || routes.size())
-    [self.alertController presentDownloaderAlertWithCountries:countries routes:routes code:code okBlock:okBlock];
+  if (countries.size())
+    [self.alertController presentDownloaderAlertWithCountries:countries code:code okBlock:okBlock];
   else
     [self presentDefaultAlert:code];
 }

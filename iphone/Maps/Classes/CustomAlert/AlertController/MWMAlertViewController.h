@@ -11,7 +11,6 @@
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
 - (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
-                                     routes:(storage::TCountriesVec const &)routes
                                        code:(routing::IRouter::ResultCode)code
                                     okBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentRateAlert;

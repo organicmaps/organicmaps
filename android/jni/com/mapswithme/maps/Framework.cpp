@@ -464,8 +464,7 @@ extern "C"
     CallOnMapObjectActivatedListener(obj, mapObject.get());
   }
 
-  // TODO (gardster or trashkalmar): Remove absentRoutes param after core is modified
-  void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<storage::TCountryId> const & absentMaps, vector<storage::TCountryId> const & absentRoutes)
+  void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<storage::TCountryId> const & absentMaps)
   {
     JNIEnv * env = jni::GetEnv();
     jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");
@@ -837,7 +836,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
   {
-    frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2, _3));
+    frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2));
   }
 
   JNIEXPORT void JNICALL

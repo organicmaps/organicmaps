@@ -13,8 +13,7 @@ using namespace storage;
 @protocol MWMFrameworkRouteBuilderObserver <MWMFrameworkObserver>
 
 - (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
-                       countries:(TCountriesVec const &)absentCountries
-                          routes:(TCountriesVec const &)absentRoutes;
+                       countries:(storage::TCountriesVec const &)absentCountries;
 
 @optional
 

@@ -271,13 +271,13 @@ namespace integration
     {
       return routerComponents.GetCountryInfoGetter().GetRegionCountryId(p);
     };
-    auto localFileGetter =
-        [&routerComponents](string const & countryFile) -> shared_ptr<LocalCountryFile>
+    auto localFileChecker =
+        [&routerComponents](string const & /* countryFile */) -> bool
     {
-      // Always returns empty LocalCountryFile.
-      return make_shared<LocalCountryFile>();
+      // Always returns that the file is absent.
+      return false;
     };
-    routing::OnlineAbsentCountriesFetcher fetcher(countryFileGetter, localFileGetter);
+    routing::OnlineAbsentCountriesFetcher fetcher(countryFileGetter, localFileChecker);
     fetcher.GenerateRequest(MercatorBounds::FromLatLon(startPoint),
                             MercatorBounds::FromLatLon(finalPoint));
     vector<string> absent;

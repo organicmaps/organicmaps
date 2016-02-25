@@ -78,7 +78,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
                        countries:(storage::TCountriesVec const &)absentCountries
-                          routes:(storage::TCountriesVec const &)absentRoutes
 {
   switch (code)
   {

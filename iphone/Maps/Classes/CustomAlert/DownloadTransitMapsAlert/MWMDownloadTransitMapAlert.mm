@@ -65,7 +65,6 @@ static NSString * const kStatisticsEvent = @"Map download Alert";
 @interface MWMDownloadTransitMapAlert ()
 {
   storage::TCountriesVec maps;
-  storage::TCountriesVec routes;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
@@ -87,12 +86,11 @@ static NSString * const kStatisticsEvent = @"Map download Alert";
 @implementation MWMDownloadTransitMapAlert
 
 + (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)maps
-                                 routes:(storage::TCountriesVec const &)routes
                                    code:(routing::IRouter::ResultCode)code
                                 okBlock:(TMWMVoidBlock)okBlock
 {
   [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
-  MWMDownloadTransitMapAlert * alert = [self alertWithMaps:maps routes:routes];
+  MWMDownloadTransitMapAlert * alert = [self alertWithMaps:maps];
   switch (code)
   {
     case routing::IRouter::InconsistentMWMandRoute:
@@ -117,7 +115,7 @@ static NSString * const kStatisticsEvent = @"Map download Alert";
   return alert;
 }
 
-+ (instancetype)alertWithMaps:(storage::TCountriesVec const &)maps routes:(storage::TCountriesVec const &)routes
++ (instancetype)alertWithMaps:(storage::TCountriesVec const &)maps
 {
   MWMDownloadTransitMapAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadTransitMapAlertNibName owner:nil options:nil] firstObject];
   NSMutableArray * missedFiles = [@[] mutableCopy];
@@ -126,14 +124,8 @@ static NSString * const kStatisticsEvent = @"Map download Alert";
     MWMDownloaderEntity * entity = [[MWMDownloaderEntity alloc] initWithIndexes:maps isMaps:YES];
     [missedFiles addObject:entity];
   }
-  if (!routes.empty())
-  {
-    MWMDownloaderEntity * entity = [[MWMDownloaderEntity alloc] initWithIndexes:routes isMaps:NO];
-    [missedFiles addObject:entity];
-  }
   alert.missedFiles = missedFiles;
   alert->maps = maps;
-  alert->routes = routes;
   [alert configure];
   return alert;
 }

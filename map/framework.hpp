@@ -517,7 +517,6 @@ public:
 
 public:
   using TRouteBuildingCallback = function<void(routing::IRouter::ResultCode,
-                                               storage::TCountriesVec const &,
                                                storage::TCountriesVec const &)>;
   using TRouteProgressCallback = function<void(float)>;
 
@@ -584,8 +583,7 @@ private:
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
   void CallRouteBuilded(routing::IRouter::ResultCode code,
-                        storage::TCountriesVec const & absentCountries,
-                        storage::TCountriesVec const & absentRoutingFiles);
+                        storage::TCountriesVec const & absentCountries);
   void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo) const;
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 

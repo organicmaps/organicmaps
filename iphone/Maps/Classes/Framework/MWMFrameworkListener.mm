@@ -109,11 +109,11 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   using namespace storage;
   TObservers * observers = self.routeBuildingObservers;
   auto & f = GetFramework();
-  f.SetRouteBuildingListener([observers](IRouter::ResultCode code, TCountriesVec const & absentCountries, TCountriesVec const & absentRoutes)
+  f.SetRouteBuildingListener([observers](IRouter::ResultCode code, TCountriesVec const & absentCountries)
   {
-    loopWrappers(observers, [code, absentCountries, absentRoutes](TRouteBuildingObserver observer)
+    loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer)
     {
-      [observer processRouteBuilderEvent:code countries:absentCountries routes:absentRoutes];
+      [observer processRouteBuilderEvent:code countries:absentCountries];
     });
   });
   f.SetRouteProgressListener([observers](float progress)

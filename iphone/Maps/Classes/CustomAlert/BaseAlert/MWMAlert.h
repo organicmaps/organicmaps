@@ -8,7 +8,6 @@
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
-                                          routes:(storage::TCountriesVec const &)routes
                                             code:(routing::IRouter::ResultCode)code
                                          okBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)rateAlert;
