@@ -12,13 +12,13 @@ namespace storage
 {
 HttpMapFilesDownloader::~HttpMapFilesDownloader()
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
+  ASSERT_THREAD_CHECKER(m_checker, ());
 }
 
 void HttpMapFilesDownloader::GetServersList(int64_t const mapVersion, string const & mapFileName,
                                             TServersListCallback const & callback)
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
+  ASSERT_THREAD_CHECKER(m_checker, ());
   m_request.reset(downloader::HttpRequest::PostJson(
       GetPlatform().MetaServerUrl(), strings::to_string(mapVersion) + '/' + mapFileName,
       bind(&HttpMapFilesDownloader::OnServersListDownloaded, this, callback, _1)));
@@ -29,7 +29,7 @@ void HttpMapFilesDownloader::DownloadMapFile(vector<string> const & urls, string
                                              TFileDownloadedCallback const & onDownloaded,
                                              TDownloadingProgressCallback const & onProgress)
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
+  ASSERT_THREAD_CHECKER(m_checker, ());
   m_request.reset(downloader::HttpRequest::GetFile(
       urls, path, size, bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, onDownloaded, _1),
       bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, onProgress, _1)));
@@ -37,26 +37,26 @@ void HttpMapFilesDownloader::DownloadMapFile(vector<string> const & urls, string
 
 MapFilesDownloader::TProgress HttpMapFilesDownloader::GetDownloadingProgress()
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
+  ASSERT_THREAD_CHECKER(m_checker, ());
   return m_request->Progress();
 }
 
 bool HttpMapFilesDownloader::IsIdle()
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
+  ASSERT_THREAD_CHECKER(m_checker, ());
   return m_request.get() == nullptr;
 }
 
 void HttpMapFilesDownloader::Reset()
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
+  ASSERT_THREAD_CHECKER(m_checker, ());
   m_request.reset();
 }
 
 void HttpMapFilesDownloader::OnServersListDownloaded(TServersListCallback const & callback,
                                                      downloader::HttpRequest & request)
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
+  ASSERT_THREAD_CHECKER(m_checker, ());
   vector<string> urls;
   GetServerListFromRequest(request, urls);
   callback(urls);
@@ -65,7 +65,7 @@ void HttpMapFilesDownloader::OnServersListDownloaded(TServersListCallback const 
 void HttpMapFilesDownloader::OnMapFileDownloaded(TFileDownloadedCallback const & onDownloaded,
                                                  downloader::HttpRequest & request)
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
+  ASSERT_THREAD_CHECKER(m_checker, ());
   bool const success = request.Status() != downloader::HttpRequest::EFailed;
   onDownloaded(success, request.Progress());
 }
@@ -73,7 +73,7 @@ void HttpMapFilesDownloader::OnMapFileDownloaded(TFileDownloadedCallback const &
 void HttpMapFilesDownloader::OnMapFileDownloadingProgress(
     TDownloadingProgressCallback const & onProgress, downloader::HttpRequest & request)
 {
-  ASSERT(m_checker.CalledOnOriginalThread(), ());
+  ASSERT_THREAD_CHECKER(m_checker, ());
   onProgress(request.Progress());
 }
 }  // namespace storage

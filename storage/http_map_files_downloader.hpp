@@ -35,6 +35,6 @@ private:
 
   unique_ptr<downloader::HttpRequest> m_request;
 
-  ThreadChecker m_checker;
+  DECLARE_THREAD_CHECKER(m_checker);
 };
 }  // namespace storage
