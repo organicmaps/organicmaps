@@ -6,6 +6,9 @@
 
 namespace Settings
 {
+  // Current location state mode. @See location::EMyPositionMode.
+  extern char const * kLocationStateMode;
+
   template <class T> bool FromString(string const & str, T & outValue);
   template <class T> string ToString(T const & value);
 

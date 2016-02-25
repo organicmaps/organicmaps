@@ -20,10 +20,16 @@
 
 #define FIRST_LAUNCH_KEY "FirstLaunchOnDate"
 
-static char const DELIM_CHAR = '=';
+namespace
+{
+char const DELIM_CHAR = '=';
+}
+
+char const * Settings::kLocationStateMode = "LastLocationStateMode";
 
 namespace Settings
 {
+
   StringStorage::StringStorage()
   {
     lock_guard<mutex> guard(m_mutex);
