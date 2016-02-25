@@ -111,6 +111,11 @@ bool IsUserAttentionNeededStatus(Status status)
   return status == Status::EDownloadFailed || status == Status::EOutOfMemFailed
       || status == Status::EOnDiskOutOfDate || status == Status::EUnknown;
 }
+
+bool IsPartlyDownloaded(Status status)
+{
+  return status == Status::ENotDownloaded;
+}
 }  // namespace
 
 bool HasCountryId(TCountriesVec const & sortedCountryIds, TCountryId const & countryId)
@@ -1231,10 +1236,11 @@ Status Storage::NodeStatus(TCountriesContainer const & node) const
 
   // Group node status.
   Status const kDownloadingInProgress = Status::EDownloading;
-  Status const kUsersAttentionNeeded =  Status::EDownloadFailed;
-  Status const kEverythingOk = Status::EOnDisk;
+  Status const kUsersAttentionNeeded = Status::EDownloadFailed;
+  Status const kPartlyDownloaded = Status::ENotDownloaded;
+  Status const kEverythingDownloaded = Status::EOnDisk;
 
-  Status result = kEverythingOk;
+  Status result = kEverythingDownloaded;
   auto groupStatusCalculator = [&result, this](TCountriesContainer const & nodeInSubtree)
   {
     if (result == kDownloadingInProgress || nodeInSubtree.ChildrenCount() != 0)
@@ -1248,14 +1254,14 @@ Status Storage::NodeStatus(TCountriesContainer const & node) const
       return;
     }
 
-    if (result == kUsersAttentionNeeded)
-      return;
-
     if (IsUserAttentionNeededStatus(status))
     {
       result = kUsersAttentionNeeded;
       return;
     }
+
+    if (IsPartlyDownloaded(status))
+      result = kPartlyDownloaded;
   };
 
   node.ForEachDescendant(groupStatusCalculator);
