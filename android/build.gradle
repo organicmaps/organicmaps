@@ -25,14 +25,14 @@ dependencies {
   compile 'com.android.support:recyclerview-v7:22.2.1'
   compile 'com.android.support:design:22.2.1'
   // google play services
-  compile 'com.google.android.gms:play-services-location:7.8.0'
-  compile 'com.google.android.gms:play-services-analytics:7.8.0'
-  compile 'com.google.android.gms:play-services-plus:7.8.0'
+  compile 'com.google.android.gms:play-services-location:8.4.0'
+  compile 'com.google.android.gms:play-services-analytics:8.4.0'
+  compile 'com.google.android.gms:play-services-plus:8.4.0'
   // 3-party
-  compile 'com.facebook.android:facebook-android-sdk:4.6.0'
-  compile 'com.parse.bolts:bolts-android:1.2.1'
-  compile 'com.parse:parse-android:1.10.2'
-  compile 'com.google.code.gson:gson:2.4'
+  compile 'com.facebook.android:facebook-android-sdk:4.10.0'
+  compile 'com.parse.bolts:bolts-android:1.4.0'
+  compile 'com.parse:parse-android:1.13.0'
+  compile 'com.google.code.gson:gson:2.6.1'
   compile fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
   compile project(":3rd_party:BottomSheet")
