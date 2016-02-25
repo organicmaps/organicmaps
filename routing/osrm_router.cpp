@@ -115,7 +115,9 @@ void FindGraphNodeOffsets(uint32_t const nodeId, m2::PointD const & point,
     loader.GetFeatureByIndex(s.m_fid, ft);
 
     helpers::Point2PhantomNode::Candidate mappedSeg;
-    helpers::Point2PhantomNode::FindNearestSegment(ft, point, mappedSeg);
+    size_t start_idx = min(s.m_pointStart, s.m_pointEnd);
+    size_t stop_idx = max(s.m_pointStart, s.m_pointEnd);
+    helpers::Point2PhantomNode::FindNearestSegment(ft, point, mappedSeg, start_idx, stop_idx);
 
     OsrmMappingTypes::FtSeg seg;
     seg.m_fid = mappedSeg.m_fid;
