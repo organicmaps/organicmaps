@@ -19,6 +19,21 @@ string ToString(OpeningHours const & oh)
 UNIT_TEST(OpeningHours2TimeTableSt)
 {
   {
+    OpeningHours oh("08:00-22:00");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(MakeTimeTableSet(oh, tts), ());
+    TEST_EQUAL(tts.Size(), 1, ());
+
+    auto const tt = tts.Front();
+    TEST(!tt.IsTwentyFourHours(), ());
+    TEST_EQUAL(tt.GetOpeningDays().size(), 7, ());
+    TEST_EQUAL(tt.GetOpeningTime().GetStart().GetHourMinutes().GetHoursCount(), 8, ());
+    TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 22, ());
+  }
+  {
     OpeningHours oh("Mo-Fr 08:00-22:00");
     TEST(oh.IsValid(), ());
 
@@ -157,7 +172,7 @@ UNIT_TEST(OpeningHours2TimeTableSt)
     }
   }
   {
-    OpeningHours oh("Mo-Fr 08:00-13:00,14:00-20:00; Sa 09:00-13:00,14:00-18:00; Su off");
+    OpeningHours oh("Mo-Fr 08:00-13:00,14:00-20:00; Sa 09:00-13:00,14:00-18:00");
     TEST(oh.IsValid(), ());
 
     TimeTableSet tts;
@@ -177,6 +192,15 @@ UNIT_TEST(OpeningHours2TimeTableSt)
       TEST_EQUAL(tt.GetOpeningDays().size(), 1, ());
     }
   }
+  {
+    // We don't handle offs for for now.
+    OpeningHours oh("Mo-Fr 08:00-13:00,14:00-20:00; Sa 09:00-13:00,14:00-18:00; Su off");
+    TEST(oh.IsValid(), ());
+
+    TimeTableSet tts;
+
+    TEST(!MakeTimeTableSet(oh, tts), ());
+  }
 }
 
 UNIT_TEST(TimeTableSt2OpeningHours)
@@ -184,6 +208,24 @@ UNIT_TEST(TimeTableSt2OpeningHours)
   {
     TimeTableSet tts;
     TEST_EQUAL(ToString(MakeOpeningHours(tts)), "24/7", ());
+  }
+  {
+    TimeTableSet tts;
+    auto tt = tts.Front();
+    TEST(tt.SetOpeningDays({
+          osmoh::Weekday::Monday,
+          osmoh::Weekday::Tuesday,
+          osmoh::Weekday::Wednesday,
+          osmoh::Weekday::Thursday,
+          osmoh::Weekday::Friday,
+          osmoh::Weekday::Saturday,
+          osmoh::Weekday::Sunday}), ());
+
+    tt.SetTwentyFourHours(false);
+    TEST(tt.SetOpeningTime({8_h, 22_h}), ());
+    TEST(tt.Commit(), ());
+
+    TEST_EQUAL(ToString(MakeOpeningHours(tts)), "Mo-Su 08:00-22:00", ());
   }
   {
     TimeTableSet tts;

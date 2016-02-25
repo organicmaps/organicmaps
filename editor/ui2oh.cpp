@@ -154,6 +154,16 @@ osmoh::TTimespans MakeTimespans(editor::ui::TimeTable const & tt)
 
   return spans;
 }
+
+editor::ui::TOpeningDays const kWholeWeek = {
+  osmoh::Weekday::Monday,
+  osmoh::Weekday::Tuesday,
+  osmoh::Weekday::Wednesday,
+  osmoh::Weekday::Thursday,
+  osmoh::Weekday::Friday,
+  osmoh::Weekday::Saturday,
+  osmoh::Weekday::Sunday
+};
 }  // namespace
 
 namespace editor
@@ -205,10 +215,12 @@ bool MakeTimeTableSet(osmoh::OpeningHours const & oh, ui::TimeTableSet & tts)
     if (rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Closed ||
         rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Unknown ||
         rulePart.GetModifier() == osmoh::RuleSequence::Modifier::Comment)
-      continue;
+      return false;
 
     if (rulePart.HasWeekdays())
       SetUpWeekdays(rulePart.GetWeekdays(), tt);
+    else
+      tt.SetOpeningDays(kWholeWeek);
 
     if (rulePart.HasTimes())
     {
