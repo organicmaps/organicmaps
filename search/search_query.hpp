@@ -64,6 +64,7 @@ namespace impl
   class HouseCompFactory;
 }
 
+// TODO (@y): rename this class to QueryProcessor.
 class Query : public my::Cancellable
 {
 public:

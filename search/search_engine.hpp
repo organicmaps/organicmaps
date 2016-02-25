@@ -53,18 +53,18 @@ public:
 private:
   friend class Engine;
 
-  // Attaches the handle to a |query|. If there was or will be a
-  // cancel signal, this signal will be propagated to |query|.  This
-  // method is called only once, when search engine starts to process
-  // query this handle corresponds to.
-  void Attach(Query & query);
+  // Attaches the handle to a |processor|. If there was or will be a
+  // cancel signal, this signal will be propagated to |processor|.
+  // This method is called only once, when search engine starts to
+  // process query this handle corresponds to.
+  void Attach(Query & processor);
 
-  // Detaches handle from a query. This method is called only once,
-  // when search engine completes process of a query this handle
+  // Detaches handle from a processor. This method is called only
+  // once, when search engine completes process of a query this handle
   // corresponds to.
   void Detach();
 
-  Query * m_query;
+  Query * m_processor;
   bool m_cancelled;
   mutex m_mu;
 
@@ -109,7 +109,7 @@ public:
 private:
   struct Message
   {
-    using TFn = function<void(Query & query)>;
+    using TFn = function<void(Query & processor)>;
 
     enum Type
     {
@@ -117,14 +117,12 @@ private:
       TYPE_BROADCAST
     };
 
-    Message(TFn && fn, Type type) : m_fn(move(fn)), m_type(type) {}
-    Message(Message const &) = default;
-    Message(Message &&) = default;
+    Message(Type type, TFn && fn) : m_type(type), m_fn(move(fn)) {}
 
-    void operator()(Query & query) { m_fn(query); }
+    void operator()(Query & processor) { m_fn(processor); }
 
-    TFn m_fn;
     Type m_type;
+    TFn m_fn;
   };
 
   // alignas() is used here to prevent false-sharing between different
@@ -139,12 +137,12 @@ private:
 
     // This field is thread-specific and *CAN NOT* be accessed by
     // other threads.
-    unique_ptr<Query> m_query;
+    unique_ptr<Query> m_processor;
   };
 
   // *ALL* following methods are executed on the m_threads threads.
   void SetRankPivot(SearchParams const & params, m2::RectD const & viewport, bool viewportSearch,
-                    Query & query);
+                    Query & processor);
 
   void EmitResults(SearchParams const & params, Results const & res);
 
@@ -158,11 +156,7 @@ private:
   void PostMessage(TArgs &&... args);
 
   void DoSearch(SearchParams const & params, m2::RectD const & viewport,
-                shared_ptr<QueryHandle> handle, Query & query);
-
-  void DoSupportOldFormat(bool support, Query & query);
-
-  void DoClearCaches(Query & query);
+                shared_ptr<QueryHandle> handle, Query & processor);
 
   CategoriesHolder const & m_categories;
   vector<Suggest> m_suggests;
