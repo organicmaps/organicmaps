@@ -58,6 +58,14 @@ bool TileKey::LessStrict(TileKey const & other) const
   return m_x < other.m_x;
 }
 
+bool TileKey::EqualStrict(TileKey const & other) const
+{
+  return m_x == other.m_x &&
+         m_y == other.m_y &&
+         m_zoomLevel == other.m_zoomLevel &&
+         m_generation == other.m_generation;
+}
+
 m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom) const
 {
   int const zoomLevel = clipByDataMaxZoom ? ClipTileZoomByMaxDataZoom(m_zoomLevel) : m_zoomLevel;

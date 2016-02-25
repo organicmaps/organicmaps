@@ -96,7 +96,6 @@ struct RemoveTilePredicate
   {
     if (m_predicate(group))
     {
-      group->Disappear();
       group->DeleteLater();
       m_deletionMark = true;
       return group->CanBeDeleted();
@@ -735,6 +734,16 @@ void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
   RenderLayer::RenderLayerID id = RenderLayer::GetLayerID(state);
   RenderLayer & layer = m_layers[id];
 
+  for (auto const & g : layer.m_renderGroups)
+  {
+    if (!g->IsPendingOnDelete() && g->GetState() == state && g->GetTileKey().EqualStrict(newTile))
+    {
+      g->AddBucket(move(renderBucket));
+      layer.m_isDirty = true;
+      return;
+    }
+  }
+
   drape_ptr<RenderGroup> group = make_unique_dp<RenderGroup>(state, newTile);
   ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
   ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
@@ -742,7 +751,6 @@ void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
   group->AddBucket(move(renderBucket));
 
   layer.m_renderGroups.push_back(move(group));
-  layer.m_renderGroups.back()->Appear();
   layer.m_isDirty = true;
 }
 

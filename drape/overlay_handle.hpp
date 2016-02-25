@@ -147,8 +147,8 @@ public:
                string const & debugStr,
                bool isBillboard = false);
 
-  virtual m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
-  virtual void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override;
+  m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
+  void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override;
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
   virtual string GetOverlayDebugInfo() override;

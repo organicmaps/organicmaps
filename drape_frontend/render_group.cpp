@@ -65,7 +65,7 @@ void RenderGroup::Update(ScreenBase const & modelView)
 
 void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 {
-  if (CanBeDeleted() || GetOpacity() < 1.0)
+  if (CanBeDeleted())
     return;
 
   ASSERT(m_shader != nullptr, ());
@@ -139,54 +139,6 @@ bool RenderGroup::IsLess(RenderGroup const & other) const
   return m_state < other.m_state;
 }
 
-void RenderGroup::UpdateAnimation()
-{
-  double const opactity = GetOpacity();
-  m_uniforms.SetFloatValue("u_opacity", opactity);
-}
-
-double RenderGroup::GetOpacity() const
-{
-  if (m_appearAnimation != nullptr)
-    return m_appearAnimation->GetOpacity();
-
-  if (m_disappearAnimation != nullptr)
-    return m_disappearAnimation->GetOpacity();
-
-  return 1.0;
-}
-
-bool RenderGroup::IsAnimating() const
-{
-  if (m_appearAnimation && !m_appearAnimation->IsFinished())
-    return true;
-
-  if (m_disappearAnimation && !m_disappearAnimation->IsFinished())
-    return true;
-
-  return false;
-}
-
-void RenderGroup::Appear()
-{
-  // Commented because of perfomance reasons.
-  //if (IsOverlay())
-  //{
-  //  m_appearAnimation = make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* delay */,
-  //                                                    0.0 /* startOpacity */, 1.0 /* endOpacity */);
-  //}
-}
-
-void RenderGroup::Disappear()
-{
-  // Commented because of perfomance reasons.
-  //if (IsOverlay())
-  //{
-  //  m_disappearAnimation = make_unique<OpacityAnimation>(0.1 /* duration */, 0.1 /* delay */,
-  //                                                       1.0 /* startOpacity */, 0.0 /* endOpacity */);
-  //}
-}
-
 bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting, int currentZoom, ref_ptr<dp::OverlayTree> tree)
 {
   if (!m_sharedFeaturesWaiting)
@@ -230,10 +182,7 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
     if (lDepth != rDepth)
       return lDepth < rDepth;
 
-    if (my::AlmostEqualULPs(l->GetOpacity(), r->GetOpacity()))
-      return lState < rState;
-    else
-      return l->GetOpacity() > r->GetOpacity();
+    return lState < rState;
   }
 
   if (rCanBeDeleted)

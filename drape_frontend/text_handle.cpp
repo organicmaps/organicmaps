@@ -68,7 +68,8 @@ bool TextHandle::Update(ScreenBase const & screen)
 
 bool TextHandle::IndexesRequired() const
 {
-  return true;
+  // Disable indices usage for text handles.
+  return false;
 }
 
 void TextHandle::SetForceUpdateNormals(bool forceUpdate) const

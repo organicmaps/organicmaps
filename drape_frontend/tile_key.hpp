@@ -17,9 +17,10 @@ struct TileKey
   bool operator < (TileKey const & other) const;
   bool operator == (TileKey const & other) const;
 
-  // This method implements strict comparison of tile keys. It's necessary to merger of
+  // This methods implement strict comparison of tile keys. It's necessary to merger of
   // batches which must not merge batches with different m_generation.
   bool LessStrict(TileKey const & other) const;
+  bool EqualStrict(TileKey const & other) const;
 
   m2::RectD GetGlobalRect(bool clipByDataMaxZoom = true) const;
 
