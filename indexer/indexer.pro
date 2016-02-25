@@ -14,6 +14,7 @@ SOURCES += \
     categories_holder_loader.cpp \
     classificator.cpp \
     classificator_loader.cpp \
+    cuisines.cpp \
     coding_params.cpp \
     data_factory.cpp \
     data_header.cpp \
@@ -60,6 +61,7 @@ HEADERS += \
     classificator.hpp \
     classificator_loader.hpp \
     coding_params.hpp \
+    cuisines.hpp \
     data_factory.hpp \
     data_header.hpp \
     drawing_rule_def.hpp \
