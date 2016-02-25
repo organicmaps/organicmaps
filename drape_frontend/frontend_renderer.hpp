@@ -250,6 +250,7 @@ private:
   array<RenderLayer, RenderLayer::LayerCountID> m_layers;
   vector<drape_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
   set<TileKey> m_userMarkVisibility;
+  deque<drape_ptr<dp::RenderBucket>> m_bucketsToDelete;
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   drape_ptr<MyPositionController> m_myPositionController;

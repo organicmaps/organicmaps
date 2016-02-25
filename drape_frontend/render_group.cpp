@@ -139,7 +139,9 @@ bool RenderGroup::IsLess(RenderGroup const & other) const
   return m_state < other.m_state;
 }
 
-bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting, int currentZoom, ref_ptr<dp::OverlayTree> tree)
+bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting,
+                                              int currentZoom, ref_ptr<dp::OverlayTree> tree,
+                                              deque<drape_ptr<dp::RenderBucket>> & bucketsToDelete)
 {
   if (!m_sharedFeaturesWaiting)
     return false;
@@ -156,6 +158,7 @@ bool RenderGroup::UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWa
     {
       m_renderBuckets[i]->RemoveOverlayHandles(tree);
       swap(m_renderBuckets[i], m_renderBuckets.back());
+      bucketsToDelete.push_back(move(m_renderBuckets.back()));
       m_renderBuckets.pop_back();
     }
     else

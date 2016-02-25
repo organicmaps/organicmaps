@@ -862,7 +862,8 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   for (RenderLayer & layer : m_layers)
   {
     for (auto & group : layer.m_renderGroups)
-      layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(isFeaturesWaiting, m_currentZoomLevel, make_ref(m_overlayTree));
+      layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(isFeaturesWaiting, m_currentZoomLevel,
+                                                            make_ref(m_overlayTree), m_bucketsToDelete);
   }
 
   bool const isPerspective = modelView.isPerspective();
@@ -970,6 +971,15 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 #endif
 
   MergeBuckets();
+
+  size_t const kMinDeletedPerFrame = 10;
+  size_t const kAvgDeletionFrameCount = 30;
+  size_t countToDelete = max(kMinDeletedPerFrame, m_bucketsToDelete.size() / kAvgDeletionFrameCount);
+  while (!m_bucketsToDelete.empty() && countToDelete > 0)
+  {
+    m_bucketsToDelete.pop_front();
+    countToDelete--;
+  }
 }
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
@@ -1382,7 +1392,7 @@ void FrontendRenderer::Routine::Do()
       m_renderer.PrepareScene(modelView);
 
     // Check for a frame is active.
-    bool isActiveFrame = modelViewChanged || viewportChanged;
+    bool isActiveFrame = modelViewChanged || viewportChanged || !m_renderer.m_bucketsToDelete.empty();
 
     isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
