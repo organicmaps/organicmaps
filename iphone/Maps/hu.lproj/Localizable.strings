@@ -184,7 +184,7 @@
 
 "free_space_for_country" = "Kérjük szabadítson fel %1$@-t az eszközön %2$@ letöltéséhez!";
 
-"download_resources" = "Első használat előtt letöltjük a világtérképet.\n%s tárolóhely szükséges.";
+"download_resources" = "Első használat előtt letöltjük a világtérképet.\n%@ tárolóhely szükséges.";
 
 "getting_position" = "Aktuális pozíció meghatározása…";
 
