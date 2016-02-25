@@ -13,6 +13,12 @@
 		34C9BCFC1C6CCF85000DC38D /* country_name_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BCFA1C6CCF85000DC38D /* country_name_getter.cpp */; };
 		34C9BCFD1C6CCF85000DC38D /* country_name_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C9BCFB1C6CCF85000DC38D /* country_name_getter.hpp */; };
 		671182CE1C7E06B400CB8177 /* storage_3levels_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671182CC1C7E069C00CB8177 /* storage_3levels_tests.cpp */; };
+		671182D21C7F0D5D00CB8177 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */; };
+		671182D31C7F0D5D00CB8177 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */; };
+		671182D41C7F0D6400CB8177 /* packed_polygons_obsolete.bin in Resources */ = {isa = PBXBuildFile; fileRef = 671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */; };
+		671182D51C7F0D6500CB8177 /* packed_polygons_obsolete.bin in Resources */ = {isa = PBXBuildFile; fileRef = 671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */; };
+		671182D61C7F0D6800CB8177 /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */; };
+		671182D71C7F0D6900CB8177 /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */; };
 		67247FCF1C60BA8A00EDE56A /* fake_map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FC51C60BA8A00EDE56A /* fake_map_files_downloader.hpp */; };
 		67247FD41C60BA8A00EDE56A /* task_runner.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FCA1C60BA8A00EDE56A /* task_runner.hpp */; };
 		67247FD61C60BA8A00EDE56A /* test_map_files_downloader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67247FCC1C60BA8A00EDE56A /* test_map_files_downloader.hpp */; };
@@ -35,11 +41,9 @@
 		678338D41C723B1A00FD6263 /* country_name_getter_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678338D11C723B1A00FD6263 /* country_name_getter_test.cpp */; };
 		678338D51C723B1A00FD6263 /* helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678338D21C723B1A00FD6263 /* helpers.cpp */; };
 		678338D61C723B1A00FD6263 /* helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 678338D31C723B1A00FD6263 /* helpers.hpp */; };
-		678338D71C72460300FD6263 /* packed_polygons_migrate.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C84171C6388A100DC9603 /* packed_polygons_migrate.bin */; };
 		678338D81C72460700FD6263 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C84151C63888200DC9603 /* packed_polygons.bin */; };
 		678338D91C72460700FD6263 /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83F91C63884300DC9603 /* categories.txt */; };
 		678338DA1C72460700FD6263 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FA1C63884300DC9603 /* classificator.txt */; };
-		678338DB1C72460700FD6263 /* countries_migrate.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FB1C63884300DC9603 /* countries_migrate.txt */; };
 		678338DC1C72460700FD6263 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FC1C63884300DC9603 /* countries.txt */; };
 		678338DD1C72460700FD6263 /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FD1C63884300DC9603 /* drules_proto_clear.bin */; };
 		678338DE1C72460700FD6263 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FE1C63884300DC9603 /* drules_proto_dark.bin */; };
@@ -49,7 +53,6 @@
 		678338E21C72460700FD6263 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C84021C63884300DC9603 /* patterns.txt */; };
 		678338E31C72460700FD6263 /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C84031C63884300DC9603 /* types.txt */; };
 		678338E41C72460700FD6263 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 676C84041C63884300DC9603 /* World.mwm */; };
-		678338E51C72460700FD6263 /* WorldCoasts_migrate.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 676C84051C63884300DC9603 /* WorldCoasts_migrate.mwm */; };
 		678338E61C72460700FD6263 /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 676C84061C63884300DC9603 /* WorldCoasts.mwm */; };
 		67AF4A001BC579DD0048B1ED /* country_info_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AF49FE1BC579DD0048B1ED /* country_info_getter.cpp */; };
 		67AF4A011BC579DD0048B1ED /* country_info_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AF49FF1BC579DD0048B1ED /* country_info_getter.hpp */; };
@@ -131,11 +134,9 @@
 		67F90BF01C6A2A3100CD458E /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FE31C60BBCE00EDE56A /* libplatform.a */; };
 		67F90BF11C6A2A3400CD458E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67247FFF1C60BD7E00EDE56A /* libz.tbd */; };
 		67F90BF21C6A2AAB00CD458E /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675342E01A3F59EF00A0A8C3 /* libstorage.a */; };
-		67F90BF31C6A2B3100CD458E /* packed_polygons_migrate.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C84171C6388A100DC9603 /* packed_polygons_migrate.bin */; };
 		67F90BF41C6A2B3100CD458E /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C84151C63888200DC9603 /* packed_polygons.bin */; };
 		67F90BF51C6A2B3100CD458E /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83F91C63884300DC9603 /* categories.txt */; };
 		67F90BF61C6A2B3100CD458E /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FA1C63884300DC9603 /* classificator.txt */; };
-		67F90BF71C6A2B3100CD458E /* countries_migrate.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FB1C63884300DC9603 /* countries_migrate.txt */; };
 		67F90BF81C6A2B3100CD458E /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FC1C63884300DC9603 /* countries.txt */; };
 		67F90BF91C6A2B3100CD458E /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FD1C63884300DC9603 /* drules_proto_clear.bin */; };
 		67F90BFA1C6A2B3100CD458E /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FE1C63884300DC9603 /* drules_proto_dark.bin */; };
@@ -145,7 +146,6 @@
 		67F90BFE1C6A2B3100CD458E /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C84021C63884300DC9603 /* patterns.txt */; };
 		67F90BFF1C6A2B3100CD458E /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C84031C63884300DC9603 /* types.txt */; };
 		67F90C001C6A2B3100CD458E /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 676C84041C63884300DC9603 /* World.mwm */; };
-		67F90C011C6A2B3100CD458E /* WorldCoasts_migrate.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 676C84051C63884300DC9603 /* WorldCoasts_migrate.mwm */; };
 		67F90C021C6A2B3100CD458E /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 676C84061C63884300DC9603 /* WorldCoasts.mwm */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +157,9 @@
 		34C9BCFB1C6CCF85000DC38D /* country_name_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_name_getter.hpp; sourceTree = "<group>"; };
 		670D05A81B0E04450013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		671182CC1C7E069C00CB8177 /* storage_3levels_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_3levels_tests.cpp; sourceTree = "<group>"; };
+		671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries_obsolete.txt; sourceTree = "<group>"; };
+		671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons_obsolete.bin; sourceTree = "<group>"; };
+		671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
 		67247FC31C60BA8A00EDE56A /* country_info_getter_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_info_getter_test.cpp; sourceTree = "<group>"; };
 		67247FC41C60BA8A00EDE56A /* fake_map_files_downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fake_map_files_downloader.cpp; sourceTree = "<group>"; };
 		67247FC51C60BA8A00EDE56A /* fake_map_files_downloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_map_files_downloader.hpp; sourceTree = "<group>"; };
@@ -223,7 +226,6 @@
 		676C83C11C637FAE00DC9603 /* storage_update_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_update_tests.cpp; sourceTree = "<group>"; };
 		676C83F91C63884300DC9603 /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = categories.txt; sourceTree = "<group>"; };
 		676C83FA1C63884300DC9603 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = classificator.txt; sourceTree = "<group>"; };
-		676C83FB1C63884300DC9603 /* countries_migrate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries_migrate.txt; sourceTree = "<group>"; };
 		676C83FC1C63884300DC9603 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries.txt; sourceTree = "<group>"; };
 		676C83FD1C63884300DC9603 /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_clear.bin; sourceTree = "<group>"; };
 		676C83FE1C63884300DC9603 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
@@ -233,10 +235,8 @@
 		676C84021C63884300DC9603 /* patterns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patterns.txt; sourceTree = "<group>"; };
 		676C84031C63884300DC9603 /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = types.txt; sourceTree = "<group>"; };
 		676C84041C63884300DC9603 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = World.mwm; sourceTree = "<group>"; };
-		676C84051C63884300DC9603 /* WorldCoasts_migrate.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_migrate.mwm; sourceTree = "<group>"; };
 		676C84061C63884300DC9603 /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts.mwm; sourceTree = "<group>"; };
 		676C84151C63888200DC9603 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons.bin; sourceTree = "<group>"; };
-		676C84171C6388A100DC9603 /* packed_polygons_migrate.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons_migrate.bin; sourceTree = "<group>"; };
 		678338D11C723B1A00FD6263 /* country_name_getter_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_name_getter_test.cpp; sourceTree = "<group>"; };
 		678338D21C723B1A00FD6263 /* helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = helpers.cpp; sourceTree = "<group>"; };
 		678338D31C723B1A00FD6263 /* helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = helpers.hpp; sourceTree = "<group>"; };
@@ -466,11 +466,12 @@
 		676C83F81C6387D000DC9603 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				676C84171C6388A100DC9603 /* packed_polygons_migrate.bin */,
+				671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */,
+				671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */,
+				671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */,
 				676C84151C63888200DC9603 /* packed_polygons.bin */,
 				676C83F91C63884300DC9603 /* categories.txt */,
 				676C83FA1C63884300DC9603 /* classificator.txt */,
-				676C83FB1C63884300DC9603 /* countries_migrate.txt */,
 				676C83FC1C63884300DC9603 /* countries.txt */,
 				676C83FD1C63884300DC9603 /* drules_proto_clear.bin */,
 				676C83FE1C63884300DC9603 /* drules_proto_dark.bin */,
@@ -480,7 +481,6 @@
 				676C84021C63884300DC9603 /* patterns.txt */,
 				676C84031C63884300DC9603 /* types.txt */,
 				676C84041C63884300DC9603 /* World.mwm */,
-				676C84051C63884300DC9603 /* WorldCoasts_migrate.mwm */,
 				676C84061C63884300DC9603 /* WorldCoasts.mwm */,
 			);
 			name = Resources;
@@ -614,18 +614,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				678338D81C72460700FD6263 /* packed_polygons.bin in Resources */,
-				678338D71C72460300FD6263 /* packed_polygons_migrate.bin in Resources */,
 				678338E31C72460700FD6263 /* types.txt in Resources */,
 				678338E61C72460700FD6263 /* WorldCoasts.mwm in Resources */,
-				678338E51C72460700FD6263 /* WorldCoasts_migrate.mwm in Resources */,
+				671182D51C7F0D6500CB8177 /* packed_polygons_obsolete.bin in Resources */,
 				678338DA1C72460700FD6263 /* classificator.txt in Resources */,
+				671182D31C7F0D5D00CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
 				678338DF1C72460700FD6263 /* drules_proto_legacy.bin in Resources */,
 				678338E01C72460700FD6263 /* drules_proto-bw.bin in Resources */,
 				678338DC1C72460700FD6263 /* countries.txt in Resources */,
 				678338D91C72460700FD6263 /* categories.txt in Resources */,
 				678338E21C72460700FD6263 /* patterns.txt in Resources */,
 				678338E11C72460700FD6263 /* drules_proto.bin in Resources */,
-				678338DB1C72460700FD6263 /* countries_migrate.txt in Resources */,
+				671182D71C7F0D6900CB8177 /* countries_obsolete.txt in Resources */,
 				678338DD1C72460700FD6263 /* drules_proto_clear.bin in Resources */,
 				678338E41C72460700FD6263 /* World.mwm in Resources */,
 				678338DE1C72460700FD6263 /* drules_proto_dark.bin in Resources */,
@@ -636,21 +636,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67F90BF31C6A2B3100CD458E /* packed_polygons_migrate.bin in Resources */,
 				67F90BF41C6A2B3100CD458E /* packed_polygons.bin in Resources */,
 				67F90BF51C6A2B3100CD458E /* categories.txt in Resources */,
 				67F90BF61C6A2B3100CD458E /* classificator.txt in Resources */,
-				67F90BF71C6A2B3100CD458E /* countries_migrate.txt in Resources */,
+				671182D41C7F0D6400CB8177 /* packed_polygons_obsolete.bin in Resources */,
 				67F90BF81C6A2B3100CD458E /* countries.txt in Resources */,
+				671182D21C7F0D5D00CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
 				67F90BF91C6A2B3100CD458E /* drules_proto_clear.bin in Resources */,
 				67F90BFA1C6A2B3100CD458E /* drules_proto_dark.bin in Resources */,
 				67F90BFB1C6A2B3100CD458E /* drules_proto_legacy.bin in Resources */,
 				67F90BFC1C6A2B3100CD458E /* drules_proto-bw.bin in Resources */,
 				67F90BFD1C6A2B3100CD458E /* drules_proto.bin in Resources */,
 				67F90BFE1C6A2B3100CD458E /* patterns.txt in Resources */,
+				671182D61C7F0D6800CB8177 /* countries_obsolete.txt in Resources */,
 				67F90BFF1C6A2B3100CD458E /* types.txt in Resources */,
 				67F90C001C6A2B3100CD458E /* World.mwm in Resources */,
-				67F90C011C6A2B3100CD458E /* WorldCoasts_migrate.mwm in Resources */,
 				67F90C021C6A2B3100CD458E /* WorldCoasts.mwm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

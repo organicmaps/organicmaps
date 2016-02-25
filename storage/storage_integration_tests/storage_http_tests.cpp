@@ -44,7 +44,7 @@ UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
 {
   WritableDirChanger writableDirChanger(kMapTestDir);
 
-  Storage storage(COUNTRIES_MIGRATE_FILE);
+  Storage storage(COUNTRIES_FILE);
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
 
   auto ChangeCountryFunction = [&](TCountryId const & countryId)

@@ -147,7 +147,6 @@ MERGE_INTERVAL=${MERGE_INTERVAL:-40}
 NODE_STORAGE=${NODE_STORAGE:-${NS:-mem}}
 ASYNC_PBF=${ASYNC_PBF-}
 KEEP_INTDIR=${KEEP_INTDIR-1}
-MIGRATE=${MIGRATE-1}
 # nproc is linux-only
 if [ "$(uname -s)" == "Darwin" ]; then
   CPUS="$(sysctl -n hw.ncpu)"
@@ -443,13 +442,6 @@ if [ "$MODE" == "resources" ]; then
   # Update countries list
   "$SCRIPTS_PATH/../python/hierarchy_to_countries.py" --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --version "$COUNTRIES_VERSION" \
     --legacy --sort --names "$DATA_PATH/mwm_names_en.txt" --output "$TARGET/countries.txt" >> "$PLANET_LOG" 2>&1
-
-  # Migration suffix
-  if [ -n "$MIGRATE" ]; then
-    mv "$TARGET/countries.txt" "$TARGET/countries_migrate.txt"
-    mv "$TARGET/WorldCoasts.mwm" "$TARGET/WorldCoasts_migrate.mwm"
-    cp "$DATA_PATH/WorldCoasts.mwm" "$TARGET"
-  fi
 
   # A quick fix: chmodding to a+rw all generated files
   for file in "$TARGET"/*.mwm*; do

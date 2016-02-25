@@ -282,7 +282,7 @@ void Framework::Migrate(bool keepDownloaded)
 }
 
 Framework::Framework()
-  : m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_FILE : COUNTRIES_MIGRATE_FILE)
+  : m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_bmManager(*this)
   , m_fixedSearchResults(0)
   , m_lastReportedCountry(kInvalidCountryId)

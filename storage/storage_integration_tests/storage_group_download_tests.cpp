@@ -255,7 +255,7 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
 {
   WritableDirChanger writableDirChanger(kMapTestDir);
 
-  Storage storage(COUNTRIES_MIGRATE_FILE);
+  Storage storage(COUNTRIES_FILE);
 
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
   string const version = strings::to_string(storage.GetCurrentDataVersion());

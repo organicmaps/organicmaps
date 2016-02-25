@@ -183,7 +183,7 @@ void Storage::PrefetchMigrateData()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  m_prefetchStorage.reset(new Storage(COUNTRIES_MIGRATE_FILE, "migrate"));
+  m_prefetchStorage.reset(new Storage(COUNTRIES_FILE, "migrate"));
   m_prefetchStorage->Init([](LocalCountryFile const &){});
   if (!m_downloadingUrlsForTesting.empty())
     m_prefetchStorage->SetDownloadingUrlsForTesting(m_downloadingUrlsForTesting);
@@ -199,7 +199,7 @@ void Storage::Migrate(TCountriesVec const & existedCountries)
   m_countries.Clear();
 
   TMapping mapping;
-  LoadCountriesFile(COUNTRIES_MIGRATE_FILE, m_dataDir, &mapping);
+  LoadCountriesFile(COUNTRIES_FILE, m_dataDir, &mapping);
 
   vector<TCountryId> prefetchedMaps;
   m_prefetchStorage->GetLocalRealMaps(prefetchedMaps);
@@ -879,7 +879,7 @@ void Storage::GetOutdatedCountries(vector<Country const *> & countries) const
     string const name = GetCountryFile(countryId).GetName();
     TLocalFilePtr file = GetLatestLocalFile(countryId);
     if (file && file->GetVersion() != GetCurrentDataVersion() &&
-        name != WORLD_COASTS_FILE_NAME && name != WORLD_COASTS_MIGRATE_FILE_NAME && name != WORLD_FILE_NAME)
+        name != WORLD_COASTS_FILE_NAME && name != WORLD_COASTS_OBSOLETE_FILE_NAME && name != WORLD_FILE_NAME)
     {
       countries.push_back(&CountryLeafByCountryId(countryId));
     }

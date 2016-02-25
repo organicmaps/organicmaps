@@ -24,7 +24,7 @@ string const kTestWebServer = "http://new-search.mapswithme.com/";
 
 string const kMapTestDir = "map-tests";
 
-string const kCountriesTxtFile = COUNTRIES_MIGRATE_FILE;
+string const kCountriesTxtFile = COUNTRIES_FILE;
 
 string const kMwmVersion1 = "160126";
 size_t const kCountriesTxtFileSize1 = 131201;

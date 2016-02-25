@@ -254,7 +254,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
   // World and WorldCoasts can be stored in app bundle or in resources
   // directory, thus it's better to get them via Platform.
   for (string const & file : { WORLD_FILE_NAME,
-    (migrate::NeedMigrate() ? WORLD_COASTS_FILE_NAME : WORLD_COASTS_MIGRATE_FILE_NAME) })
+    (migrate::NeedMigrate() ? WORLD_COASTS_OBSOLETE_FILE_NAME : WORLD_COASTS_FILE_NAME) })
   {
     auto i = localFiles.begin();
     for (; i != localFiles.end(); ++i)

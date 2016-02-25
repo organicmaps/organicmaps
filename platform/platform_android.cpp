@@ -37,7 +37,7 @@ bool IsResource(string const & file, string const & ext)
   if (ext == DATA_FILE_EXTENSION)
   {
     return (strings::StartsWith(file, WORLD_COASTS_FILE_NAME) ||
-            strings::StartsWith(file, WORLD_COASTS_MIGRATE_FILE_NAME) ||
+            strings::StartsWith(file, WORLD_COASTS_OBSOLETE_FILE_NAME) ||
             strings::StartsWith(file, WORLD_FILE_NAME));
   }
   else if (ext == BOOKMARKS_FILE_EXTENSION ||

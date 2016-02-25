@@ -295,7 +295,7 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
       worldFound = true;
       TEST_NOT_EQUAL(0, file.GetVersion(), (file));
     }
-    if (file.GetCountryName() == WORLD_COASTS_FILE_NAME)
+    if (file.GetCountryName() == WORLD_COASTS_OBSOLETE_FILE_NAME)
     {
       worldCoastsFound = true;
       TEST_NOT_EQUAL(0, file.GetVersion(), (file));

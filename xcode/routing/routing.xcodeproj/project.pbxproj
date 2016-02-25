@@ -19,6 +19,9 @@
 		670EE5731B664796001E8064 /* pedestrian_directions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670EE56F1B664796001E8064 /* pedestrian_directions.cpp */; };
 		670EE5741B664796001E8064 /* pedestrian_directions.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670EE5701B664796001E8064 /* pedestrian_directions.hpp */; };
 		670EE5751B664796001E8064 /* router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670EE5711B664796001E8064 /* router.cpp */; };
+		671182EA1C7F0E2100CB8177 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182E91C7F0E1F00CB8177 /* WorldCoasts_obsolete.mwm */; };
+		671182EC1C7F0E3200CB8177 /* packed_polygons_obsolete.bin in Resources */ = {isa = PBXBuildFile; fileRef = 671182E81C7F0E1F00CB8177 /* packed_polygons_obsolete.bin */; };
+		671182ED1C7F0E3500CB8177 /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182E71C7F0E1F00CB8177 /* countries_obsolete.txt */; };
 		671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671F58BB1B874EC80032311E /* followed_polyline.cpp */; };
 		671F58BE1B874EC80032311E /* followed_polyline.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671F58BC1B874EC80032311E /* followed_polyline.hpp */; };
 		6741AA9C1BF35331002C974C /* turns_notification_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6741AA9A1BF35331002C974C /* turns_notification_manager.cpp */; };
@@ -144,12 +147,9 @@
 		67BD35F51C69F447003AA26F /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD551C68C7C1009CB89E /* types.txt */; };
 		67BD35F61C69F447003AA26F /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD531C68BB14009CB89E /* classificator.txt */; };
 		67BD35F71C69F447003AA26F /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD611C68F747009CB89E /* sound-strings */; };
-		67BD35FA1C69F49A003AA26F /* packed_polygons_migrate.bin in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35F81C69F474003AA26F /* packed_polygons_migrate.bin */; };
 		67BD35FB1C69F49A003AA26F /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35F91C69F474003AA26F /* packed_polygons.bin */; };
-		67BD35FE1C69F4BC003AA26F /* countries_migrate.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35FC1C69F4AC003AA26F /* countries_migrate.txt */; };
 		67BD35FF1C69F4BC003AA26F /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35FD1C69F4AC003AA26F /* countries.txt */; };
 		67BD36031C69F51C003AA26F /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 67BD36001C69F513003AA26F /* World.mwm */; };
-		67BD36041C69F51C003AA26F /* WorldCoasts_migrate.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 67BD36011C69F513003AA26F /* WorldCoasts_migrate.mwm */; };
 		67BD36051C69F51C003AA26F /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 67BD36021C69F513003AA26F /* WorldCoasts.mwm */; };
 		67C7D4291B4EB48F00FE41AA /* car_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67C7D4211B4EB48F00FE41AA /* car_model.cpp */; };
 		67C7D42A1B4EB48F00FE41AA /* car_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67C7D4221B4EB48F00FE41AA /* car_model.hpp */; };
@@ -189,6 +189,9 @@
 		670EE56F1B664796001E8064 /* pedestrian_directions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pedestrian_directions.cpp; sourceTree = "<group>"; };
 		670EE5701B664796001E8064 /* pedestrian_directions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pedestrian_directions.hpp; sourceTree = "<group>"; };
 		670EE5711B664796001E8064 /* router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = router.cpp; sourceTree = "<group>"; };
+		671182E71C7F0E1F00CB8177 /* countries_obsolete.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries_obsolete.txt; sourceTree = "<group>"; };
+		671182E81C7F0E1F00CB8177 /* packed_polygons_obsolete.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons_obsolete.bin; sourceTree = "<group>"; };
+		671182E91C7F0E1F00CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
 		671F58BB1B874EC80032311E /* followed_polyline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = followed_polyline.cpp; sourceTree = "<group>"; };
 		671F58BC1B874EC80032311E /* followed_polyline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = followed_polyline.hpp; sourceTree = "<group>"; };
 		6741AA9A1BF35331002C974C /* turns_notification_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_notification_manager.cpp; sourceTree = "<group>"; };
@@ -292,12 +295,9 @@
 		67BD35E01C69F198003AA26F /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<group>"; };
 		67BD35E11C69F198003AA26F /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
 		67BD35E21C69F198003AA26F /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
-		67BD35F81C69F474003AA26F /* packed_polygons_migrate.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons_migrate.bin; sourceTree = "<group>"; };
 		67BD35F91C69F474003AA26F /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons.bin; sourceTree = "<group>"; };
-		67BD35FC1C69F4AC003AA26F /* countries_migrate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries_migrate.txt; sourceTree = "<group>"; };
 		67BD35FD1C69F4AC003AA26F /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries.txt; sourceTree = "<group>"; };
 		67BD36001C69F513003AA26F /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = World.mwm; sourceTree = "<group>"; };
-		67BD36011C69F513003AA26F /* WorldCoasts_migrate.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_migrate.mwm; sourceTree = "<group>"; };
 		67BD36021C69F513003AA26F /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts.mwm; sourceTree = "<group>"; };
 		67C7D4211B4EB48F00FE41AA /* car_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = car_model.cpp; sourceTree = "<group>"; };
 		67C7D4221B4EB48F00FE41AA /* car_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = car_model.hpp; sourceTree = "<group>"; };
@@ -486,12 +486,12 @@
 		6742AD511C68BAEE009CB89E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				671182E71C7F0E1F00CB8177 /* countries_obsolete.txt */,
+				671182E81C7F0E1F00CB8177 /* packed_polygons_obsolete.bin */,
+				671182E91C7F0E1F00CB8177 /* WorldCoasts_obsolete.mwm */,
 				67BD36001C69F513003AA26F /* World.mwm */,
-				67BD36011C69F513003AA26F /* WorldCoasts_migrate.mwm */,
 				67BD36021C69F513003AA26F /* WorldCoasts.mwm */,
-				67BD35FC1C69F4AC003AA26F /* countries_migrate.txt */,
 				67BD35FD1C69F4AC003AA26F /* countries.txt */,
-				67BD35F81C69F474003AA26F /* packed_polygons_migrate.bin */,
 				67BD35F91C69F474003AA26F /* packed_polygons.bin */,
 				6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */,
 				6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */,
@@ -778,18 +778,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				67BD36031C69F51C003AA26F /* World.mwm in Resources */,
-				67BD36041C69F51C003AA26F /* WorldCoasts_migrate.mwm in Resources */,
 				67BD36051C69F51C003AA26F /* WorldCoasts.mwm in Resources */,
-				67BD35FE1C69F4BC003AA26F /* countries_migrate.txt in Resources */,
 				67BD35FF1C69F4BC003AA26F /* countries.txt in Resources */,
-				67BD35FA1C69F49A003AA26F /* packed_polygons_migrate.bin in Resources */,
 				67BD35FB1C69F49A003AA26F /* packed_polygons.bin in Resources */,
+				671182EA1C7F0E2100CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
 				67BD35F01C69F447003AA26F /* drules_proto_clear.bin in Resources */,
 				67BD35F11C69F447003AA26F /* drules_proto_dark.bin in Resources */,
 				67BD35F21C69F447003AA26F /* drules_proto_legacy.bin in Resources */,
+				671182ED1C7F0E3500CB8177 /* countries_obsolete.txt in Resources */,
 				67BD35F31C69F447003AA26F /* drules_proto-bw.bin in Resources */,
 				67BD35F41C69F447003AA26F /* drules_proto.bin in Resources */,
 				67BD35F51C69F447003AA26F /* types.txt in Resources */,
+				671182EC1C7F0E3200CB8177 /* packed_polygons_obsolete.bin in Resources */,
 				67BD35F61C69F447003AA26F /* classificator.txt in Resources */,
 				67BD35F71C69F447003AA26F /* sound-strings in Resources */,
 			);

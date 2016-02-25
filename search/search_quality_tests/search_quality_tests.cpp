@@ -119,7 +119,7 @@ uint64_t ReadVersionFromHeader(platform::LocalCountryFile const & mwm)
   vector<string> specialFiles = {
     WORLD_FILE_NAME,
     WORLD_COASTS_FILE_NAME,
-    WORLD_COASTS_MIGRATE_FILE_NAME
+    WORLD_COASTS_OBSOLETE_FILE_NAME
   };
   for (auto const & name : specialFiles)
   {

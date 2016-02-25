@@ -190,8 +190,8 @@ unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReaderTwoCompo
 {
   try
   {
-    CountryInfoReader * result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE),
-                                                       platform.GetReader(COUNTRIES_FILE));
+    CountryInfoReader * result = new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_OBSOLETE_FILE),
+                                                       platform.GetReader(COUNTRIES_OBSOLETE_FILE));
     return unique_ptr<CountryInfoReader>(result);
   }
   catch (RootException const & e)
@@ -208,8 +208,8 @@ unique_ptr<CountryInfoGetter> CountryInfoReader::CreateCountryInfoReaderOneCompo
   try
   {
     CountryInfoReader * result =
-        new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_MIGRATE_FILE),
-                              platform.GetReader(COUNTRIES_MIGRATE_FILE));
+        new CountryInfoReader(platform.GetReader(PACKED_POLYGONS_FILE),
+                              platform.GetReader(COUNTRIES_FILE));
     return unique_ptr<CountryInfoReader>(result);
   }
   catch (RootException const & e)

@@ -13,6 +13,7 @@
 		56EB1EDF1C6B6E6C0022D831 /* mwm_traits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1EDB1C6B6E6C0022D831 /* mwm_traits.hpp */; };
 		670E8C761BB318AB00094197 /* platform_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C741BB318AB00094197 /* platform_ios.mm */; };
 		670E8C911BB31A2F00094197 /* ios_video_timer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 670E8C901BB31A2F00094197 /* ios_video_timer.mm */; };
+		671182F31C80AC4200CB8177 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182F21C80AC3D00CB8177 /* WorldCoasts_obsolete.mwm */; };
 		671C62061AE9014C00076BD0 /* measurement_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671C62041AE9014C00076BD0 /* measurement_utils.cpp */; };
 		671C62071AE9014C00076BD0 /* measurement_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671C62051AE9014C00076BD0 /* measurement_utils.hpp */; };
 		67247FFD1C60BD6500EDE56A /* write_dir_changer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67247FFB1C60BD6500EDE56A /* write_dir_changer.cpp */; };
@@ -101,6 +102,7 @@
 		670D05A71B0E03BF0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		670E8C741BB318AB00094197 /* platform_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = platform_ios.mm; sourceTree = "<group>"; };
 		670E8C901BB31A2F00094197 /* ios_video_timer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ios_video_timer.mm; sourceTree = "<group>"; };
+		671182F21C80AC3D00CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
 		671C62041AE9014C00076BD0 /* measurement_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = measurement_utils.cpp; sourceTree = "<group>"; };
 		671C62051AE9014C00076BD0 /* measurement_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = measurement_utils.hpp; sourceTree = "<group>"; };
 		67247FFB1C60BD6500EDE56A /* write_dir_changer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = write_dir_changer.cpp; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 		678338A91C6DF4BD00FD6263 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				671182F21C80AC3D00CB8177 /* WorldCoasts_obsolete.mwm */,
 				678338B01C6E016700FD6263 /* World.mwm */,
 				678338B11C6E016700FD6263 /* WorldCoasts.mwm */,
 				678338AB1C6DF50700FD6263 /* classificator.txt */,
@@ -511,6 +514,7 @@
 			files = (
 				678338AD1C6DF51D00FD6263 /* classificator.txt in Resources */,
 				678338AE1C6DF51D00FD6263 /* minsk-pass.mwm in Resources */,
+				671182F31C80AC4200CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
 				678338AF1C6DF51D00FD6263 /* resources-ldpi_legacy in Resources */,
 				678338B21C6E016F00FD6263 /* WorldCoasts.mwm in Resources */,
 				678338B31C6E017200FD6263 /* World.mwm in Resources */,

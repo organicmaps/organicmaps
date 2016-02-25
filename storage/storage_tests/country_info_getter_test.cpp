@@ -115,7 +115,7 @@ UNIT_TEST(CountryInfoGetter_HitsInTheMiddleOfNowhere)
 UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
 {
   auto const getter = CreateCountryInfoGetterMigrate();
-  Storage storage(COUNTRIES_MIGRATE_FILE);
+  Storage storage(COUNTRIES_FILE);
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
 

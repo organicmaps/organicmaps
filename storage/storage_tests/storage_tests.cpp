@@ -523,7 +523,7 @@ UNIT_TEST(StorageTest_SingleCountryDownloading)
 
 UNIT_TEST(StorageTest_TwoCountriesDownloading)
 {
-  Storage storage;
+  Storage storage(COUNTRIES_OBSOLETE_FILE);
   TaskRunner runner;
   InitStorage(storage, runner);
 
@@ -550,7 +550,7 @@ UNIT_TEST(StorageTest_TwoCountriesDownloading)
 
 UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
 {
-  Storage storage;
+  Storage storage(COUNTRIES_OBSOLETE_FILE);
   bool const isSingleMwm = version::IsSingleMwm(storage.GetCurrentDataVersion());
   if (isSingleMwm)
     storage.SetCurrentDataVersionForTesting(version::FOR_TESTING_SINGLE_MWM_LATEST);
@@ -702,7 +702,7 @@ UNIT_TEST(StorageTest_DeletePendingCountry)
 
 UNIT_TEST(StorageTest_DownloadTwoCountriesAndDeleteSingleMwm)
 {
-  Storage storage;
+  Storage storage(COUNTRIES_OBSOLETE_FILE);
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
 
@@ -832,7 +832,7 @@ UNIT_TEST(StorageTest_CancelDownloadingWhenAlmostDone)
 
 UNIT_TEST(StorageTest_DeleteCountrySingleMwm)
 {
-  Storage storage(COUNTRIES_MIGRATE_FILE, kMapTestDir);
+  Storage storage(COUNTRIES_FILE, kMapTestDir);
   TaskRunner runner;
   InitStorage(storage, runner);
 
@@ -998,7 +998,7 @@ UNIT_TEST(StorageTest_HasCountryId)
 
 UNIT_TEST(StorageTest_DownloadedMapTests)
 {
-  Storage storage(COUNTRIES_MIGRATE_FILE);
+  Storage storage(COUNTRIES_FILE);
 
   TaskRunner runner;
   InitStorage(storage, runner);
@@ -1127,7 +1127,7 @@ UNIT_TEST(StorageTest_TwoInstance)
   string const writableDir = platform.WritableDir();
 
   string const testDir1 = string("testdir1");
-  Storage storage1(COUNTRIES_FILE, testDir1);
+  Storage storage1(COUNTRIES_OBSOLETE_FILE, testDir1);
   platform::tests_support::ScopedDir removeTestDir1(testDir1);
   UNUSED_VALUE(removeTestDir1);
   string const versionDir1 =
@@ -1138,7 +1138,7 @@ UNIT_TEST(StorageTest_TwoInstance)
   InitStorage(storage1, runner1);
 
   string const testDir2 = string("testdir2");
-  Storage storage2(COUNTRIES_MIGRATE_FILE, testDir2);
+  Storage storage2(COUNTRIES_FILE, testDir2);
   platform::tests_support::ScopedDir removeTestDir2(testDir2);
   UNUSED_VALUE(removeTestDir2);
   string const versionDir2 =
@@ -1347,7 +1347,7 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
 
 UNIT_TEST(StorageTest_CalcLimitRect)
 {
-  Storage storage(COUNTRIES_MIGRATE_FILE);
+  Storage storage(COUNTRIES_FILE);
   if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
     return;
 
