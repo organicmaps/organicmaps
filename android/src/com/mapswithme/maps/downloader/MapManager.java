@@ -90,7 +90,7 @@ public final class MapManager
   /**
    * Enqueues given {@code root} node and its children in downloader.
    */
-  public static native boolean nativeDownload(String root);
+  public static native void nativeDownload(String root);
 
   /**
    * Enqueues failed items under given {@code root} node in downloader.

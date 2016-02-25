@@ -133,7 +133,7 @@ using namespace storage;
 {
   __weak auto weakSelf = self;
   m_searchParams.SetMode(search::Mode::World);
-  m_searchParams.m_callback = ^(search::Results const & results)
+  m_searchParams.m_onResults = ^(search::Results const & results)
   {
     __strong auto self = weakSelf;
     if (!self || results.IsEndMarker())

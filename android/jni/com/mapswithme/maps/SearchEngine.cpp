@@ -164,7 +164,7 @@ extern "C"
     params.SetForceSearch(force);
     if (hasPosition)
       params.SetPosition(lat, lon);
-    params.m_callback = bind(&OnResults, _1, timestamp, false, hasPosition, lat, lon);
+    params.m_onResults = bind(&OnResults, _1, timestamp, false, hasPosition, lat, lon);
 
     bool const searchStarted = g_framework->NativeFramework()->Search(params);
     if (searchStarted)
@@ -184,7 +184,7 @@ extern "C"
 
     if (isMapAndTable)
     {
-      params.m_callback = bind(&OnResults, _1, timestamp, isMapAndTable,
+      params.m_onResults = bind(&OnResults, _1, timestamp, isMapAndTable,
                                false /* hasPosition */, 0, 0);
       if (g_framework->NativeFramework()->Search(params))
         g_queryTimestamp = timestamp;

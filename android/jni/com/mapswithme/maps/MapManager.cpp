@@ -231,11 +231,11 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeIsDownloading(JNIEnv * env,
   return GetStorage().IsDownloadInProgress();
 }
 
-// static boolean nativeDownload(String root);
-JNIEXPORT jboolean JNICALL
+// static void nativeDownload(String root);
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeDownload(JNIEnv * env, jclass clazz, jstring root)
 {
-  return GetStorage().DownloadNode(jni::ToNativeString(env, root));
+  GetStorage().DownloadNode(jni::ToNativeString(env, root));
 }
 
 // static boolean nativeRetry(String root);

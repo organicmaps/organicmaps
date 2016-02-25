@@ -94,7 +94,7 @@ LocationObserver>
 - (void)setupSearchParams
 {
   __weak auto weakSelf = self;
-  searchParams.m_callback = ^(search::Results const & results)
+  searchParams.m_onResults = ^(search::Results const & results)
   {
     __strong auto self = weakSelf;
     if (!self)
