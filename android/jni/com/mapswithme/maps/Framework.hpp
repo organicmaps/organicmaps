@@ -149,8 +149,11 @@ namespace android
     void SetActiveUserMark(UserMark const * mark);
     UserMark const * GetActiveUserMark();
 
+    bool HasSpaceForMigration();
     bool NeedMigrate();
-    void Migrate();
+    bool PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & statusChangeListener,
+                                                 storage::Storage::TProgressFunction const & progressListener);
+    void Migrate(bool keepOldMaps);
 
   private:
     vector<TDrapeTask> m_drapeTasksQueue;

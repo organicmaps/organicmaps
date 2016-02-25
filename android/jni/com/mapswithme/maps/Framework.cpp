@@ -409,14 +409,25 @@ UserMark const * Framework::GetActiveUserMark()
   return m_activeUserMark;
 }
 
+bool Framework::HasSpaceForMigration()
+{
+  return m_work.IsEnoughSpaceForMigrate();
+}
+
 bool Framework::NeedMigrate()
 {
   return platform::migrate::NeedMigrate();
 }
 
-void Framework::Migrate()
+void Framework::Migrate(bool keepOldMaps)
 {
-  m_work.Migrate();
+  m_work.Migrate(keepOldMaps);
+}
+
+bool Framework::PreMigrate(ms::LatLon const & position, Storage::TChangeCountryFunction const & statusChangeListener,
+                                                        Storage::TProgressFunction const & progressListener)
+{
+  return m_work.PreMigrate(position, statusChangeListener, progressListener);
 }
 
 }  // namespace android

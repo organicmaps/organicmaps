@@ -14,9 +14,17 @@ public final class MapManager
   }
 
   @SuppressWarnings("unused")
-  public interface CurrentCountryChangedListener
+  interface CurrentCountryChangedListener
   {
     void onCurrentCountryChanged(String countryId);
+  }
+
+  @SuppressWarnings("unused")
+  interface MigrationListener
+  {
+    void onComplete();
+    void onProgress(int percent);
+    void onError(int code);
   }
 
   private MapManager() {}
@@ -27,14 +35,26 @@ public final class MapManager
   public static native boolean nativeMoveFile(String oldFile, String newFile);
 
   /**
+   * Returns {@code true} if there is enough storage space to perform migration. Or {@code false} otherwise.
+   */
+  public static native boolean nativeHasSpaceForMigration();
+
+  /**
    * Determines whether the legacy (large MWMs) mode is used.
    */
   public static native boolean nativeIsLegacyMode();
 
   /**
    * Performs migration from old (large MWMs) mode.
+   * @return {@code true} if prefetch was started. {@code false} if maps were queued to downloader and migration process is complete.
+   *         In this case {@link MigrationListener#onComplete()} will be called before return from {@code nativeMigrate()}.
    */
-  public static native void nativeMigrate();
+  public static native boolean nativeMigrate(MigrationListener listener, double lat, double lon, boolean hasLocation, boolean keepOldMaps);
+
+  /**
+   * Aborts migration. Affects only prefetch process.
+   */
+  public static native void nativeCancelMigration();
 
   /**
    * Returns country ID of the root node.
