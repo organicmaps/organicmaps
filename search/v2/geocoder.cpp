@@ -144,21 +144,17 @@ class LazyRankTable : public RankTable
 class LocalityScorerDelegate : public LocalityScorer::Delegate
 {
 public:
-  LocalityScorerDelegate(MwmContext const & context)
-    : m_context(context), m_ranks(m_context.m_value)
+  LocalityScorerDelegate(MwmContext const & context, Geocoder::Params const & params)
+    : m_context(context), m_params(params), m_ranks(m_context.m_value)
   {
   }
 
   // LocalityScorer::Delegate overrides:
   void GetNames(uint32_t featureId, vector<string> & names) const override
   {
-    static vector<int8_t> const kLangs = {StringUtf8Multilang::GetLangIndex("en"),
-                                          StringUtf8Multilang::GetLangIndex("int_name"),
-                                          StringUtf8Multilang::GetLangIndex("default")};
-
     FeatureType ft;
     m_context.GetFeature(featureId, ft);
-    for (auto const & lang : kLangs)
+    for (auto const & lang : m_params.m_langs)
     {
       string name;
       if (ft.GetName(lang, name))
@@ -170,6 +166,7 @@ public:
 
 private:
   MwmContext const & m_context;
+  Geocoder::Params const & m_params;
   LazyRankTable m_ranks;
 };
 
@@ -693,7 +690,7 @@ void Geocoder::FillLocalityCandidates(coding::CompressedBitVector const * filter
     }
   }
 
-  LocalityScorerDelegate delegate(*m_context);
+  LocalityScorerDelegate delegate(*m_context, m_params);
   LocalityScorer scorer(m_params, delegate);
   scorer.GetTopLocalities(maxNumLocalities, preLocalities);
 }
