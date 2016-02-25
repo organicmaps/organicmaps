@@ -1,5 +1,6 @@
+#import "LocationManager.h"
+#import "MapsAppDelegate.h"
 #import "MWMBasePlacePageView.h"
-#import "MWMFrameworkListener.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageBookmarkCell.h"
@@ -196,9 +197,7 @@ enum class AttributePosition
   BOOL const isMyPosition = entity.isMyPosition;
   self.addressLabel.text = entity.address;
   BOOL const isHeadingAvaible = [CLLocationManager headingAvailable];
-  using namespace location;
-  auto const mode = [MWMFrameworkListener listener].myPositionMode;
-  BOOL const noLocation = (mode == EMyPositionMode::MODE_UNKNOWN_POSITION || mode == EMyPositionMode::MODE_PENDING_POSITION);
+  BOOL const noLocation = MapsAppDelegate.theApp.m_locationManager.isLocationModeUnknownOrPending;
   self.distanceLabel.hidden = noLocation || isMyPosition;
   BOOL const hideDirection = noLocation || isMyPosition || !isHeadingAvaible;
   self.directionArrow.hidden = hideDirection;

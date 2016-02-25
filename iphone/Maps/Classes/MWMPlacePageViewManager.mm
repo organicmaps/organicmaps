@@ -187,11 +187,10 @@ extern NSString * const kBookmarksChangedNotification;
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
                    withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
-  m2::PointD const myPosition([MapsAppDelegate theApp].m_locationManager.lastLocation.mercator);
-  using namespace location;
-  auto const mode = MWMFrameworkListener.listener.myPositionMode;
-  bool const knownPosition = (mode != EMyPositionMode::MODE_UNKNOWN_POSITION && mode != EMyPositionMode::MODE_PENDING_POSITION);
-  [self.delegate buildRouteFrom:knownPosition ? MWMRoutePoint(myPosition) : MWMRoutePoint::MWMRoutePointZero()
+
+  LocationManager * lm = MapsAppDelegate.theApp.m_locationManager;
+  [self.delegate buildRouteFrom:lm.isLocationModeUnknownOrPending ? MWMRoutePoint::MWMRoutePointZero()
+                                                                  : MWMRoutePoint(lm.lastLocation.mercator)
                              to:{self.entity.mercator, self.placePage.basePlacePageView.titleLabel.text}];
 }
 

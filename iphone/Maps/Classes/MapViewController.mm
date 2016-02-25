@@ -497,8 +497,7 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
   // TODO: Review and improve this code.
   f.SetMyPositionModeListener([self](location::EMyPositionMode mode)
   {
-    MWMFrameworkListener.listener.myPositionMode = mode;
-    // Two global listeners are subscribed to the same event from the core.
+    // TODO: Two global listeners are subscribed to the same event from the core.
     // Probably it's better to subscribe only wnen needed and usubscribe in other cases.
     // May be better solution would be multiobservers support in the C++ core.
     [self processMyPositionStateModeEvent:mode];

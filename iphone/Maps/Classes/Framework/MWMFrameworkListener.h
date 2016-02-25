@@ -8,8 +8,6 @@
 + (void)addObserver:(id<MWMFrameworkObserver>)observer;
 + (void)removeObserver:(id<MWMFrameworkObserver>)observer;
 
-@property (nonatomic) location::EMyPositionMode myPositionMode;
-
 - (instancetype)init __attribute__((unavailable("call +listener instead")));
 - (instancetype)copy __attribute__((unavailable("call +listener instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +listener instead")));

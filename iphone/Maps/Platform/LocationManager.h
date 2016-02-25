@@ -40,6 +40,7 @@
 - (NSString *)formattedSpeedAndAltitude:(BOOL &)hasSpeed;
 
 - (bool)lastLocationIsValid;
+- (bool)isLocationModeUnknownOrPending;
 - (BOOL)enabledOnMap;
 - (void)triggerCompass;
 
