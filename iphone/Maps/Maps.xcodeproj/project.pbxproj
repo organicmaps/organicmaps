@@ -578,6 +578,8 @@
 		676507611C10559B00830BB3 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 452FCA3A1B6A3DF7007019AB /* colors.txt */; };
 		676507631C1055BB00830BB3 /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */; };
 		677A2DE21C0DD50900635A00 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
+		6B653B941C7F2DE4007BEFC5 /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B653B931C7F2DE4007BEFC5 /* cuisine-strings */; };
+		6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B653B931C7F2DE4007BEFC5 /* cuisine-strings */; };
 		6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */; };
 		845C891F1C78748000940D7F /* me.maps.enterprise.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 845C891E1C78748000940D7F /* me.maps.enterprise.entitlements */; };
 		974386DD19373EA400FD5659 /* ToastView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.mm */; };
@@ -1168,6 +1170,7 @@
 		674A7E211C0DA55E003D48E1 /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
 		674A7E221C0DA55E003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
 		674A7E231C0DA55E003D48E1 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
+		6B653B931C7F2DE4007BEFC5 /* cuisine-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cuisine-strings"; path = "../../data/cuisine-strings"; sourceTree = "<group>"; };
 		6BA0BCCF1B74DDBA00CC9969 /* MWMCustomFacebookEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCustomFacebookEvents.h; sourceTree = "<group>"; };
 		6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCustomFacebookEvents.mm; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1657,6 +1660,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6B653B931C7F2DE4007BEFC5 /* cuisine-strings */,
 				4A300ED31C6DCFD400140018 /* countries-strings */,
 				347274711B0F4EB300756B37 /* Entitlements */,
 				97D40C09184D031900A1D572 /* Images.xcassets */,
@@ -3066,6 +3070,7 @@
 				B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */,
 				34B82ABB1B837FFD00180497 /* MWMSearchHistoryRequestCell.xib in Resources */,
 				34F9FB921C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.xib in Resources */,
+				6B653B941C7F2DE4007BEFC5 /* cuisine-strings in Resources */,
 				34B6CF5D1BBBFC6B009203C6 /* LaunchScreen.storyboard in Resources */,
 				3476B8DC1BFDD30B00874594 /* tts-how-to-set-up-voice.html in Resources */,
 				978D4A31199A11E600D72CA7 /* faq.html in Resources */,
@@ -3171,6 +3176,7 @@
 				6741A94F1BF340DE002C974C /* MWMDefaultAlert.xib in Resources */,
 				6741A9501BF340DE002C974C /* fonts_whitelist.txt in Resources */,
 				6741A9511BF340DE002C974C /* MWMDownloaderDialogHeader.xib in Resources */,
+				6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */,
 				6741A9521BF340DE002C974C /* World.mwm in Resources */,
 				F607C18A1C032A8800B53A87 /* resources-hdpi_dark in Resources */,
 				6741A9531BF340DE002C974C /* 01_dejavusans.ttf in Resources */,

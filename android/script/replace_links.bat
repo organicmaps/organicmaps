@@ -42,7 +42,8 @@ cp -r ../data/resources-6plus_dark/ assets/
 cp -r ../data/resources-6plus_clear/ assets/
 
 cp -r ../data/sound-strings/ assets/
-cp -r ../data/countries-strings assets/
+cp -r ../data/countries-strings/ assets/
+cp -r ../data/cuisine-strings/ assets/
 
 rm -rf flavors/mwm-ttf-assets
 mkdir flavors\\mwm-ttf-assets
