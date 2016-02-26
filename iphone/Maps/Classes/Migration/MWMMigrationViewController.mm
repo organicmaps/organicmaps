@@ -5,6 +5,7 @@
 #import "MWMMigrationView.h"
 #import "MWMMigrationViewController.h"
 #import "MWMStorage.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -44,6 +45,8 @@ using namespace storage;
 
 - (void)performLimitedMigration:(BOOL)limited
 {
+  [Statistics logEvent:kStatDownloaderMigrationStarted
+        withParameters:@{kStatType : limited ? kStatCurrentMap : kStatAllMaps}];
   auto & f = GetFramework();
   LocationManager * lm = [MapsAppDelegate theApp].m_locationManager;
   ms::LatLon position{};
