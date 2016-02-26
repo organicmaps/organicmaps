@@ -107,6 +107,19 @@ XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw,
 
   return cw.GetMatchingAreaFeatureFromOSM(geometry);
 }
+
+uint64_t GetMwmCreationTimeByMwmId(MwmSet::MwmId const & mwmId)
+{
+  return mwmId.GetInfo()->m_version.GetSecondsSinceEpoch();
+}
+
+bool IsObsolete(editor::XMLFeature const & xml, FeatureID const & fid)
+{
+  // TODO(mgsergio): If xml and feature are identical return true
+  auto const uploadTime = xml.GetUploadTime();
+  return uploadTime != my::INVALID_TIME_STAMP &&
+         my::TimeTToSecondsSinceEpoch(uploadTime) < GetMwmCreationTimeByMwmId(fid.m_mwmId);
+}
 } // namespace
 
 namespace osm
@@ -157,7 +170,6 @@ void Editor::LoadMapEdits()
     string const mapName = mwm.attribute("name").as_string("");
     int64_t const mapVersion = mwm.attribute("version").as_llong(0);
     MwmSet::MwmId const mwmId = m_mwmIdByMapNameFn(mapName);
-    // TODO(mgsergio, AlexZ): Get rid of mapVersion and switch to upload_time.
     // TODO(mgsergio, AlexZ): Is it normal to have isMwmIdAlive and mapVersion
     // NOT equal to mwmId.GetInfo()->GetVersion() at the same time?
     auto const needMigrateEdits = !mwmId.IsAlive() || mapVersion != mwmId.GetInfo()->GetVersion();
@@ -171,13 +183,14 @@ void Editor::LoadMapEdits()
         {
           XMLFeature const xml(nodeOrWay.node());
 
-          // TODO(mgsergio):
-          // if (needMigrateEdits && TimestampOf(mwm) >= UploadTimestamp(xml))
-          //   remove that fature from edits.xml.
-
           auto const fid = needMigrateEdits
                                ? editor::MigrateFeatureIndex(m_forEachFeatureAtPointFn, xml)
                                : FeatureID(mwmId, xml.GetMWMFeatureIndex());
+
+          // Remove obsolete edit during migration.
+          if (needMigrateEdits && IsObsolete(xml, fid))
+            continue;
+
           FeatureTypeInfo & fti = m_features[fid.m_mwmId][fid.m_index];
 
           if (section.first == FeatureStatus::Created)
