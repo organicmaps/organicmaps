@@ -95,12 +95,15 @@ using namespace storage;
     case NodeErrorCode::NoError:
       break;
     case NodeErrorCode::UnknownError:
+      [Statistics logEvent:[NSString stringWithFormat:@"%@%@", kStatDownloaderError, kStatUnknownError]];
       [avc presentInternalErrorAlert];
       break;
     case NodeErrorCode::OutOfMemFailed:
+      [Statistics logEvent:[NSString stringWithFormat:@"%@%@", kStatDownloaderError, kStatNotEnoughSpaceError]];
       [avc presentDownloaderNotEnoughSpaceAlert];
       break;
     case NodeErrorCode::NoInetConnection:
+      [Statistics logEvent:[NSString stringWithFormat:@"%@%@", kStatDownloaderError, kStatNetworkError]];
       [avc presentDownloaderNoConnectionAlertWithOkBlock:^
       {
         [MWMStorage retryDownloadNode:countryId];

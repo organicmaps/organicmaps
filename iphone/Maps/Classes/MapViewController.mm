@@ -103,7 +103,7 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 
 @interface MapViewController ()<MTRGNativeAppwallAdDelegate, MWMFrameworkRouteBuilderObserver,
                                 MWMFrameworkMyPositionObserver, MWMFrameworkUserMarkObserver,
-                                MWMFrameworkDrapeObserver>
+                                MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver>
 
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) MWMBottomMenuState menuRestoreState;
@@ -631,6 +631,30 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
   {
     self.controlsManager.hidden = NO;
     [self.controlsManager showPlacePage];
+  }
+}
+
+#pragma mark - MWMFrameworkStorageObserver
+
+- (void)processCountryEvent:(TCountryId const &)countryId
+{
+  storage::NodeAttrs nodeAttrs;
+  GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
+  if (nodeAttrs.m_status != NodeStatus::Error)
+    return;
+  switch (nodeAttrs.m_error)
+  {
+    case NodeErrorCode::NoError:
+      break;
+    case NodeErrorCode::UnknownError:
+      [Statistics logEvent:[NSString stringWithFormat:@"%@%@", kStatDownloaderError, kStatUnknownError]];
+      break;
+    case NodeErrorCode::OutOfMemFailed:
+      [Statistics logEvent:[NSString stringWithFormat:@"%@%@", kStatDownloaderError, kStatNotEnoughSpaceError]];
+      break;
+    case NodeErrorCode::NoInetConnection:
+      [Statistics logEvent:[NSString stringWithFormat:@"%@%@", kStatDownloaderError, kStatNetworkError]];
+      break;
   }
 }
 
