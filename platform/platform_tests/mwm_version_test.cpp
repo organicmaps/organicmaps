@@ -39,11 +39,11 @@ version::MwmVersion ReadMwmVersion(string const & data)
 
 UNIT_TEST(MwmVersion_OldFormat)
 {
-  auto const secondsSinceEpoch = 1455235200;  // 160212
-  auto const dataVersion = 160212;
+  uint64_t const secondsSinceEpoch = 1455235200;  // 160212
+  uint32_t const dataVersion = 160212;
   // Before Format::v8 there was a data version written to mwm.
-  auto const data = WriteMwmVersion(version::Format::v7, dataVersion);
-  auto const mwmVersion = ReadMwmVersion(data);
+  string const data = WriteMwmVersion(version::Format::v7, dataVersion);
+  version::MwmVersion const mwmVersion = ReadMwmVersion(data);
   TEST_EQUAL(mwmVersion.GetSecondsSinceEpoch(), secondsSinceEpoch, ());
   TEST_EQUAL(mwmVersion.GetFormat(), version::Format::v7, ());
   TEST_EQUAL(mwmVersion.GetVersion(), dataVersion, ());
@@ -51,11 +51,11 @@ UNIT_TEST(MwmVersion_OldFormat)
 
 UNIT_TEST(MwmVersion_NewFormat)
 {
-  auto const secondsSinceEpoch = 1455870947;  // 160219
-  auto const dataVersion = 160219;
+  uint64_t const secondsSinceEpoch = 1455870947;  // 160219
+  uint32_t const dataVersion = 160219;
   // After Format::v8 seconds since epoch are stored in mwm.
-  auto const data = WriteMwmVersion(version::Format::v8, secondsSinceEpoch);
-  auto const mwmVersion = ReadMwmVersion(data);
+  string const data = WriteMwmVersion(version::Format::v8, secondsSinceEpoch);
+  version::MwmVersion const mwmVersion = ReadMwmVersion(data);
   TEST_EQUAL(mwmVersion.GetSecondsSinceEpoch(), secondsSinceEpoch, ());
   TEST_EQUAL(mwmVersion.GetFormat(), version::Format::v8, ());
   TEST_EQUAL(mwmVersion.GetVersion(), dataVersion, ());
