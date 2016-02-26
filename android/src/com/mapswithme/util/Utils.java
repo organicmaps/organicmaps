@@ -325,6 +325,12 @@ public class Utils
 
   public static void navigateToParent(@NonNull Activity activity, @NonNull Bundle extras)
   {
+    if (activity instanceof CustomNavigateUpListener)
+    {
+      ((CustomNavigateUpListener) activity).customOnNavigateUp();
+      return;
+    }
+
     final Intent intent = NavUtils.getParentActivityIntent(activity);
     intent.putExtras(extras);
     NavUtils.navigateUpTo(activity, intent);

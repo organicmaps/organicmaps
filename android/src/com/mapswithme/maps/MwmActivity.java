@@ -41,6 +41,7 @@ import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.OnmapDownloader;
+import com.mapswithme.maps.editor.AuthFragment;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.location.LocationHelper;
@@ -99,7 +100,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
                                                      DownloaderFragment.class.getName(),
                                                      RoutingPlanFragment.class.getName(),
-                                                     EditorHostFragment.class.getName() };
+                                                     EditorHostFragment.class.getName(),
+                                                     AuthFragment.class.getName() };
   // Instance state
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
@@ -110,11 +112,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private View mMapFrame;
 
-  // map
   private MapFragment mMapFragment;
-  // Place page
   private PlacePageView mPlacePage;
-  // Routing
+
   private RoutingPlanInplaceController mRoutingPlanInplaceController;
   private NavigationController mNavigationController;
 
