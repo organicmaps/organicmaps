@@ -54,7 +54,7 @@ extern NSString * const kPlaceCellIdentifier;
   return self.searchCoutryIds.count;
 }
 
-#pragma mark - MWMMapDownloaderDataSourceProtocol
+#pragma mark - MWMMapDownloaderDataSource
 
 - (TCountryId)countryIdForIndexPath:(NSIndexPath *)indexPath
 {

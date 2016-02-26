@@ -1,6 +1,7 @@
 #import "Common.h"
 #import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
+#import "MWMFrameworkListener.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
@@ -29,7 +30,7 @@ NSString * const kShowActionTitle = L(@"zoom_to_country");
 NSString * const kCancelActionTitle = L(@"cancel");
 } // namespace
 
-@interface MWMBaseMapDownloaderViewController () <UIActionSheetDelegate>
+@interface MWMBaseMapDownloaderViewController () <UIActionSheetDelegate, MWMFrameworkStorageObserver>
 
 @property (weak, nonatomic) IBOutlet UITableView * tableView;
 
@@ -42,7 +43,7 @@ NSString * const kCancelActionTitle = L(@"cancel");
 @property (nonatomic) CGFloat lastScrollOffset;
 
 @property (nonatomic) MWMMapDownloaderDataSource * dataSource;
-@property (nonatomic) MWMMapDownloaderDataSource * defaultDataSource;
+@property (nonatomic) MWMMapDownloaderDefaultDataSource * defaultDataSource;
 
 @end
 
@@ -59,6 +60,7 @@ using namespace storage;
   [self configNavBar];
   [self configTable];
   [self configAllMapsView];
+  [MWMFrameworkListener addObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,6 +86,33 @@ using namespace storage;
 - (void)configNavBar
 {
   self.title = self.dataSource.isParentRoot ? L(@"download_maps") : L(@(self.parentCountryId.c_str()));
+}
+
+#pragma mark - MWMFrameworkStorageObserver
+
+- (void)processCountryEvent:(TCountryId const &)countryId
+{
+  storage::NodeAttrs nodeAttrs;
+  GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
+  MWMMapDownloaderDefaultDataSource * dataSource = self.defaultDataSource;
+  [dataSource reload];
+  if (![self.dataSource isEqual:dataSource])
+    return;
+
+  if (dataSource.needFullReload)
+  {
+    [self reloadData];
+    return;
+  }
+
+  UITableView * tv = self.tableView;
+  std::vector<NSInteger> sections = [dataSource getReloadSections];
+  if (sections.empty())
+    return;
+  NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSet];
+  for (auto & section : sections)
+    [indexSet addIndex:section];
+  [tv reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table
@@ -378,6 +407,7 @@ using namespace storage;
 - (void)setTableView:(UITableView *)tableView
 {
   _tableView = tableView;
+  _tableView.tableFooterView = [[UIView alloc] initWithFrame:{}];
   self.dataSource = self.defaultDataSource;
 }
 
@@ -405,6 +435,22 @@ using namespace storage;
 - (MWMMapDownloaderDataSource *)dataSource
 {
   return static_cast<MWMMapDownloaderDataSource *>(self.tableView.dataSource);
+}
+
+#pragma mark - Helpers
+
+- (void)reloadData
+{
+  UITableView * tv = self.tableView;
+  // If these methods are not called, tableView will not call tableView:cellForRowAtIndexPath:
+  [tv setNeedsLayout];
+  [tv layoutIfNeeded];
+
+  [tv reloadData];
+
+  // If these methods are not called, tableView will not display new cells
+  [tv setNeedsLayout];
+  [tv layoutIfNeeded];
 }
 
 @end

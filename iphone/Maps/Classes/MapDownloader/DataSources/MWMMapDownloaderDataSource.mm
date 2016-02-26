@@ -34,14 +34,8 @@ using namespace storage;
     static_cast<MWMMapDownloaderPlaceTableViewCell *>(cell).needDisplayArea = self.isParentRoot;
 
   if ([cell isKindOfClass:[MWMMapDownloaderSubplaceTableViewCell class]])
-  {
-    BOOL const correctDataSource = [self respondsToSelector:@selector(searchMatchedResultForCountryId:)];
-    NSAssert(correctDataSource, @"Invalid data source");
-    if (!correctDataSource)
-      return;
     [static_cast<MWMMapDownloaderSubplaceTableViewCell *>(cell)
         setSubplaceText:[self searchMatchedResultForCountryId:countryId]];
-  }
 
   [cell setCountryId:countryId];
 }
@@ -63,7 +57,7 @@ using namespace storage;
   return cell;
 }
 
-#pragma mark - MWMMapDownloaderDataSourceProtocol
+#pragma mark - MWMMapDownloaderDataSource
 
 - (BOOL)isParentRoot
 {
@@ -81,6 +75,11 @@ using namespace storage;
 }
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
+{
+  return nil;
+}
+
+- (NSString *)searchMatchedResultForCountryId:(storage::TCountryId)countryId
 {
   return nil;
 }

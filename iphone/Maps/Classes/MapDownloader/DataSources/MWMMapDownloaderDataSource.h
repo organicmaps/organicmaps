@@ -3,22 +3,16 @@
 
 #include "storage/index.hpp"
 
-@protocol MWMMapDownloaderDataSourceProtocol <UITableViewDataSource>
+@interface MWMMapDownloaderDataSource : NSObject <UITableViewDataSource>
 
-- (BOOL)isParentRoot;
+@property (nonatomic, readonly) BOOL isParentRoot;
+
+- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol>)delegate;
 - (storage::TCountryId)parentCountryId;
 - (storage::TCountryId)countryIdForIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath;
 - (void)fillCell:(MWMMapDownloaderTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
-@optional
-
 - (NSString *)searchMatchedResultForCountryId:(storage::TCountryId)countryId;
-
-@end
-
-@interface MWMMapDownloaderDataSource : NSObject <MWMMapDownloaderDataSourceProtocol>
-
-- (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol>)delegate;
 
 @end

@@ -6,13 +6,20 @@
 
 using namespace storage;
 
+@interface MWMMapDownloaderDefaultDataSource ()
+
+@property (nonatomic, readonly) NSInteger downloadedCountrySection;
+
+- (void)reload;
+
+@end
+
 @interface MWMMapDownloaderExtendedDataSource ()
 
 @property (copy, nonatomic) NSArray<NSString *> * closestCoutryIds;
-@property (copy, nonatomic) NSArray<NSString *> * downloadedCoutryIds;
-@property (nonatomic) NSInteger baseSectionShift;
+
 @property (nonatomic) NSInteger closestCountriesSection;
-@property (nonatomic) NSInteger downloadedCountriesSection;
+@property (nonatomic, readonly) NSInteger closestCountriesSectionShift;
 
 @end
 
@@ -22,12 +29,19 @@ using namespace storage;
 {
   self = [super initForRootCountryId:countryId delegate:delegate];
   if (self)
-  {
-    self.baseSectionShift = 0;
     [self configNearMeSection];
-    [self configDownloadedSection];
-  }
   return self;
+}
+
+- (std::vector<NSInteger>)getReloadSections
+{
+  std::vector<NSInteger> sections = [super getReloadSections];
+  if (self.haveClosestCountries)
+  {
+    for (auto & section : sections)
+      section += self.closestCountriesSectionShift;
+  }
+  return sections;
 }
 
 - (void)configNearMeSection
@@ -46,24 +60,7 @@ using namespace storage;
   if (nsClosestCoutryIds.count != 0)
   {
     self.closestCoutryIds = nsClosestCoutryIds;
-    self.closestCountriesSection = self.baseSectionShift++;
-  }
-}
-
-- (void)configDownloadedSection
-{
-  self.downloadedCoutryIds = nil;
-  self.downloadedCountriesSection = NSNotFound;
-  auto const & s = GetFramework().Storage();
-  TCountriesVec downloadedCoutryIds, availableCountryIds;
-  s.GetChildrenInGroups(self.parentCountryId, downloadedCoutryIds, availableCountryIds);
-  NSMutableArray<NSString *> * nsDownloadedCoutryIds = [@[] mutableCopy];
-  for (auto const & countryId : downloadedCoutryIds)
-    [nsDownloadedCoutryIds addObject:@(countryId.c_str())];
-  if (nsDownloadedCoutryIds.count != 0)
-  {
-    self.downloadedCoutryIds = nsDownloadedCoutryIds;
-    self.downloadedCountriesSection = self.baseSectionShift++;
+    self.closestCountriesSection = 0;
   }
 }
 
@@ -71,53 +68,49 @@ using namespace storage;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  NSInteger const numberOfSections = [super numberOfSectionsInTableView:tableView];
-  return numberOfSections + self.baseSectionShift;
+  return [super numberOfSectionsInTableView:tableView] + self.closestCountriesSectionShift;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section >= self.baseSectionShift)
-    return [super tableView:tableView numberOfRowsInSection:section - self.baseSectionShift];
   if (section == self.closestCountriesSection)
     return self.closestCoutryIds.count;
-  if (section == self.downloadedCountriesSection)
-    return self.downloadedCoutryIds.count;
-  NSAssert(NO, @"Invalid section");
-  return 0;
+  return [super tableView:tableView numberOfRowsInSection:section - self.closestCountriesSectionShift];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-  return [super tableView:tableView sectionForSectionIndexTitle:title atIndex:index] + self.baseSectionShift;
+  return [super tableView:tableView sectionForSectionIndexTitle:title atIndex:index] + self.closestCountriesSectionShift;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  if (section >= self.baseSectionShift)
-    return [super tableView:tableView titleForHeaderInSection:section - self.baseSectionShift];
   if (section == self.closestCountriesSection)
     return L(@"search_mode_nearme");
-  if (section == self.downloadedCountriesSection)
-    return L(@"downloader_downloaded_maps");
-  NSAssert(NO, @"Invalid section");
-  return nil;
+  return [super tableView:tableView titleForHeaderInSection:section - self.closestCountriesSectionShift];
 }
 
-#pragma mark - MWMMapDownloaderDataSourceProtocol
+#pragma mark - MWMMapDownloaderDataSource
 
 - (TCountryId)countryIdForIndexPath:(NSIndexPath *)indexPath
 {
   NSInteger const row = indexPath.row;
   NSInteger const section = indexPath.section;
-  if (section >= self.baseSectionShift)
-    return [super countryIdForIndexPath:[NSIndexPath indexPathForRow:row inSection:section - self.baseSectionShift]];
   if (section == self.closestCountriesSection)
     return self.closestCoutryIds[row].UTF8String;
-  if (section == self.downloadedCountriesSection)
-    return self.downloadedCoutryIds[row].UTF8String;
-  NSAssert(NO, @"Invalid section");
-  return kInvalidCountryId;
+  return [super countryIdForIndexPath:[NSIndexPath indexPathForRow:row inSection:section - self.closestCountriesSectionShift]];
+}
+
+#pragma mark - Properties
+
+- (NSInteger)closestCountriesSectionShift
+{
+  return (self.haveClosestCountries ? self.closestCountriesSection + 1 : 0);
+}
+
+- (BOOL)haveClosestCountries
+{
+  return (self.closestCountriesSection != NSNotFound);
 }
 
 @end

@@ -18,6 +18,8 @@ using namespace storage;
 @property (nonatomic) MWMMapDownloaderDataSource * dataSource;
 @property (nonatomic) MWMMapDownloaderDataSource * defaultDataSource;
 
+- (void)reloadData;
+
 @end
 
 @interface MWMMapDownloaderViewController () <UISearchBarDelegate, UIScrollViewDelegate>
@@ -38,7 +40,6 @@ using namespace storage;
 {
   [super viewDidLoad];
   self.searchBar.placeholder = L(@"search_downloaded_maps");
-  self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
   [self setupSearchParams];
 }
 
@@ -157,21 +158,6 @@ using namespace storage;
 - (void)setParentCountryId:(TCountryId)parentId
 {
   self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId delegate:self];
-}
-
-#pragma mark - Helpers
-
-- (void)reloadData
-{
-  // If these methods are not called, tableView will not call tableView:cellForRowAtIndexPath:
-  [self.tableView setNeedsLayout];
-  [self.tableView layoutIfNeeded];
-
-  [self.tableView reloadData];
-
-  // If these methods are not called, tableView will not display new cells
-  [self.tableView setNeedsLayout];
-  [self.tableView layoutIfNeeded];
 }
 
 @end
