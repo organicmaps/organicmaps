@@ -92,8 +92,6 @@ using namespace storage;
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
-  storage::NodeAttrs nodeAttrs;
-  GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
   MWMMapDownloaderDefaultDataSource * dataSource = self.defaultDataSource;
   [dataSource reload];
   if (![self.dataSource isEqual:dataSource])

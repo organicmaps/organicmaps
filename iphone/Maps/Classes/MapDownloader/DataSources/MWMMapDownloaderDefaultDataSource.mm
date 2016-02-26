@@ -52,12 +52,12 @@ using namespace storage;
   {
     m_parentId = countryId;
     _isParentRoot = (m_parentId == GetFramework().Storage().GetRootId());
-    [self loadData];
+    [self load];
   }
   return self;
 }
 
-- (void)loadData
+- (void)load
 {
   auto const & s = GetFramework().Storage();
   TCountriesVec downloadedChildren;
@@ -75,7 +75,7 @@ using namespace storage;
   BOOL const hadDownloadedCountries = self.haveDownloadedCountries;
 
   // Load updated data.
-  [self loadData];
+  [self load];
 
   // Compare new data vs old data to understand what kind of reload is required and what sections need reload.
   self.needFullReload = (hadDownloadedCountries != self.haveDownloadedCountries || countryIds.count == 0);
