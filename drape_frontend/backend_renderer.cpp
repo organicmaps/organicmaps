@@ -189,6 +189,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       auto const & tileKey = msg->GetKey();
       if (m_requestedTiles->CheckTileKey(tileKey) && m_readManager->CheckTileKey(tileKey))
       {
+        CleanupOverlays(tileKey);
+
         OverlayBatcher batcher(tileKey);
         for (drape_ptr<MapShape> const & shape : msg->GetShapes())
           batcher.Batch(shape, m_texMng);
@@ -343,6 +345,15 @@ void BackendRenderer::FlushGeometry(drape_ptr<Message> && message)
 {
   GLFunctions::glFlush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(message), MessagePriority::Normal);
+}
+
+void BackendRenderer::CleanupOverlays(TileKey const & tileKey)
+{
+  auto const functor = [&tileKey](OverlayRenderData const & data)
+  {
+    return data.m_tileKey == tileKey && data.m_tileKey.m_generation < tileKey.m_generation;
+  };
+  m_overlays.erase(remove_if(m_overlays.begin(), m_overlays.end(), functor), m_overlays.end());
 }
 
 } // namespace df

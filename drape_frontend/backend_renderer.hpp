@@ -81,6 +81,8 @@ private:
   void InitGLDependentResource();
   void FlushGeometry(drape_ptr<Message> && message);
 
+  void CleanupOverlays(TileKey const & tileKey);
+
   MapDataProvider m_model;
   drape_ptr<BatchersPool> m_batchersPool;
   drape_ptr<ReadManager> m_readManager;

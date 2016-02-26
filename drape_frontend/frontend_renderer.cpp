@@ -205,14 +205,18 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       dp::GLState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
-      PrepareBucket(state, bucket);
       if (!IsUserMarkLayer(key))
       {
         if (key.m_zoomLevel == m_currentZoomLevel && CheckTileGenerations(key))
+        {
+          PrepareBucket(state, bucket);
           AddToRenderGroup(state, move(bucket), key);
+        }
       }
       else
       {
+        PrepareBucket(state, bucket);
+
         ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
         ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
 
@@ -777,7 +781,8 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
   {
     return group->GetTileKey() == tileKey && group->GetTileKey().m_generation < tileKey.m_generation;
   };
-  RemoveRenderGroups(removePredicate);
+  for (RenderLayer & layer : m_layers)
+    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
 
   return result;
 }
@@ -972,9 +977,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   MergeBuckets();
 
-  size_t const kMinDeletedPerFrame = 10;
-  size_t const kAvgDeletionFrameCount = 30;
-  size_t countToDelete = max(kMinDeletedPerFrame, m_bucketsToDelete.size() / kAvgDeletionFrameCount);
+  int countToDelete = max(1, static_cast<int>(m_bucketsToDelete.size()) / 2);
   while (!m_bucketsToDelete.empty() && countToDelete > 0)
   {
     m_bucketsToDelete.pop_front();
@@ -1057,13 +1060,17 @@ void FrontendRenderer::MergeBuckets()
         forMerge[MergedGroupKey(state, group->GetTileKey())].push_back(move(layer.m_renderGroups[i]));
       }
       else
+      {
         newGroups.push_back(move(layer.m_renderGroups[i]));
+      }
     }
 
     for (TGroupMap::value_type & node : forMerge)
     {
       if (node.second.size() < 2)
+      {
         newGroups.emplace_back(move(node.second.front()));
+      }
       else
       {
         BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective, true);
@@ -1528,7 +1535,10 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 
   auto removePredicate = [this](drape_ptr<RenderGroup> const & group)
   {
-    return group->IsOverlay() && group->GetTileKey().m_zoomLevel > m_currentZoomLevel;
+    uint32_t const kMaxGenerationRange = 5;
+    TileKey const & key = group->GetTileKey();
+    return (group->IsOverlay() && key.m_zoomLevel > m_currentZoomLevel) ||
+            (m_maxGeneration - key.m_generation > kMaxGenerationRange);
   };
   for (RenderLayer & layer : m_layers)
     layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
