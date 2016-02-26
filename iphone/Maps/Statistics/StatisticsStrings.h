@@ -46,6 +46,7 @@ static NSString * const kStatDeviceType = @"Device type";
 static NSString * const kStatDownloadAll = @"Download all country clicks counter";
 static NSString * const kStatDownloader = @"downloader";
 static NSString * const kStatDownloaderDialog = @"Downloader dialog";
+static NSString * const kStatDownloaderMigrationCompleted = @"Downloader_Migration_completed";
 static NSString * const kStatDownloaderMigrationDialogue = @"Downloader_Migration_dialogue";
 static NSString * const kStatDownloaderMigrationStarted = @"Downloader_Migration_started";
 static NSString * const kStatDownloadMap = @"Download map";

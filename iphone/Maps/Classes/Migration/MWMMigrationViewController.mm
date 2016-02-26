@@ -57,6 +57,7 @@ using namespace storage;
   {
     GetFramework().Migrate(!limited);
     [self performSegueWithIdentifier:kDownloaderSegue sender:self];
+    [Statistics logEvent:kStatDownloaderMigrationCompleted];
   };
 
   auto onStatusChanged = [self, migrate](TCountryId const & countryId)
