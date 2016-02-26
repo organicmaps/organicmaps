@@ -5,7 +5,7 @@
   android:id="@+id/ll__place_schedule"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="?attr/clickableBackground"
+  android:background="?clickableBackground"
   android:minHeight="@dimen/height_block_base"
   android:paddingTop="@dimen/margin_half"
   android:tag="schedule"

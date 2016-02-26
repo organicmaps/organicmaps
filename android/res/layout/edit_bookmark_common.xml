@@ -72,7 +72,7 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       android:layout_alignParentRight="true"
-      android:background="?attr/clickableBackground"
+      android:background="?clickableBackground"
       android:padding="@dimen/margin_half"
       tools:src="@drawable/ic_bookmark_marker_red_on"/>
   </RelativeLayout>

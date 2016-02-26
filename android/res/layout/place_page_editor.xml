@@ -5,7 +5,7 @@
   android:id="@+id/ll__place_editor"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="?attr/clickableBackground"
+  android:background="?clickableBackground"
   android:gravity="center_vertical"
   android:orientation="horizontal"
   android:paddingBottom="@dimen/margin_half"
