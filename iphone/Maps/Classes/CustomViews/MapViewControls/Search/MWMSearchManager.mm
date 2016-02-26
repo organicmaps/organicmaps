@@ -389,7 +389,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
     [self changeToTableSearchState];
     break;
   case MWMSearchManagerStateMapSearch:
-    [[Statistics instance] logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatMap}];
+    [[Statistics instance] logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatMapSearch}];
     [self changeToMapSearchState];
     break;
   }
