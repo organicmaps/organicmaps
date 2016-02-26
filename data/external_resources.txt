@@ -1,5 +1,5 @@
-WorldCoasts_migrate.mwm 4591786
-WorldCoasts.mwm 4584314
+WorldCoasts.mwm 4635943
+WorldCoasts_obsolete.mwm 4584314
 World.mwm 28693330
 01_dejavusans.ttf 633604
 02_droidsans-fallback.ttf 4033420
