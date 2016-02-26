@@ -10,11 +10,10 @@ namespace search
 // It does some magic text transformation which greatly helps us to improve our search.
 inline strings::UniString NormalizeAndSimplifyString(string const & s)
 {
-  using namespace strings;
-  UniString uniString = MakeUniString(s);
+  strings::UniString uniString = strings::MakeUniString(s);
   for (size_t i = 0; i < uniString.size(); ++i)
   {
-    UniChar & c = uniString[i];
+    strings::UniChar & c = uniString[i];
     switch (c)
     {
     // Replace "d with stroke" to simple d letter. Used in Vietnamese.
@@ -48,7 +47,7 @@ inline strings::UniString NormalizeAndSimplifyString(string const & s)
   NormalizeInplace(uniString);
 
   // Remove accents that can appear after NFKD normalization.
-  uniString.erase_if([](UniChar const & c)
+  uniString.erase_if([](strings::UniChar const & c)
   {
     // ̀  COMBINING GRAVE ACCENT
     // ́  COMBINING ACUTE ACCENT
