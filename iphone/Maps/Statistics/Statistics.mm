@@ -157,4 +157,14 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
   return instance;
 }
 
++ (void)logEvent:(NSString *)eventName
+{
+  [[self instance] logEvent:eventName];
+}
+
++ (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
+{
+  [[self instance] logEvent:eventName withParameters:parameters];
+}
+
 @end
