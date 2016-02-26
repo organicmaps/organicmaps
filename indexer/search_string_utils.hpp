@@ -114,4 +114,8 @@ void GetStreetName(strings::SimpleTokenizer iter, string & streetName);
 void GetStreetNameAsKey(string const & name, string & res);
 
 bool IsStreetSynonym(strings::UniString const & s);
+
+/// Normalizes both str and substr, and then returns true if substr is found in str.
+/// Used in native platform code for search in localized strings (cuisines, categories, strings etc.).
+bool ContainsNormalized(string const & str, string const & substr);
 }  // namespace search

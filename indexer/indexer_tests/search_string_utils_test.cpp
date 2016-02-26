@@ -39,3 +39,16 @@ UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)
     TEST_EQUAL(arr[i + 1], strings::ToUtf8(search::NormalizeAndSimplifyString(arr[i])), (i));
 }
+
+UNIT_TEST(Contains)
+{
+  constexpr char const * kTestStr = "ØøÆæŒœ Ўвага!";
+  TEST(search::ContainsNormalized(kTestStr, ""), ());
+  TEST(!search::ContainsNormalized("", "z"), ());
+  TEST(search::ContainsNormalized(kTestStr, "ooae"), ());
+  TEST(search::ContainsNormalized(kTestStr, " у"), ());
+  TEST(search::ContainsNormalized(kTestStr, "Ў"), ());
+  TEST(search::ContainsNormalized(kTestStr, "ўв"), ());
+  TEST(!search::ContainsNormalized(kTestStr, "ага! "), ());
+  TEST(!search::ContainsNormalized(kTestStr, "z"), ());
+}

@@ -112,3 +112,10 @@ bool search::IsStreetSynonym(strings::UniString const & s)
       make_transform_iterator(affics + ARRAY_SIZE(affics), &search::NormalizeAndSimplifyString));
   return kSynonyms.count(s) != 0;
 }
+
+bool search::ContainsNormalized(string const & str, string const & substr)
+{
+  strings::UniString const ustr = search::NormalizeAndSimplifyString(str);
+  strings::UniString const usubstr = search::NormalizeAndSimplifyString(substr);
+  return std::search(ustr.begin(), ustr.end(), usubstr.begin(), usubstr.end()) != ustr.end();
+}
