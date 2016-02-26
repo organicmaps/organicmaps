@@ -191,7 +191,7 @@ string GetCurrentTwine()
     // Simplified Chinese by default for all other cases.
     return "zh-Hans";
   }
-  // Use short 2-chars versions for all other languages.
+  // Use short (2 or 3 chars) versions for all other languages.
   return Normalize(lang);
 }
 
