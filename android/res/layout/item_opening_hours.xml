@@ -58,9 +58,7 @@
     android:background="?clickableBackground"
     android:lineSpacingExtra="@dimen/margin_base"
     android:textAppearance="@style/MwmTextAppearance.PlacePage"
-    android:visibility="visible"
-    tools:text="Mo-Fr 16:00-18.00\nSu 16:00-18.00"
-    tools:visibility="visible"/>
+    tools:text="Mo-Fr 16:00-18.00\nSu 16:00-18.00"/>
 
   <TextView
     android:id="@+id/edit_opening_hours"
@@ -73,7 +71,6 @@
     android:text="@string/edit_opening_hours"
     android:textAllCaps="true"
     android:textAppearance="@style/MwmTextAppearance.Body1"
-    android:textColor="?colorAccent"
-    android:visibility="gone"/>
+    android:textColor="?colorAccent"/>
 
 </RelativeLayout>

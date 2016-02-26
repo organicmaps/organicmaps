@@ -26,7 +26,7 @@ public class HoursMinutes implements Parcelable
   @Override
   public String toString()
   {
-    return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes);
+    return String.format(Locale.US, "%02d:%02d", hours, minutes);
   }
 
   @Override

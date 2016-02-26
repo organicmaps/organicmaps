@@ -300,7 +300,7 @@ Java_com_mapswithme_maps_editor_OpeningHours_nativeTimetablesFromString(JNIEnv *
 {
   TimeTableSet tts;
   string const source = jni::ToNativeString(env, jSource);
-  if (source.length() != 0 && MakeTimeTableSet(OpeningHours(source), tts))
+  if (!source.empty()  && MakeTimeTableSet(OpeningHours(source), tts))
     return JavaTimetables(env, tts);
 
   return nullptr;

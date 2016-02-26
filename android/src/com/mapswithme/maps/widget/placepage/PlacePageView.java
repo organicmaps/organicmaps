@@ -465,9 +465,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     final Resources resources = getResources();
     if (timetables[0].isFullWeek())
     {
-      refreshTodayOh((timetables[0].isFullday ? resources.getString(R.string.twentyfour_seven)
-                                              : resources.getString(R.string.daily) + " " + timetables[0].workingTimespan),
-                     ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary));
+      refreshTodayOpeningHours((timetables[0].isFullday ? resources.getString(R.string.twentyfour_seven)
+                                                        : resources.getString(R.string.daily) + " " + timetables[0].workingTimespan),
+                               ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary));
       UiUtils.hide(mFullOpeningHours);
       return;
     }
@@ -479,21 +479,20 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       if (tt.containsWeekday(currentDay))
       {
         containsCurrentWeekday = true;
-        refreshTodayOh(resources.getString(R.string.today) + " " + tt.workingTimespan,
-                       ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary));
+        refreshTodayOpeningHours(resources.getString(R.string.today) + " " + tt.workingTimespan,
+                                 ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary));
         break;
       }
     }
 
     UiUtils.setTextAndShow(mFullOpeningHours, TimeFormatUtils.formatTimetables(timetables));
     if (!containsCurrentWeekday)
-      refreshTodayOh(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
+      refreshTodayOpeningHours(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
   }
 
-  private void refreshTodayOh(String text, @ColorInt int color)
+  private void refreshTodayOpeningHours(String text, @ColorInt int color)
   {
-    UiUtils.show(mTodayOpeningHours);
-    mTodayOpeningHours.setText(text);
+    UiUtils.setTextAndShow(mTodayOpeningHours, text);
     mTodayOpeningHours.setTextColor(color);
   }
 
