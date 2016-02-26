@@ -7,6 +7,7 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/target_os.hpp"
 
 namespace
@@ -119,5 +120,16 @@ string GetTextById::operator()(string const & textId) const
   if (textIt == m_localeTexts.end())
     return string();
   return textIt->second;
+}
+
+TTranslations GetTextById::GetAllSortedTranslations() const
+{
+  TTranslations all;
+  all.reserve(m_localeTexts.size());
+  for (auto const & tr : m_localeTexts)
+    all.emplace_back(tr.first, tr.second);
+  using TValue = TTranslations::value_type;
+  sort(all.begin(), all.end(), [](TValue const & v1, TValue const & v2) { return v1.second < v2.second; });
+  return all;
 }
 }  // namespace platform

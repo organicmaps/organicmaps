@@ -4,6 +4,7 @@
 #include "std/unique_ptr.hpp"
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
+#include "std/vector.hpp"
 
 namespace platform
 {
@@ -18,6 +19,7 @@ enum class TextSource
 
 class GetTextById;
 using TGetTextByIdPtr = unique_ptr<GetTextById>;
+using TTranslations = vector<pair<string, string>>;
 
 /// GetTextById represents text messages which are saved in textsDir
 /// in a specified locale.
@@ -29,6 +31,7 @@ public:
   /// The boolean flag is set to false otherwise.
   string operator()(string const & textId) const;
   string GetLocale() const { return m_locale; }
+  TTranslations GetAllSortedTranslations() const;
 
 private:
   friend TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeName);
