@@ -2997,7 +2997,7 @@
     de = Kartenspeicher
     es = Almacenamiento de mapas
     fr = Stockage des cartes
-    it = Lista delle Mape
+    it = Cartella mappe
     ja = マップ保存先
     ko = 지도 저장소
     nl = Kaarten bewaren
@@ -5328,7 +5328,7 @@
     de = Aus
     fi = Pois päältä
     cs = Vypnuto
-    it = Sì
+    it = Spento
     nb = Av
     zh-Hant = 關
     zh-Hans = 关闭
@@ -5359,7 +5359,7 @@
     de = An
     fi = Päällä
     cs = Zapnuto
-    it = No
+    it = Acceso
     nb = På
     zh-Hant = 開
     zh-Hans = 开启
