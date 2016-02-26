@@ -81,6 +81,19 @@ void loopWrappers(TObservers * observers, TLoopBlock block)
   });
 }
 
++ (void)removeObserver:(TObserver)observer
+{
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    MWMFrameworkListener * listener = [MWMFrameworkListener listener];
+    [listener.routeBuildingObservers removeObject:observer];
+    [listener.myPositionObservers removeObject:observer];
+    [listener.userMarkObservers removeObject:observer];
+    [listener.storageObservers removeObject:observer];
+    [listener.drapeObservers removeObject:observer];
+  });
+}
+
 - (instancetype)initListener
 {
   self = [super init];

@@ -4,6 +4,7 @@
 
 + (MWMFrameworkListener *)listener;
 + (void)addObserver:(id<MWMFrameworkObserver>)observer;
++ (void)removeObserver:(id<MWMFrameworkObserver>)observer;
 
 @property (nonatomic, readonly) location::EMyPositionMode myPositionMode;
 @property (nonatomic) UserMark const * userMark;
