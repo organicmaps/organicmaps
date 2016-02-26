@@ -504,9 +504,16 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 
 - (void)openMapsDownloader
 {
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
-  bool const needMigrate = platform::migrate::NeedMigrate();
-  [self performSegueWithIdentifier:needMigrate ? kMigrationSegue : kDownloaderSegue sender:self];
+  if (platform::migrate::NeedMigrate())
+  {
+    [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatDownloader}];
+    [self performSegueWithIdentifier:kMigrationSegue sender:self];
+  }
+  else
+  {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
+    [self performSegueWithIdentifier:kDownloaderSegue sender:self];
+  }
 }
 
 - (void)openEditor
@@ -598,9 +605,14 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
   if (![self.navigationController.topViewController isEqual:self])
     return;
   if (countryId != kInvalidCountryId && platform::migrate::NeedMigrate())
+  {
+    [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatMap}];
     [self performSegueWithIdentifier:kMigrationSegue sender:self];
+  }
   else
+  {
     [self.downloadDialog processViewportCountryEvent:countryId];
+  }
 }
 
 #pragma mark - MWMFrameworkUserMarkObserver
