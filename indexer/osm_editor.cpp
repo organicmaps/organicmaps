@@ -387,7 +387,7 @@ void Editor::LoadMapEdits()
   LOG(LINFO, ("Loaded", modified, "modified,", created, "created and", deleted, "deleted features."));
 }
 
-void Editor::Save(string const & fullFilePath) const
+bool Editor::Save(string const & fullFilePath) const
 {
   // TODO(AlexZ): Improve synchronization in Editor code.
   static mutex saveMutex;
@@ -396,7 +396,7 @@ void Editor::Save(string const & fullFilePath) const
   if (m_features.empty())
   {
     my::DeleteFileX(GetEditorFilePath());
-    return;
+    return true;
   }
 
   xml_document doc;
@@ -438,14 +438,18 @@ void Editor::Save(string const & fullFilePath) const
     }
   }
 
-  if (doc)
+  string const tmpFileName = fullFilePath + ".tmp";
+  if (!doc.save_file(tmpFileName.data(), "  "))
   {
-    string const tmpFileName = fullFilePath + ".tmp";
-    if (!doc.save_file(tmpFileName.data(), "  "))
-      LOG(LERROR, ("Can't save map edits into", tmpFileName));
-    else if (!my::RenameFileX(tmpFileName, fullFilePath))
-      LOG(LERROR, ("Can't rename file", tmpFileName, "to", fullFilePath));
+    LOG(LERROR, ("Can't save map edits into", tmpFileName));
+    return false;
   }
+  else if (!my::RenameFileX(tmpFileName, fullFilePath))
+  {
+    LOG(LERROR, ("Can't rename file", tmpFileName, "to", fullFilePath));
+    return false;
+  }
+  return true;
 }
 
 void Editor::ClearAllLocalEdits()
@@ -497,7 +501,8 @@ void Editor::DeleteFeature(FeatureType const & feature)
 //}
 //}  // namespace
 
-void Editor::EditFeature(FeatureType & editedFeature, string const & editedStreet, string const & editedHouseNumber)
+Editor::SaveResult Editor::SaveEditedFeature(FeatureType & editedFeature, string const & editedStreet,
+                                             string const & editedHouseNumber)
 {
   // Check house number for validity.
   if (editedHouseNumber.empty() || feature::IsHouseNumber(editedHouseNumber))
@@ -512,7 +517,7 @@ void Editor::EditFeature(FeatureType & editedFeature, string const & editedStree
     // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
     Save(GetEditorFilePath());
     Invalidate();
-    return;
+    return NothingWasChanged;
   }
 
   FeatureTypeInfo fti;
@@ -524,8 +529,9 @@ void Editor::EditFeature(FeatureType & editedFeature, string const & editedStree
   m_features[fid.m_mwmId][fid.m_index] = move(fti);
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
-  Save(GetEditorFilePath());
+  bool const savedSuccessfully = Save(GetEditorFilePath());
   Invalidate();
+  return savedSuccessfully ? SavedSuccessfully : NoFreeSpaceError;
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,

@@ -90,11 +90,16 @@ public:
   /// @returns sorted features indices with specified status.
   vector<uint32_t> GetFeaturesByStatus(MwmSet::MwmId const & mwmId, FeatureStatus status) const;
 
+  enum SaveResult
+  {
+    NothingWasChanged,
+    SavedSuccessfully,
+    NoFreeSpaceError
+  };
   /// Editor checks internally if any feature params were actually edited.
   /// House number is correctly updated for editedFeature (if it's valid).
-  void EditFeature(FeatureType & editedFeature,
-                   string const & editedStreet = "",
-                   string const & editedHouseNumber = "");
+  SaveResult SaveEditedFeature(FeatureType & editedFeature, string const & editedStreet = "",
+                               string const & editedHouseNumber = "");
 
   EditableProperties GetEditableProperties(FeatureType const & feature) const;
 
@@ -119,7 +124,8 @@ public:
 
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
-  void Save(string const & fullFilePath) const;
+  /// @returns false if fails.
+  bool Save(string const & fullFilePath) const;
   void RemoveFeatureFromStorageIfExists(MwmSet::MwmId const & mwmId, uint32_t index);
   /// Notify framework that something has changed and should be redisplayed.
   void Invalidate();

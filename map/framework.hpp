@@ -614,7 +614,7 @@ public:
   //@{
   /// @returns false if feature is invalid or can't be edited.
   bool GetEditableMapObject(FeatureID const & fid, osm:: EditableMapObject & emo) const;
-  void SaveEditedMapObject(osm:: EditableMapObject const & emo) const;
+  osm::Editor::SaveResult SaveEditedMapObject(osm:: EditableMapObject const & emo) const;
   void DeleteFeature(FeatureID const & fid) const;
   osm::NewFeatureCategories GetEditorCategories() const;
   //@}
