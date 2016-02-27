@@ -1,8 +1,12 @@
 #import "MWMTableViewController.h"
 
+#include "std/string.hpp"
+#include "std/vector.hpp"
+
 @protocol MWMCuisineEditorProtocol <NSObject>
 
-@property (nonatomic) NSSet<NSString *> * cuisines;
+- (vector<string>)getSelectedCuisines;
+- (void)setSelectedCuisines:(vector<string> const &)cuisines;
 
 @end
 

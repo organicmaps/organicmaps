@@ -12,9 +12,10 @@
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 
+#include "map/place_page_info.hpp"
+
 extern CGFloat const kBottomPlacePageOffset = 15.;
 extern CGFloat const kLabelsBetweenOffset = 8.;
-extern NSString * const kMWMCuisineSeparator;
 
 namespace
 {
@@ -82,7 +83,7 @@ CGFloat placePageWidth()
 
 vector<NSRange> separatorsLocationInString(NSString * str)
 {
-  vector<NSRange> r {};
+  vector<NSRange> r;
   if (str.length == 0)
     return r;
 
@@ -90,7 +91,7 @@ vector<NSRange> separatorsLocationInString(NSString * str)
   while (searchRange.location < str.length)
   {
     searchRange.length = str.length - searchRange.location;
-    NSRange const foundRange = [str rangeOfString:kMWMCuisineSeparator options:NSCaseInsensitiveSearch range:searchRange];
+    NSRange const foundRange = [str rangeOfString:@(place_page::Info::kSubtitleSeparator) options:NSCaseInsensitiveSearch range:searchRange];
     if (foundRange.location == NSNotFound)
       break;
     searchRange.location = foundRange.location + foundRange.length;

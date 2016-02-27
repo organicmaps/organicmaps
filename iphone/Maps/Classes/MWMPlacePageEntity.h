@@ -27,8 +27,6 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 
 @interface MWMPlacePageEntity : NSObject
 
-+ (NSString *)makeMWMCuisineString:(NSSet<NSString *> *)cuisines;
-
 @property (copy, nonatomic) NSString * title;
 @property (copy, nonatomic) NSString * category;
 @property (copy, nonatomic) NSString * address;
@@ -37,7 +35,6 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 @property (copy, nonatomic) NSString * bookmarkDescription;
 @property (nonatomic, readonly) BOOL isHTMLDescription;
 @property (copy, nonatomic) NSString * bookmarkColor;
-@property (copy, nonatomic) NSSet<NSString *> * cuisines;
 
 @property (nonatomic) BookmarkAndCategory bac;
 @property (weak, nonatomic) MWMPlacePageViewManager * manager;

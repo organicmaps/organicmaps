@@ -9,26 +9,9 @@
 using feature::Metadata;
 
 extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
-extern NSString * const kMWMCuisineSeparator = @" • ";
 
 namespace
 {
-
-NSString * const kOSMCuisineSeparator = @";";
-
-//TODO(Alex): If we can format cuisines in subtitle we won't need this function.
-
-//NSString * makeOSMCuisineString(NSSet<NSString *> * cuisines)
-//{
-//  NSMutableArray<NSString *> * osmCuisines = [NSMutableArray arrayWithCapacity:cuisines.count];
-//  for (NSString * cuisine in cuisines)
-//    [osmCuisines addObject:cuisine];
-//  [osmCuisines sortUsingComparator:^NSComparisonResult(NSString * s1, NSString * s2)
-//  {
-//    return [s1 compare:s2];
-//  }];
-//  return [osmCuisines componentsJoinedByString:kOSMCuisineSeparator];
-//}
 
 NSUInteger gMetaFieldsMap[MWMPlacePageCellTypeCount] = {};
 
@@ -63,24 +46,6 @@ void initFieldsMap()
 {
   MWMPlacePageCellTypeValueMap m_values;
   place_page::Info m_info;
-}
-
-+ (NSString *)makeMWMCuisineString:(NSSet<NSString *> *)cuisines
-{
-  NSString * prefix = @"cuisine_";
-  NSMutableArray<NSString *> * localizedCuisines = [NSMutableArray arrayWithCapacity:cuisines.count];
-  for (NSString * cus in cuisines)
-  {
-    NSString * cuisine = [prefix stringByAppendingString:cus];
-    NSString * localizedCuisine = L(cuisine);
-    BOOL const noLocalization = [localizedCuisine isEqualToString:cuisine];
-    [localizedCuisines addObject:noLocalization ? cus : localizedCuisine];
-  }
-  [localizedCuisines sortUsingComparator:^NSComparisonResult(NSString * s1, NSString * s2)
-  {
-    return [s1 compare:s2 options:NSCaseInsensitiveSearch range:{0, s1.length} locale:[NSLocale currentLocale]];
-  }];
-  return [localizedCuisines componentsJoinedByString:kMWMCuisineSeparator];
 }
 
 - (instancetype)initWithInfo:(const place_page::Info &)info
@@ -176,11 +141,6 @@ void initFieldsMap()
   [ud synchronize];
 }
 
-- (void)deserializeCuisine:(NSString *)cuisine
-{
-  self.cuisines = [NSSet setWithArray:[cuisine componentsSeparatedByString:kOSMCuisineSeparator]];
-}
-
 #pragma mark - Getters
 
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType
@@ -252,25 +212,6 @@ void initFieldsMap()
   ms::LatLon const latlon = self.latlon;
   return @((useDMSFormat ? MeasurementUtils::FormatLatLon(latlon.lat, latlon.lon)
                          : MeasurementUtils::FormatLatLonAsDMS(latlon.lat, latlon.lon, 2)).c_str());
-}
-
-#pragma mark - Properties
-
-@synthesize cuisines = _cuisines;
-- (NSSet<NSString *> *)cuisines
-{
-  if (!_cuisines)
-    _cuisines = [NSSet set];
-  return _cuisines;
-}
-
-- (void)setCuisines:(NSSet<NSString *> *)cuisines
-{
-  if ([_cuisines isEqualToSet:cuisines])
-    return;
-  _cuisines = cuisines;
-  [self setMetaField:MWMPlacePageCellTypeCuisine
-               value:[MWMPlacePageEntity makeMWMCuisineString:cuisines].UTF8String];
 }
 
 #pragma mark - Bookmark editing

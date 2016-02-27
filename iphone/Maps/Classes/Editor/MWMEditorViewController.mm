@@ -308,7 +308,6 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypeCuisine:
     {
       MWMEditorSelectTableViewCell * tCell = (MWMEditorSelectTableViewCell *)cell;
-//      NSString * text = [entityValue capitalizedStringWithLocale:[NSLocale currentLocale]];
       [tCell configWithDelegate:self
                            icon:[UIImage imageNamed:@"ic_placepage_cuisine"]
                            text:@(m_mapObject.FormatCuisines().c_str())

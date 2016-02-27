@@ -2,18 +2,31 @@
 #import "MWMCuisineEditorViewController.h"
 #import "UIColor+MapsMeColor.h"
 
+#include "indexer/search_string_utils.hpp"
+#include "indexer/cuisines.hpp"
+
+#include "std/algorithm.hpp"
+#include "std/set.hpp"
+
 namespace
 {
-  NSString * const kCuisineEditorCell = @"MWMCuisineEditorTableViewCell";
+NSString * const kCuisineEditorCell = @"MWMCuisineEditorTableViewCell";
+/// @returns pair.first in a separate vector.
+vector<string> SliceKeys(vector<pair<string, string>> const & v)
+{
+  vector<string> res;
+  for (auto const & kv : v)
+    res.push_back(kv.first);
+  return res;
+}
 } // namespace
 
 @interface MWMCuisineEditorViewController ()<MWMCuisineEditorTableViewCellProtocol, UISearchBarDelegate>
-
-
-@property (copy, nonatomic) NSArray<NSString *> * cuisineKeys;
-@property (copy, nonatomic) NSArray<NSString *> * filtredKeys;
-
-@property (nonatomic) NSMutableSet<NSString *> * selectedCuisines;
+{
+  osm::TAllCuisines m_allCuisines;
+  vector<string> m_selectedCuisines;
+  vector<string> m_displayedKeys;
+}
 
 @property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
 
@@ -34,18 +47,19 @@ namespace
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-  if (!searchText.length)
+  m_displayedKeys.clear();
+  if (searchText.length)
   {
-    self.filtredKeys = nil;
-    return;
+    string const st = searchText.UTF8String;
+    for (auto const & kv : m_allCuisines)
+      if (search::ContainsNormalized(kv.second, st))
+        m_displayedKeys.push_back(kv.first);
   }
-  NSLocale * locale = [NSLocale currentLocale];
-  NSString * query = [searchText lowercaseStringWithLocale:locale];
-  self.filtredKeys = [self.cuisineKeys filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString * value, NSDictionary<NSString *,id> *)
+  else
   {
-    NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", value];
-    return [[L(cuisine) lowercaseStringWithLocale:locale] containsString:query];
-  }]];
+    m_displayedKeys = SliceKeys(m_allCuisines);
+  }
+  [self.tableView reloadData];
 }
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
@@ -66,7 +80,8 @@ namespace
   [searchBar resignFirstResponder];
   searchBar.text = @"";
   [self searchBar:searchBar setActiveState:NO];
-  self.filtredKeys = nil;
+  m_displayedKeys = SliceKeys(m_allCuisines);
+  [self.tableView reloadData];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -112,42 +127,15 @@ namespace
 
 - (void)configData
 {
-  NSString * stringsPath = [[NSBundle mainBundle] pathForResource:@"Localizable" ofType:@"strings"];
-  NSArray<NSString *> * allKeys = [NSDictionary dictionaryWithContentsOfFile:stringsPath].allKeys;
-  NSMutableSet<NSString *> * cuisineKeys = [NSMutableSet set];
-  NSString * prefix = @"cuisine_";
-  NSUInteger const prefixLength = prefix.length;
-  for (NSString * key in allKeys)
-  {
-    if ([key hasPrefix:prefix])
-      [cuisineKeys addObject:[key substringFromIndex:prefixLength]];
-  }
-  self.cuisineKeys = [cuisineKeys.allObjects sortedArrayUsingComparator:^NSComparisonResult(NSString * s1, NSString * s2)
-  {
-    NSString * cus1 = L([prefix stringByAppendingString:s1]);
-    NSString * cus2 = L([prefix stringByAppendingString:s2]);
-    return [cus1 compare:cus2 options:NSCaseInsensitiveSearch range:{0, cus1.length} locale:[NSLocale currentLocale]];
-  }];
-  self.selectedCuisines = [self.delegate.cuisines mutableCopy];
+  m_allCuisines = osm::Cuisines::Instance().AllSupportedCuisines();
+  m_displayedKeys = SliceKeys(m_allCuisines);
+  m_selectedCuisines = [self.delegate getSelectedCuisines];
 }
 
 - (void)configTable
 {
   [self.tableView registerNib:[UINib nibWithNibName:kCuisineEditorCell bundle:nil]
        forCellReuseIdentifier:kCuisineEditorCell];
-}
-
-#pragma mark - Accessors
-
-- (NSArray<NSString *> *)displayKeys
-{
-  return self.filtredKeys != nil ? self.filtredKeys : self.cuisineKeys;
-}
-
-- (void)setFiltredKeys:(NSArray<NSString *> *)filtredKeys
-{
-  _filtredKeys = filtredKeys;
-  [self.tableView reloadData];
 }
 
 #pragma mark - Actions
@@ -159,18 +147,18 @@ namespace
 
 - (void)onDone
 {
-  [self.delegate setCuisines:self.selectedCuisines];
+  [self.delegate setSelectedCuisines:m_selectedCuisines];
   [self onCancel];
 }
 
 #pragma mark - MWMCuisineEditorTableViewCellProtocol
 
-- (void)change:(NSString *)key selected:(BOOL)selected
+- (void)change:(string const &)key selected:(BOOL)selected
 {
   if (selected)
-    [self.selectedCuisines addObject:key];
+    m_selectedCuisines.push_back(key);
   else
-    [self.selectedCuisines removeObject:key];
+    m_selectedCuisines.erase(find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key));
 }
 
 #pragma mark - UITableViewDataSource
@@ -182,7 +170,7 @@ namespace
 
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return self.displayKeys.count;
+  return m_displayedKeys.size();
 }
 
 #pragma mark - UITableViewDelegate
@@ -190,9 +178,9 @@ namespace
 - (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(MWMCuisineEditorTableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
   NSInteger const index = indexPath.row;
-  NSString * cuisine = self.displayKeys[index];
-  BOOL const selected = [self.selectedCuisines containsObject:cuisine];
-  [cell configWithDelegate:self key:cuisine selected:selected];
+  string const & key = m_displayedKeys[index];
+  BOOL const selected = find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
+  [cell configWithDelegate:self key:key translation:osm::Cuisines::Instance().Translate(key) selected:selected];
 }
 
 @end
