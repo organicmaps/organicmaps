@@ -195,7 +195,7 @@ namespace feature
   {
     using TValue = FeatureIndexValue;
 
-    FilesContainerR container(new FileReader(fPath));
+    FilesContainerR container(make_unique<FileReader>(fPath));
     feature::DataHeader header(container);
     serial::CodingParams codingParams(trie::GetCodingParams(header.GetDefCodingParams()));
 

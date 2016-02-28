@@ -195,7 +195,7 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
       int const ind = GetScaleIndex(scale, m_ptsOffsets);
       if (ind != -1)
       {
-        ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetGeometryReader(ind));
+        ReaderSource<FilesContainerR::TReader> src(m_Info.GetGeometryReader(ind));
         src.Skip(m_ptsOffsets[ind]);
 
         serial::CodingParams cp = GetCodingParams(ind);
@@ -243,7 +243,7 @@ uint32_t LoaderCurrent::ParseTriangles(int scale)
       uint32_t const ind = GetScaleIndex(scale, m_trgOffsets);
       if (ind != -1)
       {
-        ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetTrianglesReader(ind));
+        ReaderSource<FilesContainerR::TReader> src(m_Info.GetTrianglesReader(ind));
         src.Skip(m_trgOffsets[ind]);
         serial::LoadOuterTriangles(src, GetCodingParams(ind), m_pF->m_triangles);
 
@@ -266,7 +266,7 @@ void LoaderCurrent::ParseMetadata()
       uint32_t key;
       uint32_t value;
     };
-    DDVector<TMetadataIndexEntry, FilesContainerR::ReaderT> idx(m_Info.GetMetadataIndexReader());
+    DDVector<TMetadataIndexEntry, FilesContainerR::TReader> idx(m_Info.GetMetadataIndexReader());
 
     auto it = lower_bound(
         idx.begin(), idx.end(),
@@ -278,7 +278,7 @@ void LoaderCurrent::ParseMetadata()
 
     if (it != idx.end() && m_pF->m_id.m_index == it->key)
     {
-      ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetMetadataReader());
+      ReaderSource<FilesContainerR::TReader> src(m_Info.GetMetadataReader());
       src.Skip(it->value);
       if (m_Info.GetMWMFormat() >= version::Format::v8)
         m_pF->m_metadata.Deserialize(src);

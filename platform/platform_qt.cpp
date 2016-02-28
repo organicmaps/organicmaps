@@ -17,10 +17,10 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QLocale>
 
-ModelReader * Platform::GetReader(string const & file, string const & searchScope) const
+unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & searchScope) const
 {
-  return new FileReader(ReadPathForFile(file, searchScope),
-                        READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+  return make_unique<FileReader>(ReadPathForFile(file, searchScope),
+                                 READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
 }
 
 bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const

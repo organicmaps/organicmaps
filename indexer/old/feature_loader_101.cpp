@@ -357,7 +357,7 @@ uint32_t LoaderImpl::ParseGeometry(int scale)
       int const ind = GetScaleIndex(scale, m_ptsOffsets);
       if (ind != -1)
       {
-        ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetGeometryReader(ind));
+        ReaderSource<FilesContainerR::TReader> src(m_Info.GetGeometryReader(ind));
         src.Skip(m_ptsOffsets[ind]);
         serial::LoadOuterPath(src, GetDefCodingParams(), m_pF->m_points);
 
@@ -403,7 +403,7 @@ uint32_t LoaderImpl::ParseTriangles(int scale)
       uint32_t const ind = GetScaleIndex(scale, m_trgOffsets);
       if (ind != -1)
       {
-        ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetTrianglesReader(ind));
+        ReaderSource<FilesContainerR::TReader> src(m_Info.GetTrianglesReader(ind));
         src.Skip(m_trgOffsets[ind]);
         serial::LoadOuterTriangles(src, GetDefCodingParams(), m_pF->m_triangles);
 

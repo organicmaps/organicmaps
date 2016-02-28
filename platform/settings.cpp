@@ -32,7 +32,7 @@ namespace Settings
     {
       string settingsPath = GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME);
       LOG(LINFO, ("Settings path:", settingsPath));
-      ReaderStreamBuf buffer(new FileReader(settingsPath));
+      ReaderStreamBuf buffer(make_unique<FileReader>(settingsPath));
       istream stream(&buffer);
 
       string line;

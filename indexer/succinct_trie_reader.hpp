@@ -221,7 +221,7 @@ private:
       return;
     uint32_t offset = m_common->Offset(m_nodeId);
     uint32_t size = m_common->ValueListSize(m_nodeId);
-    ReaderPtr<TReader> subReaderPtr(m_reader.CreateSubReader(offset, size));
+    ReaderPtr<TReader> subReaderPtr(unique_ptr<TReader>(static_cast<TReader*>(m_reader.CreateSubReader(offset, size).release())));
     ReaderSource<ReaderPtr<TReader>> src(subReaderPtr);
     while (src.Size() > 0)
     {

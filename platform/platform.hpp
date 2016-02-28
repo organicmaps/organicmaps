@@ -133,10 +133,11 @@ public:
 
   /// @return reader for file decriptor.
   /// @throws FileAbsentException
-  /// @param[in] file name or full path which we want to read, don't forget to free memory or wrap it to ReaderPtr
+  /// @param[in] file name or full path which we want to read
   /// @param[in] searchScope looks for file in dirs in given order: \n
-  ///  [w]ritable, [r]esources, [s]ettings, by [f]ull path, [e]xternal resources,
-  ModelReader * GetReader(string const & file, string const & searchScope = string()) const;
+  /// [w]ritable, [r]esources, [s]ettings, by [f]ull path, [e]xternal resources,
+  unique_ptr<ModelReader>
+  GetReader(string const & file, string const & searchScope = string()) const;
 
   /// @name File operations
   //@{

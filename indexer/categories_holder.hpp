@@ -1,11 +1,12 @@
 #pragma once
 #include "base/string_utils.hpp"
 
-#include "std/vector.hpp"
-#include "std/map.hpp"
-#include "std/string.hpp"
 #include "std/iostream.hpp"
+#include "std/map.hpp"
 #include "std/shared_ptr.hpp"
+#include "std/string.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 
 
 class Reader;
@@ -44,7 +45,7 @@ private:
   Name2CatContT m_name2type;
 
 public:
-  explicit CategoriesHolder(Reader * reader);
+  explicit CategoriesHolder(unique_ptr<Reader> && reader);
   void LoadFromStream(istream & s);
 
   template <class ToDo>

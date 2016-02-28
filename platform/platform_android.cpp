@@ -91,7 +91,7 @@ public:
 
 }
 
-ModelReader * Platform::GetReader(string const & file, string const & searchScope) const
+unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & searchScope) const
 {
   string const ext = my::GetFileExtension(file);
   ASSERT(!ext.empty(), ());
@@ -138,7 +138,7 @@ ModelReader * Platform::GetReader(string const & file, string const & searchScop
       {
         try
         {
-          return new ZipFileReader(m_extResFiles[j], file, logPageSize, logPageCount);
+          return make_unique<ZipFileReader>(m_extResFiles[j], file, logPageSize, logPageCount);
         }
         catch (Reader::OpenException const &)
         {
@@ -150,7 +150,7 @@ ModelReader * Platform::GetReader(string const & file, string const & searchScop
     {
       string const path = m_writableDir + file;
       if (IsFileExistsByFullPath(path))
-        return new FileReader(path, logPageSize, logPageCount);
+        return make_unique<FileReader>(path, logPageSize, logPageCount);
       break;
     }
 
@@ -158,20 +158,20 @@ ModelReader * Platform::GetReader(string const & file, string const & searchScop
     {
       string const path = m_settingsDir + file;
       if (IsFileExistsByFullPath(path))
-        return new FileReader(path, logPageSize, logPageCount);
+        return make_unique<FileReader>(path, logPageSize, logPageCount);
       break;
     }
 
     case FULL_PATH:
       if (IsFileExistsByFullPath(file))
-        return new FileReader(file, logPageSize, logPageCount);
+        return make_unique<FileReader>(file, logPageSize, logPageCount);
       break;
 
     case RESOURCE:
       ASSERT_EQUAL(file.find("assets/"), string::npos, ());
       try
       {
-        return new ZipFileReader(m_resourcesDir, "assets/" + file, logPageSize, logPageCount);
+        return make_unique<ZipFileReader>(m_resourcesDir, "assets/" + file, logPageSize, logPageCount);
       }
       catch (Reader::OpenException const &)
       {
@@ -186,7 +186,7 @@ ModelReader * Platform::GetReader(string const & file, string const & searchScop
 
   LOG(LWARNING, ("Can't get reader for:", file));
   MYTHROW(FileAbsentException, ("File not found", file));
-  return 0;
+  return nullptr;
 }
 
 void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)

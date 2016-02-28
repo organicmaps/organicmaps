@@ -29,27 +29,27 @@ SharedLoadInfo::~SharedLoadInfo()
   delete m_pLoader;
 }
 
-SharedLoadInfo::ReaderT SharedLoadInfo::GetDataReader() const
+SharedLoadInfo::TReader SharedLoadInfo::GetDataReader() const
 {
   return m_cont.GetReader(DATA_FILE_TAG);
 }
 
-SharedLoadInfo::ReaderT SharedLoadInfo::GetMetadataReader() const
+SharedLoadInfo::TReader SharedLoadInfo::GetMetadataReader() const
 {
   return m_cont.GetReader(METADATA_FILE_TAG);
 }
 
-SharedLoadInfo::ReaderT SharedLoadInfo::GetMetadataIndexReader() const
+SharedLoadInfo::TReader SharedLoadInfo::GetMetadataIndexReader() const
 {
   return m_cont.GetReader(METADATA_INDEX_FILE_TAG);
 }
 
-SharedLoadInfo::ReaderT SharedLoadInfo::GetGeometryReader(int ind) const
+SharedLoadInfo::TReader SharedLoadInfo::GetGeometryReader(int ind) const
 {
   return m_cont.GetReader(GetTagForIndex(GEOMETRY_FILE_TAG, ind));
 }
 
-SharedLoadInfo::ReaderT SharedLoadInfo::GetTrianglesReader(int ind) const
+SharedLoadInfo::TReader SharedLoadInfo::GetTrianglesReader(int ind) const
 {
   return m_cont.GetReader(GetTagForIndex(TRIANGLE_FILE_TAG, ind));
 }

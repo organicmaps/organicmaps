@@ -592,7 +592,7 @@ BookmarkCategory * BookmarkCategory::CreateFromKMLFile(string const & file, Fram
   auto_ptr<BookmarkCategory> cat(new BookmarkCategory("", framework));
   try
   {
-    if (cat->LoadFromKML(new FileReader(file)))
+    if (cat->LoadFromKML(make_unique<FileReader>(file)))
       cat->m_file = file;
     else
       cat.reset();

@@ -5,6 +5,7 @@
 
 #include "std/function.hpp"
 #include "std/shared_ptr.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -81,7 +82,7 @@ string GetFileDownloadPath(int64_t version, CountryFile const & countryFile, Map
 string GetFileDownloadPath(int64_t version, string const & dataDir,
                            CountryFile const & countryFile, MapOptions file);
 
-ModelReader * GetCountryReader(LocalCountryFile const & file, MapOptions options);
+unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapOptions options);
 
 // An API for managing country indexes.
 class CountryIndexes

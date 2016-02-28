@@ -101,7 +101,7 @@ unique_ptr<CopiedMemoryRegion> GetMemoryRegionForTag(FilesContainerR const & rco
 {
   if (!rcont.IsExist(tag))
     return unique_ptr<CopiedMemoryRegion>();
-  FilesContainerR::ReaderT reader = rcont.GetReader(tag);
+  FilesContainerR::TReader reader = rcont.GetReader(tag);
   vector<uint8_t> buffer(reader.Size());
   reader.Read(0, buffer.data(), buffer.size());
   return make_unique<CopiedMemoryRegion>(move(buffer));

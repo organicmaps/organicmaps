@@ -23,6 +23,6 @@ void ForEachFromDat(ModelReaderPtr reader, ToDo && toDo)
   template <class ToDo>
   void ForEachFromDat(string const & fPath, ToDo && toDo)
   {
-    ForEachFromDat(new FileReader(fPath), toDo);
+    ForEachFromDat(make_unique<FileReader>(fPath), toDo);
   }
 }

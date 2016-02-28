@@ -33,8 +33,8 @@ UNIT_TEST(FilesContainer_Smoke)
 
     for (size_t i = 0; i < count; ++i)
     {
-      FilesContainerR::ReaderT r = reader.GetReader(strings::to_string(i));
-      ReaderSource<FilesContainerR::ReaderT> src(r);
+      FilesContainerR::TReader r = reader.GetReader(strings::to_string(i));
+      ReaderSource<FilesContainerR::TReader> src(r);
 
       for (uint32_t j = 0; j < i; ++j)
       {
@@ -59,8 +59,8 @@ UNIT_TEST(FilesContainer_Smoke)
     {
       FilesContainerR reader(fName);
 
-      FilesContainerR::ReaderT r = reader.GetReader(strings::to_string(arrAppend[i]));
-      ReaderSource<FilesContainerR::ReaderT> src(r);
+      FilesContainerR::TReader r = reader.GetReader(strings::to_string(arrAppend[i]));
+      ReaderSource<FilesContainerR::TReader> src(r);
 
       uint32_t const test = ReadVarUint<uint32_t>(src);
       TEST_EQUAL(arrAppend[i], test, ());
@@ -73,7 +73,7 @@ namespace
 {
   void CheckInvariant(FilesContainerR & reader, string const & tag, int64_t test)
   {
-    FilesContainerR::ReaderT r = reader.GetReader(tag);
+    FilesContainerR::TReader r = reader.GetReader(tag);
     TEST_EQUAL(test, ReadPrimitiveFromPos<int64_t>(r, 0), ());
   }
 }
@@ -107,7 +107,7 @@ UNIT_TEST(FilesContainer_Shared)
     // shared container read and fill
 
     FilesContainerR reader(fName);
-    FilesContainerR::ReaderT r1 = reader.GetReader("5");
+    FilesContainerR::TReader r1 = reader.GetReader("5");
     uint64_t const offset = sizeof(uint32_t);
     r1 = r1.SubReader(offset, r1.Size() - offset);
 
@@ -116,7 +116,7 @@ UNIT_TEST(FilesContainer_Shared)
     FilesContainerW writer(fName, FileWriter::OP_WRITE_EXISTING);
     FileWriter w = writer.GetWriter("3");
 
-    ReaderSource<FilesContainerR::ReaderT> src(r1);
+    ReaderSource<FilesContainerR::TReader> src(r1);
     for (uint32_t i = 0; i < count; ++i)
     {
       uint32_t test = ReadVarUint<uint32_t>(src);
@@ -152,7 +152,7 @@ namespace
 
     for (size_t i = 0; i < count; ++i)
     {
-      FilesContainerR::ReaderT r = reader.GetReader(key[i]);
+      FilesContainerR::TReader r = reader.GetReader(key[i]);
 
       size_t const szBuffer = 100;
       size_t const szS = strlen(value[i]);

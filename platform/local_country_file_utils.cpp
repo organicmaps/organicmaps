@@ -346,7 +346,7 @@ string GetFileDownloadPath(int64_t version, string const & dataDir,
   return my::JoinFoldersToPath({dir, strings::to_string(version)}, readyFile);
 }
 
-ModelReader * GetCountryReader(platform::LocalCountryFile const & file, MapOptions options)
+unique_ptr<ModelReader> GetCountryReader(platform::LocalCountryFile const & file, MapOptions options)
 {
   Platform & platform = GetPlatform();
   // See LocalCountryFile comment for explanation.

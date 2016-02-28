@@ -22,9 +22,9 @@ enum State
 }  // unnamed namespace
 
 
-CategoriesHolder::CategoriesHolder(Reader * reader)
+CategoriesHolder::CategoriesHolder(unique_ptr<Reader> && reader)
 {
-  ReaderStreamBuf buffer(reader);
+  ReaderStreamBuf buffer(move(reader));
   istream s(&buffer);
   LoadFromStream(s);
 }

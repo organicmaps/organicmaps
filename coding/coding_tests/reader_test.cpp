@@ -113,7 +113,7 @@ UNIT_TEST(ReaderStreamBuf)
   }
 
   {
-    ReaderStreamBuf buffer(new FileReader(name));
+    ReaderStreamBuf buffer(make_unique<FileReader>(name));
     istream s(&buffer);
 
     std::string str;

@@ -87,7 +87,7 @@ UNIT_TEST(LoadCategories)
 {
   classificator::Load();
 
-  CategoriesHolder h(new MemReader(TEST_STRING, strlen(TEST_STRING)));
+  CategoriesHolder h(make_unique<MemReader>(TEST_STRING, strlen(TEST_STRING)));
   size_t count = 0;
   Checker f(count);
   h.ForEachCategory(f);

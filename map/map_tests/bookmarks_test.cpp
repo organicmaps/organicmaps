@@ -159,7 +159,7 @@ UNIT_TEST(Bookmarks_ImportKML)
   df::VisualParams::Init(1.0, 1024);
 
   BookmarkCategory cat("Default", framework);
-  TEST(cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString))), ());
+  TEST(cat.LoadFromKML(make_unique<MemReader>(kmlString, strlen(kmlString))), ());
 
   CheckBookmarks(cat);
 
@@ -176,7 +176,7 @@ UNIT_TEST(Bookmarks_ExportKML)
   df::VisualParams::Init(1.0, 1024);
 
   BookmarkCategory cat("Default", framework);
-  TEST(cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString))), ());
+  TEST(cat.LoadFromKML(make_unique<MemReader>(kmlString, strlen(kmlString))), ());
   CheckBookmarks(cat);
 
   {
@@ -198,7 +198,7 @@ UNIT_TEST(Bookmarks_ExportKML)
     TEST_EQUAL(guard.m_controller.GetUserMarkCount(), 0, ());
   }
 
-  TEST(cat.LoadFromKML(new FileReader(BOOKMARKS_FILE_NAME)), ());
+  TEST(cat.LoadFromKML(make_unique<FileReader>(BOOKMARKS_FILE_NAME)), ());
   CheckBookmarks(cat);
   TEST_EQUAL(cat.IsVisible(), true, ());
 
@@ -549,7 +549,7 @@ UNIT_TEST(Bookmarks_InnerFolder)
 {
   Framework framework;
   BookmarkCategory cat("Default", framework);
-  TEST(cat.LoadFromKML(new MemReader(kmlString2, strlen(kmlString2))), ());
+  TEST(cat.LoadFromKML(make_unique<MemReader>(kmlString2, strlen(kmlString2))), ());
 
   TEST_EQUAL(cat.GetUserMarkCount(), 1, ());
 }
@@ -611,7 +611,7 @@ UNIT_TEST(Bookmarks_SpecialXMLNames)
 {
   Framework framework;
   BookmarkCategory cat1("", framework);
-  TEST(cat1.LoadFromKML(new MemReader(kmlString3, strlen(kmlString3))), ());
+  TEST(cat1.LoadFromKML(make_unique<MemReader>(kmlString3, strlen(kmlString3))), ());
 
   TEST_EQUAL(cat1.GetUserMarkCount(), 1, ());
   TEST(cat1.SaveToKMLFile(), ());
@@ -670,4 +670,3 @@ UNIT_TEST(TrackParsingTest_2)
   TEST_GREATER(track->GetLayerCount(), 0, ());
   TEST_EQUAL(track->GetColor(0), dp::Color(57, 255, 32, 255), ());
 }
-

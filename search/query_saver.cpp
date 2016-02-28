@@ -51,10 +51,10 @@ public:
     return SecureMemReader(m_pData + pos, static_cast<size_t>(size));
   }
 
-  inline SecureMemReader * CreateSubReader(uint64_t pos, uint64_t size) const
+  inline unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override
   {
     CheckPosAndSize(pos, size);
-    return new SecureMemReader(m_pData + pos, static_cast<size_t>(size));
+    return make_unique<SecureMemReader>(m_pData + pos, static_cast<size_t>(size));
   }
 
 private:
