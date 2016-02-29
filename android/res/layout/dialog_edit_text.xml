@@ -1,28 +1,30 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:padding="@dimen/margin_base_plus">
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:minWidth="300dp"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:padding="@dimen/margin_base_plus">
+
   <TextView
-      android:id="@+id/tv__title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_base"
-      android:textAppearance="@style/MwmTextAppearance.Title"/>
+    android:id="@+id/tv__title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_base"
+    android:textAppearance="@style/MwmTextAppearance.Title"/>
 
   <com.mapswithme.maps.widget.CustomTextInputLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/et__input"
-        style="@style/MwmWidget.PlacePage.EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/name"
-        android:singleLine="true"/>
+      android:id="@+id/et__input"
+      style="@style/MwmWidget.PlacePage.EditText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/name"
+      android:singleLine="true"/>
 
   </com.mapswithme.maps.widget.CustomTextInputLayout>
-
 
 </LinearLayout>

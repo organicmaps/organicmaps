@@ -8,8 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
+import com.mapswithme.maps.dialog.EditTextDialogFragment;
 
-public class StreetFragment extends BaseMwmRecyclerFragment
+public class StreetFragment extends BaseMwmRecyclerFragment implements EditTextDialogFragment.OnTextSaveListener
 {
   public static final String EXTRA_CURRENT_STREET = "Street";
 
@@ -25,12 +26,24 @@ public class StreetFragment extends BaseMwmRecyclerFragment
   @Override
   protected RecyclerView.Adapter createAdapter()
   {
-    return new StreetAdapter(Editor.nativeGetNearbyStreets(), mSelectedString);
+    return new StreetAdapter(this, Editor.nativeGetNearbyStreets(), mSelectedString);
   }
 
   @NonNull
   public String getStreet()
   {
     return ((StreetAdapter) getAdapter()).getSelectedStreet();
+  }
+
+  @Override
+  public void onSaveText(String text)
+  {
+    saveStreet(text);
+  }
+
+  protected void saveStreet(String street)
+  {
+    if (getParentFragment() instanceof EditorHostFragment)
+      ((EditorHostFragment) getParentFragment()).setStreet(street);
   }
 }

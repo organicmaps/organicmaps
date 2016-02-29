@@ -153,9 +153,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         editMapObject();
         break;
       case STREET:
-        final String street = ((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName())).getStreet();
-        Editor.nativeSetStreet(street);
-        editMapObject();
+        setStreet(((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName())).getStreet());
         break;
       case CUISINE:
         String cuisine = ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).getCuisine();
@@ -186,6 +184,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         break;
       }
     }
+  }
+
+  public void setStreet(String street)
+  {
+    mEditedObject.setStreet(street);
+    editMapObject();
   }
 
   private void showAuthorization()
