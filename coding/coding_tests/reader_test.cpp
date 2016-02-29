@@ -88,20 +88,6 @@ UNIT_TEST(FileReaderReadAsText)
   FileWriter::DeleteFileX(fName);
 }
 
-UNIT_TEST(SharedMemReader)
-{
-  SharedMemReader reader1(3);
-  TEST_EQUAL(reader1.Size(), 3, ());
-  memcpy(reader1.Data(), "123", 3);
-  SharedMemReader reader2(reader1);
-  TEST_EQUAL(reader2.Size(), 3, ());
-  string s1(3, '0'), s2(3, '0');
-  reader1.Read(0, &s1[0], 3);
-  reader2.Read(0, &s2[0], 3);
-  TEST_EQUAL(s1, "123", ());
-  TEST_EQUAL(s2, "123", ());
-}
-
 UNIT_TEST(ReaderStreamBuf)
 {
   string const name = "test.txt";

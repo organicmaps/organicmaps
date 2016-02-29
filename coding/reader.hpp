@@ -72,45 +72,6 @@ private:
   size_t m_size;
 };
 
-class SharedMemReader
-{
-  bool AssertPosAndSize(uint64_t pos, uint64_t size) const;
-
-public:
-  explicit SharedMemReader(size_t size) : m_data(new char[size]), m_offset(0), m_size(size) {}
-
-  inline char * Data() { return m_data.get() + m_offset; }
-  inline char const * Data() const { return m_data.get() + m_offset; }
-  inline uint64_t Size() const { return m_size; }
-
-  inline void Read(uint64_t pos, void * p, size_t size) const
-  {
-    ASSERT ( AssertPosAndSize(pos, size), () );
-    memcpy(p, Data() + pos, size);
-  }
-
-  inline SharedMemReader SubReader(uint64_t pos, uint64_t size) const
-  {
-    ASSERT ( AssertPosAndSize(pos, size), () );
-    return SharedMemReader(m_data, static_cast<size_t>(pos), static_cast<size_t>(size));
-  }
-
-  // TODO(mgsergio): return unique_ptr
-  inline SharedMemReader * CreateSubReader(uint64_t pos, uint64_t size) const
-  {
-    ASSERT ( AssertPosAndSize(pos, size), () );
-    return new SharedMemReader(m_data, static_cast<size_t>(pos), static_cast<size_t>(size));
-  }
-
-private:
-  SharedMemReader(shared_array<char> const & data, size_t offset, size_t size)
-    : m_data(data), m_offset(offset), m_size(size) {}
-
-  shared_array<char> m_data;
-  size_t m_offset;
-  size_t m_size;
-};
-
 // Reader wrapper to hold the pointer to a polymorfic reader.
 // Common use: ReaderSource<ReaderPtr<Reader> >.
 // Note! It takes the ownership of Reader.
