@@ -1147,6 +1147,9 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
   availChildren.clear();
   TCountriesVec localMaps;
   GetLocalRealMaps(localMaps);
+  for (auto const downloadingMap : m_queue)
+    localMaps.push_back(downloadingMap.GetCountryId());
+
   if (localMaps.empty())
   {
     GetChildren(parent, availChildren);
