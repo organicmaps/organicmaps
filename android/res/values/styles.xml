@@ -21,6 +21,8 @@
   </style>
 
   <style name="MwmWidget.Button">
+    <item name="android:layout_width">@dimen/button_width</item>
+    <item name="android:layout_height">@dimen/height_block_base</item>
     <item name="android:background">?buttonBackground</item>
     <item name="android:textAllCaps">true</item>
   </style>

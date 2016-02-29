@@ -43,6 +43,7 @@
   <dimen name="search_progress_size">32dp</dimen>
 
   <dimen name="panel_width">360dp</dimen>
+  <dimen name="button_width">240dp</dimen>
 
   <!-- direction fragment -->
   <dimen name="margin_direction_small">8dp</dimen>

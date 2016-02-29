@@ -74,18 +74,20 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
       if (showFrame)
       {
+        boolean hasParent = !TextUtils.isEmpty(mCurrentCountry.parentName);
+
         UiUtils.showIf(showProgress, mProgress);
         UiUtils.showIf(!showProgress, mButton);
-        UiUtils.showIf(!TextUtils.isEmpty(mCurrentCountry.parentName), mParent);
+        UiUtils.showIf(hasParent, mParent);
 
-        if (!TextUtils.isEmpty(mCurrentCountry.parentName))
+        if (hasParent)
           mParent.setText(mCurrentCountry.parentName);
 
         mTitle.setText(mCurrentCountry.name);
         mSize.setText(StringUtils.getFileSizeString(mCurrentCountry.totalSize));
 
         if (showProgress)
-          mProgress.setProgress((int)(mCurrentCountry.progress * 100 / mCurrentCountry.totalSize));
+          mProgress.setProgress((int)(mCurrentCountry.progress * 100L / mCurrentCountry.totalSize));
         else
         {
           boolean failed = (mCurrentCountry.status == CountryItem.STATUS_FAILED);

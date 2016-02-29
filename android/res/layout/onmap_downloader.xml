@@ -47,14 +47,12 @@
 
     <FrameLayout
       android:id="@+id/downloader_controls_frame"
-      android:layout_width="200dp"
+      android:layout_width="@dimen/button_width"
       android:layout_height="wrap_content"
       android:clipChildren="false">
       <Button
         android:id="@+id/downloader_button"
         style="@style/MwmWidget.Button.Accent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:visibility="gone"/>
 
       <com.mapswithme.maps.widget.WheelProgressView

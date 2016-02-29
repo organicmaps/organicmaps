@@ -51,8 +51,6 @@
         <Button
           android:id="@+id/btn__download_map"
           style="@style/MwmWidget.Button.Accent"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/height_block_base"
           android:layout_marginTop="@dimen/margin_half"
           android:text="@string/downloader_download_map"
           android:textAppearance="@style/MwmTextAppearance.Body1"/>
@@ -63,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:visibility="gone"
         tools:visibility="visible">
         <TextView
@@ -75,9 +74,7 @@
 
         <Button
           android:id="@+id/btn__select_map"
-          style="@style/MwmWidget.Button"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/height_block_base"
+          style="@style/MwmWidget.Button.Accent"
           android:layout_marginTop="@dimen/margin_half"
           android:text="@string/search_select_map"
           android:textAppearance="@style/MwmTextAppearance.Body1"/>
@@ -85,8 +82,6 @@
         <Button
           android:id="@+id/btn__select_other_map"
           style="@style/MwmWidget.Button"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/height_block_base"
           android:layout_marginTop="@dimen/margin_base_plus"
           android:text="@string/search_select_other_map"
           android:textAppearance="@style/MwmTextAppearance.Body3"
