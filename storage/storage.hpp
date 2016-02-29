@@ -290,15 +290,17 @@ public:
   /// \return false in case of error and true otherwise.
   bool UpdateNode(TCountryId const & countryId) { return true; }
 
-  /// \brief Cancels downloading a node if the downloading is in process.
-  /// \return false in case of error and true otherwise.
-  bool CancelDownloadNode(TCountryId const & countryId) { return true; }
+  /// \brief If the downloading is in process cancels downloading a node and deletes
+  /// downloaded part of the map. If the map is in queue, remove the map from the queue.
+  /// If the map has been downloaded removes the map. It works for leaf and for group mwms.
+  void CancelDownloadNode(TCountryId const & countryId) { DeleteNode(countryId); }
 
   /// \brief Downloading process could be interupted because of bad internet connection.
   /// In that case user could want to recover it. This method is done for it.
-  /// This method works with expandable and not expandable countryId.
-  /// \return false in case of error and true otherwise.
-  bool RetryDownloadNode(TCountryId const & countryId) { return true; }
+  /// This method works with leaf and group mwm.
+  /// In case of group mwm this method retry downloading and add to the download queue
+  /// all mwms of the |countryId|.
+  void RetryDownloadNode(TCountryId const & countryId) { DownloadNode(countryId); }
 
   /// \brief Get information for mwm update button.
   /// \return true if updateInfo is filled correctly and false otherwise.
