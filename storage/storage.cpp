@@ -1309,16 +1309,16 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
       CalculateProgress(downloadingMwm, descendants, downloadingMwmProgress, setQueue);
 
   // Local mwm information.
+  nodeAttrs.m_localMwmCounter = 0;
+  nodeAttrs.m_localMwmSize = 0;
   node->ForEachInSubtree([this, &nodeAttrs](TCountriesContainer const & d)
   {
-    auto const localeMapIt = m_localFiles.find(d.Value().Name());
-    if (localeMapIt != m_localFiles.end())
-    {
-      nodeAttrs.m_localMwmCounter += 1;
-      list<TLocalFilePtr> const & localMwmFiles = localeMapIt->second;
-      ASSERT_EQUAL(localMwmFiles.size(), 1, ("Storage::GetNodeAttrs is called for two component mwms."));
-      nodeAttrs.m_localMwmSize += (*localMwmFiles.begin())->GetSize(MapOptions::Map);
-    }
+    Storage::TLocalFilePtr const localFile = GetLatestLocalFile(d.Value().Name());
+    if (localFile == nullptr)
+      return;
+
+    nodeAttrs.m_localMwmCounter += 1;
+    nodeAttrs.m_localMwmSize += localFile->GetSize(MapOptions::Map);
   });
 
   // Parents information.
