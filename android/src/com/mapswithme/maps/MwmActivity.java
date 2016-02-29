@@ -1,7 +1,6 @@
 package com.mapswithme.maps;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -283,37 +282,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .show();
   }
 
-  void showMigrateDialog()
-  {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATE_DIALOG_SEEN);
-
-    new AlertDialog.Builder(MwmActivity.this)
-        .setTitle(R.string.youve_been_asking)
-        .setMessage(R.string.migrate_and_split_mwms_message)
-        .setNegativeButton(R.string.not_now, null)
-        .setPositiveButton(R.string.delete_all, new Dialog.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATE_PERFORMED);
-
-            RoutingController.get().cancel();
-            MapManager.nativeMigrate();
-            showDownloader(false);
-          }
-        }).show();
-  }
-
   @Override
   public void showDownloader(boolean openDownloaded)
   {
-    if (MapManager.nativeIsLegacyMode())
-    {
-      showMigrateDialog();
-      return;
-    }
-
     final Bundle args = new Bundle();
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
     if (mIsFragmentContainer)

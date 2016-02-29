@@ -150,7 +150,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     mTvActiveCountry = (TextView) view.findViewById(R.id.tv__active_country_name);
 
     UiUtils.updateAccentButton(mBtnDownloadMap);
-    UiUtils.updateButton(selectMap);
+    UiUtils.updateAccentButton(selectMap);
   }
 
   private void refreshViews()
