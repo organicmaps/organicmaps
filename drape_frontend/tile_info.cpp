@@ -53,20 +53,20 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 
 void TileInfo::DiscardFeatureInfo(FeatureID const & featureId, MemoryFeatureIndex & memIndex)
 {
-  CheckCanceled();
-
   MemoryFeatureIndex::Lock lock(memIndex);
   UNUSED_VALUE(lock);
+
+  CheckCanceled();
 
   m_featureInfo.erase(featureId);
 }
 
 bool TileInfo::SetFeatureOwner(FeatureID const & featureId, MemoryFeatureIndex & memIndex)
 {
-  CheckCanceled();
-
   MemoryFeatureIndex::Lock lock(memIndex);
   UNUSED_VALUE(lock);
+
+  CheckCanceled();
 
   if (!m_featureInfo[featureId])
   {
