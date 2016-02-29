@@ -24,9 +24,9 @@ m2::RectD CalcLimitRect(TCountryId const & countryId,
 {
   m2::RectD boundingBox;
   auto const accumulator =
-      [&countryInfoGetter, &boundingBox](TCountryId const & descendantId, bool expandableNode)
+      [&countryInfoGetter, &boundingBox](TCountryId const & descendantId, bool groupNode)
   {
-    if (!expandableNode)
+    if (!groupNode)
       boundingBox.Add(countryInfoGetter.GetLimitRectForLeaf(descendantId));
   };
 

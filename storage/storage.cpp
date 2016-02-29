@@ -112,10 +112,10 @@ bool IsPartlyDownloaded(Status status)
 }
 }  // namespace
 
-void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & countries)
+void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries)
 {
   for (auto const & country : queue)
-    countries.insert(country.GetCountryId());
+    resultCountries.insert(country.GetCountryId());
 }
 
 bool HasCountryId(TCountriesVec const & sortedCountryIds, TCountryId const & countryId)
@@ -1386,28 +1386,28 @@ MapFilesDownloader::TProgress Storage::CalculateProgress(TCountryId const & down
 
 void Storage::UpdateNode(TCountryId const & countryId)
 {
-  ForEachInSubtree(countryId, [this](TCountryId const & descendantId, bool expandableNode)
+  ForEachInSubtree(countryId, [this](TCountryId const & descendantId, bool groupNode)
   {
-    if (!expandableNode && this->m_localFiles.find(descendantId) != this->m_localFiles.end())
+    if (!groupNode && m_localFiles.find(descendantId) != m_localFiles.end())
       this->DownloadNode(descendantId);
   });
 }
 
 void Storage::CancelDownloadNode(TCountryId const & countryId)
 {
-  ForEachInSubtreeAndInQueue(countryId, [this](TCountryId const & descendantId, bool expandableNode)
+  ForEachInSubtreeAndInQueue(countryId, [this](TCountryId const & descendantId, bool groupNode)
   {
-    ASSERT(!expandableNode, ());
-    this->DeleteNode(descendantId);
+    ASSERT(!groupNode, ());
+    DeleteNode(descendantId);
   });
 }
 
 void Storage::RetryDownloadNode(TCountryId const & countryId)
 {
-  ForEachInSubtreeAndInQueue(countryId, [this](TCountryId const & descendantId, bool expandableNode)
+  ForEachInSubtreeAndInQueue(countryId, [this](TCountryId const & descendantId, bool groupNode)
   {
-    ASSERT(!expandableNode, ());
-    this->DownloadNode(descendantId);
+    ASSERT(!groupNode, ());
+    DownloadNode(descendantId);
   });
 }
 }  // namespace storage

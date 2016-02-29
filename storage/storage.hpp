@@ -510,8 +510,11 @@ private:
   void ForEachInSubtreeAndInQueue(TCountryId const & root, ToDo && toDo) const;
 };
 
-void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & countries);
-bool HasCountryId(TCountriesVec const & sorted, TCountryId const & countyId);
+void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);
+
+/// \returns true if |sortedCountryIds| contains |countryId|.
+/// \note. |sortedCountryIds| should be sorted.
+bool HasCountryId(TCountriesVec const & sortedCountryIds, TCountryId const & countryId);
 
 template <class ToDo>
 void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
@@ -525,7 +528,7 @@ void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
   rootNode->ForEachInSubtree([&toDo](TCountriesContainer const & container)
   {
     Country const & value = container.Value();
-    toDo(value.Name(), value.GetSubtreeMwmCounter() != 1 /* expandableNode. */);
+    toDo(value.Name(), value.GetSubtreeMwmCounter() != 1 /* groupNode. */);
   });
 }
 
@@ -535,10 +538,10 @@ void Storage::ForEachInSubtreeAndInQueue(TCountryId const & root, ToDo && toDo) 
   TCountriesSet setQueue;
   GetQueuedCountries(m_queue, setQueue);
 
-  ForEachInSubtree(root, [&setQueue, &toDo](TCountryId const & descendantId, bool expandableNode)
+  ForEachInSubtree(root, [&setQueue, &toDo](TCountryId const & descendantId, bool groupNode)
   {
     if (setQueue.count(descendantId) != 0)
-      toDo(descendantId, expandableNode);
+      toDo(descendantId, groupNode);
   });
 }
 

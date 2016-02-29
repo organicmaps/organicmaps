@@ -1148,7 +1148,7 @@ UNIT_TEST(StorageTest_TwoInstance)
   TaskRunner runner2;
   InitStorage(storage2, runner2);
 
-  string const uruguayId = string("Uruguay"); // This countyId is valid for single and two component mwms.
+  string const uruguayId = string("Uruguay"); // This countryId is valid for single and two component mwms.
   storage1.DeleteCountry(uruguayId, MapOptions::Map);
   {
     MY_SCOPE_GUARD(cleanupCountryFiles,
@@ -1290,9 +1290,9 @@ UNIT_TEST(StorageTest_ForEachInSubtree)
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
   TCountriesVec leafVec;
-  auto const forEach = [&leafVec](TCountryId const & descendantId, bool expandableNode)
+  auto const forEach = [&leafVec](TCountryId const & descendantId, bool groupNode)
   {
-    if (!expandableNode)
+    if (!groupNode)
       leafVec.push_back(descendantId);
   };
   storage.ForEachInSubtree(storage.GetRootId(), forEach);
