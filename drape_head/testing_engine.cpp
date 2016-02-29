@@ -660,7 +660,7 @@ void TestingEngine::OnFlushData(dp::GLState const & state, drape_ptr<dp::RenderB
     {
       m_boundRects.push_back(handle->GetPixelRect(m_modelView, false));
       m_rects.resize(m_rects.size() + 1);
-      handle->GetPixelShape(m_modelView, m_rects.back(), false);
+      handle->GetPixelShape(m_modelView, false, m_rects.back());
     }
   };
 }

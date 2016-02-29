@@ -45,7 +45,7 @@ m2::RectD Handle::GetPixelRect(const ScreenBase & screen, bool perspective) cons
   return m2::RectD();
 }
 
-void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects & rects, bool perspective) const
+void Handle::GetPixelShape(const ScreenBase & screen, bool perspective, dp::OverlayHandle::Rects & rects) const
 {
   // There is no need to check intersection of gui elements.
   UNUSED_VALUE(screen);

@@ -17,7 +17,7 @@ struct TileKey
   bool operator < (TileKey const & other) const;
   bool operator == (TileKey const & other) const;
 
-  // This methods implement strict comparison of tile keys. It's necessary to merger of
+  // These methods implement strict comparison of tile keys. It's necessary to merger of
   // batches which must not merge batches with different m_generation.
   bool LessStrict(TileKey const & other) const;
   bool EqualStrict(TileKey const & other) const;

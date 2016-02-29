@@ -130,7 +130,7 @@ public:
     return result;
   }
 
-  void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override
+  void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override
   {
     m2::PointD const pixelPivot(screen.GtoP(m_globalPivot));
     for (size_t quadIndex = 0; quadIndex < m_buffer.size(); quadIndex += 4)

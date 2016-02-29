@@ -29,7 +29,7 @@ public:
 
   virtual bool IndexesRequired() const override;
   virtual m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
-  virtual void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override;
+  virtual void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
 
   m2::PointF GetSize() const { return m_size; }
   virtual void SetPivot(glsl::vec2 const & pivot) { m_pivot = pivot; }

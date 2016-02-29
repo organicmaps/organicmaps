@@ -94,7 +94,7 @@ public:
                      max(x, pivot.x), max(y, pivot.y));
   }
 
-  void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override
+  void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override
   {
     rects.emplace_back(GetPixelRect(screen, perspective));
   }

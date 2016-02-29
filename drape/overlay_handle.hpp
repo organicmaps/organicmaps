@@ -56,7 +56,7 @@ public:
   virtual bool Update(ScreenBase const & /*screen*/) { return true; }
 
   virtual m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const = 0;
-  virtual void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const = 0;
+  virtual void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const = 0;
 
   double GetPivotZ() const { return m_pivotZ; }
   void SetPivotZ(double pivotZ) { m_pivotZ = pivotZ; }
@@ -148,7 +148,7 @@ public:
                bool isBillboard = false);
 
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
-  void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override;
+  void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
   virtual string GetOverlayDebugInfo() override;

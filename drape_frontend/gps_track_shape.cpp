@@ -105,7 +105,7 @@ m2::RectD GpsTrackHandle::GetPixelRect(ScreenBase const & screen, bool perspecti
   return m2::RectD();
 }
 
-void GpsTrackHandle::GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const
+void GpsTrackHandle::GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const
 {
   UNUSED_VALUE(screen);
   UNUSED_VALUE(perspective);

@@ -159,7 +159,7 @@ OverlayHandle::Rects const & OverlayHandle::GetExtendedPixelShape(ScreenBase con
     return m_extendedShapeCache;
 
   m_extendedShapeCache.clear();
-  GetPixelShape(screen, m_extendedShapeCache, screen.isPerspective());
+  GetPixelShape(screen, screen.isPerspective(), m_extendedShapeCache);
   for (auto & rect : m_extendedShapeCache)
     rect.Inflate(m_extendingSize, m_extendingSize);
   m_extendedShapeDirty = false;
@@ -236,7 +236,7 @@ m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen, bool perspective
   return result;
 }
 
-void SquareHandle::GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const
+void SquareHandle::GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const
 {
   rects.emplace_back(GetPixelRect(screen, perspective));
 }
