@@ -152,7 +152,7 @@ final class MigrationController
     if (!MapManager.nativeMigrate(mListener, lat, lon, (loc != null), keepOld))
       return;
 
-    mState  = State.PROGRESS;
+    mState = State.PROGRESS;
     mProgress = 0;
     callStateProgress();
     callUpdateProgress();
