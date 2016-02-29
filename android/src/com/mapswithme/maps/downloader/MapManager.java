@@ -115,7 +115,7 @@ public final class MapManager
   /**
    * Enqueues failed items under given {@code root} node in downloader.
    */
-  public static native boolean nativeRetry(String root);
+  public static native void nativeRetry(String root);
 
   /**
    * Enqueues given {@code root} node with its children in downloader.
@@ -125,7 +125,7 @@ public final class MapManager
   /**
    * Removes given currently downloading {@code root} node and its children from downloader.
    */
-  public static native boolean nativeCancel(String root);
+  public static native void nativeCancel(String root);
 
   /**
    * Deletes given installed {@code root} node with its children.

@@ -319,10 +319,10 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeDownload(JNIEnv * env, jcla
 }
 
 // static boolean nativeRetry(String root);
-JNIEXPORT jboolean JNICALL
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeRetry(JNIEnv * env, jclass clazz, jstring root)
 {
-  return GetStorage().RetryDownloadNode(jni::ToNativeString(env, root));
+ GetStorage().RetryDownloadNode(jni::ToNativeString(env, root));
 }
 
 // static boolean nativeUpdate(String root);
@@ -334,11 +334,11 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeUpdate(JNIEnv * env, jclass
   return true;
 }
 
-// static boolean nativeCancel(String root);
-JNIEXPORT jboolean JNICALL
+// static void nativeCancel(String root);
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeCancel(JNIEnv * env, jclass clazz, jstring root)
 {
-  return GetStorage().CancelDownloadNode(jni::ToNativeString(env, root));
+  GetStorage().CancelDownloadNode(jni::ToNativeString(env, root));
 }
 
 // static void nativeDelete(String root);
