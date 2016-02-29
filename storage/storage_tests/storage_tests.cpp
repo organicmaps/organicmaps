@@ -1221,6 +1221,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
 
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 2, ());
@@ -1231,6 +1233,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
 
   storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
@@ -1241,6 +1245,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Algeria", ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
 
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
@@ -1251,6 +1257,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, "Countries", ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
 
   storage.GetNodeAttrs("Disputable Territory", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
@@ -1263,6 +1271,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_id, "Country2", ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
 }
 
 UNIT_TEST(StorageTest_ParseStatus)
