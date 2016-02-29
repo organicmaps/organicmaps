@@ -58,9 +58,9 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
       for (auto const & nextCross : nextCrosses)
       {
         if (nextCross.toNode.IsValid())
-          dummyEdges.emplace_back(nextCross, weights[i]);
-      }
+        dummyEdges.emplace_back(nextCross, weights[i]);
     }
+  }
   }
 
   m_virtualEdges.insert(make_pair(startNode, dummyEdges));
@@ -130,7 +130,7 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
 }
 
 vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(OutgoingCrossNode const & startNode,
-                                                        TRoutingMappingPtr const & currentMapping) const
+                                                                TRoutingMappingPtr const & currentMapping) const
 {
   // Check cached crosses.
   auto const key = make_pair(startNode.m_nodeId, currentMapping->GetMwmId());
@@ -154,10 +154,10 @@ bool CrossMwmGraph::ConstructBorderCrossImpl(OutgoingCrossNode const & startNode
   // If we haven't this routing file, we skip this path.
   if (!nextMapping->IsValid())
     return false;
-  crosses.clear();
+  ASSERT(crosses.empty(), ());
   nextMapping->LoadCrossContext();
   nextMapping->m_crossContext.ForEachIngoingNodeNearPoint(startNode.m_point, [&](IngoingCrossNode const & node)
-    {
+  {
     if (node.m_point == startNode.m_point)
     {
       auto const toCross = CrossNode(node.m_nodeId, nextMapping->GetMwmId(), node.m_point);
@@ -213,8 +213,8 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
                                          for (auto const & target : targets)
                                          {
                                            if (target.toNode.IsValid())
-                                             adj.emplace_back(target, outWeight);
-                                         }
+                                           adj.emplace_back(target, outWeight);
+                                       }
                                        }
                                      });
 }

@@ -17,6 +17,14 @@ struct RoutingResult
 {
   vector<TVertexType> path;
   double distance;
+
+  RoutingResult() : distance(0) {}
+
+  void Clear()
+  {
+    path.clear();
+    distance = 0;
+  }
 };
 
 template <typename TGraph>
@@ -180,8 +188,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     my::Cancellable const & cancellable,
     TOnVisitedVertexCallback onVisitedVertexCallback) const
 {
-  result.distance = 0;
-  result.path.clear();
+  result.Clear();
   if (nullptr == onVisitedVertexCallback)
     onVisitedVertexCallback = [](TVertexType const &, TVertexType const &){};
 
