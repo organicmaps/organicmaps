@@ -1257,12 +1257,16 @@ Status Storage::NodeStatus(TCountriesContainer const & node) const
       return;
     }
 
+    if (result == kUsersAttentionNeeded)
+      return;
     if (IsUserAttentionNeededStatus(status))
     {
       result = kUsersAttentionNeeded;
       return;
     }
 
+    if (result == kPartlyDownloaded)
+      return;
     if (IsPartlyDownloaded(status))
       result = kPartlyDownloaded;
   };
