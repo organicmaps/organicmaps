@@ -1291,6 +1291,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   nodeAttrs.m_error = statusAndErr.error;
   nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);
 
+  // Status and progress.
   TCountriesVec descendants;
   node->ForEachDescendant([&descendants](TCountriesContainer const & d)
   {
@@ -1307,6 +1308,20 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   nodeAttrs.m_downloadingProgress =
       CalculateProgress(downloadingMwm, descendants, downloadingMwmProgress, setQueue);
 
+  // Local mwm information.
+  node->ForEachInSubtree([this, &nodeAttrs](TCountriesContainer const & d)
+  {
+    auto const localeMapIt = m_localFiles.find(d.Value().Name());
+    if (localeMapIt != m_localFiles.end())
+    {
+      nodeAttrs.m_localMwmCounter += 1;
+      list<TLocalFilePtr> const & localMwmFiles = localeMapIt->second;
+      ASSERT_EQUAL(localMwmFiles.size(), 1, ("Storage::GetNodeAttrs is called for two component mwms."));
+      nodeAttrs.m_localMwmSize += (*localMwmFiles.begin())->GetSize(MapOptions::Map);
+    }
+  });
+
+  // Parents information.
   nodeAttrs.m_parentInfo.clear();
   nodeAttrs.m_parentInfo.reserve(nodes.size());
   for (auto const & n : nodes)
