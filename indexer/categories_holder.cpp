@@ -202,21 +202,9 @@ bool CategoriesHolder::GetNameByType(uint32_t type, int8_t locale, string & name
 string CategoriesHolder::GetReadableFeatureType(uint32_t type, int8_t locale) const
 {
   ASSERT_NOT_EQUAL(type, 0, ());
-  uint8_t level = ftype::GetLevel(type);
-  ASSERT_GREATER(level, 0, ());
-
   string name;
-  while (true)
-  {
-    if (GetNameByType(type, locale, name))
-      return name;
-
-    if (--level == 0)
-      break;
-
-    ftype::TruncValue(type, level);
-  }
-
+  if (GetNameByType(type, locale, name))
+    return name;
   return classif().GetReadableObjectName(type);
 }
 
