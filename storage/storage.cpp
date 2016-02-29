@@ -1021,6 +1021,9 @@ void Storage::RegisterCountryFiles(TCountryId const & countryId, string const & 
 
 void Storage::RegisterFakeCountryFiles(platform::LocalCountryFile const & localFile)
 {
+  if (localFile.GetCountryName() == (platform::migrate::NeedMigrate() ? WORLD_COASTS_FILE_NAME : WORLD_COASTS_OBSOLETE_FILE_NAME))
+    return;
+
   TLocalFilePtr fakeCountryLocalFile = make_shared<LocalCountryFile>(localFile);
   fakeCountryLocalFile->SyncWithDisk();
   m_localFilesForFakeCountries[fakeCountryLocalFile->GetCountryFile()] = fakeCountryLocalFile;
