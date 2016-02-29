@@ -37,8 +37,6 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 @property (nonatomic) MWMSearchTableViewController * tableViewController;
 @property (nonatomic) MWMSearchDownloadViewController * downloadController;
 
-@property (nonatomic) BOOL haveDownloadedMaps;
-
 @end
 
 @implementation MWMSearchManager
@@ -265,11 +263,6 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (void)changeToDefaultState
 {
-  using namespace storage;
-  auto const & s = GetFramework().Storage();
-  TCountriesVec downloadedCountries, availCountries;
-  s.GetChildrenInGroups(s.GetRootId(), downloadedCountries, availCountries);
-  self.haveDownloadedMaps = !downloadedCountries.empty();
   self.view.alpha = 1.;
   [self updateTopController];
   [self.navigationController popToRootViewControllerAnimated:NO];
@@ -317,7 +310,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (UIViewController *)topController
 {
-  if (self.haveDownloadedMaps || self.state == MWMSearchManagerStateHidden)
+  if (self.state == MWMSearchManagerStateHidden || GetFramework().Storage().HaveDownloadedCountries())
   {
     return self.tabbedController;
   }
