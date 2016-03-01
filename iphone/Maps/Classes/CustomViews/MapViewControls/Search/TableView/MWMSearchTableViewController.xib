@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -31,15 +31,15 @@
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="25T-i3-eR5">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_no_found_light" translatesAutoresizingMaskIntoConstraints="NO" id="Xva-2d-ze3" userLabel="image">
-                            <rect key="frame" x="80" y="30" width="160" height="100"/>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_not_found" translatesAutoresizingMaskIntoConstraints="NO" id="Xva-2d-ze3" userLabel="image">
+                            <rect key="frame" x="60" y="30" width="200" height="178"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="100" id="Ax8-Si-59Z"/>
-                                <constraint firstAttribute="width" constant="160" id="wCn-CD-Osv"/>
+                                <constraint firstAttribute="height" constant="178" id="Ax8-Si-59Z"/>
+                                <constraint firstAttribute="width" constant="200" id="wCn-CD-Osv"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="VlC-Yr-hSX" userLabel="text">
-                            <rect key="frame" x="16" y="160" width="288" height="17"/>
+                            <rect key="frame" x="16" y="224" width="288" height="17"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -52,10 +52,10 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="VlC-Yr-hSX" firstAttribute="top" secondItem="25T-i3-eR5" secondAttribute="top" constant="160" id="8i1-SL-tjs"/>
                         <constraint firstItem="VlC-Yr-hSX" firstAttribute="leading" secondItem="25T-i3-eR5" secondAttribute="leading" constant="16" id="gVn-UQ-GWx"/>
                         <constraint firstAttribute="centerX" secondItem="Xva-2d-ze3" secondAttribute="centerX" id="kIp-OL-QdQ"/>
                         <constraint firstAttribute="trailing" secondItem="VlC-Yr-hSX" secondAttribute="trailing" constant="16" id="lhj-9H-dPK"/>
+                        <constraint firstItem="VlC-Yr-hSX" firstAttribute="top" secondItem="Xva-2d-ze3" secondAttribute="bottom" constant="16" id="nfN-5p-03j"/>
                         <constraint firstItem="Xva-2d-ze3" firstAttribute="top" secondItem="25T-i3-eR5" secondAttribute="top" constant="30" id="sK3-Ld-4Os"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -86,11 +86,10 @@
                 <outlet property="noResultsText" destination="VlC-Yr-hSX" id="Str-IK-gv7"/>
                 <outlet property="noResultsView" destination="25T-i3-eR5" id="q1E-Rv-Plz"/>
                 <outlet property="tableView" destination="oZD-Er-6fn" id="MfW-RH-aRM"/>
-                <outlet property="textTopOffset" destination="8i1-SL-tjs" id="4Mq-d1-ugQ"/>
             </connections>
         </view>
     </objects>
     <resources>
-        <image name="img_no_found_light" width="160" height="100"/>
+        <image name="img_not_found" width="200" height="178"/>
     </resources>
 </document>

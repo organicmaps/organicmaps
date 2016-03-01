@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -52,9 +52,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zBz-nW-lOz">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="zBz-nW-lOz">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
                                 </userDefinedRuntimeAttributes>
@@ -200,7 +200,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="RAh-Cr-4I1">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="RAh-Cr-4I1">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <userDefinedRuntimeAttributes>
@@ -240,7 +240,7 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="downloader_download_all"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="download_all"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="allMapsAction" destination="cIk-gU-IeI" eventType="touchUpInside" id="BFl-NK-h9n"/>
@@ -345,7 +345,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9NB-bm-bsj" userLabel="CenteredView">
                                                 <rect key="frame" x="84" y="17" width="400" height="333"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="vDh-VK-Hht">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_migration" translatesAutoresizingMaskIntoConstraints="NO" id="vDh-VK-Hht">
                                                         <rect key="frame" x="100" y="0.0" width="200" height="200"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="130" id="2zH-I9-eKL"/>
@@ -463,30 +463,29 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8GY-gg-9ty">
-                                        <rect key="frame" x="290" y="494" width="20" height="20"/>
+                                        <rect key="frame" x="282" y="528" width="36" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="O48-8Y-tgR"/>
-                                            <constraint firstAttribute="height" constant="20" id="WMw-FR-b4m"/>
+                                            <constraint firstAttribute="width" constant="36" id="O48-8Y-tgR"/>
+                                            <constraint firstAttribute="height" constant="36" id="WMw-FR-b4m"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" identifier="ContainerView"/>
                                 <constraints>
+                                    <constraint firstItem="8GY-gg-9ty" firstAttribute="centerX" secondItem="aSi-go-AxL" secondAttribute="centerX" id="0MV-lq-uuk"/>
                                     <constraint firstItem="Kox-tu-DVp" firstAttribute="top" secondItem="aSi-go-AxL" secondAttribute="top" constant="36" id="3Al-j1-FaY"/>
                                     <constraint firstItem="KPp-Sj-AzL" firstAttribute="top" secondItem="Hs7-0i-ftc" secondAttribute="bottom" priority="500" constant="10" id="8X5-JG-GPL"/>
                                     <constraint firstItem="Hs7-0i-ftc" firstAttribute="top" secondItem="Kox-tu-DVp" secondAttribute="bottom" priority="250" constant="80" id="8d5-4Y-Vwo"/>
-                                    <constraint firstItem="8GY-gg-9ty" firstAttribute="centerY" secondItem="Hs7-0i-ftc" secondAttribute="centerY" id="BrD-d2-qJv"/>
                                     <constraint firstItem="Kox-tu-DVp" firstAttribute="leading" secondItem="aSi-go-AxL" secondAttribute="leading" constant="16" id="CbY-ub-KOC"/>
                                     <constraint firstItem="Hs7-0i-ftc" firstAttribute="top" secondItem="B1q-Pf-ckt" secondAttribute="bottom" constant="16" id="EAh-12-SGQ"/>
                                     <constraint firstItem="KPp-Sj-AzL" firstAttribute="centerX" secondItem="aSi-go-AxL" secondAttribute="centerX" id="JKt-fl-YFD"/>
                                     <constraint firstAttribute="trailing" secondItem="Kox-tu-DVp" secondAttribute="trailing" constant="16" id="LXV-yG-TMr"/>
-                                    <constraint firstItem="8GY-gg-9ty" firstAttribute="centerX" secondItem="Hs7-0i-ftc" secondAttribute="centerX" id="Wys-pM-wNw"/>
                                     <constraint firstItem="Hs7-0i-ftc" firstAttribute="centerX" secondItem="aSi-go-AxL" secondAttribute="centerX" id="b7R-uH-Lrc"/>
                                     <constraint firstAttribute="bottom" secondItem="KPp-Sj-AzL" secondAttribute="bottom" constant="20" id="hs0-7V-gdN"/>
                                     <constraint firstItem="vDh-VK-Hht" firstAttribute="height" secondItem="aSi-go-AxL" secondAttribute="height" multiplier="0.3" priority="750" id="oZ8-dU-N1J"/>
-                                    <constraint firstAttribute="bottom" secondItem="Hs7-0i-ftc" secondAttribute="bottom" priority="250" constant="32" id="u5U-Zq-3je"/>
+                                    <constraint firstAttribute="bottom" secondItem="8GY-gg-9ty" secondAttribute="bottom" constant="36" id="qRO-Rq-6EB"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
@@ -516,7 +515,6 @@
                             <outlet property="imageMinHeight" destination="2zH-I9-eKL" id="W6z-6k-GtS"/>
                             <outlet property="info" destination="B1q-Pf-ckt" id="3aN-kN-qVY"/>
                             <outlet property="primaryButton" destination="Hs7-0i-ftc" id="mU5-ZX-e3F"/>
-                            <outlet property="primaryButtonBotomOffset" destination="u5U-Zq-3je" id="o09-q1-TbX"/>
                             <outlet property="secondaryButton" destination="KPp-Sj-AzL" id="lb0-SN-fb4"/>
                             <outlet property="spinnerView" destination="8GY-gg-9ty" id="ou7-Sg-E4n"/>
                             <outlet property="text" destination="SQw-ef-jPg" id="FZ1-WR-ezU"/>
@@ -2982,15 +2980,15 @@ the world. Join us!</string>
         <image name="ic_arrow_gray_down" width="28" height="28"/>
         <image name="ic_device" width="28" height="28"/>
         <image name="ic_more" width="28" height="28"/>
-        <image name="ic_placeholder" width="240" height="240"/>
         <image name="ic_upload" width="28" height="28"/>
+        <image name="img_migration" width="200" height="183"/>
         <image name="img_perspective_view" width="220" height="220"/>
         <image name="login_facebook" width="28" height="28"/>
         <image name="login_google" width="28" height="28"/>
         <image name="separator_image" width="1" height="1"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Z0Z-aU-Vrq"/>
+        <segue reference="mF7-g4-gSS"/>
         <segue reference="w48-2Y-VXA"/>
     </inferredMetricsTieBreakers>
 </document>
