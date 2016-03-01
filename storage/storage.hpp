@@ -106,6 +106,10 @@ private:
   /// can call all the methods from a single thread using
   /// RunOnUIThread.  If not, at least use a syncronization object.
   TQueue m_queue;
+
+  // Keep downloading queue between application restarts.
+  bool m_keepDownloadingQueue = true;
+
   /// Set of mwm files which have been downloaded recently.
   /// When a mwm file is downloaded it's moved from |m_queue| to |m_justDownloaded|.
   /// When a new mwm file is added to |m_queue| |m_justDownloaded| is cleared.
@@ -402,6 +406,7 @@ public:
   bool IsDownloadInProgress() const;
 
   TCountryId GetCurrentDownloadingCountryId() const;
+  void EnableKeepDownloadingQueue(bool enable) {m_keepDownloadingQueue = enable;}
 
   /// get download url by countryId & options(first search file name by countryId, then format url)
   string GetFileDownloadUrl(string const & baseUrl, TCountryId const & countryId, MapOptions file) const;

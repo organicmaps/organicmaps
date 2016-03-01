@@ -184,6 +184,7 @@ void Storage::PrefetchMigrateData()
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
   m_prefetchStorage.reset(new Storage(COUNTRIES_FILE, "migrate"));
+  m_prefetchStorage->EnableKeepDownloadingQueue(false);
   m_prefetchStorage->Init([](LocalCountryFile const &){});
   if (!m_downloadingUrlsForTesting.empty())
     m_prefetchStorage->SetDownloadingUrlsForTesting(m_downloadingUrlsForTesting);
@@ -432,6 +433,9 @@ void Storage::SaveDownloadQueue()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
+  if (!m_keepDownloadingQueue)
+    return;
+
   stringstream ss;
   for (auto const & item : m_queue)
     ss << (ss.str().empty() ? "" : ";") << item.GetCountryId();
@@ -440,6 +444,9 @@ void Storage::SaveDownloadQueue()
 
 void Storage::RestoreDownloadQueue()
 {
+  if (!m_keepDownloadingQueue)
+    return;
+
   string queue;
   if (!Settings::Get("DownloadQueue", queue))
     return;
