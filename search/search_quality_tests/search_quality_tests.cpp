@@ -75,7 +75,7 @@ struct CompletenessQuery
 {
   string m_query;
   unique_ptr<TestSearchRequest> m_request;
-  string m_country;
+  string m_mwmName;
   uint64_t m_featureId = 0;
   double m_lat = 0;
   double m_lon = 0;
@@ -202,10 +202,10 @@ void Split(string const & s, char delim, vector<string> & parts)
 
 // Returns the position of the result that is expected to be found by geocoder completeness
 // tests in the |result| vector or -1 if it does not occur there.
-int FindResult(TestSearchEngine & engine, string const & country, uint64_t const featureId,
+int FindResult(TestSearchEngine & engine, string const & mwmName, uint64_t const featureId,
                double const lat, double const lon, vector<search::Result> const & results)
 {
-  auto const mwmId = engine.GetMwmIdByCountryFile(platform::CountryFile(country));
+  auto const mwmId = engine.GetMwmIdByCountryFile(platform::CountryFile(mwmName));
   FeatureID const expectedFeatureId(mwmId, featureId);
   for (size_t i = 0; i < results.size(); ++i)
   {
@@ -272,7 +272,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
       ++malformedQueries;
       continue;
     }
-    string const mwmName = parts[0].substr(0, idx);
+    string mwmName = parts[0].substr(0, idx);
     string const kMwmSuffix = ".mwm";
     if (!strings::EndsWith(mwmName, kMwmSuffix))
     {
@@ -300,12 +300,14 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
     string const street = parts[5];
     string const house = parts[6];
 
-    string country = mwmName.substr(0, mwmName.size() - kMwmSuffix.size());
+    mwmName = mwmName.substr(0, mwmName.size() - kMwmSuffix.size());
+    string country = mwmName;
+    replace(country.begin(), country.end(), '_', ' ');
     string const query = country + " " + city + " " + street + " " + house + " ";
 
     CompletenessQuery q;
     q.m_query = query;
-    q.m_country = move(country);
+    q.m_mwmName = mwmName;
     q.m_featureId = featureId;
     q.m_lat = lat;
     q.m_lon = lon;
@@ -320,7 +322,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
 
     LOG(LDEBUG, (q.m_query, q.m_request->Results()));
     int pos =
-        FindResult(engine, q.m_country, q.m_featureId, q.m_lat, q.m_lon, q.m_request->Results());
+        FindResult(engine, q.m_mwmName, q.m_featureId, q.m_lat, q.m_lon, q.m_request->Results());
     if (pos >= 0)
       ++expectedResultsFound;
     if (pos == 0)
