@@ -82,7 +82,7 @@ using namespace storage;
   self.needFullReload = (hadDownloadedCountries != self.haveDownloadedCountries || countryIds.count == 0);
   if (self.needFullReload)
     return;
-  if (hadDownloadedCountries && ![downloadedCoutryIds isEqualToArray:self.downloadedCoutryIds])
+  if (hadDownloadedCountries || ![downloadedCoutryIds isEqualToArray:self.downloadedCoutryIds])
     m_reloadSections.push_back(self.downloadedCountrySection);
   [countryIds enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSArray<NSString *> * obj, BOOL * stop)
   {
@@ -174,7 +174,10 @@ using namespace storage;
   {
     NodeAttrs nodeAttrs;
     GetFramework().Storage().GetNodeAttrs(m_parentId, nodeAttrs);
-    return [NSString stringWithFormat:@"%@ (%@)", L(@"downloader_downloaded"), formattedSize(nodeAttrs.m_localMwmSize)];
+    if (nodeAttrs.m_localMwmSize == 0)
+      return [NSString stringWithFormat:@"%@", L(@"downloader_downloaded")];
+    else
+      return [NSString stringWithFormat:@"%@ (%@)", L(@"downloader_downloaded"), formattedSize(nodeAttrs.m_localMwmSize)];
   }
   return self.indexes[section - self.countrySectionsShift];
 }
