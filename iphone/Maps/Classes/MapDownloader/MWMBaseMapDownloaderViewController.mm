@@ -124,7 +124,7 @@ using namespace storage;
   {
     TCountriesVec childrenId;
     GetFramework().Storage().GetChildren(self.parentCountryId, childrenId);
-    if (childrenId.find(countryId) != childrenId.cend())
+    if (find(childrenId.cbegin(), childrenId.cend(), countryId) != childrenId.cend())
       process();
   }
 }
