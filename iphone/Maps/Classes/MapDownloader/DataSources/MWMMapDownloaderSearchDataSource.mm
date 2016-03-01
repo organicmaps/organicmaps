@@ -21,30 +21,28 @@ extern NSString * const kPlaceCellIdentifier;
 {
   self = [super initWithDelegate:delegate];
   if (self)
-    [self configSearchResults:results];
-  return self;
-}
-
-- (void)configSearchResults:(search::Results const &)results
-{
-  auto const & countryInfoGetter = GetFramework().CountryInfoGetter();
-  NSMutableOrderedSet<NSString *> * nsSearchCoutryIds = [NSMutableOrderedSet orderedSetWithCapacity:results.GetCount()];
-  NSMutableDictionary<NSString *, NSString *> * nsSearchResults = [@{} mutableCopy];
-  for (auto it = results.Begin(); it != results.End(); ++it)
   {
-    if (!it->HasPoint())
-      continue;
-    auto const & mercator = it->GetFeatureCenter();
-    TCountryId countryId = countryInfoGetter.GetRegionCountryId(mercator);
-    if (countryId == kInvalidCountryId)
-      continue;
-    NSString * nsCountryId = @(countryId.c_str());
-    [nsSearchCoutryIds addObject:nsCountryId];
-    nsSearchResults[nsCountryId] = @(it->GetString().c_str());
+    auto const & countryInfoGetter = GetFramework().CountryInfoGetter();
+    NSMutableOrderedSet<NSString *> * nsSearchCoutryIds = [NSMutableOrderedSet orderedSetWithCapacity:results.GetCount()];
+    NSMutableDictionary<NSString *, NSString *> * nsSearchResults = [@{} mutableCopy];
+    for (auto it = results.Begin(); it != results.End(); ++it)
+    {
+      if (!it->HasPoint())
+        continue;
+      auto const & mercator = it->GetFeatureCenter();
+      TCountryId countryId = countryInfoGetter.GetRegionCountryId(mercator);
+      if (countryId == kInvalidCountryId)
+        continue;
+      NSString * nsCountryId = @(countryId.c_str());
+      [nsSearchCoutryIds addObject:nsCountryId];
+      nsSearchResults[nsCountryId] = @(it->GetString().c_str());
+    }
+    if (nsSearchCoutryIds.count == 0)
+      return nil;
+    self.searchCoutryIds = [nsSearchCoutryIds array];
+    self.searchMatchedResults = nsSearchResults;
   }
-  NSAssert(nsSearchCoutryIds.count != 0, @"Search results can not be empty.");
-  self.searchCoutryIds = [nsSearchCoutryIds array];
-  self.searchMatchedResults = nsSearchResults;
+  return self;
 }
 
 #pragma mark - UITableViewDataSource
@@ -52,6 +50,11 @@ extern NSString * const kPlaceCellIdentifier;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   return self.searchCoutryIds.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+  return L(@"downloader_search_results");
 }
 
 #pragma mark - MWMMapDownloaderDataSource

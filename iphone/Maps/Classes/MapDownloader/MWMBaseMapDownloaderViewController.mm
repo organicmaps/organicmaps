@@ -92,25 +92,46 @@ using namespace storage;
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
-  MWMMapDownloaderDefaultDataSource * dataSource = self.defaultDataSource;
-  [dataSource reload];
-  if (![self.dataSource isEqual:dataSource])
-    return;
-
-  if (dataSource.needFullReload)
+  auto process = ^
   {
-    [self reloadData];
-    return;
-  }
+    [self configAllMapsView];
+    MWMMapDownloaderDefaultDataSource * dataSource = self.defaultDataSource;
+    [dataSource reload];
+    if (![self.dataSource isEqual:dataSource])
+      return;
 
-  UITableView * tv = self.tableView;
-  std::vector<NSInteger> sections = [dataSource getReloadSections];
-  if (sections.empty())
-    return;
-  NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSet];
-  for (auto & section : sections)
-    [indexSet addIndex:section];
-  [tv reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (dataSource.needFullReload)
+    {
+      [self reloadData];
+      return;
+    }
+
+    UITableView * tv = self.tableView;
+    std::vector<NSInteger> sections = [dataSource getReloadSections];
+    if (sections.empty())
+      return;
+    NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSet];
+    for (auto & section : sections)
+      [indexSet addIndex:section];
+    [tv reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+  };
+
+  if (countryId == self.parentCountryId)
+  {
+    process();
+  }
+  else
+  {
+    TCountriesVec childrenId;
+    GetFramework().Storage().GetChildren(self.parentCountryId, childrenId);
+    bool const isChildren =
+        std::any_of(childrenId.cbegin(), childrenId.cend(), [&countryId](TCountryId const & cId)
+                    {
+                      return cId == countryId;
+                    });
+    if (isChildren)
+      process();
+  }
 }
 
 #pragma mark - Table
@@ -262,11 +283,18 @@ using namespace storage;
   auto const & s = GetFramework().Storage();
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(self.parentCountryId, nodeAttrs);
-  self.allMapsLabel.text =
-      [NSString stringWithFormat:@"%@: %@ (%@)", L(@"maps"),
-                                 @(nodeAttrs.m_mwmCounter - nodeAttrs.m_localMwmCounter),
-                                 formattedSize(nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize)];
-  self.showAllMapsView = YES;
+  uint32_t remoteMWMCounter = nodeAttrs.m_mwmCounter - nodeAttrs.m_localMwmCounter;
+  if (remoteMWMCounter != 0)
+  {
+    self.showAllMapsView = YES;
+    self.allMapsLabel.text =
+        [NSString stringWithFormat:@"%@: %@ (%@)", L(@"maps"), @(remoteMWMCounter),
+                                   formattedSize(nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize)];
+  }
+  else
+  {
+    self.showAllMapsView = NO;
+  }
 }
 
 - (void)refreshAllMapsView
@@ -343,6 +371,16 @@ using namespace storage;
   NSString * reuseIdentifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
   MWMMapDownloaderTableViewCell * cell = [self offscreenCellForIdentifier:reuseIdentifier];
   return cell.estimatedHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  return 28.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+  return 0.0;
 }
 
 #pragma mark - UIActionSheetDelegate

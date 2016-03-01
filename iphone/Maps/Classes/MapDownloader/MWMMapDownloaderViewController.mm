@@ -143,7 +143,8 @@ using namespace storage;
     if (results.GetCount() != 0)
     {
       self.searchDataSource = [[MWMMapDownloaderSearchDataSource alloc] initWithSearchResults:results delegate:self];
-      dataSource = self.searchDataSource;
+      if (self.searchDataSource)
+        dataSource = self.searchDataSource;
     }
     dispatch_async(dispatch_get_main_queue(), ^()
     {

@@ -109,7 +109,7 @@
     return;
   storage::NodeAttrs nodeAttrs;
   GetFramework().Storage().GetNodeAttrs(m_countryId, nodeAttrs);
-  [self configProgressView:nodeAttrs];
+  [self config:nodeAttrs];
 }
 
 - (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress

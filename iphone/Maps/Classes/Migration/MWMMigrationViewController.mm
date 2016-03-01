@@ -1,6 +1,7 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
+#import "MWMCircularProgress.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMigrationView.h"
 #import "MWMMigrationViewController.h"
@@ -19,13 +20,22 @@ NSString * const kDownloaderSegue = @"Migration2MapDownloaderSegue";
 
 using namespace storage;
 
+@interface MWMMigrationViewController () <MWMCircularProgressProtocol>
+
+@end
+
 @implementation MWMMigrationViewController
+{
+  TCountryId m_countryId;
+}
 
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  m_countryId = kInvalidCountryId;
   [self configNavBar];
   [self checkState];
+  static_cast<MWMMigrationView *>(self.view).delegate = self;
 }
 
 - (void)configNavBar
@@ -62,6 +72,8 @@ using namespace storage;
 
   auto onStatusChanged = [self, migrate](TCountryId const & countryId)
   {
+    if (m_countryId == kInvalidCountryId || m_countryId != countryId)
+      return;
     auto & f = GetFramework();
     auto s = f.Storage().GetPrefetchStorage();
     NodeAttrs nodeAttrs;
@@ -79,9 +91,14 @@ using namespace storage;
     }
   };
 
-  auto onProgressChanged = [](TCountryId const & countryId, TLocalAndRemoteSize const & progress){};
+  auto onProgressChanged = [self](TCountryId const & countryId, TLocalAndRemoteSize const & progress)
+  {
+    MWMMigrationView * view = static_cast<MWMMigrationView *>(self.view);
+    [view setProgress:static_cast<CGFloat>(progress.first) / progress.second];
+  };
 
-  if (f.PreMigrate(position, onStatusChanged, onProgressChanged))
+  m_countryId = f.PreMigrate(position, onStatusChanged, onProgressChanged);
+  if (m_countryId != kInvalidCountryId)
     [self setState:MWMMigrationViewState::Processing];
   else
     migrate();
@@ -89,6 +106,7 @@ using namespace storage;
 
 - (void)showError:(NodeErrorCode)errorCode countryId:(TCountryId const &)countryId
 {
+  [self setState:MWMMigrationViewState::Default];
   MWMAlertViewController * avc = self.alertController;
   switch (errorCode)
   {
@@ -106,7 +124,7 @@ using namespace storage;
       [Statistics logEvent:kStatDownloaderMigrationError withParameters:@{kStatType : kStatNetworkError}];
       [avc presentDownloaderNoConnectionAlertWithOkBlock:^
       {
-        [MWMStorage retryDownloadNode:countryId];
+        GetFramework().Storage().GetPrefetchStorage()->RetryDownloadNode(self->m_countryId);
       }];
       break;
   }
@@ -116,6 +134,14 @@ using namespace storage;
 {
   static_cast<MWMMigrationView *>(self.view).state = state;
   self.navigationItem.leftBarButtonItem.enabled = (state != MWMMigrationViewState::Processing);
+}
+
+#pragma mark - MWMCircularProgressProtocol
+
+- (void)progressButtonPressed:(MWMCircularProgress *)progress
+{
+  GetFramework().Storage().GetPrefetchStorage()->CancelDownloadNode(m_countryId);
+  [self setState:MWMMigrationViewState::Default];
 }
 
 #pragma mark - Segue

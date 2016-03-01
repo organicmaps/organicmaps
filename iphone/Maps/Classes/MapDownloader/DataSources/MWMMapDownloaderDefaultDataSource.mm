@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
 
 #include "Framework.h"
@@ -111,7 +112,7 @@ using namespace storage;
   {
     NSString * nsCountryId = @(countryId.c_str());
     string localName = s.GetNodeLocalName(countryId);
-    NSString * index = isParentRoot ? [@(localName.c_str()) substringToIndex:1].capitalizedString : @"all_values";
+    NSString * index = isParentRoot ? [@(localName.c_str()) substringToIndex:1].capitalizedString : L(@"downloader_available_maps");
     [indexSet addObject:index];
 
     NSMutableArray<NSString *> * letterIds = [countryIds[index] mutableCopy];
@@ -157,7 +158,7 @@ using namespace storage;
   return self.countryIds[index].count;
 }
 
-- (NSArray<NSString *> * _Nullable)sectionIndexTitlesForTableView:(UITableView *)tableView
+- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
   return self.isParentRoot ? self.indexes : nil;
 }
@@ -169,11 +170,18 @@ using namespace storage;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  if (!self.isParentRoot)
-    return nil;
   if (section == self.downloadedCountrySection)
-    return L(@"downloader_downloaded_maps");
+  {
+    NodeAttrs nodeAttrs;
+    GetFramework().Storage().GetNodeAttrs(m_parentId, nodeAttrs);
+    return [NSString stringWithFormat:@"%@ (%@)", L(@"downloader_downloaded"), formattedSize(nodeAttrs.m_localMwmSize)];
+  }
   return self.indexes[section - self.countrySectionsShift];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+  return nil;
 }
 
 #pragma mark - MWMMapDownloaderDataSource

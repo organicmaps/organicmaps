@@ -1,5 +1,4 @@
 #import "Common.h"
-#import "MWMCircularProgress.h"
 #import "MWMMigrationView.h"
 #import "UIColor+MapsMeColor.h"
 
@@ -17,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel * info;
 
 @property (weak, nonatomic) IBOutlet UIButton * primaryButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * primaryButtonBotomOffset;
 @property (weak, nonatomic) IBOutlet UIButton * secondaryButton;
 @property (weak, nonatomic) IBOutlet UIView * spinnerView;
 
@@ -63,15 +61,22 @@
   self.info.hidden = YES;
   self.info.textColor = [UIColor blackHintText];
   self.primaryButton.enabled = YES;
-  self.primaryButtonBotomOffset.priority = UILayoutPriorityDefaultLow;
-  self.secondaryButton.hidden = NO;
   self.secondaryButton.enabled = YES;
+  self.primaryButton.hidden = NO;
+  self.secondaryButton.hidden = NO;
 }
 
 - (void)startSpinner
 {
   self.spinnerView.hidden = NO;
   self.spinner = [[MWMCircularProgress alloc] initWithParentView:self.spinnerView];
+  self.spinner.delegate = self.delegate;
+  [self.spinner setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
+  [self.spinner setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
+  [self.spinner setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
+  [self.spinner setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSpinner];
+  [self.spinner setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
+  [self.spinner setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
   [self.spinner setInvertColor:YES];
   self.spinner.state = MWMCircularProgressStateSpinner;
 }
@@ -80,6 +85,11 @@
 {
   self.spinnerView.hidden = YES;
   self.spinner = nil;
+}
+
+- (void)setProgress:(CGFloat)progress
+{
+  self.spinner.progress = progress;
 }
 
 #pragma mark - iOS 7 support methods
@@ -117,7 +127,7 @@
       self.info.text = L(@"migration_preparing_update");
       [self startSpinner];
       self.primaryButton.enabled = NO;
-      self.primaryButtonBotomOffset.priority = UILayoutPriorityDefaultHigh;
+      self.primaryButton.hidden = YES;
       self.secondaryButton.hidden = YES;
       break;
     case MWMMigrationViewState::ErrorNoConnection:

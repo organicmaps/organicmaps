@@ -20,7 +20,13 @@
 - (void)config:(storage::NodeAttrs const &)nodeAttrs
 {
   [super config:nodeAttrs];
-  self.mapsCount.text = @(nodeAttrs.m_mwmCounter).stringValue;
+  BOOL const haveLocalMaps = (nodeAttrs.m_localMwmCounter != 0);
+  self.mapsCount.text =
+      haveLocalMaps
+          ? [NSString stringWithFormat:@"%@: %@ %@ %@", L(@"downloader_maps"),
+                                       @(nodeAttrs.m_localMwmCounter), L(@"_of"),
+                                       @(nodeAttrs.m_mwmCounter)]
+          : [NSString stringWithFormat:@"%@: %@", L(@"downloader_maps"), @(nodeAttrs.m_mwmCounter)];
 }
 
 #pragma mark - Properties

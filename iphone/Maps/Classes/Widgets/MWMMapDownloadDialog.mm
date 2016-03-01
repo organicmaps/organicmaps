@@ -6,6 +6,7 @@
 #import "MWMFrameworkObservers.h"
 #import "MWMMapDownloadDialog.h"
 #import "MWMStorage.h"
+#import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
 
@@ -66,6 +67,7 @@ using namespace storage;
   if (!hideParent)
     self.parentNode.text = @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
   self.node.text = @(nodeAttrs.m_nodeLocalName.c_str());
+  self.nodeSize.textColor = [UIColor blackSecondaryText];
   self.nodeSize.text = formattedSize(nodeAttrs.m_mwmSize);
   auto addSubview = ^
   {
@@ -110,7 +112,6 @@ using namespace storage;
     case NodeStatus::Undefined:
     case NodeStatus::Error:
       [self showError:nodeAttrs.m_error];
-      removeSubview();
       break;
     case NodeStatus::OnDisk:
     case NodeStatus::OnDiskOutOfDate:
@@ -121,6 +122,11 @@ using namespace storage;
 
 - (void)showError:(NodeErrorCode)errorCode
 {
+  if (errorCode == NodeErrorCode::NoError)
+    return;
+  self.nodeSize.textColor = [UIColor red];
+  self.nodeSize.text = L(@"country_status_download_failed");
+  self.progressView.state = MWMCircularProgressStateFailed;
   MWMAlertViewController * avc = self.controller.alertController;
   switch (errorCode)
   {
@@ -149,6 +155,8 @@ using namespace storage;
 
 - (void)showDownloading:(CGFloat)progress
 {
+  self.nodeSize.textColor = [UIColor blackSecondaryText];
+  self.nodeSize.text = [@(static_cast<NSUInteger>(progress * 100)).stringValue stringByAppendingString:@"%"];
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
   self.progressView.progress = progress;
@@ -156,6 +164,8 @@ using namespace storage;
 
 - (void)showInQueue
 {
+  self.nodeSize.textColor = [UIColor blackSecondaryText];
+  self.nodeSize.text = L(@"downloader_queued");
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
   self.progressView.state = MWMCircularProgressStateSpinner;
