@@ -97,7 +97,7 @@ class Metadata : public MetadataBase
 public:
   /// @note! Do not change values here.
   /// Add new types to the end of list, before FMD_COUNT.
-  enum EType
+  enum EType : int8_t
   {
     FMD_CUISINE = 1,
     FMD_OPEN_HOURS = 2,
