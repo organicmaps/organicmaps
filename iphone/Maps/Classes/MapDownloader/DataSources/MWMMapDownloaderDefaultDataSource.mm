@@ -1,5 +1,6 @@
 #import "Common.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
+#import "MWMStorage.h"
 
 #include "Framework.h"
 
@@ -185,6 +186,20 @@ using namespace storage;
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
   return nil;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  NodeAttrs nodeAttrs;
+  GetFramework().Storage().GetNodeAttrs([self countryIdForIndexPath:indexPath], nodeAttrs);
+  NodeStatus const status = nodeAttrs.m_status;
+  return (status == NodeStatus::OnDisk || status == NodeStatus::OnDiskOutOfDate || nodeAttrs.m_localMwmCounter != 0);
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (editingStyle == UITableViewCellEditingStyleDelete)
+    [MWMStorage deleteNode:[self countryIdForIndexPath:indexPath]];
 }
 
 #pragma mark - MWMMapDownloaderDataSource
