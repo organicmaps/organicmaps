@@ -110,6 +110,9 @@ private:
           index.ForEachInIntervalAndScale(
               [&](uint32_t index)
               {
+                if (!checkUnique(index))
+                  return;
+
                 FeatureType feature;
                 switch (m_editor.GetFeatureStatus(mwmID, index))
                 {
@@ -122,12 +125,10 @@ private:
                   CHECK(false, ("Created features index should be generated."));
                 case osm::Editor::FeatureStatus::Untouched: break;
                 }
-                if (checkUnique(index))
-                {
-                  fv.GetByIndex(index, feature);
-                  feature.SetID(FeatureID(mwmID, index));
-                  m_f(feature);
-                }
+
+                fv.GetByIndex(index, feature);
+                feature.SetID(FeatureID(mwmID, index));
+                m_f(feature);
               },
               i.first, i.second, scale);
         }
