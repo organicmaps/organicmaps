@@ -491,16 +491,6 @@ void Editor::DeleteFeature(FeatureType const & feature)
   Invalidate();
 }
 
-//namespace
-//{
-//FeatureID GenerateNewFeatureId(FeatureID const & oldFeatureId)
-//{
-//  // TODO(AlexZ): Stable & unique features ID generation.
-//  static uint32_t newIndex = 0x0effffff;
-//  return FeatureID(oldFeatureId.m_mwmId, newIndex++);
-//}
-//}  // namespace
-
 Editor::SaveResult Editor::SaveEditedFeature(FeatureType & editedFeature, string const & editedStreet,
                                              string const & editedHouseNumber)
 {
@@ -872,6 +862,22 @@ NewFeatureCategories Editor::GetNewFeatureCategories() const
   res.m_lastUsed.emplace_back(atm, cats.GetReadableFeatureType(atm, locale));
 
   return res;
+}
+
+namespace
+{
+FeatureID GenerateNewFeatureId(FeatureID const & oldFeatureId)
+{
+  // TODO(AlexZ): Stable & unique features ID generation.
+  static uint32_t newIndex = 0x0effffff;
+  return FeatureID(oldFeatureId.m_mwmId, newIndex++);
+}
+}  // namespace
+
+bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id, EditableMapObject & outFeature)
+{
+  // TODO(AlexZ): Finish impl.
+  return false;
 }
 
 string DebugPrint(Editor::FeatureStatus fs)

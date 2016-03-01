@@ -113,6 +113,8 @@ public:
   // Editor should silently ignore all types in config which are unknown to him.
   NewFeatureCategories GetNewFeatureCategories() const;
 
+  bool CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id, EditableMapObject & outFeature);
+
   struct Stats
   {
     /// <id, feature status string>
