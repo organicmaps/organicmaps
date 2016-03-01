@@ -92,6 +92,8 @@ void SearchQueryV2::AddPreResults1(vector<FeatureID> & results)
       if (!rankTable.get())
         rankTable.reset(new DummyRankTable());
 
+      /// @todo Do final results processing without Query::AddPreResult1.
+      /// At least, priority and it's queue is an overhead now.
       for (auto ii = ib; ii != ie; ++ii)
         AddPreResult1(ii->m_mwmId, ii->m_index, rankTable->Get(ii->m_index), 0.0 /* priority */);
     }
