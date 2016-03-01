@@ -216,6 +216,9 @@ void Storage::Migrate(TCountriesVec const & existedCountries)
     my::RenameFileX(prefetchedFilename, localFilename);
   }
 
+  // Remove empty migrate folder
+  Platform::RmDir(m_prefetchStorage->m_dataDir);
+
   // Cover old big maps with small ones and prepare them to add into download queue
   stringstream ss;
   for (auto const & country : existedCountries)
