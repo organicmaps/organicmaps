@@ -8,8 +8,8 @@ def parse_and_add(data, line):
     data[m.group(1)] = int(m.group(3))
 
 if len(sys.argv) < 3:
-  print 'This tool compares type_statistics output for feature sizes'
-  print 'Usage: {0} <output_new> <output_old> [threshold_in_%]'.format(sys.argv[0])
+  print('This tool compares type_statistics output for feature sizes')
+  print('Usage: {0} <output_new> <output_old> [threshold_in_%]'.format(sys.argv[0]))
   sys.exit(0)
 
 data1 = {}
@@ -29,6 +29,6 @@ for k in data1:
   if k in data2:
     v2 = int(data2[k])
     if v1 == 0 or v2 == 0 or max(v1, v2) / float(min(v1, v2)) > threshold and abs(v1 - v2) > min_diff:
-      print '{0}: {1} to {2}'.format(k, v1, v2)
+      print('{0}: {1} to {2}'.format(k, v1, v2))
   elif v1 > min_diff:
-    print '- not found: {0}, {1}'.format(k, v1)
+    print('- not found: {0}, {1}'.format(k, v1))

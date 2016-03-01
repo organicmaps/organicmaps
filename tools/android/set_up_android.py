@@ -2,6 +2,12 @@
 import os, sys, shutil, collections
 from optparse import OptionParser
 
+# Fix for python 2
+try:
+  input = raw_input
+except NameError:
+  pass
+
 def find_recursive(root, subpath, maxdepth=4):
   queue = collections.deque([(root, 0)])
   if 'PATH' in os.environ:
@@ -38,7 +44,7 @@ def query_path(title, option, default, subpath):
   default = '' if not default else os.path.abspath(default)
   searchHint = ', "s" to search'
   while True:
-    path = raw_input('Path to {0}{1} [{2}]:'.format(title, searchHint, default)) or default
+    path = input('Path to {0}{1} [{2}]:'.format(title, searchHint, default)) or default
     if len(searchHint) > 0 and path.lower().strip() == 's':
       found = find_recursive(os.path.expanduser('~'), subpath)
       if found:
@@ -50,7 +56,7 @@ def query_path(title, option, default, subpath):
   if path and os.path.isfile(test):
     return os.path.abspath(path)
   else:
-    print 'Could not find {0}, not an {1} path.'.format(test, title)
+    print('Could not find {0}, not an {1} path.'.format(test, title))
     sys.exit(1)
 
 def write_local_properties(sdkDir, ndkDir):
@@ -64,7 +70,7 @@ def write_local_properties(sdkDir, ndkDir):
   # Create omim/android/local.properties
   androidRoot = os.path.join(os.path.dirname(sys.argv[0]), '..', '..', 'android')
   propsFile = os.path.join(androidRoot, 'local.properties')
-  print 'Writing {0}'.format(propsFile)
+  print('Writing {0}'.format(propsFile))
   with open(propsFile, 'w') as f:
     f.write(content)
 
@@ -74,7 +80,7 @@ def write_local_properties(sdkDir, ndkDir):
     if not os.path.exists(destFolder):
       os.makedirs(destFolder)
     dst = os.path.join(destFolder, 'local.properties')
-    print 'Copying to {0}'.format(dst)
+    print('Copying to {0}'.format(dst))
     shutil.copy(propsFile, dst)
 
 if __name__ == '__main__':

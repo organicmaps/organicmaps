@@ -2,8 +2,8 @@
 import os, sys
 
 if len(sys.argv) < 3:
-  print 'This tool shows very different file sizes'
-  print 'Usage: {0} <newdir> <olddir> [threshold_in_%]'.format(sys.argv[0])
+  print('This tool shows very different file sizes')
+  print('Usage: {0} <newdir> <olddir> [threshold_in_%]'.format(sys.argv[0]))
   sys.exit(0)
 
 new_path = sys.argv[1]
@@ -21,6 +21,6 @@ for f in sorted(os.listdir(old_path)):
     old_size = os.path.getsize(old_file)
     if new_size + old_size > 0:
       if new_size == 0 or old_size == 0 or max(new_size, old_size) / float(min(new_size, old_size)) > threshold and abs(new_size - old_size) > min_diff:
-          print '{0}: {1} {2} to {3} MB'.format(f, old_size / 1024 / 1024, 'up' if new_size > old_size else 'down', new_size / 1024 / 1024)
+        print('{0}: {1} {2} to {3} MB'.format(f, old_size / 1024 / 1024, 'up' if new_size > old_size else 'down', new_size / 1024 / 1024))
   else:
-    print 'Not found a mirror for {0}'.format(f)
+    print('Not found a mirror for {0}'.format(f))

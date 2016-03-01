@@ -1,13 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import json
-import os
-import sys
-import urllib2
-
-from Queue import Queue
+import os, sys, json
 from threading import Thread
+try:
+  from urllib2 import urlopen
+  from Queue import Queue
+except ImportError:
+  from urllib.request import urlopen
+  from queue import Queue
 
 '''
 World road map generation script.
@@ -20,7 +21,7 @@ WORKERS = 16
 
 def get_way_ids(point1, point2, server):
     url = "http://{0}/wayid?z=18&loc={1},{2}&loc={3},{4}".format(server, point1[0], point1[1], point2[0], point2[1])
-    request = urllib2.urlopen(url)
+    request = urlopen(url)
     data = json.load(request)
     if "way_ids" in data:
         return data["way_ids"]
@@ -36,7 +37,7 @@ def each_to_each(points):
 def load_towns(path):
     result = []
     if not os.path.isfile(path):
-        print "WARNING! File with towns not found!"
+        print("WARNING! File with towns not found!")
         return result
     with open(path, "r") as f:
         for line in f:
@@ -48,7 +49,7 @@ def load_towns(path):
 def parallel_worker(tasks, capitals_list, towns_list):
     while True:
         if not tasks.qsize() % 1000:
-           print tasks.qsize()
+           print(tasks.qsize())
         task = tasks.get()
         ids = get_way_ids(task[0], task[1], sys.argv[2])
         for id in ids:
@@ -59,15 +60,15 @@ def parallel_worker(tasks, capitals_list, towns_list):
         tasks.task_done()
 
 if len(sys.argv) < 3:
-    print "road_runner.py <intermediate_dir> <osrm_addr>"
+    print("road_runner.py <intermediate_dir> <osrm_addr>")
     exit(1)
 
 if not os.path.isdir(sys.argv[1]):
-    print sys.argv[1], "is not a directory!"
+    print("{0} is not a directory!".format(sys.argv[1]))
     exit(1)
 
 towns = load_towns(os.path.join(sys.argv[1], "towns.csv"))
-print "Have {0} towns".format(len(towns))
+print("Have {0} towns".format(len(towns)))
 
 tasks = each_to_each(towns)
 filtered = []
@@ -93,9 +94,9 @@ qtasks.join()
 
 with open(os.path.join(sys.argv[1], "ways.csv"),"w") as f:
     for way_id in capitals_list:
-        print >> f, "{0};world_level".format(way_id)
+        f.write("{0};world_level\n".format(way_id))
     for way_id in towns_list:
         if way_id not in capitals_list:
-            print >> f, "{0};world_towns_level".format(way_id)
+            f.write("{0};world_towns_level\n".format(way_id))
 
-print "All done."
+print("All done.")

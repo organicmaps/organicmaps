@@ -179,4 +179,4 @@ if options.output:
   with open(options.output, 'w') as f:
     json.dump(stack[-1], f, indent=1)
 else:
-  print json.dumps(stack[-1], indent=1)
+  print(json.dumps(stack[-1], indent=1))
