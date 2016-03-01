@@ -21,11 +21,11 @@ UNIT_TEST(CountryTree_Smoke)
   typedef CountryTree<int> TTree;
   TTree tree;
 
-  tree.Add(4);
-  tree.Add(3);
-  tree.Add(5);
-  tree.Add(2);
-  tree.Add(1);
+  tree.AddAtDepth(0, 4);
+  tree.AddAtDepth(0, 3);
+  tree.AddAtDepth(0, 5);
+  tree.AddAtDepth(0, 2);
+  tree.AddAtDepth(0, 1);
   tree.AddAtDepth(1, 20);  // 1 is parent
   tree.AddAtDepth(1, 10);  // 1 is parent
   tree.AddAtDepth(1, 30);  // 1 is parent
