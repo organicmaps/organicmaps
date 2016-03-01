@@ -76,7 +76,7 @@ void DeleteFromDiskWithIndexes(LocalCountryFile const & localFile, MapOptions op
   localFile.DeleteFromDisk(options);
 }
 
-TCountriesContainer const & LeafNodeFromCountryId(TCountriesContainer const & root,
+TCountriesContainer const & LeafNodeFromCountryId(TCountriesFacade const & root,
                                                   TCountryId const & countryId)
 {
   CountryTree<Country> const * node = root.FindFirstLeaf(Country(countryId));

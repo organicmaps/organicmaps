@@ -2,6 +2,7 @@
 
 #include "storage/country.hpp"
 #include "storage/country_name_getter.hpp"
+#include "storage/country_tree_facade.hpp"
 #include "storage/index.hpp"
 #include "storage/map_files_downloader.hpp"
 #include "storage/queued_country.hpp"
@@ -97,7 +98,7 @@ private:
   /// stores timestamp for update checks
   int64_t m_currentVersion;
 
-  TCountriesContainer m_countries;
+  CountryTreeFacade<Country> m_countries;
 
   /// @todo. It appeared that our application uses m_queue from
   /// different threads without any synchronization. To reproduce it

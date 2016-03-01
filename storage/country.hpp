@@ -2,7 +2,7 @@
 
 #include "storage/country_decl.hpp"
 #include "storage/index.hpp"
-#include "storage/country_tree.hpp"
+#include "storage/country_tree_facade.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -25,7 +25,7 @@ namespace storage
 {
 using TMapping = map<TCountryId, TCountriesSet>;
 
-/// This class keeps all the information about a country in countre tree (TCountriesContainer).
+/// This class keeps all the information about a country in countre tree (TCountriesFacade).
 /// It is guaranteed that every node represent a unique region has a unique |m_name| in country tree.
 /// If several nodes have the same |m_name| they represent the same region.
 /// It happends in case of disputed territories.
@@ -58,6 +58,7 @@ public:
     : m_name(name), m_parent(parent) {}
 
   bool operator<(Country const & other) const { return Name() < other.Name(); }
+  bool operator==(Country const & other) const { return Name() == other.Name(); }
   void SetFile(platform::CountryFile const & file) { m_file = file; }
   void SetSubtreeAttrs(uint32_t subtreeMwmNumber, size_t subtreeMwmSizeBytes)
   {
@@ -75,9 +76,10 @@ public:
 };
 
 typedef CountryTree<Country> TCountriesContainer;
+typedef CountryTreeFacade<Country> TCountriesFacade;
 
 /// @return version of country file or -1 if error was encountered
-int64_t LoadCountries(string const & jsonBuffer, TCountriesContainer & countries, TMapping * mapping = nullptr);
+int64_t LoadCountries(string const & jsonBuffer, TCountriesFacade & countries, TMapping * mapping = nullptr);
 
 void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info,
                                  bool & isSingleMwm);
