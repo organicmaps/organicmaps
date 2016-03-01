@@ -122,629 +122,507 @@
 
     <types>
       <type id="aeroway-aerodrome" editable="no">
-        <tag k="aeroway" v="aerodrome" />
         <include group="poi" />
         <include field="ele" />
         <include field="operator" />
       </type>
       <type id="aeroway-airport" editable="no">
-        <tag k="aeroway" v="airport" />
         <include group="poi" />
         <include field="ele" />
         <include field="operator" />
       </type>
       <type id="amenity-atm">
-        <tag k="amenity" v="atm" />
         <include group="poi" />
         <include field="operator" />
         <include field="website" />
         <include field="opening_hours" />
       </type>
       <type id="amenity-bank">
-        <tag k="amenity" v="bank" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="amenity-bar">
-        <tag k="amenity" v="bar" />
         <include group="poi" />
         <include field="cuisine" />
         <include field="internet" />
       </type>
       <type id="amenity-bicycle_rental">
-        <tag k="amenity" v="bicycle_rental" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="amenity-bureau_de_change">
-        <tag k="amenity" v="bureau_de_change" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="amenity-bus_station">
-        <tag k="amenity" v="bus_station" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="amenity-cafe">
-        <tag k="amenity" v="cafe" />
         <include group="poi" />
         <include field="cuisine" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="amenity-car_rental">
-        <tag k="amenity" v="car_rental" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="amenity-car_sharing">
-        <tag k="amenity" v="car_sharing" />
         <include group="poi" />
         <include field="operator" />
         <include field="website" />
       </type>
       <type id="amenity-casino">
-        <tag k="amenity" v="casino" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="amenity-cinema">
-        <tag k="amenity" v="cinema" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="amenity-clinic">
-        <tag k="amenity" v="clinic" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="amenity-college" can_add="no">
-        <tag k="amenity" v="college" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="amenity-doctors">
-        <tag k="amenity" v="doctors" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="amenity-dentist">
-        <tag k="amenity" v="dentist" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="amenity-drinking_water">
-        <tag k="amenity" v="drinking_water" />
         <include field="name" />
       </type>
       <type id="amenity-embassy">
-        <tag k="amenity" v="embassy" />
         <include group="poi" />
       </type>
       <type id="amenity-fast_food">
-        <tag k="amenity" v="fast_food" />
         <include group="poi" />
         <include field="operator" />
         <include field="cuisine" />
         <include field="internet" />
       </type>
       <type id="amenity-ferry_terminal" can_add="no">
-        <tag k="amenity" v="ferry_terminal" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="amenity-fire_station">
-        <tag k="amenity" v="fire_station" />
         <include group="poi" />
       </type>
       <type id="amenity-fountain">
-        <tag k="amenity" v="fountain" />
         <include field="name" />
       </type>
       <type id="amenity-fuel">
-        <tag k="amenity" v="fuel" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="amenity-grave_yard" can_add="no">
-        <tag k="amenity" v="grave_yard" />
         <include group="poi" />
       </type>
       <type id="amenity-hospital" can_add="no">
-        <tag k="amenity" v="hospital" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="amenity-hunting_stand">
-        <tag k="amenity" v="hunting_stand" />
         <include field="name" />
         <include field="height" />
       </type>
       <type id="amenity-kindergarten" can_add="no">
-        <tag k="amenity" v="kindergarten" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="amenity-library">
-        <tag k="amenity" v="library" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="amenity-marketplace" can_add="no">
-        <tag k="amenity" v="marketplace" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="amenity-nightclub">
-        <tag k="amenity" v="nightclub" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="amenity-parking" can_add="no">
-        <tag k="amenity" v="parking" />
         <include field="name" />
         <include field="operator" />
       </type>
       <type id="amenity-pharmacy">
-        <tag k="amenity" v="pharmacy" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="amenity-place_of_worship">
-        <tag k="amenity" v="place_of_worship" />
         <include group="poi" />
       </type>
       <type id="amenity-police">
-        <tag k="amenity" v="police" />
         <include group="poi" />
       </type>
       <type id="amenity-post_box">
-        <tag k="amenity" v="post_box" />
         <include field="name" />
         <include field="operator" />
         <include field="postcode" />
       </type>
       <type id="amenity-post_office">
-        <tag k="amenity" v="post_office" />
         <include group="poi" />
         <include field="operator" />
         <include field="postcode" />
         <include field="internet" />
       </type>
       <type id="amenity-pub">
-        <tag k="amenity" v="pub" />
         <include group="poi" />
         <include field="operator" />
         <include field="cuisine" />
         <include field="internet" />
       </type>
       <type id="amenity-recycling">
-        <tag k="amenity" v="recycling" />
         <include field="name" />
         <include field="operator" />
         <include field="website" />
         <include field="phone" />
       </type>
       <type id="amenity-restaurant">
-        <tag k="amenity" v="restaurant" />
         <include group="poi" />
         <include field="operator" />
         <include field="cuisine" />
         <include field="internet" />
       </type>
       <type id="amenity-school" can_add="no">
-        <tag k="amenity" v="school" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="amenity-taxi" can_add="no">
-        <tag k="amenity" v="taxi" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="amenity-telephone">
-        <tag k="amenity" v="telephone" />
         <include field="operator" />
         <include field="phone" />
       </type>
       <type id="amenity-theatre">
-        <tag k="amenity" v="theatre" />
         <include group="poi" />
       </type>
       <type id="amenity-toilets">
-        <tag k="amenity" v="toilets" />
         <include field="operator" />
         <include field="opening_hours" />
       </type>
       <type id="amenity-townhall" can_add="no">
-        <tag k="amenity" v="townhall" />
         <include group="poi" />
       </type>
       <type id="amenity-university" can_add="no">
-        <tag k="amenity" v="university" />
         <include group="poi" />
       </type>
       <type id="amenity-waste_disposal">
-        <tag k="amenity" v="waste_disposal" />
         <include field="operator" />
       </type>
       <type id="craft" can_add="no">
-        <tag k="craft" />
         <include group="poi" />
       </type>
       <type id="craft-brewery">
-        <tag k="craft" v="brewery" />
         <include group="poi" />
       </type>
       <type id="craft-carpenter">
-        <tag k="craft" v="carpenter" />
         <include group="poi" />
       </type>
       <type id="craft-electrician">
-        <tag k="craft" v="electrician" />
         <include group="poi" />
       </type>
       <type id="craft-gardener">
-        <tag k="craft" v="gardener" />
         <include group="poi" />
       </type>
       <type id="craft-hvac">
-        <tag k="craft" v="hvac" />
         <include group="poi" />
       </type>
       <type id="craft-metal_construction">
-        <tag k="craft" v="metal_construction" />
         <include group="poi" />
       </type>
       <type id="craft-painter">
-        <tag k="craft" v="painter" />
         <include group="poi" />
       </type>
       <type id="craft-photographer">
-        <tag k="craft" v="photographer" />
         <include group="poi" />
       </type>
       <type id="craft-plumber">
-        <tag k="craft" v="plumber" />
         <include group="poi" />
       </type>
       <type id="craft-shoemaker">
-        <tag k="craft" v="shoemaker" />
         <include group="poi" />
       </type>
       <type id="craft-tailor">
-        <tag k="craft" v="tailor" />
         <include group="poi" />
       </type>
       <type id="highway-bus_stop">
-        <tag k="highway" v="bus_stop" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="historic-archaeological_site" can_add="no">
-        <tag k="historic" v="archaeological_site" />
         <include group="poi" />
         <include field="wikipedia" />
       </type>
       <type id="historic-castle" can_add="no">
-        <tag k="historic" v="castle" />
         <include group="poi" />
         <include field="wikipedia" />
       </type>
       <type id="historic-memorial">
-        <tag k="historic" v="memorial" />
         <include group="poi" />
         <include field="wikipedia" />
       </type>
       <type id="historic-monument">
-        <tag k="historic" v="monument" />
         <include group="poi" />
         <include field="wikipedia" />
       </type>
       <type id="historic-ruins" can_add="no">
-        <tag k="historic" v="ruins" />
         <include group="poi" />
         <include field="wikipedia" />
       </type>
       <type id="landuse-cemetery" can_add="no">
-        <tag k="landuse" v="cemetery" />
         <include group="poi" />
         <include field="wikipedia" />
       </type>
       <type id="leisure-garden" can_add="no">
-        <tag k="leisure" v="garden" />
         <include group="poi" />
         <include field="opening_hours" />
         <include field="internet" />
       </type>
       <type id="leisure-sports_centre" can_add="no">
-        <tag k="leisure" v="sports_centre" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="leisure-stadium" can_add="no">
-        <tag k="leisure" v="stadium" />
         <include group="poi" />
         <include field="wikipedia" />
         <include field="operator" />
       </type>
       <type id="leisure-swimming_pool" can_add="no">
-        <tag k="leisure" v="swimming_pool" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="natural-peak" can_add="no">
-        <tag k="natural" v="peak" />
         <include field="name" />
         <include field="wikipedia" />
         <include field="ele" />
       </type>
       <type id="natural-spring">
-        <tag k="natural" v="spring" />
         <include field="name" />
       </type>
       <type id="natural-waterfall" can_add="no">
-        <tag k="natural" v="waterfall" />
         <include field="name" />
         <include field="height" />
         <include field="wikipedia" />
       </type>
       <type id="office" can_add="no">
-        <tag k="office" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="office-company">
-        <tag k="office" v="company" />
         <include group="poi" />
       </type>
       <type id="office-government">
-        <tag k="office" v="government" />
         <include group="poi" />
       </type>
       <type id="office-lawyer">
-        <tag k="office" v="lawyer" />
         <include group="poi" />
       </type>
       <type id="office-telecommunication">
-        <tag k="office" v="telecommunication" />
         <include group="poi" />
         <include field="internet" />
         <include field="operator" />
       </type>
       <type id="place-farm" can_add="no">
-        <tag k="place" v="farm" />
         <include group="poi" />
         <include field="wikipedia" />
       </type>
       <type id="place-hamlet" can_add="no">
-        <tag k="place" v="hamlet" />
         <include group="poi" />
         <include field="wikipedia" />
       </type>
       <type id="place-village" can_add="no">
-        <tag k="place" v="village" />
         <include group="poi" />
         <include field="wikipedia" />
       </type>
       <type id="railway-halt" editable="no" can_add="no">
-        <tag k="railway" v="halt" />
         <include group="poi" />
       </type>
       <type id="railway-station" editable="no" can_add="no">
-        <tag k="railway" v="station" />
         <include group="poi" />
         <include field="operator" />
       </type>
       <type id="railway-subway_entrance" editable="no" can_add="no">
-        <tag k="railway" v="subway_entrance" />
         <include field="name" />
         <include field="operator" />
       </type>
       <type id="railway-tram_stop" editable="no">
-        <tag k="railway" v="tram_stop" />
         <include field="name" />
         <include field="operator" />
       </type>
       <type id="shop" can_add="no">
-        <tag k="shop" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-alcohol">
-        <tag k="shop" v="alcohol" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-bakery">
-        <tag k="shop" v="bakery" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-beauty">
-        <tag k="shop" v="beauty" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-beverages">
-        <tag k="shop" v="beverages" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-bicycle">
-        <tag k="shop" v="bicycle" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-books">
-        <tag k="shop" v="books" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-butcher">
-        <tag k="shop" v="butcher" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-car">
-        <tag k="shop" v="car" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-car_repair">
-        <tag k="shop" v="car_repair" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-chemist">
-        <tag k="shop" v="chemist" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-clothes">
-        <tag k="shop" v="clothes" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-computer">
-        <tag k="shop" v="computer" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-confectionery">
-        <tag k="shop" v="confectionery" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-convenience">
-        <tag k="shop" v="convenience" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-department_store">
-        <tag k="shop" v="department_store" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-doityourself">
-        <tag k="shop" v="doityourself" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-electronics">
-        <tag k="shop" v="electronics" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-florist">
-        <tag k="shop" v="florist" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-furniture">
-        <tag k="shop" v="furniture" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-garden_centre">
-        <tag k="shop" v="garden_centre" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-gift">
-        <tag k="shop" v="gift" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-greengrocer">
-        <tag k="shop" v="greengrocer" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-hairdresser">
-        <tag k="shop" v="hairdresser" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-hardware">
-        <tag k="shop" v="hardware" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-jewelry">
-        <tag k="shop" v="jewelry" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-kiosk">
-        <tag k="shop" v="kiosk" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-laundry">
-        <tag k="shop" v="laundry" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-mall">
-        <tag k="shop" v="mall" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-mobile_phone">
-        <tag k="shop" v="mobile_phone" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-optician">
-        <tag k="shop" v="optician" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-shoes">
-        <tag k="shop" v="shoes" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-sports">
-        <tag k="shop" v="sports" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="shop-supermarket">
-        <tag k="shop" v="supermarket" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="shop-toys">
-        <tag k="shop" v="toys" />
         <include group="poi" />
         <include field="internet" />
       </type>
       <type id="tourism-alpine_hut">
-        <tag k="tourism" v="alpine_hut" />
         <include group="poi" />
         <include field="ele" />
         <include field="opening_hours" />
@@ -753,17 +631,14 @@
         <include field="internet" />
       </type>
       <type id="tourism-artwork">
-        <tag k="tourism" v="artwork" />
         <include field="name" />
       </type>
       <type id="tourism-attraction">
-        <tag k="tourism" v="attraction" />
         <include group="poi" />
         <include field="wikipedia" />
         <include field="website" />
       </type>
       <type id="tourism-camp_site">
-        <tag k="tourism" v="camp_site" />
         <include group="poi" />
         <include field="operator" />
         <include field="website" />
@@ -771,52 +646,43 @@
         <include field="internet" />
       </type>
       <type id="tourism-caravan_site">
-        <tag k="tourism" v="caravan_site" />
         <include group="poi" />
         <include field="website" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="tourism-guest_house">
-        <tag k="tourism" v="guest_house" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="tourism-hostel">
-        <tag k="tourism" v="hostel" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="tourism-hotel">
-        <tag k="tourism" v="hotel" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="tourism-information">
-        <tag k="tourism" v="information" />
         <include group="poi" />
       </type>
       <type id="tourism-motel">
-        <tag k="tourism" v="motel" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="tourism-museum">
-        <tag k="tourism" v="museum" />
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
       <type id="tourism-viewpoint">
-        <tag k="tourism" v="viewpoint" />
         <include field="name" />
       </type>
       <type id="waterway-waterfall" can_add="no">
-        <tag k="waterway" v="waterfall" />
         <include field="name" />
         <include field="height" />
         <include field="wikipedia" />
