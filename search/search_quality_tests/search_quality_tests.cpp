@@ -68,6 +68,20 @@ map<string, m2::RectD> const kViewports = {
 string const kDefaultQueriesPathSuffix = "/../search/search_quality_tests/queries.txt";
 string const kEmptyResult = "<empty>";
 
+// todo(@m) We should not need that much.
+size_t const kMaxOpenFiles = 4000;
+
+struct CompletenessQuery
+{
+  string m_query;
+  unique_ptr<TestSearchRequest> m_request;
+  string m_country;
+  uint64_t m_featureId = 0;
+  double m_lat = 0;
+  double m_lon = 0;
+};
+
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
 void ChangeMaxNumberOfOpenFiles(size_t n)
 {
   struct rlimit rlp;
@@ -75,6 +89,7 @@ void ChangeMaxNumberOfOpenFiles(size_t n)
   rlp.rlim_cur = n;
   setrlimit(RLIMIT_NOFILE, &rlp);
 }
+#endif
 
 class SearchQueryV2Factory : public search::SearchQueryFactory
 {
@@ -220,6 +235,8 @@ int FindResult(TestSearchEngine & engine, string const & country, uint64_t const
 // Exact feature id is expected, but a close enough (lat, lon) is good too.
 void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSearchEngine & engine)
 {
+  my::ScopedLogAbortLevelChanger const logAbortLevel(LCRITICAL);
+
   ifstream stream(path.c_str());
   CHECK(stream.is_open(), ("Can't open", path));
 
@@ -231,12 +248,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
   uint32_t expectedResultsTop1 = 0;
 
   // todo(@m) Process the queries on the fly and do not keep them.
-  vector<string> queries;
-  vector<unique_ptr<TestSearchRequest>> requests;
-  vector<string> countries;
-  vector<uint64_t> featureIds;
-  vector<double> lats;
-  vector<double> lons;
+  vector<CompletenessQuery> queries;
 
   string s;
   while (getline(stream, s))
@@ -248,7 +260,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
     Split(s, ';', parts);
     if (parts.size() != 7)
     {
-      LOG(LINFO, ("Can't split", s, ", found", parts.size(), "parts:", parts));
+      LOG(LERROR, ("Can't split", s, ", found", parts.size(), "parts:", parts));
       ++malformedQueries;
       continue;
     }
@@ -256,7 +268,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
     auto idx = parts[0].find(':');
     if (idx == string::npos)
     {
-      LOG(LINFO, ("Could not find \':\':", s));
+      LOG(LERROR, ("Could not find \':\':", s));
       ++malformedQueries;
       continue;
     }
@@ -264,7 +276,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
     string const kMwmSuffix = ".mwm";
     if (!strings::EndsWith(mwmName, kMwmSuffix))
     {
-      LOG(LINFO, ("Bad mwm name:", s));
+      LOG(LERROR, ("Bad mwm name:", s));
       ++malformedQueries;
       continue;
     }
@@ -272,7 +284,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
     uint64_t featureId;
     if (!strings::to_uint64(featureIdStr, featureId))
     {
-      LOG(LINFO, ("Bad feature id:", s));
+      LOG(LERROR, ("Bad feature id:", s));
       ++malformedQueries;
       continue;
     }
@@ -280,7 +292,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
     double lon, lat;
     if (!strings::to_double(parts[2].c_str(), lon) || !strings::to_double(parts[3].c_str(), lat))
     {
-      LOG(LINFO, ("Bad lon-lat:", s));
+      LOG(LERROR, ("Bad lon-lat:", s));
       ++malformedQueries;
       continue;
     }
@@ -291,22 +303,24 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
     string country = mwmName.substr(0, mwmName.size() - kMwmSuffix.size());
     string const query = country + " " + city + " " + street + " " + house + " ";
 
-    requests.emplace_back(make_unique<TestSearchRequest>(engine, query, FLAGS_locale,
-                                                         search::Mode::Everywhere, viewport));
-    queries.push_back(query);
-    countries.push_back(move(country));
-    featureIds.push_back(featureId);
-    lats.push_back(lat);
-    lons.push_back(lon);
+    CompletenessQuery q;
+    q.m_query = query;
+    q.m_country = move(country);
+    q.m_featureId = featureId;
+    q.m_lat = lat;
+    q.m_lon = lon;
+    q.m_request = make_unique<TestSearchRequest>(engine, query, FLAGS_locale,
+                                                 search::Mode::Everywhere, viewport);
+    queries.push_back(move(q));
   }
 
-  for (size_t i = 0; i < requests.size(); ++i)
+  for (auto & q : queries)
   {
-    requests[i]->Wait();
+    q.m_request->Wait();
 
-    LOG(LINFO, (queries[i], requests[i]->Results()));
+    LOG(LDEBUG, (q.m_query, q.m_request->Results()));
     int pos =
-        FindResult(engine, countries[i], featureIds[i], lats[i], lons[i], requests[i]->Results());
+        FindResult(engine, q.m_country, q.m_featureId, q.m_lat, q.m_lon, q.m_request->Results());
     if (pos >= 0)
       ++expectedResultsFound;
     if (pos == 0)
@@ -331,7 +345,9 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
 
 int main(int argc, char * argv[])
 {
-  ChangeMaxNumberOfOpenFiles(4000);
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+  ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
+#endif
 
   ios_base::sync_with_stdio(false);
   Platform & platform = GetPlatform();

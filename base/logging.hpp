@@ -42,6 +42,16 @@ namespace my
     ScopedLogLevelChanger(LogLevel temporaryLogLevel = LERROR) { g_LogLevel = temporaryLogLevel; }
     ~ScopedLogLevelChanger() { g_LogLevel = m_old; }
   };
+
+  struct ScopedLogAbortLevelChanger
+  {
+    LogLevel m_old = g_LogAbortLevel;
+    ScopedLogAbortLevelChanger(LogLevel temporaryLogAbortLevel = LCRITICAL)
+    {
+      g_LogAbortLevel = temporaryLogAbortLevel;
+    }
+    ~ScopedLogAbortLevelChanger() { g_LogAbortLevel = m_old; }
+  };
 }
 
 using ::my::LDEBUG;
