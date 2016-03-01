@@ -89,7 +89,7 @@ UNIT_TEST(StorageMigrationTests)
   for (auto const & countryId : kOldCountries)
     TEST(s.IsNodeDownloaded(countryId), (countryId));
 
-  TEST(f.PreMigrate(curPos, statePrefetchChanged, progressChanged), ());
+  TEST_NOT_EQUAL(f.PreMigrate(curPos, statePrefetchChanged, progressChanged), kInvalidCountryId, ());
   TEST(f.Storage().GetPrefetchStorage()->IsDownloadInProgress(), ("Empty queue"));
   // Wait for downloading complete.
   testing::RunEventLoop();
