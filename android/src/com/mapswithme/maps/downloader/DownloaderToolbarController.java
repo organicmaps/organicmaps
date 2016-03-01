@@ -88,7 +88,8 @@ class DownloaderToolbarController extends SearchToolbarController
   @Override
   public void onUpClick()
   {
-    mFragment.onBackPressed();
+    if (!mFragment.onBackPressed())
+      super.onUpClick();
   }
 
   public void update()

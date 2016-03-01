@@ -142,7 +142,7 @@ public final class MapManager
   /**
    * Enqueues given {@code root} node with its children in downloader.
    */
-  public static native boolean nativeUpdate(String root);
+  public static native void nativeUpdate(String root);
 
   /**
    * Removes given currently downloading {@code root} node and its children from downloader.

@@ -39,6 +39,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.downloader.MigrationFragment;
 import com.mapswithme.maps.downloader.OnmapDownloader;
 import com.mapswithme.maps.editor.AuthFragment;
 import com.mapswithme.maps.editor.EditorActivity;
@@ -98,6 +99,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
                                                      DownloaderFragment.class.getName(),
+                                                     MigrationFragment.class.getName(),
                                                      RoutingPlanFragment.class.getName(),
                                                      EditorHostFragment.class.getName(),
                                                      AuthFragment.class.getName() };
@@ -291,7 +293,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       SearchEngine.cancelSearch();
       mSearchController.refreshToolbar();
-      replaceFragment(DownloaderFragment.class, args, null);
+      replaceFragment(MapManager.nativeIsLegacyMode() ? MigrationFragment.class : DownloaderFragment.class, args, null);
     }
     else
     {
@@ -641,11 +643,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (intent.hasExtra(EXTRA_TASK))
       addTask(intent);
     else if (intent.hasExtra(EXTRA_UPDATE_COUNTRIES))
-    {
-      // TODO (trashkalmar): Update all maps in downloader
-      //OldActiveCountryTree.updateAll();
       showDownloader(true);
-    }
   }
 
   private void addTask(Intent intent)

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -140,6 +141,14 @@ public class MigrationFragment extends BaseMwmFragment
   @Override
   public void onComplete()
   {
+    if (!isAdded())
+      return;
+
+    if (getActivity() instanceof MwmActivity)
+      ((MwmActivity)getActivity()).showDownloader(false);
+    else
+      getActivity().recreate();
+
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_COMPLETE);
   }
 
@@ -152,7 +161,6 @@ public class MigrationFragment extends BaseMwmFragment
   @Override
   public boolean onBackPressed()
   {
-    // TODO
     return false;
   }
 }

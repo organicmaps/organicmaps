@@ -66,48 +66,57 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     boolean showFrame = (mCurrentCountry != null);
     if (showFrame)
     {
-      boolean showProgress = (mCurrentCountry.status == CountryItem.STATUS_ENQUEUED ||
-                              mCurrentCountry.status == CountryItem.STATUS_PROGRESS);
+      boolean enqueued = (mCurrentCountry.status == CountryItem.STATUS_ENQUEUED);
+      boolean progress = (mCurrentCountry.status == CountryItem.STATUS_PROGRESS);
+      boolean failed = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
 
-      showFrame = (showProgress ||
-                   mCurrentCountry.status == CountryItem.STATUS_DOWNLOADABLE ||
-                   mCurrentCountry.status == CountryItem.STATUS_FAILED);
+      showFrame = (enqueued || progress || failed ||
+                   mCurrentCountry.status == CountryItem.STATUS_DOWNLOADABLE);
 
       if (showFrame)
       {
         boolean hasParent = !TextUtils.isEmpty(mCurrentCountry.parentName);
 
-        UiUtils.showIf(showProgress, mProgress);
-        UiUtils.showIf(!showProgress, mButton);
+        UiUtils.showIf(progress || enqueued, mProgress);
+        UiUtils.showIf(!progress && !enqueued, mButton);
         UiUtils.showIf(hasParent, mParent);
 
         if (hasParent)
           mParent.setText(mCurrentCountry.parentName);
 
         mTitle.setText(mCurrentCountry.name);
-        mSize.setText(StringUtils.getFileSizeString(mCurrentCountry.totalSize));
 
-        if (showProgress)
-          mProgress.setProgress((int)(mCurrentCountry.progress * 100L / mCurrentCountry.totalSize));
+        if (progress)
+        {
+          mSize.setText(StringUtils.getFileSizeString(mCurrentCountry.totalSize));
+          mProgress.setProgress((int) (mCurrentCountry.progress * 100L / mCurrentCountry.totalSize));
+        }
         else
         {
-          boolean success = (mCurrentCountry.status != CountryItem.STATUS_FAILED);
-          if (success &&
-              !MapManager.nativeIsLegacyMode() &&
-              Config.isAutodownloadMaps() &&
-              ConnectionState.isWifiConnected())
+          if (enqueued)
           {
-            MapManager.nativeDownload(mCurrentCountry.id);
-
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                           Statistics.params().add(Statistics.EventParam.ACTION, "download")
-                                                              .add(Statistics.EventParam.FROM, "map")
-                                                              .add("is_auto", "true")
-                                                              .add("scenario", "download"));
+            mSize.setText(R.string.downloader_queued);
+            mProgress.setProgress(0);
           }
+          else
+          {
+            if (!failed &&
+                !MapManager.nativeIsLegacyMode() &&
+                Config.isAutodownloadMaps() &&
+                ConnectionState.isWifiConnected())
+            {
+              MapManager.nativeDownload(mCurrentCountry.id);
 
-          mButton.setText(success ? R.string.download
-                                  : R.string.downloader_retry);
+              Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                             Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                       .add(Statistics.EventParam.FROM, "map")
+                                                       .add("is_auto", "true")
+                                                       .add("scenario", "download"));
+            }
+
+            mButton.setText(failed ? R.string.downloader_retry
+                                   : R.string.download);
+          }
         }
       }
     }
@@ -115,7 +124,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     UiUtils.showIf(showFrame, mFrame);
   }
 
-  public OnmapDownloader(MwmActivity activity)
+  public OnmapDownloader(final MwmActivity activity)
   {
     mFrame = activity.findViewById(R.id.onmap_downloader);
     mParent = (TextView)mFrame.findViewById(R.id.downloader_parent);
@@ -144,7 +153,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       {
         if (MapManager.nativeIsLegacyMode())
         {
-          // TODO
+          activity.showDownloader(false);
           return;
         }
 

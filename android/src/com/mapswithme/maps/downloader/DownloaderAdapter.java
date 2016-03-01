@@ -112,10 +112,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
         Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
                                        Statistics.params().add(Statistics.EventParam.ACTION, "update")
-                                                 .add(Statistics.EventParam.FROM, "downloader")
-                                                 .add("is_auto", "false")
-                                                 .add("scenario", (item.isExpandable() ? "update_group"
-                                                                                       : "update")));
+                                                          .add(Statistics.EventParam.FROM, "downloader")
+                                                          .add("is_auto", "false")
+                                                          .add("scenario", (item.isExpandable() ? "update_group"
+                                                                                                : "update")));
       }
     };
 

@@ -107,6 +107,9 @@ static void MigrationStatusChangedCallback(TCountryId const & countryId, bool ke
     if (attrs.m_mwmCounter == 1)
       OnMigrationError(attrs.m_error);
     break;
+
+  default:
+    break;
   }
 }
 
@@ -326,13 +329,11 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeRetry(JNIEnv * env, jclass 
  GetStorage().RetryDownloadNode(jni::ToNativeString(env, root));
 }
 
-// static boolean nativeUpdate(String root);
-JNIEXPORT jboolean JNICALL
+// static void nativeUpdate(String root);
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeUpdate(JNIEnv * env, jclass clazz, jstring root)
 {
-  // FIXME (trashkalmar): Uncomment after method is implemented.
-  //return GetStorage().UpdateNode(jni::ToNativeString(env, root));
-  return true;
+  GetStorage().UpdateNode(jni::ToNativeString(env, root));
 }
 
 // static void nativeCancel(String root);
