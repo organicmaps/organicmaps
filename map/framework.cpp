@@ -240,24 +240,24 @@ bool Framework::IsEnoughSpaceForMigrate() const
   return GetPlatform().GetWritableStorageStatus(kSpaceSize) == Platform::TStorageStatus::STORAGE_OK;
 }
 
-bool Framework::PreMigrate(ms::LatLon const & position,
-                           storage::Storage::TChangeCountryFunction const & change,
-                           storage::Storage::TProgressFunction const & progress)
+TCountryId Framework::PreMigrate(ms::LatLon const & position,
+                           Storage::TChangeCountryFunction const & change,
+                           Storage::TProgressFunction const & progress)
 {
   Storage().PrefetchMigrateData();
 
   auto const infoGetter =
-      storage::CountryInfoReader::CreateCountryInfoReaderOneComponentMwms(GetPlatform());
+      CountryInfoReader::CreateCountryInfoReaderOneComponentMwms(GetPlatform());
 
   TCountryId currentCountryId =
       infoGetter->GetRegionCountryId(MercatorBounds::FromLatLon(position));
 
   if (currentCountryId == kInvalidCountryId)
-    return false;
+    return kInvalidCountryId;
 
   Storage().GetPrefetchStorage()->Subscribe(change, progress);
   Storage().GetPrefetchStorage()->DownloadNode(currentCountryId);
-  return true;
+  return currentCountryId;
 }
 
 void Framework::Migrate(bool keepDownloaded)

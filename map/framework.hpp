@@ -144,7 +144,7 @@ public:
 
   /// Migrate to new version of very different data.
   bool IsEnoughSpaceForMigrate() const;
-  bool PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & change,
+  storage::TCountryId PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & change,
                   storage::Storage::TProgressFunction const & progress);
   void Migrate(bool keepDownloaded = true);
 
