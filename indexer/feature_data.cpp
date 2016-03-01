@@ -166,6 +166,14 @@ void TypesHolder::SortBySpec()
   (void) RemoveIfKeepValid(m_types, m_types + m_size, bind<bool>(cref(checker), _1));
 }
 
+vector<string> TypesHolder::ToObjectNames() const
+{
+  vector<string> result;
+  for (auto type : *this)
+    result.push_back(classif().GetReadableObjectName(type));
+  return result;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////
 // FeatureParamsBase implementation
 ////////////////////////////////////////////////////////////////////////////////////

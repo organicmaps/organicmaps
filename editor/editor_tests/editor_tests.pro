@@ -14,9 +14,10 @@ HEADERS += \
 
 SOURCES += \
     $$ROOT_DIR/testing/testingmain.cpp \
+    editor_config_test.cpp \
     opening_hours_ui_test.cpp \
-    server_api_test.cpp \
-    xml_feature_test.cpp \
-    ui2oh_test.cpp \
     osm_auth_test.cpp \
     osm_feature_matcher_test.cpp \
+    server_api_test.cpp \
+    ui2oh_test.cpp \
+    xml_feature_test.cpp \

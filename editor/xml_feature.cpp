@@ -6,8 +6,6 @@
 
 #include "geometry/latlon.hpp"
 
-#include "3party/pugixml/src/pugixml.hpp"
-
 namespace
 {
 constexpr char const * kTimestamp = "timestamp";

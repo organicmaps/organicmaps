@@ -20,12 +20,10 @@ public:
   DECLARE_EXCEPTION(SizeException, Exception);
   DECLARE_EXCEPTION(ReadException, Exception);
 
-  using TReaderPtr = unique_ptr<Reader>;
-
   virtual ~Reader() {}
   virtual uint64_t Size() const = 0;
   virtual void Read(uint64_t pos, void * p, size_t size) const = 0;
-  virtual TReaderPtr CreateSubReader(uint64_t pos, uint64_t size) const = 0;
+  virtual unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const = 0;
 
   void ReadAsString(string & s) const;
 

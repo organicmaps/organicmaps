@@ -10,6 +10,7 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
   changeset_wrapper.cpp \
+  editor_config.cpp \
   opening_hours_ui.cpp \
   osm_auth.cpp \
   osm_feature_matcher.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
   changeset_wrapper.hpp \
+  editor_config.hpp \
   new_feature_categories.hpp \
   opening_hours_ui.hpp \
   osm_auth.hpp \

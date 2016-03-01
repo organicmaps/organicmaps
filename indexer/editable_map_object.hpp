@@ -17,6 +17,15 @@ namespace osm
 /// Holds information to construct editor's UI.
 struct EditableProperties
 {
+  EditableProperties() = default;
+  EditableProperties(vector<feature::Metadata::EType> const & metadata,
+                     bool name, bool address)
+      : m_name(name),
+        m_address(address),
+        m_metadata(metadata)
+  {
+  }
+
   bool m_name = false;
   /// If true, enables editing of house number, street address and post code.
   bool m_address = false;

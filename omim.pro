@@ -108,7 +108,7 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     search_tests.depends = 3party base coding geometry platform indexer search
     SUBDIRS *= search_tests
 
-    MapDepLibs = 3party base coding geometry platform storage indexer search map \
+    MapDepLibs = 3party base coding geometry editor platform storage indexer search map \
                  routing drape drape_frontend
 
     # @TODO storage_tests.depends is equal to map_tests because now storage/migrate_tests.cpp

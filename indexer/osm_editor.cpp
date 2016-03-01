@@ -65,168 +65,6 @@ bool NeedsUpload(string const & uploadStatus)
 }
 
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
-// TODO(mgsergio): Replace hard-coded value with reading from file.
-/// type:string -> description:pair<fields:vector<???>, editName:bool, editAddr:bool>
-
-using EType = feature::Metadata::EType;
-using TEditableFields = vector<EType>;
-
-struct TypeDescription
-{
-  TEditableFields const m_fields;
-  bool const m_name;
-  // Address == true implies Street, House Number, Phone, Fax, Opening Hours, Website, EMail, Postcode.
-  bool const m_address;
-};
-
-static unordered_map<string, TypeDescription> const gEditableTypes = {
-  {"aeroway-aerodrome", {{EType::FMD_ELE, EType::FMD_OPERATOR}, false, true}},
-  {"aeroway-airport", {{EType::FMD_ELE, EType::FMD_OPERATOR}, false, true}},
-  {"amenity-atm", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE, EType::FMD_OPEN_HOURS}, true, false}},
-  {"amenity-bank", {{EType::FMD_OPERATOR}, true, true}},
-  {"amenity-bar", {{EType::FMD_CUISINE, EType::FMD_INTERNET}, true, true}},
-  {"amenity-bicycle_rental", {{EType::FMD_OPERATOR}, true, false}},
-  {"amenity-bureau_de_change", {{EType::FMD_OPERATOR}, true, true}},
-  {"amenity-bus_station", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"amenity-cafe", {{EType::FMD_CUISINE, EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"amenity-car_rental", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"amenity-car_sharing", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE}, true, false}},
-  {"amenity-casino", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"amenity-cinema", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"amenity-clinic", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"amenity-college", {{EType::FMD_OPERATOR}, true, true}},
-  {"amenity-doctors", {{EType::FMD_INTERNET}, true, true}},
-  {"amenity-dentist", {{EType::FMD_INTERNET}, true, true}},
-  {"amenity-drinking_water", {{}, true, false}},
-  {"amenity-embassy", {{}, true, true}},
-  {"amenity-fast_food", {{EType::FMD_OPERATOR, EType::FMD_CUISINE, EType::FMD_INTERNET}, true, true}},
-  {"amenity-ferry_terminal", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"amenity-fire_station", {{}, true, true}},
-  {"amenity-fountain", {{}, true, false}},
-  {"amenity-fuel", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"amenity-grave_yard", {{}, true, false}},
-  {"amenity-hospital", {{EType::FMD_INTERNET}, true, true}},
-  {"amenity-hunting_stand", {{EType::FMD_HEIGHT}, true, false}},
-  {"amenity-kindergarten", {{EType::FMD_OPERATOR}, true, true}},
-  {"amenity-library", {{EType::FMD_INTERNET}, true, true}},
-  {"amenity-marketplace", {{EType::FMD_OPERATOR}, true, true}},
-  {"amenity-nightclub", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"amenity-parking", {{EType::FMD_OPERATOR}, true, true}},
-  {"amenity-pharmacy", {{EType::FMD_OPERATOR}, true, true}},
-  {"amenity-place_of_worship", {{}, true, true}},
-  {"amenity-police", {{}, true, true}},
-  {"amenity-post_box", {{EType::FMD_OPERATOR, EType::FMD_POSTCODE}, true, false}},
-  {"amenity-post_office", {{EType::FMD_OPERATOR, EType::FMD_POSTCODE, EType::FMD_INTERNET}, true, true}},
-  {"amenity-pub", {{EType::FMD_OPERATOR, EType::FMD_CUISINE, EType::FMD_INTERNET}, true, true}},
-  {"amenity-recycling", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE, EType::FMD_PHONE_NUMBER}, true, false}},
-  {"amenity-restaurant", {{EType::FMD_OPERATOR, EType::FMD_CUISINE, EType::FMD_INTERNET}, true, true}},
-  {"amenity-school", {{EType::FMD_OPERATOR}, true, true}},
-  {"amenity-taxi", {{EType::FMD_OPERATOR}, true, false}},
-  {"amenity-telephone", {{EType::FMD_OPERATOR, EType::FMD_PHONE_NUMBER}, false, false}},
-  {"amenity-theatre", {{}, true, true}},
-  {"amenity-toilets", {{EType::FMD_OPERATOR, EType::FMD_OPEN_HOURS}, true, false}},
-  {"amenity-townhall", {{}, true, true}},
-  {"amenity-university", {{}, true, true}},
-  {"amenity-waste_disposal", {{EType::FMD_OPERATOR}, false, false}},
-  {"craft", {{}, true, true}},
-  {"craft-brewery", {{}, true, true}},
-  {"craft-carpenter", {{}, true, true}},
-  {"craft-electrician", {{}, true, true}},
-  {"craft-gardener", {{}, true, true}},
-  {"craft-hvac", {{}, true, true}},
-  {"craft-metal_construction", {{}, true, true}},
-  {"craft-painter", {{}, true, true}},
-  {"craft-photographer", {{}, true, true}},
-  {"craft-plumber", {{}, true, true}},
-  {"craft-shoemaker", {{}, true, true}},
-  {"craft-tailor", {{}, true, true}},
-//  {"highway-bus_stop", {{EType::FMD_OPERATOR}, true, false}},
-  {"historic-archaeological_site", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"historic-castle", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"historic-memorial", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"historic-monument", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"historic-ruins", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"internet_access", {{EType::FMD_INTERNET}, false, false}},
-  {"internet_access|wlan", {{EType::FMD_INTERNET}, false, false}},
-  {"landuse-cemetery", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"leisure-garden", {{EType::FMD_OPEN_HOURS, EType::FMD_INTERNET}, true, false}},
-  {"leisure-sports_centre", {{EType::FMD_INTERNET}, true, true}},
-  {"leisure-stadium", {{EType::FMD_WIKIPEDIA, EType::FMD_OPERATOR}, true, true}},
-  {"leisure-swimming_pool", {{EType::FMD_OPERATOR}, true, true}},
-  {"natural-peak", {{EType::FMD_WIKIPEDIA, EType::FMD_ELE}, true, false}},
-  {"natural-spring", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"natural-waterfall", {{EType::FMD_WIKIPEDIA, EType::FMD_HEIGHT}, true, false}},
-  {"office", {{EType::FMD_INTERNET}, true, true}},
-  {"office-company", {{}, true, true}},
-  {"office-government", {{}, true, true}},
-  {"office-lawyer", {{}, true, true}},
-  {"office-telecommunication", {{EType::FMD_INTERNET, EType::FMD_OPERATOR}, true, true}},
-  {"place-farm", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"place-hamlet", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"place-village", {{EType::FMD_WIKIPEDIA}, true, false}},
-//  {"railway-halt", {{}, true, false}},
-//  {"railway-station", {{EType::FMD_OPERATOR}, true, false}},
-//  {"railway-subway_entrance", {{}, true, false}},
-//  {"railway-tram_stop", {{EType::FMD_OPERATOR}, true, false}},
-  {"shop", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-alcohol", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-bakery", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-beauty", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-beverages", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-bicycle", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-books", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-butcher", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-car", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-car_repair", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-chemist", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-clothes", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-computer", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-confectionery", {{EType::FMD_INTERNET}, true, true }},
-  {"shop-convenience", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-department_store", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, false, true}},
-  {"shop-doityourself", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-electronics", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-florist", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-furniture", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-garden_centre", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-gift", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-greengrocer", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-hairdresser", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-hardware", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-jewelry", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-kiosk", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-laundry", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-mall", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-mobile_phone", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-optician", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-shoes", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-sports", {{EType::FMD_INTERNET}, true, true}},
-  {"shop-supermarket", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"shop-toys", {{EType::FMD_INTERNET}, true, true}},
-  {"tourism-alpine_hut", {{EType::FMD_ELE, EType::FMD_OPEN_HOURS, EType::FMD_OPERATOR, EType::FMD_WEBSITE, EType::FMD_INTERNET}, true, false}},
-  {"tourism-artwork", {{EType::FMD_WIKIPEDIA}, true, false}},
-  {"tourism-attraction", {{EType::FMD_WIKIPEDIA, EType::FMD_WEBSITE}, true, false}},
-  {"tourism-camp_site", {{EType::FMD_OPERATOR, EType::FMD_WEBSITE, EType::FMD_OPEN_HOURS, EType::FMD_INTERNET}, true, false}},
-  {"tourism-caravan_site", {{EType::FMD_WEBSITE, EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, false}},
-  {"tourism-guest_house", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"tourism-hostel", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"tourism-hotel", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"tourism-information", {{}, true, false}},
-  {"tourism-motel", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"tourism-museum", {{EType::FMD_OPERATOR, EType::FMD_INTERNET}, true, true}},
-  {"tourism-viewpoint", {{}, true, false}},
-  {"waterway-waterfall", {{EType::FMD_WIKIPEDIA, EType::FMD_HEIGHT}, true, false}}};
-
-TypeDescription const * GetTypeDescription(uint32_t type, uint8_t typeTruncateLevel = 2)
-{
-  // Truncate is needed to match, for example, amenity-restaurant-vegan as amenity-restaurant.
-  ftype::TruncValue(type, typeTruncateLevel);
-  auto const readableType = classif().GetReadableObjectName(type);
-  auto const it = gEditableTypes.find(readableType);
-  if (it != end(gEditableTypes))
-    return &it->second;
-  return nullptr;
-}
 
 /// Compares editable fields connected with feature ignoring street.
 bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
@@ -275,6 +113,8 @@ namespace osm
 {
 // TODO(AlexZ): Normalize osm multivalue strings for correct merging
 // (e.g. insert/remove spaces after ';' delimeter);
+
+Editor::Editor() : m_config("editor.xml") { }
 
 Editor & Editor::Instance()
 {
@@ -612,47 +452,11 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, Featur
 
 EditableProperties Editor::GetEditableProperties(FeatureType const & feature) const
 {
-  // TODO(mgsergio): Load editable fields into memory from XML config and query them here.
-  EditableProperties editable;
+
   feature::TypesHolder const types(feature);
-  for (uint32_t const type : types)
-  {
-    // TODO(mgsergio): If some fields for one type are marked as "NOT edited" in the config,
-    // they should have priority over same "edited" fields in other feature's types.
-    auto const * desc = GetTypeDescription(type);
-    if (desc)
-    {
-      editable.m_name = desc->m_name;
-      editable.m_address = desc->m_address;
-
-      for (EType const field : desc->m_fields)
-        editable.m_metadata.push_back(field);
-    }
-  }
-  // If address is editable, many metadata fields are editable too.
-  if (editable.m_address)
-  {
-    // TODO(mgsergio): Load address-related editable properties from XML config.
-    editable.m_metadata.push_back(EType::FMD_EMAIL);
-    editable.m_metadata.push_back(EType::FMD_OPEN_HOURS);
-    editable.m_metadata.push_back(EType::FMD_PHONE_NUMBER);
-    editable.m_metadata.push_back(EType::FMD_WEBSITE);
-    // Post boxes and post offices should have editable postcode field defined separately.
-    editable.m_metadata.push_back(EType::FMD_POSTCODE);
-  }
-
-  // Buildings are processed separately.
-  // Please note that only house number, street and post code should be editable for buildings.
-  // TODO(mgsergio): Activate this code by XML config variable.
-  if (ftypes::IsBuildingChecker::Instance()(feature))
-  {
-    editable.m_address = true;
-    editable.m_metadata.push_back(EType::FMD_POSTCODE);
-  }
-
-  // Avoid possible duplicates.
-  my::SortUnique(editable.m_metadata);
-  return editable;
+  auto const desc = m_config.GetTypeDescription(types.ToObjectNames());
+  return {{begin(desc.GetEditableFields()), end(desc.GetEditableFields())},
+          desc.IsNameEditable(), desc.IsAddressEditable()};
 }
 
 bool Editor::HaveSomethingToUpload() const
@@ -837,12 +641,12 @@ NewFeatureCategories Editor::GetNewFeatureCategories() const
   int8_t const locale = CategoriesHolder::MapLocaleToInteger(languages::GetCurrentOrig());
   Classificator const & cl = classif();
   NewFeatureCategories res;
-  for (auto const & elem : gEditableTypes)
+  for (auto const & classificatorType : m_config.GetTypesThatCanBeAdded())
   {
-    uint32_t const type = cl.GetTypeByReadableObjectName(elem.first);
+    uint32_t const type = cl.GetTypeByReadableObjectName(classificatorType);
     if (type == 0)
     {
-      LOG(LWARNING, ("Unknown type in Editor's config:", elem.first));
+      LOG(LWARNING, ("Unknown type in Editor's config:", classificatorType));
       continue;
     }
     res.m_allSorted.emplace_back(type, cats.GetReadableFeatureType(type, locale));

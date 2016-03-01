@@ -7,6 +7,7 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "editor/editor_config.hpp"
 #include "editor/new_feature_categories.hpp"
 #include "editor/xml_feature.hpp"
 
@@ -22,7 +23,7 @@ namespace osm
 {
 class Editor final
 {
-  Editor() = default;
+  Editor();
 
 public:
   using TFeatureTypeFn = function<void(FeatureType &)>;  // Mimics Framework::TFeatureTypeFn.
@@ -160,6 +161,9 @@ private:
   TFeatureOriginalStreetFn m_getOriginalFeatureStreetFn;
   /// Iterate over all features in some area that includes given point.
   TForEachFeaturesNearByFn m_forEachFeatureAtPointFn;
+
+  /// Contains information about what and how can be edited.
+  editor::EditorConfig m_config;
 };  // class Editor
 
 string DebugPrint(Editor::FeatureStatus fs);

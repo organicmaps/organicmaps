@@ -34,12 +34,12 @@ public:
   {
   }
 
-  inline uint64_t Size() const
+  inline uint64_t Size() const override
   {
     return m_size;
   }
 
-  inline void Read(uint64_t pos, void * p, size_t size) const
+  inline void Read(uint64_t pos, void * p, size_t size) const override
   {
     CheckPosAndSize(pos, size);
     memcpy(p, m_pData + pos, size);

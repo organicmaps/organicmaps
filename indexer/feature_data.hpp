@@ -115,6 +115,8 @@ namespace feature
     /// Returns true if this->m_types and other.m_types contain same values
     /// in any order. Works in O(n log n).
     bool Equals(TypesHolder const & other) const;
+
+    vector<string> ToObjectNames() const;
   };
 
   string DebugPrint(TypesHolder const & holder);
