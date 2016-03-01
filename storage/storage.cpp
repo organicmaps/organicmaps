@@ -1417,6 +1417,7 @@ void Storage::CancelDownloadNode(TCountryId const & countryId)
     ASSERT(!groupNode, ());
     DeleteNode(descendantId);
   });
+  SaveDownloadQueue();
 }
 
 void Storage::RetryDownloadNode(TCountryId const & countryId)
