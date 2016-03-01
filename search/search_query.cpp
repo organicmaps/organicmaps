@@ -11,8 +11,12 @@
 #include "search/search_index_values.hpp"
 #include "search/search_query_params.hpp"
 #include "search/search_string_intersection.hpp"
+#include "search/v2/pre_ranking_info.hpp"
+#include "search/v2/ranking_info.hpp"
+#include "search/v2/ranking_utils.hpp"
 
 #include "storage/country_info_getter.hpp"
+#include "storage/index.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
@@ -129,7 +133,7 @@ class IndexedValue : public search::IndexedValueBase<Query::kQueuesCount>
   shared_ptr<impl::PreResult2> m_val;
 
 public:
-  explicit IndexedValue(impl::PreResult2 * v) : m_val(v) {}
+  explicit IndexedValue(unique_ptr<impl::PreResult2> v) : m_val(move(v)) {}
 
   impl::PreResult2 const & operator*() const { return *m_val; }
 };
@@ -500,7 +504,10 @@ void Query::Search(Results & res, size_t resCount)
 
   LONG_OP(SearchAddress(res));
   LONG_OP(SearchFeatures());
-  LONG_OP(FlushResults(res, false /* allMWMs */, resCount, true /* oldHouseSearch */));
+
+  // TODO (@y): this code is not working and will gone away.
+  v2::Geocoder::Params params;
+  LONG_OP(FlushResults(params, res, false /* allMWMs */, resCount, true /* oldHouseSearch */));
 }
 
 void Query::SearchViewportPoints(Results & res)
@@ -508,15 +515,18 @@ void Query::SearchViewportPoints(Results & res)
   LONG_OP(SearchAddress(res));
   LONG_OP(SearchFeaturesInViewport(CURRENT_V));
 
-  FlushViewportResults(res, true /* oldHouseSearch */);
+  // TODO (@y): this code is not working and will gone away.
+  v2::Geocoder::Params params;
+  FlushViewportResults(params, res, true /* oldHouseSearch */);
 }
 
-void Query::FlushViewportResults(Results & res, bool oldHouseSearch)
+void Query::FlushViewportResults(v2::Geocoder::Params const & params, Results & res,
+                                 bool oldHouseSearch)
 {
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
 
-  MakePreResult2(indV, streets);
+  MakePreResult2(params, indV, streets);
   if (indV.empty())
     return;
 
@@ -583,9 +593,9 @@ public:
   bool operator()(ValueT const & r) const { return (m_val.GetID() == r.GetID()); }
 };
 
-bool IsResultExists(impl::PreResult2 const * p, vector<IndexedValue> const & indV)
+bool IsResultExists(impl::PreResult2 const & p, vector<IndexedValue> const & indV)
 {
-  impl::PreResult2::StrictEqualF equalCmp(*p);
+  impl::PreResult2::StrictEqualF equalCmp(p);
   // Do not insert duplicating results.
   return indV.end() != find_if(indV.begin(), indV.end(), [&equalCmp](IndexedValue const & iv)
                                {
@@ -599,6 +609,9 @@ namespace impl
 class PreResult2Maker
 {
   Query & m_query;
+  storage::CountryInfoGetter const & m_infoGetter;
+  v2::Geocoder::Params const & m_params;
+  string m_positionCountry;
 
   unique_ptr<Index::FeaturesLoaderGuard> m_pFV;
 
@@ -628,18 +641,71 @@ class PreResult2Maker
       country = m_pFV->GetCountryFileName();
   }
 
-public:
-  explicit PreResult2Maker(Query & q) : m_query(q) {}
+  void InitRankingInfo(FeatureType const & ft, impl::PreResult1 const & result,
+                       search::v2::RankingInfo & info)
+  {
+    auto const & preInfo = result.GetInfo();
+    auto const & viewport = m_params.m_viewport;
+    auto const & position = m_params.m_position;
 
-  impl::PreResult2 * operator()(impl::PreResult1 const & res)
+    info.m_distanceToViewport = viewport.IsEmptyInterior()
+                                    ? v2::PreRankingInfo::kMaxDistMeters
+                                    : feature::GetMinDistanceMeters(ft, viewport.Center());
+    info.m_distanceToPosition = feature::GetMinDistanceMeters(ft, position);
+
+    info.m_rank = preInfo.m_rank;
+
+    info.m_searchType = v2::SearchModel::Instance().GetSearchType(ft);
+
+    info.m_nameScore = v2::NAME_SCORE_ZERO;
+    for (auto const & lang : m_params.m_langs)
+    {
+      string name;
+      if (!ft.GetName(lang, name))
+        continue;
+      auto score = GetNameScore(name, m_params, preInfo.m_startToken, preInfo.m_endToken);
+      if (score > info.m_nameScore)
+        info.m_nameScore = score;
+    }
+
+    if (info.m_searchType == v2::SearchModel::SEARCH_TYPE_BUILDING)
+    {
+      string houseNumber = ft.GetHouseNumber();
+      auto score = GetNameScore(houseNumber, m_params, preInfo.m_startToken, preInfo.m_endToken);
+      if (score > info.m_nameScore)
+        info.m_nameScore = score;
+    }
+
+    auto const featureCountry = m_infoGetter.GetRegionCountryId(feature::GetCenter(ft));
+    // TODO (@y, @m, @vng): exact check is too restrictive, as we
+    // switched to small mwms. Probably it's worth here to find a
+    // Least-Common-Ancestor for feature center and user position in
+    // the country tree, and use level (distance to root) of the
+    // result here.
+    info.m_sameCountry = (featureCountry == m_positionCountry);
+
+    info.m_positionInViewport = viewport.IsPointInside(position);
+  }
+
+public:
+  explicit PreResult2Maker(Query & q, v2::Geocoder::Params const & params)
+    : m_query(q), m_infoGetter(m_query.GetCountryInfoGetter()), m_params(params)
+  {
+    m_positionCountry = m_infoGetter.GetRegionCountryId(m_params.m_position);
+  }
+
+  unique_ptr<impl::PreResult2> operator()(impl::PreResult1 const & res)
   {
     FeatureType feature;
     string name, country;
     LoadFeature(res.GetID(), feature, name, country);
 
     Query::ViewportID const viewportID = static_cast<Query::ViewportID>(res.GetViewportID());
-    impl::PreResult2 * res2 =
-        new impl::PreResult2(feature, &res, m_query.GetPosition(viewportID), name, country);
+    auto res2 = make_unique<impl::PreResult2>(feature, &res, m_query.GetPosition(viewportID), name,
+                                              country);
+    search::v2::RankingInfo info;
+    InitRankingInfo(feature, res, info);
+    res2->SetRankingInfo(move(info));
 
     /// @todo: add exluding of states (without USA states), continents
     using namespace ftypes;
@@ -647,40 +713,28 @@ public:
     switch (tp)
     {
       case COUNTRY:
-        res2->m_rank /= 1.5;
+        res2->m_info.m_rank /= 1.5;
         break;
       case CITY:
       case TOWN:
         if (m_query.GetViewport(Query::CURRENT_V).IsPointInside(res2->GetCenter()))
-          res2->m_rank *= 2;
+          res2->m_info.m_rank *= 2;
         else
         {
           storage::CountryInfo ci;
           res2->m_region.GetRegion(m_query.m_infoGetter, ci);
           if (ci.IsNotEmpty() && ci.m_name == m_query.GetPivotRegion())
-            res2->m_rank *= 1.7;
+            res2->m_info.m_rank *= 1.7;
         }
         break;
       case VILLAGE:
-        res2->m_rank /= 1.5;
+        res2->m_info.m_rank /= 1.5;
         break;
       default:
         break;
     }
 
     return res2;
-  }
-
-  impl::PreResult2 * operator()(FeatureID const & id)
-  {
-    FeatureType feature;
-    string name, country;
-    LoadFeature(id, feature, name, country);
-
-    if (!name.empty() && !country.empty())
-      return new impl::PreResult2(feature, 0, m_query.GetPosition(), name, country);
-    else
-      return 0;
   }
 };
 
@@ -715,7 +769,8 @@ public:
 }  // namespace impl
 
 template <class T>
-void Query::MakePreResult2(vector<T> & cont, vector<FeatureID> & streets)
+void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont,
+                           vector<FeatureID> & streets)
 {
   // make unique set of PreResult1
   using TPreResultSet = set<impl::PreResult1, LessFeatureID>;
@@ -727,21 +782,19 @@ void Query::MakePreResult2(vector<T> & cont, vector<FeatureID> & streets)
     m_results[i].clear();
   }
 
-  // make PreResult2 vector
-  impl::PreResult2Maker maker(*this);
+  // Makes PreResult2 vector.
+  impl::PreResult2Maker maker(*this, params);
   for (auto const & r : theSet)
   {
-    impl::PreResult2 * p = maker(r);
-    if (p == 0)
+    auto p = maker(r);
+    if (!p)
       continue;
 
     if (p->IsStreet())
       streets.push_back(p->GetID());
 
-    if (IsResultExists(p, cont))
-      delete p;
-    else
-      cont.push_back(IndexedValue(p));
+    if (!IsResultExists(*p, cont))
+      cont.push_back(IndexedValue(move(p)));
   }
 }
 
@@ -774,12 +827,13 @@ void Query::FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & s
   }
 }
 
-void Query::FlushResults(Results & res, bool allMWMs, size_t resCount, bool oldHouseSearch)
+void Query::FlushResults(v2::Geocoder::Params const & params, Results & res, bool allMWMs,
+                         size_t resCount, bool oldHouseSearch)
 {
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
 
-  MakePreResult2(indV, streets);
+  MakePreResult2(params, indV, streets);
 
   if (indV.empty())
     return;
@@ -806,7 +860,8 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount, bool oldH
 
     LOG(LDEBUG, (indV[i]));
 
-    if (res.AddResult(MakeResult(*(indV[i]))))
+    auto const & preResult2 = *indV[i];
+    if (res.AddResult(MakeResult(preResult2)))
       ++count;
   }
 }
@@ -907,10 +962,10 @@ void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
   }
 }
 
-void Query::AddPreResult1(MwmSet::MwmId const & mwmId, uint32_t featureId, uint8_t rank,
-                          double priority, ViewportID viewportId /*= DEFAULT_V*/)
+void Query::AddPreResult1(MwmSet::MwmId const & mwmId, uint32_t featureId, double priority,
+                          v2::PreRankingInfo const & info, ViewportID viewportId /* = DEFAULT_V */)
 {
-  impl::PreResult1 res(FeatureID(mwmId, featureId), rank, priority, viewportId);
+  impl::PreResult1 res(FeatureID(mwmId, featureId), priority, viewportId, info);
 
   for (size_t i = 0; i < m_queuesCount; ++i)
   {
@@ -1025,6 +1080,8 @@ Result Query::MakeResult(impl::PreResult2 const & r) const
     res.AppendCity(city);
   }
 #endif
+
+  res.SetRankingInfo(r.GetRankingInfo());
 
   return res;
 }
@@ -1294,7 +1351,13 @@ void Query::SearchAddress(Results & res)
         else
         {
           // Add found locality as a result if nothing left to match.
-          AddPreResult1(mwmId, city.m_featureId, city.m_rank, 1.0 /* priority */);
+
+          // TODO (@y): for backward compatibility with old search
+          // algorithm carefully fill |info| here.
+          v2::PreRankingInfo info;
+          info.m_rank = city.m_rank;
+
+          AddPreResult1(mwmId, city.m_featureId, 1.0 /* priority */, info);
         }
       }
       else if (region.IsValid())

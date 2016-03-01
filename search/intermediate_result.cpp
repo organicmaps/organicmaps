@@ -55,8 +55,9 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 
 namespace impl
 {
-PreResult1::PreResult1(FeatureID const & fID, uint8_t rank, double priority, int8_t viewportID)
-  : m_id(fID), m_priority(priority), m_rank(rank), m_viewportID(viewportID)
+PreResult1::PreResult1(FeatureID const & fID, double priority, int8_t viewportID,
+                       v2::PreRankingInfo const & info)
+  : m_id(fID), m_priority(priority), m_viewportID(viewportID), m_info(info)
 {
   ASSERT(m_id.IsValid(), ());
 }
@@ -66,8 +67,8 @@ PreResult1::PreResult1(double priority) : m_priority(priority) {}
 // static
 bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)
 {
-  if (r1.m_rank != r2.m_rank)
-    return r1.m_rank > r2.m_rank;
+  if (r1.m_info.m_rank != r2.m_info.m_rank)
+    return r1.m_info.m_rank > r2.m_info.m_rank;
   return r1.m_priority < r2.m_priority;
 }
 
@@ -76,7 +77,7 @@ bool PreResult1::LessPriority(PreResult1 const & r1, PreResult1 const & r2)
 {
   if (r1.m_priority != r2.m_priority)
     return r1.m_priority < r2.m_priority;
-  return r1.m_rank > r2.m_rank;
+  return r1.m_info.m_rank > r2.m_info.m_rank;
 }
 
 // static
@@ -97,8 +98,6 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD c
   ASSERT(!m_types.Empty(), ());
 
   m_types.SortBySpec();
-
-  m_rank = p ? p->GetRank() : 0;
 
   m2::PointD fCenter;
   fCenter = f.GetLimitRect(FeatureType::WORST_GEOMETRY).Center();
@@ -181,7 +180,7 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
   case RESULT_FEATURE:
     return Result(m_id, GetCenter(), m_str, regionName, pCat->GetReadableFeatureType(type, locale)
               #ifdef DEBUG
-                  + ' ' + strings::to_string(int(m_rank))
+                  + ' ' + strings::to_string(int(m_info.m_rank))
               #endif
                   , type, m_metadata);
 
@@ -206,8 +205,8 @@ Result PreResult2::GeneratePointResult(storage::CountryInfoGetter const & infoGe
 // static
 bool PreResult2::LessRank(PreResult2 const & r1, PreResult2 const & r2)
 {
-  if (r1.m_rank != r2.m_rank)
-    return r1.m_rank > r2.m_rank;
+  if (r1.m_info.m_rank != r2.m_info.m_rank)
+    return r1.m_info.m_rank > r2.m_info.m_rank;
   return r1.m_distance < r2.m_distance;
 }
 
@@ -216,7 +215,7 @@ bool PreResult2::LessDistance(PreResult2 const & r1, PreResult2 const & r2)
 {
   if (r1.m_distance != r2.m_distance)
     return r1.m_distance < r2.m_distance;
-  return r1.m_rank > r2.m_rank;
+  return r1.m_info.m_rank > r2.m_info.m_rank;
 }
 
 bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
@@ -275,7 +274,7 @@ string PreResult2::DebugPrint() const
   ss << "{ IntermediateResult: " <<
         "Name: " << m_str <<
         "; Type: " << GetBestType() <<
-        "; Rank: " << int(m_rank) <<
+        "; Rank: " << static_cast<int>(m_info.m_rank) <<
         "; Distance: " << m_distance << " }";
   return ss.str();
 }

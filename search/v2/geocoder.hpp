@@ -6,9 +6,12 @@
 #include "search/v2/features_layer.hpp"
 #include "search/v2/features_layer_path_finder.hpp"
 #include "search/v2/mwm_context.hpp"
+#include "search/v2/pre_ranking_info.hpp"
+#include "search/v2/ranking_utils.hpp"
 #include "search/v2/search_model.hpp"
 
 #include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "storage/country_info_getter.hpp"
 
@@ -21,6 +24,7 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/limits.hpp"
 #include "std/set.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
@@ -123,17 +127,20 @@ public:
     m2::RectD m_rect;
   };
 
+  using TResult = pair<FeatureID, PreRankingInfo>;
+  using TResultList = vector<pair<FeatureID, PreRankingInfo>>;
+
   Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter);
 
   ~Geocoder() override;
 
-  // Sets search query params.
+  // Sets/Gets search query params.
   void SetParams(Params const & params);
 
   // Starts geocoding, retrieved features will be appended to
   // |results|.
-  void GoEverywhere(vector<FeatureID> & results);
-  void GoInViewport(vector<FeatureID> & results);
+  void GoEverywhere(TResultList & results);
+  void GoInViewport(TResultList & results);
 
   void ClearCaches();
 
@@ -215,7 +222,9 @@ private:
   // the lowest layer.
   void FindPaths();
 
-  void EmitResult(MwmSet::MwmId const & mwmId, uint32_t featureId);
+  void EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, size_t startToken, size_t endToken);
+
+  void FillResultRanks();
 
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all
@@ -326,7 +335,7 @@ private:
   vector<FeaturesLayer> m_layers;
 
   // Non-owning pointer to a vector of results.
-  vector<FeatureID> * m_results;
+  TResultList * m_results;
 };
 
 string DebugPrint(Geocoder::Locality const & locality);

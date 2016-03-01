@@ -1,6 +1,10 @@
 #pragma once
 
+#include "search/v2/geocoder.hpp"
+#include "search/v2/search_model.hpp"
+
 #include "std/cstdint.hpp"
+#include "std/limits.hpp"
 #include "std/string.hpp"
 
 namespace search

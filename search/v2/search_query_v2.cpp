@@ -43,11 +43,11 @@ void SearchQueryV2::Search(Results & res, size_t resCount)
   params.m_maxNumResults = max(resCount, kPreResultsCount);
   m_geocoder.SetParams(params);
 
-  vector<FeatureID> results;
+  Geocoder::TResultList results;
   m_geocoder.GoEverywhere(results);
-  AddPreResults1(results);
+  AddPreResults1(results, false /* viewportSearch */);
 
-  FlushResults(res, false /* allMWMs */, resCount, false /* oldHouseSearch */);
+  FlushResults(params, res, false /* allMWMs */, resCount, false /* oldHouseSearch */);
 }
 
 void SearchQueryV2::SearchViewportPoints(Results & res)
@@ -59,11 +59,11 @@ void SearchQueryV2::SearchViewportPoints(Results & res)
   params.m_maxNumResults = kPreResultsCount;
   m_geocoder.SetParams(params);
 
-  vector<FeatureID> results;
+  Geocoder::TResultList results;
   m_geocoder.GoInViewport(results);
-  AddPreResults1(results);
+  AddPreResults1(results, true /* viewportSearch */);
 
-  FlushViewportResults(res, false /* oldHouseSearch */);
+  FlushViewportResults(params, res, false /* oldHouseSearch */);
 }
 
 void SearchQueryV2::ClearCaches()
@@ -72,32 +72,16 @@ void SearchQueryV2::ClearCaches()
   m_geocoder.ClearCaches();
 }
 
-void SearchQueryV2::AddPreResults1(vector<FeatureID> & results)
+void SearchQueryV2::AddPreResults1(Geocoder::TResultList & results, bool viewportSearch)
 {
-  // Group all features by MwmId and add them as PreResult1.
-  sort(results.begin(), results.end());
-
-  auto ib = results.begin();
-  while (ib != results.end())
+  for (auto const & result : results)
   {
-    auto ie = ib;
-    while (ie != results.end() && ie->m_mwmId == ib->m_mwmId)
-      ++ie;
-
-    /// @todo Add RankTableCache here?
-    MwmSet::MwmHandle handle = m_index.GetMwmHandleById(ib->m_mwmId);
-    if (handle.IsAlive())
-    {
-      auto rankTable = RankTable::Load(handle.GetValue<MwmValue>()->m_cont);
-      if (!rankTable.get())
-        rankTable.reset(new DummyRankTable());
-
-      /// @todo Do final results processing without Query::AddPreResult1.
-      /// At least, priority and it's queue is an overhead now.
-      for (auto ii = ib; ii != ie; ++ii)
-        AddPreResult1(ii->m_mwmId, ii->m_index, rankTable->Get(ii->m_index), 0.0 /* priority */);
-    }
-    ib = ie;
+    auto const & id = result.first;
+    auto const & info = result.second;
+    if (viewportSearch)
+      AddPreResult1(id.m_mwmId, id.m_index, info.m_mwmDistanceToViewport /* priority */, info);
+    else
+      AddPreResult1(id.m_mwmId, id.m_index, info.m_mwmDistanceToPosition /* priority */, info);
   }
 }
 }  // namespace v2

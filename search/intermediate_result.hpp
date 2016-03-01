@@ -1,8 +1,10 @@
 #pragma once
-#include "result.hpp"
+#include "search/result.hpp"
+#include "search/v2/pre_ranking_info.hpp"
+#include "search/v2/ranking_info.hpp"
+#include "search/v2/ranking_utils.hpp"
 
 #include "indexer/feature_data.hpp"
-
 
 class FeatureType;
 class CategoriesHolder;
@@ -25,11 +27,13 @@ class PreResult1
 
   FeatureID m_id;
   double m_priority;
-  uint8_t m_rank;
   int8_t m_viewportID;
 
+  v2::PreRankingInfo m_info;
+
 public:
-  PreResult1(FeatureID const & fID, uint8_t rank, double priority, int8_t viewportID);
+  PreResult1(FeatureID const & fID, double priority, int8_t viewportID,
+             v2::PreRankingInfo const & info);
 
   explicit PreResult1(double priority);
 
@@ -38,8 +42,9 @@ public:
   static bool LessPointsForViewport(PreResult1 const & r1, PreResult1 const & r2);
 
   inline FeatureID GetID() const { return m_id; }
-  inline uint8_t GetRank() const { return m_rank; }
+  inline uint8_t GetRank() const { return m_info.m_rank; }
   inline int8_t GetViewportID() const { return m_viewportID; }
+  inline v2::PreRankingInfo const & GetInfo() const { return m_info; }
 };
 
 
@@ -66,6 +71,14 @@ public:
 
   /// For RESULT_BUILDING.
   PreResult2(m2::PointD const & pt, string const & str, uint32_t type);
+
+  inline search::v2::RankingInfo const & GetRankingInfo() const { return m_info; }
+
+  template <typename TInfo>
+  inline void SetRankingInfo(TInfo && info)
+  {
+    m_info = forward<TInfo>(info);
+  }
 
   /// @param[in]  infoGetter Need to get region for result.
   /// @param[in]  pCat    Categories need to display readable type string.
@@ -143,7 +156,7 @@ private:
 
   double m_distance;
   ResultType m_resultType;
-  uint8_t m_rank;
+  v2::RankingInfo m_info;
   feature::EGeomType m_geomType;
 
   Result::Metadata m_metadata;

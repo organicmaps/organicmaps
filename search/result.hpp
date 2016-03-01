@@ -1,4 +1,6 @@
 #pragma once
+#include "search/v2/ranking_info.hpp"
+
 #include "indexer/feature_decl.hpp"
 
 #include "editor/yes_no_unknown.hpp"
@@ -97,6 +99,14 @@ public:
   int32_t GetPositionInResults() const { return m_positionInResults; }
   void SetPositionInResults(int32_t pos) { m_positionInResults = pos; }
 
+  inline v2::RankingInfo const & GetRankingInfo() const { return m_info; }
+
+  template <typename TInfo>
+  inline void SetRankingInfo(TInfo && info)
+  {
+    m_info = forward<TInfo>(info);
+  }
+
   // Returns a representation of this result that is
   // sent to the statistics servers and later used to measure
   // the quality of our search engine.
@@ -111,6 +121,8 @@ private:
   uint32_t m_featureType;
   string m_suggestionStr;
   buffer_vector<pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
+
+  v2::RankingInfo m_info;
 
   // The position that this result occupied in the vector returned
   // by a search query. -1 if undefined.

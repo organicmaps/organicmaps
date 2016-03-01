@@ -14,6 +14,7 @@
 #include "search/result.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
+#include "search/v2/ranking_info.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
@@ -59,6 +60,7 @@ DEFINE_string(queries_path, "", "Path to the file with queries");
 DEFINE_int32(top, 1, "Number of top results to show for every query");
 DEFINE_string(viewport, "", "Viewport to use when searching (default, moscow, london, zurich)");
 DEFINE_string(check_completeness, "", "Path to the file with completeness data");
+DEFINE_string(ranking_csv_file, "", "File ranking info will be exported to");
 
 map<string, m2::RectD> const kViewports = {
     {"default", m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0))},
@@ -440,6 +442,22 @@ int main(int argc, char * argv[])
         engine, MakePrefixFree(queries[i]), FLAGS_locale, search::Mode::Everywhere, viewport));
   }
 
+  ofstream csv;
+  bool dumpCSV = false;
+  if (!FLAGS_ranking_csv_file.empty())
+  {
+    ofstream os(FLAGS_ranking_csv_file);
+    csv.swap(os);
+    if (csv.is_open())
+      dumpCSV = true;
+  }
+
+  if (dumpCSV)
+  {
+    search::v2::RankingInfo::PrintCSVHeader(csv);
+    csv << endl;
+  }
+
   vector<double> responseTimes(queries.size());
   for (size_t i = 0; i < queries.size(); ++i)
   {
@@ -448,6 +466,15 @@ int main(int argc, char * argv[])
     responseTimes[i] = static_cast<double>(rt) / 1000;
     PrintTopResults(MakePrefixFree(queries[i]), requests[i]->Results(), FLAGS_top,
                     responseTimes[i]);
+
+    if (dumpCSV)
+    {
+      for (auto const & result : requests[i]->Results())
+      {
+        result.GetRankingInfo().ToCSV(csv);
+        csv << endl;
+      }
+    }
   }
 
   double averageTime;
