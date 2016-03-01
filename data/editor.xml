@@ -131,17 +131,15 @@
         <include field="ele" />
         <include field="operator" />
       </type>
-      <type id="amenity-atm">
-        <include group="poi" />
-        <include field="operator" />
-        <include field="website" />
-        <include field="opening_hours" />
-      </type>
-      <type id="amenity-bank">
+      <type id="amenity-atm" group="banking">
         <include group="poi" />
         <include field="operator" />
       </type>
-      <type id="amenity-bar">
+      <type id="amenity-bank" group="banking">
+        <include group="poi" />
+        <include field="operator" />
+      </type>
+      <type id="amenity-bar" group="food">
         <include group="poi" />
         <include field="cuisine" />
         <include field="internet" />
@@ -150,7 +148,7 @@
         <include group="poi" />
         <include field="operator" />
       </type>
-      <type id="amenity-bureau_de_change">
+      <type id="amenity-bureau_de_change" group="banking">
         <include group="poi" />
         <include field="operator" />
       </type>
@@ -159,7 +157,7 @@
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="amenity-cafe">
+      <type id="amenity-cafe" group="food">
         <include group="poi" />
         <include field="cuisine" />
         <include field="operator" />
@@ -185,20 +183,20 @@
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="amenity-clinic">
+      <type id="amenity-clinic" group="health">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="amenity-college" can_add="no">
+      <type id="amenity-college" group="education" can_add="no">
         <include group="poi" />
         <include field="operator" />
       </type>
-      <type id="amenity-doctors">
+      <type id="amenity-doctors" group="health">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="amenity-dentist">
+      <type id="amenity-dentist" group="health">
         <include group="poi" />
         <include field="internet" />
       </type>
@@ -208,7 +206,7 @@
       <type id="amenity-embassy">
         <include group="poi" />
       </type>
-      <type id="amenity-fast_food">
+      <type id="amenity-fast_food" group="food">
         <include group="poi" />
         <include field="operator" />
         <include field="cuisine" />
@@ -233,7 +231,7 @@
       <type id="amenity-grave_yard" can_add="no">
         <include group="poi" />
       </type>
-      <type id="amenity-hospital" can_add="no">
+      <type id="amenity-hospital" group="health" can_add="no">
         <include group="poi" />
         <include field="internet" />
       </type>
@@ -241,7 +239,7 @@
         <include field="name" />
         <include field="height" />
       </type>
-      <type id="amenity-kindergarten" can_add="no">
+      <type id="amenity-kindergarten" group="education" can_add="no">
         <include group="poi" />
         <include field="operator" />
       </type>
@@ -249,7 +247,7 @@
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="amenity-marketplace" can_add="no">
+      <type id="amenity-marketplace" group="big_shop" can_add="no">
         <include group="poi" />
         <include field="operator" />
       </type>
@@ -262,7 +260,7 @@
         <include field="name" />
         <include field="operator" />
       </type>
-      <type id="amenity-pharmacy">
+      <type id="amenity-pharmacy" group="shop">
         <include group="poi" />
         <include field="operator" />
       </type>
@@ -283,7 +281,7 @@
         <include field="postcode" />
         <include field="internet" />
       </type>
-      <type id="amenity-pub">
+      <type id="amenity-pub" group="food">
         <include group="poi" />
         <include field="operator" />
         <include field="cuisine" />
@@ -295,13 +293,13 @@
         <include field="website" />
         <include field="phone" />
       </type>
-      <type id="amenity-restaurant">
+      <type id="amenity-restaurant" group="food">
         <include group="poi" />
         <include field="operator" />
         <include field="cuisine" />
         <include field="internet" />
       </type>
-      <type id="amenity-school" can_add="no">
+      <type id="amenity-school" group="education" can_add="no">
         <include group="poi" />
         <include field="operator" />
       </type>
@@ -323,7 +321,7 @@
       <type id="amenity-townhall" can_add="no">
         <include group="poi" />
       </type>
-      <type id="amenity-university" can_add="no">
+      <type id="amenity-university" group="education" can_add="no">
         <include group="poi" />
       </type>
       <type id="amenity-waste_disposal">
@@ -332,7 +330,7 @@
       <type id="craft" can_add="no">
         <include group="poi" />
       </type>
-      <type id="craft-brewery">
+      <type id="craft-brewery" group="shop">
         <include group="poi" />
       </type>
       <type id="craft-carpenter">
@@ -344,7 +342,7 @@
       <type id="craft-gardener">
         <include group="poi" />
       </type>
-      <type id="craft-hvac">
+      <type id="craft-hvac" group="shop">
         <include group="poi" />
       </type>
       <type id="craft-metal_construction">
@@ -369,23 +367,23 @@
         <include group="poi" />
         <include field="operator" />
       </type>
-      <type id="historic-archaeological_site" can_add="no">
+      <type id="historic-archaeological_site" group="historic" can_add="no">
         <include group="poi" />
         <include field="wikipedia" />
       </type>
-      <type id="historic-castle" can_add="no">
+      <type id="historic-castle" group="historic" can_add="no">
         <include group="poi" />
         <include field="wikipedia" />
       </type>
-      <type id="historic-memorial">
+      <type id="historic-memorial" group="historic">
         <include group="poi" />
         <include field="wikipedia" />
       </type>
-      <type id="historic-monument">
+      <type id="historic-monument" group="historic">
         <include group="poi" />
         <include field="wikipedia" />
       </type>
-      <type id="historic-ruins" can_add="no">
+      <type id="historic-ruins" group="historic" can_add="no">
         <include group="poi" />
         <include field="wikipedia" />
       </type>
@@ -428,16 +426,16 @@
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="office-company">
+      <type id="office-company" group="office">
         <include group="poi" />
       </type>
-      <type id="office-government">
+      <type id="office-government" group="office">
         <include group="poi" />
       </type>
-      <type id="office-lawyer">
+      <type id="office-lawyer" group="office">
         <include group="poi" />
       </type>
-      <type id="office-telecommunication">
+      <type id="office-telecommunication" group="office">
         <include group="poi" />
         <include field="internet" />
         <include field="operator" />
@@ -473,11 +471,11 @@
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-alcohol">
+      <type id="shop-alcohol" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-bakery">
+      <type id="shop-bakery" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
@@ -485,25 +483,25 @@
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-beverages">
+      <type id="shop-beverages" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-bicycle">
-        <include group="poi" />
-        <include field="operator" />
-        <include field="internet" />
-      </type>
-      <type id="shop-books">
+      <type id="shop-bicycle" group="shop">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="shop-butcher">
+      <type id="shop-books" group="shop">
+        <include group="poi" />
+        <include field="operator" />
+        <include field="internet" />
+      </type>
+      <type id="shop-butcher" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-car">
+      <type id="shop-car" group="shop">
         <include field="operator" />
         <include field="internet" />
       </type>
@@ -512,60 +510,60 @@
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="shop-chemist">
+      <type id="shop-chemist" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-clothes">
-        <include group="poi" />
-        <include field="operator" />
-        <include field="internet" />
-      </type>
-      <type id="shop-computer">
-        <include group="poi" />
-        <include field="internet" />
-      </type>
-      <type id="shop-confectionery">
-        <include group="poi" />
-        <include field="internet" />
-      </type>
-      <type id="shop-convenience">
+      <type id="shop-clothes" group="shop">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="shop-department_store">
+      <type id="shop-computer" group="shop">
+        <include group="poi" />
+        <include field="internet" />
+      </type>
+      <type id="shop-confectionery" group="shop">
+        <include group="poi" />
+        <include field="internet" />
+      </type>
+      <type id="shop-convenience" group="shop">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="shop-doityourself">
+      <type id="shop-department_store" group="big_shop">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="shop-electronics">
+      <type id="shop-doityourself" group="shop">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="shop-florist">
+      <type id="shop-electronics" group="shop">
+        <include group="poi" />
+        <include field="operator" />
+        <include field="internet" />
+      </type>
+      <type id="shop-florist" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-furniture">
+      <type id="shop-furniture" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-garden_centre">
+      <type id="shop-garden_centre" group="big_shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-gift">
+      <type id="shop-gift" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-greengrocer">
+      <type id="shop-greengrocer" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
@@ -573,56 +571,56 @@
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-hardware">
+      <type id="shop-hardware" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-jewelry">
+      <type id="shop-jewelry" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="shop-kiosk">
-        <include group="poi" />
-        <include field="operator" />
-        <include field="internet" />
-      </type>
-      <type id="shop-laundry">
+      <type id="shop-kiosk" group="shop">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="shop-mall">
+      <type id="shop-laundry" group="shop">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="shop-mobile_phone">
+      <type id="shop-mall" group="big_shop">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="shop-optician">
-        <include group="poi" />
-        <include field="internet" />
-      </type>
-      <type id="shop-shoes">
-        <include group="poi" />
-        <include field="internet" />
-      </type>
-      <type id="shop-sports">
-        <include group="poi" />
-        <include field="internet" />
-      </type>
-      <type id="shop-supermarket">
+      <type id="shop-mobile_phone" group="shop">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="shop-toys">
+      <type id="shop-optician" group="shop">
         <include group="poi" />
         <include field="internet" />
       </type>
-      <type id="tourism-alpine_hut">
+      <type id="shop-shoes" group="shop">
+        <include group="poi" />
+        <include field="internet" />
+      </type>
+      <type id="shop-sports" group="shop">
+        <include group="poi" />
+        <include field="internet" />
+      </type>
+      <type id="shop-supermarket" group="big_shop">
+        <include group="poi" />
+        <include field="operator" />
+        <include field="internet" />
+      </type>
+      <type id="shop-toys" group="shop">
+        <include group="poi" />
+        <include field="internet" />
+      </type>
+      <type id="tourism-alpine_hut" group="accomodation">
         <include group="poi" />
         <include field="ele" />
         <include field="opening_hours" />
@@ -638,30 +636,30 @@
         <include field="wikipedia" />
         <include field="website" />
       </type>
-      <type id="tourism-camp_site">
+      <type id="tourism-camp_site" group="accomodation">
         <include group="poi" />
         <include field="operator" />
         <include field="website" />
         <include field="opening_hours" />
         <include field="internet" />
       </type>
-      <type id="tourism-caravan_site">
+      <type id="tourism-caravan_site" group="accomodation">
         <include group="poi" />
         <include field="website" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="tourism-guest_house">
+      <type id="tourism-guest_house" group="accomodation">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="tourism-hostel">
+      <type id="tourism-hostel" group="accomodation">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
       </type>
-      <type id="tourism-hotel">
+      <type id="tourism-hotel" group="accomodation">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
@@ -669,7 +667,7 @@
       <type id="tourism-information">
         <include group="poi" />
       </type>
-      <type id="tourism-motel">
+      <type id="tourism-motel" group="accomodation">
         <include group="poi" />
         <include field="operator" />
         <include field="internet" />
@@ -690,11 +688,11 @@
     </types>
 
     <preferred_types>
-      <type id="amenity-restaurant" />
-      <type id="amenity-cafe" />
-      <type id="amenity-fast_food" />
-      <type id="shop-convenience" />
-      <type id="highway-bus_stop" />
+      <type_ref id="amenity-restaurant" />
+      <type_ref id="amenity-cafe" />
+      <type_ref id="amenity-fast_food" />
+      <type_ref id="shop-convenience" />
+      <type_ref id="highway-bus_stop" />
     </preferred_types>
   </editor>
 </mapsme>
