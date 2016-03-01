@@ -124,12 +124,7 @@ using namespace storage;
   {
     TCountriesVec childrenId;
     GetFramework().Storage().GetChildren(self.parentCountryId, childrenId);
-    bool const isChildren =
-        std::any_of(childrenId.cbegin(), childrenId.cend(), [&countryId](TCountryId const & cId)
-                    {
-                      return cId == countryId;
-                    });
-    if (isChildren)
+    if (childrenId.find(countryId) != childrenId.cend())
       process();
   }
 }
