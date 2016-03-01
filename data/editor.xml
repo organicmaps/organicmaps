@@ -84,7 +84,10 @@
         <tag k="addr:flats" />
         <value type="list" />
       </field>
-      <!-- Skipping heights. -->
+      <field name="height">
+        <tag k="height" />
+      </field>
+      <!-- Skipping FMD_MIN_HEIGHT. -->
       <field name="denomination">
         <tag k="denomination" />
       </field>
@@ -688,11 +691,11 @@
     </types>
 
     <preferred_types>
-      <type_ref id="amenity-restaurant" />
-      <type_ref id="amenity-cafe" />
-      <type_ref id="amenity-fast_food" />
-      <type_ref id="shop-convenience" />
-      <type_ref id="highway-bus_stop" />
+      <type id="amenity-restaurant" />
+      <type id="amenity-cafe" />
+      <type id="amenity-fast_food" />
+      <type id="shop-convenience" />
+      <type id="highway-bus_stop" />
     </preferred_types>
   </editor>
 </mapsme>
