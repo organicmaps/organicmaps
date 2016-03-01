@@ -46,78 +46,97 @@ void FeaturesLayerMatcher::OnQueryFinished()
 
 uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId)
 {
-  auto entry = m_matchingStreetsCache.Get(houseId);
-  if (!entry.second)
-    return entry.first;
-
-  FeatureType houseFeature;
-  GetByIndex(houseId, houseFeature);
-
-  entry.first = GetMatchingStreetImpl(houseId, houseFeature);
-  return entry.first;
+  FeatureType feature;
+  return GetMatchingStreetImpl(houseId, feature);
 }
 
 uint32_t FeaturesLayerMatcher::GetMatchingStreet(uint32_t houseId, FeatureType & houseFeature)
 {
-  auto entry = m_matchingStreetsCache.Get(houseId);
-  if (!entry.second)
-    return entry.first;
-
-  entry.first = GetMatchingStreetImpl(houseId, houseFeature);
-  return entry.first;
+  return GetMatchingStreetImpl(houseId, houseFeature);
 }
 
 FeaturesLayerMatcher::TStreets const &
 FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId)
 {
-  auto entry = m_nearbyStreetsCache.Get(featureId);
-  if (!entry.second)
-    return entry.first;
-
   FeatureType feature;
-  GetByIndex(featureId, feature);
-
-  GetNearbyStreetsImpl(feature, entry.first);
-  return entry.first;
+  return GetNearbyStreetsImpl(featureId, feature);
 }
 
 FeaturesLayerMatcher::TStreets const &
 FeaturesLayerMatcher::GetNearbyStreets(uint32_t featureId, FeatureType & feature)
 {
+  return GetNearbyStreetsImpl(featureId, feature);
+}
+
+FeaturesLayerMatcher::TStreets const &
+FeaturesLayerMatcher::GetNearbyStreetsImpl(uint32_t featureId, FeatureType & feature)
+{
   auto entry = m_nearbyStreetsCache.Get(featureId);
   if (!entry.second)
     return entry.first;
 
-  GetNearbyStreetsImpl(feature, entry.first);
-  return entry.first;
-}
+  if (!feature.GetID().IsValid())
+    GetByIndex(featureId, feature);
 
-void FeaturesLayerMatcher::GetNearbyStreetsImpl(FeatureType & feature, TStreets & streets)
-{
+  auto & streets = entry.first;
   m_reverseGeocoder.GetNearbyStreets(feature, streets);
   for (size_t i = 0; i < streets.size(); ++i)
   {
     if (streets[i].m_distanceMeters > ReverseGeocoder::kLookupRadiusM)
     {
       streets.resize(i);
-      return;
+      break;
     }
   }
+
+  return streets;
 }
 
 uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature)
 {
-  auto const & streets = GetNearbyStreets(houseId, houseFeature);
+  // Check if this feature is modified - the logic will be different.
+  string streetName;
+  bool const edited = osm::Editor::Instance().GetEditedFeatureStreet(houseFeature.GetID(), streetName);
 
-  uint32_t index;
-  if (m_houseToStreetTable->Get(houseId, index) && index < streets.size())
-    return streets[index].m_id.m_index;
+  // Check the cached result value.
+  auto entry = m_matchingStreetsCache.Get(houseId);
+  if (!edited && !entry.second)
+    return entry.first;
+
+  // Load feature if needed.
+  if (!houseFeature.GetID().IsValid())
+    GetByIndex(houseId, houseFeature);
+
+  // Get nearby streets and calculate the resulting index.
+  auto const & streets = GetNearbyStreets(houseId, houseFeature);
+  uint32_t & result = entry.first;
+  result = kInvalidId;
+
+  if (edited)
+  {
+    auto ret = find_if(streets.begin(), streets.end(), [&streetName](TStreet const & st)
+    {
+      return st.m_name == streetName;
+    });
+    if (ret != streets.end())
+      result = ret->m_id.m_index;
+  }
+  else
+  {
+    uint32_t index;
+    if (m_houseToStreetTable->Get(houseId, index) && index < streets.size())
+      result = streets[index].m_id.m_index;
+  }
 
   // If there is no saved street for feature, assume that it's a nearest street if it's too close.
-  if (!streets.empty() && streets[0].m_distanceMeters < kMaxApproxStreetDistanceM)
-    return streets[0].m_id.m_index;
+  if (result == kInvalidId &&
+      !streets.empty() &&
+      streets[0].m_distanceMeters < kMaxApproxStreetDistanceM)
+  {
+    result = streets[0].m_id.m_index;
+  }
 
-  return kInvalidId;
+  return result;
 }
 
 }  // namespace v2

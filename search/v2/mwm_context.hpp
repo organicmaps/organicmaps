@@ -12,9 +12,14 @@ namespace search
 {
 namespace v2
 {
+
+void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result);
+
+/// @todo Move this class into "index" library and make it more generic.
+/// Now it duplicates "Index" functionality.
 struct MwmContext
 {
-  MwmContext(MwmSet::MwmHandle handle);
+  explicit MwmContext(MwmSet::MwmHandle handle);
 
   MwmSet::MwmHandle m_handle;
   MwmValue & m_value;
@@ -25,33 +30,58 @@ struct MwmContext
   inline string const & GetName() const { return GetInfo()->GetCountryName(); }
   inline shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
 
-  template <class TFn> void ForEachFeature(m2::RectD const & rect, TFn && fn)
+  template <class TFn> void ForEachIndex(covering::IntervalsT const & intervals,
+                                         uint32_t scale, TFn && fn) const
   {
-    feature::DataHeader const & header = m_value.GetHeader();
-    covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
-
-    uint32_t const scale = header.GetLastScale();
-    covering::IntervalsT const & interval = covering.Get(scale);
-
-    CheckUniqueIndexes checkUnique(header.GetFormat() >= version::Format::v5);
-    for (auto const & i : interval)
+    ForEachIndexImpl(intervals, scale, [&](uint32_t index)
     {
-      m_index.ForEachInIntervalAndScale([&](uint32_t index)
-                                        {
-                                          if (checkUnique(index))
-                                          {
-                                            FeatureType ft;
-                                            GetFeature(index, ft);
-                                            fn(ft);
-                                          }
-                                        }, i.first, i.second, scale);
-    }
+      if (GetEditedStatus(index) != osm::Editor::FeatureStatus::Deleted)
+        fn(index);
+    });
   }
 
-  inline void GetFeature(uint32_t index, FeatureType & ft) const
+  template <class TFn> void ForEachFeature(m2::RectD const & rect, TFn && fn) const
   {
-    m_vector.GetByIndex(index, ft);
-    ft.SetID(FeatureID(GetId(), index));
+    uint32_t const scale = m_value.GetHeader().GetLastScale();
+    covering::IntervalsT intervals;
+    CoverRect(rect, scale, intervals);
+
+    ForEachIndexImpl(intervals, scale,
+                     [&](uint32_t index)
+                     {
+                       FeatureType ft;
+
+                       switch (GetEditedStatus(index))
+                       {
+                       case osm::Editor::FeatureStatus::Deleted: return;
+                       case osm::Editor::FeatureStatus::Modified:
+                         VERIFY(osm::Editor::Instance().GetEditedFeature(GetId(), index, ft), ());
+                         fn(ft);
+                         return;
+                       case osm::Editor::FeatureStatus::Created:
+                         CHECK(false, ("Created features index should be generated."));
+                       case osm::Editor::FeatureStatus::Untouched: break;
+                       }
+
+                       GetFeature(index, ft);
+                       fn(ft);
+                     });
+  }
+
+  void GetFeature(uint32_t index, FeatureType & ft) const;
+
+private:
+  osm::Editor::FeatureStatus GetEditedStatus(uint32_t index) const
+  {
+    return osm::Editor::Instance().GetFeatureStatus(GetId(), index);
+  }
+
+  template <class TFn> void ForEachIndexImpl(covering::IntervalsT const & intervals,
+                                             uint32_t scale, TFn && fn) const
+  {
+    CheckUniqueIndexes checkUnique(m_value.GetHeader().GetFormat() >= version::Format::v5);
+    for (auto const & i : intervals)
+      m_index.ForEachInIntervalAndScale([&] (uint32_t index) { fn(index); }, i.first, i.second, scale);
   }
 
   DISALLOW_COPY_AND_MOVE(MwmContext);

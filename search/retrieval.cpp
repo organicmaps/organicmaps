@@ -6,6 +6,8 @@
 #include "search_index_values.hpp"
 #include "search_trie.hpp"
 
+#include "v2/mwm_context.hpp"
+
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/index.hpp"
@@ -48,13 +50,6 @@ unique_ptr<coding::CompressedBitVector> SortFeaturesAndBuildCBV(vector<uint64_t>
 {
   my::SortUnique(features);
   return coding::CompressedBitVectorBuilder::FromBitPositions(move(features));
-}
-
-void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
-{
-  covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
-  auto const & intervals = covering.Get(scale);
-  result.insert(result.end(), intervals.begin(), intervals.end());
 }
 
 bool MatchFeatureByName(FeatureType const & ft, SearchQueryParams const & params)
@@ -147,27 +142,19 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
 // Retrieves from the geometry index corresponding to handle all
 // features from |coverage|.
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
-    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+    v2::MwmContext const & context, my::Cancellable const & cancellable,
     covering::IntervalsT const & coverage, int scale)
 {
-  // TODO(AlexZ): Also add created features.
-  auto const deleted = Editor::Instance().GetFeaturesByStatus(id, Editor::FeatureStatus::Deleted);
-  // TODO (@y, @m): remove this code as soon as geometry index will
-  // have native support for bit vectors.
-  vector<uint64_t> features;
   uint32_t counter = 0;
-  auto const collector = [&](uint64_t featureId)
+  vector<uint64_t> features;
+
+  context.ForEachIndex(coverage, scale, [&](uint64_t featureId)
   {
-    if (binary_search(deleted.begin(), deleted.end(), static_cast<uint32_t>(featureId)))
-      return;
     if ((++counter & 0xFF) == 0)
       BailIfCancelled(cancellable);
     features.push_back(featureId);
-  };
+  });
 
-  ScaleIndex<ModelReaderPtr> index(value.m_cont.GetReader(INDEX_FILE_TAG), value.m_factory);
-  for (auto const & interval : coverage)
-    index.ForEachInIntervalAndScale(collector, interval.first, interval.second, scale);
   return SortFeaturesAndBuildCBV(move(features));
 }
 
@@ -295,10 +282,14 @@ public:
       if (m_prevScale < 0)
       {
         covering::IntervalsT coverage;
-        CoverRect(currViewport, m_coverageScale, coverage);
-        geometryFeatures =
-            RetrieveGeometryFeaturesImpl(m_handle.GetId(), *m_handle.GetValue<MwmValue>(),
-                                         cancellable, coverage, m_coverageScale);
+        v2::CoverRect(currViewport, m_coverageScale, coverage);
+
+        /// @todo I didn't find a better solution for now to share MwmHandle.
+        v2::MwmContext context(move(m_handle));
+        geometryFeatures = RetrieveGeometryFeaturesImpl(context, cancellable,
+                                                        coverage, m_coverageScale);
+        m_handle = move(context.m_handle);
+
         for (auto const & interval : coverage)
           m_visited.Add(interval);
       }
@@ -313,10 +304,10 @@ public:
         m2::RectD d(a.LeftBottom(), c.LeftBottom());
 
         covering::IntervalsT coverage;
-        CoverRect(a, m_coverageScale, coverage);
-        CoverRect(b, m_coverageScale, coverage);
-        CoverRect(c, m_coverageScale, coverage);
-        CoverRect(d, m_coverageScale, coverage);
+        v2::CoverRect(a, m_coverageScale, coverage);
+        v2::CoverRect(b, m_coverageScale, coverage);
+        v2::CoverRect(c, m_coverageScale, coverage);
+        v2::CoverRect(d, m_coverageScale, coverage);
 
         my::SortUnique(coverage);
         coverage = covering::SortAndMergeIntervals(coverage);
@@ -331,9 +322,11 @@ public:
         for (auto const & interval : coverage)
           m_visited.SubtractFrom(interval, reducedCoverage);
 
-        geometryFeatures =
-            RetrieveGeometryFeaturesImpl(m_handle.GetId(), *m_handle.GetValue<MwmValue>(),
-                                         cancellable, reducedCoverage, m_coverageScale);
+        /// @todo I didn't find a better solution for now to share MwmHandle.
+        v2::MwmContext context(move(m_handle));
+        geometryFeatures = RetrieveGeometryFeaturesImpl(context, cancellable,
+                                                        reducedCoverage, m_coverageScale);
+        m_handle = move(context.m_handle);
 
         for (auto const & interval : reducedCoverage)
           m_visited.Add(interval);
@@ -454,12 +447,12 @@ unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveAddressFeatures(
 
 // static
 unique_ptr<coding::CompressedBitVector> Retrieval::RetrieveGeometryFeatures(
-    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+    v2::MwmContext const & context, my::Cancellable const & cancellable,
     m2::RectD const & rect, int scale)
 {
   covering::IntervalsT coverage;
-  CoverRect(rect, scale, coverage);
-  return RetrieveGeometryFeaturesImpl(id, value, cancellable, coverage, scale);
+  v2::CoverRect(rect, scale, coverage);
+  return RetrieveGeometryFeaturesImpl(context, cancellable, coverage, scale);
 }
 
 void Retrieval::Init(Index & index, vector<shared_ptr<MwmInfo>> const & infos,

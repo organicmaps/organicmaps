@@ -23,6 +23,8 @@ class CompressedBitVector;
 
 namespace search
 {
+namespace v2 { struct MwmContext; }
+
 class Retrieval : public my::Cancellable
 {
 public:
@@ -112,7 +114,7 @@ public:
 
   // Retrieves from the geometry index corresponding to |value| all features belonging to |rect|.
   WARN_UNUSED_RESULT static unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
-      MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+      v2::MwmContext const & context, my::Cancellable const & cancellable,
       m2::RectD const & rect, int scale);
 
   // Initializes retrieval process, sets up internal state, takes all

@@ -325,11 +325,12 @@ private:
   uint32_t GetMatchingStreet(uint32_t houseId, FeatureType & houseFeature);
   uint32_t GetMatchingStreetImpl(uint32_t houseId, FeatureType & houseFeature);
 
-  using TStreets = vector<ReverseGeocoder::Street>;
+  using TStreet = ReverseGeocoder::Street;
+  using TStreets = vector<TStreet>;
 
   TStreets const & GetNearbyStreets(uint32_t featureId);
   TStreets const & GetNearbyStreets(uint32_t featureId, FeatureType & feature);
-  void GetNearbyStreetsImpl(FeatureType & feature, TStreets & streets);
+  TStreets const & GetNearbyStreetsImpl(uint32_t featureId, FeatureType & feature);
 
   inline void GetByIndex(uint32_t id, FeatureType & ft) const
   {
