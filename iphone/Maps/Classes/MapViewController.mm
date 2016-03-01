@@ -647,13 +647,13 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
     case NodeErrorCode::NoError:
       break;
     case NodeErrorCode::UnknownError:
-      [Statistics logEvent:[NSString stringWithFormat:@"%@%@", kStatDownloaderError, kStatUnknownError]];
+      [Statistics logEvent:kStatDownloaderMapError withParameters:@{kStatType : kStatUnknownError}];
       break;
     case NodeErrorCode::OutOfMemFailed:
-      [Statistics logEvent:[NSString stringWithFormat:@"%@%@", kStatDownloaderError, kStatNotEnoughSpaceError]];
+      [Statistics logEvent:kStatDownloaderMapError withParameters:@{kStatType : kStatNotEnoughSpaceError}];
       break;
     case NodeErrorCode::NoInetConnection:
-      [Statistics logEvent:[NSString stringWithFormat:@"%@%@", kStatDownloaderError, kStatNetworkError]];
+      [Statistics logEvent:kStatDownloaderMapError withParameters:@{kStatType : kStatNetworkError}];
       break;
   }
 }
