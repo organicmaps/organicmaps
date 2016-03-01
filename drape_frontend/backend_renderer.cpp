@@ -171,14 +171,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         for (drape_ptr<MapShape> const & shape : msg->GetShapes())
         {
           batcher->SetFeatureMinZoom(shape->GetFeatureMinZoom());
-          bool const sharedFeature = shape->GetFeatureInfo().IsValid();
-          if (sharedFeature)
-            batcher->StartFeatureRecord(shape->GetFeatureInfo(), shape->GetFeatureLimitRect());
-
           shape->Draw(batcher, m_texMng);
-
-          if (sharedFeature)
-            batcher->EndFeatureRecord();
         }
       }
       break;

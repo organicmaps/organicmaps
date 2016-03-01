@@ -18,7 +18,7 @@ public:
 
   static void MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
                            vector<drape_ptr<RenderGroup>> & mergedBatches,
-                           bool isPerspective, bool sharedFeatures);
+                           bool isPerspective);
 };
 
 }

@@ -51,35 +51,11 @@ public:
       todo(make_ref(h));
   }
 
-  bool IsShared() const { return !m_featuresGeometryInfo.empty(); }
-  void StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect);
-  void EndFeatureRecord(bool featureCompleted);
-
   void SetFeatureMinZoom(int minZoom);
   int GetMinZoom() const { return m_featuresMinZoom; }
 
-  using TCheckFeaturesWaiting = function<bool(m2::RectD const &)>;
-  bool IsFeaturesWaiting(TCheckFeaturesWaiting isFeaturesWaiting);
-
-  void AddFeaturesInfo(RenderBucket const & bucket);
-
 private:
-  struct FeatureGeometryInfo
-  {
-    FeatureGeometryInfo() = default;
-    FeatureGeometryInfo(m2::RectD const & limitRect)
-      : m_limitRect(limitRect)
-    {}
-
-    m2::RectD m_limitRect;
-    bool m_featureCompleted = false;
-  };
-  using TFeaturesGeometryInfo = map<FeatureGeometryId, FeatureGeometryInfo>;
-  using TFeatureInfo = pair<FeatureGeometryId, FeatureGeometryInfo>;
-
   int m_featuresMinZoom = numeric_limits<int>::max();
-  TFeatureInfo m_featureInfo;
-  TFeaturesGeometryInfo m_featuresGeometryInfo;
 
   vector<drape_ptr<OverlayHandle> > m_overlay;
   drape_ptr<VertexArrayBuffer> m_buffer;

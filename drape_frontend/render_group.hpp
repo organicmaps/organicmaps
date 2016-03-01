@@ -66,21 +66,19 @@ public:
 
   void DeleteLater() const
   {
-    m_sharedFeaturesWaiting = true;
+    m_featuresWaiting = true;
     m_pendingOnDelete = true;
   }
 
-  bool IsSharedFeaturesWaiting() const { return m_sharedFeaturesWaiting; }
+  bool IsFeaturesWaiting() const { return m_featuresWaiting; }
   bool IsPendingOnDelete() const { return m_pendingOnDelete; }
 
   bool CanBeDeleted() const
   {
-    return IsPendingOnDelete() && !IsSharedFeaturesWaiting();
+    return IsPendingOnDelete() && !IsFeaturesWaiting();
   }
 
-  using TCheckFeaturesWaiting = function<bool(m2::RectD const &)>;
-  bool UpdateFeaturesWaitingStatus(TCheckFeaturesWaiting isFeaturesWaiting,
-                                   int currentZoom, ref_ptr<dp::OverlayTree> tree,
+  bool UpdateFeaturesWaitingStatus(bool waitTileFeatures, int currentZoom, ref_ptr<dp::OverlayTree> tree,
                                    deque<drape_ptr<dp::RenderBucket>> & bucketsToDelete);
 
   bool IsLess(RenderGroup const & other) const;
@@ -88,7 +86,7 @@ public:
 private:
   vector<drape_ptr<dp::RenderBucket> > m_renderBuckets;
   mutable bool m_pendingOnDelete;
-  mutable bool m_sharedFeaturesWaiting;
+  mutable bool m_featuresWaiting;
 
 private:
   friend string DebugPrint(RenderGroup const & group);

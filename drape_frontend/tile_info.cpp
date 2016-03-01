@@ -32,6 +32,9 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
   {
     CheckCanceled();
 
+    size_t const kAverageFeaturesCount = 256;
+    m_featureInfo.reserve(kAverageFeaturesCount);
+
 #ifdef DEBUG
     set<MwmSet::MwmId> existing;
     MwmSet::MwmId lastMwm;
@@ -46,72 +49,34 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
     model.ReadFeaturesID([this](FeatureID const & id)
     {
 #endif
-      m_featureInfo.insert(make_pair(id, false));
+      m_featureInfo.push_back(id);
     }, GetGlobalRect(), GetZoomLevel());
   }
 }
 
-void TileInfo::DiscardFeatureInfo(FeatureID const & featureId, MemoryFeatureIndex & memIndex)
-{
-  MemoryFeatureIndex::Lock lock(memIndex);
-  UNUSED_VALUE(lock);
-
-  CheckCanceled();
-
-  m_featureInfo.erase(featureId);
-}
-
-bool TileInfo::SetFeatureOwner(FeatureID const & featureId, MemoryFeatureIndex & memIndex)
-{
-  MemoryFeatureIndex::Lock lock(memIndex);
-  UNUSED_VALUE(lock);
-
-  CheckCanceled();
-
-  if (!m_featureInfo[featureId])
-  {
-    bool isOwner = memIndex.SetFeatureOwner(featureId);
-    m_featureInfo[featureId] = isOwner;
-    return isOwner;
-  }
-  return false;
-}
-
-void TileInfo::ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & memIndex)
+void TileInfo::ReadFeatures(MapDataProvider const & model)
 {
   m_context->BeginReadTile();
 
   // Reading can be interrupted by exception throwing
   MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, m_context.get()));
 
-  vector<FeatureID> featuresToRead;
-  {
-    MemoryFeatureIndex::Lock lock(memIndex);
-    UNUSED_VALUE(lock);
+  ReadFeatureIndex(model);
+  CheckCanceled();
 
-    ReadFeatureIndex(model);
-    CheckCanceled();
-    memIndex.ReadFeaturesRequest(m_featureInfo, featuresToRead);
-  }
-
-  if (!featuresToRead.empty())
+  if (!m_featureInfo.empty())
   {
     RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1, _2),
                       bind(&TileInfo::IsCancelled, this),
-                      bind(&TileInfo::SetFeatureOwner, this, _1, ref(memIndex)),
-                      bind(&TileInfo::DiscardFeatureInfo, this, _1, ref(memIndex)),
                       model.m_isCountryLoadedByName,
                       make_ref(m_context), m_is3dBuildings);
-    model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
+    model.ReadFeatures(bind<void>(ref(drawer), _1), m_featureInfo);
   }
 }
 
-void TileInfo::Cancel(MemoryFeatureIndex & memIndex)
+void TileInfo::Cancel()
 {
   m_isCanceled = true;
-  MemoryFeatureIndex::Lock lock(memIndex);
-  UNUSED_VALUE(lock);
-  memIndex.RemoveFeatures(m_featureInfo);
 }
 
 bool TileInfo::IsCancelled() const

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "drape_frontend/engine_context.hpp"
-#include "drape_frontend/memory_feature_index.hpp"
 #include "drape_frontend/tile_key.hpp"
 
 #include "indexer/feature_decl.hpp"
@@ -10,6 +9,7 @@
 
 #include "std/atomic.hpp"
 #include "std/mutex.hpp"
+#include "std/noncopyable.hpp"
 #include "std/vector.hpp"
 
 class FeatureType;
@@ -27,11 +27,9 @@ public:
 
   TileInfo(drape_ptr<EngineContext> && context);
 
-  void ReadFeatures(MapDataProvider const & model, MemoryFeatureIndex & memIndex);
-  void Cancel(MemoryFeatureIndex & memIndex);
+  void ReadFeatures(MapDataProvider const & model);
+  void Cancel();
   bool IsCancelled() const;
-  bool SetFeatureOwner(FeatureID const & featureId, MemoryFeatureIndex & memIndex);
-  void DiscardFeatureInfo(FeatureID const & featureId, MemoryFeatureIndex & memIndex);
 
   void Set3dBuildings(bool buildings3d) { m_is3dBuildings = buildings3d; }
   bool Get3dBuildings() const { return m_is3dBuildings; }
@@ -50,7 +48,7 @@ private:
 
 private:
   drape_ptr<EngineContext> m_context;
-  TFeaturesInfo m_featureInfo;
+  vector<FeatureID> m_featureInfo;
   bool m_is3dBuildings;
 
   atomic<bool> m_isCanceled;

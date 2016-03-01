@@ -26,12 +26,9 @@ class RuleDrawer
 public:
   using TDrawerCallback = function<void (FeatureType const &, Stylist &)>;
   using TCheckCancelledCallback = function<bool ()>;
-  using TSetOwnerCallback = function<bool (FeatureID const &)>;
-  using TDiscardFeature = function<void (FeatureID const &)>;
   using TIsCountryLoadedByNameFn = function<bool (string const &)>;
 
   RuleDrawer(TDrawerCallback const & drawerFn, TCheckCancelledCallback const & checkCancelled,
-             TSetOwnerCallback const & setOwnerFn, TDiscardFeature const & discardFeature,
              TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<EngineContext> context, bool is3dBuildings);
   ~RuleDrawer();
 
@@ -42,8 +39,6 @@ private:
 
   TDrawerCallback m_callback;
   TCheckCancelledCallback m_checkCancelled;
-  TSetOwnerCallback m_setOwnerFn;
-  TDiscardFeature m_discardFeatureFn;
   TIsCountryLoadedByNameFn m_isLoadedFn;
 
   ref_ptr<EngineContext> m_context;

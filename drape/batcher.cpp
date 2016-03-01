@@ -179,29 +179,6 @@ void Batcher::SetFeatureMinZoom(int minZoom)
     bucket.second->SetFeatureMinZoom(m_featureMinZoom);
 }
 
-void Batcher::StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect)
-{
-  m_currentFeature = feature;
-  m_featureLimitRect = limitRect;
-
-  if (!m_currentFeature.IsValid())
-    return;
-
-  for (auto const & bucket : m_buckets)
-    bucket.second->StartFeatureRecord(feature, limitRect);
-}
-
-void Batcher::EndFeatureRecord()
-{
-  if (!m_currentFeature.IsValid())
-    return;
-
-  m_currentFeature = FeatureGeometryId();
-
-  for (auto const & bucket : m_buckets)
-    bucket.second->EndFeatureRecord(true);
-}
-
 void Batcher::ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper)
 {
   GLState const & state = wrapper->GetState();
@@ -213,31 +190,26 @@ void Batcher::ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper)
 
 ref_ptr<RenderBucket> Batcher::GetBucket(GLState const & state)
 {
-  TBuckets::iterator it = m_buckets.find(BucketId(state, m_currentFeature.IsValid()));
+  TBuckets::iterator it = m_buckets.find(state);
   if (it != m_buckets.end())
     return make_ref(it->second);
 
   drape_ptr<VertexArrayBuffer> vao = make_unique_dp<VertexArrayBuffer>(m_indexBufferSize, m_vertexBufferSize);
   drape_ptr<RenderBucket> buffer = make_unique_dp<RenderBucket>(move(vao));
   ref_ptr<RenderBucket> result = make_ref(buffer);
-  if (m_currentFeature.IsValid())
-    result->StartFeatureRecord(m_currentFeature, m_featureLimitRect);
   result->SetFeatureMinZoom(m_featureMinZoom);
 
-  m_buckets.emplace(BucketId(state, m_currentFeature.IsValid()), move(buffer));
+  m_buckets.emplace(state, move(buffer));
 
   return result;
 }
 
 void Batcher::FinalizeBucket(GLState const & state)
 {
-  BucketId bucketId(state, m_currentFeature.IsValid());
-  TBuckets::iterator it = m_buckets.find(bucketId);
+  TBuckets::iterator it = m_buckets.find(state);
   ASSERT(it != m_buckets.end(), ("Have no bucket for finalize with given state"));
   drape_ptr<RenderBucket> bucket = move(it->second);
-  m_buckets.erase(bucketId);
-  if (m_currentFeature.IsValid())
-    bucket->EndFeatureRecord(false);
+  m_buckets.erase(state);
 
   bucket->GetBuffer()->Preflush();
   m_flushInterface(state, move(bucket));
@@ -249,10 +221,8 @@ void Batcher::Flush()
   for_each(m_buckets.begin(), m_buckets.end(), [this](TBuckets::value_type & bucket)
   {
     ASSERT(bucket.second != nullptr, ());
-    if (m_currentFeature.IsValid())
-      bucket.second->EndFeatureRecord(true);
     bucket.second->GetBuffer()->Preflush();
-    m_flushInterface(bucket.first.m_state, move(bucket.second));
+    m_flushInterface(bucket.first, move(bucket.second));
   });
 
   m_buckets.clear();

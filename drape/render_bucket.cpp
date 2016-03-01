@@ -114,36 +114,6 @@ void RenderBucket::SetFeatureMinZoom(int minZoom)
     m_featuresMinZoom = minZoom;
 }
 
-void RenderBucket::StartFeatureRecord(FeatureGeometryId feature, const m2::RectD & limitRect)
-{
-  m_featureInfo = make_pair(feature, FeatureGeometryInfo(limitRect));
-  m_buffer->ResetChangingTracking();
-}
-
-void RenderBucket::EndFeatureRecord(bool featureCompleted)
-{
-  ASSERT(m_featureInfo.first.IsValid(), ());
-  m_featureInfo.second.m_featureCompleted = featureCompleted;
-  if (m_buffer->IsChanged())
-    m_featuresGeometryInfo.insert(m_featureInfo);
-  m_featureInfo = TFeatureInfo();
-}
-
-void RenderBucket::AddFeaturesInfo(RenderBucket const & bucket)
-{
-  for (auto const & info : bucket.m_featuresGeometryInfo)
-    m_featuresGeometryInfo.insert(info);
-}
-
-bool RenderBucket::IsFeaturesWaiting(TCheckFeaturesWaiting isFeaturesWaiting)
-{
-  ASSERT(IsShared(), ());
-  for (auto const & featureRange : m_featuresGeometryInfo)
-    if (isFeaturesWaiting(featureRange.second.m_limitRect))
-      return true;
-  return false;
-}
-
 void RenderBucket::RenderDebug(ScreenBase const & screen) const
 {
 #ifdef RENDER_DEBUG_RECTS

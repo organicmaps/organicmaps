@@ -49,7 +49,6 @@ private:
   void PushTaskFront(shared_ptr<TileInfo> const & tileToReread);
 
 private:
-  MemoryFeatureIndex m_memIndex;
   ref_ptr<ThreadsCommutator> m_commutator;
 
   MapDataProvider & m_model;

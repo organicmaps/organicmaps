@@ -859,16 +859,15 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 
   bool const waitFeatures = !m_notFinishedTiles.empty();
   m2::RectD const & screenRect = modelView.ClipRect();
-  auto isFeaturesWaiting = [&screenRect, waitFeatures](m2::RectD const & rect)
-  {
-    return waitFeatures && rect.IsIntersect(screenRect);
-  };
-
   for (RenderLayer & layer : m_layers)
   {
     for (auto & group : layer.m_renderGroups)
-      layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(isFeaturesWaiting, m_currentZoomLevel,
+    {
+      m2::RectD const tileRect = group->GetTileKey().GetGlobalRect();
+      bool const waitTileFeatures = waitFeatures && tileRect.IsIntersect(screenRect);
+      layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(waitTileFeatures, m_currentZoomLevel,
                                                             make_ref(m_overlayTree), m_bucketsToDelete);
+    }
   }
 
   bool const isPerspective = modelView.isPerspective();
@@ -1068,14 +1067,9 @@ void FrontendRenderer::MergeBuckets()
     for (TGroupMap::value_type & node : forMerge)
     {
       if (node.second.size() < 2)
-      {
         newGroups.emplace_back(move(node.second.front()));
-      }
       else
-      {
-        BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective, true);
-        BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective, false);
-      }
+        BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective);
     }
 
     layer.m_renderGroups = move(newGroups);

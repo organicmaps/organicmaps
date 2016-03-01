@@ -17,8 +17,7 @@ namespace df
 class ReadMWMTask : public threads::IRoutine
 {
 public:
-  ReadMWMTask(MemoryFeatureIndex & memIndex,
-              MapDataProvider & model);
+  ReadMWMTask(MapDataProvider & model);
 
   void Do() override;
 
@@ -30,7 +29,6 @@ public:
 private:
   weak_ptr<TileInfo> m_tileInfo;
   TileKey m_tileKey;
-  MemoryFeatureIndex & m_memIndex;
   MapDataProvider & m_model;
 
 #ifdef DEBUG
@@ -42,19 +40,16 @@ private:
 class ReadMWMTaskFactory
 {
 public:
-  ReadMWMTaskFactory(MemoryFeatureIndex & memIndex,
-                     MapDataProvider & model)
-    : m_memIndex(memIndex)
-    , m_model(model) {}
+  ReadMWMTaskFactory(MapDataProvider & model)
+    : m_model(model) {}
 
   /// Caller must handle object life cycle
   ReadMWMTask * GetNew() const
   {
-    return new ReadMWMTask(m_memIndex, m_model);
+    return new ReadMWMTask(m_model);
   }
 
 private:
-  MemoryFeatureIndex & m_memIndex;
   MapDataProvider & m_model;
 };
 
