@@ -3,6 +3,7 @@ package com.mapswithme.maps.downloader;
 import android.location.Location;
 
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.util.statistics.Statistics;
 
 @android.support.annotation.UiThread
 final class MigrationController
@@ -54,6 +55,8 @@ final class MigrationController
       mState = State.ERROR;
       mError = code;
       callStateError();
+
+      MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_MIGRATION_ERROR, code);
     }
   };
 

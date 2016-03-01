@@ -25,6 +25,7 @@ import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.Statistics;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -51,11 +52,15 @@ public class MwmApplication extends Application
   private final MapManager.StorageCallback mStorageCallbacks = new MapManager.StorageCallback()
   {
     @Override
-    public void onStatusChanged(String countryId, int newStatus)
+    public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
     {
       Notifier.cancelDownloadSuggest();
-      if (newStatus == CountryItem.STATUS_FAILED)
-        Notifier.notifyDownloadFailed(countryId);
+      if (newStatus == CountryItem.STATUS_FAILED && isLeafNode)
+      {
+        CountryItem country = CountryItem.fill(countryId);
+        Notifier.notifyDownloadFailed(country);
+        MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, country.errorCode);
+      }
     }
 
     @Override

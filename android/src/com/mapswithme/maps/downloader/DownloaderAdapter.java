@@ -31,6 +31,7 @@ import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
@@ -62,8 +63,14 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       @Override
       void invoke(CountryItem item, DownloaderAdapter adapter)
       {
-        CANCEL.invoke(item, adapter);
+        MapManager.nativeCancel(item.id);
         MapManager.nativeDelete(item.id);
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, "delete")
+                                                          .add(Statistics.EventParam.FROM, "downloader")
+                                                          .add("scenario", (item.isExpandable() ? "delete_group"
+                                                                                                : "delete")));
       }
     },
 
@@ -73,6 +80,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       void invoke(CountryItem item, DownloaderAdapter adapter)
       {
         MapManager.nativeCancel(item.id);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                       Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
       }
     },
 
@@ -84,6 +93,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         // TODO: Jump to country
         if (adapter.mActivity instanceof MwmActivity)
           adapter.mActivity.finish();
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, "explore")
+                                                          .add(Statistics.EventParam.FROM, "downloader"));
       }
     },
 
@@ -96,6 +109,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
         if (item.status == CountryItem.STATUS_UPDATABLE)
           MapManager.nativeUpdate(item.id);
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, "update")
+                                                 .add(Statistics.EventParam.FROM, "downloader")
+                                                 .add("is_auto", "false")
+                                                 .add("scenario", (item.isExpandable() ? "update_group"
+                                                                                       : "update")));
       }
     };
 
@@ -130,7 +150,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
     @Override
-    public void onStatusChanged(String countryId, int newStatus)
+    public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
     {
       if (mSearchResultsMode)
         updateItem(countryId);
@@ -166,6 +186,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       case CountryItem.STATUS_DOWNLOADABLE:
         MapManager.nativeDownload(mItem.id);
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                          .add(Statistics.EventParam.FROM, "downloader")
+                                                          .add("is_auto", "false")
+                                                          .add("scenario", (mItem.isExpandable() ? "download_group"
+                                                                                                 : "download")));
         break;
 
       case CountryItem.STATUS_FAILED:
@@ -175,10 +202,19 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       case CountryItem.STATUS_PROGRESS:
       case CountryItem.STATUS_ENQUEUED:
         MapManager.nativeCancel(mItem.id);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                       Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
         break;
 
       case CountryItem.STATUS_UPDATABLE:
         MapManager.nativeUpdate(mItem.id);
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, "update")
+                                                          .add(Statistics.EventParam.FROM, "downloader")
+                                                          .add("is_auto", "false")
+                                                          .add("scenario", (mItem.isExpandable() ? "update_group"
+                                                                                                 : "update")));
         break;
 
       default:
@@ -286,6 +322,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         public void onClick(View v)
         {
           MapManager.nativeCancel(mItem.id);
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                         Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
         }
       });
     }

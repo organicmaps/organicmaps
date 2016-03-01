@@ -8,6 +8,7 @@ import android.view.View;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 class DownloaderToolbarController extends SearchToolbarController
 {
@@ -32,6 +33,12 @@ class DownloaderToolbarController extends SearchToolbarController
       public void onClick(View v)
       {
         MapManager.nativeDownload(mFragment.getAdapter().getCurrentParent());
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                          .add(Statistics.EventParam.FROM, "downloader")
+                                                          .add("is_auto", "false")
+                                                          .add("scenario", "download_group"));
       }
     });
 
@@ -41,6 +48,12 @@ class DownloaderToolbarController extends SearchToolbarController
       public void onClick(View v)
       {
         MapManager.nativeUpdate(mFragment.getAdapter().getCurrentParent());
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, "update")
+                                                          .add(Statistics.EventParam.FROM, "downloader")
+                                                          .add("is_auto", "false")
+                                                          .add("scenario", "update_all"));
       }
     });
 
@@ -50,6 +63,9 @@ class DownloaderToolbarController extends SearchToolbarController
       public void onClick(View v)
       {
         MapManager.nativeCancel(mFragment.getAdapter().getCurrentParent());
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                       Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
       }
     });
   }

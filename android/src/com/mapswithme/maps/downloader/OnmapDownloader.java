@@ -13,6 +13,7 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 {
@@ -30,9 +31,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
     @Override
-    public void onStatusChanged(String countryId, int newStatus)
+    public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
     {
-      if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
+      if (mCurrentCountry != null && isLeafNode && mCurrentCountry.id.equals(countryId))
       {
         mCurrentCountry.update();
         updateState();
@@ -90,15 +91,23 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           mProgress.setProgress((int)(mCurrentCountry.progress * 100L / mCurrentCountry.totalSize));
         else
         {
-          boolean failed = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
-          if (!failed &&
+          boolean success = (mCurrentCountry.status != CountryItem.STATUS_FAILED);
+          if (success &&
               !MapManager.nativeIsLegacyMode() &&
               Config.isAutodownloadMaps() &&
               ConnectionState.isWifiConnected())
+          {
             MapManager.nativeDownload(mCurrentCountry.id);
 
-          mButton.setText(failed ? R.string.downloader_retry
-                                 : R.string.download);
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                           Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                              .add(Statistics.EventParam.FROM, "map")
+                                                              .add("is_auto", "true")
+                                                              .add("scenario", "download"));
+          }
+
+          mButton.setText(success ? R.string.download
+                                  : R.string.downloader_retry);
         }
       }
     }
@@ -123,6 +132,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       public void onClick(View v)
       {
         MapManager.nativeCancel(mCurrentCountry.id);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                       Statistics.params().add(Statistics.EventParam.FROM, "map"));
       }
     });
 
@@ -137,10 +148,17 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           return;
         }
 
-        if (mCurrentCountry.status == CountryItem.STATUS_FAILED)
+        boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
+        if (retry)
           MapManager.nativeRetry(mCurrentCountry.id);
         else
           MapManager.nativeDownload(mCurrentCountry.id);
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, (retry ? "retry" : "download"))
+                                                          .add(Statistics.EventParam.FROM, "map")
+                                                          .add("is_auto", "false")
+                                                          .add("scenario", "download"));
       }
     });
 

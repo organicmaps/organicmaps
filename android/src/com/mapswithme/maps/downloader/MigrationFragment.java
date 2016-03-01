@@ -16,6 +16,7 @@ import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 public class MigrationFragment extends BaseMwmFragment
                             implements OnBackPressListener,
@@ -32,7 +33,12 @@ public class MigrationFragment extends BaseMwmFragment
     @Override
     public void onClick(View v)
     {
-      MigrationController.get().start(v == mButtonPrimary);
+      boolean keepOld = (v == mButtonPrimary);
+
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_STARTED,
+                                     Statistics.params().add(Statistics.EventParam.TYPE, keepOld ? "all_maps"
+                                                                                                 : "current_map"));
+      MigrationController.get().start(keepOld);
     }
   };
 
@@ -67,6 +73,8 @@ public class MigrationFragment extends BaseMwmFragment
     });
 
     MigrationController.get().attach(this);
+
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_DIALOG_SEEN);
   }
 
   @Override
@@ -132,7 +140,7 @@ public class MigrationFragment extends BaseMwmFragment
   @Override
   public void onComplete()
   {
-
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_COMPLETE);
   }
 
   @Override

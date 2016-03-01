@@ -35,14 +35,13 @@ public enum Statistics
   public static class EventName
   {
     // Downloader
-    public static final String DOWNLOADER_MAP_DOWNLOAD = "Country download";
-    public static final String DOWNLOADER_MAP_DOWNLOAD_ALL = "Download all country clicks counter";
-    public static final String DOWNLOADER_MAP_UPDATE = "Country update";
-    public static final String DOWNLOADER_MAP_DELETE = "Country delete";
-    public static final String DOWNLOADER_MIGRATE_DIALOG_SEEN = "Big mwms to small mwms dialog appearing counter";
-    public static final String DOWNLOADER_MIGRATE_PERFORMED = "Big mwms to small mwms migration counter";
-    public static final String MAP_DOWNLOADED = "DownloadMap";
-    public static final String MAP_UPDATED = "UpdateMap";
+    public static final String DOWNLOADER_MIGRATION_DIALOG_SEEN = "Downloader_Migration_dialogue";
+    public static final String DOWNLOADER_MIGRATION_STARTED = "Downloader_Migration_started";
+    public static final String DOWNLOADER_MIGRATION_COMPLETE = "Downloader_Migration_completed";
+    public static final String DOWNLOADER_MIGRATION_ERROR = "Downloader_Migration_error";
+    public static final String DOWNLOADER_ERROR = "Downloader_Map_error";
+    public static final String DOWNLOADER_ACTION = "Downloader_Map_action";
+    public static final String DOWNLOADER_CANCEL = "Downloader_Cancel_downloading";
     // bookmarks
     public static final String BMK_DESCRIPTION_CHANGED = "Bookmark. Description changed";
     public static final String BMK_GROUP_CREATED = "Bookmark. Group created";
@@ -148,6 +147,8 @@ public enum Statistics
     public static final String POINT = "point";
     public static final String LANGUAGE = "language";
     public static final String NAME = "Name";
+    public static final String ACTION = "action";
+    public static final String TYPE = "type";
 
     private EventParam() {}
   }

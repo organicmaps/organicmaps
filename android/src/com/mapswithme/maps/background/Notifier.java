@@ -34,14 +34,12 @@ public final class Notifier
     placeNotification(title, countryName, pi, ID_UPDATE_AVAILABLE);
   }
 
-  public static void notifyDownloadFailed(String countryId)
+  public static void notifyDownloadFailed(CountryItem country)
   {
-    CountryItem item = CountryItem.fill(countryId);
-
     String title = APP.getString(R.string.app_name);
-    String content = APP.getString(R.string.download_country_failed, item.name);
+    String content = APP.getString(R.string.download_country_failed, country.name);
 
-    PendingIntent pi = PendingIntent.getActivity(APP, 0, MwmActivity.createShowMapIntent(APP, countryId, false)
+    PendingIntent pi = PendingIntent.getActivity(APP, 0, MwmActivity.createShowMapIntent(APP, country.id, false)
                                                                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
                                                  PendingIntent.FLAG_UPDATE_CURRENT);
 

@@ -104,7 +104,8 @@ static void MigrationStatusChangedCallback(TCountryId const & countryId, bool ke
 
   case NodeStatus::Undefined:
   case NodeStatus::Error:
-    OnMigrationError(attrs.m_error);
+    if (attrs.m_mwmCounter == 1)
+      OnMigrationError(attrs.m_error);
     break;
   }
 }
@@ -356,8 +357,8 @@ static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCoun
   NodeAttrs attrs;
   GetStorage().GetNodeAttrs(countryId, attrs);
 
-  jmethodID const methodID = jni::GetMethodID(env, *listenerRef, "onStatusChanged", "(Ljava/lang/String;I)V");
-  env->CallVoidMethod(*listenerRef, methodID, jni::ToJavaString(env, countryId), attrs.m_status);
+  jmethodID const methodID = jni::GetMethodID(env, *listenerRef, "onStatusChanged", "(Ljava/lang/String;IZ)V");
+  env->CallVoidMethod(*listenerRef, methodID, jni::ToJavaString(env, countryId), attrs.m_status, (attrs.m_mwmCounter == 1);
 }
 
 static void ProgressChangedCallback(shared_ptr<jobject> const & listenerRef, TCountryId const & countryId, TLocalAndRemoteSize const & sizes)

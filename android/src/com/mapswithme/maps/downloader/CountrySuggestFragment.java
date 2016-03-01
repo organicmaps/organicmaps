@@ -18,6 +18,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 public class CountrySuggestFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -50,9 +51,9 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     mListenerSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
     {
       @Override
-      public void onStatusChanged(String countryId, int newStatus)
+      public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
       {
-        if (!isAdded())
+        if (!isLeafNode || !isAdded())
           return;
 
         refreshViews();
@@ -191,6 +192,9 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
     case R.id.wpv__download_progress:
       MapManager.nativeCancel(mDownloadingCountry.id);
+
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                     Statistics.params().add(Statistics.EventParam.FROM, "search"));
       break;
     }
   }

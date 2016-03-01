@@ -178,9 +178,9 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private final MapManager.StorageCallback mCountryDownloadListener = new MapManager.StorageCallback()
   {
     @Override
-    public void onStatusChanged(String countryId, int newStatus)
+    public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
     {
-      if (newStatus == CountryItem.STATUS_DONE)
+      if (newStatus == CountryItem.STATUS_DONE && isLeafNode)
       {
         mAreResourcesDownloaded = true;
         showMap();

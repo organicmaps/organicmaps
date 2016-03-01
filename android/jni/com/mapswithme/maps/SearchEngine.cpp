@@ -69,7 +69,7 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
 
   auto const address = g_framework->NativeFramework()->GetSearchResultAddress(result);
 
-  jni::TScopedLocalRef featureType (env, jni::ToJavaString(env, result.GetFeatureType()));
+  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetFeatureType()));
   jni::TScopedLocalRef region(env, jni::ToJavaString(env, address.FormatAddress(search::AddressInfo::SEARCH_RESULT)));
   jni::TScopedLocalRef dist(env, jni::ToJavaString(env, distance));
   jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));

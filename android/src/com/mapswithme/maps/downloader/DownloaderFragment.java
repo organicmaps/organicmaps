@@ -131,12 +131,10 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
     {
       @Override
-      public void onStatusChanged(String countryId, int newStatus)
+      public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
       {
-        if (!isAdded())
-          return;
-
-        update();
+        if (isAdded())
+          update();
       }
 
       @Override

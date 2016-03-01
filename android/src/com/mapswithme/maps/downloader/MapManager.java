@@ -4,12 +4,14 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
+import com.mapswithme.util.statistics.Statistics;
+
 public final class MapManager
 {
   @SuppressWarnings("unused")
   public interface StorageCallback
   {
-    void onStatusChanged(String countryId, int newStatus);
+    void onStatusChanged(String countryId, int newStatus, boolean isLeafNode);
     void onProgress(String countryId, long localSize, long remoteSize);
   }
 
@@ -28,6 +30,26 @@ public final class MapManager
   }
 
   private MapManager() {}
+
+  public static void sendErrorStat(String event, int code)
+  {
+    String text;
+    switch (code)
+    {
+    case CountryItem.ERROR_NO_INTERNET:
+      text = "no_connection";
+      break;
+
+    case CountryItem.ERROR_OOM:
+      text = "no_space";
+      break;
+
+    default:
+      text = "unknown_error";
+    }
+
+    Statistics.INSTANCE.trackEvent(event, Statistics.params().add(Statistics.EventParam.TYPE, text));
+  }
 
   /**
    * Moves a file from one place to another.
