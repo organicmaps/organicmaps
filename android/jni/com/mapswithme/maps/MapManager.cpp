@@ -358,7 +358,7 @@ static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCoun
   GetStorage().GetNodeAttrs(countryId, attrs);
 
   jmethodID const methodID = jni::GetMethodID(env, *listenerRef, "onStatusChanged", "(Ljava/lang/String;IZ)V");
-  env->CallVoidMethod(*listenerRef, methodID, jni::ToJavaString(env, countryId), attrs.m_status, (attrs.m_mwmCounter == 1);
+  env->CallVoidMethod(*listenerRef, methodID, jni::ToJavaString(env, countryId), attrs.m_status, (attrs.m_mwmCounter == 1));
 }
 
 static void ProgressChangedCallback(shared_ptr<jobject> const & listenerRef, TCountryId const & countryId, TLocalAndRemoteSize const & sizes)
