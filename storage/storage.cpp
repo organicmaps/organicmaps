@@ -1411,7 +1411,7 @@ void Storage::CancelDownloadNode(TCountryId const & countryId)
 
 void Storage::RetryDownloadNode(TCountryId const & countryId)
 {
-  ForEachInSubtreeAndInQueue(countryId, [this](TCountryId const & descendantId, bool groupNode)
+  ForEachInSubtree(countryId, [this](TCountryId const & descendantId, bool groupNode)
   {
     ASSERT(!groupNode, ());
     DownloadNode(descendantId);
