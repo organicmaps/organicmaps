@@ -1,8 +1,8 @@
 #pragma once
 
 #include "storage/country_decl.hpp"
-#include "storage/index.hpp"
 #include "storage/country_tree_facade.hpp"
+#include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -25,7 +25,7 @@ namespace storage
 {
 using TMapping = map<TCountryId, TCountriesSet>;
 
-/// This class keeps all the information about a country in countre tree (TCountriesFacade).
+/// This class keeps all the information about a country in country tree (TCountriesFacade).
 /// It is guaranteed that every node represent a unique region has a unique |m_name| in country tree.
 /// If several nodes have the same |m_name| they represent the same region.
 /// It happends in case of disputed territories.
@@ -75,8 +75,8 @@ public:
   TCountryId const & Name() const { return m_name; }
 };
 
-typedef CountryTree<Country> TCountriesContainer;
-typedef CountryTreeFacade<Country> TCountriesFacade;
+using TCountriesContainer = CountryTree<Country>;
+using TCountriesFacade = CountryTreeFacade<Country>;
 
 /// @return version of country file or -1 if error was encountered
 int64_t LoadCountries(string const & jsonBuffer, TCountriesFacade & countries, TMapping * mapping = nullptr);

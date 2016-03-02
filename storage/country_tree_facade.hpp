@@ -8,13 +8,17 @@
 template <class K>
 struct CountryTreeKeyHasher
 {
-  size_t operator()(K const & k) const { return hash<string>()(k.Name()); }
+  size_t operator()(K const & k) const { return m_hash(k.Name()); }
+private:
+  hash<string> m_hash;
 };
 
 template<>
 struct CountryTreeKeyHasher<int>
 {
-  size_t operator()(int k) const { return hash<int>()(k); }
+  size_t operator()(int k) const { return m_hash(k); }
+private:
+  hash<int> m_hash;
 };
 
 /// This class is developed for using in Storage. It's a implementation of a tree.
@@ -55,9 +59,6 @@ public:
   /// \brief Checks all nodes in tree to find an equal one. If there're several equal nodes
   /// returns the first found.
   /// \returns a poiter item in the tree if found and nullptr otherwise.
-  /// @TODO(bykoianko) The complexity of the method is O(n). But the structure (tree) is built on the start of the program
-  /// and then actively used on run time. This method (and class) should be redesigned to make the function work faster.
-  /// A hash table is being planned to use.
   void Find(T const & value, vector<CountryTree<T> const *> & found) const
   {
     found.clear();
@@ -94,8 +95,10 @@ public:
     Find(value, found);
 
     for (auto node : found)
+    {
       if (node->ChildrenCount() == 0)
         return node;
+    }
     return nullptr;
   }
 
@@ -132,4 +135,7 @@ public:
 
   template <class TFunctor>
   void ForEachAncestorExceptForTheRoot(TFunctor && f) const { return m_countryTree.ForEachAncestorExceptForTheRoot(f); }
+
+private:
+  static bool IsEqual(T const & v1, T const & v2) { return !(v1 < v2) && !(v2 < v1); }
 };

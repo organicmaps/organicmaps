@@ -6,9 +6,6 @@
 #include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
 
-template <class T>
-bool IsEqual(T const & v1, T const & v2) { return !(v1 < v2) && !(v2 < v1); }
-
 /// This class is developed for using in Storage. It's a implementation of a tree.
 /// It should be filled with AddAtDepth method.
 /// This class is used in Storage and filled based on countries.txt (countries_migrate.txt).
