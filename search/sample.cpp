@@ -3,6 +3,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/sstream.hpp"
 #include "std/string.hpp"
 
@@ -10,8 +11,6 @@
 
 namespace
 {
-void FromJSONObject(json_t * root, string & result) { result = string(json_string_value(root)); }
-
 void FromJSONObject(json_t * root, string const & field, string & result)
 {
   if (!json_is_object(root))
@@ -100,7 +99,7 @@ void FromJSONObject(json_t * root, string const & field, search::Sample::Result:
     r = search::Sample::Result::Relevance::RELEVANCE_IRRELEVANT;
 }
 
-void FromJSONObject(json_t * root, search::Sample::Result & result)
+void FromJSON(json_t * root, search::Sample::Result & result)
 {
   FromJSONObject(root, "position", result.m_pos);
   FromJSONObject(root, "name", result.m_name);
@@ -120,12 +119,61 @@ void FromJSONObject(json_t * root, string const & field, vector<T> & result)
   size_t sz = json_array_size(arr);
   result.resize(sz);
   for (size_t i = 0; i < sz; ++i)
-    FromJSONObject(json_array_get(arr, i), result[i]);
+    FromJSON(json_array_get(arr, i), result[i]);
+}
+
+bool LessRect(m2::RectD const & lhs, m2::RectD const & rhs)
+{
+  if (lhs.minX() != rhs.minX())
+    return lhs.minX() < rhs.minX();
+  if (lhs.minY() != rhs.minY())
+    return lhs.minY() < rhs.minY();
+  if (lhs.maxX() != rhs.maxX())
+    return lhs.maxX() < rhs.maxX();
+  if (lhs.maxY() != rhs.maxY())
+    return lhs.maxY() < rhs.maxY();
+  return false;
+}
+
+template <typename T>
+bool Less(vector<T> lhs, vector<T> rhs)
+{
+  sort(lhs.begin(), lhs.end());
+  sort(rhs.begin(), rhs.end());
+  return lhs < rhs;
+}
+
+template <typename T>
+bool Equal(vector<T> lhs, vector<T> rhs)
+{
+  sort(lhs.begin(), lhs.end());
+  sort(rhs.begin(), rhs.end());
+  return lhs == rhs;
 }
 }  // namespace
 
 namespace search
 {
+bool Sample::Result::operator<(Sample::Result const & rhs) const
+{
+  if (m_pos != rhs.m_pos)
+    return m_pos < rhs.m_pos;
+  if (m_name != rhs.m_name)
+    return m_name < rhs.m_name;
+  if (m_houseNumber != rhs.m_houseNumber)
+    return m_houseNumber < rhs.m_houseNumber;
+  if (m_relevance != rhs.m_relevance)
+    return m_relevance < rhs.m_relevance;
+  return Less(m_types, rhs.m_types);
+}
+
+bool Sample::Result::operator==(Sample::Result const & rhs) const
+{
+  // Note: Strict equality for points and viewports.
+  return m_pos == rhs.m_pos && m_name == rhs.m_name && m_houseNumber == rhs.m_houseNumber &&
+         Equal(m_types, rhs.m_types) && m_relevance == rhs.m_relevance;
+}
+
 bool Sample::DeserializeFromJSON(string const & jsonStr)
 {
   try
@@ -139,6 +187,25 @@ bool Sample::DeserializeFromJSON(string const & jsonStr)
     LOG(LDEBUG, ("Can't parse sample:", e.Msg(), jsonStr));
   }
   return false;
+}
+
+bool Sample::operator<(Sample const & rhs) const
+{
+  if (m_query != rhs.m_query)
+    return m_query < rhs.m_query;
+  if (m_locale != rhs.m_locale)
+    return m_locale < rhs.m_locale;
+  if (m_pos != rhs.m_pos)
+    return m_pos < rhs.m_pos;
+  if (m_viewport != rhs.m_viewport)
+    return LessRect(m_viewport, rhs.m_viewport);
+  return Less(m_results, rhs.m_results);
+}
+
+bool Sample::operator==(Sample const & rhs) const
+{
+  return m_query == rhs.m_query && m_locale == rhs.m_locale && m_pos == rhs.m_pos &&
+         m_viewport == rhs.m_viewport && Equal(m_results, rhs.m_results);
 }
 
 // static
@@ -160,25 +227,6 @@ bool Sample::DeserializeFromJSON(string const & jsonStr, vector<Sample> & sample
     LOG(LERROR, ("Can't parse samples:", e.Msg(), jsonStr));
   }
   return false;
-}
-
-string Sample::ToStringDebug() const
-{
-  ostringstream oss;
-  oss << "[";
-  oss << "query: " << DebugPrint(m_query) << " ";
-  oss << "locale: " << m_locale << " ";
-  oss << "pos: " << DebugPrint(m_pos) << " ";
-  oss << "viewport: " << DebugPrint(m_viewport) << " ";
-  oss << "results: [";
-  for (size_t i = 0; i < m_results.size(); ++i)
-  {
-    if (i > 0)
-      oss << " ";
-    oss << DebugPrint(m_results[i]);
-  }
-  oss << "]";
-  return oss.str();
 }
 
 void Sample::DeserializeFromJSONImpl(json_t * root)
@@ -219,5 +267,22 @@ string DebugPrint(Sample::Result const & r)
   return oss.str();
 }
 
-string DebugPrint(Sample const & s) { return s.ToStringDebug(); }
+string DebugPrint(Sample const & s)
+{
+  ostringstream oss;
+  oss << "[";
+  oss << "query: " << DebugPrint(s.m_query) << " ";
+  oss << "locale: " << s.m_locale << " ";
+  oss << "pos: " << DebugPrint(s.m_pos) << " ";
+  oss << "viewport: " << DebugPrint(s.m_viewport) << " ";
+  oss << "results: [";
+  for (size_t i = 0; i < s.m_results.size(); ++i)
+  {
+    if (i > 0)
+      oss << " ";
+    oss << DebugPrint(s.m_results[i]);
+  }
+  oss << "]";
+  return oss.str();
+}
 }  // namespace search

@@ -219,13 +219,16 @@ int FindResult(TestSearchEngine & engine, string const & mwmName, uint64_t const
 
   // Another attempt. If the queries are stale, feature id is useless.
   // However, some information may be recovered from (lat, lon).
-  double const kEps = 1e-6;
+  double const kEps = 1e-2;
   for (size_t i = 0; i < results.size(); ++i)
   {
     auto const & r = results[i];
     if (r.HasPoint() &&
         my::AlmostEqualAbs(r.GetFeatureCenter(), MercatorBounds::FromLatLon(lat, lon), kEps))
     {
+      double const dist = MercatorBounds::DistanceOnEarth(r.GetFeatureCenter(),
+                                                          MercatorBounds::FromLatLon(lat, lon));
+      LOG(LDEBUG, ("dist =", dist));
       return i;
     }
   }

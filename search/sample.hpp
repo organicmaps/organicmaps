@@ -11,9 +11,8 @@
 
 namespace search
 {
-class Sample
+struct Sample
 {
-public:
   struct Result
   {
     enum Relevance
@@ -22,6 +21,10 @@ public:
       RELEVANCE_RELEVANT,
       RELEVANCE_VITAL
     };
+
+    bool operator<(Result const & rhs) const;
+
+    bool operator==(Result const & rhs) const;
 
     m2::PointD m_pos = m2::PointD(0, 0);
     strings::UniString m_name;
@@ -34,9 +37,10 @@ public:
 
   static bool DeserializeFromJSON(string const & jsonStr, vector<Sample> & samples);
 
-  string ToStringDebug() const;
+  bool operator<(Sample const & rhs) const;
 
-private:
+  bool operator==(Sample const & rhs) const;
+
   void DeserializeFromJSONImpl(json_t * root);
 
   strings::UniString m_query;
