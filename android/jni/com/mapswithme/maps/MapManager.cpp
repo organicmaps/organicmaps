@@ -18,7 +18,7 @@ enum ItemCategory : uint32_t
 {
   NEAR_ME,
   DOWNLOADED,
-  ALL,
+  AVAILABLE,
 };
 
 jmethodID g_listAddMethod;
@@ -269,21 +269,17 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   {
     TCountriesVec children;
     storage.GetChildren(parentId, children);
-    PutItemsToList(env, result, children, ItemCategory::ALL);
+    PutItemsToList(env, result, children, ItemCategory::AVAILABLE);
   }
   else
   {
     // TODO (trashkalmar): Countries near me
 
-    // Downloaded
     TCountriesVec downloaded, available;
     storage.GetChildrenInGroups(parentId, downloaded, available);
-    PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED);
 
-    // All
-    TCountriesVec children(downloaded.begin(), downloaded.end());
-    children.insert(children.end(), available.begin(), available.end());
-    PutItemsToList(env, result, children, ItemCategory::ALL);
+    PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED);
+    PutItemsToList(env, result, available, ItemCategory::AVAILABLE);
   }
 }
 
