@@ -48,14 +48,13 @@ public:
   T & AddAtDepth(int level, T const & value)
   {
     CountryTree<T> * const added = m_countryTree.AddAtDepth(level, value);
+    ASSERT(added, ());
     m_countryTreeHashTable.insert(make_pair(value, added));
     return added->Value();
   }
 
   /// Deletes all children and makes tree empty
   void Clear() { m_countryTree.Clear(); }
-
-  bool operator<(CountryTree<T> const & other) const { return m_countryTree < other; }
 
   /// \brief Checks all nodes in tree to find an equal one. If there're several equal nodes
   /// returns the first found.
@@ -103,45 +102,7 @@ public:
     return nullptr;
   }
 
-  bool HasParent() const { m_countryTree.HasParent(); }
-
-  CountryTree<T> const & Parent() const { return m_countryTree.Parent(); }
-
-  CountryTree<T> const & Child(size_t index) const { return m_countryTree.Child(index); }
-
   size_t ChildrenCount() const { return m_countryTree.ChildrenCount(); }
-
-  /// \brief Calls functor f for each first generation descendant of the node.
-  template <class TFunctor>
-  void ForEachChild(TFunctor && f) { return m_countryTree.ForEachChild(forward<T>(f)); }
-
-  template <class TFunctor>
-  void ForEachChild(TFunctor && f) const { return m_countryTree.ForEachChild(forward<T>(f)); }
-
-  /// \brief Calls functor f for all nodes (add descendant) in the tree.
-  template <class TFunctor>
-  void ForEachDescendant(TFunctor && f) { return m_countryTree.ForEachDescendant(forward<T>(f)); }
-
-  template <class TFunctor>
-  void ForEachDescendant(TFunctor && f) const { return m_countryTree.ForEachDescendant(forward<T>(f)); }
-
-  template <class TFunctor>
-  void ForEachInSubtree(TFunctor && f) { return m_countryTree.ForEachInSubtree(forward<T>(f)); }
-
-  template <class TFunctor>
-  void ForEachInSubtree(TFunctor && f) const { return m_countryTree.ForEachInSubtree(forward<T>(f)); }
-
-  template <class TFunctor>
-  void ForEachAncestorExceptForTheRoot(TFunctor && f)
-  {
-    return m_countryTree.ForEachAncestorExceptForTheRoot(forward<T>(f));
-  }
-
-  template <class TFunctor>
-  void ForEachAncestorExceptForTheRoot(TFunctor && f) const
-  {
-    return m_countryTree.ForEachAncestorExceptForTheRoot(forward<T>(f));
-  }
 
 private:
   static bool IsEqual(T const & v1, T const & v2) { return !(v1 < v2) && !(v2 < v1); }
