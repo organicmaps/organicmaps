@@ -81,6 +81,8 @@ struct CompletenessQuery
   double m_lon = 0;
 };
 
+DECLARE_EXCEPTION(MalformedQueryException, RootException);
+
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
 void ChangeMaxNumberOfOpenFiles(size_t n)
 {
@@ -223,9 +225,57 @@ int FindResult(TestSearchEngine & engine, string const & mwmName, uint64_t const
     auto const & r = results[i];
     if (r.HasPoint() &&
         my::AlmostEqualAbs(r.GetFeatureCenter(), MercatorBounds::FromLatLon(lat, lon), kEps))
+    {
       return i;
+    }
   }
   return -1;
+}
+
+void ParseCompletenessQuery(string & s, CompletenessQuery & q)
+{
+  s.append(" ");
+
+  vector<string> parts;
+  Split(s, ';', parts);
+  if (parts.size() != 7)
+  {
+    MYTHROW(MalformedQueryException,
+            ("Can't split", s, ", found", parts.size(), "part(s):", parts));
+  }
+
+  auto idx = parts[0].find(':');
+  if (idx == string::npos)
+    MYTHROW(MalformedQueryException, ("Could not find \':\':", s));
+
+  string mwmName = parts[0].substr(0, idx);
+  string const kMwmSuffix = ".mwm";
+  if (!strings::EndsWith(mwmName, kMwmSuffix))
+    MYTHROW(MalformedQueryException, ("Bad mwm name:", s));
+
+  string const featureIdStr = parts[0].substr(idx + 1);
+  uint64_t featureId;
+  if (!strings::to_uint64(featureIdStr, featureId))
+    MYTHROW(MalformedQueryException, ("Bad feature id:", s));
+
+  string const type = parts[1];
+  double lon, lat;
+  if (!strings::to_double(parts[2].c_str(), lon) || !strings::to_double(parts[3].c_str(), lat))
+    MYTHROW(MalformedQueryException, ("Bad lon-lat:", s));
+
+  string const city = parts[4];
+  string const street = parts[5];
+  string const house = parts[6];
+
+  mwmName = mwmName.substr(0, mwmName.size() - kMwmSuffix.size());
+  string country = mwmName;
+  replace(country.begin(), country.end(), '_', ' ');
+
+  q.m_query = country + " " + city + " " + street + " " + house + " ";
+  q.m_mwmName = mwmName;
+  q.m_featureId = featureId;
+  q.m_lat = lat;
+  q.m_lon = lon;
 }
 
 // Reads queries in the format
@@ -254,66 +304,19 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
   while (getline(stream, s))
   {
     ++totalQueries;
-    s.append(" ");
-
-    vector<string> parts;
-    Split(s, ';', parts);
-    if (parts.size() != 7)
+    try
     {
-      LOG(LERROR, ("Can't split", s, ", found", parts.size(), "parts:", parts));
-      ++malformedQueries;
-      continue;
+      CompletenessQuery q;
+      ParseCompletenessQuery(s, q);
+      q.m_request = make_unique<TestSearchRequest>(engine, q.m_query, FLAGS_locale,
+                                                   search::Mode::Everywhere, viewport);
+      queries.push_back(move(q));
     }
-
-    auto idx = parts[0].find(':');
-    if (idx == string::npos)
+    catch (MalformedQueryException e)
     {
-      LOG(LERROR, ("Could not find \':\':", s));
+      LOG(LERROR, (e.what()));
       ++malformedQueries;
-      continue;
     }
-    string mwmName = parts[0].substr(0, idx);
-    string const kMwmSuffix = ".mwm";
-    if (!strings::EndsWith(mwmName, kMwmSuffix))
-    {
-      LOG(LERROR, ("Bad mwm name:", s));
-      ++malformedQueries;
-      continue;
-    }
-    string const featureIdStr = parts[0].substr(idx + 1);
-    uint64_t featureId;
-    if (!strings::to_uint64(featureIdStr, featureId))
-    {
-      LOG(LERROR, ("Bad feature id:", s));
-      ++malformedQueries;
-      continue;
-    }
-    string const type = parts[1];
-    double lon, lat;
-    if (!strings::to_double(parts[2].c_str(), lon) || !strings::to_double(parts[3].c_str(), lat))
-    {
-      LOG(LERROR, ("Bad lon-lat:", s));
-      ++malformedQueries;
-      continue;
-    }
-    string const city = parts[4];
-    string const street = parts[5];
-    string const house = parts[6];
-
-    mwmName = mwmName.substr(0, mwmName.size() - kMwmSuffix.size());
-    string country = mwmName;
-    replace(country.begin(), country.end(), '_', ' ');
-    string const query = country + " " + city + " " + street + " " + house + " ";
-
-    CompletenessQuery q;
-    q.m_query = query;
-    q.m_mwmName = mwmName;
-    q.m_featureId = featureId;
-    q.m_lat = lat;
-    q.m_lon = lon;
-    q.m_request = make_unique<TestSearchRequest>(engine, query, FLAGS_locale,
-                                                 search::Mode::Everywhere, viewport);
-    queries.push_back(move(q));
   }
 
   for (auto & q : queries)
