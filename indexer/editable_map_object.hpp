@@ -57,6 +57,8 @@ public:
   void SetName(StringUtf8Multilang const & name);
   void SetName(string const & name, int8_t langCode = StringUtf8Multilang::kDefaultCode);
   void SetMercator(m2::PointD const & center);
+  void SetType(uint32_t featureType);
+  void SetID(FeatureID const & fid);
   //  void SetTypes(feature::TypesHolder const & types);
   void SetStreet(string const & street);
   void SetNearbyStreets(vector<string> const & streets);
