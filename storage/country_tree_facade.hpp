@@ -21,14 +21,15 @@ private:
   hash<int> m_hash;
 };
 
-/// This class is developed for using in Storage. It's a implementation of a tree.
+/// This class is developed for using in Storage. It's a implementation of a tree with ability
+/// of access to its nodes in constant time with the help of hash table.
 /// It should be filled with AddAtDepth method.
 /// This class is used in Storage and filled based on countries.txt (countries_migrate.txt).
 /// While filling CountryTree nodes in countries.txt should be visited in DFS order.
 template <class T>
 class CountryTreeFacade
 {
-  using TCountryTreeHashTable = unordered_multimap<T, shared_ptr<CountryTree<T>>, CountryTreeKeyHasher<T>>;
+  using TCountryTreeHashTable = unordered_multimap<T, CountryTree<T> *, CountryTreeKeyHasher<T>>;
 
   CountryTree<T> m_countryTree;
   TCountryTreeHashTable m_countryTreeHashTable;
@@ -46,7 +47,7 @@ public:
   /// @return reference is valid only up to the next tree structure modification
   T & AddAtDepth(int level, T const & value)
   {
-    shared_ptr<CountryTree<T>> const added = m_countryTree.AddAtDepth(level, value);
+    CountryTree<T> * const added = m_countryTree.AddAtDepth(level, value);
     m_countryTreeHashTable.insert(make_pair(value, added));
     return added->Value();
   }
@@ -112,29 +113,35 @@ public:
 
   /// \brief Calls functor f for each first generation descendant of the node.
   template <class TFunctor>
-  void ForEachChild(TFunctor && f) { return m_countryTree.ForEachChild(f); }
+  void ForEachChild(TFunctor && f) { return m_countryTree.ForEachChild(forward<T>(f)); }
 
   template <class TFunctor>
-  void ForEachChild(TFunctor && f) const { return m_countryTree.ForEachChild(f); }
+  void ForEachChild(TFunctor && f) const { return m_countryTree.ForEachChild(forward<T>(f)); }
 
   /// \brief Calls functor f for all nodes (add descendant) in the tree.
   template <class TFunctor>
-  void ForEachDescendant(TFunctor && f) { return m_countryTree.ForEachDescendant(f); }
+  void ForEachDescendant(TFunctor && f) { return m_countryTree.ForEachDescendant(forward<T>(f)); }
 
   template <class TFunctor>
-  void ForEachDescendant(TFunctor && f) const { return m_countryTree.ForEachDescendant(f); }
+  void ForEachDescendant(TFunctor && f) const { return m_countryTree.ForEachDescendant(forward<T>(f)); }
 
   template <class TFunctor>
-  void ForEachInSubtree(TFunctor && f) { return m_countryTree.ForEachInSubtree(f); }
+  void ForEachInSubtree(TFunctor && f) { return m_countryTree.ForEachInSubtree(forward<T>(f)); }
 
   template <class TFunctor>
-  void ForEachInSubtree(TFunctor && f) const { return m_countryTree.ForEachInSubtree(f); }
+  void ForEachInSubtree(TFunctor && f) const { return m_countryTree.ForEachInSubtree(forward<T>(f)); }
 
   template <class TFunctor>
-  void ForEachAncestorExceptForTheRoot(TFunctor && f) { return m_countryTree.ForEachAncestorExceptForTheRoot(f); }
+  void ForEachAncestorExceptForTheRoot(TFunctor && f)
+  {
+    return m_countryTree.ForEachAncestorExceptForTheRoot(forward<T>(f));
+  }
 
   template <class TFunctor>
-  void ForEachAncestorExceptForTheRoot(TFunctor && f) const { return m_countryTree.ForEachAncestorExceptForTheRoot(f); }
+  void ForEachAncestorExceptForTheRoot(TFunctor && f) const
+  {
+    return m_countryTree.ForEachAncestorExceptForTheRoot(forward<T>(f));
+  }
 
 private:
   static bool IsEqual(T const & v1, T const & v2) { return !(v1 < v2) && !(v2 < v1); }

@@ -3,12 +3,12 @@
 #include "base/assert.hpp"
 
 #include "std/algorithm.hpp"
-#include "std/shared_ptr.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-/// This class is developed for using in Storage. It's a implementation of a tree.
+/// This class is developed for using in CountryTreeFacade. It's a implementation of a tree.
 /// It should be filled with AddAtDepth method.
-/// This class is used in Storage and filled based on countries.txt (countries_migrate.txt).
+/// This class is used in filled based on countries.txt (countries_migrate.txt).
 /// While filling CountryTree nodes in countries.txt should be visited in DFS order.
 template <class T>
 class CountryTree
@@ -18,14 +18,14 @@ class CountryTree
   /// \brief m_children contains all first generation descendants of the node.
   /// Note. Once created the order of elements of |m_children| should not be changed.
   /// See implementation of AddAtDepth and Add methods for details.
-  vector<shared_ptr<CountryTree<T>>> m_children;
+  vector<unique_ptr<CountryTree<T>>> m_children;
   CountryTree<T> * m_parent;
 
   /// @return reference is valid only up to the next tree structure modification
-  shared_ptr<CountryTree<T>> Add(T const & value)
+  CountryTree<T> * Add(T const & value)
   {
-    m_children.emplace_back(make_shared<CountryTree<T>>(value, this));
-    return m_children.back();
+    m_children.emplace_back(make_unique<CountryTree<T>>(value, this));
+    return m_children.back().get();
   }
 
 public:
@@ -41,7 +41,7 @@ public:
   T & Value() { return m_value; }
 
   /// @return reference is valid only up to the next tree structure modification
-  shared_ptr<CountryTree<T>> AddAtDepth(int level, T const & value)
+  CountryTree<T> * AddAtDepth(int level, T const & value)
   {
     CountryTree<T> * node = this;
     while (level-- > 0 && !node->m_children.empty())
