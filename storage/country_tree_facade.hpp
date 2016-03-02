@@ -8,7 +8,7 @@
 template <class K>
 struct CountryTreeKeyHasher
 {
-  size_t operator()(K const & k) const { return m_hash(k.Name()); }
+  size_t operator()(K const & k) const { return m_hash(k); }
 private:
   hash<string> m_hash;
 };
@@ -26,10 +26,10 @@ private:
 /// It should be filled with AddAtDepth method.
 /// This class is used in Storage and filled based on countries.txt (countries_migrate.txt).
 /// While filling CountryTree nodes in countries.txt should be visited in DFS order.
-template <class T>
+template <class I, class T>
 class CountryTreeFacade
 {
-  using TCountryTreeHashTable = unordered_multimap<T, CountryTree<T> *, CountryTreeKeyHasher<T>>;
+  using TCountryTreeHashTable = unordered_multimap<I, CountryTree<T> *, CountryTreeKeyHasher<I>>;
 
   CountryTree<T> m_countryTree;
   TCountryTreeHashTable m_countryTreeHashTable;
@@ -49,7 +49,7 @@ public:
   {
     CountryTree<T> * const added = m_countryTree.AddAtDepth(level, value);
     ASSERT(added, ());
-    m_countryTreeHashTable.insert(make_pair(value, added));
+    m_countryTreeHashTable.insert(make_pair(value.Name(), added));
     return added->Value();
   }
 
@@ -66,7 +66,7 @@ public:
     if (IsEqual(value, m_countryTree.Value()))
       found.push_back(&m_countryTree);
 
-    auto const range = m_countryTreeHashTable.equal_range(value);
+    auto const range = m_countryTreeHashTable.equal_range(value.Name());
     auto const end = m_countryTreeHashTable.end();
     if (range.first == end && range.second == end)
       return;

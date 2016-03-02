@@ -98,7 +98,7 @@ private:
   /// stores timestamp for update checks
   int64_t m_currentVersion;
 
-  CountryTreeFacade<Country> m_countries;
+  TCountriesFacade m_countries;
 
   /// @todo. It appeared that our application uses m_queue from
   /// different threads without any synchronization. To reproduce it

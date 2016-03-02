@@ -76,7 +76,7 @@ public:
 };
 
 using TCountriesContainer = CountryTree<Country>;
-using TCountriesFacade = CountryTreeFacade<Country>;
+using TCountriesFacade = CountryTreeFacade<TCountryId, Country>;
 
 /// @return version of country file or -1 if error was encountered
 int64_t LoadCountries(string const & jsonBuffer, TCountriesFacade & countries, TMapping * mapping = nullptr);
