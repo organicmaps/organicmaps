@@ -27,6 +27,8 @@ public:
   TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
                     Mode mode, m2::RectD const & viewport);
 
+  TestSearchRequest(TestSearchEngine & engine, SearchParams params, m2::RectD const & viewport);
+
   void Wait();
 
   // Call these functions only after call to Wait().
@@ -34,6 +36,7 @@ public:
   vector<search::Result> const & Results() const;
 
 private:
+  void SetUpCallbacks(SearchParams & params);
   void OnStarted();
   void OnResults(search::Results const & results);
 
@@ -41,7 +44,7 @@ private:
   mutable mutex m_mu;
 
   vector<search::Result> m_results;
-  bool m_done;
+  bool m_done = false;
 
   my::Timer m_timer;
   steady_clock::duration m_startTime;

@@ -335,3 +335,30 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
     TEST(ResultsMatch("london", search::Mode::Everywhere, rules), ());
   }
 }
+
+UNIT_CLASS_TEST(SearchQueryV2Test, DisableSuggests)
+{
+  TestCity london1(m2::PointD(1, 1), "London", "en", 100 /* rank */);
+  TestCity london2(m2::PointD(-1, -1), "London", "en", 100 /* rank */);
+
+  auto worldId = BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
+                          {
+                            builder.Add(london1);
+                            builder.Add(london2);
+                          });
+  RegisterCountry("Wonderland", m2::RectD(m2::PointD(-2, -2), m2::PointD(2, 2)));
+  SetViewport(m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)));
+  {
+    search::SearchParams params;
+    params.m_query = "londo";
+    params.m_inputLocale = "en";
+    params.SetMode(search::Mode::World);
+    params.DisableSuggests();
+
+    TestSearchRequest request(m_engine, params, m_viewport);
+    request.Wait();
+    TRules rules = {ExactMatch(worldId, london1), ExactMatch(worldId, london2)};
+
+    TEST(MatchResults(m_engine, rules, request.Results()), ());
+  }
+}

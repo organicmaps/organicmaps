@@ -1,6 +1,5 @@
 #include "search/search_tests_support/test_search_request.hpp"
 
-#include "search/params.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 
 #include "base/logging.hpp"
@@ -11,14 +10,19 @@ namespace tests_support
 {
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport)
-  : m_done(false)
 {
-  search::SearchParams params;
+  SearchParams params;
   params.m_query = query;
   params.m_inputLocale = locale;
-  params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
-  params.m_onResults = bind(&TestSearchRequest::OnResults, this, _1);
   params.SetMode(mode);
+  SetUpCallbacks(params);
+  engine.Search(params, viewport);
+}
+
+TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams params,
+                                     m2::RectD const & viewport)
+{
+  SetUpCallbacks(params);
   engine.Search(params, viewport);
 }
 
@@ -43,6 +47,12 @@ vector<search::Result> const & TestSearchRequest::Results() const
   lock_guard<mutex> lock(m_mu);
   CHECK(m_done, ("This function may be called only when request is processed."));
   return m_results;
+}
+
+void TestSearchRequest::SetUpCallbacks(SearchParams & params)
+{
+  params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
+  params.m_onResults = bind(&TestSearchRequest::OnResults, this, _1);
 }
 
 void TestSearchRequest::OnStarted()

@@ -77,29 +77,40 @@ inline shared_ptr<trie::Iterator<ValueList<TValue>>> MoveTrieIteratorToString(
 
 namespace
 {
-  bool CheckMatchString(strings::UniChar const * rootPrefix,
-                        size_t rootPrefixSize,
-                        strings::UniString & s)
+bool CheckMatchString(strings::UniChar const * rootPrefix, size_t rootPrefixSize,
+                      strings::UniString & s, bool prefix)
+{
+  if (rootPrefixSize == 0)
+    return true;
+
+  if (prefix && s.size() < rootPrefixSize &&
+      StartsWith(rootPrefix, rootPrefix + rootPrefixSize, s.begin(), s.end()))
   {
-    if (rootPrefixSize > 0)
-    {
-      if (s.size() < rootPrefixSize ||
-          !StartsWith(s.begin(), s.end(), rootPrefix, rootPrefix + rootPrefixSize))
-        return false;
-
-      s = strings::UniString(s.begin() + rootPrefixSize, s.end());
-    }
-
+    // In the case of prefix match query may be a prefix of the root
+    // label string.  In this case we continue processing as if the
+    // string is equal to root label.
+    s.clear();
     return true;
   }
+  if (s.size() >= rootPrefixSize &&
+      StartsWith(s.begin(), s.end(), rootPrefix, rootPrefix + rootPrefixSize))
+  {
+    // In both (prefix and not-prefix) cases when string has root label
+    // as a prefix, we continue processing.
+    s = strings::UniString(s.begin() + rootPrefixSize, s.end());
+    return true;
+  }
+
+  return false;
 }
+}  // namespace
 
 template <typename TValue, typename TF>
 void FullMatchInTrie(trie::Iterator<ValueList<TValue>> const & trieRoot,
                      strings::UniChar const * rootPrefix, size_t rootPrefixSize,
                      strings::UniString s, TF & f)
 {
-  if (!CheckMatchString(rootPrefix, rootPrefixSize, s))
+  if (!CheckMatchString(rootPrefix, rootPrefixSize, s, false /* prefix */))
       return;
 
   size_t symbolsMatched = 0;
@@ -125,7 +136,7 @@ void PrefixMatchInTrie(trie::Iterator<ValueList<TValue>> const & trieRoot,
                        strings::UniChar const * rootPrefix, size_t rootPrefixSize,
                        strings::UniString s, TF & f)
 {
-  if (!CheckMatchString(rootPrefix, rootPrefixSize, s))
+  if (!CheckMatchString(rootPrefix, rootPrefixSize, s, true /* prefix */))
       return;
 
   using TIterator = trie::Iterator<ValueList<TValue>>;

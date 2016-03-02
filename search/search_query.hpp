@@ -91,6 +91,7 @@ public:
 
   inline void SetMode(Mode mode) { m_mode = mode; }
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
+  inline void EnableSuggests(bool enabled) { m_suggestsEnabled = enabled; }
 
   /// Suggestions language code, not the same as we use in mwm data
   int8_t m_inputLocaleCode, m_currentLocaleCode;
@@ -243,6 +244,7 @@ protected:
   m2::PointD m_position;
   Mode m_mode;
   bool m_worldSearch;
+  bool m_suggestsEnabled;
   Retrieval m_retrieval;
 
   /// @name Get ranking params.

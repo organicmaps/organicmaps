@@ -187,6 +187,7 @@ extern "C"
     params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
     params.SetForceSearch(true);
     params.SetMode(search::Mode::World);
+    params.DisableSuggests();
     params.m_onResults = bind(&OnResults, _1, timestamp, false /* isMapAndTable */, false /* hasPosition */, 0.0, 0.0);
 
     g_framework->NativeFramework()->Search(params);

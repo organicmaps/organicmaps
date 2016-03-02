@@ -294,6 +294,7 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
     processor.SetPosition(viewport.Center());
 
   processor.SetMode(params.GetMode());
+  processor.EnableSuggests(params.SuggestsEnabled());
 
   // This flag is needed for consistency with old search algorithm
   // only. It will be gone when we remove old search code.

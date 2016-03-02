@@ -204,6 +204,7 @@ Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest>
   , m_position(0, 0)
   , m_mode(Mode::Everywhere)
   , m_worldSearch(true)
+  , m_suggestsEnabled(true)
   , m_keepHouseNumberInQuery(false)
 {
   // Results queue's initialization.
@@ -916,7 +917,7 @@ void Query::GetSuggestion(string const & name, string & suggest) const
 template <class T>
 void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
 {
-  if (m_prefix.empty())
+  if (m_prefix.empty() || !m_suggestsEnabled)
     return;
 
   int added = 0;
@@ -1729,7 +1730,7 @@ void Query::SearchInMwms(TMWMVector const & mwmsInfo, SearchQueryParams const & 
 
 void Query::SuggestStrings(Results & res)
 {
-  if (m_prefix.empty())
+  if (m_prefix.empty() || !m_suggestsEnabled)
     return;
   int8_t arrLocales[3];
   int const localesCount = GetCategoryLocales(arrLocales);

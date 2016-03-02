@@ -31,21 +31,25 @@ namespace search
     inline Mode GetMode() const { return m_mode; }
 
     void SetPosition(double lat, double lon);
-    bool IsValidPosition() const { return m_validPos; }
-    bool IsSearchAroundPosition() const
+    inline bool IsValidPosition() const { return m_validPos; }
+    inline bool IsSearchAroundPosition() const
     {
       return (m_searchRadiusM > 0 && IsValidPosition());
     }
 
-    void SetSearchRadiusMeters(double radiusM) { m_searchRadiusM = radiusM; }
+    inline void SetSearchRadiusMeters(double radiusM) { m_searchRadiusM = radiusM; }
     bool GetSearchRect(m2::RectD & rect) const;
 
     /// @param[in] locale can be "fr", "en-US", "ru_RU" etc.
-    void SetInputLocale(string const & locale) { m_inputLocale = locale; }
+    inline void SetInputLocale(string const & locale) { m_inputLocale = locale; }
+
+    inline void DisableSuggests() { m_suggestsEnabled = false; }
+    inline void EnableSuggests() { m_suggestsEnabled = true; }
+    inline bool SuggestsEnabled() const { return m_suggestsEnabled; }
 
     bool IsEqualCommon(SearchParams const & rhs) const;
 
-    void Clear() { m_query.clear(); }
+    inline void Clear() { m_query.clear(); }
 
   public:
     TOnStarted m_onStarted;
@@ -61,6 +65,8 @@ namespace search
   private:
     double m_searchRadiusM;
     Mode m_mode;
-    bool m_forceSearch, m_validPos;
+    bool m_forceSearch;
+    bool m_validPos;
+    bool m_suggestsEnabled;
   };
 } // namespace search

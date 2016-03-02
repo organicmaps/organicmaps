@@ -134,6 +134,7 @@ using namespace storage;
 {
   __weak auto weakSelf = self;
   m_searchParams.SetMode(search::Mode::World);
+  m_searchParams.DisableSuggests();
   m_searchParams.m_onResults = ^(search::Results const & results)
   {
     __strong auto self = weakSelf;
