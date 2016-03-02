@@ -48,10 +48,8 @@ Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeSetBookmarkParams(
 
   // initialize new bookmark
   BookmarkData bm(jni::ToNativeString(env, name), jni::ToNativeString(env, type));
-  if (descr)
-    bm.SetDescription(jni::ToNativeString(env, descr));
-  else
-    bm.SetDescription(p->GetDescription());
+  bm.SetDescription(descr ? jni::ToNativeString(env, descr)
+                          : p->GetDescription());
 
   g_framework->ReplaceBookmark(BookmarkAndCategory(cat, bmk), bm);
 }

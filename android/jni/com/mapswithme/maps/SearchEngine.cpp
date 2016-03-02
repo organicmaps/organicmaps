@@ -199,8 +199,6 @@ extern "C"
   {
     lock_guard<mutex> guard(g_resultsMutex);
     Result const & result = g_results.GetResult(index);
-    // TODO(yunikkk): why do we need to do it?
-    g_framework->SetPlacePageInfo({});
     g_framework->PostDrapeTask([result]()
     {
       g_framework->NativeFramework()->ShowSearchResult(result);

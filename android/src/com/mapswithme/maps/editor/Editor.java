@@ -68,20 +68,27 @@ public final class Editor
 
   public static native String nativeGetStreet();
   public static native void nativeSetStreet(String street);
+
   public static native String nativeGetHouseNumber();
   public static native void nativeSetHouseNumber(String houseNumber);
 
   // TODO(AlexZ): Support 3-state: Yes, No, Unknown.
   public static native boolean nativeHasWifi();
-  // Generic methods.
+
   public static native boolean nativeHasSomethingToUpload();
   @WorkerThread
   private static native void nativeUploadChanges(String token, String secret);
+
   /**
    * @return array [total edits count, uploaded edits count, last upload timestamp]
    */
   public static native long[] nativeGetStats();
   public static native void nativeClearLocalEdits();
+  // That method should be called, when user opens editor from place page, so that information in editor
+  // could refresh.
   public static native void nativeStartEdit();
+  /**
+   * @return true if feature was saved. False if some error occurred (eg. no space)
+   */
   public static native boolean nativeSaveEditedFeature();
 }

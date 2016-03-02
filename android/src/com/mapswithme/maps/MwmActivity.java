@@ -256,17 +256,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showEditor()
   {
+    // TODO(yunikkk) think about refactoring. It probably should be called in editor.
+    Editor.nativeStartEdit();
     if (mIsFragmentContainer)
-    {
-      final Bundle args = new Bundle();
-      replaceFragment(EditorHostFragment.class, args, null);
-    }
+      replaceFragment(EditorHostFragment.class, null, null);
     else
-    {
-      // Initializes editable feature from currently active place page.
-      Editor.nativeStartEdit();
       EditorActivity.start(this);
-    }
   }
 
   private void shareMyLocation()
@@ -1013,7 +1008,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       request.setPointData(object.getLat(), object.getLon(), object.getTitle(), object.getSearchId());
       object.setTypeName(request.getCallerName(MwmApplication.get()).toString());
-
     }
     else if (MapObject.isOfType(MapObject.MY_POSITION, object) &&
              Framework.nativeIsRoutingActive())
@@ -1031,9 +1025,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onDismiss()
+  public void onDismiss(boolean switchFullScreenMode)
   {
-    if (mPlacePage.getMapObject() == null)
+    if (switchFullScreenMode)
     {
       if ((mPanelAnimator != null && mPanelAnimator.isVisible()) ||
           UiUtils.isVisible(mSearchController.getToolbar()))

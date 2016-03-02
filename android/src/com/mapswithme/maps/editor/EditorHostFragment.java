@@ -7,17 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-// TODO(yunikkk): why is feature metadata in bookmarks? How are they related to each other?
 import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-
 
 public class EditorHostFragment extends BaseMwmToolbarFragment
                              implements OnBackPressListener, View.OnClickListener
 {
+  private static final String PREF_LAST_AUTH_DISPLAY_TIMESTAMP = "LastAuth";
+
   enum Mode
   {
     MAP_OBJECT,
@@ -25,6 +28,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     STREET,
     CUISINE
   }
+
   private Mode mMode;
 
   @Nullable
@@ -40,7 +44,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     super.onViewCreated(view, savedInstanceState);
     editMapObject();
     mToolbarController.findViewById(R.id.save).setOnClickListener(this);
-    mToolbarController.getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
+    mToolbarController.getToolbar().setNavigationOnClickListener(new View.OnClickListener()
+    {
       @Override
       public void onClick(View v)
       {
@@ -168,16 +173,15 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         Editor.nativeSetHouseNumber(editorFragment.getHouseNumber());
         if (Editor.nativeSaveEditedFeature())
         {
-          if (OsmOAuth.isAuthorized())
+          if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
             Utils.navigateToParent(getActivity());
           else
-            // TODO(yunikkk): auth should be displayed only once, we should remember the time it was displayed.
-            // And if there is no connection, no auth should be displayed at all.
             showAuthorization();
         }
         else
         {
-          // TODO(yunikkk): Show error dialog that changes can't be saved (for example, there is no free space).
+          // TODO(yunikkk) set correct error text.
+          UiUtils.showAlertDialog(getActivity(), R.string.not_enough_disk_space);
         }
         break;
       }
@@ -186,6 +190,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void showAuthorization()
   {
-    getMwmActivity().replaceFragment(AuthFragment.class, null, null);
+    if (!MwmApplication.prefs().contains(PREF_LAST_AUTH_DISPLAY_TIMESTAMP))
+    {
+      MwmApplication.prefs().edit().putLong(PREF_LAST_AUTH_DISPLAY_TIMESTAMP, System.currentTimeMillis()).apply();
+      getMwmActivity().replaceFragment(AuthFragment.class, null, null);
+    }
+    else
+      mToolbarController.onUpClick();
   }
 }

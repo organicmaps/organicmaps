@@ -39,12 +39,12 @@ using platform::LocalCountryFile;
 
 namespace
 {
-
 ::Framework * frm()
 {
   return g_framework->NativeFramework();
 }
 
+jobject g_mapObjectListener;
 }  // namespace
 
 namespace android
@@ -479,29 +479,25 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jclass clazz, jobject l)
+  Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jclass clazz, jobject jListener)
   {
-    // TODO: We never clean up this global ref.
-    jobject const listener = env->NewGlobalRef(l);
-    frm()->SetMapSelectionListeners([listener](place_page::Info const & info)
+    g_mapObjectListener = env->NewGlobalRef(jListener);
+    // void onMapObjectActivated(MapObject object);
+    jmethodID const activatedId = jni::GetMethodID(env, g_mapObjectListener, "onMapObjectActivated",
+                                                "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
+    // void onDismiss(boolean switchFullScreenMode);
+    jmethodID const dismissId = jni::GetMethodID(env, g_mapObjectListener, "onDismiss", "(Z)V");
+    frm()->SetMapSelectionListeners([activatedId](place_page::Info const & info)
     {
-      // 1st listener: User has selected an object on a map.
       JNIEnv * env = jni::GetEnv();
       g_framework->SetPlacePageInfo(info);
       jni::TScopedLocalRef mapObject(env, usermark_helper::CreateMapObject(env, info));
-      jmethodID const methodId = jni::GetMethodID(env, listener, "onMapObjectActivated",
-                                                  "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
-      //public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName)
-      env->CallVoidMethod(listener, methodId, mapObject.get());
-    }, [listener](bool /*enterFullScreenMode*/)
+      env->CallVoidMethod(g_mapObjectListener, activatedId, mapObject.get());
+    }, [dismissId](bool switchFullScreenMode)
     {
-      // 2nd listener: User has deselected object on a map, or tapped on an empty space (iOS toggles full screen mode in this case).
       JNIEnv * env = jni::GetEnv();
-      // TODO(yunikkk): Do we really need the next line? UI should always know when this info is valid, right?
       g_framework->SetPlacePageInfo({});
-      jmethodID const methodId = jni::GetMethodID(env, listener, "onDismiss", "()V");
-      ASSERT(methodId, ());
-      env->CallVoidMethod(listener, methodId);
+      env->CallVoidMethod(g_mapObjectListener, dismissId, switchFullScreenMode);
     });
   }
 
@@ -509,6 +505,7 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeRemoveMapObjectListener(JNIEnv * env, jobject thiz)
   {
     frm()->SetMapSelectionListeners({}, {});
+    env->DeleteGlobalRef(g_mapObjectListener);
   }
 
   JNIEXPORT jstring JNICALL
@@ -959,12 +956,6 @@ extern "C"
 
     static jfieldID const buildingsField = env->GetFieldID(resultClass, "buildings", "Z");
     env->SetBooleanField(result, buildingsField, buildings);
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetActiveMapObject(JNIEnv * env, jclass thiz)
-  {
-    return usermark_helper::CreateMapObject(env, g_framework->GetPlacePageInfo());
   }
 
   extern JNIEXPORT void JNICALL

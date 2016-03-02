@@ -26,7 +26,7 @@ public class Framework
   {
     void onMapObjectActivated(MapObject object);
 
-    void onDismiss();
+    void onDismiss(boolean switchFullScreenMode);
   }
 
   @SuppressWarnings("unused")
