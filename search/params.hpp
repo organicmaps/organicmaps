@@ -43,9 +43,8 @@ namespace search
     /// @param[in] locale can be "fr", "en-US", "ru_RU" etc.
     inline void SetInputLocale(string const & locale) { m_inputLocale = locale; }
 
-    inline void DisableSuggests() { m_suggestsEnabled = false; }
-    inline void EnableSuggests() { m_suggestsEnabled = true; }
-    inline bool SuggestsEnabled() const { return m_suggestsEnabled; }
+    inline void SetSuggestsEnabled(bool enabled) { m_suggestsEnabled = enabled; }
+    inline bool GetSuggestsEnabled() const { return m_suggestsEnabled; }
 
     bool IsEqualCommon(SearchParams const & rhs) const;
 

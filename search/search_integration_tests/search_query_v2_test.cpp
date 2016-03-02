@@ -353,7 +353,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, DisableSuggests)
     params.m_query = "londo";
     params.m_inputLocale = "en";
     params.SetMode(search::Mode::World);
-    params.DisableSuggests();
+    params.SetSuggestsEnabled(false);
 
     TestSearchRequest request(m_engine, params, m_viewport);
     request.Wait();

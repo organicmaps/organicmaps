@@ -91,7 +91,7 @@ public:
 
   inline void SetMode(Mode mode) { m_mode = mode; }
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
-  inline void EnableSuggests(bool enabled) { m_suggestsEnabled = enabled; }
+  inline void SetSuggestsEnabled(bool enabled) { m_suggestsEnabled = enabled; }
 
   /// Suggestions language code, not the same as we use in mwm data
   int8_t m_inputLocaleCode, m_currentLocaleCode;
