@@ -144,11 +144,11 @@ namespace
 {
 class DoStoreCountriesSingleMwms
 {
-  TCountriesFacade & m_cont;
+  TCountryTree & m_cont;
   TMapping m_idsMapping;
 
 public:
-  DoStoreCountriesSingleMwms(TCountriesFacade & cont) : m_cont(cont) {}
+  DoStoreCountriesSingleMwms(TCountryTree & cont) : m_cont(cont) {}
 
   Country * operator()(TCountryId const & id, uint32_t mapSize, int depth, TCountryId const & parent)
   {
@@ -177,10 +177,10 @@ public:
 
 class DoStoreCountriesTwoComponentMwms
 {
-  TCountriesFacade & m_cont;
+  TCountryTree & m_cont;
 
 public:
-  DoStoreCountriesTwoComponentMwms(TCountriesFacade & cont) : m_cont(cont) {}
+  DoStoreCountriesTwoComponentMwms(TCountryTree & cont) : m_cont(cont) {}
 
   void operator()(string const & file, uint32_t mapSize,
                   uint32_t routingSize, int depth, TCountryId const & parent)
@@ -243,7 +243,7 @@ public:
 };
 }  // namespace
 
-int64_t LoadCountries(string const & jsonBuffer, TCountriesFacade & countries, TMapping * mapping /* = nullptr */)
+int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries, TMapping * mapping /* = nullptr */)
 {
   countries.Clear();
 

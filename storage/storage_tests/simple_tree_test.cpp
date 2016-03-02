@@ -18,7 +18,7 @@ struct Calculator
 
 UNIT_TEST(CountryTree_Smoke)
 {
-  typedef CountryTree<int> TTree;
+  typedef CountryTree<int, int>::Node TTree;
   TTree tree;
 
   tree.AddAtDepth(0, 4);

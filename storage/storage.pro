@@ -17,7 +17,6 @@ HEADERS += \
   country_name_getter.hpp \
   country_polygon.hpp \
   country_tree.hpp \
-  country_tree_facade.hpp \
   http_map_files_downloader.hpp \
   index.hpp \
   map_files_downloader.hpp \

@@ -76,10 +76,10 @@ void DeleteFromDiskWithIndexes(LocalCountryFile const & localFile, MapOptions op
   localFile.DeleteFromDisk(options);
 }
 
-TCountriesContainer const & LeafNodeFromCountryId(TCountriesFacade const & root,
+TCountryTreeNode const & LeafNodeFromCountryId(TCountryTree const & root,
                                                   TCountryId const & countryId)
 {
-  CountryTree<Country> const * node = root.FindFirstLeaf(Country(countryId));
+  TCountryTreeNode const * node = root.FindFirstLeaf(Country(countryId));
   CHECK(node, ("Node with id =", countryId, "not found in country tree as a leaf."));
   return *node;
 }
@@ -321,7 +321,7 @@ Country const & Storage::CountryLeafByCountryId(TCountryId const & countryId) co
 
 Country const & Storage::CountryByCountryId(TCountryId const & countryId) const
 {
-  CountryTree<Country> const * node = m_countries.FindFirst(Country(countryId));
+  TCountryTreeNode const * node = m_countries.FindFirst(Country(countryId));
   CHECK(node, ("Node with id =", countryId, "not found in country tree."));
   return node->Value();
 }
@@ -554,7 +554,7 @@ void Storage::NotifyStatusChangedForHierarchy(TCountryId const & countryId)
   NotifyStatusChanged(countryId);
 
   // Notification status changing for ancestors in country tree.
-  ForEachAncestorExceptForTheRoot(countryId, [&] (TCountryId const & parentId, TCountriesContainer const &)
+  ForEachAncestorExceptForTheRoot(countryId, [&] (TCountryId const & parentId, TCountryTreeNode const &)
   {
     NotifyStatusChanged(parentId);
   });
@@ -729,10 +729,10 @@ void Storage::ReportProgressForHierarchy(TCountryId const & countryId,
   GetQueuedCountries(m_queue, setQueue);
 
   auto calcProgress = [&]
-      (TCountryId const & parentId, TCountriesContainer const & parentNode)
+      (TCountryId const & parentId, TCountryTreeNode const & parentNode)
   {
     TCountriesVec descendants;
-    parentNode.ForEachDescendant([&descendants](TCountriesContainer const & container)
+    parentNode.ForEachDescendant([&descendants](TCountryTreeNode const & container)
     {
       descendants.push_back(container.Value().Name());
     });
@@ -1119,7 +1119,7 @@ void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childrenId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  TCountriesContainer const * const parentNode = m_countries.FindFirst(Country(parent));
+  TCountryTreeNode const * const parentNode = m_countries.FindFirst(Country(parent));
   if (parentNode == nullptr)
   {
     ASSERT(false, ("TCountryId =", parent, "not found in m_countries."));
@@ -1149,7 +1149,7 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  TCountriesContainer const * const parentNode = m_countries.FindFirst(Country(parent));
+  TCountryTreeNode const * const parentNode = m_countries.FindFirst(Country(parent));
   if (parentNode == nullptr)
   {
     ASSERT(false, ("TCountryId =", parent, "not found in m_countries."));
@@ -1174,7 +1174,7 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
 
   for (size_t i = 0; i < childrenCount; ++i)
   {
-    TCountriesContainer const & child = parentNode->Child(i);
+    TCountryTreeNode const & child = parentNode->Child(i);
     TCountryId const & childCountryId = child.Value().Name();
     if (HasCountryId(localMaps, childCountryId))
     { // CountryId of child is a name of an mwm.
@@ -1184,7 +1184,7 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
 
     // Child is a group of mwms.
     bool hasDownloadedDescendant = false;
-    child.ForEachDescendant([&](TCountriesContainer const & descendant)
+    child.ForEachDescendant([&](TCountryTreeNode const & descendant)
                             {
                               TCountryId const & countryId = descendant.Value().Name();
                               if (!hasDownloadedDescendant && HasCountryId(localMaps, countryId))
@@ -1213,12 +1213,12 @@ void Storage::DownloadNode(TCountryId const & countryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  TCountriesContainer const * const node = m_countries.FindFirst(Country(countryId));
+  TCountryTreeNode const * const node = m_countries.FindFirst(Country(countryId));
 
   if (!node)
     return;
 
-  auto downloadAction = [this](TCountriesContainer const & descendantNode)
+  auto downloadAction = [this](TCountryTreeNode const & descendantNode)
   {
     if (descendantNode.ChildrenCount() == 0)
       this->DownloadCountry(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
@@ -1231,12 +1231,12 @@ void Storage::DeleteNode(TCountryId const & countryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  TCountriesContainer const * const node = m_countries.FindFirst(Country(countryId));
+  TCountryTreeNode const * const node = m_countries.FindFirst(Country(countryId));
 
   if (!node)
     return;
 
-  auto deleteAction = [this](TCountriesContainer const & descendantNode)
+  auto deleteAction = [this](TCountryTreeNode const & descendantNode)
   {
     if (descendantNode.ChildrenCount() == 0)
       this->DeleteCountry(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
@@ -1244,7 +1244,7 @@ void Storage::DeleteNode(TCountryId const & countryId)
   node->ForEachInSubtree(deleteAction);
 }
 
-Status Storage::NodeStatus(TCountriesContainer const & node) const
+Status Storage::NodeStatus(TCountryTreeNode const & node) const
 {
   // Leaf node status.
   if (node.ChildrenCount() == 0)
@@ -1257,7 +1257,7 @@ Status Storage::NodeStatus(TCountriesContainer const & node) const
   Status const kEverythingDownloaded = Status::EOnDisk;
 
   Status result = kEverythingDownloaded;
-  auto groupStatusCalculator = [&result, this](TCountriesContainer const & nodeInSubtree)
+  auto groupStatusCalculator = [&result, this](TCountryTreeNode const & nodeInSubtree)
   {
     if (result == kDownloadingInProgress || nodeInSubtree.ChildrenCount() != 0)
       return;
@@ -1292,13 +1292,13 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  vector<CountryTree<Country> const *> nodes;
+  vector<TCountryTreeNode const *> nodes;
   m_countries.Find(Country(countryId), nodes);
   CHECK(!nodes.empty(), ());
   // If nodes.size() > 1 countryId corresponds to a disputed territories.
   // In that case it's guaranteed that most of attributes are equal for
   // each element of nodes. See Country class description for further details.
-  TCountriesContainer const * const node = nodes[0];
+  TCountryTreeNode const * const node = nodes[0];
 
   Country const & nodeValue = node->Value();
   nodeAttrs.m_mwmCounter = nodeValue.GetSubtreeMwmCounter();
@@ -1310,7 +1310,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
 
   // Status and progress.
   TCountriesVec descendants;
-  node->ForEachDescendant([&descendants](TCountriesContainer const & d)
+  node->ForEachDescendant([&descendants](TCountryTreeNode const & d)
   {
     descendants.push_back(d.Value().Name());
   });
@@ -1328,7 +1328,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   // Local mwm information.
   nodeAttrs.m_localMwmCounter = 0;
   nodeAttrs.m_localMwmSize = 0;
-  node->ForEachInSubtree([this, &nodeAttrs](TCountriesContainer const & d)
+  node->ForEachInSubtree([this, &nodeAttrs](TCountryTreeNode const & d)
   {
     Storage::TLocalFilePtr const localFile = GetLatestLocalFile(d.Value().Name());
     if (localFile == nullptr)
