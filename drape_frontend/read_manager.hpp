@@ -1,7 +1,6 @@
 #pragma once
 
 #include "drape_frontend/engine_context.hpp"
-#include "drape_frontend/memory_feature_index.hpp"
 #include "drape_frontend/read_mwm_task.hpp"
 #include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/tile_utils.hpp"

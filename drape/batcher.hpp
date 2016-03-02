@@ -1,7 +1,6 @@
 #pragma once
 
 #include "drape/attribute_provider.hpp"
-#include "drape/feature_geometry_decl.hpp"
 #include "drape/glstate.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/pointers.hpp"
@@ -50,9 +49,6 @@ public:
   void StartSession(TFlushFn const & flusher);
   void EndSession();
 
-  // Begin/end processing of feature with FeatureGeometryId in the batcher.
-  void StartFeatureRecord(FeatureGeometryId feature, m2::RectD const & limitRect);
-  void EndFeatureRecord();
   void SetFeatureMinZoom(int minZoom);
 
 private:

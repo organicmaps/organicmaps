@@ -46,7 +46,6 @@ SOURCES += \
     line_shape.cpp \
     line_shape_helper.cpp \
     map_data_provider.cpp \
-    memory_feature_index.cpp \
     message_acceptor.cpp \
     message_queue.cpp \
     my_position.cpp \
@@ -133,7 +132,6 @@ HEADERS += \
     line_shape_helper.hpp \
     map_data_provider.hpp \
     map_shape.hpp \
-    memory_feature_index.hpp \
     message.hpp \
     message_acceptor.hpp \
     message_queue.hpp \

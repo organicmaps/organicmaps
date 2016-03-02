@@ -3,7 +3,6 @@
 #include "drape_frontend/message.hpp"
 #include "drape_frontend/tile_key.hpp"
 
-#include "drape/feature_geometry_decl.hpp"
 #include "drape/pointers.hpp"
 
 namespace dp

@@ -342,6 +342,16 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
     return;
   }
 
+  m2::PointD const v1 = p2 - p1;
+  m2::PointD const v2 = p3 - p1;
+  if (v1.IsAlmostZero() || v2.IsAlmostZero())
+    return;
+
+  double const crossProduct = m2::CrossProduct(v1.Normalize(), v2.Normalize());
+  double const kEps = 1e-7;
+  if (fabs(crossProduct) < kEps)
+    return;
+
   auto const clipFunctor = [this](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
   {
     m_triangles.push_back(p1);

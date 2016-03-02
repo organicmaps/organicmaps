@@ -8,6 +8,7 @@
 #include "drape/glstate.hpp"
 #include "drape/render_bucket.hpp"
 
+#include "std/deque.hpp"
 #include "std/vector.hpp"
 #include "std/set.hpp"
 #include "std/unique_ptr.hpp"

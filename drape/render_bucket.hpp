@@ -1,6 +1,5 @@
 #pragma once
 
-#include "drape/feature_geometry_decl.hpp"
 #include "drape/pointers.hpp"
 
 #include "std/function.hpp"
