@@ -1313,14 +1313,14 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
   // Two parent case.
-  auto const forEachParentDisputableTerritory
-      = [](TCountryId const & parentId, TCountryTreeNode const & parentNode)
+  auto const forEachParentDisputableTerritory =
+      [](TCountryId const & parentId, TCountryTreeNode const & parentNode)
   {
     TCountriesVec descendants;
     parentNode.ForEachDescendant([&descendants](TCountryTreeNode const & container)
-    {
-      descendants.push_back(container.Value().Name());
-    });
+                                 {
+                                   descendants.push_back(container.Value().Name());
+                                 });
 
     if (parentId == "Country1")
     {
@@ -1339,14 +1339,14 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
   storage.ForEachAncestorExceptForTheRoot("Disputable Territory", forEachParentDisputableTerritory);
 
   // One parent case.
-  auto const forEachParentIndisputableTerritory
-      = [](TCountryId const & parentId, TCountryTreeNode const & parentNode)
+  auto const forEachParentIndisputableTerritory =
+      [](TCountryId const & parentId, TCountryTreeNode const & parentNode)
   {
     TCountriesVec descendants;
     parentNode.ForEachDescendant([&descendants](TCountryTreeNode const & container)
-    {
-      descendants.push_back(container.Value().Name());
-    });
+                                 {
+                                   descendants.push_back(container.Value().Name());
+                                 });
 
     if (parentId == "Country1")
     {

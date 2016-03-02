@@ -148,7 +148,7 @@ class DoStoreCountriesSingleMwms
   TMapping m_idsMapping;
 
 public:
-  DoStoreCountriesSingleMwms(TCountryTree & cont) : m_countries(cont) {}
+  DoStoreCountriesSingleMwms(TCountryTree & countries) : m_countries(countries) {}
 
   Country * operator()(TCountryId const & id, uint32_t mapSize, int depth, TCountryId const & parent)
   {
@@ -243,7 +243,8 @@ public:
 };
 }  // namespace
 
-int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries, TMapping * mapping /* = nullptr */)
+int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries,
+                      TMapping * mapping /* = nullptr */)
 {
   countries.Clear();
 

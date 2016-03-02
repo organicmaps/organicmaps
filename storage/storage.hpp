@@ -533,10 +533,11 @@ void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
     return;
   }
   rootNode->ForEachInSubtree([&toDo](TCountryTreeNode const & container)
-  {
-    Country const & value = container.Value();
-    toDo(value.Name(), value.GetSubtreeMwmCounter() != 1 /* groupNode. */);
-  });
+                             {
+                               Country const & value = container.Value();
+                               toDo(value.Name(),
+                                    value.GetSubtreeMwmCounter() != 1 /* groupNode. */);
+                             });
 }
 
 template <class ToDo>
@@ -575,14 +576,16 @@ void Storage::ForEachAncestorExceptForTheRoot(TCountryId const & countryId, ToDo
   // may be more than one. It means |childId| is present in the country tree more than once.
   for (auto const & node : nodes)
   {
-    node->ForEachAncestorExceptForTheRoot([&](TCountryTreeNode const & container)
-    {
-      TCountryId const ancestorId = container.Value().Name();
-      if (visitedAncestors.find(ancestorId) != visitedAncestors.end())
-        return;  // The node was visited before because countryId is present in the tree more than once.
-      visitedAncestors.insert(ancestorId);
-      toDo(ancestorId, container);
-    });
+    node->ForEachAncestorExceptForTheRoot(
+        [&](TCountryTreeNode const & container)
+        {
+          TCountryId const ancestorId = container.Value().Name();
+          if (visitedAncestors.find(ancestorId) != visitedAncestors.end())
+            return;  // The node was visited before because countryId is present in the tree more
+                     // than once.
+          visitedAncestors.insert(ancestorId);
+          toDo(ancestorId, container);
+        });
   }
 }
 }  // storage

@@ -6,7 +6,8 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-/// \brief This class is developed for using in Storage. It's a implementation of a tree with ability
+/// \brief This class is developed for using in Storage. It's a implementation of a tree with
+/// ability
 /// of access to its nodes in expected constant time with the help of hash table.
 /// It should be filled with AddAtDepth method.
 /// This class is used in Storage and filled based on countries.txt (countries_migrate.txt).
@@ -110,7 +111,7 @@ public:
     template <class TFunctor>
     void ForEachDescendant(TFunctor && f) const
     {
-      for (auto const & child: m_children)
+      for (auto const & child : m_children)
       {
         f(*child);
         child->ForEachDescendant(f);
@@ -121,7 +122,7 @@ public:
     void ForEachInSubtree(TFunctor && f)
     {
       f(*this);
-      for (auto & child: m_children)
+      for (auto & child : m_children)
         child->ForEachInSubtree(f);
     }
 
@@ -129,7 +130,7 @@ public:
     void ForEachInSubtree(TFunctor && f) const
     {
       f(*this);
-      for (auto const & child: m_children)
+      for (auto const & child : m_children)
         child->ForEachInSubtree(f);
     }
 
@@ -154,10 +155,12 @@ public:
 
 private:
   using TCountryTreeHashTable = unordered_multimap<TKey, Node *>;
+
 public:
   CountryTree(TValue const & value = TValue(), Node * parent = nullptr)
-    : m_countryTree(make_unique<Node>(value, parent)) {}
-
+    : m_countryTree(make_unique<Node>(value, parent))
+  {
+  }
 
   Node const & GetRoot() const { return *m_countryTree; }
   Node & GetRoot() { return *m_countryTree; }
@@ -190,7 +193,10 @@ public:
       return;
 
     for_each(range.first, range.second,
-        [&found](typename TCountryTreeHashTable::value_type const & node) { found.push_back(&*node.second); });
+             [&found](typename TCountryTreeHashTable::value_type const & node)
+    {
+      found.push_back(&*node.second);
+    });
   }
 
   Node const * const FindFirst(TValue const & value) const

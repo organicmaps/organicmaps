@@ -77,7 +77,7 @@ void DeleteFromDiskWithIndexes(LocalCountryFile const & localFile, MapOptions op
 }
 
 TCountryTreeNode const & LeafNodeFromCountryId(TCountryTree const & root,
-                                                  TCountryId const & countryId)
+                                               TCountryId const & countryId)
 {
   TCountryTreeNode const * node = root.FindFirstLeaf(Country(countryId));
   CHECK(node, ("Node with id =", countryId, "not found in country tree as a leaf."));
@@ -554,7 +554,8 @@ void Storage::NotifyStatusChangedForHierarchy(TCountryId const & countryId)
   NotifyStatusChanged(countryId);
 
   // Notification status changing for ancestors in country tree.
-  ForEachAncestorExceptForTheRoot(countryId, [&] (TCountryId const & parentId, TCountryTreeNode const &)
+  ForEachAncestorExceptForTheRoot(countryId,
+                                  [&](TCountryId const & parentId, TCountryTreeNode const &)
   {
     NotifyStatusChanged(parentId);
   });
@@ -728,14 +729,13 @@ void Storage::ReportProgressForHierarchy(TCountryId const & countryId,
   TCountriesSet setQueue;
   GetQueuedCountries(m_queue, setQueue);
 
-  auto calcProgress = [&]
-      (TCountryId const & parentId, TCountryTreeNode const & parentNode)
+  auto calcProgress = [&](TCountryId const & parentId, TCountryTreeNode const & parentNode)
   {
     TCountriesVec descendants;
     parentNode.ForEachDescendant([&descendants](TCountryTreeNode const & container)
-    {
-      descendants.push_back(container.Value().Name());
-    });
+                                 {
+                                   descendants.push_back(container.Value().Name());
+                                 });
 
     MapFilesDownloader::TProgress localAndRemoteBytes =
         CalculateProgress(countryId, descendants, leafProgress, setQueue);
@@ -1311,9 +1311,9 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   // Status and progress.
   TCountriesVec descendants;
   node->ForEachDescendant([&descendants](TCountryTreeNode const & d)
-  {
-    descendants.push_back(d.Value().Name());
-  });
+                          {
+                            descendants.push_back(d.Value().Name());
+                          });
   TCountryId const & downloadingMwm = IsDownloadInProgress() ? GetCurrentDownloadingCountryId()
                                                              : kInvalidCountryId;
   MapFilesDownloader::TProgress downloadingMwmProgress(0, 0);
@@ -1330,7 +1330,8 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   nodeAttrs.m_localMwmSize = 0;
   node->ForEachInSubtree([this, &nodeAttrs](TCountryTreeNode const & d)
   {
-    Storage::TLocalFilePtr const localFile = GetLatestLocalFile(d.Value().Name());
+    Storage::TLocalFilePtr const localFile =
+        GetLatestLocalFile(d.Value().Name());
     if (localFile == nullptr)
       return;
 
