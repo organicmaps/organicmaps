@@ -1112,7 +1112,7 @@ string Storage::GetFileDownloadPath(TCountryId const & countryId, MapOptions fil
 
 TCountryId const Storage::GetRootId() const
 {
-  return m_countries.Value().Name();
+  return m_countries.GetRoot().Value().Name();
 }
 
 void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childrenId) const

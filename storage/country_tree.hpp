@@ -6,20 +6,14 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-template <class K>
-struct NodeKeyHasher
-{
-  size_t operator()(K const & k) const { return m_hash(k); }
-private:
-  hash<K> m_hash;
-};
-
-/// This class is developed for using in Storage. It's a implementation of a tree with ability
-/// of access to its nodes in constant time with the help of hash table.
+/// \brief This class is developed for using in Storage. It's a implementation of a tree with ability
+/// of access to its nodes in expected constant time with the help of hash table.
 /// It should be filled with AddAtDepth method.
 /// This class is used in Storage and filled based on countries.txt (countries_migrate.txt).
 /// While filling CountryTree nodes in countries.txt should be visited in DFS order.
-template <class I, class T>
+/// \param TKey is a type of keys to look for |TValue| in |m_countryTreeHashTable|.
+/// \param TValue is a type of values which are saved in |m_countryTree| nodes.
+template <class TKey, class TValue>
 class CountryTree
 {
 public:
@@ -29,7 +23,7 @@ public:
   /// While filling Node nodes in countries.txt should be visited in DFS order.
   class Node
   {
-    T m_value;
+    TValue m_value;
 
     /// \brief m_children contains all first generation descendants of the node.
     /// Note. Once created the order of elements of |m_children| should not be changed.
@@ -38,26 +32,26 @@ public:
     Node * m_parent;
 
     /// @return reference is valid only up to the next tree structure modification
-    Node * Add(T const & value)
+    Node * Add(TValue const & value)
     {
       m_children.emplace_back(make_unique<Node>(value, this));
       return m_children.back().get();
     }
 
   public:
-    Node(T const & value = T(), Node * parent = nullptr)
+    Node(TValue const & value = TValue(), Node * parent = nullptr)
       : m_value(value), m_parent(parent)
     {
     }
 
     /// @return reference is valid only up to the next tree structure modification
-    T const & Value() const { return m_value; }
+    TValue const & Value() const { return m_value; }
 
     /// @return reference is valid only up to the next tree structure modification
-    T & Value() { return m_value; }
+    TValue & Value() { return m_value; }
 
     /// @return reference is valid only up to the next tree structure modification
-    Node * AddAtDepth(int level, T const & value)
+    Node * AddAtDepth(int level, TValue const & value)
     {
       Node * node = this;
       while (level-- > 0 && !node->m_children.empty())
@@ -159,39 +153,36 @@ public:
   };
 
 private:
-  using TCountryTreeHashTable = unordered_multimap<I, Node *, NodeKeyHasher<I>>;
+  using TCountryTreeHashTable = unordered_multimap<TKey, Node *>;
 public:
+  CountryTree(TValue const & value = TValue(), Node * parent = nullptr)
+    : m_countryTree(make_unique<Node>(value, parent)) {}
 
-  CountryTree(T const & value = T(), Node * parent = nullptr)
-    : m_countryTree(value, parent) {}
 
-  /// @return reference is valid only up to the next tree structure modification
-  T const & Value() const { return m_countryTree.Value(); }
-
-  /// @return reference is valid only up to the next tree structure modification
-  T & Value() { return m_countryTree.Value(); }
+  Node const & GetRoot() const { return *m_countryTree; }
+  Node & GetRoot() { return *m_countryTree; }
 
   /// @return reference is valid only up to the next tree structure modification
-  T & AddAtDepth(int level, T const & value)
+  TValue & AddAtDepth(int level, TValue const & value)
   {
-    Node * const added = m_countryTree.AddAtDepth(level, value);
+    Node * const added = m_countryTree->AddAtDepth(level, value);
     ASSERT(added, ());
     m_countryTreeHashTable.insert(make_pair(value.Name(), added));
     return added->Value();
   }
 
   /// Deletes all children and makes tree empty
-  void Clear() { m_countryTree.Clear(); }
+  void Clear() { m_countryTree->Clear(); }
 
   /// \brief Checks all nodes in tree to find an equal one. If there're several equal nodes
   /// returns the first found.
   /// \returns a poiter item in the tree if found and nullptr otherwise.
-  void Find(T const & value, vector<Node const *> & found) const
+  void Find(TValue const & value, vector<Node const *> & found) const
   {
     found.clear();
 
-    if (IsEqual(value, m_countryTree.Value()))
-      found.push_back(&m_countryTree);
+    if (IsEqual(value, m_countryTree->Value()))
+      found.push_back(m_countryTree.get());
 
     auto const range = m_countryTreeHashTable.equal_range(value.Name());
     auto const end = m_countryTreeHashTable.end();
@@ -202,7 +193,7 @@ public:
         [&found](typename TCountryTreeHashTable::value_type const & node) { found.push_back(&*node.second); });
   }
 
-  Node const * const FindFirst(T const & value) const
+  Node const * const FindFirst(TValue const & value) const
   {
     vector<Node const *> found;
     Find(value, found);
@@ -216,7 +207,7 @@ public:
   /// When new countries.txt with unique ids will be added FindLeaf will be removed
   /// and Find will be used intead.
   /// @TODO(bykoianko) Remove this method on countries.txt update.
-  Node const * const FindFirstLeaf(T const & value) const
+  Node const * const FindFirstLeaf(TValue const & value) const
   {
     vector<Node const *> found;
     Find(value, found);
@@ -229,11 +220,15 @@ public:
     return nullptr;
   }
 
-  size_t ChildrenCount() const { return m_countryTree.ChildrenCount(); }
+  size_t ChildrenCount() const { return m_countryTree->ChildrenCount(); }
 
 private:
-  static bool IsEqual(T const & v1, T const & v2) { return !(v1 < v2) && !(v2 < v1); }
+  static bool IsEqual(TValue const & v1, TValue const & v2) { return !(v1 < v2) && !(v2 < v1); }
 
-  Node m_countryTree;
+  /// @TODO(bykoianko) The root of the tree currently is processed in a special way.
+  /// It's never deleted. Because of it it's necessary to work with the root in a special way.
+  /// See SetCountriesContainerAttrs method for example. And CountryTree::Clear() method
+  /// does not delete the root. It should be fixed.
+  unique_ptr<Node> m_countryTree;
   TCountryTreeHashTable m_countryTreeHashTable;
 };

@@ -144,11 +144,11 @@ namespace
 {
 class DoStoreCountriesSingleMwms
 {
-  TCountryTree & m_cont;
+  TCountryTree & m_countries;
   TMapping m_idsMapping;
 
 public:
-  DoStoreCountriesSingleMwms(TCountryTree & cont) : m_cont(cont) {}
+  DoStoreCountriesSingleMwms(TCountryTree & cont) : m_countries(cont) {}
 
   Country * operator()(TCountryId const & id, uint32_t mapSize, int depth, TCountryId const & parent)
   {
@@ -159,7 +159,7 @@ public:
       countryFile.SetRemoteSizes(mapSize, 0 /* routingSize */);
       country.SetFile(countryFile);
     }
-    return &m_cont.AddAtDepth(depth, country);
+    return &m_countries.AddAtDepth(depth, country);
   }
 
   void operator()(TCountryId const & oldId, TCountryId const & newId)
@@ -169,7 +169,7 @@ public:
 
   void SetCountriesContainerAttrs(uint32_t mwmNumber, size_t mwmSizeBytes)
   {
-    m_cont.Value().SetSubtreeAttrs(mwmNumber, mwmSizeBytes);
+    m_countries.GetRoot().Value().SetSubtreeAttrs(mwmNumber, mwmSizeBytes);
   }
 
   TMapping GetMapping() const { return m_idsMapping; }
@@ -177,10 +177,10 @@ public:
 
 class DoStoreCountriesTwoComponentMwms
 {
-  TCountryTree & m_cont;
+  TCountryTree & m_countries;
 
 public:
-  DoStoreCountriesTwoComponentMwms(TCountryTree & cont) : m_cont(cont) {}
+  DoStoreCountriesTwoComponentMwms(TCountryTree & cont) : m_countries(cont) {}
 
   void operator()(string const & file, uint32_t mapSize,
                   uint32_t routingSize, int depth, TCountryId const & parent)
@@ -192,7 +192,7 @@ public:
       countryFile.SetRemoteSizes(mapSize, routingSize);
       country.SetFile(countryFile);
     }
-    m_cont.AddAtDepth(depth, country);
+    m_countries.AddAtDepth(depth, country);
   }
 };
 
@@ -262,7 +262,7 @@ int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries, TMapp
       MYTHROW(my::Json::Exception, ("LoadCountries. Id is missing.", id));
     Country rootCountry(id, kInvalidCountryId);
     // @TODO(bykoianko) Add CourtyFile to rootCountry with correct size.
-    countries.Value() = rootCountry;
+    countries.GetRoot().Value() = rootCountry;
 
     if (isSingleMwm)
     {
