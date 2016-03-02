@@ -23,6 +23,7 @@ SOURCES += \
   angle_test.cpp \
   anyrect_test.cpp \
   cellid_test.cpp \
+  clipping_test.cpp \
   common_test.cpp \
   covering_test.cpp \
   distance_on_sphere_test.cpp \

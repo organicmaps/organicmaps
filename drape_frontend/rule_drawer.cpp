@@ -87,9 +87,8 @@ void RuleDrawer::operator()(FeatureType const & f)
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
   m2::RectD const limitRect = f.GetLimitRect(zoomLevel);
-  m2::RectD const tileRect = m_context->GetTileKey().GetGlobalRect();
 
-  if (!tileRect.IsIntersect(limitRect))
+  if (!m_globalRect.IsIntersect(limitRect))
     return;
 
   Stylist s;
@@ -190,12 +189,13 @@ void RuleDrawer::operator()(FeatureType const & f)
       areaMinHeight = m2::PointD(rectMercator.SizeX(), rectMercator.SizeY()).Length();
     }
 
-    ApplyAreaFeature apply(insertShape, f.GetID(), areaMinHeight, areaHeight,
+    ApplyAreaFeature apply(insertShape, f.GetID(), m_globalRect, areaMinHeight, areaHeight,
                            minVisibleScale, f.GetRank(), s.GetCaptionDescription());
     f.ForEachTriangle(apply, zoomLevel);
 
-    if (s.PointStyleExists())
-      apply(feature::GetCenter(f, zoomLevel));
+    m2::PointD const featureCenter = feature::GetCenter(f, zoomLevel);
+    if (s.PointStyleExists() && m_globalRect.IsPointInside(featureCenter))
+      apply(featureCenter);
 
     if (CheckCancelled())
       return;
@@ -205,7 +205,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
   else if (s.LineStyleExists())
   {
-    ApplyLineFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(),
+    ApplyLineFeature apply(insertShape, f.GetID(), m_globalRect, minVisibleScale, f.GetRank(),
                            s.GetCaptionDescription(), m_currentScaleGtoP,
                            zoomLevel >= kLineSimplifyLevelStart && zoomLevel <= kLineSimplifyLevelEnd,
                            f.GetPointsCount());

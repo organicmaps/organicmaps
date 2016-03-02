@@ -13,6 +13,8 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
 
+#include "geometry/clipping.hpp"
+
 #include "drape/color.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/utils/projection.hpp"
@@ -324,11 +326,12 @@ void ApplyPointFeature::Finish()
   }
 }
 
-ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, float minPosZ, float posZ,
-                                   int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
+ApplyAreaFeature::ApplyAreaFeature(TInsertShapeFn const & insertShape, FeatureID const & id, m2::RectD tileRect, float minPosZ,
+                                   float posZ, int minVisibleScale, uint8_t rank, CaptionDescription const & captions)
   : TBase(insertShape, id, minVisibleScale, rank, captions, posZ)
   , m_minPosZ(minPosZ)
   , m_isBuilding(posZ > 0.0f)
+  , m_tileRect(tileRect)
 {}
 
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
@@ -339,17 +342,17 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
     return;
   }
 
-  m_triangles.push_back(p1);
+  auto const clipFunctor = [this](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+  {
+    m_triangles.push_back(p1);
+    m_triangles.push_back(p2);
+    m_triangles.push_back(p3);
+  };
+
   if (m2::CrossProduct(p2 - p1, p3 - p1) < 0)
-  {
-    m_triangles.push_back(p2);
-    m_triangles.push_back(p3);
-  }
+    m2::ClipTriangleByRect(m_tileRect, p1, p2, p3, clipFunctor);
   else
-  {
-    m_triangles.push_back(p3);
-    m_triangles.push_back(p2);
-  }
+    m2::ClipTriangleByRect(m_tileRect, p1, p3, p2, clipFunctor);
 }
 
 void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2,
@@ -367,20 +370,18 @@ void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD 
   if (fabs(crossProduct) < kEps)
     return;
 
-  m_triangles.push_back(p1);
-
-  if (crossProduct < 0)
+  auto const clipFunctor = [this](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
   {
+    m_triangles.push_back(p1);
     m_triangles.push_back(p2);
     m_triangles.push_back(p3);
     BuildEdges(GetIndex(p1), GetIndex(p2), GetIndex(p3));
-  }
+  };
+
+  if (crossProduct < 0)
+    m2::ClipTriangleByRect(m_tileRect, p1, p2, p3, clipFunctor);
   else
-  {
-    m_triangles.push_back(p3);
-    m_triangles.push_back(p2);
-    BuildEdges(GetIndex(p1), GetIndex(p3), GetIndex(p2));
-  }
+    m2::ClipTriangleByRect(m_tileRect, p1, p3, p2, clipFunctor);
 }
 
 int ApplyAreaFeature::GetIndex(m2::PointD const & pt)
@@ -492,7 +493,7 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     TBase::ProcessRule(rule);
 }
 
-ApplyLineFeature::ApplyLineFeature(TInsertShapeFn const & insertShape, FeatureID const & id,
+ApplyLineFeature::ApplyLineFeature(TInsertShapeFn const & insertShape, FeatureID const & id, m2::RectD tileRect,
                                    int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
                                    double currentScaleGtoP, bool simplify, size_t pointsCount)
   : TBase(insertShape, id, minVisibleScale, rank, captions)
@@ -502,6 +503,7 @@ ApplyLineFeature::ApplyLineFeature(TInsertShapeFn const & insertShape, FeatureID
   , m_initialPointsCount(pointsCount)
   , m_shieldDepth(0.0)
   , m_shieldRule(nullptr)
+  , m_tileRect(tileRect)
 #ifdef CALC_FILTERED_POINTS
   , m_readedCount(0)
 #endif
@@ -555,6 +557,11 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
   LineDefProto const * pLineRule = pRule->GetLine();
   ShieldRuleProto const * pShieldRule = pRule->GetShield();
 
+  m_clippedSplines = m2::ClipSplineByRect(m_tileRect, m_spline);
+
+  if (m_clippedSplines.empty())
+    return;
+
   if (pCaptionRule != nullptr && pCaptionRule->height() > 2 &&
       !m_captions.GetPathName().empty() && isWay)
   {
@@ -570,7 +577,8 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_currentScaleGtoP;
 
-    m_insertShape(make_unique_dp<PathTextShape>(m_spline, params));
+    for (auto const & spline : m_clippedSplines)
+      m_insertShape(make_unique_dp<PathTextShape>(spline, params));
   }
 
   if (pLineRule != nullptr)
@@ -588,7 +596,8 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       params.m_step = symRule.step() * mainScale;
       params.m_baseGtoPScale = m_currentScaleGtoP;
 
-      m_insertShape(make_unique_dp<PathSymbolShape>(m_spline, params));
+      for (auto const & spline : m_clippedSplines)
+        m_insertShape(make_unique_dp<PathSymbolShape>(spline, params));
     }
     else
     {
@@ -599,7 +608,8 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       params.m_rank = m_rank;
       params.m_baseGtoPScale = m_currentScaleGtoP;
 
-      m_insertShape(make_unique_dp<LineShape>(m_spline, params));
+      for (auto const & spline : m_clippedSplines)
+        m_insertShape(make_unique_dp<LineShape>(spline, params));
     }
   }
 
@@ -616,7 +626,7 @@ void ApplyLineFeature::Finish()
   LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readedCount, m_spline->GetSize());
 #endif
 
-  if (m_shieldRule == nullptr)
+  if (m_shieldRule == nullptr || m_clippedSplines.empty())
     return;
 
   string const & roadNumber = m_captions.GetRoadNumber();
@@ -626,40 +636,43 @@ void ApplyLineFeature::Finish()
   dp::FontDecl font;
   ShieldRuleProtoToFontDecl(m_shieldRule, font);
 
-  double const pathPixelLength = m_spline->GetLength() * m_currentScaleGtoP;
-  int const textHeight = static_cast<int>(font.m_size);
+  float const mainScale = df::VisualParams::Instance().GetVisualScale();
 
-  // I don't know why we draw by this, but it's work before and will work now
-  if (pathPixelLength > (roadNumber.size() + 2) * textHeight)
+  TextViewParams viewParams;
+  viewParams.m_depth = m_shieldDepth;
+  viewParams.m_minVisibleScale = m_minVisibleScale;
+  viewParams.m_rank = m_rank;
+  viewParams.m_anchor = dp::Center;
+  viewParams.m_featureID = m_id;
+  viewParams.m_primaryText = roadNumber;
+  viewParams.m_primaryTextFont = font;
+  viewParams.m_primaryOffset = m2::PointF(0, 0);
+  viewParams.m_primaryOptional = true;
+  viewParams.m_secondaryOptional = true;
+  viewParams.m_extendingSize = m_shieldRule->has_min_distance() ? mainScale * m_shieldRule->min_distance() : 0;
+
+  for (auto const & spline : m_clippedSplines)
   {
-    // TODO in future we need to choose emptySpace according GtoP scale.
-    double const emptySpace = 1000.0;
-    int const count = static_cast<int>((pathPixelLength / emptySpace) + 2);
-    double const splineStep = pathPixelLength / count;
+    double const pathPixelLength = spline->GetLength() * m_currentScaleGtoP;
+    int const textHeight = static_cast<int>(font.m_size);
 
-    float const mainScale = df::VisualParams::Instance().GetVisualScale();
-
-    TextViewParams viewParams;
-    viewParams.m_depth = m_shieldDepth;
-    viewParams.m_minVisibleScale = m_minVisibleScale;
-    viewParams.m_rank = m_rank;
-    viewParams.m_anchor = dp::Center;
-    viewParams.m_featureID = m_id;
-    viewParams.m_primaryText = roadNumber;
-    viewParams.m_primaryTextFont = font;
-    viewParams.m_primaryOffset = m2::PointF(0, 0);
-    viewParams.m_primaryOptional = true;
-    viewParams.m_secondaryOptional = true;
-    viewParams.m_extendingSize = m_shieldRule->has_min_distance() ? mainScale * m_shieldRule->min_distance() : 0;
-
-    m2::Spline::iterator it = m_spline.CreateIterator();
-    size_t textIndex = 0;
-    while (!it.BeginAgain())
+    // I don't know why we draw by this, but it's work before and will work now
+    if (pathPixelLength > (roadNumber.size() + 2) * textHeight)
     {
-      m_insertShape(make_unique_dp<TextShape>(it.m_pos, viewParams, false /* hasPOI */,
-                                              textIndex, false /* affectedByZoomPriority */));
-      it.Advance(splineStep);
-      textIndex++;
+      // TODO in future we need to choose emptySpace according GtoP scale.
+      double const emptySpace = 1000.0;
+      int const count = static_cast<int>((pathPixelLength / emptySpace) + 2);
+      double const splineStep = pathPixelLength / count;
+
+      m2::Spline::iterator it = spline.CreateIterator();
+      size_t textIndex = 0;
+      while (!it.BeginAgain())
+      {
+        m_insertShape(make_unique_dp<TextShape>(it.m_pos, viewParams, false /* hasPOI */,
+                                                textIndex, false /* affectedByZoomPriority */));
+        it.Advance(splineStep);
+        textIndex++;
+      }
     }
   }
 }
