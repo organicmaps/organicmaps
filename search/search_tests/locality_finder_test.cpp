@@ -45,6 +45,7 @@ public:
 
     m_finder.SetLanguage(StringUtf8Multilang::GetLangIndex("en"));
   }
+
   ~LocalityFinderTest()
   {
     platform::CountryIndexes::DeleteFromDisk(m_worldFile);

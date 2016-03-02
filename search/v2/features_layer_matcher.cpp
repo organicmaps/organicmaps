@@ -114,7 +114,7 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
 
   if (edited)
   {
-    auto ret = find_if(streets.begin(), streets.end(), [&streetName](TStreet const & st)
+    auto const ret = find_if(streets.begin(), streets.end(), [&streetName](TStreet const & st)
     {
       return st.m_name == streetName;
     });
