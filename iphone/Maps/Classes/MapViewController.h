@@ -15,7 +15,6 @@ namespace search { struct AddressInfo; }
 @interface MapViewController : MWMViewController <LocationObserver, UIPopoverControllerDelegate>
 {
   CGPoint m_popoverPos;
-
   LocationPredictor * m_predictor;
 }
 

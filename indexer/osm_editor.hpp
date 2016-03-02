@@ -2,7 +2,6 @@
 
 #include "geometry/rect2d.hpp"
 
-// TODO(AlexZ): Integrate editable feature into an editor.
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_meta.hpp"
@@ -135,6 +134,7 @@ private:
   struct FeatureTypeInfo
   {
     FeatureStatus m_status;
+    // TODO(AlexZ): Integrate EditableMapObject class into an editor instead of FeatureType.
     FeatureType m_feature;
     /// If not empty contains Feature's addr:street, edited by user.
     string m_street;

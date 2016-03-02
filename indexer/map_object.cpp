@@ -70,6 +70,7 @@ FeatureID const & MapObject::GetID() const { return m_featureID; }
 ms::LatLon MapObject::GetLatLon() const { return MercatorBounds::ToLatLon(m_mercator); }
 m2::PointD const & MapObject::GetMercator() const { return m_mercator; }
 feature::TypesHolder const & MapObject::GetTypes() const { return m_types; }
+
 string MapObject::GetDefaultName() const
 {
   string name;
@@ -95,6 +96,7 @@ vector<osm::Props> MapObject::AvailableProperties() const
 string MapObject::GetPhone() const { return m_metadata.Get(feature::Metadata::FMD_PHONE_NUMBER); }
 string MapObject::GetFax() const { return m_metadata.Get(feature::Metadata::FMD_FAX_NUMBER); }
 string MapObject::GetEmail() const { return m_metadata.Get(feature::Metadata::FMD_EMAIL); }
+
 string MapObject::GetWebsite() const
 {
   string website = m_metadata.Get(feature::Metadata::FMD_WEBSITE);
@@ -129,12 +131,14 @@ vector<string> MapObject::GetCuisines() const
 }
 
 string MapObject::FormatCuisines() const { return strings::JoinStrings(GetCuisines(), " • "); }
+
 string MapObject::GetOpeningHours() const
 {
   return m_metadata.Get(feature::Metadata::FMD_OPEN_HOURS);
 }
 
 string MapObject::GetOperator() const { return m_metadata.Get(feature::Metadata::FMD_OPERATOR); }
+
 int MapObject::GetStars() const
 {
   // Most popular case.
@@ -162,7 +166,9 @@ string MapObject::GetElevation() const
 }
 
 string MapObject::GetWikipediaLink() const { return m_metadata.GetWikiURL(); }
+
 string MapObject::GetFlats() const { return m_metadata.Get(feature::Metadata::FMD_FLATS); }
+
 string MapObject::GetBuildingLevels() const
 {
   return m_metadata.Get(feature::Metadata::FMD_BUILDING_LEVELS);

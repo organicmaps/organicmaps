@@ -182,9 +182,8 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypeName: return m_mapObject.IsNameEditable();
     case MWMPlacePageCellTypeStreet: return m_mapObject.IsAddressEditable();
     case MWMPlacePageCellTypeBuilding: return m_mapObject.IsAddressEditable();
-    default: NSAssert(false, @"Invalid cell type %d", cellType);
+    default: NSAssert(false, @"Invalid cell type %d", cellType); return false;
   }
-  return false;
 }
 
 - (void)configTable

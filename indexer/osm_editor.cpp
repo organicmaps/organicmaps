@@ -849,7 +849,6 @@ NewFeatureCategories Editor::GetNewFeatureCategories() const
   }
   sort(res.m_allSorted.begin(), res.m_allSorted.end(), [](Category const & c1, Category const & c2)
   {
-    // TODO(AlexZ): Does it sort correctly?
     return c1.m_name < c2.m_name;
   });
   // TODO(mgsergio): Store in Settings:: recent history of created types and use them here.
@@ -869,6 +868,7 @@ namespace
 FeatureID GenerateNewFeatureId(FeatureID const & oldFeatureId)
 {
   // TODO(AlexZ): Stable & unique features ID generation.
+  // TODO(vng): Looks like new feature indexes should uninterruptedly continue after existing indexes in mwm file.
   static uint32_t newIndex = 0x0effffff;
   return FeatureID(oldFeatureId.m_mwmId, newIndex++);
 }

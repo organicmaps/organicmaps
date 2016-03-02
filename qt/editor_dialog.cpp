@@ -114,18 +114,18 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     case osm::Props::Email: v = emo.GetEmail(); break;
     case osm::Props::Website: v = emo.GetWebsite(); break;
     case osm::Props::Internet:
-    {
-      grid->addWidget(new QLabel(kInternetObjectName), row, 0);
-      QComboBox * cmb = new QComboBox();
-      string const values[] = {DebugPrint(osm::Internet::Unknown), DebugPrint(osm::Internet::Wlan),
-                               DebugPrint(osm::Internet::Wired), DebugPrint(osm::Internet::Yes),
-                               DebugPrint(osm::Internet::No)};
-      for (auto const & v : values)
-        cmb->addItem(v.c_str());
-      cmb->setCurrentText(DebugPrint(emo.GetInternet()).c_str());
-      cmb->setObjectName(kInternetObjectName);
-      grid->addWidget(cmb, row++, 1);
-    }
+      {
+        grid->addWidget(new QLabel(kInternetObjectName), row, 0);
+        QComboBox * cmb = new QComboBox();
+        string const values[] = {DebugPrint(osm::Internet::Unknown), DebugPrint(osm::Internet::Wlan),
+                                 DebugPrint(osm::Internet::Wired), DebugPrint(osm::Internet::Yes),
+                                 DebugPrint(osm::Internet::No)};
+        for (auto const & v : values)
+          cmb->addItem(v.c_str());
+        cmb->setCurrentText(DebugPrint(emo.GetInternet()).c_str());
+        cmb->setObjectName(kInternetObjectName);
+        grid->addWidget(cmb, row++, 1);
+      }
       continue;
     case osm::Props::Cuisine: v = strings::JoinStrings(emo.GetCuisines(), ", "); break;
     case osm::Props::OpeningHours: v = emo.GetOpeningHours(); break;
@@ -181,12 +181,14 @@ void EditorDialog::OnSave()
     }
     m_feature.SetName(names);
   }
+
   if (m_feature.IsAddressEditable())
   {
     m_feature.SetHouseNumber(findChild<QLineEdit *>(kHouseNumberObjectName)->text().toStdString());
     m_feature.SetStreet(findChild<QComboBox *>(kStreetObjectName)->currentText().toStdString());
     m_feature.SetPostcode(findChild<QLineEdit *>(kPostcodeObjectName)->text().toStdString());
   }
+
   for (osm::Props const prop : m_feature.GetEditableProperties())
   {
     if (prop == osm::Props::Internet)
@@ -205,9 +207,11 @@ void EditorDialog::OnSave()
       m_feature.SetInternet(v);
       continue;
     }
+
     QLineEdit * editor = findChild<QLineEdit *>(QString::fromStdString(DebugPrint(prop)));
     if (!editor)
       continue;
+
     string const v = editor->text().toStdString();
     switch (prop)
     {

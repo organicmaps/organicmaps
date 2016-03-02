@@ -1775,7 +1775,7 @@ void Framework::OnTapEvent(df::TapInfo const & tapInfo)
     // Back up last tap event to recover selection in case of Drape reinitialization.
     m_lastTapEvent.reset(new df::TapInfo(tapInfo));
 
-    {
+    { // Log statistics event.
       ms::LatLon const ll = info.GetLatLon();
       double myLat, myLon;
       double metersToTap = -1;
@@ -1851,7 +1851,6 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(df::TapInfo const 
       FillBookmarkInfo(*static_cast<Bookmark const *>(mark), FindBookmark(mark), outInfo);
       break;
     case UserMark::Type::SEARCH:
-      // TODO(AlexZ): Check if search results features are correcly passed to UI.
       FillApiMarkInfo(*static_cast<ApiMarkPoint const *>(mark), outInfo);
       break;
     default:

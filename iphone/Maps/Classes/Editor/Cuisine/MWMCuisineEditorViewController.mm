@@ -6,7 +6,6 @@
 #include "indexer/cuisines.hpp"
 
 #include "std/algorithm.hpp"
-#include "std/set.hpp"
 
 namespace
 {

@@ -14,6 +14,7 @@ bool Info::IsMyPosition() const { return m_isMyPosition; }
 bool Info::HasApiUrl() const { return !m_apiUrl.empty(); }
 bool Info::IsEditable() const { return m_isEditable; }
 bool Info::HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
+
 string Info::FormatNewBookmarkName() const
 {
   string const title = GetTitle();
