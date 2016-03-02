@@ -336,18 +336,18 @@ Framework::Framework()
   {
     alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
   };
-//#ifdef DEBUG
-//  auto const routingVisualizerFn = [this](m2::PointD const & pt)
-//  {
-//    GetPlatform().RunOnGuiThread([this,pt]()
-//    {
-//      m_bmManager.UserMarksGetController(UserMarkContainer::DEBUG_MARK).CreateUserMark(pt);
-//      Invalidate();
-//    });
-//  };
-//#else
+#ifdef DEBUG
+  auto const routingVisualizerFn = [this](m2::PointD const & pt)
+  {
+    UserMarkControllerGuard guard(m_bmManager, UserMarkType::DEBUG_MARK);
+    guard.m_controller.SetIsVisible(true);
+    guard.m_controller.SetIsDrawable(true);
+
+    guard.m_controller.CreateUserMark(pt);
+  };
+#else
   routing::RouterDelegate::TPointCheckCallback const routingVisualizerFn = nullptr;
-//#endif
+#endif
   m_routingSession.Init(routingStatisticsFn, routingVisualizerFn);
 
   SetRouterImpl(RouterType::Vehicle);
