@@ -2,7 +2,6 @@
 #include "search/intermediate_result.hpp"
 #include "search/keyword_lang_matcher.hpp"
 #include "search/mode.hpp"
-#include "search/retrieval.hpp"
 #include "search/search_trie.hpp"
 #include "search/suggest.hpp"
 #include "search/v2/rank_table_cache.hpp"
@@ -74,10 +73,6 @@ public:
   Query(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
         storage::CountryInfoGetter const & infoGetter);
 
-  // my::Cancellable overrides:
-  void Reset() override;
-  void Cancel() override;
-
   inline void SupportOldFormat(bool b) { m_supportOldFormat = b; }
 
   void Init(bool viewportSearch);
@@ -134,25 +129,6 @@ protected:
   };
 
   friend string DebugPrint(ViewportID viewportId);
-
-  class RetrievalCallback : public Retrieval::Callback
-  {
-  public:
-    RetrievalCallback(Index & index, Query & query, ViewportID id);
-
-    // Retrieval::Callback overrides:
-    void OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
-                             coding::CompressedBitVector const & features) override;
-
-    void OnMwmProcessed(MwmSet::MwmId const & id) override;
-
-  private:
-
-    Index & m_index;
-    Query & m_query;
-    ViewportID m_viewportId;
-    search::v2::RankTableCache m_rankTableCache;
-  };
 
   friend class impl::FeatureLoader;
   friend class impl::BestNameFinder;
@@ -245,7 +221,6 @@ protected:
   Mode m_mode;
   bool m_worldSearch;
   bool m_suggestsEnabled;
-  Retrieval m_retrieval;
 
   /// @name Get ranking params.
   //@{

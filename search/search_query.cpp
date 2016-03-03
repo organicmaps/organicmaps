@@ -162,30 +162,6 @@ void RemoveDuplicatingLinear(vector<IndexedValue> & indV)
 }
 }  // namespace
 
-Query::RetrievalCallback::RetrievalCallback(Index & index, Query & query, ViewportID viewportId)
-  : m_index(index), m_query(query), m_viewportId(viewportId)
-{
-}
-
-void Query::RetrievalCallback::OnFeaturesRetrieved(MwmSet::MwmId const & id, double scale,
-                                                   coding::CompressedBitVector const & features)
-{
-  auto const & table = m_rankTableCache.Get(m_index, id);
-
-  coding::CompressedBitVectorEnumerator::ForEach(
-      features, [&](uint64_t featureId)
-      {
-        ASSERT_LESS_OR_EQUAL(featureId, numeric_limits<uint32_t>::max(), ());
-        m_query.AddPreResult1(id, static_cast<uint32_t>(featureId), table.Get(featureId), scale,
-                              m_viewportId);
-      });
-}
-
-void Query::RetrievalCallback::OnMwmProcessed(MwmSet::MwmId const & id)
-{
-  m_rankTableCache.Remove(id);
-}
-
 // static
 size_t const Query::kPreResultsCount;
 
@@ -228,18 +204,6 @@ Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest>
   m_keywordsScorer.SetLanguages(langPriorities);
 
   SetPreferredLocale("en");
-}
-
-void Query::Reset()
-{
-  Cancellable::Reset();
-  m_retrieval.Reset();
-}
-
-void Query::Cancel()
-{
-  Cancellable::Cancel();
-  m_retrieval.Cancel();
 }
 
 void Query::SetLanguage(int id, int8_t lang)
@@ -1707,25 +1671,8 @@ void Query::SearchFeaturesInViewport(SearchQueryParams const & params, TMWMVecto
 void Query::SearchInMwms(TMWMVector const & mwmsInfo, SearchQueryParams const & params,
                          ViewportID viewportId)
 {
-  Retrieval::Limits limits;
-  limits.SetMaxNumFeatures(kPreResultsCount);
-  limits.SetSearchInWorld(m_worldSearch);
-
-  m2::RectD const * viewport = nullptr;
-  if (viewportId == LOCALITY_V)
-  {
-    limits.SetMaxViewportScale(1.0);
-    viewport = &m_viewport[LOCALITY_V];
-  }
-  else
-  {
-    viewport = &m_viewport[CURRENT_V];
-  }
-
-  m_retrieval.Init(m_index, mwmsInfo, *viewport, params, limits);
-  RetrievalCallback callback(m_index, *this, viewportId);
-  m_retrieval.Go(callback);
-  m_retrieval.Release();
+  /// @note Old Retrieval logic is obsolete and moved to trash.
+  /// @todo Move to trash this Query code :)
 }
 
 void Query::SuggestStrings(Results & res)

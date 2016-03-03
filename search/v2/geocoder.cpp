@@ -570,8 +570,8 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       unique_ptr<coding::CompressedBitVector> viewportCBV;
       if (inViewport)
       {
-        viewportCBV = Retrieval::RetrieveGeometryFeatures(*m_context, cancellable,
-                                                          m_params.m_viewport, m_params.m_scale);
+        viewportCBV = v2::RetrieveGeometryFeatures(*m_context, cancellable,
+                                                   m_params.m_viewport, m_params.m_scale);
       }
 
       PrepareAddressFeatures();
@@ -645,7 +645,7 @@ void Geocoder::PrepareAddressFeatures()
   for (size_t i = 0; i < m_numTokens; ++i)
   {
     PrepareRetrievalParams(i, i + 1);
-    m_addressFeatures[i] = Retrieval::RetrieveAddressFeatures(
+    m_addressFeatures[i] = RetrieveAddressFeatures(
         m_context->GetId(), m_context->m_value, static_cast<my::Cancellable const &>(*this),
         m_retrievalParams);
     ASSERT(m_addressFeatures[i], ());
@@ -1303,7 +1303,7 @@ unique_ptr<coding::CompressedBitVector> Geocoder::LoadCategories(
   for_each(categories.begin(), categories.end(), [&](strings::UniString const & category)
            {
              m_retrievalParams.m_tokens[0][0] = category;
-             auto cbv = Retrieval::RetrieveAddressFeatures(
+             auto cbv = RetrieveAddressFeatures(
                  context.GetId(), context.m_value, static_cast<my::Cancellable const &>(*this),
                  m_retrievalParams);
              if (!coding::CompressedBitVector::IsEmpty(cbv))
@@ -1357,7 +1357,7 @@ coding::CompressedBitVector const * Geocoder::RetrieveGeometryFeatures(MwmContex
       return v.m_cbv.get();
   }
 
-  auto cbv = Retrieval::RetrieveGeometryFeatures(context, *this, rect, m_params.m_scale);
+  auto cbv = v2::RetrieveGeometryFeatures(context, *this, rect, m_params.m_scale);
 
   auto const * result = cbv.get();
   features.push_back({m2::Inflate(rect, kComparePoints, kComparePoints), move(cbv), id});
