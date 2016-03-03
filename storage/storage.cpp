@@ -94,22 +94,6 @@ void CorrectJustDownloaded(Storage::TQueue::iterator justDownloadedItem, Storage
   else
     justDownloaded.insert(justDownloadedCountry);
 }
-
-bool IsDownloadingStatus(Status status)
-{
-  return status == Status::EDownloading || status == Status::EInQueue;
-}
-
-bool IsUserAttentionNeededStatus(Status status)
-{
-  return status == Status::EDownloadFailed || status == Status::EOutOfMemFailed
-      || status == Status::EOnDiskOutOfDate || status == Status::EUnknown;
-}
-
-bool IsPartlyDownloaded(Status status)
-{
-  return status == Status::ENotDownloaded;
-}
 }  // namespace
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries)
@@ -1244,48 +1228,37 @@ void Storage::DeleteNode(TCountryId const & countryId)
   node->ForEachInSubtree(deleteAction);
 }
 
-Status Storage::NodeStatus(TCountryTreeNode const & node) const
+StatusAndError Storage::NodeStatus(TCountryTreeNode const & node) const
 {
   // Leaf node status.
   if (node.ChildrenCount() == 0)
-    return CountryStatusEx(node.Value().Name());
+    return ParseStatus(CountryStatusEx(node.Value().Name()));
 
   // Group node status.
-  Status const kDownloadingInProgress = Status::EDownloading;
-  Status const kUsersAttentionNeeded = Status::EDownloadFailed;
-  Status const kPartlyDownloaded = Status::ENotDownloaded;
-  Status const kEverythingDownloaded = Status::EOnDisk;
+  enum NodeStatus result = NodeStatus::NotDownloaded;
+  bool allOnDisk = true;
 
-  Status result = kEverythingDownloaded;
-  auto groupStatusCalculator = [&result, this](TCountryTreeNode const & nodeInSubtree)
+  auto groupStatusCalculator = [&result, &allOnDisk, this](TCountryTreeNode const & nodeInSubtree)
   {
-    if (result == kDownloadingInProgress || nodeInSubtree.ChildrenCount() != 0)
+    if (result == NodeStatus::Downloading || nodeInSubtree.ChildrenCount() != 0)
       return;
-    Status status = this->CountryStatusEx(nodeInSubtree.Value().Name());
-    ASSERT_NOT_EQUAL(status, Status::EUndefined, ());
 
-    if (IsDownloadingStatus(status))
-    {
-      result = kDownloadingInProgress;
-      return;
-    }
+    StatusAndError const statusAndError = ParseStatus(CountryStatusEx(nodeInSubtree.Value().Name()));
+    if (statusAndError.status != NodeStatus::OnDisk)
+      allOnDisk = false;
 
-    if (result == kUsersAttentionNeeded)
-      return;
-    if (IsUserAttentionNeededStatus(status))
-    {
-      result = kUsersAttentionNeeded;
-      return;
-    }
-
-    if (result == kPartlyDownloaded)
-      return;
-    if (IsPartlyDownloaded(status))
-      result = kPartlyDownloaded;
+    if (static_cast<size_t>(statusAndError.status) < static_cast<size_t>(result))
+      result = statusAndError.status;
   };
 
   node.ForEachDescendant(groupStatusCalculator);
-  return result;
+  if (allOnDisk)
+    return ParseStatus(Status::EOnDisk);
+  if (!allOnDisk && result == NodeStatus::OnDisk)
+    return { NodeStatus::Mixed, NodeErrorCode::NoError };
+
+  ASSERT_NOT_EQUAL(result, NodeStatus::Undefined, ());
+  return { result, NodeErrorCode::NoError };
 }
 
 void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) const
@@ -1303,7 +1276,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   Country const & nodeValue = node->Value();
   nodeAttrs.m_mwmCounter = nodeValue.GetSubtreeMwmCounter();
   nodeAttrs.m_mwmSize = nodeValue.GetSubtreeMwmSizeBytes();
-  StatusAndError statusAndErr = ParseStatus(NodeStatus(*node));
+  StatusAndError statusAndErr = NodeStatus(*node);
   nodeAttrs.m_status = statusAndErr.status;
   nodeAttrs.m_error = statusAndErr.error;
   nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);

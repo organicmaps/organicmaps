@@ -72,7 +72,18 @@ struct NodeAttrs
   /// So m_downloadingProgress.first <= m_downloadingProgress.second.
   MapFilesDownloader::TProgress m_downloadingProgress;
 
+  /// Status of group and leaf node.
+  /// For group nodes it's defined in the following way:
+  /// If an mwm in a group has Downloading status the group has Downloading status
+  /// If not and if an mwm in the group has InQueue status the group has InQueue status
+  /// If not and if an mwm in the group has Error status the group has Error status
+  /// If not and if an mwm in the group has OnDiskOutOfDate the group has OnDiskOutOfDate status
+  /// If not and if all the mwms in the group have OnDisk status the group has OnDisk status
+  /// If not and if all the mwms in the group have NotDownloaded status the group has NotDownloaded status
+  /// If not (that means a part of mwms in the group has OnDisk and the other part has NotDownloaded status)
+  ///   the group has Mixed status
   NodeStatus m_status;
+  /// Error code of leaf node. In case of group node |m_error| == NodeErrorCode::NoError.
   NodeErrorCode m_error;
 
   /// Indicates if leaf mwm is currently downloaded and connected to storage.
@@ -492,7 +503,7 @@ private:
   Status CountryStatus(TCountryId const & countryId) const;
 
   /// Returns status for a node (group node or not)
-  Status NodeStatus(TCountryTreeNode const & node) const;
+  StatusAndError NodeStatus(TCountryTreeNode const & node) const;
 
   void NotifyStatusChanged(TCountryId const & countryId);
   void NotifyStatusChangedForHierarchy(TCountryId const & countryId);
