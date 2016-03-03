@@ -2,10 +2,12 @@
 #import "EAGLView.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "MWMAddPlaceNavigationBar.h"
 #import "MWMAlertViewController.h"
 #import "MWMAPIBar.h"
 #import "MWMBottomMenuViewController.h"
 #import "MWMButton.h"
+#import "MWMObjectsCategorySelectorController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMMapViewControlsManager.h"
@@ -22,6 +24,11 @@
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
+
+namespace
+{
+  NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
+} // namespace
 
 extern NSString * const kAlohalyticsTapEventKey;
 
@@ -253,6 +260,32 @@ extern NSString * const kAlohalyticsTapEventKey;
     if (ownerViewSize.width > ownerViewSize.height)
       [self dismissPlacePage];
   }
+}
+
+#pragma mark - MWMBottomMenuControllerProtocol
+
+- (void)addPlace
+{
+  self.menuState = MWMBottomMenuStateHidden;
+  static_cast<EAGLView *>(self.ownerController.view).widgetsManager.fullScreen = YES;
+  [self.placePageManager dismissPlacePage];
+  self.searchManager.state = MWMSearchManagerStateHidden;
+
+  [MWMAddPlaceNavigationBar showInSuperview:self.ownerController.view doneBlock:^
+  {
+    [self.ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:nil];
+    [self didFinishAddingPlace];
+  }
+  cancelBlock:^
+  {
+    [self didFinishAddingPlace];
+  }];
+}
+
+- (void)didFinishAddingPlace
+{
+  self.menuState = MWMBottomMenuStateInactive;
+  static_cast<EAGLView *>(self.ownerController.view).widgetsManager.fullScreen = NO;
 }
 
 #pragma mark - MWMPlacePageViewManagerDelegate
