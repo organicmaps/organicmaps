@@ -76,7 +76,6 @@ struct NodeAttrs
 
   /// Indicates that the map is currently downloaded and connected to storage.
   /// Can be used to distinguish downloadable and updatable maps.
-  /// @todo. Set appropriate value.
   bool m_present;
 };
 

@@ -1337,6 +1337,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
     nodeAttrs.m_localMwmCounter += 1;
     nodeAttrs.m_localMwmSize += localFile->GetSize(MapOptions::Map);
   });
+  nodeAttrs.m_present = m_localFiles.find(countryId) != m_localFiles.end();
 
   // Parents information.
   nodeAttrs.m_parentInfo.clear();
