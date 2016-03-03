@@ -33,6 +33,7 @@ static CGFloat const kLayoutThreshold = 420.0;
 
 typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
+  MWMBottomMenuViewCellAddPlace,
   MWMBottomMenuViewCellDownload,
   MWMBottomMenuViewCellSettings,
   MWMBottomMenuViewCellShare,
@@ -275,6 +276,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
                                                 forIndexPath:indexPath];
   switch (indexPath.item)
   {
+  case MWMBottomMenuViewCellAddPlace:
+    [cell configureWithImageName:nil
+                           label:L(@"add_place")
+                      badgeCount:0];
+    break;
   case MWMBottomMenuViewCellDownload:
   {
     auto & s = GetFramework().Storage();
@@ -311,6 +317,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   switch (indexPath.item)
   {
+  case MWMBottomMenuViewCellAddPlace:
+    [self menuActionAddPlace];
+    break;
   case MWMBottomMenuViewCellDownload:
     [self menuActionDownloadMaps];
     break;
@@ -329,6 +338,13 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 }
 
 #pragma mark - Buttons actions
+
+- (void)menuActionAddPlace
+{
+  [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatAddPlace}];
+  self.state = self.restoreState;
+  [self.delegate addPlace];
+}
 
 - (void)menuActionDownloadMaps
 {
