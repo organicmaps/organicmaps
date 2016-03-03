@@ -173,13 +173,6 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetDownloadedCount(JNIEnv *
   return GetStorage().GetDownloadedFilesCount();
 }
 
-// static String nativeGetRootNode();
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeGetRootNode(JNIEnv * env, jclass clazz)
-{
-  return jni::ToJavaString(env, Storage().GetRootId());
-}
-
 // static @Nullable UpdateInfo nativeGetUpdateInfo();
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz)
@@ -411,6 +404,13 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeDelete(JNIEnv * env, jclass
   StartBatchingCallbacks();
   GetStorage().DeleteNode(jni::ToNativeString(env, root));
   EndBatchingCallbacks(env);
+}
+
+// static void nativeShow(String root);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeShow(JNIEnv * env, jclass clazz, jstring root)
+{
+  g_framework->NativeFramework()->ShowNode(jni::ToNativeString(env, root));
 }
 
 static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCountryId const & countryId)

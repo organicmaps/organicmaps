@@ -94,12 +94,6 @@ public final class MapManager
   public static native void nativeCancelMigration();
 
   /**
-   * Returns country ID of the root node.
-   * KILLME (trashkalmar): Unused?
-   */
-  public static native String nativeGetRootNode();
-
-  /**
    * Return count of fully downloaded maps (excluding fake MWMs).
    */
   public static native int nativeGetDownloadedCount();
@@ -168,6 +162,11 @@ public final class MapManager
    * Deletes given installed {@code root} node with its children.
    */
   public static native void nativeDelete(String root);
+
+  /**
+   * Focuses map on the given {@code root}.
+   */
+  public static native void nativeShow(String root);
 
   /**
    * Registers {@code callback} of storage status changed. Returns slot ID which should be used to unsubscribe in {@link #nativeUnsubscribe(int)}.
