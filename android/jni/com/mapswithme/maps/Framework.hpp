@@ -57,7 +57,7 @@ namespace android
 
     storage::Storage & Storage();
 
-    void ShowCountry(storage::TCountryId const & countryId, bool zoomToDownloadButton);
+    void ShowNode(storage::TCountryId const & countryId, bool zoomToDownloadButton);
 
     void OnLocationError(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(location::GpsInfo const & info);

@@ -4,6 +4,10 @@
 #include "com/mapswithme/opengl/androidoglcontextfactory.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 
+#include "map/user_mark.hpp"
+
+#include "storage/storage_helpers.hpp"
+
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape/pointers.hpp"
@@ -209,17 +213,17 @@ Storage & Framework::Storage()
   return m_work.Storage();
 }
 
-void Framework::ShowCountry(TCountryId const & idx, bool zoomToDownloadButton)
+void Framework::ShowNode(TCountryId const & idx, bool zoomToDownloadButton)
 {
   if (zoomToDownloadButton)
   {
-    m2::RectD const rect = m_work.GetCountryBounds(idx);
+    m2::RectD const rect = CalcLimitRect(idx, m_work.Storage(), m_work.CountryInfoGetter());
     double const lon = MercatorBounds::XToLon(rect.Center().x);
     double const lat = MercatorBounds::YToLat(rect.Center().y);
     m_work.ShowRect(lat, lon, 10);
   }
   else
-    m_work.ShowCountry(idx);
+    m_work.ShowNode(idx);
 }
 
 void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer)
@@ -822,7 +826,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jstring countryId, jboolean zoomToDownloadButton)
   {
-    g_framework->ShowCountry(jni::ToNativeString(env, countryId), (bool) zoomToDownloadButton);
+    g_framework->ShowNode(jni::ToNativeString(env, countryId), (bool) zoomToDownloadButton);
   }
 
   JNIEXPORT void JNICALL
