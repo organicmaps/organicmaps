@@ -70,7 +70,7 @@ using namespace storage;
     {
       auto & f = GetFramework();
       double const defaultZoom = 10;
-      f.ShowRect(f.GetCountryBounds(countryId), defaultZoom);
+      f.ShowRect(CalcLimitRect(countryId, f.Storage(), f.CountryInfoGetter()));
     }];
   }
 }
