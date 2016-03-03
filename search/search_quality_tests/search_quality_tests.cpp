@@ -61,9 +61,9 @@ DEFINE_string(check_completeness, "", "Path to the file with completeness data")
 
 map<string, m2::RectD> const kViewports = {
     {"default", m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0))},
-    {"moscow", MercatorBounds::RectByCenterXYAndSizeInMeters(m2::PointD(37.7, 55.7), 5000)},
-    {"london", MercatorBounds::RectByCenterXYAndSizeInMeters(m2::PointD(0.0, 51.5), 5000)},
-    {"zurich", MercatorBounds::RectByCenterXYAndSizeInMeters(m2::PointD(8.5, 47.4), 5000)}};
+    {"moscow", MercatorBounds::RectByCenterLatLonAndSizeInMeters(55.7, 37.7, 5000)},
+    {"london", MercatorBounds::RectByCenterLatLonAndSizeInMeters(51.5, 0.0, 5000)},
+    {"zurich", MercatorBounds::RectByCenterLatLonAndSizeInMeters(47.4, 8.5, 5000)}};
 
 string const kDefaultQueriesPathSuffix = "/../search/search_quality_tests/queries.txt";
 string const kEmptyResult = "<empty>";

@@ -106,6 +106,11 @@ struct MercatorBounds
     return FromLatLon(point.lat, point.lon);
   }
 
+  inline static m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
+  {
+    return RectByCenterXYAndSizeInMeters(FromLatLon(lat, lon), size);
+  }
+
   inline static ms::LatLon ToLatLon(m2::PointD const & point)
   {
     return {YToLat(point.y), XToLon(point.x)};
