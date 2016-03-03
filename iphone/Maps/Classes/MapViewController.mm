@@ -397,7 +397,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
-  self.downloadDialog = [MWMMapDownloadDialog dialogForController:self];
 }
 
 - (void)mwm_refreshUI
@@ -862,6 +861,13 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 - (BOOL)hasNavigationBar
 {
   return NO;
+}
+
+- (MWMMapDownloadDialog *)downloadDialog
+{
+  if (!_downloadDialog)
+    _downloadDialog = [MWMMapDownloadDialog dialogForController:self];
+  return _downloadDialog;
 }
 
 @end

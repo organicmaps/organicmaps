@@ -41,7 +41,6 @@ using namespace storage;
   MWMMapDownloadDialog * dialog = [[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil].firstObject;
   dialog.autoresizingMask = UIViewAutoresizingFlexibleHeight;
   dialog.controller = controller;
-  [MWMFrameworkListener addObserver:dialog];
   return dialog;
 }
 
@@ -69,18 +68,6 @@ using namespace storage;
   self.node.text = @(nodeAttrs.m_nodeLocalName.c_str());
   self.nodeSize.textColor = [UIColor blackSecondaryText];
   self.nodeSize.text = formattedSize(nodeAttrs.m_mwmSize);
-  auto addSubview = ^
-  {
-    UIView * parentView = self.controller.view;
-    if (!self.superview)
-      [parentView addSubview:self];
-    [parentView sendSubviewToBack:self];
-  };
-  auto removeSubview = ^
-  {
-    self.progressView.state = MWMCircularProgressStateNormal;
-    [self removeFromSuperview];
-  };
 
   switch (nodeAttrs.m_status)
   {
@@ -97,17 +84,17 @@ using namespace storage;
       {
         [self showDownloadRequest];
       }
-      addSubview();
+      [self addToSuperview];
       break;
     }
     case NodeStatus::Downloading:
       if (nodeAttrs.m_downloadingProgress.second != 0)
         [self showDownloading:static_cast<CGFloat>(nodeAttrs.m_downloadingProgress.first) / nodeAttrs.m_downloadingProgress.second];
-      addSubview();
+      [self addToSuperview];
       break;
     case NodeStatus::InQueue:
       [self showInQueue];
-      addSubview();
+      [self addToSuperview];
       break;
     case NodeStatus::Undefined:
     case NodeStatus::Error:
@@ -115,9 +102,24 @@ using namespace storage;
       break;
     case NodeStatus::OnDisk:
     case NodeStatus::OnDiskOutOfDate:
-      removeSubview();
+      [self removeFromSuperview];
       break;
   }
+}
+
+- (void)addToSuperview
+{
+  if (self.superview)
+    return;
+  [self.controller.view insertSubview:self atIndex:0];
+  [MWMFrameworkListener addObserver:self];
+}
+
+- (void)removeFromSuperview
+{
+  self.progressView.state = MWMCircularProgressStateNormal;
+  [MWMFrameworkListener removeObserver:self];
+  [super removeFromSuperview];
 }
 
 - (void)showError:(NodeErrorCode)errorCode
@@ -186,8 +188,13 @@ using namespace storage;
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
-  if (self.superview && m_countryId == countryId)
+  if (m_countryId != countryId)
+    return;
+
+  if (self.superview && [self.controller.navigationController.topViewController isEqual:self.controller])
     [self configDialog];
+  else
+    [self removeFromSuperview];
 }
 
 - (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress
