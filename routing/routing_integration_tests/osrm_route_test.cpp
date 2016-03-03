@@ -151,17 +151,13 @@ namespace
         MercatorBounds::FromLatLon(48.86123, 2.34129), 2840940.);
   }
 
-// TODO(gardster) repair routing to London.
-// https://trello.com/c/WPSQUu9J/1932-francepariscenternglandlondoncenterroutetest
-// OSRM routes through a OSM way with tag render:no. So we have no geometry in the
-// mwm and we can not obtain a cross section exit point.
-//  UNIT_TEST(FranceParisCenternglandLondonCenterRouteTest)
-//  {
-//    integration::CalculateRouteAndTestRouteLength(
-//        integration::GetOsrmComponents(),
-//        MercatorBounds::FromLatLon(48.86123, 2.34129), {0., 0.},
-//        MercatorBounds::FromLatLon(51.49884, -0.10438), 0./* Some unknown value*/);
-//  }
+  UNIT_TEST(EnglandToFranceRouteLeMansTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetOsrmComponents(),
+        MercatorBounds::FromLatLon(51.09276, 1.11369), {0., 0.},
+        MercatorBounds::FromLatLon(50.93220, 1.82690), 60498.);
+  }
 
   // Strange map edits in Africa borders. Routing not linked now.
   /*
