@@ -6,8 +6,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel * allMapsLabel;
 
-@property (nonatomic) NSMutableDictionary * offscreenCells;
-
 @property (nonatomic) BOOL showAllMapsView;
 
 @property (nonatomic) storage::TCountryId parentCountryId;

@@ -52,7 +52,6 @@ using namespace storage;
   NSString * reuseIdentifier = [self cellIdentifierForIndexPath:indexPath];
   MWMMapDownloaderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   cell.delegate = self.delegate;
-  [cell registerObserver];
   [self fillCell:cell atIndexPath:indexPath];
   return cell;
 }

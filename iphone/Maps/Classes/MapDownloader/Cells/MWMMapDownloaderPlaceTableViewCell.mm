@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
 
 @interface MWMMapDownloaderPlaceTableViewCell ()
@@ -9,11 +10,19 @@
 
 @implementation MWMMapDownloaderPlaceTableViewCell
 
++ (CGFloat)estimatedHeight
+{
+  return 62.0;
+}
+
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.area.preferredMaxLayoutWidth = self.area.width;
-  [super layoutSubviews];
+  if (isIOS7)
+  {
+    self.area.preferredMaxLayoutWidth = self.area.width;
+    [super layoutSubviews];
+  }
 }
 
 #pragma mark - Config
@@ -26,13 +35,6 @@
     self.area.text = @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
   self.area.hidden = !isAreaVisible;
   self.titleBottomOffset.priority = isAreaVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
-}
-
-#pragma mark - Properties
-
-- (CGFloat)estimatedHeight
-{
-  return 62.0;
 }
 
 @end

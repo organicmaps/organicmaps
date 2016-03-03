@@ -72,7 +72,6 @@ using namespace storage;
 - (void)reload
 {
   // Get old data for comparison.
-  NSArray<NSString *> * downloadedCoutryIds = [self.downloadedCoutryIds copy];
   NSDictionary<NSString *, NSArray<NSString *> *> * countryIds = [self.countryIds copy];
   BOOL const hadDownloadedCountries = self.haveDownloadedCountries;
 
@@ -83,7 +82,7 @@ using namespace storage;
   self.needFullReload = (hadDownloadedCountries != self.haveDownloadedCountries || countryIds.count == 0);
   if (self.needFullReload)
     return;
-  if (hadDownloadedCountries || ![downloadedCoutryIds isEqualToArray:self.downloadedCoutryIds])
+  if (self.haveDownloadedCountries)
     m_reloadSections.push_back(self.downloadedCountrySection);
   [countryIds enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSArray<NSString *> * obj, BOOL * stop)
   {

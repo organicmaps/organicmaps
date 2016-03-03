@@ -1,18 +1,15 @@
 #import "Common.h"
 #import "MWMCircularProgress.h"
-#import "MWMFrameworkListener.h"
 #import "MWMMapDownloaderTableViewCell.h"
 
 #include "Framework.h"
 
-@interface MWMMapDownloaderTableViewCell () <MWMFrameworkStorageObserver, MWMCircularProgressProtocol>
+@interface MWMMapDownloaderTableViewCell () <MWMCircularProgressProtocol>
 
 @property (nonatomic) MWMCircularProgress * progressView;
 @property (weak, nonatomic) IBOutlet UIView * stateWrapper;
 @property (weak, nonatomic) IBOutlet UILabel * title;
 @property (weak, nonatomic) IBOutlet UILabel * downloadSize;
-
-@property (nonatomic) BOOL isObserver;
 
 @end
 
@@ -21,39 +18,32 @@
   storage::TCountryId m_countryId;
 }
 
-#pragma mark - Properties
++ (CGFloat)estimatedHeight
+{
+  return 52.0;
+}
 
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  [self reset];
+  m_countryId = kInvalidCountryId;
 }
 
 - (void)prepareForReuse
 {
   [super prepareForReuse];
-  [self reset];
-}
-
-- (void)reset
-{
-  self.progressView = [[MWMCircularProgress alloc] initWithParentView:self.stateWrapper];
-  self.progressView.delegate = self;
-  [self.progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
-  [self.progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
-  [self.progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
-  [self.progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSpinner];
-  [self.progressView setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
-  [self.progressView setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
   m_countryId = kInvalidCountryId;
 }
 
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.title.preferredMaxLayoutWidth = self.title.width;
-  self.downloadSize.preferredMaxLayoutWidth = self.downloadSize.width;
-  [super layoutSubviews];
+  if (isIOS7)
+  {
+    self.title.preferredMaxLayoutWidth = floor(self.title.width);
+    self.downloadSize.preferredMaxLayoutWidth = floor(self.downloadSize.width);
+    [super layoutSubviews];
+  }
 }
 
 #pragma mark - Config
@@ -73,8 +63,11 @@
       self.progressView.state = MWMCircularProgressStateNormal;
       break;
     case NodeStatus::Downloading:
-      self.progressView.progress = static_cast<CGFloat>(nodeAttrs.m_downloadingProgress.first) / 100.0;
+    {
+      auto const & progress = nodeAttrs.m_downloadingProgress;
+      self.progressView.progress = static_cast<CGFloat>(progress.first) / progress.second;
       break;
+    }
     case NodeStatus::InQueue:
       self.progressView.state = MWMCircularProgressStateSpinner;
       break;
@@ -89,16 +82,6 @@
       self.progressView.state = MWMCircularProgressStateSelected;
       break;
   }
-}
-
-#pragma mark - Framework observer
-
-- (void)registerObserver
-{
-  if (self.isObserver)
-    return;
-  [MWMFrameworkListener addObserver:self];
-  self.isObserver = YES;
 }
 
 #pragma mark - MWMFrameworkStorageObserver
@@ -148,11 +131,6 @@
 
 #pragma mark - Properties
 
-- (CGFloat)estimatedHeight
-{
-  return 52.0;
-}
-
 - (void)setCountryId:(storage::TCountryId const &)countryId
 {
   if (m_countryId == countryId)
@@ -161,6 +139,22 @@
   storage::NodeAttrs nodeAttrs;
   GetFramework().Storage().GetNodeAttrs(m_countryId, nodeAttrs);
   [self config:nodeAttrs];
+}
+
+- (MWMCircularProgress *)progressView
+{
+  if (!_progressView && !self.isHeightCell)
+  {
+    _progressView = [[MWMCircularProgress alloc] initWithParentView:self.stateWrapper];
+    _progressView.delegate = self;
+    [_progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
+    [_progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
+    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
+    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSpinner];
+    [_progressView setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
+    [_progressView setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
+  }
+  return _progressView;
 }
 
 @end

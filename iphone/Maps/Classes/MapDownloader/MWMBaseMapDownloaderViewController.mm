@@ -45,6 +45,9 @@ NSString * const kCancelActionTitle = L(@"cancel");
 @property (nonatomic) MWMMapDownloaderDataSource * dataSource;
 @property (nonatomic) MWMMapDownloaderDefaultDataSource * defaultDataSource;
 
+@property (nonatomic) NSMutableDictionary * offscreenCells;
+@property (nonatomic) NSMutableDictionary<NSIndexPath *, NSNumber *> * cellHeightCache;
+
 @end
 
 using namespace storage;
@@ -88,6 +91,11 @@ using namespace storage;
   self.title = self.dataSource.isParentRoot ? L(@"download_maps") : L(@(self.parentCountryId.c_str()));
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+  [self.cellHeightCache removeAllObjects];
+}
+
 #pragma mark - MWMFrameworkStorageObserver
 
 - (void)processCountryEvent:(TCountryId const &)countryId
@@ -127,6 +135,15 @@ using namespace storage;
     if (find(childrenId.cbegin(), childrenId.cend(), countryId) != childrenId.cend())
       process();
   }
+
+  for (MWMMapDownloaderTableViewCell * cell in self.tableView.visibleCells)
+    [cell processCountryEvent:countryId];
+}
+
+- (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress
+{
+  for (MWMMapDownloaderTableViewCell * cell in self.tableView.visibleCells)
+    [cell processCountry:countryId progress:progress];
 }
 
 #pragma mark - Table
@@ -139,7 +156,11 @@ using namespace storage;
 - (void)configTable
 {
   self.tableView.separatorColor = [UIColor blackDividers];
-  self.offscreenCells = [NSMutableDictionary dictionary];
+  if (isIOS7)
+  {
+    self.offscreenCells = [@{} mutableCopy];
+    self.cellHeightCache = [@{} mutableCopy];
+  }
   [self registerCellWithIdentifier:kPlaceCellIdentifier];
   [self registerCellWithIdentifier:kCountryCellIdentifier];
   [self registerCellWithIdentifier:kLargeCountryCellIdentifier];
@@ -349,23 +370,27 @@ using namespace storage;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  if (!isIOS7)
+    return UITableViewAutomaticDimension;
+  NSNumber * cacheHeight = self.cellHeightCache[indexPath];
+  if (cacheHeight)
+    return cacheHeight.floatValue;
   NSString * reuseIdentifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
   MWMMapDownloaderTableViewCell * cell = [self offscreenCellForIdentifier:reuseIdentifier];
   [self.dataSource fillCell:cell atIndexPath:indexPath];
-  [cell setNeedsUpdateConstraints];
-  [cell updateConstraintsIfNeeded];
   cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
   [cell setNeedsLayout];
   [cell layoutIfNeeded];
   CGSize const size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-  return ceil(size.height + 0.5);
+  CGFloat const height = ceil(size.height + 0.5);
+  self.cellHeightCache[indexPath] = @(height);
+  return height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString * reuseIdentifier = [self.dataSource cellIdentifierForIndexPath:indexPath];
-  MWMMapDownloaderTableViewCell * cell = [self offscreenCellForIdentifier:reuseIdentifier];
-  return cell.estimatedHeight;
+  Class<MWMMapDownloaderTableViewCellProtocol> cellClass = NSClassFromString([self.dataSource cellIdentifierForIndexPath:indexPath]);
+  return [cellClass estimatedHeight];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -472,6 +497,7 @@ using namespace storage;
 
 - (void)reloadData
 {
+  [self.cellHeightCache removeAllObjects];
   UITableView * tv = self.tableView;
   // If these methods are not called, tableView will not call tableView:cellForRowAtIndexPath:
   [tv setNeedsLayout];

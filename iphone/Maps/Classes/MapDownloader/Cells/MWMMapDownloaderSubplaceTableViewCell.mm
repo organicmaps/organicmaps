@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMMapDownloaderSubplaceTableViewCell.h"
 
 @interface MWMMapDownloaderSubplaceTableViewCell ()
@@ -8,23 +9,24 @@
 
 @implementation MWMMapDownloaderSubplaceTableViewCell
 
++ (CGFloat)estimatedHeight
+{
+  return 82.0;
+}
+
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.subPlace.preferredMaxLayoutWidth = self.subPlace.width;
-  [super layoutSubviews];
+  if (isIOS7)
+  {
+    self.subPlace.preferredMaxLayoutWidth = floor(self.subPlace.width);
+    [super layoutSubviews];
+  }
 }
 
 - (void)setSubplaceText:(NSString *)text
 {
   self.subPlace.text = text;
-}
-
-#pragma mark - Properties
-
-- (CGFloat)estimatedHeight
-{
-  return 82.0;
 }
 
 @end

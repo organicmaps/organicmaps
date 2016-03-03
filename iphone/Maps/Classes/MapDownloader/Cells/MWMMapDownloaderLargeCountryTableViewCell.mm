@@ -1,3 +1,4 @@
+#import "Common.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 
 @interface MWMMapDownloaderLargeCountryTableViewCell ()
@@ -8,11 +9,19 @@
 
 @implementation MWMMapDownloaderLargeCountryTableViewCell
 
++ (CGFloat)estimatedHeight
+{
+  return 62.0;
+}
+
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.mapsCount.preferredMaxLayoutWidth = self.mapsCount.width;
-  [super layoutSubviews];
+  if (isIOS7)
+  {
+    self.mapsCount.preferredMaxLayoutWidth = self.mapsCount.width;
+    [super layoutSubviews];
+  }
 }
 
 #pragma mark - Config
@@ -27,13 +36,6 @@
                                        @(nodeAttrs.m_localMwmCounter), L(@"_of"),
                                        @(nodeAttrs.m_mwmCounter)]
           : [NSString stringWithFormat:@"%@: %@", L(@"downloader_maps"), @(nodeAttrs.m_mwmCounter)];
-}
-
-#pragma mark - Properties
-
-- (CGFloat)estimatedHeight
-{
-  return 62.0;
 }
 
 @end
