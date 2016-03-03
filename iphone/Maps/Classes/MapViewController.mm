@@ -156,7 +156,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
     frm.OnLocationUpdate(info);
     LOG_MEMORY_INFO();
 
-    [self showPopover];
     [self updateRoutingInfo];
 
     if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
@@ -215,11 +214,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 {
   self.controlsManager.hidden = NO;
   [self.controlsManager showPlacePage:info];
-}
-
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
-{
-  [self destroyPopover];
 }
 
 - (void)checkMaskedPointer:(UITouch *)touch withEvent:(df::TouchEvent &)e
@@ -306,7 +300,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 
 - (void)dealloc
 {
-  [self destroyPopover];
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -330,11 +323,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
                                                                         duration:kDefaultAnimationDuration];
   [self.controlsManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.pageViewController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-  [self showPopover];
 }
 
 - (void)didReceiveMemoryWarning
@@ -771,30 +759,6 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 }
 
 #pragma mark - Private methods
-
-- (void)destroyPopover
-{
-  self.popoverVC = nil;
-}
-
-- (void)showPopover
-{
-  Framework & f = GetFramework();
-  if (self.popoverVC)
-    f.DeactivateMapSelection(true);
-
-  CGFloat const sf = self.view.contentScaleFactor;
-
-  m2::PointD tmp = m2::PointD(f.GtoP(m2::PointD(m_popoverPos.x, m_popoverPos.y)));
-
-  [self.popoverVC presentPopoverFromRect:CGRectMake(tmp.x / sf, tmp.y / sf, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
-
-- (void)dismissPopover
-{
-  [self.popoverVC dismissPopoverAnimated:YES];
-  [self destroyPopover];
-}
 
 - (void)setRestoreRouteDestination:(m2::PointD)restoreRouteDestination
 {

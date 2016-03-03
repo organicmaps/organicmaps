@@ -12,9 +12,8 @@ namespace search { struct AddressInfo; }
 @class MWMMapViewControlsManager;
 @class MWMAPIBar;
 
-@interface MapViewController : MWMViewController <LocationObserver, UIPopoverControllerDelegate>
+@interface MapViewController : MWMViewController <LocationObserver>
 {
-  CGPoint m_popoverPos;
   LocationPredictor * m_predictor;
 }
 
@@ -22,8 +21,6 @@ namespace search { struct AddressInfo; }
 - (void)onTerminate;
 - (void)onEnterForeground;
 - (void)onEnterBackground;
-
-- (void)dismissPopover;
 
 - (void)setMapStyle:(MapStyle)mapStyle;
 
@@ -44,7 +41,6 @@ namespace search { struct AddressInfo; }
 @property (nonatomic) MTRGNativeAppwallAd * appWallAd;
 @property (nonatomic, readonly) BOOL isAppWallAdActive;
 
-@property (nonatomic) UIPopoverController * popoverVC;
 @property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) m2::PointD restoreRouteDestination;
 @property (nonatomic) MWMAPIBar * apiBar;
