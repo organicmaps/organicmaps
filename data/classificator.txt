@@ -708,6 +708,7 @@ world  +
             motor_vehicle  -
             motorcar  -
             {}
+        shuttle_train  -
         {}
     shop  +
         alcohol  -

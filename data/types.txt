@@ -1052,3 +1052,4 @@ man_made|water_tower
 highway|world_level
 highway|world_towns_level
 building|train_station
+route|shuttle_train
