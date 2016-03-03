@@ -368,7 +368,7 @@ railway|narrow_gauge|bridge;[railway=narrow_gauge][bridge?];;name;int_name;367;
 noexit|motorcar;[noexit=motorcar];x;name;int_name;368;
 highway|service|parking_aisle|tunnel;[highway=service][service=parking_aisle][tunnel?];x;name;int_name;369;highway|service|parking_aisle
 highway|bridleway|permissive;[highway=bridleway][access=permissive];;name;int_name;370;
-railway|construction;[railway=construction];name;int_name;371;
+railway|construction;[railway=construction];;name;int_name;371;
 highway|primary_link|junction;[highway=primary_link][junction?];x;name;int_name;372;highway|primary_link
 landuse|greenhouse_horticulture;[landuse=greenhouse_horticulture];;name;int_name;373;
 highway|primary_link|motorroad;[highway=primary_link][motorroad?];x;name;int_name;374;highway|primary_link
@@ -461,7 +461,6 @@ railway|construction|tunnel;[railway][construction?][tunnel?];x;name;int_name;46
 sport|handball;[sport=handball];;name;int_name;461;
 boundary|administrative|city;[boundary=administrative][border_type=city];;name;int_name;462;
 piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride];;name;int_name;463;
-amenity|restaurant|vegetarian;[amenity=restaurant][cuisine=vegetarian];;name;int_name;464;
 communication|line|submarine;[communication=line][location=submarine];x;name;int_name;465;communication|line
 piste:type|downhill|expert;[piste:type=downhill][piste:difficulty=expert];;name;int_name;466;
 landuse|salt_pond;[landuse=salt_pond];;name;int_name;467;
@@ -543,7 +542,6 @@ amenity|speed_trap;[amenity=speed_trap];;name;int_name;542;
 highway|track|grade4|area;[highway=track][tracktype=grade4][area?];x;name;int_name;543;area:highway|track
 highway|primary|area;[highway=primary][area?];x;name;int_name;544;area:highway|primary
 power|line|underground;[power=line][location=underground];;name;int_name;545;
-amenity|restaurant|vegan;[amenity=restaurant][cuisine=vegan];;name;int_name;546;
 highway|track|construction;[highway=track][construction?];x;name;int_name;547;highway|construction
 highway|minor|oneway;[highway=minor][oneway?];x;name;int_name;548;highway|unclassified
 highway|bridleway|cutting;[highway=bridleway][cutting?];x;name;int_name;549;highway|bridleway
@@ -956,7 +954,7 @@ shop|furniture;[shop=furniture];;name;int_name;955;
 natural|grassland;[natural=grassland];;name;int_name;956;
 natural|waterfall;[natural=waterfall];;name;int_name;957;
 waterway|waterfall;[waterway=waterfall];;name;int_name;958;
-railway|proposed;[railway=proposed];name;int_name;959;
+railway|proposed;[railway=proposed];;name;int_name;959;
 amenity|casino;[amenity=casino];;name;int_name;960;
 amenity|brothel;[amenity=brothel];;name;int_name;961;
 place|neighbourhood;[place=neighbourhood];;name;int_name;962;

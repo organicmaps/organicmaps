@@ -83,10 +83,7 @@ world  +
         post_office  -
         pub  -
         recycling  -
-        restaurant  +
-            vegan  -
-            vegetarian  -
-            {}
+        restaurant  -
         school  -
         shelter  -
         speed_trap  -

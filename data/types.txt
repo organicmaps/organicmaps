@@ -461,7 +461,7 @@ mapswithme
 sport|handball
 boundary|administrative|city
 piste:type|downhill|freeride
-amenity|restaurant|vegetarian
+mapswithme
 communication|line
 piste:type|downhill|expert
 landuse|salt_pond
@@ -543,7 +543,7 @@ amenity|speed_trap
 area:highway|track
 area:highway|primary
 power|line|underground
-amenity|restaurant|vegan
+mapswithme
 highway|construction
 highway|unclassified
 highway|bridleway
