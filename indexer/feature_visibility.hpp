@@ -27,6 +27,10 @@ namespace feature
   bool IsDrawableForIndexClassifOnly(FeatureBase const & f, int level);
   bool IsDrawableForIndexGeometryOnly(FeatureBase const & f, int level);
 
+  // Exception features which have no styles, but must be present in index for some reasons.
+  // For example routing edges with render=no tag (Le mans tunnel).
+  bool IsDrawarbleByException(FeatureBase const & f);
+
   /// For FEATURE_TYPE_AREA need to have at least one area-filling type.
   bool IsDrawableLike(vector<uint32_t> const & types, EGeomType geomType);
   /// For FEATURE_TYPE_AREA removes line-drawing only types.

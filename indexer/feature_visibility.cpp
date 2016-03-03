@@ -200,6 +200,12 @@ namespace
     }
   };
 
+  bool HasRoutingExceptionType(uint32_t t)
+  {
+    static const uint32_t s = classif().GetTypeByPath({ "route", "shuttle_train" });
+    return s == t;
+  }
+
   /// Add here all exception classificator types: needed for algorithms,
   /// but don't have drawing rules.
   bool TypeAlwaysExists(uint32_t t, EGeomType g = GEOM_UNDEFINED)
@@ -212,6 +218,9 @@ namespace
       if (s1 == t)
         return true;
 
+      if (HasRoutingExceptionType(t))
+        return true;
+
       ftype::TruncValue(t, 1);
       if (s2 == t)
         return true;
@@ -219,6 +228,16 @@ namespace
 
     return false;
   }
+}
+
+bool IsDrawarbleByException(FeatureBase const & f)
+{
+  TypesHolder const types(f);
+
+  for (uint32_t t : types)
+    if (HasRoutingExceptionType(t))
+      return true;
+  return false;
 }
 
 bool IsDrawableAny(uint32_t type)

@@ -47,6 +47,7 @@ CarModel::CarModel()
     { "route", "ferry", "motorcar" },
     { "route", "ferry", "motor_vehicle" },
     { "railway", "rail", "motor_vehicle" },
+    { "route", "shuttle_train"},
   };
 
   SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
