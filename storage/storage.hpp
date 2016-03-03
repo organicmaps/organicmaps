@@ -74,8 +74,9 @@ struct NodeAttrs
   NodeStatus m_status;
   NodeErrorCode m_error;
 
-  /// Indicates that the map is currently downloaded and connected to storage.
+  /// Indicates if leaf mwm is currently downloaded and connected to storage.
   /// Can be used to distinguish downloadable and updatable maps.
+  /// m_present == false for group mwms.
   bool m_present;
 };
 
