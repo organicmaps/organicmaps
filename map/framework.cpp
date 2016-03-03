@@ -486,10 +486,11 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   m_storage.DeleteCustomCountryVersion(localFile);
 }
 
-bool Framework::HasUnsavedChanges(storage::TCountryId const & countryId)
+bool Framework::HasUnsavedEdits(storage::TCountryId const & countryId)
 {
   bool hasUnsavedChanges = false;
-  auto forEachInSubtree = [&hasUnsavedChanges](storage::TCountryId const & /* descendantId */, bool groupNode)
+  auto const forEachInSubtree = [&hasUnsavedChanges](storage::TCountryId const & /* descendantId */,
+      bool groupNode)
   {
     if (!groupNode)
     {
