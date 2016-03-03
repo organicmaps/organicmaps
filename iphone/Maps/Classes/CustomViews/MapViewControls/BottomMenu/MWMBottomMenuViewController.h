@@ -9,6 +9,8 @@
 
 - (void)actionDownloadMaps;
 - (void)closeInfoScreens;
+- (void)addPlace;
+- (void)didFinishAddingPlace;
 
 @end
 
