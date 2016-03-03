@@ -5,6 +5,8 @@
 #include "coding/internal/file_data.hpp"
 #include "storage/storage.hpp"
 
+#include "base/thread_checker.hpp"
+
 #include "std/bind.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unordered_map.hpp"
@@ -39,6 +41,7 @@ jclass g_countryItemClass;
 jobject g_countryChangedListener;
 jobject g_migrationListener;
 
+DECLARE_THREAD_CHECKER(g_batchingThreadChecker);
 unordered_map<jobject, vector<TBatchedData>> g_batchedCallbackData;
 bool g_isBatched;
 
@@ -322,6 +325,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeIsDownloading(JNIEnv * env,
 
 static void StartBatchingCallbacks()
 {
+  ASSERT_THREAD_CHECKER(g_batchingThreadChecker, ("StartBatchingCallbacks"));
   ASSERT(!g_isBatched, ());
   ASSERT(g_batchedCallbackData.empty(), ());
 
@@ -330,12 +334,14 @@ static void StartBatchingCallbacks()
 
 static void EndBatchingCallbacks(JNIEnv * env)
 {
+  ASSERT_THREAD_CHECKER(g_batchingThreadChecker, ("EndBatchingCallbacks"));
+
+  static jclass arrayListClass = jni::GetGlobalClassRef(env, "java/util/ArrayList");
+  static jmethodID arrayListCtor = jni::GetConstructorID(env, arrayListClass, "(I)V");
+  static jmethodID arrayListAdd = env->GetMethodID(arrayListClass, "add", "(Ljava/lang/Object;)Z");
+
   for (auto & key : g_batchedCallbackData)
   {
-    static jclass arrayListClass = jni::GetGlobalClassRef(env, "java/util/ArrayList");
-    static jmethodID arrayListCtor = jni::GetConstructorID(env, arrayListClass, "(I)V");
-    static jmethodID arrayListAdd = env->GetMethodID(arrayListClass, "add", "(Ljava/lang/Object;)Z");
-
     // Allocate resulting ArrayList
     jni::TScopedLocalRef const list(env, env->NewObject(arrayListClass, arrayListCtor, key.second.size()));
 
