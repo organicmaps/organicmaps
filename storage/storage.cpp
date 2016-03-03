@@ -79,7 +79,7 @@ void DeleteFromDiskWithIndexes(LocalCountryFile const & localFile, MapOptions op
 TCountryTreeNode const & LeafNodeFromCountryId(TCountryTree const & root,
                                                TCountryId const & countryId)
 {
-  TCountryTreeNode const * node = root.FindFirstLeaf(Country(countryId));
+  TCountryTreeNode const * node = root.FindFirstLeaf(countryId);
   CHECK(node, ("Node with id =", countryId, "not found in country tree as a leaf."));
   return *node;
 }
@@ -321,14 +321,14 @@ Country const & Storage::CountryLeafByCountryId(TCountryId const & countryId) co
 
 Country const & Storage::CountryByCountryId(TCountryId const & countryId) const
 {
-  TCountryTreeNode const * node = m_countries.FindFirst(Country(countryId));
+  TCountryTreeNode const * node = m_countries.FindFirst(countryId);
   CHECK(node, ("Node with id =", countryId, "not found in country tree."));
   return node->Value();
 }
 
 bool Storage::IsCoutryIdInCountryTree(TCountryId const & countryId) const
 {
-  return m_countries.FindFirst(Country(countryId)) != nullptr;
+  return m_countries.FindFirst(countryId) != nullptr;
 }
 
 TLocalAndRemoteSize Storage::CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const
@@ -876,7 +876,7 @@ TCountriesVec Storage::FindAllIndexesByFile(TCountryId const & name) const
   // @TODO(bykoianko) This method should be rewritten. At list now name and the param of Find
   // have different types: string and TCountryId.
   TCountriesVec result;
-  if (m_countries.FindFirst(Country(name)))
+  if (m_countries.FindFirst(name))
     result.push_back(name);
   return result;
 }
@@ -1119,7 +1119,7 @@ void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childrenId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  TCountryTreeNode const * const parentNode = m_countries.FindFirst(Country(parent));
+  TCountryTreeNode const * const parentNode = m_countries.FindFirst(parent);
   if (parentNode == nullptr)
   {
     ASSERT(false, ("TCountryId =", parent, "not found in m_countries."));
@@ -1149,7 +1149,7 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  TCountryTreeNode const * const parentNode = m_countries.FindFirst(Country(parent));
+  TCountryTreeNode const * const parentNode = m_countries.FindFirst(parent);
   if (parentNode == nullptr)
   {
     ASSERT(false, ("TCountryId =", parent, "not found in m_countries."));
@@ -1213,7 +1213,7 @@ void Storage::DownloadNode(TCountryId const & countryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  TCountryTreeNode const * const node = m_countries.FindFirst(Country(countryId));
+  TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
 
   if (!node)
     return;
@@ -1231,7 +1231,7 @@ void Storage::DeleteNode(TCountryId const & countryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  TCountryTreeNode const * const node = m_countries.FindFirst(Country(countryId));
+  TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
 
   if (!node)
     return;
@@ -1293,7 +1293,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
   vector<TCountryTreeNode const *> nodes;
-  m_countries.Find(Country(countryId), nodes);
+  m_countries.Find(countryId, nodes);
   CHECK(!nodes.empty(), ());
   // If nodes.size() > 1 countryId corresponds to a disputed territories.
   // In that case it's guaranteed that most of attributes are equal for

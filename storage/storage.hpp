@@ -526,7 +526,7 @@ bool HasCountryId(TCountriesVec const & sortedCountryIds, TCountryId const & cou
 template <class ToDo>
 void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
 {
-  TCountryTreeNode const * const rootNode = m_countries.FindFirst(Country(root));
+  TCountryTreeNode const * const rootNode = m_countries.FindFirst(root);
   if (rootNode == nullptr)
   {
     ASSERT(false, ("TCountryId =", root, "not found in m_countries."));
@@ -564,7 +564,7 @@ template <class ToDo>
 void Storage::ForEachAncestorExceptForTheRoot(TCountryId const & countryId, ToDo && toDo) const
 {
   vector<TCountryTreeNode const *> nodes;
-  m_countries.Find(Country(countryId), nodes);
+  m_countries.Find(countryId, nodes);
   if (nodes.empty())
   {
     ASSERT(false, ("TCountryId =", countryId, "not found in m_countries."));

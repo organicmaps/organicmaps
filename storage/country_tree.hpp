@@ -180,16 +180,15 @@ public:
   /// \brief Checks all nodes in tree to find an equal one. If there're several equal nodes
   /// returns the first found.
   /// \returns a poiter item in the tree if found and nullptr otherwise.
-  void Find(TValue const & value, vector<Node const *> & found) const
+  void Find(TKey const & key, vector<Node const *> & found) const
   {
     found.clear();
 
-    if (IsEqual(value, m_countryTree->Value()))
+    if (key == m_countryTree->Value().Name())
       found.push_back(m_countryTree.get());
 
-    auto const range = m_countryTreeHashTable.equal_range(value.Name());
-    auto const end = m_countryTreeHashTable.end();
-    if (range.first == end && range.second == end)
+    auto const range = m_countryTreeHashTable.equal_range(key);
+    if (range.first == range.second)
       return;
 
     for_each(range.first, range.second,
@@ -199,10 +198,10 @@ public:
     });
   }
 
-  Node const * const FindFirst(TValue const & value) const
+  Node const * const FindFirst(TKey const & key) const
   {
     vector<Node const *> found;
-    Find(value, found);
+    Find(key, found);
     if (found.empty())
       return nullptr;
     return found[0];
@@ -213,10 +212,10 @@ public:
   /// When new countries.txt with unique ids will be added FindLeaf will be removed
   /// and Find will be used intead.
   /// @TODO(bykoianko) Remove this method on countries.txt update.
-  Node const * const FindFirstLeaf(TValue const & value) const
+  Node const * const FindFirstLeaf(TKey const & key) const
   {
     vector<Node const *> found;
-    Find(value, found);
+    Find(key, found);
 
     for (auto node : found)
     {
@@ -229,8 +228,6 @@ public:
   size_t ChildrenCount() const { return m_countryTree->ChildrenCount(); }
 
 private:
-  static bool IsEqual(TValue const & v1, TValue const & v2) { return !(v1 < v2) && !(v2 < v1); }
-
   /// @TODO(bykoianko) The root of the tree currently is processed in a special way.
   /// It's never deleted. Because of it it's necessary to work with the root in a special way.
   /// See SetCountriesContainerAttrs method for example. And CountryTree::Clear() method
