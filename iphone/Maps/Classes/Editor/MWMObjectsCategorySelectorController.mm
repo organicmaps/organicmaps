@@ -5,6 +5,8 @@
 
 #include "Framework.h"
 
+#include "indexer/search_string_utils.hpp"
+
 using namespace osm;
 
 namespace
@@ -15,7 +17,7 @@ namespace
 @interface MWMObjectsCategorySelectorController () <UISearchBarDelegate>
 {
   NewFeatureCategories m_categories;
-  vector<Category> m_filtredCategories;
+  vector<Category> m_filteredCategories;
 }
 
 @property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
@@ -29,8 +31,11 @@ namespace
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  if (m_categories.m_allSorted.size() == 0)
+  if (m_categories.m_allSorted.empty())
     m_categories = GetFramework().GetEditorCategories();
+
+  NSAssert(!m_categories.m_allSorted.empty(), @"Categories list can't be empty!");
+
   self.isSearch = NO;
   [self configNavBar];
   [self configSearchBar];
@@ -46,14 +51,16 @@ namespace
   });
   NSAssert(it != all.end(), @"Incorrect category!");
   self.selectedIndexPath = [NSIndexPath indexPathForRow:(it - all.begin())
-                                              inSection:m_categories.m_lastUsed.size() == 0 ? 0 : 1];
+                                              inSection:m_categories.m_lastUsed.empty() ? 0 : 1];
 }
 
 - (void)backTap
 {
-  auto const object = self.createdObject;
-  //TODO(Vlad, Alex): Here we need to process incorrect (false) result of creating.
-  [self.delegate reloadObject:object.second];
+  if (self.delegate)
+  {
+    auto const object = self.createdObject;
+    [self.delegate reloadObject:object];
+  }
   [super backTap];
 }
 
@@ -78,6 +85,8 @@ namespace
 
 - (void)onDone
 {
+  if (!self.selectedIndexPath)
+    return;
   [self performSegueWithIdentifier:kToEditorSegue sender:nil];
 }
 
@@ -91,18 +100,19 @@ namespace
   MWMEditorViewController * dest = static_cast<MWMEditorViewController *>(segue.destinationViewController);
   dest.isCreating = YES;
   auto const object = self.createdObject;
-  //TODO(Vlad, Alex): Here we need to process incorrect (false) result of creating.
-  [dest setEditableMapObject:object.second];
+  [dest setEditableMapObject:object];
 }
 
 #pragma mark - Create object
 
-- (pair<bool, EditableMapObject>)createdObject
+- (EditableMapObject)createdObject
 {
   auto const & ds = [self dataSourceForSection:self.selectedIndexPath.section];
   EditableMapObject emo;
-  bool const itsOK = GetFramework().CreateMapObjectAtViewportCenter(ds[self.selectedIndexPath.row].m_type, emo);
-  return {itsOK, emo};
+  auto & f = GetFramework();
+  if (!f.CreateMapObject(f.GetViewportCenter() ,ds[self.selectedIndexPath.row].m_type, emo))
+    NSAssert(false, @"This call should never fail, because IsPointCoveredByDownloadedMaps is always called before!");
+  return emo;
 }
 
 #pragma mark - UITableView
@@ -132,7 +142,7 @@ namespace
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return self.isSearch ? 1 : 1 /* m_categories.m_allSorted.size() > 0  by default */ + (m_categories.m_lastUsed.size() > 0 ? 1 : 0);
+  return self.isSearch ? 1 : !m_categories.m_allSorted.empty() + !m_categories.m_lastUsed.empty();
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -144,7 +154,7 @@ namespace
 {
   if (self.isSearch)
     return nil;
-  if (m_categories.m_lastUsed.size() == 0)
+  if (m_categories.m_lastUsed.empty())
     return L(@"all_categories_header");
   return section == 0 ? L(@"recent_categories_header") : L(@"all_categories_header");
 }
@@ -153,14 +163,14 @@ namespace
 {
   if (self.isSearch)
   {
-    return m_filtredCategories;
+    return m_filteredCategories;
   }
   else
   {
-    if (m_categories.m_lastUsed.size() > 0)
-      return section == 0 ? m_categories.m_lastUsed : m_categories.m_allSorted;
-    else
+    if (m_categories.m_lastUsed.empty())
       return m_categories.m_allSorted;
+    else
+      return section == 0 ? m_categories.m_lastUsed : m_categories.m_allSorted;
   }
 }
 
@@ -168,7 +178,7 @@ namespace
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-  m_filtredCategories.clear();
+  m_filteredCategories.clear();
   if (!searchText.length)
   {
     self.isSearch = NO;
@@ -179,14 +189,13 @@ namespace
   self.isSearch = YES;
   NSLocale * locale = [NSLocale currentLocale];
   string const query {[searchText lowercaseStringWithLocale:locale].UTF8String};
-
   auto const & all = m_categories.m_allSorted;
-  copy_if(all.begin(), all.end(), back_inserter(m_filtredCategories), [&query](Category const & c)
+
+  for (auto const & c : all)
   {
-    string s {c.m_name};
-    transform(s.begin(), s.end(), s.begin(), tolower);
-    return s.find(query) != string::npos;
-  });
+    if (search::ContainsNormalized(c.m_name, query))
+      m_filteredCategories.push_back(c);
+  }
 
   [self.tableView reloadData];
 }
@@ -228,7 +237,7 @@ namespace
   [self.navigationController setNavigationBarHidden:isActiveState animated:YES];
   self.isSearch = isActiveState;
   if (!isActiveState)
-    m_filtredCategories.clear();
+    m_filteredCategories.clear();
 }
 
 @end

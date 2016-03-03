@@ -1,14 +1,14 @@
+#import "MWMTableViewController.h"
+
 #include "indexer/editable_map_object.hpp"
+
+#include "std/string.hpp"
 
 @protocol MWMObjectsCategorySelectorDelegate <NSObject>
 
 - (void)reloadObject:(osm::EditableMapObject const &)object;
 
 @end
-
-#import "MWMTableViewController.h"
-
-#include "std/string.hpp"
 
 @interface MWMObjectsCategorySelectorController : MWMTableViewController
 

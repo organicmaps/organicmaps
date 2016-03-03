@@ -25,6 +25,8 @@
 
 #include "Framework.h"
 
+#include "storage/storage_helpers.hpp"
+
 namespace
 {
   NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
@@ -273,7 +275,10 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   [MWMAddPlaceNavigationBar showInSuperview:self.ownerController.view doneBlock:^
   {
-    [self.ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:nil];
+    auto & f = GetFramework();
+    if (IsPointCoveredByDownloadedMaps(f.GetViewportCenter(), f.Storage(), f.CountryInfoGetter()))
+      [self.ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:nil];
+    //TODO(Vlad): Process else block. Probably we need to show some alert.
     [self didFinishAddingPlace];
   }
   cancelBlock:^
