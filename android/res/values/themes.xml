@@ -97,17 +97,4 @@
     <item name="bs_closeDrawable">@drawable/bs_ic_clear</item>
     <item name="bs_moreDrawable">@drawable/bs_ic_more</item>
   </style>
-
-  <style name="MwmTheme.Downloader">
-    <item name="status_done">@drawable/downloader_done</item>
-    <item name="status_downloadable">@drawable/downloader_download</item>
-    <item name="status_failed">@drawable/downloader_failed</item>
-    <item name="status_updatable">@drawable/downloader_update</item>
-  </style>
-
-  <style name="MwmTheme.Downloader.Night">
-    <item name="status_done">@drawable/downloader_done_night</item>
-    <item name="status_failed">@drawable/downloader_failed_night</item>
-    <item name="status_updatable">@drawable/downloader_update_night</item>
-  </style>
 </resources>

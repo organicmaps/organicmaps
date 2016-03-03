@@ -9,7 +9,7 @@
   android:minHeight="@dimen/downloader_status_size"
   android:background="?clickableBackground"
   android:paddingLeft="@dimen/margin_half"
-  android:paddingRight="@dimen/margin_half"
+  android:paddingRight="@dimen/margin_base"
   android:gravity="center_vertical"
   android:baselineAligned="false">
   <FrameLayout
@@ -35,33 +35,19 @@
       android:duplicateParentState="false"
       android:visibility="gone"
       tools:visibility="visible"
-      tools:src="@drawable/downloader_download"/>
+      tools:src="@drawable/ic_downloader_download"/>
   </FrameLayout>
 
-  <LinearLayout
+  <TextView
+    android:id="@+id/name"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:orientation="vertical"
     android:paddingTop="@dimen/margin_half"
     android:paddingBottom="@dimen/margin_half"
-    android:gravity="center_vertical">
-    <TextView
-      android:id="@+id/name"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body1"
-      android:singleLine="true"
-      tools:text="Moscow"/>
-
-    <TextView
-      android:id="@+id/parent"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:singleLine="true"
-      tools:text="Russia"/>
-  </LinearLayout>
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:maxLines="2"
+    tools:text="Moscow\nLong Moscow"/>
 
   <LinearLayout
     android:layout_width="wrap_content"

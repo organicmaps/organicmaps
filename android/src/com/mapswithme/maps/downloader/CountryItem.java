@@ -9,8 +9,6 @@ import android.support.annotation.NonNull;
 @SuppressWarnings("unused")
 public final class CountryItem implements Comparable<CountryItem>
 {
-  public static final String ROOT = MapManager.nativeGetRootNode();
-
   // Must correspond to ItemCategory in MapManager.cpp
   static final int CATEGORY_NEAR_ME = 0;
   static final int CATEGORY_DOWNLOADED = 1;
