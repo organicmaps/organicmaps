@@ -65,7 +65,7 @@ using namespace storage;
   s.GetNodeAttrs(m_countryId, nodeAttrs);
 
   BOOL const isMapVisible = [self.controller.navigationController.topViewController isEqual:self.controller];
-  if (isMapVisible)
+  if (isMapVisible && !GetFramework().IsRoutingActive())
   {
     BOOL const isMultiParent = nodeAttrs.m_parentInfo.size() > 1;
     BOOL const noParrent = (nodeAttrs.m_parentInfo[0].m_id == s.GetRootId());
