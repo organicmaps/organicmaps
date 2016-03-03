@@ -1,15 +1,19 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMCuisineEditorViewController.h"
+#import "MWMEditorCategoryCell.h"
 #import "MWMEditorCommon.h"
 #import "MWMEditorSelectTableViewCell.h"
 #import "MWMEditorSwitchTableViewCell.h"
 #import "MWMEditorTextTableViewCell.h"
 #import "MWMEditorViewController.h"
+#import "MWMObjectsCategorySelectorController.h"
 #import "MWMOpeningHoursEditorViewController.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMStreetEditorViewController.h"
 #import "Statistics.h"
+
+#import "UIViewController+Navigation.h"
 
 #include "indexer/editable_map_object.hpp"
 #include "std/algorithm.hpp"
@@ -19,31 +23,37 @@ namespace
 NSString * const kOpeningHoursEditorSegue = @"Editor2OpeningHoursEditorSegue";
 NSString * const kCuisineEditorSegue = @"Editor2CuisineEditorSegue";
 NSString * const kStreetEditorSegue = @"Editor2StreetEditorSegue";
+NSString * const kCategoryEditorSegue = @"Editor2CategoryEditorSegue";
 
 typedef NS_ENUM(NSUInteger, MWMEditorSection)
 {
+  MWMEditorSectionCategory,
   MWMEditorSectionName,
   MWMEditorSectionAddress,
   MWMEditorSectionDetails
 };
 
-vector<MWMPlacePageCellType> const gSectionNameCellTypes{MWMPlacePageCellTypeName};
+vector<MWMPlacePageCellType> const kSectionCategoryCellTypes{MWMPlacePageCellTypeCategory};
 
-vector<MWMPlacePageCellType> const gSectionAddressCellTypes{
+vector<MWMPlacePageCellType> const kSectionNameCellTypes{MWMPlacePageCellTypeName};
+
+vector<MWMPlacePageCellType> const kSectionAddressCellTypes{
     {MWMPlacePageCellTypeStreet, MWMPlacePageCellTypeBuilding}};
 
-vector<MWMPlacePageCellType> const gSectionDetailsCellTypes{
+vector<MWMPlacePageCellType> const kSectionDetailsCellTypes{
     {MWMPlacePageCellTypeOpenHours, MWMPlacePageCellTypePhoneNumber, MWMPlacePageCellTypeWebsite,
      MWMPlacePageCellTypeEmail, MWMPlacePageCellTypeCuisine, MWMPlacePageCellTypeWiFi}};
 
 using CellTypesSectionMap = pair<vector<MWMPlacePageCellType>, MWMEditorSection>;
 
-vector<CellTypesSectionMap> const gCellTypesSectionMap{
-    {gSectionNameCellTypes, MWMEditorSectionName},
-    {gSectionAddressCellTypes, MWMEditorSectionAddress},
-    {gSectionDetailsCellTypes, MWMEditorSectionDetails}};
+vector<CellTypesSectionMap> const kCellTypesSectionMap{
+    {kSectionCategoryCellTypes, MWMEditorSectionCategory},
+    {kSectionNameCellTypes, MWMEditorSectionName},
+    {kSectionAddressCellTypes, MWMEditorSectionAddress},
+    {kSectionDetailsCellTypes, MWMEditorSectionDetails}};
 
-MWMPlacePageCellTypeValueMap const gCellType2ReuseIdentifier{
+MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
+    {MWMPlacePageCellTypeCategory, "MWMEditorCategoryCell"},
     {MWMPlacePageCellTypeName, "MWMEditorNameTableViewCell"},
     {MWMPlacePageCellTypeStreet, "MWMEditorSelectTableViewCell"},
     {MWMPlacePageCellTypeBuilding, "MWMEditorTextTableViewCell"},
@@ -56,8 +66,8 @@ MWMPlacePageCellTypeValueMap const gCellType2ReuseIdentifier{
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
-  auto const it = gCellType2ReuseIdentifier.find(cellType);
-  BOOL const haveCell = (it != gCellType2ReuseIdentifier.end());
+  auto const it = kCellType2ReuseIdentifier.find(cellType);
+  BOOL const haveCell = (it != kCellType2ReuseIdentifier.end());
   ASSERT(haveCell, ());
   return haveCell ? @(it->second.c_str()) : @"";
 }
@@ -67,7 +77,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
                                       UITextFieldDelegate, MWMOpeningHoursEditorProtocol,
                                       MWMPlacePageOpeningHoursCellProtocol,
                                       MWMEditorCellProtocol, MWMCuisineEditorProtocol,
-                                      MWMStreetEditorProtocol>
+                                      MWMStreetEditorProtocol, MWMObjectsCategorySelectorDelegate>
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
 
@@ -94,6 +104,12 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     NSAssert(false, @"Incorrect featureID.");
 }
 
+- (void)setEditableMapObject:(osm::EditableMapObject const &)emo
+{
+  NSAssert(self.isCreating, @"We should pass featureID to editor if we just editing");
+  m_mapObject = emo;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
@@ -105,27 +121,36 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 - (void)configNavBar
 {
   self.title = L(@"edit_place").capitalizedString;
-  self.navigationItem.leftBarButtonItem =
-      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                    target:self
-                                                    action:@selector(onCancel)];
   self.navigationItem.rightBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                     target:self
                                                     action:@selector(onSave)];
-  self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+}
+
+- (void)backTap
+{
+  if (self.isCreating)
+    [self.navigationController popToRootViewControllerAnimated:YES];
+  else
+    [super backTap];
+}
+
+- (void)showBackButton
+{
+  if (self.isCreating)
+  {
+    self.navigationItem.leftBarButtonItem =
+    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                  target:self
+                                                  action:@selector(backTap)];
+  }
+  else
+  {
+    [super showBackButton];
+  }
 }
 
 #pragma mark - Actions
-
-- (void)onCancel
-{
-  UINavigationController * parentNavController = self.navigationController.navigationController;
-  if (parentNavController)
-    [parentNavController popViewControllerAnimated:YES];
-  else
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (void)onSave
 {
@@ -141,7 +166,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       // TODO(Vlad): Show error dialog.
       break;
   }
-  [self onCancel];
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - Offscreen cells
@@ -182,6 +207,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypeName: return m_mapObject.IsNameEditable();
     case MWMPlacePageCellTypeStreet: return m_mapObject.IsAddressEditable();
     case MWMPlacePageCellTypeBuilding: return m_mapObject.IsAddressEditable();
+    case MWMPlacePageCellTypeCategory: return self.isCreating;
     default: NSAssert(false, @"Invalid cell type %d", cellType); return false;
   }
 }
@@ -191,7 +217,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   self.offscreenCells = [NSMutableDictionary dictionary];
   m_sections.clear();
   m_cells.clear();
-  for (auto const & cellsSection : gCellTypesSectionMap)
+  for (auto const & cellsSection : kCellTypesSectionMap)
   {
     for (auto cellType : cellsSection.first)
     {
@@ -200,8 +226,11 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
       m_sections.emplace_back(cellsSection.second);
       m_cells[cellsSection.second].emplace_back(cellType);
       NSString * identifier = reuseIdentifier(cellType);
-      [self.tableView registerNib:[UINib nibWithNibName:identifier bundle:nil]
-           forCellReuseIdentifier:identifier];
+
+      if (UINib * nib = [UINib nibWithNibName:identifier bundle:nil])
+        [self.tableView registerNib:nib forCellReuseIdentifier:identifier];
+      else
+        NSAssert(false, @"Incorrect cell");
     }
   }
   sort(m_sections.begin(), m_sections.end());
@@ -228,6 +257,12 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   switch (cellType)
   {
+    case MWMPlacePageCellTypeCategory:
+    {
+      MWMEditorCategoryCell * cCell = static_cast<MWMEditorCategoryCell *>(cell);
+      [cCell configureWithDelegate:self detailTitle:@(m_mapObject.GetLocalizedType().c_str()) isCreating:self.isCreating];
+      break;
+    }
     case MWMPlacePageCellTypePhoneNumber:
     {
       MWMEditorTextTableViewCell * tCell = (MWMEditorTextTableViewCell *)cell;
@@ -352,6 +387,8 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   {
     case MWMPlacePageCellTypeOpenHours:
       return ((MWMPlacePageOpeningHoursCell *)cell).cellHeight;
+    case MWMPlacePageCellTypeCategory:
+      return self.tableView.rowHeight;
     default:
     {
       [cell setNeedsUpdateConstraints];
@@ -375,6 +412,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   switch (m_sections[section])
   {
   case MWMEditorSectionName:
+  case MWMEditorSectionCategory:
     return nil;
   case MWMEditorSectionAddress:
     return L(@"address");
@@ -391,6 +429,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     return L(@"place_name_caption");
   case MWMEditorSectionAddress:
   case MWMEditorSectionDetails:
+  case MWMEditorSectionCategory:
     return nil;
   }
 }
@@ -472,6 +511,9 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypeCuisine:
       [self performSegueWithIdentifier:kCuisineEditorSegue sender:nil];
       break;
+    case MWMPlacePageCellTypeCategory:
+      [self performSegueWithIdentifier:kCategoryEditorSegue sender:nil];
+      break;
     default:
       NSAssert(false, @"Invalid field for cellSelect");
       break;
@@ -483,6 +525,14 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 - (void)setOpeningHours:(NSString *)openingHours
 {
   m_mapObject.SetOpeningHours(openingHours.UTF8String);
+}
+
+#pragma mark - MWMObjectsCategorySelectorDelegate
+
+- (void)reloadObject:(osm::EditableMapObject const &)object
+{
+  [self setEditableMapObject:object];
+  [self configTable];
 }
 
 #pragma mark - MWMCuisineEditorProtocol
@@ -537,6 +587,13 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   {
     MWMStreetEditorViewController * dvc = segue.destinationViewController;
     dvc.delegate = self;
+  }
+  else if ([segue.identifier isEqualToString:kCategoryEditorSegue])
+  {
+    NSAssert(self.isCreating, @"Invalid state! We'll be able to change feature category only if we are creating feature!");
+    MWMObjectsCategorySelectorController * dest = segue.destinationViewController;
+    dest.delegate = self;
+    [dest setSelectedCategory:m_mapObject.GetLocalizedType()];
   }
 }
 

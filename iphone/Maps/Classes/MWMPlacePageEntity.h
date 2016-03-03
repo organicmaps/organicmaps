@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageCellType)
   MWMPlacePageCellTypeCoordinate,
   MWMPlacePageCellTypeBookmark,
   MWMPlacePageCellTypeEditButton,
+  MWMPlacePageCellTypeCategory,
   MWMPlacePageCellTypeName,
   MWMPlacePageCellTypeStreet,
   MWMPlacePageCellTypeBuilding,

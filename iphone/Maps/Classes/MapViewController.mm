@@ -783,9 +783,8 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
 {
   if ([segue.identifier isEqualToString:kEditorSegue])
   {
-    UINavigationController * dvc = segue.destinationViewController;
-    MWMEditorViewController * editorVC = (MWMEditorViewController *)[dvc topViewController];
-    [editorVC setFeatureToEdit:static_cast<MWMPlacePageEntity *>(sender).featureID];
+    MWMEditorViewController * dvc = segue.destinationViewController;
+    [dvc setFeatureToEdit:static_cast<MWMPlacePageEntity *>(sender).featureID];
   }
   else if ([segue.identifier isEqualToString:kAuthorizationSegue])
   {
