@@ -2,14 +2,15 @@
 #import "LinkCell.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
+#import "MWMMapDownloadDialog.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMTextToSpeech.h"
 #import "SelectableCell.h"
 #import "SettingsViewController.h"
 #import "Statistics.h"
 #import "SwitchCell.h"
-#import "WebViewController.h"
 #import "UIColor+MapsMeColor.h"
+#import "WebViewController.h"
 
 #include "Framework.h"
 
@@ -267,6 +268,7 @@ typedef NS_ENUM(NSUInteger, Section)
         [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatAutoDownload)
                          withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
         Settings::Set(kAutoDownloadEnabledKey, (bool)value);
+        [MWMMapDownloadDialog pauseAutoDownload:NO];
         break;
       }
       // 3D buildings

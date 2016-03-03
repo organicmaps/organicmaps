@@ -10,9 +10,13 @@
 
 #include "Framework.h"
 
-#include "storage/index.hpp"
-
 extern char const * kAutoDownloadEnabledKey;
+
+namespace
+{
+NSString * const kAutoDownloadPaused = @"AutoDownloadPaused";
+NSTimeInterval constexpr kAutoDownloadPauseExpiartion = 24 * 60 * 60;
+} // namespace
 
 using namespace storage;
 
@@ -58,52 +62,63 @@ using namespace storage;
   auto & s = GetFramework().Storage();
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(m_countryId, nodeAttrs);
-  BOOL const isMultiParent = nodeAttrs.m_parentInfo.size() > 1;
-  BOOL const noParrent = (nodeAttrs.m_parentInfo[0].m_id == s.GetRootId());
-  BOOL const hideParent = (noParrent || isMultiParent);
-  self.parentNode.hidden = hideParent;
-  self.nodeTopOffset.priority = hideParent ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
-  if (!hideParent)
-    self.parentNode.text = @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
-  self.node.text = @(nodeAttrs.m_nodeLocalName.c_str());
-  self.nodeSize.textColor = [UIColor blackSecondaryText];
-  self.nodeSize.text = formattedSize(nodeAttrs.m_mwmSize);
 
-  switch (nodeAttrs.m_status)
+  BOOL const isMapVisible = [self.controller.navigationController.topViewController isEqual:self.controller];
+  if (isMapVisible)
   {
-    case NodeStatus::NotDownloaded:
+    BOOL const isMultiParent = nodeAttrs.m_parentInfo.size() > 1;
+    BOOL const noParrent = (nodeAttrs.m_parentInfo[0].m_id == s.GetRootId());
+    BOOL const hideParent = (noParrent || isMultiParent);
+    self.parentNode.hidden = hideParent;
+    self.nodeTopOffset.priority = hideParent ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow;
+    if (!hideParent)
+      self.parentNode.text = @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
+    self.node.text = @(nodeAttrs.m_nodeLocalName.c_str());
+    self.nodeSize.textColor = [UIColor blackSecondaryText];
+    self.nodeSize.text = formattedSize(nodeAttrs.m_mwmSize);
+
+    switch (nodeAttrs.m_status)
     {
-      bool autoDownloadEnabled = true;
-      (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
-      if (autoDownloadEnabled)
+      case NodeStatus::NotDownloaded:
       {
+        bool autoDownloadEnabled = true;
+        (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
+        if (autoDownloadEnabled && ![MWMMapDownloadDialog isAutoDownloadPaused])
+        {
+          [self showInQueue];
+          s.DownloadNode(m_countryId);
+        }
+        else
+        {
+          [self showDownloadRequest];
+        }
+        [self addToSuperview];
+        break;
+      }
+      case NodeStatus::Downloading:
+        if (nodeAttrs.m_downloadingProgress.second != 0)
+          [self showDownloading:static_cast<CGFloat>(nodeAttrs.m_downloadingProgress.first) / nodeAttrs.m_downloadingProgress.second];
+        [self addToSuperview];
+        break;
+      case NodeStatus::InQueue:
         [self showInQueue];
-        s.DownloadNode(m_countryId);
-      }
-      else
-      {
-        [self showDownloadRequest];
-      }
-      [self addToSuperview];
-      break;
+        [self addToSuperview];
+        break;
+      case NodeStatus::Undefined:
+      case NodeStatus::Error:
+        [self showError:nodeAttrs.m_error];
+        break;
+      case NodeStatus::OnDisk:
+      case NodeStatus::OnDiskOutOfDate:
+        [self removeFromSuperview];
+        break;
     }
-    case NodeStatus::Downloading:
-      if (nodeAttrs.m_downloadingProgress.second != 0)
-        [self showDownloading:static_cast<CGFloat>(nodeAttrs.m_downloadingProgress.first) / nodeAttrs.m_downloadingProgress.second];
-      [self addToSuperview];
-      break;
-    case NodeStatus::InQueue:
-      [self showInQueue];
-      [self addToSuperview];
-      break;
-    case NodeStatus::Undefined:
-    case NodeStatus::Error:
-      [self showError:nodeAttrs.m_error];
-      break;
-    case NodeStatus::OnDisk:
-    case NodeStatus::OnDiskOutOfDate:
-      [self removeFromSuperview];
-      break;
+  }
+  else
+  {
+    if (nodeAttrs.m_status == NodeStatus::NotDownloaded)
+      [MWMMapDownloadDialog pauseAutoDownload:YES];
+    [self removeFromSuperview];
   }
 }
 
@@ -184,14 +199,34 @@ using namespace storage;
     [self configDialog];
 }
 
+#pragma mark - Autodownload
+
++ (void)pauseAutoDownload:(BOOL)pause
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  if (pause)
+    [ud setObject:[NSDate date] forKey:kAutoDownloadPaused];
+  else
+    [ud removeObjectForKey:kAutoDownloadPaused];
+  [ud synchronize];
+}
+
++ (BOOL)isAutoDownloadPaused
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSDate * pausedTime = [ud objectForKey:kAutoDownloadPaused];
+  if (!pausedTime)
+    return NO;
+  return [[NSDate date] timeIntervalSinceDate:pausedTime] < kAutoDownloadPauseExpiartion;
+}
+
 #pragma mark - MWMFrameworkStorageObserver
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
   if (m_countryId != countryId)
     return;
-
-  if (self.superview && [self.controller.navigationController.topViewController isEqual:self.controller])
+  if (self.superview)
     [self configDialog];
   else
     [self removeFromSuperview];
@@ -215,6 +250,7 @@ using namespace storage;
   else
   {
     [self showDownloadRequest];
+    [MWMMapDownloadDialog pauseAutoDownload:YES];
     [MWMStorage cancelDownloadNode:m_countryId];
   }
 }
@@ -223,6 +259,8 @@ using namespace storage;
 
 - (IBAction)downloadAction
 {
+  [self showInQueue];
+  [MWMMapDownloadDialog pauseAutoDownload:NO];
   [MWMStorage downloadNode:m_countryId alertController:self.controller.alertController onSuccess:nil];
 }
 
