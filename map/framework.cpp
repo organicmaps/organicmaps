@@ -18,6 +18,8 @@
 #include "search/search_engine.hpp"
 #include "search/search_query_factory.hpp"
 
+#include "storage/storage_helpers.hpp"
+
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -455,17 +457,11 @@ bool Framework::IsWatchFrameRendererInited() const
   return m_cpuDrawer != nullptr;
 }
 
-m2::RectD Framework::GetCountryBounds(storage::TCountryId const & countryId) const
-{
-  CountryFile const & file = m_storage.GetCountryFile(countryId);
-  return GetCountryBounds(file.GetName());
-}
-
-void Framework::ShowCountry(storage::TCountryId const & index)
+void Framework::ShowNode(storage::TCountryId const & countryId)
 {
   StopLocationFollow();
 
-  ShowRect(GetCountryBounds(index));
+  ShowRect(CalcLimitRect(countryId, Storage(), CountryInfoGetter()));
 }
 
 void Framework::UpdateLatestCountryFile(LocalCountryFile const & localFile)

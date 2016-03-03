@@ -64,8 +64,6 @@ class CountryInfoGetter;
 
 namespace routing { namespace turns{ class Settings; } }
 
-class StorageBridge;
-
 namespace df
 {
   namespace watch
@@ -187,11 +185,8 @@ public:
       platform::LocalCountryFile const & localFile);
   //@}
 
-  /// Get country rect from borders (not from mwm file).
-  /// @param[in] file Pass country file name without extension as an id.
-  m2::RectD GetCountryBounds(storage::TCountryId const & countryId) const;
-
-  void ShowCountry(storage::TCountryId const & index);
+  /// Shows group or leaf mwm on the map.
+  void ShowNode(storage::TCountryId const & countryId);
 
   /// Checks, whether the country which contains the specified point is loaded.
   bool IsCountryLoaded(m2::PointD const & pt) const;
