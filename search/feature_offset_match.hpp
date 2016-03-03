@@ -111,7 +111,7 @@ void FullMatchInTrie(trie::Iterator<ValueList<TValue>> const & trieRoot,
                      strings::UniString s, TF & f)
 {
   if (!CheckMatchString(rootPrefix, rootPrefixSize, s, false /* prefix */))
-      return;
+    return;
 
   size_t symbolsMatched = 0;
   bool bFullEdgeMatched;
@@ -126,7 +126,7 @@ void FullMatchInTrie(trie::Iterator<ValueList<TValue>> const & trieRoot,
   threads::MutexGuard dummyG(dummyM);
 #endif
 
-  ASSERT_EQUAL ( symbolsMatched, s.size(), () );
+  ASSERT_EQUAL(symbolsMatched, s.size(), ());
 
   it->m_valueList.ForEach(f);
 }
@@ -137,7 +137,7 @@ void PrefixMatchInTrie(trie::Iterator<ValueList<TValue>> const & trieRoot,
                        strings::UniString s, TF & f)
 {
   if (!CheckMatchString(rootPrefix, rootPrefixSize, s, true /* prefix */))
-      return;
+    return;
 
   using TIterator = trie::Iterator<ValueList<TValue>>;
 
