@@ -18,7 +18,6 @@
     [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
     [parentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [parentView addSubview:self.rootView];
-    [self reset];
     self.state = MWMCircularProgressStateNormal;
   }
   return self;
@@ -86,8 +85,11 @@
   }
   else
   {
-    [self.rootView animateFromValue:self->_progress toValue:progress];
-    _progress = progress;
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+      [self.rootView animateFromValue:self->_progress toValue:progress];
+      self->_progress = progress;
+    });
   }
 }
 
