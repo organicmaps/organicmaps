@@ -5,6 +5,7 @@ static NSString * const kStatAction = @"action";
 static NSString * const kStatActionSheet = @"Action sheet";
 static NSString * const kStatAd = @"Ad";
 static NSString * const kStatAdd = @"Add";
+static NSString * const kStatAddPlace = @"Add place";
 static NSString * const kStatAdTitle = @"Ad title";
 static NSString * const kStatAlert = @"Alert";
 static NSString * const kStatAllMaps = @"all_maps";
