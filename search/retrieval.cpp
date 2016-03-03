@@ -13,6 +13,7 @@
 #include "indexer/index.hpp"
 #include "indexer/osm_editor.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_reader.hpp"
 
@@ -37,34 +38,54 @@ unique_ptr<coding::CompressedBitVector> SortFeaturesAndBuildCBV(vector<uint64_t>
   return coding::CompressedBitVectorBuilder::FromBitPositions(move(features));
 }
 
+/// Check that any from first matches any from second.
+template <class TComp, class T>
+bool IsFirstMatchesSecond(vector<T> const & first, vector<T> const & second, TComp const & comp)
+{
+  if (second.empty())
+    return true;
+
+  for (auto const & s : second)
+  {
+    for (auto const & f : first)
+    {
+      if (comp(f, s))
+        return true;
+    }
+  }
+  return false;
+}
+
 bool MatchFeatureByName(FeatureType const & ft, SearchQueryParams const & params)
 {
+  using namespace strings;
+
   bool matched = false;
-  auto const matcher = [&](int8_t /*lang*/, string const & utf8Name) -> bool
+  ft.ForEachName([&](int8_t lang, string const & utf8Name)
   {
-    auto const name = search::NormalizeAndSimplifyString(utf8Name);
-    for (auto const & prefix : params.m_prefixTokens)
+    if (utf8Name.empty() || params.m_langs.count(lang) == 0)
+      return true;
+
+    vector<UniString> nameTokens;
+    SplitUniString(NormalizeAndSimplifyString(utf8Name), MakeBackInsertFunctor(nameTokens), Delimiters());
+
+    auto const matchPrefix = [](UniString const & s1, UniString const & s2)
     {
-      if (strings::StartsWith(name, prefix))
-      {
-        matched = true;
-        return false;
-      }
-    }
+      return StartsWith(s1, s2);
+    };
+    if (!IsFirstMatchesSecond(nameTokens, params.m_prefixTokens, matchPrefix))
+      return true;
+
     for (auto const & synonyms : params.m_tokens)
     {
-      for (auto const & token : synonyms)
-      {
-        if (token == name)
-        {
-          matched = true;
-          return false;
-        }
-      }
+      if (!IsFirstMatchesSecond(nameTokens, synonyms, equal_to<UniString>()))
+        return true;
     }
-    return true;  // To iterate all names.
-  };
-  ft.ForEachName(matcher);
+
+    matched = true;
+    return false;
+  });
+
   return matched;
 }
 
@@ -75,22 +96,19 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
     MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
     SearchQueryParams const & params)
 {
-  serial::CodingParams codingParams(trie::GetCodingParams(value.GetHeader().GetDefCodingParams()));
-  ModelReaderPtr searchReader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-
   // Exclude from search all deleted/modified features and match all edited/created features separately.
   Editor & editor = Editor::Instance();
+
   auto const deleted = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Deleted);
-  // Modified features should be re-matched again.
   auto const modified = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Modified);
   auto const filter = [&](uint32_t featureIndex) -> bool
   {
-    if (binary_search(deleted.begin(), deleted.end(), featureIndex))
-      return false;
-    if (binary_search(modified.begin(), modified.end(), featureIndex))
-      return false;
-    return true;
+    return (!binary_search(deleted.begin(), deleted.end(), featureIndex) &&
+            !binary_search(modified.begin(), modified.end(), featureIndex));
   };
+
+  serial::CodingParams codingParams(trie::GetCodingParams(value.GetHeader().GetDefCodingParams()));
+  ModelReaderPtr searchReader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
 
   auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
       SubReaderWrapper<Reader>(searchReader.GetPtr()), SingleValueSerializer<TValue>(codingParams));
@@ -117,6 +135,7 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
     if (MatchFeatureByName(ft, params))
       features.push_back(featureIndex);
   };
+
   for_each(modified.begin(), modified.end(), matcher);
   auto const created = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Created);
   for_each(created.begin(), created.end(), matcher);
