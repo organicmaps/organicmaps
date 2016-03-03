@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		340DF9D01C1FF04D00B5C7EC /* osm_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 340DF9CF1C1FF04D00B5C7EC /* osm_editor.cpp */; };
+		34583BC71C88552100F94664 /* cuisines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BC11C88552100F94664 /* cuisines.cpp */; };
+		34583BC81C88552100F94664 /* cuisines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BC21C88552100F94664 /* cuisines.hpp */; };
+		34583BC91C88552100F94664 /* editable_map_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BC31C88552100F94664 /* editable_map_object.cpp */; };
+		34583BCA1C88552100F94664 /* editable_map_object.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BC41C88552100F94664 /* editable_map_object.hpp */; };
+		34583BCB1C88552100F94664 /* map_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BC51C88552100F94664 /* map_object.cpp */; };
+		34583BCC1C88552100F94664 /* map_object.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BC61C88552100F94664 /* map_object.hpp */; };
 		347F337B1C454242009758CC /* rank_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F33721C454242009758CC /* rank_table.cpp */; };
 		347F337C1C454242009758CC /* rank_table.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33731C454242009758CC /* rank_table.hpp */; };
 		347F337D1C454242009758CC /* succinct_trie_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F33741C454242009758CC /* succinct_trie_builder.hpp */; };
@@ -165,6 +171,12 @@
 /* Begin PBXFileReference section */
 		340DF9CF1C1FF04D00B5C7EC /* osm_editor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = osm_editor.cpp; sourceTree = "<group>"; };
 		340DF9D11C1FF09400B5C7EC /* osm_editor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = osm_editor.hpp; path = ../../indexer/osm_editor.hpp; sourceTree = "<group>"; };
+		34583BC11C88552100F94664 /* cuisines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cuisines.cpp; sourceTree = "<group>"; };
+		34583BC21C88552100F94664 /* cuisines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cuisines.hpp; sourceTree = "<group>"; };
+		34583BC31C88552100F94664 /* editable_map_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editable_map_object.cpp; sourceTree = "<group>"; };
+		34583BC41C88552100F94664 /* editable_map_object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editable_map_object.hpp; sourceTree = "<group>"; };
+		34583BC51C88552100F94664 /* map_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_object.cpp; sourceTree = "<group>"; };
+		34583BC61C88552100F94664 /* map_object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_object.hpp; sourceTree = "<group>"; };
 		347F33721C454242009758CC /* rank_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rank_table.cpp; sourceTree = "<group>"; };
 		347F33731C454242009758CC /* rank_table.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rank_table.hpp; sourceTree = "<group>"; };
 		347F33741C454242009758CC /* succinct_trie_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = succinct_trie_builder.hpp; sourceTree = "<group>"; };
@@ -429,6 +441,12 @@
 		6753409C1A3F53CB00A0A8C3 /* indexer */ = {
 			isa = PBXGroup;
 			children = (
+				34583BC11C88552100F94664 /* cuisines.cpp */,
+				34583BC21C88552100F94664 /* cuisines.hpp */,
+				34583BC31C88552100F94664 /* editable_map_object.cpp */,
+				34583BC41C88552100F94664 /* editable_map_object.hpp */,
+				34583BC51C88552100F94664 /* map_object.cpp */,
+				34583BC61C88552100F94664 /* map_object.hpp */,
 				56C74C121C749E4700B71B9F /* categories_holder_loader.cpp */,
 				56C74C131C749E4700B71B9F /* categories_holder.cpp */,
 				56C74C141C749E4700B71B9F /* categories_holder.hpp */,
@@ -547,6 +565,7 @@
 				347F33831C454242009758CC /* types_skipper.hpp in Headers */,
 				6753411F1A3F540F00A0A8C3 /* feature_loader.hpp in Headers */,
 				675341151A3F540F00A0A8C3 /* feature_covering.hpp in Headers */,
+				34583BC81C88552100F94664 /* cuisines.hpp in Headers */,
 				674125151B4C02F100A3E828 /* map_style.hpp in Headers */,
 				675341291A3F540F00A0A8C3 /* ftypes_matcher.hpp in Headers */,
 				675341201A3F540F00A0A8C3 /* feature_processor.hpp in Headers */,
@@ -600,6 +619,8 @@
 				675341331A3F540F00A0A8C3 /* interval_index_iface.hpp in Headers */,
 				675341041A3F540F00A0A8C3 /* classificator.hpp in Headers */,
 				675341261A3F540F00A0A8C3 /* feature.hpp in Headers */,
+				34583BCA1C88552100F94664 /* editable_map_object.hpp in Headers */,
+				34583BCC1C88552100F94664 /* map_object.hpp in Headers */,
 				670D04AC1B0BA8580013A7AC /* feature_loader_101.hpp in Headers */,
 				675341081A3F540F00A0A8C3 /* data_factory.hpp in Headers */,
 				6753410A1A3F540F00A0A8C3 /* data_header.hpp in Headers */,
@@ -709,6 +730,7 @@
 				6753414D1A3F540F00A0A8C3 /* types_mapping.cpp in Sources */,
 				6753412A1A3F540F00A0A8C3 /* geometry_coding.cpp in Sources */,
 				670C61191AB065B100C38A8C /* scales_test.cpp in Sources */,
+				34583BC71C88552100F94664 /* cuisines.cpp in Sources */,
 				675341121A3F540F00A0A8C3 /* feature_algo.cpp in Sources */,
 				675341211A3F540F00A0A8C3 /* feature_utils.cpp in Sources */,
 				670C61151AB065B100C38A8C /* interval_index_test.cpp in Sources */,
@@ -722,6 +744,7 @@
 				347F33821C454242009758CC /* types_skipper.cpp in Sources */,
 				56C74C331C749E8100B71B9F /* rank_table_test.cpp in Sources */,
 				675341161A3F540F00A0A8C3 /* feature_data.cpp in Sources */,
+				34583BC91C88552100F94664 /* editable_map_object.cpp in Sources */,
 				675341031A3F540F00A0A8C3 /* classificator.cpp in Sources */,
 				670C610E1AB065B100C38A8C /* cell_id_test.cpp in Sources */,
 				670C61131AB065B100C38A8C /* index_builder_test.cpp in Sources */,
@@ -740,6 +763,7 @@
 				6726C1D11A49DAAC005EEA39 /* feature_meta.cpp in Sources */,
 				6753411C1A3F540F00A0A8C3 /* feature_loader_base.cpp in Sources */,
 				675341071A3F540F00A0A8C3 /* data_factory.cpp in Sources */,
+				34583BCB1C88552100F94664 /* map_object.cpp in Sources */,
 				670C611D1AB065B100C38A8C /* test_type.cpp in Sources */,
 				6753412E1A3F540F00A0A8C3 /* index_builder.cpp in Sources */,
 				675341011A3F540F00A0A8C3 /* classificator_loader.cpp in Sources */,
