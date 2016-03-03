@@ -486,6 +486,24 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   m_storage.DeleteCustomCountryVersion(localFile);
 }
 
+bool Framework::HasUnsavedChanges(storage::TCountryId const & countryId)
+{
+  bool hasUnsavedChanges = false;
+  auto forEachInSubtree = [&hasUnsavedChanges](storage::TCountryId const & /* descendantId */, bool groupNode)
+  {
+    if (!groupNode)
+    {
+      /// @TODO(AlexZ) |countryId| could be a group or leaf node in the country tree graph.
+      /// This string is called for each leaf node of the subtree with the root at |countryId|
+      /// including the root. |descendantId| is an id of leaf node. It's the same with
+      /// an mwm file name (for leaf nodes). It's necessary to check if there're some changes
+      /// in mwm with |descendantId| and if so to set hasUnsavedChanges to true.
+    }
+  };
+  Storage().ForEachInSubtree(countryId, forEachInSubtree);
+  return hasUnsavedChanges;
+}
+
 void Framework::RegisterAllMaps()
 {
   ASSERT(!m_storage.IsDownloadInProgress(),

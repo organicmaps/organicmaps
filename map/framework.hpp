@@ -174,6 +174,10 @@ public:
   void ReleaseWatchFrameRenderer();
   bool IsWatchFrameRendererInited() const;
 
+  /// \returns true if there's unsaved changes in map with |countryId| and false otherwise.
+  /// \note It works for group and leaf node.
+  bool HasUnsavedChanges(storage::TCountryId const & countryId);
+
   /// Registers all local map files in internal indexes.
   void RegisterAllMaps();
 
