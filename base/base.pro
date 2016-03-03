@@ -11,6 +11,7 @@ SOURCES += \
     base.cpp \
     condition.cpp \
     gmtime.cpp \
+    deferred_task.cpp \
     exception.cpp \
     internal/message.cpp \
     logging.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     collection_cast.hpp \
     condition.hpp \
     const_helper.hpp \
+    deferred_task.hpp \
     exception.hpp \
     gmtime.hpp \
     internal/messagex.hpp \

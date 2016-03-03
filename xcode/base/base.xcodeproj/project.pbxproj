@@ -69,6 +69,8 @@
 		6753420F1A3F57E400A0A8C3 /* timer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675341CA1A3F57E400A0A8C3 /* timer.hpp */; };
 		6753453D1A3F6F6A00A0A8C3 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753453A1A3F6F6A00A0A8C3 /* message.cpp */; };
 		6753453E1A3F6F6A00A0A8C3 /* message.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753453B1A3F6F6A00A0A8C3 /* message.hpp */; };
+		67A609AE1C88642E001E641A /* deferred_task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A609AC1C88642E001E641A /* deferred_task.cpp */; };
+		67A609AF1C88642E001E641A /* deferred_task.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67A609AD1C88642E001E641A /* deferred_task.hpp */; };
 		67B52B601AD3C84E00664C17 /* thread_checker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B52B5E1AD3C84E00664C17 /* thread_checker.cpp */; };
 		67B52B611AD3C84E00664C17 /* thread_checker.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67B52B5F1AD3C84E00664C17 /* thread_checker.hpp */; };
 /* End PBXBuildFile section */
@@ -140,6 +142,8 @@
 		675341CA1A3F57E400A0A8C3 /* timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = timer.hpp; sourceTree = "<group>"; };
 		6753453A1A3F6F6A00A0A8C3 /* message.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = message.cpp; sourceTree = "<group>"; };
 		6753453B1A3F6F6A00A0A8C3 /* message.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = message.hpp; sourceTree = "<group>"; };
+		67A609AC1C88642E001E641A /* deferred_task.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deferred_task.cpp; sourceTree = "<group>"; };
+		67A609AD1C88642E001E641A /* deferred_task.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = deferred_task.hpp; sourceTree = "<group>"; };
 		67B52B5E1AD3C84E00664C17 /* thread_checker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread_checker.cpp; sourceTree = "<group>"; };
 		67B52B5F1AD3C84E00664C17 /* thread_checker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = thread_checker.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -240,6 +244,8 @@
 				675341CA1A3F57E400A0A8C3 /* timer.hpp */,
 				34CB447C1C0C34C50061F6A0 /* timegm.cpp */,
 				34CB447D1C0C34C50061F6A0 /* timegm.hpp */,
+				67A609AC1C88642E001E641A /* deferred_task.cpp */,
+				67A609AD1C88642E001E641A /* deferred_task.hpp */,
 			);
 			name = base;
 			path = ../../base;
@@ -269,6 +275,7 @@
 				6753420D1A3F57E400A0A8C3 /* threaded_priority_queue.hpp in Headers */,
 				675341EF1A3F57E400A0A8C3 /* rolling_hash.hpp in Headers */,
 				671182F11C807C0A00CB8177 /* gmtime.hpp in Headers */,
+				67A609AF1C88642E001E641A /* deferred_task.hpp in Headers */,
 				675342021A3F57E400A0A8C3 /* string_utils.hpp in Headers */,
 				675341E41A3F57E400A0A8C3 /* matrix.hpp in Headers */,
 				675341D81A3F57E400A0A8C3 /* condition.hpp in Headers */,
@@ -378,6 +385,7 @@
 				674A7E2E1C0DB03D003D48E1 /* timegm.cpp in Sources */,
 				6753420A1A3F57E400A0A8C3 /* threaded_container.cpp in Sources */,
 				675341FF1A3F57E400A0A8C3 /* string_format.cpp in Sources */,
+				67A609AE1C88642E001E641A /* deferred_task.cpp in Sources */,
 				675341DF1A3F57E400A0A8C3 /* logging.cpp in Sources */,
 				671182F01C807C0A00CB8177 /* gmtime.cpp in Sources */,
 				675341D71A3F57E400A0A8C3 /* condition.cpp in Sources */,
