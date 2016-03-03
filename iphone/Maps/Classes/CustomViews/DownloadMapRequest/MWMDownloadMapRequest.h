@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, MWMDownloadMapRequestState)
 
 - (void)showRequest;
 
-- (void)downloadProgress:(CGFloat)progress countryName:(nonnull NSString *)countryName;
+- (void)downloadProgress:(CGFloat)progress;
 - (void)setDownloadFailed;
 
 @end

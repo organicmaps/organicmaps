@@ -29,17 +29,6 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Axo-F2-0Xb" userLabel="ProgressViewWrapper">
-                    <rect key="frame" x="144" y="45" width="32" height="32"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="32" id="CcH-aB-wPy"/>
-                        <constraint firstAttribute="height" constant="32" id="j9b-F2-Mcs"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANW-J1-K9x">
                     <rect key="frame" x="40" y="31" width="240" height="44"/>
                     <color key="backgroundColor" red="0.11764705882352941" green="0.58823529411764708" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
@@ -103,6 +92,14 @@
                         <action selector="selectMapTouchUpInside:" destination="-1" eventType="touchUpInside" id="RXu-BP-tNk"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Axo-F2-0Xb" userLabel="ProgressViewWrapper">
+                    <rect key="frame" x="142" y="45" width="36" height="36"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="CcH-aB-wPy"/>
+                        <constraint firstAttribute="height" constant="36" id="j9b-F2-Mcs"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>

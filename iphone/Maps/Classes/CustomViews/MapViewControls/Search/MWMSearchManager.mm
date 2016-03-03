@@ -218,12 +218,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (void)processCountry:(storage::TCountryId const &)countryId progress:(storage::TLocalAndRemoteSize const &)progress
 {
-  using namespace storage;
-  CGFloat const normProgress = (CGFloat)progress.first / progress.second;
-  NodeAttrs attrs;
-  GetFramework().Storage().GetNodeAttrs(countryId, attrs);
-  NSString * countryName = @(attrs.m_nodeLocalName.c_str());
-  [self.downloadController downloadProgress:normProgress countryName:countryName];
+  [self.downloadController downloadProgress:static_cast<CGFloat>(progress.first) / progress.second];
 }
 
 #pragma mark - MWMSearchDownloadProtocol

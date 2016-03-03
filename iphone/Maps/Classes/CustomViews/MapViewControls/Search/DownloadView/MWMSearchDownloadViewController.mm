@@ -83,10 +83,10 @@
 
 #pragma mark - Process control
 
-- (void)downloadProgress:(CGFloat)progress countryName:(nonnull NSString *)countryName
+- (void)downloadProgress:(CGFloat)progress
 {
   [self stateUpdated:MWMDownloadMapRequestStateDownload];
-  [self.downloadRequest downloadProgress:progress countryName:countryName];
+  [self.downloadRequest downloadProgress:progress];
 }
 
 - (void)setDownloadFailed

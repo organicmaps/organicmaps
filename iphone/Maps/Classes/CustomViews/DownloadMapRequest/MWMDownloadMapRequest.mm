@@ -4,6 +4,7 @@
 #import "MWMCircularProgress.h"
 #import "MWMDownloadMapRequest.h"
 #import "MWMDownloadMapRequestView.h"
+#import "MWMMapDownloadDialog.h"
 #import "MWMStorage.h"
 #import "Statistics.h"
 
@@ -40,23 +41,10 @@
   {
     [[NSBundle mainBundle] loadNibNamed:self.class.className owner:self options:nil];
     [parentView addSubview:self.rootView];
-    [self setupProgressView];
     self.delegate = delegate;
     [self showRequest];
   }
   return self;
-}
-
-- (void)setupProgressView
-{
-  self.progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper];
-  self.progressView.delegate = self;
-  [self.progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
-  [self.progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
-  [self.progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
-  [self.progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSpinner];
-  [self.progressView setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
-  [self.progressView setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
 }
 
 - (void)dealloc
@@ -71,7 +59,6 @@
   if (s.IsDownloadInProgress())
   {
     m_countryId = s.GetCurrentDownloadingCountryId();
-    self.progressView.state = MWMCircularProgressStateProgress;
     [self updateState:MWMDownloadMapRequestStateDownload];
   }
   else
@@ -103,11 +90,10 @@
 
 #pragma mark - Process control
 
-- (void)downloadProgress:(CGFloat)progress countryName:(nonnull NSString *)countryName
+- (void)downloadProgress:(CGFloat)progress
 {
-  self.progressView.progress = progress;
   [self showRequest];
-  self.mapTitleLabel.text = countryName;
+  self.progressView.progress = progress;
 }
 
 - (void)setDownloadFailed
@@ -134,6 +120,7 @@
   else
   {
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatSearch}];
+    [MWMMapDownloadDialog pauseAutoDownload:YES];
     [MWMStorage cancelDownloadNode:m_countryId];
   }
   [self showRequest];
@@ -167,6 +154,22 @@
 {
   self.rootView.state = state;
   [self.delegate stateUpdated:state];
+}
+
+- (MWMCircularProgress *)progressView
+{
+  if (!_progressView)
+  {
+    _progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper];
+    _progressView.delegate = self;
+    [_progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
+    [_progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
+    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
+    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSpinner];
+    [_progressView setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
+    [_progressView setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
+  }
+  return _progressView;
 }
 
 @end
