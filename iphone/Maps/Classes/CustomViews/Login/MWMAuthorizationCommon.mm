@@ -32,7 +32,7 @@ void SetOSMUserNameWithCredentials(osm::TKeySecret const & keySecret)
        LOG(LWARNING, ("Can't load user preferences from OSM server:", ex.what()));
     }
   });
-}
+} // namespace osm_auth_ios
 
 void SetEmptyOSMUserName()
 {
