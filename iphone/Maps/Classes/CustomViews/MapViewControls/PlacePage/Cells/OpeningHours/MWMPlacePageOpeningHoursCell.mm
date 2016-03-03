@@ -70,7 +70,7 @@ WeekDayView getWeekDayView()
 
   self.toggleButton.hidden = !delegate.forcedButton;
   self.expandImage.hidden = !delegate.forcedButton;
-  self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray"];
+  self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_right"];
   self.expandImage.mwm_coloring = MWMImageColoringGray;
   NSAssert(info, @"Schedule can not be empty");
   osmoh::OpeningHours oh(info.UTF8String);
@@ -123,7 +123,7 @@ WeekDayView getWeekDayView()
     self.toggleButton.hidden = NO;
     self.expandImage.hidden = NO;
     if (self.delegate.forcedButton)
-      self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray"];
+      self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_right"];
     else if (self.isExpanded)
       self.expandImage.image = [UIImage imageNamed:@"ic_arrow_gray_up"];
     else
