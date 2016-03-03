@@ -40,7 +40,7 @@ jobject g_countryChangedListener;
 jobject g_migrationListener;
 
 unordered_map<jobject, vector<TBatchedData>> g_batchedCallbackData;
-bool g_isBatched = false;
+bool g_isBatched;
 
 Storage & GetStorage()
 {
@@ -52,7 +52,7 @@ void PrepareClassRefs(JNIEnv * env)
   if (g_listAddMethod)
     return;
 
-  jclass listClass = jni::GetGlobalClassRef(env, "java/util/List");
+  jclass listClass = env->FindClass("java/util/List");
   g_listAddMethod = env->GetMethodID(listClass, "add", "(Ljava/lang/Object;)Z");
   g_countryItemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/CountryItem");
 }
