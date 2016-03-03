@@ -1,7 +1,5 @@
 #import "MWMRoutingProtocol.h"
 
-#include "platform/location.hpp"
-
 @protocol MWMPlacePageViewManagerProtocol <MWMRoutingProtocol>
 
 - (void)dragPlacePage:(CGRect)frame;
