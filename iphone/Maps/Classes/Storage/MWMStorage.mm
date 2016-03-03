@@ -30,9 +30,20 @@
   }];
 }
 
-+ (void)deleteNode:(storage::TCountryId const &)countryId
++ (void)deleteNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
 {
-  GetFramework().Storage().DeleteNode(countryId);
+  auto & f = GetFramework();
+  if (f.HasUnsavedEdits(countryId))
+  {
+    [alertController presentUnsavedEditsAlertWithOkBlock:^
+    {
+       f.Storage().DeleteNode(countryId);
+    }];
+  }
+  else
+  {
+    f.Storage().DeleteNode(countryId);
+  }
 }
 
 + (void)cancelDownloadNode:(storage::TCountryId const &)countryId

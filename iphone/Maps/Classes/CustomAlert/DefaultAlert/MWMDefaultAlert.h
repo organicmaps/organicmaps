@@ -14,6 +14,7 @@
 + (instancetype)disabledLocationAlert;
 + (instancetype)noWiFiAlertWithName:(NSString *)name okBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)noConnectionAlert;
++ (instancetype)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)locationServiceNotSupportedAlert;
 + (instancetype)point2PointAlertWithOkBlock:(TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
 + (instancetype)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock;

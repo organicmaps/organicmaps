@@ -21,6 +21,7 @@
 - (void)presentLocationAlert;
 - (void)presentLocationServiceNotSupportedAlert;
 - (void)presentNoConnectionAlert;
+- (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentNoWiFiAlertWithName:(nonnull NSString *)name okBlock:(nullable TMWMVoidBlock)okBlock;
 - (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch;
 - (void)presentInternalErrorAlert;

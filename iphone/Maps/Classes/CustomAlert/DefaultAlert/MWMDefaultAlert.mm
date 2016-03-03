@@ -74,6 +74,16 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
++ (instancetype)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock
+{
+  kStatisticsEvent = @"Editor unsaved changes on delete";
+  return [self defaultAlertWithTitle:@"editor_unsavde_changes"
+                             message:nil
+                    rightButtonTitle:@"delete"
+                     leftButtonTitle:nil
+                   rightButtonAction:okBlock];
+}
+
 + (instancetype)noWiFiAlertWithName:(NSString *)name okBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"No WiFi Alert";

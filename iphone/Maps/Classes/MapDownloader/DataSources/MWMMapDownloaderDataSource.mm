@@ -56,6 +56,17 @@ using namespace storage;
   return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (editingStyle == UITableViewCellEditingStyleDelete)
+    [self.delegate deleteNode:[self countryIdForIndexPath:indexPath]];
+}
+
 #pragma mark - MWMMapDownloaderDataSource
 
 - (BOOL)isParentRoot

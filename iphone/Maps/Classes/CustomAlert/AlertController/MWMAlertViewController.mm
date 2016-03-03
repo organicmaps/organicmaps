@@ -81,6 +81,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert noConnectionAlert]];
 }
 
+- (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert unsavedEditsAlertWithOkBlock:okBlock]];
+}
+
 - (void)presentNoWiFiAlertWithName:(nonnull NSString *)name okBlock:(nullable TMWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert noWiFiAlertWithName:name okBlock:okBlock]];

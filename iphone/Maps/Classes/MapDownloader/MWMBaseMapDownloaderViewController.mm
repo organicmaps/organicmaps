@@ -486,7 +486,7 @@ using namespace storage;
           kStatFrom : kStatDownloader,
           kStatScenario : kStatDelete
         }];
-  [MWMStorage deleteNode:countryId];
+  [MWMStorage deleteNode:countryId alertController:self.alertController];
 }
 
 - (void)cancelNode:(storage::TCountryId const &)countryId

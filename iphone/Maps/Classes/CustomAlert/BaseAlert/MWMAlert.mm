@@ -51,6 +51,11 @@
   return [MWMDefaultAlert noConnectionAlert];
 }
 
++ (MWMAlert *)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock
+{
+  return [MWMDefaultAlert unsavedEditsAlertWithOkBlock:okBlock];
+}
+
 + (MWMAlert *)locationServiceNotSupportedAlert
 {
   return [MWMDefaultAlert locationServiceNotSupportedAlert];
