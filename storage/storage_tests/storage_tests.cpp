@@ -1223,6 +1223,7 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
+  TEST(!nodeAttrs.m_present, ());
 
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 2, ());
@@ -1235,6 +1236,7 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
+  TEST(!nodeAttrs.m_present, ());
 
   storage.GetNodeAttrs("Algeria_Coast", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
@@ -1247,6 +1249,7 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
+  TEST(!nodeAttrs.m_present, ());
 
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
@@ -1259,6 +1262,7 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
+  TEST(!nodeAttrs.m_present, ());
 
   storage.GetNodeAttrs("Disputable Territory", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 1, ());
@@ -1273,6 +1277,7 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
+  TEST(!nodeAttrs.m_present, ());
 }
 
 UNIT_TEST(StorageTest_ParseStatus)
