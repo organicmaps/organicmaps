@@ -68,9 +68,7 @@ using namespace storage;
     TCountryId const countryId = notificationCountryId.UTF8String;
     [MWMStorage downloadNode:countryId alertController:mapViewController.alertController onSuccess:^
     {
-      auto & f = GetFramework();
-      double const defaultZoom = 10;
-      f.ShowRect(CalcLimitRect(countryId, f.Storage(), f.CountryInfoGetter()));
+      GetFramework().ShowNode(countryId);
     }];
   }
 }
