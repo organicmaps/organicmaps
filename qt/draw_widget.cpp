@@ -489,7 +489,7 @@ void DrawWidget::CreateFeature()
   if (dlg.exec() == QDialog::Accepted)
   {
     osm::EditableMapObject emo;
-    if (m_framework->CreateMapObjectAtViewportCenter(dlg.GetSelectedType(), emo))
+    if (m_framework->CreateMapObject(m_framework->GetViewportCenter(), dlg.GetSelectedType(), emo))
     {
       EditorDialog dlg(this, emo);
       int const result = dlg.exec();

@@ -2304,9 +2304,9 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
   return false;
 }
 
-bool Framework::CreateMapObjectAtViewportCenter(uint32_t const featureType, osm::EditableMapObject & emo) const
+bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,
+                                osm::EditableMapObject & emo) const
 {
-  m2::PointD const mercator = GetViewportCenter();
   MwmSet::MwmId const mwmId = m_model.GetIndex().GetMwmIdByCountryFile(
         platform::CountryFile(m_infoGetter->GetRegionCountryId(mercator)));
   if (!mwmId.IsAlive())

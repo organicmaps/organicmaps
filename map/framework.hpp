@@ -613,8 +613,8 @@ public:
   /// @name Editor interface.
   //@{
   /// Initializes feature for Create Object UI.
-  /// @returns false in case when viewport center is in the ocean or mwm is not downloaded.
-  bool CreateMapObjectAtViewportCenter(uint32_t const featureType, osm::EditableMapObject & emo) const;
+  /// @returns false in case when coordinate is in the ocean or mwm is not downloaded.
+  bool CreateMapObject(m2::PointD const & mercator, uint32_t const featureType, osm::EditableMapObject & emo) const;
   /// @returns false if feature is invalid or can't be edited.
   bool GetEditableMapObject(FeatureID const & fid, osm:: EditableMapObject & emo) const;
   osm::Editor::SaveResult SaveEditedMapObject(osm:: EditableMapObject const & emo) const;
