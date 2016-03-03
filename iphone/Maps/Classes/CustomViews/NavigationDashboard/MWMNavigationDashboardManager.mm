@@ -1,7 +1,6 @@
 #import "Common.h"
 #import "Macros.h"
 #import "MapsAppDelegate.h"
-#import "MWMCircularProgress.h"
 #import "MWMLanesPanel.h"
 #import "MWMNavigationDashboard.h"
 #import "MWMNavigationDashboardEntity.h"
@@ -19,7 +18,7 @@ static NSString * const kNavigationDashboardLandscapeXibName = @"MWMLandscapeNav
 static NSString * const kNavigationDashboardIPADXibName = @"MWMNiPadNavigationDashboard";
 extern NSString * const kTTSStatusWasChangedNotification;
 
-@interface MWMNavigationDashboardManager () <MWMCircularProgressProtocol>
+@interface MWMNavigationDashboardManager ()
 
 @property (nonatomic) IBOutlet MWMRoutePreview * iPhoneRoutePreview;
 @property (nonatomic) IBOutlet MWMRoutePreview * iPadRoutePreview;
@@ -62,7 +61,6 @@ extern NSString * const kTTSStatusWasChangedNotification;
     }
 
     _routePreview.dashboardManager = self;
-    _routePreview.pedestrianProgressView.delegate = _routePreview.vehicleProgressView.delegate = self;
     _routePreview.delegate = delegate;
     _routePreview.dataSource = delegate;
     if (IPAD)
