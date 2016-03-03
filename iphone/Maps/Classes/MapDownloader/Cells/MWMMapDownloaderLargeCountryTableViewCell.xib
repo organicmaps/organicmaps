@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
+        <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4CW-jw-1JP" id="rFT-0r-5zy">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3NQ-tT-U9b">
@@ -22,8 +22,8 @@
                             <constraint firstAttribute="width" constant="36" id="WtB-IW-uuH"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="People's Republic of China" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="171" translatesAutoresizingMaskIntoConstraints="NO" id="cum-4j-JlQ">
-                        <rect key="frame" x="60" y="12" width="171" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="People's Republic of China" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cum-4j-JlQ">
+                        <rect key="frame" x="60" y="12" width="167" height="20"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -32,7 +32,7 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="14 maps" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="171" translatesAutoresizingMaskIntoConstraints="NO" id="851-fC-gEN">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="14 maps" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="851-fC-gEN">
                         <rect key="frame" x="60" y="36" width="224" height="14"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
@@ -42,8 +42,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="405 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="49" translatesAutoresizingMaskIntoConstraints="NO" id="9Ni-mb-fA5">
-                        <rect key="frame" x="234" y="23" width="50" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="405 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ni-mb-fA5">
+                        <rect key="frame" x="235" y="23" width="49" height="17"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -73,7 +73,7 @@
                     <constraint firstItem="cum-4j-JlQ" firstAttribute="top" secondItem="rFT-0r-5zy" secondAttribute="top" constant="12" id="SEx-Ax-stg"/>
                     <constraint firstAttribute="bottom" secondItem="851-fC-gEN" secondAttribute="bottom" constant="12" id="ZwR-py-AZC"/>
                     <constraint firstItem="851-fC-gEN" firstAttribute="top" secondItem="cum-4j-JlQ" secondAttribute="bottom" constant="4" id="aAE-b0-nwb"/>
-                    <constraint firstItem="9Ni-mb-fA5" firstAttribute="leading" secondItem="cum-4j-JlQ" secondAttribute="trailing" constant="4" id="hV0-8P-jwr"/>
+                    <constraint firstItem="9Ni-mb-fA5" firstAttribute="leading" secondItem="cum-4j-JlQ" secondAttribute="trailing" constant="8" id="hV0-8P-jwr"/>
                     <constraint firstItem="9Ni-mb-fA5" firstAttribute="centerY" secondItem="rFT-0r-5zy" secondAttribute="centerY" id="tB8-k0-qYw"/>
                     <constraint firstItem="7HN-EK-QXO" firstAttribute="centerY" secondItem="rFT-0r-5zy" secondAttribute="centerY" id="tjc-5f-EBn"/>
                     <constraint firstItem="3NQ-tT-U9b" firstAttribute="centerY" secondItem="rFT-0r-5zy" secondAttribute="centerY" id="zd3-Ex-VJY"/>

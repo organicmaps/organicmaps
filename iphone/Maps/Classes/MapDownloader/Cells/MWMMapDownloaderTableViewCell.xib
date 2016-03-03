@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
+        <deployment version="2048" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Igh-sI-4cU" id="hYr-eg-wbg">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rTN-aw-5k7">
@@ -22,8 +22,11 @@
                             <constraint firstAttribute="height" constant="36" id="aA3-Ok-RSD"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="30 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="lgA-X0-501">
-                        <rect key="frame" x="262" y="17" width="42" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="30 MB" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgA-X0-501">
+                        <rect key="frame" x="252" y="18" width="52" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="52" id="ylt-R0-6y3"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -32,8 +35,8 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Algeria" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="186" translatesAutoresizingMaskIntoConstraints="NO" id="5kc-K7-7K8">
-                        <rect key="frame" x="60" y="16" width="187" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Algeria" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5kc-K7-7K8">
+                        <rect key="frame" x="60" y="16" width="184" height="20"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -49,7 +52,7 @@
                     <constraint firstAttribute="trailing" secondItem="lgA-X0-501" secondAttribute="trailing" constant="16" id="Af9-0B-Y6q"/>
                     <constraint firstItem="rTN-aw-5k7" firstAttribute="leading" secondItem="hYr-eg-wbg" secondAttribute="leading" constant="12" id="Jfc-5q-LZI"/>
                     <constraint firstAttribute="bottom" secondItem="5kc-K7-7K8" secondAttribute="bottom" constant="16" id="ZLY-Tp-hnL"/>
-                    <constraint firstItem="lgA-X0-501" firstAttribute="leading" secondItem="5kc-K7-7K8" secondAttribute="trailing" constant="16" id="Zwe-tB-xNb"/>
+                    <constraint firstItem="lgA-X0-501" firstAttribute="leading" secondItem="5kc-K7-7K8" secondAttribute="trailing" constant="8" id="Zwe-tB-xNb"/>
                     <constraint firstItem="5kc-K7-7K8" firstAttribute="top" secondItem="hYr-eg-wbg" secondAttribute="top" constant="16" id="anV-3S-XAR"/>
                     <constraint firstItem="rTN-aw-5k7" firstAttribute="centerY" secondItem="hYr-eg-wbg" secondAttribute="centerY" id="tND-fx-OhO"/>
                 </constraints>
