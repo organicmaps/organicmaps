@@ -9,9 +9,24 @@ import com.mapswithme.util.statistics.Statistics;
 public final class MapManager
 {
   @SuppressWarnings("unused")
+  public static class StorageCallbackData
+  {
+    public final String countryId;
+    public final int newStatus;
+    public final boolean isLeafNode;
+
+    public StorageCallbackData(String countryId, int newStatus, boolean isLeafNode)
+    {
+      this.countryId = countryId;
+      this.newStatus = newStatus;
+      this.isLeafNode = isLeafNode;
+    }
+  }
+
+  @SuppressWarnings("unused")
   public interface StorageCallback
   {
-    void onStatusChanged(String countryId, int newStatus, boolean isLeafNode);
+    void onStatusChanged(List<StorageCallbackData> data);
     void onProgress(String countryId, long localSize, long remoteSize);
   }
 

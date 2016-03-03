@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.WheelProgressView;
@@ -31,13 +33,19 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
     @Override
-    public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
+    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
-      if (mCurrentCountry != null && isLeafNode && mCurrentCountry.id.equals(countryId))
-      {
-        mCurrentCountry.update();
-        updateState();
-      }
+      if (mCurrentCountry == null)
+        return;
+
+      for (MapManager.StorageCallbackData item : data)
+        if (item.isLeafNode && mCurrentCountry.id.equals(item.countryId))
+        {
+          mCurrentCountry.update();
+          updateState();
+
+          return;
+        }
     }
 
     @Override

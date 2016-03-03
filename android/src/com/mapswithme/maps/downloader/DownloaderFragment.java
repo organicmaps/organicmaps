@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.mapswithme.maps.R;
@@ -61,7 +62,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
         if (!TextUtils.isEmpty(id) && !mResults.containsKey(id))
         {
           CountryItem item = CountryItem.fill(id);
-          item.category = CountryItem.CATEGORY_ALL;
+          item.category = CountryItem.CATEGORY_AVAILABLE;
           mResults.put(id, item);
         }
       }
@@ -131,7 +132,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
     {
       @Override
-      public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
+      public void onStatusChanged(List<MapManager.StorageCallbackData> data)
       {
         if (isAdded())
           update();

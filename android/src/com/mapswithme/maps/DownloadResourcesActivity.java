@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import com.mapswithme.maps.MwmActivity.MapTask;
 import com.mapswithme.maps.MwmActivity.OpenUrlTask;
@@ -178,13 +179,16 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
   private final MapManager.StorageCallback mCountryDownloadListener = new MapManager.StorageCallback()
   {
     @Override
-    public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
+    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
-      if (newStatus == CountryItem.STATUS_DONE && isLeafNode)
-      {
-        mAreResourcesDownloaded = true;
-        showMap();
-      }
+      for (MapManager.StorageCallbackData item : data)
+        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_DONE)
+        {
+          mAreResourcesDownloaded = true;
+          showMap();
+
+          return;
+        }
     }
 
     @Override

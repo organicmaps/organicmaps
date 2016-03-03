@@ -14,7 +14,7 @@ public final class CountryItem implements Comparable<CountryItem>
   // Must correspond to ItemCategory in MapManager.cpp
   static final int CATEGORY_NEAR_ME = 0;
   static final int CATEGORY_DOWNLOADED = 1;
-  static final int CATEGORY_ALL = 2;
+  static final int CATEGORY_AVAILABLE = 2;
 
   // Must correspond to NodeStatus in storage_defines.hpp
   public static final int STATUS_UNKNOWN = 0;
@@ -24,7 +24,6 @@ public final class CountryItem implements Comparable<CountryItem>
   public static final int STATUS_PROGRESS = 4;
   public static final int STATUS_ENQUEUED = 5;
   public static final int STATUS_UPDATABLE = 6;
-  public static final int STATUS_MIXED = 7;
 
   // Must correspond to NodeErrorCode in storage_defines.hpp
   public static final int ERROR_NONE = 0;

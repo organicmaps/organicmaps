@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.location.LocationHelper;
@@ -51,23 +53,28 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     mListenerSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
     {
       @Override
-      public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
+      public void onStatusChanged(List<MapManager.StorageCallbackData> data)
       {
-        if (!isLeafNode || !isAdded())
+        if (!isAdded())
           return;
 
+        for (MapManager.StorageCallbackData item : data)
+          if (item.isLeafNode)
+          {
+            switch (item.newStatus)
+            {
+            case CountryItem.STATUS_FAILED:
+              refreshViews();
+              UiUtils.checkConnectionAndShowAlert(getActivity(), getString(R.string.download_country_failed, mDownloadingCountry.name));
+              return;
+
+            case CountryItem.STATUS_DONE:
+              exitFragment();
+              return;
+            }
+          }
+
         refreshViews();
-
-        switch (newStatus)
-        {
-        case CountryItem.STATUS_FAILED:
-          UiUtils.checkConnectionAndShowAlert(getActivity(), getString(R.string.download_country_failed, mDownloadingCountry.name));
-          break;
-
-        case CountryItem.STATUS_DONE:
-          exitFragment();
-          break;
-        }
       }
 
       @Override

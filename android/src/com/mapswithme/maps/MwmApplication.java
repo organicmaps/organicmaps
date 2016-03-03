@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
+import java.util.List;
 
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
@@ -52,15 +53,19 @@ public class MwmApplication extends Application
   private final MapManager.StorageCallback mStorageCallbacks = new MapManager.StorageCallback()
   {
     @Override
-    public void onStatusChanged(String countryId, int newStatus, boolean isLeafNode)
+    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
-      Notifier.cancelDownloadSuggest();
-      if (newStatus == CountryItem.STATUS_FAILED && isLeafNode)
-      {
-        CountryItem country = CountryItem.fill(countryId);
-        Notifier.notifyDownloadFailed(country);
-        MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, country.errorCode);
-      }
+      for (MapManager.StorageCallbackData item : data)
+        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
+        {
+          Notifier.cancelDownloadSuggest();
+
+          CountryItem country = CountryItem.fill(item.countryId);
+          Notifier.notifyDownloadFailed(country);
+          MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, country.errorCode);
+
+          return;
+        }
     }
 
     @Override
