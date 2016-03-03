@@ -1,6 +1,7 @@
 #import "Common.h"
 #import "MWMMapDownloaderDefaultDataSource.h"
 #import "MWMStorage.h"
+#import "Statistics.h"
 
 #include "Framework.h"
 
@@ -198,7 +199,16 @@ using namespace storage;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (editingStyle == UITableViewCellEditingStyleDelete)
+  {
+    [Statistics logEvent:kStatDownloaderMapAction
+          withParameters:@{
+            kStatAction : kStatDelete,
+            kStatIsAuto : kStatNo,
+            kStatFrom : kStatDownloader,
+            kStatScenario : kStatDelete
+          }];
     [MWMStorage deleteNode:[self countryIdForIndexPath:indexPath]];
+  }
 }
 
 #pragma mark - MWMMapDownloaderDataSource

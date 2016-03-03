@@ -6,6 +6,7 @@
 #import "MWMFrameworkObservers.h"
 #import "MWMMapDownloadDialog.h"
 #import "MWMStorage.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
@@ -85,6 +86,13 @@ using namespace storage;
         (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
         if (autoDownloadEnabled && ![MWMMapDownloadDialog isAutoDownloadPaused])
         {
+          [Statistics logEvent:kStatDownloaderMapAction
+                withParameters:@{
+                  kStatAction : kStatDownload,
+                  kStatIsAuto : kStatYes,
+                  kStatFrom : kStatMap,
+                  kStatScenario : kStatDownload
+                }];
           [self showInQueue];
           s.DownloadNode(m_countryId);
         }
@@ -158,6 +166,13 @@ using namespace storage;
     case NodeErrorCode::NoInetConnection:
       [avc presentDownloaderNoConnectionAlertWithOkBlock:^
       {
+        [Statistics logEvent:kStatDownloaderMapAction
+              withParameters:@{
+                kStatAction : kStatRetry,
+                kStatIsAuto : kStatNo,
+                kStatFrom : kStatMap,
+                kStatScenario : kStatDownload
+              }];
         [MWMStorage retryDownloadNode:self->m_countryId];
       }];
       break;
@@ -244,11 +259,19 @@ using namespace storage;
 {
   if (progress.state == MWMCircularProgressStateFailed)
   {
+    [Statistics logEvent:kStatDownloaderMapAction
+          withParameters:@{
+            kStatAction : kStatRetry,
+            kStatIsAuto : kStatNo,
+            kStatFrom : kStatMap,
+            kStatScenario : kStatDownload
+          }];
     [self showInQueue];
     [MWMStorage retryDownloadNode:m_countryId];
   }
   else
   {
+    [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatMap}];
     [self showDownloadRequest];
     [MWMMapDownloadDialog pauseAutoDownload:YES];
     [MWMStorage cancelDownloadNode:m_countryId];
@@ -259,6 +282,13 @@ using namespace storage;
 
 - (IBAction)downloadAction
 {
+  [Statistics logEvent:kStatDownloaderMapAction
+        withParameters:@{
+          kStatAction : kStatDownload,
+          kStatIsAuto : kStatNo,
+          kStatFrom : kStatMap,
+          kStatScenario : kStatDownload
+        }];
   [self showInQueue];
   [MWMMapDownloadDialog pauseAutoDownload:NO];
   [MWMStorage downloadNode:m_countryId alertController:self.controller.alertController onSuccess:nil];

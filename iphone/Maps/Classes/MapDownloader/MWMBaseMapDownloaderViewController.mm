@@ -10,6 +10,7 @@
 #import "MWMMapDownloaderViewController.h"
 #import "MWMSegue.h"
 #import "MWMStorage.h"
+#import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
@@ -345,9 +346,29 @@ using namespace storage;
 - (IBAction)allMapsAction
 {
   if (self.parentCountryId == GetFramework().Storage().GetRootId())
+  {
+    [Statistics logEvent:kStatDownloaderMapAction
+          withParameters:@{
+            kStatAction : kStatUpdate,
+            kStatIsAuto : kStatNo,
+            kStatFrom : kStatDownloader,
+            kStatScenario : kStatUpdateAll
+          }];
     [MWMStorage updateNode:self.parentCountryId alertController:self.alertController];
+  }
   else
-    [MWMStorage downloadNode:self.parentCountryId alertController:self.alertController onSuccess:nil];
+  {
+    [Statistics logEvent:kStatDownloaderMapAction
+          withParameters:@{
+            kStatAction : kStatDownload,
+            kStatIsAuto : kStatNo,
+            kStatFrom : kStatDownloader,
+            kStatScenario : kStatDownloadGroup
+          }];
+    [MWMStorage downloadNode:self.parentCountryId
+             alertController:self.alertController
+                   onSuccess:nil];
+  }
 }
 
 #pragma mark - UITableViewDelegate
@@ -422,26 +443,55 @@ using namespace storage;
 
 - (void)downloadNode:(storage::TCountryId const &)countryId
 {
+  [Statistics logEvent:kStatDownloaderMapAction
+        withParameters:@{
+          kStatAction : kStatDownload,
+          kStatIsAuto : kStatNo,
+          kStatFrom : kStatDownloader,
+          kStatScenario : kStatDownload
+        }];
   [MWMStorage downloadNode:countryId alertController:self.alertController onSuccess:nil];
 }
 
 - (void)retryDownloadNode:(storage::TCountryId const &)countryId
 {
+  [Statistics logEvent:kStatDownloaderMapAction
+        withParameters:@{
+          kStatAction : kStatRetry,
+          kStatIsAuto : kStatNo,
+          kStatFrom : kStatDownloader,
+          kStatScenario : kStatDownload
+        }];
   [MWMStorage retryDownloadNode:countryId];
 }
 
 - (void)updateNode:(storage::TCountryId const &)countryId
 {
+  [Statistics logEvent:kStatDownloaderMapAction
+        withParameters:@{
+          kStatAction : kStatUpdate,
+          kStatIsAuto : kStatNo,
+          kStatFrom : kStatDownloader,
+          kStatScenario : kStatUpdate
+        }];
   [MWMStorage updateNode:countryId alertController:self.alertController];
 }
 
 - (void)deleteNode:(storage::TCountryId const &)countryId
 {
+  [Statistics logEvent:kStatDownloaderMapAction
+        withParameters:@{
+          kStatAction : kStatDelete,
+          kStatIsAuto : kStatNo,
+          kStatFrom : kStatDownloader,
+          kStatScenario : kStatDelete
+        }];
   [MWMStorage deleteNode:countryId];
 }
 
 - (void)cancelNode:(storage::TCountryId const &)countryId
 {
+  [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatDownloader}];
   [MWMStorage cancelDownloadNode:countryId];
 }
 

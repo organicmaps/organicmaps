@@ -117,11 +117,11 @@ using namespace storage;
       [avc presentInternalErrorAlert];
       break;
     case NodeErrorCode::OutOfMemFailed:
-      [Statistics logEvent:kStatDownloaderMigrationError withParameters:@{kStatType : kStatNotEnoughSpaceError}];
+      [Statistics logEvent:kStatDownloaderMigrationError withParameters:@{kStatType : kStatNoSpace}];
       [avc presentDownloaderNotEnoughSpaceAlert];
       break;
     case NodeErrorCode::NoInetConnection:
-      [Statistics logEvent:kStatDownloaderMigrationError withParameters:@{kStatType : kStatNetworkError}];
+      [Statistics logEvent:kStatDownloaderMigrationError withParameters:@{kStatType : kStatNoConnection}];
       [avc presentDownloaderNoConnectionAlertWithOkBlock:^
       {
         GetFramework().Storage().GetPrefetchStorage()->RetryDownloadNode(self->m_countryId);

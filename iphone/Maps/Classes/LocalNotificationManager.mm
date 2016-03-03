@@ -66,6 +66,13 @@ using namespace storage;
 
     NSString * notificationCountryId = userInfo[kDownloadMapCountryId];
     TCountryId const countryId = notificationCountryId.UTF8String;
+    [Statistics logEvent:kStatDownloaderMapAction
+          withParameters:@{
+            kStatAction : kStatDownload,
+            kStatIsAuto : kStatNo,
+            kStatFrom : kStatMap,
+            kStatScenario : kStatDownload
+          }];
     [MWMStorage downloadNode:countryId alertController:mapViewController.alertController onSuccess:^
     {
       GetFramework().ShowNode(countryId);

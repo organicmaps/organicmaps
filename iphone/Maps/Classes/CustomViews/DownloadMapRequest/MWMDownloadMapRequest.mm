@@ -119,15 +119,21 @@
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatButton)
-                   withParameters:@{kStatValue : kStatProgress}];
   if (progress.state == MWMCircularProgressStateFailed)
   {
+    [Statistics logEvent:kStatDownloaderMapAction
+          withParameters:@{
+            kStatAction : kStatRetry,
+            kStatIsAuto : kStatNo,
+            kStatFrom : kStatSearch,
+            kStatScenario : kStatDownload
+          }];
     [MWMStorage retryDownloadNode:m_countryId];
     self.progressView.state = MWMCircularProgressStateSpinner;
   }
   else
   {
+    [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatSearch}];
     [MWMStorage cancelDownloadNode:m_countryId];
   }
   [self showRequest];
@@ -137,7 +143,13 @@
 
 - (IBAction)downloadMapTouchUpInside:(nonnull UIButton *)sender
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatDownloadMap)];
+  [Statistics logEvent:kStatDownloaderMapAction
+        withParameters:@{
+          kStatAction : kStatDownload,
+          kStatIsAuto : kStatNo,
+          kStatFrom : kStatSearch,
+          kStatScenario : kStatDownload
+        }];
   [MWMStorage downloadNode:m_countryId alertController:self.delegate.alertController onSuccess:^
   {
     [self showRequest];
