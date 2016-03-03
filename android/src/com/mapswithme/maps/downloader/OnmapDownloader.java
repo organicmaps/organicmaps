@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
@@ -69,9 +70,10 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     }
   };
 
-  private void updateState()
+  public void updateState()
   {
-    boolean showFrame = (mCurrentCountry != null);
+    boolean showFrame = (mCurrentCountry != null &&
+                         !RoutingController.get().isNavigating());
     if (showFrame)
     {
       boolean enqueued = (mCurrentCountry.status == CountryItem.STATUS_ENQUEUED);
