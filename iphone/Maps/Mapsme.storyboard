@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wns-nH-AQU">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -32,8 +32,9 @@
                     <connections>
                         <segue destination="eCI-mf-eCv" kind="custom" identifier="Map2MapDownloaderSegue" customClass="MWMSegue" id="Z0Z-aU-Vrq"/>
                         <segue destination="F1F-MH-A36" kind="custom" identifier="Map2MigrationSegue" customClass="MWMSegue" id="iqY-sY-TLu"/>
-                        <segue destination="zpf-N3-ANF" kind="custom" identifier="Map2EditorSegue" customClass="MWMSegue" id="bHh-sK-FR4"/>
                         <segue destination="2fX-ws-Tuc" kind="custom" identifier="Map2AuthorizationSegue" customClass="MWMSegue" id="CJ1-sY-Il4"/>
+                        <segue destination="Lfa-Zp-orR" kind="custom" identifier="Map2EditorSegue" customClass="MWMSegue" id="OEF-kR-jKi"/>
+                        <segue destination="sAj-hs-LjL" kind="custom" identifier="MapToCategorySelectorSegue" customClass="MWMSegue" id="yAJ-jH-Dus"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKg-Q7-bFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1243,6 +1244,7 @@
                         <segue destination="Ld6-gM-2hk" kind="custom" identifier="Editor2OpeningHoursEditorSegue" customClass="MWMSegue" id="EMH-RE-PDh"/>
                         <segue destination="Heu-QR-M0N" kind="custom" identifier="Editor2StreetEditorSegue" customClass="MWMSegue" id="iJS-b1-GuT"/>
                         <segue destination="xZs-iI-22O" kind="custom" identifier="Editor2CuisineEditorSegue" customClass="MWMSegue" id="qEA-7d-gOo"/>
+                        <segue destination="sAj-hs-LjL" kind="custom" identifier="Editor2CategoryEditorSegue" customClass="MWMSegue" id="8Pk-Zz-Tks"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FGq-OI-eQl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1276,7 +1278,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w9h-sx-JP3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="322" y="3513"/>
+            <point key="canvasLocation" x="828" y="3513"/>
         </scene>
         <!--Opening Hours Editor View Controller-->
         <scene sceneID="UAI-uc-U5w">
@@ -1496,7 +1498,7 @@
                                             <action selector="toggleMode" destination="Ld6-gM-2hk" eventType="touchUpInside" id="W6C-Sh-gzz"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray" translatesAutoresizingMaskIntoConstraints="NO" id="z8F-55-5rJ">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray_right" translatesAutoresizingMaskIntoConstraints="NO" id="z8F-55-5rJ">
                                         <rect key="frame" x="568" y="10" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="ypP-17-bfX"/>
@@ -2936,24 +2938,6 @@ the world. Join us!</string>
             </objects>
             <point key="canvasLocation" x="1143" y="4393"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="5fh-b4-FOy">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zpf-N3-ANF" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BWO-Pe-cEq">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Lfa-Zp-orR" kind="relationship" relationship="rootViewController" id="tWf-yS-deO"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nJK-jd-lsd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-460" y="2753"/>
-        </scene>
         <!--Street Editor View Controller-->
         <scene sceneID="hgU-jB-a3C">
             <objects>
@@ -2971,13 +2955,43 @@ the world. Join us!</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dU3-4F-emf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-442" y="3513"/>
+            <point key="canvasLocation" x="154" y="3513"/>
+        </scene>
+        <!--Objects Category Selector Controller-->
+        <scene sceneID="NTU-yk-R2R">
+            <objects>
+                <tableViewController storyboardIdentifier="MWMObjectsCategorySelectorController" id="sAj-hs-LjL" customClass="MWMObjectsCategorySelectorController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="GCv-Mg-Pte">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="9aq-NE-D4v">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="sAj-hs-LjL" id="ScZ-zQ-SLD"/>
+                            </connections>
+                        </searchBar>
+                        <connections>
+                            <outlet property="dataSource" destination="sAj-hs-LjL" id="Odk-6u-Adu"/>
+                            <outlet property="delegate" destination="sAj-hs-LjL" id="9wJ-mw-w1X"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="searchBar" destination="9aq-NE-D4v" id="iBm-Wj-fZm"/>
+                        <segue destination="Lfa-Zp-orR" kind="custom" identifier="CategorySelectorToEditorSegue" customClass="MWMSegue" id="fuS-6s-TH4"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0oU-uS-X5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-366" y="2753"/>
         </scene>
     </scenes>
     <resources>
         <image name="btn_back_arrow" width="12" height="20"/>
-        <image name="ic_arrow_gray" width="28" height="28"/>
         <image name="ic_arrow_gray_down" width="28" height="28"/>
+        <image name="ic_arrow_gray_right" width="28" height="28"/>
         <image name="ic_device" width="28" height="28"/>
         <image name="ic_more" width="28" height="28"/>
         <image name="ic_upload" width="28" height="28"/>
@@ -2988,7 +3002,9 @@ the world. Join us!</string>
         <image name="separator_image" width="1" height="1"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mF7-g4-gSS"/>
+        <segue reference="8Pk-Zz-Tks"/>
+        <segue reference="fuS-6s-TH4"/>
+        <segue reference="Z0Z-aU-Vrq"/>
         <segue reference="w48-2Y-VXA"/>
     </inferredMetricsTieBreakers>
 </document>

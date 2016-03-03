@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -169,7 +169,7 @@
                             <action selector="editTap" destination="jfp-wb-Z7G" eventType="touchUpInside" id="IKA-2o-75q"/>
                         </connections>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray" translatesAutoresizingMaskIntoConstraints="NO" id="meU-rN-T7y" userLabel="Gray Arrow">
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_gray_right" translatesAutoresizingMaskIntoConstraints="NO" id="meU-rN-T7y" userLabel="Gray Arrow">
                         <rect key="frame" x="284" y="186" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="XOd-bb-dsE"/>
@@ -229,7 +229,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_arrow_gray" width="28" height="28"/>
+        <image name="ic_arrow_gray_right" width="28" height="28"/>
         <image name="ic_bookmark" width="28" height="28"/>
         <image name="placemark-red-on" width="28" height="28"/>
         <image name="separator_image" width="1" height="1"/>
