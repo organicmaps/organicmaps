@@ -43,7 +43,7 @@ string Metadata::GetWikiURL() const
 
 }  // namespace feature
 
-// Prints types in osm-friendly format.
+// Warning: exact osm tag keys should be returned for valid enum values.
 string DebugPrint(feature::Metadata::EType type)
 {
   using feature::Metadata;
@@ -58,7 +58,7 @@ string DebugPrint(feature::Metadata::EType type)
   case Metadata::FMD_URL: return "url";
   case Metadata::FMD_WEBSITE: return "website";
   case Metadata::FMD_INTERNET: return "internet_access";
-  case Metadata::FMD_ELE: return "elevation";
+  case Metadata::FMD_ELE: return "ele";
   case Metadata::FMD_TURN_LANES: return "turn:lanes";
   case Metadata::FMD_TURN_LANES_FORWARD: return "turn:lanes:forward";
   case Metadata::FMD_TURN_LANES_BACKWARD: return "turn:lanes:backward";

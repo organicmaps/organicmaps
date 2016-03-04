@@ -181,4 +181,5 @@ public:
 };
 }  // namespace feature
 
+// Prints types in osm-friendly format.
 string DebugPrint(feature::Metadata::EType type);
