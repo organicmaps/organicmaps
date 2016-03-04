@@ -230,13 +230,15 @@ namespace
   }
 }
 
-bool IsDrawarbleByException(FeatureBase const & f)
+bool RequireGeometryInIndex(FeatureBase const & f)
 {
   TypesHolder const types(f);
 
   for (uint32_t t : types)
+  {
     if (HasRoutingExceptionType(t))
       return true;
+  }
   return false;
 }
 

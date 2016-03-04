@@ -29,7 +29,7 @@ namespace feature
 
   // Exception features which have no styles, but must be present in index for some reasons.
   // For example routing edges with render=no tag (Le mans tunnel).
-  bool IsDrawarbleByException(FeatureBase const & f);
+  bool RequireGeometryInIndex(FeatureBase const & f);
 
   /// For FEATURE_TYPE_AREA need to have at least one area-filling type.
   bool IsDrawableLike(vector<uint32_t> const & types, EGeomType geomType);
