@@ -63,11 +63,9 @@
     case NodeStatus::NotDownloaded:
     case NodeStatus::Partly:
     {
-      UIImage * downloadImage = [UIImage imageNamed:@"ic_download"];
-      [progress setImage:downloadImage forState:MWMCircularProgressStateNormal];
-      [progress setImage:downloadImage forState:MWMCircularProgressStateSelected];
-      [progress setColoring:MWMButtonColoringBlack forState:MWMCircularProgressStateNormal];
-      [progress setColoring:MWMButtonColoringBlack forState:MWMCircularProgressStateSelected];
+      auto const affectedStates = {MWMCircularProgressStateNormal, MWMCircularProgressStateSelected};
+      [progress setImage:[UIImage imageNamed:@"ic_download"] forStates:affectedStates];
+      [progress setColoring:MWMButtonColoringBlack forStates:affectedStates];
       progress.state = MWMCircularProgressStateNormal;
       break;
     }
@@ -89,11 +87,9 @@
       break;
     case NodeStatus::OnDiskOutOfDate:
     {
-      UIImage * downloadImage = [UIImage imageNamed:@"ic_update"];
-      [progress setImage:downloadImage forState:MWMCircularProgressStateNormal];
-      [progress setImage:downloadImage forState:MWMCircularProgressStateSelected];
-      [progress setColoring:MWMButtonColoringOther forState:MWMCircularProgressStateNormal];
-      [progress setColoring:MWMButtonColoringOther forState:MWMCircularProgressStateSelected];
+      auto const affectedStates = {MWMCircularProgressStateNormal, MWMCircularProgressStateSelected};
+      [progress setImage:[UIImage imageNamed:@"ic_update"] forStates:affectedStates];
+      [progress setColoring:MWMButtonColoringOther forStates:affectedStates];
       progress.state = MWMCircularProgressStateNormal;
       break;
     }

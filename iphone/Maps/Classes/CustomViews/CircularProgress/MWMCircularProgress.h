@@ -1,5 +1,7 @@
 #import "MWMButton.h"
 
+#include "std/vector.hpp"
+
 typedef NS_ENUM(NSInteger, MWMCircularProgressState)
 {
   MWMCircularProgressStateNormal,
@@ -9,6 +11,8 @@ typedef NS_ENUM(NSInteger, MWMCircularProgressState)
   MWMCircularProgressStateFailed,
   MWMCircularProgressStateCompleted
 };
+
+using MWMCircularProgressStateVec = vector<MWMCircularProgressState>;
 
 @class MWMCircularProgress;
 
@@ -26,9 +30,9 @@ typedef NS_ENUM(NSInteger, MWMCircularProgressState)
 @property (nonatomic) MWMCircularProgressState state;
 @property (weak, nonatomic) id<MWMCircularProgressProtocol> delegate;
 
-- (void)setImage:(nonnull UIImage *)image forState:(MWMCircularProgressState)state;
-- (void)setColor:(nonnull UIColor *)color forState:(MWMCircularProgressState)state;
-- (void)setColoring:(MWMButtonColoring)coloring forState:(MWMCircularProgressState)state;
+- (void)setImage:(nonnull UIImage *)image forStates:(MWMCircularProgressStateVec const &)states;
+- (void)setColor:(nonnull UIColor *)color forStates:(MWMCircularProgressStateVec const &)states;
+- (void)setColoring:(MWMButtonColoring)coloring forStates:(MWMCircularProgressStateVec const &)states;
 - (void)setInvertColor:(BOOL)invertColor;
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
