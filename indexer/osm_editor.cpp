@@ -463,11 +463,11 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, Featur
 
 EditableProperties Editor::GetEditableProperties(FeatureType const & feature) const
 {
-
   feature::TypesHolder const types(feature);
-  auto const desc = m_config.GetTypeDescription(types.ToObjectNames());
-  return {{begin(desc.GetEditableFields()), end(desc.GetEditableFields())},
-          desc.IsNameEditable(), desc.IsAddressEditable()};
+  editor::TypeAggregatedDescription desc;
+  if (m_config.GetTypeDescription(types.ToObjectNames(), desc))
+    return {desc.GetEditableFields(), desc.IsNameEditable(), desc.IsAddressEditable()};
+  return {};
 }
 
 bool Editor::HaveSomethingToUpload() const

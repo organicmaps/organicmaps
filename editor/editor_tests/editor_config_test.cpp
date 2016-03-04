@@ -9,8 +9,9 @@ using namespace editor;
 UNIT_TEST(EditorConfig_TypeDescription)
 {
   using EType = feature::Metadata::EType;
+  using TFields = editor::TypeAggregatedDescription::TFeatureFields;
 
-  set<EType> const poi = {
+  TFields const poi = {
     feature::Metadata::FMD_OPEN_HOURS,
     feature::Metadata::FMD_PHONE_NUMBER,
     feature::Metadata::FMD_WEBSITE,
@@ -20,26 +21,33 @@ UNIT_TEST(EditorConfig_TypeDescription)
   EditorConfig config;
 
   {
-    auto const desc = config.GetTypeDescription({"amenity-hunting_stand"});
-    TEST(desc.IsNameEditable(), ());
-    TEST(!desc.IsAddressEditable(), ());
-    TEST_EQUAL(desc.GetEditableFields(), (set<EType>{EType::FMD_HEIGHT}), ());
+    editor::TypeAggregatedDescription desc;
+    TEST(!config.GetTypeDescription({"death-star"}, desc), ());
   }
   {
-    auto const desc = config.GetTypeDescription({"shop-toys"});
+    editor::TypeAggregatedDescription desc;
+    TEST(config.GetTypeDescription({"amenity-hunting_stand"}, desc), ());
+    TEST(desc.IsNameEditable(), ());
+    TEST(!desc.IsAddressEditable(), ());
+    TEST_EQUAL(desc.GetEditableFields(), TFields {EType::FMD_HEIGHT}, ());
+  }
+  {
+    editor::TypeAggregatedDescription desc;
+    TEST(config.GetTypeDescription({"shop-toys"}, desc), ());
     TEST(desc.IsNameEditable(), ());
     TEST(desc.IsAddressEditable(), ());
     auto fields = poi;
-    fields.insert(EType::FMD_INTERNET);
+    fields.push_back(EType::FMD_INTERNET);
     TEST_EQUAL(desc.GetEditableFields(), fields, ());
   }
   {
-    // Select ameniry-bank cause it goes fierst in config
-    auto const desc = config.GetTypeDescription({"amenity-bar", "amenity-bank"});
+    // Select amenity-bank because it goes first in config.
+    editor::TypeAggregatedDescription desc;
+    TEST(config.GetTypeDescription({"amenity-bar", "amenity-bank"}, desc), ());
     TEST(desc.IsNameEditable(), ());
     TEST(desc.IsAddressEditable(), ());
     auto fields = poi;
-    fields.insert(EType::FMD_OPERATOR);
+    fields.push_back(EType::FMD_OPERATOR);
     TEST_EQUAL(desc.GetEditableFields(), fields, ());
   }
   // TODO(mgsergio): Test case with priority="high" when there is one on editor.config.

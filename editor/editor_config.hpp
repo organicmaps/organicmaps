@@ -15,26 +15,10 @@ class Reader;
 
 namespace editor
 {
-class TypeAggregatedDescription
+struct TypeAggregatedDescription
 {
-public:
   using EType = feature::Metadata::EType;
-  using TFeatureFields = set<EType>;
-
-  TypeAggregatedDescription(TFeatureFields const & editableFields,
-                            bool const name, bool const address)
-      : m_editableFields(editableFields),
-        m_name(name),
-        m_address(address)
-  {
-  }
-
-  TypeAggregatedDescription()
-      : m_editableFields(),
-        m_name(false),
-        m_address(false)
-  {
-  }
+  using TFeatureFields = vector<EType>;
 
   bool IsEmpty() const
   {
@@ -43,14 +27,13 @@ public:
 
   TFeatureFields const & GetEditableFields() const { return m_editableFields; }
 
-  bool IsNameEditable() const { return m_name; };
+  bool IsNameEditable() const { return m_name; }
   bool IsAddressEditable() const { return m_address; }
 
-private:
   TFeatureFields m_editableFields;
 
-  bool m_name;
-  bool m_address;
+  bool m_name = false;
+  bool m_address = false;
 };
 
 DECLARE_EXCEPTION(ConfigLoadError, RootException);
@@ -60,7 +43,7 @@ class EditorConfig
 public:
   EditorConfig(string const & fileName = "editor.config");
 
-  TypeAggregatedDescription GetTypeDescription(vector<string> const & classificatorTypes) const;
+  bool GetTypeDescription(vector<string> const & classificatorTypes, TypeAggregatedDescription & outDesc) const;
   vector<string> GetTypesThatCanBeAdded() const;
 
   bool EditingEnable() const;

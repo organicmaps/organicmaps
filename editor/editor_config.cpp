@@ -1,10 +1,10 @@
 #include "editor/editor_config.hpp"
 
-#include "indexer/classificator.hpp"
-
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
+
+#include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/cstring.hpp"
@@ -41,35 +41,30 @@ static unordered_map<string, EType> const kNamesToFMD= {
   // description
 };
 
-editor::TypeAggregatedDescription TypeDescriptionFromXml(pugi::xml_node const & root,
-                                                         pugi::xml_node const & node)
+bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & node,
+                            editor::TypeAggregatedDescription & outDesc)
 {
   if (!node || strcmp(node.attribute("editable").value(), "no") == 0)
-    return {};
+    return false;
 
-  bool name = false;
-  bool address = false;
-  editor::TypeAggregatedDescription::TFeatureFields editableFields;
+  auto const handleField = [&outDesc](string const & fieldName)
+  {
+    if (fieldName == "name")
+    {
+      outDesc.m_name = true;
+      return;
+    }
 
-  auto const handleField =
-      [&name, &address, &editableFields](string const & fieldName)
-      {
-        if (fieldName == "name")
-        {
-          name = true;
-          return;
-        }
+    if (fieldName == "street" || fieldName == "housenumber")
+    {
+      outDesc.m_address = true;
+      return;
+    }
 
-        if (fieldName == "street" || fieldName == "housenumber")
-        {
-          address = true;
-          return;
-        }
-
-        auto const it = kNamesToFMD.find(fieldName);
-        ASSERT(it != end(kNamesToFMD), ("Wrong field:", fieldName));
-        editableFields.insert(it->second);
-      };
+    auto const it = kNamesToFMD.find(fieldName);
+    ASSERT(it != end(kNamesToFMD), ("Wrong field:", fieldName));
+    outDesc.m_editableFields.push_back(it->second);
+  };
 
   for (auto const xNode : node.select_nodes("include[@group]"))
   {
@@ -94,10 +89,11 @@ editor::TypeAggregatedDescription TypeDescriptionFromXml(pugi::xml_node const & 
       handleField(fieldName);
   }
 
-  return {editableFields, name, address};
+  my::SortUnique(outDesc.m_editableFields);
+  return true;
 }
 
-/// The priority is definde by elems order, except elemts with priority="high".
+/// The priority is defined by elems order, except elements with priority="high".
 vector<pugi::xml_node> GetPrioritizedTypes(pugi::xml_node const & node)
 {
   vector<pugi::xml_node> result;
@@ -123,20 +119,20 @@ EditorConfig::EditorConfig(string const & fileName)
   Reload();
 }
 
-TypeAggregatedDescription
-EditorConfig::GetTypeDescription(vector<string> const & classificatorTypes) const
+bool EditorConfig::GetTypeDescription(vector<string> const & classificatorTypes,
+                                      TypeAggregatedDescription & outDesc) const
 {
   auto const typeNodes = GetPrioritizedTypes(m_document);
-
   auto const it = find_if(begin(typeNodes), end(typeNodes),
                           [&classificatorTypes](pugi::xml_node const & node)
                           {
                             return find(begin(classificatorTypes), end(classificatorTypes),
                                         node.attribute("id").value()) != end(classificatorTypes);
                           });
+  if (it == end(typeNodes))
+    return false;
 
-  ASSERT(it != end(typeNodes), ("Cannot find any matching type in config"));
-  return TypeDescriptionFromXml(m_document, *it);
+  return TypeDescriptionFromXml(m_document, *it, outDesc);
 }
 
 vector<string> EditorConfig::GetTypesThatCanBeAdded() const
