@@ -62,6 +62,7 @@ public:
   /// @returns true only if it is a way and it is closed (area).
   bool IsArea() const;
 
+  m2::PointD GetMercatorCenter() const;
   ms::LatLon GetCenter() const;
   void SetCenter(ms::LatLon const & ll);
   void SetCenter(m2::PointD const & mercatorCenter);
