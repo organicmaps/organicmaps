@@ -44,7 +44,7 @@ bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, s
   }
   catch (RootException const & ex)
   {
-    LOG(LWARNING, ("Can't open", localeName, "sound instructions file. pathToJson is", pathToJson,
+    LOG(LWARNING, ("Can't open", localeName, "localization file. pathToJson is", pathToJson,
                    ex.what()));
     return false;  // No json file for localeName
   }
