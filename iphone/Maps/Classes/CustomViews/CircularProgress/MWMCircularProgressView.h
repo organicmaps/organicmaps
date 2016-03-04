@@ -1,3 +1,5 @@
+#import "MWMButton.h"
+
 @interface MWMCircularProgressView : UIView
 
 @property (nonatomic, readonly) BOOL animating;
@@ -10,6 +12,7 @@
 
 - (void)setImage:(nonnull UIImage *)image forState:(MWMCircularProgressState)state;
 - (void)setColor:(nonnull UIColor *)color forState:(MWMCircularProgressState)state;
+- (void)setColoring:(MWMButtonColoring)coloring forState:(MWMCircularProgressState)state;
 
 - (void)animateFromValue:(CGFloat)fromValue toValue:(CGFloat)toValue;
 

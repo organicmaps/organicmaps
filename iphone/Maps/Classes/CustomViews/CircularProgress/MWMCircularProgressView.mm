@@ -1,9 +1,10 @@
 #import "Common.h"
-#import "MWMButton.h"
 #import "MWMCircularProgress.h"
 #import "MWMCircularProgressView.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
+
+#include "std/map.hpp"
 
 static CGFloat const kLineWidth = 2.0;
 static NSString * const kAnimationKey = @"CircleAnimation";
@@ -31,11 +32,15 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 @end
 
 @implementation MWMCircularProgressView
+{
+  map<MWMCircularProgressState, MWMButtonColoring> m_buttonColoring;
+}
 
 - (void)awakeFromNib
 {
   self.images = [NSMutableDictionary dictionary];
   [self setupColors];
+  [self setupButtonColoring];
   [self setupAnimationLayers];
 }
 
@@ -59,6 +64,16 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   [self setColor:progressColor forState:MWMCircularProgressStateSpinner];
   [self setColor:clearColor forState:MWMCircularProgressStateFailed];
   [self setColor:clearColor forState:MWMCircularProgressStateCompleted];
+}
+
+- (void)setupButtonColoring
+{
+  [self setColoring:MWMButtonColoringBlack forState:MWMCircularProgressStateNormal];
+  [self setColoring:MWMButtonColoringBlue forState:MWMCircularProgressStateSelected];
+  [self setColoring:MWMButtonColoringBlue forState:MWMCircularProgressStateProgress];
+  [self setColoring:MWMButtonColoringBlue forState:MWMCircularProgressStateSpinner];
+  [self setColoring:MWMButtonColoringBlue forState:MWMCircularProgressStateFailed];
+  [self setColoring:MWMButtonColoringBlue forState:MWMCircularProgressStateCompleted];
 }
 
 - (void)mwm_refreshUI
@@ -88,6 +103,12 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   [self refreshProgress];
 }
 
+- (void)setColoring:(MWMButtonColoring)coloring forState:(MWMCircularProgressState)state
+{
+  m_buttonColoring[state] = coloring;
+  [self refreshProgress];
+}
+
 #pragma mark - Progress
 
 - (void)refreshProgress
@@ -98,21 +119,8 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   self.progressLayer.strokeColor = self.progressLayerColor;
   CGRect rect = CGRectInset(self.bounds, kLineWidth, kLineWidth);
   self.backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
-  switch (self.state)
-  {
-    case MWMCircularProgressStateNormal:
-      self.button.coloring = MWMButtonColoringBlack;
-      break;
-    case MWMCircularProgressStateSelected:
-    case MWMCircularProgressStateProgress:
-    case MWMCircularProgressStateSpinner:
-    case MWMCircularProgressStateFailed:
-    case MWMCircularProgressStateCompleted:
-      self.button.coloring = MWMButtonColoringBlue;
-      break;
-  }
-  UIImage * normalImage = self.images[@(self.state)];
-  [self.button setImage:normalImage forState:UIControlStateNormal];
+  self.button.coloring = m_buttonColoring[self.state];
+  [self.button setImage:self.images[@(self.state)] forState:UIControlStateNormal];
 }
 
 - (void)updatePath:(CGFloat)progress

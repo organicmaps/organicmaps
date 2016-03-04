@@ -10,6 +10,30 @@
 
 @implementation MWMCircularProgress
 
++ (nonnull instancetype)downloaderProgressForParentView:(nonnull UIView *)parentView
+{
+  MWMCircularProgress * progress = [[MWMCircularProgress alloc] initWithParentView:parentView];
+
+  UIImage * downloadImage = [UIImage imageNamed:@"ic_download"];
+  [progress setImage:downloadImage forState:MWMCircularProgressStateNormal];
+  [progress setImage:downloadImage forState:MWMCircularProgressStateSelected];
+
+  UIImage * spinnerImage = [UIImage imageNamed:@"ic_close_spinner"];
+  [progress setImage:spinnerImage forState:MWMCircularProgressStateProgress];
+  [progress setImage:spinnerImage forState:MWMCircularProgressStateSpinner];
+
+  [progress setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
+  [progress setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
+
+  [progress setColoring:MWMButtonColoringBlack forState:MWMCircularProgressStateNormal];
+  [progress setColoring:MWMButtonColoringBlack forState:MWMCircularProgressStateSelected];
+  [progress setColoring:MWMButtonColoringBlack forState:MWMCircularProgressStateProgress];
+  [progress setColoring:MWMButtonColoringBlack forState:MWMCircularProgressStateSpinner];
+  [progress setColoring:MWMButtonColoringOther forState:MWMCircularProgressStateFailed];
+  [progress setColoring:MWMButtonColoringBlue forState:MWMCircularProgressStateCompleted];
+  return progress;
+}
+
 - (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView
 {
   self = [super init];
@@ -43,6 +67,11 @@
 - (void)setColor:(nonnull UIColor *)color forState:(MWMCircularProgressState)state
 {
   [self.rootView setColor:color forState:state];
+}
+
+- (void)setColoring:(MWMButtonColoring)coloring forState:(MWMCircularProgressState)state
+{
+  [self.rootView setColoring:coloring forState:state];
 }
 
 - (void)setInvertColor:(BOOL)invertColor
