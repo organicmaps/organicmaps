@@ -2,6 +2,9 @@
 
 #include "search/search_tests_support/test_search_engine.hpp"
 
+#include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
+
 #include "base/logging.hpp"
 
 namespace search
@@ -15,6 +18,21 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
   params.m_query = query;
   params.m_inputLocale = locale;
   params.SetMode(mode);
+  SetUpCallbacks(params);
+  engine.Search(params, viewport);
+}
+
+TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
+                                     string const & locale, Mode mode, m2::RectD const & viewport,
+                                     m2::PointD const & position)
+{
+  auto latLon = MercatorBounds::ToLatLon(position);
+
+  SearchParams params;
+  params.m_query = query;
+  params.m_inputLocale = locale;
+  params.SetMode(mode);
+  params.SetPosition(latLon.lat, latLon.lon);
   SetUpCallbacks(params);
   engine.Search(params, viewport);
 }

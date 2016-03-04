@@ -33,6 +33,8 @@ public:
   TestSearchEngine(unique_ptr<::search::SearchQueryFactory> factory, Engine::Params const & params);
   ~TestSearchEngine() override;
 
+  inline void SetLocale(string const & locale) { m_engine.SetLocale(locale); }
+
   weak_ptr<search::QueryHandle> Search(search::SearchParams const & params,
                                        m2::RectD const & viewport);
 

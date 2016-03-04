@@ -28,9 +28,6 @@ struct RankingInfo
   // Search type for the feature.
   SearchModel::SearchType m_searchType = SearchModel::SEARCH_TYPE_COUNT;
 
-  // True if feature is located in the same country as the user.
-  bool m_sameCountry = false;
-
   // True if user's position is in viewport.
   bool m_positionInViewport = false;
 

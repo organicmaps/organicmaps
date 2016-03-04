@@ -174,6 +174,14 @@ void Engine::SetSupportOldFormat(bool support)
               });
 }
 
+void Engine::SetLocale(string const & locale)
+{
+  PostMessage(Message::TYPE_BROADCAST, [this, locale](Query & processor)
+              {
+                processor.SetPreferredLocale(locale);
+              });
+}
+
 void Engine::ClearCaches()
 {
   PostMessage(Message::TYPE_BROADCAST, [this](Query & processor)

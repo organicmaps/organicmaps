@@ -73,10 +73,14 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
   CONFIG(desktop) {
     search_quality.subdir = search/search_quality
     search_quality.depends = $$SUBDIRS
+
     search_quality_tool.subdir = search/search_quality/search_quality_tool
     search_quality_tool.depends = $$SUBDIRS search_quality
 
-    SUBDIRS *= search_quality search_quality_tool
+    features_collector_tool.subdir = search/search_quality/features_collector_tool
+    features_collector_tool.depends = $$SUBDIRS search_quality
+
+    SUBDIRS *= search_quality search_quality_tool features_collector_tool
   }
 
   CONFIG(desktop):!CONFIG(no-tests) {

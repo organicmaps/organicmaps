@@ -12,7 +12,6 @@ void RankingInfo::PrintCSVHeader(ostream & os)
      << ",Rank"
      << ",NameScore"
      << ",SearchType"
-     << ",SameCountry"
      << ",PositionInViewport";
 }
 
@@ -25,7 +24,6 @@ string DebugPrint(RankingInfo const & info)
   os << "m_rank:" << static_cast<int>(info.m_rank) << ",";
   os << "m_nameScore:" << DebugPrint(info.m_nameScore) << ",";
   os << "m_searchType:" << DebugPrint(info.m_searchType) << ",";
-  os << "m_sameCountry:" << info.m_sameCountry << ",";
   os << "m_positionInViewport:" << info.m_positionInViewport;
   os << "]";
   return os.str();
@@ -35,8 +33,8 @@ void RankingInfo::ToCSV(ostream & os) const
 {
   os << fixed;
   os << m_distanceToViewport << "," << m_distanceToPosition << "," << static_cast<int>(m_rank)
-     << "," << DebugPrint(m_nameScore) << "," << DebugPrint(m_searchType) << "," << m_sameCountry
-     << "," << m_positionInViewport;
+     << "," << DebugPrint(m_nameScore) << "," << DebugPrint(m_searchType) << ","
+     << m_positionInViewport;
 }
 }  // namespace v2
 }  // namespace search

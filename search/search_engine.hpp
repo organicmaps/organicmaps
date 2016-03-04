@@ -103,6 +103,8 @@ public:
   // Posts request to support old format to the queue.
   void SetSupportOldFormat(bool support);
 
+  void SetLocale(string const & locale);
+
   // Posts request to clear caches to the queue.
   void ClearCaches();
 
