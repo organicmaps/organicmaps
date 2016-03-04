@@ -380,18 +380,20 @@ void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD 
   if (fabs(crossProduct) < kEps)
     return;
 
-  auto const clipFunctor = [this](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+  if (crossProduct < 0)
   {
     m_triangles.push_back(p1);
     m_triangles.push_back(p2);
     m_triangles.push_back(p3);
     BuildEdges(GetIndex(p1), GetIndex(p2), GetIndex(p3));
-  };
-
-  if (crossProduct < 0)
-    m2::ClipTriangleByRect(m_tileRect, p1, p2, p3, clipFunctor);
+  }
   else
-    m2::ClipTriangleByRect(m_tileRect, p1, p3, p2, clipFunctor);
+  {
+      m_triangles.push_back(p1);
+      m_triangles.push_back(p3);
+      m_triangles.push_back(p2);
+      BuildEdges(GetIndex(p1), GetIndex(p3), GetIndex(p2));
+  }
 }
 
 int ApplyAreaFeature::GetIndex(m2::PointD const & pt)
