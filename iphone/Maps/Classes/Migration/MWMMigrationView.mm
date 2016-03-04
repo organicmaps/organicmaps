@@ -69,14 +69,8 @@
 - (void)startSpinner
 {
   self.spinnerView.hidden = NO;
-  self.spinner = [[MWMCircularProgress alloc] initWithParentView:self.spinnerView];
+  self.spinner = [MWMCircularProgress downloaderProgressForParentView:self.spinnerView];
   self.spinner.delegate = self.delegate;
-  [self.spinner setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
-  [self.spinner setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
-  [self.spinner setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
-  [self.spinner setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSpinner];
-  [self.spinner setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
-  [self.spinner setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
   [self.spinner setInvertColor:YES];
   self.spinner.state = MWMCircularProgressStateSpinner;
 }

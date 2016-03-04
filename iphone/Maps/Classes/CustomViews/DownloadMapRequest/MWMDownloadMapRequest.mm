@@ -20,7 +20,7 @@
 @property (nonatomic) IBOutlet UIButton * downloadMapButton;
 @property (nonatomic) IBOutlet UIView * progressViewWrapper;
 
-@property (nonatomic) MWMCircularProgress * progressView;
+@property (nonatomic) MWMCircularProgress * progress;
 
 @property (copy, nonatomic) NSString * mapAndRouteSize;
 
@@ -93,12 +93,12 @@
 - (void)downloadProgress:(CGFloat)progress
 {
   [self showRequest];
-  self.progressView.progress = progress;
+  self.progress.progress = progress;
 }
 
 - (void)setDownloadFailed
 {
-  self.progressView.state = MWMCircularProgressStateFailed;
+  self.progress.state = MWMCircularProgressStateFailed;
 }
 
 #pragma mark - MWMCircularProgressDelegate
@@ -115,7 +115,7 @@
             kStatScenario : kStatDownload
           }];
     [MWMStorage retryDownloadNode:m_countryId];
-    self.progressView.state = MWMCircularProgressStateSpinner;
+    self.progress.state = MWMCircularProgressStateSpinner;
   }
   else
   {
@@ -140,7 +140,7 @@
   [MWMStorage downloadNode:m_countryId alertController:self.delegate.alertController onSuccess:^
   {
     [self showRequest];
-    self.progressView.state = MWMCircularProgressStateSpinner;
+    self.progress.state = MWMCircularProgressStateSpinner;
   }];
 }
 
@@ -156,20 +156,14 @@
   [self.delegate stateUpdated:state];
 }
 
-- (MWMCircularProgress *)progressView
+- (MWMCircularProgress *)progress
 {
-  if (!_progressView)
+  if (!_progress)
   {
-    _progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressViewWrapper];
-    _progressView.delegate = self;
-    [_progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateNormal];
-    [_progressView setImage:[UIImage imageNamed:@"ic_download"] forState:MWMCircularProgressStateSelected];
-    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
-    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSpinner];
-    [_progressView setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
-    [_progressView setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
+    _progress = [MWMCircularProgress downloaderProgressForParentView:self.progressViewWrapper];
+    _progress.delegate = self;
   }
-  return _progressView;
+  return _progress;
 }
 
 @end
