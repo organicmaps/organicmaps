@@ -96,17 +96,16 @@ void CrossRoutingContextReader::Load(Reader const & r)
   }
 }
 
-bool CrossRoutingContextReader::FindIngoingNodeByPoint(ms::LatLon const & point,
-                                                       IngoingCrossNode & node) const
+bool CrossRoutingContextReader::ForEachIngoingNodeNearPoint(ms::LatLon const & point, function<void(IngoingCrossNode const & node)> && fn) const
 {
   bool found = false;
   m_ingoingIndex.ForEachInRect(m2::RectD(point.lat - kMwmCrossingNodeEqualityRadiusDegrees,
                                      point.lon - kMwmCrossingNodeEqualityRadiusDegrees,
                                      point.lat + kMwmCrossingNodeEqualityRadiusDegrees,
                                      point.lon + kMwmCrossingNodeEqualityRadiusDegrees),
-                               [&found, &node](IngoingCrossNode const & nd)
+                               [&found, &fn](IngoingCrossNode const & node)
                                {
-                                 node = nd;
+                                 fn(node);
                                  found = true;
                                });
   return found;

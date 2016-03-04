@@ -137,10 +137,11 @@ UNIT_TEST(TestFindingByPoint)
   MemReader reader(buffer.data(), buffer.size());
   newContext.Load(reader);
   IngoingCrossNode node;
-  TEST(newContext.FindIngoingNodeByPoint(p1, node), ());
+  auto fn = [&node](IngoingCrossNode const & nd) {node = nd;};
+  TEST(newContext.ForEachIngoingNodeNearPoint(p1, fn), ());
   TEST_EQUAL(node.m_nodeId, 2, ());
-  TEST(newContext.FindIngoingNodeByPoint(p2, node), ());
+  TEST(newContext.ForEachIngoingNodeNearPoint(p2, fn), ());
   TEST_EQUAL(node.m_nodeId, 3, ());
-  TEST(!newContext.FindIngoingNodeByPoint(p3, node), ());
+  TEST(!newContext.ForEachIngoingNodeNearPoint(p3, fn), ());
 }
 }  // namespace
