@@ -37,6 +37,9 @@
 // If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
 #import "../../../private.h"
 
+
+#import <HockeySDK/HockeySDK.h>
+
 extern NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 // Alert keys.
 static NSString * const kUDLastLaunchDateKey = @"LastLaunchDate";
@@ -352,6 +355,13 @@ using namespace osm_auth_ios;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // Initialize Hockey App Sdk
+  [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@(HOCKEY_APP_KEY)]; // Do some additional configuration if needed here
+  [[BITHockeyManager sharedHockeyManager].crashManager setCrashManagerStatus: BITCrashManagerStatusAutoSend];
+  [[BITHockeyManager sharedHockeyManager] startManager];
+  [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation]; // This line is obsolete in the crash only builds
+
+
   // Initialize all 3party engines.
   BOOL returnValue = [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
   if (launchOptions[UIApplicationLaunchOptionsLocationKey])

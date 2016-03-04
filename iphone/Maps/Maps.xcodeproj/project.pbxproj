@@ -582,6 +582,14 @@
 		6B9978361C89A316003B8AA0 /* editor.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.xml */; };
 		6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */; };
 		845C891F1C78748000940D7F /* me.maps.enterprise.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 845C891E1C78748000940D7F /* me.maps.enterprise.entitlements */; };
+		845C892C1C8981CE00940D7F /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89291C8981CE00940D7F /* HockeySDK.framework */; };
+		845C892D1C8981CE00940D7F /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89291C8981CE00940D7F /* HockeySDK.framework */; };
+		845C892E1C8981CE00940D7F /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 845C892B1C8981CE00940D7F /* HockeySDKResources.bundle */; };
+		845C892F1C8981CE00940D7F /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 845C892B1C8981CE00940D7F /* HockeySDKResources.bundle */; };
+		845C89311C89837900940D7F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89301C89837900940D7F /* AssetsLibrary.framework */; };
+		845C89351C8983F300940D7F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89321C8983F300940D7F /* CoreText.framework */; };
+		845C89361C8983F300940D7F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89331C8983F300940D7F /* libc++.tbd */; };
+		845C89371C8983F300940D7F /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89341C8983F300940D7F /* QuickLook.framework */; };
 		974386DD19373EA400FD5659 /* ToastView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.mm */; };
 		9747264318323080006B7CB7 /* UIKitCategories.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.mm */; };
 		9747278418338F0C006B7CB7 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.mm */; };
@@ -1185,6 +1193,12 @@
 		7794829519A4E66A005F57B9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		845C891E1C78748000940D7F /* me.maps.enterprise.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = me.maps.enterprise.entitlements; sourceTree = "<group>"; };
+		845C89291C8981CE00940D7F /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
+		845C892B1C8981CE00940D7F /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
+		845C89301C89837900940D7F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		845C89321C8983F300940D7F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		845C89331C8983F300940D7F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		845C89341C8983F300940D7F /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		972CDCC51887F1B7006641CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		974386DB19373EA400FD5659 /* ToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastView.h; sourceTree = "<group>"; };
@@ -1480,6 +1494,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845C89351C8983F300940D7F /* CoreText.framework in Frameworks */,
+				845C89361C8983F300940D7F /* libc++.tbd in Frameworks */,
+				845C89371C8983F300940D7F /* QuickLook.framework in Frameworks */,
+				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
+				97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */,
+				46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */,
+				97719D491843B6F700BDD815 /* Security.framework in Frameworks */,
+				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				845C89311C89837900940D7F /* AssetsLibrary.framework in Frameworks */,
 				F696CCBB1C2816FB00150DFD /* MyTrackerSDKCorp.framework in Frameworks */,
 				341876B41C28026D005A0C9A /* CoreVideo.framework in Frameworks */,
 				34751E9E1BFB8E73005299B7 /* MediaPlayer.framework in Frameworks */,
@@ -1503,18 +1527,13 @@
 				B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */,
 				B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */,
 				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
-				97719D491843B6F700BDD815 /* Security.framework in Frameworks */,
 				97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */,
 				97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */,
-				97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */,
 				97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */,
 				97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */,
-				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
 				46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */,
-				46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */,
+				845C892C1C8981CE00940D7F /* HockeySDK.framework in Frameworks */,
 				EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */,
-				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1542,6 +1561,7 @@
 				6741AACA1BF356BA002C974C /* libjansson.a in Frameworks */,
 				6741AACB1BF356BA002C974C /* liblodepng.a in Frameworks */,
 				6741AACC1BF356BA002C974C /* libmap.a in Frameworks */,
+				845C892D1C8981CE00940D7F /* HockeySDK.framework in Frameworks */,
 				6741AACD1BF356BA002C974C /* libminizip.a in Frameworks */,
 				6741AACE1BF356BA002C974C /* libopening_hours.a in Frameworks */,
 				347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */,
@@ -1689,6 +1709,11 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				845C89321C8983F300940D7F /* CoreText.framework */,
+				845C89331C8983F300940D7F /* libc++.tbd */,
+				845C89341C8983F300940D7F /* QuickLook.framework */,
+				845C89301C89837900940D7F /* AssetsLibrary.framework */,
+				845C89281C8981CE00940D7F /* HockeySDK.embeddedframework */,
 				340DC82B1C4E72C700EAA2CC /* liboauthcpp.a */,
 				F696CCBA1C2816FB00150DFD /* MyTrackerSDKCorp.framework */,
 				341F09831C20138100F18AC5 /* libpugixml.a */,
@@ -2343,6 +2368,23 @@
 				560634F11B78806100F3D670 /* MWMTextToSpeech.mm */,
 			);
 			path = Sound;
+			sourceTree = "<group>";
+		};
+		845C89281C8981CE00940D7F /* HockeySDK.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				845C89291C8981CE00940D7F /* HockeySDK.framework */,
+				845C892A1C8981CE00940D7F /* Resources */,
+			);
+			path = HockeySDK.embeddedframework;
+			sourceTree = "<group>";
+		};
+		845C892A1C8981CE00940D7F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				845C892B1C8981CE00940D7F /* HockeySDKResources.bundle */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		974726401832306C006B7CB7 /* Categories */ = {
@@ -3058,6 +3100,7 @@
 				342BB7AB1BC7CC5C00DF6443 /* PlacePageBookmarkCell.xib in Resources */,
 				EE026F0611D6AC0D00645242 /* classificator.txt in Resources */,
 				34CC4C0A1B81F3B500E44C1F /* MWMSearchTabbedViewController.xib in Resources */,
+				845C892E1C8981CE00940D7F /* HockeySDKResources.bundle in Resources */,
 				347FD86D1C60B2CE002FB65E /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
 				34B82ACB1B8465C100180497 /* MWMSearchCategoryCell.xib in Resources */,
 				34CC4C0F1B82069C00E44C1F /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
@@ -3197,6 +3240,7 @@
 				3401CD801C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.xib in Resources */,
 				6741A9441BF340DE002C974C /* PlacePageBookmarkCell.xib in Resources */,
 				6741A9451BF340DE002C974C /* classificator.txt in Resources */,
+				845C892F1C8981CE00940D7F /* HockeySDKResources.bundle in Resources */,
 				6741A9461BF340DE002C974C /* MWMSearchTabbedViewController.xib in Resources */,
 				6741A9471BF340DE002C974C /* MWMSearchCategoryCell.xib in Resources */,
 				6741A9481BF340DE002C974C /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
@@ -3856,6 +3900,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
@@ -3889,6 +3934,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
@@ -3923,6 +3969,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(OMIM_ROOT)",
@@ -3960,6 +4007,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
@@ -3994,6 +4042,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(OMIM_ROOT)",
@@ -4031,6 +4080,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/MAPSME.plist";
@@ -4159,6 +4209,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (
@@ -4281,6 +4332,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (
@@ -4407,6 +4459,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (
@@ -4533,6 +4586,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (
@@ -4657,6 +4711,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (
@@ -4781,6 +4836,7 @@
 					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/MyTracker",
+					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = MAPSME.plist;
 				OTHER_CFLAGS = (

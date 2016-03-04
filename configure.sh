@@ -43,6 +43,7 @@ else
 #define DEFAULT_URLS_JSON ""
 #define AD_PERMISION_SERVER_URL ""
 #define AD_PERMISION_CHECK_DURATION 2 * 60 * 60
+#define HOCKEY_APP_KEY ""
 ' > "$PRIVATE_HEADER"
     echo '
 ext {
