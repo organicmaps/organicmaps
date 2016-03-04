@@ -55,7 +55,7 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
       return;
     }
 
-    if (fieldName == "street" || fieldName == "housenumber")
+    if (fieldName == "street" || fieldName == "housenumber" || fieldName == "housename")
     {
       outDesc.m_address = true;
       return;
