@@ -21,5 +21,9 @@ macx-*: LIBS *= "-framework IOKit"
 
 SOURCES += \
     ../../testing/testingmain.cpp \
+    helpers.cpp \
     search_query_v2_test.cpp \
     smoke_test.cpp \
+
+HEADERS += \
+    helpers.hpp \

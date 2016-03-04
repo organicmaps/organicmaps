@@ -1,129 +1,28 @@
 #include "testing/testing.hpp"
 
+#include "search/search_integration_tests/helpers.hpp"
 #include "search/search_tests_support/test_feature.hpp"
 #include "search/search_tests_support/test_mwm_builder.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
-#include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
-#include "search/search_query_factory.hpp"
-#include "search/v2/search_query_v2.hpp"
-
-#include "indexer/classificator_loader.hpp"
-#include "indexer/index.hpp"
-#include "indexer/mwm_set.hpp"
-
-#include "storage/country_decl.hpp"
-#include "storage/country_info_getter.hpp"
-
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "platform/country_file.hpp"
-#include "platform/local_country_file.hpp"
-#include "platform/local_country_file_utils.hpp"
-#include "platform/platform.hpp"
-
-#include "base/scope_guard.hpp"
-
+#include "std/shared_ptr.hpp"
 #include "std/vector.hpp"
 
 using namespace search::tests_support;
 
 using TRules = vector<shared_ptr<MatchingRule>>;
 
+namespace search
+{
 namespace
 {
-class TestSearchQueryFactory : public search::SearchQueryFactory
+class SearchQueryV2Test : public SearchTest
 {
-  // search::SearchQueryFactory overrides:
-  unique_ptr<search::Query> BuildSearchQuery(Index & index, CategoriesHolder const & categories,
-                                             vector<search::Suggest> const & suggests,
-                                             storage::CountryInfoGetter const & infoGetter) override
-  {
-    return make_unique<search::v2::SearchQueryV2>(index, categories, suggests, infoGetter);
-  }
 };
-
-class TestWithClassificator
-{
-public:
-  TestWithClassificator() { classificator::Load(); }
-};
-
-class SearchQueryV2Test : public TestWithClassificator
-{
-public:
-  SearchQueryV2Test()
-    : m_platform(GetPlatform())
-    , m_scopedLog(LDEBUG)
-    , m_engine(make_unique<storage::CountryInfoGetterForTesting>(),
-               make_unique<TestSearchQueryFactory>(), search::Engine::Params())
-  {
-  }
-
-  ~SearchQueryV2Test()
-  {
-    for (auto const & file : m_files)
-      Cleanup(file);
-  }
-
-  void RegisterCountry(string const & name, m2::RectD const & rect)
-  {
-    auto & infoGetter =
-        static_cast<storage::CountryInfoGetterForTesting &>(m_engine.GetCountryInfoGetter());
-    infoGetter.AddCountry(storage::CountryDef(name, rect));
-  }
-
-  template <typename TBuildFn>
-  MwmSet::MwmId BuildMwm(string const & name, feature::DataHeader::MapType type, TBuildFn && fn)
-  {
-    m_files.emplace_back(m_platform.WritableDir(), platform::CountryFile(name), 0 /* version */);
-    auto & file = m_files.back();
-    Cleanup(file);
-
-    {
-      TestMwmBuilder builder(file, type);
-      fn(builder);
-    }
-    auto result = m_engine.RegisterMap(file);
-    ASSERT_EQUAL(result.second, MwmSet::RegResult::Success, ());
-    return result.first;
-  }
-
-  void SetViewport(m2::RectD const & viewport) { m_viewport = viewport; }
-
-  bool ResultsMatch(string const & query, vector<shared_ptr<MatchingRule>> const & rules)
-  {
-    TestSearchRequest request(m_engine, query, "en", search::Mode::Everywhere, m_viewport);
-    request.Wait();
-    return MatchResults(m_engine, rules, request.Results());
-  }
-
-  bool ResultsMatch(string const & query, search::Mode mode,
-                    vector<shared_ptr<MatchingRule>> const & rules)
-  {
-    TestSearchRequest request(m_engine, query, "en", mode, m_viewport);
-    request.Wait();
-    return MatchResults(m_engine, rules, request.Results());
-  }
-
-protected:
-  Platform & m_platform;
-  my::ScopedLogLevelChanger m_scopedLog;
-  vector<platform::LocalCountryFile> m_files;
-  vector<storage::CountryDef> m_countries;
-  unique_ptr<storage::CountryInfoGetterForTesting> m_infoGetter;
-  TestSearchEngine m_engine;
-  m2::RectD m_viewport;
-
-private:
-  static void Cleanup(platform::LocalCountryFile const & map)
-  {
-    platform::CountryIndexes::DeleteFromDisk(map);
-    map.DeleteFromDisk(MapOptions::Map);
-  }
-};
-}  // namespace
 
 UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
 {
@@ -328,11 +227,11 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
   SetViewport(m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)));
   {
     TRules rules = {ExactMatch(worldId, london)};
-    TEST(ResultsMatch("london", search::Mode::World, rules), ());
+    TEST(ResultsMatch("london", Mode::World, rules), ());
   }
   {
     TRules rules = {ExactMatch(worldId, london), ExactMatch(wonderlandId, cafe)};
-    TEST(ResultsMatch("london", search::Mode::Everywhere, rules), ());
+    TEST(ResultsMatch("london", Mode::Everywhere, rules), ());
   }
 }
 
@@ -349,10 +248,10 @@ UNIT_CLASS_TEST(SearchQueryV2Test, DisableSuggests)
   RegisterCountry("Wonderland", m2::RectD(m2::PointD(-2, -2), m2::PointD(2, 2)));
   SetViewport(m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)));
   {
-    search::SearchParams params;
+    SearchParams params;
     params.m_query = "londo";
     params.m_inputLocale = "en";
-    params.SetMode(search::Mode::World);
+    params.SetMode(Mode::World);
     params.SetSuggestsEnabled(false);
 
     TestSearchRequest request(m_engine, params, m_viewport);
@@ -362,3 +261,5 @@ UNIT_CLASS_TEST(SearchQueryV2Test, DisableSuggests)
     TEST(MatchResults(m_engine, rules, request.Results()), ());
   }
 }
+}  // namespace
+}  // namespace search
