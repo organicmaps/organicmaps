@@ -175,7 +175,11 @@ public:
   }
 
   /// Deletes all children and makes tree empty
-  void Clear() { m_countryTree->Clear(); }
+  void Clear()
+  {
+    m_countryTree->Clear();
+    m_countryTreeHashTable.clear();
+  }
 
   /// \brief Checks all nodes in tree to find an equal one. If there're several equal nodes
   /// returns the first found.
