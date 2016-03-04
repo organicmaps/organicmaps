@@ -157,7 +157,7 @@ bool CrossMwmGraph::ConstructBorderCrossImpl(OutgoingCrossNode const & startNode
   ASSERT(crosses.empty(), ());
   nextMapping->LoadCrossContext();
   nextMapping->m_crossContext.ForEachIngoingNodeNearPoint(startNode.m_point, [&](IngoingCrossNode const & node)
-  {
+    {
     if (node.m_point == startNode.m_point)
     {
       auto const toCross = CrossNode(node.m_nodeId, nextMapping->GetMwmId(), node.m_point);
