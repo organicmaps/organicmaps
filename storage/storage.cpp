@@ -1331,6 +1331,19 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   }
 }
 
+void Storage::GetNodeStatuses(TCountryId const & countryId, NodeStatuses & nodeStatuses) const
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
+  CHECK(node, ());
+
+  StatusAndError statusAndErr = GetNodeStatus(*node);
+  nodeStatuses.m_status = statusAndErr.status;
+  nodeStatuses.m_error = statusAndErr.error;
+  nodeStatuses.m_groupNode = (node->ChildrenCount() != 0);
+}
+
 void Storage::SetCallbackForClickOnDownloadMap(TDownloadFn & downloadFn)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());

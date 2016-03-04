@@ -92,6 +92,15 @@ struct NodeAttrs
   bool m_present;
 };
 
+/// \brief Statuses for a node in the country tree.
+/// It's applicable for expandable and not expandable node id.
+struct NodeStatuses
+{
+  NodeStatus m_status;
+  NodeErrorCode m_error;
+  bool m_groupNode;
+};
+
 /// This class is used for downloading, updating and deleting maps.
 class Storage
 {
@@ -286,9 +295,12 @@ public:
   /// and World.mwm and WorldCoasts.mwm.
   bool IsNodeDownloaded(TCountryId const & countryId) const;
 
-  /// \brief Gets all the attributes for a node by its countryId.
+  /// \brief Gets all the attributes for a node by its |countryId|.
   /// \param |nodeAttrs| is filled with attributes in this method.
   void GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) const;
+  /// \brief Gets a short list of node attributes by its |countriId|.
+  /// \note This method works quicklier than GetNodeAttrs().
+  void GetNodeStatuses(TCountryId const & countryId, NodeStatuses & nodeStatuses) const;
 
   string GetNodeLocalName(TCountryId const & countryId) const { return m_countryNameGetter(countryId); }
 
