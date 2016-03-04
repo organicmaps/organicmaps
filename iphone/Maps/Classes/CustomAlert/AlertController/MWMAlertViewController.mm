@@ -96,6 +96,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert pedestrianToastShareAlert:isFirstLaunch]];
 }
 
+- (void)presentIncorrectFeauturePositionAlert
+{
+  [self displayAlert:[MWMAlert incorrectFeauturePositionAlert]];
+}
+
 - (void)presentInternalErrorAlert
 {
   [self displayAlert:[MWMAlert internalErrorAlert]];

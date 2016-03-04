@@ -7,6 +7,7 @@
 + (instancetype)endPointNotFoundAlert;
 + (instancetype)startPointNotFoundAlert;
 + (instancetype)internalRoutingErrorAlert;
++ (instancetype)incorrectFeauturePositionAlert;
 + (instancetype)internalErrorAlert;
 + (instancetype)invalidUserNameOrPasswordAlert;
 + (instancetype)noCurrentPositionAlert;

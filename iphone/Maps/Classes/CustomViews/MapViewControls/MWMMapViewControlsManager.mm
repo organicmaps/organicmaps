@@ -276,9 +276,12 @@ extern NSString * const kAlohalyticsTapEventKey;
   [MWMAddPlaceNavigationBar showInSuperview:self.ownerController.view doneBlock:^
   {
     auto & f = GetFramework();
+
     if (IsPointCoveredByDownloadedMaps(f.GetViewportCenter(), f.Storage(), f.CountryInfoGetter()))
       [self.ownerController performSegueWithIdentifier:kMapToCategorySelectorSegue sender:nil];
-    //TODO(Vlad): Process else block. Probably we need to show some alert.
+    else
+      [self.ownerController.alertController presentIncorrectFeauturePositionAlert];
+
     [self didFinishAddingPlace];
   }
   cancelBlock:^

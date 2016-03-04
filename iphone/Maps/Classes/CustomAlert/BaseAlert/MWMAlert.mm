@@ -100,6 +100,11 @@
   return [MWMPedestrianShareAlert alert:isFirstLaunch];
 }
 
++ (MWMAlert *)incorrectFeauturePositionAlert
+{
+  return [MWMDefaultAlert incorrectFeauturePositionAlert];
+}
+
 + (MWMAlert *)internalErrorAlert
 {
   return [MWMDefaultAlert internalErrorAlert];

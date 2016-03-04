@@ -136,6 +136,16 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                    rightButtonAction:nil];
 }
 
++ (instancetype)incorrectFeauturePositionAlert
+{
+  kStatisticsEvent = @"Incorrect Feature Possition Alert";
+  return [self defaultAlertWithTitle:@"dialog_incorrect_feautre_position"
+                             message:@"message_invalid_feature_position"
+                    rightButtonTitle:@"ok"
+                     leftButtonTitle:nil
+                   rightButtonAction:nil];
+}
+
 + (instancetype)internalErrorAlert
 {
   kStatisticsEvent = @"Internal Error Alert";
