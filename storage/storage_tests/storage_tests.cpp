@@ -1207,6 +1207,22 @@ UNIT_TEST(StorageTest_ParentTwoComponentsMwm)
   TEST(ParentOf(storage, kInvalidCountryId, "Countries"), ());
 }
 
+UNIT_TEST(StorageTest_GetNodeStatusesSingleMwm)
+{
+  Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
+
+  NodeStatuses nodeStatuses;
+  storage.GetNodeStatuses("Abkhazia", nodeStatuses);
+  TEST_EQUAL(nodeStatuses.m_status, NodeStatus::NotDownloaded, ());
+  TEST_EQUAL(nodeStatuses.m_error, NodeErrorCode::NoError, ());
+  TEST(!nodeStatuses.m_groupNode, ());
+
+  storage.GetNodeStatuses("Abkhazia", nodeStatuses);
+  TEST_EQUAL(nodeStatuses.m_status, NodeStatus::NotDownloaded, ());
+  TEST_EQUAL(nodeStatuses.m_error, NodeErrorCode::NoError, ());
+  TEST(nodeStatuses.m_groupNode, ());
+}
+
 UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
 {
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
