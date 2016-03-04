@@ -443,16 +443,13 @@ int main(int argc, char * argv[])
   }
 
   ofstream csv;
-  bool dumpCSV = false;
   if (!FLAGS_ranking_csv_file.empty())
   {
     ofstream os(FLAGS_ranking_csv_file);
     csv.swap(os);
-    if (csv.is_open())
-      dumpCSV = true;
   }
 
-  if (dumpCSV)
+  if (csv.is_open())
   {
     search::v2::RankingInfo::PrintCSVHeader(csv);
     csv << endl;
@@ -467,7 +464,7 @@ int main(int argc, char * argv[])
     PrintTopResults(MakePrefixFree(queries[i]), requests[i]->Results(), FLAGS_top,
                     responseTimes[i]);
 
-    if (dumpCSV)
+    if (csv.is_open())
     {
       for (auto const & result : requests[i]->Results())
       {

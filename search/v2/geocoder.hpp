@@ -128,13 +128,13 @@ public:
   };
 
   using TResult = pair<FeatureID, PreRankingInfo>;
-  using TResultList = vector<pair<FeatureID, PreRankingInfo>>;
+  using TResultList = vector<TResult>;
 
   Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter);
 
   ~Geocoder() override;
 
-  // Sets/Gets search query params.
+  // Sets search query params.
   void SetParams(Params const & params);
 
   // Starts geocoding, retrieved features will be appended to
@@ -222,8 +222,10 @@ private:
   // the lowest layer.
   void FindPaths();
 
+  // Forms result and appends it to |m_results|.
   void EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, size_t startToken, size_t endToken);
 
+  // Computes rank for all results in |m_results|.
   void FillResultRanks();
 
   // Tries to match unclassified objects from lower layers, like

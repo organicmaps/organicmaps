@@ -180,7 +180,7 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
   case RESULT_FEATURE:
     return Result(m_id, GetCenter(), m_str, regionName, pCat->GetReadableFeatureType(type, locale)
               #ifdef DEBUG
-                  + ' ' + strings::to_string(int(m_info.m_rank))
+                  + ' ' + strings::to_string(static_cast<int>(m_info.m_rank))
               #endif
                   , type, m_metadata);
 

@@ -24,8 +24,7 @@ public:
 
 protected:
   // Adds a bunch of features as PreResult1.
-  void AddPreResults1(Geocoder::TResultList & results,
-                      bool viewportSearch);
+  void AddPreResults1(Geocoder::TResultList & results, bool viewportSearch);
 
   Geocoder m_geocoder;
 };

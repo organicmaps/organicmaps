@@ -5,6 +5,6 @@ namespace search
 namespace v2
 {
 // static
-double const PreRankingInfo::kMaxDistMeters = 1000000000;
+double const PreRankingInfo::kMaxDistMeters = 1e9;
 }  // namespace v2
 }  // namespace search

@@ -16,7 +16,8 @@ struct PreRankingInfo
   // Distance from the feature to the current user's position.
   double m_mwmDistanceToPosition = kMaxDistMeters;
 
-  // Tokens [m_startToken, m_endToken) match to the query.
+  // Tokens [m_startToken, m_endToken) match to the feature name or
+  // house number.
   size_t m_startToken = 0;
   size_t m_endToken = 0;
 

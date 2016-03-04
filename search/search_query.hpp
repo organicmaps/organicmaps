@@ -103,8 +103,6 @@ public:
   void SetQuery(string const & query);
   inline bool IsEmptyQuery() const { return (m_prefix.empty() && m_tokens.empty()); }
 
-  inline storage::CountryInfoGetter const & GetCountryInfoGetter() const { return m_infoGetter; }
-
   /// @name Different search functions.
   //@{
   virtual void Search(Results & res, size_t resCount);

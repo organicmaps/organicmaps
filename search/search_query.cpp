@@ -609,9 +609,7 @@ namespace impl
 class PreResult2Maker
 {
   Query & m_query;
-  storage::CountryInfoGetter const & m_infoGetter;
   v2::Geocoder::Params const & m_params;
-  string m_positionCountry;
 
   unique_ptr<Index::FeaturesLoaderGuard> m_pFV;
 
@@ -641,10 +639,10 @@ class PreResult2Maker
       country = m_pFV->GetCountryFileName();
   }
 
-  void InitRankingInfo(FeatureType const & ft, impl::PreResult1 const & result,
+  void InitRankingInfo(FeatureType const & ft, impl::PreResult1 const & res,
                        search::v2::RankingInfo & info)
   {
-    auto const & preInfo = result.GetInfo();
+    auto const & preInfo = res.GetInfo();
     auto const & viewport = m_params.m_viewport;
     auto const & position = m_params.m_position;
 
@@ -676,35 +674,26 @@ class PreResult2Maker
         info.m_nameScore = score;
     }
 
-    auto const featureCountry = m_infoGetter.GetRegionCountryId(feature::GetCenter(ft));
-    // TODO (@y, @m, @vng): exact check is too restrictive, as we
-    // switched to small mwms. Probably it's worth here to find a
-    // Least-Common-Ancestor for feature center and user position in
-    // the country tree, and use level (distance to root) of the
-    // result here.
-    info.m_sameCountry = (featureCountry == m_positionCountry);
-
     info.m_positionInViewport = viewport.IsPointInside(position);
   }
 
 public:
   explicit PreResult2Maker(Query & q, v2::Geocoder::Params const & params)
-    : m_query(q), m_infoGetter(m_query.GetCountryInfoGetter()), m_params(params)
+    : m_query(q), m_params(params)
   {
-    m_positionCountry = m_infoGetter.GetRegionCountryId(m_params.m_position);
   }
 
-  unique_ptr<impl::PreResult2> operator()(impl::PreResult1 const & res)
+  unique_ptr<impl::PreResult2> operator()(impl::PreResult1 const & res1)
   {
     FeatureType feature;
     string name, country;
-    LoadFeature(res.GetID(), feature, name, country);
+    LoadFeature(res1.GetID(), feature, name, country);
 
-    Query::ViewportID const viewportID = static_cast<Query::ViewportID>(res.GetViewportID());
-    auto res2 = make_unique<impl::PreResult2>(feature, &res, m_query.GetPosition(viewportID), name,
+    Query::ViewportID const viewportID = static_cast<Query::ViewportID>(res1.GetViewportID());
+    auto res2 = make_unique<impl::PreResult2>(feature, &res1, m_query.GetPosition(viewportID), name,
                                               country);
     search::v2::RankingInfo info;
-    InitRankingInfo(feature, res, info);
+    InitRankingInfo(feature, res1, info);
     res2->SetRankingInfo(move(info));
 
     /// @todo: add exluding of states (without USA states), continents

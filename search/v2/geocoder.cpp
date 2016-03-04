@@ -1271,7 +1271,7 @@ void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, size_t sta
         MercatorBounds::DistanceOnEarth(center, m_params.m_viewport.Center());
     info.m_mwmDistanceToPosition = MercatorBounds::DistanceOnEarth(center, m_params.m_position);
   }
-  // info.m_ranks will be filled at the end, at once.
+  // info.m_ranks will be filled at the end, for all results at once.
 
   m_results->emplace_back(move(id), move(info));
 }
