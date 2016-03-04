@@ -29,7 +29,6 @@ SOURCES += \
     locality_scorer_test.cpp \
     query_saver_tests.cpp \
     ranking_tests.cpp \
-    sample_test.cpp \
     string_intersection_test.cpp \
     string_match_test.cpp \
 

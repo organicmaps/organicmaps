@@ -56,7 +56,6 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     SUBDIRS *= skin_generator
   }
 
-
   CONFIG(desktop) {
     drape_head.depends = $$SUBDIRS
     SUBDIRS *= drape_head
@@ -69,6 +68,15 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     qt.depends = $$SUBDIRS
 
     SUBDIRS *= benchmark_tool mapshot qt
+  }
+
+  CONFIG(desktop) {
+    search_quality.subdir = search/search_quality
+    search_quality.depends = $$SUBDIRS
+    search_quality_tool.subdir = search/search_quality/search_quality_tool
+    search_quality_tool.depends = $$SUBDIRS search_quality
+
+    SUBDIRS *= search_quality search_quality_tool
   }
 
   CONFIG(desktop):!CONFIG(no-tests) {
@@ -160,8 +168,8 @@ SUBDIRS = 3party base coding geometry editor indexer routing search
     search_integration_tests.depends = $$MapDepLibs search_tests_support generator
     SUBDIRS *= search_integration_tests
 
-    search_quality_tests.subdir = search/search_quality_tests
-    search_quality_tests.depends = $$MapDepLibs generator search_tests_support
+    search_quality_tests.subdir = search/search_quality/search_quality_tests
+    search_quality_tests.depends = $$MapDepLibs generator search_quality search_tests_support
     SUBDIRS *= search_quality_tests
 
     generator_tests.subdir = generator/generator_tests

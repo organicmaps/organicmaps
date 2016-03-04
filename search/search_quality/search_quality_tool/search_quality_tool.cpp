@@ -52,7 +52,8 @@ using namespace search::tests_support;
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(locale, "en", "Locale of all the search queries");
 DEFINE_int32(num_threads, 1, "Number of search engine threads");
-DEFINE_string(mwm_list_path, "", "Path to a file containing the names of available mwms, one per line");
+DEFINE_string(mwm_list_path, "",
+              "Path to a file containing the names of available mwms, one per line");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 DEFINE_string(queries_path, "", "Path to the file with queries");
 DEFINE_int32(top, 1, "Number of top results to show for every query");
@@ -445,7 +446,8 @@ int main(int argc, char * argv[])
     requests[i]->Wait();
     auto rt = duration_cast<milliseconds>(requests[i]->ResponseTime()).count();
     responseTimes[i] = static_cast<double>(rt) / 1000;
-    PrintTopResults(MakePrefixFree(queries[i]), requests[i]->Results(), FLAGS_top, responseTimes[i]);
+    PrintTopResults(MakePrefixFree(queries[i]), requests[i]->Results(), FLAGS_top,
+                    responseTimes[i]);
   }
 
   double averageTime;

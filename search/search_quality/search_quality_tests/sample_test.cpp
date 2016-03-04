@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/sample.hpp"
+#include "search/search_quality/sample.hpp"
 
 #include "base/logging.hpp"
 

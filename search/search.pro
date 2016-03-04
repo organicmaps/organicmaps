@@ -8,8 +8,6 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
-
 HEADERS += \
     algos.hpp \
     approximate_string_match.hpp \
@@ -34,7 +32,6 @@ HEADERS += \
     result.hpp \
     retrieval.hpp \
     reverse_geocoder.hpp \
-    sample.hpp \
     search_common.hpp \
     search_engine.hpp \
     search_index_values.hpp \
@@ -81,7 +78,6 @@ SOURCES += \
     result.cpp \
     retrieval.cpp \
     reverse_geocoder.cpp \
-    sample.cpp \
     search_engine.cpp \
     search_query.cpp \
     search_query_params.cpp \

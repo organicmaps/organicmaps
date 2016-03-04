@@ -11,6 +11,11 @@
 
 namespace
 {
+void FromJSON(json_t * root, string & result)
+{
+  result = string(json_string_value(root));
+}
+
 void FromJSONObject(json_t * root, string const & field, string & result)
 {
   if (!json_is_object(root))
@@ -69,24 +74,6 @@ void FromJSONObject(json_t * root, string const & field, m2::RectD & result)
   result.setMaxY(maxY);
 }
 
-void FromJSONObject(json_t * root, string const & field, vector<string> & result)
-{
-  json_t * arr = json_object_get(root, field.c_str());
-  if (!arr)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
-  if (!json_is_array(arr))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json array."));
-  size_t const sz = json_array_size(arr);
-  result.resize(sz);
-  for (size_t i = 0; i < sz; ++i)
-  {
-    json_t * elem = json_array_get(arr, i);
-    if (!json_is_string(elem))
-      MYTHROW(my::Json::Exception, ("Wrong type:", field, "must contain an array of strings."));
-    result[i] = json_string_value(elem);
-  }
-}
-
 void FromJSONObject(json_t * root, string const & field, search::Sample::Result::Relevance & r)
 {
   string relevance;
@@ -99,14 +86,7 @@ void FromJSONObject(json_t * root, string const & field, search::Sample::Result:
     r = search::Sample::Result::Relevance::RELEVANCE_IRRELEVANT;
 }
 
-void FromJSON(json_t * root, search::Sample::Result & result)
-{
-  FromJSONObject(root, "position", result.m_pos);
-  FromJSONObject(root, "name", result.m_name);
-  FromJSONObject(root, "houseNumber", result.m_houseNumber);
-  FromJSONObject(root, "types", result.m_types);
-  FromJSONObject(root, "relevancy", result.m_relevance);
-}
+void FromJSON(json_t * root, search::Sample::Result & result);
 
 template <typename T>
 void FromJSONObject(json_t * root, string const & field, vector<T> & result)
@@ -120,6 +100,15 @@ void FromJSONObject(json_t * root, string const & field, vector<T> & result)
   result.resize(sz);
   for (size_t i = 0; i < sz; ++i)
     FromJSON(json_array_get(arr, i), result[i]);
+}
+
+void FromJSON(json_t * root, search::Sample::Result & result)
+{
+  FromJSONObject(root, "position", result.m_pos);
+  FromJSONObject(root, "name", result.m_name);
+  FromJSONObject(root, "houseNumber", result.m_houseNumber);
+  FromJSONObject(root, "types", result.m_types);
+  FromJSONObject(root, "relevancy", result.m_relevance);
 }
 
 bool LessRect(m2::RectD const & lhs, m2::RectD const & rhs)
