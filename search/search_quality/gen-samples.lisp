@@ -29,9 +29,7 @@ exec /usr/local/bin/sbcl --noinform --quit --load $0 --end-toplevel-options "$@"
 (defun lon-to-x (lon) lon)
 (defun lat-to-y (lat)
   (let* ((sinx (sin (deg-to-rad (clamp lat -86.0 86.0))))
-         (result (rad-to-deg (/ (* 0.5
-                                   (log (+ 1.0 sinx)))
-                                (- 1.0 sinx)))))
+         (result (rad-to-deg (* 0.5 (log (/ (+ 1.0 sinx) (- 1.0 sinx)))))))
     (clamp-y result)))
 
 (defclass pos () ((x :initarg :x)
