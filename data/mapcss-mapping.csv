@@ -461,6 +461,7 @@ railway|construction|tunnel;[railway][construction?][tunnel?];x;name;int_name;46
 sport|handball;[sport=handball];;name;int_name;461;
 boundary|administrative|city;[boundary=administrative][border_type=city];;name;int_name;462;
 piste:type|downhill|freeride;[piste:type=downhill][piste:difficulty=freeride];;name;int_name;463;
+amenity|restaurant|vegetarian;[amenity=restaurant][cuisine=vegetarian];x;name;int_name;464;amenity|restaurant
 communication|line|submarine;[communication=line][location=submarine];x;name;int_name;465;communication|line
 piste:type|downhill|expert;[piste:type=downhill][piste:difficulty=expert];;name;int_name;466;
 landuse|salt_pond;[landuse=salt_pond];;name;int_name;467;
@@ -542,6 +543,7 @@ amenity|speed_trap;[amenity=speed_trap];;name;int_name;542;
 highway|track|grade4|area;[highway=track][tracktype=grade4][area?];x;name;int_name;543;area:highway|track
 highway|primary|area;[highway=primary][area?];x;name;int_name;544;area:highway|primary
 power|line|underground;[power=line][location=underground];;name;int_name;545;
+amenity|restaurant|vegan;[amenity=restaurant][cuisine=vegan];x;name;int_name;546;amenity|restaurant
 highway|track|construction;[highway=track][construction?];x;name;int_name;547;highway|construction
 highway|minor|oneway;[highway=minor][oneway?];x;name;int_name;548;highway|unclassified
 highway|bridleway|cutting;[highway=bridleway][cutting?];x;name;int_name;549;highway|bridleway
