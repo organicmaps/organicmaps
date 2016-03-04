@@ -97,6 +97,7 @@ class Metadata : public MetadataBase
 public:
   /// @note! Do not change values here.
   /// Add new types to the end of list, before FMD_COUNT.
+  /// Please also modify MetadataTagProcessor::TypeFromString().
   enum EType : int8_t
   {
     FMD_CUISINE = 1,
@@ -124,6 +125,9 @@ public:
     FMD_TEST_ID = 23,
     FMD_COUNT
   };
+
+  /// Used to normalize tags like "contact:phone" and "phone" to a common metadata enum value.
+  static bool TypeFromString(string const & osmTagKey, feature::Metadata::EType & outType);
 
   void Set(EType type, string const & value)
   {

@@ -41,6 +41,58 @@ string Metadata::GetWikiURL() const
   return "https://" + v.substr(0, colon) + kBaseWikiUrl + v.substr(colon + 1);
 }
 
+// static
+bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
+{
+  if (k == "cuisine")
+    outType = Metadata::FMD_CUISINE;
+  else if (k == "opening_hours")
+    outType = Metadata::FMD_OPEN_HOURS;
+  else if (k == "phone" || k == "contact:phone")
+    outType = Metadata::FMD_PHONE_NUMBER;
+  else if (k == "fax" || k == "contact:fax")
+    outType = Metadata::EType::FMD_FAX_NUMBER;
+  else if (k == "stars")
+    outType = Metadata::FMD_STARS;
+  else if (k == "operator")
+    outType = Metadata::FMD_OPERATOR;
+  else if (k == "url")  // TODO: Should we match url to website here?
+    outType = Metadata::FMD_URL;
+  else if (k == "website" || k == "contact:website")
+    outType = Metadata::FMD_WEBSITE;
+  else if (k == "internet_access")
+    outType = Metadata::FMD_INTERNET;
+  else if (k == "ele")
+    outType = Metadata::FMD_ELE;
+  else if (k == "turn:lanes")
+    outType = Metadata::FMD_TURN_LANES;
+  else if (k == "turn:lanes:forward")
+    outType = Metadata::FMD_TURN_LANES_FORWARD;
+  else if (k == "turn:lanes:backward")
+    outType = Metadata::FMD_TURN_LANES_BACKWARD;
+  else if (k == "email" || k == "contact:email")
+    outType = Metadata::FMD_EMAIL;
+  else if (k == "addr:postcode")
+    outType = Metadata::FMD_POSTCODE;
+  else if (k == "wikipedia")
+    outType = Metadata::FMD_WIKIPEDIA;
+  else if (k == "maxspeed")
+    outType = Metadata::FMD_MAXSPEED;
+  else if (k == "addr:flats")
+    outType = Metadata::FMD_FLATS;
+  else if (k == "height")
+    outType = Metadata::FMD_HEIGHT;
+  else if (k == "min_height")
+    outType = Metadata::FMD_MIN_HEIGHT;
+  else if (k == "building:levels")
+    outType = Metadata::FMD_BUILDING_LEVELS;
+  else if (k == "denomination")
+    outType = Metadata::FMD_DENOMINATION;
+  else
+    return false;
+
+  return true;
+}
 }  // namespace feature
 
 // Warning: exact osm tag keys should be returned for valid enum values.
