@@ -54,7 +54,7 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   {
     if (IsValidEdgeWeight(weights[i]))
     {
-      vector<BorderCross> nextCrosses = ConstructBorderCross(outgoingNodes[i], startMapping);
+      vector<BorderCross> const & nextCrosses = ConstructBorderCross(outgoingNodes[i], startMapping);
       for (auto const & nextCross : nextCrosses)
         if (nextCross.toNode.IsValid())
           dummyEdges.emplace_back(nextCross, weights[i]);
@@ -127,8 +127,8 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   return IRouter::NoError;
 }
 
-vector<BorderCross> CrossMwmGraph::ConstructBorderCross(OutgoingCrossNode const & startNode,
-                                                        TRoutingMappingPtr const & currentMapping) const
+vector<BorderCross> const & CrossMwmGraph::ConstructBorderCross(OutgoingCrossNode const & startNode,
+                                                                TRoutingMappingPtr const & currentMapping) const
 {
   // Check cached crosses.
   auto const key = make_pair(startNode.m_nodeId, currentMapping->GetMwmId());
@@ -138,10 +138,9 @@ vector<BorderCross> CrossMwmGraph::ConstructBorderCross(OutgoingCrossNode const 
 
   // Cache miss case.
   vector<BorderCross> crosses;
-  if (!ConstructBorderCrossImpl(startNode, currentMapping, crosses))
-    return vector<BorderCross>();
-  m_cachedNextNodes.insert(make_pair(key, crosses));
-  return crosses;
+  ConstructBorderCrossImpl(startNode, currentMapping, crosses);
+  auto const inserted = m_cachedNextNodes.insert(make_pair(key, crosses));
+  return inserted.first->second;
 }
 
 bool CrossMwmGraph::ConstructBorderCrossImpl(OutgoingCrossNode const & startNode,
@@ -203,7 +202,7 @@ void CrossMwmGraph::GetOutgoingEdgesList(BorderCross const & v,
                                        EdgeWeight const outWeight = currentContext.GetAdjacencyCost(ingoingNode, node);
                                        if (outWeight != kInvalidContextEdgeWeight && outWeight != 0)
                                        {
-                                         vector<BorderCross> targets = ConstructBorderCross(node, currentMapping);
+                                         vector<BorderCross> const & targets = ConstructBorderCross(node, currentMapping);
                                          for (auto const & target : targets)
                                            if (target.toNode.IsValid())
                                              adj.emplace_back(target, outWeight);

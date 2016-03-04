@@ -120,8 +120,8 @@ public:
 
 private:
   // Cashing wrapper for the ConstructBorderCrossImpl function.
-  vector<BorderCross> ConstructBorderCross(OutgoingCrossNode const & startNode,
-                                   TRoutingMappingPtr const & currentMapping) const;
+  vector<BorderCross> const & ConstructBorderCross(OutgoingCrossNode const & startNode,
+                                                   TRoutingMappingPtr const & currentMapping) const;
 
   // Pure function to construct boder cross by outgoing cross node.
   bool ConstructBorderCrossImpl(OutgoingCrossNode const & startNode,
