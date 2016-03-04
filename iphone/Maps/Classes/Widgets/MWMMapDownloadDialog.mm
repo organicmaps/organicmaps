@@ -32,7 +32,7 @@ using namespace storage;
 
 @property (weak, nonatomic) MWMViewController * controller;
 
-@property (nonatomic) MWMCircularProgress * progressView;
+@property (nonatomic) MWMCircularProgress * progress;
 
 @end
 
@@ -81,6 +81,7 @@ using namespace storage;
     switch (nodeAttrs.m_status)
     {
       case NodeStatus::NotDownloaded:
+      case NodeStatus::Partly:
       {
         bool autoDownloadEnabled = true;
         (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
@@ -140,7 +141,7 @@ using namespace storage;
 
 - (void)removeFromSuperview
 {
-  self.progressView.state = MWMCircularProgressStateNormal;
+  self.progress.state = MWMCircularProgressStateNormal;
   [MWMFrameworkListener removeObserver:self];
   [super removeFromSuperview];
 }
@@ -151,7 +152,7 @@ using namespace storage;
     return;
   self.nodeSize.textColor = [UIColor red];
   self.nodeSize.text = L(@"country_status_download_failed");
-  self.progressView.state = MWMCircularProgressStateFailed;
+  self.progress.state = MWMCircularProgressStateFailed;
   MWMAlertViewController * avc = self.controller.alertController;
   switch (errorCode)
   {
@@ -191,7 +192,7 @@ using namespace storage;
   self.nodeSize.text = [@(static_cast<NSUInteger>(progress * 100)).stringValue stringByAppendingString:@"%"];
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
-  self.progressView.progress = progress;
+  self.progress.progress = progress;
 }
 
 - (void)showInQueue
@@ -200,7 +201,7 @@ using namespace storage;
   self.nodeSize.text = L(@"downloader_queued");
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
-  self.progressView.state = MWMCircularProgressStateSpinner;
+  self.progress.state = MWMCircularProgressStateSpinner;
 }
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId
@@ -296,20 +297,14 @@ using namespace storage;
 
 #pragma mark - Properties
 
-- (MWMCircularProgress *)progressView
+- (MWMCircularProgress *)progress
 {
-  if (!_progressView)
+  if (!_progress)
   {
-    _progressView = [[MWMCircularProgress alloc] initWithParentView:self.progressWrapper];
-    _progressView.delegate = self;
-    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateNormal];
-    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSelected];
-    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateProgress];
-    [_progressView setImage:[UIImage imageNamed:@"ic_close_spinner"] forState:MWMCircularProgressStateSpinner];
-    [_progressView setImage:[UIImage imageNamed:@"ic_download_error"] forState:MWMCircularProgressStateFailed];
-    [_progressView setImage:[UIImage imageNamed:@"ic_check"] forState:MWMCircularProgressStateCompleted];
+    _progress = [MWMCircularProgress downloaderProgressForParentView:self.progressWrapper];
+    _progress.delegate = self;
   }
-  return _progressView;
+  return _progress;
 }
 
 @end
