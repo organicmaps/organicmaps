@@ -16,12 +16,14 @@ public final class CountryItem implements Comparable<CountryItem>
 
   // Must correspond to NodeStatus in storage_defines.hpp
   public static final int STATUS_UNKNOWN = 0;
-  public static final int STATUS_FAILED = 1;
-  public static final int STATUS_DONE = 2;
-  public static final int STATUS_DOWNLOADABLE = 3;
-  public static final int STATUS_PROGRESS = 4;
-  public static final int STATUS_ENQUEUED = 5;
-  public static final int STATUS_UPDATABLE = 6;
+
+  public static final int STATUS_PROGRESS = 1;       // Downloading a new mwm or updating an old one.
+  public static final int STATUS_ENQUEUED = 2;       // An mwm is waiting for downloading in the queue.
+  public static final int STATUS_FAILED = 3;         // An error happened while downloading
+  public static final int STATUS_UPDATABLE = 4;      // An update for a downloaded mwm is ready according to counties.txt.
+  public static final int STATUS_DONE = 5;           // Downloaded mwm(s) is up to date. No need to update it.
+  public static final int STATUS_DOWNLOADABLE = 6;   // An mwm can be downloaded but not downloaded yet.
+  public static final int STATUS_PARTLY = 7;         // Leafs of group node has a mix of NotDownloaded and OnDisk status.
 
   // Must correspond to NodeErrorCode in storage_defines.hpp
   public static final int ERROR_NONE = 0;

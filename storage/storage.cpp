@@ -1228,14 +1228,14 @@ void Storage::DeleteNode(TCountryId const & countryId)
   node->ForEachInSubtree(deleteAction);
 }
 
-StatusAndError Storage::NodeStatus(TCountryTreeNode const & node) const
+StatusAndError Storage::GetNodeStatus(TCountryTreeNode const & node) const
 {
   // Leaf node status.
   if (node.ChildrenCount() == 0)
     return ParseStatus(CountryStatusEx(node.Value().Name()));
 
   // Group node status.
-  enum NodeStatus result = NodeStatus::NotDownloaded;
+  NodeStatus result = NodeStatus::NotDownloaded;
   bool allOnDisk = true;
 
   auto groupStatusCalculator = [&result, &allOnDisk, this](TCountryTreeNode const & nodeInSubtree)
@@ -1254,8 +1254,8 @@ StatusAndError Storage::NodeStatus(TCountryTreeNode const & node) const
   node.ForEachDescendant(groupStatusCalculator);
   if (allOnDisk)
     return ParseStatus(Status::EOnDisk);
-  if (!allOnDisk && result == NodeStatus::OnDisk)
-    return { NodeStatus::Mixed, NodeErrorCode::NoError };
+  if (result == NodeStatus::OnDisk)
+    return { NodeStatus::Partly, NodeErrorCode::NoError };
 
   ASSERT_NOT_EQUAL(result, NodeStatus::Undefined, ());
   return { result, NodeErrorCode::NoError };
@@ -1276,7 +1276,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   Country const & nodeValue = node->Value();
   nodeAttrs.m_mwmCounter = nodeValue.GetSubtreeMwmCounter();
   nodeAttrs.m_mwmSize = nodeValue.GetSubtreeMwmSizeBytes();
-  StatusAndError statusAndErr = NodeStatus(*node);
+  StatusAndError statusAndErr = GetNodeStatus(*node);
   nodeAttrs.m_status = statusAndErr.status;
   nodeAttrs.m_error = statusAndErr.error;
   nodeAttrs.m_nodeLocalName = m_countryNameGetter(countryId);

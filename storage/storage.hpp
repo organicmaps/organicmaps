@@ -75,12 +75,12 @@ struct NodeAttrs
   /// Status of group and leaf node.
   /// For group nodes it's defined in the following way:
   /// If an mwm in a group has Downloading status the group has Downloading status
-  /// If not and if an mwm in the group has InQueue status the group has InQueue status
-  /// If not and if an mwm in the group has Error status the group has Error status
-  /// If not and if an mwm in the group has OnDiskOutOfDate the group has OnDiskOutOfDate status
-  /// If not and if all the mwms in the group have OnDisk status the group has OnDisk status
-  /// If not and if all the mwms in the group have NotDownloaded status the group has NotDownloaded status
-  /// If not (that means a part of mwms in the group has OnDisk and the other part has NotDownloaded status)
+  /// Otherwise if an mwm in the group has InQueue status the group has InQueue status
+  /// Otherwise if an mwm in the group has Error status the group has Error status
+  /// Otherwise if an mwm in the group has OnDiskOutOfDate the group has OnDiskOutOfDate status
+  /// Otherwise if all the mwms in the group have OnDisk status the group has OnDisk status
+  /// Otherwise if all the mwms in the group have NotDownloaded status the group has NotDownloaded status
+  /// Otherwise (that means a part of mwms in the group has OnDisk and the other part has NotDownloaded status)
   ///   the group has Mixed status
   NodeStatus m_status;
   /// Error code of leaf node. In case of group node |m_error| == NodeErrorCode::NoError.
@@ -503,7 +503,7 @@ private:
   Status CountryStatus(TCountryId const & countryId) const;
 
   /// Returns status for a node (group node or not)
-  StatusAndError NodeStatus(TCountryTreeNode const & node) const;
+  StatusAndError GetNodeStatus(TCountryTreeNode const & node) const;
 
   void NotifyStatusChanged(TCountryId const & countryId);
   void NotifyStatusChangedForHierarchy(TCountryId const & countryId);

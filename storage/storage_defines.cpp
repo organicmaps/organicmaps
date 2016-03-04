@@ -47,8 +47,8 @@ string DebugPrint(NodeStatus status)
     return string("InQueue");
   case NodeStatus::OnDiskOutOfDate:
     return string("OnDiskOutOfDate");
-  case NodeStatus::Mixed:
-    return string("Mixed");
+  case NodeStatus::Partly:
+    return string("Partly");
   }
 }
 
