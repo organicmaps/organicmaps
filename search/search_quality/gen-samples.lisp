@@ -29,7 +29,9 @@ exec /usr/local/bin/sbcl --noinform --quit --load $0 --end-toplevel-options "$@"
 (defun lon-to-x (lon) lon)
 (defun lat-to-y (lat)
   (let* ((sinx (sin (deg-to-rad (clamp lat -86.0 86.0))))
-         (result (rad-to-deg (* 0.5 (log (/ (+ 1.0 sinx) (- 1.0 sinx)))))))
+         (result (rad-to-deg (* 0.5
+                                (log (/ (+ 1.0 sinx)
+                                        (- 1.0 sinx)))))))
     (clamp-y result)))
 
 (defclass pos () ((x :initarg :x)
@@ -66,6 +68,9 @@ exec /usr/local/bin/sbcl --noinform --quit --load $0 --end-toplevel-options "$@"
 (defmacro relevant (&rest args)
   `(make-result 'relevant ,@args))
 
+(defmacro irrelevant (&rest args)
+  `(make-result 'irrelevant ,@args))
+
 (defclass sample ()
   ((query :initarg :query)
    (locale :initarg :locale)
@@ -81,10 +86,29 @@ exec /usr/local/bin/sbcl --noinform --quit --load $0 --end-toplevel-options "$@"
                  :viewport viewport
                  :results results))
 
+(defmacro with-gensyms ((&rest syms) &rest body)
+  `(let ,(loop for sym in syms
+            collecting `(,sym (gensym)))
+     ,@body))
+
 (defmacro defsample (&rest args)
   `(push (make-sample ,@args) *samples*))
 
-(load (merge-pathnames "samples.lisp" *load-truename*))
+(defmacro scoped-samples ((locale position viewport) &rest body)
+  (with-gensyms (ls ps vs)
+    `(let ((,ls ,locale)
+           (,ps ,position)
+           (,vs ,viewport))
+       (flet ((def (query results)
+                (defsample query ,ls ,ps ,vs results)))
+         ,@body))))
+
+; Loads samples specification from standard input.
+(load *standard-input*)
 
 (format *error-output* "Num samples: ~a~%" (length *samples*))
-(format t "~a~%" (json:encode-json-to-string *samples*))
+(format *error-output* "Num results: ~a~%"
+        (loop for sample in *samples*
+             summing (length (slot-value sample 'results))))
+
+(format t "~a~%" (json:encode-json-to-string (reverse *samples*)))
