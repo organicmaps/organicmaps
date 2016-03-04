@@ -6,6 +6,7 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 #include "platform/servers_list.hpp"
 #include "platform/settings.hpp"
 
@@ -112,6 +113,7 @@ Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */, stri
   : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId(0), m_dataDir(dataDir),
     m_downloadMapOnTheMap(nullptr)
 {
+  SetLocale(languages::GetCurrentTwine());
   LoadCountriesFile(pathToCountriesFile, m_dataDir);
 }
 
