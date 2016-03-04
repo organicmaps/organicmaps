@@ -1,5 +1,7 @@
 #pragma once
 
+#include "search/v2/search_model.hpp"
+
 #include "std/cstdint.hpp"
 
 namespace search
@@ -23,6 +25,9 @@ struct PreRankingInfo
 
   // Rank of the feature.
   uint8_t m_rank = 0;
+
+  // Search type for the feature.
+  SearchModel::SearchType m_searchType = SearchModel::SEARCH_TYPE_COUNT;
 };
 }  // namespace v2
 }  // namespace search

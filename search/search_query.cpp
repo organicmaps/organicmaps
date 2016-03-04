@@ -653,7 +653,7 @@ class PreResult2Maker
 
     info.m_rank = preInfo.m_rank;
 
-    info.m_searchType = v2::SearchModel::Instance().GetSearchType(ft);
+    info.m_searchType = preInfo.m_searchType;
 
     info.m_nameScore = v2::NAME_SCORE_ZERO;
     for (auto const & lang : m_params.m_langs)

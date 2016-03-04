@@ -721,7 +721,7 @@ void Geocoder::FillLocalitiesTable()
       if (numCities < kMaxNumCities && ft.GetFeatureType() == feature::GEOM_POINT)
       {
         ++numCities;
-        City city = l;
+        City city(l, SearchModel::SEARCH_TYPE_CITY);
         city.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
             feature::GetCenter(ft), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
 
@@ -808,7 +808,7 @@ void Geocoder::FillVillageLocalities()
       continue;
 
     ++numVillages;
-    City village = l;
+    City village(l, SearchModel::SEARCH_TYPE_VILLAGE);
     village.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
         feature::GetCenter(ft), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
 
@@ -902,7 +902,7 @@ void Geocoder::MatchRegions(RegionType type)
       if (AllTokensUsed())
       {
         // Region matches to search query, we need to emit it as is.
-        EmitResult(m_worldId, region.m_featureId, startToken, endToken);
+        EmitResult(region, startToken, endToken);
         continue;
       }
 
@@ -947,8 +947,8 @@ void Geocoder::MatchCities()
       ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
       if (AllTokensUsed())
       {
-        // City matches to search query.
-        EmitResult(city.m_countryId, city.m_featureId, startToken, endToken);
+        // City matches to search query, we need to emit it as is.
+        EmitResult(city, startToken, endToken);
         continue;
       }
 
@@ -1243,25 +1243,26 @@ void Geocoder::FindPaths()
     sortedLayers.push_back(&layer);
   sort(sortedLayers.begin(), sortedLayers.end(), my::CompareBy(&FeaturesLayer::m_type));
 
-  auto startToken = sortedLayers.front()->m_startToken;
-  auto endToken = sortedLayers.front()->m_endToken;
+  auto const & innermostLayer = *sortedLayers.front();
 
   m_finder.ForEachReachableVertex(*m_matcher, sortedLayers,
-                                  [this, startToken, endToken](IntersectionResult const & result)
-                                  {
+                                  [this, &innermostLayer](IntersectionResult const & result)
+  {
     ASSERT(result.IsValid(), ());
     // TODO(@y, @m, @vng): use rest fields of IntersectionResult for
     // better scoring.
-    EmitResult(m_context->GetId(), result.InnermostResult(), startToken, endToken);
+    EmitResult(m_context->GetId(), result.InnermostResult(), innermostLayer.m_type,
+               innermostLayer.m_startToken, innermostLayer.m_endToken);
   });
 }
 
-void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, size_t startToken,
-                          size_t endToken)
+void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, SearchModel::SearchType type,
+                          size_t startToken, size_t endToken)
 {
   FeatureID id(mwmId, ftId);
 
   PreRankingInfo info;
+  info.m_searchType = type;
   info.m_startToken = startToken;
   info.m_endToken = endToken;
   if (auto const & mwmInfo = mwmId.GetInfo())
@@ -1274,6 +1275,23 @@ void Geocoder::EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, size_t sta
   // info.m_ranks will be filled at the end, for all results at once.
 
   m_results->emplace_back(move(id), move(info));
+}
+
+void Geocoder::EmitResult(Region const & region, size_t startToken, size_t endToken)
+{
+  SearchModel::SearchType type;
+  switch (region.m_type)
+  {
+  case REGION_TYPE_STATE: type = SearchModel::SEARCH_TYPE_STATE; break;
+  case REGION_TYPE_COUNTRY: type = SearchModel::SEARCH_TYPE_COUNTRY; break;
+  case REGION_TYPE_COUNT: type = SearchModel::SEARCH_TYPE_COUNT; break;
+  }
+  EmitResult(m_worldId, region.m_featureId, type, startToken, endToken);
+}
+
+void Geocoder::EmitResult(City const & city, size_t startToken, size_t endToken)
+{
+  EmitResult(city.m_countryId, city.m_featureId, city.m_type, startToken, endToken);
 }
 
 void Geocoder::FillResultRanks()
@@ -1339,8 +1357,9 @@ void Geocoder::MatchUnclassified(size_t curToken)
 
   auto emitUnclassified = [&](uint32_t featureId)
   {
-    if (GetSearchTypeInGeocoding(featureId) == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
-      EmitResult(m_context->GetId(), featureId, startToken, curToken);
+    auto type = GetSearchTypeInGeocoding(featureId);
+    if (type == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
+      EmitResult(m_context->GetId(), featureId, type, startToken, curToken);
   };
   coding::CompressedBitVectorEnumerator::ForEach(*allFeatures, emitUnclassified);
 }

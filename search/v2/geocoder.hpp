@@ -122,9 +122,10 @@ public:
   // states and Locality for smaller settlements.
   struct City : public Locality
   {
-    City(Locality const & l): Locality(l) {}
+    City(Locality const & l, SearchModel::SearchType type) : Locality(l), m_type(type) {}
 
     m2::RectD m_rect;
+    SearchModel::SearchType m_type;
   };
 
   using TResult = pair<FeatureID, PreRankingInfo>;
@@ -223,7 +224,10 @@ private:
   void FindPaths();
 
   // Forms result and appends it to |m_results|.
-  void EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, size_t startToken, size_t endToken);
+  void EmitResult(MwmSet::MwmId const & mwmId, uint32_t ftId, SearchModel::SearchType type,
+                  size_t startToken, size_t endToken);
+  void EmitResult(Region const & region, size_t startToken, size_t endToken);
+  void EmitResult(City const & city, size_t startToken, size_t endToken);
 
   // Computes rank for all results in |m_results|.
   void FillResultRanks();
