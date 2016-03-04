@@ -68,7 +68,7 @@ map<string, m2::RectD> const kViewports = {
     {"london", MercatorBounds::RectByCenterLatLonAndSizeInMeters(51.5, 0.0, 5000)},
     {"zurich", MercatorBounds::RectByCenterLatLonAndSizeInMeters(47.4, 8.5, 5000)}};
 
-string const kDefaultQueriesPathSuffix = "/../search/search_quality_tests/queries.txt";
+string const kDefaultQueriesPathSuffix = "/../search/search_quality/search_quality_tool/queries.txt";
 string const kEmptyResult = "<empty>";
 
 // todo(@m) We should not need that much.
