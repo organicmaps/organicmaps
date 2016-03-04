@@ -3,17 +3,8 @@
 
 #include "std/vector.hpp"
 
-#include <boost/geometry.hpp>
-#include <boost/geometry/geometries/linestring.hpp>
-#include <boost/geometry/geometries/point_xy.hpp>
-#include <boost/geometry/geometries/polygon.hpp>
-
 namespace m2
 {
-
-using TPoint = boost::geometry::model::d2::point_xy<double>;
-using TPolygon = boost::geometry::model::polygon<TPoint>;
-using TLine = boost::geometry::model::linestring<TPoint>;
 
 using AddPoligonPoint = function<void(m2::PointD const &)>;
 using InsertCorners = function<void(int, int)>;
@@ -61,6 +52,9 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1,
                         m2::PointD const & p2, m2::PointD const & p3,
                         ClipTriangleByRectResultIt const & resultIterator)
 {
+  if (resultIterator == nullptr)
+    return;
+
   if (rect.IsPointInside(p1) && rect.IsPointInside(p2) && rect.IsPointInside(p3))
   {
     resultIterator(p1, p2, p3);
@@ -141,43 +135,54 @@ vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpli
 {
   vector<m2::SharedSpline> result;
 
+  vector<m2::PointD> const & path = spline->GetPath();
+  if (path.size() < 2)
+    return result;
+
   m2::RectD splineRect;
-  for (m2::PointD const & p : spline->GetPath())
+  for (m2::PointD const & p : path)
     splineRect.Add(p);
 
+  // Check for spline is inside.
   if (rect.IsRectInside(splineRect))
   {
     result.push_back(spline);
     return result;
   }
 
-  m2::PointD const rt = rect.RightTop();
-  m2::PointD const rb = rect.RightBottom();
-  m2::PointD const lt = rect.LeftTop();
-  m2::PointD const lb = rect.LeftBottom();
-  TPolygon rectanglePoly;
-  boost::geometry::assign_points(rectanglePoly,
-                                 vector<TPoint>{ TPoint(lt.x, lt.y), TPoint(rt.x, rt.y),
-                                                 TPoint(rb.x, rb.y), TPoint(lb.x, lb.y),
-                                                 TPoint(lt.x, lt.y) });
-  TLine line;
-  line.reserve(spline->GetSize());
-  for (m2::PointD const & p : spline->GetPath())
-    line.push_back(TPoint(p.x, p.y));
-
-  vector<TLine> output;
-  if (!boost::geometry::intersection(rectanglePoly, line, output) || output.empty())
+  // Check for spline is outside.
+  if (!rect.IsIntersect(splineRect))
     return result;
 
-  for (TLine const & outLine : output)
-  {
-    m2::SharedSpline s;
-    s.Reset(new m2::Spline(outLine.size()));
-    for (TPoint const & p : outLine)
-      s->AddPoint(m2::PointD(p.x(), p.y()));
-    result.push_back(move(s));
-  }
+  // Divide spline into parts.
+  result.reserve(2);
+  m2::PointD p1, p2;
+  int code1 = 0;
+  int code2 = 0;
+  m2::SharedSpline s;
+  s.Reset(new m2::Spline(path.size()));
 
+  for (size_t i = 0; i < path.size() - 1; i++)
+  {
+    p1 = path[i];
+    p2 = path[i + 1];
+    if (m2::Intersect(rect, p1, p2, code1, code2))
+    {
+      if ((p1 - p2).IsAlmostZero())
+        continue;
+
+      if (s.IsNull())
+        s.Reset(new m2::Spline(path.size() - i));
+
+      s->AddPoint(p1);
+      if (code2 != 0 || i + 2 == path.size())
+      {
+        s->AddPoint(p2);
+        result.push_back(s);
+        s.Reset(nullptr);
+      }
+    }
+  }
   return result;
 }
 

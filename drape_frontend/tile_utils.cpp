@@ -13,8 +13,9 @@ namespace df
 CoverageResult CalcTilesCoverage(m2::RectD const & rect, int targetZoom,
                                  function<void(int, int)> const & processTile)
 {
+  ASSERT_GREATER(targetZoom, 0, ());
   double const range = MercatorBounds::maxX - MercatorBounds::minX;
-  double const rectSize = range / (1 << targetZoom);
+  double const rectSize = range / (1 << (targetZoom - 1));
 
   CoverageResult result;
   result.m_minTileX = static_cast<int>(floor(rect.minX() / rectSize));

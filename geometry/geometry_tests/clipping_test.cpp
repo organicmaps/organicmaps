@@ -246,4 +246,17 @@ UNIT_TEST(Clipping_ClipSplineByRect)
   vector<m2::SharedSpline> result4 = m2::ClipSplineByRect(r, spline4);
   vector<m2::SharedSpline> expectedResult4 = ConstructSplineList({ { m2::PointD(-0.5, 0.0), m2::PointD(0.5, 0.5) } });
   TEST(CompareSplineLists(result4, expectedResult4), ());
+
+  // Intersection. Long spline.
+  m2::SharedSpline spline5;
+  spline5.Reset(new m2::Spline(4));
+  spline5->AddPoint(m2::PointD(-2.0, 0.0));
+  spline5->AddPoint(m2::PointD(0.0, 0.0));
+  spline5->AddPoint(m2::PointD(0.5, 0.5));
+  spline5->AddPoint(m2::PointD(2.0, 1.0));
+  vector<m2::SharedSpline> result5 = m2::ClipSplineByRect(r, spline5);
+  vector<m2::SharedSpline> expectedResult5 = ConstructSplineList({ { m2::PointD(-1.0, 0.0), m2::PointD(0.0, 0.0),
+                                                                     m2::PointD(0.5, 0.5), m2::PointD(1.0, 0.66666666) } });
+  TEST(CompareSplineLists(result5, expectedResult5), ());
 }
+

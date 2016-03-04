@@ -69,7 +69,8 @@ bool TileKey::EqualStrict(TileKey const & other) const
 m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom) const
 {
   int const zoomLevel = clipByDataMaxZoom ? ClipTileZoomByMaxDataZoom(m_zoomLevel) : m_zoomLevel;
-  double const worldSizeDevisor = 1 << zoomLevel;
+  ASSERT_GREATER(zoomLevel, 0, ());
+  double const worldSizeDevisor = 1 << (zoomLevel - 1);
   // Mercator SizeX and SizeY are equal.
   double const rectSize = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDevisor;
 
