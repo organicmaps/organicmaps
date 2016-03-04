@@ -148,6 +148,15 @@ string MetadataTagProcessorImpl::ValidateAndFormat_flats(string const & v) const
   return v;
 }
 
+string MetadataTagProcessorImpl::ValidateAndFormat_internet(string v) const
+{
+  // TODO(AlexZ): Reuse/synchronize this code with MapObject::SetInternet().
+  strings::AsciiToLower(v);
+  if (v == "wlan" || v == "wired" || v == "yes" || v == "no")
+    return v;
+  return {};
+}
+
 string MetadataTagProcessorImpl::ValidateAndFormat_height(string const & v) const
 {
   double val = 0;
