@@ -33,6 +33,7 @@
 - (NSUInteger)numberOfRowsInSection:(NSUInteger)section;
 - (editor::ui::TOpeningDays)unhandledDays;
 
+- (void)storeCachedData;
 - (void)updateOpeningHours;
 
 @end

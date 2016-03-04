@@ -93,6 +93,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 
 - (void)onDone
 {
+  [self.model storeCachedData];
   [self.model updateOpeningHours];
   [self.delegate setOpeningHours:self.openingHours];
   [self onCancel];

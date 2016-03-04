@@ -52,6 +52,7 @@
 - (void)refresh:(BOOL)force;
 
 - (void)scrollIntoView;
+- (void)storeCachedData;
 
 - (BOOL)isRowSelected:(NSUInteger)row;
 

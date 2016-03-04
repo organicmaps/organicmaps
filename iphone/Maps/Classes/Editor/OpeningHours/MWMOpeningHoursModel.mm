@@ -127,6 +127,12 @@ using namespace osmoh;
   return timeTableSet.GetUnhandledDays();
 }
 
+- (void)storeCachedData
+{
+  for (MWMOpeningHoursModel * m in self.sections)
+    [m storeCachedData];
+}
+
 - (void)updateOpeningHours
 {
   stringstream sstr;
