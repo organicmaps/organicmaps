@@ -277,7 +277,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   switch (indexPath.item)
   {
   case MWMBottomMenuViewCellAddPlace:
-    [cell configureWithImageName:nil
+    [cell configureWithImageName:@"ic_add_place"
                            label:L(@"add_place")
                       badgeCount:0];
     break;
