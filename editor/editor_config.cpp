@@ -14,7 +14,7 @@ namespace
 {
 using EType = feature::Metadata::EType;
 
-// TODO(mgsergio): It would be nice to have this map generated from editor.xml.
+// TODO(mgsergio): It would be nice to have this map generated from editor.config.
 static unordered_map<string, EType> const kNamesToFMD= {
   {"cuisine", feature::Metadata::FMD_CUISINE},
   {"opening_hours", feature::Metadata::FMD_OPEN_HOURS},

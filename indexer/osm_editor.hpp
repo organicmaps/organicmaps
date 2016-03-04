@@ -23,7 +23,7 @@ namespace osm
 {
 class Editor final
 {
-  Editor();
+  Editor() = default;
 
 public:
   using TFeatureTypeFn = function<void(FeatureType &)>;  // Mimics Framework::TFeatureTypeFn.

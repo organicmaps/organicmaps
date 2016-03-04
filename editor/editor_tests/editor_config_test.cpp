@@ -17,7 +17,7 @@ UNIT_TEST(EditorConfig_TypeDescription)
     feature::Metadata::FMD_EMAIL
   };
 
-  EditorConfig config("editor.xml");
+  EditorConfig config;
 
   {
     auto const desc = config.GetTypeDescription({"amenity-hunting_stand"});
@@ -42,12 +42,12 @@ UNIT_TEST(EditorConfig_TypeDescription)
     fields.insert(EType::FMD_OPERATOR);
     TEST_EQUAL(desc.GetEditableFields(), fields, ());
   }
-  // TODO(mgsergio): Test case with priority="high" when there is one on editor.xml.
+  // TODO(mgsergio): Test case with priority="high" when there is one on editor.config.
 }
 
 UNIT_TEST(EditorConfig_GetTypesThatGenBeAdded)
 {
-  EditorConfig config("editor.xml");
+  EditorConfig config;
 
   auto const types = config.GetTypesThatCanBeAdded();
   TEST(find(begin(types), end(types), "amenity-cafe") != end(types), ());

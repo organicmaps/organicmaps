@@ -578,8 +578,8 @@
 		677A2DE21C0DD50900635A00 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
 		6B653B941C7F2DE4007BEFC5 /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B653B931C7F2DE4007BEFC5 /* cuisine-strings */; };
 		6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B653B931C7F2DE4007BEFC5 /* cuisine-strings */; };
-		6B9978351C89A316003B8AA0 /* editor.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.xml */; };
-		6B9978361C89A316003B8AA0 /* editor.xml in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.xml */; };
+		6B9978351C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
+		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		6BA0BCD11B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */; };
 		845C891F1C78748000940D7F /* me.maps.enterprise.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 845C891E1C78748000940D7F /* me.maps.enterprise.entitlements */; };
 		845C892C1C8981CE00940D7F /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89291C8981CE00940D7F /* HockeySDK.framework */; };
@@ -1186,7 +1186,7 @@
 		674A7E221C0DA55E003D48E1 /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
 		674A7E231C0DA55E003D48E1 /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
 		6B653B931C7F2DE4007BEFC5 /* cuisine-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cuisine-strings"; path = "../../data/cuisine-strings"; sourceTree = "<group>"; };
-		6B9978341C89A316003B8AA0 /* editor.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = editor.xml; path = ../../data/editor.xml; sourceTree = "<group>"; };
+		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		6BA0BCCF1B74DDBA00CC9969 /* MWMCustomFacebookEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCustomFacebookEvents.h; sourceTree = "<group>"; };
 		6BA0BCD01B74DDBA00CC9969 /* MWMCustomFacebookEvents.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCustomFacebookEvents.mm; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2851,7 +2851,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6B9978341C89A316003B8AA0 /* editor.xml */,
+				6B9978341C89A316003B8AA0 /* editor.config */,
 				671182DE1C7F0DD400CB8177 /* countries_obsolete.txt */,
 				671182DF1C7F0DD400CB8177 /* packed_polygons_obsolete.bin */,
 				671182E01C7F0DD400CB8177 /* WorldCoasts_obsolete.mwm */,
@@ -3178,7 +3178,7 @@
 				3401CD711C3C0C420028C6F8 /* MWMEditorNameTableViewCell.xib in Resources */,
 				347FD8751C60B2CE002FB65E /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				34F9FB891C438ADB00F71201 /* MWMStreetEditorCommonTableViewCell.xib in Resources */,
-				6B9978351C89A316003B8AA0 /* editor.xml in Resources */,
+				6B9978351C89A316003B8AA0 /* editor.config in Resources */,
 				F6588E381B15D87A00EE1E58 /* MWMBookmarkColorCell.xib in Resources */,
 				3401CD691C3C03A80028C6F8 /* MWMEditorTextTableViewCell.xib in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
@@ -3285,7 +3285,7 @@
 				6741A9631BF340DE002C974C /* Images.xcassets in Resources */,
 				6741A9641BF340DE002C974C /* MWMSearchDownloadViewController.xib in Resources */,
 				347FD8881C60B2CE002FB65E /* MWMOpeningHoursTimeSelectorTableViewCell.xib in Resources */,
-				6B9978361C89A316003B8AA0 /* editor.xml in Resources */,
+				6B9978361C89A316003B8AA0 /* editor.config in Resources */,
 				9DA46A151C47E95700EF52BA /* resources-6plus_legacy in Resources */,
 				347FD8721C60B2CE002FB65E /* MWMOpeningHoursAllDayTableViewCell.xib in Resources */,
 				34F9FB931C43AF2400F71201 /* MWMStreetEditorEditTableViewCell.xib in Resources */,

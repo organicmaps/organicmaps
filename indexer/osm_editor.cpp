@@ -127,8 +127,6 @@ namespace osm
 // TODO(AlexZ): Normalize osm multivalue strings for correct merging
 // (e.g. insert/remove spaces after ';' delimeter);
 
-Editor::Editor() : m_config("editor.xml") { }
-
 Editor & Editor::Instance()
 {
   static Editor instance;

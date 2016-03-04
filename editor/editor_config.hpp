@@ -58,7 +58,7 @@ DECLARE_EXCEPTION(ConfigLoadError, RootException);
 class EditorConfig
 {
 public:
-  EditorConfig(string const & fileName);
+  EditorConfig(string const & fileName = "editor.config");
 
   TypeAggregatedDescription GetTypeDescription(vector<string> const & classificatorTypes) const;
   vector<string> GetTypesThatCanBeAdded() const;
