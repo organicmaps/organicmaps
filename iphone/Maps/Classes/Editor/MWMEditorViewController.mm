@@ -154,13 +154,15 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)onSave
 {
-  switch (GetFramework().SaveEditedMapObject(m_mapObject))
+  auto & f = GetFramework();
+  switch (f.SaveEditedMapObject(m_mapObject))
   {
     case osm::Editor::NothingWasChanged:
       break;
     case osm::Editor::SavedSuccessfully:
       [[Statistics instance] logEvent:kStatEventName(kStatEdit, kStatSave)];
       osm_auth_ios::AuthorizationSetNeedCheck(YES);
+      f.UpdatePlacePageInfoForCurrentSelection();
       break;
     case osm::Editor::NoFreeSpaceError:
       // TODO(Vlad): Show error dialog.
