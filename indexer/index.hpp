@@ -229,9 +229,9 @@ public:
         {
           osm::Editor::FeatureStatus const fts = editor.GetFeatureStatus(id, fidIter->m_index);
           ASSERT_NOT_EQUAL(osm::Editor::FeatureStatus::Deleted, fts,
-                           ("Deleted feature was cached. Please review your code."));
+                           ("Deleted feature was cached. It should not be here. Please review your code."));
           FeatureType featureType;
-          if (fts == osm::Editor::FeatureStatus::Modified)
+          if (fts == osm::Editor::FeatureStatus::Modified || fts == osm::Editor::FeatureStatus::Created)
           {
             VERIFY(editor.GetEditedFeature(id, fidIter->m_index, featureType), ());
           }
