@@ -68,7 +68,8 @@ public:
         continue;
 
       FeatureType ft;
-      m_context->GetFeature(id, ft);
+      if (!m_context->GetFeature(id, ft))
+        continue;  // Feature was deleted.
 
       if (calculator.GetProjection(feature::GetCenter(ft, FeatureType::WORST_GEOMETRY), proj) &&
           proj.m_distMeters <= offsetMeters)

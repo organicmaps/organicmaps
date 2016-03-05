@@ -335,7 +335,10 @@ private:
   inline void GetByIndex(uint32_t id, FeatureType & ft) const
   {
     /// @todo Add Cache for feature id -> (point, name / house number).
-    m_context->GetFeature(id, ft);
+    /// TODO(vng): GetFeature below can retur false if feature was deleted by user in the Editor.
+    /// This code should be fixed to take that into an account.
+    /// Until we don't show "Delete" button to our users, this code will work correctly.
+    UNUSED_VALUE(m_context->GetFeature(id, ft));
   }
 
   MwmContext * m_context;

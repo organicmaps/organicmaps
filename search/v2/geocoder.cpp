@@ -152,7 +152,8 @@ public:
   void GetNames(uint32_t featureId, vector<string> & names) const override
   {
     FeatureType ft;
-    m_context.GetFeature(featureId, ft);
+    if (!m_context.GetFeature(featureId, ft))
+      return;  // Feature was deleted by user.
     for (auto const & lang : m_params.m_langs)
     {
       string name;
@@ -1448,7 +1449,7 @@ SearchModel::SearchType Geocoder::GetSearchTypeInGeocoding(uint32_t featureId)
     return SearchModel::SEARCH_TYPE_VILLAGE;
 
   FeatureType feature;
-  m_context->m_vector.GetByIndex(featureId, feature);
+  m_context->GetFeature(featureId, feature);
   return m_model.GetSearchType(feature);
 }
 
