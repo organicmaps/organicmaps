@@ -2398,13 +2398,14 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   return true;
 }
 
-osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject const & emo) const
+osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject const & emo)
 {
-  // TODO(AlexZ): Move this code to the Editor.
-  auto feature = GetFeatureByID(emo.GetID());
-  FeatureType & ft = *feature;
-  ft.ApplyPatch(emo);
-  return osm::Editor::Instance().SaveEditedFeature(ft, emo.GetStreet(), emo.GetHouseNumber());
+  if (!m_lastTapEvent)
+  {
+    // Automatically select newly created objects.
+    m_lastTapEvent.reset(new df::TapInfo { m_currentModelView.GtoP(emo.GetMercator()), false, false, emo.GetID() });
+  }
+  return osm::Editor::Instance().SaveEditedFeature(emo);
 }
 
 void Framework::DeleteFeature(FeatureID const & fid) const
