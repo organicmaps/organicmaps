@@ -161,14 +161,20 @@ class FeatureType : public FeatureBase
 public:
   void Deserialize(feature::LoaderBase * pLoader, TBuffer buffer);
 
-  static FeatureType FromXML(string const & xml);
-  static FeatureType FromXML(editor::XMLFeature const & xml);
-
-  /// Rewrites all but geometry.
+  /// @name Editor methods.
+  //@{
+  /// Rewrites all but geometry and types.
+  /// Should be applied to existing features only (in mwm files).
   void ApplyPatch(editor::XMLFeature const & xml);
-  void ApplyPatch(osm::EditableMapObject const & ef);
+  /// Apply changes from UI for edited or newly created features.
+  /// Replaces all FeatureType's components.
+  void ReplaceBy(osm::EditableMapObject const & ef);
 
   editor::XMLFeature ToXML() const;
+  /// Creates new feature, including geometry and types.
+  /// @Note: only nodes (points) are supported at the moment.
+  bool FromXML(editor::XMLFeature const & xml);
+  //@}
 
   inline void SetID(FeatureID const & id) { m_id = id; }
   inline FeatureID GetID() const { return m_id; }

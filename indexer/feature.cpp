@@ -33,34 +33,6 @@ void FeatureBase::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
   m_header = m_pLoader->GetHeader();
 }
 
-// TODO(mgsergio): No need to create feature from xml, can go with patchig for now.
-//@{
-// FeatureType FeatureType::FromXML(string const & xml)
-// {
-//   pugi::xml_document document;
-//   document.load(xml.data());
-//   return FromXML(document);
-// }
-
-// FeatureType FeatureType::FromXML(editor::XMLFeature const & xml)
-// {
-//   FeatureType feature;
-//   // Should be set to true. Or later call to ParseGeometry will lead to crash.
-//   feature.m_bTrianglesParsed = feature.m_bPointsParsed = true;
-//   feature.m_center = xml.GetCenter();
-
-//   // Preset type for header calculation later in ApplyPatch.
-//   feature.m_header = HEADER_GEOM_POINT;
-
-//   auto const & types = osm::Editor::Instance().GetTypesOfFeature(xml);
-//   copy(begin(types), end(types), begin(feature.m_types));
-//   feature.m_bTypesParsed = true;
-
-//   feature.ApplyPatch(xml);
-
-//   return feature;
-// }
-//@}
 void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
 {
   xml.ForEachName([this](string const & lang, string const & name)
@@ -78,23 +50,34 @@ void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
   // m_params.rank =
   m_bCommonParsed = true;
 
-  for (auto const i : my::UpTo(1u, static_cast<uint32_t>(feature::Metadata::FMD_COUNT)))
+  xml.ForEachTag([this](string const & k, string const & v)
   {
-    auto const type = static_cast<feature::Metadata::EType>(i);
-    auto const attributeName = DebugPrint(type);
-    if (xml.HasTag(attributeName))
-      m_metadata.Set(type, xml.GetTagValue(attributeName));
-  }
+    Metadata::EType mdType;
+    if (Metadata::TypeFromString(k, mdType))
+      m_metadata.Set(mdType, v);
+    else
+      LOG(LWARNING, ("Patching feature has unknown tags"));
+  });
   m_bMetadataParsed = true;
 
+  // If types count will be changed here, in ApplyPatch, new number of types should be passed
+  // instead of GetTypesCount().
   m_header = CalculateHeader(GetTypesCount(), Header() & HEADER_GEOTYPE_MASK, m_params);
   m_bHeader2Parsed = true;
 }
 
-void FeatureType::ApplyPatch(osm::EditableMapObject const & emo)
+void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
 {
-  if (feature::GEOM_POINT == GetFeatureType())
+  uint8_t geoType = Header() & HEADER_GEOTYPE_MASK;
+  // Patching new, not initialized feature.
+  if (!m_bCommonParsed || feature::GEOM_POINT == GetFeatureType())
+  {
     m_center = emo.GetMercator();
+    m_limitRect.MakeEmpty();
+    m_limitRect.Add(m_center);
+    m_bPointsParsed = m_bTrianglesParsed = true;
+    geoType = feature::GEOM_POINT;
+  }
 
   m_params.name = emo.GetName();
   string const & house = emo.GetHouseNumber();
@@ -110,8 +93,11 @@ void FeatureType::ApplyPatch(osm::EditableMapObject const & emo)
   uint32_t typesCount = 0;
   for (uint32_t const type : emo.GetTypes())
     m_types[typesCount++] = type;
-  m_header = CalculateHeader(typesCount, Header() & HEADER_GEOTYPE_MASK, m_params);
+  m_bTypesParsed = true;
+  m_header = CalculateHeader(typesCount, geoType, m_params);
   m_bHeader2Parsed = true;
+
+  m_id = emo.GetID();
 }
 
 editor::XMLFeature FeatureType::ToXML() const
@@ -145,21 +131,101 @@ editor::XMLFeature FeatureType::ToXML() const
   // feature.m_params.layer =
   // feature.m_params.rank =
 
-  // TODO(mgsergio): Save/Load types when required by feature creation or type modification.
-  // ParseTypes();
-  // for (auto const i : my::Range(GetTypesCount()))
-  // {
-  //   for (auto const & tag : osm::Editor::Instance().GetTagsForType(m_types[i]))
-  //     feature.SetTagValue(tag.first, tag.second);
-  // }
+  ParseTypes();
+  feature::TypesHolder th(*this);
+  // TODO(mgsergio): Use correct sorting instead of SortBySpec based on the config.
+  th.SortBySpec();
+  Classificator & cl = classif();
+  // TODO(mgsergio): Either improve "OSM"-compatible serialization for more complex types,
+  // or save all our types directly, to restore and reuse them in migration of modified features.
+  for (uint32_t const type : th)
+  {
+    string const strType = cl.GetReadableObjectName(type);
+    strings::SimpleTokenizer iter(strType, "-");
+    string const k = *iter;
+    if (++iter)
+    {
+      // First (main) type is always stored as "k=amenity v=restaurant".
+      // Any other "k=amenity v=atm" is replaced by "k=atm v=yes".
+      if (feature.GetTagValue(k).empty())
+        feature.SetTagValue(k, *iter);
+      else
+        feature.SetTagValue(*iter, "yes");
+    }
+    else
+    {
+      // We're editing building, generic craft, shop, office, amenity etc.
+      // Skip it's serialization.
+      // TODO(mgsergio): Correcly serialize all types back and forth.
+      LOG(LDEBUG, ("Skipping type serialization:", k));
+    }
+  }
 
-  for (auto const type : GetMetadata().GetPresentTypes())
+  for (auto const type : m_metadata.GetPresentTypes())
   {
     auto const attributeName = DebugPrint(static_cast<Metadata::EType>(type));
     feature.SetTagValue(attributeName, m_metadata.Get(type));
   }
 
   return feature;
+}
+
+bool FeatureType::FromXML(editor::XMLFeature const & xml)
+{
+  ASSERT_EQUAL(editor::XMLFeature::Type::Node, xml.GetType(),
+               ("At the moment only new nodes (points) can can be created."));
+  m_center = xml.GetMercatorCenter();
+  m_limitRect.Add(m_center);
+  m_bPointsParsed = m_bTrianglesParsed = true;
+
+  xml.ForEachName([this](string const & lang, string const & name)
+  {
+    m_params.name.AddString(lang, name);
+  });
+
+  string const house = xml.GetHouse();
+  if (!house.empty())
+    m_params.house.Set(house);
+
+  // TODO(mgsergio):
+  // m_params.ref =
+  // m_params.layer =
+  // m_params.rank =
+  m_bCommonParsed = true;
+
+  uint32_t typesCount = 0;
+  xml.ForEachTag([this, &typesCount](string const & k, string const & v)
+  {
+    Metadata::EType mdType;
+    if (Metadata::TypeFromString(k, mdType))
+    {
+      m_metadata.Set(mdType, v);
+    }
+    else
+    {
+      // Simple heuristics. It works if all our supported types for new features at data/editor.config
+      // are of one or two levels nesting (currently it's true).
+      Classificator & cl = classif();
+      uint32_t type = cl.GetTypeByPathSafe({k, v});
+      if (type == 0)
+        type = cl.GetTypeByPathSafe({k});  // building etc.
+      if (type == 0)
+        type = cl.GetTypeByPathSafe({"amenity", k});  // atm=yes, toilet=yes etc.
+
+      if (type)
+        m_types[typesCount++] = type;
+      else
+        LOG(LWARNING, ("Can't load/parse type:", k, v));
+    }
+  });
+  m_bMetadataParsed = true;
+  m_bTypesParsed = true;
+
+  EHeaderTypeMask const geomType = house.empty() && !m_params.ref.empty() ? HEADER_GEOM_POINT : HEADER_GEOM_POINT_EX;
+  m_header = CalculateHeader(typesCount, geomType, m_params);
+  m_bHeader2Parsed = true;
+
+  return typesCount > 0;
 }
 
 void FeatureBase::ParseTypes() const
