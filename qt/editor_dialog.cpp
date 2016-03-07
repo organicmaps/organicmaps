@@ -87,8 +87,12 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
       nearbyStreets.insert(nearbyStreets.begin(), "");
     grid->addWidget(new QLabel(kStreetObjectName), row, 0);
     QComboBox * cmb = new QComboBox();
-    for (auto const & street : nearbyStreets)
-      cmb->addItem(street.c_str());
+    for (int i = 0; i < nearbyStreets.size(); ++i)
+    {
+      cmb->addItem(nearbyStreets[i].c_str());
+      if (emo.GetStreet() == nearbyStreets[i])
+        cmb->setCurrentIndex(i);
+    }
     cmb->setObjectName(kStreetObjectName);
     grid->addWidget(cmb, row++, 1);
 
