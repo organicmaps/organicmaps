@@ -39,8 +39,7 @@ void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD cons
     }
 
     string name;
-    static int8_t const lang = StringUtf8Multilang::GetLangIndex("default");
-    if (!ft.GetName(lang, name))
+    if (!ft.GetName(StringUtf8Multilang::kDefaultCode, name))
       return;
 
     ASSERT(!name.empty(), ());
@@ -100,11 +99,11 @@ size_t ReverseGeocoder::GetMatchedStreetIndex(string const & keyName,
 }
 
 pair<vector<ReverseGeocoder::Street>, uint32_t>
-ReverseGeocoder::GetNearbyFeatureStreets(FeatureType const & ft) const
+ReverseGeocoder::GetNearbyFeatureStreets(FeatureType & ft) const
 {
   pair<vector<ReverseGeocoder::Street>, uint32_t> result;
 
-  GetNearbyStreets(const_cast<FeatureType &>(ft), result.first);
+  GetNearbyStreets(ft, result.first);
 
   HouseTable table(m_index);
   if (!table.Get(ft.GetID(), result.second))

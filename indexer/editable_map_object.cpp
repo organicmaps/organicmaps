@@ -84,9 +84,9 @@ void EditableMapObject::SetType(uint32_t featureType)
 void EditableMapObject::SetID(FeatureID const & fid) { m_featureID = fid; }
 void EditableMapObject::SetStreet(string const & street) { m_street = street; }
 
-void EditableMapObject::SetNearbyStreets(vector<string> const & streets)
+void EditableMapObject::SetNearbyStreets(vector<string> && streets)
 {
-  m_nearbyStreets = streets;
+  m_nearbyStreets = move(streets);
 }
 void EditableMapObject::SetHouseNumber(string const & houseNumber)
 {

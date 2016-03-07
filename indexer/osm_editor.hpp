@@ -31,7 +31,7 @@ public:
   using TMwmIdByMapNameFn = function<MwmSet::MwmId(string const & /*map*/)>;
   using TInvalidateFn = function<void()>;
   using TFeatureLoaderFn = function<unique_ptr<FeatureType> (FeatureID const & /*fid*/)>;
-  using TFeatureOriginalStreetFn = function<string(FeatureType const & /*ft*/)>;
+  using TFeatureOriginalStreetFn = function<string(FeatureType & /*ft*/)>;
   using TForEachFeaturesNearByFn =
       function<void(TFeatureTypeFn && /*fn*/, m2::PointD const & /*mercator*/)>;
   enum class UploadResult

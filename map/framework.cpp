@@ -374,7 +374,7 @@ Framework::Framework()
     feature->ParseEverything();
     return feature;
   });
-  editor.SetFeatureOriginalStreetFn([this](FeatureType const & ft) -> string
+  editor.SetFeatureOriginalStreetFn([this](FeatureType & ft) -> string
   {
     search::ReverseGeocoder const coder(m_model.GetIndex());
     auto const streets = coder.GetNearbyFeatureStreets(ft);
@@ -2327,6 +2327,27 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
   return false;
 }
 
+namespace
+{
+vector<string> FilterNearbyStreets(vector<search::ReverseGeocoder::Street> const & streets)
+{
+  vector<string> results;
+  // Reasonable number of different nearby street names to display in UI.
+  constexpr size_t kMaxNumberOfNearbyStreetsToDisplay = 8;
+  for (auto const & street : streets)
+  {
+    auto const e = results.end();
+    if (e == find(results.begin(), e, street.m_name))
+    {
+      results.push_back(street.m_name);
+      if (results.size() >= kMaxNumberOfNearbyStreetsToDisplay)
+        break;
+    }
+  }
+  return results;
+}
+}  // namespace
+
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,
                                 osm::EditableMapObject & emo) const
 {
@@ -2334,6 +2355,11 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
         platform::CountryFile(m_infoGetter->GetRegionCountryId(mercator)));
   if (!mwmId.IsAlive())
     return false;
+
+  search::ReverseGeocoder const coder(m_model.GetIndex());
+  vector<search::ReverseGeocoder::Street> streets;
+  coder.GetNearbyStreets(mwmId, mercator, streets);
+  emo.SetNearbyStreets(FilterNearbyStreets(streets));
   return osm::Editor::Instance().CreatePoint(featureType, mercator, mwmId, emo);
 }
 
@@ -2341,14 +2367,34 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
 {
   if (!fid.IsValid())
     return false;
-  // TODO(AlexZ): Move this code to the Editor.
+
   auto feature = GetFeatureByID(fid);
   FeatureType & ft = *feature;
   emo.SetFromFeatureType(ft);
   emo.SetHouseNumber(ft.GetHouseNumber());
-  emo.SetStreet(GetFeatureAddressInfo(ft).m_street);
-  emo.SetNearbyStreets(GetNearbyFeatureStreets(ft));
-  emo.SetEditableProperties(osm::Editor::Instance().GetEditableProperties(ft));
+  osm::Editor & editor = osm::Editor::Instance();
+  emo.SetEditableProperties(editor.GetEditableProperties(ft));
+
+  string street;
+  if (editor.GetEditedFeatureStreet(fid, street))
+  {
+    // Exact feature's street is taken directy from the Editor.
+    // Fill only nearby streets.
+    search::ReverseGeocoder const coder(m_model.GetIndex());
+    vector<search::ReverseGeocoder::Street> streets;
+    coder.GetNearbyStreets(fid.m_mwmId, feature::GetCenter(*feature), streets);
+    emo.SetNearbyStreets(FilterNearbyStreets(streets));
+  }
+  else
+  {
+    // Get exact feature's street address (if any) from mwm, together with all nearby streets.
+    search::ReverseGeocoder const coder(m_model.GetIndex());
+    auto const streets = coder.GetNearbyFeatureStreets(ft);
+    if (streets.second < streets.first.size())
+      street = streets.first[streets.second].m_name;
+    emo.SetNearbyStreets(FilterNearbyStreets(streets.first));
+  }
+  emo.SetStreet(street);
   return true;
 }
 

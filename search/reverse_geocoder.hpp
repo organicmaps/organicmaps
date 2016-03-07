@@ -75,9 +75,9 @@ public:
   void GetNearbyStreets(FeatureType & ft, vector<Street> & streets) const;
   //@}
 
-  /// @todo Leave const reference for now to support client's legacy code.
-  /// It's better to use honest non-const reference when feature can be modified in any way.
-  pair<vector<Street>, uint32_t> GetNearbyFeatureStreets(FeatureType const & ft) const;
+  /// @returns [a lot of] nearby feature's streets and feature's street index, if valid ( < vector.size()).
+  /// @note returned vector can contain duplicated street segments.
+  pair<vector<Street>, uint32_t> GetNearbyFeatureStreets(FeatureType & ft) const;
 
   /// @return The nearest exact address where building has house number and valid street match.
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
