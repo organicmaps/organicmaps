@@ -132,6 +132,7 @@ private:
   /// Notify framework that something has changed and should be redisplayed.
   void Invalidate();
 
+  FeatureID GenerateNewFeatureId(MwmSet::MwmId const & id);
   EditableProperties GetEditablePropertiesForTypes(feature::TypesHolder const & types) const;
 
   struct FeatureTypeInfo

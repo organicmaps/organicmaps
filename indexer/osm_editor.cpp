@@ -683,16 +683,22 @@ NewFeatureCategories Editor::GetNewFeatureCategories() const
   return res;
 }
 
-namespace
+FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id)
 {
-FeatureID GenerateNewFeatureId(FeatureID const & oldFeatureId)
-{
-  // TODO(AlexZ): Stable & unique features ID generation.
-  // TODO(vng): Looks like new feature indexes should uninterruptedly continue after existing indexes in mwm file.
-  static uint32_t newIndex = 0x0effffff;
-  return FeatureID(oldFeatureId.m_mwmId, newIndex++);
+  // TODO(vng): Double-check if new feature indexes should uninterruptedly continue after existing indexes in mwm file.
+  uint32_t featureIndex = kStartIndexForCreatedFeatures;
+  auto const found = m_features.find(id);
+  if (found != m_features.end())
+  {
+    // Scan all already created features and choose next available ID.
+    for (auto const & feature : found->second)
+    {
+      if (feature.second.m_status == FeatureStatus::Created && featureIndex <= feature.first)
+        featureIndex = feature.first + 1;
+    }
+  }
+  return FeatureID(id, featureIndex);
 }
-}  // namespace
 
 bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id, EditableMapObject & outFeature)
 {
