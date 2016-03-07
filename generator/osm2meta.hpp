@@ -84,7 +84,7 @@ public:
     case Metadata::FMD_TURN_LANES_BACKWARD: valid = ValidateAndFormat_turn_lanes_backward(v); break;
     case Metadata::FMD_EMAIL: valid = ValidateAndFormat_email(v); break;
     case Metadata::FMD_POSTCODE: valid = ValidateAndFormat_postcode(v); break;
-    case Metadata::FMD_WIKIPEDIA: valid = ValidateAndFormat_wikipedia(v);
+    case Metadata::FMD_WIKIPEDIA: valid = ValidateAndFormat_wikipedia(v); break;
     case Metadata::FMD_MAXSPEED: valid = ValidateAndFormat_maxspeed(v); break;
     case Metadata::FMD_FLATS: valid = ValidateAndFormat_flats(v); break;
     case Metadata::FMD_MIN_HEIGHT:  // The same validator as for height.
