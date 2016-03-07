@@ -632,7 +632,7 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile,
     platform.MkDir(my::JoinFoldersToPath(platform.WritableDir(), m_dataDir));
   }
 
-  if (m_countries.ChildrenCount() == 0)
+  if (m_countries.IsEmpty())
   {
     string json;
     ReaderPtr<Reader>(GetPlatform().GetReader(pathToCountriesFile)).ReadAsString(json);

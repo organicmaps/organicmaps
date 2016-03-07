@@ -58,8 +58,6 @@ public:
   explicit Country(TCountryId const & name, TCountryId const & parent = kInvalidCountryId)
     : m_name(name), m_parent(parent) {}
 
-  bool operator<(Country const & other) const { return Name() < other.Name(); }
-  bool operator==(Country const & other) const { return Name() == other.Name(); }
   void SetFile(platform::CountryFile const & file) { m_file = file; }
   void SetSubtreeAttrs(uint32_t subtreeMwmNumber, size_t subtreeMwmSizeBytes)
   {
