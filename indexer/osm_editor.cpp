@@ -189,8 +189,7 @@ void Editor::LoadMapEdits()
           if (needMigrateEdits && IsObsolete(xml, fid))
             continue;
 
-          FeatureTypeInfo & fti = m_features[fid.m_mwmId][fid.m_index];
-
+          FeatureTypeInfo fti;
           if (section.first == FeatureStatus::Created)
           {
             fti.m_feature.FromXML(xml);
@@ -217,6 +216,8 @@ void Editor::LoadMapEdits()
           case FeatureStatus::Created: ++created; break;
           case FeatureStatus::Untouched: ASSERT(false, ()); break;
           }
+          // Insert initialized structure at the end: exceptions are possible in above code.
+          m_features[fid.m_mwmId].emplace(fid.m_index, move(fti));
         }
         catch (editor::XMLFeatureError const & ex)
         {
