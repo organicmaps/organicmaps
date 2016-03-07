@@ -345,7 +345,7 @@ void Editor::DeleteFeature(FeatureType const & feature)
 
 namespace
 {
-constexpr uint32_t kStartIndexForCreatedFeatures = numeric_limits<uint32_t>::max() - 0xffff;
+constexpr uint32_t kStartIndexForCreatedFeatures = numeric_limits<uint32_t>::max() - 0xfffff;
 bool IsCreatedFeature(FeatureID const & fid) { return fid.m_index >= kStartIndexForCreatedFeatures; }
 }  // namespace
 

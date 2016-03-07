@@ -60,7 +60,7 @@ void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
   });
   m_bMetadataParsed = true;
 
-  // If types count will be changed here, in ApplyPatch, new number of types should be passed
+  // If types count are changed here, in ApplyPatch, new number of types should be passed
   // instead of GetTypesCount().
   m_header = CalculateHeader(GetTypesCount(), Header() & HEADER_GEOTYPE_MASK, m_params);
   m_bHeader2Parsed = true;

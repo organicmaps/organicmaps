@@ -126,7 +126,16 @@ public:
   RankTableV0(vector<uint8_t> const & ranks) : m_coding(ranks) {}
 
   // RankTable overrides:
-  uint8_t Get(uint64_t i) const override { return m_coding.Get(i); }
+  uint8_t Get(uint64_t i) const override
+  {
+    // i can be greater than Size() for features created by user in the Editor.
+    // TODO(vng): Is there a better way inject it? Without this check search engine crashes here.
+    //ASSERT_LESS(i, Size(), ());
+    if (i >= Size())
+      return 0;
+
+    return m_coding.Get(i);
+  }
   uint64_t Size() const override { return m_coding.Size(); }
   RankTable::Version GetVersion() const override { return V0; }
   void Serialize(Writer & writer, bool preserveHostEndianness) override

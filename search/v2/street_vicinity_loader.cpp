@@ -50,7 +50,7 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
 {
   FeatureType feature;
   if (!m_context->GetFeature(featureId, feature))
-    return;  // Feature was deleted by user.
+    return;
 
   if (feature.GetFeatureType() != feature::GEOM_LINE)
     return;

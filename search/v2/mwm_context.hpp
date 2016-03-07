@@ -56,6 +56,7 @@ struct MwmContext
                      });
   }
 
+  // @returns false if feature was deleted by user.
   bool GetFeature(uint32_t index, FeatureType & ft) const;
 
 private:

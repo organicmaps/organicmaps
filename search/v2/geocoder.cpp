@@ -153,7 +153,7 @@ public:
   {
     FeatureType ft;
     if (!m_context.GetFeature(featureId, ft))
-      return;  // Feature was deleted by user.
+      return;
     for (auto const & lang : m_params.m_langs)
     {
       string name;
