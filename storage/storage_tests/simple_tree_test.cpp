@@ -19,16 +19,16 @@ struct Calculator
 UNIT_TEST(CountryTree_Smoke)
 {
   typedef CountryTree<int, int>::Node TTree;
-  TTree tree;
+  TTree tree(0, nullptr);
 
-  tree.AddAtDepth(0, 4);
-  tree.AddAtDepth(0, 3);
-  tree.AddAtDepth(0, 5);
-  tree.AddAtDepth(0, 2);
-  tree.AddAtDepth(0, 1);
-  tree.AddAtDepth(1, 20);  // 1 is parent
-  tree.AddAtDepth(1, 10);  // 1 is parent
-  tree.AddAtDepth(1, 30);  // 1 is parent
+  tree.AddAtDepth(1, 4);
+  tree.AddAtDepth(1, 3);
+  tree.AddAtDepth(1, 5);
+  tree.AddAtDepth(1, 2);
+  tree.AddAtDepth(1, 1);
+  tree.AddAtDepth(2, 20);
+  tree.AddAtDepth(2, 10);
+  tree.AddAtDepth(2, 30);
 
   // children test
   TEST_EQUAL(tree.Child(0).Value(), 4, ());
@@ -57,9 +57,4 @@ UNIT_TEST(CountryTree_Smoke)
   Calculator<TTree> c3;
   tree.Child(4).Child(0).ForEachAncestorExceptForTheRoot(c3);
   TEST_EQUAL(c3.count, 1, ());
-
-  tree.Clear();
-  Calculator<TTree> c4;
-  tree.ForEachDescendant(c4);
-  TEST_EQUAL(c4.count, 0, ("Tree should be empty"));
 }
