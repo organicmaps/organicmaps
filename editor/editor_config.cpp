@@ -137,7 +137,7 @@ bool EditorConfig::GetTypeDescription(vector<string> const & classificatorTypes,
 
 vector<string> EditorConfig::GetTypesThatCanBeAdded() const
 {
-  auto const xpathResult = m_document.select_nodes("/mapsme/editor/types/type[not(@can_add='no')]");
+  auto const xpathResult = m_document.select_nodes("/mapsme/editor/types/type[not(@can_add='no' or @editable='no')]");
   vector<string> result;
   for (auto const xNode : xpathResult)
     result.emplace_back(xNode.node().attribute("id").value());

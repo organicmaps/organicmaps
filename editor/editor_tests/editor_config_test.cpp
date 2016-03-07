@@ -60,4 +60,6 @@ UNIT_TEST(EditorConfig_GetTypesThatGenBeAdded)
   auto const types = config.GetTypesThatCanBeAdded();
   TEST(find(begin(types), end(types), "amenity-cafe") != end(types), ());
   TEST(find(begin(types), end(types), "natural-peak") == end(types), ());
+  // Marked as "editable=no".
+  TEST(find(begin(types), end(types), "aeroway-airport") == end(types), ());
 }
