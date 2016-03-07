@@ -463,7 +463,12 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, Featur
 
 EditableProperties Editor::GetEditableProperties(FeatureType const & feature) const
 {
-  feature::TypesHolder const types(feature);
+  // TODO(mgsergio): Check if feature is in the area where editing is disabled in the config.
+  return GetEditablePropertiesForTypes(feature::TypesHolder(feature));
+}
+// private
+EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder const & types) const
+{
   editor::TypeAggregatedDescription desc;
   if (m_config.GetTypeDescription(types.ToObjectNames(), desc))
     return {desc.GetEditableFields(), desc.IsNameEditable(), desc.IsAddressEditable()};

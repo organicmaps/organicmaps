@@ -132,6 +132,8 @@ private:
   /// Notify framework that something has changed and should be redisplayed.
   void Invalidate();
 
+  EditableProperties GetEditablePropertiesForTypes(feature::TypesHolder const & types) const;
+
   struct FeatureTypeInfo
   {
     FeatureStatus m_status;
