@@ -1172,14 +1172,8 @@ void Framework::ShowSearchResult(search::Result const & res)
   else
     ShowRect(df::GetRectForDrawScale(scale, center));
 
-  {
-    UserMarkControllerGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);
-    guard.m_controller.SetIsDrawable(false);
-    guard.m_controller.Clear();
-    guard.m_controller.SetIsVisible(true);
-    UNUSED_VALUE(guard.m_controller.CreateUserMark(center));
-  }
-  ActivateMapSelection(false, df::SelectionShape::OBJECT_USER_MARK, info);
+  UserMarkContainer::UserMarkForPoi()->SetPtOrg(center);
+  ActivateMapSelection(false, df::SelectionShape::OBJECT_POI, info);
 }
 
 size_t Framework::ShowSearchResults(search::Results const & results)
