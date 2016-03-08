@@ -107,9 +107,6 @@ public class SlotFrame extends LinearLayout
     void setMapObject(MapObject mapObject)
     {
       mMapObject = mapObject;
-      if (mMapObject != null)
-        mMapObject.setDefaultIfEmpty();
-
       updateText();
     }
 

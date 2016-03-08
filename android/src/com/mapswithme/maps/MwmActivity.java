@@ -1006,8 +1006,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (request == null)
         return;
 
-      request.setPointData(object.getLat(), object.getLon(), object.getTitle(), object.getSearchId());
-      object.setTypeName(request.getCallerName(MwmApplication.get()).toString());
+      // TODO @yunikkk get point id for api point from core.
+      request.setPointData(object.getLat(), object.getLon(), object.getTitle(), "");
+      object.setSubtitle(request.getCallerName(MwmApplication.get()).toString());
     }
     else if (MapObject.isOfType(MapObject.MY_POSITION, object) &&
              Framework.nativeIsRoutingActive())

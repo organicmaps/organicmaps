@@ -12,7 +12,6 @@ import java.lang.annotation.RetentionPolicy;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
 
 // TODO(yunikkk): Refactor. Displayed information is different from edited information, and it's better to
 // separate them. Simple getters from jni place_page::Info and osm::EditableFeature should be enough.
@@ -31,59 +30,38 @@ public class MapObject implements Parcelable
   @MapObjectType protected final int mMapObjectType;
 
   protected String mTitle;
+  protected String mSubtitle;
   protected double mLat;
   protected double mLon;
-  protected String mSubtitle;
-  protected String mStreet;
-  protected String mHouseNumber;
+  protected String mAddress;
   protected Metadata mMetadata;
-  protected boolean mIsDroppedPin;
-  protected String mSearchId;
 
-  // TODO @yunikkk add static factory methods for different mapobject creation
-
-  public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName, String street, String house)
+  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address, double lat, double lon)
   {
-    this(mapObjectType, name, lat, lon, typeName, street, house, new Metadata());
+    this(mapObjectType, title, subtitle, address, lat, lon, new Metadata());
   }
 
-  public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName, String street, String house, Metadata metadata)
+  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address, double lat, double lon, Metadata metadata)
   {
     mMapObjectType = mapObjectType;
-    mTitle = name;
+    mTitle = title;
+    mSubtitle = subtitle;
+    mAddress = address;
     mLat = lat;
     mLon = lon;
-    mSubtitle = typeName;
-    mStreet = street;
-    mHouseNumber = house;
     mMetadata = metadata;
-    mIsDroppedPin = TextUtils.isEmpty(mTitle);
   }
 
   protected MapObject(Parcel source)
   {
     //noinspection ResourceType
     this(source.readInt(),    // MapObjectType
-         source.readString(), // Name
+         source.readString(), // Title
+         source.readString(), // Subtitle
+         source.readString(), // Address
          source.readDouble(), // Lat
          source.readDouble(), // Lon
-         source.readString(), // TypeName
-         source.readString(), // Street
-         source.readString(), // HouseNumber
          (Metadata) source.readParcelable(Metadata.class.getClassLoader()));
-
-    mIsDroppedPin = source.readByte() != 0;
-    mSearchId = source.readString();
-  }
-
-  public void setDefaultIfEmpty()
-  {
-    if (TextUtils.isEmpty(mTitle))
-      mTitle = TextUtils.isEmpty(mSubtitle) ? MwmApplication.get().getString(R.string.dropped_pin)
-                                           : mSubtitle;
-
-    if (TextUtils.isEmpty(mSubtitle))
-      mSubtitle = MwmApplication.get().getString(R.string.placepage_unsorted);
   }
 
   /**
@@ -122,16 +100,11 @@ public class MapObject implements Parcelable
 
   public String getTitle() { return mTitle; }
 
+  public String getSubtitle() { return mSubtitle; }
+
   public double getLat() { return mLat; }
 
   public double getLon() { return mLon; }
-
-  public String getSubtitle() { return mSubtitle; }
-
-  public boolean getIsDroppedPin()
-  {
-    return mIsDroppedPin;
-  }
 
   @NonNull
   public String getMetadata(Metadata.MetadataType type)
@@ -163,35 +136,10 @@ public class MapObject implements Parcelable
     return result.toString();
   }
 
-  public String getStreet()
-  {
-    return mStreet;
-  }
-
-  public String getHouseNumber()
-  {
-    return mHouseNumber;
-  }
-
   @MapObjectType
   public int getMapObjectType()
   {
     return mMapObjectType;
-  }
-
-  public String getSearchId()
-  {
-    return mSearchId;
-  }
-
-  public void setName(String name)
-  {
-    mTitle = name;
-  }
-
-  public void setHouseNumber(String houseNumber)
-  {
-    mHouseNumber = houseNumber;
   }
 
   public void setLat(double lat)
@@ -204,7 +152,7 @@ public class MapObject implements Parcelable
     mLon = lon;
   }
 
-  public void setTypeName(String typeName)
+  public void setSubtitle(String typeName)
   {
     mSubtitle = typeName;
   }
@@ -223,11 +171,6 @@ public class MapObject implements Parcelable
   {
     for (int i = 0; i < types.length; i++)
       addMetadata(types[i], values[i]);
-  }
-
-  public void setStreet(String street)
-  {
-    mStreet = street;
   }
 
   public static boolean isOfType(@MapObjectType int type, MapObject object)
@@ -256,14 +199,11 @@ public class MapObject implements Parcelable
     dest.writeInt(mMapObjectType); // write map object type twice - first int is used to distinguish created object (MapObject or Bookmark)
     dest.writeInt(mMapObjectType);
     dest.writeString(mTitle);
+    dest.writeString(mSubtitle);
+    dest.writeString(mAddress);
     dest.writeDouble(mLat);
     dest.writeDouble(mLon);
-    dest.writeString(mSubtitle);
-    dest.writeString(mStreet);
-    dest.writeString(mHouseNumber);
     dest.writeParcelable(mMetadata, 0);
-    dest.writeByte((byte) (mIsDroppedPin ? 1 : 0));
-    dest.writeString(mSearchId);
   }
 
   public static final Creator<MapObject> CREATOR = new Creator<MapObject>()

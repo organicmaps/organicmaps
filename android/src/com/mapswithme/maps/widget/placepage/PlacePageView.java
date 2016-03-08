@@ -371,8 +371,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (mMapObject == null)
       return;
 
-    mMapObject.setDefaultIfEmpty();
-
     refreshPreview();
     refreshDetails();
     final Location loc = LocationHelper.INSTANCE.getLastLocation();
@@ -418,8 +416,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvTitle.setText(mMapObject.getTitle());
     if (mToolbar != null)
       mToolbar.setTitle(mMapObject.getTitle());
-    String subtitle = mMapObject.getSubtitle();
-    mTvSubtitle.setText(subtitle);
+    mTvSubtitle.setText(mMapObject.getSubtitle());
     mAvDirection.setVisibility(View.GONE);
   }
 

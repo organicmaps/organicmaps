@@ -22,45 +22,20 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, f
   }
 }
 
-pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, Metadata const & metadata)
+jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title, string const & subtitle,
+                        double lat, double lon, string const & address, Metadata const & metadata)
 {
-  auto const metaTypes = metadata.GetPresentTypes();
-  const jintArray j_metaTypes = env->NewIntArray(metadata.Size());
-  jint * arr = env->GetIntArrayElements(j_metaTypes, 0);
-  const jobjectArray j_metaValues = env->NewObjectArray(metadata.Size(), jni::GetStringClass(env), 0);
-
-  for (size_t i = 0; i < metaTypes.size(); i++)
-  {
-    auto const type = metaTypes[i];
-    arr[i] = type;
-    // TODO: Refactor code to use separate getters for each metadata.
-    jni::TScopedLocalRef metaString(env, type == Metadata::FMD_WIKIPEDIA ?
-                                                 jni::ToJavaString(env, metadata.GetWikiURL()) :
-                                                 jni::ToJavaString(env, metadata.Get(type)));
-    env->SetObjectArrayElement(j_metaValues, i, metaString.get());
-  }
-  env->ReleaseIntArrayElements(j_metaTypes, arr, 0);
-
-  return make_pair(j_metaTypes, j_metaValues);
-}
-
-// TODO(yunikkk): displayed information does not need separate street and house.
-// There is an AddressInfo::FormatAddress() method which should be used instead.
-jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & name, double lat, double lon, string const & typeName, string const & street, string const & house, Metadata const & metadata)
-{
-  // Java signature :
-  // public MapObject(@MapObjectType int mapObjectType, String name, double lat, double lon, String typeName, String street, String house)
+  // public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, double lat, double lon, String address, Metadata metadata)
   static jmethodID const ctorId =
-      jni::GetConstructorID(env, g_mapObjectClazz, "(ILjava/lang/String;DDLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+      jni::GetConstructorID(env, g_mapObjectClazz, "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DD)V");
 
   jobject mapObject = env->NewObject(g_mapObjectClazz, ctorId,
                                      static_cast<jint>(mapObjectType),
-                                     jni::ToJavaString(env, name),
+                                     jni::ToJavaString(env, title),
+                                     jni::ToJavaString(env, subtitle),
+                                     jni::ToJavaString(env, address),
                                      static_cast<jdouble>(lat),
-                                     static_cast<jdouble>(lon),
-                                     jni::ToJavaString(env, typeName),
-                                     jni::ToJavaString(env, street),
-                                     jni::ToJavaString(env, house));
+                                     static_cast<jdouble>(lon));
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -69,18 +44,18 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & name, do
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
   ms::LatLon const ll = info.GetLatLon();
-
-  if (info.IsMyPosition())
-    return CreateMapObject(env, kMyPosition, {}, ll.lat, ll.lon, {}, {}, {}, {});
+  search::AddressInfo const address = g_framework->NativeFramework()->GetAddressInfoAtPoint(info.GetMercator());
 
   // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
-  if (info.HasApiUrl())
-    return CreateMapObject(env, kApiPoint, info.GetTitle(), ll.lat, ll.lon, info.GetSubtitle(), {}, {}, info.GetMetadata());
+  // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
+  if (info.IsMyPosition())
+    return CreateMapObject(env, kMyPosition, {}, {}, ll.lat, ll.lon, address.FormatAddress(), {});
 
-  // TODO(yunikkk): Bookmark can also be a feature.
+  if (info.HasApiUrl())
+    return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(), info.GetMetadata());
+
   if (info.IsBookmark())
   {
-    // Java signature :
     // public Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String name)
     static jmethodID const ctorId = jni::GetConstructorID(env, g_bookmarkClazz, "(IILjava/lang/String;)V");
     jni::TScopedLocalRef jName(env, jni::ToJavaString(env, info.GetTitle()));
@@ -93,16 +68,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     return mapObject;
   }
 
-  Framework * frm = g_framework->NativeFramework();
-  if (info.IsFeature())
-  {
-    search::AddressInfo const address = frm->GetFeatureAddressInfo(info.GetID());
-    // TODO(yunikkk): Pass address.FormatAddress() to UI instead of separate house and street.
-    // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
-    return CreateMapObject(env, kPoi, info.GetTitle(), ll.lat, ll.lon, info.GetSubtitle(), address.m_street,
-                           address.m_house, info.GetMetadata());
-  }
-  // User have selected an empty place on a map with a long tap.
-  return CreateMapObject(env, kPoi, info.GetTitle(), ll.lat, ll.lon, info.GetSubtitle(), {}, {}, {});
+  return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(),
+                         info.IsFeature() ? info.GetMetadata() : Metadata());
 }
 }  // namespace usermark_helper

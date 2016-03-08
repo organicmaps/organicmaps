@@ -474,7 +474,6 @@ private:
   /// @returns true if command was handled by editor.
   bool ParseEditorDebugCommand(search::SearchParams const & params);
 
-  void FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const;
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
   /// @param customTitle, if not empty, overrides any other calculated name.
   void FillPointInfo(m2::PointD const & mercator, string const & customTitle, place_page::Info & info) const;
@@ -482,6 +481,8 @@ private:
   void FillMyPositionInfo(place_page::Info & info) const;
 
 public:
+  void FillBookmarkInfo(Bookmark const & bmk, BookmarkAndCategory const & bac, place_page::Info & info) const;
+
   /// @returns address of nearby building with house number in approx 1km distance.
   search::AddressInfo GetAddressInfoAtPoint(m2::PointD const & pt) const;
   /// @returns valid street address only if it was specified in OSM for given feature; used in the editor.

@@ -176,7 +176,7 @@ public enum LocationHelper implements SensorEventListener
       return null;
 
     if (mMyPosition == null)
-      mMyPosition = new MapObject(MapObject.MY_POSITION, "", mLastLocation.getLatitude(), mLastLocation.getLongitude(), "", "", "");
+      mMyPosition = new MapObject(MapObject.MY_POSITION, "", "", "", mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
     return mMyPosition;
   }

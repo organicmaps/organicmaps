@@ -18,13 +18,12 @@ public class Bookmark extends MapObject
   private double mMerX;
   private double mMerY;
 
-  Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String name)
+  Bookmark(@IntRange(from = 0) int categoryId, @IntRange(from = 0) int bookmarkId, String title)
   {
-    super(BOOKMARK, name, 0, 0, "", "", "");
+    super(BOOKMARK, title, "", "", 0, 0);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
-    mTitle = name;
     mIcon = getIconInternal();
     initXY();
   }

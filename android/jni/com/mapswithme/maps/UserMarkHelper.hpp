@@ -26,13 +26,10 @@ static constexpr int kMyPosition = 3;
 static constexpr int kSearch = 4;
 
 // Fills mapobject's metadata.
-//void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature::Metadata const & metadata);
+void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature::Metadata const & metadata);
 
-//pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature::Metadata const & metadata);
-
-jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & name, double lat, double lon,
-                        string const & typeName, string const & street, string const & house,
-                        feature::Metadata const & metadata);
+jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title, string const & subtitle,
+                        double lat, double lon, feature::Metadata const & metadata);
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
 }  // namespace usermark_helper
