@@ -246,6 +246,7 @@ namespace qt
       break;
 
     case NodeStatus::OnDisk:
+    case NodeStatus::Partly:
       statusString = tr("Installed (click to delete)");
       rowColor = COLOR_ONDISK;
       break;
