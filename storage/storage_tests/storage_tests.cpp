@@ -61,6 +61,10 @@ string const kSingleMwmCountriesTxt =
                 "s": 4689718,
                 "old": [
                  "Georgia"
+                ],
+                "affiliations":
+                [
+                 "Georgia", "Russia", "Europe"
                 ]
                },
                {
@@ -982,6 +986,23 @@ UNIT_TEST(StorageTest_GetChildren)
   storage.GetChildren("Algeria", algeriaList);
   TEST_EQUAL(algeriaList.size(), 2, ());
   TEST_EQUAL(algeriaList.front(), "Algeria_Central", ());
+}
+
+UNIT_TEST(StorageTest_GetAffiliations)
+{
+  Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
+  string const abkhaziaId = "Abkhazia";
+
+  TMappingAffiliations const expectedAffiliations = {{abkhaziaId.c_str(), "Georgia"},
+                                                    {abkhaziaId.c_str(), "Russia"},
+                                                    {abkhaziaId.c_str(), "Europe"}};
+  auto const rangeResultAffiliations = storage.GetAffiliations().equal_range(abkhaziaId);
+  TMappingAffiliations const resultAffiliations(rangeResultAffiliations.first,
+                                               rangeResultAffiliations.second);
+  TEST(expectedAffiliations == resultAffiliations, ());
+
+  auto const rangeResultNoAffiliations = storage.GetAffiliations().equal_range("Algeria");
+  TEST(rangeResultNoAffiliations.first == rangeResultNoAffiliations.second, ());
 }
 
 UNIT_TEST(StorageTest_HasCountryId)
