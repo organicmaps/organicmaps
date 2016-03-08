@@ -191,12 +191,20 @@ private:
 
   unique_ptr<Storage> m_prefetchStorage;
 
+  // |m_affiliations| is mapping countryIds (mwm file names) to geographical names
+  // which includes the mwm.
+  // |m_affiliations| is filled during Storage initialization or during migration process.
+  // It is filled with data of countries.txt (field "affiliations").
+  // Once filled |m_affiliations| is not changed.
+  // Node. |m_affiliations| is empty in case of countries_obsolete.txt.
+  TMappingAffiliations m_affiliations;
+
   DECLARE_THREAD_CHECKER(m_threadChecker);
 
   void DownloadNextCountryFromQueue();
 
   void LoadCountriesFile(string const & pathToCountriesFile,
-                         string const & dataDir, TMapping * mapping = nullptr);
+                         string const & dataDir, TMappingOldMwm * mapping = nullptr);
 
   void ReportProgress(TCountryId const & countryId, MapFilesDownloader::TProgress const & p);
   void ReportProgressForHierarchy(TCountryId const & countryId,
@@ -333,6 +341,8 @@ public:
   /// \brief Get information for mwm update button.
   /// \return true if updateInfo is filled correctly and false otherwise.
   bool GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInfo) const;
+
+  TMappingAffiliations & GetAffiliations() { return m_affiliations; }
 
   /// \brief Calls |toDo| for each node for subtree with |root|.
   /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including

@@ -122,7 +122,7 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
   : m_downloader(move(mapDownloaderForTesting)), m_currentSlotId(0),
     m_downloadMapOnTheMap(nullptr)
 {
-  m_currentVersion = LoadCountries(referenceCountriesTxtJsonForTesting, m_countries);
+  m_currentVersion = LoadCountries(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations);
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
 }
 
@@ -185,7 +185,7 @@ void Storage::Migrate(TCountriesVec const & existedCountries)
   Clear();
   m_countries.Clear();
 
-  TMapping mapping;
+  TMappingOldMwm mapping;
   LoadCountriesFile(COUNTRIES_FILE, m_dataDir, &mapping);
 
   vector<TCountryId> prefetchedMaps;
@@ -622,7 +622,7 @@ TCountryId Storage::GetCurrentDownloadingCountryId() const
 }
 
 void Storage::LoadCountriesFile(string const & pathToCountriesFile,
-                                string const & dataDir, TMapping * mapping /* = nullptr */)
+                                string const & dataDir, TMappingOldMwm * mapping /* = nullptr */)
 {
   m_dataDir = dataDir;
 
@@ -636,7 +636,7 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile,
   {
     string json;
     ReaderPtr<Reader>(GetPlatform().GetReader(pathToCountriesFile)).ReadAsString(json);
-    m_currentVersion = LoadCountries(json, m_countries, mapping);
+    m_currentVersion = LoadCountries(json, m_countries, m_affiliations, mapping);
     LOG_SHORT(LINFO, ("Loaded countries list for version:", m_currentVersion));
     if (m_currentVersion < 0)
       LOG(LERROR, ("Can't load countries file", pathToCountriesFile));

@@ -28,6 +28,7 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId co
   if (!id)
     MYTHROW(my::Json::Exception, ("LoadGroupImpl. Id is missing.", id));
 
+  // Mapping two component (big) mwms to one componenst (small) ones.
   json_t * oldIds = json_object_get(node, "old");
   if (oldIds)
   {
@@ -35,7 +36,19 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId co
     for (size_t k = 0; k < oldListSize; ++k)
     {
       string oldIdValue = json_string_value(json_array_get(oldIds, k));
-      toDo(oldIdValue, id);
+      toDo.InsertOldMwmMapping(id, oldIdValue);
+    }
+  }
+
+  // Mapping affiliations to one componenst (small) mwms.
+  json_t * affiliations = json_object_get(node, "affiliations");
+  if (affiliations)
+  {
+    size_t const affiliationsSize = json_array_size(affiliations);
+    for (size_t k = 0; k < affiliationsSize; ++k)
+    {
+      string affilationValue = json_string_value(json_array_get(affiliations, k));
+      toDo.InsertAffiliation(id, affilationValue);
     }
   }
 
@@ -135,10 +148,12 @@ namespace
 class DoStoreCountriesSingleMwms
 {
   TCountryTree & m_countries;
-  TMapping m_idsMapping;
+  TMappingAffiliations & m_affiliations;
+  TMappingOldMwm m_idsMapping;
 
 public:
-  DoStoreCountriesSingleMwms(TCountryTree & countries) : m_countries(countries) {}
+  DoStoreCountriesSingleMwms(TCountryTree & countries, TMappingAffiliations & affiliations)
+    : m_countries(countries), m_affiliations(affiliations) {}
 
   Country * operator()(TCountryId const & id, uint32_t mapSize, int depth, TCountryId const & parent)
   {
@@ -152,12 +167,17 @@ public:
     return &m_countries.AddAtDepth(depth, country);
   }
 
-  void operator()(TCountryId const & oldId, TCountryId const & newId)
+  void InsertOldMwmMapping(TCountryId const & newId, TCountryId const & oldId)
   {
     m_idsMapping[oldId].insert(newId);
   }
 
-  TMapping GetMapping() const { return m_idsMapping; }
+  void InsertAffiliation(TCountryId const & countryId, string const affilation)
+  {
+    m_affiliations.insert(make_pair(countryId, affilation));
+  }
+
+  TMappingOldMwm GetMapping() const { return m_idsMapping; }
 };
 
 class DoStoreCountriesTwoComponentMwms
@@ -165,7 +185,8 @@ class DoStoreCountriesTwoComponentMwms
   TCountryTree & m_countries;
 
 public:
-  DoStoreCountriesTwoComponentMwms(TCountryTree & cont) : m_countries(cont) {}
+  DoStoreCountriesTwoComponentMwms(TCountryTree & countries, TMappingAffiliations & /* affiliations */)
+    : m_countries(countries) {}
 
   void operator()(string const & file, uint32_t mapSize,
                   uint32_t routingSize, int depth, TCountryId const & parent)
@@ -183,7 +204,7 @@ public:
 
 class DoStoreFile2InfoSingleMwms
 {
-  TMapping m_idsMapping;
+  TMappingOldMwm m_idsMapping;
   map<string, CountryInfo> & m_file2info;
 
 public:
@@ -198,17 +219,14 @@ public:
     return nullptr;
   }
 
-  void operator()(TCountryId const & oldId, TCountryId const & newId)
-  {
-    m_idsMapping[oldId].insert(newId);
-  }
+  void InsertOldMwmMapping(TCountryId const & /* newId */, TCountryId const & /* oldId */) {}
 
-  TMapping GetMapping() const { return m_idsMapping; }
+  void InsertAffiliation(TCountryId const & /* countryId */, string const & /* affilation */) {}
 };
 
 class DoStoreFile2InfoTwoComponentMwms
 {
-  TMapping m_idsMapping;
+  TMappingOldMwm m_idsMapping;
   map<string, CountryInfo> & m_file2info;
 
 public:
@@ -228,9 +246,10 @@ public:
 }  // namespace
 
 int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries,
-                      TMapping * mapping /* = nullptr */)
+                      TMappingAffiliations & affiliations, TMappingOldMwm * mapping /* = nullptr */)
 {
   countries.Clear();
+  affiliations.clear();
 
   int64_t version = -1;
   try
@@ -241,7 +260,7 @@ int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries,
 
     if (version::IsSingleMwm(version))
     {
-      DoStoreCountriesSingleMwms doStore(countries);
+      DoStoreCountriesSingleMwms doStore(countries, affiliations);
       if (!LoadCountriesSingleMwmsImpl(jsonBuffer, doStore))
         return -1;
       if (mapping)
@@ -249,7 +268,7 @@ int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries,
     }
     else
     {
-      DoStoreCountriesTwoComponentMwms doStore(countries);
+      DoStoreCountriesTwoComponentMwms doStore(countries, affiliations);
       if (!LoadCountriesTwoComponentMwmsImpl(jsonBuffer, doStore))
         return -1;
     }
