@@ -19,7 +19,7 @@ namespace storage
 using TMwmSubtreeAttrs = pair<uint32_t, size_t>;
 
 template <class ToDo>
-TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId const & parent, ToDo & toDo)
+TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId const & parent, ToDo & doStore)
 {
   uint32_t mwmCounter = 0;
   size_t mwmSize = 0;
@@ -36,7 +36,7 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId co
     for (size_t k = 0; k < oldListSize; ++k)
     {
       string oldIdValue = json_string_value(json_array_get(oldIds, k));
-      toDo.InsertOldMwmMapping(id, oldIdValue);
+      doStore.InsertOldMwmMapping(id, oldIdValue);
     }
   }
 
@@ -48,13 +48,13 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId co
     for (size_t k = 0; k < affiliationsSize; ++k)
     {
       string affilationValue = json_string_value(json_array_get(affiliations, k));
-      toDo.InsertAffiliation(id, affilationValue);
+      doStore.InsertAffiliation(id, affilationValue);
     }
   }
 
   uint32_t const nodeSize = static_cast<uint32_t>(json_integer_value(json_object_get(node, "s")));
   // We expect that mwm and routing files should be less than 2GB.
-  Country * addedNode = toDo(id, nodeSize, depth, parent);
+  Country * addedNode = doStore(id, nodeSize, depth, parent);
 
   json_t * children = json_object_get(node, "g");
   if (children)
@@ -63,7 +63,7 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId co
     for (size_t i = 0; i < groupListSize; ++i)
     {
       json_t * j = json_array_get(children, i);
-      TMwmSubtreeAttrs const childAttr = LoadGroupSingleMwmsImpl(depth + 1, j, id, toDo);
+      TMwmSubtreeAttrs const childAttr = LoadGroupSingleMwmsImpl(depth + 1, j, id, doStore);
       mwmCounter += childAttr.first;
       mwmSize += childAttr.second;
     }
@@ -81,7 +81,7 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId co
 }
 
 template <class ToDo>
-void LoadGroupTwoComponentMwmsImpl(int depth, json_t * node, TCountryId const & parent, ToDo & toDo)
+void LoadGroupTwoComponentMwmsImpl(int depth, json_t * node, TCountryId const & parent, ToDo & doStore)
 {
   // @TODO(bykoianko) After we stop supporting two component mwms (with routing files)
   // remove code below.
@@ -97,7 +97,7 @@ void LoadGroupTwoComponentMwmsImpl(int depth, json_t * node, TCountryId const & 
   // We expect that mwm and routing files should be less than 2GB.
   uint32_t const mwmSize = static_cast<uint32_t>(json_integer_value(json_object_get(node, "s")));
   uint32_t const routingSize = static_cast<uint32_t>(json_integer_value(json_object_get(node, "rs")));
-  toDo(file, mwmSize, routingSize, depth, parent);
+  doStore(file, mwmSize, routingSize, depth, parent);
 
   json_t * children = json_object_get(node, "g");
   if (children)
@@ -106,18 +106,18 @@ void LoadGroupTwoComponentMwmsImpl(int depth, json_t * node, TCountryId const & 
     for (size_t i = 0; i < groupListSize; ++i)
     {
       json_t * j = json_array_get(children, i);
-      LoadGroupTwoComponentMwmsImpl(depth + 1, j, file, toDo);
+      LoadGroupTwoComponentMwmsImpl(depth + 1, j, file, doStore);
     }
   }
 }
 
 template <class ToDo>
-bool LoadCountriesSingleMwmsImpl(string const & jsonBuffer, ToDo & toDo)
+bool LoadCountriesSingleMwmsImpl(string const & jsonBuffer, ToDo & doStore)
 {
   try
   {
     my::Json root(jsonBuffer.c_str());
-    LoadGroupSingleMwmsImpl(0 /* depth */, root.get(), kInvalidCountryId, toDo);
+    LoadGroupSingleMwmsImpl(0 /* depth */, root.get(), kInvalidCountryId, doStore);
     return true;
   }
   catch (my::Json::Exception const & e)
@@ -128,12 +128,12 @@ bool LoadCountriesSingleMwmsImpl(string const & jsonBuffer, ToDo & toDo)
 }
 
 template <class ToDo>
-bool LoadCountriesTwoComponentMwmsImpl(string const & jsonBuffer, ToDo & toDo)
+bool LoadCountriesTwoComponentMwmsImpl(string const & jsonBuffer, ToDo & doStore)
 {
   try
   {
     my::Json root(jsonBuffer.c_str());
-    LoadGroupTwoComponentMwmsImpl(0 /* depth */, root.get(), kInvalidCountryId, toDo);
+    LoadGroupTwoComponentMwmsImpl(0 /* depth */, root.get(), kInvalidCountryId, doStore);
     return true;
   }
   catch (my::Json::Exception const & e)

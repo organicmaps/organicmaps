@@ -175,6 +175,7 @@ public:
     {
       added = m_countryTree->AddAtDepth(level, value);
     }
+
     ASSERT(added, ());
     m_countryTreeHashTable.insert(make_pair(value.Name(), added));
     return added->Value();
@@ -192,11 +193,9 @@ public:
   /// \returns a poiter item in the tree if found and nullptr otherwise.
   void Find(TKey const & key, vector<Node const *> & found) const
   {
+    found.clear();
     if (IsEmpty())
-    {
-      found.clear(); // Nothing found.
       return;
-    }
 
     if (key == m_countryTree->Value().Name())
       found.push_back(m_countryTree.get());
