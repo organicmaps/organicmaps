@@ -276,7 +276,9 @@ enum class AttributePosition
 {
   self.titleLabel.origin = {kLeftOffset, 0};
   self.typeLabel.origin = {kLeftOffset, self.titleLabel.maxY + kLabelsBetweenOffset};
-  self.addressLabel.origin = {kLeftOffset, self.typeLabel.maxY + kLabelsBetweenOffset};
+  self.addressLabel.origin = self.typeLabel.text.length > 0 ?
+                                                  CGPointMake(kLeftOffset, self.typeLabel.maxY + kLabelsBetweenOffset) :
+                                                  self.typeLabel.origin;
 }
 
 - (void)layoutDistanceBoxWithPosition:(AttributePosition)position
