@@ -15,18 +15,15 @@ DeferredTask::DeferredTask(TDuration const & duration) : m_duration(duration)
         continue;
       }
 
-      if (m_cv.wait_for(l, m_duration) != cv_status::timeout)
+      if (m_cv.wait_for(l, m_duration) != cv_status::timeout || !m_fn)
         continue;
 
       auto fn = move(m_fn);
       m_fn = nullptr;
 
-      if (fn)
-      {
-        l.unlock();
-        fn();
-        l.lock();
-      }
+      l.unlock();
+      fn();
+      l.lock();
     }
   });
 }
