@@ -8093,6 +8093,12 @@
     nb = Kart + rutetilordning
     fi = Kartta + reititys
 
+  [downloader_delete_editor_changes]
+    tags = ios, android
+    comment = Dialog confirmation when trying to delete map and there are unsaved changes present on it.
+    en = Unsaved changes for this map will be removed too. Continue anyway?
+    ru = Несохранённые правки в данном регионе также будут удалены! Продолжить?
+
   [downloader_delete_map]
     tags = ios,android,tizen
     comment = Item in context menu.
