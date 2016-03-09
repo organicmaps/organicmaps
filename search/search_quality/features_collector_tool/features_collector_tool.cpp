@@ -57,7 +57,7 @@ void GetContents(istream & is, string & contents)
 
 bool Matches(Context & context, Sample::Result const & golden, search::Result const & actual)
 {
-  static double const kEps = 2 * 1e-5;
+  static double constexpr kEps = 2e-5;
   if (actual.GetResultType() != Result::RESULT_FEATURE)
     return false;
 
@@ -67,16 +67,16 @@ bool Matches(Context & context, Sample::Result const & golden, search::Result co
   string name;
   if (!ft.GetName(FeatureType::DEFAULT_LANG, name))
     name.clear();
-  string const houseNumber = ft.GetHouseNumber();
+  auto const houseNumber = ft.GetHouseNumber();
   auto const center = feature::GetCenter(ft);
 
   return golden.m_name == strings::MakeUniString(name) && golden.m_houseNumber == houseNumber &&
          my::AlmostEqualAbs(golden.m_pos, center, kEps);
 }
 
-void SetRelevances(Context & context, vector<Sample::Result> const & golden,
-                   vector<search::Result> const & actual,
-                   vector<Sample::Result::Relevance> & relevances)
+void SetRelevanceValues(Context & context, vector<Sample::Result> const & golden,
+                        vector<search::Result> const & actual,
+                        vector<Sample::Result::Relevance> & relevances)
 {
   auto const n = golden.size();
   auto const m = actual.size();
@@ -97,6 +97,7 @@ void SetRelevances(Context & context, vector<Sample::Result> const & golden,
       {
         matched[j] = true;
         relevances[j] = g.m_relevance;
+        break;
       }
     }
   }
@@ -162,15 +163,22 @@ int main(int argc, char * argv[])
     auto const & sample = samples[i];
 
     engine.SetLocale(sample.m_locale);
-    string query = strings::ToUtf8(sample.m_query);
-    TestSearchRequest request(engine, query, sample.m_locale, Mode::Everywhere, sample.m_viewport,
-                              sample.m_pos);
+
+    auto latLon = MercatorBounds::ToLatLon(sample.m_pos);
+
+    search::SearchParams params;
+    params.m_query = strings::ToUtf8(sample.m_query);
+    params.m_inputLocale = sample.m_locale;
+    params.SetMode(Mode::Everywhere);
+    params.SetPosition(latLon.lat, latLon.lon);
+    params.SetSuggestsEnabled(false);
+    TestSearchRequest request(engine, params, sample.m_viewport);
     request.Wait();
 
     auto const & results = request.Results();
 
     vector<Sample::Result::Relevance> relevances;
-    SetRelevances(context, sample.m_results, results, relevances);
+    SetRelevanceValues(context, sample.m_results, results, relevances);
 
     ASSERT_EQUAL(results.size(), relevances.size(), ());
     for (size_t j = 0; j < results.size(); ++j)

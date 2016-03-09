@@ -103,6 +103,7 @@ public:
   // Posts request to support old format to the queue.
   void SetSupportOldFormat(bool support);
 
+  // Sets default locale on all query processors.
   void SetLocale(string const & locale);
 
   // Posts request to clear caches to the queue.

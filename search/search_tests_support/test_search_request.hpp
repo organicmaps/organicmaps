@@ -26,8 +26,6 @@ class TestSearchRequest
 public:
   TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
                     Mode mode, m2::RectD const & viewport);
-  TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
-                    Mode mode, m2::RectD const & viewport, m2::PointD const & position);
   TestSearchRequest(TestSearchEngine & engine, SearchParams params, m2::RectD const & viewport);
 
   void Wait();
