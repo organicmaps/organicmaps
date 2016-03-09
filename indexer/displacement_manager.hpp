@@ -18,7 +18,12 @@
 
 namespace
 {
-double constexpr kPOIPerTileSizeCount = 5;
+double constexpr kPOIDisplacementRadiusPixels = 16.;
+
+// Rendering dramatically affected by a screen resolution. So I will use high resolution to cover
+// case when we have a lot of free space on the screen.
+size_t constexpr kMaxScreenSizeXPixels = 2560;
+size_t constexpr kMaxScreenSizeYPixels = 1440;
 }  // namespace
 
 namespace covering
@@ -205,7 +210,12 @@ private:
     double const worldSizeDivisor = 1 << zoom;
     // Mercator SizeX and SizeY is equal
     double const rectSize = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDivisor;
-    return rectSize / kPOIPerTileSizeCount;
+
+    ScreenBase geometryConvertor;
+    geometryConvertor.OnSize(0, 0, kMaxScreenSizeXPixels, kMaxScreenSizeYPixels);
+    geometryConvertor.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, rectSize, rectSize)));
+
+    return kPOIDisplacementRadiusPixels * geometryConvertor.GetScale();
   }
 
   void AddNodeToSorter(DisplaceableNode const & node, uint32_t scale)
