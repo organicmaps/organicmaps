@@ -121,4 +121,4 @@ void SimpleThread::ThreadFunc(function<void()> && fn)
   AndroidThreadDetachFromJVM();
 #endif  // defined(OMIM_OS_ANDROID)
 }
-}
+}  // namespace threads

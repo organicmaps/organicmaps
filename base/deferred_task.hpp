@@ -1,17 +1,18 @@
 #pragma once
 
+#include "base/thread.hpp"
+
 #include "std/chrono.hpp"
 #include "std/condition_variable.hpp"
 #include "std/function.hpp"
 #include "std/mutex.hpp"
-#include "std/thread.hpp"
 
 namespace my
 {
 class DeferredTask
 {
   using TDuration = duration<double>;
-  thread m_thread;
+  threads::SimpleThread m_thread;
   mutex m_mutex;
   condition_variable m_cv;
   function<void()> m_fn;

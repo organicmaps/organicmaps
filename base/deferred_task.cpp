@@ -4,7 +4,7 @@ namespace my
 {
 DeferredTask::DeferredTask(TDuration const & duration) : m_duration(duration)
 {
-  m_thread = thread([this]
+  m_thread = threads::SimpleThread([this]
   {
     unique_lock<mutex> l(m_mutex);
     while (!m_terminate)
