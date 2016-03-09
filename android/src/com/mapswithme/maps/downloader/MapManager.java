@@ -242,4 +242,14 @@ public final class MapManager
    * Removes callback about current country change.
    */
   public static native void nativeUnsubscribeOnCountryChanged();
+
+  /**
+   * Determines if there are unsaved editor changes present for given {@code root}.
+   */
+  public static native boolean nativeHasUnsavedEditorChanges(String root);
+
+  /**
+   * Erases local changes made for the given {@code root} map.
+   */
+  public static native void nativeDeleteUnsavedEditorChanges(String root);
 }

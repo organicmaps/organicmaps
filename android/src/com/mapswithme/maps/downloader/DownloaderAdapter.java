@@ -1,10 +1,12 @@
 package com.mapswithme.maps.downloader;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
@@ -60,8 +62,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     DELETE(R.drawable.ic_delete, R.string.delete)
     {
-      @Override
-      void invoke(CountryItem item, DownloaderAdapter adapter)
+      private void deleteNode(CountryItem item)
       {
         MapManager.nativeCancel(item.id);
         MapManager.nativeDelete(item.id);
@@ -71,6 +72,30 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
                                                           .add(Statistics.EventParam.FROM, "downloader")
                                                           .add("scenario", (item.isExpandable() ? "delete_group"
                                                                                                 : "delete")));
+      }
+
+      @Override
+      void invoke(final CountryItem item, DownloaderAdapter adapter)
+      {
+        if (!MapManager.nativeHasUnsavedEditorChanges(item.id))
+        {
+          deleteNode(item);
+          return;
+        }
+
+        new AlertDialog.Builder(adapter.mActivity)
+                       .setTitle(R.string.downloader_delete_map)
+                       .setMessage(R.string.downloader_delete_editor_changes)
+                       .setNegativeButton(android.R.string.no, null)
+                       .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+                       {
+                         @Override
+                         public void onClick(DialogInterface dialog, int which)
+                         {
+                           MapManager.nativeDeleteUnsavedEditorChanges(item.id);
+                           deleteNode(item);
+                         }
+                       }).show();
       }
     },
 
