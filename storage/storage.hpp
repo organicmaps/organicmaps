@@ -332,14 +332,6 @@ public:
   /// \return true if updateInfo is filled correctly and false otherwise.
   bool GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInfo) const { return true; }
 
-  /// \brief Update all mwm in case of changing mwm hierarchy of mwm borders.
-  /// This method:
-  /// * removes all mwms
-  /// * downloads mwms with the same coverage
-  /// \note This method is used in very rare case.
-  /// \return false in case of error and true otherwise.
-  bool UpdateAllAndChangeHierarchy() { return true; }
-
   /// \brief Calls |toDo| for each node for subtree with |root|.
   /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including
   /// the result of GetRootId() call.
