@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Descărcare hartă\nfără rutare (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Se descarcă\n^\na eșuat";
+"country_status_download_failed" = "Se descarcă a eșuat";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Încercați din nou";

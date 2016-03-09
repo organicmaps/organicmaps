@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Stiahnite si mapu\nbez smerovania (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Sťahovanie\n^\nzlyhalo";
+"country_status_download_failed" = "Sťahovanie zlyhalo";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Skúsiť znova";

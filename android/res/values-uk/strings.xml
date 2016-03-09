@@ -99,7 +99,7 @@
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Завантажити карту\nбез маршрутів (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Помилка завантаження\n^</string>
+	<string name="country_status_download_failed">Помилка завантаження</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Спробуйте ще раз</string>
 	<string name="about_menu_title">Про програму</string>

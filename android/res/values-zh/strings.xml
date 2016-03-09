@@ -96,7 +96,7 @@
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">下载不带路线的地图\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">下载\n^\n失败了</string>
+	<string name="country_status_download_failed">下载失败了</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">重试</string>
 	<string name="about_menu_title">关于 MAPS.ME</string>

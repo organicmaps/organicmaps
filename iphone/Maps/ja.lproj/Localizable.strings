@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "ルートなしで地図をダウンロード\n(^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "^\nのダウンロードに失敗しました";
+"country_status_download_failed" = "のダウンロードに失敗しました";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再実行";

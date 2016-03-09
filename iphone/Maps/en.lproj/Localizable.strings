@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Download map\nwithout routing (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Downloading\n^\nhas failed";
+"country_status_download_failed" = "Downloading has failed";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Try Again";

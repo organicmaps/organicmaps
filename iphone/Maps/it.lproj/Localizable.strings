@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Scarica mappa\nsenza percorsi (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Lo scaricamento\n^\nè fallito";
+"country_status_download_failed" = "Lo scaricamento è fallito";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Riprova";

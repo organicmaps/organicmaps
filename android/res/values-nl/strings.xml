@@ -91,7 +91,7 @@
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Download kaart\nzonder routeplanning (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Downloaden\n^\nis niet gelukt</string>
+	<string name="country_status_download_failed">Downloaden is niet gelukt</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Probeer opnieuw</string>
 	<string name="about_menu_title">Over MAPS.ME</string>

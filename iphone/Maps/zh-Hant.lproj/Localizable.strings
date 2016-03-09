@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "下載不帶路線的地圖\n(^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "下載\n^\n失敗";
+"country_status_download_failed" = "下載失敗";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再試一次";

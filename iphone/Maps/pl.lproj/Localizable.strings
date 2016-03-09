@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Pobierz mapę bez\noznaczania tras (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Pobieranie\n^\nnie powiodło się";
+"country_status_download_failed" = "Pobieranie nie powiodło się";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Spróbuj ponownie";

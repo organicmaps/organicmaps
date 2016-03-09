@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง\n(^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "การดาวน์โหลด\n^\nล้มเหลว";
+"country_status_download_failed" = "การดาวน์โหลดล้มเหลว";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "ลองอีกครั้ง";

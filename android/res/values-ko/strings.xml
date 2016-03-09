@@ -94,7 +94,7 @@
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">라우팅없이 지도 다운로드\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">다운로드에 실패하였습니다\n^</string>
+	<string name="country_status_download_failed">다운로드에 실패하였습니다</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">다시 시도</string>
 	<string name="about_menu_title">소개</string>

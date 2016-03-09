@@ -100,7 +100,7 @@
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Karte ohne Routenplanung\nherunterladen (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Download\n^\nfehlgeschlagen</string>
+	<string name="country_status_download_failed">Download fehlgeschlagen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Erneut versuchen</string>
 	<string name="about_menu_title">Über MAPS.ME</string>

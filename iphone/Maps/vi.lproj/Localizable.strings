@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Tải về bản đồ không\ncó chỉ đường (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Tải xuống\n^\nđã thất bại";
+"country_status_download_failed" = "Tải xuống đã thất bại";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Thử lại";

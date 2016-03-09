@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Stáhnout mapy\nbez tras (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Stahování\n^\nselhalo";
+"country_status_download_failed" = "Stahování selhalo";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Zkusit znovu";

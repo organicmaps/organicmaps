@@ -100,7 +100,7 @@
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">การดาวน์โหลด\n^\nล้มเหลว</string>
+	<string name="country_status_download_failed">การดาวน์โหลดล้มเหลว</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">ลองอีกครั้ง</string>
 	<string name="about_menu_title">เกี่ยวกับ MAPS.ME</string>

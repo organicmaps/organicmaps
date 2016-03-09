@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Térkép letöltése\nútvonal nélkül (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "^\nletöltése sikertelen";
+"country_status_download_failed" = "Letöltése sikertelen";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Újrapróbálkozás";

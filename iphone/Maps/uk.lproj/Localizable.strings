@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Завантажити карту\nбез маршрутів (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Помилка завантаження\n^";
+"country_status_download_failed" = "Помилка завантаження";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Спробуйте ще раз";

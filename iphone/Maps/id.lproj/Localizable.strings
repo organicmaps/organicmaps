@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Unduh peta tanpa\nperutean (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Sedang Mengunduh\n^\ntelah gagal";
+"country_status_download_failed" = "Sedang Mengunduh telah gagal";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Coba Lagi";

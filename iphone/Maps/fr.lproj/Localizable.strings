@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "Télécharger la carte\nsans itinéraire (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "^\n - Échec lors du téléchargement";
+"country_status_download_failed" = "Échec lors du téléchargement";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Ressayer";

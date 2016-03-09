@@ -151,7 +151,7 @@
 "country_status_download_without_routing" = "(^ ^)\nتنزيل خريطة بدون تحديد خط السير";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "فشلت عملية تنزيل\n^";
+"country_status_download_failed" = "فشلت عملية تنزيل";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "محاولة مرة أخرى";
