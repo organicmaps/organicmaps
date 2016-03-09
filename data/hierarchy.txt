@@ -175,7 +175,7 @@ Canada;Q16;ca;fr,en
   Canada_Ontario_Northeastern_S;Q383434
   Canada_Ontario_Northeastern_SE;Q912253
   Canada_Ontario_Northeastern_SW;Q463165
-  Canada_Ontario_Northeastern_W;Q1284782
+  Canada_Ontario_Northeastern_Wawa;Q1284782
   Canada_Ontario_Northern;Q34116
   Canada_Ontario_Northwestern;Q1904-North
   Canada_Ontario_Toronto;Q172
