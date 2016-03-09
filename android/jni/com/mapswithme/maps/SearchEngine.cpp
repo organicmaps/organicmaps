@@ -47,9 +47,7 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
   }
   env->ReleaseIntArrayElements(ranges.get(), rawArr, 0);
 
-  g_framework->NativeFramework()->LoadSearchResultMetadata(result);
   ms::LatLon const ll = MercatorBounds::ToLatLon(result.GetFeatureCenter());
-
   if (result.IsSuggest())
   {
     jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
@@ -58,6 +56,7 @@ jobject ToJavaResult(Result result, bool hasPosition, double lat, double lon)
     ASSERT(ret, ());
     return ret;
   }
+  g_framework->NativeFramework()->LoadSearchResultMetadata(result);
 
   string distance;
   if (hasPosition)
