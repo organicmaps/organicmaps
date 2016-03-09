@@ -857,16 +857,34 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   BeforeDrawFrame();
 #endif
 
-  bool const waitFeatures = !m_notFinishedTiles.empty();
   m2::RectD const & screenRect = modelView.ClipRect();
+  vector<m2::RectD> notFinishedTileRects;
+  notFinishedTileRects.reserve(m_notFinishedTiles.size());
+  for (auto const & tileKey : m_notFinishedTiles)
+    notFinishedTileRects.push_back(tileKey.GetGlobalRect());
+
   for (RenderLayer & layer : m_layers)
   {
     for (auto & group : layer.m_renderGroups)
     {
-      m2::RectD const tileRect = group->GetTileKey().GetGlobalRect();
-      bool const waitTileFeatures = waitFeatures && tileRect.IsIntersect(screenRect);
-      layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(waitTileFeatures, m_currentZoomLevel,
-                                                            make_ref(m_overlayTree), m_bucketsToDelete);
+      if (group->IsFeaturesWaiting())
+      {
+        m2::RectD const tileRect = group->GetTileKey().GetGlobalRect();
+        bool waitTileFeatures = false;
+        if (!notFinishedTileRects.empty() && tileRect.IsIntersect(screenRect))
+        {
+          for (auto const & notFinishedRect : notFinishedTileRects)
+          {
+            if (notFinishedRect.IsIntersect(tileRect))
+            {
+              waitTileFeatures = true;
+              break;
+            }
+          }
+        }
+        layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(waitTileFeatures, m_currentZoomLevel,
+                                                              make_ref(m_overlayTree), m_bucketsToDelete);
+      }
     }
   }
 
