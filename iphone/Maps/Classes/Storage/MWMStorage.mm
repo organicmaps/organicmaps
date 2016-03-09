@@ -51,6 +51,11 @@
   GetFramework().Storage().CancelDownloadNode(countryId);
 }
 
++ (void)showNode:(storage::TCountryId const &)countryId
+{
+  GetFramework().ShowNode(countryId);
+}
+
 + (void)countryId:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController performAction:(TMWMVoidBlock)action
 {
   switch (Platform::ConnectionStatus())

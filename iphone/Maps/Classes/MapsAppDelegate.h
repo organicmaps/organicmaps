@@ -32,7 +32,6 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode)
 @property (nonatomic, readonly) LocationManager * m_locationManager;
 
 + (MapsAppDelegate *)theApp;
-+ (void)showNode:(storage::TCountryId const &)countryId;
 
 - (void)enableStandby;
 - (void)disableStandby;

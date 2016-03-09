@@ -69,6 +69,7 @@ static NSString * const kStatError = @"Error";
 static NSString * const kStatExpand = @"Expand";
 static NSString * const kStatExpandCategory = @"Expand category";
 static NSString * const kStatExpandLargeCountry = @"Expand large country";
+static NSString * const kStatExplore = @"Explore";
 static NSString * const kStatExport = @"Export";
 static NSString * const kStatFacebook = @"Facebook";
 static NSString * const kStatFrom = @"from";

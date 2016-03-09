@@ -497,8 +497,13 @@ using namespace storage;
 
 - (void)showNode:(storage::TCountryId const &)countryId
 {
-  [MapsAppDelegate showNode:countryId];
+  [Statistics logEvent:kStatDownloaderMapAction
+        withParameters:@{
+          kStatAction : kStatExplore,
+          kStatFrom : kStatDownloader,
+        }];
   [self.navigationController popToRootViewControllerAnimated:YES];
+  [MWMStorage showNode:countryId];
 }
 
 #pragma mark - Managing the Status Bar

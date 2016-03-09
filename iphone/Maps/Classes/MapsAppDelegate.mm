@@ -117,11 +117,6 @@ using namespace osm_auth_ios;
   return (MapsAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
-+ (void)showNode:(storage::TCountryId const &)countryId
-{
-  // TODO (igrechuhin) Add implementation
-}
-
 #pragma mark - Notifications
 
 - (void)registerNotifications:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions
