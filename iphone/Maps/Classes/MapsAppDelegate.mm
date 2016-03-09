@@ -684,7 +684,10 @@ using namespace osm_auth_ios;
     textFieldInSearchBar = [UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]];
 
   textField.backgroundColor = [UIColor white];
-  textFieldInSearchBar.defaultTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackPrimaryText]};
+  textFieldInSearchBar.defaultTextAttributes = @{
+    NSForegroundColorAttributeName : [UIColor blackPrimaryText],
+    NSFontAttributeName : [UIFont regular14]
+  };
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
