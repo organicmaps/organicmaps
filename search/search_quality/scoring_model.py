@@ -1,10 +1,13 @@
+#!/usr/bin/env python3
 from math import exp, log
+import collections
 import numpy as np
 import pandas as pd
+import sys
 
 DISTANCE_WINDOW = 1e9
 MAX_RANK = 256
-RELEVANCES = ['Irrelevant', 'Relevant', 'Vital']
+RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring Prefix', 'Substring', 'Full Match Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'BUILDING', 'STREET', 'UNCLASSIFIED', 'VILLAGE', 'CITY', 'STATE', 'COUNTRY']
 
@@ -15,23 +18,23 @@ def transform_rank(rank):
     return rank / MAX_RANK
 
 def transform_relevance(score):
-    return RELEVANCES.index(score)
+    return RELEVANCES[score]
 
 def transform_name_score(score):
-    return NAME_SCORES.index(score)
+    return NAME_SCORES.index(score) / len(NAME_SCORES)
 
 def transform_search_type(type):
-    return SEARCH_TYPES.index(type)
+    return SEARCH_TYPES.index(type) / len(SEARCH_TYPES)
 
 # This function may use any fields of row to compute score except
 # 'Relevance' and 'SampleId'.
+#
+# TODO (@y, @m): learn a linear model here or find good coeffs by
+# brute-force.
 def get_score(row):
-    # TODO (@y, @m): learn a linear model here or find good coeffs by
-    # brute-force.
-    return row['MinDistance'] + \
-        row['Rank'] + \
-        (row['SearchType'] / len(SEARCH_TYPES)) + \
-        (row['NameScore'] / len(NAME_SCORES))
+    x = row[['MinDistance', 'Rank', 'SearchType', 'NameScore']]
+    w = np.array([1, 1, 1, 1])
+    return np.dot(x, w)
 
 def normalize_data(data):
     data['DistanceToViewport'] = data['DistanceToViewport'].apply(transform_distance)
@@ -46,37 +49,37 @@ def normalize_data(data):
     data['Score'] = pd.Series([get_score(data.ix[i]) for i in data.index])
 
 def compute_ndcg(scores):
-    scores_summary = {}
+    scores_summary = collections.defaultdict(int)
 
-    dcg, i = 0, 0
-    for score in scores:
-        dcg = dcg + score / log(2 + i)
-        if score in scores_summary:
-            scores_summary[score] = scores_summary[score] + 1;
-        else:
-            scores_summary[score] = 1
-        i = i + 1
+    dcg = 0
+    for i, score in enumerate(scores):
+        dcg += score / log(2 + i, 2)
+        scores_summary[score] += 1
 
     dcg_norm, i = 0, 0
     for score in sorted(scores_summary.keys(), reverse=True):
         for j in range(scores_summary[score]):
-            dcg_norm = dcg_norm + score / log(2 + i)
-            i = i + 1
+            dcg_norm += score / log(2 + i, 2)
+            i += 1
 
     if dcg_norm == 0:
         return 0
     return dcg / dcg_norm
 
-data = pd.read_csv('queries.csv')
-normalize_data(data)
-grouped = data.groupby(data['SampleId'], sort=False).groups
+def main():
+    data = pd.read_csv(sys.stdin)
+    normalize_data(data)
+    grouped = data.groupby(data['SampleId'], sort=False).groups
 
-ndcgs = []
-for id in grouped:
-    indices = grouped[id]
-    group = data.ix[indices]
-    sorted_group = group.sort_values('Score', ascending=False)
-    ndcgs.append(compute_ndcg(sorted_group['Relevance']))
+    ndcgs = []
+    for id in grouped:
+        indices = grouped[id]
+        group = data.ix[indices]
+        sorted_group = group.sort_values('Score', ascending=False)
+        ndcgs.append(compute_ndcg(sorted_group['Relevance']))
 
-ndcgs = np.array(ndcgs)
-print('NDCG mean:', np.mean(ndcgs), 'std:', np.std(ndcgs))
+    ndcgs = np.array(ndcgs)
+    print('NDCG mean: {}, std: {}'.format(np.mean(ndcgs), np.std(ndcgs)))
+
+if __name__ == "__main__":
+    main()
