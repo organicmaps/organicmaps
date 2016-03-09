@@ -31,7 +31,7 @@
 - (void)presentDownloaderNotEnoughSpaceAlert;
 - (void)presentDownloaderInternalErrorAlertForMap:(nonnull NSString *)name okBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
-- (void)presentEditorVirusAlertWithShareBlock:(nonnull TMWMVoidBlock)share;
+- (void)presentEditorViralAlertWithShareBlock:(nonnull TMWMVoidBlock)share;
 - (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));

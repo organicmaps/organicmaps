@@ -1,6 +1,6 @@
 #import "MWMAlert.h"
 
-@interface MWMEditorVirusAlert : MWMAlert
+@interface MWMEditorViralAlert : MWMAlert
 
 + (nonnull instancetype)alertWithShareBlock:(nonnull TMWMVoidBlock)share;
 

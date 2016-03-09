@@ -672,10 +672,10 @@
 		F63BA3711BCD5B520044C504 /* MWMTTSLanguageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63BA3701BCD5B520044C504 /* MWMTTSLanguageViewController.mm */; };
 		F64A37D01B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64A37CF1B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.mm */; };
 		F64D9C9B1C8861BA0063FA30 /* MWMObjectsCategorySelectorController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE1B1C7361DA00A453F1 /* MWMObjectsCategorySelectorController.mm */; };
-		F64D9C9F1C899C350063FA30 /* MWMEditorVirusAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64D9C9E1C899C350063FA30 /* MWMEditorVirusAlert.mm */; };
-		F64D9CA01C899C350063FA30 /* MWMEditorVirusAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64D9C9E1C899C350063FA30 /* MWMEditorVirusAlert.mm */; };
-		F64D9CA21C899C760063FA30 /* MWMEditorVirusAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64D9CA11C899C760063FA30 /* MWMEditorVirusAlert.xib */; };
-		F64D9CA31C899C760063FA30 /* MWMEditorVirusAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64D9CA11C899C760063FA30 /* MWMEditorVirusAlert.xib */; };
+		F64D9C9F1C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */; };
+		F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */; };
+		F64D9CA21C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */; };
+		F64D9CA31C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */; };
 		F64DA8021C524BDE00330E9E /* UISwitch+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F64DA8011C524BDE00330E9E /* UISwitch+RuntimeAttributes.m */; };
 		F64DA8031C52520000330E9E /* UISwitch+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F64DA8011C524BDE00330E9E /* UISwitch+RuntimeAttributes.m */; };
 		F64F19991AB81A00006EAF7E /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19821AB81A00006EAF7E /* MWMAlertViewController.mm */; };
@@ -1316,9 +1316,9 @@
 		F63BA3731BCE70D60044C504 /* MWMRoutingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutingProtocol.h; sourceTree = "<group>"; };
 		F64A37CE1B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRouteHelperPanelsDrawer.h; sourceTree = "<group>"; };
 		F64A37CF1B9EE24C00180464 /* MWMRouteHelperPanelsDrawer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouteHelperPanelsDrawer.mm; sourceTree = "<group>"; };
-		F64D9C9D1C899C350063FA30 /* MWMEditorVirusAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorVirusAlert.h; sourceTree = "<group>"; };
-		F64D9C9E1C899C350063FA30 /* MWMEditorVirusAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorVirusAlert.mm; sourceTree = "<group>"; };
-		F64D9CA11C899C760063FA30 /* MWMEditorVirusAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorVirusAlert.xib; sourceTree = "<group>"; };
+		F64D9C9D1C899C350063FA30 /* MWMEditorViralAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralAlert.h; sourceTree = "<group>"; };
+		F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorViralAlert.mm; sourceTree = "<group>"; };
+		F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorViralAlert.xib; sourceTree = "<group>"; };
 		F64DA8001C524BDE00330E9E /* UISwitch+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISwitch+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		F64DA8011C524BDE00330E9E /* UISwitch+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISwitch+RuntimeAttributes.m"; sourceTree = "<group>"; };
 		F64F19811AB81A00006EAF7E /* MWMAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlertViewController.h; sourceTree = "<group>"; };
@@ -2539,9 +2539,9 @@
 		F64D9C9C1C899BEA0063FA30 /* EditorAlert */ = {
 			isa = PBXGroup;
 			children = (
-				F64D9C9D1C899C350063FA30 /* MWMEditorVirusAlert.h */,
-				F64D9C9E1C899C350063FA30 /* MWMEditorVirusAlert.mm */,
-				F64D9CA11C899C760063FA30 /* MWMEditorVirusAlert.xib */,
+				F64D9C9D1C899C350063FA30 /* MWMEditorViralAlert.h */,
+				F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */,
+				F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */,
 			);
 			name = EditorAlert;
 			sourceTree = "<group>";
@@ -3230,7 +3230,7 @@
 				349A35841B53E967009677EE /* MWMDownloadMapRequest.xib in Resources */,
 				F6E0047B1B908CF5003BF5D8 /* MWMNiPadNavigationDashboard.xib in Resources */,
 				34B82AD11B846B2C00180497 /* MWMSearchBookmarksCell.xib in Resources */,
-				F64D9CA21C899C760063FA30 /* MWMEditorVirusAlert.xib in Resources */,
+				F64D9CA21C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */,
 				4A7D89C61B2EBF3B00AC843E /* resources-mdpi_dark in Resources */,
 				F6BC1E541ACBF9AB00EF0360 /* MWMFacebookAlert.xib in Resources */,
 				341F99DF1C6B1165001C67B8 /* MWMMapDownloaderSubplaceTableViewCell.xib in Resources */,
@@ -3375,7 +3375,7 @@
 				F607C1881C032A8800B53A87 /* resources-hdpi_clear in Resources */,
 				6741A9921BF340DE002C974C /* PlacePageActionBar.xib in Resources */,
 				341F99D81C6B1165001C67B8 /* MWMMapDownloaderLargeCountryTableViewCell.xib in Resources */,
-				F64D9CA31C899C760063FA30 /* MWMEditorVirusAlert.xib in Resources */,
+				F64D9CA31C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */,
 				6741A9931BF340DE002C974C /* MWMSearchTabButtonsView.xib in Resources */,
 				6741A9941BF340DE002C974C /* MWMPortraitNavigationDashboard.xib in Resources */,
 				6741A9951BF340DE002C974C /* MWMDownloaderDialogCell.xib in Resources */,
@@ -3475,7 +3475,7 @@
 				3438CDFC1B862F5C0051AA78 /* MWMSearchContentView.mm in Sources */,
 				34479C7C1C60C6130065D261 /* MWMFrameworkListener.mm in Sources */,
 				3485C0121B85C20E00F7712D /* MWMSearchTableViewController.mm in Sources */,
-				F64D9C9F1C899C350063FA30 /* MWMEditorVirusAlert.mm in Sources */,
+				F64D9C9F1C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
 				34CFFE8B1B7DE6FD009D0C9F /* MWMSearchManager.mm in Sources */,
 				34ABA62C1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */,
 				34ABA6161C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
@@ -3684,7 +3684,7 @@
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
 				34DDD5351BFDB0C600407F2F /* MWMBaseMapDownloaderViewController.mm in Sources */,
 				6741A9CE1BF340DE002C974C /* MWMSearchManager.mm in Sources */,
-				F64D9CA01C899C350063FA30 /* MWMEditorVirusAlert.mm in Sources */,
+				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
 				6741A9CF1BF340DE002C974C /* MWMLocationAlert.mm in Sources */,
 				34ABA62D1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */,
 				34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,

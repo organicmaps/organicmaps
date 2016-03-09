@@ -1,17 +1,17 @@
-#import "MWMEditorVirusAlert.h"
+#import "MWMEditorViralAlert.h"
 
-@interface MWMEditorVirusAlert ()
+@interface MWMEditorViralAlert ()
 
 @property (weak, nonatomic) IBOutlet UILabel * message;
 @property (copy, nonatomic) TMWMVoidBlock share;
 
 @end
 
-@implementation MWMEditorVirusAlert
+@implementation MWMEditorViralAlert
 
 + (nonnull instancetype)alertWithShareBlock:(nonnull TMWMVoidBlock)share
 {
-  MWMEditorVirusAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorVirusAlert className] owner:nil options:nil] firstObject];
+  MWMEditorViralAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorViralAlert className] owner:nil options:nil] firstObject];
   NSAssert(share, @"Share block can't be nil!");
   alert.share = share;
   return alert;

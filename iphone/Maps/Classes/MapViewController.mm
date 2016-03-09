@@ -70,7 +70,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
-NSString * const kUDVirusAlertWasShown = @"VirusAlertWasShown";
+NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 } // namespace
 
 @interface NSValueWrapper : NSObject
@@ -372,7 +372,7 @@ NSString * const kUDVirusAlertWasShown = @"VirusAlertWasShown";
   [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
   [self showWhatsNewIfNeeded];
-  [self showVirusAlertIfNeeded];
+  [self showViralAlertIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -414,12 +414,12 @@ NSString * const kUDVirusAlertWasShown = @"VirusAlertWasShown";
   [ud synchronize];
 }
 
-- (void)showVirusAlertIfNeeded
+- (void)showViralAlertIfNeeded
 {
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
 
   using namespace osm_auth_ios;
-  if (!AuthorizationIsNeedCheck() || [ud objectForKey:kUDVirusAlertWasShown] || !AuthorizationHaveCredentials())
+  if (!AuthorizationIsNeedCheck() || [ud objectForKey:kUDViralAlertWasShown] || !AuthorizationHaveCredentials())
     return;
 
   if (osm::Editor::Instance().GetStats().m_edits.size() < 2)
@@ -428,12 +428,12 @@ NSString * const kUDVirusAlertWasShown = @"VirusAlertWasShown";
   if (!Platform::IsConnected())
     return;
 
-  [self.alertController presentEditorVirusAlertWithShareBlock:^
+  [self.alertController presentEditorViralAlertWithShareBlock:^
   {
 
   }];
 
-  [ud setObject:[NSDate date] forKey:kUDVirusAlertWasShown];
+  [ud setObject:[NSDate date] forKey:kUDViralAlertWasShown];
   [ud synchronize];
 }
 
