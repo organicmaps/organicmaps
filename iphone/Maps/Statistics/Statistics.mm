@@ -58,6 +58,11 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
   return self;
 }
 
+- (bool)isStatisticsEnabled
+{
+  return _enabled;
+}
+
 - (void)enableOnNextAppLaunch
 {
   // This setting will be checked and applied on the next launch.

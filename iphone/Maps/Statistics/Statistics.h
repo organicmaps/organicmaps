@@ -2,6 +2,7 @@
 
 @interface Statistics : NSObject
 + (bool)isStatisticsEnabledByDefault;
+- (bool)isStatisticsEnabled;
 - (void)enableOnNextAppLaunch;
 - (void)disableOnNextAppLaunch;
 

@@ -17,6 +17,8 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <Crashlytics/Crashlytics.h>
+#import <Fabric/Fabric.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
@@ -89,6 +91,32 @@ void InitLocalizedStrings()
   f.AddString("routing_failed_cross_mwm_building", [L(@"routing_failed_cross_mwm_building") UTF8String]);
   f.AddString("routing_failed_route_not_found", [L(@"routing_failed_route_not_found") UTF8String]);
   f.AddString("routing_failed_internal_error", [L(@"routing_failed_internal_error") UTF8String]);
+}
+
+void InitCrashTrackers()
+{
+#ifdef OMIM_PRODUCTION
+  if (![[Statistics instance] isStatisticsEnabled])
+    return;
+
+  NSString * hockeyKey = @(HOCKEY_APP_KEY);
+  if (hockeyKey.length != 0)
+  {
+    // Initialize Hockey App Sdk
+    BITHockeyManager * hockeyManager = [BITHockeyManager sharedHockeyManager];
+    [hockeyManager configureWithIdentifier:hockeyKey]; // Do some additional configuration if needed here
+    [hockeyManager.crashManager setCrashManagerStatus: BITCrashManagerStatusAutoSend];
+    [hockeyManager startManager];
+    [hockeyManager.authenticator authenticateInstallation]; // This line is obsolete in the crash only builds
+  }
+
+  NSString * fabricKey = @(CRASHLYTICS_IOS_KEY);
+  if (fabricKey.length != 0)
+  {
+    // Initialize Fabric/Crashlytics Sdk
+    [Fabric with:@[[Crashlytics class]]];
+  }
+#endif
 }
 
 using namespace osm_auth_ios;
@@ -350,12 +378,7 @@ using namespace osm_auth_ios;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  // Initialize Hockey App Sdk
-  [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@(HOCKEY_APP_KEY)]; // Do some additional configuration if needed here
-  [[BITHockeyManager sharedHockeyManager].crashManager setCrashManagerStatus: BITCrashManagerStatusAutoSend];
-  [[BITHockeyManager sharedHockeyManager] startManager];
-  [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation]; // This line is obsolete in the crash only builds
-
+  InitCrashTrackers();
 
   // Initialize all 3party engines.
   BOOL returnValue = [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];

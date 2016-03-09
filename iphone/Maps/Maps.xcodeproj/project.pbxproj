@@ -176,6 +176,10 @@
 		349C26B51BB02C6F0005DF2F /* MWMBottomMenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B31BB02C6F0005DF2F /* MWMBottomMenuViewController.mm */; };
 		349C26B61BB02C6F0005DF2F /* MWMBottomMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */; };
 		349C26B91BB04ED30005DF2F /* MWMBottomMenuView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349C26B81BB04ED30005DF2F /* MWMBottomMenuView.mm */; };
+		34A62D4E1C903533007FDCB7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4C1C903533007FDCB7 /* Fabric.framework */; };
+		34A62D4F1C903533007FDCB7 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4C1C903533007FDCB7 /* Fabric.framework */; };
+		34A62D501C903533007FDCB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4D1C903533007FDCB7 /* Crashlytics.framework */; };
+		34A62D511C903533007FDCB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A62D4D1C903533007FDCB7 /* Crashlytics.framework */; };
 		34ABA6161C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA6151C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm */; };
 		34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA6151C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm */; };
 		34ABA61B1C2D4DCC00FE1BEC /* UITextField+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA61A1C2D4DCC00FE1BEC /* UITextField+RuntimeAttributes.mm */; };
@@ -1024,6 +1028,8 @@
 		349C26B41BB02C6F0005DF2F /* MWMBottomMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMBottomMenuViewController.xib; sourceTree = "<group>"; };
 		349C26B71BB04ED30005DF2F /* MWMBottomMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMBottomMenuView.h; sourceTree = "<group>"; };
 		349C26B81BB04ED30005DF2F /* MWMBottomMenuView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMBottomMenuView.mm; sourceTree = "<group>"; };
+		34A62D4C1C903533007FDCB7 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		34A62D4D1C903533007FDCB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		34ABA6141C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAuthorizationOSMLoginViewController.h; sourceTree = "<group>"; };
 		34ABA6151C2D185B00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAuthorizationOSMLoginViewController.mm; sourceTree = "<group>"; };
 		34ABA6191C2D4DA900FE1BEC /* UITextField+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+RuntimeAttributes.h"; sourceTree = "<group>"; };
@@ -1519,6 +1525,7 @@
 				845C89361C8983F300940D7F /* libc++.tbd in Frameworks */,
 				845C89371C8983F300940D7F /* QuickLook.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
+				34A62D4E1C903533007FDCB7 /* Fabric.framework in Frameworks */,
 				97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */,
 				46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */,
 				97719D491843B6F700BDD815 /* Security.framework in Frameworks */,
@@ -1548,6 +1555,7 @@
 				B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */,
 				B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */,
 				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
+				34A62D501C903533007FDCB7 /* Crashlytics.framework in Frameworks */,
 				97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */,
 				97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */,
 				97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */,
@@ -1568,6 +1576,7 @@
 				6741AABD1BF356BA002C974C /* libagg.a in Frameworks */,
 				6741AABE1BF356BA002C974C /* libalohalitics.a in Frameworks */,
 				6741AAC01BF356BA002C974C /* libapi.a in Frameworks */,
+				34A62D511C903533007FDCB7 /* Crashlytics.framework in Frameworks */,
 				6741AAC11BF356BA002C974C /* libbase.a in Frameworks */,
 				6741AAC21BF356BA002C974C /* libcoding.a in Frameworks */,
 				6741AAC31BF356BA002C974C /* libexpat.a in Frameworks */,
@@ -1585,6 +1594,7 @@
 				845C892D1C8981CE00940D7F /* HockeySDK.framework in Frameworks */,
 				6741AACD1BF356BA002C974C /* libminizip.a in Frameworks */,
 				6741AACE1BF356BA002C974C /* libopening_hours.a in Frameworks */,
+				34A62D4F1C903533007FDCB7 /* Fabric.framework in Frameworks */,
 				347A4C5E1C4E76C9006BA66E /* liboauthcpp.a in Frameworks */,
 				6741AACF1BF356BA002C974C /* libosrm.a in Frameworks */,
 				6741AAD01BF356BA002C974C /* libplatform.a in Frameworks */,
@@ -1733,6 +1743,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34A62D4C1C903533007FDCB7 /* Fabric.framework */,
+				34A62D4D1C903533007FDCB7 /* Crashlytics.framework */,
 				845C89321C8983F300940D7F /* CoreText.framework */,
 				845C89331C8983F300940D7F /* libc++.tbd */,
 				845C89341C8983F300940D7F /* QuickLook.framework */,
@@ -3034,6 +3046,7 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				F6D434721AD2AB97007C7728 /* Embed App Extensions */,
+				34A62D4A1C9034D0007FDCB7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3421,6 +3434,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		34A62D4A1C9034D0007FDCB7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\n\nLOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  LINE=`grep CRASHLYTICS_IOS_KEY ../../private.h`\n    if [[ $LINE =~ \\\"(.*)\\\" ]]; then\n      CRASHLYTICS_KEY=${BASH_REMATCH[1]}\n      if [[ \"$CRASHLYTICS_KEY\" ]]; then\n        bash \"./Fabric.framework/run\" \"$CRASHLYTICS_KEY\"\n      fi\n    fi\nfi\n";
+		};
 		FA3A60E715AD5BBD00F40D20 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
