@@ -1418,4 +1418,25 @@ void Storage::RetryDownloadNode(TCountryId const & countryId)
     DownloadNode(descendantId);
   });
 }
+
+bool Storage::GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInfo) const
+{
+  auto const updateInfoAccumulator = [&updateInfo, this](TCountryTreeNode const & descendantNode)
+  {
+    if (descendantNode.ChildrenCount() != 0 || GetNodeStatus(descendantNode).status != NodeStatus::OnDiskOutOfDate)
+      return;
+    updateInfo.m_numberOfMwmFilesToUpdate += 1; // It's not a group mwm.
+    updateInfo.m_totalUpdateSizeInBytes += descendantNode.Value().GetSubtreeMwmCounter();
+  };
+
+  TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
+  if (!node)
+  {
+    ASSERT(false, ());
+    return false;
+  }
+  updateInfo = UpdateInfo();
+  node->ForEachInSubtree(updateInfoAccumulator);
+  return true;
+}
 }  // namespace storage

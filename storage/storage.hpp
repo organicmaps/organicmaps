@@ -251,6 +251,8 @@ public:
   /// \brief Information for "Update all mwms" button.
   struct UpdateInfo
   {
+    UpdateInfo() : m_numberOfMwmFilesToUpdate(0), m_totalUpdateSizeInBytes(0) {}
+
     size_t m_numberOfMwmFilesToUpdate;
     size_t m_totalUpdateSizeInBytes;
   };
@@ -330,7 +332,7 @@ public:
 
   /// \brief Get information for mwm update button.
   /// \return true if updateInfo is filled correctly and false otherwise.
-  bool GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInfo) const { return true; }
+  bool GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInfo) const;
 
   /// \brief Calls |toDo| for each node for subtree with |root|.
   /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including
