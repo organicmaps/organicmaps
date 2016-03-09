@@ -781,8 +781,7 @@ bool FrontendRenderer::CheckTileGenerations(TileKey const & tileKey)
   {
     return group->GetTileKey() == tileKey && group->GetTileKey().m_generation < tileKey.m_generation;
   };
-  for (RenderLayer & layer : m_layers)
-    layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
+  RemoveRenderGroups(removePredicate);
 
   return result;
 }
