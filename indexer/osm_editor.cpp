@@ -26,6 +26,7 @@
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+#include "base/thread_checker.hpp"
 #include "base/timer.hpp"
 
 #include "std/algorithm.hpp"
@@ -692,6 +693,7 @@ NewFeatureCategories Editor::GetNewFeatureCategories() const
 
 FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id)
 {
+  DECLARE_AND_ASSERT_THREAD_CHECKER("GenerateNewFeatureId is single-threaded.");
   // TODO(vng): Double-check if new feature indexes should uninterruptedly continue after existing indexes in mwm file.
   uint32_t featureIndex = kStartIndexForCreatedFeatures;
   auto const found = m_features.find(id);
