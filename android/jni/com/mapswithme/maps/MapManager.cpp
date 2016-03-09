@@ -182,7 +182,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetDownloadedCount(JNIEnv *
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz)
 {
-  Storage::UpdateInfo info = { 0 };
+  Storage::UpdateInfo info;
   if (!GetStorage().GetUpdateInfo(GetStorage().GetRootId(), info))
     return nullptr;
 
