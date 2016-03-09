@@ -2,6 +2,6 @@
 
 @interface MWMPlacePageButtonCell : UITableViewCell
 
-- (void)config:(MWMPlacePage *)placePage;
+- (void)config:(MWMPlacePage *)placePage isReport:(BOOL)isReport;
 
 @end

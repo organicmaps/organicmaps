@@ -152,10 +152,12 @@ void initFieldsMap()
     case MWMPlacePageCellTypeCoordinate:
       return [self coordinate];
     case MWMPlacePageCellTypeBookmark:
-      return m_info.IsBookmark() ? @"haveValue" : nil;
+      return m_info.IsBookmark() ? @"" : nil;
     case MWMPlacePageCellTypeEditButton:
       // TODO(Vlad): It's a really strange way to "display" cell if returned text is not nil.
-      return m_info.IsEditable() ? @"Refactor Me" : nil;
+      return m_info.IsEditable() ? @"" : nil;
+    case MWMPlacePageCellTypeReportButton:
+      return m_info.IsFeature() ? @"" : nil;
     default:
     {
       auto const it = m_values.find(cellType);

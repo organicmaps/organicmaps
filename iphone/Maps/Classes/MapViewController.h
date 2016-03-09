@@ -33,6 +33,7 @@ namespace search { struct AddressInfo; }
 - (void)openBookmarks;
 - (void)openMapsDownloader;
 - (void)openEditor;
+- (void)showReportController;
 
 - (void)refreshAd;
 

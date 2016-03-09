@@ -138,6 +138,11 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
   [self.manager editPlace];
 }
 
+- (void)reportProblem
+{
+  [self.manager reportProblem];
+}
+
 - (void)share
 {
   [self.manager share];

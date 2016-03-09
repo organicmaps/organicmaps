@@ -246,6 +246,11 @@ extern NSString * const kBookmarksChangedNotification;
   [(MapViewController *)self.ownerViewController openEditor];
 }
 
+- (void)reportProblem
+{
+  [static_cast<MapViewController *>(self.ownerViewController) showReportController];
+}
+
 - (void)addBookmark
 {
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)

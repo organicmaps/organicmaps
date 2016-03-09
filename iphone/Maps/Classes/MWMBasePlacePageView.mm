@@ -44,7 +44,8 @@ vector<MWMPlacePageCellType> const kSectionMetadataCellTypes {
 };
 
 vector<MWMPlacePageCellType> const kSectionEditingCellTypes {
-  MWMPlacePageCellTypeEditButton
+  MWMPlacePageCellTypeEditButton,
+  MWMPlacePageCellTypeReportButton
 };
 
 using TCellTypesSectionMap = pair<vector<MWMPlacePageCellType>, PlacePageSection>;
@@ -65,7 +66,8 @@ MWMPlacePageCellTypeValueMap const kCellType2ReuseIdentifier{
     {MWMPlacePageCellTypePhoneNumber, "PlacePageLinkCell"},
     {MWMPlacePageCellTypeOpenHours, "MWMPlacePageOpeningHoursCell"},
     {MWMPlacePageCellTypeBookmark, "PlacePageBookmarkCell"},
-    {MWMPlacePageCellTypeEditButton, "MWMPlacePageButtonCell"}};
+    {MWMPlacePageCellTypeEditButton, "MWMPlacePageButtonCell"},
+    {MWMPlacePageCellTypeReportButton, "MWMPlacePageButtonCell"}};
 
 NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 {
@@ -444,6 +446,9 @@ enum class AttributePosition
   MWMPlacePageCellType const cellType = [self cellTypeForIndexPath:indexPath];
   switch (cellType)
   {
+    case MWMPlacePageCellTypeReportButton:
+      [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage isReport:YES];
+      break;
     case MWMPlacePageCellTypeBookmark:
       [(MWMPlacePageBookmarkCell *)cell config:self.ownerPlacePage forHeight:NO];
       break;
@@ -451,7 +456,7 @@ enum class AttributePosition
       [(MWMPlacePageOpeningHoursCell *)cell configWithDelegate:self info:[entity getCellValue:cellType]];
       break;
     case MWMPlacePageCellTypeEditButton:
-      [(MWMPlacePageButtonCell *)cell config:self.ownerPlacePage];
+      [static_cast<MWMPlacePageButtonCell *>(cell) config:self.ownerPlacePage isReport:NO];
       break;
     default:
     {

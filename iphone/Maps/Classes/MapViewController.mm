@@ -71,6 +71,7 @@ NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
 NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
+NSString * const kReportSegue = @"Map2ReportSegue";
 } // namespace
 
 @interface NSValueWrapper : NSObject
@@ -551,8 +552,12 @@ NSString * const kUDViralAlertWasShown = @"ViralAlertWasShown";
 
 - (void)openEditor
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatEdit)];
   [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.placePageEntity];
+}
+
+- (void)showReportController
+{
+  [self performSegueWithIdentifier:kReportSegue sender:nil];
 }
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode

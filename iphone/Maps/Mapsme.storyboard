@@ -35,6 +35,7 @@
                         <segue destination="2fX-ws-Tuc" kind="custom" identifier="Map2AuthorizationSegue" customClass="MWMSegue" id="CJ1-sY-Il4"/>
                         <segue destination="Lfa-Zp-orR" kind="custom" identifier="Map2EditorSegue" customClass="MWMSegue" id="OEF-kR-jKi"/>
                         <segue destination="sAj-hs-LjL" kind="custom" identifier="MapToCategorySelectorSegue" customClass="MWMSegue" id="yAJ-jH-Dus"/>
+                        <segue destination="Lgr-ZK-lGB" kind="custom" identifier="Map2ReportSegue" customClass="MWMSegue" id="gCh-Ix-flI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKg-Q7-bFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1716,6 +1717,155 @@
             </objects>
             <point key="canvasLocation" x="1881" y="1224"/>
         </scene>
+        <!--Report Problem Controller-->
+        <scene sceneID="RAz-lh-lom">
+            <objects>
+                <tableViewController id="Lgr-ZK-lGB" customClass="MWMReportProblemController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="li8-xE-fzL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="gnw-eJ-Ieg">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectableCell" id="g66-LD-sto" customClass="SelectableCell">
+                                        <rect key="frame" x="0.0" y="35" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g66-LD-sto" id="5kM-d9-YTL">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Place doesn't exist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="477" translatesAutoresizingMaskIntoConstraints="NO" id="9h0-27-Qdf">
+                                                    <rect key="frame" x="16" y="11" width="527" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="place_doesnt_exist"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="9h0-27-Qdf" secondAttribute="bottom" constant="3.5" id="E6x-dZ-hhU"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9h0-27-Qdf" secondAttribute="trailing" constant="10" id="aZV-kX-gEm"/>
+                                                <constraint firstItem="9h0-27-Qdf" firstAttribute="leading" secondItem="5kM-d9-YTL" secondAttribute="leadingMargin" constant="8" id="e6j-E8-7Sr"/>
+                                                <constraint firstItem="9h0-27-Qdf" firstAttribute="top" secondItem="5kM-d9-YTL" secondAttribute="topMargin" constant="3" id="fdM-4J-HXY"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="9h0-27-Qdf" id="H0n-Kf-h4a"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LinkCell" id="EX5-r9-xqT" customClass="LinkCell">
+                                        <rect key="frame" x="0.0" y="79" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EX5-r9-xqT" id="nQT-aY-P4o">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="483" translatesAutoresizingMaskIntoConstraints="NO" id="Tyx-T5-jhZ">
+                                                    <rect key="frame" x="16" y="11" width="533" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="other"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Tyx-T5-jhZ" firstAttribute="leading" secondItem="nQT-aY-P4o" secondAttribute="leadingMargin" constant="8" id="NBC-ht-mZv"/>
+                                                <constraint firstItem="Tyx-T5-jhZ" firstAttribute="top" secondItem="nQT-aY-P4o" secondAttribute="topMargin" constant="3" id="Zup-2W-vrv"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Tyx-T5-jhZ" secondAttribute="trailing" constant="10" id="lbh-4g-faW"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Tyx-T5-jhZ" secondAttribute="bottom" constant="3.5" id="ynn-p5-DoB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="Tyx-T5-jhZ" id="ybn-sU-9Cm"/>
+                                            <segue destination="Ajb-eT-8P5" kind="custom" identifier="2ExtendedReportSegue" customClass="MWMSegue" id="Gb3-ux-wqf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Lgr-ZK-lGB" id="thy-3c-4iP"/>
+                            <outlet property="delegate" destination="Lgr-ZK-lGB" id="kA1-Uj-n5M"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="placeDoesntExistCell" destination="g66-LD-sto" id="8A7-uC-72C"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HsP-Mh-TdZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1866" y="1978"/>
+        </scene>
+        <!--Report Problem Extended Controller-->
+        <scene sceneID="MQs-9R-SZd">
+            <objects>
+                <tableViewController id="Ajb-eT-8P5" customClass="MWMReportProblemExtendedController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Urf-xt-sj3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="M33-4h-2SR">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="128" id="Wg5-bm-vvK">
+                                        <rect key="frame" x="0.0" y="35" width="600" height="128"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wg5-bm-vvK" id="2nm-b7-p6S">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="127"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6cE-dD-8Es" customClass="MWMTextView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="127"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="detailed_problem_description"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="6cE-dD-8Es" secondAttribute="trailing" id="46N-cT-757"/>
+                                                <constraint firstItem="6cE-dD-8Es" firstAttribute="leading" secondItem="2nm-b7-p6S" secondAttribute="leading" id="EcU-2x-yiV"/>
+                                                <constraint firstAttribute="bottom" secondItem="6cE-dD-8Es" secondAttribute="bottom" id="ijn-qI-Zcj"/>
+                                                <constraint firstItem="6cE-dD-8Es" firstAttribute="top" secondItem="2nm-b7-p6S" secondAttribute="top" id="mS6-LW-Exq"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Ajb-eT-8P5" id="tKq-fG-sly"/>
+                            <outlet property="delegate" destination="Ajb-eT-8P5" id="x6s-Q1-1pZ"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="textView" destination="6cE-dD-8Es" id="j33-dl-6So"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vnV-2b-u0g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2584" y="1978"/>
+        </scene>
         <!--Whats New Controller-->
         <scene sceneID="MYd-bd-VsQ">
             <objects>
@@ -3002,8 +3152,8 @@ the world. Join us!</string>
         <image name="separator_image" width="1" height="1"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Pk-Zz-Tks"/>
-        <segue reference="fuS-6s-TH4"/>
+        <segue reference="yAJ-jH-Dus"/>
+        <segue reference="OEF-kR-jKi"/>
         <segue reference="Z0Z-aU-Vrq"/>
         <segue reference="w48-2Y-VXA"/>
     </inferredMetricsTieBreakers>
