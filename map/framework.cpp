@@ -288,7 +288,7 @@ Framework::Framework()
   , m_bmManager(*this)
   , m_fixedSearchResults(0)
   , m_lastReportedCountry(kInvalidCountryId)
-  , m_watchdogCountryUpdate(seconds(2))
+  , m_deferredCountryUpdate(seconds(1))
 {
   // Restore map style before classificator loading
   int mapStyle = MapStyleLight;
@@ -946,15 +946,19 @@ void Framework::ClearAllCaches()
 void Framework::OnCheckUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel)
 {
   if (zoomLevel <= scales::GetUpperWorldScale())
-    m_watchdogCountryUpdate.Drop();
+    m_deferredCountryUpdate.Drop();
   else
-    m_watchdogCountryUpdate.RestartWith([this, pt, zoomLevel]{
+    m_deferredCountryUpdate.RestartWith([this, pt, zoomLevel]
+    {
       OnUpdateCurrentCountry(pt, zoomLevel);
     });
 }
 
 void Framework::OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel)
 {
+  if (zoomLevel <= scales::GetUpperWorldScale())
+    return;
+
   storage::TCountryId newCountryId = m_infoGetter->GetRegionCountryId(m2::PointD(pt));
 
   if (newCountryId == m_lastReportedCountry)

@@ -1,12 +1,13 @@
 #pragma once
 
-#include "std/thread.hpp"
 #include "std/chrono.hpp"
-#include "std/mutex.hpp"
 #include "std/condition_variable.hpp"
 #include "std/function.hpp"
+#include "std/mutex.hpp"
+#include "std/thread.hpp"
 
-
+namespace my
+{
 class DeferredTask
 {
   using TDuration = duration<double>;
@@ -18,12 +19,12 @@ class DeferredTask
   bool m_terminate = false;
 
 public:
-  DeferredTask(TDuration duration);
+  DeferredTask(TDuration const & duration);
   ~DeferredTask();
 
   void Drop();
 
-  template<typename TFn>
+  template <typename TFn>
   void RestartWith(TFn const && fn)
   {
     {
@@ -33,3 +34,4 @@ public:
     m_cv.notify_one();
   }
 };
+}  // namespace my

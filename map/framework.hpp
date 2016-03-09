@@ -42,7 +42,6 @@
 #include "std/list.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/target_os.hpp"
-#include "std/thread.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 #include "std/weak_ptr.hpp"
@@ -128,7 +127,7 @@ protected:
   double m_startForegroundTime;
 
   storage::Storage m_storage;
-  DeferredTask m_watchdogCountryUpdate;
+  my::DeferredTask m_deferredCountryUpdate;
 
   location::TMyPositionModeChanged m_myPositionListener;
 

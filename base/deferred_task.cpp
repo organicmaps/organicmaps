@@ -1,8 +1,11 @@
 #include "deferred_task.hpp"
 
-DeferredTask::DeferredTask(TDuration duration) : m_duration(duration)
+namespace my
 {
-  m_thread = thread([this] {
+DeferredTask::DeferredTask(TDuration const & duration) : m_duration(duration)
+{
+  m_thread = thread([this]
+  {
     unique_lock<mutex> l(m_mutex);
     while (!m_terminate)
     {
@@ -15,11 +18,15 @@ DeferredTask::DeferredTask(TDuration duration) : m_duration(duration)
       if (m_cv.wait_for(l, m_duration) != cv_status::timeout)
         continue;
 
-      auto local_fn = move(m_fn);
+      auto fn = move(m_fn);
       m_fn = nullptr;
-      l.unlock();
-      local_fn();
-      l.lock();
+
+      if (fn)
+      {
+        l.unlock();
+        fn();
+        l.lock();
+      }
     }
   });
 }
@@ -42,3 +49,4 @@ void DeferredTask::Drop()
   }
   m_cv.notify_one();
 }
+}  // namespace my
