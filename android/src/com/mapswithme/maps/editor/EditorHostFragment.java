@@ -188,7 +188,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   public void setStreet(String street)
   {
-    mEditedObject.setStreet(street);
+    Editor.nativeSetStreet(street);
     editMapObject();
   }
 
