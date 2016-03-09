@@ -498,12 +498,4 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeHasUnsavedEditorChanges(JNI
   return g_framework->NativeFramework()->HasUnsavedEdits(jni::ToNativeString(env, root));
 }
 
-// static void nativeDeleteUnsavedEditorChanges(String root);
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeDeleteUnsavedEditorChanges(JNIEnv * env, jclass clazz, jstring root)
-{
-  // TODO (trashkalmar): Invoke proper method.
-  //g_framework->NativeFramework()->DeleteUnsavedEdits(jni::ToNativeString(env, root));
-}
-
 } // extern "C"

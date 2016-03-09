@@ -92,7 +92,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
                          @Override
                          public void onClick(DialogInterface dialog, int which)
                          {
-                           MapManager.nativeDeleteUnsavedEditorChanges(item.id);
                            deleteNode(item);
                          }
                        }).show();
