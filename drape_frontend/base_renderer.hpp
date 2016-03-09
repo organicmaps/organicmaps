@@ -41,6 +41,7 @@ public:
   bool CanReceiveMessages();
 
   void SetRenderingEnabled(bool const isEnabled);
+  bool IsRenderingEnabled() const;
 
 protected:
   ref_ptr<ThreadsCommutator> m_commutator;

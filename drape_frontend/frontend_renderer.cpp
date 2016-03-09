@@ -1420,7 +1420,9 @@ void FrontendRenderer::Routine::Do()
     if (activityTimer.ElapsedSeconds() > kMaxInactiveSeconds)
     {
       // Process a message or wait for a message.
-      m_renderer.ProcessSingleMessage();
+      // IsRenderingEnabled() can return false in case of rendering disabling and we must prevent
+      // possibility of infinity waiting in ProcessSingleMessage.
+      m_renderer.ProcessSingleMessage(m_renderer.IsRenderingEnabled());
       activityTimer.Reset();
     }
     else
