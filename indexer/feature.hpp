@@ -177,7 +177,7 @@ public:
   //@}
 
   inline void SetID(FeatureID const & id) { m_id = id; }
-  inline FeatureID GetID() const { return m_id; }
+  inline FeatureID const & GetID() const { return m_id; }
 
   /// @name Editor functions.
   //@{
