@@ -332,12 +332,25 @@ Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint
 
 void Editor::DeleteFeature(FeatureType const & feature)
 {
-  FeatureID const fid = feature.GetID();
-  FeatureTypeInfo & ftInfo = m_features[fid.m_mwmId][fid.m_index];
-  ftInfo.m_status = FeatureStatus::Deleted;
-  ftInfo.m_feature = feature;
+  FeatureID const & fid = feature.GetID();
+  auto const mwm = m_features.find(fid.m_mwmId);
+  if (mwm != m_features.end())
+  {
+    auto const f = mwm->second.find(fid.m_index);
+    // Created feature is deleted by removing all traces of it.
+    if (f != mwm->second.end() && f->second.m_status == FeatureStatus::Created)
+    {
+      mwm->second.erase(f);
+      return;
+    }
+  }
+
+  FeatureTypeInfo & fti = m_features[fid.m_mwmId][fid.m_index];
+  fti.m_status = FeatureStatus::Deleted;
   // TODO: What if local client time is absolutely wrong?
-  ftInfo.m_modificationTimestamp = time(nullptr);
+  fti.m_modificationTimestamp = time(nullptr);
+  // TODO: We don't really need to serialize whole feature. Improve this code in the future.
+  fti.m_feature = feature;
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save(GetEditorFilePath());
