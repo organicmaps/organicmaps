@@ -222,6 +222,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     {
       ReconstructPath(stateV.vertex, parent, result.path);
       result.distance = stateV.distance;
+      ASSERT_EQUAL(graph.HeuristicCostEstimate(stateV.vertex, finalVertex), 0, ());
       return Result::OK;
     }
 
@@ -321,6 +322,10 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
         ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent,
                                      result.path);
         result.distance = bestPathReducedLength;
+        if (curTop > 0)
+          result.distance -= cur->ConsistentHeuristic(nxt->bestVertex);
+        if (nxtTop > 0)
+          result.distance -= nxt->ConsistentHeuristic(nxt->bestVertex);
         CHECK(!result.path.empty(), ());
         if (!cur->forward)
           reverse(result.path.begin(), result.path.end());
