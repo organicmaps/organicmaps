@@ -267,6 +267,7 @@ bool Editor::Save(string const & fullFilePath) const
     for (auto const & index : mwm.second)
     {
       FeatureTypeInfo const & fti = index.second;
+      // TODO: Do we really need to serialize deleted features in full details? Looks like mwm ID and meta fields are enough.
       XMLFeature xf = fti.m_feature.ToXML();
       xf.SetMWMFeatureIndex(index.first);
       if (!fti.m_street.empty())

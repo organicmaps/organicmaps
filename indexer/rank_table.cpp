@@ -129,7 +129,7 @@ public:
   uint8_t Get(uint64_t i) const override
   {
     // i can be greater than Size() for features created by user in the Editor.
-    // TODO(vng): Is there a better way inject it? Without this check search engine crashes here.
+    // May be there is a better way to inject this code. Without this check search engine crashes here.
     //ASSERT_LESS(i, Size(), ());
     if (i >= Size())
       return 0;
