@@ -494,6 +494,8 @@
 	<string name="downloader_retry">Повторите попытку</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Карта + Маршруты</string>
+	<!-- Dialog confirmation when trying to delete map and there are unsaved changes present on it. -->
+	<string name="downloader_delete_editor_changes">Несохранённые правки в данном регионе также будут удалены! Продолжить?</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">Удалить карту</string>
 	<!-- Item in context menu. -->

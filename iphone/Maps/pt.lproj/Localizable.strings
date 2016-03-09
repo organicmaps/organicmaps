@@ -768,6 +768,9 @@
 /* Item in context menu. */
 "downloader_map_and_routing" = "Mapa + Criação de Trajeto";
 
+/* Dialog confirmation when trying to delete map and there are unsaved changes present on it. */
+"downloader_delete_editor_changes" = "Unsaved changes for this map will be removed too. Continue anyway?";
+
 /* Item in context menu. */
 "downloader_delete_map" = "Apagar Mapa";
 

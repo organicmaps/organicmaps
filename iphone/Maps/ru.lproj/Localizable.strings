@@ -768,6 +768,9 @@
 /* Item in context menu. */
 "downloader_map_and_routing" = "Карта + Маршруты";
 
+/* Dialog confirmation when trying to delete map and there are unsaved changes present on it. */
+"downloader_delete_editor_changes" = "Несохранённые правки в данном регионе также будут удалены! Продолжить?";
+
 /* Item in context menu. */
 "downloader_delete_map" = "Удалить карту";
 

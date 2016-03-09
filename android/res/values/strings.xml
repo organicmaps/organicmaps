@@ -496,6 +496,8 @@
 	<string name="downloader_retry">Retry</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Map + Routing</string>
+	<!-- Dialog confirmation when trying to delete map and there are unsaved changes present on it. -->
+	<string name="downloader_delete_editor_changes">Unsaved changes for this map will be removed too. Continue anyway?</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">Delete Map</string>
 	<!-- Item in context menu. -->
