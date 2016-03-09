@@ -55,6 +55,24 @@ void InitStorage(Storage & storage, Storage::TProgressFunction const & onProgres
 
 } // namespace
 
+UNIT_TEST(SmallMwms_ReDownloadExistedMWMIgnored_Test)
+{
+  WritableDirChanger writableDirChanger(kMapTestDir);
+  Storage storage(COUNTRIES_FILE);
+  TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
+
+  InitStorage(storage, [](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize){});
+  TEST(!storage.IsDownloadInProgress(), ());
+
+  storage.DownloadNode(kCountryId);
+  TEST(storage.IsDownloadInProgress(), ());
+  testing::RunEventLoop();
+
+  TEST(!storage.IsDownloadInProgress(), ());
+  storage.DownloadNode(kCountryId);
+  TEST(!storage.IsDownloadInProgress(), ());
+}
+
 UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
 {
   WritableDirChanger writableDirChanger(kMapTestDir);

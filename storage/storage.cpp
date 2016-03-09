@@ -1204,6 +1204,9 @@ void Storage::DownloadNode(TCountryId const & countryId)
   if (!node)
     return;
 
+  if (GetNodeStatus(*node).status == NodeStatus::OnDisk)
+    return;
+
   auto downloadAction = [this](TCountryTreeNode const & descendantNode)
   {
     if (descendantNode.ChildrenCount() == 0)
