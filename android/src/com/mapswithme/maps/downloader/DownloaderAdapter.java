@@ -25,6 +25,7 @@ import java.util.Stack;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Graphics;
@@ -178,6 +179,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     @Override
     public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
+      for (MapManager.StorageCallbackData item : data)
+        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
+        {
+          MapManager.showError(mActivity, item);
+          break;
+        }
+
       if (mSearchResultsMode)
       {
         for (MapManager.StorageCallbackData item : data)
@@ -224,6 +232,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_FAILED:
+        Notifier.cancelDownloadFailed();
         MapManager.nativeRetry(mItem.id);
         break;
 
@@ -373,6 +382,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_DOWNLOADABLE:
+      case CountryItem.STATUS_PARTLY:
         iconRes = R.drawable.ic_downloader_download;
         break;
 
@@ -511,7 +521,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private void processData()
   {
-    Collections.<CountryItem>sort(mItems);
+    Collections.sort(mItems);
     collectHeaders();
 
     mCountryIndex.clear();

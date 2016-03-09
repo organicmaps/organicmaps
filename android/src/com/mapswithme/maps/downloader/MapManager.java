@@ -1,9 +1,16 @@
 package com.mapswithme.maps.downloader;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.util.statistics.Statistics;
 
 public final class MapManager
@@ -13,12 +20,14 @@ public final class MapManager
   {
     public final String countryId;
     public final int newStatus;
+    public final int errorCode;
     public final boolean isLeafNode;
 
-    public StorageCallbackData(String countryId, int newStatus, boolean isLeafNode)
+    public StorageCallbackData(String countryId, int newStatus, int errorCode, boolean isLeafNode)
     {
       this.countryId = countryId;
       this.newStatus = newStatus;
+      this.errorCode = errorCode;
       this.isLeafNode = isLeafNode;
     }
   }
@@ -44,6 +53,8 @@ public final class MapManager
     void onError(int code);
   }
 
+  private static WeakReference<AlertDialog> sCurrentErrorDialog;
+
   private MapManager() {}
 
   public static void sendErrorStat(String event, int code)
@@ -64,6 +75,49 @@ public final class MapManager
     }
 
     Statistics.INSTANCE.trackEvent(event, Statistics.params().add(Statistics.EventParam.TYPE, text));
+  }
+
+  public static void showError(Activity activity, final StorageCallbackData errorData)
+  {
+    if (sCurrentErrorDialog != null)
+    {
+      AlertDialog dlg = sCurrentErrorDialog.get();
+      if (dlg != null && dlg.isShowing())
+        return;
+
+      sCurrentErrorDialog = null;
+    }
+
+    @StringRes int text;
+    switch (errorData.errorCode)
+    {
+    case CountryItem.ERROR_NO_INTERNET:
+      text = R.string.no_internet_connection_detected;
+      break;
+
+    case CountryItem.ERROR_OOM:
+      text = R.string.not_enough_disk_space;
+      break;
+
+    default:
+      throw new IllegalArgumentException("Give error can not be displayed: " + errorData.errorCode);
+    }
+
+    AlertDialog dlg = new AlertDialog.Builder(activity)
+                                     .setTitle(R.string.country_status_download_failed)
+                                     .setMessage(text)
+                                     .setNegativeButton(android.R.string.cancel, null)
+                                     .setPositiveButton(R.string.downloader_retry, new DialogInterface.OnClickListener()
+                                     {
+                                       @Override
+                                       public void onClick(DialogInterface dialog, int which)
+                                       {
+                                         Notifier.cancelDownloadFailed();
+                                         MapManager.nativeRetry(errorData.countryId);
+                                       }
+                                     }).create();
+    dlg.show();
+    sCurrentErrorDialog = new WeakReference<>(dlg);
   }
 
   /**

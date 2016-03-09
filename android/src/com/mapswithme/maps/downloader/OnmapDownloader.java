@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.Config;
@@ -20,6 +21,7 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 {
+  private final MwmActivity mActivity;
   private final View mFrame;
   private final TextView mParent;
   private final TextView mTitle;
@@ -40,13 +42,21 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         return;
 
       for (MapManager.StorageCallbackData item : data)
-        if (item.isLeafNode && mCurrentCountry.id.equals(item.countryId))
+      {
+        if (!item.isLeafNode)
+          continue;
+
+        if (item.newStatus == CountryItem.STATUS_FAILED)
+          MapManager.showError(mActivity, item);
+
+        if (mCurrentCountry.id.equals(item.countryId))
         {
           mCurrentCountry.update();
           updateState();
 
           return;
         }
+      }
     }
 
     @Override
@@ -134,8 +144,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     UiUtils.showIf(showFrame, mFrame);
   }
 
-  public OnmapDownloader(final MwmActivity activity)
+  public OnmapDownloader(MwmActivity activity)
   {
+    mActivity = activity;
     mFrame = activity.findViewById(R.id.onmap_downloader);
     mParent = (TextView)mFrame.findViewById(R.id.downloader_parent);
     mTitle = (TextView)mFrame.findViewById(R.id.downloader_title);
@@ -163,13 +174,16 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       {
         if (MapManager.nativeIsLegacyMode())
         {
-          activity.showDownloader(false);
+          mActivity.showDownloader(false);
           return;
         }
 
         boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
         if (retry)
+        {
+          Notifier.cancelDownloadFailed();
           MapManager.nativeRetry(mCurrentCountry.id);
+        }
         else
           MapManager.nativeDownload(mCurrentCountry.id);
 

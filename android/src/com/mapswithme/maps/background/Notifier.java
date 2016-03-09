@@ -57,6 +57,11 @@ public final class Notifier
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN);
   }
 
+  public static void cancelDownloadFailed()
+  {
+    getNotificationManager().cancel(ID_DOWNLOAD_FAILED);
+  }
+
   public static void cancelDownloadSuggest()
   {
     getNotificationManager().cancel(ID_DOWNLOAD_NEW_COUNTRY);

@@ -47,6 +47,7 @@
       android:layout_marginBottom="@dimen/margin_base"
       android:textAppearance="@style/MwmTextAppearance.Body3"
       android:textColor="@color/base_red"
+      android:gravity="center_horizontal"
       tools:text="Some error occured! Please, be patient, man."/>
 
     <TextView

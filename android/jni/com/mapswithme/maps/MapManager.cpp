@@ -27,11 +27,13 @@ struct TBatchedData
 {
   TCountryId const m_countryId;
   NodeStatus const m_newStatus;
+  NodeErrorCode const m_errorCode;
   bool const m_isLeaf;
 
-  TBatchedData(TCountryId const & countryId, NodeStatus const newStatus, bool isLeaf)
+  TBatchedData(TCountryId const & countryId, NodeStatus const newStatus, NodeErrorCode const errorCode, bool isLeaf)
     : m_countryId(countryId)
     , m_newStatus(newStatus)
+    , m_errorCode(errorCode)
     , m_isLeaf(isLeaf)
   {}
 };
@@ -349,10 +351,11 @@ static void EndBatchingCallbacks(JNIEnv * env)
     {
       // Create StorageCallbackData instance…
       static jclass batchDataClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/MapManager$StorageCallbackData");
-      static jmethodID batchDataCtor = jni::GetConstructorID(env, batchDataClass, "(Ljava/lang/String;IZ)V");
+      static jmethodID batchDataCtor = jni::GetConstructorID(env, batchDataClass, "(Ljava/lang/String;IIZ)V");
 
       jni::TScopedLocalRef const item(env, env->NewObject(batchDataClass, batchDataCtor, jni::ToJavaString(env, dataItem.m_countryId),
                                                                                          static_cast<jint>(dataItem.m_newStatus),
+                                                                                         static_cast<jint>(dataItem.m_errorCode),
                                                                                          dataItem.m_isLeaf));
       // …and put it into the resulting list
       env->CallBooleanMethod(list.get(), arrayListAdd, item.get());
@@ -425,7 +428,7 @@ static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCoun
   NodeAttrs attrs;
   GetStorage().GetNodeAttrs(countryId, attrs);
 
-  TBatchedData const data(countryId, attrs.m_status, (attrs.m_mwmCounter == 1));
+  TBatchedData const data(countryId, attrs.m_status, attrs.m_error, (attrs.m_mwmCounter == 1));
   g_batchedCallbackData[*listenerRef].push_back(move(data));
 
   if (!g_isBatched)

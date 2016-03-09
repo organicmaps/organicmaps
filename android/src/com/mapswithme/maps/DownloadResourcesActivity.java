@@ -182,13 +182,22 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
     public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
       for (MapManager.StorageCallbackData item : data)
-        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_DONE)
+      {
+        if (!item.isLeafNode)
+          continue;
+
+        switch (item.newStatus)
         {
+        case CountryItem.STATUS_DONE:
           mAreResourcesDownloaded = true;
           showMap();
+          return;
 
+        case CountryItem.STATUS_FAILED:
+          MapManager.showError(DownloadResourcesActivity.this, item);
           return;
         }
+      }
     }
 
     @Override
