@@ -256,6 +256,8 @@
 		34E273221C737A4100463965 /* MWMMigrationViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E273201C737A4100463965 /* MWMMigrationViewController.mm */; };
 		34E273251C73876500463965 /* MWMMigrationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E273241C73876500463965 /* MWMMigrationView.mm */; };
 		34E273261C73876500463965 /* MWMMigrationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E273241C73876500463965 /* MWMMigrationView.mm */; };
+		34EB5E7D1C900145002C4D37 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89341C8983F300940D7F /* QuickLook.framework */; };
+		34EB5E7E1C900159002C4D37 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845C89301C89837900940D7F /* AssetsLibrary.framework */; };
 		34EB84581C073DF70004689F /* MWMOpeningHoursEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EB84571C073DF70004689F /* MWMOpeningHoursEditorViewController.mm */; };
 		34EB84591C073DF70004689F /* MWMOpeningHoursEditorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34EB84571C073DF70004689F /* MWMOpeningHoursEditorViewController.mm */; };
 		34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
@@ -1580,6 +1582,7 @@
 				6741AA351BF340DE002C974C /* libsqlite3.dylib in Frameworks */,
 				6741AA361BF340DE002C974C /* libz.dylib in Frameworks */,
 				6741AA371BF340DE002C974C /* AudioToolbox.framework in Frameworks */,
+				34EB5E7E1C900159002C4D37 /* AssetsLibrary.framework in Frameworks */,
 				674A7E2B1C0DA57C003D48E1 /* libdrape_frontend.a in Frameworks */,
 				6741AA381BF340DE002C974C /* Bolts.framework in Frameworks */,
 				6741AA391BF340DE002C974C /* Parse.framework in Frameworks */,
@@ -1592,6 +1595,7 @@
 				6741AA411BF340DE002C974C /* CoreMedia.framework in Frameworks */,
 				674A7E2A1C0DA579003D48E1 /* libdrape.a in Frameworks */,
 				6741AA421BF340DE002C974C /* CoreData.framework in Frameworks */,
+				34EB5E7D1C900145002C4D37 /* QuickLook.framework in Frameworks */,
 				6741AA431BF340DE002C974C /* AVFoundation.framework in Frameworks */,
 				6741AA441BF340DE002C974C /* CFNetwork.framework in Frameworks */,
 				6741AA451BF340DE002C974C /* iAd.framework in Frameworks */,
