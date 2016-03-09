@@ -7,6 +7,7 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/tree4d.hpp"
 
+#include "std/function.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -87,7 +88,7 @@ public:
 
   const string & GetOutgoingMwmName(OutgoingCrossNode const & mwmIndex) const;
 
-  bool FindIngoingNodeByPoint(ms::LatLon const & point, IngoingCrossNode & node) const;
+  bool ForEachIngoingNodeNearPoint(ms::LatLon const & point, function<void(IngoingCrossNode const & node)> && fn) const;
 
   TWrittenEdgeWeight GetAdjacencyCost(IngoingCrossNode const & ingoing,
                                      OutgoingCrossNode const & outgoing) const;

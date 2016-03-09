@@ -121,12 +121,14 @@ UNIT_TEST(TestFindingByPoint)
   routing::CrossRoutingContextWriter context;
   routing::CrossRoutingContextReader newContext;
 
-  ms::LatLon p1(1., 1.), p2(5., 5.), p3(10.,1.);
+  ms::LatLon p1(1., 1.), p2(5., 5.), p3(10., 1.), p4(20., 1.);
 
   context.AddIngoingNode(1, ms::LatLon::Zero());
   context.AddIngoingNode(2, p1);
   context.AddIngoingNode(3, p2);
   context.AddOutgoingNode(4, "foo", ms::LatLon::Zero());
+  context.AddIngoingNode(5, p3);
+  context.AddIngoingNode(6, p3);
   context.ReserveAdjacencyMatrix();
 
   vector<char> buffer;
@@ -136,11 +138,21 @@ UNIT_TEST(TestFindingByPoint)
 
   MemReader reader(buffer.data(), buffer.size());
   newContext.Load(reader);
-  IngoingCrossNode node;
-  TEST(newContext.FindIngoingNodeByPoint(p1, node), ());
-  TEST_EQUAL(node.m_nodeId, 2, ());
-  TEST(newContext.FindIngoingNodeByPoint(p2, node), ());
-  TEST_EQUAL(node.m_nodeId, 3, ());
-  TEST(!newContext.FindIngoingNodeByPoint(p3, node), ());
+  vector<IngoingCrossNode> node;
+  auto fn = [&node](IngoingCrossNode const & nd) {node.push_back(nd);};
+  TEST(newContext.ForEachIngoingNodeNearPoint(p1, fn), ());
+  TEST_EQUAL(node.size(), 1, ());
+  TEST_EQUAL(node[0].m_nodeId, 2, ());
+  node.clear();
+  TEST(newContext.ForEachIngoingNodeNearPoint(p2, fn), ());
+  TEST_EQUAL(node.size(), 1, ());
+  TEST_EQUAL(node[0].m_nodeId, 3, ());
+  node.clear();
+  TEST(!newContext.ForEachIngoingNodeNearPoint(p4, fn), ());
+  node.clear();
+  TEST(newContext.ForEachIngoingNodeNearPoint(p3, fn), ());
+  TEST_EQUAL(node.size(), 2, ());
+  TEST_EQUAL(node[0].m_nodeId, 5, ());
+  TEST_EQUAL(node[1].m_nodeId, 6, ());
 }
 }  // namespace

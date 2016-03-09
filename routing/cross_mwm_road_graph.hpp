@@ -120,13 +120,13 @@ public:
 
 private:
   // Cashing wrapper for the ConstructBorderCrossImpl function.
-  BorderCross ConstructBorderCross(OutgoingCrossNode const & startNode,
-                                   TRoutingMappingPtr const & currentMapping) const;
+  vector<BorderCross> const & ConstructBorderCross(OutgoingCrossNode const & startNode,
+                                                   TRoutingMappingPtr const & currentMapping) const;
 
   // Pure function to construct boder cross by outgoing cross node.
   bool ConstructBorderCrossImpl(OutgoingCrossNode const & startNode,
                                 TRoutingMappingPtr const & currentMapping,
-                                BorderCross & cross) const;
+                                vector<BorderCross> & cross) const;
   /*!
    * Adds a virtual edge to the graph so that it is possible to represent
    * the final segment of the path that leads from the map's border
@@ -151,7 +151,7 @@ private:
     }
   };
 
-  mutable unordered_map<TCachingKey, BorderCross, Hash> m_cachedNextNodes;
+  mutable unordered_map<TCachingKey, vector<BorderCross>, Hash> m_cachedNextNodes;
 };
 
 //--------------------------------------------------------------------------------------------------
