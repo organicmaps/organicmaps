@@ -17,8 +17,6 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <Crashlytics/Crashlytics.h>
-#import <Fabric/Fabric.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
@@ -39,8 +37,13 @@
 // If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
 #import "../../../private.h"
 
+#ifdef OMIM_PRODUCTION
 
+#import <Crashlytics/Crashlytics.h>
+#import <Fabric/Fabric.h>
 #import <HockeySDK/HockeySDK.h>
+
+#endif
 
 extern NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 // Alert keys.
@@ -102,18 +105,17 @@ void InitCrashTrackers()
   NSString * hockeyKey = @(HOCKEY_APP_KEY);
   if (hockeyKey.length != 0)
   {
-    // Initialize Hockey App Sdk
+    // Initialize Hockey App SDK.
     BITHockeyManager * hockeyManager = [BITHockeyManager sharedHockeyManager];
-    [hockeyManager configureWithIdentifier:hockeyKey]; // Do some additional configuration if needed here
+    [hockeyManager configureWithIdentifier:hockeyKey];
     [hockeyManager.crashManager setCrashManagerStatus: BITCrashManagerStatusAutoSend];
     [hockeyManager startManager];
-    [hockeyManager.authenticator authenticateInstallation]; // This line is obsolete in the crash only builds
   }
 
   NSString * fabricKey = @(CRASHLYTICS_IOS_KEY);
   if (fabricKey.length != 0)
   {
-    // Initialize Fabric/Crashlytics Sdk
+    // Initialize Fabric/Crashlytics SDK.
     [Fabric with:@[[Crashlytics class]]];
   }
 #endif
