@@ -27,6 +27,8 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
+#include "indexer/osm_editor.hpp"
+
 #include "Framework.h"
 
 #include "../Statistics/Statistics.h"
@@ -68,6 +70,7 @@ NSString * const kAuthorizationSegue = @"Map2AuthorizationSegue";
 NSString * const kDownloaderSegue = @"Map2MapDownloaderSegue";
 NSString * const kMigrationSegue = @"Map2MigrationSegue";
 NSString * const kEditorSegue = @"Map2EditorSegue";
+NSString * const kUDVirusAlertWasShown = @"VirusAlertWasShown";
 } // namespace
 
 @interface NSValueWrapper : NSObject
@@ -369,6 +372,7 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
   [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
   [self showWhatsNewIfNeeded];
+  [self showVirusAlertIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -407,6 +411,29 @@ NSString * const kEditorSegue = @"Map2EditorSegue";
     [self configureAndShowPageController];
 
   [ud setBool:YES forKey:kUDWhatsNewWasShown];
+  [ud synchronize];
+}
+
+- (void)showVirusAlertIfNeeded
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+
+  using namespace osm_auth_ios;
+  if (!AuthorizationIsNeedCheck() || [ud objectForKey:kUDVirusAlertWasShown] || !AuthorizationHaveCredentials())
+    return;
+
+  if (osm::Editor::Instance().GetStats().m_edits.size() < 2)
+    return;
+
+  if (!Platform::IsConnected())
+    return;
+
+  [self.alertController presentEditorVirusAlertWithShareBlock:^
+  {
+
+  }];
+
+  [ud setObject:[NSDate date] forKey:kUDVirusAlertWasShown];
   [ud synchronize];
 }
 
