@@ -221,7 +221,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     if (stateV.vertex == finalVertex)
     {
       ReconstructPath(stateV.vertex, parent, result.path);
-      result.distance = stateV.distance;
+      result.distance = stateV.distance - graph.HeuristicCostEstimate(stateV.vertex, finalVertex) + graph.HeuristicCostEstimate(startVertex, finalVertex);
       ASSERT_EQUAL(graph.HeuristicCostEstimate(stateV.vertex, finalVertex), 0, ());
       return Result::OK;
     }
@@ -271,6 +271,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
 
   bool foundAnyPath = false;
   double bestPathReducedLength = 0.0;
+  double bestPathRealLength = 0.0;
 
   forward.bestDistance[startVertex] = 0.0;
   forward.queue.push(State(startVertex, 0.0 /* distance */));
@@ -321,11 +322,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       {
         ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent,
                                      result.path);
-        result.distance = bestPathReducedLength;
-        if (curTop > 0)
-          result.distance -= cur->ConsistentHeuristic(nxt->bestVertex);
-        if (nxtTop > 0)
-          result.distance -= nxt->ConsistentHeuristic(nxt->bestVertex);
+        result.distance = bestPathRealLength;
         CHECK(!result.path.empty(), ());
         if (!cur->forward)
           reverse(result.path.begin(), result.path.end());
@@ -372,6 +369,11 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
         if (!foundAnyPath || bestPathReducedLength > curPathReducedLength)
         {
           bestPathReducedLength = curPathReducedLength;
+
+          bestPathRealLength = stateV.distance + len + distW;
+          bestPathRealLength += cur->pS - pV;
+          bestPathRealLength += nxt->pS - nxt->ConsistentHeuristic(stateW.vertex);
+
           foundAnyPath = true;
           cur->bestVertex = stateV.vertex;
           nxt->bestVertex = stateW.vertex;

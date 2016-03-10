@@ -213,7 +213,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad1)
              ());
   TEST_EQUAL(result.path, vector<Junction>({m2::PointD(2,2), m2::PointD(2,3), m2::PointD(4,3), m2::PointD(6,3),
                                      m2::PointD(8,3), m2::PointD(10,3), m2::PointD(10,2)}), ());
-  TEST(my::AlmostEqualAbs(result.distance, 159655., 1.), ("Distance error:", result.distance));
+  TEST(my::AlmostEqualAbs(result.distance, 800451., 1.), ("Distance error:", result.distance));
 }
 
 UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
@@ -240,7 +240,7 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
              algorithm.CalculateRoute(graph, m2::PointD(2, 2), m2::PointD(10, 2), delegate, result),
              ());
   TEST_EQUAL(result.path, vector<Junction>({m2::PointD(2,2), m2::PointD(6,2), m2::PointD(10,2)}), ());
-  TEST(my::AlmostEqualAbs(result.distance, 140663., 1.), ("Distance error:", result.distance));
+  TEST(my::AlmostEqualAbs(result.distance, 781458., 1.), ("Distance error:", result.distance));
 }
 
 UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
@@ -267,5 +267,5 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
              algorithm.CalculateRoute(graph, m2::PointD(2, 2), m2::PointD(10, 2), delegate, result),
              ());
   TEST_EQUAL(result.path, vector<Junction>({m2::PointD(2,2), m2::PointD(2,1), m2::PointD(10,1), m2::PointD(10,2)}), ());
-  TEST(my::AlmostEqualAbs(result.distance, 173616., 1.), ("Distance error:", result.distance));
+  TEST(my::AlmostEqualAbs(result.distance, 814412., 1.), ("Distance error:", result.distance));
 }
