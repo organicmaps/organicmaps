@@ -35,13 +35,14 @@ public class MapObject implements Parcelable
   protected double mLon;
   protected String mAddress;
   protected Metadata mMetadata;
+  protected String mApiId;
 
-  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address, double lat, double lon)
+  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address, double lat, double lon, String apiId)
   {
-    this(mapObjectType, title, subtitle, address, lat, lon, new Metadata());
+    this(mapObjectType, title, subtitle, address, lat, lon, new Metadata(), apiId);
   }
 
-  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address, double lat, double lon, Metadata metadata)
+  public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, String address, double lat, double lon, Metadata metadata, String apiId)
   {
     mMapObjectType = mapObjectType;
     mTitle = title;
@@ -50,6 +51,7 @@ public class MapObject implements Parcelable
     mLat = lat;
     mLon = lon;
     mMetadata = metadata;
+    mApiId = apiId;
   }
 
   protected MapObject(Parcel source)
@@ -61,7 +63,8 @@ public class MapObject implements Parcelable
          source.readString(), // Address
          source.readDouble(), // Lat
          source.readDouble(), // Lon
-         (Metadata) source.readParcelable(Metadata.class.getClassLoader()));
+         (Metadata) source.readParcelable(Metadata.class.getClassLoader()),
+         source.readString()); // ApiId;
   }
 
   /**
@@ -113,33 +116,15 @@ public class MapObject implements Parcelable
     return res == null ? "" : res;
   }
 
-  /**
-   * @return properly formatted and translated cuisine string.
-   */
-  @NonNull
-  static public String formatCuisine(String rawOsmCuisineValue)
-  {
-    if (TextUtils.isEmpty(rawOsmCuisineValue))
-      return "";
-
-    final StringBuilder result = new StringBuilder();
-    // search translations for each cuisine
-    final Resources resources = MwmApplication.get().getResources();
-    for (String rawCuisine : Metadata.splitCuisines(rawOsmCuisineValue))
-    {
-      int resId = resources.getIdentifier(Metadata.osmCuisineToStringName(Metadata.normalizeCuisine(rawCuisine)), "string", BuildConfig.APPLICATION_ID);
-      if (result.length() > 0)
-        result.append(", ");
-      result.append(resId == 0 ? rawCuisine : resources.getString(resId));
-    }
-
-    return result.toString();
-  }
-
   @MapObjectType
   public int getMapObjectType()
   {
     return mMapObjectType;
+  }
+
+  public String getApiId()
+  {
+    return mApiId;
   }
 
   public void setLat(double lat)
@@ -204,6 +189,7 @@ public class MapObject implements Parcelable
     dest.writeDouble(mLat);
     dest.writeDouble(mLon);
     dest.writeParcelable(mMetadata, 0);
+    dest.writeString(mApiId);
   }
 
   public static final Creator<MapObject> CREATOR = new Creator<MapObject>()
@@ -220,4 +206,27 @@ public class MapObject implements Parcelable
       return new MapObject[size];
     }
   };
+
+  /**
+   * @return properly formatted and translated cuisine string.
+   */
+  @NonNull
+  static public String formatCuisine(String rawOsmCuisineValue)
+  {
+    if (TextUtils.isEmpty(rawOsmCuisineValue))
+      return "";
+
+    final StringBuilder result = new StringBuilder();
+    // search translations for each cuisine
+    final Resources resources = MwmApplication.get().getResources();
+    for (String rawCuisine : Metadata.splitCuisines(rawOsmCuisineValue))
+    {
+      int resId = resources.getIdentifier(Metadata.osmCuisineToStringName(Metadata.normalizeCuisine(rawCuisine)), "string", BuildConfig.APPLICATION_ID);
+      if (result.length() > 0)
+        result.append(", ");
+      result.append(resId == 0 ? rawCuisine : resources.getString(resId));
+    }
+
+    return result.toString();
+  }
 }

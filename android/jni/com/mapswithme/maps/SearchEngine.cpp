@@ -36,6 +36,7 @@ jmethodID g_descriptionConstructor;
 jobject ToJavaResult(Result & result, bool hasPosition, double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
+  ::Framework * fr = g_framework->NativeFramework();
 
   jni::TScopedLocalIntArrayRef ranges(env, env->NewIntArray(result.GetHighlightRangesCount() * 2));
   jint * rawArr = env->GetIntArrayElements(ranges.get(), nullptr);
@@ -55,7 +56,7 @@ jobject ToJavaResult(Result & result, bool hasPosition, double lat, double lon)
     if (hasPosition)
     {
       double dummy;
-      (void) g_framework->NativeFramework()->GetDistanceAndAzimut(result.GetFeatureCenter(), lat, lon, 0, distance, dummy);
+      (void) fr->GetDistanceAndAzimut(result.GetFeatureCenter(), lat, lon, 0, distance, dummy);
     }
   }
 
@@ -71,10 +72,11 @@ jobject ToJavaResult(Result & result, bool hasPosition, double lat, double lon)
   search::AddressInfo info;
   if (result.GetResultType() == Result::RESULT_FEATURE)
   {
-    ::Framework * frm = g_framework->NativeFramework();
-    frm->LoadSearchResultMetadata(result);
-    frm->GetSearchResultAddress(result);
+    fr->LoadSearchResultMetadata(result);
+    info = fr->GetFeatureAddressInfo(result.GetFeatureID());
   }
+  else if (result.HasPoint())
+    info = fr->GetAddressInfoAtPoint(result.GetFeatureCenter());
 
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetFeatureType()));
   jni::TScopedLocalRef region(env, jni::ToJavaString(env, info.FormatAddress(search::AddressInfo::SEARCH_RESULT)));

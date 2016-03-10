@@ -23,19 +23,19 @@ void InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, f
 }
 
 jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title, string const & subtitle,
-                        double lat, double lon, string const & address, Metadata const & metadata)
+                        double lat, double lon, string const & address, Metadata const & metadata, string const & apiId)
 {
-  // public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, double lat, double lon, String address, Metadata metadata)
+  // public MapObject(@MapObjectType int mapObjectType, String title, String subtitle, double lat, double lon, String address, String apiId)
   static jmethodID const ctorId =
-      jni::GetConstructorID(env, g_mapObjectClazz, "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DD)V");
+      jni::GetConstructorID(env, g_mapObjectClazz, "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;DDLjava/lang/String;)V");
 
   jobject mapObject = env->NewObject(g_mapObjectClazz, ctorId,
-                                     static_cast<jint>(mapObjectType),
+                                     mapObjectType,
                                      jni::ToJavaString(env, title),
                                      jni::ToJavaString(env, subtitle),
                                      jni::ToJavaString(env, address),
-                                     static_cast<jdouble>(lat),
-                                     static_cast<jdouble>(lon));
+                                     lat, lon,
+                                     jni::ToJavaString(env, apiId));
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -49,10 +49,10 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
   // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
   if (info.IsMyPosition())
-    return CreateMapObject(env, kMyPosition, {}, {}, ll.lat, ll.lon, address.FormatAddress(), {});
+    return CreateMapObject(env, kMyPosition, "", "", ll.lat, ll.lon, address.FormatAddress(), {}, "");
 
   if (info.HasApiUrl())
-    return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(), info.GetMetadata());
+    return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(), info.GetMetadata(), info.GetApiUrl());
 
   if (info.IsBookmark())
   {
@@ -69,6 +69,6 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
   }
 
   return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(),
-                         info.IsFeature() ? info.GetMetadata() : Metadata());
+                         info.IsFeature() ? info.GetMetadata() : Metadata(), "");
 }
 }  // namespace usermark_helper
