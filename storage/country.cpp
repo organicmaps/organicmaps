@@ -99,9 +99,8 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId co
   uint32_t mwmCounter = 0;
   size_t mwmSize = 0;
 
-  char const * id = json_string_value(json_object_get(node, "id"));
-  if (!id)
-    MYTHROW(my::Json::Exception, ("LoadGroupImpl. Id is missing.", id));
+  TCountryId id;
+  my::FromJSONObject(node, "id", id);
 
   // Mapping two component (big) mwms to one componenst (small) ones.
   json_t * oldIds = json_object_get(node, "old");
@@ -127,7 +126,9 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId co
     }
   }
 
-  uint32_t const nodeSize = static_cast<uint32_t>(json_integer_value(json_object_get(node, "s")));
+  json_int_t nodeSize;
+  my::FromJSONObjectOptionalField(node, "s", nodeSize);
+  ASSERT_LESS_OR_EQUAL(0, nodeSize, ());
   // We expect that mwm and routing files should be less than 2GB.
   Country * addedNode = store.InsertToCountryTree(id, nodeSize, depth, parent);
 
@@ -227,19 +228,19 @@ void LoadGroupTwoComponentMwmsImpl(int depth, json_t * node, TCountryId const & 
 {
   // @TODO(bykoianko) After we stop supporting two component mwms (with routing files)
   // remove code below.
-  char const * file = json_string_value(json_object_get(node, "f"));
-  // If file is empty, it's the same as the name.
-  if (!file)
-  {
-    file = json_string_value(json_object_get(node, "n"));
-    if (!file)
-      MYTHROW(my::Json::Exception, ("Country name is missing"));
-  }
+  TCountryId file;
+  my::FromJSONObjectOptionalField(node, "f", file);
+  if (file.empty())
+    my::FromJSONObject(node, "n", file);  // If file is empty, it's the same as the name.
 
   // We expect that mwm and routing files should be less than 2GB.
-  uint32_t const mwmSize = static_cast<uint32_t>(json_integer_value(json_object_get(node, "s")));
-  uint32_t const routingSize = static_cast<uint32_t>(json_integer_value(json_object_get(node, "rs")));
-  store.Insert(file, mwmSize, routingSize, depth, parent);
+  json_int_t mwmSize, routingSize;
+  my::FromJSONObjectOptionalField(node, "s", mwmSize);
+  my::FromJSONObjectOptionalField(node, "rs", routingSize);
+  ASSERT_LESS_OR_EQUAL(0, mwmSize, ());
+  ASSERT_LESS_OR_EQUAL(0, routingSize, ());
+
+  store.Insert(file, static_cast<uint32_t>(mwmSize), static_cast<uint32_t>(routingSize), depth, parent);
 
   json_t * children = json_object_get(node, "g");
   if (children)
@@ -279,8 +280,7 @@ int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries,
   try
   {
     my::Json root(jsonBuffer.c_str());
-    json_t * const rootPtr = root.get();
-    version = json_integer_value(json_object_get(rootPtr, "v"));
+    my::FromJSONObject(root.get(), "v", version);
 
     if (version::IsSingleMwm(version))
     {
@@ -313,7 +313,8 @@ void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryI
   try
   {
     my::Json root(jsonBuffer.c_str());
-    version = json_integer_value(json_object_get(root.get(), "v"));
+    // version = json_integer_value(json_object_get(root.get(), "v"));
+    my::FromJSONObjectOptionalField(root.get(), "v", version);
     isSingleMwm = version::IsSingleMwm(version);
     if (isSingleMwm)
     {
