@@ -3,12 +3,14 @@ package com.mapswithme.maps.downloader;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Graphics;
@@ -524,7 +527,24 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     mSearchResultsMode = false;
 
     mItems.clear();
-    MapManager.nativeListItems(getCurrentParent(), mItems);
+
+    String parent = getCurrentParent();
+    boolean hasLocation = false;
+    double lat = 0.0;
+    double lon = 0.0;
+
+    if (TextUtils.isEmpty(parent))
+    {
+      Location loc = LocationHelper.INSTANCE.getLastLocation();
+      hasLocation = (loc != null);
+      if (hasLocation)
+      {
+        lat = loc.getLatitude();
+        lon = loc.getLongitude();
+      }
+    }
+
+    MapManager.nativeListItems(parent, lat, lon, hasLocation, mItems);
     processData();
   }
 

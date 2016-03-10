@@ -269,9 +269,9 @@ static void PutItemsToList(JNIEnv * env, jobject const list, TCountriesVec const
   }
 }
 
-// static void nativeListItems(@Nullable String parent, List<CountryItem> result);
+// static void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, List<CountryItem> result);
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jclass clazz, jstring parent, jobject result)
+Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jclass clazz, jstring parent, jdouble lat, jdouble lon, jboolean hasLocation, jobject result)
 {
   PrepareClassRefs(env);
 
@@ -287,7 +287,12 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   }
   else
   {
-    // TODO (trashkalmar): Countries near me
+    if (hasLocation)
+    {
+      TCountriesVec near;
+      g_framework->NativeFramework()->CountryInfoGetter().GetRegionsCountryId(MercatorBounds::FromLatLon(lat, lon), near);
+      PutItemsToList(env, result, near, ItemCategory::NEAR_ME);
+    }
 
     TCountriesVec downloaded, available;
     storage.GetChildrenInGroups(parentId, downloaded, available);
