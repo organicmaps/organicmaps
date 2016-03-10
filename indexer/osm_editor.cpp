@@ -510,6 +510,20 @@ bool Editor::HaveSomethingToUpload() const
   return false;
 }
 
+bool Editor::HaveSomethingToUpload(MwmSet::MwmId const & mwmId) const
+{
+  auto const found = m_features.find(mwmId);
+  if (found != m_features.end())
+  {
+    for (auto const & index : found->second)
+    {
+      if (NeedsUpload(index.second.m_uploadStatus))
+        return true;
+    }
+  }
+  return false;
+}
+
 void Editor::UploadChanges(string const & key, string const & secret, TChangesetTags tags,
                            TFinishUploadCallback callBack)
 {
