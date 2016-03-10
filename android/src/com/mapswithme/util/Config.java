@@ -20,6 +20,7 @@ public final class Config
   private static final String KEY_PREF_ZOOM_BUTTONS = "ZoomButtonsEnabled";
   private static final String KEY_PREF_STATISTICS = "StatisticsEnabled";
   private static final String KEY_PREF_AUTODOWNLOAD = "AutoDownloadEnabled";
+  private static final String KEY_PREF_AUTODOWNLOAD_OFFER_DISABLE = "AutoDownloadOfferDisable";
 
   private static final String KEY_LIKES_RATED_DIALOG = "RatedDialog";
   private static final String KEY_LIKES_LAST_RATED_SESSION = "LastRatedSession";
@@ -308,6 +309,16 @@ public final class Config
   public static void setAutodownloadMaps(boolean set)
   {
     setBool(KEY_PREF_AUTODOWNLOAD, set);
+  }
+
+  public static boolean isAutodownloadDisableOfferShown()
+  {
+    return getBool(KEY_PREF_AUTODOWNLOAD_OFFER_DISABLE);
+  }
+
+  public static void setAutodownloadDisableOfferShown()
+  {
+    setBool(KEY_PREF_AUTODOWNLOAD_OFFER_DISABLE, true);
   }
 
   private static native boolean nativeGetBoolean(String name, boolean defaultValue);

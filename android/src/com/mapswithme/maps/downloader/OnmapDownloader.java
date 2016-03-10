@@ -1,12 +1,16 @@
 package com.mapswithme.maps.downloader;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayDeque;
 import java.util.List;
+import java.util.Queue;
 
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -21,6 +25,9 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 {
+  private static final int CANCEL_LOCK_TIMEOUT_MS = 30 * 1000;
+  private static final int CANCEL_LOCK_TIMES = 3;
+
   private final MwmActivity mActivity;
   private final View mFrame;
   private final TextView mParent;
@@ -32,6 +39,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private int mStorageSubscriptionSlot;
 
   private CountryItem mCurrentCountry;
+
+  private final Queue<Long> mCancelTimestamps = new ArrayDeque<>();
 
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
@@ -52,7 +61,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         if (mCurrentCountry.id.equals(item.countryId))
         {
           mCurrentCountry.update();
-          updateState();
+          updateState(false);
 
           return;
         }
@@ -65,7 +74,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
       {
         mCurrentCountry.update();
-        updateState();
+        updateState(false);
       }
     }
   };
@@ -76,11 +85,11 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     public void onCurrentCountryChanged(String countryId)
     {
       mCurrentCountry = (TextUtils.isEmpty(countryId) ? null : CountryItem.fill(countryId));
-      updateState();
+      updateState(true);
     }
   };
 
-  public void updateState()
+  public void updateState(boolean shouldAutoDownload)
   {
     boolean showFrame = (mCurrentCountry != null &&
                          !RoutingController.get().isNavigating());
@@ -120,7 +129,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           }
           else
           {
-            if (!failed &&
+            if (shouldAutoDownload &&
+                !failed &&
                 !MapManager.nativeIsLegacyMode() &&
                 Config.isAutodownloadMaps() &&
                 ConnectionState.isWifiConnected())
@@ -144,6 +154,24 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     UiUtils.showIf(showFrame, mFrame);
   }
 
+  private void offerDisableAutodownloading()
+  {
+    Config.setAutodownloadDisableOfferShown();
+
+    new AlertDialog.Builder(mActivity)
+        .setTitle(R.string.autodownload)
+        .setMessage(R.string.downloader_offer_disable_autodownload)
+        .setNegativeButton(android.R.string.no, null)
+        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            Config.setAutodownloadMaps(false);
+          }
+        }).show();
+  }
+
   public OnmapDownloader(MwmActivity activity)
   {
     mActivity = activity;
@@ -164,6 +192,35 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         MapManager.nativeCancel(mCurrentCountry.id);
         Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
                                        Statistics.params().add(Statistics.EventParam.FROM, "map"));
+
+        if (!Config.isAutodownloadMaps() || Config.isAutodownloadDisableOfferShown())
+          return;
+
+        long now = System.currentTimeMillis();
+        if (mCancelTimestamps.size() + 1 == CANCEL_LOCK_TIMES)
+        {
+          boolean showDialog = true;
+
+          // Clean-up outdated events
+          do
+          {
+            long ts = mCancelTimestamps.peek();
+            if (ts + CANCEL_LOCK_TIMEOUT_MS > now)
+              break;
+
+            mCancelTimestamps.poll();
+            showDialog = false;
+          } while (!mCancelTimestamps.isEmpty());
+
+          if (showDialog)
+          {
+            mCancelTimestamps.clear();
+            offerDisableAutodownloading();
+            return;
+          }
+        }
+
+        mCancelTimestamps.add(now);
       }
     });
 

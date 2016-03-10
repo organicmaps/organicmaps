@@ -1307,7 +1307,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     adjustZoomButtons();
     mPlacePage.refreshViews();
     mNavigationController.show(show);
-    mOnmapDownloader.updateState();
+    mOnmapDownloader.updateState(false);
   }
 
   @Override
