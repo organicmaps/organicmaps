@@ -943,34 +943,34 @@ void Framework::ClearAllCaches()
   m_searchEngine->ClearCaches();
 }
 
-void Framework::OnCheckUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel)
-{
-  if (zoomLevel <= scales::GetUpperWorldScale())
-    m_deferredCountryUpdate.Drop();
-  else
-    m_deferredCountryUpdate.RestartWith([this, pt, zoomLevel]
-    {
-      OnUpdateCurrentCountry(pt, zoomLevel);
-    });
-}
-
 void Framework::OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel)
 {
-  if (zoomLevel <= scales::GetUpperWorldScale())
-    return;
-
-  storage::TCountryId newCountryId = m_infoGetter->GetRegionCountryId(m2::PointD(pt));
-
-  if (newCountryId == m_lastReportedCountry)
-    return;
-
-  m_lastReportedCountry = newCountryId;
-
-  GetPlatform().RunOnGuiThread([this, newCountryId]()
+  auto action = [this](TCountryId const &countryId)
   {
-    if (m_currentCountryChanged != nullptr)
-      m_currentCountryChanged(newCountryId);
-  });
+    if (countryId == m_lastReportedCountry)
+      return;
+    m_lastReportedCountry = countryId;
+    auto guiCallback = [this, countryId]
+    {
+      if (m_currentCountryChanged != nullptr)
+        m_currentCountryChanged(countryId);
+    };
+    GetPlatform().RunOnGuiThread(guiCallback);
+  };
+
+  if (zoomLevel <= scales::GetUpperWorldScale())
+  {
+    m_deferredCountryUpdate.Drop();
+    action(kInvalidCountryId);
+  }
+  else
+  {
+    m_deferredCountryUpdate.RestartWith([this, pt, action]
+    {
+      storage::TCountryId newCountryId = m_infoGetter->GetRegionCountryId(m2::PointD(pt));
+      action(newCountryId);
+    });
+  }
 }
 
 void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener)
@@ -1364,7 +1364,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   auto isCountryLoadedFn = bind(&Framework::IsCountryLoaded, this, _1);
   auto isCountryLoadedByNameFn = bind(&Framework::IsCountryLoadedByName, this, _1);
-  auto updateCurrentCountryFn = bind(&Framework::OnCheckUpdateCurrentCountry, this, _1, _2);
+  auto updateCurrentCountryFn = bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
   bool allow3d;
   bool allow3dBuildings;

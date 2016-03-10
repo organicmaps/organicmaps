@@ -359,7 +359,6 @@ private:
 
   void FillSearchResultsMarks(search::Results const & results);
 
-  void OnCheckUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel);
   void OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel);
 
   storage::TCountryId m_lastReportedCountry;
