@@ -33,6 +33,7 @@ void FromJSON(json_t * root, string & result);
 void FromJSONObject(json_t * root, string const & field, string & result);
 void FromJSONObject(json_t * root, string const & field, strings::UniString & result);
 void FromJSONObject(json_t * root, string const & field, double & result);
+void FromJSONObject(json_t * root, string const & field, json_int_t & result);
 
 template <typename T>
 void FromJSONObject(json_t * root, string const & field, vector<T> & result)
@@ -47,4 +48,7 @@ void FromJSONObject(json_t * root, string const & field, vector<T> & result)
   for (size_t i = 0; i < sz; ++i)
     FromJSON(json_array_get(arr, i), result[i]);
 }
+
+void FromJSONObjectOptionalField(json_t * root, string const & field, string & result);
+void FromJSONObjectOptionalField(json_t * root, string const & field, json_int_t & result);
 }  // namespace my

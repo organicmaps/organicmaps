@@ -37,4 +37,46 @@ void FromJSONObject(json_t * root, string const & field, double & result)
     MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
   result = json_number_value(val);
 }
+
+void FromJSONObject(json_t * root, string const & field, json_int_t & result)
+{
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  if (!json_is_number(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
+  result = json_integer_value(val);
+}
+
+void FromJSONObjectOptionalField(json_t * root, string const & field, string & result)
+{
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+  {
+    result = string("");
+    return;
+  }
+  if (!json_is_string(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json string."));
+  result = string(json_string_value(val));
+}
+
+void FromJSONObjectOptionalField(json_t * root, string const & field, json_int_t & result)
+{
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+  {
+    result = 0;
+    return;
+  }
+  if (!json_is_number(val))
+    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
+  result = json_integer_value(val);
+}
 }  // namespace my
