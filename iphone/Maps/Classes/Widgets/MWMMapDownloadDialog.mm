@@ -17,6 +17,14 @@ namespace
 {
 NSTimeInterval constexpr kDisableAutoDownloadInterval = 30;
 NSInteger constexpr kDisableAutoDownloadCount = 3;
+CGSize constexpr kInitialDialogSize = {200, 200};
+
+BOOL isAutoDownload()
+{
+  bool autoDownloadEnabled = true;
+  (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
+  return autoDownloadEnabled && GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI;
+}
 } // namespace
 
 using namespace storage;
@@ -29,6 +37,10 @@ using namespace storage;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * nodeTopOffset;
 @property (weak, nonatomic) IBOutlet UIButton * downloadButton;
 @property (weak, nonatomic) IBOutlet UIView * progressWrapper;
+@property (weak, nonatomic) IBOutlet UILabel * autoDownload;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * autoDownloadBottomOffset;
+@property (weak, nonatomic) IBOutlet UIView * autoDownloadWrapper;
+@property (weak, nonatomic) IBOutlet MWMButton * autoDownloadButton;
 
 @property (weak, nonatomic) MWMViewController * controller;
 
@@ -36,11 +48,14 @@ using namespace storage;
 
 @property (nonatomic) NSMutableArray<NSDate *> * skipDownloadTimes;
 
+@property (nonatomic) BOOL isCancelled;
+
 @end
 
 @implementation MWMMapDownloadDialog
 {
   TCountryId m_countryId;
+  TCountryId m_autoDownloadCountryId;
 }
 
 + (instancetype)dialogForController:(MWMViewController *)controller
@@ -48,16 +63,29 @@ using namespace storage;
   MWMMapDownloadDialog * dialog = [[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil].firstObject;
   dialog.autoresizingMask = UIViewAutoresizingFlexibleHeight;
   dialog.controller = controller;
+  dialog.size = kInitialDialogSize;
   return dialog;
 }
 
 - (void)layoutSubviews
 {
-  [super layoutSubviews];
-  self.size = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
   UIView * superview = self.superview;
   self.center = {superview.midX, superview.midY};
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
+  {
+    self.size = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    self.center = {superview.midX, superview.midY};
+    [self layoutIfNeeded];
+  }];
   [super layoutSubviews];
+  if (isIOS7)
+  {
+    self.parentNode.preferredMaxLayoutWidth = floor(self.parentNode.width);
+    self.node.preferredMaxLayoutWidth = floor(self.node.width);
+    self.nodeSize.preferredMaxLayoutWidth = floor(self.nodeSize.width);
+    self.autoDownload.preferredMaxLayoutWidth = floor(self.autoDownload.width);
+    [super layoutSubviews];
+  }
 }
 
 - (void)configDialog
@@ -85,9 +113,7 @@ using namespace storage;
       case NodeStatus::NotDownloaded:
       case NodeStatus::Partly:
       {
-        bool autoDownloadEnabled = true;
-        (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
-        if (autoDownloadEnabled)
+        if (!self.isCancelled && isAutoDownload())
         {
           [Statistics logEvent:kStatDownloaderMapAction
                 withParameters:@{
@@ -97,6 +123,7 @@ using namespace storage;
                   kStatScenario : kStatDownload
                 }];
           [self showInQueue];
+          m_autoDownloadCountryId = m_countryId;
           s.DownloadNode(m_countryId);
         }
         else
@@ -141,6 +168,7 @@ using namespace storage;
 
 - (void)removeFromSuperview
 {
+  m_autoDownloadCountryId = kInvalidCountryId;
   self.progress.state = MWMCircularProgressStateNormal;
   [MWMFrameworkListener removeObserver:self];
   [super removeFromSuperview];
@@ -180,10 +208,29 @@ using namespace storage;
   }
 }
 
+- (void)showAutoDownloadRequest:(BOOL)show
+{
+  if (show)
+  {
+    self.autoDownloadWrapper.hidden = NO;
+    self.autoDownloadBottomOffset.priority = UILayoutPriorityDefaultHigh;
+    bool autoDownloadEnabled = true;
+    (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
+    self.autoDownloadButton.selected = autoDownloadEnabled;
+  }
+  else
+  {
+    self.autoDownloadWrapper.hidden = YES;
+    self.autoDownloadBottomOffset.priority = UILayoutPriorityDefaultLow;
+  }
+}
+
 - (void)showDownloadRequest
 {
+  self.isCancelled = NO;
   self.downloadButton.hidden = NO;
   self.progressWrapper.hidden = YES;
+  [self showAutoDownloadRequest:m_autoDownloadCountryId == m_countryId];
 }
 
 - (void)showDownloading:(CGFloat)progress
@@ -193,6 +240,7 @@ using namespace storage;
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
   self.progress.progress = progress;
+  [self showAutoDownloadRequest:NO];
 }
 
 - (void)showInQueue
@@ -202,6 +250,7 @@ using namespace storage;
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
   self.progress.state = MWMCircularProgressStateSpinner;
+  [self showAutoDownloadRequest:NO];
 }
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId
@@ -217,8 +266,9 @@ using namespace storage;
 
 #pragma mark - Autodownload
 
-- (void)skipDownload
+- (void)cancelDownload
 {
+  self.isCancelled = YES;
   bool autoDownloadEnabled = true;
   (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
   if (!autoDownloadEnabled)
@@ -278,13 +328,18 @@ using namespace storage;
   else
   {
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatMap}];
-    [self showDownloadRequest];
-    [self skipDownload];
+    [self cancelDownload];
     [MWMStorage cancelDownloadNode:m_countryId];
   }
 }
 
 #pragma mark - Actions
+
+- (IBAction)autoDownloadToggle
+{
+  self.autoDownloadButton.selected = !self.autoDownloadButton.selected;
+  Settings::Set(kAutoDownloadEnabledKey, self.autoDownloadButton.selected);
+}
 
 - (IBAction)downloadAction
 {
@@ -295,6 +350,7 @@ using namespace storage;
           kStatFrom : kStatMap,
           kStatScenario : kStatDownload
         }];
+  m_autoDownloadCountryId = kInvalidCountryId;
   [self showInQueue];
   [MWMStorage downloadNode:m_countryId alertController:self.controller.alertController onSuccess:nil];
 }

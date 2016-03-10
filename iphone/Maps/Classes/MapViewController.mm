@@ -397,6 +397,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   [MapsAppDelegate customizeAppearance];
   [self.navigationController.navigationBar mwm_refreshUI];
   [self.controlsManager mwm_refreshUI];
+  [self.downloadDialog mwm_refreshUI];
 }
 
 - (void)showWhatsNewIfNeeded

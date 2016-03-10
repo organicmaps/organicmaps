@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <deployment version="2304" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -13,11 +13,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clipsSubviews="YES" contentMode="scaleToFill" id="I6H-BQ-1TG" customClass="MWMMapDownloadDialog">
-            <rect key="frame" x="0.0" y="0.0" width="200" height="197"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="232"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Россия" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="GQf-xO-gh1">
-                    <rect key="frame" x="10" y="20" width="180" height="27"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Россия" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQf-xO-gh1">
+                    <rect key="frame" x="10" y="20" width="180" height="26"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -26,8 +26,8 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium16"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="260" verticalCompressionResistancePriority="751" text="Доминиканская республика" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="vMH-GY-Vm2">
-                    <rect key="frame" x="10" y="49" width="180" height="47"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="260" verticalCompressionResistancePriority="751" text="Доминиканская республика" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMH-GY-Vm2">
+                    <rect key="frame" x="10" y="48" width="180" height="47"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -36,8 +36,8 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium20"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="260" text="16 МБ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-G9-kcd">
-                    <rect key="frame" x="10" y="104" width="180" height="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="260" text="16 МБ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-G9-kcd">
+                    <rect key="frame" x="10" y="103" width="180" height="17"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -47,7 +47,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyV-Rb-bea">
-                    <rect key="frame" x="20" y="133" width="160" height="44"/>
+                    <rect key="frame" x="20" y="132" width="160" height="44"/>
                     <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="i64-mO-Txs"/>
@@ -65,17 +65,58 @@
                             <integer key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="country_status_download_without_size"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="downloadAction" destination="I6H-BQ-1TG" eventType="touchUpInside" id="gK1-oH-Xye"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usc-Cm-gmg" userLabel="ProgressViewWrapper">
-                    <rect key="frame" x="84" y="139" width="32" height="32"/>
+                    <rect key="frame" x="84" y="138" width="32" height="32"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="32" id="LiD-Zk-ocz"/>
                         <constraint firstAttribute="height" constant="32" id="jrx-nU-VSG"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vjn-Pn-Zvb">
+                    <rect key="frame" x="20" y="192" width="160" height="20"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MiP-Wg-jpd" customClass="MWMButton">
+                            <rect key="frame" x="8" y="0.0" width="22" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="WkP-RT-Vxm"/>
+                                <constraint firstAttribute="width" constant="22" id="qes-DV-YhV"/>
+                            </constraints>
+                            <state key="normal" image="radioBtnOff"/>
+                            <state key="selected" image="radioBtnOn"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlue"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="autoDownloadToggle" destination="I6H-BQ-1TG" eventType="touchUpInside" id="bqH-H1-S2U"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zDV-Y9-pzZ">
+                            <rect key="frame" x="46" y="0.0" width="114" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="autodownload"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="zDV-Y9-pzZ" secondAttribute="bottom" id="BDa-9z-8QY"/>
+                        <constraint firstItem="zDV-Y9-pzZ" firstAttribute="leading" secondItem="MiP-Wg-jpd" secondAttribute="trailing" constant="16" id="CBV-UW-sxK"/>
+                        <constraint firstItem="MiP-Wg-jpd" firstAttribute="centerY" secondItem="Vjn-Pn-Zvb" secondAttribute="centerY" id="LLF-bD-YBA"/>
+                        <constraint firstItem="zDV-Y9-pzZ" firstAttribute="top" secondItem="Vjn-Pn-Zvb" secondAttribute="top" id="Y7L-az-gqr"/>
+                        <constraint firstAttribute="trailing" secondItem="zDV-Y9-pzZ" secondAttribute="trailing" id="fLL-kd-Mb7"/>
+                        <constraint firstItem="MiP-Wg-jpd" firstAttribute="leading" secondItem="Vjn-Pn-Zvb" secondAttribute="leading" constant="8" id="mik-TA-09L"/>
                     </constraints>
                 </view>
             </subviews>
@@ -84,14 +125,18 @@
                 <constraint firstItem="GQf-xO-gh1" firstAttribute="top" secondItem="I6H-BQ-1TG" secondAttribute="top" priority="500" constant="20" id="1zT-cE-XI3"/>
                 <constraint firstItem="usc-Cm-gmg" firstAttribute="centerX" secondItem="iyV-Rb-bea" secondAttribute="centerX" id="7DI-KV-B8S"/>
                 <constraint firstItem="GQf-xO-gh1" firstAttribute="leading" secondItem="I6H-BQ-1TG" secondAttribute="leading" constant="10" id="8Ve-AJ-XZP"/>
+                <constraint firstItem="Vjn-Pn-Zvb" firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" id="8sU-lH-giu"/>
                 <constraint firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" constant="20" id="C8t-0i-lpV"/>
+                <constraint firstAttribute="bottom" secondItem="Vjn-Pn-Zvb" secondAttribute="bottom" priority="750" constant="20" id="Erf-t5-NJX"/>
                 <constraint firstItem="vMH-GY-Vm2" firstAttribute="top" secondItem="I6H-BQ-1TG" secondAttribute="top" priority="250" constant="20" id="Fy8-YF-nqF"/>
-                <constraint firstAttribute="bottom" secondItem="iyV-Rb-bea" secondAttribute="bottom" constant="20" id="HSh-rd-XIZ"/>
+                <constraint firstAttribute="bottom" secondItem="iyV-Rb-bea" secondAttribute="bottom" priority="500" constant="20" id="HSh-rd-XIZ"/>
                 <constraint firstItem="vMH-GY-Vm2" firstAttribute="top" secondItem="GQf-xO-gh1" secondAttribute="bottom" priority="500" constant="2" id="Kje-IL-qJy"/>
                 <constraint firstItem="vU4-G9-kcd" firstAttribute="leading" secondItem="I6H-BQ-1TG" secondAttribute="leading" constant="10" id="REP-8b-3rF"/>
                 <constraint firstItem="vU4-G9-kcd" firstAttribute="top" secondItem="vMH-GY-Vm2" secondAttribute="bottom" constant="8" id="S4i-o8-W4I"/>
                 <constraint firstItem="iyV-Rb-bea" firstAttribute="top" secondItem="vU4-G9-kcd" secondAttribute="bottom" constant="12" id="VN6-NK-qgb"/>
+                <constraint firstItem="Vjn-Pn-Zvb" firstAttribute="leading" secondItem="iyV-Rb-bea" secondAttribute="leading" id="XeZ-ad-DXZ"/>
                 <constraint firstItem="iyV-Rb-bea" firstAttribute="leading" secondItem="I6H-BQ-1TG" secondAttribute="leading" constant="20" id="atf-Me-rzF"/>
+                <constraint firstItem="Vjn-Pn-Zvb" firstAttribute="top" secondItem="iyV-Rb-bea" secondAttribute="bottom" constant="16" id="e65-0G-Y9K"/>
                 <constraint firstAttribute="trailing" secondItem="GQf-xO-gh1" secondAttribute="trailing" constant="10" id="fk3-dL-ayj"/>
                 <constraint firstAttribute="trailing" secondItem="vMH-GY-Vm2" secondAttribute="trailing" constant="10" id="hg5-RI-ugS"/>
                 <constraint firstItem="vMH-GY-Vm2" firstAttribute="leading" secondItem="I6H-BQ-1TG" secondAttribute="leading" constant="10" id="jH6-er-pmN"/>
@@ -118,6 +163,10 @@
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="autoDownload" destination="zDV-Y9-pzZ" id="1cG-fL-xFL"/>
+                <outlet property="autoDownloadBottomOffset" destination="Erf-t5-NJX" id="ekI-eU-DOI"/>
+                <outlet property="autoDownloadButton" destination="MiP-Wg-jpd" id="Fy6-Ec-VBR"/>
+                <outlet property="autoDownloadWrapper" destination="Vjn-Pn-Zvb" id="cpL-FD-4dm"/>
                 <outlet property="downloadButton" destination="iyV-Rb-bea" id="6fy-CY-zos"/>
                 <outlet property="node" destination="vMH-GY-Vm2" id="LJq-UU-a3U"/>
                 <outlet property="nodeSize" destination="vU4-G9-kcd" id="DMJ-NW-mxf"/>
@@ -125,7 +174,11 @@
                 <outlet property="parentNode" destination="GQf-xO-gh1" id="gWT-r0-LTv"/>
                 <outlet property="progressWrapper" destination="usc-Cm-gmg" id="NTd-bU-rDE"/>
             </connections>
-            <point key="canvasLocation" x="359" y="425"/>
+            <point key="canvasLocation" x="359" y="463"/>
         </view>
     </objects>
+    <resources>
+        <image name="radioBtnOff" width="22" height="22"/>
+        <image name="radioBtnOn" width="22" height="22"/>
+    </resources>
 </document>
