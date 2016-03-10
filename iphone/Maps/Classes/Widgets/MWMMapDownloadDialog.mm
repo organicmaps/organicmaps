@@ -234,7 +234,8 @@ using namespace storage;
   {
     [self.skipDownloadTimes removeAllObjects];
     MWMAlertViewController * ac = self.controller.alertController;
-    [ac presentDisableAutoDownloadAlertWithOkBlock:^{
+    [ac presentDisableAutoDownloadAlertWithOkBlock:^
+    {
       Settings::Set(kAutoDownloadEnabledKey, false);
     }];
   }
