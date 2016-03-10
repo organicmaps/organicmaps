@@ -26,7 +26,8 @@ private:
 #if defined(DEBUG)
   #define DECLARE_THREAD_CHECKER(threadCheckerName) ThreadChecker threadCheckerName
   #define ASSERT_THREAD_CHECKER(threadCheckerName, msg) ASSERT(threadCheckerName.CalledOnOriginalThread(), msg)
-  #define DECLARE_AND_ASSERT_THREAD_CHECKER(msg) { \
+  #define DECLARE_AND_ASSERT_THREAD_CHECKER(msg) \
+  { \
     static const ThreadChecker threadChecker; \
     ASSERT(threadChecker.CalledOnOriginalThread(), (msg)); \
   }
