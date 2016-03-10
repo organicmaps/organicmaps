@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayDeque;
@@ -35,6 +37,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private final TextView mSize;
   private final WheelProgressView mProgress;
   private final Button mButton;
+  private final CheckBox mDisableAuto;
 
   private int mStorageSubscriptionSlot;
 
@@ -88,6 +91,22 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       updateState(true);
     }
   };
+
+  private final CompoundButton.OnCheckedChangeListener mDisableAutoCheckListener = new CompoundButton.OnCheckedChangeListener()
+  {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+    {
+      Config.setAutodownloadMaps(isChecked);
+    }
+  };
+
+  private void updateDisableAutoCheckbox()
+  {
+    mDisableAuto.setOnCheckedChangeListener(null);
+    mDisableAuto.setChecked(Config.isAutodownloadMaps());
+    mDisableAuto.setOnCheckedChangeListener(mDisableAutoCheckListener);
+  }
 
   public void updateState(boolean shouldAutoDownload)
   {
@@ -152,6 +171,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     }
 
     UiUtils.showIf(showFrame, mFrame);
+    UiUtils.hide(mDisableAuto);
   }
 
   private void offerDisableAutodownloading()
@@ -168,6 +188,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           public void onClick(DialogInterface dialog, int which)
           {
             Config.setAutodownloadMaps(false);
+            updateDisableAutoCheckbox();
           }
         }).show();
   }
@@ -183,6 +204,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     View controls = mFrame.findViewById(R.id.downloader_controls_frame);
     mProgress = (WheelProgressView) controls.findViewById(R.id.downloader_progress);
     mButton = (Button) controls.findViewById(R.id.downloader_button);
+    mDisableAuto = (CheckBox) mFrame.findViewById(R.id.downloader_disable_auto);
 
     mProgress.setOnClickListener(new View.OnClickListener()
     {
@@ -193,7 +215,16 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
                                        Statistics.params().add(Statistics.EventParam.FROM, "map"));
 
-        if (!Config.isAutodownloadMaps() || Config.isAutodownloadDisableOfferShown())
+        if (!Config.isAutodownloadMaps())
+          return;
+
+        if (ConnectionState.isWifiConnected())
+        {
+          UiUtils.show(mDisableAuto);
+          updateDisableAutoCheckbox();
+        }
+
+        if (Config.isAutodownloadDisableOfferShown())
           return;
 
         long now = System.currentTimeMillis();

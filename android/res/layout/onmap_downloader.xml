@@ -18,6 +18,7 @@
     android:layout_gravity="center"
     android:gravity="center_horizontal"
     android:background="?cardFrame"
+    android:animateLayoutChanges="true"
     tools:ignore="UselessParent">
     <TextView
       android:id="@+id/downloader_parent"
@@ -66,5 +67,14 @@
         android:visibility="visible"
         tools:visibility="visible"/>
     </FrameLayout>
+
+    <CheckBox
+      android:id="@+id/downloader_disable_auto"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_half"
+      android:text="@string/autodownload"
+      android:visibility="gone"
+      tools:visibility="visible"/>
   </LinearLayout>
 </FrameLayout>
