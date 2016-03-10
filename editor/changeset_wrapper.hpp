@@ -44,6 +44,9 @@ public:
   /// Node should have correct OSM "id" attribute set.
   void Modify(editor::XMLFeature node);
 
+  /// Throws exceptions from above list.
+  void Delete(editor::XMLFeature node);
+
 private:
   /// Unfortunately, pugi can't return xml_documents from methods.
   /// Throws exceptions from above list.

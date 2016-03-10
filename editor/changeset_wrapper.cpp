@@ -123,4 +123,14 @@ void ChangesetWrapper::Modify(XMLFeature node)
   m_api.ModifyElement(node);
 }
 
+void ChangesetWrapper::Delete(XMLFeature node)
+{
+  if (m_changesetId == kInvalidChangesetId)
+    m_changesetId = m_api.CreateChangeSet(m_changesetComments);
+
+  // Changeset id should be updated for every OSM server commit.
+  node.SetAttribute("changeset", strings::to_string(m_changesetId));
+  m_api.DeleteElement(node);
+}
+
 } // namespace osm
