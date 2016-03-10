@@ -38,6 +38,9 @@ public:
   editor::XMLFeature GetMatchingAreaFeatureFromOSM(vector<m2::PointD> const & geomerty);
 
   /// Throws exceptions from above list.
+  void Create(editor::XMLFeature node);
+
+  /// Throws exceptions from above list.
   /// Node should have correct OSM "id" attribute set.
   void Modify(editor::XMLFeature node);
 

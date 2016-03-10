@@ -6,6 +6,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
+#include "base/macros.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/sstream.hpp"
@@ -99,6 +100,17 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> co
     return way;
   }
   MYTHROW(OsmObjectWasDeletedException, ("OSM does not have any matching way for feature"));
+}
+
+void ChangesetWrapper::Create(XMLFeature node)
+{
+  if (m_changesetId == kInvalidChangesetId)
+    m_changesetId = m_api.CreateChangeSet(m_changesetComments);
+
+  // Changeset id should be updated for every OSM server commit.
+  node.SetAttribute("changeset", strings::to_string(m_changesetId));
+  // TODO(AlexZ): Think about storing/logging returned OSM ids.
+  UNUSED_VALUE(m_api.CreateElement(node));
 }
 
 void ChangesetWrapper::Modify(XMLFeature node)
