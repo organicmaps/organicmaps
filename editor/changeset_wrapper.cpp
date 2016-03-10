@@ -14,12 +14,15 @@
 
 using editor::XMLFeature;
 
-string DebugPrint(pugi::xml_document const & doc)
+namespace pugi
+{
+string DebugPrint(xml_document const & doc)
 {
   ostringstream stream;
   doc.print(stream, "  ");
   return stream.str();
 }
+}  // namespace pugi
 
 namespace osm
 {
