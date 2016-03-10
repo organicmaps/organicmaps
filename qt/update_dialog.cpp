@@ -11,28 +11,15 @@
 #include "std/bind.hpp"
 
 #include <QtCore/QDateTime>
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QVBoxLayout>
-  #include <QtGui/QHBoxLayout>
-  #include <QtGui/QLabel>
-  #include <QtGui/QPushButton>
-  #include <QtGui/QTreeWidget>
-  #include <QtGui/QHeaderView>
-  #include <QtGui/QMessageBox>
-  #include <QtGui/QProgressBar>
-  #include <QtGui/QLineEdit>
-#else
-  #include <QtWidgets/QVBoxLayout>
-  #include <QtWidgets/QHBoxLayout>
-  #include <QtWidgets/QLabel>
-  #include <QtWidgets/QPushButton>
-  #include <QtWidgets/QTreeWidget>
-  #include <QtWidgets/QHeaderView>
-  #include <QtWidgets/QMessageBox>
-  #include <QtWidgets/QProgressBar>
-  #include <QtWidgets/QLineEdit>
-#endif
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QProgressBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QVBoxLayout>
 
 #define CHECK_FOR_UPDATE "Check for update"
 #define LAST_UPDATE_CHECK "Last update check: "
@@ -57,6 +44,18 @@ enum
 #define COLOR_INQUEUE         Qt::gray
 #define COLOR_OUTOFDATE       Qt::magenta
 #define COLOR_MIXED           Qt::yellow
+
+namespace
+{
+bool DeleteNotUploadedEditsConfirmation()
+{
+  QMessageBox msb;
+  msb.setText("Some map edits are not uploaded yet. Are you sure you want to delete map anyway?");
+  msb.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
+  msb.setDefaultButton(QMessageBox::Cancel);
+  return QMessageBox::Yes == msb.exec();
+}
+}  // namespace
 
 namespace qt
 {
@@ -153,7 +152,10 @@ namespace qt
         if (res == btnUpdate)
           st.DownloadNode(countryId);
         else if (res == btnDelete)
-          st.DeleteNode(countryId);
+        {
+          if (!m_framework.HasUnsavedEdits(countryId) || DeleteNotUploadedEditsConfirmation())
+            st.DeleteNode(countryId);
+        }
       }
       break;
 
@@ -172,7 +174,10 @@ namespace qt
         QAbstractButton * const res = ask.clickedButton();
 
         if (res == btnDelete)
-          st.DeleteNode(countryId);
+        {
+          if (!m_framework.HasUnsavedEdits(countryId) || DeleteNotUploadedEditsConfirmation())
+            st.DeleteNode(countryId);
+        }
       }
       break;
 
