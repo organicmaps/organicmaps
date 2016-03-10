@@ -15,8 +15,8 @@ extern char const * kAutoDownloadEnabledKey;
 
 namespace
 {
-NSString * const kAutoDownloadPaused = @"AutoDownloadPaused";
-NSTimeInterval constexpr kAutoDownloadPauseExpiartion = 24 * 60 * 60;
+NSTimeInterval constexpr kDisableAutoDownloadInterval = 30;
+NSInteger constexpr kDisableAutoDownloadCount = 3;
 } // namespace
 
 using namespace storage;
@@ -33,6 +33,8 @@ using namespace storage;
 @property (weak, nonatomic) MWMViewController * controller;
 
 @property (nonatomic) MWMCircularProgress * progress;
+
+@property (nonatomic) NSMutableArray<NSDate *> * skipDownloadTimes;
 
 @end
 
@@ -85,7 +87,7 @@ using namespace storage;
       {
         bool autoDownloadEnabled = true;
         (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
-        if (autoDownloadEnabled && ![MWMMapDownloadDialog isAutoDownloadPaused])
+        if (autoDownloadEnabled)
         {
           [Statistics logEvent:kStatDownloaderMapAction
                 withParameters:@{
@@ -125,8 +127,6 @@ using namespace storage;
   }
   else
   {
-    if (nodeAttrs.m_status == NodeStatus::NotDownloaded)
-      [MWMMapDownloadDialog pauseAutoDownload:YES];
     [self removeFromSuperview];
   }
 }
@@ -217,23 +217,27 @@ using namespace storage;
 
 #pragma mark - Autodownload
 
-+ (void)pauseAutoDownload:(BOOL)pause
+- (void)skipDownload
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  if (pause)
-    [ud setObject:[NSDate date] forKey:kAutoDownloadPaused];
-  else
-    [ud removeObjectForKey:kAutoDownloadPaused];
-  [ud synchronize];
-}
+  bool autoDownloadEnabled = true;
+  (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
+  if (!autoDownloadEnabled)
+    return;
 
-+ (BOOL)isAutoDownloadPaused
-{
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  NSDate * pausedTime = [ud objectForKey:kAutoDownloadPaused];
-  if (!pausedTime)
-    return NO;
-  return [[NSDate date] timeIntervalSinceDate:pausedTime] < kAutoDownloadPauseExpiartion;
+  NSDate * currentTime = [NSDate date];
+  [self.skipDownloadTimes filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSDate * evaluatedObject, NSDictionary<NSString *, id> * bindings)
+  {
+    return [currentTime timeIntervalSinceDate:evaluatedObject] < kDisableAutoDownloadInterval;
+  }]];
+  [self.skipDownloadTimes addObject:currentTime];
+  if (self.skipDownloadTimes.count >= kDisableAutoDownloadCount)
+  {
+    [self.skipDownloadTimes removeAllObjects];
+    MWMAlertViewController * ac = self.controller.alertController;
+    [ac presentDisableAutoDownloadAlertWithOkBlock:^{
+      Settings::Set(kAutoDownloadEnabledKey, false);
+    }];
+  }
 }
 
 #pragma mark - MWMFrameworkStorageObserver
@@ -274,7 +278,7 @@ using namespace storage;
   {
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatMap}];
     [self showDownloadRequest];
-    [MWMMapDownloadDialog pauseAutoDownload:YES];
+    [self skipDownload];
     [MWMStorage cancelDownloadNode:m_countryId];
   }
 }
@@ -291,7 +295,6 @@ using namespace storage;
           kStatScenario : kStatDownload
         }];
   [self showInQueue];
-  [MWMMapDownloadDialog pauseAutoDownload:NO];
   [MWMStorage downloadNode:m_countryId alertController:self.controller.alertController onSuccess:nil];
 }
 
@@ -305,6 +308,13 @@ using namespace storage;
     _progress.delegate = self;
   }
   return _progress;
+}
+
+- (NSMutableArray<NSDate *> *)skipDownloadTimes
+{
+  if (!_skipDownloadTimes)
+    _skipDownloadTimes = [@[] mutableCopy];
+  return _skipDownloadTimes;
 }
 
 @end

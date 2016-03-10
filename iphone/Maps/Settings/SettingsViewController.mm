@@ -268,7 +268,6 @@ typedef NS_ENUM(NSUInteger, Section)
         [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatAutoDownload)
                          withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
         Settings::Set(kAutoDownloadEnabledKey, (bool)value);
-        [MWMMapDownloadDialog pauseAutoDownload:NO];
         break;
       }
       // 3D buildings

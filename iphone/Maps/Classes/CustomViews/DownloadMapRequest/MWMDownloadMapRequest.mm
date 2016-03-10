@@ -120,7 +120,6 @@
   else
   {
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatSearch}];
-    [MWMMapDownloadDialog pauseAutoDownload:YES];
     [MWMStorage cancelDownloadNode:m_countryId];
   }
   [self showRequest];
