@@ -525,6 +525,14 @@ void Framework::RegisterAllMaps()
 
   int minFormat = numeric_limits<int>::max();
 
+  char const * kLastDownloadedMapsCheck = "LastDownloadedMapsCheck";
+  auto const updateInterval = hours(24 * 7); // One week.
+  uint32_t timestamp;
+  bool const rc = Settings::Get(kLastDownloadedMapsCheck, timestamp);
+  auto const lastCheck = time_point<system_clock>(seconds(timestamp));
+  bool const needStatisticsUpdate = !rc || lastCheck < system_clock::now() - updateInterval;
+  stringstream listRegisteredMaps;
+
   vector<shared_ptr<LocalCountryFile>> maps;
   m_storage.GetLocalMaps(maps);
   for (auto const & localFile : maps)
@@ -536,6 +544,19 @@ void Framework::RegisterAllMaps()
     MwmSet::MwmId const & id = p.first;
     ASSERT(id.IsAlive(), ());
     minFormat = min(minFormat, static_cast<int>(id.GetInfo()->m_version.GetFormat()));
+    if (needStatisticsUpdate)
+    {
+      listRegisteredMaps << localFile->GetCountryName() << ":" << id.GetInfo()->GetVersion() << ";";
+    }
+  }
+
+  if (needStatisticsUpdate)
+  {
+    alohalytics::Stats::Instance().LogEvent("Downloader_Map_list",
+    {{"AvailableStorageSpace", strings::to_string(GetPlatform().GetWritableStorageSpace())},
+      {"DownloadedMaps", listRegisteredMaps.str()}});
+    Settings::Set(kLastDownloadedMapsCheck,
+                  duration_cast<seconds>(system_clock::now().time_since_epoch()).count());
   }
 
   m_searchEngine->SetSupportOldFormat(minFormat < static_cast<int>(version::Format::v3));
