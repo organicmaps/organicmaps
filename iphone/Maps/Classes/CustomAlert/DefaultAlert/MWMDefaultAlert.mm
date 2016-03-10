@@ -222,6 +222,18 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   }
 }
 
++ (instancetype)disableAutoDownloadAlertWithOkBlock:(TMWMVoidBlock)okBlock
+{
+  kStatisticsEvent = @"Disable Auto Download Alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"disable_auto_download"
+                                                message:nil
+                                       rightButtonTitle:@"_disable"
+                                        leftButtonTitle:@"cancel"
+                                      rightButtonAction:okBlock];
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
+}
+
 + (instancetype)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"Downloader No Connection Alert";

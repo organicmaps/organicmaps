@@ -153,6 +153,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   }];
 }
 
+- (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert disableAutoDownloadAlertWithOkBlock:okBlock]];
+}
+
 - (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert downloaderNoConnectionAlertWithOkBlock:okBlock]];

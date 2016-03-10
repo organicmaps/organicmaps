@@ -116,6 +116,11 @@
   return [MWMDefaultAlert invalidUserNameOrPasswordAlert];
 }
 
++ (MWMAlert *)disableAutoDownloadAlertWithOkBlock:(TMWMVoidBlock)okBlock
+{
+  return [MWMDefaultAlert disableAutoDownloadAlertWithOkBlock:okBlock];
+}
+
 + (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   return [MWMDefaultAlert downloaderNoConnectionAlertWithOkBlock:okBlock];
