@@ -18,8 +18,14 @@ namespace platform
 {
 namespace tests_support
 {
+ScopedFile::ScopedFile(string const & relativePath)
+    : m_fullPath(my::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath)),
+      m_reset(false)
+{
+}
+
 ScopedFile::ScopedFile(string const & relativePath, string const & contents)
-    : m_fullPath(my::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath)), m_reset(false)
+    : ScopedFile(relativePath)
 {
   {
     FileWriter writer(GetFullPath());

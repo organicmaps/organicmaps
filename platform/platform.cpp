@@ -8,6 +8,7 @@
 #include "coding/writer.hpp"
 
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
 #include "std/thread.hpp"
@@ -91,6 +92,16 @@ bool Platform::RmDirRecursively(string const & dirName)
     res = false;
 
   return res;
+}
+
+string Platform::PathJoin(vector<string> const & parts)
+{
+#ifdef OMIM_OS_WINDOWS
+  auto const delimiter = "\\";
+#else
+    auto const delimiter = "/";
+#endif
+  return strings::JoinStrings(parts, delimiter);
 }
 
 string Platform::ReadPathForFile(string const & file, string searchScope) const

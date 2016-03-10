@@ -15,6 +15,7 @@ HEADERS += \
 SOURCES += \
     $$ROOT_DIR/testing/testingmain.cpp \
     editor_config_test.cpp \
+    editor_notes_test.cpp \
     opening_hours_ui_test.cpp \
     osm_auth_test.cpp \
     osm_feature_matcher_test.cpp \

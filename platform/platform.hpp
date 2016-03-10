@@ -115,7 +115,7 @@ public:
   /// @note If function fails, directory can be partially removed.
   static bool RmDirRecursively(string const & dirName);
 
-  /// @TODO create join method for string concatenation
+  static string PathJoin(vector<string> const & parts);
 
   /// @return path for directory with temporary files with slash at the end
   string TmpDir() const { return m_tmpDir; }

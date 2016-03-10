@@ -258,3 +258,14 @@ UNIT_TEST(IsSingleMwm)
   TEST(!version::IsSingleMwm(version::FOR_TESTING_TWO_COMPONENT_MWM1), ());
   TEST(!version::IsSingleMwm(version::FOR_TESTING_TWO_COMPONENT_MWM2), ());
 }
+
+UNIT_TEST(PathJoin)
+{
+#ifdef OMIM_OS_WINDOWS
+  TEST_EQUAL("foo\\bar", Platform::PathJoin({"foo", "bar"}), ());
+  TEST_EQUAL("foo\\bar\\baz", Platform::PathJoin({"foo", "bar", "baz"}), ());
+#else
+  TEST_EQUAL("foo/bar", Platform::PathJoin({"foo", "bar"}), ());
+  TEST_EQUAL("foo/bar/baz", Platform::PathJoin({"foo", "bar", "baz"}), ());
+#endif
+}
