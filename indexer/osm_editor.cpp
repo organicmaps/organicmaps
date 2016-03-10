@@ -541,30 +541,45 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         // Do not process already uploaded features or those failed permanently.
         if (!NeedsUpload(fti.m_uploadStatus))
           continue;
-
-        // TODO(AlexZ): Create/delete nodes support.
-        if (fti.m_status != FeatureStatus::Modified)
-          continue;
-
-        XMLFeature feature = fti.m_feature.ToXML();
-        if (!fti.m_street.empty())
-          feature.SetTagValue(kAddrStreetTag, fti.m_street);
         try
         {
-          XMLFeature osmFeature =
-              GetMatchingFeatureFromOSM(changeset, m_getOriginalFeatureFn(fti.m_feature.GetID()));
-          XMLFeature const osmFeatureCopy = osmFeature;
-          osmFeature.ApplyPatch(feature);
-          // Check to avoid duplicates.
-          if (osmFeature == osmFeatureCopy)
+          XMLFeature feature = fti.m_feature.ToXML();
+          if (!fti.m_street.empty())
+            feature.SetTagValue(kAddrStreetTag, fti.m_street);
+
+          switch (fti.m_status)
           {
-            LOG(LWARNING, ("Local changes are equal to OSM, feature was not uploaded, local changes were deleted.", osmFeatureCopy));
-            // TODO(AlexZ): Delete local change.
-            continue;
+          case FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); break;
+
+          case FeatureStatus::Created: changeset.Create(feature); break;
+
+          case FeatureStatus::Modified:
+          {
+            XMLFeature osmFeature =
+                GetMatchingFeatureFromOSM(changeset, m_getOriginalFeatureFn(fti.m_feature.GetID()));
+            XMLFeature const osmFeatureCopy = osmFeature;
+            osmFeature.ApplyPatch(feature);
+            // Check to avoid duplicates.
+            if (osmFeature == osmFeatureCopy)
+            {
+              LOG(LWARNING, ("Local changes are equal to OSM, feature was not uploaded, local "
+                             "changes were deleted.",
+                             osmFeatureCopy));
+              // TODO(AlexZ): Delete local change.
+              continue;
+            }
+            LOG(LDEBUG, ("Uploading patched feature", osmFeature));
+            changeset.Modify(osmFeature);
           }
-          LOG(LDEBUG, ("Uploading patched feature", osmFeature));
-          changeset.Modify(osmFeature);
+          break;
+
+          case FeatureStatus::Deleted:
+            changeset.Delete(GetMatchingFeatureFromOSM(
+                changeset, m_getOriginalFeatureFn(fti.m_feature.GetID())));
+            break;
+          }
           fti.m_uploadStatus = kUploaded;
+          // TODO(AlexZ): Use timestamp from the server.
           fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError.clear();
           ++uploadedFeaturesCount;
