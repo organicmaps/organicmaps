@@ -38,7 +38,9 @@ class StoreCountriesSingleMwms : public StoreSingleMwmInterface
 
 public:
   StoreCountriesSingleMwms(TCountryTree & countries, TMappingAffiliations & affiliations)
-    : m_countries(countries), m_affiliations(affiliations) {}
+    : m_countries(countries), m_affiliations(affiliations)
+  {
+  }
 
   Country * InsertToCountryTree(TCountryId const & id, uint32_t mapSize, int depth,
                                 TCountryId const & parent) override
@@ -72,8 +74,7 @@ class StoreFile2InfoSingleMwms : public StoreSingleMwmInterface
   map<string, CountryInfo> & m_file2info;
 
 public:
-  StoreFile2InfoSingleMwms(map<string, CountryInfo> & file2info)
-    : m_file2info(file2info) {}
+  StoreFile2InfoSingleMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
 
   Country * InsertToCountryTree(TCountryId const & id, uint32_t /* mapSize */, int /* depth */,
                                 TCountryId const & /* parent */) override
@@ -83,8 +84,13 @@ public:
     return nullptr;
   }
 
-  void InsertOldMwmMapping(TCountryId const & /* newId */, TCountryId const & /* oldId */) override {}
-  void InsertAffiliation(TCountryId const & /* countryId */, string const & /* affilation */) override {}
+  void InsertOldMwmMapping(TCountryId const & /* newId */, TCountryId const & /* oldId */) override
+  {
+  }
+  void InsertAffiliation(TCountryId const & /* countryId */,
+                         string const & /* affilation */) override
+  {
+  }
   TMappingOldMwm GetMapping() const override
   {
     ASSERT(false, ());
@@ -146,7 +152,7 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId co
   }
   else
   {
-    mwmCounter = 1; // It's a leaf. Any leaf contains one mwm.
+    mwmCounter = 1;  // It's a leaf. Any leaf contains one mwm.
     mwmSize = nodeSize;
   }
 
@@ -176,8 +182,8 @@ namespace
 class StoreTwoComponentMwmInterface
 {
 public:
-  virtual void Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */,
-                      int depth, TCountryId const & parent) = 0;
+  virtual void Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, int depth,
+                      TCountryId const & parent) = 0;
 };
 
 class StoreCountriesTwoComponentMwms : public StoreTwoComponentMwmInterface
@@ -185,11 +191,14 @@ class StoreCountriesTwoComponentMwms : public StoreTwoComponentMwmInterface
   TCountryTree & m_countries;
 
 public:
-  StoreCountriesTwoComponentMwms(TCountryTree & countries, TMappingAffiliations & /* affiliations */)
-    : m_countries(countries) {}
+  StoreCountriesTwoComponentMwms(TCountryTree & countries,
+                                 TMappingAffiliations & /* affiliations */)
+    : m_countries(countries)
+  {
+  }
 
-  void Insert(string const & id, uint32_t mapSize, uint32_t routingSize,
-              int depth, TCountryId const & parent) override
+  void Insert(string const & id, uint32_t mapSize, uint32_t routingSize, int depth,
+              TCountryId const & parent) override
   {
     Country country(id, parent);
     if (mapSize)
@@ -208,11 +217,10 @@ class StoreFile2InfoTwoComponentMwms : public StoreTwoComponentMwmInterface
   map<string, CountryInfo> & m_file2info;
 
 public:
-  StoreFile2InfoTwoComponentMwms(map<string, CountryInfo> & file2info)
-    : m_file2info(file2info) {}
+  StoreFile2InfoTwoComponentMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
 
-  void Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */,
-              int /* depth */, TCountryId const & /* parent */) override
+  void Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, int /* depth */,
+              TCountryId const & /* parent */) override
   {
     if (mapSize == 0)
       return;
@@ -240,7 +248,8 @@ void LoadGroupTwoComponentMwmsImpl(int depth, json_t * node, TCountryId const & 
   ASSERT_LESS_OR_EQUAL(0, mwmSize, ());
   ASSERT_LESS_OR_EQUAL(0, routingSize, ());
 
-  store.Insert(file, static_cast<uint32_t>(mwmSize), static_cast<uint32_t>(routingSize), depth, parent);
+  store.Insert(file, static_cast<uint32_t>(mwmSize), static_cast<uint32_t>(routingSize), depth,
+               parent);
 
   json_t * children = json_object_get(node, "g");
   if (children)

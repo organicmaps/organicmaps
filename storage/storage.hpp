@@ -203,8 +203,8 @@ private:
 
   void DownloadNextCountryFromQueue();
 
-  void LoadCountriesFile(string const & pathToCountriesFile,
-                         string const & dataDir, TMappingOldMwm * mapping = nullptr);
+  void LoadCountriesFile(string const & pathToCountriesFile, string const & dataDir,
+                         TMappingOldMwm * mapping = nullptr);
 
   void ReportProgress(TCountryId const & countryId, MapFilesDownloader::TProgress const & p);
   void ReportProgressForHierarchy(TCountryId const & countryId,

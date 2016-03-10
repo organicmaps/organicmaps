@@ -51,8 +51,7 @@ string const kMapTestDir = "map-tests";
 
 using TLocalFilePtr = shared_ptr<LocalCountryFile>;
 
-string const kSingleMwmCountriesTxt =
-    string(R"({
+string const kSingleMwmCountriesTxt = string(R"({
            "id": "Countries",
            "v": )" + strings::to_string(version::FOR_TESTING_SINGLE_MWM1) + R"(,
            "g": [
@@ -994,11 +993,11 @@ UNIT_TEST(StorageTest_GetAffiliations)
   string const abkhaziaId = "Abkhazia";
 
   TMappingAffiliations const expectedAffiliations = {{abkhaziaId.c_str(), "Georgia"},
-                                                    {abkhaziaId.c_str(), "Russia"},
-                                                    {abkhaziaId.c_str(), "Europe"}};
+                                                     {abkhaziaId.c_str(), "Russia"},
+                                                     {abkhaziaId.c_str(), "Europe"}};
   auto const rangeResultAffiliations = storage.GetAffiliations().equal_range(abkhaziaId);
   TMappingAffiliations const resultAffiliations(rangeResultAffiliations.first,
-                                               rangeResultAffiliations.second);
+                                                rangeResultAffiliations.second);
   TEST(expectedAffiliations == resultAffiliations, ());
 
   auto const rangeResultNoAffiliations = storage.GetAffiliations().equal_range("Algeria");

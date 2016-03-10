@@ -2,10 +2,7 @@
 
 namespace my
 {
-void FromJSON(json_t * root, string & result)
-{
-  result = string(json_string_value(root));
-}
+void FromJSON(json_t * root, string & result) { result = string(json_string_value(root)); }
 
 void FromJSONObject(json_t * root, string const & field, string & result)
 {

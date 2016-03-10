@@ -168,7 +168,7 @@ public:
     if (level == 0)
     {
       ASSERT(IsEmpty(), ());
-      m_countryTree = make_unique<Node>(value, nullptr); // Creating the root node.
+      m_countryTree = make_unique<Node>(value, nullptr);  // Creating the root node.
       added = m_countryTree.get();
     }
     else

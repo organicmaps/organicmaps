@@ -122,7 +122,8 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
   : m_downloader(move(mapDownloaderForTesting)), m_currentSlotId(0),
     m_downloadMapOnTheMap(nullptr)
 {
-  m_currentVersion = LoadCountries(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations);
+  m_currentVersion =
+      LoadCountries(referenceCountriesTxtJsonForTesting, m_countries, m_affiliations);
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
 }
 
@@ -621,8 +622,8 @@ TCountryId Storage::GetCurrentDownloadingCountryId() const
   return IsDownloadInProgress() ? m_queue.front().GetCountryId() : storage::TCountryId();
 }
 
-void Storage::LoadCountriesFile(string const & pathToCountriesFile,
-                                string const & dataDir, TMappingOldMwm * mapping /* = nullptr */)
+void Storage::LoadCountriesFile(string const & pathToCountriesFile, string const & dataDir,
+                                TMappingOldMwm * mapping /* = nullptr */)
 {
   m_dataDir = dataDir;
 
