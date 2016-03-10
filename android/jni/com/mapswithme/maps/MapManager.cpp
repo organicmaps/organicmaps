@@ -279,27 +279,18 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   TCountryId const parentId = (parent ? jni::ToNativeString(env, parent) : storage.GetRootId());
   static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
 
-  if (parent)
+  if (hasLocation)
   {
-    TCountriesVec children;
-    storage.GetChildren(parentId, children);
-    PutItemsToList(env, result, children, ItemCategory::AVAILABLE);
+    TCountriesVec near;
+    g_framework->NativeFramework()->CountryInfoGetter().GetRegionsCountryId(MercatorBounds::FromLatLon(lat, lon), near);
+    PutItemsToList(env, result, near, ItemCategory::NEAR_ME);
   }
-  else
-  {
-    if (hasLocation)
-    {
-      TCountriesVec near;
-      g_framework->NativeFramework()->CountryInfoGetter().GetRegionsCountryId(MercatorBounds::FromLatLon(lat, lon), near);
-      PutItemsToList(env, result, near, ItemCategory::NEAR_ME);
-    }
 
-    TCountriesVec downloaded, available;
-    storage.GetChildrenInGroups(parentId, downloaded, available);
+  TCountriesVec downloaded, available;
+  storage.GetChildrenInGroups(parentId, downloaded, available);
 
-    PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED);
-    PutItemsToList(env, result, available, ItemCategory::AVAILABLE);
-  }
+  PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED);
+  PutItemsToList(env, result, available, ItemCategory::AVAILABLE);
 }
 
 // static void nativeUpdateItem(CountryItem item);
