@@ -131,7 +131,6 @@ editor::XMLFeature FeatureType::ToXML() const
   // feature.m_params.layer =
   // feature.m_params.rank =
 
-  ParseTypes();
   feature::TypesHolder th(*this);
   // TODO(mgsergio): Use correct sorting instead of SortBySpec based on the config.
   th.SortBySpec();
