@@ -490,17 +490,13 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 bool Framework::HasUnsavedEdits(storage::TCountryId const & countryId)
 {
   bool hasUnsavedChanges = false;
-  auto const forEachInSubtree = [&hasUnsavedChanges](storage::TCountryId const & /* descendantId */,
+  auto const forEachInSubtree = [&hasUnsavedChanges, this](storage::TCountryId const & fileName,
       bool groupNode)
   {
-    if (!groupNode)
-    {
-      /// @TODO(AlexZ) |countryId| could be a group or leaf node in the country tree graph.
-      /// This string is called for each leaf node of the subtree with the root at |countryId|
-      /// including the root. |descendantId| is an id of leaf node. It's the same with
-      /// an mwm file name (for leaf nodes). It's necessary to check if there're some changes
-      /// in mwm with |descendantId| and if so to set hasUnsavedChanges to true.
-    }
+    if (groupNode)
+      return;
+    hasUnsavedChanges |= osm::Editor::Instance().HaveSomethingToUpload(
+          m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(fileName)));
   };
   Storage().ForEachInSubtree(countryId, forEachInSubtree);
   return hasUnsavedChanges;
