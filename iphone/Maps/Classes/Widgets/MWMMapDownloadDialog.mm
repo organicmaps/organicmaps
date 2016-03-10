@@ -335,7 +335,7 @@ using namespace storage;
 - (IBAction)autoDownloadToggle
 {
   self.autoDownloadButton.selected = !self.autoDownloadButton.selected;
-  Settings::Set(kAutoDownloadEnabledKey, self.autoDownloadButton.selected);
+  Settings::Set(kAutoDownloadEnabledKey, static_cast<bool>(self.autoDownloadButton.selected));
 }
 
 - (IBAction)downloadAction
