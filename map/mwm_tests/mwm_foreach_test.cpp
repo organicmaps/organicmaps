@@ -306,8 +306,8 @@ void RunTest(string const & countryFileName)
 
 }
 
-UNIT_TEST(ForEach_QueryResults)
-{
-  RunTest("minsk-pass");
-  //RunTestForChoice("london-center");
-}
+//UNIT_TEST(ForEach_QueryResults)
+//{
+//  RunTest("minsk-pass");
+//  //RunTestForChoice("london-center");
+//}
