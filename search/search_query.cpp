@@ -661,9 +661,22 @@ class PreResult2Maker
       string name;
       if (!ft.GetName(lang, name))
         continue;
-      auto score = GetNameScore(name, m_params, preInfo.m_startToken, preInfo.m_endToken);
+      vector<strings::UniString> tokens;
+      SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
+
+      auto score = GetNameScore(tokens, m_params, preInfo.m_startToken, preInfo.m_endToken);
+      auto coverage =
+          tokens.empty() ? 0 : static_cast<double>(preInfo.m_endToken - preInfo.m_startToken) /
+                                   static_cast<double>(tokens.size());
       if (score > info.m_nameScore)
+      {
         info.m_nameScore = score;
+        info.m_nameCoverage = coverage;
+      }
+      else if (score == info.m_nameScore && coverage > info.m_nameCoverage)
+      {
+        info.m_nameCoverage = coverage;
+      }
     }
 
     if (info.m_searchType == v2::SearchModel::SEARCH_TYPE_BUILDING)

@@ -6,10 +6,8 @@
 #include "indexer/search_string_utils.hpp"
 
 #include "base/stl_add.hpp"
-#include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
-#include "std/vector.hpp"
 
 using namespace strings;
 
@@ -43,6 +41,14 @@ NameScore GetNameScore(string const & name, SearchQueryParams const & params, si
 
   vector<UniString> tokens;
   SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
+  return GetNameScore(tokens, params, startToken, endToken);
+}
+
+NameScore GetNameScore(vector<UniString> const & tokens, SearchQueryParams const & params,
+                       size_t startToken, size_t endToken)
+{
+  if (startToken >= endToken)
+    return NAME_SCORE_ZERO;
 
   size_t const n = tokens.size();
   size_t const m = endToken - startToken;

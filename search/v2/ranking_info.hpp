@@ -25,6 +25,9 @@ struct RankingInfo
   // Score for the feature's name.
   NameScore m_nameScore = NAME_SCORE_ZERO;
 
+  // Number of tokens from the query matched to a feature name.
+  double m_nameCoverage = 0;
+
   // Search type for the feature.
   SearchModel::SearchType m_searchType = SearchModel::SEARCH_TYPE_COUNT;
 
