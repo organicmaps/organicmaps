@@ -55,7 +55,6 @@ using namespace storage;
 @implementation MWMMapDownloadDialog
 {
   TCountryId m_countryId;
-  TCountryId m_autoDownloadCountryId;
 }
 
 + (instancetype)dialogForController:(MWMViewController *)controller
@@ -123,7 +122,6 @@ using namespace storage;
                   kStatScenario : kStatDownload
                 }];
           [self showInQueue];
-          m_autoDownloadCountryId = m_countryId;
           s.DownloadNode(m_countryId);
         }
         else
@@ -168,7 +166,6 @@ using namespace storage;
 
 - (void)removeFromSuperview
 {
-  m_autoDownloadCountryId = kInvalidCountryId;
   self.progress.state = MWMCircularProgressStateNormal;
   [MWMFrameworkListener removeObserver:self];
   [super removeFromSuperview];
@@ -227,10 +224,10 @@ using namespace storage;
 
 - (void)showDownloadRequest
 {
+  [self showAutoDownloadRequest:self.isCancelled && isAutoDownload()];
   self.isCancelled = NO;
   self.downloadButton.hidden = NO;
   self.progressWrapper.hidden = YES;
-  [self showAutoDownloadRequest:m_autoDownloadCountryId == m_countryId];
 }
 
 - (void)showDownloading:(CGFloat)progress
@@ -350,7 +347,6 @@ using namespace storage;
           kStatFrom : kStatMap,
           kStatScenario : kStatDownload
         }];
-  m_autoDownloadCountryId = kInvalidCountryId;
   [self showInQueue];
   [MWMStorage downloadNode:m_countryId alertController:self.controller.alertController onSuccess:nil];
 }
