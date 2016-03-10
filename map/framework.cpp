@@ -285,10 +285,10 @@ void Framework::Migrate(bool keepDownloaded)
 
 Framework::Framework()
   : m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
+  , m_deferredCountryUpdate(milliseconds(300))
   , m_bmManager(*this)
   , m_fixedSearchResults(0)
   , m_lastReportedCountry(kInvalidCountryId)
-  , m_deferredCountryUpdate(seconds(1))
 {
   // Restore map style before classificator loading
   int mapStyle = MapStyleLight;

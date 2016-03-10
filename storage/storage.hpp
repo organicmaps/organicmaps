@@ -193,6 +193,7 @@ private:
 
   // |m_affiliations| is a mapping from countryId to the list of names of
   // geographical objects (such as countries) that encompass this countryId.
+  // Note. Affiliations is inherited from ancestors of the countryId in country tree.
   // |m_affiliations| is filled during Storage initialization or during migration process.
   // It is filled with data of countries.txt (field "affiliations").
   // Once filled |m_affiliations| is not changed.
@@ -583,10 +584,10 @@ void Storage::ForEachInSubtreeAndInQueue(TCountryId const & root, ToDo && toDo) 
 /// Calls functor |toDo| with signature
 /// void(const TCountryId const & parentId, TCountriesVec const & descendantCountryId)
 /// for each ancestor except for the main root of the tree.
-/// |descendantsCountryId| is a vector of country id of descendats of |parentId|.
 /// Note. In case of disputable territories several nodes with the same name may be
 /// present in the country tree. In that case ForEachAncestorExceptForTheRoot calls
-/// |toDo| for parents of each way to the root in the country tree.
+/// |toDo| for parents of each way to the root in the country tree. In case of diamond
+/// trees toDo is called for common part of ways to the root only once.
 template <class ToDo>
 void Storage::ForEachAncestorExceptForTheRoot(TCountryId const & countryId, ToDo && toDo) const
 {

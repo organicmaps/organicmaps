@@ -47,7 +47,16 @@ public:
     TValue const & Value() const { return m_value; }
     TValue & Value() { return m_value; }
 
-    Node * AddAtDepth(int level, TValue const & value)
+    /// \brief Adds a node to a tree with root == |this|.
+    /// \param level is depth where a node with |value| will be add. |level| == 0 means |this|.
+    /// When the method is called the node |this| exists. So it's wrong call it with |level| == 0.
+    /// If |level| == 1 the node with |value| will be added as a child of this.
+    /// If |level| == 2 the node with |value| will be added as a child of the last added child of the |this|.
+    /// And so on.
+    /// \param value is a value of node which will be added.
+    /// \note This method does not let to add a node to an arbitrary place in the tree.
+    /// It's posible to add children only from "right side".
+    Node * AddAtDepth(size_t level, TValue const & value)
     {
       Node * node = this;
       while (--level > 0 && !node->m_children.empty())
@@ -161,8 +170,7 @@ public:
     return *m_countryTree;
   }
 
-  /// @return reference is valid only up to the next tree structure modification
-  TValue & AddAtDepth(int level, TValue const & value)
+  TValue & AddAtDepth(size_t level, TValue const & value)
   {
     Node * added = nullptr;
     if (level == 0)

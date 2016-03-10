@@ -101,6 +101,10 @@ string const kSingleMwmCountriesTxt = string(R"({
                   "s": 1234,
                   "old": [
                    "Country1"
+                  ],
+                  "affiliations":
+                  [
+                   "Stepchild Land1", "Stepchild Land2"
                   ]
                  },
                  {
@@ -108,8 +112,16 @@ string const kSingleMwmCountriesTxt = string(R"({
                   "s": 1111,
                   "old": [
                    "Country1"
+                  ],
+                  "affiliations":
+                  [
+                   "Child Land1"
                   ]
                  }
+                ],
+                "affiliations":
+                [
+                 "Parent Land1"
                 ]
                },
                {
@@ -127,8 +139,16 @@ string const kSingleMwmCountriesTxt = string(R"({
                   "s": 1234,
                   "old": [
                    "Country2"
+                  ],
+                  "affiliations":
+                  [
+                   "Stepchild Land1", "Stepchild Land2"
                   ]
                  }
+                ],
+                "affiliations":
+                [
+                 "Parent Land2"
                 ]
                }
             ]})");
@@ -990,18 +1010,34 @@ UNIT_TEST(StorageTest_GetChildren)
 UNIT_TEST(StorageTest_GetAffiliations)
 {
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
-  string const abkhaziaId = "Abkhazia";
 
-  TMappingAffiliations const expectedAffiliations = {{abkhaziaId.c_str(), "Georgia"},
-                                                     {abkhaziaId.c_str(), "Russia"},
-                                                     {abkhaziaId.c_str(), "Europe"}};
-  auto const rangeResultAffiliations = storage.GetAffiliations().equal_range(abkhaziaId);
-  TMappingAffiliations const resultAffiliations(rangeResultAffiliations.first,
-                                                rangeResultAffiliations.second);
-  TEST(expectedAffiliations == resultAffiliations, ());
+  string const abkhaziaId = "Abkhazia";
+  TMappingAffiliations const expectedAffiliations1 = {{abkhaziaId.c_str(), "Georgia"},
+                                                      {abkhaziaId.c_str(), "Russia"},
+                                                      {abkhaziaId.c_str(), "Europe"}};
+  auto const rangeResultAffiliations1 = storage.GetAffiliations().equal_range(abkhaziaId);
+  TMappingAffiliations const resultAffiliations1(rangeResultAffiliations1.first,
+                                                 rangeResultAffiliations1.second);
+  TEST(expectedAffiliations1 == resultAffiliations1, ());
 
   auto const rangeResultNoAffiliations = storage.GetAffiliations().equal_range("Algeria");
   TEST(rangeResultNoAffiliations.first == rangeResultNoAffiliations.second, ());
+
+  // Affiliation inheritance.
+  string const disputableId = "Disputable Territory";
+  auto const rangeResultAffiliations2 = storage.GetAffiliations().equal_range(disputableId);
+  TMappingAffiliations const resultAffiliations2(rangeResultAffiliations2.first,
+                                                 rangeResultAffiliations2.second);
+  TMappingAffiliations const expectedAffiliations2 = {{disputableId.c_str(), "Stepchild Land1"},
+                                                      {disputableId.c_str(), "Stepchild Land2"}};
+  TEST(expectedAffiliations2 == resultAffiliations2, ());
+
+  string const indisputableId = "Indisputable Territory Of Country1";
+  auto const rangeResultAffiliations3 = storage.GetAffiliations().equal_range(indisputableId);
+  TMappingAffiliations const resultAffiliations3(rangeResultAffiliations3.first,
+                                                 rangeResultAffiliations3.second);
+  TMappingAffiliations const expectedAffiliations3 = {{indisputableId.c_str(), "Child Land1"}};
+  TEST(expectedAffiliations3 == resultAffiliations3, ());
 }
 
 UNIT_TEST(StorageTest_HasCountryId)

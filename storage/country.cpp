@@ -23,7 +23,8 @@ namespace
 class StoreSingleMwmInterface
 {
 public:
-  virtual Country * InsertToCountryTree(TCountryId const & id, uint32_t mapSize, int depth,
+  virtual ~StoreSingleMwmInterface() = default;
+  virtual Country * InsertToCountryTree(TCountryId const & id, uint32_t mapSize, size_t depth,
                                         TCountryId const & parent) = 0;
   virtual void InsertOldMwmMapping(TCountryId const & newId, TCountryId const & oldId) = 0;
   virtual void InsertAffiliation(TCountryId const & countryId, string const & affilation) = 0;
@@ -42,7 +43,8 @@ public:
   {
   }
 
-  Country * InsertToCountryTree(TCountryId const & id, uint32_t mapSize, int depth,
+  // StoreSingleMwmInterface overrides:
+  Country * InsertToCountryTree(TCountryId const & id, uint32_t mapSize, size_t depth,
                                 TCountryId const & parent) override
   {
     Country country(id, parent);
@@ -62,6 +64,13 @@ public:
 
   void InsertAffiliation(TCountryId const & countryId, string const & affilation) override
   {
+    auto const countryIdRange = m_affiliations.equal_range(countryId);
+    for (auto it = countryIdRange.first; it != countryIdRange.second; ++it)
+    {
+      if (it->second == affilation)
+        return; // No need key with the same value. It could happend in case of a disputable territory.
+    }
+
     m_affiliations.insert(make_pair(countryId, affilation));
   }
 
@@ -76,7 +85,8 @@ class StoreFile2InfoSingleMwms : public StoreSingleMwmInterface
 public:
   StoreFile2InfoSingleMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
 
-  Country * InsertToCountryTree(TCountryId const & id, uint32_t /* mapSize */, int /* depth */,
+  // StoreSingleMwmInterface overrides:
+  Country * InsertToCountryTree(TCountryId const & id, uint32_t /* mapSize */, size_t /* depth */,
                                 TCountryId const & /* parent */) override
   {
     CountryInfo info(id);
@@ -99,38 +109,23 @@ public:
 };
 }  // namespace
 
-TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId const & parent,
+TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, TCountryId const & parent,
                                          StoreSingleMwmInterface & store)
 {
-  uint32_t mwmCounter = 0;
-  size_t mwmSize = 0;
-
   TCountryId id;
   my::FromJSONObject(node, "id", id);
 
   // Mapping two component (big) mwms to one componenst (small) ones.
-  json_t * oldIds = json_object_get(node, "old");
-  if (oldIds)
-  {
-    size_t const oldListSize = json_array_size(oldIds);
-    for (size_t k = 0; k < oldListSize; ++k)
-    {
-      string oldIdValue = json_string_value(json_array_get(oldIds, k));
-      store.InsertOldMwmMapping(id, oldIdValue);
-    }
-  }
+  vector<string> oldIds;
+  my::FromJSONObjectOptionalField(node, "old", oldIds);
+  for (auto const & oldId : oldIds)
+    store.InsertOldMwmMapping(id, oldId);
 
-  // Mapping affiliations to one componenst (small) mwms.
-  json_t * affiliations = json_object_get(node, "affiliations");
-  if (affiliations)
-  {
-    size_t const affiliationsSize = json_array_size(affiliations);
-    for (size_t k = 0; k < affiliationsSize; ++k)
-    {
-      string affilationValue = json_string_value(json_array_get(affiliations, k));
-      store.InsertAffiliation(id, affilationValue);
-    }
-  }
+  // Mapping affiliations to one component (small) mwms.
+  vector<string> affiliations;
+  my::FromJSONObjectOptionalField(node, "affiliations", affiliations);
+  for (auto const & affilationValue : affiliations)
+    store.InsertAffiliation(id, affilationValue);
 
   json_int_t nodeSize;
   my::FromJSONObjectOptionalField(node, "s", nodeSize);
@@ -138,22 +133,23 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(int depth, json_t * node, TCountryId co
   // We expect that mwm and routing files should be less than 2GB.
   Country * addedNode = store.InsertToCountryTree(id, nodeSize, depth, parent);
 
-  json_t * children = json_object_get(node, "g");
-  if (children)
-  {
-    size_t const groupListSize = json_array_size(children);
-    for (size_t i = 0; i < groupListSize; ++i)
-    {
-      json_t * j = json_array_get(children, i);
-      TMwmSubtreeAttrs const childAttr = LoadGroupSingleMwmsImpl(depth + 1, j, id, store);
-      mwmCounter += childAttr.first;
-      mwmSize += childAttr.second;
-    }
-  }
-  else
+  uint32_t mwmCounter = 0;
+  size_t mwmSize = 0;
+  vector<json_t *> children;
+  my::FromJSONObjectOptionalField(node, "g", children);
+  if (children.empty())
   {
     mwmCounter = 1;  // It's a leaf. Any leaf contains one mwm.
     mwmSize = nodeSize;
+  }
+  else
+  {
+    for (json_t * child : children)
+    {
+      TMwmSubtreeAttrs const childAttr = LoadGroupSingleMwmsImpl(depth + 1, child, id, store);
+      mwmCounter += childAttr.first;
+      mwmSize += childAttr.second;
+    }
   }
 
   if (addedNode != nullptr)
@@ -182,7 +178,8 @@ namespace
 class StoreTwoComponentMwmInterface
 {
 public:
-  virtual void Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, int depth,
+  virtual ~StoreTwoComponentMwmInterface() = default;
+  virtual void Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, size_t depth,
                       TCountryId const & parent) = 0;
 };
 
@@ -197,7 +194,8 @@ public:
   {
   }
 
-  void Insert(string const & id, uint32_t mapSize, uint32_t routingSize, int depth,
+  // StoreTwoComponentMwmInterface overrides:
+  void Insert(string const & id, uint32_t mapSize, uint32_t routingSize, size_t depth,
               TCountryId const & parent) override
   {
     Country country(id, parent);
@@ -219,7 +217,8 @@ class StoreFile2InfoTwoComponentMwms : public StoreTwoComponentMwmInterface
 public:
   StoreFile2InfoTwoComponentMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
 
-  void Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, int /* depth */,
+  // StoreTwoComponentMwmInterface overrides:
+  void Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, size_t /* depth */,
               TCountryId const & /* parent */) override
   {
     if (mapSize == 0)
@@ -231,7 +230,7 @@ public:
 };
 }  // namespace
 
-void LoadGroupTwoComponentMwmsImpl(int depth, json_t * node, TCountryId const & parent,
+void LoadGroupTwoComponentMwmsImpl(size_t depth, json_t * node, TCountryId const & parent,
                                    StoreTwoComponentMwmInterface & store)
 {
   // @TODO(bykoianko) After we stop supporting two component mwms (with routing files)
@@ -251,16 +250,10 @@ void LoadGroupTwoComponentMwmsImpl(int depth, json_t * node, TCountryId const & 
   store.Insert(file, static_cast<uint32_t>(mwmSize), static_cast<uint32_t>(routingSize), depth,
                parent);
 
-  json_t * children = json_object_get(node, "g");
-  if (children)
-  {
-    size_t const groupListSize = json_array_size(children);
-    for (size_t i = 0; i < groupListSize; ++i)
-    {
-      json_t * j = json_array_get(children, i);
-      LoadGroupTwoComponentMwmsImpl(depth + 1, j, file, store);
-    }
-  }
+  vector<json_t *> children;
+  my::FromJSONObjectOptionalField(node, "g", children);
+  for (json_t * child : children)
+    LoadGroupTwoComponentMwmsImpl(depth + 1, child, file, store);
 }
 
 bool LoadCountriesTwoComponentMwmsImpl(string const & jsonBuffer,
@@ -285,13 +278,13 @@ int64_t LoadCountries(string const & jsonBuffer, TCountryTree & countries,
   countries.Clear();
   affiliations.clear();
 
-  int64_t version = -1;
+  json_int_t version = -1;
   try
   {
     my::Json root(jsonBuffer.c_str());
     my::FromJSONObject(root.get(), "v", version);
 
-    if (version::IsSingleMwm(version))
+    if (version::IsSingleMwm(static_cast<int64_t>(version)))
     {
       StoreCountriesSingleMwms store(countries, affiliations);
       if (!LoadCountriesSingleMwmsImpl(jsonBuffer, store))
@@ -318,13 +311,12 @@ void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryI
 {
   ASSERT(id2info.empty(), ());
 
-  int64_t version = -1;
+  json_int_t version = -1;
   try
   {
     my::Json root(jsonBuffer.c_str());
-    // version = json_integer_value(json_object_get(root.get(), "v"));
     my::FromJSONObjectOptionalField(root.get(), "v", version);
-    isSingleMwm = version::IsSingleMwm(version);
+    isSingleMwm = version::IsSingleMwm(static_cast<int64_t>(version));
     if (isSingleMwm)
     {
       StoreFile2InfoSingleMwms store(id2info);

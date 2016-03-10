@@ -2,7 +2,12 @@
 
 namespace my
 {
-void FromJSON(json_t * root, string & result) { result = string(json_string_value(root)); }
+void FromJSON(json_t * root, string & result)
+{
+  if (!json_is_string(root))
+    MYTHROW(my::Json::Exception, ("The field must contain a json string."));
+  result = string(json_string_value(root));
+}
 
 void FromJSONObject(json_t * root, string const & field, string & result)
 {
@@ -54,7 +59,7 @@ void FromJSONObjectOptionalField(json_t * root, string const & field, string & r
   json_t * val = json_object_get(root, field.c_str());
   if (!val)
   {
-    result = string("");
+    result.clear();
     return;
   }
   if (!json_is_string(val))
