@@ -783,6 +783,9 @@
 /* Item in context menu. */
 "downloader_map_only" = "Hanya Peta";
 
+/* Dialog offering to disable maps autodownload. */
+"downloader_offer_disable_autodownload" = "If you don't want maps to be automatically downloaded, this behavior can be turned off. Do it now?";
+
 /* Toolbar title */
 "toolbar_application_menu" = "Menu aplikasi";
 
