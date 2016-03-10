@@ -9,108 +9,10 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+using namespace my;
+
 namespace
 {
-void FromJSON(json_t * root, string & result)
-{
-  result = string(json_string_value(root));
-}
-
-void FromJSONObject(json_t * root, string const & field, string & result)
-{
-  if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
-  json_t * val = json_object_get(root, field.c_str());
-  if (!val)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
-  if (!json_is_string(val))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json string."));
-  result = string(json_string_value(val));
-}
-
-void FromJSONObject(json_t * root, string const & field, strings::UniString & result)
-{
-  string s;
-  FromJSONObject(root, field, s);
-  result = strings::MakeUniString(s);
-}
-
-void FromJSONObject(json_t * root, string const & field, double & result)
-{
-  if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
-  json_t * val = json_object_get(root, field.c_str());
-  if (!val)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
-  if (!json_is_number(val))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json number."));
-  result = json_number_value(val);
-}
-
-void FromJSONObject(json_t * root, string const & field, m2::PointD & result)
-{
-  if (!json_is_object(root))
-    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
-  json_t * val = json_object_get(root, field.c_str());
-  if (!val)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
-  FromJSONObject(val, "x", result.x);
-  FromJSONObject(val, "y", result.y);
-}
-
-void FromJSONObject(json_t * root, string const & field, m2::RectD & result)
-{
-  json_t * rect = json_object_get(root, field.c_str());
-  if (!rect)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
-  double minX, minY, maxX, maxY;
-  FromJSONObject(rect, "minx", minX);
-  FromJSONObject(rect, "miny", minY);
-  FromJSONObject(rect, "maxx", maxX);
-  FromJSONObject(rect, "maxy", maxY);
-  result.setMinX(minX);
-  result.setMinY(minY);
-  result.setMaxX(maxX);
-  result.setMaxY(maxY);
-}
-
-void FromJSONObject(json_t * root, string const & field, search::Sample::Result::Relevance & r)
-{
-  string relevance;
-  FromJSONObject(root, field, relevance);
-  if (relevance == "vital")
-    r = search::Sample::Result::Relevance::RELEVANCE_VITAL;
-  else if (relevance == "relevant")
-    r = search::Sample::Result::Relevance::RELEVANCE_RELEVANT;
-  else
-    r = search::Sample::Result::Relevance::RELEVANCE_IRRELEVANT;
-}
-
-void FromJSON(json_t * root, search::Sample::Result & result);
-
-template <typename T>
-void FromJSONObject(json_t * root, string const & field, vector<T> & result)
-{
-  json_t * arr = json_object_get(root, field.c_str());
-  if (!arr)
-    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
-  if (!json_is_array(arr))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json array."));
-  size_t sz = json_array_size(arr);
-  result.resize(sz);
-  for (size_t i = 0; i < sz; ++i)
-    FromJSON(json_array_get(arr, i), result[i]);
-}
-
-void FromJSON(json_t * root, search::Sample::Result & result)
-{
-  FromJSONObject(root, "position", result.m_pos);
-  FromJSONObject(root, "name", result.m_name);
-  FromJSONObject(root, "houseNumber", result.m_houseNumber);
-  FromJSONObject(root, "types", result.m_types);
-  FromJSONObject(root, "relevancy", result.m_relevance);
-}
-
 bool LessRect(m2::RectD const & lhs, m2::RectD const & rhs)
 {
   if (lhs.minX() != rhs.minX())
@@ -140,6 +42,54 @@ bool Equal(vector<T> lhs, vector<T> rhs)
   return lhs == rhs;
 }
 }  // namespace
+
+void FromJSONObject(json_t * root, string const & field, m2::RectD & result)
+{
+  json_t * rect = json_object_get(root, field.c_str());
+  if (!rect)
+    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  double minX, minY, maxX, maxY;
+  FromJSONObject(rect, "minx", minX);
+  FromJSONObject(rect, "miny", minY);
+  FromJSONObject(rect, "maxx", maxX);
+  FromJSONObject(rect, "maxy", maxY);
+  result.setMinX(minX);
+  result.setMinY(minY);
+  result.setMaxX(maxX);
+  result.setMaxY(maxY);
+}
+
+void FromJSONObject(json_t * root, string const & field, m2::PointD & result)
+{
+  if (!json_is_object(root))
+    MYTHROW(my::Json::Exception, ("Bad json object when parsing", field));
+  json_t * val = json_object_get(root, field.c_str());
+  if (!val)
+    MYTHROW(my::Json::Exception, ("Obligatory field", field, "is absent."));
+  FromJSONObject(val, "x", result.x);
+  FromJSONObject(val, "y", result.y);
+}
+
+void FromJSONObject(json_t * root, string const & field, search::Sample::Result::Relevance & r)
+{
+  string relevance;
+  FromJSONObject(root, field, relevance);
+  if (relevance == "vital")
+    r = search::Sample::Result::Relevance::RELEVANCE_VITAL;
+  else if (relevance == "relevant")
+    r = search::Sample::Result::Relevance::RELEVANCE_RELEVANT;
+  else
+    r = search::Sample::Result::Relevance::RELEVANCE_IRRELEVANT;
+}
+
+void FromJSON(json_t * root, search::Sample::Result & result)
+{
+  FromJSONObject(root, "position", result.m_pos);
+  FromJSONObject(root, "name", result.m_name);
+  FromJSONObject(root, "houseNumber", result.m_houseNumber);
+  FromJSONObject(root, "types", result.m_types);
+  FromJSONObject(root, "relevancy", result.m_relevance);
+}
 
 namespace search
 {
