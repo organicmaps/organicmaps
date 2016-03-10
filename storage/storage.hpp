@@ -191,12 +191,12 @@ private:
 
   unique_ptr<Storage> m_prefetchStorage;
 
-  // |m_affiliations| is mapping countryIds (mwm file names) to geographical names
-  // which includes the mwm.
+  // |m_affiliations| is a mapping from countryId to the list of names of
+  // geographical objects (such as countries) that encompass this countryId.
   // |m_affiliations| is filled during Storage initialization or during migration process.
   // It is filled with data of countries.txt (field "affiliations").
   // Once filled |m_affiliations| is not changed.
-  // Node. |m_affiliations| is empty in case of countries_obsolete.txt.
+  // Note. |m_affiliations| is empty in case of countries_obsolete.txt.
   TMappingAffiliations m_affiliations;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
