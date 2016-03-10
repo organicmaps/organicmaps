@@ -169,7 +169,7 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Impostazioni</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Lista delle Mape</string>
+	<string name="maps_storage">Cartella mappe</string>
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Seleziona il luogo in cui le mappe devono essere scaricate</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
@@ -311,9 +311,9 @@
 	<!-- Settings «Map» category: «Night style» title -->
 	<string name="pref_map_style_title">Modalità notturna</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_default">Sì</string>
+	<string name="pref_map_style_default">Spento</string>
 	<!-- «Map style» entry value -->
-	<string name="pref_map_style_night">No</string>
+	<string name="pref_map_style_night">Acceso</string>
 	<!-- «Map style» entry value -->
 	<string name="pref_map_style_auto">Auto</string>
 	<!-- Settings «Map» category: «Perspective view» title -->

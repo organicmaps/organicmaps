@@ -280,7 +280,7 @@
 "settings" = "Impostazioni";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Lista delle Mape";
+"maps_storage" = "Cartella mappe";
 
 /* Detailed description of Maps Storage settings button */
 "maps_storage_summary" = "Seleziona il luogo in cui le mappe devono essere scaricate";
@@ -499,10 +499,10 @@
 "pref_map_style_title" = "Modalità notturna";
 
 /* «Map style» entry value */
-"pref_map_style_default" = "Sì";
+"pref_map_style_default" = "Spento";
 
 /* «Map style» entry value */
-"pref_map_style_night" = "No";
+"pref_map_style_night" = "Acceso";
 
 /* «Map style» entry value */
 "pref_map_style_auto" = "Auto";
