@@ -45,7 +45,7 @@ public:
   XMLFeature(string const & xml);
   XMLFeature(pugi::xml_document const & xml);
   XMLFeature(pugi::xml_node const & xml);
-  XMLFeature(XMLFeature const & feature) : XMLFeature(feature.m_document) {}
+  XMLFeature(XMLFeature const & feature);
   bool operator==(XMLFeature const & other) const;
   /// @returns nodes and ways from osmXml. Vector can be empty.
   static vector<XMLFeature> FromOSM(string const & osmXml);

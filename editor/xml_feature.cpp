@@ -89,6 +89,12 @@ XMLFeature::XMLFeature(pugi::xml_node const & xml)
   ValidateElement(GetRootNode());
 }
 
+XMLFeature::XMLFeature(XMLFeature const & feature)
+{
+  m_document.reset(feature.m_document);
+  // Don't validate feature: it should already be validated.
+}
+
 bool XMLFeature::operator==(XMLFeature const & other) const
 {
   return ToOSMString() == other.ToOSMString();
