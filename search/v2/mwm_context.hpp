@@ -68,7 +68,6 @@ private:
   template <class TFn> void ForEachIndexImpl(covering::IntervalsT const & intervals,
                                              uint32_t scale, TFn && fn) const
   {
-    // TODO(vng): checkUnique is not used in this code. Do we really need it?
     CheckUniqueIndexes checkUnique(m_value.GetHeader().GetFormat() >= version::Format::v5);
     for (auto const & i : intervals)
       m_index.ForEachInIntervalAndScale([&] (uint32_t index) { fn(index); }, i.first, i.second, scale);

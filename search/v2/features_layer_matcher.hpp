@@ -335,9 +335,11 @@ private:
   inline void GetByIndex(uint32_t id, FeatureType & ft) const
   {
     /// @todo Add Cache for feature id -> (point, name / house number).
-    /// TODO(vng): GetFeature below can retur false if feature was deleted by user in the Editor.
+    /// TODO(vng): GetFeature below can return false if feature was deleted by user in the Editor.
     /// This code should be fixed to take that into an account.
     /// Until we don't show "Delete" button to our users, this code will work correctly.
+    /// Correct fix would be injection into ForEachInIntervalAndScale, so deleted features will never
+    /// be emitted and used in other code.
     UNUSED_VALUE(m_context->GetFeature(id, ft));
   }
 
