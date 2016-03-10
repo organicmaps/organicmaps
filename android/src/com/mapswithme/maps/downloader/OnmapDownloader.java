@@ -227,6 +227,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         if (Config.isAutodownloadDisableOfferShown())
           return;
 
+        // Here we track pressing "Cancel" if map is autodownloading.
+        // If the user cancels downloading three times within 30s interval, he is offered to disable map autodownloading.
         long now = System.currentTimeMillis();
         if (mCancelTimestamps.size() + 1 == CANCEL_LOCK_TIMES)
         {
