@@ -179,19 +179,6 @@ namespace
         MercatorBounds::FromLatLon(27.15587, -13.23059), 100864);
   }
 
-  UNIT_TEST(ArbatBaliCrimeanCrossMwmTest)
-  {
-    // Forward case.
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(45.90668,34.87221), {0., 0.},
-        MercatorBounds::FromLatLon(45.35697, 35.36971), 75000.);
-    // Backward case.
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(45.35697, 35.36971), {0., 0.},
-        MercatorBounds::FromLatLon(45.90668,34.87221), 75000.);
-
-  }
-
   UNIT_TEST(AlbaniaToMontenegroCrossTest)
   {
     // Road from Albania to Montenegro. Test turnaround finding at border (when start/stop OSRM
