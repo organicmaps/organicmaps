@@ -120,6 +120,7 @@ void Notes::Upload(osm::OsmOAuth const & auth)
 
                    lock_guard<mutex> g(self->m_mu);
                    self->m_notes.insert(end(self->m_notes), begin(unuploaded), end(unuploaded));
+                   self->Save();
                  });
   };
 
