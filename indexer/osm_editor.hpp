@@ -8,6 +8,7 @@
 #include "indexer/mwm_set.hpp"
 
 #include "editor/editor_config.hpp"
+#include "editor/editor_notes.hpp"
 #include "editor/new_feature_categories.hpp"
 #include "editor/xml_feature.hpp"
 
@@ -23,7 +24,7 @@ namespace osm
 {
 class Editor final
 {
-  Editor() = default;
+  Editor();
 
 public:
   using TFeatureTypeFn = function<void(FeatureType &)>;  // Mimics Framework::TFeatureTypeFn.
@@ -114,6 +115,9 @@ public:
 
   bool CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id, EditableMapObject & outFeature);
 
+  void CreateNote(m2::PointD const & point, string const & note);
+  void UploadNotes(string const & key, string const & secret);
+
   struct Stats
   {
     /// <id, feature status string>
@@ -166,6 +170,9 @@ private:
 
   /// Contains information about what and how can be edited.
   editor::EditorConfig m_config;
+
+  /// Notes to be sent to osm.
+  shared_ptr<editor::Notes> m_notes;
 };  // class Editor
 
 string DebugPrint(Editor::FeatureStatus fs);

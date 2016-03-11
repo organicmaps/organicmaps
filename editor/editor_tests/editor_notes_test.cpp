@@ -21,14 +21,14 @@ UNIT_TEST(Notes)
                                                 fileName});
   platform::tests_support::ScopedFile sf(fileName);
   {
-    Notes notes(fullFileName);
-    notes.CreateNote({1, 2}, "Some note1");
-    notes.CreateNote({2, 2}, "Some note2");
-    notes.CreateNote({1, 1}, "Some note3");
+    auto const notes = Notes::MakeNotes(fullFileName);
+    notes->CreateNote({1, 2}, "Some note1");
+    notes->CreateNote({2, 2}, "Some note2");
+    notes->CreateNote({1, 1}, "Some note3");
   }
   {
-    Notes notes(fullFileName);
-    auto const result = notes.GetNotes();
+    auto const notes = Notes::MakeNotes(fullFileName);
+    auto const result = notes->GetNotes();
     TEST_EQUAL(result.size(), 3, ());
     TEST_EQUAL(result,
                (vector<Note>{

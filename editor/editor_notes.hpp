@@ -2,7 +2,10 @@
 
 #include "geometry/point2d.hpp"
 
+#include "editor/server_api.hpp"
+
 #include "std/mutex.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -25,20 +28,24 @@ inline bool operator==(Note const & a, Note const & b)
   return a.m_point == b.m_point && b.m_note == b.m_note;
 }
 
-class Notes
+class Notes : public enable_shared_from_this<Notes>
 {
 public:
-  Notes(string const & fileName);
+  static shared_ptr<Notes> MakeNotes(string const & fileName);
 
   void CreateNote(m2::PointD const & point, string const & text);
-  void Upload();
 
-  vector<Note> GetNotes() const { return m_notes; }
+  /// Uploads notes to the server in a separate thread.
+  void Upload(osm::OsmOAuth const & auth);
+
+  vector<Note> const & GetNotes() const { return m_notes; }
 
   uint32_t UnuploadedNotesCount() const { return m_notes.size(); }
   uint32_t UploadedNotesCount() const { return m_uploadedNotes; }
 
 private:
+  Notes(string const & fileName);
+
   bool Load();
   bool Save();
 

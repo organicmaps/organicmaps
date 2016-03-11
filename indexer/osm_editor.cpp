@@ -48,6 +48,8 @@ using editor::XMLFeature;
 namespace
 {
 constexpr char const * kEditorXMLFileName = "edits.xml";
+// TODO(mgsergio): Hide in notes.
+constexpr char const * kNotesXMLFileName = "notes.xml";
 constexpr char const * kXmlRootNode = "mapsme";
 constexpr char const * kXmlMwmNode = "mwm";
 constexpr char const * kDeleteSection = "delete";
@@ -66,6 +68,7 @@ bool NeedsUpload(string const & uploadStatus)
 }
 
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
+string GetNotesFilePath() { return GetPlatform().WritablePathForFile(kNotesXMLFileName); }
 
 /// Compares editable fields connected with feature ignoring street.
 bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
@@ -127,6 +130,11 @@ namespace osm
 {
 // TODO(AlexZ): Normalize osm multivalue strings for correct merging
 // (e.g. insert/remove spaces after ';' delimeter);
+
+Editor::Editor()
+    : m_notes(editor::Notes::MakeNotes(GetNotesFilePath()))
+{
+}
 
 Editor & Editor::Instance()
 {
@@ -765,6 +773,16 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
   // Only point type features can be created at the moment.
   outFeature.SetPointType();
   return true;
+}
+
+void Editor::CreateNote(m2::PointD const & point, string const & note)
+{
+  m_notes->CreateNote(point, note);
+}
+
+void Editor::UploadNotes(string const & key, string const & secret)
+{
+  m_notes->Upload(OsmOAuth::ServerAuth({key, secret}));
 }
 
 string DebugPrint(Editor::FeatureStatus fs)

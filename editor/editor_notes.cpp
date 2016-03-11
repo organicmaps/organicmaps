@@ -4,10 +4,14 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/string_utils.hpp"
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/timer.hpp"
+
+#include "std/future.hpp"
 
 #include "3party/pugixml/src/pugixml.hpp"
 
@@ -58,10 +62,21 @@ void SaveToXml(vector<editor::Note> const & notes,
     node.append_attribute("text") = note.m_note.data();
   }
 }
+
+vector<editor::Note> MoveNoteVectorAtomicly(vector<editor::Note> && notes, mutex & mu)
+{
+  lock_guard<mutex> g(mu);
+  return move(notes);
+}
 }  // namespace
 
 namespace editor
 {
+shared_ptr<Notes> Notes::MakeNotes(string const & fileName)
+{
+  return shared_ptr<Notes>(new Notes(fileName));
+}
+
 Notes::Notes(string const & fileName)
     : m_fileName(fileName)
 {
@@ -75,9 +90,44 @@ void Notes::CreateNote(m2::PointD const & point, string const & text)
   Save();
 }
 
-void Notes::Upload()
+void Notes::Upload(osm::OsmOAuth const & auth)
 {
-  throw "NotImplemented";
+  auto const launch = [this, &auth]()
+  {
+    // Capture self to keep it from destruction until this thread is done.
+    auto const self = shared_from_this();
+    return async(launch::async,
+                 [self, auth]()
+                 {
+                   auto const notes = MoveNoteVectorAtomicly(move(self->m_notes),
+                                                             self->m_mu);
+
+                   vector<Note> unuploaded;
+                   osm::ServerApi06 api(auth);
+                   for (auto const & note : notes)
+                   {
+                     try
+                     {
+                       api.CreateNote(MercatorBounds::ToLatLon(note.m_point), note.m_note);
+                       ++self->m_uploadedNotes;
+                     }
+                     catch (osm::ServerApi06::ServerApi06Exception const & e)
+                     {
+                       LOG(LERROR, ("Can't upload note.", e.Msg()));
+                       unuploaded.push_back(note);
+                     }
+                   }
+
+                   lock_guard<mutex> g(self->m_mu);
+                   self->m_notes.insert(end(self->m_notes), begin(unuploaded), end(unuploaded));
+                 });
+  };
+
+  // Do not run more than one upload thread at a time.
+  static auto future = launch();
+  auto const status = future.wait_for(milliseconds(0));
+  if (status == future_status::ready)
+    future = launch();
 }
 
 bool Notes::Load()
