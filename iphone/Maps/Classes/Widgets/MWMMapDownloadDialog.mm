@@ -1,4 +1,5 @@
 #import "Common.h"
+#import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "MWMAlertViewController.h"
 #import "MWMCircularProgress.h"
@@ -11,19 +12,19 @@
 
 #include "Framework.h"
 
-extern char const * kAutoDownloadEnabledKey;
-
 namespace
 {
-NSTimeInterval constexpr kDisableAutoDownloadInterval = 30;
-NSInteger constexpr kDisableAutoDownloadCount = 3;
 CGSize constexpr kInitialDialogSize = {200, 200};
 
-BOOL isAutoDownload()
+BOOL canAutoDownload(TCountryId const & countryId)
 {
-  bool autoDownloadEnabled = true;
-  (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
-  return autoDownloadEnabled && GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI;
+  LocationManager * locationManager = MapsAppDelegate.theApp.m_locationManager;
+  if (![locationManager lastLocationIsValid])
+    return NO;
+  if (GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_WIFI)
+    return NO;
+  auto const & countryInfoGetter = GetFramework().CountryInfoGetter();
+  return countryId == countryInfoGetter.GetRegionCountryId(locationManager.lastLocation.mercator);
 }
 } // namespace
 
@@ -37,10 +38,6 @@ using namespace storage;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * nodeTopOffset;
 @property (weak, nonatomic) IBOutlet UIButton * downloadButton;
 @property (weak, nonatomic) IBOutlet UIView * progressWrapper;
-@property (weak, nonatomic) IBOutlet UILabel * autoDownload;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * autoDownloadBottomOffset;
-@property (weak, nonatomic) IBOutlet UIView * autoDownloadWrapper;
-@property (weak, nonatomic) IBOutlet MWMButton * autoDownloadButton;
 
 @property (weak, nonatomic) MWMViewController * controller;
 
@@ -48,13 +45,14 @@ using namespace storage;
 
 @property (nonatomic) NSMutableArray<NSDate *> * skipDownloadTimes;
 
-@property (nonatomic) BOOL isCancelled;
+@property (nonatomic) BOOL isAutoDownloadCancelled;
 
 @end
 
 @implementation MWMMapDownloadDialog
 {
   TCountryId m_countryId;
+  TCountryId m_autoDownloadCountryId;
 }
 
 + (instancetype)dialogForController:(MWMViewController *)controller
@@ -82,7 +80,6 @@ using namespace storage;
     self.parentNode.preferredMaxLayoutWidth = floor(self.parentNode.width);
     self.node.preferredMaxLayoutWidth = floor(self.node.width);
     self.nodeSize.preferredMaxLayoutWidth = floor(self.nodeSize.width);
-    self.autoDownload.preferredMaxLayoutWidth = floor(self.autoDownload.width);
     [super layoutSubviews];
   }
 }
@@ -112,7 +109,7 @@ using namespace storage;
       case NodeStatus::NotDownloaded:
       case NodeStatus::Partly:
       {
-        if (!self.isCancelled && isAutoDownload())
+        if (!self.isAutoDownloadCancelled && canAutoDownload(m_countryId))
         {
           [Statistics logEvent:kStatDownloaderMapAction
                 withParameters:@{
@@ -122,10 +119,12 @@ using namespace storage;
                   kStatScenario : kStatDownload
                 }];
           [self showInQueue];
+          m_autoDownloadCountryId = m_countryId;
           s.DownloadNode(m_countryId);
         }
         else
         {
+          m_autoDownloadCountryId = kInvalidCountryId;
           [self showDownloadRequest];
         }
         [self addToSuperview];
@@ -205,27 +204,8 @@ using namespace storage;
   }
 }
 
-- (void)showAutoDownloadRequest:(BOOL)show
-{
-  if (show)
-  {
-    self.autoDownloadWrapper.hidden = NO;
-    self.autoDownloadBottomOffset.priority = UILayoutPriorityDefaultHigh;
-    bool autoDownloadEnabled = true;
-    (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
-    self.autoDownloadButton.selected = autoDownloadEnabled;
-  }
-  else
-  {
-    self.autoDownloadWrapper.hidden = YES;
-    self.autoDownloadBottomOffset.priority = UILayoutPriorityDefaultLow;
-  }
-}
-
 - (void)showDownloadRequest
 {
-  [self showAutoDownloadRequest:self.isCancelled && isAutoDownload()];
-  self.isCancelled = NO;
   self.downloadButton.hidden = NO;
   self.progressWrapper.hidden = YES;
 }
@@ -237,7 +217,6 @@ using namespace storage;
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
   self.progress.progress = progress;
-  [self showAutoDownloadRequest:NO];
 }
 
 - (void)showInQueue
@@ -247,7 +226,6 @@ using namespace storage;
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
   self.progress.state = MWMCircularProgressStateSpinner;
-  [self showAutoDownloadRequest:NO];
 }
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId
@@ -259,33 +237,6 @@ using namespace storage;
     [self removeFromSuperview];
   else
     [self configDialog];
-}
-
-#pragma mark - Autodownload
-
-- (void)cancelDownload
-{
-  self.isCancelled = YES;
-  bool autoDownloadEnabled = true;
-  (void)Settings::Get(kAutoDownloadEnabledKey, autoDownloadEnabled);
-  if (!autoDownloadEnabled)
-    return;
-
-  NSDate * currentTime = [NSDate date];
-  [self.skipDownloadTimes filterUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSDate * evaluatedObject, NSDictionary<NSString *, id> * bindings)
-  {
-    return [currentTime timeIntervalSinceDate:evaluatedObject] < kDisableAutoDownloadInterval;
-  }]];
-  [self.skipDownloadTimes addObject:currentTime];
-  if (self.skipDownloadTimes.count >= kDisableAutoDownloadCount)
-  {
-    [self.skipDownloadTimes removeAllObjects];
-    MWMAlertViewController * ac = self.controller.alertController;
-    [ac presentDisableAutoDownloadAlertWithOkBlock:^
-    {
-      Settings::Set(kAutoDownloadEnabledKey, false);
-    }];
-  }
 }
 
 #pragma mark - MWMFrameworkStorageObserver
@@ -325,18 +276,13 @@ using namespace storage;
   else
   {
     [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatMap}];
-    [self cancelDownload];
+    if (m_autoDownloadCountryId == m_countryId)
+      self.isAutoDownloadCancelled = YES;
     [MWMStorage cancelDownloadNode:m_countryId];
   }
 }
 
 #pragma mark - Actions
-
-- (IBAction)autoDownloadToggle
-{
-  self.autoDownloadButton.selected = !self.autoDownloadButton.selected;
-  Settings::Set(kAutoDownloadEnabledKey, static_cast<bool>(self.autoDownloadButton.selected));
-}
 
 - (IBAction)downloadAction
 {
