@@ -21,8 +21,6 @@
 		670947981BDF9BE1005014C0 /* map_data_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947491BDF9BE0005014C0 /* map_data_provider.cpp */; };
 		670947991BDF9BE1005014C0 /* map_data_provider.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709474A1BDF9BE0005014C0 /* map_data_provider.hpp */; };
 		6709479A1BDF9BE1005014C0 /* map_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709474B1BDF9BE0005014C0 /* map_shape.hpp */; };
-		6709479B1BDF9BE1005014C0 /* memory_feature_index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709474C1BDF9BE0005014C0 /* memory_feature_index.cpp */; };
-		6709479C1BDF9BE1005014C0 /* memory_feature_index.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709474D1BDF9BE0005014C0 /* memory_feature_index.hpp */; };
 		6709479D1BDF9BE1005014C0 /* message_acceptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709474E1BDF9BE0005014C0 /* message_acceptor.cpp */; };
 		6709479E1BDF9BE1005014C0 /* message_acceptor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6709474F1BDF9BE0005014C0 /* message_acceptor.hpp */; };
 		6709479F1BDF9BE1005014C0 /* message_queue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947501BDF9BE0005014C0 /* message_queue.cpp */; };
@@ -200,8 +198,6 @@
 		670947491BDF9BE0005014C0 /* map_data_provider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_data_provider.cpp; sourceTree = "<group>"; };
 		6709474A1BDF9BE0005014C0 /* map_data_provider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_data_provider.hpp; sourceTree = "<group>"; };
 		6709474B1BDF9BE0005014C0 /* map_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_shape.hpp; sourceTree = "<group>"; };
-		6709474C1BDF9BE0005014C0 /* memory_feature_index.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memory_feature_index.cpp; sourceTree = "<group>"; };
-		6709474D1BDF9BE0005014C0 /* memory_feature_index.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = memory_feature_index.hpp; sourceTree = "<group>"; };
 		6709474E1BDF9BE0005014C0 /* message_acceptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = message_acceptor.cpp; sourceTree = "<group>"; };
 		6709474F1BDF9BE0005014C0 /* message_acceptor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = message_acceptor.hpp; sourceTree = "<group>"; };
 		670947501BDF9BE0005014C0 /* message_queue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = message_queue.cpp; sourceTree = "<group>"; };
@@ -446,8 +442,6 @@
 				670947491BDF9BE0005014C0 /* map_data_provider.cpp */,
 				6709474A1BDF9BE0005014C0 /* map_data_provider.hpp */,
 				6709474B1BDF9BE0005014C0 /* map_shape.hpp */,
-				6709474C1BDF9BE0005014C0 /* memory_feature_index.cpp */,
-				6709474D1BDF9BE0005014C0 /* memory_feature_index.hpp */,
 				6709474E1BDF9BE0005014C0 /* message_acceptor.cpp */,
 				6709474F1BDF9BE0005014C0 /* message_acceptor.hpp */,
 				670947501BDF9BE0005014C0 /* message_queue.cpp */,
@@ -649,7 +643,6 @@
 				677A2DE61C0DD55D00635A00 /* requested_tiles.hpp in Headers */,
 				670947C11BDF9BE1005014C0 /* shape_view_params.hpp in Headers */,
 				670948461BDF9C48005014C0 /* gui_text.hpp in Headers */,
-				6709479C1BDF9BE1005014C0 /* memory_feature_index.hpp in Headers */,
 				670947E51BDF9BEC005014C0 /* engine_context.hpp in Headers */,
 				6743D3701C3A9F090095054B /* framebuffer.hpp in Headers */,
 				F6B283141C1B04680081957A /* gps_track_shape.hpp in Headers */,
@@ -835,7 +828,6 @@
 				670948021BDF9BF5005014C0 /* drape_engine.cpp in Sources */,
 				56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */,
 				6709481C1BDF9C39005014C0 /* opacity_animation.cpp in Sources */,
-				6709479B1BDF9BE1005014C0 /* memory_feature_index.cpp in Sources */,
 				670947E61BDF9BEC005014C0 /* frontend_renderer.cpp in Sources */,
 				670947D41BDF9BE1005014C0 /* tile_utils.cpp in Sources */,
 				F6B283111C1B04680081957A /* gps_track_renderer.cpp in Sources */,
