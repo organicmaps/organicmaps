@@ -47,6 +47,8 @@ import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
+import com.mapswithme.maps.news.FirstStartFragment;
+import com.mapswithme.maps.news.NewsFragment;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.routing.RoutingInfo;
@@ -763,7 +765,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (!RoutingController.get().isNavigating())
     {
-      if (!NewsFragment.showOn(this))
+      if (!FirstStartFragment.showOn(this) &&
+          !NewsFragment.showOn(this))
         LikesManager.INSTANCE.showDialogs(this);
     }
 

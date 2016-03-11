@@ -28,7 +28,7 @@
           android:layout_gravity="center_horizontal"
           android:gravity="center_horizontal"
           android:fontFamily="@string/robotoMedium"
-          tools:text="@string/whats_new_3d_title"/>
+          tools:text="Whats new feature!"/>
 
         <ImageView
           android:id="@+id/image"
@@ -48,7 +48,7 @@
           android:textAppearance="@style/MwmTextAppearance.Body1"
           android:layout_gravity="center_horizontal"
           android:gravity="center_horizontal"
-          tools:text="@string/whats_new_3d_subtitle"/>
+          tools:text="We\'ve made some cool stuff!\nSit down and be happy now, man."/>
       </LinearLayout>
     </FrameLayout>
 

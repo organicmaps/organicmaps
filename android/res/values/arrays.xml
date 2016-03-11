@@ -59,6 +59,33 @@
     <item>@string/post</item>
   </array>
 
+  <!-- First start screen -->
+  <!-- TODO: Replace with actual texts and images -->
+  <integer-array name="first_start_images">
+    <item>@drawable/img_smile</item>
+    <item>@drawable/img_no_map_light</item>
+  </integer-array>
+
+  <string-array name="first_start_titles">
+    <item>First start page 1</item>
+    <item>First start page 2</item>
+  </string-array>
+
+  <string-array name="first_start_subtitles">
+    <item>Some text</item>
+    <item>Some text</item>
+  </string-array>
+
+  <string-array name="first_start_switch_titles">
+    <item>Sample switch title</item>
+    <item/>
+  </string-array>
+
+  <string-array name="first_start_switch_subtitles">
+    <item>Sample switch subtitle</item>
+    <item/>
+  </string-array>
+
   <!-- What's new -->
   <integer-array name="news_images">
     <item>@drawable/img_news_night</item>
