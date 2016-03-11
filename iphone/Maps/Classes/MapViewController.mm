@@ -18,6 +18,7 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
+#import "MWMWhatsNewNightModeController.h"
 #import "RouteState.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -46,7 +47,6 @@
 #import "../../../private.h"
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
-extern NSString * const kUDWhatsNewWasShown = @"WhatsNewWithNightModeWasShown";
 extern char const * kAdForbiddenSettingsKey;
 extern char const * kAdServerForbiddenKey;
 
@@ -402,17 +402,19 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
 - (void)showWhatsNewIfNeeded
 {
-  if (isIOS7)
+  if (isIOS7 || [Alohalytics isFirstSession])
     return;
+
+  Class<MWMWelcomeControllerProtocol> welcomeClass = [MWMWhatsNewNightModeController class];
+
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  BOOL const whatsNewWasShown = [ud boolForKey:kUDWhatsNewWasShown];
-  if (whatsNewWasShown)
+  if ([ud boolForKey:[welcomeClass udWelcomeWasShownKey]])
     return;
 
-  if (![Alohalytics isFirstSession])
-    [self configureAndShowPageController];
+  self.pageViewController = [MWMPageController pageControllerWithParent:self];
+  [self.pageViewController show:welcomeClass];
 
-  [ud setBool:YES forKey:kUDWhatsNewWasShown];
+  [ud setBool:YES forKey:[welcomeClass udWelcomeWasShownKey]];
   [ud synchronize];
 }
 
@@ -437,12 +439,6 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
   [ud setObject:[NSDate date] forKey:kUDViralAlertWasShown];
   [ud synchronize];
-}
-
-- (void)configureAndShowPageController
-{
-  self.pageViewController = [MWMPageController pageControllerWithParent:self];
-  [self.pageViewController show];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
