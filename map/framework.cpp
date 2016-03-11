@@ -659,6 +659,7 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
 {
   FillPointInfo(api.GetPivot(), api.GetName(), info);
+  info.m_apiId = api.GetID();
   info.m_apiUrl = GenerateApiBackUrl(api);
 }
 

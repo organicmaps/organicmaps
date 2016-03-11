@@ -56,6 +56,8 @@ public:
   string m_customName;
   /// If not empty, bookmark is bound to this place page.
   BookmarkAndCategory m_bac = MakeEmptyBookmarkAndCategory();
+  /// Api ID passed for the selected object. It's automatically included in api url below.
+  string m_apiId;
   /// [Deep] link to open when "Back" button is pressed in a Place Page.
   string m_apiUrl;
   bool m_isMyPosition = false;
