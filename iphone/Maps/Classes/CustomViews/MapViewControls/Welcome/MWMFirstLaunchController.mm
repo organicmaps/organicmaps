@@ -1,3 +1,5 @@
+#import "LocationManager.h"
+#import "MapsAppDelegate.h"
 #import "MWMFirstLaunchController.h"
 #import "MWMPageController.h"
 
@@ -46,6 +48,20 @@ void requestNotifications()
   }
 }
 
+void zoomToCurrentPosition()
+{
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    LocationManager * locationManager = MapsAppDelegate.theApp.m_locationManager;
+    if (![locationManager lastLocationIsValid])
+      return;
+    m2::PointD const centerPt = locationManager.lastLocation.mercator;
+    int const zoom = 13;
+    bool const isAnim = true;
+    GetFramework().GetDrapeEngine()->SetModelViewCenter(centerPt, zoom, isAnim);
+  });
+}
+
 NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   [^(MWMFirstLaunchController * controller)
   {
@@ -69,7 +85,6 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   } copy],
   [^(MWMFirstLaunchController * controller)
   {
-    requestLocation();
     controller.image.image = [UIImage imageNamed:@"img_onboarding_notification"];
     controller.alertTitle.text = L(@"first_launch_need_push_title");
     controller.alertText.text = L(@"first_launch_need_push_text");
@@ -80,7 +95,6 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   } copy],
   [^(MWMFirstLaunchController * controller)
   {
-    requestNotifications();
     controller.image.image = [UIImage imageNamed:@"ic_placeholder"];
     controller.alertTitle.text = L(@"first_launch_congrats_title");
     controller.alertText.text = L(@"first_launch_congrats_text");
@@ -104,10 +118,19 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   return pagesConfigBlocks;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  if (self.pageIndex == 2)
+    requestLocation();
+  else if (self.pageIndex == 3)
+    requestNotifications();
+}
+
 - (void)close
 {
   [self.pageController close];
-  //TODO(igrechuhin): Add zoom to my position animation call.
+  zoomToCurrentPosition();
 }
 
 #pragma mark - Properties
