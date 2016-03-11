@@ -19,7 +19,7 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
-#import "MWMWhatsNewNightModeController.h"
+#import "MWMWhatsNewDownloaderEditorController.h"
 #import "RouteState.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
@@ -408,7 +408,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
   BOOL const isFirstSession = [Alohalytics isFirstSession];
   Class<MWMWelcomeControllerProtocol> welcomeClass =
-  isFirstSession ? [MWMFirstLaunchController class] : [MWMWhatsNewNightModeController class];
+  isFirstSession ? [MWMFirstLaunchController class] : [MWMWhatsNewDownloaderEditorController class];
 
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   if ([ud boolForKey:[welcomeClass udWelcomeWasShownKey]])
