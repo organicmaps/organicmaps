@@ -43,6 +43,7 @@
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
@@ -132,10 +133,17 @@ class IndexedValue : public search::IndexedValueBase<Query::kQueuesCount>
   /// Need to rewrite std::unique algorithm.
   shared_ptr<impl::PreResult2> m_val;
 
+  double m_rank;
+
 public:
-  explicit IndexedValue(unique_ptr<impl::PreResult2> v) : m_val(move(v)) {}
+  explicit IndexedValue(unique_ptr<impl::PreResult2> v)
+    : m_val(move(v)), m_rank(m_val ? m_val->GetRankingInfo().GetLinearModelRank() : 0)
+  {
+  }
 
   impl::PreResult2 const & operator*() const { return *m_val; }
+
+  inline double GetRank() const { return m_rank; }
 };
 
 string DebugPrint(IndexedValue const & value)
@@ -842,7 +850,7 @@ void Query::FlushResults(v2::Geocoder::Params const & params, Results & res, boo
 
   RemoveDuplicatingLinear(indV);
 
-  SortByIndexedValue(indV, CompFactory2());
+  sort(indV.rbegin(), indV.rend(), my::CompareBy(&IndexedValue::GetRank));
 
   // Do not process suggestions in additional search.
   if (!allMWMs || res.GetCount() == 0)

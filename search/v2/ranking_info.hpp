@@ -37,6 +37,10 @@ struct RankingInfo
   static void PrintCSVHeader(ostream & os);
 
   void ToCSV(ostream & os) const;
+
+  // Returns rank calculated by a linear model. Large values
+  // correspond to important features.
+  double GetLinearModelRank() const;
 };
 
 string DebugPrint(RankingInfo const & info);

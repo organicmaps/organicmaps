@@ -24,7 +24,9 @@ enum NameScore
   NAME_SCORE_SUBSTRING_PREFIX = 1,
   NAME_SCORE_SUBSTRING = 2,
   NAME_SCORE_FULL_MATCH_PREFIX = 3,
-  NAME_SCORE_FULL_MATCH = 4
+  NAME_SCORE_FULL_MATCH = 4,
+
+  NAME_SCORE_COUNT
 };
 
 NameScore GetNameScore(string const & name, SearchQueryParams const & params, size_t startToken,
