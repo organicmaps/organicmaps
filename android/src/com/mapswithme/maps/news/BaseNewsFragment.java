@@ -1,6 +1,7 @@
 package com.mapswithme.maps.news;
 
 import android.app.Dialog;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.ArrayRes;
@@ -42,14 +43,21 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
   abstract class Adapter extends PagerAdapter
   {
     private final int[] mImages;
-    private final String[] mTitles = MwmApplication.get().getResources().getStringArray(getTitles());
-    private final String[] mSubtitles = MwmApplication.get().getResources().getStringArray(getSubtitles());
-    private final String[] mSwitchTitles = MwmApplication.get().getResources().getStringArray(getSwitchTitles());
-    private final String[] mSwitchSubtitles = MwmApplication.get().getResources().getStringArray(getSwitchSubtitles());
+    private final String[] mTitles;
+    private final String[] mSubtitles;
+    private final String[] mSwitchTitles;
+    private final String[] mSwitchSubtitles;
 
     Adapter()
     {
-      TypedArray images = MwmApplication.get().getResources().obtainTypedArray(getImages());
+      Resources res = MwmApplication.get().getResources();
+
+      mTitles = res.getStringArray(getTitles());
+      mSubtitles = res.getStringArray(getSubtitles());
+      mSwitchTitles = res.getStringArray(getSwitchTitles());
+      mSwitchSubtitles = res.getStringArray(getSwitchSubtitles());
+
+      TypedArray images = res.obtainTypedArray(getImages());
       mImages = new int[images.length()];
       for (int i = 0; i < mImages.length; i++)
         mImages[i] = images.getResourceId(i, 0);
