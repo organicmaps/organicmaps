@@ -210,7 +210,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
     case MWMPlacePageCellTypeStreet: return m_mapObject.IsAddressEditable();
     case MWMPlacePageCellTypeBuilding: return m_mapObject.IsAddressEditable();
     case MWMPlacePageCellTypeCategory: return self.isCreating;
-    default: NSAssert(false, @"Invalid cell type %d", cellType); return false;
+    default: NSAssert(false, @"Invalid cell type %@", @(cellType)); return false;
   }
 }
 

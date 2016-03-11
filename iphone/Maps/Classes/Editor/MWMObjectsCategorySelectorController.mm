@@ -41,7 +41,7 @@ namespace
   [self configSearchBar];
 }
 
-- (void)setSelectedCategory:(const string &)category
+- (void)setSelectedCategory:(string const &)category
 {
   m_categories = GetFramework().GetEditorCategories();
   auto const & all = m_categories.m_allSorted;
@@ -67,11 +67,6 @@ namespace
 - (void)configNavBar
 {
   self.title = L(@"feature_type").capitalizedString;
-  if (!self.selectedIndexPath)
-  {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:L(@"done")
-                                                  style:UIBarButtonItemStyleDone target:self action:@selector(onDone)];
-  }
 }
 
 - (void)configSearchBar
@@ -123,7 +118,6 @@ namespace
   cell.textLabel.textColor = [UIColor blackPrimaryText];
   cell.backgroundColor = [UIColor white];
   cell.textLabel.text = @([self dataSourceForSection:indexPath.section][indexPath.row].m_name.c_str());
-  cell.selectionStyle = UITableViewCellSelectionStyleNone;
   if ([indexPath isEqual:self.selectedIndexPath])
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
   else
@@ -133,11 +127,12 @@ namespace
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell * selectedCell = [tableView cellForRowAtIndexPath:self.selectedIndexPath];
-  selectedCell.accessoryType = UITableViewCellAccessoryNone;
-  selectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
-  selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
   self.selectedIndexPath = indexPath;
+
+  if (self.delegate)
+    [self backTap];
+  else
+    [self performSegueWithIdentifier:kToEditorSegue sender:nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -203,13 +198,17 @@ namespace
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
   [self searchBar:searchBar setActiveState:YES];
+  self.isSearch = NO;
   return YES;
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
 {
   if (!searchBar.text.length)
+  {
     [self searchBar:searchBar setActiveState:NO];
+    self.isSearch = NO;
+  }
   return YES;
 }
 
@@ -218,6 +217,7 @@ namespace
   [searchBar resignFirstResponder];
   searchBar.text = @"";
   [self searchBar:searchBar setActiveState:NO];
+  self.isSearch = NO;
   [self.tableView reloadData];
 }
 
@@ -235,7 +235,6 @@ namespace
 {
   [searchBar setShowsCancelButton:isActiveState animated:YES];
   [self.navigationController setNavigationBarHidden:isActiveState animated:YES];
-  self.isSearch = isActiveState;
   if (!isActiveState)
     m_filteredCategories.clear();
 }
