@@ -216,7 +216,7 @@ private:
                    double rotationAngle, double angleFOV);
   void InvalidateRect(m2::RectD const & gRect);
   bool CheckTileGenerations(TileKey const & tileKey);
-  void UpdateFeaturesWaitingStatus();
+  void UpdateCanBeDeletedStatus();
 
   void OnCompassTapped();
 

@@ -389,10 +389,10 @@ void ApplyAreaFeature::ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD 
   }
   else
   {
-      m_triangles.push_back(p1);
-      m_triangles.push_back(p3);
-      m_triangles.push_back(p2);
-      BuildEdges(GetIndex(p1), GetIndex(p3), GetIndex(p2));
+    m_triangles.push_back(p1);
+    m_triangles.push_back(p3);
+    m_triangles.push_back(p2);
+    BuildEdges(GetIndex(p1), GetIndex(p3), GetIndex(p2));
   }
 }
 

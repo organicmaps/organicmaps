@@ -46,7 +46,7 @@ bool BaseRenderGroup::IsOverlay() const
 RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
   : TBase(state, tileKey)
   , m_pendingOnDelete(false)
-  , m_featuresWaiting(false)
+  , m_canBeDeleted(false)
 {
 }
 
@@ -139,15 +139,15 @@ bool RenderGroup::IsLess(RenderGroup const & other) const
   return m_state < other.m_state;
 }
 
-bool RenderGroup::UpdateFeaturesWaitingStatus(bool waitTileFeatures, int currentZoom, ref_ptr<dp::OverlayTree> tree,
-                                              deque<drape_ptr<dp::RenderBucket>> & bucketsToDelete)
+bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree,
+                                           deque<drape_ptr<dp::RenderBucket>> & bucketsToDelete)
 {
-  if (!m_featuresWaiting)
+  if (!IsPendingOnDelete())
     return false;
 
   for (size_t i = 0; i < m_renderBuckets.size(); )
   {
-    bool visibleBucket = waitTileFeatures && (m_renderBuckets[i]->GetMinZoom() <= currentZoom);
+    bool visibleBucket = !canBeDeleted && (m_renderBuckets[i]->GetMinZoom() <= currentZoom);
     if (!visibleBucket)
     {
       m_renderBuckets[i]->RemoveOverlayHandles(tree);
@@ -160,8 +160,8 @@ bool RenderGroup::UpdateFeaturesWaitingStatus(bool waitTileFeatures, int current
       ++i;
     }
   }
-  m_featuresWaiting = !m_renderBuckets.empty();
-  return m_renderBuckets.empty();
+  m_canBeDeleted = m_renderBuckets.empty();
+  return m_canBeDeleted;
 }
 
 bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r)

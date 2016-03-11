@@ -195,7 +195,7 @@ void FrontendRenderer::AfterDrawFrame()
 
 #endif
 
-void FrontendRenderer::UpdateFeaturesWaitingStatus()
+void FrontendRenderer::UpdateCanBeDeletedStatus()
 {
   m2::RectD const & screenRect = m_userEventStream.GetCurrentScreen().ClipRect();
 
@@ -208,24 +208,27 @@ void FrontendRenderer::UpdateFeaturesWaitingStatus()
   {
     for (auto & group : layer.m_renderGroups)
     {
-      if (group->IsFeaturesWaiting())
+      if (group->IsPendingOnDelete())
       {
-        m2::RectD const tileRect = group->GetTileKey().GetGlobalRect();
-        bool waitTileFeatures = false;
-        if (!notFinishedTileRects.empty() && tileRect.IsIntersect(screenRect))
+        bool canBeDeleted = true;
+        if (!notFinishedTileRects.empty())
         {
-          for (auto const & notFinishedRect : notFinishedTileRects)
+          m2::RectD const tileRect = group->GetTileKey().GetGlobalRect();
+          if (tileRect.IsIntersect(screenRect))
           {
-            if (notFinishedRect.IsIntersect(tileRect))
+            for (auto const & notFinishedRect : notFinishedTileRects)
             {
-              waitTileFeatures = true;
-              break;
+              if (notFinishedRect.IsIntersect(tileRect))
+              {
+                canBeDeleted = false;
+                break;
+              }
             }
           }
         }
 
-        layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(waitTileFeatures, m_currentZoomLevel,
-                                                              make_ref(m_overlayTree), m_bucketsToDelete);
+        layer.m_isDirty |= group->UpdateCanBeDeletedStatus(canBeDeleted, m_currentZoomLevel,
+                                                           make_ref(m_overlayTree), m_bucketsToDelete);
       }
     }
   }
@@ -301,7 +304,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
 
       if (changed)
-        UpdateFeaturesWaitingStatus();
+        UpdateCanBeDeletedStatus();
       break;
     }
 
@@ -1215,7 +1218,7 @@ void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
   m_currentZoomLevel = GetDrawTileScale(screen);
 
   if (prevZoomLevel != m_currentZoomLevel)
-    UpdateFeaturesWaitingStatus();
+    UpdateCanBeDeletedStatus();
 
   CheckIsometryMinScale(screen);
   CheckPerspectiveMinScale();

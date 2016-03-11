@@ -65,29 +65,19 @@ public:
 
   bool IsEmpty() const { return m_renderBuckets.empty(); }
 
-  void DeleteLater() const
-  {
-    m_featuresWaiting = true;
-    m_pendingOnDelete = true;
-  }
-
-  bool IsFeaturesWaiting() const { return m_featuresWaiting; }
+  void DeleteLater() const { m_pendingOnDelete = true; }
   bool IsPendingOnDelete() const { return m_pendingOnDelete; }
+  bool CanBeDeleted() const { return m_canBeDeleted; }
 
-  bool CanBeDeleted() const
-  {
-    return IsPendingOnDelete() && !IsFeaturesWaiting();
-  }
-
-  bool UpdateFeaturesWaitingStatus(bool waitTileFeatures, int currentZoom, ref_ptr<dp::OverlayTree> tree,
-                                   deque<drape_ptr<dp::RenderBucket>> & bucketsToDelete);
+  bool UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree,
+                                deque<drape_ptr<dp::RenderBucket>> & bucketsToDelete);
 
   bool IsLess(RenderGroup const & other) const;
 
 private:
   vector<drape_ptr<dp::RenderBucket> > m_renderBuckets;
   mutable bool m_pendingOnDelete;
-  mutable bool m_featuresWaiting;
+  mutable bool m_canBeDeleted;
 
 private:
   friend string DebugPrint(RenderGroup const & group);
