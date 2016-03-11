@@ -149,7 +149,7 @@ using namespace osm_auth_ios;
 
 #pragma mark - Notifications
 
-- (void)registerNotifications:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions
+- (void)initPushNotificationsWithLaunchOptions:(NSDictionary *)launchOptions
 {
   // Do not initialize Parse for open-source version due to an error:
   // Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: ''applicationId' should not be nil.'
@@ -159,17 +159,6 @@ using namespace osm_auth_ios;
     [Parse setApplicationId:@(PARSE_APPLICATION_ID) clientKey:@(PARSE_CLIENT_KEY)];
   }
   [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
-  UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
-  if ([application respondsToSelector: @selector(registerUserNotificationSettings:)])
-  {
-    UIUserNotificationSettings * const settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
-    [application registerUserNotificationSettings:settings];
-    [application registerForRemoteNotifications];
-  }
-  else
-  {
-    [application registerForRemoteNotificationTypes:userNotificationTypes];
-  }
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -405,7 +394,7 @@ using namespace osm_auth_ios;
   [self.mapViewController onEnterForeground];
   _m_locationManager = [[LocationManager alloc] init];
   [self.m_locationManager onForeground];
-  [self registerNotifications:application launchOptions:launchOptions];
+  [self initPushNotificationsWithLaunchOptions:launchOptions];
   [self commonInit];
 
   LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];

@@ -9,6 +9,7 @@
 #import "MWMAuthorizationCommon.h"
 #import "MWMAuthorizationLoginViewController.h"
 #import "MWMEditorViewController.h"
+#import "MWMFirstLaunchController.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMMapDownloadDialog.h"
@@ -372,7 +373,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
   [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
-  [self showWhatsNewIfNeeded];
+  [self showWelcomeScreenIfNeeded];
   [self showViralAlertIfNeeded];
 }
 
@@ -400,12 +401,14 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   [self.downloadDialog mwm_refreshUI];
 }
 
-- (void)showWhatsNewIfNeeded
+- (void)showWelcomeScreenIfNeeded
 {
-  if (isIOS7 || [Alohalytics isFirstSession])
+  if (isIOS7)
     return;
 
-  Class<MWMWelcomeControllerProtocol> welcomeClass = [MWMWhatsNewNightModeController class];
+  BOOL const isFirstSession = [Alohalytics isFirstSession];
+  Class<MWMWelcomeControllerProtocol> welcomeClass =
+  isFirstSession ? [MWMFirstLaunchController class] : [MWMWhatsNewNightModeController class];
 
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   if ([ud boolForKey:[welcomeClass udWelcomeWasShownKey]])
