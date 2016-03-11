@@ -1,14 +1,41 @@
 package com.mapswithme.maps.news;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.location.Location;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.statistics.Statistics;
 
 public class FirstStartFragment extends BaseNewsFragment
 {
+  private static Location sLocation;
+  private static int sError = LocationHelper.ERROR_UNKNOWN;
+
+  private final LocationHelper.LocationListener mLocationListener = new LocationHelper.SimpleLocationListener()
+  {
+    @Override
+    public void onLocationUpdated(Location loc)
+    {
+      sLocation = loc;
+      sError = LocationHelper.ERROR_UNKNOWN;
+    }
+
+    @Override
+    public void onLocationError(int errorCode)
+    {
+      sLocation = null;
+      sError = errorCode;
+    }
+  };
+
   private class Adapter extends BaseNewsFragment.Adapter
   {
     @Override
@@ -48,6 +75,51 @@ public class FirstStartFragment extends BaseNewsFragment
     return new Adapter();
   }
 
+  @NonNull
+  @Override
+  public Dialog onCreateDialog(Bundle savedInstanceState)
+  {
+    LocationHelper.INSTANCE.addLocationListener(mLocationListener, true);
+    return super.onCreateDialog(savedInstanceState);
+  }
+
+  @Override
+  public void onDismiss(DialogInterface dialog)
+  {
+    super.onDismiss(dialog);
+    LocationHelper.INSTANCE.removeLocationListener(mLocationListener);
+  }
+
+  @Override
+  void onClosed()
+  {
+    if (sLocation == null)
+    {
+      String reason;
+      switch (sError)
+      {
+      case LocationHelper.ERROR_GPS_OFF:
+        reason = "unavailable";
+        break;
+
+      case LocationHelper.ERROR_DENIED:
+        reason = "not_permitted";
+        break;
+
+      default:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.FIRST_START_DONT_ZOOM);
+        return;
+      }
+
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.FIRST_START_NO_LOCATION, Statistics.params().add("reason", reason));
+      return;
+    }
+
+    // TODO (trashkalmar): Zoom to location
+
+    sLocation = null;
+  }
+
   public static boolean showOn(FragmentActivity activity)
   {
     if (Config.getFirstInstallVersion() < BuildConfig.VERSION_CODE)
@@ -64,6 +136,8 @@ public class FirstStartFragment extends BaseNewsFragment
     create(activity, FirstStartFragment.class);
 
     Config.setFirstStartDialogSeen();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.FIRST_START_SHOWN);
+
     return true;
   }
 }

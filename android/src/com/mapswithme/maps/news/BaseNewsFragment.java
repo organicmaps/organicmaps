@@ -137,6 +137,8 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
   void onSwitchChanged(int index, boolean isChecked) {}
 
+  void onClosed() {}
+
   private void update()
   {
     int cur = mPager.getCurrentItem();
@@ -253,6 +255,7 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
       @Override
       public void onClick(View v)
       {
+        onClosed();
         dismiss();
       }
     });
