@@ -30,7 +30,7 @@ DrapeEngine::DrapeEngine(Params && params)
 
   location::EMyPositionMode mode = params.m_initialMyPositionMode.first;
   if (!params.m_initialMyPositionMode.second && !Settings::Get(Settings::kLocationStateMode, mode))
-    mode = location::MODE_FOLLOW;
+    mode = location::MODE_UNKNOWN_POSITION;
 
   FrontendRenderer::Params frParams(make_ref(m_threadCommutator), params.m_factory,
                                     make_ref(m_textureManager), m_viewport,
