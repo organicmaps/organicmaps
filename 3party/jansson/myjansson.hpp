@@ -30,7 +30,7 @@ public:
 };
 
 void FromJSON(json_t * root, string & result);
-void FromJSON(json_t * root, json_t *& value) { value = root; }
+inline void FromJSON(json_t * root, json_t *& value) { value = root; }
 void FromJSONObject(json_t * root, string const & field, string & result);
 void FromJSONObject(json_t * root, string const & field, strings::UniString & result);
 void FromJSONObject(json_t * root, string const & field, double & result);
