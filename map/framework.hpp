@@ -127,7 +127,6 @@ protected:
   double m_startForegroundTime;
 
   storage::Storage m_storage;
-  my::DeferredTask m_deferredCountryUpdate;
 
   location::TMyPositionModeChanged m_myPositionListener;
 

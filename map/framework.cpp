@@ -285,7 +285,6 @@ void Framework::Migrate(bool keepDownloaded)
 
 Framework::Framework()
   : m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
-  , m_deferredCountryUpdate(milliseconds(300))
   , m_bmManager(*this)
   , m_fixedSearchResults(0)
   , m_lastReportedCountry(kInvalidCountryId)
@@ -963,32 +962,20 @@ void Framework::ClearAllCaches()
 
 void Framework::OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel)
 {
-  auto action = [this](TCountryId const &countryId)
-  {
-    if (countryId == m_lastReportedCountry)
-      return;
-    m_lastReportedCountry = countryId;
-    auto guiCallback = [this, countryId]
-    {
-      if (m_currentCountryChanged != nullptr)
-        m_currentCountryChanged(countryId);
-    };
-    GetPlatform().RunOnGuiThread(guiCallback);
-  };
+   storage::TCountryId newCountryId;
+   if (zoomLevel > scales::GetUpperWorldScale())
+     newCountryId = m_infoGetter->GetRegionCountryId(m2::PointD(pt));
 
-  if (zoomLevel <= scales::GetUpperWorldScale())
-  {
-    m_deferredCountryUpdate.Drop();
-    action(kInvalidCountryId);
-  }
-  else
-  {
-    m_deferredCountryUpdate.RestartWith([this, pt, action]
-    {
-      storage::TCountryId newCountryId = m_infoGetter->GetRegionCountryId(m2::PointD(pt));
-      action(newCountryId);
-    });
-  }
+   if (newCountryId == m_lastReportedCountry)
+     return;
+
+   m_lastReportedCountry = newCountryId;
+
+   GetPlatform().RunOnGuiThread([this, newCountryId]()
+   {
+     if (m_currentCountryChanged != nullptr)
+       m_currentCountryChanged(newCountryId);
+   });
 }
 
 void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener)
