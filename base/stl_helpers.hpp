@@ -7,6 +7,8 @@ namespace my
 {
 namespace impl
 {
+// When isField is true, Comparer operates on a pointers-to-field.
+// Otherwise, Comparer operates on a pointers-to-const-method.
 template <bool isField, typename T, typename C>
 struct Comparer;
 
@@ -50,9 +52,10 @@ void SortUnique(std::vector<T> & v)
 }
 
 // Creates a comparer being able to compare two instances of class C
-// (given by reference or pointer) by a field of C.  For example, to
-// create comparer that is able to compare pairs of ints by second
-// component, it's enough to call CompareBy(&pair<int, int>::second).
+// (given by reference or pointer) by a field or const method of C.
+// For example, to create comparer that is able to compare pairs of
+// ints by second component, it's enough to call CompareBy(&pair<int,
+// int>::second).
 template <typename T, typename C>
 impl::Comparer<true, T, C> CompareBy(T(C::*p))
 {
