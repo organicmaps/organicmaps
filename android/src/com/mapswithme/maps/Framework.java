@@ -189,4 +189,6 @@ public class Framework
 
   @NonNull
   public static native MapObject nativeDeleteBookmarkFromMapObject();
+
+  public static native void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
 }

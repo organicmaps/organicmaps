@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
@@ -115,7 +116,7 @@ public class FirstStartFragment extends BaseNewsFragment
       return;
     }
 
-    // TODO (trashkalmar): Zoom to location
+    Framework.nativeZoomToPoint(sLocation.getLatitude(), sLocation.getLongitude(), 14, true);
 
     sLocation = null;
   }

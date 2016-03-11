@@ -273,6 +273,13 @@ void Framework::Scale(::Framework::EScaleMode mode)
   m_work.Scale(mode, true);
 }
 
+void Framework::Scale(m2::PointD const & centerPt, int targetZoom, bool animate)
+{
+  ref_ptr<df::DrapeEngine> engine = m_work.GetDrapeEngine();
+  if (engine)
+    engine->SetModelViewCenter(centerPt, targetZoom, animate);
+}
+
 ::Framework * Framework::NativeFramework()
 {
   return &m_work;
@@ -956,6 +963,13 @@ extern "C"
 
     static jfieldID const buildingsField = env->GetFieldID(resultClass, "buildings", "Z");
     env->SetBooleanField(result, buildingsField, buildings);
+  }
+
+  // static void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeZoomToPoint(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jint zoom, jboolean animate)
+  {
+    g_framework->Scale(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), zoom, animate);
   }
 
   extern JNIEXPORT void JNICALL
