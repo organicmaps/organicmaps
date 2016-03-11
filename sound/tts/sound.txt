@@ -16,7 +16,7 @@
     ro = Virați ușor la dreapta.
     ja = 緩やかに右折。
     da = Blødt til højre.
-    es = Ligero derecha.
+    es = Gire ligeramente a la derecha.
     fi = Loiva oikea.
     hi = थोड़ा सा दाएं मुड़े।
     hr = Blago udesno.
@@ -76,7 +76,7 @@
     ro = Virați strâns la dreapta.
     ja = 急に右折。
     da = Skarpt til højre.
-    es = Fuerte derecha.
+    es = Gire bruscamente a la derecha.
     fi = Jyrkkä oikea.
     hi = तीव्रता से दाएं मुड़े।
     hr = Oštro udesno.
@@ -136,7 +136,7 @@
     ro = Ieșiți din sensul giratoriu.
     ja = ロータリーから抜けてください。
     da = Forlad rundkørslen.
-    es = Salir de la rotonda.
+    es = Salga de la rotonda.
     fi = Poistu liikenneympyrästä.
     hi = परिपथ से बाहर निकलें।
     hr = Napustite zaobilaznicu.
@@ -166,7 +166,7 @@
     ro = Virați ușor la stânga.
     ja = 緩やかに左折。
     da = Blødt til venstre.
-    es = Ligero izquierda
+    es = Gire ligeramente a la izquierda.
     fi = Loiva vasen.
     hi = थोड़ा सा बाएं मुड़े।
     hr = Blago ulijevo.
@@ -226,7 +226,7 @@
     ro = Virați strâns la stânga.
     ja = 急に左折。
     da = Skarpt til venstre.
-    es = Fuerte izquierda.
+    es = Gire bruscamente a la izquierda.
     fi = Jyrkkä vasen.
     hi = तीव्रता से बाएं मुड़े।
     hr = Oštro ulijevo.
@@ -256,7 +256,7 @@
     ro = Întoarceți-vă o sută optzeci de grade.
     ja = Uターンです。
     da = Vend om.
-    es = Gire en U.
+    es = Cambie de sentido.
     fi = Tee U-käännös.
     hi = यू-टर्न लें।
     hr = Napravite poluzaokret.
@@ -286,7 +286,7 @@
     ro = Mergeți înainte.
     ja = 直進です。
     da = Fortsæt lige ud.
-    es = Continúe derecho.
+    es = Continúe recto.
     fi = Aja suoraan.
     hi = सीधे चलें।
     hr = Idite ravno.
@@ -316,7 +316,7 @@
     ro = Veți sosi.
     ja = 到着します。
     da = Ankommer du.
-    es = Llegarás.
+    es = Llegará a su destino.
     fi = Olet perillä.
     hi = गंतव्य स्थान
     hr = Stižete.
@@ -346,7 +346,7 @@
     ro = Ați ajuns.
     ja = 到着。
     da = Du er ankommet.
-    es = Ha llegado.
+    es = Ha llegado a su destino.
     fi = Olet saapunut.
     hi = आप पहुंच गए हैं।
     hr = Stigli ste.
@@ -376,7 +376,7 @@
     ro = După cincizeci de metri
     ja = 五十メートル先
     da = Om halvtreds meter
-    es = En cincuenta metros
+    es = En cincuenta metros.
     fi = Viidenkymmenen metrin päässä
     hi = पचास मीटर में।
     hr = Za pedeset metara
@@ -406,7 +406,7 @@
     ro = După o sută de metri
     ja = 百メートル先
     da = Om et hundrede meter
-    es = En cien metros
+    es = En cien metros.
     fi = Sadan metrin päässä
     hi = एक सौ मीटर में।
     hr = Za stotinu metara
@@ -436,7 +436,7 @@
     ro = După două sute de metri
     ja = 二百メートル先
     da = Om to hundrede meter
-    es = En doscientos metros
+    es = En doscientos metros.
     fi = Kahdensadan metrin päässä
     hi = दो सौ मीटर में।
     hr = Za dvije stotine metara
@@ -466,7 +466,7 @@
     ro = După două sute cincizeci de metri
     ja = 二百五十メートル先
     da = Om to hundrede og halvtreds meter
-    es = En doscientos cincuenta metros
+    es = En doscientos cincuenta metros.
     fi = Kahdensadanviidenkymmenen metrin päässä
     hi = दो सौ पचास मीटर में।
     hr = Za dvije stotine i pedeset metara
@@ -496,7 +496,7 @@
     ro = După trei sute de metri
     ja = 三百メートル先
     da = Om tre hundrede meter
-    es = En trescientos metros
+    es = En trescientos metros.
     fi = Kolmensadan metrin päässä
     hi = तीन सौ मीटर में।
     hr = Za tri stotine metara
@@ -526,7 +526,7 @@
     ro = După patru sute de metri
     ja = 四百メートル先
     da = Om fire hundrede meter
-    es = En cuatrocientos metros
+    es = En cuatrocientos metros.
     fi = Neljänsadan metrin päässä
     hi = चार सौ मीटर में।
     hr = Za četiri stotine metara
@@ -556,7 +556,7 @@
     ro = După cinci sute de metri
     ja = 五百メートル先
     da = Om fem hundrede meter
-    es = En quinientos metros
+    es = En quinientos metros.
     fi = Viidensadan metrin päässä
     hi = पांच सौ मीटर में।
     hr = Za pet stotina metara
@@ -586,7 +586,7 @@
     ro = După șase sute de metri
     ja = 六百メートル先
     da = Om seks hundrede meter
-    es = En seiscientos metros
+    es = En seiscientos metros.
     fi = Kuudensadan metrin päässä
     hi = छह सौ मीटर में।
     hr = Za šest stotina metara
@@ -616,7 +616,7 @@
     ro = După șapte sute de metri
     ja = 七百メートル先
     da = Om syv hundrede meter
-    es = En setecientos metros
+    es = En setecientos metros.
     fi = Seitsemänsadan metrin päässä
     hi = सात सौ मीटर में।
     hr = Za sedam stotina metara
@@ -646,7 +646,7 @@
     ro = După șapte sute cincizeci de metri
     ja = 七百五十メートル先
     da = Om syv hundrede og halvtreds meter
-    es = En setecientos cincuenta metros
+    es = En setecientos cincuenta metros.
     fi = Seitsemänsadanviidenkymmenen metrin päässä
     hi = सात सौ पचास मीटर में।
     hr = Za sedam stotina i pedeset metara
@@ -676,7 +676,7 @@
     ro = După opt sute de metri
     ja = 八百メートル先
     da = Om otte hundrede meter
-    es = En ochocientos metros
+    es = En ochocientos metros.
     fi = Kahdeksansadan metrin päässä
     hi = आठ सौ मीटर में।
     hr = Za osam stotina metara
@@ -706,7 +706,7 @@
     ro = După nouă sute de metri
     ja = 九百メートル先
     da = Om ni hundrede meter
-    es = En novecientos metros
+    es = En novecientos metros.
     fi = Yhdeksänsadan metrin päässä
     hi = नौ सौ मीटर में।
     hr = Za devet stotina metara
@@ -736,7 +736,7 @@
     ro = După un kilometru
     ja = 一キロ先
     da = Om en kilometer
-    es = En un kilómetro
+    es = En un kilómetro.
     fi = Yhden kilometrin päässä
     hi = एक किलोमीटर में।
     hr = Za jedan kilometar
@@ -766,7 +766,7 @@
     ro = După un kilometru și jumătate
     ja = 一.五キロ先
     da = Om halvanden kilometer
-    es = En un kilómetro y medio
+    es = En un kilómetro y medio.
     fi = Puolentoista kilomertin päässä
     hi = डेढ़ किलोमीटर में।
     hr = Za jedan i pol kilometar
@@ -796,7 +796,7 @@
     ro = După doi kilometri
     ja = 二キロ先
     da = Om to kilometer
-    es = En dos kilómetros
+    es = En dos kilómetros.
     fi = Kahden kilometrin päässä
     hi = दो किलोमीटर में।
     hr = Za dva kilometra
@@ -826,7 +826,7 @@
     ro = După doi kilometri și jumătate
     ja = 二.五キロ先
     da = Om en kilometer
-    es = En dos kilómetros y medio
+    es = En dos kilómetros y medio.
     fi = Kahden ja puolen kilometrin päässä
     hi = ढाई किलोमीटर में।
     hr = Za dva i pol kilometra
@@ -856,7 +856,7 @@
     ro = După trei kilometri
     ja = 三キロ先
     da = Om tre kilometer
-    es = En tres kilómetros
+    es = En tres kilómetros.
     fi = Kolmen kilometrin päässä
     hi = तीन किलोमीटर में।
     hr = Za tri kilometra
@@ -886,7 +886,7 @@
     ro = Apoi
     ja = その先
     da = Derefter
-    es = Después
+    es = Después.
     fi = Sitten.
     hi = फिर।
     hr = Zatim
@@ -1246,7 +1246,7 @@
     ro = După cincizeci de picioare.
     ja = 五十フィート先
     da = Om halvtreds fod
-    es = En cincuenta pies
+    es = En cincuenta pies.
     fi = Viidenkymmenen jalan päässä
     hi = पचास फीट में।
     hr = Za pedeset stopa
@@ -1276,7 +1276,7 @@
     ro = După o sută de picioare
     ja = 百フィート先
     da = Om et hundrede fod
-    es = En cien pies
+    es = En cien pies.
     fi = Sadan jalan päässä
     hi = सौ फीट में।
     hr = Za stotinu stopa
@@ -1306,7 +1306,7 @@
     ro = După două sute de picioare
     ja = 二百フィート先
     da = Om to hundrede fod
-    es = En doscientos pies
+    es = En doscientos pies.
     fi = Kahdensadan jalan päässä
     hi = दो सौ फीट में।
     hr = Za dvije stotine stopa
@@ -1336,7 +1336,7 @@
     ro = După trei sute de picioare
     ja = 三百フィート先
     da = Om tre hundrede fod
-    es = En trescientos pies
+    es = En trescientos pies.
     fi = Kolmensadan jalan päässä
     hi = तीन सौ फीट में।
     hr = Za tri stotine stopa
@@ -1366,7 +1366,7 @@
     ro = După patru sute de picioare
     ja = 四百フィート先
     da = Om fire hundrede fod
-    es = En cuatrocientos pies
+    es = En cuatrocientos pies.
     fi = Neljänsadan jalan päässä
     hi = चार सौ फीट में।
     hr = Za četiri stotine stopa
@@ -1396,7 +1396,7 @@
     ro = După cinci sute de picioare
     ja = 五百フィート先
     da = Om femte hundrede fod
-    es = En quinientos pies
+    es = En quinientos pies.
     fi = Viidensadan jalan päässä
     hi = पांच सौ फीट में।
     hr = Za pet stotina stopa
@@ -1426,7 +1426,7 @@
     ro = După șase sute de picioare
     ja = 六百フィート先
     da = Om sjette hundrede fod
-    es = En seiscientos pies
+    es = En seiscientos pies.
     fi = Kuudensadan jalan päässä
     hi = छह सौ फीट में।
     hr = Za šest stotina stopa
@@ -1456,7 +1456,7 @@
     ro = După șapte sute de picioare
     ja = 七百フィート先
     da = Om syv hundrede fod
-    es = En setecientos pies
+    es = En setecientos pies.
     fi = Seitsemänsadan jalan päässä
     hi = सात सौ फीट में।
     hr = Za sedam stotina stopa
@@ -1486,7 +1486,7 @@
     ro = După opt sute de picioare
     ja = 八百フィート先
     da = Om otte hundrede fod
-    es = En ochocientos pies
+    es = En ochocientos pies.
     fi = Kahdeksansadan jalan päässä
     hi = आठ सौ फीट में।
     hr = Za osam stotina stopa
@@ -1516,7 +1516,7 @@
     ro = După nouă sute de picioare
     ja = 九百フィート先
     da = Om ni hundrede fod
-    es = En novecientos pies
+    es = En novecientos pies.
     fi = Yhdeksänsadan jalan päässä
     hi = नौ सौ फीट में।
     hr = Za devet stotina stopa
@@ -1546,7 +1546,7 @@
     ro = După o mie de picioare
     ja = 千フィート先
     da = Om et tusind fod
-    es = En mil pies
+    es = En mil pies.
     fi = Tuhannen jalan päässä
     hi = एक हजार फीट में।
     hr = Za tisuću stopa
@@ -1576,7 +1576,7 @@
     ro = După o mie cinci sute de picioare
     ja = 千五百フィート先
     da = Om et tusind fem hundrede fod
-    es = En mil quinientos pies
+    es = En mil quinientos pies.
     fi = Tuhannenviidensadan jalan päässä
     hi = एक हजार पांच सौ फीट में।
     hr = Za tisuću i pet stotina stopa
@@ -1606,7 +1606,7 @@
     ro = După două mii de picioare
     ja = 二千フィート先
     da = Om to tusind fod
-    es = En dos mil pies
+    es = En dos mil pies.
     fi = Kahdentuhannen jalan päässä
     hi = दो हजार फीट में।
     hr = Za dvije tisuće stopa
@@ -1636,7 +1636,7 @@
     ro = După două mii cinci sute de picioare
     ja = 二千五百フィート先
     da = Om to tusinde fem hundrede fod
-    es = En dos mil quinientos pies
+    es = En dos mil quinientos pies.
     fi = Kahdentuhannenviidensadan jalan päässä
     hi = दो हजार पांच सौ फीट में।
     hr = Za dvije tisuće i pet stotina stopa
@@ -1666,7 +1666,7 @@
     ro = După trei mii de picioare
     ja = 三千フィート先
     da = Om tre tusind fod
-    es = En tres mil pies
+    es = En tres mil pies.
     fi = Kolmentuhannen jalan päässä
     hi = तीन हजार फीट में।
     hr = Za tri tisuće stopa
@@ -1696,7 +1696,7 @@
     ro = După trei mii cinci sute de picioare
     ja = 三千五百フィート先
     da = Om tre tusind fem hundrede fod
-    es = En tres mil quinientos pies
+    es = En tres mil quinientos pies.
     fi = Kolmentuhannenviidensadan jalan päässä
     hi = तीन हजार पांच सौ फीट में।
     hr = Za tri tisuće i pet stotina stopa
@@ -1726,7 +1726,7 @@
     ro = După patru mii de picioare
     ja = 四千フィート先
     da = Om fire tusind fod
-    es = En cuatro mil pies
+    es = En cuatro mil pies.
     fi = Neljäntuhannen jalan päässä
     hi = चार हजार फीट में।
     hr = Za četiri tisuće stopa
@@ -1756,7 +1756,7 @@
     ro = După patru mii cinci sute de picioare
     ja = 四千五百フィート先
     da = Om fire tusind fem hundrede fod
-    es = En cuatro mil quinientos pies
+    es = En cuatro mil quinientos pies.
     fi = Neljäntuhannenviidensadan jalan päässä
     hi = चार हजार पांच सौ फीट में।
     hr = Za četiri tisuće i pet stotina stopa
@@ -1786,7 +1786,7 @@
     ro = După cinci mii de picioare
     ja = 五千フィート先
     da = Om fem tusind fod
-    es = En cinco mil pies
+    es = En cinco mil pies.
     fi = Viidentuhannen jalan päässä
     hi = पांच हजार फीट में।
     hr = Za pet tisuća stopa
@@ -1816,7 +1816,7 @@
     ro = După o milă.
     ja = 一マイル先
     da = Om en mil
-    es = En una milla
+    es = En una milla.
     fi = Mailin päässä
     hi = एक मील में।
     hr = Za jednu milju
@@ -1846,7 +1846,7 @@
     ro = După o milă și jumătate.
     ja = 一.五マイル先
     da = Om halvanden mil
-    es = En una milla y media
+    es = En una milla y media.
     fi = Puolentoista mailin päässä
     hi = डेढ़ मील में।
     hr = Za jednu i pol milju
@@ -1876,7 +1876,7 @@
     ro = După două mile.
     ja = 二マイル先
     da = Om to mil
-    es = En dos millas
+    es = En dos millas.
     fi = Kahden mailin päässä
     hi = दो मील में।
     hr = Za dvije milje
