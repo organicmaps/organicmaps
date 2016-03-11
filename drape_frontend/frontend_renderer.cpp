@@ -195,6 +195,42 @@ void FrontendRenderer::AfterDrawFrame()
 
 #endif
 
+void FrontendRenderer::UpdateFeaturesWaitingStatus()
+{
+  m2::RectD const & screenRect = m_userEventStream.GetCurrentScreen().ClipRect();
+
+  vector<m2::RectD> notFinishedTileRects;
+  notFinishedTileRects.reserve(m_notFinishedTiles.size());
+  for (auto const & tileKey : m_notFinishedTiles)
+    notFinishedTileRects.push_back(tileKey.GetGlobalRect());
+
+  for (RenderLayer & layer : m_layers)
+  {
+    for (auto & group : layer.m_renderGroups)
+    {
+      if (group->IsFeaturesWaiting())
+      {
+        m2::RectD const tileRect = group->GetTileKey().GetGlobalRect();
+        bool waitTileFeatures = false;
+        if (!notFinishedTileRects.empty() && tileRect.IsIntersect(screenRect))
+        {
+          for (auto const & notFinishedRect : notFinishedTileRects)
+          {
+            if (notFinishedRect.IsIntersect(tileRect))
+            {
+              waitTileFeatures = true;
+              break;
+            }
+          }
+        }
+
+        layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(waitTileFeatures, m_currentZoomLevel,
+                                                              make_ref(m_overlayTree), m_bucketsToDelete);
+      }
+    }
+  }
+}
+
 void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
   switch (message->GetType())
@@ -243,19 +279,29 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FinishReading:
+  case Message::FinishTileRead:
     {
-      ref_ptr<FinishReadingMessage> msg = message;
+      ref_ptr<FinishTileReadMessage> msg = message;
       bool const isLastRequest = m_tileRequestGeneration == msg->GetTileRequestGeneration();
+      if (!isLastRequest)
+        break;
+
+      bool changed = false;
       for (auto const & tileKey : msg->GetTiles())
       {
-        if (CheckTileGenerations(tileKey) && isLastRequest)
+        if (CheckTileGenerations(tileKey))
         {
           auto it = m_notFinishedTiles.find(tileKey);
           if (it != m_notFinishedTiles.end())
+          {
             m_notFinishedTiles.erase(it);
+            changed = true;
+          }
         }
       }
+
+      if (changed)
+        UpdateFeaturesWaitingStatus();
       break;
     }
 
@@ -856,37 +902,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   BeforeDrawFrame();
 #endif
 
-  m2::RectD const & screenRect = modelView.ClipRect();
-  vector<m2::RectD> notFinishedTileRects;
-  notFinishedTileRects.reserve(m_notFinishedTiles.size());
-  for (auto const & tileKey : m_notFinishedTiles)
-    notFinishedTileRects.push_back(tileKey.GetGlobalRect());
-
-  for (RenderLayer & layer : m_layers)
-  {
-    for (auto & group : layer.m_renderGroups)
-    {
-      if (group->IsFeaturesWaiting())
-      {
-        m2::RectD const tileRect = group->GetTileKey().GetGlobalRect();
-        bool waitTileFeatures = false;
-        if (!notFinishedTileRects.empty() && tileRect.IsIntersect(screenRect))
-        {
-          for (auto const & notFinishedRect : notFinishedTileRects)
-          {
-            if (notFinishedRect.IsIntersect(tileRect))
-            {
-              waitTileFeatures = true;
-              break;
-            }
-          }
-        }
-        layer.m_isDirty |= group->UpdateFeaturesWaitingStatus(waitTileFeatures, m_currentZoomLevel,
-                                                              make_ref(m_overlayTree), m_bucketsToDelete);
-      }
-    }
-  }
-
   bool const isPerspective = modelView.isPerspective();
 
   GLFunctions::glEnable(gl_const::GLDepthTest);
@@ -1196,7 +1211,11 @@ void FrontendRenderer::CheckPerspectiveMinScale()
 
 void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
+  int const prevZoomLevel = m_currentZoomLevel;
   m_currentZoomLevel = GetDrawTileScale(screen);
+
+  if (prevZoomLevel != m_currentZoomLevel)
+    UpdateFeaturesWaitingStatus();
 
   CheckIsometryMinScale(screen);
   CheckPerspectiveMinScale();

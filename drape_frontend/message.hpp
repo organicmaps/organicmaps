@@ -12,6 +12,7 @@ public:
     TileReadStarted,
     TileReadEnded,
     FinishReading,
+    FinishTileRead,
     FlushTile,
     FlushOverlays,
     MapShapeReaded,

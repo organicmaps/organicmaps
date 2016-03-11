@@ -45,7 +45,6 @@ private:
   bool MustDropAllTiles(ScreenBase const & screen) const;
 
   void PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::TextureManager> texMng);
-  void PushTaskFront(shared_ptr<TileInfo> const & tileToReread);
 
 private:
   ref_ptr<ThreadsCommutator> m_commutator;
@@ -74,17 +73,17 @@ private:
   ObjectPool<ReadMWMTask, ReadMWMTaskFactory> myPool;
 
   int m_counter;
-  set<TileKey> m_finishedTiles;
   mutex m_finishedTilesMutex;
   uint64_t m_generationCounter;
   uint64_t m_tileRequestGeneration;
 
   using TTileInfoCollection = buffer_vector<shared_ptr<TileInfo>, 8>;
+  TTilesCollection m_activeTiles;
 
   void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);
-  void IncreaseCounter(int value, uint64_t tileRequestGeneration,
-                       TTileInfoCollection * readyTiles = nullptr);
+  void IncreaseCounter(int value, uint64_t tileRequestGeneration);
+  void CheckFinishedTiles(TTileInfoCollection const & requestedTiles);
 };
 
 } // namespace df
