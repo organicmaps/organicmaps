@@ -3,9 +3,10 @@
 
 #include "base/base.hpp"
 
+#include "std/functional.hpp"
+#include "std/noncopyable.hpp"
 #include "std/string.hpp"
 #include "std/target_os.hpp"
-#include "std/noncopyable.hpp"
 
 #ifdef OMIM_OS_TIZEN
 namespace Tizen
@@ -58,8 +59,13 @@ private:
 bool GetFileSize(string const & fName, uint64_t & sz);
 bool DeleteFileX(string const & fName);
 bool RenameFileX(string const & fOld, string const & fNew);
+
+/// Write to temp file and rename it to dest. Delete temp on failure.
+/// @param write function that writes to file with a given name, returns true on success.
+bool WriteToTempAndRenameToFile(string const & dest, function<bool(string const &)> const & write,
+                                string const & tmp = "");
+
 /// @return false if copy fails. DO NOT THROWS exceptions
 bool CopyFileX(string const & fOld, string const & fNew);
 bool IsEqualFiles(string const & firstFile, string const & secondFile);
-
 }

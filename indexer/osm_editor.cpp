@@ -48,8 +48,6 @@ using editor::XMLFeature;
 namespace
 {
 constexpr char const * kEditorXMLFileName = "edits.xml";
-// TODO(mgsergio): Hide in notes.
-constexpr char const * kNotesXMLFileName = "notes.xml";
 constexpr char const * kXmlRootNode = "mapsme";
 constexpr char const * kXmlMwmNode = "mwm";
 constexpr char const * kDeleteSection = "delete";
@@ -68,7 +66,6 @@ bool NeedsUpload(string const & uploadStatus)
 }
 
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
-string GetNotesFilePath() { return GetPlatform().WritablePathForFile(kNotesXMLFileName); }
 
 /// Compares editable fields connected with feature ignoring street.
 bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
@@ -131,11 +128,7 @@ namespace osm
 // TODO(AlexZ): Normalize osm multivalue strings for correct merging
 // (e.g. insert/remove spaces after ';' delimeter);
 
-Editor::Editor()
-    : m_notes(editor::Notes::MakeNotes(GetNotesFilePath()))
-{
-}
-
+Editor::Editor() : m_notes(editor::Notes::MakeNotes()) {}
 Editor & Editor::Instance()
 {
   static Editor instance;
@@ -300,18 +293,12 @@ bool Editor::Save(string const & fullFilePath) const
     }
   }
 
-  string const tmpFileName = fullFilePath + ".tmp";
-  if (!doc.save_file(tmpFileName.data(), "  "))
-  {
-    LOG(LERROR, ("Can't save map edits into", tmpFileName));
-    return false;
-  }
-  else if (!my::RenameFileX(tmpFileName, fullFilePath))
-  {
-    LOG(LERROR, ("Can't rename file", tmpFileName, "to", fullFilePath));
-    return false;
-  }
-  return true;
+  return my::WriteToTempAndRenameToFile(
+      fullFilePath,
+      [&doc](string const & fileName)
+      {
+        return doc.save_file(fileName.data(), "  ");
+      });
 }
 
 void Editor::ClearAllLocalEdits()
@@ -510,6 +497,8 @@ EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder co
 
 bool Editor::HaveSomethingToUpload() const
 {
+  if (m_notes->NotUploadedNotesCount() != 0)
+    return true;
   for (auto const & id : m_features)
   {
     for (auto const & index : id.second)
@@ -538,7 +527,7 @@ bool Editor::HaveSomethingToUpload(MwmSet::MwmId const & mwmId) const
 void Editor::UploadChanges(string const & key, string const & secret, TChangesetTags tags,
                            TFinishUploadCallback callBack)
 {
-  if (m_notes->UnuploadedNotesCount())
+  if (m_notes->NotUploadedNotesCount())
     UploadNotes(key, secret);
 
   if (!HaveSomethingToUpload())
