@@ -64,11 +64,11 @@ def compute_ndcg_for_w(data, w):
     return np.array(ndcgs)
 
 
-def gradient_descent(w_init, grad, eps=1e-6, lam=1e-3, num_steps=1000):
+def gradient_descent(w_init, grad, eps=1e-6, rate=1e-6, lam=1e-3, num_steps=1000):
     n = len(w_init)
     w, dw = np.copy(w_init), np.zeros(n)
     for step in range(1, num_steps):
-        wn = w - eps / step * grad(w) + lam * dw
+        wn = w - rate / step * grad(w) + lam * dw
         w, dw = wn, wn - w
         if np.linalg.norm(dw) < eps:
             break
@@ -107,14 +107,15 @@ class RankingSVMLoss:
     Simple version of a loss function for a ranked list of features
     has following form:
 
-    loss(w) = sum{i, j: max(0, 1 - sign(y[j] - y[i]) * dot(w, x[j] - x[i]))} + lam * dot(w, w)
+    loss(w) = sum{i < j: max(0, 1 - sign(y[j] - y[i]) * dot(w, x[j] - x[i]))} + lam * dot(w, w)
 
-    This version is slightly modified, as we dealing with a group of
-    ranked lists, so loss function is actually a weighted sum of loss
-    values for each list, where each weight is a 1 / list size.
+    This version is slightly modified, as we are dealing with a group
+    of ranked lists, so loss function is actually a weighted sum of
+    loss values for each list, where each weight is a 1 / list size.
     """
 
-    def sign(self, x):
+    @staticmethod
+    def sign(x):
         if x < 0:
             return -1
         elif x > 0:
@@ -166,11 +167,11 @@ def main():
     grad = lambda w: loss.gradient(w)
 
     num_steps = 1000
-    for i in range(1, num_steps + 1):
+    for i in range(num_steps):
         if ((i * 100) % num_steps == 0):
             print((i * 100) // num_steps, '%')
         w_init = np.random.random(len(FEATURES))
-        w = gradient_descent(w_init, grad, eps=0.01)
+        w = gradient_descent(w_init, grad, eps=0.01, rate=0.01)
         mean = np.mean(compute_ndcg_for_w(data, w))
         if mean > best_mean:
             best_mean, best_w = mean, w

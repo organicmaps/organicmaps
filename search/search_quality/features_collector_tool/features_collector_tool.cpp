@@ -183,6 +183,8 @@ int main(int argc, char * argv[])
     ASSERT_EQUAL(results.size(), relevances.size(), ());
     for (size_t j = 0; j < results.size(); ++j)
     {
+      if (results[j].GetResultType() != Result::RESULT_FEATURE)
+        continue;
       auto const & info = results[j].GetRankingInfo();
       cout << i << ",";
       info.ToCSV(cout);
