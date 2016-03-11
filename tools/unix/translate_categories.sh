@@ -1,5 +1,24 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+set -e -u
 
-${DIR}/translate.awk {en=en+ru+uk+de+fr+it+es+ko+ja+cs+nl+zh-TW+pl+pt+hu+th+zh-CN+ar+da+tr+sv} "$1"
+case $# in
+  1) SRC=en
+     WORD="$1"
+     ;;
+  2) SRC="$1"
+     WORD="$2"
+     ;;
+  *) echo "Usage: $0 word_in_English"
+     echo "       or"
+     echo "       $0 language_code word_in_given_language"
+     exit 1
+     ;;
+esac
+
+LANGUAGES=( en ar cs da de el es fi fr he hu id it ja ko nb nl pl pt ro ru sk sv sw th tr uk vi zh-Hans zh-Hant )
+
+for lang in "${LANGUAGES[@]}"; do
+  TRANSLATION=$(trans -b "$SRC:$lang" "$WORD" | sed 's/   *//')
+  echo "$lang:$TRANSLATION"
+done
