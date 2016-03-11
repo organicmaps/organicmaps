@@ -8,7 +8,7 @@ namespace v2
 {
 namespace
 {
-const size_t kDefaultReadLimit = 50;
+const size_t kDefaultReadLimit = 100;
 
 bool IsAlmostFullMatch(NameScore score)
 {
