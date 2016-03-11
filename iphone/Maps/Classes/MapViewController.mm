@@ -17,6 +17,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMPageController.h"
 #import "MWMPlacePageEntity.h"
+#import "MWMReportBaseController.h"
 #import "MWMTableViewController.h"
 #import "MWMTextToSpeech.h"
 #import "MWMWhatsNewDownloaderEditorController.h"
@@ -554,7 +555,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
 - (void)showReportController
 {
-  [self performSegueWithIdentifier:kReportSegue sender:nil];
+  [self performSegueWithIdentifier:kReportSegue sender:self.controlsManager.placePageEntity];
 }
 
 - (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
@@ -824,6 +825,11 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   {
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
     dvc.parentCountryId = GetFramework().Storage().GetRootId();
+  }
+  else if ([segue.identifier isEqualToString:kReportSegue])
+  {
+    MWMReportBaseController * dvc = segue.destinationViewController;
+    dvc.point = static_cast<MWMPlacePageEntity *>(sender).mercator;
   }
 }
 

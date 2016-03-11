@@ -674,8 +674,8 @@
 		F60F02E41C904E3E003A0AF6 /* MWMReportProblemExtendedController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F60F02E31C904E3E003A0AF6 /* MWMReportProblemExtendedController.mm */; };
 		F60F02E51C904E3E003A0AF6 /* MWMReportProblemExtendedController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F60F02E31C904E3E003A0AF6 /* MWMReportProblemExtendedController.mm */; };
 		F60F02E61C904E86003A0AF6 /* MWMReportProblemController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F60F02E01C904E08003A0AF6 /* MWMReportProblemController.mm */; };
-		F60F02E91C904F40003A0AF6 /* MWMReportBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = F60F02E81C904F40003A0AF6 /* MWMReportBaseController.m */; };
-		F60F02EA1C904F40003A0AF6 /* MWMReportBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = F60F02E81C904F40003A0AF6 /* MWMReportBaseController.m */; };
+		F60F02E91C904F40003A0AF6 /* MWMReportBaseController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F60F02E81C904F40003A0AF6 /* MWMReportBaseController.mm */; };
+		F60F02EA1C904F40003A0AF6 /* MWMReportBaseController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F60F02E81C904F40003A0AF6 /* MWMReportBaseController.mm */; };
 		F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */; };
 		F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */; };
 		F6172FA51BBD5A3E0081D325 /* MWMiPadRoutePreview.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6172FA41BBD5A3E0081D325 /* MWMiPadRoutePreview.xib */; };
@@ -1326,7 +1326,7 @@
 		F60F02E21C904E3E003A0AF6 /* MWMReportProblemExtendedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMReportProblemExtendedController.h; sourceTree = "<group>"; };
 		F60F02E31C904E3E003A0AF6 /* MWMReportProblemExtendedController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMReportProblemExtendedController.mm; sourceTree = "<group>"; };
 		F60F02E71C904F40003A0AF6 /* MWMReportBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMReportBaseController.h; sourceTree = "<group>"; };
-		F60F02E81C904F40003A0AF6 /* MWMReportBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMReportBaseController.m; sourceTree = "<group>"; };
+		F60F02E81C904F40003A0AF6 /* MWMReportBaseController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMReportBaseController.mm; sourceTree = "<group>"; };
 		F61579321AC2CE9A0032D8E9 /* MWMRateAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRateAlert.h; sourceTree = "<group>"; };
 		F61579331AC2CE9A0032D8E9 /* MWMRateAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRateAlert.mm; sourceTree = "<group>"; };
 		F61579351AC2CEB60032D8E9 /* MWMRateAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRateAlert.xib; sourceTree = "<group>"; };
@@ -2537,7 +2537,7 @@
 			isa = PBXGroup;
 			children = (
 				F60F02E71C904F40003A0AF6 /* MWMReportBaseController.h */,
-				F60F02E81C904F40003A0AF6 /* MWMReportBaseController.m */,
+				F60F02E81C904F40003A0AF6 /* MWMReportBaseController.mm */,
 				F60F02DF1C904E08003A0AF6 /* MWMReportProblemController.h */,
 				F60F02E01C904E08003A0AF6 /* MWMReportProblemController.mm */,
 				F60F02E21C904E3E003A0AF6 /* MWMReportProblemExtendedController.h */,
@@ -3649,7 +3649,7 @@
 				34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */,
 				F6B2E61F1C3D5F31005562DF /* MWMNightModeController.mm in Sources */,
 				F6BD33791B62400E00F2CE18 /* MWMNavigationDashboard.mm in Sources */,
-				F60F02E91C904F40003A0AF6 /* MWMReportBaseController.m in Sources */,
+				F60F02E91C904F40003A0AF6 /* MWMReportBaseController.mm in Sources */,
 				347FD8891C60B2CE002FB65E /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				34CD81C31C91C281007D2A60 /* MWMWhatsNewNightModeController.mm in Sources */,
 				974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */,
@@ -3863,7 +3863,7 @@
 				6741AA0D1BF340DE002C974C /* LocalNotificationManager.mm in Sources */,
 				347FD88A1C60B2CE002FB65E /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				F60F02E51C904E3E003A0AF6 /* MWMReportProblemExtendedController.mm in Sources */,
-				F60F02EA1C904F40003A0AF6 /* MWMReportBaseController.m in Sources */,
+				F60F02EA1C904F40003A0AF6 /* MWMReportBaseController.mm in Sources */,
 				6741AA0E1BF340DE002C974C /* AppInfo.mm in Sources */,
 				6741AA0F1BF340DE002C974C /* MWMSearchHistoryMyPositionCell.mm in Sources */,
 				34CD81C41C91C281007D2A60 /* MWMWhatsNewNightModeController.mm in Sources */,

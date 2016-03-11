@@ -20,6 +20,13 @@
   self.title = L(@"editor_report_problem_title");
 }
 
+- (void)send
+{
+  if (!self.textView.text.length)
+    return;
+  [self sendNote:self.textView.text.UTF8String];
+}
+
 #pragma mark - UITableView
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
