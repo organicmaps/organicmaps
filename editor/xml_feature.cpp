@@ -310,14 +310,14 @@ string XMLFeature::GetTagValue(string const & key) const
   return tag.attribute("v").value();
 }
 
-void XMLFeature::SetTagValue(string const & key, string const value)
+void XMLFeature::SetTagValue(string const & key, string const & value)
 {
   auto tag = FindTag(m_document, key);
   if (!tag)
   {
     tag = GetRootNode().append_child("tag");
-    tag.append_attribute("k") = key.data();
-    tag.append_attribute("v") = value.data();
+    tag.append_attribute("k").set_value(key.c_str());
+    tag.append_attribute("v").set_value(value.c_str());
   }
   else
   {
