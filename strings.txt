@@ -3493,6 +3493,8 @@
     ro = Magazin
     nb = Butikk
     fi = Kauppa
+    el = Μαγαζί
+    sw = Duka
 
   [hotel]
     en = Hotel
