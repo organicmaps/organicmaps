@@ -49,7 +49,7 @@ bool FormatDistanceImpl(double m, string & res,
 bool FormatDistance(double m, string & res)
 {
   Units u = Metric;
-  (void)Get("Units", u);
+  (void)Get(Settings::kMeasurementUnits, u);
 
   /// @todo Put string units resources.
   switch (u)
@@ -152,7 +152,7 @@ void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int
 string FormatAltitude(double altitudeInMeters)
 {
   Units u = Metric;
-  (void)Get("Units", u);
+  (void)Get(Settings::kMeasurementUnits, u);
 
   ostringstream ss;
   ss << fixed << setprecision(0);
@@ -169,7 +169,7 @@ string FormatAltitude(double altitudeInMeters)
 string FormatSpeed(double metersPerSecond)
 {
   Units u = Metric;
-  (void)Get("Units", u);
+  (void)Get(Settings::kMeasurementUnits, u);
 
   double perHour;
   string res;

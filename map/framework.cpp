@@ -1521,7 +1521,7 @@ void Framework::SetupMeasurementSystem()
   GetPlatform().SetupMeasurementSystem();
 
   Settings::Units units = Settings::Metric;
-  Settings::Get("Units", units);
+  Settings::Get(Settings::kMeasurementUnits, units);
 
   m_routingSession.SetTurnNotificationsUnits(units);
 }

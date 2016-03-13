@@ -225,7 +225,7 @@ double RulerHelper::CalcMetresDiff(double value)
   ConversionFn conversionFn = &identity;
 
   Settings::Units units = Settings::Metric;
-  Settings::Get("Units", units);
+  Settings::Get(Settings::kMeasurementUnits, units);
 
   if (units == Settings::Foot)
   {

@@ -8,7 +8,7 @@ using namespace MeasurementUtils;
 
 UNIT_TEST(Measurement_Smoke)
 {
-  Settings::Set("Units", Settings::Metric);
+  Settings::Set(Settings::kMeasurementUnits, Settings::Metric);
 
   typedef pair<double, char const *> PairT;
 
@@ -66,15 +66,15 @@ UNIT_TEST(LatLonToDMS_NoRounding)
 
 UNIT_TEST(FormatAltitude)
 {
-  Settings::Set("Units", Settings::Foot);
+  Settings::Set(Settings::kMeasurementUnits, Settings::Foot);
   TEST_EQUAL(FormatAltitude(10000), "32808ft", ());
-  Settings::Set("Units", Settings::Metric);
+  Settings::Set(Settings::kMeasurementUnits, Settings::Metric);
   TEST_EQUAL(FormatAltitude(5), "5m", ());
 }
 
 UNIT_TEST(FormatSpeed)
 {
-  Settings::Set("Units", Settings::Metric);
+  Settings::Set(Settings::kMeasurementUnits, Settings::Metric);
   TEST_EQUAL(FormatSpeed(10), "36km/h", ());
   TEST_EQUAL(FormatSpeed(1), "3.6km/h", ());
 }

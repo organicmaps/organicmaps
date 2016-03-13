@@ -75,11 +75,11 @@ Platform::EError Platform::MkDir(string const & dirName) const
 void Platform::SetupMeasurementSystem() const
 {
   Settings::Units u;
-  if (Settings::Get("Units", u))
+  if (Settings::Get(Settings::kMeasurementUnits, u))
     return;
   bool const isMetric = QLocale::system().measurementSystem() == QLocale::MetricSystem;
   u = isMetric ? Settings::Metric : Settings::Foot;
-  Settings::Set("Units", u);
+  Settings::Set(Settings::kMeasurementUnits, u);
 }
 
 #if defined(OMIM_OS_LINUX)

@@ -25,6 +25,7 @@ char const DELIM_CHAR = '=';
 }
 
 char const * Settings::kLocationStateMode = "LastLocationStateMode";
+char const * Settings::kMeasurementUnits = "Units";
 
 namespace Settings
 {

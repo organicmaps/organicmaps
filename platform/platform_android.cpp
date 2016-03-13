@@ -252,11 +252,11 @@ Platform::EError Platform::MkDir(string const & dirName) const
 void Platform::SetupMeasurementSystem() const
 {
   Settings::Units u;
-  if (Settings::Get("Units", u))
+  if (Settings::Get(Settings::kMeasurementUnits, u))
     return;
   // @TODO Add correct implementation
   u = Settings::Metric;
-  Settings::Set("Units", u);
+  Settings::Set(Settings::kMeasurementUnits, u);
 }
 
 namespace

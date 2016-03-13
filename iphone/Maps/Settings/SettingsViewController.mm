@@ -88,7 +88,7 @@ typedef NS_ENUM(NSUInteger, Section)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
     Settings::Units units = Settings::Metric;
-    (void)Settings::Get("Units", units);
+    (void)Settings::Get(Settings::kMeasurementUnits, units);
     BOOL const selected = units == unitsForIndex(indexPath.row);
     SelectableCell * customCell = (SelectableCell *)cell;
     customCell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -322,7 +322,7 @@ Settings::Units unitsForIndex(NSInteger index)
     Settings::Units units = unitsForIndex(indexPath.row);
     [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
         withParameters:@{kStatValue : (units == Settings::Units::Metric ? kStatKilometers : kStatMiles)}];
-    Settings::Set("Units", units);
+    Settings::Set(Settings::kMeasurementUnits, units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
     GetFramework().SetupMeasurementSystem();
     break;

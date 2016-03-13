@@ -53,7 +53,7 @@ namespace qt
       radioBox->setLayout(pLayout);
 
       Units u;
-      if (!Settings::Get("Units", u))
+      if (!Settings::Get(Settings::kMeasurementUnits, u))
       {
         // set default measurement from system locale
         if (QLocale::system().measurementSystem() == QLocale::MetricSystem)
@@ -101,6 +101,6 @@ namespace qt
     case 1: u = Foot; break;
     }
 
-    Settings::Set("Units", u);
+    Settings::Set(kMeasurementUnits, u);
   }
 }

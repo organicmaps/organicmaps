@@ -263,11 +263,11 @@ Platform::EConnectionType Platform::ConnectionStatus()
 void Platform::SetupMeasurementSystem() const
 {
   Settings::Units u;
-  if (Settings::Get("Units", u))
+  if (Settings::Get(Settings::kMeasurementUnits, u))
     return;
   BOOL const isMetric = [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
   u = isMetric ? Settings::Metric : Settings::Foot;
-  Settings::Set("Units", u);
+  Settings::Set(Settings::kMeasurementUnits, u);
 }
 
 ////////////////////////////////////////////////////////////////////////
