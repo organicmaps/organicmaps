@@ -24,8 +24,8 @@ char const * kLogoutDialogTitle = "Logout Dialog";
 OsmAuthDialog::OsmAuthDialog(QWidget * parent)
 {
   string key, secret;
-  Settings::Get(kTokenKeySetting, key);
-  Settings::Get(kTokenSecretSetting, secret);
+  settings::Get(kTokenKeySetting, key);
+  settings::Get(kTokenSecretSetting, secret);
 
   bool const isLoginDialog = key.empty() || secret.empty();
 
@@ -108,8 +108,8 @@ void OsmAuthDialog::OnAction()
       if (auth.AuthorizePassword(login, password))
       {
         auto const token = auth.GetKeySecret();
-        Settings::Set(kTokenKeySetting, token.first);
-        Settings::Set(kTokenSecretSetting, token.second);
+        settings::Set(kTokenKeySetting, token.first);
+        settings::Set(kTokenSecretSetting, token.second);
 
         SwitchToLogout(this);
       }
@@ -127,8 +127,8 @@ void OsmAuthDialog::OnAction()
   }
   else
   {
-    Settings::Set(kTokenKeySetting, string());
-    Settings::Set(kTokenSecretSetting, string());
+    settings::Set(kTokenKeySetting, string());
+    settings::Set(kTokenSecretSetting, string());
 
     SwitchToLogin(this);
   }

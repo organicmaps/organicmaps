@@ -277,7 +277,7 @@ UNIT_TEST(LocalCountryFile_AllLocalFilesLookup)
 
   ScopedDir testDir("10101");
 
-  Settings::Delete("LastMigration");
+  settings::Delete("LastMigration");
 
   ScopedFile testItalyMapFile(testDir, italyFile, MapOptions::Map, "Italy-map");
 

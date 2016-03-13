@@ -224,10 +224,10 @@ double RulerHelper::CalcMetresDiff(double value)
   typedef double (*ConversionFn)(double);
   ConversionFn conversionFn = &identity;
 
-  Settings::Units units = Settings::Metric;
-  Settings::Get(Settings::kMeasurementUnits, units);
+  settings::Units units = settings::Metric;
+  settings::Get(settings::kMeasurementUnits, units);
 
-  if (units == Settings::Foot)
+  if (units == settings::Foot)
   {
     arrU = g_arrFeets;
     count = ARRAY_SIZE(g_arrFeets);

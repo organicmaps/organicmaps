@@ -4,7 +4,7 @@
 #include "platform/settings.hpp"
 
 using namespace MeasurementUtils;
-using namespace Settings;
+using namespace settings;
 
 struct ScopedSettings
 {
@@ -30,7 +30,7 @@ struct ScopedSettings
 
 UNIT_TEST(Measurement_Smoke)
 {
-  ScopedSettings guard(Settings::Metric);
+  ScopedSettings guard(settings::Metric);
 
   typedef pair<double, char const *> PairT;
 
@@ -89,15 +89,15 @@ UNIT_TEST(LatLonToDMS_NoRounding)
 UNIT_TEST(FormatAltitude)
 {
   ScopedSettings guard;
-  Settings::Set(Settings::kMeasurementUnits, Settings::Foot);
+  settings::Set(settings::kMeasurementUnits, settings::Foot);
   TEST_EQUAL(FormatAltitude(10000), "32808ft", ());
-  Settings::Set(Settings::kMeasurementUnits, Settings::Metric);
+  settings::Set(settings::kMeasurementUnits, settings::Metric);
   TEST_EQUAL(FormatAltitude(5), "5m", ());
 }
 
 UNIT_TEST(FormatSpeed)
 {
-  ScopedSettings guard(Settings::Metric);
+  ScopedSettings guard(settings::Metric);
   TEST_EQUAL(FormatSpeed(10), "36km/h", ());
   TEST_EQUAL(FormatSpeed(1), "3.6km/h", ());
 }

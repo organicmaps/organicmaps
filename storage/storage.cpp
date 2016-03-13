@@ -214,7 +214,7 @@ void Storage::Migrate(TCountriesVec const & existedCountries)
     for (auto const & smallCountry : mapping[country])
       ss << (ss.str().empty() ? "" : ";") << smallCountry;
   }
-  Settings::Set("DownloadQueue", ss.str());
+  settings::Set("DownloadQueue", ss.str());
 }
 
 void Storage::Clear()
@@ -429,7 +429,7 @@ void Storage::SaveDownloadQueue()
   stringstream ss;
   for (auto const & item : m_queue)
     ss << (ss.str().empty() ? "" : ";") << item.GetCountryId();
-  Settings::Set("DownloadQueue", ss.str());
+  settings::Set("DownloadQueue", ss.str());
 }
 
 void Storage::RestoreDownloadQueue()
@@ -438,7 +438,7 @@ void Storage::RestoreDownloadQueue()
     return;
 
   string queue;
-  if (!Settings::Get("DownloadQueue", queue))
+  if (!settings::Get("DownloadQueue", queue))
     return;
 
   strings::SimpleTokenizer iter(queue, ";");

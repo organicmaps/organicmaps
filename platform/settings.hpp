@@ -4,7 +4,7 @@
 #include "std/map.hpp"
 #include "std/mutex.hpp"
 
-namespace Settings
+namespace settings
 {
 /// Current location state mode. @See location::EMyPositionMode.
 extern char const * kLocationStateMode;

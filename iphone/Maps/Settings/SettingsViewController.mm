@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, Section)
   self.title = L(@"settings");
   self.tableView.backgroundView = nil;
   bool adServerForbidden = false;
-  (void)Settings::Get(kAdServerForbiddenKey, adServerForbidden);
+  (void)settings::Get(kAdServerForbiddenKey, adServerForbidden);
   if (isIOS7 || adServerForbidden)
     sections = {SectionMetrics, SectionMap, SectionRouting, SectionCalibration, SectionStatistics};
   else
@@ -87,8 +87,8 @@ typedef NS_ENUM(NSUInteger, Section)
   case SectionMetrics:
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
-    Settings::Units units = Settings::Metric;
-    (void)Settings::Get(Settings::kMeasurementUnits, units);
+    settings::Units units = settings::Metric;
+    (void)settings::Get(settings::kMeasurementUnits, units);
     BOOL const selected = units == unitsForIndex(indexPath.row);
     SelectableCell * customCell = (SelectableCell *)cell;
     customCell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -100,7 +100,7 @@ typedef NS_ENUM(NSUInteger, Section)
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
     bool forbidden = false;
-    (void)Settings::Get(kAdForbiddenSettingsKey, forbidden);
+    (void)settings::Get(kAdForbiddenSettingsKey, forbidden);
     customCell.switchButton.on = !forbidden;
     customCell.titleLabel.text = L(@"showcase_settings_title");
     customCell.delegate = self;
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSUInteger, Section)
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
     bool on = [Statistics isStatisticsEnabledByDefault];
-    (void)Settings::Get(kStatisticsEnabledSettingsKey, on);
+    (void)settings::Get(kStatisticsEnabledSettingsKey, on);
     customCell.switchButton.on = on;
     customCell.titleLabel.text = L(@"allow_statistics");
     customCell.delegate = self;
@@ -148,7 +148,7 @@ typedef NS_ENUM(NSUInteger, Section)
       cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
       SwitchCell * customCell = static_cast<SwitchCell *>(cell);
       bool on = true;
-      (void)Settings::Get("ZoomButtonsEnabled", on);
+      (void)settings::Get("ZoomButtonsEnabled", on);
       customCell.titleLabel.text = L(@"pref_zoom_title");
       customCell.switchButton.on = on;
       customCell.delegate = self;
@@ -202,7 +202,7 @@ typedef NS_ENUM(NSUInteger, Section)
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
     bool on = false;
-    (void)Settings::Get("CompassCalibrationEnabled", on);
+    (void)settings::Get("CompassCalibrationEnabled", on);
     customCell.switchButton.on = on;
     customCell.titleLabel.text = L(@"pref_calibration_title");
     customCell.delegate = self;
@@ -228,7 +228,7 @@ typedef NS_ENUM(NSUInteger, Section)
   case SectionAd:
     [stat logEvent:kStatSettings
       withParameters:@{kStatAction : kStatMoreApps, kStatValue : (value ? kStatOn : kStatOff)}];
-    Settings::Set(kAdForbiddenSettingsKey, (bool)!value);
+    settings::Set(kAdForbiddenSettingsKey, (bool)!value);
     break;
 
   case SectionStatistics:
@@ -266,7 +266,7 @@ typedef NS_ENUM(NSUInteger, Section)
       {
         [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
             withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
-        Settings::Set("ZoomButtonsEnabled", (bool)value);
+        settings::Set("ZoomButtonsEnabled", (bool)value);
         [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
         break;
       }
@@ -276,7 +276,7 @@ typedef NS_ENUM(NSUInteger, Section)
   case SectionCalibration:
     [stat logEvent:kStatEventName(kStatSettings, kStatToggleCompassCalibration)
         withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
-    Settings::Set("CompassCalibrationEnabled", (bool)value);
+    settings::Set("CompassCalibrationEnabled", (bool)value);
     break;
 
   case SectionRouting:
@@ -308,9 +308,9 @@ typedef NS_ENUM(NSUInteger, Section)
   }
 }
 
-Settings::Units unitsForIndex(NSInteger index)
+settings::Units unitsForIndex(NSInteger index)
 {
-  return index == 0 ? Settings::Metric : Settings::Foot;
+  return index == 0 ? settings::Metric : settings::Foot;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -319,10 +319,10 @@ Settings::Units unitsForIndex(NSInteger index)
   {
   case SectionMetrics:
   {
-    Settings::Units units = unitsForIndex(indexPath.row);
+    settings::Units units = unitsForIndex(indexPath.row);
     [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
-        withParameters:@{kStatValue : (units == Settings::Units::Metric ? kStatKilometers : kStatMiles)}];
-    Settings::Set(Settings::kMeasurementUnits, units);
+        withParameters:@{kStatValue : (units == settings::Units::Metric ? kStatKilometers : kStatMiles)}];
+    settings::Set(settings::kMeasurementUnits, units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
     GetFramework().SetupMeasurementSystem();
     break;

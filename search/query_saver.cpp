@@ -99,7 +99,7 @@ void QuerySaver::Add(TSearchRequest const & query)
 void QuerySaver::Clear()
 {
   m_topQueries.clear();
-  Settings::Delete(kSettingsKey);
+  settings::Delete(kSettingsKey);
 }
 
 void QuerySaver::Serialize(string & data) const
@@ -146,13 +146,13 @@ void QuerySaver::Save()
 {
   string data;
   Serialize(data);
-  Settings::Set(kSettingsKey, data);
+  settings::Set(kSettingsKey, data);
 }
 
 void QuerySaver::Load()
 {
   string hexData;
-  Settings::Get(kSettingsKey, hexData);
+  settings::Get(kSettingsKey, hexData);
   if (hexData.empty())
     return;
   try

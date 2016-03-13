@@ -133,7 +133,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
 #ifndef NO_DOWNLOADER
   // Show intro dialog if necessary
   bool bShow = true;
-  (void)Settings::Get("ShowWelcome", bShow);
+  (void)settings::Get("ShowWelcome", bShow);
 
   if (bShow)
   {
@@ -155,7 +155,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
       if (welcomeDlg.exec() == QDialog::Rejected)
         bShowUpdateDialog = false;
     }
-    Settings::Set("ShowWelcome", false);
+    settings::Set("ShowWelcome", false);
 
     if (bShowUpdateDialog)
       ShowUpdateDialog();
@@ -494,8 +494,8 @@ void MainWindow::OnLoginMenuItem()
 void MainWindow::OnUploadEditsMenuItem()
 {
   string key, secret;
-  Settings::Get(kTokenKeySetting, key);
-  Settings::Get(kTokenSecretSetting, secret);
+  settings::Get(kTokenKeySetting, key);
+  settings::Get(kTokenSecretSetting, secret);
   if (key.empty() || secret.empty())
     OnLoginMenuItem();
   else

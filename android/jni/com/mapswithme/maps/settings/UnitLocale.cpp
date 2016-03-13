@@ -8,15 +8,15 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_settings_UnitLocale_setCurrentUnits(JNIEnv * env, jobject thiz, jint units)
   {
-    Settings::Units const u = static_cast<Settings::Units>(units);
-    Settings::Set(Settings::kMeasurementUnits, u);
+    settings::Units const u = static_cast<settings::Units>(units);
+    settings::Set(settings::kMeasurementUnits, u);
     g_framework->SetupMeasurementSystem();
   }
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_settings_UnitLocale_getCurrentUnits(JNIEnv * env, jobject thiz)
   {
-    Settings::Units u;
-    return (Settings::Get(Settings::kMeasurementUnits, u) ? u : -1);
+    settings::Units u;
+    return (settings::Get(settings::kMeasurementUnits, u) ? u : -1);
   }
 }

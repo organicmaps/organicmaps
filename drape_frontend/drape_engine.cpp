@@ -29,7 +29,7 @@ DrapeEngine::DrapeEngine(Params && params)
   m_requestedTiles = make_unique_dp<RequestedTiles>();
 
   location::EMyPositionMode mode = params.m_initialMyPositionMode.first;
-  if (!params.m_initialMyPositionMode.second && !Settings::Get(Settings::kLocationStateMode, mode))
+  if (!params.m_initialMyPositionMode.second && !settings::Get(settings::kLocationStateMode, mode))
     mode = location::MODE_UNKNOWN_POSITION;
 
   FrontendRenderer::Params frParams(make_ref(m_threadCommutator), params.m_factory,
@@ -212,7 +212,7 @@ void DrapeEngine::ModelViewChangedGuiThread(ScreenBase const & screen)
 
 void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode)
 {
-  Settings::Set(Settings::kLocationStateMode, mode);
+  settings::Set(settings::kLocationStateMode, mode);
   GetPlatform().RunOnGuiThread([this, mode]()
   {
     if (m_myPositionModeChanged != nullptr)

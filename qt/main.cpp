@@ -83,7 +83,7 @@ int main(int argc, char * argv[])
   // display EULA if needed
   char const * settingsEULA = "EulaAccepted";
   bool eulaAccepted = false;
-  if (!Settings::Get(settingsEULA, eulaAccepted) || !eulaAccepted)
+  if (!settings::Get(settingsEULA, eulaAccepted) || !eulaAccepted)
   {
     QStringList buttons;
     buttons << "Accept" << "Decline";
@@ -95,7 +95,7 @@ int main(int argc, char * argv[])
     }
     qt::InfoDialog eulaDialog("MAPS.ME End User Licensing Agreement", buffer.c_str(), NULL, buttons);
     eulaAccepted = (eulaDialog.exec() == 1);
-    Settings::Set(settingsEULA, eulaAccepted);
+    settings::Set(settingsEULA, eulaAccepted);
   }
 
   int returnCode = -1;

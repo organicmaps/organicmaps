@@ -42,14 +42,14 @@ char const * BOOKMARK_TYPE = "LastBookmarkType";
 
 void BookmarkManager::SaveState() const
 {
-  Settings::Set(BOOKMARK_CATEGORY, m_lastCategoryUrl);
-  Settings::Set(BOOKMARK_TYPE, m_lastType);
+  settings::Set(BOOKMARK_CATEGORY, m_lastCategoryUrl);
+  settings::Set(BOOKMARK_TYPE, m_lastType);
 }
 
 void BookmarkManager::LoadState()
 {
-  Settings::Get(BOOKMARK_CATEGORY, m_lastCategoryUrl);
-  Settings::Get(BOOKMARK_TYPE, m_lastType);
+  settings::Get(BOOKMARK_CATEGORY, m_lastCategoryUrl);
+  settings::Get(BOOKMARK_TYPE, m_lastType);
 }
 
 void BookmarkManager::ClearItems()

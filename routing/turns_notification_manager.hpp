@@ -100,7 +100,7 @@ class NotificationManager
   uint32_t m_secondTurnNotificationIndex;
 
   string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-                          TurnDirection turnDir, ::Settings::Units lengthUnits) const;
+                          TurnDirection turnDir, ::settings::Units lengthUnits) const;
   /// Generates turn sound notification for the nearest to the current position turn.
   string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters);
   /// Changes the state of the class to emulate that first turn notification is pronouned
@@ -130,8 +130,8 @@ public:
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
-  void SetLengthUnits(::Settings::Units units);
-  inline ::Settings::Units GetLengthUnits() const { return m_settings.GetLengthUnits(); }
+  void SetLengthUnits(::settings::Units units);
+  inline ::settings::Units GetLengthUnits() const { return m_settings.GetLengthUnits(); }
   inline void SetLocale(string const & locale) { m_getTtsText.SetLocale(locale); }
   inline string GetLocale() const { return m_getTtsText.GetLocale(); }
   void SetSpeedMetersPerSecond(double speed);

@@ -17,12 +17,12 @@ WritableDirChanger::WritableDirChanger(string const & testDir)
   TEST(!platform.IsFileExistsByFullPath(m_testDirFullPath), ());
   TEST_EQUAL(Platform::ERR_OK, platform.MkDir(m_testDirFullPath), ());
   platform.SetWritableDirForTests(m_testDirFullPath);
-  Settings::Clear();
+  settings::Clear();
 }
 
 WritableDirChanger::~WritableDirChanger()
 {
-  Settings::Clear();
+  settings::Clear();
   Platform & platform = GetPlatform();
   string const writableDirForTest = platform.WritableDir();
   platform.SetWritableDirForTests(m_writableDirBeforeTest);

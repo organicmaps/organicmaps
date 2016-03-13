@@ -24,10 +24,10 @@ namespace
 char const DELIM_CHAR = '=';
 }
 
-char const * Settings::kLocationStateMode = "LastLocationStateMode";
-char const * Settings::kMeasurementUnits = "Units";
+char const * settings::kLocationStateMode = "LastLocationStateMode";
+char const * settings::kMeasurementUnits = "Units";
 
-namespace Settings
+namespace settings
 {
 StringStorage::StringStorage()
 {

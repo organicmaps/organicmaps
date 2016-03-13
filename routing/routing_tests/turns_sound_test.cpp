@@ -26,7 +26,7 @@ UNIT_TEST(TurnNotificationSettingsMetersTest)
                           25 /* m_minStartBeforeMeters */, 150 /* m_maxStartBeforeMeters */,
                           170 /* m_minDistToSayNotificationMeters */,
                           {100, 200, 300, 400, 500, 600, 700} /* soundedDistancesUnits */,
-                          ::Settings::Metric /* lengthUnits */);
+                          ::settings::Metric /* lengthUnits */);
 
   TEST(settings.IsValid(), ());
   TEST(my::AlmostEqualAbs(
@@ -57,7 +57,7 @@ UNIT_TEST(TurnNotificationSettingsFeetTest)
                           25 /* m_minStartBeforeMeters */, 150 /* m_maxStartBeforeMeters */,
                           170 /* m_minDistToSayNotificationMeters */,
                           {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
-                          ::Settings::Foot /* lengthUnits */);
+                          ::settings::Foot /* lengthUnits */);
 
   TEST(settings.IsValid(), ());
   TEST(my::AlmostEqualAbs(
@@ -76,7 +76,7 @@ UNIT_TEST(TurnNotificationSettingsNotValidTest)
                      25 /* m_minStartBeforeMeters */, 150 /* m_maxStartBeforeMeters */,
                      170 /* m_minDistToSayNotificationMeters */,
                      {200, 400, 800, 600, 1000, 1500, 2000} /* soundedDistancesUnits */,
-                     ::Settings::Foot /* lengthUnits */);
+                     ::settings::Foot /* lengthUnits */);
   TEST(!settings1.IsValid(), ());
 
   Settings settings2(20 /* notificationTimeSeconds */, 5000 /* minNotificationDistanceUnits */,
@@ -84,7 +84,7 @@ UNIT_TEST(TurnNotificationSettingsNotValidTest)
                      25 /* m_minStartBeforeMeters */, 150 /* m_maxStartBeforeMeters */,
                      170 /* m_minDistToSayNotificationMeters */,
                      {200, 400, 600, 800, 1000, 1500, 2000} /* soundedDistancesUnits */,
-                     ::Settings::Metric /* lengthUnits */);
+                     ::settings::Metric /* lengthUnits */);
   TEST(!settings2.IsValid(), ());
 }
 
@@ -94,7 +94,7 @@ UNIT_TEST(TurnsSoundMetersTest)
                                           100 /* maxStartBeforeMeters */,
                                           100 /* minDistToSayNotificationMeters */);
   notificationManager.Enable(true);
-  notificationManager.SetLengthUnits(::Settings::Metric);
+  notificationManager.SetLengthUnits(::settings::Metric);
   string const engShortJson =
       "\
       {\
@@ -192,7 +192,7 @@ UNIT_TEST(TurnsSoundMetersTwoTurnsTest)
                                           100 /* maxStartBeforeMeters */,
                                           100 /* minDistToSayNotificationMeters */);
   notificationManager.Enable(true);
-  notificationManager.SetLengthUnits(::Settings::Metric);
+  notificationManager.SetLengthUnits(::settings::Metric);
   string const engShortJson =
       "\
       {\
@@ -269,7 +269,7 @@ UNIT_TEST(TurnsSoundFeetTest)
                                           100 /* maxStartBeforeMeters */,
                                           100 /* minDistToSayNotificationMeters */);
   notificationManager.Enable(true);
-  notificationManager.SetLengthUnits(::Settings::Foot);
+  notificationManager.SetLengthUnits(::settings::Foot);
   string const engShortJson =
       "\
       {\
@@ -352,7 +352,7 @@ UNIT_TEST(TurnsSoundComposedTurnTest)
                                           100 /* maxStartBeforeMeters */,
                                           100 /* minDistToSayNotificationMeters */);
   notificationManager.Enable(true);
-  notificationManager.SetLengthUnits(::Settings::Metric);
+  notificationManager.SetLengthUnits(::settings::Metric);
   string const engShortJson =
       "\
       {\
@@ -429,7 +429,7 @@ UNIT_TEST(TurnsSoundRoundaboutTurnTest)
                                           100 /* maxStartBeforeMeters */,
                                           100 /* minDistToSayNotificationMeters */);
   notificationManager.Enable(true);
-  notificationManager.SetLengthUnits(::Settings::Metric);
+  notificationManager.SetLengthUnits(::settings::Metric);
   string const engShortJson =
       "\
       {\

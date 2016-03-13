@@ -1007,7 +1007,7 @@ using namespace osm_auth_ios;
                                                            NSError * error)
   {
     bool adServerForbidden = (error || [(NSHTTPURLResponse *)response statusCode] != 200);
-    Settings::Set(kAdServerForbiddenKey, adServerForbidden);
+    settings::Set(kAdServerForbiddenKey, adServerForbidden);
     dispatch_async(dispatch_get_main_queue(), ^{ [self.mapViewController refreshAd]; });
   }];
   [task resume];

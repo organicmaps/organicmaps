@@ -291,7 +291,7 @@ Framework::Framework()
 {
   // Restore map style before classificator loading
   int mapStyle = MapStyleLight;
-  if (!Settings::Get(kMapStyleKey, mapStyle))
+  if (!settings::Get(kMapStyleKey, mapStyle))
     mapStyle = MapStyleClear;
   GetStyleReader().SetCurrentStyle(static_cast<MapStyle>(mapStyle));
 
@@ -513,7 +513,7 @@ void Framework::RegisterAllMaps()
   if (platform::migrate::NeedMigrate())
   {
     bool disableFastMigrate = false;
-    Settings::Get("DisableFastMigrate", disableFastMigrate);
+    settings::Get("DisableFastMigrate", disableFastMigrate);
     if (!disableFastMigrate && !m_storage.HaveDownloadedCountries())
     {
       Storage().PrefetchMigrateData();
@@ -527,7 +527,7 @@ void Framework::RegisterAllMaps()
   char const * kLastDownloadedMapsCheck = "LastDownloadedMapsCheck";
   auto const updateInterval = hours(24 * 7); // One week.
   uint32_t timestamp;
-  bool const rc = Settings::Get(kLastDownloadedMapsCheck, timestamp);
+  bool const rc = settings::Get(kLastDownloadedMapsCheck, timestamp);
   auto const lastCheck = time_point<system_clock>(seconds(timestamp));
   bool const needStatisticsUpdate = !rc || lastCheck < system_clock::now() - updateInterval;
   stringstream listRegisteredMaps;
@@ -554,7 +554,7 @@ void Framework::RegisterAllMaps()
     alohalytics::Stats::Instance().LogEvent("Downloader_Map_list",
     {{"AvailableStorageSpace", strings::to_string(GetPlatform().GetWritableStorageSpace())},
       {"DownloadedMaps", listRegisteredMaps.str()}});
-    Settings::Set(kLastDownloadedMapsCheck,
+    settings::Set(kLastDownloadedMapsCheck,
                   static_cast<uint64_t>(duration_cast<seconds>(
                                           system_clock::now().time_since_epoch()).count()));
   }
@@ -794,13 +794,13 @@ void Framework::SaveViewport()
   {
     rect = m_currentModelView.GlobalRect();
   }
-  Settings::Set("ScreenClipRect", rect);
+  settings::Set("ScreenClipRect", rect);
 }
 
 void Framework::LoadViewport()
 {
   m2::AnyRectD rect;
-  if (Settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
+  if (settings::Get("ScreenClipRect", rect) && df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
     CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, rect, false));
   else
     ShowAll();
@@ -1497,7 +1497,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
 void Framework::MarkMapStyle(MapStyle mapStyle)
 {
   // Store current map style before classificator reloading
-  Settings::Set(kMapStyleKey, static_cast<uint32_t>(mapStyle));
+  settings::Set(kMapStyleKey, static_cast<uint32_t>(mapStyle));
   GetStyleReader().SetCurrentStyle(mapStyle);
 
   alohalytics::TStringMap details {{"mapStyle", strings::to_string(static_cast<int>(mapStyle))}};
@@ -1520,8 +1520,8 @@ void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
 
-  Settings::Units units = Settings::Metric;
-  Settings::Get(Settings::kMeasurementUnits, units);
+  settings::Units units = settings::Metric;
+  settings::Get(settings::kMeasurementUnits, units);
 
   m_routingSession.SetTurnNotificationsUnits(units);
 }
@@ -1961,7 +1961,7 @@ string Framework::GenerateApiBackUrl(ApiMarkPoint const & point) const
 bool Framework::IsDataVersionUpdated()
 {
   int64_t storedVersion;
-  if (Settings::Get("DataVersion", storedVersion))
+  if (settings::Get("DataVersion", storedVersion))
   {
     return storedVersion < m_storage.GetCurrentDataVersion();
   }
@@ -1971,7 +1971,7 @@ bool Framework::IsDataVersionUpdated()
 
 void Framework::UpdateSavedDataVersion()
 {
-  Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
+  settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
 
 int64_t Framework::GetCurrentDataVersion()
@@ -2237,13 +2237,13 @@ RouterType Framework::GetBestRouter(m2::PointD const & startPoint, m2::PointD co
 RouterType Framework::GetLastUsedRouter() const
 {
   string routerType;
-  Settings::Get(kRouterTypeKey, routerType);
+  settings::Get(kRouterTypeKey, routerType);
   return (routerType == routing::ToString(RouterType::Pedestrian) ? RouterType::Pedestrian : RouterType::Vehicle);
 }
 
 void Framework::SetLastUsedRouter(RouterType type)
 {
-  Settings::Set(kRouterTypeKey, routing::ToString(type));
+  settings::Set(kRouterTypeKey, routing::ToString(type));
 }
 
 void Framework::SetRouteStartPoint(m2::PointD const & pt, bool isValid)
@@ -2265,16 +2265,16 @@ void Framework::Allow3dMode(bool allow3d, bool allow3dBuildings)
 
 void Framework::Save3dMode(bool allow3d, bool allow3dBuildings)
 {
-  Settings::Set(kAllow3dKey, allow3d);
-  Settings::Set(kAllow3dBuildingsKey, allow3dBuildings);
+  settings::Set(kAllow3dKey, allow3d);
+  settings::Set(kAllow3dBuildingsKey, allow3dBuildings);
 }
 
 void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 {
-  if (!Settings::Get(kAllow3dKey, allow3d))
+  if (!settings::Get(kAllow3dKey, allow3d))
     allow3d = true;
 
-  if (!Settings::Get(kAllow3dBuildingsKey, allow3dBuildings))
+  if (!settings::Get(kAllow3dBuildingsKey, allow3dBuildings))
     allow3dBuildings = true;
 }
 

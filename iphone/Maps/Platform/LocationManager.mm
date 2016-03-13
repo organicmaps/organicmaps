@@ -233,7 +233,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
   if (self.isDaemonMode)
     return NO;
   bool on = false;
-  Settings::Get("CompassCalibrationEnabled", on);
+  settings::Get("CompassCalibrationEnabled", on);
   if (!on)
     return NO;
 
@@ -347,7 +347,7 @@ static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlw
 {
   using location::EMyPositionMode;
   EMyPositionMode mode;
-  if (!Settings::Get(Settings::kLocationStateMode, mode))
+  if (!settings::Get(settings::kLocationStateMode, mode))
     return true;
   return mode == EMyPositionMode::MODE_PENDING_POSITION || mode == EMyPositionMode::MODE_UNKNOWN_POSITION;
 }

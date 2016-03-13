@@ -13,7 +13,7 @@
 string Platform::UniqueClientId() const
 {
   string res;
-  if (!Settings::Get("UniqueClientID", res))
+  if (!settings::Get("UniqueClientID", res))
   {
     JNIEnv * env = jni::GetEnv();
     if (!env)
@@ -44,7 +44,7 @@ string Platform::UniqueClientId() const
 
     res = HashUniqueID(res);
 
-    Settings::Set("UniqueClientID", res);
+    settings::Set("UniqueClientID", res);
   }
 
   return res;
@@ -121,7 +121,7 @@ namespace android
     m_settingsDir = jni::ToNativeString(env, storagePath);
     m_tmpDir = jni::ToNativeString(env, tmpPath);
 
-    if (!Settings::Get("StoragePath", m_writableDir) || !HasAvailableSpaceForWriting(1024))
+    if (!settings::Get("StoragePath", m_writableDir) || !HasAvailableSpaceForWriting(1024))
     {
       LOG(LINFO, ("Could not read writable dir. Use primary storage."));
       m_writableDir = m_settingsDir;
@@ -170,7 +170,7 @@ namespace android
   void Platform::SetStoragePath(string const & path)
   {
     m_writableDir = path;
-    Settings::Set("StoragePath", m_writableDir);
+    settings::Set("StoragePath", m_writableDir);
   }
 
   bool Platform::HasAvailableSpaceForWriting(uint64_t size) const

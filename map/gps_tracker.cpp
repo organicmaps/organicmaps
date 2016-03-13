@@ -26,26 +26,26 @@ inline string GetFilePath()
 inline bool GetSettingsIsEnabled()
 {
   bool enabled = false;
-  Settings::Get(kEnabledKey, enabled);
+  settings::Get(kEnabledKey, enabled);
   return enabled;
 }
 
 inline void SetSettingsIsEnabled(bool enabled)
 {
-  Settings::Set(kEnabledKey, enabled);
+  settings::Set(kEnabledKey, enabled);
 }
 
 inline hours GetSettingsDuration()
 {
   uint32_t duration = kDefaultDurationHours;
-  Settings::Get(kDurationHours, duration);
+  settings::Get(kDurationHours, duration);
   return hours(duration);
 }
 
 inline void SetSettingsDuration(hours duration)
 {
   uint32_t const hours = duration.count();
-  Settings::Set(kDurationHours, hours);
+  settings::Set(kDurationHours, hours);
 }
 
 } // namespace

@@ -34,7 +34,7 @@ uint32_t constexpr kMinRequiredVersion = 160107;
 bool NeedMigrate()
 {
   uint32_t version;
-  if (!Settings::Get("LastMigration", version))
+  if (!settings::Get("LastMigration", version))
     return true;
 
   if (version >= kMinRequiredVersion)
@@ -45,7 +45,7 @@ bool NeedMigrate()
 
 void SetMigrationFlag()
 {
-  Settings::Set("LastMigration", kMinRequiredVersion);
+  settings::Set("LastMigration", kMinRequiredVersion);
 }
 }  // namespace migrate
 

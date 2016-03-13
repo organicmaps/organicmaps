@@ -40,7 +40,7 @@ namespace qt
     {
       QHBoxLayout * pLayout = new QHBoxLayout();
 
-      using namespace Settings;
+      using namespace settings;
 
       QRadioButton * p = new QRadioButton("Metric");
       pLayout->addWidget(p);
@@ -53,7 +53,7 @@ namespace qt
       radioBox->setLayout(pLayout);
 
       Units u;
-      if (!Settings::Get(Settings::kMeasurementUnits, u))
+      if (!settings::Get(settings::kMeasurementUnits, u))
       {
         // set default measurement from system locale
         if (QLocale::system().measurementSystem() == QLocale::MetricSystem)
@@ -92,7 +92,7 @@ namespace qt
 
   void PreferencesDialog::OnUnitsChanged(int i)
   {
-    using namespace Settings;
+    using namespace settings;
 
     Units u;
     switch (i)
@@ -101,6 +101,6 @@ namespace qt
     case 1: u = Foot; break;
     }
 
-    Settings::Set(kMeasurementUnits, u);
+    settings::Set(kMeasurementUnits, u);
   }
 }

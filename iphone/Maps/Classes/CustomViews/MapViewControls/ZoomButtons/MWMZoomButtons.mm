@@ -106,7 +106,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (BOOL)isZoomEnabled
 {
   bool zoomButtonsEnabled = true;
-  (void)Settings::Get("ZoomButtonsEnabled", zoomButtonsEnabled);
+  (void)settings::Get("ZoomButtonsEnabled", zoomButtonsEnabled);
   return zoomButtonsEnabled;
 }
 
