@@ -17,22 +17,18 @@
 #include "std/iostream.hpp"
 #include "std/sstream.hpp"
 
-#define FIRST_LAUNCH_KEY "FirstLaunchOnDate"
-
 namespace
 {
-char const DELIM_CHAR = '=';
-}
-
-char const * settings::kLocationStateMode = "LastLocationStateMode";
-char const * settings::kMeasurementUnits = "Units";
+constexpr char kDelimChar = '=';
+}  // namespace
 
 namespace settings
 {
+char const * kLocationStateMode = "LastLocationStateMode";
+char const * kMeasurementUnits = "Units";
+
 StringStorage::StringStorage()
 {
-  lock_guard<mutex> guard(m_mutex);
-
   try
   {
     string settingsPath = GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME);
@@ -41,13 +37,12 @@ StringStorage::StringStorage()
     istream stream(&buffer);
 
     string line;
-    while (stream.good())
+    while (getline(stream, line))
     {
-      std::getline(stream, line);
       if (line.empty())
         continue;
 
-      size_t const delimPos = line.find(DELIM_CHAR);
+      size_t const delimPos = line.find(kDelimChar);
       if (delimPos == string::npos)
         continue;
 
@@ -71,9 +66,9 @@ void StringStorage::Save() const
     for (auto const & value : m_values)
     {
       string line(value.first);
-      line += DELIM_CHAR;
+      line += kDelimChar;
       line += value.second;
-      line += "\n";
+      line += '\n';
       file.Write(line.data(), line.size());
     }
   }
@@ -151,9 +146,8 @@ bool FromStringArray(string const & s, T(&arr)[N])
 {
   istringstream in(s);
   size_t count = 0;
-  while (in.good() && count < N)
+  while (count < N && in >> arr[count])
   {
-    in >> arr[count];
     if (!std::isfinite(arr[count]))
       return false;
     ++count;
@@ -161,7 +155,7 @@ bool FromStringArray(string const & s, T(&arr)[N])
 
   return (!in.fail() && count == N);
 }
-}
+}  // namespace impl
 
 template <>
 string ToString<m2::AnyRectD>(m2::AnyRectD const & rect)
@@ -217,6 +211,7 @@ string ToString<bool>(bool const & v)
 {
   return v ? "true" : "false";
 }
+
 template <>
 bool FromString<bool>(string const & str, bool & v)
 {
@@ -244,7 +239,7 @@ template <typename T>
 bool FromStringScalar(string const & str, T & v)
 {
   istringstream stream(str);
-  if (stream.good())
+  if (stream)
   {
     stream >> v;
     return !stream.fail();
@@ -252,7 +247,7 @@ bool FromStringScalar(string const & str, T & v)
   else
     return false;
 }
-}
+}  // namespace impl
 
 template <>
 string ToString<double>(double const & v)
@@ -324,14 +319,15 @@ string ToStringPair(TPair const & value)
   stream << value.first << " " << value.second;
   return stream.str();
 }
+
 template <class TPair>
 bool FromStringPair(string const & str, TPair & value)
 {
   istringstream stream(str);
-  if (stream.good())
+  if (stream)
   {
     stream >> value.first;
-    if (stream.good())
+    if (stream)
     {
       stream >> value.second;
       return !stream.fail();
@@ -339,7 +335,7 @@ bool FromStringPair(string const & str, TPair & value)
   }
   return false;
 }
-}
+}  // namespace impl
 
 typedef pair<int, int> IPairT;
 typedef pair<double, double> DPairT;
@@ -349,6 +345,7 @@ string ToString<IPairT>(IPairT const & v)
 {
   return impl::ToStringPair(v);
 }
+
 template <>
 bool FromString<IPairT>(string const & s, IPairT & v)
 {
@@ -360,6 +357,7 @@ string ToString<DPairT>(DPairT const & v)
 {
   return impl::ToStringPair(v);
 }
+
 template <>
 bool FromString<DPairT>(string const & s, DPairT & v)
 {
@@ -424,13 +422,14 @@ bool FromString<location::EMyPositionMode>(string const & s, location::EMyPositi
 
 bool IsFirstLaunchForDate(int date)
 {
+  constexpr char const * kFirstLaunchKey = "FirstLaunchOnDate";
   int savedDate;
-  if (!Get(FIRST_LAUNCH_KEY, savedDate) || savedDate < date)
+  if (!Get(kFirstLaunchKey, savedDate) || savedDate < date)
   {
-    Set(FIRST_LAUNCH_KEY, date);
+    Set(kFirstLaunchKey, date);
     return true;
   }
   else
     return false;
 }
-}
+}  // namespace settings
