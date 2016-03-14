@@ -18,7 +18,9 @@ MwmContext::MwmContext(MwmSet::MwmHandle handle)
   , m_value(*m_handle.GetValue<MwmValue>())
   , m_vector(m_value.m_cont, m_value.GetHeader(), m_value.m_table)
   , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG), m_value.m_factory)
+  , m_houseToStreetTable(HouseToStreetTable::Load(m_value))
 {
+  ASSERT(m_houseToStreetTable, ());
 }
 
 bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const

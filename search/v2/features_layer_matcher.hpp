@@ -4,7 +4,6 @@
 #include "search/reverse_geocoder.hpp"
 #include "search/v2/features_layer.hpp"
 #include "search/v2/house_numbers_matcher.hpp"
-#include "search/v2/house_to_street_table.hpp"
 #include "search/v2/mwm_context.hpp"
 #include "search/v2/search_model.hpp"
 #include "search/v2/street_vicinity_loader.hpp"
@@ -355,8 +354,6 @@ private:
   // supports only one street for a building, whereas buildings can be
   // located on multiple streets.
   Cache<uint32_t, uint32_t> m_matchingStreetsCache;
-
-  unique_ptr<HouseToStreetTable> m_houseToStreetTable;
 
   StreetVicinityLoader m_loader;
   my::Cancellable const & m_cancellable;

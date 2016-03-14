@@ -1,10 +1,14 @@
 #pragma once
 
+#include "search/v2/house_to_street_table.hpp"
+
 #include "indexer/features_vector.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scale_index.hpp"
 
 #include "base/macros.hpp"
+
+#include "std/unique_ptr.hpp"
 
 class MwmValue;
 
@@ -25,6 +29,7 @@ struct MwmContext
   MwmValue & m_value;
   FeaturesVector m_vector;
   ScaleIndex<ModelReaderPtr> m_index;
+  unique_ptr<HouseToStreetTable> m_houseToStreetTable;
 
   inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   inline string const & GetName() const { return GetInfo()->GetCountryName(); }

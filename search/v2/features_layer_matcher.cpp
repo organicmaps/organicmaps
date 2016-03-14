@@ -1,6 +1,7 @@
 #include "search/v2/features_layer_matcher.hpp"
 
 #include "search/reverse_geocoder.hpp"
+#include "search/v2/house_to_street_table.hpp"
 
 #include "indexer/scales.hpp"
 
@@ -32,8 +33,6 @@ void FeaturesLayerMatcher::SetContext(MwmContext * context)
     return;
 
   m_context = context;
-  m_houseToStreetTable = HouseToStreetTable::Load(m_context->m_value);
-  ASSERT(m_houseToStreetTable, ());
   m_loader.SetContext(context);
 }
 
@@ -121,10 +120,10 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
     if (ret != streets.end())
       result = ret->m_id.m_index;
   }
-  else
+  else if (m_context->m_houseToStreetTable)
   {
     uint32_t index;
-    if (m_houseToStreetTable->Get(houseId, index) && index < streets.size())
+    if (m_context->m_houseToStreetTable->Get(houseId, index) && index < streets.size())
       result = streets[index].m_id.m_index;
   }
 
