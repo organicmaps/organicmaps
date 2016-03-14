@@ -28,11 +28,6 @@ string const kMapTestDir = "map-tests";
 
 string const kTestWebServer = "http://new-search.mapswithme.com/";
 
-void ProgressFunction(TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
-{
-  TEST_EQUAL(countryId, kCountryId, ());
-}
-
 void Update(LocalCountryFile const & localCountryFile)
 {
   TEST_EQUAL(localCountryFile.GetCountryName(), kCountryId, ());
@@ -54,6 +49,16 @@ UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
       // End wait for downloading complete.
       testing::StopEventLoop();
     }
+  };
+
+  auto ProgressFunction = [&storage](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
+  {
+    NodeAttrs nodeAttrs;
+    storage.GetNodeAttrs(countryId, nodeAttrs);
+
+    TEST_EQUAL(mapSize.first, nodeAttrs.m_downloadingProgress.first, (countryId));
+    TEST_EQUAL(mapSize.second, nodeAttrs.m_downloadingProgress.second, (countryId));
+    TEST_EQUAL(countryId, kCountryId, (countryId));
   };
 
   storage.Init(Update);
@@ -84,7 +89,6 @@ UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
 
   // Downloading to directory with Angola.mwm.
   storage.DownloadNode(kCountryId);
-  testing::RunEventLoop();
 
   TEST(platform.IsFileExistsByFullPath(mwmFullPath), ());
   TEST(!platform.IsFileExistsByFullPath(downloadingFullPath), ());

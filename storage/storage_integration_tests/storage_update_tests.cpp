@@ -26,11 +26,11 @@ string const kMapTestDir = "map-tests";
 
 string const kCountriesTxtFile = COUNTRIES_FILE;
 
-string const kMwmVersion1 = "160126";
-size_t const kCountriesTxtFileSize1 = 131201;
+string const kMwmVersion1 = "160224";
+size_t const kCountriesTxtFileSize1 = 143739;
 
-string const kMwmVersion2 = "160128";
-size_t const kCountriesTxtFileSize2 = 127870;
+string const kMwmVersion2 = "160313";
+size_t const kCountriesTxtFileSize2 = 193637;
 
 string const kGroupCountryId = "Belarus";
 
