@@ -1,4 +1,3 @@
-#import "MWMCuisineEditorTableViewCell.h"
 #import "MWMCuisineEditorViewController.h"
 #import "UIColor+MapsMeColor.h"
 
@@ -20,7 +19,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 }
 } // namespace
 
-@interface MWMCuisineEditorViewController ()<MWMCuisineEditorTableViewCellProtocol, UISearchBarDelegate>
+@interface MWMCuisineEditorViewController () <UISearchBarDelegate>
 {
   osm::TAllCuisines m_allCuisines;
   vector<string> m_selectedCuisines;
@@ -39,7 +38,6 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   [self configNavBar];
   [self configSearchBar];
   [self configData];
-  [self configTable];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -131,12 +129,6 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   m_selectedCuisines = [self.delegate getSelectedCuisines];
 }
 
-- (void)configTable
-{
-  [self.tableView registerNib:[UINib nibWithNibName:kCuisineEditorCell bundle:nil]
-       forCellReuseIdentifier:kCuisineEditorCell];
-}
-
 #pragma mark - Actions
 
 - (void)onCancel
@@ -154,17 +146,24 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 - (void)change:(string const &)key selected:(BOOL)selected
 {
+  string const translated {osm::Cuisines::Instance().Translate(key)};
   if (selected)
-    m_selectedCuisines.push_back(key);
+    m_selectedCuisines.push_back(translated);
   else
-    m_selectedCuisines.erase(find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key));
+    m_selectedCuisines.erase(find(m_selectedCuisines.begin(), m_selectedCuisines.end(), translated));
 }
 
 #pragma mark - UITableViewDataSource
 
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  return [tableView dequeueReusableCellWithIdentifier:kCuisineEditorCell];
+  UITableViewCell * cell = [self.tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
+  NSInteger const index = indexPath.row;
+  string const translated {osm::Cuisines::Instance().Translate(m_displayedKeys[index])};
+  BOOL const selected = find(m_selectedCuisines.begin(), m_selectedCuisines.end(), translated) != m_selectedCuisines.end();
+  cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+  cell.textLabel.text = @(translated.c_str());
+  return cell;
 }
 
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section
@@ -174,12 +173,13 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(MWMCuisineEditorTableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
-  NSInteger const index = indexPath.row;
-  string const & key = m_displayedKeys[index];
-  BOOL const selected = find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
-  [cell configWithDelegate:self key:key translation:osm::Cuisines::Instance().Translate(key) selected:selected];
+  UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+  [cell setSelected:NO animated:YES];
+  BOOL const isAlreadySelected = cell.accessoryType == UITableViewCellAccessoryCheckmark;
+  cell.accessoryType = isAlreadySelected ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+  [self change:m_displayedKeys[indexPath.row] selected:!isAlreadySelected];
 }
 
 @end

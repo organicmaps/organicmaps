@@ -1246,7 +1246,7 @@
         <scene sceneID="vQV-Ee-44C">
             <objects>
                 <tableViewController id="xZs-iI-22O" customClass="MWMCuisineEditorViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="SYG-xq-jrS">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="SYG-xq-jrS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -2828,5 +2828,6 @@ the world. Join us!</string>
         <segue reference="w48-2Y-VXA"/>
         <segue reference="Z0Z-aU-Vrq"/>
         <segue reference="Pet-Wq-d4a"/>
+        <segue reference="fuS-6s-TH4"/>
     </inferredMetricsTieBreakers>
 </document>
