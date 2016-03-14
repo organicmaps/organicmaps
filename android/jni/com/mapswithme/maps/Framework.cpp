@@ -995,7 +995,7 @@ Java_com_mapswithme_maps_Framework_nativeTurnChoosePositionMode(JNIEnv *, jclass
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeIsScreenCenterDownloaded(JNIEnv *, jclass clazz)
+Java_com_mapswithme_maps_Framework_nativeIsDownloadedMapAtScreenCenter(JNIEnv *, jclass clazz)
 {
   ::Framework * fr = frm();
   return storage::IsPointCoveredByDownloadedMaps(fr->GetViewportCenter(), fr->Storage(), fr->CountryInfoGetter());

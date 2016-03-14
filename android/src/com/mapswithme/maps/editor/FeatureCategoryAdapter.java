@@ -67,7 +67,7 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<FeatureCategory
     public void bind(int position)
     {
       name.setText(mCategories[position].name);
-      UiUtils.showIf(mSelectedCategory != null && mCategories[position].category == mSelectedCategory.category);
+      UiUtils.showIf(mSelectedCategory != null && mCategories[position].category == mSelectedCategory.category, selected);
     }
   }
 

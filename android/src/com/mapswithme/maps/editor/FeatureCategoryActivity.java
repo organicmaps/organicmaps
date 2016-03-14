@@ -16,7 +16,7 @@ public class FeatureCategoryActivity extends BaseToolbarActivity implements Feat
 
   private double[] mLatLon;
 
-  public static void pickFeatureCategory(MwmActivity parent, @Size(2) double[] rect)
+  public static void pick(MwmActivity parent, @Size(2) double[] rect)
   {
     final Intent intent = new Intent(parent, FeatureCategoryActivity.class);
     intent.putExtra(EXTRA_LAT_LON, rect);

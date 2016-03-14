@@ -266,6 +266,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetNewFeatureCategories(JNIEnv * en
   auto jCategories = env->NewObjectArray(size, g_featureCategoryClazz, 0);
   for (size_t i = 0; i < size; i++)
   {
+    // TODO pass used categories section, too
     jni::TScopedLocalRef jCategory(env, ToJavaFeatureCategory(env, printableTypes.m_allSorted[i]));
     env->SetObjectArrayElement(jCategories, i, jCategory.get());
   }

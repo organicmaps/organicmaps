@@ -198,6 +198,6 @@ public class Framework
 
   public static native void nativeTurnChoosePositionMode(boolean turnedOn);
 
-  public static native boolean nativeIsScreenCenterDownloaded();
+  public static native boolean nativeIsDownloadedMapAtScreenCenter();
 
 }
