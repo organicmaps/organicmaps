@@ -9,10 +9,13 @@ UNIT_TEST(OnlineCrossFetcherSmokeTest)
 {
   integration::IRouterComponents & routerComponents  = integration::GetOsrmComponents();
   TestOnlineFetcher({61.76, 34.45}, {45.07, 38.94},
-                    {"Russia_Republic of Karelia", "Russia_Leningradskaya Oblast_Southeast",
-                     "Russia_Novgorod Oblast", "Russia_Tver Oblast", "Russia_Moscow Oblast",
-                     "Russia_Moscow", "Russia_Tula Oblast", "Russia_Lipetsk Oblast",
-                     "Russia_Voronezh Oblast", "Russia_Rostov Oblast", "Russia_Krasnodar Krai"},
+                    {"Russia_Republic of Karelia_South", "Russia_Leningradskaya Oblast_Southeast",
+                     "Russia_Novgorod Oblast", "Russia_Tver Oblast", "Russia_Moscow Oblast_West",
+                     "Russia_Moscow", "Russia_Moscow Oblast_West", "Russia_Moscow" ,
+                     "Russia_Moscow Oblast_West", "Russia_Moscow", "Russia_Moscow Oblast_East",
+                     "Russia_Moscow", "Russia_Moscow Oblast_East", "Russia_Tula Oblast",
+                     "Russia_Lipetsk Oblast", "Russia_Voronezh Oblast", "Russia_Rostov Oblast",
+                     "Russia_Krasnodar Krai"},
                     routerComponents);
 }
 
@@ -20,10 +23,11 @@ UNIT_TEST(OnlineRussiaNorthToSouthTest)
 {
   integration::IRouterComponents & routerComponents  = integration::GetOsrmComponents();
   TestOnlineCrosses({61.76, 34.45}, {45.07, 38.94},
-                    {"Russia_Republic of Karelia", "Russia_Leningradskaya Oblast_Southeast",
-                     "Russia_Novgorod Oblast", "Russia_Tver Oblast", "Russia_Moscow Oblast",
-                     "Russia_Moscow", "Russia_Tula Oblast", "Russia_Lipetsk Oblast",
-                     "Russia_Voronezh Oblast", "Russia_Rostov Oblast", "Russia_Krasnodar Krai"},
+                    {"Russia_Republic of Karelia_South", "Russia_Leningradskaya Oblast_Southeast",
+                     "Russia_Novgorod Oblast", "Russia_Tver Oblast", "Russia_Moscow Oblast_East",
+                     "Russia_Moscow Oblast_West", "Russia_Moscow", "Russia_Tula Oblast",
+                     "Russia_Lipetsk Oblast", "Russia_Voronezh Oblast", "Russia_Rostov Oblast",
+                     "Russia_Krasnodar Krai"},
                     routerComponents);
 }
 
@@ -41,10 +45,10 @@ UNIT_TEST(OnlineEuropeTestNurnbergToMoscow)
       {"Germany_Free State of Bavaria_Middle Franconia",
        "Germany_Free State of Bavaria_Upper Franconia", "Germany_Saxony_Leipzig",
        "Germany_Saxony_Dresden", "Poland_Lower Silesian Voivodeship",
-       "Poland_Greater Poland Voivodeship", "Poland_Lodz Voivodeship",
-       "Poland_Masovian Voivodeship", "Belarus_Brest Region", "Poland_Podlaskie Voivodeship",
-       "Belarus_Hrodna Region", "Belarus_Minsk Region", "Belarus_Vitebsk Region",
-       "Russia_Smolensk Oblast", "Russia_Moscow Oblast", "Russia_Moscow"},
+       "Poland_Greater Poland Voivodeship", "Poland_Lodz Voivodeship", "Poland_Lublin Voivodeship",
+       "Poland_Masovian Voivodeship", "Belarus_Brest Region", "Belarus_Hrodna Region",
+       "Belarus_Minsk Region", "Belarus_Vitebsk Region", "Russia_Smolensk Oblast",
+       "Russia_Moscow Oblast_West", "Russia_Moscow"},
       routerComponents);
 }
 
@@ -70,7 +74,7 @@ UNIT_TEST(OnlineAustraliaCanberraToPerth)
   integration::IRouterComponents & routerComponents  = integration::GetOsrmComponents();
   TestOnlineCrosses({-33.88, 151.13}, {-31.974, 115.88},
                     {"Australia_New South Wales", "Australia_Victoria", "Australia_South Australia",
-                     "Australia_Western Australia"},
+                     "Australia_Western Australia", "Australia_Sydney"},
                     routerComponents);
 }
 }  // namespace

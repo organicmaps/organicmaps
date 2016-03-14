@@ -239,7 +239,7 @@ namespace
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
 
-    integration::TestRouteTime(route, 17450.);
+    integration::TestRouteTime(route, 17850.);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
