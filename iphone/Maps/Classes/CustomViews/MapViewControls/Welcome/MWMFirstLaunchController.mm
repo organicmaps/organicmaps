@@ -50,16 +50,12 @@ void requestNotifications()
 
 void zoomToCurrentPosition()
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
-    LocationManager * locationManager = MapsAppDelegate.theApp.m_locationManager;
-    if (![locationManager lastLocationIsValid])
-      return;
-    m2::PointD const centerPt = locationManager.lastLocation.mercator;
-    int const zoom = 13;
-    bool const isAnim = true;
-    GetFramework().GetDrapeEngine()->SetModelViewCenter(centerPt, zoom, isAnim);
-  });
+  LocationManager * locationManager = MapsAppDelegate.theApp.m_locationManager;
+  if (![locationManager lastLocationIsValid])
+    return;
+  m2::PointD const centerPt = locationManager.lastLocation.mercator;
+  int const zoom = 13;
+  GetFramework().SetViewportCenter(centerPt, zoom);
 }
 
 NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[

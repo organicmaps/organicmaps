@@ -35,7 +35,6 @@ DrapeEngine::DrapeEngine(Params && params)
   FrontendRenderer::Params frParams(make_ref(m_threadCommutator), params.m_factory,
                                     make_ref(m_textureManager), m_viewport,
                                     bind(&DrapeEngine::ModelViewChanged, this, _1),
-                                    params.m_model.GetIsCountryLoadedFn(),
                                     bind(&DrapeEngine::TapEvent, this, _1),
                                     bind(&DrapeEngine::UserPositionChanged, this, _1),
                                     bind(&DrapeEngine::MyPositionModeChanged, this, _1),
@@ -260,10 +259,10 @@ void DrapeEngine::SetGpsInfo(location::GpsInfo const & info, bool isNavigable, c
                                   MessagePriority::High);
 }
 
-void DrapeEngine::MyPositionNextMode()
+void DrapeEngine::MyPositionNextMode(int preferredZoomLevel)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_NEXT),
+                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_NEXT, preferredZoomLevel),
                                   MessagePriority::High);
 }
 

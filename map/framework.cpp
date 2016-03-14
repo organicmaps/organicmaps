@@ -201,9 +201,9 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
   CallDrapeFunction(bind(&df::DrapeEngine::SetCompassInfo, _1, rInfo));
 }
 
-void Framework::SwitchMyPositionNextMode()
+void Framework::SwitchMyPositionNextMode(int preferredZoomLevel)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::MyPositionNextMode, _1));
+  CallDrapeFunction(bind(&df::DrapeEngine::MyPositionNextMode, _1, preferredZoomLevel));
 }
 
 void Framework::InvalidateMyPosition()
@@ -824,18 +824,17 @@ m2::PointD const & Framework::GetViewportCenter() const
 
 void Framework::SetViewportCenter(m2::PointD const & pt)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, pt, -1, true));
+  SetViewportCenter(pt, -1);
+}
+
+void Framework::SetViewportCenter(m2::PointD const & pt, int zoomLevel)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, pt, zoomLevel, true));
 }
 
 m2::RectD Framework::GetCurrentViewport() const
 {
   return m_currentModelView.ClipRect();
-}
-
-void Framework::ShowRect(double lat, double lon, double zoom)
-{
-  m2::PointD center(MercatorBounds::FromLatLon(lat, lon));
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, zoom, true));
 }
 
 void Framework::ShowRect(m2::RectD const & rect, int maxScale)
@@ -1368,7 +1367,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     m_model.ReadFeatures(fn, ids);
   };
 
-  auto isCountryLoadedFn = bind(&Framework::IsCountryLoaded, this, _1);
   auto isCountryLoadedByNameFn = bind(&Framework::IsCountryLoadedByName, this, _1);
   auto updateCurrentCountryFn = bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
@@ -1379,8 +1377,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
                             df::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
-                            df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedFn,
-                                                isCountryLoadedByNameFn, updateCurrentCountryFn),
+                            df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedByNameFn, updateCurrentCountryFn),
                             params.m_visualScale, move(params.m_widgetsInitInfo),
                             make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
                             allow3dBuildings, params.m_isChoosePositionMode, params.m_isChoosePositionMode);

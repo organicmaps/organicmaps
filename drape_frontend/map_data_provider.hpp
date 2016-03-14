@@ -23,20 +23,17 @@ public:
 
   MapDataProvider(TReadIDsFn const & idsReader,
                   TReadFeaturesFn const & featureReader,
-                  TIsCountryLoadedFn const & isCountryLoadedFn,
                   TIsCountryLoadedByNameFn const & isCountryLoadedByNameFn,
                   TUpdateCurrentCountryFn const & updateCurrentCountryFn);
 
   void ReadFeaturesID(TReadCallback<FeatureID> const & fn, m2::RectD const & r, int scale) const;
   void ReadFeatures(TReadCallback<FeatureType> const & fn, vector<FeatureID> const & ids) const;
 
-  TIsCountryLoadedFn const & GetIsCountryLoadedFn() const;
   TUpdateCurrentCountryFn const & UpdateCurrentCountryFn() const;
 
 private:
   TReadFeaturesFn m_featureReader;
   TReadIDsFn m_idsReader;
-  TIsCountryLoadedFn m_isCountryLoaded;
   TUpdateCurrentCountryFn m_updateCurrentCountry;
 
 public:

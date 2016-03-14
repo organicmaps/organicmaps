@@ -260,7 +260,7 @@ public:
     virtual void OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim) = 0;
   };
 
-  UserEventStream(TIsCountryLoaded const & fn);
+  UserEventStream();
   void AddEvent(UserEvent const & event);
   ScreenBase const & ProcessEvents(bool & modelViewChange, bool & viewportChanged);
   ScreenBase const & GetCurrentScreen() const;
@@ -345,8 +345,6 @@ private:
   void ResetCurrentAnimation(bool finishAnimation = false);
 
 private:
-  TIsCountryLoaded m_isCountryLoaded;
-
   list<UserEvent> m_events;
   mutable mutex m_lock;
 

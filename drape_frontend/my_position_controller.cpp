@@ -98,6 +98,7 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode)
   , m_positionYOffset(POSITION_Y_OFFSET)
   , m_isVisible(false)
   , m_isDirtyViewport(false)
+  , m_isPositionAssigned(false)
 {
   if (initMode > location::MODE_UNKNOWN_POSITION)
     m_afterPendingMode = initMode;
@@ -211,11 +212,6 @@ void MyPositionController::ScaleEnded()
 void MyPositionController::SetRenderShape(drape_ptr<MyPosition> && shape)
 {
   m_shape = move(shape);
-}
-
-void MyPositionController::SetFixedZoom()
-{
-  SetModeInfo(SetModeBit(m_modeInfo, FixedZoomBit));
 }
 
 void MyPositionController::NextMode(int preferredZoomLevel)
@@ -357,11 +353,7 @@ void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldM
 {
   if (oldMode == location::MODE_PENDING_POSITION && newMode == location::MODE_FOLLOW)
   {
-    if (!TestModeBit(m_modeInfo, FixedZoomBit))
-    {
-      m2::PointD const size(m_errorRadius, m_errorRadius);
-      ChangeModelView(m2::RectD(m_position - size, m_position + size));
-    }
+    ChangeModelView(m_position, -1);
   }
   else if (oldMode == location::MODE_ROTATE_AND_FOLLOW &&
            (newMode == location::MODE_FOLLOW || newMode == location::MODE_UNKNOWN_POSITION))
@@ -406,11 +398,13 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
   if (m_listener)
     m_listener->PositionChanged(Position());
 
-  if (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut))
+  if (m_isPositionAssigned && (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut)))
   {
     CreateAnim(oldPos, oldAzimut, screen);
     m_isDirtyViewport = true;
   }
+
+  m_isPositionAssigned = true;
 }
 
 void MyPositionController::Assign(location::CompassInfo const & info, ScreenBase const & screen)
@@ -492,10 +486,10 @@ bool MyPositionController::StopCompassFollow()
   return true;
 }
 
-void MyPositionController::ChangeModelView(m2::PointD const & center)
+void MyPositionController::ChangeModelView(m2::PointD const & center, int zoomLevel)
 {
   if (m_listener)
-    m_listener->ChangeModelView(center);
+    m_listener->ChangeModelView(center, zoomLevel);
 }
 
 void MyPositionController::ChangeModelView(double azimuth)
@@ -521,7 +515,7 @@ void MyPositionController::Follow(int preferredZoomLevel)
 {
   location::EMyPositionMode currentMode = GetMode();
   if (currentMode == location::MODE_FOLLOW)
-    ChangeModelView(m_position);
+    ChangeModelView(m_position, preferredZoomLevel);
   else if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
     ChangeModelView(m_position, m_drawDirection, m_pixelPositionRaF, preferredZoomLevel);
 }

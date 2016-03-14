@@ -218,12 +218,12 @@ void Framework::ShowNode(TCountryId const & idx, bool zoomToDownloadButton)
   if (zoomToDownloadButton)
   {
     m2::RectD const rect = CalcLimitRect(idx, m_work.Storage(), m_work.CountryInfoGetter());
-    double const lon = MercatorBounds::XToLon(rect.Center().x);
-    double const lat = MercatorBounds::YToLat(rect.Center().y);
-    m_work.ShowRect(lat, lon, 10);
+    m_work.SetViewportCenter(rect.Center(), 10);
   }
   else
+  {
     m_work.ShowNode(idx);
+  }
 }
 
 void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer)

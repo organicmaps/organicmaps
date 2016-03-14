@@ -297,7 +297,7 @@ public:
   void OnLocationError(location::TLocationError error);
   void OnLocationUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
-  void SwitchMyPositionNextMode();
+  void SwitchMyPositionNextMode(int preferredZoomLevel = -1);
   void InvalidateMyPosition();
   /// Should be set before Drape initialization. Guarantees that fn is called in main thread context.
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
@@ -428,11 +428,10 @@ public:
 
   m2::PointD const & GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);
+  void SetViewportCenter(m2::PointD const & pt, int zoomLevel);
 
   m2::RectD GetCurrentViewport() const;
 
-  /// Show rect for point and needed draw scale.
-  void ShowRect(double lat, double lon, double zoom);
   /// - Check minimal visible scale according to downloaded countries.
   void ShowRect(m2::RectD const & rect, int maxScale = -1);
   void ShowRect(m2::AnyRectD const & rect);

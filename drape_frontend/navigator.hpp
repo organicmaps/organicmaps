@@ -94,9 +94,7 @@ m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect);
 void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale);
 void CheckMinGlobalRect(m2::RectD & rect);
 
-using TIsCountryLoaded = function<bool (m2::PointD const &)>;
-void CheckMinMaxVisibleScale(TIsCountryLoaded const & fn, m2::RectD & rect, int maxScale/* = -1*/,
-                             uint32_t tileSize, double visualScale);
-void CheckMinMaxVisibleScale(TIsCountryLoaded const & fn, m2::RectD & rect, int maxScale/* = -1*/);
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/, uint32_t tileSize, double visualScale);
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/);
 
 }

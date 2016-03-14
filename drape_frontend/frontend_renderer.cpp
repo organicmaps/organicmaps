@@ -120,7 +120,6 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_isIsometry(false)
   , m_blockTapEvents(params.m_blockTapEvents)
   , m_viewport(params.m_viewport)
-  , m_userEventStream(params.m_isCountryLoadedFn)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
   , m_tapEventInfoFn(params.m_tapEventFn)
   , m_userPositionChangedFn(params.m_positionChangedFn)
@@ -1523,9 +1522,9 @@ void FrontendRenderer::PositionChanged(m2::PointD const & position)
   m_userPositionChangedFn(position);
 }
 
-void FrontendRenderer::ChangeModelView(m2::PointD const & center)
+void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel)
 {
-  AddUserEvent(SetCenterEvent(center, -1, true));
+  AddUserEvent(SetCenterEvent(center, zoomLevel, true));
 }
 
 void FrontendRenderer::ChangeModelView(double azimuth)
@@ -1535,7 +1534,7 @@ void FrontendRenderer::ChangeModelView(double azimuth)
 
 void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
 {
-  AddUserEvent(SetRectEvent(rect, true, scales::GetUpperComfortScale(), true));
+  AddUserEvent(SetRectEvent(rect, true, -1, true));
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,

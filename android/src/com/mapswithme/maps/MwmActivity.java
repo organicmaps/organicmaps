@@ -713,6 +713,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
+  private void addTask(MapTask task)
+  {
+    mTasks.add(task);
+    if (MapFragment.nativeIsEngineCreated())
+      runTasks();
+  }
+
   @Override
   public void onLocationError(int errorCode)
   {
@@ -810,13 +817,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mSearchController.refreshToolbar();
 
-    if (!RoutingController.get().isNavigating())
-    {
-      if (!FirstStartFragment.showOn(this) &&
-          !NewsFragment.showOn(this))
-        LikesManager.INSTANCE.showDialogs(this);
-    }
-
     mMainMenu.onResume();
     mOnmapDownloader.onResume();
   }
@@ -866,6 +866,26 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResumeFragments()
   {
     super.onResumeFragments();
+
+    if (!RoutingController.get().isNavigating())
+    {
+      boolean isFirstStart = FirstStartFragment.showOn(this);
+      if (isFirstStart)
+      {
+        addTask(new MwmActivity.MapTask()
+        {
+          @Override
+          public boolean run(MwmActivity target)
+          {
+            LocationState.INSTANCE.switchToNextMode();
+            return false;
+          }
+        });
+      }
+      if (!isFirstStart && !NewsFragment.showOn(this))
+        LikesManager.INSTANCE.showDialogs(this);
+    }
+
     RoutingController.get().restore();
     mPlacePage.restore();
   }

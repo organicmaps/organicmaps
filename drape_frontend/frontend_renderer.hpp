@@ -64,7 +64,6 @@ class FrontendRenderer : public BaseRenderer
 {
 public:
   using TModelViewChanged = function<void (ScreenBase const & screen)>;
-  using TIsCountryLoaded = TIsCountryLoaded;
   using TTapEventInfoFn = function<void (TapInfo const &)>;
   using TUserPositionChangedFn = function<void (m2::PointD const & pt)>;
 
@@ -75,7 +74,6 @@ public:
            ref_ptr<dp::TextureManager> texMng,
            Viewport viewport,
            TModelViewChanged const & modelViewChangedFn,
-           TIsCountryLoaded const & isCountryLoaded,
            TTapEventInfoFn const & tapEventFn,
            TUserPositionChangedFn const & positionChangedFn,
            location::TMyPositionModeChanged myPositionModeCallback,
@@ -86,7 +84,6 @@ public:
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
-      , m_isCountryLoadedFn(isCountryLoaded)
       , m_tapEventFn(tapEventFn)
       , m_positionChangedFn(positionChangedFn)
       , m_myPositionModeCallback(myPositionModeCallback)
@@ -98,7 +95,6 @@ public:
 
     Viewport m_viewport;
     TModelViewChanged m_modelViewChangedFn;
-    TIsCountryLoaded m_isCountryLoadedFn;
     TTapEventInfoFn m_tapEventFn;
     TUserPositionChangedFn m_positionChangedFn;
     location::TMyPositionModeChanged m_myPositionModeCallback;
@@ -130,7 +126,7 @@ public:
 
   /// MyPositionController::Listener
   void PositionChanged(m2::PointD const & position) override;
-  void ChangeModelView(m2::PointD const & center) override;
+  void ChangeModelView(m2::PointD const & center, int zoomLevel) override;
   void ChangeModelView(double azimuth) override;
   void ChangeModelView(m2::RectD const & rect) override;
   void ChangeModelView(m2::PointD const & userPos, double azimuth,

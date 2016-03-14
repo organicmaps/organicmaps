@@ -95,7 +95,7 @@ public:
 
   void SetCompassInfo(location::CompassInfo const & info);
   void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo);
-  void MyPositionNextMode();
+  void MyPositionNextMode(int preferredZoomLevel = -1);
   void CancelMyPosition();
   void StopLocationFollow();
   void InvalidateMyPosition();

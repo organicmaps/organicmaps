@@ -745,7 +745,7 @@ ScreenBase CPUDrawer::CalculateScreen(m2::PointD const & center, int zoomModifie
   rect = df::GetRectForDrawScale(resultZoom, rect.Center(), tileSize, m_visualScale);
 
   df::CheckMinGlobalRect(rect, tileSize, m_visualScale);
-  df::CheckMinMaxVisibleScale([](m2::PointD const &){ return true; }, rect, -1, tileSize, m_visualScale);
+  df::CheckMinMaxVisibleScale(rect, -1, tileSize, m_visualScale);
   frameNavigator.SetFromRect(m2::AnyRectD(rect), tileSize, m_visualScale);
 
   return frameNavigator.Screen();

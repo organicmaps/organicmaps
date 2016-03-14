@@ -110,9 +110,8 @@ void TouchEvent::Swap()
   SetSecondMaskedPointer(swapIndex(GetSecondMaskedPointer()));
 }
 
-UserEventStream::UserEventStream(TIsCountryLoaded const & fn)
-  : m_isCountryLoaded(fn)
-  , m_state(STATE_EMPTY)
+UserEventStream::UserEventStream()
+  : m_state(STATE_EMPTY)
   , m_startDragOrg(m2::PointD::Zero())
 {
 }
@@ -384,7 +383,7 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
 
     localRect = df::GetRectForDrawScale(zoom, center);
     CheckMinGlobalRect(localRect);
-    CheckMinMaxVisibleScale(m_isCountryLoaded, localRect, zoom);
+    CheckMinMaxVisibleScale(localRect, zoom);
 
     localRect.Offset(-center);
     localRect.Scale(scale3d);
@@ -420,7 +419,7 @@ bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim)
 {
   CheckMinGlobalRect(rect);
-  CheckMinMaxVisibleScale(m_isCountryLoaded, rect, zoom);
+  CheckMinMaxVisibleScale(rect, zoom);
   m2::AnyRectD targetRect = applyRotation ? ToRotated(m_navigator, rect) : m2::AnyRectD(rect);
   return SetRect(targetRect, isAnim);
 }
@@ -447,9 +446,10 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimation
     m2::AnyRectD const startRect = GetCurrentRect();
     double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), rect.Angle().val());
     double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), rect.GlobalZero(), screen);
-    double const scaleDuration = ModelViewAnimation::GetScaleDuration(startRect.GetLocalRect().SizeX(),
-                                                                      rect.GetLocalRect().SizeX());
-    if (max(max(angleDuration, moveDuration), scaleDuration) < kMaxAnimationTimeSec)
+    double scaleDuration = ModelViewAnimation::GetScaleDuration(startRect.GetLocalRect().SizeX(), rect.GetLocalRect().SizeX());
+    if (scaleDuration > kMaxAnimationTimeSec)
+      scaleDuration = kMaxAnimationTimeSec;
+    if (max(max(angleDuration, moveDuration), scaleDuration) <= kMaxAnimationTimeSec)
     {
       ASSERT(animCreator != nullptr, ());
       animCreator(startRect, rect, angleDuration, moveDuration, scaleDuration);
@@ -473,7 +473,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     ScreenBase newScreen = GetCurrentScreen();
     m2::RectD r = df::GetRectForDrawScale(preferredZoomLevel, m2::PointD::Zero());
     CheckMinGlobalRect(r);
-    CheckMinMaxVisibleScale(m_isCountryLoaded, r, preferredZoomLevel);
+    CheckMinMaxVisibleScale(r, preferredZoomLevel);
     newScreen.SetFromRect(m2::AnyRectD(r));
     targetLocalRect = newScreen.GlobalRect().GetLocalRect();
   }
