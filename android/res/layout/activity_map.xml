@@ -15,6 +15,10 @@
     layout="@layout/onmap_downloader"/>
 
   <include
+    android:id="@+id/position_chooser"
+    layout="@layout/position_chooser"/>
+
+  <include
     android:id="@+id/navigation_buttons"
     layout="@layout/map_navigation_buttons"/>
 

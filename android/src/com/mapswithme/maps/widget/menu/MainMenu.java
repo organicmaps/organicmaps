@@ -138,6 +138,7 @@ public class MainMenu
   public enum Item
   {
     TOGGLE(R.id.toggle),
+    ADD_PLACE(R.id.add_place),
     SEARCH(R.id.search),
     P2P(R.id.p2p),
     BOOKMARKS(R.id.bookmarks),
@@ -270,7 +271,7 @@ public class MainMenu
 
   private void adjustCollapsedItems()
   {
-    for (View v: mCollapseViews)
+    for (View v : mCollapseViews)
     {
       UiUtils.showIf(!mCollapsed, v);
       v.setAlpha(mCollapsed ? 0.0f : 1.0f);
@@ -348,6 +349,7 @@ public class MainMenu
 
   private void init()
   {
+    mapItem(Item.ADD_PLACE);
     mapItem(Item.SEARCH);
     mapItem(Item.P2P);
     mapItem(Item.BOOKMARKS);

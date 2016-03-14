@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -86,26 +87,26 @@ import ru.mail.android.mytarget.nativeads.NativeAppwallAd;
 import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
 
 public class MwmActivity extends BaseMwmFragmentActivity
-                      implements LocationHelper.LocationListener,
-                                 MapObjectListener,
-                                 View.OnTouchListener,
-                                 BasePlacePageAnimationController.OnVisibilityChangedListener,
-                                 OnClickListener,
-                                 MapFragment.MapRenderingListener,
-                                 CustomNavigateUpListener,
-                                 ChooseBookmarkCategoryFragment.Listener,
-                                 RoutingController.Container
+    implements LocationHelper.LocationListener,
+               MapObjectListener,
+               View.OnTouchListener,
+               BasePlacePageAnimationController.OnVisibilityChangedListener,
+               OnClickListener,
+               MapFragment.MapRenderingListener,
+               CustomNavigateUpListener,
+               ChooseBookmarkCategoryFragment.Listener,
+               RoutingController.Container
 {
   public static final String EXTRA_TASK = "map_task";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
 
-  private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
-                                                     DownloaderFragment.class.getName(),
-                                                     MigrationFragment.class.getName(),
-                                                     RoutingPlanFragment.class.getName(),
-                                                     EditorHostFragment.class.getName(),
-                                                     AuthFragment.class.getName() };
+  private static final String[] DOCKED_FRAGMENTS = {SearchFragment.class.getName(),
+      DownloaderFragment.class.getName(),
+      MigrationFragment.class.getName(),
+      RoutingPlanFragment.class.getName(),
+      EditorHostFragment.class.getName(),
+      AuthFragment.class.getName()};
   // Instance state
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
@@ -131,6 +132,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private ImageButton mBtnZoomIn;
   private ImageButton mBtnZoomOut;
+
+  private View mPositionChooser;
 
   private boolean mIsFragmentContainer;
   private boolean mIsFullscreen;
@@ -173,7 +176,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static Intent createUpdateMapsIntent()
   {
     return new Intent(MwmApplication.get(), MwmActivity.class)
-        .putExtra(EXTRA_UPDATE_COUNTRIES, true);
+               .putExtra(EXTRA_UPDATE_COUNTRIES, true);
   }
 
   @Override
@@ -211,7 +214,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  : super.getFragmentContentResId());
   }
 
-  public @Nullable Fragment getFragment(Class<? extends Fragment> clazz)
+  public
+  @Nullable
+  Fragment getFragment(Class<? extends Fragment> clazz)
   {
     if (!mIsFragmentContainer)
       throw new IllegalStateException("Must be called for tablets only!");
@@ -354,6 +359,45 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().attach(this);
     initMenu();
     initOnmapDownloader();
+    initPositionChooser();
+  }
+
+  private void initPositionChooser()
+  {
+    mPositionChooser = findViewById(R.id.position_chooser);
+    final Toolbar toolbar = (Toolbar) mPositionChooser.findViewById(R.id.toolbar_position_chooser);
+    UiUtils.showHomeUpButton(toolbar);
+    toolbar.setNavigationOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        showPositionChooser(false);
+      }
+    });
+    mPositionChooser.findViewById(R.id.done).setOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        showPositionChooser(false);
+        if (Framework.nativeIsScreenCenterDownloaded())
+        {
+          // TODO create feature and display edit featureType dialog
+        }
+        else
+          //          UiUtils.showAlertDialog(getActivity(), R.string.message_invalid_feature_position);
+          UiUtils.showAlertDialog(getActivity(), R.string.invalid_username_or_password);
+      }
+    });
+    UiUtils.hide(mPositionChooser);
+  }
+
+  private void showPositionChooser(boolean show)
+  {
+    UiUtils.showIf(show, mPositionChooser);
+    setFullscreen(show);
+    Framework.nativeTurnChoosePositionMode(show);
   }
 
   private void initMap()
@@ -498,6 +542,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
           Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MENU);
           AlohaHelper.logClick(AlohaHelper.TOOLBAR_MENU);
           toggleMenu();
+          break;
+
+        case ADD_PLACE:
+          showPositionChooser(true);
           break;
 
         case SEARCH:
@@ -650,9 +698,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void addTask(Intent intent)
   {
     if (intent != null &&
-        !intent.getBooleanExtra(EXTRA_CONSUMED, false) &&
-        intent.hasExtra(EXTRA_TASK) &&
-        ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
+            !intent.getBooleanExtra(EXTRA_CONSUMED, false) &&
+            intent.hasExtra(EXTRA_TASK) &&
+            ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0))
     {
       final MapTask mapTask = (MapTask) intent.getSerializableExtra(EXTRA_TASK);
       mTasks.add(mapTask);
@@ -1013,7 +1061,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       object.setSubtitle(request.getCallerName(MwmApplication.get()).toString());
     }
     else if (MapObject.isOfType(MapObject.MY_POSITION, object) &&
-             Framework.nativeIsRoutingActive())
+                 Framework.nativeIsRoutingActive())
     {
       return;
     }
@@ -1033,7 +1081,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (switchFullScreenMode)
     {
       if ((mPanelAnimator != null && mPanelAnimator.isVisible()) ||
-          UiUtils.isVisible(mSearchController.getToolbar()))
+              UiUtils.isVisible(mSearchController.getToolbar()))
         return;
 
       setFullscreen(!mIsFullscreen);
@@ -1148,7 +1196,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public boolean onTouch(View view, MotionEvent event)
   {
     return mPlacePage.hideOnTouch() ||
-           mMapFragment.onTouch(view, event);
+               mMapFragment.onTouch(view, event);
   }
 
   @Override

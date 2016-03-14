@@ -6,6 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:gravity="bottom">
+
   <FrameLayout
     android:id="@+id/map_fragment_container"
     android:layout_width="match_parent"
@@ -14,6 +15,10 @@
   <include
     android:id="@+id/onmap_downloader"
     layout="@layout/onmap_downloader"/>
+
+  <include
+    android:id="@+id/position_chooser"
+    layout="@layout/position_chooser"/>
 
   <include
     android:id="@+id/navigation_buttons"
