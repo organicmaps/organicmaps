@@ -8227,11 +8227,6 @@
     nb = Bare kart
     fi = Vain kartta
 
-  [downloader_offer_disable_autodownload]
-    tags = ios, android
-    comment = Dialog offering to disable maps autodownload.
-    en = If you don't want maps to be automatically downloaded, this behavior can be turned off. Do it now?
-
   [toolbar_application_menu]
     tags = ios,android,tizen
     comment = Toolbar title
