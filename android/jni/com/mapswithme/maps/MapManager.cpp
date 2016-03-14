@@ -248,7 +248,8 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   env->SetIntField(item, countryItemFieldProgress, static_cast<jint>(attrs.m_downloadingProgress.first));
 }
 
-static void PutItemsToList(JNIEnv * env, jobject const list, TCountriesVec const & children, int category)
+static void PutItemsToList(JNIEnv * env, jobject const list, TCountriesVec const & children, int category,
+                           function<bool (TCountryId const & countryId, NodeAttrs const & attrs)> const & predicate)
 {
   static jmethodID const countryItemCtor = jni::GetConstructorID(env, g_countryItemClass, "(Ljava/lang/String;)V");
   static jfieldID const countryItemFieldCategory = env->GetFieldID(g_countryItemClass, "category", "I");
@@ -257,6 +258,9 @@ static void PutItemsToList(JNIEnv * env, jobject const list, TCountriesVec const
   for (TCountryId const & child : children)
   {
     GetStorage().GetNodeAttrs(child, attrs);
+
+    if (predicate && !predicate(child, attrs))
+      continue;
 
     jni::TScopedLocalRef const id(env, jni::ToJavaString(env, child));
     jni::TScopedLocalRef const item(env, env->NewObject(g_countryItemClass, countryItemCtor, id.get()));
@@ -283,14 +287,17 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   {
     TCountriesVec near;
     g_framework->NativeFramework()->CountryInfoGetter().GetRegionsCountryId(MercatorBounds::FromLatLon(lat, lon), near);
-    PutItemsToList(env, result, near, ItemCategory::NEAR_ME);
+    PutItemsToList(env, result, near, ItemCategory::NEAR_ME, [](TCountryId const & countryId, NodeAttrs const & attrs) -> bool
+    {
+      return !attrs.m_present;
+    });
   }
 
   TCountriesVec downloaded, available;
   storage.GetChildrenInGroups(parentId, downloaded, available);
 
-  PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED);
-  PutItemsToList(env, result, available, ItemCategory::AVAILABLE);
+  PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED, nullptr);
+  PutItemsToList(env, result, available, ItemCategory::AVAILABLE, nullptr);
 }
 
 // static void nativeUpdateItem(CountryItem item);
