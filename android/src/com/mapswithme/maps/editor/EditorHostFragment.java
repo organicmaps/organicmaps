@@ -2,6 +2,7 @@ package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
                              implements OnBackPressListener, View.OnClickListener
 {
   private static final String PREF_LAST_AUTH_DISPLAY_TIMESTAMP = "LastAuth";
+  private boolean mIsNewObject;
 
   enum Mode
   {
@@ -52,6 +54,17 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         onBackPressed();
       }
     });
+
+    if (getArguments() != null)
+      mIsNewObject = getArguments().getBoolean(EditorActivity.EXTRA_NEW_OBJECT, false);
+    mToolbarController.setTitle(getTitle());
+  }
+
+  @StringRes
+  private int getTitle()
+  {
+    // TODO return other resid for add place mode
+    return mIsNewObject ? R.string.edit_place : R.string.edit_place;
   }
 
   @Override
@@ -80,13 +93,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   protected void editMapObject()
   {
     mMode = Mode.MAP_OBJECT;
-    mToolbarController.setTitle(R.string.edit_place);
+    mToolbarController.setTitle(getTitle());
     final Fragment editorFragment = Fragment.instantiate(getActivity(), EditorFragment.class.getName());
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, editorFragment, EditorFragment.class.getName())
                              .commit();
   }
-
   protected void editTimetable()
   {
     temporaryStoreEdits();

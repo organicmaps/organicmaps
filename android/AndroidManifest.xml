@@ -249,6 +249,16 @@
         android:value="com.mapswithme.maps.settings.SettingsActivity"/>
     </activity>
 
+    <activity
+      android:name="com.mapswithme.maps.editor.FeatureCategoryActivity"
+      android:parentActivityName="com.mapswithme.maps.MwmActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.mapswithme.maps.settings.SettingsActivity"/>
+    </activity>
+
+
     <!-- facebook -->
     <activity
         android:name="com.facebook.FacebookActivity"

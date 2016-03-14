@@ -6,10 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.maps.bookmarks.data.MapObject;
 
 public class EditorActivity extends BaseMwmFragmentActivity
 {
+  public static final String EXTRA_NEW_OBJECT = "ExtraNewMapObject";
+
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {

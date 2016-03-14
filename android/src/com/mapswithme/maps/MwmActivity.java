@@ -46,6 +46,7 @@ import com.mapswithme.maps.editor.AuthFragment;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
+import com.mapswithme.maps.editor.FeatureCategoryActivity;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.news.FirstStartFragment;
@@ -382,9 +383,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         showPositionChooser(false);
         if (Framework.nativeIsScreenCenterDownloaded())
-        {
-          // TODO create feature and display edit featureType dialog
-        }
+          FeatureCategoryActivity.pickFeatureCategory(MwmActivity.this, Framework.nativeGetScreenRectCenter());
         else
           //          UiUtils.showAlertDialog(getActivity(), R.string.message_invalid_feature_position);
           UiUtils.showAlertDialog(getActivity(), R.string.invalid_username_or_password);
