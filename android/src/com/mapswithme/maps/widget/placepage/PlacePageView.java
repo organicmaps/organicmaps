@@ -574,7 +574,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (l != null)
     {
       mTvDistance.setVisibility(View.VISIBLE);
-      final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(
+      final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(
           mMapObject.getLat(), mMapObject.getLon(),
           l.getLatitude(), l.getLongitude(), 0.0);
       mTvDistance.setText(distanceAndAzimuth.getDistance());
@@ -633,9 +633,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (location == null)
       return;
 
-    final double azimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
-                                                                          location.getLatitude(), location.getLongitude(),
-                                                                          northAzimuth)
+    final double azimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
+                                                                           location.getLatitude(), location.getLongitude(),
+                                                                           northAzimuth)
                                     .getAzimuth();
     if (azimuth >= 0)
     {

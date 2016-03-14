@@ -43,6 +43,7 @@ namespace jni
   using TScopedLocalClassRef = ScopedLocalRef<jclass>;
   using TScopedLocalObjectArrayRef = ScopedLocalRef<jobjectArray>;
   using TScopedLocalIntArrayRef = ScopedLocalRef<jintArray>;
+  using TScopedLocalByteArrayRef = ScopedLocalRef<jbyteArray>;
 
   jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD const & point);
 

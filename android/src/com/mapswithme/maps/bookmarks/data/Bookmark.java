@@ -63,7 +63,7 @@ public class Bookmark extends MapObject
 
   public DistanceAndAzimut getDistanceAndAzimuth(double cLat, double cLon, double north)
   {
-    return Framework.nativeGetDistanceAndAzimut(mMerX, mMerY, cLat, cLon, north);
+    return Framework.nativeGetDistanceAndAzimuth(mMerX, mMerY, cLat, cLon, north);
   }
 
   private Icon getIconInternal()
