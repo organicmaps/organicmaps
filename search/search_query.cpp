@@ -567,24 +567,6 @@ void Query::SearchCoordinates(Results & res) const
 
 namespace
 {
-struct CompFactory2
-{
-  struct CompT
-  {
-    TCompareFunction2 m_fn;
-    explicit CompT(TCompareFunction2 fn) : m_fn(fn) {}
-    template <class T>
-    bool operator()(T const & r1, T const & r2) const
-    {
-      return m_fn(*r1, *r2);
-    }
-  };
-
-  static size_t const SIZE = 2;
-
-  CompT Get(size_t i) { return CompT(g_arrCompare2[i]); }
-};
-
 struct LessFeatureID
 {
   using ValueT = impl::PreResult1;
