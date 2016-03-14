@@ -191,4 +191,10 @@ public class Framework
   public static native MapObject nativeDeleteBookmarkFromMapObject();
 
   public static native void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
+
+
+  public static native void nativeTurnChoosePositionMode(boolean turnedOn);
+
+  public static native boolean nativeIsScreenCenterDownloaded();
+
 }

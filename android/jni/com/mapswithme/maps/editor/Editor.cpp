@@ -232,5 +232,5 @@ Java_com_mapswithme_maps_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
   ::Framework * frm = g_framework->NativeFramework();
   place_page::Info const & info = g_framework->GetPlacePageInfo();
   CHECK(frm->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
- }
+}
 } // extern "C"

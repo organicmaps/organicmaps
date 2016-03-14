@@ -985,4 +985,19 @@ extern "C"
     info.m_bac = MakeEmptyBookmarkAndCategory();
     return usermark_helper::CreateMapObject(env, info);
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeTurnChoosePositionMode(JNIEnv *, jclass clazz, jboolean turnOn)
+  {
+    ::Framework * fr = frm();
+    fr->EnableChoosePositionMode(turnOn);
+    fr->BlockTapEvents(turnOn);
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_Framework_nativeIsScreenCenterDownloaded(JNIEnv *, jclass clazz)
+  {
+    ::Framework * fr = frm();
+    return storage::IsPointCoveredByDownloadedMaps(fr->GetViewportCenter(), fr->Storage(), fr->CountryInfoGetter());
+  }
 } // extern "C"
