@@ -555,7 +555,8 @@ void Framework::RegisterAllMaps()
     {{"AvailableStorageSpace", strings::to_string(GetPlatform().GetWritableStorageSpace())},
       {"DownloadedMaps", listRegisteredMaps.str()}});
     Settings::Set(kLastDownloadedMapsCheck,
-                  duration_cast<seconds>(system_clock::now().time_since_epoch()).count());
+                  static_cast<uint64_t>(duration_cast<seconds>(
+                                          system_clock::now().time_since_epoch()).count()));
   }
 
   m_searchEngine->SetSupportOldFormat(minFormat < static_cast<int>(version::Format::v3));
@@ -1499,7 +1500,7 @@ void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::Gps
 void Framework::MarkMapStyle(MapStyle mapStyle)
 {
   // Store current map style before classificator reloading
-  Settings::Set(kMapStyleKey, static_cast<int>(mapStyle));
+  Settings::Set(kMapStyleKey, static_cast<uint32_t>(mapStyle));
   GetStyleReader().SetCurrentStyle(mapStyle);
 
   alohalytics::TStringMap details {{"mapStyle", strings::to_string(static_cast<int>(mapStyle))}};

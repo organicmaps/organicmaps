@@ -296,9 +296,21 @@ string ToString<uint32_t>(uint32_t const & v)
 }
 
 template <>
+string ToString<uint64_t>(uint64_t const & v)
+{
+  return impl::ToStringScalar<uint64_t>(v);
+}
+
+template <>
 bool FromString<uint32_t>(string const & str, uint32_t & v)
 {
   return impl::FromStringScalar<uint32_t>(str, v);
+}
+
+template <>
+bool FromString<uint64_t>(string const & str, uint64_t & v)
+{
+  return impl::FromStringScalar<uint64_t>(str, v);
 }
 
 namespace impl
