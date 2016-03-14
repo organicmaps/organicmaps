@@ -91,12 +91,16 @@ public:
   // TODO: Remove this method.
   feature::Metadata const & GetMetadata() const;
 
+  bool IsPointType() const;
+
 protected:
   FeatureID m_featureID;
   m2::PointD m_mercator;
   StringUtf8Multilang m_name;
   feature::TypesHolder m_types;
   feature::Metadata m_metadata;
+
+  feature::EGeomType m_geomType = feature::EGeomType::GEOM_UNDEFINED;
 };
 
 /// Helper to convert internal feature::Metadata::FMD_* enum into a users-visible one.

@@ -181,5 +181,5 @@ void EditableMapObject::SetOpeningHours(string const & openingHours)
   m_metadata.Set(feature::Metadata::FMD_OPEN_HOURS, openingHours);
 }
 
-//feature::Metadata const & EditableMapObject::GetMetadata() const { return m_metadata; }
+void EditableMapObject::SetPointType() { m_geomType = feature::EGeomType::GEOM_POINT; }
 }  // namespace osm

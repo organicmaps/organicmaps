@@ -68,15 +68,19 @@ void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
 
 void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
 {
-  uint8_t geoType = Header() & HEADER_GEOTYPE_MASK;
-  // Patching new, not initialized feature.
-  if (!m_bCommonParsed || feature::GEOM_POINT == GetFeatureType())
+  uint8_t geoType;
+  if (emo.IsPointType())
   {
+    // We are here for existing point features and for newly created point features.
     m_center = emo.GetMercator();
     m_limitRect.MakeEmpty();
     m_limitRect.Add(m_center);
     m_bPointsParsed = m_bTrianglesParsed = true;
     geoType = feature::GEOM_POINT;
+  }
+  else
+  {
+    geoType = Header() & HEADER_GEOTYPE_MASK;
   }
 
   m_params.name = emo.GetName();

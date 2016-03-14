@@ -368,8 +368,9 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
 {
   FeatureID const & fid = emo.GetID();
   FeatureTypeInfo fti;
+  bool const isCreated = IsCreatedFeature(fid);
   fti.m_feature.ReplaceBy(emo);
-  if (IsCreatedFeature(fid))
+  if (isCreated)
   {
     fti.m_status = FeatureStatus::Created;
   }
@@ -759,6 +760,8 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
   outFeature.SetID(GenerateNewFeatureId(id));
   outFeature.SetType(type);
   outFeature.SetEditableProperties(GetEditablePropertiesForTypes(outFeature.GetTypes()));
+  // Only point type features can be created at the moment.
+  outFeature.SetPointType();
   return true;
 }
 

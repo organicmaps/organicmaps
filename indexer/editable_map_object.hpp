@@ -90,6 +90,9 @@ public:
   void SetRawOSMCuisines(string const & cuisine);
   void SetOpeningHours(string const & openingHours);
 
+  /// Special mark that it's a point feature, not area or line.
+  void SetPointType();
+
 private:
   string m_houseNumber;
   string m_street;
