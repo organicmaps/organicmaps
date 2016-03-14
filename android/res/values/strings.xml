@@ -506,8 +506,6 @@
 	<string name="downloader_update_map_and_routing">Update Map + Routing</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">Map Only</string>
-	<!-- Dialog offering to disable maps autodownload. -->
-	<string name="downloader_offer_disable_autodownload">If you don\&#39;t want maps to be automatically downloaded, this behavior can be turned off. Do it now?</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Application menu</string>
 	<!-- Preference text -->
