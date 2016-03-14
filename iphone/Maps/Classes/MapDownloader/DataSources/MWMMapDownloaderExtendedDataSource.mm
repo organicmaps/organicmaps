@@ -9,8 +9,9 @@ using namespace storage;
 @interface MWMMapDownloaderDefaultDataSource ()
 
 @property (nonatomic, readonly) NSInteger downloadedCountrySection;
+@property (nonatomic, readwrite) BOOL needFullReload;
 
-- (void)reload;
+- (void)load;
 
 @end
 
@@ -21,27 +22,38 @@ using namespace storage;
 @property (nonatomic) NSInteger closestCountriesSection;
 @property (nonatomic, readonly) NSInteger closestCountriesSectionShift;
 
+@property (nonatomic) BOOL needReloadClosestCountriesSection;
+
 @end
 
 @implementation MWMMapDownloaderExtendedDataSource
 
-- (instancetype)initForRootCountryId:(storage::TCountryId)countryId delegate:(id<MWMMapDownloaderProtocol>)delegate
-{
-  self = [super initForRootCountryId:countryId delegate:delegate];
-  if (self)
-    [self configNearMeSection];
-  return self;
-}
-
 - (std::vector<NSInteger>)getReloadSections
 {
   std::vector<NSInteger> sections = [super getReloadSections];
-  if (self.haveClosestCountries)
-  {
-    for (auto & section : sections)
-      section += self.closestCountriesSectionShift;
-  }
+  if (!self.haveClosestCountries)
+    return sections;
+  for (auto & section : sections)
+    section += self.closestCountriesSectionShift;
+  if (self.needReloadClosestCountriesSection)
+    sections.push_back(self.closestCountriesSection);
   return sections;
+}
+
+- (void)load
+{
+  [super load];
+  [self configNearMeSection];
+}
+
+- (void)reload
+{
+  NSSet<NSString *> * closestCoutryIds = [NSSet setWithArray:self.closestCoutryIds];
+  [super reload];
+
+  self.needReloadClosestCountriesSection =
+      ![closestCoutryIds isEqualToSet:[NSSet setWithArray:self.closestCoutryIds]];
+  self.needFullReload |= self.needReloadClosestCountriesSection && self.closestCoutryIds.count == 0;
 }
 
 - (void)configNearMeSection
@@ -55,8 +67,14 @@ using namespace storage;
   TCountriesVec closestCoutryIds;
   countryInfoGetter.GetRegionsCountryId(lm.lastLocation.mercator, closestCoutryIds);
   NSMutableArray<NSString *> * nsClosestCoutryIds = [@[] mutableCopy];
+  auto const & s = GetFramework().Storage();
   for (auto const & countryId : closestCoutryIds)
-    [nsClosestCoutryIds addObject:@(countryId.c_str())];
+  {
+    NodeStatuses nodeStatuses{};
+    s.GetNodeStatuses(countryId, nodeStatuses);
+    if (nodeStatuses.m_status == NodeStatus::NotDownloaded)
+      [nsClosestCoutryIds addObject:@(countryId.c_str())];
+  }
   if (nsClosestCoutryIds.count != 0)
   {
     self.closestCoutryIds = nsClosestCoutryIds;
