@@ -89,6 +89,7 @@ string DebugPrint(NameScore score)
   case NAME_SCORE_SUBSTRING: return "Substring";
   case NAME_SCORE_FULL_MATCH_PREFIX: return "Full Match Prefix";
   case NAME_SCORE_FULL_MATCH: return "Full Match";
+  case NAME_SCORE_COUNT: return "Count";
   }
   return "Unknown";
 }
