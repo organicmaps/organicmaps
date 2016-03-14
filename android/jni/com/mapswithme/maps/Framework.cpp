@@ -446,558 +446,558 @@ bool Framework::PreMigrate(ms::LatLon const & position, Storage::TChangeCountryF
 
 extern "C"
 {
-  void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<storage::TCountryId> const & absentMaps)
+void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, vector<storage::TCountryId> const & absentMaps)
+{
+  JNIEnv * env = jni::GetEnv();
+  jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");
+  ASSERT(method, ());
+
+  jni::TScopedLocalObjectArrayRef const countries(env, env->NewObjectArray(absentMaps.size(), jni::GetStringClass(env), 0));
+  for (size_t i = 0; i < absentMaps.size(); i++)
+  {
+    jni::TScopedLocalRef id(env, jni::ToJavaString(env, absentMaps[i]));
+    env->SetObjectArrayElement(countries.get(), i, id.get());
+  }
+
+  env->CallVoidMethod(*listener, method, errorCode, countries.get());
+}
+
+void CallRouteProgressListener(shared_ptr<jobject> listener, float progress)
+{
+  JNIEnv * env = jni::GetEnv();
+  jmethodID const methodId = jni::GetMethodID(env, *listener, "onRouteBuildingProgress", "(F)V");
+  env->CallVoidMethod(*listener, methodId, progress);
+}
+
+/// @name JNI EXPORTS
+//@{
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+{
+  search::AddressInfo const info = frm()->GetAddressInfoAtPoint(MercatorBounds::FromLatLon(lat, lon));
+  return jni::ToJavaString(env, info.FormatNameAndAddress());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
+{
+  UserMarkControllerGuard guard(frm()->GetBookmarkManager(), UserMarkType::API_MARK);
+  guard.m_controller.Clear();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jclass clazz, jobject jListener)
+{
+  g_mapObjectListener = env->NewGlobalRef(jListener);
+  // void onMapObjectActivated(MapObject object);
+  jmethodID const activatedId = jni::GetMethodID(env, g_mapObjectListener, "onMapObjectActivated",
+                                              "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
+  // void onDismiss(boolean switchFullScreenMode);
+  jmethodID const dismissId = jni::GetMethodID(env, g_mapObjectListener, "onDismiss", "(Z)V");
+  frm()->SetMapSelectionListeners([activatedId](place_page::Info const & info)
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");
-    ASSERT(method, ());
-
-    jni::TScopedLocalObjectArrayRef const countries(env, env->NewObjectArray(absentMaps.size(), jni::GetStringClass(env), 0));
-    for (size_t i = 0; i < absentMaps.size(); i++)
-    {
-      jni::TScopedLocalRef id(env, jni::ToJavaString(env, absentMaps[i]));
-      env->SetObjectArrayElement(countries.get(), i, id.get());
-    }
-
-    env->CallVoidMethod(*listener, method, errorCode, countries.get());
-  }
-
-  void CallRouteProgressListener(shared_ptr<jobject> listener, float progress)
+    g_framework->SetPlacePageInfo(info);
+    jni::TScopedLocalRef mapObject(env, usermark_helper::CreateMapObject(env, info));
+    env->CallVoidMethod(g_mapObjectListener, activatedId, mapObject.get());
+  }, [dismissId](bool switchFullScreenMode)
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID const methodId = jni::GetMethodID(env, *listener, "onRouteBuildingProgress", "(F)V");
-    env->CallVoidMethod(*listener, methodId, progress);
+    g_framework->SetPlacePageInfo({});
+    env->CallVoidMethod(g_mapObjectListener, dismissId, switchFullScreenMode);
+  });
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeRemoveMapObjectListener(JNIEnv * env, jobject thiz)
+{
+  frm()->SetMapSelectionListeners({}, {});
+  env->DeleteGlobalRef(g_mapObjectListener);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetGe0Url(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
+{
+  ::Framework * fr = frm();
+  double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
+  const string url = fr->CodeGe0url(lat, lon, scale, jni::ToNativeString(env, name));
+  return jni::ToJavaString(env, url);
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimut(
+    JNIEnv * env, jclass clazz, jdouble merX, jdouble merY, jdouble cLat, jdouble cLon, jdouble north)
+{
+  string distance;
+  double azimut = -1.0;
+  frm()->GetDistanceAndAzimut(m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
+
+  static jclass const daClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/DistanceAndAzimut");
+  // Java signature : DistanceAndAzimut(String distance, double azimuth)
+  static jmethodID const methodID = env->GetMethodID(daClazz, "<init>", "(Ljava/lang/String;D)V");
+  ASSERT ( methodID, () );
+
+  return env->NewObject(daClazz, methodID,
+                        jni::ToJavaString(env, distance.c_str()),
+                        static_cast<jdouble>(azimut));
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimutFromLatLon(
+    JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble cLat, jdouble cLon, jdouble north)
+{
+  const double merY = MercatorBounds::LatToY(lat);
+  const double merX = MercatorBounds::LonToX(lon);
+  return Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimut(env, clazz, merX, merY, cLat, cLon, north);
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeFormatLatLon(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jboolean useDMSFormat)
+{
+  return jni::ToJavaString(env, (useDMSFormat ? MeasurementUtils::FormatLatLonAsDMS(lat, lon, 2)
+                                              : MeasurementUtils::FormatLatLon(lat, lon, 6)));
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeFormatLatLonToArr(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jboolean useDMSFormat)
+{
+  string slat, slon;
+  if (useDMSFormat)
+    MeasurementUtils::FormatLatLonAsDMS(lat, lon, slat, slon, 2);
+  else
+    MeasurementUtils::FormatLatLon(lat, lon, slat, slon, 6);
+
+  static jclass const klass = jni::GetGlobalClassRef(env, "java/lang/String");
+  jobjectArray arr = env->NewObjectArray(2, klass, 0);
+
+  env->SetObjectArrayElement(arr, 0, jni::ToJavaString(env, slat));
+  env->SetObjectArrayElement(arr, 1, jni::ToJavaString(env, slon));
+
+  return arr;
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeFormatAltitude(JNIEnv * env, jclass clazz, jdouble alt)
+{
+  return jni::ToJavaString(env,  MeasurementUtils::FormatAltitude(alt));
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeFormatSpeed(JNIEnv * env, jclass clazz, jdouble speed)
+{
+  return jni::ToJavaString(env,  MeasurementUtils::FormatSpeed(speed));
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env, jclass clazz)
+{
+  return jni::ToJavaString(env, g_framework->GetOutdatedCountriesString());
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsDataVersionChanged(JNIEnv * env, jclass clazz)
+{
+  return frm()->IsDataVersionUpdated() ? JNI_TRUE : JNI_FALSE;
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeUpdateSavedDataVersion(JNIEnv * env, jclass clazz)
+{
+  frm()->UpdateSavedDataVersion();
+}
+
+JNIEXPORT jlong JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetDataVersion(JNIEnv * env, jclass clazz)
+{
+  return frm()->GetCurrentDataVersion();
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetDrawScale(JNIEnv * env, jclass clazz)
+{
+  return static_cast<jint>(frm()->GetDrawScale());
+}
+
+JNIEXPORT jdoubleArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclass clazz)
+{
+  const m2::PointD center = frm()->GetViewportCenter();
+
+  double latlon[] = {MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x)};
+  jdoubleArray jLatLon = env->NewDoubleArray(2);
+  env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
+
+  return jLatLon;
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeShowTrackRect(JNIEnv * env, jclass clazz, jint cat, jint track)
+{
+  g_framework->ShowTrack(cat, track);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass thiz)
+{
+  return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetWritableDir(JNIEnv * env, jclass thiz)
+{
+  return jni::ToJavaString(env, GetPlatform().WritableDir().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetSettingsDir(JNIEnv * env, jclass thiz)
+{
+  return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclass thiz)
+{
+  jclass stringClass = jni::GetStringClass(env);
+
+  vector<string> exts = {DATA_FILE_EXTENSION, FONT_FILE_EXTENSION, ROUTING_FILE_EXTENSION};
+  platform::CountryIndexes::GetIndexesExts(exts);
+  jobjectArray resultArray = env->NewObjectArray(exts.size(), stringClass, NULL);
+
+  for (size_t i = 0; i < exts.size(); ++i)
+    env->SetObjectArrayElement(resultArray, i, jni::ToJavaString(env, exts[i]));
+
+  return resultArray;
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetBookmarksExt(JNIEnv * env, jclass thiz)
+{
+  return jni::ToJavaString(env, BOOKMARKS_FILE_EXTENSION);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetWritableDir(JNIEnv * env, jclass thiz, jstring jNewPath)
+{
+  string newPath = jni::ToNativeString(env, jNewPath);
+  g_framework->RemoveLocalMaps();
+  android::Platform::Instance().SetStoragePath(newPath);
+  g_framework->AddLocalMaps();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeLoadBookmarks(JNIEnv * env, jclass thiz)
+{
+  frm()->LoadBookmarks();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsRoutingActive(JNIEnv * env, jclass thiz)
+{
+  return frm()->IsRoutingActive();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsRouteBuilding(JNIEnv * env, jclass thiz)
+{
+  return frm()->IsRouteBuilding();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsRouteBuilt(JNIEnv * env, jclass thiz)
+{
+  return frm()->IsRouteBuilt();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeCloseRouting(JNIEnv * env, jclass thiz)
+{
+  frm()->CloseRouting();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass thiz, jdouble startLat,
+                                                    jdouble startLon,  jdouble finishLat,
+                                                    jdouble finishLon)
+{
+  frm()->BuildRoute(MercatorBounds::FromLatLon(startLat, startLon),
+                    MercatorBounds::FromLatLon(finishLat, finishLon), 0 /* timeoutSec */);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeFollowRoute(JNIEnv * env, jclass thiz)
+{
+  g_framework->PostDrapeTask([]()
+  {
+    frm()->FollowRoute();
+  });
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeDisableFollowing(JNIEnv * env, jclass thiz)
+{
+  frm()->DisableFollowMode();
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeGenerateTurnNotifications(JNIEnv * env, jclass thiz)
+{
+  ::Framework * fr = frm();
+  if (!fr->IsRoutingActive())
+    return nullptr;
+
+  vector<string> turnNotifications;
+  fr->GenerateTurnNotifications(turnNotifications);
+  if (turnNotifications.empty())
+    return nullptr;
+
+  // A new java array of Strings for TTS information is allocated here.
+  // Then it will be passed to client and then removed by java GC.
+  size_t const notificationsSize = turnNotifications.size();
+  jobjectArray jNotificationTexts = env->NewObjectArray(notificationsSize, jni::GetStringClass(env), nullptr);
+
+  for (size_t i = 0; i < notificationsSize; ++i)
+  {
+    jstring const jNotificationText = jni::ToJavaString(env, turnNotifications[i]);
+    env->SetObjectArrayElement(jNotificationTexts, i, jNotificationText);
+    env->DeleteLocalRef(jNotificationText);
   }
 
-  /// @name JNI EXPORTS
-  //@{
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetNameAndAddress(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
-  {
-    search::AddressInfo const info = frm()->GetAddressInfoAtPoint(MercatorBounds::FromLatLon(lat, lon));
-    return jni::ToJavaString(env, info.FormatNameAndAddress());
-  }
+  return jNotificationTexts;
+}
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
-  {
-    UserMarkControllerGuard guard(frm()->GetBookmarkManager(), UserMarkType::API_MARK);
-    guard.m_controller.Clear();
-  }
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass thiz)
+{
+  ::Framework * fr = frm();
+  if (!fr->IsRoutingActive())
+    return nullptr;
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetMapObjectListener(JNIEnv * env, jclass clazz, jobject jListener)
+  location::FollowingInfo info;
+  fr->GetRouteFollowingInfo(info);
+  if (!info.IsValid())
+    return nullptr;
+
+  static jclass const klass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/RoutingInfo");
+  // Java signature : RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String currentStreet, String nextStreet,
+  //                              double completionPercent, int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal,
+  //                              double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum, int totalTime, SingleLaneInfo[] lanes)
+  static jmethodID const ctorRouteInfoID =
+      env->GetMethodID(klass, "<init>",
+                       "(Ljava/lang/String;Ljava/lang/String;"
+                       "Ljava/lang/String;Ljava/lang/String;"
+                       "Ljava/lang/String;Ljava/lang/String;DIIIDDII"
+                       "[Lcom/mapswithme/maps/routing/SingleLaneInfo;)V");
+  ASSERT(ctorRouteInfoID, (jni::DescribeException()));
+
+  vector<location::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
+  jobjectArray jLanes = nullptr;
+  if (!lanes.empty())
   {
-    g_mapObjectListener = env->NewGlobalRef(jListener);
-    // void onMapObjectActivated(MapObject object);
-    jmethodID const activatedId = jni::GetMethodID(env, g_mapObjectListener, "onMapObjectActivated",
-                                                "(Lcom/mapswithme/maps/bookmarks/data/MapObject;)V");
-    // void onDismiss(boolean switchFullScreenMode);
-    jmethodID const dismissId = jni::GetMethodID(env, g_mapObjectListener, "onDismiss", "(Z)V");
-    frm()->SetMapSelectionListeners([activatedId](place_page::Info const & info)
+    static jclass const laneClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/SingleLaneInfo");
+    size_t const lanesSize = lanes.size();
+    jLanes = env->NewObjectArray(lanesSize, laneClass, nullptr);
+    ASSERT(jLanes, (jni::DescribeException()));
+    static jmethodID const ctorSingleLaneInfoID = env->GetMethodID(laneClass, "<init>", "([BZ)V");
+    ASSERT(ctorSingleLaneInfoID, (jni::DescribeException()));
+
+    jbyteArray singleLane = nullptr;
+    jobject singleLaneInfo = nullptr;
+
+    for (size_t j = 0; j < lanesSize; ++j)
     {
-      JNIEnv * env = jni::GetEnv();
-      g_framework->SetPlacePageInfo(info);
-      jni::TScopedLocalRef mapObject(env, usermark_helper::CreateMapObject(env, info));
-      env->CallVoidMethod(g_mapObjectListener, activatedId, mapObject.get());
-    }, [dismissId](bool switchFullScreenMode)
-    {
-      JNIEnv * env = jni::GetEnv();
-      g_framework->SetPlacePageInfo({});
-      env->CallVoidMethod(g_mapObjectListener, dismissId, switchFullScreenMode);
-    });
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeRemoveMapObjectListener(JNIEnv * env, jobject thiz)
-  {
-    frm()->SetMapSelectionListeners({}, {});
-    env->DeleteGlobalRef(g_mapObjectListener);
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetGe0Url(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
-  {
-    ::Framework * fr = frm();
-    double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
-    const string url = fr->CodeGe0url(lat, lon, scale, jni::ToNativeString(env, name));
-    return jni::ToJavaString(env, url);
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimut(
-      JNIEnv * env, jclass clazz, jdouble merX, jdouble merY, jdouble cLat, jdouble cLon, jdouble north)
-  {
-    string distance;
-    double azimut = -1.0;
-    frm()->GetDistanceAndAzimut(m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
-
-    static jclass const daClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/DistanceAndAzimut");
-    // Java signature : DistanceAndAzimut(String distance, double azimuth)
-    static jmethodID const methodID = env->GetMethodID(daClazz, "<init>", "(Ljava/lang/String;D)V");
-    ASSERT ( methodID, () );
-
-    return env->NewObject(daClazz, methodID,
-                          jni::ToJavaString(env, distance.c_str()),
-                          static_cast<jdouble>(azimut));
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimutFromLatLon(
-      JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble cLat, jdouble cLon, jdouble north)
-  {
-    const double merY = MercatorBounds::LatToY(lat);
-    const double merX = MercatorBounds::LonToX(lon);
-    return Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimut(env, clazz, merX, merY, cLat, cLon, north);
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeFormatLatLon(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jboolean useDMSFormat)
-  {
-    return jni::ToJavaString(env, (useDMSFormat ? MeasurementUtils::FormatLatLonAsDMS(lat, lon, 2)
-                                                : MeasurementUtils::FormatLatLon(lat, lon, 6)));
-  }
-
-  JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_Framework_nativeFormatLatLonToArr(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jboolean useDMSFormat)
-  {
-    string slat, slon;
-    if (useDMSFormat)
-      MeasurementUtils::FormatLatLonAsDMS(lat, lon, slat, slon, 2);
-    else
-      MeasurementUtils::FormatLatLon(lat, lon, slat, slon, 6);
-
-    static jclass const klass = jni::GetGlobalClassRef(env, "java/lang/String");
-    jobjectArray arr = env->NewObjectArray(2, klass, 0);
-
-    env->SetObjectArrayElement(arr, 0, jni::ToJavaString(env, slat));
-    env->SetObjectArrayElement(arr, 1, jni::ToJavaString(env, slon));
-
-    return arr;
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeFormatAltitude(JNIEnv * env, jclass clazz, jdouble alt)
-  {
-    return jni::ToJavaString(env,  MeasurementUtils::FormatAltitude(alt));
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeFormatSpeed(JNIEnv * env, jclass clazz, jdouble speed)
-  {
-    return jni::ToJavaString(env,  MeasurementUtils::FormatSpeed(speed));
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env, jclass clazz)
-  {
-    return jni::ToJavaString(env, g_framework->GetOutdatedCountriesString());
-  }
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_Framework_nativeIsDataVersionChanged(JNIEnv * env, jclass clazz)
-  {
-    return frm()->IsDataVersionUpdated() ? JNI_TRUE : JNI_FALSE;
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeUpdateSavedDataVersion(JNIEnv * env, jclass clazz)
-  {
-    frm()->UpdateSavedDataVersion();
-  }
-
-  JNIEXPORT jlong JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetDataVersion(JNIEnv * env, jclass clazz)
-  {
-    return frm()->GetCurrentDataVersion();
-  }
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetDrawScale(JNIEnv * env, jclass clazz)
-  {
-    return static_cast<jint>(frm()->GetDrawScale());
-  }
-
-  JNIEXPORT jdoubleArray JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclass clazz)
-  {
-    const m2::PointD center = frm()->GetViewportCenter();
-
-    double latlon[] = {MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x)};
-    jdoubleArray jLatLon = env->NewDoubleArray(2);
-    env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
-
-    return jLatLon;
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeShowTrackRect(JNIEnv * env, jclass clazz, jint cat, jint track)
-  {
-    g_framework->ShowTrack(cat, track);
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass thiz)
-  {
-    return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetWritableDir(JNIEnv * env, jclass thiz)
-  {
-    return jni::ToJavaString(env, GetPlatform().WritableDir().c_str());
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetSettingsDir(JNIEnv * env, jclass thiz)
-  {
-    return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
-  }
-
-  JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclass thiz)
-  {
-    jclass stringClass = jni::GetStringClass(env);
-
-    vector<string> exts = {DATA_FILE_EXTENSION, FONT_FILE_EXTENSION, ROUTING_FILE_EXTENSION};
-    platform::CountryIndexes::GetIndexesExts(exts);
-    jobjectArray resultArray = env->NewObjectArray(exts.size(), stringClass, NULL);
-
-    for (size_t i = 0; i < exts.size(); ++i)
-      env->SetObjectArrayElement(resultArray, i, jni::ToJavaString(env, exts[i]));
-
-    return resultArray;
-  }
-
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetBookmarksExt(JNIEnv * env, jclass thiz)
-  {
-    return jni::ToJavaString(env, BOOKMARKS_FILE_EXTENSION);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetWritableDir(JNIEnv * env, jclass thiz, jstring jNewPath)
-  {
-    string newPath = jni::ToNativeString(env, jNewPath);
-    g_framework->RemoveLocalMaps();
-    android::Platform::Instance().SetStoragePath(newPath);
-    g_framework->AddLocalMaps();
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeLoadBookmarks(JNIEnv * env, jclass thiz)
-  {
-    frm()->LoadBookmarks();
-  }
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_Framework_nativeIsRoutingActive(JNIEnv * env, jclass thiz)
-  {
-    return frm()->IsRoutingActive();
-  }
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_Framework_nativeIsRouteBuilding(JNIEnv * env, jclass thiz)
-  {
-    return frm()->IsRouteBuilding();
-  }
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_Framework_nativeIsRouteBuilt(JNIEnv * env, jclass thiz)
-  {
-    return frm()->IsRouteBuilt();
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeCloseRouting(JNIEnv * env, jclass thiz)
-  {
-    frm()->CloseRouting();
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass thiz, jdouble startLat,
-                                                      jdouble startLon,  jdouble finishLat,
-                                                      jdouble finishLon)
-  {
-    frm()->BuildRoute(MercatorBounds::FromLatLon(startLat, startLon),
-                      MercatorBounds::FromLatLon(finishLat, finishLon), 0 /* timeoutSec */);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeFollowRoute(JNIEnv * env, jclass thiz)
-  {
-    g_framework->PostDrapeTask([]()
-    {
-      frm()->FollowRoute();
-    });
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeDisableFollowing(JNIEnv * env, jclass thiz)
-  {
-    frm()->DisableFollowMode();
-  }
-
-  JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGenerateTurnNotifications(JNIEnv * env, jclass thiz)
-  {
-    ::Framework * fr = frm();
-    if (!fr->IsRoutingActive())
-      return nullptr;
-
-    vector<string> turnNotifications;
-    fr->GenerateTurnNotifications(turnNotifications);
-    if (turnNotifications.empty())
-      return nullptr;
-
-    // A new java array of Strings for TTS information is allocated here.
-    // Then it will be passed to client and then removed by java GC.
-    size_t const notificationsSize = turnNotifications.size();
-    jobjectArray jNotificationTexts = env->NewObjectArray(notificationsSize, jni::GetStringClass(env), nullptr);
-
-    for (size_t i = 0; i < notificationsSize; ++i)
-    {
-      jstring const jNotificationText = jni::ToJavaString(env, turnNotifications[i]);
-      env->SetObjectArrayElement(jNotificationTexts, i, jNotificationText);
-      env->DeleteLocalRef(jNotificationText);
+      size_t const laneSize = lanes[j].m_lane.size();
+      singleLane = env->NewByteArray(laneSize);
+      ASSERT(singleLane, (jni::DescribeException()));
+      env->SetByteArrayRegion(singleLane, 0, laneSize, lanes[j].m_lane.data());
+      singleLaneInfo = env->NewObject(laneClass, ctorSingleLaneInfoID, singleLane, lanes[j].m_isRecommended);
+      ASSERT(singleLaneInfo, (jni::DescribeException()));
+      env->SetObjectArrayElement(jLanes, j, singleLaneInfo);
+      env->DeleteLocalRef(singleLaneInfo);
+      env->DeleteLocalRef(singleLane);
     }
-
-    return jNotificationTexts;
   }
 
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass thiz)
+  jobject const result = env->NewObject(
+      klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
+      jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
+      jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
+      jni::ToJavaString(env, info.m_targetName), info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn,
+      info.m_pedestrianDirectionPos.lat, info.m_pedestrianDirectionPos.lon, info.m_exitNum, info.m_time, jLanes);
+  ASSERT(result, (jni::DescribeException()));
+  return result;
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jstring countryId, jboolean zoomToDownloadButton)
+{
+  g_framework->ShowNode(jni::ToNativeString(env, countryId), (bool) zoomToDownloadButton);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
+{
+  frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetRouteProgressListener(JNIEnv * env, jobject thiz, jobject listener)
+{
+  frm()->SetRouteProgressListener(bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeDeactivatePopup(JNIEnv * env, jobject thiz)
+{
+  return g_framework->DeactivatePopup();
+}
+
+JNIEXPORT jdoubleArray JNICALL
+Java_com_mapswithme_maps_Framework_nativePredictLocation(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon, jdouble accuracy,
+                                                   jdouble bearing, jdouble speed, jdouble elapsedSeconds)
+{
+  double latitude = lat;
+  double longitude = lon;
+  ::Framework::PredictLocation(lat, lon, accuracy, bearing, speed, elapsedSeconds);
+  double latlon[] = { lat, lon };
+  jdoubleArray jLatLon = env->NewDoubleArray(2);
+  env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
+
+  return jLatLon;
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetMapStyle(JNIEnv * env, jclass thiz, jint mapStyle)
+{
+  MapStyle const val = static_cast<MapStyle>(mapStyle);
+  if (val != g_framework->GetMapStyle())
+    g_framework->SetMapStyle(val);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeMarkMapStyle(JNIEnv * env, jclass thiz, jint mapStyle)
+{
+  MapStyle const val = static_cast<MapStyle>(mapStyle);
+  if (val != g_framework->GetMapStyle())
+    g_framework->MarkMapStyle(val);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetRouter(JNIEnv * env, jclass thiz, jint routerType)
+{
+  g_framework->SetRouter(static_cast<routing::RouterType>(routerType));
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetRouter(JNIEnv * env, jclass thiz)
+{
+  return static_cast<jint>(g_framework->GetRouter());
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetLastUsedRouter(JNIEnv * env, jclass thiz)
+{
+  return static_cast<jint>(g_framework->GetLastUsedRouter());
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass thiz, jdouble srcLat, jdouble srcLon, jdouble dstLat, jdouble dstLon)
+{
+  return static_cast<jint>(frm()->GetBestRouter(MercatorBounds::FromLatLon(srcLat, srcLon), MercatorBounds::FromLatLon(dstLat, dstLon)));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetRouteStartPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon, jboolean valid)
+{
+  frm()->SetRouteStartPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), static_cast<bool>(valid));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetRouteEndPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon, jboolean valid)
+{
+  frm()->SetRouteFinishPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), static_cast<bool>(valid));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeRegisterMaps(JNIEnv * env, jclass thiz)
+{
+  frm()->RegisterAllMaps();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeDeregisterMaps(JNIEnv * env, jclass thiz)
+{
+  frm()->DeregisterAllMaps();
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsDayTime(JNIEnv * env, jclass thiz, jlong utcTimeSeconds, jdouble lat, jdouble lon)
+{
+  DayTimeType const dt = GetDayTime(static_cast<time_t>(utcTimeSeconds), lat, lon);
+  return (dt == DayTimeType::Day || dt == DayTimeType::PolarDay);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSet3dMode(JNIEnv * env, jclass thiz, jboolean allow, jboolean allowBuildings)
+{
+  bool const allow3d = static_cast<bool>(allow);
+  bool const allow3dBuildings = static_cast<bool>(allowBuildings);
+
+  g_framework->Save3dMode(allow3d, allow3dBuildings);
+  g_framework->PostDrapeTask([allow3d, allow3dBuildings]()
   {
-    ::Framework * fr = frm();
-    if (!fr->IsRoutingActive())
-      return nullptr;
+    g_framework->Set3dMode(allow3d, allow3dBuildings);
+  });
+}
 
-    location::FollowingInfo info;
-    fr->GetRouteFollowingInfo(info);
-    if (!info.IsValid())
-      return nullptr;
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeGet3dMode(JNIEnv * env, jclass thiz, jobject result)
+{
+  bool enabled;
+  bool buildings;
+  g_framework->Get3dMode(enabled, buildings);
 
-    static jclass const klass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/RoutingInfo");
-    // Java signature : RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String currentStreet, String nextStreet,
-    //                              double completionPercent, int vehicleTurnOrdinal, int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal,
-    //                              double pedestrianDirectionLat, double pedestrianDirectionLon, int exitNum, int totalTime, SingleLaneInfo[] lanes)
-    static jmethodID const ctorRouteInfoID =
-        env->GetMethodID(klass, "<init>",
-                         "(Ljava/lang/String;Ljava/lang/String;"
-                         "Ljava/lang/String;Ljava/lang/String;"
-                         "Ljava/lang/String;Ljava/lang/String;DIIIDDII"
-                         "[Lcom/mapswithme/maps/routing/SingleLaneInfo;)V");
-    ASSERT(ctorRouteInfoID, (jni::DescribeException()));
+  jclass const resultClass = env->GetObjectClass(result);
 
-    vector<location::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
-    jobjectArray jLanes = nullptr;
-    if (!lanes.empty())
-    {
-      static jclass const laneClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/routing/SingleLaneInfo");
-      size_t const lanesSize = lanes.size();
-      jLanes = env->NewObjectArray(lanesSize, laneClass, nullptr);
-      ASSERT(jLanes, (jni::DescribeException()));
-      static jmethodID const ctorSingleLaneInfoID = env->GetMethodID(laneClass, "<init>", "([BZ)V");
-      ASSERT(ctorSingleLaneInfoID, (jni::DescribeException()));
+  static jfieldID const enabledField = env->GetFieldID(resultClass, "enabled", "Z");
+  env->SetBooleanField(result, enabledField, enabled);
 
-      jbyteArray singleLane = nullptr;
-      jobject singleLaneInfo = nullptr;
+  static jfieldID const buildingsField = env->GetFieldID(resultClass, "buildings", "Z");
+  env->SetBooleanField(result, buildingsField, buildings);
+}
 
-      for (size_t j = 0; j < lanesSize; ++j)
-      {
-        size_t const laneSize = lanes[j].m_lane.size();
-        singleLane = env->NewByteArray(laneSize);
-        ASSERT(singleLane, (jni::DescribeException()));
-        env->SetByteArrayRegion(singleLane, 0, laneSize, lanes[j].m_lane.data());
-        singleLaneInfo = env->NewObject(laneClass, ctorSingleLaneInfoID, singleLane, lanes[j].m_isRecommended);
-        ASSERT(singleLaneInfo, (jni::DescribeException()));
-        env->SetObjectArrayElement(jLanes, j, singleLaneInfo);
-        env->DeleteLocalRef(singleLaneInfo);
-        env->DeleteLocalRef(singleLane);
-      }
-    }
+// static void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeZoomToPoint(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jint zoom, jboolean animate)
+{
+  g_framework->Scale(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), zoom, animate);
+}
 
-    jobject const result = env->NewObject(
-        klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
-        jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
-        jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
-        jni::ToJavaString(env, info.m_targetName), info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn,
-        info.m_pedestrianDirectionPos.lat, info.m_pedestrianDirectionPos.lon, info.m_exitNum, info.m_time, jLanes);
-    ASSERT(result, (jni::DescribeException()));
-    return result;
-  }
+extern JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject, jint, jint);
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jstring countryId, jboolean zoomToDownloadButton)
-  {
-    g_framework->ShowNode(jni::ToNativeString(env, countryId), (bool) zoomToDownloadButton);
-  }
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass clazz)
+{
+  place_page::Info & info = g_framework->GetPlacePageInfo();
+  // TODO(yunikkk): Reuse already existing implementation. It probably can be done better.
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(nullptr, nullptr,
+      info.m_bac.first, info.m_bac.second);
+  info.m_bac = MakeEmptyBookmarkAndCategory();
+  return usermark_helper::CreateMapObject(env, info);
+}
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
-  {
-    frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2));
-  }
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeTurnChoosePositionMode(JNIEnv *, jclass clazz, jboolean turnOn)
+{
+  ::Framework * fr = frm();
+  fr->EnableChoosePositionMode(turnOn);
+  fr->BlockTapEvents(turnOn);
+}
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetRouteProgressListener(JNIEnv * env, jobject thiz, jobject listener)
-  {
-    frm()->SetRouteProgressListener(bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeDeactivatePopup(JNIEnv * env, jobject thiz)
-  {
-    return g_framework->DeactivatePopup();
-  }
-
-  JNIEXPORT jdoubleArray JNICALL
-  Java_com_mapswithme_maps_Framework_nativePredictLocation(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon, jdouble accuracy,
-                                                     jdouble bearing, jdouble speed, jdouble elapsedSeconds)
-  {
-    double latitude = lat;
-    double longitude = lon;
-    ::Framework::PredictLocation(lat, lon, accuracy, bearing, speed, elapsedSeconds);
-    double latlon[] = { lat, lon };
-    jdoubleArray jLatLon = env->NewDoubleArray(2);
-    env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
-
-    return jLatLon;
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetMapStyle(JNIEnv * env, jclass thiz, jint mapStyle)
-  {
-    MapStyle const val = static_cast<MapStyle>(mapStyle);
-    if (val != g_framework->GetMapStyle())
-      g_framework->SetMapStyle(val);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeMarkMapStyle(JNIEnv * env, jclass thiz, jint mapStyle)
-  {
-    MapStyle const val = static_cast<MapStyle>(mapStyle);
-    if (val != g_framework->GetMapStyle())
-      g_framework->MarkMapStyle(val);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetRouter(JNIEnv * env, jclass thiz, jint routerType)
-  {
-    g_framework->SetRouter(static_cast<routing::RouterType>(routerType));
-  }
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetRouter(JNIEnv * env, jclass thiz)
-  {
-    return static_cast<jint>(g_framework->GetRouter());
-  }
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetLastUsedRouter(JNIEnv * env, jclass thiz)
-  {
-    return static_cast<jint>(g_framework->GetLastUsedRouter());
-  }
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetBestRouter(JNIEnv * env, jclass thiz, jdouble srcLat, jdouble srcLon, jdouble dstLat, jdouble dstLon)
-  {
-    return static_cast<jint>(frm()->GetBestRouter(MercatorBounds::FromLatLon(srcLat, srcLon), MercatorBounds::FromLatLon(dstLat, dstLon)));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetRouteStartPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon, jboolean valid)
-  {
-    frm()->SetRouteStartPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), static_cast<bool>(valid));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetRouteEndPoint(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon, jboolean valid)
-  {
-    frm()->SetRouteFinishPoint(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), static_cast<bool>(valid));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeRegisterMaps(JNIEnv * env, jclass thiz)
-  {
-    frm()->RegisterAllMaps();
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeDeregisterMaps(JNIEnv * env, jclass thiz)
-  {
-    frm()->DeregisterAllMaps();
-  }
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_Framework_nativeIsDayTime(JNIEnv * env, jclass thiz, jlong utcTimeSeconds, jdouble lat, jdouble lon)
-  {
-    DayTimeType const dt = GetDayTime(static_cast<time_t>(utcTimeSeconds), lat, lon);
-    return (dt == DayTimeType::Day || dt == DayTimeType::PolarDay);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSet3dMode(JNIEnv * env, jclass thiz, jboolean allow, jboolean allowBuildings)
-  {
-    bool const allow3d = static_cast<bool>(allow);
-    bool const allow3dBuildings = static_cast<bool>(allowBuildings);
-
-    g_framework->Save3dMode(allow3d, allow3dBuildings);
-    g_framework->PostDrapeTask([allow3d, allow3dBuildings]()
-    {
-      g_framework->Set3dMode(allow3d, allow3dBuildings);
-    });
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGet3dMode(JNIEnv * env, jclass thiz, jobject result)
-  {
-    bool enabled;
-    bool buildings;
-    g_framework->Get3dMode(enabled, buildings);
-
-    jclass const resultClass = env->GetObjectClass(result);
-
-    static jfieldID const enabledField = env->GetFieldID(resultClass, "enabled", "Z");
-    env->SetBooleanField(result, enabledField, enabled);
-
-    static jfieldID const buildingsField = env->GetFieldID(resultClass, "buildings", "Z");
-    env->SetBooleanField(result, buildingsField, buildings);
-  }
-
-  // static void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeZoomToPoint(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jint zoom, jboolean animate)
-  {
-    g_framework->Scale(m2::PointD(MercatorBounds::FromLatLon(lat, lon)), zoom, animate);
-  }
-
-  extern JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject, jint, jint);
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass clazz)
-  {
-    place_page::Info & info = g_framework->GetPlacePageInfo();
-    // TODO(yunikkk): Reuse already existing implementation. It probably can be done better.
-    Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(nullptr, nullptr,
-        info.m_bac.first, info.m_bac.second);
-    info.m_bac = MakeEmptyBookmarkAndCategory();
-    return usermark_helper::CreateMapObject(env, info);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeTurnChoosePositionMode(JNIEnv *, jclass clazz, jboolean turnOn)
-  {
-    ::Framework * fr = frm();
-    fr->EnableChoosePositionMode(turnOn);
-    fr->BlockTapEvents(turnOn);
-  }
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_Framework_nativeIsScreenCenterDownloaded(JNIEnv *, jclass clazz)
-  {
-    ::Framework * fr = frm();
-    return storage::IsPointCoveredByDownloadedMaps(fr->GetViewportCenter(), fr->Storage(), fr->CountryInfoGetter());
-  }
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsScreenCenterDownloaded(JNIEnv *, jclass clazz)
+{
+  ::Framework * fr = frm();
+  return storage::IsPointCoveredByDownloadedMaps(fr->GetViewportCenter(), fr->Storage(), fr->CountryInfoGetter());
+}
 } // extern "C"
