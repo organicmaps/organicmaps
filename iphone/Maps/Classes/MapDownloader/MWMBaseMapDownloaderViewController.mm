@@ -49,6 +49,8 @@ NSString * const kCancelActionTitle = L(@"cancel");
 @property (nonatomic) NSMutableDictionary * offscreenCells;
 @property (nonatomic) NSMutableDictionary<NSIndexPath *, NSNumber *> * cellHeightCache;
 
+@property (nonatomic) BOOL skipCountryEventProcessing;
+
 @end
 
 using namespace storage;
@@ -64,7 +66,6 @@ using namespace storage;
   [self configNavBar];
   [self configTable];
   [self configAllMapsView];
-  [MWMFrameworkListener addObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -77,6 +78,12 @@ using namespace storage;
   [navBar setBackgroundImage:[UIImage imageWithColor:searchBarColor]
                forBarMetrics:UIBarMetricsDefault];
   navBar.shadowImage = [[UIImage alloc] init];
+  [MWMFrameworkListener addObserver:self];
+  if (self.dataSource.isParentRoot)
+  {
+    self.skipCountryEventProcessing = NO;
+    [self processCountryEvent:self.parentCountryId];
+  }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -85,6 +92,7 @@ using namespace storage;
   UINavigationBar * navBar = [UINavigationBar appearance];
   [navBar setBackgroundImage:self.navBarBackground forBarMetrics:UIBarMetricsDefault];
   navBar.shadowImage = self.navBarShadow;
+  [MWMFrameworkListener removeObserver:self];
 }
 
 - (void)configNavBar
@@ -101,6 +109,8 @@ using namespace storage;
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
+  if (self.skipCountryEventProcessing)
+    return;
   auto process = ^
   {
     [self configAllMapsView];
@@ -345,6 +355,7 @@ using namespace storage;
 
 - (IBAction)allMapsAction
 {
+  self.skipCountryEventProcessing = YES;
   if (self.parentCountryId == GetFramework().Storage().GetRootId())
   {
     [Statistics logEvent:kStatDownloaderMapAction
@@ -369,6 +380,8 @@ using namespace storage;
              alertController:self.alertController
                    onSuccess:nil];
   }
+  self.skipCountryEventProcessing = NO;
+  [self processCountryEvent:self.parentCountryId];
 }
 
 #pragma mark - UITableViewDelegate
