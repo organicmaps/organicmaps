@@ -12,6 +12,7 @@
 #include "geometry/point2d.hpp"
 
 #include "search/result.hpp"
+#include "search/search_quality/helpers.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 #include "search/v2/ranking_info.hpp"
@@ -44,8 +45,6 @@
 
 #include "defines.hpp"
 
-#include <sys/resource.h>
-
 #include "3party/gflags/src/gflags/gflags.h"
 
 using namespace search::tests_support;
@@ -71,9 +70,6 @@ map<string, m2::RectD> const kViewports = {
 string const kDefaultQueriesPathSuffix = "/../search/search_quality/search_quality_tool/queries.txt";
 string const kEmptyResult = "<empty>";
 
-// todo(@m) We should not need that much.
-size_t const kMaxOpenFiles = 4000;
-
 struct CompletenessQuery
 {
   string m_query;
@@ -85,16 +81,6 @@ struct CompletenessQuery
 };
 
 DECLARE_EXCEPTION(MalformedQueryException, RootException);
-
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
-void ChangeMaxNumberOfOpenFiles(size_t n)
-{
-  struct rlimit rlp;
-  getrlimit(RLIMIT_NOFILE, &rlp);
-  rlp.rlim_cur = n;
-  setrlimit(RLIMIT_NOFILE, &rlp);
-}
-#endif
 
 class SearchQueryV2Factory : public search::SearchQueryFactory
 {
@@ -356,9 +342,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
 
 int main(int argc, char * argv[])
 {
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
-  ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
-#endif
+  search::ChangeMaxNumberOfOpenFiles(search::kMaxOpenFiles);
 
   ios_base::sync_with_stdio(false);
   Platform & platform = GetPlatform();

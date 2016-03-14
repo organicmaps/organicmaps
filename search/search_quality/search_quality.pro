@@ -11,7 +11,9 @@ include($$ROOT_DIR/common.pri)
 INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
 HEADERS += \
+    helpers.hpp \
     sample.hpp \
 
 SOURCES += \
+    helpers.cpp \
     sample.cpp \

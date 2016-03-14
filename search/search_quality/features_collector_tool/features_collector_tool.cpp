@@ -1,4 +1,5 @@
 #include "search/result.hpp"
+#include "search/search_quality/helpers.hpp"
 #include "search/search_quality/sample.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
@@ -22,8 +23,8 @@
 
 #include "3party/gflags/src/gflags/gflags.h"
 
-using namespace search;
 using namespace search::tests_support;
+using namespace search;
 
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
@@ -105,6 +106,8 @@ void SetRelevanceValues(Context & context, vector<Sample::Result> const & golden
 
 int main(int argc, char * argv[])
 {
+  ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
+
   google::SetUsageMessage("Features collector tool.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
