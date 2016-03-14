@@ -1,3 +1,4 @@
+#import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMCuisineEditorViewController.h"
 #import "MWMEditorCategoryCell.h"
@@ -158,17 +159,18 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
   switch (f.SaveEditedMapObject(m_mapObject))
   {
     case osm::Editor::NothingWasChanged:
+      [self.navigationController popToRootViewControllerAnimated:YES];
       break;
     case osm::Editor::SavedSuccessfully:
       [[Statistics instance] logEvent:kStatEventName(kStatEdit, kStatSave)];
       osm_auth_ios::AuthorizationSetNeedCheck(YES);
       f.UpdatePlacePageInfoForCurrentSelection();
+      [self.navigationController popToRootViewControllerAnimated:YES];
       break;
     case osm::Editor::NoFreeSpaceError:
-      // TODO(Vlad): Show error dialog.
+      [self.alertController presentDownloaderNotEnoughSpaceAlert];
       break;
   }
-  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - Offscreen cells
