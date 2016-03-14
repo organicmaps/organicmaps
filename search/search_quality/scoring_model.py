@@ -94,7 +94,7 @@ def transform_data(data):
         relevances = np.array(data.ix[indices]['Relevance'])
 
         n, total = len(indices), 0
-        for k, (i, j) in enumerate(itertools.combinations(range(n), 2)):
+        for _, (i, j) in enumerate(itertools.combinations(range(n), 2)):
             y = np.sign(relevances[j] - relevances[i])
             if y == 0:
                 continue
@@ -118,7 +118,7 @@ def main(args):
     clf = svm.LinearSVC(random_state=args.seed)
     cv = cross_validation.KFold(len(y), n_folds=5, shuffle=True, random_state=args.seed)
 
-    # Let's find regularizer by a grid search.
+    # "C" stands for the regularizer constant.
     grid = {'C': np.power(10.0, np.arange(-5, 6))}
     gs = grid_search.GridSearchCV(clf, grid, scoring='accuracy', cv=cv)
     gs.fit(x, y)
