@@ -91,7 +91,7 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   } copy],
   [^(MWMFirstLaunchController * controller)
   {
-    controller.image.image = [UIImage imageNamed:@"ic_placeholder"];
+    controller.image.image = [UIImage imageNamed:@"img_onboarding_done"];
     controller.alertTitle.text = L(@"first_launch_congrats_title");
     controller.alertText.text = L(@"first_launch_congrats_text");
     [controller.nextPageButton setTitle:L(@"done") forState:UIControlStateNormal];
