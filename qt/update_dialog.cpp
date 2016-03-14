@@ -183,6 +183,7 @@ namespace qt
 
     case NodeStatus::NotDownloaded:
     case NodeStatus::Error:
+    case NodeStatus::Partly:
       st.DownloadNode(countryId);
       break;
 
