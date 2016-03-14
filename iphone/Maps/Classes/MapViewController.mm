@@ -655,11 +655,11 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
-  storage::NodeAttrs nodeAttrs;
-  GetFramework().Storage().GetNodeAttrs(countryId, nodeAttrs);
-  if (nodeAttrs.m_status != NodeStatus::Error)
+  NodeStatuses nodeStatuses{};
+  GetFramework().Storage().GetNodeStatuses(countryId, nodeStatuses);
+  if (nodeStatuses.m_status != NodeStatus::Error)
     return;
-  switch (nodeAttrs.m_error)
+  switch (nodeStatuses.m_error)
   {
     case NodeErrorCode::NoError:
       break;

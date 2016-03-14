@@ -203,9 +203,9 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 {
   using namespace storage;
   [self updateTopController];
-  NodeAttrs attrs;
-  GetFramework().Storage().GetNodeAttrs(countryId, attrs);
-  if (attrs.m_status == NodeStatus::Error)
+  NodeStatuses nodeStatuses{};
+  GetFramework().Storage().GetNodeStatuses(countryId, nodeStatuses);
+  if (nodeStatuses.m_status == NodeStatus::Error)
     [self.downloadController setDownloadFailed];
   if (self.state == MWMSearchManagerStateTableSearch || self.state == MWMSearchManagerStateMapSearch)
   {

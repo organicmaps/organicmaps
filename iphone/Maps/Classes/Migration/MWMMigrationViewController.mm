@@ -76,16 +76,16 @@ using namespace storage;
       return;
     auto & f = GetFramework();
     auto s = f.Storage().GetPrefetchStorage();
-    NodeAttrs nodeAttrs;
-    s->GetNodeAttrs(countryId, nodeAttrs);
-    switch (nodeAttrs.m_status)
+    NodeStatuses nodeStatuses{};
+    s->GetNodeStatuses(countryId, nodeStatuses);
+    switch (nodeStatuses.m_status)
     {
       case NodeStatus::OnDisk:
         migrate();
         break;
       case NodeStatus::Undefined:
       case NodeStatus::Error:
-        [self showError:nodeAttrs.m_error countryId:countryId]; break;
+        [self showError:nodeStatuses.m_error countryId:countryId]; break;
       default:
         break;
     }
