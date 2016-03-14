@@ -390,7 +390,6 @@ NSString * const kReportSegue = @"Map2ReportSegue";
     return;
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
-  self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
 }
 
 - (void)mwm_refreshUI
