@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.Size;
 
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -59,6 +60,7 @@ public class Framework
 
   public static native int nativeGetDrawScale();
 
+  @Size(2)
   public static native double[] nativeGetScreenRectCenter();
 
   public static native DistanceAndAzimut nativeGetDistanceAndAzimut(double dstMerX, double dstMerY, double srcLat, double srcLon, double north);
@@ -67,6 +69,7 @@ public class Framework
 
   public static native String nativeFormatLatLon(double lat, double lon, boolean useDmsFormat);
 
+  @Size(2)
   public static native String[] nativeFormatLatLonToArr(double lat, double lon, boolean useDmsFormat);
 
   public static native String nativeFormatAltitude(double alt);

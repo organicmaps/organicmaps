@@ -16,11 +16,27 @@
 namespace
 {
 osm::EditableMapObject g_editableMapObject;
+
+jclass g_featureCategoryClazz;
+jmethodID g_featureCtor;
+
+jobject ToJavaFeatureCategory(JNIEnv * env, osm::Category const & category)
+{
+  return env->NewObject(g_featureCategoryClazz, g_featureCtor, category.m_type, jni::TScopedLocalRef(env, jni::ToJavaString(env, category.m_name)).get());
+}
 }  // namespace
 
 extern "C"
 {
 using osm::Editor;
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeInit(JNIEnv * env, jclass)
+{
+  g_featureCategoryClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/FeatureCategory");;
+  // public FeatureCategory(int category, String name)
+  g_featureCtor = jni::GetConstructorID(env, g_featureCategoryClazz, "(ILjava/lang/String;)V");
+}
 
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetMetadata(JNIEnv * env, jclass, jint type)
@@ -232,5 +248,28 @@ Java_com_mapswithme_maps_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
   ::Framework * frm = g_framework->NativeFramework();
   place_page::Info const & info = g_framework->GetPlacePageInfo();
   CHECK(frm->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv *, jclass, jint featureCategory, jdouble lat, jdouble lon)
+{
+  ::Framework * frm = g_framework->NativeFramework();
+  CHECK(frm->CreateMapObject(MercatorBounds::FromLatLon(lat, lon), featureCategory, g_editableMapObject),
+        ("Couldn't create mapobject, wrong coordinates of missing mwm"));
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetNewFeatureCategories(JNIEnv * env, jclass clazz)
+{
+  osm::NewFeatureCategories const & printableTypes = g_framework->NativeFramework()->GetEditorCategories();
+  int const size = printableTypes.m_allSorted.size();
+  auto jCategories = env->NewObjectArray(size, g_featureCategoryClazz, 0);
+  for (size_t i = 0; i < size; i++)
+  {
+    jni::TScopedLocalRef jCategory(env, ToJavaFeatureCategory(env, printableTypes.m_allSorted[i]));
+    env->SetObjectArrayElement(jCategories, i, jCategory.get());
+  }
+
+  return jCategories;
 }
 } // extern "C"
