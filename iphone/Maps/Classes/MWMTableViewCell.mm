@@ -21,6 +21,8 @@
 
 - (void)configure
 {
+  self.backgroundColor = [UIColor white];
+  self.textLabel.textColor = [UIColor blackPrimaryText];
   self.selectedBackgroundView = [[UIView alloc] init];
   self.selectedBackgroundView.backgroundColor = [UIColor pressBackground];
 }

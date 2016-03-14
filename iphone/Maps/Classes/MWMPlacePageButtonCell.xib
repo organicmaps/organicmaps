@@ -45,6 +45,7 @@
                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                 </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>

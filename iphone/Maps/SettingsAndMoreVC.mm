@@ -10,7 +10,6 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
 
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -128,14 +127,10 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
   if (!cell) // iOS 5
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[UITableViewCell className]];
 
-  cell.backgroundColor = [UIColor white];
   NSString * osmUserName = osm_auth_ios::OSMUserName();
   cell.textLabel.text = [item[@"Id"] isEqualToString:@"Authorization"] && osmUserName ? osmUserName : item[@"Title"];
   cell.imageView.image = [UIImage imageNamed:item[@"Icon"]];
   cell.imageView.mwm_coloring = MWMImageColoringBlack;
-  cell.textLabel.textColor = [UIColor blackPrimaryText];
-  cell.textLabel.backgroundColor = [UIColor clearColor];
-
   return cell;
 }
 

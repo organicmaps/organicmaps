@@ -115,8 +115,6 @@ namespace
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
-  cell.textLabel.textColor = [UIColor blackPrimaryText];
-  cell.backgroundColor = [UIColor white];
   cell.textLabel.text = @([self dataSourceForSection:indexPath.section][indexPath.row].m_name.c_str());
   if ([indexPath isEqual:self.selectedIndexPath])
     cell.accessoryType = UITableViewCellAccessoryCheckmark;

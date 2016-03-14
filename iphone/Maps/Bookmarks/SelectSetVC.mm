@@ -3,7 +3,6 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 #import "SelectSetVC.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 
 #include "Framework.h"
@@ -94,8 +93,6 @@
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
   }
-  cell.backgroundColor = [UIColor white];
-  cell.textLabel.textColor = [UIColor blackPrimaryText];
   return cell;
 }
 
