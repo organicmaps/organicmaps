@@ -68,7 +68,7 @@ extern "C"
 {
 // static boolean nativeMoveFile(String oldFile, String newFile);
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_MapStorage_nativeMoveFile(JNIEnv * env, jclass clazz, jstring oldFile, jstring newFile)
+Java_com_mapswithme_maps_downloader_MapManager_nativeMoveFile(JNIEnv * env, jclass clazz, jstring oldFile, jstring newFile)
 {
   return my::RenameFileX(jni::ToNativeString(env, oldFile), jni::ToNativeString(env, newFile));
 }
