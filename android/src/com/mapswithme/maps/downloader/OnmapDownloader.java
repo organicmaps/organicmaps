@@ -1,22 +1,18 @@
 package com.mapswithme.maps.downloader;
 
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
+import android.location.Location;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import java.util.ArrayDeque;
 import java.util.List;
-import java.util.Queue;
 
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.Config;
@@ -27,8 +23,7 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 {
-  private static final int CANCEL_LOCK_TIMEOUT_MS = 30 * 1000;
-  private static final int CANCEL_LOCK_TIMES = 3;
+  private static boolean sAutodownloadLocked;
 
   private final MwmActivity mActivity;
   private final View mFrame;
@@ -37,13 +32,10 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private final TextView mSize;
   private final WheelProgressView mProgress;
   private final Button mButton;
-  private final CheckBox mDisableAuto;
 
   private int mStorageSubscriptionSlot;
 
   private CountryItem mCurrentCountry;
-
-  private final Queue<Long> mCancelTimestamps = new ArrayDeque<>();
 
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
   {
@@ -92,22 +84,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     }
   };
 
-  private final CompoundButton.OnCheckedChangeListener mDisableAutoCheckListener = new CompoundButton.OnCheckedChangeListener()
-  {
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-    {
-      Config.setAutodownloadMaps(isChecked);
-    }
-  };
-
-  private void updateDisableAutoCheckbox()
-  {
-    mDisableAuto.setOnCheckedChangeListener(null);
-    mDisableAuto.setChecked(Config.isAutodownloadMaps());
-    mDisableAuto.setOnCheckedChangeListener(mDisableAutoCheckListener);
-  }
-
   public void updateState(boolean shouldAutoDownload)
   {
     boolean showFrame = (mCurrentCountry != null &&
@@ -149,18 +125,27 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           else
           {
             if (shouldAutoDownload &&
+                !sAutodownloadLocked &&
                 !failed &&
                 !MapManager.nativeIsLegacyMode() &&
                 Config.isAutodownloadMaps() &&
                 ConnectionState.isWifiConnected())
             {
-              MapManager.nativeDownload(mCurrentCountry.id);
+              Location loc = LocationHelper.INSTANCE.getLastLocation();
+              if (loc != null)
+              {
+                String country = MapManager.nativeFindCountry(loc.getLatitude(), loc.getLongitude());
+                if (TextUtils.equals(mCurrentCountry.id, country))
+                {
+                  MapManager.nativeDownload(mCurrentCountry.id);
 
-              Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                             Statistics.params().add(Statistics.EventParam.ACTION, "download")
-                                                       .add(Statistics.EventParam.FROM, "map")
-                                                       .add("is_auto", "true")
-                                                       .add("scenario", "download"));
+                  Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                                 Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                                    .add(Statistics.EventParam.FROM, "map")
+                                                                    .add("is_auto", "true")
+                                                                    .add("scenario", "download"));
+                }
+              }
             }
 
             mButton.setText(failed ? R.string.downloader_retry
@@ -171,26 +156,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     }
 
     UiUtils.showIf(showFrame, mFrame);
-    UiUtils.hide(mDisableAuto);
-  }
-
-  private void offerDisableAutodownloading()
-  {
-    Config.setAutodownloadDisableOfferShown();
-
-    new AlertDialog.Builder(mActivity)
-        .setTitle(R.string.autodownload)
-        .setMessage(R.string.downloader_offer_disable_autodownload)
-        .setNegativeButton(android.R.string.no, null)
-        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            Config.setAutodownloadMaps(false);
-            updateDisableAutoCheckbox();
-          }
-        }).show();
   }
 
   public OnmapDownloader(MwmActivity activity)
@@ -204,7 +169,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     View controls = mFrame.findViewById(R.id.downloader_controls_frame);
     mProgress = (WheelProgressView) controls.findViewById(R.id.downloader_progress);
     mButton = (Button) controls.findViewById(R.id.downloader_button);
-    mDisableAuto = (CheckBox) mFrame.findViewById(R.id.downloader_disable_auto);
 
     mProgress.setOnClickListener(new View.OnClickListener()
     {
@@ -214,46 +178,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         MapManager.nativeCancel(mCurrentCountry.id);
         Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
                                        Statistics.params().add(Statistics.EventParam.FROM, "map"));
-
-        if (!Config.isAutodownloadMaps())
-          return;
-
-        if (ConnectionState.isWifiConnected())
-        {
-          UiUtils.show(mDisableAuto);
-          updateDisableAutoCheckbox();
-        }
-
-        if (Config.isAutodownloadDisableOfferShown())
-          return;
-
-        // Here we track pressing "Cancel" if map is autodownloading.
-        // If the user cancels downloading three times within 30s interval, he is offered to disable map autodownloading.
-        long now = System.currentTimeMillis();
-        if (mCancelTimestamps.size() + 1 == CANCEL_LOCK_TIMES)
-        {
-          boolean showDialog = true;
-
-          // Clean-up outdated events
-          do
-          {
-            long ts = mCancelTimestamps.peek();
-            if (ts + CANCEL_LOCK_TIMEOUT_MS > now)
-              break;
-
-            mCancelTimestamps.poll();
-            showDialog = false;
-          } while (!mCancelTimestamps.isEmpty());
-
-          if (showDialog)
-          {
-            mCancelTimestamps.clear();
-            offerDisableAutodownloading();
-            return;
-          }
-        }
-
-        mCancelTimestamps.add(now);
+        sAutodownloadLocked = true;
       }
     });
 
