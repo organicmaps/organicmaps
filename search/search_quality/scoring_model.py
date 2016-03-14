@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+
 from math import exp, log
+from sklearn import cross_validation, grid_search, svm
+import argparse
 import collections
+import itertools
 import numpy as np
 import pandas as pd
 import sys
@@ -28,6 +32,11 @@ def normalize_data(data):
 
 
 def compute_ndcg(scores):
+    """
+    Computes NDCG (Normalized Discounted Cumulative Gain) for a given
+    array of scores.
+    """
+
     scores_summary = collections.defaultdict(int)
 
     dcg = 0
@@ -47,6 +56,12 @@ def compute_ndcg(scores):
 
 
 def compute_ndcg_for_w(data, w):
+    """
+    Computes NDCG (Normalized Discounted Cumulative Gain) for a given
+    data and an array of coeffs in a linear model. Returns an array of
+    ndcg scores in the shape [num groups of features].
+    """
+
     data_scores = np.array([np.dot(data.ix[i][FEATURES], w) for i in data.index])
     grouped = data.groupby(data['SampleId'], sort=False).groups
 
@@ -64,121 +79,62 @@ def compute_ndcg_for_w(data, w):
     return np.array(ndcgs)
 
 
-def gradient_descent(w_init, grad, eps=1e-6, rate=1e-6, lam=1e-3, num_steps=1000):
-    n = len(w_init)
-    w, dw = np.copy(w_init), np.zeros(n)
-    for step in range(1, num_steps):
-        wn = w - rate / step * grad(w) + lam * dw
-        w, dw = wn, wn - w
-        if np.linalg.norm(dw) < eps:
-            break
-    return w
-
-
-class NaiveLoss:
+def transform_data(data):
     """
-    Represents a gradient implementation for a naive loss function f,
-    such that:
-
-    df / dx = (f(x + eps) - f(x)) / eps
+    By a given data computes x and y that can be used as an input to a
+    linear SVM.
     """
 
-    def __init__(self, data, eps=1e-6):
-        self.data, self.eps = data, eps
+    grouped = data.groupby(data['SampleId'], sort=False).groups
 
-    def value(self, w):
-        return compute_ndcg_for_w(self.data, w)
+    xs, ys = [], []
+    for id in grouped:
+        indices = grouped[id]
+        features = data.ix[indices][FEATURES]
+        relevances = np.array(data.ix[indices]['Relevance'])
 
-    def gradient(self, w):
-        n = len(w)
-        g = np.zeros(n)
+        n, total = len(indices), 0
+        for k, (i, j) in enumerate(itertools.combinations(range(n), 2)):
+            y = np.sign(relevances[j] - relevances[i])
+            if y == 0:
+                continue
+            x = (np.array(features.iloc[j]) - np.array(features.iloc[i]))
+            xs.append(x)
+            ys.append(y)
+            total = total + 1
 
-        fw = self.value(w)
-        for i in range(n):
-            w[i] += self.eps
-            g[i] = (self.value(w) - fw) / self.eps
-            w[i] -= self.eps
-        return g
-
-
-class RankingSVMLoss:
-    """
-    Represents a loss function with a gradient for a RankingSVM model.
-    Simple version of a loss function for a ranked list of features
-    has following form:
-
-    loss(w) = sum{i < j: max(0, 1 - sign(y[j] - y[i]) * dot(w, x[j] - x[i]))} + lam * dot(w, w)
-
-    This version is slightly modified, as we are dealing with a group
-    of ranked lists, so loss function is actually a weighted sum of
-    loss values for each list, where each weight is a 1 / list size.
-    """
-
-    @staticmethod
-    def sign(x):
-        if x < 0:
-            return -1
-        elif x > 0:
-            return 1
-        return 0
+        # Scales this group of features to equalize different search
+        # queries.
+        for i in range(-1, -total, -1):
+            xs[i] = xs[i] / total
+    return xs, ys
 
 
-    def __init__(self, data, lam=1e-3):
-        self.coeffs, self.lam = [], lam
-
-        grouped = data.groupby(data['SampleId'], sort=False).groups
-        for id in grouped:
-            indices = grouped[id]
-            features = data.ix[indices][FEATURES]
-            relevances = np.array(data.ix[indices]['Relevance'])
-            n = len(indices)
-            for i in range(n):
-                for j in range(i + 1, n):
-                    y = self.sign(relevances[j] - relevances[i]) / n
-                    dx = y * (np.array(features.iloc[j]) - np.array(features.iloc[i]))
-                    self.coeffs.append(dx)
-
-
-    def value(self, w):
-        result = self.lam * np.dot(w, w)
-        for coeff in self.coeffs:
-            v = 1 - np.dot(coeff, w)
-            if v > 0:
-                result += v
-        return result
-
-
-    def gradient(self, w):
-        result = 2 * self.lam * w
-        for coeff in self.coeffs:
-            if 1 - np.dot(coeff, w) > 0:
-                result = result - coeff
-        return result
-
-
-def main():
+def main(args):
     data = pd.read_csv(sys.stdin)
     normalize_data(data)
+    x, y = transform_data(data)
 
-    best_w = np.ones(len(FEATURES))
-    best_mean = np.mean(compute_ndcg_for_w(data, best_w))
+    clf = svm.LinearSVC(random_state=args.seed)
+    cv = cross_validation.KFold(len(y), n_folds=5, shuffle=True, random_state=args.seed)
 
-    loss = RankingSVMLoss(data, lam=1e-3)
-    grad = lambda w: loss.gradient(w)
+    # Let's find regularizer by a grid search.
+    grid = {'C': np.power(10.0, np.arange(-5, 6))}
+    gs = grid_search.GridSearchCV(clf, grid, scoring='accuracy', cv=cv)
+    gs.fit(x, y)
 
-    num_steps = 1000
-    for i in range(num_steps):
-        if ((i * 100) % num_steps == 0):
-            print((i * 100) // num_steps, '%')
-        w_init = np.random.random(len(FEATURES))
-        w = gradient_descent(w_init, grad, eps=0.01, rate=0.01)
-        mean = np.mean(compute_ndcg_for_w(data, w))
-        if mean > best_mean:
-            best_mean, best_w = mean, w
-            print(best_mean)
+    w = gs.best_estimator_.coef_[0]
+    ndcg = compute_ndcg_for_w(data, w)
 
-    ndcg = compute_ndcg_for_w(data, best_w)
-    print(np.mean(ndcg), np.std(ndcg), best_w)
+    print('NDCG mean: {}, std: {}'.format(np.mean(ndcg), np.std(ndcg)))
+    print()
+    print('Linear model weights:')
+    for f, c in zip(FEATURES, w):
+        print('{}: {}'.format(f, c))
+
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--seed', help='random seed', type=int)
+    args = parser.parse_args()
+    main(args)
