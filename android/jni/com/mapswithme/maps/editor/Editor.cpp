@@ -251,10 +251,10 @@ Java_com_mapswithme_maps_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv *, jclass, jint featureCategory, jdouble lat, jdouble lon)
+Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv *, jclass, jint featureCategory)
 {
   ::Framework * frm = g_framework->NativeFramework();
-  CHECK(frm->CreateMapObject(MercatorBounds::FromLatLon(lat, lon), featureCategory, g_editableMapObject),
+  CHECK(frm->CreateMapObject(frm->GetViewportCenter(), featureCategory, g_editableMapObject),
         ("Couldn't create mapobject, wrong coordinates of missing mwm"));
 }
 

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Size;
 import android.support.annotation.WorkerThread;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.WorkerService;
@@ -105,12 +106,16 @@ public final class Editor
    */
   public static native boolean nativeSaveEditedFeature();
 
-  public static native void nativeCreateMapObject(double lat, double lon, int featureCategory);
   public static native FeatureCategory[] nativeGetNewFeatureCategories();
 
-  public static void createMapObject(FeatureCategory category, @Size(2) double[] latLon)
+  /**
+   * Creates new object on the map. Places it in the center of current viewport.
+   * {@link Framework#nativeIsDownloadedMapAtScreenCenter()} should be called before
+   * to check whether new feature can be created on the map.
+   */
+  public static void createMapObject(FeatureCategory category)
   {
-    nativeCreateMapObject(category.category, latLon[0], latLon[1]);
+    nativeCreateMapObject(category.category);
   }
-  public static native void nativeCreateMapObject(int categoryId, double lat, double lon);
+  public static native void nativeCreateMapObject(int categoryId);
 }

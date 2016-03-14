@@ -382,7 +382,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         showPositionChooser(false);
         if (Framework.nativeIsDownloadedMapAtScreenCenter())
-          FeatureCategoryActivity.pick(MwmActivity.this, Framework.nativeGetScreenRectCenter());
+          startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
         else
           // TODO uncomment
           // UiUtils.showAlertDialog(getActivity(), R.string.message_invalid_feature_position);
