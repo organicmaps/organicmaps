@@ -11,8 +11,6 @@ UNIT_TEST(OnlineCrossFetcherSmokeTest)
   TestOnlineFetcher({61.76, 34.45}, {45.07, 38.94},
                     {"Russia_Republic of Karelia_South", "Russia_Leningradskaya Oblast_Southeast",
                      "Russia_Novgorod Oblast", "Russia_Tver Oblast", "Russia_Moscow Oblast_West",
-                     "Russia_Moscow", "Russia_Moscow Oblast_West", "Russia_Moscow" ,
-                     "Russia_Moscow Oblast_West", "Russia_Moscow", "Russia_Moscow Oblast_East",
                      "Russia_Moscow", "Russia_Moscow Oblast_East", "Russia_Tula Oblast",
                      "Russia_Lipetsk Oblast", "Russia_Voronezh Oblast", "Russia_Rostov Oblast",
                      "Russia_Krasnodar Krai"},
