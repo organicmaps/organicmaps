@@ -4,7 +4,7 @@
 
 - (void)configNavBar
 {
-  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:L(@"send")
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:L(@"editor_report_problem_send_button")
                                             style:UIBarButtonItemStylePlain target:self action:@selector(send)];
 }
 

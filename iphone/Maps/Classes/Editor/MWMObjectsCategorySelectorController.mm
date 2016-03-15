@@ -66,13 +66,13 @@ namespace
 
 - (void)configNavBar
 {
-  self.title = L(@"feature_type").capitalizedString;
+  self.title = L(@"editor_add_select_category");
 }
 
 - (void)configSearchBar
 {
   self.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor primary]];
-  self.searchBar.placeholder = L(@"search_in_types");
+  self.searchBar.placeholder = L(@"_search_in_types");
   UITextField * textFiled = [self.searchBar valueForKey:@"searchField"];
   UILabel * placeholder = [textFiled valueForKey:@"_placeholderLabel"];
   placeholder.textColor = [UIColor blackHintText];
@@ -150,8 +150,8 @@ namespace
   if (self.isSearch)
     return nil;
   if (m_categories.m_lastUsed.empty())
-    return L(@"all_categories_header");
-  return section == 0 ? L(@"recent_categories_header") : L(@"all_categories_header");
+    return L(@"editor_add_select_category_all_subtitle");
+  return section == 0 ? L(@"editor_add_select_category_popular_subtitle") : L(@"editor_add_select_category_all_subtitle");
 }
 
 - (vector<Category> const &)dataSourceForSection:(NSInteger)section

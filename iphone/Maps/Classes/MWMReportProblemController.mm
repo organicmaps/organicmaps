@@ -19,7 +19,7 @@
 - (void)configNavBar
 {
   [super configNavBar];
-  self.title = L(@"problem");
+  self.title = L(@"editor_report_problem_title");
 }
 
 #pragma mark - UITableView

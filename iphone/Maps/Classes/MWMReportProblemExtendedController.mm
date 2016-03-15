@@ -17,7 +17,7 @@
 - (void)configNavBar
 {
   [super configNavBar];
-  self.title = L(@"other");
+  self.title = L(@"editor_report_problem_title");
 }
 
 #pragma mark - UITableView
@@ -25,7 +25,8 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
   NSAssert(section == 0, @"Invalid section!");
-  return L(@"report_problem_extended_description");
+  return [NSString stringWithFormat:@"%@\n\n%@", L(@"editor_report_problem_desription_1"),
+                                               L(@"editor_report_problem_desription_2")];
 }
 
 @end

@@ -19,7 +19,7 @@
   self.placePage = placePage;
   self.isReport = isReport;
   [self.titleButton setTitleColor:isReport ? [UIColor red] : [UIColor linkBlue] forState:UIControlStateNormal];
-  [self.titleButton setTitle:isReport ? L(@"report_problem") : L(@"edit_place") forState:UIControlStateNormal];
+  [self.titleButton setTitle:isReport ? L(@"placepage_report_problem_button") : L(@"edit_place") forState:UIControlStateNormal];
 }
 
 - (IBAction)buttonTap

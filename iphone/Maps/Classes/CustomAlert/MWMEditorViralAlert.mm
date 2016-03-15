@@ -1,5 +1,12 @@
 #import "MWMEditorViralAlert.h"
 
+#include <array>
+
+namespace
+{
+  array<NSString *, 3> const messages {{L(@"editor_done_dialog_1"), L(@"editor_done_dialog_2"), L(@"editor_done_dialog_3")}};
+} // namespace
+
 @interface MWMEditorViralAlert ()
 
 @property (weak, nonatomic) IBOutlet UILabel * message;
@@ -14,6 +21,9 @@
   MWMEditorViralAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorViralAlert className] owner:nil options:nil] firstObject];
   NSAssert(share, @"Share block can't be nil!");
   alert.share = share;
+  int const index = rand() % messages.size();
+  NSString * message = messages[index];
+  alert.message.text = message;
   return alert;
 }
 

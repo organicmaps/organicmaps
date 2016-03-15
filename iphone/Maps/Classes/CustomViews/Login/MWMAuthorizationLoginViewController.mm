@@ -175,11 +175,11 @@ using namespace osm_auth_ios;
     BOOL const noLocalChanges = (localChanges == 0);
     [self setLocalChangesHidden:noLocalChanges];
     if (!noLocalChanges)
-      self.localChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"not_sent").capitalizedString, @(localChanges)];
+      self.localChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"editor_profile_unsent_changes"), @(localChanges)];
 
     BOOL const noUploadedChanges = (uploadedChanges == 0);
     [self setUploadedChangesDisabled:noUploadedChanges];
-    self.uploadedChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"changes").capitalizedString, @(uploadedChanges)];
+    self.uploadedChangesLabel.text = [NSString stringWithFormat:@"%@: %@", L(@"editor_profile_changes"), @(uploadedChanges)];
     self.lastUploadLabel.hidden = noUploadedChanges;
     if (!noUploadedChanges)
     {

@@ -121,7 +121,7 @@ NSString * reuseIdentifier(MWMPlacePageCellType cellType)
 
 - (void)configNavBar
 {
-  self.title = L(@"edit_place").capitalizedString;
+  self.title = L(self.isCreating ? @"editor_add_place_title" : @"editor_edit_place_title").capitalizedString;
   self.navigationItem.rightBarButtonItem =
       [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                     target:self

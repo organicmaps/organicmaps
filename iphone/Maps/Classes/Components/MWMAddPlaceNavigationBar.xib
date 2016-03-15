@@ -43,7 +43,7 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whitePrimaryText"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="choose_location"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_add_select_location"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JDK-CR-ehC">
@@ -85,7 +85,7 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular12"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="adding_place_description"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_focus_map_on_location"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>

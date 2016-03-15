@@ -31,7 +31,7 @@
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="thanks"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="thank_you"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
                             </userDefinedRuntimeAttributes>
                         </label>

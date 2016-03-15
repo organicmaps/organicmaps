@@ -1588,7 +1588,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="place_doesnt_exist"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_report_problem_no_place_title"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -1621,7 +1621,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="other"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_report_problem_other_title"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -1954,7 +1954,7 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="not_sent"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_profile_unsent_changes"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
@@ -2826,5 +2826,7 @@ the world. Join us!</string>
         <segue reference="yAJ-jH-Dus"/>
         <segue reference="mF7-g4-gSS"/>
         <segue reference="w48-2Y-VXA"/>
+        <segue reference="Z0Z-aU-Vrq"/>
+        <segue reference="Pet-Wq-d4a"/>
     </inferredMetricsTieBreakers>
 </document>
