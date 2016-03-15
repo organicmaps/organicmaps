@@ -146,11 +146,10 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 - (void)change:(string const &)key selected:(BOOL)selected
 {
-  string const translated {osm::Cuisines::Instance().Translate(key)};
   if (selected)
-    m_selectedCuisines.push_back(translated);
+    m_selectedCuisines.push_back(key);
   else
-    m_selectedCuisines.erase(find(m_selectedCuisines.begin(), m_selectedCuisines.end(), translated));
+    m_selectedCuisines.erase(find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key));
 }
 
 #pragma mark - UITableViewDataSource
@@ -159,10 +158,15 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 {
   UITableViewCell * cell = [self.tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
   NSInteger const index = indexPath.row;
-  string const translated {osm::Cuisines::Instance().Translate(m_displayedKeys[index])};
-  BOOL const selected = find(m_selectedCuisines.begin(), m_selectedCuisines.end(), translated) != m_selectedCuisines.end();
-  cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+  string const & key = m_displayedKeys[index];
+
+  string translated;
+  if (!osm::Cuisines::Instance().Translate(m_displayedKeys[index], translated))
+    NSAssert(false, @"There is only transled keys in m_displayedKeys!");
+
   cell.textLabel.text = @(translated.c_str());
+  BOOL const selected = find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
+  cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
   return cell;
 }
 
