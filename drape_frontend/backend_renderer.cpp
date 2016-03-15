@@ -90,13 +90,12 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
   case Message::UpdateReadManager:
     {
-      uint64_t tileRequestGeneration;
-      TTilesCollection tiles = m_requestedTiles->GetTiles(tileRequestGeneration);
+      TTilesCollection tiles = m_requestedTiles->GetTiles();
       if (!tiles.empty())
       {
         ScreenBase const screen = m_requestedTiles->GetScreen();
-        bool const is3dBuildings = m_requestedTiles->Is3dBuildings();
-        m_readManager->UpdateCoverage(screen, is3dBuildings, tileRequestGeneration, tiles, m_texMng);
+        bool const have3dBuildings = m_requestedTiles->Have3dBuildings();
+        m_readManager->UpdateCoverage(screen, have3dBuildings, tiles, m_texMng);
         m_updateCurrentCountryFn(screen.ClipRect().Center(), (*tiles.begin()).m_zoomLevel);
       }
       break;
@@ -144,8 +143,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FinishTileReadMessage> msg = message;
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<FinishTileReadMessage>(msg->MoveTiles(),
-                                                                      msg->GetTileRequestGeneration()),
+                                make_unique_dp<FinishTileReadMessage>(msg->MoveTiles()),
                                 MessagePriority::Normal);
       break;
     }

@@ -41,13 +41,12 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   , m_model(model)
   , m_pool(make_unique_dp<threads::ThreadPool>(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)))
   , m_forceUpdate(true)
-  , m_need3dBuildings(false)
+  , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
   , m_modeChanged(false)
   , myPool(64, ReadMWMTaskFactory(m_model))
   , m_counter(0)
   , m_generationCounter(0)
-  , m_tileRequestGeneration(0)
 {
 }
 
@@ -77,7 +76,7 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
       TTilesCollection tiles;
       tiles.emplace(t->GetTileKey());
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<FinishTileReadMessage>(move(tiles), m_tileRequestGeneration),
+                                make_unique_dp<FinishTileReadMessage>(move(tiles)),
                                 MessagePriority::Normal);
     }
   }
@@ -86,15 +85,15 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
   myPool.Return(t);
 }
 
-void ReadManager::UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, uint64_t tileRequestGeneration,
+void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings,
                                  TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng)
 {
   if (screen == m_currentViewport && !m_forceUpdate)
     return;
 
   m_forceUpdate = false;
-  m_modeChanged |= m_need3dBuildings != is3dBuildings;
-  m_need3dBuildings = is3dBuildings;
+  m_modeChanged |= (m_have3dBuildings != have3dBuildings);
+  m_have3dBuildings = have3dBuildings;
 
   if (m_modeChanged || MustDropAllTiles(screen))
   {
@@ -103,7 +102,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, 
     for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));
     m_tileInfos.clear();
 
-    IncreaseCounter(static_cast<int>(tiles.size()), tileRequestGeneration);
+    IncreaseCounter(static_cast<int>(tiles.size()));
     m_generationCounter++;
 
     for_each(tiles.begin(), tiles.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1, texMng));
@@ -139,7 +138,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, 
                    outdatedTiles.begin(), outdatedTiles.end(),
                    back_inserter(readyTiles), LessCoverageCell());
 
-    IncreaseCounter(static_cast<int>(newTiles.size()), tileRequestGeneration);
+    IncreaseCounter(static_cast<int>(newTiles.size()));
     CheckFinishedTiles(readyTiles);
     for_each(newTiles.begin(), newTiles.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1, texMng));
   }
@@ -210,7 +209,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::Te
 {
   shared_ptr<TileInfo> tileInfo(new TileInfo(make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter),
                                                                            m_commutator, texMng)));
-  tileInfo->Set3dBuildings(m_need3dBuildings && m_allow3dBuildings);
+  tileInfo->Set3dBuildings(m_have3dBuildings && m_allow3dBuildings);
   m_tileInfos.insert(tileInfo);
   ReadMWMTask * task = myPool.Get();
 
@@ -238,7 +237,7 @@ void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles)
   if (!finishedTiles.empty())
   {
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<FinishTileReadMessage>(move(finishedTiles), m_tileRequestGeneration),
+                              make_unique_dp<FinishTileReadMessage>(move(finishedTiles)),
                               MessagePriority::Normal);
   }
 }
@@ -254,11 +253,10 @@ void ReadManager::ClearTileInfo(shared_ptr<TileInfo> const & tileToClear)
   m_tileInfos.erase(tileToClear);
 }
 
-void ReadManager::IncreaseCounter(int value, uint64_t tileRequestGeneration)
+void ReadManager::IncreaseCounter(int value)
 {
   lock_guard<mutex> lock(m_finishedTilesMutex);
   m_counter += value;
-  m_tileRequestGeneration = tileRequestGeneration;
 
   if (m_counter == 0)
   {

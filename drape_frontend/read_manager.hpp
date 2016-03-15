@@ -29,7 +29,7 @@ class ReadManager
 public:
   ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings);
 
-  void UpdateCoverage(ScreenBase const & screen, bool is3dBuildings, uint64_t tileRequestGeneration,
+  void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings,
                       TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng);
   void Invalidate(TTilesCollection const & keyStorage);
   void InvalidateAll();
@@ -55,7 +55,7 @@ private:
 
   ScreenBase m_currentViewport;
   bool m_forceUpdate;
-  bool m_need3dBuildings;
+  bool m_have3dBuildings;
   bool m_allow3dBuildings;
   bool m_modeChanged;
 
@@ -75,14 +75,13 @@ private:
   int m_counter;
   mutex m_finishedTilesMutex;
   uint64_t m_generationCounter;
-  uint64_t m_tileRequestGeneration;
 
   using TTileInfoCollection = buffer_vector<shared_ptr<TileInfo>, 8>;
   TTilesCollection m_activeTiles;
 
   void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);
-  void IncreaseCounter(int value, uint64_t tileRequestGeneration);
+  void IncreaseCounter(int value);
   void CheckFinishedTiles(TTileInfoCollection const & requestedTiles);
 };
 

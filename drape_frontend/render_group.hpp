@@ -69,8 +69,7 @@ public:
   bool IsPendingOnDelete() const { return m_pendingOnDelete; }
   bool CanBeDeleted() const { return m_canBeDeleted; }
 
-  bool UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree,
-                                deque<drape_ptr<dp::RenderBucket>> & bucketsToDelete);
+  bool UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree);
 
   bool IsLess(RenderGroup const & other) const;
 

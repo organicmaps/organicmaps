@@ -136,7 +136,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     swap(m_events, events);
   }
 
-  modelViewChange = !events.empty() || m_state != STATE_EMPTY;
+  modelViewChange = !events.empty() || m_state == STATE_SCALE || m_state == STATE_DRAG;
   bool breakAnim = false;
   for (UserEvent const & e : events)
   {

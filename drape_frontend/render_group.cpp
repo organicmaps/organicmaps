@@ -139,8 +139,7 @@ bool RenderGroup::IsLess(RenderGroup const & other) const
   return m_state < other.m_state;
 }
 
-bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree,
-                                           deque<drape_ptr<dp::RenderBucket>> & bucketsToDelete)
+bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree)
 {
   if (!IsPendingOnDelete())
     return false;
@@ -152,7 +151,6 @@ bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, r
     {
       m_renderBuckets[i]->RemoveOverlayHandles(tree);
       swap(m_renderBuckets[i], m_renderBuckets.back());
-      bucketsToDelete.push_back(move(m_renderBuckets.back()));
       m_renderBuckets.pop_back();
     }
     else

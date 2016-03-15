@@ -206,7 +206,7 @@ private:
                         TileKey const & newTile);
 
   using TRenderGroupRemovePredicate = function<bool(drape_ptr<RenderGroup> const &)>;
-  void RemoveRenderGroups(TRenderGroupRemovePredicate const & predicate);
+  void RemoveRenderGroupsLater(TRenderGroupRemovePredicate const & predicate);
 
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d,
                    double rotationAngle, double angleFOV);
@@ -247,7 +247,6 @@ private:
   array<RenderLayer, RenderLayer::LayerCountID> m_layers;
   vector<drape_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
   set<TileKey> m_userMarkVisibility;
-  deque<drape_ptr<dp::RenderBucket>> m_bucketsToDelete;
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   drape_ptr<MyPositionController> m_myPositionController;
@@ -273,8 +272,6 @@ private:
   TTapEventInfoFn m_tapEventInfoFn;
   TUserPositionChangedFn m_userPositionChangedFn;
 
-  uint64_t m_tileRequestGeneration = 0;
-  ScreenBase m_lastReadModelView;
   TTilesCollection m_notFinishedTiles;
 
   int m_currentZoomLevel = -1;
