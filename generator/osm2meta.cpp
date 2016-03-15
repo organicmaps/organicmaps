@@ -1,5 +1,7 @@
 #include "generator/osm2meta.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 #include "coding/url_encode.hpp"
 
 #include "base/logging.hpp"
@@ -109,13 +111,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_opening_hours(string const & 
 
 string MetadataTagProcessorImpl::ValidateAndFormat_ele(string const & v) const
 {
-  auto const & isPeak = ftypes::IsPeakChecker::Instance();
-  if (!isPeak(m_params.m_Types))
-    return string();
-  double val = 0;
-  if(!strings::to_double(v, val) || val == 0)
-    return string();
-  return v;
+  return MeasurementUtils::OSMDistanceToMetersString(v);
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_turn_lanes(string const & v) const
@@ -159,23 +155,15 @@ string MetadataTagProcessorImpl::ValidateAndFormat_internet(string v) const
 
 string MetadataTagProcessorImpl::ValidateAndFormat_height(string const & v) const
 {
-  double val = 0;
-  string corrected(v, 0, v.find(" "));
-  if(!strings::to_double(corrected, val) || val == 0)
-    return string();
-  ostringstream ss;
-  ss << fixed << setprecision(1) << val;
-  return ss.str();
+  return MeasurementUtils::OSMDistanceToMetersString(v, false /*supportZeroAndNegativeValues*/, 1);
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_building_levels(string const & v) const
 {
-  double val = 0;
-  if(!strings::to_double(v, val) || val == 0)
-    return string();
-  ostringstream ss;
-  ss << fixed << setprecision(1) << val;
-  return ss.str();
+  double d;
+  if (!strings::to_double(v, d) || d == 0)
+    return {};
+  return strings::to_string_dac(d, 1);
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_denomination(string const & v) const
