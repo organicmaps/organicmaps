@@ -12,6 +12,8 @@ inline double MilesToMeters(double mi) { return mi * 1609.344; }
 inline double MetersToFeet(double m) { return m * 3.2808399; }
 inline double FeetToMeters(double ft) {  return ft * 0.3048; }
 inline double FeetToMiles(double ft) { return ft * 5280; }
+inline double InchesToMeters(double in) { return in / 39.370; }
+inline double NauticalMilesToMeters(double nmi) { return nmi * 1852; }
 
 /// Takes into an account user settings [metric, imperial]
 /// @param[in] m meters
@@ -36,5 +38,14 @@ string FormatLatLon(double lat, double lon, int dac = 6);
 void FormatLatLon(double lat, double lon, string & latText, string & lonText, int dac = 6);
 string FormatMercator(m2::PointD const & mercator, int dac = 6);
 void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int dac = 6);
+
+/// Converts OSM distance (height, ele etc.) to meters.
+/// @returns false if fails.
+bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters);
+/// Converts OSM distance (height, ele etc.) to meters string.
+/// @returns empty string on failure.
+string OSMDistanceToMetersString(string const & osmRawValue,
+                                 bool supportZeroAndNegativeValues = true,
+                                 int digitsAfterComma = 2);
 
 }

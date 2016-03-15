@@ -3,9 +3,12 @@
 
 #include "geometry/mercator.hpp"
 
-#include "base/string_utils.hpp"
+#include "base/macros.hpp"
 #include "base/math.hpp"
+#include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 
+#include "std/cstring.hpp"
 #include "std/iomanip.hpp"
 #include "std/sstream.hpp"
 
@@ -187,6 +190,99 @@ string FormatSpeed(double metersPerSecond)
     break;
   }
   return res;
+}
+
+bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
+{
+  char * stop;
+  char const * s = osmRawValue.c_str();
+  outMeters = strtod(s, &stop);
+
+  // Not a number, was not parsed at all.
+  if (s == stop)
+    return false;
+
+  if (!isfinite(outMeters))
+    return false;
+
+  switch (*stop)
+  {
+  // Default units - meters.
+  case 0: return true;
+
+  // Feet and probably inches.
+  case '\'':
+    {
+      outMeters = FeetToMeters(outMeters);
+      s = stop + 1;
+      double const inches = strtod(s, &stop);
+      if (s != stop && *stop == '"' && isfinite(inches))
+        outMeters += InchesToMeters(inches);
+      return true;
+    }
+    break;
+
+  // Inches.
+  case '\"': outMeters = InchesToMeters(outMeters); return true;
+
+  // It's probably a range. Use maximum value (if possible) for a range.
+  case '-':
+    {
+      s = stop + 1;
+      double const newValue = strtod(s, &stop);
+      if (s != stop && isfinite(newValue))
+        outMeters = newValue;
+    }
+    break;
+
+  // It's probably a list. Use maximum value (if possible) for a list.
+  case ';':
+    do
+    {
+      s = stop + 1;
+      double const newValue = strtod(s, &stop);
+      if (s == stop)
+        break;
+      if (isfinite(newValue))
+        outMeters = newValue;
+    } while (*stop && *stop == ';');
+    break;
+  }
+
+  while (*stop && isspace(*stop))
+    ++stop;
+
+  // Default units - meters.
+  if (*stop == 0)
+    return true;
+
+  if (strstr(stop, "nmi") == stop)
+    outMeters = NauticalMilesToMeters(outMeters);
+  else if (strstr(stop, "mi") == stop)
+    outMeters = MilesToMeters(outMeters);
+  else if (strstr(stop, "ft") == stop)
+    outMeters = FeetToMeters(outMeters);
+  else if (strstr(stop, "feet") == stop)
+    outMeters = FeetToMeters(outMeters);
+  else if (strstr(stop, "km") == stop)
+    outMeters = outMeters * 1000;
+
+  // Count all other cases as meters.
+  return true;
+}
+
+string OSMDistanceToMetersString(string const & osmRawValue,
+                                 bool supportZeroAndNegativeValues,
+                                 int digitsAfterComma)
+{
+  double meters;
+  if (OSMDistanceToMeters(osmRawValue, meters))
+  {
+    if (!supportZeroAndNegativeValues && meters <= 0)
+      return {};
+    return strings::to_string_dac(meters, digitsAfterComma);
+  }
+  return {};
 }
 
 } // namespace MeasurementUtils
