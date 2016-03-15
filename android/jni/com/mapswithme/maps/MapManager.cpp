@@ -178,12 +178,13 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetDownloadedCount(JNIEnv *
   return GetStorage().GetDownloadedFilesCount();
 }
 
-// static @Nullable UpdateInfo nativeGetUpdateInfo();
+// static @Nullable UpdateInfo nativeGetUpdateInfo(@Nullable String root);
 JNIEXPORT jobject JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz, jstring root)
 {
   Storage::UpdateInfo info;
-  if (!GetStorage().GetUpdateInfo(GetStorage().GetRootId(), info))
+  TCountryId const rootId = (root ? jni::ToNativeString(env, root) : GetStorage().GetRootId());
+  if (!GetStorage().GetUpdateInfo(rootId, info))
     return nullptr;
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/UpdateInfo");
@@ -192,6 +193,15 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env,
   ASSERT(ctor, (jni::DescribeException()));
 
   return env->NewObject(infoClass, ctor, info.m_numberOfMwmFilesToUpdate, info.m_totalUpdateSizeInBytes);
+}
+
+static void UpdateItemShort(JNIEnv * env, jobject item, NodeStatus const status, NodeErrorCode const error)
+{
+  static jfieldID const countryItemFieldStatus = env->GetFieldID(g_countryItemClass, "status", "I");
+  static jfieldID const countryItemFieldErrorCode = env->GetFieldID(g_countryItemClass, "errorCode", "I");
+
+  env->SetIntField(item, countryItemFieldStatus, static_cast<jint>(status));
+  env->SetIntField(item, countryItemFieldErrorCode, static_cast<jint>(error));
 }
 
 static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
@@ -203,8 +213,6 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   static jfieldID const countryItemFieldTotalSize = env->GetFieldID(g_countryItemClass, "totalSize", "J");
   static jfieldID const countryItemFieldChildCount = env->GetFieldID(g_countryItemClass, "childCount", "I");
   static jfieldID const countryItemFieldTotalChildCount = env->GetFieldID(g_countryItemClass, "totalChildCount", "I");
-  static jfieldID const countryItemFieldStatus = env->GetFieldID(g_countryItemClass, "status", "I");
-  static jfieldID const countryItemFieldErrorCode = env->GetFieldID(g_countryItemClass, "errorCode", "I");
   static jfieldID const countryItemFieldPresent = env->GetFieldID(g_countryItemClass, "present", "Z");
   static jfieldID const countryItemFieldProgress = env->GetFieldID(g_countryItemClass, "progress", "I");
 
@@ -238,8 +246,7 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   env->SetIntField(item, countryItemFieldTotalChildCount, attrs.m_mwmCounter);
 
   // Status and error code
-  env->SetIntField(item, countryItemFieldStatus, static_cast<jint>(attrs.m_status));
-  env->SetIntField(item, countryItemFieldErrorCode, static_cast<jint>(attrs.m_error));
+  UpdateItemShort(env, item, attrs.m_status, attrs.m_error);
 
   // Presence flag
   env->SetBooleanField(item, countryItemFieldPresent, attrs.m_present);
@@ -306,12 +313,28 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetAttributes(JNIEnv * env,
 {
   PrepareClassRefs(env);
 
-  NodeAttrs attrs;
   static jfieldID countryItemFieldId = env->GetFieldID(g_countryItemClass, "id", "Ljava/lang/String;");
   jstring id = static_cast<jstring>(env->GetObjectField(item, countryItemFieldId));
+
+  NodeAttrs attrs;
   GetStorage().GetNodeAttrs(jni::ToNativeString(env, id), attrs);
 
   UpdateItem(env, item, attrs);
+}
+
+// static void nativeGetShortAttributes(CountryItem item);
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetShortAttributes(JNIEnv * env, jclass clazz, jobject item)
+{
+  PrepareClassRefs(env);
+
+  static jfieldID countryItemFieldId = env->GetFieldID(g_countryItemClass, "id", "Ljava/lang/String;");
+  jstring id = static_cast<jstring>(env->GetObjectField(item, countryItemFieldId));
+
+  NodeStatuses ns;
+  GetStorage().GetNodeStatuses(jni::ToNativeString(env, id), ns);
+
+  UpdateItemShort(env, item, ns.m_status, ns.m_error);
 }
 
 // static @Nullable String nativeFindCountry(double lat, double lon);
@@ -356,7 +379,8 @@ static void EndBatchingCallbacks(JNIEnv * env)
       static jclass batchDataClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/MapManager$StorageCallbackData");
       static jmethodID batchDataCtor = jni::GetConstructorID(env, batchDataClass, "(Ljava/lang/String;IIZ)V");
 
-      jni::TScopedLocalRef const item(env, env->NewObject(batchDataClass, batchDataCtor, jni::ToJavaString(env, dataItem.m_countryId),
+      jni::TScopedLocalRef const id(env, jni::ToJavaString(env, dataItem.m_countryId));
+      jni::TScopedLocalRef const item(env, env->NewObject(batchDataClass, batchDataCtor, id.get(),
                                                                                          static_cast<jint>(dataItem.m_newStatus),
                                                                                          static_cast<jint>(dataItem.m_errorCode),
                                                                                          dataItem.m_isLeaf));
@@ -427,11 +451,10 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeShow(JNIEnv * env, jclass c
 
 static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCountryId const & countryId)
 {
-  // TODO: The core will do this itself
-  NodeAttrs attrs;
-  GetStorage().GetNodeAttrs(countryId, attrs);
+  NodeStatuses ns;
+  GetStorage().GetNodeStatuses(countryId, ns);
 
-  TBatchedData const data(countryId, attrs.m_status, attrs.m_error, (attrs.m_mwmCounter == 1));
+  TBatchedData const data(countryId, ns.m_status, ns.m_error, ns.m_groupNode);
   g_batchedCallbackData[*listenerRef].push_back(move(data));
 
   if (!g_isBatched)

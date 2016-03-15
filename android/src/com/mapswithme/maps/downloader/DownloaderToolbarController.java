@@ -2,8 +2,10 @@ package com.mapswithme.maps.downloader;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.SearchToolbarController;
@@ -92,7 +94,7 @@ class DownloaderToolbarController extends SearchToolbarController
       super.onUpClick();
   }
 
-  public void update()
+  public void update(@Nullable String currentRoot, String title)
   {
     boolean search = hasQuery();
     boolean cancel = MapManager.nativeIsDownloading();
@@ -100,8 +102,8 @@ class DownloaderToolbarController extends SearchToolbarController
     boolean update = (!search && !cancel);
     if (update)
     {
-      // TODO (trashkalmar): Use appropriate function
-      update = false;
+      UpdateInfo info = MapManager.nativeGetUpdateInfo(currentRoot);
+      update = (info != null && info.filesCount > 0);
     }
 
     boolean onTop = !mFragment.getAdapter().canGoUpdwards();
@@ -109,14 +111,23 @@ class DownloaderToolbarController extends SearchToolbarController
     boolean download = (!search && !cancel && !update && !onTop);
     if (download)
     {
-      // TODO (trashkalmar): Use appropriate function
-      download = true;
+      CountryItem item = CountryItem.fill(currentRoot);
+      download = (item.childCount < item.totalChildCount);
     }
 
     UiUtils.showIf(cancel, mCancelAll);
     UiUtils.showIf(update, mUpdateAll);
     UiUtils.showIf(download, mDownloadAll);
     showControls(onTop);
+
+    setTitle(title);
+
+    // Hack: Toolbar title is pressed out by controls. Resize frame to avoid this.
+    View frameParent = (View) mContainer.getParent();
+    ViewGroup.LayoutParams lp = frameParent.getLayoutParams();
+    lp.width = (onTop ? ViewGroup.LayoutParams.MATCH_PARENT
+                      : ViewGroup.LayoutParams.WRAP_CONTENT);
+    frameParent.setLayoutParams(lp);
   }
 
   @Override

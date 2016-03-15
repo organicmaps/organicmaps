@@ -316,7 +316,7 @@ public class MainMenu
 
   private void updateMarker()
   {
-    UpdateInfo info = MapManager.nativeGetUpdateInfo();
+    UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
     int count = (info == null ? 0 : info.filesCount);
 
     boolean show = (MapManager.nativeIsLegacyMode() || count > 0) &&

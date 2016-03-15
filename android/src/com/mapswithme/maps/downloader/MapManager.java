@@ -153,9 +153,9 @@ public final class MapManager
   public static native int nativeGetDownloadedCount();
 
   /**
-   * Returns info about updatable data or null on error.
+   * Returns info about updatable data under given {@code root} or null on error.
    */
-  public static native @Nullable UpdateInfo nativeGetUpdateInfo();
+  public static native @Nullable UpdateInfo nativeGetUpdateInfo(@Nullable String root);
 
   /**
    * Retrieves list of country items with its status info. Uses root as parent if {@code root} is null.
@@ -181,6 +181,17 @@ public final class MapManager
    * </pre>
    */
   public static native void nativeGetAttributes(CountryItem item);
+
+  /**
+   * Sets following attributes of the given {@code item}:
+   * <pre>
+   * <ul>
+   *   <li>status;</li>
+   *   <li>errorCode</li>
+   * </ul>
+   * </pre>
+   */
+  public static native void nativeGetShortAttributes(CountryItem item);
 
   /**
    * Returns country ID corresponding to given coordinates or {@code null} on error.

@@ -107,15 +107,13 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     boolean onTop = (mAdapter.isSearchResultsMode() || rootName == null);
 
     // Toolbar
-    mToolbarController.update();
-    if (!onTop)
-      mToolbarController.setTitle(rootName);  // FIXME: Title not shown. Investigate this.
+    mToolbarController.update(onTop ? null : mAdapter.getCurrentParent(), onTop ? "" : rootName);
 
     // Bottom panel
     boolean showBottom = onTop;
     if (showBottom)
     {
-      UpdateInfo info = MapManager.nativeGetUpdateInfo();
+      UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
       showBottom = (info != null && info.filesCount > 0);
 
       if (showBottom)
