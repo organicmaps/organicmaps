@@ -143,10 +143,10 @@ extern "C"
     g_javaListener = env->NewGlobalRef(thiz);
     g_updateResultsId = jni::GetMethodID(env, g_javaListener, "onResultsUpdate", "([Lcom/mapswithme/maps/search/SearchResult;J)V");
     g_endResultsId = jni::GetMethodID(env, g_javaListener, "onResultsEnd", "(J)V");
-    g_resultClass = jni::GetGlobalClassRef(env, env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult")));
+    g_resultClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/SearchResult");
     g_resultConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;DD[I)V");
     g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I)V");
-    g_descriptionClass = jni::GetGlobalClassRef(env, env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult$Description")));
+    g_descriptionClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/SearchResult$Description");
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II)V");
   }
 
