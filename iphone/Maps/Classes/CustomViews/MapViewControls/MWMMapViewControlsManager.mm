@@ -25,6 +25,8 @@
 
 #include "Framework.h"
 
+#include "platform/local_country_file_utils.hpp"
+
 #include "storage/storage_helpers.hpp"
 
 namespace
@@ -242,7 +244,15 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)actionDownloadMaps
 {
-  [self.ownerController openMapsDownloader];
+  if (platform::migrate::NeedMigrate())
+  {
+    [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatDownloader}];
+    [self.ownerController openMigration];
+  }
+  else
+  {
+    [self.ownerController openMapsDownloader];
+  }
 }
 
 #pragma mark - MWMBottomMenuControllerProtocol

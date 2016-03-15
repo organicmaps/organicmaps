@@ -1,6 +1,7 @@
 #import "Common.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
+#import "MapViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMFrameworkListener.h"
@@ -11,6 +12,8 @@
 #import "UIColor+MapsMeColor.h"
 
 #include "Framework.h"
+
+#include "platform/local_country_file_utils.hpp"
 
 namespace
 {
@@ -24,7 +27,9 @@ BOOL canAutoDownload(TCountryId const & countryId)
   if (GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_WIFI)
     return NO;
   auto const & countryInfoGetter = GetFramework().CountryInfoGetter();
-  return countryId == countryInfoGetter.GetRegionCountryId(locationManager.lastLocation.mercator);
+  if (countryId != countryInfoGetter.GetRegionCountryId(locationManager.lastLocation.mercator))
+    return NO;
+  return !platform::migrate::NeedMigrate();
 }
 } // namespace
 
@@ -39,7 +44,7 @@ using namespace storage;
 @property (weak, nonatomic) IBOutlet UIButton * downloadButton;
 @property (weak, nonatomic) IBOutlet UIView * progressWrapper;
 
-@property (weak, nonatomic) MWMViewController * controller;
+@property (weak, nonatomic) MapViewController * controller;
 
 @property (nonatomic) MWMCircularProgress * progress;
 
@@ -55,7 +60,7 @@ using namespace storage;
   TCountryId m_autoDownloadCountryId;
 }
 
-+ (instancetype)dialogForController:(MWMViewController *)controller
++ (instancetype)dialogForController:(MapViewController *)controller
 {
   MWMMapDownloadDialog * dialog = [[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil].firstObject;
   dialog.autoresizingMask = UIViewAutoresizingFlexibleHeight;
@@ -101,6 +106,7 @@ using namespace storage;
     if (!hideParent)
       self.parentNode.text = @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
     self.node.text = @(nodeAttrs.m_nodeLocalName.c_str());
+    self.nodeSize.hidden = platform::migrate::NeedMigrate();
     self.nodeSize.textColor = [UIColor blackSecondaryText];
     self.nodeSize.text = formattedSize(nodeAttrs.m_mwmSize);
 
@@ -287,15 +293,23 @@ using namespace storage;
 
 - (IBAction)downloadAction
 {
-  [Statistics logEvent:kStatDownloaderMapAction
-        withParameters:@{
-          kStatAction : kStatDownload,
-          kStatIsAuto : kStatNo,
-          kStatFrom : kStatMap,
-          kStatScenario : kStatDownload
-        }];
-  [self showInQueue];
-  [MWMStorage downloadNode:m_countryId alertController:self.controller.alertController onSuccess:nil];
+  if (platform::migrate::NeedMigrate())
+  {
+    [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatMap}];
+    [self.controller openMigration];
+  }
+  else
+  {
+    [Statistics logEvent:kStatDownloaderMapAction
+          withParameters:@{
+                           kStatAction : kStatDownload,
+                           kStatIsAuto : kStatNo,
+                           kStatFrom : kStatMap,
+                           kStatScenario : kStatDownload
+                           }];
+    [self showInQueue];
+    [MWMStorage downloadNode:m_countryId alertController:self.controller.alertController onSuccess:nil];
+  }
 }
 
 #pragma mark - Properties

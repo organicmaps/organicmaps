@@ -30,6 +30,7 @@ namespace search { struct AddressInfo; }
 
 - (void)performAction:(NSString *)action;
 
+- (void)openMigration;
 - (void)openBookmarks;
 - (void)openMapsDownloader;
 - (void)openEditor;

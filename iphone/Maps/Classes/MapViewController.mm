@@ -528,6 +528,11 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
 #pragma mark - Open controllers
 
+- (void)openMigration
+{
+  [self performSegueWithIdentifier:kMigrationSegue sender:self];
+}
+
 - (void)openBookmarks
 {
   BOOL const oneCategory = (GetFramework().GetBmCategoriesCount() == 1);
@@ -537,16 +542,8 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
 - (void)openMapsDownloader
 {
-  if (platform::migrate::NeedMigrate())
-  {
-    [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatDownloader}];
-    [self performSegueWithIdentifier:kMigrationSegue sender:self];
-  }
-  else
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
-    [self performSegueWithIdentifier:kDownloaderSegue sender:self];
-  }
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
+  [self performSegueWithIdentifier:kDownloaderSegue sender:self];
 }
 
 - (void)openEditor
@@ -620,7 +617,15 @@ NSString * const kReportSegue = @"Map2ReportSegue";
         auto & s = GetFramework().Storage();
         for (auto const & countryId : absentCountries)
           s.DownloadNode(countryId);
-        [self openMapsDownloader];
+        if (platform::migrate::NeedMigrate())
+        {
+          [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatMap}];
+          [self openMigration];
+        }
+        else
+        {
+          [self openMapsDownloader];
+        }
       }];
       break;
     }
@@ -637,17 +642,8 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId
 {
-  if (![self.navigationController.topViewController isEqual:self])
-    return;
-  if (countryId != kInvalidCountryId && platform::migrate::NeedMigrate())
-  {
-    [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatMap}];
-    [self performSegueWithIdentifier:kMigrationSegue sender:self];
-  }
-  else
-  {
+  if ([self.navigationController.topViewController isEqual:self])
     [self.downloadDialog processViewportCountryEvent:countryId];
-  }
 }
 
 #pragma mark - MWMFrameworkStorageObserver
