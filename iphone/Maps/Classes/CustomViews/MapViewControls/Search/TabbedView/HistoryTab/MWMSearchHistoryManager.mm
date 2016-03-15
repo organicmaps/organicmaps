@@ -60,7 +60,7 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     }
     [tableView reloadData];
   }
-  cell.noResultsImage.image = [UIImage imageNamed:@"img_no_history_light"];
+  cell.noResultsImage.image = [UIImage imageNamed:@"img_search_history"];
   cell.noResultsTitle.text = L(@"search_history_title");
   cell.noResultsText.text = L(@"search_history_text");
 }
