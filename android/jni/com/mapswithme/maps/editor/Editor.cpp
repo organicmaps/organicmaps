@@ -11,6 +11,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/set.hpp"
+#include "std/target_os.hpp"
 #include "std/vector.hpp"
 
 namespace
@@ -219,11 +220,13 @@ Java_com_mapswithme_maps_editor_Editor_nativeHasSomethingToUpload(JNIEnv * env, 
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token, jstring secret)
+Java_com_mapswithme_maps_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token, jstring secret,
+    jstring appVersion, jstring appId)
 {
-  Editor::Instance().UploadChanges(jni::ToNativeString(env, token),
-                                   jni::ToNativeString(env, secret),
-                                   {{"version", "TODO android"}}, nullptr);
+  // TODO: Upload changes from background service to avoid interruptions.
+  Editor::Instance().UploadChanges(jni::ToNativeString(env, token), jni::ToNativeString(env, secret),
+      {{"created_by", "MAPS.ME " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
+       {"bundle_id", jni::ToNativeString(env, appId)}}, nullptr);
 }
 
 JNIEXPORT jlongArray JNICALL

@@ -13,6 +13,7 @@
 
 #include "std/bind.hpp"
 #include "std/sstream.hpp"
+#include "std/target_os.hpp"
 
 #include <QtGui/QCloseEvent>
 
@@ -502,7 +503,7 @@ void MainWindow::OnUploadEditsMenuItem()
   {
     auto & editor = osm::Editor::Instance();
     if (editor.HaveSomethingToUpload())
-      editor.UploadChanges(key, secret, {});
+      editor.UploadChanges(key, secret, {{"created_by", "MAPS.ME " OMIM_OS_NAME}});
   }
 }
 

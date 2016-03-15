@@ -32,6 +32,7 @@
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
+#include "std/target_os.hpp"
 #include "storage/storage_defines.hpp"
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo folder.
@@ -423,11 +424,10 @@ using namespace osm_auth_ios;
 // Starts async edits uploading process.
 + (void)uploadLocalMapEdits:(void (^)(osm::Editor::UploadResult))finishCallback with:(osm::TKeySecret const &)keySecret
 {
-  osm::Editor::Instance().UploadChanges(keySecret.first, keySecret.second, {{"version", AppInfo.sharedInfo.bundleVersion.UTF8String}},
-                                        [finishCallback](osm::Editor::UploadResult result)
-                                        {
-                                          finishCallback(result);
-                                        });
+  auto const lambda = [finishCallback](osm::Editor::UploadResult result) { finishCallback(result); };
+  osm::Editor::Instance().UploadChanges(keySecret.first, keySecret.second,
+                                        {{"created_by", string("MAPS.ME " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
+                                         {"bundle_id", NSBundle.mainBundle.bundleIdentifier.UTF8String}}, lambda);
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler

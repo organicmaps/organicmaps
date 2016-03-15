@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Size;
 import android.support.annotation.WorkerThread;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -45,7 +46,8 @@ public final class Editor
   public static void uploadChanges()
   {
     if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized())
-      nativeUploadChanges(OsmOAuth.getAuthToken(), OsmOAuth.getAuthSecret());
+      nativeUploadChanges(OsmOAuth.getAuthToken(), OsmOAuth.getAuthSecret(), BuildConfig.VERSION_NAME,
+          BuildConfig.APPLICATION_ID);
   }
 
   public static native boolean nativeIsFeatureEditable();
@@ -87,7 +89,7 @@ public final class Editor
 
   public static native boolean nativeHasSomethingToUpload();
   @WorkerThread
-  private static native void nativeUploadChanges(String token, String secret);
+  private static native void nativeUploadChanges(String token, String secret, String appVersion, String appId);
 
   /**
    * @return array [total edits count, uploaded edits count, last upload timestamp]
