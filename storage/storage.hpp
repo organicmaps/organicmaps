@@ -551,6 +551,8 @@ private:
                                                   MapFilesDownloader::TProgress const & downloadingMwmProgress,
                                                   TCountriesSet const & mwmsInQueue) const;
 
+  void CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem);
+
   template <class ToDo>
   void ForEachInSubtreeAndInQueue(TCountryId const & root, ToDo && toDo) const;
 };
