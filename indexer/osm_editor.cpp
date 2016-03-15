@@ -369,13 +369,15 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   FeatureID const & fid = emo.GetID();
   FeatureTypeInfo fti;
   bool const isCreated = IsCreatedFeature(fid);
-  fti.m_feature.ReplaceBy(emo);
   if (isCreated)
   {
     fti.m_status = FeatureStatus::Created;
+    fti.m_feature.ReplaceBy(emo);
   }
   else
   {
+    fti.m_feature = *m_getOriginalFeatureFn(fid);
+    fti.m_feature.ReplaceBy(emo);
     if (AreFeaturesEqualButStreet(fti.m_feature, *m_getOriginalFeatureFn(fid)) &&
         m_getOriginalFeatureStreetFn(fti.m_feature) == emo.GetStreet())
     {
