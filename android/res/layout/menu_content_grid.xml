@@ -7,13 +7,12 @@
   android:orientation="horizontal"
   tools:background="#200000F0">
 
-  <!-- TODO add correct text
-       TODO check if button fits on narrow screens (eg nexus 7)-->
+  <!-- TODO check if button fits on narrow screens (eg nexus 7)-->
   <TextView
     android:id="@+id/add_place"
     style="@style/MwmTheme.Menu.Content.GridItem.Text"
     android:drawableTop="@drawable/ic_plus"
-    android:text="Add place"
+    android:text="@string/placepage_add_place_button"
     tools:background="#200000FF"/>
 
   <TextView

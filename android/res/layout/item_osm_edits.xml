@@ -44,7 +44,7 @@
         android:gravity="center_vertical"
         android:textAppearance="@style/MwmTextAppearance.Body1"
         tools:ignore="UnusedAttribute"
-        tools:text="lalala"/>
+        tools:text="Edits : 4"/>
 
       <TextView
         android:id="@+id/subtitle"
@@ -53,7 +53,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:textAppearance="@style/MwmTextAppearance.Body3"
-        tools:text="blalala"/>
+        tools:text="Last sent 12.01.2015"/>
 
     </LinearLayout>
 

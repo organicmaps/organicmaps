@@ -18,6 +18,7 @@
       android:orientation="horizontal"
       android:padding="@dimen/margin_half">
 
+      <!-- TODO translation-->
       <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -32,7 +33,7 @@
         android:background="?selectableItemBackgroundBorderless"
         android:clickable="true"
         android:padding="@dimen/margin_half"
-        android:text="Done"
+        android:text="@string/done"
         android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
     </LinearLayout>
@@ -44,6 +45,6 @@
     android:layout_height="wrap_content"
     android:background="?panel"
     android:padding="@dimen/margin_base"
-    android:text="Move the map to select position for object"/>
+    android:text="@string/editor_focus_map_on_location"/>
 
 </LinearLayout>

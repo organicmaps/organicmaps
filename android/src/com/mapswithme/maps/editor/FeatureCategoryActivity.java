@@ -1,8 +1,10 @@
 package com.mapswithme.maps.editor;
 
 import android.content.Intent;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarActivity;
 import com.mapswithme.maps.editor.data.FeatureCategory;
 
@@ -17,10 +19,10 @@ public class FeatureCategoryActivity extends BaseToolbarActivity implements Feat
   }
 
   @Override
+  @StringRes
   protected int getToolbarTitle()
   {
-    // TODO set correct text
-    return super.getToolbarTitle();
+    return R.string.editor_add_select_category;
   }
 
   @Override

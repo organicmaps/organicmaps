@@ -436,16 +436,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshOpeningHours();
     refreshMetadataStars(mMapObject.getMetadata(Metadata.MetadataType.FMD_STARS));
     UiUtils.setTextAndHideIfEmpty(mTvElevation, mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE));
-
-    if (mMapObject == null || !Editor.nativeIsFeatureEditable())
-    {
-      UiUtils.hide(mEditor);
-    }
-    else
-    {
-      UiUtils.show(mEditor);
-      mTvEditor.setText(R.string.edit_place);
-    }
+    UiUtils.showIf(mMapObject == null || !Editor.nativeIsFeatureEditable(), mEditor);
   }
 
   private void refreshOpeningHours()

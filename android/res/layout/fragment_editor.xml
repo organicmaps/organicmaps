@@ -34,12 +34,11 @@
           <EditText
             android:id="@+id/input"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
-            android:hint="@string/place_name"
+            android:hint="@string/editor_edit_place_name_hint"
             android:singleLine="true"/>
 
         </com.mapswithme.maps.widget.CustomTextInputLayout>
 
-        <!-- TODO set translated text -->
         <TextView
           android:id="@+id/name_multilang"
           android:layout_width="match_parent"
@@ -48,7 +47,7 @@
           android:drawableEnd="@drawable/ic_arrow_down"
           android:drawableRight="@drawable/ic_arrow_down"
           android:gravity="center_vertical"
-          android:text="Multilanguages"
+          android:text="@string/add_language"
           android:textAppearance="@style/MwmTextAppearance.Body3"/>
 
       </LinearLayout>

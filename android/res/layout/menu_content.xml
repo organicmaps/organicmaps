@@ -8,12 +8,11 @@
   android:layout_marginTop="@dimen/margin_half"
   android:orientation="vertical">
 
-  <!-- add correct text -->
   <TextView
     android:id="@+id/add_place"
     style="@style/MwmTheme.Menu.Content.ListItem"
     android:drawableLeft="@drawable/ic_plus"
-    android:text="Add place"
+    android:text="@string/placepage_add_place_button"
     tools:background="#40FF00FF"/>
 
   <TextView
