@@ -158,37 +158,6 @@
     nb = Slett
     fi = Poista
 
-  [delete_old_maps]
-    en = Delete old maps and proceed
-    comment = Button in iOS Downloader, displayed only when upgrading from v1 to v2
-    cs = Smazat staré mapy a pokračovat
-    sk = Zmazať staré mapy a pokračovať
-    de = Alte Karten löschen und fortsetzen
-    es = Eliminar mapas antiguos y seguir
-    fr = Supprimer les anciennes cartes et continuer
-    it = Cancella le vecchie mappe e procedi
-    ja = 古いマップを削除して処理を続行
-    ko = 이전의 지도를 삭제하고 진행하기
-    nl = Verwijder oude kaarten en ga door
-    ru = Удалить старые карты и продолжить
-    uk = Видалити старі карти та продовжити
-    zh-Hant = 刪除舊的地圖並繼續
-    pl = Usuń stare mapy i kontynuuj
-    pt = Eliminar mapas antigos e continuar
-    hu = Régi térképek törlése és folytatás
-    th = ลบแผนที่เก่าและดำเนินการต่อไป
-    zh-Hans = 删除旧地图，然后继续
-    ar = حذف الخرائط القديمة و المتابعة
-    da = Slet gamle kort og gå videre
-    tr = Eski haritaları sil ve ilerle
-    sv = Ta bort gamla kartor och fortsätt
-    he = מחק מפות ישנות והמשך
-    id = Hapus peta tua dan lanjutkan
-    vi = Xóa bản đồ cũ và tiếp tục
-    ro = Șterge hărțile vechi și continuă
-    nb = Slett gamle kart og fortsett
-    fi = Poista vanhat kartat ja jatka
-
   [do_not_ask_me_again]
     en = Do not ask me again
     comment = Button to dismiss dialog forever
@@ -750,38 +719,6 @@
     nb = Min posisjon
     fi = Sijaintini
 
-  [no_internet_connection_detected]
-    tags = tizen
-    en = No Internet connection detected
-    comment = Settings/Downloader - No internet connection dialog title
-    cs = Připojení k Internetu nenalezeno
-    sk = Nenájdené pripojenie k Internetu
-    de = Keine Internetverbindung
-    es = No hay conexión al Internet
-    fr = Aucune connexion Internet détectée
-    it = Non è stata rilevata alcuna connessione Internet
-    ja = インターネットに接続されていません
-    ko = 인터넷이 연결되지 않았습니다.
-    nl = Geen Internet verbinding gedetecteerd
-    ru = Отсутствует подключение к интернету
-    uk = Відсутнє підключення до інтернету
-    zh-Hant = 無網路連線
-    pl = Nie wykryto połączenia z Internetem
-    pt = Não foi detetada uma ligação à Internet
-    hu = Nem találtam internet kapcsolatot
-    th = ไม่สามารถตรวจพบการเชื่อมต่ออินเทอร์เน็ต
-    zh-Hans = 未检测到互联网连接
-    ar = لم يتم اكتشاف أي اتصال مع الانترنت
-    da = Ingen internetforbindelse registreret
-    tr = İnternet bağlantısı bulunamadı
-    sv = Ingen internetanslutning upptäcktes
-    he = לא נמצא חיבור לאינטרנט
-    id = Tidak ada koneksi internet yang terdeteksi
-    vi = Không có kết nối Internet
-    ro = Nu a fost detectată nicio conexiune la internet.
-    nb = Ingen Internett-tilkobling oppdaget
-    fi = Internet-yhteyttä ei havaittu
-
   [no_wifi_ask_cellular_download]
     tags = tizen
     en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE, 3G or LTE) to download %@?
@@ -1075,37 +1012,6 @@
     ro = Căutare hartă
     nb = Søk kart
     fi = Hae kartalta
-
-  [not_enough_disk_space]
-    en = There is not enough free disk space
-    comment = Settings/Downloader - No free space dialog title
-    cs = Nedostatek volného úložného prostoru
-    sk = Nedostatok voľného úložného priestoru
-    de = Speicherplatz reicht nicht aus
-    es = No hay suficiente espacio libre
-    fr = Il n'y a pas assez d'espace disque libre
-    it = Non c'è abbastanza spazio libero su disco
-    ja = ディスクに十分な空き領域がありません
-    ko = 디스크 공간이 부족합니다.
-    nl = Er is niet genoeg vrije ruimte
-    ru = Нет свободного места
-    uk = Немає вільного місця
-    zh-Hant = 沒有足夠的儲存空間
-    pl = Nie ma wystarczającej ilości wolnego miejsca
-    pt = Não há espaço livre suficiente em disco
-    hu = Nincs elég szabad hely a lemezen
-    th = มีพื้นที่ว่างในดิสก์ไม่เพียงพอ
-    zh-Hans = 没有足够的可用磁盘空间
-    ar = لا يوجد مساحة كافية على القرص
-    da = Der er ikke nok ledig plads på telefonen
-    tr = Yeterli boş disk alanı yok
-    sv = Det finns inte tillräckligt mycket ledigt utrymme på telefonen
-    he = אין מספיק מקום פנוי על הדיסק
-    id = Tidak ada ruang kosong yang cukup
-    vi = Không có đủ dung lượng trống trên ổ đĩa
-    ro = Nu există suficient spațiu liber pe disc.
-    nb = Det er ikke nok ledig diskplass
-    fi = Ei tarpeeksi tyhjää levytilaa
 
   [touch_to_download]
     en = Touch to download
@@ -7322,37 +7228,35 @@
     nb = Med den nye versjonen av MAPS.ME kan du opprette ruter fra din nåværende posisjon til et ankomststed på kartet. Oppdater kartene for å bruke denne funksjonen.
     fi = Uusi MAPS.ME -versio mahdollistaa reittien luonnin nykyisestä sijainnista määränpäähäsi.Päivitä kartat käyttääksesi tätä ominaisuutta.
 
-  [downloader_update_all]
-    tags = ios,android,tizen
+  [downloader_update_all_button]
+    tags = ios,android
     comment = Update all button text
     en = Update all
     ru = Обновить все
-    ja = 全てをアップデート
-    ko = 모두 업데이트
-    it = Aggiorna tutto
-    hu = Mind frissítése
-    fr = Tout mettre à jour
-    de = Alles aktualisieren
-    nl = Alles bijwerken
-    zh-Hant = 更新全部
-    cs = Aktualizovat vše
-    es = Actualizar todos
-    uk = Оновити все
-    pl = Uaktualnij wszystko
-    pt = Atualizar tudo
-    ar = تحديث الكل
-    da = Opdater alle
-    tr = Tümünü güncelle
-    zh-Hans = 更新全部
-    th = อัปเดตทั้งหมด
-    he = עדכן הכול
+    tr = Hepsini güncelle
     sv = Uppdatera alla
-    sk = Aktualizovať všetky
-    id = Perbarui semuanya
-    vi = Cập nhật tất cả
-    ro = Actualizare toate
     nb = Oppdater alle
+    ko = 모두 업데이트
+    id = Perbarui semua
+    hu = Mindegyik frissítése
+    de = Alle aktualisieren
     fi = Päivitä kaikki
+    nl = Update alles
+    da = Opdatér alle
+    cs = Aktualizovat vše
+    zh-Hans = 更新全部
+    zh-Hant = 更新全部
+    ar = تحديث الكل
+    th = อัปเดตทั้งหมด
+    uk = Оновити всі
+    pt = Atualizar tudo
+    es = Actualizar todos
+    ro = Actualizați toate
+    pl = Aktualizuj wszystkie
+    sk = Aktualizovať všetko
+    it = Aggiorna tutte
+    fr = Mettre à jour tout
+    ja = 全てをアップデート
 
   [downloader_cancel_all]
     tags = ios,android,tizen
@@ -7386,37 +7290,35 @@
     nb = Avbryt alle
     fi = Peruuta kaikki
 
-  [downloader_downloaded]
+  [downloader_downloaded_subtitle]
     tags = ios,android,tizen
     comment = Downloaded maps category
     en = Downloaded
-    ru = Загружено
-    ja = ダウンロード済
-    ko = 다운로드
-    it = Scaricate
-    hu = Letöltve
-    fr = Téléchargé
-    de = Heruntergeladen
-    nl = Gedownload
-    zh-Hant = 已下載
-    cs = Stažené
-    es = Descargados
-    uk = Завантажено
-    pl = Pobrane
-    pt = Descarregados
-    ar = المُنزَّلة
-    da = Downloadede
-    tr = İndirilenler
-    zh-Hans = 已下载
-    th = ดาวน์โหลดเสร็จ
-    he = הוּרד/ו
+    ru = Загруженные
+    tr = İndirildi
     sv = Nedladdade
-    sk = Stiahnuté
-    id = Telah Diunduh
-    vi = Đã tải xuống
-    ro = Descărcate
     nb = Lastet ned
-    fi = Ladattu
+    ko = 다운로드
+    id = Diunduh
+    hu = Letöltve
+    de = Heruntergeladen
+    fi = Ladatut
+    nl = Gedownload
+    da = Downloadet
+    cs = Staženo
+    zh-Hans = 已下载
+    zh-Hant = 已下載
+    ar = تم تنزيلها
+    th = ดาวน์โหลดแล้ว
+    uk = Завантажено
+    pt = Descarregado
+    es = Descargado
+    ro = Descărcat
+    pl = Pobrane
+    sk = Stiahnuté
+    it = Scaricate
+    fr = Téléchargé
+    ja = ダウンロード済み
 
   [downloader_queued]
     tags = ios,android,tizen
@@ -7450,13 +7352,63 @@
     nb = lagt i kø
     fi = jonossa
 
-  [downloader_near_me]
+  [downloader_near_me_subtitle]
+    tags = ios,android
     en = Near me
-    ru = Рядом со мной
+    ru = Возле меня
+    tr = Yakınlarımda
+    sv = Nära mig
+    nb = I nærheten
+    ko = 내 근처
+    id = Dekat saya
+    hu = A közelemben
+    de = In meiner Nähe
+    fi = Minun lähelläni
+    nl = Bij mij in de buurt
+    da = I nærheden
+    cs = Poblíž mě
+    zh-Hans = 在我附近
+    zh-Hant = 在我附近
+    ar = بالقرب مني
+    th = ใกล้ฉัน
+    uk = Поблизу
+    pt = Perto de mim
+    es = Cerca de mí
+    ro = Aproape de mine
+    pl = Blisko mnie
+    sk = Neďaleko mňa
+    it = Vicino a me
+    fr = Près de moi
+    ja = 付近
 
-  [downloader_maps_to_update]
-    en = Maps: %1$d (%2$s)
-    ru = Карт: %1$d (%2$s)
+  [downloader_status_maps]
+    tags = ios,android
+    en = Maps: %s
+    ru = Карт: %s
+    tr = Haritalar: %s
+    sv = Kartor: %s
+    nb = Kart: %s
+    ko = 지도: %s
+    id = Peta: %s
+    hu = Térképek: %s
+    de = Karten: %s
+    fi = Kartat: %s
+    nl = Kaarten: %s
+    da = Kort: %s
+    cs = Mapy: %s
+    zh-Hans = 地图： %s
+    zh-Hant = 地圖： %s
+    ar = الخرائط: %s
+    th = แผนที่: %s
+    uk = Карти: %s
+    pt = Mapas: %s
+    es = Mapas: %s
+    ro = Hărți: %s
+    pl = Mapy: %s
+    sk = Mapy: %s
+    it = Mappe: %s
+    fr = Cartes : %s
+    ja = 地図: %s
 
   [routing_disclaimer]
     tags = ios,android,tizen
@@ -8097,12 +8049,6 @@
     ro = Hartă + trasee
     nb = Kart + rutetilordning
     fi = Kartta + reititys
-
-  [downloader_delete_editor_changes]
-    tags = ios, android
-    comment = Dialog confirmation when trying to delete map and there are unsaved changes present on it.
-    en = Unsaved changes for this map will be removed too. Continue anyway?
-    ru = Несохранённые правки в данном регионе также будут удалены! Продолжить?
 
   [downloader_delete_map]
     tags = ios,android,tizen
@@ -14861,64 +14807,6 @@
     nl = Volgende
     pt = Próxima
 
-  [whats_new_night_caption]
-    en = Night Mode Navigation
-    ru = Ночной режим навигации
-    fr = Navigation en mode nuit
-    da = Navigering i nattilstand
-    id = Navigasi mode malam
-    ko = 야간 모드 탐색
-    sv = Navigering i nattläge
-    tr = Gece modu navigasyon
-    uk = Нічний режим навігації
-    vi = Điều hướng chế độ ban đêm
-    hu = Navigáció éjszakai módban
-    de = Nachtmodus-Navigation
-    fi = Yötilanavigaatio
-    cs = Navigace v nočním režimu
-    it = Navigazione in modalità notturna
-    nb = Nattmodus-navigering
-    zh-Hant = 夜間模式導航
-    zh-Hans = 夜间模式导航
-    th = การนำทางในโหมดกลางคืน
-    ja = 夜間モードナビゲーション
-    ro = Navigație mod nocturn
-    ar = وضع التجول الليلي
-    sk = Navigácia v nočnom režime
-    es = Navegación en modo nocturno
-    pl = Nawigacja w trybie nocnym
-    nl = Nachtmodusnavigatie
-    pt = Navegação em modo noturno
-
-  [whats_new_night_body]
-    en = To facilitate using MAPS.ME when driving in the dark, we have added night mode. It switches on automatically after sunset.
-    ru = Для удобства использования MAPS.ME во время вождения автомобиля в темное время суток мы добавили ночной режим. Он запускается автоматически после захода солнца.
-    fr = Pour faciliter l'utilisation de MAPS.ME en conduisant dans l'obscurité, nous avons ajouté le mode nuit. Il se met automatiquement en marche après le coucher du soleil.
-    da = For at hjælpe med brugen af MAPS.ME ved kørsel om natten har vi tilføjet nattilstand. Den slår automatisk til efter solnedgang.
-    id = Untuk memfasilitasi penggunaan MAPS.ME saat berkendara dalam gelap, kami telah menambahkan mode malam. Mode ini diaktifkan secara otomatis setelah matahari terbenam.
-    ko = 어두운 곳에서 운전할 때 MAPS.ME를 사용하는 걸 용이하게 하려면, 야간 모드에 추가됩니다. 이는 일몰 후 자동으로 전환됩니다.
-    sv = För att underlätta användandet av MAPS.ME under mörkerkörning har vi lagt till nattläget. Det slås automatiskt på efter att solen gått ned.
-    tr = Karanlıkta sürerken MAPS.ME kullanmayı kolaylaştırmak için gece modunu ekledik. Gün batımından sonra otomatik olarak devreye girer.
-    uk = Для зручності використання MAPS.ME під час водіння автомобіля в темну пору доби ми додали нічний режим. Він запускається автоматично після заходу сонця.
-    vi = Để tạo điều kiện sử dụng MAPS.ME khi lái xe trong đêm tối, chúng tôi đã thêm chế độ ban đêm. Nó tự động mở sau khi mặt trời lặn.
-    hu = A MAPS.ME használatának sötétben való vezetés közbeni elősegítése érdekében hozzáadtuk a funkciókhoz az éjszakai módot. Naplemente után automatikusan bekapcsol.
-    de = Um die Nutzung von MAPS.ME beim Fahren im Dunkeln zu erleichtern, haben wir den Nachtmodus hinzugefügt. Dieser wird automatisch nach Sonnenuntergang aktiviert.
-    fi = Olemme lisänneet yötilan helpottaaksemme MAPS.ME:n käyttöä pimeällä ajettaessa. Se menee automaattisesti päälle auringonlaskun jälkeen.
-    cs = Přidali jsme noční režim, abyste mohli MAPS.ME používat při řízení v noci. Zapíná se automaticky po západu slunce.
-    it = Per poter utilizzare al meglio MAPS.ME di sera o di notte, abbiamo aggiunto la modalità notturna. L'applicazione passerà automaticamente a questa modalità dopo il tramonto.
-    nb = For å tilrettelegge bruk av MAPS.ME under mørkekjøring har vi lagt til funksjonen nattmodus. Funksjonen skrues automatisk på etter solnedgang.
-    zh-Hant = 為了便於天黑行駛時使用MAPS.ME，我們增加了夜間模式。該模式在日落之後會自動開啟。
-    zh-Hans = 为了便于天黑行驶时使用MAPS.ME，我们增加了夜间模式。该模式在日落之后会自动开启。
-    th = เราได้เพิ่มโหมดกลางคืนเพื่อส่งเสริมการใช้ MAPS.ME เมื่อคุณกำลังขับรถในสภาพมืด จะมีการเปิดใช้โหมดนี้โดยอัตโนมัติหลังจากพระอาทิตย์ตก
-    ja = MAPS.MEを夜間の運転中に使いやすくするため、夜間モードを追加しました。日の入り後に自動的に切り替わります。
-    ro = Pentru a facilita utilizarea MAPS.ME atunci când conduceți noaptea, am adăugat modul nocturn. Acesta pornește automat după apusul soarelui.
-    ar = لتسهيل استخدام MAPS.ME أثناء القيادة في الظلام، فقد أضفنا وضع التجول الليلي. إنه يعمل تلقائيا بعد غروب الشمس.
-    sk = Na uľahčenie použitia MAPS.ME pri jazde za tmy sme pridali nočný režim. Automaticky sa zapne po západe slnka.
-    es = Para facilitar el uso de MAPS.ME al conducir en la oscuridad, hemos añadido el modo nocturno. Este se activa automáticamente tras el atardecer.
-    pl = Aby umożliwić korzystanie z MAPS.ME podczas prowadzenia po zmroku, dodaliśmy tryb nocny. Włącza się on automatycznie po zachodzie słońca.
-    nl = Om het gebruik van MAPS.ME te vergemakkelijken tijdens het rijden in het donker, hebben we de nachtmodus toegevoegd. Deze wordt automatisch ingeschakeld na zonsondergang.
-    pt = Para facilitar o uso do MAPS.ME ao dirigir no escuro, adicionamos o modo noturno. Ele é acionado automaticamente após o pôr do sol.
-
   [editor_time_add]
     tags = ios, android
     en = Add Schedule
@@ -15339,67 +15227,6 @@
     pl = Ważne!
     nl = Belangrijk!
     pt = Importante!
-
-  [migrate_and_split_mwms_message]
-    tags = ios, android
-    comment = Used in 2 places: What's new and Delete All maps dialog.
-    en = We have divided maps into parts. Now you can download separate regions, not the whole country. Before you start downloading new maps, please remove the old ones.
-    ru = Мы разрезали большие карты на части: теперь можно загрузить только нужную область, а не всю страну целиком. Прежде чем начать загружать маленькие карты, пожалуйста, удалите все старые.
-    fr = Nous avons divisé la carte en plusieurs parties. Désormais, vous pouvez télécharger des régions bien précises, et non plus le pays tout entier. Avant de commencer à télécharger de nouvelles cartes , veillez à effacer les anciennes.
-    da = Vi har delt kort op i dele. Nu kan man downloade separate regioner, ikke hele landet. Før du begynder på at downloade nye kort, så venligst fjern de gamle.
-    id = Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara. Sebelum Anda mulai mengunduh peta-peta baru, harap menghapus peta-peta yang lama.
-    ko = 지도를 여러 부분으로 나눴습니다. 이제는 전체 국가가 아닌 개별 지역을 다운로드할 수 있습니다. 새 지도를 다운로드하기 전에 오래된 지도를 제거하십시오.
-    sv = Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet. Innan du börjar ladda ner nya kartor, ta bort de gamla.
-    tr = Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz. Yeni haritaları indirmeden önce lütfen eski haritaları kaldırın.
-    uk = Ми поділили великі мапи на частини: тепер можна завантажити необхідну область окремо від всієї країни. Перед тим як розпочати завантажувати зменьшені мапи, будь ласка, видаліть всі старі.
-    vi = Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia. Trước khi bạn bắt đầu tải những bản đồ mới, hãy loại bỏ những cái cũ.
-    hu = Felosztottuk részekre a térképeket. Mostantól az egyes régiókat is letöltheted, nem csak az egész országot. Az új térképek letöltése előtt kérjük, távolítsd el a régieket.
-    de = Wir haben die Karten aufgeteilt. Jetzt können Sie einzelne Regionen herunterladen, ohne das ganze Land herunterzuladen. Bevor Sie damit beginnen, neue Karten herunterzuladen, löschen Sie bitte Ihre alten Karten.
-    fi = Olemme jakaneet kartat osiin, joten voitkin nyt ladata pelkkiä alueita lataamatta koko maan karttaa. Ennen uusien karttojen lataamista tulee sinun kuitenkin poistaa vanhat kartat laitteeltasi.
-    cs = Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země. Než začnete stahovat nové mapy, prosím, odstraňte ty staré.
-    it = Abbiamo diviso le mappe in parti. Ora puoi scaricare le regioni separate, non l'intero paese. Prima di iniziare lo scaricamento di nuove mappe, elimina quelle vecchie.
-    nb = Vi har delt opp kartene i separate deler. Nå kan du laste ned separate regioner istedenfor hele land. Sørg for at du fjerner de gamle kartene før du begynner å laste ned nye.
-    zh-Hant = 我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。您在開始下載新地圖前，請刪除老地圖。
-    zh-Hans = 我们将地图分成了几部分。现在，您可以下载独立的区域，而不是整个国家。在开始下载新地图前，请删除旧地图。
-    th = เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว ไม่ต้องโหลดทุกประเทศ ก่อนที่คุณจะเริ่มการดาวน์โหลดแผนที่ใหม่ ขอความกรุณาลบแผนที่อันเก่าออกไปก่อน
-    ja = マップを分割し、国全体でなく個別の地域をダウンロードできるようにしました。新しいマップをダウンロードする前に、古いものを削除してください。
-    ro = Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă. Înainte de a începe să descărcați hărți noi, vă rugăm să le ștergeți pe cele vechi.
-    ar = لقد قسمنا الخرائط إلى أجزاء. الآن يمكنك تنزيل مناطق منفصلة، وليس البلد بأكمله. قبل البدء في تنزيل الخرائط الجديدة، يرجى إزالة النسخ القديمة.
-    sk = Mapy sme rozdelili na časti. Teraz si môžete stiahnuť jednotlivé regióny, nie celú krajinu. Predtým ako si začnete sťahovať nové mapy, prosím, odstráňte staré.
-    es = Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez de el país entero. Antes de empezar a descargar mapas nuevos, por favor, elimina los anteriores.
-    pl = Podzieliliśmy mapy na części. Teraz możesz pobierać oddzielne regiony, zamiast całego kraju. Zanim rozpoczniesz pobieranie nowych map, usuń te stare.
-    nl = We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio's downloaden in plaats van het hele land. Verwijder eerst de oude kaarten voordat uw nieuwe gaat downloaden.
-    pt = Dividimos os mapas em partes. Agora vocês podem baixar regiões separadas em vez do país inteiro. Antes de começarem a baixar novos mapas, apaguem os mapas antigos.
-
-  [youve_been_asking]
-    tags = ios, android
-    en = You've been asking for it and we've done it
-    ru = Вы долго просили — мы наконец сделали
-    fr = Vous avez été nombreux à nous le demander et nous avons satisfait votre requête.
-    da = I har bedt om det, og vi har gjort det
-    id = Anda memintanya dan kami telah malakukannya
-    ko = 여러분이 요청한 것을 저희가 해냈습니다
-    sv = Du har bett om det och vi har gjort det
-    tr = Siz istediniz biz yaptık
-    uk = Ви просили і ми це зробили
-    vi = Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó
-    hu = Te kérted, mi elkészítettük
-    de = Sie haben darum gebeten, und wir haben es geschafft
-    fi = Sitä on pyydetty, ja nyt se on tarjolla
-    cs = Říkali jste si o to, a my to udělali
-    it = Ce lo avete chiesto e noi lo abbiamo fatto
-    nb = Dere har bedt om det og vi har fått det til
-    zh-Hant = 您一直在尋求，而我們已經完成
-    zh-Hans = 我们满足了您一直以来的要求
-    th = คุณได้ขอมา เราจึงทำมัน
-    ja = 皆様のご要望にお応えして、実現を果たしました
-    ro = Ne-ați cerut, iar noi am făcut
-    ar = لقد طلبتم ذلك، وها نحن قد لبينا طلبكم
-    sk = Dožadovali ste sa toho a my sme vám vyhoveli
-    es = Llevas tiempo pidiéndolo y lo hemos hecho
-    pl = Prosiliście o to, więc to zrobiliśmy
-    nl = Op veler verzoek hebben we het voor elkaar gekregen
-    pt = Vocês têm pedido por isso e nós atendemos
 
   [download_all]
     tags = ios
@@ -16986,66 +16813,6 @@
     nl = Telefoonnummer
     pt = Telefone
 
-  [whats_new_editor_caption]
-    tags = ios, android
-    en = Edit the map directly from MAPS.ME
-    ru = Редактируйте карту прямо из MAPS.ME
-    fr = Modifiez la carte directement depuis MAPS.ME
-    da = Redigér kortet direkte fra MAPS.ME
-    id = Edit peta secara langsung dari MAPS.ME
-    ko = MAPS.ME 와 직접 지도 편집
-    sv = Redigera kartan direkt från MAPS.ME
-    tr = Haritayı doğrudan MAPS.ME'den düzenleyin
-    uk = Редагуйте карту відразу з MAPS.ME
-    vi = Chỉnh sửa bản đồ trực tiếp từ MAPS.ME
-    hu = Térkép szerkesztése közvetlenül a MAPS.ME-ből
-    de = Bearbeiten der Karte direkt in MAPS.ME
-    fi = Muokkaa karttoja suoraan MAPS.ME -sovelluksessa
-    cs = Upravujte mapu přímo z MAPS.ME
-    it = Modifica la mappa direttamente da MAPS.ME
-    nb = Rediger kartet direkte fra MAPS.ME
-    zh-Hant = 直接從MAPS.ME編輯地圖
-    zh-Hans = 直接从MAPS.ME编辑地图
-    th = แก้ไขแผนที่โดยตรงจาก MAPS.ME
-    ja = MAPS.MEで直接地図を編集可能
-    ro = Editează harta direct de pe MAPS.ME
-    ar = حرر خريطتك على MAPS.ME
-    sk = Upravte mapu priamo cez MAPS.ME
-    es = Edita el mapa directamente desde MAPS.ME
-    pl = Edytuj mapy bezpośrednio w MAPS.ME
-    nl = Bewerk de kaart direct vanuit MAPS.ME
-    pt = Modifique o mapa diretamente do MAPS.ME
-
-  [whats_new_editor_message]
-    tags = ios, android
-    en = Your changes will help millions of users. Let's improve the world together!
-    ru = Ваши изменения помогут миллионам пользователей. Улучшим мир вместе!
-    fr = Vos modifications aideront des millions d'utilisateurs. Améliorons le monde ensemble !
-    da = Dine ændringer vil hjælpe millioner af brugere. Lad os forbedre verden sammen!
-    id = Perubahan yang anda lakukan akan membantu jutaan pengguna. Marilah meningkatkan dunia bersama-sama!
-    ko = 귀하의 변화는 수 백만 사용자를 도울 것입니다. 자 함께 세상의 발전을!
-    sv = Dina ändringar kommer att hjälpa miljontals användare. Låt oss förbättra världen tillsammans!
-    tr = Değişiklikleriniz milyonlarca kullanıcıya yardımcı olacaktır. Haydi dünyayı birlikte geliştirelim!
-    uk = Ваші зміни допоможуть мільйонам користувачів. Вдосконалимо світ разом!
-    vi = Thay đổi của bạn sẽ giúp cho hàng triệu người dùng. Hãy cùng nhau cải thiện thế giới!
-    hu = Javításaid felhasználóik millióinak fognak majd segíteni. Javítsunk együtt a világon!
-    de = Ihre Veränderungen werden Millionen von Benutzern helfen. Lasst uns zusammen die Welt verbessern!
-    fi = Muokkauksesi auttavat miljoonia käyttäjiä — parannetaan maailmaa yhdessä!
-    cs = Vaše změny pomůžou miliónům uživatelů. Pojďme společně vylepšit svět!
-    it = Le tue modifiche aiuteranno milioni di utenti. Cerchiamo di migliorare il mondo insieme!
-    nb = Endringene dine vil hjelpe millioner av brukere. La oss forbedre verden sammen!
-    zh-Hant = 您的修改將幫助上百萬用戶。讓我們一起讓世界變好！
-    zh-Hans = 您的修改将帮助上百万用户。让我们一起让世界变好！
-    th = การแก้ไขของคุณจะช่วยผู้ใช้หลายล้านคนได้ มาช่วยทำให้โลกน่าอยู่ขึ้น!
-    ja = 地図を修正すると、何百万人ものユーザーの役に立ちます。一緒に世界を改善していきましょう！
-    ro = Modificările tale vor ajuta milioane de utilizatori. Hai să facem lumea mai bună împreună!
-    ar = تغييراتك سوف تساعد الملايين من المستخدمين. هيا نطور من العالم سويا!
-    sk = Vaše zmeny pomôžu miliónom používateľov. Spoločne zlepšíme svet!
-    es = Tus cambios ayudarán a millones de usuarios. ¡Vamos a mejorar juntos el mundo!
-    pl = Wprowadzone przez Ciebie zmiany pomogą milionom użytkowników. Ulepszajmy świat razem!
-    nl = Jouw wijzigingen zullen miljoenen gebruikers helpen. Laten we samen de wereld verbeteren!
-    pt = As suas alterações vão ajudar milhões de usuários. Vamos melhorar o mundo juntos!
-
   [please_note]
     tags = ios, android
     en = Please note
@@ -17190,6 +16957,180 @@
     it = Per creare un percorso, devi aggiornare tutte le mappe e pianificare nuovamente il percorso.
     fr = Pour créer un itinéraire, vous devez mettre à jour toutes les cartes puis reprogrammer l'itinéraire.
     ja = ルートを作成するには、全ての地図をアップデートした後で再びルート計画を行う必要があります。
+
+  [downloader_search_field_hint]
+    tags = ios, android
+    ru = Найти карту
+    en = Find the map
+    tr = Harita bul
+    sv = Hitta kartan
+    nb = Finn kartet
+    ko = 지도 찾기
+    id = Temukan peta
+    hu = Térkép keresése
+    de = Karte finden
+    fi = Etsi kartta
+    nl = Vind de kaart
+    da = Find kortet
+    cs = Najít mapu
+    zh-Hans = 找到地图
+    zh-Hant = 找到地圖
+    ar = اعثر على الخريطة
+    th = ค้นหาแผนที่
+    uk = Знайти карту
+    pt = Encontrar o mapa
+    es = Encontrar el mapa
+    ro = Găsiți harta
+    pl = Znajdź mapę
+    sk = Nájsť mapu
+    it = Trova la mappa
+    fr = Trouver la carte
+    ja = 地図を検索
+
+  [migration_update_all_button]
+    tags = ios, android
+    en = Update all maps
+    ru = Обновить все карты
+    tr = Haritaları güncelle
+    sv = Uppdatera alla kartor
+    nb = Oppdater alle kart
+    ko = 모든지도 업데이트
+    id = Perbarui semua peta
+    hu = Minden térkép frissítése
+    de = Alle Karten aktualisieren
+    fi = Päivitä kaikki kartat
+    nl = Update alle kaarten
+    da = Opdatér alle kort
+    cs = Aktualizovat všechny mapy
+    zh-Hans = 更新全部地图
+    zh-Hant = 更新全部地圖
+    ar = تحديث جميع الخرائط
+    th = อัปเดตแผนที่ทั้งหมด
+    uk = Оновити всі карти
+    pt = Atualizar todos os mapas
+    es = Actualizar todos los mapas
+    ro = Actualizați toate hărțile
+    pl = Aktualizuj wszystkie mapy
+    sk = Aktualizovať všetky mapy
+    it = Aggiorna tutte le mappe
+    fr = Mettre à jour toutes les cartes
+    ja = 全ての地図をアップデート
+
+  [migration_delete_all_download_current_button]
+    tags = ios, android
+    en = Download current map and delete the old ones
+    ru = Скачать текущую и удалить все старые карты
+    tr = Mevcut haritayı indir ve tüm eski haritaları sil
+    sv = Ladda ned senaste kartan och radera de gamla
+    nb = Last ned det oppdaterte kartet og slett de gamle
+    ko = 현재 지도 다운로드 및 기존 지도 삭제
+    id = Unduh peta sekarang dan hapus peta lama
+    hu = Töltsd le a jelenlegi térképet és töröld a régieket
+    de = Laden Sie die aktuelle Karte herunter und löschen Sie alte Karten
+    fi = Lataa nykyinen kartta ja poista kaikki vanhat kartat
+    nl = Download de huidige kaart en verwijder de oude
+    da = Download aktuelt kort og slet de gamle
+    cs = Stáhněte si aktuální mapu a odstraňte staré
+    zh-Hans = 下载当前地图并删除旧地图
+    zh-Hant = 下載當前地圖並刪除舊地圖
+    ar = تنزيل الخريطة الحالية وحذف الخرائط القديمة
+    th = ดาวน์โหลดแผนที่ปัจจุบันและลบแผนที่เก่า
+    uk = Завантажте поточну карту і видаліть старі
+    pt = Descarregue o mapa atual e elimine os antigos
+    es = Descargar el mapa actual y eliminar los mapas antiguos
+    ro = Descărcați harta actuală și ștergeți toate hărțile vechi
+    pl = Pobierz bieżącą mapę i usuń stare
+    sk = Stiahnite si aktuálnu mapu a odstráňte neaktuálne mapy
+    it = Scarica la mappa attuale e cancella quelle vecchie
+    fr = Téléchargez la carte actuelle et supprimez les anciennes
+    ja = 現在の地図をダウンロードして古い地図を削除
+
+  [migration_prefetch_status]
+    tags = ios, android
+    en = Preparing maps update…
+    ru = Подготовка обновления карт…
+    tr = Harita güncellemesi hazırlanıyor...
+    sv = Förbereder kartuppdatering…
+    nb = Forbereder oppdatering av kart...
+    ko = 지도 업데이트 준비 중...
+    id = Mempersiapkan pembaruan peta…
+    hu = Térképfrissítések előkészítése…
+    de = Karten-Update wird vorbereitet …
+    fi = Karttojen päivitystä ladataan...
+    nl = Het voorbereiden van de update van de kaart…
+    da = Forbereder kortopdatering...
+    cs = Probíhá příprava na aktualizace map…
+    zh-Hans = 正在准备地图更新…
+    zh-Hant = 正在準備地圖更新…
+    ar = جار الإعداد لتحديث الخرائط...
+    th = กำลังเตรียมการอัปเดตแผนที่...
+    uk = Підготовка до оновлення карт...
+    pt = A preparar a atualização de mapas...
+    es = Preparando la actualización de mapas…
+    ro = Pregătește actualizarea hărților…
+    pl = Przygotowywanie aktualizacji map...
+    sk = Prebieha príprava aktualizácie máp...
+    it = Preparazione aggiornamento delle mappe…
+    fr = Préparation de la mise à jour des cartes…
+    ja = 地図のアップデートの準備中…
+
+  [migration_download_error_dialog]
+    tags = ios, android
+    en = Download error
+    ru = Ошибка загрузки
+    tr = İndirme hatası
+    sv = Nedladdningsfel
+    nb = Nedlastningsfeil
+    ko = 다운로드 오류
+    id = Unduh kesalahan
+    hu = Letöltési hiba
+    de = Download-Fehler
+    fi = Latausvirhe
+    nl = Downloadfout
+    da = Fejl ved download
+    cs = Chyba při stahování
+    zh-Hans = 下载错误
+    zh-Hant = 下載錯誤
+    ar = خطأ بالتنزيل
+    th = ข้อผิดพลาดในการดาวน์โหลด
+    uk = Помилка завантаження
+    pt = Erro de download
+    es = Error de descarga
+    ro = Eroare de descărcare
+    pl = Błąd pobierania
+    sk = Chyba pri sťahovaní
+    it = Errore nel download
+    fr = Erreur de téléchargement
+    ja = ダウンロードエラー
+
+  [common_check_internet_connection_dialog]
+    tags = ios, android
+    en = Please check your settings and make sure your device is connected to the internet.
+    ru = Проверьте настройки и убедитесь, что устройство подключено к интернету.
+    tr = Lütfen ayarlarınızı kontrol edin ve cihazınızın internete bağlı olduğundan emin olun.
+    sv = Kontrollera dina inställningar och se till att din enhet är ansluten till internet.
+    nb = Kontroller innstillingene dine og sørg for at enheten din er koblet til internett.
+    ko = 설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.
+    id = Harap memeriksa pengaturan Anda dan pastikan perangkat Anda terhubung dengan internet.
+    hu = Kérjük, ellenőrizd a beállításaid és győződj meg arról, hogy a készüléked kapcsolódik az internethez.
+    de = Bitte überprüfen Sie Ihre Einstellungen und stellen Sie sicher, dass Ihr Gerät mit dem Internet verbunden ist.
+    fi = Tarkista asetuksesi ja varmista, että laitteesi on yhteydessä Internetiin.
+    nl = Controleer je instellingen en zorg ervoor dat het apparaat is verbonden met het internet.
+    da = Tjek dine indstillinger og sørg for, din enhed er forbundet til internettet.
+    cs = Zkontrolujte prosím své nastavení a ujistěte se, že je vaše zařízení připojeno k internetu.
+    zh-Hans = 请检查您的设置并确保您的设备已连接至网络。
+    zh-Hant = 請檢查您的設置並確保您的設備已連接至網絡。
+    ar = يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.
+    th = กรุณาตรวจสอบการตั้งค่าของคุณแล้วทำให้แน่ใจว่าอุปกรณ์ของคุณได้รับการเชื่อมต่ออินเทอร์เน็ต
+    uk = Будь ласка, перевірте свої налаштування і переконайтеся, що ваш пристрій підлючено до Інтернету.
+    pt = Por favor, verifique as suas opções e certifique-se de que o dispositivo está ligado à Internet.
+    es = Por favor, verifica la configuración y asegúrate de que tu dispositivo está conectado a Internet.
+    ro = Vă rugăm să vă verificați setările și să vă asigurați că dispozitivul dvs. este conectat la Internet.
+    pl = Sprawdź swoje ustawienia i upewnij się, że urządzenie ma połączenie z Internetem.
+    sk = Prosím, skontrolujte svoje nastavenia a uistite sa, že váš počítač je pripojený k internetu.
+    it = Sei pregato di verificare le tue impostazioni e assicurarti che il tuo dispositivo sia connesso a internet.
+    fr = Veuillez vérifier vos paramètres et vous assurer que votre appareil est bien connecté à Internet.
+    ja = 設定をチェックし、デバイスがインターネットに接続されているか確認してください。
 
   [downloader_no_space_title]
     tags = ios, android
@@ -17889,6 +17830,10 @@
     nl = We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio's downloaden in plaats van het hele land.
     pt = Dividimos os mapas em partes. Agora vocês podem baixar regiões separadas em vez do país inteiro.
 
+  [whatsnew_search_header]
+    tags = ios, android
+    en = New search!
+
   [whatsnew_search_message]
     tags = ios, android
     en = We have significantly improved the search by address. See for yourself.
@@ -17919,62 +17864,263 @@
     nl = We hebben het zoeken op adres significant verbeterd. Bekijk het zelf.
     pt = Melhoramos consideravelmente a busca por endereço. Veja você mesmo.
 
-  [whatsnew_editor_header]
+  [whatsnew_editor_title]
     tags = ios, android
-    en = Edit the map directly from MAPS.ME
-    ru = Редактируйте карту прямо из MAPS.ME
-    fr = Modifiez la carte directement depuis MAPS.ME
-    da = Redigér kortet direkte fra MAPS.ME
-    id = Edit peta secara langsung dari MAPS.ME
-    ko = MAPS.ME 와 직접 지도 편집
-    sv = Redigera kartan direkt från MAPS.ME
-    tr = Haritayı doğrudan MAPS.ME'den düzenleyin
-    uk = Редагуйте карту відразу з MAPS.ME
-    vi = Chỉnh sửa bản đồ trực tiếp từ MAPS.ME
-    hu = Térkép szerkesztése közvetlenül a MAPS.ME-ből
-    de = Bearbeiten der Karte direkt in MAPS.ME
-    fi = Muokkaa karttoja suoraan MAPS.ME -sovelluksessa
-    cs = Upravujte mapu přímo z MAPS.ME
-    it = Modifica la mappa direttamente da MAPS.ME
-    nb = Rediger kartet direkte fra MAPS.ME
-    zh-Hant = 直接從MAPS.ME編輯地圖
-    zh-Hans = 直接从MAPS.ME编辑地图
-    th = แก้ไขแผนที่โดยตรงจาก MAPS.ME
-    ja = MAPS.MEで直接地図を編集可能
-    ro = Editează harta direct de pe MAPS.ME
-    ar = حرر خريطتك على MAPS.ME
-    sk = Upravte mapu priamo cez MAPS.ME
-    es = Edita el mapa directamente desde MAPS.ME
-    pl = Edytuj mapy bezpośrednio w MAPS.ME
-    nl = Bewerk de kaart direct vanuit MAPS.ME
-    pt = Modifique o mapa diretamente do MAPS.ME
+    en = Edit the map*
+    ru = Редактируйте карту*
+    tr = Haritayı düzenleyin*
+    sv = Redigera kartan*
+    nb = Rediger kartet*
+    ko = 지도 편집*
+    id = Edit peta*
+    hu = Térkép szerkesztése*
+    de = Karte bearbeiten*
+    fi = Muokkaa karttaa*
+    nl = Bewerk de kaart*
+    da = Redigér kortet*
+    cs = Upravit mapu*
+    zh-Hans = 编辑此地图*
+    zh-Hant = 編輯此地圖*
+    ar = تعديل الخريطة *
+    th = แก้ไขแผนที่*
+    uk = Редагувати карту*
+    pt = Editar o mapa*
+    es = Editar el mapa*
+    ro = Editați harta*
+    pl = Edytuj mapę*
+    sk = Upraviť mapu*
+    it = Modifica la mappa*
+    fr = Modifier la carte*
+    ja = 地図を編集*
 
-  [whatsnew_editor_message]
+  [whatsnew_editor_message_1]
     tags = ios, android
-    en = Your changes will help millions of users. Let's improve the world together!
-    ru = Ваши изменения помогут миллионам пользователей. Улучшим мир вместе!
-    fr = Vos modifications aideront des millions d'utilisateurs. Améliorons le monde ensemble !
-    da = Dine ændringer vil hjælpe millioner af brugere. Lad os forbedre verden sammen!
-    id = Perubahan yang anda lakukan akan membantu jutaan pengguna. Marilah meningkatkan dunia bersama-sama!
-    ko = 귀하의 변화는 수 백만 사용자를 도울 것입니다. 자 함께 세상의 발전을!
-    sv = Dina ändringar kommer att hjälpa miljontals användare. Låt oss förbättra världen tillsammans!
-    tr = Değişiklikleriniz milyonlarca kullanıcıya yardımcı olacaktır. Haydi dünyayı birlikte geliştirelim!
-    uk = Ваші зміни допоможуть мільйонам користувачів. Вдосконалимо світ разом!
-    vi = Thay đổi của bạn sẽ giúp cho hàng triệu người dùng. Hãy cùng nhau cải thiện thế giới!
-    hu = Javításaid felhasználóik millióinak fognak majd segíteni. Javítsunk együtt a világon!
-    de = Ihre Veränderungen werden Millionen von Benutzern helfen. Lasst uns zusammen die Welt verbessern!
-    fi = Muokkauksesi auttavat miljoonia käyttäjiä - parannetaan maailmaa yhdessä!
-    cs = Vaše změny pomůžou miliónům uživatelů. Pojďme společně vylepšit svět!
-    it = Le tue modifiche aiuteranno milioni di utenti. Cerchiamo di migliorare il mondo insieme!
-    nb = Endringene dine vil hjelpe millioner av brukere. La oss forbedre verden sammen!
-    zh-Hant = 您的修改將幫助上百萬用戶。讓我們一起讓世界變好！
-    zh-Hans = 您的修改将帮助上百万用户。让我们一起让世界变好！
-    th = การแก้ไขของคุณจะช่วยผู้ใช้หลายล้านคนได้ มาช่วยทำให้โลกน่าอยู่ขึ้น!
-    ja = 地図を修正すると、何百万人ものユーザーの役に立ちます。一緒に世界を改善していきましょう！
-    ro = Modificările tale vor ajuta milioane de utilizatori. Hai să facem lumea mai bună împreună!
-    ar = تغييراتك سوف تساعد الملايين من المستخدمين. هيا نطور من العالم سويا!
-    sk = Vaše zmeny pomôžu miliónom používateľov. Spoločne zlepšíme svet!
-    es = Tus cambios ayudarán a millones de usuarios. ¡Vamos a mejorar juntos el mundo!
-    pl = Wprowadzone przez Ciebie zmiany pomogą milionom użytkowników. Ulepszajmy świat razem!
-    nl = Jouw wijzigingen zullen miljoenen gebruikers helpen. Laten we samen de wereld verbeteren!
-    pt = As suas alterações vão ajudar milhões de usuários. Vamos melhorar o mundo juntos!
+    en = Add new places to the map, and edit existing ones directly from the app.
+    ru = Добавляйте новые объекты и редактируйте информацию о старых прямо из приложения.
+    tr = Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.
+    sv = Lägg till nya platser till kartan och redigera de befintliga direkt från appen.
+    nb = Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.
+    ko = 지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.
+    id = Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.
+    hu = Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.
+    de = Fügen Sie auf der Karte einen neuen Ort hinzu und bearbeiten Sie existierende Ort direkt in der App.
+    fi = Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.
+    nl = Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.
+    da = Tilføj nye steder til kortet og redigér eksisterende direkte fra app'en.
+    cs = Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.
+    zh-Hans = 添加新地点到该地图，并直接通过此应用编辑已存在的地点。
+    zh-Hant = 添加新地點到該地圖，並直接通過此應用編輯已存在的地點。
+    ar = قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.
+    th = เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง
+    uk = Додати нові місця до карти і редагувати існуючі місця прямо з програми.
+    pt = Adicione novos lugares ao mapa e edite os já existentes diretamente a partir da app.
+    es = Añadir lugares nuevos al mapa y editar los lugares actuales directamente desde la aplicación.
+    ro = Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.
+    pl = Dodawaj nowe miejsca do mapy i edytuj już istniejące bezpośrednio z poziomu aplikacji.
+    sk = Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.
+    it = Aggiungi nuovi luoghi alla mappa, e modifica quelli già esistenti direttamente dall’app.
+    fr = Ajoutez de nouveaux lieux sur la carte et modifiez les lieux existants directement depuis l'appli.
+    ja = アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。
+
+  [whatsnew_editor_message_2]
+    tags = ios, android
+    en = *MAPS.ME uses OpenStreetMap community data.
+    ru = *MAPS.ME использует данные открытых карт сообщества OpenStreetMap.
+    tr = *MAPS.ME, OpenStreetMap topluluğu verilerini kullanmaktadır.
+    sv = *MAPS.ME använder data från OpenStreetMaps community.
+    nb = *MAPS.ME bruker data fra OpenStreetMap-samfunnet.
+    ko = *MAPS.ME는 OpenStreetMap 커뮤니티 데이터를 사용합니다.
+    id = *MAPS.ME menggunakan data komunitas OpenStreetMap.
+    hu = *A MAPS.ME az OpenStreetMap közösség adatait használja.
+    de = *MAPS.ME verwendet Community-Daten von OpenStreetMap.
+    fi = *MAPS.ME käyttää OpenStreetMap -yhteisön dataa.
+    nl = *MAPS.ME gebruikt OpenStreetMap-communitiedata.
+    da = *MAPS.ME bruger fællesskabsdata fra OpenStreetMap.
+    cs = *MAPS.ME používá komunitní data OpenStreetMap.
+    zh-Hans = *MAPS.ME使用OpenStreetMap社区的数据。
+    zh-Hant = *MAPS.ME使用OpenStreetMap社區的數據。
+    ar = *تستخدم MAPS.ME البيانات الخاصة بخريطة OpenStreetMap.
+    th = *MAPS.ME ใช้ข้อมูลจากชุมชน OpenStreetMap
+    uk = *MAPS.ME використовує дані спільноти OpenStreetMap.
+    pt = *A MAPS.ME utiliza dados da comunidade OpenStreetMap.
+    es = *MAPS.ME utiliza datos de la comunidad de OpenStreetMap.
+    ro = *MAPS.ME folosește datele comunității OpenStreetMap community.
+    pl = *MAPS.ME korzysta z danych społeczności OpenStreetMap.
+    sk = *MAPS.ME využíva dáta komunity OpenStreetMap.
+    it = *MAPS.ME usa i dati della community OpenStreetMap.
+    fr = *MAPS.ME utilise les données de la communauté OpenStreetMap.
+    ja = *MAPS.MEはOpenStreetMapコミュニティのデータを使用しています。
+
+  [onboarding_offline_navigation_title]
+    tags = ios, android
+    en = You will never get lost again
+    ru = Вы никогда больше не заблудитесь
+    tr = Bir daha asla kaybolmayacaksınız
+    sv = Du kommer aldrig att gå vilse igen
+    nb = Du vil aldri havne på villspor igjen
+    ko = 다시 손실되지 않을 것임
+    id = Anda tidak akan tersesat lagi
+    hu = Többé nem fogsz eltévedni
+    de = Sie werden sich nie wieder verfahren oder verlaufen
+    fi = Et eksy enää koskaan
+    nl = Je zult nooit meer verdwalen
+    da = Du vil aldrig fare vild igen
+    cs = Již nikdy nezabloudíte
+    zh-Hans = 您将不再迷路
+    zh-Hant = 您將不再迷路
+    ar = لن تضل الطريق أبدا بعد الآن
+    th = คุณจะไม่หลงทางอีกต่อไป
+    uk = Ви ніколи не загубитеся знову
+    pt = Nunca mais voltará a perder-se
+    es = Nunca volverás a perderte
+    ro = Niciodată nu vă veți rătăci din nou
+    pl = Nigdy się już nie zgubisz
+    sk = Už sa nikdy nestratíte
+    it = Non ti perderai mai più
+    fr = Vous ne vous perdrez plus jamais
+    ja = もう道に迷うことは絶対ありません
+
+  [onboarding_offline_navigation_message]
+    tags = ios, android
+    en = Plan optimal car and pedestrian routes, even if there is no internet connection!
+    ru = Прокладывайте самые оптимальные автомобильные и пешеходные маршруты даже там, где нет связи!
+    tr = En iyi araba ve yaya rotalarını planlayın, hatta internet bağlantısı olmadığında bile!
+    sv = Planera dina optimala bil- eller promenadrutter även när du saknar internetanslutning!
+    nb = Planlegg optimale reiseruter med bil og til fots, selv uten internettforbindelse!
+    ko = 인터넷에 연결이 없는 경우에도, 최적의 자동차와 보행자 경로를 계획하십시오!
+    id = Rencanakan rute mobil dan pejalan kaki yang optimal, meskipun tidak ada koneksi internet!
+    hu = Tervezd meg az optimális autós és gyalogos útvonalakat, akkor is, ha nincs internetkapcsolat!
+    de = Planen Sie die optimalen Auto- und Fußgängerstrecken, selbst wenn es keine Internetverbindung gibt!
+    fi = Suunnittele ihanteellinen autoilu- tai kävelyreitti jopa ilman Internet-yhteyttä!
+    nl = Plan optimale auto- en wandelroutes, zelfs als er geen internetverbinding is!
+    da = Planlæg de optimale ruter i bil og til fods selv uden internetforbindelse!
+    cs = Naplánujte si optimální trasy pro auto nebo pěší chůzi, i když tam nebude připojení k internetu!
+    zh-Hans = 规划最佳的驾车和步行路线，即使在没有网络连接的情况下！
+    zh-Hant = 規劃最佳的駕車和步行路線，即使在沒有網絡連接的情況下！
+    ar = قم بتخطيط أفضل طرق السيارات والمشاة، حتى مع عدم وجود اتصال بالإنترنت!
+    th = วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด แม้ว่าจะไม่มีการเชื่อมต่ออินเทอร์เน็ต!
+    uk = Плануйте оптимальні маршрути для поїздок і піших походів навіть без Інтернет з'єднання!
+    pt = Planeie itinerários ideais de automóvel e a pé, mesmo se não houver ligação à Internet!
+    es = Planifica rutas óptimas en coche y a pie, ¡incluso si no hay conexión a Internet!
+    ro = Planificați traseele optime cu mașina și cele pietonale, chiar dacă nu există conexiune la Internet!
+    pl = Planuj optymalne trasy samochodowe i piesze, nawet gdy nie masz połączenia z Internetem!
+    sk = Naplánujte si vhodné trasy na cestu autom alebo peši. Internetové pripojenie sa nevyžaduje!
+    it = Pianifica percorsi ottimali in auto o a piedi, anche senza connessione internet!
+    fr = Planifiez des itinéraires optimaux en voiture ou à pied, même en l'absence de connexion Internet !
+    ja = インターネット接続がなくても、車や徒歩での最短ルートを計画できます!
+
+  [onboarding_offline_navigation_title_2]
+    tags = ios, android
+    en = Offline navigation
+    ru = Оффлайн навигация
+    tr = Farklı bir problem
+    sv = Navigering offline
+    nb = Offline-navigering
+    ko = 오프라인 탐색
+    id = Navigasi Offline
+    hu = Offline navigáció
+    de = Offline-Navigation
+    fi = Offline-navigointi
+    nl = Offline navigatie
+    da = Offline navigering
+    cs = Offline navigace
+    zh-Hans = 离线导航
+    zh-Hant = 離線導航
+    ar = الملاحة في وضع غير متصل
+    th = การนำทางออฟไลน์
+    uk = Офлайн навігація
+    pt = Navegação offline
+    es = Navegación fuera de línea
+    ro = Navigare offline
+    pl = Nawigacja offline
+    sk = Offline navigácia
+    it = Navigazione offline
+    fr = Navigation hors-ligne
+    ja = オフラインナビゲーション
+
+  [onboarding_offline_navigation_message_2]
+    tags = ios, android
+    en = Plan optimal car and pedestrian routes.
+    ru = Прокладывайте оптимальные автомобильные и пешеходные маршруты.
+    tr = En iyi araba ve yaya rotalarını planlayın.
+    sv = Planera optimala bil- och promenadrutter.
+    nb = Planlegg optimale reiseruter med bil og til fots.
+    ko = 최적의 자동차와 보행자 경로를 계획합니다.
+    id = Rencanakan rute mobil dan pejalan kaki yang optimal.
+    hu = Tervezd meg az optimális autós és gyalogos útvonalakat.
+    de = Planen Sie optimale Auto- und Fußgängerstrecken.
+    fi = Suunnittele ihanteelliset autoilu- ja kävelyreitit.
+    nl = Plan optimale auto- en wandelroutes.
+    da = Planlæg de optimale ruter i bil og til fods.
+    cs = Naplánujte si optimální trasy pro auto nebo pěší chůzi.
+    zh-Hans = 规划最佳的驾车和步行路线。
+    zh-Hant = 規劃最佳的駕車和步行路線。
+    ar = خطط أفضل طرق السيارات والمشاة.
+    th = วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด
+    uk = Плануйте оптимальні маршрути для поїздок і піших походів.
+    pt = Planeie itinerários ideais de automóvel e a pé.
+    es = Planifica rutas óptimas en coche y a pie.
+    ro = Planificați traseele optime cu mașina și cele pietonale.
+    pl = Planuj optymalne trasy samochodowe i piesze.
+    sk = Naplánujte si vhodné trasy na cestu autom alebo peši.
+    it = Pianifica percorsi ottimali in auto o a piedi.
+    fr = Planifiez des itinéraires optimaux en voiture ou à pied.
+    ja = 車や徒歩での最短ルートを計画できます。
+
+  [onboarding_offline_maps_title]
+    tags = ios, android
+    en = MAPS.ME - offline maps
+    ru = MAPS.ME — оффлайн карты
+    tr = MAPS.ME - çevrimdışı haritalar
+    sv = MAPS.ME - kartor offline
+    nb = MAPS.ME - offline-kart
+    ko = MAPS.ME - 오프라인지도
+    id = MAPS.ME - peta offline
+    hu = MAPS.ME - offline térképek
+    de = MAPS.ME - Offline-Karten
+    fi = MAPS.ME - offline-kartat
+    nl = MAPS.ME - offline kaarten
+    da = MAPS.ME - offline kort
+    cs = MAPS.ME - offline mapy
+    zh-Hans = MAPS.ME - 离线地图
+    zh-Hant = MAPS.ME - 離線地圖
+    ar = MAPS.ME – خرائط غير متصلة بالإنترنت
+    th = MAPS.ME - แผนที่ออฟไลน์
+    uk = MAPS.ME — офлайн мапи
+    pt = MAPS.ME - mapas offline
+    es = MAPS.ME - mapas sin conexión
+    ro = MAPS.ME – hărți offline
+    pl = MAPS.ME - mapy offline
+    sk = MAPS.ME - offline mapy
+    it = MAPS.ME – mappe offline
+    fr = MAPS.ME – cartes hors-ligne
+    ja = MAPS.ME - オフライン地図
+
+  [onboarding_offline_maps_message]
+    tags = ios, android
+    en = Download the maps for the desired area once, and use the navigation and search functions without an internet connection.
+    ru = Загрузите карты необходимого региона один раз и пользуйтесь навигацией и поиском без подключения к интернету.
+    tr = İlk önce istenilen alanın haritasını indirin ve internet bağlantısı olmadan navigasyonu ve arama fonksiyonlarını kullanın.
+    sv = Ladda ned kartorna för önskat område en gång och använd funktionerna för navigering och sökning utan en internetanslutning.
+    nb = Last ned kartene for et ønsket område én gang, og bruk navigeringen og andre søkefunksjoner uten internettforbindelse.
+    ko = 한 번에 원하는 지역의 지도를 다운로드하고, 인터넷 연결없이 탐색 및 검색 기능을 사용합니다.
+    id = Unduh peta untuk daerah yang diinginkan sekali, dan gunakan navigasi dan fungsi pencarian tanpa koneksi internet.
+    hu = Mindössze egyszer kell letöltened egy adott helyszín térképét, azt követően internetkapcsolat nélkül is használhatod a navigációs és keresési funkciókat.
+    de = Laden Sie die Karten für das gewünschte Gebiet auf einmal herunter und verwenden Sie die Navigation- und Such-Funktion ohne eine Internetverbindung.
+    fi = Lataa haluamasi alueen kartat yhden kerran ja voit käyttää navigointi- ja hakutoimintoja ilman Internet-yhteyttä.
+    nl = Download eenmaal de kaarten voor het gewenste gebied en gebruik de navigatie- en zoekfuncties zonder een internetverbinding.
+    da = Download kortene til det ønskede område en gang, og brug navigerings- og søgefunktionerne uden internetforbindelse.
+    cs = Stáhněte si jednou mapy požadované oblasti a poté používejte navigaci a vyhledávací funkce bez připojení k internetu.
+    zh-Hans = 下载一次所需区域的地图，您便可以在无网络连接的情况下使用导航和搜索功能。
+    zh-Hant = 一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。
+    ar = قم بتنزيل خرائط للمنطقة المطلوب مرة واحدة، واستخدم وظائف الملاحة والبحث دون الحاجة للاتصال بالإنترنت.
+    th = ดาวน์โหลดแผนที่สำหรับพื้นที่ที่ต้องการเพียงหนึ่งครั้ง แล้วใช้การฟังก์ชันการนำทางและการค้นหาโดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต
+    uk = Завантажте мапи необхідного регіону один раз та користуйтесь навігацією та пошуком без підключення до інтернету.
+    pt = Descarregue uma vez os mapas para a área desejada e utilize as funções de navegação e de pesquisa sem uma ligação à Internet.
+    es = Descarga una vez los mapas para el área deseada, y utiliza las funciones de navegación y búsqueda sin conexión a Internet.
+    ro = Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.
+    pl = Pobierz jednorazowo mapy dla wybranego obszaru, aby korzystać z nawigacji i wyszukiwania bez połączenia sieciowego.
+    sk = Stiahnite si jednorázovo potrebné mapy - navigáciu a funkcie vyhľadávania môžete využívať aj bez internetového pripojenia.
+    it = Scarica una volta le mappe per l’area desiderata e usa la navigazione e le funzioni di ricerca senza una connessione internet.
+    fr = Téléchargez une seule fois les cartes de la zone désirée, et utilisez les fonctions de navigation et de recherche sans connexion Internet.
+    ja = 希望するエリアの地図を一回ダウンロードするだけで、インターネット接続なしでもナビゲーションや検索の機能を使用できます。
