@@ -20,5 +20,5 @@ LANGUAGES=( en ar cs da de el es fi fr he hu id it ja ko nb nl pl pt ro ru sk sv
 
 for lang in "${LANGUAGES[@]}"; do
   TRANSLATION=$(trans -b "$SRC:$lang" "$WORD" | sed 's/   *//')
-  echo "$lang:$TRANSLATION"
+  echo "$lang:$(tr '[:lower:]' '[:upper:]' <<< ${TRANSLATION:0:1})${TRANSLATION:1}"
 done
