@@ -405,9 +405,9 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   if (isIOS7)
     return;
 
+  Class<MWMWelcomeControllerProtocol> whatsNewClass = [MWMWhatsNewDownloaderEditorController class];
   BOOL const isFirstSession = [Alohalytics isFirstSession];
-  Class<MWMWelcomeControllerProtocol> welcomeClass =
-  isFirstSession ? [MWMFirstLaunchController class] : [MWMWhatsNewDownloaderEditorController class];
+  Class<MWMWelcomeControllerProtocol> welcomeClass = isFirstSession ? [MWMFirstLaunchController class] : whatsNewClass;
 
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   if ([ud boolForKey:[welcomeClass udWelcomeWasShownKey]])
@@ -416,6 +416,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   self.pageViewController = [MWMPageController pageControllerWithParent:self];
   [self.pageViewController show:welcomeClass];
 
+  [ud setBool:YES forKey:[whatsNewClass udWelcomeWasShownKey]];
   [ud setBool:YES forKey:[welcomeClass udWelcomeWasShownKey]];
   [ud synchronize];
 }
