@@ -741,9 +741,6 @@ public class RoutingController
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);
-    if (hours == 0 && minutes == 0)
-      // One minute is added to estimated time to destination point to prevent displaying zero minutes left
-      minutes++;
 
     return hours == 0 ? Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
                                               String.valueOf(minutes), "min")
@@ -756,7 +753,7 @@ public class RoutingController
   static String formatArrivalTime(int seconds)
   {
     Calendar current = Calendar.getInstance();
-    current.add(Calendar.SECOND, seconds);
+    current.add(Calendar.SECOND, seconds - Calendar.SECOND);
     return StringUtils.formatUsingUsLocale("%d:%02d", current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE));
   }
 }
