@@ -106,6 +106,16 @@ using namespace storage;
 {
   if (self.skipCountryEventProcessing)
     return;
+  auto notifyParentController = ^
+  {
+    NSArray * viewControllers = [self.navigationController viewControllers];
+    NSInteger const selfIndex = [viewControllers indexOfObject:self];
+    if (selfIndex < 1)
+      return;
+    MWMViewController * parentVC = viewControllers[selfIndex - 1];
+    if ([parentVC isKindOfClass:[MWMBaseMapDownloaderViewController class]])
+      [static_cast<MWMBaseMapDownloaderViewController *>(parentVC) processCountryEvent:countryId];
+  };
   auto process = ^
   {
     [self configAllMapsView];
@@ -128,6 +138,8 @@ using namespace storage;
     for (auto & section : sections)
       [indexSet addIndex:section];
     [tv reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    notifyParentController();
   };
 
   if (countryId == self.parentCountryId)
