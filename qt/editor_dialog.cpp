@@ -131,7 +131,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
         grid->addWidget(cmb, row++, 1);
       }
       continue;
-    case osm::Props::Cuisine: v = strings::JoinStrings(emo.GetCuisines(), ", "); break;
+    case osm::Props::Cuisine: v = strings::JoinStrings(emo.GetLocalizedCuisines(), ", "); break;
     case osm::Props::OpeningHours: v = emo.GetOpeningHours(); break;
     case osm::Props::Stars: v = strings::to_string(emo.GetStars()); break;
     case osm::Props::Operator: v = emo.GetOperator(); break;

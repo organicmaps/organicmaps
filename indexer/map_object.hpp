@@ -74,6 +74,8 @@ public:
   Internet GetInternet() const;
   /// @returns translated cuisine(s).
   vector<string> GetCuisines() const;
+  // @returns not localized cuisines keys.
+  vector<string> GetLocalizedCuisines() const;
   /// @returns translated and formatted cuisines.
   string FormatCuisines() const;
   string GetOpeningHours() const;

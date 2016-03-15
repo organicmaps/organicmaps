@@ -126,12 +126,19 @@ Internet MapObject::GetInternet() const
 
 vector<string> MapObject::GetCuisines() const
 {
+  vector<string> cuisines;
+  Cuisines::Instance().Parse(m_metadata.Get(feature::Metadata::FMD_CUISINE), cuisines);
+  return cuisines;
+}
+
+vector<string> MapObject::GetLocalizedCuisines() const
+{
   vector<string> localized;
   Cuisines::Instance().ParseAndLocalize(m_metadata.Get(feature::Metadata::FMD_CUISINE), localized);
   return localized;
 }
 
-string MapObject::FormatCuisines() const { return strings::JoinStrings(GetCuisines(), " • "); }
+string MapObject::FormatCuisines() const { return strings::JoinStrings(GetLocalizedCuisines(), " • "); }
 
 string MapObject::GetOpeningHours() const
 {

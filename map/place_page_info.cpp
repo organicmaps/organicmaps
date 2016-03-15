@@ -43,7 +43,7 @@ string Info::GetSubtitle() const
   values.push_back(GetLocalizedType());
 
   // Cuisines.
-  for (string const & cuisine : GetCuisines())
+  for (string const & cuisine : GetLocalizedCuisines())
     values.push_back(cuisine);
 
   // Stars.
