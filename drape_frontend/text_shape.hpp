@@ -20,6 +20,9 @@ public:
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
   MapShapeType GetType() const override { return MapShapeType::OverlayType; }
 
+  // Only for testing purposes!
+  void DisableDisplacing() { m_disableDisplacing = true; }
+
 private:
   void DrawSubString(StraightTextLayout const & layout, dp::FontDecl const & font,
                      glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
@@ -39,6 +42,8 @@ private:
   bool m_hasPOI;
   bool m_affectedByZoomPriority;
   size_t m_textIndex;
+
+  bool m_disableDisplacing = false;
 };
 
 } // namespace df

@@ -254,14 +254,16 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   df::TextViewParams tp;
   tp.m_anchor = dp::Center;
-  tp.m_depth = 0;
+  tp.m_depth = 20000;
   tp.m_primaryText = strings::to_string(key.m_x) + " " +
                      strings::to_string(key.m_y) + " " +
                      strings::to_string(key.m_zoomLevel);
 
   tp.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
 
-  insertShape(make_unique_dp<TextShape>(r.Center(), tp, false, 0, true));
+  drape_ptr<TextShape> textShape = make_unique_dp<TextShape>(r.Center(), tp, false, 0, false);
+  textShape->DisableDisplacing();
+  insertShape(move(textShape));
 #endif
 
   if (CheckCancelled())

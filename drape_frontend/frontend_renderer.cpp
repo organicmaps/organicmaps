@@ -1353,8 +1353,8 @@ void FrontendRenderer::ResolveTileKeys(m2::RectD const & rect, TTilesCollection 
   {
     TileKey const & key = group->GetTileKey();
     return group->GetTileKey().m_zoomLevel == m_currentZoomLevel &&
-           (key.m_x < result.m_minTileX || key.m_x > result.m_maxTileX ||
-           key.m_y < result.m_minTileY || key.m_y > result.m_maxTileY ||
+           (key.m_x < result.m_minTileX || key.m_x >= result.m_maxTileX ||
+           key.m_y < result.m_minTileY || key.m_y >= result.m_maxTileY ||
            find(tilesToDelete.begin(), tilesToDelete.end(), key) != tilesToDelete.end());
   };
   for (RenderLayer & layer : m_layers)

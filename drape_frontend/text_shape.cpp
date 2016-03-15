@@ -278,6 +278,9 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
 
 uint64_t TextShape::GetOverlayPriority() const
 {
+  if (m_disableDisplacing)
+    return dp::kPriorityMaskAll;
+
   // Set up minimal priority for marks which substitute texts.
   if (m_params.m_hasMark)
     return 0;
