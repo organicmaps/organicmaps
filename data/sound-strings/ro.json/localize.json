@@ -40,7 +40,7 @@
 "take_the_9_exit":"Folosiți a noua ieșire.",
 "take_the_10_exit":"Folosiți a zecea ieșire.",
 "take_the_11_exit":"Folosiți a unsprezecea ieșire.",
-"in_50_feet":"După cincizeci de picioare.",
+"in_50_feet":"După cincizeci de picioare",
 "in_100_feet":"După o sută de picioare",
 "in_200_feet":"După două sute de picioare",
 "in_300_feet":"După trei sute de picioare",
@@ -59,7 +59,7 @@
 "in_4000_feet":"După patru mii de picioare",
 "in_4500_feet":"După patru mii cinci sute de picioare",
 "in_5000_feet":"După cinci mii de picioare",
-"in_1_mile":"După o milă.",
-"in_1_5_miles":"După o milă și jumătate.",
-"in_2_miles":"După două mile."
+"in_1_mile":"După o milă",
+"in_1_5_miles":"După o milă și jumătate",
+"in_2_miles":"După două mile"
 }
