@@ -311,6 +311,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         if (mItem.present)
           items.add(MenuItem.EXPLORE);
         break;
+
+      case CountryItem.STATUS_PARTLY:
+        items.add(MenuItem.DELETE);
+        break;
       }
 
       if (items.isEmpty())
