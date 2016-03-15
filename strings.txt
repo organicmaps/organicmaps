@@ -3695,7 +3695,7 @@
     sk = Nemocnica
     de = Krankenhaus
     es = Hospital
-    fr = Hôpital/clinique
+    fr = Hôpital
     it = Ospedale
     ja = 病院
     ko = 병원
@@ -3718,6 +3718,9 @@
     ro = Spital
     nb = Sykehus
     fi = Sairaala
+    el = Νοσοκομείο
+    he = בית חולים
+    sw = Hospitali
 
   [toilet]
     en = Toilet
