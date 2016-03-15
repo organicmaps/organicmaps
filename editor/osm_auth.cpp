@@ -375,8 +375,11 @@ OsmOAuth::Response OsmOAuth::Request(string const & method, string const & httpM
   else
     MYTHROW(UnsupportedApiRequestMethod, ("Unsupported OSM API request method", httpMethod));
 
-  string const url = m_apiUrl + kApiVersion + method;
+  string url = m_apiUrl + kApiVersion + method;
   string const query = oauth.getURLQueryString(reqType, url);
+  auto const qPos = url.find('?');
+  if (qPos != string::npos)
+    url = url.substr(0, qPos);
 
   HTTPClientPlatformWrapper request(url + "?" + query);
   if (httpMethod != "GET")
