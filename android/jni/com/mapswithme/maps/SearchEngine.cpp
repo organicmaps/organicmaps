@@ -105,9 +105,8 @@ jobjectArray BuildJavaResults(Results const & results, bool hasPosition, double 
   jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, 0);
   for (int i = 0; i < count; i++)
   {
-    jobject jRes = ToJavaResult(g_results.GetResult(i), hasPosition, lat, lon);
-    env->SetObjectArrayElement(jResults, i, jRes);
-    env->DeleteLocalRef(jRes);
+    jni::TScopedLocalRef jRes(env, ToJavaResult(g_results.GetResult(i), hasPosition, lat, lon));
+    env->SetObjectArrayElement(jResults, i, jRes.get());
   }
   return jResults;
 }
@@ -129,9 +128,8 @@ void OnResults(Results const & results, long long timestamp, bool isMapAndTable,
     return;
   }
 
-  jobjectArray const & jResults = BuildJavaResults(results, hasPosition, lat, lon);
-  env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults, static_cast<jlong>(timestamp));
-  env->DeleteLocalRef(jResults);
+  jni::TScopedLocalObjectArrayRef jResults(env, BuildJavaResults(results, hasPosition, lat, lon));
+  env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(), static_cast<jlong>(timestamp));
 }
 }  // namespace
 
@@ -145,10 +143,10 @@ extern "C"
     g_javaListener = env->NewGlobalRef(thiz);
     g_updateResultsId = jni::GetMethodID(env, g_javaListener, "onResultsUpdate", "([Lcom/mapswithme/maps/search/SearchResult;J)V");
     g_endResultsId = jni::GetMethodID(env, g_javaListener, "onResultsEnd", "(J)V");
-    g_resultClass = static_cast<jclass>(env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult")));
+    g_resultClass = jni::GetGlobalClassRef(env, env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult")));
     g_resultConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;DD[I)V");
     g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I)V");
-    g_descriptionClass = static_cast<jclass>(env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult$Description")));
+    g_descriptionClass = jni::GetGlobalClassRef(env, env->NewGlobalRef(env->FindClass("com/mapswithme/maps/search/SearchResult$Description")));
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II)V");
   }
 

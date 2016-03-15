@@ -33,34 +33,16 @@ string GetAndroidSystemLanguage()
     return DEFAULT_LANG;
   }
 
-  jclass localeClass = env->FindClass("java/util/Locale");
-  ASSERT(localeClass, ());
-
-  jmethodID localeGetDefaultId = env->GetStaticMethodID(localeClass, "getDefault", "()Ljava/util/Locale;");
+  static jclass const localeClass = jni::GetGlobalClassRef(env, "java/util/Locale");
+  static jmethodID const localeGetDefaultId = env->GetStaticMethodID(localeClass, "getDefault", "()Ljava/util/Locale;");
   ASSERT(localeGetDefaultId, ());
+  static jmethodID const localeToStringId = env->GetMethodID(localeClass, "toString", "()Ljava/lang/String;");
+  ASSERT(localeToStringId, ());
 
-  jobject localeInstance = env->CallStaticObjectMethod(localeClass, localeGetDefaultId);
-  ASSERT(localeInstance, ());
+  jni::TScopedLocalRef localeInstance(env, env->CallStaticObjectMethod(localeClass, localeGetDefaultId));
+  jni::TScopedLocalRef langString(env, env->CallObjectMethod(localeInstance.get(), localeToStringId));
 
-  jmethodID localeGetLanguageId = env->GetMethodID(localeClass, "toString", "()Ljava/lang/String;");
-  ASSERT(localeGetLanguageId, ());
-
-  jstring langString = (jstring)env->CallObjectMethod(localeInstance, localeGetLanguageId);
-  ASSERT(langString, ());
-
-  // TODO FindClass method won't work from non-ui threads, so cache class, remove comment or use cached classloader after it's implemented
-  /*
-  jclass langClass = env->FindClass("com/mapswithme/util/Language");
-  ASSERT(langClass, ());
-
-  jmethodID langGetDefaultId = env->GetStaticMethodID(langClass, "getDefault", "()Ljava/lang/String;");
-  ASSERT(langGetDefaultId, ());
-
-  jstring langString = (jstring)env->CallStaticObjectMethod(langClass, langGetDefaultId);
-  ASSERT(langString, ());
-  */
-
-  string res = jni::ToNativeString(env, langString);
+  string res = jni::ToNativeString(env, (jstring) langString.get());
   if (res.empty())
     res = DEFAULT_LANG;
 
