@@ -1,6 +1,6 @@
 {
  "id": "Countries",
- "v": 160313,
+ "v": 160314,
  "g": [
   {
    "id": "Abkhazia",
@@ -11,14 +11,14 @@
   },
   {
    "id": "Afghanistan",
-   "s": 22716086,
+   "s": 22722966,
    "old": [
     "Afghanistan"
    ]
   },
   {
    "id": "Albania",
-   "s": 14555000,
+   "s": 14559440,
    "old": [
     "Albania"
    ]
@@ -28,14 +28,14 @@
    "g": [
     {
      "id": "Algeria_Central",
-     "s": 25593879,
+     "s": 25593863,
      "old": [
       "Algeria"
      ]
     },
     {
      "id": "Algeria_Coast",
-     "s": 70328605,
+     "s": 70349141,
      "old": [
       "Algeria"
      ]
@@ -82,7 +82,7 @@
   },
   {
    "id": "Barbados",
-   "s": 1609417,
+   "s": 1606137,
    "affiliations": [
     "Barbados"
    ],
@@ -136,7 +136,7 @@
   },
   {
    "id": "Guadeloupe",
-   "s": 11188314,
+   "s": 11185738,
    "affiliations": [
     "France",
     "Guadeloupe",
@@ -148,7 +148,7 @@
   },
   {
    "id": "Martinique",
-   "s": 9053516,
+   "s": 9053620,
    "affiliations": [
     "France",
     "Saint Lucia"
@@ -179,7 +179,7 @@
   },
   {
    "id": "Saint Kitts and Nevis",
-   "s": 542503,
+   "s": 541759,
    "affiliations": [
     "Saint Kitts and Nevis"
    ],
@@ -189,7 +189,7 @@
   },
   {
    "id": "Saint Lucia",
-   "s": 1263594,
+   "s": 1262866,
    "affiliations": [
     "Saint Lucia",
     "Saint Vincent and the Grenadines"
@@ -252,28 +252,28 @@
     },
     {
      "id": "Argentina_Buenos Aires_Buenos Aires",
-     "s": 56053205,
+     "s": 56014405,
      "old": [
       "Argentina"
      ]
     },
     {
      "id": "Argentina_Buenos Aires_North",
-     "s": 18753266,
+     "s": 18753954,
      "old": [
       "Argentina"
      ]
     },
     {
      "id": "Argentina_Buenos Aires_South",
-     "s": 22830487,
+     "s": 22840383,
      "old": [
       "Argentina"
      ]
     },
     {
      "id": "Argentina_Patagonia",
-     "s": 32572390,
+     "s": 32569022,
      "affiliations": [
       "Argentina"
      ],
@@ -283,7 +283,7 @@
     },
     {
      "id": "Argentina_Cuyo",
-     "s": 18812961,
+     "s": 18827593,
      "affiliations": [
       "Argentina"
      ],
@@ -293,14 +293,14 @@
     },
     {
      "id": "Argentina_Mesopotamia",
-     "s": 37125214,
+     "s": 37123294,
      "old": [
       "Argentina"
      ]
     },
     {
      "id": "Argentina_Northwest",
-     "s": 41582648,
+     "s": 41603024,
      "affiliations": [
       "Argentina"
      ],
@@ -310,7 +310,7 @@
     },
     {
      "id": "Argentina_Pampas",
-     "s": 35031932,
+     "s": 35019884,
      "affiliations": [
       "C\u00f3rdoba",
       "Argentina"
@@ -321,7 +321,7 @@
     },
     {
      "id": "Argentina_Santa Fe",
-     "s": 24813670,
+     "s": 24813606,
      "affiliations": [
       "Argentina"
      ],
@@ -333,7 +333,7 @@
   },
   {
    "id": "Armenia",
-   "s": 13510702,
+   "s": 13513294,
    "affiliations": [
     "Gegharkunik",
     "Tavush",
@@ -379,7 +379,7 @@
     },
     {
      "id": "Austria_Lower Austria_Wien",
-     "s": 49640691,
+     "s": 49645475,
      "affiliations": [
       "Austria",
       "Vienna",
@@ -391,7 +391,7 @@
     },
     {
      "id": "Austria_Styria_Graz",
-     "s": 39334910,
+     "s": 39334918,
      "affiliations": [
       "Styria",
       "Austria"
@@ -402,21 +402,21 @@
     },
     {
      "id": "Austria_Styria_Leoben",
-     "s": 22655489,
+     "s": 22656929,
      "old": [
       "Austria"
      ]
     },
     {
      "id": "Austria_Upper Austria_Linz",
-     "s": 30276756,
+     "s": 30284020,
      "old": [
       "Austria"
      ]
     },
     {
      "id": "Austria_Upper Austria_Wels",
-     "s": 39035418,
+     "s": 39035026,
      "affiliations": [
       "Upper Austria",
       "Austria"
@@ -427,7 +427,7 @@
     },
     {
      "id": "Austria_Lower Austria_West",
-     "s": 37663230,
+     "s": 37660710,
      "affiliations": [
       "Austria",
       "Lower Austria"
@@ -438,7 +438,7 @@
     },
     {
      "id": "Austria_Tyrol",
-     "s": 42090240,
+     "s": 42093680,
      "affiliations": [
       "Tyrol",
       "Austria"
@@ -449,7 +449,7 @@
     },
     {
      "id": "Austria_Salzburg",
-     "s": 27651937,
+     "s": 27657697,
      "affiliations": [
       "Austria",
       "Salzburg (state)"
@@ -480,14 +480,14 @@
     },
     {
      "id": "Australia_Melbourne",
-     "s": 46252842,
+     "s": 46252866,
      "old": [
       "Australia"
      ]
     },
     {
      "id": "Australia_New South Wales",
-     "s": 25945026,
+     "s": 25936106,
      "old": [
       "Australia",
       "Norfolk Island"
@@ -495,14 +495,14 @@
     },
     {
      "id": "Australia_Northern Territory",
-     "s": 6719661,
+     "s": 6719749,
      "old": [
       "Australia"
      ]
     },
     {
      "id": "Australia_Queensland",
-     "s": 20259890,
+     "s": 20259946,
      "affiliations": [
       "Australia"
      ],
@@ -512,7 +512,7 @@
     },
     {
      "id": "Australia_South Australia",
-     "s": 34777492,
+     "s": 34797788,
      "old": [
       "Australia"
      ]
@@ -526,14 +526,14 @@
     },
     {
      "id": "Australia_Victoria",
-     "s": 36326671,
+     "s": 36310639,
      "old": [
       "Australia"
      ]
     },
     {
      "id": "Australia_Western Australia",
-     "s": 43113242,
+     "s": 43113210,
      "old": [
       "Cocos Islands",
       "Australia",
@@ -542,7 +542,7 @@
     },
     {
      "id": "Australia_Brisbane",
-     "s": 36682628,
+     "s": 36683204,
      "affiliations": [
       "Australia"
      ],
@@ -552,7 +552,7 @@
     },
     {
      "id": "Australia_Sydney",
-     "s": 50341106,
+     "s": 50345154,
      "old": [
       "Australia"
      ]
@@ -571,7 +571,7 @@
     },
     {
      "id": "Azerbaijan",
-     "s": 25148995,
+     "s": 25155195,
      "old": [
       "Azerbaijan"
      ]
@@ -595,7 +595,7 @@
   },
   {
    "id": "Bangladesh",
-   "s": 16262242,
+   "s": 16267002,
    "old": [
     "Bangladesh"
    ]
@@ -605,7 +605,7 @@
    "g": [
     {
      "id": "Belarus_Vitebsk Region",
-     "s": 33036714,
+     "s": 33035274,
      "old": [
       "Belarus"
      ]
@@ -623,7 +623,7 @@
     },
     {
      "id": "Belarus_Brest Region",
-     "s": 15285048,
+     "s": 15278152,
      "old": [
       "Belarus"
      ]
@@ -637,14 +637,14 @@
     },
     {
      "id": "Belarus_Maglieu Region",
-     "s": 18881583,
+     "s": 18885815,
      "old": [
       "Belarus"
      ]
     },
     {
      "id": "Belarus_Minsk Region",
-     "s": 36351608,
+     "s": 36351768,
      "old": [
       "Belarus"
      ]
@@ -656,7 +656,7 @@
    "g": [
     {
      "id": "Belgium_West Flanders",
-     "s": 29162968,
+     "s": 29162992,
      "affiliations": [
       "Belgium",
       "Flanders"
@@ -668,7 +668,7 @@
     },
     {
      "id": "Belgium_Antwerp",
-     "s": 35889735,
+     "s": 35889759,
      "affiliations": [
       "Netherlands - Belgium",
       "Belgium",
@@ -680,7 +680,7 @@
     },
     {
      "id": "Belgium_East Flanders",
-     "s": 27648454,
+     "s": 27651478,
      "affiliations": [
       "Belgium",
       "Flanders"
@@ -691,21 +691,21 @@
     },
     {
      "id": "Belgium_Hainaut",
-     "s": 19185047,
+     "s": 19184975,
      "old": [
       "Belgium"
      ]
     },
     {
      "id": "Belgium_Walloon Brabant",
-     "s": 6017479,
+     "s": 6017495,
      "old": [
       "Belgium"
      ]
     },
     {
      "id": "Belgium_Namur",
-     "s": 9966663,
+     "s": 9966631,
      "affiliations": [
       "Wallonia",
       "Belgium"
@@ -716,7 +716,7 @@
     },
     {
      "id": "Belgium_Limburg",
-     "s": 22748878,
+     "s": 22748926,
      "affiliations": [
       "Belgium",
       "Flanders"
@@ -727,14 +727,14 @@
     },
     {
      "id": "Belgium_Luxembourg",
-     "s": 9320327,
+     "s": 9320343,
      "old": [
       "Belgium"
      ]
     },
     {
      "id": "Belgium_Flemish Brabant",
-     "s": 37497308,
+     "s": 37496580,
      "affiliations": [
       "Belgium",
       "Brussels-Capital",
@@ -746,7 +746,7 @@
     },
     {
      "id": "Belgium_Liege",
-     "s": 24692483,
+     "s": 24691859,
      "affiliations": [
       "Wallonia",
       "Belgium"
@@ -759,7 +759,7 @@
   },
   {
    "id": "Belize",
-   "s": 3673330,
+   "s": 3673458,
    "old": [
     "Belize"
    ]
@@ -783,7 +783,7 @@
   },
   {
    "id": "Bhutan",
-   "s": 1621226,
+   "s": 1621210,
    "old": [
     "Bhutan"
    ]
@@ -793,14 +793,14 @@
    "g": [
     {
      "id": "Bolivia_North",
-     "s": 42009755,
+     "s": 41996963,
      "old": [
       "Bolivia"
      ]
     },
     {
      "id": "Bolivia_South",
-     "s": 30620073,
+     "s": 30620081,
      "old": [
       "Bolivia"
      ]
@@ -812,7 +812,7 @@
    "g": [
     {
      "id": "Bosnia and Herzegovina_Entity Federation of Bosnia and Herzegovina",
-     "s": 35783857,
+     "s": 35783665,
      "old": [
       "Bosnia and Herzegovina"
      ]
@@ -826,7 +826,7 @@
     },
     {
      "id": "Bosnia and Herzegovina_Republic of Srpska",
-     "s": 30634594,
+     "s": 30635778,
      "affiliations": [
       "Bosnia and Herzegovina",
       "Republika Srpska"
@@ -839,7 +839,7 @@
   },
   {
    "id": "Botswana",
-   "s": 20509706,
+   "s": 20509786,
    "old": [
     "Botswana"
    ]
@@ -849,7 +849,7 @@
    "g": [
     {
      "id": "Brazil_Bahia",
-     "s": 38921774,
+     "s": 38934382,
      "affiliations": [
       "Bahia",
       "Brazil"
@@ -860,7 +860,7 @@
     },
     {
      "id": "Brazil_Goias_North",
-     "s": 12925749,
+     "s": 12928629,
      "affiliations": [
       "Brazil",
       "Goi\u00e1s"
@@ -871,7 +871,7 @@
     },
     {
      "id": "Brazil_Goias_Brasilia",
-     "s": 41667610,
+     "s": 41658154,
      "affiliations": [
       "Brazil",
       "Federal District",
@@ -883,21 +883,21 @@
     },
     {
      "id": "Brazil_Mato Grosso Do Sul",
-     "s": 19778542,
+     "s": 19778806,
      "old": [
       "Brazil_Central-West"
      ]
     },
     {
      "id": "Brazil_Mato Grosso",
-     "s": 21542048,
+     "s": 21529704,
      "old": [
       "Brazil_Central-West"
      ]
     },
     {
      "id": "Brazil_North Region_East",
-     "s": 33636806,
+     "s": 33628038,
      "old": [
       "Brazil_North"
      ]
@@ -911,7 +911,7 @@
     },
     {
      "id": "Brazil_Northeast Region_East",
-     "s": 31888841,
+     "s": 31901769,
      "affiliations": [
       "Alagoas",
       "Brazil",
@@ -924,7 +924,7 @@
     },
     {
      "id": "Brazil_Northeast Region_West",
-     "s": 48212604,
+     "s": 48215156,
      "affiliations": [
       "Brazil",
       "Pernambuco",
@@ -938,14 +938,14 @@
     },
     {
      "id": "Brazil_Paraiba",
-     "s": 13005797,
+     "s": 13006773,
      "old": [
       "Brazil_Northeast"
      ]
     },
     {
      "id": "Brazil_Parana_East",
-     "s": 27634356,
+     "s": 27641164,
      "affiliations": [
       "Brazil",
       "Paran\u00e1"
@@ -956,7 +956,7 @@
     },
     {
      "id": "Brazil_Parana_West",
-     "s": 35959006,
+     "s": 35956174,
      "old": [
       "Brazil_South"
      ]
@@ -970,7 +970,7 @@
     },
     {
      "id": "Brazil_Santa Catarina",
-     "s": 41497408,
+     "s": 41497512,
      "affiliations": [
       "Brazil",
       "Santa Catarina"
@@ -981,7 +981,7 @@
     },
     {
      "id": "Brazil_South Region_East",
-     "s": 34959374,
+     "s": 34956214,
      "affiliations": [
       "Brazil",
       "Rio Grande do Sul"
@@ -992,7 +992,7 @@
     },
     {
      "id": "Brazil_South Region_West",
-     "s": 26456556,
+     "s": 26488508,
      "affiliations": [
       "Brazil",
       "Rio Grande do Sul"
@@ -1003,35 +1003,35 @@
     },
     {
      "id": "Brazil_Southeast Region_Espirito Santo",
-     "s": 20054432,
+     "s": 20044048,
      "old": [
       "Brazil_Southeast"
      ]
     },
     {
      "id": "Brazil_Southeast Region_Minas Gerais_Contagem",
-     "s": 56394063,
+     "s": 56385375,
      "old": [
       "Brazil_Southeast"
      ]
     },
     {
      "id": "Brazil_Southeast Region_Minas Gerais_North",
-     "s": 35536667,
+     "s": 35532387,
      "old": [
       "Brazil_Southeast"
      ]
     },
     {
      "id": "Brazil_Southeast Region_Rio de Janeiro",
-     "s": 42953015,
+     "s": 42945439,
      "old": [
       "Brazil_Southeast"
      ]
     },
     {
      "id": "Brazil_Southeast Region_Sao Paulo_Campinas",
-     "s": 51650300,
+     "s": 51663396,
      "affiliations": [
       "Brazil",
       "S\u00e3o Paulo"
@@ -1042,14 +1042,14 @@
     },
     {
      "id": "Brazil_Southeast Region_Sao Paulo_City",
-     "s": 57834783,
+     "s": 57864351,
      "old": [
       "Brazil_Southeast"
      ]
     },
     {
      "id": "Brazil_Southeast Region_Sao Paulo_West",
-     "s": 48525088,
+     "s": 48525056,
      "affiliations": [
       "Brazil",
       "S\u00e3o Paulo"
@@ -1075,14 +1075,14 @@
    "g": [
     {
      "id": "Bulgaria_East",
-     "s": 33280850,
+     "s": 33270130,
      "old": [
       "Bulgaria"
      ]
     },
     {
      "id": "Bulgaria_West",
-     "s": 39564886,
+     "s": 39557806,
      "old": [
       "Bulgaria"
      ]
@@ -1091,7 +1091,7 @@
   },
   {
    "id": "Burkina Faso",
-   "s": 21194725,
+   "s": 21194717,
    "old": [
     "Burkina Faso"
    ]
@@ -1105,7 +1105,7 @@
   },
   {
    "id": "Cambodia",
-   "s": 11272922,
+   "s": 11272962,
    "old": [
     "Cambodia"
    ]
@@ -1115,7 +1115,7 @@
    "g": [
     {
      "id": "Cameroon_Central",
-     "s": 50592236,
+     "s": 50592180,
      "old": [
       "Cameroon"
      ]
@@ -1137,14 +1137,14 @@
      "g": [
       {
        "id": "Canada_Alberta_Edmonton",
-       "s": 65352472,
+       "s": 65358176,
        "old": [
         "Canada_Alberta"
        ]
       },
       {
        "id": "Canada_Alberta_North",
-       "s": 26131478,
+       "s": 26126014,
        "affiliations": [
         "Canada",
         "Alberta"
@@ -1155,7 +1155,7 @@
       },
       {
        "id": "Canada_Alberta_South",
-       "s": 30151214,
+       "s": 30151742,
        "old": [
         "Canada_Alberta"
        ]
@@ -1167,7 +1167,7 @@
      "g": [
       {
        "id": "Canada_British Columbia_Central",
-       "s": 43485511,
+       "s": 43484375,
        "affiliations": [
         "Canada"
        ],
@@ -1177,7 +1177,7 @@
       },
       {
        "id": "Canada_British Columbia_Far_North",
-       "s": 26153197,
+       "s": 26152533,
        "affiliations": [
         "Canada"
        ],
@@ -1197,7 +1197,7 @@
       },
       {
        "id": "Canada_British Columbia_North",
-       "s": 37064247,
+       "s": 37064215,
        "old": [
         "Canada_British Columbia"
        ]
@@ -1214,7 +1214,7 @@
       },
       {
        "id": "Canada_British Columbia_Southeast",
-       "s": 42657928,
+       "s": 42661464,
        "old": [
         "Canada_British Columbia"
        ]
@@ -1295,7 +1295,7 @@
       },
       {
        "id": "Canada_Manitoba_South",
-       "s": 40668233,
+       "s": 40668217,
        "affiliations": [
         "Canada",
         "Manitoba"
@@ -1306,7 +1306,7 @@
       },
       {
        "id": "Canada_Manitoba_Winnipeg",
-       "s": 36087492,
+       "s": 36070540,
        "affiliations": [
         "Canada",
         "Manitoba"
@@ -1319,7 +1319,7 @@
     },
     {
      "id": "Canada_New Brunswick",
-     "s": 48094695,
+     "s": 48094719,
      "old": [
       "Canada_New Brunswick"
      ]
@@ -1405,7 +1405,7 @@
      "g": [
       {
        "id": "Canada_Nova Scotia_Halifax",
-       "s": 42208457,
+       "s": 42209649,
        "affiliations": [
         "Canada"
        ],
@@ -1441,7 +1441,7 @@
       },
       {
        "id": "Canada_Nunavut_South",
-       "s": 31427892,
+       "s": 31427916,
        "affiliations": [
         "Canada",
         "Nunavut"
@@ -1457,28 +1457,28 @@
      "g": [
       {
        "id": "Canada_Ontario_Bame",
-       "s": 44648643,
+       "s": 44655099,
        "old": [
         "Canada_Ontario"
        ]
       },
       {
        "id": "Canada_Ontario_Kingston",
-       "s": 57501711,
+       "s": 57497407,
        "old": [
         "Canada_Ontario"
        ]
       },
       {
        "id": "Canada_Ontario_London",
-       "s": 48551440,
+       "s": 48546240,
        "old": [
         "Canada_Ontario"
        ]
       },
       {
        "id": "Canada_Ontario_Northeastern_Central",
-       "s": 31473435,
+       "s": 31472955,
        "old": [
         "Canada_Ontario"
        ]
@@ -1500,14 +1500,14 @@
       },
       {
        "id": "Canada_Ontario_Northeastern_SE",
-       "s": 19996933,
+       "s": 19996957,
        "old": [
         "Canada_Ontario"
        ]
       },
       {
        "id": "Canada_Ontario_Northeastern_SW",
-       "s": 39790489,
+       "s": 39790497,
        "old": [
         "Canada_Ontario"
        ]
@@ -1528,7 +1528,7 @@
       },
       {
        "id": "Canada_Ontario_Northwestern",
-       "s": 58538820,
+       "s": 58537908,
        "affiliations": [
         "Canada",
         "Nunavut"
@@ -1540,7 +1540,7 @@
       },
       {
        "id": "Canada_Ontario_Toronto",
-       "s": 61639406,
+       "s": 61639382,
        "old": [
         "Canada_Ontario"
        ]
@@ -1549,7 +1549,7 @@
     },
     {
      "id": "Canada_Prince Edward Island",
-     "s": 7246787,
+     "s": 7246763,
      "affiliations": [
       "Canada"
      ],
@@ -1562,7 +1562,7 @@
      "g": [
       {
        "id": "Canada_Quebec_Quebec",
-       "s": 47686943,
+       "s": 47680430,
        "old": [
         "Canada_Quebec"
        ]
@@ -1577,7 +1577,7 @@
       },
       {
        "id": "Canada_Quebek_Montreal",
-       "s": 36747784,
+       "s": 36732576,
        "affiliations": [
         "Canada",
         "Quebec"
@@ -1588,7 +1588,7 @@
       },
       {
        "id": "Canada_Quebek_Lachute",
-       "s": 35833832,
+       "s": 35835672,
        "affiliations": [
         "Canada",
         "Quebec"
@@ -1610,14 +1610,14 @@
       },
       {
        "id": "Canada_Quebek_Southeast_Rimouski",
-       "s": 19637510,
+       "s": 19635870,
        "old": [
         "Canada_Quebec"
        ]
       },
       {
        "id": "Canada_Quebek_Southeast_Saguenay",
-       "s": 35418085,
+       "s": 35419109,
        "affiliations": [
         "Canada",
         "Quebec"
@@ -1647,7 +1647,7 @@
      "g": [
       {
        "id": "Canada_Saskatchewan_North",
-       "s": 32988555,
+       "s": 32988667,
        "old": [
         "Canada_Saskatchewan"
        ]
@@ -1661,7 +1661,7 @@
       },
       {
        "id": "Canada_Saskatchewan_Regina",
-       "s": 40317175,
+       "s": 40317183,
        "old": [
         "Canada_Saskatchewan"
        ]
@@ -1684,7 +1684,7 @@
       },
       {
        "id": "Canada_Yukon_Whitehorse",
-       "s": 34330934,
+       "s": 34330982,
        "affiliations": [
         "Canada",
         "Yukon"
@@ -1709,7 +1709,7 @@
   },
   {
    "id": "Cayman Islands",
-   "s": 1111561,
+   "s": 1111201,
    "affiliations": [
     "Cayman Islands"
    ],
@@ -1726,7 +1726,7 @@
   },
   {
    "id": "Chad",
-   "s": 9950812,
+   "s": 9950796,
    "old": [
     "Chad"
    ]
@@ -1736,14 +1736,14 @@
    "g": [
     {
      "id": "Colombia_North",
-     "s": 48884800,
+     "s": 48870960,
      "old": [
       "Colombia"
      ]
     },
     {
      "id": "Colombia_West",
-     "s": 49649709,
+     "s": 49645069,
      "old": [
       "Colombia",
       "Malpelo Island"
@@ -1751,7 +1751,7 @@
     },
     {
      "id": "Colombia_East",
-     "s": 12472064,
+     "s": 12474048,
      "affiliations": [
       "Amazonas",
       "Colombia"
@@ -1764,7 +1764,7 @@
   },
   {
    "id": "Comoros",
-   "s": 703175,
+   "s": 702351,
    "affiliations": [
     "Anjouan",
     "Comoros",
@@ -1777,7 +1777,7 @@
   },
   {
    "id": "Congo-Brazzaville",
-   "s": 12792775,
+   "s": 12792687,
    "old": [
     "Congo-Brazzaville"
    ]
@@ -1787,7 +1787,7 @@
    "g": [
     {
      "id": "Congo-Kinshasa_West",
-     "s": 44692356,
+     "s": 44685468,
      "affiliations": [
       "Maniema",
       "Western Kasai",
@@ -1800,7 +1800,7 @@
     },
     {
      "id": "Congo-Kinshasa_Kivu",
-     "s": 16680957,
+     "s": 16680981,
      "affiliations": [
       "Congo-Kinshasa"
      ],
@@ -1822,7 +1822,7 @@
   },
   {
    "id": "Costa Rica",
-   "s": 17548702,
+   "s": 17543126,
    "old": [
     "Cocos Island",
     "Costa Rica",
@@ -1834,7 +1834,7 @@
    "g": [
     {
      "id": "Croatia_Central",
-     "s": 31880993,
+     "s": 31885281,
      "affiliations": [
       "Croatia"
      ],
@@ -1844,7 +1844,7 @@
     },
     {
      "id": "Croatia_West",
-     "s": 33213268,
+     "s": 33219364,
      "old": [
       "Croatia"
      ]
@@ -1853,7 +1853,7 @@
   },
   {
    "id": "Cuba",
-   "s": 35239953,
+   "s": 35215305,
    "affiliations": [
     "Sancti Spiritus",
     "Isle of Youth",
@@ -1868,7 +1868,7 @@
   },
   {
    "id": "Cyprus",
-   "s": 13354257,
+   "s": 13355177,
    "affiliations": [
     "Cyprus",
     "British Sovereign Base Areas"
@@ -1882,7 +1882,7 @@
    "g": [
     {
      "id": "Czech_Praha",
-     "s": 17943053,
+     "s": 17941653,
      "affiliations": [
       "Czech Republic",
       "Prague"
@@ -1893,7 +1893,7 @@
     },
     {
      "id": "Czech_Severovychod_Pardubicky kraj",
-     "s": 24143438,
+     "s": 24143414,
      "affiliations": [
       "Czech Republic",
       "Northeast"
@@ -1904,7 +1904,7 @@
     },
     {
      "id": "Czech_Karlovasky kraj",
-     "s": 13029459,
+     "s": 13029547,
      "affiliations": [
       "Northwest",
       "Czech Republic"
@@ -1915,7 +1915,7 @@
     },
     {
      "id": "Czech_Ustecky kraj",
-     "s": 29596718,
+     "s": 29588310,
      "affiliations": [
       "Northwest",
       "Czech Republic"
@@ -1926,7 +1926,7 @@
     },
     {
      "id": "Czech_Jihozapad_Plzensky kraj",
-     "s": 32735144,
+     "s": 32735112,
      "affiliations": [
       "Southwest",
       "Czech Republic"
@@ -1948,7 +1948,7 @@
     },
     {
      "id": "Czech_Olomoucky kraj",
-     "s": 25565311,
+     "s": 25565775,
      "affiliations": [
       "Czech Republic",
       "Central Moravia"
@@ -1959,7 +1959,7 @@
     },
     {
      "id": "Czech_Zlinsky Kraj",
-     "s": 23050024,
+     "s": 23049608,
      "affiliations": [
       "Czech Republic",
       "Central Moravia"
@@ -1970,7 +1970,7 @@
     },
     {
      "id": "Czech_Stredni Cechy_East",
-     "s": 37913597,
+     "s": 37913637,
      "affiliations": [
       "Czech Republic",
       "Central Bohemia"
@@ -2003,7 +2003,7 @@
     },
     {
      "id": "Czech_Severovychod_Liberecky kraj",
-     "s": 20935399,
+     "s": 20935359,
      "affiliations": [
       "Czech Republic",
       "Northeast"
@@ -2014,7 +2014,7 @@
     },
     {
      "id": "Czech_Stredni Cechy_West",
-     "s": 28091340,
+     "s": 28096748,
      "affiliations": [
       "Czech Republic",
       "Central Bohemia"
@@ -2025,7 +2025,7 @@
     },
     {
      "id": "Czech_Moravskoslezsko",
-     "s": 37933229,
+     "s": 37935461,
      "affiliations": [
       "Czech Republic",
       "Moravia-Silesia"
@@ -2036,7 +2036,7 @@
     },
     {
      "id": "Czech_Jihovychod_Jihomoravsky kraj",
-     "s": 40336425,
+     "s": 40337697,
      "affiliations": [
       "Czech Republic",
       "Southeast"
@@ -2081,7 +2081,7 @@
     },
     {
      "id": "Denmark_Capital Region of Denmark",
-     "s": 31530320,
+     "s": 31530296,
      "affiliations": [
       "Capital Region of Denmark",
       "Denmark"
@@ -2092,7 +2092,7 @@
     },
     {
      "id": "Denmark_Region Zealand",
-     "s": 28207181,
+     "s": 28207173,
      "affiliations": [
       "Region Zealand",
       "Denmark"
@@ -2123,7 +2123,7 @@
   },
   {
    "id": "Dominican Republic",
-   "s": 24483819,
+   "s": 24486435,
    "old": [
     "Dominican Republic"
    ]
@@ -2145,7 +2145,7 @@
     },
     {
      "id": "Chile_Central",
-     "s": 53918921,
+     "s": 53903121,
      "affiliations": [
       "Chile"
      ],
@@ -2155,14 +2155,14 @@
     },
     {
      "id": "Chile_North",
-     "s": 16458379,
+     "s": 16465931,
      "old": [
       "Chile"
      ]
     },
     {
      "id": "Chile_South",
-     "s": 45943111,
+     "s": 45951639,
      "old": [
       "Chile"
      ]
@@ -2174,7 +2174,7 @@
    "g": [
     {
      "id": "Ecuador_East",
-     "s": 26550936,
+     "s": 26557304,
      "affiliations": [
       "Ecuador"
      ],
@@ -2199,14 +2199,14 @@
   },
   {
    "id": "Egypt",
-   "s": 41639672,
+   "s": 41639696,
    "old": [
     "Egypt"
    ]
   },
   {
    "id": "El Salvador",
-   "s": 13053897,
+   "s": 13056441,
    "affiliations": [
     "El Salvador"
    ],
@@ -2240,7 +2240,7 @@
    "g": [
     {
      "id": "Estonia_West",
-     "s": 33115142,
+     "s": 33117654,
      "affiliations": [
       "Estonia"
      ],
@@ -2250,7 +2250,7 @@
     },
     {
      "id": "Estonia_East",
-     "s": 38128073,
+     "s": 38128065,
      "old": [
       "Estonia"
      ]
@@ -2259,7 +2259,7 @@
   },
   {
    "id": "Ethiopia",
-   "s": 30894322,
+   "s": 30894338,
    "old": [
     "Ethiopia"
    ]
@@ -2292,7 +2292,7 @@
   },
   {
    "id": "Fiji",
-   "s": 5132201,
+   "s": 5133889,
    "affiliations": [
     "Fiji"
    ],
@@ -2316,7 +2316,7 @@
     },
     {
      "id": "Finland_Western Finland_Tampere",
-     "s": 39465299,
+     "s": 39465843,
      "affiliations": [
       "Western Finland",
       "Finland"
@@ -2327,14 +2327,14 @@
     },
     {
      "id": "Finland_Northern Finland",
-     "s": 35181999,
+     "s": 35182975,
      "old": [
       "Finland"
      ]
     },
     {
      "id": "Finland_Eastern Finland_North",
-     "s": 23130337,
+     "s": 23131705,
      "affiliations": [
       "Finland",
       "Eastern Finland"
@@ -2345,21 +2345,21 @@
     },
     {
      "id": "Finland_Eastern Finland_South",
-     "s": 30317041,
+     "s": 30317033,
      "old": [
       "Finland"
      ]
     },
     {
      "id": "Finland_Southern Finland_West",
-     "s": 20557657,
+     "s": 20557633,
      "old": [
       "Finland"
      ]
     },
     {
      "id": "Finland_Southern Finland_Helsinki",
-     "s": 55595759,
+     "s": 55588863,
      "affiliations": [
       "Southern Finland",
       "Finland"
@@ -2370,7 +2370,7 @@
     },
     {
      "id": "Finland_Southern Finland_Lappeenranta",
-     "s": 28333114,
+     "s": 28333154,
      "affiliations": [
       "Southern Finland",
       "Finland"
@@ -2434,7 +2434,7 @@
       },
       {
        "id": "France_Aquitaine_Landes",
-       "s": 21730370,
+       "s": 21730346,
        "affiliations": [
         "France"
        ],
@@ -2444,7 +2444,7 @@
       },
       {
        "id": "France_Aquitaine_Lot-et-Garonne",
-       "s": 17175177,
+       "s": 17175185,
        "affiliations": [
         "France"
        ],
@@ -2454,7 +2454,7 @@
       },
       {
        "id": "France_Aquitaine_Pyrenees-Atlantiques",
-       "s": 32847944,
+       "s": 32847968,
        "affiliations": [
         "France"
        ],
@@ -2469,7 +2469,7 @@
      "g": [
       {
        "id": "France_Auvergne_Allier",
-       "s": 22010384,
+       "s": 22010408,
        "affiliations": [
         "France"
        ],
@@ -2479,7 +2479,7 @@
       },
       {
        "id": "France_Auvergne_Cantal",
-       "s": 13218510,
+       "s": 13216878,
        "affiliations": [
         "France"
        ],
@@ -2499,7 +2499,7 @@
       },
       {
        "id": "France_Auvergne_Puy-de-Dome",
-       "s": 34188853,
+       "s": 34188869,
        "affiliations": [
         "France"
        ],
@@ -2538,7 +2538,7 @@
       },
       {
        "id": "France_Brittany_Ille-et-Vilaine",
-       "s": 42794952,
+       "s": 42794872,
        "affiliations": [
         "France",
         "Jersey",
@@ -2566,7 +2566,7 @@
      "g": [
       {
        "id": "France_Burgundy_Cote-dOr",
-       "s": 24090575,
+       "s": 24090527,
        "affiliations": [
         "France"
        ],
@@ -2621,7 +2621,7 @@
       },
       {
        "id": "France_Centre-Val de Loire_Eure-et-Loir",
-       "s": 13398586,
+       "s": 13397826,
        "affiliations": [
         "France"
        ],
@@ -2641,7 +2641,7 @@
       },
       {
        "id": "France_Centre-Val de Loire_Indre-et-Loire",
-       "s": 25483118,
+       "s": 25483150,
        "affiliations": [
         "France"
        ],
@@ -2661,7 +2661,7 @@
       },
       {
        "id": "France_Centre-Val de Loire_Loiret",
-       "s": 24337572,
+       "s": 24334732,
        "affiliations": [
         "France"
        ],
@@ -2673,7 +2673,7 @@
     },
     {
      "id": "France_Champagne-Ardenne",
-     "s": 46749682,
+     "s": 46749706,
      "affiliations": [
       "France"
      ],
@@ -2683,7 +2683,7 @@
     },
     {
      "id": "France_Corsica",
-     "s": 10265421,
+     "s": 10265885,
      "affiliations": [
       "Corsica",
       "Italy",
@@ -2706,7 +2706,7 @@
     },
     {
      "id": "France_Free County_South",
-     "s": 23351119,
+     "s": 23351135,
      "affiliations": [
       "France"
      ],
@@ -2774,7 +2774,7 @@
       },
       {
        "id": "France_Ile-de-France_Seine-et-Marne",
-       "s": 33408592,
+       "s": 33408576,
        "affiliations": [
         "France",
         "Ile-de-France"
@@ -2807,7 +2807,7 @@
       },
       {
        "id": "France_Ile-de-France_Yvelines",
-       "s": 23803578,
+       "s": 23803586,
        "affiliations": [
         "France",
         "Ile-de-France"
@@ -2843,7 +2843,7 @@
       },
       {
        "id": "France_Languedoc-Roussillon_Herault",
-       "s": 38378707,
+       "s": 38376971,
        "affiliations": [
         "France"
        ],
@@ -2875,7 +2875,7 @@
     },
     {
      "id": "France_Limousin",
-     "s": 50988317,
+     "s": 50991341,
      "affiliations": [
       "France"
      ],
@@ -2898,7 +2898,7 @@
       },
       {
        "id": "France_Lorraine_Meuse",
-       "s": 11532624,
+       "s": 11532672,
        "affiliations": [
         "France"
        ],
@@ -3002,14 +3002,14 @@
       },
       {
        "id": "France_Midi-Pyrenees_Haute-Garonne",
-       "s": 44286519,
+       "s": 44286559,
        "old": [
         "France_Midi-Pyrenees"
        ]
       },
       {
        "id": "France_Midi-Pyrenees_Hautes-Pyrenees",
-       "s": 29816991,
+       "s": 29818151,
        "affiliations": [
         "France"
        ],
@@ -3019,7 +3019,7 @@
       },
       {
        "id": "France_Midi-Pyrenees_Lot",
-       "s": 14954906,
+       "s": 14960906,
        "affiliations": [
         "France"
        ],
@@ -3051,7 +3051,7 @@
     },
     {
      "id": "France_New Caledonia",
-     "s": 5338864,
+     "s": 5337592,
      "old": [
       "New Caledonia"
      ]
@@ -3083,7 +3083,7 @@
       },
       {
        "id": "France_Nord-Pas-de-Calais_Pas-de-Calais",
-       "s": 49224519,
+       "s": 49223607,
        "affiliations": [
         "France",
         "Nord-Pas-de-Calais and Picardy",
@@ -3111,7 +3111,7 @@
       },
       {
        "id": "France_Pays de la Loire_Loire-Atlantique_Saint-Nazaire",
-       "s": 20438629,
+       "s": 20438613,
        "affiliations": [
         "France"
        ],
@@ -3141,7 +3141,7 @@
       },
       {
        "id": "France_Pays de la Loire_Sarthe",
-       "s": 31856387,
+       "s": 31860403,
        "affiliations": [
         "France"
        ],
@@ -3188,7 +3188,7 @@
       },
       {
        "id": "France_Picardy_Somme",
-       "s": 26508861,
+       "s": 26508893,
        "affiliations": [
         "France",
         "Nord-Pas-de-Calais and Picardy"
@@ -3214,14 +3214,14 @@
       },
       {
        "id": "France_Poitou-Charentes_Charente-Maritime",
-       "s": 42713388,
+       "s": 42714884,
        "old": [
         "France_Poitou-Charentes"
        ]
       },
       {
        "id": "France_Poitou-Charentes_Deux-Sevres",
-       "s": 30303198,
+       "s": 30303214,
        "affiliations": [
         "France"
        ],
@@ -3231,7 +3231,7 @@
       },
       {
        "id": "France_Poitou-Charentes_Vienne",
-       "s": 26680285,
+       "s": 26673741,
        "affiliations": [
         "France"
        ],
@@ -3256,7 +3256,7 @@
       },
       {
        "id": "France_Provence-Alpes-Cote dAzur_Bouches-du-Rhone",
-       "s": 44118650,
+       "s": 44117458,
        "affiliations": [
         "France"
        ],
@@ -3276,7 +3276,7 @@
       },
       {
        "id": "France_Provence-Alpes-Cote dAzur_Maritime Alps",
-       "s": 23904550,
+       "s": 23904278,
        "affiliations": [
         "France"
        ],
@@ -3287,14 +3287,14 @@
       },
       {
        "id": "France_Provence-Alpes-Cote dAzur_Var",
-       "s": 34045782,
+       "s": 34042230,
        "old": [
         "France_Provence-Alpes-Cote d'Azur"
        ]
       },
       {
        "id": "France_Provence-Alpes-Cote dAzur_Vaucluse",
-       "s": 24960656,
+       "s": 24960672,
        "affiliations": [
         "France"
        ],
@@ -3319,7 +3319,7 @@
       },
       {
        "id": "France_Rhone-Alpes_Ardeche",
-       "s": 19763077,
+       "s": 19763045,
        "affiliations": [
         "France"
        ],
@@ -3391,7 +3391,7 @@
     },
     {
      "id": "France_Southern Islands",
-     "s": 19777698,
+     "s": 19777706,
      "affiliations": [
       "Mayotte",
       "France",
@@ -3406,7 +3406,7 @@
     },
     {
      "id": "France_Upper Normandy",
-     "s": 50730432,
+     "s": 50729480,
      "affiliations": [
       "France",
       "Normandy"
@@ -3417,7 +3417,7 @@
     },
     {
      "id": "French Polynesia",
-     "s": 2603928,
+     "s": 2604664,
      "affiliations": [
       "France"
      ],
@@ -3449,7 +3449,7 @@
   },
   {
    "id": "Georgia",
-   "s": 34287928,
+   "s": 34283672,
    "affiliations": [
     "Lower Kartli",
     "Inner Kartli",
@@ -3476,7 +3476,7 @@
      "g": [
       {
        "id": "Germany_Baden-Wurttemberg_Regierungsbezirk Freiburg",
-       "s": 70208548,
+       "s": 70208100,
        "affiliations": [
         "Zurich",
         "Baden-W\u00fcrttemberg",
@@ -3488,7 +3488,7 @@
       },
       {
        "id": "Germany_Baden-Wurttemberg_Regierungsbezirk Karlsruhe",
-       "s": 69349684,
+       "s": 69342780,
        "affiliations": [
         "Baden-W\u00fcrttemberg",
         "Germany"
@@ -3499,14 +3499,14 @@
       },
       {
        "id": "Germany_Baden-Wurttemberg_Regierungsbezirk Stuttgart_Heilbronn",
-       "s": 23545795,
+       "s": 23541315,
        "old": [
         "Germany_Baden-Wurttemberg"
        ]
       },
       {
        "id": "Germany_Baden-Wurttemberg_Regierungsbezirk Stuttgart_Stuttgart",
-       "s": 64663673,
+       "s": 64655809,
        "affiliations": [
         "Baden-W\u00fcrttemberg",
         "Germany"
@@ -3517,7 +3517,7 @@
       },
       {
        "id": "Germany_Baden-Wurttemberg_Regierungsbezirk Tubingen",
-       "s": 49670719,
+       "s": 49667815,
        "affiliations": [
         "Baden-W\u00fcrttemberg",
         "Germany"
@@ -3530,7 +3530,7 @@
     },
     {
      "id": "Germany_Berlin",
-     "s": 36226324,
+     "s": 36230948,
      "affiliations": [
       "Germany",
       "Berlin"
@@ -3541,7 +3541,7 @@
     },
     {
      "id": "Germany_Brandenburg_North",
-     "s": 37935385,
+     "s": 37940593,
      "affiliations": [
       "Germany"
      ],
@@ -3551,7 +3551,7 @@
     },
     {
      "id": "Germany_Brandenburg_South",
-     "s": 40303605,
+     "s": 40307541,
      "affiliations": [
       "Germany"
      ],
@@ -3564,7 +3564,7 @@
      "g": [
       {
        "id": "Germany_Free State of Bavaria_Lower Bavaria",
-       "s": 44300633,
+       "s": 44298793,
        "affiliations": [
         "Free State of Bavaria",
         "Germany"
@@ -3575,7 +3575,7 @@
       },
       {
        "id": "Germany_Free State of Bavaria_Lower Franconia",
-       "s": 38454843,
+       "s": 38452187,
        "affiliations": [
         "Free State of Bavaria",
         "Germany"
@@ -3586,7 +3586,7 @@
       },
       {
        "id": "Germany_Free State of Bavaria_Middle Franconia",
-       "s": 42384933,
+       "s": 42382853,
        "affiliations": [
         "Free State of Bavaria",
         "Germany"
@@ -3597,7 +3597,7 @@
       },
       {
        "id": "Germany_Free State of Bavaria_Swabia",
-       "s": 59223391,
+       "s": 59219535,
        "affiliations": [
         "Free State of Bavaria",
         "Germany"
@@ -3608,7 +3608,7 @@
       },
       {
        "id": "Germany_Free State of Bavaria_Upper Bavaria_East",
-       "s": 38170779,
+       "s": 38168739,
        "affiliations": [
         "Free State of Bavaria",
         "Germany"
@@ -3619,7 +3619,7 @@
       },
       {
        "id": "Germany_Free State of Bavaria_Upper Bavaria_Ingolstadt",
-       "s": 19408929,
+       "s": 19412681,
        "affiliations": [
         "Free State of Bavaria",
         "Germany"
@@ -3630,7 +3630,7 @@
       },
       {
        "id": "Germany_Free State of Bavaria_Upper Bavaria_Munchen",
-       "s": 35136002,
+       "s": 35138866,
        "affiliations": [
         "Free State of Bavaria",
         "Germany"
@@ -3641,7 +3641,7 @@
       },
       {
        "id": "Germany_Free State of Bavaria_Upper Bavaria_South",
-       "s": 17602961,
+       "s": 17603417,
        "affiliations": [
         "Free State of Bavaria",
         "Germany"
@@ -3652,7 +3652,7 @@
       },
       {
        "id": "Germany_Free State of Bavaria_Upper Franconia",
-       "s": 38900588,
+       "s": 38898684,
        "affiliations": [
         "Free State of Bavaria",
         "Germany"
@@ -3663,7 +3663,7 @@
       },
       {
        "id": "Germany_Free State of Bavaria_Upper Palatinate",
-       "s": 39365882,
+       "s": 39374322,
        "affiliations": [
         "Free State of Bavaria",
         "Germany"
@@ -3690,7 +3690,7 @@
      "g": [
       {
        "id": "Germany_Hesse_Regierungsbezirk Darmstadt",
-       "s": 68455741,
+       "s": 68444581,
        "affiliations": [
         "Germany"
        ],
@@ -3700,7 +3700,7 @@
       },
       {
        "id": "Germany_Hesse_Regierungsbezirk Giessen",
-       "s": 30124429,
+       "s": 30120973,
        "affiliations": [
         "Germany"
        ],
@@ -3710,7 +3710,7 @@
       },
       {
        "id": "Germany_Hesse_Regierungsbezirk Kassel",
-       "s": 42922418,
+       "s": 42916090,
        "affiliations": [
         "Germany"
        ],
@@ -3725,7 +3725,7 @@
      "g": [
       {
        "id": "Germany_Lower Saxony_Bremen_Bremen",
-       "s": 40155386,
+       "s": 40151498,
        "affiliations": [
         "Germany",
         "Hamburg",
@@ -3738,7 +3738,7 @@
       },
       {
        "id": "Germany_Lower Saxony_Bremen_Munster",
-       "s": 42519837,
+       "s": 42518037,
        "affiliations": [
         "Germany",
         "Lower Saxony"
@@ -3749,7 +3749,7 @@
       },
       {
        "id": "Germany_Lower Saxony_Hannover",
-       "s": 35330220,
+       "s": 35324844,
        "affiliations": [
         "Germany",
         "Lower Saxony"
@@ -3760,7 +3760,7 @@
       },
       {
        "id": "Germany_Lower Saxony_Braunschweig",
-       "s": 41623907,
+       "s": 41620291,
        "affiliations": [
         "Germany",
         "Lower Saxony"
@@ -3771,7 +3771,7 @@
       },
       {
        "id": "Germany_Lower Saxony_Oldenburg",
-       "s": 64630517,
+       "s": 64636669,
        "affiliations": [
         "Germany",
         "Lower Saxony"
@@ -3784,7 +3784,7 @@
     },
     {
      "id": "Germany_Mecklenburg-Vorpommern",
-     "s": 60194981,
+     "s": 60192069,
      "affiliations": [
       "Germany",
       "Mecklenburg-Vorpommern"
@@ -3798,7 +3798,7 @@
      "g": [
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Arnsberg_Arnsberg",
-       "s": 35048555,
+       "s": 35048403,
        "affiliations": [
         "Germany",
         "North Rhine-Westphalia"
@@ -3809,14 +3809,14 @@
       },
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Arnsberg_Dortmund",
-       "s": 56094516,
+       "s": 56097860,
        "old": [
         "Germany_North Rhine-Westphalia"
        ]
       },
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Detmold",
-       "s": 62572353,
+       "s": 62574057,
        "affiliations": [
         "Germany",
         "North Rhine-Westphalia"
@@ -3827,7 +3827,7 @@
       },
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Dusseldorf",
-       "s": 47584711,
+       "s": 47581623,
        "affiliations": [
         "Germany",
         "North Rhine-Westphalia"
@@ -3845,21 +3845,21 @@
       },
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Wesel",
-       "s": 13958071,
+       "s": 13952471,
        "old": [
         "Germany_North Rhine-Westphalia"
        ]
       },
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
-       "s": 47058558,
+       "s": 47059614,
        "old": [
         "Germany_North Rhine-Westphalia"
        ]
       },
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Koln",
-       "s": 58884226,
+       "s": 58884746,
        "affiliations": [
         "Germany",
         "North Rhine-Westphalia"
@@ -3890,7 +3890,7 @@
     },
     {
      "id": "Germany_Rhineland-Palatinate_Koblenz",
-     "s": 51100868,
+     "s": 51102676,
      "affiliations": [
       "Germany",
       "Rhineland-Palatinate"
@@ -3901,7 +3901,7 @@
     },
     {
      "id": "Germany_Rhineland-Palatinate_South",
-     "s": 46922481,
+     "s": 46920705,
      "affiliations": [
       "Germany",
       "Rhineland-Palatinate"
@@ -3912,7 +3912,7 @@
     },
     {
      "id": "Germany_Saarland",
-     "s": 22418587,
+     "s": 22423755,
      "affiliations": [
       "Saarland",
       "Germany"
@@ -3923,21 +3923,21 @@
     },
     {
      "id": "Germany_Saxony-Anhalt_Magdeburg",
-     "s": 34813751,
+     "s": 34814215,
      "old": [
       "Germany_Saxony-Anhalt"
      ]
     },
     {
      "id": "Germany_Saxony-Anhalt_Halle",
-     "s": 30941551,
+     "s": 30944271,
      "old": [
       "Germany_Saxony-Anhalt"
      ]
     },
     {
      "id": "Germany_Saxony_Dresden",
-     "s": 42101260,
+     "s": 42104356,
      "affiliations": [
       "Germany",
       "Saxony"
@@ -3948,7 +3948,7 @@
     },
     {
      "id": "Germany_Saxony_Leipzig",
-     "s": 71052336,
+     "s": 71049056,
      "affiliations": [
       "Germany",
       "Saxony"
@@ -3971,7 +3971,7 @@
     },
     {
      "id": "Germany_Schleswig-Holstein_Flensburg",
-     "s": 38364024,
+     "s": 38363280,
      "affiliations": [
       "Schleswig-Holstein",
       "Germany"
@@ -3982,7 +3982,7 @@
     },
     {
      "id": "Germany_Thuringia",
-     "s": 66682982,
+     "s": 66674198,
      "affiliations": [
       "Germany",
       "Thuringia"
@@ -4041,14 +4041,14 @@
     },
     {
      "id": "Greece_Decentralized Administration of West Greece",
-     "s": 22943927,
+     "s": 22944151,
      "old": [
       "Greece"
      ]
     },
     {
      "id": "Greece_Decentralized Administration of Aegean",
-     "s": 14125007,
+     "s": 14124999,
      "affiliations": [
       "Aegean Sea Administration",
       "Greece"
@@ -4066,7 +4066,7 @@
     },
     {
      "id": "Greece_Decentralized Administration of Macedonia and Thrace",
-     "s": 30206858,
+     "s": 30207562,
      "old": [
       "Greece"
      ]
@@ -4099,7 +4099,7 @@
   },
   {
    "id": "Guatemala",
-   "s": 18561725,
+   "s": 18563685,
    "old": [
     "Guatemala"
    ]
@@ -4145,14 +4145,14 @@
   },
   {
    "id": "Haiti",
-   "s": 21188919,
+   "s": 21197175,
    "old": [
     "Haiti"
    ]
   },
   {
    "id": "Honduras",
-   "s": 15787836,
+   "s": 15791420,
    "old": [
     "Honduras"
    ]
@@ -4162,21 +4162,21 @@
    "g": [
     {
      "id": "Hungary_Northern Great Plain",
-     "s": 45676299,
+     "s": 45672019,
      "old": [
       "Hungary"
      ]
     },
     {
      "id": "Hungary_Transdanubia",
-     "s": 49987781,
+     "s": 49985093,
      "old": [
       "Hungary"
      ]
     },
     {
      "id": "Hungary_Kozep-Magyarorszag",
-     "s": 27570954,
+     "s": 27568866,
      "old": [
       "Hungary"
      ]
@@ -4219,7 +4219,7 @@
     },
     {
      "id": "India_Andhra Pradesh",
-     "s": 18444977,
+     "s": 18434025,
      "affiliations": [
       "India",
       "Andhra Pradesh",
@@ -4231,14 +4231,14 @@
     },
     {
      "id": "India_Gujarat",
-     "s": 21403990,
+     "s": 21407830,
      "old": [
       "India"
      ]
     },
     {
      "id": "India_Kerala",
-     "s": 10588899,
+     "s": 10583907,
      "old": [
       "India"
      ]
@@ -4252,14 +4252,14 @@
     },
     {
      "id": "India_Rajasthan",
-     "s": 28522761,
+     "s": 28529553,
      "old": [
       "India"
      ]
     },
     {
      "id": "India_Tamil Nadu",
-     "s": 47821771,
+     "s": 47823563,
      "old": [
       "India"
      ]
@@ -4288,7 +4288,7 @@
     },
     {
      "id": "India_Karnataka_North",
-     "s": 21192443,
+     "s": 21196059,
      "affiliations": [
       "India",
       "Karnataka"
@@ -4299,7 +4299,7 @@
     },
     {
      "id": "India_Karnataka_South",
-     "s": 46611909,
+     "s": 46593293,
      "affiliations": [
       "India",
       "Karnataka"
@@ -4310,7 +4310,7 @@
     },
     {
      "id": "India_Maharashtra",
-     "s": 50938458,
+     "s": 50948522,
      "affiliations": [
       "India",
       "Maharashtra"
@@ -4321,14 +4321,14 @@
     },
     {
      "id": "India_Telangana",
-     "s": 61688979,
+     "s": 61676835,
      "old": [
       "India"
      ]
     },
     {
      "id": "India_Delhi",
-     "s": 12382784,
+     "s": 12385000,
      "affiliations": [
       "India",
       "Delhi"
@@ -4339,7 +4339,7 @@
     },
     {
      "id": "India_Uttar Pradesh",
-     "s": 27657198,
+     "s": 27659838,
      "affiliations": [
       "India",
       "Uttar Pradesh"
@@ -4350,14 +4350,14 @@
     },
     {
      "id": "India_Odisha",
-     "s": 8592178,
+     "s": 8592210,
      "old": [
       "India"
      ]
     },
     {
      "id": "India_Chhattisgarh",
-     "s": 4781883,
+     "s": 4781859,
      "old": [
       "India"
      ]
@@ -4375,7 +4375,7 @@
     },
     {
      "id": "India_Bihar",
-     "s": 7468590,
+     "s": 7468574,
      "old": [
       "India"
      ]
@@ -4389,7 +4389,7 @@
     },
     {
      "id": "India_West Bengal",
-     "s": 28169403,
+     "s": 28167451,
      "old": [
       "India"
      ]
@@ -4407,7 +4407,7 @@
     },
     {
      "id": "India_Uttarakhand",
-     "s": 5776536,
+     "s": 5776424,
      "affiliations": [
       "Uttarakhand",
       "India"
@@ -4425,14 +4425,14 @@
     },
     {
      "id": "India_Meghalaya",
-     "s": 849367,
+     "s": 849351,
      "old": [
       "India"
      ]
     },
     {
      "id": "India_Manipur",
-     "s": 641361,
+     "s": 641353,
      "old": [
       "India"
      ]
@@ -4453,7 +4453,7 @@
     },
     {
      "id": "India_Arunachal Pradesh",
-     "s": 1577427,
+     "s": 1577811,
      "affiliations": [
       "Arunachal Pradesh",
       "India"
@@ -4489,7 +4489,7 @@
     },
     {
      "id": "India_Punjab",
-     "s": 13051925,
+     "s": 13051997,
      "old": [
       "India"
      ]
@@ -4501,49 +4501,49 @@
    "g": [
     {
      "id": "Indonesia_Central",
-     "s": 51624443,
+     "s": 51628371,
      "old": [
       "Indonesia"
      ]
     },
     {
      "id": "Indonesia_West",
-     "s": 34459121,
+     "s": 34453857,
      "old": [
       "Indonesia"
      ]
     },
     {
      "id": "Indonesia_Jawa Tengah",
-     "s": 28806083,
+     "s": 28816507,
      "old": [
       "Indonesia"
      ]
     },
     {
      "id": "Indonesia_Jawa Barat",
-     "s": 33956197,
+     "s": 33961509,
      "old": [
       "Indonesia"
      ]
     },
     {
      "id": "Indonesia_Nusa Tenggara",
-     "s": 34390319,
+     "s": 34395639,
      "old": [
       "Indonesia"
      ]
     },
     {
      "id": "Indonesia_Jawa Timur",
-     "s": 33579411,
+     "s": 33582659,
      "old": [
       "Indonesia"
      ]
     },
     {
      "id": "Indonesia_East",
-     "s": 9884414,
+     "s": 9883686,
      "old": [
       "Indonesia"
      ]
@@ -4555,7 +4555,7 @@
    "g": [
     {
      "id": "Iran_East",
-     "s": 29530865,
+     "s": 29531217,
      "affiliations": [
       "Sistan and Baluchestan",
       "Razavi Khorasan",
@@ -4571,14 +4571,14 @@
     },
     {
      "id": "Iran_South",
-     "s": 41674661,
+     "s": 41679909,
      "old": [
       "Iran"
      ]
     },
     {
      "id": "Iran_North",
-     "s": 44307489,
+     "s": 44307129,
      "old": [
       "Iran"
      ]
@@ -4590,14 +4590,14 @@
    "g": [
     {
      "id": "Iraq_North",
-     "s": 33420941,
+     "s": 33412333,
      "old": [
       "Iraq"
      ]
     },
     {
      "id": "Iraq_South",
-     "s": 24842899,
+     "s": 24842939,
      "old": [
       "Iraq"
      ]
@@ -4634,7 +4634,7 @@
     },
     {
      "id": "Israel",
-     "s": 37219734,
+     "s": 37219822,
      "old": [
       "Israel"
      ]
@@ -4646,7 +4646,7 @@
    "g": [
     {
      "id": "Italy_Abruzzo",
-     "s": 13415378,
+     "s": 13415402,
      "affiliations": [
       "Abruzzo",
       "Italy"
@@ -4668,7 +4668,7 @@
     },
     {
      "id": "Italy_Apulia",
-     "s": 46438031,
+     "s": 46429671,
      "old": [
       "Italy"
      ]
@@ -4682,14 +4682,14 @@
     },
     {
      "id": "Italy_Calabria",
-     "s": 18449525,
+     "s": 18451285,
      "old": [
       "Italy"
      ]
     },
     {
      "id": "Italy_Campania",
-     "s": 27739697,
+     "s": 27737465,
      "old": [
       "Italy"
      ]
@@ -4743,7 +4743,7 @@
       },
       {
        "id": "Italy_Emilia-Romagna_Parma",
-       "s": 13309508,
+       "s": 13307492,
        "affiliations": [
         "Emilia-Romagna",
         "Italy"
@@ -4754,7 +4754,7 @@
       },
       {
        "id": "Italy_Emilia-Romagna_Piacenza",
-       "s": 8417361,
+       "s": 8419513,
        "affiliations": [
         "Emilia-Romagna",
         "Italy"
@@ -4765,7 +4765,7 @@
       },
       {
        "id": "Italy_Emilia-Romagna_Ravenna",
-       "s": 7892456,
+       "s": 7893104,
        "affiliations": [
         "Emilia-Romagna",
         "Italy"
@@ -4776,7 +4776,7 @@
       },
       {
        "id": "Italy_Emilia-Romagna_Reggio Emilia",
-       "s": 10579938,
+       "s": 10579930,
        "affiliations": [
         "Emilia-Romagna",
         "Italy"
@@ -4787,7 +4787,7 @@
       },
       {
        "id": "Italy_Emilia-Romagna_Rimini",
-       "s": 5479258,
+       "s": 5479282,
        "affiliations": [
         "Emilia-Romagna",
         "Italy"
@@ -4845,7 +4845,7 @@
     },
     {
      "id": "Italy_Lazio",
-     "s": 41392534,
+     "s": 41395918,
      "old": [
       "Italy",
       "Vatican"
@@ -4853,7 +4853,7 @@
     },
     {
      "id": "Italy_Liguria",
-     "s": 33533173,
+     "s": 33535181,
      "affiliations": [
       "Liguria",
       "Italy"
@@ -4966,7 +4966,7 @@
       },
       {
        "id": "Italy_Lombardy_Pavia",
-       "s": 16210430,
+       "s": 16210406,
        "affiliations": [
         "Lombardy",
         "Italy"
@@ -4988,7 +4988,7 @@
       },
       {
        "id": "Italy_Lombardy_Varese",
-       "s": 11664378,
+       "s": 11671010,
        "affiliations": [
         "Lombardy",
         "Italy"
@@ -5011,7 +5011,7 @@
     },
     {
      "id": "Italy_Molise",
-     "s": 6298761,
+     "s": 6298841,
      "affiliations": [
       "Italy"
      ],
@@ -5024,7 +5024,7 @@
      "g": [
       {
        "id": "Italy_Piemont_Alessandria",
-       "s": 9775042,
+       "s": 9777210,
        "affiliations": [
         "Italy",
         "Piemont"
@@ -5079,7 +5079,7 @@
       },
       {
        "id": "Italy_Piemont_Torino",
-       "s": 20617612,
+       "s": 20618892,
        "old": [
         "Italy"
        ]
@@ -5110,7 +5110,7 @@
     },
     {
      "id": "Italy_Sardinia",
-     "s": 41323091,
+     "s": 41324275,
      "affiliations": [
       "Italy",
       "Sardinia"
@@ -5121,7 +5121,7 @@
     },
     {
      "id": "Italy_Sicily",
-     "s": 58389839,
+     "s": 58390703,
      "affiliations": [
       "Rabbit Island",
       "Italy",
@@ -5144,7 +5144,7 @@
     },
     {
      "id": "Italy_Tuscany_Grosseto",
-     "s": 18306404,
+     "s": 18301868,
      "affiliations": [
       "Tuscany",
       "Italy"
@@ -5155,14 +5155,14 @@
     },
     {
      "id": "Italy_Tuscany_Massa e Carrara",
-     "s": 41465771,
+     "s": 41472867,
      "old": [
       "Italy"
      ]
     },
     {
      "id": "Italy_Umbria",
-     "s": 14711982,
+     "s": 14710558,
      "affiliations": [
       "Italy"
      ],
@@ -5186,7 +5186,7 @@
       },
       {
        "id": "Italy_Veneto_Padova",
-       "s": 23247304,
+       "s": 23246872,
        "affiliations": [
         "Italy",
         "Veneto"
@@ -5197,7 +5197,7 @@
       },
       {
        "id": "Italy_Veneto_Rovigo",
-       "s": 7777861,
+       "s": 7777989,
        "affiliations": [
         "Italy",
         "Veneto"
@@ -5219,7 +5219,7 @@
       },
       {
        "id": "Italy_Veneto_Venezia",
-       "s": 17159242,
+       "s": 17159194,
        "affiliations": [
         "Italy",
         "Veneto"
@@ -5230,7 +5230,7 @@
       },
       {
        "id": "Italy_Veneto_Verona",
-       "s": 22702315,
+       "s": 22705187,
        "affiliations": [
         "Italy",
         "Veneto"
@@ -5241,7 +5241,7 @@
       },
       {
        "id": "Italy_Veneto_Vicenza",
-       "s": 21666709,
+       "s": 21665861,
        "affiliations": [
         "Italy",
         "Veneto"
@@ -5256,7 +5256,7 @@
   },
   {
    "id": "Jamaica",
-   "s": 6392815,
+   "s": 6392447,
    "affiliations": [
     "Jamaica"
    ],
@@ -5272,7 +5272,7 @@
      "g": [
       {
        "id": "Japan_Chubu Region_Aichi_Nagoya",
-       "s": 62474188,
+       "s": 62436892,
        "affiliations": [
         "Aichi",
         "Mie Prefecture",
@@ -5284,7 +5284,7 @@
       },
       {
        "id": "Japan_Chubu Region_Aichi_Toyohashi",
-       "s": 19589001,
+       "s": 19594161,
        "affiliations": [
         "Aichi",
         "Japan"
@@ -5295,7 +5295,7 @@
       },
       {
        "id": "Japan_Chubu Region_Fukui",
-       "s": 14844977,
+       "s": 14844393,
        "affiliations": [
         "Fukui Prefecture",
         "Japan"
@@ -5306,7 +5306,7 @@
       },
       {
        "id": "Japan_Chubu Region_Gifu",
-       "s": 32309978,
+       "s": 32305354,
        "affiliations": [
         "Japan",
         "Gifu Prefecture"
@@ -5317,7 +5317,7 @@
       },
       {
        "id": "Japan_Chubu Region_Ishikawa",
-       "s": 16768621,
+       "s": 16768493,
        "affiliations": [
         "Ishikawa Prefecture",
         "Japan"
@@ -5328,7 +5328,7 @@
       },
       {
        "id": "Japan_Chubu Region_Nagano",
-       "s": 39271669,
+       "s": 39269381,
        "affiliations": [
         "Nagano",
         "Japan"
@@ -5339,7 +5339,7 @@
       },
       {
        "id": "Japan_Chubu Region_Niigata",
-       "s": 42743116,
+       "s": 42742924,
        "affiliations": [
         "Ishikawa Prefecture",
         "Japan",
@@ -5351,7 +5351,7 @@
       },
       {
        "id": "Japan_Chubu Region_Shizuoka",
-       "s": 54027911,
+       "s": 54027919,
        "affiliations": [
         "Shizuoka",
         "Japan"
@@ -5362,7 +5362,7 @@
       },
       {
        "id": "Japan_Chubu Region_Toyama",
-       "s": 16630311,
+       "s": 16641711,
        "affiliations": [
         "Ishikawa Prefecture",
         "Japan",
@@ -5374,7 +5374,7 @@
       },
       {
        "id": "Japan_Chubu Region_Yamanashi",
-       "s": 17667267,
+       "s": 17667259,
        "old": [
         "Japan_Chubu"
        ]
@@ -5386,14 +5386,14 @@
      "g": [
       {
        "id": "Japan_Chugoku Region_Hiroshima",
-       "s": 36620673,
+       "s": 36620769,
        "old": [
         "Japan_Chugoku"
        ]
       },
       {
        "id": "Japan_Chugoku Region_Okayama",
-       "s": 23095899,
+       "s": 23095739,
        "affiliations": [
         "Okayama Prefecture",
         "Japan"
@@ -5404,7 +5404,7 @@
       },
       {
        "id": "Japan_Chugoku Region_Shimane",
-       "s": 14997100,
+       "s": 15004244,
        "affiliations": [
         "Shimane",
         "Japan"
@@ -5415,7 +5415,7 @@
       },
       {
        "id": "Japan_Chugoku Region_Tottori",
-       "s": 13068542,
+       "s": 13068574,
        "affiliations": [
         "Tottori Prefecture",
         "Japan"
@@ -5426,7 +5426,7 @@
       },
       {
        "id": "Japan_Chugoku Region_Yamaguchi",
-       "s": 18414501,
+       "s": 18421117,
        "old": [
         "Japan_Chugoku"
        ]
@@ -5438,7 +5438,7 @@
      "g": [
       {
        "id": "Japan_Hokkaido Region_East",
-       "s": 22987332,
+       "s": 22987372,
        "affiliations": [
         "Hokkaido",
         "Japan"
@@ -5449,7 +5449,7 @@
       },
       {
        "id": "Japan_Hokkaido Region_North",
-       "s": 28815062,
+       "s": 28815030,
        "affiliations": [
         "Hokkaido",
         "Japan"
@@ -5460,7 +5460,7 @@
       },
       {
        "id": "Japan_Hokkaido Region_West",
-       "s": 16535250,
+       "s": 16534650,
        "affiliations": [
         "Hokkaido",
         "Japan"
@@ -5471,7 +5471,7 @@
       },
       {
        "id": "Japan_Hokkaido Region_Sapporo",
-       "s": 40573728,
+       "s": 40573704,
        "affiliations": [
         "Hokkaido",
         "Japan"
@@ -5487,14 +5487,14 @@
      "g": [
       {
        "id": "Japan_Kanto_Chiba",
-       "s": 54154087,
+       "s": 54170839,
        "old": [
         "Japan_Kanto"
        ]
       },
       {
        "id": "Japan_Kanto_Gunma",
-       "s": 32918868,
+       "s": 32918844,
        "affiliations": [
         "Gunma",
         "Japan"
@@ -5505,7 +5505,7 @@
       },
       {
        "id": "Japan_Kanto_Ibaraki",
-       "s": 39271032,
+       "s": 39271040,
        "affiliations": [
         "Japan",
         "Ibaraki",
@@ -5518,21 +5518,21 @@
       },
       {
        "id": "Japan_Kanto_Kanagawa",
-       "s": 57647201,
+       "s": 57647185,
        "old": [
         "Japan_Kanto"
        ]
       },
       {
        "id": "Japan_Kanto_Saitama",
-       "s": 58031582,
+       "s": 58053342,
        "old": [
         "Japan_Kanto"
        ]
       },
       {
        "id": "Japan_Kanto_Tochigi",
-       "s": 29763089,
+       "s": 29763073,
        "affiliations": [
         "Tochigi",
         "Japan"
@@ -5543,7 +5543,7 @@
       },
       {
        "id": "Japan_Kanto_Tokyo",
-       "s": 75301246,
+       "s": 75314550,
        "old": [
         "Japan_Kanto"
        ]
@@ -5567,7 +5567,7 @@
       },
       {
        "id": "Japan_Kinki Region_Nara",
-       "s": 14643133,
+       "s": 14635173,
        "affiliations": [
         "Wakayama Prefecture",
         "Nara Prefecture",
@@ -5579,7 +5579,7 @@
       },
       {
        "id": "Japan_Kinki Region_Osaka_Osaka",
-       "s": 48772971,
+       "s": 48772995,
        "affiliations": [
         "Japan",
         "Hyogo Prefecture",
@@ -5591,7 +5591,7 @@
       },
       {
        "id": "Japan_Kinki Region_Osaka_West",
-       "s": 35655842,
+       "s": 35655778,
        "affiliations": [
         "Japan",
         "Hyogo Prefecture"
@@ -5618,21 +5618,21 @@
      "g": [
       {
        "id": "Japan_Kyushu Region_Fukuoka",
-       "s": 38961779,
+       "s": 38961787,
        "old": [
         "Japan_Kyushu"
        ]
       },
       {
        "id": "Japan_Kyushu Region_Kagoshima",
-       "s": 30147871,
+       "s": 30146471,
        "old": [
         "Japan_Kyushu"
        ]
       },
       {
        "id": "Japan_Kyushu Region_Kumamoto",
-       "s": 23839812,
+       "s": 23840396,
        "old": [
         "Japan_Kyushu"
        ]
@@ -5646,14 +5646,14 @@
       },
       {
        "id": "Japan_Kyushu Region_Nagasaki",
-       "s": 15918080,
+       "s": 15918104,
        "old": [
         "Japan_Kyushu"
        ]
       },
       {
        "id": "Japan_Kyushu Region_Oita",
-       "s": 17477816,
+       "s": 17511304,
        "affiliations": [
         "Oita",
         "Japan"
@@ -5664,7 +5664,7 @@
       },
       {
        "id": "Japan_Kyushu Region_Okinawa",
-       "s": 13816281,
+       "s": 13816321,
        "affiliations": [
         "Japan",
         "Okinawa Prefecture"
@@ -5675,7 +5675,7 @@
       },
       {
        "id": "Japan_Kyushu Region_Saga",
-       "s": 13147566,
+       "s": 13147542,
        "old": [
         "Japan_Kyushu"
        ]
@@ -5687,7 +5687,7 @@
      "g": [
       {
        "id": "Japan_Shikoku Region_Ehime",
-       "s": 23332047,
+       "s": 23332143,
        "affiliations": [
         "Ehime Prefecture",
         "Japan"
@@ -5698,7 +5698,7 @@
       },
       {
        "id": "Japan_Shikoku Region_Kagawa",
-       "s": 9312420,
+       "s": 9315644,
        "affiliations": [
         "Japan",
         "Kagawa Prefecture"
@@ -5709,7 +5709,7 @@
       },
       {
        "id": "Japan_Shikoku Region_Kochi",
-       "s": 12537865,
+       "s": 12537801,
        "affiliations": [
         "K\u014dchi Prefecture",
         "Japan"
@@ -5720,7 +5720,7 @@
       },
       {
        "id": "Japan_Shikoku Region_Kyoto",
-       "s": 42030589,
+       "s": 42030533,
        "affiliations": [
         "Kyoto Prefecture",
         "Japan",
@@ -5732,7 +5732,7 @@
       },
       {
        "id": "Japan_Shikoku Region_Tokushima",
-       "s": 13555016,
+       "s": 13555048,
        "affiliations": [
         "Japan",
         "Tokushima Prefecture"
@@ -5748,7 +5748,7 @@
      "g": [
       {
        "id": "Japan_Tohoku_Akita",
-       "s": 23323379,
+       "s": 23323459,
        "affiliations": [
         "Akita",
         "Japan"
@@ -5759,14 +5759,14 @@
       },
       {
        "id": "Japan_Tohoku_Aomori",
-       "s": 21591466,
+       "s": 21591458,
        "old": [
         "Japan_Tohoku"
        ]
       },
       {
        "id": "Japan_Tohoku_Fukushima",
-       "s": 46115329,
+       "s": 46097129,
        "affiliations": [
         "Japan",
         "Fukushima"
@@ -5777,14 +5777,14 @@
       },
       {
        "id": "Japan_Tohoku_Iwate",
-       "s": 28630452,
+       "s": 28626628,
        "old": [
         "Japan_Tohoku"
        ]
       },
       {
        "id": "Japan_Tohoku_Miyagi",
-       "s": 26711408,
+       "s": 26711440,
        "affiliations": [
         "Miyagi",
         "Japan",
@@ -5796,7 +5796,7 @@
       },
       {
        "id": "Japan_Tohoku_Yamagata",
-       "s": 21687476,
+       "s": 21690156,
        "affiliations": [
         "Japan",
         "Yamagata"
@@ -5824,7 +5824,7 @@
   },
   {
    "id": "Jordan",
-   "s": 19746067,
+   "s": 19746051,
    "old": [
     "Jordan"
    ]
@@ -5834,14 +5834,14 @@
    "g": [
     {
      "id": "Kazakhstan_North",
-     "s": 32150831,
+     "s": 32145767,
      "old": [
       "Kazakhstan"
      ]
     },
     {
      "id": "Kazakhstan_South",
-     "s": 38393247,
+     "s": 38390727,
      "old": [
       "Kazakhstan"
      ]
@@ -5850,14 +5850,14 @@
   },
   {
    "id": "Kenya",
-   "s": 20725761,
+   "s": 20723857,
    "old": [
     "Kenya"
    ]
   },
   {
    "id": "Kingdom of Lesotho",
-   "s": 31664121,
+   "s": 31664169,
    "affiliations": [
     "Lesotho"
    ],
@@ -5877,21 +5877,21 @@
   },
   {
    "id": "Kuwait",
-   "s": 4785023,
+   "s": 4785055,
    "old": [
     "Kuwait"
    ]
   },
   {
    "id": "Kyrgyzstan",
-   "s": 24015196,
+   "s": 24013812,
    "old": [
     "Kyrgyzstan"
    ]
   },
   {
    "id": "Laos",
-   "s": 9291201,
+   "s": 9291169,
    "old": [
     "Laos"
    ]
@@ -5912,7 +5912,7 @@
   },
   {
    "id": "Lebanon",
-   "s": 12950200,
+   "s": 12950184,
    "old": [
     "Lebanon"
    ]
@@ -5967,7 +5967,7 @@
     },
     {
      "id": "Lithuania_West",
-     "s": 41878760,
+     "s": 41880912,
      "affiliations": [
       "Panevezys County",
       "Telsiai County",
@@ -5985,21 +5985,21 @@
   },
   {
    "id": "Luxembourg",
-   "s": 13313901,
+   "s": 13312429,
    "old": [
     "Luxembourg"
    ]
   },
   {
    "id": "Macedonia",
-   "s": 15669928,
+   "s": 15668048,
    "old": [
     "Macedonia"
    ]
   },
   {
    "id": "Madagascar",
-   "s": 32631381,
+   "s": 32631765,
    "affiliations": [
     "Madagascar"
    ],
@@ -6009,14 +6009,14 @@
   },
   {
    "id": "Malawi",
-   "s": 15178697,
+   "s": 15179209,
    "old": [
     "Malawi"
    ]
   },
   {
    "id": "Malaysia",
-   "s": 54068827,
+   "s": 54065571,
    "old": [
     "Malaysia"
    ]
@@ -6033,14 +6033,14 @@
   },
   {
    "id": "Mali",
-   "s": 38358011,
+   "s": 38358027,
    "old": [
     "Mali"
    ]
   },
   {
    "id": "Malta",
-   "s": 3741631,
+   "s": 3741135,
    "affiliations": [
     "Comino",
     "Gozo",
@@ -6063,14 +6063,14 @@
   },
   {
    "id": "Mauritania",
-   "s": 5656882,
+   "s": 5656898,
    "old": [
     "Mauritania"
    ]
   },
   {
    "id": "Mauritius",
-   "s": 2114917,
+   "s": 2114869,
    "affiliations": [
     "Mauritius",
     "Grand Port",
@@ -6102,7 +6102,7 @@
    "g": [
     {
      "id": "Mexico_California",
-     "s": 18024589,
+     "s": 18024597,
      "affiliations": [
       "Colima",
       "South Lower California",
@@ -6118,14 +6118,14 @@
     },
     {
      "id": "Mexico_Central_East",
-     "s": 42032628,
+     "s": 42001804,
      "old": [
       "Mexico"
      ]
     },
     {
      "id": "Mexico_Central_West",
-     "s": 54437612,
+     "s": 54453116,
      "affiliations": [
       "Colima",
       "Durango",
@@ -6142,21 +6142,21 @@
     },
     {
      "id": "Mexico_East",
-     "s": 39136736,
+     "s": 39102176,
      "old": [
       "Mexico"
      ]
     },
     {
      "id": "Mexico_Mexico",
-     "s": 73503056,
+     "s": 73512632,
      "old": [
       "Mexico"
      ]
     },
     {
      "id": "Mexico_Chihuahua",
-     "s": 32692168,
+     "s": 32719584,
      "affiliations": [
       "Durango",
       "Coahuila",
@@ -6171,7 +6171,7 @@
     },
     {
      "id": "Mexico_Sonora",
-     "s": 28313577,
+     "s": 28294041,
      "affiliations": [
       "Durango",
       "Sonora",
@@ -6185,7 +6185,7 @@
     },
     {
      "id": "Mexico_South",
-     "s": 48885766,
+     "s": 48901870,
      "old": [
       "Mexico"
      ]
@@ -6194,7 +6194,7 @@
   },
   {
    "id": "Moldova",
-   "s": 29576163,
+   "s": 29566827,
    "affiliations": [
     "Moldova",
     "Transnistria",
@@ -6218,14 +6218,14 @@
   },
   {
    "id": "Mongolia",
-   "s": 12999474,
+   "s": 12999402,
    "old": [
     "Mongolia"
    ]
   },
   {
    "id": "Montenegro",
-   "s": 12777762,
+   "s": 12777194,
    "old": [
     "Montenegro"
    ]
@@ -6250,7 +6250,7 @@
     },
     {
      "id": "Morocco_Doukkala-Abda",
-     "s": 22350506,
+     "s": 22350482,
      "affiliations": [
       "B\u00e9ni Mellal-Kh\u00e9nifra",
       "Casablanca-Settat",
@@ -6263,7 +6263,7 @@
     },
     {
      "id": "Morocco_Rabat-Sale-Zemmour-Zaer",
-     "s": 17097684,
+     "s": 17096556,
      "affiliations": [
       "Fez-Meknes",
       "Morocco",
@@ -6278,21 +6278,21 @@
   },
   {
    "id": "Mozambique",
-   "s": 37572442,
+   "s": 37572426,
    "old": [
     "Mozambique"
    ]
   },
   {
    "id": "Myanmar",
-   "s": 41168012,
+   "s": 41184140,
    "old": [
     "Burma"
    ]
   },
   {
    "id": "Namibia",
-   "s": 11680019,
+   "s": 11680675,
    "old": [
     "Namibia"
    ]
@@ -6325,7 +6325,7 @@
     },
     {
      "id": "Nepal_Kathmandu",
-     "s": 24630037,
+     "s": 24637989,
      "affiliations": [
       "Central Development Region",
       "Nepal"
@@ -6336,7 +6336,7 @@
     },
     {
      "id": "Nepal_Madhyamanchal",
-     "s": 21838434,
+     "s": 21838442,
      "affiliations": [
       "Central Development Region",
       "Nepal"
@@ -6347,7 +6347,7 @@
     },
     {
      "id": "Nepal_Purwanchal",
-     "s": 9890947,
+     "s": 9891003,
      "affiliations": [
       "Eastern Development Region",
       "Nepal"
@@ -6360,7 +6360,7 @@
   },
   {
    "id": "Nicaragua",
-   "s": 14698009,
+   "s": 14698041,
    "affiliations": [
     "North Carribean Coast Autonomous Region",
     "South Atlantic Autonomous Region",
@@ -6382,7 +6382,7 @@
    "g": [
     {
      "id": "Nigeria_South",
-     "s": 43653606,
+     "s": 43639494,
      "affiliations": [
       "Nigeria"
      ],
@@ -6431,7 +6431,7 @@
     },
     {
      "id": "Norway_Hordaland",
-     "s": 35187850,
+     "s": 35188922,
      "affiliations": [
       "Norway"
      ],
@@ -6458,7 +6458,7 @@
     },
     {
      "id": "Norway_Oppland",
-     "s": 30205980,
+     "s": 30208132,
      "old": [
       "Norway"
      ]
@@ -6475,7 +6475,7 @@
     },
     {
      "id": "Norway_Hedmark",
-     "s": 34613708,
+     "s": 34616956,
      "old": [
       "Norway"
      ]
@@ -6489,14 +6489,14 @@
     },
     {
      "id": "Norway_North Trondelag",
-     "s": 31138057,
+     "s": 31138041,
      "old": [
       "Norway"
      ]
     },
     {
      "id": "Norway_South Trondelag",
-     "s": 46891221,
+     "s": 46892285,
      "old": [
       "Norway"
      ]
@@ -6521,7 +6521,7 @@
     },
     {
      "id": "Norway_Central",
-     "s": 44470944,
+     "s": 44470968,
      "old": [
       "Norway"
      ]
@@ -6541,14 +6541,14 @@
   },
   {
    "id": "Oman",
-   "s": 13774837,
+   "s": 13774781,
    "old": [
     "Oman"
    ]
   },
   {
    "id": "Pakistan",
-   "s": 49519864,
+   "s": 49528120,
    "old": [
     "Pakistan"
    ]
@@ -6579,7 +6579,7 @@
   },
   {
    "id": "Paraguay",
-   "s": 28128017,
+   "s": 28128001,
    "affiliations": [
     "Boquer\u00f3n",
     "Paraguay"
@@ -6593,7 +6593,7 @@
    "g": [
     {
      "id": "China_Anhui",
-     "s": 10132642,
+     "s": 10134098,
      "affiliations": [
       "China",
       "Anhui"
@@ -6611,7 +6611,7 @@
     },
     {
      "id": "China_Fujian",
-     "s": 9459220,
+     "s": 9464628,
      "affiliations": [
       "China",
       "Fujian"
@@ -6622,28 +6622,28 @@
     },
     {
      "id": "China_Gansu",
-     "s": 6412519,
+     "s": 6412527,
      "old": [
       "China"
      ]
     },
     {
      "id": "China_Guangdong",
-     "s": 50756331,
+     "s": 50758235,
      "old": [
       "China"
      ]
     },
     {
      "id": "China_Guangxi",
-     "s": 7331564,
+     "s": 7331540,
      "old": [
       "China"
      ]
     },
     {
      "id": "China_Guizhou",
-     "s": 4098868,
+     "s": 4098908,
      "affiliations": [
       "China",
       "Guizhou"
@@ -6654,21 +6654,21 @@
     },
     {
      "id": "China_Hebei",
-     "s": 24229682,
+     "s": 24229626,
      "old": [
       "China"
      ]
     },
     {
      "id": "China_Heilongjiang",
-     "s": 9108596,
+     "s": 9108572,
      "old": [
       "China"
      ]
     },
     {
      "id": "China_Henan",
-     "s": 10552490,
+     "s": 10551330,
      "affiliations": [
       "China",
       "Henan"
@@ -6679,14 +6679,14 @@
     },
     {
      "id": "China_Hubei",
-     "s": 9675245,
+     "s": 9676485,
      "old": [
       "China"
      ]
     },
     {
      "id": "China_Hunan",
-     "s": 8467138,
+     "s": 8467146,
      "affiliations": [
       "China",
       "Hunan"
@@ -6697,14 +6697,14 @@
     },
     {
      "id": "China_Inner Mongolia",
-     "s": 14280450,
+     "s": 14280138,
      "old": [
       "China"
      ]
     },
     {
      "id": "China_Jiangsu",
-     "s": 29546811,
+     "s": 29577931,
      "affiliations": [
       "China",
       "Zhu Island",
@@ -6717,7 +6717,7 @@
     },
     {
      "id": "China_Jiangxi",
-     "s": 10121897,
+     "s": 10126177,
      "affiliations": [
       "China",
       "Jiangxi"
@@ -6728,7 +6728,7 @@
     },
     {
      "id": "China_Jilin",
-     "s": 9115513,
+     "s": 9115505,
      "affiliations": [
       "China",
       "Jilin"
@@ -6739,7 +6739,7 @@
     },
     {
      "id": "China_Liaoning",
-     "s": 10730915,
+     "s": 10728963,
      "old": [
       "China"
      ]
@@ -6760,14 +6760,14 @@
     },
     {
      "id": "China_Shaanxi",
-     "s": 10214257,
+     "s": 10214097,
      "old": [
       "China"
      ]
     },
     {
      "id": "China_Shandong",
-     "s": 19950332,
+     "s": 19948036,
      "affiliations": [
       "China",
       "Shandong"
@@ -6778,14 +6778,14 @@
     },
     {
      "id": "China_Shanghai",
-     "s": 10984141,
+     "s": 10979621,
      "old": [
       "China"
      ]
     },
     {
      "id": "China_Shanxi",
-     "s": 5667400,
+     "s": 5670536,
      "affiliations": [
       "China",
       "Shanxi"
@@ -6796,7 +6796,7 @@
     },
     {
      "id": "China_Sichuan",
-     "s": 13111196,
+     "s": 13121468,
      "affiliations": [
       "China",
       "Sichuan"
@@ -6807,7 +6807,7 @@
     },
     {
      "id": "China_Tibet Autonomous Region",
-     "s": 11755687,
+     "s": 11757359,
      "affiliations": [
       "China",
       "Tibet Autonomous Region"
@@ -6818,14 +6818,14 @@
     },
     {
      "id": "China_Xinjiang",
-     "s": 13465684,
+     "s": 13465732,
      "old": [
       "China"
      ]
     },
     {
      "id": "China_Yunnan",
-     "s": 13922015,
+     "s": 13924871,
      "affiliations": [
       "China",
       "Yunnan"
@@ -6836,7 +6836,7 @@
     },
     {
      "id": "China_Zhejiang",
-     "s": 19376030,
+     "s": 19385118,
      "affiliations": [
       "China",
       "Zhejiang"
@@ -6847,7 +6847,7 @@
     },
     {
      "id": "Taiwan_North",
-     "s": 40133716,
+     "s": 39932076,
      "affiliations": [
       "China",
       "Republic of China",
@@ -6865,7 +6865,7 @@
     },
     {
      "id": "Taiwan_South",
-     "s": 43297873,
+     "s": 43281865,
      "affiliations": [
       "Republic of China",
       "Tainan City",
@@ -6883,14 +6883,14 @@
    "g": [
     {
      "id": "Peru_North",
-     "s": 31677174,
+     "s": 31676950,
      "old": [
       "Peru"
      ]
     },
     {
      "id": "Peru_Lima",
-     "s": 28748373,
+     "s": 28743141,
      "affiliations": [
       "Jun\u00edn",
       "Peru",
@@ -6916,14 +6916,14 @@
    "g": [
     {
      "id": "Philippines_Mindanao",
-     "s": 25782748,
+     "s": 25782876,
      "old": [
       "Philippines"
      ]
     },
     {
      "id": "Philippines_Visayas",
-     "s": 37511680,
+     "s": 37516792,
      "old": [
       "Philippines"
      ]
@@ -6937,14 +6937,14 @@
     },
     {
      "id": "Philippines_Luzon_Manila",
-     "s": 48399835,
+     "s": 48411539,
      "old": [
       "Philippines"
      ]
     },
     {
      "id": "Philippines_Luzon_North",
-     "s": 34964630,
+     "s": 34967046,
      "old": [
       "Philippines"
      ]
@@ -6966,7 +6966,7 @@
    "g": [
     {
      "id": "Poland_West Pomeranian Voivodeship",
-     "s": 41495094,
+     "s": 41494150,
      "affiliations": [
       "Poland",
       "West Pomeranian Voivodeship"
@@ -6977,7 +6977,7 @@
     },
     {
      "id": "Poland_Pomeranian Voivodeship",
-     "s": 39408665,
+     "s": 39411145,
      "affiliations": [
       "Poland",
       "Pomeranian Voivodeship"
@@ -6988,7 +6988,7 @@
     },
     {
      "id": "Poland_Podlaskie Voivodeship",
-     "s": 21082366,
+     "s": 21078966,
      "affiliations": [
       "Podlaskie Voivodeship",
       "Poland"
@@ -6999,7 +6999,7 @@
     },
     {
      "id": "Poland_Masovian Voivodeship",
-     "s": 69653061,
+     "s": 69660389,
      "affiliations": [
       "Poland",
       "Masovian Voivodeship"
@@ -7010,7 +7010,7 @@
     },
     {
      "id": "Poland_Lubusz Voivodeship",
-     "s": 23795099,
+     "s": 23799539,
      "affiliations": [
       "Lubusz Voivodeship",
       "Poland"
@@ -7021,7 +7021,7 @@
     },
     {
      "id": "Poland_Lublin Voivodeship",
-     "s": 41284139,
+     "s": 41285587,
      "affiliations": [
       "Lublin Voivodeship",
       "Poland"
@@ -7032,7 +7032,7 @@
     },
     {
      "id": "Poland_Lower Silesian Voivodeship",
-     "s": 59814078,
+     "s": 59816038,
      "old": [
       "Poland"
      ]
@@ -7050,7 +7050,7 @@
     },
     {
      "id": "Poland_Lodz Voivodeship",
-     "s": 37697078,
+     "s": 37692606,
      "affiliations": [
       "Poland",
       "\u0141\u00f3d\u017a Voivodeship"
@@ -7061,7 +7061,7 @@
     },
     {
      "id": "Poland_Subcarpathian Voivodeship",
-     "s": 44904938,
+     "s": 44902474,
      "affiliations": [
       "Subcarpathian Voivodeship",
       "Poland"
@@ -7072,21 +7072,21 @@
     },
     {
      "id": "Poland_Lesser Poland Voivodeship",
-     "s": 61923725,
+     "s": 61925261,
      "old": [
       "Poland"
      ]
     },
     {
      "id": "Poland_Silesian Voivodeship",
-     "s": 72247578,
+     "s": 72256818,
      "old": [
       "Poland"
      ]
     },
     {
      "id": "Poland_Kuyavian-Pomeranian Voivodeship",
-     "s": 30296371,
+     "s": 30296667,
      "affiliations": [
       "Poland",
       "Kuyavian-Pomeranian Voivodeship"
@@ -7097,7 +7097,7 @@
     },
     {
      "id": "Poland_Greater Poland Voivodeship",
-     "s": 46157021,
+     "s": 46160485,
      "affiliations": [
       "Poland",
       "Greater Poland Voivodeship"
@@ -7108,7 +7108,7 @@
     },
     {
      "id": "Poland_Opole Voivodeship",
-     "s": 18362151,
+     "s": 18362143,
      "affiliations": [
       "Poland",
       "Opole Voivodeship"
@@ -7119,7 +7119,7 @@
     },
     {
      "id": "Poland_Swietokrzyskie Voivodeship",
-     "s": 20702349,
+     "s": 20702437,
      "affiliations": [
       "Poland",
       "\u015awi\u0119tokrzyskie Voivodeship"
@@ -7135,21 +7135,21 @@
    "g": [
     {
      "id": "Portugal_Porto",
-     "s": 43718906,
+     "s": 43711898,
      "old": [
       "Portugal"
      ]
     },
     {
      "id": "Portugal_South",
-     "s": 47044404,
+     "s": 47041036,
      "old": [
       "Portugal"
      ]
     },
     {
      "id": "Portugal_Islands",
-     "s": 7880299,
+     "s": 7879107,
      "old": [
       "Portugal"
      ]
@@ -7165,7 +7165,7 @@
   },
   {
    "id": "Qatar",
-   "s": 5916326,
+   "s": 5916318,
    "old": [
     "Qatar",
     "United Arab Emirates"
@@ -7173,7 +7173,7 @@
   },
   {
    "id": "Republic of Kosovo",
-   "s": 8946463,
+   "s": 8948743,
    "old": [
     "Kosovo"
    ]
@@ -7195,7 +7195,7 @@
     },
     {
      "id": "Romania_Centre",
-     "s": 37060892,
+     "s": 37067124,
      "affiliations": [
       "Romania"
      ],
@@ -7205,14 +7205,14 @@
     },
     {
      "id": "Romania_West",
-     "s": 25951162,
+     "s": 25949018,
      "old": [
       "Romania"
      ]
     },
     {
      "id": "Romania_North_West",
-     "s": 34437470,
+     "s": 34438150,
      "old": [
       "Romania"
      ]
@@ -7226,7 +7226,7 @@
     },
     {
      "id": "Romania_North_East",
-     "s": 31239290,
+     "s": 31241442,
      "affiliations": [
       "Vaslui",
       "Suceava",
@@ -7261,7 +7261,7 @@
     },
     {
      "id": "Russia_Altai Krai",
-     "s": 21775799,
+     "s": 21775831,
      "old": [
       "Russia_Siberian"
      ]
@@ -7308,14 +7308,14 @@
     },
     {
      "id": "Russia_Astrakhan Oblast",
-     "s": 6467256,
+     "s": 6467320,
      "old": [
       "Russia_Southern"
      ]
     },
     {
      "id": "Russia_Bashkortostan",
-     "s": 31795352,
+     "s": 31795392,
      "affiliations": [
       "Russian Federation",
       "Bashkortostan"
@@ -7326,7 +7326,7 @@
     },
     {
      "id": "Russia_Belgorod Oblast",
-     "s": 16191691,
+     "s": 16190187,
      "old": [
       "Russia_Central"
      ]
@@ -7347,14 +7347,14 @@
     },
     {
      "id": "Russia_Chechen Republic",
-     "s": 4631425,
+     "s": 4631433,
      "old": [
       "Russia_North Caucasian"
      ]
     },
     {
      "id": "Russia_Chelyabinsk Oblast",
-     "s": 42720149,
+     "s": 42720133,
      "affiliations": [
       "Russian Federation",
       "Chelyabinsk Oblast"
@@ -7376,7 +7376,7 @@
     },
     {
      "id": "Russia_Chuvashia",
-     "s": 11911624,
+     "s": 11913688,
      "old": [
       "Russia_Volga"
      ]
@@ -7390,7 +7390,7 @@
     },
     {
      "id": "Russia_Irkutsk Oblast",
-     "s": 22271038,
+     "s": 22271134,
      "affiliations": [
       "Russian Federation",
       "Irkutsk Oblast"
@@ -7419,7 +7419,7 @@
     },
     {
      "id": "Russia_Kabardino-Balkaria",
-     "s": 3036970,
+     "s": 3037026,
      "old": [
       "Russia_North Caucasian"
      ]
@@ -7440,7 +7440,7 @@
     },
     {
      "id": "Russia_Kamchatka Krai",
-     "s": 9395588,
+     "s": 9397172,
      "affiliations": [
       "Russian Federation",
       "Kamchatka Krai"
@@ -7476,7 +7476,7 @@
     },
     {
      "id": "Russia_Khakassia",
-     "s": 5557461,
+     "s": 5555181,
      "affiliations": [
       "Russian Federation",
       "Khakassia"
@@ -7487,7 +7487,7 @@
     },
     {
      "id": "Russia_Kirov Oblast",
-     "s": 45141789,
+     "s": 45142821,
      "old": [
       "Russia_Volga"
      ]
@@ -7512,7 +7512,7 @@
     },
     {
      "id": "Russia_Krasnodar Krai",
-     "s": 51277114,
+     "s": 51273074,
      "old": [
       "Russia_Southern"
      ]
@@ -7555,7 +7555,7 @@
     },
     {
      "id": "Russia_Kursk Oblast",
-     "s": 27275228,
+     "s": 27275284,
      "affiliations": [
       "Russian Federation",
       "Kursk Oblast"
@@ -7566,7 +7566,7 @@
     },
     {
      "id": "Russia_Leningradskaya Oblast_Karelsky",
-     "s": 25128637,
+     "s": 25133445,
      "affiliations": [
       "Russian Federation",
       "Leningrad oblast"
@@ -7577,7 +7577,7 @@
     },
     {
      "id": "Russia_Leningradskaya Oblast_Southeast",
-     "s": 45571964,
+     "s": 45571916,
      "affiliations": [
       "Russian Federation",
       "Leningrad oblast"
@@ -7588,14 +7588,14 @@
     },
     {
      "id": "Russia_Lipetsk Oblast",
-     "s": 22444821,
+     "s": 22444837,
      "old": [
       "Russia_Central"
      ]
     },
     {
      "id": "Russia_Magadan Oblast",
-     "s": 3711784,
+     "s": 3712824,
      "affiliations": [
       "Russian Federation",
       "Magadan Oblast"
@@ -7613,7 +7613,7 @@
     },
     {
      "id": "Russia_Moscow Oblast_East",
-     "s": 49548722,
+     "s": 49552922,
      "affiliations": [
       "Russian Federation",
       "Moscow Oblast"
@@ -7624,7 +7624,7 @@
     },
     {
      "id": "Russia_Moscow Oblast_West",
-     "s": 28840811,
+     "s": 28840979,
      "affiliations": [
       "Russian Federation",
       "Moscow",
@@ -7636,7 +7636,7 @@
     },
     {
      "id": "Russia_Moscow",
-     "s": 36925296,
+     "s": 36917488,
      "old": [
       "Russia_Central"
      ]
@@ -7657,7 +7657,7 @@
     },
     {
      "id": "Russia_Nizhny Novgorod Oblast",
-     "s": 38209597,
+     "s": 38219501,
      "old": [
       "Russia_Volga"
      ]
@@ -7682,14 +7682,14 @@
     },
     {
      "id": "Russia_Novosibirsk Oblast",
-     "s": 40267906,
+     "s": 40269618,
      "old": [
       "Russia_Siberian"
      ]
     },
     {
      "id": "Russia_Omsk Oblast",
-     "s": 30044800,
+     "s": 30044768,
      "old": [
       "Russia_Siberian"
      ]
@@ -7729,14 +7729,14 @@
     },
     {
      "id": "Russia_Perm Krai_North",
-     "s": 23284558,
+     "s": 23280590,
      "old": [
       "Russia_Volga"
      ]
     },
     {
      "id": "Russia_Perm Krai_South",
-     "s": 34943907,
+     "s": 34939259,
      "old": [
       "Russia_Volga"
      ]
@@ -7754,14 +7754,14 @@
     },
     {
      "id": "Russia_Pskov Oblast",
-     "s": 24883512,
+     "s": 24879736,
      "old": [
       "Russia_Northwestern"
      ]
     },
     {
      "id": "Russia_Republic of Dagestan",
-     "s": 7842401,
+     "s": 7841249,
      "old": [
       "Russia_North Caucasian"
      ]
@@ -7805,7 +7805,7 @@
     },
     {
      "id": "Russia_Rostov Oblast",
-     "s": 37593951,
+     "s": 37593919,
      "old": [
       "Russia_Southern"
      ]
@@ -7826,7 +7826,7 @@
     },
     {
      "id": "Russia_Sakha Republic",
-     "s": 43473541,
+     "s": 43473557,
      "affiliations": [
       "Russian Federation",
       "Sakha Republic"
@@ -7848,14 +7848,14 @@
     },
     {
      "id": "Russia_Samara Oblast",
-     "s": 25081502,
+     "s": 25071798,
      "old": [
       "Russia_Volga"
      ]
     },
     {
      "id": "Russia_Saratov Oblast",
-     "s": 18879269,
+     "s": 18876653,
      "old": [
       "Russia_Volga"
      ]
@@ -7883,7 +7883,7 @@
     },
     {
      "id": "Russia_Sverdlovsk Oblast_North",
-     "s": 28655821,
+     "s": 28657317,
      "old": [
       "Russia_Urals"
      ]
@@ -7897,7 +7897,7 @@
     },
     {
      "id": "Russia_Tatarstan",
-     "s": 33970169,
+     "s": 33973353,
      "affiliations": [
       "Russian Federation",
       "Tatarstan"
@@ -7943,7 +7943,7 @@
     },
     {
      "id": "Russia_Udmurt Republic",
-     "s": 19562874,
+     "s": 19557194,
      "affiliations": [
       "Russian Federation",
       "Udmurtia"
@@ -7954,35 +7954,35 @@
     },
     {
      "id": "Russia_Ulyanovsk Oblast",
-     "s": 12626509,
+     "s": 12622973,
      "old": [
       "Russia_Volga"
      ]
     },
     {
      "id": "Russia_Vladimir Oblast",
-     "s": 33094013,
+     "s": 33095253,
      "old": [
       "Russia_Central"
      ]
     },
     {
      "id": "Russia_Volgograd Oblast",
-     "s": 29501234,
+     "s": 29519706,
      "old": [
       "Russia_Southern"
      ]
     },
     {
      "id": "Russia_Vologda Oblast",
-     "s": 26677686,
+     "s": 26677622,
      "old": [
       "Russia_Northwestern"
      ]
     },
     {
      "id": "Russia_Voronezh Oblast",
-     "s": 31528792,
+     "s": 31528408,
      "old": [
       "Russia_Central"
      ]
@@ -7996,7 +7996,7 @@
     },
     {
      "id": "Russia_Yaroslavl Oblast",
-     "s": 27356668,
+     "s": 27355948,
      "affiliations": [
       "Russian Federation",
       "Yaroslavl Oblast"
@@ -8014,7 +8014,7 @@
     },
     {
      "id": "Russia_Yugra_Surgut",
-     "s": 24230521,
+     "s": 24226449,
      "old": [
       "Russia_Urals"
      ]
@@ -8030,7 +8030,7 @@
   },
   {
    "id": "Rwanda",
-   "s": 5824911,
+   "s": 5824967,
    "old": [
     "Rwanda"
    ]
@@ -8082,7 +8082,7 @@
    "g": [
     {
      "id": "Saudi Arabia_South",
-     "s": 34925933,
+     "s": 34916917,
      "affiliations": [
       "Saudi Arabia",
       "Eastern Province",
@@ -8097,7 +8097,7 @@
     },
     {
      "id": "Saudi Arabia_North",
-     "s": 28320002,
+     "s": 28319986,
      "old": [
       "Saudi Arabia"
      ]
@@ -8113,7 +8113,7 @@
   },
   {
    "id": "Serbia",
-   "s": 45398974,
+   "s": 45392158,
    "old": [
     "Serbia"
    ]
@@ -8141,7 +8141,7 @@
   },
   {
    "id": "Singapore",
-   "s": 6914075,
+   "s": 6913043,
    "affiliations": [
     "Malaysia",
     "Singapore"
@@ -8155,7 +8155,7 @@
    "g": [
     {
      "id": "Slovakia_Region of Presov",
-     "s": 18777256,
+     "s": 18775800,
      "affiliations": [
       "Slovakia",
       "Region of Pre\u0161ov"
@@ -8166,7 +8166,7 @@
     },
     {
      "id": "Slovakia_Region of Kosice",
-     "s": 16816919,
+     "s": 16818207,
      "affiliations": [
       "Slovakia",
       "Region of Ko\u0161ice"
@@ -8177,7 +8177,7 @@
     },
     {
      "id": "Slovakia_Region of Banska Bystrica",
-     "s": 19876359,
+     "s": 19879327,
      "affiliations": [
       "Slovakia",
       "Region of Bansk\u00e1 Bystrica"
@@ -8199,7 +8199,7 @@
     },
     {
      "id": "Slovakia_Region of Trencin",
-     "s": 14556995,
+     "s": 14559435,
      "affiliations": [
       "Slovakia",
       "Region of Tren\u010d\u00edn"
@@ -8210,7 +8210,7 @@
     },
     {
      "id": "Slovakia_Region of Nitra",
-     "s": 14768997,
+     "s": 14768597,
      "affiliations": [
       "Slovakia",
       "Region of Nitra"
@@ -8221,7 +8221,7 @@
     },
     {
      "id": "Slovakia_Region of Bratislava",
-     "s": 11146053,
+     "s": 11148253,
      "affiliations": [
       "Slovakia",
       "Region of Bratislava"
@@ -8232,7 +8232,7 @@
     },
     {
      "id": "Slovakia_Region of Zilina",
-     "s": 18980763,
+     "s": 18980459,
      "affiliations": [
       "Slovakia",
       "Region of \u017dilina"
@@ -8248,14 +8248,14 @@
    "g": [
     {
      "id": "Slovenia_East",
-     "s": 37159581,
+     "s": 37160437,
      "old": [
       "Slovenia"
      ]
     },
     {
      "id": "Slovenia_West",
-     "s": 43155142,
+     "s": 43155126,
      "old": [
       "Slovenia"
      ]
@@ -8294,21 +8294,21 @@
     },
     {
      "id": "South Africa_Gauteng",
-     "s": 28625296,
+     "s": 28635424,
      "old": [
       "South Africa"
      ]
     },
     {
      "id": "South Africa_North West",
-     "s": 8986420,
+     "s": 8986404,
      "old": [
       "South Africa"
      ]
     },
     {
      "id": "South Africa_Free State",
-     "s": 10648821,
+     "s": 10654661,
      "old": [
       "South Africa"
      ]
@@ -8332,21 +8332,21 @@
     },
     {
      "id": "South Africa_Mpumalanga",
-     "s": 9150164,
+     "s": 9150204,
      "old": [
       "South Africa"
      ]
     },
     {
      "id": "South Africa_Limpopo",
-     "s": 14055736,
+     "s": 14055720,
      "old": [
       "South Africa"
      ]
     },
     {
      "id": "South Africa_KwaZulu-Natal",
-     "s": 21233061,
+     "s": 21233165,
      "old": [
       "South Africa"
      ]
@@ -8382,7 +8382,7 @@
    "g": [
     {
      "id": "Spain_Andalusia_Granada",
-     "s": 31278522,
+     "s": 31278666,
      "affiliations": [
       "Spain (territorial waters)",
       "Andalusia",
@@ -8394,7 +8394,7 @@
     },
     {
      "id": "Spain_Andalusia_Sevilla",
-     "s": 42194530,
+     "s": 42193538,
      "affiliations": [
       "Andalusia",
       "Spain"
@@ -8405,14 +8405,14 @@
     },
     {
      "id": "Spain_Aragon",
-     "s": 27526555,
+     "s": 27524139,
      "old": [
       "Spain"
      ]
     },
     {
      "id": "Spain_Balearic Islands",
-     "s": 15678433,
+     "s": 15674553,
      "affiliations": [
       "Spain (territorial waters)",
       "Balearic Islands",
@@ -8424,14 +8424,14 @@
     },
     {
      "id": "Spain_Basque Country",
-     "s": 25656427,
+     "s": 25652979,
      "old": [
       "Spain"
      ]
     },
     {
      "id": "Spain_Canary Islands",
-     "s": 24990661,
+     "s": 24992805,
      "affiliations": [
       "Canary Islands",
       "Spain"
@@ -8442,14 +8442,14 @@
     },
     {
      "id": "Spain_Cantabria",
-     "s": 13453217,
+     "s": 13454817,
      "old": [
       "Spain"
      ]
     },
     {
      "id": "Spain_Castile and Leon_West",
-     "s": 45404566,
+     "s": 45407838,
      "affiliations": [
       "Spain",
       "Castile and Le\u00f3n"
@@ -8460,7 +8460,7 @@
     },
     {
      "id": "Spain_Castile and Leon_East",
-     "s": 33474277,
+     "s": 33474789,
      "affiliations": [
       "Spain",
       "Castile and Le\u00f3n"
@@ -8471,14 +8471,14 @@
     },
     {
      "id": "Spain_Castile-La Mancha",
-     "s": 48112924,
+     "s": 48117220,
      "old": [
       "Spain"
      ]
     },
     {
      "id": "Spain_Catalonia_Provincia de Barcelona",
-     "s": 35429883,
+     "s": 35427091,
      "affiliations": [
       "Spain",
       "Catalonia"
@@ -8489,7 +8489,7 @@
     },
     {
      "id": "Spain_Catalonia_Provincia de Girona",
-     "s": 17848192,
+     "s": 17848144,
      "affiliations": [
       "Spain",
       "Catalonia"
@@ -8500,14 +8500,14 @@
     },
     {
      "id": "Spain_Catalonia_Provincia de Lleida",
-     "s": 17615442,
+     "s": 17615746,
      "old": [
       "Spain"
      ]
     },
     {
      "id": "Spain_Catalonia_Provincia de Tarragona",
-     "s": 13396657,
+     "s": 13398257,
      "affiliations": [
       "Spain",
       "Catalonia"
@@ -8525,14 +8525,14 @@
     },
     {
      "id": "Spain_Community of Madrid",
-     "s": 35970741,
+     "s": 35963373,
      "old": [
       "Spain"
      ]
     },
     {
      "id": "Spain_Comunidad Foral de Navarra",
-     "s": 11537672,
+     "s": 11537880,
      "affiliations": [
       "Spain"
      ],
@@ -8542,14 +8542,14 @@
     },
     {
      "id": "Spain_Extremadura",
-     "s": 19864378,
+     "s": 19864386,
      "old": [
       "Spain"
      ]
     },
     {
      "id": "Spain_Galicia_North",
-     "s": 31821014,
+     "s": 31834382,
      "affiliations": [
       "Galicia",
       "Spain"
@@ -8560,7 +8560,7 @@
     },
     {
      "id": "Spain_Galicia_South",
-     "s": 26399282,
+     "s": 26399994,
      "affiliations": [
       "Galicia",
       "Spain"
@@ -8571,7 +8571,7 @@
     },
     {
      "id": "Spain_La Rioja",
-     "s": 4866626,
+     "s": 4868082,
      "old": [
       "Spain"
      ]
@@ -8590,21 +8590,21 @@
     },
     {
      "id": "Spain_Principado de Asturias",
-     "s": 16999436,
+     "s": 16999332,
      "old": [
       "Spain"
      ]
     },
     {
      "id": "Spain_Region de Murcia",
-     "s": 16392637,
+     "s": 16407125,
      "old": [
       "Spain"
      ]
     },
     {
      "id": "Spain_Valencian Community",
-     "s": 49962175,
+     "s": 49957767,
      "old": [
       "Spain"
      ]
@@ -8629,7 +8629,7 @@
     },
     {
      "id": "Palestine",
-     "s": 17830403,
+     "s": 17822019,
      "old": [
       "Palestine"
      ]
@@ -8638,7 +8638,7 @@
   },
   {
    "id": "Sri Lanka",
-   "s": 30951465,
+   "s": 30954201,
    "old": [
     "Sri Lanka"
    ]
@@ -8648,7 +8648,7 @@
    "g": [
     {
      "id": "Sudan_East",
-     "s": 13677880,
+     "s": 13679208,
      "affiliations": [
       "An-Nil al-azraq",
       "Red Sea",
@@ -8706,7 +8706,7 @@
    "g": [
     {
      "id": "Sweden_Malardalen",
-     "s": 24457403,
+     "s": 24460491,
      "affiliations": [
       "Sweden"
      ],
@@ -8716,7 +8716,7 @@
     },
     {
      "id": "Sweden_Stockholm",
-     "s": 35497474,
+     "s": 35492442,
      "affiliations": [
       "Sweden"
      ],
@@ -8726,7 +8726,7 @@
     },
     {
      "id": "Sweden_Ostra Gotaland",
-     "s": 44879531,
+     "s": 44877019,
      "affiliations": [
       "Sweden"
      ],
@@ -8736,21 +8736,21 @@
     },
     {
      "id": "Sweden_Norra Sverige",
-     "s": 29269218,
+     "s": 29267602,
      "old": [
       "Sweden"
      ]
     },
     {
      "id": "Sweden_Mellannorrland",
-     "s": 21990633,
+     "s": 21990617,
      "old": [
       "Sweden"
      ]
     },
     {
      "id": "Sweden_Bergslagen",
-     "s": 48630264,
+     "s": 48630608,
      "affiliations": [
       "Dalecarlia",
       "Sweden"
@@ -8761,7 +8761,7 @@
     },
     {
      "id": "Sweden_Vastra Gotaland",
-     "s": 51293673,
+     "s": 51284129,
      "old": [
       "Sweden"
      ]
@@ -8780,7 +8780,7 @@
    "g": [
     {
      "id": "Switzerland_Eastern",
-     "s": 35874034,
+     "s": 35882946,
      "affiliations": [
       "Switzerland"
      ],
@@ -8800,7 +8800,7 @@
     },
     {
      "id": "Switzerland_Espace Mittelland_Bern",
-     "s": 37917900,
+     "s": 37913836,
      "affiliations": [
       "Switzerland",
       "Jura",
@@ -8823,7 +8823,7 @@
     },
     {
      "id": "Switzerland_Ticino",
-     "s": 7901125,
+     "s": 7901317,
      "affiliations": [
       "Switzerland"
      ],
@@ -8844,7 +8844,7 @@
     },
     {
      "id": "Switzerland_Lake Geneva region",
-     "s": 43241061,
+     "s": 43239069,
      "affiliations": [
       "Switzerland",
       "Geneva"
@@ -8855,7 +8855,7 @@
     },
     {
      "id": "Switzerland_Zurich",
-     "s": 27903289,
+     "s": 27904417,
      "affiliations": [
       "Zurich",
       "Switzerland"
@@ -8868,7 +8868,7 @@
   },
   {
    "id": "Syria",
-   "s": 42906575,
+   "s": 42906103,
    "old": [
     "Syria"
    ]
@@ -8893,7 +8893,7 @@
   },
   {
    "id": "Tanzania",
-   "s": 43530705,
+   "s": 43552545,
    "old": [
     "Tanzania"
    ]
@@ -8903,7 +8903,7 @@
    "g": [
     {
      "id": "Thailand_North",
-     "s": 24863557,
+     "s": 24858605,
      "affiliations": [
       "Thailand",
       "Chiang Mai Province",
@@ -8926,7 +8926,7 @@
     },
     {
      "id": "Thailand_Central",
-     "s": 44340768,
+     "s": 44340728,
      "affiliations": [
       "Thailand",
       "Phra Nakhon Si Ayutthaya Province",
@@ -8972,7 +8972,7 @@
     },
     {
      "id": "Thailand_South",
-     "s": 44889270,
+     "s": 44889294,
      "old": [
       "Thailand"
      ]
@@ -9079,7 +9079,7 @@
     },
     {
      "id": "Netherlands_Limburg",
-     "s": 50404448,
+     "s": 50404440,
      "affiliations": [
       "The Netherlands"
      ],
@@ -9134,7 +9134,7 @@
     },
     {
      "id": "Netherlands_North Holland_Alkmaar",
-     "s": 25538641,
+     "s": 25538633,
      "old": [
       "Netherlands"
      ]
@@ -9163,7 +9163,7 @@
     },
     {
      "id": "Netherlands_Overijssel_Enschede",
-     "s": 30863823,
+     "s": 30863839,
      "affiliations": [
       "The Netherlands"
      ],
@@ -9266,7 +9266,7 @@
   },
   {
    "id": "Tonga",
-   "s": 2804807,
+   "s": 2805343,
    "affiliations": [
     "Tonga"
    ],
@@ -9276,7 +9276,7 @@
   },
   {
    "id": "Tunisia",
-   "s": 38490622,
+   "s": 38479510,
    "old": [
     "Tunisia"
    ]
@@ -9286,14 +9286,14 @@
    "g": [
     {
      "id": "Turkey_Mediterranean Region",
-     "s": 36108338,
+     "s": 36098530,
      "old": [
       "Turkey"
      ]
     },
     {
      "id": "Turkey_Southeastern Anatolia Region",
-     "s": 23025805,
+     "s": 23037957,
      "affiliations": [
       "Kilis",
       "Gaziantep",
@@ -9313,7 +9313,7 @@
     },
     {
      "id": "Turkey_Marmara Region_Istanbul",
-     "s": 44711005,
+     "s": 44727381,
      "affiliations": [
       "Istanbul",
       "\u00c7anakkale",
@@ -9330,7 +9330,7 @@
     },
     {
      "id": "Turkey_Marmara Region_Bursa",
-     "s": 32199809,
+     "s": 32191745,
      "affiliations": [
       "Istanbul",
       "Bal\u0131kesir",
@@ -9350,14 +9350,14 @@
     },
     {
      "id": "Turkey_Eastern Anatolia Region",
-     "s": 23332971,
+     "s": 23326859,
      "old": [
       "Turkey"
      ]
     },
     {
      "id": "Turkey_Black Sea Region",
-     "s": 29011435,
+     "s": 28996171,
      "affiliations": [
       "Tokat",
       "Samsun",
@@ -9385,7 +9385,7 @@
     },
     {
      "id": "Turkey_Central Anatolia Region_Ankara",
-     "s": 38176429,
+     "s": 38182885,
      "affiliations": [
       "Ankara",
       "K\u0131r\u015fehir",
@@ -9403,7 +9403,7 @@
     },
     {
      "id": "Turkey_Central Anatolia Region_Kayseri",
-     "s": 16413655,
+     "s": 16407639,
      "affiliations": [
       "Sivas",
       "Yozgat",
@@ -9419,7 +9419,7 @@
     },
     {
      "id": "Turkey_Aegean Region",
-     "s": 42751549,
+     "s": 42731189,
      "affiliations": [
       "Izmir",
       "Afyonkarahisar",
@@ -9439,7 +9439,7 @@
   },
   {
    "id": "Turkmenistan",
-   "s": 7497362,
+   "s": 7499426,
    "old": [
     "Turkmenistan"
    ]
@@ -9468,7 +9468,7 @@
   },
   {
    "id": "Uganda",
-   "s": 27082100,
+   "s": 27085852,
    "old": [
     "Uganda"
    ]
@@ -9518,7 +9518,7 @@
     },
     {
      "id": "Ukraine_Donetsk Oblast",
-     "s": 36337501,
+     "s": 36342341,
      "old": [
       "Ukraine"
      ]
@@ -9572,7 +9572,7 @@
     },
     {
      "id": "Ukraine_Kyiv Oblast",
-     "s": 29006627,
+     "s": 29006619,
      "affiliations": [
       "Ukraine",
       "Kyiv Oblast",
@@ -9728,7 +9728,7 @@
   },
   {
    "id": "United Arab Emirates",
-   "s": 23756181,
+   "s": 23745725,
    "old": [
     "United Arab Emirates"
    ]
@@ -9827,7 +9827,7 @@
     },
     {
      "id": "UK_England_South East_Brighton",
-     "s": 47892796,
+     "s": 47892804,
      "affiliations": [
       "England",
       "United Kingdom"
@@ -9849,7 +9849,7 @@
     },
     {
      "id": "UK_England_South West England_Bristol",
-     "s": 53800609,
+     "s": 53801081,
      "old": [
       "UK_England"
      ]
@@ -9881,7 +9881,7 @@
     },
     {
      "id": "UK_Northern Ireland",
-     "s": 19831007,
+     "s": 19833327,
      "affiliations": [
       "Northern Ireland",
       "Scotland",
@@ -9916,7 +9916,7 @@
     },
     {
      "id": "UK_Wales",
-     "s": 50891667,
+     "s": 50894363,
      "old": [
       "UK_Wales"
      ]
@@ -9942,7 +9942,7 @@
     },
     {
      "id": "Ireland_Munster",
-     "s": 28070620,
+     "s": 28070588,
      "old": [
       "Ireland"
      ]
@@ -9967,14 +9967,14 @@
      "g": [
       {
        "id": "US_Alabama_Birmingham",
-       "s": 43693990,
+       "s": 43682766,
        "old": [
         "USA_Alabama"
        ]
       },
       {
        "id": "US_Alabama_Montgomery",
-       "s": 51238574,
+       "s": 51260606,
        "old": [
         "USA_Alabama"
        ]
@@ -10004,7 +10004,7 @@
       },
       {
        "id": "US_Arizona_Phoenix",
-       "s": 57651113,
+       "s": 57643121,
        "affiliations": [
         "United States of America",
         "Arizona"
@@ -10031,7 +10031,7 @@
      "g": [
       {
        "id": "US_Arkansas_North",
-       "s": 38174099,
+       "s": 38174131,
        "affiliations": [
         "United States of America",
         "Arkansas"
@@ -10083,7 +10083,7 @@
       },
       {
        "id": "US_California_LA",
-       "s": 75753731,
+       "s": 75753691,
        "affiliations": [
         "United States of America",
         "California"
@@ -10116,7 +10116,7 @@
       },
       {
        "id": "US_California_Sacramento_Sacramento",
-       "s": 26960993,
+       "s": 26966817,
        "affiliations": [
         "United States of America",
         "California"
@@ -10134,14 +10134,14 @@
       },
       {
        "id": "US_California_Sacramento_Stockton",
-       "s": 34561166,
+       "s": 34561158,
        "old": [
         "USA_California"
        ]
       },
       {
        "id": "US_California_San Diego",
-       "s": 46163578,
+       "s": 46163546,
        "old": [
         "USA_California"
        ]
@@ -10155,7 +10155,7 @@
       },
       {
        "id": "US_California_Santa_Clara_Palo Alto",
-       "s": 75479505,
+       "s": 75501009,
        "affiliations": [
         "United States of America",
         "California"
@@ -10171,14 +10171,14 @@
      "g": [
       {
        "id": "US_Colorado_Aspen",
-       "s": 35170286,
+       "s": 35169702,
        "old": [
         "USA_Colorado"
        ]
       },
       {
        "id": "US_Colorado_Denver",
-       "s": 67137045,
+       "s": 67135909,
        "old": [
         "USA_Colorado"
        ]
@@ -10194,14 +10194,14 @@
     },
     {
      "id": "US_Connecticut",
-     "s": 31025674,
+     "s": 31040922,
      "old": [
       "USA_Connecticut"
      ]
     },
     {
      "id": "US_Delaware",
-     "s": 10495055,
+     "s": 10495071,
      "affiliations": [
       "United States of America",
       "Delaware"
@@ -10215,14 +10215,14 @@
      "g": [
       {
        "id": "US_Florida_Jacksonville",
-       "s": 38011501,
+       "s": 38011397,
        "old": [
         "USA_Florida"
        ]
       },
       {
        "id": "US_Florida_Miami",
-       "s": 56961536,
+       "s": 56961864,
        "affiliations": [
         "United States of America",
         "Florida"
@@ -10240,14 +10240,14 @@
       },
       {
        "id": "US_Florida_Tampa",
-       "s": 53903596,
+       "s": 53897812,
        "old": [
         "USA_Florida"
        ]
       },
       {
        "id": "US_Florida_Gainesville",
-       "s": 32993216,
+       "s": 33001696,
        "old": [
         "USA_Florida"
        ]
@@ -10259,21 +10259,21 @@
      "g": [
       {
        "id": "US_Georgia_Atlanta",
-       "s": 58543740,
+       "s": 58542884,
        "old": [
         "USA_Georgia"
        ]
       },
       {
        "id": "US_Georgia_Macon",
-       "s": 47727230,
+       "s": 47726910,
        "old": [
         "USA_Georgia"
        ]
       },
       {
        "id": "US_Georgia_North",
-       "s": 29320642,
+       "s": 29306882,
        "affiliations": [
         "United States of America",
         "Georgia"
@@ -10284,7 +10284,7 @@
       },
       {
        "id": "US_Georgia_South",
-       "s": 44004208,
+       "s": 43990368,
        "old": [
         "USA_Georgia"
        ]
@@ -10301,7 +10301,7 @@
     },
     {
      "id": "US_Hawaii",
-     "s": 9294826,
+     "s": 9289978,
      "affiliations": [
       "United States of America",
       "Hawaii"
@@ -10326,7 +10326,7 @@
       },
       {
        "id": "US_Idaho_South",
-       "s": 35549177,
+       "s": 35570761,
        "affiliations": [
         "United States of America",
         "Idaho"
@@ -10342,14 +10342,14 @@
      "g": [
       {
        "id": "US_Illinois_South",
-       "s": 39168093,
+       "s": 39174765,
        "old": [
         "USA_Illinois"
        ]
       },
       {
        "id": "US_Illinois_Chickago",
-       "s": 67881439,
+       "s": 67881447,
        "affiliations": [
         "United States of America",
         "Illinois"
@@ -10360,7 +10360,7 @@
       },
       {
        "id": "US_Illinois_Elgin",
-       "s": 27322050,
+       "s": 27304650,
        "old": [
         "USA_Illinois"
        ]
@@ -10374,7 +10374,7 @@
       },
       {
        "id": "US_Illinois_Springfield",
-       "s": 49965374,
+       "s": 49965334,
        "old": [
         "USA_Illinois"
        ]
@@ -10386,14 +10386,14 @@
      "g": [
       {
        "id": "US_Indiana_North",
-       "s": 46494306,
+       "s": 46482738,
        "old": [
         "USA_Indiana"
        ]
       },
       {
        "id": "US_Indiana_Evansville",
-       "s": 23733314,
+       "s": 23733298,
        "affiliations": [
         "United States of America",
         "Indiana"
@@ -10404,7 +10404,7 @@
       },
       {
        "id": "US_Indiana_Indianapolis",
-       "s": 38111112,
+       "s": 38110832,
        "affiliations": [
         "United States of America",
         "Indiana"
@@ -10420,21 +10420,21 @@
      "g": [
       {
        "id": "US_Iowa_Des Moines",
-       "s": 33462422,
+       "s": 33462326,
        "old": [
         "USA_Iowa"
        ]
       },
       {
        "id": "US_Iowa_Waterloo",
-       "s": 29642508,
+       "s": 29642924,
        "old": [
         "USA_Iowa"
        ]
       },
       {
        "id": "US_Iowa_West",
-       "s": 37628769,
+       "s": 37632633,
        "old": [
         "USA_Iowa"
        ]
@@ -10446,7 +10446,7 @@
      "g": [
       {
        "id": "US_Kansas_East",
-       "s": 37815860,
+       "s": 37788420,
        "affiliations": [
         "United States of America",
         "Kansas"
@@ -10457,14 +10457,14 @@
       },
       {
        "id": "US_Kansas_West",
-       "s": 22215053,
+       "s": 22234877,
        "old": [
         "USA_Kansas"
        ]
       },
       {
        "id": "US_Kansas_Wichita",
-       "s": 35005218,
+       "s": 35005258,
        "old": [
         "USA_Kansas"
        ]
@@ -10476,7 +10476,7 @@
      "g": [
       {
        "id": "US_Kentucky_East",
-       "s": 38074835,
+       "s": 38074643,
        "old": [
         "USA_Kentucky"
        ]
@@ -10494,7 +10494,7 @@
       },
       {
        "id": "US_Kentucky_Louisville",
-       "s": 24906575,
+       "s": 24903023,
        "affiliations": [
         "United States of America",
         "Kentucky"
@@ -10517,7 +10517,7 @@
       },
       {
        "id": "US_Louisiana_New Orleans",
-       "s": 50638907,
+       "s": 50632115,
        "old": [
         "USA_Louisiana"
        ]
@@ -10526,7 +10526,7 @@
     },
     {
      "id": "US_Maine",
-     "s": 35341024,
+     "s": 35333560,
      "old": [
       "USA_Maine"
      ]
@@ -10536,7 +10536,7 @@
      "g": [
       {
        "id": "US_Maryland_Baltimore",
-       "s": 71515853,
+       "s": 71499845,
        "affiliations": [
         "United States of America",
         "Maryland"
@@ -10547,7 +10547,7 @@
       },
       {
        "id": "US_Maryland_and_DC",
-       "s": 44479391,
+       "s": 44468887,
        "affiliations": [
         "United States of America",
         "Maryland"
@@ -10564,14 +10564,14 @@
      "g": [
       {
        "id": "US_Massachusetts_Boston",
-       "s": 58973651,
+       "s": 58978723,
        "old": [
         "USA_Massachusetts"
        ]
       },
       {
        "id": "US_Massachusetts_Central",
-       "s": 27824813,
+       "s": 27836621,
        "affiliations": [
         "United States of America",
         "Massachusetts"
@@ -10582,7 +10582,7 @@
       },
       {
        "id": "US_Massachusetts_Plymouth",
-       "s": 30454035,
+       "s": 30454763,
        "affiliations": [
         "United States of America",
         "Massachusetts"
@@ -10593,7 +10593,7 @@
       },
       {
        "id": "US_Massachusetts_Southeastern",
-       "s": 15044758,
+       "s": 15044422,
        "affiliations": [
         "United States of America",
         "Massachusetts"
@@ -10604,7 +10604,7 @@
       },
       {
        "id": "US_Massachusetts_West",
-       "s": 24211926,
+       "s": 24211958,
        "old": [
         "USA_Massachusetts"
        ]
@@ -10616,7 +10616,7 @@
      "g": [
       {
        "id": "US_Michigan_Detroit",
-       "s": 42355176,
+       "s": 42353080,
        "old": [
         "USA_Michigan"
        ]
@@ -10641,7 +10641,7 @@
       },
       {
        "id": "US_Michigan_Lansing",
-       "s": 41614659,
+       "s": 41613315,
        "old": [
         "USA_Michigan"
        ]
@@ -10653,7 +10653,7 @@
      "g": [
       {
        "id": "US_Minnesota_Rochester",
-       "s": 39697601,
+       "s": 39693625,
        "affiliations": [
         "United States of America",
         "Minnesota"
@@ -10664,7 +10664,7 @@
       },
       {
        "id": "US_Minnesota_Minneapolis",
-       "s": 38783710,
+       "s": 38750286,
        "old": [
         "USA_Minnesota"
        ]
@@ -10678,7 +10678,7 @@
       },
       {
        "id": "US_Minnesota_Saint Cloud",
-       "s": 33107627,
+       "s": 33109475,
        "affiliations": [
         "United States of America",
         "Minnesota"
@@ -10705,7 +10705,7 @@
       },
       {
        "id": "US_Mississippi_North",
-       "s": 46457525,
+       "s": 46455053,
        "affiliations": [
         "United States of America",
         "Mississippi"
@@ -10721,7 +10721,7 @@
      "g": [
       {
        "id": "US_Missouri_East",
-       "s": 15504291,
+       "s": 15504755,
        "affiliations": [
         "United States of America",
         "Missouri"
@@ -10743,7 +10743,7 @@
       },
       {
        "id": "US_Missouri_Kansas",
-       "s": 33217084,
+       "s": 33214420,
        "affiliations": [
         "United States of America",
         "Missouri"
@@ -10754,7 +10754,7 @@
       },
       {
        "id": "US_Missouri_St Louis",
-       "s": 38964380,
+       "s": 38946060,
        "affiliations": [
         "United States of America",
         "Missouri"
@@ -10797,14 +10797,14 @@
      "g": [
       {
        "id": "US_Nebraska_East",
-       "s": 33786481,
+       "s": 33807281,
        "old": [
         "USA_Nebraska"
        ]
       },
       {
        "id": "US_Nebraska_West",
-       "s": 42389041,
+       "s": 42388865,
        "old": [
         "USA_Nebraska"
        ]
@@ -10813,14 +10813,14 @@
     },
     {
      "id": "US_Nevada",
-     "s": 37086883,
+     "s": 37090635,
      "old": [
       "USA_Nevada"
      ]
     },
     {
      "id": "US_New Hampshire",
-     "s": 31542129,
+     "s": 31541737,
      "old": [
       "USA_New Hampshire"
      ]
@@ -10830,7 +10830,7 @@
      "g": [
       {
        "id": "US_New Jersey_North",
-       "s": 37629322,
+       "s": 37631898,
        "affiliations": [
         "United States of America",
         "New Jersey"
@@ -10841,7 +10841,7 @@
       },
       {
        "id": "US_New Jersey_South",
-       "s": 50757868,
+       "s": 50763132,
        "affiliations": [
         "United States of America",
         "New Jersey"
@@ -10857,7 +10857,7 @@
      "g": [
       {
        "id": "US_New Mexico_Albuquerque",
-       "s": 35765574,
+       "s": 35765598,
        "old": [
         "USA_New Mexico"
        ]
@@ -10876,14 +10876,14 @@
      "g": [
       {
        "id": "US_New York_East",
-       "s": 32503310,
+       "s": 32511702,
        "old": [
         "USA_New York"
        ]
       },
       {
        "id": "US_New York_New York",
-       "s": 58452037,
+       "s": 58449565,
        "affiliations": [
         "United States of America",
         "New York",
@@ -10895,14 +10895,14 @@
       },
       {
        "id": "US_New York_North",
-       "s": 39088374,
+       "s": 39088390,
        "old": [
         "USA_New York"
        ]
       },
       {
        "id": "US_New York_West",
-       "s": 57275717,
+       "s": 57269005,
        "old": [
         "USA_New York"
        ]
@@ -10914,7 +10914,7 @@
      "g": [
       {
        "id": "US_North Carolina_Wilson",
-       "s": 30188689,
+       "s": 30191993,
        "old": [
         "USA_North Carolina"
        ]
@@ -10932,7 +10932,7 @@
       },
       {
        "id": "US_North Carolina_Charlotte",
-       "s": 35092094,
+       "s": 35092110,
        "affiliations": [
         "United States of America",
         "North Carolina"
@@ -10954,14 +10954,14 @@
       },
       {
        "id": "US_North Carolina_Raleigh",
-       "s": 37976813,
+       "s": 37976997,
        "old": [
         "USA_North Carolina"
        ]
       },
       {
        "id": "US_North Carolina_Wilmington",
-       "s": 29950109,
+       "s": 29951565,
        "affiliations": [
         "United States of America",
         "North Carolina"
@@ -11007,21 +11007,21 @@
      "g": [
       {
        "id": "US_Ohio_Cleveland",
-       "s": 48202058,
+       "s": 48182146,
        "old": [
         "USA_Ohio"
        ]
       },
       {
        "id": "US_Ohio_Cincinnati",
-       "s": 40731609,
+       "s": 40729153,
        "old": [
         "USA_Ohio"
        ]
       },
       {
        "id": "US_Ohio_Columbus",
-       "s": 31174042,
+       "s": 31179530,
        "old": [
         "USA_Ohio"
        ]
@@ -11040,7 +11040,7 @@
      "g": [
       {
        "id": "US_Oklahoma_East",
-       "s": 19141479,
+       "s": 19150815,
        "affiliations": [
         "United States of America",
         "Oklahoma"
@@ -11051,7 +11051,7 @@
       },
       {
        "id": "US_Oklahoma_West",
-       "s": 24212645,
+       "s": 24219829,
        "affiliations": [
         "United States of America",
         "Oklahoma"
@@ -11062,7 +11062,7 @@
       },
       {
        "id": "US_Oklahoma_Tulsa",
-       "s": 38281630,
+       "s": 38277678,
        "affiliations": [
         "United States of America",
         "Oklahoma"
@@ -11073,7 +11073,7 @@
       },
       {
        "id": "US_Oklahoma_Oklahoma",
-       "s": 35589900,
+       "s": 35575636,
        "affiliations": [
         "United States of America",
         "Oklahoma"
@@ -11089,7 +11089,7 @@
      "g": [
       {
        "id": "US_Oregon_Eugene",
-       "s": 28063913,
+       "s": 28060897,
        "affiliations": [
         "United States of America",
         "Oregon"
@@ -11100,7 +11100,7 @@
       },
       {
        "id": "US_Oregon_Portland",
-       "s": 62762311,
+       "s": 62765351,
        "affiliations": [
         "United States of America",
         "Oregon"
@@ -11123,7 +11123,7 @@
      "g": [
       {
        "id": "US_Pennsylvania_Central",
-       "s": 47300643,
+       "s": 47294955,
        "affiliations": [
         "United States of America",
         "Pennsylvania"
@@ -11134,14 +11134,14 @@
       },
       {
        "id": "US_Pennsylvania_Pittsburgh",
-       "s": 40439991,
+       "s": 40432575,
        "old": [
         "USA_Pennsylvania"
        ]
       },
       {
        "id": "US_Pennsylvania_Reading",
-       "s": 39257050,
+       "s": 39250146,
        "affiliations": [
         "United States of America",
         "Pennsylvania"
@@ -11152,7 +11152,7 @@
       },
       {
        "id": "US_Pennsylvania_Scranton",
-       "s": 45245258,
+       "s": 45253858,
        "old": [
         "USA_Pennsylvania"
        ]
@@ -11173,7 +11173,7 @@
     },
     {
      "id": "US_Rhode Island",
-     "s": 10989271,
+     "s": 10982303,
      "affiliations": [
       "United States of America",
       "Rhode Island"
@@ -11187,7 +11187,7 @@
      "g": [
       {
        "id": "US_South Carolina_Charleston",
-       "s": 22272749,
+       "s": 22277781,
        "affiliations": [
         "United States of America"
        ],
@@ -11216,7 +11216,7 @@
     },
     {
      "id": "US_South Dakota",
-     "s": 39197431,
+     "s": 39204127,
      "old": [
       "USA_South Dakota"
      ]
@@ -11226,14 +11226,14 @@
      "g": [
       {
        "id": "US_Tennessee_East",
-       "s": 54393068,
+       "s": 54402820,
        "old": [
         "USA_Tennessee"
        ]
       },
       {
        "id": "US_Tennessee_West",
-       "s": 40042355,
+       "s": 40059947,
        "old": [
         "USA_Tennessee"
        ]
@@ -11259,7 +11259,7 @@
       },
       {
        "id": "US_Texas_Dallas",
-       "s": 56736587,
+       "s": 56730195,
        "affiliations": [
         "United States of America",
         "Texas"
@@ -11277,7 +11277,7 @@
       },
       {
        "id": "US_Texas_Amarillo",
-       "s": 24555812,
+       "s": 24553956,
        "affiliations": [
         "United States of America",
         "Texas"
@@ -11354,7 +11354,7 @@
       },
       {
        "id": "US_Utah_North",
-       "s": 34002443,
+       "s": 34012051,
        "affiliations": [
         "United States of America",
         "Utah"
@@ -11367,7 +11367,7 @@
     },
     {
      "id": "US_Vermont",
-     "s": 16578837,
+     "s": 16581325,
      "old": [
       "USA_Vermont"
      ]
@@ -11377,7 +11377,7 @@
      "g": [
       {
        "id": "US_Virginia_Roanoke",
-       "s": 38458028,
+       "s": 38460588,
        "affiliations": [
         "United States of America",
         "Virginia"
@@ -11388,7 +11388,7 @@
       },
       {
        "id": "US_Virginia_Norfolk",
-       "s": 49902978,
+       "s": 49915106,
        "old": [
         "USA_Virginia"
        ]
@@ -11413,7 +11413,7 @@
       },
       {
        "id": "US_Virginia_Alexandria",
-       "s": 36211589,
+       "s": 36208629,
        "affiliations": [
         "United States of America",
         "Virginia"
@@ -11443,7 +11443,7 @@
       },
       {
        "id": "US_Washington_Yakima",
-       "s": 37577179,
+       "s": 37577187,
        "affiliations": [
         "United States of America",
         "Washington"
@@ -11456,7 +11456,7 @@
     },
     {
      "id": "US_West Virginia",
-     "s": 37660724,
+     "s": 37669484,
      "old": [
       "USA_West Virginia"
      ]
@@ -11466,7 +11466,7 @@
      "g": [
       {
        "id": "US_Wisconsin_Milwaukee",
-       "s": 40483627,
+       "s": 40490907,
        "affiliations": [
         "United States of America",
         "Wisconsin"
@@ -11488,7 +11488,7 @@
       },
       {
        "id": "US_Wisconsin_Madison",
-       "s": 28141281,
+       "s": 28142977,
        "affiliations": [
         "United States of America",
         "Wisconsin"
@@ -11499,7 +11499,7 @@
       },
       {
        "id": "US_Wisconsin_Eau Claire",
-       "s": 28162658,
+       "s": 28162626,
        "affiliations": [
         "United States of America",
         "Wisconsin"
@@ -11512,7 +11512,7 @@
     },
     {
      "id": "US_Wyoming",
-     "s": 38520327,
+     "s": 38515087,
      "old": [
       "USA_Wyoming"
      ]
@@ -11531,7 +11531,7 @@
   },
   {
    "id": "Uzbekistan",
-   "s": 42724700,
+   "s": 42724788,
    "old": [
     "Uzbekistan"
    ]
@@ -11552,7 +11552,7 @@
    "g": [
     {
      "id": "Venezuela_North",
-     "s": 27871959,
+     "s": 27872095,
      "affiliations": [
       "Venezuela",
       "Federal Dependencies"
@@ -11576,7 +11576,7 @@
   },
   {
    "id": "Vietnam",
-   "s": 42169633,
+   "s": 42155521,
    "old": [
     "Vietnam"
    ]
@@ -11590,14 +11590,14 @@
   },
   {
    "id": "Zambia",
-   "s": 19626097,
+   "s": 19629697,
    "old": [
     "Zambia"
    ]
   },
   {
    "id": "Zimbabwe",
-   "s": 18052199,
+   "s": 18052207,
    "old": [
     "Zimbabwe"
    ]
@@ -11621,7 +11621,7 @@
     },
     {
      "id": "New Zealand North_Auckland",
-     "s": 50573149,
+     "s": 50568533,
      "old": [
       "New Zealand"
      ]
@@ -11654,14 +11654,14 @@
    "g": [
     {
      "id": "South Korea_North",
-     "s": 62449213,
+     "s": 62491413,
      "old": [
       "South Korea"
      ]
     },
     {
      "id": "South Korea_South",
-     "s": 52982581,
+     "s": 52998213,
      "old": [
       "South Korea"
      ]
