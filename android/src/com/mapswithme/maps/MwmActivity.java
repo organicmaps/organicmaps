@@ -109,7 +109,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                      MigrationFragment.class.getName(),
                                                      RoutingPlanFragment.class.getName(),
                                                      EditorHostFragment.class.getName(),
-                                                     AuthFragment.class.getName() };
+                                                     AuthFragment.class.getName(),
+                                                     ReportFragment.class.getName() };
   // Instance state
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
