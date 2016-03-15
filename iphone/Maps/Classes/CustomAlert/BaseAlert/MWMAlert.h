@@ -7,6 +7,7 @@
 @property (weak, nonatomic) MWMAlertViewController * alertController;
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
++ (MWMAlert *)routingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
                                             code:(routing::IRouter::ResultCode)code
                                          okBlock:(TMWMVoidBlock)okBlock;

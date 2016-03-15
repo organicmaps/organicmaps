@@ -10,6 +10,7 @@
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
+- (void)presentRoutingMigrationAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
                                        code:(routing::IRouter::ResultCode)code
                                     okBlock:(nonnull TMWMVoidBlock)okBlock;

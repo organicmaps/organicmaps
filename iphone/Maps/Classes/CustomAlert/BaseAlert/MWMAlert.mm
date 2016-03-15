@@ -62,6 +62,11 @@
   return [MWMDefaultAlert locationServiceNotSupportedAlert];
 }
 
++ (MWMAlert *)routingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock
+{
+  return [MWMDefaultAlert routingMigrationAlertWithOkBlock:okBlock];
+}
+
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
                                             code:(routing::IRouter::ResultCode)code
                                          okBlock:(TMWMVoidBlock)okBlock

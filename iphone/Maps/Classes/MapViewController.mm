@@ -614,21 +614,23 @@ NSString * const kReportSegue = @"Map2ReportSegue";
     case routing::IRouter::FileTooOld:
     case routing::IRouter::RouteNotFound:
     {
-      [self presentDownloaderAlert:code countries:absentCountries okBlock:[=]
+      if (platform::migrate::NeedMigrate())
       {
-        auto & s = GetFramework().Storage();
-        for (auto const & countryId : absentCountries)
-          s.DownloadNode(countryId);
-        if (platform::migrate::NeedMigrate())
+        [self presentRoutingMigrationAlertWithOkBlock:^
         {
-          [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatMap}];
+          [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatRouting}];
           [self openMigration];
-        }
-        else
-        {
-          [self openMapsDownloader];
-        }
-      }];
+        }];
+      }
+      else
+      {
+        [self presentDownloaderAlert:code countries:absentCountries okBlock:^
+         {
+           auto & s = GetFramework().Storage();
+           for (auto const & countryId : absentCountries)
+             s.DownloadNode(countryId);
+         }];
+      }
       break;
     }
     case routing::IRouter::Cancelled:
@@ -761,6 +763,11 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 }
 
 #pragma mark - ShowDialog callback
+
+- (void)presentRoutingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock
+{
+  [self.alertController presentRoutingMigrationAlertWithOkBlock:okBlock];
+}
 
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
                      countries:(storage::TCountriesVec const &)countries

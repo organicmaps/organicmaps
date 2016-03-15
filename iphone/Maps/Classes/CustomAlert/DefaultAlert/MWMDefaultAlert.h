@@ -23,5 +23,6 @@
 + (instancetype)downloaderNotEnoughSpaceAlert;
 + (instancetype)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock;
++ (instancetype)routingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 
 @end

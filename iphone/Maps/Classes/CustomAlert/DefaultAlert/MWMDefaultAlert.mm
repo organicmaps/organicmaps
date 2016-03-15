@@ -282,6 +282,17 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
++ (instancetype)routingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock
+{
+  kStatisticsEvent = @"Routing Need Migration Alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"downloader_update_maps"
+                                                message:@"downloader_mwm_migration_dialog"
+                                       rightButtonTitle:@"ok"
+                                        leftButtonTitle:@"cancel"
+                                      rightButtonAction:okBlock];
+  return alert;
+}
+
 + (instancetype)defaultAlertWithTitle:(nonnull NSString *)title
                               message:(nullable NSString *)message
                      rightButtonTitle:(nonnull NSString *)rightButtonTitle
