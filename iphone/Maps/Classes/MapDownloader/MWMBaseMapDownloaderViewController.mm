@@ -79,11 +79,6 @@ using namespace storage;
                forBarMetrics:UIBarMetricsDefault];
   navBar.shadowImage = [[UIImage alloc] init];
   [MWMFrameworkListener addObserver:self];
-  if (self.dataSource.isParentRoot)
-  {
-    self.skipCountryEventProcessing = NO;
-    [self processCountryEvent:self.parentCountryId];
-  }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
