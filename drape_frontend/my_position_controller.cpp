@@ -419,12 +419,13 @@ void MyPositionController::Assign(location::CompassInfo const & info, ScreenBase
 
   SetDirection(info.m_bearing);
 
-  if (!AlmostCurrentAzimut(oldAzimut) &&
-      GetMode() == location::MODE_ROTATE_AND_FOLLOW)
+  if (m_isPositionAssigned && !AlmostCurrentAzimut(oldAzimut) && GetMode() == location::MODE_ROTATE_AND_FOLLOW)
   {
     CreateAnim(GetDrawablePosition(), oldAzimut, screen);
     m_isDirtyViewport = true;
   }
+
+  m_isPositionAssigned = true;
 }
 
 void MyPositionController::SetDirection(double bearing)
