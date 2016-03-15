@@ -42,5 +42,5 @@ public:
 private:
   m2::PointD m_point;
   NSString * m_name;
-  bool m_isMyPosition {false};
+  bool m_isMyPosition = false;
 };
