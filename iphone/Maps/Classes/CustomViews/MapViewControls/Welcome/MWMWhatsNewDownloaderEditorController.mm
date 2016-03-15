@@ -33,8 +33,8 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   } copy],
   [^(MWMWhatsNewDownloaderEditorController * controller) {
     controller.image.image = [UIImage imageNamed:@"img_whatsnew_editdata"];
-    controller.alertTitle.text = L(@"whats_new_editdata_title");
-    controller.alertText.text = L(@"whats_new_editdata_text");
+    controller.alertTitle.text = L(@"whatsnew_editor_title");
+    controller.alertText.text = [NSString stringWithFormat:@"%@\n\n%@", L(@"whatsnew_editor_message_1"), L(@"whatsnew_editor_message_2")];
     [controller.nextPageButton setTitle:L(@"whats_new_next_button") forState:UIControlStateNormal];
     [controller.nextPageButton addTarget:controller.pageController
                                   action:@selector(nextPage)
