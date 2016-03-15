@@ -72,11 +72,12 @@
     <item name="android:textAllCaps">true</item>
   </style>
 
-  <style name="MwmTextAppearance.Toolbar"/>
-
-  <style name="MwmTextAppearance.Toolbar.Search">
+  <style name="MwmTextAppearance.Toolbar">
     <item name="android:textSize">@dimen/text_size_toolbar</item>
     <item name="android:textColor">@color/text_light</item>
+  </style>
+
+  <style name="MwmTextAppearance.Toolbar.Search">
     <item name="android:textColorHint">@color/text_light_hint</item>
   </style>
 
@@ -87,7 +88,6 @@
   </style>
 
   <style name="MwmTextAppearance.Toolbar.Title.Light">
-    <item name="android:textSize">@dimen/text_size_toolbar</item>
     <item name="android:textColor">@color/bg_cards</item>
   </style>
 

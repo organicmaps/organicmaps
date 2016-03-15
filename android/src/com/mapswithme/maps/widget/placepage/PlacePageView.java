@@ -219,6 +219,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mEmail.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
     mWiki.setOnLongClickListener(this);
+    mPpDetails.findViewById(R.id.ll__report_problem).setOnClickListener(this);
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
     mEtBookmarkName.setOnEditorActionListener(new TextView.OnEditorActionListener()
@@ -685,6 +686,11 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     ((MwmActivity) getContext()).showEditor();
   }
 
+  private void showReportForm()
+  {
+    ((MwmActivity) getContext()).showReportForm();
+  }
+
   @Override
   public void onClick(View v)
   {
@@ -692,6 +698,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     {
     case R.id.ll__place_editor:
       showEditor();
+      break;
+    case R.id.ll__report_problem:
+      showReportForm();
       break;
     case R.id.iv__bookmark_color:
       saveBookmarkNameIfUpdated();

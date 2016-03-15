@@ -68,4 +68,17 @@
     <item name="android:singleLine">true</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
   </style>
+
+  <style name="MwmWidget.Editor.Problem" tools:ignore="NewApi">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/height_block_base</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
+    <item name="android:paddingRight">@dimen/margin_base</item>
+    <item name="android:paddingLeft">@dimen/margin_base</item>
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:background">?selectableItemBackground</item>
+    <item name="android:clickable">true</item>
+    <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
+  </style>
 </resources>
