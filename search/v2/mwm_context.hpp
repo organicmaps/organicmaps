@@ -23,7 +23,8 @@ void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
 /// Now it duplicates "Index" functionality.
 struct MwmContext
 {
-  explicit MwmContext(MwmSet::MwmHandle handle);
+  /// @todo Split this component on more generic/lightweight.
+  MwmContext(MwmSet::MwmHandle handle, bool loadH2STable = true);
 
   MwmSet::MwmHandle m_handle;
   MwmValue & m_value;

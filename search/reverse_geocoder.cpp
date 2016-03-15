@@ -50,7 +50,7 @@ void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD cons
   MwmSet::MwmHandle mwmHandle = m_index.GetMwmHandleById(id);
   if (mwmHandle.IsAlive())
   {
-    search::v2::MwmContext(move(mwmHandle)).ForEachFeature(rect, addStreet);
+    search::v2::MwmContext(move(mwmHandle), false).ForEachFeature(rect, addStreet);
     sort(streets.begin(), streets.end(), my::CompareBy(&Street::m_distanceMeters));
   }
 }
