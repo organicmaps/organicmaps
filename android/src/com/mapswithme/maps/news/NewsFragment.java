@@ -18,9 +18,15 @@ public class NewsFragment extends BaseNewsFragment
     }
 
     @Override
-    int getSubtitles()
+    int getSubtitles1()
     {
-      return R.array.news_subtitles;
+      return R.array.news_messages_1;
+    }
+
+    @Override
+    int getSubtitles2()
+    {
+      return R.array.news_messages_2;
     }
 
     @Override

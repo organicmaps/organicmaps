@@ -25,14 +25,14 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/margin_base"
       android:gravity="center"
-      android:text="@string/youve_been_asking"
+      android:text="@string/whatsnew_smallmwm_header"
       android:textAppearance="@style/MwmTextAppearance.Title"/>
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:gravity="center"
-      android:text="@string/migrate_and_split_mwms_message"
+      android:text="@string/whatsnew_smallmwm_message"
       android:textAppearance="@style/MwmTextAppearance.Body3"/>
 
     <Space
@@ -55,7 +55,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/margin_base"
-      android:text="Preparing…"
+      android:text="@string/migration_prefetch_status"
       android:textAppearance="@style/MwmTextAppearance.Body3"/>
 
     <FrameLayout
@@ -64,7 +64,7 @@
       android:layout_marginBottom="@dimen/margin_base">
       <Button
         android:id="@+id/button_primary"
-        android:text="@string/downloader_update_all"
+        android:text="@string/migration_update_all_button"
         style="@style/MwmWidget.Button.Accent"/>
 
       <com.mapswithme.maps.widget.WheelProgressView
@@ -82,7 +82,7 @@
     <Button
       android:id="@+id/button_secondary"
       style="@style/MwmWidget.Button"
-      android:text="@string/delete_old_maps"
+      android:text="@string/migration_delete_all_download_current_button"
       android:textColor="?colorAccent"/>
   </LinearLayout>
 </com.mapswithme.maps.widget.HeightLimitedFrameLayout>

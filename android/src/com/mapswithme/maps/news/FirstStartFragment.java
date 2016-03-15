@@ -46,9 +46,15 @@ public class FirstStartFragment extends BaseNewsFragment
     }
 
     @Override
-    int getSubtitles()
+    int getSubtitles1()
     {
       return R.array.first_start_subtitles;
+    }
+
+    @Override
+    int getSubtitles2()
+    {
+      return 0;
     }
 
     @Override

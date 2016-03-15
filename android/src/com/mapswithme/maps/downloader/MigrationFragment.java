@@ -124,11 +124,11 @@ public class MigrationFragment extends BaseMwmFragment
     switch (code)
     {
     case CountryItem.ERROR_OOM:
-      text = R.string.not_enough_disk_space;
+      text = R.string.downloader_no_space_title;
       break;
 
     case CountryItem.ERROR_NO_INTERNET:
-      text = R.string.no_internet_connection_detected;
+      text = R.string.common_check_internet_connection_dialog;
       break;
 
     default:

@@ -117,7 +117,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
       showBottom = (info != null && info.filesCount > 0);
 
       if (showBottom)
-        mPanelText.setText(getString(R.string.downloader_maps_to_update, info.filesCount, StringUtils.getFileSizeString(info.totalSize)));
+        mPanelText.setText(getString(R.string.downloader_status_maps, String.valueOf(info.filesCount) + " (" + StringUtils.getFileSizeString(info.totalSize) + ")"));
     }
 
     UiUtils.showIf(showBottom, mBottomPanel);

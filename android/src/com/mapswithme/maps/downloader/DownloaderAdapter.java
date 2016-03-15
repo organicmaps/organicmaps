@@ -104,7 +104,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
         new AlertDialog.Builder(adapter.mActivity)
                        .setTitle(R.string.downloader_delete_map)
-                       .setMessage(R.string.downloader_delete_editor_changes)
+                       .setMessage(R.string.downloader_delete_map_dialog)
                        .setNegativeButton(android.R.string.no, null)
                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
                        {
@@ -519,7 +519,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         if (ci.category != prev)
         {
           headerId = CountryItem.CATEGORY_NEAR_ME;
-          mHeaders.put(headerId, MwmApplication.get().getString(R.string.downloader_near_me));
+          mHeaders.put(headerId, MwmApplication.get().getString(R.string.downloader_near_me_subtitle));
           prev = ci.category;
         }
         break;
@@ -528,7 +528,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         if (ci.category != prev)
         {
           headerId = CountryItem.CATEGORY_DOWNLOADED;
-          mHeaders.put(headerId, MwmApplication.get().getString(R.string.downloader_downloaded));
+          mHeaders.put(headerId, MwmApplication.get().getString(R.string.downloader_downloaded_subtitle));
           prev = ci.category;
         }
         break;

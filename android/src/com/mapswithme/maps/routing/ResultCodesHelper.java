@@ -64,8 +64,10 @@ class ResultCodesHelper
     case DIFFERENT_MWM:
       messages.add(resources.getString(R.string.routing_failed_cross_mwm_building));
       break;
-    //TODO (@yunitski @marchuk) Add proper dialog for this case.
     case FILE_TOO_OLD:
+      titleRes = R.string.downloader_update_maps;
+      messages.add(resources.getString(R.string.downloader_mwm_migration_dialog));
+      break;
     case ROUTE_NOT_FOUND:
       if (missingCount == 0)
       {

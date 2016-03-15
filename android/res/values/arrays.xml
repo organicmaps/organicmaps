@@ -66,22 +66,22 @@
   </integer-array>
 
   <string-array name="first_start_titles">
-    <item>First start page 1</item>
-    <item>First start page 2</item>
+    <item>@string/onboarding_offline_navigation_title</item>
+    <item>@string/onboarding_offline_maps_title</item>
   </string-array>
 
   <string-array name="first_start_subtitles">
-    <item>Some text</item>
-    <item>Some text</item>
+    <item>@string/onboarding_offline_navigation_message</item>
+    <item>@string/onboarding_offline_maps_message</item>
   </string-array>
 
   <string-array name="first_start_switch_titles">
-    <item>Sample switch title</item>
+    <item/>
     <item/>
   </string-array>
 
   <string-array name="first_start_switch_subtitles">
-    <item>Sample switch subtitle</item>
+    <item/>
     <item/>
   </string-array>
 
@@ -93,18 +93,32 @@
   </integer-array>
 
   <string-array name="news_titles">
-    <item>@string/whats_new_night_caption</item>
+    <item>@string/whatsnew_smallmwm_header</item>
+    <item>@string/whatsnew_editor_title</item>
+    <item>@string/whatsnew_search_header</item>
   </string-array>
 
-  <string-array name="news_subtitles">
-    <item>@string/whats_new_night_body</item>
+  <string-array name="news_messages_1">
+    <item>@string/whatsnew_smallmwm_message</item>
+    <item>@string/whatsnew_editor_message_1</item>
+    <item>@string/whatsnew_search_message</item>
+  </string-array>
+
+  <string-array name="news_messages_2">
+    <item/>
+    <item>@string/whatsnew_editor_message_2</item>
+    <item/>
   </string-array>
 
   <string-array name="news_switch_titles">
     <item/>
+    <item/>
+    <item/>
   </string-array>
 
   <string-array name="news_switch_subtitles">
+    <item/>
+    <item/>
     <item/>
   </string-array>
 </resources>

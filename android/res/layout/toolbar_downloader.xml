@@ -26,7 +26,7 @@
     <TextView
       android:id="@+id/update_all"
       style="@style/MwmWidget.Downloader.ToolbarButton"
-      android:text="@string/downloader_update_all"/>
+      android:text="@string/downloader_update_all_button"/>
 
     <TextView
       android:id="@+id/cancel_all"

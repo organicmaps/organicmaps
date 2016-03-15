@@ -191,7 +191,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         else
         {
           // TODO(yunikkk) set correct error text.
-          UiUtils.showAlertDialog(getActivity(), R.string.not_enough_disk_space);
+          UiUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
         }
         break;
       }

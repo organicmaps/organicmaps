@@ -53,7 +53,20 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
       Resources res = MwmApplication.get().getResources();
 
       mTitles = res.getStringArray(getTitles());
-      mSubtitles = res.getStringArray(getSubtitles());
+      mSubtitles = res.getStringArray(getSubtitles1());
+
+      int subtitles2 = getSubtitles2();
+      if (subtitles2 != 0)
+      {
+        String[] strings = res.getStringArray(subtitles2);
+        for (int i = 0; i < mSubtitles.length; i++)
+        {
+          String s = strings[i];
+          if (!TextUtils.isEmpty(s))
+            mSubtitles[i] += "\n\n" + s;
+        }
+      }
+
       mSwitchTitles = res.getStringArray(getSwitchTitles());
       mSwitchSubtitles = res.getStringArray(getSwitchSubtitles());
 
@@ -66,7 +79,8 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
     }
 
     abstract @ArrayRes int getTitles();
-    abstract @ArrayRes int getSubtitles();
+    abstract @ArrayRes int getSubtitles1();
+    abstract @ArrayRes int getSubtitles2();
     abstract @ArrayRes int getSwitchTitles();
     abstract @ArrayRes int getSwitchSubtitles();
     abstract @ArrayRes int getImages();

@@ -407,7 +407,7 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
     case ERR_DOWNLOAD_ERROR:
       return (ConnectionState.isConnected() ? R.string.download_has_failed
-                                            : R.string.no_internet_connection_detected);
+                                            : R.string.common_check_internet_connection_dialog);
     default:
       return R.string.not_enough_memory;
     }
