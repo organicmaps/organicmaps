@@ -76,6 +76,12 @@ LocationObserver>
   [self setupTableView];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+  [super viewDidDisappear:animated];
+  searchResults.Clear();
+}
+
 - (void)mwm_refreshUI
 {
   [self.view mwm_refreshUI];
