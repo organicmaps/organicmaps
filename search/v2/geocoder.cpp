@@ -772,6 +772,8 @@ void Geocoder::FillLocalitiesTable()
 
         GetEnglishName(ft, country.m_enName);
         LOG(LDEBUG, ("Country =", country.m_enName));
+
+        m_infoGetter.GetMatchedRegions(country.m_enName, country.m_ids);
         ++numCountries;
         m_regions[REGION_TYPE_COUNTRY][{l.m_startToken, l.m_endToken}].push_back(country);
       }
