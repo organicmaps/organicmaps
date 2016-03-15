@@ -108,12 +108,17 @@ using namespace storage;
 {
   [self setState:MWMMigrationViewState::Default];
   MWMAlertViewController * avc = self.alertController;
+  auto const retryBlock = ^
+  {
+    GetFramework().Storage().GetPrefetchStorage()->RetryDownloadNode(self->m_countryId);
+  };
   switch (errorCode)
   {
     case NodeErrorCode::NoError:
       break;
     case NodeErrorCode::UnknownError:
       [Statistics logEvent:kStatDownloaderMigrationError withParameters:@{kStatType : kStatUnknownError}];
+      [avc presentDownloaderInternalErrorAlertWithOkBlock:retryBlock];
       [avc presentInternalErrorAlert];
       break;
     case NodeErrorCode::OutOfMemFailed:
@@ -122,10 +127,7 @@ using namespace storage;
       break;
     case NodeErrorCode::NoInetConnection:
       [Statistics logEvent:kStatDownloaderMigrationError withParameters:@{kStatType : kStatNoConnection}];
-      [avc presentDownloaderNoConnectionAlertWithOkBlock:^
-      {
-        GetFramework().Storage().GetPrefetchStorage()->RetryDownloadNode(self->m_countryId);
-      }];
+      [avc presentDownloaderNoConnectionAlertWithOkBlock:retryBlock];
       break;
   }
 }

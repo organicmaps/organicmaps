@@ -131,9 +131,9 @@
   return [MWMDefaultAlert downloaderNotEnoughSpaceAlert];
 }
 
-+ (MWMAlert *)downloaderInternalErrorAlertForMap:(NSString *)name okBlock:(TMWMVoidBlock)okBlock
++ (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
-  return [MWMDefaultAlert downloaderInternalErrorAlertForMap:name okBlock:okBlock];
+  return [MWMDefaultAlert downloaderInternalErrorAlertWithOkBlock:okBlock];
 }
 
 + (MWMAlert *)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock

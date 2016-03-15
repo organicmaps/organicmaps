@@ -30,7 +30,7 @@
 - (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentDownloaderNotEnoughSpaceAlert;
-- (void)presentDownloaderInternalErrorAlertForMap:(nonnull NSString *)name okBlock:(nonnull TMWMVoidBlock)okBlock;
+- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentEditorViralAlertWithShareBlock:(nonnull TMWMVoidBlock)share;
 - (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion;

@@ -118,7 +118,7 @@
       break;
     case MWMMigrationViewState::Processing:
       self.info.hidden = NO;
-      self.info.text = L(@"migration_preparing_update");
+      self.info.text = L(@"migration_prefetch_status");
       [self startSpinner];
       self.primaryButton.enabled = NO;
       self.primaryButton.hidden = YES;
@@ -134,7 +134,7 @@
     case MWMMigrationViewState::ErrorNoSpace:
       self.info.hidden = NO;
       self.info.textColor = [UIColor red];
-      self.info.text = L(@"migration_no_space");
+      self.info.text = L(@"migration_no_space_message");
       self.primaryButton.enabled = NO;
       self.secondaryButton.enabled = NO;
       break;

@@ -176,9 +176,9 @@ using namespace storage;
     NodeAttrs nodeAttrs;
     GetFramework().Storage().GetNodeAttrs(m_parentId, nodeAttrs);
     if (nodeAttrs.m_localMwmSize == 0)
-      return [NSString stringWithFormat:@"%@", L(@"downloader_downloaded")];
+      return [NSString stringWithFormat:@"%@", L(@"downloader_dowloaded_subtitle")];
     else
-      return [NSString stringWithFormat:@"%@ (%@)", L(@"downloader_downloaded"), formattedSize(nodeAttrs.m_localMwmSize)];
+      return [NSString stringWithFormat:@"%@ (%@)", L(@"downloader_dowloaded_subtitle"), formattedSize(nodeAttrs.m_localMwmSize)];
   }
   return self.indexes[section - self.countrySectionsShift];
 }

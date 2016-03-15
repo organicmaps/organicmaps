@@ -39,7 +39,7 @@ using namespace storage;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.searchBar.placeholder = L(@"search_downloaded_maps");
+  self.searchBar.placeholder = L(@"downloader_search_field_hint");
   [self setupSearchParams];
 }
 

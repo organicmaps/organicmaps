@@ -168,9 +168,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert downloaderNotEnoughSpaceAlert]];
 }
 
-- (void)presentDownloaderInternalErrorAlertForMap:(nonnull NSString *)name okBlock:(nonnull TMWMVoidBlock)okBlock
+- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
 {
-  [self displayAlert:[MWMAlert downloaderInternalErrorAlertForMap:name okBlock:okBlock]];
+  [self displayAlert:[MWMAlert downloaderInternalErrorAlertWithOkBlock:okBlock]];
 }
 
 - (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock

@@ -92,7 +92,7 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="downloader_update_all"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="downloader_update_all_button"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="allMapsAction" destination="eCI-mf-eCv" eventType="touchUpInside" id="slj-0v-XS7"/>
@@ -240,7 +240,7 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium17"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="download_all"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="downloader_download_all_button"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="allMapsAction" destination="cIk-gU-IeI" eventType="touchUpInside" id="BFl-NK-h9n"/>
@@ -431,7 +431,7 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="update_all_maps"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="migration_update_all_button"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueDark"/>
@@ -454,7 +454,7 @@
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Скачать текущую и удалить все старые карты"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="migration_delete_all_download_current_button"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonEnabledBlueText"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="clearColor"/>
                                         </userDefinedRuntimeAttributes>
@@ -2822,9 +2822,9 @@ the world. Join us!</string>
         <image name="separator_image" width="1" height="1"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yAJ-jH-Dus"/>
         <segue reference="OEF-kR-jKi"/>
-        <segue reference="Z0Z-aU-Vrq"/>
+        <segue reference="yAJ-jH-Dus"/>
+        <segue reference="mF7-g4-gSS"/>
         <segue reference="w48-2Y-VXA"/>
     </inferredMetricsTieBreakers>
 </document>

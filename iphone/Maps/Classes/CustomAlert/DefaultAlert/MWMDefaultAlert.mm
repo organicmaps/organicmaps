@@ -65,7 +65,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)noConnectionAlert
 {
   kStatisticsEvent = @"No Connection Alert";
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"no_internet_connection_detected"
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"common_check_internet_connection_dialog"
                                                 message:nil
                                        rightButtonTitle:@"ok"
                                         leftButtonTitle:nil
@@ -77,8 +77,8 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"Editor unsaved changes on delete";
-  return [self defaultAlertWithTitle:@"editor_unsavde_changes"
-                             message:nil
+  return [self defaultAlertWithTitle:@"please_note"
+                             message:@"downloader_delete_map_dialog"
                     rightButtonTitle:@"delete"
                      leftButtonTitle:nil
                    rightButtonAction:okBlock];
@@ -87,7 +87,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)noWiFiAlertWithName:(NSString *)name okBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"No WiFi Alert";
-  NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
+  NSString * title = [NSString stringWithFormat:L(@"common_no_wifi_dialog"), name];
   MWMDefaultAlert * alert = [self defaultAlertWithTitle:title
                                                 message:nil
                                        rightButtonTitle:@"use_cellular_data"
@@ -170,7 +170,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 {
   kStatisticsEvent = @"No Current Position Alert";
   NSString * message =
-      [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_error_location_not_found"),
+      [NSString stringWithFormat:@"%@\n\n%@", L(@"common_current_location_unknown_dialog"),
                                  L(@"dialog_routing_location_turn_wifi")];
   return [self defaultAlertWithTitle:@"dialog_routing_check_gps"
                              message:message
@@ -249,8 +249,8 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)downloaderNotEnoughSpaceAlert
 {
   kStatisticsEvent = @"Downloader Not Enough Space Alert";
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"downloader_error"
-                                                message:@"downloader_not_enough_space"
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"downloader_no_space_title"
+                                                message:@"downloader_no_space_message"
                                        rightButtonTitle:@"close"
                                         leftButtonTitle:nil
                                       rightButtonAction:nil];
@@ -258,13 +258,11 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
-+ (instancetype)downloaderInternalErrorAlertForMap:(NSString *)name okBlock:(TMWMVoidBlock)okBlock
++ (instancetype)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"Downloader Internal Error Alert";
-  NSString * message =
-      [NSString stringWithFormat:@"%@%@", L(@"downloader_internal_error_for_map"), name];
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"downloader_error"
-                                                message:message
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"migration_download_error_dialog"
+                                                message:nil
                                        rightButtonTitle:@"downloader_retry"
                                         leftButtonTitle:@"cancel"
                                       rightButtonAction:okBlock];

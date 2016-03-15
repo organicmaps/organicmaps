@@ -62,8 +62,8 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   [^(MWMFirstLaunchController * controller)
   {
     controller.image.image = [UIImage imageNamed:@"img_onboarding_offline_maps"];
-    controller.alertTitle.text = L(@"first_launch_welcome_title");
-    controller.alertText.text = L(@"first_launch_welcome_text");
+    controller.alertTitle.text = L(@"onboarding_offline_maps_title");
+    controller.alertText.text = L(@"onboarding_offline_maps_message");
     [controller.nextPageButton setTitle:L(@"whats_new_next_button") forState:UIControlStateNormal];
     [controller.nextPageButton addTarget:controller.pageController
                                   action:@selector(nextPage)
@@ -72,8 +72,8 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   [^(MWMFirstLaunchController * controller)
   {
     controller.image.image = [UIImage imageNamed:@"img_onboarding_geoposition"];
-    controller.alertTitle.text = L(@"first_launch_need_location_title");
-    controller.alertText.text = L(@"first_launch_need_location_text");
+    controller.alertTitle.text = L(@"onboarding_location_title");
+    controller.alertText.text = L(@"onboarding_location_message");
     [controller.nextPageButton setTitle:L(@"whats_new_next_button") forState:UIControlStateNormal];
     [controller.nextPageButton addTarget:controller.pageController
                                   action:@selector(nextPage)
@@ -82,8 +82,8 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   [^(MWMFirstLaunchController * controller)
   {
     controller.image.image = [UIImage imageNamed:@"img_onboarding_notification"];
-    controller.alertTitle.text = L(@"first_launch_need_push_title");
-    controller.alertText.text = L(@"first_launch_need_push_text");
+    controller.alertTitle.text = L(@"onboarding_notifications_title");
+    controller.alertText.text = L(@"onboarding_notifications_message");
     [controller.nextPageButton setTitle:L(@"whats_new_next_button") forState:UIControlStateNormal];
     [controller.nextPageButton addTarget:controller.pageController
                                   action:@selector(nextPage)

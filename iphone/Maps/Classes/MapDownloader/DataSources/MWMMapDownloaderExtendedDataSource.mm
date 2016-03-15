@@ -104,7 +104,7 @@ using namespace storage;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
   if (section == self.closestCountriesSection)
-    return L(@"search_mode_nearme");
+    return L(@"downloader_near_me_subtitle");
   return [super tableView:tableView titleForHeaderInSection:section - self.closestCountriesSectionShift];
 }
 

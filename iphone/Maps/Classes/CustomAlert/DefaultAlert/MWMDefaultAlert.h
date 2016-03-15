@@ -21,7 +21,7 @@
 + (instancetype)disableAutoDownloadAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)downloaderNotEnoughSpaceAlert;
-+ (instancetype)downloaderInternalErrorAlertForMap:(NSString *)name okBlock:(TMWMVoidBlock)okBlock;
++ (instancetype)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 
 @end

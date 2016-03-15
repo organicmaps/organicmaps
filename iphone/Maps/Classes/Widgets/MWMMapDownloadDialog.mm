@@ -178,28 +178,29 @@ using namespace storage;
   self.nodeSize.text = L(@"country_status_download_failed");
   self.progress.state = MWMCircularProgressStateFailed;
   MWMAlertViewController * avc = self.controller.alertController;
+  auto const retryBlock = ^
+  {
+    [Statistics logEvent:kStatDownloaderMapAction
+          withParameters:@{
+            kStatAction : kStatRetry,
+            kStatIsAuto : kStatNo,
+            kStatFrom : kStatMap,
+            kStatScenario : kStatDownload
+          }];
+    [MWMStorage retryDownloadNode:self->m_countryId];
+  };
   switch (errorCode)
   {
     case NodeErrorCode::NoError:
       break;
     case NodeErrorCode::UnknownError:
-      [avc presentInternalErrorAlert];
+      [avc presentDownloaderInternalErrorAlertWithOkBlock:retryBlock];
       break;
     case NodeErrorCode::OutOfMemFailed:
       [avc presentDownloaderNotEnoughSpaceAlert];
       break;
     case NodeErrorCode::NoInetConnection:
-      [avc presentDownloaderNoConnectionAlertWithOkBlock:^
-      {
-        [Statistics logEvent:kStatDownloaderMapAction
-              withParameters:@{
-                kStatAction : kStatRetry,
-                kStatIsAuto : kStatNo,
-                kStatFrom : kStatMap,
-                kStatScenario : kStatDownload
-              }];
-        [MWMStorage retryDownloadNode:self->m_countryId];
-      }];
+      [avc presentDownloaderNoConnectionAlertWithOkBlock:retryBlock];
       break;
   }
 }
