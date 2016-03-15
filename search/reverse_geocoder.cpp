@@ -207,4 +207,14 @@ bool ReverseGeocoder::HouseTable::Get(FeatureID const & fid, uint32_t & streetIn
   return m_table->Get(fid.m_index, streetIndex);
 }
 
+string DebugPrint(ReverseGeocoder::Object const & obj)
+{
+  return obj.m_name;
+}
+
+string DebugPrint(ReverseGeocoder::Address const & addr)
+{
+  return "{ " + DebugPrint(addr.m_building) + ", " + DebugPrint(addr.m_street) + " }";
+}
+
 } // namespace search

@@ -22,8 +22,8 @@ void TestAddress(ReverseGeocoder & coder, ms::LatLon const & ll,
   string key;
   GetStreetNameAsKey(addr.m_street.m_name, key);
 
-  TEST_EQUAL(stName, key, ());
-  TEST_EQUAL(hNumber, addr.m_building.m_name, ());
+  TEST_EQUAL(stName, key, (addr));
+  TEST_EQUAL(hNumber, addr.m_building.m_name, (addr));
 }
 
 } // namespace

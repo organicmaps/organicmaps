@@ -34,6 +34,8 @@ class ReverseGeocoder
     inline bool IsValid() const { return m_id.IsValid(); }
   };
 
+  friend string DebugPrint(Object const & obj);
+
 public:
   /// All "Nearby" functions work in this lookup radius.
   static int constexpr kLookupRadiusM = 500;
@@ -67,6 +69,8 @@ public:
     string GetStreetName() const { return m_street.m_name; }
     double GetDistance() const { return m_building.m_distanceMeters; }
   };
+
+  friend string DebugPrint(Address const & addr);
 
   /// @return Sorted by distance streets vector for the specified MwmId.
   //@{
