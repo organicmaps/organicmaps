@@ -462,9 +462,9 @@ private:
   bool m_finished;
 };
 
-void OnCountryDownloaded(LocalCountryFile const & localFile)
+void OnCountryDownloaded(TCountryId const & countryId, TLocalFilePtr const localFile)
 {
-  LOG(LINFO, ("OnCountryDownloaded:", localFile));
+  LOG(LINFO, ("OnCountryDownloaded:", *localFile));
 }
 
 TLocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version, size_t size)
@@ -483,10 +483,10 @@ TLocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t versio
 }
 
 void InitStorage(Storage & storage, TaskRunner & runner,
-                 Storage::TUpdate const & update = &OnCountryDownloaded)
+                 Storage::TUpdateCallback const & update = &OnCountryDownloaded)
 {
   storage.Clear();
-  storage.Init(update);
+  storage.Init(update, [](TCountryId const &, TLocalFilePtr const){return false;});
   storage.RegisterAllLocalMaps();
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
 }
@@ -582,7 +582,7 @@ UNIT_TEST(StorageTest_DeleteTwoVersionsOfTheSameCountry)
   int64_t const v2 = isSingleMwm ? version::FOR_TESTING_SINGLE_MWM2
                                  : version::FOR_TESTING_TWO_COMPONENT_MWM2;
 
-  storage.Init(&OnCountryDownloaded);
+  storage.Init(&OnCountryDownloaded, [](TCountryId const &, TLocalFilePtr const){return false;});
   storage.RegisterAllLocalMaps();
 
   TCountryId const countryId = storage.FindCountryIdByFile("Azerbaijan");
@@ -628,16 +628,16 @@ UNIT_TEST(StorageTest_DownloadMapAndRoutingSeparately)
 
   TaskRunner runner;
   tests::TestMwmSet mwmSet;
-  InitStorage(storage, runner, [&mwmSet](LocalCountryFile const & localFile)
+  InitStorage(storage, runner, [&mwmSet](TCountryId const &, TLocalFilePtr const localFile)
   {
     try
     {
-      auto p = mwmSet.Register(localFile);
+      auto p = mwmSet.Register(*localFile);
       TEST(p.first.IsAlive(), ());
     }
     catch (exception & e)
     {
-      LOG(LERROR, ("Failed to register:", localFile, ":", e.what()));
+      LOG(LERROR, ("Failed to register:", *localFile, ":", e.what()));
     }
   });
 
@@ -917,7 +917,7 @@ UNIT_TEST(StorageTest_DeleteCountryTwoComponentsMwm)
 UNIT_TEST(StorageTest_FailedDownloading)
 {
   Storage storage;
-  storage.Init(&OnCountryDownloaded);
+  storage.Init(&OnCountryDownloaded, [](TCountryId const &, TLocalFilePtr const){return false;});
   storage.SetDownloaderForTesting(make_unique<TestMapFilesDownloader>());
   storage.SetCurrentDataVersionForTesting(1234);
 
