@@ -1292,6 +1292,17 @@ search::AddressInfo Framework::GetSearchResultAddress(search::Result const & res
   if (res.IsSuggest())
     return info;
 
+  string const & type = res.GetFeatureType();
+  if (!type.empty())
+    info.m_types.push_back(type);
+
+  // Assign name if it's not equal with type.
+  string const & name = res.GetString();
+  if (name != type)
+    info.m_name = name;
+
+  info.m_city = res.GetRegion();
+
   /// @todo Optimize here according to the fact that feature is
   /// already read in many cases during search results processing.
   auto const & id = res.GetFeatureID();
@@ -1308,17 +1319,6 @@ search::AddressInfo Framework::GetSearchResultAddress(search::Result const & res
   }
 
   info = GetAddressInfoAtPoint(res.GetFeatureCenter());
-
-  string const & type = res.GetFeatureType();
-  if (!type.empty())
-    info.m_types.push_back(type);
-
-  // Assign name if it's not equal with type.
-  string const & name = res.GetString();
-  if (name != type)
-    info.m_name = name;
-
-  info.m_city = res.GetRegion();
   return info;
 }
 
