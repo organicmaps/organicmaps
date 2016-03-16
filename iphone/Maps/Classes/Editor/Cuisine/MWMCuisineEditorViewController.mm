@@ -24,9 +24,11 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   osm::TAllCuisines m_allCuisines;
   vector<string> m_selectedCuisines;
   vector<string> m_displayedKeys;
+  vector<string> m_untranslatedKeys;
 }
 
 @property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
+@property (nonatomic) BOOL isSearch;
 
 @end
 
@@ -47,6 +49,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   m_displayedKeys.clear();
   if (searchText.length)
   {
+    self.isSearch = YES;
     string const st = searchText.UTF8String;
     for (auto const & kv : m_allCuisines)
       if (search::ContainsNormalized(kv.second, st))
@@ -54,6 +57,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   }
   else
   {
+    self.isSearch = NO;
     m_displayedKeys = SliceKeys(m_allCuisines);
   }
   [self.tableView reloadData];
@@ -61,6 +65,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
+  self.isSearch = NO;
   [self searchBar:searchBar setActiveState:YES];
   return YES;
 }
@@ -68,12 +73,16 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
 {
   if (!searchBar.text.length)
+  {
+    self.isSearch = NO;
     [self searchBar:searchBar setActiveState:NO];
+  }
   return YES;
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
+  self.isSearch = NO;
   [searchBar resignFirstResponder];
   searchBar.text = @"";
   [self searchBar:searchBar setActiveState:NO];
@@ -115,6 +124,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 - (void)configSearchBar
 {
+  self.isSearch = NO;
   self.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor primary]];
   self.searchBar.placeholder = L(@"search_in_cuisine");
   UITextField * textFiled = [self.searchBar valueForKey:@"searchField"];
@@ -124,9 +134,16 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 - (void)configData
 {
-  m_allCuisines = osm::Cuisines::Instance().AllSupportedCuisines();
+  using namespace osm;
+  m_allCuisines = Cuisines::Instance().AllSupportedCuisines();
   m_displayedKeys = SliceKeys(m_allCuisines);
   m_selectedCuisines = [self.delegate getSelectedCuisines];
+  for (auto const & s : m_selectedCuisines)
+  {
+    string const translated = Cuisines::Instance().Translate(s);
+    if (translated.empty())
+      m_untranslatedKeys.push_back(s);
+  }
 }
 
 #pragma mark - Actions
@@ -158,21 +175,41 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 {
   UITableViewCell * cell = [self.tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
   NSInteger const index = indexPath.row;
-  string const & key = m_displayedKeys[index];
 
-  string translated;
-  if (!osm::Cuisines::Instance().Translate(m_displayedKeys[index], translated))
-    NSAssert(false, @"There is only transled keys in m_displayedKeys!");
+  auto const & dataSource = [self dataSourceForSection:indexPath.section];
+  string const & key = dataSource[index];
+  if (dataSource == m_displayedKeys)
+  {
+    string const translated = osm::Cuisines::Instance().Translate(m_displayedKeys[index]);
+    NSAssert(!translated.empty(), @"There are only localizable keys in m_displayedKeys!");
+    cell.textLabel.text = @(translated.c_str());
+  }
+  else
+  {
+    cell.textLabel.text = @(key.c_str());
+  }
 
-  cell.textLabel.text = @(translated.c_str());
   BOOL const selected = find(m_selectedCuisines.begin(), m_selectedCuisines.end(), key) != m_selectedCuisines.end();
   cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
   return cell;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return self.isSearch ? 1 : !m_untranslatedKeys.empty() + !m_displayedKeys.empty();
+}
+
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return m_displayedKeys.size();
+  return [self dataSourceForSection:section].size();
+}
+
+- (vector<string> const &)dataSourceForSection:(NSInteger)section
+{
+  if (m_untranslatedKeys.empty())
+    return m_displayedKeys;
+  else
+    return self.isSearch ? m_displayedKeys : (section == 0 ? m_untranslatedKeys : m_displayedKeys);
 }
 
 #pragma mark - UITableViewDelegate
@@ -183,7 +220,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   [cell setSelected:NO animated:YES];
   BOOL const isAlreadySelected = cell.accessoryType == UITableViewCellAccessoryCheckmark;
   cell.accessoryType = isAlreadySelected ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
-  [self change:m_displayedKeys[indexPath.row] selected:!isAlreadySelected];
+  [self change:[self dataSourceForSection:indexPath.section][indexPath.row] selected:!isAlreadySelected];
 }
 
 @end

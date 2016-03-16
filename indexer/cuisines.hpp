@@ -23,7 +23,7 @@ public:
   void ParseAndLocalize(string const & osmRawCuisinesTagValue, vector<string> & outCuisines,
                         string const & lang = languages::GetCurrentTwine());
   /// @param[in] lang should be in our twine strings.txt/cuisines.txt format.
-  /// @returns translated cuisine.
+  /// @returns translated cuisine (can be empty, if we can't translate key).
   string Translate(string const & singleOsmCuisine,
                    string const & lang = languages::GetCurrentTwine());
   /// @returns list of osm cuisines in cuisines.txt (not localized).
