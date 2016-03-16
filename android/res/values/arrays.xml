@@ -60,10 +60,9 @@
   </array>
 
   <!-- First start screen -->
-  <!-- TODO: Replace with actual texts and images -->
   <integer-array name="first_start_images">
-    <item>@drawable/img_smile</item>
-    <item>@drawable/img_no_map_light</item>
+    <item>@drawable/img_first_start_offline</item>
+    <item>@drawable/img_first_start_navigation</item>
   </integer-array>
 
   <string-array name="first_start_titles">
@@ -88,7 +87,9 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/img_news_night</item>
+    <item>@drawable/img_news_migration</item>
+    <item>@drawable/img_news_editor</item>
+    <item>@drawable/img_news_search</item>
   </integer-array>
 
   <string-array name="news_titles">

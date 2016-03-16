@@ -12,8 +12,9 @@
 
     <LinearLayout
       android:id="@+id/ll__select_download"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_gravity="center"
       android:gravity="center_horizontal"
       android:orientation="vertical"
       android:paddingLeft="@dimen/margin_base"
@@ -22,7 +23,7 @@
       tools:ignore="UnusedAttribute">
 
       <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/search_without_internet_advertisement"
@@ -30,7 +31,7 @@
 
       <LinearLayout
         android:id="@+id/ll__location_determined"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal">
@@ -41,7 +42,8 @@
           android:layout_height="@dimen/height_block_base"
           android:layout_marginTop="@dimen/margin_half"
           android:gravity="center"
-          android:textAppearance="@style/MwmTextAppearance.Title"/>
+          android:textAppearance="@style/MwmTextAppearance.Title"
+          tools:text="Some country"/>
 
         <Button
           android:id="@+id/btn__download_map"

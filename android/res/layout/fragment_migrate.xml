@@ -16,13 +16,13 @@
     <ImageView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:src="@drawable/img_no_map_light"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:src="@drawable/img_news_migration"
       android:tag="@string/tag_height_limited"/>
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_base"
       android:layout_marginBottom="@dimen/margin_base"
       android:gravity="center"
       android:text="@string/youve_been_asking"
