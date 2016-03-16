@@ -265,13 +265,13 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
   TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
   string const version = strings::to_string(storage.GetCurrentDataVersion());
 
-  auto onUpdatedFn = [&](LocalCountryFile const & localCountryFile)
+  auto onUpdatedFn = [&](TCountryId const &, storage::Storage::TLocalFilePtr const localCountryFile)
   {
-    TCountryId const countryId = localCountryFile.GetCountryName();
+    TCountryId const countryId = localCountryFile->GetCountryName();
     TEST(kLeafCountriesIds.find(countryId) != kLeafCountriesIds.end(), ());
   };
 
-  storage.Init(onUpdatedFn);
+  storage.Init(onUpdatedFn, [](TCountryId const &, storage::Storage::TLocalFilePtr const){return false;});
   storage.RegisterAllLocalMaps();
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
 

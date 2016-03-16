@@ -28,9 +28,9 @@ string const kMapTestDir = "map-tests";
 
 string const kTestWebServer = "http://new-search.mapswithme.com/";
 
-void Update(LocalCountryFile const & localCountryFile)
+void Update(TCountryId const &, storage::Storage::TLocalFilePtr const localCountryFile)
 {
-  TEST_EQUAL(localCountryFile.GetCountryName(), kCountryId, ());
+  TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
 }
 
 } // namespace
@@ -61,7 +61,7 @@ UNIT_TEST(StorageDownloadNodeAndDeleteNodeTests)
     TEST_EQUAL(countryId, kCountryId, (countryId));
   };
 
-  storage.Init(Update);
+  storage.Init(Update, [](TCountryId const &, storage::Storage::TLocalFilePtr const){return false;});
   storage.RegisterAllLocalMaps();
   storage.Subscribe(ChangeCountryFunction, ProgressFunction);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});

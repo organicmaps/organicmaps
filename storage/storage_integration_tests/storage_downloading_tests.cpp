@@ -32,9 +32,9 @@ string const kMapTestDir = "map-tests";
 
 class InterruptException : public exception {};
 
-void Update(LocalCountryFile const & localCountryFile)
+void Update(TCountryId const &, storage::Storage::TLocalFilePtr const localCountryFile)
 {
-  TEST_EQUAL(localCountryFile.GetCountryName(), kCountryId, ());
+  TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
 }
 
 void ChangeCountry(Storage & storage, TCountryId const & countryId)
@@ -47,7 +47,7 @@ void ChangeCountry(Storage & storage, TCountryId const & countryId)
 
 void InitStorage(Storage & storage, Storage::TProgressFunction const & onProgressFn)
 {
-  storage.Init(Update);
+  storage.Init(Update, [](TCountryId const &, storage::Storage::TLocalFilePtr const){return false;});
   storage.RegisterAllLocalMaps();
   storage.Subscribe(bind(&ChangeCountry, ref(storage), _1), onProgressFn);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
