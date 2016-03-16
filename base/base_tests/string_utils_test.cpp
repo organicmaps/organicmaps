@@ -165,6 +165,10 @@ UNIT_TEST(to_double)
 
   s = "123.456 we don't parse it.";
   TEST(!strings::to_double(s, d), ());
+
+  TEST(!strings::to_double("INF", d), ());
+  TEST(!strings::to_double("NAN", d), ());
+  TEST(!strings::to_double("1.18973e+4932", d), ());
 }
 
 UNIT_TEST(to_int)
