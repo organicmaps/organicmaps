@@ -136,18 +136,6 @@ public class MapPrefsFragment extends BaseXmlSettingsFragment
       }
     });
 
-    TwoStatePreference prefAutodownload = (TwoStatePreference)findPreference(getString(R.string.pref_autodownload));
-    prefAutodownload.setChecked(Config.isAutodownloadMaps());
-    prefAutodownload.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        Config.setAutodownloadMaps((Boolean)newValue);
-        return true;
-      }
-    });
-
     final Framework.Params3dMode _3d = new Framework.Params3dMode();
     Framework.nativeGet3dMode(_3d);
 

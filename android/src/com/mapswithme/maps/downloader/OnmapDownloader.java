@@ -15,7 +15,6 @@ import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.WheelProgressView;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
@@ -87,12 +86,12 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   public void updateState(boolean shouldAutoDownload)
   {
     boolean showFrame = (mCurrentCountry != null &&
+                         !mCurrentCountry.present &&
                          !RoutingController.get().isNavigating());
     if (showFrame)
     {
       boolean enqueued = (mCurrentCountry.status == CountryItem.STATUS_ENQUEUED);
-      boolean progress = (mCurrentCountry.status == CountryItem.STATUS_PROGRESS &&
-                          !mCurrentCountry.present);
+      boolean progress = (mCurrentCountry.status == CountryItem.STATUS_PROGRESS);
       boolean failed = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
 
       showFrame = (enqueued || progress || failed ||
@@ -128,7 +127,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                 !sAutodownloadLocked &&
                 !failed &&
                 !MapManager.nativeIsLegacyMode() &&
-                Config.isAutodownloadMaps() &&
                 ConnectionState.isWifiConnected())
             {
               Location loc = LocationHelper.INSTANCE.getLastLocation();
