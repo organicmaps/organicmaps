@@ -142,7 +142,7 @@ protected:
   friend class impl::DoFindLocality;
   friend class impl::HouseCompFactory;
 
-  void ClearQueues();
+  void ClearResults();
 
   int GetCategoryLocales(int8_t (&arr) [3]) const;
   template <class ToDo> void ForEachCategoryTypes(ToDo toDo) const;
@@ -281,8 +281,8 @@ protected:
     DISTANCE_TO_PIVOT,  // LessDistance
     FEATURE_RANK       // LessRank
   };
-  TQueue m_results[kQueuesCount];
-  size_t m_queuesCount;
+  map<FeatureID, impl::PreResult1> m_results;
+  bool m_viewportSearch;
   bool m_keepHouseNumberInQuery;
   //@}
 };

@@ -10,13 +10,13 @@ namespace v2
 {
 struct PreRankingInfo
 {
-  static double const kMaxDistMeters;
+  // An abstract distance from the feature to the viewport.
+  // Measurement units do not matter here.
+  double m_distanceToViewport = 0;
 
-  // Distance from the mwm center to the current viewport's center.
-  double m_mwmDistanceToViewport = kMaxDistMeters;
-
-  // Distance from the feature to the current user's position.
-  double m_mwmDistanceToPosition = kMaxDistMeters;
+  // An abstract distance from the feature to the user's position.
+  // Measurement units do not matter here.
+  double m_distanceToPosition = 0;
 
   // Tokens [m_startToken, m_endToken) match to the feature name or
   // house number.

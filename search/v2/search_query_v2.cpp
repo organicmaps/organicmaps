@@ -79,9 +79,9 @@ void SearchQueryV2::AddPreResults1(Geocoder::TResultList & results, bool viewpor
     auto const & id = result.first;
     auto const & info = result.second;
     if (viewportSearch)
-      AddPreResult1(id.m_mwmId, id.m_index, info.m_mwmDistanceToViewport /* priority */, info);
+      AddPreResult1(id.m_mwmId, id.m_index, info.m_distanceToViewport /* priority */, info);
     else
-      AddPreResult1(id.m_mwmId, id.m_index, info.m_mwmDistanceToPosition /* priority */, info);
+      AddPreResult1(id.m_mwmId, id.m_index, info.m_distanceToPosition /* priority */, info);
   }
 }
 }  // namespace v2

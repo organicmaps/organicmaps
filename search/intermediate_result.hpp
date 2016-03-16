@@ -42,6 +42,7 @@ public:
   static bool LessPointsForViewport(PreResult1 const & r1, PreResult1 const & r2);
 
   inline FeatureID GetID() const { return m_id; }
+  inline double GetPriority() const { return m_priority; }
   inline uint8_t GetRank() const { return m_info.m_rank; }
   inline int8_t GetViewportID() const { return m_viewportID; }
   inline v2::PreRankingInfo const & GetInfo() const { return m_info; }

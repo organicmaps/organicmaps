@@ -13,11 +13,13 @@ namespace v2
 {
 struct RankingInfo
 {
+  static double const kMaxDistMeters;
+
   // Distance from the feature to the current viewport's center.
-  double m_distanceToViewport = PreRankingInfo::kMaxDistMeters;
+  double m_distanceToViewport = kMaxDistMeters;
 
   // Distance from the feature to the current user's position.
-  double m_distanceToPosition = PreRankingInfo::kMaxDistMeters;
+  double m_distanceToPosition = kMaxDistMeters;
 
   // Rank of the feature.
   uint8_t m_rank = 0;

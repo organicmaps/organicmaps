@@ -63,17 +63,6 @@ namespace search
 
 namespace
 {
-using TCompareFunction1 = function<bool(impl::PreResult1 const &, impl::PreResult1 const &)>;
-using TCompareFunction2 = function<bool(impl::PreResult2 const &, impl::PreResult2 const &)>;
-
-TCompareFunction1 const g_arrCompare1[] = {
-    &impl::PreResult1::LessPriority, &impl::PreResult1::LessRank,
-};
-
-TCompareFunction2 const g_arrCompare2[] = {
-    &impl::PreResult2::LessDistance, &impl::PreResult2::LessRank,
-};
-
 /// This indexes should match the initialization routine below.
 int const g_arrLang1[] = {0, 1, 2, 2, 3};
 int const g_arrLang2[] = {0, 0, 0, 1, 0};
@@ -193,18 +182,9 @@ Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest>
   , m_mode(Mode::Everywhere)
   , m_worldSearch(true)
   , m_suggestsEnabled(true)
+  , m_viewportSearch(false)
   , m_keepHouseNumberInQuery(false)
 {
-  // Results queue's initialization.
-  static_assert(kQueuesCount == ARRAY_SIZE(g_arrCompare1), "");
-  static_assert(kQueuesCount == ARRAY_SIZE(g_arrCompare2), "");
-
-  for (size_t i = 0; i < kQueuesCount; ++i)
-  {
-    m_results[i] = TQueue(kPreResultsCount, TQueueCompare(g_arrCompare1[i]));
-    m_results[i].reserve(kPreResultsCount);
-  }
-
   // Initialize keywords scorer.
   // Note! This order should match the indexes arrays above.
   vector<vector<int8_t> > langPriorities(4);
@@ -358,29 +338,13 @@ void Query::Init(bool viewportSearch)
   m_streetID.clear();
 #endif
 
-  ClearQueues();
-
-  if (viewportSearch)
-  {
-    // Special case to change comparator in viewport search
-    // (more uniform results distribution on the map).
-
-    m_queuesCount = 1;
-    m_results[0] =
-        TQueue(kPreResultsCount, TQueueCompare(&impl::PreResult1::LessPointsForViewport));
-  }
-  else
-  {
-    m_queuesCount = kQueuesCount;
-    m_results[DISTANCE_TO_PIVOT] =
-        TQueue(kPreResultsCount, TQueueCompare(g_arrCompare1[DISTANCE_TO_PIVOT]));
-  }
+  m_viewportSearch = viewportSearch;
+  ClearResults();
 }
 
-void Query::ClearQueues()
+void Query::ClearResults()
 {
-  for (size_t i = 0; i < kQueuesCount; ++i)
-    m_results[i].clear();
+  m_results.clear();
 }
 
 int Query::GetCategoryLocales(int8_t (&arr) [3]) const
@@ -637,7 +601,7 @@ class PreResult2Maker
     auto const & position = m_params.m_position;
 
     info.m_distanceToViewport = viewport.IsEmptyInterior()
-                                    ? v2::PreRankingInfo::kMaxDistMeters
+                                    ? v2::RankingInfo::kMaxDistMeters
                                     : feature::GetMinDistanceMeters(ft, viewport.Center());
     info.m_distanceToPosition = feature::GetMinDistanceMeters(ft, position);
 
@@ -768,11 +732,47 @@ void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont
   using TPreResultSet = set<impl::PreResult1, LessFeatureID>;
   TPreResultSet theSet;
 
-  for (size_t i = 0; i < m_queuesCount; ++i)
+  vector<impl::PreResult1> results;
+  results.reserve(m_results.size());
+  for (auto const & p : m_results)
+    results.emplace_back(p.second);
+
+  sort(results.begin(), results.end(), &impl::PreResult1::LessPriority);
+  if (kPreResultsCount != 0 && results.size() > kPreResultsCount)
   {
-    theSet.insert(m_results[i].begin(), m_results[i].end());
-    m_results[i].clear();
+    // Priority is some kind of distance from the viewport or
+    // position, therefore if we have a bunch of results with the same
+    // priority, we have no idea here which results are relevant.  To
+    // prevent bias from previous search routines (like sorting by
+    // feature id) this code randomly selects tail of the
+    // sorted-by-priority list of pre-results.
+
+    double const lastPriority = results[kPreResultsCount - 1].GetPriority();
+
+    auto b = results.begin() + kPreResultsCount - 1;
+    for (; b != results.begin() && b->GetPriority() == lastPriority; --b)
+      ;
+    if (b->GetPriority() != lastPriority)
+      ++b;
+
+    auto e = results.begin() + kPreResultsCount;
+    for (; e != results.end() && e->GetPriority() == lastPriority; ++e)
+      ;
+
+    // TODO (@y, @m, @vng): this method is deprecated, need to rewrite
+    // it.
+    random_shuffle(b, e);
   }
+  theSet.insert(results.begin(), results.begin() + min(results.size(), kPreResultsCount));
+
+  if (!m_viewportSearch)
+  {
+    size_t n = min(results.size(), kPreResultsCount);
+    nth_element(results.begin(), results.begin() + n, results.end(), &impl::PreResult1::LessRank);
+    theSet.insert(results.begin(), results.begin() + n);
+  }
+
+  ClearResults();
 
   // Makes PreResult2 vector.
   impl::PreResult2Maker maker(*this, params);
@@ -957,17 +957,9 @@ void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
 void Query::AddPreResult1(MwmSet::MwmId const & mwmId, uint32_t featureId, double priority,
                           v2::PreRankingInfo const & info, ViewportID viewportId /* = DEFAULT_V */)
 {
-  impl::PreResult1 res(FeatureID(mwmId, featureId), priority, viewportId, info);
-
-  for (size_t i = 0; i < m_queuesCount; ++i)
-  {
-    // here can be the duplicates because of different language match (for suggest token)
-    if (m_results[i].end() ==
-        find_if(m_results[i].begin(), m_results[i].end(), EqualFeatureID(res)))
-    {
-      m_results[i].push(res);
-    }
-  }
+  FeatureID id(mwmId, featureId);
+  impl::PreResult1 res(id, priority, viewportId, info);
+  m_results.emplace(make_pair(id,  res));
 }
 
 namespace impl

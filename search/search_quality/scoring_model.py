@@ -9,24 +9,33 @@ import numpy as np
 import pandas as pd
 import sys
 
-FEATURES = ['MinDistance', 'Rank', 'SearchType', 'NameScore', 'NameCoverage']
+FEATURES = ['DistanceToViewport', 'DistanceToPosition', 'MinDistance', 'Rank', 'SearchType', 'NameScore', 'PositionInViewport']
 
 DISTANCE_WINDOW = 1e9
-MAX_RANK = 256
+MAX_RANK = 255
 RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring Prefix', 'Substring', 'Full Match Prefix', 'Full Match']
-SEARCH_TYPES = ['POI', 'BUILDING', 'STREET', 'UNCLASSIFIED', 'VILLAGE', 'CITY', 'STATE', 'COUNTRY']
+SEARCH_TYPES = {'POI': 0,
+                'BUILDING': 0,
+                'STREET': 1,
+                'UNCLASSIFIED': 2,
+                'VILLAGE': 3,
+                'CITY': 4,
+                'STATE': 5,
+                'COUNTRY': 6}
 
 
 def normalize_data(data):
-    transform_distance = lambda d: exp(-d / DISTANCE_WINDOW)
+    transform_distance = lambda d: exp(- d * 1000 / DISTANCE_WINDOW)
+
+    max_name_score = len(NAME_SCORES) - 1
+    max_search_type = SEARCH_TYPES['COUNTRY']
 
     data['DistanceToViewport'] = data['DistanceToViewport'].apply(transform_distance)
     data['DistanceToPosition'] = data['DistanceToPosition'].apply(transform_distance)
     data['Rank'] = data['Rank'].apply(lambda rank: rank / MAX_RANK)
-    data['NameScore'] = data['NameScore'].apply(lambda s: NAME_SCORES.index(s) / len(NAME_SCORES))
-    data['SearchType'] = data['SearchType'].apply(
-        lambda t: SEARCH_TYPES.index(t) / len(SEARCH_TYPES))
+    data['NameScore'] = data['NameScore'].apply(lambda s: NAME_SCORES.index(s) / max_name_score)
+    data['SearchType'] = data['SearchType'].apply(lambda t: SEARCH_TYPES[t] / max_search_type)
     data['Relevance'] = data['Relevance'].apply(lambda r: RELEVANCES[r])
     data['MinDistance'] = pd.Series(np.minimum(data['DistanceToViewport'], data['DistanceToPosition']))
 

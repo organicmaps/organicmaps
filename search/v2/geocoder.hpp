@@ -6,6 +6,7 @@
 #include "search/v2/features_layer.hpp"
 #include "search/v2/features_layer_path_finder.hpp"
 #include "search/v2/mwm_context.hpp"
+#include "search/v2/nested_rects_cache.hpp"
 #include "search/v2/pre_ranking_info.hpp"
 #include "search/v2/ranking_utils.hpp"
 #include "search/v2/search_model.hpp"
@@ -229,8 +230,8 @@ private:
   void EmitResult(Region const & region, size_t startToken, size_t endToken);
   void EmitResult(City const & city, size_t startToken, size_t endToken);
 
-  // Computes rank for all results in |m_results|.
-  void FillResultRanks();
+  // Computes missing fields for all results in |m_results|.
+  void FillMissingFieldsInResults();
 
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all
@@ -302,6 +303,9 @@ private:
     int m_id;
   };
   map<MwmSet::MwmId, vector<FeaturesInRect>> m_geometryFeatures;
+
+  NestedRectsCache m_viewportFeatures;
+  NestedRectsCache m_positionFeatures;
 
   // Cache of posting lists for each token in the query.  TODO (@y,
   // @m, @vng): consider to update this cache lazily, as user inputs

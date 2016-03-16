@@ -7,6 +7,25 @@ namespace search
 {
 namespace v2
 {
+namespace
+{
+double const kDistanceToViewport = 1.850;
+double const kDistanceToPosition = 85.898;
+double const kMinDistance = 6.908;
+double const kRank = 78.441;
+double const kNameScore = 1.0;
+double const kNameCoverage = 0.0;
+double const kPositionInViewport = 0.0;
+
+double TransformDistance(double distance)
+{
+  return exp(-distance * 1000 / RankingInfo::kMaxDistMeters);
+}
+}  // namespace
+
+// static
+double const RankingInfo::kMaxDistMeters = 1e9;
+
 // static
 void RankingInfo::PrintCSVHeader(ostream & os)
 {
@@ -51,17 +70,30 @@ double RankingInfo::GetLinearModelRank() const
   // this in mind when you're going to change scoring_model.py or this
   // code. We're working on automatic rank calculation code generator
   // integrated in the build system.
-  static double const kCoeffs[] = {0.98369469, 0.40219458, 0.97463078, 0.21027244, 0.07368054};
-
-  double const minDistance =
-      exp(-min(m_distanceToViewport, m_distanceToPosition) / PreRankingInfo::kMaxDistMeters);
+  double const distanceToViewport = TransformDistance(m_distanceToViewport);
+  double const distanceToPosition = TransformDistance(m_distanceToPosition);
+  double const minDistance = min(distanceToViewport, distanceToPosition);
   double const rank = static_cast<double>(m_rank) / numeric_limits<uint8_t>::max();
-  double const nameScore = static_cast<double>(m_nameScore) / NAME_SCORE_COUNT;
+  double const nameScore = static_cast<double>(m_nameScore) / NAME_SCORE_FULL_MATCH;
   double const nameCoverage = m_nameCoverage;
-  double const searchType = static_cast<double>(m_searchType) / SearchModel::SEARCH_TYPE_COUNT;
+  double const positionInViewport = static_cast<double>(m_positionInViewport);
 
-  return kCoeffs[0] * minDistance + kCoeffs[1] * rank + kCoeffs[2] * nameScore +
-         kCoeffs[3] * nameCoverage + kCoeffs[4] * searchType;
+  double searchType;
+  switch (m_searchType)
+  {
+    case SearchModel::SEARCH_TYPE_POI:
+    case SearchModel::SEARCH_TYPE_BUILDING:
+      searchType = 0;
+      break;
+    default:
+      searchType = m_searchType - 1;
+      break;
+  }
+  searchType = searchType / (SearchModel::SEARCH_TYPE_COUNTRY - 1);
+
+  return kDistanceToViewport * distanceToViewport + kDistanceToPosition * distanceToPosition +
+         kMinDistance * minDistance + kRank * rank + kNameScore * nameScore +
+         kNameCoverage * nameCoverage + kPositionInViewport * positionInViewport;
 }
 }  // namespace v2
 }  // namespace search
