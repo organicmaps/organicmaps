@@ -16,6 +16,8 @@ void main(void)
   if (a_animate > 0.0)
     normal = u_interpolationT * normal;
 
+  // Here we intentionally decrease precision of 'pos' calculation
+  // to eliminate jittering effect in process of billboard reconstruction.
   lowp vec4 p = vec4(a_position, 1) * modelView;
   highp vec4 pos = vec4(normal, 0, 0) + p;
   pos = pos * projection;
