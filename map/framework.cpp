@@ -275,8 +275,8 @@ void Framework::Migrate(bool keepDownloaded)
   Storage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
   m_model.Clear();
-  Storage().Migrate(keepDownloaded ? existedCountries : TCountriesVec());
   InitCountryInfoGetter();
+  Storage().Migrate(keepDownloaded ? existedCountries : TCountriesVec());
   InitSearchEngine();
   RegisterAllMaps();
   SetRenderingEnabled(true);
@@ -332,7 +332,9 @@ Framework::Framework()
   LOG(LDEBUG, ("Maps initialized"));
 
   // Init storage with needed callback.
-  m_storage.Init(bind(&Framework::UpdateLatestCountryFile, this, _1));
+  m_storage.Init(
+                 bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
+                 bind(&Framework::OnCountryFileDelete, this, _1, _2));
   LOG(LDEBUG, ("Storage initialized"));
 
   auto const routingStatisticsFn = [](map<string, string> const & statistics)
@@ -464,21 +466,46 @@ void Framework::ShowNode(storage::TCountryId const & countryId)
   ShowRect(CalcLimitRect(countryId, Storage(), CountryInfoGetter()));
 }
 
-void Framework::UpdateLatestCountryFile(LocalCountryFile const & localFile)
+void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
 {
   // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingSession.Reset();
 
-  if (!HasOptions(localFile.GetFiles(), MapOptions::Map))
-    return;
+  m2::RectD rect = MercatorBounds::FullRect();
 
-  // Add downloaded map.
-  auto p = m_model.RegisterMap(localFile);
-  MwmSet::MwmId const & id = p.first;
-  if (id.IsAlive())
-    InvalidateRect(id.GetInfo()->m_limitRect);
+  if (localFile && HasOptions(localFile->GetFiles(), MapOptions::Map))
+  {
+    // Add downloaded map.
+    auto p = m_model.RegisterMap(*localFile);
+    MwmSet::MwmId const & id = p.first;
+    if (id.IsAlive())
+      rect = id.GetInfo()->m_limitRect;
+  }
+  InvalidateRect(rect);
+  m_searchEngine->ClearCaches();
+}
+
+bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile)
+{
+  // Soft reset to signal that mwm file may be out of date in routing caches.
+  m_routingSession.Reset();
+
+  if(auto handle = m_lastQueryHandle.lock())
+    handle->Cancel();
+
+  m2::RectD rect = MercatorBounds::FullRect();
+
+  bool deferredDelete = false;
+  if (localFile)
+  {
+    rect = m_infoGetter->GetLimitRectForLeaf(countryId);
+    m_model.DeregisterMap(platform::CountryFile(countryId));
+    deferredDelete = true;
+  }
+  InvalidateRect(rect);
 
   m_searchEngine->ClearCaches();
+  return deferredDelete;
 }
 
 void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)

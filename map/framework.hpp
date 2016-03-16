@@ -132,9 +132,13 @@ protected:
 
   BookmarkManager m_bmManager;
 
-  /// This function is called by m_storage when latest local files
-  /// were changed.
-  void UpdateLatestCountryFile(platform::LocalCountryFile const & localFile);
+  /// This function will be called by m_storage when latest local files
+  /// is downloaded.
+  void OnCountryFileDownloaded(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile);
+
+  /// This function will be called by m_storage before latest local files
+  /// is deleted.
+  bool OnCountryFileDelete(storage::TCountryId const & countryId, storage::Storage::TLocalFilePtr const localFile);
 
   /// This function is called by m_model when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);

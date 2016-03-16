@@ -106,7 +106,9 @@ class Storage
 {
 public:
   struct StatusCallback;
-  using TUpdate = function<void(platform::LocalCountryFile const &)>;
+  using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
+  using TUpdateCallback = function<void(storage::TCountryId const &, TLocalFilePtr const)>;
+  using TDeleteCallback = function<bool(storage::TCountryId const &, TLocalFilePtr const)>;
   using TChangeCountryFunction = function<void(TCountryId const &)>;
   using TProgressFunction = function<void(TCountryId const &, TLocalAndRemoteSize const &)>;
   using TQueue = list<QueuedCountry>;
@@ -141,7 +143,6 @@ private:
   /// stores countries whose download has failed recently
   TCountriesSet m_failedCountries;
 
-  using TLocalFilePtr = shared_ptr<platform::LocalCountryFile>;
   map<TCountryId, list<TLocalFilePtr>> m_localFiles;
 
   // Our World.mwm and WorldCoasts.mwm are fake countries, together with any custom mwm in data
@@ -171,8 +172,12 @@ private:
   //@}
 
   // This function is called each time all files requested for a
-  // country were successfully downloaded.
-  TUpdate m_update;
+  // country are successfully downloaded.
+  TUpdateCallback m_didDownload;
+
+  // This function is called each time all files for a
+  // country are deleted.
+  TDeleteCallback m_willDelete;
 
   // If |m_dataDir| is not empty Storage will create version directories and download maps in
   // platform::WritableDir/|m_dataDir|/. Not empty |m_dataDir| can be used only for
@@ -246,7 +251,7 @@ public:
   Storage(string const & referenceCountriesTxtJsonForTesting,
           unique_ptr<MapFilesDownloader> mapDownloaderForTesting);
 
-  void Init(TUpdate const & update);
+  void Init(TUpdateCallback const & didDownload, TDeleteCallback const & willDelete);
 
   /// @name Interface with clients (Android/iOS).
   /// \brief It represents the interface which can be used by clients (Android/iOS).

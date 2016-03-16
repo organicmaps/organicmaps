@@ -127,11 +127,12 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
 }
 
-void Storage::Init(TUpdate const & update)
+void Storage::Init(TUpdateCallback const & didDownload, TDeleteCallback const & willDelete)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  m_update = update;
+  m_didDownload = didDownload;
+  m_willDelete = willDelete;
 }
 
 void Storage::DeleteAllLocalMaps(TCountriesVec * existedCountries /* = nullptr */)
@@ -172,7 +173,9 @@ void Storage::PrefetchMigrateData()
 
   m_prefetchStorage.reset(new Storage(COUNTRIES_FILE, "migrate"));
   m_prefetchStorage->EnableKeepDownloadingQueue(false);
-  m_prefetchStorage->Init([](LocalCountryFile const &){});
+  m_prefetchStorage->Init(
+      [](TCountryId const &, TLocalFilePtr const){},
+      [](TCountryId const &, TLocalFilePtr const){return false;});
   if (!m_downloadingUrlsForTesting.empty())
     m_prefetchStorage->SetDownloadingUrlsForTesting(m_downloadingUrlsForTesting);
 }
@@ -473,16 +476,15 @@ void Storage::DownloadCountry(TCountryId const & countryId, MapOptions opt)
 
 void Storage::DeleteCountry(TCountryId const & countryId, MapOptions opt)
 {
-  ASSERT(m_update != nullptr, ("Storage::Init wasn't called"));
-
-  opt = NormalizeDeleteFileSet(opt);
-  DeleteCountryFiles(countryId, opt);
-  DeleteCountryFilesFromDownloader(countryId, opt);
+  ASSERT(m_willDelete != nullptr, ("Storage::Init wasn't called"));
 
   TLocalFilePtr localFile = GetLatestLocalFile(countryId);
-  if (localFile)
-    m_update(*localFile);
-
+  if(!m_willDelete(countryId, localFile))
+  {
+    opt = NormalizeDeleteFileSet(opt);
+    DeleteCountryFiles(countryId, opt);
+    DeleteCountryFilesFromDownloader(countryId, opt);
+  }
   NotifyStatusChangedForHierarchy(countryId);
 }
 
@@ -812,7 +814,7 @@ bool Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions f
 
 void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, MapOptions files)
 {
-  ASSERT(m_update != nullptr, ("Storage::Init wasn't called"));
+  ASSERT(m_didDownload != nullptr, ("Storage::Init wasn't called"));
   ASSERT_NOT_EQUAL(MapOptions::Nothing, files,
                    ("This method should not be called for empty files set."));
   {
@@ -834,7 +836,7 @@ void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, 
   TLocalFilePtr localFile = GetLocalFile(countryId, GetCurrentDataVersion());
   ASSERT(localFile, ());
   DeleteCountryIndexes(*localFile);
-  m_update(*localFile);
+  m_didDownload(countryId, localFile);
 }
 
 string Storage::GetFileDownloadUrl(string const & baseUrl, TCountryId const & countryId,
