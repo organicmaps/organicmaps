@@ -73,7 +73,8 @@ def sort_tree(root):
 parser = OptionParser(add_help_option=False)
 parser.add_option('-t', '--target', help='Path to mwm files')
 parser.add_option('-h', '--hierarchy', default='hierarchy.txt', help='Hierarchy file')
-parser.add_option('-c', '--old', help='old_vs_new.csv file')
+parser.add_option('--old', help='old_vs_new.csv file')
+parser.add_option('--osm', help='borders_vs_osm.csv file')
 parser.add_option('-v', '--version', type='int', default=151231, help='Version')
 parser.add_option('-o', '--output', help='Output countries.txt file (default is stdout)')
 parser.add_option('-m', '--help', action='store_true', help='Display this help')
@@ -91,13 +92,9 @@ if options.help:
 if not os.path.isfile(options.hierarchy):
   parser.error('Hierarchy file is required.')
 
-if options.old is None or not os.path.isfile(options.old):
-  ovnpath = os.path.join(os.path.dirname(options.hierarchy), 'old_vs_new.csv')
-else:
-  ovnpath = options.old
 oldvs = {}
-try:
-  with open(ovnpath, 'r') as f:
+if options.old:
+  with open(options.old, 'r') as f:
     for line in f:
       m = re.match(r'(.+?)\t(.+)', line.strip())
       if m:
@@ -105,8 +102,17 @@ try:
           oldvs[m.group(2)].append(m.group(1))
         else:
           oldvs[m.group(2)] = [m.group(1)]
-except IOError:
-  sys.stderr.write('Could not read old_vs_new file from {0}\n'.format(ovnpath))
+
+vsosm = {}
+if options.osm:
+  with codecs.open(options.osm, 'r', 'utf-8') as f:
+    for line in f:
+      m = re.match(r'^(.+?)\t(\d)\t(.+?)$', line.strip())
+      if m:
+        if m.group(1) in vsosm:
+          vsosm[m.group(1)].append(m.group(3))
+        else:
+          vsosm[m.group(1)] = [m.group(3)]
 
 names = {}
 if options.names:
@@ -152,6 +158,8 @@ with open(options.hierarchy, 'r') as f:
       last = CountryDict({ nameattr: items[0], "d": depth })
       if not options.legacy and items[0] in oldvs:
         last['old'] = oldvs[items[0]]
+      if not options.legacy and items[0] in vsosm:
+        last['affiliations'] = vsosm[items[0]]
       if (options.legacy or options.flag) and len(items) > 2 and len(items[2]) > 0:
         last['c'] = items[2]
       if options.lang and len(items) > 3 and len(items[3]) > 0:
@@ -176,7 +184,7 @@ collapse_single(stack[-1])
 if options.sort:
   sort_tree(stack[-1])
 if options.output:
-  with open(options.output, 'w') as f:
-    json.dump(stack[-1], f, indent=1)
+  with codecs.open(options.output, 'w', 'utf-8') as f:
+    json.dump(stack[-1], f, ensure_ascii=True, indent=1)
 else:
-  print(json.dumps(stack[-1], indent=1))
+  print(json.dumps(stack[-1], ensure_ascii=True, indent=1))

@@ -284,23 +284,30 @@ if [ "$MODE" == "coast" ]; then
       fi
     fi
   done
-  # make a working copy of generated coastlines file
+  # Make a working copy of generated coastlines file
   if [ -n "$OPT_COAST" ]; then
     cp "$INTCOASTSDIR"/WorldCoasts.*geom "$INTDIR"
     cp "$INTCOASTSDIR"/*.csv "$INTDIR" || true
-    if [ -z "${OSRM_URL-}" ]; then
-      log "OSRM_URL variable not set. World roads will not be calculated."
-    else
-      python "$ROADS_SCRIPT" "$INTCOASTSDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
-    fi
   fi
   [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
+  # Exit if nothing else was requested
   if [ -n "$OPT_ROUTING" -o -n "$OPT_WORLD" -o -z "$NO_REGIONS" ]; then
-    MODE=inter
+    MODE=roads
   else
     log "STATUS" "Nothing but coastline temporary files were requested, finishing"
     MODE=last
   fi
+fi
+
+# This mode is started only after updating or processing a planet file
+if [ "$MODE" == "roads" ]; then
+  if [ -z "${OSRM_URL-}" ]; then
+    log "OSRM_URL variable not set. World roads will not be calculated."
+  else
+    putmode "Step 2a: Generating road networks for the World map"
+    python "$ROADS_SCRIPT" "$INTDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
+  fi
+  MODE=inter
 fi
 
 # Starting routing generation as early as we can, since it's done in parallel
@@ -441,7 +448,7 @@ if [ "$MODE" == "resources" ]; then
   putmode "Step 7: Updating resource lists"
   # Update countries list
   "$SCRIPTS_PATH/../python/hierarchy_to_countries.py" --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --version "$COUNTRIES_VERSION" \
-    --legacy --sort --names "$DATA_PATH/mwm_names_en.txt" --output "$TARGET/countries.txt" >> "$PLANET_LOG" 2>&1
+    --old "$DATA_PATH/old_vs_new.csv" --osm "$DATA_PATH/borders_vs_osm.csv" --output "$TARGET/countries.txt" >> "$PLANET_LOG" 2>&1
 
   # A quick fix: chmodding to a+rw all generated files
   for file in "$TARGET"/*.mwm*; do
