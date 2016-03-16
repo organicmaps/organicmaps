@@ -45,7 +45,7 @@ bool to_int(char const * s, int & i, int base /*= 10*/)
 {
   char * stop;
   long const x = strtol(s, &stop, base);
-  if (stop && *stop == 0)
+  if (*stop == 0)
   {
     i = static_cast<int>(x);
     ASSERT_EQUAL(static_cast<long>(i), x, ());
@@ -62,7 +62,7 @@ bool to_uint64(char const * s, uint64_t & i)
 #else
   i = strtoull(s, &stop, 10);
 #endif
-  return stop && *stop == 0;
+  return *stop == 0;
 }
 
 bool to_int64(char const * s, int64_t & i)
@@ -73,14 +73,14 @@ bool to_int64(char const * s, int64_t & i)
 #else
   i = strtoll(s, &stop, 10);
 #endif
-  return stop && *stop == 0;
+  return *stop == 0;
 }
 
 bool to_double(char const * s, double & d)
 {
   char * stop;
   d = strtod(s, &stop);
-  return stop && *stop == 0 && s != stop;
+  return *stop == 0 && s != stop;
 }
 
 UniString MakeLowerCase(UniString const & s)
