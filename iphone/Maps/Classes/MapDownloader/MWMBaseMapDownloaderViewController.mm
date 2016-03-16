@@ -213,9 +213,12 @@ using namespace storage;
   else
   {
     UIAlertController * alertController =
-    [UIAlertController alertControllerWithTitle:title
-                                        message:message
-                                 preferredStyle:UIAlertControllerStyleActionSheet];
+        [UIAlertController alertControllerWithTitle:title
+                                            message:message
+                                     preferredStyle:UIAlertControllerStyleActionSheet];
+    UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    alertController.popoverPresentationController.sourceView = cell;
+    alertController.popoverPresentationController.sourceRect = cell.bounds;
     if (isDownloaded)
     {
       UIAlertAction * showAction = [UIAlertAction actionWithTitle:kShowActionTitle
