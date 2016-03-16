@@ -63,6 +63,22 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private enum MenuItem
   {
+    DOWNLOAD(R.drawable.ic_downloader_download, R.string.downloader_download_map)
+    {
+      @Override
+      void invoke(CountryItem item, DownloaderAdapter adapter)
+      {
+        MapManager.nativeDownload(item.id);
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                          .add(Statistics.EventParam.FROM, "downloader")
+                                                          .add("is_auto", "false")
+                                                          .add("scenario", (item.isExpandable() ? "download_group"
+                                                                                                : "download")));
+      }
+    },
+
     DELETE(R.drawable.ic_delete, R.string.delete)
     {
       private void deleteNode(CountryItem item)
@@ -244,18 +260,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       switch (mItem.status)
       {
       case CountryItem.STATUS_DONE:
+      case CountryItem.STATUS_PROGRESS:
+      case CountryItem.STATUS_ENQUEUED:
         processLongClick();
         break;
 
       case CountryItem.STATUS_DOWNLOADABLE:
-        MapManager.nativeDownload(mItem.id);
-
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                       Statistics.params().add(Statistics.EventParam.ACTION, "download")
-                                                          .add(Statistics.EventParam.FROM, "downloader")
-                                                          .add("is_auto", "false")
-                                                          .add("scenario", (mItem.isExpandable() ? "download_group"
-                                                                                                 : "download")));
+        MenuItem.DOWNLOAD.invoke(mItem, DownloaderAdapter.this);
         break;
 
       case CountryItem.STATUS_FAILED:
@@ -285,12 +296,18 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       switch (mItem.status)
       {
+      case CountryItem.STATUS_DOWNLOADABLE:
+        items.add(MenuItem.DOWNLOAD);
+        break;
+
       case CountryItem.STATUS_UPDATABLE:
         items.add(MenuItem.UPDATE);
         // No break
 
       case CountryItem.STATUS_DONE:
-        items.add(MenuItem.EXPLORE);
+        if (!mItem.isExpandable())
+          items.add(MenuItem.EXPLORE);
+
         items.add(MenuItem.DELETE);
         break;
 
@@ -313,6 +330,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_PARTLY:
+        items.add(MenuItem.DOWNLOAD);
         items.add(MenuItem.DELETE);
         break;
       }
