@@ -12,6 +12,8 @@ using namespace storage;
 
 @property (weak, nonatomic) id<MWMMapDownloaderProtocol> delegate;
 
+@property (nonatomic, readwrite) BOOL needFullReload;
+
 @end
 
 @implementation MWMMapDownloaderDataSource
@@ -92,6 +94,11 @@ using namespace storage;
 - (NSString *)searchMatchedResultForCountryId:(storage::TCountryId)countryId
 {
   return nil;
+}
+
+- (std::vector<NSInteger>)getReloadSections
+{
+  return {};
 }
 
 @end

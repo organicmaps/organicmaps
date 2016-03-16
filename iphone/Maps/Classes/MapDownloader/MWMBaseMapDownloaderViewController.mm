@@ -118,32 +118,14 @@ using namespace storage;
 {
   if (self.skipCountryEventProcessing)
     return;
+
+  for (MWMMapDownloaderTableViewCell * cell in self.tableView.visibleCells)
+    [cell processCountryEvent:countryId];
+
   auto process = ^
   {
     [self configAllMapsView];
-
-    for (MWMMapDownloaderTableViewCell * cell in self.tableView.visibleCells)
-      [cell processCountryEvent:countryId];
-
-    MWMMapDownloaderDefaultDataSource * dataSource = self.defaultDataSource;
-    [dataSource reload];
-    if (![self.dataSource isEqual:dataSource])
-      return;
-
-    if (dataSource.needFullReload)
-    {
-      [self reloadData];
-      return;
-    }
-
-    UITableView * tv = self.tableView;
-    std::vector<NSInteger> sections = [dataSource getReloadSections];
-    if (sections.empty())
-      return;
-    NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSet];
-    for (auto & section : sections)
-      [indexSet addIndex:section];
-    [tv reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self reloadData];
   };
 
   if (countryId == self.parentCountryId)
@@ -588,17 +570,40 @@ using namespace storage;
 
 - (void)reloadData
 {
+  MWMMapDownloaderDefaultDataSource * defaultDataSource = self.defaultDataSource;
+  [defaultDataSource reload];
+  if ([self.dataSource isEqual:defaultDataSource])
+    [self reloadTable];
+}
+
+- (void)reloadTable
+{
   [self.cellHeightCache removeAllObjects];
-  UITableView * tv = self.tableView;
-  // If these methods are not called, tableView will not call tableView:cellForRowAtIndexPath:
-  [tv setNeedsLayout];
-  [tv layoutIfNeeded];
 
-  [tv reloadData];
+  MWMMapDownloaderDataSource * dataSource = self.dataSource;
+  UITableView * tableView = self.tableView;
+  if (dataSource.needFullReload)
+  {
+    // If these methods are not called, tableView will not call tableView:cellForRowAtIndexPath:
+    [tableView setNeedsLayout];
+    [tableView layoutIfNeeded];
 
-  // If these methods are not called, tableView will not display new cells
-  [tv setNeedsLayout];
-  [tv layoutIfNeeded];
+    [tableView reloadData];
+
+    // If these methods are not called, tableView will not display new cells
+    [tableView setNeedsLayout];
+    [tableView layoutIfNeeded];
+  }
+  else
+  {
+    std::vector<NSInteger> sections = [dataSource getReloadSections];
+    if (sections.empty())
+      return;
+    NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSet];
+    for (auto & section : sections)
+      [indexSet addIndex:section];
+    [tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+  }
 }
 
 @end

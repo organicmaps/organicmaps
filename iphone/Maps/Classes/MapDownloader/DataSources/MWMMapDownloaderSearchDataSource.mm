@@ -59,6 +59,11 @@ extern NSString * const kPlaceCellIdentifier;
 
 #pragma mark - MWMMapDownloaderDataSource
 
+- (TCountryId)parentCountryId
+{
+  return GetFramework().Storage().GetRootId();
+}
+
 - (TCountryId)countryIdForIndexPath:(NSIndexPath *)indexPath
 {
   return self.searchCoutryIds[indexPath.row].UTF8String;
@@ -82,6 +87,11 @@ extern NSString * const kPlaceCellIdentifier;
 - (NSString *)searchMatchedResultForCountryId:(storage::TCountryId)countryId
 {
   return self.searchMatchedResults[@(countryId.c_str())];
+}
+
+- (BOOL)needFullReload
+{
+  return YES;
 }
 
 @end

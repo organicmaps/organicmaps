@@ -6,10 +6,15 @@
 
 using namespace storage;
 
+@interface MWMMapDownloaderDataSource ()
+
+@property (nonatomic, readwrite) BOOL needFullReload;
+
+@end
+
 @interface MWMMapDownloaderDefaultDataSource ()
 
 @property (nonatomic, readonly) NSInteger downloadedCountrySection;
-@property (nonatomic, readwrite) BOOL needFullReload;
 
 - (void)load;
 

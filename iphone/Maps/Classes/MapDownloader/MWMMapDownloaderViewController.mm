@@ -18,7 +18,7 @@ using namespace storage;
 @property (nonatomic) MWMMapDownloaderDataSource * dataSource;
 @property (nonatomic) MWMMapDownloaderDataSource * defaultDataSource;
 
-- (void)reloadData;
+- (void)reloadTable;
 
 @end
 
@@ -97,7 +97,7 @@ using namespace storage;
   self.searchBar.text = @"";
   [self.searchBar resignFirstResponder];
   self.dataSource = self.defaultDataSource;
-  [self reloadData];
+  [self reloadTable];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
@@ -105,7 +105,7 @@ using namespace storage;
   if (searchText.length == 0)
   {
     self.dataSource = self.defaultDataSource;
-    [self reloadData];
+    [self reloadTable];
   }
   else
   {
@@ -150,7 +150,7 @@ using namespace storage;
     dispatch_async(dispatch_get_main_queue(), ^()
     {
       self.dataSource = dataSource;
-      [self reloadData];
+      [self reloadTable];
     });
   };
 }

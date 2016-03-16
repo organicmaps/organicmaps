@@ -28,13 +28,17 @@ auto compareLocalNames = ^NSComparisonResult(NSString * s1, NSString * s2)
 
 using namespace storage;
 
+@interface MWMMapDownloaderDataSource ()
+
+@property (nonatomic, readwrite) BOOL needFullReload;
+
+@end
+
 @interface MWMMapDownloaderDefaultDataSource ()
 
 @property (copy, nonatomic) NSArray<NSString *> * indexes;
 @property (copy, nonatomic) NSDictionary<NSString *, NSArray<NSString *> *> * availableCountries;
 @property (copy, nonatomic) NSArray<NSString *> * downloadedCountries;
-
-@property (nonatomic, readwrite) BOOL needFullReload;
 
 @end
 
@@ -97,11 +101,6 @@ using namespace storage;
     if (obj.count != sectionCountries.count)
       self->m_reloadSections.push_back([self.indexes indexOfObject:key] + self.downloadedSectionShift);
   }];
-}
-
-- (std::vector<NSInteger>)getReloadSections
-{
-  return m_reloadSections;
 }
 
 - (void)configAvailableSections:(TCountriesVec const &)availableChildren
@@ -234,9 +233,14 @@ using namespace storage;
 
 - (void)setNeedFullReload:(BOOL)needFullReload
 {
-  _needFullReload = needFullReload;
+  super.needFullReload = needFullReload;
   if (needFullReload)
     m_reloadSections.clear();
+}
+
+- (std::vector<NSInteger>)getReloadSections
+{
+  return m_reloadSections;
 }
 
 @end
