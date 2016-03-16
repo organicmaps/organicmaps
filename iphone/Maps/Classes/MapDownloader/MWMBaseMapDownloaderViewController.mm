@@ -103,7 +103,7 @@ using namespace storage;
 
 - (void)notifyParentController
 {
-  NSArray * viewControllers = [self.navigationController viewControllers];
+  NSArray<MWMViewController *> * viewControllers = [self.navigationController viewControllers];
   BOOL const goingTreeDeeper = ([viewControllers indexOfObject:self] != NSNotFound);
   if (goingTreeDeeper)
     return;

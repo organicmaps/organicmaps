@@ -12,7 +12,6 @@ extern NSString * const kLargeCountryCellIdentifier;
 
 namespace
 {
-
 auto compareStrings = ^NSComparisonResult(NSString * s1, NSString * s2)
 {
   return [s1 compare:s2 options:NSCaseInsensitiveSearch range:{0, s1.length} locale:[NSLocale currentLocale]];
@@ -33,10 +32,7 @@ using namespace storage;
 
 @property (copy, nonatomic) NSArray<NSString *> * indexes;
 @property (copy, nonatomic) NSDictionary<NSString *, NSArray<NSString *> *> * availableCountries;
-
 @property (copy, nonatomic) NSArray<NSString *> * downloadedCountries;
-@property (nonatomic, readonly) NSInteger downloadedSection;
-@property (nonatomic, readonly) NSInteger downloadedSectionShift;
 
 @property (nonatomic, readwrite) BOOL needFullReload;
 
@@ -75,7 +71,7 @@ using namespace storage;
 - (void)reload
 {
   // Get old data for comparison.
-  NSDictionary<NSString *, NSArray<NSString *> *> * availableCountriesBeforeUpdate = [self.availableCountries copy];
+  NSDictionary<NSString *, NSArray<NSString *> *> * availableCountriesBeforeUpdate = self.availableCountries;
   NSInteger const downloadedCountriesCountBeforeUpdate = self.downloadedCountries.count;
 
   // Load updated data.
@@ -111,7 +107,7 @@ using namespace storage;
 - (void)configAvailableSections:(TCountriesVec const &)availableChildren
 {
   NSMutableSet<NSString *> * indexSet = [NSMutableSet setWithCapacity:availableChildren.size()];
-  NSMutableDictionary<NSString *, NSArray<NSString *> *> * availableCountries = [@{} mutableCopy];
+  NSMutableDictionary<NSString *, NSMutableArray<NSString *> *> * availableCountries = [@{} mutableCopy];
   BOOL const isParentRoot = self.isParentRoot;
   auto const & s = GetFramework().Storage();
   for (auto const & countryId : availableChildren)
@@ -121,15 +117,15 @@ using namespace storage;
     NSString * index = isParentRoot ? [@(localName.c_str()) substringToIndex:1].capitalizedString : L(@"downloader_available_maps");
     [indexSet addObject:index];
 
-    NSMutableArray<NSString *> * letterIds = [availableCountries[index] mutableCopy];
+    NSMutableArray<NSString *> * letterIds = availableCountries[index];
     letterIds = letterIds ? letterIds : [@[] mutableCopy];
     [letterIds addObject:nsCountryId];
-    availableCountries[index] = [letterIds copy];
+    availableCountries[index] = letterIds;
   }
   self.indexes = [[indexSet allObjects] sortedArrayUsingComparator:compareStrings];
-  [availableCountries enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSArray<NSString *> * obj, BOOL * stop)
+  [availableCountries enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSMutableArray<NSString *> * obj, BOOL * stop)
   {
-    availableCountries[key] = [obj sortedArrayUsingComparator:compareLocalNames];
+    [obj sortUsingComparator:compareLocalNames];
   }];
   self.availableCountries = availableCountries;
 }

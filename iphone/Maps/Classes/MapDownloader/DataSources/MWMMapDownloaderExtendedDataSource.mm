@@ -19,9 +19,6 @@ using namespace storage;
 
 @property (copy, nonatomic) NSArray<NSString *> * nearmeCountries;
 
-@property (nonatomic, readonly) NSInteger nearmeSection;
-@property (nonatomic, readonly) NSInteger nearmeSectionShift;
-
 @property (nonatomic) BOOL needReloadNearmeSection;
 
 @end
@@ -81,7 +78,7 @@ using namespace storage;
     if (nodeStatuses.m_status == NodeStatus::NotDownloaded)
       [nearmeCountries addObject:@(countryId.c_str())];
   }
-  self.nearmeCountries = [nearmeCountries copy];
+  self.nearmeCountries = nearmeCountries;
 }
 
 #pragma mark - UITableViewDataSource
