@@ -1094,7 +1094,7 @@ TCountryId const Storage::GetRootId() const
   return m_countries.GetRoot().Value().Name();
 }
 
-void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childrenId) const
+void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childIds) const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
@@ -1106,10 +1106,10 @@ void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childrenId)
   }
 
   size_t const childrenCount = parentNode->ChildrenCount();
-  childrenId.clear();
-  childrenId.reserve(childrenCount);
+  childIds.clear();
+  childIds.reserve(childrenCount);
   for (size_t i = 0; i < childrenCount; ++i)
-    childrenId.emplace_back(parentNode->Child(i).Value().Name());
+    childIds.emplace_back(parentNode->Child(i).Value().Name());
 }
 
 void Storage::GetLocalRealMaps(TCountriesVec & localMaps) const
@@ -1456,5 +1456,24 @@ void Storage::CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem)
     m_justDownloaded.clear();
   else
     m_justDownloaded.insert(justDownloadedItem->GetCountryId());
+}
+
+void Storage::GetQueuedChildren(TCountryId const & parent, TCountriesVec & queuedChildren) const
+{
+  TCountryTreeNode const * const node = m_countries.FindFirst(parent);
+  if (!node)
+  {
+    ASSERT(false, ());
+    return;
+  }
+
+  queuedChildren.clear();
+  node->ForEachChild([&queuedChildren, this](TCountryTreeNode const & child)
+  {
+    NodeStatus status = GetNodeStatus(child).status;
+    ASSERT_NOT_EQUAL(status, NodeStatus::Undefined, ());
+    if (status == NodeStatus::Downloading || status == NodeStatus::InQueue)
+      queuedChildren.push_back(child.Value().Name());
+  });
 }
 }  // namespace storage

@@ -283,9 +283,9 @@ public:
   /// \brief Returns root country id of the country tree.
   TCountryId const GetRootId() const;
 
-  /// \param childrenId is filled with children node ids by a parent. For example GetChildren(GetRootId())
+  /// \param childIds is filled with children node ids by a parent. For example GetChildren(GetRootId())
   /// returns in param all countries ids. It's content of map downloader list by default.
-  void GetChildren(TCountryId const & parent, TCountriesVec & childrenId) const;
+  void GetChildren(TCountryId const & parent, TCountriesVec & childIds) const;
 
   /// \brief Fills |downloadedChildren| and |availChildren| with children of parent.
   /// If a direct child of |parent| contains at least one downloaded mwm
@@ -300,6 +300,11 @@ public:
   /// nor World.mwm and WorldCoasts.mwm.
   void GetChildrenInGroups(TCountryId const & parent,
                            TCountriesVec & downloadedChildren, TCountriesVec & availChildren) const;
+  /// \brief Fills |queuedChildren| with children of |parent| if they (or thier childen) are in |m_queue|.
+  /// \note For group node children if one of child's ancestor has status
+  /// NodeStatus::Downloading or NodeStatus::InQueue the child is considered as a queued child
+  /// and will be added to |queuedChildren|.
+  void GetQueuedChildren(TCountryId const & parent, TCountriesVec & queuedChildren) const;
 
   /// \brief Returns current version for mwms which are available on the server.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
