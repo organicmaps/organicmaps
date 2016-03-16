@@ -20,7 +20,7 @@ namespace search
 {
 namespace v2
 {
-struct MwmContext;
+class MwmContext;
 
 // Retrieves from the search index corresponding to |value| all
 // features matching to |params|.

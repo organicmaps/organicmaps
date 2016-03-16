@@ -18,7 +18,7 @@ namespace search
 {
 namespace v2
 {
-struct MwmContext;
+class MwmContext;
 
 // This class is able to load features in a street's vicinity.
 //

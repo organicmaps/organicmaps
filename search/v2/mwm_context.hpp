@@ -21,16 +21,19 @@ void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
 
 /// @todo Move this class into "index" library and make it more generic.
 /// Now it duplicates "Index" functionality.
-struct MwmContext
+class MwmContext
 {
-  /// @todo Split this component on more generic/lightweight.
-  MwmContext(MwmSet::MwmHandle handle, bool loadH2STable = true);
-
+public:
   MwmSet::MwmHandle m_handle;
   MwmValue & m_value;
+
+private:
   FeaturesVector m_vector;
   ScaleIndex<ModelReaderPtr> m_index;
   unique_ptr<HouseToStreetTable> m_houseToStreetTable;
+
+public:
+  explicit MwmContext(MwmSet::MwmHandle handle);
 
   inline MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
   inline string const & GetName() const { return GetInfo()->GetCountryName(); }
@@ -64,6 +67,8 @@ struct MwmContext
 
   // @returns false if feature was deleted by user.
   bool GetFeature(uint32_t index, FeatureType & ft) const;
+
+  bool GetStreetIndex(uint32_t houseId, uint32_t & streetId);
 
 private:
   osm::Editor::FeatureStatus GetEditedStatus(uint32_t index) const

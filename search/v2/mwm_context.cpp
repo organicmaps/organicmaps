@@ -13,14 +13,12 @@ void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
   result.insert(result.end(), intervals.begin(), intervals.end());
 }
 
-MwmContext::MwmContext(MwmSet::MwmHandle handle, bool loadH2STable/* = true*/)
+MwmContext::MwmContext(MwmSet::MwmHandle handle)
   : m_handle(move(handle))
   , m_value(*m_handle.GetValue<MwmValue>())
   , m_vector(m_value.m_cont, m_value.GetHeader(), m_value.m_table)
   , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG), m_value.m_factory)
 {
-  if (loadH2STable)
-    m_houseToStreetTable = HouseToStreetTable::Load(m_value);
 }
 
 bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
@@ -38,6 +36,16 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
     ft.SetID(FeatureID(GetId(), index));
     return true;
   }
+}
+
+bool MwmContext::GetStreetIndex(uint32_t houseId, uint32_t & streetId)
+{
+  if (!m_houseToStreetTable)
+  {
+    m_houseToStreetTable = HouseToStreetTable::Load(m_value);
+    ASSERT(m_houseToStreetTable, ());
+  }
+  return m_houseToStreetTable->Get(houseId, streetId);
 }
 
 }  // namespace v2

@@ -120,10 +120,10 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
     if (ret != streets.end())
       result = ret->m_id.m_index;
   }
-  else if (m_context->m_houseToStreetTable)
+  else
   {
     uint32_t index;
-    if (m_context->m_houseToStreetTable->Get(houseId, index) && index < streets.size())
+    if (m_context->GetStreetIndex(houseId, index) && index < streets.size())
       result = streets[index].m_id.m_index;
   }
 

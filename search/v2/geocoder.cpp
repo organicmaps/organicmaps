@@ -795,7 +795,7 @@ void Geocoder::FillVillageLocalities()
   for (auto & l : preLocalities)
   {
     FeatureType ft;
-    m_context->m_vector.GetByIndex(l.m_featureId, ft);
+    m_context->GetFeature(l.m_featureId, ft);
 
     if (m_model.GetSearchType(ft) != SearchModel::SEARCH_TYPE_VILLAGE)
       continue;
