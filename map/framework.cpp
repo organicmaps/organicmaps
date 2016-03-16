@@ -1198,7 +1198,6 @@ void Framework::ShowSearchResult(search::Result const & res)
       break;
 
     case Result::RESULT_LATLON:
-    case Result::RESULT_ADDRESS:
       FillPointInfo(res.GetFeatureCenter(), res.GetString(), info);
       scale = scales::GetUpperComfortScale();
       break;

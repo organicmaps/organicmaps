@@ -71,7 +71,7 @@ Result::ResultType Result::GetResultType() const
   if (idValid)
     return RESULT_FEATURE;
   else
-    return (m_type.empty() ? RESULT_LATLON : RESULT_ADDRESS);
+    return RESULT_LATLON;
 }
 
 bool Result::IsSuggest() const
@@ -116,24 +116,19 @@ bool Result::IsEqualFeature(Result const & r) const
   if (type != r.GetResultType())
     return false;
 
-  if (type == RESULT_ADDRESS)
-    return (PointDistance(m_center, r.m_center) < 50.0);
-  else
-  {
-    ASSERT_EQUAL(type, Result::RESULT_FEATURE, ());
+  ASSERT_EQUAL(type, Result::RESULT_FEATURE, ());
 
-    ASSERT(m_id.IsValid() && r.m_id.IsValid(), ());
-    if (m_id == r.m_id)
-      return true;
+  ASSERT(m_id.IsValid() && r.m_id.IsValid(), ());
+  if (m_id == r.m_id)
+    return true;
 
-    // This function is used to filter duplicate results in cases:
-    // - emitted World.mwm and Country.mwm
-    // - after additional search in all mwm
-    // so it's suitable here to test for 500m
-    return (m_str == r.m_str && m_region == r.m_region &&
-            m_featureType == r.m_featureType &&
-            PointDistance(m_center, r.m_center) < 500.0);
-  }
+  // This function is used to filter duplicate results in cases:
+  // - emitted World.mwm and Country.mwm
+  // - after additional search in all mwm
+  // so it's suitable here to test for 500m
+  return (m_str == r.m_str && m_region == r.m_region &&
+          m_featureType == r.m_featureType &&
+          PointDistance(m_center, r.m_center) < 500.0);
 }
 
 void Result::AddHighlightRange(pair<uint16_t, uint16_t> const & range)
@@ -173,7 +168,6 @@ bool Results::AddResult(Result && res)
     switch (r.GetResultType())
     {
     case Result::RESULT_FEATURE:
-    case Result::RESULT_ADDRESS:
       return true;
     default:
       return false;
