@@ -427,11 +427,11 @@
     ar = جاري التنزيل…
     da = Downloader…
     tr = İndiriliyor…
-    sv = Laddar ner...
-    he = מוריד....
+    sv = Laddar ner…
+    he = מוריד….
     id = Sedang mengunduh…
-    vi = Đang tải xuống...
-    ro = Se descarcă...
+    vi = Đang tải xuống…
+    ro = Se descarcă…
     nb = Laster ned …
     fi = Ladataan…
 
@@ -3025,11 +3025,11 @@
     da = Dette kan tage flere minutter.\nVent venligst…
     tr = Bu işlem birkaç dakika sürebilir.\nLütfen bekleyin…
     sv = Detta kan ta flera minuter.\nVänligen vänta…
-    he = פעולה זו יכולה להמשך מספר דקות.\nהמתן בבקשה...
+    he = פעולה זו יכולה להמשך מספר דקות.\nהמתן בבקשה…
     id = Ini akan memakan waktu beberapa menit.\nMohon tunggu…
     vi = Việc này có thể mất vài phút.\nVui lòng đợi…
-    ro = Aceasta poate dura câteva minute.\nVă rugăm să așteptați...
-    nb = Dette kan ta flere minutter. Vent et øyeblikk ...
+    ro = Aceasta poate dura câteva minute.\nVă rugăm să așteptați…
+    nb = Dette kan ta flere minutter. Vent et øyeblikk …
     fi = Tämä voi kestää useita minuutteja.Odota hetkinen…
 
   [visible]
@@ -6346,7 +6346,7 @@
     zh-Hant = 此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。
     sv = Detta program använder geografisk data (inkluderar kartor, företagsuppgifter, intressepunkter, landsgränser och regioner m.m.) från OpenStreetMap projektet. Vi garanterar ingen konsekvenshet, nogrannhet, fullständighet eller tillämpbarhet av OpenStreetMap datan.
     id = Aplikasi ini menggunakan data geografis (termasuk peta, daftar perusahaan, lokasi-lokasi menarik, batas-batas negara dan daerah, dll) yang diambil dari proyek OpenStreetMap. Kami tidak menjamin konsistensi, akurasi, kelengkapan atau kesesuaian data OpenStreetMap apa pun.
-    vi = Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v...) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.
+    vi = Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v…) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.
     ro = Această aplicație utilizează date geografice (inclusiv hărți, liste de firme, puncte de interes, frontiere de țări și regiuni etc.) preluate din proiectul OpenStreetMap. Nu garantăm uniformitatea, acuratețea, integralitatea sau aplicabilitatea datelor OpenStreetMap.
     nb = Denne applikasjonen bruker geografiske data (inkludert kart, butikkoppføringer, interessepunkter, landegrenser og regiongrenser osv.) som er hentet fra OpenStreetMap-prosjektet. Vi garanterer ikke at data fra OpenStreetMap alltid er konsekvente, nøyaktige, fullstendige eller pålitelige.
     de = Diese Anwendungen verwenden geographische Informationen (inklusive Karten, Geschäftseinträge, Sehenswürdigkeiten, Landes- und Regionsgrenzen, etc.) aus dem OpenStreetMap-Projekt. Wir können weder die Beständigkeit noch die Genauigkeit, Vollständigkeit oder Eignung der OpenStreetMap-Daten garantieren.
@@ -7033,7 +7033,7 @@
     sv = MAPS.ME erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper MAPS.ME dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra MAPS.ME. Ifall du har problem med appen, tveka inte att kontakta oss på support@maps.me. Vi svarar på alla mail!\n\nGillar du MAPS.ME och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/mapswithme\n- eller berätta bara om MAPS.ME för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på http://openstreetmap.org och dina ändringar kommer att finns i MAPS.ME appen när nästa version släpps.
     he = MAPS.ME מציעה את המפות הלא-מקוונות המהירות ביותר של כל הערים וכל מדינות העולם. טיילו בביטחון מלא: בכל מקום בו תהיו, MAPS.ME תסייע לכם למצוא את מיקומכם במפה, לגלות את המסעדה, בית המלון, הבנק ותחנת הדלק הקרובים ביותר ועוד. לא נדרש חיבור לאינטרנט.אנו עובדים כל הזמן על פיתוח תכונות חדשות, ונשמח לשמוע מכם כיצד לדעתכם אנו יכולים לשפר את MAPS.ME. אם יש לכם בעיה כלשהי עם האפליקציה, אל תהססו ליצור עמנו קשר בכתובת support@maps.me. אנו מגיבים לכל בקשה!האם אתם אוהבים את MAPS.ME ומעוניינים לתמוך בנו? יש מספר דרכים פשוטות וחינמיות לגמרי לעשות זאת:לפרסם ביקורת בחנות האפליקציות שלכםלעשות לייק לדף הפייסבוק שלנו http://www.facebook.com/mapswithmeאו פשוט לספר לאמכם, לחבריכם ולעמיתיכם על MAPS.ME ☺תודה על בחירתכם בנו. אנו מעריכים מאוד את תמיכתכם!נ.ב. אנו מקבלים נתוני מפות מ-OpenStreetMap, שהינו פרויקט מיפוי הדומה לוויקיפדיה, ומאפשר למשתמשים ליצור ולערוך מפות. אם תגלו שמשהו במפה חסר או שגוי, תוכלו לתקן את המפות באופן ישיר ב-http://openstreetmap.org, והשינויים שלכם יופיעו באפליקציית MAPS.ME עם שחרור הגרסה הבאה שלה.
     id = MAPS.ME menawarkan peta offline tercepat dari semua kota, semua negara di dunia. Berpergianlah dengan kepercayaan diri yang penuh: di nana pun Anda berada, MAPS.ME akan membantu Anda mengetahui posisi Anda pada peta, menemukan restoran, hotel, bank, stasiun bahan bakar terdekat, dll. Tidak perlu koneksi internet.Kami selalu membuat fitur-fitur baru dan ingin mendengar pendapat Anda mengenai bagaimana kami dapat membuat MAPS.ME menjadi lebih baik. Jika Anda memiliki masalah apa pun dengan aplikasinya, jangan segan untuk menghubungi kami di support@maps.me. Kami akan merespons setiap permintaan!Apakah Anda menyukai MAPS.ME an ingin membantu kami? Terdapat beberapa cara yang mudah dan sepenuhnya gratis:- tulis ulasan di App Market Anda
-    vi = MAPS.ME cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, MAPS.ME vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v... gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện MAPS.ME. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@maps.me. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích MAPS.ME và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về MAPS.ME với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại http://openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng MAPS.ME ở phiên bản kế tiếp.
+    vi = MAPS.ME cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, MAPS.ME vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v… gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện MAPS.ME. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@maps.me. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích MAPS.ME và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về MAPS.ME với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại http://openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng MAPS.ME ở phiên bản kế tiếp.
     ro = MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: http://openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.
     nb = MAPS.ME tilbyr de raskeste offline-kartene over alle byer i alle land i verden. Reis trygt: Uansett hvor du er, kan MAPS.ME hjelpe deg med å finne ut hvor du er på kartet eller finne nærmeste restaurant, hotell, bank, bensinstasjon osv. Det kreves ingen internettforbindelse.\n\nVi jobber alltid med å legge inn nye funksjoner, og vi vil gjerne høre hvordan du synes at vi kan forbedre MAPS.ME. Hvis du får problemer med appen, ikke nøl med å kontakte oss på support@maps.me. Vi svarer på alle forespørsler!\n\nLiker du MAPS.ME og ønsker å støtte oss? Det er noen enkle og helt gratis måter å gjøre det på:\n\n- Legg inn en vurdering på app-butikken\n- Lik Facebook-siden vår på http://www.facebook.com/mapswithme\n- Eller bare fortell mamma, venner og kolleger om MAPS.ME :)\n\nTakk for at du er med oss. Vi setter stor pris på støtten!\n\nPS! Vi henter kartdata fra OpenStreetMap, et kartprosjekt som ligner på Wikipedia, der brukerne selv kan opprette og redigere kart. Hvis du finner mangler eller feil på kartet, kan du korrigere kartet direkte på http://openstreetmap.org, og endringene vil vises i MAPS.ME-appen når neste versjon kommer.
     fi = MAPS.ME tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, MAPS.ME auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support@maps.me. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö MAPS.ME -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa http://openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan MAPS.ME -päivityksen jälkeen.
@@ -7231,7 +7231,7 @@
   [downloader_update_all_button]
     tags = ios,android
     comment = Update all button text
-    en = Update all
+    en = Update All
     ru = Обновить все
     tr = Hepsini güncelle
     sv = Uppdatera alla
@@ -7409,6 +7409,35 @@
     it = Mappe: %s
     fr = Cartes : %s
     ja = 地図: %s
+
+[downloader_download_all_button]
+    tags = ios,android
+    en = Download All
+    ru = Загрузить все
+    tr = Hepsini indir
+    sv = Ladda ned alla
+    nb = Last ned alle
+    ko = 모두 다운로드
+    id = Unduh semua
+    hu = Mindegyik letöltése
+    de = Alle herunterladen
+    fi = Lataa kaikki
+    nl = Alles downloaden
+    da = Download alle
+    cs = Stáhnout vše
+    zh-Hans = 下载全部
+    zh-Hant = 下載全部
+    ar = تنزيل الكل
+    th = ดาวน์โหลดทั้งหมด
+    uk = Завантажити всі
+    pt = Descarregar tudo
+    es = Descarar todos
+    ro = Descărcați toate
+    pl = Pobierz wszystkie
+    sk = Stiahnuť všetko
+    it = Scarica tutte
+    fr = Télécharger tout
+    ja = 全てをダウンロード
 
   [routing_disclaimer]
     tags = ios,android,tizen
@@ -16873,7 +16902,7 @@
 
   [downloader_delete_map_dialog]
     tags = ios, android
-    en = All map changes will be deleted together with the map.
+    en = All map edits will be deleted together with the map.
     ru = Вместе с картой удалятся и внесенные вами правки на этой карте.
     tr = Harita ile birlikte tüm harita değişiklikleri de silinecektir.
     sv = Alla kartändringar kommer att raderas tillsammans med kartan.
@@ -16896,7 +16925,7 @@
     ro = Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.
     pl = Wszystkie zmiany dotyczące mapy zostaną usunięte wraz z nią.
     sk = Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.
-    it = tutti i cambiamenti nella mappa saranno cancellati insieme alla mappa.
+    it = Tutti i cambiamenti nella mappa saranno cancellati insieme alla mappa.
     fr = Toutes les modifications de la carte seront supprimées avec elle.
     ja = この地図を削除すると、今まで行った変更の全ても一緒に削除されます。
 
@@ -16989,7 +17018,7 @@
 
   [migration_update_all_button]
     tags = ios, android
-    en = Update all maps
+    en = Update All Maps
     ru = Обновить все карты
     tr = Haritaları güncelle
     sv = Uppdatera alla kartor
@@ -17049,27 +17078,27 @@
     tags = ios, android
     en = Preparing maps update…
     ru = Подготовка обновления карт…
-    tr = Harita güncellemesi hazırlanıyor...
+    tr = Harita güncellemesi hazırlanıyor…
     sv = Förbereder kartuppdatering…
-    nb = Forbereder oppdatering av kart...
-    ko = 지도 업데이트 준비 중...
+    nb = Forbereder oppdatering av kart…
+    ko = 지도 업데이트 준비 중…
     id = Mempersiapkan pembaruan peta…
     hu = Térképfrissítések előkészítése…
     de = Karten-Update wird vorbereitet …
-    fi = Karttojen päivitystä ladataan...
+    fi = Karttojen päivitystä ladataan…
     nl = Het voorbereiden van de update van de kaart…
-    da = Forbereder kortopdatering...
+    da = Forbereder kortopdatering…
     cs = Probíhá příprava na aktualizace map…
     zh-Hans = 正在准备地图更新…
     zh-Hant = 正在準備地圖更新…
-    ar = جار الإعداد لتحديث الخرائط...
-    th = กำลังเตรียมการอัปเดตแผนที่...
-    uk = Підготовка до оновлення карт...
-    pt = A preparar a atualização de mapas...
+    ar = جار الإعداد لتحديث الخرائط…
+    th = กำลังเตรียมการอัปเดตแผนที่…
+    uk = Підготовка до оновлення карт…
+    pt = A preparar a atualização de mapas…
     es = Preparando la actualización de mapas…
     ro = Pregătește actualizarea hărților…
-    pl = Przygotowywanie aktualizacji map...
-    sk = Prebieha príprava aktualizácie máp...
+    pl = Przygotowywanie aktualizacji map…
+    sk = Prebieha príprava aktualizácie máp…
     it = Preparazione aggiornamento delle mappe…
     fr = Préparation de la mise à jour des cartes…
     ja = 地図のアップデートの準備中…
@@ -17366,7 +17395,7 @@
 
   [editor_profile_changes]
     tags = ios, android
-    en = Changes:
+    en = Edits:
     ru = Правки:
     tr = Değişiklikler:
     sv = Ändringar:
@@ -17511,8 +17540,8 @@
 
   [editor_add_select_category_all_subtitle]
     tags = ios, android
-    en = All categories
-    ru = Все Категории
+    en = All Categories
+    ru = Все категории
     tr = Tüm kategoriler
     sv = Alla kategorier
     nb = Alle kategorier
@@ -17528,7 +17557,7 @@
     zh-Hant = 所有類別
     ar = جميع الفئات
     th = หมวดหมูทั้งหมด
-    uk = Усі Категорії
+    uk = Усі категорії
     pt = Todas as categorias
     es = Todas las categorías
     ro = Toate categoriile
@@ -17596,35 +17625,6 @@
     fr = Ajout
     ja = 追加中
 
-  [editor_edit_place_name_title]
-    tags = ios, android
-    en = Name
-    ru = Название
-    tr = İsim
-    sv = Namn
-    nb = Navn
-    ko = 이름
-    id = Nama
-    hu = Név
-    de = Name
-    fi = Nimi
-    nl = Naam
-    da = Navn
-    cs = Název
-    zh-Hans = 名称
-    zh-Hant = 名稱
-    ar = اسم
-    th = ชื่อ
-    uk = Назва
-    pt = Nome
-    es = Nombre
-    ro = Nume
-    pl = Nazwa
-    sk = Názov
-    it = Nome
-    fr = Nom
-    ja = 名前
-
   [editor_edit_place_name_hint]
     tags = ios, android
     en = Name of the place
@@ -17683,35 +17683,6 @@
     fr = Catégorie
     ja = カテゴリ
 
-  [editor_edit_place_atm_title]
-    tags = ios, android
-    en = ATM
-    ru = Банкомат
-    tr = ATM
-    sv = Bankomat
-    nb = Minibank
-    ko = ATM
-    id = ATM
-    hu = ATM
-    de = Geldautomat
-    fi = Pankkiautomaatti
-    nl = Pinautomaat
-    da = Hæveautomat
-    cs = Bankomat
-    zh-Hans = 自动取款机
-    zh-Hant = 自動取款機
-    ar = ماكينة صراف آلي
-    th = ATM
-    uk = АТМ
-    pt = Caixa multibanco
-    es = Cajero automático
-    ro = ATM
-    pl = Bankomat
-    sk = Bankomat
-    it = Bancomat
-    fr = DAB
-    ja = ATM
-
   [placepage_add_place_button]
     tags = ios, android
     en = Add a place
@@ -17744,7 +17715,7 @@
   [placepage_report_problem_button]
     tags = ios, android
     en = Report a problem
-    ru = Report a problem
+    ru = Сообщить о проблеме
     tr = Bir problem bildirin
     sv = Rapportera ett problem
     nb = Rapporter et problem
@@ -17833,6 +17804,7 @@
   [whatsnew_search_header]
     tags = ios, android
     en = New search!
+    ru = Новый поиск!
 
   [whatsnew_search_message]
     tags = ios, android
@@ -17924,32 +17896,32 @@
 
   [whatsnew_editor_message_2]
     tags = ios, android
-    en = *MAPS.ME uses OpenStreetMap community data.
-    ru = *MAPS.ME использует данные открытых карт сообщества OpenStreetMap.
-    tr = *MAPS.ME, OpenStreetMap topluluğu verilerini kullanmaktadır.
-    sv = *MAPS.ME använder data från OpenStreetMaps community.
-    nb = *MAPS.ME bruker data fra OpenStreetMap-samfunnet.
-    ko = *MAPS.ME는 OpenStreetMap 커뮤니티 데이터를 사용합니다.
-    id = *MAPS.ME menggunakan data komunitas OpenStreetMap.
-    hu = *A MAPS.ME az OpenStreetMap közösség adatait használja.
-    de = *MAPS.ME verwendet Community-Daten von OpenStreetMap.
-    fi = *MAPS.ME käyttää OpenStreetMap -yhteisön dataa.
-    nl = *MAPS.ME gebruikt OpenStreetMap-communitiedata.
-    da = *MAPS.ME bruger fællesskabsdata fra OpenStreetMap.
-    cs = *MAPS.ME používá komunitní data OpenStreetMap.
-    zh-Hans = *MAPS.ME使用OpenStreetMap社区的数据。
-    zh-Hant = *MAPS.ME使用OpenStreetMap社區的數據。
+    en = * MAPS.ME uses OpenStreetMap community data.
+    ru = * MAPS.ME использует данные открытых карт сообщества OpenStreetMap.
+    tr = * MAPS.ME, OpenStreetMap topluluğu verilerini kullanmaktadır.
+    sv = * MAPS.ME använder data från OpenStreetMaps community.
+    nb = * MAPS.ME bruker data fra OpenStreetMap-samfunnet.
+    ko = * MAPS.ME는 OpenStreetMap 커뮤니티 데이터를 사용합니다.
+    id = * MAPS.ME menggunakan data komunitas OpenStreetMap.
+    hu = * A MAPS.ME az OpenStreetMap közösség adatait használja.
+    de = * MAPS.ME verwendet Community-Daten von OpenStreetMap.
+    fi = * MAPS.ME käyttää OpenStreetMap -yhteisön dataa.
+    nl = * MAPS.ME gebruikt OpenStreetMap-communitiedata.
+    da = * MAPS.ME bruger fællesskabsdata fra OpenStreetMap.
+    cs = * MAPS.ME používá komunitní data OpenStreetMap.
+    zh-Hans = * MAPS.ME使用OpenStreetMap社区的数据。
+    zh-Hant = * MAPS.ME使用OpenStreetMap社區的數據。
     ar = *تستخدم MAPS.ME البيانات الخاصة بخريطة OpenStreetMap.
-    th = *MAPS.ME ใช้ข้อมูลจากชุมชน OpenStreetMap
-    uk = *MAPS.ME використовує дані спільноти OpenStreetMap.
-    pt = *A MAPS.ME utiliza dados da comunidade OpenStreetMap.
-    es = *MAPS.ME utiliza datos de la comunidad de OpenStreetMap.
-    ro = *MAPS.ME folosește datele comunității OpenStreetMap community.
-    pl = *MAPS.ME korzysta z danych społeczności OpenStreetMap.
-    sk = *MAPS.ME využíva dáta komunity OpenStreetMap.
-    it = *MAPS.ME usa i dati della community OpenStreetMap.
-    fr = *MAPS.ME utilise les données de la communauté OpenStreetMap.
-    ja = *MAPS.MEはOpenStreetMapコミュニティのデータを使用しています。
+    th = * MAPS.ME ใช้ข้อมูลจากชุมชน OpenStreetMap
+    uk = * MAPS.ME використовує дані спільноти OpenStreetMap.
+    pt = * A MAPS.ME utiliza dados da comunidade OpenStreetMap.
+    es = * MAPS.ME utiliza datos de la comunidad de OpenStreetMap.
+    ro = * MAPS.ME folosește datele comunității OpenStreetMap community.
+    pl = * MAPS.ME korzysta z danych społeczności OpenStreetMap.
+    sk = * MAPS.ME využíva dáta komunity OpenStreetMap.
+    it = * MAPS.ME usa i dati della community OpenStreetMap.
+    fr = * MAPS.ME utilise les données de la communauté OpenStreetMap.
+    ja = * MAPS.MEはOpenStreetMapコミュニティのデータを使用しています。
 
   [onboarding_offline_navigation_title]
     tags = ios, android
@@ -18124,3 +18096,119 @@
     it = Scarica una volta le mappe per l’area desiderata e usa la navigazione e le funzioni di ricerca senza una connessione internet.
     fr = Téléchargez une seule fois les cartes de la zone désirée, et utilisez les fonctions de navigation et de recherche sans connexion Internet.
     ja = 希望するエリアの地図を一回ダウンロードするだけで、インターネット接続なしでもナビゲーションや検索の機能を使用できます。
+
+  [onboarding_notifications_message]
+    tags = ios, android
+    en = To receive the latest maps, get updates notifications
+    ru = Получайте уведомления об обновлениях, чтобы всегда иметь актуальные карты
+    tr = En son haritaları almak için güncelleme bildirimlerini alın
+    sv = Få avisering om uppdateringar för de senaste kartorna
+    nb = Få oppdateringsvarsler for å motta de nyeste kartene
+    ko = 최신지도를 받으려면, 업데이트 알림 받기
+    id = Untuk menerima peta-peta terbaru, dapatkan pemberitahuan pembaruan
+    hu = Fogadj értesítő üzeneteket a legfrissebb térképekről
+    de = Um die neuesten Karten zu erhalten, aktivieren Sie bitte die Update-Benachrichtigungen
+    fi = Ota päivitysilmoitukset käyttöön saadaksesi tuoreimmat kartat
+    nl = Ontvang update-meldingen om de nieuwste kaarten te ontvangen
+    da = For at modtage de nyeste kort kan du få opdateringsnotifikationer
+    cs = Chcete-li získat nejnovější mapy, pak zapněte upozornění na aktualizace
+    zh-Hans = 为了接收最新的地图，请获取更新通知
+    zh-Hant = 為了接收最新的地圖，請獲取更新通知
+    ar = تابع إخطارات التحديث للحصول على أحدث الخرائط
+    th = เพื่อรับแผนที่ล่าสุดและรับการแจ้งเตือนอัปเดต
+    uk = Отримуйте повідомлення про оновлення, щоб завжди мати актуальні мапи
+    pt = Para receber os mapas mais recentes, receba notificações de atualizações
+    es = Para recibir los mapas más recientes, obtén las notificaciones de actualización
+    ro = Pentru a obține cele mai recente hărți, obțineți notificările de actualizări
+    pl = Aby pobierać najnowsze mapy, włącz powiadomienia o aktualizacjach
+    sk = Ak chcete získavať najnovšie mapy, zapnite si notifikácie aktualizácií
+    it = Per ricevere le mappe aggiornate, attiva le notifiche di aggiornamento
+    fr = Pour recevoir les dernières cartes, recevez des notifications de mise à jour
+    ja = 最新地図の入手のためにアップデート通知を受信
+
+  [onboarding_notifications_title]
+    tags = ios, android
+    en = Enable updates notifications
+    ru = Разрешите отправку уведомлений
+    tr = Güncelleme bildirimlerini etkinleştir
+    sv = Aktivera avisering om uppdateringar
+    nb = Aktiver oppdateringsvarsler
+    ko = 업데이트 알림 활성화
+    id = Aktifkan pemberitahuan pembaruan
+    hu = Értesítések engedélyezése
+    de = Update-Benachrichtigungen aktualisieren
+    fi = Ota päivitysilmoitukset käyttöön
+    nl = Schakel update-meldingen in
+    da = Aktivér opdateringsnotifikationer
+    cs = Povolit upozornění na aktualizace
+    zh-Hans = 允许更新通知
+    zh-Hant = 啟用更新通知
+    ar = تفعيل إخطارات التحديث
+    th = เปิดการแจ้งเตือนการอัปเดต
+    uk = Дозвольте відправлення повідомлень
+    pt = Ativar as notificações de atualizações
+    es = Permitir notificaciones de actualización
+    ro = Activați notificările de actualizări
+    pl = Włącz powiadomienia o aktualizacjach
+    sk = Povoliť notifikácie aktualizácií
+    it = Attiva notifiche di aggiornamento
+    fr = Activer les notifications de mise à jour
+    ja = アップデート通知を有効にする
+
+  [onboarding_location_title]
+    tags = ios, android
+    en = Help us find you
+    ru = Помогите найти вас
+    tr = Sizi bulmamıza yardım edin
+    sv = Hjälp oss att hitta dig
+    nb = Hjelp oss med å finne deg
+    ko = 사용자를 찾도록 돕기
+    id = Membantu kami menemukan Anda
+    hu = Segíts, hogy megtaláljunk
+    de = Helfen Sie uns dabei, Sie zu finden
+    fi = Auta meitä löytämään sinut
+    nl = Help ons om je te vinden
+    da = Hjælp os med at finde dig
+    cs = Pomozte nám vás najít
+    zh-Hans = 帮助我们找到您
+    zh-Hant = 幫我們找到您
+    ar = ساعدنا في العثور عليك
+    th = ช่วยให้เราค้นหาคุณ
+    uk = Допоможіть знайти вас
+    pt = Ajude-nos a encontrá-lo
+    es = Ayúdanos a encontrarte
+    ro = Ajutați-ne să vă găsim
+    pl = Pomaga nam znaleźć Ciebie
+    sk = Pomôžte nám a my vás nájdeme
+    it = Aiutaci a trovarti
+    fr = Aidez-nous à vous trouver
+    ja = 現在地判定のお手伝い
+
+  [onboarding_location_message]
+    tags = ios, android
+    en = To use navigation and other features, we need access to your geolocation.
+    ru = Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.
+    tr = Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.
+    sv = För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.
+    nb = For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.
+    ko = 탐색 및 기타 기능을 사용하려면, 위치 정보에 액세스해야 합니다.
+    id = Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.
+    hu = A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.
+    de = Um Navigation und andere Funktionen zu verwenden, brauchen wir Zugriff auf Ihren Geo-Standort.
+    fi = Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.
+    nl = Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.
+    da = For at bruge navigering og andre funktioner skal vi have adgang til din geolokation.
+    cs = Chcete-li používat navigaci a další funkce, pak potřebujeme přístup k vaší zeměpisné poloze.
+    zh-Hans = 为了使用导航和其他功能，我们需要访问您的地理位置信息.
+    zh-Hant = 如要使用導航和其他功能，我們需要能獲取您的地理位置.
+    ar = لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.
+    th = เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ
+    uk = Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.
+    pt = Para utilizar a navegação e outros recursos, precisamos de aceder à sua localização geográfica.
+    es = Para utilizar la navegación y otras funciones, necesitamos acceso a tu geolocalización.
+    ro = Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.
+    pl = Abyś mógł korzystać z nawigacji i innych funkcji, musimy uzyskać dostęp do twojej geolokalizacji.
+    sk = Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.
+    it = Per usare la navigazione e altri strumenti, dobbiamo accedere alla tua geolocalizzazione.
+    fr = Pour utiliser la navigation et d'autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.
+    ja = ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります
