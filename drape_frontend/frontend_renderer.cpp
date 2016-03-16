@@ -736,7 +736,7 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 
     auto eraseFunction = [&tiles](drape_ptr<RenderGroup> const & group)
     {
-      return tiles.count(group->GetTileKey()) == 0;
+      return tiles.find(group->GetTileKey()) != tiles.end();
     };
 
     for (RenderLayer & layer : m_layers)
