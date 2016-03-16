@@ -17,12 +17,12 @@ using namespace storage;
 
 @interface MWMMapDownloaderExtendedDataSource ()
 
-@property (copy, nonatomic) NSArray<NSString *> * closestCoutryIds;
+@property (copy, nonatomic) NSArray<NSString *> * nearmeCountries;
 
-@property (nonatomic) NSInteger closestCountriesSection;
-@property (nonatomic, readonly) NSInteger closestCountriesSectionShift;
+@property (nonatomic, readonly) NSInteger nearmeSection;
+@property (nonatomic, readonly) NSInteger nearmeSectionShift;
 
-@property (nonatomic) BOOL needReloadClosestCountriesSection;
+@property (nonatomic) BOOL needReloadNearmeSection;
 
 @end
 
@@ -31,12 +31,16 @@ using namespace storage;
 - (std::vector<NSInteger>)getReloadSections
 {
   std::vector<NSInteger> sections = [super getReloadSections];
-  if (!self.haveClosestCountries)
+  if (self.nearmeCountries.count == 0)
     return sections;
   for (auto & section : sections)
-    section += self.closestCountriesSectionShift;
-  if (self.needReloadClosestCountriesSection)
-    sections.push_back(self.closestCountriesSection);
+    section += self.nearmeSectionShift;
+  if (self.needReloadNearmeSection)
+  {
+    NSInteger const nearmeSection = self.nearmeSection;
+    NSAssert(nearmeSection != NSNotFound, @"Invalid nearme section.");
+    sections.push_back(nearmeSection);
+  }
   return sections;
 }
 
@@ -48,64 +52,62 @@ using namespace storage;
 
 - (void)reload
 {
-  NSSet<NSString *> * closestCoutryIds = [NSSet setWithArray:self.closestCoutryIds];
+  NSInteger const closestCoutriesCountBeforeUpdate = self.nearmeCountries.count;
+
   [super reload];
 
-  self.needReloadClosestCountriesSection =
-      ![closestCoutryIds isEqualToSet:[NSSet setWithArray:self.closestCoutryIds]];
-  self.needFullReload |= self.needReloadClosestCountriesSection && self.closestCoutryIds.count == 0;
+  NSInteger const closestCoutriesCountAfterUpdate = self.nearmeCountries.count;
+  if (closestCoutriesCountBeforeUpdate == 0 || closestCoutriesCountAfterUpdate == 0)
+    self.needFullReload = YES;
+  if (self.needFullReload)
+    return;
+  self.needReloadNearmeSection = (closestCoutriesCountBeforeUpdate != closestCoutriesCountAfterUpdate);
 }
 
 - (void)configNearMeSection
 {
-  self.closestCoutryIds = nil;
-  self.closestCountriesSection = NSNotFound;
   LocationManager * lm = MapsAppDelegate.theApp.m_locationManager;
   if (!lm.lastLocationIsValid)
     return;
   auto & countryInfoGetter = GetFramework().CountryInfoGetter();
   TCountriesVec closestCoutryIds;
   countryInfoGetter.GetRegionsCountryId(lm.lastLocation.mercator, closestCoutryIds);
-  NSMutableArray<NSString *> * nsClosestCoutryIds = [@[] mutableCopy];
+  NSMutableArray<NSString *> * nearmeCountries = [@[] mutableCopy];
   auto const & s = GetFramework().Storage();
   for (auto const & countryId : closestCoutryIds)
   {
     NodeStatuses nodeStatuses{};
     s.GetNodeStatuses(countryId, nodeStatuses);
     if (nodeStatuses.m_status == NodeStatus::NotDownloaded)
-      [nsClosestCoutryIds addObject:@(countryId.c_str())];
+      [nearmeCountries addObject:@(countryId.c_str())];
   }
-  if (nsClosestCoutryIds.count != 0)
-  {
-    self.closestCoutryIds = nsClosestCoutryIds;
-    self.closestCountriesSection = 0;
-  }
+  self.nearmeCountries = [nearmeCountries copy];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return [super numberOfSectionsInTableView:tableView] + self.closestCountriesSectionShift;
+  return [super numberOfSectionsInTableView:tableView] + self.nearmeSectionShift;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section == self.closestCountriesSection)
-    return self.closestCoutryIds.count;
-  return [super tableView:tableView numberOfRowsInSection:section - self.closestCountriesSectionShift];
+  if (section == self.nearmeSection)
+    return self.nearmeCountries.count;
+  return [super tableView:tableView numberOfRowsInSection:section - self.nearmeSectionShift];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-  return [super tableView:tableView sectionForSectionIndexTitle:title atIndex:index] + self.closestCountriesSectionShift;
+  return [super tableView:tableView sectionForSectionIndexTitle:title atIndex:index] + self.nearmeSectionShift;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  if (section == self.closestCountriesSection)
+  if (section == self.nearmeSection)
     return L(@"downloader_near_me_subtitle");
-  return [super tableView:tableView titleForHeaderInSection:section - self.closestCountriesSectionShift];
+  return [super tableView:tableView titleForHeaderInSection:section - self.nearmeSectionShift];
 }
 
 #pragma mark - MWMMapDownloaderDataSource
@@ -114,21 +116,21 @@ using namespace storage;
 {
   NSInteger const row = indexPath.row;
   NSInteger const section = indexPath.section;
-  if (section == self.closestCountriesSection)
-    return self.closestCoutryIds[row].UTF8String;
-  return [super countryIdForIndexPath:[NSIndexPath indexPathForRow:row inSection:section - self.closestCountriesSectionShift]];
+  if (section == self.nearmeSection)
+    return self.nearmeCountries[row].UTF8String;
+  return [super countryIdForIndexPath:[NSIndexPath indexPathForRow:row inSection:section - self.nearmeSectionShift]];
 }
 
 #pragma mark - Properties
 
-- (NSInteger)closestCountriesSectionShift
+- (NSInteger)nearmeSectionShift
 {
-  return (self.haveClosestCountries ? self.closestCountriesSection + 1 : 0);
+  return (self.nearmeCountries.count != 0 ? self.nearmeSection + 1 : 0);
 }
 
-- (BOOL)haveClosestCountries
+- (NSInteger)nearmeSection
 {
-  return (self.closestCountriesSection != NSNotFound);
+  return self.nearmeCountries.count != 0 ? 0 : NSNotFound;
 }
 
 @end

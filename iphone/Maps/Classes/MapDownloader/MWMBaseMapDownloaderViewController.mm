@@ -88,6 +88,7 @@ using namespace storage;
   [navBar setBackgroundImage:self.navBarBackground forBarMetrics:UIBarMetricsDefault];
   navBar.shadowImage = self.navBarShadow;
   [MWMFrameworkListener removeObserver:self];
+  [self notifyParentController];
 }
 
 - (void)configNavBar
@@ -100,25 +101,30 @@ using namespace storage;
   [self.cellHeightCache removeAllObjects];
 }
 
+- (void)notifyParentController
+{
+  NSArray * viewControllers = [self.navigationController viewControllers];
+  BOOL const goingTreeDeeper = ([viewControllers indexOfObject:self] != NSNotFound);
+  if (goingTreeDeeper)
+    return;
+  MWMViewController * parentVC = viewControllers.lastObject;
+  if ([parentVC isKindOfClass:[MWMBaseMapDownloaderViewController class]])
+    [static_cast<MWMBaseMapDownloaderViewController *>(parentVC) processCountryEvent:self.parentCountryId];
+}
+
 #pragma mark - MWMFrameworkStorageObserver
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
   if (self.skipCountryEventProcessing)
     return;
-  auto notifyParentController = ^
-  {
-    NSArray * viewControllers = [self.navigationController viewControllers];
-    NSInteger const selfIndex = [viewControllers indexOfObject:self];
-    if (selfIndex < 1)
-      return;
-    MWMViewController * parentVC = viewControllers[selfIndex - 1];
-    if ([parentVC isKindOfClass:[MWMBaseMapDownloaderViewController class]])
-      [static_cast<MWMBaseMapDownloaderViewController *>(parentVC) processCountryEvent:countryId];
-  };
   auto process = ^
   {
     [self configAllMapsView];
+
+    for (MWMMapDownloaderTableViewCell * cell in self.tableView.visibleCells)
+      [cell processCountryEvent:countryId];
+
     MWMMapDownloaderDefaultDataSource * dataSource = self.defaultDataSource;
     [dataSource reload];
     if (![self.dataSource isEqual:dataSource])
@@ -138,8 +144,6 @@ using namespace storage;
     for (auto & section : sections)
       [indexSet addIndex:section];
     [tv reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-
-    notifyParentController();
   };
 
   if (countryId == self.parentCountryId)
@@ -153,9 +157,6 @@ using namespace storage;
     if (find(childrenId.cbegin(), childrenId.cend(), countryId) != childrenId.cend())
       process();
   }
-
-  for (MWMMapDownloaderTableViewCell * cell in self.tableView.visibleCells)
-    [cell processCountryEvent:countryId];
 }
 
 - (void)processCountry:(TCountryId const &)countryId progress:(TLocalAndRemoteSize const &)progress
@@ -470,7 +471,10 @@ using namespace storage;
           kStatFrom : kStatDownloader,
           kStatScenario : kStatDownload
         }];
+  self.skipCountryEventProcessing = YES;
   [MWMStorage downloadNode:countryId alertController:self.alertController onSuccess:nil];
+  self.skipCountryEventProcessing = NO;
+  [self processCountryEvent:self.parentCountryId];
 }
 
 - (void)retryDownloadNode:(storage::TCountryId const &)countryId
@@ -482,7 +486,10 @@ using namespace storage;
           kStatFrom : kStatDownloader,
           kStatScenario : kStatDownload
         }];
+  self.skipCountryEventProcessing = YES;
   [MWMStorage retryDownloadNode:countryId];
+  self.skipCountryEventProcessing = NO;
+  [self processCountryEvent:self.parentCountryId];
 }
 
 - (void)updateNode:(storage::TCountryId const &)countryId
@@ -494,7 +501,10 @@ using namespace storage;
           kStatFrom : kStatDownloader,
           kStatScenario : kStatUpdate
         }];
+  self.skipCountryEventProcessing = YES;
   [MWMStorage updateNode:countryId alertController:self.alertController];
+  self.skipCountryEventProcessing = NO;
+  [self processCountryEvent:self.parentCountryId];
 }
 
 - (void)deleteNode:(storage::TCountryId const &)countryId
@@ -506,13 +516,19 @@ using namespace storage;
           kStatFrom : kStatDownloader,
           kStatScenario : kStatDelete
         }];
+  self.skipCountryEventProcessing = YES;
   [MWMStorage deleteNode:countryId alertController:self.alertController];
+  self.skipCountryEventProcessing = NO;
+  [self processCountryEvent:self.parentCountryId];
 }
 
 - (void)cancelNode:(storage::TCountryId const &)countryId
 {
   [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatDownloader}];
+  self.skipCountryEventProcessing = YES;
   [MWMStorage cancelDownloadNode:countryId];
+  self.skipCountryEventProcessing = NO;
+  [self processCountryEvent:self.parentCountryId];
 }
 
 - (void)showNode:(storage::TCountryId const &)countryId
