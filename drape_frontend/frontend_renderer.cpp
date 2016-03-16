@@ -1464,7 +1464,9 @@ void FrontendRenderer::Routine::Do()
       while (availableTime > 0);
     }
 
-    context->present();
+    if (m_renderer.IsRenderingEnabled())
+      context->present();
+
     frameTime = timer.ElapsedSeconds();
     timer.Reset();
 
