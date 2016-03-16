@@ -1210,7 +1210,7 @@ void Storage::DownloadNode(TCountryId const & countryId)
 
   auto downloadAction = [this](TCountryTreeNode const & descendantNode)
   {
-    if (descendantNode.ChildrenCount() == 0)
+    if (descendantNode.ChildrenCount() == 0 && GetNodeStatus(descendantNode).status != NodeStatus::OnDisk)
       this->DownloadCountry(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
   };
 
@@ -1408,8 +1408,8 @@ void Storage::CancelDownloadNode(TCountryId const & countryId)
 {
   ForEachInSubtreeAndInQueue(countryId, [this](TCountryId const & descendantId, bool groupNode)
   {
-    ASSERT(!groupNode, ());
-    DeleteNode(descendantId);
+    ASSERT(!groupNode, ("A group node is located in downloading queue."));
+    DeleteFromDownloader(descendantId);
   });
   SaveDownloadQueue();
 }
@@ -1418,8 +1418,8 @@ void Storage::RetryDownloadNode(TCountryId const & countryId)
 {
   ForEachInSubtree(countryId, [this](TCountryId const & descendantId, bool groupNode)
   {
-    ASSERT(!groupNode, ());
-    DownloadNode(descendantId);
+    if (!groupNode && m_failedCountries.count(descendantId) != 0)
+      DownloadNode(descendantId);
   });
 }
 

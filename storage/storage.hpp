@@ -317,7 +317,7 @@ public:
 
   /// \brief Downloads one node (expandable or not) by countryId.
   /// If node is expandable downloads all children (grandchildren) by the node
-  /// until they havn't been downloaded before. Update all downloaded mwm if it's necessary.
+  /// until they havn't been downloaded before. Update downloaded mwm if it's necessary.
   void DownloadNode(TCountryId const & countryId);
 
   /// \brief Delete node with all children (expandable or not).
@@ -328,15 +328,20 @@ public:
   /// borders or hierarchy just call UpdateNode(GetRootId()).
   void UpdateNode(TCountryId const & countryId);
 
-  /// \brief If the downloading is in process cancels downloading a node and deletes
-  /// downloaded part of the map. If the map is in queue, remove the map from the queue.
-  /// It works for leaf and for group mwms.
+  /// \brief If the downloading a new node is in process cancels downloading the node and deletes
+  /// the downloaded part of the map. If the map is in queue, remove the map from the queue.
+  /// If the downloading a updating map is in process cancels the downloading,
+  /// deletes the downloaded part of the map and leaves as is the old map (before the update)
+  /// had been downloaded. It works for leaf and for group mwms.
   void CancelDownloadNode(TCountryId const & countryId);
 
-  /// \brief Downloading process could be interupted because of bad internet connection.
+  /// \brief Downloading process could be interupted because of bad internet connection
+  /// and some other reason.
   /// In that case user could want to recover it. This method is done for it.
   /// This method works with leaf and group mwm.
-  /// In case of group mwm this method retries downloading ...
+  /// In case of a group mwm this method retries downloading all mwm in m_failedCountries list
+  /// which in the subtree with root |countryId|.
+  /// It means the call RetryDownloadNode(GetRootId()) retries all the failed mwms.
   void RetryDownloadNode(TCountryId const & countryId);
 
   /// \brief Get information for mwm update button.
