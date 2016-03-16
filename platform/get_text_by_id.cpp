@@ -71,7 +71,7 @@ TGetTextByIdPtr GetTextByIdFactory(TextSource textSource, string const & localeN
   if (GetJsonBuffer(textSource, kDefaultLanguage, jsonBuffer))
     return MakeGetTextById(jsonBuffer, kDefaultLanguage);
 
-  ASSERT(false, ("sound.txt does not contain default language."));
+  ASSERT(false, ("Can't find translate for default language. (Lang:", localeName, ")"));
   return nullptr;
 }
 

@@ -38,6 +38,8 @@
 		675343191A3F5A2600A0A8C3 /* storage_defines.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343021A3F5A2600A0A8C3 /* storage_defines.hpp */; };
 		6753431A1A3F5A2600A0A8C3 /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675343031A3F5A2600A0A8C3 /* storage.cpp */; };
 		6753431B1A3F5A2600A0A8C3 /* storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675343041A3F5A2600A0A8C3 /* storage.hpp */; };
+		676109C91C99A94E007C4E67 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 676109C81C99A941007C4E67 /* countries-strings */; };
+		676109CA1C99A9D0007C4E67 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 676109C81C99A941007C4E67 /* countries-strings */; };
 		678338D41C723B1A00FD6263 /* country_name_getter_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678338D11C723B1A00FD6263 /* country_name_getter_test.cpp */; };
 		678338D51C723B1A00FD6263 /* helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 678338D21C723B1A00FD6263 /* helpers.cpp */; };
 		678338D61C723B1A00FD6263 /* helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 678338D31C723B1A00FD6263 /* helpers.hpp */; };
@@ -222,6 +224,7 @@
 		675343021A3F5A2600A0A8C3 /* storage_defines.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = storage_defines.hpp; sourceTree = "<group>"; };
 		675343031A3F5A2600A0A8C3 /* storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage.cpp; sourceTree = "<group>"; };
 		675343041A3F5A2600A0A8C3 /* storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = storage.hpp; sourceTree = "<group>"; };
+		676109C81C99A941007C4E67 /* countries-strings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "countries-strings"; sourceTree = "<group>"; };
 		676C83C01C637FAE00DC9603 /* storage_downloading_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_downloading_tests.cpp; sourceTree = "<group>"; };
 		676C83C11C637FAE00DC9603 /* storage_update_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_update_tests.cpp; sourceTree = "<group>"; };
 		676C83F91C63884300DC9603 /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = categories.txt; sourceTree = "<group>"; };
@@ -466,6 +469,7 @@
 		676C83F81C6387D000DC9603 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				676109C81C99A941007C4E67 /* countries-strings */,
 				671182CF1C7F0D5400CB8177 /* countries_obsolete.txt */,
 				671182D01C7F0D5400CB8177 /* packed_polygons_obsolete.bin */,
 				671182D11C7F0D5400CB8177 /* WorldCoasts_obsolete.mwm */,
@@ -614,6 +618,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				678338D81C72460700FD6263 /* packed_polygons.bin in Resources */,
+				676109CA1C99A9D0007C4E67 /* countries-strings in Resources */,
 				678338E31C72460700FD6263 /* types.txt in Resources */,
 				678338E61C72460700FD6263 /* WorldCoasts.mwm in Resources */,
 				671182D51C7F0D6500CB8177 /* packed_polygons_obsolete.bin in Resources */,
@@ -636,6 +641,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				676109C91C99A94E007C4E67 /* countries-strings in Resources */,
 				67F90BF41C6A2B3100CD458E /* packed_polygons.bin in Resources */,
 				67F90BF51C6A2B3100CD458E /* categories.txt in Resources */,
 				67F90BF61C6A2B3100CD458E /* classificator.txt in Resources */,
