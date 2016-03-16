@@ -1430,7 +1430,7 @@ bool Storage::GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInf
     if (descendantNode.ChildrenCount() != 0 || GetNodeStatus(descendantNode).status != NodeStatus::OnDiskOutOfDate)
       return;
     updateInfo.m_numberOfMwmFilesToUpdate += 1; // It's not a group mwm.
-    updateInfo.m_totalUpdateSizeInBytes += descendantNode.Value().GetSubtreeMwmCounter();
+    updateInfo.m_totalUpdateSizeInBytes += descendantNode.Value().GetSubtreeMwmSizeBytes();
   };
 
   TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
