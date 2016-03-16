@@ -16,7 +16,9 @@ void main(void)
   if (a_animate > 0.0)
     normal = u_interpolationT * normal;
 
-  vec4 pos = (vec4(normal, 0, 0) + vec4(a_position, 1) * modelView) * projection;
+  lowp vec4 p = vec4(a_position, 1) * modelView;
+  highp vec4 pos = vec4(normal, 0, 0) + p;
+  pos = pos * projection;
   float w = pos.w;
   pos.xyw = (pivotTransform * vec4(pos.xy, 0.0, w)).xyw;
   pos.z *= pos.w / w;
