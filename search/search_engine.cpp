@@ -333,7 +333,8 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
       processor.Search(res, kResultsCount);
     }
 
-    EmitResults(params, res);
+    if (!processor.IsCancelled())
+      EmitResults(params, res);
   }
   catch (Query::CancelException const &)
   {
