@@ -454,7 +454,7 @@ static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCoun
   NodeStatuses ns;
   GetStorage().GetNodeStatuses(countryId, ns);
 
-  TBatchedData const data(countryId, ns.m_status, ns.m_error, ns.m_groupNode);
+  TBatchedData const data(countryId, ns.m_status, ns.m_error, !ns.m_groupNode);
   g_batchedCallbackData[*listenerRef].push_back(move(data));
 
   if (!g_isBatched)
