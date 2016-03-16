@@ -229,11 +229,6 @@ public final class MapManager
   public static native void nativeDelete(String root);
 
   /**
-   * Focuses map on the given {@code root}.
-   */
-  public static native void nativeShow(String root);
-
-  /**
    * Registers {@code callback} of storage status changed. Returns slot ID which should be used to unsubscribe in {@link #nativeUnsubscribe(int)}.
    */
   public static native int nativeSubscribe(StorageCallback callback);

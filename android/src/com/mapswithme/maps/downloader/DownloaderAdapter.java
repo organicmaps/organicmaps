@@ -2,6 +2,7 @@ package com.mapswithme.maps.downloader;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.annotation.DrawableRes;
@@ -40,7 +41,6 @@ import com.mapswithme.util.statistics.Statistics;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
-import static com.mapswithme.maps.R.id.status;
 
 class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolder>
                      implements StickyRecyclerHeadersAdapter<DownloaderAdapter.HeaderViewHolder>
@@ -133,9 +133,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       @Override
       void invoke(CountryItem item, DownloaderAdapter adapter)
       {
-        MapManager.nativeShow(item.id);
+        Intent intent = new Intent(adapter.mActivity, MwmActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowCountryTask(item.id, false));
+        adapter.mActivity.startActivity(intent);
 
-        if (adapter.mActivity instanceof MwmActivity)
+        if (!(adapter.mActivity instanceof MwmActivity))
           adapter.mActivity.finish();
 
         Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
@@ -358,7 +361,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       super(frame);
 
       mProgress = (WheelProgressView) frame.findViewById(R.id.progress);
-      mStatus = (ImageView) frame.findViewById(status);
+      mStatus = (ImageView) frame.findViewById(R.id.status);
       mName = (TextView) frame.findViewById(R.id.name);
       mSizes = (TextView) frame.findViewById(R.id.sizes);
       mCounts = (TextView) frame.findViewById(R.id.counts);

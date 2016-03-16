@@ -442,13 +442,6 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeDelete(JNIEnv * env, jclass
   EndBatchingCallbacks(env);
 }
 
-// static void nativeShow(String root);
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeShow(JNIEnv * env, jclass clazz, jstring root)
-{
-  g_framework->NativeFramework()->ShowNode(jni::ToNativeString(env, root));
-}
-
 static void StatusChangedCallback(shared_ptr<jobject> const & listenerRef, TCountryId const & countryId)
 {
   NodeStatuses ns;
