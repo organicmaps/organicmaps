@@ -56,6 +56,7 @@ DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
 DEFINE_string(dump_feature_names, "", "Print all feature names by 2-letter locale.");
 DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons.");
+DEFINE_string(unpack_borders, "", "Convert packed_polygons to a directory of polygon files (specify folder).");
 DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
 DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
@@ -248,6 +249,9 @@ int main(int argc, char ** argv)
 
   if (FLAGS_generate_packed_borders)
     borders::GeneratePackedBorders(path);
+
+  if (!FLAGS_unpack_borders.empty())
+    borders::UnpackBorders(path, FLAGS_unpack_borders);
 
   if (FLAGS_check_mwm)
     check_model::ReadFeatures(datFile);

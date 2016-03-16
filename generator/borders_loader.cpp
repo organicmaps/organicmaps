@@ -21,6 +21,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/iomanip.hpp"
 #include "std/fstream.hpp"
 #include "std/vector.hpp"
 #include "std/bind.hpp"
@@ -160,6 +161,40 @@ void GeneratePackedBorders(string const & baseDir)
   PackedBordersGenerator generator(baseDir);
   ForEachCountry(baseDir, generator);
   generator.WritePolygonsInfo();
+}
+
+void UnpackBorders(string const & baseDir, string const & targetDir)
+{
+  Platform & platform = GetPlatform();
+  if (!Platform::IsFileExistsByFullPath(targetDir))
+    platform.MkDir(targetDir);
+
+  vector<storage::CountryDef> countries;
+  FilesContainerR reader(my::JoinFoldersToPath(baseDir, PACKED_POLYGONS_FILE));
+  ReaderSource<ModelReaderPtr> src(reader.GetReader(PACKED_POLYGONS_INFO_TAG));
+  rw::Read(src, countries);
+
+  for (size_t id = 0; id < countries.size(); id++)
+  {
+    ofstream poly(my::JoinFoldersToPath(targetDir, countries[id].m_name + ".poly"));
+    poly << countries[id].m_name << endl;
+    src = reader.GetReader(strings::to_string(id));
+    uint32_t const count = ReadVarUint<uint32_t>(src);
+    for (size_t i = 0; i < count; ++i)
+    {
+      poly << i + 1 << endl;
+      vector<m2::PointD> points;
+      serial::LoadOuterPath(src, serial::CodingParams(), points);
+      for (auto p : points)
+      {
+        ms::LatLon const ll = MercatorBounds::ToLatLon(p);
+        poly << "    " << std::scientific << ll.lon << "    " << ll.lat << endl;
+      }
+      poly << "END" << endl;
+    }
+    poly << "END" << endl;
+    poly.close();
+  }
 }
 
 } // namespace borders
