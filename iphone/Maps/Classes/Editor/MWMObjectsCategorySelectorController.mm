@@ -72,7 +72,7 @@ namespace
 - (void)configSearchBar
 {
   self.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor primary]];
-  self.searchBar.placeholder = L(@"_search_in_types");
+  self.searchBar.placeholder = L(@"search");
   UITextField * textFiled = [self.searchBar valueForKey:@"searchField"];
   UILabel * placeholder = [textFiled valueForKey:@"_placeholderLabel"];
   placeholder.textColor = [UIColor blackHintText];
