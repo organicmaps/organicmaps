@@ -80,7 +80,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return [self defaultAlertWithTitle:@"please_note"
                              message:@"downloader_delete_map_dialog"
                     rightButtonTitle:@"delete"
-                     leftButtonTitle:nil
+                     leftButtonTitle:@"cancel"
                    rightButtonAction:okBlock];
 }
 
