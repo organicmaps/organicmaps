@@ -74,5 +74,12 @@ bool CBVPtr::IsEmpty() const
   return !m_isFull && coding::CompressedBitVector::IsEmpty(m_ptr);
 }
 
+void CBVPtr::ForEach(function<void(uint32_t)> && fn)
+{
+  ASSERT(!m_isFull, ());
+  if (!IsEmpty())
+    coding::CompressedBitVectorEnumerator::ForEach(*m_ptr, fn);
+}
+
 }  // namespace v2
 }  // namespace search

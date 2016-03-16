@@ -2,6 +2,8 @@
 
 #include "base/macros.hpp"
 
+#include "std/function.hpp"
+
 namespace coding
 {
 class CompressedBitVector;
@@ -46,6 +48,8 @@ public:
 
   void Union(coding::CompressedBitVector const * p);
   void Intersect(coding::CompressedBitVector const * p);
+
+  void ForEach(function<void(uint32_t)> && fn);
 };
 
 }  // namespace v2

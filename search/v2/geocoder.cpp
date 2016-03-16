@@ -678,16 +678,20 @@ void Geocoder::FillLocalityCandidates(coding::CompressedBitVector const * filter
 
     for (size_t endToken = startToken + 1; endToken <= m_numTokens; ++endToken)
     {
-      coding::CompressedBitVectorEnumerator::ForEach(*intersection.Get(),
-                                                     [&](uint32_t featureId)
-                                                     {
-                                                       Locality l;
-                                                       l.m_countryId = m_context->GetId();
-                                                       l.m_featureId = featureId;
-                                                       l.m_startToken = startToken;
-                                                       l.m_endToken = endToken;
-                                                       preLocalities.push_back(l);
-                                                     });
+      // Skip locality candidates that match only numbers.
+      if (!m_params.IsNumberTokens(startToken, endToken))
+      {
+        intersection.ForEach([&](uint32_t featureId)
+                             {
+                               Locality l;
+                               l.m_countryId = m_context->GetId();
+                               l.m_featureId = featureId;
+                               l.m_startToken = startToken;
+                               l.m_endToken = endToken;
+                               preLocalities.push_back(l);
+                             });
+      }
+
       if (endToken < m_numTokens)
       {
         intersection.Intersect(m_addressFeatures[endToken].get());
@@ -1075,7 +1079,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(
 
   vector<uint32_t> sortedFeatures;
   sortedFeatures.reserve(features->PopCount());
-  coding::CompressedBitVectorEnumerator::ForEach(*filtered, MakeBackInsertFunctor(sortedFeatures));
+  filtered.ForEach(MakeBackInsertFunctor(sortedFeatures));
   layer.m_sortedFeatures = &sortedFeatures;
 
   ScopedMarkTokens mark(m_usedTokens, startToken, endToken);
@@ -1146,7 +1150,7 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
           clusters[searchType].push_back(featureId);
       };
 
-      coding::CompressedBitVectorEnumerator::ForEach(*features, clusterize);
+      features.ForEach(clusterize);
     }
     else
     {
@@ -1358,7 +1362,7 @@ void Geocoder::MatchUnclassified(size_t curToken)
     if (type == SearchModel::SEARCH_TYPE_UNCLASSIFIED)
       EmitResult(m_context->GetId(), featureId, type, startToken, curToken);
   };
-  coding::CompressedBitVectorEnumerator::ForEach(*allFeatures, emitUnclassified);
+  allFeatures.ForEach(emitUnclassified);
 }
 
 unique_ptr<coding::CompressedBitVector> Geocoder::LoadCategories(

@@ -35,6 +35,9 @@ struct SearchQueryParams
   TSynonymsVector const & GetTokens(size_t i) const;
   TSynonymsVector & GetTokens(size_t i);
 
+  /// @return true if all tokens in [start, end) range has number synonym.
+  bool IsNumberTokens(size_t start, size_t end) const;
+
 private:
   template <class ToDo>
   void ForEachToken(ToDo && toDo);
