@@ -732,13 +732,8 @@ void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont
   using TPreResultSet = set<impl::PreResult1, LessFeatureID>;
   TPreResultSet theSet;
 
-  vector<impl::PreResult1> results;
-  results.reserve(m_results.size());
-  for (auto const & p : m_results)
-    results.emplace_back(p.second);
-
-  sort(results.begin(), results.end(), &impl::PreResult1::LessPriority);
-  if (kPreResultsCount != 0 && results.size() > kPreResultsCount)
+  sort(m_results.begin(), m_results.end(), &impl::PreResult1::LessPriority);
+  if (kPreResultsCount != 0 && m_results.size() > kPreResultsCount)
   {
     // Priority is some kind of distance from the viewport or
     // position, therefore if we have a bunch of results with the same
@@ -747,29 +742,30 @@ void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont
     // feature id) this code randomly selects tail of the
     // sorted-by-priority list of pre-results.
 
-    double const lastPriority = results[kPreResultsCount - 1].GetPriority();
+    double const lastPriority = m_results[kPreResultsCount - 1].GetPriority();
 
-    auto b = results.begin() + kPreResultsCount - 1;
-    for (; b != results.begin() && b->GetPriority() == lastPriority; --b)
+    auto b = m_results.begin() + kPreResultsCount - 1;
+    for (; b != m_results.begin() && b->GetPriority() == lastPriority; --b)
       ;
     if (b->GetPriority() != lastPriority)
       ++b;
 
-    auto e = results.begin() + kPreResultsCount;
-    for (; e != results.end() && e->GetPriority() == lastPriority; ++e)
+    auto e = m_results.begin() + kPreResultsCount;
+    for (; e != m_results.end() && e->GetPriority() == lastPriority; ++e)
       ;
 
     // TODO (@y, @m, @vng): this method is deprecated, need to rewrite
     // it.
     random_shuffle(b, e);
   }
-  theSet.insert(results.begin(), results.begin() + min(results.size(), kPreResultsCount));
+  theSet.insert(m_results.begin(), m_results.begin() + min(m_results.size(), kPreResultsCount));
 
   if (!m_viewportSearch)
   {
-    size_t n = min(results.size(), kPreResultsCount);
-    nth_element(results.begin(), results.begin() + n, results.end(), &impl::PreResult1::LessRank);
-    theSet.insert(results.begin(), results.begin() + n);
+    size_t n = min(m_results.size(), kPreResultsCount);
+    nth_element(m_results.begin(), m_results.begin() + n, m_results.end(),
+                &impl::PreResult1::LessRank);
+    theSet.insert(m_results.begin(), m_results.begin() + n);
   }
 
   ClearResults();
@@ -958,8 +954,7 @@ void Query::AddPreResult1(MwmSet::MwmId const & mwmId, uint32_t featureId, doubl
                           v2::PreRankingInfo const & info, ViewportID viewportId /* = DEFAULT_V */)
 {
   FeatureID id(mwmId, featureId);
-  impl::PreResult1 res(id, priority, viewportId, info);
-  m_results.emplace(make_pair(id,  res));
+  m_results.emplace_back(id, priority, viewportId, info);
 }
 
 namespace impl

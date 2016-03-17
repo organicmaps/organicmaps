@@ -9,12 +9,15 @@ namespace v2
 {
 namespace
 {
+// See search/search_quality/scoring_model.py for details.  In short,
+// these coeffs correspond to coeffs in a linear model.
 double const kDistanceToViewport = 1.850;
 double const kDistanceToPosition = 85.898;
 double const kMinDistance = 6.908;
 double const kRank = 78.441;
 double const kNameScore = 1.0;
 double const kNameCoverage = 0.0;
+double const kSearchType = 1.0;
 double const kPositionInViewport = 0.0;
 
 double TransformDistance(double distance)
@@ -63,9 +66,6 @@ void RankingInfo::ToCSV(ostream & os) const
 
 double RankingInfo::GetLinearModelRank() const
 {
-  // See search/search_quality/scoring_model.py for details.  In
-  // short, these coeffs correspond to coeffs in a linear model.
-
   // NOTE: this code must be consistent with scoring_model.py.  Keep
   // this in mind when you're going to change scoring_model.py or this
   // code. We're working on automatic rank calculation code generator
@@ -93,7 +93,8 @@ double RankingInfo::GetLinearModelRank() const
 
   return kDistanceToViewport * distanceToViewport + kDistanceToPosition * distanceToPosition +
          kMinDistance * minDistance + kRank * rank + kNameScore * nameScore +
-         kNameCoverage * nameCoverage + kPositionInViewport * positionInViewport;
+         kNameCoverage * nameCoverage + kSearchType * searchType +
+         kPositionInViewport * positionInViewport;
 }
 }  // namespace v2
 }  // namespace search

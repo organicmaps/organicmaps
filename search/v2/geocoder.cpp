@@ -350,10 +350,26 @@ double GetSimilarity(vector<m2::RectD> const & pivots, m2::RectD const & rect)
   for (auto const & pivot : pivots)
   {
     double const area = min(Area(pivot), Area(rect));
+    if (area == 0.0)
+      continue;
+
     m2::RectD p = pivot;
-    p.Intersect(rect);
-    distance += area == 0.0 ? 0.0 : Area(p) / area;
+    if (!p.Intersect(rect))
+      continue;
+
+    distance += Area(p) / area;
   }
+  return distance;
+}
+
+// Returns shortest squared distance from the centers of |pivots| to
+// the |rect|.
+double GetSquaredDistance(vector<m2::RectD> const & pivots, m2::RectD const & rect)
+{
+  double distance = numeric_limits<double>::max();
+  auto const center = rect.Center();
+  for (auto const & pivot : pivots)
+    distance = min(distance, center.SquareLength(pivot.Center()));
   return distance;
 }
 
@@ -368,8 +384,22 @@ TIt OrderCountries(Geocoder::Params const & params, TIt begin, TIt end)
                                     GetRectAroundPoistion(params.m_position)};
   auto compareBySimilarity = [&](shared_ptr<MwmInfo> const & lhs, shared_ptr<MwmInfo> const & rhs)
   {
-    return GetSimilarity(pivots, lhs->m_limitRect) > GetSimilarity(pivots, rhs->m_limitRect);
+    auto const & lhsRect = lhs->m_limitRect;
+    auto const & rhsRect = rhs->m_limitRect;
+
+    auto const lhsSimilarity = GetSimilarity(pivots, lhsRect);
+    auto const rhsSimilarity = GetSimilarity(pivots, rhsRect);
+
+    if (lhsSimilarity == 0.0 && rhsSimilarity == 0.0)
+    {
+      auto const lhsDistance = GetSquaredDistance(pivots, lhsRect);
+      auto const rhsDistance = GetSquaredDistance(pivots, rhsRect);
+      return lhsDistance < rhsDistance;
+    }
+
+    return lhsSimilarity > rhsSimilarity;
   };
+
   auto intersects = [&](shared_ptr<MwmInfo> const & info) -> bool
   {
     for (auto const & pivot : pivots)
@@ -379,6 +409,7 @@ TIt OrderCountries(Geocoder::Params const & params, TIt begin, TIt end)
     }
     return false;
   };
+
   sort(begin, end, compareBySimilarity);
   return stable_partition(begin, end, intersects);
 }
@@ -1305,9 +1336,6 @@ void Geocoder::EmitResult(City const & city, size_t startToken, size_t endToken)
 
 void Geocoder::FillMissingFieldsInResults()
 {
-  m_viewportFeatures.SetPosition(m_params.m_viewport.Center(), m_params.m_scale);
-  m_positionFeatures.SetPosition(m_params.m_position, m_params.m_scale);
-
   sort(m_results->begin(), m_results->end(), my::CompareBy(&TResult::first));
 
   auto ib = m_results->begin();
@@ -1331,11 +1359,22 @@ void Geocoder::FillMissingFieldsInResults()
         auto & info = ii->second;
 
         info.m_rank = rankTable->Get(id.m_index);
-        info.m_distanceToViewport = m_viewportFeatures.GetDistanceToFeatureMeters(id);
-        info.m_distanceToPosition = m_positionFeatures.GetDistanceToFeatureMeters(id);
       }
     }
     ib = ie;
+  }
+
+  if (m_results->size() > m_params.m_maxNumResults)
+  {
+    m_viewportFeatures.SetPosition(m_params.m_viewport.Center(), m_params.m_scale);
+    m_positionFeatures.SetPosition(m_params.m_position, m_params.m_scale);
+    for (auto & result : *m_results)
+    {
+      auto const & id = result.first;
+      auto & info = result.second;
+      info.m_distanceToViewport = m_viewportFeatures.GetDistanceToFeatureMeters(id);
+      info.m_distanceToPosition = m_positionFeatures.GetDistanceToFeatureMeters(id);
+    }
   }
 }
 

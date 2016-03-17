@@ -281,7 +281,8 @@ protected:
     DISTANCE_TO_PIVOT,  // LessDistance
     FEATURE_RANK       // LessRank
   };
-  map<FeatureID, impl::PreResult1> m_results;
+
+  vector<impl::PreResult1> m_results;
   bool m_viewportSearch;
   bool m_keepHouseNumberInQuery;
   //@}
