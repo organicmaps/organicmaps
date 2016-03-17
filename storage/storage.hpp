@@ -416,7 +416,7 @@ public:
 
   TCountryId FindCountryIdByFile(string const & name) const;
 
-  bool IsCoutryIdInCountryTree(TCountryId const & countryId) const;
+  bool IsCoutryIdCountryTreeLeaf(TCountryId const & countryId) const;
 
   TLocalAndRemoteSize CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const;
   platform::CountryFile const & GetCountryFile(TCountryId const & countryId) const;

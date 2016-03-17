@@ -229,7 +229,7 @@ public:
     m_slot = m_storage.Subscribe(
         bind(&CountryDownloaderChecker::OnCountryStatusChanged, this, _1),
         bind(&CountryDownloaderChecker::OnCountryDownloadingProgress, this, _1, _2));
-    TEST(storage.IsCoutryIdInCountryTree(countryId), (m_countryFile));
+    TEST(storage.IsCoutryIdCountryTreeLeaf(countryId), (m_countryFile));
     TEST(!m_transitionList.empty(), (m_countryFile));
   }
 
