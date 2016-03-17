@@ -69,7 +69,7 @@ void CountryInfoGetter::GetRegionsCountryId(m2::PointD const & pt, TCountriesVec
 
   for (size_t id = 0; id < m_countries.size(); ++id)
   {
-    if (m_countries[id].m_rect.Intersect(lookupRect) && IsCloseEnough(id, pt, kLookupRadiusM))
+    if (m_countries[id].m_rect.IsIntersect(lookupRect) && IsCloseEnough(id, pt, kLookupRadiusM))
       closestCoutryIds.emplace_back(m_countries[id].m_name);
   }
 }
