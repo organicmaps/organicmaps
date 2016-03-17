@@ -32,6 +32,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Graphics;
@@ -97,6 +98,16 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       @Override
       void invoke(final CountryItem item, DownloaderAdapter adapter)
       {
+        if (RoutingController.get().isNavigating())
+        {
+          new AlertDialog.Builder(adapter.mActivity)
+              .setTitle(R.string.downloader_delete_map)
+              .setMessage(R.string.downloader_delete_map_while_routing_dialog)
+              .setPositiveButton(android.R.string.ok, null)
+              .show();
+          return;
+        }
+
         if (!MapManager.nativeHasUnsavedEditorChanges(item.id))
         {
           deleteNode(item);
