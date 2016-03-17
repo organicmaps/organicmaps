@@ -16929,6 +16929,10 @@
     fr = Toutes les modifications de la carte seront supprimées avec elle.
     ja = この地図を削除すると、今まで行った変更の全ても一緒に削除されます。
 
+  [downloader_delete_map_while_routing_dialog]
+    tags = ios, android
+    en = To delete map please stop the navigation.
+
   [downloader_update_maps]
     tags = ios, android
     en = Update Maps
