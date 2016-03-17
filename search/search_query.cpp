@@ -23,6 +23,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_covering.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/index.hpp"
@@ -184,6 +185,7 @@ Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest>
   , m_suggestsEnabled(true)
   , m_viewportSearch(false)
   , m_keepHouseNumberInQuery(false)
+  , m_reverseGeocoder(index)
 {
   // Initialize keywords scorer.
   // Note! This order should match the indexes arrays above.
@@ -513,9 +515,8 @@ void Query::FlushViewportResults(v2::Geocoder::Params const & params, Results & 
   {
     if (IsCancelled())
       break;
-    res.AddResultNoChecks((*(indV[i]))
-                              .GeneratePointResult(m_infoGetter, &m_categories, &m_prefferedTypes,
-                                                   m_currentLocaleCode));
+    res.AddResultNoChecks((*(indV[i])).GenerateFinalResult(m_infoGetter, &m_categories,
+        &m_prefferedTypes, m_currentLocaleCode, m_reverseGeocoder));
   }
 }
 
@@ -577,14 +578,6 @@ class PreResult2Maker
     f.SetID(id);
 
     m_query.GetBestMatchName(f, name);
-
-    // It's invalid for a building to have an empty name if it has a
-    // house number - it will be merged with other buildings in a
-    // MakePreResult2(). To prevent this, house number is used as a
-    // building name here, if the latter is empty.
-    auto const & checker = ftypes::IsBuildingChecker::Instance();
-    if (checker(f) && name.empty())
-      name = f.GetHouseNumber();
 
     // country (region) name is a file name if feature isn't from World.mwm
     if (m_pFV->IsWorld())
@@ -1039,7 +1032,8 @@ public:
 Result Query::MakeResult(impl::PreResult2 const & r) const
 {
   Result res =
-      r.GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes, m_currentLocaleCode);
+      r.GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes, m_currentLocaleCode,
+                            m_reverseGeocoder);
   MakeResultHighlight(res);
 
 #ifdef FIND_LOCALITY_TEST

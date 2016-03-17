@@ -39,7 +39,7 @@ jobject ToJavaResult(Result & result, bool hasPosition, double lat, double lon)
   ::Framework * fr = g_framework->NativeFramework();
 
   jni::TScopedLocalIntArrayRef ranges(env, env->NewIntArray(result.GetHighlightRangesCount() * 2));
-  jint * rawArr = env->GetIntArrayElements(ranges.get(), nullptr);
+  jint * rawArr = env->GetIntArrayElements(ranges, nullptr);
   for (int i = 0; i < result.GetHighlightRangesCount(); i++)
   {
     auto const & range = result.GetHighlightRange(i);
@@ -69,21 +69,12 @@ jobject ToJavaResult(Result & result, bool hasPosition, double lat, double lon)
     return ret;
   }
 
-  search::AddressInfo info;
-  if (result.GetResultType() == Result::RESULT_FEATURE)
-  {
-    fr->LoadSearchResultMetadata(result);
-    info = fr->GetFeatureAddressInfo(result.GetFeatureID());
-  }
-  else if (result.HasPoint())
-    info = fr->GetAddressInfoAtPoint(result.GetFeatureCenter());
-
   jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetFeatureType()));
-  jni::TScopedLocalRef region(env, jni::ToJavaString(env, info.FormatAddress(search::AddressInfo::SEARCH_RESULT)));
+  jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, jni::ToJavaString(env, distance));
   jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));
   jni::TScopedLocalRef desc(env, env->NewObject(g_descriptionClass, g_descriptionConstructor,
-                                                featureType.get(), region.get(),
+                                                featureType.get(), address.get(),
                                                 dist.get(), cuisine.get(),
                                                 result.GetStarsCount(),
                                                 static_cast<jint>(result.IsOpenNow())));

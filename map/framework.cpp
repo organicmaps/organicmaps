@@ -1286,42 +1286,6 @@ size_t Framework::ShowSearchResults(search::Results const & results)
   return count;
 }
 
-search::AddressInfo Framework::GetSearchResultAddress(search::Result const & res) const
-{
-  search::AddressInfo info;
-  if (res.IsSuggest())
-    return info;
-
-  string const & type = res.GetFeatureType();
-  if (!type.empty())
-    info.m_types.push_back(type);
-
-  // Assign name if it's not equal with type.
-  string const & name = res.GetString();
-  if (name != type)
-    info.m_name = name;
-
-  info.m_city = res.GetAddress();
-
-  /// @todo Optimize here according to the fact that feature is
-  /// already read in many cases during search results processing.
-  auto const & id = res.GetFeatureID();
-  if (id.IsValid())
-  {
-    Index::FeaturesLoaderGuard loader(m_model.GetIndex(), id.m_mwmId);
-    FeatureType ft;
-    loader.GetFeatureByIndex(id.m_index, ft);
-    if (ft.GetFeatureType() == feature::GEOM_LINE ||
-        !ftypes::IsAddressObjectChecker::Instance()(ft))
-    {
-      return info;
-    }
-  }
-
-  info = GetAddressInfoAtPoint(res.GetFeatureCenter());
-  return info;
-}
-
 void Framework::FillSearchResultsMarks(search::Results const & results)
 {
   UserMarkControllerGuard guard(m_bmManager, UserMarkType::SEARCH_MARK);

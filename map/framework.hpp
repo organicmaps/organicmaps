@@ -399,7 +399,6 @@ public:
 
   void ShowSearchResult(search::Result const & res);
   size_t ShowSearchResults(search::Results const & results);
-  search::AddressInfo GetSearchResultAddress(search::Result const & res) const;
 
   void StartInteractiveSearch(search::SearchParams const & params);
   bool IsInteractiveSearchActive() const { return !m_lastInteractiveSearchParams.m_query.empty(); }

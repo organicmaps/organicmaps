@@ -9,29 +9,16 @@ Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
                Metadata const & meta)
   : m_id(id)
   , m_center(pt)
-  , m_str(str)
+  , m_str(str.empty() ? type : str)  //!< Features with empty names can be found after suggestion.
   , m_address(address)
   , m_type(type)
   , m_featureType(featureType)
   , m_metadata(meta)
 {
-  Init(true /* metadataInitialized */);
 }
 
-Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
-               string const & address, string const & type)
-  : m_id(id)
-  , m_center(pt)
-  , m_str(str)
-  , m_address(address)
-  , m_type(type)
-{
-  Init(false /* metadataInitialized */);
-}
-
-Result::Result(m2::PointD const & pt, string const & str, string const & address,
-               string const & type)
-  : m_center(pt), m_str(str), m_address(address), m_type(type)
+Result::Result(m2::PointD const & pt, string const & latlon, string const & address)
+  : m_center(pt), m_str(latlon), m_address(address)
 {
 }
 
@@ -50,15 +37,6 @@ Result::Result(Result const & res, string const & suggest)
   , m_suggestionStr(suggest)
   , m_hightlightRanges(res.m_hightlightRanges)
 {
-}
-
-void Result::Init(bool metadataInitialized)
-{
-  // Features with empty names can be found after suggestion.
-  if (m_str.empty())
-    m_str = m_type;
-
-  m_metadata.m_isInitialized = metadataInitialized;
 }
 
 Result::ResultType Result::GetResultType() const
@@ -144,9 +122,9 @@ pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
 
 void Result::AppendCity(string const & name)
 {
-  // No need to store mwm file name if we have valid city name.
-  if (!name.empty())
-    m_address = name;
+  // Append only if city is absent in region (mwm) name.
+  if (m_address.find(name) == string::npos)
+    m_address = name + ", " + m_address;
 }
 
 string Result::ToStringForStats() const

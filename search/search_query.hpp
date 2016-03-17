@@ -2,6 +2,7 @@
 #include "search/intermediate_result.hpp"
 #include "search/keyword_lang_matcher.hpp"
 #include "search/mode.hpp"
+#include "search/reverse_geocoder.hpp"
 #include "search/search_trie.hpp"
 #include "search/suggest.hpp"
 #include "search/v2/geocoder.hpp"
@@ -286,6 +287,8 @@ protected:
   bool m_viewportSearch;
   bool m_keepHouseNumberInQuery;
   //@}
+
+  search::ReverseGeocoder const m_reverseGeocoder;
 };
 
 }  // namespace search

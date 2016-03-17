@@ -17,6 +17,7 @@ struct CountryInfo;
 
 namespace search
 {
+class ReverseGeocoder;
 namespace impl
 {
 /// First pass results class. Objects are creating during search in trie.
@@ -60,18 +61,15 @@ public:
   {
     RESULT_LATLON,
     RESULT_FEATURE,
-    RESULT_BUILDING
+    RESULT_BUILDING  //!< Buildings are not filtered out in duplicates filter.
   };
 
-  /// For RESULT_FEATURE.
+  /// For RESULT_FEATURE and RESULT_BUILDING.
   PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & pivot,
              string const & displayName, string const & fileName);
 
   /// For RESULT_LATLON.
   PreResult2(double lat, double lon);
-
-  /// For RESULT_BUILDING.
-  PreResult2(m2::PointD const & pt, string const & str, uint32_t type);
 
   inline search::v2::RankingInfo const & GetRankingInfo() const { return m_info; }
 
@@ -87,11 +85,7 @@ public:
   /// @param[in]  lang    Current system language.
   Result GenerateFinalResult(storage::CountryInfoGetter const & infoGetter,
                              CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
-                             int8_t locale) const;
-
-  Result GeneratePointResult(storage::CountryInfoGetter const & infoGetter,
-                             CategoriesHolder const * pCat,
-                             set<uint32_t> const * pTypes, int8_t locale) const;
+                             int8_t locale, ReverseGeocoder const & coder) const;
 
   static bool LessRank(PreResult2 const & r1, PreResult2 const & r2);
   static bool LessDistance(PreResult2 const & r1, PreResult2 const & r2);

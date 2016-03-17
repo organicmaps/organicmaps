@@ -1,5 +1,6 @@
 #include "intermediate_result.hpp"
 #include "geometry_utils.hpp"
+#include "reverse_geocoder.hpp"
 
 #include "storage/country_info_getter.hpp"
 
@@ -91,7 +92,7 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD c
   : m_id(f.GetID()),
     m_types(f),
     m_str(displayName),
-    m_resultType(RESULT_FEATURE),
+    m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? RESULT_BUILDING : RESULT_FEATURE),
     m_geomType(f.GetFeatureType())
 {
   ASSERT(m_id.IsValid(), ());
@@ -113,14 +114,6 @@ PreResult2::PreResult2(double lat, double lon)
     m_resultType(RESULT_LATLON)
 {
   m_region.SetParams(string(), MercatorBounds::FromLatLon(lat, lon));
-}
-
-PreResult2::PreResult2(m2::PointD const & pt, string const & str, uint32_t type)
-  : m_str(str), m_resultType(RESULT_BUILDING)
-{
-  m_region.SetParams(string(), pt);
-
-  m_types.Assign(type);
 }
 
 namespace
@@ -168,38 +161,61 @@ string PreResult2::GetRegionName(storage::CountryInfoGetter const & infoGetter,
   return info.m_name;
 }
 
+namespace
+{
+// TODO: Format street and house number according to local country's rules.
+string FormatStreetAndHouse(ReverseGeocoder::Address const & addr)
+{
+  ASSERT_GREATER_OR_EQUAL(addr.GetDistance(), 0, ());
+  return addr.GetStreetName() + ", " + addr.GetHouseNumber();
+}
+// TODO: Share common formatting code for search results and place page.
+string FormatFullAddress(ReverseGeocoder::Address const & addr, string const & region)
+{
+  // TODO: Print "near" for not exact addresses.
+  string res;
+  //if (addr.GetDistance() >= 0 && addr.GetDistance() < 50.0)
+  if (addr.GetDistance() == 0)
+    res = FormatStreetAndHouse(addr);
+  else
+    return region;
+  return res + ", " + region;
+}
+}  // namespace
+
 Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGetter,
                                        CategoriesHolder const * pCat,
-                                       set<uint32_t> const * pTypes, int8_t locale) const
+                                       set<uint32_t> const * pTypes, int8_t locale,
+                                       ReverseGeocoder const & coder) const
 {
+  ReverseGeocoder::Address addr;
+  coder.GetNearbyAddress(GetCenter(), addr);
+
+  // Insert exact address (street and house number) instead of empty result name.
+  string name;
+  if (m_str.empty() && addr.GetDistance() == 0)
+    name = FormatStreetAndHouse(addr);
+  else
+    name = m_str;
+
   uint32_t const type = GetBestType(pTypes);
-  string const regionName = GetRegionName(infoGetter, type);
+  // TODO: GetRegionName should return City, State, Country instead of Country, State, City.
+  string const address = FormatFullAddress(addr, GetRegionName(infoGetter, type));
 
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_id, GetCenter(), m_str, regionName, pCat->GetReadableFeatureType(type, locale)
+  case RESULT_BUILDING:
+    return Result(m_id, GetCenter(), name, address, pCat->GetReadableFeatureType(type, locale)
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_info.m_rank))
               #endif
                   , type, m_metadata);
 
-  case RESULT_BUILDING:
-    return Result(GetCenter(), m_str, regionName, pCat->GetReadableFeatureType(type, locale));
-
   default:
     ASSERT_EQUAL(m_resultType, RESULT_LATLON, ());
-    return Result(GetCenter(), m_str, regionName, string());
+    return Result(GetCenter(), m_str, address);
   }
-}
-
-Result PreResult2::GeneratePointResult(storage::CountryInfoGetter const & infoGetter,
-                                       CategoriesHolder const * pCat,
-                                       set<uint32_t> const * pTypes, int8_t locale) const
-{
-  uint32_t const type = GetBestType(pTypes);
-  return Result(m_id, GetCenter(), m_str, GetRegionName(infoGetter, type),
-                pCat->GetReadableFeatureType(type, locale));
 }
 
 // static
