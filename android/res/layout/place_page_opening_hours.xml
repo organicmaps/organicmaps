@@ -3,14 +3,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_schedule"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?clickableBackground"
-  android:minHeight="@dimen/height_block_base"
-  android:paddingTop="@dimen/margin_half"
-  android:tag="schedule"
-  android:visibility="gone"
-  tools:visibility="visible">
+  style="@style/PlacePageItemFrame"
+  android:tag="schedule">
 
   <ImageView
     android:id="@+id/icon"

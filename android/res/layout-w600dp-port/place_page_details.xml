@@ -42,6 +42,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_toLeftOf="@id/anchor_center"
+          android:layout_toStartOf="@id/anchor_center"
           android:orientation="vertical">
           <include layout="@layout/place_page_placename"/>
 
@@ -54,12 +55,15 @@
           <include layout="@layout/place_page_wiki"/>
 
           <include layout="@layout/place_page_editor"/>
+
+          <include layout="@layout/place_page_report_problem"/>
         </LinearLayout>
 
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_toRightOf="@id/anchor_center"
+          android:layout_toEndOf="@id/anchor_center"
           android:orientation="vertical">
           <include layout="@layout/place_page_email"/>
 

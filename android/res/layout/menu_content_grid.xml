@@ -7,7 +7,6 @@
   android:orientation="horizontal"
   tools:background="#200000F0">
 
-  <!-- TODO check if button fits on narrow screens (eg nexus 7)-->
   <TextView
     android:id="@+id/add_place"
     style="@style/MwmTheme.Menu.Content.GridItem.Text"
@@ -66,7 +65,6 @@
     android:text="@string/share_my_location"
     tools:background="#200000FF"/>
 
-  <!-- TODO check if button fits on narrow screens (eg nexus 7)-->
   <TextView
     android:id="@+id/showcase"
     style="@style/MwmTheme.Menu.Content.GridItem.Text"

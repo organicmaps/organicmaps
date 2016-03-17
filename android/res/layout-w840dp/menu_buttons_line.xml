@@ -11,7 +11,7 @@
   <!-- Fake view to make layout symmetrical -->
   <Space
     android:id="@+id/symmetrical_gap"
-    android:layout_width="@dimen/menu_line_button_width"
+    android:layout_width="160dp"
     android:layout_height="match_parent"/>
 
   <!-- Anchor ID. Disables menu toggle button if present. -->
@@ -50,6 +50,11 @@
     android:layout_width="0dp"
     android:layout_height="match_parent"
     android:layout_weight="1"/>
+
+  <ImageView
+    android:id="@+id/add_place"
+    style="@style/MwmTheme.Menu.Line.Button"
+    android:src="@drawable/ic_plus"/>
 
   <FrameLayout
     android:layout_width="wrap_content"

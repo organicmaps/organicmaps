@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__report_problem"
   style="@style/PlacePageItemFrame"
+  android:visibility="visible"
   tools:visibility="visible">
 
   <ImageView
