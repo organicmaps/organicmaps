@@ -1301,7 +1301,7 @@ search::AddressInfo Framework::GetSearchResultAddress(search::Result const & res
   if (name != type)
     info.m_name = name;
 
-  info.m_city = res.GetRegion();
+  info.m_city = res.GetAddress();
 
   /// @todo Optimize here according to the fact that feature is
   /// already read in many cases during search results processing.

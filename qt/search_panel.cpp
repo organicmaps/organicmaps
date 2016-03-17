@@ -137,7 +137,7 @@ void SearchPanel::OnSearchResult(ResultsT * results)
       int const rowCount = m_pTable->rowCount();
       m_pTable->insertRow(rowCount);
       m_pTable->setCellWidget(rowCount, 1, new QLabel(strHigh));
-      m_pTable->setItem(rowCount, 2, CreateItem(QString::fromStdString(res.GetRegion())));
+      m_pTable->setItem(rowCount, 2, CreateItem(QString::fromStdString(res.GetAddress())));
 
       if (res.GetResultType() == ResultT::RESULT_FEATURE)
       {

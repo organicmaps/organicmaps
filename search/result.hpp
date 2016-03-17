@@ -40,16 +40,16 @@ public:
   };
 
   /// For RESULT_FEATURE.
-  Result(FeatureID const & id, m2::PointD const & pt, string const & str, string const & region,
+  Result(FeatureID const & id, m2::PointD const & pt, string const & str, string const & address,
          string const & type, uint32_t featureType, Metadata const & meta);
 
   /// Used for generation viewport results.
   Result(FeatureID const & id, m2::PointD const & pt, string const & str,
-         string const & region, string const & type);
+         string const & address, string const & type);
 
   /// @param[in] type Empty string - RESULT_LATLON, building address otherwise.
   Result(m2::PointD const & pt, string const & str,
-         string const & region, string const & type);
+         string const & address, string const & type);
 
   /// For RESULT_SUGGESTION_PURE.
   Result(string const & str, string const & suggest);
@@ -60,7 +60,7 @@ public:
   /// Strings that is displayed in the GUI.
   //@{
   string const & GetString() const { return m_str; }
-  string const & GetRegion() const { return m_region; }
+  string const & GetAddress() const { return m_address; }
   string const & GetFeatureType() const { return m_type; }
   string const & GetCuisine() const { return m_metadata.m_cuisine; }
   //@}
@@ -116,7 +116,7 @@ private:
 
   FeatureID m_id;
   m2::PointD m_center;
-  string m_str, m_region, m_type;
+  string m_str, m_address, m_type;
   uint32_t m_featureType;
   string m_suggestionStr;
   buffer_vector<pair<uint16_t, uint16_t>, 4> m_hightlightRanges;

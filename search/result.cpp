@@ -5,12 +5,12 @@
 namespace search
 {
 Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
-               string const & region, string const & type, uint32_t featureType,
+               string const & address, string const & type, uint32_t featureType,
                Metadata const & meta)
   : m_id(id)
   , m_center(pt)
   , m_str(str)
-  , m_region(region)
+  , m_address(address)
   , m_type(type)
   , m_featureType(featureType)
   , m_metadata(meta)
@@ -19,19 +19,19 @@ Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
 }
 
 Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
-               string const & region, string const & type)
+               string const & address, string const & type)
   : m_id(id)
   , m_center(pt)
   , m_str(str)
-  , m_region(region)
+  , m_address(address)
   , m_type(type)
 {
   Init(false /* metadataInitialized */);
 }
 
-Result::Result(m2::PointD const & pt, string const & str, string const & region,
+Result::Result(m2::PointD const & pt, string const & str, string const & address,
                string const & type)
-  : m_center(pt), m_str(str), m_region(region), m_type(type)
+  : m_center(pt), m_str(str), m_address(address), m_type(type)
 {
 }
 
@@ -44,7 +44,7 @@ Result::Result(Result const & res, string const & suggest)
   : m_id(res.m_id)
   , m_center(res.m_center)
   , m_str(res.m_str)
-  , m_region(res.m_region)
+  , m_address(res.m_address)
   , m_type(res.m_type)
   , m_featureType(res.m_featureType)
   , m_suggestionStr(suggest)
@@ -126,7 +126,7 @@ bool Result::IsEqualFeature(Result const & r) const
   // - emitted World.mwm and Country.mwm
   // - after additional search in all mwm
   // so it's suitable here to test for 500m
-  return (m_str == r.m_str && m_region == r.m_region &&
+  return (m_str == r.m_str && m_address == r.m_address &&
           m_featureType == r.m_featureType &&
           PointDistance(m_center, r.m_center) < 500.0);
 }
@@ -146,7 +146,7 @@ void Result::AppendCity(string const & name)
 {
   // No need to store mwm file name if we have valid city name.
   if (!name.empty())
-    m_region = name;
+    m_address = name;
 }
 
 string Result::ToStringForStats() const
