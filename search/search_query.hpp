@@ -209,7 +209,7 @@ protected:
   set<uint32_t> m_prefferedTypes;
 
 #ifdef FIND_LOCALITY_TEST
-  LocalityFinder m_locality;
+  mutable LocalityFinder m_locality;
 #endif
 
   m2::RectD m_viewport[COUNT_V];

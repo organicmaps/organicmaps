@@ -251,18 +251,10 @@ void Query::SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & vi
     }
 
     m_viewport[idx] = viewport;
-
-#ifdef FIND_LOCALITY_TEST
-    m_locality.SetViewportByIndex(viewport, idx);
-#endif
   }
   else
   {
     ClearCache(idx);
-
-#ifdef FIND_LOCALITY_TEST
-    m_locality.ClearCache(idx);
-#endif
   }
 }
 
@@ -315,7 +307,7 @@ void Query::ClearCaches()
   for (size_t i = 0; i < COUNT_V; ++i)
     ClearCache(i);
 
-  m_locality.ClearCacheAll();
+  m_locality.ClearCache();
 }
 
 void Query::ClearCache(size_t ind)
@@ -927,16 +919,15 @@ public:
 
 Result Query::MakeResult(impl::PreResult2 const & r) const
 {
-  Result res =
-      r.GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes, m_currentLocaleCode,
-                            m_reverseGeocoder);
+  Result res = r.GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes,
+                                     m_currentLocaleCode, m_reverseGeocoder);
   MakeResultHighlight(res);
 
 #ifdef FIND_LOCALITY_TEST
   if (ftypes::IsLocalityChecker::Instance().GetType(r.GetTypes()) == ftypes::NONE)
   {
     string city;
-    m_locality.GetLocalityInViewport(res.GetFeatureCenter(), city);
+    m_locality.GetLocality(res.GetFeatureCenter(), city);
     res.AppendCity(city);
   }
 #endif
