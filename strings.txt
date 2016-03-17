@@ -15242,7 +15242,7 @@
 
   [editor_add_select_location]
     en = Location
-    ru =  Местоположение
+    ru = Местоположение
 
 
   [migrate_title]
@@ -16947,10 +16947,6 @@
     fr = Toutes les modifications de la carte seront supprimées avec elle.
     ja = この地図を削除すると、今まで行った変更の全ても一緒に削除されます。
 
-  [downloader_delete_map_while_routing_dialog]
-    tags = ios, android
-    en = To delete map please stop the navigation.
-
   [downloader_update_maps]
     tags = ios, android
     en = Update Maps
@@ -18237,11 +18233,8 @@
 
   [dialog_incorrect_feature_position]
     en = Change the location
-    ru = Измените местоположение  
+    ru = Измените местоположение
 
-  [message_ivalid_feature_position ]
+  [message_ivalid_feature_position]
     en = A place cannot be situated in this location.
     ru = Объект не может находиться в этом местоположении.
-
-
-[whats_new_migration_title]
