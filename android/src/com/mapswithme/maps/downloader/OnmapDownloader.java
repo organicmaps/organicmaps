@@ -178,7 +178,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         MapManager.nativeCancel(mCurrentCountry.id);
         Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
                                        Statistics.params().add(Statistics.EventParam.FROM, "map"));
-        sAutodownloadLocked = true;
+        lockAutodownload();
       }
     });
 
@@ -242,5 +242,10 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   {
     mStorageSubscriptionSlot = MapManager.nativeSubscribe(mStorageCallback);
     MapManager.nativeSubscribeOnCountryChanged(mCountryChangedListener);
+  }
+
+  static void lockAutodownload()
+  {
+    sAutodownloadLocked = true;
   }
 }
