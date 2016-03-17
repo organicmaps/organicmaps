@@ -110,19 +110,25 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
         mTitle.setText(mCurrentCountry.name);
 
-        String size = StringUtils.getFileSizeString(mCurrentCountry.totalSize);
+        String sizeText;
 
         if (progress)
-          mProgress.setProgress((int) (mCurrentCountry.progress * 100L / mCurrentCountry.totalSize));
+        {
+          int size = (int) (mCurrentCountry.progress * 100L / mCurrentCountry.totalSize);
+          mProgress.setProgress(size);
+          sizeText = size + "%";
+        }
         else
         {
           if (enqueued)
           {
-            size = mActivity.getString(R.string.downloader_queued);
+            sizeText = mActivity.getString(R.string.downloader_queued);
             mProgress.setProgress(0);
           }
           else
           {
+            sizeText = StringUtils.getFileSizeString(mCurrentCountry.totalSize);
+
             if (shouldAutoDownload &&
                 !sAutodownloadLocked &&
                 !failed &&
@@ -151,7 +157,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           }
         }
 
-        mSize.setText(size);
+        mSize.setText(sizeText);
       }
     }
 

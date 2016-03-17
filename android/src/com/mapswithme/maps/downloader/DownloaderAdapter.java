@@ -270,7 +270,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     private CountryItem mItem;
 
-    private void processClick()
+    private void processClick(boolean clickOnStatus)
     {
       switch (mItem.status)
       {
@@ -281,7 +281,11 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_DOWNLOADABLE:
-        MenuItem.DOWNLOAD.invoke(mItem, DownloaderAdapter.this);
+      case CountryItem.STATUS_PARTLY:
+        if (clickOnStatus)
+          MenuItem.DOWNLOAD.invoke(mItem, DownloaderAdapter.this);
+        else
+          processLongClick();
         break;
 
       case CountryItem.STATUS_FAILED:
@@ -386,7 +390,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           if (mItem.isExpandable())
             goDeeper(mItem);
           else
-            processClick();
+            processClick(false);
         }
       });
 
@@ -405,7 +409,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         @Override
         public void onClick(View v)
         {
-          processClick();
+          processClick(true);
         }
       });
 

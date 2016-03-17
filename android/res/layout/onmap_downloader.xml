@@ -5,7 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:padding="@dimen/margin_base"
+  android:padding="60dp"
   android:visibility="gone"
   tools:visibility="visible">
   <LinearLayout
@@ -33,6 +33,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Title"
+      android:textSize="20sp"
       android:gravity="center_horizontal"
       tools:text="Some title"/>
 
@@ -47,12 +48,13 @@
 
     <FrameLayout
       android:id="@+id/downloader_controls_frame"
-      android:layout_width="@dimen/button_width"
-      android:layout_height="wrap_content"
+      android:layout_width="180dp"
+      android:layout_height="@dimen/height_block_base"
       android:clipChildren="false">
       <Button
         android:id="@+id/downloader_button"
         style="@style/MwmWidget.Button.Accent"
+        android:layout_width="180dp"
         android:visibility="gone"/>
 
       <com.mapswithme.maps.widget.WheelProgressView
