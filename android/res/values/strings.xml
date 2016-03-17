@@ -939,7 +939,6 @@
 	<string name="please_note">Please note</string>
 	<string name="common_no_wifi_dialog">No WiFi connection. Do you want to continue with mobile data?</string>
 	<string name="downloader_delete_map_dialog">All map edits will be deleted together with the map.</string>
-	<string name="downloader_delete_map_while_routing_dialog">To delete map please stop the navigation.</string>
 	<string name="downloader_update_maps">Update Maps</string>
 	<string name="downloader_mwm_migration_dialog">To create a route, you need to update all maps and then plan the route again.</string>
 	<string name="downloader_search_field_hint">Find the map</string>
@@ -986,5 +985,5 @@
 	<string name="onboarding_location_title">Help us find you</string>
 	<string name="onboarding_location_message">To use navigation and other features, we need access to your geolocation.</string>
 	<string name="dialog_incorrect_feature_position">Change the location</string>
-	<string name="message_ivalid_feature_position ">A place cannot be situated in this location.</string>
+	<string name="message_ivalid_feature_position">A place cannot be situated in this location.</string>
 </resources>

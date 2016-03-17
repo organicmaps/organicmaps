@@ -1496,8 +1496,6 @@
 
 "downloader_delete_map_dialog" = "모든 지도의 변경 사항은 지도와 함께 삭제됩니다.";
 
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
-
 "downloader_update_maps" = "지도 업데이트";
 
 "downloader_mwm_migration_dialog" = "경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.";
@@ -1590,4 +1588,4 @@
 
 "dialog_incorrect_feature_position" = "Change the location";
 
-"message_ivalid_feature_position " = "A place cannot be situated in this location.";
+"message_ivalid_feature_position" = "A place cannot be situated in this location.";

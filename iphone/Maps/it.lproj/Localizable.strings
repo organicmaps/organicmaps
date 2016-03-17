@@ -1496,8 +1496,6 @@
 
 "downloader_delete_map_dialog" = "Tutti i cambiamenti nella mappa saranno cancellati insieme alla mappa.";
 
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
-
 "downloader_update_maps" = "Aggiorna mappe";
 
 "downloader_mwm_migration_dialog" = "Per creare un percorso, devi aggiornare tutte le mappe e pianificare nuovamente il percorso.";
@@ -1590,4 +1588,4 @@
 
 "dialog_incorrect_feature_position" = "Change the location";
 
-"message_ivalid_feature_position " = "A place cannot be situated in this location.";
+"message_ivalid_feature_position" = "A place cannot be situated in this location.";

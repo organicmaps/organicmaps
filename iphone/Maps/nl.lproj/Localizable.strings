@@ -1496,8 +1496,6 @@
 
 "downloader_delete_map_dialog" = "Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.";
 
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
-
 "downloader_update_maps" = "Kaarten updaten";
 
 "downloader_mwm_migration_dialog" = "Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.";
@@ -1590,4 +1588,4 @@
 
 "dialog_incorrect_feature_position" = "Change the location";
 
-"message_ivalid_feature_position " = "A place cannot be situated in this location.";
+"message_ivalid_feature_position" = "A place cannot be situated in this location.";

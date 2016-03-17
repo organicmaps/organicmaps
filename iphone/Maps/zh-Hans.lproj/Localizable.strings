@@ -1496,8 +1496,6 @@
 
 "downloader_delete_map_dialog" = "所有对地图的修改都将与地图一起被删除。";
 
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
-
 "downloader_update_maps" = "更新地图";
 
 "downloader_mwm_migration_dialog" = "为了创建路线，您需要更新全部地图并重新规划路线。";
@@ -1590,4 +1588,4 @@
 
 "dialog_incorrect_feature_position" = "Change the location";
 
-"message_ivalid_feature_position " = "A place cannot be situated in this location.";
+"message_ivalid_feature_position" = "A place cannot be situated in this location.";

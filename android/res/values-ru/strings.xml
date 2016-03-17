@@ -863,7 +863,7 @@
 	<string name="editor_example_values">Примеры значений</string>
 	<string name="editor_correct_mistake">Исправьте ошибку</string>
 	<string name="editor_correct_mistake_message">При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.</string>
-	<string name="editor_add_select_location"> Местоположение</string>
+	<string name="editor_add_select_location">Местоположение</string>
 	<string name="migrate_title">Важно!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Загрузить все</string>
@@ -980,6 +980,6 @@
 	<string name="onboarding_notifications_title">Разрешите отправку уведомлений</string>
 	<string name="onboarding_location_title">Помогите найти вас</string>
 	<string name="onboarding_location_message">Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.</string>
-	<string name="dialog_incorrect_feature_position">Измените местоположение  </string>
-	<string name="message_ivalid_feature_position ">Объект не может находиться в этом местоположении.</string>
+	<string name="dialog_incorrect_feature_position">Измените местоположение</string>
+	<string name="message_ivalid_feature_position">Объект не может находиться в этом местоположении.</string>
 </resources>

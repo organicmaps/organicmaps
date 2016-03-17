@@ -1365,7 +1365,7 @@
 
 "editor_correct_mistake_message" = "При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.";
 
-"editor_add_select_location" = " Местоположение";
+"editor_add_select_location" = "Местоположение";
 
 "migrate_title" = "Важно!";
 
@@ -1496,8 +1496,6 @@
 
 "downloader_delete_map_dialog" = "Вместе с картой удалятся и внесенные вами правки на этой карте.";
 
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
-
 "downloader_update_maps" = "Обновите карты";
 
 "downloader_mwm_migration_dialog" = "Для построения маршрутов необходимо обновить все карты и построить маршрут заново.";
@@ -1588,6 +1586,6 @@
 
 "onboarding_location_message" = "Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.";
 
-"dialog_incorrect_feature_position" = "Измените местоположение  ";
+"dialog_incorrect_feature_position" = "Измените местоположение";
 
-"message_ivalid_feature_position " = "Объект не может находиться в этом местоположении.";
+"message_ivalid_feature_position" = "Объект не может находиться в этом местоположении.";
