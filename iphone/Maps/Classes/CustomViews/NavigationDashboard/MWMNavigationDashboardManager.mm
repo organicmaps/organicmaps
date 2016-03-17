@@ -240,12 +240,12 @@ extern NSString * const kTTSStatusWasChangedNotification;
   self.activeRouteTypeButton = progress;
   auto & f = GetFramework();
   routing::RouterType type;
-  if ([progress isEqual:self.routePreview.pedestrianProgressView])
+  if ([progress isEqual:self.routePreview.pedestrianProgress])
   {
     [[Statistics instance]
               logEvent:kStatPointToPoint
         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatPedestrian}];
-    self.routePreview.vehicleProgressView.state = MWMCircularProgressStateNormal;
+    self.routePreview.vehicleProgress.state = MWMCircularProgressStateNormal;
     type = routing::RouterType::Pedestrian;
   }
   else
@@ -253,7 +253,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
     [[Statistics instance]
               logEvent:kStatPointToPoint
         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatVehicle}];
-    self.routePreview.pedestrianProgressView.state = MWMCircularProgressStateNormal;
+    self.routePreview.pedestrianProgress.state = MWMCircularProgressStateNormal;
     type = routing::RouterType::Vehicle;
   }
   f.CloseRouting();
@@ -362,10 +362,10 @@ extern NSString * const kTTSStatusWasChangedNotification;
   switch (GetFramework().GetRouter())
   {
   case routing::RouterType::Pedestrian:
-    self.activeRouteTypeButton = self.routePreview.pedestrianProgressView;
+    self.activeRouteTypeButton = self.routePreview.pedestrianProgress;
     break;
   case routing::RouterType::Vehicle:
-    self.activeRouteTypeButton = self.routePreview.vehicleProgressView;
+    self.activeRouteTypeButton = self.routePreview.vehicleProgress;
     break;
   }
   [self.routePreview selectProgress:self.activeRouteTypeButton];
