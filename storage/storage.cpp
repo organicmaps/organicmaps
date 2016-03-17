@@ -1054,8 +1054,8 @@ bool Storage::DeleteCountryFilesFromDownloader(TCountryId const & countryId, Map
   // Remove country from the queue if there's nothing to download.
   if (queuedCountry->GetInitOptions() == MapOptions::Nothing)
   {
-    auto it = find(m_queue.begin(), m_queue.end(), countryId);
-    ASSERT(it == m_queue.begin(), ());
+    auto it = find(m_queue.cbegin(), m_queue.cend(), countryId);
+    ASSERT(it != m_queue.cend(), ());
     if (m_queue.size() == 1)
     { // If m_queue is about to be empty.
       m_justDownloaded.clear();
