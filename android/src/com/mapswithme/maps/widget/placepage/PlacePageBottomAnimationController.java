@@ -14,6 +14,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
@@ -351,5 +352,13 @@ class PlacePageBottomAnimationController extends BasePlacePageAnimationControlle
     animator.setDuration(DURATION);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
+  }
+
+  @Override
+  protected void alignDetailsFrame()
+  {
+    final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mFrame.getLayoutParams();
+    params.topMargin = mPreview.getHeight();
+    mFrame.setLayoutParams(params);
   }
 }

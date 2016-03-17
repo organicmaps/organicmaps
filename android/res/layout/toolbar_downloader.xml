@@ -11,7 +11,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:baselineAligned="false"
-    android:layout_gravity="right|center_vertical">
+    android:layout_gravity="end|center_vertical">
     <include layout="@layout/toolbar_search_controls"/>
 
     <ImageView

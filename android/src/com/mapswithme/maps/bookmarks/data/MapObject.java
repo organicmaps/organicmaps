@@ -109,6 +109,8 @@ public class MapObject implements Parcelable
 
   public double getLon() { return mLon; }
 
+  public String getAddress() { return mAddress; }
+
   @NonNull
   public String getMetadata(Metadata.MetadataType type)
   {

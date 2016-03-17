@@ -9,13 +9,11 @@
     android:layout_height="match_parent"
     android:background="?ppBackground"
     android:overScrollMode="never">
+
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:paddingLeft="@dimen/margin_base_plus"
-      android:paddingRight="@dimen/margin_base_plus"
-      android:paddingTop="@dimen/margin_base">
+      android:orientation="vertical">
 
       <View
         android:layout_width="match_parent"
@@ -57,7 +55,9 @@
         layout="@layout/place_page_bookmark_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     </LinearLayout>
+
   </com.mapswithme.maps.widget.ObservableScrollView>
 
   <include layout="@layout/shadow_top"/>

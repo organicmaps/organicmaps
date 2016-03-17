@@ -2,13 +2,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <style name="PlacePagePreview">
     <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">56dp</item>
+    <item name="android:layout_height">wrap_content</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:orientation">horizontal</item>
-    <item name="android:paddingBottom">@dimen/margin_half_plus</item>
-    <item name="android:paddingLeft">@dimen/margin_base_plus</item>
-    <item name="android:paddingRight">@dimen/margin_base_plus</item>
-    <item name="android:paddingTop">@dimen/margin_base_plus</item>
+    <item name="android:padding">@dimen/margin_base</item>
   </style>
 
   <style name="PlacePageButtonText">
@@ -57,6 +54,10 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:orientation">horizontal</item>
     <item name="android:paddingBottom">@dimen/margin_half</item>
+    <item name="android:paddingLeft">@dimen/margin_base</item>
+    <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
+    <item name="android:paddingRight">@dimen/margin_base</item>
+    <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
     <item name="android:paddingTop">@dimen/margin_half</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:background">?clickableBackground</item>

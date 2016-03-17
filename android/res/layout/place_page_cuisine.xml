@@ -5,12 +5,14 @@
   android:id="@+id/ll__place_cuisine"
   style="@style/PlacePageItemFrame"
   android:tag="cuisine"
-  android:visibility="gone"
-  tools:visibility="visible">
+  tools:visibility="visible"
+  tools:ignore="UseCompoundDrawables">
+
   <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
     android:tint="?iconTint"
     android:src="@drawable/ic_cuisine"/>
 
@@ -20,4 +22,5 @@
     android:layout_height="wrap_content"
     android:textAppearance="@style/MwmTextAppearance.PlacePage"
     tools:text="Japan, European"/>
+
 </LinearLayout>

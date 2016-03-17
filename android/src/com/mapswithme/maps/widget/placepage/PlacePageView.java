@@ -34,7 +34,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -84,16 +83,16 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private boolean mIsDocked;
   private boolean mIsFloating;
 
-  // Preview
-  private TextView mTvTitle;
+  // Preview.
+  private ViewGroup mPreview;
   private Toolbar mToolbar;
+  private TextView mTvTitle;
   private TextView mTvSubtitle;
   private ArrowView mAvDirection;
   private TextView mTvDistance;
-  private RatingBar mRbStars;
-  private TextView mTvElevation;
-  // Place page details
-  private ScrollView mPpDetails;
+  private TextView mTvAddress;
+  // Details.
+  private ScrollView mDetails;
   private View mPhone;
   private TextView mTvPhone;
   private View mWebsite;
@@ -110,11 +109,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private View mCuisine;
   private TextView mTvCuisine;
   private View mWiki;
-  private TextView mTvWiki;
   private View mEntrance;
   private TextView mTvEntrance;
   private View mEditor;
-  private TextView mTvEditor;
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
@@ -135,7 +132,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   // Data
   private MapObject mMapObject;
   private boolean mIsLatLonDms;
-
 
   public enum State
   {
@@ -168,48 +164,46 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     LayoutInflater.from(getContext()).inflate(R.layout.place_page, this);
 
-    ViewGroup ppPreview = (ViewGroup) findViewById(R.id.pp__preview);
-    mTvTitle = (TextView) ppPreview.findViewById(R.id.tv__title);
+    mPreview = (ViewGroup) findViewById(R.id.pp__preview);
+    mTvTitle = (TextView) mPreview.findViewById(R.id.tv__title);
     mToolbar = (Toolbar) findViewById(R.id.toolbar);
-    mTvSubtitle = (TextView) ppPreview.findViewById(R.id.tv__subtitle);
-    mTvDistance = (TextView) ppPreview.findViewById(R.id.tv__straight_distance);
-    mAvDirection = (ArrowView) ppPreview.findViewById(R.id.av__direction);
+    mTvSubtitle = (TextView) mPreview.findViewById(R.id.tv__subtitle);
+    mTvDistance = (TextView) mPreview.findViewById(R.id.tv__straight_distance);
+    mAvDirection = (ArrowView) mPreview.findViewById(R.id.av__direction);
     mAvDirection.setOnClickListener(this);
     mAvDirection.setImageResource(R.drawable.direction);
-    mRbStars = (RatingBar) ppPreview.findViewById(R.id.rb__stars);
-    mTvElevation = (TextView) ppPreview.findViewById(R.id.tv__peak_elevation);
+    mTvAddress = (TextView) mPreview.findViewById(R.id.tv__address);
 
-    mPpDetails = (ScrollView) findViewById(R.id.pp__details);
-    RelativeLayout address = (RelativeLayout) mPpDetails.findViewById(R.id.ll__place_name);
-    mPhone = mPpDetails.findViewById(R.id.ll__place_phone);
+    mDetails = (ScrollView) findViewById(R.id.pp__details);
+    RelativeLayout address = (RelativeLayout) mDetails.findViewById(R.id.ll__place_name);
+    mPhone = mDetails.findViewById(R.id.ll__place_phone);
     mPhone.setOnClickListener(this);
-    mTvPhone = (TextView) mPpDetails.findViewById(R.id.tv__place_phone);
-    mWebsite = mPpDetails.findViewById(R.id.ll__place_website);
+    mTvPhone = (TextView) mDetails.findViewById(R.id.tv__place_phone);
+    mWebsite = mDetails.findViewById(R.id.ll__place_website);
     mWebsite.setOnClickListener(this);
-    mTvWebsite = (TextView) mPpDetails.findViewById(R.id.tv__place_website);
-    LinearLayout latlon = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_latlon);
+    mTvWebsite = (TextView) mDetails.findViewById(R.id.tv__place_website);
+    LinearLayout latlon = (LinearLayout) mDetails.findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
-    mTvLatlon = (TextView) mPpDetails.findViewById(R.id.tv__place_latlon);
-    mOpeningHours = mPpDetails.findViewById(R.id.ll__place_schedule);
-    mFullOpeningHours = (TextView) mPpDetails.findViewById(R.id.opening_hours);
-    mTodayOpeningHours = (TextView) mPpDetails.findViewById(R.id.today_opening_hours);
-    mWifi = mPpDetails.findViewById(R.id.ll__place_wifi);
-    mIvColor = (ImageView) mPpDetails.findViewById(R.id.iv__bookmark_color);
+    mTvLatlon = (TextView) mDetails.findViewById(R.id.tv__place_latlon);
+    mOpeningHours = mDetails.findViewById(R.id.ll__place_schedule);
+    mFullOpeningHours = (TextView) mDetails.findViewById(R.id.opening_hours);
+    mTodayOpeningHours = (TextView) mDetails.findViewById(R.id.today_opening_hours);
+    mWifi = mDetails.findViewById(R.id.ll__place_wifi);
+    mIvColor = (ImageView) mDetails.findViewById(R.id.iv__bookmark_color);
     mIvColor.setOnClickListener(this);
-    mEmail = mPpDetails.findViewById(R.id.ll__place_email);
+    mEmail = mDetails.findViewById(R.id.ll__place_email);
     mEmail.setOnClickListener(this);
     mTvEmail = (TextView) mEmail.findViewById(R.id.tv__place_email);
-    mOperator = mPpDetails.findViewById(R.id.ll__place_operator);
+    mOperator = mDetails.findViewById(R.id.ll__place_operator);
     mOperator.setOnClickListener(this);
     mTvOperator = (TextView) mOperator.findViewById(R.id.tv__place_operator);
-    mCuisine = mPpDetails.findViewById(R.id.ll__place_cuisine);
+    mCuisine = mDetails.findViewById(R.id.ll__place_cuisine);
     mTvCuisine = (TextView) mCuisine.findViewById(R.id.tv__place_cuisine);
-    mWiki = mPpDetails.findViewById(R.id.ll__place_wiki);
+    mWiki = mDetails.findViewById(R.id.ll__place_wiki);
     mWiki.setOnClickListener(this);
-    mEntrance = mPpDetails.findViewById(R.id.ll__place_entrance);
+    mEntrance = mDetails.findViewById(R.id.ll__place_entrance);
     mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
-    mEditor = mPpDetails.findViewById(R.id.ll__place_editor);
-    mTvEditor = (TextView) mEditor.findViewById(R.id.tv__editor);
+    mEditor = mDetails.findViewById(R.id.ll__place_editor);
     mEditor.setOnClickListener(this);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
@@ -219,9 +213,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mEmail.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
     mWiki.setOnLongClickListener(this);
-    mPpDetails.findViewById(R.id.ll__report_problem).setOnClickListener(this);
+    mDetails.findViewById(R.id.ll__report_problem).setOnClickListener(this);
 
-    mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
+    mEtBookmarkName = (EditText) mDetails.findViewById(R.id.et__bookmark_name);
     mEtBookmarkName.setOnEditorActionListener(new TextView.OnEditorActionListener()
     {
       @Override
@@ -237,15 +231,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       }
     });
 
-    TextView tvNotes = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_notes);
+    TextView tvNotes = (TextView) mDetails.findViewById(R.id.tv__bookmark_notes);
     tvNotes.setOnClickListener(this);
 
-    mTvBookmarkGroup = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_group);
+    mTvBookmarkGroup = (TextView) mDetails.findViewById(R.id.tv__bookmark_group);
     mTvBookmarkGroup.setOnClickListener(this);
-    mWvDescription = (WebView) mPpDetails.findViewById(R.id.wv__description);
-    mTvDescription = (TextView) mPpDetails.findViewById(R.id.tv__description);
+    mWvDescription = (WebView) mDetails.findViewById(R.id.wv__description);
+    mTvDescription = (TextView) mDetails.findViewById(R.id.tv__description);
     mTvDescription.setOnClickListener(this);
-    mBtnEditHtmlDescription = (Button) mPpDetails.findViewById(R.id.btn__edit_html_bookmark);
+    mBtnEditHtmlDescription = (Button) mDetails.findViewById(R.id.btn__edit_html_bookmark);
     mBtnEditHtmlDescription.setOnClickListener(this);
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
@@ -263,7 +257,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mRouteButtonsFrame.findViewById(R.id.from).setOnClickListener(this);
     mRouteButtonsFrame.findViewById(R.id.to).setOnClickListener(this);
 
-    mShadowController = new ScrollViewShadowController((ObservableScrollView) mPpDetails)
+    mShadowController = new ScrollViewShadowController((ObservableScrollView) mDetails)
                             .addBottomShadow()
                             .attach();
 
@@ -271,7 +265,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       setElevation(UiUtils.dimen(R.dimen.placepage_elevation));
 
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-      mPpDetails.setBackgroundResource(0);
+      mDetails.setBackgroundResource(0);
   }
 
   private void init(AttributeSet attrs, int defStyleAttr)
@@ -339,7 +333,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     InputUtils.hideKeyboard(mEtBookmarkName);
 
-    mPpDetails.scrollTo(0, 0);
+    mDetails.scrollTo(0, 0);
 
     if (mMapObject != null)
       mAnimationController.setState(state, mMapObject.getMapObjectType());
@@ -414,11 +408,12 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void refreshPreview()
   {
-    mTvTitle.setText(mMapObject.getTitle());
+    UiUtils.setTextAndHideIfEmpty(mTvTitle, mMapObject.getTitle());
     if (mToolbar != null)
       mToolbar.setTitle(mMapObject.getTitle());
-    mTvSubtitle.setText(mMapObject.getSubtitle());
+    UiUtils.setTextAndHideIfEmpty(mTvSubtitle, mMapObject.getSubtitle());
     mAvDirection.setVisibility(View.GONE);
+    UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
   }
 
   private void refreshDetails()
@@ -435,8 +430,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours();
-    refreshMetadataStars(mMapObject.getMetadata(Metadata.MetadataType.FMD_STARS));
-    UiUtils.setTextAndHideIfEmpty(mTvElevation, mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE));
     UiUtils.showIf(mMapObject != null && Editor.nativeIsFeatureEditable(), mEditor);
   }
 
@@ -594,24 +587,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     }
     else
       metaLayout.setVisibility(View.GONE);
-  }
-
-  private void refreshMetadataStars(String stars)
-  {
-    if (TextUtils.isEmpty(stars))
-    {
-      mRbStars.setVisibility(View.GONE);
-      return;
-    }
-
-    try
-    {
-      mRbStars.setRating(Float.parseFloat(stars));
-      mRbStars.setVisibility(View.VISIBLE);
-    } catch (NumberFormatException e)
-    {
-      mRbStars.setVisibility(View.GONE);
-    }
   }
 
   public void refreshAzimuth(double northAzimuth)
