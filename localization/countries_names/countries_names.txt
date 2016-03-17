@@ -35696,7 +35696,37 @@ es = Zimbabue
 pl = Zimbabwe
 nl = Zimbabwe
 pt = Zimbábue
-he = זימבבואהArgentina_Santa Fe
+he = זימבבואה
+
+[Argentina_Santa Fe]
+en = Santa Fe Province
+ru = Санта-Фе
+fr = Province de Santa Fe
+da = Santa Fe
+id = Provinsi Santa Fe
+ko = 산타페 주
+sv = Santa Fe
+tr = Santa Fe eyaleti
+uk = Санта-Фе
+vi = Santa Fe
+hu = Santa Fe környéke
+de = Provinz Santa Fe
+fi = Santa Fen maakunta
+cs = Santa Fé
+it = provincia di Santa Fe
+nb = Santa Fe
+zh-Hant = 聖大非省
+zh-Hans = 圣大非省
+th = รัฐซานตาเฟ
+ja = サンタフェ州
+ro = Provincia Santa Fe
+ar = سانتا في
+sk = Santa Fe
+es = Santa Fe
+pl = Santa Fe
+nl = Santa Fe
+pt = Santa Fé
+he = סנטה פה
 
 [Australia_Brisbane]
 en = Brisbane
