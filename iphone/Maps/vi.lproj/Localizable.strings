@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Downloaded";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "đã xếp hàng chờ";
 
 "downloader_near_me_subtitle" = "Near me";
 
-"downloader_status_maps" = "Maps: %s";
+"downloader_status_maps" = "Maps";
 
 "downloader_download_all_button" = "Download All";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Thất bại";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Không xác định được vị trí hiện tại. Vui lòng xác định vị trí để tạo tuyến đường.";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "Bạn đã mắc lỗi chỉnh sửa. Vui lòng sửa lỗi hoặc chuyển qua chế độ đơn giản.";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "Quan trọng!";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "Help us find you";
 
 "onboarding_location_message" = "To use navigation and other features, we need access to your geolocation.";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";

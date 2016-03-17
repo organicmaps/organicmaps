@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "ดาวน์โหลดแล้ว";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "ต่อแถว";
 
 "downloader_near_me_subtitle" = "ใกล้ฉัน";
 
-"downloader_status_maps" = "แผนที่: %s";
+"downloader_status_maps" = "แผนที่";
 
 "downloader_download_all_button" = "ดาวน์โหลดทั้งหมด";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "ล้มเหลว";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "สำคัญ!";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "ช่วยให้เราค้นหาคุณ";
 
 "onboarding_location_message" = "เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";

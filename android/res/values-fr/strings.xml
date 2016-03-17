@@ -432,7 +432,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">en file d\&#39;attente</string>
 	<string name="downloader_near_me_subtitle">Près de moi</string>
-	<string name="downloader_status_maps">Cartes : %s</string>
+	<string name="downloader_status_maps">Cartes</string>
 	<string name="downloader_download_all_button">Télécharger tout</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Quand vous créez des itinéraires sur l\&#39;application MAPS.ME, veuillez garder à l\&#39;esprit les points suivants :\n\n  - Les itinéraires suggérés ne doivent être considérés que comme des recommandations.\n\n  - Les conditions des routes, les règlementations de circulations et les panneaux sont prioritaires sur les conseils de navigation.\n\n  - Il est possible qu\&#39;une carte soit incorrecte ou obsolète, et les itinéraires ne sont pas toujours créés de la meilleure façon possible.\n\n  Soyez prudents sur les routes et prenez soin de vous.</string>

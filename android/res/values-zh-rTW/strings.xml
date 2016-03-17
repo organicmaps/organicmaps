@@ -411,7 +411,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已佇列</string>
 	<string name="downloader_near_me_subtitle">在我附近</string>
-	<string name="downloader_status_maps">地圖： %s</string>
+	<string name="downloader_status_maps">地圖</string>
 	<string name="downloader_download_all_button">下載全部</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！</string>

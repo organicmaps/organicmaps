@@ -419,7 +419,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">în lista de așteptare</string>
 	<string name="downloader_near_me_subtitle">Aproape de mine</string>
-	<string name="downloader_status_maps">Hărți: %s</string>
+	<string name="downloader_status_maps">Hărți</string>
 	<string name="downloader_download_all_button">Descărcați toate</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!</string>

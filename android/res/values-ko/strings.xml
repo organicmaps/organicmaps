@@ -413,7 +413,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">대기</string>
 	<string name="downloader_near_me_subtitle">내 근처</string>
-	<string name="downloader_status_maps">지도: %s</string>
+	<string name="downloader_status_maps">지도</string>
 	<string name="downloader_download_all_button">모두 다운로드</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!</string>

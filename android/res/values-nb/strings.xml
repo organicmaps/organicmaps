@@ -421,7 +421,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">lagt i kø</string>
 	<string name="downloader_near_me_subtitle">I nærheten</string>
-	<string name="downloader_status_maps">Kart: %s</string>
+	<string name="downloader_status_maps">Kart</string>
 	<string name="downloader_download_all_button">Last ned alle</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!</string>

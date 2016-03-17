@@ -421,7 +421,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">telah diantrekan</string>
 	<string name="downloader_near_me_subtitle">Dekat saya</string>
-	<string name="downloader_status_maps">Peta: %s</string>
+	<string name="downloader_status_maps">Peta</string>
 	<string name="downloader_download_all_button">Unduh semua</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Dalam membuat rute di aplikasi MAPS.ME, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!</string>

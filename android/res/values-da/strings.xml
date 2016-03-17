@@ -425,7 +425,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">i kø</string>
 	<string name="downloader_near_me_subtitle">I nærheden</string>
-	<string name="downloader_status_maps">Kort: %s</string>
+	<string name="downloader_status_maps">Kort</string>
 	<string name="downloader_download_all_button">Download alle</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Uddateret</string>

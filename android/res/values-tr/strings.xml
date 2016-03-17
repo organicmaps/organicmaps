@@ -427,7 +427,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">sıraya alındı</string>
 	<string name="downloader_near_me_subtitle">Yakınlarımda</string>
-	<string name="downloader_status_maps">Haritalar: %s</string>
+	<string name="downloader_status_maps">Haritalar</string>
 	<string name="downloader_download_all_button">Hepsini indir</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.ME uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!</string>

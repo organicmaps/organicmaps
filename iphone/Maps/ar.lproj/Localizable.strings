@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "تم تنزيلها";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "مَصْفوف";
 
 "downloader_near_me_subtitle" = "بالقرب مني";
 
-"downloader_status_maps" = "الخرائط: %s";
+"downloader_status_maps" = "الخرائط";
 
 "downloader_download_all_button" = "تنزيل الكل";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "فشل";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "الموقع الحالي غير مُعَرّف. يرجى تحديد موقع لإنشاء مسار.";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "قمت بخطأ في التحرير. يرجى تصحيح الخطأ أو التبديل إلى الوضع البسيط.";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "هام!";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "ساعدنا في العثور عليك";
 
 "onboarding_location_message" = "لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";

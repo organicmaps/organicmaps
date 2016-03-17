@@ -445,10 +445,12 @@
 	<string name="downloader_cancel_all">Отменить все</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Загруженные</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Доступные</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">в очереди</string>
 	<string name="downloader_near_me_subtitle">Возле меня</string>
-	<string name="downloader_status_maps">Карт: %s</string>
+	<string name="downloader_status_maps">Карт</string>
 	<string name="downloader_download_all_button">Загрузить все</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!</string>
@@ -460,6 +462,8 @@
 	<string name="downloader_status_outdated">Обновить</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Ошибка</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Чтобы удалить карту, выйдите из режима навигации.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Невозможно проложить маршрут. Не определено текущее местоположение.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -859,6 +863,7 @@
 	<string name="editor_example_values">Примеры значений</string>
 	<string name="editor_correct_mistake">Исправьте ошибку</string>
 	<string name="editor_correct_mistake_message">При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.</string>
+	<string name="editor_add_select_location"> Местоположение</string>
 	<string name="migrate_title">Важно!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Загрузить все</string>
@@ -975,4 +980,6 @@
 	<string name="onboarding_notifications_title">Разрешите отправку уведомлений</string>
 	<string name="onboarding_location_title">Помогите найти вас</string>
 	<string name="onboarding_location_message">Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.</string>
+	<string name="dialog_incorrect_feature_position">Измените местоположение  </string>
+	<string name="message_ivalid_feature_position ">Объект не может находиться в этом местоположении.</string>
 </resources>

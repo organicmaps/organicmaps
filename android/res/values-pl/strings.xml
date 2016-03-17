@@ -422,7 +422,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">w kolejce</string>
 	<string name="downloader_near_me_subtitle">Blisko mnie</string>
-	<string name="downloader_status_maps">Mapy: %s</string>
+	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Pobierz wszystkie</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Podczas tworzenia tras w aplikacji MAPS.ME pamiętaj o poniższych zasadach:\n\n  - Sugerowane trasy mogą być traktowane jedynie jako propozycje.\n - Warunki na drodze, przepisy ruchu drogowego i znaki mają większy priorytet niż wskazówki nawigacyjne.\n - Mapa może okazać się nieprawidłowa lub nieaktualna a trasy mogą nie zostać utworzone w sposób najlepszy z możliwych.\n\n  Szerokiej drogi, uważaj na siebie!</string>

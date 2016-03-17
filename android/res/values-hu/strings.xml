@@ -422,7 +422,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">várólistás</string>
 	<string name="downloader_near_me_subtitle">A közelemben</string>
-	<string name="downloader_status_maps">Térképek: %s</string>
+	<string name="downloader_status_maps">Térképek</string>
 	<string name="downloader_download_all_button">Mindegyik letöltése</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Amikor útvonalakat készít a MAPS.ME appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!</string>

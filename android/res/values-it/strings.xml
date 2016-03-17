@@ -420,7 +420,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">in coda</string>
 	<string name="downloader_near_me_subtitle">Vicino a me</string>
-	<string name="downloader_status_maps">Mappe: %s</string>
+	<string name="downloader_status_maps">Mappe</string>
 	<string name="downloader_download_all_button">Scarica tutte</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Creando percorsi nell\&#39;app MAPS.ME tieni a mente quanto segue:\n\n  - I percorsi suggeriti possono essere considerati solo come consigliati.\n - Le condizioni della strada, le regole del traffico e i segnali hanno una priorità maggiore rispetto ai consigli sulla circolazione.\n - La mappa potrebbe essere scorretta o datata e i percorsi potrebbero non aver creato la strada migliore possibile.\n\n  Stai attento sulle strade e prenditi cura di te!</string>

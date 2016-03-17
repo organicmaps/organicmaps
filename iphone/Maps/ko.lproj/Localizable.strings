@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "다운로드";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "대기";
 
 "downloader_near_me_subtitle" = "내 근처";
 
-"downloader_status_maps" = "지도: %s";
+"downloader_status_maps" = "지도";
 
 "downloader_download_all_button" = "모두 다운로드";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "실패함";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "현재 위치는 정의되지 않습니다. 경로를 생성할 위치를 지정하십시오.";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "잘못 입력했습니다. 수정하거나 기본 모드로 전환하세요.";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "중요!";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "사용자를 찾도록 돕기";
 
 "onboarding_location_message" = "탐색 및 기타 기능을 사용하려면, 위치 정보에 액세스해야 합니다.";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";

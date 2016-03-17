@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Загруженные";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Доступные";
+
 /* Country queued for download */
 "downloader_queued" = "в очереди";
 
 "downloader_near_me_subtitle" = "Возле меня";
 
-"downloader_status_maps" = "Карт: %s";
+"downloader_status_maps" = "Карт";
 
 "downloader_download_all_button" = "Загрузить все";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Ошибка";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Чтобы удалить карту, выйдите из режима навигации.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Невозможно проложить маршрут. Не определено текущее местоположение.";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.";
 
+"editor_add_select_location" = " Местоположение";
+
 "migrate_title" = "Важно!";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "Помогите найти вас";
 
 "onboarding_location_message" = "Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.";
+
+"dialog_incorrect_feature_position" = "Измените местоположение  ";
+
+"message_ivalid_feature_position " = "Объект не может находиться в этом местоположении.";

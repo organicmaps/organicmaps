@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "İndirildi";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "sıraya alındı";
 
 "downloader_near_me_subtitle" = "Yakınlarımda";
 
-"downloader_status_maps" = "Haritalar: %s";
+"downloader_status_maps" = "Haritalar";
 
 "downloader_download_all_button" = "Hepsini indir";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Başarısız";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Geçerli konum tanımlı değil. Rota oluşturmak için lütfen konum belirtin.";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "Bir düzenleme hatası yaptınız. Lütfen düzeltin veya basit moda geçin.";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "Önemli!";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "Sizi bulmamıza yardım edin";
 
 "onboarding_location_message" = "Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";

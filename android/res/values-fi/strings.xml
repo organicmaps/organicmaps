@@ -421,7 +421,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">jonossa</string>
 	<string name="downloader_near_me_subtitle">Minun lähelläni</string>
-	<string name="downloader_status_maps">Kartat: %s</string>
+	<string name="downloader_status_maps">Kartat</string>
 	<string name="downloader_download_all_button">Lataa kaikki</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Pidä mielessä seuraavat seikat luodessasi reittejä MAPS.ME -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!</string>

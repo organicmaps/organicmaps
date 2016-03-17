@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Letöltve";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "várólistás";
 
 "downloader_near_me_subtitle" = "A közelemben";
 
-"downloader_status_maps" = "Térképek: %s";
+"downloader_status_maps" = "Térképek";
 
 "downloader_download_all_button" = "Mindegyik letöltése";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Sikertelen";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nem meghatározott a jelenlegi helyszín. Kérjük, határozza meg a helyszínt, hogy útvonal készülhessen.";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "Szerkesztési hibát vétett. Javítsa ki vagy váltson egyszerű módba.";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "Fontos!";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "Segíts, hogy megtaláljunk";
 
 "onboarding_location_message" = "A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";

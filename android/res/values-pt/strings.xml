@@ -418,7 +418,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Na fila</string>
 	<string name="downloader_near_me_subtitle">Perto de mim</string>
-	<string name="downloader_status_maps">Mapas: %s</string>
+	<string name="downloader_status_maps">Mapas</string>
 	<string name="downloader_download_all_button">Descarregar tudo</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Ao criar rotas na aplicação MAPS.ME, por favor, lembre-se do seguinte:\n\n  - As rotas sugeridas podem apenas ser consideradas como recomendações.\n - As condições da estrada, regras de trânsito e sinais têm maior prioridade do que os conselhos de navegação.\n - O mapa poderá estar errado, ou desatualizado, e as rotas poderão não ser criadas da melhor forma possível.\n\n  Circule em segurança nas estradas e cuide do seu bem estar!</string>

@@ -428,7 +428,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ve frontě</string>
 	<string name="downloader_near_me_subtitle">Poblíž mě</string>
-	<string name="downloader_status_maps">Mapy: %s</string>
+	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Stáhnout vše</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!</string>

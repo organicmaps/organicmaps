@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "ダウンロード済み";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "待ち行列型の";
 
 "downloader_near_me_subtitle" = "付近";
 
-"downloader_status_maps" = "地図: %s";
+"downloader_status_maps" = "地図";
 
 "downloader_download_all_button" = "全てをダウンロード";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "失敗";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "現在地が設定されていません。ルートを作成するには現在地を設定してください。";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "編集の間違いがあります。訂正するか、シンプルモードに切り替えてください。";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "重要！";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "現在地判定のお手伝い";
 
 "onboarding_location_message" = "ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";

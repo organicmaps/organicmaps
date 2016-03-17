@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Lastet ned";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "lagt i kø";
 
 "downloader_near_me_subtitle" = "I nærheten";
 
-"downloader_status_maps" = "Kart: %s";
+"downloader_status_maps" = "Kart";
 
 "downloader_download_all_button" = "Last ned alle";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Mislyktes";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nåværende posisjon er udefinert. Oppgi en posisjon for å opprette en rute.";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "Du har gjort en redigeringsfeil. Rett den eller bytt til enkel modus.";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "Viktig!";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "Hjelp oss med å finne deg";
 
 "onboarding_location_message" = "For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";

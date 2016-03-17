@@ -420,7 +420,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
 	<string name="downloader_near_me_subtitle">付近</string>
-	<string name="downloader_status_maps">地図: %s</string>
+	<string name="downloader_status_maps">地図</string>
 	<string name="downloader_download_all_button">全てをダウンロード</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！</string>

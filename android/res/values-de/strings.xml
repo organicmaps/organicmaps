@@ -443,7 +443,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">in der Warteschlange</string>
 	<string name="downloader_near_me_subtitle">In meiner Nähe</string>
-	<string name="downloader_status_maps">Karten: %s</string>
+	<string name="downloader_status_maps">Karten</string>
 	<string name="downloader_download_all_button">Alle herunterladen</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Beim Erstellen von Routen mit der MAPS.ME-App sollten Sie Folgendes beachten:\n\n  - Vorgeschlagenen Routen können nur als Empfehlungen angesehen werden.\n - Straßenbedingungen, Verkehrsregeln und Schilder haben höhere Priorität als Navigationsratschläge.\n - Die Karte kann falsch oder veraltet sein und Routen könnten somit nicht auf die bestmögliche Weise erstellt worden sein.\n\n  Bleiben Sie auf der Straße sicher und achten Sie auf sich selbst!</string>

@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "已下載";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "已佇列";
 
 "downloader_near_me_subtitle" = "在我附近";
 
-"downloader_status_maps" = "地圖： %s";
+"downloader_status_maps" = "地圖";
 
 "downloader_download_all_button" = "下載全部";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "失敗";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "當前地點未定。請明確地點以創建路線。";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "編輯時出錯。請修正或切換到簡易模式。";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "重要！";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "幫我們找到您";
 
 "onboarding_location_message" = "如要使用導航和其他功能，我們需要能獲取您的地理位置.";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";

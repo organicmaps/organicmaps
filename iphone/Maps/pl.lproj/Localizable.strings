@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Pobrane";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "w kolejce";
 
 "downloader_near_me_subtitle" = "Blisko mnie";
 
-"downloader_status_maps" = "Mapy: %s";
+"downloader_status_maps" = "Mapy";
 
 "downloader_download_all_button" = "Pobierz wszystkie";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Nieudane";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Bieżąca lokalizacja nie została zdefiniowana. Aby utworzyć trasę, określ lokalizację.";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "Popełniono błąd podczas edycji. Popraw go lub przełącz się na tryb prosty.";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "Ważne!";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "Pomaga nam znaleźć Ciebie";
 
 "onboarding_location_message" = "Abyś mógł korzystać z nawigacji i innych funkcji, musimy uzyskać dostęp do twojej geolokalizacji.";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";

@@ -693,12 +693,15 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Stiahnuté";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Available";
+
 /* Country queued for download */
 "downloader_queued" = "V rade";
 
 "downloader_near_me_subtitle" = "Neďaleko mňa";
 
-"downloader_status_maps" = "Mapy: %s";
+"downloader_status_maps" = "Mapy";
 
 "downloader_download_all_button" = "Stiahnuť všetko";
 
@@ -716,6 +719,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Zlyhalo";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.";
@@ -1359,6 +1365,8 @@
 
 "editor_correct_mistake_message" = "Chyba pri úprave. Opravte chybu, alebo sa prepnite do jednoduchého režimu.";
 
+"editor_add_select_location" = "Location";
+
 "migrate_title" = "Dôležité!";
 
 /* Android uses image instead of text. */
@@ -1579,3 +1587,7 @@
 "onboarding_location_title" = "Pomôžte nám a my vás nájdeme";
 
 "onboarding_location_message" = "Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.";
+
+"dialog_incorrect_feature_position" = "Change the location";
+
+"message_ivalid_feature_position " = "A place cannot be situated in this location.";
