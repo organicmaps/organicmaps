@@ -173,6 +173,11 @@ string MapObject::GetElevationFormatted() const
   return {};
 }
 
+bool MapObject::GetElevation(double & outElevationInMeters) const
+{
+  return strings::to_double(m_metadata.Get(feature::Metadata::FMD_ELE), outElevationInMeters);
+}
+
 string MapObject::GetWikipediaLink() const { return m_metadata.GetWikiURL(); }
 
 string MapObject::GetFlats() const { return m_metadata.Get(feature::Metadata::FMD_FLATS); }

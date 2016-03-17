@@ -83,6 +83,7 @@ public:
   int GetStars() const;
   /// @returns formatted elevation in feet or meters, or empty string.
   string GetElevationFormatted() const;
+  bool GetElevation(double & outElevationInMeters) const;
   /// @returns URL to Wikipedia or empty string.
   string GetWikipediaLink() const;
   string GetFlats() const;
