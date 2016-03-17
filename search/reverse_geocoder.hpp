@@ -65,8 +65,8 @@ public:
     Building m_building;
     Street m_street;
 
-    string GetHouseNumber() const { return m_building.m_name; }
-    string GetStreetName() const { return m_street.m_name; }
+    string const & GetHouseNumber() const { return m_building.m_name; }
+    string const & GetStreetName() const { return m_street.m_name; }
     double GetDistance() const { return m_building.m_distanceMeters; }
   };
 
