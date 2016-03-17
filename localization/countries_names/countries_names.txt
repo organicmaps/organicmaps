@@ -1380,7 +1380,7 @@ he = ברבדוס
 
 [Belarus]
 en = Belarus
-ru = Белоруссия
+ru = Беларусь
 fr = Biélorussie
 da = Hviderusland
 id = Belarus
