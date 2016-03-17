@@ -7320,6 +7320,13 @@
     fr = Téléchargé
     ja = ダウンロード済み
 
+  [downloader_available_maps]
+    tags = ios,android,tizen
+    comment = Downloaded maps category
+    en = Available
+    ru = Доступные
+
+
   [downloader_queued]
     tags = ios,android,tizen
     comment = Country queued for download
@@ -7383,34 +7390,34 @@
 
   [downloader_status_maps]
     tags = ios,android
-    en = Maps: %s
-    ru = Карт: %s
-    tr = Haritalar: %s
-    sv = Kartor: %s
-    nb = Kart: %s
-    ko = 지도: %s
-    id = Peta: %s
-    hu = Térképek: %s
-    de = Karten: %s
-    fi = Kartat: %s
-    nl = Kaarten: %s
-    da = Kort: %s
-    cs = Mapy: %s
-    zh-Hans = 地图： %s
-    zh-Hant = 地圖： %s
-    ar = الخرائط: %s
-    th = แผนที่: %s
-    uk = Карти: %s
-    pt = Mapas: %s
-    es = Mapas: %s
-    ro = Hărți: %s
-    pl = Mapy: %s
-    sk = Mapy: %s
-    it = Mappe: %s
-    fr = Cartes : %s
-    ja = 地図: %s
+    en = Maps
+    ru = Карт
+    tr = Haritalar
+    sv = Kartor
+    nb = Kart
+    ko = 지도
+    id = Peta
+    hu = Térképek
+    de = Karten
+    fi = Kartat
+    nl = Kaarten
+    da = Kort
+    cs = Mapy
+    zh-Hans = 地图
+    zh-Hant = 地圖
+    ar = الخرائط
+    th = แผนที่
+    uk = Карти
+    pt = Mapas
+    es = Mapas
+    ro = Hărți
+    pl = Mapy
+    sk = Mapy
+    it = Mappe
+    fr = Cartes
+    ja = 地図
 
-[downloader_download_all_button]
+  [downloader_download_all_button]
     tags = ios,android
     en = Download All
     ru = Загрузить все
@@ -7597,6 +7604,12 @@
     ro = Eșuată
     nb = Mislyktes
     fi = Epäonnistunut
+
+  [downloader_delete_map_while_routing_dialog]
+    tags = android, ios
+    comment = Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode
+    en = To delete map please stop the navigation.
+    ru = Чтобы удалить карту, выйдите из режима навигации.
 
   [routing_failed_unknown_my_position]
     tags = android, ios
@@ -15227,6 +15240,11 @@
     nl = U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.
     pt = Fez um erro de edição. Corrija-o ou mude para o modo simples.
 
+  [editor_add_select_location]
+    en = Location
+    ru =  Местоположение
+
+
   [migrate_title]
     tags = ios, android
     en = Important!
@@ -18216,3 +18234,14 @@
     it = Per usare la navigazione e altri strumenti, dobbiamo accedere alla tua geolocalizzazione.
     fr = Pour utiliser la navigation et d'autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.
     ja = ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります
+
+  [dialog_incorrect_feature_position]
+    en = Change the location
+    ru = Измените местоположение  
+
+  [message_ivalid_feature_position ]
+    en = A place cannot be situated in this location.
+    ru = Объект не может находиться в этом местоположении.
+
+
+[whats_new_migration_title]
