@@ -253,6 +253,9 @@ UNIT_TEST(to_string)
 
   TEST_EQUAL(strings::to_string(123456789123456789ULL), "123456789123456789", ());
   TEST_EQUAL(strings::to_string(-987654321987654321LL), "-987654321987654321", ());
+
+  uint64_t const n = numeric_limits<uint64_t>::max();
+  TEST_EQUAL(strings::to_string(n), "18446744073709551615", ());
 }
 
 UNIT_TEST(to_string_dac)

@@ -223,6 +223,22 @@ template <typename T> string to_string(T t)
 
 namespace impl
 {
+template <typename T>
+int UpperBoundOnChars()
+{
+  // It's wrong to return just numeric_limits<T>::digits10 + [is
+  // signed] because digits10 for a type T is computed as:
+  //
+  // floor(log10(2 ^ (CHAR_BITS * sizeof(T)))) =
+  // floor(CHAR_BITS * sizeof(T) * log10(2))
+  //
+  // Therefore, due to rounding, we need to compensate possible
+  // error.
+  //
+  // NOTE: following code works only on two-complement systems!
+
+  return numeric_limits<T>::digits10 + is_signed<T>::value + 1;
+}
 
 template <typename T> char * to_string_digits(char * buf, T i)
 {
@@ -238,7 +254,7 @@ template <typename T> char * to_string_digits(char * buf, T i)
 template <typename T> string to_string_signed(T i)
 {
   bool const negative = i < 0;
-  int const sz = numeric_limits<T>::digits10 + 1;
+  int const sz = UpperBoundOnChars<T>();
   char buf[sz];
   char * end = buf + sz;
   char * beg = to_string_digits(end, negative ? -i : i);
@@ -252,7 +268,7 @@ template <typename T> string to_string_signed(T i)
 
 template <typename T> string to_string_unsigned(T i)
 {
-  int const sz = numeric_limits<T>::digits10;
+  int const sz = UpperBoundOnChars<T>();
   char buf[sz];
   char * end = buf + sz;
   char * beg = to_string_digits(end, i);
