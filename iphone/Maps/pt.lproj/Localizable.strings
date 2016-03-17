@@ -1488,6 +1488,8 @@
 
 "downloader_delete_map_dialog" = "Todas as alterações ao mapa serão eliminadas juntamente com o mapa.";
 
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+
 "downloader_update_maps" = "Atualizar mapas";
 
 "downloader_mwm_migration_dialog" = "Para criar um itinerário, é necessário atualizar todos os mapas e, em seguida, voltar a planear o itinerário.";

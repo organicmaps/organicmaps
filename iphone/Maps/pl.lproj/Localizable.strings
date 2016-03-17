@@ -1488,6 +1488,8 @@
 
 "downloader_delete_map_dialog" = "Wszystkie zmiany dotyczące mapy zostaną usunięte wraz z nią.";
 
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+
 "downloader_update_maps" = "Aktualizuj mapy";
 
 "downloader_mwm_migration_dialog" = "Aby utworzyć trasę, należy zaktualizować wszystkie mapy, a następnie ponownie zaplanować trasę.";

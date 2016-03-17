@@ -1488,6 +1488,8 @@
 
 "downloader_delete_map_dialog" = "Todos los cambios en los mapas se borrarán junto con el mapa.";
 
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+
 "downloader_update_maps" = "Autodescarga de mapas";
 
 "downloader_mwm_migration_dialog" = "Los mapas empiezan a descargarse automáticamente cuando te aproximas al mapa.";

@@ -1488,6 +1488,8 @@
 
 "downloader_delete_map_dialog" = "All map edits will be deleted together with the map.";
 
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+
 "downloader_update_maps" = "Update Maps";
 
 "downloader_mwm_migration_dialog" = "To create a route, you need to update all maps and then plan the route again.";

@@ -1488,6 +1488,8 @@
 
 "downloader_delete_map_dialog" = "Harita ile birlikte tüm harita değişiklikleri de silinecektir.";
 
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+
 "downloader_update_maps" = "Haritaları güncelle";
 
 "downloader_mwm_migration_dialog" = "Bir rota oluşturmak için tüm haritaları güncellemeli ve ardından rotayı tekrar planlamalısınız.";

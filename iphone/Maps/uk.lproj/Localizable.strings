@@ -1488,6 +1488,8 @@
 
 "downloader_delete_map_dialog" = "Разом з мапою будуть видалені й внесені Вами правки на цій мапі.";
 
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+
 "downloader_update_maps" = "Оновити мапи";
 
 "downloader_mwm_migration_dialog" = "Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.";

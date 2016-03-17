@@ -1488,6 +1488,8 @@
 
 "downloader_delete_map_dialog" = "Alla kartändringar kommer att raderas tillsammans med kartan.";
 
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+
 "downloader_update_maps" = "Uppdatera kartor";
 
 "downloader_mwm_migration_dialog" = "För att skapa en rutt måste du uppdatera alla kartor och sedan planera rutten igen.";

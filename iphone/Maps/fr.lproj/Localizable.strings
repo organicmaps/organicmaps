@@ -1488,6 +1488,8 @@
 
 "downloader_delete_map_dialog" = "Toutes les modifications de la carte seront supprimées avec elle.";
 
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+
 "downloader_update_maps" = "Mettre à jour les cartes";
 
 "downloader_mwm_migration_dialog" = "Pour créer un itinéraire, vous devez mettre à jour toutes les cartes puis reprogrammer l'itinéraire.";

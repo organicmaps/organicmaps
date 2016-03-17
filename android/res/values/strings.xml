@@ -934,6 +934,7 @@
 	<string name="please_note">Please note</string>
 	<string name="common_no_wifi_dialog">No WiFi connection. Do you want to continue with mobile data?</string>
 	<string name="downloader_delete_map_dialog">All map edits will be deleted together with the map.</string>
+	<string name="downloader_delete_map_while_routing_dialog">To delete map please stop the navigation.</string>
 	<string name="downloader_update_maps">Update Maps</string>
 	<string name="downloader_mwm_migration_dialog">To create a route, you need to update all maps and then plan the route again.</string>
 	<string name="downloader_search_field_hint">Find the map</string>

@@ -1488,6 +1488,8 @@
 
 "downloader_delete_map_dialog" = "Semua perubahan peta akan dihapus bersama dengan peta.";
 
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+
 "downloader_update_maps" = "Perbarui peta";
 
 "downloader_mwm_migration_dialog" = "Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.";

@@ -1488,6 +1488,8 @@
 
 "downloader_delete_map_dialog" = "A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.";
 
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+
 "downloader_update_maps" = "Térképek frissítése";
 
 "downloader_mwm_migration_dialog" = "Útvonal létrehozásához frissítsd az összes térképet, majd tervezd meg újra az útvonalat.";
