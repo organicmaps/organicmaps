@@ -1220,7 +1220,8 @@ void Storage::DeleteNode(TCountryId const & countryId)
 
   auto deleteAction = [this](TCountryTreeNode const & descendantNode)
   {
-    if (descendantNode.ChildrenCount() == 0)
+    bool onDisk = m_localFiles.find(descendantNode.Value().Name()) != m_localFiles.end();
+    if (descendantNode.ChildrenCount() == 0 && onDisk)
       this->DeleteCountry(descendantNode.Value().Name(), MapOptions::MapWithCarRouting);
   };
   node->ForEachInSubtree(deleteAction);
