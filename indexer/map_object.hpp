@@ -82,7 +82,7 @@ public:
   string GetOperator() const;
   int GetStars() const;
   /// @returns formatted elevation in feet or meters, or empty string.
-  string GetElevation() const;
+  string GetElevationFormatted() const;
   /// @returns URL to Wikipedia or empty string.
   string GetWikipediaLink() const;
   string GetFlats() const;

@@ -125,7 +125,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       break;
     case osm::Props::Elevation:
       k = "Elevation";
-      v = info.GetElevation();
+      v = info.GetElevationFormatted();
       break;
     case osm::Props::Wikipedia:
       k = "Wikipedia";

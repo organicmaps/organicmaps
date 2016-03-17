@@ -159,7 +159,7 @@ int MapObject::GetStars() const
   return 0;
 }
 
-string MapObject::GetElevation() const
+string MapObject::GetElevationFormatted() const
 {
   if (m_metadata.Has(feature::Metadata::FMD_ELE))
   {

@@ -135,7 +135,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     case osm::Props::OpeningHours: v = emo.GetOpeningHours(); break;
     case osm::Props::Stars: v = strings::to_string(emo.GetStars()); break;
     case osm::Props::Operator: v = emo.GetOperator(); break;
-    case osm::Props::Elevation: v = emo.GetElevation(); break;
+    case osm::Props::Elevation: v = emo.GetElevationFormatted(); break;
     case osm::Props::Wikipedia: v = emo.GetWikipedia(); break;
     case osm::Props::Flats: v = emo.GetFlats(); break;
     case osm::Props::BuildingLevels: v = emo.GetBuildingLevels(); break;

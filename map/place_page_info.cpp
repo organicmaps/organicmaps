@@ -57,7 +57,7 @@ string Info::GetSubtitle() const
     values.push_back(op);
 
   // Elevation.
-  string const eleStr = GetElevation();
+  string const eleStr = GetElevationFormatted();
   if (!eleStr.empty())
     values.push_back(kMountainSymbol + eleStr);
   if (HasWifi())

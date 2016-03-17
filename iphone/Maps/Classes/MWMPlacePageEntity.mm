@@ -109,7 +109,7 @@ void initFieldsMap()
         [self setMetaField:gMetaFieldsMap[type] value:L(@"WiFi_available").UTF8String];
         break;
       case Metadata::FMD_ELE:
-        [self setMetaField:gMetaFieldsMap[type] value:"▲" + m_info.GetElevation()];
+        [self setMetaField:gMetaFieldsMap[type] value:"▲" + m_info.GetElevationFormatted()];
         break;
       case Metadata::FMD_STARS:
         [self setMetaField:gMetaFieldsMap[type] value:m_info.FormatStars()];
