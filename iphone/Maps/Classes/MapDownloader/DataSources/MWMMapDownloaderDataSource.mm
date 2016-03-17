@@ -22,7 +22,10 @@ using namespace storage;
 {
   self = [super init];
   if (self)
+  {
     _delegate = delegate;
+    _reloadSections = [NSMutableIndexSet indexSet];
+  }
   return self;
 }
 
@@ -96,9 +99,11 @@ using namespace storage;
   return nil;
 }
 
-- (std::vector<NSInteger>)getReloadSections
+- (void)setNeedFullReload:(BOOL)needFullReload
 {
-  return {};
+  _needFullReload = needFullReload;
+  if (needFullReload)
+    [self.reloadSections removeAllIndexes];
 }
 
 @end

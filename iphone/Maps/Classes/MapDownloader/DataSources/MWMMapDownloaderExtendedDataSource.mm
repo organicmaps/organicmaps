@@ -24,27 +24,9 @@ using namespace storage;
 
 @property (copy, nonatomic) NSArray<NSString *> * nearmeCountries;
 
-@property (nonatomic) BOOL needReloadNearmeSection;
-
 @end
 
 @implementation MWMMapDownloaderExtendedDataSource
-
-- (std::vector<NSInteger>)getReloadSections
-{
-  std::vector<NSInteger> sections = [super getReloadSections];
-  if (self.nearmeCountries.count == 0)
-    return sections;
-  for (auto & section : sections)
-    section += self.nearmeSectionShift;
-  if (self.needReloadNearmeSection)
-  {
-    NSInteger const nearmeSection = self.nearmeSection;
-    NSAssert(nearmeSection != NSNotFound, @"Invalid nearme section.");
-    sections.push_back(nearmeSection);
-  }
-  return sections;
-}
 
 - (void)load
 {
@@ -63,7 +45,9 @@ using namespace storage;
     self.needFullReload = YES;
   if (self.needFullReload)
     return;
-  self.needReloadNearmeSection = (closestCoutriesCountBeforeUpdate != closestCoutriesCountAfterUpdate);
+  [self.reloadSections shiftIndexesStartingAtIndex:0 by:self.nearmeSectionShift];
+  if (closestCoutriesCountBeforeUpdate != closestCoutriesCountAfterUpdate)
+    [self.reloadSections addIndex:self.nearmeSection];
 }
 
 - (void)configNearMeSection

@@ -7,6 +7,7 @@
 
 @property (nonatomic, readonly) BOOL isParentRoot;
 @property (nonatomic, readonly) BOOL needFullReload;
+@property (nonatomic, readonly) NSMutableIndexSet * reloadSections;
 
 - (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol>)delegate;
 - (storage::TCountryId)parentCountryId;
@@ -15,6 +16,5 @@
 - (void)fillCell:(MWMMapDownloaderTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 - (NSString *)searchMatchedResultForCountryId:(storage::TCountryId)countryId;
-- (std::vector<NSInteger>)getReloadSections;
 
 @end

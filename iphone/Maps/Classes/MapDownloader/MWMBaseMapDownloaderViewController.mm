@@ -599,13 +599,9 @@ using namespace storage;
   }
   else
   {
-    std::vector<NSInteger> sections = [dataSource getReloadSections];
-    if (sections.empty())
-      return;
-    NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSet];
-    for (auto & section : sections)
-      [indexSet addIndex:section];
-    [tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSMutableIndexSet * reloadSections = dataSource.reloadSections;
+    if (reloadSections.count)
+      [tableView reloadSections:reloadSections withRowAnimation:UITableViewRowAnimationAutomatic];
   }
 }
 

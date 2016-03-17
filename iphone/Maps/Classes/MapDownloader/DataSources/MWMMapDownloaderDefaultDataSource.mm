@@ -45,7 +45,6 @@ using namespace storage;
 @implementation MWMMapDownloaderDefaultDataSource
 {
   TCountryId m_parentId;
-  std::vector<NSInteger> m_reloadSections;
 }
 
 @synthesize isParentRoot = _isParentRoot;
@@ -74,6 +73,7 @@ using namespace storage;
 
 - (void)reload
 {
+  [self.reloadSections removeAllIndexes];
   // Get old data for comparison.
   NSDictionary<NSString *, NSArray<NSString *> *> * availableCountriesBeforeUpdate = self.availableCountries;
   NSInteger const downloadedCountriesCountBeforeUpdate = self.downloadedCountries.count;
@@ -88,8 +88,6 @@ using namespace storage;
        availableCountriesBeforeUpdate.count == 0);
   if (self.needFullReload)
     return;
-  if (downloadedCountriesCountBeforeUpdate != downloadedCountriesCountAfterUpdate)
-    m_reloadSections.push_back(self.downloadedSection);
   [availableCountriesBeforeUpdate enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSArray<NSString *> * obj, BOOL * stop)
   {
     NSArray<NSString *> * sectionCountries = self.availableCountries[key];
@@ -99,8 +97,11 @@ using namespace storage;
       *stop = YES;
     }
     if (obj.count != sectionCountries.count)
-      self->m_reloadSections.push_back([self.indexes indexOfObject:key] + self.downloadedSectionShift);
+      [self.reloadSections addIndex:[self.indexes indexOfObject:key]];
   }];
+  [self.reloadSections shiftIndexesStartingAtIndex:0 by:self.downloadedSectionShift];
+  if (downloadedCountriesCountBeforeUpdate != downloadedCountriesCountAfterUpdate)
+    [self.reloadSections addIndex:self.downloadedSection];
 }
 
 - (void)configAvailableSections:(TCountriesVec const &)availableChildren
@@ -229,18 +230,6 @@ using namespace storage;
 - (NSInteger)downloadedSection
 {
   return self.downloadedCountries.count != 0 ? 0 : NSNotFound;
-}
-
-- (void)setNeedFullReload:(BOOL)needFullReload
-{
-  super.needFullReload = needFullReload;
-  if (needFullReload)
-    m_reloadSections.clear();
-}
-
-- (std::vector<NSInteger>)getReloadSections
-{
-  return m_reloadSections;
 }
 
 @end
