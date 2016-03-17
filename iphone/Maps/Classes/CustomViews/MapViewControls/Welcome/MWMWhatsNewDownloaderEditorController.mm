@@ -24,8 +24,8 @@ namespace
 NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   [^(MWMWhatsNewDownloaderEditorController * controller) {
     controller.image.image = [UIImage imageNamed:@"img_whatsnew_migration"];
-    controller.alertTitle.text = L(@"whats_new_migration_title");
-    controller.alertText.text = L(@"whats_new_migration_text");
+    controller.alertTitle.text = L(@"whatsnew_smallmwm_header");
+    controller.alertText.text = L(@"whatsnew_smallmwm_message");
     [controller.nextPageButton setTitle:L(@"whats_new_next_button") forState:UIControlStateNormal];
     [controller.nextPageButton addTarget:controller.pageController
                                   action:@selector(nextPage)
@@ -42,8 +42,8 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   } copy],
   [^(MWMWhatsNewDownloaderEditorController * controller) {
     controller.image.image = [UIImage imageNamed:@"img_whatsnew_update_search"];
-    controller.alertTitle.text = L(@"whats_new_search_title");
-    controller.alertText.text = L(@"whats_new_search_text");
+    controller.alertTitle.text = L(@"whatsnew_search_header");
+    controller.alertText.text = L(@"whatsnew_search_message");
     [controller.nextPageButton setTitle:L(@"done") forState:UIControlStateNormal];
     [controller.nextPageButton addTarget:controller.pageController
                                   action:@selector(close)
