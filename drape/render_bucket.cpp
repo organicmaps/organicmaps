@@ -124,8 +124,7 @@ void RenderBucket::RenderDebug(ScreenBase const & screen) const
       if (!screen.PixelRect().IsIntersect(handle->GetPixelRect(screen, false)))
         continue;
 
-      OverlayHandle::Rects rects;
-      handle->GetExtendedPixelShape(screen, rects);
+      OverlayHandle::Rects const & rects = handle->GetExtendedPixelShape(screen);
       for (auto const & rect : rects)
       {
         if (screen.isPerspective() && !screen.PixelRectIn3d().IsIntersect(m2::RectD(rect)))

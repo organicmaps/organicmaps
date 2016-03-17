@@ -238,12 +238,12 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
           Erase(*it);
 
         #ifdef DEBUG_OVERLAYS_OUTPUT
-          LOG(LINFO, ("Displace (2):", handle->GetOverlayDebugInfo(), "->", it->GetOverlayDebugInfo()));
+          LOG(LINFO, ("Displace (2):", handle->GetOverlayDebugInfo(), "->", (*it)->GetOverlayDebugInfo()));
         #endif
 
         #ifdef COLLECT_DISPLACEMENT_INFO
           m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
-                                                           it->GetExtendedPixelRect(modelView).Center(),
+                                                           (*it)->GetExtendedPixelRect(modelView).Center(),
                                                            dp::Color(0, 0, 255, 255)));
         #endif
 
@@ -260,7 +260,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle,
       DeleteHandle(rivalHandle);
 
     #ifdef DEBUG_OVERLAYS_OUTPUT
-      LOG(LINFO, ("Displace (3):", handle->GetOverlayDebugInfo(), "->", handleToDelete->GetOverlayDebugInfo()));
+      LOG(LINFO, ("Displace (3):", handle->GetOverlayDebugInfo(), "->", rivalHandle->GetOverlayDebugInfo()));
     #endif
 
     #ifdef COLLECT_DISPLACEMENT_INFO
