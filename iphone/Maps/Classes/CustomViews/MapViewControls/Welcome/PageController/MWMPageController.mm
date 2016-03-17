@@ -9,6 +9,8 @@
 @property (weak, nonatomic) UIViewController * parent;
 
 @property (nonatomic) MWMPageControllerDataSource * pageControllerDataSource;
+@property (nonatomic) MWMWelcomeController * currentController;
+@property (nonatomic) BOOL isAnimatingTransition;
 
 @end
 
@@ -25,7 +27,7 @@
 
 - (void)close
 {
-  MWMWelcomeController * current = self.viewControllers.firstObject;
+  MWMWelcomeController * current = self.currentController;
   [Statistics logEvent:kStatEventName(kStatWhatsNew, [[current class] udWelcomeWasShownKey])
         withParameters:@{kStatAction : kStatClose}];
   [self.iPadBackgroundView removeFromSuperview];
@@ -35,16 +37,12 @@
 
 - (void)nextPage
 {
-  MWMWelcomeController * current = self.viewControllers.firstObject;
+  MWMWelcomeController * current = self.currentController;
   [Statistics logEvent:kStatEventName(kStatWhatsNew, [[current class] udWelcomeWasShownKey])
         withParameters:@{kStatAction : kStatNext}];
-  MWMWelcomeController * next = static_cast<MWMWelcomeController *>(
+  self.currentController = static_cast<MWMWelcomeController *>(
       [self.pageControllerDataSource pageViewController:self
                       viewControllerAfterViewController:current]);
-  [self setViewControllers:@[ next ]
-                 direction:UIPageViewControllerNavigationDirectionForward
-                  animated:YES
-                completion:nil];
 }
 
 - (void)show:(Class<MWMWelcomeControllerProtocol>)welcomeClass
@@ -82,10 +80,7 @@
   self.pageControllerDataSource =
       [[MWMPageControllerDataSource alloc] initWithPageController:self welcomeClass:welcomeClass];
   self.dataSource = self.pageControllerDataSource;
-  [self setViewControllers:@[ [self.pageControllerDataSource firstWelcomeController] ]
-                 direction:UIPageViewControllerNavigationDirectionReverse
-                  animated:NO
-                completion:nil];
+  self.currentController = [self.pageControllerDataSource firstWelcomeController];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -98,6 +93,24 @@
     else
       self.view.origin = {};
   } completion:nil];
+}
+
+#pragma mark - Properties
+
+- (void)setCurrentController:(MWMWelcomeController *)currentController
+{
+  if (!currentController || [currentController isEqual:_currentController] || self.isAnimatingTransition)
+    return;
+  self.isAnimatingTransition = YES;
+  _currentController = currentController;
+  __weak auto weakSelf = self;
+  [self setViewControllers:@[ currentController ]
+                 direction:UIPageViewControllerNavigationDirectionForward
+                  animated:YES
+                completion:^(BOOL finished)
+  {
+    weakSelf.isAnimatingTransition = NO;
+  }];
 }
 
 @end
