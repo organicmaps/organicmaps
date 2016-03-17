@@ -93,7 +93,16 @@ using namespace storage;
 
 - (void)configNavBar
 {
-  self.title = self.dataSource.isParentRoot ? L(@"download_maps") : L(@(self.parentCountryId.c_str()));
+  if (self.dataSource.isParentRoot)
+  {
+    self.title = L(@"download_maps");
+  }
+  else
+  {
+    NodeAttrs nodeAttrs;
+    GetFramework().Storage().GetNodeAttrs(self.parentCountryId, nodeAttrs);
+    self.title = @(nodeAttrs.m_nodeLocalName.c_str());
+  }
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
