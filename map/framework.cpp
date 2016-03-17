@@ -275,8 +275,8 @@ void Framework::Migrate(bool keepDownloaded)
   Storage().DeleteAllLocalMaps(&existedCountries);
   DeregisterAllMaps();
   m_model.Clear();
-  InitCountryInfoGetter();
   Storage().Migrate(keepDownloaded ? existedCountries : TCountriesVec());
+  InitCountryInfoGetter();
   InitSearchEngine();
   RegisterAllMaps();
   SetRenderingEnabled(true);
