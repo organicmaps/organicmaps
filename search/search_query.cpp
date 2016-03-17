@@ -173,9 +173,6 @@ Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest>
   , m_categories(categories)
   , m_suggests(suggests)
   , m_infoGetter(infoGetter)
-#ifdef HOUSE_SEARCH_TEST
-  , m_houseDetector(&index)
-#endif
 #ifdef FIND_LOCALITY_TEST
   , m_locality(&index)
 #endif
@@ -318,8 +315,6 @@ void Query::ClearCaches()
   for (size_t i = 0; i < COUNT_V; ++i)
     ClearCache(i);
 
-  m_houseDetector.ClearCaches();
-
   m_locality.ClearCacheAll();
 }
 
@@ -334,13 +329,8 @@ void Query::Init(bool viewportSearch)
 
   m_tokens.clear();
   m_prefix.clear();
-
-#ifdef HOUSE_SEARCH_TEST
-  m_house.clear();
-  m_streetID.clear();
-#endif
-
   m_viewportSearch = viewportSearch;
+
   ClearResults();
 }
 
@@ -413,38 +403,12 @@ void Query::SetQuery(string const & query)
   /// @todo Why Init is separated with SetQuery?
   ASSERT(m_tokens.empty(), ());
   ASSERT(m_prefix.empty(), ());
-  ASSERT(m_house.empty(), ());
 
   // Split input query by tokens with possible last prefix.
   search::Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(m_tokens), delims);
 
   bool checkPrefix = true;
-
-  // Find most suitable token for house number.
-#ifdef HOUSE_SEARCH_TEST
-  if (!m_keepHouseNumberInQuery)
-  {
-    int houseInd = static_cast<int>(m_tokens.size()) - 1;
-    while (houseInd >= 0)
-    {
-      if (feature::IsHouseNumberDeepCheck(m_tokens[houseInd]))
-      {
-        if (m_tokens.size() > 1)
-        {
-          m_house.swap(m_tokens[houseInd]);
-          m_tokens[houseInd].swap(m_tokens.back());
-          m_tokens.pop_back();
-        }
-        break;
-      }
-      --houseInd;
-    }
-
-    // do check for prefix if last token is not a house number
-    checkPrefix = m_house.empty() || houseInd < m_tokens.size();
-  }
-#endif
 
   // Assign prefix with last parsed token.
   if (checkPrefix && !m_tokens.empty() && !delims(strings::LastUniChar(query)))
@@ -505,11 +469,6 @@ void Query::FlushViewportResults(v2::Geocoder::Params const & params, Results & 
     return;
 
   RemoveDuplicatingLinear(indV);
-
-#ifdef HOUSE_SEARCH_TEST
-  if (oldHouseSearch)
-    FlushHouses(res, false, streets);
-#endif
 
   for (size_t i = 0; i < indV.size(); ++i)
   {
@@ -677,35 +636,6 @@ public:
     return res2;
   }
 };
-
-class HouseCompFactory
-{
-  Query const & m_query;
-
-  bool LessDistance(HouseResult const & r1, HouseResult const & r2) const
-  {
-    return (PointDistance(m_query.m_pivot, r1.GetOrg()) <
-            PointDistance(m_query.m_pivot, r2.GetOrg()));
-  }
-
-public:
-  explicit HouseCompFactory(Query const & q) : m_query(q) {}
-
-  struct CompT
-  {
-    HouseCompFactory const * m_parent;
-
-    CompT(HouseCompFactory const * parent) : m_parent(parent) {}
-    bool operator()(HouseResult const & r1, HouseResult const & r2) const
-    {
-      return m_parent->LessDistance(r1, r2);
-    }
-  };
-
-  static size_t const SIZE = 1;
-
-  CompT Get(size_t) { return CompT(this); }
-};
 }  // namespace impl
 
 template <class T>
@@ -770,35 +700,6 @@ void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont
   }
 }
 
-void Query::FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & streets)
-{
-  if (!m_house.empty() && !streets.empty())
-  {
-    if (m_houseDetector.LoadStreets(streets) > 0)
-      m_houseDetector.MergeStreets();
-
-    m_houseDetector.ReadAllHouses();
-
-    vector<HouseResult> houses;
-    m_houseDetector.GetHouseForName(strings::ToUtf8(m_house), houses);
-
-    SortByIndexedValue(houses, impl::HouseCompFactory(*this));
-
-    // Limit address results when searching in first pass (position, viewport, locality).
-    size_t count = houses.size();
-    if (!allMWMs)
-      count = min(count, size_t(5));
-
-    for (size_t i = 0; i < count; ++i)
-    {
-      House const * h = houses[i].m_house;
-      res.AddResult(MakeResult(impl::PreResult2(h->GetPosition(),
-                                               h->GetNumber() + ", " + houses[i].m_street->GetName(),
-                                               ftypes::IsBuildingChecker::Instance().GetMainType())));
-    }
-  }
-}
-
 void Query::FlushResults(v2::Geocoder::Params const & params, Results & res, bool allMWMs,
                          size_t resCount, bool oldHouseSearch)
 {
@@ -817,11 +718,6 @@ void Query::FlushResults(v2::Geocoder::Params const & params, Results & res, boo
   // Do not process suggestions in additional search.
   if (!allMWMs || res.GetCount() == 0)
     ProcessSuggestions(indV, res);
-
-#ifdef HOUSE_SEARCH_TEST
-  if (oldHouseSearch)
-    FlushHouses(res, allMWMs, streets);
-#endif
 
   // Emit feature results.
   size_t count = res.GetCount();
