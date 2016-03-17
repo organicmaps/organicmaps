@@ -3,8 +3,8 @@
 
 @interface MWMPageControllerDataSource ()
 
-@property (weak, nonatomic, readonly) MWMPageController * pageController;
 @property (nonatomic) Class<MWMWelcomeControllerProtocol> welcomeClass;
+@property (nonatomic) NSArray<MWMWelcomeController *> * controllers;
 
 @end
 
@@ -15,32 +15,30 @@
   self = [super init];
   if (self)
   {
-    _pageController = pageController;
     _welcomeClass = welcomeClass;
+    NSMutableArray<MWMWelcomeController *> * controllers = [@[] mutableCopy];
+    for (NSInteger index = 0; index < [self.welcomeClass pagesCount]; ++index)
+    {
+      MWMWelcomeController * vc = [self.welcomeClass welcomeController];
+      vc.pageIndex = index;
+      vc.pageController = pageController;
+      [controllers addObject:vc];
+    }
+    self.controllers = [controllers copy];
   }
   return self;
 }
 
 - (MWMWelcomeController *)firstWelcomeController
 {
-  return [self welcomeControllerAtIndex:0];
-}
-
-- (MWMWelcomeController *)welcomeControllerAtIndex:(NSInteger)index
-{
-  if (index < 0 || index == NSNotFound || index >= [self.welcomeClass pagesCount])
-    return nil;
-  MWMWelcomeController * vc = [self.welcomeClass welcomeController];
-  vc.pageIndex = index;
-  vc.pageController = self.pageController;
-  return vc;
+  return self.controllers.firstObject;
 }
 
 #pragma mark - UIPageViewControllerDataSource
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
-  return static_cast<MWMWelcomeController *>(self.pageController.viewControllers.firstObject).pageIndex;
+  return [self.controllers indexOfObject:pageViewController.viewControllers.firstObject];
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
@@ -50,12 +48,18 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(MWMWelcomeController *)viewController
 {
-  return [self welcomeControllerAtIndex:viewController.pageIndex - 1];
+  NSUInteger const index = [self.controllers indexOfObject:viewController];
+  NSAssert(index != NSNotFound, @"Invalid controller index");
+  BOOL const isFirstController = (index == 0);
+  return isFirstController ? nil : self.controllers[index - 1];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(MWMWelcomeController *)viewController
 {
-  return [self welcomeControllerAtIndex:viewController.pageIndex + 1];
+  NSUInteger const index = [self.controllers indexOfObject:viewController];
+  NSAssert(index != NSNotFound, @"Invalid controller index");
+  BOOL const isLastController = (index == [self.welcomeClass pagesCount] - 1);
+  return isLastController ? nil : self.controllers[index + 1];
 }
 
 @end

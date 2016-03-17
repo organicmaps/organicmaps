@@ -97,12 +97,16 @@
 
 #pragma mark - Properties
 
+- (MWMWelcomeController *)currentController
+{
+  return self.viewControllers.firstObject;
+}
+
 - (void)setCurrentController:(MWMWelcomeController *)currentController
 {
-  if (!currentController || [currentController isEqual:_currentController] || self.isAnimatingTransition)
+  if (!currentController || self.isAnimatingTransition)
     return;
   self.isAnimatingTransition = YES;
-  _currentController = currentController;
   __weak auto weakSelf = self;
   [self setViewControllers:@[ currentController ]
                  direction:UIPageViewControllerNavigationDirectionForward
