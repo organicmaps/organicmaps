@@ -92,7 +92,7 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> co
       continue;
 
     XMLFeature const way(bestWay);
-    ASSERT(way.IsArea(), ("Best way must be area."));
+    ASSERT(way.IsArea(), ("Best way must be an area."));
 
     // AlexZ: TODO: Check that this way is really match our feature.
     // If we had some way to check it, why not to use it in selecting our feature?

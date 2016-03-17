@@ -2,13 +2,15 @@
 
 #include "base/logging.hpp"
 
+#include "std/algorithm.hpp"
+
 using editor::XMLFeature;
 
 namespace
 {
 constexpr double kPointDiffEps = MercatorBounds::GetCellID2PointAbsEpsilon();
 
-bool LatLonEqual(ms::LatLon const & a, ms::LatLon const & b)
+bool PointsEqual(m2::PointD const & a, m2::PointD const & b)
 {
   return a.EqualDxDy(b, kPointDiffEps);
 }
@@ -36,33 +38,60 @@ void ForEachWaysNode(pugi::xml_document const & osmResponse, pugi::xml_node cons
   }
 }
 
+vector<m2::PointD> GetWaysGeometry(pugi::xml_document const & osmResponse,
+                                   pugi::xml_node const & way)
+{
+  vector<m2::PointD> result;
+  ForEachWaysNode(osmResponse, way, [&result](XMLFeature const & xmlFt)
+                  {
+                    result.push_back(xmlFt.GetMercatorCenter());
+                  });
+  return result;
+}
+
 /// @returns value form [-0.5, 0.5]. Negative values are used as penalty,
 /// positive as score.
 double ScoreGeometry(pugi::xml_document const & osmResponse, pugi::xml_node const & way,
                      vector<m2::PointD> geometry)
 {
   int matched = 0;
-  int total = 0;
-  // TODO(mgsergio): optimize using sorting and scaning eps-squares.
-  // The idea is to build squares with side = eps on points from the first set.
-  // Sort them by y and x in y groups.
-  // Then pass points from the second set through constructed struct and register events
-  // like square started, square ended, point encounted.
-  ForEachWaysNode(osmResponse, way, [&matched, &total, &geometry](XMLFeature const & xmlFt)
-                  {
-                    ++total;
-                    for (auto pointIt = begin(geometry); pointIt != end(geometry); ++pointIt)
-                    {
-                      if (LatLonEqual(xmlFt.GetCenter(), MercatorBounds::ToLatLon(*pointIt)))
-                      {
-                        ++matched;
-                        geometry.erase(pointIt);
-                        break;
-                      }
-                    }
-                  });
 
-  return static_cast<double>(matched) / total - 0.5;
+  auto wayGeometry = GetWaysGeometry(osmResponse, way);
+
+  sort(begin(wayGeometry), end(wayGeometry));
+  sort(begin(geometry), end(geometry));
+
+  auto it1 = begin(geometry);
+  auto it2 = begin(wayGeometry);
+
+  while (it1 != end(geometry) && it2 != end(wayGeometry))
+  {
+    if (PointsEqual(*it1, *it2))
+    {
+      ++matched;
+      ++it1;
+      ++it2;
+    }
+    else if (*it1 < *it2)
+    {
+      ++it1;
+    }
+    else
+    {
+      ++it2;
+    }
+  }
+
+  auto const wayScore = static_cast<double>(matched) / wayGeometry.size() - 0.5;
+  auto const geomScore = static_cast<double>(matched) / geometry.size() - 0.5;
+  auto const result = wayScore <= 0 || geomScore <= 0
+      ? -1
+      : 2 / (1 / wayScore + 1 / geomScore);
+
+  LOG(LDEBUG, ("Osm score:", wayScore, "our feature score:", geomScore,
+               "Total score", result));
+
+  return result;
 }
 }  // namespace
 
@@ -109,10 +138,9 @@ pugi::xml_node GetBestOsmWay(pugi::xml_document const & osmResponse,
   double bestScore = -1;
   pugi::xml_node bestMatchWay;
 
+  // TODO(mgsergio): Handle relations as well. Put try_later=version status to edits.xml.
   for (auto const & xWay : osmResponse.select_nodes("osm/way"))
   {
-    XMLFeature xmlFt(xWay.node());
-
     double const nodeScore = ScoreGeometry(osmResponse, xWay.node(), geometry);
     if (nodeScore < 0)
       continue;
@@ -130,5 +158,4 @@ pugi::xml_node GetBestOsmWay(pugi::xml_document const & osmResponse,
 
   return bestMatchWay;
 }
-
 }  // namespace osm
