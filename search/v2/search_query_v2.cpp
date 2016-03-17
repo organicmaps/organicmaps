@@ -30,7 +30,7 @@ m2::RectD NormalizeViewport(m2::RectD viewport)
   return viewport;
 }
 
-m2::RectD GetRectAroundPoistion(m2::PointD const & position)
+m2::RectD GetRectAroundPosition(m2::PointD const & position)
 {
   double constexpr kMaxPositionRadiusM = 50.0 * 1000;
   return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
@@ -68,7 +68,7 @@ void SearchQueryV2::Search(Results & res, size_t resCount)
 
   m2::RectD const & viewport = m_viewport[CURRENT_V];
   if (viewport.IsPointInside(m_position))
-    params.m_pivot = GetRectAroundPoistion(m_position);
+    params.m_pivot = GetRectAroundPosition(m_position);
   else
     params.m_pivot = NormalizeViewport(viewport);
 
