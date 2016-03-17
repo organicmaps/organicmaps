@@ -345,7 +345,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9NB-bm-bsj" userLabel="CenteredView">
                                                 <rect key="frame" x="84" y="17" width="400" height="333"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_migration" translatesAutoresizingMaskIntoConstraints="NO" id="vDh-VK-Hht">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_whatsnew_migration" translatesAutoresizingMaskIntoConstraints="NO" id="vDh-VK-Hht">
                                                         <rect key="frame" x="100" y="0.0" width="200" height="200"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="130" id="2zH-I9-eKL"/>
@@ -2816,17 +2816,14 @@ the world. Join us!</string>
         <image name="ic_device" width="28" height="28"/>
         <image name="ic_more" width="28" height="28"/>
         <image name="ic_upload" width="28" height="28"/>
-        <image name="img_migration" width="200" height="183"/>
+        <image name="img_whatsnew_migration" width="240" height="240"/>
         <image name="login_facebook" width="28" height="28"/>
         <image name="login_google" width="28" height="28"/>
         <image name="separator_image" width="1" height="1"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OEF-kR-jKi"/>
-        <segue reference="yAJ-jH-Dus"/>
         <segue reference="mF7-g4-gSS"/>
-        <segue reference="w48-2Y-VXA"/>
-        <segue reference="Z0Z-aU-Vrq"/>
+        <segue reference="yAJ-jH-Dus"/>
         <segue reference="Pet-Wq-d4a"/>
         <segue reference="fuS-6s-TH4"/>
     </inferredMetricsTieBreakers>

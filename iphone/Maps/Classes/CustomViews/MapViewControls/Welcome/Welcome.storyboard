@@ -35,7 +35,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KYa-do-R0L" userLabel="CenteredView">
                                                 <rect key="frame" x="44" y="59" width="400" height="337"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_perspective_view" translatesAutoresizingMaskIntoConstraints="NO" id="9EX-CE-PRs">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="9EX-CE-PRs">
                                                         <rect key="frame" x="90" y="0.0" width="220" height="220"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="120" id="Vf0-P1-t3t"/>
@@ -188,7 +188,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-d8-Zqv" userLabel="CenteredView">
                                                 <rect key="frame" x="44" y="59" width="400" height="337"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_perspective_view" translatesAutoresizingMaskIntoConstraints="NO" id="3yX-3O-NmI">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="3yX-3O-NmI">
                                                         <rect key="frame" x="90" y="0.0" width="220" height="220"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="220" id="0jq-yV-Ew3"/>
@@ -329,7 +329,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3e1-HO-MaJ" userLabel="CenteredView">
                                                 <rect key="frame" x="44" y="59" width="400" height="337"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="img_perspective_view" translatesAutoresizingMaskIntoConstraints="NO" id="mm5-FP-Hug">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="mm5-FP-Hug">
                                                         <rect key="frame" x="90" y="0.0" width="220" height="220"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="800" constant="120" id="bky-HI-LEh"/>
@@ -451,6 +451,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="img_perspective_view" width="220" height="220"/>
+        <image name="ic_placeholder" width="240" height="240"/>
     </resources>
 </document>
