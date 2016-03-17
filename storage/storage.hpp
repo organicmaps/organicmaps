@@ -511,7 +511,7 @@ private:
   void RegisterFakeCountryFiles(platform::LocalCountryFile const & localFile);
 
   // Removes disk files for all versions of a country.
-  void DeleteCountryFiles(TCountryId const & countryId, MapOptions opt);
+  void DeleteCountryFiles(TCountryId const & countryId, MapOptions opt, bool deferredDelete);
 
   // Removes country files from downloader.
   bool DeleteCountryFilesFromDownloader(TCountryId const & countryId, MapOptions opt);

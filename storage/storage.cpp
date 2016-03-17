@@ -472,12 +472,10 @@ void Storage::DeleteCountry(TCountryId const & countryId, MapOptions opt)
   ASSERT(m_willDelete != nullptr, ("Storage::Init wasn't called"));
 
   TLocalFilePtr localFile = GetLatestLocalFile(countryId);
-  if(!m_willDelete(countryId, localFile))
-  {
-    opt = NormalizeDeleteFileSet(opt);
-    DeleteCountryFiles(countryId, opt);
-    DeleteCountryFilesFromDownloader(countryId, opt);
-  }
+  opt = NormalizeDeleteFileSet(opt);
+  bool const deferredDelete = m_willDelete(countryId, localFile);
+  DeleteCountryFiles(countryId, opt, deferredDelete);
+  DeleteCountryFilesFromDownloader(countryId, opt);
   NotifyStatusChangedForHierarchy(countryId);
 }
 
@@ -501,25 +499,6 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
     LOG(LERROR, ("Removed files for an unknown country:", localFile));
     return;
   }
-
-  MY_SCOPE_GUARD(notifyStatusChanged, bind(&Storage::NotifyStatusChangedForHierarchy, this, countryId));
-
-  // If file version equals to current data version, delete from downloader all pending requests for
-  // the country.
-  if (localFile.GetVersion() == GetCurrentDataVersion())
-    DeleteCountryFilesFromDownloader(countryId, MapOptions::MapWithCarRouting);
-  auto countryFilesIt = m_localFiles.find(countryId);
-  if (countryFilesIt == m_localFiles.end())
-  {
-    LOG(LERROR, ("Deleted files of an unregistered country:", localFile));
-    return;
-  }
-
-  auto const equalsToLocalFile = [&localFile](TLocalFilePtr const & rhs)
-  {
-    return localFile == *rhs;
-  };
-  countryFilesIt->second.remove_if(equalsToLocalFile);
 }
 
 void Storage::NotifyStatusChanged(TCountryId const & countryId)
@@ -1021,11 +1000,17 @@ void Storage::RegisterFakeCountryFiles(platform::LocalCountryFile const & localF
   m_localFilesForFakeCountries[fakeCountryLocalFile->GetCountryFile()] = fakeCountryLocalFile;
 }
 
-void Storage::DeleteCountryFiles(TCountryId const & countryId, MapOptions opt)
+void Storage::DeleteCountryFiles(TCountryId const & countryId, MapOptions opt, bool deferredDelete)
 {
   auto const it = m_localFiles.find(countryId);
   if (it == m_localFiles.end())
     return;
+
+  if (deferredDelete)
+  {
+    m_localFiles.erase(countryId);
+    return;
+  }
 
   auto & localFiles = it->second;
   for (auto & localFile : localFiles)
