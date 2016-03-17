@@ -756,7 +756,6 @@ FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id)
 
 bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id, EditableMapObject & outFeature)
 {
-  outFeature = {};
   ASSERT(id.IsAlive(), ("Please check that feature is created in valid MWM file before calling this method."));
   outFeature.SetMercator(mercator);
   outFeature.SetID(GenerateNewFeatureId(id));

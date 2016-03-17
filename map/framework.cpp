@@ -2391,6 +2391,7 @@ vector<string> FilterNearbyStreets(vector<search::ReverseGeocoder::Street> const
 bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const featureType,
                                 osm::EditableMapObject & emo) const
 {
+  emo = {};
   MwmSet::MwmId const mwmId = m_model.GetIndex().GetMwmIdByCountryFile(
         platform::CountryFile(m_infoGetter->GetRegionCountryId(mercator)));
   if (!mwmId.IsAlive())
