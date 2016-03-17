@@ -490,6 +490,9 @@ bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, stora
   // Soft reset to signal that mwm file may be out of date in routing caches.
   m_routingSession.Reset();
 
+  if (countryId == m_lastReportedCountry)
+    m_lastReportedCountry = kInvalidCountryId;
+
   if(auto handle = m_lastQueryHandle.lock())
     handle->Cancel();
 
