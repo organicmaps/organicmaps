@@ -15,11 +15,8 @@ struct RankingInfo
 {
   static double const kMaxDistMeters;
 
-  // Distance from the feature to the current viewport's center.
-  double m_distanceToViewport = kMaxDistMeters;
-
-  // Distance from the feature to the current user's position.
-  double m_distanceToPosition = kMaxDistMeters;
+  // Distance from the feature to the pivot point.
+  double m_distanceToPivot = kMaxDistMeters;
 
   // Rank of the feature.
   uint8_t m_rank = 0;
@@ -32,9 +29,6 @@ struct RankingInfo
 
   // Search type for the feature.
   SearchModel::SearchType m_searchType = SearchModel::SEARCH_TYPE_COUNT;
-
-  // True if user's position is in viewport.
-  bool m_positionInViewport = false;
 
   static void PrintCSVHeader(ostream & os);
 

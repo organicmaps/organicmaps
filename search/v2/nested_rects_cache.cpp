@@ -18,7 +18,7 @@ namespace v2
 {
 namespace
 {
-double const kPositionToleranceMeters = 30.0;
+double const kPositionToleranceMeters = 2.0;
 }  // namespace
 
 NestedRectsCache::NestedRectsCache(Index & index)

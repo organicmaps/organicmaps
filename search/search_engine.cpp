@@ -322,16 +322,11 @@ void Engine::DoSearch(SearchParams const & params, m2::RectD const & viewport,
     if (params.m_onStarted)
       params.m_onStarted();
 
+    processor.SetViewport(viewport, true /* forceUpdate */);
     if (viewportSearch)
-    {
-      processor.SetViewport(viewport, true /* forceUpdate */);
       processor.SearchViewportPoints(res);
-    }
     else
-    {
-      processor.SetViewport(viewport, params.IsSearchAroundPosition() /* forceUpdate */);
       processor.Search(res, kResultsCount);
-    }
 
     if (!processor.IsCancelled())
       EmitResults(params, res);

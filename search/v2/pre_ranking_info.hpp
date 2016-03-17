@@ -10,13 +10,9 @@ namespace v2
 {
 struct PreRankingInfo
 {
-  // An abstract distance from the feature to the viewport.
-  // Measurement units do not matter here.
-  double m_distanceToViewport = 0;
-
-  // An abstract distance from the feature to the user's position.
-  // Measurement units do not matter here.
-  double m_distanceToPosition = 0;
+  // An abstract distance from the feature to the pivot.  Measurement
+  // units do not matter here.
+  double m_distanceToPivot = 0;
 
   // Tokens [m_startToken, m_endToken) match to the feature name or
   // house number.

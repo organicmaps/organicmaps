@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import sys
 
-FEATURES = ['DistanceToViewport', 'DistanceToPosition', 'MinDistance', 'Rank', 'SearchType', 'NameScore', 'PositionInViewport']
+FEATURES = ['DistanceToPivot', 'Rank', 'NameScore', 'SearchType']
 
 DISTANCE_WINDOW = 1e9
 MAX_RANK = 255
@@ -31,13 +31,11 @@ def normalize_data(data):
     max_name_score = len(NAME_SCORES) - 1
     max_search_type = SEARCH_TYPES['COUNTRY']
 
-    data['DistanceToViewport'] = data['DistanceToViewport'].apply(transform_distance)
-    data['DistanceToPosition'] = data['DistanceToPosition'].apply(transform_distance)
+    data['DistanceToPivot'] = data['DistanceToPivot'].apply(transform_distance)
     data['Rank'] = data['Rank'].apply(lambda rank: rank / MAX_RANK)
     data['NameScore'] = data['NameScore'].apply(lambda s: NAME_SCORES.index(s) / max_name_score)
     data['SearchType'] = data['SearchType'].apply(lambda t: SEARCH_TYPES[t] / max_search_type)
     data['Relevance'] = data['Relevance'].apply(lambda r: RELEVANCES[r])
-    data['MinDistance'] = pd.Series(np.minimum(data['DistanceToViewport'], data['DistanceToPosition']))
 
 
 def compute_ndcg(scores):

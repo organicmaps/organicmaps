@@ -315,85 +315,52 @@ bool IsStopWord(strings::UniString const & s)
   return kStopWords.count(s) > 0;
 }
 
-m2::RectD NormalizeViewport(m2::RectD viewport)
-{
-  double constexpr kMinViewportRadiusM = 5.0 * 1000;
-  double constexpr kMaxViewportRadiusM = 50.0 * 1000;
-
-  m2::RectD minViewport =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMinViewportRadiusM);
-  viewport.Add(minViewport);
-
-  m2::RectD maxViewport =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMaxViewportRadiusM);
-  VERIFY(viewport.Intersect(maxViewport), ());
-  return viewport;
-}
-
-m2::RectD GetRectAroundPoistion(m2::PointD const & position)
-{
-  double constexpr kMaxPositionRadiusM = 50.0 * 1000;
-  return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
-}
-
 double Area(m2::RectD const & rect)
 {
   return rect.IsValid() ? rect.SizeX() * rect.SizeY() : 0;
 }
 
-// Computes an average similaty between |rect| and |pivots|. By
+// Computes an average similaty between |rect| and |pivot|. By
 // similarity between two rects we mean a fraction of the area of
 // rects intersection to the area of the smallest rect.
-double GetSimilarity(vector<m2::RectD> const & pivots, m2::RectD const & rect)
+double GetSimilarity(m2::RectD const & pivot, m2::RectD const & rect)
 {
-  double distance = 0;
-  for (auto const & pivot : pivots)
-  {
-    double const area = min(Area(pivot), Area(rect));
-    if (area == 0.0)
-      continue;
-
-    m2::RectD p = pivot;
-    if (!p.Intersect(rect))
-      continue;
-
-    distance += Area(p) / area;
-  }
-  return distance;
+  double const area = min(Area(pivot), Area(rect));
+  if (area == 0.0)
+    return 0.0;
+  m2::RectD p = pivot;
+  if (!p.Intersect(rect))
+    return 0.0;
+  return Area(p) / area;
 }
 
-// Returns shortest squared distance from the centers of |pivots| to
-// the |rect|.
-double GetSquaredDistance(vector<m2::RectD> const & pivots, m2::RectD const & rect)
+// Returns shortest squared distance from the center of |pivot| to the
+// center of |rect|.
+double GetSquaredDistance(m2::RectD const & pivot, m2::RectD const & rect)
 {
-  double distance = numeric_limits<double>::max();
   auto const center = rect.Center();
-  for (auto const & pivot : pivots)
-    distance = min(distance, center.SquareLength(pivot.Center()));
-  return distance;
+  return center.SquareLength(pivot.Center());
 }
 
 // Reorders maps in a way that prefix consists of maps intersecting
-// with viewport and position, suffix consists of all other maps
-// ordered by minimum distance from viewport and position.  Returns an
-// iterator to the first element of the suffix.
+// with pivot, suffix consists of all other maps ordered by minimum
+// distance from pivot.  Returns an iterator to the first element of
+// the suffix.
 template <typename TIt>
-TIt OrderCountries(Geocoder::Params const & params, TIt begin, TIt end)
+TIt OrderCountries(m2::RectD const & pivot, TIt begin, TIt end)
 {
-  vector<m2::RectD> const pivots = {NormalizeViewport(params.m_viewport),
-                                    GetRectAroundPoistion(params.m_position)};
   auto compareBySimilarity = [&](shared_ptr<MwmInfo> const & lhs, shared_ptr<MwmInfo> const & rhs)
   {
     auto const & lhsRect = lhs->m_limitRect;
     auto const & rhsRect = rhs->m_limitRect;
 
-    auto const lhsSimilarity = GetSimilarity(pivots, lhsRect);
-    auto const rhsSimilarity = GetSimilarity(pivots, rhsRect);
+    auto const lhsSimilarity = GetSimilarity(pivot, lhsRect);
+    auto const rhsSimilarity = GetSimilarity(pivot, rhsRect);
 
     if (lhsSimilarity == 0.0 && rhsSimilarity == 0.0)
     {
-      auto const lhsDistance = GetSquaredDistance(pivots, lhsRect);
-      auto const rhsDistance = GetSquaredDistance(pivots, rhsRect);
+      auto const lhsDistance = GetSquaredDistance(pivot, lhsRect);
+      auto const rhsDistance = GetSquaredDistance(pivot, rhsRect);
       return lhsDistance < rhsDistance;
     }
 
@@ -402,12 +369,7 @@ TIt OrderCountries(Geocoder::Params const & params, TIt begin, TIt end)
 
   auto intersects = [&](shared_ptr<MwmInfo> const & info) -> bool
   {
-    for (auto const & pivot : pivots)
-    {
-      if (pivot.IsIntersect(info->m_limitRect))
-        return true;
-    }
-    return false;
+    return pivot.IsIntersect(info->m_limitRect);
   };
 
   sort(begin, end, compareBySimilarity);
@@ -437,7 +399,7 @@ bool SameMwm(Geocoder::TResult const & lhs, Geocoder::TResult const & rhs)
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
-Geocoder::Params::Params() : m_mode(Mode::Everywhere), m_position(0, 0), m_maxNumResults(0) {}
+Geocoder::Params::Params() : m_mode(Mode::Everywhere), m_maxNumResults(0) {}
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
@@ -445,8 +407,7 @@ Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
   , m_infoGetter(infoGetter)
   , m_numTokens(0)
   , m_model(SearchModel::Instance())
-  , m_viewportFeatures(index)
-  , m_positionFeatures(index)
+  , m_pivotFeatures(index)
   , m_streets(nullptr)
   , m_villages(nullptr)
   , m_filter(nullptr)
@@ -541,7 +502,7 @@ void Geocoder::GoInViewport(TResultList & results)
 
   infos.erase(remove_if(infos.begin(), infos.end(), [this](shared_ptr<MwmInfo> const & info)
   {
-    return !m_params.m_viewport.IsIntersect(info->m_limitRect);
+    return !m_params.m_pivot.IsIntersect(info->m_limitRect);
   }), infos.end());
 
   GoImpl(infos, true /* inViewport */);
@@ -575,19 +536,18 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     }
 
     // Orders countries by distance from viewport center and position.
-    // This order is used during MatchViewportAndPosition() stage - we
-    // try to match as many features as possible without trying to
-    // match locality (COUNTRY or CITY), and only when there are too
-    // many features, viewport and position vicinity filter is used.
-    // To prevent full search in all mwms, we need to limit somehow a
-    // set of mwms for MatchViewportAndPosition(), so, we always call
-    // MatchViewportAndPosition() on maps intersecting with viewport
-    // and on the map where the user is currently located, other maps
-    // are ordered by distance from viewport and user position, and we
-    // stop to call MatchViewportAndPosition() on them as soon as at
-    // least one feature is found.
+    // This order is used during MatchAroundPivot() stage - we try to
+    // match as many features as possible without trying to match
+    // locality (COUNTRY or CITY), and only when there are too many
+    // features, viewport and position vicinity filter is used.  To
+    // prevent full search in all mwms, we need to limit somehow a set
+    // of mwms for MatchAroundPivot(), so, we always call
+    // MatchAroundPivot() on maps intersecting with pivot rect, other
+    // maps are ordered by distance from pivot, and we stop to call
+    // MatchAroundPivot() on them as soon as at least one feature is
+    // found.
     size_t const numIntersectingMaps =
-        distance(infos.begin(), OrderCountries(m_params, infos.begin(), infos.end()));
+        distance(infos.begin(), OrderCountries(m_params.m_pivot, infos.begin(), infos.end()));
 
     // MatchViewportAndPosition() should always be matched in mwms
     // intersecting with position and viewport.
@@ -619,8 +579,8 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       unique_ptr<coding::CompressedBitVector> viewportCBV;
       if (inViewport)
       {
-        viewportCBV = v2::RetrieveGeometryFeatures(*m_context, cancellable,
-                                                   m_params.m_viewport, m_params.m_scale);
+        viewportCBV = v2::RetrieveGeometryFeatures(*m_context, cancellable, m_params.m_pivot,
+                                                   m_params.m_scale);
       }
 
       PrepareAddressFeatures();
@@ -648,7 +608,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
       MatchRegions(REGION_TYPE_COUNTRY);
 
       if (index < numIntersectingMaps || m_results->empty())
-        MatchViewportAndPosition();
+        MatchAroundPivot();
     };
 
     // Iterates through all alive mwms and performs geocoding.
@@ -669,8 +629,7 @@ void Geocoder::ClearCaches()
   m_matchersCache.clear();
   m_streetsCache.clear();
   m_villages.reset();
-  m_viewportFeatures.ClearCaches();
-  m_positionFeatures.ClearCaches();
+  m_pivotFeatures.ClearCaches();
 }
 
 void Geocoder::PrepareRetrievalParams(size_t curToken, size_t endToken)
@@ -1014,27 +973,14 @@ void Geocoder::MatchCities()
   }
 }
 
-void Geocoder::MatchViewportAndPosition()
+void Geocoder::MatchAroundPivot()
 {
-  CBVPtr allFeatures;
+  auto const * features = RetrieveGeometryFeatures(*m_context, m_params.m_pivot, PIVOT_ID);
 
-  // Extracts features in viewport (but not farther than some limit).
-  {
-    m2::RectD const rect = NormalizeViewport(m_params.m_viewport);
-    allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, VIEWPORT_ID));
-  }
-
-  // Extracts features around user position.
-  if (!m_params.m_viewport.IsPointInside(m_params.m_position))
-  {
-    m2::RectD const rect = GetRectAroundPoistion(m_params.m_position);
-    allFeatures.Union(RetrieveGeometryFeatures(*m_context, rect, POSITION_ID));
-  }
-
-  if (!allFeatures.Get())
+  if (!features)
     return;
 
-  ViewportFilter filter(*allFeatures, m_params.m_maxNumResults /* threshold */);
+  ViewportFilter filter(*features, m_params.m_maxNumResults /* threshold */);
   LimitedSearch(filter);
 }
 
@@ -1366,14 +1312,12 @@ void Geocoder::FillMissingFieldsInResults()
 
   if (m_results->size() > m_params.m_maxNumResults)
   {
-    m_viewportFeatures.SetPosition(m_params.m_viewport.Center(), m_params.m_scale);
-    m_positionFeatures.SetPosition(m_params.m_position, m_params.m_scale);
+    m_pivotFeatures.SetPosition(m_params.m_pivot.Center(), m_params.m_scale);
     for (auto & result : *m_results)
     {
       auto const & id = result.first;
       auto & info = result.second;
-      info.m_distanceToViewport = m_viewportFeatures.GetDistanceToFeatureMeters(id);
-      info.m_distanceToPosition = m_positionFeatures.GetDistanceToFeatureMeters(id);
+      info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
     }
   }
 }

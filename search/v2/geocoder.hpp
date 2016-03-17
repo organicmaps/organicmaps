@@ -76,9 +76,7 @@ public:
     Params();
 
     Mode m_mode;
-    m2::RectD m_viewport;
-    /// User's position or viewport center if there is no valid position.
-    m2::PointD m_position;
+    m2::RectD m_pivot;
     size_t m_maxNumResults;
   };
 
@@ -155,7 +153,7 @@ private:
   enum
   {
     VIEWPORT_ID = -1,
-    POSITION_ID = -2,
+    PIVOT_ID = -2,
   };
 
   SearchQueryParams::TSynonymsVector const & GetTokens(size_t i) const;
@@ -196,7 +194,7 @@ private:
   // BUILDINGs and STREETs without knowledge about country, state,
   // city or village. If during the geocoding too many features are
   // retrieved, viewport is used to throw away excess features.
-  void MatchViewportAndPosition();
+  void MatchAroundPivot();
 
   // Tries to do geocoding in a limited scope, assuming that knowledge
   // about high-level features, like cities or countries, is
@@ -304,8 +302,7 @@ private:
   };
   map<MwmSet::MwmId, vector<FeaturesInRect>> m_geometryFeatures;
 
-  NestedRectsCache m_viewportFeatures;
-  NestedRectsCache m_positionFeatures;
+  NestedRectsCache m_pivotFeatures;
 
   // Cache of posting lists for each token in the query.  TODO (@y,
   // @m, @vng): consider to update this cache lazily, as user inputs
