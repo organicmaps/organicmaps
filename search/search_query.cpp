@@ -644,15 +644,14 @@ public:
 
   unique_ptr<impl::PreResult2> operator()(impl::PreResult1 const & res1)
   {
-    FeatureType feature;
+    FeatureType ft;
     string name, country;
-    LoadFeature(res1.GetID(), feature, name, country);
+    LoadFeature(res1.GetID(), ft, name, country);
 
     Query::ViewportID const viewportID = static_cast<Query::ViewportID>(res1.GetViewportID());
-    auto res2 = make_unique<impl::PreResult2>(feature, &res1, m_query.GetPosition(viewportID), name,
-                                              country);
+    auto res2 = make_unique<impl::PreResult2>(ft, &res1, m_query.GetPosition(viewportID), name, country);
     search::v2::RankingInfo info;
-    InitRankingInfo(feature, res1, info);
+    InitRankingInfo(ft, res1, info);
     res2->SetRankingInfo(move(info));
 
     /// @todo: add exluding of states (without USA states), continents
@@ -831,7 +830,7 @@ void Query::FlushResults(v2::Geocoder::Params const & params, Results & res, boo
     FlushHouses(res, allMWMs, streets);
 #endif
 
-  // emit feature results
+  // Emit feature results.
   size_t count = res.GetCount();
   for (size_t i = 0; i < indV.size() && count < resCount; ++i)
   {
@@ -1053,7 +1052,6 @@ Result Query::MakeResult(impl::PreResult2 const & r) const
 #endif
 
   res.SetRankingInfo(r.GetRankingInfo());
-
   return res;
 }
 
