@@ -4,17 +4,13 @@
 
 namespace jni
 {
-
 // A smart pointer that deletes a JNI local reference when it goes out of scope.
-template<typename T>
+template <typename T>
 class ScopedLocalRef {
 public:
-  ScopedLocalRef(JNIEnv * env, T localRef) : m_env(env), m_localRef(localRef) { }
+  ScopedLocalRef(JNIEnv * env, T localRef) : m_env(env), m_localRef(localRef) {}
 
-  ~ScopedLocalRef()
-  {
-    reset();
-  }
+  ~ScopedLocalRef() { reset(); }
 
   void reset(T ptr = nullptr)
   {
@@ -26,17 +22,17 @@ public:
     m_localRef = ptr;
   }
 
-  T get() const
-  {
-    return m_localRef;
-  }
+  T get() const { return m_localRef; }
+
+  operator T() const { return m_localRef; }
+
 private:
   JNIEnv * m_env;
   T m_localRef;
 
   // Disallow copy and assignment.
   ScopedLocalRef(ScopedLocalRef const &) = delete;
-  void operator = (ScopedLocalRef const &) = delete;
+  void operator=(ScopedLocalRef const &) = delete;
 };
 
 }  // namespace jni
