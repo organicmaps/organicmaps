@@ -164,10 +164,8 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetDefaultName(JNIEnv * env, jclass
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeSetDefaultName(JNIEnv * env, jclass, jstring name)
 {
-  StringUtf8Multilang names = g_editableMapObject.GetName();
   // TODO(yunikkk): add multilanguage names support.
-  names.AddString(StringUtf8Multilang::kDefaultCode, jni::ToNativeString(env, name));
-  g_editableMapObject.SetName(names);
+  g_editableMapObject.SetName(jni::ToNativeString(env, name), StringUtf8Multilang::kDefaultCode);
 }
 
 JNIEXPORT jstring JNICALL
