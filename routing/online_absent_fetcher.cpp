@@ -37,8 +37,9 @@ void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries
   m_fetcherThread->Join();
   for (auto const & point : m_fetcherThread->GetRoutineAs<OnlineCrossFetcher>()->GetMwmPoints())
   {
-    string name = m_countryFileFn(point);
-    if (m_countryLocalFileFn(name))
+    string const name = m_countryFileFn(point);
+    ASSERT(!name.empty(), ());
+    if (name.empty() || m_countryLocalFileFn(name))
       continue;
 
     LOG(LINFO, ("Needs: ", name));
