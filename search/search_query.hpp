@@ -80,9 +80,12 @@ public:
   /// @param[in]  forceUpdate Pass true (default) to recache feature's ids even
   /// if viewport is a part of the old cached rect.
   void SetViewport(m2::RectD const & viewport, bool forceUpdate);
+
+  // TODO (@y): this function must be removed.
   void SetRankPivot(m2::PointD const & pivot);
   inline string const & GetPivotRegion() const { return m_region; }
   inline void SetPosition(m2::PointD const & position) { m_position = position; }
+  inline m2::PointD const & GetPosition() const { return m_position; }
 
   inline void SetMode(Mode mode) { m_mode = mode; }
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
@@ -146,6 +149,9 @@ protected:
   using TMWMVector = vector<shared_ptr<MwmInfo>>;
   using TOffsetsVector = map<MwmSet::MwmId, vector<uint32_t>>;
   using TFHeader = feature::DataHeader;
+
+  m2::PointD GetPivotPoint() const;
+  m2::RectD GetPivotRect() const;
 
   void SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & viewport, size_t idx,
                           bool forceUpdate);
@@ -223,8 +229,6 @@ protected:
   //@{
   /// @return Rect for viewport-distance calculation.
   m2::RectD const & GetViewport(ViewportID vID = DEFAULT_V) const;
-  /// @return Control point for distance-to calculation.
-  m2::PointD GetPosition(ViewportID vID = DEFAULT_V) const;
   //@}
 
   void SetLanguage(int id, int8_t lang);

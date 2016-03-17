@@ -7,6 +7,7 @@
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
@@ -81,12 +82,6 @@ bool PreResult1::LessPriority(PreResult1 const & r1, PreResult1 const & r2)
   return r1.m_info.m_rank > r2.m_info.m_rank;
 }
 
-// static
-bool PreResult1::LessPointsForViewport(PreResult1 const & r1, PreResult1 const & r2)
-{
-  return r1.m_id < r2.m_id;
-}
-
 PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & pivot,
                        string const & displayName, string const & fileName)
   : m_id(f.GetID()),
@@ -100,10 +95,9 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD c
 
   m_types.SortBySpec();
 
-  m2::PointD fCenter;
-  fCenter = f.GetLimitRect(FeatureType::WORST_GEOMETRY).Center();
+  auto const center = feature::GetCenter(f);
 
-  m_region.SetParams(fileName, fCenter);
+  m_region.SetParams(fileName, center);
   m_distance = PointDistance(GetCenter(), pivot);
 
   ProcessMetadata(f, m_metadata);
@@ -213,22 +207,6 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
     ASSERT_EQUAL(m_resultType, RESULT_LATLON, ());
     return Result(GetCenter(), m_str, address);
   }
-}
-
-// static
-bool PreResult2::LessRank(PreResult2 const & r1, PreResult2 const & r2)
-{
-  if (r1.m_info.m_rank != r2.m_info.m_rank)
-    return r1.m_info.m_rank > r2.m_info.m_rank;
-  return r1.m_distance < r2.m_distance;
-}
-
-// static
-bool PreResult2::LessDistance(PreResult2 const & r1, PreResult2 const & r2)
-{
-  if (r1.m_distance != r2.m_distance)
-    return r1.m_distance < r2.m_distance;
-  return r1.m_info.m_rank > r2.m_info.m_rank;
 }
 
 bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const

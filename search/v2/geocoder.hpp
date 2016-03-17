@@ -76,7 +76,13 @@ public:
     Params();
 
     Mode m_mode;
+
+    // We need to pass both pivot and pivot center because pivot is
+    // usually a rectangle created by radius and center, and due to
+    // precision loss, |m_pivot|.Center() may differ from
+    // |m_pivotCenter|.
     m2::RectD m_pivot;
+    m2::PointD m_pivotCenter;
     size_t m_maxNumResults;
   };
 

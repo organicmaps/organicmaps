@@ -51,6 +51,7 @@
 #include "std/function.hpp"
 #include "std/iterator.hpp"
 #include "std/limits.hpp"
+#include "std/random.hpp"
 
 #define LONG_OP(op)    \
   {                    \
@@ -162,6 +163,27 @@ void RemoveDuplicatingLinear(vector<IndexedValue> & indV)
                     }),
              indV.end());
 }
+
+m2::RectD NormalizeViewport(m2::RectD viewport)
+{
+  double constexpr kMinViewportRadiusM = 5.0 * 1000;
+  double constexpr kMaxViewportRadiusM = 50.0 * 1000;
+
+  m2::RectD minViewport =
+      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMinViewportRadiusM);
+  viewport.Add(minViewport);
+
+  m2::RectD maxViewport =
+      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMaxViewportRadiusM);
+  VERIFY(viewport.Intersect(maxViewport), ());
+  return viewport;
+}
+
+m2::RectD GetRectAroundPosition(m2::PointD const & position)
+{
+  double constexpr kMaxPositionRadiusM = 50.0 * 1000;
+  return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
+}
 }  // namespace
 
 // static
@@ -205,6 +227,22 @@ void Query::SetLanguage(int id, int8_t lang)
 int8_t Query::GetLanguage(int id) const
 {
   return m_keywordsScorer.GetLanguage(GetLangIndex(id));
+}
+
+m2::PointD Query::GetPivotPoint() const
+{
+  m2::RectD const & viewport = m_viewport[CURRENT_V];
+  if (viewport.IsPointInside(GetPosition()))
+    return GetPosition();
+  return viewport.Center();
+}
+
+m2::RectD Query::GetPivotRect() const
+{
+  m2::RectD const & viewport = m_viewport[CURRENT_V];
+  if (viewport.IsPointInside(GetPosition()))
+    return GetRectAroundPosition(GetPosition());
+  return NormalizeViewport(viewport);
 }
 
 void Query::SetViewport(m2::RectD const & viewport, bool forceUpdate)
@@ -541,9 +579,10 @@ class PreResult2Maker
                        search::v2::RankingInfo & info)
   {
     auto const & preInfo = res.GetInfo();
-    m2::PointD pivot = m_params.m_pivot.Center();
 
-    info.m_distanceToPivot = feature::GetMinDistanceMeters(ft, pivot);
+    auto const & pivot = m_params.m_pivotCenter;
+
+    info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), pivot);
     info.m_rank = preInfo.m_rank;
     info.m_searchType = preInfo.m_searchType;
 
@@ -592,8 +631,7 @@ public:
     string name, country;
     LoadFeature(res1.GetID(), ft, name, country);
 
-    Query::ViewportID const viewportID = static_cast<Query::ViewportID>(res1.GetViewportID());
-    auto res2 = make_unique<impl::PreResult2>(ft, &res1, m_query.GetPosition(viewportID), name, country);
+    auto res2 = make_unique<impl::PreResult2>(ft, &res1, m_query.GetPosition(), name, country);
     search::v2::RankingInfo info;
     InitRankingInfo(ft, res1, info);
     res2->SetRankingInfo(move(info));
@@ -660,9 +698,17 @@ void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont
     for (; e != m_results.end() && e->GetPriority() == lastPriority; ++e)
       ;
 
-    // TODO (@y, @m, @vng): this method is deprecated, need to rewrite
-    // it.
-    random_shuffle(b, e);
+    // The main reason of shuffling here is to select a random subset
+    // from the low-priority results. We're using a linear congruental
+    // method with default seed because it is fast, simple and doesn't
+    // need an external entropy source.
+    //
+    // TODO (@y, @m, @vng): consider to take some kind of hash from
+    // features and then select a subset with smallest values of this
+    // hash.  In this case this subset of results will be persistent
+    // to small changes in the original set.
+    minstd_rand engine;
+    shuffle(b, e, engine);
   }
   theSet.insert(m_results.begin(), m_results.begin() + min(m_results.size(), kPreResultsCount));
 
@@ -1631,17 +1677,6 @@ m2::RectD const & Query::GetViewport(ViewportID vID /*= DEFAULT_V*/) const
 
   ASSERT(m_viewport[CURRENT_V].IsValid(), ());
   return m_viewport[CURRENT_V];
-}
-
-m2::PointD Query::GetPosition(ViewportID vID /*= DEFAULT_V*/) const
-{
-  switch (vID)
-  {
-  case LOCALITY_V:      // center of the founded locality
-    return m_viewport[vID].Center();
-  default:
-    return m_pivot;
-  }
 }
 
 string DebugPrint(Query::ViewportID viewportId)

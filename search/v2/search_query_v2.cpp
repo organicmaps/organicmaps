@@ -13,30 +13,6 @@ namespace search
 {
 namespace v2
 {
-namespace
-{
-m2::RectD NormalizeViewport(m2::RectD viewport)
-{
-  double constexpr kMinViewportRadiusM = 5.0 * 1000;
-  double constexpr kMaxViewportRadiusM = 50.0 * 1000;
-
-  m2::RectD minViewport =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMinViewportRadiusM);
-  viewport.Add(minViewport);
-
-  m2::RectD maxViewport =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMaxViewportRadiusM);
-  VERIFY(viewport.Intersect(maxViewport), ());
-  return viewport;
-}
-
-m2::RectD GetRectAroundPosition(m2::PointD const & position)
-{
-  double constexpr kMaxPositionRadiusM = 50.0 * 1000;
-  return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
-}
-}  // namespace
-
 SearchQueryV2::SearchQueryV2(Index & index, CategoriesHolder const & categories,
                              vector<Suggest> const & suggests,
                              storage::CountryInfoGetter const & infoGetter)
@@ -66,12 +42,8 @@ void SearchQueryV2::Search(Results & res, size_t resCount)
   InitParams(false /* localitySearch */, params);
   params.m_mode = m_mode;
 
-  m2::RectD const & viewport = m_viewport[CURRENT_V];
-  if (viewport.IsPointInside(m_position))
-    params.m_pivot = GetRectAroundPosition(m_position);
-  else
-    params.m_pivot = NormalizeViewport(viewport);
-
+  params.m_pivot = GetPivotRect();
+  params.m_pivotCenter = GetPivotPoint();
   params.m_maxNumResults = max(resCount, kPreResultsCount);
   m_geocoder.SetParams(params);
 
