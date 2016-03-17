@@ -753,7 +753,7 @@ public class RoutingController
   static String formatArrivalTime(int seconds)
   {
     Calendar current = Calendar.getInstance();
-    current.add(Calendar.SECOND, seconds - Calendar.SECOND);
+    current.add(Calendar.SECOND, seconds);
     return StringUtils.formatUsingUsLocale("%d:%02d", current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE));
   }
 }
