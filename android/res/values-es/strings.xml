@@ -14,8 +14,6 @@
 	<string name="cancel_download">Cancelar descarga</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Eliminar</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Eliminar mapas antiguos y seguir</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">No volver a preguntar</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -48,8 +46,6 @@
 	<string name="miles">Milla</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Mi posición</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">No hay conexión al Internet</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">No hay conexión Wifi. ¿Quieres descargar el mapa con tu plan de datos móviles?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
@@ -66,8 +62,6 @@
 	<string name="search">Buscar</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Buscar en el mapa</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">No hay suficiente espacio libre</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Presionar para descargar</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -412,13 +406,16 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">La nueva versión de MAPS.ME permite crear rutas desde tu ubicación actual hasta un punto de destino. Por favor, actualiza los mapas para utilizar esta característica.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Actualizar todos</string>
+	<string name="downloader_update_all_button">Actualizar todos</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Cancelar todo</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Descargados</string>
+	<string name="downloader_downloaded_subtitle">Descargado</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">En cola</string>
+	<string name="downloader_near_me_subtitle">Cerca de mí</string>
+	<string name="downloader_status_maps">Mapas: %s</string>
+	<string name="downloader_download_all_button">Descarar todos</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Creando rutas en la aplicación MAPS.ME, por favor, tenga en cuenta lo siguiente:\n\n  - Las rutas sugeridas se pueden considerar únicamente como recomendaciones.\n - Las condiciones de la carretera, las normas y las señales de tráfico tienen mayor prioridad que el consejo de navegación.\n - El mapa podría ser incorrecto o estar obsoleto y las rutas pueden no crear el mejor camino posible.\n\n  ¡Esté seguro en las carreteras y cuídese!</string>
 	<!-- Outdated maps category -->
@@ -814,8 +811,6 @@
 	<string name="p2p_only_from_current">La navegación solo está disponible desde tu ubicación actual.</string>
 	<string name="p2p_reroute_from_current">¿Quieres que planeemos un ruta desde tu ubicación actual?</string>
 	<string name="whats_new_next_button">Siguiente</string>
-	<string name="whats_new_night_caption">Navegación en modo nocturno</string>
-	<string name="whats_new_night_body">Para facilitar el uso de MAPS.ME al conducir en la oscuridad, hemos añadido el modo nocturno. Este se activa automáticamente tras el atardecer.</string>
 	<string name="editor_time_add">Añadir horario</string>
 	<string name="editor_time_delete">Eliminar horario</string>
 	<!-- Text for allday switch. -->
@@ -831,9 +826,6 @@
 	<string name="editor_correct_mistake">Corregir error</string>
 	<string name="editor_correct_mistake_message">Ha cometido un error de edición. Por favor, corríjalo o cambie a modo sencillo.</string>
 	<string name="migrate_title">¡Importante!</string>
-	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
-	<string name="migrate_and_split_mwms_message">Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez de el país entero. Antes de empezar a descargar mapas nuevos, por favor, elimina los anteriores.</string>
-	<string name="youve_been_asking">Llevas tiempo pidiéndolo y lo hemos hecho</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Descargar todos</string>
 	<string name="delete_all">Eliminar todos</string>
@@ -897,6 +889,51 @@
 	<!-- login text field -->
 	<string name="email_or_username">Correo electrónico o usuario</string>
 	<string name="phone">Teléfono</string>
-	<string name="whats_new_editor_caption">Edita el mapa directamente desde MAPS.ME</string>
-	<string name="whats_new_editor_message">Tus cambios ayudarán a millones de usuarios. ¡Vamos a mejorar juntos el mundo!</string>
+	<string name="please_note">Aviso</string>
+	<string name="common_no_wifi_dialog">No hay conexión Wi-Fi. ¿Quieres continuar con los datos móviles?</string>
+	<string name="downloader_delete_map_dialog">Todos los cambios en los mapas se borrarán junto con el mapa.</string>
+	<string name="downloader_update_maps">Autodescarga de mapas</string>
+	<string name="downloader_mwm_migration_dialog">Los mapas empiezan a descargarse automáticamente cuando te aproximas al mapa.</string>
+	<string name="downloader_search_field_hint">Encontrar el mapa</string>
+	<string name="migration_update_all_button">Actualizar todos los mapas</string>
+	<string name="migration_delete_all_download_current_button">Descargar el mapa actual y eliminar los mapas antiguos</string>
+	<string name="migration_prefetch_status">Preparando la actualización de mapas…</string>
+	<string name="migration_download_error_dialog">Error de descarga</string>
+	<string name="common_check_internet_connection_dialog">Por favor, verifica la configuración y asegúrate de que tu dispositivo está conectado a Internet.</string>
+	<string name="downloader_no_space_title">Sin espacio suficiente</string>
+	<string name="downloader_no_space_message">Por favor, elimina los datos innecesarios</string>
+	<string name="editor_general_auth_error_dialog">Error general de inicio de sesión.</string>
+	<string name="editor_login_error_dialog">Error de inicio de sesión.</string>
+	<string name="editor_login_failed_dialog">Error al iniciar sesión</string>
+	<string name="editor_username_error_dialog">Usuario no válido</string>
+	<string name="editor_place_edited_dialog">¡Has editado un objeto!</string>
+	<string name="editor_login_with_osm">Iniciar sesión con OpenStreetMap</string>
+	<string name="editor_profile_changes">Cambios:</string>
+	<string name="editor_profile_unsent_changes">No enviado</string>
+	<string name="editor_focus_map_on_location">Arrastra el mapa para seleccionar la ubicación correcta del objeto.</string>
+	<string name="editor_add_select_category">Seleccionar categoría</string>
+	<string name="editor_add_select_category_popular_subtitle">Popular</string>
+	<string name="editor_add_select_category_all_subtitle">Todas las categorías</string>
+	<string name="editor_edit_place_title">Editar</string>
+	<string name="editor_add_place_title">Añadir</string>
+	<string name="editor_edit_place_name_hint">Nombre del lugar</string>
+	<string name="editor_edit_place_category_title">Categoría</string>
+	<string name="placepage_add_place_button">Añadir un lugar</string>
+	<string name="placepage_report_problem_button">Informar de un problema</string>
+	<string name="whatsnew_smallmwm_header">Llevas tiempo pidiéndolo y lo hemos hecho</string>
+	<string name="whatsnew_smallmwm_message">Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez de el país entero.</string>
+	<string name="whatsnew_search_message">Hemos mejorado notablemente la búsqueda por dirección. Compruébalo.</string>
+	<string name="whatsnew_editor_title">Editar el mapa*</string>
+	<string name="whatsnew_editor_message_1">Añadir lugares nuevos al mapa y editar los lugares actuales directamente desde la aplicación.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME utiliza datos de la comunidad de OpenStreetMap.</string>
+	<string name="onboarding_offline_navigation_title">Nunca volverás a perderte</string>
+	<string name="onboarding_offline_navigation_message">Planifica rutas óptimas en coche y a pie, ¡incluso si no hay conexión a Internet!</string>
+	<string name="onboarding_offline_navigation_title_2">Navegación fuera de línea</string>
+	<string name="onboarding_offline_navigation_message_2">Planifica rutas óptimas en coche y a pie.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME - mapas sin conexión</string>
+	<string name="onboarding_offline_maps_message">Descarga una vez los mapas para el área deseada, y utiliza las funciones de navegación y búsqueda sin conexión a Internet.</string>
+	<string name="onboarding_notifications_message">Para recibir los mapas más recientes, obtén las notificaciones de actualización</string>
+	<string name="onboarding_notifications_title">Permitir notificaciones de actualización</string>
+	<string name="onboarding_location_title">Ayúdanos a encontrarte</string>
+	<string name="onboarding_location_message">Para utilizar la navegación y otras funciones, necesitamos acceso a tu geolocalización.</string>
 </resources>

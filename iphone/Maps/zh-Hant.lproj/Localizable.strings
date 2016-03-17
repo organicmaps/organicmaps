@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "刪除";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "刪除舊的地圖並繼續";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "別再問我";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "我的位置";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "無網路連線";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE, 3G 或 LTE)來下載嗎 %@？";
 
@@ -110,9 +104,6 @@
 
 /* Search box placeholder text */
 "search_map" = "搜尋地圖";
-
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "沒有足夠的儲存空間";
 
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "輕觸後下載";
@@ -694,20 +685,22 @@
 "routing_update_maps" = "使用新版本的MAPS.ME可以創建從您的當前位置至一個目的地的路線。請更新地圖以使用該功能。";
 
 /* Update all button text */
-"downloader_update_all" = "更新全部";
+"downloader_update_all_button" = "更新全部";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "取消全部";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "已下載";
+"downloader_downloaded_subtitle" = "已下載";
 
 /* Country queued for download */
 "downloader_queued" = "已佇列";
 
-"downloader_near_me" = "Near me";
+"downloader_near_me_subtitle" = "在我附近";
 
-"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
+"downloader_status_maps" = "地圖： %s";
+
+"downloader_download_all_button" = "下載全部";
 
 /* Disclaimer message */
 "routing_disclaimer" = "在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！";
@@ -767,9 +760,6 @@
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "地圖 + 布置路線";
-
-/* Dialog confirmation when trying to delete map and there are unsaved changes present on it. */
-"downloader_delete_editor_changes" = "Unsaved changes for this map will be removed too. Continue anyway?";
 
 /* Item in context menu. */
 "downloader_delete_map" = "刪除地圖";
@@ -1342,10 +1332,6 @@
 
 "whats_new_next_button" = "下一頁";
 
-"whats_new_night_caption" = "夜間模式導航";
-
-"whats_new_night_body" = "為了便於天黑行駛時使用MAPS.ME，我們增加了夜間模式。該模式在日落之後會自動開啟。";
-
 "editor_time_add" = "新增排程";
 
 "editor_time_delete" = "刪除排程";
@@ -1374,11 +1360,6 @@
 "editor_correct_mistake_message" = "編輯時出錯。請修正或切換到簡易模式。";
 
 "migrate_title" = "重要！";
-
-/* Used in 2 places: What's new and Delete All maps dialog. */
-"migrate_and_split_mwms_message" = "我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。您在開始下載新地圖前，請刪除老地圖。";
-
-"youve_been_asking" = "您一直在尋求，而我們已經完成";
 
 /* Android uses image instead of text. */
 "download_all" = "全部下載。";
@@ -1501,6 +1482,98 @@
 
 "phone" = "電話";
 
-"whats_new_editor_caption" = "直接從MAPS.ME編輯地圖";
+"please_note" = "請註意";
 
-"whats_new_editor_message" = "您的修改將幫助上百萬用戶。讓我們一起讓世界變好！";
+"common_no_wifi_dialog" = "無WiFi連接。您想繼續使用移動數據進行連接嗎？";
+
+"downloader_delete_map_dialog" = "所有對地圖的修改都將與地圖一起被刪除。";
+
+"downloader_update_maps" = "更新地圖";
+
+"downloader_mwm_migration_dialog" = "為了創建路線，您需要更新全部地圖並重新規劃路線。";
+
+"downloader_search_field_hint" = "找到地圖";
+
+"migration_update_all_button" = "更新全部地圖";
+
+"migration_delete_all_download_current_button" = "下載當前地圖並刪除舊地圖";
+
+"migration_prefetch_status" = "正在準備地圖更新…";
+
+"migration_download_error_dialog" = "下載錯誤";
+
+"common_check_internet_connection_dialog" = "請檢查您的設置並確保您的設備已連接至網絡。";
+
+"downloader_no_space_title" = "無足夠的空間";
+
+"downloader_no_space_message" = "請刪除不必要的數據";
+
+"editor_general_auth_error_dialog" = "一般登錄錯誤。";
+
+"editor_login_error_dialog" = "登錄錯誤。";
+
+"editor_login_failed_dialog" = "登錄失敗";
+
+"editor_username_error_dialog" = "用戶名不存在";
+
+"editor_place_edited_dialog" = "您已編輯了一個對象！";
+
+"editor_login_with_osm" = "使用OpenStreetMap進行登錄";
+
+"editor_profile_changes" = "更改：";
+
+"editor_profile_unsent_changes" = "未發送";
+
+"editor_focus_map_on_location" = "拖動地圖以選擇此對象的正確位置。";
+
+"editor_add_select_category" = "選擇類別";
+
+"editor_add_select_category_popular_subtitle" = "受歡迎的";
+
+"editor_add_select_category_all_subtitle" = "所有類別";
+
+"editor_edit_place_title" = "編輯中";
+
+"editor_add_place_title" = "添加中";
+
+"editor_edit_place_name_hint" = "該地點的名稱";
+
+"editor_edit_place_category_title" = "類別";
+
+"placepage_add_place_button" = "添加一個地點";
+
+"placepage_report_problem_button" = "報告一個問題";
+
+"whatsnew_smallmwm_header" = "您一直在尋求，而我們已經完成";
+
+"whatsnew_smallmwm_message" = "我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。";
+
+"whatsnew_search_header" = "New search!";
+
+"whatsnew_search_message" = "我們已明顯改進了按地址的搜索。親自看看。";
+
+"whatsnew_editor_title" = "編輯此地圖*";
+
+"whatsnew_editor_message_1" = "添加新地點到該地圖，並直接通過此應用編輯已存在的地點。";
+
+"whatsnew_editor_message_2" = "* MAPS.ME使用OpenStreetMap社區的數據。";
+
+"onboarding_offline_navigation_title" = "您將不再迷路";
+
+"onboarding_offline_navigation_message" = "規劃最佳的駕車和步行路線，即使在沒有網絡連接的情況下！";
+
+"onboarding_offline_navigation_title_2" = "離線導航";
+
+"onboarding_offline_navigation_message_2" = "規劃最佳的駕車和步行路線。";
+
+"onboarding_offline_maps_title" = "MAPS.ME - 離線地圖";
+
+"onboarding_offline_maps_message" = "一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。";
+
+"onboarding_notifications_message" = "為了接收最新的地圖，請獲取更新通知";
+
+"onboarding_notifications_title" = "啟用更新通知";
+
+"onboarding_location_title" = "幫我們找到您";
+
+"onboarding_location_message" = "如要使用導航和其他功能，我們需要能獲取您的地理位置.";

@@ -14,8 +14,6 @@
 	<string name="cancel_download">ยกเลิกการดาวน์โหลด</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">ลบ</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">ลบแผนที่เก่าและดำเนินการต่อไป</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">อย่าถามฉันอีก</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -52,8 +50,6 @@
 	<string name="miles">ไมล์</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">ตำแหน่งของฉัน</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">ไม่สามารถตรวจพบการเชื่อมต่ออินเทอร์เน็ต</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">ไม่สามารถตรวจพบการเชื่อมต่อ WiFi คุณต้องการใช้ข้อมูลโทรศัพท์มือถือ (GPRS, EDGE, 3G หรือ LTE) เพื่อดาวน์โหลด %s?</string>
 	<string name="ok">ตกลง</string>
@@ -73,8 +69,6 @@
 	<string name="search">ค้นหา</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">ค้นหาแผนที่</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">มีพื้นที่ว่างในดิสก์ไม่เพียงพอ</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">แตะเพื่อดาวน์โหลด</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -423,13 +417,16 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">เวอร์ชันใหม่ของ MAPS.ME อนุญาติให้สร้างเส้นทางจากตำแหน่งปัจจุบันของคุณไปยังจุดปลายทาง โปรดอัปเดตแผนเพื่อใช้ฟีเจอร์นี้</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">อัปเดตทั้งหมด</string>
+	<string name="downloader_update_all_button">อัปเดตทั้งหมด</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">ยกเลิกทั้งหมด</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">ดาวน์โหลดเสร็จ</string>
+	<string name="downloader_downloaded_subtitle">ดาวน์โหลดแล้ว</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ต่อแถว</string>
+	<string name="downloader_near_me_subtitle">ใกล้ฉัน</string>
+	<string name="downloader_status_maps">แผนที่: %s</string>
+	<string name="downloader_download_all_button">ดาวน์โหลดทั้งหมด</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">การสร้างเส้นทางในแอป MAPS.ME มีสิ่งที่ควรทราบดังต่อไปนี้:\n\n  - พึงพิจารณาเส้นทางที่แนะนำไว้ในฐานะที่เป็นการแนะนำเท่านั้น\n - สภาพถนน กฎจราจรและป้ายมีความสำคัญมากกว่าคำแนะนำในการนำทาง\n - แผนที่อาจไม่ถูกต้องหรือล้าสมัย และอาจไม่ได้มีการสร้างเส้นทางในรูปแบบพอจะเป็นไปได้ที่ดีที่สุด\n\n  ขอให้ปลอดภัยบนท้องถนนและดูแลตัวคุณเองด้วย!</string>
 	<!-- Outdated maps category -->
@@ -823,8 +820,6 @@
 	<string name="p2p_only_from_current">สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น</string>
 	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
 	<string name="whats_new_next_button">ถัดไป</string>
-	<string name="whats_new_night_caption">การนำทางในโหมดกลางคืน</string>
-	<string name="whats_new_night_body">เราได้เพิ่มโหมดกลางคืนเพื่อส่งเสริมการใช้ MAPS.ME เมื่อคุณกำลังขับรถในสภาพมืด จะมีการเปิดใช้โหมดนี้โดยอัตโนมัติหลังจากพระอาทิตย์ตก</string>
 	<string name="editor_time_add">เพิ่มวัน</string>
 	<string name="editor_time_delete">ลบวัน</string>
 	<!-- Text for allday switch. -->
@@ -840,9 +835,6 @@
 	<string name="editor_correct_mistake">แก้ไขข้อผิดพลาด</string>
 	<string name="editor_correct_mistake_message">มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย</string>
 	<string name="migrate_title">สำคัญ!</string>
-	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
-	<string name="migrate_and_split_mwms_message">เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว ไม่ต้องโหลดทุกประเทศ ก่อนที่คุณจะเริ่มการดาวน์โหลดแผนที่ใหม่ ขอความกรุณาลบแผนที่อันเก่าออกไปก่อน</string>
-	<string name="youve_been_asking">คุณได้ขอมา เราจึงทำมัน</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">ดาวน์โหลดทั้งหมด</string>
 	<string name="delete_all">ลบทั้งหมด</string>
@@ -906,6 +898,51 @@
 	<!-- login text field -->
 	<string name="email_or_username">อีเมลหรือชื่อผู้ใช้</string>
 	<string name="phone">โทรศัพท์</string>
-	<string name="whats_new_editor_caption">แก้ไขแผนที่โดยตรงจาก MAPS.ME</string>
-	<string name="whats_new_editor_message">การแก้ไขของคุณจะช่วยผู้ใช้หลายล้านคนได้ มาช่วยทำให้โลกน่าอยู่ขึ้น!</string>
+	<string name="please_note">โปรดทราบ</string>
+	<string name="common_no_wifi_dialog">ไม่มีการเชื่อมต่อ WiFi คุณต้องการดำเนินการต่อโดยใช้ข้อมูลมือถือหรือไม่?</string>
+	<string name="downloader_delete_map_dialog">การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่</string>
+	<string name="downloader_update_maps">อัปเดตแผนที่</string>
+	<string name="downloader_mwm_migration_dialog">ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง</string>
+	<string name="downloader_search_field_hint">ค้นหาแผนที่</string>
+	<string name="migration_update_all_button">อัปเดตแผนที่ทั้งหมด</string>
+	<string name="migration_delete_all_download_current_button">ดาวน์โหลดแผนที่ปัจจุบันและลบแผนที่เก่า</string>
+	<string name="migration_prefetch_status">กำลังเตรียมการอัปเดตแผนที่…</string>
+	<string name="migration_download_error_dialog">ข้อผิดพลาดในการดาวน์โหลด</string>
+	<string name="common_check_internet_connection_dialog">กรุณาตรวจสอบการตั้งค่าของคุณแล้วทำให้แน่ใจว่าอุปกรณ์ของคุณได้รับการเชื่อมต่ออินเทอร์เน็ต</string>
+	<string name="downloader_no_space_title">มีพื้นที่ไม่เพียงพอ</string>
+	<string name="downloader_no_space_message">กรุณาลบข้อมูลที่ไม่จำเป็น</string>
+	<string name="editor_general_auth_error_dialog">ข้อผิดพลาดในการล็อกอินทั่วไป</string>
+	<string name="editor_login_error_dialog">ข้อผิดพลาดในการล็อกอิน</string>
+	<string name="editor_login_failed_dialog">การล็อกอินล้มเหลว</string>
+	<string name="editor_username_error_dialog">ชื่อผู้ใช้ไม่ถูกต้อง</string>
+	<string name="editor_place_edited_dialog">คุณได้แก้ไขวัตถุ!</string>
+	<string name="editor_login_with_osm">ล็อกอินด้วย OpenStreetMap</string>
+	<string name="editor_profile_changes">การเปลี่ยนแปลง:</string>
+	<string name="editor_profile_unsent_changes">ไม่ได้ส่ง</string>
+	<string name="editor_focus_map_on_location">ดึงแผนที่เพื่อเลือกตำแหน่งวัตถุที่ถูกต้อง</string>
+	<string name="editor_add_select_category">เลือกหมวดหมู่</string>
+	<string name="editor_add_select_category_popular_subtitle">ยอดนิยม</string>
+	<string name="editor_add_select_category_all_subtitle">หมวดหมูทั้งหมด</string>
+	<string name="editor_edit_place_title">กำลังแก้ไข</string>
+	<string name="editor_add_place_title">กำลังเพิ่ม</string>
+	<string name="editor_edit_place_name_hint">ชื่อสถานที่</string>
+	<string name="editor_edit_place_category_title">หมวดหมู่</string>
+	<string name="placepage_add_place_button">เพิ่มสถานที่</string>
+	<string name="placepage_report_problem_button">แจ้งปัญหา</string>
+	<string name="whatsnew_smallmwm_header">คุณได้ขอมา เราจึงทำมัน</string>
+	<string name="whatsnew_smallmwm_message">เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว</string>
+	<string name="whatsnew_search_message">เราได้ปรับปรุงครั้งใหญ่สำหรับการค้นหาตามที่อยู่ ลองดูด้วยตัวเอง</string>
+	<string name="whatsnew_editor_title">แก้ไขแผนที่*</string>
+	<string name="whatsnew_editor_message_1">เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME ใช้ข้อมูลจากชุมชน OpenStreetMap</string>
+	<string name="onboarding_offline_navigation_title">คุณจะไม่หลงทางอีกต่อไป</string>
+	<string name="onboarding_offline_navigation_message">วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด แม้ว่าจะไม่มีการเชื่อมต่ออินเทอร์เน็ต!</string>
+	<string name="onboarding_offline_navigation_title_2">การนำทางออฟไลน์</string>
+	<string name="onboarding_offline_navigation_message_2">วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME - แผนที่ออฟไลน์</string>
+	<string name="onboarding_offline_maps_message">ดาวน์โหลดแผนที่สำหรับพื้นที่ที่ต้องการเพียงหนึ่งครั้ง แล้วใช้การฟังก์ชันการนำทางและการค้นหาโดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต</string>
+	<string name="onboarding_notifications_message">เพื่อรับแผนที่ล่าสุดและรับการแจ้งเตือนอัปเดต</string>
+	<string name="onboarding_notifications_title">เปิดการแจ้งเตือนการอัปเดต</string>
+	<string name="onboarding_location_title">ช่วยให้เราค้นหาคุณ</string>
+	<string name="onboarding_location_message">เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ</string>
 </resources>

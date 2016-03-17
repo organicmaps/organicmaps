@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Sil";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Eski haritaları sil ve ilerle";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Bunu tekrar sorma";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Konumum";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "İnternet bağlantısı bulunamadı";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "WiFi bağlantısı bulunamadı. %@ indirmek için hücresel veri (GPRS, EDGE, 3G veya LTE) kullanmak ister misiniz?";
 
@@ -110,9 +104,6 @@
 
 /* Search box placeholder text */
 "search_map" = "Haritada Ara";
-
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Yeterli boş disk alanı yok";
 
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "İndirmek için dokunun";
@@ -694,20 +685,22 @@
 "routing_update_maps" = "MAPS.ME'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.";
 
 /* Update all button text */
-"downloader_update_all" = "Tümünü güncelle";
+"downloader_update_all_button" = "Hepsini güncelle";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Tümünü İptal Et";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "İndirilenler";
+"downloader_downloaded_subtitle" = "İndirildi";
 
 /* Country queued for download */
 "downloader_queued" = "sıraya alındı";
 
-"downloader_near_me" = "Near me";
+"downloader_near_me_subtitle" = "Yakınlarımda";
 
-"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
+"downloader_status_maps" = "Haritalar: %s";
+
+"downloader_download_all_button" = "Hepsini indir";
 
 /* Disclaimer message */
 "routing_disclaimer" = "MAPS.ME uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!";
@@ -767,9 +760,6 @@
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Harita + Rota";
-
-/* Dialog confirmation when trying to delete map and there are unsaved changes present on it. */
-"downloader_delete_editor_changes" = "Unsaved changes for this map will be removed too. Continue anyway?";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Haritayı Sil";
@@ -1342,10 +1332,6 @@
 
 "whats_new_next_button" = "Sonraki";
 
-"whats_new_night_caption" = "Gece modu navigasyon";
-
-"whats_new_night_body" = "Karanlıkta sürerken MAPS.ME kullanmayı kolaylaştırmak için gece modunu ekledik. Gün batımından sonra otomatik olarak devreye girer.";
-
 "editor_time_add" = "Plan Ekle";
 
 "editor_time_delete" = "Planı Sil";
@@ -1374,11 +1360,6 @@
 "editor_correct_mistake_message" = "Bir düzenleme hatası yaptınız. Lütfen düzeltin veya basit moda geçin.";
 
 "migrate_title" = "Önemli!";
-
-/* Used in 2 places: What's new and Delete All maps dialog. */
-"migrate_and_split_mwms_message" = "Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz. Yeni haritaları indirmeden önce lütfen eski haritaları kaldırın.";
-
-"youve_been_asking" = "Siz istediniz biz yaptık";
 
 /* Android uses image instead of text. */
 "download_all" = "Tümünü indir";
@@ -1501,6 +1482,98 @@
 
 "phone" = "Telefon";
 
-"whats_new_editor_caption" = "Haritayı doğrudan MAPS.ME'den düzenleyin";
+"please_note" = "Lütfen dikkat";
 
-"whats_new_editor_message" = "Değişiklikleriniz milyonlarca kullanıcıya yardımcı olacaktır. Haydi dünyayı birlikte geliştirelim!";
+"common_no_wifi_dialog" = "WiFi bağlantısı yok. Mobil veri ile devam etmek istiyor musunuz?";
+
+"downloader_delete_map_dialog" = "Harita ile birlikte tüm harita değişiklikleri de silinecektir.";
+
+"downloader_update_maps" = "Haritaları güncelle";
+
+"downloader_mwm_migration_dialog" = "Bir rota oluşturmak için tüm haritaları güncellemeli ve ardından rotayı tekrar planlamalısınız.";
+
+"downloader_search_field_hint" = "Harita bul";
+
+"migration_update_all_button" = "Haritaları güncelle";
+
+"migration_delete_all_download_current_button" = "Mevcut haritayı indir ve tüm eski haritaları sil";
+
+"migration_prefetch_status" = "Harita güncellemesi hazırlanıyor…";
+
+"migration_download_error_dialog" = "İndirme hatası";
+
+"common_check_internet_connection_dialog" = "Lütfen ayarlarınızı kontrol edin ve cihazınızın internete bağlı olduğundan emin olun.";
+
+"downloader_no_space_title" = "Yeterli alan yok";
+
+"downloader_no_space_message" = "Lütfen gereksiz verileri silin";
+
+"editor_general_auth_error_dialog" = "Genel giriş hatası.";
+
+"editor_login_error_dialog" = "Giriş hatası";
+
+"editor_login_failed_dialog" = "Giriş başarısız";
+
+"editor_username_error_dialog" = "Kullanıcı adı geçersiz";
+
+"editor_place_edited_dialog" = "Bir objeyi düzenlediniz'!";
+
+"editor_login_with_osm" = "OpenStreetMap ile giriş yapın";
+
+"editor_profile_changes" = "Değişiklikler:";
+
+"editor_profile_unsent_changes" = "Gönderilmedi";
+
+"editor_focus_map_on_location" = "Objenin doğru konumunu seçmek için haritayı çekin.";
+
+"editor_add_select_category" = "Kategori seç";
+
+"editor_add_select_category_popular_subtitle" = "Popüler";
+
+"editor_add_select_category_all_subtitle" = "Tüm kategoriler";
+
+"editor_edit_place_title" = "Düzenleme";
+
+"editor_add_place_title" = "Ekleme";
+
+"editor_edit_place_name_hint" = "Yerin ismi";
+
+"editor_edit_place_category_title" = "Kategori";
+
+"placepage_add_place_button" = "Bir yer ekle";
+
+"placepage_report_problem_button" = "Bir problem bildirin";
+
+"whatsnew_smallmwm_header" = "Siz istediniz biz yaptık";
+
+"whatsnew_smallmwm_message" = "Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz.";
+
+"whatsnew_search_header" = "New search!";
+
+"whatsnew_search_message" = "Adres ile aramayı önemli ölçüde geliştirdik. Kendiniz görün.";
+
+"whatsnew_editor_title" = "Haritayı düzenleyin*";
+
+"whatsnew_editor_message_1" = "Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME, OpenStreetMap topluluğu verilerini kullanmaktadır.";
+
+"onboarding_offline_navigation_title" = "Bir daha asla kaybolmayacaksınız";
+
+"onboarding_offline_navigation_message" = "En iyi araba ve yaya rotalarını planlayın, hatta internet bağlantısı olmadığında bile!";
+
+"onboarding_offline_navigation_title_2" = "Farklı bir problem";
+
+"onboarding_offline_navigation_message_2" = "En iyi araba ve yaya rotalarını planlayın.";
+
+"onboarding_offline_maps_title" = "MAPS.ME - çevrimdışı haritalar";
+
+"onboarding_offline_maps_message" = "İlk önce istenilen alanın haritasını indirin ve internet bağlantısı olmadan navigasyonu ve arama fonksiyonlarını kullanın.";
+
+"onboarding_notifications_message" = "En son haritaları almak için güncelleme bildirimlerini alın";
+
+"onboarding_notifications_title" = "Güncelleme bildirimlerini etkinleştir";
+
+"onboarding_location_title" = "Sizi bulmamıza yardım edin";
+
+"onboarding_location_message" = "Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.";

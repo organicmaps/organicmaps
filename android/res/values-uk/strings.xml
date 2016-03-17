@@ -14,8 +14,6 @@
 	<string name="cancel_download">Вiдмiнити завантаження</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Видалити</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Видалити старі карти та продовжити</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Більше не питати</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -52,8 +50,6 @@
 	<string name="miles">Милі</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Моє місце розташування</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Відсутнє підключення до інтернету</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Відсутнє WiFi з\&#39;єднання. Ви бажаєте завантажити %s через стільникового оператора (GPRS, EDGE, 3G або LTE)?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
@@ -72,8 +68,6 @@
 	<string name="search">Пошук</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Пошук на картi</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Немає вільного місця</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Натисніть для завантаження</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -422,13 +416,16 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Оновити все</string>
+	<string name="downloader_update_all_button">Оновити всі</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Скасувати всі</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Завантажено</string>
+	<string name="downloader_downloaded_subtitle">Завантажено</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">в черзі</string>
+	<string name="downloader_near_me_subtitle">Поблизу</string>
+	<string name="downloader_status_maps">Карти: %s</string>
+	<string name="downloader_download_all_button">Завантажити всі</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!</string>
 	<!-- Outdated maps category -->
@@ -822,8 +819,6 @@
 	<string name="p2p_only_from_current">Маршрут можна прокласти лише з поточного місцезнаходження.</string>
 	<string name="p2p_reroute_from_current">Хочете спланувати маршрут із поточного місцезнаходження?</string>
 	<string name="whats_new_next_button">Далі</string>
-	<string name="whats_new_night_caption">Нічний режим навігації</string>
-	<string name="whats_new_night_body">Для зручності використання MAPS.ME під час водіння автомобіля в темну пору доби ми додали нічний режим. Він запускається автоматично після заходу сонця.</string>
 	<string name="editor_time_add">Додати розклад</string>
 	<string name="editor_time_delete">Видалити розклад</string>
 	<!-- Text for allday switch. -->
@@ -839,9 +834,6 @@
 	<string name="editor_correct_mistake">Виправте помилку</string>
 	<string name="editor_correct_mistake_message">Під час редагування часу роботи ви зробили помилку. Виправте її або перейдіть у простий режим.</string>
 	<string name="migrate_title">Важливо!</string>
-	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
-	<string name="migrate_and_split_mwms_message">Ми поділили великі мапи на частини: тепер можна завантажити необхідну область окремо від всієї країни. Перед тим як розпочати завантажувати зменьшені мапи, будь ласка, видаліть всі старі.</string>
-	<string name="youve_been_asking">Ви просили і ми це зробили</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Завантажити всі</string>
 	<string name="delete_all">Видалити всі</string>
@@ -905,6 +897,51 @@
 	<!-- login text field -->
 	<string name="email_or_username">Ел. пошта або ім\&#39;я користувача</string>
 	<string name="phone">Телефон</string>
-	<string name="whats_new_editor_caption">Редагуйте карту відразу з MAPS.ME</string>
-	<string name="whats_new_editor_message">Ваші зміни допоможуть мільйонам користувачів. Вдосконалимо світ разом!</string>
+	<string name="please_note">Будь ласка, зверніть увагу</string>
+	<string name="common_no_wifi_dialog">Немає WiFi з’єднання. Ви бажаєте продовжити роботу через мобільний інтернет?</string>
+	<string name="downloader_delete_map_dialog">Разом з мапою будуть видалені й внесені Вами правки на цій мапі.</string>
+	<string name="downloader_update_maps">Оновити мапи</string>
+	<string name="downloader_mwm_migration_dialog">Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.</string>
+	<string name="downloader_search_field_hint">Знайти карту</string>
+	<string name="migration_update_all_button">Оновити всі карти</string>
+	<string name="migration_delete_all_download_current_button">Завантажте поточну карту і видаліть старі</string>
+	<string name="migration_prefetch_status">Підготовка до оновлення карт…</string>
+	<string name="migration_download_error_dialog">Помилка завантаження</string>
+	<string name="common_check_internet_connection_dialog">Будь ласка, перевірте свої налаштування і переконайтеся, що ваш пристрій підлючено до Інтернету.</string>
+	<string name="downloader_no_space_title">Недостатньо місця</string>
+	<string name="downloader_no_space_message">Видаліть непотрібні дані</string>
+	<string name="editor_general_auth_error_dialog">Загальна помилка входу.</string>
+	<string name="editor_login_error_dialog">Виникла помилка при авторизації.</string>
+	<string name="editor_login_failed_dialog">Помилка входу</string>
+	<string name="editor_username_error_dialog">Ім\&#39;я користувача є недійсним</string>
+	<string name="editor_place_edited_dialog">Ви відредагували об’єкт!</string>
+	<string name="editor_login_with_osm">Увійти через OpenStreetMap</string>
+	<string name="editor_profile_changes">Правки:</string>
+	<string name="editor_profile_unsent_changes">Не відправлено</string>
+	<string name="editor_focus_map_on_location">Потягніть мапу, щоб вибрати правильне місцезнаходження об’єкту.</string>
+	<string name="editor_add_select_category">Вибрати категорію</string>
+	<string name="editor_add_select_category_popular_subtitle">Популярні</string>
+	<string name="editor_add_select_category_all_subtitle">Усі категорії</string>
+	<string name="editor_edit_place_title">Редагування</string>
+	<string name="editor_add_place_title">Додовання</string>
+	<string name="editor_edit_place_name_hint">Назва місця</string>
+	<string name="editor_edit_place_category_title">Категорія</string>
+	<string name="placepage_add_place_button">Додати місце</string>
+	<string name="placepage_report_problem_button">Повідомити про проблему</string>
+	<string name="whatsnew_smallmwm_header">Ви просили і ми це зробили</string>
+	<string name="whatsnew_smallmwm_message">Ми поділили карти на частини. Тепер ви можете стягувати окремі регіони, а не країну цілком.</string>
+	<string name="whatsnew_search_message">Якісно покращили пошук по адресам. Перевірте.</string>
+	<string name="whatsnew_editor_title">Редагувати карту*</string>
+	<string name="whatsnew_editor_message_1">Додати нові місця до карти і редагувати існуючі місця прямо з програми.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME використовує дані спільноти OpenStreetMap.</string>
+	<string name="onboarding_offline_navigation_title">Ви ніколи не загубитеся знову</string>
+	<string name="onboarding_offline_navigation_message">Плануйте оптимальні маршрути для поїздок і піших походів навіть без Інтернет з\&#39;єднання!</string>
+	<string name="onboarding_offline_navigation_title_2">Офлайн навігація</string>
+	<string name="onboarding_offline_navigation_message_2">Плануйте оптимальні маршрути для поїздок і піших походів.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — офлайн мапи</string>
+	<string name="onboarding_offline_maps_message">Завантажте мапи необхідного регіону один раз та користуйтесь навігацією та пошуком без підключення до інтернету.</string>
+	<string name="onboarding_notifications_message">Отримуйте повідомлення про оновлення, щоб завжди мати актуальні мапи</string>
+	<string name="onboarding_notifications_title">Дозвольте відправлення повідомлень</string>
+	<string name="onboarding_location_title">Допоможіть знайти вас</string>
+	<string name="onboarding_location_message">Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.</string>
 </resources>

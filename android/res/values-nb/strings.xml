@@ -14,8 +14,6 @@
 	<string name="cancel_download">Avbryt nedlasting</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Slett</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Slett gamle kart og fortsett</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Ikke spør meg igjen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -52,8 +50,6 @@
 	<string name="miles">Miles</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Min posisjon</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Ingen Internett-tilkobling oppdaget</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Ingen WiFi-tilkobling oppdaget. Har du lyst til å bruke mobildata (GPRS, EDGE, 3G eller LTE) for å laste ned %s?</string>
 	<string name="ok">OK</string>
@@ -73,8 +69,6 @@
 	<string name="search">Søk</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Søk kart</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Det er ikke nok ledig diskplass</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Trykk for å laste ned</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -183,7 +177,7 @@
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flytt kart?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">Dette kan ta flere minutter. Vent et øyeblikk ...</string>
+	<string name="wait_several_minutes">Dette kan ta flere minutter. Vent et øyeblikk …</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Synlig</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
@@ -419,13 +413,16 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Med den nye versjonen av MAPS.ME kan du opprette ruter fra din nåværende posisjon til et ankomststed på kartet. Oppdater kartene for å bruke denne funksjonen.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Oppdater alle</string>
+	<string name="downloader_update_all_button">Oppdater alle</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Avbryt alle</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Lastet ned</string>
+	<string name="downloader_downloaded_subtitle">Lastet ned</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">lagt i kø</string>
+	<string name="downloader_near_me_subtitle">I nærheten</string>
+	<string name="downloader_status_maps">Kart: %s</string>
+	<string name="downloader_download_all_button">Last ned alle</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!</string>
 	<!-- Outdated maps category -->
@@ -819,8 +816,6 @@
 	<string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
 	<string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
 	<string name="whats_new_next_button">Neste</string>
-	<string name="whats_new_night_caption">Nattmodus-navigering</string>
-	<string name="whats_new_night_body">For å tilrettelegge bruk av MAPS.ME under mørkekjøring har vi lagt til funksjonen nattmodus. Funksjonen skrues automatisk på etter solnedgang.</string>
 	<string name="editor_time_add">Legg til tidsrom</string>
 	<string name="editor_time_delete">Slett tidsrom</string>
 	<!-- Text for allday switch. -->
@@ -836,9 +831,6 @@
 	<string name="editor_correct_mistake">Rett feil</string>
 	<string name="editor_correct_mistake_message">Du har gjort en redigeringsfeil. Rett den eller bytt til enkel modus.</string>
 	<string name="migrate_title">Viktig!</string>
-	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
-	<string name="migrate_and_split_mwms_message">Vi har delt opp kartene i separate deler. Nå kan du laste ned separate regioner istedenfor hele land. Sørg for at du fjerner de gamle kartene før du begynner å laste ned nye.</string>
-	<string name="youve_been_asking">Dere har bedt om det og vi har fått det til</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Last ned alle</string>
 	<string name="delete_all">Slett alle</string>
@@ -902,6 +894,51 @@
 	<!-- login text field -->
 	<string name="email_or_username">E-postadresse eller brukernavn</string>
 	<string name="phone">Telefon</string>
-	<string name="whats_new_editor_caption">Rediger kartet direkte fra MAPS.ME</string>
-	<string name="whats_new_editor_message">Endringene dine vil hjelpe millioner av brukere. La oss forbedre verden sammen!</string>
+	<string name="please_note">Vær oppmerksom på at</string>
+	<string name="common_no_wifi_dialog">Ingen trådløs forbindelse. Vil du fortsette med mobildata?</string>
+	<string name="downloader_delete_map_dialog">Alle endringer i kartet vil slettes sammen med kartet.</string>
+	<string name="downloader_update_maps">Oppdater kart</string>
+	<string name="downloader_mwm_migration_dialog">For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.</string>
+	<string name="downloader_search_field_hint">Finn kartet</string>
+	<string name="migration_update_all_button">Oppdater alle kart</string>
+	<string name="migration_delete_all_download_current_button">Last ned det oppdaterte kartet og slett de gamle</string>
+	<string name="migration_prefetch_status">Forbereder oppdatering av kart…</string>
+	<string name="migration_download_error_dialog">Nedlastningsfeil</string>
+	<string name="common_check_internet_connection_dialog">Kontroller innstillingene dine og sørg for at enheten din er koblet til internett.</string>
+	<string name="downloader_no_space_title">Ikke nok plass</string>
+	<string name="downloader_no_space_message">Fjern unødvendig data</string>
+	<string name="editor_general_auth_error_dialog">Generell innloggingsfeil.</string>
+	<string name="editor_login_error_dialog">Innloggingsfeil.</string>
+	<string name="editor_login_failed_dialog">Innloggingen mislyktes</string>
+	<string name="editor_username_error_dialog">Brukernavnet er ugyldig</string>
+	<string name="editor_place_edited_dialog">Du har redigert et objekt!</string>
+	<string name="editor_login_with_osm">Logg inn med OpenStreetMat</string>
+	<string name="editor_profile_changes">Endringer:</string>
+	<string name="editor_profile_unsent_changes">Ikke sendt</string>
+	<string name="editor_focus_map_on_location">Dra kartet for å velge riktig beliggenhet for objektet.</string>
+	<string name="editor_add_select_category">Velg kategori</string>
+	<string name="editor_add_select_category_popular_subtitle">Populære</string>
+	<string name="editor_add_select_category_all_subtitle">Alle kategorier</string>
+	<string name="editor_edit_place_title">Redigerer</string>
+	<string name="editor_add_place_title">Legger til</string>
+	<string name="editor_edit_place_name_hint">Navn på stedet</string>
+	<string name="editor_edit_place_category_title">Kategori</string>
+	<string name="placepage_add_place_button">Legg til et sted</string>
+	<string name="placepage_report_problem_button">Rapporter et problem</string>
+	<string name="whatsnew_smallmwm_header">Dere har bedt om det og vi har fått det til</string>
+	<string name="whatsnew_smallmwm_message">Vi har delt opp kartene i separate deler. Nå kan du laste ned separate regioner istedenfor hele land.</string>
+	<string name="whatsnew_search_message">Nå er det mye enklere å søke etter adresse. Se selv.</string>
+	<string name="whatsnew_editor_title">Rediger kartet*</string>
+	<string name="whatsnew_editor_message_1">Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME bruker data fra OpenStreetMap-samfunnet.</string>
+	<string name="onboarding_offline_navigation_title">Du vil aldri havne på villspor igjen</string>
+	<string name="onboarding_offline_navigation_message">Planlegg optimale reiseruter med bil og til fots, selv uten internettforbindelse!</string>
+	<string name="onboarding_offline_navigation_title_2">Offline-navigering</string>
+	<string name="onboarding_offline_navigation_message_2">Planlegg optimale reiseruter med bil og til fots.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME - offline-kart</string>
+	<string name="onboarding_offline_maps_message">Last ned kartene for et ønsket område én gang, og bruk navigeringen og andre søkefunksjoner uten internettforbindelse.</string>
+	<string name="onboarding_notifications_message">Få oppdateringsvarsler for å motta de nyeste kartene</string>
+	<string name="onboarding_notifications_title">Aktiver oppdateringsvarsler</string>
+	<string name="onboarding_location_title">Hjelp oss med å finne deg</string>
+	<string name="onboarding_location_message">For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.</string>
 </resources>

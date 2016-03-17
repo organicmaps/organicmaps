@@ -14,8 +14,6 @@
 	<string name="cancel_download">Отменить загрузку</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Удалить</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Удалить старые карты и продолжить</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Больше не спрашивать</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -52,8 +50,6 @@
 	<string name="miles">Мили</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Мое местоположение</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Отсутствует подключение к интернету</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Нет WiFi соединения. Вы хотите загрузить %s через сотового оператора (GPRS, EDGE, 3G или LTE)?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
@@ -72,8 +68,6 @@
 	<string name="search">Поиск</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Поиск на карте</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Нет свободного места</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Нажмите для загрузки</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -446,15 +440,16 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Обновить все</string>
+	<string name="downloader_update_all_button">Обновить все</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Отменить все</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Загружено</string>
+	<string name="downloader_downloaded_subtitle">Загруженные</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">в очереди</string>
-	<string name="downloader_near_me">Рядом со мной</string>
-	<string name="downloader_maps_to_update">Карт: %1$d (%2$s)</string>
+	<string name="downloader_near_me_subtitle">Возле меня</string>
+	<string name="downloader_status_maps">Карт: %s</string>
+	<string name="downloader_download_all_button">Загрузить все</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!</string>
 	<!-- Outdated maps category -->
@@ -494,8 +489,6 @@
 	<string name="downloader_retry">Повторите попытку</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Карта + Маршруты</string>
-	<!-- Dialog confirmation when trying to delete map and there are unsaved changes present on it. -->
-	<string name="downloader_delete_editor_changes">Несохранённые правки в данном регионе также будут удалены! Продолжить?</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">Удалить карту</string>
 	<!-- Item in context menu. -->
@@ -852,8 +845,6 @@
 	<string name="p2p_only_from_current">Навигация возможна только из текущего местоположения.</string>
 	<string name="p2p_reroute_from_current">Хотите перестроить маршрут от вашего местоположения?</string>
 	<string name="whats_new_next_button">Далее</string>
-	<string name="whats_new_night_caption">Ночной режим навигации</string>
-	<string name="whats_new_night_body">Для удобства использования MAPS.ME во время вождения автомобиля в темное время суток мы добавили ночной режим. Он запускается автоматически после захода солнца.</string>
 	<string name="editor_time_add">Добавить расписание</string>
 	<string name="editor_time_delete">Удалить расписание</string>
 	<!-- Text for allday switch. -->
@@ -869,9 +860,6 @@
 	<string name="editor_correct_mistake">Исправьте ошибку</string>
 	<string name="editor_correct_mistake_message">При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.</string>
 	<string name="migrate_title">Важно!</string>
-	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
-	<string name="migrate_and_split_mwms_message">Мы разрезали большие карты на части: теперь можно загрузить только нужную область, а не всю страну целиком. Прежде чем начать загружать маленькие карты, пожалуйста, удалите все старые.</string>
-	<string name="youve_been_asking">Вы долго просили — мы наконец сделали</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Загрузить все</string>
 	<string name="delete_all">Удалить все</string>
@@ -939,6 +927,52 @@
 	<!-- login text field -->
 	<string name="email_or_username">Эл. почта или имя пользователя</string>
 	<string name="phone">Телефон</string>
-	<string name="whats_new_editor_caption">Редактируйте карту прямо из MAPS.ME</string>
-	<string name="whats_new_editor_message">Ваши изменения помогут миллионам пользователей. Улучшим мир вместе!</string>
+	<string name="please_note">Обратите внимание</string>
+	<string name="common_no_wifi_dialog">Нет WiFi соединения. Вы хотите продолжить работу через мобильный интернет?</string>
+	<string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесенные вами правки на этой карте.</string>
+	<string name="downloader_update_maps">Обновите карты</string>
+	<string name="downloader_mwm_migration_dialog">Для построения маршрутов необходимо обновить все карты и построить маршрут заново.</string>
+	<string name="downloader_search_field_hint">Найти карту</string>
+	<string name="migration_update_all_button">Обновить все карты</string>
+	<string name="migration_delete_all_download_current_button">Скачать текущую и удалить все старые карты</string>
+	<string name="migration_prefetch_status">Подготовка обновления карт…</string>
+	<string name="migration_download_error_dialog">Ошибка загрузки</string>
+	<string name="common_check_internet_connection_dialog">Проверьте настройки и убедитесь, что устройство подключено к интернету.</string>
+	<string name="downloader_no_space_title">Недостаточно места</string>
+	<string name="downloader_no_space_message">Удалите ненужные данные</string>
+	<string name="editor_general_auth_error_dialog">Общая ошибка авторизации.</string>
+	<string name="editor_login_error_dialog">Произошла ошибка при авторизации.</string>
+	<string name="editor_login_failed_dialog">Войти не удалось</string>
+	<string name="editor_username_error_dialog">Неверное имя пользователя</string>
+	<string name="editor_place_edited_dialog">Вы отредактировали объект!</string>
+	<string name="editor_login_with_osm">Войти через OpenStreetMap</string>
+	<string name="editor_profile_changes">Правки:</string>
+	<string name="editor_profile_unsent_changes">Не отправлено</string>
+	<string name="editor_focus_map_on_location">Потяните карту, чтобы выбрать правильное местоположение объекта.</string>
+	<string name="editor_add_select_category">Выбрать категорию</string>
+	<string name="editor_add_select_category_popular_subtitle">Популярные</string>
+	<string name="editor_add_select_category_all_subtitle">Все категории</string>
+	<string name="editor_edit_place_title">Редактирование</string>
+	<string name="editor_add_place_title">Добавление</string>
+	<string name="editor_edit_place_name_hint">Название места</string>
+	<string name="editor_edit_place_category_title">Категория</string>
+	<string name="placepage_add_place_button">Добавить место</string>
+	<string name="placepage_report_problem_button">Сообщить о проблеме</string>
+	<string name="whatsnew_smallmwm_header">Вы долго просили — мы наконец сделали</string>
+	<string name="whatsnew_smallmwm_message">Мы разрезали большие карты на части: теперь загружай только нужную область, а не всю страну целиком.</string>
+	<string name="whatsnew_search_header">Новый поиск!</string>
+	<string name="whatsnew_search_message">Качественно улучшили поиск по адресам. Проверяйте.</string>
+	<string name="whatsnew_editor_title">Редактируйте карту*</string>
+	<string name="whatsnew_editor_message_1">Добавляйте новые объекты и редактируйте информацию о старых прямо из приложения.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME использует данные открытых карт сообщества OpenStreetMap.</string>
+	<string name="onboarding_offline_navigation_title">Вы никогда больше не заблудитесь</string>
+	<string name="onboarding_offline_navigation_message">Прокладывайте самые оптимальные автомобильные и пешеходные маршруты даже там, где нет связи!</string>
+	<string name="onboarding_offline_navigation_title_2">Оффлайн навигация</string>
+	<string name="onboarding_offline_navigation_message_2">Прокладывайте оптимальные автомобильные и пешеходные маршруты.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — оффлайн карты</string>
+	<string name="onboarding_offline_maps_message">Загрузите карты необходимого региона один раз и пользуйтесь навигацией и поиском без подключения к интернету.</string>
+	<string name="onboarding_notifications_message">Получайте уведомления об обновлениях, чтобы всегда иметь актуальные карты</string>
+	<string name="onboarding_notifications_title">Разрешите отправку уведомлений</string>
+	<string name="onboarding_location_title">Помогите найти вас</string>
+	<string name="onboarding_location_message">Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.</string>
 </resources>

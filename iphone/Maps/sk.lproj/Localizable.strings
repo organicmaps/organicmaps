@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Zmazať";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Zmazať staré mapy a pokračovať";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Už sa nepýtať";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Moja poloha";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Nenájdené pripojenie k Internetu";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Nenájdené pripojenie k WiFi. Chcete použiť mobilnú sieť (GPRS, EDGE, 3G alebo LTE) k stiahnutiu %@?";
 
@@ -110,9 +104,6 @@
 
 /* Search box placeholder text */
 "search_map" = "Prehľadať mapu";
-
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Nedostatok voľného úložného priestoru";
 
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Stlačte pre stiahnutie";
@@ -694,20 +685,22 @@
 "routing_update_maps" = "Nová verzia aplikácie MAPS.ME umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.";
 
 /* Update all button text */
-"downloader_update_all" = "Aktualizovať všetky";
+"downloader_update_all_button" = "Aktualizovať všetko";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Zrušiť všetko";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Stiahnuté";
+"downloader_downloaded_subtitle" = "Stiahnuté";
 
 /* Country queued for download */
 "downloader_queued" = "V rade";
 
-"downloader_near_me" = "Near me";
+"downloader_near_me_subtitle" = "Neďaleko mňa";
 
-"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
+"downloader_status_maps" = "Mapy: %s";
+
+"downloader_download_all_button" = "Stiahnuť všetko";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Tvorenie trás v aplikácii MAPS.ME, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!";
@@ -767,9 +760,6 @@
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Mapa + Smerovanie";
-
-/* Dialog confirmation when trying to delete map and there are unsaved changes present on it. */
-"downloader_delete_editor_changes" = "Unsaved changes for this map will be removed too. Continue anyway?";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Zmazať mapu";
@@ -1342,10 +1332,6 @@
 
 "whats_new_next_button" = "Nasledujúca";
 
-"whats_new_night_caption" = "Navigácia v nočnom režime";
-
-"whats_new_night_body" = "Na uľahčenie použitia MAPS.ME pri jazde za tmy sme pridali nočný režim. Automaticky sa zapne po západe slnka.";
-
 "editor_time_add" = "Pridať rozvrh";
 
 "editor_time_delete" = "Zmazať rozvrh";
@@ -1374,11 +1360,6 @@
 "editor_correct_mistake_message" = "Chyba pri úprave. Opravte chybu, alebo sa prepnite do jednoduchého režimu.";
 
 "migrate_title" = "Dôležité!";
-
-/* Used in 2 places: What's new and Delete All maps dialog. */
-"migrate_and_split_mwms_message" = "Mapy sme rozdelili na časti. Teraz si môžete stiahnuť jednotlivé regióny, nie celú krajinu. Predtým ako si začnete sťahovať nové mapy, prosím, odstráňte staré.";
-
-"youve_been_asking" = "Dožadovali ste sa toho a my sme vám vyhoveli";
 
 /* Android uses image instead of text. */
 "download_all" = "Stiahnuť všetko";
@@ -1501,6 +1482,98 @@
 
 "phone" = "Telefón";
 
-"whats_new_editor_caption" = "Upravte mapu priamo cez MAPS.ME";
+"please_note" = "Upozorňujeme vás, že";
 
-"whats_new_editor_message" = "Vaše zmeny pomôžu miliónom používateľov. Spoločne zlepšíme svet!";
+"common_no_wifi_dialog" = "Pripojenie k WiFi nie je k dispozícii. Chcete pokračovať s využitím mobilných dát?";
+
+"downloader_delete_map_dialog" = "Všetky zmeny týkajúce sa mapy budú vymazané spolu s mapou.";
+
+"downloader_update_maps" = "Aktualizovať mapy";
+
+"downloader_mwm_migration_dialog" = "Ak chcete vytvoriť cestu, musíte najskôr aktualizovať všetky mapy a potom odznova naplánovať trasu.";
+
+"downloader_search_field_hint" = "Nájsť mapu";
+
+"migration_update_all_button" = "Aktualizovať všetky mapy";
+
+"migration_delete_all_download_current_button" = "Stiahnite si aktuálnu mapu a odstráňte neaktuálne mapy";
+
+"migration_prefetch_status" = "Prebieha príprava aktualizácie máp…";
+
+"migration_download_error_dialog" = "Chyba pri sťahovaní";
+
+"common_check_internet_connection_dialog" = "Prosím, skontrolujte svoje nastavenia a uistite sa, že váš počítač je pripojený k internetu.";
+
+"downloader_no_space_title" = "Nemáte dostatok miesta";
+
+"downloader_no_space_message" = "Prosím, odstráňte prebytočné dáta";
+
+"editor_general_auth_error_dialog" = "Pri prihlasovaní sa vyskytla všeobecná chyba.";
+
+"editor_login_error_dialog" = "Pri prihlasovaní sa vyskytla chyba.";
+
+"editor_login_failed_dialog" = "Prihlasovanie bolo neúspešné";
+
+"editor_username_error_dialog" = "Používateľské meno je neplatné";
+
+"editor_place_edited_dialog" = "Práve ste upravili objekt!";
+
+"editor_login_with_osm" = "Prihlásiť sa prostredníctvom OpenStreetMap";
+
+"editor_profile_changes" = "Zmeny:";
+
+"editor_profile_unsent_changes" = "Neodoslané";
+
+"editor_focus_map_on_location" = "Ak chcete nastaviť správnu polohu objektu, posuňte mapu.";
+
+"editor_add_select_category" = "Vybrať kategóriu";
+
+"editor_add_select_category_popular_subtitle" = "Obľúbené";
+
+"editor_add_select_category_all_subtitle" = "Všetky kategórie";
+
+"editor_edit_place_title" = "Úprava";
+
+"editor_add_place_title" = "Nové";
+
+"editor_edit_place_name_hint" = "Názov miesta";
+
+"editor_edit_place_category_title" = "Kategória";
+
+"placepage_add_place_button" = "Pridať miesto";
+
+"placepage_report_problem_button" = "Nahlásiť problém";
+
+"whatsnew_smallmwm_header" = "Dožadovali ste sa toho a my sme vám vyhoveli";
+
+"whatsnew_smallmwm_message" = "Mapy sme rozdelili na časti. Teraz si môžete stiahnuť jednotlivé regióny, nie celú krajinu.";
+
+"whatsnew_search_header" = "New search!";
+
+"whatsnew_search_message" = "Významne sme zlepšili vyhľadávanie pomocou adresy. Pozrite sa sami.";
+
+"whatsnew_editor_title" = "Upraviť mapu*";
+
+"whatsnew_editor_message_1" = "Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME využíva dáta komunity OpenStreetMap.";
+
+"onboarding_offline_navigation_title" = "Už sa nikdy nestratíte";
+
+"onboarding_offline_navigation_message" = "Naplánujte si vhodné trasy na cestu autom alebo peši. Internetové pripojenie sa nevyžaduje!";
+
+"onboarding_offline_navigation_title_2" = "Offline navigácia";
+
+"onboarding_offline_navigation_message_2" = "Naplánujte si vhodné trasy na cestu autom alebo peši.";
+
+"onboarding_offline_maps_title" = "MAPS.ME - offline mapy";
+
+"onboarding_offline_maps_message" = "Stiahnite si jednorázovo potrebné mapy - navigáciu a funkcie vyhľadávania môžete využívať aj bez internetového pripojenia.";
+
+"onboarding_notifications_message" = "Ak chcete získavať najnovšie mapy, zapnite si notifikácie aktualizácií";
+
+"onboarding_notifications_title" = "Povoliť notifikácie aktualizácií";
+
+"onboarding_location_title" = "Pomôžte nám a my vás nájdeme";
+
+"onboarding_location_message" = "Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.";

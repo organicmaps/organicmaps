@@ -14,8 +14,6 @@
 	<string name="cancel_download">ダウンロードをキャンセル</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">削除</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">古いマップを削除して処理を続行</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">以後、このメッセージを表示しない</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -48,8 +46,6 @@
 	<string name="miles">マイル</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">現在地</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">インターネットに接続されていません</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">WiFi接続が見つかりません。GPRS、EDGE、3G、LTE等の携帯電話回線で%sをダウンロードしますか？</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
@@ -68,8 +64,6 @@
 	<string name="search">検索</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">マップを検索</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">ディスクに十分な空き領域がありません</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">タッチしてダウンロード</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -418,13 +412,16 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">新バージョンのMAPS.MEは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">全てをアップデート</string>
+	<string name="downloader_update_all_button">全てをアップデート</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">すべてキャンセル</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">ダウンロード済</string>
+	<string name="downloader_downloaded_subtitle">ダウンロード済み</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
+	<string name="downloader_near_me_subtitle">付近</string>
+	<string name="downloader_status_maps">地図: %s</string>
+	<string name="downloader_download_all_button">全てをダウンロード</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！</string>
 	<!-- Outdated maps category -->
@@ -818,8 +815,6 @@
 	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
 	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
 	<string name="whats_new_next_button">次へ</string>
-	<string name="whats_new_night_caption">夜間モードナビゲーション</string>
-	<string name="whats_new_night_body">MAPS.MEを夜間の運転中に使いやすくするため、夜間モードを追加しました。日の入り後に自動的に切り替わります。</string>
 	<string name="editor_time_add">スケジュール追加</string>
 	<string name="editor_time_delete">スケジュール削除</string>
 	<!-- Text for allday switch. -->
@@ -835,9 +830,6 @@
 	<string name="editor_correct_mistake">間違いの訂正</string>
 	<string name="editor_correct_mistake_message">編集の間違いがあります。訂正するか、シンプルモードに切り替えてください。</string>
 	<string name="migrate_title">重要！</string>
-	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
-	<string name="migrate_and_split_mwms_message">マップを分割し、国全体でなく個別の地域をダウンロードできるようにしました。新しいマップをダウンロードする前に、古いものを削除してください。</string>
-	<string name="youve_been_asking">皆様のご要望にお応えして、実現を果たしました</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">全てをダウンロード</string>
 	<string name="delete_all">すべて削除</string>
@@ -901,6 +893,51 @@
 	<!-- login text field -->
 	<string name="email_or_username">メールアドレスまたはユーザー名</string>
 	<string name="phone">電話</string>
-	<string name="whats_new_editor_caption">MAPS.MEで直接地図を編集可能</string>
-	<string name="whats_new_editor_message">地図を修正すると、何百万人ものユーザーの役に立ちます。一緒に世界を改善していきましょう！</string>
+	<string name="please_note">ご注意ください</string>
+	<string name="common_no_wifi_dialog">WiFi接続がありません。モバイルデータ通信を続行しますか?</string>
+	<string name="downloader_delete_map_dialog">この地図を削除すると、今まで行った変更の全ても一緒に削除されます。</string>
+	<string name="downloader_update_maps">地図をアップデート</string>
+	<string name="downloader_mwm_migration_dialog">ルートを作成するには、全ての地図をアップデートした後で再びルート計画を行う必要があります。</string>
+	<string name="downloader_search_field_hint">地図を検索</string>
+	<string name="migration_update_all_button">全ての地図をアップデート</string>
+	<string name="migration_delete_all_download_current_button">現在の地図をダウンロードして古い地図を削除</string>
+	<string name="migration_prefetch_status">地図のアップデートの準備中…</string>
+	<string name="migration_download_error_dialog">ダウンロードエラー</string>
+	<string name="common_check_internet_connection_dialog">設定をチェックし、デバイスがインターネットに接続されているか確認してください。</string>
+	<string name="downloader_no_space_title">十分な空き容量がありません</string>
+	<string name="downloader_no_space_message">不必要なデータを削除してください</string>
+	<string name="editor_general_auth_error_dialog">一般的なログインエラー。</string>
+	<string name="editor_login_error_dialog">ログインエラー。</string>
+	<string name="editor_login_failed_dialog">ログインに失敗しました</string>
+	<string name="editor_username_error_dialog">ユーザー名が無効です</string>
+	<string name="editor_place_edited_dialog">オブジェクトを編集しました!</string>
+	<string name="editor_login_with_osm">OpenStreetMapを使ってログイン</string>
+	<string name="editor_profile_changes">変更回数:</string>
+	<string name="editor_profile_unsent_changes">未送信</string>
+	<string name="editor_focus_map_on_location">地図をプルしてオブジェクトの正しい場所を選択します。</string>
+	<string name="editor_add_select_category">カテゴリを選択</string>
+	<string name="editor_add_select_category_popular_subtitle">人気</string>
+	<string name="editor_add_select_category_all_subtitle">全てのカテゴリ</string>
+	<string name="editor_edit_place_title">編集中</string>
+	<string name="editor_add_place_title">追加中</string>
+	<string name="editor_edit_place_name_hint">場所の名前</string>
+	<string name="editor_edit_place_category_title">カテゴリ</string>
+	<string name="placepage_add_place_button">場所を追加</string>
+	<string name="placepage_report_problem_button">問題を報告</string>
+	<string name="whatsnew_smallmwm_header">皆様のご要望にお応えして、実現を果たしました</string>
+	<string name="whatsnew_smallmwm_message">マップを分割し、国全体でなく個別の地域をダウンロードできるようにしました。</string>
+	<string name="whatsnew_search_message">住所での検索機能を大幅に改善しました。ご自身の目でご覧ください。</string>
+	<string name="whatsnew_editor_title">地図を編集*</string>
+	<string name="whatsnew_editor_message_1">アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。</string>
+	<string name="whatsnew_editor_message_2">* MAPS.MEはOpenStreetMapコミュニティのデータを使用しています。</string>
+	<string name="onboarding_offline_navigation_title">もう道に迷うことは絶対ありません</string>
+	<string name="onboarding_offline_navigation_message">インターネット接続がなくても、車や徒歩での最短ルートを計画できます!</string>
+	<string name="onboarding_offline_navigation_title_2">オフラインナビゲーション</string>
+	<string name="onboarding_offline_navigation_message_2">車や徒歩での最短ルートを計画できます。</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME - オフライン地図</string>
+	<string name="onboarding_offline_maps_message">希望するエリアの地図を一回ダウンロードするだけで、インターネット接続なしでもナビゲーションや検索の機能を使用できます。</string>
+	<string name="onboarding_notifications_message">最新地図の入手のためにアップデート通知を受信</string>
+	<string name="onboarding_notifications_title">アップデート通知を有効にする</string>
+	<string name="onboarding_location_title">現在地判定のお手伝い</string>
+	<string name="onboarding_location_message">ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります</string>
 </resources>

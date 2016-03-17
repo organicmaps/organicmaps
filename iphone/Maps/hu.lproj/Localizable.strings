@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Törlés";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Régi térképek törlése és folytatás";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Ne kérdezze többször";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Saját helyzet";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Nem találtam internet kapcsolatot";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Nem találtam WiFi kapcsolatot. Használjunk mobil kapcsolatot (GPRS, EDGE, 3G vagy LTE) %@ letöltéséhez?";
 
@@ -110,9 +104,6 @@
 
 /* Search box placeholder text */
 "search_map" = "Keresés a térképen";
-
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Nincs elég szabad hely a lemezen";
 
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Érintse meg letöltéshez";
@@ -694,20 +685,22 @@
 "routing_update_maps" = "A MAPS.ME új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.";
 
 /* Update all button text */
-"downloader_update_all" = "Mind frissítése";
+"downloader_update_all_button" = "Mindegyik frissítése";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Mindent visszavon";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Letöltve";
+"downloader_downloaded_subtitle" = "Letöltve";
 
 /* Country queued for download */
 "downloader_queued" = "várólistás";
 
-"downloader_near_me" = "Near me";
+"downloader_near_me_subtitle" = "A közelemben";
 
-"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
+"downloader_status_maps" = "Térképek: %s";
+
+"downloader_download_all_button" = "Mindegyik letöltése";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Amikor útvonalakat készít a MAPS.ME appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!";
@@ -767,9 +760,6 @@
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Térkép + útvonal megállapítása";
-
-/* Dialog confirmation when trying to delete map and there are unsaved changes present on it. */
-"downloader_delete_editor_changes" = "Unsaved changes for this map will be removed too. Continue anyway?";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Térkép törlése";
@@ -1342,10 +1332,6 @@
 
 "whats_new_next_button" = "Következő";
 
-"whats_new_night_caption" = "Navigáció éjszakai módban";
-
-"whats_new_night_body" = "A MAPS.ME használatának sötétben való vezetés közbeni elősegítése érdekében hozzáadtuk a funkciókhoz az éjszakai módot. Naplemente után automatikusan bekapcsol.";
-
 "editor_time_add" = "Időrend felvitele";
 
 "editor_time_delete" = "Időrend törlése";
@@ -1374,11 +1360,6 @@
 "editor_correct_mistake_message" = "Szerkesztési hibát vétett. Javítsa ki vagy váltson egyszerű módba.";
 
 "migrate_title" = "Fontos!";
-
-/* Used in 2 places: What's new and Delete All maps dialog. */
-"migrate_and_split_mwms_message" = "Felosztottuk részekre a térképeket. Mostantól az egyes régiókat is letöltheted, nem csak az egész országot. Az új térképek letöltése előtt kérjük, távolítsd el a régieket.";
-
-"youve_been_asking" = "Te kérted, mi elkészítettük";
 
 /* Android uses image instead of text. */
 "download_all" = "Összes letöltése";
@@ -1501,6 +1482,98 @@
 
 "phone" = "Telefonszám";
 
-"whats_new_editor_caption" = "Térkép szerkesztése közvetlenül a MAPS.ME-ből";
+"please_note" = "Megjegyzés";
 
-"whats_new_editor_message" = "Javításaid felhasználóik millióinak fognak majd segíteni. Javítsunk együtt a világon!";
+"common_no_wifi_dialog" = "Nincs WiFi-kapcsolat. Szeretnéd folytatni mobil adatforgalom használatával?";
+
+"downloader_delete_map_dialog" = "A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.";
+
+"downloader_update_maps" = "Térképek frissítése";
+
+"downloader_mwm_migration_dialog" = "Útvonal létrehozásához frissítsd az összes térképet, majd tervezd meg újra az útvonalat.";
+
+"downloader_search_field_hint" = "Térkép keresése";
+
+"migration_update_all_button" = "Minden térkép frissítése";
+
+"migration_delete_all_download_current_button" = "Töltsd le a jelenlegi térképet és töröld a régieket";
+
+"migration_prefetch_status" = "Térképfrissítések előkészítése…";
+
+"migration_download_error_dialog" = "Letöltési hiba";
+
+"common_check_internet_connection_dialog" = "Kérjük, ellenőrizd a beállításaid és győződj meg arról, hogy a készüléked kapcsolódik az internethez.";
+
+"downloader_no_space_title" = "Nincs elegendő tárhely";
+
+"downloader_no_space_message" = "Kérjük, töröld a szükségtelen adatokat";
+
+"editor_general_auth_error_dialog" = "Általános bejelentkezési hiba.";
+
+"editor_login_error_dialog" = "Bejelentkezési hiba.";
+
+"editor_login_failed_dialog" = "Sikertelen bejelentkezés";
+
+"editor_username_error_dialog" = "Érvénytelen felhasználónév";
+
+"editor_place_edited_dialog" = "Szerkesztettél egy objektumot!";
+
+"editor_login_with_osm" = "Bejelentkezés OpenStreetMappel";
+
+"editor_profile_changes" = "Változások:";
+
+"editor_profile_unsent_changes" = "Nincs elküldve";
+
+"editor_focus_map_on_location" = "Húzd a térképet a megfelelő helyre az objektum helyes helyszínének kiválasztásához.";
+
+"editor_add_select_category" = "Válassz kategóriát";
+
+"editor_add_select_category_popular_subtitle" = "Népszerűek";
+
+"editor_add_select_category_all_subtitle" = "Minden kategória";
+
+"editor_edit_place_title" = "Szerkesztés";
+
+"editor_add_place_title" = "Hozzáadás";
+
+"editor_edit_place_name_hint" = "Hely neve";
+
+"editor_edit_place_category_title" = "Kategória";
+
+"placepage_add_place_button" = "Hely hozzáadása";
+
+"placepage_report_problem_button" = "Hibabejelentés";
+
+"whatsnew_smallmwm_header" = "Te kérted, mi elkészítettük";
+
+"whatsnew_smallmwm_message" = "Felosztottuk részekre a térképeket. Mostantól az egyes régiókat is letöltheted, nem csak az egész országot.";
+
+"whatsnew_search_header" = "New search!";
+
+"whatsnew_search_message" = "Jelentősen javítottunk a címen alapuló keresésünkön. Nézd meg magadnak.";
+
+"whatsnew_editor_title" = "Térkép szerkesztése*";
+
+"whatsnew_editor_message_1" = "Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.";
+
+"whatsnew_editor_message_2" = "* A MAPS.ME az OpenStreetMap közösség adatait használja.";
+
+"onboarding_offline_navigation_title" = "Többé nem fogsz eltévedni";
+
+"onboarding_offline_navigation_message" = "Tervezd meg az optimális autós és gyalogos útvonalakat, akkor is, ha nincs internetkapcsolat!";
+
+"onboarding_offline_navigation_title_2" = "Offline navigáció";
+
+"onboarding_offline_navigation_message_2" = "Tervezd meg az optimális autós és gyalogos útvonalakat.";
+
+"onboarding_offline_maps_title" = "MAPS.ME - offline térképek";
+
+"onboarding_offline_maps_message" = "Mindössze egyszer kell letöltened egy adott helyszín térképét, azt követően internetkapcsolat nélkül is használhatod a navigációs és keresési funkciókat.";
+
+"onboarding_notifications_message" = "Fogadj értesítő üzeneteket a legfrissebb térképekről";
+
+"onboarding_notifications_title" = "Értesítések engedélyezése";
+
+"onboarding_location_title" = "Segíts, hogy megtaláljunk";
+
+"onboarding_location_message" = "A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.";

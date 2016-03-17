@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Ștergere";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Șterge hărțile vechi și continuă";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Nu mă mai întreba";
 
@@ -48,7 +45,7 @@
 "downloading_x_touch_to_cancel" = "Se descarcă %qu%%. Atingeți pentru a anula.";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Se descarcă...";
+"downloading" = "Se descarcă…";
 
 "get_it_now" = "Obțineți acum";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Poziția mea";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Nu a fost detectată nicio conexiune la internet.";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Nu a fost detectată nicio conexiune WiFi. Doriți să utilizați datele mobile (GPRS, EDGE, 3G sau LTE) pentru a descărca %@?";
 
@@ -110,9 +104,6 @@
 
 /* Search box placeholder text */
 "search_map" = "Căutare hartă";
-
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Nu există suficient spațiu liber pe disc.";
 
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Atingeți pentru a descărca.";
@@ -288,7 +279,7 @@
 "move_maps" = "Mutare hărți?";
 
 /* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Aceasta poate dura câteva minute.\nVă rugăm să așteptați...";
+"wait_several_minutes" = "Aceasta poate dura câteva minute.\nVă rugăm să așteptați…";
 
 /* Show bookmarks from this category on a map or not */
 "visible" = "Vizibil";
@@ -694,20 +685,22 @@
 "routing_update_maps" = "Noua versiune a MAPS.ME vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.";
 
 /* Update all button text */
-"downloader_update_all" = "Actualizare toate";
+"downloader_update_all_button" = "Actualizați toate";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Anulare toate";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Descărcate";
+"downloader_downloaded_subtitle" = "Descărcat";
 
 /* Country queued for download */
 "downloader_queued" = "în lista de așteptare";
 
-"downloader_near_me" = "Near me";
+"downloader_near_me_subtitle" = "Aproape de mine";
 
-"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
+"downloader_status_maps" = "Hărți: %s";
+
+"downloader_download_all_button" = "Descărcați toate";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!";
@@ -767,9 +760,6 @@
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Hartă + trasee";
-
-/* Dialog confirmation when trying to delete map and there are unsaved changes present on it. */
-"downloader_delete_editor_changes" = "Unsaved changes for this map will be removed too. Continue anyway?";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Ștergere hartă";
@@ -1342,10 +1332,6 @@
 
 "whats_new_next_button" = "Următoarea";
 
-"whats_new_night_caption" = "Navigație mod nocturn";
-
-"whats_new_night_body" = "Pentru a facilita utilizarea MAPS.ME atunci când conduceți noaptea, am adăugat modul nocturn. Acesta pornește automat după apusul soarelui.";
-
 "editor_time_add" = "Adăugare planificare";
 
 "editor_time_delete" = "Eliminare planificare";
@@ -1374,11 +1360,6 @@
 "editor_correct_mistake_message" = "Ați efectuat o eroare de editare. Corectați eroarea sau treceți în modul Simplu.";
 
 "migrate_title" = "Important!";
-
-/* Used in 2 places: What's new and Delete All maps dialog. */
-"migrate_and_split_mwms_message" = "Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă. Înainte de a începe să descărcați hărți noi, vă rugăm să le ștergeți pe cele vechi.";
-
-"youve_been_asking" = "Ne-ați cerut, iar noi am făcut";
 
 /* Android uses image instead of text. */
 "download_all" = "Descarcă toate";
@@ -1501,6 +1482,98 @@
 
 "phone" = "Telefon";
 
-"whats_new_editor_caption" = "Editează harta direct de pe MAPS.ME";
+"please_note" = "Actualizați hărțile";
 
-"whats_new_editor_message" = "Modificările tale vor ajuta milioane de utilizatori. Hai să facem lumea mai bună împreună!";
+"common_no_wifi_dialog" = "Nu există conexiune WiFi. Doriți să continuați cu conexiunea de pe mobil?";
+
+"downloader_delete_map_dialog" = "Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.";
+
+"downloader_update_maps" = "Actualizați hărțile";
+
+"downloader_mwm_migration_dialog" = "Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.";
+
+"downloader_search_field_hint" = "Găsiți harta";
+
+"migration_update_all_button" = "Actualizați toate hărțile";
+
+"migration_delete_all_download_current_button" = "Descărcați harta actuală și ștergeți toate hărțile vechi";
+
+"migration_prefetch_status" = "Pregătește actualizarea hărților…";
+
+"migration_download_error_dialog" = "Eroare de descărcare";
+
+"common_check_internet_connection_dialog" = "Vă rugăm să vă verificați setările și să vă asigurați că dispozitivul dvs. este conectat la Internet.";
+
+"downloader_no_space_title" = "Spațiu insuficient";
+
+"downloader_no_space_message" = "Vă rugăm să ștergeți datele care nu sunt necesare";
+
+"editor_general_auth_error_dialog" = "Eroare generală de conectare.";
+
+"editor_login_error_dialog" = "Eroare de conectare.";
+
+"editor_login_failed_dialog" = "Conectare eșuată";
+
+"editor_username_error_dialog" = "Nume de utilizator nevalid";
+
+"editor_place_edited_dialog" = "Ați editat un obiect!";
+
+"editor_login_with_osm" = "Conectați-vă cu OpenStreetMap";
+
+"editor_profile_changes" = "Modificări:";
+
+"editor_profile_unsent_changes" = "Netrimis";
+
+"editor_focus_map_on_location" = "Trageți de hartă pentru a selecta locația corectă a obiectului.";
+
+"editor_add_select_category" = "Selectați categoria";
+
+"editor_add_select_category_popular_subtitle" = "Popular";
+
+"editor_add_select_category_all_subtitle" = "Toate categoriile";
+
+"editor_edit_place_title" = "Editare";
+
+"editor_add_place_title" = "Adăugare";
+
+"editor_edit_place_name_hint" = "Denumirea locației";
+
+"editor_edit_place_category_title" = "Categorie";
+
+"placepage_add_place_button" = "Adăugați o locație";
+
+"placepage_report_problem_button" = "Raportați o problemă";
+
+"whatsnew_smallmwm_header" = "Ne-ați cerut, iar noi am făcut";
+
+"whatsnew_smallmwm_message" = "Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.";
+
+"whatsnew_search_header" = "New search!";
+
+"whatsnew_search_message" = "Am îmbunătățit semnificativ căutarea după adresă. Convinge-te singur.";
+
+"whatsnew_editor_title" = "Editați harta*";
+
+"whatsnew_editor_message_1" = "Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME folosește datele comunității OpenStreetMap community.";
+
+"onboarding_offline_navigation_title" = "Niciodată nu vă veți rătăci din nou";
+
+"onboarding_offline_navigation_message" = "Planificați traseele optime cu mașina și cele pietonale, chiar dacă nu există conexiune la Internet!";
+
+"onboarding_offline_navigation_title_2" = "Navigare offline";
+
+"onboarding_offline_navigation_message_2" = "Planificați traseele optime cu mașina și cele pietonale.";
+
+"onboarding_offline_maps_title" = "MAPS.ME – hărți offline";
+
+"onboarding_offline_maps_message" = "Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.";
+
+"onboarding_notifications_message" = "Pentru a obține cele mai recente hărți, obțineți notificările de actualizări";
+
+"onboarding_notifications_title" = "Activați notificările de actualizări";
+
+"onboarding_location_title" = "Ajutați-ne să vă găsim";
+
+"onboarding_location_message" = "Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.";

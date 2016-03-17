@@ -14,8 +14,6 @@
 	<string name="cancel_download">Anulare descărcare</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Ștergere</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Șterge hărțile vechi și continuă</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Nu mă mai întreba</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -32,7 +30,7 @@
 	<!-- Settings/Downloader - country info current download progress -->
 	<string name="downloading_x_touch_to_cancel">Se descarcă %qu%%. Atingeți pentru a anula.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
-	<string name="downloading">Se descarcă...</string>
+	<string name="downloading">Se descarcă…</string>
 	<string name="get_it_now">Obțineți acum</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Vă mulțumim că folosiți MAPS.ME! Vă place aplicația? Spuneți-le prietenilor despre ea! Aceasta va fi cea mai mare mulțumire pentru noi.</string>
@@ -52,8 +50,6 @@
 	<string name="miles">Mile</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Poziția mea</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Nu a fost detectată nicio conexiune la internet.</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Nu a fost detectată nicio conexiune WiFi. Doriți să utilizați datele mobile (GPRS, EDGE, 3G sau LTE) pentru a descărca %s?</string>
 	<string name="ok">OK</string>
@@ -73,8 +69,6 @@
 	<string name="search">Căutare</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Căutare hartă</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Nu există suficient spațiu liber pe disc.</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Atingeți pentru a descărca.</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -183,7 +177,7 @@
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Mutare hărți?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">Aceasta poate dura câteva minute.\nVă rugăm să așteptați...</string>
+	<string name="wait_several_minutes">Aceasta poate dura câteva minute.\nVă rugăm să așteptați…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Vizibil</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
@@ -417,13 +411,16 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Noua versiune a MAPS.ME vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Actualizare toate</string>
+	<string name="downloader_update_all_button">Actualizați toate</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Anulare toate</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Descărcate</string>
+	<string name="downloader_downloaded_subtitle">Descărcat</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">în lista de așteptare</string>
+	<string name="downloader_near_me_subtitle">Aproape de mine</string>
+	<string name="downloader_status_maps">Hărți: %s</string>
+	<string name="downloader_download_all_button">Descărcați toate</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!</string>
 	<!-- Outdated maps category -->
@@ -816,8 +813,6 @@
 	<string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de pornire locațiacctuală.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
 	<string name="whats_new_next_button">Următoarea</string>
-	<string name="whats_new_night_caption">Navigație mod nocturn</string>
-	<string name="whats_new_night_body">Pentru a facilita utilizarea MAPS.ME atunci când conduceți noaptea, am adăugat modul nocturn. Acesta pornește automat după apusul soarelui.</string>
 	<string name="editor_time_add">Adăugare planificare</string>
 	<string name="editor_time_delete">Eliminare planificare</string>
 	<!-- Text for allday switch. -->
@@ -833,9 +828,6 @@
 	<string name="editor_correct_mistake">Corectare greșeală</string>
 	<string name="editor_correct_mistake_message">Ați efectuat o eroare de editare. Corectați eroarea sau treceți în modul Simplu.</string>
 	<string name="migrate_title">Important!</string>
-	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
-	<string name="migrate_and_split_mwms_message">Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă. Înainte de a începe să descărcați hărți noi, vă rugăm să le ștergeți pe cele vechi.</string>
-	<string name="youve_been_asking">Ne-ați cerut, iar noi am făcut</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Descarcă toate</string>
 	<string name="delete_all">Ștergere toate</string>
@@ -899,6 +891,51 @@
 	<!-- login text field -->
 	<string name="email_or_username">Adresa de e-mail sau numele de utilizator</string>
 	<string name="phone">Telefon</string>
-	<string name="whats_new_editor_caption">Editează harta direct de pe MAPS.ME</string>
-	<string name="whats_new_editor_message">Modificările tale vor ajuta milioane de utilizatori. Hai să facem lumea mai bună împreună!</string>
+	<string name="please_note">Actualizați hărțile</string>
+	<string name="common_no_wifi_dialog">Nu există conexiune WiFi. Doriți să continuați cu conexiunea de pe mobil?</string>
+	<string name="downloader_delete_map_dialog">Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.</string>
+	<string name="downloader_update_maps">Actualizați hărțile</string>
+	<string name="downloader_mwm_migration_dialog">Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.</string>
+	<string name="downloader_search_field_hint">Găsiți harta</string>
+	<string name="migration_update_all_button">Actualizați toate hărțile</string>
+	<string name="migration_delete_all_download_current_button">Descărcați harta actuală și ștergeți toate hărțile vechi</string>
+	<string name="migration_prefetch_status">Pregătește actualizarea hărților…</string>
+	<string name="migration_download_error_dialog">Eroare de descărcare</string>
+	<string name="common_check_internet_connection_dialog">Vă rugăm să vă verificați setările și să vă asigurați că dispozitivul dvs. este conectat la Internet.</string>
+	<string name="downloader_no_space_title">Spațiu insuficient</string>
+	<string name="downloader_no_space_message">Vă rugăm să ștergeți datele care nu sunt necesare</string>
+	<string name="editor_general_auth_error_dialog">Eroare generală de conectare.</string>
+	<string name="editor_login_error_dialog">Eroare de conectare.</string>
+	<string name="editor_login_failed_dialog">Conectare eșuată</string>
+	<string name="editor_username_error_dialog">Nume de utilizator nevalid</string>
+	<string name="editor_place_edited_dialog">Ați editat un obiect!</string>
+	<string name="editor_login_with_osm">Conectați-vă cu OpenStreetMap</string>
+	<string name="editor_profile_changes">Modificări:</string>
+	<string name="editor_profile_unsent_changes">Netrimis</string>
+	<string name="editor_focus_map_on_location">Trageți de hartă pentru a selecta locația corectă a obiectului.</string>
+	<string name="editor_add_select_category">Selectați categoria</string>
+	<string name="editor_add_select_category_popular_subtitle">Popular</string>
+	<string name="editor_add_select_category_all_subtitle">Toate categoriile</string>
+	<string name="editor_edit_place_title">Editare</string>
+	<string name="editor_add_place_title">Adăugare</string>
+	<string name="editor_edit_place_name_hint">Denumirea locației</string>
+	<string name="editor_edit_place_category_title">Categorie</string>
+	<string name="placepage_add_place_button">Adăugați o locație</string>
+	<string name="placepage_report_problem_button">Raportați o problemă</string>
+	<string name="whatsnew_smallmwm_header">Ne-ați cerut, iar noi am făcut</string>
+	<string name="whatsnew_smallmwm_message">Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.</string>
+	<string name="whatsnew_search_message">Am îmbunătățit semnificativ căutarea după adresă. Convinge-te singur.</string>
+	<string name="whatsnew_editor_title">Editați harta*</string>
+	<string name="whatsnew_editor_message_1">Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME folosește datele comunității OpenStreetMap community.</string>
+	<string name="onboarding_offline_navigation_title">Niciodată nu vă veți rătăci din nou</string>
+	<string name="onboarding_offline_navigation_message">Planificați traseele optime cu mașina și cele pietonale, chiar dacă nu există conexiune la Internet!</string>
+	<string name="onboarding_offline_navigation_title_2">Navigare offline</string>
+	<string name="onboarding_offline_navigation_message_2">Planificați traseele optime cu mașina și cele pietonale.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME – hărți offline</string>
+	<string name="onboarding_offline_maps_message">Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.</string>
+	<string name="onboarding_notifications_message">Pentru a obține cele mai recente hărți, obțineți notificările de actualizări</string>
+	<string name="onboarding_notifications_title">Activați notificările de actualizări</string>
+	<string name="onboarding_location_title">Ajutați-ne să vă găsim</string>
+	<string name="onboarding_location_message">Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.</string>
 </resources>

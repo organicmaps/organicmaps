@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Ta bort";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Ta bort gamla kartor och fortsätt";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Fråga mig inte igen";
 
@@ -48,7 +45,7 @@
 "downloading_x_touch_to_cancel" = "Laddar ner %qu%%, tryck för att avbryta";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Laddar ner...";
+"downloading" = "Laddar ner…";
 
 "get_it_now" = "Skaffa det nu";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Min position";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Ingen internetanslutning upptäcktes";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Ingen WiFi-anslutning upptäcktes. Vill du använda mobildata (GPRS, EDGE, 3G eller LTE) till att ladda ner %@?";
 
@@ -110,9 +104,6 @@
 
 /* Search box placeholder text */
 "search_map" = "Sök karta";
-
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Det finns inte tillräckligt mycket ledigt utrymme på telefonen";
 
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Trycka för att ladda ner";
@@ -694,20 +685,22 @@
 "routing_update_maps" = "Den nya versionen av MAPS.ME låter dig skapa rutter från din nuvarande position till en destinationspunkt. Uppdatera kartan för att använda den här funktionen.";
 
 /* Update all button text */
-"downloader_update_all" = "Uppdatera alla";
+"downloader_update_all_button" = "Uppdatera alla";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Avbryt alla";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Nedladdade";
+"downloader_downloaded_subtitle" = "Nedladdade";
 
 /* Country queued for download */
 "downloader_queued" = "Köade";
 
-"downloader_near_me" = "Near me";
+"downloader_near_me_subtitle" = "Nära mig";
 
-"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
+"downloader_status_maps" = "Kartor: %s";
+
+"downloader_download_all_button" = "Ladda ned alla";
 
 /* Disclaimer message */
 "routing_disclaimer" = "När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!";
@@ -767,9 +760,6 @@
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Karta + Navigering";
-
-/* Dialog confirmation when trying to delete map and there are unsaved changes present on it. */
-"downloader_delete_editor_changes" = "Unsaved changes for this map will be removed too. Continue anyway?";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Radera karta";
@@ -1342,10 +1332,6 @@
 
 "whats_new_next_button" = "Nästa";
 
-"whats_new_night_caption" = "Navigering i nattläge";
-
-"whats_new_night_body" = "För att underlätta användandet av MAPS.ME under mörkerkörning har vi lagt till nattläget. Det slås automatiskt på efter att solen gått ned.";
-
 "editor_time_add" = "Lägg till schema";
 
 "editor_time_delete" = "Ta bort schema";
@@ -1374,11 +1360,6 @@
 "editor_correct_mistake_message" = "Du har gjort ett fel i redigeringen. Var vänlig korrigera det eller byt till enkelt läge.";
 
 "migrate_title" = "Viktigt!";
-
-/* Used in 2 places: What's new and Delete All maps dialog. */
-"migrate_and_split_mwms_message" = "Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet. Innan du börjar ladda ner nya kartor, ta bort de gamla.";
-
-"youve_been_asking" = "Du har bett om det och vi har gjort det";
 
 /* Android uses image instead of text. */
 "download_all" = "Ladda ner alla";
@@ -1501,6 +1482,98 @@
 
 "phone" = "Telefon";
 
-"whats_new_editor_caption" = "Redigera kartan direkt från MAPS.ME";
+"please_note" = "Observera";
 
-"whats_new_editor_message" = "Dina ändringar kommer att hjälpa miljontals användare. Låt oss förbättra världen tillsammans!";
+"common_no_wifi_dialog" = "Ingen wifi-anslutning. Vill du fortsätta med mobildata?";
+
+"downloader_delete_map_dialog" = "Alla kartändringar kommer att raderas tillsammans med kartan.";
+
+"downloader_update_maps" = "Uppdatera kartor";
+
+"downloader_mwm_migration_dialog" = "För att skapa en rutt måste du uppdatera alla kartor och sedan planera rutten igen.";
+
+"downloader_search_field_hint" = "Hitta kartan";
+
+"migration_update_all_button" = "Uppdatera alla kartor";
+
+"migration_delete_all_download_current_button" = "Ladda ned senaste kartan och radera de gamla";
+
+"migration_prefetch_status" = "Förbereder kartuppdatering…";
+
+"migration_download_error_dialog" = "Nedladdningsfel";
+
+"common_check_internet_connection_dialog" = "Kontrollera dina inställningar och se till att din enhet är ansluten till internet.";
+
+"downloader_no_space_title" = "Ej tillräckligt utrymme";
+
+"downloader_no_space_message" = "Ta bort onödig data";
+
+"editor_general_auth_error_dialog" = "Allmänt fel vid inloggning.";
+
+"editor_login_error_dialog" = "Inloggningsfel.";
+
+"editor_login_failed_dialog" = "Inloggningen misslyckades";
+
+"editor_username_error_dialog" = "Användarnamnet är ogiltigt";
+
+"editor_place_edited_dialog" = "Du har redigerat ett objekt!";
+
+"editor_login_with_osm" = "Logga in med OpenStreetMap";
+
+"editor_profile_changes" = "Ändringar:";
+
+"editor_profile_unsent_changes" = "Inte skickade";
+
+"editor_focus_map_on_location" = "Dra på kartan för att välja objektets rätta plats.";
+
+"editor_add_select_category" = "Välj kategori";
+
+"editor_add_select_category_popular_subtitle" = "Populära";
+
+"editor_add_select_category_all_subtitle" = "Alla kategorier";
+
+"editor_edit_place_title" = "Redigerar";
+
+"editor_add_place_title" = "Lägger till";
+
+"editor_edit_place_name_hint" = "Namn på platsen";
+
+"editor_edit_place_category_title" = "Kategori";
+
+"placepage_add_place_button" = "Lägg till en plats";
+
+"placepage_report_problem_button" = "Rapportera ett problem";
+
+"whatsnew_smallmwm_header" = "Du har bett om det och vi har gjort det";
+
+"whatsnew_smallmwm_message" = "Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet.";
+
+"whatsnew_search_header" = "New search!";
+
+"whatsnew_search_message" = "Vi har avsevärt förbättrat sökningen på adress. Se själv.";
+
+"whatsnew_editor_title" = "Redigera kartan*";
+
+"whatsnew_editor_message_1" = "Lägg till nya platser till kartan och redigera de befintliga direkt från appen.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME använder data från OpenStreetMaps community.";
+
+"onboarding_offline_navigation_title" = "Du kommer aldrig att gå vilse igen";
+
+"onboarding_offline_navigation_message" = "Planera dina optimala bil- eller promenadrutter även när du saknar internetanslutning!";
+
+"onboarding_offline_navigation_title_2" = "Navigering offline";
+
+"onboarding_offline_navigation_message_2" = "Planera optimala bil- och promenadrutter.";
+
+"onboarding_offline_maps_title" = "MAPS.ME - kartor offline";
+
+"onboarding_offline_maps_message" = "Ladda ned kartorna för önskat område en gång och använd funktionerna för navigering och sökning utan en internetanslutning.";
+
+"onboarding_notifications_message" = "Få avisering om uppdateringar för de senaste kartorna";
+
+"onboarding_notifications_title" = "Aktivera avisering om uppdateringar";
+
+"onboarding_location_title" = "Hjälp oss att hitta dig";
+
+"onboarding_location_message" = "För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.";

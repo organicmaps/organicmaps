@@ -14,8 +14,6 @@
 	<string name="cancel_download">Annuller download</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Slet</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Slet gamle kort og gå videre</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Spørg mig ikke igen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -50,8 +48,6 @@
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Min position</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Ingen internetforbindelse registreret</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Ingen WiFi forbindelse registreret. Vil du bruge mobildata (GPRS, EDGE, 3G eller LTE) til download %s?</string>
 	<string name="ok">Ok</string>
@@ -71,8 +67,6 @@
 	<string name="search">Søg</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Søg kort</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Der er ikke nok ledig plads på telefonen</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Tryk for at downloade</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -423,13 +417,16 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Opdater alle</string>
+	<string name="downloader_update_all_button">Opdatér alle</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Aflys Alt</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Downloadede</string>
+	<string name="downloader_downloaded_subtitle">Downloadet</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">i kø</string>
+	<string name="downloader_near_me_subtitle">I nærheden</string>
+	<string name="downloader_status_maps">Kort: %s</string>
+	<string name="downloader_download_all_button">Download alle</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Uddateret</string>
 	<!-- Up to date maps category -->
@@ -821,8 +818,6 @@
 	<string name="p2p_only_from_current">Navigation er kun tilgængelig fra din nuværende lokalitet.</string>
 	<string name="p2p_reroute_from_current">Ønsker du, at vi planlægger en rute fra din nuværende placering?</string>
 	<string name="whats_new_next_button">Næste</string>
-	<string name="whats_new_night_caption">Navigering i nattilstand</string>
-	<string name="whats_new_night_body">For at hjælpe med brugen af MAPS.ME ved kørsel om natten har vi tilføjet nattilstand. Den slår automatisk til efter solnedgang.</string>
 	<string name="editor_time_add">Tilføj tidsplan</string>
 	<string name="editor_time_delete">Slet tidsplan</string>
 	<!-- Text for allday switch. -->
@@ -838,9 +833,6 @@
 	<string name="editor_correct_mistake">Ret fejl</string>
 	<string name="editor_correct_mistake_message">Du har lavet en redigeringsfejl. Ret den, eller skift til enkel tilstand.</string>
 	<string name="migrate_title">Vigtigt!</string>
-	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
-	<string name="migrate_and_split_mwms_message">Vi har delt kort op i dele. Nu kan man downloade separate regioner, ikke hele landet. Før du begynder på at downloade nye kort, så venligst fjern de gamle.</string>
-	<string name="youve_been_asking">I har bedt om det, og vi har gjort det</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Download alle</string>
 	<string name="delete_all">Slet alle</string>
@@ -904,6 +896,51 @@
 	<!-- login text field -->
 	<string name="email_or_username">E-mail eller brugernavn</string>
 	<string name="phone">Telefon</string>
-	<string name="whats_new_editor_caption">Redigér kortet direkte fra MAPS.ME</string>
-	<string name="whats_new_editor_message">Dine ændringer vil hjælpe millioner af brugere. Lad os forbedre verden sammen!</string>
+	<string name="please_note">Bemærk venligst</string>
+	<string name="common_no_wifi_dialog">Ingen WiFi-forbindelse. Vil du fortsætte med mobildata?</string>
+	<string name="downloader_delete_map_dialog">Alle kortændringer vil blive slettet sammen med kortet.</string>
+	<string name="downloader_update_maps">Opdatér kort</string>
+	<string name="downloader_mwm_migration_dialog">For at oprette en rute skal du opdatere alle kort og så planlægge ruten igen.</string>
+	<string name="downloader_search_field_hint">Find kortet</string>
+	<string name="migration_update_all_button">Opdatér alle kort</string>
+	<string name="migration_delete_all_download_current_button">Download aktuelt kort og slet de gamle</string>
+	<string name="migration_prefetch_status">Forbereder kortopdatering…</string>
+	<string name="migration_download_error_dialog">Fejl ved download</string>
+	<string name="common_check_internet_connection_dialog">Tjek dine indstillinger og sørg for, din enhed er forbundet til internettet.</string>
+	<string name="downloader_no_space_title">Ikke nok plads</string>
+	<string name="downloader_no_space_message">Fjern unødvendig data</string>
+	<string name="editor_general_auth_error_dialog">Generel fejl ved login.</string>
+	<string name="editor_login_error_dialog">Login-fejl.</string>
+	<string name="editor_login_failed_dialog">Login mislykkedes</string>
+	<string name="editor_username_error_dialog">Ugyldigt brugernavn</string>
+	<string name="editor_place_edited_dialog">Du har redigeret et objekt!</string>
+	<string name="editor_login_with_osm">Login med OpenStreetMap</string>
+	<string name="editor_profile_changes">Ændringer:</string>
+	<string name="editor_profile_unsent_changes">Ikke sendt</string>
+	<string name="editor_focus_map_on_location">Træk kortet for at vælge objektets korrekte placering.</string>
+	<string name="editor_add_select_category">Vælg kategori</string>
+	<string name="editor_add_select_category_popular_subtitle">Populær</string>
+	<string name="editor_add_select_category_all_subtitle">Alle kategorier</string>
+	<string name="editor_edit_place_title">Redigerer</string>
+	<string name="editor_add_place_title">Tilføjer</string>
+	<string name="editor_edit_place_name_hint">Stedets navn</string>
+	<string name="editor_edit_place_category_title">Kategori</string>
+	<string name="placepage_add_place_button">Tilføj et sted</string>
+	<string name="placepage_report_problem_button">Anmeld et problem</string>
+	<string name="whatsnew_smallmwm_header">I har bedt om det, og vi har gjort det</string>
+	<string name="whatsnew_smallmwm_message">Vi har delt kort op i dele. Nu kan man downloade separate regioner, ikke hele landet.</string>
+	<string name="whatsnew_search_message">Vi har forbedret søgningen efter adresse betydeligt. Se selv.</string>
+	<string name="whatsnew_editor_title">Redigér kortet*</string>
+	<string name="whatsnew_editor_message_1">Tilføj nye steder til kortet og redigér eksisterende direkte fra app\&#39;en.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME bruger fællesskabsdata fra OpenStreetMap.</string>
+	<string name="onboarding_offline_navigation_title">Du vil aldrig fare vild igen</string>
+	<string name="onboarding_offline_navigation_message">Planlæg de optimale ruter i bil og til fods selv uden internetforbindelse!</string>
+	<string name="onboarding_offline_navigation_title_2">Offline navigering</string>
+	<string name="onboarding_offline_navigation_message_2">Planlæg de optimale ruter i bil og til fods.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME - offline kort</string>
+	<string name="onboarding_offline_maps_message">Download kortene til det ønskede område en gang, og brug navigerings- og søgefunktionerne uden internetforbindelse.</string>
+	<string name="onboarding_notifications_message">For at modtage de nyeste kort kan du få opdateringsnotifikationer</string>
+	<string name="onboarding_notifications_title">Aktivér opdateringsnotifikationer</string>
+	<string name="onboarding_location_title">Hjælp os med at finde dig</string>
+	<string name="onboarding_location_message">For at bruge navigering og andre funktioner skal vi have adgang til din geolokation.</string>
 </resources>

@@ -14,8 +14,6 @@
 	<string name="cancel_download">Huỷ bỏ Tải xuống</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Xóa</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Xóa bản đồ cũ và tiếp tục</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Không hỏi tôi một lần nữa</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -32,7 +30,7 @@
 	<!-- Settings/Downloader - country info current download progress -->
 	<string name="downloading_x_touch_to_cancel">Đang tải xuống %qu%%, chạm để hủy bỏ</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
-	<string name="downloading">Đang tải xuống...</string>
+	<string name="downloading">Đang tải xuống…</string>
 	<string name="get_it_now">Tải xuống ngay</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Cám ơn bạn đã sử dụng MAPS.ME! Bạn thích ứng dụng chứ? Kể cho bạn bè về ứng dụng này! Đây sẽ là sự biết ơn tuyệt vời nhất đối với chúng tôi.</string>
@@ -52,8 +50,6 @@
 	<string name="miles">Dặm</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Vị trí của Tôi</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Không có kết nối Internet</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Không có kết nối WiFi. Bạn có muốn sử dụng dữ liệu di động (GPRS, EDGE, 3G hoặc LTE) để tải xuống %s không?</string>
 	<string name="ok">OK</string>
@@ -73,8 +69,6 @@
 	<string name="search">Tìm kiếm</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Tìm kiếm Bản đồ</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Không có đủ dung lượng trống trên ổ đĩa</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Chạm để tải xuống</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -365,7 +359,7 @@
 	<!-- category title -->
 	<string name="routes">Tuyến đường</string>
 	<!-- Show on first launch. -->
-	<string name="maps_licence_info">Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v...) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.</string>
+	<string name="maps_licence_info">Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v…) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.</string>
 	<!-- Show on first launch. -->
 	<string name="agree">Tôi đồng ý</string>
 	<!-- Show on first launch -->
@@ -405,7 +399,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Tôi muốn là người đầu tiên được biết về các thông tin cập nhật và quảng bá mới nhất. Tôi có thể hủy bỏ đăng ký nhận tin của mình bất cứ lúc nào.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, MAPS.ME vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v... gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện MAPS.ME. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@maps.me. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích MAPS.ME và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về MAPS.ME với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại http://openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng MAPS.ME ở phiên bản kế tiếp.</string>
+	<string name="about_text">MAPS.ME cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, MAPS.ME vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v… gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện MAPS.ME. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@maps.me. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích MAPS.ME và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về MAPS.ME với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại http://openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng MAPS.ME ở phiên bản kế tiếp.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %s</string>
 	<!-- Alert title -->
@@ -418,12 +412,8 @@
 	<string name="routing_map_outdated">Vui lòng cập nhật bản đồ để tạo tuyến đường</string>
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Phiên bản MAPS.ME mới cho phép tạo các tuyến đường từ vị trí hiện tại của bạn đến điểm đến. Vui lòng cập nhật bản đồ để sử dụng tính năng này.</string>
-	<!-- Update all button text -->
-	<string name="downloader_update_all">Cập nhật tất cả</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Hủy tất cả</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Đã tải xuống</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">đã xếp hàng chờ</string>
 	<!-- Disclaimer message -->
@@ -819,8 +809,6 @@
 	<string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
 	<string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
 	<string name="whats_new_next_button">Tiếp theo</string>
-	<string name="whats_new_night_caption">Điều hướng chế độ ban đêm</string>
-	<string name="whats_new_night_body">Để tạo điều kiện sử dụng MAPS.ME khi lái xe trong đêm tối, chúng tôi đã thêm chế độ ban đêm. Nó tự động mở sau khi mặt trời lặn.</string>
 	<string name="editor_time_add">Thêm lịch biểu</string>
 	<string name="editor_time_delete">Xóa lịch biểu</string>
 	<!-- Text for allday switch. -->
@@ -836,9 +824,6 @@
 	<string name="editor_correct_mistake">Sửa lỗi</string>
 	<string name="editor_correct_mistake_message">Bạn đã mắc lỗi chỉnh sửa. Vui lòng sửa lỗi hoặc chuyển qua chế độ đơn giản.</string>
 	<string name="migrate_title">Quan trọng!</string>
-	<!-- Used in 2 places: What's new and Delete All maps dialog. -->
-	<string name="migrate_and_split_mwms_message">Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia. Trước khi bạn bắt đầu tải những bản đồ mới, hãy loại bỏ những cái cũ.</string>
-	<string name="youve_been_asking">Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Tải về tất cả</string>
 	<string name="delete_all">Xóa tất cả</string>
@@ -902,6 +887,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">E-mail hoặc tên người dùng</string>
 	<string name="phone">Điện thoại</string>
-	<string name="whats_new_editor_caption">Chỉnh sửa bản đồ trực tiếp từ MAPS.ME</string>
-	<string name="whats_new_editor_message">Thay đổi của bạn sẽ giúp cho hàng triệu người dùng. Hãy cùng nhau cải thiện thế giới!</string>
+	<string name="whatsnew_smallmwm_header">Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó</string>
+	<string name="whatsnew_smallmwm_message">Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia.</string>
+	<string name="whatsnew_search_message">Chúng tôi đã cải thiện đáng kể việc tìm kiếm theo địa chỉ. Bạn hãy tự xem thử.</string>
 </resources>

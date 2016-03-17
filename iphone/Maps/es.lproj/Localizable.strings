@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Eliminar";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Eliminar mapas antiguos y seguir";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "No volver a preguntar";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Mi posición";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "No hay conexión al Internet";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "No hay conexión Wifi. ¿Quieres descargar el mapa con tu plan de datos móviles?";
 
@@ -110,9 +104,6 @@
 
 /* Search box placeholder text */
 "search_map" = "Buscar en el mapa";
-
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "No hay suficiente espacio libre";
 
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Presionar para descargar";
@@ -694,20 +685,22 @@
 "routing_update_maps" = "La nueva versión de MAPS.ME permite crear rutas desde tu ubicación actual hasta un punto de destino. Por favor, actualiza los mapas para utilizar esta característica.";
 
 /* Update all button text */
-"downloader_update_all" = "Actualizar todos";
+"downloader_update_all_button" = "Actualizar todos";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Cancelar todo";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Descargados";
+"downloader_downloaded_subtitle" = "Descargado";
 
 /* Country queued for download */
 "downloader_queued" = "En cola";
 
-"downloader_near_me" = "Near me";
+"downloader_near_me_subtitle" = "Cerca de mí";
 
-"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
+"downloader_status_maps" = "Mapas: %s";
+
+"downloader_download_all_button" = "Descarar todos";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Creando rutas en la aplicación MAPS.ME, por favor, tenga en cuenta lo siguiente:\n\n  - Las rutas sugeridas se pueden considerar únicamente como recomendaciones.\n - Las condiciones de la carretera, las normas y las señales de tráfico tienen mayor prioridad que el consejo de navegación.\n - El mapa podría ser incorrecto o estar obsoleto y las rutas pueden no crear el mejor camino posible.\n\n  ¡Esté seguro en las carreteras y cuídese!";
@@ -767,9 +760,6 @@
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Mapa + itinerario";
-
-/* Dialog confirmation when trying to delete map and there are unsaved changes present on it. */
-"downloader_delete_editor_changes" = "Unsaved changes for this map will be removed too. Continue anyway?";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Eliminar mapa";
@@ -1342,10 +1332,6 @@
 
 "whats_new_next_button" = "Siguiente";
 
-"whats_new_night_caption" = "Navegación en modo nocturno";
-
-"whats_new_night_body" = "Para facilitar el uso de MAPS.ME al conducir en la oscuridad, hemos añadido el modo nocturno. Este se activa automáticamente tras el atardecer.";
-
 "editor_time_add" = "Añadir horario";
 
 "editor_time_delete" = "Eliminar horario";
@@ -1374,11 +1360,6 @@
 "editor_correct_mistake_message" = "Ha cometido un error de edición. Por favor, corríjalo o cambie a modo sencillo.";
 
 "migrate_title" = "¡Importante!";
-
-/* Used in 2 places: What's new and Delete All maps dialog. */
-"migrate_and_split_mwms_message" = "Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez de el país entero. Antes de empezar a descargar mapas nuevos, por favor, elimina los anteriores.";
-
-"youve_been_asking" = "Llevas tiempo pidiéndolo y lo hemos hecho";
 
 /* Android uses image instead of text. */
 "download_all" = "Descargar todos";
@@ -1501,6 +1482,98 @@
 
 "phone" = "Teléfono";
 
-"whats_new_editor_caption" = "Edita el mapa directamente desde MAPS.ME";
+"please_note" = "Aviso";
 
-"whats_new_editor_message" = "Tus cambios ayudarán a millones de usuarios. ¡Vamos a mejorar juntos el mundo!";
+"common_no_wifi_dialog" = "No hay conexión Wi-Fi. ¿Quieres continuar con los datos móviles?";
+
+"downloader_delete_map_dialog" = "Todos los cambios en los mapas se borrarán junto con el mapa.";
+
+"downloader_update_maps" = "Autodescarga de mapas";
+
+"downloader_mwm_migration_dialog" = "Los mapas empiezan a descargarse automáticamente cuando te aproximas al mapa.";
+
+"downloader_search_field_hint" = "Encontrar el mapa";
+
+"migration_update_all_button" = "Actualizar todos los mapas";
+
+"migration_delete_all_download_current_button" = "Descargar el mapa actual y eliminar los mapas antiguos";
+
+"migration_prefetch_status" = "Preparando la actualización de mapas…";
+
+"migration_download_error_dialog" = "Error de descarga";
+
+"common_check_internet_connection_dialog" = "Por favor, verifica la configuración y asegúrate de que tu dispositivo está conectado a Internet.";
+
+"downloader_no_space_title" = "Sin espacio suficiente";
+
+"downloader_no_space_message" = "Por favor, elimina los datos innecesarios";
+
+"editor_general_auth_error_dialog" = "Error general de inicio de sesión.";
+
+"editor_login_error_dialog" = "Error de inicio de sesión.";
+
+"editor_login_failed_dialog" = "Error al iniciar sesión";
+
+"editor_username_error_dialog" = "Usuario no válido";
+
+"editor_place_edited_dialog" = "¡Has editado un objeto!";
+
+"editor_login_with_osm" = "Iniciar sesión con OpenStreetMap";
+
+"editor_profile_changes" = "Cambios:";
+
+"editor_profile_unsent_changes" = "No enviado";
+
+"editor_focus_map_on_location" = "Arrastra el mapa para seleccionar la ubicación correcta del objeto.";
+
+"editor_add_select_category" = "Seleccionar categoría";
+
+"editor_add_select_category_popular_subtitle" = "Popular";
+
+"editor_add_select_category_all_subtitle" = "Todas las categorías";
+
+"editor_edit_place_title" = "Editar";
+
+"editor_add_place_title" = "Añadir";
+
+"editor_edit_place_name_hint" = "Nombre del lugar";
+
+"editor_edit_place_category_title" = "Categoría";
+
+"placepage_add_place_button" = "Añadir un lugar";
+
+"placepage_report_problem_button" = "Informar de un problema";
+
+"whatsnew_smallmwm_header" = "Llevas tiempo pidiéndolo y lo hemos hecho";
+
+"whatsnew_smallmwm_message" = "Hemos dividido el mapa por partes. Ahora, puedes descargar regiones individuales, en vez de el país entero.";
+
+"whatsnew_search_header" = "New search!";
+
+"whatsnew_search_message" = "Hemos mejorado notablemente la búsqueda por dirección. Compruébalo.";
+
+"whatsnew_editor_title" = "Editar el mapa*";
+
+"whatsnew_editor_message_1" = "Añadir lugares nuevos al mapa y editar los lugares actuales directamente desde la aplicación.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME utiliza datos de la comunidad de OpenStreetMap.";
+
+"onboarding_offline_navigation_title" = "Nunca volverás a perderte";
+
+"onboarding_offline_navigation_message" = "Planifica rutas óptimas en coche y a pie, ¡incluso si no hay conexión a Internet!";
+
+"onboarding_offline_navigation_title_2" = "Navegación fuera de línea";
+
+"onboarding_offline_navigation_message_2" = "Planifica rutas óptimas en coche y a pie.";
+
+"onboarding_offline_maps_title" = "MAPS.ME - mapas sin conexión";
+
+"onboarding_offline_maps_message" = "Descarga una vez los mapas para el área deseada, y utiliza las funciones de navegación y búsqueda sin conexión a Internet.";
+
+"onboarding_notifications_message" = "Para recibir los mapas más recientes, obtén las notificaciones de actualización";
+
+"onboarding_notifications_title" = "Permitir notificaciones de actualización";
+
+"onboarding_location_title" = "Ayúdanos a encontrarte";
+
+"onboarding_location_message" = "Para utilizar la navegación y otras funciones, necesitamos acceso a tu geolocalización.";

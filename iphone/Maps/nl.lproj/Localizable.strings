@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Verwijder";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Verwijder oude kaarten en ga door";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Nooit meer vragen";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Mijn Locatie";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Geen Internet verbinding gedetecteerd";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Geen WiFi verbinding gedetecteerd. Wilt u mobiele data (GPRS, EDGE, 3G of LTE) gebruiken om %@ te downloaden?";
 
@@ -110,9 +104,6 @@
 
 /* Search box placeholder text */
 "search_map" = "Zoek Kaart";
-
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Er is niet genoeg vrije ruimte";
 
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Klik om te downloaden";
@@ -694,20 +685,22 @@
 "routing_update_maps" = "Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.";
 
 /* Update all button text */
-"downloader_update_all" = "Alles bijwerken";
+"downloader_update_all_button" = "Update alles";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Alles annuleren";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Gedownload";
+"downloader_downloaded_subtitle" = "Gedownload";
 
 /* Country queued for download */
 "downloader_queued" = "in de wachtrij";
 
-"downloader_near_me" = "Near me";
+"downloader_near_me_subtitle" = "Bij mij in de buurt";
 
-"downloader_maps_to_update" = "Maps: %1$d (%2$s)";
+"downloader_status_maps" = "Kaarten: %s";
+
+"downloader_download_all_button" = "Alles downloaden";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Bij het creëren van routes in MAPS.ME-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!";
@@ -767,9 +760,6 @@
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Kaart + route";
-
-/* Dialog confirmation when trying to delete map and there are unsaved changes present on it. */
-"downloader_delete_editor_changes" = "Unsaved changes for this map will be removed too. Continue anyway?";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Kaart verwijderen";
@@ -1342,10 +1332,6 @@
 
 "whats_new_next_button" = "Volgende";
 
-"whats_new_night_caption" = "Nachtmodusnavigatie";
-
-"whats_new_night_body" = "Om het gebruik van MAPS.ME te vergemakkelijken tijdens het rijden in het donker, hebben we de nachtmodus toegevoegd. Deze wordt automatisch ingeschakeld na zonsondergang.";
-
 "editor_time_add" = "Schema toevoegen";
 
 "editor_time_delete" = "Schema verwijderen";
@@ -1374,11 +1360,6 @@
 "editor_correct_mistake_message" = "U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.";
 
 "migrate_title" = "Belangrijk!";
-
-/* Used in 2 places: What's new and Delete All maps dialog. */
-"migrate_and_split_mwms_message" = "We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio's downloaden in plaats van het hele land. Verwijder eerst de oude kaarten voordat uw nieuwe gaat downloaden.";
-
-"youve_been_asking" = "Op veler verzoek hebben we het voor elkaar gekregen";
 
 /* Android uses image instead of text. */
 "download_all" = "Alles downloaden";
@@ -1501,6 +1482,98 @@
 
 "phone" = "Telefoonnummer";
 
-"whats_new_editor_caption" = "Bewerk de kaart direct vanuit MAPS.ME";
+"please_note" = "Opgelet";
 
-"whats_new_editor_message" = "Jouw wijzigingen zullen miljoenen gebruikers helpen. Laten we samen de wereld verbeteren!";
+"common_no_wifi_dialog" = "Geen WiFi-verbinding. Wil je doorgaan via mobiele data?";
+
+"downloader_delete_map_dialog" = "Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.";
+
+"downloader_update_maps" = "Kaarten updaten";
+
+"downloader_mwm_migration_dialog" = "Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.";
+
+"downloader_search_field_hint" = "Vind de kaart";
+
+"migration_update_all_button" = "Update alle kaarten";
+
+"migration_delete_all_download_current_button" = "Download de huidige kaart en verwijder de oude";
+
+"migration_prefetch_status" = "Het voorbereiden van de update van de kaart…";
+
+"migration_download_error_dialog" = "Downloadfout";
+
+"common_check_internet_connection_dialog" = "Controleer je instellingen en zorg ervoor dat het apparaat is verbonden met het internet.";
+
+"downloader_no_space_title" = "Niet genoeg ruimte";
+
+"downloader_no_space_message" = "Verwijder overbodige gegevens";
+
+"editor_general_auth_error_dialog" = "Algemene inlogfout.";
+
+"editor_login_error_dialog" = "Inlogfout.";
+
+"editor_login_failed_dialog" = "Inloggen mislukt";
+
+"editor_username_error_dialog" = "Gebruikersnaam is ongeldig";
+
+"editor_place_edited_dialog" = "Je hebt een object bewerkt!";
+
+"editor_login_with_osm" = "Log in met OpenStreetMap";
+
+"editor_profile_changes" = "Wijzigingen:";
+
+"editor_profile_unsent_changes" = "Niet verzonden";
+
+"editor_focus_map_on_location" = "Trek aan de kaart om de juiste locatie van het object te selecteren.";
+
+"editor_add_select_category" = "Selecteer categorie";
+
+"editor_add_select_category_popular_subtitle" = "Populair";
+
+"editor_add_select_category_all_subtitle" = "Alle categorieën";
+
+"editor_edit_place_title" = "Aan het aanpassen";
+
+"editor_add_place_title" = "Aan het toevoegen";
+
+"editor_edit_place_name_hint" = "Naam van de plaats";
+
+"editor_edit_place_category_title" = "Categorie";
+
+"placepage_add_place_button" = "Voeg een plaats toe";
+
+"placepage_report_problem_button" = "Meld een probleem";
+
+"whatsnew_smallmwm_header" = "Op veler verzoek hebben we het voor elkaar gekregen";
+
+"whatsnew_smallmwm_message" = "We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio's downloaden in plaats van het hele land.";
+
+"whatsnew_search_header" = "New search!";
+
+"whatsnew_search_message" = "We hebben het zoeken op adres significant verbeterd. Bekijk het zelf.";
+
+"whatsnew_editor_title" = "Bewerk de kaart*";
+
+"whatsnew_editor_message_1" = "Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME gebruikt OpenStreetMap-communitiedata.";
+
+"onboarding_offline_navigation_title" = "Je zult nooit meer verdwalen";
+
+"onboarding_offline_navigation_message" = "Plan optimale auto- en wandelroutes, zelfs als er geen internetverbinding is!";
+
+"onboarding_offline_navigation_title_2" = "Offline navigatie";
+
+"onboarding_offline_navigation_message_2" = "Plan optimale auto- en wandelroutes.";
+
+"onboarding_offline_maps_title" = "MAPS.ME - offline kaarten";
+
+"onboarding_offline_maps_message" = "Download eenmaal de kaarten voor het gewenste gebied en gebruik de navigatie- en zoekfuncties zonder een internetverbinding.";
+
+"onboarding_notifications_message" = "Ontvang update-meldingen om de nieuwste kaarten te ontvangen";
+
+"onboarding_notifications_title" = "Schakel update-meldingen in";
+
+"onboarding_location_title" = "Help ons om je te vinden";
+
+"onboarding_location_message" = "Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.";
