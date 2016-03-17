@@ -129,8 +129,7 @@ SearchQueryParams::TSynonymsVector & SearchQueryParams::GetTokens(size_t i)
 bool SearchQueryParams::IsNumberTokens(size_t start, size_t end) const
 {
   ASSERT_LESS(start, end, ());
-
-  do
+  for (; start != end; ++start)
   {
     bool number = false;
     for (auto const & t : GetTokens(start))
@@ -143,7 +142,7 @@ bool SearchQueryParams::IsNumberTokens(size_t start, size_t end) const
     }
     if (!number)
       return false;
-  } while (++start < end);
+  }
 
   return true;
 }
