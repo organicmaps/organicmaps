@@ -148,7 +148,7 @@ bool FromStringArray(string const & s, T(&arr)[N])
   size_t count = 0;
   while (count < N && in >> arr[count])
   {
-    if (!std::isfinite(arr[count]))
+    if (!isfinite(arr[count]))
       return false;
     ++count;
   }
