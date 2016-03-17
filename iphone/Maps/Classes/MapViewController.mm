@@ -646,8 +646,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId
 {
-  if ([self.navigationController.topViewController isEqual:self])
-    [self.downloadDialog processViewportCountryEvent:countryId];
+  [self.downloadDialog processViewportCountryEvent:countryId];
 }
 
 #pragma mark - MWMFrameworkStorageObserver

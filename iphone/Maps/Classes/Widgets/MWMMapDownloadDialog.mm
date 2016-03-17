@@ -95,8 +95,7 @@ using namespace storage;
   NodeAttrs nodeAttrs;
   s.GetNodeAttrs(m_countryId, nodeAttrs);
 
-  BOOL const isMapVisible = [self.controller.navigationController.topViewController isEqual:self.controller];
-  if (isMapVisible && !nodeAttrs.m_present && !GetFramework().IsRoutingActive())
+  if (!nodeAttrs.m_present && !GetFramework().IsRoutingActive())
   {
     BOOL const isMultiParent = nodeAttrs.m_parentInfo.size() > 1;
     BOOL const noParrent = (nodeAttrs.m_parentInfo[0].m_id == s.GetRootId());
@@ -115,7 +114,8 @@ using namespace storage;
       case NodeStatus::NotDownloaded:
       case NodeStatus::Partly:
       {
-        if (!self.isAutoDownloadCancelled && canAutoDownload(m_countryId))
+        BOOL const isMapVisible = [self.controller.navigationController.topViewController isEqual:self.controller];
+        if (isMapVisible && !self.isAutoDownloadCancelled && canAutoDownload(m_countryId))
         {
           [Statistics logEvent:kStatDownloaderMapAction
                 withParameters:@{
@@ -237,8 +237,6 @@ using namespace storage;
 
 - (void)processViewportCountryEvent:(TCountryId const &)countryId
 {
-  if (m_countryId == countryId)
-    return;
   m_countryId = countryId;
   if (countryId == kInvalidCountryId)
     [self removeFromSuperview];
