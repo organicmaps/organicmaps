@@ -122,7 +122,7 @@ pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
 
 void Result::AppendCity(string const & name)
 {
-  // Append only if city is absent in region (mwm) name.
+  // Prepend only if city is absent in region (mwm) name.
   if (m_address.find(name) == string::npos)
     m_address = name + ", " + m_address;
 }

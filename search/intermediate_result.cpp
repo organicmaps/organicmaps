@@ -173,13 +173,10 @@ string FormatStreetAndHouse(ReverseGeocoder::Address const & addr)
 string FormatFullAddress(ReverseGeocoder::Address const & addr, string const & region)
 {
   // TODO: Print "near" for not exact addresses.
-  string res;
-  //if (addr.GetDistance() >= 0 && addr.GetDistance() < 50.0)
-  if (addr.GetDistance() == 0)
-    res = FormatStreetAndHouse(addr);
-  else
+  if (addr.GetDistance() != 0)
     return region;
-  return res + ", " + region;
+
+  return FormatStreetAndHouse(addr) + (region.empty() ? "" : ", ") + region;
 }
 }  // namespace
 
