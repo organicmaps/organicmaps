@@ -279,7 +279,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
   case MWMBottomMenuViewCellAddPlace:
     [cell configureWithImageName:@"ic_add_place"
                            label:L(@"placepage_add_place_button")
-                      badgeCount:0];
+                      badgeCount:0
+                       isEnabled:self.controller.controlsManager.navigationState == MWMNavigationDashboardStateHidden];
     break;
   case MWMBottomMenuViewCellDownload:
   {
@@ -288,20 +289,21 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
     s.GetUpdateInfo(s.GetRootId(), updateInfo);
     [cell configureWithImageName:@"ic_menu_download"
                            label:L(@"download_maps")
-                      badgeCount:updateInfo.m_numberOfMwmFilesToUpdate];
+                      badgeCount:updateInfo.m_numberOfMwmFilesToUpdate
+                       isEnabled:YES];
   }
   break;
   case MWMBottomMenuViewCellSettings:
-    [cell configureWithImageName:@"ic_menu_settings" label:L(@"settings") badgeCount:0];
+    [cell configureWithImageName:@"ic_menu_settings" label:L(@"settings") badgeCount:0 isEnabled:YES];
     break;
   case MWMBottomMenuViewCellShare:
-    [cell configureWithImageName:@"ic_menu_share" label:L(@"share_my_location") badgeCount:0];
+    [cell configureWithImageName:@"ic_menu_share" label:L(@"share_my_location") badgeCount:0 isEnabled:YES];
     break;
   case MWMBottomMenuViewCellAd:
   {
     MTRGNativeAppwallBanner * banner = [self.controller.appWallAd.banners firstObject];
     [self.controller.appWallAd handleShow:banner];
-    [cell configureWithImageName:@"ic_menu_showcase" label:L(@"showcase_more_apps") badgeCount:0];
+    [cell configureWithImageName:@"ic_menu_showcase" label:L(@"showcase_more_apps") badgeCount:0 isEnabled:YES];
   }
     break;
   case MWMBottomMenuViewCellCount:
@@ -315,6 +317,9 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 - (void)collectionView:(nonnull UICollectionView *)collectionView
     didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
+  MWMBottomMenuCollectionViewCell * cell = static_cast<MWMBottomMenuCollectionViewCell *>([collectionView cellForItemAtIndexPath:indexPath]);
+  if (!cell.isEnabled)
+    return;
   switch (indexPath.item)
   {
   case MWMBottomMenuViewCellAddPlace:
