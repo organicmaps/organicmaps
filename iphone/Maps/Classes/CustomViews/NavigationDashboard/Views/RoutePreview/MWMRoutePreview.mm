@@ -374,6 +374,38 @@ static CGFloat const kAdditionalHeight = 20.;
   }
 }
 
+#pragma mark - Properties
+
+- (MWMCircularProgress *)pedestrianProgress
+{
+  if (!_pedestrianProgress)
+  {
+    _pedestrianProgress = [[MWMCircularProgress alloc] initWithParentView:self.pedestrian];
+    [_pedestrianProgress
+         setImage:[UIImage imageNamed:@"ic_walk"]
+        forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
+                   MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
+                   MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
+    _pedestrianProgress.delegate = self.dashboardManager;
+  }
+  return _pedestrianProgress;
+}
+
+- (MWMCircularProgress *)vehicleProgress
+{
+  if (!_vehicleProgress)
+  {
+    _vehicleProgress = [[MWMCircularProgress alloc] initWithParentView:self.vehicle];
+    [_vehicleProgress
+         setImage:[UIImage imageNamed:@"ic_drive"]
+        forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
+                   MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
+                   MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
+    _vehicleProgress.delegate = self.dashboardManager;
+  }
+  return _vehicleProgress;
+}
+
 @end
 
 #pragma mark - UICollectionView
@@ -405,38 +437,6 @@ static CGFloat const kAdditionalHeight = 20.;
   }
   cell.delegate = self;
   return cell;
-}
-
-#pragma mark - Properties
-
-- (MWMCircularProgress *)pedestrianProgress
-{
-  if (!_pedestrianProgress)
-  {
-    _pedestrianProgress = [[MWMCircularProgress alloc] initWithParentView:self.pedestrian];
-    [_pedestrianProgress
-         setImage:[UIImage imageNamed:@"ic_walk"]
-        forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
-                   MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
-                   MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
-    _pedestrianProgress.delegate = self.dashboardManager;
-  }
-  return _pedestrianProgress;
-}
-
-- (MWMCircularProgress *)vehicleProgress
-{
-  if (!_vehicleProgress)
-  {
-    _vehicleProgress = [[MWMCircularProgress alloc] initWithParentView:self.vehicle];
-    [_vehicleProgress
-         setImage:[UIImage imageNamed:@"ic_drive"]
-        forStates:{MWMCircularProgressStateNormal, MWMCircularProgressStateFailed,
-                   MWMCircularProgressStateSelected, MWMCircularProgressStateProgress,
-                   MWMCircularProgressStateSpinner, MWMCircularProgressStateCompleted}];
-    _vehicleProgress.delegate = self.dashboardManager;
-  }
-  return _vehicleProgress;
 }
 
 @end

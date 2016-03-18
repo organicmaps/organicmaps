@@ -1,6 +1,7 @@
 #import "MWMEditorCommon.h"
+#import "MWMTableViewCell.h"
 
-@interface MWMEditorSelectTableViewCell : UITableViewCell
+@interface MWMEditorSelectTableViewCell : MWMTableViewCell
 
 - (void)configWithDelegate:(id<MWMEditorCellProtocol>)delegate
                       icon:(UIImage *)icon

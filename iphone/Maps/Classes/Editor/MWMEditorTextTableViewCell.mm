@@ -15,11 +15,6 @@
 
 @implementation MWMEditorTextTableViewCell
 
-- (void)awakeFromNib
-{
-  self.backgroundColor = [UIColor white];
-}
-
 - (void)configWithDelegate:(id<MWMEditorCellProtocol>)delegate
                       icon:(UIImage *)icon
                       text:(NSString *)text

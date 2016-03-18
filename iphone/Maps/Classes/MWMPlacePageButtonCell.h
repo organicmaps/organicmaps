@@ -1,6 +1,8 @@
+#import "MWMTableViewCell.h"
+
 @class MWMPlacePage;
 
-@interface MWMPlacePageButtonCell : UITableViewCell
+@interface MWMPlacePageButtonCell : MWMTableViewCell
 
 - (void)config:(MWMPlacePage *)placePage isReport:(BOOL)isReport;
 

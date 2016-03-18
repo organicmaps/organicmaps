@@ -1,3 +1,4 @@
+#import "MWMTableViewCell.h"
 
 @protocol MWMPlacePageOpeningHoursCellProtocol <NSObject>
 
@@ -9,7 +10,7 @@
 
 @end
 
-@interface MWMPlacePageOpeningHoursCell : UITableViewCell
+@interface MWMPlacePageOpeningHoursCell : MWMTableViewCell
 
 - (void)configWithDelegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate
                       info:(NSString *)info;

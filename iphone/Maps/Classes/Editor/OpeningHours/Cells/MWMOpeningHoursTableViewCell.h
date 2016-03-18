@@ -1,6 +1,7 @@
 #import "MWMOpeningHoursSection.h"
+#import "MWMTableViewCell.h"
 
-@interface MWMOpeningHoursTableViewCell : UITableViewCell
+@interface MWMOpeningHoursTableViewCell : MWMTableViewCell
 
 + (CGFloat)heightForWidth:(CGFloat)width;
 
