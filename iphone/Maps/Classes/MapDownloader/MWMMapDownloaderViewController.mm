@@ -60,8 +60,6 @@ using namespace storage;
 
 - (void)configAllMapsView
 {
-  [super configAllMapsView];
-
   self.showAllMapsView = NO;
   auto const & s = GetFramework().Storage();
   Storage::UpdateInfo updateInfo{};
