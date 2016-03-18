@@ -193,8 +193,13 @@ string MetadataTagProcessorImpl::ValidateAndFormat_cuisine(string v) const
     strings::Trim(normalized, " ");
     CollapseMultipleConsecutiveCharsIntoOne(' ', normalized);
     replace(normalized.begin(), normalized.end(), ' ', '_');
+    // Avoid duplication for some cuisines.
     if (normalized == "bbq" || normalized == "barbeque")
       normalized = "barbecue";
+    if (normalized == "doughnut")
+      normalized = "donut";
+    if (normalized == "steak")
+      normalized = "steak_house";
     collector(normalized);
     ++iter;
   }

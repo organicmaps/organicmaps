@@ -10264,39 +10264,6 @@
     ar = مطبخ لبناني
     he = מטבח לבנוני
 
-  [cuisine_steak]
-    tags = android, ios
-    comment = Cuisine
-    en = steak
-    ru = стейк-хаус
-    uk = стейки
-    tr = biftek
-    es = filetes
-    sv = biff
-    sk = steak
-    pt = bife
-    ro = friptură
-    pl = steki
-    ko = 스테이크
-    id = steik
-    hu = steak
-    de = Steak
-    fr = steak
-    nl = steak
-    fi = pihvi
-    da = bøf
-    cs = steak
-    it = bistecche
-    nb = steak
-    zh-Hant = 牛排
-    zh-Hans = 牛排
-    vi = bít tết
-    th = สเต๊ก
-    ja = ステーキ
-    el = μπριζόλα
-    ar = شريحة لحم
-    he = סטייק
-
   [cuisine_local]
     tags = android, ios
     comment = Cuisine
@@ -10857,39 +10824,6 @@
     el = αφρικανική κουζίνα
     ar = مطبخ أفريقي
     he = מטבח אפריקאי
-
-  [cuisine_doughnut]
-    tags = android, ios
-    comment = Cuisine
-    en = doughnut
-    ru = пончики
-    uk = пончики
-    tr = doughnut
-    es = rosquillas
-    sv = munk
-    sk = šišky
-    pt = donut
-    ro = gogoașă
-    pl = pączki
-    ko = 도너츠
-    id = donat
-    hu = fánk
-    de = Donuts
-    fr = donuts
-    nl = donuts
-    fi = donitsi
-    da = doughnuts
-    cs = kobliha
-    it = ciambelle
-    nb = smultring
-    zh-Hant = 甜甜圈
-    zh-Hans = 甜甜圈
-    vi = bánh rán
-    th = โดนัท
-    ja = ドーナッツ
-    el = λουκουμάς
-    ar = دونت
-    he = דונאט
 
   [cuisine_georgian]
     tags = android, ios
