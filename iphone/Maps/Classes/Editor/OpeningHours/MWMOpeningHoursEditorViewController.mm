@@ -22,7 +22,7 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 @property (weak, nonatomic, readwrite) IBOutlet UIView * advancedEditor;
 @property (weak, nonatomic, readwrite) IBOutlet MWMTextView * editorView;
 @property (weak, nonatomic) IBOutlet UIView * helpView;
-@property (weak, nonatomic) IBOutlet UITextView * help;
+@property (weak, nonatomic) IBOutlet UIWebView * help;
 @property (weak, nonatomic, readwrite) IBOutlet NSLayoutConstraint * ohTextViewHeight;
 @property (weak, nonatomic) IBOutlet UIView * exampleValuesSeparator;
 @property (weak, nonatomic) IBOutlet UIImageView * exampleValuesExpandView;
@@ -76,6 +76,10 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 - (void)configAdvancedEditor
 {
   [self.editorView setTextContainerInset:{.top = 12, .left = 10, .bottom = 12, .right = 10}];
+  NSString * path = [[NSBundle mainBundle] pathForResource:@"opening_hours_how_to_edit" ofType:@"html"];
+  NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+  NSURL * baseURL = [NSURL fileURLWithPath:path];
+  [self.help loadHTMLString:html baseURL:baseURL];
 }
 
 - (void)configData

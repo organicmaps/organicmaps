@@ -1415,34 +1415,23 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5ir-0i-m9E" userLabel="Help">
+                                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j5R-JF-iCs">
                                                 <rect key="frame" x="10" y="56" width="580" height="260"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" priority="750" constant="260" id="0nQ-6J-Gjq"/>
+                                                    <constraint firstAttribute="height" priority="750" constant="260" id="sfy-fK-VSx"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="opening_hours_example_values"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <outlet property="delegate" destination="Ld6-gM-2hk" id="h95-tI-XG2"/>
-                                                </connections>
-                                            </textView>
+                                            </webView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="5ir-0i-m9E" secondAttribute="bottom" priority="500" constant="12" id="2xY-X0-u3r"/>
+                                            <constraint firstAttribute="trailing" secondItem="j5R-JF-iCs" secondAttribute="trailing" priority="500" constant="10" id="6tr-YK-3US"/>
                                             <constraint firstItem="n79-h1-Nk3" firstAttribute="top" secondItem="85Z-MR-kUV" secondAttribute="top" id="HRF-cM-WDL"/>
-                                            <constraint firstAttribute="trailing" secondItem="5ir-0i-m9E" secondAttribute="trailing" priority="500" constant="10" id="IdL-OP-RuT"/>
-                                            <constraint firstItem="5ir-0i-m9E" firstAttribute="top" secondItem="n79-h1-Nk3" secondAttribute="bottom" priority="500" constant="12" id="M5F-zL-h0X"/>
+                                            <constraint firstItem="j5R-JF-iCs" firstAttribute="top" secondItem="n79-h1-Nk3" secondAttribute="bottom" priority="500" constant="12" id="IQY-ej-OCt"/>
+                                            <constraint firstItem="j5R-JF-iCs" firstAttribute="leading" secondItem="85Z-MR-kUV" secondAttribute="leading" priority="500" constant="10" id="Lzl-O3-Yk5"/>
                                             <constraint firstAttribute="bottom" secondItem="n79-h1-Nk3" secondAttribute="bottom" priority="250" id="Phh-rb-ON1"/>
                                             <constraint firstAttribute="trailing" secondItem="n79-h1-Nk3" secondAttribute="trailing" id="bIW-X8-f2u"/>
-                                            <constraint firstItem="5ir-0i-m9E" firstAttribute="leading" secondItem="85Z-MR-kUV" secondAttribute="leading" priority="500" constant="10" id="qmv-pz-Rze"/>
+                                            <constraint firstAttribute="bottom" secondItem="j5R-JF-iCs" secondAttribute="bottom" priority="500" constant="12" id="wGi-Kr-Gtk"/>
                                             <constraint firstItem="n79-h1-Nk3" firstAttribute="leading" secondItem="85Z-MR-kUV" secondAttribute="leading" id="wd0-Vg-MJz"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -1551,7 +1540,7 @@
                         <outlet property="exampesButtonBottomOffset" destination="Phh-rb-ON1" id="JcL-82-aMg"/>
                         <outlet property="exampleValuesExpandView" destination="m7d-sG-5LN" id="TTZ-yw-ImJ"/>
                         <outlet property="exampleValuesSeparator" destination="Suj-t5-ZWs" id="93G-FX-98W"/>
-                        <outlet property="help" destination="5ir-0i-m9E" id="14F-m4-zqW"/>
+                        <outlet property="help" destination="j5R-JF-iCs" id="G1H-wk-Vpb"/>
                         <outlet property="helpView" destination="85Z-MR-kUV" id="Rcg-KD-UIA"/>
                         <outlet property="ohTextViewHeight" destination="oBv-SK-cOU" id="8yB-hb-hml"/>
                         <outlet property="tableView" destination="X1H-IB-Nv1" id="9jh-Ds-VNe"/>
