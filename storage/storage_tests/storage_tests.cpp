@@ -1601,4 +1601,21 @@ UNIT_TEST(StorageTest_DeleteNodeWithoutDownloading)
   storage.GetNodeAttrs("Algeria_Central", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());
 }
+
+UNIT_TEST(StorageTest_GetQueuedChildrenSmokeTest)
+{
+  Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
+  TaskRunner runner;
+  InitStorage(storage, runner);
+
+  TCountriesVec queuedChildren;
+  storage.GetQueuedChildren("Countries", queuedChildren);
+  TEST(queuedChildren.empty(), ());
+
+  storage.GetQueuedChildren("Abkhazia", queuedChildren);
+  TEST(queuedChildren.empty(), ());
+
+  storage.GetQueuedChildren("Country1", queuedChildren);
+  TEST(queuedChildren.empty(), ());
+}
 }  // namespace storage
