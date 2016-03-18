@@ -74,6 +74,11 @@ namespace
   [super backTap];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+  return UIStatusBarStyleLightContent;
+}
+
 - (void)configNavBar
 {
   self.title = L(@"editor_add_select_category");

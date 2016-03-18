@@ -42,6 +42,11 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
   [self configData];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+  return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
