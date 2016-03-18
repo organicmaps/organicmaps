@@ -72,7 +72,7 @@
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
     <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-    <item name="android:fontFamily"tools:targetApi="jelly_bean">@string/robotoRegular</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="clickableBackground">?selectableItemBackground</item>
 

@@ -57,7 +57,8 @@
     android:layout_marginEnd="@dimen/margin_quarter"
     android:layout_marginRight="@dimen/margin_quarter"
     android:clickable="true"
-    android:padding="@dimen/margin_half"/>
+    android:padding="@dimen/margin_half"
+    android:src="?ppArrowDrawable"/>
 
   <TextView
     android:id="@+id/tv__straight_distance"
