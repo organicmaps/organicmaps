@@ -1,4 +1,4 @@
-#import "MWMTableViewController.h"
+#import "MWMViewController.h"
 
 #include "indexer/editable_map_object.hpp"
 
@@ -10,7 +10,7 @@
 
 @end
 
-@interface MWMObjectsCategorySelectorController : MWMTableViewController
+@interface MWMObjectsCategorySelectorController : MWMViewController
 
 @property (weak, nonatomic) id<MWMObjectsCategorySelectorDelegate> delegate;
 

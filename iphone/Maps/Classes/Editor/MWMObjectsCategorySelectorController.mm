@@ -1,5 +1,6 @@
 #import "MWMEditorViewController.h"
 #import "MWMObjectsCategorySelectorController.h"
+#import "MWMTableViewCell.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 
@@ -14,12 +15,13 @@ namespace
   NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 } // namespace
 
-@interface MWMObjectsCategorySelectorController () <UISearchBarDelegate>
+@interface MWMObjectsCategorySelectorController () <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 {
   NewFeatureCategories m_categories;
   vector<Category> m_filteredCategories;
 }
 
+@property (weak, nonatomic) IBOutlet UITableView * tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar * searchBar;
 @property (nonatomic) NSIndexPath * selectedIndexPath;
 @property (nonatomic) BOOL isSearch;
@@ -37,8 +39,16 @@ namespace
   NSAssert(!m_categories.m_allSorted.empty(), @"Categories list can't be empty!");
 
   self.isSearch = NO;
+  [self configTable];
   [self configNavBar];
   [self configSearchBar];
+}
+
+- (void)configTable
+{
+  self.tableView.backgroundColor = [UIColor pressBackground];
+  self.tableView.separatorColor = [UIColor blackDividers];
+  [self.tableView registerClass:[MWMTableViewCell class] forCellReuseIdentifier:[UITableViewCell className]];
 }
 
 - (void)setSelectedCategory:(string const &)category
