@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Lataa kaikki";
 
+"downloader_downloading" = "Ladataan:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "Pidä mielessä seuraavat seikat luodessasi reittejä MAPS.ME -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.";
+
+"editor_report_problem_desription_2" = "Tai tee se itse osoitteessa http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Lähetä";
+
+"editor_report_problem_title" = "Ongelma";
+
+"editor_report_problem_no_place_title" = "Paikkaa ei ole olemassa";
+
+"editor_report_problem_under_construction_title" = "Suljettu huoltoa varten";
+
+"editor_report_problem_duplicate_place_title" = "Paikan kaksoiskappale";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Tärkeää!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Paikan nimi";
 
 "editor_edit_place_category_title" = "Kategoria";
+
+"detailed_problem_description" = "Ongelman tarkka kuvaus";
+
+"editor_report_problem_other_title" = "Eri ongelma";
 
 "placepage_add_place_button" = "Lisää paikka";
 

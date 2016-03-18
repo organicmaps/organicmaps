@@ -429,6 +429,7 @@
 	<string name="downloader_near_me_subtitle">بالقرب مني</string>
 	<string name="downloader_status_maps">الخرائط</string>
 	<string name="downloader_download_all_button">تنزيل الكل</string>
+	<string name="downloader_downloading">يتم تنزيل:</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!</string>
 	<!-- Outdated maps category -->
@@ -830,6 +831,13 @@
 	<string name="editor_example_values">أمثلة على القيم</string>
 	<string name="editor_correct_mistake">تصحيح الخطأ</string>
 	<string name="editor_correct_mistake_message">قمت بخطأ في التحرير. يرجى تصحيح الخطأ أو التبديل إلى الوضع البسيط.</string>
+	<string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.</string>
+	<string name="editor_report_problem_desription_2">أو افعل ذلك بنفسك من خلال الموقع http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">إرسال</string>
+	<string name="editor_report_problem_title">مشكلة</string>
+	<string name="editor_report_problem_no_place_title">المكان غير موجودٍ</string>
+	<string name="editor_report_problem_under_construction_title">مغلق للصيانة</string>
+	<string name="editor_report_problem_duplicate_place_title">مكان متكرر</string>
 	<string name="migrate_title">هام!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">تنزيل الكل</string>
@@ -923,6 +931,8 @@
 	<string name="editor_add_place_title">إٍضافة</string>
 	<string name="editor_edit_place_name_hint">اسم المكان</string>
 	<string name="editor_edit_place_category_title">الفئة</string>
+	<string name="detailed_problem_description">وصف مفصل للمشكلة</string>
+	<string name="editor_report_problem_other_title">مشكلة مختلفة</string>
 	<string name="placepage_add_place_button">إضافة مكان</string>
 	<string name="placepage_report_problem_button">الإبلاغ عن مشكلة</string>
 	<string name="whatsnew_smallmwm_header">لقد طلبتم ذلك، وها نحن قد لبينا طلبكم</string>

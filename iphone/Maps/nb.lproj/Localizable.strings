@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Last ned alle";
 
+"downloader_downloading" = "Laster ned:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "Beskriv problemet detaljert slik at OpenStreetMap-samfunnet kan fikse feilen.";
+
+"editor_report_problem_desription_2" = "Eller gjør det selv på http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Send";
+
+"editor_report_problem_title" = "Problem";
+
+"editor_report_problem_no_place_title" = "Stedet finnes ikke";
+
+"editor_report_problem_under_construction_title" = "Stengt pga. vedlikehold";
+
+"editor_report_problem_duplicate_place_title" = "Duplisert sted";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Viktig!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Navn på stedet";
 
 "editor_edit_place_category_title" = "Kategori";
+
+"detailed_problem_description" = "Detaljert beskrivelse av problemet";
+
+"editor_report_problem_other_title" = "Et annet problem";
 
 "placepage_add_place_button" = "Legg til et sted";
 

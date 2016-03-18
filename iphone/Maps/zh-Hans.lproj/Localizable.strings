@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "下载全部";
 
+"downloader_downloading" = "正在下载：";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "请详细描述此问题以便OpenStreeMap社区能够修复此错误。";
+
+"editor_report_problem_desription_2" = "或者在http://www.openstreetmap.org/上亲自修复此错误。";
+
+"editor_report_problem_send_button" = "发送";
+
+"editor_report_problem_title" = "问题";
+
+"editor_report_problem_no_place_title" = "该地点不存在";
+
+"editor_report_problem_under_construction_title" = "因维护而关闭";
+
+"editor_report_problem_duplicate_place_title" = "重复的地点";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "重要！";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "该地点的名称";
 
 "editor_edit_place_category_title" = "类别";
+
+"detailed_problem_description" = "问题的详细描述";
+
+"editor_report_problem_other_title" = "一个不同的问题";
 
 "placepage_add_place_button" = "添加一个地点";
 

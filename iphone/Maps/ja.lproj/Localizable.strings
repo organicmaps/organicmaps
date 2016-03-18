@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "全てをダウンロード";
 
+"downloader_downloading" = "づンロード中：";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "OpenStreeMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。";
+
+"editor_report_problem_desription_2" = "または、このURLでご自身で修正してください http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "送信";
+
+"editor_report_problem_title" = "問題";
+
+"editor_report_problem_no_place_title" = "この場所は存在しません";
+
+"editor_report_problem_under_construction_title" = "メンテナンスのため使えません";
+
+"editor_report_problem_duplicate_place_title" = "重複している場所";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "重要！";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "場所の名前";
 
 "editor_edit_place_category_title" = "カテゴリ";
+
+"detailed_problem_description" = "問題の詳細な説明";
+
+"editor_report_problem_other_title" = "異なる問題";
 
 "placepage_add_place_button" = "場所を追加";
 

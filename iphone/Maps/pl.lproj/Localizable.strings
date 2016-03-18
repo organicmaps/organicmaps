@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Pobierz wszystkie";
 
+"downloader_downloading" = "Pobieranie:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "Podczas tworzenia tras w aplikacji MAPS.ME pamiętaj o poniższych zasadach:\n\n  - Sugerowane trasy mogą być traktowane jedynie jako propozycje.\n - Warunki na drodze, przepisy ruchu drogowego i znaki mają większy priorytet niż wskazówki nawigacyjne.\n - Mapa może okazać się nieprawidłowa lub nieaktualna a trasy mogą nie zostać utworzone w sposób najlepszy z możliwych.\n\n  Szerokiej drogi, uważaj na siebie!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "Prosimy o szczegółowe opisanie problemu, aby użytkownicy OpenStreetMap mogli naprawić błąd.";
+
+"editor_report_problem_desription_2" = "Albo zrób to sam na http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Wyślij";
+
+"editor_report_problem_title" = "Problem";
+
+"editor_report_problem_no_place_title" = "To miejsce nie istnieje";
+
+"editor_report_problem_under_construction_title" = "Zamknięte z powodu prac konserwacyjnych";
+
+"editor_report_problem_duplicate_place_title" = "Powielone miejsce";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Ważne!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Nazwa miejsca";
 
 "editor_edit_place_category_title" = "Kategoria";
+
+"detailed_problem_description" = "Szczegółowy opis problemu";
+
+"editor_report_problem_other_title" = "Inny problem";
 
 "placepage_add_place_button" = "Dodaj miejsce";
 

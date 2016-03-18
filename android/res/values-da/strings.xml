@@ -427,6 +427,7 @@
 	<string name="downloader_near_me_subtitle">I nærheden</string>
 	<string name="downloader_status_maps">Kort</string>
 	<string name="downloader_download_all_button">Download alle</string>
+	<string name="downloader_downloading">Downloader:</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Uddateret</string>
 	<!-- Up to date maps category -->
@@ -826,6 +827,13 @@
 	<string name="editor_example_values">Eksempelværdier</string>
 	<string name="editor_correct_mistake">Ret fejl</string>
 	<string name="editor_correct_mistake_message">Du har lavet en redigeringsfejl. Ret den, eller skift til enkel tilstand.</string>
+	<string name="editor_report_problem_desription_1">Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.</string>
+	<string name="editor_report_problem_desription_2">Eller gør det selv på http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Send</string>
+	<string name="editor_report_problem_title">Problem</string>
+	<string name="editor_report_problem_no_place_title">Stedet findes ikke</string>
+	<string name="editor_report_problem_under_construction_title">Lukket for vedligeholdelse</string>
+	<string name="editor_report_problem_duplicate_place_title">Duplikeret sted</string>
 	<string name="migrate_title">Vigtigt!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Download alle</string>
@@ -919,6 +927,8 @@
 	<string name="editor_add_place_title">Tilføjer</string>
 	<string name="editor_edit_place_name_hint">Stedets navn</string>
 	<string name="editor_edit_place_category_title">Kategori</string>
+	<string name="detailed_problem_description">Detaljeret beskrivelse af problemet</string>
+	<string name="editor_report_problem_other_title">Et anderledes problem</string>
 	<string name="placepage_add_place_button">Tilføj et sted</string>
 	<string name="placepage_report_problem_button">Anmeld et problem</string>
 	<string name="whatsnew_smallmwm_header">I har bedt om det, og vi har gjort det</string>

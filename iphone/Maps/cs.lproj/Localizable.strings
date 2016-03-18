@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Stáhnout vše";
 
+"downloader_downloading" = "Probíhá stahování:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.";
+
+"editor_report_problem_desription_2" = "Nebo to udělejte sami na http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Odeslat";
+
+"editor_report_problem_title" = "Problém";
+
+"editor_report_problem_no_place_title" = "Místo neexistuje";
+
+"editor_report_problem_under_construction_title" = "Zavřeno kvůli údržbě";
+
+"editor_report_problem_duplicate_place_title" = "Duplicitní místo";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Důležité!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Název místa";
 
 "editor_edit_place_category_title" = "Kategorie";
+
+"detailed_problem_description" = "Detailní popis problému";
+
+"editor_report_problem_other_title" = "Jiný problém";
 
 "placepage_add_place_button" = "Přidat místo";
 

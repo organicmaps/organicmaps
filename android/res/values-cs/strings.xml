@@ -430,6 +430,7 @@
 	<string name="downloader_near_me_subtitle">Poblíž mě</string>
 	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Stáhnout vše</string>
+	<string name="downloader_downloading">Probíhá stahování:</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!</string>
 	<!-- Outdated maps category -->
@@ -831,6 +832,13 @@
 	<string name="editor_example_values">Vzorové hodnoty</string>
 	<string name="editor_correct_mistake">Opravit chybu</string>
 	<string name="editor_correct_mistake_message">Při úpravách jste udělali chybu. Opravte ji prosím, nebo přepněte do jednoduchého režimu.</string>
+	<string name="editor_report_problem_desription_1">Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.</string>
+	<string name="editor_report_problem_desription_2">Nebo to udělejte sami na http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Odeslat</string>
+	<string name="editor_report_problem_title">Problém</string>
+	<string name="editor_report_problem_no_place_title">Místo neexistuje</string>
+	<string name="editor_report_problem_under_construction_title">Zavřeno kvůli údržbě</string>
+	<string name="editor_report_problem_duplicate_place_title">Duplicitní místo</string>
 	<string name="migrate_title">Důležité!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Stáhnout vše</string>
@@ -924,6 +932,8 @@
 	<string name="editor_add_place_title">Probíhá přidávání</string>
 	<string name="editor_edit_place_name_hint">Název místa</string>
 	<string name="editor_edit_place_category_title">Kategorie</string>
+	<string name="detailed_problem_description">Detailní popis problému</string>
+	<string name="editor_report_problem_other_title">Jiný problém</string>
 	<string name="placepage_add_place_button">Přidat místo</string>
 	<string name="placepage_report_problem_button">Nahlásit problém</string>
 	<string name="whatsnew_smallmwm_header">Říkali jste si o to, a my to udělali</string>

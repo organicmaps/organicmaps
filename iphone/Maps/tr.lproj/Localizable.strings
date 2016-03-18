@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Hepsini indir";
 
+"downloader_downloading" = "İndiriliyor:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "MAPS.ME uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde tanımlayın.";
+
+"editor_report_problem_desription_2" = "Veya bunu adresinden kendiniz yapın http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Gönder";
+
+"editor_report_problem_title" = "Problem";
+
+"editor_report_problem_no_place_title" = "Yer mevcut değil";
+
+"editor_report_problem_under_construction_title" = "Bakım için kapalı";
+
+"editor_report_problem_duplicate_place_title" = "Kopyalanmış yer";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Önemli!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Yerin ismi";
 
 "editor_edit_place_category_title" = "Kategori";
+
+"detailed_problem_description" = "Sorunun ayrıntılı açıklaması";
+
+"editor_report_problem_other_title" = "Farklı bir problem";
 
 "placepage_add_place_button" = "Bir yer ekle";
 

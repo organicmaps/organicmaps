@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "모두 다운로드";
 
+"downloader_downloading" = "다운로드 중:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "OpenStreeMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.";
+
+"editor_report_problem_desription_2" = "아니면, 다음에서 스스로 가능: http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "전송";
+
+"editor_report_problem_title" = "문제";
+
+"editor_report_problem_no_place_title" = "장소가 존재하지 않음";
+
+"editor_report_problem_under_construction_title" = "유지 보수를 위해 닫음";
+
+"editor_report_problem_duplicate_place_title" = "중복된 장소";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "중요!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "장소 이름";
 
 "editor_edit_place_category_title" = "범주";
+
+"detailed_problem_description" = "문제에 대한 자세한 설명";
+
+"editor_report_problem_other_title" = "다른 문제";
 
 "placepage_add_place_button" = "장소 추가";
 

@@ -413,6 +413,7 @@
 	<string name="downloader_near_me_subtitle">在我附近</string>
 	<string name="downloader_status_maps">地圖</string>
 	<string name="downloader_download_all_button">下載全部</string>
+	<string name="downloader_downloading">正在下載：</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！</string>
 	<!-- Outdated maps category -->
@@ -810,6 +811,13 @@
 	<string name="editor_example_values">範例值</string>
 	<string name="editor_correct_mistake">修正錯誤</string>
 	<string name="editor_correct_mistake_message">編輯時出錯。請修正或切換到簡易模式。</string>
+	<string name="editor_report_problem_desription_1">請詳細描述此問題以便OpenStreeMap社區能夠修復此錯誤。</string>
+	<string name="editor_report_problem_desription_2">或者在http://www.openstreetmap.org/上親自修復此錯誤</string>
+	<string name="editor_report_problem_send_button">發送</string>
+	<string name="editor_report_problem_title">問題</string>
+	<string name="editor_report_problem_no_place_title">該地點不存在</string>
+	<string name="editor_report_problem_under_construction_title">因維護而關閉</string>
+	<string name="editor_report_problem_duplicate_place_title">重復的地點</string>
 	<string name="migrate_title">重要！</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">全部下載。</string>
@@ -903,6 +911,8 @@
 	<string name="editor_add_place_title">添加中</string>
 	<string name="editor_edit_place_name_hint">該地點的名稱</string>
 	<string name="editor_edit_place_category_title">類別</string>
+	<string name="detailed_problem_description">問題的詳細描述</string>
+	<string name="editor_report_problem_other_title">一個不同的問題</string>
 	<string name="placepage_add_place_button">添加一個地點</string>
 	<string name="placepage_report_problem_button">報告一個問題</string>
 	<string name="whatsnew_smallmwm_header">您一直在尋求，而我們已經完成</string>

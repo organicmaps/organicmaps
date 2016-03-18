@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Ladda ned alla";
 
+"downloader_downloading" = "Ladda ner:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.";
+
+"editor_report_problem_desription_2" = "Eller gör det själv på http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Skicka";
+
+"editor_report_problem_title" = "Problem";
+
+"editor_report_problem_no_place_title" = "Platsen existerar inte";
+
+"editor_report_problem_under_construction_title" = "Stängd för underhåll";
+
+"editor_report_problem_duplicate_place_title" = "Duplicerad plats";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Viktigt!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Namn på platsen";
 
 "editor_edit_place_category_title" = "Kategori";
+
+"detailed_problem_description" = "Detaljerad beskrivning av ett problem";
+
+"editor_report_problem_other_title" = "Ett annat problem";
 
 "placepage_add_place_button" = "Lägg till en plats";
 

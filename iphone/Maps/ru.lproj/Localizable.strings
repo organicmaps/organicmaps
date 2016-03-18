@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Загрузить все";
 
+"downloader_downloading" = "Загружается:";
+
+"downloader_search_results" = "Найдено";
+
 /* Disclaimer message */
 "routing_disclaimer" = "Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Местоположение";
 
+"editor_report_problem_desription_1" = "Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.";
+
+"editor_report_problem_desription_2" = "Или сделайте это самостоятельно на сайте http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Отправить";
+
+"editor_report_problem_title" = "Проблема";
+
+"editor_report_problem_no_place_title" = "Места не существует";
+
+"editor_report_problem_under_construction_title" = "Закрыто на ремонт";
+
+"editor_report_problem_duplicate_place_title" = "Повторяющееся место";
+
+"first_launch_congrats_title" = "MAPS.ME готов к работе";
+
+"first_launch_congrats_text" = "Пользуйтесь поиском, навигацией по всему миру без интернета и бесплатно!";
+
 "migrate_title" = "Важно!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Название места";
 
 "editor_edit_place_category_title" = "Категория";
+
+"detailed_problem_description" = "Подробное описание проблемы";
+
+"editor_report_problem_other_title" = "Другая проблема";
 
 "placepage_add_place_button" = "Добавить место";
 

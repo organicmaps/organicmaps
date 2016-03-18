@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Alles downloaden";
 
+"downloader_downloading" = "Aan het downloaden:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "Bij het creëren van routes in MAPS.ME-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.";
+
+"editor_report_problem_desription_2" = "Of doe het zelf op http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Verzenden";
+
+"editor_report_problem_title" = "Probleem";
+
+"editor_report_problem_no_place_title" = "De plaats bestaat niet";
+
+"editor_report_problem_under_construction_title" = "Gesloten voor onderhoud";
+
+"editor_report_problem_duplicate_place_title" = "Dubbele plaats";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Belangrijk!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Naam van de plaats";
 
 "editor_edit_place_category_title" = "Categorie";
+
+"detailed_problem_description" = "Gedetailleerde probleemomschrijving";
+
+"editor_report_problem_other_title" = "Een ander probleem";
 
 "placepage_add_place_button" = "Voeg een plaats toe";
 

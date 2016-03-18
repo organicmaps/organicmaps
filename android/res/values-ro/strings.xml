@@ -421,6 +421,7 @@
 	<string name="downloader_near_me_subtitle">Aproape de mine</string>
 	<string name="downloader_status_maps">Hărți</string>
 	<string name="downloader_download_all_button">Descărcați toate</string>
+	<string name="downloader_downloading">Descărcare:</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!</string>
 	<!-- Outdated maps category -->
@@ -821,6 +822,13 @@
 	<string name="editor_example_values">Exemple de valori</string>
 	<string name="editor_correct_mistake">Corectare greșeală</string>
 	<string name="editor_correct_mistake_message">Ați efectuat o eroare de editare. Corectați eroarea sau treceți în modul Simplu.</string>
+	<string name="editor_report_problem_desription_1">Vă rugăm să descrieți problema în detaliu , astfel încât comunitatea OpenStreeMap să poată remedia eroarea.</string>
+	<string name="editor_report_problem_desription_2">Sau faceți-o pe http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Trimiteți</string>
+	<string name="editor_report_problem_title">Problemă</string>
+	<string name="editor_report_problem_no_place_title">Această locație nu există</string>
+	<string name="editor_report_problem_under_construction_title">Închis pentru întreținere</string>
+	<string name="editor_report_problem_duplicate_place_title">Locație dublată</string>
 	<string name="migrate_title">Important!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Descarcă toate</string>
@@ -914,6 +922,8 @@
 	<string name="editor_add_place_title">Adăugare</string>
 	<string name="editor_edit_place_name_hint">Denumirea locației</string>
 	<string name="editor_edit_place_category_title">Categorie</string>
+	<string name="detailed_problem_description">Descrierea detaliată a problemei</string>
+	<string name="editor_report_problem_other_title">O problemă diferită</string>
 	<string name="placepage_add_place_button">Adăugați o locație</string>
 	<string name="placepage_report_problem_button">Raportați o problemă</string>
 	<string name="whatsnew_smallmwm_header">Ne-ați cerut, iar noi am făcut</string>

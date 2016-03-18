@@ -429,6 +429,7 @@
 	<string name="downloader_near_me_subtitle">Yakınlarımda</string>
 	<string name="downloader_status_maps">Haritalar</string>
 	<string name="downloader_download_all_button">Hepsini indir</string>
+	<string name="downloader_downloading">İndiriliyor:</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.ME uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!</string>
 	<!-- Outdated maps category -->
@@ -830,6 +831,13 @@
 	<string name="editor_example_values">Örnek Değerler</string>
 	<string name="editor_correct_mistake">Hatayı düzelt</string>
 	<string name="editor_correct_mistake_message">Bir düzenleme hatası yaptınız. Lütfen düzeltin veya basit moda geçin.</string>
+	<string name="editor_report_problem_desription_1">OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde tanımlayın.</string>
+	<string name="editor_report_problem_desription_2">Veya bunu adresinden kendiniz yapın http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Gönder</string>
+	<string name="editor_report_problem_title">Problem</string>
+	<string name="editor_report_problem_no_place_title">Yer mevcut değil</string>
+	<string name="editor_report_problem_under_construction_title">Bakım için kapalı</string>
+	<string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
 	<string name="migrate_title">Önemli!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Tümünü indir</string>
@@ -923,6 +931,8 @@
 	<string name="editor_add_place_title">Ekleme</string>
 	<string name="editor_edit_place_name_hint">Yerin ismi</string>
 	<string name="editor_edit_place_category_title">Kategori</string>
+	<string name="detailed_problem_description">Sorunun ayrıntılı açıklaması</string>
+	<string name="editor_report_problem_other_title">Farklı bir problem</string>
 	<string name="placepage_add_place_button">Bir yer ekle</string>
 	<string name="placepage_report_problem_button">Bir problem bildirin</string>
 	<string name="whatsnew_smallmwm_header">Siz istediniz biz yaptık</string>

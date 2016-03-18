@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "تنزيل الكل";
 
+"downloader_downloading" = "يتم تنزيل:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.";
+
+"editor_report_problem_desription_2" = "أو افعل ذلك بنفسك من خلال الموقع http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "إرسال";
+
+"editor_report_problem_title" = "مشكلة";
+
+"editor_report_problem_no_place_title" = "المكان غير موجودٍ";
+
+"editor_report_problem_under_construction_title" = "مغلق للصيانة";
+
+"editor_report_problem_duplicate_place_title" = "مكان متكرر";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "هام!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "اسم المكان";
 
 "editor_edit_place_category_title" = "الفئة";
+
+"detailed_problem_description" = "وصف مفصل للمشكلة";
+
+"editor_report_problem_other_title" = "مشكلة مختلفة";
 
 "placepage_add_place_button" = "إضافة مكان";
 

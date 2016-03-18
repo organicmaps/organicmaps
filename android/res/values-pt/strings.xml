@@ -420,6 +420,7 @@
 	<string name="downloader_near_me_subtitle">Perto de mim</string>
 	<string name="downloader_status_maps">Mapas</string>
 	<string name="downloader_download_all_button">Descarregar tudo</string>
+	<string name="downloader_downloading">Baixando:</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Ao criar rotas na aplicação MAPS.ME, por favor, lembre-se do seguinte:\n\n  - As rotas sugeridas podem apenas ser consideradas como recomendações.\n - As condições da estrada, regras de trânsito e sinais têm maior prioridade do que os conselhos de navegação.\n - O mapa poderá estar errado, ou desatualizado, e as rotas poderão não ser criadas da melhor forma possível.\n\n  Circule em segurança nas estradas e cuide do seu bem estar!</string>
 	<!-- Outdated maps category -->
@@ -821,6 +822,13 @@
 	<string name="editor_example_values">Valores do Exemplo</string>
 	<string name="editor_correct_mistake">Corrigir erro</string>
 	<string name="editor_correct_mistake_message">Fez um erro de edição. Corrija-o ou mude para o modo simples.</string>
+	<string name="editor_report_problem_desription_1">Por favor, descreva o problema ao pormenor para que a comunidade OpenStreeMap possa corrigir o erro.</string>
+	<string name="editor_report_problem_desription_2">Ou faça-o sozinho em http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Enviar</string>
+	<string name="editor_report_problem_title">Problema</string>
+	<string name="editor_report_problem_no_place_title">O lugar não existe</string>
+	<string name="editor_report_problem_under_construction_title">Encerrado para manutenção</string>
+	<string name="editor_report_problem_duplicate_place_title">Lugar em duplicado</string>
 	<string name="migrate_title">Importante!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Baixar tudo</string>
@@ -914,6 +922,8 @@
 	<string name="editor_add_place_title">A adicionar</string>
 	<string name="editor_edit_place_name_hint">Nome do lugar</string>
 	<string name="editor_edit_place_category_title">Categoria</string>
+	<string name="detailed_problem_description">Descrição detalhada do problema</string>
+	<string name="editor_report_problem_other_title">Um problema diferente</string>
 	<string name="placepage_add_place_button">Adicionar um lugar</string>
 	<string name="placepage_report_problem_button">Comunicar um problema</string>
 	<string name="whatsnew_smallmwm_header">Vocês têm pedido por isso e nós atendemos</string>

@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Unduh semua";
 
+"downloader_downloading" = "Mengunduh:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "Dalam membuat rute di aplikasi MAPS.ME, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.";
+
+"editor_report_problem_desription_2" = "Atau Anda bisa melakukan sendiri di http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Kirim";
+
+"editor_report_problem_title" = "Masalah";
+
+"editor_report_problem_no_place_title" = "Tempat tidak ada";
+
+"editor_report_problem_under_construction_title" = "Ditutup karena pemeliharaan";
+
+"editor_report_problem_duplicate_place_title" = "Tempat ganda";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Penting!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Nama tempat";
 
 "editor_edit_place_category_title" = "Kategori";
+
+"detailed_problem_description" = "Gambaran terperinci tentang masalah";
+
+"editor_report_problem_other_title" = "Masalah yang berbeda";
 
 "placepage_add_place_button" = "Tambahkan tempat";
 

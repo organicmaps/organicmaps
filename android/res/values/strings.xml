@@ -454,6 +454,8 @@
 	<string name="downloader_near_me_subtitle">Near me</string>
 	<string name="downloader_status_maps">Maps</string>
 	<string name="downloader_download_all_button">Download All</string>
+	<string name="downloader_downloading">Downloading:</string>
+	<string name="downloader_search_results">Found</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!</string>
 	<!-- Outdated maps category -->
@@ -862,6 +864,15 @@
 	<string name="editor_correct_mistake">Correct mistake</string>
 	<string name="editor_correct_mistake_message">You made an editing mistake. Please correct it or switch to simple mode.</string>
 	<string name="editor_add_select_location">Location</string>
+	<string name="editor_report_problem_desription_1">Please describe the problem in detail so that the OpenStreeMap community can fix the error.</string>
+	<string name="editor_report_problem_desription_2">Or do it yourself at http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Send</string>
+	<string name="editor_report_problem_title">Problem</string>
+	<string name="editor_report_problem_no_place_title">The place does not exist</string>
+	<string name="editor_report_problem_under_construction_title">Сlosed for maintenance</string>
+	<string name="editor_report_problem_duplicate_place_title">Duplicated place</string>
+	<string name="first_launch_congrats_title">MAPS.ME is ready to use</string>
+	<string name="first_launch_congrats_text">Search and navigate the maps of all countries in the world for free.</string>
 	<string name="migrate_title">Important!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Download all</string>
@@ -959,6 +970,8 @@
 	<string name="editor_add_place_title">Adding</string>
 	<string name="editor_edit_place_name_hint">Name of the place</string>
 	<string name="editor_edit_place_category_title">Category</string>
+	<string name="detailed_problem_description">Detailed description of a problem</string>
+	<string name="editor_report_problem_other_title">A different problem</string>
 	<string name="placepage_add_place_button">Add a place</string>
 	<string name="placepage_report_problem_button">Report a problem</string>
 	<string name="whatsnew_smallmwm_header">You\&#39;ve been asking for it and we\&#39;ve done it</string>

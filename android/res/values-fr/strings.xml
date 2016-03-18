@@ -434,6 +434,7 @@
 	<string name="downloader_near_me_subtitle">Près de moi</string>
 	<string name="downloader_status_maps">Cartes</string>
 	<string name="downloader_download_all_button">Télécharger tout</string>
+	<string name="downloader_downloading">Téléchargement en cours :</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Quand vous créez des itinéraires sur l\&#39;application MAPS.ME, veuillez garder à l\&#39;esprit les points suivants :\n\n  - Les itinéraires suggérés ne doivent être considérés que comme des recommandations.\n\n  - Les conditions des routes, les règlementations de circulations et les panneaux sont prioritaires sur les conseils de navigation.\n\n  - Il est possible qu\&#39;une carte soit incorrecte ou obsolète, et les itinéraires ne sont pas toujours créés de la meilleure façon possible.\n\n  Soyez prudents sur les routes et prenez soin de vous.</string>
 	<!-- Outdated maps category -->
@@ -835,6 +836,13 @@
 	<string name="editor_example_values">Exemple de valeurs</string>
 	<string name="editor_correct_mistake">Corriger l\&#39;erreur</string>
 	<string name="editor_correct_mistake_message">Vous avez fait une erreur d\&#39;édition. Veuillez la corriger ou passer en mode simple.</string>
+	<string name="editor_report_problem_desription_1">Veuillez décrire le problème en détail pour permettre à la communauté OpenStreeMap de réparer l\&#39;erreur.</string>
+	<string name="editor_report_problem_desription_2">Ou faites-le vous-même à http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Envoyer</string>
+	<string name="editor_report_problem_title">Problème</string>
+	<string name="editor_report_problem_no_place_title">Le lieu n\&#39;existe pas</string>
+	<string name="editor_report_problem_under_construction_title">Fermé pour cause de maintenance</string>
+	<string name="editor_report_problem_duplicate_place_title">Lieu doublon</string>
 	<string name="migrate_title">Important !</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Tout télécharger</string>
@@ -928,6 +936,8 @@
 	<string name="editor_add_place_title">Ajout</string>
 	<string name="editor_edit_place_name_hint">Nom du lieu</string>
 	<string name="editor_edit_place_category_title">Catégorie</string>
+	<string name="detailed_problem_description">Description détaillée d\&#39;un problème</string>
+	<string name="editor_report_problem_other_title">Un problème différent</string>
 	<string name="placepage_add_place_button">Ajouter une position</string>
 	<string name="placepage_report_problem_button">Signaler un problème</string>
 	<string name="whatsnew_smallmwm_header">Vous avez été nombreux à nous le demander et nous avons satisfait votre requête</string>

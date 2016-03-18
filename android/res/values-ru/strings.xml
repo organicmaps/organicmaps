@@ -452,6 +452,8 @@
 	<string name="downloader_near_me_subtitle">Возле меня</string>
 	<string name="downloader_status_maps">Карт</string>
 	<string name="downloader_download_all_button">Загрузить все</string>
+	<string name="downloader_downloading">Загружается:</string>
+	<string name="downloader_search_results">Найдено</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!</string>
 	<!-- Outdated maps category -->
@@ -858,6 +860,15 @@
 	<string name="editor_correct_mistake">Исправьте ошибку</string>
 	<string name="editor_correct_mistake_message">При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.</string>
 	<string name="editor_add_select_location">Местоположение</string>
+	<string name="editor_report_problem_desription_1">Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.</string>
+	<string name="editor_report_problem_desription_2">Или сделайте это самостоятельно на сайте http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Отправить</string>
+	<string name="editor_report_problem_title">Проблема</string>
+	<string name="editor_report_problem_no_place_title">Места не существует</string>
+	<string name="editor_report_problem_under_construction_title">Закрыто на ремонт</string>
+	<string name="editor_report_problem_duplicate_place_title">Повторяющееся место</string>
+	<string name="first_launch_congrats_title">MAPS.ME готов к работе</string>
+	<string name="first_launch_congrats_text">Пользуйтесь поиском, навигацией по всему миру без интернета и бесплатно!</string>
 	<string name="migrate_title">Важно!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Загрузить все</string>
@@ -955,6 +966,8 @@
 	<string name="editor_add_place_title">Добавление</string>
 	<string name="editor_edit_place_name_hint">Название места</string>
 	<string name="editor_edit_place_category_title">Категория</string>
+	<string name="detailed_problem_description">Подробное описание проблемы</string>
+	<string name="editor_report_problem_other_title">Другая проблема</string>
 	<string name="placepage_add_place_button">Добавить место</string>
 	<string name="placepage_report_problem_button">Сообщить о проблеме</string>
 	<string name="whatsnew_smallmwm_header">Вы долго просили — мы наконец сделали</string>

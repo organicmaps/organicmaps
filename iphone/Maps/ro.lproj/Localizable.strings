@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Descărcați toate";
 
+"downloader_downloading" = "Descărcare:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "Vă rugăm să descrieți problema în detaliu , astfel încât comunitatea OpenStreeMap să poată remedia eroarea.";
+
+"editor_report_problem_desription_2" = "Sau faceți-o pe http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Trimiteți";
+
+"editor_report_problem_title" = "Problemă";
+
+"editor_report_problem_no_place_title" = "Această locație nu există";
+
+"editor_report_problem_under_construction_title" = "Închis pentru întreținere";
+
+"editor_report_problem_duplicate_place_title" = "Locație dublată";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Important!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Denumirea locației";
 
 "editor_edit_place_category_title" = "Categorie";
+
+"detailed_problem_description" = "Descrierea detaliată a problemei";
+
+"editor_report_problem_other_title" = "O problemă diferită";
 
 "placepage_add_place_button" = "Adăugați o locație";
 

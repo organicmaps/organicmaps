@@ -423,6 +423,7 @@
 	<string name="downloader_near_me_subtitle">I nærheten</string>
 	<string name="downloader_status_maps">Kart</string>
 	<string name="downloader_download_all_button">Last ned alle</string>
+	<string name="downloader_downloading">Laster ned:</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!</string>
 	<!-- Outdated maps category -->
@@ -824,6 +825,13 @@
 	<string name="editor_example_values">Eksempelverdier</string>
 	<string name="editor_correct_mistake">Rett feil</string>
 	<string name="editor_correct_mistake_message">Du har gjort en redigeringsfeil. Rett den eller bytt til enkel modus.</string>
+	<string name="editor_report_problem_desription_1">Beskriv problemet detaljert slik at OpenStreetMap-samfunnet kan fikse feilen.</string>
+	<string name="editor_report_problem_desription_2">Eller gjør det selv på http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Send</string>
+	<string name="editor_report_problem_title">Problem</string>
+	<string name="editor_report_problem_no_place_title">Stedet finnes ikke</string>
+	<string name="editor_report_problem_under_construction_title">Stengt pga. vedlikehold</string>
+	<string name="editor_report_problem_duplicate_place_title">Duplisert sted</string>
 	<string name="migrate_title">Viktig!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Last ned alle</string>
@@ -917,6 +925,8 @@
 	<string name="editor_add_place_title">Legger til</string>
 	<string name="editor_edit_place_name_hint">Navn på stedet</string>
 	<string name="editor_edit_place_category_title">Kategori</string>
+	<string name="detailed_problem_description">Detaljert beskrivelse av problemet</string>
+	<string name="editor_report_problem_other_title">Et annet problem</string>
 	<string name="placepage_add_place_button">Legg til et sted</string>
 	<string name="placepage_report_problem_button">Rapporter et problem</string>
 	<string name="whatsnew_smallmwm_header">Dere har bedt om det og vi har fått det til</string>

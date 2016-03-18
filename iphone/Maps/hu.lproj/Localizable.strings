@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Mindegyik letöltése";
 
+"downloader_downloading" = "Letöltés:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "Amikor útvonalakat készít a MAPS.ME appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.";
+
+"editor_report_problem_desription_2" = "Vagy végezd el te magad a javítást itt: http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Küldés";
+
+"editor_report_problem_title" = "Probléma";
+
+"editor_report_problem_no_place_title" = "A hely nem létezik";
+
+"editor_report_problem_under_construction_title" = "Karbantartás miatt nem elérhető";
+
+"editor_report_problem_duplicate_place_title" = "Duplikált hely";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Fontos!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Hely neve";
 
 "editor_edit_place_category_title" = "Kategória";
+
+"detailed_problem_description" = "A probléma részletes leírása";
+
+"editor_report_problem_other_title" = "Különböző probléma";
 
 "placepage_add_place_button" = "Hely hozzáadása";
 

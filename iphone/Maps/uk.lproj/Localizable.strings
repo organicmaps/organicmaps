@@ -705,6 +705,10 @@
 
 "downloader_download_all_button" = "Завантажити всі";
 
+"downloader_downloading" = "Завантажується:";
+
+"downloader_search_results" = "Found";
+
 /* Disclaimer message */
 "routing_disclaimer" = "Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!";
 
@@ -1358,6 +1362,24 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_report_problem_desription_1" = "Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.";
+
+"editor_report_problem_desription_2" = "Або зробіть це самостійно на сайті http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Надіслати";
+
+"editor_report_problem_title" = "Проблема";
+
+"editor_report_problem_no_place_title" = "Місце не існує";
+
+"editor_report_problem_under_construction_title" = "Зачинено на ремонт";
+
+"editor_report_problem_duplicate_place_title" = "Дубльовані місця";
+
+"first_launch_congrats_title" = "MAPS.ME is ready to use";
+
+"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+
 "migrate_title" = "Важливо!";
 
 /* Android uses image instead of text. */
@@ -1538,6 +1560,10 @@
 "editor_edit_place_name_hint" = "Назва місця";
 
 "editor_edit_place_category_title" = "Категорія";
+
+"detailed_problem_description" = "Детальний опис проблеми";
+
+"editor_report_problem_other_title" = "Інші проблема";
 
 "placepage_add_place_button" = "Додати місце";
 

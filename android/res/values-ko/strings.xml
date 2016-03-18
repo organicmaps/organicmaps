@@ -415,6 +415,7 @@
 	<string name="downloader_near_me_subtitle">내 근처</string>
 	<string name="downloader_status_maps">지도</string>
 	<string name="downloader_download_all_button">모두 다운로드</string>
+	<string name="downloader_downloading">다운로드 중:</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!</string>
 	<!-- Outdated maps category -->
@@ -816,6 +817,13 @@
 	<string name="editor_example_values">예제</string>
 	<string name="editor_correct_mistake">입력 수정</string>
 	<string name="editor_correct_mistake_message">잘못 입력했습니다. 수정하거나 기본 모드로 전환하세요.</string>
+	<string name="editor_report_problem_desription_1">OpenStreeMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.</string>
+	<string name="editor_report_problem_desription_2">아니면, 다음에서 스스로 가능: http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">전송</string>
+	<string name="editor_report_problem_title">문제</string>
+	<string name="editor_report_problem_no_place_title">장소가 존재하지 않음</string>
+	<string name="editor_report_problem_under_construction_title">유지 보수를 위해 닫음</string>
+	<string name="editor_report_problem_duplicate_place_title">중복된 장소</string>
 	<string name="migrate_title">중요!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">모두 다운로드</string>
@@ -909,6 +917,8 @@
 	<string name="editor_add_place_title">첨가 중</string>
 	<string name="editor_edit_place_name_hint">장소 이름</string>
 	<string name="editor_edit_place_category_title">범주</string>
+	<string name="detailed_problem_description">문제에 대한 자세한 설명</string>
+	<string name="editor_report_problem_other_title">다른 문제</string>
 	<string name="placepage_add_place_button">장소 추가</string>
 	<string name="placepage_report_problem_button">문제 신고</string>
 	<string name="whatsnew_smallmwm_header">여러분이 요청한 것을 저희가 해냈습니다</string>

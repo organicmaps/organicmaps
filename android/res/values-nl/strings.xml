@@ -415,6 +415,7 @@
 	<string name="downloader_near_me_subtitle">Bij mij in de buurt</string>
 	<string name="downloader_status_maps">Kaarten</string>
 	<string name="downloader_download_all_button">Alles downloaden</string>
+	<string name="downloader_downloading">Aan het downloaden:</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Bij het creëren van routes in MAPS.ME-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!</string>
 	<!-- Outdated maps category -->
@@ -814,6 +815,13 @@
 	<string name="editor_example_values">Voorbeeldwaarden</string>
 	<string name="editor_correct_mistake">Fout corrigeren</string>
 	<string name="editor_correct_mistake_message">U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.</string>
+	<string name="editor_report_problem_desription_1">Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.</string>
+	<string name="editor_report_problem_desription_2">Of doe het zelf op http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Verzenden</string>
+	<string name="editor_report_problem_title">Probleem</string>
+	<string name="editor_report_problem_no_place_title">De plaats bestaat niet</string>
+	<string name="editor_report_problem_under_construction_title">Gesloten voor onderhoud</string>
+	<string name="editor_report_problem_duplicate_place_title">Dubbele plaats</string>
 	<string name="migrate_title">Belangrijk!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Alles downloaden</string>
@@ -907,6 +915,8 @@
 	<string name="editor_add_place_title">Aan het toevoegen</string>
 	<string name="editor_edit_place_name_hint">Naam van de plaats</string>
 	<string name="editor_edit_place_category_title">Categorie</string>
+	<string name="detailed_problem_description">Gedetailleerde probleemomschrijving</string>
+	<string name="editor_report_problem_other_title">Een ander probleem</string>
 	<string name="placepage_add_place_button">Voeg een plaats toe</string>
 	<string name="placepage_report_problem_button">Meld een probleem</string>
 	<string name="whatsnew_smallmwm_header">Op veler verzoek hebben we het voor elkaar gekregen</string>

@@ -424,6 +424,7 @@
 	<string name="downloader_near_me_subtitle">A közelemben</string>
 	<string name="downloader_status_maps">Térképek</string>
 	<string name="downloader_download_all_button">Mindegyik letöltése</string>
+	<string name="downloader_downloading">Letöltés:</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Amikor útvonalakat készít a MAPS.ME appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!</string>
 	<!-- Outdated maps category -->
@@ -825,6 +826,13 @@
 	<string name="editor_example_values">Példa értékek</string>
 	<string name="editor_correct_mistake">Hiba javítása</string>
 	<string name="editor_correct_mistake_message">Szerkesztési hibát vétett. Javítsa ki vagy váltson egyszerű módba.</string>
+	<string name="editor_report_problem_desription_1">Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.</string>
+	<string name="editor_report_problem_desription_2">Vagy végezd el te magad a javítást itt: http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Küldés</string>
+	<string name="editor_report_problem_title">Probléma</string>
+	<string name="editor_report_problem_no_place_title">A hely nem létezik</string>
+	<string name="editor_report_problem_under_construction_title">Karbantartás miatt nem elérhető</string>
+	<string name="editor_report_problem_duplicate_place_title">Duplikált hely</string>
 	<string name="migrate_title">Fontos!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Összes letöltése</string>
@@ -918,6 +926,8 @@
 	<string name="editor_add_place_title">Hozzáadás</string>
 	<string name="editor_edit_place_name_hint">Hely neve</string>
 	<string name="editor_edit_place_category_title">Kategória</string>
+	<string name="detailed_problem_description">A probléma részletes leírása</string>
+	<string name="editor_report_problem_other_title">Különböző probléma</string>
 	<string name="placepage_add_place_button">Hely hozzáadása</string>
 	<string name="placepage_report_problem_button">Hibabejelentés</string>
 	<string name="whatsnew_smallmwm_header">Te kérted, mi elkészítettük</string>
