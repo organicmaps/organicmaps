@@ -1,10 +1,13 @@
 #import "MWMEditorViralAlert.h"
+#import "Statistics.h"
+
+#include "indexer/osm_editor.hpp"
 
 #include <array>
 
 namespace
 {
-  array<NSString *, 3> const messages {{L(@"editor_done_dialog_1"), L(@"editor_done_dialog_2"), L(@"editor_done_dialog_3")}};
+  array<NSString *, 3> const kMessages {{L(@"editor_done_dialog_1"), L(@"editor_done_dialog_2"), L(@"editor_done_dialog_3")}};
 } // namespace
 
 @interface MWMEditorViralAlert ()
@@ -21,22 +24,29 @@ namespace
   MWMEditorViralAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorViralAlert className] owner:nil options:nil] firstObject];
   NSAssert(share, @"Share block can't be nil!");
   alert.share = share;
-  int const index = rand() % messages.size();
-  NSString * message = messages[index];
+  int const index = rand() % kMessages.size();
+  NSString * message = kMessages[index];
+  if (index == 1)
+  {
+    auto const edits = osm::Editor::Instance().GetStats().m_edits.size();
+    int const ratingValue = (rand() % 1000) + 1000;
+    int const rating = ceil(ratingValue / (ceil(edits / 10)));
+    message = [NSString stringWithFormat:message, edits, rating];
+  }
   alert.message.text = message;
+  [[Statistics instance] logEvent:kStatEditorSecondTimeShareShow withParameters:@{kStatValue : message}];
   return alert;
 }
 
 - (IBAction)shareTap
 {
-  //TODO(Vlad): Determine which message we have to show and log it.
+  [[Statistics instance] logEvent:kStatEditorSecondTimeShareClick withParameters:@{kStatValue : self.message.text}];
   self.share();
   [self close];
 }
 
 - (IBAction)cancelTap
 {
-  //TODO(Vlad): Determine which message we have to show and log it.
   [self close];
 }
 
