@@ -29,7 +29,7 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
   MWMRoutingPlaneMode const m = MapsAppDelegate.theApp.routingPlaneMode;
   return (m == MWMRoutingPlaneModeSearchSource ||
          m == MWMRoutingPlaneModeSearchDestination) &&
-         MapsAppDelegate.theApp.m_locationManager.lastLocationIsValid;
+         MapsAppDelegate.theApp.locationManager.lastLocationIsValid;
 }
 
 - (void)attachCell:(MWMSearchTabbedCollectionViewCell *)cell

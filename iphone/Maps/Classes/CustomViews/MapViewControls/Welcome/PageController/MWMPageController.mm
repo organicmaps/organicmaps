@@ -6,7 +6,7 @@
 @interface MWMPageController ()
 
 @property (nonatomic) SolidTouchView * iPadBackgroundView;
-@property (weak, nonatomic) UIViewController * parent;
+@property (weak, nonatomic) UIViewController<MWMPageControllerProtocol> * parent;
 
 @property (nonatomic) MWMPageControllerDataSource * pageControllerDataSource;
 @property (nonatomic) MWMWelcomeController * currentController;
@@ -16,7 +16,7 @@
 
 @implementation MWMPageController
 
-+ (instancetype)pageControllerWithParent:(UIViewController *)parentViewController
++ (instancetype)pageControllerWithParent:(UIViewController<MWMPageControllerProtocol> *)parentViewController
 {
   NSAssert(parentViewController != nil, @"Parent view controller can't be nil!");
   MWMPageController * pageController = [[MWMWelcomeController welcomeStoryboard]
@@ -33,6 +33,7 @@
   [self.iPadBackgroundView removeFromSuperview];
   [self.view removeFromSuperview];
   [self removeFromParentViewController];
+  [self.parent closePageController:self];
 }
 
 - (void)nextPage

@@ -29,7 +29,8 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode)
 @property (nonatomic) MWMRoutingPlaneMode routingPlaneMode;
 
 @property (nonatomic, readonly) MapViewController * mapViewController;
-@property (nonatomic, readonly) LocationManager * m_locationManager;
+@property (nonatomic, readonly) LocationManager * locationManager;
+@property (nonatomic, readonly) BOOL isDaemonMode;
 
 + (MapsAppDelegate *)theApp;
 

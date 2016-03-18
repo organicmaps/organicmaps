@@ -76,13 +76,24 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.hidden = NO;
   self.zoomHidden = NO;
   self.menuState = MWMBottomMenuStateInactive;
-  LocationManager * m = MapsAppDelegate.theApp.m_locationManager;
-  self.routeSource = m.lastLocationIsValid ? MWMRoutePoint(m.lastLocation.mercator) :
-                                             MWMRoutePoint::MWMRoutePointZero();
-  self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
-
+  [self configRoutePoints];
   [MWMFrameworkListener addObserver:self];
   return self;
+}
+
+- (void)configRoutePoints
+{
+  if ([Alohalytics isFirstSession])
+  {
+    self.routeSource = MWMRoutePoint::MWMRoutePointZero();
+  }
+  else
+  {
+    LocationManager * m = MapsAppDelegate.theApp.locationManager;
+    self.routeSource = m.lastLocationIsValid ? MWMRoutePoint(m.lastLocation.mercator)
+                                             : MWMRoutePoint::MWMRoutePointZero();
+  }
+  self.routeDestination = MWMRoutePoint::MWMRoutePointZero();
 }
 
 #pragma mark - MWMFrameworkRouteBuilderObserver
@@ -353,7 +364,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)restoreRouteTo:(m2::PointD const &)to
 {
   auto & f = GetFramework();
-  m2::PointD const myPosition = [MapsAppDelegate theApp].m_locationManager.lastLocation.mercator;
+  m2::PointD const myPosition = [MapsAppDelegate theApp].locationManager.lastLocation.mercator;
   f.SetRouter(f.GetBestRouter(myPosition, to));
   self.routeSource = MWMRoutePoint(myPosition);
   self.routeDestination = {to, @"Destination"};
@@ -455,7 +466,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!self.isPossibleToBuildRoute)
     return;
 
-  LocationManager * locMgr = [MapsAppDelegate theApp].m_locationManager;
+  LocationManager * locMgr = [MapsAppDelegate theApp].locationManager;
   if (!locMgr.lastLocationIsValid && self.routeSource.IsMyPosition())
   {
     MWMAlertViewController * alert =
@@ -524,7 +535,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!isSourceMyPosition)
   {
     MWMAlertViewController * controller = [[MWMAlertViewController alloc] initWithViewController:self.ownerController];
-    LocationManager * manager = MapsAppDelegate.theApp.m_locationManager;
+    LocationManager * manager = MapsAppDelegate.theApp.locationManager;
     BOOL const needToRebuild = manager.lastLocationIsValid && !manager.isLocationModeUnknownOrPending && !isDestinationMyPosition;
     m2::PointD const locationPoint = manager.lastLocation.mercator;
     [controller presentPoint2PointAlertWithOkBlock:^
@@ -553,7 +564,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)didCancelRouting
 {
   [[Statistics instance] logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
-  [[MapsAppDelegate theApp].m_locationManager stop:self.navigationManager];
+  [[MapsAppDelegate theApp].locationManager stop:self.navigationManager];
   self.navigationManager.state = MWMNavigationDashboardStateHidden;
   self.disableStandbyOnRouteFollowing = NO;
   [MapsAppDelegate theApp].routingPlaneMode = MWMRoutingPlaneModeNone;
@@ -591,7 +602,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)resetRoutingPoint
 {
-  LocationManager * m = MapsAppDelegate.theApp.m_locationManager;
+  LocationManager * m = MapsAppDelegate.theApp.locationManager;
   self.routeSource = m.lastLocationIsValid ? MWMRoutePoint(m.lastLocation.mercator) :
                                              MWMRoutePoint::MWMRoutePointZero();
   self.routeDestination = MWMRoutePoint::MWMRoutePointZero();

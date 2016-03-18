@@ -27,7 +27,7 @@ using namespace routing::turns;
   {
     _isPedestrian = YES;
     string distance;
-    CLLocationCoordinate2D const & coordinate ([MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate);
+    CLLocationCoordinate2D const & coordinate ([MapsAppDelegate theApp].locationManager.lastLocation.coordinate);
     ms::LatLon const & directionPos = info.m_pedestrianDirectionPos;
     //TODO: Not the best solution, but this solution is temporary and will be replaced in future
     MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coordinate.latitude, coordinate.longitude,

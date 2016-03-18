@@ -1,11 +1,12 @@
 #import "LocationManager.h"
-#import "MapsAppDelegate.h"
 #import "MWMFirstLaunchController.h"
 #import "MWMPageController.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 
 #include "Framework.h"
 
-@interface MWMFirstLaunchController ()
+@interface MWMFirstLaunchController () <LocationObserver>
 
 @property (weak, nonatomic) IBOutlet UIView * containerView;
 @property (weak, nonatomic) IBOutlet UIImageView * image;
@@ -21,15 +22,12 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleTopOffset;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleImageOffset;
 
+@property (nonatomic) BOOL locationError;
+
 @end
 
 namespace
 {
-void requestLocation()
-{
-  GetFramework().SwitchMyPositionNextMode();
-}
-
 void requestNotifications()
 {
   UIApplication * app = [UIApplication sharedApplication];
@@ -50,13 +48,16 @@ void requestNotifications()
 
 void zoomToCurrentPosition()
 {
-  LocationManager * locationManager = MapsAppDelegate.theApp.m_locationManager;
+  LocationManager * locationManager = MapsAppDelegate.theApp.locationManager;
   if (![locationManager lastLocationIsValid])
     return;
   m2::PointD const centerPt = locationManager.lastLocation.mercator;
   int const zoom = 13;
   GetFramework().SetViewportCenter(centerPt, zoom);
 }
+
+NSInteger constexpr kRequestLocationPage = 2;
+NSInteger constexpr kRequestNotificationsPage = 3;
 
 NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   [^(MWMFirstLaunchController * controller)
@@ -114,19 +115,66 @@ NSArray<TMWMWelcomeConfigBlock> * pagesConfigBlocks = @[
   return pagesConfigBlocks;
 }
 
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  if (self.pageIndex == kRequestLocationPage)
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appWillEnterForeground:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  if (self.pageIndex == 2)
-    requestLocation();
-  else if (self.pageIndex == 3)
+  if (self.pageIndex == kRequestLocationPage)
+    [self requestLocation];
+  else if (self.pageIndex == kRequestNotificationsPage)
     requestNotifications();
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+  [super viewDidDisappear:animated];
+  if (self.locationError)
+    [MapsAppDelegate.theApp.locationManager reset];
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)requestLocation
+{
+  MapsAppDelegate * app = MapsAppDelegate.theApp;
+  LocationManager * lm = app.locationManager;
+  [lm onForeground];
+  [lm start:self];
 }
 
 - (void)close
 {
   [self.pageController close];
   zoomToCurrentPosition();
+}
+
+- (void)appWillEnterForeground:(NSNotification *)notification
+{
+  [self requestLocation];
+}
+
+#pragma mark - LocationManager Callbacks
+
+- (void)onLocationUpdate:(location::GpsInfo const &)info
+{
+}
+
+- (void)onLocationError:(location::TLocationError)errorCode
+{
+  if (errorCode == location::EDenied)
+    self.locationError = YES;
 }
 
 #pragma mark - Properties

@@ -360,9 +360,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     return;
   _watchLocationUpdates = watchLocationUpdates;
   if (watchLocationUpdates)
-    [[MapsAppDelegate theApp].m_locationManager start:self];
+    [[MapsAppDelegate theApp].locationManager start:self];
   else
-    [[MapsAppDelegate theApp].m_locationManager stop:self];
+    [[MapsAppDelegate theApp].locationManager stop:self];
 }
 
 @synthesize searchOnMap = _searchOnMap;

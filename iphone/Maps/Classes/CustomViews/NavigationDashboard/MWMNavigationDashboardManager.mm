@@ -478,7 +478,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
   if (f.GetRouter() != routing::RouterType::Pedestrian)
     return;
 
-  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
+  CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
   if (!location)
     return;
 

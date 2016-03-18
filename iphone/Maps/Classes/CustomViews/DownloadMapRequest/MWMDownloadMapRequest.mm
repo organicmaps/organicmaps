@@ -65,7 +65,7 @@
   {
     m_countryId = storage::kInvalidCountryId;
     auto const & countryInfoGetter = f.CountryInfoGetter();
-    LocationManager * locationManager = [MapsAppDelegate theApp].m_locationManager;
+    LocationManager * locationManager = [MapsAppDelegate theApp].locationManager;
     if (locationManager.lastLocationIsValid)
       m_countryId = countryInfoGetter.GetRegionCountryId(locationManager.lastLocation.mercator);
 

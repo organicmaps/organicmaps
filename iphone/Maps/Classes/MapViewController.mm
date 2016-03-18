@@ -108,7 +108,8 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 @end
 
 @interface MapViewController ()<MTRGNativeAppwallAdDelegate, MWMFrameworkRouteBuilderObserver,
-                                MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver>
+                                MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
+                                MWMPageControllerProtocol>
 
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 @property (nonatomic) MWMBottomMenuState menuRestoreState;
@@ -137,13 +138,13 @@ NSString * const kReportSegue = @"Map2ReportSegue";
     case location::EDenied:
     {
       [self.alertController presentLocationAlert];
-      [[MapsAppDelegate theApp].m_locationManager stop:self];
+      [[MapsAppDelegate theApp].locationManager stop:self];
       break;
     }
     case location::ENotSupported:
     {
       [self.alertController presentLocationServiceNotSupportedAlert];
-      [[MapsAppDelegate theApp].m_locationManager stop:self];
+      [[MapsAppDelegate theApp].locationManager stop:self];
       break;
     }
     default:
@@ -355,7 +356,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 
 - (void)onEnterForeground
 {
-  if (self.isDaemon)
+  if (MapsAppDelegate.theApp.isDaemonMode)
     return;
   // Notify about entering foreground (should be called on the first launch too).
   GetFramework().EnterForeground();
@@ -364,7 +365,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  if (self.isDaemon)
+  if (MapsAppDelegate.theApp.isDaemonMode)
     return;
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 
@@ -387,7 +388,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  if (self.isDaemon)
+  if (MapsAppDelegate.theApp.isDaemonMode)
     return;
   self.view.clipsToBounds = YES;
   [MTRGManager setMyCom:YES];
@@ -420,6 +421,12 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   [ud setBool:YES forKey:[whatsNewClass udWelcomeWasShownKey]];
   [ud setBool:YES forKey:[welcomeClass udWelcomeWasShownKey]];
   [ud synchronize];
+}
+
+- (void)closePageController:(MWMPageController *)pageController
+{
+  if ([pageController isEqual:self.pageViewController])
+    self.pageViewController = nil;
 }
 
 - (void)showViralAlertIfNeeded
@@ -488,16 +495,11 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (BOOL)isDaemon
-{
-  return MapsAppDelegate.theApp.m_locationManager.isDaemonMode;
-}
-
 - (id)initWithCoder:(NSCoder *)coder
 {
   NSLog(@"MapViewController initWithCoder Started");
   self = [super initWithCoder:coder];
-  if (self && !self.isDaemon)
+  if (self && !MapsAppDelegate.theApp.isDaemonMode)
     [self initialize];
 
   NSLog(@"MapViewController initWithCoder Ended");
@@ -567,12 +569,13 @@ NSString * const kReportSegue = @"Map2ReportSegue";
     case location::MODE_UNKNOWN_POSITION:
     {
       self.disableStandbyOnLocationStateMode = NO;
-      [[MapsAppDelegate theApp].m_locationManager stop:self];
+      if (![Alohalytics isFirstSession])
+        [[MapsAppDelegate theApp].locationManager stop:self];
       break;
     }
     case location::MODE_PENDING_POSITION:
       self.disableStandbyOnLocationStateMode = NO;
-      [[MapsAppDelegate theApp].m_locationManager start:self];
+      [[MapsAppDelegate theApp].locationManager start:self];
       break;
     case location::MODE_NOT_FOLLOW:
       self.disableStandbyOnLocationStateMode = NO;

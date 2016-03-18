@@ -58,7 +58,7 @@ using namespace storage;
   [Statistics logEvent:kStatDownloaderMigrationStarted
         withParameters:@{kStatType : limited ? kStatCurrentMap : kStatAllMaps}];
   auto & f = GetFramework();
-  LocationManager * lm = [MapsAppDelegate theApp].m_locationManager;
+  LocationManager * lm = [MapsAppDelegate theApp].locationManager;
   ms::LatLon position{};
   if (![lm getLat:position.lat Lon:position.lon])
     position = MercatorBounds::ToLatLon(f.GetViewportCenter());

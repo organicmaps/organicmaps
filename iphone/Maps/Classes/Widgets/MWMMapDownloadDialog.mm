@@ -21,7 +21,7 @@ CGSize constexpr kInitialDialogSize = {200, 200};
 
 BOOL canAutoDownload(TCountryId const & countryId)
 {
-  LocationManager * locationManager = MapsAppDelegate.theApp.m_locationManager;
+  LocationManager * locationManager = MapsAppDelegate.theApp.locationManager;
   if (![locationManager lastLocationIsValid])
     return NO;
   if (GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_WIFI)

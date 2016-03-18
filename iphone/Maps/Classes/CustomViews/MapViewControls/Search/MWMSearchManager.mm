@@ -167,7 +167,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 - (void)tapMyPositionFromHistory
 {
   MapsAppDelegate * a = MapsAppDelegate.theApp;
-  MWMRoutePoint const p = MWMRoutePoint::MWMRoutePoint(a.m_locationManager.lastLocation.mercator);
+  MWMRoutePoint const p = MWMRoutePoint::MWMRoutePoint(a.locationManager.lastLocation.mercator);
   if (a.routingPlaneMode == MWMRoutingPlaneModeSearchSource)
     [self.delegate buildRouteFrom:p];
   else if (a.routingPlaneMode == MWMRoutingPlaneModeSearchDestination)

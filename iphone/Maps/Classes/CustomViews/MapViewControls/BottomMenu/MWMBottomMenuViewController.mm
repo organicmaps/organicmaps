@@ -371,7 +371,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell)
 {
   [[Statistics instance] logEvent:kStatMenu withParameters:@{kStatButton : kStatShare}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"share@"];
-  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
+  CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
   if (!location)
   {
     [[[UIAlertView alloc] initWithTitle:L(@"unknown_current_position")

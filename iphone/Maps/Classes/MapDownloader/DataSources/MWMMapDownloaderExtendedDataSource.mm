@@ -52,7 +52,7 @@ using namespace storage;
 
 - (void)configNearMeSection
 {
-  LocationManager * lm = MapsAppDelegate.theApp.m_locationManager;
+  LocationManager * lm = MapsAppDelegate.theApp.locationManager;
   if (!lm.lastLocationIsValid)
     return;
   auto & countryInfoGetter = GetFramework().CountryInfoGetter();

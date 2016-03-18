@@ -60,10 +60,9 @@ double getExactDPI(double contentScaleFactor)
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
 - (id)initWithCoder:(NSCoder *)coder
 {
-  BOOL const isDaemon = MapsAppDelegate.theApp.m_locationManager.isDaemonMode;
   NSLog(@"EAGLView initWithCoder Started");
   self = [super initWithCoder:coder];
-  if (self && !isDaemon)
+  if (self && !MapsAppDelegate.theApp.isDaemonMode)
     [self initialize];
 
   NSLog(@"EAGLView initWithCoder Ended");
@@ -91,7 +90,7 @@ double getExactDPI(double contentScaleFactor)
 - (void)createDrapeEngineWithWidth:(int)width height:(int)height
 {
   NSLog(@"EAGLView createDrapeEngine Started");
-  if (MapsAppDelegate.theApp.m_locationManager.isDaemonMode)
+  if (MapsAppDelegate.theApp.isDaemonMode)
     return;
 
   Framework::DrapeCreationParams p;

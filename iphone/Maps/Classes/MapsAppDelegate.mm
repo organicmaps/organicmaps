@@ -131,6 +131,9 @@ using namespace osm_auth_ios;
 @property (weak, nonatomic) NSTimer * checkAdServerForbiddenTimer;
 @property (weak, nonatomic) NSTimer * mapStyleSwitchTimer;
 
+@property (nonatomic, readwrite) LocationManager * locationManager;
+@property (nonatomic, readwrite) BOOL isDaemonMode;
+
 @end
 
 @implementation MapsAppDelegate
@@ -336,7 +339,7 @@ using namespace osm_auth_ios;
   NSAssert([MapsAppDelegate isAutoNightMode], @"Invalid auto switcher's state");
   auto & f = GetFramework();
   MapsAppDelegate * app = MapsAppDelegate.theApp;
-  CLLocation * l = app.m_locationManager.lastLocation;
+  CLLocation * l = app.locationManager.lastLocation;
   if (!l || !f.IsRoutingActive())
     return;
   dispatch_async(dispatch_get_main_queue(), [&f, l, self, app]
@@ -376,8 +379,7 @@ using namespace osm_auth_ios;
   BOOL returnValue = [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
   if (launchOptions[UIApplicationLaunchOptionsLocationKey])
   {
-    _m_locationManager = [[LocationManager alloc] init];
-    [self.m_locationManager onDaemonMode];
+    self.isDaemonMode = YES;
     return returnValue;
   }
 
@@ -393,8 +395,8 @@ using namespace osm_auth_ios;
   [self determineMapStyle];
 
   [self.mapViewController onEnterForeground];
-  _m_locationManager = [[LocationManager alloc] init];
-  [self.m_locationManager onForeground];
+  self.isDaemonMode = NO;
+
   [self initPushNotificationsWithLaunchOptions:launchOptions];
   [self commonInit];
 
@@ -516,13 +518,13 @@ using namespace osm_auth_ios;
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-  [self.m_locationManager beforeTerminate];
+  [self.locationManager beforeTerminate];
   [self.mapViewController onTerminate];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-  [self.m_locationManager onBackground];
+  [self.locationManager onBackground];
   [self.mapViewController onEnterBackground];
   if (m_activeDownloadsCounter)
   {
@@ -563,19 +565,16 @@ using namespace osm_auth_ios;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-  if (self.m_locationManager.isDaemonMode)
+  BOOL const needInit = self.isDaemonMode;
+  self.isDaemonMode = NO;
+  if (needInit)
   {
-    [self.m_locationManager onForeground];
     [self.mapViewController initialize];
     [(EAGLView *)self.mapViewController.view initialize];
     [self.mapViewController.view setNeedsLayout];
     [self.mapViewController.view layoutIfNeeded];
     [self commonInit];
     [self incrementSessionsCountAndCheckForAlert];
-  }
-  else
-  {
-    [self.m_locationManager onForeground];
   }
   [self.mapViewController onEnterForeground];
   [MWMTextToSpeech activateAudioSession];
@@ -796,6 +795,33 @@ using namespace osm_auth_ios;
 - (MapViewController *)mapViewController
 {
   return [(UINavigationController *)self.window.rootViewController viewControllers].firstObject;
+}
+
+- (LocationManager *)locationManager
+{
+  if (!_locationManager)
+    _locationManager = [[LocationManager alloc] init];
+  return _locationManager;
+}
+
+@synthesize isDaemonMode = _isDaemonMode;
+
+- (BOOL)isDaemonMode
+{
+  if ([Alohalytics isFirstSession])
+    return NO;
+  return _isDaemonMode;
+}
+
+- (void)setIsDaemonMode:(BOOL)isDaemonMode
+{
+  if (_isDaemonMode == isDaemonMode)
+    return;
+  _isDaemonMode = isDaemonMode;
+  if (isDaemonMode)
+    [self.locationManager onDaemonMode];
+  else
+    [self.locationManager onForeground];
 }
 
 #pragma mark - Route state

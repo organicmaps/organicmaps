@@ -58,7 +58,7 @@
     {
       string distanceStr;
       double lat, lon;
-      LocationManager * locationManager = MapsAppDelegate.theApp.m_locationManager;
+      LocationManager * locationManager = MapsAppDelegate.theApp.locationManager;
       if ([locationManager getLat:lat Lon:lon])
       {
         m2::PointD const mercLoc = MercatorBounds::FromLatLon(lat, lon);

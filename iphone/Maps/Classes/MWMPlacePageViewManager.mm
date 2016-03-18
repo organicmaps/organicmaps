@@ -61,14 +61,14 @@ extern NSString * const kBookmarksChangedNotification;
 {
   [self.delegate placePageDidClose];
   [self.placePage dismiss];
-  [[MapsAppDelegate theApp].m_locationManager stop:self];
+  [[MapsAppDelegate theApp].locationManager stop:self];
   GetFramework().DeactivateMapSelection(false);
   self.placePage = nil;
 }
 
 - (void)showPlacePage:(place_page::Info const &)info
 {
-  [[MapsAppDelegate theApp].m_locationManager start:self];
+  [[MapsAppDelegate theApp].locationManager start:self];
   self.entity = [[MWMPlacePageEntity alloc] initWithInfo:info];
   if (IPAD)
     [self setPlacePageForiPad];
@@ -113,7 +113,7 @@ extern NSString * const kBookmarksChangedNotification;
   if (self.entity.isMyPosition)
   {
     BOOL hasSpeed;
-    self.entity.category = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed];
+    self.entity.category = [[MapsAppDelegate theApp].locationManager formattedSpeedAndAltitude:hasSpeed];
   }
   self.placePage.parentViewHeight = self.ownerViewController.view.height;
   [self.placePage configure];
@@ -150,7 +150,7 @@ extern NSString * const kBookmarksChangedNotification;
   if (!self.entity.isMyPosition)
     return;
   BOOL hasSpeed = NO;
-  [self.placePage updateMyPositionStatus:[[MapsAppDelegate theApp].m_locationManager
+  [self.placePage updateMyPositionStatus:[[MapsAppDelegate theApp].locationManager
                                           formattedSpeedAndAltitude:hasSpeed]];
 }
 
@@ -188,7 +188,7 @@ extern NSString * const kBookmarksChangedNotification;
                    withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
 
-  LocationManager * lm = MapsAppDelegate.theApp.m_locationManager;
+  LocationManager * lm = MapsAppDelegate.theApp.locationManager;
   [self.delegate buildRouteFrom:lm.isLocationModeUnknownOrPending ? MWMRoutePoint::MWMRoutePointZero()
                                                                   : MWMRoutePoint(lm.lastLocation.mercator)
                              to:{self.entity.mercator, self.placePage.basePlacePageView.titleLabel.text}];
@@ -318,7 +318,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (NSString *)distance
 {
-  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
+  CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
   // TODO(AlexZ): Do we REALLY need this check? Why this method is called if user mark/m_info is empty?
   // TODO(AlexZ): Can location be checked before calling this method?
   if (!location/* || !m_userMark*/)
@@ -333,7 +333,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
-  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
+  CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
   // TODO(AlexZ): Do we REALLY need this check? Why compass update is here if user mark/m_info is empty?
   // TODO(AlexZ): Can location be checked before calling this method?
   if (!location/* || !m_userMark*/)
