@@ -18,7 +18,7 @@
 
 namespace
 {
-double constexpr kPOIDisplacementRadiusPixels = 60.;
+double constexpr kPOIDisplacementRadiusPixels = 80.;
 
 // Displacement radius in pixels * half of the world in degrees / meaned graphics tile size.
 // So average displacement radius will be: this / tiles in row count.
@@ -159,6 +159,7 @@ private:
   struct DisplaceableNode
   {
     uint32_t m_index;
+    FeatureID m_fID;
     m2::PointD m_center;
     vector<int64_t> m_cells;
 
@@ -171,7 +172,7 @@ private:
     template <class TFeature>
     DisplaceableNode(vector<int64_t> const & cells, TFeature const & ft, uint32_t index,
                     int zoomLevel)
-      : m_index(index), m_center(ft.GetCenter()), m_cells(cells), m_minScale(zoomLevel)
+      : m_index(index), m_fID(ft.GetID()), m_center(ft.GetCenter()), m_cells(cells), m_minScale(zoomLevel)
     {
       feature::TypesHolder const types(ft);
       auto scaleRange = feature::GetDrawableScaleRange(types);
@@ -195,7 +196,13 @@ private:
       m_priority = (static_cast<uint32_t>(d) << 8) | rank;
     }
 
-    bool operator>(DisplaceableNode const & rhs) const { return m_priority > rhs.m_priority; }
+    // Same to dynamic displacement behaviour.
+    bool operator>(DisplaceableNode const & rhs) const
+    {
+      if (m_priority > rhs.m_priority)
+        return true;
+      return (m_priority == rhs.m_priority && m_fID < rhs.m_fID);
+    }
     m2::RectD const GetLimitRect() const { return m2::RectD(m_center, m_center); }
   };
 
