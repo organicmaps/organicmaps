@@ -32,10 +32,10 @@
   BOOL const haveLocalMaps = (nodeAttrs.m_localMwmCounter != 0);
   self.mapsCount.text =
       haveLocalMaps
-          ? [NSString stringWithFormat:@"%@: %@ %@ %@", L(@"downloader_status_maps"),
-                                       @(nodeAttrs.m_localMwmCounter), L(@"_of"),
-                                       @(nodeAttrs.m_mwmCounter)]
-          : [NSString stringWithFormat:@"%@: %@", L(@"downloader_status_maps"), @(nodeAttrs.m_mwmCounter)];
+          ? [NSString stringWithFormat:@"%@: %@/%@", L(@"downloader_status_maps"),
+                                       @(nodeAttrs.m_localMwmCounter), @(nodeAttrs.m_mwmCounter)]
+          : [NSString stringWithFormat:@"%@: %@", L(@"downloader_status_maps"),
+                                       @(nodeAttrs.m_mwmCounter)];
 }
 
 @end
