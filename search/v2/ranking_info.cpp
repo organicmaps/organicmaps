@@ -13,7 +13,7 @@ namespace
 // these coeffs correspond to coeffs in a linear model.
 double const kDistanceToPivot = 24.443;
 double const kRank = 11.010;
-double const kNameScore = 1.0
+double const kNameScore = 1.0;
 double const kNameCoverage = 0.0;
 double const kSearchType = 22.378;
 
