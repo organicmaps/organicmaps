@@ -171,7 +171,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvDistance = (TextView) mPreview.findViewById(R.id.tv__straight_distance);
     mAvDirection = (ArrowView) mPreview.findViewById(R.id.av__direction);
     mAvDirection.setOnClickListener(this);
-    mAvDirection.setImageResource(R.drawable.direction);
+    mAvDirection.setImageResource(ThemeUtils.getResource(getContext(), R.attr.ppArrowDrawable));
     mTvAddress = (TextView) mPreview.findViewById(R.id.tv__address);
 
     mDetails = (ScrollView) findViewById(R.id.pp__details);
