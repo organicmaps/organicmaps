@@ -161,35 +161,36 @@
 
   [coffee_shop]
     tags = android, ios
-    en = Coffee Shop
-    ru = Кафе
-    uk = Кав'ярня
-    tr = Kafe
-    es = Cafetería
-    sv = Kafé
-    sk = Kaviareň
-    pt = Cafeteria
-    ro = Cafenea
-    pl = Kawiarnia
-    ko = 커피 샵
-    id = Kafe
-    hu = Kávézó
-    de = Café
+    en = Coffee
+    ar = ﺓﻮﻬﻗ
+    cs = Káva
+    da = Kaffe
+    de = Kaffee
+    el = Καφές
+    es = Café
+    fi = Kahvi
     fr = Café
-    nl = Koffiehuis
-    fi = Kahvila
-    da = Café
-    cs = Kavárna
-    it = Bar caffetteria
-    nb = Kafé
-    zh-Hant = 咖啡_館
-    zh-Hans = 咖啡_馆
-    vi = Tiệm_cà phê
-    th = ร้านกาแฟ
-    ja = コーヒーショップ
-    el = Καφετέρια
-    ar = مقهى
-    he = בית קפה
+    he = הֶפָק
+    hu = Kávé
+    id = Kopi
+    it = Caffè
+    ja = コーヒー
+    ko = 커피
+    nb = Kaffe
+    nl = Koffie
+    pl = Kawa
+    pt = Café
+    ro = Cafea
+    ru = Кофе
+    sk = Káva
+    sv = Kaffe
+    sw = Kahawa
+    th = กาแฟ
+    tr = Kahve
+    uk = Кава
+    vi = Cà phê
+    zh-Hans = 咖啡
+    zh-Hant = 咖啡
 
   [sandwich]
     tags = android, ios
@@ -2494,38 +2495,6 @@
     el = Του Λάος
     ar = مطبخ لاوي
     he = מטבח לאו
-
-  [coffee]
-    tags = android, ios
-    en = Coffee
-    ru = Кофейня
-    uk = Кав'ярня
-    tr = Kahve
-    es = Café
-    sv = Kaffe
-    sk = Káva
-    pt = Café
-    ro = Cafea
-    pl = Kawa
-    ko = 커피
-    id = Kopi
-    hu = Kávé
-    de = Café
-    fr = Café
-    nl = Koffie
-    fi = Kahvi
-    da = Kaffe
-    cs = Káva
-    it = Caffè
-    nb = Kaffe
-    zh-Hant = 咖啡
-    zh-Hans = 咖啡
-    vi = Cà phê
-    th = กาแฟ
-    ja = コーヒー
-    el = Καφές
-    ar = قهوة
-    he = קפה
 
   [hotdog]
     tags = android, ios

@@ -200,6 +200,8 @@ string MetadataTagProcessorImpl::ValidateAndFormat_cuisine(string v) const
       normalized = "donut";
     if (normalized == "steak")
       normalized = "steak_house";
+    if (normalized == "coffee")
+      normalized = "coffee_shop";
     collector(normalized);
     ++iter;
   }
