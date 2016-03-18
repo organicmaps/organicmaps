@@ -21,10 +21,6 @@ public:
   void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
   void SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double visualScale);
 
-  void SaveState();
-  /// @return false if can't load previously saved values
-  bool LoadState();
-
   void OnSize(int w, int h);
 
   ScreenBase const & Screen() const { return m_Screen; }

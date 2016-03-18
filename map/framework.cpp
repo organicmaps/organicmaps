@@ -1404,6 +1404,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 #endif
 
   Allow3dMode(allow3d, allow3dBuildings);
+  LoadViewport();
 
   // In case of the engine reinitialization recover route.
   if (m_routingSession.IsActive())
@@ -1415,8 +1416,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   if (m_connectToGpsTrack)
     GpsTracker::Instance().Connect(bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
-
-  LoadViewport();
 
   // In case of the engine reinitialization simulate the last tap to show selection mark.
   if (m_lastTapEvent)

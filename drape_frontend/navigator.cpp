@@ -86,25 +86,6 @@ void Navigator::CenterViewport(m2::PointD const & p)
     m_StartScreen.SetOrg(pt);
 }
 
-void Navigator::SaveState()
-{
-  settings::Set("ScreenClipRect", m_Screen.GlobalRect());
-}
-
-bool Navigator::LoadState()
-{
-  m2::AnyRectD rect;
-  if (!settings::Get("ScreenClipRect", rect))
-    return false;
-
-  // additional check for valid rect
-  if (!df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
-    return false;
-
-  SetFromRect(rect);
-  return true;
-}
-
 void Navigator::OnSize(int w, int h)
 {
   m2::RectD const & worldR = df::GetWorldRect();
