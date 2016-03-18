@@ -61304,7 +61304,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61320,7 +61320,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61336,7 +61336,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61352,7 +61352,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61368,7 +61368,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61504,7 +61504,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61520,7 +61520,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61536,7 +61536,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61552,7 +61552,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61568,7 +61568,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61587,7 +61587,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61603,7 +61603,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61619,7 +61619,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61635,7 +61635,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61651,7 +61651,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61670,7 +61670,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61686,7 +61686,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61702,7 +61702,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61718,7 +61718,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61734,7 +61734,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61753,7 +61753,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61769,7 +61769,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61785,7 +61785,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61801,7 +61801,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61817,7 +61817,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61836,7 +61836,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61852,7 +61852,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61868,7 +61868,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61884,7 +61884,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61900,7 +61900,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61919,7 +61919,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61935,7 +61935,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -61951,7 +61951,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61967,7 +61967,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -61983,7 +61983,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62002,7 +62002,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62018,7 +62018,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62034,7 +62034,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62050,7 +62050,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62066,7 +62066,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62085,7 +62085,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62101,7 +62101,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62117,7 +62117,7 @@ cont {
     symbol {
       name: "car-repair-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62133,7 +62133,7 @@ cont {
     symbol {
       name: "car-repair-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62149,7 +62149,7 @@ cont {
     symbol {
       name: "car-repair-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62168,7 +62168,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62184,7 +62184,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62200,7 +62200,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62216,7 +62216,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62232,7 +62232,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62251,7 +62251,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62267,7 +62267,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62283,7 +62283,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62299,7 +62299,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62315,7 +62315,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62334,7 +62334,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62350,7 +62350,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62366,7 +62366,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62382,7 +62382,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62398,7 +62398,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62417,7 +62417,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62433,7 +62433,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62449,7 +62449,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62465,7 +62465,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62481,7 +62481,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62500,7 +62500,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62516,7 +62516,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62532,7 +62532,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62548,7 +62548,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62564,7 +62564,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62583,7 +62583,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62599,7 +62599,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62615,7 +62615,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62631,7 +62631,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62647,7 +62647,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62666,7 +62666,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62682,7 +62682,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62698,7 +62698,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62714,7 +62714,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62730,7 +62730,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62749,7 +62749,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62765,7 +62765,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62781,7 +62781,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62797,7 +62797,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62813,7 +62813,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62832,7 +62832,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62848,7 +62848,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62864,7 +62864,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62880,7 +62880,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62896,7 +62896,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62915,7 +62915,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62931,7 +62931,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -62947,7 +62947,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62963,7 +62963,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62979,7 +62979,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -62998,7 +62998,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63014,7 +63014,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63030,7 +63030,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63046,7 +63046,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63062,7 +63062,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63081,7 +63081,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63097,7 +63097,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63113,7 +63113,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63129,7 +63129,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63145,7 +63145,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63164,7 +63164,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63180,7 +63180,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63196,7 +63196,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63212,7 +63212,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63228,7 +63228,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63247,7 +63247,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63263,7 +63263,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63279,7 +63279,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63295,7 +63295,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63311,7 +63311,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63330,7 +63330,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63346,7 +63346,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63362,7 +63362,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63378,7 +63378,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63394,7 +63394,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63413,7 +63413,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63429,7 +63429,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63445,7 +63445,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63461,7 +63461,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63477,7 +63477,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63496,7 +63496,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63512,7 +63512,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63528,7 +63528,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63544,7 +63544,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63560,7 +63560,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63611,7 +63611,7 @@ cont {
     symbol {
       name: "laundry-l"
       priority: 16972
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63627,7 +63627,7 @@ cont {
     symbol {
       name: "laundry-l"
       priority: 16972
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63643,7 +63643,7 @@ cont {
     symbol {
       name: "laundry-l"
       priority: 16972
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63663,7 +63663,7 @@ cont {
       name: "shop-s"
       apply_for_type: 1
       priority: 16864
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63680,7 +63680,7 @@ cont {
       name: "shop-s"
       apply_for_type: 1
       priority: 16864
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63696,7 +63696,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16864
-      min_distance: 15
+      min_distance: 0
     }
     caption {
       primary {
@@ -63712,7 +63712,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16864
-      min_distance: 15
+      min_distance: 0
     }
     caption {
       primary {
@@ -63728,7 +63728,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16864
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63744,7 +63744,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16864
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63760,7 +63760,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16864
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63779,7 +63779,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63795,7 +63795,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63811,7 +63811,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63827,7 +63827,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63843,7 +63843,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63862,7 +63862,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63878,7 +63878,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63894,7 +63894,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63910,7 +63910,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63926,7 +63926,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63945,7 +63945,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63961,7 +63961,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -63977,7 +63977,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -63993,7 +63993,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -64009,7 +64009,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -64028,7 +64028,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -64044,7 +64044,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -64060,7 +64060,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -64076,7 +64076,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -64092,7 +64092,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -64112,7 +64112,7 @@ cont {
       name: "grocery-s"
       apply_for_type: 1
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -64129,7 +64129,7 @@ cont {
       name: "grocery-s"
       apply_for_type: 1
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -64145,7 +64145,7 @@ cont {
     symbol {
       name: "grocery-m"
       priority: 16851
-      min_distance: 15
+      min_distance: 0
     }
     caption {
       primary {
@@ -64161,7 +64161,7 @@ cont {
     symbol {
       name: "grocery-m"
       priority: 16851
-      min_distance: 15
+      min_distance: 0
     }
     caption {
       primary {
@@ -64177,7 +64177,7 @@ cont {
     symbol {
       name: "grocery-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -64193,7 +64193,7 @@ cont {
     symbol {
       name: "grocery-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -64209,7 +64209,7 @@ cont {
     symbol {
       name: "grocery-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -64228,7 +64228,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -64244,7 +64244,7 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16851
-      min_distance: 20
+      min_distance: 0
     }
     caption {
       primary {
@@ -64260,7 +64260,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -64276,7 +64276,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
@@ -64292,7 +64292,7 @@ cont {
     symbol {
       name: "shop-l"
       priority: 16851
-      min_distance: 10
+      min_distance: 0
     }
     caption {
       primary {
