@@ -38,28 +38,46 @@ def normalize_data(data):
     data['Relevance'] = data['Relevance'].apply(lambda r: RELEVANCES[r])
 
 
-def compute_ndcg(scores):
+def compute_ndcg(relevances):
     """
     Computes NDCG (Normalized Discounted Cumulative Gain) for a given
     array of scores.
     """
 
-    scores_summary = collections.defaultdict(int)
+    relevances_summary = collections.defaultdict(int)
 
     dcg = 0
-    for i, score in enumerate(scores):
-        dcg += score / log(2 + i, 2)
-        scores_summary[score] += 1
+    for i, relevance in enumerate(relevances):
+        dcg += relevance / log(2 + i, 2)
+        relevances_summary[relevance] += 1
 
     dcg_norm, i = 0, 0
-    for score in sorted(scores_summary.keys(), reverse=True):
-        for _ in range(scores_summary[score]):
-            dcg_norm += score / log(2 + i, 2)
+    for relevance in sorted(relevances_summary.keys(), reverse=True):
+        for _ in range(relevances_summary[relevance]):
+            dcg_norm += relevance / log(2 + i, 2)
             i += 1
 
     if dcg_norm == 0:
         return 0
     return dcg / dcg_norm
+
+
+def compute_ndcg_without_w(data):
+    """
+    Computes NDCG (Normalized Discounted Cumulative Gain) for a given
+    data. Returns an array of ndcg scores in the shape [num groups of
+    features].
+    """
+
+    grouped = data.groupby(data['SampleId'], sort=False).groups
+
+    ndcgs = []
+    for id in grouped:
+        indices = grouped[id]
+        relevances = np.array(data.ix[indices]['Relevance'])
+        ndcgs.append(compute_ndcg(relevances))
+
+    return np.array(ndcgs)
 
 
 def compute_ndcg_for_w(data, w):
@@ -120,6 +138,11 @@ def transform_data(data):
 def main(args):
     data = pd.read_csv(sys.stdin)
     normalize_data(data)
+
+    ndcg = compute_ndcg_without_w(data);
+    print('Current NDCG: {}, std: {}'.format(np.mean(ndcg), np.std(ndcg)))
+    print()
+
     x, y = transform_data(data)
 
     clf = svm.LinearSVC(random_state=args.seed)

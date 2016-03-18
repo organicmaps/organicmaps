@@ -41,10 +41,17 @@ exec /usr/local/bin/sbcl --noinform --quit --load $0 --end-toplevel-options "$@"
                        (maxx :initarg :maxx)
                        (maxy :initarg :maxy)))
 
+(defun position-x-y (x y)
+  (assert (and (>= x *minx*) (<= x *maxx*)))
+  (assert (and (>= y *miny*) (<= y *maxy*)))
+  (make-instance 'pos :x x :y y))
+
 (defun position-lat-lon (lat lon)
-  (make-instance 'pos :x (lon-to-x lon) :y (lat-to-y lat)))
+  (position-x-y (lon-to-x lon) (lat-to-y lat)))
 
 (defun viewport (&key minx miny maxx maxy)
+  (assert (<= minx maxx))
+  (assert (<= miny maxy))
   (make-instance 'viewport :minx minx :maxx maxx :miny miny :maxy maxy))
 
 (defclass result ()

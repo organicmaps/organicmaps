@@ -11,11 +11,11 @@ namespace
 {
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
-double const kDistanceToPivot = 13.531;
-double const kRank = 16.295;
-double const kNameScore = 1.0;
+double const kDistanceToPivot = 24.443;
+double const kRank = 11.010;
+double const kNameScore = 1.0
 double const kNameCoverage = 0.0;
-double const kSearchType = 10.692;
+double const kSearchType = 22.378;
 
 double TransformDistance(double distance)
 {
