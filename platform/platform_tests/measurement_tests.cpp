@@ -120,11 +120,12 @@ UNIT_TEST(OSMDistanceToMetersString)
   TEST_EQUAL(OSMDistanceToMetersString("8-15"), "15", ());
   TEST_EQUAL(OSMDistanceToMetersString("8-15 ft"), "4.57", ());
   TEST_EQUAL(OSMDistanceToMetersString("8-й километр"), "8", ());
-  TEST_EQUAL(OSMDistanceToMetersString("8;9;10"), "10", ());
-  TEST_EQUAL(OSMDistanceToMetersString("8;9;10 meters"), "10", ());
-  TEST_EQUAL(OSMDistanceToMetersString("8;9;10 km"), "10000", ());
-  TEST_EQUAL(OSMDistanceToMetersString("10;20!111"), "20", ());
-  TEST_EQUAL(OSMDistanceToMetersString("10;20\""), "20", ());
+  // Do not support lists for distance values.
+  TEST_EQUAL(OSMDistanceToMetersString("8;9;10"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("8;9;10 meters"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("8;9;10 km"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("10;20!111"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("10;20\""), "", ());
   TEST_EQUAL(OSMDistanceToMetersString("-100.3"), "-100.3", ());
   TEST_EQUAL(OSMDistanceToMetersString("99.0000000"), "99", ());
   TEST_EQUAL(OSMDistanceToMetersString("8900.000023"), "8900", ());

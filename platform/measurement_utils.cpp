@@ -235,18 +235,8 @@ bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
     }
     break;
 
-  // It's probably a list. Use maximum value (if possible) for a list.
-  case ';':
-    do
-    {
-      s = stop + 1;
-      double const newValue = strtod(s, &stop);
-      if (s == stop)
-        break;
-      if (isfinite(newValue))
-        outMeters = newValue;
-    } while (*stop && *stop == ';');
-    break;
+  // It's probably a list. We don't support them.
+  case ';': return false;
   }
 
   while (*stop && isspace(*stop))
