@@ -683,6 +683,7 @@
 		F61B0F2C1B8B82DB00C08258 /* MWMNextTurnPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = F61B0F2B1B8B82DB00C08258 /* MWMNextTurnPanel.mm */; };
 		F623DA6B1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
 		F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
+		F623DA6F1C9C2E62006A3436 /* MWMAddPlaceNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F653CE171C71F62400A453F1 /* MWMAddPlaceNavigationBar.xib */; };
 		F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.mm */; };
 		F626D52E1C3E6CAA00C17D15 /* MWMTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */; };
 		F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */; };
@@ -3333,6 +3334,7 @@
 				676507601C10559800830BB3 /* patterns.txt in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
 				3401CD801C3CF1BE0028C6F8 /* MWMEditorSwitchTableViewCell.xib in Resources */,
+				F623DA6F1C9C2E62006A3436 /* MWMAddPlaceNavigationBar.xib in Resources */,
 				6741A9441BF340DE002C974C /* PlacePageBookmarkCell.xib in Resources */,
 				6741A9451BF340DE002C974C /* classificator.txt in Resources */,
 				845C892F1C8981CE00940D7F /* HockeySDKResources.bundle in Resources */,

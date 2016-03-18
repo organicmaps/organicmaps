@@ -14,11 +14,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZKD-Be-eMp">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zs9-MX-bIe">
-                            <rect key="frame" x="257" y="32" width="55" height="20"/>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zs9-MX-bIe">
+                            <rect key="frame" x="258" y="32" width="54" height="19"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="20" id="5ZY-Ah-xdi"/>
-                                <constraint firstAttribute="width" constant="55" id="T3C-lx-KwX"/>
+                                <constraint firstAttribute="height" constant="19" id="psK-YU-lUF"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Готово"/>
@@ -32,10 +31,11 @@
                                 <action selector="doneTap" destination="BJ6-My-yAy" eventType="touchUpInside" id="hS1-Tz-6Zo"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выбрать местоположение" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8So-22-JS1">
-                            <rect key="frame" x="32" y="32" width="223" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Местоположение" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8So-22-JS1">
+                            <rect key="frame" x="90" y="32" width="140" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="20" id="YIw-wg-dee"/>
+                                <constraint firstAttribute="height" constant="20" id="JFT-iW-rJY"/>
+                                <constraint firstAttribute="height" constant="20" id="mun-d1-wdT"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,29 +46,33 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="editor_add_select_location"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JDK-CR-ehC">
-                            <rect key="frame" x="2" y="28" width="28" height="28"/>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="boX-sU-7DW">
+                            <rect key="frame" x="8" y="32" width="62" height="19"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="28" id="FEU-Fc-K93"/>
-                                <constraint firstAttribute="width" constant="28" id="zT4-W7-mde"/>
+                                <constraint firstAttribute="height" constant="19" id="KDz-RG-UH2"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <state key="normal" image="ic_nav_bar_back"/>
+                            <state key="normal" title="Отмена"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whitePrimaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="whitePrimaryTextHighlighted"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cancel"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="cancelTap" destination="BJ6-My-yAy" eventType="touchUpInside" id="ULD-1v-ErN"/>
+                                <action selector="cancelTap" destination="BJ6-My-yAy" eventType="touchUpInside" id="f2O-El-juu"/>
                             </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="64" id="5VI-KR-aXh"/>
-                        <constraint firstItem="8So-22-JS1" firstAttribute="leading" secondItem="JDK-CR-ehC" secondAttribute="trailing" constant="2" id="FU3-IK-Eou"/>
-                        <constraint firstItem="JDK-CR-ehC" firstAttribute="centerY" secondItem="zs9-MX-bIe" secondAttribute="centerY" id="KF0-wh-GNc"/>
-                        <constraint firstAttribute="trailing" secondItem="zs9-MX-bIe" secondAttribute="trailing" constant="8" id="Wm6-yC-AVX"/>
-                        <constraint firstItem="zs9-MX-bIe" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="32" id="bjp-Vk-nL5"/>
-                        <constraint firstItem="8So-22-JS1" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="32" id="bmn-uD-3NR"/>
-                        <constraint firstItem="JDK-CR-ehC" firstAttribute="leading" secondItem="ZKD-Be-eMp" secondAttribute="leading" constant="2" id="f59-MA-ew3"/>
-                        <constraint firstItem="zs9-MX-bIe" firstAttribute="leading" secondItem="8So-22-JS1" secondAttribute="trailing" constant="2" id="lpz-Ah-q1j"/>
+                        <constraint firstItem="zs9-MX-bIe" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="32" id="BNr-Gr-o3j"/>
+                        <constraint firstItem="8So-22-JS1" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="32" id="CCm-fM-FcD"/>
+                        <constraint firstItem="boX-sU-7DW" firstAttribute="top" secondItem="ZKD-Be-eMp" secondAttribute="top" constant="32" id="Ofu-8n-bBo"/>
+                        <constraint firstItem="boX-sU-7DW" firstAttribute="leading" secondItem="ZKD-Be-eMp" secondAttribute="leading" constant="8" id="Sbg-dn-iro"/>
+                        <constraint firstAttribute="trailing" secondItem="zs9-MX-bIe" secondAttribute="trailing" constant="8" id="jiJ-gk-0bx"/>
+                        <constraint firstItem="8So-22-JS1" firstAttribute="centerX" secondItem="ZKD-Be-eMp" secondAttribute="centerX" id="m6T-st-PPz"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="primary"/>
@@ -116,7 +120,4 @@
             <point key="canvasLocation" x="319" y="296"/>
         </view>
     </objects>
-    <resources>
-        <image name="ic_nav_bar_back" width="14" height="22"/>
-    </resources>
 </document>
