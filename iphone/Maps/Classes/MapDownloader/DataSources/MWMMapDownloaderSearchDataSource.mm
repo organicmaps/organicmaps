@@ -10,7 +10,7 @@ extern NSString * const kPlaceCellIdentifier;
 
 @interface MWMMapDownloaderSearchDataSource ()
 
-@property (copy, nonatomic) NSArray<NSString *> * searchCoutryIds;
+@property (copy, nonatomic) NSArray<NSString *> * searchCountryIds;
 @property (copy, nonatomic) NSDictionary<NSString *, NSString *> * searchMatchedResults;
 
 @end
@@ -23,7 +23,7 @@ extern NSString * const kPlaceCellIdentifier;
   if (self)
   {
     auto const & countryInfoGetter = GetFramework().CountryInfoGetter();
-    NSMutableOrderedSet<NSString *> * nsSearchCoutryIds = [NSMutableOrderedSet orderedSetWithCapacity:results.GetCount()];
+    NSMutableOrderedSet<NSString *> * nsSearchCountryIds = [NSMutableOrderedSet orderedSetWithCapacity:results.GetCount()];
     NSMutableDictionary<NSString *, NSString *> * nsSearchResults = [@{} mutableCopy];
     for (auto it = results.Begin(); it != results.End(); ++it)
     {
@@ -34,10 +34,10 @@ extern NSString * const kPlaceCellIdentifier;
       if (countryId == kInvalidCountryId)
         continue;
       NSString * nsCountryId = @(countryId.c_str());
-      [nsSearchCoutryIds addObject:nsCountryId];
+      [nsSearchCountryIds addObject:nsCountryId];
       nsSearchResults[nsCountryId] = @(it->GetString().c_str());
     }
-    self.searchCoutryIds = [nsSearchCoutryIds array];
+    self.searchCountryIds = [nsSearchCountryIds array];
     self.searchMatchedResults = nsSearchResults;
   }
   return self;
@@ -47,7 +47,7 @@ extern NSString * const kPlaceCellIdentifier;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return self.searchCoutryIds.count;
+  return self.searchCountryIds.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -64,7 +64,7 @@ extern NSString * const kPlaceCellIdentifier;
 
 - (TCountryId)countryIdForIndexPath:(NSIndexPath *)indexPath
 {
-  return self.searchCoutryIds[indexPath.row].UTF8String;
+  return self.searchCountryIds[indexPath.row].UTF8String;
 }
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath

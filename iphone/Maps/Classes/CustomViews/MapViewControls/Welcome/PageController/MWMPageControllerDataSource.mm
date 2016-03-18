@@ -4,7 +4,7 @@
 @interface MWMPageControllerDataSource ()
 
 @property (nonatomic) Class<MWMWelcomeControllerProtocol> welcomeClass;
-@property (nonatomic) NSArray<MWMWelcomeController *> * controllers;
+@property (copy, nonatomic) NSArray<MWMWelcomeController *> * controllers;
 
 @end
 
@@ -24,7 +24,7 @@
       vc.pageController = pageController;
       [controllers addObject:vc];
     }
-    self.controllers = [controllers copy];
+    self.controllers = controllers;
   }
   return self;
 }
