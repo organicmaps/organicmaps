@@ -27,6 +27,7 @@ struct PoiSymbolViewParams : CommonViewParams
   string m_symbolName;
   uint32_t m_extendingSize;
   float m_posZ = 0.0f;
+  bool m_hasArea = false;
 };
 
 struct CircleViewParams : CommonViewParams
@@ -36,6 +37,7 @@ struct CircleViewParams : CommonViewParams
   FeatureID m_id;
   dp::Color m_color;
   float m_radius = 0.0f;
+  bool m_hasArea = false;
 };
 
 struct AreaViewParams : CommonViewParams
@@ -68,6 +70,7 @@ struct TextViewParams : CommonViewParams
   m2::PointF m_primaryOffset;
   bool m_primaryOptional = false;
   bool m_secondaryOptional = false;
+  bool m_hasArea = false;
   uint32_t m_extendingSize = 0;
   float m_posZ = 0.0f;
 };

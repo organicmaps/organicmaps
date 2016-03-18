@@ -195,7 +195,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
     m2::PointD const featureCenter = feature::GetCenter(f, zoomLevel);
     if (s.PointStyleExists() && m_globalRect.IsPointInside(featureCenter))
-      apply(featureCenter);
+      apply(featureCenter, true /* hasArea */);
 
     if (CheckCancelled())
       return;
@@ -222,7 +222,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   {
     ASSERT(s.PointStyleExists(), ());
     ApplyPointFeature apply(insertShape, f.GetID(), minVisibleScale, f.GetRank(), s.GetCaptionDescription(), 0.0f /* posZ */);
-    f.ForEachPoint(apply, zoomLevel);
+    f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
 
     if (CheckCancelled())
       return;

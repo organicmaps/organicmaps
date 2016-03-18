@@ -57,7 +57,7 @@ public:
                     int minVisibleScale, uint8_t rank, CaptionDescription const & captions,
                     float posZ);
 
-  void operator()(m2::PointD const & point);
+  void operator()(m2::PointD const & point, bool hasArea);
   void ProcessRule(Stylist::TRuleWrapper const & rule);
   void Finish();
 
@@ -66,6 +66,7 @@ protected:
 
 private:
   bool m_hasPoint;
+  bool m_hasArea;
   double m_symbolDepth;
   double m_circleDepth;
   SymbolRuleProto const * m_symbolRule;
