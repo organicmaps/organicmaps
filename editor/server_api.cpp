@@ -106,7 +106,7 @@ void ServerApi06::CloseChangeSet(uint64_t changesetId) const
 uint64_t ServerApi06::CreateNote(ms::LatLon const & ll, string const & message) const
 {
   CHECK(!message.empty(), ("Note content should not be empty."));
-  string const params = "?lat=" + strings::to_string_dac(ll.lat, 7) + "&lon=" + strings::to_string_dac(ll.lon, 7) + "&text=" + UrlEncode(message);
+  string const params = "?lat=" + strings::to_string_dac(ll.lat, 7) + "&lon=" + strings::to_string_dac(ll.lon, 7) + "&text=" + UrlEncode(message + " #mapsme");
   OsmOAuth::Response const response = m_auth.Request("/notes" + params, "POST");
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(ErrorAddingNote, ("Could not post a new note:", response));
