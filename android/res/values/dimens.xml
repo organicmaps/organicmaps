@@ -46,6 +46,8 @@
   <dimen name="button_width">240dp</dimen>
   <dimen name="placeholder_size">200dp</dimen>
 
+  <dimen name="width_dialog_base">300dp</dimen>
+
   <!-- direction fragment -->
   <dimen name="margin_direction_small">8dp</dimen>
   <dimen name="margin_direction_big">20dp</dimen>

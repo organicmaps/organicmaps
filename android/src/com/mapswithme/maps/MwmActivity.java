@@ -43,6 +43,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.MigrationFragment;
 import com.mapswithme.maps.downloader.OnmapDownloader;
 import com.mapswithme.maps.editor.AuthFragment;
+import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
@@ -894,7 +895,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
         });
       }
       if (!isFirstStart && !NewsFragment.showOn(this))
-        LikesManager.INSTANCE.showDialogs(this);
+      {
+        if (ViralFragment.shouldDisplay())
+          new ViralFragment().show(getSupportFragmentManager(), "");
+        else
+          LikesManager.INSTANCE.showDialogs(this);
+      }
     }
 
     RoutingController.get().restore();

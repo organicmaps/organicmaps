@@ -1,7 +1,7 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
-  android:minWidth="300dp"
+  android:minWidth="@dimen/width_dialog_base"
   android:layout_height="wrap_content"
   android:orientation="vertical"
   android:padding="@dimen/margin_base_plus">
