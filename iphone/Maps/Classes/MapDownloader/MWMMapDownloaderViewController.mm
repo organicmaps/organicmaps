@@ -138,16 +138,10 @@ using namespace storage;
     __strong auto self = weakSelf;
     if (!self || results.IsEndMarker())
       return;
-    MWMMapDownloaderDataSource * dataSource = self.defaultDataSource;
-    if (results.GetCount() != 0)
+    self.searchDataSource = [[MWMMapDownloaderSearchDataSource alloc] initWithSearchResults:results delegate:self];
+    dispatch_async(dispatch_get_main_queue(), ^
     {
-      self.searchDataSource = [[MWMMapDownloaderSearchDataSource alloc] initWithSearchResults:results delegate:self];
-      if (self.searchDataSource)
-        dataSource = self.searchDataSource;
-    }
-    dispatch_async(dispatch_get_main_queue(), ^()
-    {
-      self.dataSource = dataSource;
+      self.dataSource = self.searchDataSource;
       [self reloadTable];
     });
   };

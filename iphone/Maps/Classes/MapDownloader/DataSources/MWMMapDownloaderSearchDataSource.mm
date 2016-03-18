@@ -37,8 +37,6 @@ extern NSString * const kPlaceCellIdentifier;
       [nsSearchCoutryIds addObject:nsCountryId];
       nsSearchResults[nsCountryId] = @(it->GetString().c_str());
     }
-    if (nsSearchCoutryIds.count == 0)
-      return nil;
     self.searchCoutryIds = [nsSearchCoutryIds array];
     self.searchMatchedResults = nsSearchResults;
   }
