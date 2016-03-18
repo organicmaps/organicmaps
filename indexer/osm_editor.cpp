@@ -537,11 +537,6 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
     LOG(LDEBUG, ("There are no local edits to upload."));
     return;
   }
-  {
-    auto const stats = GetStats();
-    tags["total_edits"] = strings::to_string(stats.m_edits.size());
-    tags["uploaded_edits"] = strings::to_string(stats.m_uploadedCount);
-  }
   // TODO(AlexZ): features access should be synchronized.
   auto const upload = [this](string key, string secret, TChangesetTags tags, TFinishUploadCallback callBack)
   {
