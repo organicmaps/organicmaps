@@ -697,12 +697,26 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches, double timestam
       isMapTouch = false;
     break;
   case STATE_DRAG:
-    ASSERT_EQUAL(touchCount, 1, ());
-    Drag(touches[0], timestamp);
+    if (touchCount > 1)
+    {
+      ASSERT_EQUAL(GetValidTouchesCount(m_touches), 1, ());
+      EndDrag(m_touches[0], true /* cancelled */);
+    }
+    else
+    {
+      Drag(touches[0], timestamp);
+    }
     break;
   case STATE_SCALE:
-    ASSERT_EQUAL(touchCount, 2, ());
-    Scale(touches[0], touches[1]);
+    if (touchCount < 2)
+    {
+      ASSERT_EQUAL(GetValidTouchesCount(m_touches), 2, ());
+      EndScale(m_touches[0], m_touches[1]);
+    }
+    else
+    {
+      Scale(touches[0], touches[1]);
+    }
     break;
   default:
     ASSERT(false, ());
