@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.mapswithme.maps.R;
@@ -117,7 +118,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
       showBottom = (info != null && info.filesCount > 0);
 
       if (showBottom)
-        mPanelText.setText(getString(R.string.downloader_status_maps, String.valueOf(info.filesCount) + " (" + StringUtils.getFileSizeString(info.totalSize) + ")"));
+        mPanelText.setText(String.format(Locale.US, "%s: %d (%s)", getString(R.string.downloader_status_maps), info.filesCount, StringUtils.getFileSizeString(info.totalSize)));
     }
 
     UiUtils.showIf(showBottom, mBottomPanel);
@@ -167,9 +168,16 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     mBottomPanel = view.findViewById(R.id.bottom_panel);
     mPanelAction = (Button) mBottomPanel.findViewById(R.id.btn__action);
     mPanelText = (TextView) mBottomPanel.findViewById(R.id.tv__text);
-    UiUtils.updateButton(mPanelAction);
-
     mToolbarController = new DownloaderToolbarController(view, getActivity(), this);
+
+    mPanelAction.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        MapManager.nativeUpdate(mAdapter.getCurrentParent());
+      }
+    });
 
     update();
   }

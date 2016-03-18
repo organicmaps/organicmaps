@@ -62,6 +62,11 @@ void PrepareClassRefs(JNIEnv * env)
   g_countryItemClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/CountryItem");
 }
 
+static TCountryId const GetRootId(JNIEnv * env, jstring root)
+{
+  return (root ? jni::ToNativeString(env, root) : GetStorage().GetRootId());
+}
+
 }  // namespace
 
 extern "C"
@@ -183,8 +188,7 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeGetUpdateInfo(JNIEnv * env, jclass clazz, jstring root)
 {
   Storage::UpdateInfo info;
-  TCountryId const rootId = (root ? jni::ToNativeString(env, root) : GetStorage().GetRootId());
-  if (!GetStorage().GetUpdateInfo(rootId, info))
+  if (!GetStorage().GetUpdateInfo(GetRootId(env, root), info))
     return nullptr;
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/UpdateInfo");
@@ -291,7 +295,6 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   PrepareClassRefs(env);
 
   Storage const & storage = GetStorage();
-  TCountryId const parentId = (parent ? jni::ToNativeString(env, parent) : storage.GetRootId());
   static jfieldID const countryItemFieldParentId = env->GetFieldID(g_countryItemClass, "parentId", "Ljava/lang/String;");
 
   if (hasLocation)
@@ -305,7 +308,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeListItems(JNIEnv * env, jcl
   }
 
   TCountriesVec downloaded, available;
-  storage.GetChildrenInGroups(parentId, downloaded, available);
+  storage.GetChildrenInGroups(GetRootId(env, parent), downloaded, available);
 
   PutItemsToList(env, result, downloaded, ItemCategory::DOWNLOADED, nullptr);
   PutItemsToList(env, result, available, ItemCategory::AVAILABLE, nullptr);
@@ -424,7 +427,7 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeUpdate(JNIEnv * env, jclass clazz, jstring root)
 {
   StartBatchingCallbacks();
-  GetStorage().UpdateNode(jni::ToNativeString(env, root));
+  GetStorage().UpdateNode(GetRootId(env, root));
   EndBatchingCallbacks(env);
 }
 
@@ -433,7 +436,7 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeCancel(JNIEnv * env, jclass clazz, jstring root)
 {
   StartBatchingCallbacks();
-  GetStorage().CancelDownloadNode(jni::ToNativeString(env, root));
+  GetStorage().CancelDownloadNode(GetRootId(env, root));
   EndBatchingCallbacks(env);
 }
 
