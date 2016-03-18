@@ -37,6 +37,7 @@
     <item name="ppBackground">@color/bg_cards</item>
     <item name="ppButtonsBackground">?panel</item>
     <item name="ppPreviewHead">@drawable/bg_place_page_back</item>
+    <item name="ppArrowDrawable">@drawable/direction</item>
 
     <item name="routingSlot">@drawable/routing_slot_background</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed</item>
@@ -71,7 +72,7 @@
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
     <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+    <item name="android:fontFamily"tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="clickableBackground">?selectableItemBackground</item>
 
@@ -96,6 +97,7 @@
     <item name="ppBackground">@color/bg_cards_night</item>
     <item name="ppButtonsBackground">@color/bg_window_night</item>
     <item name="ppPreviewHead">@drawable/bg_place_page_back_night</item>
+    <item name="ppArrowDrawable">@drawable/direction_night</item>
 
     <item name="routingSlot">@drawable/routing_slot_background_night</item>
     <item name="routingSlotPressed">@drawable/routing_slot_background_pressed_night</item>
