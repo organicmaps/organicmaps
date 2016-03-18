@@ -15178,6 +15178,22 @@
     en = Location
     ru = Местоположение
 
+  [editor_done_dialog_1]
+    en = You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.
+    ru = Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.
+
+  [editor_done_dialog_2]
+    en = You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.
+    ru = Вы улучшили карту уже 2 раза. Вы теперь %d в рейтинге редакторов карты. Расскажите друзьям.
+
+  [editor_done_dialog_3]
+    en = You have improved the map. Tell your friends about it and edit the map together.
+    ru = Вы улучшили карту, расскажите об этом друзьям и редактируйте карту вместе.
+
+  [share_with_friends]
+    en = Share with friends
+    ru = Поделиться с друзьями
+
   [editor_report_problem_desription_1]
     en = Please describe the problem in detail so that the OpenStreeMap community can fix the error.
     ru = Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.
