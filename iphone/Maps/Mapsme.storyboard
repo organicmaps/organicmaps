@@ -361,7 +361,7 @@
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="update_maps_title"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="whatsnew_smallmwm_header"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мы поделили большие карты на маленькие части. Обновите данные и загружайте карту только нужного района." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="400" translatesAutoresizingMaskIntoConstraints="NO" id="SQw-ef-jPg" userLabel="Text">
@@ -372,7 +372,7 @@
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="update_maps_text"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="whatsnew_smallmwm_message"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>

@@ -237,8 +237,8 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"Downloader No Connection Alert";
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"downloader_error"
-                                                message:@"downloader_no_internet_connection"
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"downloader_status_failed"
+                                                message:@"common_check_internet_connection_dialog"
                                        rightButtonTitle:@"downloader_retry"
                                         leftButtonTitle:@"cancel"
                                       rightButtonAction:okBlock];
