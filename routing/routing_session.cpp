@@ -419,7 +419,10 @@ bool RoutingSession::DisableFollowMode()
 bool RoutingSession::EnableFollowMode()
 {
   if (m_state == RouteNotStarted || m_state == OnRoute)
+  {
+    m_state = OnRoute;
     m_isFollowing = true;
+  }
   return m_isFollowing;
 }
 
