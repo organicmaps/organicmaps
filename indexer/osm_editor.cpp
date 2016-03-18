@@ -387,6 +387,8 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   // TODO: What if local client time is absolutely wrong?
   fti.m_modificationTimestamp = time(nullptr);
   fti.m_street = emo.GetStreet();
+  // Reset upload status so already uploaded features can be uploaded again after modification.
+  fti.m_uploadStatus = {};
   m_features[fid.m_mwmId][fid.m_index] = move(fti);
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
