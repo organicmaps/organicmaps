@@ -122,8 +122,8 @@ void LocalityFinder::UpdateCache(Cache & cache, m2::PointD const & pt) const
   for (auto const & info : mwmsInfo)
   {
     Index::MwmHandle handle = m_pIndex->GetMwmHandleById(info);
-    MwmValue const * pMwm = handle.GetValue<MwmValue>();
-    if (pMwm && pMwm->GetHeader().GetType() == feature::DataHeader::world)
+    MwmValue const * value = handle.GetValue<MwmValue>();
+    if (handle.IsAlive() && value->GetHeader().GetType() == feature::DataHeader::world)
     {
       cache.m_rect = rect;
       v2::MwmContext(move(handle)).ForEachFeature(rect, DoLoader(*this, cache));
@@ -134,19 +134,19 @@ void LocalityFinder::UpdateCache(Cache & cache, m2::PointD const & pt) const
 
 void LocalityFinder::GetLocality(m2::PointD const & pt, string & name)
 {
-  Cache * pWorking = nullptr;
+  Cache * working = nullptr;
 
   // Find suitable cache that includes needed point.
   for (auto & cache : m_caches)
   {
     if (cache.m_rect.IsPointInside(pt))
     {
-      pWorking = &cache;
+      working = &cache;
       break;
     }
   }
 
-  if (pWorking == nullptr)
+  if (working == nullptr)
   {
     // Find most unused cache.
     size_t minUsage = numeric_limits<size_t>::max();
@@ -154,17 +154,17 @@ void LocalityFinder::GetLocality(m2::PointD const & pt, string & name)
     {
       if (cache.m_usage < minUsage)
       {
-        pWorking = &cache;
+        working = &cache;
         minUsage = cache.m_usage;
       }
     }
 
-    pWorking->Clear();
+    ASSERT(working, ());
+    working->Clear();
   }
 
-  ASSERT(pWorking, ());
-  UpdateCache(*pWorking, pt);
-  pWorking->GetLocality(pt, name);
+  UpdateCache(*working, pt);
+  working->GetLocality(pt, name);
 }
 
 void LocalityFinder::ClearCache()
