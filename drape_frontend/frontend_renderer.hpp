@@ -282,7 +282,6 @@ private:
   uint64_t m_maxGeneration;
   int m_mergeBucketsCounter = 0;
 
-#ifdef OMIM_OS_ANDROID
   struct FollowRouteData
   {
     FollowRouteData(int preferredZoomLevel,
@@ -302,7 +301,6 @@ private:
   };
 
   unique_ptr<FollowRouteData> m_pendingFollowRoute;
-#endif
 
 #ifdef DEBUG
   bool m_isTeardowned;

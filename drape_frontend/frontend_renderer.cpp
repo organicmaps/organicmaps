@@ -481,14 +481,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
 
       m_myPositionController->ActivateRouting();
-#ifdef OMIM_OS_ANDROID
       if (m_pendingFollowRoute != nullptr)
       {
         FollowRoute(m_pendingFollowRoute->m_preferredZoomLevel, m_pendingFollowRoute->m_preferredZoomLevelIn3d,
                     m_pendingFollowRoute->m_rotationAngle, m_pendingFollowRoute->m_angleFOV);
         m_pendingFollowRoute.reset();
       }
-#endif
       break;
     }
 
@@ -517,8 +515,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FollowRoute:
     {
       ref_ptr<FollowRouteMessage> const msg = message;
-#ifdef OMIM_OS_ANDROID
-      // After night style switching on android and drape engine reinitialization FrontendRenderer
+
+      // After night style switching and drape engine reinitialization FrontendRenderer
       // receive FollowRoute message before FlushRoute message, so we need to postpone its processing.
       if (!m_myPositionController->IsInRouting())
       {
@@ -527,9 +525,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
                                   msg->GetRotationAngle(), msg->GetAngleFOV()));
         break;
       }
-#else
-      ASSERT(m_myPositionController->IsInRouting(), ());
-#endif
+
       FollowRoute(msg->GetPreferredZoomLevel(), msg->GetPreferredZoomLevelIn3d(),
                   msg->GetRotationAngle(), msg->GetAngleFOV());
       break;
