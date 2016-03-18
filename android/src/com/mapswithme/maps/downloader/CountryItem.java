@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
  * Class representing a single item in countries hierarchy.
  * Fields are filled by native code.
  */
-@SuppressWarnings("unused")
 public final class CountryItem implements Comparable<CountryItem>
 {
   // Must correspond to ItemCategory in MapManager.cpp
@@ -47,6 +46,7 @@ public final class CountryItem implements Comparable<CountryItem>
   public int errorCode;
   public boolean present;
 
+  // Percent
   public int progress;
 
   // Internal ID for grouping under headers in the list
@@ -120,6 +120,6 @@ public final class CountryItem implements Comparable<CountryItem>
            ", childCount: " + childCount +
            ", totalChildCount: " + totalChildCount +
            ", progress: " + progress +
-           "}";
+           "% }";
   }
 }

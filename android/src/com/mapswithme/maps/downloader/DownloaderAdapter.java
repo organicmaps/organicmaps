@@ -435,7 +435,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       if (inProgress)
       {
-        mProgress.setProgress(mItem.status == CountryItem.STATUS_PROGRESS ? (int)(mItem.progress * 100L / mItem.totalSize) : 0);
+        mProgress.setProgress(mItem.status == CountryItem.STATUS_PROGRESS ? mItem.progress : 0);
         return;
       }
 

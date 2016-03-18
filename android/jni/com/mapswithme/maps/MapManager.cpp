@@ -252,7 +252,11 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   env->SetBooleanField(item, countryItemFieldPresent, attrs.m_present);
 
   // Progress
-  env->SetIntField(item, countryItemFieldProgress, static_cast<jint>(attrs.m_downloadingProgress.first));
+  int progress = 0;
+  if (attrs.m_downloadingProgress.second)
+    progress = (int)(attrs.m_downloadingProgress.first * 100.0 / attrs.m_downloadingProgress.second);
+
+  env->SetIntField(item, countryItemFieldProgress, progress);
 }
 
 static void PutItemsToList(JNIEnv * env, jobject const list, TCountriesVec const & children, int category,
