@@ -16,6 +16,7 @@ import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
 
 public class EditorHostFragment extends BaseMwmToolbarFragment
                              implements OnBackPressListener, View.OnClickListener
@@ -183,6 +184,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         Editor.nativeSetHouseNumber(editorFragment.getHouseNumber());
         if (Editor.nativeSaveEditedFeature())
         {
+          Statistics.INSTANCE.trackEditorSuccess();
           if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
             Utils.navigateToParent(getActivity());
           else
@@ -190,6 +192,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         }
         else
         {
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ERROR);
           // TODO(yunikkk) set correct error text.
           UiUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
         }

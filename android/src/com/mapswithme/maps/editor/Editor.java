@@ -11,6 +11,7 @@ import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.editor.data.FeatureCategory;
+import com.mapswithme.util.statistics.Statistics;
 
 
 /**
@@ -47,7 +48,7 @@ public final class Editor
   {
     if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized())
       nativeUploadChanges(OsmOAuth.getAuthToken(), OsmOAuth.getAuthSecret(), BuildConfig.VERSION_NAME,
-          BuildConfig.APPLICATION_ID);
+                          BuildConfig.APPLICATION_ID);
   }
 
   public static native boolean nativeIsFeatureEditable();

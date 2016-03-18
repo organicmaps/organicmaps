@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.v7.app.AlertDialog;
@@ -15,9 +16,11 @@ import android.webkit.WebViewClient;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.InputWebView;
+import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.statistics.Statistics;
 
 public class AuthFragment extends BaseAuthFragment implements View.OnClickListener
 {
@@ -40,24 +43,43 @@ public class AuthFragment extends BaseAuthFragment implements View.OnClickListen
   }
 
   @Override
+  protected ToolbarController onCreateToolbarController(@NonNull View root)
+  {
+    return new ToolbarController(root, getActivity())
+    {
+      @Override
+      public void onUpClick()
+      {
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_DECLINED);
+        super.onUpClick();
+      }
+    };
+  }
+
+  @Override
   public void onClick(View v)
   {
     // TODO show/hide spinners
     switch (v.getId())
     {
     case R.id.login_osm:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST);
       loginOsm();
       break;
     case R.id.login_facebook:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST);
       loginWebview(true);
       break;
     case R.id.login_google:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST);
       loginWebview(false);
       break;
     case R.id.lost_password:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST);
       recoverPassword();
       break;
     case R.id.register:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_REG_REQUEST);
       register();
       break;
     }

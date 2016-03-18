@@ -19,6 +19,7 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import ru.mail.android.mytracker.MRMyTracker;
@@ -106,6 +107,18 @@ public enum Statistics
     public static final String ROUTING_SWAP_POINTS = "Routing. Swap points";
     public static final String ROUTING_TOGGLE = "Routing. Toggle";
     public static final String ROUTING_SEARCH_POINT = "Routing. Search point";
+    // editor
+    public static final String EDITOR_START = "Editor_Edit_start";
+    public static final String EDITOR_SUCCESS = "Editor_Edit_success";
+    public static final String EDITOR_ERROR = "Editor_Edit_error";
+    public static final String EDITOR_AUTH_DECLINED = "Editor_Auth_declined_by_user";
+    public static final String EDITOR_AUTH_REQUEST = "Editor_Auth_request";
+    public static final String EDITOR_REG_REQUEST = "Editor_Reg_request";
+    public static final String EDITOR_SYNC_SUCCESS = "Editor_DataSync_success";
+    public static final String EDITOR_SYNC_ERROR = "Editor_DataSync_error";
+    public static final String EDITOR_SHARE_SHOW = "Editor_SecondTimeShare_show";
+    public static final String EDITOR_SHARE_CLICK = "Editor_SecondTimeShare_click";
+    public static final String EDITOR_REPORT = "Editor_Problem_report";
 
     public static class Settings
     {
@@ -155,7 +168,21 @@ public enum Statistics
     public static final String NAME = "Name";
     public static final String ACTION = "action";
     public static final String TYPE = "type";
-
+    public static final String IS_AUTHENTICATED = "is_authenticated";
+    public static final String IS_ONLINE = "is_online";
+    public static final String IS_SUCCESS = "is_success_message";
+    public static final String FEATURE_ID = "feature_id";
+    public static final String MWM_NAME = "mwm_name";
+    public static final String MWM_VERSION = "mwm_version";
+    public static final String ERR_TYPE = "error_type"; // (1 - No space left)
+    public static final String ERR_MSG = "error_message";
+    public static final String ERR_DATA = "err_data";
+    public static final String EDITOR_ERR_MSG = "feature_number";
+    public static final String SERVER_URL = "server_url";
+    public static final String SERVER_PARAMS = "server_params_data";
+    public static final String SERVER_RESPONSE = "server_response_data";
+    public static final String UID = "uid";
+    public static final String SHOWN = "shown";
     private EventParam() {}
   }
 
@@ -304,7 +331,8 @@ public enum Statistics
     else
       trackEvent(EventName.ACTIVE_CONNECTION, params().add(EventParam.CONNECTION_TYPE, "Not connected."));
   }
-  
+
+  // FIXME Call to track map changes to MyTracker to correctly deal with preinstalls.
   public void trackMapChanged(String event)
   {
     if (mEnabled)
@@ -319,6 +347,21 @@ public enum Statistics
   {
     trackEvent(EventName.ROUTING_BUILD, params().add(EventParam.FROM, from)
                                                 .add(EventParam.TO, to));
+  }
+
+  public void trackEditorLaunch()
+  {
+    trackEvent(EventName.EDITOR_START, params().add(EventParam.IS_AUTHENTICATED, String.valueOf(OsmOAuth.isAuthorized()))
+                                               .add(EventParam.IS_ONLINE, String.valueOf(ConnectionState.isConnected())));
+                                                // TODO
+//                                               .add(EventParam.FEATURE_ID, )
+//                                               .add(EventParam.MWM_NAME, )
+//                                               .add(EventParam.MWM_VERSION);
+  }
+
+  public void trackEditorSuccess()
+  {
+    trackEvent(EventName.EDITOR_SUCCESS, params()); // TODO featureid-mwmname-mwmversion
   }
 
   public static ParameterBuilder params()

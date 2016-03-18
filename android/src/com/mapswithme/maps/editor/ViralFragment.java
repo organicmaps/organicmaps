@@ -17,6 +17,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.statistics.Statistics;
 
 public class ViralFragment extends BaseMwmDialogFragment
 {
@@ -38,6 +39,7 @@ public class ViralFragment extends BaseMwmDialogFragment
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     MwmApplication.prefs().edit().putBoolean(EXTRA_CONTRATS_SHOWN, true).apply();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_SHOW);
 
     final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setCancelable(true);
     final LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -53,6 +55,7 @@ public class ViralFragment extends BaseMwmDialogFragment
       public void onClick(View v)
       {
         dismiss();
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_CLICK);
         // TODO send statistics
         // TODO open some share link
       }
@@ -82,12 +85,9 @@ public class ViralFragment extends BaseMwmDialogFragment
       return;
 
     if (new Random().nextBoolean())
-      // FIXME
-//        sViralText = R.string.editor_done_dialog_1;
-      sViralText = R.string.dialog_routing_change_start;
+      sViralText = R.string.editor_done_dialog_1;
     else
-//        sViralText = R.string.editor_done_dialog_2;
-      sViralText = R.string.dialog_routing_change_end;
+      sViralText = R.string.editor_done_dialog_2;
   }
 
   // Counts fake editor rank based on number of total edits made by user.

@@ -269,6 +269,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // TODO(yunikkk) think about refactoring. It probably should be called in editor.
     Editor.nativeStartEdit();
+    Statistics.INSTANCE.trackEditorLaunch();
     if (mIsFragmentContainer)
       replaceFragment(EditorHostFragment.class, null, null);
     else
@@ -277,6 +278,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void showReportForm()
   {
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_REPORT);
     if (mIsFragmentContainer)
       replaceFragment(ReportFragment.class, null, null);
     else
