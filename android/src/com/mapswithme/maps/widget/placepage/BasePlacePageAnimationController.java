@@ -41,7 +41,6 @@ public abstract class BasePlacePageAnimationController
   public interface OnVisibilityChangedListener
   {
     void onPreviewVisibilityChanged(boolean isVisible);
-
     void onPlacePageVisibilityChanged(boolean isVisible);
   }
 
