@@ -90,14 +90,16 @@ using namespace storage;
     return;
   [availableCountriesBeforeUpdate enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSArray<NSString *> * obj, BOOL * stop)
   {
-    NSArray<NSString *> * sectionCountries = self.availableCountries[key];
-    if (!sectionCountries)
+    NSUInteger const sectionIndex = [self.indexes indexOfObject:key];
+    if (sectionIndex == NSNotFound)
     {
       self.needFullReload = YES;
       *stop = YES;
     }
-    if (obj.count != sectionCountries.count)
-      [self.reloadSections addIndex:[self.indexes indexOfObject:key]];
+    else if (obj.count != self.availableCountries[key].count)
+    {
+      [self.reloadSections addIndex:sectionIndex];
+    }
   }];
   [self.reloadSections shiftIndexesStartingAtIndex:0 by:self.downloadedSectionShift];
   if (downloadedCountriesCountBeforeUpdate != downloadedCountriesCountAfterUpdate)
