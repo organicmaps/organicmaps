@@ -43,7 +43,7 @@ void SearchQueryV2::Search(Results & res, size_t resCount)
   params.m_mode = m_mode;
 
   params.m_pivot = GetPivotRect();
-  params.m_pivotCenter = GetPivotPoint();
+  params.m_accuratePivotCenter = GetPivotPoint();
   params.m_maxNumResults = max(resCount, kPreResultsCount);
   m_geocoder.SetParams(params);
 

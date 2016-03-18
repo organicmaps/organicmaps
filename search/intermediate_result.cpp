@@ -82,23 +82,22 @@ bool PreResult1::LessPriority(PreResult1 const & r1, PreResult1 const & r2)
   return r1.m_info.m_rank > r2.m_info.m_rank;
 }
 
-PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & pivot,
-                       string const & displayName, string const & fileName)
-  : m_id(f.GetID()),
-    m_types(f),
-    m_str(displayName),
-    m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? RESULT_BUILDING : RESULT_FEATURE),
-    m_geomType(f.GetFeatureType())
+PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & center,
+                       m2::PointD const & pivot, string const & displayName,
+                       string const & fileName)
+  : m_id(f.GetID())
+  , m_types(f)
+  , m_str(displayName)
+  , m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? RESULT_BUILDING : RESULT_FEATURE)
+  , m_geomType(f.GetFeatureType())
 {
   ASSERT(m_id.IsValid(), ());
   ASSERT(!m_types.Empty(), ());
 
   m_types.SortBySpec();
 
-  auto const center = feature::GetCenter(f);
-
   m_region.SetParams(fileName, center);
-  m_distance = PointDistance(GetCenter(), pivot);
+  m_distance = PointDistance(center, pivot);
 
   ProcessMetadata(f, m_metadata);
 }

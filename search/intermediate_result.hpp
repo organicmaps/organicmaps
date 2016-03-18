@@ -64,8 +64,8 @@ public:
   };
 
   /// For RESULT_FEATURE and RESULT_BUILDING.
-  PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & pivot,
-             string const & displayName, string const & fileName);
+  PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & center,
+             m2::PointD const & pivot, string const & displayName, string const & fileName);
 
   /// For RESULT_LATLON.
   PreResult2(double lat, double lon);

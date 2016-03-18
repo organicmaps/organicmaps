@@ -558,13 +558,16 @@ class PreResult2Maker
   unique_ptr<Index::FeaturesLoaderGuard> m_pFV;
 
   // For the best performance, incoming id's should be sorted by id.first (mwm file id).
-  void LoadFeature(FeatureID const & id, FeatureType & f, string & name, string & country)
+  void LoadFeature(FeatureID const & id, FeatureType & f, m2::PointD & center, string & name,
+                   string & country)
   {
     if (m_pFV.get() == 0 || m_pFV->GetId() != id.m_mwmId)
       m_pFV.reset(new Index::FeaturesLoaderGuard(m_query.m_index, id.m_mwmId));
 
     m_pFV->GetFeatureByIndex(id.m_index, f);
     f.SetID(id);
+
+    center = feature::GetCenter(f);
 
     m_query.GetBestMatchName(f, name);
 
@@ -575,14 +578,14 @@ class PreResult2Maker
       country = m_pFV->GetCountryFileName();
   }
 
-  void InitRankingInfo(FeatureType const & ft, impl::PreResult1 const & res,
-                       search::v2::RankingInfo & info)
+  void InitRankingInfo(FeatureType const & ft, m2::PointD const & center,
+                       impl::PreResult1 const & res, search::v2::RankingInfo & info)
   {
     auto const & preInfo = res.GetInfo();
 
-    auto const & pivot = m_params.m_pivotCenter;
+    auto const & pivot = m_params.m_accuratePivotCenter;
 
-    info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), pivot);
+    info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
     info.m_searchType = preInfo.m_searchType;
 
@@ -612,10 +615,34 @@ class PreResult2Maker
 
     if (info.m_searchType == v2::SearchModel::SEARCH_TYPE_BUILDING)
     {
-      string houseNumber = ft.GetHouseNumber();
+      string const houseNumber = ft.GetHouseNumber();
       auto score = GetNameScore(houseNumber, m_params, preInfo.m_startToken, preInfo.m_endToken);
       if (score > info.m_nameScore)
         info.m_nameScore = score;
+    }
+  }
+
+  uint8_t NormalizeRank(uint8_t rank, v2::SearchModel::SearchType type, m2::PointD const & center,
+                        string const & country)
+  {
+    switch (type)
+    {
+    case v2::SearchModel::SEARCH_TYPE_VILLAGE: return rank /= 1.5;
+    case v2::SearchModel::SEARCH_TYPE_CITY:
+    {
+      if (m_query.GetViewport(Query::CURRENT_V).IsPointInside(center))
+        return rank * 2;
+
+      storage::CountryInfo info;
+      if (country.empty())
+        m_query.m_infoGetter.GetRegionInfo(center, info);
+      else
+        m_query.m_infoGetter.GetRegionInfo(country, info);
+      if (info.IsNotEmpty() && info.m_name == m_query.GetPivotRegion())
+        return rank *= 1.7;
+    }
+    case v2::SearchModel::SEARCH_TYPE_COUNTRY: return rank /= 1.5;
+    default: return rank;
     }
   }
 
@@ -628,40 +655,19 @@ public:
   unique_ptr<impl::PreResult2> operator()(impl::PreResult1 const & res1)
   {
     FeatureType ft;
-    string name, country;
-    LoadFeature(res1.GetID(), ft, name, country);
+    m2::PointD center;
+    string name;
+    string country;
 
-    auto res2 = make_unique<impl::PreResult2>(ft, &res1, m_query.GetPosition(), name, country);
+    LoadFeature(res1.GetID(), ft, center, name, country);
+
+    auto res2 = make_unique<impl::PreResult2>(ft, &res1, center, m_query.GetPosition() /* pivot */,
+                                              name, country);
+
     search::v2::RankingInfo info;
-    InitRankingInfo(ft, res1, info);
+    InitRankingInfo(ft, center, res1, info);
+    info.m_rank = NormalizeRank(info.m_rank, info.m_searchType, center, country);
     res2->SetRankingInfo(move(info));
-
-    /// @todo: add exluding of states (without USA states), continents
-    using namespace ftypes;
-    Type const tp = IsLocalityChecker::Instance().GetType(res2->m_types);
-    switch (tp)
-    {
-      case COUNTRY:
-        res2->m_info.m_rank /= 1.5;
-        break;
-      case CITY:
-      case TOWN:
-        if (m_query.GetViewport(Query::CURRENT_V).IsPointInside(res2->GetCenter()))
-          res2->m_info.m_rank *= 2;
-        else
-        {
-          storage::CountryInfo ci;
-          res2->m_region.GetRegion(m_query.m_infoGetter, ci);
-          if (ci.IsNotEmpty() && ci.m_name == m_query.GetPivotRegion())
-            res2->m_info.m_rank *= 1.7;
-        }
-        break;
-      case VILLAGE:
-        res2->m_info.m_rank /= 1.5;
-        break;
-      default:
-        break;
-    }
 
     return res2;
   }
@@ -699,9 +705,9 @@ void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont
       ;
 
     // The main reason of shuffling here is to select a random subset
-    // from the low-priority results. We're using a linear congruental
-    // method with default seed because it is fast, simple and doesn't
-    // need an external entropy source.
+    // from the low-priority results. We're using a linear
+    // congruential method with default seed because it is fast,
+    // simple and doesn't need an external entropy source.
     //
     // TODO (@y, @m, @vng): consider to take some kind of hash from
     // features and then select a subset with smallest values of this

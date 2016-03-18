@@ -399,7 +399,10 @@ bool SameMwm(Geocoder::TResult const & lhs, Geocoder::TResult const & rhs)
 }  // namespace
 
 // Geocoder::Params --------------------------------------------------------------------------------
-Geocoder::Params::Params() : m_mode(Mode::Everywhere), m_pivotCenter(0, 0), m_maxNumResults(0) {}
+Geocoder::Params::Params()
+  : m_mode(Mode::Everywhere), m_accuratePivotCenter(0, 0), m_maxNumResults(0)
+{
+}
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
@@ -1312,7 +1315,7 @@ void Geocoder::FillMissingFieldsInResults()
 
   if (m_results->size() > m_params.m_maxNumResults)
   {
-    m_pivotFeatures.SetPosition(m_params.m_pivotCenter, m_params.m_scale);
+    m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
     for (auto & result : *m_results)
     {
       auto const & id = result.first;

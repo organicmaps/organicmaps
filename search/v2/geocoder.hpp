@@ -80,9 +80,12 @@ public:
     // We need to pass both pivot and pivot center because pivot is
     // usually a rectangle created by radius and center, and due to
     // precision loss, |m_pivot|.Center() may differ from
-    // |m_pivotCenter|.
+    // |m_accuratePivotCenter|. Therefore |m_pivot| should be used for
+    // fast filtering of features outside of the rectangle, while
+    // |m_accuratePivotCenter| should be used when it's needed to
+    // compute a distance from a feature to the pivot.
     m2::RectD m_pivot;
-    m2::PointD m_pivotCenter;
+    m2::PointD m_accuratePivotCenter;
     size_t m_maxNumResults;
   };
 
