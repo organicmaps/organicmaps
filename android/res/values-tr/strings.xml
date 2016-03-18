@@ -525,7 +525,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">çin mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kafe</string>
+	<string name="cuisine_coffee_shop">Kahve</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">sandviç</string>
 	<!-- Cuisine -->
@@ -601,8 +601,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">lübnan mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">biftek</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">yerel mutfak</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">köri</string>
@@ -636,8 +634,6 @@
 	<string name="cuisine_diner">vagon restoran</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">afrika mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">doughnut</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">gürcistan mutfağı</string>
 	<!-- Cuisine -->
@@ -674,8 +670,6 @@
 	<string name="cuisine_hungarian">macar mutfağı</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">lao mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kahve</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">sosisli</string>
 	<!-- Cuisine -->

@@ -520,7 +520,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">kuchnia chińska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kawiarnia</string>
+	<string name="cuisine_coffee_shop">Kawa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">kanapki</string>
 	<!-- Cuisine -->
@@ -596,8 +596,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">kuchnia libańska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">steki</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">kuchnia lokalna</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">curry</string>
@@ -631,8 +629,6 @@
 	<string name="cuisine_diner">bar szybkiej obsługi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">kuchnia afrykańska</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">pączki</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">kuchnia gruzińska</string>
 	<!-- Cuisine -->
@@ -669,8 +665,6 @@
 	<string name="cuisine_hungarian">kuchnia węgierska</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">kuchnia laoska</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kawa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hot-dogi</string>
 	<!-- Cuisine -->

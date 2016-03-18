@@ -520,7 +520,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">kínai konyha</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kávézó</string>
+	<string name="cuisine_coffee_shop">Kávé</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">szendvics</string>
 	<!-- Cuisine -->
@@ -596,8 +596,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">libanoni konyha</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">steak</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">helyi konyha</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">curry</string>
@@ -631,8 +629,6 @@
 	<string name="cuisine_diner">étkező</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">afrikai konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">fánk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">grúz konyha</string>
 	<!-- Cuisine -->
@@ -669,8 +665,6 @@
 	<string name="cuisine_hungarian">magyar konyha</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">laoszi konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kávé</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hotdog</string>
 	<!-- Cuisine -->

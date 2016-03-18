@@ -512,7 +512,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">ẩm thực trung quốc</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">tiệm_cà phê</string>
+	<string name="cuisine_coffee_shop">Cà phê</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">bánh sandwich</string>
 	<!-- Cuisine -->
@@ -588,8 +588,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">ẩm thực lebanon</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">bít tết</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">ẩm thực địa phương</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">món cà ri</string>
@@ -623,8 +621,6 @@
 	<string name="cuisine_diner">bữa tối</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">ẩm thực châu phi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">bánh rán</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">ẩm thực georgia</string>
 	<!-- Cuisine -->
@@ -661,8 +657,6 @@
 	<string name="cuisine_hungarian">ẩm thực hungary</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">ẩm thực lào</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">cà phê</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hotdog</string>
 	<!-- Cuisine -->

@@ -852,7 +852,7 @@
 "cuisine_chinese" = "čínská kuchyně";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "kavárna";
+"cuisine_coffee_shop" = "Káva";
 
 /* Cuisine */
 "cuisine_sandwich" = "sendvič";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "libanonská kuchyně";
 
 /* Cuisine */
-"cuisine_steak" = "steak";
-
-/* Cuisine */
 "cuisine_local" = "místní kuchyně";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "africká kuchyně";
-
-/* Cuisine */
-"cuisine_doughnut" = "kobliha";
 
 /* Cuisine */
 "cuisine_georgian" = "gruzínská kuchyně";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "laoská kuchyně";
-
-/* Cuisine */
-"cuisine_coffee" = "káva";
 
 /* Cuisine */
 "cuisine_hotdog" = "hot dog";

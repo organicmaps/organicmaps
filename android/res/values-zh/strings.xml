@@ -525,7 +525,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">中国菜</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">咖啡_馆</string>
+	<string name="cuisine_coffee_shop">咖啡</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">三明治</string>
 	<!-- Cuisine -->
@@ -601,8 +601,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">黎巴嫩菜</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">牛排</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">本地菜</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">咖喱</string>
@@ -636,8 +634,6 @@
 	<string name="cuisine_diner">饭店</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">非洲菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">甜甜圈</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">格鲁吉亚菜</string>
 	<!-- Cuisine -->
@@ -674,8 +670,6 @@
 	<string name="cuisine_hungarian">匈牙利菜</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">老挝菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">咖啡</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">热狗</string>
 	<!-- Cuisine -->

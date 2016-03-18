@@ -852,7 +852,7 @@
 "cuisine_chinese" = "kínai konyha";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "kávézó";
+"cuisine_coffee_shop" = "Kávé";
 
 /* Cuisine */
 "cuisine_sandwich" = "szendvics";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "libanoni konyha";
 
 /* Cuisine */
-"cuisine_steak" = "steak";
-
-/* Cuisine */
 "cuisine_local" = "helyi konyha";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "afrikai konyha";
-
-/* Cuisine */
-"cuisine_doughnut" = "fánk";
 
 /* Cuisine */
 "cuisine_georgian" = "grúz konyha";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "laoszi konyha";
-
-/* Cuisine */
-"cuisine_coffee" = "kávé";
 
 /* Cuisine */
 "cuisine_hotdog" = "hotdog";

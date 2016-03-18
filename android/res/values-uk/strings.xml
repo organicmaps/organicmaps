@@ -522,7 +522,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">китайська кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">кав\&#39;ярня</string>
+	<string name="cuisine_coffee_shop">Кава</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">сандвічі</string>
 	<!-- Cuisine -->
@@ -598,8 +598,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">ліванська кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">стейки</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">місцева кухня</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">каррі</string>
@@ -633,8 +631,6 @@
 	<string name="cuisine_diner">дайнер</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">африканська кухня</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">пончики</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">грузинська кухня</string>
 	<!-- Cuisine -->
@@ -671,8 +667,6 @@
 	<string name="cuisine_hungarian">угорська кухня</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">лаоська кухня</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">кав\&#39;ярня</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">хот-доги</string>
 	<!-- Cuisine -->

@@ -522,7 +522,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">čína</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kaviareň</string>
+	<string name="cuisine_coffee_shop">Káva</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">sendvič</string>
 	<!-- Cuisine -->
@@ -598,8 +598,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">libanonská kuchyňa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">steak</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">miestna kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">kari</string>
@@ -633,8 +631,6 @@
 	<string name="cuisine_diner">diner</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">africká kuchyňa</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">šišky</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">gruzínska kuchyňa</string>
 	<!-- Cuisine -->
@@ -671,8 +667,6 @@
 	<string name="cuisine_hungarian">maďarská kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">laoská kuchyňa</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">káva</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">párok v rožku</string>
 	<!-- Cuisine -->

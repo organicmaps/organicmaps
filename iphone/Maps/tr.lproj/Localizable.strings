@@ -852,7 +852,7 @@
 "cuisine_chinese" = "çin mutfağı";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "kafe";
+"cuisine_coffee_shop" = "Kahve";
 
 /* Cuisine */
 "cuisine_sandwich" = "sandviç";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "lübnan mutfağı";
 
 /* Cuisine */
-"cuisine_steak" = "biftek";
-
-/* Cuisine */
 "cuisine_local" = "yerel mutfak";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "afrika mutfağı";
-
-/* Cuisine */
-"cuisine_doughnut" = "doughnut";
 
 /* Cuisine */
 "cuisine_georgian" = "gürcistan mutfağı";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "lao mutfağı";
-
-/* Cuisine */
-"cuisine_coffee" = "kahve";
 
 /* Cuisine */
 "cuisine_hotdog" = "sosisli";

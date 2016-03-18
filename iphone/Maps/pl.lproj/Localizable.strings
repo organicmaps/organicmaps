@@ -852,7 +852,7 @@
 "cuisine_chinese" = "kuchnia chińska";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "kawiarnia";
+"cuisine_coffee_shop" = "Kawa";
 
 /* Cuisine */
 "cuisine_sandwich" = "kanapki";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "kuchnia libańska";
 
 /* Cuisine */
-"cuisine_steak" = "steki";
-
-/* Cuisine */
 "cuisine_local" = "kuchnia lokalna";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "kuchnia afrykańska";
-
-/* Cuisine */
-"cuisine_doughnut" = "pączki";
 
 /* Cuisine */
 "cuisine_georgian" = "kuchnia gruzińska";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "kuchnia laoska";
-
-/* Cuisine */
-"cuisine_coffee" = "kawa";
 
 /* Cuisine */
 "cuisine_hotdog" = "hot-dogi";

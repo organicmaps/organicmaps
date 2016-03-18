@@ -852,7 +852,7 @@
 "cuisine_chinese" = "kiinalainen keittiö";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "kahvila";
+"cuisine_coffee_shop" = "Kahvi";
 
 /* Cuisine */
 "cuisine_sandwich" = "voileipä";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "libanonilainen keittiö";
 
 /* Cuisine */
-"cuisine_steak" = "pihvi";
-
-/* Cuisine */
 "cuisine_local" = "paikallinen keittiö";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "afrikkalainen keittiö";
-
-/* Cuisine */
-"cuisine_doughnut" = "donitsi";
 
 /* Cuisine */
 "cuisine_georgian" = "georgialainen keittiö";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "laosilainen keittiö";
-
-/* Cuisine */
-"cuisine_coffee" = "kahvi";
 
 /* Cuisine */
 "cuisine_hotdog" = "hotdog";

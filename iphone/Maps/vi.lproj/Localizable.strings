@@ -852,7 +852,7 @@
 "cuisine_chinese" = "ẩm thực trung quốc";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "tiệm_cà phê";
+"cuisine_coffee_shop" = "Cà phê";
 
 /* Cuisine */
 "cuisine_sandwich" = "bánh sandwich";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "ẩm thực lebanon";
 
 /* Cuisine */
-"cuisine_steak" = "bít tết";
-
-/* Cuisine */
 "cuisine_local" = "ẩm thực địa phương";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "ẩm thực châu phi";
-
-/* Cuisine */
-"cuisine_doughnut" = "bánh rán";
 
 /* Cuisine */
 "cuisine_georgian" = "ẩm thực georgia";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "ẩm thực lào";
-
-/* Cuisine */
-"cuisine_coffee" = "cà phê";
 
 /* Cuisine */
 "cuisine_hotdog" = "hotdog";

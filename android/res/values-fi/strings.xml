@@ -519,7 +519,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">kiinalainen keittiö</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kahvila</string>
+	<string name="cuisine_coffee_shop">Kahvi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">voileipä</string>
 	<!-- Cuisine -->
@@ -595,8 +595,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">libanonilainen keittiö</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">pihvi</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">paikallinen keittiö</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">curry</string>
@@ -630,8 +628,6 @@
 	<string name="cuisine_diner">lounaskahvila</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">afrikkalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">donitsi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">georgialainen keittiö</string>
 	<!-- Cuisine -->
@@ -668,8 +664,6 @@
 	<string name="cuisine_hungarian">unkarilainen keittiö</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">laosilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kahvi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hotdog</string>
 	<!-- Cuisine -->

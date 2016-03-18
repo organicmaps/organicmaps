@@ -852,7 +852,7 @@
 "cuisine_chinese" = "中国的";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "咖啡_館";
+"cuisine_coffee_shop" = "咖啡";
 
 /* Cuisine */
 "cuisine_sandwich" = "三明治";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "黎巴嫩菜";
 
 /* Cuisine */
-"cuisine_steak" = "牛排";
-
-/* Cuisine */
 "cuisine_local" = "本地菜";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "非洲菜";
-
-/* Cuisine */
-"cuisine_doughnut" = "甜甜圈";
 
 /* Cuisine */
 "cuisine_georgian" = "格魯吉亞菜";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "老撾菜";
-
-/* Cuisine */
-"cuisine_coffee" = "咖啡";
 
 /* Cuisine */
 "cuisine_hotdog" = "熱狗";

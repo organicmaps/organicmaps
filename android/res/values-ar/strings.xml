@@ -525,7 +525,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">مطبخ صيني</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">مقهى</string>
+	<string name="cuisine_coffee_shop">ﺓﻮﻬﻗ</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">ساندوتش</string>
 	<!-- Cuisine -->
@@ -601,8 +601,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">مطبخ لبناني</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">شريحة لحم</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">مطبخ محلي</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">كاري</string>
@@ -636,8 +634,6 @@
 	<string name="cuisine_diner">العشاء</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">مطبخ أفريقي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">دونت</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">مطبخ جورجي</string>
 	<!-- Cuisine -->
@@ -674,8 +670,6 @@
 	<string name="cuisine_hungarian">مطبخ مجري</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">مطبخ لاوي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">قهوة</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">هوت دوغ</string>
 	<!-- Cuisine -->

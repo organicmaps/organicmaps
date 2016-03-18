@@ -519,7 +519,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">kinesisk mat</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kafé</string>
+	<string name="cuisine_coffee_shop">Kaffe</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">smørbrød</string>
 	<!-- Cuisine -->
@@ -595,8 +595,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">libanesisk mat</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">steak</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">lokal mat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">karri</string>
@@ -630,8 +628,6 @@
 	<string name="cuisine_diner">middag</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">afrikansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">smultring</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">georgisk mat</string>
 	<!-- Cuisine -->
@@ -668,8 +664,6 @@
 	<string name="cuisine_hungarian">ungarsk mat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">lao mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kaffe</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hotdog</string>
 	<!-- Cuisine -->

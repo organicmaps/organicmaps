@@ -852,7 +852,7 @@
 "cuisine_chinese" = "китайская кухня";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "кафе";
+"cuisine_coffee_shop" = "Кофе";
 
 /* Cuisine */
 "cuisine_sandwich" = "сэндвичи";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "ливанская кухня";
 
 /* Cuisine */
-"cuisine_steak" = "стейк-хаус";
-
-/* Cuisine */
 "cuisine_local" = "местная кухня";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "африканская кухня";
-
-/* Cuisine */
-"cuisine_doughnut" = "пончики";
 
 /* Cuisine */
 "cuisine_georgian" = "грузинская кухня";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "лаосская кухня";
-
-/* Cuisine */
-"cuisine_coffee" = "кофейня";
 
 /* Cuisine */
 "cuisine_hotdog" = "хот-доги";

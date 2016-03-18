@@ -518,7 +518,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">中華料理</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">コーヒーショップ</string>
+	<string name="cuisine_coffee_shop">コーヒー</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">サンドイッチ</string>
 	<!-- Cuisine -->
@@ -594,8 +594,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">レバノン料理</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">ステーキ</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">地元の料理</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">カレー</string>
@@ -629,8 +627,6 @@
 	<string name="cuisine_diner">ダイナー</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">アフリカ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">ドーナッツ</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">ジョージア料理</string>
 	<!-- Cuisine -->
@@ -667,8 +663,6 @@
 	<string name="cuisine_hungarian">ハンガリー料理</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">ラオス料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">コーヒー</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">ホットドッグ</string>
 	<!-- Cuisine -->

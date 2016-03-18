@@ -523,7 +523,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">อาหารจีน</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">ร้านกาแฟ</string>
+	<string name="cuisine_coffee_shop">กาแฟ</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">แซนด์วิช</string>
 	<!-- Cuisine -->
@@ -599,8 +599,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">อาหารเลบานอน</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">สเต๊ก</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">อาหารท้องถิ่น</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">กะหรี่</string>
@@ -634,8 +632,6 @@
 	<string name="cuisine_diner">ร้านอาหาร</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">อาหารแอฟริกัน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">โดนัท</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">อาหารจอร์เจีย</string>
 	<!-- Cuisine -->
@@ -672,8 +668,6 @@
 	<string name="cuisine_hungarian">อาหารฮังการี</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">อาหารลาว</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">กาแฟ</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">ฮอทดอก</string>
 	<!-- Cuisine -->

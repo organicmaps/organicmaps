@@ -519,7 +519,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">masakan tionghoa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kafe</string>
+	<string name="cuisine_coffee_shop">Kopi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">roti isi</string>
 	<!-- Cuisine -->
@@ -595,8 +595,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">masakan lebanon</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">steik</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">masakan lokal</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">kari</string>
@@ -630,8 +628,6 @@
 	<string name="cuisine_diner">makan malam</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">masakan afrika</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">donat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">masakan georgia</string>
 	<!-- Cuisine -->
@@ -668,8 +664,6 @@
 	<string name="cuisine_hungarian">masakan hongaria</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">masakan laos</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kopi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hotdog</string>
 	<!-- Cuisine -->

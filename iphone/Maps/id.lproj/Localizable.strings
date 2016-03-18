@@ -852,7 +852,7 @@
 "cuisine_chinese" = "masakan tionghoa";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "kafe";
+"cuisine_coffee_shop" = "Kopi";
 
 /* Cuisine */
 "cuisine_sandwich" = "roti isi";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "masakan lebanon";
 
 /* Cuisine */
-"cuisine_steak" = "steik";
-
-/* Cuisine */
 "cuisine_local" = "masakan lokal";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "masakan afrika";
-
-/* Cuisine */
-"cuisine_doughnut" = "donat";
 
 /* Cuisine */
 "cuisine_georgian" = "masakan georgia";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "masakan laos";
-
-/* Cuisine */
-"cuisine_coffee" = "kopi";
 
 /* Cuisine */
 "cuisine_hotdog" = "hotdog";

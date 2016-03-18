@@ -509,7 +509,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">chinees</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">koffiehuis</string>
+	<string name="cuisine_coffee_shop">Koffie</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">broodjes</string>
 	<!-- Cuisine -->
@@ -585,8 +585,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">libanees</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">steak</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">regionale keuken</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">curry\&#39;s</string>
@@ -620,8 +618,6 @@
 	<string name="cuisine_diner">diner</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">afrikaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">donuts</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">georgisch</string>
 	<!-- Cuisine -->
@@ -658,8 +654,6 @@
 	<string name="cuisine_hungarian">hongaars</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">laotiaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">koffie</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hotdogs</string>
 	<!-- Cuisine -->

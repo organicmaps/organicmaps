@@ -517,7 +517,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">bucătărie chinez</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">cafenea</string>
+	<string name="cuisine_coffee_shop">Cafea</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">sandwich</string>
 	<!-- Cuisine -->
@@ -593,8 +593,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">bucătărie libanez</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">friptură</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">bucătărie local</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">curry</string>
@@ -628,8 +626,6 @@
 	<string name="cuisine_diner">cină</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">bucătărie african</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">gogoașă</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">bucătărie georgian</string>
 	<!-- Cuisine -->
@@ -666,8 +662,6 @@
 	<string name="cuisine_hungarian">bucătărie maghiar</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">bucătărie lao</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">cafea</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hot dog</string>
 	<!-- Cuisine -->

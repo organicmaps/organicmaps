@@ -526,7 +526,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">čínská kuchyně</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kavárna</string>
+	<string name="cuisine_coffee_shop">Káva</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">sendvič</string>
 	<!-- Cuisine -->
@@ -602,8 +602,6 @@
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">libanonská kuchyně</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">steak</string>
-	<!-- Cuisine -->
 	<string name="cuisine_local">místní kuchyně</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">kari</string>
@@ -637,8 +635,6 @@
 	<string name="cuisine_diner">večeře</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">africká kuchyně</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">kobliha</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">gruzínská kuchyně</string>
 	<!-- Cuisine -->
@@ -675,8 +671,6 @@
 	<string name="cuisine_hungarian">maďarská kuchyně</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lao">laoská kuchyně</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">káva</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hot dog</string>
 	<!-- Cuisine -->

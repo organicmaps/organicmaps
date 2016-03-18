@@ -852,7 +852,7 @@
 "cuisine_chinese" = "kinesisk mat";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "kafé";
+"cuisine_coffee_shop" = "Kaffe";
 
 /* Cuisine */
 "cuisine_sandwich" = "smörgås";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "libanesisk mat";
 
 /* Cuisine */
-"cuisine_steak" = "biff";
-
-/* Cuisine */
 "cuisine_local" = "lokal mat";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "afrikansk mat";
-
-/* Cuisine */
-"cuisine_doughnut" = "munk";
 
 /* Cuisine */
 "cuisine_georgian" = "georgisk mat";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "laotisk mat";
-
-/* Cuisine */
-"cuisine_coffee" = "kaffe";
 
 /* Cuisine */
 "cuisine_hotdog" = "varmkorv";

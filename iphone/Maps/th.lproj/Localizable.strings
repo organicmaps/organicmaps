@@ -852,7 +852,7 @@
 "cuisine_chinese" = "อาหารจีน";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "ร้านกาแฟ";
+"cuisine_coffee_shop" = "กาแฟ";
 
 /* Cuisine */
 "cuisine_sandwich" = "แซนด์วิช";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "อาหารเลบานอน";
 
 /* Cuisine */
-"cuisine_steak" = "สเต๊ก";
-
-/* Cuisine */
 "cuisine_local" = "อาหารท้องถิ่น";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "อาหารแอฟริกัน";
-
-/* Cuisine */
-"cuisine_doughnut" = "โดนัท";
 
 /* Cuisine */
 "cuisine_georgian" = "อาหารจอร์เจีย";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "อาหารลาว";
-
-/* Cuisine */
-"cuisine_coffee" = "กาแฟ";
 
 /* Cuisine */
 "cuisine_hotdog" = "ฮอทดอก";

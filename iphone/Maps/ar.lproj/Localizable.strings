@@ -852,7 +852,7 @@
 "cuisine_chinese" = "مطبخ صيني";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "مقهى";
+"cuisine_coffee_shop" = "ﺓﻮﻬﻗ";
 
 /* Cuisine */
 "cuisine_sandwich" = "ساندوتش";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "مطبخ لبناني";
 
 /* Cuisine */
-"cuisine_steak" = "شريحة لحم";
-
-/* Cuisine */
 "cuisine_local" = "مطبخ محلي";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "مطبخ أفريقي";
-
-/* Cuisine */
-"cuisine_doughnut" = "دونت";
 
 /* Cuisine */
 "cuisine_georgian" = "مطبخ جورجي";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "مطبخ لاوي";
-
-/* Cuisine */
-"cuisine_coffee" = "قهوة";
 
 /* Cuisine */
 "cuisine_hotdog" = "هوت دوغ";

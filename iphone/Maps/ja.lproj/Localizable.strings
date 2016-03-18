@@ -852,7 +852,7 @@
 "cuisine_chinese" = "中華料理";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "コーヒーショップ";
+"cuisine_coffee_shop" = "コーヒー";
 
 /* Cuisine */
 "cuisine_sandwich" = "サンドイッチ";
@@ -966,9 +966,6 @@
 "cuisine_lebanese" = "レバノン料理";
 
 /* Cuisine */
-"cuisine_steak" = "ステーキ";
-
-/* Cuisine */
 "cuisine_local" = "地元の料理";
 
 /* Cuisine */
@@ -1018,9 +1015,6 @@
 
 /* Cuisine */
 "cuisine_african" = "アフリカ料理";
-
-/* Cuisine */
-"cuisine_doughnut" = "ドーナッツ";
 
 /* Cuisine */
 "cuisine_georgian" = "ジョージア料理";
@@ -1075,9 +1069,6 @@
 
 /* Cuisine */
 "cuisine_lao" = "ラオス料理";
-
-/* Cuisine */
-"cuisine_coffee" = "コーヒー";
 
 /* Cuisine */
 "cuisine_hotdog" = "ホットドッグ";
