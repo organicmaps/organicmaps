@@ -3,10 +3,8 @@ package com.mapswithme.util;
 import android.animation.Animator;
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.provider.Settings;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -212,49 +210,6 @@ public final class UiUtils
   {
     tv.setText(text);
     showIf(!TextUtils.isEmpty(text), tv);
-  }
-
-  public static void checkConnectionAndShowAlert(final Activity activity, final String message)
-  {
-    if (!ConnectionState.isConnected())
-    {
-      activity.runOnUiThread(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          new AlertDialog.Builder(activity)
-                  .setCancelable(false)
-                  .setMessage(message)
-                  .setPositiveButton(activity.getString(R.string.connection_settings), new DialogInterface.OnClickListener()
-                  {
-                    @Override
-                    public void onClick(DialogInterface dlg, int which)
-                    {
-                      try
-                      {
-                        activity.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
-                      } catch (final Exception ex)
-                      {
-                        ex.printStackTrace();
-                      }
-
-                      dlg.dismiss();
-                    }
-                  })
-                  .setNegativeButton(activity.getString(R.string.close), new DialogInterface.OnClickListener()
-                  {
-                    @Override
-                    public void onClick(DialogInterface dlg, int which)
-                    {
-                      dlg.dismiss();
-                    }
-                  })
-                  .create()
-                  .show();
-        }
-      });
-    }
   }
 
   public static void showHomeUpButton(Toolbar toolbar)

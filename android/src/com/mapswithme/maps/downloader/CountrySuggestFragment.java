@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
@@ -31,6 +32,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
   private WheelProgressView mWpvDownloadProgress;
   private TextView mTvCountry;
   private TextView mTvActiveCountry;
+  private TextView mTvProgress;
   private Button mBtnDownloadMap;
 
   private CountryItem mCurrentCountry;
@@ -59,20 +61,28 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
           return;
 
         for (MapManager.StorageCallbackData item : data)
-          if (item.isLeafNode)
-          {
-            switch (item.newStatus)
-            {
-            case CountryItem.STATUS_FAILED:
-              refreshViews();
-              UiUtils.checkConnectionAndShowAlert(getActivity(), getString(R.string.download_country_failed, mDownloadingCountry.name));
-              return;
+        {
+          if (!item.isLeafNode)
+            continue;
 
-            case CountryItem.STATUS_DONE:
-              exitFragment();
-              return;
-            }
+          if (mDownloadingCountry == null)
+            mDownloadingCountry = CountryItem.fill(item.countryId);
+          else if (!item.countryId.equals(mDownloadingCountry.id))
+            continue;
+
+          switch (item.newStatus)
+          {
+          case CountryItem.STATUS_FAILED:
+            refreshViews();
+            return;
+
+          case CountryItem.STATUS_DONE:
+            exitFragment();
+            return;
           }
+
+          break;
+        }
 
         refreshViews();
       }
@@ -123,16 +133,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     MapManager.nativeUnsubscribe(mListenerSlot);
   }
 
-  private void refreshCountryName()
-  {
-    if (mDownloadingCountry == null || !isAdded())
-      return;
-
-    mTvCountry.setText(mDownloadingCountry.name);
-    mTvActiveCountry.setText(mDownloadingCountry.name);
-  }
-
-  private void refreshCountrySize()
+  private void refreshDownloadButton()
   {
     if (mCurrentCountry == null || !isAdded())
       return;
@@ -156,6 +157,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     mWpvDownloadProgress.setOnClickListener(this);
     mTvCountry = (TextView) view.findViewById(R.id.tv__country_name);
     mTvActiveCountry = (TextView) view.findViewById(R.id.tv__active_country_name);
+    mTvProgress = (TextView) view.findViewById(R.id.downloader_progress);
 
     UiUtils.updateAccentButton(mBtnDownloadMap);
     UiUtils.updateAccentButton(selectMap);
@@ -170,18 +172,18 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     UiUtils.showIf(downloading, mLlActiveDownload);
     UiUtils.showIf(!downloading, mLlSelectDownload);
 
-    if (downloading)
+    if (!downloading)
     {
-      refreshCountryName();
+      boolean hasLocation = (mCurrentCountry != null);
+      UiUtils.showIf(hasLocation, mLlWithLocation);
+      UiUtils.showIf(!hasLocation, mLlNoLocation);
+      refreshDownloadButton();
       return;
     }
 
-    boolean hasLocation = (mCurrentCountry != null);
-    UiUtils.showIf(hasLocation, mLlWithLocation);
-    UiUtils.showIf(!hasLocation, mLlNoLocation);
-
-    refreshCountryName();
-    refreshCountrySize();
+    mTvCountry.setText(mDownloadingCountry.name);
+    mTvActiveCountry.setText(mDownloadingCountry.name);
+    mTvProgress.setText(String.format(Locale.US, "%d%%", mDownloadingCountry.progress));
   }
 
   @Override
@@ -190,6 +192,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     switch (v.getId())
     {
     case R.id.btn__download_map:
+      mDownloadingCountry = mCurrentCountry;
       MapManager.nativeDownload(mCurrentCountry.id);
       break;
 

@@ -6,6 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?windowBackgroundForced"
+  android:animateLayoutChanges="true"
   android:clickable="true">
   <LinearLayout
     android:id="@+id/ll__select_download"
@@ -102,14 +103,21 @@
     <TextView
       android:id="@+id/tv__active_country_name"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/height_block_base"
+      android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Title"/>
+
+    <TextView
+      android:id="@+id/downloader_progress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      tools:text="1024%"/>
 
     <com.mapswithme.maps.widget.WheelProgressView
       android:id="@+id/wpv__download_progress"
       android:layout_width="@dimen/downloader_status_size"
       android:layout_height="@dimen/downloader_status_size"
-      android:layout_marginTop="@dimen/margin_half_plus"
       android:background="?clickableBackground"
       wheel:wheelProgressColor="?colorAccent"
       wheel:wheelSecondaryColor="?dividerHorizontal"
