@@ -564,10 +564,6 @@ private:
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);
 
-/// \returns true if |sortedCountryIds| contains |countryId|.
-/// \note. |sortedCountryIds| should be sorted.
-bool HasCountryId(TCountriesVec const & sortedCountryIds, TCountryId const & countryId);
-
 template <class ToDo>
 void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
 {

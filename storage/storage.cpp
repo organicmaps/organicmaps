@@ -92,12 +92,6 @@ void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCou
     resultCountries.insert(country.GetCountryId());
 }
 
-bool HasCountryId(TCountriesVec const & sortedCountryIds, TCountryId const & countryId)
-{
-  ASSERT(is_sorted(sortedCountryIds.begin(), sortedCountryIds.end()), ());
-  return binary_search(sortedCountryIds.begin(), sortedCountryIds.end(), countryId);
-}
-
 Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */, string const & dataDir /* = string() */)
   : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId(0), m_dataDir(dataDir),
     m_downloadMapOnTheMap(nullptr)
@@ -1137,43 +1131,17 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
 
   downloadedChildren.clear();
   availChildren.clear();
-  TCountriesVec localMaps;
-  GetLocalRealMaps(localMaps);
-  for (auto const & downloadingMap : m_queue)
-    localMaps.push_back(downloadingMap.GetCountryId());
 
-  if (localMaps.empty())
+  parentNode->ForEachChild([&](TCountryTreeNode const & childNode)
   {
-    GetChildren(parent, availChildren);
-    return;
-  }
-
-  size_t const childrenCount = parentNode->ChildrenCount();
-  sort(localMaps.begin(), localMaps.end());
-
-  for (size_t i = 0; i < childrenCount; ++i)
-  {
-    TCountryTreeNode const & child = parentNode->Child(i);
-    TCountryId const & childCountryId = child.Value().Name();
-    if (HasCountryId(localMaps, childCountryId))
-    { // CountryId of child is a name of an mwm.
-      downloadedChildren.push_back(childCountryId);
-      continue;
-    }
-
-    // Child is a group of mwms.
-    bool hasDownloadedDescendant = false;
-    child.ForEachDescendant([&](TCountryTreeNode const & descendant)
-                            {
-                              TCountryId const & countryId = descendant.Value().Name();
-                              if (!hasDownloadedDescendant && HasCountryId(localMaps, countryId))
-                                hasDownloadedDescendant = true;
-                            });
-    if (hasDownloadedDescendant == true)
-      downloadedChildren.push_back(childCountryId);
+    NodeStatus const childStatus = GetNodeStatus(childNode).status;
+    TCountryId const childValue = childNode.Value().Name();
+    ASSERT_NOT_EQUAL(childStatus, NodeStatus::Undefined, ());
+    if (childStatus == NodeStatus::NotDownloaded)
+      availChildren.push_back(childValue);
     else
-      availChildren.push_back(childCountryId);
-  }
+      downloadedChildren.push_back(childValue);
+  });
 }
 
 bool Storage::IsNodeDownloaded(TCountryId const & countryId) const

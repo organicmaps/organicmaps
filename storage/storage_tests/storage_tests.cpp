@@ -1045,11 +1045,6 @@ UNIT_TEST(StorageTest_HasCountryId)
   TCountriesVec middleEarthCountryIdVec =
       {"Arnor", "Mordor", "Rhovanion", "Rhun", "Gondor", "Eriador", "Rohan"};
   sort(middleEarthCountryIdVec.begin(), middleEarthCountryIdVec.end());
-
-  TEST(HasCountryId(middleEarthCountryIdVec, "Gondor"), ());
-  TEST(HasCountryId(middleEarthCountryIdVec, "Arnor"), ());
-  TEST(!HasCountryId(middleEarthCountryIdVec, "Azerbaijan"), ());
-  TEST(!HasCountryId(middleEarthCountryIdVec, "Alban"), ());
 }
 
 UNIT_TEST(StorageTest_DownloadedMapTests)
@@ -1091,11 +1086,6 @@ UNIT_TEST(StorageTest_DownloadedMapTests)
   TCountriesVec localRealMaps;
   storage.GetLocalRealMaps(localRealMaps);
   sort(localRealMaps.begin(), localRealMaps.end());
-  TEST(HasCountryId(localRealMaps, "Algeria_Central"), ());
-  TEST(HasCountryId(localRealMaps, "Algeria_Coast"), ());
-  TEST(!HasCountryId(localRealMaps, "Algeria_Coast.mwm"), ());
-  TEST(!HasCountryId(localRealMaps, "World"), ());
-  TEST(!HasCountryId(localRealMaps, "WorldCoasts"), ());
 
   TEST(storage.IsNodeDownloaded("Algeria_Central"), ());
   TEST(storage.IsNodeDownloaded("Algeria_Coast"), ());
@@ -1109,14 +1099,9 @@ UNIT_TEST(StorageTest_DownloadedMapTests)
   TCountriesVec downloaded, available;
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
   sort(downloaded.begin(), downloaded.end());
-  TEST(HasCountryId(downloaded, "Algeria"), ());
-  TEST(!HasCountryId(downloaded, "Algeria_Central"), ());
-  TEST(!HasCountryId(downloaded, "Algeria_Coast"), ());
 
   storage.GetChildrenInGroups("Algeria", downloaded, available);
   sort(downloaded.begin(), downloaded.end());
-  TEST(HasCountryId(downloaded, "Algeria_Central"), ());
-  TEST(HasCountryId(downloaded, "Algeria_Coast"), ());
 
   storage.GetChildrenInGroups("Algeria_Central", downloaded, available);
   TEST(downloaded.empty(), ());
@@ -1126,9 +1111,6 @@ UNIT_TEST(StorageTest_DownloadedMapTests)
   // Algeria_Central has been deleted.
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
   sort(downloaded.begin(), downloaded.end());
-  TEST(HasCountryId(downloaded, "Algeria"), ());
-  TEST(!HasCountryId(downloaded, "Algeria_Central"), ());
-  TEST(!HasCountryId(downloaded, "Algeria_Coast"), ());
 
   storage.GetChildrenInGroups("Algeria_Central", downloaded, available);
   TEST(downloaded.empty(), ());
@@ -1143,9 +1125,6 @@ UNIT_TEST(StorageTest_DownloadedMapTests)
   // Storage::GetChildrenInGroups test when Algeria_Coast and Algeria_Central have been deleted.
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
   sort(downloaded.begin(), downloaded.end());
-  TEST(!HasCountryId(downloaded, "Algeria"), ());
-  TEST(!HasCountryId(downloaded, "Algeria_Central"), ());
-  TEST(!HasCountryId(downloaded, "Algeria_Coast"), ());
 
   TEST(!storage.IsNodeDownloaded("Algeria_Central"), ());
   TEST(!storage.IsNodeDownloaded("Algeria_Coast"), ());
