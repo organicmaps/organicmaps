@@ -110,7 +110,7 @@
           android:layout_marginLeft="@dimen/margin_base"
           android:layout_marginRight="@dimen/margin_base"
           android:layout_marginTop="@dimen/margin_quarter_plus"
-          android:text="@string/editor_report_problem_desription_1"/>
+          android:text="@string/editor_report_problem_desription_2"/>
 
       </LinearLayout>
 
