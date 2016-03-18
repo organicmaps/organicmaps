@@ -1135,7 +1135,7 @@ void Storage::GetChildrenInGroups(TCountryId const & parent,
   parentNode->ForEachChild([&](TCountryTreeNode const & childNode)
   {
     NodeStatus const childStatus = GetNodeStatus(childNode).status;
-    TCountryId const childValue = childNode.Value().Name();
+    TCountryId const & childValue = childNode.Value().Name();
     ASSERT_NOT_EQUAL(childStatus, NodeStatus::Undefined, ());
     if (childStatus == NodeStatus::NotDownloaded)
       availChildren.push_back(childValue);
