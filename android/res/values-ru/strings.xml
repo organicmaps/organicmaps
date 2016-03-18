@@ -860,6 +860,10 @@
 	<string name="editor_correct_mistake">Исправьте ошибку</string>
 	<string name="editor_correct_mistake_message">При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.</string>
 	<string name="editor_add_select_location">Местоположение</string>
+	<string name="editor_done_dialog_1">Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.</string>
+	<string name="editor_done_dialog_2">Вы улучшили карту уже 2 раза. Вы теперь %d в рейтинге редакторов карты. Расскажите друзьям.</string>
+	<string name="editor_done_dialog_3">Вы улучшили карту, расскажите об этом друзьям и редактируйте карту вместе.</string>
+	<string name="share_with_friends">Поделиться с друзьями</string>
 	<string name="editor_report_problem_desription_1">Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.</string>
 	<string name="editor_report_problem_desription_2">Или сделайте это самостоятельно на сайте http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Отправить</string>

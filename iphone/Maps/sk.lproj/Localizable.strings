@@ -1362,6 +1362,14 @@
 
 "editor_add_select_location" = "Location";
 
+"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+
+"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+
+"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+
+"share_with_friends" = "Share with friends";
+
 "editor_report_problem_desription_1" = "Prosím, pridajte detailný popis problému, aby mohla komunita OpenStreetMap opraviť danú chybu.";
 
 "editor_report_problem_desription_2" = "K oprave môžete prispieť aj vy na stránke http://www.openstreetmap.org/";

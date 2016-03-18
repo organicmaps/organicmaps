@@ -864,6 +864,10 @@
 	<string name="editor_correct_mistake">Correct mistake</string>
 	<string name="editor_correct_mistake_message">You made an editing mistake. Please correct it or switch to simple mode.</string>
 	<string name="editor_add_select_location">Location</string>
+	<string name="editor_done_dialog_1">You have edited the map of the world. Don\&#39;t keep it to yourself, tell your friends about it and edit the world together.</string>
+	<string name="editor_done_dialog_2">You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.</string>
+	<string name="editor_done_dialog_3">You have improved the map. Tell your friends about it and edit the map together.</string>
+	<string name="share_with_friends">Share with friends</string>
 	<string name="editor_report_problem_desription_1">Please describe the problem in detail so that the OpenStreeMap community can fix the error.</string>
 	<string name="editor_report_problem_desription_2">Or do it yourself at http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Send</string>
