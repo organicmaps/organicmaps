@@ -578,8 +578,8 @@
 
   [maps]
     comment = View and button titles for accessibility
-    ru = Карты
     en = Maps
+    ru = Карты
     fr = Cartes
     da = Kort
     id = Peta
@@ -5052,8 +5052,8 @@
   [prefs_group_map]
     tags = android
     comment = Settings screen: "Map" category title
-    ru = Карта
     en = Map
+    ru = Карта
     fr = Carte
     da = Kort
     id = Peta
@@ -5083,8 +5083,8 @@
   [prefs_group_misc]
     tags = android
     comment = Settings screen: "Miscellaneous" category title
-    ru = Прочее
     en = Miscellaneous
+    ru = Прочее
     fr = Divers
     da = Forskelligt
     id = Lain-Lain
@@ -5112,8 +5112,8 @@
     pt = Diversos
 
   [prefs_group_route]
-    ru = Навигация
     en = Navigation
+    ru = Навигация
     fr = Navigation
     da = Navigation
     id = Navigasi
@@ -7446,6 +7446,39 @@
     fr = Télécharger tout
     ja = 全てをダウンロード
 
+  [downloader_downloading]
+    tags = ios,android,tizen
+    en = Downloading:
+    ru = Загружается:
+    tr = İndiriliyor:
+    sv = Ladda ner:
+    nb = Laster ned:
+    ko = 다운로드 중:
+    id = Mengunduh:
+    hu = Letöltés:
+    de = Gerade wird heruntergeladen:
+    fi = Ladataan:
+    nl = Aan het downloaden:
+    da = Downloader:
+    cs = Probíhá stahování:
+    zh-Hans = 正在下载：
+    zh-Hant = 正在下載：
+    ar = يتم تنزيل:
+    th = กำลังดาวน์โหลด:
+    uk = Завантажується:
+    pt = Baixando:
+    es = Descargando:
+    ro = Descărcare:
+    pl = Pobieranie:
+    sk = Sťahovanie:
+    it = In scaricamento:
+    fr = Téléchargement en cours :
+    ja = づンロード中：
+
+  [downloader_search_results]
+    en = Found
+    ru = Найдено
+
   [routing_disclaimer]
     tags = ios,android,tizen
     comment = Disclaimer message
@@ -7966,8 +7999,8 @@
 
   [downloader_download_map_no_routing]
     tags = ios,android
-    ru = Загрузить карту без маршрутов
     en = Download map without routing
+    ru = Загрузить карту без маршрутов
     fr = Télécharger la carte sans itinéraire
     da = Download kort uden ruteplanlægning
     id = Unduh peta tanpa perutean
@@ -14111,7 +14144,6 @@
     tags = ios, android
     en = Back to %@
     ru = Назад к %@
-    en = Back to %@
     fr = Revenir à %@
     da = Tilbage til %@
     id = Kembali ke %@
@@ -15146,6 +15178,209 @@
     en = Location
     ru = Местоположение
 
+  [editor_report_problem_desription_1]
+    en = Please describe the problem in detail so that the OpenStreeMap community can fix the error.
+    ru = Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.
+    tr = OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde tanımlayın.
+    sv = Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.
+    nb = Beskriv problemet detaljert slik at OpenStreetMap-samfunnet kan fikse feilen.
+    ko = OpenStreeMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.
+    id = Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.
+    hu = Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.
+    de = Bitte beschreiben Sie das Problem detailliert, damit die OpenStreeMap-Community den Fehler beheben kann.
+    fi = Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.
+    nl = Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.
+    da = Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.
+    cs = Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.
+    zh-Hans = 请详细描述此问题以便OpenStreeMap社区能够修复此错误。
+    zh-Hant = 請詳細描述此問題以便OpenStreeMap社區能夠修復此錯誤。
+    ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.
+    th = กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้
+    uk = Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.
+    pt = Por favor, descreva o problema ao pormenor para que a comunidade OpenStreeMap possa corrigir o erro.
+    es = Por favor, describe el problema en detalle para que la comunidad de OpenStreeMap pueda corregir el error.
+    ro = Vă rugăm să descrieți problema în detaliu , astfel încât comunitatea OpenStreeMap să poată remedia eroarea.
+    pl = Prosimy o szczegółowe opisanie problemu, aby użytkownicy OpenStreetMap mogli naprawić błąd.
+    sk = Prosím, pridajte detailný popis problému, aby mohla komunita OpenStreetMap opraviť danú chybu.
+    it = Si prega di descrivere il problema in dettaglio in modo che la community OpenStreeMap possa riparare l’errore.
+    fr = Veuillez décrire le problème en détail pour permettre à la communauté OpenStreeMap de réparer l'erreur.
+    ja = OpenStreeMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。
+
+  [editor_report_problem_desription_2]
+    en = Or do it yourself at http://www.openstreetmap.org/
+    ru = Или сделайте это самостоятельно на сайте http://www.openstreetmap.org/
+    tr = Veya bunu adresinden kendiniz yapın http://www.openstreetmap.org/
+    sv = Eller gör det själv på http://www.openstreetmap.org/
+    nb = Eller gjør det selv på http://www.openstreetmap.org/
+    ko = 아니면, 다음에서 스스로 가능: http://www.openstreetmap.org/
+    id = Atau Anda bisa melakukan sendiri di http://www.openstreetmap.org/
+    hu = Vagy végezd el te magad a javítást itt: http://www.openstreetmap.org/
+    de = Oder kümmern Sie sich selbst darum auf http://www.openstreetmap.org/
+    fi = Tai tee se itse osoitteessa http://www.openstreetmap.org/
+    nl = Of doe het zelf op http://www.openstreetmap.org/
+    da = Eller gør det selv på http://www.openstreetmap.org/
+    cs = Nebo to udělejte sami na http://www.openstreetmap.org/
+    zh-Hans = 或者在http://www.openstreetmap.org/上亲自修复此错误。
+    zh-Hant = 或者在http://www.openstreetmap.org/上親自修復此錯誤
+    ar = أو افعل ذلك بنفسك من خلال الموقع http://www.openstreetmap.org/
+    th = หรือทำด้วยตัวคุณเองที่ http://www.openstreetmap.org/
+    uk = Або зробіть це самостійно на сайті http://www.openstreetmap.org/
+    pt = Ou faça-o sozinho em http://www.openstreetmap.org/
+    es = O hazlo tú mismo en http://www.openstreetmap.org/
+    ro = Sau faceți-o pe http://www.openstreetmap.org/
+    pl = Albo zrób to sam na http://www.openstreetmap.org/
+    sk = K oprave môžete prispieť aj vy na stránke http://www.openstreetmap.org/
+    it = O fallo tu stesso su http://www.openstreetmap.org/
+    fr = Ou faites-le vous-même à http://www.openstreetmap.org/
+    ja = または、このURLでご自身で修正してください http://www.openstreetmap.org/
+
+  [editor_report_problem_send_button]
+    en = Send
+    ru = Отправить
+    tr = Gönder
+    sv = Skicka
+    nb = Send
+    ko = 전송
+    id = Kirim
+    hu = Küldés
+    de = Senden
+    fi = Lähetä
+    nl = Verzenden
+    da = Send
+    cs = Odeslat
+    zh-Hans = 发送
+    zh-Hant = 發送
+    ar = إرسال
+    th = ส่ง
+    uk = Надіслати
+    pt = Enviar
+    es = Enviar
+    ro = Trimiteți
+    pl = Wyślij
+    sk = Odoslať
+    it = Invia
+    fr = Envoyer
+    ja = 送信
+
+  [editor_report_problem_title]
+    en = Problem
+    ru = Проблема
+    tr = Problem
+    sv = Problem
+    nb = Problem
+    ko = 문제
+    id = Masalah
+    hu = Probléma
+    de = Problem
+    fi = Ongelma
+    nl = Probleem
+    da = Problem
+    cs = Problém
+    zh-Hans = 问题
+    zh-Hant = 問題
+    ar = مشكلة
+    th = ปัญหา
+    uk = Проблема
+    pt = Problema
+    es = Problema
+    ro = Problemă
+    pl = Problem
+    sk = Problém
+    it = Problema
+    fr = Problème
+    ja = 問題
+
+  [editor_report_problem_no_place_title]
+    en = The place does not exist
+    ru = Места не существует
+    tr = Yer mevcut değil
+    sv = Platsen existerar inte
+    nb = Stedet finnes ikke
+    ko = 장소가 존재하지 않음
+    id = Tempat tidak ada
+    hu = A hely nem létezik
+    de = Der Ort existiert nicht
+    fi = Paikkaa ei ole olemassa
+    nl = De plaats bestaat niet
+    da = Stedet findes ikke
+    cs = Místo neexistuje
+    zh-Hans = 该地点不存在
+    zh-Hant = 該地點不存在
+    ar = المكان غير موجودٍ
+    th = ไม่มีสถานที่นี้อยู่
+    uk = Місце не існує
+    pt = O lugar não existe
+    es = El lugar no existe
+    ro = Această locație nu există
+    pl = To miejsce nie istnieje
+    sk = Dané miesto neexistuje
+    it = Questo luogo non esiste
+    fr = Le lieu n'existe pas
+    ja = この場所は存在しません
+
+  [editor_report_problem_under_construction_title]
+    en = Сlosed for maintenance
+    ru = Закрыто на ремонт
+    tr = Bakım için kapalı
+    sv = Stängd för underhåll
+    nb = Stengt pga. vedlikehold
+    ko = 유지 보수를 위해 닫음
+    id = Ditutup karena pemeliharaan
+    hu = Karbantartás miatt nem elérhető
+    de = Wegen Wartung geschlossen
+    fi = Suljettu huoltoa varten
+    nl = Gesloten voor onderhoud
+    da = Lukket for vedligeholdelse
+    cs = Zavřeno kvůli údržbě
+    zh-Hans = 因维护而关闭
+    zh-Hant = 因維護而關閉
+    ar = مغلق للصيانة
+    th = ปิดปรับปรุง
+    uk = Зачинено на ремонт
+    pt = Encerrado para manutenção
+    es = Сerrado por mantenimiento
+    ro = Închis pentru întreținere
+    pl = Zamknięte z powodu prac konserwacyjnych
+    sk = Zatvorené kvôli prebiehajúcej údržbe
+    it = Chiuso per manutenzione
+    fr = Fermé pour cause de maintenance
+    ja = メンテナンスのため使えません
+
+  [editor_report_problem_duplicate_place_title]
+    en = Duplicated place
+    ru = Повторяющееся место
+    tr = Kopyalanmış yer
+    sv = Duplicerad plats
+    nb = Duplisert sted
+    ko = 중복된 장소
+    id = Tempat ganda
+    hu = Duplikált hely
+    de = Doppelter Ort
+    fi = Paikan kaksoiskappale
+    nl = Dubbele plaats
+    da = Duplikeret sted
+    cs = Duplicitní místo
+    zh-Hans = 重复的地点
+    zh-Hant = 重復的地點
+    ar = مكان متكرر
+    th = สถานที่ซ้ำ
+    uk = Дубльовані місця
+    pt = Lugar em duplicado
+    es = Lugar duplicado
+    ro = Locație dublată
+    pl = Powielone miejsce
+    sk = Duplicitné miesto
+    it = Luogo duplicato
+    fr = Lieu doublon
+    ja = 重複している場所
+
+  [first_launch_congrats_title]
+    en = MAPS.ME is ready to use
+    ru = MAPS.ME готов к работе
+
+  [first_launch_congrats_text]
+    en = Search and navigate the maps of all countries in the world for free.
+    ru = Пользуйтесь поиском, навигацией по всему миру без интернета и бесплатно!
 
   [migrate_title]
     tags = ios, android
@@ -16909,8 +17144,8 @@
 
   [downloader_search_field_hint]
     tags = ios, android
-    ru = Найти карту
     en = Find the map
+    ru = Найти карту
     tr = Harita bul
     sv = Hitta kartan
     nb = Finn kartet
@@ -17602,6 +17837,62 @@
     it = Categoria
     fr = Catégorie
     ja = カテゴリ
+
+  [detailed_problem_description]
+    en = Detailed description of a problem
+    ru = Подробное описание проблемы
+    tr = Sorunun ayrıntılı açıklaması
+    sv = Detaljerad beskrivning av ett problem
+    nb = Detaljert beskrivelse av problemet
+    ko = 문제에 대한 자세한 설명
+    id = Gambaran terperinci tentang masalah
+    hu = A probléma részletes leírása
+    de = Detaillierte Beschreibung eines Problems
+    fi = Ongelman tarkka kuvaus
+    nl = Gedetailleerde probleemomschrijving
+    da = Detaljeret beskrivelse af problemet
+    cs = Detailní popis problému
+    zh-Hans = 问题的详细描述
+    zh-Hant = 問題的詳細描述
+    ar = وصف مفصل للمشكلة
+    th = คำอธิบายปัญหาอย่างละเอียด
+    uk = Детальний опис проблеми
+    pt = Descrição detalhada do problema
+    es = Descripción al detalle del problema
+    ro = Descrierea detaliată a problemei
+    pl = Szczegółowy opis problemu
+    sk = Podrobný popis problému
+    it = Descrizione dettagliata di un problema
+    fr = Description détaillée d'un problème
+    ja = 問題の詳細な説明
+
+  [editor_report_problem_other_title]
+    en = A different problem
+    ru = Другая проблема
+    tr = Farklı bir problem
+    sv = Ett annat problem
+    nb = Et annet problem
+    ko = 다른 문제
+    id = Masalah yang berbeda
+    hu = Különböző probléma
+    de = Ein anderes Problem
+    fi = Eri ongelma
+    nl = Een ander probleem
+    da = Et anderledes problem
+    cs = Jiný problém
+    zh-Hans = 一个不同的问题
+    zh-Hant = 一個不同的問題
+    ar = مشكلة مختلفة
+    th = ปัญหาอีกอย่างหนึ่ง
+    uk = Інші проблема
+    pt = Um problema diferente
+    es = Un problema diferente
+    ro = O problemă diferită
+    pl = Inny problem
+    sk = Iný problém
+    it = Un problema diverso
+    fr = Un problème différent
+    ja = 異なる問題
 
   [placepage_add_place_button]
     tags = ios, android
