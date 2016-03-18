@@ -22,22 +22,20 @@
       android:gravity="center_vertical"
       android:orientation="horizontal">
 
-      <!-- TODO set correct text (editor_report_problem_title) -->
       <TextView
         style="@style/MwmTextAppearance.Toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Problem"/>
+        android:text="@string/editor_report_problem_title"/>
 
-      <!-- TODO set correct text (editor_report_problem_send_button) -->
       <TextView
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackgroundBorderless"
         android:padding="@dimen/margin_base"
-        android:text="@string/save"
+        android:text="@string/editor_report_problem_send_button"
         android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
     </LinearLayout>
@@ -61,29 +59,25 @@
         android:orientation="vertical"
         tools:visibility="gone">
 
-        <!-- TODO @string/editor_report_problem_does_not_exist_title -->
         <TextView
           android:id="@+id/problem_not_exist"
           style="@style/MwmWidget.Editor.Problem"
-          android:text="Place does not exist"/>
+          android:text="@string/editor_report_problem_no_place_title"/>
 
-        <!-- TODO ? -->
         <TextView
           android:id="@+id/problem_closed_repair"
           style="@style/MwmWidget.Editor.Problem"
-          android:text="Closed for repairs"/>
+          android:text="@string/editor_report_problem_under_construction_title"/>
 
-        <!-- TODO ? -->
         <TextView
           android:id="@+id/problem_duplicated_place"
           style="@style/MwmWidget.Editor.Problem"
-          android:text="Duplicating place"/>
+          android:text="@string/editor_report_problem_duplicate_place_title"/>
 
-        <!-- TODO @string/editor_report_problem_key_other -->
         <TextView
           android:id="@+id/problem_other"
           style="@style/MwmWidget.Editor.Problem"
-          android:text="Other"/>
+          android:text="@string/editor_report_problem_other_title"/>
       </LinearLayout>
 
       <LinearLayout
@@ -92,34 +86,31 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- TODO ? -->
         <EditText
           android:id="@+id/input"
           android:layout_width="match_parent"
           android:layout_height="128dp"
           android:background="@android:color/white"
           android:gravity="start|top"
-          android:hint="Detailed problem description"
+          android:hint="@string/detailed_problem_description"
           android:padding="@dimen/margin_base"
           android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
-        <!-- TODO @string/editor_report_problem_desription_1 -->
         <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/margin_base"
           android:layout_marginRight="@dimen/margin_base"
           android:layout_marginTop="@dimen/margin_quarter_plus"
-          android:text="Please, write a problem description..."/>
+          android:text="@string/editor_report_problem_desription_1"/>
 
-        <!-- TODO @string/editor_report_problem_desription_2 -->
         <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/margin_base"
           android:layout_marginRight="@dimen/margin_base"
           android:layout_marginTop="@dimen/margin_quarter_plus"
-          android:text="Or do iy yourself..."/>
+          android:text="@string/editor_report_problem_desription_1"/>
 
       </LinearLayout>
 
