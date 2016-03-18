@@ -15,10 +15,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKX-yy-Dlc">
-                        <rect key="frame" x="24" y="11" width="60" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKX-yy-Dlc">
+                        <rect key="frame" x="16" y="11" width="42" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="Vyq-1r-IrP"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="Vyq-1r-IrP"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -30,7 +30,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XnK-GX-uDn">
-                        <rect key="frame" x="92" y="11" width="212" height="21"/>
+                        <rect key="frame" x="74" y="11" width="230" height="21"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <textInputTraits key="textInputTraits"/>
                         <userDefinedRuntimeAttributes>
@@ -48,10 +48,10 @@
                 <constraints>
                     <constraint firstItem="xKX-yy-Dlc" firstAttribute="centerY" secondItem="U0n-vz-Mf1" secondAttribute="centerY" id="FGO-0q-Qkt"/>
                     <constraint firstAttribute="trailingMargin" secondItem="XnK-GX-uDn" secondAttribute="trailing" constant="8" id="bQK-iT-hix"/>
-                    <constraint firstItem="XnK-GX-uDn" firstAttribute="centerY" secondItem="U0n-vz-Mf1" secondAttribute="centerY" id="kXs-TY-hUe"/>
-                    <constraint firstItem="XnK-GX-uDn" firstAttribute="leading" secondItem="xKX-yy-Dlc" secondAttribute="trailing" constant="8" id="lPz-pZ-7dI"/>
+                    <constraint firstItem="XnK-GX-uDn" firstAttribute="centerY" secondItem="xKX-yy-Dlc" secondAttribute="centerY" id="gr8-fd-1wy"/>
+                    <constraint firstItem="XnK-GX-uDn" firstAttribute="leading" secondItem="xKX-yy-Dlc" secondAttribute="trailing" constant="16" id="lPz-pZ-7dI"/>
                     <constraint firstItem="XnK-GX-uDn" firstAttribute="top" secondItem="U0n-vz-Mf1" secondAttribute="topMargin" constant="3" id="o7O-MA-LIA"/>
-                    <constraint firstItem="xKX-yy-Dlc" firstAttribute="leading" secondItem="U0n-vz-Mf1" secondAttribute="leadingMargin" constant="16" id="z6t-dN-99D"/>
+                    <constraint firstItem="xKX-yy-Dlc" firstAttribute="leading" secondItem="U0n-vz-Mf1" secondAttribute="leadingMargin" constant="8" id="z6t-dN-99D"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
