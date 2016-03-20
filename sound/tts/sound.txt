@@ -16,7 +16,7 @@
     ro = Virați ușor la dreapta.
     ja = 緩やかに右折。
     da = Blødt til højre.
-    es = Ligero derecha.
+    es = Gire ligeramente a la derecha.
     fi = Loiva oikea.
     hi = थोड़ा सा दाएं मुड़े।
     hr = Blago udesno.
@@ -76,7 +76,7 @@
     ro = Virați strâns la dreapta.
     ja = 急に右折。
     da = Skarpt til højre.
-    es = Fuerte derecha.
+    es = Gire bruscamente a la derecha.
     fi = Jyrkkä oikea.
     hi = तीव्रता से दाएं मुड़े।
     hr = Oštro udesno.
@@ -136,7 +136,7 @@
     ro = Ieșiți din sensul giratoriu.
     ja = ロータリーから抜けてください。
     da = Forlad rundkørslen.
-    es = Salir de la rotonda.
+    es = Salga de la rotonda.
     fi = Poistu liikenneympyrästä.
     hi = परिपथ से बाहर निकलें।
     hr = Napustite zaobilaznicu.
@@ -166,7 +166,7 @@
     ro = Virați ușor la stânga.
     ja = 緩やかに左折。
     da = Blødt til venstre.
-    es = Ligero izquierda
+    es = Gire ligeramente a la izquierda.
     fi = Loiva vasen.
     hi = थोड़ा सा बाएं मुड़े।
     hr = Blago ulijevo.
@@ -226,7 +226,7 @@
     ro = Virați strâns la stânga.
     ja = 急に左折。
     da = Skarpt til venstre.
-    es = Fuerte izquierda.
+    es = Gire bruscamente a la izquierda.
     fi = Jyrkkä vasen.
     hi = तीव्रता से बाएं मुड़े।
     hr = Oštro ulijevo.
@@ -256,7 +256,7 @@
     ro = Întoarceți-vă o sută optzeci de grade.
     ja = Uターンです。
     da = Vend om.
-    es = Gire en U.
+    es = Cambie de sentido.
     fi = Tee U-käännös.
     hi = यू-टर्न लें।
     hr = Napravite poluzaokret.
@@ -286,7 +286,7 @@
     ro = Mergeți înainte.
     ja = 直進です。
     da = Fortsæt lige ud.
-    es = Continúe derecho.
+    es = Continúe recto.
     fi = Aja suoraan.
     hi = सीधे चलें।
     hr = Idite ravno.
@@ -316,7 +316,7 @@
     ro = Veți sosi.
     ja = 到着します。
     da = Ankommer du.
-    es = Llegarás.
+    es = Llegará a su destino.
     fi = Olet perillä.
     hi = गंतव्य स्थान
     hr = Stižete.
@@ -346,7 +346,7 @@
     ro = Ați ajuns.
     ja = 到着。
     da = Du er ankommet.
-    es = Ha llegado.
+    es = Ha llegado a su destino.
     fi = Olet saapunut.
     hi = आप पहुंच गए हैं।
     hr = Stigli ste.
@@ -887,7 +887,7 @@
     ja = その先
     da = Derefter
     es = Después
-    fi = Sitten.
+    fi = Sitten
     hi = फिर।
     hr = Zatim
     id = Lalu.
@@ -1243,7 +1243,7 @@
     it = Tra cinquanta piedi
     cs = Za padesát stop
     hu = Ötven láb után
-    ro = După cincizeci de picioare.
+    ro = După cincizeci de picioare
     ja = 五十フィート先
     da = Om halvtreds fod
     es = En cincuenta pies
@@ -1813,7 +1813,7 @@
     it = Tra un miglio
     cs = Za jednu míli
     hu = Egy mérföld után
-    ro = După o milă.
+    ro = După o milă
     ja = 一マイル先
     da = Om en mil
     es = En una milla
@@ -1843,7 +1843,7 @@
     it = Tra un miglio e mezzo
     cs = Za jednu a půl míle
     hu = Másfél mérföld után
-    ro = După o milă și jumătate.
+    ro = După o milă și jumătate
     ja = 一.五マイル先
     da = Om halvanden mil
     es = En una milla y media
@@ -1873,7 +1873,7 @@
     it = Tra due miglia
     cs = Za dvě míle
     hu = Két mérföld után
-    ro = După două mile.
+    ro = După două mile
     ja = 二マイル先
     da = Om to mil
     es = En dos millas
