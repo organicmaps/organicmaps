@@ -50,6 +50,10 @@ public:
 
   void Reload();
 
+  // TODO(mgsergio): Implement this getter to avoid hard-code in XMLFeature::ApplyPatch.
+  // It should return [[phone, contact:phone], [website, contact:website, url], ...].
+  //vector<vector<string>> GetAlternativeFields() const;
+
 private:
   string const m_fileName;
   pugi::xml_document m_document;

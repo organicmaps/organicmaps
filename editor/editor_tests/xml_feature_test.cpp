@@ -253,3 +253,73 @@ UNIT_TEST(XMLFeature_Geometry)
   feature.SetGeometry(geometry);
   TEST_EQUAL(feature.GetGeometry(), geometry, ());
 }
+
+UNIT_TEST(XMLFeature_ApplyPatch)
+{
+  auto const kOsmFeature = R"(<?xml version="1.0"?>
+  <osm>
+  <node id="1" lat="1" lon="2" timestamp="2015-11-27T21:13:32Z" version="1">
+    <tag k="amenity" v="cafe"/>
+  </node>
+  </osm>
+  )";
+
+  auto const kPatch = R"(<?xml version="1.0"?>
+  <node lat="1" lon="2" timestamp="2015-11-27T21:13:32Z">
+    <tag k="website" v="maps.me"/>
+  </node>
+  )";
+
+  XMLFeature const baseOsmFeature = XMLFeature::FromOSM(kOsmFeature).front();
+
+  {
+    XMLFeature noAnyTags = baseOsmFeature;
+    noAnyTags.ApplyPatch(XMLFeature(kPatch));
+    TEST(noAnyTags.HasKey("website"), ());
+  }
+
+  {
+    XMLFeature hasMainTag = baseOsmFeature;
+    hasMainTag.SetTagValue("website", "mapswith.me");
+    hasMainTag.ApplyPatch(XMLFeature(kPatch));
+    TEST_EQUAL(hasMainTag.GetTagValue("website"), "maps.me", ());
+    size_t tagsCount = 0;
+    hasMainTag.ForEachTag([&tagsCount](string const &, string const &){ ++tagsCount; });
+    TEST_EQUAL(2, tagsCount, ("website should be replaced, not duplicated."));
+  }
+
+  {
+    XMLFeature hasAltTag = baseOsmFeature;
+    hasAltTag.SetTagValue("contact:website", "mapswith.me");
+    hasAltTag.ApplyPatch(XMLFeature(kPatch));
+    TEST(!hasAltTag.HasTag("website"), ("Existing alt tag should be used."));
+    TEST_EQUAL(hasAltTag.GetTagValue("contact:website"), "maps.me", ());
+  }
+
+  {
+    XMLFeature hasAltTag = baseOsmFeature;
+    hasAltTag.SetTagValue("url", "mapswithme.com");
+    hasAltTag.ApplyPatch(XMLFeature(kPatch));
+    TEST(!hasAltTag.HasTag("website"), ("Existing alt tag should be used."));
+    TEST_EQUAL(hasAltTag.GetTagValue("url"), "maps.me", ());
+  }
+
+  {
+    XMLFeature hasTwoAltTags = baseOsmFeature;
+    hasTwoAltTags.SetTagValue("contact:website", "mapswith.me");
+    hasTwoAltTags.SetTagValue("url", "mapswithme.com");
+    hasTwoAltTags.ApplyPatch(XMLFeature(kPatch));
+    TEST(!hasTwoAltTags.HasTag("website"), ("Existing alt tag should be used."));
+    TEST_EQUAL(hasTwoAltTags.GetTagValue("contact:website"), "maps.me", ());
+    TEST_EQUAL(hasTwoAltTags.GetTagValue("url"), "mapswithme.com", ());
+  }
+
+  {
+    XMLFeature hasMainAndAltTag = baseOsmFeature;
+    hasMainAndAltTag.SetTagValue("website", "osmrulezz.com");
+    hasMainAndAltTag.SetTagValue("url", "mapswithme.com");
+    hasMainAndAltTag.ApplyPatch(XMLFeature(kPatch));
+    TEST_EQUAL(hasMainAndAltTag.GetTagValue("website"), "maps.me", ());
+    TEST_EQUAL(hasMainAndAltTag.GetTagValue("url"), "mapswithme.com", ());
+  }
+}

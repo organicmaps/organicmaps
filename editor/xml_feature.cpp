@@ -161,8 +161,33 @@ string XMLFeature::ToOSMString() const
 
 void XMLFeature::ApplyPatch(XMLFeature const & featureWithChanges)
 {
-  featureWithChanges.ForEachTag([this](string const & k, string const & v)
+  // TODO(mgsergio): Get these alt tags from the config.
+  vector<vector<string>> const alternativeTags =
   {
+    {"phone", "contact:phone"},
+    {"website", "contact:website", "url"},
+    {"fax", "contact:fax"},
+    {"email", "contact:email"}
+  };
+  featureWithChanges.ForEachTag([&alternativeTags, this](string const & k, string const & v)
+  {
+    // Avoid duplication for similar alternative osm tags.
+    for (auto const & alt : alternativeTags)
+    {
+      ASSERT(!alt.empty(), ());
+      if (k == alt.front())
+      {
+        for (auto const & tag : alt)
+        {
+          // Reuse already existing tag if it's present.
+          if (HasTag(tag))
+          {
+            SetTagValue(tag, v);
+            return;
+          }
+        }
+      }
+    }
     SetTagValue(k, v);
   });
 }
