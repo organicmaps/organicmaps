@@ -572,17 +572,18 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
                 GetMatchingFeatureFromOSM(changeset, m_getOriginalFeatureFn(fti.m_feature.GetID()));
             XMLFeature const osmFeatureCopy = osmFeature;
             osmFeature.ApplyPatch(feature);
-            // Check to avoid duplicates.
+            // Check to avoid uploading duplicates into OSM.
             if (osmFeature == osmFeatureCopy)
             {
-              LOG(LWARNING, ("Local changes are equal to OSM, feature was not uploaded, local "
-                             "changes were deleted.",
-                             osmFeatureCopy));
-              // TODO(AlexZ): Delete local change.
-              continue;
+              LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.", osmFeatureCopy));
+              // Don't delete this local change right now for user to see it in profile.
+              // It will be automatically deleted by migration code on the next maps update.
             }
-            LOG(LDEBUG, ("Uploading patched feature", osmFeature));
-            changeset.Modify(osmFeature);
+            else
+            {
+              LOG(LDEBUG, ("Uploading patched feature", osmFeature));
+              changeset.Modify(osmFeature);
+            }
           }
           break;
 
