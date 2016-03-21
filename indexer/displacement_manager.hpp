@@ -20,6 +20,8 @@ namespace
 {
 double constexpr kPOIDisplacementRadiusPixels = 80.;
 
+size_t constexpr kMaximumIgnoredZoom = 12;
+
 // Displacement radius in pixels * half of the world in degrees / meaned graphics tile size.
 // So average displacement radius will be: this / tiles in row count.
 double constexpr kPOIDisplacementRadiusMultiplier = kPOIDisplacementRadiusPixels * 180. / 512.;
@@ -122,8 +124,8 @@ public:
     for (auto const & node : m_storage)
     {
       uint32_t scale = node.m_minScale;
-      // Do not filter high level objects.
-      if (scale <= scales::GetUpperWorldScale())
+      // Do not filter high level objects. Including metro and country names.
+      if (scale <= kMaximumIgnoredZoom)
       {
         AddNodeToSorter(node,scale);
         acceptedNodes.Add(node);
