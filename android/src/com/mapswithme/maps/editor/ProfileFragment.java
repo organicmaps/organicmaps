@@ -1,7 +1,6 @@
 package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -11,12 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.settings.MiscPrefsFragment;
-import com.mapswithme.maps.settings.SettingsActivity;
-import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 
 public class ProfileFragment extends AuthFragment implements View.OnClickListener
 {
@@ -27,22 +22,6 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
   protected TextView mEditsSentDate;
   protected View mLogout;
   private View mAuthBlock;
-
-  @Override
-  protected ToolbarController onCreateToolbarController(@NonNull View root)
-  {
-    return new ToolbarController(root, getActivity())
-    {
-      @Override
-      public void onUpClick()
-      {
-        final Bundle extras = new Bundle();
-        // Hack to open proper fragment in settings.
-        extras.putString(SettingsActivity.EXTRA_SHOW_FRAGMENT, MiscPrefsFragment.class.getName());
-        Utils.navigateToParent(mActivity, extras);
-      }
-    };
-  }
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
@@ -92,7 +71,6 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     if (stats[1] == 0)
       UiUtils.hide(mEditsSentDate);
     else
-    // FIXME fix stats[2] element - now it wrongly contains seconds instead of millis
       UiUtils.setTextAndShow(mEditsSentDate, "Upload date : " + DateUtils.formatDateTime(getActivity(), stats[2] * 1000, 0));
 
     UiUtils.showIf(stats[1] != stats[0], mEditsMore);

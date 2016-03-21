@@ -93,7 +93,7 @@ public final class Editor
   private static native void nativeUploadChanges(String token, String secret, String appVersion, String appId);
 
   /**
-   * @return array [total edits count, uploaded edits count, last upload timestamp]
+   * @return array [total edits count, uploaded edits count, last upload timestamp in seconds]
    */
   @Size(3)
   public static native long[] nativeGetStats();

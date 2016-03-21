@@ -134,6 +134,7 @@ public enum Statistics
       public static final String TWITTER = "Settings. Go to twitter.";
       public static final String HELP = "Settings. Help.";
       public static final String ABOUT = "Settings. About.";
+      public static final String OSM_PROFILE = "Settings. Profile.";
       public static final String COPYRIGHT = "Settings. Copyright.";
       public static final String GROUP_MAP = "Settings. Group: map.";
       public static final String GROUP_ROUTE = "Settings. Group: route.";
