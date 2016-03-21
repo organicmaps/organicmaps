@@ -89,19 +89,19 @@
             android:src="@drawable/ic_coordinates"/>
 
           <TextView
+            android:id="@+id/street_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/editor_margin_left"
             android:layout_marginStart="@dimen/editor_margin_left"
-            android:gravity="center_vertical"
             android:text="@string/street"
             android:textAppearance="@style/MwmTextAppearance.Body4"/>
 
           <TextView
             android:id="@+id/street"
             style="@style/MwmWidget.Editor.FieldLayout"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_base"
+            android:layout_below="@id/street_title"
+            android:layout_marginTop="@dimen/margin_quarter"
             android:drawableEnd="@drawable/ic_arrow_down"
             android:drawableRight="@drawable/ic_arrow_down"
             android:gravity="center_vertical"
@@ -112,9 +112,9 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignLeft="@id/street"
-            android:layout_alignParentBottom="true"
             android:layout_alignStart="@id/street"
-            android:layout_marginBottom="@dimen/margin_half"
+            android:layout_below="@id/street"
+            android:layout_marginTop="6dp"
             android:background="@color/divider"/>
 
         </RelativeLayout>
@@ -248,23 +248,32 @@
             android:src="@drawable/ic_cuisine"/>
 
           <TextView
-            android:id="@+id/tv__cuisine"
+            android:id="@+id/title_cuisine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/editor_margin_left"
+            android:layout_marginStart="@dimen/editor_margin_left"
+            android:text="@string/street"
+            android:textAppearance="@style/MwmTextAppearance.Body4"/>
+
+          <TextView
+            android:id="@+id/cuisine"
             style="@style/MwmWidget.Editor.FieldLayout"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_base"
+            android:layout_below="@id/title_cuisine"
+            android:layout_marginTop="@dimen/margin_quarter"
             android:drawableEnd="@drawable/ic_arrow_down"
             android:drawableRight="@drawable/ic_arrow_down"
             android:gravity="center_vertical"
             android:textAppearance="@style/MwmTextAppearance.Body1"
-            tools:text="Italian, russian."/>
+            tools:text="Italian, russian, russian, russian, russian, russian, russian, russian, russian"/>
 
           <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_alignLeft="@id/tv__cuisine"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@id/tv__cuisine"
-            android:layout_marginBottom="@dimen/margin_half"
+            android:layout_alignLeft="@id/cuisine"
+            android:layout_alignStart="@id/cuisine"
+            android:layout_below="@id/cuisine"
+            android:layout_marginTop="6dp"
             android:background="@color/divider"/>
 
         </RelativeLayout>

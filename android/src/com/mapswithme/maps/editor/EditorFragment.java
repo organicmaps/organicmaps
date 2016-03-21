@@ -212,7 +212,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mEtEmail = findInput(mEmailBlock);
     mCuisineBlock = view.findViewById(R.id.block_cuisine);
     mCuisineBlock.setOnClickListener(this);
-    mTvCuisine = (TextView) view.findViewById(R.id.tv__cuisine);
+    mTvCuisine = (TextView) view.findViewById(R.id.cuisine);
     mWifiBlock = view.findViewById(R.id.block_wifi);
     mSwWifi = (SwitchCompat) view.findViewById(R.id.sw__wifi);
     mWifiBlock.setOnClickListener(this);
