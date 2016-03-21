@@ -1,13 +1,16 @@
 #include "editor/osm_feature_matcher.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
 
 using editor::XMLFeature;
 
-namespace
+namespace osm
 {
+using editor::XMLFeature;
+
 constexpr double kPointDiffEps = MercatorBounds::GetCellID2PointAbsEpsilon();
 
 bool PointsEqual(m2::PointD const & a, m2::PointD const & b)
@@ -38,6 +41,22 @@ void ForEachWaysNode(pugi::xml_document const & osmResponse, pugi::xml_node cons
   }
 }
 
+template <typename TFunc>
+void ForEachRelationsNode(pugi::xml_document const & osmResponse, pugi::xml_node const & relation,
+                          TFunc && func)
+{
+  for (auto const xNodeRef : relation.select_nodes("member[@type='way']/@ref"))
+  {
+    string const wayRef = xNodeRef.attribute().value();
+    auto const xpath = "osm/way[@id='" + wayRef + "']";
+    auto const way = osmResponse.select_node(xpath.data()).node();
+    // Some ways can be missed from relation.
+    if (!way)
+      continue;
+    ForEachWaysNode(osmResponse, way, forward<TFunc>(func));
+  }
+}
+
 vector<m2::PointD> GetWaysGeometry(pugi::xml_document const & osmResponse,
                                    pugi::xml_node const & way)
 {
@@ -49,54 +68,77 @@ vector<m2::PointD> GetWaysGeometry(pugi::xml_document const & osmResponse,
   return result;
 }
 
+vector<m2::PointD> GetRelationsGeometry(pugi::xml_document const & osmResponse,
+                                        pugi::xml_node const & relation)
+{
+  vector<m2::PointD> result;
+  ForEachRelationsNode(osmResponse, relation, [&result](XMLFeature const & xmlFt)
+                       {
+                         result.push_back(xmlFt.GetMercatorCenter());
+                       });
+  return result;
+}
+
+// TODO(mgsergio): XMLFeature should have GetGeometry method.
+vector<m2::PointD> GetWaysOrRelationsGeometry(pugi::xml_document const & osmResponse,
+                                              pugi::xml_node const & wayOrRelation)
+{
+  if (strcmp(wayOrRelation.name(), "way") == 0)
+    return GetWaysGeometry(osmResponse, wayOrRelation);
+  return GetRelationsGeometry(osmResponse, wayOrRelation);
+}
+
 /// @returns value form [-0.5, 0.5]. Negative values are used as penalty,
 /// positive as score.
-double ScoreGeometry(pugi::xml_document const & osmResponse, pugi::xml_node const & way,
-                     vector<m2::PointD> geometry)
+/// @param osmResponse - nodes, ways and relations from osm
+/// @param wayOrRelation - either way or relation to be compared agains ourGeometry
+/// @param outGeometry - geometry of a FeatureType (ourGeometry must be sort-uniqued)
+double ScoreGeometry(pugi::xml_document const & osmResponse,
+                     pugi::xml_node const & wayOrRelation, vector<m2::PointD> ourGeometry)
 {
+  ASSERT(!ourGeometry.empty(), ("Our geometry cannot be empty"));
   int matched = 0;
 
-  auto wayGeometry = GetWaysGeometry(osmResponse, way);
+  auto theirGeometry = GetWaysOrRelationsGeometry(osmResponse, wayOrRelation);
 
-  sort(begin(wayGeometry), end(wayGeometry));
-  sort(begin(geometry), end(geometry));
+  if (theirGeometry.empty())
+    return -1;
 
-  auto it1 = begin(geometry);
-  auto it2 = begin(wayGeometry);
+  my::SortUnique(theirGeometry);
 
-  while (it1 != end(geometry) && it2 != end(wayGeometry))
+  auto ourIt = begin(ourGeometry);
+  auto theirIt = begin(theirGeometry);
+
+  while (ourIt != end(ourGeometry) && theirIt != end(theirGeometry))
   {
-    if (PointsEqual(*it1, *it2))
+    if (PointsEqual(*ourIt, *theirIt))
     {
       ++matched;
-      ++it1;
-      ++it2;
+      ++ourIt;
+      ++theirIt;
     }
-    else if (*it1 < *it2)
+    else if (*ourIt < *theirIt)
     {
-      ++it1;
+      ++ourIt;
     }
     else
     {
-      ++it2;
+      ++theirIt;
     }
   }
 
-  auto const wayScore = static_cast<double>(matched) / wayGeometry.size() - 0.5;
-  auto const geomScore = static_cast<double>(matched) / geometry.size() - 0.5;
+  auto const wayScore = static_cast<double>(matched) / theirGeometry.size() - 0.5;
+  auto const geomScore = static_cast<double>(matched) / ourGeometry.size() - 0.5;
   auto const result = wayScore <= 0 || geomScore <= 0
       ? -1
       : 2 / (1 / wayScore + 1 / geomScore);
 
-  LOG(LDEBUG, ("Osm score:", wayScore, "our feature score:", geomScore,
-               "Total score", result));
+  LOG(LDEBUG, ("Type:", wayOrRelation.name(), "Osm score:",
+               wayScore, "our feature score:", geomScore, "Total score", result));
 
   return result;
 }
-}  // namespace
 
-namespace osm
-{
 pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon const & latLon)
 {
   double bestScore = -1;
@@ -132,23 +174,23 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
   return bestMatchNode;
 }
 
-pugi::xml_node GetBestOsmWay(pugi::xml_document const & osmResponse,
-                             vector<m2::PointD> const & geometry)
+pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse,
+                                       vector<m2::PointD> const & geometry)
 {
   double bestScore = -1;
   pugi::xml_node bestMatchWay;
 
-  // TODO(mgsergio): Handle relations as well. Put try_later=version status to edits.xml.
-  for (auto const & xWay : osmResponse.select_nodes("osm/way"))
+  auto const xpath = "osm/way|osm/relation[tag[@k='type' and @v='multipolygon']]";
+  for (auto const & xWayOrRelation : osmResponse.select_nodes(xpath))
   {
-    double const nodeScore = ScoreGeometry(osmResponse, xWay.node(), geometry);
+    double const nodeScore = ScoreGeometry(osmResponse, xWayOrRelation.node(), geometry);
     if (nodeScore < 0)
       continue;
 
     if (bestScore < nodeScore)
     {
       bestScore = nodeScore;
-      bestMatchWay = xWay.node();
+      bestMatchWay = xWayOrRelation.node();
     }
   }
 

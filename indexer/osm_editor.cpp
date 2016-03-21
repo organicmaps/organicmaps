@@ -58,11 +58,15 @@ constexpr char const * kAddrStreetTag = "addr:street";
 
 constexpr char const * kUploaded = "Uploaded";
 constexpr char const * kDeletedFromOSMServer = "Deleted from OSM by someone";
+constexpr char const * kRelationsAreNotSupported = "Relations are not supported yet";
 constexpr char const * kNeedsRetry = "Needs Retry";
 
 bool NeedsUpload(string const & uploadStatus)
 {
-  return uploadStatus != kUploaded && uploadStatus != kDeletedFromOSMServer;
+  return uploadStatus != kUploaded &&
+      uploadStatus != kDeletedFromOSMServer &&
+      // TODO: Remove this line when relations are supported.
+      uploadStatus != kRelationsAreNotSupported;
 }
 
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
@@ -644,9 +648,16 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
         }
+        catch (ChangesetWrapper::RelationFeatureAreNotSupportedException const & ex)
+        {
+          fti.m_uploadStatus = kRelationsAreNotSupported;
+          fti.m_uploadAttemptTimestamp = time(nullptr);
+          fti.m_uploadError = ex.what();
+          ++errorsCount;
+          LOG(LWARNING, (ex.what()));
+        }
         catch (RootException const & ex)
         {
-          LOG(LWARNING, (ex.what()));
           fti.m_uploadStatus = kNeedsRetry;
           fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError = ex.what();

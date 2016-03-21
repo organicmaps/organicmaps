@@ -6,6 +6,7 @@
 #include "editor/xml_feature.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "std/set.hpp"
 #include "std/vector.hpp"
@@ -14,7 +15,6 @@ class FeatureType;
 
 namespace osm
 {
-
 struct ClientToken;
 
 class ChangesetWrapper
@@ -28,6 +28,8 @@ public:
   DECLARE_EXCEPTION(CreateChangeSetFailedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(ModifyNodeFailedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(LinearFeaturesAreNotSupportedException, ChangesetWrapperException);
+  // TODO: Remove this when relations are handled properly.
+  DECLARE_EXCEPTION(RelationFeatureAreNotSupportedException, ChangesetWrapperException);
 
   ChangesetWrapper(TKeySecret const & keySecret, ServerApi06::TKeyValueTags const & comments) noexcept;
   ~ChangesetWrapper();
@@ -51,6 +53,7 @@ private:
   /// Unfortunately, pugi can't return xml_documents from methods.
   /// Throws exceptions from above list.
   void LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document & doc);
+  void LoadXmlFromOSM(m2::RectD const & rect, pugi::xml_document & doc);
 
   ServerApi06::TKeyValueTags m_changesetComments;
   ServerApi06 m_api;
