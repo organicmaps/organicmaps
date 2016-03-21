@@ -913,7 +913,7 @@
 	<string name="editor_place_edited_dialog">Editou um objeto!</string>
 	<string name="editor_login_with_osm">Iniciar sessão com a OpenStreetMap</string>
 	<string name="editor_profile_changes">Alterações:</string>
-	<string name="editor_profile_unsent_changes">Não enviado</string>
+	<string name="editor_profile_unsent_changes">Não enviado:</string>
 	<string name="editor_focus_map_on_location">Puxe o mapa para selecionar o lugar correto do objeto.</string>
 	<string name="editor_add_select_category">Selecionar a categoria</string>
 	<string name="editor_add_select_category_popular_subtitle">Popular</string>

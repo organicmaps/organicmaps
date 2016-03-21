@@ -923,7 +923,7 @@
 	<string name="editor_place_edited_dialog">Upravili jste objekt!</string>
 	<string name="editor_login_with_osm">Přihlásit se pomocí OpenStreetMap</string>
 	<string name="editor_profile_changes">Změny:</string>
-	<string name="editor_profile_unsent_changes">Neodesláno</string>
+	<string name="editor_profile_unsent_changes">Neodesláno:</string>
 	<string name="editor_focus_map_on_location">Táhněte mapu, abyste vybrali správné umístění objektu.</string>
 	<string name="editor_add_select_category">Vyberte kategorii</string>
 	<string name="editor_add_select_category_popular_subtitle">Populární</string>

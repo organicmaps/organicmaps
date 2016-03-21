@@ -1551,7 +1551,7 @@
 
 "editor_profile_changes" = "Muutokset:";
 
-"editor_profile_unsent_changes" = "Ei lähetetty";
+"editor_profile_unsent_changes" = "Ei lähetetty:";
 
 "editor_focus_map_on_location" = "Vedä karttaa valitaksesi kohteelle oikean sijainnin.";
 
@@ -1613,4 +1613,4 @@
 
 "dialog_incorrect_feature_position" = "Change the location";
 
-"message_ivalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "A place cannot be situated in this location.";

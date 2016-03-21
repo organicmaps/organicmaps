@@ -915,7 +915,7 @@
 	<string name="editor_place_edited_dialog">オブジェクトを編集しました!</string>
 	<string name="editor_login_with_osm">OpenStreetMapを使ってログイン</string>
 	<string name="editor_profile_changes">変更回数:</string>
-	<string name="editor_profile_unsent_changes">未送信</string>
+	<string name="editor_profile_unsent_changes">未送信:</string>
 	<string name="editor_focus_map_on_location">地図をプルしてオブジェクトの正しい場所を選択します。</string>
 	<string name="editor_add_select_category">カテゴリを選択</string>
 	<string name="editor_add_select_category_popular_subtitle">人気</string>

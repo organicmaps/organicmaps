@@ -961,7 +961,7 @@
 	<string name="editor_place_edited_dialog">Вы отредактировали объект!</string>
 	<string name="editor_login_with_osm">Войти через OpenStreetMap</string>
 	<string name="editor_profile_changes">Правки:</string>
-	<string name="editor_profile_unsent_changes">Не отправлено</string>
+	<string name="editor_profile_unsent_changes">Не отправлено:</string>
 	<string name="editor_focus_map_on_location">Потяните карту, чтобы выбрать правильное местоположение объекта.</string>
 	<string name="editor_add_select_category">Выбрать категорию</string>
 	<string name="editor_add_select_category_popular_subtitle">Популярные</string>
@@ -992,5 +992,5 @@
 	<string name="onboarding_location_title">Помогите найти вас</string>
 	<string name="onboarding_location_message">Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.</string>
 	<string name="dialog_incorrect_feature_position">Измените местоположение</string>
-	<string name="message_ivalid_feature_position">Объект не может находиться в этом местоположении.</string>
+	<string name="message_invalid_feature_position">Объект не может находиться в этом местоположении.</string>
 </resources>

@@ -1551,7 +1551,7 @@
 
 "editor_profile_changes" = "更改：";
 
-"editor_profile_unsent_changes" = "未發送";
+"editor_profile_unsent_changes" = "未發送：";
 
 "editor_focus_map_on_location" = "拖動地圖以選擇此對象的正確位置。";
 
@@ -1613,4 +1613,4 @@
 
 "dialog_incorrect_feature_position" = "Change the location";
 
-"message_ivalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "A place cannot be situated in this location.";

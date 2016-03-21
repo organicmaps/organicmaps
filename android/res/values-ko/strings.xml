@@ -908,7 +908,7 @@
 	<string name="editor_place_edited_dialog">개체를 편집했습니다!</string>
 	<string name="editor_login_with_osm">OpenStreetMap으로 로그인</string>
 	<string name="editor_profile_changes">변경 사항:</string>
-	<string name="editor_profile_unsent_changes">전송되지 않음</string>
+	<string name="editor_profile_unsent_changes">전송되지 않음:</string>
 	<string name="editor_focus_map_on_location">개체의 정확한 위치를 선택하려면 지도를 당깁니다.</string>
 	<string name="editor_add_select_category">범주 선택</string>
 	<string name="editor_add_select_category_popular_subtitle">인기있는</string>

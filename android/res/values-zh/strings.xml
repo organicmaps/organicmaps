@@ -922,7 +922,7 @@
 	<string name="editor_place_edited_dialog">您已编辑了一个对象！</string>
 	<string name="editor_login_with_osm">使用OpenStreetMap进行登录</string>
 	<string name="editor_profile_changes">更改数目：</string>
-	<string name="editor_profile_unsent_changes">未发送</string>
+	<string name="editor_profile_unsent_changes">未发送：</string>
 	<string name="editor_focus_map_on_location">拖动地图以选择此对象的正确位置。</string>
 	<string name="editor_add_select_category">选择类别</string>
 	<string name="editor_add_select_category_popular_subtitle">受欢迎的</string>

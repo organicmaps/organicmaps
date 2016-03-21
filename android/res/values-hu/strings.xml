@@ -917,7 +917,7 @@
 	<string name="editor_place_edited_dialog">Szerkesztettél egy objektumot!</string>
 	<string name="editor_login_with_osm">Bejelentkezés OpenStreetMappel</string>
 	<string name="editor_profile_changes">Változások:</string>
-	<string name="editor_profile_unsent_changes">Nincs elküldve</string>
+	<string name="editor_profile_unsent_changes">Nincs elküldve:</string>
 	<string name="editor_focus_map_on_location">Húzd a térképet a megfelelő helyre az objektum helyes helyszínének kiválasztásához.</string>
 	<string name="editor_add_select_category">Válassz kategóriát</string>
 	<string name="editor_add_select_category_popular_subtitle">Népszerűek</string>

@@ -1551,7 +1551,7 @@
 
 "editor_profile_changes" = "Ändringar:";
 
-"editor_profile_unsent_changes" = "Inte skickade";
+"editor_profile_unsent_changes" = "Inte skickade:";
 
 "editor_focus_map_on_location" = "Dra på kartan för att välja objektets rätta plats.";
 
@@ -1613,4 +1613,4 @@
 
 "dialog_incorrect_feature_position" = "Change the location";
 
-"message_ivalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "A place cannot be situated in this location.";

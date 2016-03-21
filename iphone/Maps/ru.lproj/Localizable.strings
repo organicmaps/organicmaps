@@ -1551,7 +1551,7 @@
 
 "editor_profile_changes" = "Правки:";
 
-"editor_profile_unsent_changes" = "Не отправлено";
+"editor_profile_unsent_changes" = "Не отправлено:";
 
 "editor_focus_map_on_location" = "Потяните карту, чтобы выбрать правильное местоположение объекта.";
 
@@ -1613,4 +1613,4 @@
 
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
-"message_ivalid_feature_position" = "Объект не может находиться в этом местоположении.";
+"message_invalid_feature_position" = "Объект не может находиться в этом местоположении.";

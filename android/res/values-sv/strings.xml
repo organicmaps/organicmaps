@@ -920,7 +920,7 @@
 	<string name="editor_place_edited_dialog">Du har redigerat ett objekt!</string>
 	<string name="editor_login_with_osm">Logga in med OpenStreetMap</string>
 	<string name="editor_profile_changes">Ändringar:</string>
-	<string name="editor_profile_unsent_changes">Inte skickade</string>
+	<string name="editor_profile_unsent_changes">Inte skickade:</string>
 	<string name="editor_focus_map_on_location">Dra på kartan för att välja objektets rätta plats.</string>
 	<string name="editor_add_select_category">Välj kategori</string>
 	<string name="editor_add_select_category_popular_subtitle">Populära</string>

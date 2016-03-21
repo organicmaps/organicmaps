@@ -415,7 +415,7 @@
 	<string name="downloader_queued">En cola</string>
 	<string name="downloader_near_me_subtitle">Cerca de mí</string>
 	<string name="downloader_status_maps">Mapas</string>
-	<string name="downloader_download_all_button">Descarar todos</string>
+	<string name="downloader_download_all_button">Descargar todos</string>
 	<string name="downloader_downloading">Descargando:</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Creando rutas en la aplicación MAPS.ME, por favor, tenga en cuenta lo siguiente:\n\n  - Las rutas sugeridas se pueden considerar únicamente como recomendaciones.\n - Las condiciones de la carretera, las normas y las señales de tráfico tienen mayor prioridad que el consejo de navegación.\n - El mapa podría ser incorrecto o estar obsoleto y las rutas pueden no crear el mejor camino posible.\n\n  ¡Esté seguro en las carreteras y cuídese!</string>
@@ -911,7 +911,7 @@
 	<string name="editor_place_edited_dialog">¡Has editado un objeto!</string>
 	<string name="editor_login_with_osm">Iniciar sesión con OpenStreetMap</string>
 	<string name="editor_profile_changes">Cambios:</string>
-	<string name="editor_profile_unsent_changes">No enviado</string>
+	<string name="editor_profile_unsent_changes">No enviado:</string>
 	<string name="editor_focus_map_on_location">Arrastra el mapa para seleccionar la ubicación correcta del objeto.</string>
 	<string name="editor_add_select_category">Seleccionar categoría</string>
 	<string name="editor_add_select_category_popular_subtitle">Popular</string>

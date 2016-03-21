@@ -913,7 +913,7 @@
 	<string name="editor_place_edited_dialog">Ați editat un obiect!</string>
 	<string name="editor_login_with_osm">Conectați-vă cu OpenStreetMap</string>
 	<string name="editor_profile_changes">Modificări:</string>
-	<string name="editor_profile_unsent_changes">Netrimis</string>
+	<string name="editor_profile_unsent_changes">Netrimis:</string>
 	<string name="editor_focus_map_on_location">Trageți de hartă pentru a selecta locația corectă a obiectului.</string>
 	<string name="editor_add_select_category">Selectați categoria</string>
 	<string name="editor_add_select_category_popular_subtitle">Popular</string>

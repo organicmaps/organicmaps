@@ -902,7 +902,7 @@
 	<string name="editor_place_edited_dialog">您已編輯了一個對象！</string>
 	<string name="editor_login_with_osm">使用OpenStreetMap進行登錄</string>
 	<string name="editor_profile_changes">更改：</string>
-	<string name="editor_profile_unsent_changes">未發送</string>
+	<string name="editor_profile_unsent_changes">未發送：</string>
 	<string name="editor_focus_map_on_location">拖動地圖以選擇此對象的正確位置。</string>
 	<string name="editor_add_select_category">選擇類別</string>
 	<string name="editor_add_select_category_popular_subtitle">受歡迎的</string>

@@ -916,7 +916,7 @@
 	<string name="editor_place_edited_dialog">Du har redigert et objekt!</string>
 	<string name="editor_login_with_osm">Logg inn med OpenStreetMat</string>
 	<string name="editor_profile_changes">Endringer:</string>
-	<string name="editor_profile_unsent_changes">Ikke sendt</string>
+	<string name="editor_profile_unsent_changes">Ikke sendt:</string>
 	<string name="editor_focus_map_on_location">Dra kartet for å velge riktig beliggenhet for objektet.</string>
 	<string name="editor_add_select_category">Velg kategori</string>
 	<string name="editor_add_select_category_popular_subtitle">Populære</string>

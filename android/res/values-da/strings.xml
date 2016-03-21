@@ -918,7 +918,7 @@
 	<string name="editor_place_edited_dialog">Du har redigeret et objekt!</string>
 	<string name="editor_login_with_osm">Login med OpenStreetMap</string>
 	<string name="editor_profile_changes">Ændringer:</string>
-	<string name="editor_profile_unsent_changes">Ikke sendt</string>
+	<string name="editor_profile_unsent_changes">Ikke sendt:</string>
 	<string name="editor_focus_map_on_location">Træk kortet for at vælge objektets korrekte placering.</string>
 	<string name="editor_add_select_category">Vælg kategori</string>
 	<string name="editor_add_select_category_popular_subtitle">Populær</string>

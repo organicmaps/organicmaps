@@ -920,7 +920,7 @@
 	<string name="editor_place_edited_dialog">คุณได้แก้ไขวัตถุ!</string>
 	<string name="editor_login_with_osm">ล็อกอินด้วย OpenStreetMap</string>
 	<string name="editor_profile_changes">การเปลี่ยนแปลง:</string>
-	<string name="editor_profile_unsent_changes">ไม่ได้ส่ง</string>
+	<string name="editor_profile_unsent_changes">ไม่ได้ส่ง:</string>
 	<string name="editor_focus_map_on_location">ดึงแผนที่เพื่อเลือกตำแหน่งวัตถุที่ถูกต้อง</string>
 	<string name="editor_add_select_category">เลือกหมวดหมู่</string>
 	<string name="editor_add_select_category_popular_subtitle">ยอดนิยม</string>

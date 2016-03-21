@@ -916,7 +916,7 @@
 	<string name="editor_place_edited_dialog">Olet muokannut kohdetta!</string>
 	<string name="editor_login_with_osm">Kirjaudu sisään OpenStreetMapissa</string>
 	<string name="editor_profile_changes">Muutokset:</string>
-	<string name="editor_profile_unsent_changes">Ei lähetetty</string>
+	<string name="editor_profile_unsent_changes">Ei lähetetty:</string>
 	<string name="editor_focus_map_on_location">Vedä karttaa valitaksesi kohteelle oikean sijainnin.</string>
 	<string name="editor_add_select_category">Valitse kategoria</string>
 	<string name="editor_add_select_category_popular_subtitle">Suositut</string>

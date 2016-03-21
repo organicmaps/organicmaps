@@ -906,7 +906,7 @@
 	<string name="editor_place_edited_dialog">Je hebt een object bewerkt!</string>
 	<string name="editor_login_with_osm">Log in met OpenStreetMap</string>
 	<string name="editor_profile_changes">Wijzigingen:</string>
-	<string name="editor_profile_unsent_changes">Niet verzonden</string>
+	<string name="editor_profile_unsent_changes">Niet verzonden:</string>
 	<string name="editor_focus_map_on_location">Trek aan de kaart om de juiste locatie van het object te selecteren.</string>
 	<string name="editor_add_select_category">Selecteer categorie</string>
 	<string name="editor_add_select_category_popular_subtitle">Populair</string>

@@ -1551,7 +1551,7 @@
 
 "editor_profile_changes" = "Modifications :";
 
-"editor_profile_unsent_changes" = "Non envoyé";
+"editor_profile_unsent_changes" = "Non envoyé :";
 
 "editor_focus_map_on_location" = "Tirez la carte pour sélectionner la bonne position de l'objet.";
 
@@ -1613,4 +1613,4 @@
 
 "dialog_incorrect_feature_position" = "Change the location";
 
-"message_ivalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "A place cannot be situated in this location.";

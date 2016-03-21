@@ -922,7 +922,7 @@
 	<string name="editor_place_edited_dialog">Bir objeyi düzenlediniz\&#39;!</string>
 	<string name="editor_login_with_osm">OpenStreetMap ile giriş yapın</string>
 	<string name="editor_profile_changes">Değişiklikler:</string>
-	<string name="editor_profile_unsent_changes">Gönderilmedi</string>
+	<string name="editor_profile_unsent_changes">Gönderilmedi:</string>
 	<string name="editor_focus_map_on_location">Objenin doğru konumunu seçmek için haritayı çekin.</string>
 	<string name="editor_add_select_category">Kategori seç</string>
 	<string name="editor_add_select_category_popular_subtitle">Popüler</string>

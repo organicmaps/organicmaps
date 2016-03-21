@@ -938,7 +938,7 @@
 	<string name="editor_place_edited_dialog">Sie haben ein Objekt bearbeitet!</string>
 	<string name="editor_login_with_osm">Mit OpenStreetMap anmelden</string>
 	<string name="editor_profile_changes">Änderungen:</string>
-	<string name="editor_profile_unsent_changes">Nicht gesendet</string>
+	<string name="editor_profile_unsent_changes">Nicht gesendet:</string>
 	<string name="editor_focus_map_on_location">Ziehen Sie die Karte, um den Standort des Objektes zu korrigieren.</string>
 	<string name="editor_add_select_category">Kategorie auswählen</string>
 	<string name="editor_add_select_category_popular_subtitle">Beliebt</string>

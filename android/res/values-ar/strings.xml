@@ -922,7 +922,7 @@
 	<string name="editor_place_edited_dialog">لقد قمت بتعديل هدف!</string>
 	<string name="editor_login_with_osm">تسجيل الدخول عبر OpenStreetMap</string>
 	<string name="editor_profile_changes">التغيرات:</string>
-	<string name="editor_profile_unsent_changes">لم ترسل</string>
+	<string name="editor_profile_unsent_changes">لم ترسل:</string>
 	<string name="editor_focus_map_on_location">اسحب الخريطة لتحدد الموقع الصحيح للهدف.</string>
 	<string name="editor_add_select_category">اختر الفئة</string>
 	<string name="editor_add_select_category_popular_subtitle">شائع</string>

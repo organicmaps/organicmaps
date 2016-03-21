@@ -915,7 +915,7 @@
 	<string name="editor_place_edited_dialog">Hai modificato un oggetto!</string>
 	<string name="editor_login_with_osm">Accedi con OpenStreetMap</string>
 	<string name="editor_profile_changes">Modifiche:</string>
-	<string name="editor_profile_unsent_changes">Non inviato</string>
+	<string name="editor_profile_unsent_changes">Non inviato:</string>
 	<string name="editor_focus_map_on_location">Sposta la mappa per selezionare l’esatta posizione dell’oggetto.</string>
 	<string name="editor_add_select_category">Seleziona categoria</string>
 	<string name="editor_add_select_category_popular_subtitle">Popolari</string>

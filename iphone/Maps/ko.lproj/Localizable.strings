@@ -1551,7 +1551,7 @@
 
 "editor_profile_changes" = "변경 사항:";
 
-"editor_profile_unsent_changes" = "전송되지 않음";
+"editor_profile_unsent_changes" = "전송되지 않음:";
 
 "editor_focus_map_on_location" = "개체의 정확한 위치를 선택하려면 지도를 당깁니다.";
 
@@ -1613,4 +1613,4 @@
 
 "dialog_incorrect_feature_position" = "Change the location";
 
-"message_ivalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "A place cannot be situated in this location.";

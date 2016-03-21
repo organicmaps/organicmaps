@@ -915,7 +915,7 @@
 	<string name="editor_place_edited_dialog">Anda telah mengedit sebuah obyek!</string>
 	<string name="editor_login_with_osm">Masuk dengan OpenStreetMap</string>
 	<string name="editor_profile_changes">Perubahan:</string>
-	<string name="editor_profile_unsent_changes">Tidak terkirim</string>
+	<string name="editor_profile_unsent_changes">Tidak terkirim:</string>
 	<string name="editor_focus_map_on_location">Tarik peta untuk memilih lokasi yang benar dari obyek.</string>
 	<string name="editor_add_select_category">Pilih kategori</string>
 	<string name="editor_add_select_category_popular_subtitle">Populer</string>

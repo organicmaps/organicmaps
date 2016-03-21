@@ -965,7 +965,7 @@
 	<string name="editor_place_edited_dialog">You’ve edited an object!</string>
 	<string name="editor_login_with_osm">Login with OpenStreetMap</string>
 	<string name="editor_profile_changes">Edits:</string>
-	<string name="editor_profile_unsent_changes">Not sent</string>
+	<string name="editor_profile_unsent_changes">Not sent:</string>
 	<string name="editor_focus_map_on_location">Pull the map to select the correct location of the object.</string>
 	<string name="editor_add_select_category">Select category</string>
 	<string name="editor_add_select_category_popular_subtitle">Popular</string>
@@ -996,5 +996,5 @@
 	<string name="onboarding_location_title">Help us find you</string>
 	<string name="onboarding_location_message">To use navigation and other features, we need access to your geolocation.</string>
 	<string name="dialog_incorrect_feature_position">Change the location</string>
-	<string name="message_ivalid_feature_position">A place cannot be situated in this location.</string>
+	<string name="message_invalid_feature_position">A place cannot be situated in this location.</string>
 </resources>
