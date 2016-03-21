@@ -7438,7 +7438,7 @@
     th = ดาวน์โหลดทั้งหมด
     uk = Завантажити всі
     pt = Descarregar tudo
-    es = Descarar todos
+    es = Descargar todos
     ro = Descărcați toate
     pl = Pobierz wszystkie
     sk = Stiahnuť všetko
@@ -17595,32 +17595,32 @@
 
   [editor_profile_unsent_changes]
     tags = ios, android
-    en = Not sent
-    ru = Не отправлено
-    tr = Gönderilmedi
-    sv = Inte skickade
-    nb = Ikke sendt
-    ko = 전송되지 않음
-    id = Tidak terkirim
-    hu = Nincs elküldve
-    de = Nicht gesendet
-    fi = Ei lähetetty
-    nl = Niet verzonden
-    da = Ikke sendt
-    cs = Neodesláno
-    zh-Hans = 未发送
-    zh-Hant = 未發送
-    ar = لم ترسل
-    th = ไม่ได้ส่ง
-    uk = Не відправлено
-    pt = Não enviado
-    es = No enviado
-    ro = Netrimis
-    pl = Nie wysłano
-    sk = Neodoslané
-    it = Non inviato
-    fr = Non envoyé
-    ja = 未送信
+    en = Not sent:
+    ru = Не отправлено:
+    tr = Gönderilmedi:
+    sv = Inte skickade:
+    nb = Ikke sendt:
+    ko = 전송되지 않음:
+    id = Tidak terkirim:
+    hu = Nincs elküldve:
+    de = Nicht gesendet:
+    fi = Ei lähetetty:
+    nl = Niet verzonden:
+    da = Ikke sendt:
+    cs = Neodesláno:
+    zh-Hans = 未发送：
+    zh-Hant = 未發送：
+    ar = لم ترسل:
+    th = ไม่ได้ส่ง:
+    uk = Не відправлено:
+    pt = Não enviado:
+    es = No enviado:
+    ro = Netrimis:
+    pl = Nie wysłano:
+    sk = Neodoslané:
+    it = Non inviato:
+    fr = Non envoyé :
+    ja = 未送信:
 
   [editor_focus_map_on_location]
     tags = ios, android
@@ -18444,6 +18444,6 @@
     en = Change the location
     ru = Измените местоположение
 
-  [message_ivalid_feature_position]
+  [message_invalid_feature_position]
     en = A place cannot be situated in this location.
     ru = Объект не может находиться в этом местоположении.
