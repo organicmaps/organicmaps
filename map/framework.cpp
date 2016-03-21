@@ -1897,10 +1897,22 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(df::TapInfo const 
     return df::SelectionShape::OBJECT_USER_MARK;
   }
 
-  bool showMapSelection = false;
-  if (tapInfo.m_featureTapped.IsValid())
+  FeatureID featureTapped = tapInfo.m_featureTapped;
+
+  int const kMinVisibleBuildingsZoom = 13;
+  if (!featureTapped.IsValid() && df::GetDrawTileScale(m_currentModelView) >= kMinVisibleBuildingsZoom)
   {
-    FillFeatureInfo(tapInfo.m_featureTapped, outInfo);
+    unique_ptr<FeatureType> feature = GetFeatureAtPoint(m_currentModelView.PtoG(pxPoint2d));
+
+    if (feature != nullptr && feature->GetFeatureType() == feature::GEOM_AREA &&
+        ftypes::IsBuildingChecker::Instance()(*feature))
+      featureTapped = feature->GetID();
+  }
+
+  bool showMapSelection = false;
+  if (featureTapped.IsValid())
+  {
+    FillFeatureInfo(featureTapped, outInfo);
     showMapSelection = true;
   }
   else if (tapInfo.m_isLong)
