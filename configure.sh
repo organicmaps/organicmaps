@@ -44,6 +44,7 @@ else
 #define AD_PERMISION_SERVER_URL ""
 #define AD_PERMISION_CHECK_DURATION 2 * 60 * 60
 #define HOCKEY_APP_KEY ""
+#define HOCKEY_APP_BETA_KEY ""
 #define CRASHLYTICS_IOS_KEY ""
 ' > "$PRIVATE_HEADER"
     echo '

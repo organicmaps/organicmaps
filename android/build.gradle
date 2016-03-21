@@ -29,6 +29,8 @@ dependencies {
   compile 'com.google.android.gms:play-services-location:8.4.0'
   compile 'com.google.android.gms:play-services-analytics:8.4.0'
   compile 'com.google.android.gms:play-services-plus:8.4.0'
+  // crash reporting
+  compile 'net.hockeyapp.android:HockeySDK:3.7.1'
   // 3-party
   compile 'com.facebook.android:facebook-android-sdk:4.10.0'
   compile 'com.parse.bolts:bolts-android:1.4.0'

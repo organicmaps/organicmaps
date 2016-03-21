@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
@@ -31,6 +32,7 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.SaveCallback;
+import net.hockeyapp.android.CrashManager;
 
 public class MwmApplication extends Application
 {
@@ -103,6 +105,7 @@ public class MwmApplication extends Application
     nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
                        Yota.isFirstYota(), UiUtils.isTablet());
+    initHockeyApp();
     initParse();
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
@@ -156,6 +159,14 @@ public class MwmApplication extends Application
     nativeAddLocalization("routing_failed_cross_mwm_building", getString(R.string.routing_failed_cross_mwm_building));
     nativeAddLocalization("routing_failed_route_not_found", getString(R.string.routing_failed_route_not_found));
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
+  }
+
+  private void initHockeyApp()
+  {
+    String id = ("beta".equals(BuildConfig.BUILD_TYPE) ? PrivateVariables.hockeyAppBetaId()
+                                                       : PrivateVariables.hockeyAppId());
+    if (!TextUtils.isEmpty(id))
+      CrashManager.register(this, id);
   }
 
   public boolean isFrameworkInitialized()
