@@ -64,8 +64,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   @StringRes
   private int getTitle()
   {
-    // TODO return other resid for add place mode
-    return mIsNewObject ? R.string.edit_place : R.string.edit_place;
+    return mIsNewObject ? R.string.editor_add_place_title : R.string.editor_edit_place_title;
   }
 
   @Override
