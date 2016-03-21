@@ -265,6 +265,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     private final WheelProgressView mProgress;
     private final ImageView mStatus;
     private final TextView mName;
+    private final View mSearchNamesFrame;
+    private final TextView mSearchName;
+    private final TextView mSearchFoundName;
+    private final TextView mSearchParent;
     private final TextView mSizes;
     private final TextView mCounts;
 
@@ -379,6 +383,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       mProgress = (WheelProgressView) frame.findViewById(R.id.progress);
       mStatus = (ImageView) frame.findViewById(R.id.status);
       mName = (TextView) frame.findViewById(R.id.name);
+      mSearchNamesFrame = frame.findViewById(R.id.search_names);
+      mSearchName = (TextView) mSearchNamesFrame.findViewById(R.id.name);
+      mSearchFoundName = (TextView) mSearchNamesFrame.findViewById(R.id.found_name);
+      mSearchParent = (TextView) mSearchNamesFrame.findViewById(R.id.parent);
       mSizes = (TextView) frame.findViewById(R.id.sizes);
       mCounts = (TextView) frame.findViewById(R.id.counts);
 
@@ -474,7 +482,18 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     {
       mItem = item;
 
-      mName.setText(mItem.name);
+      UiUtils.showIf(mSearchResultsMode, mSearchNamesFrame);
+      UiUtils.showIf(!mSearchResultsMode, mName);
+
+      if (mSearchResultsMode)
+      {
+        mSearchName.setText(mItem.name);
+        mSearchFoundName.setText(mItem.searchResultName);
+        UiUtils.setTextAndHideIfEmpty(mSearchParent, mItem.parentName);
+      }
+      else
+        mName.setText(mItem.name);
+
       mSizes.setText(StringUtils.getFileSizeString(mItem.totalSize));
 
       UiUtils.showIf(mItem.isExpandable(), mCounts);

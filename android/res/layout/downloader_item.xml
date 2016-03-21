@@ -37,16 +37,51 @@
       tools:src="@drawable/ic_downloader_download"/>
   </FrameLayout>
 
-  <TextView
-    android:id="@+id/name"
+  <FrameLayout
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:paddingTop="@dimen/margin_half"
-    android:paddingBottom="@dimen/margin_half"
-    android:textAppearance="@style/MwmTextAppearance.Body1"
-    android:maxLines="2"
-    tools:text="Moscow\nLong Moscow"/>
+    android:layout_weight="1">
+    <TextView
+      android:id="@+id/name"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingTop="@dimen/margin_half"
+      android:paddingBottom="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      android:maxLines="2"
+      android:visibility="gone"
+      tools:text="Moscow\nLong Moscow"/>
+
+    <LinearLayout
+      android:id="@+id/search_names"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+      <TextView
+        android:id="@+id/found_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/MwmTextAppearance.Body4"
+        android:maxLines="1"
+        tools:text="Крымск"/>
+
+      <TextView
+        android:id="@id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/MwmTextAppearance.Body1"
+        android:maxLines="1"
+        tools:text="Донецкая область"/>
+
+      <TextView
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/MwmTextAppearance.Body4"
+        android:maxLines="1"
+        tools:text="Украина"/>
+    </LinearLayout>
+  </FrameLayout>
 
   <LinearLayout
     android:layout_width="wrap_content"

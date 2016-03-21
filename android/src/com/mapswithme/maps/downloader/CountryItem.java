@@ -51,6 +51,8 @@ public final class CountryItem implements Comparable<CountryItem>
 
   // Internal ID for grouping under headers in the list
   int headerId;
+  // Internal field to store search result name
+  String searchResultName;
 
   public CountryItem(String id)
   {

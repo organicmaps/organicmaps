@@ -63,6 +63,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
         if (!TextUtils.isEmpty(id) && !mResults.containsKey(id))
         {
           CountryItem item = CountryItem.fill(id);
+          item.searchResultName = result.name;
           item.category = CountryItem.CATEGORY_AVAILABLE;
           mResults.put(id, item);
         }
