@@ -27,6 +27,7 @@
 #include "drape_frontend/watch/feature_processor.hpp"
 
 #include "indexer/categories_holder.hpp"
+#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/editable_map_object.hpp"
@@ -1656,7 +1657,8 @@ void Framework::ForEachFeatureAtPoint(TFeatureTypeFn && fn, m2::PointD const & m
 unique_ptr<FeatureType> Framework::GetFeatureAtPoint(m2::PointD const & mercator) const
 {
   unique_ptr<FeatureType> poi, line, area;
-  ForEachFeatureAtPoint([&](FeatureType & ft)
+  uint32_t const coastlineType = classif().GetCoastType();
+  ForEachFeatureAtPoint([&, coastlineType](FeatureType & ft)
   {
     // TODO @alexz
     // remove manual parsing after refactoring with usermarks'll be finished
@@ -1672,6 +1674,9 @@ unique_ptr<FeatureType> Framework::GetFeatureAtPoint(m2::PointD const & mercator
     case feature::GEOM_AREA:
       // Buildings have higher priority over other types.
       if (area && ftypes::IsBuildingChecker::Instance()(*area))
+        return;
+      // Skip/ignore coastlines.
+      if (feature::TypesHolder(ft).Has(coastlineType))
         return;
       area.reset(new FeatureType(ft));
       break;

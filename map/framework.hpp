@@ -491,6 +491,7 @@ public:
   search::AddressInfo GetFeatureAddressInfo(FeatureID const & fid) const;
   vector<string> GetPrintableFeatureTypes(FeatureType const & ft) const;
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
+  /// Ignores coastlines and prefers buildings over other area features.
   /// @returns nullptr if no feature was found at the given mercator point.
   unique_ptr<FeatureType> GetFeatureAtPoint(m2::PointD const & mercator) const;
   using TFeatureTypeFn = function<void(FeatureType &)>;
