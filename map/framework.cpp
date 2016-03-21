@@ -32,6 +32,7 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_visibility.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/osm_editor.hpp"
 #include "indexer/scales.hpp"
@@ -357,6 +358,8 @@ Framework::Framework()
   m_routingSession.Init(routingStatisticsFn, routingVisualizerFn);
 
   SetRouterImpl(RouterType::Vehicle);
+
+  UpdateMinBuildingsTapZoom();
 
   LOG(LDEBUG, ("Routing engine initialized"));
 
@@ -1517,6 +1520,7 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   MarkMapStyle(mapStyle);
   CallDrapeFunction(bind(&df::DrapeEngine::UpdateMapStyle, _1));
   InvalidateUserMarks();
+  UpdateMinBuildingsTapZoom();
 }
 
 MapStyle Framework::GetMapStyle() const
@@ -1849,6 +1853,11 @@ void Framework::InvalidateRendering()
     m_drapeEngine->Invalidate();
 }
 
+void Framework::UpdateMinBuildingsTapZoom()
+{
+  m_minBuildingsTapZoom = feature::GetDrawableScaleRange(classif().GetTypeByPath({"building"})).first + 1;
+}
+
 df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(df::TapInfo const & tapInfo,
                                                               place_page::Info & outInfo) const
 {
@@ -1899,10 +1908,9 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(df::TapInfo const 
 
   FeatureID featureTapped = tapInfo.m_featureTapped;
 
-  int const kMinVisibleBuildingsZoom = 13;
-  if (!featureTapped.IsValid() && df::GetDrawTileScale(m_currentModelView) >= kMinVisibleBuildingsZoom)
+  if (!featureTapped.IsValid() && df::GetDrawTileScale(m_currentModelView) >= m_minBuildingsTapZoom)
   {
-    unique_ptr<FeatureType> feature = GetFeatureAtPoint(m_currentModelView.PtoG(pxPoint2d));
+    unique_ptr<FeatureType> const feature = GetFeatureAtPoint(m_currentModelView.PtoG(pxPoint2d));
 
     if (feature != nullptr && feature->GetFeatureType() == feature::GEOM_AREA &&
         ftypes::IsBuildingChecker::Instance()(*feature))
