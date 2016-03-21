@@ -567,25 +567,25 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           case FeatureStatus::Created: changeset.Create(feature); break;
 
           case FeatureStatus::Modified:
-          {
-            XMLFeature osmFeature =
-                GetMatchingFeatureFromOSM(changeset, m_getOriginalFeatureFn(fti.m_feature.GetID()));
-            XMLFeature const osmFeatureCopy = osmFeature;
-            osmFeature.ApplyPatch(feature);
-            // Check to avoid uploading duplicates into OSM.
-            if (osmFeature == osmFeatureCopy)
             {
-              LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.", osmFeatureCopy));
-              // Don't delete this local change right now for user to see it in profile.
-              // It will be automatically deleted by migration code on the next maps update.
+              XMLFeature osmFeature =
+                  GetMatchingFeatureFromOSM(changeset, m_getOriginalFeatureFn(fti.m_feature.GetID()));
+              XMLFeature const osmFeatureCopy = osmFeature;
+              osmFeature.ApplyPatch(feature);
+              // Check to avoid uploading duplicates into OSM.
+              if (osmFeature == osmFeatureCopy)
+              {
+                LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.", osmFeatureCopy));
+                // Don't delete this local change right now for user to see it in profile.
+                // It will be automatically deleted by migration code on the next maps update.
+              }
+              else
+              {
+                LOG(LDEBUG, ("Uploading patched feature", osmFeature));
+                changeset.Modify(osmFeature);
+              }
             }
-            else
-            {
-              LOG(LDEBUG, ("Uploading patched feature", osmFeature));
-              changeset.Modify(osmFeature);
-            }
-          }
-          break;
+            break;
 
           case FeatureStatus::Deleted:
             changeset.Delete(GetMatchingFeatureFromOSM(
