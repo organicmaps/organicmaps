@@ -121,4 +121,10 @@ public final class Editor
     nativeCreateMapObject(category.category);
   }
   public static native void nativeCreateMapObject(int categoryId);
+
+  public static native String[] nativeGetCuisines();
+  public static native String[] nativeGetSelectedCuisines();
+  public static native String[] nativeGetCuisinesTranslations();
+  public static native void nativeSetSelectedCuisines(String [] cuisines);
+  public static native String nativeGetFormattedCuisine();
 }

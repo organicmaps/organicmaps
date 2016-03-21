@@ -6,6 +6,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+#include "indexer/cuisines.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/osm_editor.hpp"
 
@@ -16,6 +17,7 @@
 
 namespace
 {
+using TCuisine = pair<string, string>;
 osm::EditableMapObject g_editableMapObject;
 
 jclass g_featureCategoryClazz;
@@ -24,6 +26,19 @@ jmethodID g_featureCtor;
 jobject ToJavaFeatureCategory(JNIEnv * env, osm::Category const & category)
 {
   return env->NewObject(g_featureCategoryClazz, g_featureCtor, category.m_type, jni::TScopedLocalRef(env, jni::ToJavaString(env, category.m_name)).get());
+}
+
+jobjectArray ToJavaArray(JNIEnv * env, vector<string> const & src)
+{
+  int const size = src.size();
+  auto jArray = env->NewObjectArray(size, jni::GetStringClass(env), 0);
+  for (size_t i = 0; i < size; i++)
+  {
+    jni::TScopedLocalRef jItem(env, jni::ToJavaString(env, src[i]));
+    env->SetObjectArrayElement(jArray, i, jItem.get());
+  }
+
+  return jArray;
 }
 }  // namespace
 
@@ -54,8 +69,6 @@ Java_com_mapswithme_maps_editor_Editor_nativeSetMetadata(JNIEnv * env, jclass cl
   using feature::Metadata;
   switch (type)
   {
-  // TODO(yunikkk): Pass cuisines in a separate setter via vector of osm untranslated keys (SetCuisines()).
-  case Metadata::FMD_CUISINE: g_editableMapObject.SetRawOSMCuisines(v); break;
   case Metadata::FMD_OPEN_HOURS: g_editableMapObject.SetOpeningHours(v); break;
   case Metadata::FMD_PHONE_NUMBER: g_editableMapObject.SetPhone(v); break;
   case Metadata::FMD_FAX_NUMBER: g_editableMapObject.SetFax(v); break;
@@ -273,5 +286,47 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetNewFeatureCategories(JNIEnv * en
   }
 
   return jCategories;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetCuisines(JNIEnv * env, jclass clazz)
+{
+  osm::TAllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
+  vector<string> keys(cuisines.size());
+  for (size_t i = 0; i < cuisines.size(); i++)
+    keys[i] = cuisines[i].first;
+  return ToJavaArray(env, keys);
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetSelectedCuisines(JNIEnv * env, jclass clazz)
+{
+  return ToJavaArray(env, g_editableMapObject.GetCuisines());
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetCuisinesTranslations(JNIEnv * env, jclass clazz)
+{
+  osm::TAllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
+  vector<string> keys(cuisines.size());
+  for (size_t i = 0; i < cuisines.size(); i++)
+    keys[i] = cuisines[i].second;
+  return ToJavaArray(env, keys);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetSelectedCuisines(JNIEnv * env, jclass clazz, jobjectArray jCuisines)
+{
+  int const length = env->GetArrayLength(jCuisines);
+  vector<string> cuisines(length);
+  for (int i = 0; i < length; i++)
+    cuisines[i] = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(jCuisines, i));
+  g_editableMapObject.SetCuisines(cuisines);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetFormattedCuisine(JNIEnv * env, jclass clazz)
+{
+  return jni::ToJavaString(env, g_editableMapObject.FormatCuisines());
 }
 } // extern "C"

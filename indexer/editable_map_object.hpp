@@ -86,8 +86,6 @@ public:
   void SetBuildingLevels(string const & buildingLevels);
   /// @param[in] cuisine is a vector of osm cuisine ids.
   void SetCuisines(vector<string> const & cuisine);
-  // TODO(yunikkk): Refactor out this method in jni, because it lacks possible validation.
-  void SetRawOSMCuisines(string const & cuisine);
   void SetOpeningHours(string const & openingHours);
 
   /// Special mark that it's a point feature, not area or line.

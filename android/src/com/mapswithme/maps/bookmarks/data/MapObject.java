@@ -1,6 +1,5 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
@@ -9,9 +8,6 @@ import android.text.TextUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MwmApplication;
 
 // TODO(yunikkk): Refactor. Displayed information is different from edited information, and it's better to
 // separate them. Simple getters from jni place_page::Info and osm::EditableFeature should be enough.
@@ -208,27 +204,4 @@ public class MapObject implements Parcelable
       return new MapObject[size];
     }
   };
-
-  /**
-   * @return properly formatted and translated cuisine string.
-   */
-  @NonNull
-  static public String formatCuisine(String rawOsmCuisineValue)
-  {
-    if (TextUtils.isEmpty(rawOsmCuisineValue))
-      return "";
-
-    final StringBuilder result = new StringBuilder();
-    // search translations for each cuisine
-    final Resources resources = MwmApplication.get().getResources();
-    for (String rawCuisine : Metadata.splitCuisines(rawOsmCuisineValue))
-    {
-      int resId = resources.getIdentifier(Metadata.osmCuisineToStringName(Metadata.normalizeCuisine(rawCuisine)), "string", BuildConfig.APPLICATION_ID);
-      if (result.length() > 0)
-        result.append(", ");
-      result.append(resId == 0 ? rawCuisine : resources.getString(resId));
-    }
-
-    return result.toString();
-  }
 }

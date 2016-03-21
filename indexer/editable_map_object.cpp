@@ -171,11 +171,6 @@ void EditableMapObject::SetCuisines(vector<string> const & cuisine)
   m_metadata.Set(feature::Metadata::FMD_CUISINE, strings::JoinStrings(cuisine, ';'));
 }
 
-void EditableMapObject::SetRawOSMCuisines(string const & cuisine)
-{
-  m_metadata.Set(feature::Metadata::FMD_CUISINE, cuisine);
-}
-
 void EditableMapObject::SetOpeningHours(string const & openingHours)
 {
   m_metadata.Set(feature::Metadata::FMD_OPEN_HOURS, openingHours);

@@ -130,9 +130,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     temporaryStoreEdits();
     mMode = Mode.CUISINE;
     mToolbarController.setTitle(R.string.select_cuisine);
-    final Bundle args = new Bundle();
-    args.putString(CuisineFragment.EXTRA_CURRENT_CUISINE, Editor.getMetadata(Metadata.MetadataType.FMD_CUISINE));
-    final Fragment cuisineFragment = Fragment.instantiate(getActivity(), CuisineFragment.class.getName(), args);
+    final Fragment cuisineFragment = Fragment.instantiate(getActivity(), CuisineFragment.class.getName());
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, cuisineFragment, CuisineFragment.class.getName())
                              .commit();
@@ -168,8 +166,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         setStreet(((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName())).getStreet());
         break;
       case CUISINE:
-        String cuisine = ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).getCuisine();
-        Editor.setMetadata(Metadata.MetadataType.FMD_CUISINE, cuisine);
+        String[] cuisines = ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).getCuisines();
+        Editor.nativeSetSelectedCuisines(cuisines);
         editMapObject();
         break;
       case MAP_OBJECT:
