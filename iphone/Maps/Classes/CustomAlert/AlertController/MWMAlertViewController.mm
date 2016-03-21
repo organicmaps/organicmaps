@@ -1,6 +1,7 @@
 #import "Common.h"
 #import "MWMAlertViewController.h"
 #import "MWMDownloadTransitMapAlert.h"
+#import "MapsAppDelegate.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
@@ -156,6 +157,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
     if (!isIOS7)
       alert.transform = CGAffineTransformIdentity;
   }];
+  [MapsAppDelegate.theApp.window endEditing:YES];
 }
 
 - (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
