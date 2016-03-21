@@ -80,8 +80,9 @@ namespace
   else
   {
     if (self.selected)
-      return;
-    [self setDefaultTintColor];
+      [self setSelected:YES];
+    else
+      [self setDefaultTintColor];
   }
 }
 
