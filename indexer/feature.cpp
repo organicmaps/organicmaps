@@ -14,6 +14,7 @@
 #include "platform/preferred_languages.hpp"
 
 #include "base/range_iterator.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
 
@@ -117,7 +118,10 @@ editor::XMLFeature FeatureType::ToXML() const
   else
   {
     ParseTriangles(BEST_GEOMETRY);
-    feature.SetGeometry(begin(m_triangles), end(m_triangles));
+    vector<m2::PointD> geometry(begin(m_triangles), end(m_triangles));
+    // Remove duplicates.
+    my::SortUnique(geometry);
+    feature.SetGeometry(geometry);
   }
 
   ForEachName([&feature](uint8_t const & lang, string const & name)
