@@ -156,8 +156,9 @@ void MyPositionController::DragStarted()
 
 void MyPositionController::DragEnded(m2::PointD const & distance)
 {
+  float const kBindingDistance = 0.1;
   SetModeInfo(ResetModeBit(m_modeInfo, BlockAnimation));
-  if (distance.Length() > 0.2 * min(m_pixelRect.SizeX(), m_pixelRect.SizeY()))
+  if (distance.Length() > kBindingDistance * min(m_pixelRect.SizeX(), m_pixelRect.SizeY()))
     StopLocationFollow();
 
   Follow();
