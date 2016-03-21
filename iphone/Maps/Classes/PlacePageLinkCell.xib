@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -25,11 +25,12 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5l-Sb-Hfo">
-                        <rect key="frame" x="60" y="0.0" width="228" height="43"/>
+                        <rect key="frame" x="60" y="0.0" width="260" height="43"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="42" id="2uD-kp-7lD"/>
                         </constraints>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="32" maxY="0.0"/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -49,7 +50,7 @@
                     <constraint firstItem="DT5-2i-vCG" firstAttribute="centerY" secondItem="M4j-cz-kSo" secondAttribute="centerY" id="MX4-xc-kFl"/>
                     <constraint firstItem="T5l-Sb-Hfo" firstAttribute="top" secondItem="M4j-cz-kSo" secondAttribute="top" id="Vw0-bf-uUe"/>
                     <constraint firstItem="DT5-2i-vCG" firstAttribute="leading" secondItem="M4j-cz-kSo" secondAttribute="leading" constant="16" id="gle-Hg-xi1"/>
-                    <constraint firstAttribute="trailing" secondItem="T5l-Sb-Hfo" secondAttribute="trailing" constant="32" id="ot9-cN-XF3"/>
+                    <constraint firstAttribute="trailing" secondItem="T5l-Sb-Hfo" secondAttribute="trailing" id="ot9-cN-XF3"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
