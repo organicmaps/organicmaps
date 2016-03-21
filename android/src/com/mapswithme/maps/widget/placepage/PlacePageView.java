@@ -112,6 +112,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private View mEntrance;
   private TextView mTvEntrance;
   private View mEditor;
+  private View mReport;
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
@@ -204,6 +205,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvEntrance = (TextView) mEntrance.findViewById(R.id.tv__place_entrance);
     mEditor = mDetails.findViewById(R.id.ll__place_editor);
     mEditor.setOnClickListener(this);
+    mReport = mDetails.findViewById(R.id.ll__report_problem);
+    mReport.setOnClickListener(this);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
     mPhone.setOnLongClickListener(this);
@@ -212,7 +215,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mEmail.setOnLongClickListener(this);
     mOperator.setOnLongClickListener(this);
     mWiki.setOnLongClickListener(this);
-    mDetails.findViewById(R.id.ll__report_problem).setOnClickListener(this);
 
     mEtBookmarkName = (EditText) mDetails.findViewById(R.id.et__bookmark_name);
     mEtBookmarkName.setOnEditorActionListener(new TextView.OnEditorActionListener()
@@ -429,7 +431,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours();
-    UiUtils.showIf(mMapObject != null && Editor.nativeIsFeatureEditable(), mEditor);
+    UiUtils.showIf(mMapObject != null && Editor.nativeIsFeatureEditable() && !Framework.nativeIsRoutingActive(), mEditor);
+    UiUtils.showIf(!Framework.nativeIsRoutingActive(), mReport);
   }
 
   private void refreshOpeningHours()

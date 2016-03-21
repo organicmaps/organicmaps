@@ -396,6 +396,8 @@ public class MainMenu
     mToggle.setState(state, animateToggle);
 
     boolean expandContent;
+    boolean isRouting = state == State.NAVIGATION ||
+                        state == State.ROUTE_PREPARE;
     if (mRoutePlanFrame == null)
     {
       UiUtils.showIf(state != State.NAVIGATION, mButtonsFrame);
@@ -405,14 +407,14 @@ public class MainMenu
     {
       UiUtils.showIf(state == State.MENU, mButtonsFrame);
       UiUtils.showIf(state == State.ROUTE_PREPARE, mRoutePlanFrame);
-      expandContent = (state == State.NAVIGATION ||
-                       state == State.ROUTE_PREPARE);
+      expandContent = isRouting;
     }
 
     UiUtils.showIf(state == State.NAVIGATION, mNavigationFrame);
     UiUtils.showIf(expandContent,
                    mItemViews.get(Item.SEARCH),
                    mItemViews.get(Item.BOOKMARKS));
+    setVisible(Item.ADD_PLACE, !isRouting);
 
     if (isLayoutCorrected())
     {
@@ -539,6 +541,15 @@ public class MainMenu
     button.setEnabled(enable);
   }
 
+  public void setVisible(Item item, boolean show)
+  {
+    final View itemInButtonsFrame = mButtonsFrame.findViewById(item.mViewId);
+    if (itemInButtonsFrame != null)
+      UiUtils.showIf(show, itemInButtonsFrame);
+    if (mItemViews.get(item) != null)
+      UiUtils.showIf(show, mItemViews.get(item));
+  }
+
   public View getFrame()
   {
     return mFrame;
@@ -552,14 +563,6 @@ public class MainMenu
   public MwmActivity.LeftAnimationTrackListener getLeftAnimationTrackListener()
   {
     return mAnimationTrackListener;
-  }
-
-  public void showShowcase(boolean show)
-  {
-    final View showcaseInFrame = mButtonsFrame.findViewById(R.id.showcase);
-    // showcase button can be either in mButtonsFrame, or in mItemViews(items from content frame)
-    UiUtils.showIf(show, showcaseInFrame == null ? mItemViews.get(Item.SHOWCASE)
-                                                 : showcaseInFrame);
   }
 
   public void setShowcaseText(String text)

@@ -80,6 +80,7 @@ public enum Statistics
     public static final String MENU_SHARE = "Menu. Share";
     public static final String MENU_SHOWCASE = "Menu. Showcase";
     public static final String MENU_P2P = "Menu. Point to point.";
+    public static final String MENU_ADD_PLACE = "Menu. Add place.";
     // dialogs
     public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
     public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";

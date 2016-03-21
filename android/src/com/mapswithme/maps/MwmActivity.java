@@ -558,7 +558,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
           break;
 
         case ADD_PLACE:
-          showPositionChooser(true);
+          closePlacePage();
+          if (mIsFragmentContainer)
+            closeSidePanel();
+          closeMenu(Statistics.EventName.MENU_ADD_PLACE, AlohaHelper.MENU_ADD_PLACE, new Runnable()
+          {
+            @Override
+            public void run()
+            {
+              showPositionChooser(true);
+            }
+          });
           break;
 
         case SEARCH:
@@ -852,19 +862,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
       {
         if (nativeAppwallAd.getBanners().isEmpty())
         {
-          mMainMenu.showShowcase(false);
+          mMainMenu.setVisible(MainMenu.Item.SHOWCASE, false);
           return;
         }
 
         final NativeAppwallBanner menuBanner = nativeAppwallAd.getBanners().get(0);
         mMainMenu.setShowcaseText(menuBanner.getTitle());
-        mMainMenu.showShowcase(true);
+        mMainMenu.setVisible(MainMenu.Item.SHOWCASE, true);
       }
 
       @Override
       public void onNoAd(String reason, NativeAppwallAd nativeAppwallAd)
       {
-        mMainMenu.showShowcase(false);
+        mMainMenu.setVisible(MainMenu.Item.SHOWCASE, false);
       }
 
       @Override
