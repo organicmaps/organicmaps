@@ -18,12 +18,11 @@
       android:orientation="horizontal"
       android:padding="@dimen/margin_half">
 
-      <!-- TODO translation-->
       <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Select position"
+        android:text="@string/editor_add_select_location"
         android:textAppearance="@style/MwmTextAppearance.Toolbar.Title"/>
 
       <TextView
