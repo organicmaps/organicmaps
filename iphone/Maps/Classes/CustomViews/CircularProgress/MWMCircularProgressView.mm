@@ -119,8 +119,8 @@ static inline CGFloat angleWithProgress(CGFloat progress)
   self.progressLayer.strokeColor = self.progressLayerColor;
   CGRect rect = CGRectInset(self.bounds, kLineWidth, kLineWidth);
   self.backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
-  self.button.coloring = m_buttonColoring[self.state];
   [self.button setImage:self.images[@(self.state)] forState:UIControlStateNormal];
+  self.button.coloring = m_buttonColoring[self.state];
 }
 
 - (void)updatePath:(CGFloat)progress
@@ -145,10 +145,11 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)startSpinner
 {
-  if (!self.spinner.hidden)
-    return;
-  self.spinner.hidden = NO;
-  self.backgroundLayer.hidden = self.progressLayer.hidden = YES;
+  if (self.spinner.hidden)
+  {
+    self.spinner.hidden = NO;
+    self.backgroundLayer.hidden = self.progressLayer.hidden = YES;
+  }
   NSUInteger const animationImagesCount = 12;
   NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   NSString * postfix = ([UIColor isNightMode] && !self.isInvertColor) || (![UIColor isNightMode] && self.isInvertColor) ? @"dark" : @"light";
@@ -165,7 +166,7 @@ static inline CGFloat angleWithProgress(CGFloat progress)
     return;
   self.spinner.hidden = YES;
   self.backgroundLayer.hidden = self.progressLayer.hidden = NO;
-  [self.spinner.layer removeAllAnimations];
+  [self.spinner stopAnimating];
 }
 
 #pragma mark - Animation
@@ -187,12 +188,12 @@ static inline CGFloat angleWithProgress(CGFloat progress)
 
 - (void)setState:(MWMCircularProgressState)state
 {
-  if (_state == state)
-    return;
   if (state == MWMCircularProgressStateSpinner)
     [self startSpinner];
   else if (_state == MWMCircularProgressStateSpinner)
     [self stopSpinner];
+  if (_state == state)
+    return;
   _state = state;
   [self refreshProgress];
 }

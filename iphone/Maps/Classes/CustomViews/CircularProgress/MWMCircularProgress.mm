@@ -102,7 +102,7 @@
 
 - (void)setProgress:(CGFloat)progress
 {
-  if (progress <= _progress)
+  if (progress < _progress || progress <= 0)
   {
     self.state = MWMCircularProgressStateSpinner;
     return;
