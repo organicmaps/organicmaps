@@ -479,13 +479,14 @@
                                     <constraint firstItem="KPp-Sj-AzL" firstAttribute="top" secondItem="Hs7-0i-ftc" secondAttribute="bottom" priority="500" constant="10" id="8X5-JG-GPL"/>
                                     <constraint firstItem="Hs7-0i-ftc" firstAttribute="top" secondItem="Kox-tu-DVp" secondAttribute="bottom" priority="250" constant="80" id="8d5-4Y-Vwo"/>
                                     <constraint firstItem="Kox-tu-DVp" firstAttribute="leading" secondItem="aSi-go-AxL" secondAttribute="leading" constant="16" id="CbY-ub-KOC"/>
-                                    <constraint firstItem="Hs7-0i-ftc" firstAttribute="top" secondItem="B1q-Pf-ckt" secondAttribute="bottom" constant="16" id="EAh-12-SGQ"/>
+                                    <constraint firstItem="Hs7-0i-ftc" firstAttribute="top" secondItem="B1q-Pf-ckt" secondAttribute="bottom" priority="250" constant="16" id="EAh-12-SGQ"/>
                                     <constraint firstItem="KPp-Sj-AzL" firstAttribute="centerX" secondItem="aSi-go-AxL" secondAttribute="centerX" id="JKt-fl-YFD"/>
                                     <constraint firstAttribute="trailing" secondItem="Kox-tu-DVp" secondAttribute="trailing" constant="16" id="LXV-yG-TMr"/>
                                     <constraint firstItem="Hs7-0i-ftc" firstAttribute="centerX" secondItem="aSi-go-AxL" secondAttribute="centerX" id="b7R-uH-Lrc"/>
                                     <constraint firstAttribute="bottom" secondItem="KPp-Sj-AzL" secondAttribute="bottom" constant="20" id="hs0-7V-gdN"/>
                                     <constraint firstItem="vDh-VK-Hht" firstAttribute="height" secondItem="aSi-go-AxL" secondAttribute="height" multiplier="0.3" priority="750" id="oZ8-dU-N1J"/>
                                     <constraint firstAttribute="bottom" secondItem="8GY-gg-9ty" secondAttribute="bottom" constant="36" id="qRO-Rq-6EB"/>
+                                    <constraint firstItem="B1q-Pf-ckt" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Kox-tu-DVp" secondAttribute="bottom" priority="750" constant="16" id="xlP-2N-sep"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
