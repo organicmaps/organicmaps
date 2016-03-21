@@ -479,6 +479,7 @@ private:
   /// @param customTitle, if not empty, overrides any other calculated name.
   void FillPointInfo(m2::PointD const & mercator, string const & customTitle, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
+  void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
   void FillMyPositionInfo(place_page::Info & info) const;
 
 public:

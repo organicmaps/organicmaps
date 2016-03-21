@@ -2,6 +2,8 @@
 
 #include "drape_frontend/user_marks_provider.hpp"
 
+#include "indexer/feature_decl.hpp"
+
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
@@ -59,6 +61,11 @@ public:
 
   string GetSymbolName() const override;
   UserMark::Type GetMarkType() const override;
+  // TODO: Do not use usermarks to store any significant information for UI/core.
+  // Refactor them out to only display some layers on a map.
+  FeatureID m_foundFeatureID;
+  // Used to pass exact search result matched string into a place page.
+  string m_matchedName;
 };
 
 class PoiMarkPoint : public SearchMarkPoint

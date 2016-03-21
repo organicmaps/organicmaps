@@ -697,6 +697,19 @@ void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & inf
   info.m_apiUrl = GenerateApiBackUrl(api);
 }
 
+void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const
+{
+  if (smp.m_foundFeatureID.IsValid())
+  {
+    FillFeatureInfo(smp.m_foundFeatureID, info);
+    info.m_customName = smp.m_matchedName;
+  }
+  else
+  {
+    FillPointInfo(smp.GetPivot(), smp.m_matchedName, info);
+  }
+}
+
 void Framework::FillMyPositionInfo(place_page::Info & info) const
 {
   double lat, lon;
@@ -974,6 +987,7 @@ void Framework::StartInteractiveSearch(search::SearchParams const & params)
   m_lastInteractiveSearchParams = params;
   m_lastInteractiveSearchParams.SetForceSearch(false);
   m_lastInteractiveSearchParams.SetMode(Mode::Viewport);
+  m_lastInteractiveSearchParams.SetSuggestsEnabled(false);
   m_lastInteractiveSearchParams.m_onResults = [this](Results const & results)
   {
     if (!results.IsEndMarker())
@@ -1291,7 +1305,13 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
   {
     search::Result const & r = results.GetResult(i);
     if (r.HasPoint())
-      UNUSED_VALUE(guard.m_controller.CreateUserMark(r.GetFeatureCenter()));
+    {
+      SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(guard.m_controller.CreateUserMark(r.GetFeatureCenter()));
+      ASSERT(mark->GetMarkType() == UserMark::Type::SEARCH, ());
+      if (r.GetResultType() == search::Result::RESULT_FEATURE)
+        mark->m_foundFeatureID = r.GetFeatureID();
+      mark->m_matchedName = r.GetString();
+    }
   }
 }
 
@@ -1869,7 +1889,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(df::TapInfo const 
       FillBookmarkInfo(*static_cast<Bookmark const *>(mark), FindBookmark(mark), outInfo);
       break;
     case UserMark::Type::SEARCH:
-      FillApiMarkInfo(*static_cast<ApiMarkPoint const *>(mark), outInfo);
+      FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo);
       break;
     default:
       ASSERT(false, ("FindNearestUserMark returned invalid mark."));
