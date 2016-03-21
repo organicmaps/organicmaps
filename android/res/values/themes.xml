@@ -97,4 +97,11 @@
     <item name="bs_closeDrawable">@drawable/bs_ic_clear</item>
     <item name="bs_moreDrawable">@drawable/bs_ic_more</item>
   </style>
+
+  <style name="MwmTheme.Editor"/>
+
+  <style name="MwmTheme.Editor.EditText">
+    <item name="android:colorControlNormal" tools:ignore="NewApi">@color/divider</item>
+    <item name="colorControlNormal">@color/divider</item>
+  </style>
 </resources>
