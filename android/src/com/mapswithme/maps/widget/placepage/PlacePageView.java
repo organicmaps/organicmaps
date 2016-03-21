@@ -431,8 +431,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours();
-    UiUtils.showIf(mMapObject != null && Editor.nativeIsFeatureEditable() && !Framework.nativeIsRoutingActive(), mEditor);
-    UiUtils.showIf(!Framework.nativeIsRoutingActive(), mReport);
+    UiUtils.showIf(mMapObject != null && Editor.nativeIsFeatureEditable() && !RoutingController.get().isNavigating(), mEditor);
+    UiUtils.showIf(!RoutingController.get().isNavigating(), mReport);
   }
 
   private void refreshOpeningHours()
