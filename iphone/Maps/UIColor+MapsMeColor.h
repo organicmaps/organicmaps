@@ -20,7 +20,6 @@
 + (UIColor *)whitePrimaryText;
 + (UIColor *)whiteSecondaryText;
 + (UIColor *)whiteDividers;
-+ (UIColor *)buttonEnabledBlueText;
 + (UIColor *)buttonDisabledBlueText;
 + (UIColor *)buttonHighlightedBlueText;
 + (UIColor *)alertBackground;

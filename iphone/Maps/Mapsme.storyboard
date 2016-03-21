@@ -376,7 +376,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="CenteredView"/>
                                                 <constraints>
                                                     <constraint firstItem="vDh-VK-Hht" firstAttribute="centerX" secondItem="9NB-bm-bsj" secondAttribute="centerX" id="Eny-cW-BxX"/>
@@ -393,7 +393,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration" identifier="BoundsView"/>
                                         <constraints>
                                             <constraint firstItem="9NB-bm-bsj" firstAttribute="height" relation="lessThanOrEqual" secondItem="Kox-tu-DVp" secondAttribute="height" id="7R2-HI-5p0"/>
@@ -455,7 +455,7 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="migration_delete_all_download_current_button"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonEnabledBlueText"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="clearColor"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -498,7 +498,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="whiteColor"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
@@ -2458,7 +2458,7 @@ the world. Join us!</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <state key="normal" title="Sign Up"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="buttonEnabledBlueText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlue"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
@@ -2467,7 +2467,7 @@ the world. Join us!</string>
                                         <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="buttonEnabledBlueText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="clearColor"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="signup"/>
                                 </userDefinedRuntimeAttributes>
@@ -2483,7 +2483,7 @@ the world. Join us!</string>
                                 <state key="normal" title="Sign up using www.openstreetmap.org"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="buttonEnabledBlueText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="clearColor"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="signup_osm_site"/>
                                 </userDefinedRuntimeAttributes>
@@ -2672,7 +2672,7 @@ the world. Join us!</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <state key="normal" title="Reset Password"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="buttonEnabledBlueText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlue"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
@@ -2681,7 +2681,7 @@ the world. Join us!</string>
                                         <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whiteColor"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="buttonEnabledBlueText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="clearColor"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="restore_password"/>
                                 </userDefinedRuntimeAttributes>
@@ -2782,7 +2782,7 @@ the world. Join us!</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="JbV-y9-HBo">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
                                 </userDefinedRuntimeAttributes>
@@ -2868,8 +2868,8 @@ the world. Join us!</string>
         <image name="separator_image" width="1" height="1"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="mF7-g4-gSS"/>
         <segue reference="Pet-Wq-d4a"/>
-        <segue reference="Z0Z-aU-Vrq"/>
         <segue reference="gFM-Ca-ARt"/>
         <segue reference="urr-1u-jhn"/>
     </inferredMetricsTieBreakers>

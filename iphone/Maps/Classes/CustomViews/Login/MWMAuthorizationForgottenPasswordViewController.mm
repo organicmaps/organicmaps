@@ -66,7 +66,7 @@ replacementString:(NSString *)string
   _isCorrect = isCorrect;
   self.resetPasswordButton.enabled = isCorrect;
   CALayer * layer = self.resetPasswordButton.layer;
-  layer.borderColor = (isCorrect ? [UIColor buttonEnabledBlueText] : [UIColor clearColor]).CGColor;
+  layer.borderColor = (isCorrect ? [UIColor linkBlue] : [UIColor clearColor]).CGColor;
 }
 
 @end

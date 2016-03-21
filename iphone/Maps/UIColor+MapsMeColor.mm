@@ -221,11 +221,6 @@ UIColor * color(SEL cmd)
   return [UIColor colorWithWhite:1. alpha:alpha12];
 }
 
-+ (UIColor *)buttonEnabledBlueText
-{
-  return [UIColor colorWithRed:scaled(3.) green:scaled(122.) blue:scaled(255.) alpha:alpha100];
-}
-
 + (UIColor *)buttonDisabledBlueText
 {
   return color(_cmd);
