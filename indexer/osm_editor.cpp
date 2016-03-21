@@ -564,7 +564,42 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           {
           case FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); break;
 
-          case FeatureStatus::Created: changeset.Create(feature); break;
+          case FeatureStatus::Created:
+            {
+              ASSERT_EQUAL(feature.GetType(), XMLFeature::Type::Node,
+                           ("Linear and area features creation is not supported yet."));
+              try
+              {
+                XMLFeature osmFeature = changeset.GetMatchingNodeFeatureFromOSM(fti.m_feature.GetCenter());
+                // If we are here, it means that object already exists at the given point.
+                // To avoid nodes duplication, merge and apply changes to it instead of creating an new one.
+                XMLFeature const osmFeatureCopy = osmFeature;
+                osmFeature.ApplyPatch(feature);
+                // Check to avoid uploading duplicates into OSM.
+                if (osmFeature == osmFeatureCopy)
+                {
+                  LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.", osmFeatureCopy));
+                  // Don't delete this local change right now for user to see it in profile.
+                  // It will be automatically deleted by migration code on the next maps update.
+                }
+                else
+                {
+                  LOG(LDEBUG, ("Create case: uploading patched feature", osmFeature));
+                  changeset.Modify(osmFeature);
+                }
+              }
+              catch (ChangesetWrapper::OsmObjectWasDeletedException const &)
+              {
+                // Object was never created by anyone else - it's safe to create it.
+                changeset.Create(feature);
+              }
+              catch (...)
+              {
+                // Pas network or other errors to outside exception handler.
+                throw;
+              }
+            }
+            break;
 
           case FeatureStatus::Modified:
             {
