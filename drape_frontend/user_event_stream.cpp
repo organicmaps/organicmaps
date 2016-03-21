@@ -840,7 +840,7 @@ void UserEventStream::BeginDrag(Touch const & t, double timestamp)
     m_listener->OnDragStarted();
   m_navigator.StartDrag(t.m_location);
 
-  if (!m_scroller.IsActive())
+  if (m_kineticScrollEnabled && !m_scroller.IsActive())
     m_scroller.InitGrab(m_navigator.Screen(), timestamp);
 }
 
@@ -850,7 +850,7 @@ void UserEventStream::Drag(Touch const & t, double timestamp)
   ASSERT_EQUAL(m_state, STATE_DRAG, ());
   m_navigator.DoDrag(t.m_location);
 
-  if (m_scroller.IsActive())
+  if (m_kineticScrollEnabled && m_scroller.IsActive())
     m_scroller.GrabViewRect(m_navigator.Screen(), timestamp);
 }
 
@@ -871,7 +871,7 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
     return true;
   }
 
-  if (m_kineticTimer.TimeElapsedAs<milliseconds>().count() >= kKineticDelayMs)
+  if (m_kineticScrollEnabled && m_kineticTimer.TimeElapsedAs<milliseconds>().count() >= kKineticDelayMs)
   {
     m_animation = m_scroller.CreateKineticAnimation(m_navigator.Screen());
     if (m_listener)
@@ -1069,6 +1069,14 @@ bool UserEventStream::IsWaitingForActionCompletion() const
 bool UserEventStream::IsInPerspectiveAnimation() const
 {
   return m_perspectiveAnimation != nullptr;
+}
+
+void UserEventStream::SetKineticScrollEnabled(bool enabled)
+{
+  m_kineticScrollEnabled = enabled;
+  m_kineticTimer.Reset();
+  if (!m_kineticScrollEnabled)
+    m_scroller.CancelGrab();
 }
 
 }

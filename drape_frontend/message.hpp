@@ -53,6 +53,7 @@ public:
     UpdateGpsTrackPoints,
     ClearGpsTrackPoints,
     ShowChoosePositionMark,
+    SetKineticScrollEnabled,
     BlockTapEvents
   };
 

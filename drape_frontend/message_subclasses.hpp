@@ -319,6 +319,20 @@ public:
   Type GetType() const override { return Message::ShowChoosePositionMark; }
 };
 
+class SetKineticScrollEnabledMessage : public Message
+{
+public:
+  SetKineticScrollEnabledMessage(bool enabled)
+    : m_enabled(enabled)
+  {}
+
+  Type GetType() const override { return Message::SetKineticScrollEnabled; }
+  bool IsEnabled() const { return m_enabled; }
+
+private:
+  bool m_enabled;
+};
+
 class BlockTapEventsMessage : public Message
 {
 public:

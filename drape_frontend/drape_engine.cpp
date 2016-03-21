@@ -437,15 +437,22 @@ void DrapeEngine::ClearGpsTrackPoints()
 
 void DrapeEngine::EnableChoosePositionMode(bool enable)
 {
+  m_choosePositionMode = enable;
   if (enable)
   {
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<ShowChoosePositionMarkMessage>(),
                                     MessagePriority::High);
+    m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                    make_unique_dp<SetKineticScrollEnabledMessage>(false /* enabled */),
+                                    MessagePriority::High);
   }
   else
   {
     RecacheGui(true);
+    m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                    make_unique_dp<SetKineticScrollEnabledMessage>(m_kineticScrollEnabled),
+                                    MessagePriority::High);
   }
 }
 
@@ -454,6 +461,17 @@ void DrapeEngine::BlockTapEvents(bool block)
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<BlockTapEventsMessage>(block),
                                   MessagePriority::Normal);
+}
+
+void DrapeEngine::SetKineticScrollEnabled(bool enabled)
+{
+  m_kineticScrollEnabled = enabled;
+  if (m_choosePositionMode)
+    return;
+
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetKineticScrollEnabledMessage>(m_kineticScrollEnabled),
+                                  MessagePriority::High);
 }
 
 } // namespace df

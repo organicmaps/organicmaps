@@ -689,6 +689,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::SetKineticScrollEnabled:
+    {
+      ref_ptr<SetKineticScrollEnabledMessage> msg = message;
+      m_userEventStream.SetKineticScrollEnabled(msg->IsEnabled());
+      break;
+    }
+
   case Message::Invalidate:
     {
       // Do nothing here, new frame will be rendered because of this message processing.

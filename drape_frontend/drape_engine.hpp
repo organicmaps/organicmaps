@@ -131,6 +131,8 @@ public:
   void EnableChoosePositionMode(bool enable);
   void BlockTapEvents(bool block);
 
+  void SetKineticScrollEnabled(bool enabled);
+
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);
@@ -162,6 +164,9 @@ private:
   gui::TWidgetsInitInfo m_widgetsInfo;
   gui::TWidgetsSizeInfo m_widgetSizes;
   gui::TWidgetsLayoutInfo m_widgetsLayout;
+
+  bool m_choosePositionMode = false;
+  bool m_kineticScrollEnabled = true;
 };
 
 } // namespace df
