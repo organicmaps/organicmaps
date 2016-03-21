@@ -440,6 +440,7 @@ void DrapeEngine::EnableChoosePositionMode(bool enable)
   m_choosePositionMode = enable;
   if (enable)
   {
+    StopLocationFollow();
     m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                     make_unique_dp<ShowChoosePositionMarkMessage>(),
                                     MessagePriority::High);
