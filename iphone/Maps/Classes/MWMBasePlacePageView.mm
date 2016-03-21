@@ -118,6 +118,7 @@ enum class AttributePosition
 
 @property (weak, nonatomic) MWMPlacePageEntity * entity;
 @property (weak, nonatomic) IBOutlet MWMPlacePage * ownerPlacePage;
+@property (weak, nonatomic) IBOutlet UIView * ppPreview;
 
 @property (nonatomic) NSMutableDictionary<NSString *, UITableViewCell *> * offscreenCells;
 
@@ -323,6 +324,7 @@ enum class AttributePosition
   };
 
   self.separatorView.minY = getY(position);
+  self.ppPreview.height = self.separatorView.maxY;
   self.featureTable.minY = self.separatorView.maxY;
   self.featureTable.height = self.featureTable.contentSize.height;
 }
