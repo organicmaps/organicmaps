@@ -1067,7 +1067,6 @@ void Framework::MemoryWarning()
 
 void Framework::EnterBackground()
 {
-  SetRenderingEnabled(false);
   SaveViewport();
 
   ms::LatLon const ll = MercatorBounds::ToLatLon(GetViewportCenter());
@@ -1086,13 +1085,6 @@ void Framework::EnterBackground()
 void Framework::EnterForeground()
 {
   m_startForegroundTime = my::Timer::LocalTime();
-
-  // Drape can be not initialized here in case of the first launch
-  // TODO(AlexZ): Why it can't be initialized here? Is it because we call EnterForeground in Android for every
-  // time when activity is created? If yes, then this code should be refactored:
-  // EnterForeground and EnterBackground should be called only when user opens the app and
-  // when user completely leaves the app (and is not just switching between app's activities).
-  SetRenderingEnabled(true);
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const

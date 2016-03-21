@@ -561,6 +561,7 @@ using namespace osm_auth_ios;
 {
   [self.mapViewController.appWallAd close];
   [RouteState save];
+  GetFramework().SetRenderingEnabled(false);
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -587,6 +588,7 @@ using namespace osm_auth_ios;
   [self handleURLs];
   [self restoreRouteState];
   [[Statistics instance] applicationDidBecomeActive];
+  GetFramework().SetRenderingEnabled(true);
 }
 
 - (void)dealloc
