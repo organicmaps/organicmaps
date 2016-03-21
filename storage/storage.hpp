@@ -444,9 +444,8 @@ public:
   /// Notifies observers about country status change.
   void DeleteCustomCountryVersion(platform::LocalCountryFile const & localFile);
 
-  /// \return True iff country denoted by countryId was successfully
-  ///         deleted from the downloader's queue.
-  bool DeleteFromDownloader(TCountryId const & countryId);
+  /// \brief Deletes countryId from the downloader's queue.
+  void DeleteFromDownloader(TCountryId const & countryId);
   bool IsDownloadInProgress() const;
 
   TCountryId GetCurrentDownloadingCountryId() const;
@@ -557,9 +556,6 @@ private:
                                                   TCountriesSet const & mwmsInQueue) const;
 
   void CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem);
-
-  template <class ToDo>
-  void ForEachInSubtreeAndInQueue(TCountryId const & root, ToDo && toDo) const;
 };
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries);
@@ -579,19 +575,6 @@ void Storage::ForEachInSubtree(TCountryId const & root, ToDo && toDo) const
                                toDo(value.Name(),
                                     value.GetSubtreeMwmCounter() != 1 /* groupNode. */);
                              });
-}
-
-template <class ToDo>
-void Storage::ForEachInSubtreeAndInQueue(TCountryId const & root, ToDo && toDo) const
-{
-  TCountriesSet setQueue;
-  GetQueuedCountries(m_queue, setQueue);
-
-  ForEachInSubtree(root, [&setQueue, &toDo](TCountryId const & descendantId, bool groupNode)
-  {
-    if (setQueue.count(descendantId) != 0)
-      toDo(descendantId, groupNode);
-  });
 }
 
 /// Calls functor |toDo| with signature

@@ -566,14 +566,12 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
                                bind(&Storage::OnServerListDownloaded, this, _1));
 }
 
-bool Storage::DeleteFromDownloader(TCountryId const & countryId)
+void Storage::DeleteFromDownloader(TCountryId const & countryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  if (!DeleteCountryFilesFromDownloader(countryId, MapOptions::MapWithCarRouting))
-    return false;
+  DeleteCountryFilesFromDownloader(countryId, MapOptions::MapWithCarRouting);
   NotifyStatusChangedForHierarchy(countryId);
-  return true;
 }
 
 bool Storage::IsDownloadInProgress() const
@@ -1379,12 +1377,19 @@ void Storage::UpdateNode(TCountryId const & countryId)
 
 void Storage::CancelDownloadNode(TCountryId const & countryId)
 {
-  ForEachInSubtreeAndInQueue(countryId, [this](TCountryId const & descendantId, bool groupNode)
+  TCountriesSet setQueue;
+  GetQueuedCountries(m_queue, setQueue);
+
+  ForEachInSubtree(countryId, [&](TCountryId const & descendantId, bool /* groupNode */)
   {
-    ASSERT(!groupNode, ("A group node is located in downloading queue."));
-    DeleteFromDownloader(descendantId);
+    if (setQueue.count(descendantId) != 0)
+      DeleteFromDownloader(descendantId);
+    if (m_failedCountries.count(descendantId) != 0)
+    {
+      m_failedCountries.erase(descendantId);
+      NotifyStatusChangedForHierarchy(countryId);
+    }
   });
-  SaveDownloadQueue();
 }
 
 void Storage::RetryDownloadNode(TCountryId const & countryId)
