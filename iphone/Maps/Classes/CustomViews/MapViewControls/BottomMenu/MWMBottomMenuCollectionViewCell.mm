@@ -47,7 +47,7 @@
     return;
 
   [super setHighlighted:highlighted];
-  self.icon.tintColor = self.label.textColor = highlighted ? [UIColor blackHintText] : [UIColor blackPrimaryText];
+  self.label.textColor = highlighted ? [UIColor blackHintText] : [UIColor blackPrimaryText];
 }
 
 - (void)setSelected:(BOOL)selected

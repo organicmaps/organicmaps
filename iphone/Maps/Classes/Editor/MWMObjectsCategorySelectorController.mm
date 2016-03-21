@@ -42,6 +42,47 @@ namespace
   [self configTable];
   [self configNavBar];
   [self configSearchBar];
+
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillShow:)
+                                               name:UIKeyboardWillShowNotification
+                                             object:nil];
+
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillHide:)
+                                               name:UIKeyboardWillHideNotification
+                                             object:nil];
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+  CGSize const keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+  CGFloat const bottomInset = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]) ?
+                                                               keyboardSize.height : keyboardSize.width;
+
+  UIEdgeInsets const contentInsets = {.bottom = bottomInset};
+
+  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
+  [UIView animateWithDuration:rate.floatValue animations:^
+  {
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
+  }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+  NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
+  [UIView animateWithDuration:rate.floatValue animations:^
+  {
+    self.tableView.contentInset = {};
+    self.tableView.scrollIndicatorInsets = {};
+  }];
 }
 
 - (void)configTable

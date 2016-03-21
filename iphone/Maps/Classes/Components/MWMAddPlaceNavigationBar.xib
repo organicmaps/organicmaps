@@ -102,7 +102,7 @@
                         <constraint firstAttribute="trailing" secondItem="R6E-kO-6Lb" secondAttribute="trailing" constant="14" id="z2B-cN-g56"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="menuBackground"/>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>

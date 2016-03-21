@@ -8,8 +8,7 @@ namespace
   NSString * const kStreetEditorEditCell = @"MWMStreetEditorEditTableViewCell";
 } // namespace
 
-@interface MWMStreetEditorViewController ()<UITableViewDelegate, UITableViewDataSource,
-                                             MWMStreetEditorCommonTableViewCellProtocol,
+@interface MWMStreetEditorViewController ()<MWMStreetEditorCommonTableViewCellProtocol,
                                              MWMStreetEditorEditCellProtocol>
 
 @property (nonatomic) NSMutableArray<NSString *> * streets;

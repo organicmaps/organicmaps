@@ -43,6 +43,10 @@
     shouldChangeCharactersInRange:(NSRange)range
                 replacementString:(NSString *)string
 {
+  NSAssert(string, @"String can't be nil!");
+  if (!string)
+    return YES;
+
   NSString * newString =
       [textField.text stringByReplacingCharactersInRange:range withString:string];
   BOOL const isCorrect = [textField.validator validateString:newString];

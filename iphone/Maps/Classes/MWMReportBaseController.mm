@@ -21,6 +21,7 @@
 
 - (void)sendNote:(string const &)note
 {
+  NSAssert(!note.empty(), @"String can't be empty!");
   osm::Editor::Instance().CreateNote(m_point, note);
   [self.navigationController popToRootViewControllerAnimated:YES];
 }
