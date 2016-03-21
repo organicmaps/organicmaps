@@ -1,21 +1,33 @@
 #import "Common.h"
 #import "UIViewController+Navigation.h"
 
+namespace
+{
+CGFloat constexpr kButtonExtraWidth = 16.0;
+}
+
 @implementation UIViewController (Navigation)
 
-- (UIButton *)backButton
+- (UIBarButtonItem *)negativeSpacer
+{
+  UIBarButtonItem * spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+  spacer.width = -kButtonExtraWidth;
+  return spacer;
+}
+
+- (UIBarButtonItem *)backButton
 {
   UIImage * backImage = [UIImage imageNamed:@"ic_nav_bar_back"];
-  UIButton * button = [[UIButton alloc] initWithFrame:{{}, backImage.size}];
+  CGSize const buttonSize = {backImage.size.width + kButtonExtraWidth, backImage.size.height};
+  UIButton * button = [[UIButton alloc] initWithFrame:{{}, buttonSize}];
   [button setImage:backImage forState:UIControlStateNormal];
   [button addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
-  button.imageEdgeInsets = {0, -16, 0, 0};
-  return button;
+  return [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 
 - (void)showBackButton
 {
-  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self backButton]];
+  self.navigationItem.leftBarButtonItems = @[[self negativeSpacer], [self backButton]];
 }
 
 - (void)backTap
