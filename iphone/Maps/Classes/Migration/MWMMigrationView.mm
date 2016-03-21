@@ -127,7 +127,7 @@
     case MWMMigrationViewState::ErrorNoConnection:
       self.info.hidden = NO;
       self.info.textColor = [UIColor red];
-      self.info.text = L(@"migration_no_connection");
+      self.info.text = L(@"common_check_internet_connection_dialog");
       self.primaryButton.enabled = NO;
       self.secondaryButton.enabled = NO;
       break;

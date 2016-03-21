@@ -2,7 +2,7 @@
 #import "UIFont+MapsMeFonts.h"
 #import "UIColor+MapsMeColor.h"
 
-static NSString * const kLabelText = L(@"hours_closed");
+static NSString * const kLabelText = L(@"editor_hours_closed");
 
 CGFloat labelWidth()
 {

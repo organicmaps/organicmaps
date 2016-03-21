@@ -131,7 +131,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 {
   self.isSearch = NO;
   self.searchBar.backgroundImage = [UIImage imageWithColor:[UIColor primary]];
-  self.searchBar.placeholder = L(@"search_in_cuisine");
+  self.searchBar.placeholder = L(@"search");
   UITextField * textFiled = [self.searchBar valueForKey:@"searchField"];
   UILabel * placeholder = [textFiled valueForKey:@"_placeholderLabel"];
   placeholder.textColor = [UIColor blackHintText];

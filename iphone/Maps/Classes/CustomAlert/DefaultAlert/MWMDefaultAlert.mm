@@ -139,7 +139,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)incorrectFeauturePositionAlert
 {
   kStatisticsEvent = @"Incorrect Feature Possition Alert";
-  return [self defaultAlertWithTitle:@"dialog_incorrect_feautre_position"
+  return [self defaultAlertWithTitle:@"dialog_incorrect_feature_position"
                              message:@"message_invalid_feature_position"
                     rightButtonTitle:@"ok"
                      leftButtonTitle:nil
