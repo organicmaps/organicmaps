@@ -67,6 +67,7 @@
   <style name="MwmWidget.Editor.FieldLayout.EditText">
     <item name="android:singleLine">true</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
+    <item name="android:theme">@style/MwmTheme.Editor.EditText</item>
   </style>
 
   <style name="MwmWidget.Editor.Problem" tools:ignore="NewApi">

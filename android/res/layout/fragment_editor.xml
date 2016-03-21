@@ -37,8 +37,7 @@
             android:id="@+id/input"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
             android:hint="@string/editor_edit_place_name_hint"
-            android:singleLine="true"
-            android:theme="@style/MwmTheme.Editor.EditText"/>
+            android:singleLine="true"/>
 
         </com.mapswithme.maps.widget.CustomTextInputLayout>
 
@@ -136,7 +135,6 @@
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
               android:hint="@string/house"
-              android:theme="@style/MwmTheme.Editor.EditText"
               tools:text="79-59"/>
 
           </com.mapswithme.maps.widget.CustomTextInputLayout>
@@ -189,7 +187,6 @@
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
               android:hint="@string/phone"
-              android:theme="@style/MwmTheme.Editor.EditText"
               tools:text="+937 99 92"/>
 
           </com.mapswithme.maps.widget.CustomTextInputLayout>
@@ -212,7 +209,6 @@
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
               android:hint="@string/website"
-              android:theme="@style/MwmTheme.Editor.EditText"
               tools:text="maps.me"/>
 
           </com.mapswithme.maps.widget.CustomTextInputLayout>
@@ -235,7 +231,6 @@
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
               android:hint="@string/email"
-              android:theme="@style/MwmTheme.Editor.EditText"
               tools:text="bugs@maps.me"/>
 
           </com.mapswithme.maps.widget.CustomTextInputLayout>

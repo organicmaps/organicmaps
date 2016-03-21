@@ -106,7 +106,6 @@ public class SettingsActivity extends PreferenceActivity
     {
       Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.OSM_PROFILE);
       startActivity(new Intent(this, ProfileActivity.class));
-      return;
     }
 
     super.onHeaderClick(header, position);
