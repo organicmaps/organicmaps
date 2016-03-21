@@ -85,6 +85,7 @@ using namespace storage;
   NSInteger const downloadedCountriesCountAfterUpdate = self.downloadedCountries.count;
   self.needFullReload =
       (downloadedCountriesCountBeforeUpdate == 0 || downloadedCountriesCountAfterUpdate == 0 ||
+       availableCountriesBeforeUpdate.count != self.availableCountries.count ||
        availableCountriesBeforeUpdate.count == 0);
   if (self.needFullReload)
     return;
