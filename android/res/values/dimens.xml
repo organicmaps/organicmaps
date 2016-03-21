@@ -104,4 +104,5 @@
   <dimen name="editor_margin_left">56dp</dimen>
   <dimen name="editor_margin_left_plus">72dp</dimen>
   <dimen name="editor_auth_btn_height">36dp</dimen>
+  <dimen name="editor_margin_timetable_left">50dp</dimen>
 </resources>
