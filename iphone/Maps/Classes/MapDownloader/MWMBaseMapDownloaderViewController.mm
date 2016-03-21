@@ -514,7 +514,7 @@ using namespace storage;
   self.skipCountryEventProcessing = YES;
   [MWMStorage downloadNode:countryId alertController:self.alertController onSuccess:nil];
   self.skipCountryEventProcessing = NO;
-  [self processCountryEvent:self.parentCountryId];
+  [self processCountryEvent:countryId];
 }
 
 - (void)retryDownloadNode:(storage::TCountryId const &)countryId
@@ -529,7 +529,7 @@ using namespace storage;
   self.skipCountryEventProcessing = YES;
   [MWMStorage retryDownloadNode:countryId];
   self.skipCountryEventProcessing = NO;
-  [self processCountryEvent:self.parentCountryId];
+  [self processCountryEvent:countryId];
 }
 
 - (void)updateNode:(storage::TCountryId const &)countryId
@@ -544,7 +544,7 @@ using namespace storage;
   self.skipCountryEventProcessing = YES;
   [MWMStorage updateNode:countryId alertController:self.alertController];
   self.skipCountryEventProcessing = NO;
-  [self processCountryEvent:self.parentCountryId];
+  [self processCountryEvent:countryId];
 }
 
 - (void)deleteNode:(storage::TCountryId const &)countryId
@@ -559,7 +559,7 @@ using namespace storage;
   self.skipCountryEventProcessing = YES;
   [MWMStorage deleteNode:countryId alertController:self.alertController];
   self.skipCountryEventProcessing = NO;
-  [self processCountryEvent:self.parentCountryId];
+  [self processCountryEvent:countryId];
 }
 
 - (void)cancelNode:(storage::TCountryId const &)countryId
@@ -568,7 +568,7 @@ using namespace storage;
   self.skipCountryEventProcessing = YES;
   [MWMStorage cancelDownloadNode:countryId];
   self.skipCountryEventProcessing = NO;
-  [self processCountryEvent:self.parentCountryId];
+  [self processCountryEvent:countryId];
 }
 
 - (void)showNode:(storage::TCountryId const &)countryId
