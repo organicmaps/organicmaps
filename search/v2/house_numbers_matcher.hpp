@@ -46,5 +46,9 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniStrin
 // Returns true when |queryTokens| match to |houseNumber|.
 bool HouseNumbersMatch(strings::UniString const & houseNumber,
                        vector<strings::UniString> const & queryTokens);
+
+string DebugPrint(HouseNumberTokenizer::CharClass charClass);
+
+string DebugPrint(HouseNumberTokenizer::Token const & token);
 }  // namespace v2
 }  // namespace search

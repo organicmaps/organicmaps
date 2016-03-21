@@ -2,6 +2,8 @@
 
 #include "std/algorithm.hpp"
 #include "std/iterator.hpp"
+#include "std/limits.hpp"
+#include "std/sstream.hpp"
 
 #include "base/logging.hpp"
 
@@ -13,6 +15,8 @@ namespace v2
 {
 namespace
 {
+size_t constexpr kInvalidNum = numeric_limits<size_t>::max();
+
 HouseNumberTokenizer::CharClass GetCharClass(UniChar c)
 {
   static UniString const kSeps = MakeUniString("\"\\/(),. \t№#-");
@@ -38,21 +42,19 @@ bool IsNumberOrShortWord(HouseNumberTokenizer::Token const & t)
   return IsNumber(t) || IsShortWord(t);
 }
 
-// Returns number of tokens starting at position |i|,
-// where the first token is some way of writing of "корпус", or
-// "building",  second token is a number or a letter, and (possibly)
-// third token which can be a letter when second token is a
-// number.
-size_t GetNumTokensForBuildingPart(vector<HouseNumberTokenizer::Token> const & ts, size_t i)
+size_t GetNumTokensForBuildingPart(vector<HouseNumberTokenizer::Token> const & ts, size_t i,
+                                   vector<size_t> & memory);
+
+size_t GetNumTokensForBuildingPartImpl(vector<HouseNumberTokenizer::Token> const & ts, size_t i,
+                                       vector<size_t> & memory)
 {
+  ASSERT_LESS(i, ts.size(), ());
+
   // TODO (@y, @m, @vng): move these constans out.
   static UniString kSynonyms[] = {MakeUniString("building"), MakeUniString("unit"),
                                   MakeUniString("block"),    MakeUniString("корпус"),
                                   MakeUniString("литер"),    MakeUniString("строение"),
                                   MakeUniString("блок")};
-
-  if (i >= ts.size())
-    return 0;
 
   auto const & token = ts[i];
   if (token.m_klass != HouseNumberTokenizer::CharClass::Other)
@@ -78,14 +80,40 @@ size_t GetNumTokensForBuildingPart(vector<HouseNumberTokenizer::Token> const & t
   size_t j = i + 2;
 
   // Consume one more number of short word, if possible.
-  if (j < ts.size() && IsNumberOrShortWord(ts[j]) && ts[j].m_klass != ts[j - 1].m_klass)
+  if (j < ts.size() && IsNumberOrShortWord(ts[j]) && ts[j].m_klass != ts[j - 1].m_klass &&
+      GetNumTokensForBuildingPart(ts, j, memory) == 0)
+  {
     ++j;
+  }
 
   return j - i;
 }
 
+// Returns number of tokens starting at position |i|, where the first
+// token is some way of writing of "корпус", or "building", second
+// token is a number or a letter, and (possibly) third token which can
+// be a letter when second token is a number. |memory| is used here to
+// store results of previous calls and prevents degradation to
+// non-linear time.
+//
+// TODO (@y, @m): the parser is quite complex now. Consider to just
+// throw out all prefixes of "building" or "литер" and sort rest
+// tokens. Number of false positives will be higher but the parser
+// will be more robust, simple and faster.
+size_t GetNumTokensForBuildingPart(vector<HouseNumberTokenizer::Token> const & ts, size_t i,
+                                   vector<size_t> & memory)
+{
+  if (i >= ts.size())
+    return 0;
+  if (memory[i] == kInvalidNum)
+    memory[i] = GetNumTokensForBuildingPartImpl(ts, i, memory);
+  return memory[i];
+}
+
 void MergeTokens(vector<HouseNumberTokenizer::Token> const & ts, vector<UniString> & rs)
 {
+  vector<size_t> memory(ts.size(), kInvalidNum);
+
   size_t i = 0;
   while (i < ts.size())
   {
@@ -96,7 +124,7 @@ void MergeTokens(vector<HouseNumberTokenizer::Token> const & ts, vector<UniStrin
       UniString token = ts[i].m_token;
       ++i;
       // Process cases like "123 б" or "9PQ".
-      if (i < ts.size() && IsShortWord(ts[i]) && GetNumTokensForBuildingPart(ts, i) == 0)
+      if (i < ts.size() && IsShortWord(ts[i]) && GetNumTokensForBuildingPart(ts, i, memory) == 0)
       {
         token.append(ts[i].m_token.begin(), ts[i].m_token.end());
         ++i;
@@ -112,7 +140,7 @@ void MergeTokens(vector<HouseNumberTokenizer::Token> const & ts, vector<UniStrin
     }
     case HouseNumberTokenizer::CharClass::Other:
     {
-      if (size_t numTokens = GetNumTokensForBuildingPart(ts, i))
+      if (size_t numTokens = GetNumTokensForBuildingPart(ts, i, memory))
       {
         UniString token;
         ++i;
@@ -158,6 +186,9 @@ void NormalizeHouseNumber(strings::UniString const & s, vector<strings::UniStrin
   vector<HouseNumberTokenizer::Token> tokens;
   HouseNumberTokenizer::Tokenize(MakeLowerCase(s), tokens);
   MergeTokens(tokens, ts);
+
+  if (!ts.empty())
+    sort(ts.begin() + 1, ts.end());
 }
 
 bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniString const & query)
@@ -167,9 +198,6 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, strings::UniStrin
 
   vector<strings::UniString> queryTokens;
   NormalizeHouseNumber(query, queryTokens);
-
-  if (!queryTokens.empty())
-    sort(queryTokens.begin() + 1, queryTokens.end());
 
   return HouseNumbersMatch(houseNumber, queryTokens);
 }
@@ -191,8 +219,6 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<strings::U
   if (houseNumberTokens.front() != queryTokens.front())
     return false;
 
-  sort(houseNumberTokens.begin() + 1, houseNumberTokens.end());
-
   size_t i = 1, j = 1;
   while (i != houseNumberTokens.size() && j != queryTokens.size())
   {
@@ -204,6 +230,24 @@ bool HouseNumbersMatch(strings::UniString const & houseNumber, vector<strings::U
     ++j;
   }
   return j == queryTokens.size();
+}
+
+string DebugPrint(HouseNumberTokenizer::CharClass charClass)
+{
+  switch (charClass)
+  {
+  case HouseNumberTokenizer::CharClass::Separator: return "Separator";
+  case HouseNumberTokenizer::CharClass::Digit: return "Digit";
+  case HouseNumberTokenizer::CharClass::Other: return "Other";
+  }
+  return "Unknown";
+}
+
+string DebugPrint(HouseNumberTokenizer::Token const & token)
+{
+  ostringstream os;
+  os << "Token [" << DebugPrint(token.m_token) << ", " << DebugPrint(token.m_klass) << "]";
+  return os.str();
 }
 }  // namespace v2
 }  // namespace search
