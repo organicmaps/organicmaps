@@ -15,7 +15,7 @@
     android:layout_height="wrap_content"
     android:layout_weight="1"
     android:background="@null"
-    android:hint="@string/downloader_search_field_hint"
+    android:hint="@string/search"
     android:imeOptions="actionSearch|flagNoExtractUi"
     android:inputType="text"
     android:padding="@dimen/margin_quarter"

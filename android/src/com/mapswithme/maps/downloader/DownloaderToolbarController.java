@@ -24,6 +24,7 @@ class DownloaderToolbarController extends SearchToolbarController
   {
     super(root, activity);
     mFragment = fragment;
+    setHint(R.string.downloader_search_field_hint);
 
     mDownloadAll = mToolbar.findViewById(R.id.download_all);
     mUpdateAll = mToolbar.findViewById(R.id.update_all);

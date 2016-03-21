@@ -195,4 +195,9 @@ public class SearchToolbarController extends ToolbarController
         setQuery(result);
     }
   }
+
+  public void setHint(@StringRes int hint)
+  {
+    mQuery.setHint(hint);
+  }
 }
