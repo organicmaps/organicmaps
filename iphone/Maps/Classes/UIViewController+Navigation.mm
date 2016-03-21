@@ -18,9 +18,11 @@ CGFloat constexpr kButtonExtraWidth = 16.0;
 - (UIBarButtonItem *)backButton
 {
   UIImage * backImage = [UIImage imageNamed:@"ic_nav_bar_back"];
+  UIImage * highlightedImage = [UIImage imageNamed:@"ic_nav_bar_back_press"];
   CGSize const buttonSize = {backImage.size.width + kButtonExtraWidth, backImage.size.height};
   UIButton * button = [[UIButton alloc] initWithFrame:{{}, buttonSize}];
   [button setImage:backImage forState:UIControlStateNormal];
+  [button setImage:highlightedImage forState:UIControlStateHighlighted];
   [button addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
   return [[UIBarButtonItem alloc] initWithCustomView:button];
 }

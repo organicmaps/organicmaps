@@ -130,7 +130,7 @@ using namespace osm_auth_ios;
   self.googleImage.hidden = YES;
   self.facebookImage.hidden = YES;
   self.logoutButton.hidden = NO;
-  self.leftBarButton.image = [UIImage imageNamed:@"btn_back_arrow"];
+  self.leftBarButton.image = [UIImage imageNamed:@"ic_nav_bar_back"];
 }
 
 - (void)configNoAuth:(BOOL)isAfterFirstEdit
@@ -154,7 +154,7 @@ using namespace osm_auth_ios;
   {
     self.title = L(@"profile").capitalizedString;
     self.message.text = L(@"login_and_edit_map_motivation_message");
-    self.leftBarButton.image = [UIImage imageNamed:@"btn_back_arrow"];
+    self.leftBarButton.image = [UIImage imageNamed:@"ic_nav_bar_back"];
   }
 }
 

@@ -1875,7 +1875,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <navigationItem key="navigationItem" id="8bw-ck-hd0">
-                        <barButtonItem key="leftBarButtonItem" image="btn_back_arrow" id="nLP-Eo-Og0">
+                        <barButtonItem key="leftBarButtonItem" image="ic_nav_bar_back" id="nLP-Eo-Og0">
                             <connections>
                                 <action selector="cancel" destination="4R7-Vk-fQr" id="aCe-5L-ZgM"/>
                             </connections>
@@ -2223,7 +2223,7 @@ the world. Join us!</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iq0-sF-shH">
-                        <barButtonItem key="leftBarButtonItem" image="btn_back_arrow" id="VjK-MF-Vva">
+                        <barButtonItem key="leftBarButtonItem" image="ic_nav_bar_back" id="VjK-MF-Vva">
                             <connections>
                                 <action selector="cancel" destination="iZ6-Zi-bkZ" id="zVw-Uf-WVk"/>
                             </connections>
@@ -2520,7 +2520,7 @@ the world. Join us!</string>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <navigationItem key="navigationItem" id="C6C-2o-Zgb">
-                        <barButtonItem key="leftBarButtonItem" image="btn_back_arrow" id="rdp-Bp-r7o">
+                        <barButtonItem key="leftBarButtonItem" image="ic_nav_bar_back" id="rdp-Bp-r7o">
                             <connections>
                                 <action selector="cancel" destination="Ez0-RI-stE" id="Sff-qi-sbv"/>
                             </connections>
@@ -2715,7 +2715,7 @@ the world. Join us!</string>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="hH6-Ln-tTC">
-                        <barButtonItem key="leftBarButtonItem" image="btn_back_arrow" id="f1t-yJ-eWw">
+                        <barButtonItem key="leftBarButtonItem" image="ic_nav_bar_back" id="f1t-yJ-eWw">
                             <connections>
                                 <action selector="cancel" destination="oZQ-Rp-tGs" id="O9L-tK-wHT"/>
                             </connections>
@@ -2857,11 +2857,11 @@ the world. Join us!</string>
         </scene>
     </scenes>
     <resources>
-        <image name="btn_back_arrow" width="12" height="20"/>
         <image name="ic_arrow_gray_down" width="28" height="28"/>
         <image name="ic_arrow_gray_right" width="28" height="28"/>
         <image name="ic_device" width="28" height="28"/>
         <image name="ic_more" width="28" height="28"/>
+        <image name="ic_nav_bar_back" width="14" height="22"/>
         <image name="ic_upload" width="28" height="28"/>
         <image name="img_whatsnew_migration" width="240" height="240"/>
         <image name="login_facebook" width="28" height="28"/>
