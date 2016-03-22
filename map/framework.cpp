@@ -703,14 +703,9 @@ void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & inf
 void Framework::FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const
 {
   if (smp.m_foundFeatureID.IsValid())
-  {
     FillFeatureInfo(smp.m_foundFeatureID, info);
-    info.m_customName = smp.m_matchedName;
-  }
   else
-  {
     FillPointInfo(smp.GetPivot(), smp.m_matchedName, info);
-  }
 }
 
 void Framework::FillMyPositionInfo(place_page::Info & info) const
