@@ -424,6 +424,7 @@
 	<string name="downloader_status_maps">Kartat</string>
 	<string name="downloader_download_all_button">Lataa kaikki</string>
 	<string name="downloader_downloading">Ladataan:</string>
+	<string name="downloader_search_results">Löytyi</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Pidä mielessä seuraavat seikat luodessasi reittejä MAPS.ME -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!</string>
 	<!-- Outdated maps category -->
@@ -434,6 +435,8 @@
 	<string name="downloader_status_outdated">Päivitä</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Epäonnistunut</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Pysäytä navigointi poistaaksesi kartan.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Tämänhetkinen sijainti ei ole tiedossa. Määritä sijainti luodaksesi reitin.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -655,6 +658,11 @@
 	<string name="editor_example_values">Esimerkkiarvot</string>
 	<string name="editor_correct_mistake">Korjaa virhe</string>
 	<string name="editor_correct_mistake_message">Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen malliin.</string>
+	<string name="editor_add_select_location">Sijainti</string>
+	<string name="editor_done_dialog_1">Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.</string>
+	<string name="editor_done_dialog_2">Tämä on toinen kerta, kun paransit karttaa. Nyt olet %d. sijalla kartan muokkaajien listalla. Kerro siitä ystävillesi.</string>
+	<string name="editor_done_dialog_3">Olet parantanut karttaa, kerro siitä ystävillesi ja muokatkaa karttaa yhdessä.</string>
+	<string name="share_with_friends">Jaa kavereille</string>
 	<string name="editor_report_problem_desription_1">Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.</string>
 	<string name="editor_report_problem_desription_2">Tai tee se itse osoitteessa http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Lähetä</string>
@@ -662,6 +670,8 @@
 	<string name="editor_report_problem_no_place_title">Paikkaa ei ole olemassa</string>
 	<string name="editor_report_problem_under_construction_title">Suljettu huoltoa varten</string>
 	<string name="editor_report_problem_duplicate_place_title">Paikan kaksoiskappale</string>
+	<string name="first_launch_congrats_title">MAPS.ME on valmiina käyttöön</string>
+	<string name="first_launch_congrats_text">Hae ja navigoi ilmaiseksi maailman kaikkien maiden karttoja.</string>
 	<string name="migrate_title">Tärkeää!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Lataa kaikki</string>
@@ -761,6 +771,7 @@
 	<string name="placepage_report_problem_button">Ilmoita ongelmasta</string>
 	<string name="whatsnew_smallmwm_header">Sitä on pyydetty, ja nyt se on tarjolla</string>
 	<string name="whatsnew_smallmwm_message">Olemme jakaneet kartat osiin, joten voitkin nyt ladata pelkkiä alueita lataamatta koko maan karttaa.</string>
+	<string name="whatsnew_search_header">Uusittu haku</string>
 	<string name="whatsnew_search_message">Olemme selkeästi parantaneet osoitehakua - kokeile vaikka itse.</string>
 	<string name="whatsnew_editor_title">Muokkaa karttaa*</string>
 	<string name="whatsnew_editor_message_1">Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.</string>
@@ -769,10 +780,12 @@
 	<string name="onboarding_offline_navigation_message">Suunnittele ihanteellinen autoilu- tai kävelyreitti jopa ilman Internet-yhteyttä!</string>
 	<string name="onboarding_offline_navigation_title_2">Offline-navigointi</string>
 	<string name="onboarding_offline_navigation_message_2">Suunnittele ihanteelliset autoilu- ja kävelyreitit.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - offline-kartat</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — koko maailman kartat ilman Internet-yhteyttä</string>
 	<string name="onboarding_offline_maps_message">Lataa haluamasi alueen kartat yhden kerran ja voit käyttää navigointi- ja hakutoimintoja ilman Internet-yhteyttä.</string>
 	<string name="onboarding_notifications_message">Ota päivitysilmoitukset käyttöön saadaksesi tuoreimmat kartat</string>
 	<string name="onboarding_notifications_title">Ota päivitysilmoitukset käyttöön</string>
 	<string name="onboarding_location_title">Auta meitä löytämään sinut</string>
 	<string name="onboarding_location_message">Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.</string>
+	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
+	<string name="message_invalid_feature_position">Objektia ei voida asettaa tänne</string>
 </resources>

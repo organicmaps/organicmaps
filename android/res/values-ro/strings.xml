@@ -422,6 +422,7 @@
 	<string name="downloader_status_maps">Hărți</string>
 	<string name="downloader_download_all_button">Descărcați toate</string>
 	<string name="downloader_downloading">Descărcare:</string>
+	<string name="downloader_search_results">S-au găsit</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!</string>
 	<!-- Outdated maps category -->
@@ -432,6 +433,8 @@
 	<string name="downloader_status_outdated">Actualizare</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Eșuată</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Pentru a șterge harta, vă rugăm să opriți navigarea.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Poziția dvs. curentă este nedefinită. Vă rugăm să specificați poziția, pentru a crea o rută.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -652,6 +655,11 @@
 	<string name="editor_example_values">Exemple de valori</string>
 	<string name="editor_correct_mistake">Corectare greșeală</string>
 	<string name="editor_correct_mistake_message">Ați efectuat o eroare de editare. Corectați eroarea sau treceți în modul Simplu.</string>
+	<string name="editor_add_select_location">Locație</string>
+	<string name="editor_done_dialog_1">Ați modificat harta lumii. Nu ascundeți acest lucru! Spuneți-le prietenilor dvs. și modificați-o împreună.</string>
+	<string name="editor_done_dialog_2">Aceasta este a doua modificare a hărții. Acum sunteți pe locul %d în lista editorilor de hărți. Spuneți prietenilor dvs. despre aceasta.</string>
+	<string name="editor_done_dialog_3">Ați modificat harta, spuneți prietenilor dvs. despre aceasta și modificați-o împreună.</string>
+	<string name="share_with_friends">Partajează cu prietenii</string>
 	<string name="editor_report_problem_desription_1">Vă rugăm să descrieți problema în detaliu , astfel încât comunitatea OpenStreeMap să poată remedia eroarea.</string>
 	<string name="editor_report_problem_desription_2">Sau faceți-o pe http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Trimiteți</string>
@@ -659,6 +667,8 @@
 	<string name="editor_report_problem_no_place_title">Această locație nu există</string>
 	<string name="editor_report_problem_under_construction_title">Închis pentru întreținere</string>
 	<string name="editor_report_problem_duplicate_place_title">Locație dublată</string>
+	<string name="first_launch_congrats_title">MAPS.ME este gata pentru utilizare</string>
+	<string name="first_launch_congrats_text">Căutați și navigați hărțile tuturor țărilor lumii pe gratis.</string>
 	<string name="migrate_title">Important!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Descarcă toate</string>
@@ -758,6 +768,7 @@
 	<string name="placepage_report_problem_button">Raportați o problemă</string>
 	<string name="whatsnew_smallmwm_header">Ne-ați cerut, iar noi am făcut</string>
 	<string name="whatsnew_smallmwm_message">Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.</string>
+	<string name="whatsnew_search_header">Căutare nouă</string>
 	<string name="whatsnew_search_message">Am îmbunătățit semnificativ căutarea după adresă. Convinge-te singur.</string>
 	<string name="whatsnew_editor_title">Editați harta*</string>
 	<string name="whatsnew_editor_message_1">Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.</string>
@@ -766,10 +777,12 @@
 	<string name="onboarding_offline_navigation_message">Planificați traseele optime cu mașina și cele pietonale, chiar dacă nu există conexiune la Internet!</string>
 	<string name="onboarding_offline_navigation_title_2">Navigare offline</string>
 	<string name="onboarding_offline_navigation_message_2">Planificați traseele optime cu mașina și cele pietonale.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME – hărți offline</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — accesați hărți din întreaga lume fără conexiune Internet</string>
 	<string name="onboarding_offline_maps_message">Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.</string>
 	<string name="onboarding_notifications_message">Pentru a obține cele mai recente hărți, obțineți notificările de actualizări</string>
 	<string name="onboarding_notifications_title">Activați notificările de actualizări</string>
 	<string name="onboarding_location_title">Ajutați-ne să vă găsim</string>
 	<string name="onboarding_location_message">Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.</string>
+	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
+	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
 </resources>

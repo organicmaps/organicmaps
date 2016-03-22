@@ -421,6 +421,7 @@
 	<string name="downloader_status_maps">Mapas</string>
 	<string name="downloader_download_all_button">Descarregar tudo</string>
 	<string name="downloader_downloading">Baixando:</string>
+	<string name="downloader_search_results">Encontrado</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Ao criar rotas na aplicação MAPS.ME, por favor, lembre-se do seguinte:\n\n  - As rotas sugeridas podem apenas ser consideradas como recomendações.\n - As condições da estrada, regras de trânsito e sinais têm maior prioridade do que os conselhos de navegação.\n - O mapa poderá estar errado, ou desatualizado, e as rotas poderão não ser criadas da melhor forma possível.\n\n  Circule em segurança nas estradas e cuide do seu bem estar!</string>
 	<!-- Outdated maps category -->
@@ -431,6 +432,8 @@
 	<string name="downloader_status_outdated">Atualizar</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Falhou</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Favor parar a navegação para apagar o mapa.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">A localização atual não foi definida. Por favor especifique a localização para criar o trajeto.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -652,6 +655,11 @@
 	<string name="editor_example_values">Valores do Exemplo</string>
 	<string name="editor_correct_mistake">Corrigir erro</string>
 	<string name="editor_correct_mistake_message">Fez um erro de edição. Corrija-o ou mude para o modo simples.</string>
+	<string name="editor_add_select_location">Local</string>
+	<string name="editor_done_dialog_1">Alterou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.</string>
+	<string name="editor_done_dialog_2">Esta é a sua segunda melhoria ao mapa. Agora, está no %dº lugar na lista de editores de mapas. Fale disto aos seus amigos.</string>
+	<string name="editor_done_dialog_3">Melhorou o mapa, fale disto aos seus amigos e editem o mapa juntos.</string>
+	<string name="share_with_friends">Compartilhar com amigos</string>
 	<string name="editor_report_problem_desription_1">Por favor, descreva o problema ao pormenor para que a comunidade OpenStreeMap possa corrigir o erro.</string>
 	<string name="editor_report_problem_desription_2">Ou faça-o sozinho em http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Enviar</string>
@@ -659,6 +667,8 @@
 	<string name="editor_report_problem_no_place_title">O lugar não existe</string>
 	<string name="editor_report_problem_under_construction_title">Encerrado para manutenção</string>
 	<string name="editor_report_problem_duplicate_place_title">Lugar em duplicado</string>
+	<string name="first_launch_congrats_title">MAPS.ME está pronto para utilização</string>
+	<string name="first_launch_congrats_text">Pesquise e navegue nos mapas de todos os países do mundo gratuitamente.</string>
 	<string name="migrate_title">Importante!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Baixar tudo</string>
@@ -758,6 +768,7 @@
 	<string name="placepage_report_problem_button">Comunicar um problema</string>
 	<string name="whatsnew_smallmwm_header">Vocês têm pedido por isso e nós atendemos</string>
 	<string name="whatsnew_smallmwm_message">Dividimos os mapas em partes. Agora vocês podem baixar regiões separadas em vez do país inteiro.</string>
+	<string name="whatsnew_search_header">Nova busca</string>
 	<string name="whatsnew_search_message">Melhoramos consideravelmente a busca por endereço. Veja você mesmo.</string>
 	<string name="whatsnew_editor_title">Editar o mapa*</string>
 	<string name="whatsnew_editor_message_1">Adicione novos lugares ao mapa e edite os já existentes diretamente a partir da app.</string>
@@ -766,10 +777,12 @@
 	<string name="onboarding_offline_navigation_message">Planeie itinerários ideais de automóvel e a pé, mesmo se não houver ligação à Internet!</string>
 	<string name="onboarding_offline_navigation_title_2">Navegação offline</string>
 	<string name="onboarding_offline_navigation_message_2">Planeie itinerários ideais de automóvel e a pé.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - mapas offline</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — acesse os mapas do mundo inteiro sem internet</string>
 	<string name="onboarding_offline_maps_message">Descarregue uma vez os mapas para a área desejada e utilize as funções de navegação e de pesquisa sem uma ligação à Internet.</string>
 	<string name="onboarding_notifications_message">Para receber os mapas mais recentes, receba notificações de atualizações</string>
 	<string name="onboarding_notifications_title">Ativar as notificações de atualizações</string>
 	<string name="onboarding_location_title">Ajude-nos a encontrá-lo</string>
 	<string name="onboarding_location_message">Para utilizar a navegação e outros recursos, precisamos de aceder à sua localização geográfica.</string>
+	<string name="dialog_incorrect_feature_position">Mudar o local</string>
+	<string name="message_invalid_feature_position">Um objeto não pode ser localizado aqui</string>
 </resources>

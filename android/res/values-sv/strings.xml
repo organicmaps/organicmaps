@@ -428,6 +428,7 @@
 	<string name="downloader_status_maps">Kartor</string>
 	<string name="downloader_download_all_button">Ladda ned alla</string>
 	<string name="downloader_downloading">Ladda ner:</string>
+	<string name="downloader_search_results">Hittat</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!</string>
 	<!-- Outdated maps category -->
@@ -438,6 +439,8 @@
 	<string name="downloader_status_outdated">Uppdatera</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Misslyckades</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Avsluta navigering för att radera kartan.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Nuvarande plats är inte definierad. Ange din plats för att skapa rutt.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -659,6 +662,11 @@
 	<string name="editor_example_values">Exempelvärden</string>
 	<string name="editor_correct_mistake">Korrigera fel</string>
 	<string name="editor_correct_mistake_message">Du har gjort ett fel i redigeringen. Var vänlig korrigera det eller byt till enkelt läge.</string>
+	<string name="editor_add_select_location">Plats</string>
+	<string name="editor_done_dialog_1">Du har ändrat världskartan. Dölj inte detta! Berätta för dina vänner och redigera den tillsammans.</string>
+	<string name="editor_done_dialog_2">Detta är din andra kartförbättring. Du är nu på plats %d i listan över kartredigerare. Berätta för dina vänner om det.</string>
+	<string name="editor_done_dialog_3">Du har förbättrat kartan, berätta för dina vänner om det och redigera kartan tillsammans.</string>
+	<string name="share_with_friends">Dela med vänner</string>
 	<string name="editor_report_problem_desription_1">Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.</string>
 	<string name="editor_report_problem_desription_2">Eller gör det själv på http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Skicka</string>
@@ -666,6 +674,8 @@
 	<string name="editor_report_problem_no_place_title">Platsen existerar inte</string>
 	<string name="editor_report_problem_under_construction_title">Stängd för underhåll</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicerad plats</string>
+	<string name="first_launch_congrats_title">Du kan nu använda MAPS.ME</string>
+	<string name="first_launch_congrats_text">Sök och navigera gratis på kartor över alla länder i hela världen.</string>
 	<string name="migrate_title">Viktigt!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Ladda ner alla</string>
@@ -765,6 +775,7 @@
 	<string name="placepage_report_problem_button">Rapportera ett problem</string>
 	<string name="whatsnew_smallmwm_header">Du har bett om det och vi har gjort det</string>
 	<string name="whatsnew_smallmwm_message">Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet.</string>
+	<string name="whatsnew_search_header">Ny sökning</string>
 	<string name="whatsnew_search_message">Vi har avsevärt förbättrat sökningen på adress. Se själv.</string>
 	<string name="whatsnew_editor_title">Redigera kartan*</string>
 	<string name="whatsnew_editor_message_1">Lägg till nya platser till kartan och redigera de befintliga direkt från appen.</string>
@@ -773,10 +784,12 @@
 	<string name="onboarding_offline_navigation_message">Planera dina optimala bil- eller promenadrutter även när du saknar internetanslutning!</string>
 	<string name="onboarding_offline_navigation_title_2">Navigering offline</string>
 	<string name="onboarding_offline_navigation_message_2">Planera optimala bil- och promenadrutter.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - kartor offline</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — se världsomspännande kartor utan internet</string>
 	<string name="onboarding_offline_maps_message">Ladda ned kartorna för önskat område en gång och använd funktionerna för navigering och sökning utan en internetanslutning.</string>
 	<string name="onboarding_notifications_message">Få avisering om uppdateringar för de senaste kartorna</string>
 	<string name="onboarding_notifications_title">Aktivera avisering om uppdateringar</string>
 	<string name="onboarding_location_title">Hjälp oss att hitta dig</string>
 	<string name="onboarding_location_message">För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.</string>
+	<string name="dialog_incorrect_feature_position">Ändra placering</string>
+	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
 </resources>

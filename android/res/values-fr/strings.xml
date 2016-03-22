@@ -435,6 +435,7 @@
 	<string name="downloader_status_maps">Cartes</string>
 	<string name="downloader_download_all_button">Télécharger tout</string>
 	<string name="downloader_downloading">Téléchargement en cours :</string>
+	<string name="downloader_search_results">Trouvé</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Quand vous créez des itinéraires sur l\&#39;application MAPS.ME, veuillez garder à l\&#39;esprit les points suivants :\n\n  - Les itinéraires suggérés ne doivent être considérés que comme des recommandations.\n\n  - Les conditions des routes, les règlementations de circulations et les panneaux sont prioritaires sur les conseils de navigation.\n\n  - Il est possible qu\&#39;une carte soit incorrecte ou obsolète, et les itinéraires ne sont pas toujours créés de la meilleure façon possible.\n\n  Soyez prudents sur les routes et prenez soin de vous.</string>
 	<!-- Outdated maps category -->
@@ -445,6 +446,8 @@
 	<string name="downloader_status_outdated">Mettre à jour</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">A échoué</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Veuillez interrompre la navigation pour supprimer la carte.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">L\&#39;emplacement actuel n\&#39;est pas défini. Veuillez préciser l\&#39;emplacement pour créer l\&#39;itinéraire.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -666,6 +669,11 @@
 	<string name="editor_example_values">Exemple de valeurs</string>
 	<string name="editor_correct_mistake">Corriger l\&#39;erreur</string>
 	<string name="editor_correct_mistake_message">Vous avez fait une erreur d\&#39;édition. Veuillez la corriger ou passer en mode simple.</string>
+	<string name="editor_add_select_location">Emplacement</string>
+	<string name="editor_done_dialog_1">Vous avez modifié la carte du monde ! Ne le cachez pas ! Dites-le à vos amis, et modifiez-le ensemble.</string>
+	<string name="editor_done_dialog_2">Ceci est votre seconde amélioration de carte. Vous êtes maintenant à la %de place dans la liste des éditeurs de cartes. Dites-le à vos amis.</string>
+	<string name="editor_done_dialog_3">Vous avez amélioré la carte, dites-le à vos amis et modifiez la carte ensemble.</string>
+	<string name="share_with_friends">Partagez avec vos amis</string>
 	<string name="editor_report_problem_desription_1">Veuillez décrire le problème en détail pour permettre à la communauté OpenStreeMap de réparer l\&#39;erreur.</string>
 	<string name="editor_report_problem_desription_2">Ou faites-le vous-même à http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Envoyer</string>
@@ -673,6 +681,8 @@
 	<string name="editor_report_problem_no_place_title">Le lieu n\&#39;existe pas</string>
 	<string name="editor_report_problem_under_construction_title">Fermé pour cause de maintenance</string>
 	<string name="editor_report_problem_duplicate_place_title">Lieu doublon</string>
+	<string name="first_launch_congrats_title">MAPS.ME est prêt à l\&#39;utilisation</string>
+	<string name="first_launch_congrats_text">Cherchez et naviguez sur les cartes de tous les pays du monde gratuitement.</string>
 	<string name="migrate_title">Important !</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Tout télécharger</string>
@@ -772,6 +782,7 @@
 	<string name="placepage_report_problem_button">Signaler un problème</string>
 	<string name="whatsnew_smallmwm_header">Vous avez été nombreux à nous le demander et nous avons satisfait votre requête</string>
 	<string name="whatsnew_smallmwm_message">Nous avons divisé la carte en plusieurs parties. Désormais, vous pouvez télécharger des régions bien précises, et non plus le pays tout entier.</string>
+	<string name="whatsnew_search_header">Recherche améliorée</string>
 	<string name="whatsnew_search_message">Nous avons apporté des améliorations considérables à la recherche par adresse. Voyez par vous-même.</string>
 	<string name="whatsnew_editor_title">Modifier la carte*</string>
 	<string name="whatsnew_editor_message_1">Ajoutez de nouveaux lieux sur la carte et modifiez les lieux existants directement depuis l\&#39;appli.</string>
@@ -780,10 +791,12 @@
 	<string name="onboarding_offline_navigation_message">Planifiez des itinéraires optimaux en voiture ou à pied, même en l\&#39;absence de connexion Internet !</string>
 	<string name="onboarding_offline_navigation_title_2">Navigation hors-ligne</string>
 	<string name="onboarding_offline_navigation_message_2">Planifiez des itinéraires optimaux en voiture ou à pied.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME – cartes hors-ligne</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — accédez à une carte mondiale hors connexion</string>
 	<string name="onboarding_offline_maps_message">Téléchargez une seule fois les cartes de la zone désirée, et utilisez les fonctions de navigation et de recherche sans connexion Internet.</string>
 	<string name="onboarding_notifications_message">Pour recevoir les dernières cartes, recevez des notifications de mise à jour</string>
 	<string name="onboarding_notifications_title">Activer les notifications de mise à jour</string>
 	<string name="onboarding_location_title">Aidez-nous à vous trouver</string>
 	<string name="onboarding_location_message">Pour utiliser la navigation et d\&#39;autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.</string>
+	<string name="dialog_incorrect_feature_position">Modifier l\&#39;emplacement</string>
+	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
 </resources>

@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "กำลังดาวน์โหลด:";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "พบ";
 
 /* Disclaimer message */
 "routing_disclaimer" = "การสร้างเส้นทางในแอป MAPS.ME มีสิ่งที่ควรทราบดังต่อไปนี้:\n\n  - พึงพิจารณาเส้นทางที่แนะนำไว้ในฐานะที่เป็นการแนะนำเท่านั้น\n - สภาพถนน กฎจราจรและป้ายมีความสำคัญมากกว่าคำแนะนำในการนำทาง\n - แผนที่อาจไม่ถูกต้องหรือล้าสมัย และอาจไม่ได้มีการสร้างเส้นทางในรูปแบบพอจะเป็นไปได้ที่ดีที่สุด\n\n  ขอให้ปลอดภัยบนท้องถนนและดูแลตัวคุณเองด้วย!";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "ล้มเหลว";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "เพื่อลบแผนที่ โปรดหยุดใช้การนำทาง";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "ตำแหน่ง";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "มันเป็นการปรับปรุงแผนที่ครั้งที่สองของคุณ ตอนนี้คุณอยู่ในอันดับที่ %d ของรายการผู้แก้ไขแผนที่ บอกให้เพื่อนคุณรู้";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "คุณได้ปรับปรุงแผนที่ บอกให้เพื่อนคุณรู้ แล้วมาแก้ไขแผนที่ไปด้วยกัน";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "แชร์กับเพื่อน";
 
 "editor_report_problem_desription_1" = "กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "สถานที่ซ้ำ";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "MAPS.ME พร้อมใช้งานแล้ว";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "ค้นหาและนำทางไปตามแผนที่ของทุกประเทศในโลกได้ฟรี";
 
 "migrate_title" = "สำคัญ!";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "การค้นหาใหม่";
 
 "whatsnew_search_message" = "เราได้ปรับปรุงครั้งใหญ่สำหรับการค้นหาตามที่อยู่ ลองดูด้วยตัวเอง";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด";
 
-"onboarding_offline_maps_title" = "MAPS.ME - แผนที่ออฟไลน์";
+"onboarding_offline_maps_title" = "MAPS.ME — เข้าถึงแผนที่ทั่วโลกโดยไม่ใช้อินเทอร์เน็ต";
 
 "onboarding_offline_maps_message" = "ดาวน์โหลดแผนที่สำหรับพื้นที่ที่ต้องการเพียงหนึ่งครั้ง แล้วใช้การฟังก์ชันการนำทางและการค้นหาโดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "ไม่สามารถตั้งวัตถุได้ที่นี่";

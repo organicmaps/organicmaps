@@ -424,6 +424,7 @@
 	<string name="downloader_status_maps">Peta</string>
 	<string name="downloader_download_all_button">Unduh semua</string>
 	<string name="downloader_downloading">Mengunduh:</string>
+	<string name="downloader_search_results">Ditemukan</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Dalam membuat rute di aplikasi MAPS.ME, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!</string>
 	<!-- Outdated maps category -->
@@ -434,6 +435,8 @@
 	<string name="downloader_status_outdated">Perbarui</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Gagal</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Untuk menghapus peta, silakan hentikan navigasi.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Lokasi saat ini tidak diketahui. Mohon masukkan lokasi untuk membuat rute.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -654,6 +657,11 @@
 	<string name="editor_example_values">Contoh Nilai</string>
 	<string name="editor_correct_mistake">Koreksi kesalahan</string>
 	<string name="editor_correct_mistake_message">Pengeditan salah. Koreksi atau ubah ke mode sederhana.</string>
+	<string name="editor_add_select_location">Lokasi</string>
+	<string name="editor_done_dialog_1">Anda telah mengubah peta dunia. Jangan menyembunyikan ini! Katakan kepada teman-teman Anda, dan edit bersama.</string>
+	<string name="editor_done_dialog_2">ini peningkatan peta kedua Anda. Sekarang Anda di tempat yang ke-%d di daftar editor peta. Katakan kepada teman-teman Anda tentang hal ini.</string>
+	<string name="editor_done_dialog_3">Anda telah meningkatkan peta, katakan kepada teman-teman Anda tentang hal ini, dan edit peta bersama.</string>
+	<string name="share_with_friends">Bagikan dengan teman-teman</string>
 	<string name="editor_report_problem_desription_1">Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.</string>
 	<string name="editor_report_problem_desription_2">Atau Anda bisa melakukan sendiri di http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Kirim</string>
@@ -661,6 +669,8 @@
 	<string name="editor_report_problem_no_place_title">Tempat tidak ada</string>
 	<string name="editor_report_problem_under_construction_title">Ditutup karena pemeliharaan</string>
 	<string name="editor_report_problem_duplicate_place_title">Tempat ganda</string>
+	<string name="first_launch_congrats_title">MAPS.ME siap digunakan</string>
+	<string name="first_launch_congrats_text">Telusuri dan jelajalahi peta semua negara di dunia secara gratis.</string>
 	<string name="migrate_title">Penting!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Unduh semua</string>
@@ -760,6 +770,7 @@
 	<string name="placepage_report_problem_button">Laporkan masalah</string>
 	<string name="whatsnew_smallmwm_header">Anda memintanya dan kami telah malakukannya</string>
 	<string name="whatsnew_smallmwm_message">Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara.</string>
+	<string name="whatsnew_search_header">Penelusuran baru</string>
 	<string name="whatsnew_search_message">Kami secara signifikan telah meningkatkan pencarian menurut alamat. Lihat sendiri.</string>
 	<string name="whatsnew_editor_title">Edit peta*</string>
 	<string name="whatsnew_editor_message_1">Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.</string>
@@ -768,10 +779,12 @@
 	<string name="onboarding_offline_navigation_message">Rencanakan rute mobil dan pejalan kaki yang optimal, meskipun tidak ada koneksi internet!</string>
 	<string name="onboarding_offline_navigation_title_2">Navigasi Offline</string>
 	<string name="onboarding_offline_navigation_message_2">Rencanakan rute mobil dan pejalan kaki yang optimal.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - peta offline</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — akses peta seluruh dunia tanpa internet</string>
 	<string name="onboarding_offline_maps_message">Unduh peta untuk daerah yang diinginkan sekali, dan gunakan navigasi dan fungsi pencarian tanpa koneksi internet.</string>
 	<string name="onboarding_notifications_message">Untuk menerima peta-peta terbaru, dapatkan pemberitahuan pembaruan</string>
 	<string name="onboarding_notifications_title">Aktifkan pemberitahuan pembaruan</string>
 	<string name="onboarding_location_title">Membantu kami menemukan Anda</string>
 	<string name="onboarding_location_message">Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.</string>
+	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
+	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
 </resources>

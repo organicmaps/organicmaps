@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "Téléchargement en cours :";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "Trouvé";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Quand vous créez des itinéraires sur l'application MAPS.ME, veuillez garder à l'esprit les points suivants :\n\n  - Les itinéraires suggérés ne doivent être considérés que comme des recommandations.\n\n  - Les conditions des routes, les règlementations de circulations et les panneaux sont prioritaires sur les conseils de navigation.\n\n  - Il est possible qu'une carte soit incorrecte ou obsolète, et les itinéraires ne sont pas toujours créés de la meilleure façon possible.\n\n  Soyez prudents sur les routes et prenez soin de vous.";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "A échoué";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "Veuillez interrompre la navigation pour supprimer la carte.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "L'emplacement actuel n'est pas défini. Veuillez préciser l'emplacement pour créer l'itinéraire.";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "Vous avez fait une erreur d'édition. Veuillez la corriger ou passer en mode simple.";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "Emplacement";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "Vous avez modifié la carte du monde ! Ne le cachez pas ! Dites-le à vos amis, et modifiez-le ensemble.";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "Ceci est votre seconde amélioration de carte. Vous êtes maintenant à la %de place dans la liste des éditeurs de cartes. Dites-le à vos amis.";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "Vous avez amélioré la carte, dites-le à vos amis et modifiez la carte ensemble.";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "Partagez avec vos amis";
 
 "editor_report_problem_desription_1" = "Veuillez décrire le problème en détail pour permettre à la communauté OpenStreeMap de réparer l'erreur.";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "Lieu doublon";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "MAPS.ME est prêt à l'utilisation";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "Cherchez et naviguez sur les cartes de tous les pays du monde gratuitement.";
 
 "migrate_title" = "Important !";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "Nous avons divisé la carte en plusieurs parties. Désormais, vous pouvez télécharger des régions bien précises, et non plus le pays tout entier.";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "Recherche améliorée";
 
 "whatsnew_search_message" = "Nous avons apporté des améliorations considérables à la recherche par adresse. Voyez par vous-même.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Planifiez des itinéraires optimaux en voiture ou à pied.";
 
-"onboarding_offline_maps_title" = "MAPS.ME – cartes hors-ligne";
+"onboarding_offline_maps_title" = "MAPS.ME — accédez à une carte mondiale hors connexion";
 
 "onboarding_offline_maps_message" = "Téléchargez une seule fois les cartes de la zone désirée, et utilisez les fonctions de navigation et de recherche sans connexion Internet.";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "Pour utiliser la navigation et d'autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "Modifier l'emplacement";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "Aucun objet ne peut être localisé ici";

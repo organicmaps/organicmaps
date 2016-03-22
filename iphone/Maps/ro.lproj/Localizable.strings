@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "Descărcare:";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "S-au găsit";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "Eșuată";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "Pentru a șterge harta, vă rugăm să opriți navigarea.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Poziția dvs. curentă este nedefinită. Vă rugăm să specificați poziția, pentru a crea o rută.";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "Ați efectuat o eroare de editare. Corectați eroarea sau treceți în modul Simplu.";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "Locație";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "Ați modificat harta lumii. Nu ascundeți acest lucru! Spuneți-le prietenilor dvs. și modificați-o împreună.";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "Aceasta este a doua modificare a hărții. Acum sunteți pe locul %d în lista editorilor de hărți. Spuneți prietenilor dvs. despre aceasta.";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "Ați modificat harta, spuneți prietenilor dvs. despre aceasta și modificați-o împreună.";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "Partajează cu prietenii";
 
 "editor_report_problem_desription_1" = "Vă rugăm să descrieți problema în detaliu , astfel încât comunitatea OpenStreeMap să poată remedia eroarea.";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "Locație dublată";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "MAPS.ME este gata pentru utilizare";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "Căutați și navigați hărțile tuturor țărilor lumii pe gratis.";
 
 "migrate_title" = "Important!";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "Căutare nouă";
 
 "whatsnew_search_message" = "Am îmbunătățit semnificativ căutarea după adresă. Convinge-te singur.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Planificați traseele optime cu mașina și cele pietonale.";
 
-"onboarding_offline_maps_title" = "MAPS.ME – hărți offline";
+"onboarding_offline_maps_title" = "MAPS.ME — accesați hărți din întreaga lume fără conexiune Internet";
 
 "onboarding_offline_maps_message" = "Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "Schimbare locație";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "În acest loc nu poate fi localizat un obiect";

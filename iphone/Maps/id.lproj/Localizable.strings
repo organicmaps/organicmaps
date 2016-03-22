@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "Mengunduh:";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "Ditemukan";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Dalam membuat rute di aplikasi MAPS.ME, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "Gagal";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "Untuk menghapus peta, silakan hentikan navigasi.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Lokasi saat ini tidak diketahui. Mohon masukkan lokasi untuk membuat rute.";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "Pengeditan salah. Koreksi atau ubah ke mode sederhana.";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "Lokasi";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "Anda telah mengubah peta dunia. Jangan menyembunyikan ini! Katakan kepada teman-teman Anda, dan edit bersama.";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "ini peningkatan peta kedua Anda. Sekarang Anda di tempat yang ke-%d di daftar editor peta. Katakan kepada teman-teman Anda tentang hal ini.";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "Anda telah meningkatkan peta, katakan kepada teman-teman Anda tentang hal ini, dan edit peta bersama.";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "Bagikan dengan teman-teman";
 
 "editor_report_problem_desription_1" = "Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "Tempat ganda";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "MAPS.ME siap digunakan";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "Telusuri dan jelajalahi peta semua negara di dunia secara gratis.";
 
 "migrate_title" = "Penting!";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara.";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "Penelusuran baru";
 
 "whatsnew_search_message" = "Kami secara signifikan telah meningkatkan pencarian menurut alamat. Lihat sendiri.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Rencanakan rute mobil dan pejalan kaki yang optimal.";
 
-"onboarding_offline_maps_title" = "MAPS.ME - peta offline";
+"onboarding_offline_maps_title" = "MAPS.ME — akses peta seluruh dunia tanpa internet";
 
 "onboarding_offline_maps_message" = "Unduh peta untuk daerah yang diinginkan sekali, dan gunakan navigasi dan fungsi pencarian tanpa koneksi internet.";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "Ubah lokasi";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "Objek tidak dapat diletakkan di sini";

@@ -725,7 +725,7 @@
 "downloader_status_failed" = "Failed";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "To delete map please stop navigation.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Current location is undefined. Please specify location to create route.";
@@ -1107,11 +1107,11 @@
 
 "editor_add_select_location" = "Location";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "You’ve changed the world map. Do not hide this! Tell your friends, and edit it together.";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "This is your second map improvement. Now you are number %d in the map editors rating. Tell your friends about it.";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "You’ve improved the map, tell your friends about it, and edit the map together.";
 
 "share_with_friends" = "Share with friends";
 
@@ -1294,7 +1294,7 @@
 
 "editor_login_with_osm" = "Login with OpenStreetMap";
 
-"editor_profile_changes" = "Edits:";
+"editor_profile_changes" = "Changes:";
 
 "editor_profile_unsent_changes" = "Not sent:";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "We have divided maps into parts. Now you can download separate regions, not the whole country.";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "New search";
 
 "whatsnew_search_message" = "We have significantly improved the search by address. See for yourself.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Plan optimal car and pedestrian routes.";
 
-"onboarding_offline_maps_title" = "MAPS.ME - offline maps";
+"onboarding_offline_maps_title" = "MAPS.ME — use the maps of the entire world without an internet connection";
 
 "onboarding_offline_maps_message" = "Download the maps for the desired area once, and use the navigation and search functions without an internet connection.";
 
@@ -1354,8 +1354,8 @@
 
 "onboarding_location_title" = "Help us find you";
 
-"onboarding_location_message" = "To use navigation and other features, we need access to your geolocation.";
+"onboarding_location_message" = "In order for you to use navigation and the other app functions, MAPS.ME needs access to your geoposition.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "Change location";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "An object can't be located here";

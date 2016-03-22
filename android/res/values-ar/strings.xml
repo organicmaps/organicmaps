@@ -430,6 +430,7 @@
 	<string name="downloader_status_maps">الخرائط</string>
 	<string name="downloader_download_all_button">تنزيل الكل</string>
 	<string name="downloader_downloading">يتم تنزيل:</string>
+	<string name="downloader_search_results">تم العثور على</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!</string>
 	<!-- Outdated maps category -->
@@ -440,6 +441,8 @@
 	<string name="downloader_status_outdated">تحديث</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">فشل</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">لحذف الخريطة يرجى إيقاف الملاحة.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">الموقع الحالي غير مُعَرّف. يرجى تحديد موقع لإنشاء مسار.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -661,6 +664,11 @@
 	<string name="editor_example_values">أمثلة على القيم</string>
 	<string name="editor_correct_mistake">تصحيح الخطأ</string>
 	<string name="editor_correct_mistake_message">قمت بخطأ في التحرير. يرجى تصحيح الخطأ أو التبديل إلى الوضع البسيط.</string>
+	<string name="editor_add_select_location">الموقع</string>
+	<string name="editor_done_dialog_1">لقد غيرت خريطة العالم. لا تخفي ذلك! اخبر أصدقاءك، وغيروها معا.</string>
+	<string name="editor_done_dialog_2">هذا هو تعديلك الثاني بالخريطة. أنت الآن في الترتيب رقم %d في قائمة محرري الخريطة. اخبر أصدقاءك عن ذلك.</string>
+	<string name="editor_done_dialog_3">لقد عدلت الخريطة، اخبر أصدقائك عن ذلك، وعدلوا الخريطة معا.</string>
+	<string name="share_with_friends">شارك مع الأصدقاء</string>
 	<string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.</string>
 	<string name="editor_report_problem_desription_2">أو افعل ذلك بنفسك من خلال الموقع http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">إرسال</string>
@@ -668,6 +676,8 @@
 	<string name="editor_report_problem_no_place_title">المكان غير موجودٍ</string>
 	<string name="editor_report_problem_under_construction_title">مغلق للصيانة</string>
 	<string name="editor_report_problem_duplicate_place_title">مكان متكرر</string>
+	<string name="first_launch_congrats_title">MAPS.ME جاهز للاستخدام</string>
+	<string name="first_launch_congrats_text">ابحث وتنقل في خرائط جميع دول العالم مجانا.</string>
 	<string name="migrate_title">هام!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">تنزيل الكل</string>
@@ -767,6 +777,7 @@
 	<string name="placepage_report_problem_button">الإبلاغ عن مشكلة</string>
 	<string name="whatsnew_smallmwm_header">لقد طلبتم ذلك، وها نحن قد لبينا طلبكم</string>
 	<string name="whatsnew_smallmwm_message">لقد قسمنا الخرائط إلى أجزاء. الآن يمكنك تنزيل مناطق منفصلة، وليس البلد بأكمله.</string>
+	<string name="whatsnew_search_header">بحث جديد</string>
 	<string name="whatsnew_search_message">لقد طورنا كليا البحث بالعنوان. فلترى بنفسك.</string>
 	<string name="whatsnew_editor_title">تعديل الخريطة *</string>
 	<string name="whatsnew_editor_message_1">قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.</string>
@@ -775,10 +786,12 @@
 	<string name="onboarding_offline_navigation_message">قم بتخطيط أفضل طرق السيارات والمشاة، حتى مع عدم وجود اتصال بالإنترنت!</string>
 	<string name="onboarding_offline_navigation_title_2">الملاحة في وضع غير متصل</string>
 	<string name="onboarding_offline_navigation_message_2">خطط أفضل طرق السيارات والمشاة.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME – خرائط غير متصلة بالإنترنت</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — وصول إلى الخرائط على مستوى العالم دون إنترنت</string>
 	<string name="onboarding_offline_maps_message">قم بتنزيل خرائط للمنطقة المطلوب مرة واحدة، واستخدم وظائف الملاحة والبحث دون الحاجة للاتصال بالإنترنت.</string>
 	<string name="onboarding_notifications_message">تابع إخطارات التحديث للحصول على أحدث الخرائط</string>
 	<string name="onboarding_notifications_title">تفعيل إخطارات التحديث</string>
 	<string name="onboarding_location_title">ساعدنا في العثور عليك</string>
 	<string name="onboarding_location_message">لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.</string>
+	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
+	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 </resources>

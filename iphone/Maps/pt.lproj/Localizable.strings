@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "Baixando:";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "Encontrado";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Ao criar rotas na aplicação MAPS.ME, por favor, lembre-se do seguinte:\n\n  - As rotas sugeridas podem apenas ser consideradas como recomendações.\n - As condições da estrada, regras de trânsito e sinais têm maior prioridade do que os conselhos de navegação.\n - O mapa poderá estar errado, ou desatualizado, e as rotas poderão não ser criadas da melhor forma possível.\n\n  Circule em segurança nas estradas e cuide do seu bem estar!";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "Falhou";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "Favor parar a navegação para apagar o mapa.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "A localização atual não foi definida. Por favor especifique a localização para criar o trajeto.";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "Fez um erro de edição. Corrija-o ou mude para o modo simples.";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "Local";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "Alterou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "Esta é a sua segunda melhoria ao mapa. Agora, está no %dº lugar na lista de editores de mapas. Fale disto aos seus amigos.";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "Melhorou o mapa, fale disto aos seus amigos e editem o mapa juntos.";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "Compartilhar com amigos";
 
 "editor_report_problem_desription_1" = "Por favor, descreva o problema ao pormenor para que a comunidade OpenStreeMap possa corrigir o erro.";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "Lugar em duplicado";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "MAPS.ME está pronto para utilização";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "Pesquise e navegue nos mapas de todos os países do mundo gratuitamente.";
 
 "migrate_title" = "Importante!";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "Dividimos os mapas em partes. Agora vocês podem baixar regiões separadas em vez do país inteiro.";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "Nova busca";
 
 "whatsnew_search_message" = "Melhoramos consideravelmente a busca por endereço. Veja você mesmo.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Planeie itinerários ideais de automóvel e a pé.";
 
-"onboarding_offline_maps_title" = "MAPS.ME - mapas offline";
+"onboarding_offline_maps_title" = "MAPS.ME — acesse os mapas do mundo inteiro sem internet";
 
 "onboarding_offline_maps_message" = "Descarregue uma vez os mapas para a área desejada e utilize as funções de navegação e de pesquisa sem uma ligação à Internet.";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "Para utilizar a navegação e outros recursos, precisamos de aceder à sua localização geográfica.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "Mudar o local";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "Um objeto não pode ser localizado aqui";

@@ -428,6 +428,7 @@
 	<string name="downloader_status_maps">แผนที่</string>
 	<string name="downloader_download_all_button">ดาวน์โหลดทั้งหมด</string>
 	<string name="downloader_downloading">กำลังดาวน์โหลด:</string>
+	<string name="downloader_search_results">พบ</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">การสร้างเส้นทางในแอป MAPS.ME มีสิ่งที่ควรทราบดังต่อไปนี้:\n\n  - พึงพิจารณาเส้นทางที่แนะนำไว้ในฐานะที่เป็นการแนะนำเท่านั้น\n - สภาพถนน กฎจราจรและป้ายมีความสำคัญมากกว่าคำแนะนำในการนำทาง\n - แผนที่อาจไม่ถูกต้องหรือล้าสมัย และอาจไม่ได้มีการสร้างเส้นทางในรูปแบบพอจะเป็นไปได้ที่ดีที่สุด\n\n  ขอให้ปลอดภัยบนท้องถนนและดูแลตัวคุณเองด้วย!</string>
 	<!-- Outdated maps category -->
@@ -438,6 +439,8 @@
 	<string name="downloader_status_outdated">ปรับปรุง</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">ล้มเหลว</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">เพื่อลบแผนที่ โปรดหยุดใช้การนำทาง</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -659,6 +662,11 @@
 	<string name="editor_example_values">ตัวอย่างของค่าที่ตั้งไว้</string>
 	<string name="editor_correct_mistake">แก้ไขข้อผิดพลาด</string>
 	<string name="editor_correct_mistake_message">มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย</string>
+	<string name="editor_add_select_location">ตำแหน่ง</string>
+	<string name="editor_done_dialog_1">คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน</string>
+	<string name="editor_done_dialog_2">มันเป็นการปรับปรุงแผนที่ครั้งที่สองของคุณ ตอนนี้คุณอยู่ในอันดับที่ %d ของรายการผู้แก้ไขแผนที่ บอกให้เพื่อนคุณรู้</string>
+	<string name="editor_done_dialog_3">คุณได้ปรับปรุงแผนที่ บอกให้เพื่อนคุณรู้ แล้วมาแก้ไขแผนที่ไปด้วยกัน</string>
+	<string name="share_with_friends">แชร์กับเพื่อน</string>
 	<string name="editor_report_problem_desription_1">กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้</string>
 	<string name="editor_report_problem_desription_2">หรือทำด้วยตัวคุณเองที่ http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">ส่ง</string>
@@ -666,6 +674,8 @@
 	<string name="editor_report_problem_no_place_title">ไม่มีสถานที่นี้อยู่</string>
 	<string name="editor_report_problem_under_construction_title">ปิดปรับปรุง</string>
 	<string name="editor_report_problem_duplicate_place_title">สถานที่ซ้ำ</string>
+	<string name="first_launch_congrats_title">MAPS.ME พร้อมใช้งานแล้ว</string>
+	<string name="first_launch_congrats_text">ค้นหาและนำทางไปตามแผนที่ของทุกประเทศในโลกได้ฟรี</string>
 	<string name="migrate_title">สำคัญ!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">ดาวน์โหลดทั้งหมด</string>
@@ -765,6 +775,7 @@
 	<string name="placepage_report_problem_button">แจ้งปัญหา</string>
 	<string name="whatsnew_smallmwm_header">คุณได้ขอมา เราจึงทำมัน</string>
 	<string name="whatsnew_smallmwm_message">เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว</string>
+	<string name="whatsnew_search_header">การค้นหาใหม่</string>
 	<string name="whatsnew_search_message">เราได้ปรับปรุงครั้งใหญ่สำหรับการค้นหาตามที่อยู่ ลองดูด้วยตัวเอง</string>
 	<string name="whatsnew_editor_title">แก้ไขแผนที่*</string>
 	<string name="whatsnew_editor_message_1">เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง</string>
@@ -773,10 +784,12 @@
 	<string name="onboarding_offline_navigation_message">วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด แม้ว่าจะไม่มีการเชื่อมต่ออินเทอร์เน็ต!</string>
 	<string name="onboarding_offline_navigation_title_2">การนำทางออฟไลน์</string>
 	<string name="onboarding_offline_navigation_message_2">วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - แผนที่ออฟไลน์</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — เข้าถึงแผนที่ทั่วโลกโดยไม่ใช้อินเทอร์เน็ต</string>
 	<string name="onboarding_offline_maps_message">ดาวน์โหลดแผนที่สำหรับพื้นที่ที่ต้องการเพียงหนึ่งครั้ง แล้วใช้การฟังก์ชันการนำทางและการค้นหาโดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต</string>
 	<string name="onboarding_notifications_message">เพื่อรับแผนที่ล่าสุดและรับการแจ้งเตือนอัปเดต</string>
 	<string name="onboarding_notifications_title">เปิดการแจ้งเตือนการอัปเดต</string>
 	<string name="onboarding_location_title">ช่วยให้เราค้นหาคุณ</string>
 	<string name="onboarding_location_message">เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ</string>
+	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
+	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
 </resources>

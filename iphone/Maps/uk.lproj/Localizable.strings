@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "Завантажується:";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "Знайдено";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "Помилка";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "Щоб видалити карту, будь ласка, зупините навiгацiю.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Неможливо прокласти маршрут. Не визначено поточне місцезнаходження.";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "Під час редагування часу роботи ви зробили помилку. Виправте її або перейдіть у простий режим.";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "Місцезнаходження";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "Ви змінили карту світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "Це ваше друге поліпшення карти. Тепер ви на %d місці в списку редакторів карт. Розкажіть своїм друзям про це.";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "Ви покращили карту, розкажіть своїм друзям про це і редагуйте її разом.";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "Поділитися з друзями";
 
 "editor_report_problem_desription_1" = "Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "Дубльовані місця";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "MAPS.ME готовий до роботи";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "Користуйтесь пошуком, навігацією по всьому світу без інтернету й безкоштовно.";
 
 "migrate_title" = "Важливо!";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "Ми поділили карти на частини. Тепер ви можете стягувати окремі регіони, а не країну цілком.";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "Новий пошук";
 
 "whatsnew_search_message" = "Якісно покращили пошук по адресам. Перевірте.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Плануйте оптимальні маршрути для поїздок і піших походів.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — офлайн мапи";
+"onboarding_offline_maps_title" = "MAPS.ME — використовуй карти всього світу без інтернету";
 
 "onboarding_offline_maps_message" = "Завантажте мапи необхідного регіону один раз та користуйтесь навігацією та пошуком без підключення до інтернету.";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "Змініть розташування";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "Об'єкт не може перебувати в цьому місцезнаходженні";

@@ -425,6 +425,7 @@
 	<string name="downloader_status_maps">Térképek</string>
 	<string name="downloader_download_all_button">Mindegyik letöltése</string>
 	<string name="downloader_downloading">Letöltés:</string>
+	<string name="downloader_search_results">Megtalálva</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Amikor útvonalakat készít a MAPS.ME appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!</string>
 	<!-- Outdated maps category -->
@@ -432,9 +433,11 @@
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Friss</string>
 	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">Frissítése</string>
+	<string name="downloader_status_outdated">Frissítés</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Sikertelen</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Kérjük, állítsa le a navigációt a térkép törléséhez.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Nem meghatározott a jelenlegi helyszín. Kérjük, határozza meg a helyszínt, hogy útvonal készülhessen.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -656,6 +659,11 @@
 	<string name="editor_example_values">Példa értékek</string>
 	<string name="editor_correct_mistake">Hiba javítása</string>
 	<string name="editor_correct_mistake_message">Szerkesztési hibát vétett. Javítsa ki vagy váltson egyszerű módba.</string>
+	<string name="editor_add_select_location">Elhelyezkedés</string>
+	<string name="editor_done_dialog_1">Megváltoztattad a világ térképét. Ne titkold el mások elől! Mondd el a barátaidnak, és szerkesszétek közösen!</string>
+	<string name="editor_done_dialog_2">Ez a második térképjavításod. Most már te is rajta vagy a térképszerkesztők listáján, az %d. helyen. Mesélj erről a barátaidnak is.</string>
+	<string name="editor_done_dialog_3">Javítottál a térképen! Mondd el a barátaidnak is és szerkesszétek közösen!</string>
+	<string name="share_with_friends">Oszd meg az ismerőseiddel</string>
 	<string name="editor_report_problem_desription_1">Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.</string>
 	<string name="editor_report_problem_desription_2">Vagy végezd el te magad a javítást itt: http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Küldés</string>
@@ -663,6 +671,8 @@
 	<string name="editor_report_problem_no_place_title">A hely nem létezik</string>
 	<string name="editor_report_problem_under_construction_title">Karbantartás miatt nem elérhető</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplikált hely</string>
+	<string name="first_launch_congrats_title">A MAPS.ME használatra készen áll</string>
+	<string name="first_launch_congrats_text">Keress és navigálj ingyen a világ összes térképében.</string>
 	<string name="migrate_title">Fontos!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Összes letöltése</string>
@@ -762,6 +772,7 @@
 	<string name="placepage_report_problem_button">Hibabejelentés</string>
 	<string name="whatsnew_smallmwm_header">Te kérted, mi elkészítettük</string>
 	<string name="whatsnew_smallmwm_message">Felosztottuk részekre a térképeket. Mostantól az egyes régiókat is letöltheted, nem csak az egész országot.</string>
+	<string name="whatsnew_search_header">Új keresés</string>
 	<string name="whatsnew_search_message">Jelentősen javítottunk a címen alapuló keresésünkön. Nézd meg magadnak.</string>
 	<string name="whatsnew_editor_title">Térkép szerkesztése*</string>
 	<string name="whatsnew_editor_message_1">Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.</string>
@@ -770,10 +781,12 @@
 	<string name="onboarding_offline_navigation_message">Tervezd meg az optimális autós és gyalogos útvonalakat, akkor is, ha nincs internetkapcsolat!</string>
 	<string name="onboarding_offline_navigation_title_2">Offline navigáció</string>
 	<string name="onboarding_offline_navigation_message_2">Tervezd meg az optimális autós és gyalogos útvonalakat.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - offline térképek</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — hozzáférés a világ térképéhez Internet nélkül</string>
 	<string name="onboarding_offline_maps_message">Mindössze egyszer kell letöltened egy adott helyszín térképét, azt követően internetkapcsolat nélkül is használhatod a navigációs és keresési funkciókat.</string>
 	<string name="onboarding_notifications_message">Fogadj értesítő üzeneteket a legfrissebb térképekről</string>
 	<string name="onboarding_notifications_title">Értesítések engedélyezése</string>
 	<string name="onboarding_location_title">Segíts, hogy megtaláljunk</string>
 	<string name="onboarding_location_message">A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.</string>
+	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
+	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
 </resources>

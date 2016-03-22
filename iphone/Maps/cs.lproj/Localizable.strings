@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "Probíhá stahování:";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "Nalezeno";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "Selhalo";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "Chcete-li odstranit mapu, pak prosím zastavte navigaci.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Aktuální poloha nebyla zatím zjištěna. Chcete-li naplánovat trasu, zadejte prosím umístění.";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "Při úpravách jste udělali chybu. Opravte ji prosím, nebo přepněte do jednoduchého režimu.";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "Umístění";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "Toto je vaše druhé vylepšení mapy. Nyní jste na %d. místě na seznamu editorů map. Řekněte o tom svým kamarádům.";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "Vylepšili jste mapu. Řekněte o tom svým kamarádům a upravujte mapu společně.";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "Sdílejte s kamarády";
 
 "editor_report_problem_desription_1" = "Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "Duplicitní místo";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "MAPS.ME jsou připraveny k použití";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "Prohledávejte a navigujte mapy všech zemí na světě zdarma.";
 
 "migrate_title" = "Důležité!";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země.";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "Nové hledání";
 
 "whatsnew_search_message" = "Výrazně jsme vylepšili vyhledávání podle adresy. Podívejte se sami.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Naplánujte si optimální trasy pro auto nebo pěší chůzi.";
 
-"onboarding_offline_maps_title" = "MAPS.ME - offline mapy";
+"onboarding_offline_maps_title" = "MAPS.ME — přistupte k celosvětovým mapám bez internetu";
 
 "onboarding_offline_maps_message" = "Stáhněte si jednou mapy požadované oblasti a poté používejte navigaci a vyhledávací funkce bez připojení k internetu.";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "Chcete-li používat navigaci a další funkce, pak potřebujeme přístup k vaší zeměpisné poloze.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "Změnit umístění";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "Objekt zde nemůže být umístěn";

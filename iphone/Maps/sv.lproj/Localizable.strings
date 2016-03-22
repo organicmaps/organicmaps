@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "Ladda ner:";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "Hittat";
 
 /* Disclaimer message */
 "routing_disclaimer" = "När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "Misslyckades";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "Avsluta navigering för att radera kartan.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nuvarande plats är inte definierad. Ange din plats för att skapa rutt.";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "Du har gjort ett fel i redigeringen. Var vänlig korrigera det eller byt till enkelt läge.";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "Plats";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "Du har ändrat världskartan. Dölj inte detta! Berätta för dina vänner och redigera den tillsammans.";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "Detta är din andra kartförbättring. Du är nu på plats %d i listan över kartredigerare. Berätta för dina vänner om det.";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "Du har förbättrat kartan, berätta för dina vänner om det och redigera kartan tillsammans.";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "Dela med vänner";
 
 "editor_report_problem_desription_1" = "Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "Duplicerad plats";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "Du kan nu använda MAPS.ME";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "Sök och navigera gratis på kartor över alla länder i hela världen.";
 
 "migrate_title" = "Viktigt!";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet.";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "Ny sökning";
 
 "whatsnew_search_message" = "Vi har avsevärt förbättrat sökningen på adress. Se själv.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Planera optimala bil- och promenadrutter.";
 
-"onboarding_offline_maps_title" = "MAPS.ME - kartor offline";
+"onboarding_offline_maps_title" = "MAPS.ME — se världsomspännande kartor utan internet";
 
 "onboarding_offline_maps_message" = "Ladda ned kartorna för önskat område en gång och använd funktionerna för navigering och sökning utan en internetanslutning.";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "Ändra placering";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "Ett objekt kan inte placeras här";

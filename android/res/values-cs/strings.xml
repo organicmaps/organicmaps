@@ -431,6 +431,7 @@
 	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Stáhnout vše</string>
 	<string name="downloader_downloading">Probíhá stahování:</string>
+	<string name="downloader_search_results">Nalezeno</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!</string>
 	<!-- Outdated maps category -->
@@ -441,6 +442,8 @@
 	<string name="downloader_status_outdated">Aktualizace</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Selhalo</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Chcete-li odstranit mapu, pak prosím zastavte navigaci.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Aktuální poloha nebyla zatím zjištěna. Chcete-li naplánovat trasu, zadejte prosím umístění.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -662,6 +665,11 @@
 	<string name="editor_example_values">Vzorové hodnoty</string>
 	<string name="editor_correct_mistake">Opravit chybu</string>
 	<string name="editor_correct_mistake_message">Při úpravách jste udělali chybu. Opravte ji prosím, nebo přepněte do jednoduchého režimu.</string>
+	<string name="editor_add_select_location">Umístění</string>
+	<string name="editor_done_dialog_1">Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.</string>
+	<string name="editor_done_dialog_2">Toto je vaše druhé vylepšení mapy. Nyní jste na %d. místě na seznamu editorů map. Řekněte o tom svým kamarádům.</string>
+	<string name="editor_done_dialog_3">Vylepšili jste mapu. Řekněte o tom svým kamarádům a upravujte mapu společně.</string>
+	<string name="share_with_friends">Sdílejte s kamarády</string>
 	<string name="editor_report_problem_desription_1">Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.</string>
 	<string name="editor_report_problem_desription_2">Nebo to udělejte sami na http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Odeslat</string>
@@ -669,6 +677,8 @@
 	<string name="editor_report_problem_no_place_title">Místo neexistuje</string>
 	<string name="editor_report_problem_under_construction_title">Zavřeno kvůli údržbě</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicitní místo</string>
+	<string name="first_launch_congrats_title">MAPS.ME jsou připraveny k použití</string>
+	<string name="first_launch_congrats_text">Prohledávejte a navigujte mapy všech zemí na světě zdarma.</string>
 	<string name="migrate_title">Důležité!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Stáhnout vše</string>
@@ -768,6 +778,7 @@
 	<string name="placepage_report_problem_button">Nahlásit problém</string>
 	<string name="whatsnew_smallmwm_header">Říkali jste si o to, a my to udělali</string>
 	<string name="whatsnew_smallmwm_message">Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země.</string>
+	<string name="whatsnew_search_header">Nové hledání</string>
 	<string name="whatsnew_search_message">Výrazně jsme vylepšili vyhledávání podle adresy. Podívejte se sami.</string>
 	<string name="whatsnew_editor_title">Upravit mapu*</string>
 	<string name="whatsnew_editor_message_1">Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.</string>
@@ -776,10 +787,12 @@
 	<string name="onboarding_offline_navigation_message">Naplánujte si optimální trasy pro auto nebo pěší chůzi, i když tam nebude připojení k internetu!</string>
 	<string name="onboarding_offline_navigation_title_2">Offline navigace</string>
 	<string name="onboarding_offline_navigation_message_2">Naplánujte si optimální trasy pro auto nebo pěší chůzi.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - offline mapy</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — přistupte k celosvětovým mapám bez internetu</string>
 	<string name="onboarding_offline_maps_message">Stáhněte si jednou mapy požadované oblasti a poté používejte navigaci a vyhledávací funkce bez připojení k internetu.</string>
 	<string name="onboarding_notifications_message">Chcete-li získat nejnovější mapy, pak zapněte upozornění na aktualizace</string>
 	<string name="onboarding_notifications_title">Povolit upozornění na aktualizace</string>
 	<string name="onboarding_location_title">Pomozte nám vás najít</string>
 	<string name="onboarding_location_message">Chcete-li používat navigaci a další funkce, pak potřebujeme přístup k vaší zeměpisné poloze.</string>
+	<string name="dialog_incorrect_feature_position">Změnit umístění</string>
+	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
 </resources>

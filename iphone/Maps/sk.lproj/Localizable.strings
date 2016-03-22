@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "Sťahovanie:";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "Nájdených";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Tvorenie trás v aplikácii MAPS.ME, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "Zlyhalo";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "Ak chcete odstrániť mapy, prosím, zastavte navigáciu.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "Chyba pri úprave. Opravte chybu, alebo sa prepnite do jednoduchého režimu.";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "Poloha";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "Zmenili ste mapu sveta. Nemusíte to skrývať! Povedzte o tom svojim priateľom a začnite ju spolu upravovať.";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "Toto je vaša druhá vylepšená mapa. Momentálne ste na %d. mieste zoznamu editorov máp. Povedzte o tom svojim priateľom.";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "Práve ste vylepšili mapu. Povedzte o tom svojim priateľom a môžete mapu upraviť aj spolu.";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "Zdieľaj s priateľmi";
 
 "editor_report_problem_desription_1" = "Prosím, pridajte detailný popis problému, aby mohla komunita OpenStreetMap opraviť danú chybu.";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "Duplicitné miesto";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "Aplikácia MAPS.ME je pripravená na použitie";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "Vyhľadávajte a riaďte sa mapami všetkých krajín na svete zadarmo.";
 
 "migrate_title" = "Dôležité!";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "Mapy sme rozdelili na časti. Teraz si môžete stiahnuť jednotlivé regióny, nie celú krajinu.";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "Nové vyhľadávanie";
 
 "whatsnew_search_message" = "Významne sme zlepšili vyhľadávanie pomocou adresy. Pozrite sa sami.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Naplánujte si vhodné trasy na cestu autom alebo peši.";
 
-"onboarding_offline_maps_title" = "MAPS.ME - offline mapy";
+"onboarding_offline_maps_title" = "MAPS.ME — globálny prístup k mapám bez internetu";
 
 "onboarding_offline_maps_message" = "Stiahnite si jednorázovo potrebné mapy - navigáciu a funkcie vyhľadávania môžete využívať aj bez internetového pripojenia.";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "Zmeniť polohu";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "Objekt sa tu nedá umiestniť";

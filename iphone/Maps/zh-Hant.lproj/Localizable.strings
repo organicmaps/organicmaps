@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "正在下載：";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "已找到";
 
 /* Disclaimer message */
 "routing_disclaimer" = "在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "失敗";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "如欲刪除地圖，請停止導航。";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "當前地點未定。請明確地點以創建路線。";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "編輯時出錯。請修正或切換到簡易模式。";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "位置";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "您已經改變了世界地圖。請不要隱藏這一點！告訴您的朋友們並一起編輯它。";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "這是您的第二次地圖改進。現在您在地圖編輯者排行榜中排在第%d名。把它告訴您的朋友們。";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "您已改進此地圖，請把它告訴您的朋友們，並一起編輯此地圖。";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "和朋友分享";
 
 "editor_report_problem_desription_1" = "請詳細描述此問題以便OpenStreeMap社區能夠修復此錯誤。";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "重復的地點";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "MAPS.ME已做好使用準備";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "免費搜索和導航世界上所有國家的地圖。";
 
 "migrate_title" = "重要！";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "新搜尋";
 
 "whatsnew_search_message" = "我們已明顯改進了按地址的搜索。親自看看。";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "規劃最佳的駕車和步行路線。";
 
-"onboarding_offline_maps_title" = "MAPS.ME - 離線地圖";
+"onboarding_offline_maps_title" = "MAPS.ME — 無需網際網路獲取全球地圖";
 
 "onboarding_offline_maps_message" = "一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "如要使用導航和其他功能，我們需要能獲取您的地理位置.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "改變位置";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "對象無法設置在這裡";

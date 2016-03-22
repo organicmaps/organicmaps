@@ -430,6 +430,7 @@
 	<string name="downloader_status_maps">Haritalar</string>
 	<string name="downloader_download_all_button">Hepsini indir</string>
 	<string name="downloader_downloading">İndiriliyor:</string>
+	<string name="downloader_search_results">Bulundu</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.ME uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!</string>
 	<!-- Outdated maps category -->
@@ -440,6 +441,8 @@
 	<string name="downloader_status_outdated">Güncelle</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Başarısız</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Haritayı silmek için lütfen navigasyonu durdurun.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Geçerli konum tanımlı değil. Rota oluşturmak için lütfen konum belirtin.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -661,6 +664,11 @@
 	<string name="editor_example_values">Örnek Değerler</string>
 	<string name="editor_correct_mistake">Hatayı düzelt</string>
 	<string name="editor_correct_mistake_message">Bir düzenleme hatası yaptınız. Lütfen düzeltin veya basit moda geçin.</string>
+	<string name="editor_add_select_location">Konum</string>
+	<string name="editor_done_dialog_1">Dünya haritasını değiştirdiniz. Bunu gizlemeyin! Arkadaşlarınıza anlatın ve birlikte düzenleyin.</string>
+	<string name="editor_done_dialog_2">Bu sizin ikinci harita iyileştirmeniz. Artık siz harita editörleri arasında %d. sıradasınız. Arkadaşlarınıza bunu anlatın.</string>
+	<string name="editor_done_dialog_3">Haritayı geliştirdiniz, arkadaşlarınıza bunu anlatın ve birlikte haritayı düzenleyin.</string>
+	<string name="share_with_friends">Arkadaşlarınla paylaş</string>
 	<string name="editor_report_problem_desription_1">OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde tanımlayın.</string>
 	<string name="editor_report_problem_desription_2">Veya bunu adresinden kendiniz yapın http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Gönder</string>
@@ -668,6 +676,8 @@
 	<string name="editor_report_problem_no_place_title">Yer mevcut değil</string>
 	<string name="editor_report_problem_under_construction_title">Bakım için kapalı</string>
 	<string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
+	<string name="first_launch_congrats_title">MAPS.ME kullanıma hazır</string>
+	<string name="first_launch_congrats_text">Dünyanın tüm ülkelerinin haritalarında ücretsiz arama yap ve gezin.</string>
 	<string name="migrate_title">Önemli!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Tümünü indir</string>
@@ -767,6 +777,7 @@
 	<string name="placepage_report_problem_button">Bir problem bildirin</string>
 	<string name="whatsnew_smallmwm_header">Siz istediniz biz yaptık</string>
 	<string name="whatsnew_smallmwm_message">Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz.</string>
+	<string name="whatsnew_search_header">Yeni arama</string>
 	<string name="whatsnew_search_message">Adres ile aramayı önemli ölçüde geliştirdik. Kendiniz görün.</string>
 	<string name="whatsnew_editor_title">Haritayı düzenleyin*</string>
 	<string name="whatsnew_editor_message_1">Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.</string>
@@ -775,10 +786,12 @@
 	<string name="onboarding_offline_navigation_message">En iyi araba ve yaya rotalarını planlayın, hatta internet bağlantısı olmadığında bile!</string>
 	<string name="onboarding_offline_navigation_title_2">Farklı bir problem</string>
 	<string name="onboarding_offline_navigation_message_2">En iyi araba ve yaya rotalarını planlayın.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - çevrimdışı haritalar</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — dünya genelinde haritaya internetsiz erişim</string>
 	<string name="onboarding_offline_maps_message">İlk önce istenilen alanın haritasını indirin ve internet bağlantısı olmadan navigasyonu ve arama fonksiyonlarını kullanın.</string>
 	<string name="onboarding_notifications_message">En son haritaları almak için güncelleme bildirimlerini alın</string>
 	<string name="onboarding_notifications_title">Güncelleme bildirimlerini etkinleştir</string>
 	<string name="onboarding_location_title">Sizi bulmamıza yardım edin</string>
 	<string name="onboarding_location_message">Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.</string>
+	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
+	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
 </resources>

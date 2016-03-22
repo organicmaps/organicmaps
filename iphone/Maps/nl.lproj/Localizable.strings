@@ -707,7 +707,7 @@
 
 "downloader_downloading" = "Aan het downloaden:";
 
-"downloader_search_results" = "Found";
+"downloader_search_results" = "Gevonden";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Bij het creëren van routes in MAPS.ME-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "Mislukt";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "To delete map please stop the navigation.";
+"downloader_delete_map_while_routing_dialog" = "Stop de navigatie om de kaart te verwijderen.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.";
@@ -1105,15 +1105,15 @@
 
 "editor_correct_mistake_message" = "U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.";
 
-"editor_add_select_location" = "Location";
+"editor_add_select_location" = "Locatie";
 
-"editor_done_dialog_1" = "You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.";
+"editor_done_dialog_1" = "Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk het samen.";
 
-"editor_done_dialog_2" = "You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.";
+"editor_done_dialog_2" = "Dit is je tweede kaartverbetering. Nu sta je op de %de plaats in de lijst van de kaartbewerkers. Vertel je vrienden erover.";
 
-"editor_done_dialog_3" = "You have improved the map. Tell your friends about it and edit the map together.";
+"editor_done_dialog_3" = "Je hebt de kaart verbeterd, vertel je vrienden erover en bewerk samen de kaart.";
 
-"share_with_friends" = "Share with friends";
+"share_with_friends" = "Deel met je vrienden";
 
 "editor_report_problem_desription_1" = "Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.";
 
@@ -1129,9 +1129,9 @@
 
 "editor_report_problem_duplicate_place_title" = "Dubbele plaats";
 
-"first_launch_congrats_title" = "MAPS.ME is ready to use";
+"first_launch_congrats_title" = "MAPS.ME is klaar voor gebruik";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "Zoek en navigeer gratis met kaarten van alle landen van de wereld.";
 
 "migrate_title" = "Belangrijk!";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio's downloaden in plaats van het hele land.";
 
-"whatsnew_search_header" = "New search!";
+"whatsnew_search_header" = "Nieuwe zoekopdracht";
 
 "whatsnew_search_message" = "We hebben het zoeken op adres significant verbeterd. Bekijk het zelf.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Plan optimale auto- en wandelroutes.";
 
-"onboarding_offline_maps_title" = "MAPS.ME - offline kaarten";
+"onboarding_offline_maps_title" = "MAPS.ME — toegang tot kaarten van de hele wereld, zonder verbinding met het internet";
 
 "onboarding_offline_maps_message" = "Download eenmaal de kaarten voor het gewenste gebied en gebruik de navigatie- en zoekfuncties zonder een internetverbinding.";
 
@@ -1356,6 +1356,6 @@
 
 "onboarding_location_message" = "Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.";
 
-"dialog_incorrect_feature_position" = "Change the location";
+"dialog_incorrect_feature_position" = "Locatie wijzigen";
 
-"message_invalid_feature_position" = "A place cannot be situated in this location.";
+"message_invalid_feature_position" = "Hier kan geen object worden geplaatst";

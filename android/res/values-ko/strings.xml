@@ -416,6 +416,7 @@
 	<string name="downloader_status_maps">지도</string>
 	<string name="downloader_download_all_button">모두 다운로드</string>
 	<string name="downloader_downloading">다운로드 중:</string>
+	<string name="downloader_search_results">검색 결과</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!</string>
 	<!-- Outdated maps category -->
@@ -426,6 +427,8 @@
 	<string name="downloader_status_outdated">업데이트</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">실패함</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">지도를 삭제하시려면 길 찾기를 멈추세요.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">현재 위치는 정의되지 않습니다. 경로를 생성할 위치를 지정하십시오.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -647,6 +650,11 @@
 	<string name="editor_example_values">예제</string>
 	<string name="editor_correct_mistake">입력 수정</string>
 	<string name="editor_correct_mistake_message">잘못 입력했습니다. 수정하거나 기본 모드로 전환하세요.</string>
+	<string name="editor_add_select_location">위치</string>
+	<string name="editor_done_dialog_1">세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.</string>
+	<string name="editor_done_dialog_2">이는 두 번째 지도의 개선 사항입니다. 지금 지도 편집기의 목록에서 1058번째 장소에 있습니다. 친구들에게 이에 대해 말하십시오.</string>
+	<string name="editor_done_dialog_3">지도를 개선했으며, 친구들에게 이에 대해 말하고, 함께 지도를 편집할 수 있습니다.</string>
+	<string name="share_with_friends">친구들과 공유</string>
 	<string name="editor_report_problem_desription_1">OpenStreeMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.</string>
 	<string name="editor_report_problem_desription_2">아니면, 다음에서 스스로 가능: http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">전송</string>
@@ -654,6 +662,8 @@
 	<string name="editor_report_problem_no_place_title">장소가 존재하지 않음</string>
 	<string name="editor_report_problem_under_construction_title">유지 보수를 위해 닫음</string>
 	<string name="editor_report_problem_duplicate_place_title">중복된 장소</string>
+	<string name="first_launch_congrats_title">MAPS.ME를 사용할 준비가 완료되었습니다</string>
+	<string name="first_launch_congrats_text">무료로 전 세계 모든 나라의 지도를 검색하고 길을 찾아 보세요.</string>
 	<string name="migrate_title">중요!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">모두 다운로드</string>
@@ -753,6 +763,7 @@
 	<string name="placepage_report_problem_button">문제 신고</string>
 	<string name="whatsnew_smallmwm_header">여러분이 요청한 것을 저희가 해냈습니다</string>
 	<string name="whatsnew_smallmwm_message">지도를 여러 부분으로 나눴습니다. 이제는 전체 국가가 아닌 개별 지역을 다운로드할 수 있습니다.</string>
+	<string name="whatsnew_search_header">새로운 검색</string>
 	<string name="whatsnew_search_message">저희는 주소에 의한 검색을 놀랍게 개선 했습니다. 직접 경험해 보세요.</string>
 	<string name="whatsnew_editor_title">지도 편집*</string>
 	<string name="whatsnew_editor_message_1">지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.</string>
@@ -761,10 +772,12 @@
 	<string name="onboarding_offline_navigation_message">인터넷에 연결이 없는 경우에도, 최적의 자동차와 보행자 경로를 계획하십시오!</string>
 	<string name="onboarding_offline_navigation_title_2">오프라인 탐색</string>
 	<string name="onboarding_offline_navigation_message_2">최적의 자동차와 보행자 경로를 계획합니다.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - 오프라인지도</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — 인터넷 연결 없이 전 세계 지도 사용</string>
 	<string name="onboarding_offline_maps_message">한 번에 원하는 지역의 지도를 다운로드하고, 인터넷 연결없이 탐색 및 검색 기능을 사용합니다.</string>
 	<string name="onboarding_notifications_message">최신지도를 받으려면, 업데이트 알림 받기</string>
 	<string name="onboarding_notifications_title">업데이트 알림 활성화</string>
 	<string name="onboarding_location_title">사용자를 찾도록 돕기</string>
 	<string name="onboarding_location_message">탐색 및 기타 기능을 사용하려면, 위치 정보에 액세스해야 합니다.</string>
+	<string name="dialog_incorrect_feature_position">위치 변경</string>
+	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
 </resources>

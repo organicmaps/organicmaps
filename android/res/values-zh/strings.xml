@@ -432,6 +432,7 @@
 	<string name="downloader_status_maps">地图</string>
 	<string name="downloader_download_all_button">下载全部</string>
 	<string name="downloader_downloading">正在下载：</string>
+	<string name="downloader_search_results">找到</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！</string>
 	<!-- Outdated maps category -->
@@ -442,6 +443,8 @@
 	<string name="downloader_status_outdated">下载</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">下载失败</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">要删除地图，请停止导航。</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">当前地点未定。请明确地点以创建路线。</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -661,6 +664,11 @@
 	<string name="editor_example_values">示例值</string>
 	<string name="editor_correct_mistake">纠正错误</string>
 	<string name="editor_correct_mistake_message">出现编辑错误，请纠正或切换至简单模式。</string>
+	<string name="editor_add_select_location">位置</string>
+	<string name="editor_done_dialog_1">您已经改变了世界地图。请不要隐藏这一点！告诉您的朋友们并一起编辑它。</string>
+	<string name="editor_done_dialog_2">这是您的第二个地图改进。现在您在地图编辑者排行榜中排在第%d名。把它告诉您的朋友们。</string>
+	<string name="editor_done_dialog_3">您已改进此地图，请把它告诉您的朋友们，并一起编辑此地图。</string>
+	<string name="share_with_friends">与朋友分享</string>
 	<string name="editor_report_problem_desription_1">请详细描述此问题以便OpenStreeMap社区能够修复此错误。</string>
 	<string name="editor_report_problem_desription_2">或者在http://www.openstreetmap.org/上亲自修复此错误。</string>
 	<string name="editor_report_problem_send_button">发送</string>
@@ -668,6 +676,8 @@
 	<string name="editor_report_problem_no_place_title">该地点不存在</string>
 	<string name="editor_report_problem_under_construction_title">因维护而关闭</string>
 	<string name="editor_report_problem_duplicate_place_title">重复的地点</string>
+	<string name="first_launch_congrats_title">MAPS.ME已经可用</string>
+	<string name="first_launch_congrats_text">免费搜索和浏览世界各国的地图。</string>
 	<string name="migrate_title">重要！</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">下载所有</string>
@@ -767,6 +777,7 @@
 	<string name="placepage_report_problem_button">报告一个问题</string>
 	<string name="whatsnew_smallmwm_header">我们满足了您一直以来的要求</string>
 	<string name="whatsnew_smallmwm_message">我们将地图分成了几部分。现在，您可以下载独立的区域，而不是整个国家。</string>
+	<string name="whatsnew_search_header">新搜索</string>
 	<string name="whatsnew_search_message">我们已明显改进了按地址的搜索。亲自看看。</string>
 	<string name="whatsnew_editor_title">编辑此地图*</string>
 	<string name="whatsnew_editor_message_1">添加新地点到该地图，并直接通过此应用编辑已存在的地点。</string>
@@ -775,10 +786,12 @@
 	<string name="onboarding_offline_navigation_message">规划最佳的驾车和步行路线，即使在没有网络连接的情况下！</string>
 	<string name="onboarding_offline_navigation_title_2">离线导航</string>
 	<string name="onboarding_offline_navigation_message_2">规划最佳的驾车和步行路线。</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - 离线地图</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — 无需互联网获取全球地图</string>
 	<string name="onboarding_offline_maps_message">下载一次所需区域的地图，您便可以在无网络连接的情况下使用导航和搜索功能。</string>
 	<string name="onboarding_notifications_message">为了接收最新的地图，请获取更新通知</string>
 	<string name="onboarding_notifications_title">允许更新通知</string>
 	<string name="onboarding_location_title">帮助我们找到您</string>
 	<string name="onboarding_location_message">为了使用导航和其他功能，我们需要访问您的地理位置信息.</string>
+	<string name="dialog_incorrect_feature_position">改变位置</string>
+	<string name="message_invalid_feature_position">对象无法设置在这里</string>
 </resources>

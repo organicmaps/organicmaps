@@ -427,6 +427,7 @@
 	<string name="downloader_status_maps">Карти</string>
 	<string name="downloader_download_all_button">Завантажити всі</string>
 	<string name="downloader_downloading">Завантажується:</string>
+	<string name="downloader_search_results">Знайдено</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!</string>
 	<!-- Outdated maps category -->
@@ -437,6 +438,8 @@
 	<string name="downloader_status_outdated">Oновити</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Помилка</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Щоб видалити карту, будь ласка, зупините навiгацiю.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Неможливо прокласти маршрут. Не визначено поточне місцезнаходження.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -658,6 +661,11 @@
 	<string name="editor_example_values">Приклади значень</string>
 	<string name="editor_correct_mistake">Виправте помилку</string>
 	<string name="editor_correct_mistake_message">Під час редагування часу роботи ви зробили помилку. Виправте її або перейдіть у простий режим.</string>
+	<string name="editor_add_select_location">Місцезнаходження</string>
+	<string name="editor_done_dialog_1">Ви змінили карту світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.</string>
+	<string name="editor_done_dialog_2">Це ваше друге поліпшення карти. Тепер ви на %d місці в списку редакторів карт. Розкажіть своїм друзям про це.</string>
+	<string name="editor_done_dialog_3">Ви покращили карту, розкажіть своїм друзям про це і редагуйте її разом.</string>
+	<string name="share_with_friends">Поділитися з друзями</string>
 	<string name="editor_report_problem_desription_1">Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.</string>
 	<string name="editor_report_problem_desription_2">Або зробіть це самостійно на сайті http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Надіслати</string>
@@ -665,6 +673,8 @@
 	<string name="editor_report_problem_no_place_title">Місце не існує</string>
 	<string name="editor_report_problem_under_construction_title">Зачинено на ремонт</string>
 	<string name="editor_report_problem_duplicate_place_title">Дубльовані місця</string>
+	<string name="first_launch_congrats_title">MAPS.ME готовий до роботи</string>
+	<string name="first_launch_congrats_text">Користуйтесь пошуком, навігацією по всьому світу без інтернету й безкоштовно.</string>
 	<string name="migrate_title">Важливо!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Завантажити всі</string>
@@ -764,6 +774,7 @@
 	<string name="placepage_report_problem_button">Повідомити про проблему</string>
 	<string name="whatsnew_smallmwm_header">Ви просили і ми це зробили</string>
 	<string name="whatsnew_smallmwm_message">Ми поділили карти на частини. Тепер ви можете стягувати окремі регіони, а не країну цілком.</string>
+	<string name="whatsnew_search_header">Новий пошук</string>
 	<string name="whatsnew_search_message">Якісно покращили пошук по адресам. Перевірте.</string>
 	<string name="whatsnew_editor_title">Редагувати карту*</string>
 	<string name="whatsnew_editor_message_1">Додати нові місця до карти і редагувати існуючі місця прямо з програми.</string>
@@ -772,10 +783,12 @@
 	<string name="onboarding_offline_navigation_message">Плануйте оптимальні маршрути для поїздок і піших походів навіть без Інтернет з\&#39;єднання!</string>
 	<string name="onboarding_offline_navigation_title_2">Офлайн навігація</string>
 	<string name="onboarding_offline_navigation_message_2">Плануйте оптимальні маршрути для поїздок і піших походів.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME — офлайн мапи</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — використовуй карти всього світу без інтернету</string>
 	<string name="onboarding_offline_maps_message">Завантажте мапи необхідного регіону один раз та користуйтесь навігацією та пошуком без підключення до інтернету.</string>
 	<string name="onboarding_notifications_message">Отримуйте повідомлення про оновлення, щоб завжди мати актуальні мапи</string>
 	<string name="onboarding_notifications_title">Дозвольте відправлення повідомлень</string>
 	<string name="onboarding_location_title">Допоможіть знайти вас</string>
 	<string name="onboarding_location_message">Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.</string>
+	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
+	<string name="message_invalid_feature_position">Об\&#39;єкт не може перебувати в цьому місцезнаходженні</string>
 </resources>

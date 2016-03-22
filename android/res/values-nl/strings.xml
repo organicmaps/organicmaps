@@ -416,6 +416,7 @@
 	<string name="downloader_status_maps">Kaarten</string>
 	<string name="downloader_download_all_button">Alles downloaden</string>
 	<string name="downloader_downloading">Aan het downloaden:</string>
+	<string name="downloader_search_results">Gevonden</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Bij het creëren van routes in MAPS.ME-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!</string>
 	<!-- Outdated maps category -->
@@ -424,6 +425,8 @@
 	<string name="downloader_uptodate_maps">Up-to-date</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Mislukt</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Stop de navigatie om de kaart te verwijderen.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -645,6 +648,11 @@
 	<string name="editor_example_values">Voorbeeldwaarden</string>
 	<string name="editor_correct_mistake">Fout corrigeren</string>
 	<string name="editor_correct_mistake_message">U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.</string>
+	<string name="editor_add_select_location">Locatie</string>
+	<string name="editor_done_dialog_1">Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk het samen.</string>
+	<string name="editor_done_dialog_2">Dit is je tweede kaartverbetering. Nu sta je op de %de plaats in de lijst van de kaartbewerkers. Vertel je vrienden erover.</string>
+	<string name="editor_done_dialog_3">Je hebt de kaart verbeterd, vertel je vrienden erover en bewerk samen de kaart.</string>
+	<string name="share_with_friends">Deel met je vrienden</string>
 	<string name="editor_report_problem_desription_1">Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.</string>
 	<string name="editor_report_problem_desription_2">Of doe het zelf op http://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Verzenden</string>
@@ -652,6 +660,8 @@
 	<string name="editor_report_problem_no_place_title">De plaats bestaat niet</string>
 	<string name="editor_report_problem_under_construction_title">Gesloten voor onderhoud</string>
 	<string name="editor_report_problem_duplicate_place_title">Dubbele plaats</string>
+	<string name="first_launch_congrats_title">MAPS.ME is klaar voor gebruik</string>
+	<string name="first_launch_congrats_text">Zoek en navigeer gratis met kaarten van alle landen van de wereld.</string>
 	<string name="migrate_title">Belangrijk!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Alles downloaden</string>
@@ -751,6 +761,7 @@
 	<string name="placepage_report_problem_button">Meld een probleem</string>
 	<string name="whatsnew_smallmwm_header">Op veler verzoek hebben we het voor elkaar gekregen</string>
 	<string name="whatsnew_smallmwm_message">We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio\&#39;s downloaden in plaats van het hele land.</string>
+	<string name="whatsnew_search_header">Nieuwe zoekopdracht</string>
 	<string name="whatsnew_search_message">We hebben het zoeken op adres significant verbeterd. Bekijk het zelf.</string>
 	<string name="whatsnew_editor_title">Bewerk de kaart*</string>
 	<string name="whatsnew_editor_message_1">Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.</string>
@@ -759,10 +770,12 @@
 	<string name="onboarding_offline_navigation_message">Plan optimale auto- en wandelroutes, zelfs als er geen internetverbinding is!</string>
 	<string name="onboarding_offline_navigation_title_2">Offline navigatie</string>
 	<string name="onboarding_offline_navigation_message_2">Plan optimale auto- en wandelroutes.</string>
-	<string name="onboarding_offline_maps_title">MAPS.ME - offline kaarten</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — toegang tot kaarten van de hele wereld, zonder verbinding met het internet</string>
 	<string name="onboarding_offline_maps_message">Download eenmaal de kaarten voor het gewenste gebied en gebruik de navigatie- en zoekfuncties zonder een internetverbinding.</string>
 	<string name="onboarding_notifications_message">Ontvang update-meldingen om de nieuwste kaarten te ontvangen</string>
 	<string name="onboarding_notifications_title">Schakel update-meldingen in</string>
 	<string name="onboarding_location_title">Help ons om je te vinden</string>
 	<string name="onboarding_location_message">Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.</string>
+	<string name="dialog_incorrect_feature_position">Locatie wijzigen</string>
+	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
 </resources>

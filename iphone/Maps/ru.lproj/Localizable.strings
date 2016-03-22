@@ -297,7 +297,7 @@
 "search_mode_all" = "Везде";
 
 /* Do search near my position only */
-"search_mode_nearme" = "Около меня";
+"search_mode_nearme" = "Возле меня";
 
 /* Do search in current viewport only */
 "search_mode_viewport" = "На экране";
@@ -725,7 +725,7 @@
 "downloader_status_failed" = "Ошибка";
 
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
-"downloader_delete_map_while_routing_dialog" = "Чтобы удалить карту, выйдите из режима навигации.";
+"downloader_delete_map_while_routing_dialog" = "Чтобы удалить карту, пожалуйста, остановите навигацию.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Невозможно проложить маршрут. Не определено текущее местоположение.";
@@ -1109,7 +1109,7 @@
 
 "editor_done_dialog_1" = "Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.";
 
-"editor_done_dialog_2" = "Вы улучшили карту уже 2 раза. Вы теперь %d в рейтинге редакторов карты. Расскажите друзьям.";
+"editor_done_dialog_2" = "Вы улучшили карту уже два раза. Вы теперь %d в рейтинге редакторов карты. Расскажите друзьям.";
 
 "editor_done_dialog_3" = "Вы улучшили карту, расскажите об этом друзьям и редактируйте карту вместе.";
 
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME готов к работе";
 
-"first_launch_congrats_text" = "Пользуйтесь поиском, навигацией по всему миру без интернета и бесплатно!";
+"first_launch_congrats_text" = "Пользуйтесь поиском, навигацией по всему миру без интернета и бесплатно.";
 
 "migrate_title" = "Важно!";
 
@@ -1326,7 +1326,7 @@
 
 "whatsnew_smallmwm_message" = "Мы разрезали большие карты на части: теперь загружай только нужную область, а не всю страну целиком.";
 
-"whatsnew_search_header" = "Новый поиск!";
+"whatsnew_search_header" = "Новый поиск";
 
 "whatsnew_search_message" = "Качественно улучшили поиск по адресам. Проверяйте.";
 
@@ -1344,7 +1344,7 @@
 
 "onboarding_offline_navigation_message_2" = "Прокладывайте оптимальные автомобильные и пешеходные маршруты.";
 
-"onboarding_offline_maps_title" = "MAPS.ME — оффлайн карты";
+"onboarding_offline_maps_title" = "MAPS.ME — используй карты всего мира без интернета";
 
 "onboarding_offline_maps_message" = "Загрузите карты необходимого региона один раз и пользуйтесь навигацией и поиском без подключения к интернету.";
 
@@ -1358,4 +1358,4 @@
 
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
-"message_invalid_feature_position" = "Объект не может находиться в этом местоположении.";
+"message_invalid_feature_position" = "Объект не может находиться в этом месте";
