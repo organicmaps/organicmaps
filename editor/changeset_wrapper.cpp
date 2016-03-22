@@ -27,6 +27,11 @@ m2::RectD GetBoundingRect(vector<m2::PointD> const & geometry)
   }
   return rect;
 }
+
+bool OsmFeatrueHasTags(pugi::xml_node const & osmFt)
+{
+  return osmFt.child("tag");
+}
 }  // namespace
 
 namespace pugi
@@ -97,6 +102,14 @@ XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & ce
             ("OSM does not have any nodes at the coordinates", ll, ", server has returned:", doc));
   }
 
+  if (!OsmFeatrueHasTags(bestNode))
+  {
+    stringstream sstr;
+    bestNode.print(sstr);
+    LOG(LDEBUG, ("Node has no tags", sstr.str()));
+    MYTHROW(EmptyFeatureException, ("Node has no tags"));
+  }
+
   return XMLFeature(bestNode);
 }
 
@@ -132,7 +145,15 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> co
       bestWayOrRelation.print(sstr);
       LOG(LDEBUG, ("Relation is the best match", sstr.str()));
       MYTHROW(RelationFeatureAreNotSupportedException,
-              ("Got relation as the best matching."));
+              ("Got relation as the best matching"));
+    }
+
+    if (!OsmFeatrueHasTags(bestWayOrRelation))
+    {
+      stringstream sstr;
+      bestWayOrRelation.print(sstr);
+      LOG(LDEBUG, ("Way or relation has no tags", sstr.str()));
+      MYTHROW(EmptyFeatureException, ("Way or relation has no tags"));
     }
 
     // TODO: rename to wayOrRelation when relations are handled.

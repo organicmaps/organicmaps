@@ -30,6 +30,7 @@ public:
   DECLARE_EXCEPTION(LinearFeaturesAreNotSupportedException, ChangesetWrapperException);
   // TODO: Remove this when relations are handled properly.
   DECLARE_EXCEPTION(RelationFeatureAreNotSupportedException, ChangesetWrapperException);
+  DECLARE_EXCEPTION(EmptyFeatureException, ChangesetWrapperException);
 
   ChangesetWrapper(TKeySecret const & keySecret, ServerApi06::TKeyValueTags const & comments) noexcept;
   ~ChangesetWrapper();

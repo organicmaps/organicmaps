@@ -60,13 +60,16 @@ constexpr char const * kUploaded = "Uploaded";
 constexpr char const * kDeletedFromOSMServer = "Deleted from OSM by someone";
 constexpr char const * kRelationsAreNotSupported = "Relations are not supported yet";
 constexpr char const * kNeedsRetry = "Needs Retry";
+constexpr char const * kSuspiciousMatch = "Suspiciuos match";
 
 bool NeedsUpload(string const & uploadStatus)
 {
   return uploadStatus != kUploaded &&
       uploadStatus != kDeletedFromOSMServer &&
       // TODO: Remove this line when relations are supported.
-      uploadStatus != kRelationsAreNotSupported;
+      uploadStatus != kRelationsAreNotSupported &&
+      // TODO: Remove this when we have better matching algorithm.
+      uploadStatus != kSuspiciousMatch;
 }
 
 string GetEditorFilePath() { return GetPlatform().WritablePathForFile(kEditorXMLFileName); }
@@ -651,6 +654,14 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         catch (ChangesetWrapper::RelationFeatureAreNotSupportedException const & ex)
         {
           fti.m_uploadStatus = kRelationsAreNotSupported;
+          fti.m_uploadAttemptTimestamp = time(nullptr);
+          fti.m_uploadError = ex.what();
+          ++errorsCount;
+          LOG(LWARNING, (ex.what()));
+        }
+        catch (ChangesetWrapper::EmptyFeatureException const & ex)
+        {
+          fti.m_uploadStatus = kSuspiciousMatch;
           fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError = ex.what();
           ++errorsCount;
