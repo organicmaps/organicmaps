@@ -48,12 +48,14 @@ void requestNotifications()
 
 void zoomToCurrentPosition()
 {
+  auto & f = GetFramework();
+  f.SwitchMyPositionNextMode();
   LocationManager * locationManager = MapsAppDelegate.theApp.locationManager;
   if (![locationManager lastLocationIsValid])
     return;
   m2::PointD const centerPt = locationManager.lastLocation.mercator;
   int const zoom = 13;
-  GetFramework().SetViewportCenter(centerPt, zoom);
+  f.SetViewportCenter(centerPt, zoom);
 }
 
 NSInteger constexpr kRequestLocationPage = 2;
