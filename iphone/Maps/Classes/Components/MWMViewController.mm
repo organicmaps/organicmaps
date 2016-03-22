@@ -6,7 +6,7 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-@interface MWMViewController ()
+@interface MWMViewController () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, readwrite) MWMAlertViewController * alertController;
 
@@ -31,6 +31,7 @@
 {
   [super viewDidLoad];
   [self.navigationController.navigationBar setTranslucent:NO];
+  self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
