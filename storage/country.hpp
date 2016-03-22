@@ -24,7 +24,8 @@ class SizeUpdater;
 namespace storage
 {
 using TMappingOldMwm = map<TCountryId, TCountriesSet>;
-using TMappingAffiliations = unordered_multimap<TCountryId, string>;
+/// Map from key affiliation words into MWM IDs (file names).
+using TMappingAffiliations = unordered_map<string, vector<TCountryId>>;
 
 /// This class keeps all the information about a country in country tree (TCountryTree).
 /// It is guaranteed that every node represent a unique region has a unique |m_name| in country

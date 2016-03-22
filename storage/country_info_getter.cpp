@@ -13,6 +13,7 @@
 #include "coding/read_write_utils.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
@@ -117,15 +118,25 @@ m2::RectD CountryInfoGetter::GetLimitRectForLeaf(TCountryId const & leafCountryI
   return m_countries[it->second].m_rect;
 }
 
-void CountryInfoGetter::GetMatchedRegions(string const & enNamePrefix, IdSet & regions) const
+namespace
 {
+
+bool IsInCountrySet(string const & id, vector<TCountryId> const & ids)
+{
+  return binary_search(ids.begin(), ids.end(), id);
+}
+
+}
+
+void CountryInfoGetter::GetMatchedRegions(string const & affiliation, IdSet & regions) const
+{
+  auto it = m_affMap->find(affiliation);
+  if (it == m_affMap->end())
+    return;
+
   for (size_t i = 0; i < m_countries.size(); ++i)
   {
-    // Match english name with region file name (they are equal in almost all cases).
-    // @todo Do it smarter in future.
-    string s = m_countries[i].m_name;
-    strings::AsciiToLower(s);
-    if (strings::StartsWith(s, enNamePrefix.c_str()))
+    if (IsInCountrySet(m_countries[i].m_name, it->second))
       regions.push_back(i);
   }
 }
@@ -148,6 +159,13 @@ bool CountryInfoGetter::IsBelongToRegions(string const & fileName, IdSet const &
       return true;
   }
   return false;
+}
+
+void CountryInfoGetter::InitAffiliationsInfo(TMappingAffiliations * affMap)
+{
+  for (auto & v : *affMap)
+    my::SortUnique(v.second);
+  m_affMap = affMap;
 }
 
 CountryInfoGetter::IdType CountryInfoGetter::FindFirstCountry(m2::PointD const & pt) const

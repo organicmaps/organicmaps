@@ -64,14 +64,10 @@ public:
 
   void InsertAffiliation(TCountryId const & countryId, string const & affilation) override
   {
-    auto const countryIdRange = m_affiliations.equal_range(countryId);
-    for (auto it = countryIdRange.first; it != countryIdRange.second; ++it)
-    {
-      if (it->second == affilation)
-        return; // No need key with the same value. It could happend in case of a disputable territory.
-    }
+    ASSERT(!affilation.empty(), ());
+    ASSERT(!countryId.empty(), ());
 
-    m_affiliations.insert(make_pair(countryId, affilation));
+    m_affiliations[affilation].push_back(countryId);
   }
 
   TMappingOldMwm GetMapping() const override { return m_idsMapping; }

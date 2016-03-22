@@ -6,10 +6,10 @@ namespace search
 {
 namespace v2
 {
+size_t const LocalityScorer::kDefaultReadLimit = 100;
+
 namespace
 {
-const size_t kDefaultReadLimit = 100;
-
 bool IsAlmostFullMatch(NameScore score)
 {
   return score == NAME_SCORE_FULL_MATCH_PREFIX || score == NAME_SCORE_FULL_MATCH;

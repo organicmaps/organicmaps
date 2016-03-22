@@ -1152,8 +1152,9 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
 void Framework::InitCountryInfoGetter()
 {
   ASSERT(!m_infoGetter.get(), ("InitCountryInfoGetter() must be called only once."));
-  Platform const & platform = GetPlatform();
-  m_infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
+
+  m_infoGetter = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  m_infoGetter->InitAffiliationsInfo(&m_storage.GetAffiliations());
 }
 
 void Framework::InitSearchEngine()

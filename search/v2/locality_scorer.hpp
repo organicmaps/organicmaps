@@ -15,6 +15,8 @@ namespace v2
 class LocalityScorer
 {
 public:
+  static size_t const kDefaultReadLimit;
+
   class Delegate
   {
   public:

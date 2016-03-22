@@ -63,14 +63,11 @@ size_t constexpr kMaxNumCountries = 5;
 // This constant limits number of localities that will be extracted
 // from World map.  Villages are not counted here as they're not
 // included into World map.
-size_t constexpr kMaxNumLocalities = kMaxNumCities + kMaxNumStates + kMaxNumCountries;
+// @vng Set this value to possible maximum.
+size_t const kMaxNumLocalities = LocalityScorer::kDefaultReadLimit;
 
 size_t constexpr kPivotRectsCacheSize = 10;
 size_t constexpr kLocalityRectsCacheSize = 10;
-
-// list of countries we're supporting search by state. Elements of the
-// list should be valid prefixes of corresponding mwms names.
-string const kCountriesWithStates[] = {"US_", "Canada_"};
 
 strings::UniString const kUniSpace(strings::MakeUniString(" "));
 
@@ -234,36 +231,10 @@ void JoinQueryTokens(SearchQueryParams const & params, size_t curToken, size_t e
   }
 }
 
-bool HasAllSubstrings(string const & s, vector<string> const & substrs)
+void GetAffiliationName(FeatureType const & ft, string & name)
 {
-  for (auto const & substr : substrs)
-  {
-    if (s.find(substr) == string::npos)
-      return false;
-  }
-  return true;
-}
-
-void GetEnglishName(FeatureType const & ft, string & name)
-{
-  static vector<string> const kUSA{"united", "states", "america"};
-  static vector<string> const kUK{"united", "kingdom"};
-  static vector<int8_t> const kLangs = {StringUtf8Multilang::GetLangIndex("en"),
-                                        StringUtf8Multilang::GetLangIndex("int_name"),
-                                        StringUtf8Multilang::GetLangIndex("default")};
-
-  for (auto const & lang : kLangs)
-  {
-    if (!ft.GetName(lang, name))
-      continue;
-    strings::AsciiToLower(name);
-    if (HasAllSubstrings(name, kUSA))
-      name = "us";
-    else if (HasAllSubstrings(name, kUK))
-      name = "uk";
-    else
-      return;
-  }
+  VERIFY(ft.GetName(StringUtf8Multilang::kDefaultCode, name), ());
+  ASSERT(!name.empty(), ());
 }
 
 // todo(@m) Refactor at least here, or even at indexer/ftypes_matcher.hpp.
@@ -739,6 +710,26 @@ void Geocoder::FillLocalitiesTable()
     FeatureType ft;
     m_context->GetFeature(l.m_featureId, ft);
 
+    auto addMWMFn = [&](size_t & count, size_t maxCount, RegionType type)
+    {
+      if (count < maxCount && ft.GetFeatureType() == feature::GEOM_POINT)
+      {
+        Region region(l, type);
+        region.m_center = ft.GetCenter();
+
+        string name;
+        GetAffiliationName(ft, region.m_enName);
+        LOG(LDEBUG, ("Region =", region.m_enName));
+
+        m_infoGetter.GetMatchedRegions(region.m_enName, region.m_ids);
+        if (region.m_ids.empty())
+          LOG(LWARNING, ("Empty MWM IDs set for", region.m_enName));
+
+        ++count;
+        m_regions[type][make_pair(l.m_startToken, l.m_endToken)].push_back(region);
+      }
+    };
+
     switch (m_model.GetSearchType(ft))
     {
     case SearchModel::SEARCH_TYPE_CITY:
@@ -765,49 +756,16 @@ void Geocoder::FillLocalitiesTable()
     }
     case SearchModel::SEARCH_TYPE_STATE:
     {
-      if (numStates < kMaxNumStates && ft.GetFeatureType() == feature::GEOM_POINT)
-      {
-        Region state(l, REGION_TYPE_STATE);
-        state.m_center = ft.GetCenter();
-
-        string name;
-        GetEnglishName(ft, name);
-
-        for (auto const & prefix : kCountriesWithStates)
-        {
-          state.m_enName = prefix + name;
-          strings::AsciiToLower(state.m_enName);
-
-          state.m_ids.clear();
-          m_infoGetter.GetMatchedRegions(state.m_enName, state.m_ids);
-          if (!state.m_ids.empty())
-          {
-            LOG(LDEBUG, ("State =", state.m_enName));
-            ++numStates;
-            m_regions[REGION_TYPE_STATE][make_pair(l.m_startToken, l.m_endToken)].push_back(state);
-          }
-        }
-      }
+      addMWMFn(numStates, kMaxNumStates, REGION_TYPE_STATE);
       break;
     }
     case SearchModel::SEARCH_TYPE_COUNTRY:
     {
-      if (numCountries < kMaxNumCountries && ft.GetFeatureType() == feature::GEOM_POINT)
-      {
-        Region country(l, REGION_TYPE_COUNTRY);
-        country.m_center = ft.GetCenter();
-
-        GetEnglishName(ft, country.m_enName);
-        LOG(LDEBUG, ("Country =", country.m_enName));
-
-        m_infoGetter.GetMatchedRegions(country.m_enName, country.m_ids);
-        ++numCountries;
-        m_regions[REGION_TYPE_COUNTRY][{l.m_startToken, l.m_endToken}].push_back(country);
-      }
-      break;
-    default:
+      addMWMFn(numCountries, kMaxNumCountries, REGION_TYPE_COUNTRY);
       break;
     }
+    default:
+      break;
     }
   }
 }

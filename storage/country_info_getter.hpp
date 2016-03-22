@@ -1,5 +1,6 @@
 #pragma once
 
+#include "storage/country.hpp"
 #include "storage/country_decl.hpp"
 
 #include "platform/platform.hpp"
@@ -61,8 +62,8 @@ public:
   // and zero rect otherwise.
   m2::RectD GetLimitRectForLeaf(TCountryId const & leafCountryId) const;
 
-  // Returns identifiers for all regions matching to |enNamePrefix|.
-  void GetMatchedRegions(string const & enNamePrefix, IdSet & regions) const;
+  // Returns identifiers for all regions matching to correspondent |affiliation|.
+  void GetMatchedRegions(string const & affiliation, IdSet & regions) const;
 
   // Returns true when |pt| belongs to at least one of the specified
   // |regions|.
@@ -74,6 +75,8 @@ public:
 
   // Clears regions cache.
   inline void ClearCaches() const { ClearCachesImpl(); }
+
+  void InitAffiliationsInfo(TMappingAffiliations * affMap);
 
 protected:
   CountryInfoGetter() = default;
@@ -100,6 +103,8 @@ protected:
   vector<CountryDef> m_countries;
   // Maps all leaf country id (file names) to their indices in m_countries.
   unordered_map<TCountryId, IdType> m_countryIndex;
+
+  TMappingAffiliations const * m_affMap = nullptr;
 
   // Maps country file name without an extension to a country info.
   map<string, CountryInfo> m_id2info;
