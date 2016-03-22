@@ -494,7 +494,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     final String notes = bookmark.getBookmarkDescription();
     if (notes.isEmpty())
       UiUtils.hide(mWvDescription, mBtnEditHtmlDescription, mTvDescription);
-    else if (StringUtils.isHtml(notes))
+    else if (StringUtils.nativeIsHtml(notes))
     {
       mWvDescription.loadData(notes, "text/html; charset=utf-8", null);
       UiUtils.show(mWvDescription, mBtnEditHtmlDescription);

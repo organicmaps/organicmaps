@@ -7,15 +7,23 @@ import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 
 public class CuisineFragment extends BaseMwmRecyclerFragment
 {
+  private CuisineAdapter mAdapter;
+
   @Override
   protected RecyclerView.Adapter createAdapter()
   {
-    return new CuisineAdapter(Editor.nativeGetSelectedCuisines(), Editor.nativeGetCuisines(), Editor.nativeGetCuisinesTranslations());
+    mAdapter = new CuisineAdapter();
+    return mAdapter;
   }
 
   @NonNull
   public String[] getCuisines()
   {
-    return ((CuisineAdapter) getAdapter()).getCuisines();
+    return mAdapter.getCuisines();
+  }
+
+  public void setFilter(String filter)
+  {
+    mAdapter.setFilter(filter);
   }
 }

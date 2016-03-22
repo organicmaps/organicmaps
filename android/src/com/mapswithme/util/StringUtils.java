@@ -15,7 +15,10 @@ public class StringUtils
     return String.format(Locale.US, pattern, args);
   }
 
-  public static native boolean isHtml(String text);
+  public static native boolean nativeIsHtml(String text);
+
+  public static native boolean nativeContainsNormalized(String str, String substr);
+  public static native String[] nativeFilterContainsNormalized(String[] strings, String substr);
 
   /**
    * Removes html tags, generated from edittext content after it's transformed to html.

@@ -82,7 +82,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       @Override
       protected void onTextChanged(String query)
       {
-        // TODO filter results
+        ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).setFilter(query);
       }
 
       @Override
