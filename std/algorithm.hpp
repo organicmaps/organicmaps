@@ -17,6 +17,7 @@ using std::find_first_of;
 using std::find_if;
 using std::for_each;
 using std::is_sorted;
+using std::iter_swap;
 using std::lexicographical_compare;
 using std::lower_bound;
 using std::max;

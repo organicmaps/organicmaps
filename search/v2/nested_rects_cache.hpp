@@ -19,7 +19,7 @@ public:
 
   double GetDistanceToFeatureMeters(FeatureID const & id) const;
 
-  void ClearCaches();
+  void Clear();
 
 private:
   enum RectScale
@@ -34,7 +34,7 @@ private:
 
   static double GetRadiusMeters(RectScale scale);
 
-  void UpdateCaches();
+  void Update();
 
   Index & m_index;
   int m_scale;

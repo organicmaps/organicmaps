@@ -47,6 +47,7 @@ HEADERS += \
     v2/features_layer_matcher.hpp \
     v2/features_layer_path_finder.hpp \
     v2/geocoder.hpp \
+    v2/geometry_cache.hpp \
     v2/house_numbers_matcher.hpp \
     v2/house_to_street_table.hpp \
     v2/intersection_result.hpp \
@@ -90,6 +91,7 @@ SOURCES += \
     v2/features_layer_matcher.cpp \
     v2/features_layer_path_finder.cpp \
     v2/geocoder.cpp \
+    v2/geometry_cache.cpp \
     v2/house_numbers_matcher.cpp \
     v2/house_to_street_table.cpp \
     v2/intersection_result.cpp \

@@ -5,6 +5,7 @@
 #include "search/search_query_params.hpp"
 #include "search/v2/features_layer.hpp"
 #include "search/v2/features_layer_path_finder.hpp"
+#include "search/v2/geometry_cache.hpp"
 #include "search/v2/mwm_context.hpp"
 #include "search/v2/nested_rects_cache.hpp"
 #include "search/v2/pre_ranking_info.hpp"
@@ -134,6 +135,9 @@ public:
 
     m2::RectD m_rect;
     SearchModel::SearchType m_type;
+#if defined(DEBUG)
+    string m_defaultName;
+#endif
   };
 
   using TResult = pair<FeatureID, PreRankingInfo>;
@@ -154,16 +158,17 @@ public:
   void ClearCaches();
 
 private:
+  enum RectId
+  {
+    RECT_ID_PIVOT,
+    RECT_ID_LOCALITY,
+    RECT_ID_COUNT
+  };
+
   void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   template <typename TLocality>
   using TLocalitiesCache = map<pair<size_t, size_t>, vector<TLocality>>;
-
-  enum
-  {
-    VIEWPORT_ID = -1,
-    PIVOT_ID = -2,
-  };
 
   SearchQueryParams::TSynonymsVector const & GetTokens(size_t i) const;
 
@@ -253,9 +258,8 @@ private:
   unique_ptr<coding::CompressedBitVector> LoadVillages(MwmContext & context);
 
   /// A caching wrapper around Retrieval::RetrieveGeometryFeatures.
-  /// param[in] Optional query id. Use VIEWPORT_ID, POSITION_ID or feature index for locality.
-  coding::CompressedBitVector const * RetrieveGeometryFeatures(
-      MwmContext const & context, m2::RectD const & rect, int id);
+  coding::CompressedBitVector const * RetrieveGeometryFeatures(MwmContext const & context,
+                                                               m2::RectD const & rect, RectId id);
 
   // This is a faster wrapper around SearchModel::GetSearchType(), as
   // it uses pre-loaded lists of streets and villages.
@@ -302,15 +306,13 @@ private:
   TLocalitiesCache<City> m_cities;
   TLocalitiesCache<Region> m_regions[REGION_TYPE_COUNT];
 
-  // Cache of geometry features.
-  struct FeaturesInRect
-  {
-    m2::RectD m_rect;
-    unique_ptr<coding::CompressedBitVector> m_cbv;
-    int m_id;
-  };
-  map<MwmSet::MwmId, vector<FeaturesInRect>> m_geometryFeatures;
+  // Caches of features in rects. These caches are separated from
+  // TLocalitiesCache because the latter are quite lightweight and not
+  // all of them are needed.
+  GeometryCache m_pivotRectsCache;
+  GeometryCache m_localityRectsCache;
 
+  // Cache of nested rects used to estimate distance from a feature to the pivot.
   NestedRectsCache m_pivotFeatures;
 
   // Cache of posting lists for each token in the query.  TODO (@y,

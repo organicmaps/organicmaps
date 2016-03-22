@@ -33,7 +33,7 @@ void NestedRectsCache::SetPosition(m2::PointD const & position, int scale)
     return;
   m_position = position;
   m_scale = scale;
-  UpdateCaches();
+  Update();
 }
 
 double NestedRectsCache::GetDistanceToFeatureMeters(FeatureID const & id) const
@@ -61,7 +61,7 @@ double NestedRectsCache::GetDistanceToFeatureMeters(FeatureID const & id) const
   return RankingInfo::kMaxDistMeters;
 }
 
-void NestedRectsCache::ClearCaches()
+void NestedRectsCache::Clear()
 {
   for (int scale = 0; scale != RECT_SCALE_COUNT; ++scale)
   {
@@ -84,7 +84,7 @@ double NestedRectsCache::GetRadiusMeters(RectScale scale)
   }
 }
 
-void NestedRectsCache::UpdateCaches()
+void NestedRectsCache::Update()
 {
   for (int scale = 0; scale != RECT_SCALE_COUNT; ++scale)
   {
