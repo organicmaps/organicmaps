@@ -68,7 +68,6 @@ struct TextViewParams : CommonViewParams
   m2::PointF m_primaryOffset;
   bool m_primaryOptional = false;
   bool m_secondaryOptional = false;
-  bool m_hasMark = false;
   uint32_t m_extendingSize = 0;
   float m_posZ = 0.0f;
 };

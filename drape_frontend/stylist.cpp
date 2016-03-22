@@ -203,13 +203,6 @@ void CaptionDescription::Init(FeatureType const & f,
   m_roadNumber = f.GetRoadNumber();
   m_houseNumber = f.GetHouseNumber();
 
-  // Mark houses without names/numbers so user can select them by single tap.
-  if (m_houseNumber.empty() && m_mainText.empty() && ftypes::IsBuildingChecker::Instance()(f))
-  {
-    m_houseNumber = "·";
-    m_hasMark = true;
-  }
-
   SwapCaptions(zoomLevel);
   DiscardLongCaption(zoomLevel);
 }
@@ -267,11 +260,6 @@ string CaptionDescription::GetPathName() const
 bool CaptionDescription::IsNameExists() const
 {
   return !m_mainText.empty() || !m_houseNumber.empty();
-}
-
-bool CaptionDescription::HasMark() const
-{
-  return m_hasMark;
 }
 
 void CaptionDescription::SwapCaptions(int const zoomLevel)

@@ -224,7 +224,6 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   params.m_primaryOffset = GetOffset(primaryProto);
   params.m_primaryOptional = primaryProto->has_is_optional() ? primaryProto->is_optional() : true;
   params.m_secondaryOptional = true;
-  params.m_hasMark = m_captions.HasMark();
 
   if (secondaryProto)
   {

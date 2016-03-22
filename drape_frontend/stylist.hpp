@@ -30,7 +30,6 @@ struct CaptionDescription
   string const & GetRoadNumber() const;
   string GetPathName() const;
   bool IsNameExists() const;
-  bool HasMark() const;
 
 private:
   void SwapCaptions(int const zoomLevel);
@@ -41,7 +40,6 @@ private:
   string m_auxText;
   string m_roadNumber;
   string m_houseNumber;
-  bool m_hasMark = false;
 };
 
 class Stylist
