@@ -135,6 +135,18 @@ Notes::Notes(string const & fileName) : m_fileName(fileName)
 
 void Notes::CreateNote(m2::PointD const & point, string const & text)
 {
+  if (text.empty())
+  {
+    LOG(LWARNING, ("Attempt to create empty note"));
+    return;
+  }
+
+  if (!MercatorBounds::ValidX(point.x) || !MercatorBounds::ValidY(point.y))
+  {
+    LOG(LWARNING, ("A note attached to a wrong point", point));
+    return;
+  }
+
   lock_guard<mutex> g(m_mu);
   m_notes.emplace_back(MercatorBounds::ToLatLon(point), text);
   Save(m_fileName, m_notes, m_uploadedNotesCount);
