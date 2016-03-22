@@ -32,8 +32,13 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.size = self.parentViewController.view.size;
   [self configPage];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  self.size = self.parentViewController.view.size;
 }
 
 - (void)configPage
