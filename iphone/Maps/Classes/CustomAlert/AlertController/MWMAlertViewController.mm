@@ -82,6 +82,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert noConnectionAlert]];
 }
 
+- (void)presentMigrationProhibitedAlert
+{
+  [self displayAlert:[MWMAlert migrationProhibitedAlert]];
+}
+
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
 {
   [self displayAlert:[MWMAlert unsavedEditsAlertWithOkBlock:okBlock]];

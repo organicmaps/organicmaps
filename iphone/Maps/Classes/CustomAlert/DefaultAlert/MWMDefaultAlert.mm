@@ -74,6 +74,18 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
++ (instancetype)migrationProhibitedAlert
+{
+  kStatisticsEvent = @"Migration Prohibited Alert";
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"navigation_migration_prohibited_error"
+                                                message:nil
+                                       rightButtonTitle:@"ok"
+                                        leftButtonTitle:nil
+                                      rightButtonAction:nil];
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
+}
+
 + (instancetype)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   kStatisticsEvent = @"Editor unsaved changes on delete";

@@ -18,6 +18,7 @@
 + (MWMAlert *)disabledLocationAlert;
 + (MWMAlert *)noWiFiAlertWithName:(NSString *)name okBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)noConnectionAlert;
++ (MWMAlert *)migrationProhibitedAlert;
 + (MWMAlert *)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)locationServiceNotSupportedAlert;
 + (MWMAlert *)pedestrianToastShareAlert:(BOOL)isFirstLaunch;

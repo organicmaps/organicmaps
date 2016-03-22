@@ -257,8 +257,16 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   if (platform::migrate::NeedMigrate())
   {
-    [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatDownloader}];
-    [self.ownerController openMigration];
+    if (GetFramework().IsRoutingActive())
+    {
+      [Statistics logEvent:kStatDownloaderMigrationProhibitedDialogue withParameters:@{kStatFrom : kStatDownloader}];
+      [self.alertController presentMigrationProhibitedAlert];
+    }
+    else
+    {
+      [Statistics logEvent:kStatDownloaderMigrationDialogue withParameters:@{kStatFrom : kStatDownloader}];
+      [self.ownerController openMigration];
+    }
   }
   else
   {

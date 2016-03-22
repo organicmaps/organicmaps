@@ -62,6 +62,7 @@ static NSString * const kStatDownloaderMapError = @"Downloader_Map_error";
 static NSString * const kStatDownloaderMigrationCompleted = @"Downloader_Migration_completed";
 static NSString * const kStatDownloaderMigrationDialogue = @"Downloader_Migration_dialogue";
 static NSString * const kStatDownloaderMigrationError = @"Downloader_Migration_error";
+static NSString * const kStatDownloaderMigrationProhibitedDialogue = @"Downloader_Migration_Prohibited_dialogue";
 static NSString * const kStatDownloaderMigrationStarted = @"Downloader_Migration_started";
 static NSString * const kStatEdit = @"Edit";
 static NSString * const kStatEditorSecondTimeShareClick = @"Editor_SecondTimeShare_click";

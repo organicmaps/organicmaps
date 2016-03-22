@@ -52,6 +52,11 @@
   return [MWMDefaultAlert noConnectionAlert];
 }
 
++ (MWMAlert *)migrationProhibitedAlert
+{
+  return [MWMDefaultAlert migrationProhibitedAlert];
+}
+
 + (MWMAlert *)unsavedEditsAlertWithOkBlock:(TMWMVoidBlock)okBlock
 {
   return [MWMDefaultAlert unsavedEditsAlertWithOkBlock:okBlock];

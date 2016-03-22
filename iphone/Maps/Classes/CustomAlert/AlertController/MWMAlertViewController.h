@@ -6,7 +6,7 @@
 
 @interface MWMAlertViewController : MWMViewController
 
-@property (weak, nonatomic, readonly) UIViewController * ownerViewController;
+@property (weak, nonatomic, readonly) UIViewController * _Null_unspecified ownerViewController;
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
@@ -22,6 +22,7 @@
 - (void)presentLocationAlert;
 - (void)presentLocationServiceNotSupportedAlert;
 - (void)presentNoConnectionAlert;
+- (void)presentMigrationProhibitedAlert;
 - (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentNoWiFiAlertWithName:(nonnull NSString *)name okBlock:(nullable TMWMVoidBlock)okBlock;
 - (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch;
