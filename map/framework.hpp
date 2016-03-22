@@ -397,7 +397,7 @@ public:
   /// Call this function before entering search GUI.
   /// While it's loading, we can cache features in viewport.
   bool Search(search::SearchParams const & params);
-  /// Searchs for mwm based on |params|.
+  /// Searches for mwm based on |params|.
   /// Calling |params::m_onResults| for returning the result.
   bool SearchInDownloader(storage::DownloaderSearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon) const;
