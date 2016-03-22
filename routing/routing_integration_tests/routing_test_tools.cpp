@@ -133,6 +133,8 @@ namespace integration
     if (options.m_resourcePath)
       pl.SetResourceDir(options.m_resourcePath);
 
+    platform::migrate::SetMigrationFlag();
+
     vector<LocalCountryFile> localFiles;
     platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
                                          localFiles);
