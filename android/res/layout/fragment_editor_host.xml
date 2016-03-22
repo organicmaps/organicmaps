@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
@@ -10,17 +11,32 @@
     style="@style/MwmWidget.ToolbarStyle"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:gravity="end|center_vertical"
     android:theme="@style/MwmWidget.ToolbarTheme">
 
-    <ImageView
-      android:id="@+id/save"
-      android:layout_width="?actionBarSize"
-      android:layout_height="?actionBarSize"
-      android:layout_gravity="end|center_vertical"
-      android:background="?selectableItemBackgroundBorderless"
-      android:scaleType="center"
-      android:src="@drawable/ic_done"/>
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <include
+        layout="@layout/toolbar_search_controls"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/save"
+        android:layout_toStartOf="@+id/save"
+        tools:visibility="gone"/>
+
+      <ImageView
+        android:id="@+id/save"
+        android:layout_width="?actionBarSize"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="end|center_vertical"
+        android:background="?selectableItemBackgroundBorderless"
+        android:scaleType="center"
+        android:src="@drawable/ic_done"/>
+
+    </RelativeLayout>
 
   </android.support.v7.widget.Toolbar>
 

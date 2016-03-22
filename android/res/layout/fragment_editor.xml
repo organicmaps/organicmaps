@@ -115,7 +115,7 @@
             android:layout_alignStart="@id/street"
             android:layout_below="@id/street"
             android:layout_marginTop="@dimen/margin_quarter_plus"
-            android:background="@color/divider"/>
+            android:background="?dividerHorizontal"/>
 
         </RelativeLayout>
 
@@ -274,7 +274,7 @@
             android:layout_alignStart="@id/cuisine"
             android:layout_below="@id/cuisine"
             android:layout_marginTop="@dimen/margin_quarter_plus"
-            android:background="@color/divider"/>
+            android:background="?dividerHorizontal"/>
 
         </RelativeLayout>
 

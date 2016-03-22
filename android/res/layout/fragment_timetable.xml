@@ -9,6 +9,7 @@
     style="@style/MwmWidget.FrameLayout.Elevation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?windowBackgroundForced"
     android:layout_above="@+id/tv__mode_switch"
     android:layout_below="@id/toolbar"/>
 
@@ -16,7 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_block_base"
     android:layout_alignParentBottom="true"
-    android:background="@android:color/white"/>
+    android:background="?ppBackground"/>
 
   <TextView
     android:id="@+id/tv__mode_switch"

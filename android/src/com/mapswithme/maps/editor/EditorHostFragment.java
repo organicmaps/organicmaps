@@ -1,6 +1,8 @@
 package com.mapswithme.maps.editor;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.widget.SearchToolbarController;
+import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -23,6 +27,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 {
   private static final String PREF_LAST_AUTH_DISPLAY_TIMESTAMP = "LastAuth";
   private boolean mIsNewObject;
+  private View mSearch;
 
   enum Mode
   {
@@ -45,7 +50,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    editMapObject();
+    mSearch = mToolbarController.findViewById(R.id.frame);
     mToolbarController.findViewById(R.id.save).setOnClickListener(this);
     mToolbarController.getToolbar().setNavigationOnClickListener(new View.OnClickListener()
     {
@@ -59,12 +64,33 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     if (getArguments() != null)
       mIsNewObject = getArguments().getBoolean(EditorActivity.EXTRA_NEW_OBJECT, false);
     mToolbarController.setTitle(getTitle());
+
+    editMapObject();
   }
 
   @StringRes
   private int getTitle()
   {
     return mIsNewObject ? R.string.editor_add_place_title : R.string.editor_edit_place_title;
+  }
+
+  @Override
+  protected ToolbarController onCreateToolbarController(@NonNull View root)
+  {
+    return new SearchToolbarController(root, getActivity())
+    {
+      @Override
+      protected void onTextChanged(String query)
+      {
+        // TODO filter results
+      }
+
+      @Override
+      protected void startVoiceRecognition(Intent intent, int code)
+      {
+        // TODO support voice recognition?
+      }
+    };
   }
 
   @Override
@@ -93,6 +119,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   protected void editMapObject()
   {
     mMode = Mode.MAP_OBJECT;
+    UiUtils.hide(mSearch);
     mToolbarController.setTitle(getTitle());
     final Fragment editorFragment = Fragment.instantiate(getActivity(), EditorFragment.class.getName());
     getChildFragmentManager().beginTransaction()
@@ -129,7 +156,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     temporaryStoreEdits();
     mMode = Mode.CUISINE;
-    mToolbarController.setTitle(R.string.select_cuisine);
+    mToolbarController.setTitle("");
+    UiUtils.show(mSearch);
     final Fragment cuisineFragment = Fragment.instantiate(getActivity(), CuisineFragment.class.getName());
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, cuisineFragment, CuisineFragment.class.getName())

@@ -5,9 +5,10 @@
   android:id="@+id/frame"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="horizontal"
   android:baselineAligned="false"
-  android:gravity="center_vertical">
+  android:gravity="center_vertical"
+  android:orientation="horizontal">
+
   <EditText
     android:id="@+id/query"
     style="@style/MwmTextAppearance.Toolbar.Search"
@@ -28,6 +29,7 @@
     style="@style/Widget.AppCompat.ProgressBar"
     android:layout_width="@dimen/search_progress_size"
     android:layout_height="@dimen/search_progress_size"
+    android:layout_marginEnd="@dimen/margin_half"
     android:layout_marginRight="@dimen/margin_half"
     android:layout_weight="0"
     android:background="@null"
