@@ -1888,12 +1888,14 @@ void Framework::InvalidateRendering()
 
 void Framework::UpdateMinBuildingsTapZoom()
 {
-  m_minBuildingsTapZoom = feature::GetDrawableScaleRange(classif().GetTypeByPath({"building"})).first + 1;
+  constexpr int kMinTapZoom = 16;
+  m_minBuildingsTapZoom = max(kMinTapZoom,
+                              feature::GetDrawableScaleRange(classif().GetTypeByPath({"building"})).first);
 }
 
-unique_ptr<FeatureType> Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
+FeatureID Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
 {
-  unique_ptr<FeatureType> feature;
+  FeatureID featureId;
   if (GetDrawScale() >= m_minBuildingsTapZoom)
   {
     constexpr int kScale = scales::GetUpperScale();
@@ -1901,13 +1903,13 @@ unique_ptr<FeatureType> Framework::FindBuildingAtPoint(m2::PointD const & mercat
     m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
     m_model.ForEachFeature(rect, [&](FeatureType & ft)
     {
-      if (feature == nullptr &&
+      if (!featureId.IsValid() &&
           ft.GetFeatureType() == feature::GEOM_AREA && ftypes::IsBuildingChecker::Instance()(ft) &&
           ft.GetLimitRect(kScale).IsPointInside(mercator) && feature::GetMinDistanceMeters(ft, mercator) == 0.0)
-        feature.reset(new FeatureType(ft));
+        featureId = ft.GetID();
     }, kScale);
   }
-  return feature;
+  return featureId;
 }
 
 df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(df::TapInfo const & tapInfo,
@@ -1961,11 +1963,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(df::TapInfo const 
   FeatureID featureTapped = tapInfo.m_featureTapped;
 
   if (!featureTapped.IsValid())
-  {
-    unique_ptr<FeatureType> const feature = FindBuildingAtPoint(m_currentModelView.PtoG(pxPoint2d));
-    if (feature != nullptr)
-      featureTapped = feature->GetID();
-  }
+    featureTapped = FindBuildingAtPoint(m_currentModelView.PtoG(pxPoint2d));
 
   bool showMapSelection = false;
   if (featureTapped.IsValid())
