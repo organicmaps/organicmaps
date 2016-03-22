@@ -748,7 +748,7 @@ void Geocoder::FillLocalitiesTable()
         ++numCities;
         City city(l, SearchModel::SEARCH_TYPE_CITY);
         city.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
-            ft.GetCenter(), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
+            feature::GetCenter(ft), ftypes::GetRadiusByPopulation(ft.GetPopulation()));
 
 #if defined(DEBUG)
         ft.GetName(StringUtf8Multilang::kDefaultCode, city.m_defaultName);
