@@ -597,11 +597,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
 
       // Request new tiles.
-      TTilesCollection tiles;
       ScreenBase screen = m_userEventStream.GetCurrentScreen();
-      ResolveTileKeys(screen.ClipRect(), tiles);
-
-      m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), move(tiles));
+      m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), ResolveTileKeys(screen));
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<UpdateReadManagerMessage>(),
                                 MessagePriority::UberHighSingleton);
@@ -730,31 +727,40 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
 
 void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 {
-  TTilesCollection tiles;
   ScreenBase screen = m_userEventStream.GetCurrentScreen();
   m2::RectD rect = gRect;
   if (rect.Intersect(screen.ClipRect()))
   {
-    ResolveTileKeys(rect, tiles);
+    // Find tiles to invalidate.
+    TTilesCollection tiles;
+    int const dataZoomLevel = ClipTileZoomByMaxDataZoom(m_currentZoomLevel);
+    CalcTilesCoverage(rect, dataZoomLevel, [this, &rect, &tiles](int tileX, int tileY)
+    {
+      TileKey const key(tileX, tileY, m_currentZoomLevel);
+      if (rect.IsIntersect(key.GetGlobalRect()))
+        tiles.insert(key);
+    });
 
+    // Remove tiles to invalidate from screen.
     auto eraseFunction = [&tiles](drape_ptr<RenderGroup> const & group)
     {
       return tiles.find(group->GetTileKey()) != tiles.end();
     };
-
     for (RenderLayer & layer : m_layers)
     {
       RemoveGroups(eraseFunction, layer.m_renderGroups, make_ref(m_overlayTree));
       layer.m_isDirty = true;
     }
 
+    // Remove tiles to invalidate from backend renderer.
     BaseBlockingMessage::Blocker blocker;
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<InvalidateReadManagerRectMessage>(blocker, tiles),
                               MessagePriority::High);
     blocker.Wait();
 
-    m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), move(tiles));
+    // Request new tiles.
+    m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), ResolveTileKeys(screen));
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<UpdateReadManagerMessage>(),
                               MessagePriority::UberHighSingleton);
@@ -1322,24 +1328,20 @@ void FrontendRenderer::OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim)
   m_myPositionController->AnimationStarted(anim);
 }
 
-void FrontendRenderer::ResolveTileKeys(ScreenBase const & screen, TTilesCollection & tiles)
+TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 {
-  m2::RectD const & clipRect = screen.ClipRect();
-  ResolveTileKeys(clipRect, tiles);
-}
-
-void FrontendRenderer::ResolveTileKeys(m2::RectD const & rect, TTilesCollection & tiles)
-{
+  m2::RectD const & rect = screen.ClipRect();
   int const dataZoomLevel = ClipTileZoomByMaxDataZoom(m_currentZoomLevel);
 
   m_notFinishedTiles.clear();
 
   // Request new tiles.
+  TTilesCollection tiles;
   buffer_vector<TileKey, 8> tilesToDelete;
   CoverageResult result = CalcTilesCoverage(rect, dataZoomLevel,
                                             [this, &rect, &tiles, &tilesToDelete](int tileX, int tileY)
   {
-    TileKey key(tileX, tileY, m_currentZoomLevel);
+    TileKey const key(tileX, tileY, m_currentZoomLevel);
     if (rect.IsIntersect(key.GetGlobalRect()))
     {
       tiles.insert(key);
@@ -1367,6 +1369,8 @@ void FrontendRenderer::ResolveTileKeys(m2::RectD const & rect, TTilesCollection 
   {
     return group->GetTileKey().m_zoomLevel != m_currentZoomLevel;
   });
+
+  return tiles;
 }
 
 FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(renderer) {}
@@ -1560,8 +1564,6 @@ void FrontendRenderer::PrepareScene(ScreenBase const & modelView)
 void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
 {
   ResolveZoomLevel(modelView);
-  TTilesCollection tiles;
-  ResolveTileKeys(modelView, tiles);
 
   m_gpsTrackRenderer->Update();
 
@@ -1575,7 +1577,7 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
   for (RenderLayer & layer : m_layers)
     layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
 
-  m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), move(tiles));
+  m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), ResolveTileKeys(modelView));
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                             make_unique_dp<UpdateReadManagerMessage>(),
                             MessagePriority::UberHighSingleton);

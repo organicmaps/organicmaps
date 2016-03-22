@@ -159,8 +159,7 @@ private:
 
   void EmitModelViewChanged(ScreenBase const & modelView) const;
 
-  void ResolveTileKeys(ScreenBase const & screen, TTilesCollection & tiles);
-  void ResolveTileKeys(m2::RectD const & rect, TTilesCollection & tiles);
+  TTilesCollection ResolveTileKeys(ScreenBase const & screen);
   void ResolveZoomLevel(ScreenBase const & screen);
   void CheckPerspectiveMinScale();
   void CheckIsometryMinScale(ScreenBase const & screen);
