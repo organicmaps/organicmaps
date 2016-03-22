@@ -26,13 +26,14 @@ string Info::FormatNewBookmarkName() const
 string Info::GetTitle() const
 {
   string const defaultName = GetDefaultName();
-  if (m_customName.empty())
+  string const alt = m_customName.empty() ? m_nativeOrInternationalName : m_customName;
+  if (alt.empty())
     return defaultName;
   if (defaultName.empty())
-    return m_customName;
-  if (m_customName == defaultName)
-    return m_customName;
-  return m_customName + "(" + defaultName + ")";
+    return alt;
+  if (alt == defaultName)
+    return alt;
+  return defaultName + " (" + alt + ")";
 }
 
 string Info::GetSubtitle() const

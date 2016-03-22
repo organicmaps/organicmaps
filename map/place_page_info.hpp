@@ -65,5 +65,8 @@ public:
 
   // TODO(AlexZ): Temporary solution. It's better to use a wifi icon in UI instead of text.
   string m_localizedWifiString;
+  // TODO: Move FeatureType::GetPreferredNames() code into a separate reusable function which can be used
+  // directly from place_page::Info getter, instead of storing it's result in the variable.
+  string m_nativeOrInternationalName;
 };
 }  // namespace place_page

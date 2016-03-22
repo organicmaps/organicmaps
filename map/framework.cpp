@@ -691,6 +691,11 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
   info.SetFromFeatureType(ft);
   info.m_isEditable = osm::Editor::Instance().GetEditableProperties(ft).IsEditable();
   info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
+  // TODO: Move FeatureType::GetPreferredNames() code into a separate reusable function which can be used
+  // directly from place_page::Info getter, instead of storing it's result in the variable.
+  string defaultName, intName;
+  ft.GetPreferredNames(defaultName, intName);
+  info.m_nativeOrInternationalName = intName;
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
