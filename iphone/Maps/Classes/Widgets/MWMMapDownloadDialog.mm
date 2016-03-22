@@ -195,18 +195,23 @@ using namespace storage;
           }];
     [MWMStorage retryDownloadNode:self->m_countryId];
   };
+  auto const cancelBlock = ^
+  {
+    [Statistics logEvent:kStatDownloaderDownloadCancel withParameters:@{kStatFrom : kStatMap}];
+    [MWMStorage cancelDownloadNode:self->m_countryId];
+  };
   switch (errorCode)
   {
     case NodeErrorCode::NoError:
       break;
     case NodeErrorCode::UnknownError:
-      [avc presentDownloaderInternalErrorAlertWithOkBlock:retryBlock];
+      [avc presentDownloaderInternalErrorAlertWithOkBlock:retryBlock cancelBlock:cancelBlock];
       break;
     case NodeErrorCode::OutOfMemFailed:
       [avc presentDownloaderNotEnoughSpaceAlert];
       break;
     case NodeErrorCode::NoInetConnection:
-      [avc presentDownloaderNoConnectionAlertWithOkBlock:retryBlock];
+      [avc presentDownloaderNoConnectionAlertWithOkBlock:retryBlock cancelBlock:cancelBlock];
       break;
   }
 }

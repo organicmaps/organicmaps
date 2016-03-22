@@ -21,6 +21,7 @@ static NSString * kStatisticsEvent = @"Default Alert";
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * rightButtonWidth;
 @property (copy, nonatomic) TMWMVoidBlock rightButtonAction;
+@property (copy, nonatomic) TMWMVoidBlock leftButtonAction;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *dividerTop;
 
 @end
@@ -246,7 +247,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
-+ (instancetype)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock
++ (instancetype)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock
 {
   kStatisticsEvent = @"Downloader No Connection Alert";
   MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"downloader_status_failed"
@@ -254,6 +255,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                                        rightButtonTitle:@"downloader_retry"
                                         leftButtonTitle:@"cancel"
                                       rightButtonAction:okBlock];
+  alert.leftButtonAction = cancelBlock;
   [alert setNeedsCloseAlertAfterEnterBackground];
   return alert;
 }
@@ -270,7 +272,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
-+ (instancetype)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock
++ (instancetype)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock
 {
   kStatisticsEvent = @"Downloader Internal Error Alert";
   MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"migration_download_error_dialog"
@@ -278,6 +280,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                                        rightButtonTitle:@"downloader_retry"
                                         leftButtonTitle:@"cancel"
                                       rightButtonAction:okBlock];
+  alert.leftButtonAction = cancelBlock;
   [alert setNeedsCloseAlertAfterEnterBackground];
   return alert;
 }
@@ -348,6 +351,8 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 - (IBAction)leftButtonTap
 {
   [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
+  if (self.leftButtonAction)
+    self.leftButtonAction();
   [self close];
 }
 

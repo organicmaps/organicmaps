@@ -131,9 +131,9 @@
   return [MWMDefaultAlert disableAutoDownloadAlertWithOkBlock:okBlock];
 }
 
-+ (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock
++ (MWMAlert *)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock
 {
-  return [MWMDefaultAlert downloaderNoConnectionAlertWithOkBlock:okBlock];
+  return [MWMDefaultAlert downloaderNoConnectionAlertWithOkBlock:okBlock cancelBlock:cancelBlock];
 }
 
 + (MWMAlert *)downloaderNotEnoughSpaceAlert
@@ -141,9 +141,9 @@
   return [MWMDefaultAlert downloaderNotEnoughSpaceAlert];
 }
 
-+ (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock
++ (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock
 {
-  return [MWMDefaultAlert downloaderInternalErrorAlertWithOkBlock:okBlock];
+  return [MWMDefaultAlert downloaderInternalErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock];
 }
 
 + (MWMAlert *)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock

@@ -30,9 +30,9 @@
 - (void)presentInternalErrorAlert;
 - (void)presentInvalidUserNameOrPasswordAlert;
 - (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
-- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
+- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock;
 - (void)presentDownloaderNotEnoughSpaceAlert;
-- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
+- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock;
 - (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentEditorViralAlertWithShareBlock:(nonnull TMWMVoidBlock)share;
 - (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion;

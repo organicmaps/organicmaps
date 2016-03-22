@@ -20,9 +20,9 @@
 + (instancetype)locationServiceNotSupportedAlert;
 + (instancetype)point2PointAlertWithOkBlock:(TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
 + (instancetype)disableAutoDownloadAlertWithOkBlock:(TMWMVoidBlock)okBlock;
-+ (instancetype)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock;
++ (instancetype)downloaderNoConnectionAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock;
 + (instancetype)downloaderNotEnoughSpaceAlert;
-+ (instancetype)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock;
++ (instancetype)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock;
 + (instancetype)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (instancetype)routingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 

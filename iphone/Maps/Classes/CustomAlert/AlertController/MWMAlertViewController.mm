@@ -170,9 +170,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert disableAutoDownloadAlertWithOkBlock:okBlock]];
 }
 
-- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
 {
-  [self displayAlert:[MWMAlert downloaderNoConnectionAlertWithOkBlock:okBlock]];
+  [self displayAlert:[MWMAlert downloaderNoConnectionAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
 }
 
 - (void)presentDownloaderNotEnoughSpaceAlert
@@ -180,9 +180,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert downloaderNotEnoughSpaceAlert]];
 }
 
-- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
 {
-  [self displayAlert:[MWMAlert downloaderInternalErrorAlertWithOkBlock:okBlock]];
+  [self displayAlert:[MWMAlert downloaderInternalErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
 }
 
 - (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
