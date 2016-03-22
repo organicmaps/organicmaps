@@ -499,7 +499,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
 
   self.navigationManager.state = MWMNavigationDashboardStatePlanning;
-  [self.menuController setPlanning];
+  self.menuState = MWMBottomMenuStatePlanning;
   GetFramework().BuildRoute(self.routeSource.Point(), self.routeDestination.Point(), 0 /* timeoutSec */);
   [self.navigationManager setRouteBuilderProgress:0.];
 }
@@ -569,7 +569,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.disableStandbyOnRouteFollowing = NO;
   [MapsAppDelegate theApp].routingPlaneMode = MWMRoutingPlaneModeNone;
   [RouteState remove];
-  [self.menuController setInactive];
+  self.menuState = MWMBottomMenuStateInactive;
   [self resetRoutingPoint];
   [self navigationDashBoardDidUpdate];
   if ([MapsAppDelegate isAutoNightMode])
@@ -619,7 +619,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     });
   }
   self.navigationManager.state = MWMNavigationDashboardStateReady;
-  [self.menuController setGo];
+  self.menuState = MWMBottomMenuStateGo;
 }
 
 - (void)routingHidden
@@ -688,7 +688,22 @@ extern NSString * const kAlohalyticsTapEventKey;
 - (void)setMenuState:(MWMBottomMenuState)menuState
 {
   _menuState = menuState;
-  self.menuController.state = self.hidden ? MWMBottomMenuStateHidden : menuState;
+  MWMBottomMenuState const state = self.hidden ? MWMBottomMenuStateHidden : menuState;
+  switch (state)
+  {
+    case MWMBottomMenuStateInactive:
+      [self.menuController setInactive];
+      break;
+    case MWMBottomMenuStatePlanning:
+      [self.menuController setPlanning];
+      break;
+    case MWMBottomMenuStateGo:
+      [self.menuController setGo];
+      break;
+    default:
+      self.menuController.state = state;
+      break;
+  }
 }
 
 - (MWMBottomMenuState)menuState
