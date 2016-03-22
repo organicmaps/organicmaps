@@ -70,6 +70,9 @@ public:
   // Maximum result candidates count for each viewport/criteria.
   static size_t const kPreResultsCount = 200;
 
+  static double const kMinViewportRadiusM;
+  static double const kMaxViewportRadiusM;
+
   Query(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
         storage::CountryInfoGetter const & infoGetter);
 

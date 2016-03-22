@@ -2,6 +2,7 @@
 
 #include "search/dummy_rank_table.hpp"
 #include "search/retrieval.hpp"
+#include "search/search_query.hpp"
 #include "search/v2/cbv_ptr.hpp"
 #include "search/v2/features_filter.hpp"
 #include "search/v2/features_layer_matcher.hpp"
@@ -420,7 +421,8 @@ Geocoder::Geocoder(Index & index, storage::CountryInfoGetter const & infoGetter)
   , m_infoGetter(infoGetter)
   , m_numTokens(0)
   , m_model(SearchModel::Instance())
-  , m_pivotRectsCache(kPivotRectsCacheSize, static_cast<my::Cancellable const &>(*this))
+  , m_pivotRectsCache(kPivotRectsCacheSize, static_cast<my::Cancellable const &>(*this),
+                      Query::kMaxViewportRadiusM)
   , m_localityRectsCache(kLocalityRectsCacheSize, static_cast<my::Cancellable const &>(*this))
   , m_pivotFeatures(index)
   , m_streets(nullptr)

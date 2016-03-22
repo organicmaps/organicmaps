@@ -166,15 +166,12 @@ void RemoveDuplicatingLinear(vector<IndexedValue> & indV)
 
 m2::RectD NormalizeViewport(m2::RectD viewport)
 {
-  double constexpr kMinViewportRadiusM = 5.0 * 1000;
-  double constexpr kMaxViewportRadiusM = 50.0 * 1000;
-
   m2::RectD minViewport =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMinViewportRadiusM);
+      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), Query::kMinViewportRadiusM);
   viewport.Add(minViewport);
 
   m2::RectD maxViewport =
-      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), kMaxViewportRadiusM);
+      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), Query::kMaxViewportRadiusM);
   VERIFY(viewport.Intersect(maxViewport), ());
   return viewport;
 }
@@ -188,6 +185,10 @@ m2::RectD GetRectAroundPosition(m2::PointD const & position)
 
 // static
 size_t const Query::kPreResultsCount;
+
+// static
+double const Query::kMinViewportRadiusM = 5.0 * 1000;
+double const Query::kMaxViewportRadiusM = 50.0 * 1000;
 
 Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
              storage::CountryInfoGetter const & infoGetter)

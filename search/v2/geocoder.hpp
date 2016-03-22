@@ -309,8 +309,8 @@ private:
   // Caches of features in rects. These caches are separated from
   // TLocalitiesCache because the latter are quite lightweight and not
   // all of them are needed.
-  GeometryCache m_pivotRectsCache;
-  GeometryCache m_localityRectsCache;
+  PivotRectsCache m_pivotRectsCache;
+  LocalityRectsCache m_localityRectsCache;
 
   // Cache of nested rects used to estimate distance from a feature to the pivot.
   NestedRectsCache m_pivotFeatures;

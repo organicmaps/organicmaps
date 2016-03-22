@@ -1,14 +1,10 @@
 #include "search/v2/geometry_cache.hpp"
 
+#include "search/geometry_utils.hpp"
 #include "search/retrieval.hpp"
 #include "search/v2/mwm_context.hpp"
 
 #include "geometry/mercator.hpp"
-
-#include "base/assert.hpp"
-
-#include "std/algorithm.hpp"
-#include "std/utility.hpp"
 
 namespace search
 {
@@ -16,51 +12,68 @@ namespace v2
 {
 namespace
 {
-double constexpr kComparePoints = MercatorBounds::GetCellID2PointAbsEpsilon();
+double constexpr kCellEps = MercatorBounds::GetCellID2PointAbsEpsilon();
 }  // namespace
 
-GeometryCache::Entry::Entry() : m_scale(0) {}
-
-GeometryCache::Entry::Entry(m2::RectD const & lowerBound, m2::RectD const & upperBound,
-                            unique_ptr<coding::CompressedBitVector> cbv, int scale)
-  : m_lowerBound(lowerBound), m_upperBound(upperBound), m_cbv(move(cbv)), m_scale(scale)
-{
-}
-
-bool GeometryCache::Entry::Matches(m2::RectD const & rect, int scale) const
-{
-  return m_scale == scale && rect.IsRectInside(m_lowerBound) && m_upperBound.IsRectInside(rect);
-}
-
+// GeometryCache -----------------------------------------------------------------------------------
 GeometryCache::GeometryCache(size_t maxNumEntries, my::Cancellable const & cancellable)
   : m_maxNumEntries(maxNumEntries), m_cancellable(cancellable)
 {
   CHECK_GREATER(m_maxNumEntries, 0, ());
 }
 
-coding::CompressedBitVector const * GeometryCache::Get(MwmContext const & context,
-                                                       m2::RectD const & rect, int scale)
+void GeometryCache::InitEntry(MwmContext const & context, m2::RectD const & rect, int scale,
+                              Entry & entry)
 {
-  auto & entries = m_entries[context.GetId()];
-  auto it = entries.begin();
-  for (; it != entries.end() && !it->Matches(rect, scale); ++it)
-    ;
-  if (it != entries.end())
+  entry.m_rect = rect;
+  entry.m_cbv = v2::RetrieveGeometryFeatures(context, m_cancellable, rect, scale);
+  entry.m_scale = scale;
+}
+
+// PivotRectsCache ---------------------------------------------------------------------------------
+PivotRectsCache::PivotRectsCache(size_t maxNumEntries, my::Cancellable const & cancellable,
+                                 double maxRadiusMeters)
+  : GeometryCache(maxNumEntries, cancellable), m_maxRadiusMeters(maxRadiusMeters)
+{
+}
+
+coding::CompressedBitVector const * PivotRectsCache::Get(MwmContext const & context,
+                                                         m2::RectD const & rect, int scale)
+{
+  auto p = FindOrCreateEntry(context.GetId(), [&rect, &scale](Entry const & entry)
   {
-    if (it != entries.begin())
-      iter_swap(entries.begin(), it);
-    return entries.front().m_cbv.get();
+    return scale == entry.m_scale &&
+           (entry.m_rect.IsRectInside(rect) || IsEqualMercator(rect, entry.m_rect, kCellEps));
+  });
+  auto & entry = p.first;
+  if (p.second)
+  {
+    m2::RectD normRect =
+        MercatorBounds::RectByCenterXYAndSizeInMeters(rect.Center(), m_maxRadiusMeters);
+    if (!normRect.IsRectInside(rect))
+      normRect = rect;
+    InitEntry(context, normRect, scale, entry);
   }
+  return entry.m_cbv.get();
+}
 
-  auto cbv = v2::RetrieveGeometryFeatures(context, m_cancellable, rect, scale);
-  entries.emplace_front(rect, m2::Inflate(rect, kComparePoints, kComparePoints), move(cbv), scale);
-  if (entries.size() == m_maxNumEntries + 1)
-    entries.pop_back();
+// LocalityRectsCache ------------------------------------------------------------------------------
+LocalityRectsCache::LocalityRectsCache(size_t maxNumEntries, my::Cancellable const & cancellable)
+  : GeometryCache(maxNumEntries, cancellable)
+{
+}
 
-  ASSERT_LESS_OR_EQUAL(entries.size(), m_maxNumEntries, ());
-  ASSERT(!entries.empty(), ());
-
-  return entries.front().m_cbv.get();
+coding::CompressedBitVector const * LocalityRectsCache::Get(MwmContext const & context,
+                                                            m2::RectD const & rect, int scale)
+{
+  auto p = FindOrCreateEntry(context.GetId(), [&rect, &scale](Entry const & entry)
+  {
+    return scale == entry.m_scale && IsEqualMercator(rect, entry.m_rect, kCellEps);
+  });
+  auto & entry = p.first;
+  if (p.second)
+    InitEntry(context, rect, scale, entry);
+  return entry.m_cbv.get();
 }
 }  // namespace v2
 }  // namespace search
