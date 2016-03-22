@@ -61,6 +61,7 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
       return;
     }
 
+    // TODO(mgsergio): Add support for non-metadata fields like atm, wheelchair, toilet etc.
     auto const it = kNamesToFMD.find(fieldName);
     ASSERT(it != end(kNamesToFMD), ("Wrong field:", fieldName));
     outDesc.m_editableFields.push_back(it->second);
