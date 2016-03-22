@@ -1076,6 +1076,39 @@ bool Framework::Search(search::SearchParams const & params)
   return true;
 }
 
+bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
+{
+  // @TODO(bykoianko) It's necessary to implement searching in Storage
+  // for group and leaf mwms based on country tree.
+
+  // Searching based on World.mwm.
+  search::SearchParams searchParam;
+
+  searchParam.m_query = params.m_query;
+  searchParam.m_inputLocale = params.m_inputLocale;
+  searchParam.SetMode(search::Mode::World);
+  searchParam.SetSuggestsEnabled(false);
+  searchParam.SetForceSearch(true);
+  searchParam.m_onResults = [this, &params](search::Results const & results)
+  {
+    DownloaderSearchResults downloaderSearchResults;
+    for (auto it = results.Begin(); it != results.End(); ++it)
+    {
+      if (!it->HasPoint())
+        continue;
+      auto const & mercator = it->GetFeatureCenter();
+      TCountryId const & countryId = CountryInfoGetter().GetRegionCountryId(mercator);
+      if (countryId == kInvalidCountryId)
+        continue;
+      downloaderSearchResults.m_vec.emplace_back(countryId, it->GetString() /* m_matchedName */);
+    }
+    downloaderSearchResults.m_endMarker = results.IsEndMarker();
+    params.m_onResults(downloaderSearchResults);
+  };
+
+  return Search(searchParam);
+}
+
 void Framework::MemoryWarning()
 {
   LOG(LINFO, ("MemoryWarning"));

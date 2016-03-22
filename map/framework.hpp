@@ -21,6 +21,7 @@
 #include "search/query_saver.hpp"
 #include "search/search_engine.hpp"
 
+#include "storage/downloader_search_params.hpp"
 #include "storage/storage.hpp"
 
 #include "platform/country_defines.hpp"
@@ -396,6 +397,9 @@ public:
   /// Call this function before entering search GUI.
   /// While it's loading, we can cache features in viewport.
   bool Search(search::SearchParams const & params);
+  /// Searchs for mwm based on |params|.
+  /// Calling |params::m_onResults| for returning the result.
+  bool SearchInDownloader(storage::DownloaderSearchParams const & params);
   bool GetCurrentPosition(double & lat, double & lon) const;
 
   void LoadSearchResultMetadata(search::Result & res) const;
