@@ -344,11 +344,18 @@ double GetSquaredDistance(m2::RectD const & pivot, m2::RectD const & rect)
 
 // Reorders maps in a way that prefix consists of maps intersecting
 // with pivot, suffix consists of all other maps ordered by minimum
-// distance from pivot.  Returns an iterator to the first element of
-// the suffix.
-template <typename TIt>
-TIt OrderCountries(m2::RectD const & pivot, TIt begin, TIt end)
+// distance from pivot. Returns number of maps in prefix.
+size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & infos)
 {
+  // TODO (@y): remove this if crashes in this function
+  // disappear. Otherwise, remove null infos and re-check MwmSet
+  // again.
+  for (auto const & info : infos)
+  {
+    CHECK(info.get(),
+          ("MwmSet invariant violated. Please, contact @y if you know how to reproduce this."));
+  }
+
   auto compareBySimilarity = [&](shared_ptr<MwmInfo> const & lhs, shared_ptr<MwmInfo> const & rhs)
   {
     auto const & lhsRect = lhs->m_limitRect;
@@ -372,8 +379,9 @@ TIt OrderCountries(m2::RectD const & pivot, TIt begin, TIt end)
     return pivot.IsIntersect(info->m_limitRect);
   };
 
-  sort(begin, end, compareBySimilarity);
-  return stable_partition(begin, end, intersects);
+  sort(infos.begin(), infos.end(), compareBySimilarity);
+  auto const sep = stable_partition(infos.begin(), infos.end(), intersects);
+  return distance(infos.begin(), sep);
 }
 
 // Performs pairwise union of adjacent bit vectors
@@ -549,8 +557,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     // maps are ordered by distance from pivot, and we stop to call
     // MatchAroundPivot() on them as soon as at least one feature is
     // found.
-    size_t const numIntersectingMaps =
-        distance(infos.begin(), OrderCountries(m_params.m_pivot, infos.begin(), infos.end()));
+    size_t const numIntersectingMaps = OrderCountries(m_params.m_pivot, infos);
 
     // MatchViewportAndPosition() should always be matched in mwms
     // intersecting with position and viewport.
