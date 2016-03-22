@@ -179,8 +179,8 @@ class StoreTwoComponentMwmInterface
 {
 public:
   virtual ~StoreTwoComponentMwmInterface() = default;
-  virtual void Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, size_t depth,
-                      TCountryId const & parent) = 0;
+  virtual Country * Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, size_t depth,
+                           TCountryId const & parent) = 0;
 };
 
 class StoreCountriesTwoComponentMwms : public StoreTwoComponentMwmInterface
@@ -195,8 +195,8 @@ public:
   }
 
   // StoreTwoComponentMwmInterface overrides:
-  void Insert(string const & id, uint32_t mapSize, uint32_t routingSize, size_t depth,
-              TCountryId const & parent) override
+  virtual Country * Insert(string const & id, uint32_t mapSize, uint32_t routingSize, size_t depth,
+                           TCountryId const & parent) override
   {
     Country country(id, parent);
     if (mapSize)
@@ -205,7 +205,7 @@ public:
       countryFile.SetRemoteSizes(mapSize, routingSize);
       country.SetFile(countryFile);
     }
-    m_countries.AddAtDepth(depth, country);
+    return &m_countries.AddAtDepth(depth, country);
   }
 };
 
@@ -218,20 +218,21 @@ public:
   StoreFile2InfoTwoComponentMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
 
   // StoreTwoComponentMwmInterface overrides:
-  void Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, size_t /* depth */,
-              TCountryId const & /* parent */) override
+  virtual Country * Insert(string const & id, uint32_t mapSize, uint32_t /* routingSize */, size_t /* depth */,
+                           TCountryId const & /* parent */) override
   {
     if (mapSize == 0)
-      return;
+      return nullptr;
 
     CountryInfo info(id);
     m_file2info[id] = info;
+    return nullptr;
   }
 };
 }  // namespace
 
-void LoadGroupTwoComponentMwmsImpl(size_t depth, json_t * node, TCountryId const & parent,
-                                   StoreTwoComponentMwmInterface & store)
+TMwmSubtreeAttrs LoadGroupTwoComponentMwmsImpl(size_t depth, json_t * node, TCountryId const & parent,
+                                               StoreTwoComponentMwmInterface & store)
 {
   // @TODO(bykoianko) After we stop supporting two component mwms (with routing files)
   // remove code below.
@@ -247,13 +248,32 @@ void LoadGroupTwoComponentMwmsImpl(size_t depth, json_t * node, TCountryId const
   ASSERT_LESS_OR_EQUAL(0, mwmSize, ());
   ASSERT_LESS_OR_EQUAL(0, routingSize, ());
 
-  store.Insert(file, static_cast<uint32_t>(mwmSize), static_cast<uint32_t>(routingSize), depth,
-               parent);
+  Country * addedNode = store.Insert(file, static_cast<uint32_t>(mwmSize), static_cast<uint32_t>(routingSize),
+                                     depth, parent);
 
+  uint32_t countryCounter = 0;
+  size_t countrySize = 0;
   vector<json_t *> children;
   my::FromJSONObjectOptionalField(node, "g", children);
-  for (json_t * child : children)
-    LoadGroupTwoComponentMwmsImpl(depth + 1, child, file, store);
+  if (children.empty())
+  {
+    countryCounter = 1;  // It's a leaf. Any leaf contains one mwm.
+    countrySize = mwmSize + routingSize;
+  }
+  else
+  {
+    for (json_t * child : children)
+    {
+      TMwmSubtreeAttrs const childAttr = LoadGroupTwoComponentMwmsImpl(depth + 1, child, file, store);
+      countryCounter += childAttr.first;
+      countrySize += childAttr.second;
+    }
+  }
+
+  if (addedNode != nullptr)
+    addedNode->SetSubtreeAttrs(countryCounter, countrySize);
+
+  return make_pair(countryCounter, countrySize);
 }
 
 bool LoadCountriesTwoComponentMwmsImpl(string const & jsonBuffer,
