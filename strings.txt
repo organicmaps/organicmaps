@@ -7478,6 +7478,31 @@
   [downloader_search_results]
     en = Found
     ru = Найдено
+    tr = Bulundu
+    sv = Hittat
+    nb = Funnet
+    ko = 검색 결과
+    id = Ditemukan
+    hu = Megtalálva
+    de = Gefunden
+    fi = Löytyi
+    nl = Gevonden
+    da = Fundet
+    cs = Nalezeno
+    zh-Hans = 找到
+    zh-Hant = 已找到
+    ar = تم العثور على
+    th = พบ
+    uk = Знайдено
+    pt = Encontrado
+    es = Encontrado
+    ro = S-au găsit
+    pl = Znaleziono
+    sk = Nájdených
+    it = Trovate
+    fr = Trouvé
+    ja = 見つかりました
+    vi = Đã tìm thấy
 
   [routing_disclaimer]
     tags = ios,android,tizen
@@ -7591,7 +7616,7 @@
     zh-Hant = 更新
     pl = Aktualizacja
     pt = Atualizar
-    hu = Frissítése
+    hu = Frissítés
     th = ปรับปรุง
     zh-Hans = 下载
     ar = تحديث
@@ -7641,8 +7666,33 @@
   [downloader_delete_map_while_routing_dialog]
     tags = android, ios
     comment = Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode
-    en = To delete map please stop the navigation.
-    ru = Чтобы удалить карту, выйдите из режима навигации.
+    en = To delete map please stop navigation.
+    ru = Чтобы удалить карту, пожалуйста, остановите навигацию.
+    tr = Haritayı silmek için lütfen navigasyonu durdurun.
+    sv = Avsluta navigering för att radera kartan.
+    nb = Stans navigeringen for å slette kartet.
+    ko = 지도를 삭제하시려면 길 찾기를 멈추세요.
+    id = Untuk menghapus peta, silakan hentikan navigasi.
+    hu = Kérjük, állítsa le a navigációt a térkép törléséhez.
+    de = Um die Karte zu löschen, die Navigation unterbrechen.
+    fi = Pysäytä navigointi poistaaksesi kartan.
+    nl = Stop de navigatie om de kaart te verwijderen.
+    da = For at slette kortet skal du stoppe navigeringen.
+    cs = Chcete-li odstranit mapu, pak prosím zastavte navigaci.
+    zh-Hans = 要删除地图，请停止导航。
+    zh-Hant = 如欲刪除地圖，請停止導航。
+    ar = لحذف الخريطة يرجى إيقاف الملاحة.
+    th = เพื่อลบแผนที่ โปรดหยุดใช้การนำทาง
+    uk = Щоб видалити карту, будь ласка, зупините навiгацiю.
+    pt = Favor parar a navegação para apagar o mapa.
+    es = Para eliminar el mapa, por favor, detén la navegación.
+    ro = Pentru a șterge harta, vă rugăm să opriți navigarea.
+    pl = Aby usunąć mapę, zatrzymaj nawigację.
+    sk = Ak chcete odstrániť mapy, prosím, zastavte navigáciu.
+    it = Per eliminare una mappa interrompi la navigazione.
+    fr = Veuillez interrompre la navigation pour supprimer la carte.
+    ja = 地図を削除するにはナビゲーションを停止してください。
+    vi = Để xóa bản đồ, vui lòng dừng điều hướng.
 
   [routing_failed_unknown_my_position]
     tags = android, ios
@@ -12371,22 +12421,147 @@
   [editor_add_select_location]
     en = Location
     ru = Местоположение
+    tr = Konum
+    sv = Plats
+    nb = Plassering
+    ko = 위치
+    id = Lokasi
+    hu = Elhelyezkedés
+    de = Position
+    fi = Sijainti
+    nl = Locatie
+    da = Sted
+    cs = Umístění
+    zh-Hans = 位置
+    zh-Hant = 位置
+    ar = الموقع
+    th = ตำแหน่ง
+    uk = Місцезнаходження
+    pt = Local
+    es = Ubicación
+    ro = Locație
+    pl = Lokalizacja
+    sk = Poloha
+    it = Posizione
+    fr = Emplacement
+    ja = 現在位置
+    vi = Vị trí
 
   [editor_done_dialog_1]
-    en = You have edited the map of the world. Don't keep it to yourself, tell your friends about it and edit the world together.
+    en = You’ve changed the world map. Do not hide this! Tell your friends, and edit it together.
     ru = Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.
+    tr = Dünya haritasını değiştirdiniz. Bunu gizlemeyin! Arkadaşlarınıza anlatın ve birlikte düzenleyin.
+    sv = Du har ändrat världskartan. Dölj inte detta! Berätta för dina vänner och redigera den tillsammans.
+    nb = Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.
+    ko = 세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.
+    id = Anda telah mengubah peta dunia. Jangan menyembunyikan ini! Katakan kepada teman-teman Anda, dan edit bersama.
+    hu = Megváltoztattad a világ térképét. Ne titkold el mások elől! Mondd el a barátaidnak, és szerkesszétek közösen!
+    de = Sie haben die Weltkarte geändert. Blenden Sie das nicht aus! Erzählen Sie Ihren Freunden davon und bearbeiten Sie sie zusammen.
+    fi = Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.
+    nl = Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk het samen.
+    da = Du har ændret verdenskortet. Lad andre det vide! Fortæl dine venner og redigér det sammen.
+    cs = Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.
+    zh-Hans = 您已经改变了世界地图。请不要隐藏这一点！告诉您的朋友们并一起编辑它。
+    zh-Hant = 您已經改變了世界地圖。請不要隱藏這一點！告訴您的朋友們並一起編輯它。
+    ar = لقد غيرت خريطة العالم. لا تخفي ذلك! اخبر أصدقاءك، وغيروها معا.
+    th = คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน
+    uk = Ви змінили карту світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.
+    pt = Alterou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.
+    es = Has cambiado el mapa del mundo. ¡No ocultarlo! Cuéntaselo a tus amigos y editadlo juntos.
+    ro = Ați modificat harta lumii. Nu ascundeți acest lucru! Spuneți-le prietenilor dvs. și modificați-o împreună.
+    pl = Dokonałeś zmian na mapie świata. Nie kryj się z tym! Powiadom znajomych i edytujcie mapę razem.
+    sk = Zmenili ste mapu sveta. Nemusíte to skrývať! Povedzte o tom svojim priateľom a začnite ju spolu upravovať.
+    it = Hai modificato la mappa del mondo. Non tenerlo per te! Dillo ai tuoi amici e modificatela insieme.
+    fr = Vous avez modifié la carte du monde ! Ne le cachez pas ! Dites-le à vos amis, et modifiez-le ensemble.
+    ja = 世界地図を変更しました。この変更を秘密にしないでください! 友達に教えて一緒に編集しましょう。
+    vi = Bạn đã thay đổi bản đồ thế giới. Đừng giấu điều đó! Hãy cho các bạn khác biết và cùng nhau chỉnh sửa.
 
   [editor_done_dialog_2]
-    en = You have already made 2 improvements to the map. Now you are number %d in the list of map editors. Tell your friends about it.
-    ru = Вы улучшили карту уже 2 раза. Вы теперь %d в рейтинге редакторов карты. Расскажите друзьям.
+    en = This is your second map improvement. Now you are number %d in the map editors rating. Tell your friends about it.
+    ru = Вы улучшили карту уже два раза. Вы теперь %d в рейтинге редакторов карты. Расскажите друзьям.
+    tr = Bu sizin ikinci harita iyileştirmeniz. Artık siz harita editörleri arasında %d. sıradasınız. Arkadaşlarınıza bunu anlatın.
+    sv = Detta är din andra kartförbättring. Du är nu på plats %d i listan över kartredigerare. Berätta för dina vänner om det.
+    nb = Dette er din andre forbedring av kartet. Nå er du på %d. plass i listen av kart-forbedrere. Fortell vennene dine om dette.
+    ko = 이는 두 번째 지도의 개선 사항입니다. 지금 지도 편집기의 목록에서 1058번째 장소에 있습니다. 친구들에게 이에 대해 말하십시오.
+    id = ini peningkatan peta kedua Anda. Sekarang Anda di tempat yang ke-%d di daftar editor peta. Katakan kepada teman-teman Anda tentang hal ini.
+    hu = Ez a második térképjavításod. Most már te is rajta vagy a térképszerkesztők listáján, az %d. helyen. Mesélj erről a barátaidnak is.
+    de = Das ist Ihre zweite Kartenverbesserung. Sie befinden sich jetzt auf Platz %d auf der Liste der Personen, die die Karte bearbeitet haben. Erzählen Sie Ihren Freunden davon.
+    fi = Tämä on toinen kerta, kun paransit karttaa. Nyt olet %d. sijalla kartan muokkaajien listalla. Kerro siitä ystävillesi.
+    nl = Dit is je tweede kaartverbetering. Nu sta je op de %de plaats in de lijst van de kaartbewerkers. Vertel je vrienden erover.
+    da = Dette er din anden kortforbedring. Nu er du på en %d. plads på listen over kortredaktører. Fortæl dine venner om det.
+    cs = Toto je vaše druhé vylepšení mapy. Nyní jste na %d. místě na seznamu editorů map. Řekněte o tom svým kamarádům.
+    zh-Hans = 这是您的第二个地图改进。现在您在地图编辑者排行榜中排在第%d名。把它告诉您的朋友们。
+    zh-Hant = 這是您的第二次地圖改進。現在您在地圖編輯者排行榜中排在第%d名。把它告訴您的朋友們。
+    ar = هذا هو تعديلك الثاني بالخريطة. أنت الآن في الترتيب رقم %d في قائمة محرري الخريطة. اخبر أصدقاءك عن ذلك.
+    th = มันเป็นการปรับปรุงแผนที่ครั้งที่สองของคุณ ตอนนี้คุณอยู่ในอันดับที่ %d ของรายการผู้แก้ไขแผนที่ บอกให้เพื่อนคุณรู้
+    uk = Це ваше друге поліпшення карти. Тепер ви на %d місці в списку редакторів карт. Розкажіть своїм друзям про це.
+    pt = Esta é a sua segunda melhoria ao mapa. Agora, está no %dº lugar na lista de editores de mapas. Fale disto aos seus amigos.
+    es = Esta es tu segunda mejora del mapa. Ahora estás en el puesto %dº de la lista de editores de mapa. Cuéntaselo a tus amigos.
+    ro = Aceasta este a doua modificare a hărții. Acum sunteți pe locul %d în lista editorilor de hărți. Spuneți prietenilor dvs. despre aceasta.
+    pl = Po raz drugi dokonałeś poprawek na mapie. Aktualnie znajdujesz się na %d miejscu na liście osób edytujących mapy. Opowiedz o tym znajomym.
+    sk = Toto je vaša druhá vylepšená mapa. Momentálne ste na %d. mieste zoznamu editorov máp. Povedzte o tom svojim priateľom.
+    it = Questa è la tua seconda modifica alla mappa. Adesso sei al %d° posto nella lista di chi ha modificato la mappa. Dillo ai tuoi amici.
+    fr = Ceci est votre seconde amélioration de carte. Vous êtes maintenant à la %de place dans la liste des éditeurs de cartes. Dites-le à vos amis.
+    ja = これは2回目の地図改善。現在地図編集者リストで%d位です。
+    vi = Đây là lần nâng cấp bản đồ thứ hai của bạn. Giờ bạn xếp hạng %d trong các nhà hiệu chỉnh bản đồ. Hãy nói với các bạn khác về điều đó.
 
   [editor_done_dialog_3]
-    en = You have improved the map. Tell your friends about it and edit the map together.
+    en = You’ve improved the map, tell your friends about it, and edit the map together.
     ru = Вы улучшили карту, расскажите об этом друзьям и редактируйте карту вместе.
+    tr = Haritayı geliştirdiniz, arkadaşlarınıza bunu anlatın ve birlikte haritayı düzenleyin.
+    sv = Du har förbättrat kartan, berätta för dina vänner om det och redigera kartan tillsammans.
+    nb = Du har forbedret kartet, fortell vennene dine om det, og rediger kartet sammen.
+    ko = 지도를 개선했으며, 친구들에게 이에 대해 말하고, 함께 지도를 편집할 수 있습니다.
+    id = Anda telah meningkatkan peta, katakan kepada teman-teman Anda tentang hal ini, dan edit peta bersama.
+    hu = Javítottál a térképen! Mondd el a barátaidnak is és szerkesszétek közösen!
+    de = Sie haben die Karte verbessert, erzählen Sie Ihren Freunden davon und bearbeiten Sie die Karte zusammen.
+    fi = Olet parantanut karttaa, kerro siitä ystävillesi ja muokatkaa karttaa yhdessä.
+    nl = Je hebt de kaart verbeterd, vertel je vrienden erover en bewerk samen de kaart.
+    da = Du har forbedret kortet, fortæl dine venner om det og redigér kortet sammen.
+    cs = Vylepšili jste mapu. Řekněte o tom svým kamarádům a upravujte mapu společně.
+    zh-Hans = 您已改进此地图，请把它告诉您的朋友们，并一起编辑此地图。
+    zh-Hant = 您已改進此地圖，請把它告訴您的朋友們，並一起編輯此地圖。
+    ar = لقد عدلت الخريطة، اخبر أصدقائك عن ذلك، وعدلوا الخريطة معا.
+    th = คุณได้ปรับปรุงแผนที่ บอกให้เพื่อนคุณรู้ แล้วมาแก้ไขแผนที่ไปด้วยกัน
+    uk = Ви покращили карту, розкажіть своїм друзям про це і редагуйте її разом.
+    pt = Melhorou o mapa, fale disto aos seus amigos e editem o mapa juntos.
+    es = Has mejorado el mapa: cuéntaselo a tus amigos y editadlo juntos.
+    ro = Ați modificat harta, spuneți prietenilor dvs. despre aceasta și modificați-o împreună.
+    pl = Dokonałeś poprawek na mapie. Opowiedz o tym znajomym i razem ją edytujcie.
+    sk = Práve ste vylepšili mapu. Povedzte o tom svojim priateľom a môžete mapu upraviť aj spolu.
+    it = Hai migliorato la mappa. Dillo ai tuoi amici e modificate la mappa insieme.
+    fr = Vous avez amélioré la carte, dites-le à vos amis et modifiez la carte ensemble.
+    ja = 地図を改善したので、友達に教えて一緒に編集しましょう。
+    vi = Bạn đã nâng cấp bản đồ này, hãy cho các bạn khác biết và cùng nhau chỉnh sửa bản đồ.
 
   [share_with_friends]
     en = Share with friends
     ru = Поделиться с друзьями
+    tr = Arkadaşlarınla paylaş
+    sv = Dela med vänner
+    nb = Del med venner
+    ko = 친구들과 공유
+    id = Bagikan dengan teman-teman
+    hu = Oszd meg az ismerőseiddel
+    de = Mit Freunden teilen
+    fi = Jaa kavereille
+    nl = Deel met je vrienden
+    da = Del med venner
+    cs = Sdílejte s kamarády
+    zh-Hans = 与朋友分享
+    zh-Hant = 和朋友分享
+    ar = شارك مع الأصدقاء
+    th = แชร์กับเพื่อน
+    uk = Поділитися з друзями
+    pt = Compartilhar com amigos
+    es = Compartir con amigos
+    ro = Partajează cu prietenii
+    pl = Udostępnij znajomym
+    sk = Zdieľaj s priateľmi
+    it = Condividi con gli amici
+    fr = Partagez avec vos amis
+    ja = 友達にシェア
+    vi = Chia sẻ với bạn bè
 
   [editor_report_problem_desription_1]
     en = Please describe the problem in detail so that the OpenStreeMap community can fix the error.
@@ -12587,10 +12762,60 @@
   [first_launch_congrats_title]
     en = MAPS.ME is ready to use
     ru = MAPS.ME готов к работе
+    tr = MAPS.ME kullanıma hazır
+    sv = Du kan nu använda MAPS.ME
+    nb = MAPS.ME er klar til bruk
+    ko = MAPS.ME를 사용할 준비가 완료되었습니다
+    id = MAPS.ME siap digunakan
+    hu = A MAPS.ME használatra készen áll
+    de = MAPS.ME kann verwendet werden
+    fi = MAPS.ME on valmiina käyttöön
+    nl = MAPS.ME is klaar voor gebruik
+    da = MAPS.ME er klart til brug
+    cs = MAPS.ME jsou připraveny k použití
+    zh-Hans = MAPS.ME已经可用
+    zh-Hant = MAPS.ME已做好使用準備
+    ar = MAPS.ME جاهز للاستخدام
+    th = MAPS.ME พร้อมใช้งานแล้ว
+    uk = MAPS.ME готовий до роботи
+    pt = MAPS.ME está pronto para utilização
+    es = MAPS.ME está listo para usar
+    ro = MAPS.ME este gata pentru utilizare
+    pl = Aplikacja MAPS.ME jest gotowa
+    sk = Aplikácia MAPS.ME je pripravená na použitie
+    it = MAPS.ME è pronto per essere usato
+    fr = MAPS.ME est prêt à l'utilisation
+    ja = MAPS.MEを使用する準備が整いました
+    vi = MAPS.ME đã sẵn sàng để sử dụng
 
   [first_launch_congrats_text]
     en = Search and navigate the maps of all countries in the world for free.
-    ru = Пользуйтесь поиском, навигацией по всему миру без интернета и бесплатно!
+    ru = Пользуйтесь поиском, навигацией по всему миру без интернета и бесплатно.
+    tr = Dünyanın tüm ülkelerinin haritalarında ücretsiz arama yap ve gezin.
+    sv = Sök och navigera gratis på kartor över alla länder i hela världen.
+    nb = Søk og naviger i kart over alle verdens land gratis.
+    ko = 무료로 전 세계 모든 나라의 지도를 검색하고 길을 찾아 보세요.
+    id = Telusuri dan jelajalahi peta semua negara di dunia secara gratis.
+    hu = Keress és navigálj ingyen a világ összes térképében.
+    de = Suchen und navigieren Sie gratis auf den Karten aller Länder der Welt.
+    fi = Hae ja navigoi ilmaiseksi maailman kaikkien maiden karttoja.
+    nl = Zoek en navigeer gratis met kaarten van alle landen van de wereld.
+    da = Søg og navigér i kort over alle verdens lande gratis.
+    cs = Prohledávejte a navigujte mapy všech zemí na světě zdarma.
+    zh-Hans = 免费搜索和浏览世界各国的地图。
+    zh-Hant = 免費搜索和導航世界上所有國家的地圖。
+    ar = ابحث وتنقل في خرائط جميع دول العالم مجانا.
+    th = ค้นหาและนำทางไปตามแผนที่ของทุกประเทศในโลกได้ฟรี
+    uk = Користуйтесь пошуком, навігацією по всьому світу без інтернету й безкоштовно.
+    pt = Pesquise e navegue nos mapas de todos os países do mundo gratuitamente.
+    es = Busca y navega gratis por los mapas de todos los países del mundo.
+    ro = Căutați și navigați hărțile tuturor țărilor lumii pe gratis.
+    pl = Bezpłatnie wyszukuj mapy wszystkich krajów świata i nawiguj z ich użyciem.
+    sk = Vyhľadávajte a riaďte sa mapami všetkých krajín na svete zadarmo.
+    it = Cerca e naviga gratuitamente sulle mappe di tutti i Paesi del mondo.
+    fr = Cherchez et naviguez sur les cartes de tous les pays du monde gratuitement.
+    ja = 世界中のすべての国のマップを無料で検索しナビゲートします。
+    vi = Tìm kiếm và điều hướng miễn phí bản đồ của tất cả các quốc gia trên thế giới.
 
   [migrate_title]
     tags = ios, android
@@ -14760,7 +14985,7 @@
 
   [editor_profile_changes]
     tags = ios, android
-    en = Edits:
+    en = Changes:
     ru = Правки:
     tr = Değişiklikler:
     sv = Ändringar:
@@ -14785,7 +15010,8 @@
     sk = Zmeny:
     it = Modifiche:
     fr = Modifications :
-    ja = 変更回数:
+    ja = 変更回数：
+    vi = Những thay đổi:
 
   [editor_profile_unsent_changes]
     tags = ios, android
@@ -14814,7 +15040,8 @@
     sk = Neodoslané:
     it = Non inviato:
     fr = Non envoyé :
-    ja = 未送信:
+    ja = 未送信：
+    vi = Không gửi được:
 
   [editor_focus_map_on_location]
     tags = ios, android
@@ -15224,8 +15451,33 @@
 
   [whatsnew_search_header]
     tags = ios, android
-    en = New search!
-    ru = Новый поиск!
+    en = New search
+    ru = Новый поиск
+    tr = Yeni arama
+    sv = Ny sökning
+    nb = Nytt søk
+    ko = 새로운 검색
+    id = Penelusuran baru
+    hu = Új keresés
+    de = Neue Suche
+    fi = Uusittu haku
+    nl = Nieuwe zoekopdracht
+    da = Ny søgning
+    cs = Nové hledání
+    zh-Hans = 新搜索
+    zh-Hant = 新搜尋
+    ar = بحث جديد
+    th = การค้นหาใหม่
+    uk = Новий пошук
+    pt = Nova busca
+    es = Nueva búsqueda
+    ro = Căutare nouă
+    pl = Nowe wyszukiwanie
+    sk = Nové vyhľadávanie
+    it = Nuova ricerca
+    fr = Recherche améliorée
+    ja = 新しい検索機能
+    vi = Tìm kiếm mới
 
   [whatsnew_search_message]
     tags = ios, android
@@ -15462,32 +15714,33 @@
 
   [onboarding_offline_maps_title]
     tags = ios, android
-    en = MAPS.ME - offline maps
-    ru = MAPS.ME — оффлайн карты
-    tr = MAPS.ME - çevrimdışı haritalar
-    sv = MAPS.ME - kartor offline
-    nb = MAPS.ME - offline-kart
-    ko = MAPS.ME - 오프라인지도
-    id = MAPS.ME - peta offline
-    hu = MAPS.ME - offline térképek
-    de = MAPS.ME - Offline-Karten
-    fi = MAPS.ME - offline-kartat
-    nl = MAPS.ME - offline kaarten
-    da = MAPS.ME - offline kort
-    cs = MAPS.ME - offline mapy
-    zh-Hans = MAPS.ME - 离线地图
-    zh-Hant = MAPS.ME - 離線地圖
-    ar = MAPS.ME – خرائط غير متصلة بالإنترنت
-    th = MAPS.ME - แผนที่ออฟไลน์
-    uk = MAPS.ME — офлайн мапи
-    pt = MAPS.ME - mapas offline
-    es = MAPS.ME - mapas sin conexión
-    ro = MAPS.ME – hărți offline
-    pl = MAPS.ME - mapy offline
-    sk = MAPS.ME - offline mapy
-    it = MAPS.ME – mappe offline
-    fr = MAPS.ME – cartes hors-ligne
-    ja = MAPS.ME - オフライン地図
+    en = MAPS.ME — use the maps of the entire world without an internet connection
+    ru = MAPS.ME — используй карты всего мира без интернета
+    tr = MAPS.ME — dünya genelinde haritaya internetsiz erişim
+    sv = MAPS.ME — se världsomspännande kartor utan internet
+    nb = MAPS.ME — se verdensvide kart uten Internett
+    ko = MAPS.ME — 인터넷 연결 없이 전 세계 지도 사용
+    id = MAPS.ME — akses peta seluruh dunia tanpa internet
+    hu = MAPS.ME — hozzáférés a világ térképéhez Internet nélkül
+    de = MAPS.ME — weltweit ohne Internetzugriff auf die Karte zugreifen
+    fi = MAPS.ME — koko maailman kartat ilman Internet-yhteyttä
+    nl = MAPS.ME — toegang tot kaarten van de hele wereld, zonder verbinding met het internet
+    da = MAPS.ME — adgang til verdensomspændende kort uden internet
+    cs = MAPS.ME — přistupte k celosvětovým mapám bez internetu
+    zh-Hans = MAPS.ME — 无需互联网获取全球地图
+    zh-Hant = MAPS.ME — 無需網際網路獲取全球地圖
+    ar = MAPS.ME — وصول إلى الخرائط على مستوى العالم دون إنترنت
+    th = MAPS.ME — เข้าถึงแผนที่ทั่วโลกโดยไม่ใช้อินเทอร์เน็ต
+    uk = MAPS.ME — використовуй карти всього світу без інтернету
+    pt = MAPS.ME — acesse os mapas do mundo inteiro sem internet
+    es = MAPS.ME — accede al mapa del mundo sin Internet
+    ro = MAPS.ME — accesați hărți din întreaga lume fără conexiune Internet
+    pl = MAPS.ME — uzyskaj dostęp do map świata bez łączenia się z Internetem
+    sk = MAPS.ME — globálny prístup k mapám bez internetu
+    it = MAPS.ME — accedi alla mappa in tutto il mondo senza Internet
+    fr = MAPS.ME — accédez à une carte mondiale hors connexion
+    ja = MAPS.ME — 世界中の地図にインターネットなしでアクセス
+    vi = MAPS.ME — truy cập bản đồ trên toàn thế giới không cần Internet
 
   [onboarding_offline_maps_message]
     tags = ios, android
@@ -15607,7 +15860,7 @@
 
   [onboarding_location_message]
     tags = ios, android
-    en = To use navigation and other features, we need access to your geolocation.
+    en = In order for you to use navigation and the other app functions, MAPS.ME needs access to your geoposition.
     ru = Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.
     tr = Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.
     sv = För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.
@@ -15633,11 +15886,62 @@
     it = Per usare la navigazione e altri strumenti, dobbiamo accedere alla tua geolocalizzazione.
     fr = Pour utiliser la navigation et d'autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.
     ja = ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります
+    vi = Để sử dụng tính năng dẫn đường và các tính năng khác, chúng tôi cần truy cập vị trí địa lý của bạn.
 
   [dialog_incorrect_feature_position]
-    en = Change the location
+    en = Change location
     ru = Измените местоположение
+    tr = Konumu değiştir
+    sv = Ändra placering
+    nb = Endre plassering
+    ko = 위치 변경
+    id = Ubah lokasi
+    hu = Helyszín megváltoztatása
+    de = Standort wechseln
+    fi = Vaihda sijaintia
+    nl = Locatie wijzigen
+    da = Skift lokation
+    cs = Změnit umístění
+    zh-Hans = 改变位置
+    zh-Hant = 改變位置
+    ar = تغيير الموقع
+    th = เปลี่ยนสถานที่ตั้ง
+    uk = Змініть розташування
+    pt = Mudar o local
+    es = Cambiar ubicación
+    ro = Schimbare locație
+    pl = Zmień lokalizację
+    sk = Zmeniť polohu
+    it = Cambia posizione
+    fr = Modifier l'emplacement
+    ja = 位置を変更してください
+    vi = Thay đổi địa điểm
 
   [message_invalid_feature_position]
-    en = A place cannot be situated in this location.
-    ru = Объект не может находиться в этом местоположении.
+    en = An object can't be located here
+    ru = Объект не может находиться в этом месте
+    tr = Buraya bir nesne konumlandırılamıyor
+    sv = Ett objekt kan inte placeras här
+    nb = Et objekt kan ikke plasseres her
+    ko = 목적지를 이곳에서 찾을 수 없습니다
+    id = Objek tidak dapat diletakkan di sini
+    hu = Célpont áthelyezése ide nem lehetséges
+    de = Ein Objekt kann nicht hier positioniert werden
+    fi = Objektia ei voida asettaa tänne
+    nl = Hier kan geen object worden geplaatst
+    da = Et objekt kan ikke placeres her
+    cs = Objekt zde nemůže být umístěn
+    zh-Hans = 对象无法设置在这里
+    zh-Hant = 對象無法設置在這裡
+    ar = لا يمكن تحديد موقع الكائن هنا
+    th = ไม่สามารถตั้งวัตถุได้ที่นี่
+    uk = Об'єкт не може перебувати в цьому місцезнаходженні
+    pt = Um objeto não pode ser localizado aqui
+    es = No se puede ubicar ningún objeto aquí
+    ro = În acest loc nu poate fi localizat un obiect
+    pl = Obiekt nie może znajdować się tutaj
+    sk = Objekt sa tu nedá umiestniť
+    it = Un oggetto non può essere posizionato qui
+    fr = Aucun objet ne peut être localisé ici
+    ja = ここにはオブジェクトを配置できません
+    vi = Một đối tượng không thể đặt được ở đây
