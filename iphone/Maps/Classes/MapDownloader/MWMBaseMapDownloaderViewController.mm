@@ -56,6 +56,7 @@ NSString * const kUpdateActionTitle = L(@"downloader_status_outdated");
 @property (nonatomic) NSMutableDictionary<NSIndexPath *, NSNumber *> * cellHeightCache;
 
 @property (nonatomic) BOOL skipCountryEventProcessing;
+@property (nonatomic) BOOL forceFullReload;
 
 @end
 
@@ -617,6 +618,7 @@ using namespace storage;
 - (void)setDataSource:(MWMMapDownloaderDataSource *)dataSource
 {
   self.tableView.dataSource = dataSource;
+  self.forceFullReload = YES;
 }
 
 - (MWMMapDownloaderDataSource *)dataSource
@@ -640,8 +642,9 @@ using namespace storage;
 
   MWMMapDownloaderDataSource * dataSource = self.dataSource;
   UITableView * tableView = self.tableView;
-  if (dataSource.needFullReload)
+  if (self.forceFullReload || dataSource.needFullReload)
   {
+    self.forceFullReload = NO;
     // If these methods are not called, tableView will not call tableView:cellForRowAtIndexPath:
     [tableView setNeedsLayout];
     [tableView layoutIfNeeded];
