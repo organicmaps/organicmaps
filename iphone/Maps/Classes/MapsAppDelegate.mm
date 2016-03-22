@@ -817,7 +817,7 @@ using namespace osm_auth_ios;
 
 - (void)setIsDaemonMode:(BOOL)isDaemonMode
 {
-  if (_isDaemonMode == isDaemonMode)
+  if ([Alohalytics isFirstSession] && _isDaemonMode == isDaemonMode)
     return;
   _isDaemonMode = isDaemonMode;
   if (isDaemonMode)
