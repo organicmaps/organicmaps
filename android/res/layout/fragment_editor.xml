@@ -114,7 +114,7 @@
             android:layout_alignLeft="@id/street"
             android:layout_alignStart="@id/street"
             android:layout_below="@id/street"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/margin_quarter_plus"
             android:background="@color/divider"/>
 
         </RelativeLayout>
@@ -253,7 +253,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/editor_margin_left"
             android:layout_marginStart="@dimen/editor_margin_left"
-            android:text="@string/street"
+            android:text="@string/cuisine"
             android:textAppearance="@style/MwmTextAppearance.Body4"/>
 
           <TextView
@@ -273,7 +273,7 @@
             android:layout_alignLeft="@id/cuisine"
             android:layout_alignStart="@id/cuisine"
             android:layout_below="@id/cuisine"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/margin_quarter_plus"
             android:background="@color/divider"/>
 
         </RelativeLayout>

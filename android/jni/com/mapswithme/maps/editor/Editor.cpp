@@ -292,9 +292,10 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetCuisines(JNIEnv * env, jclass clazz)
 {
   osm::TAllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
-  vector<string> keys(cuisines.size());
-  for (size_t i = 0; i < cuisines.size(); i++)
-    keys[i] = cuisines[i].first;
+  vector<string> keys;
+  keys.reserve(cuisines.size());
+  for (TCuisine const & cuisine : cuisines)
+    keys.push_back(cuisine.first);
   return ToJavaArray(env, keys);
 }
 
@@ -308,9 +309,10 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetCuisinesTranslations(JNIEnv * env, jclass clazz)
 {
   osm::TAllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
-  vector<string> keys(cuisines.size());
-  for (size_t i = 0; i < cuisines.size(); i++)
-    keys[i] = cuisines[i].second;
+  vector<string> keys;
+  keys.reserve(cuisines.size());
+  for (TCuisine const & cuisine : cuisines)
+    keys.push_back(cuisine.second);
   return ToJavaArray(env, keys);
 }
 
