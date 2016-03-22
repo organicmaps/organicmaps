@@ -1222,6 +1222,19 @@ UNIT_TEST(StorageTest_ChildrenSizeSingleMwm)
   TEST_EQUAL(southKoreaCountry.GetSubtreeMwmSizeBytes(), 48394664, ());
 }
 
+UNIT_TEST(StorageTest_ChildrenSizeTwoComponentMwm)
+{
+  Storage storage(kTwoComponentMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
+
+  Country const abkhaziaCountry = storage.CountryLeafByCountryId("Algeria");
+  TEST_EQUAL(abkhaziaCountry.GetSubtreeMwmCounter(), 1, ());
+  TEST_EQUAL(abkhaziaCountry.GetSubtreeMwmSizeBytes(), 90777295, ());
+
+  Country const algeriaCountry = storage.CountryByCountryId("Europe");
+  TEST_EQUAL(algeriaCountry.GetSubtreeMwmCounter(), 3, ());
+  TEST_EQUAL(algeriaCountry.GetSubtreeMwmSizeBytes(), 226126183, ());
+}
+
 UNIT_TEST(StorageTest_ParentSingleMwm)
 {
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
