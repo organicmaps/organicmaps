@@ -76,7 +76,7 @@
                                 <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="highlighted" backgroundImage="73375CB5-9E62-4312-9EEC-F7FDBA4D68EE"/>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="share_with_friends"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
@@ -108,7 +108,7 @@
                                 <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="highlighted" backgroundImage="73375CB5-9E62-4312-9EEC-F7FDBA4D68EE"/>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="close"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
@@ -160,7 +160,7 @@
         </view>
     </objects>
     <resources>
-        <image name="73375CB5-9E62-4312-9EEC-F7FDBA4D68EE" width="280" height="44"/>
+        <image name="dialog_btn_press" width="280" height="44"/>
         <image name="img_socializing" width="160" height="160"/>
     </resources>
 </document>
