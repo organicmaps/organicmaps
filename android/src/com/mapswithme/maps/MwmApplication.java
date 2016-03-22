@@ -13,6 +13,8 @@ import android.util.Log;
 import java.io.File;
 import java.util.List;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -32,6 +34,7 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.SaveCallback;
+import io.fabric.sdk.android.Fabric;
 import net.hockeyapp.android.CrashManager;
 
 public class MwmApplication extends Application
@@ -101,11 +104,13 @@ public class MwmApplication extends Application
     super.onCreate();
     mMainLoopHandler = new Handler(getMainLooper());
 
+    initHockeyApp();
+    initCrashlytics();
+
     initPaths();
     nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
                        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
                        Yota.isFirstYota(), UiUtils.isTablet());
-    initHockeyApp();
     initParse();
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
@@ -167,6 +172,12 @@ public class MwmApplication extends Application
                                                        : PrivateVariables.hockeyAppId());
     if (!TextUtils.isEmpty(id))
       CrashManager.register(this, id);
+  }
+
+  private void initCrashlytics()
+  {
+    if (!BuildConfig.FABRIC_API_KEY.startsWith("0000"))
+      Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
   }
 
   public boolean isFrameworkInitialized()
