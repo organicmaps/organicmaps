@@ -18,6 +18,7 @@
   navBar.width = superview.width;
   navBar.doneBlock = done;
   navBar.cancelBlock = cancel;
+  navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   [navBar setNeedsLayout];
   navBar.origin = {0., -navBar.height};
   [superview addSubview:navBar];
