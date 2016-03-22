@@ -2711,6 +2711,7 @@
     nb = Navn
     de = Name
     fi = Nimi
+    vi = Tên
 
   [address]
     en = Address
@@ -3199,7 +3200,7 @@
     ja = 現在地周辺
     ko = 근처 검색
     nl = Dichtbij mij
-    ru = Около меня
+    ru = Возле меня
     uk = Поруч
     zh-Hant = 我的附近
     pl = W pobliżu mnie
@@ -3528,6 +3529,7 @@
     ro = Bancomat
     nb = Minibank
     fi = Pankkiautomaatti
+    vi = ATM
 
   [bank]
     en = Bank
@@ -7257,6 +7259,7 @@
     it = Aggiorna tutte
     fr = Mettre à jour tout
     ja = 全てをアップデート
+    vi = Cập nhật tất cả
 
   [downloader_cancel_all]
     tags = ios,android,tizen
@@ -7289,6 +7292,7 @@
     ro = Anulare toate
     nb = Avbryt alle
     fi = Peruuta kaikki
+    vi = Hủy tất cả
 
   [downloader_downloaded_subtitle]
     tags = ios,android,tizen
@@ -7319,6 +7323,7 @@
     it = Scaricate
     fr = Téléchargé
     ja = ダウンロード済み
+    vi = Đã tải xuống
 
   [downloader_available_maps]
     tags = ios,android,tizen
@@ -7387,6 +7392,7 @@
     it = Vicino a me
     fr = Près de moi
     ja = 付近
+    vi = Gần tôi
 
   [downloader_status_maps]
     tags = ios,android
@@ -7416,6 +7422,7 @@
     it = Mappe
     fr = Cartes
     ja = 地図
+    vi = Bản đồ: %s
 
   [downloader_download_all_button]
     tags = ios,android
@@ -7445,6 +7452,7 @@
     it = Scarica tutte
     fr = Télécharger tout
     ja = 全てをダウンロード
+    vi = Tải xuống tất cả
 
   [downloader_downloading]
     tags = ios,android,tizen
@@ -7474,6 +7482,7 @@
     it = In scaricamento:
     fr = Téléchargement en cours :
     ja = づンロード中：
+    vi = Đang tải về:
 
   [downloader_search_results]
     en = Found
@@ -12590,6 +12599,7 @@
     it = Si prega di descrivere il problema in dettaglio in modo che la community OpenStreeMap possa riparare l’errore.
     fr = Veuillez décrire le problème en détail pour permettre à la communauté OpenStreeMap de réparer l'erreur.
     ja = OpenStreeMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。
+    vi = Xin mô tả chi tiết vấn đề để cộng đồng OpenStreeMap có thể sửa lỗi đó.
 
   [editor_report_problem_desription_2]
     en = Or do it yourself at http://www.openstreetmap.org/
@@ -12618,6 +12628,7 @@
     it = O fallo tu stesso su http://www.openstreetmap.org/
     fr = Ou faites-le vous-même à http://www.openstreetmap.org/
     ja = または、このURLでご自身で修正してください http://www.openstreetmap.org/
+    vi = Hoặc bạn có thể tự sửa tại http://www.openstreetmap.org/
 
   [editor_report_problem_send_button]
     en = Send
@@ -12646,6 +12657,7 @@
     it = Invia
     fr = Envoyer
     ja = 送信
+    vi = Gửi
 
   [editor_report_problem_title]
     en = Problem
@@ -12674,6 +12686,7 @@
     it = Problema
     fr = Problème
     ja = 問題
+    vi = Vấn đề
 
   [editor_report_problem_no_place_title]
     en = The place does not exist
@@ -12702,6 +12715,7 @@
     it = Questo luogo non esiste
     fr = Le lieu n'existe pas
     ja = この場所は存在しません
+    vi = Địa điểm này không tồn tại
 
   [editor_report_problem_under_construction_title]
     en = Сlosed for maintenance
@@ -12730,6 +12744,7 @@
     it = Chiuso per manutenzione
     fr = Fermé pour cause de maintenance
     ja = メンテナンスのため使えません
+    vi = Tạm dừng để bảo trì
 
   [editor_report_problem_duplicate_place_title]
     en = Duplicated place
@@ -12758,6 +12773,7 @@
     it = Luogo duplicato
     fr = Lieu doublon
     ja = 重複している場所
+    vi = Địa điểm trùng lặp
 
   [first_launch_congrats_title]
     en = MAPS.ME is ready to use
@@ -14460,6 +14476,7 @@
     it = Si prega di notare
     fr = À noter
     ja = ご注意ください
+    vi = Xin lưu ý
 
   [common_no_wifi_dialog]
     tags = ios, android
@@ -14489,6 +14506,7 @@
     it = Nessuna connessione WiFi. Vuoi continuare con la connessione dati?
     fr = Aucune connexion Wi-Fi. Voulez-vous continuer avec les données mobiles ?
     ja = WiFi接続がありません。モバイルデータ通信を続行しますか?
+    vi = Không có Wifi. Bạn có muốn tiếp tục dùng dữ liệu di động?
 
   [downloader_delete_map_dialog]
     tags = ios, android
@@ -14518,6 +14536,7 @@
     it = Tutti i cambiamenti nella mappa saranno cancellati insieme alla mappa.
     fr = Toutes les modifications de la carte seront supprimées avec elle.
     ja = この地図を削除すると、今まで行った変更の全ても一緒に削除されます。
+    vi = Tất cả những thay đổi của bản đồ sẽ bị xóa cùng với bản đồ đó.
 
   [downloader_update_maps]
     tags = ios, android
@@ -14547,6 +14566,7 @@
     it = Aggiorna mappe
     fr = Mettre à jour les cartes
     ja = 地図をアップデート
+    vi = Cập nhật các bản đồ
 
   [downloader_mwm_migration_dialog]
     tags = ios, android
@@ -14576,6 +14596,7 @@
     it = Per creare un percorso, devi aggiornare tutte le mappe e pianificare nuovamente il percorso.
     fr = Pour créer un itinéraire, vous devez mettre à jour toutes les cartes puis reprogrammer l'itinéraire.
     ja = ルートを作成するには、全ての地図をアップデートした後で再びルート計画を行う必要があります。
+    vi = Để tạo một tuyến đường, bạn cần cập nhật tất cả các bản đồ và sau đó lập lại tuyến đường.
 
   [downloader_search_field_hint]
     tags = ios, android
@@ -14605,6 +14626,7 @@
     it = Trova la mappa
     fr = Trouver la carte
     ja = 地図を検索
+    vi = Tìm bản đồ
 
   [migration_update_all_button]
     tags = ios, android
@@ -14634,6 +14656,7 @@
     it = Aggiorna tutte le mappe
     fr = Mettre à jour toutes les cartes
     ja = 全ての地図をアップデート
+    vi = Cập nhật tất cả các bản đồ
 
   [migration_delete_all_download_current_button]
     tags = ios, android
@@ -14663,6 +14686,7 @@
     it = Scarica la mappa attuale e cancella quelle vecchie
     fr = Téléchargez la carte actuelle et supprimez les anciennes
     ja = 現在の地図をダウンロードして古い地図を削除
+    vi = Tải xuống bản đồ hiện tại và xóa những bản đồ cũ
 
   [migration_prefetch_status]
     tags = ios, android
@@ -14692,6 +14716,7 @@
     it = Preparazione aggiornamento delle mappe…
     fr = Préparation de la mise à jour des cartes…
     ja = 地図のアップデートの準備中…
+    vi = Đang chuẩn bị cập nhật các bản đồ…
 
   [migration_download_error_dialog]
     tags = ios, android
@@ -14721,6 +14746,7 @@
     it = Errore nel download
     fr = Erreur de téléchargement
     ja = ダウンロードエラー
+    vi = Lỗi tải xuống
 
   [common_check_internet_connection_dialog]
     tags = ios, android
@@ -14750,6 +14776,7 @@
     it = Sei pregato di verificare le tue impostazioni e assicurarti che il tuo dispositivo sia connesso a internet.
     fr = Veuillez vérifier vos paramètres et vous assurer que votre appareil est bien connecté à Internet.
     ja = 設定をチェックし、デバイスがインターネットに接続されているか確認してください。
+    vi = Xin kiểm tra các thiết lập và đảm bảo thiết bị của bạn có kết nối Internet.
 
   [downloader_no_space_title]
     tags = ios, android
@@ -14779,6 +14806,7 @@
     it = Spazio insufficiente
     fr = Espace insuffisant
     ja = 十分な空き容量がありません
+    vi = Không đủ dung lượng
 
   [downloader_no_space_message]
     tags = ios, android
@@ -14808,6 +14836,7 @@
     it = Si prega di rimuovere i dati non necessari
     fr = Veuillez supprimer les données inutiles
     ja = 不必要なデータを削除してください
+    vi = Xin xóa dữ liệu không cần thiết
 
   [editor_general_auth_error_dialog]
     tags = ios, android
@@ -14837,6 +14866,7 @@
     it = Errore generale di accesso.
     fr = Erreur générale de connexion.
     ja = 一般的なログインエラー。
+    vi = Lỗi đăng nhập chung.
 
   [editor_login_error_dialog]
     tags = ios, android
@@ -14866,6 +14896,7 @@
     it = Errore accesso.
     fr = Erreur de connexion.
     ja = ログインエラー。
+    vi = Lỗi đăng nhập.
 
   [editor_login_failed_dialog]
     tags = ios, android
@@ -14895,6 +14926,7 @@
     it = Accesso fallito
     fr = La connexion a échoué
     ja = ログインに失敗しました
+    vi = Đăng nhập thất bại
 
   [editor_username_error_dialog]
     tags = ios, android
@@ -14924,6 +14956,7 @@
     it = Nome utente non valido
     fr = Le nom d'utilisateur est invalide
     ja = ユーザー名が無効です
+    vi = Tên đăng nhập không hợp lệ
 
 [editor_place_edited_dialog]
     tags = ios, android
@@ -14953,6 +14986,7 @@
     it = Hai modificato un oggetto!
     fr = Vous avez modifié un objet !
     ja = オブジェクトを編集しました!
+    vi = Bạn đã chỉnh sửa một đối tượng!
 
   [editor_login_with_osm]
     tags = ios, android
@@ -14982,6 +15016,7 @@
     it = Accedi con OpenStreetMap
     fr = Connexion avec OpenStreetMap
     ja = OpenStreetMapを使ってログイン
+    vi = Đăng nhập với OpenStreetMap
 
   [editor_profile_changes]
     tags = ios, android
@@ -15071,6 +15106,7 @@
     it = Sposta la mappa per selezionare l’esatta posizione dell’oggetto.
     fr = Tirez la carte pour sélectionner la bonne position de l'objet.
     ja = 地図をプルしてオブジェクトの正しい場所を選択します。
+    vi = Kéo bản đồ để chọn vị trí chính xác của đối tượng
 
   [editor_add_select_category]
     tags = ios, android
@@ -15100,6 +15136,7 @@
     it = Seleziona categoria
     fr = Sélectionner une catégorie
     ja = カテゴリを選択
+    vi = Chọn thể loại
 
   [editor_add_select_category_popular_subtitle]
     tags = ios, android
@@ -15129,6 +15166,7 @@
     it = Popolari
     fr = Populaire
     ja = 人気
+    vi = Phổ biến
 
   [editor_add_select_category_all_subtitle]
     tags = ios, android
@@ -15158,6 +15196,7 @@
     it = Tutte le categorie
     fr = Toutes les catégories
     ja = 全てのカテゴリ
+    vi = Mọi thể loại
 
   [editor_edit_place_title]
     tags = ios, android
@@ -15187,6 +15226,7 @@
     it = Modifica
     fr = Modification
     ja = 編集中
+    vi = Chỉnh sửa
 
   [editor_add_place_title]
     tags = ios, android
@@ -15216,6 +15256,7 @@
     it = Aggiunta
     fr = Ajout
     ja = 追加中
+    vi = Nhập
 
   [editor_edit_place_name_hint]
     tags = ios, android
@@ -15245,6 +15286,7 @@
     it = Nome del luogo
     fr = Nom du lieu
     ja = 場所の名前
+    vi = Tên địa điểm
 
   [editor_edit_place_category_title]
     tags = ios, android
@@ -15274,6 +15316,7 @@
     it = Categoria
     fr = Catégorie
     ja = カテゴリ
+    vi = Thể loại
 
   [detailed_problem_description]
     en = Detailed description of a problem
@@ -15302,6 +15345,7 @@
     it = Descrizione dettagliata di un problema
     fr = Description détaillée d'un problème
     ja = 問題の詳細な説明
+    vi = Mô tả chi tiết của vấn đề
 
   [editor_report_problem_other_title]
     en = A different problem
@@ -15330,6 +15374,7 @@
     it = Un problema diverso
     fr = Un problème différent
     ja = 異なる問題
+    vi = Một vấn đề khác
 
   [placepage_add_place_button]
     tags = ios, android
@@ -15359,6 +15404,7 @@
     it = Aggiungi un luogo
     fr = Ajouter une position
     ja = 場所を追加
+    vi = Nhập một địa điểm
 
   [placepage_report_problem_button]
     tags = ios, android
@@ -15388,6 +15434,7 @@
     it = Riporta un problema
     fr = Signaler un problème
     ja = 問題を報告
+    vi = Báo cáo vấn đề
 
   [whatsnew_smallmwm_header]
     tags = ios, android
@@ -15537,6 +15584,7 @@
     it = Modifica la mappa*
     fr = Modifier la carte*
     ja = 地図を編集*
+    vi = Chỉnh sửa bản đồ*
 
   [whatsnew_editor_message_1]
     tags = ios, android
@@ -15566,6 +15614,7 @@
     it = Aggiungi nuovi luoghi alla mappa, e modifica quelli già esistenti direttamente dall’app.
     fr = Ajoutez de nouveaux lieux sur la carte et modifiez les lieux existants directement depuis l'appli.
     ja = アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。
+    vi = Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.
 
   [whatsnew_editor_message_2]
     tags = ios, android
@@ -15595,6 +15644,7 @@
     it = * MAPS.ME usa i dati della community OpenStreetMap.
     fr = * MAPS.ME utilise les données de la communauté OpenStreetMap.
     ja = * MAPS.MEはOpenStreetMapコミュニティのデータを使用しています。
+    vi = * MAPS.ME sử dụng dữ liệu của cộng đồng OpenStreetMap.
 
   [onboarding_offline_navigation_title]
     tags = ios, android
@@ -15624,6 +15674,7 @@
     it = Non ti perderai mai più
     fr = Vous ne vous perdrez plus jamais
     ja = もう道に迷うことは絶対ありません
+    vi = Bạn sẽ không bao giờ bị lạc nữa
 
   [onboarding_offline_navigation_message]
     tags = ios, android
@@ -15653,6 +15704,7 @@
     it = Pianifica percorsi ottimali in auto o a piedi, anche senza connessione internet!
     fr = Planifiez des itinéraires optimaux en voiture ou à pied, même en l'absence de connexion Internet !
     ja = インターネット接続がなくても、車や徒歩での最短ルートを計画できます!
+    vi = Lập tuyến đường xe hơi và đi bộ tối ưu, mặc dù không có kết nối Internet!
 
   [onboarding_offline_navigation_title_2]
     tags = ios, android
@@ -15682,6 +15734,7 @@
     it = Navigazione offline
     fr = Navigation hors-ligne
     ja = オフラインナビゲーション
+    vi = Chỉ đường ngoại tuyến
 
   [onboarding_offline_navigation_message_2]
     tags = ios, android
@@ -15711,6 +15764,7 @@
     it = Pianifica percorsi ottimali in auto o a piedi.
     fr = Planifiez des itinéraires optimaux en voiture ou à pied.
     ja = 車や徒歩での最短ルートを計画できます。
+    vi = Lập tuyến đường xe hơi và đi bộ tối ưu.
 
   [onboarding_offline_maps_title]
     tags = ios, android
@@ -15770,6 +15824,7 @@
     it = Scarica una volta le mappe per l’area desiderata e usa la navigazione e le funzioni di ricerca senza una connessione internet.
     fr = Téléchargez une seule fois les cartes de la zone désirée, et utilisez les fonctions de navigation et de recherche sans connexion Internet.
     ja = 希望するエリアの地図を一回ダウンロードするだけで、インターネット接続なしでもナビゲーションや検索の機能を使用できます。
+    vi = Chỉ tải xuống các bản đồ của khu vực bạn muốn một lần, và sử dụng các chức năng dẫn đường và tìm kiếm mà không cần kết nối Internet.
 
   [onboarding_notifications_message]
     tags = ios, android
@@ -15799,6 +15854,7 @@
     it = Per ricevere le mappe aggiornate, attiva le notifiche di aggiornamento
     fr = Pour recevoir les dernières cartes, recevez des notifications de mise à jour
     ja = 最新地図の入手のためにアップデート通知を受信
+    vi = Để nhận các bản đồ mới nhất, hãy nhận thông báo cập nhật
 
   [onboarding_notifications_title]
     tags = ios, android
@@ -15828,6 +15884,7 @@
     it = Attiva notifiche di aggiornamento
     fr = Activer les notifications de mise à jour
     ja = アップデート通知を有効にする
+    vi = Cho phép thông báo cập nhật
 
   [onboarding_location_title]
     tags = ios, android
@@ -15857,6 +15914,7 @@
     it = Aiutaci a trovarti
     fr = Aidez-nous à vous trouver
     ja = 現在地判定のお手伝い
+    vi = Giúp chúng tôi tìm bạn
 
   [onboarding_location_message]
     tags = ios, android
