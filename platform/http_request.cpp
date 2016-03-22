@@ -396,22 +396,6 @@ HttpRequest * HttpRequest::PostJson(string const & url, string const & postData,
   return new MemoryHttpRequest(url, postData, onFinish, onProgress);
 }
 
-namespace
-{
-  class ErrorHttpRequest : public HttpRequest
-  {
-    string m_filePath;
-  public:
-    ErrorHttpRequest(string const & filePath)
-      : HttpRequest(CallbackT(), CallbackT()), m_filePath(filePath)
-    {
-      m_status = EFailed;
-    }
-
-    virtual string const & Data() const { return m_filePath; }
-  };
-}
-
 HttpRequest * HttpRequest::GetFile(vector<string> const & urls,
                                    string const & filePath, int64_t fileSize,
                                    CallbackT const & onFinish, CallbackT const & onProgress,
@@ -425,13 +409,8 @@ HttpRequest * HttpRequest::GetFile(vector<string> const & urls,
   {
     // Can't create or open file for writing.
     LOG(LWARNING, ("Can't create file", filePath, "with size", fileSize, e.Msg()));
-
-    // Mark the end of download with error.
-    ErrorHttpRequest error(filePath);
-    onFinish(error);
-
-    return 0;
   }
+  return nullptr;
 }
 
 } // namespace downloader

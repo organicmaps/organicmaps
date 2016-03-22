@@ -8,6 +8,22 @@
 #include "std/bind.hpp"
 #include "base/string_utils.hpp"
 
+namespace
+{
+class ErrorHttpRequest : public downloader::HttpRequest
+{
+  string m_filePath;
+public:
+  ErrorHttpRequest(string const & filePath)
+  : HttpRequest(CallbackT(), CallbackT()), m_filePath(filePath)
+  {
+    m_status = EFailed;
+  }
+
+  virtual string const & Data() const { return m_filePath; }
+};
+}  // anonymous namespace
+
 namespace storage
 {
 HttpMapFilesDownloader::~HttpMapFilesDownloader()
@@ -33,6 +49,13 @@ void HttpMapFilesDownloader::DownloadMapFile(vector<string> const & urls, string
   m_request.reset(downloader::HttpRequest::GetFile(
       urls, path, size, bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, onDownloaded, _1),
       bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, onProgress, _1)));
+
+  if (!m_request)
+  {
+    // Mark the end of download with error.
+    ErrorHttpRequest error(path);
+    OnMapFileDownloaded(onDownloaded, error);
+  }
 }
 
 MapFilesDownloader::TProgress HttpMapFilesDownloader::GetDownloadingProgress()
