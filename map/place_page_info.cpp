@@ -2,6 +2,8 @@
 
 #include "indexer/osm_editor.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 namespace place_page
 {
 char const * Info::kSubtitleSeparator = " • ";
@@ -25,15 +27,19 @@ string Info::FormatNewBookmarkName() const
 
 string Info::GetTitle() const
 {
-  string const defaultName = GetDefaultName();
-  string const alt = m_customName.empty() ? m_nativeOrInternationalName : m_customName;
-  if (alt.empty())
-    return defaultName;
-  if (defaultName.empty())
-    return alt;
-  if (alt == defaultName)
-    return alt;
-  return defaultName + " (" + alt + ")";
+  if (!m_customName.empty())
+    return m_customName;
+
+  // Prefer names in native language over default ones.
+  int8_t const langCode = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+  if (langCode != StringUtf8Multilang::kUnsupportedLanguageCode)
+  {
+    string native;
+    if (m_name.GetString(langCode, native))
+      return native;
+  }
+
+  return GetDefaultName();
 }
 
 string Info::GetSubtitle() const
