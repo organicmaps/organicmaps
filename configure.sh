@@ -7,6 +7,7 @@ set -e -u
 BASE_PATH=`dirname "$0"`
 PRIVATE_HEADER="$BASE_PATH/private.h"
 PRIVATE_PROPERTIES="$BASE_PATH/android/secure.properties"
+PRIVATE_FABRIC_PROPERTIES="$BASE_PATH/android/fabric.properties"
 SAVED_PRIVATE_REPO_FILE="$BASE_PATH/.private_repository_url"
 TMP_REPO_DIR="$BASE_PATH/.tmp.private.repo"
 
@@ -47,8 +48,7 @@ else
 #define HOCKEY_APP_BETA_KEY ""
 #define CRASHLYTICS_IOS_KEY ""
 ' > "$PRIVATE_HEADER"
-    echo '
-ext {
+    echo 'ext {
   spropStoreFile = "../tools/android/debug.keystore"
   spropStorePassword = "12345678"
   spropKeyAlias = "debug"
@@ -59,6 +59,10 @@ ext {
   spropYotaKeyPassword = "12345678"
 }
 ' > "$PRIVATE_PROPERTIES"
+
+    echo 'apiSecret=0000000000000000000000000000000000000000000000000000000000000000
+apiKey=0000000000000000000000000000000000000000
+' > "$PRIVATE_FABRIC_PROPERTIES"
     exit
   fi
 fi
