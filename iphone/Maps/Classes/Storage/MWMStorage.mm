@@ -32,17 +32,16 @@
 
 + (void)deleteNode:(storage::TCountryId const &)countryId alertController:(MWMAlertViewController *)alertController
 {
-  auto & f = GetFramework();
-  if (f.HasUnsavedEdits(countryId))
+  if (GetFramework().HasUnsavedEdits(countryId))
   {
-    [alertController presentUnsavedEditsAlertWithOkBlock:^
+    [alertController presentUnsavedEditsAlertWithOkBlock:[countryId]
     {
-       f.Storage().DeleteNode(countryId);
+      GetFramework().Storage().DeleteNode(countryId);
     }];
   }
   else
   {
-    f.Storage().DeleteNode(countryId);
+    GetFramework().Storage().DeleteNode(countryId);
   }
 }
 
