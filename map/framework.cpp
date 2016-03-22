@@ -1891,6 +1891,25 @@ void Framework::UpdateMinBuildingsTapZoom()
   m_minBuildingsTapZoom = feature::GetDrawableScaleRange(classif().GetTypeByPath({"building"})).first + 1;
 }
 
+unique_ptr<FeatureType> Framework::FindBuildingAtPoint(m2::PointD const & mercator) const
+{
+  unique_ptr<FeatureType> feature;
+  if (GetDrawScale() >= m_minBuildingsTapZoom)
+  {
+    constexpr int kScale = scales::GetUpperScale();
+    constexpr double kSelectRectWidthInMeters = 1.1;
+    m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
+    m_model.ForEachFeature(rect, [&](FeatureType & ft)
+    {
+      if (feature == nullptr &&
+          ft.GetFeatureType() == feature::GEOM_AREA && ftypes::IsBuildingChecker::Instance()(ft) &&
+          ft.GetLimitRect(kScale).IsPointInside(mercator) && feature::GetMinDistanceMeters(ft, mercator) == 0.0)
+        feature.reset(new FeatureType(ft));
+    }, kScale);
+  }
+  return feature;
+}
+
 df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(df::TapInfo const & tapInfo,
                                                               place_page::Info & outInfo) const
 {
@@ -1941,12 +1960,10 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(df::TapInfo const 
 
   FeatureID featureTapped = tapInfo.m_featureTapped;
 
-  if (!featureTapped.IsValid() && df::GetDrawTileScale(m_currentModelView) >= m_minBuildingsTapZoom)
+  if (!featureTapped.IsValid())
   {
-    unique_ptr<FeatureType> const feature = GetFeatureAtPoint(m_currentModelView.PtoG(pxPoint2d));
-
-    if (feature != nullptr && feature->GetFeatureType() == feature::GEOM_AREA &&
-        ftypes::IsBuildingChecker::Instance()(*feature))
+    unique_ptr<FeatureType> const feature = FindBuildingAtPoint(m_currentModelView.PtoG(pxPoint2d));
+    if (feature != nullptr)
       featureTapped = feature->GetID();
   }
 

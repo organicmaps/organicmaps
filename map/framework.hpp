@@ -291,6 +291,7 @@ private:
   /// outInfo is valid only if return value is not df::SelectionShape::OBJECT_EMPTY.
   df::SelectionShape::ESelectedObject OnTapEventImpl(df::TapInfo const & tapInfo,
                                                      place_page::Info & outInfo) const;
+  unique_ptr<FeatureType> FindBuildingAtPoint(m2::PointD const & mercator) const;
   void UpdateMinBuildingsTapZoom();
 
   int m_minBuildingsTapZoom;
