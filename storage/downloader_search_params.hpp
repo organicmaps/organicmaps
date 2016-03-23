@@ -24,6 +24,7 @@ struct DownloaderSearchResults
   DownloaderSearchResults() : m_endMarker(false) {}
 
   vector<DownloaderSearchResult> m_results;
+  string m_query;
   /// \brief |m_endMarker| == true if it's the last call of TOnResults callback for the search.
   /// Otherwise |m_endMarker| == false.
   bool m_endMarker;
