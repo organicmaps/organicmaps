@@ -22,7 +22,8 @@ extern NSString * const kPlaceCellIdentifier;
   self = [super initWithDelegate:delegate];
   if (self)
   {
-    NSMutableOrderedSet<NSString *> * nsSearchCountryIds = [NSMutableOrderedSet orderedSetWithCapacity:results.m_results.size()];
+    NSMutableOrderedSet<NSString *> * nsSearchCountryIds =
+        [NSMutableOrderedSet orderedSetWithCapacity:results.m_results.size()];
     NSMutableDictionary<NSString *, NSString *> * nsSearchResults = [@{} mutableCopy];
     for (auto const & result : results.m_results)
     {

@@ -11,7 +11,9 @@ namespace storage
 struct DownloaderSearchResult
 {
   DownloaderSearchResult(TCountryId const & countryId, string const & matchedName)
-    : m_countryId(countryId), m_matchedName(matchedName) {}
+    : m_countryId(countryId), m_matchedName(matchedName)
+  {
+  }
 
   TCountryId m_countryId;
   /// \brief |m_matchedName| is a name of found feature in case of searching in World.mwm
