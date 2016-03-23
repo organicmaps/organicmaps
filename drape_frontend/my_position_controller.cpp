@@ -1,9 +1,9 @@
-#include "my_position_controller.hpp"
-#include "animation_constants.hpp"
-#include "visual_params.hpp"
-#include "animation/base_interpolator.hpp"
-#include "animation/interpolations.hpp"
-#include "animation/model_view_animation.hpp"
+#include "drape_frontend/my_position_controller.hpp"
+#include "drape_frontend/animation_utils.hpp"
+#include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/animation/base_interpolator.hpp"
+#include "drape_frontend/animation/interpolations.hpp"
+#include "drape_frontend/animation/model_view_animation.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -582,10 +582,9 @@ void MyPositionController::AnimationStarted(ref_ptr<BaseModelViewAnimation> anim
 
 void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimut, ScreenBase const & screen)
 {
-  double moveDuration = ModelViewAnimation::GetMoveDuration(oldPos, m_position, screen);
-  double rotateDuration = ModelViewAnimation::GetRotateDuration(oldAzimut, m_drawDirection);
-  double maxDuration = max(moveDuration, rotateDuration);
-  if (maxDuration > 0.0 && maxDuration < kMaxAnimationTimeSec)
+  double const moveDuration = ModelViewAnimation::GetMoveDuration(oldPos, m_position, screen);
+  double const rotateDuration = ModelViewAnimation::GetRotateDuration(oldAzimut, m_drawDirection);
+  if (df::IsAnimationAllowed(max(moveDuration, rotateDuration), screen))
   {
     if (IsModeChangeViewport())
     {

@@ -1,5 +1,6 @@
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/animation_constants.hpp"
+#include "drape_frontend/animation_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/scales.hpp"
@@ -449,7 +450,7 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim, TAnimation
     double scaleDuration = ModelViewAnimation::GetScaleDuration(startRect.GetLocalRect().SizeX(), rect.GetLocalRect().SizeX());
     if (scaleDuration > kMaxAnimationTimeSec)
       scaleDuration = kMaxAnimationTimeSec;
-    if (max(max(angleDuration, moveDuration), scaleDuration) <= kMaxAnimationTimeSec)
+    if (df::IsAnimationAllowed(max(max(angleDuration, moveDuration), scaleDuration), screen))
     {
       ASSERT(animCreator != nullptr, ());
       animCreator(startRect, rect, angleDuration, moveDuration, scaleDuration);
@@ -497,7 +498,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
     double const angleDuration = ModelViewAnimation::GetRotateDuration(startRect.Angle().val(), -azimuth);
     double const moveDuration = ModelViewAnimation::GetMoveDuration(startRect.GlobalZero(), newCenter, screen);
     double const duration = max(angleDuration, moveDuration);
-    if (duration > 0.0 && duration < kMaxAnimationTimeSec)
+    if (df::IsAnimationAllowed(duration, screen))
     {
       m_animation.reset(new FollowAndRotateAnimation(startRect, targetLocalRect, userPos,
                                                      screen.GtoP(userPos), pixelPos, azimuth, duration));

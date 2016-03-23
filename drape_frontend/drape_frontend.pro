@@ -29,6 +29,7 @@ SOURCES += \
     gui/ruler_helper.cpp \
     gui/shape.cpp \
     gui/skin.cpp \
+    animation_utils.cpp \
     apply_feature_functors.cpp \
     area_shape.cpp \
     arrow3d.cpp \
@@ -112,6 +113,7 @@ HEADERS += \
     gui/shape.hpp \
     gui/skin.hpp \
     animation_constants.hpp \
+    animation_utils.hpp \
     apply_feature_functors.hpp \
     area_shape.hpp \
     arrow3d.hpp \
