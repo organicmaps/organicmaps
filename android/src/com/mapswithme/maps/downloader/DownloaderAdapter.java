@@ -3,8 +3,8 @@ package com.mapswithme.maps.downloader;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,8 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.BottomSheetHelper;
-import com.mapswithme.util.Graphics;
 import com.mapswithme.util.StringUtils;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
@@ -58,13 +59,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private final SparseArray<String> mHeaders = new SparseArray<>();
   private final Stack<PathEntry> mPath = new Stack<>();
 
-  private final SparseArray<Drawable> mIconsCache = new SparseArray<>();
+  private final SparseIntArray mIconsCache = new SparseIntArray();
 
   private int mListenerSlot;
 
   private enum MenuItem
   {
-    DOWNLOAD(R.drawable.ic_downloader_download, R.string.downloader_download_map)
+    DOWNLOAD(R.drawable.ic_download, R.string.downloader_download_map)
     {
       @Override
       void invoke(CountryItem item, DownloaderAdapter adapter)
@@ -435,39 +436,41 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     private void updateStatus()
     {
-      boolean inProgress = (mItem.status == CountryItem.STATUS_PROGRESS ||
-                            mItem.status == CountryItem.STATUS_ENQUEUED);
+      boolean pending = (mItem.status == CountryItem.STATUS_ENQUEUED);
+      boolean inProgress = (mItem.status == CountryItem.STATUS_PROGRESS || pending);
 
       UiUtils.showIf(inProgress, mProgress);
       UiUtils.showIf(!inProgress, mStatus);
+      mProgress.setPending(pending);
 
       if (inProgress)
       {
-        mProgress.setProgress(mItem.status == CountryItem.STATUS_PROGRESS ? mItem.progress : 0);
+        if (!pending)
+          mProgress.setProgress(mItem.progress);
         return;
       }
 
       boolean clickable = mItem.isExpandable();
-      @DrawableRes int iconRes;
+      @AttrRes int iconAttr;
 
       switch (mItem.status)
       {
       case CountryItem.STATUS_DONE:
         clickable = false;
-        iconRes = R.drawable.ic_done;
+        iconAttr = R.attr.status_done;
         break;
 
       case CountryItem.STATUS_DOWNLOADABLE:
       case CountryItem.STATUS_PARTLY:
-        iconRes = R.drawable.ic_downloader_download;
+        iconAttr = R.attr.status_downloadable;
         break;
 
       case CountryItem.STATUS_FAILED:
-        iconRes = R.drawable.ic_downloader_retry;
+        iconAttr = R.attr.status_failed;
         break;
 
       case CountryItem.STATUS_UPDATABLE:
-        iconRes = R.drawable.ic_downloader_update;
+        iconAttr = R.attr.status_updatable;
         break;
 
       default:
@@ -475,7 +478,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
 
       mStatus.setFocusable(clickable);
-      mStatus.setImageDrawable(resolveIcon(iconRes));
+      mStatus.setImageResource(resolveIcon(iconAttr));
     }
 
     void bind(CountryItem item)
@@ -514,27 +517,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     }
   }
 
-  private Drawable resolveIcon(@DrawableRes int iconRes)
+  private @DrawableRes int resolveIcon(@AttrRes int iconAttr)
   {
-    Drawable res = mIconsCache.get(iconRes);
-    if (res == null)
+    int res = mIconsCache.get(iconAttr);
+    if (res == 0)
     {
-      switch (iconRes)
-      {
-      case R.drawable.ic_downloader_download:
-        res = Graphics.tint(mActivity, iconRes);
-        break;
-
-      case R.drawable.ic_done:
-        res = Graphics.tint(mActivity, iconRes, R.attr.colorAccent);
-        break;
-
-      default:
-        //noinspection deprecation
-        res = mActivity.getResources().getDrawable(iconRes);
-      }
-
-      mIconsCache.put(iconRes, res);
+      res = ThemeUtils.getResource(mActivity, R.attr.downloaderTheme, iconAttr);
+      mIconsCache.put(iconAttr, res);
     }
 
     return res;
