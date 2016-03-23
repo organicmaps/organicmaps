@@ -1424,11 +1424,10 @@ bool Storage::GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInf
 
 void Storage::CorrectJustDownloadedAndQueue(TQueue::iterator justDownloadedItem)
 {
+  m_justDownloaded.insert(justDownloadedItem->GetCountryId());
   m_queue.erase(justDownloadedItem);
   if (m_queue.empty())
     m_justDownloaded.clear();
-  else
-    m_justDownloaded.insert(justDownloadedItem->GetCountryId());
 }
 
 void Storage::GetQueuedChildren(TCountryId const & parent, TCountriesVec & queuedChildren) const
