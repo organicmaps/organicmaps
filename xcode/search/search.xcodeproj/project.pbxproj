@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3400A67D1CA27774003DA0EC /* geometry_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3400A67B1CA27774003DA0EC /* geometry_cache.cpp */; };
+		3400A67E1CA27774003DA0EC /* geometry_cache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3400A67C1CA27774003DA0EC /* geometry_cache.hpp */; };
 		34527C581C89D6240015050E /* pre_ranking_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34527C541C89D6240015050E /* pre_ranking_info.hpp */; };
 		34527C591C89D6240015050E /* ranking_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34527C551C89D6240015050E /* ranking_info.cpp */; };
 		34527C5A1C89D6240015050E /* ranking_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34527C561C89D6240015050E /* ranking_info.hpp */; };
@@ -134,6 +136,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3400A67B1CA27774003DA0EC /* geometry_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geometry_cache.cpp; sourceTree = "<group>"; };
+		3400A67C1CA27774003DA0EC /* geometry_cache.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geometry_cache.hpp; sourceTree = "<group>"; };
 		34527C541C89D6240015050E /* pre_ranking_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pre_ranking_info.hpp; sourceTree = "<group>"; };
 		34527C551C89D6240015050E /* ranking_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ranking_info.cpp; sourceTree = "<group>"; };
 		34527C561C89D6240015050E /* ranking_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ranking_info.hpp; sourceTree = "<group>"; };
@@ -283,6 +287,8 @@
 		347F333D1C45413C009758CC /* v2 */ = {
 			isa = PBXGroup;
 			children = (
+				3400A67B1CA27774003DA0EC /* geometry_cache.cpp */,
+				3400A67C1CA27774003DA0EC /* geometry_cache.hpp */,
 				34C0C4151C9AE1FA00FDA0D1 /* nested_rects_cache.cpp */,
 				34C0C4161C9AE1FA00FDA0D1 /* nested_rects_cache.hpp */,
 				34527C541C89D6240015050E /* pre_ranking_info.hpp */,
@@ -474,6 +480,7 @@
 				34527C581C89D6240015050E /* pre_ranking_info.hpp in Headers */,
 				675346DE1A40560D00A0A8C3 /* approximate_string_match.hpp in Headers */,
 				56EB1ED61C6B6E130022D831 /* locality_scorer.hpp in Headers */,
+				3400A67E1CA27774003DA0EC /* geometry_cache.hpp in Headers */,
 				675346F31A40560D00A0A8C3 /* search_common.hpp in Headers */,
 				675346EE1A40560D00A0A8C3 /* locality_finder.hpp in Headers */,
 				675346EC1A40560D00A0A8C3 /* latlon_match.hpp in Headers */,
@@ -623,6 +630,7 @@
 				34527C591C89D6240015050E /* ranking_info.cpp in Sources */,
 				347F33641C45413C009758CC /* mwm_context.cpp in Sources */,
 				34E44E701C4922E40057A5C4 /* intersection_result.cpp in Sources */,
+				3400A67D1CA27774003DA0EC /* geometry_cache.cpp in Sources */,
 				347F335A1C45413C009758CC /* features_layer_matcher.cpp in Sources */,
 				675346E21A40560D00A0A8C3 /* house_detector.cpp in Sources */,
 				347F33621C45413C009758CC /* house_to_street_table.cpp in Sources */,
