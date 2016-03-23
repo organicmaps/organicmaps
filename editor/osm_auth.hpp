@@ -19,6 +19,7 @@ public:
   enum HTTP : int
   {
     OK = 200,
+    Found = 302,
     BadXML = 400,
     BadAuth = 401,
     Redacted = 403,
