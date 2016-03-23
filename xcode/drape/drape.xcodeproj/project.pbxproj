@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		347F32F91C45383E009758CC /* debug_rect_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F32F71C45383E009758CC /* debug_rect_renderer.cpp */; };
 		347F32FA1C45383E009758CC /* debug_rect_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F32F81C45383E009758CC /* debug_rect_renderer.hpp */; };
+		3492DA0B1CA2D91C00C1F3B3 /* visual_scale.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492DA0A1CA2D91C00C1F3B3 /* visual_scale.hpp */; };
 		670947231BDF9A4F005014C0 /* data_buffer_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */; };
 		670947241BDF9A4F005014C0 /* depth_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947161BDF9A4F005014C0 /* depth_constants.hpp */; };
 		670947251BDF9A4F005014C0 /* fribidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947171BDF9A4F005014C0 /* fribidi.cpp */; };
@@ -122,6 +123,7 @@
 /* Begin PBXFileReference section */
 		347F32F71C45383E009758CC /* debug_rect_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug_rect_renderer.cpp; sourceTree = "<group>"; };
 		347F32F81C45383E009758CC /* debug_rect_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = debug_rect_renderer.hpp; sourceTree = "<group>"; };
+		3492DA0A1CA2D91C00C1F3B3 /* visual_scale.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = visual_scale.hpp; sourceTree = "<group>"; };
 		670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = data_buffer_impl.hpp; sourceTree = "<group>"; };
 		670947161BDF9A4F005014C0 /* depth_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = depth_constants.hpp; sourceTree = "<group>"; };
 		670947171BDF9A4F005014C0 /* fribidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fribidi.cpp; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 		6729A4F31A691F6A007D5872 /* drape */ = {
 			isa = PBXGroup;
 			children = (
+				3492DA0A1CA2D91C00C1F3B3 /* visual_scale.hpp */,
 				6743D3421C3533AE0095054B /* support_manager.cpp */,
 				6743D3431C3533AE0095054B /* support_manager.hpp */,
 				6729A53E1A69213A007D5872 /* shaders */,
@@ -418,6 +421,7 @@
 				670947231BDF9A4F005014C0 /* data_buffer_impl.hpp in Headers */,
 				6729A59B1A69213A007D5872 /* render_bucket.hpp in Headers */,
 				6729A56C1A69213A007D5872 /* binding_info.hpp in Headers */,
+				3492DA0B1CA2D91C00C1F3B3 /* visual_scale.hpp in Headers */,
 				6729A5971A69213A007D5872 /* overlay_tree.hpp in Headers */,
 				6729A5751A69213A007D5872 /* drape_global.hpp in Headers */,
 				347F32FA1C45383E009758CC /* debug_rect_renderer.hpp in Headers */,
