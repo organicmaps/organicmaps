@@ -29,9 +29,34 @@ m2::RectD GetBoundingRect(vector<m2::PointD> const & geometry)
   return rect;
 }
 
-bool OsmFeatureHasTags(pugi::xml_node const & osmFt)
+bool OsmFeatureHasTags(pugi::xml_node const & osmFt) { return osmFt.child("tag"); }
+vector<string> const static kMainTags = {"amenity", "shop",      "tourism", "historic",
+                                         "craft",   "emergency", "barrier", "highway",
+                                         "office",  "entrance",  "building"};
+
+string GetTypeForFeature(XMLFeature const & node)
 {
-  return osmFt.child("tag");
+  for (string const & key : kMainTags)
+  {
+    if (node.HasTag(key))
+    {
+      string value = node.GetTagValue(key);
+      if (value == "yes")
+        return key;
+      else if (key == "shop" || key == "office" || key == "building" || key == "entrance")
+        return value + " " + key;  // "convenience shop"
+      else
+        return value;
+    }
+  }
+
+  // Did not find any known tags.
+  bool foundTags = false;
+  node.ForEachTag([&foundTags](string const & k, string const & v)
+                  {
+                    foundTags = true;
+                  });
+  return foundTags ? "unknown object" : "empty object";
 }
 
 vector<m2::PointD> NaiveSample(vector<m2::PointD> const & source, size_t count)
@@ -74,7 +99,8 @@ namespace osm
 {
 ChangesetWrapper::ChangesetWrapper(TKeySecret const & keySecret,
                                    ServerApi06::TKeyValueTags const & comments) noexcept
-  : m_changesetComments(comments), m_api(OsmOAuth::ServerAuth(keySecret))
+    : m_changesetComments(comments),
+      m_api(OsmOAuth::ServerAuth(keySecret))
 {
 }
 
@@ -84,6 +110,8 @@ ChangesetWrapper::~ChangesetWrapper()
   {
     try
     {
+      m_changesetComments["comment"] = GetDescription();
+      m_api.UpdateChangeSet(m_changesetId, m_changesetComments);
       m_api.CloseChangeSet(m_changesetId);
     }
     catch (std::exception const & ex)
@@ -100,7 +128,9 @@ void ChangesetWrapper::LoadXmlFromOSM(ms::LatLon const & ll, pugi::xml_document 
     MYTHROW(HttpErrorException, ("HTTP error", response, "with GetXmlFeaturesAtLatLon", ll));
 
   if (pugi::status_ok != doc.load(response.second.c_str()).status)
-    MYTHROW(OsmXmlParseException, ("Can't parse OSM server response for GetXmlFeaturesAtLatLon request", response.second));
+    MYTHROW(
+        OsmXmlParseException,
+        ("Can't parse OSM server response for GetXmlFeaturesAtLatLon request", response.second));
 }
 
 void ChangesetWrapper::LoadXmlFromOSM(m2::RectD const & rect, pugi::xml_document & doc)
@@ -110,7 +140,8 @@ void ChangesetWrapper::LoadXmlFromOSM(m2::RectD const & rect, pugi::xml_document
     MYTHROW(HttpErrorException, ("HTTP error", response, "with GetXmlFeaturesInRect", rect));
 
   if (pugi::status_ok != doc.load(response.second.c_str()).status)
-    MYTHROW(OsmXmlParseException, ("Can't parse OSM server response for GetXmlFeaturesInRect request", response.second));
+    MYTHROW(OsmXmlParseException,
+            ("Can't parse OSM server response for GetXmlFeaturesInRect request", response.second));
 }
 
 XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & center)
@@ -171,8 +202,7 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> co
       stringstream sstr;
       bestWayOrRelation.print(sstr);
       LOG(LDEBUG, ("Relation is the best match", sstr.str()));
-      MYTHROW(RelationFeatureAreNotSupportedException,
-              ("Got relation as the best matching"));
+      MYTHROW(RelationFeatureAreNotSupportedException, ("Got relation as the best matching"));
     }
 
     if (!OsmFeatureHasTags(bestWayOrRelation))
@@ -204,6 +234,7 @@ void ChangesetWrapper::Create(XMLFeature node)
   node.SetAttribute("changeset", strings::to_string(m_changesetId));
   // TODO(AlexZ): Think about storing/logging returned OSM ids.
   UNUSED_VALUE(m_api.CreateElement(node));
+  m_created_types[GetTypeForFeature(node)]++;
 }
 
 void ChangesetWrapper::Modify(XMLFeature node)
@@ -214,6 +245,7 @@ void ChangesetWrapper::Modify(XMLFeature node)
   // Changeset id should be updated for every OSM server commit.
   node.SetAttribute("changeset", strings::to_string(m_changesetId));
   m_api.ModifyElement(node);
+  m_modified_types[GetTypeForFeature(node)]++;
 }
 
 void ChangesetWrapper::Delete(XMLFeature node)
@@ -226,4 +258,62 @@ void ChangesetWrapper::Delete(XMLFeature node)
   m_api.DeleteElement(node);
 }
 
-} // namespace osm
+string ChangesetWrapper::TypeCountToString(TTypeCount const & typeCount) const
+{
+  if (typeCount.empty())
+    return string();
+  if (typeCount.size() > 3)
+  {
+    // TODO(zverik): Instead return top 2 + "and XX other features".
+    int count = 0;
+    for (auto const & tc : typeCount)
+      count += tc.second;
+    return strings::to_string(count) + " objects";
+  }
+
+  // TODO(zverik): Reverse sort by count
+  vector<pair<string, uint16_t>> items;
+  for (auto const & tc : typeCount)
+    items.push_back(tc);
+
+  ostringstream ss;
+  for (auto i = 0; i < items.size(); ++i)
+  {
+    if (i > 0)
+    {
+      // Separator: "A and B" for two, "A, B, and C" for three or more.
+      if (items.size() > 2)
+        ss << ", ";
+      else
+        ss << " ";
+      if (i == items.size() - 1)
+        ss << "and ";
+    }
+
+    // Format a count: "a shop" for single shop, "4 shops" for multiple.
+    if (items[i].second == 1)
+      ss << "a ";
+    else
+      ss << items[i].second << ' ';
+    ss << items[i].first;
+    if (items[i].second > 1)
+      ss << 's';
+  }
+  return ss.str();
+}
+
+string ChangesetWrapper::GetDescription() const
+{
+  string result;
+  if (!m_created_types.empty())
+    result = "Created " + TypeCountToString(m_created_types);
+  if (!m_modified_types.empty())
+  {
+    if (!result.empty())
+      result += "; ";
+    result += "Updated " + TypeCountToString(m_modified_types);
+  }
+  return result;
+}
+
+}  // namespace osm

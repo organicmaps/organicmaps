@@ -19,6 +19,8 @@ struct ClientToken;
 
 class ChangesetWrapper
 {
+  using TTypeCount = map<string, uint16_t>;
+
 public:
   DECLARE_EXCEPTION(ChangesetWrapperException, RootException);
   DECLARE_EXCEPTION(NetworkErrorException, ChangesetWrapperException);
@@ -32,7 +34,8 @@ public:
   DECLARE_EXCEPTION(RelationFeatureAreNotSupportedException, ChangesetWrapperException);
   DECLARE_EXCEPTION(EmptyFeatureException, ChangesetWrapperException);
 
-  ChangesetWrapper(TKeySecret const & keySecret, ServerApi06::TKeyValueTags const & comments) noexcept;
+  ChangesetWrapper(TKeySecret const & keySecret,
+                   ServerApi06::TKeyValueTags const & comments) noexcept;
   ~ChangesetWrapper();
 
   /// Throws many exceptions from above list, plus including XMLNode's parsing ones.
@@ -60,6 +63,12 @@ private:
   ServerApi06 m_api;
   static constexpr uint64_t kInvalidChangesetId = 0;
   uint64_t m_changesetId = kInvalidChangesetId;
+
+  // No m_deleted_types here, since we do not delete features.
+  TTypeCount m_modified_types;
+  TTypeCount m_created_types;
+  string TypeCountToString(TTypeCount const & typeCount) const;
+  string GetDescription() const;
 };
 
-} // namespace osm
+}  // namespace osm

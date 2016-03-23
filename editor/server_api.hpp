@@ -70,6 +70,7 @@ public:
   /// @param element should already have all attributes set, including "id", "version", "changeset".
   /// @returns true if element was successfully deleted (or was already deleted).
   void DeleteElement(editor::XMLFeature const & element) const;
+  void UpdateChangeSet(uint64_t changesetId, TKeyValueTags const & kvTags) const;
   void CloseChangeSet(uint64_t changesetId) const;
   /// @returns id of a created note.
   uint64_t CreateNote(ms::LatLon const & ll, string const & message) const;
