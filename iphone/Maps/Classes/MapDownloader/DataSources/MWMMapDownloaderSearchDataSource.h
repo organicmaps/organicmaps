@@ -1,9 +1,9 @@
 #import "MWMMapDownloaderDataSource.h"
 
-#include "search/result.hpp"
+#include "storage/downloader_search_params.hpp"
 
 @interface MWMMapDownloaderSearchDataSource : MWMMapDownloaderDataSource
 
-- (instancetype)initWithSearchResults:(search::Results const &)results delegate:(id<MWMMapDownloaderProtocol>)delegate;
+- (instancetype)initWithSearchResults:(DownloaderSearchResults const &)results delegate:(id<MWMMapDownloaderProtocol>)delegate;
 
 @end

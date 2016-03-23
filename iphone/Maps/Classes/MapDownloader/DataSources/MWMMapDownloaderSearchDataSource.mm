@@ -17,25 +17,18 @@ extern NSString * const kPlaceCellIdentifier;
 
 @implementation MWMMapDownloaderSearchDataSource
 
-- (instancetype)initWithSearchResults:(search::Results const &)results delegate:(id<MWMMapDownloaderProtocol>)delegate
+- (instancetype)initWithSearchResults:(DownloaderSearchResults const &)results delegate:(id<MWMMapDownloaderProtocol>)delegate
 {
   self = [super initWithDelegate:delegate];
   if (self)
   {
-    auto const & countryInfoGetter = GetFramework().CountryInfoGetter();
-    NSMutableOrderedSet<NSString *> * nsSearchCountryIds = [NSMutableOrderedSet orderedSetWithCapacity:results.GetCount()];
+    NSMutableOrderedSet<NSString *> * nsSearchCountryIds = [NSMutableOrderedSet orderedSetWithCapacity:results.m_vec.size()];
     NSMutableDictionary<NSString *, NSString *> * nsSearchResults = [@{} mutableCopy];
-    for (auto it = results.Begin(); it != results.End(); ++it)
+    for (auto const & result : results.m_vec)
     {
-      if (!it->HasPoint())
-        continue;
-      auto const & mercator = it->GetFeatureCenter();
-      TCountryId countryId = countryInfoGetter.GetRegionCountryId(mercator);
-      if (countryId == kInvalidCountryId)
-        continue;
-      NSString * nsCountryId = @(countryId.c_str());
+      NSString * nsCountryId = @(result.m_countryId.c_str());
       [nsSearchCountryIds addObject:nsCountryId];
-      nsSearchResults[nsCountryId] = @(it->GetString().c_str());
+      nsSearchResults[nsCountryId] = @(result.m_matchedName.c_str());
     }
     self.searchCountryIds = [nsSearchCountryIds array];
     self.searchMatchedResults = nsSearchResults;

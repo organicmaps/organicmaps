@@ -7,7 +7,7 @@
 
 #include "Framework.h"
 
-#include "search/params.hpp"
+#include "storage/downloader_search_params.hpp"
 
 using namespace storage;
 
@@ -33,7 +33,7 @@ using namespace storage;
 
 @implementation MWMMapDownloaderViewController
 {
-  search::SearchParams m_searchParams;
+  DownloaderSearchParams m_searchParams;
 }
 
 - (void)viewDidLoad
@@ -111,11 +111,10 @@ using namespace storage;
     if (activeInputModes.count != 0)
     {
       NSString * primaryLanguage = ((UITextInputMode *)activeInputModes[0]).primaryLanguage;
-      m_searchParams.SetInputLocale(primaryLanguage.UTF8String);
+      m_searchParams.m_inputLocale = primaryLanguage.UTF8String;
     }
     m_searchParams.m_query = searchText.precomposedStringWithCompatibilityMapping.UTF8String;
-    m_searchParams.SetForceSearch(true);
-    GetFramework().Search(m_searchParams);
+    GetFramework().SearchInDownloader(m_searchParams);
   }
 }
 
@@ -131,12 +130,10 @@ using namespace storage;
 - (void)setupSearchParams
 {
   __weak auto weakSelf = self;
-  m_searchParams.SetMode(search::Mode::World);
-  m_searchParams.SetSuggestsEnabled(false);
-  m_searchParams.m_onResults = ^(search::Results const & results)
+  m_searchParams.m_onResults = ^(DownloaderSearchResults const & results)
   {
     __strong auto self = weakSelf;
-    if (!self || results.IsEndMarker())
+    if (!self || results.m_endMarker)
       return;
     self.searchDataSource = [[MWMMapDownloaderSearchDataSource alloc] initWithSearchResults:results delegate:self];
     dispatch_async(dispatch_get_main_queue(), ^
