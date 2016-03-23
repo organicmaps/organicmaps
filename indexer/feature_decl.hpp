@@ -4,6 +4,7 @@
 
 #include "std/cstdint.hpp"
 #include "std/string.hpp"
+#include "std/utility.hpp"
 
 namespace feature
 {
@@ -21,6 +22,9 @@ string DebugPrint(feature::EGeomType type);
 
 struct FeatureID
 {
+  using MwmName = string;
+  using MwmVersion = int64_t;
+
   MwmSet::MwmId m_mwmId;
   uint32_t m_index;
 
@@ -43,6 +47,8 @@ struct FeatureID
   }
 
   inline bool operator!=(FeatureID const & r) const { return !(*this == r); }
+
+  pair<MwmName, MwmVersion> GetMwmNameAndVersion() const;
 
   friend string DebugPrint(FeatureID const & id);
 };
