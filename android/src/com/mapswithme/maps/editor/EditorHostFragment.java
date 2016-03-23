@@ -1,6 +1,5 @@
 package com.mapswithme.maps.editor;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -83,12 +82,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       protected void onTextChanged(String query)
       {
         ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName())).setFilter(query);
-      }
-
-      @Override
-      protected void startVoiceRecognition(Intent intent, int code)
-      {
-        // TODO support voice recognition?
       }
     };
   }

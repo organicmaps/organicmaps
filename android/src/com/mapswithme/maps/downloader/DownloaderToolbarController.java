@@ -142,4 +142,10 @@ class DownloaderToolbarController extends SearchToolbarController
   {
     mFragment.startActivityForResult(intent, code);
   }
+
+  @Override
+  protected boolean supportsVoiceSearch()
+  {
+    return true;
+  }
 }

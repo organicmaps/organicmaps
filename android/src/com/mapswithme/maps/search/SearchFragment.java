@@ -104,6 +104,12 @@ public class SearchFragment extends BaseMwmFragment
     }
 
     @Override
+    protected boolean supportsVoiceSearch()
+    {
+      return true;
+    }
+
+    @Override
     public void onUpClick()
     {
       if (!onBackPressed())
