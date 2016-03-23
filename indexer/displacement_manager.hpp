@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/cell_id.hpp"
+#include "indexer/classificator.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
@@ -19,8 +20,6 @@
 namespace
 {
 double constexpr kPOIDisplacementRadiusPixels = 80.;
-
-size_t constexpr kMaximumIgnoredZoom = 12;
 
 // Displacement radius in pixels * half of the world in degrees / meaned graphics tile size.
 // So average displacement radius will be: this / tiles in row count.
@@ -125,7 +124,10 @@ public:
     {
       uint32_t scale = node.m_minScale;
       // Do not filter high level objects. Including metro and country names.
-      if (scale <= kMaximumIgnoredZoom)
+      static size_t const maximumIgnoredZoom = feature::GetDrawableScaleRange(
+        classif().GetTypeByPath({"railway", "station", "subway"})).first;
+
+      if (scale <= maximumIgnoredZoom)
       {
         AddNodeToSorter(node,scale);
         acceptedNodes.Add(node);
