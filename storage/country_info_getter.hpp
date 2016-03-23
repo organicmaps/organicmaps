@@ -63,7 +63,7 @@ public:
   m2::RectD GetLimitRectForLeaf(TCountryId const & leafCountryId) const;
 
   // Returns identifiers for all regions matching to correspondent |affiliation|.
-  void GetMatchedRegions(string const & affiliation, IdSet & regions) const;
+  virtual void GetMatchedRegions(string const & affiliation, IdSet & regions) const;
 
   // Returns true when |pt| belongs to at least one of the specified
   // |regions|.
@@ -162,6 +162,9 @@ public:
   CountryInfoGetterForTesting(vector<CountryDef> const & countries);
 
   void AddCountry(CountryDef const & country);
+
+  // CountryInfoGetter overrides:
+  void GetMatchedRegions(string const & affiliation, IdSet & regions) const override;
 
 protected:
   // CountryInfoGetter overrides:

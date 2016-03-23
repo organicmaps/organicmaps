@@ -71,8 +71,6 @@ protected:
   Platform & m_platform;
   my::ScopedLogLevelChanger m_scopedLog;
   vector<platform::LocalCountryFile> m_files;
-  vector<storage::CountryDef> m_countries;
-  unique_ptr<storage::CountryInfoGetterForTesting> m_infoGetter;
   tests_support::TestSearchEngine m_engine;
   m2::RectD m_viewport;
 };

@@ -66,6 +66,9 @@ void TestCountry::Serialize(FeatureBuilder1 & fb) const
   TestFeature::Serialize(fb);
   auto const & classificator = classif();
   fb.SetType(classificator.GetTypeByPath({"place", "country"}));
+
+  // Localities should have default name too.
+  fb.AddName("default", m_name);
 }
 
 string TestCountry::ToString() const
