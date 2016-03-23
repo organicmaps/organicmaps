@@ -98,12 +98,12 @@ using namespace storage;
 
 #pragma mark - MWMMapDownloaderDataSource
 
-- (TCountryId)countryIdForIndexPath:(NSIndexPath *)indexPath
+- (NSString *)countryIdForIndexPath:(NSIndexPath *)indexPath
 {
   NSInteger const row = indexPath.row;
   NSInteger const section = indexPath.section;
   if (section == self.nearmeSection)
-    return self.nearmeCountries[row].UTF8String;
+    return self.nearmeCountries[row];
   return [super countryIdForIndexPath:[NSIndexPath indexPathForRow:row inSection:section - self.nearmeSectionShift]];
 }
 

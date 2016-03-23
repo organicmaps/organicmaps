@@ -16,6 +16,6 @@
 @property (weak, nonatomic) id<MWMMapDownloaderProtocol> delegate;
 
 - (void)config:(storage::NodeAttrs const &)nodeAttrs;
-- (void)setCountryId:(storage::TCountryId const &)countryId;
+- (void)setCountryId:(NSString *)countryId;
 
 @end

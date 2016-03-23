@@ -107,7 +107,7 @@ using namespace storage;
   else
   {
     NodeAttrs nodeAttrs;
-    GetFramework().Storage().GetNodeAttrs(self.parentCountryId, nodeAttrs);
+    GetFramework().Storage().GetNodeAttrs(self.parentCountryId.UTF8String, nodeAttrs);
     self.title = @(nodeAttrs.m_nodeLocalName.c_str());
   }
 }
@@ -125,7 +125,10 @@ using namespace storage;
     return;
   MWMViewController * parentVC = viewControllers.lastObject;
   if ([parentVC isKindOfClass:[MWMBaseMapDownloaderViewController class]])
-    [static_cast<MWMBaseMapDownloaderViewController *>(parentVC) processCountryEvent:self.parentCountryId];
+  {
+    MWMBaseMapDownloaderViewController * downloaderVC = static_cast<MWMBaseMapDownloaderViewController *>(parentVC);
+    [downloaderVC processCountryEvent:self.parentCountryId.UTF8String];
+  }
 }
 
 #pragma mark - MWMFrameworkStorageObserver
@@ -144,14 +147,14 @@ using namespace storage;
     [self reloadData];
   };
 
-  if (countryId == self.parentCountryId)
+  if (countryId == self.parentCountryId.UTF8String)
   {
     process();
   }
   else
   {
     TCountriesVec childrenId;
-    GetFramework().Storage().GetChildren(self.parentCountryId, childrenId);
+    GetFramework().Storage().GetChildren(self.parentCountryId.UTF8String, childrenId);
     if (find(childrenId.cbegin(), childrenId.cend(), countryId) != childrenId.cend())
       process();
   }
@@ -188,7 +191,7 @@ using namespace storage;
 {
   auto const & s = GetFramework().Storage();
   NodeAttrs nodeAttrs;
-  m_actionSheetId = [self.dataSource countryIdForIndexPath:indexPath];
+  m_actionSheetId = [self.dataSource countryIdForIndexPath:indexPath].UTF8String;
   s.GetNodeAttrs(m_actionSheetId, nodeAttrs);
   BOOL const needsUpdate = (nodeAttrs.m_status == NodeStatus::OnDiskOutOfDate);
   BOOL const isDownloaded = (needsUpdate || nodeAttrs.m_status == NodeStatus::OnDisk);
@@ -318,12 +321,13 @@ using namespace storage;
   auto const & s = GetFramework().Storage();
   TCountriesVec downloadedChildren;
   TCountriesVec availableChildren;
-  s.GetChildrenInGroups(self.parentCountryId, downloadedChildren, availableChildren);
+  TCountryId const parentCountryId = self.parentCountryId.UTF8String;
+  s.GetChildrenInGroups(parentCountryId, downloadedChildren, availableChildren);
 
   if (availableChildren.empty())
   {
     TCountriesVec queuedChildren;
-    s.GetQueuedChildren(self.parentCountryId, queuedChildren);
+    s.GetQueuedChildren(parentCountryId, queuedChildren);
     if (!queuedChildren.empty())
     {
       size_t queuedSize = 0;
@@ -343,7 +347,7 @@ using namespace storage;
   else
   {
     NodeAttrs nodeAttrs;
-    s.GetNodeAttrs(self.parentCountryId, nodeAttrs);
+    s.GetNodeAttrs(parentCountryId, nodeAttrs);
     uint32_t remoteMWMCounter = nodeAttrs.m_mwmCounter - nodeAttrs.m_localMwmCounter;
     if (remoteMWMCounter != 0)
     {
@@ -390,7 +394,8 @@ using namespace storage;
 - (IBAction)allMapsAction
 {
   self.skipCountryEventProcessing = YES;
-  if (self.parentCountryId == GetFramework().Storage().GetRootId())
+  TCountryId const parentCountryId = self.parentCountryId.UTF8String;
+  if (parentCountryId == GetFramework().Storage().GetRootId())
   {
     [Statistics logEvent:kStatDownloaderMapAction
           withParameters:@{
@@ -399,7 +404,7 @@ using namespace storage;
             kStatFrom : kStatDownloader,
             kStatScenario : kStatUpdateAll
           }];
-    [MWMStorage updateNode:self.parentCountryId alertController:self.alertController];
+    [MWMStorage updateNode:parentCountryId alertController:self.alertController];
   }
   else
   {
@@ -413,7 +418,7 @@ using namespace storage;
               kStatFrom : kStatDownloader,
               kStatScenario : kStatDownloadGroup
             }];
-      [MWMStorage downloadNode:self.parentCountryId
+      [MWMStorage downloadNode:parentCountryId
                alertController:self.alertController
                      onSuccess:nil];
     }
@@ -426,11 +431,11 @@ using namespace storage;
               kStatFrom : kStatDownloader,
               kStatScenario : kStatDownloadGroup
             }];
-      [MWMStorage cancelDownloadNode:self.parentCountryId];
+      [MWMStorage cancelDownloadNode:parentCountryId];
     }
   }
   self.skipCountryEventProcessing = NO;
-  [self processCountryEvent:self.parentCountryId];
+  [self processCountryEvent:parentCountryId];
 }
 
 #pragma mark - UITableViewDelegate
@@ -605,12 +610,12 @@ using namespace storage;
   self.allMapsView.hidden = !showAllMapsView;
 }
 
-- (TCountryId)parentCountryId
+- (NSString *)parentCountryId
 {
   return [self.dataSource parentCountryId];
 }
 
-- (void)setParentCountryId:(TCountryId)parentId
+- (void)setParentCountryId:(NSString *)parentId
 {
   self.defaultDataSource = [[MWMMapDownloaderDefaultDataSource alloc] initForRootCountryId:parentId delegate:self];
 }

@@ -49,12 +49,12 @@ using namespace storage;
 
 @synthesize isParentRoot = _isParentRoot;
 
-- (instancetype)initForRootCountryId:(storage::TCountryId)countryId delegate:(id<MWMMapDownloaderProtocol>)delegate
+- (instancetype)initForRootCountryId:(NSString *)countryId delegate:(id<MWMMapDownloaderProtocol>)delegate
 {
   self = [super initWithDelegate:delegate];
   if (self)
   {
-    m_parentId = countryId;
+    m_parentId = countryId.UTF8String;
     _isParentRoot = (m_parentId == GetFramework().Storage().GetRootId());
     [self load];
   }
@@ -188,35 +188,35 @@ using namespace storage;
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NodeAttrs nodeAttrs;
-  GetFramework().Storage().GetNodeAttrs([self countryIdForIndexPath:indexPath], nodeAttrs);
+  GetFramework().Storage().GetNodeAttrs([self countryIdForIndexPath:indexPath].UTF8String, nodeAttrs);
   NodeStatus const status = nodeAttrs.m_status;
   return (status == NodeStatus::OnDisk || status == NodeStatus::OnDiskOutOfDate || nodeAttrs.m_localMwmCounter != 0);
 }
 
 #pragma mark - MWMMapDownloaderDataSource
 
-- (TCountryId)parentCountryId
+- (NSString *)parentCountryId
 {
-  return m_parentId;
+  return @(m_parentId.c_str());
 }
 
-- (TCountryId)countryIdForIndexPath:(NSIndexPath *)indexPath
+- (NSString *)countryIdForIndexPath:(NSIndexPath *)indexPath
 {
   NSInteger const section = indexPath.section;
   NSInteger const row = indexPath.row;
   if (section == self.downloadedSection)
-    return self.downloadedCountries[row].UTF8String;
+    return self.downloadedCountries[row];
   NSString * index = self.indexes[section - self.downloadedSectionShift];
   NSArray<NSString *> * availableCountries = self.availableCountries[index];
   NSString * nsCountryId = availableCountries[indexPath.row];
-  return nsCountryId.UTF8String;
+  return nsCountryId;
 }
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
 {
   auto const & s = GetFramework().Storage();
   TCountriesVec children;
-  s.GetChildren([self countryIdForIndexPath:indexPath], children);
+  s.GetChildren([self countryIdForIndexPath:indexPath].UTF8String, children);
   BOOL const haveChildren = !children.empty();
   if (haveChildren)
     return kLargeCountryCellIdentifier;

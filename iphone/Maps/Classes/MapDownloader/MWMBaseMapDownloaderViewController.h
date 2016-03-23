@@ -8,7 +8,7 @@
 
 @property (nonatomic) BOOL showAllMapsView;
 
-@property (nonatomic) storage::TCountryId parentCountryId;
+@property (nonatomic) NSString * parentCountryId;
 
 - (void)configTable;
 - (void)configAllMapsView;

@@ -33,16 +33,20 @@ using namespace storage;
 
 - (void)fillCell:(MWMMapDownloaderTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-  TCountryId const countryId = [self countryIdForIndexPath:indexPath];
+  NSString * countryId = [self countryIdForIndexPath:indexPath];
+  [cell setCountryId:countryId];
 
   if ([cell isKindOfClass:[MWMMapDownloaderPlaceTableViewCell class]])
-    static_cast<MWMMapDownloaderPlaceTableViewCell *>(cell).needDisplayArea = self.isParentRoot;
+  {
+    MWMMapDownloaderPlaceTableViewCell * placeCell = static_cast<MWMMapDownloaderPlaceTableViewCell *>(cell);
+    placeCell.needDisplayArea = self.isParentRoot;
+  }
 
   if ([cell isKindOfClass:[MWMMapDownloaderSubplaceTableViewCell class]])
-    [static_cast<MWMMapDownloaderSubplaceTableViewCell *>(cell)
-        setSubplaceText:[self searchMatchedResultForCountryId:countryId]];
-
-  [cell setCountryId:countryId];
+  {
+    MWMMapDownloaderSubplaceTableViewCell * subplaceCell = static_cast<MWMMapDownloaderSubplaceTableViewCell *>(cell);
+    [subplaceCell setSubplaceText:[self searchMatchedResultForCountryId:countryId]];
+  }
 }
 
 #pragma mark - UITableViewDataSource
@@ -69,7 +73,7 @@ using namespace storage;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (editingStyle == UITableViewCellEditingStyleDelete)
-    [self.delegate deleteNode:[self countryIdForIndexPath:indexPath]];
+    [self.delegate deleteNode:[self countryIdForIndexPath:indexPath].UTF8String];
 }
 
 #pragma mark - MWMMapDownloaderDataSource
@@ -79,14 +83,14 @@ using namespace storage;
   return YES;
 }
 
-- (TCountryId)parentCountryId
+- (NSString *)parentCountryId
 {
-  return kInvalidCountryId;
+  return @(kInvalidCountryId.c_str());
 }
 
-- (TCountryId)countryIdForIndexPath:(NSIndexPath *)indexPath
+- (NSString *)countryIdForIndexPath:(NSIndexPath *)indexPath
 {
-  return kInvalidCountryId;
+  return @(kInvalidCountryId.c_str());
 }
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
@@ -94,7 +98,7 @@ using namespace storage;
   return nil;
 }
 
-- (NSString *)searchMatchedResultForCountryId:(storage::TCountryId)countryId
+- (NSString *)searchMatchedResultForCountryId:(NSString *)countryId
 {
   return nil;
 }

@@ -146,7 +146,7 @@ using namespace storage;
 
 #pragma mark - Properties
 
-- (void)setParentCountryId:(TCountryId)parentId
+- (void)setParentCountryId:(NSString *)parentId
 {
   self.defaultDataSource = [[MWMMapDownloaderExtendedDataSource alloc] initForRootCountryId:parentId delegate:self];
 }

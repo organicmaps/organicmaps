@@ -10,11 +10,11 @@
 @property (nonatomic, readonly) NSMutableIndexSet * reloadSections;
 
 - (instancetype)initWithDelegate:(id<MWMMapDownloaderProtocol>)delegate;
-- (storage::TCountryId)parentCountryId;
-- (storage::TCountryId)countryIdForIndexPath:(NSIndexPath *)indexPath;
+- (NSString *)parentCountryId;
+- (NSString *)countryIdForIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath;
 - (void)fillCell:(MWMMapDownloaderTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
-- (NSString *)searchMatchedResultForCountryId:(storage::TCountryId)countryId;
+- (NSString *)searchMatchedResultForCountryId:(NSString *)countryId;
 
 @end

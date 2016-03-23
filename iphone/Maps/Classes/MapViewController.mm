@@ -834,7 +834,7 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   else if ([segue.identifier isEqualToString:kDownloaderSegue])
   {
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
-    dvc.parentCountryId = GetFramework().Storage().GetRootId();
+    dvc.parentCountryId = @(GetFramework().Storage().GetRootId().c_str());
   }
   else if ([segue.identifier isEqualToString:kReportSegue])
   {

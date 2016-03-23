@@ -144,11 +144,11 @@
 
 #pragma mark - Properties
 
-- (void)setCountryId:(storage::TCountryId const &)countryId
+- (void)setCountryId:(NSString *)countryId
 {
-  if (m_countryId == countryId)
+  if (m_countryId == countryId.UTF8String)
     return;
-  m_countryId = countryId;
+  m_countryId = countryId.UTF8String;
   storage::NodeAttrs nodeAttrs;
   GetFramework().Storage().GetNodeAttrs(m_countryId, nodeAttrs);
   [self config:nodeAttrs];

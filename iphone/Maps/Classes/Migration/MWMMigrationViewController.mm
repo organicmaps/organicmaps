@@ -158,7 +158,7 @@ using namespace storage;
   if ([segue.identifier isEqualToString:kDownloaderSegue])
   {
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
-    dvc.parentCountryId = GetFramework().Storage().GetRootId();
+    dvc.parentCountryId = @(GetFramework().Storage().GetRootId().c_str());
   }
 }
 

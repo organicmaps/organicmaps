@@ -51,22 +51,22 @@ extern NSString * const kPlaceCellIdentifier;
 
 #pragma mark - MWMMapDownloaderDataSource
 
-- (TCountryId)parentCountryId
+- (NSString *)parentCountryId
 {
-  return GetFramework().Storage().GetRootId();
+  return @(GetFramework().Storage().GetRootId().c_str());
 }
 
-- (TCountryId)countryIdForIndexPath:(NSIndexPath *)indexPath
+- (NSString *)countryIdForIndexPath:(NSIndexPath *)indexPath
 {
-  return self.searchCountryIds[indexPath.row].UTF8String;
+  return self.searchCountryIds[indexPath.row];
 }
 
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
 {
   auto const & s = GetFramework().Storage();
   NodeAttrs nodeAttrs;
-  TCountryId const countryId = [self countryIdForIndexPath:indexPath];
-  s.GetNodeAttrs(countryId, nodeAttrs);
+  NSString * countryId = [self countryIdForIndexPath:indexPath];
+  s.GetNodeAttrs(countryId.UTF8String, nodeAttrs);
   NSString * nodeLocalName = @(nodeAttrs.m_nodeLocalName.c_str());
   NSString * matchedResult = [self searchMatchedResultForCountryId:countryId];
   if (![nodeLocalName isEqualToString:matchedResult])
@@ -76,9 +76,9 @@ extern NSString * const kPlaceCellIdentifier;
   return kPlaceCellIdentifier;
 }
 
-- (NSString *)searchMatchedResultForCountryId:(storage::TCountryId)countryId
+- (NSString *)searchMatchedResultForCountryId:(NSString *)countryId
 {
-  return self.searchMatchedResults[@(countryId.c_str())];
+  return self.searchMatchedResults[countryId];
 }
 
 - (BOOL)needFullReload
