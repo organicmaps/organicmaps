@@ -138,11 +138,12 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
   }
 
   modelViewChange = !events.empty() || m_state == STATE_SCALE || m_state == STATE_DRAG;
-  bool breakAnim = false;
   for (UserEvent const & e : events)
   {
     if (m_perspectiveAnimation != nullptr && FilterEventWhile3dAnimation(e.m_type))
       continue;
+
+    bool breakAnim = false;
 
     switch (e.m_type)
     {
@@ -232,12 +233,12 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       ASSERT(false, ());
       break;
     }
-  }
 
-  if (breakAnim)
-  {
-    m_animation.reset();
-    modelViewChange = true;
+    if (breakAnim)
+    {
+      m_animation.reset();
+      modelViewChange = true;
+    }
   }
 
   if (m_animation != nullptr)
