@@ -45,7 +45,7 @@ dependencies {
   compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true }
   compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') { transitive = true }
   // 3-party
-  compile 'com.facebook.android:facebook-android-sdk:4.10.0'
+  compile 'com.facebook.android:facebook-android-sdk:4.8.0'
   compile 'com.parse.bolts:bolts-android:1.4.0'
   compile 'com.parse:parse-android:1.13.0'
   compile 'com.google.code.gson:gson:2.6.1'
