@@ -187,6 +187,7 @@
               android:id="@+id/input"
               style="@style/MwmWidget.Editor.FieldLayout.EditText"
               android:hint="@string/phone"
+              android:inputType="phone"
               tools:text="+937 99 92"/>
 
           </com.mapswithme.maps.widget.CustomTextInputLayout>

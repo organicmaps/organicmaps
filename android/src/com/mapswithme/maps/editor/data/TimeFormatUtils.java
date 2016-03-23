@@ -53,9 +53,8 @@ public class TimeFormatUtils
       }
 
       if (i < weekdays.length)
-      {
         builder.append(", ").append(sShortWeekdays[weekdays[i]]);
-      }
+
       i++;
     }
 
