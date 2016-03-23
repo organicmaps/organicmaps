@@ -66,7 +66,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
       UiUtils.hide(mLogout);
     }
     final long[] stats = Editor.nativeGetStats();
-    mEditsLocal.setText(getString(R.string.not_sent) + ": " + stats[0]);
+    mEditsLocal.setText(getString(R.string.not_sent) + ": " + (stats[0] - stats[1]));
     mEditsSent.setText(getString(R.string.changes) + ": " + stats[1]);
     if (stats[1] == 0)
       UiUtils.hide(mEditsSentDate);
