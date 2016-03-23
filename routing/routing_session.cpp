@@ -221,11 +221,6 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
       ++m_moveAwayCounter;
       m_lastDistance = dist;
     }
-    else
-    {
-      m_moveAwayCounter = 0;
-      m_lastDistance = 0.0;
-    }
 
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {
@@ -407,6 +402,7 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
 
 bool RoutingSession::DisableFollowMode()
 {
+  LOG(LINFO, ("Routing disables a following mode. State: ", m_state));
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
     m_state = RouteNoFollowing;
@@ -418,6 +414,7 @@ bool RoutingSession::DisableFollowMode()
 
 bool RoutingSession::EnableFollowMode()
 {
+  LOG(LINFO, ("Routing enables a following mode. State: ", m_state));
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
     m_state = OnRoute;
