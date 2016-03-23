@@ -1,5 +1,18 @@
 #import "Common.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
+#import "UIFont+MapsMeFonts.h"
+
+namespace
+{
+  NSDictionary * const kSelectedAreaAttrs = @{ NSFontAttributeName : [UIFont bold12] };
+  NSDictionary * const kUnselectedAreaAttrs = @{ NSFontAttributeName : [UIFont regular12] };
+} // namespace
+
+@interface MWMMapDownloaderTableViewCell ()
+
+- (NSAttributedString *)matchedString:(NSString *)str selectedAttrs:(NSDictionary *)selectedAttrs unselectedAttrs:(NSDictionary *)unselectedAttrs;
+
+@end
 
 @interface MWMMapDownloaderPlaceTableViewCell ()
 
@@ -32,7 +45,9 @@
   [super config:nodeAttrs];
   BOOL const isAreaVisible = (self.needDisplayArea && nodeAttrs.m_parentInfo.size() == 1);
   if (isAreaVisible)
-    self.area.text = @(nodeAttrs.m_parentInfo[0].m_localName.c_str());
+    self.area.attributedText = [self matchedString:@(nodeAttrs.m_parentInfo[0].m_localName.c_str())
+                                     selectedAttrs:kSelectedAreaAttrs
+                                   unselectedAttrs:kUnselectedAreaAttrs];
   self.area.hidden = !isAreaVisible;
   self.titleBottomOffset.priority = isAreaVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 }

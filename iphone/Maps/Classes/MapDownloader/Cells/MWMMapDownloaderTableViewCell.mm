@@ -1,12 +1,22 @@
 #import "Common.h"
 #import "MWMCircularProgress.h"
 #import "MWMMapDownloaderTableViewCell.h"
+#import "NSString+Categories.h"
+#import "UIFont+MapsMeFonts.h"
 
 #include "Framework.h"
+
+namespace
+{
+  NSDictionary * const kSelectedTitleAttrs = @{ NSFontAttributeName : [UIFont bold17] };
+  NSDictionary * const kUnselectedTitleAttrs = @{ NSFontAttributeName : [UIFont regular17] };
+} // namespace
 
 @interface MWMMapDownloaderTableViewCell () <MWMCircularProgressProtocol>
 
 @property (nonatomic) MWMCircularProgress * progress;
+@property (copy, nonatomic) NSString * searchQuery;
+
 @property (weak, nonatomic) IBOutlet UIView * stateWrapper;
 @property (weak, nonatomic) IBOutlet UILabel * title;
 @property (weak, nonatomic) IBOutlet UILabel * downloadSize;
@@ -46,12 +56,27 @@
   }
 }
 
+#pragma mark - Search matching
+
+- (NSAttributedString *)matchedString:(NSString *)str selectedAttrs:(NSDictionary *)selectedAttrs unselectedAttrs:(NSDictionary *)unselectedAttrs
+{
+  NSMutableAttributedString * attrTitle = [[NSMutableAttributedString alloc] initWithString:str];
+  [attrTitle addAttributes:unselectedAttrs range:{0, str.length}];
+  if (!self.searchQuery)
+    return [attrTitle copy];
+  for (auto const & range : [str rangesOfString:self.searchQuery])
+    [attrTitle addAttributes:selectedAttrs range:range];
+  return [attrTitle copy];
+}
+
 #pragma mark - Config
 
 - (void)config:(storage::NodeAttrs const &)nodeAttrs
 {
   [self configProgress:nodeAttrs];
-  self.title.text = @(nodeAttrs.m_nodeLocalName.c_str());
+  self.title.attributedText = [self matchedString:@(nodeAttrs.m_nodeLocalName.c_str())
+                                    selectedAttrs:kSelectedTitleAttrs
+                                  unselectedAttrs:kUnselectedTitleAttrs];
   self.downloadSize.text = formattedSize(nodeAttrs.m_mwmSize);
 }
 
@@ -144,10 +169,11 @@
 
 #pragma mark - Properties
 
-- (void)setCountryId:(NSString *)countryId
+- (void)setCountryId:(NSString *)countryId searchQuery:(NSString *)query
 {
-  if (m_countryId == countryId.UTF8String)
+  if (m_countryId == countryId.UTF8String && [query isEqualToString:self.searchQuery])
     return;
+  self.searchQuery = query;
   m_countryId = countryId.UTF8String;
   storage::NodeAttrs nodeAttrs;
   GetFramework().Storage().GetNodeAttrs(m_countryId, nodeAttrs);

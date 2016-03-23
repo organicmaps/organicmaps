@@ -12,6 +12,7 @@ extern NSString * const kPlaceCellIdentifier;
 
 @property (copy, nonatomic) NSArray<NSString *> * searchCountryIds;
 @property (copy, nonatomic) NSDictionary<NSString *, NSString *> * searchMatchedResults;
+@property (copy, nonatomic) NSString * searchQuery;
 
 @end
 
@@ -31,8 +32,9 @@ extern NSString * const kPlaceCellIdentifier;
       [nsSearchCountryIds addObject:nsCountryId];
       nsSearchResults[nsCountryId] = @(result.m_matchedName.c_str());
     }
-    self.searchCountryIds = [nsSearchCountryIds array];
-    self.searchMatchedResults = nsSearchResults;
+    _searchCountryIds = [nsSearchCountryIds array];
+    _searchMatchedResults = nsSearchResults;
+    _searchQuery = @(results.m_query.c_str());
   }
   return self;
 }

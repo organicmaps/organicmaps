@@ -34,7 +34,7 @@ using namespace storage;
 - (void)fillCell:(MWMMapDownloaderTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
   NSString * countryId = [self countryIdForIndexPath:indexPath];
-  [cell setCountryId:countryId];
+  [cell setCountryId:countryId searchQuery:[self searchQuery]];
 
   if ([cell isKindOfClass:[MWMMapDownloaderPlaceTableViewCell class]])
   {
@@ -99,6 +99,11 @@ using namespace storage;
 }
 
 - (NSString *)searchMatchedResultForCountryId:(NSString *)countryId
+{
+  return nil;
+}
+
+- (NSString *)searchQuery
 {
   return nil;
 }
