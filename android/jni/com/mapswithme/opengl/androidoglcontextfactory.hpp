@@ -50,4 +50,4 @@ private:
   bool m_windowSurfaceValid;
 };
 
-} // namespace android
+}  // namespace android

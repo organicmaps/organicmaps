@@ -1,123 +1,245 @@
-// Author: Artyom.
-// Module for compressing/decompressing bit vectors.
-// Usage:
-//   vector<uint8_t> comprBits1;
-//   MemWriter< vector<uint8_t> > writer(comprBits1);
-//   // Create a bit vector by storing increasing positions of ones.
-//   vector<uint32_t> posOnes1 = {12, 34, 75}, posOnes2 = {10, 34, 95};
-//   // Compress some vectors.
-//   BuildCompressedBitVector(writer, posOnes1);
-//   MemReader reader(comprBits1.data(), comprBits1.size());
-//   // Decompress compressed vectors before operations.
-//   MemReader reader(comprBits1.data(), comprBits1.size());
-//   posOnes1 = DecodeCompressedBitVector(reader);
-//   // Intersect two vectors.
-//   vector<uint32_t> andRes = BitVectorsAnd(posOnes1.begin(), posOnes1.end(), posOnes2.begin(), posOnes2.end());
-//   // Unite two vectors.
-//   vector<uint32_t> orRes = BitVectorsAnd(posOnes1.begin(), posOnes1.end(), posOnes2.begin(), posOnes2.end());
-//   // Sub-and two vectors (second vector-set is a subset of first vector-set as bit vectors,
-//   // so that second vector size should be equal to number of ones of the first vector).
-//   vector<uint32_t> subandRes = BitVectorsSubAnd(posOnes1.begin(), posOnes1.end(), posOnes2.begin(), posOnes2.end());
-
 #pragma once
 
+#include "coding/read_write_utils.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
+
 #include "base/assert.hpp"
-#include "std/iterator.hpp"
-#include "std/cstdint.hpp"
+
+#include "std/algorithm.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
 
-// Forward declare used Reader/Writer.
-class Reader;
-class Writer;
-
-// Build compressed bit vector from vector of ones bits positions, you may provide chosenEncType - encoding
-// type of the result, otherwise encoding type is chosen to achieve maximum compression.
-// Encoding types are: 0 - Diffs/Varint, 1 - Ranges/Varint, 2 - Diffs/Arith, 3 - Ranges/Arith.
-// ("Diffs" creates a compressed array of pos diffs between ones inside source bit vector,
-//  "Ranges" creates a compressed array of lengths of zeros and ones ranges,
-//  "Varint" encodes resulting sizes using varint encoding,
-//  "Arith" encodes resulting sizes using arithmetic encoding).
-void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes, int chosenEncType = -1);
-// Decodes compressed bit vector to uncompressed array of ones positions.
-vector<uint32_t> DecodeCompressedBitVector(Reader & reader);
-
-// Intersects two bit vectors based on theirs begin and end iterators.
-// Returns resulting positions of ones.
-template <typename It1T, typename It2T>
-vector<uint32_t> BitVectorsAnd(It1T begin1, It1T end1, It2T begin2, It2T end2)
+namespace coding
 {
-  vector<uint32_t> result;
-
-  It1T it1 = begin1;
-  It2T it2 = begin2;
-  while (it1 != end1 && it2 != end2)
+class CompressedBitVector
+{
+public:
+  enum class StorageStrategy
   {
-    uint32_t pos1 = *it1, pos2 = *it2;
-    if (pos1 == pos2)
-    {
-      result.push_back(pos1);
-      ++it1;
-      ++it2;
-    }
-    else if (pos1 < pos2) { ++it1; }
-    else if (pos1 > pos2) { ++it2; }
-  }
-  return result;
-}
+    Dense,
+    Sparse
+  };
 
-// Unites two bit vectors based on theirs begin and end iterators.
-// Returns resulting positions of ones.
-template <typename It1T, typename It2T>
-vector<uint32_t> BitVectorsOr(It1T begin1, It1T end1, It2T begin2, It2T end2)
+  virtual ~CompressedBitVector() = default;
+
+  // Intersects two bit vectors.
+  // todo(@pimenov) We expect the common use case to be as follows.
+  // A CBV is created in memory and several CBVs are read and intersected
+  // with it one by one. The in-memory CBV may initially contain a bit
+  // for every feature in an mwm and the intersected CBVs are read from
+  // the leaves of a search trie.
+  // Therefore an optimization of Intersect comes to mind: make a wrapper
+  // around TReader that will read a representation of a CBV from disk
+  // and intersect it bit by bit with the global in-memory CBV bypassing such
+  // routines as allocating memory and choosing strategy. They all can be called only
+  // once, namely in the end, when it is needed to pack the in-memory CBV into
+  // a suitable representation and pass it to the caller.
+  static unique_ptr<CompressedBitVector> Intersect(CompressedBitVector const & lhs,
+                                                   CompressedBitVector const & rhs);
+
+  // Subtracts two bit vectors.
+  static unique_ptr<CompressedBitVector> Subtract(CompressedBitVector const & lhs,
+                                                  CompressedBitVector const & rhs);
+
+  // Unites two bit vectors.
+  static unique_ptr<CompressedBitVector> Union(CompressedBitVector const & lhs,
+                                               CompressedBitVector const & rhs);
+
+  static bool IsEmpty(unique_ptr<CompressedBitVector> const & cbv);
+
+  static bool IsEmpty(CompressedBitVector const * cbv);
+
+  // Returns the number of set bits (population count).
+  virtual uint64_t PopCount() const = 0;
+
+  // todo(@pimenov) How long will 32 bits be enough here?
+  // Would operator[] look better?
+  virtual bool GetBit(uint64_t pos) const = 0;
+
+  // Returns a subset of the current bit vector with first
+  // min(PopCount(), |n|) set bits.
+  virtual unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const = 0;
+
+  // Returns the strategy used when storing this bit vector.
+  virtual StorageStrategy GetStorageStrategy() const = 0;
+
+  // Writes the contents of a bit vector to writer.
+  // The first byte is always the header that defines the format.
+  // Currently the header is 0 or 1 for Dense and Sparse strategies respectively.
+  // It is easier to dispatch via virtual method calls and not bother
+  // with template TWriters here as we do in similar places in our code.
+  // This should not pose too much a problem because commonly
+  // used writers are inhereted from Writer anyway.
+  // todo(@pimenov). Think about rewriting Serialize and Deserialize to use the
+  // code in old_compressed_bit_vector.{c,h}pp.
+  virtual void Serialize(Writer & writer) const = 0;
+
+  // Copies a bit vector and returns a pointer to the copy.
+  virtual unique_ptr<CompressedBitVector> Clone() const = 0;
+};
+
+string DebugPrint(CompressedBitVector::StorageStrategy strat);
+
+class DenseCBV : public CompressedBitVector
 {
-  vector<uint32_t> result;
+public:
+  friend class CompressedBitVectorBuilder;
+  static uint64_t const kBlockSize = 64;
 
-  It1T it1 = begin1;
-  It2T it2 = begin2;
-  while (it1 != end1 && it2 != end2)
+  DenseCBV() = default;
+
+  // Builds a dense CBV from a list of positions of set bits.
+  explicit DenseCBV(vector<uint64_t> const & setBits);
+
+  // Not to be confused with the constructor: the semantics
+  // of the array of integers is completely different.
+  static unique_ptr<DenseCBV> BuildFromBitGroups(vector<uint64_t> && bitGroups);
+
+  size_t NumBitGroups() const { return m_bitGroups.size(); }
+
+  template <typename TFn>
+  void ForEach(TFn && f) const
   {
-    uint32_t pos1 = *it1, pos2 = *it2;
-    if (pos1 == pos2)
+    for (size_t i = 0; i < m_bitGroups.size(); ++i)
     {
-      result.push_back(pos1);
-      ++it1;
-      ++it2;
-    }
-    else if (pos1 < pos2)
-    {
-      result.push_back(pos1);
-      ++it1;      
-    }
-    else  // pos1 > pos2
-    {
-      result.push_back(pos2);
-      ++it2;
+      for (size_t j = 0; j < kBlockSize; ++j)
+      {
+        if (((m_bitGroups[i] >> j) & 1) > 0)
+          f(kBlockSize * i + j);
+      }
     }
   }
 
-  for (; it1 != end1; ++it1)
-    result.push_back(*it1);
-  for (; it2 != end2; ++it2)
-    result.push_back(*it2);
-  return result;
-}
+  // Returns 0 if the group number is too large to be contained in m_bits.
+  uint64_t GetBitGroup(size_t i) const;
 
-// Intersects first vector with second vector, when second vector is a subset of the first vector,
-// second bit vector should have size equal to first vector's number of ones.
-// Returns resulting positions of ones.
-template <typename It1T, typename It2T>
-vector<uint32_t> BitVectorsSubAnd(It1T begin1, It1T end1, It2T begin2, It2T end2)
+  // CompressedBitVector overrides:
+  uint64_t PopCount() const override;
+  bool GetBit(uint64_t pos) const override;
+  unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const override;
+  StorageStrategy GetStorageStrategy() const override;
+  void Serialize(Writer & writer) const override;
+  unique_ptr<CompressedBitVector> Clone() const override;
+
+private:
+  vector<uint64_t> m_bitGroups;
+  uint64_t m_popCount = 0;
+};
+
+class SparseCBV : public CompressedBitVector
 {
-  vector<uint32_t> result;
+public:
+  friend class CompressedBitVectorBuilder;
+  using TIterator = vector<uint64_t>::const_iterator;
 
-  It1T it1 = begin1;
-  It2T it2 = begin2;
-  uint64_t index = 0;
-  for (; it1 != end1 && it2 != end2; ++it2) {
-    advance(it1, *it2 - index);
-    index = *it2;
-    result.push_back(*it1);
+  SparseCBV() = default;
+
+  explicit SparseCBV(vector<uint64_t> const & setBits);
+
+  explicit SparseCBV(vector<uint64_t> && setBits);
+
+  // Returns the position of the i'th set bit.
+  uint64_t Select(size_t i) const;
+
+  template <typename TFn>
+  void ForEach(TFn && f) const
+  {
+    for (auto const & position : m_positions)
+      f(position);
   }
-  CHECK((it2 == end2), ());
-  return result;
-}
+
+  // CompressedBitVector overrides:
+  uint64_t PopCount() const override;
+  bool GetBit(uint64_t pos) const override;
+  unique_ptr<CompressedBitVector> LeaveFirstSetNBits(uint64_t n) const override;
+  StorageStrategy GetStorageStrategy() const override;
+  void Serialize(Writer & writer) const override;
+  unique_ptr<CompressedBitVector> Clone() const override;
+
+  inline TIterator Begin() const { return m_positions.cbegin(); }
+  inline TIterator End() const { return m_positions.cend(); }
+
+private:
+  // 0-based positions of the set bits.
+  vector<uint64_t> m_positions;
+};
+
+class CompressedBitVectorBuilder
+{
+public:
+  // Chooses a strategy to store the bit vector with bits from setBits set to one
+  // and returns a pointer to a class that fits best.
+  static unique_ptr<CompressedBitVector> FromBitPositions(vector<uint64_t> const & setBits);
+  static unique_ptr<CompressedBitVector> FromBitPositions(vector<uint64_t> && setBits);
+
+  // Chooses a strategy to store the bit vector with bits from a bitmap obtained
+  // by concatenating the elements of bitGroups.
+  static unique_ptr<CompressedBitVector> FromBitGroups(vector<uint64_t> & bitGroups);
+  static unique_ptr<CompressedBitVector> FromBitGroups(vector<uint64_t> && bitGroups);
+
+  // Reads a bit vector from reader which must contain a valid
+  // bit vector representation (see CompressedBitVector::Serialize for the format).
+  template <typename TReader>
+  static unique_ptr<CompressedBitVector> DeserializeFromReader(TReader & reader)
+  {
+    ReaderSource<TReader> src(reader);
+    return DeserializeFromSource(src);
+  }
+
+  // Reads a bit vector from source which must contain a valid
+  // bit vector representation (see CompressedBitVector::Serialize for the format).
+  template <typename TSource>
+  static unique_ptr<CompressedBitVector> DeserializeFromSource(TSource & src)
+  {
+    uint8_t header = ReadPrimitiveFromSource<uint8_t>(src);
+    CompressedBitVector::StorageStrategy strat =
+        static_cast<CompressedBitVector::StorageStrategy>(header);
+    switch (strat)
+    {
+      case CompressedBitVector::StorageStrategy::Dense:
+      {
+        vector<uint64_t> bitGroups;
+        rw::ReadVectorOfPOD(src, bitGroups);
+        return DenseCBV::BuildFromBitGroups(move(bitGroups));
+      }
+      case CompressedBitVector::StorageStrategy::Sparse:
+      {
+        vector<uint64_t> setBits;
+        rw::ReadVectorOfPOD(src, setBits);
+        return make_unique<SparseCBV>(move(setBits));
+      }
+    }
+    return unique_ptr<CompressedBitVector>();
+  }
+};
+
+// ForEach is generic and therefore cannot be virtual: a helper class is needed.
+class CompressedBitVectorEnumerator
+{
+public:
+  // Executes f for each bit that is set to one using
+  // the bit's 0-based position as argument.
+  template <typename TFn>
+  static void ForEach(CompressedBitVector const & cbv, TFn && f)
+  {
+    CompressedBitVector::StorageStrategy strat = cbv.GetStorageStrategy();
+    switch (strat)
+    {
+      case CompressedBitVector::StorageStrategy::Dense:
+      {
+        DenseCBV const & denseCBV = static_cast<DenseCBV const &>(cbv);
+        denseCBV.ForEach(f);
+        return;
+      }
+      case CompressedBitVector::StorageStrategy::Sparse:
+      {
+        SparseCBV const & sparseCBV = static_cast<SparseCBV const &>(cbv);
+        sparseCBV.ForEach(f);
+        return;
+      }
+    }
+  }
+};
+}  // namespace coding

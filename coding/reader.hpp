@@ -4,11 +4,12 @@
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 
+#include "std/cstring.hpp"
 #include "std/shared_array.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
-#include "std/cstring.hpp"
-
+#include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 
 // Base class for random-access Reader. Not thread-safe.
 class Reader
@@ -22,7 +23,7 @@ public:
   virtual ~Reader() {}
   virtual uint64_t Size() const = 0;
   virtual void Read(uint64_t pos, void * p, size_t size) const = 0;
-  virtual Reader * CreateSubReader(uint64_t pos, uint64_t size) const = 0;
+  virtual unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const = 0;
 
   void ReadAsString(string & s) const;
 
@@ -41,12 +42,12 @@ public:
   {
   }
 
-  inline uint64_t Size() const
+  inline uint64_t Size() const override
   {
     return m_size;
   }
 
-  inline void Read(uint64_t pos, void * p, size_t size) const
+  inline void Read(uint64_t pos, void * p, size_t size) const override
   {
     ASSERT ( AssertPosAndSize(pos, size), () );
     memcpy(p, m_pData + pos, size);
@@ -58,10 +59,10 @@ public:
     return MemReader(m_pData + pos, static_cast<size_t>(size));
   }
 
-  inline MemReader * CreateSubReader(uint64_t pos, uint64_t size) const
+  inline unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override
   {
     ASSERT ( AssertPosAndSize(pos, size), () );
-    return new MemReader(m_pData + pos, static_cast<size_t>(size));
+    return make_unique<MemReader>(m_pData + pos, static_cast<size_t>(size));
   }
 
 private:
@@ -69,54 +70,18 @@ private:
   size_t m_size;
 };
 
-class SharedMemReader
-{
-  bool AssertPosAndSize(uint64_t pos, uint64_t size) const;
-
-public:
-  explicit SharedMemReader(size_t size) : m_data(new char[size]), m_offset(0), m_size(size) {}
-
-  inline char * Data() { return m_data.get() + m_offset; }
-  inline char const * Data() const { return m_data.get() + m_offset; }
-  inline uint64_t Size() const { return m_size; }
-
-  inline void Read(uint64_t pos, void * p, size_t size) const
-  {
-    ASSERT ( AssertPosAndSize(pos, size), () );
-    memcpy(p, Data() + pos, size);
-  }
-
-  inline SharedMemReader SubReader(uint64_t pos, uint64_t size) const
-  {
-    ASSERT ( AssertPosAndSize(pos, size), () );
-    return SharedMemReader(m_data, static_cast<size_t>(pos), static_cast<size_t>(size));
-  }
-
-  inline SharedMemReader * CreateSubReader(uint64_t pos, uint64_t size) const
-  {
-    ASSERT ( AssertPosAndSize(pos, size), () );
-    return new SharedMemReader(m_data, static_cast<size_t>(pos), static_cast<size_t>(size));
-  }
-
-private:
-  SharedMemReader(shared_array<char> const & data, size_t offset, size_t size)
-    : m_data(data), m_offset(offset), m_size(size) {}
-
-  shared_array<char> m_data;
-  size_t m_offset;
-  size_t m_size;
-};
-
 // Reader wrapper to hold the pointer to a polymorfic reader.
 // Common use: ReaderSource<ReaderPtr<Reader> >.
 // Note! It takes the ownership of Reader.
-template <class ReaderT> class ReaderPtr
+template <class TReader>
+class ReaderPtr
 {
 protected:
-  shared_ptr<ReaderT> m_p;
+  shared_ptr<TReader> m_p;
 
 public:
-  ReaderPtr(ReaderT * p = 0) : m_p(p) {}
+  template <typename TReaderDerived>
+  ReaderPtr(unique_ptr<TReaderDerived> p) : m_p(move(p)) {}
 
   uint64_t Size() const
   {
@@ -133,7 +98,7 @@ public:
     m_p->ReadAsString(s);
   }
 
-  ReaderT * GetPtr() const { return m_p.get(); }
+  TReader * GetPtr() const { return m_p.get(); }
 };
 
 // Model reader store file id as string.
@@ -144,7 +109,7 @@ class ModelReader : public Reader
 public:
   ModelReader(string const & name) : m_name(name) {}
 
-  virtual ModelReader * CreateSubReader(uint64_t pos, uint64_t size) const = 0;
+  virtual unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override = 0;
 
   inline string const & GetName() const { return m_name; }
 };
@@ -152,29 +117,28 @@ public:
 // Reader pointer class for data files.
 class ModelReaderPtr : public ReaderPtr<ModelReader>
 {
-  typedef ReaderPtr<ModelReader> base_type;
+  using TBase = ReaderPtr<ModelReader>;
 
 public:
-  ModelReaderPtr(ModelReader * p) : base_type(p) {}
+  template <typename TReaderDerived>
+  ModelReaderPtr(unique_ptr<TReaderDerived> p) : TBase(move(p)) {}
 
   inline ModelReaderPtr SubReader(uint64_t pos, uint64_t size) const
   {
-    return m_p->CreateSubReader(pos, size);
+    return unique_ptr<ModelReader>(static_cast<ModelReader *>(m_p->CreateSubReader(pos, size).release()));
   }
 
   inline string const & GetName() const { return m_p->GetName(); }
 };
 
-
 // Source that reads from a reader.
-template <typename ReaderT> class ReaderSource
+template <typename TReader>
+class ReaderSource
 {
 public:
-  typedef ReaderT ReaderType;
+  using ReaderType = TReader;
 
-  ReaderSource(ReaderT const & reader) : m_reader(reader), m_pos(0)
-  {
-  }
+  ReaderSource(TReader const & reader) : m_reader(reader), m_pos(0) {}
 
   void Read(void * p, size_t size)
   {
@@ -199,17 +163,14 @@ public:
     return (m_reader.Size() - m_pos);
   }
 
-  ReaderT SubReader(uint64_t size)
+  TReader SubReader(uint64_t size)
   {
     uint64_t const pos = m_pos;
     Skip(size);
     return m_reader.SubReader(pos, size);
   }
 
-  ReaderT SubReader()
-  {
-    return SubReader(Size());
-  }
+  TReader SubReader() { return SubReader(Size()); }
 
 private:
   bool AssertPosition() const
@@ -219,28 +180,34 @@ private:
     return ret;
   }
 
-  ReaderT m_reader;
+  TReader m_reader;
   uint64_t m_pos;
 };
 
-template <class ReaderT> inline
-void ReadFromPos(ReaderT const & reader, uint64_t pos, void * p, size_t size)
+template <class TReader>
+inline void ReadFromPos(TReader const & reader, uint64_t pos, void * p, size_t size)
 {
   reader.Read(pos, p, size);
 }
 
-template <typename PrimitiveT, class ReaderT> inline
-PrimitiveT ReadPrimitiveFromPos(ReaderT const & reader, uint64_t pos)
+template <typename TPrimitive, class TReader>
+inline TPrimitive ReadPrimitiveFromPos(TReader const & reader, uint64_t pos)
 {
-  PrimitiveT primitive;
+#ifndef OMIM_OS_LINUX
+  static_assert(is_trivially_copyable<TPrimitive>::value, "");
+#endif
+  TPrimitive primitive;
   ReadFromPos(reader, pos, &primitive, sizeof(primitive));
   return SwapIfBigEndian(primitive);
 }
 
-template <typename PrimitiveT, class TSource> inline
-PrimitiveT ReadPrimitiveFromSource(TSource & source)
+template <typename TPrimitive, class TSource>
+TPrimitive ReadPrimitiveFromSource(TSource & source)
 {
-  PrimitiveT primitive;
+#ifndef OMIM_OS_LINUX
+  static_assert(is_trivially_copyable<TPrimitive>::value, "");
+#endif
+  TPrimitive primitive;
   source.Read(&primitive, sizeof(primitive));
   return SwapIfBigEndian(primitive);
 }

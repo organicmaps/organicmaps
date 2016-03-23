@@ -1,33 +1,31 @@
 #pragma once
 
-#include "tile_key.hpp"
+#include "drape_frontend/tile_key.hpp"
+
 #include "std/function.hpp"
-#include "std/set.hpp"
 
 namespace df
 {
 
 using TTilesCollection = set<TileKey>;
 
-/// This function determines the coverage of a tile in specified zoom level.
-void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, TTilesCollection & tiles);
+struct CoverageResult
+{
+  int m_minTileX = 0;
+  int m_maxTileX = 0;
+  int m_minTileY = 0;
+  int m_maxTileY = 0;
+};
 
-/// This function determines the coverage of tiles in specified zoom level.
-void CalcTilesCoverage(set<TileKey> const & tileKeys, int targetZoom, TTilesCollection & tiles);
+/// This function determines the tiles coverage in specified zoom level.
+/// Each tile can be processed in processTile callback.
+CoverageResult CalcTilesCoverage(m2::RectD const & rect, int targetZoom,
+                                 function<void(int, int)> const & processTile);
 
-/// This function determines the coverage of a tile in specified zoom level. Each new tile can be processed.
-/// in processTile callback.
-void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, function<void(TileKey const &)> const & processTile);
-
-/// This function checks if targetTileKey is above tileKey.
-bool IsTileAbove(TileKey const & tileKey, TileKey const & targetTileKey);
-
-/// This function checks if targetTileKey is below tileKey.
-bool IsTileBelow(TileKey const & tileKey, TileKey const & targetTileKey);
-
-/// This function returns parent tile on specified zoom level.
-TileKey GetParentTile(TileKey const & tileKey, int targetZoom);
-
+/// This function checks if tileKey1 and tileKey2 are neighbours
 bool IsNeighbours(TileKey const & tileKey1, TileKey const & tileKey2);
+
+/// This function performs clipping by maximum zoom label available for map data.
+int ClipTileZoomByMaxDataZoom(int zoom);
 
 } // namespace df

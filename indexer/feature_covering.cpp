@@ -126,8 +126,8 @@ vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cell
   int const scale = FeatureType::BEST_GEOMETRY;
 
   FeatureIntersector fIsect;
-  f.ForEachPointRef(fIsect, scale);
-  f.ForEachTriangleRef(fIsect, scale);
+  f.ForEachPoint(fIsect, scale);
+  f.ForEachTriangle(fIsect, scale);
 
   CHECK(!(fIsect.m_trg.empty() && fIsect.m_polyline.empty()) &&
         f.GetLimitRect(scale).IsValid(), (f.DebugString(scale)));

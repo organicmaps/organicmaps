@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content">
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
   <com.mapswithme.maps.widget.ObservableScrollView
-      android:id="@+id/pp__details"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="?ppBackground"
-      android:overScrollMode="never">
+    android:id="@+id/pp__details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?ppBackground"
+    android:overScrollMode="never">
+
     <LinearLayout
-        android:id="@+id/rl__place_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/margin_base_plus"
-        android:paddingRight="@dimen/margin_base_plus"
-        android:paddingTop="@dimen/margin_base">
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
 
       <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginBottom="@dimen/margin_half"
-          android:background="?attr/dividerHorizontal"/>
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/margin_half"
+        android:background="?attr/dividerHorizontal"/>
 
       <include layout="@layout/place_page_placename"/>
+
+      <include layout="@layout/place_page_opening_hours"/>
 
       <include layout="@layout/place_page_entrance"/>
 
@@ -35,8 +35,6 @@
 
       <include layout="@layout/place_page_email"/>
 
-      <include layout="@layout/place_page_schedule"/>
-
       <include layout="@layout/place_page_latlon"/>
 
       <include layout="@layout/place_page_wifi"/>
@@ -45,15 +43,21 @@
 
       <include layout="@layout/place_page_cuisine"/>
 
+      <include layout="@layout/place_page_editor"/>
+
+      <include layout="@layout/place_page_report_problem"/>
+
       <Space
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/margin_half"/>
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_half"/>
 
       <include
-          layout="@layout/place_page_bookmark_details"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
+        layout="@layout/place_page_bookmark_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     </LinearLayout>
+
   </com.mapswithme.maps.widget.ObservableScrollView>
 
   <include layout="@layout/shadow_top"/>

@@ -32,10 +32,16 @@ struct SearchQueryParams
   inline bool CanSuggest() const { return (m_tokens.empty() && !m_prefixTokens.empty()); }
   inline bool IsLangExist(int8_t l) const { return (m_langs.count(l) > 0); }
 
+  TSynonymsVector const & GetTokens(size_t i) const;
+  TSynonymsVector & GetTokens(size_t i);
+
+  /// @return true if all tokens in [start, end) range has number synonym.
+  bool IsNumberTokens(size_t start, size_t end) const;
+
 private:
   template <class ToDo>
   void ForEachToken(ToDo && toDo);
 };
-}  // namespace search
 
 string DebugPrint(search::SearchQueryParams const & params);
+}  // namespace search

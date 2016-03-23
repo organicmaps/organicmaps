@@ -6,12 +6,14 @@
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/cerrno.hpp"
 #include "std/cstring.hpp"
 #include "std/exception.hpp"
 #include "std/fstream.hpp"
 #include "std/target_os.hpp"
+#include "std/thread.hpp"
 
 #ifdef OMIM_OS_WINDOWS
   #include <io.h>
@@ -265,6 +267,25 @@ bool RenameFileX(string const & fOld, string const & fNew)
 #endif
 
   return CheckFileOperationResult(res, fOld);
+}
+
+bool WriteToTempAndRenameToFile(string const & dest, function<bool(string const &)> const & write,
+                                string const & tmp)
+{
+  string const tmpFileName =
+      tmp.empty() ? dest + ".tmp" + strings::to_string(this_thread::get_id()) : tmp;
+  if (!write(tmpFileName))
+  {
+    LOG(LERROR, ("Can't write to", tmpFileName));
+    return false;
+  }
+  if (!RenameFileX(tmpFileName, dest))
+  {
+    LOG(LERROR, ("Can't rename file", tmpFileName, "to", dest));
+    DeleteFileX(tmpFileName);
+    return false;
+  }
+  return true;
 }
 
 bool CopyFileX(string const & fOld, string const & fNew)

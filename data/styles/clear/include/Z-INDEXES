@@ -141,6 +141,8 @@ area|z14[aeroway=terminal]
 line|z13[highway=cycleway],
 line|z16[highway=steps]{z-index: 1000;}
 
+line|z7-[highway=world_level],
+line|z7-[highway=world_towns_level],
 line|z7-[highway=trunk],
 line|z7-[highway=motorway] {z-index: 900;}
 

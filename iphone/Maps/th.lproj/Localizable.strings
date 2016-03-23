@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "ลบ";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "ลบแผนที่เก่าและดำเนินการต่อไป";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "อย่าถามฉันอีก";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "ตำแหน่งของฉัน";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "ไม่สามารถตรวจพบการเชื่อมต่ออินเทอร์เน็ต";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "ไม่สามารถตรวจพบการเชื่อมต่อ WiFi คุณต้องการใช้ข้อมูลโทรศัพท์มือถือ (GPRS, EDGE, 3G หรือ LTE) เพื่อดาวน์โหลด %@?";
 
@@ -111,9 +105,6 @@
 /* Search box placeholder text */
 "search_map" = "ค้นหาแผนที่";
 
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "มีพื้นที่ว่างในดิสก์ไม่เพียงพอ";
-
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "แตะเพื่อดาวน์โหลด";
 
@@ -122,9 +113,6 @@
 
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "เราขอแนะนำให้ใช้ WiFi เพื่อดาวน์โหลดแผนที่ขนาดใหญ่";
-
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "ระบบการวัดใดที่คุณต้องการใช้?";
@@ -147,11 +135,14 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "ดาวน์โหลดแผนที่\n(^ ^)";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "ดาวน์โหลดแผนที่";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง\n(^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "การดาวน์โหลด\n^\nล้มเหลว";
+"country_status_download_failed" = "การดาวน์โหลดล้มเหลว";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "ลองอีกครั้ง";
@@ -184,8 +175,7 @@
 
 "free_space_for_country" = "โปรดเพิ่ม %1$@ บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %.1f%@ ของข้อมูล";
+"download_resources" = "ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %@ ของข้อมูล";
 
 "getting_position" = "กำลังรับตำแหน่งปัจจุบัน";
 
@@ -261,7 +251,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "ชื่อ";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "ที่อยู่";
 
 /* Place Page - Remove Pin button */
@@ -431,7 +421,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "ข้อความ";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "อีเมล";
 
 /* Copy Link */
@@ -617,7 +607,7 @@
 "settings_and_more" = "การตั้งค่า & อื่น ๆ";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "เว็บไซต์";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -695,22 +685,29 @@
 "routing_update_maps" = "เวอร์ชันใหม่ของ MAPS.ME อนุญาติให้สร้างเส้นทางจากตำแหน่งปัจจุบันของคุณไปยังจุดปลายทาง โปรดอัปเดตแผนเพื่อใช้ฟีเจอร์นี้";
 
 /* Update all button text */
-"downloader_update_all" = "อัปเดตทั้งหมด";
+"downloader_update_all_button" = "อัปเดตทั้งหมด";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "ยกเลิกทั้งหมด";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "ดาวน์โหลดเสร็จ";
+"downloader_downloaded_subtitle" = "ดาวน์โหลดแล้ว";
 
 /* Downloaded maps category */
-"downloader_downloaded_maps" = "แผนที่ที่ดาวน์โหลดลงมา";
-
-/* My maps category */
-"downloader_my_maps" = "แผนที่ของฉัน";
+"downloader_available_maps" = "Available";
 
 /* Country queued for download */
 "downloader_queued" = "ต่อแถว";
+
+"downloader_near_me_subtitle" = "ใกล้ฉัน";
+
+"downloader_status_maps" = "แผนที่";
+
+"downloader_download_all_button" = "ดาวน์โหลดทั้งหมด";
+
+"downloader_downloading" = "กำลังดาวน์โหลด:";
+
+"downloader_search_results" = "พบ";
 
 /* Disclaimer message */
 "routing_disclaimer" = "การสร้างเส้นทางในแอป MAPS.ME มีสิ่งที่ควรทราบดังต่อไปนี้:\n\n  - พึงพิจารณาเส้นทางที่แนะนำไว้ในฐานะที่เป็นการแนะนำเท่านั้น\n - สภาพถนน กฎจราจรและป้ายมีความสำคัญมากกว่าคำแนะนำในการนำทาง\n - แผนที่อาจไม่ถูกต้องหรือล้าสมัย และอาจไม่ได้มีการสร้างเส้นทางในรูปแบบพอจะเป็นไปได้ที่ดีที่สุด\n\n  ขอให้ปลอดภัยบนท้องถนนและดูแลตัวคุณเองด้วย!";
@@ -726,6 +723,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "ล้มเหลว";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "เพื่อลบแผนที่ โปรดหยุดใช้การนำทาง";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง";
@@ -787,7 +787,7 @@
 "toolbar_application_menu" = "เมนูของแอปพลิเคชัน";
 
 /* Preference text */
-"pref_use_google_play" = "ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ ";
+"pref_use_google_play" = "ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ";
 
 /* Text for rating dialog */
 "rating_just_rated" = "ฉันเพิ่งให้คะแนนแอปของคุณ";
@@ -839,276 +839,6 @@
 
 /* Text for routing error dialog */
 "routing_download_roaming" = "คุณกำลังจะดาวน์โหลด %@ MB โดยการใช้ข้อมูลโทรศัพท์มือถือ (ในการใช้งานข้ามเขต) นี่อาจส่งผลในการคิดค่าบริการเพิ่มเติมโดยขึ้นอยู่กับแผนการใช้ข้อมูลโทรศัพท์มือถือของผู้ให้บริการของคุณ";
-
-/* Cuisine */
-"cuisine_regional" = "อาหารพื้นเมือง";
-
-/* Cuisine */
-"cuisine_pizza" = "พิซซ่า";
-
-/* Cuisine */
-"cuisine_burger" = "เบอร์เกอร์";
-
-/* Cuisine */
-"cuisine_italian" = "อาหารอิตาเลียน";
-
-/* Cuisine */
-"cuisine_chinese" = "อาหารจีน";
-
-/* Cuisine */
-"cuisine_coffee_shop" = "ร้านกาแฟ";
-
-/* Cuisine */
-"cuisine_sandwich" = "แซนด์วิช";
-
-/* Cuisine */
-"cuisine_german" = "อาหารเยอรมัน";
-
-/* Cuisine */
-"cuisine_japanese" = "อาหารญี่ปุ่น";
-
-/* Cuisine */
-"cuisine_kebab" = "เคบับ";
-
-/* Cuisine */
-"cuisine_mexican" = "อาหารเม็กซิกัน";
-
-/* Cuisine */
-"cuisine_indian" = "อาหารอินเดีย";
-
-/* Cuisine */
-"cuisine_american" = "อาหารอเมริกัน";
-
-/* Cuisine */
-"cuisine_french" = "อาหารฝรั่งเศส";
-
-/* Cuisine */
-"cuisine_ice_cream" = "ไอศกรีม";
-
-/* Cuisine */
-"cuisine_asian" = "อาหารเอเชีย";
-
-/* Cuisine */
-"cuisine_chicken" = "ไก่";
-
-/* Cuisine */
-"cuisine_greek" = "อาหารกรีก";
-
-/* Cuisine */
-"cuisine_thai" = "อาหารไทย";
-
-/* Cuisine */
-"cuisine_international" = "อาหารนานาชาติ";
-
-/* Cuisine */
-"cuisine_sushi" = "ซูชิ";
-
-/* Cuisine */
-"cuisine_fish_and_chips" = "ปลาและมันฝรั่งทอด";
-
-/* Cuisine */
-"cuisine_turkish" = "ตุรกีอาหารตุรกี";
-
-/* Cuisine */
-"cuisine_seafood" = "อาหารทะเล";
-
-/* Cuisine */
-"cuisine_steak_house" = "ร้านสเต๊ก";
-
-/* Cuisine */
-"cuisine_spanish" = "อาหารสเปน";
-
-/* Cuisine */
-"cuisine_fish" = "ปลา";
-
-/* Cuisine */
-"cuisine_vietnamese" = "อาหารเวียดนาม";
-
-/* Cuisine */
-"cuisine_noodles" = "บะหมี่";
-
-/* Cuisine */
-"cuisine_vegetarian" = "อาหารมังสวิรัติ";
-
-/* Cuisine */
-"cuisine_korean" = "อาหารเกาหลี";
-
-/* Cuisine */
-"cuisine_friture" = "ปลาเล็กปลาน้อย";
-
-/* Cuisine */
-"cuisine_barbecue" = "บาร์บีคิว";
-
-/* Cuisine */
-"cuisine_bavarian" = "อาหารบาวาเรีย";
-
-/* Cuisine */
-"cuisine_ramen" = "ราเม็ง";
-
-/* Cuisine */
-"cuisine_italian_pizza" = "อาหารอิตาเลียน; พิซซ่า";
-
-/* Cuisine */
-"cuisine_mediterranean" = "อาหารเมดิเตอร์เรเนียน";
-
-/* Cuisine */
-"cuisine_donut" = "โดนัท";
-
-/* Cuisine */
-"cuisine_beef_bowl" = "ชามเนื้อวัว";
-
-/* Cuisine */
-"cuisine_cake" = "เค้ก";
-
-/* Cuisine */
-"cuisine_crepe" = "เครป";
-
-/* Cuisine */
-"cuisine_heuriger" = "โรงเหล้า";
-
-/* Cuisine */
-"cuisine_lebanese" = "อาหารเลบานอน";
-
-/* Cuisine */
-"cuisine_steak" = "สเต๊ก";
-
-/* Cuisine */
-"cuisine_local" = "อาหารท้องถิ่น";
-
-/* Cuisine */
-"cuisine_curry" = "กะหรี่";
-
-/* Cuisine */
-"cuisine_filipino" = "อาหารฟิลิปปินส์";
-
-/* Cuisine */
-"cuisine_russian" = "อาหารรัสเซีย";
-
-/* Cuisine */
-"cuisine_breakfast" = "อาหารเช้า";
-
-/* Cuisine */
-"cuisine_tapas" = "ทาปาส";
-
-/* Cuisine */
-"cuisine_bbq" = "บาร์บีคิว";
-
-/* Cuisine */
-"cuisine_bagel" = "เบเกิล";
-
-/* Cuisine */
-"cuisine_pasta" = "พาสต้า";
-
-/* Cuisine */
-"cuisine_buschenschank" = "โรงเหล้า";
-
-/* Cuisine */
-"cuisine_sausage" = "ไส้กรอก";
-
-/* Cuisine */
-"cuisine_portuguese" = "อาหารโปรตุเกส";
-
-/* Cuisine */
-"cuisine_grill" = "ย่าง";
-
-/* Cuisine */
-"cuisine_pancake" = "แพนเค้ก";
-
-/* Cuisine */
-"cuisine_malagasy" = "มาดากัสการ์";
-
-/* Cuisine */
-"cuisine_polish" = "อาหารโปแลนด์";
-
-/* Cuisine */
-"cuisine_diner" = "ร้านอาหาร";
-
-/* Cuisine */
-"cuisine_african" = "อาหารแอฟริกัน";
-
-/* Cuisine */
-"cuisine_doughnut" = "โดนัท";
-
-/* Cuisine */
-"cuisine_georgian" = "อาหารจอร์เจีย";
-
-/* Cuisine */
-"cuisine_croatian" = "อาหารโครเอเชีย";
-
-/* Cuisine */
-"cuisine_arab" = "อาหารอาหรับ";
-
-/* Cuisine */
-"cuisine_balkan" = "อาหารบอลข่าน";
-
-/* Cuisine */
-"cuisine_brazilian" = "อาหารบราซิล";
-
-/* Cuisine */
-"cuisine_caribbean" = "อาหารแคริบเบียน";
-
-/* Cuisine */
-"cuisine_austrian" = "อาหารออสเตรีย";
-
-/* Cuisine */
-"cuisine_vegan" = "อาหารมังสวิรัติ";
-
-/* Cuisine */
-"cuisine_argentinian" = "อาหารอาเจนติน่า";
-
-/* Cuisine */
-"cuisine_persian" = "อาหารเปอร์เซีย";
-
-/* Cuisine */
-"cuisine_soba" = "โซบะ";
-
-/* Cuisine */
-"cuisine_malaysian" = "อาหารมาเลเซีย";
-
-/* Cuisine */
-"cuisine_indonesian" = "อาหารอินโดนีเซีย";
-
-/* Cuisine */
-"cuisine_ethiopian" = "อาหารเอธิโอเปีย";
-
-/* Cuisine */
-"cuisine_deli" = "อาหารพิเศษ";
-
-/* Cuisine */
-"cuisine_irish" = "อาหารไอริช";
-
-/* Cuisine */
-"cuisine_hungarian" = "อาหารฮังการี";
-
-/* Cuisine */
-"cuisine_lao" = "อาหารลาว";
-
-/* Cuisine */
-"cuisine_coffee" = "กาแฟ";
-
-/* Cuisine */
-"cuisine_hotdog" = "ฮอทดอก";
-
-/* Cuisine */
-"cuisine_oriental" = "อาหารโอเรียนทอล";
-
-/* Cuisine */
-"cuisine_savory_pancakes" = "แพนเค้กแบบเค็ม";
-
-/* Cuisine */
-"cuisine_moroccan" = "อาหารโมร็อกโก";
-
-/* Cuisine */
-"cuisine_barbeque" = "บาร์บีคิว";
-
-/* Cuisine */
-"cuisine_peruvian" = "อาหารเปรู";
-
-/* Cuisine */
-"cuisine_fine_dining" = "อาหารหรูหรา";
-
-/* Cuisine */
-"cuisine_tea" = "ชา";
 
 /* bookmark button text */
 "bookmark" = "บุ๊กมาร์ก";
@@ -1242,7 +972,7 @@
 
 "dialog_routing_always_cross_that_border" = "ข้ามขอบเขตนี้เสมอ";
 
-"dialog_routing_not_now" = "ไว้คราวหลัง";
+"not_now" = "ไว้คราวหลัง";
 
 "dialog_routing_build_route" = "สร้าง";
 
@@ -1259,8 +989,6 @@
 "search_select_map" = "เลือกแผนที่";
 
 "search_select_other_map" = "เลือกแผนที่อื่น";
-
-"search_vehicle_routes" = "เส้นทางการขับรถ";
 
 /* «Show» context menu */
 "show" = "แสดง";
@@ -1350,6 +1078,284 @@
 
 "whats_new_next_button" = "ถัดไป";
 
-"whats_new_night_caption" = "การนำทางในโหมดกลางคืน";
+"editor_time_add" = "เพิ่มวัน";
 
-"whats_new_night_body" = "เราได้เพิ่มโหมดกลางคืนเพื่อส่งเสริมการใช้ MAPS.ME เมื่อคุณกำลังขับรถในสภาพมืด จะมีการเปิดใช้โหมดนี้โดยอัตโนมัติหลังจากพระอาทิตย์ตก";
+"editor_time_delete" = "ลบวัน";
+
+/* Text for allday switch. */
+"editor_time_allday" = "ตลอดวัน (24 ชั่วโมง)";
+
+"editor_time_open" = "เปิด";
+
+"editor_time_close" = "ปิด";
+
+"editor_time_add_closed" = "เพิ่มเวลาที่ปิดทำการเพิ่มเติม";
+
+"editor_time_title" = "วันเวลาทำการ";
+
+"editor_time_advanced" = "โหมดขั้นสูง";
+
+"editor_time_simple" = "โหมดแบบง่าย";
+
+"editor_hours_closed" = "ปิดเวลา";
+
+"editor_example_values" = "ตัวอย่างของค่าที่ตั้งไว้";
+
+"editor_correct_mistake" = "แก้ไขข้อผิดพลาด";
+
+"editor_correct_mistake_message" = "มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย";
+
+"editor_add_select_location" = "ตำแหน่ง";
+
+"editor_done_dialog_1" = "คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน";
+
+"editor_done_dialog_2" = "มันเป็นการปรับปรุงแผนที่ครั้งที่สองของคุณ ตอนนี้คุณอยู่ในอันดับที่ %d ของรายการผู้แก้ไขแผนที่ บอกให้เพื่อนคุณรู้";
+
+"editor_done_dialog_3" = "คุณได้ปรับปรุงแผนที่ บอกให้เพื่อนคุณรู้ แล้วมาแก้ไขแผนที่ไปด้วยกัน";
+
+"share_with_friends" = "แชร์กับเพื่อน";
+
+"editor_report_problem_desription_1" = "กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้";
+
+"editor_report_problem_desription_2" = "หรือทำด้วยตัวคุณเองที่ http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "ส่ง";
+
+"editor_report_problem_title" = "ปัญหา";
+
+"editor_report_problem_no_place_title" = "ไม่มีสถานที่นี้อยู่";
+
+"editor_report_problem_under_construction_title" = "ปิดปรับปรุง";
+
+"editor_report_problem_duplicate_place_title" = "สถานที่ซ้ำ";
+
+"first_launch_congrats_title" = "MAPS.ME พร้อมใช้งานแล้ว";
+
+"first_launch_congrats_text" = "ค้นหาและนำทางไปตามแผนที่ของทุกประเทศในโลกได้ฟรี";
+
+"migrate_title" = "สำคัญ!";
+
+/* Android uses image instead of text. */
+"download_all" = "ดาวน์โหลดทั้งหมด";
+
+"delete_all" = "ลบทั้งหมด";
+
+"autodownload" = "ดาวน์โหลดอัตโนมัติ";
+
+/* Place Page opening hours text */
+"closed_now" = "ปิดตอนนี้";
+
+/* Place Page opening hours text */
+"daily" = "ทุกวัน";
+
+"twentyfour_seven" = "ทั้งกลางวันและกลางคืน";
+
+"day_off_today" = "ปิดในวันนี้";
+
+"day_off" = "วันปิด";
+
+"today" = "วันนี้";
+
+"sunrise_to_sunset" = "ตั้งแต่พระอาทิตย์ขึ้นจนพระอาทิตย์ตก";
+
+"sunset_to_sunrise" = "ตั้งแต่พระอาทิตย์ตกจนพระอาทิตย์ขึ้น";
+
+"add_opening_hours" = "เพิ่มชั่วโมงทำการ";
+
+"edit_opening_hours" = "แก้ไขชั่วโมงทำการ";
+
+"profile" = "โปรไฟล์";
+
+"no_osm_account" = "ไม่มีบัญชีใน OpenStreetMap?";
+
+"register_at_openstreetmap" = "ลงทะเบียน";
+
+"password_8_chars_min" = "รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)";
+
+"invalid_username_or_password" = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+
+"login" = "ล็อกอิน";
+
+"password" = "รหัสผ่าน";
+
+"forgot_password" = "ลืมรหัสผ่าน?";
+
+/* Forgot Password dialog title */
+"restore_password" = "เรียกคืนรหัสผ่าน";
+
+"enter_email_address_to_reset_password" = "ใส่ที่อยู่อีเมลที่คุณใช้ระหว่างการลงทะเบียนแล้วเราจะส่งลิงก์ไปยังคุณเพื่อต่ออายุรหัสผ่านของคุณ";
+
+"reset_password" = "ตั้งรหัสผ่านใหม่";
+
+"username" = "ชื่อผู้ใช้";
+
+"osm_account" = "บัญชี OSM";
+
+"logout" = "ออกจากระบบ";
+
+"login_and_edit_map_motivation_message" = "ล็อกอินและแก้ไขข้อมูลวัตถุบนแผนที่ และเราจะทำให้มันสามารถใช้งานได้สำหรับผู้ใช้ท่านอื่น ๆ อีกนับล้าน มาช่วยกันทำให้โลกดียิ่งขึ้นร่วมกัน";
+
+"not_sent" = "ไม่มีการส่ง";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "อัปโหลดครั้งสุดท้าย";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "การเปลี่ยนแปลง";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "คุณได้แก้ไขวัตถุแรกของคุณ!";
+
+"thank_you" = "ขอบพระคุณ";
+
+"login_with_google" = "ล็อกอินด้วย Google";
+
+"login_with_facebook" = "ล็อกอินด้วย Facebook";
+
+"login_with_openstreetmap" = "ล็อกอินที่ www.openstreetmap.org";
+
+"edit_place" = "แก้ไขสถานที่";
+
+"place_name" = "ชื่อสถานที่";
+
+"place_name_caption" = "กรอกชื่อตามที่แสดงในสัญลักษณ์หรือป้ายแสดงชื่อ";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "ภาษาอื่น ๆ";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "เพิ่มภาษา";
+
+"street" = "ถนน";
+
+/* Editable House Number text field (in address block). */
+"house" = "อาคาร";
+
+"details" = "รายละเอียด";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "เพิ่มถนน";
+
+"choose_language" = "เลือกภาษา";
+
+"choose_street" = "เลือกถนน";
+
+"postal_code" = "รหัสไปรษณีย์";
+
+"cuisine" = "ประเภทอาหาร";
+
+"select_cuisine" = "เลือกประเภทอาหาร";
+
+/* login text field */
+"email_or_username" = "อีเมลหรือชื่อผู้ใช้";
+
+"phone" = "โทรศัพท์";
+
+"please_note" = "โปรดทราบ";
+
+"common_no_wifi_dialog" = "ไม่มีการเชื่อมต่อ WiFi คุณต้องการดำเนินการต่อโดยใช้ข้อมูลมือถือหรือไม่?";
+
+"downloader_delete_map_dialog" = "การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่";
+
+"downloader_update_maps" = "อัปเดตแผนที่";
+
+"downloader_mwm_migration_dialog" = "ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง";
+
+"downloader_search_field_hint" = "ค้นหาแผนที่";
+
+"migration_update_all_button" = "อัปเดตแผนที่ทั้งหมด";
+
+"migration_delete_all_download_current_button" = "ดาวน์โหลดแผนที่ปัจจุบันและลบแผนที่เก่า";
+
+"migration_prefetch_status" = "กำลังเตรียมการอัปเดตแผนที่…";
+
+"migration_download_error_dialog" = "ข้อผิดพลาดในการดาวน์โหลด";
+
+"common_check_internet_connection_dialog" = "กรุณาตรวจสอบการตั้งค่าของคุณแล้วทำให้แน่ใจว่าอุปกรณ์ของคุณได้รับการเชื่อมต่ออินเทอร์เน็ต";
+
+"downloader_no_space_title" = "มีพื้นที่ไม่เพียงพอ";
+
+"downloader_no_space_message" = "กรุณาลบข้อมูลที่ไม่จำเป็น";
+
+"editor_general_auth_error_dialog" = "ข้อผิดพลาดในการล็อกอินทั่วไป";
+
+"editor_login_error_dialog" = "ข้อผิดพลาดในการล็อกอิน";
+
+"editor_login_failed_dialog" = "การล็อกอินล้มเหลว";
+
+"editor_username_error_dialog" = "ชื่อผู้ใช้ไม่ถูกต้อง";
+
+"editor_place_edited_dialog" = "คุณได้แก้ไขวัตถุ!";
+
+"editor_login_with_osm" = "ล็อกอินด้วย OpenStreetMap";
+
+"editor_profile_changes" = "การเปลี่ยนแปลง:";
+
+"editor_profile_unsent_changes" = "ไม่ได้ส่ง:";
+
+"editor_focus_map_on_location" = "ดึงแผนที่เพื่อเลือกตำแหน่งวัตถุที่ถูกต้อง";
+
+"editor_add_select_category" = "เลือกหมวดหมู่";
+
+"editor_add_select_category_popular_subtitle" = "ยอดนิยม";
+
+"editor_add_select_category_all_subtitle" = "หมวดหมูทั้งหมด";
+
+"editor_edit_place_title" = "กำลังแก้ไข";
+
+"editor_add_place_title" = "กำลังเพิ่ม";
+
+"editor_edit_place_name_hint" = "ชื่อสถานที่";
+
+"editor_edit_place_category_title" = "หมวดหมู่";
+
+"detailed_problem_description" = "คำอธิบายปัญหาอย่างละเอียด";
+
+"editor_report_problem_other_title" = "ปัญหาอีกอย่างหนึ่ง";
+
+"placepage_add_place_button" = "เพิ่มสถานที่";
+
+"placepage_report_problem_button" = "แจ้งปัญหา";
+
+"whatsnew_smallmwm_header" = "คุณได้ขอมา เราจึงทำมัน";
+
+"whatsnew_smallmwm_message" = "เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว";
+
+"whatsnew_search_header" = "การค้นหาใหม่";
+
+"whatsnew_search_message" = "เราได้ปรับปรุงครั้งใหญ่สำหรับการค้นหาตามที่อยู่ ลองดูด้วยตัวเอง";
+
+"whatsnew_editor_title" = "แก้ไขแผนที่*";
+
+"whatsnew_editor_message_1" = "เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง";
+
+"whatsnew_editor_message_2" = "* MAPS.ME ใช้ข้อมูลจากชุมชน OpenStreetMap";
+
+"onboarding_offline_navigation_title" = "คุณจะไม่หลงทางอีกต่อไป";
+
+"onboarding_offline_navigation_message" = "วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด แม้ว่าจะไม่มีการเชื่อมต่ออินเทอร์เน็ต!";
+
+"onboarding_offline_navigation_title_2" = "การนำทางออฟไลน์";
+
+"onboarding_offline_navigation_message_2" = "วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด";
+
+"onboarding_offline_maps_title" = "MAPS.ME — เข้าถึงแผนที่ทั่วโลกโดยไม่ใช้อินเทอร์เน็ต";
+
+"onboarding_offline_maps_message" = "ดาวน์โหลดแผนที่สำหรับพื้นที่ที่ต้องการเพียงหนึ่งครั้ง แล้วใช้การฟังก์ชันการนำทางและการค้นหาโดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต";
+
+"onboarding_notifications_message" = "เพื่อรับแผนที่ล่าสุดและรับการแจ้งเตือนอัปเดต";
+
+"onboarding_notifications_title" = "เปิดการแจ้งเตือนการอัปเดต";
+
+"onboarding_location_title" = "ช่วยให้เราค้นหาคุณ";
+
+"onboarding_location_message" = "เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ";
+
+"dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
+
+"message_invalid_feature_position" = "ไม่สามารถตั้งวัตถุได้ที่นี่";

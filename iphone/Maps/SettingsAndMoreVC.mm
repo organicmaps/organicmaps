@@ -1,4 +1,6 @@
 #import "CommunityVC.h"
+#import "MWMAuthorizationCommon.h"
+#import "MWMAuthorizationLoginViewController.h"
 #import "RichTextVC.h"
 #import "SettingsAndMoreVC.h"
 #import "SettingsViewController.h"
@@ -8,7 +10,6 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import <sys/utsname.h>
 
-#import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
@@ -77,11 +78,18 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
                                 @{@"Id" : @"Help", @"Title" : L(@"help"), @"Icon" : @"ic_settings_help"},
                                 @{@"Id" : @"ReportBug", @"Title" : L(@"report_a_bug"), @"Icon" : @"ic_settings_feedback"}]},
                  @{@"Title" : @"",
-                   @"Items" : @[@{@"Id" : @"Community", @"Title" : L(@"maps_me_community"), @"Icon" : @"ic_settings_community"},
+                   @"Items" : @[@{@"Id" : @"Authorization", @"Title" : L(@"profile"), @"Icon" : @"ic_settings_login"},
+                                @{@"Id" : @"Community", @"Title" : L(@"maps_me_community"), @"Icon" : @"ic_settings_community"},
                                 @{@"Id" : @"RateApp", @"Title" : L(@"rate_the_app"), @"Icon" : @"ic_settings_rate"}]},
                  @{@"Title" : @"",
                    @"Items" : @[@{@"Id" : @"About", @"Title" : L(@"about_menu_title"), @"Icon" : @"IconAbout"},
                                 @{@"Id" : @"Copyright", @"Title" : L(@"copyright"), @"Icon" : @"IconCopyright"}]}];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - TableView
@@ -119,13 +127,10 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
   if (!cell) // iOS 5
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[UITableViewCell className]];
 
-  cell.backgroundColor = [UIColor white];
-  cell.textLabel.text = item[@"Title"];
+  NSString * osmUserName = osm_auth_ios::OSMUserName();
+  cell.textLabel.text = [item[@"Id"] isEqualToString:@"Authorization"] && osmUserName ? osmUserName : item[@"Title"];
   cell.imageView.image = [UIImage imageNamed:item[@"Icon"]];
   cell.imageView.mwm_coloring = MWMImageColoringBlack;
-  cell.textLabel.textColor = [UIColor blackPrimaryText];
-  cell.textLabel.backgroundColor = [UIColor clearColor];
-
   return cell;
 }
 
@@ -135,6 +140,8 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
   NSString * itemId = self.items[indexPath.section][@"Items"][indexPath.row][@"Id"];
   if ([itemId isEqualToString:@"About"])
     [self about];
+  else if ([itemId isEqualToString:@"Authorization"])
+    [self authorization];
   else if ([itemId isEqualToString:@"Community"])
     [self community];
   else if ([itemId isEqualToString:@"RateApp"])
@@ -155,6 +162,15 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsMiles"];
   SettingsViewController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[SettingsViewController className]];
   [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)authorization
+{
+  [[Statistics instance] logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatAuthorization}];
+  UINavigationController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:@"LoginNavigationController"];
+  MWMAuthorizationLoginViewController * authVC = (MWMAuthorizationLoginViewController *)[vc topViewController];
+  authVC.isCalledFromSettings = YES;
+  [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)community

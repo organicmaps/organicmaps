@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_editor"
+  style="@style/PlacePageItemFrame"
+  tools:visibility="visible">
+
+  <ImageView
+    style="@style/PlacePageMetadataIcon"
+    android:src="@drawable/ic_edit"
+    android:tint="?colorAccent"/>
+
+  <TextView
+    android:id="@+id/tv__editor"
+    style="@style/PlacePageMetadataText"
+    android:text="@string/edit_place"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage.Accent"/>
+</LinearLayout>

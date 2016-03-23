@@ -2,35 +2,65 @@
 
 #include "defines.hpp"
 
+namespace
+{
 // TODO(AlexZ): Review and replace invalid languages which does not map correctly to
 // iOS/Android locales/UI by valid and more popular ones.
 // Languages below were choosen after sorting name:<lang> tags in 2011.
 // Note, that it's not feasible to increase languages number here due to
 // our current encoding (6 bit to store language code).
-static char const * gLangs[] = {
-    "default",
-    "en", "ja", "fr", "ko_rm", "ar", "de", "int_name", "ru", "sv", "zh", "fi", "be", "ka", "ko",
-    "he", "nl", "ga", "ja_rm", "el", "it", "es", "zh_pinyin", "th", "cy", "sr", "uk", "ca", "hu",
-    "hsb", "eu", "fa", "br", "pl", "hy", "kn", "sl", "ro", "sq", "am", "fy", "cs", "gd", "sk",
-    "af", "ja_kana", "lb", "pt", "hr", "fur", "vi", "tr", "bg", "eo", "lt", "la", "kk", "gsw",
-    "et", "ku", "mn", "mk", "lv", "hi" };
+StringUtf8Multilang::Languages const g_languages = {{ {"default", "Native for each country"},
+    {"en", "English"}, {"ja", "日本語"}, {"fr", "Français"}, {"ko_rm", "Korean (Romanized)"},
+    {"ar", "العربية"}, {"de", "Deutsch"}, {"int_name", "International (Latin)"}, {"ru", "Русский"},
+    {"sv", "Svenska"}, {"zh", "中文"}, {"fi", "Suomi"}, {"be", "Беларуская"}, {"ka", "ქართული"},
+    {"ko", "한국어"}, {"he", "עברית"}, {"nl", "Nederlands"}, {"ga", "Gaeilge"},
+    {"ja_rm", "Japanese (Romanized)"}, {"el", "Ελληνικά"}, {"it", "Italiano"}, {"es", "Español"},
+    {"zh_pinyin", "Chinese (Pinyin)"}, {"th", "ไทย"}, {"cy", "Cymraeg"}, {"sr", "Српски"},
+    {"uk", "Українська"}, {"ca", "Català"}, {"hu", "Magyar"}, {"hsb", "Hornjoserbšćina"}, {"eu", "Euskara"},
+    {"fa", "فارسی"}, {"br", "Breton"}, {"pl", "Polski"}, {"hy", "Հայերէն"}, {"kn", "ಕನ್ನಡ"},
+    {"sl", "Slovenščina"}, {"ro", "Română"}, {"sq", "Shqipe"}, {"am", "አማርኛ"}, {"fy", "Frysk"},
+    {"cs", "Čeština"}, {"gd", "Gàidhlig"}, {"sk", "Slovenčina"}, {"af", "Afrikaans"},
+    {"ja_kana", "日本語(カタカナ)"}, {"lb", "Luxembourgish"}, {"pt", "Português"}, {"hr", "Hrvatski"},
+    {"fur", "Friulian"}, {"vi", "Tiếng Việt"}, {"tr", "Türkçe"}, {"bg", "Български"},
+    {"eo", "Esperanto"}, {"lt", "Lietuvių"}, {"la", "Latin"}, {"kk", "Қазақ"},
+    {"gsw", "Schwiizertüütsch"}, {"et", "Eesti"}, {"ku", "Kurdish"}, {"mn", "Mongolian"},
+    {"mk", "Македонски"}, {"lv", "Latviešu"}, {"hi", "हिन्दी"}
+}};
+}  // namespace
 
+// static
+StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguages()
+{
+  // Asserts for generic class constants.
+  ASSERT_EQUAL(g_languages[kDefaultCode].m_code, string("default"), ());
+  ASSERT_EQUAL(g_languages[kInternationalCode].m_code, string("int_name"), ());
+  return g_languages;
+}
+// static
 int8_t StringUtf8Multilang::GetLangIndex(string const & lang)
 {
-  static_assert(ARRAY_SIZE(gLangs) == MAX_SUPPORTED_LANGUAGES, "");
+  static_assert(g_languages.size() == kMaxSupportedLanguages,
+                "With current encoding we are limited to 64 languages max.");
 
-  for (size_t i = 0; i < ARRAY_SIZE(gLangs); ++i)
-    if (lang == gLangs[i])
+  for (size_t i = 0; i < g_languages.size(); ++i)
+    if (lang == g_languages[i].m_code)
       return static_cast<int8_t>(i);
 
-  return UNSUPPORTED_LANGUAGE_CODE;
+  return kUnsupportedLanguageCode;
 }
-
+// static
 char const * StringUtf8Multilang::GetLangByCode(int8_t langCode)
 {
-  if (langCode < 0 || langCode > ARRAY_SIZE(gLangs) - 1)
+  if (langCode < 0 || langCode > g_languages.size() - 1)
     return "";
-  return gLangs[langCode];
+  return g_languages[langCode].m_code;
+}
+// static
+char const * StringUtf8Multilang::GetLangNameByCode(int8_t langCode)
+{
+  if (langCode < 0 || langCode > g_languages.size() - 1)
+    return "";
+  return g_languages[langCode].m_name;
 }
 
 size_t StringUtf8Multilang::GetNextIndex(size_t i) const
@@ -139,14 +169,13 @@ struct Finder
 int8_t StringUtf8Multilang::FindString(string const & utf8s) const
 {
   Finder finder(utf8s);
-  ForEachRef(finder);
+  ForEach(finder);
   return finder.m_res;
 }
 
 string DebugPrint(StringUtf8Multilang const & s)
 {
   string out;
-  Printer printer(out);
-  s.ForEachRef(printer);
+  s.ForEach(Printer(out));
   return out;
 }

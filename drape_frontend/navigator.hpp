@@ -21,10 +21,6 @@ public:
   void SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect);
   void SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double visualScale);
 
-  void SaveState();
-  /// @return false if can't load previously saved values
-  bool LoadState();
-
   void OnSize(int w, int h);
 
   ScreenBase const & Screen() const { return m_Screen; }
@@ -94,9 +90,7 @@ m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect);
 void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale);
 void CheckMinGlobalRect(m2::RectD & rect);
 
-using TIsCountryLoaded = function<bool (m2::PointD const &)>;
-void CheckMinMaxVisibleScale(TIsCountryLoaded const & fn, m2::RectD & rect, int maxScale/* = -1*/,
-                             uint32_t tileSize, double visualScale);
-void CheckMinMaxVisibleScale(TIsCountryLoaded const & fn, m2::RectD & rect, int maxScale/* = -1*/);
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/, uint32_t tileSize, double visualScale);
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/);
 
 }

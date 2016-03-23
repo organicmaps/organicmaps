@@ -1,5 +1,4 @@
 #import "Common.h"
-#import "UIButton+Coloring.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIImageView+Coloring.h"
 #import "UIKitCategories.h"
@@ -139,20 +138,10 @@
 
 - (void)rateVersionFrom:(NSString *)launchPlaceName
 {
-  NSString * urlString = isIOSVersionLessThan(8) ?
+  NSString * urlString = isIOS7 ?
   [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id510623322?mt=8&at=1l3v7ya&ct=%@", launchPlaceName] :
   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=510623322&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software";
   [self openURL:[NSURL URLWithString:urlString]];
-}
-
-@end
-
-@implementation NSString (Size)
-
-- (CGSize)sizeWithDrawSize:(CGSize)drawSize font:(UIFont *)font
-{
-  CGRect rect = [self boundingRectWithSize:drawSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:nil];
-  return CGRectIntegral(rect).size;
 }
 
 @end
@@ -168,7 +157,7 @@
 
 @implementation UIView (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   UIColor * opposite = self.backgroundColor.opposite;
   if (opposite)
@@ -176,8 +165,8 @@
 
   for (UIView * v in self.subviews)
   {
-    if ([v respondsToSelector:@selector(refresh)])
-      [v refresh];
+    if ([v respondsToSelector:@selector(mwm_refreshUI)])
+      [v mwm_refreshUI];
   }
   [self setNeedsDisplay];
 }
@@ -186,17 +175,17 @@
 
 @implementation UITableViewCell (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
-  [self.selectedBackgroundView refresh];
+  [super mwm_refreshUI];
+  [self.selectedBackgroundView mwm_refreshUI];
 }
 
 @end
 
 @implementation UINavigationBar (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   UIColor * oppositeTint = self.tintColor.opposite;
   UIColor * oppositeBar = self.barTintColor.opposite;
@@ -210,9 +199,9 @@
 
 @implementation UILabel (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
+  [super mwm_refreshUI];
   UIColor * oppositeText = self.textColor.opposite;
   if (oppositeText)
     self.textColor = oppositeText;
@@ -222,7 +211,7 @@
 
 @implementation UISlider (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   UIColor * opposite = self.minimumTrackTintColor.opposite;
   if (opposite)
@@ -233,7 +222,7 @@
 
 @implementation UISwitch (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
   UIColor * opposite = self.onTintColor.opposite;
   if (opposite)
@@ -244,9 +233,8 @@
 
 @implementation UIButton (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self changeColoringToOpposite];
   UIColor * oppositeNormal = [self titleColorForState:UIControlStateNormal].opposite;
   UIColor * oppositeSelected = [self titleColorForState:UIControlStateSelected].opposite;
   UIColor * oppositeHightlighted = [self titleColorForState:UIControlStateHighlighted].opposite;
@@ -265,9 +253,9 @@
 
 @implementation UITextView (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
+  [super mwm_refreshUI];
   UIColor * oppositeText = self.textColor.opposite;
   UIColor * oppositeTint = self.tintColor.opposite;
   if (oppositeText)
@@ -280,9 +268,9 @@
 
 @implementation UITextField (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
+  [super mwm_refreshUI];
   UIColor * oppositeText = self.textColor.opposite;
   UILabel * placeholder = [self valueForKey:@"_placeholderLabel"];
   UIColor * oppositePlaceholder = placeholder.textColor.opposite;
@@ -296,9 +284,9 @@
 
 @implementation UIImageView (Refresh)
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [super refresh];
+  [super mwm_refreshUI];
   [self changeColoringToOpposite];
 }
 
@@ -308,7 +296,7 @@
 
 - (void)makeImageAlwaysTemplate
 {
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
     self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
@@ -320,193 +308,6 @@
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {}
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {}
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {}
-
-@end
-
-#import <objc/runtime.h>
-
-static const void * UIAlertViewOriginalDelegateKey                   = & UIAlertViewOriginalDelegateKey;
-
-static const void * UIAlertViewTapBlockKey                           = & UIAlertViewTapBlockKey;
-static const void * UIAlertViewWillPresentBlockKey                   = & UIAlertViewWillPresentBlockKey;
-static const void * UIAlertViewDidPresentBlockKey                    = & UIAlertViewDidPresentBlockKey;
-static const void * UIAlertViewWillDismissBlockKey                   = & UIAlertViewWillDismissBlockKey;
-static const void * UIAlertViewDidDismissBlockKey                    = & UIAlertViewDidDismissBlockKey;
-static const void * UIAlertViewCancelBlockKey                        = & UIAlertViewCancelBlockKey;
-static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlertViewShouldEnableFirstOtherButtonBlockKey;
-
-@implementation UIAlertView (Blocks)
-
-- (void)_checkAlertViewDelegate
-{
-  if (self.delegate != (id<UIAlertViewDelegate>)self)
-  {
-    objc_setAssociatedObject(self, UIAlertViewOriginalDelegateKey, self.delegate, OBJC_ASSOCIATION_ASSIGN);
-    self.delegate = (id <UIAlertViewDelegate>)self;
-  }
-}
-
-- (MWMAlertViewCompletionBlock)tapBlock
-{
-  return objc_getAssociatedObject(self, UIAlertViewTapBlockKey);
-}
-
-- (void)setTapBlock:(MWMAlertViewCompletionBlock)tapBlock
-{
-  [self _checkAlertViewDelegate];
-  objc_setAssociatedObject(self, UIAlertViewTapBlockKey, tapBlock, OBJC_ASSOCIATION_COPY);
-}
-
-- (MWMAlertViewCompletionBlock)willDismissBlock
-{
-  return objc_getAssociatedObject(self, UIAlertViewWillDismissBlockKey);
-}
-
-- (void)setWillDismissBlock:(MWMAlertViewCompletionBlock)willDismissBlock
-{
-  [self _checkAlertViewDelegate];
-  objc_setAssociatedObject(self, UIAlertViewWillDismissBlockKey, willDismissBlock, OBJC_ASSOCIATION_COPY);
-}
-
-- (MWMAlertViewCompletionBlock)didDismissBlock
-{
-  return objc_getAssociatedObject(self, UIAlertViewDidDismissBlockKey);
-}
-
-- (void)setDidDismissBlock:(MWMAlertViewCompletionBlock)didDismissBlock
-{
-  [self _checkAlertViewDelegate];
-  objc_setAssociatedObject(self, UIAlertViewDidDismissBlockKey, didDismissBlock, OBJC_ASSOCIATION_COPY);
-}
-
-- (MWMAlertViewBlock)willPresentBlock
-{
-  return objc_getAssociatedObject(self, UIAlertViewWillPresentBlockKey);
-}
-
-- (void)setWillPresentBlock:(MWMAlertViewBlock)willPresentBlock
-{
-  [self _checkAlertViewDelegate];
-  objc_setAssociatedObject(self, UIAlertViewWillPresentBlockKey, willPresentBlock, OBJC_ASSOCIATION_COPY);
-}
-
-- (MWMAlertViewBlock)didPresentBlock
-{
-  return objc_getAssociatedObject(self, UIAlertViewDidPresentBlockKey);
-}
-
-- (void)setDidPresentBlock:(MWMAlertViewBlock)didPresentBlock
-{
-  [self _checkAlertViewDelegate];
-  objc_setAssociatedObject(self, UIAlertViewDidPresentBlockKey, didPresentBlock, OBJC_ASSOCIATION_COPY);
-}
-
-- (MWMAlertViewBlock)cancelBlock
-{
-  return objc_getAssociatedObject(self, UIAlertViewCancelBlockKey);
-}
-
-- (void)setCancelBlock:(MWMAlertViewBlock)cancelBlock
-{
-  [self _checkAlertViewDelegate];
-  objc_setAssociatedObject(self, UIAlertViewCancelBlockKey, cancelBlock, OBJC_ASSOCIATION_COPY);
-}
-
-- (void)setShouldEnableFirstOtherButtonBlock:(BOOL(^)(UIAlertView * alertView))shouldEnableFirstOtherButtonBlock
-{
-  [self _checkAlertViewDelegate];
-  objc_setAssociatedObject(self, UIAlertViewShouldEnableFirstOtherButtonBlockKey, shouldEnableFirstOtherButtonBlock, OBJC_ASSOCIATION_COPY);
-}
-
-- (BOOL(^)(UIAlertView * alertView))shouldEnableFirstOtherButtonBlock
-{
-  return objc_getAssociatedObject(self, UIAlertViewShouldEnableFirstOtherButtonBlockKey);
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)willPresentAlertView:(UIAlertView *)alertView
-{
-  MWMAlertViewBlock block = alertView.willPresentBlock;
-  
-  if (block)
-    block(alertView);
-  
-  id originalDelegate = objc_getAssociatedObject(self, UIAlertViewOriginalDelegateKey);
-  if (originalDelegate && [originalDelegate respondsToSelector:@selector(willPresentAlertView:)])
-    [originalDelegate willPresentAlertView:alertView];
-}
-
-- (void)didPresentAlertView:(UIAlertView *)alertView
-{
-  MWMAlertViewBlock block = alertView.didPresentBlock;
-  
-  if (block)
-    block(alertView);
-  
-  id originalDelegate = objc_getAssociatedObject(self, UIAlertViewOriginalDelegateKey);
-  if (originalDelegate && [originalDelegate respondsToSelector:@selector(didPresentAlertView:)])
-    [originalDelegate didPresentAlertView:alertView];
-}
-
-- (void)alertViewCancel:(UIAlertView *)alertView {
-  MWMAlertViewBlock block = alertView.cancelBlock;
-  
-  if (block)
-    block(alertView);
-  
-  id originalDelegate = objc_getAssociatedObject(self, UIAlertViewOriginalDelegateKey);
-  if (originalDelegate && [originalDelegate respondsToSelector:@selector(alertViewCancel:)])
-    [originalDelegate alertViewCancel:alertView];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-  MWMAlertViewCompletionBlock completion = alertView.tapBlock;
-  
-  if (completion)
-    completion(alertView, buttonIndex);
-  
-  id originalDelegate = objc_getAssociatedObject(self, UIAlertViewOriginalDelegateKey);
-  if (originalDelegate && [originalDelegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)])
-    [originalDelegate alertView:alertView clickedButtonAtIndex:buttonIndex];
-}
-
-- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
-  MWMAlertViewCompletionBlock completion = alertView.willDismissBlock;
-  
-  if (completion)
-    completion(alertView, buttonIndex);
-  
-  id originalDelegate = objc_getAssociatedObject(self, UIAlertViewOriginalDelegateKey);
-  if (originalDelegate && [originalDelegate respondsToSelector:@selector(alertView:willDismissWithButtonIndex:)])
-    [originalDelegate alertView:alertView willDismissWithButtonIndex:buttonIndex];
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-  MWMAlertViewCompletionBlock completion = alertView.didDismissBlock;
-  
-  if (completion)
-    completion(alertView, buttonIndex);
-  
-  id originalDelegate = objc_getAssociatedObject(self, UIAlertViewOriginalDelegateKey);
-  if (originalDelegate && [originalDelegate respondsToSelector:@selector(alertView:didDismissWithButtonIndex:)])
-    [originalDelegate alertView:alertView didDismissWithButtonIndex:buttonIndex];
-}
-
-- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
-{
-  BOOL(^shouldEnableFirstOtherButtonBlock)(UIAlertView * alertView) = alertView.shouldEnableFirstOtherButtonBlock;
-  
-  if (shouldEnableFirstOtherButtonBlock)
-    return shouldEnableFirstOtherButtonBlock(alertView);
-  
-  id originalDelegate = objc_getAssociatedObject(self, UIAlertViewOriginalDelegateKey);
-  if (originalDelegate && [originalDelegate respondsToSelector:@selector(alertViewShouldEnableFirstOtherButton:)])
-    return [originalDelegate alertViewShouldEnableFirstOtherButton:alertView];
-  
-  return YES;
-}
 
 @end
 

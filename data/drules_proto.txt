@@ -1,6 +1,26 @@
 cont {
   name: "aerialway-cable_car"
   element {
+    scale: 12
+    lines {
+      width: 0.8
+      color: 2105376
+      priority: 1598
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 2105376
+      priority: 1598
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 14
     lines {
       width: 0.8
@@ -63,6 +83,26 @@ cont {
 }
 cont {
   name: "aerialway-chair_lift"
+  element {
+    scale: 12
+    lines {
+      width: 0.8
+      color: 2105376
+      priority: 1604
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 2105376
+      priority: 1604
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 14
     lines {
@@ -127,23 +167,65 @@ cont {
 cont {
   name: "aerialway-drag_lift"
   element {
-    scale: 14
+    scale: 12
     lines {
       width: 0.5
       color: 4473924
       priority: 1729
-      join: ROUNDJOIN
+      join: BEVELJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 2.5
+      width: 2.0
       color: 1715749956
       dashdot {
         dd: 1.0
         dd: 18.0
       }
       priority: 1716
-      join: ROUNDJOIN
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.5
+      color: 4473924
+      priority: 1729
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.0
+      color: 1715749956
+      dashdot {
+        dd: 1.0
+        dd: 18.0
+      }
+      priority: 1716
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 0.5
+      color: 4473924
+      priority: 1729
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.0
+      color: 1715749956
+      dashdot {
+        dd: 1.0
+        dd: 18.0
+      }
+      priority: 1716
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
@@ -153,18 +235,18 @@ cont {
       width: 0.5
       color: 4473924
       priority: 1729
-      join: ROUNDJOIN
+      join: BEVELJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 2.5
+      width: 2.0
       color: 1715749956
       dashdot {
         dd: 1.0
         dd: 18.0
       }
       priority: 1716
-      join: ROUNDJOIN
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
@@ -174,18 +256,18 @@ cont {
       width: 0.5
       color: 4473924
       priority: 1729
-      join: ROUNDJOIN
+      join: BEVELJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 2.5
+      width: 2.0
       color: 1715749956
       dashdot {
         dd: 1.0
         dd: 18.0
       }
       priority: 1716
-      join: ROUNDJOIN
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
@@ -195,18 +277,18 @@ cont {
       width: 0.5
       color: 4473924
       priority: 1729
-      join: ROUNDJOIN
+      join: BEVELJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 2.5
+      width: 2.0
       color: 1715749956
       dashdot {
         dd: 1.0
         dd: 18.0
       }
       priority: 1716
-      join: ROUNDJOIN
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
@@ -216,24 +298,44 @@ cont {
       width: 0.5
       color: 4473924
       priority: 1729
-      join: ROUNDJOIN
+      join: BEVELJOIN
       cap: BUTTCAP
     }
     lines {
-      width: 2.5
+      width: 2.0
       color: 1715749956
       dashdot {
         dd: 1.0
         dd: 18.0
       }
       priority: 1716
-      join: ROUNDJOIN
+      join: BEVELJOIN
       cap: BUTTCAP
     }
   }
 }
 cont {
   name: "aerialway-gondola"
+  element {
+    scale: 12
+    lines {
+      width: 0.8
+      color: 2105376
+      priority: 1601
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 2105376
+      priority: 1601
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 14
     lines {
@@ -298,6 +400,26 @@ cont {
 cont {
   name: "aerialway-mixed_lift"
   element {
+    scale: 12
+    lines {
+      width: 0.8
+      color: 2105376
+      priority: 1607
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 0.8
+      color: 2105376
+      priority: 1607
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 14
     lines {
       width: 0.8
@@ -360,6 +482,14 @@ cont {
 }
 cont {
   name: "aerialway-station"
+  element {
+    scale: 12
+    circle {
+      radius: 2.0
+      color: 2105376
+      priority: 14000
+    }
+  }
   element {
     scale: 13
     circle {
@@ -1017,6 +1147,13 @@ cont {
 cont {
   name: "aeroway-helipad"
   element {
+    scale: 14
+    symbol {
+      name: "helipad"
+      priority: 16000
+    }
+  }
+  element {
     scale: 15
     symbol {
       name: "helipad"
@@ -1540,6 +1677,27 @@ cont {
 cont {
   name: "amenity-bar"
   element {
+    scale: 13
+    symbol {
+      name: "bar"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "bar"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "bar"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "bar"
@@ -1862,6 +2020,27 @@ cont {
 cont {
   name: "amenity-bus_station"
   element {
+    scale: 12
+    symbol {
+      name: "bus"
+      priority: 16024
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "bus"
+      priority: 16024
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "bus"
+      priority: 16024
+    }
+  }
+  element {
     scale: 15
     symbol {
       name: "bus"
@@ -1947,6 +2126,27 @@ cont {
 }
 cont {
   name: "amenity-cafe"
+  element {
+    scale: 13
+    symbol {
+      name: "cafe"
+      priority: 16003
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "cafe"
+      priority: 16003
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "cafe"
+      priority: 16003
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -2121,6 +2321,18 @@ cont {
 }
 cont {
   name: "amenity-casino"
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     caption {
@@ -2472,6 +2684,38 @@ cont {
 cont {
   name: "amenity-drinking_water"
   element {
+    scale: 15
+    symbol {
+      name: "drinking_water"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "drinking_water"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "drinking_water"
@@ -2581,6 +2825,27 @@ cont {
 cont {
   name: "amenity-fast_food"
   element {
+    scale: 13
+    symbol {
+      name: "fastfood"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "fastfood"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "fastfood"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "fastfood"
@@ -2638,6 +2903,27 @@ cont {
 }
 cont {
   name: "amenity-ferry_terminal"
+  element {
+    scale: 11
+    symbol {
+      name: "slipway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 12
+    symbol {
+      name: "slipway"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "slipway"
+      priority: 16000
+    }
+  }
   element {
     scale: 14
     symbol {
@@ -2769,6 +3055,17 @@ cont {
 cont {
   name: "amenity-fountain"
   element {
+    scale: 15
+    area {
+      color: 9487572
+      priority: 1096
+    }
+    symbol {
+      name: "fountain"
+      priority: 16095
+    }
+  }
+  element {
     scale: 16
     area {
       color: 9487572
@@ -2842,6 +3139,20 @@ cont {
 }
 cont {
   name: "amenity-fuel"
+  element {
+    scale: 13
+    symbol {
+      name: "petrolstation"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "petrolstation"
+      priority: 16000
+    }
+  }
   element {
     scale: 15
     symbol {
@@ -3379,6 +3690,27 @@ cont {
 cont {
   name: "amenity-marketplace"
   element {
+    scale: 13
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "supermarket"
@@ -3819,6 +4151,18 @@ cont {
 cont {
   name: "amenity-parking-no-access"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 16
     caption {
       primary {
@@ -3951,6 +4295,13 @@ cont {
 cont {
   name: "amenity-parking-permissive"
   element {
+    scale: 15
+    symbol {
+      name: "parking-permissive"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "parking-permissive"
@@ -4009,6 +4360,13 @@ cont {
 cont {
   name: "amenity-parking-permissive-fee"
   element {
+    scale: 15
+    symbol {
+      name: "parking_fee"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "parking_fee"
@@ -4066,6 +4424,13 @@ cont {
 }
 cont {
   name: "amenity-parking-private"
+  element {
+    scale: 15
+    symbol {
+      name: "parking-private"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -4345,6 +4710,13 @@ cont {
 cont {
   name: "amenity-place_of_worship"
   element {
+    scale: 15
+    symbol {
+      name: "religion"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "religion"
@@ -4402,6 +4774,13 @@ cont {
 }
 cont {
   name: "amenity-place_of_worship-buddhist"
+  element {
+    scale: 15
+    symbol {
+      name: "religion"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -4461,6 +4840,13 @@ cont {
 cont {
   name: "amenity-place_of_worship-christian"
   element {
+    scale: 15
+    symbol {
+      name: "religion"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "religion"
@@ -4518,6 +4904,13 @@ cont {
 }
 cont {
   name: "amenity-place_of_worship-hindu"
+  element {
+    scale: 15
+    symbol {
+      name: "religion"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -4577,6 +4970,13 @@ cont {
 cont {
   name: "amenity-place_of_worship-jewish"
   element {
+    scale: 15
+    symbol {
+      name: "religion"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "religion"
@@ -4634,6 +5034,13 @@ cont {
 }
 cont {
   name: "amenity-place_of_worship-muslim"
+  element {
+    scale: 15
+    symbol {
+      name: "religion"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -4693,6 +5100,13 @@ cont {
 cont {
   name: "amenity-place_of_worship-shinto"
   element {
+    scale: 15
+    symbol {
+      name: "religion"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "religion"
@@ -4750,6 +5164,13 @@ cont {
 }
 cont {
   name: "amenity-place_of_worship-taoist"
+  element {
+    scale: 15
+    symbol {
+      name: "religion"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -4969,6 +5390,27 @@ cont {
 cont {
   name: "amenity-pub"
   element {
+    scale: 13
+    symbol {
+      name: "pub"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "pub"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "pub"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "pub"
@@ -5081,121 +5523,26 @@ cont {
 cont {
   name: "amenity-restaurant"
   element {
-    scale: 16
+    scale: 13
     symbol {
       name: "restaurant"
       priority: 16000
     }
   }
   element {
-    scale: 17
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-}
-cont {
-  name: "amenity-restaurant-vegan"
-  element {
-    scale: 16
+    scale: 14
     symbol {
       name: "restaurant"
       priority: 16000
     }
   }
   element {
-    scale: 17
+    scale: 15
     symbol {
       name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
+      priority: 16000
     }
   }
-  element {
-    scale: 18
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-}
-cont {
-  name: "amenity-restaurant-vegetarian"
   element {
     scale: 16
     symbol {
@@ -5595,6 +5942,34 @@ cont {
 }
 cont {
   name: "amenity-theatre"
+  element {
+    scale: 12
+    symbol {
+      name: "theatre"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "theatre"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "theatre"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "theatre"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -6417,6 +6792,13 @@ cont {
 cont {
   name: "barrier-entrance"
   element {
+    scale: 16
+    symbol {
+      name: "gate"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "gate"
@@ -6483,6 +6865,13 @@ cont {
 }
 cont {
   name: "barrier-gate"
+  element {
+    scale: 16
+    symbol {
+      name: "gate"
+      priority: 16000
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -6659,6 +7048,30 @@ cont {
 }
 cont {
   name: "barrier-toll_booth"
+  element {
+    scale: 12
+    circle {
+      radius: 1.2
+      color: 7368816
+      priority: 14000
+    }
+  }
+  element {
+    scale: 13
+    circle {
+      radius: 1.2
+      color: 7368816
+      priority: 14000
+    }
+  }
+  element {
+    scale: 14
+    circle {
+      radius: 1.2
+      color: 7368816
+      priority: 14000
+    }
+  }
   element {
     scale: 15
     circle {
@@ -9343,6 +9756,110 @@ cont {
   }
 }
 cont {
+  name: "building-train_station"
+  element {
+    scale: 13
+    area {
+      color: 13487540
+      priority: 1001
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 13487540
+      priority: 1001
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 13487540
+      priority: 1001
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13487540
+      priority: 1001
+    }
+    caption {
+      primary {
+        height: 10
+        color: 8421488
+      }
+      secondary {
+        height: 11
+        color: 8421488
+        offset_y: 20
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13487540
+      priority: 1001
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+      }
+      secondary {
+        height: 11
+        color: 4210752
+        offset_y: 20
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13487540
+      priority: 1001
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+      }
+      secondary {
+        height: 11
+        color: 4210752
+        offset_y: 20
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13487540
+      priority: 1001
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+      }
+      secondary {
+        height: 11
+        color: 4210752
+        offset_y: 20
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "building:part"
   element {
     scale: 15
@@ -10892,6 +11409,29 @@ cont {
 }
 cont {
   name: "highway-bus_stop"
+  element {
+    scale: 15
+    symbol {
+      name: "bus-mini"
+      priority: 16024
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3166424
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      secondary {
+        height: 9
+        color: 3166424
+        stroke_color: 16777215
+        offset_y: 10
+        text: "int_name"
+      }
+      priority: 15024
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -33713,6 +34253,92 @@ cont {
   }
 }
 cont {
+  name: "highway-world_level"
+  element {
+    scale: 4
+    lines {
+      width: 0.5
+      color: 16742950
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 5
+    lines {
+      width: 0.5
+      color: 16742950
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 6
+    lines {
+      width: 0.5
+      color: 16742950
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 7
+    lines {
+      width: 0.5
+      color: 16742950
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 8
+    lines {
+      width: 0.5
+      color: 16742950
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
+  name: "highway-world_towns_level"
+  element {
+    scale: 6
+    lines {
+      width: 0.9
+      color: 16742950
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 7
+    lines {
+      width: 0.9
+      color: 16742950
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 8
+    lines {
+      width: 0.9
+      color: 16742950
+      priority: 1621
+      join: BEVELJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
   name: "historic-archaeological_site"
   element {
     scale: 16
@@ -33831,6 +34457,18 @@ cont {
 cont {
   name: "historic-boundary_stone"
   element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -33869,6 +34507,34 @@ cont {
 }
 cont {
   name: "historic-castle"
+  element {
+    scale: 12
+    symbol {
+      name: "castle"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "castle"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "castle"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "castle"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -33998,6 +34664,13 @@ cont {
 cont {
   name: "historic-memorial"
   element {
+    scale: 15
+    symbol {
+      name: "memorial"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "memorial"
@@ -34056,6 +34729,34 @@ cont {
 cont {
   name: "historic-monument"
   element {
+    scale: 12
+    symbol {
+      name: "memorial"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "memorial"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "memorial"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "memorial"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "memorial"
@@ -34113,6 +34814,34 @@ cont {
 }
 cont {
   name: "historic-museum"
+  element {
+    scale: 12
+    symbol {
+      name: "museum"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "museum"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "museum"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "museum"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -34309,6 +35038,18 @@ cont {
 cont {
   name: "historic-tomb"
   element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -34348,6 +35089,18 @@ cont {
 cont {
   name: "historic-wayside_cross"
   element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -34386,6 +35139,18 @@ cont {
 }
 cont {
   name: "historic-wayside_shrine"
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     caption {
@@ -39833,6 +40598,34 @@ cont {
 cont {
   name: "man_made-lighthouse"
   element {
+    scale: 11
+    symbol {
+      name: "lighthouse"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 12
+    symbol {
+      name: "lighthouse"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "lighthouse"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "lighthouse"
+      priority: 16000
+    }
+  }
+  element {
     scale: 15
     symbol {
       name: "lighthouse"
@@ -40391,6 +41184,13 @@ cont {
 }
 cont {
   name: "man_made-windmill"
+  element {
+    scale: 16
+    symbol {
+      name: "windmill"
+      priority: 16000
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -41292,6 +42092,21 @@ cont {
 }
 cont {
   name: "natural-cave_entrance"
+  element {
+    scale: 11
+    symbol {
+      name: "cave_entrance"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 2105376
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
   element {
     scale: 12
     symbol {
@@ -43025,6 +43840,40 @@ cont {
 cont {
   name: "natural-spring"
   element {
+    scale: 12
+    lines {
+      width: 4.0
+      color: 9487572
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    caption {
+      primary {
+        height: 12
+        color: 5274858
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 4.0
+      color: 9487572
+      priority: 1000
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    caption {
+      primary {
+        height: 12
+        color: 5274858
+      }
+      priority: 15000
+    }
+  }
+  element {
     scale: 14
     lines {
       width: 4.0
@@ -43599,6 +44448,22 @@ cont {
 }
 cont {
   name: "natural-waterfall"
+  element {
+    scale: 11
+    symbol {
+      name: "waterfall"
+      apply_for_type: 1
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 255
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
   element {
     scale: 12
     symbol {
@@ -53861,6 +54726,13 @@ cont {
 }
 cont {
   name: "railway-halt"
+  element {
+    scale: 11
+    symbol {
+      name: "railway-station-mini"
+      priority: 16159
+    }
+  }
   element {
     scale: 12
     symbol {
@@ -65396,6 +66268,34 @@ cont {
 cont {
   name: "railway-tram"
   element {
+    scale: 13
+    lines {
+      width: 1.7
+      color: 5835097
+      dashdot {
+        dd: 3.6
+        dd: 5.4
+      }
+      priority: 1539
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.0
+      color: 5835097
+      priority: 1533
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 1.7
+      color: 15120358
+      priority: 1536
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 14
     lines {
       width: 1.7
@@ -65566,6 +66466,34 @@ cont {
 }
 cont {
   name: "railway-tram-bridge"
+  element {
+    scale: 13
+    lines {
+      width: 1.7
+      color: 5835097
+      dashdot {
+        dd: 3.6
+        dd: 5.4
+      }
+      priority: 1539
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.0
+      color: 5835097
+      priority: 1533
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 1.7
+      color: 15120358
+      priority: 1536
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 14
     lines {
@@ -65807,6 +66735,34 @@ cont {
 }
 cont {
   name: "railway-tram-tunnel"
+  element {
+    scale: 13
+    lines {
+      width: 1.7
+      color: 5835097
+      dashdot {
+        dd: 3.6
+        dd: 5.4
+      }
+      priority: 1539
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.0
+      color: 5835097
+      priority: 1533
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 1.7
+      color: 15120358
+      priority: 1536
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
   element {
     scale: 14
     lines {
@@ -66068,6 +67024,29 @@ cont {
 }
 cont {
   name: "railway-tram_stop"
+  element {
+    scale: 14
+    symbol {
+      name: "tramway-mini"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 3166424
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      secondary {
+        height: 9
+        color: 3166424
+        stroke_color: 16777215
+        offset_y: 10
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
   element {
     scale: 15
     symbol {
@@ -67171,6 +68150,30 @@ cont {
 cont {
   name: "shop"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -67209,6 +68212,27 @@ cont {
 }
 cont {
   name: "shop-alcohol"
+  element {
+    scale: 13
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -67268,6 +68292,13 @@ cont {
 cont {
   name: "shop-bakery"
   element {
+    scale: 15
+    symbol {
+      name: "bakery"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "bakery"
@@ -67326,6 +68357,38 @@ cont {
 cont {
   name: "shop-beauty"
   element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "supermarket"
@@ -67377,6 +68440,30 @@ cont {
 cont {
   name: "shop-beverages"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -67415,6 +68502,38 @@ cont {
 }
 cont {
   name: "shop-bicycle"
+  element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -67467,6 +68586,38 @@ cont {
 cont {
   name: "shop-books"
   element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "supermarket"
@@ -67517,6 +68668,38 @@ cont {
 }
 cont {
   name: "shop-butcher"
+  element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -67569,6 +68752,30 @@ cont {
 cont {
   name: "shop-car"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -67607,6 +68814,13 @@ cont {
 }
 cont {
   name: "shop-car_repair"
+  element {
+    scale: 15
+    symbol {
+      name: "car_repair"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -67666,6 +68880,30 @@ cont {
 cont {
   name: "shop-chemist"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -67704,6 +68942,13 @@ cont {
 }
 cont {
   name: "shop-clothes"
+  element {
+    scale: 15
+    symbol {
+      name: "clothes"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -67763,6 +69008,30 @@ cont {
 cont {
   name: "shop-computer"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -67802,6 +69071,30 @@ cont {
 cont {
   name: "shop-confectionery"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -67840,6 +69133,13 @@ cont {
 }
 cont {
   name: "shop-convenience"
+  element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -67899,6 +69199,13 @@ cont {
 cont {
   name: "shop-department_store"
   element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "supermarket"
@@ -67956,6 +69263,13 @@ cont {
 }
 cont {
   name: "shop-doityourself"
+  element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -68015,6 +69329,38 @@ cont {
 cont {
   name: "shop-electronics"
   element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "supermarket"
@@ -68066,6 +69412,38 @@ cont {
 cont {
   name: "shop-florist"
   element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "supermarket"
@@ -68116,6 +69494,13 @@ cont {
 }
 cont {
   name: "shop-furniture"
+  element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -68175,6 +69560,30 @@ cont {
 cont {
   name: "shop-garden_centre"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -68213,6 +69622,30 @@ cont {
 }
 cont {
   name: "shop-gift"
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     caption {
@@ -68253,6 +69686,30 @@ cont {
 cont {
   name: "shop-greengrocer"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -68291,6 +69748,13 @@ cont {
 }
 cont {
   name: "shop-hairdresser"
+  element {
+    scale: 15
+    symbol {
+      name: "hairdresser"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -68350,6 +69814,30 @@ cont {
 cont {
   name: "shop-hardware"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -68389,6 +69877,30 @@ cont {
 cont {
   name: "shop-jewelry"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -68427,6 +69939,13 @@ cont {
 }
 cont {
   name: "shop-kiosk"
+  element {
+    scale: 15
+    symbol {
+      name: "kiosk"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -68486,6 +70005,30 @@ cont {
 cont {
   name: "shop-laundry"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -68524,6 +70067,27 @@ cont {
 }
 cont {
   name: "shop-mall"
+  element {
+    scale: 13
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -68583,6 +70147,38 @@ cont {
 cont {
   name: "shop-mobile_phone"
   element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "supermarket"
@@ -68634,6 +70230,30 @@ cont {
 cont {
   name: "shop-optician"
   element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     caption {
       primary {
@@ -68672,6 +70292,38 @@ cont {
 }
 cont {
   name: "shop-shoes"
+  element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -68724,6 +70376,38 @@ cont {
 cont {
   name: "shop-sports"
   element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "supermarket"
@@ -68774,6 +70458,27 @@ cont {
 }
 cont {
   name: "shop-supermarket"
+  element {
+    scale: 13
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -68832,6 +70537,30 @@ cont {
 }
 cont {
   name: "shop-toys"
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     caption {
@@ -68896,6 +70625,34 @@ cont {
 cont {
   name: "sport-archery"
   element {
+    scale: 13
+    symbol {
+      name: "archery-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "archery-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "archery-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "archery-borderless"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "archery-borderless"
@@ -68943,6 +70700,34 @@ cont {
 }
 cont {
   name: "sport-australian_football"
+  element {
+    scale: 13
+    symbol {
+      name: "football-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "football-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "football-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "football-borderless"
+      priority: 16000
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -69016,6 +70801,34 @@ cont {
 cont {
   name: "sport-bowls"
   element {
+    scale: 13
+    symbol {
+      name: "bowls-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "bowls-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "bowls-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "bowls-borderless"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "bowls-borderless"
@@ -69039,6 +70852,34 @@ cont {
 }
 cont {
   name: "sport-cricket"
+  element {
+    scale: 13
+    symbol {
+      name: "cricket-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "cricket-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "cricket-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "cricket-borderless"
+      priority: 16000
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -69064,6 +70905,34 @@ cont {
 cont {
   name: "sport-curling"
   element {
+    scale: 13
+    symbol {
+      name: "curling-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "curling-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "curling-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "curling-borderless"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "curling-borderless"
@@ -69087,6 +70956,34 @@ cont {
 }
 cont {
   name: "sport-diving"
+  element {
+    scale: 13
+    symbol {
+      name: "diving-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "diving-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "diving-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "diving-borderless"
+      priority: 16000
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -69112,6 +71009,13 @@ cont {
 cont {
   name: "sport-equestrian"
   element {
+    scale: 16
+    symbol {
+      name: "equestrian-borderless"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "equestrian-borderless"
@@ -69135,6 +71039,34 @@ cont {
 }
 cont {
   name: "sport-football"
+  element {
+    scale: 13
+    symbol {
+      name: "football-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "football-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "football-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "football-borderless"
+      priority: 16000
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -69232,6 +71164,34 @@ cont {
 cont {
   name: "sport-multi"
   element {
+    scale: 13
+    symbol {
+      name: "gymnastics-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "gymnastics-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "gymnastics-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "gymnastics-borderless"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "gymnastics-borderless"
@@ -69256,6 +71216,34 @@ cont {
 cont {
   name: "sport-scuba_diving"
   element {
+    scale: 13
+    symbol {
+      name: "diving-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "diving-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "diving-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "diving-borderless"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "diving-borderless"
@@ -69279,6 +71267,34 @@ cont {
 }
 cont {
   name: "sport-shooting"
+  element {
+    scale: 13
+    symbol {
+      name: "shooting-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "shooting-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "shooting-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "shooting-borderless"
+      priority: 16000
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -69327,6 +71343,27 @@ cont {
 }
 cont {
   name: "sport-soccer"
+  element {
+    scale: 13
+    symbol {
+      name: "soccer-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "soccer-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "soccer-borderless"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -69382,6 +71419,34 @@ cont {
 }
 cont {
   name: "sport-tennis"
+  element {
+    scale: 13
+    symbol {
+      name: "tennis-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "tennis-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "tennis-borderless"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tennis-borderless"
+      priority: 16000
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -69570,6 +71635,28 @@ cont {
 }
 cont {
   name: "tourism-attraction"
+  element {
+    scale: 13
+    caption {
+      primary {
+        height: 12
+        color: 2105376
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 12
+        color: 2105376
+        stroke_color: 16777215
+      }
+      priority: 15000
+    }
+  }
   element {
     scale: 15
     caption {
@@ -69828,6 +71915,20 @@ cont {
 cont {
   name: "tourism-guest_house"
   element {
+    scale: 14
+    symbol {
+      name: "hostel"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "hostel"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "hostel"
@@ -69885,6 +71986,20 @@ cont {
 }
 cont {
   name: "tourism-hostel"
+  element {
+    scale: 14
+    symbol {
+      name: "hostel"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "hostel"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -69944,6 +72059,20 @@ cont {
 cont {
   name: "tourism-hotel"
   element {
+    scale: 14
+    symbol {
+      name: "hotel"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "hotel"
+      priority: 16000
+    }
+  }
+  element {
     scale: 16
     symbol {
       name: "hotel"
@@ -70002,6 +72131,86 @@ cont {
 cont {
   name: "tourism-information"
   element {
+    scale: 12
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "information"
@@ -70052,6 +72261,86 @@ cont {
 }
 cont {
   name: "tourism-information-guidepost"
+  element {
+    scale: 12
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
   element {
     scale: 17
     symbol {
@@ -70104,6 +72393,86 @@ cont {
 cont {
   name: "tourism-information-office"
   element {
+    scale: 12
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "information"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "information"
@@ -70154,6 +72523,20 @@ cont {
 }
 cont {
   name: "tourism-motel"
+  element {
+    scale: 14
+    symbol {
+      name: "hotel"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "hotel"
+      priority: 16000
+    }
+  }
   element {
     scale: 16
     symbol {
@@ -70212,6 +72595,27 @@ cont {
 }
 cont {
   name: "tourism-museum"
+  element {
+    scale: 12
+    symbol {
+      name: "museum"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "museum"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "museum"
+      priority: 16000
+    }
+  }
   element {
     scale: 15
     symbol {
@@ -70375,6 +72779,27 @@ cont {
 }
 cont {
   name: "tourism-viewpoint"
+  element {
+    scale: 12
+    symbol {
+      name: "viewpoint"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "viewpoint"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "viewpoint"
+      priority: 16000
+    }
+  }
   element {
     scale: 15
     symbol {
@@ -72265,18 +74690,19 @@ cont {
 cont {
   name: "waterway-waterfall"
   element {
+    scale: 11
+    symbol {
+      name: "waterfall-s"
+      priority: 16878
+      min_distance: 15
+    }
+  }
+  element {
     scale: 12
     symbol {
       name: "waterfall-s"
       priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
+      min_distance: 15
     }
   }
   element {
@@ -72284,14 +74710,7 @@ cont {
     symbol {
       name: "waterfall-s"
       priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
+      min_distance: 15
     }
   }
   element {
@@ -72299,14 +74718,7 @@ cont {
     symbol {
       name: "waterfall-s"
       priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
+      min_distance: 15
     }
   }
   element {
@@ -72314,14 +74726,7 @@ cont {
     symbol {
       name: "waterfall-s"
       priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
+      min_distance: 15
     }
   }
   element {
@@ -72329,14 +74734,7 @@ cont {
     symbol {
       name: "waterfall-s"
       priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
+      min_distance: 15
     }
   }
   element {
@@ -72344,14 +74742,7 @@ cont {
     symbol {
       name: "waterfall-s"
       priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
+      min_distance: 15
     }
   }
   element {
@@ -72359,14 +74750,7 @@ cont {
     symbol {
       name: "waterfall-s"
       priority: 16878
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 10
-      }
-      priority: 16878
+      min_distance: 15
     }
   }
 }

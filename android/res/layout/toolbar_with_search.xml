@@ -6,5 +6,5 @@
     android:theme="@style/MwmWidget.ToolbarTheme"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize">
-  <include layout="@layout/search_box"/>
+  <include layout="@layout/toolbar_search_controls"/>
 </android.support.v7.widget.Toolbar>

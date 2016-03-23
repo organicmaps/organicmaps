@@ -9,8 +9,9 @@
 
 namespace gui
 {
-Handle::Handle(dp::Anchor anchor, const m2::PointF & pivot, const m2::PointF & size)
-  : dp::OverlayHandle(FeatureID(), anchor, 0, false)
+
+Handle::Handle(uint32_t id, dp::Anchor anchor, const m2::PointF & pivot, const m2::PointF & size)
+  : dp::OverlayHandle(FeatureID(MwmSet::MwmId(), id), anchor, 0, false)
   , m_pivot(glsl::ToVec2(pivot)), m_size(size)
 {
 }
@@ -44,7 +45,7 @@ m2::RectD Handle::GetPixelRect(const ScreenBase & screen, bool perspective) cons
   return m2::RectD();
 }
 
-void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects & rects, bool perspective) const
+void Handle::GetPixelShape(const ScreenBase & screen, bool perspective, dp::OverlayHandle::Rects & rects) const
 {
   // There is no need to check intersection of gui elements.
   UNUSED_VALUE(screen);
@@ -115,7 +116,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
         {
           dp::AttributeBufferMutator mutator;
           ref_ptr<dp::AttributeBufferMutator> mutatorRef = make_ref(&mutator);
-          info.m_handle->GetAttributeMutation(mutatorRef, screen);
+          info.m_handle->GetAttributeMutation(mutatorRef);
           info.m_buffer->ApplyMutation(nullptr, mutatorRef);
         }
 
@@ -162,6 +163,18 @@ ref_ptr<Handle> ShapeRenderer::ProcessTapEvent(m2::RectD const & touchArea)
   ForEachShapeInfo([&resultHandle, &touchArea](ShapeControl::ShapeInfo & shapeInfo)
                    {
                      if (shapeInfo.m_handle->IsTapped(touchArea))
+                       resultHandle = make_ref(shapeInfo.m_handle);
+                   });
+
+  return resultHandle;
+}
+
+ref_ptr<Handle> ShapeRenderer::FindHandle(FeatureID const & id)
+{
+  ref_ptr<Handle> resultHandle = nullptr;
+  ForEachShapeInfo([&resultHandle, &id](ShapeControl::ShapeInfo & shapeInfo)
+                   {
+                     if (shapeInfo.m_handle->GetFeatureID() == id)
                        resultHandle = make_ref(shapeInfo.m_handle);
                    });
 

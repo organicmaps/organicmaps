@@ -4,7 +4,7 @@
 
 @interface MWMPlacePageInfoCell : MWMTableViewCell
 
-- (void)configureWithType:(MWMPlacePageMetadataType)type info:(NSString *)info;
+- (void)configureWithType:(MWMPlacePageCellType)type info:(NSString *)info;
 
 @property (weak, nonatomic, readonly) IBOutlet UIImageView * icon;
 @property (weak, nonatomic, readonly) IBOutlet id textContainer;

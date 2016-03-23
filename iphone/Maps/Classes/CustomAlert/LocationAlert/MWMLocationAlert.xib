@@ -210,7 +210,7 @@
                             <integer key="value" value="6"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="4"/>
+                            <integer key="value" value="12"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="alertBackground"/>
                     </userDefinedRuntimeAttributes>

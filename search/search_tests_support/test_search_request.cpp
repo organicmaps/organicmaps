@@ -1,7 +1,9 @@
 #include "search/search_tests_support/test_search_request.hpp"
 
 #include "search/search_tests_support/test_search_engine.hpp"
-#include "search/params.hpp"
+
+#include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 
@@ -10,18 +12,21 @@ namespace search
 namespace tests_support
 {
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
-                                     string const & locale, m2::RectD const & viewport)
-    : m_done(false)
+                                     string const & locale, Mode mode, m2::RectD const & viewport)
 {
-  search::SearchParams params;
+  SearchParams params;
   params.m_query = query;
   params.m_inputLocale = locale;
-  params.m_callback = [this](search::Results const & results)
-  {
-    Done(results);
-  };
-  params.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY);
-  CHECK(engine.Search(params, viewport), ("Can't run search."));
+  params.SetMode(mode);
+  SetUpCallbacks(params);
+  engine.Search(params, viewport);
+}
+
+TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams params,
+                                     m2::RectD const & viewport)
+{
+  SetUpCallbacks(params);
+  engine.Search(params, viewport);
 }
 
 void TestSearchRequest::Wait()
@@ -33,19 +38,39 @@ void TestSearchRequest::Wait()
   });
 }
 
+steady_clock::duration TestSearchRequest::ResponseTime() const
+{
+  lock_guard<mutex> lock(m_mu);
+  CHECK(m_done, ("This function may be called only when request is processed."));
+  return m_endTime - m_startTime;
+}
+
 vector<search::Result> const & TestSearchRequest::Results() const
 {
   lock_guard<mutex> lock(m_mu);
-  CHECK(m_done, ("Results can be get only when request will be completed."));
+  CHECK(m_done, ("This function may be called only when request is processed."));
   return m_results;
 }
 
-void TestSearchRequest::Done(search::Results const & results)
+void TestSearchRequest::SetUpCallbacks(SearchParams & params)
+{
+  params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
+  params.m_onResults = bind(&TestSearchRequest::OnResults, this, _1);
+}
+
+void TestSearchRequest::OnStarted()
+{
+  lock_guard<mutex> lock(m_mu);
+  m_startTime = m_timer.TimeElapsed();
+}
+
+void TestSearchRequest::OnResults(search::Results const & results)
 {
   lock_guard<mutex> lock(m_mu);
   if (results.IsEndMarker())
   {
     m_done = true;
+    m_endTime = m_timer.TimeElapsed();
     m_cv.notify_one();
   }
   else

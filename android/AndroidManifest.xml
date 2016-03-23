@@ -69,6 +69,10 @@
         android:name="com.parse.push.notification_icon"
         android:resource="@drawable/ic_notification"/>
 
+    <meta-data
+        android:name="io.fabric.ApiKey"
+        android:value="${FABRIC_API_KEY}"/>
+
     <activity
         android:name="com.mapswithme.maps.DownloadResourcesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
@@ -173,7 +177,7 @@
         android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
     <activity
-        android:name="com.mapswithme.country.DownloadActivity"
+        android:name="com.mapswithme.maps.downloader.DownloaderActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/download_maps"
         android:parentActivityName="com.mapswithme.maps.MwmActivity">
@@ -226,6 +230,45 @@
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
           android:value="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"/>
+    </activity>
+
+    <activity
+      android:name="com.mapswithme.maps.editor.EditorActivity"
+      android:configChanges="orientation|screenLayout|screenSize"
+      android:label="@string/edit_place"
+      android:theme="@style/MwmTheme.EditorActivity"
+      android:parentActivityName="com.mapswithme.maps.MwmActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.mapswithme.maps.MwmActivity"/>
+    </activity>
+
+    <activity
+      android:name="com.mapswithme.maps.editor.ProfileActivity"
+      android:parentActivityName="com.mapswithme.maps.settings.SettingsActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.mapswithme.maps.settings.SettingsActivity"/>
+    </activity>
+
+    <activity
+      android:name="com.mapswithme.maps.editor.FeatureCategoryActivity"
+      android:parentActivityName="com.mapswithme.maps.MwmActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.mapswithme.maps.MwmActivity"/>
+    </activity>
+
+    <activity
+      android:name="com.mapswithme.maps.editor.ReportActivity"
+      android:parentActivityName="com.mapswithme.maps.MwmActivity">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
     <!-- facebook -->

@@ -48,7 +48,7 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
     // in application:didFinishLaunchingWithOptions:).
     // The (only) drawback of this approach is that to actually disable or enable 3party engines,
     // the app should be restarted.
-    (void)Settings::Get(kStatisticsEnabledSettingsKey, _enabled);
+    (void)settings::Get(kStatisticsEnabledSettingsKey, _enabled);
 
     if (_enabled)
       [Alohalytics enable];
@@ -58,10 +58,15 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
   return self;
 }
 
+- (bool)isStatisticsEnabled
+{
+  return _enabled;
+}
+
 - (void)enableOnNextAppLaunch
 {
   // This setting will be checked and applied on the next launch.
-  Settings::Set(kStatisticsEnabledSettingsKey, true);
+  settings::Set(kStatisticsEnabledSettingsKey, true);
   // It does not make sense to log statisticsEnabled with Alohalytics here,
   // as it will not be stored and logged anyway.
 }
@@ -69,7 +74,7 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
 - (void)disableOnNextAppLaunch
 {
   // This setting will be checked and applied on the next launch.
-  Settings::Set(kStatisticsEnabledSettingsKey, false);
+  settings::Set(kStatisticsEnabledSettingsKey, false);
   [Alohalytics logEvent:@"statisticsDisabled"];
 }
 
@@ -155,6 +160,16 @@ char const * kStatisticsEnabledSettingsKey = "StatisticsEnabled";
     instance = [[Statistics alloc] init];
   });
   return instance;
+}
+
++ (void)logEvent:(NSString *)eventName
+{
+  [[self instance] logEvent:eventName];
+}
+
++ (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
+{
+  [[self instance] logEvent:eventName withParameters:parameters];
 }
 
 @end

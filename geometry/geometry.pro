@@ -9,7 +9,9 @@ ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
+  algorithm.cpp \
   angles.cpp \
+  clipping.cpp \
   distance_on_sphere.cpp \
   latlon.cpp \
   mercator.cpp \
@@ -17,10 +19,14 @@ SOURCES += \
   region2d/binary_operators.cpp \
   robust_orientation.cpp \
   screenbase.cpp \
+  segment2d.cpp \
   spline.cpp \
+  triangle2d.cpp \
 
 HEADERS += \
+  algorithm.hpp \
   angles.hpp \
+  clipping.hpp \
   any_rect2d.hpp \
   avg_vector.hpp \
   cellid.hpp \
@@ -42,6 +48,7 @@ HEADERS += \
   region2d/boost_concept.hpp \
   robust_orientation.hpp \
   screenbase.hpp \
+  segment2d.hpp \
   simplification.hpp \
   spline.hpp \
   transformations.hpp \

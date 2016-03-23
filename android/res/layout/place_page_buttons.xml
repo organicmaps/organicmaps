@@ -1,99 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_base"
-    android:paddingLeft="@dimen/margin_half_plus"
-    android:paddingRight="@dimen/margin_half_plus"
-    android:background="?ppButtonsBackground"
-    android:clickable="true">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginTop="@dimen/margin_base"
+  android:background="?ppButtonsBackground"
+  android:clickable="true"
+  android:paddingLeft="@dimen/margin_half_plus"
+  android:paddingRight="@dimen/margin_half_plus">
+
   <LinearLayout
-      android:id="@+id/general"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/place_page_buttons_height"
-      android:orientation="horizontal"
-      tools:ignore="UseCompoundDrawables">
+    android:id="@+id/general"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/place_page_buttons_height"
+    android:orientation="horizontal"
+    tools:ignore="UseCompoundDrawables">
+
     <LinearLayout
-        android:id="@+id/ll__api_back"
-        style="@style/PlacePageButton">
+      android:id="@+id/ll__api_back"
+      style="@style/PlacePageButton">
 
       <ImageView
-          style="@style/PlacePageButtonImage"
-          android:contentDescription="@string/back"
-          android:src="?homeAsUpIndicator"/>
+        style="@style/PlacePageButtonImage"
+        android:contentDescription="@string/back"
+        android:src="?homeAsUpIndicator" />
 
       <TextView
-          style="@style/PlacePageButtonText"
-          android:text="@string/back"/>
+        style="@style/PlacePageButtonText"
+        android:text="@string/back" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll__share"
-        style="@style/PlacePageButton">
+      android:id="@+id/ll__share"
+      style="@style/PlacePageButton">
+
       <ImageView
-          style="@style/PlacePageButtonImage"
-          android:contentDescription="@string/share"
-          android:src="@drawable/ic_share"/>
+        style="@style/PlacePageButtonImage"
+        android:contentDescription="@string/share"
+        android:src="@drawable/ic_share" />
 
       <TextView
-          style="@style/PlacePageButtonText"
-          android:text="@string/share"/>
+        style="@style/PlacePageButtonText"
+        android:text="@string/share" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll__bookmark"
-        style="@style/PlacePageButton">
+      android:id="@+id/ll__bookmark"
+      style="@style/PlacePageButton">
+
       <ImageView
-          android:id="@+id/iv__bookmark"
-          style="@style/PlacePageButtonImage"
-          android:tint="@null"
-          android:contentDescription="@string/bookmark"
-          android:src="@drawable/ic_bookmarks_off"/>
+        android:id="@+id/iv__bookmark"
+        style="@style/PlacePageButtonImage"
+        android:contentDescription="@string/bookmark"
+        android:src="@drawable/ic_bookmarks_off"
+        android:tint="@null" />
 
       <TextView
-          style="@style/PlacePageButtonText"
-          android:text="@string/bookmark"/>
+        style="@style/PlacePageButtonText"
+        android:text="@string/bookmark" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll__route"
-        style="@style/PlacePageButton">
+      android:id="@+id/ll__route"
+      style="@style/PlacePageButton">
+
       <ImageView
-          style="@style/PlacePageButtonImage"
-          android:contentDescription="@string/route"
-          android:src="@drawable/ic_route"/>
+        style="@style/PlacePageButtonImage"
+        android:contentDescription="@string/route"
+        android:src="@drawable/ic_route" />
 
       <TextView
-          style="@style/PlacePageButtonText"
-          android:text="@string/route"/>
+        style="@style/PlacePageButtonText"
+        android:text="@string/route" />
     </LinearLayout>
   </LinearLayout>
 
   <LinearLayout
-      android:id="@+id/routing"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/place_page_buttons_height"
-      android:orientation="horizontal"
-      android:visibility="gone"
-      tools:visibility="visible"
-      tools:layout_marginTop="60dp">
+    android:id="@+id/routing"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/place_page_buttons_height"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    tools:layout_marginTop="60dp"
+    tools:visibility="visible">
+
     <TextView
-        android:id="@+id/from"
-        style="@style/PlacePageButtonText.Route"
-        android:text="@string/p2p_from_here"/>
+      android:id="@+id/from"
+      style="@style/PlacePageButtonText.Route"
+      android:text="@string/p2p_from_here" />
 
     <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:background="@color/divider"/>
+      android:layout_width="1dp"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="2dp"
+      android:layout_marginTop="2dp"
+      android:background="@color/divider" />
 
     <TextView
-        android:id="@+id/to"
-        style="@style/PlacePageButtonText.Route"
-        android:text="@string/p2p_to_here"/>
+      android:id="@+id/to"
+      style="@style/PlacePageButtonText.Route"
+      android:text="@string/p2p_to_here" />
   </LinearLayout>
 </FrameLayout>

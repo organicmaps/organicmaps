@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:padding="60dp"
+  android:visibility="gone"
+  tools:visibility="visible">
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_base_plus"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    android:layout_gravity="center"
+    android:gravity="center_horizontal"
+    android:background="?cardFrame"
+    tools:ignore="UselessParent">
+    <TextView
+      android:id="@+id/downloader_parent"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/margin_eighth"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      android:gravity="center_horizontal"
+      tools:text="Honduras"/>
+
+    <TextView
+      android:id="@+id/downloader_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Title"
+      android:textSize="20sp"
+      android:gravity="center_horizontal"
+      tools:text="Some title"/>
+
+    <TextView
+      android:id="@+id/downloader_size"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.Body2"
+      android:gravity="center_horizontal"
+      tools:text="1000 MB"/>
+
+    <FrameLayout
+      android:id="@+id/downloader_controls_frame"
+      android:layout_width="180dp"
+      android:layout_height="@dimen/height_block_base"
+      android:clipChildren="false">
+      <Button
+        android:id="@+id/downloader_button"
+        style="@style/MwmWidget.Button.Accent"
+        android:layout_width="180dp"
+        android:visibility="gone"/>
+
+      <com.mapswithme.maps.widget.WheelProgressView
+        android:id="@+id/downloader_progress"
+        android:layout_width="@dimen/downloader_status_size"
+        android:layout_height="@dimen/downloader_status_size"
+        android:layout_gravity="center"
+        app:wheelProgressColor="?colorAccent"
+        app:wheelSecondaryColor="?dividerHorizontal"
+        app:wheelThickness="@dimen/margin_eighth"
+        android:visibility="visible"
+        tools:visibility="visible"/>
+    </FrameLayout>
+  </LinearLayout>
+</FrameLayout>

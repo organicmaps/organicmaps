@@ -4,6 +4,9 @@
     <attr name="fullscreenDialogTheme" format="reference"/>
     <attr name="windowBackgroundForced" format="reference|color"/>
 
+    <attr name="cardFrame" format="reference"/>
+    <attr name="cardBackground" format="reference"/>
+
     <attr name="clickableBackground" format="reference"/>
     <attr name="statusBar" format="color"/>
     <attr name="secondary" format="color"/>
@@ -19,26 +22,28 @@
     <attr name="ppBackground" format="color"/>
     <attr name="ppButtonsBackground" format="color"/>
     <attr name="ppPreviewHead" format="reference"/>
+    <attr name="ppArrowDrawable" format="reference"/>
 
     <attr name="routingSlot" format="reference"/>
     <attr name="routingSlotPressed" format="reference"/>
     <attr name="routingSlotMarker" format="reference"/>
-    <attr name="routingStartButton" format="reference"/>
-    <attr name="routingStartButtonTextColor" format="color"/>
-    <attr name="routingStartButtonTextColorDisabled" format="color"/>
+
+    <attr name="buttonBackground" format="reference"/>
+    <attr name="buttonTextColor" format="color"/>
+    <attr name="buttonTextColorDisabled" format="color"/>
+
+    <attr name="accentButtonBackground" format="reference"/>
+    <attr name="accentButtonTextColor" format="color"/>
+    <attr name="accentButtonTextColorDisabled" format="color"/>
+
+    <attr name="circleAccent" format="reference"/>
+    <attr name="buttonLight" format="reference"/>
 
     <attr name="menuBackgroundClosed" format="color"/>
     <attr name="menuBackgroundOpen" format="color"/>
 
     <attr name="myPositionButtonAnimation" format="reference"/>
-  </declare-styleable>
 
-  <declare-styleable name="CountryDownloaderAttrs">
-    <attr name="countrySeparator" format="color"/>
-
-    <attr name="countryDownloaded" format="color"/>
-    <attr name="countryOutdated" format="color"/>
-    <attr name="countryNotDownloaded" format="color"/>
-    <attr name="countryFailed" format="color"/>
+    <attr name="downloaderTheme" format="reference"/>
   </declare-styleable>
 </resources>

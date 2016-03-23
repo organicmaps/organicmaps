@@ -1,409 +1,200 @@
-#include "search/retrieval.hpp"
+#include "retrieval.hpp"
 
-#include "search/feature_offset_match.hpp"
+#include "cancel_exception.hpp"
+#include "feature_offset_match.hpp"
+#include "interval_set.hpp"
+#include "search_index_values.hpp"
+#include "search_trie.hpp"
+
+#include "v2/mwm_context.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/index.hpp"
-#include "indexer/search_trie.hpp"
+#include "indexer/osm_editor.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
+#include "indexer/trie_reader.hpp"
 
+#include "platform/mwm_traits.hpp"
+#include "platform/mwm_version.hpp"
+
+#include "coding/compressed_bit_vector.hpp"
 #include "coding/reader_wrapper.hpp"
 
-#include "base/logging.hpp"
-
 #include "std/algorithm.hpp"
-#include "std/cmath.hpp"
-#include "std/limits.hpp"
+
+using osm::Editor;
 
 namespace search
 {
 namespace
 {
-// Upper bound on a number of features when fast path is used.
-// Otherwise, slow path is used.
-uint64_t constexpr kFastPathThreshold = 100;
 
-struct EmptyFilter
+unique_ptr<coding::CompressedBitVector> SortFeaturesAndBuildCBV(vector<uint64_t> && features)
 {
-  inline bool operator()(uint32_t /* featureId */) const { return true; }
-};
-
-// Retrieves from the search index corresponding to |handle| all
-// features matching to |params|.
-void RetrieveAddressFeatures(MwmSet::MwmHandle const & handle, SearchQueryParams const & params,
-                             vector<uint32_t> & featureIds)
-{
-  auto * value = handle.GetValue<MwmValue>();
-  ASSERT(value, ());
-  serial::CodingParams codingParams(trie::GetCodingParams(value->GetHeader().GetDefCodingParams()));
-  ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-  unique_ptr<trie::DefaultIterator> const trieRoot(
-      trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()),
-                     trie::ValueReader(codingParams), trie::TEdgeValueReader()));
-
-  auto collector = [&](trie::ValueReader::ValueType const & value)
-  {
-    featureIds.push_back(value.m_featureId);
-  };
-  MatchFeaturesInTrie(params, *trieRoot, EmptyFilter(), collector);
+  my::SortUnique(features);
+  return coding::CompressedBitVectorBuilder::FromBitPositions(move(features));
 }
 
-// Retrieves from the geomery index corresponding to handle all
-// features in (and, possibly, around) viewport and executes |toDo| on
-// them.
-template <typename ToDo>
-void RetrieveGeometryFeatures(MwmSet::MwmHandle const & handle, m2::RectD viewport,
-                              SearchQueryParams const & params, ToDo && toDo)
+/// Check that any from first matches any from second.
+template <class TComp, class T>
+bool IsFirstMatchesSecond(vector<T> const & first, vector<T> const & second, TComp const & comp)
 {
-  auto * value = handle.GetValue<MwmValue>();
-  ASSERT(value, ());
-  feature::DataHeader const & header = value->GetHeader();
-
-  if (!viewport.Intersect(header.GetBounds()))
-    return;
-
-  auto const scaleRange = header.GetScaleRange();
-  int const scale = min(max(params.m_scale, scaleRange.first), scaleRange.second);
-
-  covering::CoveringGetter covering(viewport, covering::ViewportWithLowLevels);
-  covering::IntervalsT const & intervals = covering.Get(scale);
-  ScaleIndex<ModelReaderPtr> index(value->m_cont.GetReader(INDEX_FILE_TAG), value->m_factory);
-
-  for (auto const & interval : intervals)
-    index.ForEachInIntervalAndScale(toDo, interval.first, interval.second, scale);
-}
-
-// This class represents a fast retrieval strategy.  When number of
-// matching features in an mwm is small, it is worth computing their
-// centers explicitly, by loading geometry from mwm.
-class FastPathStrategy : public Retrieval::Strategy
-{
-public:
-  FastPathStrategy(Index const & index, MwmSet::MwmHandle & handle, m2::RectD const & viewport,
-                   vector<uint32_t> const & addressFeatures)
-    : Strategy(handle, viewport), m_lastReported(0)
-  {
-    m2::PointD const center = m_viewport.Center();
-
-    Index::FeaturesLoaderGuard loader(index, m_handle.GetId());
-    for (auto const & featureId : addressFeatures)
-    {
-      FeatureType feature;
-      loader.GetFeatureByIndex(featureId, feature);
-      m_features.emplace_back(featureId, feature::GetCenter(feature, FeatureType::WORST_GEOMETRY));
-    }
-    sort(m_features.begin(), m_features.end(),
-         [&center](pair<uint32_t, m2::PointD> const & lhs, pair<uint32_t, m2::PointD> const & rhs)
-    {
-      return lhs.second.SquareLength(center) < rhs.second.SquareLength(center);
-    });
-  }
-
-  // Retrieval::Strategy overrides:
-  bool RetrieveImpl(double scale, my::Cancellable const & /* cancellable */,
-                    TCallback const & callback) override
-  {
-    m2::RectD viewport = m_viewport;
-    viewport.Scale(scale);
-
-    vector<uint32_t> features;
-
-    ASSERT_LESS_OR_EQUAL(m_lastReported, m_features.size(), ());
-    while (m_lastReported < m_features.size() &&
-           viewport.IsPointInside(m_features[m_lastReported].second))
-    {
-      features.push_back(m_features[m_lastReported].first);
-      ++m_lastReported;
-    }
-
-    callback(features);
-
+  if (second.empty())
     return true;
-  }
 
-private:
-  vector<pair<uint32_t, m2::PointD>> m_features;
-  size_t m_lastReported;
-};
-
-// This class represents a slow retrieval strategy.  It starts with
-// initial viewport and iteratively scales it until whole mwm is
-// covered by a scaled viewport.  On each scale it retrieves features
-// for a scaled viewport from a geometry index and then intersects
-// them with features retrieved from search index.
-class SlowPathStrategy : public Retrieval::Strategy
-{
-public:
-  SlowPathStrategy(MwmSet::MwmHandle & handle, m2::RectD const & viewport,
-                   SearchQueryParams const & params, vector<uint32_t> const & addressFeatures)
-    : Strategy(handle, viewport), m_params(params)
+  for (auto const & s : second)
   {
-    if (addressFeatures.empty())
-      return;
-
-    m_nonReported.resize(*max_element(addressFeatures.begin(), addressFeatures.end()) + 1);
-    for (auto const & featureId : addressFeatures)
-      m_nonReported[featureId] = true;
-  }
-
-  // Retrieval::Strategy overrides:
-  bool RetrieveImpl(double scale, my::Cancellable const & cancellable,
-                    TCallback const & callback) override
-  {
-#define LONG_OP(op)                \
-  {                                \
-    if (cancellable.IsCancelled()) \
-      return false;                \
-    op;                            \
-  }
-
-    m2::RectD currViewport = m_viewport;
-    currViewport.Scale(scale);
-
-    vector<uint32_t> geometryFeatures;
-    auto collector = [&](uint32_t feature)
+    for (auto const & f : first)
     {
-      if (feature < m_nonReported.size() && m_nonReported[feature])
-      {
-        geometryFeatures.push_back(feature);
-        m_nonReported[feature] = false;
-      }
+      if (comp(f, s))
+        return true;
+    }
+  }
+  return false;
+}
+
+bool MatchFeatureByName(FeatureType const & ft, SearchQueryParams const & params)
+{
+  using namespace strings;
+
+  bool matched = false;
+  ft.ForEachName([&](int8_t lang, string const & utf8Name)
+  {
+    if (utf8Name.empty() || params.m_langs.count(lang) == 0)
+      return true;
+
+    vector<UniString> nameTokens;
+    SplitUniString(NormalizeAndSimplifyString(utf8Name), MakeBackInsertFunctor(nameTokens), Delimiters());
+
+    auto const matchPrefix = [](UniString const & s1, UniString const & s2)
+    {
+      return StartsWith(s1, s2);
     };
+    if (!IsFirstMatchesSecond(nameTokens, params.m_prefixTokens, matchPrefix))
+      return true;
 
-    if (m_prevScale < 0)
+    for (auto const & synonyms : params.m_tokens)
     {
-      LONG_OP(RetrieveGeometryFeatures(m_handle, currViewport, m_params, collector));
-    }
-    else
-    {
-      m2::RectD prevViewport = m_viewport;
-      prevViewport.Scale(m_prevScale);
-
-      m2::RectD a(currViewport.LeftTop(), prevViewport.RightTop());
-      m2::RectD c(currViewport.RightBottom(), prevViewport.LeftBottom());
-      m2::RectD b(a.RightTop(), c.RightTop());
-      m2::RectD d(a.LeftBottom(), c.LeftBottom());
-
-      LONG_OP(RetrieveGeometryFeatures(m_handle, a, m_params, collector));
-      LONG_OP(RetrieveGeometryFeatures(m_handle, b, m_params, collector));
-      LONG_OP(RetrieveGeometryFeatures(m_handle, c, m_params, collector));
-      LONG_OP(RetrieveGeometryFeatures(m_handle, d, m_params, collector));
+      if (!IsFirstMatchesSecond(nameTokens, synonyms, equal_to<UniString>()))
+        return true;
     }
 
-    callback(geometryFeatures);
-#undef LONG_OP
-    return true;
-  }
+    matched = true;
+    return false;
+  });
 
-private:
-  SearchQueryParams const & m_params;
+  return matched;
+}
 
-  vector<bool> m_nonReported;
-};
+// Retrieves from the search index corresponding to |value| all
+// features matching to |params|.
+template <typename TValue>
+unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
+    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+    SearchQueryParams const & params)
+{
+  // Exclude from search all deleted/modified features and match all edited/created features separately.
+  Editor & editor = Editor::Instance();
+
+  auto const deleted = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Deleted);
+  auto const modified = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Modified);
+  auto const filter = [&](uint32_t featureIndex) -> bool
+  {
+    return (!binary_search(deleted.begin(), deleted.end(), featureIndex) &&
+            !binary_search(modified.begin(), modified.end(), featureIndex));
+  };
+
+  serial::CodingParams codingParams(trie::GetCodingParams(value.GetHeader().GetDefCodingParams()));
+  ModelReaderPtr searchReader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
+
+  auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
+      SubReaderWrapper<Reader>(searchReader.GetPtr()), SingleValueSerializer<TValue>(codingParams));
+
+  // TODO (@y, @m): This code may be optimized in the case where
+  // bit vectors are sorted in the search index.
+  vector<uint64_t> features;
+  uint32_t counter = 0;
+  auto const collector = [&](TValue const & value)
+  {
+    if ((++counter & 0xFF) == 0)
+      BailIfCancelled(cancellable);
+    features.push_back(value.m_featureId);
+  };
+
+  MatchFeaturesInTrie(params, *trieRoot, filter, collector);
+
+  // Match all edited/created features separately.
+  auto const matcher = [&](uint32_t featureIndex)
+  {
+    FeatureType ft;
+    VERIFY(editor.GetEditedFeature(id, featureIndex, ft), ());
+    // TODO(AlexZ): Should we match by some feature's metafields too?
+    if (MatchFeatureByName(ft, params))
+      features.push_back(featureIndex);
+  };
+
+  for_each(modified.begin(), modified.end(), matcher);
+  auto const created = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Created);
+  for_each(created.begin(), created.end(), matcher);
+
+  return SortFeaturesAndBuildCBV(move(features));
+}
+
+// Retrieves from the geometry index corresponding to handle all
+// features from |coverage|.
+unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
+    v2::MwmContext const & context, my::Cancellable const & cancellable,
+    covering::IntervalsT const & coverage, int scale)
+{
+  uint32_t counter = 0;
+  vector<uint64_t> features;
+
+  context.ForEachIndex(coverage, scale, [&](uint64_t featureId)
+  {
+    if ((++counter & 0xFF) == 0)
+      BailIfCancelled(cancellable);
+    features.push_back(featureId);
+  });
+
+  return SortFeaturesAndBuildCBV(move(features));
+}
+
 }  // namespace
 
-// Retrieval::Limits -------------------------------------------------------------------------------
-Retrieval::Limits::Limits()
-  : m_maxNumFeatures(0)
-  , m_maxViewportScale(0.0)
-  , m_maxNumFeaturesSet(false)
-  , m_maxViewportScaleSet(false)
-  , m_searchInWorld(false)
+namespace v2
 {
-}
-
-void Retrieval::Limits::SetMaxNumFeatures(uint64_t maxNumFeatures)
+unique_ptr<coding::CompressedBitVector> RetrieveAddressFeatures(
+    MwmSet::MwmId const & id, MwmValue & value, my::Cancellable const & cancellable,
+    SearchQueryParams const & params)
 {
-  m_maxNumFeatures = maxNumFeatures;
-  m_maxNumFeaturesSet = true;
-}
+  version::MwmTraits mwmTraits(value.GetMwmVersion().GetFormat());
 
-uint64_t Retrieval::Limits::GetMaxNumFeatures() const
-{
-  ASSERT(IsMaxNumFeaturesSet(), ());
-  return m_maxNumFeatures;
-}
-
-void Retrieval::Limits::SetMaxViewportScale(double maxViewportScale)
-{
-  m_maxViewportScale = maxViewportScale;
-  m_maxViewportScaleSet = true;
-}
-
-double Retrieval::Limits::GetMaxViewportScale() const
-{
-  ASSERT(IsMaxViewportScaleSet(), ());
-  return m_maxViewportScale;
-}
-
-// Retrieval::Strategy -----------------------------------------------------------------------------
-Retrieval::Strategy::Strategy(MwmSet::MwmHandle & handle, m2::RectD const & viewport)
-  : m_handle(handle), m_viewport(viewport), m_prevScale(-numeric_limits<double>::epsilon())
-{
-}
-
-bool Retrieval::Strategy::Retrieve(double scale, my::Cancellable const & cancellable,
-                                   TCallback const & callback)
-{
-  ASSERT_GREATER(scale, m_prevScale, ("Invariant violation."));
-  bool result = RetrieveImpl(scale, cancellable, callback);
-  m_prevScale = scale;
-  return result;
-}
-
-// Retrieval::Bucket -------------------------------------------------------------------------------
-Retrieval::Bucket::Bucket(MwmSet::MwmHandle && handle)
-  : m_handle(move(handle))
-  , m_featuresReported(0)
-  , m_intersectsWithViewport(false)
-  , m_finished(false)
-{
-  auto * value = m_handle.GetValue<MwmValue>();
-  ASSERT(value, ());
-  feature::DataHeader const & header = value->GetHeader();
-  m_bounds = header.GetBounds();
-}
-
-// Retrieval ---------------------------------------------------------------------------------------
-Retrieval::Retrieval() : m_index(nullptr), m_featuresReported(0) {}
-
-void Retrieval::Init(Index & index, vector<shared_ptr<MwmInfo>> const & infos,
-                     m2::RectD const & viewport, SearchQueryParams const & params,
-                     Limits const & limits)
-{
-  m_index = &index;
-  m_viewport = viewport;
-  m_params = params;
-  m_limits = limits;
-  m_featuresReported = 0;
-
-  m_buckets.clear();
-  for (auto const & info : infos)
+  if (mwmTraits.GetSearchIndexFormat() ==
+      version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
   {
-    MwmSet::MwmHandle handle = index.GetMwmHandleById(MwmSet::MwmId(info));
-    if (!handle.IsAlive())
-      continue;
-    auto * value = handle.GetValue<MwmValue>();
-    if (!value || !value->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) ||
-        !value->m_cont.IsExist(INDEX_FILE_TAG))
-    {
-      continue;
-    }
-    bool const isWorld = value->GetHeader().GetType() == feature::DataHeader::world;
-    if (isWorld && !m_limits.GetSearchInWorld())
-      continue;
-    m_buckets.emplace_back(move(handle));
+    using TValue = FeatureWithRankAndCenter;
+    return RetrieveAddressFeaturesImpl<TValue>(id, value, cancellable, params);
   }
+  else if (mwmTraits.GetSearchIndexFormat() ==
+           version::MwmTraits::SearchIndexFormat::CompressedBitVector)
+  {
+    using TValue = FeatureIndexValue;
+    return RetrieveAddressFeaturesImpl<TValue>(id, value, cancellable, params);
+  }
+  return unique_ptr<coding::CompressedBitVector>();
 }
 
-void Retrieval::Go(Callback & callback)
+unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeatures(
+    MwmContext const & context, my::Cancellable const & cancellable,
+    m2::RectD const & rect, int scale)
 {
-  static double const kViewportScaleMul = sqrt(2.0);
-
-  double currScale = 1.0;
-  while (true)
-  {
-    if (IsCancelled())
-      break;
-
-    double reducedScale = currScale;
-    if (m_limits.IsMaxViewportScaleSet() && reducedScale >= m_limits.GetMaxViewportScale())
-      reducedScale = m_limits.GetMaxViewportScale();
-
-    if (!RetrieveForScale(reducedScale, callback))
-      break;
-
-    if (Finished())
-      break;
-    if (m_limits.IsMaxViewportScaleSet() && reducedScale >= m_limits.GetMaxViewportScale())
-      break;
-    if (m_limits.IsMaxNumFeaturesSet() && m_featuresReported >= m_limits.GetMaxNumFeatures())
-      break;
-
-    currScale *= kViewportScaleMul;
-  }
+  covering::IntervalsT coverage;
+  v2::CoverRect(rect, scale, coverage);
+  return RetrieveGeometryFeaturesImpl(context, cancellable, coverage, scale);
 }
 
-bool Retrieval::RetrieveForScale(double scale, Callback & callback)
-{
-  m2::RectD viewport = m_viewport;
-  viewport.Scale(scale);
-
-  for (auto & bucket : m_buckets)
-  {
-    if (IsCancelled())
-      return false;
-
-    if (bucket.m_finished || !viewport.IsIntersect(bucket.m_bounds))
-      continue;
-
-    if (!bucket.m_intersectsWithViewport)
-    {
-      // This is the first time viewport intersects with mwm. Retrieve
-      // all matching features from the search index.
-      ASSERT(!bucket.m_strategy, ());
-      RetrieveAddressFeatures(bucket.m_handle, m_params, bucket.m_addressFeatures);
-      if (IsCancelled())
-        return false;
-      if (bucket.m_addressFeatures.size() < kFastPathThreshold)
-      {
-        bucket.m_strategy.reset(
-            new FastPathStrategy(*m_index, bucket.m_handle, m_viewport, bucket.m_addressFeatures));
-      }
-      else
-      {
-        bucket.m_strategy.reset(
-            new SlowPathStrategy(bucket.m_handle, m_viewport, m_params, bucket.m_addressFeatures));
-      }
-
-      bucket.m_intersectsWithViewport = true;
-    }
-
-    ASSERT_LESS_OR_EQUAL(bucket.m_featuresReported, bucket.m_addressFeatures.size(), ());
-    if (bucket.m_featuresReported == bucket.m_addressFeatures.size())
-    {
-      ASSERT(bucket.m_intersectsWithViewport, ());
-      // All features were reported for the bucket.
-      bucket.m_finished = true;
-      continue;
-    }
-
-    Strategy::TCallback wrapper = [&](vector<uint32_t> & features)
-    {
-      ReportFeatures(bucket, features, scale, callback);
-    };
-    if (!bucket.m_strategy->Retrieve(scale, *this /* cancellable */, wrapper))
-      return false;
-  }
-
-  return true;
-}
-
-bool Retrieval::Finished() const
-{
-  for (auto const & bucket : m_buckets)
-  {
-    if (!bucket.m_finished)
-      return false;
-  }
-  return true;
-}
-
-void Retrieval::ReportFeatures(Bucket & bucket, vector<uint32_t> & featureIds, double scale,
-                               Callback & callback)
-{
-  ASSERT(!m_limits.IsMaxNumFeaturesSet() || m_featuresReported <= m_limits.GetMaxNumFeatures(), ());
-  if (m_limits.IsMaxNumFeaturesSet())
-  {
-    uint64_t const delta = m_limits.GetMaxNumFeatures() - m_featuresReported;
-    if (featureIds.size() > delta)
-      featureIds.resize(delta);
-  }
-  if (!featureIds.empty())
-  {
-    callback.OnFeaturesRetrieved(bucket.m_handle.GetId(), scale, featureIds);
-    bucket.m_featuresReported += featureIds.size();
-    m_featuresReported += featureIds.size();
-  }
-}
-}  // namespace search
+} // namespace v2
+} // namespace search

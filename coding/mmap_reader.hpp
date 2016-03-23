@@ -19,9 +19,9 @@ class MmapReader : public ModelReader
 public:
   explicit MmapReader(string const & fileName);
 
-  virtual uint64_t Size() const;
-  virtual void Read(uint64_t pos, void * p, size_t size) const;
-  virtual MmapReader * CreateSubReader(uint64_t pos, uint64_t size) const;
+  uint64_t Size() const override;
+  void Read(uint64_t pos, void * p, size_t size) const override;
+  unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override;
 
   /// Direct file/memory access
   uint8_t * Data() const;

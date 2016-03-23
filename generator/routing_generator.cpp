@@ -25,8 +25,6 @@
 
 #include "base/logging.hpp"
 
-#include "std/fstream.hpp"
-
 #include "3party/osrm/osrm-backend/data_structures/edge_based_node_data.hpp"
 #include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
 #include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
@@ -265,9 +263,9 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName,
   routing::CrossRoutingContextWriter crossContext;
   FindCrossNodes(nodeData, osm2ft, countries, countryName, index, p.first, crossContext);
 
-  string const mwmRoutingPath = localFile.GetPath(MapOptions::CarRouting);
-  CalculateCrossAdjacency(mwmRoutingPath, crossContext);
-  WriteCrossSection(crossContext, mwmRoutingPath);
+  string const mwmPath = localFile.GetPath(MapOptions::Map);
+  CalculateCrossAdjacency(mwmPath, crossContext);
+  WriteCrossSection(crossContext, mwmPath);
 }
 
 void BuildRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
@@ -444,19 +442,14 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
               "Multiple:", multiple, "Equal:", equal));
 
   LOG(LINFO, ("Collect all data into one file..."));
-  string const fPath = localFile.GetPath(MapOptions::CarRouting);
 
-  FilesContainerW routingCont(fPath /*, FileWriter::OP_APPEND*/);
+  string const mwmPath = localFile.GetPath(MapOptions::Map);
+  string const mwmWithoutRoutingPath = mwmPath + NOROUTING_FILE_EXTENSION;
 
-  {
-    // Write version for routing file that is equal to correspondent mwm file.
-    FilesContainerR mwmCont(localFile.GetPath(MapOptions::Map));
+  // Backup mwm file without routing.
+  CHECK(my::CopyFileX(mwmPath, mwmWithoutRoutingPath), ("Can't copy", mwmPath, "to", mwmWithoutRoutingPath));
 
-    FileWriter w = routingCont.GetWriter(VERSION_FILE_TAG);
-    ReaderSource<ModelReaderPtr> src(mwmCont.GetReader(VERSION_FILE_TAG));
-    rw::ReadAndWrite(src, w);
-    w.WritePaddingByEnd(4);
-  }
+  FilesContainerW routingCont(mwmPath, FileWriter::OP_WRITE_EXISTING);
 
   mapping.Save(routingCont);
 
@@ -475,7 +468,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   routingCont.Finish();
 
   uint64_t sz;
-  VERIFY(my::GetFileSize(fPath, sz), ());
+  VERIFY(my::GetFileSize(mwmPath, sz), ());
   LOG(LINFO, ("Nodes stored:", stored, "Routing index file size:", sz));
 }
 }

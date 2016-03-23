@@ -38,12 +38,12 @@ class DownloadObserver
   vector<HttpRequest::StatusT> m_statuses;
   // Interrupt download after this number of chunks
   int m_chunksToFail;
+  my::ScopedLogLevelChanger const m_debugLogLevel;
 
 public:
-  DownloadObserver() : m_chunksToFail(-1)
+  DownloadObserver() : m_chunksToFail(-1), m_debugLogLevel(LDEBUG)
   {
     Reset();
-    my::g_LogLevel = LDEBUG;
   }
 
   void CancelDownloadOnGivenChunk(int chunksToFail)

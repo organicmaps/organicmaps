@@ -1,7 +1,7 @@
 #include "indexer/categories_holder.hpp"
+#include "indexer/classificator.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
-#include "indexer/classificator.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/reader_streambuf.hpp"
@@ -22,9 +22,9 @@ enum State
 }  // unnamed namespace
 
 
-CategoriesHolder::CategoriesHolder(Reader * reader)
+CategoriesHolder::CategoriesHolder(unique_ptr<Reader> && reader)
 {
-  ReaderStreamBuf buffer(reader);
+  ReaderStreamBuf buffer(move(reader));
   istream s(&buffer);
   LoadFromStream(s);
 }
@@ -41,7 +41,7 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
 
     for (size_t i = 0; i < p->m_synonyms.size(); ++i)
     {
-      ASSERT(p->m_synonyms[i].m_locale != UNSUPPORTED_LOCALE_CODE, ());
+      ASSERT(p->m_synonyms[i].m_locale != kUnsupportedLocaleCode, ());
 
       StringT const uniName = search::NormalizeAndSimplifyString(p->m_synonyms[i].m_name);
 
@@ -128,7 +128,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
         }
 
         int8_t const langCode = MapLocaleToInteger(*iter);
-        CHECK(langCode != UNSUPPORTED_LOCALE_CODE, ("Invalid language code:", *iter, "at line:", lineNumber));
+        CHECK(langCode != kUnsupportedLocaleCode, ("Invalid language code:", *iter, "at line:", lineNumber));
 
         while (++iter)
         {
@@ -148,7 +148,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
             name.m_name = name.m_name.substr(1);
           }
           else
-            name.m_prefixLengthToSuggest = Category::EMPTY_PREFIX_LENGTH;
+            name.m_prefixLengthToSuggest = Category::kEmptyPrefixLength;
 
           // Process emoji symbols.
           using namespace strings;
@@ -197,6 +197,28 @@ bool CategoriesHolder::GetNameByType(uint32_t type, int8_t locale, string & name
   }
 
   return false;
+}
+
+string CategoriesHolder::GetReadableFeatureType(uint32_t type, int8_t locale) const
+{
+  ASSERT_NOT_EQUAL(type, 0, ());
+  uint8_t level = ftype::GetLevel(type);
+  ASSERT_GREATER(level, 0, ());
+
+  uint32_t originalType = type;
+  string name;
+  while (true)
+  {
+    if (GetNameByType(type, locale, name))
+      return name;
+
+    if (--level == 0)
+      break;
+
+    ftype::TruncValue(type, level);
+  }
+
+  return classif().GetReadableObjectName(originalType);
 }
 
 bool CategoriesHolder::IsTypeExist(uint32_t type) const
@@ -263,5 +285,5 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     return 17; // Simplified Chinese by default for all other cases
   }
 
-  return UNSUPPORTED_LOCALE_CODE;
+  return kUnsupportedLocaleCode;
 }

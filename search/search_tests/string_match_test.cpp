@@ -1,9 +1,10 @@
 #include "testing/testing.hpp"
+
 #include "search/approximate_string_match.hpp"
 
-#include "search/search_tests/match_cost_mock.hpp"
-
 #include "indexer/search_delimiters.hpp"
+
+#include "search/search_tests/match_cost_mock.hpp"
 
 #include "base/stl_add.hpp"
 

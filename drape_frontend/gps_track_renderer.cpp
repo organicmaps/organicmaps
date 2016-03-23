@@ -296,7 +296,7 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
 
   for (size_t i = 0; i < m_renderData.size(); i++)
     if (m_handlesCache[i].second != 0)
-      m_renderData[i]->m_bucket->Render(screen);
+      m_renderData[i]->m_bucket->Render();
 }
 
 void GpsTrackRenderer::Update()

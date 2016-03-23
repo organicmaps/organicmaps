@@ -53,7 +53,7 @@ namespace yopme
     if (!m_framework.IsCountryLoaded(viewPortCenter) && (zoom > scales::GetUpperWorldScale()))
       return false;
 
-    m_framework.ShowRect(vpLat, vpLon, zoom);
+    m_framework.SetViewportCenter(viewPortCenter, zoom);
     m2::PointD const poi(MercatorBounds::FromLatLon(poiLat, poiLon));
     m2::PointD const myLocation(MercatorBounds::FromLatLon(myLat, myLon));
     ShowRect(hasPoi, poi, hasLocation, myLocation);

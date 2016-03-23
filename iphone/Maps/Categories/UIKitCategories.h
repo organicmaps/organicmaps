@@ -27,6 +27,15 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @end
 
+@interface UIColor (HexColor)
+
++ (UIColor *)colorWithColorCode:(NSString *)colorCode;
++ (UIColor *)applicationBackgroundColor;
++ (UIColor *)applicationColor;
++ (UIColor *)navigationBarColor;
+
+@end
+
 @interface UIView (Coordinates)
 
 @property (nonatomic) CGFloat minX;
@@ -47,7 +56,7 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @interface UIView (Refresh)
 
-- (void)refresh;
+- (void)mwm_refreshUI;
 
 @end
 
@@ -62,14 +71,6 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 - (void)rateVersionFrom:(NSString *)launchPlaceName;
 
 @end
-
-
-@interface NSString (Size)
-
-- (CGSize)sizeWithDrawSize:(CGSize)size font:(UIFont *)font;
-
-@end
-
 
 @interface SolidTouchView : UIView
 

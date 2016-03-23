@@ -1,10 +1,10 @@
 #include "testing/testing.hpp"
-#include "search/keyword_matcher.hpp"
 
+#include "search/keyword_matcher.hpp"
 #include "search/search_common.hpp"
 
-#include "indexer/search_string_utils.hpp"
 #include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "base/buffer_vector.hpp"
 #include "base/stl_add.hpp"

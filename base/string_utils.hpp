@@ -75,9 +75,6 @@ class TokenizeIterator
   UniCharIterT m_beg, m_end, m_finish;
   DelimFuncT m_delimFunc;
 
-  /// Explicitly disabled, because we're storing iterators for string
-  TokenizeIterator(char const *, DelimFuncT const &);
-
   void move()
   {
     m_beg = m_end;
@@ -113,6 +110,12 @@ public:
     move();
   }
 
+  /// Use default-constructed iterator for operator == to determine an end of a token stream.
+  TokenizeIterator() = default;
+
+  /// Explicitly disabled, because we're storing iterators for string
+  TokenizeIterator(char const *, DelimFuncT const &) = delete;
+
   string operator*() const
   {
     ASSERT( m_beg != m_finish, ("dereferencing of empty iterator") );
@@ -141,6 +144,11 @@ public:
   {
     return UniString(m_beg, m_end);
   }
+
+  /// Same as operator bool() in expression it == end(...)
+  bool operator==(TokenizeIterator const &) { return !(*this); }
+  /// Same as operator bool() in expression it != end(...)
+  bool operator!=(TokenizeIterator const &) { return (*this); }
 };
 
 class SimpleDelimiter
@@ -148,6 +156,8 @@ class SimpleDelimiter
   UniString m_delims;
 public:
   SimpleDelimiter(char const * delimChars);
+  // Used in TokenizeIterator to allow past the end iterator construction.
+  SimpleDelimiter() = default;
   /// @return true if c is delimiter
   bool operator()(UniChar c) const;
 };
@@ -155,8 +165,8 @@ public:
 typedef TokenizeIterator<SimpleDelimiter,
                          ::utf8::unchecked::iterator<string::const_iterator> > SimpleTokenizer;
 
-template <typename FunctorT>
-void Tokenize(string const & str, char const * delims, FunctorT f)
+template <typename TFunctor>
+void Tokenize(string const & str, char const * delims, TFunctor && f)
 {
   SimpleTokenizer iter(str, delims);
   while (iter)
@@ -213,6 +223,22 @@ template <typename T> string to_string(T t)
 
 namespace impl
 {
+template <typename T>
+int UpperBoundOnChars()
+{
+  // It's wrong to return just numeric_limits<T>::digits10 + [is
+  // signed] because digits10 for a type T is computed as:
+  //
+  // floor(log10(2 ^ (CHAR_BITS * sizeof(T)))) =
+  // floor(CHAR_BITS * sizeof(T) * log10(2))
+  //
+  // Therefore, due to rounding, we need to compensate possible
+  // error.
+  //
+  // NOTE: following code works only on two-complement systems!
+
+  return numeric_limits<T>::digits10 + is_signed<T>::value + 1;
+}
 
 template <typename T> char * to_string_digits(char * buf, T i)
 {
@@ -228,7 +254,7 @@ template <typename T> char * to_string_digits(char * buf, T i)
 template <typename T> string to_string_signed(T i)
 {
   bool const negative = i < 0;
-  int const sz = numeric_limits<T>::digits10 + 1;
+  int const sz = UpperBoundOnChars<T>();
   char buf[sz];
   char * end = buf + sz;
   char * beg = to_string_digits(end, negative ? -i : i);
@@ -242,7 +268,7 @@ template <typename T> string to_string_signed(T i)
 
 template <typename T> string to_string_unsigned(T i)
 {
-  int const sz = numeric_limits<T>::digits10;
+  int const sz = UpperBoundOnChars<T>();
   char buf[sz];
   char * end = buf + sz;
   char * beg = to_string_digits(end, i);
@@ -272,22 +298,23 @@ bool StartsWith(string const & s1, char const * s2);
 
 bool EndsWith(string const & s1, char const * s2);
 
+bool EndsWith(string const & s1, string const & s2);
+
 /// Try to guess if it's HTML or not. No guarantee.
 bool IsHTML(string const & utf8);
 
 /// Compare str1 and str2 and return if they are equal except for mismatchedSymbolsNum symbols
 bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCount);
 
-/*
-template <typename ItT, typename DelimiterT>
-typename ItT::value_type JoinStrings(ItT begin, ItT end, DelimiterT const & delimiter)
+template <typename TIterator, typename TDelimiter>
+typename TIterator::value_type JoinStrings(TIterator begin, TIterator end,
+                                           TDelimiter const & delimiter)
 {
-  typedef typename ItT::value_type StringT;
+  if (begin == end)
+    return {};
 
-  if (begin == end) return StringT();
-
-  StringT result = *begin++;
-  for (ItT it = begin; it != end; ++it)
+  auto result = *begin++;
+  for (TIterator it = begin; it != end; ++it)
   {
     result += delimiter;
     result += *it;
@@ -296,13 +323,12 @@ typename ItT::value_type JoinStrings(ItT begin, ItT end, DelimiterT const & deli
   return result;
 }
 
-template <typename ContainerT, typename DelimiterT>
-typename ContainerT::value_type JoinStrings(ContainerT const & container,
-                                            DelimiterT const & delimiter)
+template <typename TContainer, typename TDelimiter>
+typename TContainer::value_type JoinStrings(TContainer const & container,
+                                            TDelimiter const & delimiter)
 {
   return JoinStrings(container.begin(), container.end(), delimiter);
 }
-*/
 
 template <typename TFn>
 void ForEachMatched(string const & s, regex const & regex, TFn && fn)
@@ -349,3 +375,16 @@ size_t EditDistance(TIter const & b1, TIter const & e1, TIter const & b2, TIter 
   return prev[m];
 }
 }  // namespace strings
+
+namespace std
+{
+template <typename ... Args>
+struct iterator_traits<strings::TokenizeIterator<Args...>>
+{
+  using difference_type = std::ptrdiff_t;
+  using value_type = string;
+  using pointer = void;
+  using reference = string;
+  using iterator_category = std::input_iterator_tag;
+};
+} // namespace std

@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Hapus";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Hapus peta tua dan lanjutkan";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Jangan tanyai saya lagi";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Posisi Saya";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Tidak ada koneksi internet yang terdeteksi";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Tidak ada koneksi WiFi yang terdeteksi. Apakah Anda ingin menggunakan paket data seluler (GPRS, EDGE, 3G or LTE) untuk mengunduh %@?";
 
@@ -111,9 +105,6 @@
 /* Search box placeholder text */
 "search_map" = "Cari Peta";
 
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Tidak ada ruang kosong yang cukup";
-
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Sentuh untuk mengunduh";
 
@@ -122,9 +113,6 @@
 
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Kami merekomendasi gunakan WiFi untuk mengunduh peta yang berukuran besar";
-
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Kami telah memperbarui data peta dan membuatnya lebih kecil. Untuk negara-negara yang lebih besar, kini Anda dapat memilih untuk mengunduh hanya daerah/negara bagian yang Anda perlukan. Namun, untuk menggunakan peta yang baru Anda harus menghapus data peta lama apa pun yang telah diunduh sebelumnya.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Sistem pengukuran manakah yang lebih Anda sukai?";
@@ -147,11 +135,14 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Unduh Peta\n(^ ^)";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Unduh Peta";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "Unduh peta tanpa\nperutean (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Sedang Mengunduh\n^\ntelah gagal";
+"country_status_download_failed" = "Sedang Mengunduh telah gagal";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Coba Lagi";
@@ -184,8 +175,7 @@
 
 "free_space_for_country" = "Mohon bebaskan %1$@ pada perangkat Anda terlebih dahulu untuk mengunduh %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %.1f%@.";
+"download_resources" = "Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %@.";
 
 "getting_position" = "Sedang mencari lokasi saat ini";
 
@@ -261,7 +251,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Nama";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Alamat";
 
 /* Place Page - Remove Pin button */
@@ -271,7 +261,7 @@
 "set" = "Set";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ  tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.";
+"bookmarks_usage_hint" = "Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
 "bookmarks_usage_hint_import_only" = "Penanda dari sumber lainnya dapat diimpor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.";
@@ -431,7 +421,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Pesan";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "Surel";
 
 /* Copy Link */
@@ -617,7 +607,7 @@
 "settings_and_more" = "Setelan &amp; Lebih Banyak";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Situs Web";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -695,22 +685,29 @@
 "routing_update_maps" = "Versi MAPS.ME yang terbaru memungkinkan pembuatan rute dari posisi Anda saat itu ke titik tujuan. Mohon perbarui peta untuk menggunakan fitur ini.";
 
 /* Update all button text */
-"downloader_update_all" = "Perbarui semuanya";
+"downloader_update_all_button" = "Perbarui semua";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Batalkan Semuanya";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Telah Diunduh";
+"downloader_downloaded_subtitle" = "Diunduh";
 
 /* Downloaded maps category */
-"downloader_downloaded_maps" = "Peta yang telah diunduh";
-
-/* My maps category */
-"downloader_my_maps" = "Peta saya";
+"downloader_available_maps" = "Available";
 
 /* Country queued for download */
 "downloader_queued" = "telah diantrekan";
+
+"downloader_near_me_subtitle" = "Dekat saya";
+
+"downloader_status_maps" = "Peta";
+
+"downloader_download_all_button" = "Unduh semua";
+
+"downloader_downloading" = "Mengunduh:";
+
+"downloader_search_results" = "Ditemukan";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Dalam membuat rute di aplikasi MAPS.ME, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!";
@@ -726,6 +723,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Gagal";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Untuk menghapus peta, silakan hentikan navigasi.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Lokasi saat ini tidak diketahui. Mohon masukkan lokasi untuk membuat rute.";
@@ -839,276 +839,6 @@
 
 /* Text for routing error dialog */
 "routing_download_roaming" = "Anda akan mengunduh %@ MB menggunakan Data Seluler (dalam Roaming). Hal ini dapat mengakibatkan biaya tambahan, tergantung pada paket data seluler operator.";
-
-/* Cuisine */
-"cuisine_regional" = "masakan regional";
-
-/* Cuisine */
-"cuisine_pizza" = "pizza";
-
-/* Cuisine */
-"cuisine_burger" = "burger";
-
-/* Cuisine */
-"cuisine_italian" = "masakan italia";
-
-/* Cuisine */
-"cuisine_chinese" = "masakan tionghoa";
-
-/* Cuisine */
-"cuisine_coffee_shop" = "kafe";
-
-/* Cuisine */
-"cuisine_sandwich" = "roti isi";
-
-/* Cuisine */
-"cuisine_german" = "masakan jerman";
-
-/* Cuisine */
-"cuisine_japanese" = "masakan jepang";
-
-/* Cuisine */
-"cuisine_kebab" = "kebab";
-
-/* Cuisine */
-"cuisine_mexican" = "masakan meksiko";
-
-/* Cuisine */
-"cuisine_indian" = "masakan india";
-
-/* Cuisine */
-"cuisine_american" = "masakan amerika";
-
-/* Cuisine */
-"cuisine_french" = "masakan prancis";
-
-/* Cuisine */
-"cuisine_ice_cream" = "es_krim";
-
-/* Cuisine */
-"cuisine_asian" = "masakan asia";
-
-/* Cuisine */
-"cuisine_chicken" = "ayam";
-
-/* Cuisine */
-"cuisine_greek" = "masakan yunani";
-
-/* Cuisine */
-"cuisine_thai" = "masakan thailand";
-
-/* Cuisine */
-"cuisine_international" = "masakan internasional";
-
-/* Cuisine */
-"cuisine_sushi" = "sushi";
-
-/* Cuisine */
-"cuisine_fish_and_chips" = "ikan dan kentang goreng";
-
-/* Cuisine */
-"cuisine_turkish" = "masakan turki";
-
-/* Cuisine */
-"cuisine_seafood" = "hidangan laut";
-
-/* Cuisine */
-"cuisine_steak_house" = "restoran_steik";
-
-/* Cuisine */
-"cuisine_spanish" = "masakan spanyol";
-
-/* Cuisine */
-"cuisine_fish" = "ikan";
-
-/* Cuisine */
-"cuisine_vietnamese" = "masakan vietnam";
-
-/* Cuisine */
-"cuisine_noodles" = "bakmi";
-
-/* Cuisine */
-"cuisine_vegetarian" = "masakan vegetarian";
-
-/* Cuisine */
-"cuisine_korean" = "korea";
-
-/* Cuisine */
-"cuisine_friture" = "gorengan";
-
-/* Cuisine */
-"cuisine_barbecue" = "barbekyu";
-
-/* Cuisine */
-"cuisine_bavarian" = "masakan bavaria";
-
-/* Cuisine */
-"cuisine_ramen" = "ramen";
-
-/* Cuisine */
-"cuisine_italian_pizza" = "italia, pizza";
-
-/* Cuisine */
-"cuisine_mediterranean" = "masakan mediterania";
-
-/* Cuisine */
-"cuisine_donut" = "donat";
-
-/* Cuisine */
-"cuisine_beef_bowl" = "nasi daging sapi";
-
-/* Cuisine */
-"cuisine_cake" = "kue";
-
-/* Cuisine */
-"cuisine_crepe" = "kue dadar";
-
-/* Cuisine */
-"cuisine_heuriger" = "taverna anggur";
-
-/* Cuisine */
-"cuisine_lebanese" = "masakan lebanon";
-
-/* Cuisine */
-"cuisine_steak" = "steik";
-
-/* Cuisine */
-"cuisine_local" = "masakan lokal";
-
-/* Cuisine */
-"cuisine_curry" = "kari";
-
-/* Cuisine */
-"cuisine_filipino" = "masakan filipina";
-
-/* Cuisine */
-"cuisine_russian" = "masakan rusia";
-
-/* Cuisine */
-"cuisine_breakfast" = "sarapan";
-
-/* Cuisine */
-"cuisine_tapas" = "kudapan spanyol";
-
-/* Cuisine */
-"cuisine_bbq" = "bbq";
-
-/* Cuisine */
-"cuisine_bagel" = "roti bagel";
-
-/* Cuisine */
-"cuisine_pasta" = "pasta";
-
-/* Cuisine */
-"cuisine_buschenschank" = "taverna anggur";
-
-/* Cuisine */
-"cuisine_sausage" = "sosis";
-
-/* Cuisine */
-"cuisine_portuguese" = "masakan portugis";
-
-/* Cuisine */
-"cuisine_grill" = "panggangan";
-
-/* Cuisine */
-"cuisine_pancake" = "panekuk";
-
-/* Cuisine */
-"cuisine_malagasy" = "masakan madagaskar";
-
-/* Cuisine */
-"cuisine_polish" = "masakan polandia";
-
-/* Cuisine */
-"cuisine_diner" = "makan malam";
-
-/* Cuisine */
-"cuisine_african" = "masakan afrika";
-
-/* Cuisine */
-"cuisine_doughnut" = "donat";
-
-/* Cuisine */
-"cuisine_georgian" = "masakan georgia";
-
-/* Cuisine */
-"cuisine_croatian" = "masakan kroasia";
-
-/* Cuisine */
-"cuisine_arab" = "masakan arab";
-
-/* Cuisine */
-"cuisine_balkan" = "masakan balkan";
-
-/* Cuisine */
-"cuisine_brazilian" = "masakan brasil";
-
-/* Cuisine */
-"cuisine_caribbean" = "masakan karibia";
-
-/* Cuisine */
-"cuisine_austrian" = "masakan austria";
-
-/* Cuisine */
-"cuisine_vegan" = "masakan vegan";
-
-/* Cuisine */
-"cuisine_argentinian" = "masakan argentina";
-
-/* Cuisine */
-"cuisine_persian" = "masakan persia";
-
-/* Cuisine */
-"cuisine_soba" = "soba";
-
-/* Cuisine */
-"cuisine_malaysian" = "masakan malaysia";
-
-/* Cuisine */
-"cuisine_indonesian" = "masakan indonesia";
-
-/* Cuisine */
-"cuisine_ethiopian" = "masakan etiopia";
-
-/* Cuisine */
-"cuisine_deli" = "toko makanan jadi";
-
-/* Cuisine */
-"cuisine_irish" = "masakan irlandia";
-
-/* Cuisine */
-"cuisine_hungarian" = "masakan hongaria";
-
-/* Cuisine */
-"cuisine_lao" = "masakan laos";
-
-/* Cuisine */
-"cuisine_coffee" = "kopi";
-
-/* Cuisine */
-"cuisine_hotdog" = "hotdog";
-
-/* Cuisine */
-"cuisine_oriental" = "masakan oriental";
-
-/* Cuisine */
-"cuisine_savory_pancakes" = "panekuk gurih";
-
-/* Cuisine */
-"cuisine_moroccan" = "masakan maroko";
-
-/* Cuisine */
-"cuisine_barbeque" = "barbekyu";
-
-/* Cuisine */
-"cuisine_peruvian" = "masakan peru";
-
-/* Cuisine */
-"cuisine_fine_dining" = "adiboga";
-
-/* Cuisine */
-"cuisine_tea" = "teh";
 
 /* bookmark button text */
 "bookmark" = "bookmark";
@@ -1242,7 +972,7 @@
 
 "dialog_routing_always_cross_that_border" = "Selalu lewati batas ini";
 
-"dialog_routing_not_now" = "Jangan Sekarang";
+"not_now" = "Jangan Sekarang";
 
 "dialog_routing_build_route" = "Buat";
 
@@ -1259,8 +989,6 @@
 "search_select_map" = "Pilih Peta";
 
 "search_select_other_map" = "Pilih Peta Lain";
-
-"search_vehicle_routes" = "Petunjuk arah mengemudi";
 
 /* «Show» context menu */
 "show" = "Tampilkan";
@@ -1350,6 +1078,284 @@
 
 "whats_new_next_button" = "Berikut";
 
-"whats_new_night_caption" = "Navigasi mode malam";
+"editor_time_add" = "Tambah Jadwal";
 
-"whats_new_night_body" = "Untuk memfasilitasi penggunaan MAPS.ME saat berkendara dalam gelap, kami telah menambahkan mode malam. Mode ini diaktifkan secara otomatis setelah matahari terbenam.";
+"editor_time_delete" = "Hapus Jadwal";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Setiap Hari (24 jam)";
+
+"editor_time_open" = "Buka";
+
+"editor_time_close" = "Tutup";
+
+"editor_time_add_closed" = "Tambah Jam Tutup";
+
+"editor_time_title" = "Jam buka";
+
+"editor_time_advanced" = "Mode Lanjutan";
+
+"editor_time_simple" = "Mode Sederhana";
+
+"editor_hours_closed" = "Jam Tutup";
+
+"editor_example_values" = "Contoh Nilai";
+
+"editor_correct_mistake" = "Koreksi kesalahan";
+
+"editor_correct_mistake_message" = "Pengeditan salah. Koreksi atau ubah ke mode sederhana.";
+
+"editor_add_select_location" = "Lokasi";
+
+"editor_done_dialog_1" = "Anda telah mengubah peta dunia. Jangan menyembunyikan ini! Katakan kepada teman-teman Anda, dan edit bersama.";
+
+"editor_done_dialog_2" = "ini peningkatan peta kedua Anda. Sekarang Anda di tempat yang ke-%d di daftar editor peta. Katakan kepada teman-teman Anda tentang hal ini.";
+
+"editor_done_dialog_3" = "Anda telah meningkatkan peta, katakan kepada teman-teman Anda tentang hal ini, dan edit peta bersama.";
+
+"share_with_friends" = "Bagikan dengan teman-teman";
+
+"editor_report_problem_desription_1" = "Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.";
+
+"editor_report_problem_desription_2" = "Atau Anda bisa melakukan sendiri di http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Kirim";
+
+"editor_report_problem_title" = "Masalah";
+
+"editor_report_problem_no_place_title" = "Tempat tidak ada";
+
+"editor_report_problem_under_construction_title" = "Ditutup karena pemeliharaan";
+
+"editor_report_problem_duplicate_place_title" = "Tempat ganda";
+
+"first_launch_congrats_title" = "MAPS.ME siap digunakan";
+
+"first_launch_congrats_text" = "Telusuri dan jelajalahi peta semua negara di dunia secara gratis.";
+
+"migrate_title" = "Penting!";
+
+/* Android uses image instead of text. */
+"download_all" = "Unduh semua";
+
+"delete_all" = "Hapus semua";
+
+"autodownload" = "Unduhan otomatis";
+
+/* Place Page opening hours text */
+"closed_now" = "Sekarang Tutup";
+
+/* Place Page opening hours text */
+"daily" = "Setiap Hari";
+
+"twentyfour_seven" = "siang dan malam";
+
+"day_off_today" = "Hari ini libur";
+
+"day_off" = "Libur";
+
+"today" = "Hari ini";
+
+"sunrise_to_sunset" = "Dari matahari terbit sampai matahari terbenam";
+
+"sunset_to_sunrise" = "Dari matahari terbenam sampai matahari terbit";
+
+"add_opening_hours" = "Tambah jam kerja";
+
+"edit_opening_hours" = "Sunting jam kerja";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Tidak ada akun di OpenStreetMap?";
+
+"register_at_openstreetmap" = "Mendaftar";
+
+"password_8_chars_min" = "Kata Sandi (minimal 8 karakter)";
+
+"invalid_username_or_password" = "Nama pengguna dan Kata sandi tidak valid.";
+
+"login" = "Masuk";
+
+"password" = "Kata sandi";
+
+"forgot_password" = "Lupa kata sandi?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Pulihkan kata sandi";
+
+"enter_email_address_to_reset_password" = "Masukkan alamat surek yang Anda gunakan pada saat pendaftaran dan kami akan mengirim tautan untuk memperbarui kata sandi Anda.";
+
+"reset_password" = "Atur ulang kata sandi";
+
+"username" = "Nama pengguna";
+
+"osm_account" = "Akun OSM";
+
+"logout" = "Keluar";
+
+"login_and_edit_map_motivation_message" = "Masuk dan sunting informasi objek pada peta dan kami akan membuatnya tersedia bagi jutaan pengguna lain. Mari kita menjadikan dunia lebih baik bersama-sama.";
+
+"not_sent" = "Tidak terkirim";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Pengunggahan terakhir";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "perubahan";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Anda menyunting objek pertama Anda!";
+
+"thank_you" = "Terima kasih";
+
+"login_with_google" = "Masuk menggunakan Google";
+
+"login_with_facebook" = "Masuk menggunakan Facebook";
+
+"login_with_openstreetmap" = "Masuk menggunakan www.openstreetmap.org";
+
+"edit_place" = "Sunting tempat";
+
+"place_name" = "Nama tempat";
+
+"place_name_caption" = "Masukkan nama seperti pada tanda atau pelat nama";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Bahasa lainnya";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Tambahkan bahasa";
+
+"street" = "Jalan";
+
+/* Editable House Number text field (in address block). */
+"house" = "Bangunan";
+
+"details" = "Detail";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Tambahkan jalan";
+
+"choose_language" = "Pilih bahasa";
+
+"choose_street" = "Pilih jalan";
+
+"postal_code" = "Kode Pos";
+
+"cuisine" = "Masakan";
+
+"select_cuisine" = "Pilih Masakan";
+
+/* login text field */
+"email_or_username" = "Surel atau nama pengguna";
+
+"phone" = "Telepon";
+
+"please_note" = "Harap diperhatikan";
+
+"common_no_wifi_dialog" = "Tidak ada koneksi WiFi. Apakah Anda ingin melanjutkan dengan data seluler?";
+
+"downloader_delete_map_dialog" = "Semua perubahan peta akan dihapus bersama dengan peta.";
+
+"downloader_update_maps" = "Perbarui peta";
+
+"downloader_mwm_migration_dialog" = "Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.";
+
+"downloader_search_field_hint" = "Temukan peta";
+
+"migration_update_all_button" = "Perbarui semua peta";
+
+"migration_delete_all_download_current_button" = "Unduh peta sekarang dan hapus peta lama";
+
+"migration_prefetch_status" = "Mempersiapkan pembaruan peta…";
+
+"migration_download_error_dialog" = "Unduh kesalahan";
+
+"common_check_internet_connection_dialog" = "Harap memeriksa pengaturan Anda dan pastikan perangkat Anda terhubung dengan internet.";
+
+"downloader_no_space_title" = "Tidak cukup ruang";
+
+"downloader_no_space_message" = "Harap menghapus data yang tidak diperlukan";
+
+"editor_general_auth_error_dialog" = "Kesalahan masuk umum.";
+
+"editor_login_error_dialog" = "Kesalahan masuk.";
+
+"editor_login_failed_dialog" = "Masuk gagal";
+
+"editor_username_error_dialog" = "Nama pengguna tidak benar";
+
+"editor_place_edited_dialog" = "Anda telah mengedit sebuah obyek!";
+
+"editor_login_with_osm" = "Masuk dengan OpenStreetMap";
+
+"editor_profile_changes" = "Perubahan:";
+
+"editor_profile_unsent_changes" = "Tidak terkirim:";
+
+"editor_focus_map_on_location" = "Tarik peta untuk memilih lokasi yang benar dari obyek.";
+
+"editor_add_select_category" = "Pilih kategori";
+
+"editor_add_select_category_popular_subtitle" = "Populer";
+
+"editor_add_select_category_all_subtitle" = "Semua kategori";
+
+"editor_edit_place_title" = "Mengedit";
+
+"editor_add_place_title" = "Menambahkan";
+
+"editor_edit_place_name_hint" = "Nama tempat";
+
+"editor_edit_place_category_title" = "Kategori";
+
+"detailed_problem_description" = "Gambaran terperinci tentang masalah";
+
+"editor_report_problem_other_title" = "Masalah yang berbeda";
+
+"placepage_add_place_button" = "Tambahkan tempat";
+
+"placepage_report_problem_button" = "Laporkan masalah";
+
+"whatsnew_smallmwm_header" = "Anda memintanya dan kami telah malakukannya";
+
+"whatsnew_smallmwm_message" = "Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara.";
+
+"whatsnew_search_header" = "Penelusuran baru";
+
+"whatsnew_search_message" = "Kami secara signifikan telah meningkatkan pencarian menurut alamat. Lihat sendiri.";
+
+"whatsnew_editor_title" = "Edit peta*";
+
+"whatsnew_editor_message_1" = "Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME menggunakan data komunitas OpenStreetMap.";
+
+"onboarding_offline_navigation_title" = "Anda tidak akan tersesat lagi";
+
+"onboarding_offline_navigation_message" = "Rencanakan rute mobil dan pejalan kaki yang optimal, meskipun tidak ada koneksi internet!";
+
+"onboarding_offline_navigation_title_2" = "Navigasi Offline";
+
+"onboarding_offline_navigation_message_2" = "Rencanakan rute mobil dan pejalan kaki yang optimal.";
+
+"onboarding_offline_maps_title" = "MAPS.ME — akses peta seluruh dunia tanpa internet";
+
+"onboarding_offline_maps_message" = "Unduh peta untuk daerah yang diinginkan sekali, dan gunakan navigasi dan fungsi pencarian tanpa koneksi internet.";
+
+"onboarding_notifications_message" = "Untuk menerima peta-peta terbaru, dapatkan pemberitahuan pembaruan";
+
+"onboarding_notifications_title" = "Aktifkan pemberitahuan pembaruan";
+
+"onboarding_location_title" = "Membantu kami menemukan Anda";
+
+"onboarding_location_message" = "Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.";
+
+"dialog_incorrect_feature_position" = "Ubah lokasi";
+
+"message_invalid_feature_position" = "Objek tidak dapat diletakkan di sini";

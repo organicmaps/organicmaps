@@ -16,10 +16,11 @@
 @interface MWMRoutePreview : MWMNavigationView
 
 @property (weak, nonatomic, readonly) IBOutlet UIButton * extendButton;
-@property (nonatomic, readonly) MWMCircularProgress * pedestrianProgressView;
-@property (nonatomic, readonly) MWMCircularProgress * vehicleProgressView;
 @property (weak, nonatomic) id<MWMRoutePreviewDataSource> dataSource;
 @property (weak, nonatomic) MWMNavigationDashboardManager * dashboardManager;
+
+- (MWMCircularProgress *)pedestrianProgress;
+- (MWMCircularProgress *)vehicleProgress;
 
 - (void)configureWithEntity:(MWMNavigationDashboardEntity *)entity;
 - (void)statePrepare;

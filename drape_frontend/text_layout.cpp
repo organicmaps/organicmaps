@@ -518,17 +518,31 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
   return true;
 }
 
-// static
-void PathTextLayout::CalculatePositions(vector<float> & offsets, float splineLength,
-                                       float splineScaleToPixel, float textPixelLength)
+float PathTextLayout::CalculateTextLength(float textPixelLength)
 {
   //we leave a little space on either side of the text that would
   //remove the comparison for equality of spline portions
   float const kTextBorder = 4.0f;
-  float const textLength = kTextBorder + textPixelLength;
+  return kTextBorder + textPixelLength;
+}
+
+bool PathTextLayout::CalculatePerspectivePosition(float splineLength, float textPixelLength, float & offset)
+{
+  float const textLength = CalculateTextLength(textPixelLength);
+  if (textLength > splineLength * 2.0f)
+    return false;
+
+  offset = splineLength * 0.5f;
+  return true;
+}
+
+void PathTextLayout::CalculatePositions(vector<float> & offsets, float splineLength,
+                                       float splineScaleToPixel, float textPixelLength)
+{
+  float const textLength = CalculateTextLength(textPixelLength);
 
   // on next readable scale m_scaleGtoP will be twice
-  if (textLength > splineLength * 2.0 * splineScaleToPixel)
+  if (textLength > splineLength * 2.0f * splineScaleToPixel)
     return;
 
   float const kPathLengthScalar = 0.75;
@@ -542,7 +556,7 @@ void PathTextLayout::CalculatePositions(vector<float> & offsets, float splineLen
   {
     // if we can't place 2 text and empty part on path
     // we place only one text on center of path
-    offsets.push_back(splineLength / 2.0f);
+    offsets.push_back(splineLength * 0.5f);
   }
   else
   {

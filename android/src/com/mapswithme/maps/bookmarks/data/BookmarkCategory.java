@@ -17,65 +17,68 @@ public class BookmarkCategory
 
   public String getName()
   {
-    return (mName == null ? getName(mId) : mName);
-  }
-
-  public boolean isVisible()
-  {
-    return isVisible(mId);
-  }
-
-  public void setVisibility(boolean b)
-  {
-    setVisibility(mId, b);
+    return (mName == null ? nativeGetName(mId) : mName);
   }
 
   public void setName(String name)
   {
-    setName(mId, name);
+    nativeSetName(mId, name);
     mName = name;
   }
 
+  public boolean isVisible()
+  {
+    return nativeIsVisible(mId);
+  }
+
+  public void setVisibility(boolean visible)
+  {
+    nativeSetVisibility(mId, visible);
+  }
+
+  /**
+   * @return total count - tracks + bookmarks
+   */
   public int getSize()
   {
-    return getSize(mId);
+    return nativeGetSize(mId);
   }
 
   public int getBookmarksCount()
   {
-    return getBookmarksCount(mId);
+    return nativeGetBookmarksCount(mId);
   }
 
   public int getTracksCount()
   {
-    return getTracksCount(mId);
+    return nativeGetTracksCount(mId);
   }
 
-  public Bookmark getBookmark(int index)
+  public Bookmark getBookmark(int bookmarkId)
   {
-    return getBookmark(mId, index, Bookmark.class);
+    return nativeGetBookmark(mId, bookmarkId);
   }
 
-  public Track getTrack(int index)
+  public Track nativeGetTrack(int trackId)
   {
-    return getTrack(mId, index, Track.class);
+    return nativeGetTrack(mId, trackId, Track.class);
   }
 
-  private native int getBookmarksCount(int id);
+  private native int nativeGetBookmarksCount(int id);
 
-  private native int getTracksCount(int id);
+  private native int nativeGetTracksCount(int id);
 
-  private native int getSize(int id);
+  private native int nativeGetSize(int id);
 
-  private native Bookmark getBookmark(int id, int index, Class<Bookmark> bookmarkClazz);
+  private native Bookmark nativeGetBookmark(int catId, int bmkId);
 
-  private native Track getTrack(int id, int index, Class<Track> trackClazz);
+  private native Track nativeGetTrack(int catId, int bmkId, Class<Track> trackClazz);
 
-  private native boolean isVisible(int id);
+  private native boolean nativeIsVisible(int id);
 
-  private native void setVisibility(int id, boolean v);
+  private native void nativeSetVisibility(int id, boolean visible);
 
-  private native String getName(int id);
+  private native String nativeGetName(int id);
 
-  private native void setName(int old, String n);
+  private native void nativeSetName(int id, String n);
 }

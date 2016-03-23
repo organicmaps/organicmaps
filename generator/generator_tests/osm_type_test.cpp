@@ -611,7 +611,7 @@ UNIT_TEST(OsmType_Dibrugarh)
   TEST_EQUAL(params.m_Types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), (params));
   string name;
-  TEST(params.name.GetString(StringUtf8Multilang::DEFAULT_CODE, name), (params));
+  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
   TEST_EQUAL(name, "Dibrugarh", (params));
 }
 
@@ -769,5 +769,42 @@ UNIT_TEST(OsmType_Entrance)
     TEST_EQUAL(params.m_Types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"entrance"})), (params));
     TEST(params.IsTypeExist(GetType({"barrier", "entrance"})), (params));
+  }
+}
+
+UNIT_TEST(OsmType_Moscow)
+{
+  {
+    char const * arr[][2] = {
+      { "addr:country", "RU" },
+      { "addr:region", "Москва" },
+      { "admin_level", "2" },
+      { "alt_name:vi", "Mạc Tư Khoa" },
+      { "capital", "yes" },
+      { "ele", "156" },
+      { "int_name", "Moscow" },
+      { "is_capital", "country" },
+      { "ISO3166-2", "RU-MOW" },
+      { "name", "Москва" },
+      { "note", "эта точка должна быть здесь, в историческом центре Москвы" },
+      { "official_status", "ru:город" },
+      { "okato:user", "none" },
+      { "place", "city" },
+      { "population", "12108257" },
+      { "population:date", "2014-01-01" },
+      { "rank", "0" },
+      { "wikipedia", "ru:Москва" },
+    };
+
+    OsmElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), (params));
+    TEST(170 <= params.rank && params.rank <= 180, (params));
+    TEST(!params.name.IsEmpty(), (params));
   }
 }

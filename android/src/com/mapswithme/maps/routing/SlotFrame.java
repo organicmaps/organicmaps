@@ -96,10 +96,10 @@ public class SlotFrame extends LinearLayout
         return;
       }
 
-      if (mMapObject instanceof MapObject.MyPosition)
+      if (MapObject.isOfType(MapObject.MY_POSITION, mMapObject))
         mText.setText(R.string.p2p_your_location);
       else
-        mText.setText(mMapObject.getName());
+        mText.setText(mMapObject.getTitle());
 
       mText.setTextColor(mTextColor);
     }
@@ -107,9 +107,6 @@ public class SlotFrame extends LinearLayout
     void setMapObject(MapObject mapObject)
     {
       mMapObject = mapObject;
-      if (mMapObject != null)
-        mMapObject.setDefaultIfEmpty();
-
       updateText();
     }
 

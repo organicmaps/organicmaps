@@ -2,31 +2,30 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
   <include
-      android:id="@+id/pp__preview"
-      layout="@layout/place_page_preview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/pp__buttons"/>
+    android:id="@+id/pp__preview"
+    layout="@layout/place_page_preview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/pp__buttons"/>
 
   <include
-      android:id="@+id/pp__details_frame"
-      layout="@layout/place_page_details"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/pp__buttons"
-      android:layout_marginTop="56dp"
-      android:background="?panel"/>
+    android:id="@+id/pp__details_frame"
+    layout="@layout/place_page_details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/pp__buttons"
+    android:background="?panel"/>
 
   <include
-      android:id="@+id/pp__buttons"
-      layout="@layout/place_page_buttons"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"/>
+    android:id="@+id/pp__buttons"
+    layout="@layout/place_page_buttons"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"/>
 
   <include
-      android:id="@+id/toolbar_layout"
-      layout="@layout/toolbar_elevated"
-      android:visibility="gone"/>
+    android:id="@+id/toolbar_layout"
+    layout="@layout/toolbar_elevated"
+    android:visibility="gone"/>
 
 </merge>

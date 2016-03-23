@@ -74,7 +74,7 @@ bool FeatureProcessor::operator()(FeatureType const & f)
     p.m_rect = &m_rect;
 
     functor_t fun(p);
-    f.ForEachPointRef(fun, m_zoom);
+    f.ForEachPoint(fun, m_zoom);
     if (fun.IsExist())
     {
       isExist = true;
@@ -93,7 +93,7 @@ bool FeatureProcessor::operator()(FeatureType const & f)
     p.m_rect = &m_rect;
 
     functor_t fun(p);
-    f.ForEachTriangleExRef(fun, m_zoom);
+    f.ForEachTriangleEx(fun, m_zoom);
 
     if (data.m_styler.m_hasPointStyles)
       fun.SetCenter(feature::GetCenter(f, m_zoom));
@@ -123,7 +123,7 @@ bool FeatureProcessor::operator()(FeatureType const & f)
 
         functor_t fun(p);
 
-        f.ForEachPointRef(fun, m_zoom);
+        f.ForEachPoint(fun, m_zoom);
         if (fun.IsExist())
         {
           isExist = true;
@@ -150,7 +150,7 @@ bool FeatureProcessor::operator()(FeatureType const & f)
 
         functor_t fun(p);
 
-        f.ForEachPointRef(fun, m_zoom);
+        f.ForEachPoint(fun, m_zoom);
 
         if (fun.IsExist())
         {

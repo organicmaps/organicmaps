@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "defines.hpp"
@@ -44,7 +45,7 @@ UNIT_TEST(WritableDir)
   }
   catch (Writer::OpenException const &)
   {
-    LOG(LCRITICAL, ("Can't create file"));
+    LOG(LCRITICAL, ("Can't create file", path));
     return;
   }
 
@@ -92,10 +93,10 @@ UNIT_TEST(GetFilesInDir_Smoke)
   Platform & pl = GetPlatform();
   Platform::FilesList files1, files2;
 
-  string const dir = pl.WritableDir();
+  string const dir = pl.ResourcesDir();
 
   pl.GetFilesByExt(dir, DATA_FILE_EXTENSION, files1);
-  TEST_GREATER(files1.size(), 0, ("/data/ folder should contain some data files"));
+  TEST_GREATER(files1.size(), 0, (dir, "folder should contain some data files"));
 
   pl.GetFilesByRegExp(dir, ".*\\" DATA_FILE_EXTENSION "$", files2);
   TEST_EQUAL(files1, files2, ());
@@ -179,15 +180,16 @@ UNIT_TEST(GetFileSize)
   TEST(!pl.GetFileSizeByName("adsmngfuwrbfyfwe", size), ());
   TEST(!pl.IsFileExistsByFullPath("adsmngfuwrbfyfwe"), ());
 
+  string const fileName = pl.WritablePathForFile(TEST_FILE_NAME);
   {
-    FileWriter testFile(TEST_FILE_NAME);
+    FileWriter testFile(fileName);
     testFile.Write("HOHOHO", 6);
   }
   size = 0;
-  TEST(Platform::GetFileSizeByFullPath(TEST_FILE_NAME, size), ());
+  TEST(Platform::GetFileSizeByFullPath(fileName, size), ());
   TEST_EQUAL(size, 6, ());
 
-  FileWriter::DeleteFileX(TEST_FILE_NAME);
+  FileWriter::DeleteFileX(fileName);
 
   {
     FileWriter testFile(pl.WritablePathForFile(TEST_FILE_NAME));
@@ -247,4 +249,12 @@ UNIT_TEST(RmDirRecursively)
   TEST(!Platform::IsFileExistsByFullPath(filePath), ());
   TEST(!Platform::IsFileExistsByFullPath(testDir1), ());
   TEST(!Platform::IsFileExistsByFullPath(testDir2), ());
+}
+
+UNIT_TEST(IsSingleMwm)
+{
+  TEST(version::IsSingleMwm(version::FOR_TESTING_SINGLE_MWM1), ());
+  TEST(version::IsSingleMwm(version::FOR_TESTING_SINGLE_MWM_LATEST), ());
+  TEST(!version::IsSingleMwm(version::FOR_TESTING_TWO_COMPONENT_MWM1), ());
+  TEST(!version::IsSingleMwm(version::FOR_TESTING_TWO_COMPONENT_MWM2), ());
 }

@@ -1,288 +1,226 @@
+#import "MWMFrameworkListener.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 #import "MapViewController.h"
+
+#include "Framework.h"
 #include "platform/measurement_utils.hpp"
-
-extern NSArray * const kBookmarkColorsVariant = @[@"placemark-red", @"placemark-yellow", @"placemark-blue", @"placemark-green", @"placemark-purple", @"placemark-orange", @"placemark-brown", @"placemark-pink"];
-extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
-static NSArray * const kPatternTypesArray = @[@(MWMPlacePageMetadataTypePostcode), @(MWMPlacePageMetadataTypePhoneNumber), @(MWMPlacePageMetadataTypeWebsite), @(MWMPlacePageMetadataTypeURL), @(MWMPlacePageMetadataTypeEmail), @(MWMPlacePageMetadataTypeOpenHours), @(MWMPlacePageMetadataTypeWiFi), @(MWMPlacePageMetadataTypeCoordinate)];
-
-static NSString * const kTypesKey = @"types";
-static NSString * const kValuesKey = @"values";
 
 using feature::Metadata;
 
-@interface MWMPlacePageEntity ()
+extern NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
-@property (nonatomic) NSDictionary * metadata;
+namespace
+{
 
-@end
+NSUInteger gMetaFieldsMap[MWMPlacePageCellTypeCount] = {};
+
+void putFields(NSUInteger eTypeValue, NSUInteger ppValue)
+{
+  gMetaFieldsMap[eTypeValue] = ppValue;
+  gMetaFieldsMap[ppValue] = eTypeValue;
+}
+
+void initFieldsMap()
+{
+  putFields(Metadata::FMD_URL, MWMPlacePageCellTypeURL);
+  putFields(Metadata::FMD_WEBSITE, MWMPlacePageCellTypeWebsite);
+  putFields(Metadata::FMD_PHONE_NUMBER, MWMPlacePageCellTypePhoneNumber);
+  putFields(Metadata::FMD_OPEN_HOURS, MWMPlacePageCellTypeOpenHours);
+  putFields(Metadata::FMD_EMAIL, MWMPlacePageCellTypeEmail);
+  putFields(Metadata::FMD_POSTCODE, MWMPlacePageCellTypePostcode);
+  putFields(Metadata::FMD_INTERNET, MWMPlacePageCellTypeWiFi);
+  putFields(Metadata::FMD_CUISINE, MWMPlacePageCellTypeCuisine);
+
+  ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_URL], MWMPlacePageCellTypeURL, ());
+  ASSERT_EQUAL(gMetaFieldsMap[MWMPlacePageCellTypeURL], Metadata::FMD_URL, ());
+  ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_WEBSITE], MWMPlacePageCellTypeWebsite, ());
+  ASSERT_EQUAL(gMetaFieldsMap[MWMPlacePageCellTypeWebsite], Metadata::FMD_WEBSITE, ());
+  ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_POSTCODE], MWMPlacePageCellTypePostcode, ());
+  ASSERT_EQUAL(gMetaFieldsMap[MWMPlacePageCellTypePostcode], Metadata::FMD_POSTCODE, ());
+  ASSERT_EQUAL(gMetaFieldsMap[Metadata::FMD_MAXSPEED], 0, ());
+}
+} // namespace
 
 @implementation MWMPlacePageEntity
+{
+  MWMPlacePageCellTypeValueMap m_values;
+  place_page::Info m_info;
+}
 
-- (instancetype)initWithUserMark:(UserMark const *)mark
+- (instancetype)initWithInfo:(const place_page::Info &)info
 {
   self = [super init];
   if (self)
-    [self configureWithUserMark:mark];
-
+  {
+    m_info = info;
+    initFieldsMap();
+    [self config];
+  }
   return self;
 }
 
-- (void)configureWithUserMark:(UserMark const *)mark
+- (void)config
 {
-  UserMark::Type const type = mark->GetMarkType();
-  double x, y;
-  mark->GetLatLon(x, y);
-  self.point = m2::PointD(x, y);
+  [self configureDefault];
 
-  typedef UserMark::Type Type;
-  switch (type)
-  {
-    case Type::API:
-    {
-      ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>(mark);
-      [self configureForApi:apiMark];
-      break;
-    }
-    case Type::DEBUG_MARK:
-      break;
-    case Type::MY_POSITION:
-    {
-      MyPositionMarkPoint const * myPositionMark = static_cast<MyPositionMarkPoint const *>(mark);
-      [self configureForMyPosition:myPositionMark];
-      break;
-    }
-    case Type::SEARCH:
-      [self configureForSearch:static_cast<SearchMarkPoint const *>(mark)];
-      break;
-    case Type::POI:
-      [self configureForPOI:static_cast<PoiMarkPoint const *>(mark)];
-      break;
-    case Type::BOOKMARK:
-      [self configureForBookmark:mark];
-      break;
-  }
+  if (m_info.IsFeature())
+    [self configureFeature];
+  if (m_info.IsBookmark())
+    [self configureBookmark];
 }
 
-- (void)configureForBookmark:(UserMark const *)bookmark
+- (void)setMetaField:(NSUInteger)key value:(string const &)value
 {
-  Framework & f = GetFramework();
-  self.bac = f.FindBookmark(bookmark);
-  self.type = MWMPlacePageEntityTypeBookmark;
-  BookmarkCategory * category = f.GetBmCategory(self.bac.first);
-  BookmarkData const & data = static_cast<Bookmark const *>(bookmark)->GetData();
-  m2::PointD const & point = bookmark->GetPivot();
-  Metadata metadata;
-  search::AddressInfo info;
-  f.FindClosestPOIMetadata(point, metadata);
-  f.GetAddressInfoForGlobalPoint(point, info);
-
-  self.bookmarkTitle = @(data.GetName().c_str());
-  self.bookmarkCategory = @(category->GetName().c_str());
-  string const description = data.GetDescription();
-  self.bookmarkDescription = @(description.c_str());
-  _isHTMLDescription = strings::IsHTML(description);
-  self.bookmarkColor = @(data.GetType().c_str());
-
-  [self configureEntityWithMetadata:metadata addressInfo:info];
-  [self insertBookmarkInTypes];
+  NSAssert(key >= Metadata::FMD_COUNT, @"Incorrect enum value");
+  MWMPlacePageCellType const cellType = static_cast<MWMPlacePageCellType>(key);
+  if (value.empty())
+    m_values.erase(cellType);
+  else
+    m_values[cellType] = value;
 }
 
-- (void)configureForSearch:(SearchMarkPoint const *)searchMark
+- (void)configureDefault
 {
-//Workaround for framework bug.
-//TODO: Make correct way to get search metadata.
-  Metadata metadata;
-  GetFramework().FindClosestPOIMetadata(searchMark->GetPivot(), metadata);
-  [self configureEntityWithMetadata:metadata addressInfo:searchMark->GetInfo()];
+  search::AddressInfo const address = GetFramework().GetAddressInfoAtPoint(m_info.GetMercator());
+  self.title = @(m_info.GetTitle().c_str());
+  self.address = @(address.FormatAddress().c_str());
 }
 
-- (void)configureForPOI:(PoiMarkPoint const *)poiMark
+- (void)configureFeature
 {
-  [self configureEntityWithMetadata:poiMark->GetMetadata() addressInfo:poiMark->GetInfo()];
-}
-
-- (void)configureForMyPosition:(MyPositionMarkPoint const *)myPositionMark
-{
-  self.title = L(@"my_position");
-  self.type = MWMPlacePageEntityTypeMyPosition;
-  NSMutableArray * types = [NSMutableArray array];
-  NSMutableArray * values = [NSMutableArray array];
-  [types addObject:kPatternTypesArray.lastObject];
-  BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()): @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  [values addObject:latLonStr];
-
-  self.metadata = @{kTypesKey : types, kValuesKey : values};
-}
-
-- (void)configureForApi:(ApiMarkPoint const *)apiMark
-{
-  self.type = MWMPlacePageEntityTypeAPI;
-  self.title = @(apiMark->GetName().c_str());
-  self.category = @(GetFramework().GetApiDataHolder().GetAppTitle().c_str());
-  NSMutableArray const * types = [NSMutableArray array];
-  NSMutableArray const * values = [NSMutableArray array];
-  [types addObject:kPatternTypesArray.lastObject];
-  BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @(MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @(MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  [values addObject:latLonStr];
-  self.metadata = @{kTypesKey : types, kValuesKey : values};
-}
-
-- (void)configureEntityWithMetadata:(Metadata const &)metadata addressInfo:(search::AddressInfo const &)info
-{
-  NSString * const name = @(info.GetPinName().c_str());
-  self.title = name.length > 0 ? name : L(@"dropped_pin");
-  self.category = @(info.GetPinType().c_str());
-
-  vector<Metadata::EType> const presentTypes = metadata.GetPresentTypes();
-
-  NSMutableArray const * types = [NSMutableArray array];
-  NSMutableArray const * values = [NSMutableArray array];
-
-  for (auto const & type : presentTypes)
+  // Category can also be custom-formatted, please check m_info getters.
+  self.category = @(m_info.GetSubtitle().c_str());
+  // TODO(Vlad): Refactor using osm::Props instead of direct Metadata access.
+  feature::Metadata const & md = m_info.GetMetadata();
+  for (auto const type : md.GetPresentTypes())
   {
     switch (type)
     {
-      case Metadata::FMD_CUISINE:
-      {
-        NSString * result = @(metadata.Get(type).c_str());
-        NSString * cuisine = [NSString stringWithFormat:@"cuisine_%@", result];
-        NSString * localizedResult = L(cuisine);
-        NSString * currentCategory = self.category;
-        if (![localizedResult isEqualToString:currentCategory])
-        {
-          if ([localizedResult isEqualToString:cuisine])
-          {
-            if (![result isEqualToString:currentCategory])
-              self.category = [NSString stringWithFormat:@"%@, %@", self.category, result];
-          }
-          else
-          {
-            self.category = [NSString stringWithFormat:@"%@, %@", self.category, localizedResult];
-          }
-        }
-        break;
-      }
-      case Metadata::FMD_ELE:
-      {
-        self.typeDescriptionValue = atoi(metadata.Get(type).c_str());
-        if (self.type != MWMPlacePageEntityTypeBookmark)
-          self.type = MWMPlacePageEntityTypeEle;
-        break;
-      }
-      case Metadata::FMD_OPERATOR:
-      {
-        NSString const * bank = @(metadata.Get(type).c_str());
-        if (self.category.length)
-          self.category = [NSString stringWithFormat:@"%@, %@", self.category, bank];
-        else
-          self.category = [NSString stringWithFormat:@"%@", bank];
-        break;
-      }
-      case Metadata::FMD_STARS:
-      {
-        self.typeDescriptionValue = atoi(metadata.Get(type).c_str());
-        if (self.type != MWMPlacePageEntityTypeBookmark)
-          self.type = MWMPlacePageEntityTypeHotel;
-        break;
-      }
       case Metadata::FMD_URL:
       case Metadata::FMD_WEBSITE:
       case Metadata::FMD_PHONE_NUMBER:
       case Metadata::FMD_OPEN_HOURS:
       case Metadata::FMD_EMAIL:
       case Metadata::FMD_POSTCODE:
-      case Metadata::FMD_INTERNET:
-      {
-        NSString * v;
-        if (type == Metadata::EType::FMD_OPEN_HOURS)
-          v = [self formattedOpenHoursFromString:metadata.Get(type)];
-        else if (type == Metadata::FMD_INTERNET)
-          v = L(@"WiFi_available");
-        else
-          v = @(metadata.Get(type).c_str());
-
-        NSNumber const * t = [self typeFromMetadata:type];
-        [types addObject:t];
-        [values addObject:v];
+        [self setMetaField:gMetaFieldsMap[type] value:md.Get(type)];
         break;
-      }
-
+      case Metadata::FMD_INTERNET:
+        [self setMetaField:gMetaFieldsMap[type] value:L(@"WiFi_available").UTF8String];
+        break;
       default:
         break;
     }
   }
+}
 
-  NSUInteger swappedIndex = 0;
-  for (NSNumber * pattern in kPatternTypesArray)
+- (void)configureBookmark
+{
+  auto const bac = m_info.GetBookmarkAndCategory();
+  BookmarkCategory * cat = GetFramework().GetBmCategory(bac.first);
+  BookmarkData const & data = static_cast<Bookmark const *>(cat->GetUserMark(bac.second))->GetData();
+
+  self.bookmarkTitle = @(data.GetName().c_str());
+  self.bookmarkCategory = @(cat->GetName().c_str());
+  string const & description = data.GetDescription();
+  self.bookmarkDescription = @(description.c_str());
+  _isHTMLDescription = strings::IsHTML(description);
+  self.bookmarkColor = @(data.GetType().c_str());
+}
+
+- (void)toggleCoordinateSystem
+{
+  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  [ud setBool:![ud boolForKey:kUserDefaultsLatLonAsDMSKey] forKey:kUserDefaultsLatLonAsDMSKey];
+  [ud synchronize];
+}
+
+#pragma mark - Getters
+
+- (NSString *)getCellValue:(MWMPlacePageCellType)cellType
+{
+  switch (cellType)
   {
-    NSUInteger const index = [types indexOfObject:pattern];
-    if (index == NSNotFound)
-      continue;
-    [types exchangeObjectAtIndex:index withObjectAtIndex:swappedIndex];
-    [values exchangeObjectAtIndex:index withObjectAtIndex:swappedIndex];
-    swappedIndex++;
-  }
-
-  [types addObject:kPatternTypesArray.lastObject];
-  BOOL const isLatLonAsDMS = [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
-  NSString * latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  latLonStr = isLatLonAsDMS ? @(MeasurementUtils::FormatLatLonAsDMS(self.point.x, self.point.y, 2).c_str()) : @( MeasurementUtils::FormatLatLon(self.point.x, self.point.y).c_str());
-  [values addObject:latLonStr];
-  
-  self.metadata = @{kTypesKey : types, kValuesKey : values};
-}
-
-- (NSArray *)metadataTypes
-{
-  return (NSArray *)self.metadata[kTypesKey];
-}
-
-- (NSArray *)metadataValues
-{
-  return (NSArray *)self.metadata[kValuesKey];
-}
-
-- (void)insertBookmarkInTypes
-{
-  if ([self.metadataTypes containsObject:@(MWMPlacePageMetadataTypeBookmark)])
-    return;
-  [self.metadata[kTypesKey] insertObject:@(MWMPlacePageMetadataTypeBookmark) atIndex:self.metadataTypes.count];
-}
-
-- (void)removeBookmarkFromTypes
-{
-  [self.metadata[kTypesKey] removeObject:@(MWMPlacePageMetadataTypeBookmark)];
-}
-
-- (NSNumber *)typeFromMetadata:(Metadata::EType)type
-{
-  switch (type)
-  {
-    case Metadata::FMD_URL:
-      return @(MWMPlacePageMetadataTypeURL);
-    case Metadata::FMD_WEBSITE:
-      return @(MWMPlacePageMetadataTypeWebsite);
-    case Metadata::FMD_PHONE_NUMBER:
-      return @(MWMPlacePageMetadataTypePhoneNumber);
-    case Metadata::FMD_OPEN_HOURS:
-      return @(MWMPlacePageMetadataTypeOpenHours);
-    case Metadata::FMD_EMAIL:
-      return @(MWMPlacePageMetadataTypeEmail);
-    case Metadata::FMD_POSTCODE:
-      return @(MWMPlacePageMetadataTypePostcode);
-    case Metadata::FMD_INTERNET:
-      return @(MWMPlacePageMetadataTypeWiFi);
+    case MWMPlacePageCellTypeName:
+      return self.title;
+    case MWMPlacePageCellTypeCoordinate:
+      return [self coordinate];
+    case MWMPlacePageCellTypeBookmark:
+      return m_info.IsBookmark() ? @"" : nil;
+    case MWMPlacePageCellTypeEditButton:
+      // TODO(Vlad): It's a really strange way to "display" cell if returned text is not nil.
+      return m_info.IsEditable() ? @"" : nil;
+    case MWMPlacePageCellTypeReportButton:
+      return m_info.IsFeature() ? @"" : nil;
     default:
-      return nil;
+    {
+      auto const it = m_values.find(cellType);
+      BOOL const haveField = (it != m_values.end());
+      return haveField ? @(it->second.c_str()) : nil;
+    }
   }
+}
+
+- (FeatureID const &)featureID
+{
+  return m_info.GetID();
+}
+
+- (BOOL)isMyPosition
+{
+  return m_info.IsMyPosition();
+}
+
+- (BOOL)isBookmark
+{
+  return m_info.IsBookmark();
+}
+
+- (BOOL)isApi
+{
+  return m_info.HasApiUrl();
+}
+
+- (ms::LatLon)latlon
+{
+  return m_info.GetLatLon();
+}
+
+- (m2::PointD const &)mercator
+{
+  return m_info.GetMercator();
+}
+
+- (NSString *)apiURL
+{
+  return @(m_info.GetApiUrl().c_str());
+}
+
+- (string)titleForNewBookmark
+{
+  return m_info.FormatNewBookmarkName();
+}
+
+- (NSString *)coordinate
+{
+  BOOL const useDMSFormat =
+      [[NSUserDefaults standardUserDefaults] boolForKey:kUserDefaultsLatLonAsDMSKey];
+  ms::LatLon const latlon = self.latlon;
+  return @((useDMSFormat ? MeasurementUtils::FormatLatLon(latlon.lat, latlon.lon)
+                         : MeasurementUtils::FormatLatLonAsDMS(latlon.lat, latlon.lon, 2)).c_str());
 }
 
 #pragma mark - Bookmark editing
+
+- (void)setBac:(BookmarkAndCategory)bac
+{
+  m_info.m_bac = bac;
+}
+
+- (BookmarkAndCategory)bac
+{
+  return m_info.GetBookmarkAndCategory();
+}
 
 - (NSString *)bookmarkCategory
 {
@@ -348,25 +286,6 @@ using feature::Metadata;
   }
   
   category->SaveToKMLFile();
-}
-
-#pragma mark - Open hours string formatter
-
-- (NSString *)formattedOpenHoursFromString:(string const &)s
-{
-//TODO (Vlad): Not the best solution, but this function is temporary and will be replaced in future.
-  NSMutableString * r = [NSMutableString stringWithUTF8String:s.c_str()];
-  [r replaceOccurrencesOfString:@"," withString:@", " options:NSCaseInsensitiveSearch range:NSMakeRange(0, r.length)];
-  while (YES)
-  {
-    NSRange const range = [r rangeOfString:@"  "];
-    if (range.location == NSNotFound)
-      break;
-    [r replaceCharactersInRange:range withString:@" "];
-  }
-  [r replaceOccurrencesOfString:@"; " withString:@"\n" options:NSCaseInsensitiveSearch range:NSMakeRange(0, r.length)];
-  [r replaceOccurrencesOfString:@";" withString:@"\n" options:NSCaseInsensitiveSearch range:NSMakeRange(0, r.length)];
-  return r.copy;
 }
 
 @end

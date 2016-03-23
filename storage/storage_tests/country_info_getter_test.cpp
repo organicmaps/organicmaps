@@ -1,10 +1,14 @@
 #include "testing/testing.hpp"
 
+#include "storage/storage_tests/helpers.hpp"
+
 #include "storage/country_info_getter.hpp"
 #include "storage/country.hpp"
+#include "storage/storage.hpp"
 
 #include "geometry/mercator.hpp"
 
+#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
@@ -16,13 +20,6 @@ using namespace storage;
 
 namespace
 {
-unique_ptr<CountryInfoGetter> CreateCountryInfoGetter()
-{
-  Platform & platform = GetPlatform();
-  return make_unique<CountryInfoGetter>(platform.GetReader(PACKED_POLYGONS_FILE),
-                                        platform.GetReader(COUNTRIES_FILE));
-}
-
 bool IsEmptyName(map<string, CountryInfo> const & id2info, string const & id)
 {
   auto const it = id2info.find(id);
@@ -40,15 +37,12 @@ UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
   // Minsk
   getter->GetRegionInfo(MercatorBounds::FromLatLon(53.9022651, 27.5618818), info);
   TEST_EQUAL(info.m_name, "Belarus", ());
-  TEST_EQUAL(info.m_flag, "by", ());
 
   getter->GetRegionInfo(MercatorBounds::FromLatLon(-6.4146288, -38.0098101), info);
   TEST_EQUAL(info.m_name, "Brazil, Northeast", ());
-  TEST_EQUAL(info.m_flag, "br", ());
 
   getter->GetRegionInfo(MercatorBounds::FromLatLon(34.6509, 135.5018), info);
   TEST_EQUAL(info.m_name, "Japan, Kinki", ());
-  TEST_EQUAL(info.m_flag, "jp", ());
 }
 
 UNIT_TEST(CountryInfoGetter_ValidName_Smoke)
@@ -57,13 +51,21 @@ UNIT_TEST(CountryInfoGetter_ValidName_Smoke)
   ReaderPtr<Reader>(GetPlatform().GetReader(COUNTRIES_FILE)).ReadAsString(buffer);
 
   map<string, CountryInfo> id2info;
-  storage::LoadCountryFile2CountryInfo(buffer, id2info);
+  bool isSingleMwm;
+  storage::LoadCountryFile2CountryInfo(buffer, id2info, isSingleMwm);
 
-  TEST(!IsEmptyName(id2info, "Germany_Baden-Wurttemberg"), ());
-  TEST(!IsEmptyName(id2info, "France_Paris & Ile-de-France"), ());
+  Storage storage;
 
-  TEST(IsEmptyName(id2info, "Russia_Far Eastern"), ());
-  TEST(IsEmptyName(id2info, "UK_Northern Ireland"), ());
+  if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
+  {
+    TEST(!IsEmptyName(id2info, "Belgium_West Flanders"), ());
+    TEST(!IsEmptyName(id2info, "France_Ile-de-France_Paris"), ());
+  }
+  else
+  {
+    TEST(!IsEmptyName(id2info, "Germany_Baden-Wurttemberg"), ());
+    TEST(!IsEmptyName(id2info, "France_Paris & Ile-de-France"), ());
+  }
 }
 
 UNIT_TEST(CountryInfoGetter_SomeRects)
@@ -78,4 +80,62 @@ UNIT_TEST(CountryInfoGetter_SomeRects)
   LOG(LINFO, ("Hawaii: ", rects[2]));
 
   LOG(LINFO, ("Canada: ", getter->CalcLimitRect("Canada_")));
+}
+
+UNIT_TEST(CountryInfoGetter_HitsInRadius)
+{
+  auto const getter = CreateCountryInfoGetterMigrate();
+  TCountriesVec results;
+  getter->GetRegionsCountryId(MercatorBounds::FromLatLon(56.1702, 28.1505), results);
+  TEST_EQUAL(results.size(), 3, ());
+  TEST(find(results.begin(), results.end(), "Belarus_Vitebsk Region") != results.end(), ());
+  TEST(find(results.begin(), results.end(), "Latvia") != results.end(), ());
+  TEST(find(results.begin(), results.end(), "Russia_Pskov Oblast") != results.end(), ());
+}
+
+UNIT_TEST(CountryInfoGetter_HitsOnLongLine)
+{
+  auto const getter = CreateCountryInfoGetterMigrate();
+  TCountriesVec results;
+  getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2507, -102.0753), results);
+  TEST_EQUAL(results.size(), 2, ());
+  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(), ());
+  TEST(find(results.begin(), results.end(), "Canada_Nunavut_South") != results.end(), ());
+}
+
+UNIT_TEST(CountryInfoGetter_HitsInTheMiddleOfNowhere)
+{
+  auto const getter = CreateCountryInfoGetterMigrate();
+  TCountriesVec results;
+  getter->GetRegionsCountryId(MercatorBounds::FromLatLon(62.2900, -103.9423), results);
+  TEST_EQUAL(results.size(), 1, ());
+  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(), ());
+}
+
+UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
+{
+  auto const getter = CreateCountryInfoGetterMigrate();
+  Storage storage(COUNTRIES_FILE);
+  if (!version::IsSingleMwm(storage.GetCurrentDataVersion()))
+    return;
+
+  m2::RectD const boundingBox = getter->GetLimitRectForLeaf("Angola");
+  m2::RectD const expectedBoundingBox = {9.205259 /* minX */, -18.34456 /* minY */,
+                                         24.08212 /* maxX */, -4.393187 /* maxY */};
+
+  TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
+}
+
+UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafTwoComponentMwm)
+{
+  auto const getter = CreateCountryInfoGetter();
+  Storage storage(COUNTRIES_FILE);
+  if (version::IsSingleMwm(storage.GetCurrentDataVersion()))
+    return;
+
+  m2::RectD const boundingBox = getter->GetLimitRectForLeaf("Angola");
+  m2::RectD const expectedBoundingBox = {11.50151 /* minX */, -18.344569 /* minY */,
+                                         24.08212 /* maxX */, -4.393187 /* maxY */};
+
+  TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
 }

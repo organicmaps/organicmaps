@@ -23,12 +23,16 @@ private:
   DISALLOW_COPY_AND_MOVE(ThreadChecker);
 };
 
-// ThreadChecker checker is not valid on Android.
-// UI thread (NV thread) can change it's handle value during app lifecycle.
-#if defined(DEBUG) && !defined(OMIM_OS_ANDROID)
+#if defined(DEBUG)
   #define DECLARE_THREAD_CHECKER(threadCheckerName) ThreadChecker threadCheckerName
   #define ASSERT_THREAD_CHECKER(threadCheckerName, msg) ASSERT(threadCheckerName.CalledOnOriginalThread(), msg)
+  #define DECLARE_AND_ASSERT_THREAD_CHECKER(msg) \
+  { \
+    static const ThreadChecker threadChecker; \
+    ASSERT(threadChecker.CalledOnOriginalThread(), (msg)); \
+  }
 #else
   #define DECLARE_THREAD_CHECKER(threadCheckerName)
   #define ASSERT_THREAD_CHECKER(threadCheckerName, msg)
+  #define DECLARE_AND_ASSERT_THREAD_CHECKER(msg)
 #endif

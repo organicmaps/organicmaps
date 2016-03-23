@@ -171,6 +171,14 @@ void Batcher::EndSession()
   m_flushInterface = TFlushFn();
 }
 
+void Batcher::SetFeatureMinZoom(int minZoom)
+{
+  m_featureMinZoom = minZoom;
+
+  for (auto const & bucket : m_buckets)
+    bucket.second->SetFeatureMinZoom(m_featureMinZoom);
+}
+
 void Batcher::ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper)
 {
   GLState const & state = wrapper->GetState();
@@ -189,6 +197,8 @@ ref_ptr<RenderBucket> Batcher::GetBucket(GLState const & state)
   drape_ptr<VertexArrayBuffer> vao = make_unique_dp<VertexArrayBuffer>(m_indexBufferSize, m_vertexBufferSize);
   drape_ptr<RenderBucket> buffer = make_unique_dp<RenderBucket>(move(vao));
   ref_ptr<RenderBucket> result = make_ref(buffer);
+  result->SetFeatureMinZoom(m_featureMinZoom);
+
   m_buckets.emplace(state, move(buffer));
 
   return result;
@@ -200,6 +210,7 @@ void Batcher::FinalizeBucket(GLState const & state)
   ASSERT(it != m_buckets.end(), ("Have no bucket for finalize with given state"));
   drape_ptr<RenderBucket> bucket = move(it->second);
   m_buckets.erase(state);
+
   bucket->GetBuffer()->Preflush();
   m_flushInterface(state, move(bucket));
 }

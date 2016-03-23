@@ -29,10 +29,11 @@ SOURCES += \
     osm_id.cpp \
     osm_source.cpp \
     routing_generator.cpp \
+    search_index_builder.cpp \
     statistics.cpp \
     tesselator.cpp \
+    towns_dumper.cpp \
     unpack_mwm.cpp \
-    update_generator.cpp \
 
 HEADERS += \
     borders_generator.hpp \
@@ -40,8 +41,6 @@ HEADERS += \
     check_model.hpp \
     coastlines_generator.hpp \
     dumper.hpp \
-    intermediate_data.hpp\
-    intermediate_elements.hpp\
     feature_builder.hpp \
     feature_emitter_iface.hpp \
     feature_generator.hpp \
@@ -49,6 +48,8 @@ HEADERS += \
     feature_sorter.hpp \
     gen_mwm_info.hpp \
     generate_info.hpp \
+    intermediate_data.hpp\
+    intermediate_elements.hpp\
     osm2meta.hpp \
     osm2type.hpp \
     osm_element.hpp \
@@ -58,10 +59,12 @@ HEADERS += \
     osm_xml_source.hpp \
     polygonizer.hpp \
     routing_generator.hpp \
+    search_index_builder.hpp \
     statistics.hpp \
+    tag_admixer.hpp \
     tesselator.hpp \
+    towns_dumper.hpp \
     unpack_mwm.hpp \
-    update_generator.hpp \
     ways_merger.hpp \
     world_map_generator.hpp \
 

@@ -66,8 +66,7 @@ namespace integration
   unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
   {
     Platform const & platform = GetPlatform();
-    return make_unique<storage::CountryInfoGetter>(platform.GetReader(PACKED_POLYGONS_FILE),
-                                                   platform.GetReader(COUNTRIES_FILE));
+    return storage::CountryInfoReader::CreateCountryInfoReader(platform);
   }
 
   shared_ptr<OsrmRouter> CreateOsrmRouter(Index & index,
@@ -76,7 +75,7 @@ namespace integration
     shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(
         &index, [&infoGetter](m2::PointD const & pt)
         {
-          return infoGetter.GetRegionFile(pt);
+          return infoGetter.GetRegionCountryId(pt);
         }
         ));
     return osrmRouter;
@@ -87,7 +86,7 @@ namespace integration
   {
     auto countryFileGetter = [&infoGetter](m2::PointD const & pt)
     {
-      return infoGetter.GetRegionFile(pt);
+      return infoGetter.GetRegionCountryId(pt);
     };
     unique_ptr<IRouter> router = CreatePedestrianAStarBidirectionalRouter(index, countryFileGetter);
     return shared_ptr<IRouter>(move(router));
@@ -133,6 +132,8 @@ namespace integration
       pl.SetWritableDirForTests(options.m_dataPath);
     if (options.m_resourcePath)
       pl.SetResourceDir(options.m_resourcePath);
+
+    platform::migrate::SetMigrationFlag();
 
     vector<LocalCountryFile> localFiles;
     platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */,
@@ -270,15 +271,15 @@ namespace integration
   {
     auto countryFileGetter = [&routerComponents](m2::PointD const & p) -> string
     {
-      return routerComponents.GetCountryInfoGetter().GetRegionFile(p);
+      return routerComponents.GetCountryInfoGetter().GetRegionCountryId(p);
     };
-    auto localFileGetter =
-        [&routerComponents](string const & countryFile) -> shared_ptr<LocalCountryFile>
+    auto localFileChecker =
+        [&routerComponents](string const & /* countryFile */) -> bool
     {
-      // Always returns empty LocalCountryFile.
-      return make_shared<LocalCountryFile>();
+      // Always returns that the file is absent.
+      return false;
     };
-    routing::OnlineAbsentCountriesFetcher fetcher(countryFileGetter, localFileGetter);
+    routing::OnlineAbsentCountriesFetcher fetcher(countryFileGetter, localFileChecker);
     fetcher.GenerateRequest(MercatorBounds::FromLatLon(startPoint),
                             MercatorBounds::FromLatLon(finalPoint));
     vector<string> absent;
@@ -305,7 +306,7 @@ namespace integration
 
     for (m2::PointD const & point : points)
     {
-      string const mwmName = routerComponents.GetCountryInfoGetter().GetRegionFile(point);
+      string const mwmName = routerComponents.GetCountryInfoGetter().GetRegionCountryId(point);
       TEST(find(expected.begin(), expected.end(), mwmName) != expected.end(),
            ("Can't find ", mwmName));
       foundMwms.insert(mwmName);

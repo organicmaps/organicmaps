@@ -23,7 +23,7 @@ define add_prebuild_static_lib
   include $(PREBUILT_STATIC_LIBRARY)
 endef
 
-prebuild_static_libs :=  minizip osrm protobuf tomcrypt jansson fribidi freetype expat base coding geometry anim platform graphics indexer storage search routing gui map opening_hours stats_client succinct
+prebuild_static_libs := minizip osrm protobuf tomcrypt jansson fribidi freetype expat base coding geometry platform indexer storage search routing map opening_hours stats_client succinct
 
 $(foreach item,$(prebuild_static_libs),$(eval $(call add_prebuild_static_lib,$(item))))
 
@@ -59,6 +59,6 @@ LOCAL_SRC_FILES += $(ROOT_PATH_FROM_JNI)/testing/testingmain.cpp
 LOCAL_SRC_FILES += $(ROOT_PATH_FROM_JNI)/android/UnitTests/jni/mock.cpp
 LOCAL_SRC_FILES += ./test.cpp
 
-LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv1_CM 
+LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv1_CM
 LOCAL_LDLIBS += -lGLESv2 -latomic -lz
 LOCAL_LDLIBS += -Wl,--gc-sections

@@ -44,3 +44,21 @@ UNIT_TEST(BitStreams_Smoke)
     TEST_EQUAL(num, nums[i].first, (i));
   }
 }
+
+UNIT_TEST(BitStreams_T1)
+{
+  using TBuffer = vector<uint8_t>;
+  using TWriter = MemWriter<TBuffer>;
+
+  TBuffer buf;
+  {
+    TWriter w(buf);
+    BitWriter<TWriter> bits(w);
+
+    bits.Write(0, 3);
+    bits.Write(3, 3);
+    bits.Write(6, 3);
+  }
+
+  TEST_EQUAL(buf.size(), 2, ());
+}

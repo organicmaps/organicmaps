@@ -189,6 +189,9 @@ public:
   /// Invokes ASSERT in case of nonexisting type
   uint32_t GetTypeByPath(vector<string> const & path) const;
   uint32_t GetTypeByPath(initializer_list<char const *> const & lst) const;
+  /// @see GetReadableObjectName().
+  /// @returns 0 in case of nonexisting type.
+  uint32_t GetTypeByReadableObjectName(string const & name) const;
   //@}
 
   uint32_t GetIndexForType(uint32_t t) const { return m_mapping.GetIndex(t); }

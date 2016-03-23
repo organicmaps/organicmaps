@@ -14,8 +14,6 @@
 	<string name="cancel_download">Huỷ bỏ Tải xuống</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Xóa</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Xóa bản đồ cũ và tiếp tục</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Không hỏi tôi một lần nữa</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -32,7 +30,7 @@
 	<!-- Settings/Downloader - country info current download progress -->
 	<string name="downloading_x_touch_to_cancel">Đang tải xuống %qu%%, chạm để hủy bỏ</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
-	<string name="downloading">Đang tải xuống...</string>
+	<string name="downloading">Đang tải xuống…</string>
 	<string name="get_it_now">Tải xuống ngay</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Cám ơn bạn đã sử dụng MAPS.ME! Bạn thích ứng dụng chứ? Kể cho bạn bè về ứng dụng này! Đây sẽ là sự biết ơn tuyệt vời nhất đối với chúng tôi.</string>
@@ -52,8 +50,6 @@
 	<string name="miles">Dặm</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Vị trí của Tôi</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Không có kết nối Internet</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Không có kết nối WiFi. Bạn có muốn sử dụng dữ liệu di động (GPRS, EDGE, 3G hoặc LTE) để tải xuống %s không?</string>
 	<string name="ok">OK</string>
@@ -73,16 +69,12 @@
 	<string name="search">Tìm kiếm</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Tìm kiếm Bản đồ</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Không có đủ dung lượng trống trên ổ đĩa</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Chạm để tải xuống</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Có</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Chúng tôi khuyên bạn nên sử dụng WiFi để tải xuống các bảnđồ lớn.</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Chúng tôi đã cập nhật dữ liệu bản đồ và nén nó cho nhỏ hơn. Với các quốc gia lớn hơn, giờ đây bạn đã có thể chọn chỉ tải xuống khu vực/tiểu bang mà bạn cần. Tuy nhiên, để sử dụng bản đồ mới bạn nên xóa bất kỳ dữ liệu bản đồ cũ nào đã được tải xuống trước đây.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Bạn thích sử dụng hệ thống đo lường nào?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -97,10 +89,12 @@
 	<string name="country_status_downloading">Đang tải xuống\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Tải xuống Bản đồ\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Tải xuống Bản đồ</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Tải về bản đồ không\ncó chỉ đường (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Tải xuống\n^\nđã thất bại</string>
+	<string name="country_status_download_failed">Tải xuống đã thất bại</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Thử lại</string>
 	<string name="about_menu_title">Giới thiệu về MAPS.ME</string>
@@ -116,8 +110,7 @@
 	<string name="not_enough_free_space_on_sdcard">Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng</string>
 	<string name="not_enough_memory">Không đủ bộ nhớ để chạy ứng dụng</string>
 	<string name="free_space_for_country">Bạn vui lòng giải phóng %1$s trên thiết bị của mình để có thể tải xuống %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %1$.1f%2$s dữ liệu.</string>
+	<string name="download_resources">Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %s dữ liệu.</string>
 	<string name="getting_position">Đang tìm vị trí hiện tại</string>
 	<string name="download_resources_continue">Đến Bản đồ</string>
 	<string name="downloading_country_can_proceed">Đang tải xuống %s. Bây giờ bạn đã có thể\nvào bản đồ.</string>
@@ -165,7 +158,7 @@
 	<string name="my_places">Các Địa chỉ của Tôi</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Tên</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Địa chỉ</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Xóa Con Dấu</string>
@@ -209,7 +202,7 @@
 	<!-- Search Suggestion -->
 	<string name="entertainment">Giải trí</string>
 	<!-- Search Suggestion -->
-	<string name="atm">Máy atm</string>
+	<string name="atm">ATM</string>
 	<!-- Search Suggestion -->
 	<string name="bank">Ngân hàng</string>
 	<!-- Search Suggestion -->
@@ -272,7 +265,7 @@
 	<string name="share">Chia sẻ</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Tin nhắn</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Sao chép Liên kết</string>
@@ -366,7 +359,7 @@
 	<!-- category title -->
 	<string name="routes">Tuyến đường</string>
 	<!-- Show on first launch. -->
-	<string name="maps_licence_info">Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v...) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.</string>
+	<string name="maps_licence_info">Ứng dụng này sử dụng dữ liệu địa lý (bao gồm bản đồ, thông tin doanh nghiệp, các điểm lưu tâm, biên giới quốc gia và khu vực, v.v…) lấy từ dự án OpenStreetMap. Chúng tôi không đảm bảo bất kỳ sự nhất quán, chính xác, toàn vẹn hay phù hợp nào từ các dữ liệu OpenStreetMap.</string>
 	<!-- Show on first launch. -->
 	<string name="agree">Tôi đồng ý</string>
 	<!-- Show on first launch -->
@@ -381,6 +374,8 @@
 	<string name="move_lite_maps_to_pro_failed">Bản đồ của bạn không chuyển được. Vui lòng xóa MAPS.ME Lite và tải xuống lại bản đồ.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Thiết lập &amp;amp; Khác</string>
+	<!-- Text in menu -->
+	<string name="website">Trang web</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">Cộng đồng MAPS.ME</string>
 	<!-- Text in menu -->
@@ -404,7 +399,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Tôi muốn là người đầu tiên được biết về các thông tin cập nhật và quảng bá mới nhất. Tôi có thể hủy bỏ đăng ký nhận tin của mình bất cứ lúc nào.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, MAPS.ME vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v... gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện MAPS.ME. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@maps.me. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích MAPS.ME và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về MAPS.ME với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại http://openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng MAPS.ME ở phiên bản kế tiếp.</string>
+	<string name="about_text">MAPS.ME cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, MAPS.ME vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v… gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện MAPS.ME. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@maps.me. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích MAPS.ME và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/mapswithme\n- hoặc chỉ đơn giản là kể về MAPS.ME với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại http://openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng MAPS.ME ở phiên bản kế tiếp.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %s</string>
 	<!-- Alert title -->
@@ -418,17 +413,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Phiên bản MAPS.ME mới cho phép tạo các tuyến đường từ vị trí hiện tại của bạn đến điểm đến. Vui lòng cập nhật bản đồ để sử dụng tính năng này.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Cập nhật tất cả</string>
+	<string name="downloader_update_all_button">Cập nhật tất cả</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Hủy tất cả</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Đã tải xuống</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Bản đồ đã tải xuống</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Bản đồ của tôi</string>
+	<string name="downloader_downloaded_subtitle">Đã tải xuống</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">đã xếp hàng chờ</string>
+	<string name="downloader_near_me_subtitle">Gần tôi</string>
+	<string name="downloader_status_maps">Bản đồ: %s</string>
+	<string name="downloader_download_all_button">Tải xuống tất cả</string>
+	<string name="downloader_downloading">Đang tải về:</string>
+	<string name="downloader_search_results">Đã tìm thấy</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Tạo các tuyến đường trong ứng dụng MAPS.ME, xin lưu ý điều sau:\n\n – Các tuyến đường được gợi ý chỉ có thể được xem là đề xuất.\n – Điều kiện con đường, luật giao thông và biển báo có mức ưu tiên cao hơn lời khuyên dẫn hướng.\n – Bản đồ có thể không chính xác hoặc lỗi thời, tuyến đường có thể không được tạo theo cách tốt nhất có thể.\n\n Hãy lái xe an toàn trên đường và bảo trọng!</string>
 	<!-- Outdated maps category -->
@@ -439,6 +435,8 @@
 	<string name="downloader_status_outdated">Cập nhật</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Thất bại</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Để xóa bản đồ, vui lòng dừng điều hướng.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Không xác định được vị trí hiện tại. Vui lòng xác định vị trí để tạo tuyến đường.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -514,186 +512,6 @@
 	<string name="routing_download_more_than_avail">Bạn cần phải tải về %1$s MB, nhưng chỉ có %2$s MB sẵn có.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Bạn sắp tải xuống %s MB sử dụng Dữ liệu Di động (trong dịch vụ Chuyển vùng). Điều này có thể dẫn đến cước phí bổ sung, tùy thuộc vào gói dữ liệu di động của nhà mạng của bạn.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">ẩm thực khu vực</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">bánh pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">bánh hamburger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">ẩm thực ý</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">ẩm thực trung quốc</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">tiệm_cà phê</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">bánh sandwich</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">ẩm thực đức</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">ẩm thực nhật bản</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">thịt nướng kebab</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">ẩm thực mexico</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">ẩm thực ấn độ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">ẩm thực mỹ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">ẩm thực pháp</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">kem</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">ẩm thực châu á</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">gà</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">ẩm thực hy lạp</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">ẩm thực thái lan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">ẩm thực quốc tế</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">sushi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">cá và khoai tây chiên</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">ẩm thực thổ nhĩ kỳ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">hải sản</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">steak house</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">ẩm thực tây ban nha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">cá</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">ẩm thực việt</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">mì</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">ẩm thực chay</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">ẩm thực hàn quốc</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">friture</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">thịt nướng ngoài trời</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">ẩm thực bavarian</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">mì ramen</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">ẩm thực ý, bánh pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">ẩm thực địa trung hải</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">bánh rán</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">tô thịt bò</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">bánh ngọt</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">bánh crepe</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">heuriger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">ẩm thực lebanon</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">bít tết</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">ẩm thực địa phương</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">món cà ri</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">ẩm thực philipin</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">ẩm thực nga</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">bữa ăn sáng</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">tapas</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">thịt nướng ngoài trời</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">bánh mì vòng bagel</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">mỳ ống</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">buschenschank</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">xúc xích</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">ẩm thực bồ đào nha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">thịt nướng</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">bánh kếp</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">Malagasy</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">ẩm thực ba lan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">bữa tối</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">ẩm thực châu phi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">bánh rán</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">ẩm thực georgia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">ẩm thực croatia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">ẩm thực ả-rập</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">ẩm thực balkan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">ẩm thực brazil</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">ẩm thực caribê</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">ẩm thực áo</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">ẩm thực chay</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">ẩm thực argentina</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">ẩm thực ba tư</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">mì soba</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">ẩm thực malaysia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">ẩm thực indonesia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">ẩm thực ethiopia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">Món ăn ngon</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">ẩm thực ai-len</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">ẩm thực hungary</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">ẩm thực lào</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">cà phê</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">hotdog</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">ẩm thực phương đông</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">bánh kếp rau thơm</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">ẩm thực ma-rốc</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">thịt nướng ngoài trời</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">ẩm thực Pê-ru</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">chuỗi nhà hàng</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">trà</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">yer i̇mi</string>
 	<!-- map is not downloaded -->
@@ -771,7 +589,7 @@
 	<string name="dialog_routing_if_get_cross_route">Bạn có muốn tạo một tuyến đường thẳng hơn mà kéo dài trên nhiều bản đồ không?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Có một tuyến đường tối ưu hơn đi qua cạnh của bản đồ này.</string>
 	<string name="dialog_routing_always_cross_that_border">Luôn đi qua ranh giới này</string>
-	<string name="dialog_routing_not_now">Lúc khác</string>
+	<string name="not_now">Lúc khác</string>
 	<string name="dialog_routing_build_route">Tạo</string>
 	<string name="dialog_routing_download_and_build_cross_route">Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?</string>
 	<string name="dialog_routing_download_cross_route">Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.</string>
@@ -781,7 +599,6 @@
 	<string name="search_without_internet_advertisement">Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.</string>
 	<string name="search_select_map">Chọn bản đồ</string>
 	<string name="search_select_other_map">Chọn bản đồ khác</string>
-	<string name="search_vehicle_routes">Hướng dẫn lái xe</string>
 	<!-- «Show» context menu -->
 	<string name="show">Hiện</string>
 	<!-- «Hide» context menu -->
@@ -827,6 +644,148 @@
 	<string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
 	<string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
 	<string name="whats_new_next_button">Tiếp theo</string>
-	<string name="whats_new_night_caption">Điều hướng chế độ ban đêm</string>
-	<string name="whats_new_night_body">Để tạo điều kiện sử dụng MAPS.ME khi lái xe trong đêm tối, chúng tôi đã thêm chế độ ban đêm. Nó tự động mở sau khi mặt trời lặn.</string>
+	<string name="editor_time_add">Thêm lịch biểu</string>
+	<string name="editor_time_delete">Xóa lịch biểu</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Cả ngày (24 giờ)</string>
+	<string name="editor_time_open">Mở cửa</string>
+	<string name="editor_time_close">Đóng cửa</string>
+	<string name="editor_time_add_closed">Thêm giờ đóng cửa</string>
+	<string name="editor_time_title">Giờ mở cửa</string>
+	<string name="editor_time_advanced">Chế độ nâng cao</string>
+	<string name="editor_time_simple">Chế độ đơn giản</string>
+	<string name="editor_hours_closed">Giờ đóng cửa</string>
+	<string name="editor_example_values">Giá trị ví dụ</string>
+	<string name="editor_correct_mistake">Sửa lỗi</string>
+	<string name="editor_correct_mistake_message">Bạn đã mắc lỗi chỉnh sửa. Vui lòng sửa lỗi hoặc chuyển qua chế độ đơn giản.</string>
+	<string name="editor_add_select_location">Vị trí</string>
+	<string name="editor_done_dialog_1">Bạn đã thay đổi bản đồ thế giới. Đừng giấu điều đó! Hãy cho các bạn khác biết và cùng nhau chỉnh sửa.</string>
+	<string name="editor_done_dialog_2">Đây là lần nâng cấp bản đồ thứ hai của bạn. Giờ bạn xếp hạng %d trong các nhà hiệu chỉnh bản đồ. Hãy nói với các bạn khác về điều đó.</string>
+	<string name="editor_done_dialog_3">Bạn đã nâng cấp bản đồ này, hãy cho các bạn khác biết và cùng nhau chỉnh sửa bản đồ.</string>
+	<string name="share_with_friends">Chia sẻ với bạn bè</string>
+	<string name="editor_report_problem_desription_1">Xin mô tả chi tiết vấn đề để cộng đồng OpenStreeMap có thể sửa lỗi đó.</string>
+	<string name="editor_report_problem_desription_2">Hoặc bạn có thể tự sửa tại http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Gửi</string>
+	<string name="editor_report_problem_title">Vấn đề</string>
+	<string name="editor_report_problem_no_place_title">Địa điểm này không tồn tại</string>
+	<string name="editor_report_problem_under_construction_title">Tạm dừng để bảo trì</string>
+	<string name="editor_report_problem_duplicate_place_title">Địa điểm trùng lặp</string>
+	<string name="first_launch_congrats_title">MAPS.ME đã sẵn sàng để sử dụng</string>
+	<string name="first_launch_congrats_text">Tìm kiếm và điều hướng miễn phí bản đồ của tất cả các quốc gia trên thế giới.</string>
+	<string name="migrate_title">Quan trọng!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Tải về tất cả</string>
+	<string name="delete_all">Xóa tất cả</string>
+	<string name="autodownload">Tự động tải về</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Hiện đã đóng</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Hàng ngày</string>
+	<string name="twentyfour_seven">ngày và đêm</string>
+	<string name="day_off_today">Nghỉ hôm nay</string>
+	<string name="day_off">Ngày nghỉ</string>
+	<string name="today">Hôm nay</string>
+	<string name="sunrise_to_sunset">Từ bình minh đến hoàng hôn</string>
+	<string name="sunset_to_sunrise">Từ hoàng hôn đến bình minh</string>
+	<string name="add_opening_hours">Thêm giờ làm việc</string>
+	<string name="edit_opening_hours">Sửa giờ làm việc</string>
+	<string name="profile">Hồ sơ</string>
+	<string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
+	<string name="register_at_openstreetmap">Đăng ký</string>
+	<string name="password_8_chars_min">Mật khẩu (tối thiểu 8 ký tự)</string>
+	<string name="invalid_username_or_password">Sai Tên người dùng hoặc Mật khẩu.</string>
+	<string name="login">Đăng nhập</string>
+	<string name="password">Mật khẩu</string>
+	<string name="forgot_password">Quên mật khẩu?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Khôi phục mật khẩu</string>
+	<string name="enter_email_address_to_reset_password">Nhập địa chỉ email bạn đã sử dụng trong quá trình đăng ký và chúng tôi sẽ gửi cho bạn liên kết để tạo mới mật khẩu của bạn.</string>
+	<string name="reset_password">đặt lại mật khẩu</string>
+	<string name="username">Tên đăng nhập</string>
+	<string name="osm_account">Tài khoản OSM</string>
+	<string name="logout">Đăng xuất</string>
+	<string name="login_and_edit_map_motivation_message">Đăng nhập và chỉnh sửa thông tin của các đối tượng trên bản đồ và chúng tôi sẽ hiển thị chúng cho hàng triệu người dùng khác. Hãy cùng nhau làm cho thế giới tốt đẹp hơn.</string>
+	<string name="not_sent">Chưa được gửi</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Tải lên mới nhất</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">thay đổi</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Bạn đã chỉnh sửa đối tượng đầu tiên của mình!</string>
+	<string name="thank_you">Cảm ơn bạn</string>
+	<string name="login_with_google">Đăng nhập với Google</string>
+	<string name="login_with_facebook">Đăng nhập với Facebook</string>
+	<string name="login_with_openstreetmap">Đăng nhập với www.openstreetmap.org</string>
+	<string name="edit_place">Chỉnh sửa địa điểm</string>
+	<string name="place_name">Tên địa điểm</string>
+	<string name="place_name_caption">Nhập tên theo như trên chữ ký hoặc biển tên</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Ngôn ngữ khác</string>
+	<string name="add_language">Thêm ngôn ngữ</string>
+	<string name="street">Đường</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Tòa nhà</string>
+	<string name="details">Chi tiết</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Thêm con đường</string>
+	<string name="choose_language">Đã chọn ngôn ngữ</string>
+	<string name="choose_street">Đã chọn con đường</string>
+	<string name="postal_code">Mã bưu chính</string>
+	<string name="cuisine">Ẩm thực</string>
+	<string name="select_cuisine">Chọn Ẩm thực</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-mail hoặc tên người dùng</string>
+	<string name="phone">Điện thoại</string>
+	<string name="please_note">Xin lưu ý</string>
+	<string name="common_no_wifi_dialog">Không có Wifi. Bạn có muốn tiếp tục dùng dữ liệu di động?</string>
+	<string name="downloader_delete_map_dialog">Tất cả những thay đổi của bản đồ sẽ bị xóa cùng với bản đồ đó.</string>
+	<string name="downloader_update_maps">Cập nhật các bản đồ</string>
+	<string name="downloader_mwm_migration_dialog">Để tạo một tuyến đường, bạn cần cập nhật tất cả các bản đồ và sau đó lập lại tuyến đường.</string>
+	<string name="downloader_search_field_hint">Tìm bản đồ</string>
+	<string name="migration_update_all_button">Cập nhật tất cả các bản đồ</string>
+	<string name="migration_delete_all_download_current_button">Tải xuống bản đồ hiện tại và xóa những bản đồ cũ</string>
+	<string name="migration_prefetch_status">Đang chuẩn bị cập nhật các bản đồ…</string>
+	<string name="migration_download_error_dialog">Lỗi tải xuống</string>
+	<string name="common_check_internet_connection_dialog">Xin kiểm tra các thiết lập và đảm bảo thiết bị của bạn có kết nối Internet.</string>
+	<string name="downloader_no_space_title">Không đủ dung lượng</string>
+	<string name="downloader_no_space_message">Xin xóa dữ liệu không cần thiết</string>
+	<string name="editor_general_auth_error_dialog">Lỗi đăng nhập chung.</string>
+	<string name="editor_login_error_dialog">Lỗi đăng nhập.</string>
+	<string name="editor_login_failed_dialog">Đăng nhập thất bại</string>
+	<string name="editor_username_error_dialog">Tên đăng nhập không hợp lệ</string>
+	<string name="editor_place_edited_dialog">Bạn đã chỉnh sửa một đối tượng!</string>
+	<string name="editor_login_with_osm">Đăng nhập với OpenStreetMap</string>
+	<string name="editor_profile_changes">Những thay đổi:</string>
+	<string name="editor_profile_unsent_changes">Không gửi được:</string>
+	<string name="editor_focus_map_on_location">Kéo bản đồ để chọn vị trí chính xác của đối tượng</string>
+	<string name="editor_add_select_category">Chọn thể loại</string>
+	<string name="editor_add_select_category_popular_subtitle">Phổ biến</string>
+	<string name="editor_add_select_category_all_subtitle">Mọi thể loại</string>
+	<string name="editor_edit_place_title">Chỉnh sửa</string>
+	<string name="editor_add_place_title">Nhập</string>
+	<string name="editor_edit_place_name_hint">Tên địa điểm</string>
+	<string name="editor_edit_place_category_title">Thể loại</string>
+	<string name="detailed_problem_description">Mô tả chi tiết của vấn đề</string>
+	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
+	<string name="placepage_add_place_button">Nhập một địa điểm</string>
+	<string name="placepage_report_problem_button">Báo cáo vấn đề</string>
+	<string name="whatsnew_smallmwm_header">Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó</string>
+	<string name="whatsnew_smallmwm_message">Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia.</string>
+	<string name="whatsnew_search_header">Tìm kiếm mới</string>
+	<string name="whatsnew_search_message">Chúng tôi đã cải thiện đáng kể việc tìm kiếm theo địa chỉ. Bạn hãy tự xem thử.</string>
+	<string name="whatsnew_editor_title">Chỉnh sửa bản đồ*</string>
+	<string name="whatsnew_editor_message_1">Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME sử dụng dữ liệu của cộng đồng OpenStreetMap.</string>
+	<string name="onboarding_offline_navigation_title">Bạn sẽ không bao giờ bị lạc nữa</string>
+	<string name="onboarding_offline_navigation_message">Lập tuyến đường xe hơi và đi bộ tối ưu, mặc dù không có kết nối Internet!</string>
+	<string name="onboarding_offline_navigation_title_2">Chỉ đường ngoại tuyến</string>
+	<string name="onboarding_offline_navigation_message_2">Lập tuyến đường xe hơi và đi bộ tối ưu.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — truy cập bản đồ trên toàn thế giới không cần Internet</string>
+	<string name="onboarding_offline_maps_message">Chỉ tải xuống các bản đồ của khu vực bạn muốn một lần, và sử dụng các chức năng dẫn đường và tìm kiếm mà không cần kết nối Internet.</string>
+	<string name="onboarding_notifications_message">Để nhận các bản đồ mới nhất, hãy nhận thông báo cập nhật</string>
+	<string name="onboarding_notifications_title">Cho phép thông báo cập nhật</string>
+	<string name="onboarding_location_title">Giúp chúng tôi tìm bạn</string>
+	<string name="onboarding_location_message">Để sử dụng tính năng dẫn đường và các tính năng khác, chúng tôi cần truy cập vị trí địa lý của bạn.</string>
+	<string name="dialog_incorrect_feature_position">Thay đổi địa điểm</string>
+	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
 </resources>

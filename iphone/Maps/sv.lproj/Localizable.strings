@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Ta bort";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Ta bort gamla kartor och fortsätt";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Fråga mig inte igen";
 
@@ -48,7 +45,7 @@
 "downloading_x_touch_to_cancel" = "Laddar ner %qu%%, tryck för att avbryta";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Laddar ner...";
+"downloading" = "Laddar ner…";
 
 "get_it_now" = "Skaffa det nu";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Min position";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Ingen internetanslutning upptäcktes";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Ingen WiFi-anslutning upptäcktes. Vill du använda mobildata (GPRS, EDGE, 3G eller LTE) till att ladda ner %@?";
 
@@ -111,9 +105,6 @@
 /* Search box placeholder text */
 "search_map" = "Sök karta";
 
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Det finns inte tillräckligt mycket ledigt utrymme på telefonen";
-
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Trycka för att ladda ner";
 
@@ -122,9 +113,6 @@
 
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Vi rekommenderar att använda WiFi för nedladdning av stora kartor";
-
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Vilket mätsystem föredrar du?";
@@ -147,11 +135,14 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Ladda ner karta\n(^ ^)";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Ladda ner karta";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "Hämta karta\nutan rutter (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Downloading\n^\nhar misslyckats";
+"country_status_download_failed" = "Downloading har misslyckats";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Försök igen";
@@ -184,8 +175,7 @@
 
 "free_space_for_country" = "Vänligen frigör %1$@ på din enhet för att kunna ladda ner %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %.1f%@ data.";
+"download_resources" = "Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %@ data.";
 
 "getting_position" = "Hämtar nuvarande position";
 
@@ -261,7 +251,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Namn";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Adress";
 
 /* Place Page - Remove Pin button */
@@ -431,8 +421,8 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Meddelande";
 
-/* Share by email button text */
-"email" = "E-mail";
+/* Share by email button text, also used in editor. */
+"email" = "E-post";
 
 /* Copy Link */
 "copy_link" = "Kopiera Länk";
@@ -617,7 +607,7 @@
 "settings_and_more" = "Inställningar & Mer";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Webbplats";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -695,22 +685,29 @@
 "routing_update_maps" = "Den nya versionen av MAPS.ME låter dig skapa rutter från din nuvarande position till en destinationspunkt. Uppdatera kartan för att använda den här funktionen.";
 
 /* Update all button text */
-"downloader_update_all" = "Uppdatera alla";
+"downloader_update_all_button" = "Uppdatera alla";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Avbryt alla";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Nedladdade";
+"downloader_downloaded_subtitle" = "Nedladdade";
 
 /* Downloaded maps category */
-"downloader_downloaded_maps" = "Nedladdade kartor";
-
-/* My maps category */
-"downloader_my_maps" = "Mina kartor";
+"downloader_available_maps" = "Available";
 
 /* Country queued for download */
 "downloader_queued" = "Köade";
+
+"downloader_near_me_subtitle" = "Nära mig";
+
+"downloader_status_maps" = "Kartor";
+
+"downloader_download_all_button" = "Ladda ned alla";
+
+"downloader_downloading" = "Ladda ner:";
+
+"downloader_search_results" = "Hittat";
 
 /* Disclaimer message */
 "routing_disclaimer" = "När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!";
@@ -726,6 +723,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Misslyckades";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Avsluta navigering för att radera kartan.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nuvarande plats är inte definierad. Ange din plats för att skapa rutt.";
@@ -839,276 +839,6 @@
 
 /* Text for routing error dialog */
 "routing_download_roaming" = "Du kommer ladda ner %@ MB med mobildata (i roamingläge). Detta kan resultera i extra kostnader beroende på din operatörs mobildataplan.";
-
-/* Cuisine */
-"cuisine_regional" = "regional mat";
-
-/* Cuisine */
-"cuisine_pizza" = "pizza";
-
-/* Cuisine */
-"cuisine_burger" = "hamburgare";
-
-/* Cuisine */
-"cuisine_italian" = "italiensk mat";
-
-/* Cuisine */
-"cuisine_chinese" = "kinesisk mat";
-
-/* Cuisine */
-"cuisine_coffee_shop" = "kafé";
-
-/* Cuisine */
-"cuisine_sandwich" = "smörgås";
-
-/* Cuisine */
-"cuisine_german" = "tysk mat";
-
-/* Cuisine */
-"cuisine_japanese" = "japansk mat";
-
-/* Cuisine */
-"cuisine_kebab" = "kebab";
-
-/* Cuisine */
-"cuisine_mexican" = "mexikansk mat";
-
-/* Cuisine */
-"cuisine_indian" = "indisk mat";
-
-/* Cuisine */
-"cuisine_american" = "amerikansk mat";
-
-/* Cuisine */
-"cuisine_french" = "fransk mat";
-
-/* Cuisine */
-"cuisine_ice_cream" = "glass";
-
-/* Cuisine */
-"cuisine_asian" = "asiatisk mat";
-
-/* Cuisine */
-"cuisine_chicken" = "kyckling";
-
-/* Cuisine */
-"cuisine_greek" = "grekisk mat";
-
-/* Cuisine */
-"cuisine_thai" = "thailändsk mat";
-
-/* Cuisine */
-"cuisine_international" = "internationell mat";
-
-/* Cuisine */
-"cuisine_sushi" = "sushi";
-
-/* Cuisine */
-"cuisine_fish_and_chips" = "friterad fisk och pommes frites";
-
-/* Cuisine */
-"cuisine_turkish" = "turkisk mat";
-
-/* Cuisine */
-"cuisine_seafood" = "skaldjur";
-
-/* Cuisine */
-"cuisine_steak_house" = "stekhus";
-
-/* Cuisine */
-"cuisine_spanish" = "spansk mat";
-
-/* Cuisine */
-"cuisine_fish" = "fisk";
-
-/* Cuisine */
-"cuisine_vietnamese" = "vietnamesisk mat";
-
-/* Cuisine */
-"cuisine_noodles" = "nudlar";
-
-/* Cuisine */
-"cuisine_vegetarian" = "vegetarisk mat";
-
-/* Cuisine */
-"cuisine_korean" = "koreansk mat";
-
-/* Cuisine */
-"cuisine_friture" = "friterat";
-
-/* Cuisine */
-"cuisine_barbecue" = "grillat";
-
-/* Cuisine */
-"cuisine_bavarian" = "bayersk mat";
-
-/* Cuisine */
-"cuisine_ramen" = "ramen";
-
-/* Cuisine */
-"cuisine_italian_pizza" = "italiensk, pizza";
-
-/* Cuisine */
-"cuisine_mediterranean" = "medelhavsmat";
-
-/* Cuisine */
-"cuisine_donut" = "munk";
-
-/* Cuisine */
-"cuisine_beef_bowl" = "biff donburi";
-
-/* Cuisine */
-"cuisine_cake" = "tårta";
-
-/* Cuisine */
-"cuisine_crepe" = "crêpe";
-
-/* Cuisine */
-"cuisine_heuriger" = "vintaverna (heuriger)";
-
-/* Cuisine */
-"cuisine_lebanese" = "libanesisk mat";
-
-/* Cuisine */
-"cuisine_steak" = "biff";
-
-/* Cuisine */
-"cuisine_local" = "lokal mat";
-
-/* Cuisine */
-"cuisine_curry" = "curry";
-
-/* Cuisine */
-"cuisine_filipino" = "filippinsk mat";
-
-/* Cuisine */
-"cuisine_russian" = "rysk mat";
-
-/* Cuisine */
-"cuisine_breakfast" = "frukost";
-
-/* Cuisine */
-"cuisine_tapas" = "tapas";
-
-/* Cuisine */
-"cuisine_bbq" = "grillat";
-
-/* Cuisine */
-"cuisine_bagel" = "bagel";
-
-/* Cuisine */
-"cuisine_pasta" = "pasta";
-
-/* Cuisine */
-"cuisine_buschenschank" = "vintaverna";
-
-/* Cuisine */
-"cuisine_sausage" = "korv";
-
-/* Cuisine */
-"cuisine_portuguese" = "portugisisk mat";
-
-/* Cuisine */
-"cuisine_grill" = "grill";
-
-/* Cuisine */
-"cuisine_pancake" = "pannkaka";
-
-/* Cuisine */
-"cuisine_malagasy" = "madagaskisk mat";
-
-/* Cuisine */
-"cuisine_polish" = "polsk mat";
-
-/* Cuisine */
-"cuisine_diner" = "matställe";
-
-/* Cuisine */
-"cuisine_african" = "afrikansk mat";
-
-/* Cuisine */
-"cuisine_doughnut" = "munk";
-
-/* Cuisine */
-"cuisine_georgian" = "georgisk mat";
-
-/* Cuisine */
-"cuisine_croatian" = "kroatisk mat";
-
-/* Cuisine */
-"cuisine_arab" = "arabisk mat";
-
-/* Cuisine */
-"cuisine_balkan" = "balkansk mat";
-
-/* Cuisine */
-"cuisine_brazilian" = "brasiliansk mat";
-
-/* Cuisine */
-"cuisine_caribbean" = "karibisk mat";
-
-/* Cuisine */
-"cuisine_austrian" = "österrikisk mat";
-
-/* Cuisine */
-"cuisine_vegan" = "vegansk mat";
-
-/* Cuisine */
-"cuisine_argentinian" = "argentinsk mat";
-
-/* Cuisine */
-"cuisine_persian" = "persisk mat";
-
-/* Cuisine */
-"cuisine_soba" = "soba";
-
-/* Cuisine */
-"cuisine_malaysian" = "malaysisk mat";
-
-/* Cuisine */
-"cuisine_indonesian" = "indonesisk mat";
-
-/* Cuisine */
-"cuisine_ethiopian" = "etiopisk mat";
-
-/* Cuisine */
-"cuisine_deli" = "deli";
-
-/* Cuisine */
-"cuisine_irish" = "irländsk mat";
-
-/* Cuisine */
-"cuisine_hungarian" = "ungersk mat";
-
-/* Cuisine */
-"cuisine_lao" = "laotisk mat";
-
-/* Cuisine */
-"cuisine_coffee" = "kaffe";
-
-/* Cuisine */
-"cuisine_hotdog" = "varmkorv";
-
-/* Cuisine */
-"cuisine_oriental" = "orientalisk mat";
-
-/* Cuisine */
-"cuisine_savory_pancakes" = "fyllda pannkakor";
-
-/* Cuisine */
-"cuisine_moroccan" = "marockansk mat";
-
-/* Cuisine */
-"cuisine_barbeque" = "grillat";
-
-/* Cuisine */
-"cuisine_peruvian" = "peruansk mat";
-
-/* Cuisine */
-"cuisine_fine_dining" = "lyxrestaurang";
-
-/* Cuisine */
-"cuisine_tea" = "te";
 
 /* bookmark button text */
 "bookmark" = "bokmärke";
@@ -1242,7 +972,7 @@
 
 "dialog_routing_always_cross_that_border" = "Korsa alltid den här gränsen";
 
-"dialog_routing_not_now" = "Inte nu";
+"not_now" = "Inte nu";
 
 "dialog_routing_build_route" = "Skapa";
 
@@ -1259,8 +989,6 @@
 "search_select_map" = "Välj kartan";
 
 "search_select_other_map" = "Välj en annan karta";
-
-"search_vehicle_routes" = "Vägbeskrivning";
 
 /* «Show» context menu */
 "show" = "Visa";
@@ -1350,6 +1078,284 @@
 
 "whats_new_next_button" = "Nästa";
 
-"whats_new_night_caption" = "Navigering i nattläge";
+"editor_time_add" = "Lägg till schema";
 
-"whats_new_night_body" = "För att underlätta användandet av MAPS.ME under mörkerkörning har vi lagt till nattläget. Det slås automatiskt på efter att solen gått ned.";
+"editor_time_delete" = "Ta bort schema";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Alla dagar (24 timmar)";
+
+"editor_time_open" = "Öppet";
+
+"editor_time_close" = "Stängt";
+
+"editor_time_add_closed" = "Lägg till stängda timmar";
+
+"editor_time_title" = "Öppettider";
+
+"editor_time_advanced" = "Avancerat läge";
+
+"editor_time_simple" = "Enkelt läge";
+
+"editor_hours_closed" = "Stängda timmar";
+
+"editor_example_values" = "Exempelvärden";
+
+"editor_correct_mistake" = "Korrigera fel";
+
+"editor_correct_mistake_message" = "Du har gjort ett fel i redigeringen. Var vänlig korrigera det eller byt till enkelt läge.";
+
+"editor_add_select_location" = "Plats";
+
+"editor_done_dialog_1" = "Du har ändrat världskartan. Dölj inte detta! Berätta för dina vänner och redigera den tillsammans.";
+
+"editor_done_dialog_2" = "Detta är din andra kartförbättring. Du är nu på plats %d i listan över kartredigerare. Berätta för dina vänner om det.";
+
+"editor_done_dialog_3" = "Du har förbättrat kartan, berätta för dina vänner om det och redigera kartan tillsammans.";
+
+"share_with_friends" = "Dela med vänner";
+
+"editor_report_problem_desription_1" = "Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.";
+
+"editor_report_problem_desription_2" = "Eller gör det själv på http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Skicka";
+
+"editor_report_problem_title" = "Problem";
+
+"editor_report_problem_no_place_title" = "Platsen existerar inte";
+
+"editor_report_problem_under_construction_title" = "Stängd för underhåll";
+
+"editor_report_problem_duplicate_place_title" = "Duplicerad plats";
+
+"first_launch_congrats_title" = "Du kan nu använda MAPS.ME";
+
+"first_launch_congrats_text" = "Sök och navigera gratis på kartor över alla länder i hela världen.";
+
+"migrate_title" = "Viktigt!";
+
+/* Android uses image instead of text. */
+"download_all" = "Ladda ner alla";
+
+"delete_all" = "Radera alla";
+
+"autodownload" = "Automatisk nedladdning";
+
+/* Place Page opening hours text */
+"closed_now" = "Stängt just nu";
+
+/* Place Page opening hours text */
+"daily" = "Dagligen";
+
+"twentyfour_seven" = "dag och natt";
+
+"day_off_today" = "Stängt idag";
+
+"day_off" = "Stängt";
+
+"today" = "Idag";
+
+"sunrise_to_sunset" = "Från gryning till skymning";
+
+"sunset_to_sunrise" = "Från soluppgång till solnedgång";
+
+"add_opening_hours" = "Lägg till öppettider";
+
+"edit_opening_hours" = "Redigera öppettider";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Inget konto hos OpenStreetMap?";
+
+"register_at_openstreetmap" = "Registrera";
+
+"password_8_chars_min" = "Lösenord (minst 8 tecken)";
+
+"invalid_username_or_password" = "Fel användarnamn eller lösenord.";
+
+"login" = "Logga in";
+
+"password" = "Lösenord";
+
+"forgot_password" = "Glömt lösenord?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Återställ lösenord?";
+
+"enter_email_address_to_reset_password" = "Mata in e-postadressen som du använde vid registrering så skickar vi en återställningslänk till dig.";
+
+"reset_password" = "återställ lösenord";
+
+"username" = "Användarnamn";
+
+"osm_account" = "OSM-konto";
+
+"logout" = "Logga ut";
+
+"login_and_edit_map_motivation_message" = "Logga in och redigera informationen om objekten på kartan så kommer vi att göra ändringarna tillgängliga för miljontals andra användare. Låt oss göra världen bättre tillsammans.";
+
+"not_sent" = "Ej skickat";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Senast uppladdad";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "ändringar";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Du har redigerat ditt första objekt!";
+
+"thank_you" = "Tack";
+
+"login_with_google" = "Logga in med Google";
+
+"login_with_facebook" = "Logga in med Facebook";
+
+"login_with_openstreetmap" = "Logga in med www.openstreetmap.org";
+
+"edit_place" = "Ändra platsen";
+
+"place_name" = "Platsens namn";
+
+"place_name_caption" = "Ange namnet som på skylten eller på namnbrickan";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Övriga språk";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Lägg till ett språk";
+
+"street" = "Gata";
+
+/* Editable House Number text field (in address block). */
+"house" = "Byggnad";
+
+"details" = "Detaljer";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Lägg till en gata";
+
+"choose_language" = "Välj ett språk";
+
+"choose_street" = "Välj en gata";
+
+"postal_code" = "Postkod";
+
+"cuisine" = "Kök";
+
+"select_cuisine" = "Välj kök";
+
+/* login text field */
+"email_or_username" = "E-postadress eller användarnamn";
+
+"phone" = "Telefon";
+
+"please_note" = "Observera";
+
+"common_no_wifi_dialog" = "Ingen wifi-anslutning. Vill du fortsätta med mobildata?";
+
+"downloader_delete_map_dialog" = "Alla kartändringar kommer att raderas tillsammans med kartan.";
+
+"downloader_update_maps" = "Uppdatera kartor";
+
+"downloader_mwm_migration_dialog" = "För att skapa en rutt måste du uppdatera alla kartor och sedan planera rutten igen.";
+
+"downloader_search_field_hint" = "Hitta kartan";
+
+"migration_update_all_button" = "Uppdatera alla kartor";
+
+"migration_delete_all_download_current_button" = "Ladda ned senaste kartan och radera de gamla";
+
+"migration_prefetch_status" = "Förbereder kartuppdatering…";
+
+"migration_download_error_dialog" = "Nedladdningsfel";
+
+"common_check_internet_connection_dialog" = "Kontrollera dina inställningar och se till att din enhet är ansluten till internet.";
+
+"downloader_no_space_title" = "Ej tillräckligt utrymme";
+
+"downloader_no_space_message" = "Ta bort onödig data";
+
+"editor_general_auth_error_dialog" = "Allmänt fel vid inloggning.";
+
+"editor_login_error_dialog" = "Inloggningsfel.";
+
+"editor_login_failed_dialog" = "Inloggningen misslyckades";
+
+"editor_username_error_dialog" = "Användarnamnet är ogiltigt";
+
+"editor_place_edited_dialog" = "Du har redigerat ett objekt!";
+
+"editor_login_with_osm" = "Logga in med OpenStreetMap";
+
+"editor_profile_changes" = "Ändringar:";
+
+"editor_profile_unsent_changes" = "Inte skickade:";
+
+"editor_focus_map_on_location" = "Dra på kartan för att välja objektets rätta plats.";
+
+"editor_add_select_category" = "Välj kategori";
+
+"editor_add_select_category_popular_subtitle" = "Populära";
+
+"editor_add_select_category_all_subtitle" = "Alla kategorier";
+
+"editor_edit_place_title" = "Redigerar";
+
+"editor_add_place_title" = "Lägger till";
+
+"editor_edit_place_name_hint" = "Namn på platsen";
+
+"editor_edit_place_category_title" = "Kategori";
+
+"detailed_problem_description" = "Detaljerad beskrivning av ett problem";
+
+"editor_report_problem_other_title" = "Ett annat problem";
+
+"placepage_add_place_button" = "Lägg till en plats";
+
+"placepage_report_problem_button" = "Rapportera ett problem";
+
+"whatsnew_smallmwm_header" = "Du har bett om det och vi har gjort det";
+
+"whatsnew_smallmwm_message" = "Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet.";
+
+"whatsnew_search_header" = "Ny sökning";
+
+"whatsnew_search_message" = "Vi har avsevärt förbättrat sökningen på adress. Se själv.";
+
+"whatsnew_editor_title" = "Redigera kartan*";
+
+"whatsnew_editor_message_1" = "Lägg till nya platser till kartan och redigera de befintliga direkt från appen.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME använder data från OpenStreetMaps community.";
+
+"onboarding_offline_navigation_title" = "Du kommer aldrig att gå vilse igen";
+
+"onboarding_offline_navigation_message" = "Planera dina optimala bil- eller promenadrutter även när du saknar internetanslutning!";
+
+"onboarding_offline_navigation_title_2" = "Navigering offline";
+
+"onboarding_offline_navigation_message_2" = "Planera optimala bil- och promenadrutter.";
+
+"onboarding_offline_maps_title" = "MAPS.ME — se världsomspännande kartor utan internet";
+
+"onboarding_offline_maps_message" = "Ladda ned kartorna för önskat område en gång och använd funktionerna för navigering och sökning utan en internetanslutning.";
+
+"onboarding_notifications_message" = "Få avisering om uppdateringar för de senaste kartorna";
+
+"onboarding_notifications_title" = "Aktivera avisering om uppdateringar";
+
+"onboarding_location_title" = "Hjälp oss att hitta dig";
+
+"onboarding_location_message" = "För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.";
+
+"dialog_incorrect_feature_position" = "Ändra placering";
+
+"message_invalid_feature_position" = "Ett objekt kan inte placeras här";

@@ -11,6 +11,18 @@
     android:layout_height="match_parent"/>
 
   <include
+    android:id="@+id/onmap_downloader"
+    layout="@layout/onmap_downloader"/>
+
+  <include
+    android:id="@+id/position_chooser"
+    layout="@layout/position_chooser"/>
+
+  <include
+    android:id="@+id/navigation_buttons"
+    layout="@layout/map_navigation_buttons"/>
+
+  <include
     android:id="@+id/toolbar"
     layout="@layout/toolbar_with_search"
     android:layout_width="match_parent"
@@ -29,10 +41,6 @@
   <include
     layout="@layout/routing_plan"
     android:visibility="invisible"/>
-
-  <include
-    android:id="@+id/navigation_buttons"
-    layout="@layout/map_navigation_buttons"/>
 
   <com.mapswithme.maps.widget.FadeView
     android:id="@+id/fade_view"

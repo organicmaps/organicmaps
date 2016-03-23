@@ -1,6 +1,6 @@
+#include "choose_position_mark.hpp"
 #include "compass.hpp"
 #include "copyright_label.hpp"
-#include "country_status.hpp"
 #include "drape_gui.hpp"
 #include "gui_text.hpp"
 #include "layer_render.hpp"
@@ -40,16 +40,21 @@ void LayerRenderer::Render(ref_ptr<dp::GpuProgramManager> mng, ScreenBase const 
 
 void LayerRenderer::Merge(ref_ptr<LayerRenderer> other)
 {
+  bool activeOverlayFound = false;
   for (TRenderers::value_type & r : other->m_renderers)
   {
     TRenderers::iterator it = m_renderers.find(r.first);
     if (it != m_renderers.end())
     {
+      auto newActiveOverlay = r.second->FindHandle(m_activeOverlayId);
+      bool const updateActive = (m_activeOverlay != nullptr && newActiveOverlay != nullptr);
       it->second = move(r.second);
-      if (m_activeOverlay != nullptr && m_activeOverlayWidget == r.first)
+      if (!activeOverlayFound && updateActive)
       {
-        m_activeOverlay->OnTapEnd();
-        m_activeOverlay = nullptr;
+        activeOverlayFound = true;
+        m_activeOverlay = newActiveOverlay;
+        if (m_activeOverlay != nullptr)
+          m_activeOverlay->OnTapBegin();
       }
     }
     else
@@ -91,7 +96,7 @@ bool LayerRenderer::OnTouchDown(m2::RectD const & touchArea)
     m_activeOverlay = r.second->ProcessTapEvent(touchArea);
     if (m_activeOverlay != nullptr)
     {
-      m_activeOverlayWidget = r.first;
+      m_activeOverlayId = m_activeOverlay->GetFeatureID();
       m_activeOverlay->OnTapBegin();
       return true;
     }
@@ -109,6 +114,7 @@ void LayerRenderer::OnTouchUp(m2::RectD const & touchArea)
 
     m_activeOverlay->OnTapEnd();
     m_activeOverlay = nullptr;
+    m_activeOverlayId = FeatureID();
   }
 }
 
@@ -119,6 +125,7 @@ void LayerRenderer::OnTouchCancel(m2::RectD const & touchArea)
   {
     m_activeOverlay->OnTapEnd();
     m_activeOverlay = nullptr;
+    m_activeOverlayId = FeatureID();
   }
 }
 
@@ -129,8 +136,8 @@ class ScaleLabelHandle : public MutableLabelHandle
 {
   using TBase = MutableLabelHandle;
 public:
-  ScaleLabelHandle(ref_ptr<dp::TextureManager> textures)
-    : TBase(dp::LeftBottom, m2::PointF::Zero(), textures)
+  ScaleLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textures)
+    : TBase(id, dp::LeftBottom, m2::PointF::Zero(), textures)
     , m_scale(0)
   {
     SetIsVisible(true);
@@ -155,13 +162,6 @@ public:
 private:
   int m_scale;
 };
-
-void RegisterButtonHandler(CountryStatus::TButtonHandlers & handlers,
-                           CountryStatusHelper::EButtonType buttonType)
-{
-  handlers[buttonType] = bind(&DrapeGui::CallOnButtonPressedHandler,
-                              &DrapeGui::Instance(), buttonType);
-}
 
 } // namespace
 
@@ -192,18 +192,13 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & in
   return renderer;
 }
 
-drape_ptr<LayerRenderer> LayerCacher::RecacheCountryStatus(ref_ptr<dp::TextureManager> textures)
+drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures)
 {
-  m2::PointF surfSize = DrapeGui::Instance().GetSurfaceSize();
+  m2::PointF const surfSize = DrapeGui::Instance().GetSurfaceSize();
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
-  CountryStatus countryStatus = CountryStatus(Position(surfSize * 0.5, dp::Center));
 
-  CountryStatus::TButtonHandlers handlers;
-  RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TYPE_MAP);
-  RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING);
-  RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TRY_AGAIN);
-
-  renderer->AddShapeRenderer(WIDGET_COUNTRY_STATUS, countryStatus.Draw(textures, handlers));
+  ChoosePositionMark positionMark = ChoosePositionMark(Position(surfSize * 0.5f, dp::Center));
+  renderer->AddShapeRenderer(WIDGET_CHOOSE_POSITION_MARK, positionMark.Draw(textures));
 
   // Flush gui geometry.
   GLFunctions::glFlush();
@@ -253,7 +248,7 @@ m2::PointF LayerCacher::CacheScaleLabel(Position const & position, ref_ptr<Layer
   params.m_pivot = position.m_pixelPivot;
   params.m_handleCreator = [textures](dp::Anchor, m2::PointF const &)
   {
-    return make_unique_dp<ScaleLabelHandle>(textures);
+    return make_unique_dp<ScaleLabelHandle>(EGuiHandle::GuiHandleScaleLabel, textures);
   };
 
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();
@@ -263,4 +258,4 @@ m2::PointF LayerCacher::CacheScaleLabel(Position const & position, ref_ptr<Layer
   return size;
 }
 
-}
+} // namespace gui

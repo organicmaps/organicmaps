@@ -17,8 +17,7 @@ class UserEventStreamTest : df::UserEventStream::Listener
 {
 public:
   UserEventStreamTest(bool filtrateTouches)
-    : m_stream([](m2::PointD const &) { return true; })
-    , m_filtrate(filtrateTouches)
+    : m_filtrate(filtrateTouches)
   {
     m_stream.SetTestBridge(bind(&UserEventStreamTest::TestBridge, this, _1));
   }

@@ -135,18 +135,6 @@ string Platform::UniqueClientId() const
   return "n0dbus0n0lsb00000000000000000000";
 }
 
-void Platform::RunOnGuiThread(TFunctor const & fn)
-{
-  /// @todo
-  fn();
-}
-
-void Platform::RunAsync(TFunctor const & fn, Priority p)
-{
-  /// @todo
-  fn();
-}
-
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   int socketFd = socket(AF_INET, SOCK_STREAM, 0);

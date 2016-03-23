@@ -48,7 +48,7 @@ void GpsTrackNullFilter::Process(vector<location::GpsInfo> const & inPoints,
 
 void GpsTrackFilter::StoreMinHorizontalAccuracy(double value)
 {
-  Settings::Set(kMinHorizontalAccuracyKey, value);
+  settings::Set(kMinHorizontalAccuracyKey, value);
 }
 
 GpsTrackFilter::GpsTrackFilter()
@@ -56,7 +56,7 @@ GpsTrackFilter::GpsTrackFilter()
   , m_countLastInfo(0)
   , m_countAcceptedInfo(0)
 {
-  Settings::Get(kMinHorizontalAccuracyKey, m_minAccuracy);
+  settings::Get(kMinHorizontalAccuracyKey, m_minAccuracy);
 }
 
 void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,

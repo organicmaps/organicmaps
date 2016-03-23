@@ -26,10 +26,13 @@
 #include "rules_evaluation.hpp"
 #include "parse_opening_hours.hpp"
 
+#include <algorithm>
 #include <cstdlib>
+#include <functional>
 #include <iomanip>
 #include <ios>
 #include <ostream>
+#include <type_traits>
 #include <vector>
 
 namespace
@@ -92,10 +95,26 @@ class StreamFlagsKeeper
   std::ios_base::fmtflags m_flags;
 };
 
-void PrintPaddedNumber(std::ostream & ost, uint32_t const number, uint32_t const padding = 1)
+template <typename TNumber>
+constexpr bool IsChar(TNumber) noexcept
 {
+  return std::is_same<signed char, TNumber>::value ||
+         std::is_same<unsigned char, TNumber>::value ||
+         std::is_same<char, TNumber>::value;
+};
+
+template <typename TNumber, typename std::enable_if<!IsChar(TNumber{}), void*>::type = nullptr>
+void PrintPaddedNumber(std::ostream & ost, TNumber const number, uint32_t const padding = 1)
+{
+  static_assert(std::is_integral<TNumber>::value, "number should be of integral type.");
   StreamFlagsKeeper keeper(ost);
   ost << std::setw(padding) << std::setfill('0') << number;
+}
+
+template <typename TNumber, typename std::enable_if<IsChar(TNumber{}), void*>::type = nullptr>
+void PrintPaddedNumber(std::ostream & ost, TNumber const number, uint32_t const padding = 1)
+{
+  PrintPaddedNumber(ost, static_cast<int32_t>(number), padding);
 }
 
 void PrintHoursMinutes(std::ostream & ost,
@@ -299,7 +318,7 @@ bool Timespan::HasExtendedHours() const
   if (endHM.IsExtended())
     return true;
 
-  return endHM.GetDurationCount() != 0 && (endHM.GetDuration() < startHM.GetDuration());
+  return endHM.GetDuration() <= startHM.GetDuration();
 }
 
 std::ostream & operator<<(std::ostream & ost, Timespan const & span)
@@ -333,7 +352,7 @@ std::ostream & operator<<(std::ostream & ost, NthWeekdayOfTheMonthEntry const en
 }
 
 // WeekdayRange ------------------------------------------------------------------------------------
-bool WeekdayRange::HasWday(Weekday const & wday) const
+bool WeekdayRange::HasWday(Weekday const wday) const
 {
   if (IsEmpty() || wday == Weekday::None)
     return false;
@@ -341,9 +360,10 @@ bool WeekdayRange::HasWday(Weekday const & wday) const
   if (!HasEnd())
     return GetStart() == wday;
 
-  return GetStart() <= wday && wday <= GetEnd();
+  return (GetStart() <= GetEnd())
+      ? GetStart() <= wday && wday <= GetEnd()
+      : wday <= GetEnd() || GetStart() <= wday;
 }
-
 
 std::ostream & operator<<(std::ostream & ost, Weekday const wday)
 {
@@ -747,5 +767,29 @@ bool OpeningHours::IsUnknown(time_t const dateTime) const
 bool OpeningHours::IsValid() const
 {
   return m_valid;
+}
+bool OpeningHours::IsTwentyFourHours() const
+{
+  return m_rule.size() == 1 && m_rule[0].IsTwentyFourHours();
+}
+
+bool OpeningHours::HasWeekdaySelector() const
+{
+  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasWeekdays));
+}
+
+bool OpeningHours::HasMonthSelector() const
+{
+  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasMonths));
+}
+
+bool OpeningHours::HasWeekSelector() const
+{
+  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasWeeks));
+}
+
+bool OpeningHours::HasYearSelector() const
+{
+  return std::any_of(begin(m_rule), end(m_rule), std::mem_fn(&osmoh::RuleSequence::HasYears));
 }
 } // namespace osmoh

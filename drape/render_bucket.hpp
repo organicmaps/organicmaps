@@ -2,6 +2,9 @@
 
 #include "drape/pointers.hpp"
 
+#include "std/function.hpp"
+#include "std/limits.hpp"
+
 class ScreenBase;
 
 namespace df
@@ -33,7 +36,8 @@ public:
 
   void Update(ScreenBase const & modelView);
   void CollectOverlayHandles(ref_ptr<OverlayTree> tree);
-  void Render(ScreenBase const & screen);
+  void RemoveOverlayHandles(ref_ptr<OverlayTree> tree);
+  void Render();
 
   // Only for testing! Don't use this function in production code!
   void RenderDebug(ScreenBase const & screen) const;
@@ -46,7 +50,12 @@ public:
       todo(make_ref(h));
   }
 
+  void SetFeatureMinZoom(int minZoom);
+  int GetMinZoom() const { return m_featuresMinZoom; }
+
 private:
+  int m_featuresMinZoom = numeric_limits<int>::max();
+
   vector<drape_ptr<OverlayHandle> > m_overlay;
   drape_ptr<VertexArrayBuffer> m_buffer;
 };

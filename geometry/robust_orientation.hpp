@@ -9,7 +9,15 @@ namespace m2 { namespace robust
 {
   bool Init();
 
+  /// @return > 0, (p1, p2, p) - is CCW (left oriented)
+  ///         < 0, (p1, p2, p) - is CW (right oriented)
+  /// Same as CrossProduct(p1 - p, p2 - p), but uses robust calculations.
   double OrientedS(PointD const & p1, PointD const & p2, PointD const & p);
+
+  /// Is segment (v, v1) in cone (vPrev, v, vNext)?
+  /// @precondition (vPrev, v, vNext) is CCW.
+  bool IsSegmentInCone(PointD const & v, PointD const & v1,
+                       PointD const & vPrev, PointD const & vNext);
 
   bool SegmentsIntersect(PointD const & p1, PointD const & p2,
                          PointD const & p3, PointD const & p4);

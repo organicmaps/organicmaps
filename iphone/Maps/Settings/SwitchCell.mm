@@ -5,6 +5,7 @@
 
 - (void)awakeFromNib
 {
+  [super awakeFromNib];
   [self.switchButton addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
   self.backgroundColor = [UIColor white];
 }

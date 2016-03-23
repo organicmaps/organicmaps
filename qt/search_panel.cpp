@@ -32,7 +32,6 @@
 
 namespace qt
 {
-
 SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   : QWidget(parent), m_pDrawWidget(drawWidget), m_busyIcon(":/ui/busy.png")
 {
@@ -40,7 +39,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   connect(m_pEditor, SIGNAL(textChanged(QString const &)),
           this, SLOT(OnSearchTextChanged(QString const &)));
 
-  m_pTable = new QTableWidget(0, 5, this);
+  m_pTable = new QTableWidget(0, 4 /*columns*/, this);
   m_pTable->setFocusPolicy(Qt::NoFocus);
   m_pTable->setAlternatingRowColors(true);
   m_pTable->setShowGrid(false);
@@ -74,7 +73,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   CHECK(connect(this, SIGNAL(SearchResultSignal(ResultsT *)),
                 this, SLOT(OnSearchResult(ResultsT *)), Qt::QueuedConnection), ());
 
-  m_params.m_callback = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
+  m_params.m_onResults = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
 }
 
 void SearchPanel::SearchResultThreadFunc(ResultsT const & result)
@@ -84,13 +83,13 @@ void SearchPanel::SearchResultThreadFunc(ResultsT const & result)
 
 namespace
 {
-  QTableWidgetItem * create_item(QString const & s)
-  {
-    QTableWidgetItem * item = new QTableWidgetItem(s);
-    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-    return item;
-  }
+QTableWidgetItem * CreateItem(QString const & s)
+{
+  QTableWidgetItem * item = new QTableWidgetItem(s);
+  item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+  return item;
 }
+}  // namespace
 
 void SearchPanel::ClearResults()
 {
@@ -99,13 +98,13 @@ void SearchPanel::ClearResults()
   m_results.clear();
 }
 
-void SearchPanel::OnSearchResult(ResultsT * res)
+void SearchPanel::OnSearchResult(ResultsT * results)
 {
-  unique_ptr<ResultsT> const guard(res);
+  unique_ptr<ResultsT> const guard(results);
 
-  if (res->IsEndMarker())
+  if (results->IsEndMarker())
   {
-    if (res->IsEndedNormal())
+    if (results->IsEndedNormal())
     {
       // stop search busy indicator
       m_pAnimationTimer->stop();
@@ -116,37 +115,37 @@ void SearchPanel::OnSearchResult(ResultsT * res)
   {
     ClearResults();
 
-    for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
+    for (ResultsT::IterT i = results->Begin(); i != results->End(); ++i)
     {
-      ResultT const & e = *i;
+      ResultT const & res = *i;
 
-      QString s = QString::fromUtf8(e.GetString());
+      QString const name = QString::fromStdString(res.GetString());
       QString strHigh;
       int pos = 0;
-      for (size_t r = 0; r < e.GetHighlightRangesCount(); ++r)
+      for (size_t r = 0; r < res.GetHighlightRangesCount(); ++r)
       {
-        pair<uint16_t, uint16_t> const & range = e.GetHighlightRange(r);
-        strHigh.append(s.mid(pos, range.first - pos));
+        pair<uint16_t, uint16_t> const & range = res.GetHighlightRange(r);
+        strHigh.append(name.mid(pos, range.first - pos));
         strHigh.append("<font color=\"green\">");
-        strHigh.append(s.mid(range.first, range.second));
+        strHigh.append(name.mid(range.first, range.second));
         strHigh.append("</font>");
 
         pos = range.first + range.second;
       }
-      strHigh.append(s.mid(pos));
+      strHigh.append(name.mid(pos));
 
       int const rowCount = m_pTable->rowCount();
       m_pTable->insertRow(rowCount);
       m_pTable->setCellWidget(rowCount, 1, new QLabel(strHigh));
-      m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(e.GetRegionString())));
+      m_pTable->setItem(rowCount, 2, CreateItem(QString::fromStdString(res.GetAddress())));
 
-      if (e.GetResultType() == ResultT::RESULT_FEATURE)
+      if (res.GetResultType() == ResultT::RESULT_FEATURE)
       {
-        m_pTable->setItem(rowCount, 0, create_item(QString::fromUtf8(e.GetFeatureType())));
-        m_pTable->setItem(rowCount, 3, create_item(m_pDrawWidget->GetDistance(e).c_str()));
+        m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(res.GetFeatureType())));
+        m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res).c_str()));
       }
 
-      m_results.push_back(e);
+      m_results.push_back(res);
     }
   }
 }
@@ -207,6 +206,39 @@ bool SearchPanel::Try3dModeCmd(QString const & str)
   return true;
 }
 
+bool SearchPanel::TryMigrate(QString const & str)
+{
+  bool const isMigrate = (str == "?migrate");
+
+  if (!isMigrate)
+    return false;
+
+  m_pEditor->setText("");
+  parentWidget()->hide();
+
+  auto const stateChanged = [&](storage::TCountryId const & id)
+  {
+    storage::Status const nextStatus = m_pDrawWidget->GetFramework().Storage().GetPrefetchStorage()->CountryStatusEx(id);
+    LOG_SHORT(LINFO, (id, "status :", nextStatus));
+    if (nextStatus == storage::Status::EOnDisk)
+    {
+      LOG_SHORT(LINFO, ("Prefetch done. Ready to migrate."));
+      m_pDrawWidget->GetFramework().Migrate();
+    }
+  };
+
+  auto const progressChanged = [](storage::TCountryId const & id, storage::TLocalAndRemoteSize const & sz)
+  {
+    LOG(LINFO, (id, "downloading progress:", sz));
+  };
+
+  ms::LatLon curPos(55.7, 37.7);
+
+  m_pDrawWidget->GetFramework().PreMigrate(curPos, stateChanged, progressChanged);
+  return true;
+
+}
+
 void SearchPanel::OnSearchTextChanged(QString const & str)
 {
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
@@ -217,6 +249,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   if (TryChangeRouterCmd(normalized))
     return;
   if (Try3dModeCmd(normalized))
+    return;
+  if (TryMigrate(normalized))
     return;
 
   // search even with empty query
@@ -283,5 +317,4 @@ void SearchPanel::OnClearButton()
 {
   m_pEditor->setText("");
 }
-
-}
+}  // namespace qt

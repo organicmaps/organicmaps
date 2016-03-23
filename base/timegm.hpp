@@ -1,5 +1,6 @@
 #pragma once
 
+#include "std/cstdint.hpp"
 #include "std/ctime.hpp"
 
 namespace base
@@ -23,5 +24,4 @@ time_t TimeGM(std::tm const & tm);
 // min - 0...59
 // sec - 0...59
 time_t TimeGM(int year, int month, int day, int hour, int min, int sec);
-
 } // base

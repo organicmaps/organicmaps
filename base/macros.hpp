@@ -1,4 +1,6 @@
 #pragma once
+
+#include "base/assert.hpp"
 #include "base/base.hpp"
 
 namespace my

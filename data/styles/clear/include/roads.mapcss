@@ -74,6 +74,39 @@ line|z7-[highway=residential_link],
 */
 
 
+line|z4[highway=world_level]
+{
+    color: @trunk_orange_light;
+    width: 0.5;
+    opacity: 1;
+    z-index: 900;
+}
+
+line|z5[highway=world_level]
+{
+    color: @trunk_orange_light;
+    width: 0.7;
+    opacity: 1;
+    z-index: 900;
+}
+
+
+line|z6[highway=world_towns_level],
+
+{
+    color: @trunk_orange_light;
+    width: 0.9;
+    opacity: 1;
+    z-index: 900;
+}
+line|z6[highway=world_level]
+{
+    color: @trunk_orange_light;
+    width: 0.7;
+    opacity: 1;
+    z-index: 900;
+}
+
 /* ZOOM 7 */
 
 line|z7[highway=trunk],
@@ -83,6 +116,15 @@ line|z7[highway=motorway] {
 	  opacity: 1;
   	z-index: 900;
 
+}
+
+line|z7[highway=world_towns_level],
+line|z7[highway=world_level]
+{
+    color: @trunk_orange_light;
+    width: 0.7;
+    opacity: 1;
+    z-index: 900;
 }
 
 /* ZOOM 8 */
@@ -103,7 +145,14 @@ line|z8[highway=primary]
   z-index: 850;
 }
 
-
+line|z8[highway=world_towns_level],
+line|z8[highway=world_level]
+{
+    color: @trunk_orange_light;
+    width: 0.9;
+    opacity: 1;
+    z-index: 850;
+}
 /* ZOOM 9 */
 
 line|z9[highway=trunk],
@@ -123,6 +172,14 @@ line|z9[highway=primary]
   z-index: 850;
 }
 
+line|z9[highway=world_towns_level],
+line|z9[highway=world_level]
+{
+    color: @trunk_orange_light;
+    width: 0.8;
+    opacity: 1;
+    z-index: 850;
+}
 
 /* ZOOM 10 */
 

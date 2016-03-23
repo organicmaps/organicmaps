@@ -32,6 +32,10 @@ string DebugPrint(OsmElement::EntityType e)
 
 void OsmElement::AddTag(string const & k, string const & v)
 {
+  // Seems like source osm data has empty values. They are useless for us.
+  if (k.empty() || v.empty())
+    return;
+
 #define SKIP_KEY(key) if (strncmp(k.data(), key, sizeof(key)-1) == 0) return;
   // OSM technical info tags
   SKIP_KEY("created_by");
@@ -61,7 +65,6 @@ void OsmElement::AddTag(string const & k, string const & v)
 
   m_tags.emplace_back(k, v);
 }
-
 
 string OsmElement::ToString(string const & shift) const
 {

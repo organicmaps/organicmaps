@@ -63,18 +63,6 @@ UserMark::Type Bookmark::GetMarkType() const
   return UserMark::Type::BOOKMARK;
 }
 
-unique_ptr<UserMarkCopy> Bookmark::Copy() const
-{
-  return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
-}
-
-void Bookmark::FillLogEvent(TEventContainer & details) const
-{
-  UserMark::FillLogEvent(details);
-  details.emplace("markType", "BOOKMARK");
-  details.emplace("name", GetData().GetName());
-}
-
 bool Bookmark::RunCreationAnim() const
 {
   bool result = m_runCreationAnim;
@@ -592,7 +580,7 @@ BookmarkCategory * BookmarkCategory::CreateFromKMLFile(string const & file, Fram
   auto_ptr<BookmarkCategory> cat(new BookmarkCategory("", framework));
   try
   {
-    if (cat->LoadFromKML(new FileReader(file)))
+    if (cat->LoadFromKML(make_unique<FileReader>(file)))
       cat->m_file = file;
     else
       cat.reset();

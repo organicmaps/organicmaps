@@ -34,3 +34,7 @@
 -keepclassmembers class * implements com.mapswithme.util.Gsonable {
   <init>(...);
 }
+
+# HockeyApp
+-dontwarn net.hockeyapp.android.UpdateActivity
+-dontwarn net.hockeyapp.android.UpdateFragment

@@ -14,8 +14,6 @@
 	<string name="cancel_download">Batalkan Pengunduhan</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Hapus</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Hapus peta tua dan lanjutkan</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Jangan tanyai saya lagi</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -52,8 +50,6 @@
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Posisi Saya</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Tidak ada koneksi internet yang terdeteksi</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Tidak ada koneksi WiFi yang terdeteksi. Apakah Anda ingin menggunakan paket data seluler (GPRS, EDGE, 3G or LTE) untuk mengunduh %s?</string>
 	<string name="ok">OK</string>
@@ -73,16 +69,12 @@
 	<string name="search">Cari</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Cari Peta</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Tidak ada ruang kosong yang cukup</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Sentuh untuk mengunduh</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ya</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Kami merekomendasi gunakan WiFi untuk mengunduh peta yang berukuran besar</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Kami telah memperbarui data peta dan membuatnya lebih kecil. Untuk negara-negara yang lebih besar, kini Anda dapat memilih untuk mengunduh hanya daerah/negara bagian yang Anda perlukan. Namun, untuk menggunakan peta yang baru Anda harus menghapus data peta lama apa pun yang telah diunduh sebelumnya.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Sistem pengukuran manakah yang lebih Anda sukai?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -97,10 +89,12 @@
 	<string name="country_status_downloading">Sedang mengunduh\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Unduh Peta\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Unduh Peta</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Unduh peta tanpa\nperutean (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Sedang Mengunduh\n^\ntelah gagal</string>
+	<string name="country_status_download_failed">Sedang Mengunduh telah gagal</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Coba Lagi</string>
 	<string name="about_menu_title">Tentang MAPS.ME</string>
@@ -116,8 +110,7 @@
 	<string name="not_enough_free_space_on_sdcard">Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi</string>
 	<string name="not_enough_memory">Memori tidak cukup untuk meluncurkan aplikasi</string>
 	<string name="free_space_for_country">Mohon bebaskan %1$s pada perangkat Anda terlebih dahulu untuk mengunduh %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %1$.1f%2$s.</string>
+	<string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %s.</string>
 	<string name="getting_position">Sedang mencari lokasi saat ini</string>
 	<string name="download_resources_continue">Pergi ke Peta</string>
 	<string name="downloading_country_can_proceed">Sedang mengunduh %s. Sekarang Anda dapat melanjutkan ke peta.</string>
@@ -165,14 +158,14 @@
 	<string name="my_places">Tempat-tempat Saya</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nama</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Alamat</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Hapus Pin</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ  tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
+	<string name="bookmarks_usage_hint">Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">Penanda dari sumber lainnya dapat diimpor dan ditampilkan pada MAPS.ME. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
 	<!-- Settings button in system menu -->
@@ -272,7 +265,7 @@
 	<string name="share">Bagikan</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Pesan</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Surel</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Salin Tautan</string>
@@ -382,6 +375,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Setelan &amp;amp; Lebih Banyak</string>
 	<!-- Text in menu -->
+	<string name="website">Situs Web</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">Komunitas MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Sukai di Facebook</string>
@@ -418,17 +413,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Versi MAPS.ME yang terbaru memungkinkan pembuatan rute dari posisi Anda saat itu ke titik tujuan. Mohon perbarui peta untuk menggunakan fitur ini.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Perbarui semuanya</string>
+	<string name="downloader_update_all_button">Perbarui semua</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Batalkan Semuanya</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Telah Diunduh</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Peta yang telah diunduh</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Peta saya</string>
+	<string name="downloader_downloaded_subtitle">Diunduh</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">telah diantrekan</string>
+	<string name="downloader_near_me_subtitle">Dekat saya</string>
+	<string name="downloader_status_maps">Peta</string>
+	<string name="downloader_download_all_button">Unduh semua</string>
+	<string name="downloader_downloading">Mengunduh:</string>
+	<string name="downloader_search_results">Ditemukan</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Dalam membuat rute di aplikasi MAPS.ME, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!</string>
 	<!-- Outdated maps category -->
@@ -439,6 +435,8 @@
 	<string name="downloader_status_outdated">Perbarui</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Gagal</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Untuk menghapus peta, silakan hentikan navigasi.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Lokasi saat ini tidak diketahui. Mohon masukkan lokasi untuk membuat rute.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -514,186 +512,6 @@
 	<string name="routing_download_more_than_avail">Anda harus mengunduh %1$s MB, tetapi hanya %2$s MB yang tersedia.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Anda akan mengunduh %s MB menggunakan Data Seluler (dalam Roaming). Hal ini dapat mengakibatkan biaya tambahan, tergantung pada paket data seluler operator.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">masakan regional</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">burger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">masakan italia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">masakan tionghoa</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kafe</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">roti isi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">masakan jerman</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">masakan jepang</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">kebab</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">masakan meksiko</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">masakan india</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">masakan amerika</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">masakan prancis</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">es_krim</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">masakan asia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">ayam</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">masakan yunani</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">masakan thailand</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">masakan internasional</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">sushi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">ikan dan kentang goreng</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">masakan turki</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">hidangan laut</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">restoran_steik</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">masakan spanyol</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">ikan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">masakan vietnam</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">bakmi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">masakan vegetarian</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">korea</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">gorengan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">barbekyu</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">masakan bavaria</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">ramen</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">italia, pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">masakan mediterania</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">donat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">nasi daging sapi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">kue</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">kue dadar</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">taverna anggur</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">masakan lebanon</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">steik</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">masakan lokal</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">kari</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">masakan filipina</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">masakan rusia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">sarapan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">kudapan spanyol</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">bbq</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">roti bagel</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">pasta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">taverna anggur</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">sosis</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">masakan portugis</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">panggangan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">panekuk</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">masakan madagaskar</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">masakan polandia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">makan malam</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">masakan afrika</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">donat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">masakan georgia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">masakan kroasia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">masakan arab</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">masakan balkan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">masakan brasil</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">masakan karibia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">masakan austria</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">masakan vegan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">masakan argentina</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">masakan persia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">soba</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">masakan malaysia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">masakan indonesia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">masakan etiopia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">toko makanan jadi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">masakan irlandia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">masakan hongaria</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">masakan laos</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kopi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">hotdog</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">masakan oriental</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">panekuk gurih</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">masakan maroko</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">barbekyu</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">masakan peru</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">adiboga</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">teh</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">bookmark</string>
 	<!-- map is not downloaded -->
@@ -770,7 +588,7 @@
 	<string name="dialog_routing_if_get_cross_route">Apakah Anda ingin membuat rute yang lebih langsung yang meliputi lebih dari satu peta?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Ada rute yang lebih optimal yang melewati ujung peta ini.</string>
 	<string name="dialog_routing_always_cross_that_border">Selalu lewati batas ini</string>
-	<string name="dialog_routing_not_now">Jangan Sekarang</string>
+	<string name="not_now">Jangan Sekarang</string>
 	<string name="dialog_routing_build_route">Buat</string>
 	<string name="dialog_routing_download_and_build_cross_route">Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?</string>
 	<string name="dialog_routing_download_cross_route">Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.</string>
@@ -780,7 +598,6 @@
 	<string name="search_without_internet_advertisement">Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.</string>
 	<string name="search_select_map">Pilih Peta</string>
 	<string name="search_select_other_map">Pilih Peta Lain</string>
-	<string name="search_vehicle_routes">Petunjuk arah mengemudi</string>
 	<!-- «Show» context menu -->
 	<string name="show">Tampilkan</string>
 	<!-- «Hide» context menu -->
@@ -826,6 +643,148 @@
 	<string name="p2p_only_from_current">Navigasi tersedia hanya dari lokasi Anda saat ini.</string>
 	<string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
 	<string name="whats_new_next_button">Berikut</string>
-	<string name="whats_new_night_caption">Navigasi mode malam</string>
-	<string name="whats_new_night_body">Untuk memfasilitasi penggunaan MAPS.ME saat berkendara dalam gelap, kami telah menambahkan mode malam. Mode ini diaktifkan secara otomatis setelah matahari terbenam.</string>
+	<string name="editor_time_add">Tambah Jadwal</string>
+	<string name="editor_time_delete">Hapus Jadwal</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Setiap Hari (24 jam)</string>
+	<string name="editor_time_open">Buka</string>
+	<string name="editor_time_close">Tutup</string>
+	<string name="editor_time_add_closed">Tambah Jam Tutup</string>
+	<string name="editor_time_title">Jam buka</string>
+	<string name="editor_time_advanced">Mode Lanjutan</string>
+	<string name="editor_time_simple">Mode Sederhana</string>
+	<string name="editor_hours_closed">Jam Tutup</string>
+	<string name="editor_example_values">Contoh Nilai</string>
+	<string name="editor_correct_mistake">Koreksi kesalahan</string>
+	<string name="editor_correct_mistake_message">Pengeditan salah. Koreksi atau ubah ke mode sederhana.</string>
+	<string name="editor_add_select_location">Lokasi</string>
+	<string name="editor_done_dialog_1">Anda telah mengubah peta dunia. Jangan menyembunyikan ini! Katakan kepada teman-teman Anda, dan edit bersama.</string>
+	<string name="editor_done_dialog_2">ini peningkatan peta kedua Anda. Sekarang Anda di tempat yang ke-%d di daftar editor peta. Katakan kepada teman-teman Anda tentang hal ini.</string>
+	<string name="editor_done_dialog_3">Anda telah meningkatkan peta, katakan kepada teman-teman Anda tentang hal ini, dan edit peta bersama.</string>
+	<string name="share_with_friends">Bagikan dengan teman-teman</string>
+	<string name="editor_report_problem_desription_1">Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.</string>
+	<string name="editor_report_problem_desription_2">Atau Anda bisa melakukan sendiri di http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Kirim</string>
+	<string name="editor_report_problem_title">Masalah</string>
+	<string name="editor_report_problem_no_place_title">Tempat tidak ada</string>
+	<string name="editor_report_problem_under_construction_title">Ditutup karena pemeliharaan</string>
+	<string name="editor_report_problem_duplicate_place_title">Tempat ganda</string>
+	<string name="first_launch_congrats_title">MAPS.ME siap digunakan</string>
+	<string name="first_launch_congrats_text">Telusuri dan jelajalahi peta semua negara di dunia secara gratis.</string>
+	<string name="migrate_title">Penting!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Unduh semua</string>
+	<string name="delete_all">Hapus semua</string>
+	<string name="autodownload">Unduhan otomatis</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Sekarang Tutup</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Setiap Hari</string>
+	<string name="twentyfour_seven">siang dan malam</string>
+	<string name="day_off_today">Hari ini libur</string>
+	<string name="day_off">Libur</string>
+	<string name="today">Hari ini</string>
+	<string name="sunrise_to_sunset">Dari matahari terbit sampai matahari terbenam</string>
+	<string name="sunset_to_sunrise">Dari matahari terbenam sampai matahari terbit</string>
+	<string name="add_opening_hours">Tambah jam kerja</string>
+	<string name="edit_opening_hours">Sunting jam kerja</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Tidak ada akun di OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Mendaftar</string>
+	<string name="password_8_chars_min">Kata Sandi (minimal 8 karakter)</string>
+	<string name="invalid_username_or_password">Nama pengguna dan Kata sandi tidak valid.</string>
+	<string name="login">Masuk</string>
+	<string name="password">Kata sandi</string>
+	<string name="forgot_password">Lupa kata sandi?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Pulihkan kata sandi</string>
+	<string name="enter_email_address_to_reset_password">Masukkan alamat surek yang Anda gunakan pada saat pendaftaran dan kami akan mengirim tautan untuk memperbarui kata sandi Anda.</string>
+	<string name="reset_password">Atur ulang kata sandi</string>
+	<string name="username">Nama pengguna</string>
+	<string name="osm_account">Akun OSM</string>
+	<string name="logout">Keluar</string>
+	<string name="login_and_edit_map_motivation_message">Masuk dan sunting informasi objek pada peta dan kami akan membuatnya tersedia bagi jutaan pengguna lain. Mari kita menjadikan dunia lebih baik bersama-sama.</string>
+	<string name="not_sent">Tidak terkirim</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Pengunggahan terakhir</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">perubahan</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Anda menyunting objek pertama Anda!</string>
+	<string name="thank_you">Terima kasih</string>
+	<string name="login_with_google">Masuk menggunakan Google</string>
+	<string name="login_with_facebook">Masuk menggunakan Facebook</string>
+	<string name="login_with_openstreetmap">Masuk menggunakan www.openstreetmap.org</string>
+	<string name="edit_place">Sunting tempat</string>
+	<string name="place_name">Nama tempat</string>
+	<string name="place_name_caption">Masukkan nama seperti pada tanda atau pelat nama</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Bahasa lainnya</string>
+	<string name="add_language">Tambahkan bahasa</string>
+	<string name="street">Jalan</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Bangunan</string>
+	<string name="details">Detail</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Tambahkan jalan</string>
+	<string name="choose_language">Pilih bahasa</string>
+	<string name="choose_street">Pilih jalan</string>
+	<string name="postal_code">Kode Pos</string>
+	<string name="cuisine">Masakan</string>
+	<string name="select_cuisine">Pilih Masakan</string>
+	<!-- login text field -->
+	<string name="email_or_username">Surel atau nama pengguna</string>
+	<string name="phone">Telepon</string>
+	<string name="please_note">Harap diperhatikan</string>
+	<string name="common_no_wifi_dialog">Tidak ada koneksi WiFi. Apakah Anda ingin melanjutkan dengan data seluler?</string>
+	<string name="downloader_delete_map_dialog">Semua perubahan peta akan dihapus bersama dengan peta.</string>
+	<string name="downloader_update_maps">Perbarui peta</string>
+	<string name="downloader_mwm_migration_dialog">Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.</string>
+	<string name="downloader_search_field_hint">Temukan peta</string>
+	<string name="migration_update_all_button">Perbarui semua peta</string>
+	<string name="migration_delete_all_download_current_button">Unduh peta sekarang dan hapus peta lama</string>
+	<string name="migration_prefetch_status">Mempersiapkan pembaruan peta…</string>
+	<string name="migration_download_error_dialog">Unduh kesalahan</string>
+	<string name="common_check_internet_connection_dialog">Harap memeriksa pengaturan Anda dan pastikan perangkat Anda terhubung dengan internet.</string>
+	<string name="downloader_no_space_title">Tidak cukup ruang</string>
+	<string name="downloader_no_space_message">Harap menghapus data yang tidak diperlukan</string>
+	<string name="editor_general_auth_error_dialog">Kesalahan masuk umum.</string>
+	<string name="editor_login_error_dialog">Kesalahan masuk.</string>
+	<string name="editor_login_failed_dialog">Masuk gagal</string>
+	<string name="editor_username_error_dialog">Nama pengguna tidak benar</string>
+	<string name="editor_place_edited_dialog">Anda telah mengedit sebuah obyek!</string>
+	<string name="editor_login_with_osm">Masuk dengan OpenStreetMap</string>
+	<string name="editor_profile_changes">Perubahan:</string>
+	<string name="editor_profile_unsent_changes">Tidak terkirim:</string>
+	<string name="editor_focus_map_on_location">Tarik peta untuk memilih lokasi yang benar dari obyek.</string>
+	<string name="editor_add_select_category">Pilih kategori</string>
+	<string name="editor_add_select_category_popular_subtitle">Populer</string>
+	<string name="editor_add_select_category_all_subtitle">Semua kategori</string>
+	<string name="editor_edit_place_title">Mengedit</string>
+	<string name="editor_add_place_title">Menambahkan</string>
+	<string name="editor_edit_place_name_hint">Nama tempat</string>
+	<string name="editor_edit_place_category_title">Kategori</string>
+	<string name="detailed_problem_description">Gambaran terperinci tentang masalah</string>
+	<string name="editor_report_problem_other_title">Masalah yang berbeda</string>
+	<string name="placepage_add_place_button">Tambahkan tempat</string>
+	<string name="placepage_report_problem_button">Laporkan masalah</string>
+	<string name="whatsnew_smallmwm_header">Anda memintanya dan kami telah malakukannya</string>
+	<string name="whatsnew_smallmwm_message">Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara.</string>
+	<string name="whatsnew_search_header">Penelusuran baru</string>
+	<string name="whatsnew_search_message">Kami secara signifikan telah meningkatkan pencarian menurut alamat. Lihat sendiri.</string>
+	<string name="whatsnew_editor_title">Edit peta*</string>
+	<string name="whatsnew_editor_message_1">Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME menggunakan data komunitas OpenStreetMap.</string>
+	<string name="onboarding_offline_navigation_title">Anda tidak akan tersesat lagi</string>
+	<string name="onboarding_offline_navigation_message">Rencanakan rute mobil dan pejalan kaki yang optimal, meskipun tidak ada koneksi internet!</string>
+	<string name="onboarding_offline_navigation_title_2">Navigasi Offline</string>
+	<string name="onboarding_offline_navigation_message_2">Rencanakan rute mobil dan pejalan kaki yang optimal.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — akses peta seluruh dunia tanpa internet</string>
+	<string name="onboarding_offline_maps_message">Unduh peta untuk daerah yang diinginkan sekali, dan gunakan navigasi dan fungsi pencarian tanpa koneksi internet.</string>
+	<string name="onboarding_notifications_message">Untuk menerima peta-peta terbaru, dapatkan pemberitahuan pembaruan</string>
+	<string name="onboarding_notifications_title">Aktifkan pemberitahuan pembaruan</string>
+	<string name="onboarding_location_title">Membantu kami menemukan Anda</string>
+	<string name="onboarding_location_message">Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.</string>
+	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
+	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
 </resources>

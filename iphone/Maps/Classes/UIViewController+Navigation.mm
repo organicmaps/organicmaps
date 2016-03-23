@@ -1,18 +1,35 @@
 #import "Common.h"
 #import "UIViewController+Navigation.h"
 
+namespace
+{
+CGFloat constexpr kButtonExtraWidth = 16.0;
+}
+
 @implementation UIViewController (Navigation)
+
+- (UIBarButtonItem *)negativeSpacer
+{
+  UIBarButtonItem * spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+  spacer.width = -kButtonExtraWidth;
+  return spacer;
+}
+
+- (UIBarButtonItem *)backButton
+{
+  UIImage * backImage = [UIImage imageNamed:@"ic_nav_bar_back"];
+  UIImage * highlightedImage = [UIImage imageNamed:@"ic_nav_bar_back_press"];
+  CGSize const buttonSize = {backImage.size.width + kButtonExtraWidth, backImage.size.height};
+  UIButton * button = [[UIButton alloc] initWithFrame:{{}, buttonSize}];
+  [button setImage:backImage forState:UIControlStateNormal];
+  [button setImage:highlightedImage forState:UIControlStateHighlighted];
+  [button addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
+  return [[UIBarButtonItem alloc] initWithCustomView:button];
+}
 
 - (void)showBackButton
 {
-  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
-  CGFloat const imageSide = backImage.size.width;
-  UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., imageSide, imageSide)];
-  [button setImage:backImage forState:UIControlStateNormal];
-  [button addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
-  button.imageEdgeInsets = UIEdgeInsetsMake(0., -imageSide, 0., 0.);
-  UIBarButtonItem * leftItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-  self.navigationItem.leftBarButtonItem = leftItem;
+  self.navigationItem.leftBarButtonItems = @[[self negativeSpacer], [self backButton]];
 }
 
 - (void)backTap

@@ -14,8 +14,6 @@
 	<string name="cancel_download">İndirme İşlemini İptal Et</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Sil</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Eski haritaları sil ve ilerle</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Bunu tekrar sorma</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -52,8 +50,6 @@
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Konumum</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">İnternet bağlantısı bulunamadı</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">WiFi bağlantısı bulunamadı. %s indirmek için hücresel veri (GPRS, EDGE, 3G veya LTE) kullanmak ister misiniz?</string>
 	<string name="ok">Tamam</string>
@@ -73,8 +69,6 @@
 	<string name="search">Ara</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Haritada Ara</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Yeterli boş disk alanı yok</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">İndirmek için dokunun</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -95,10 +89,12 @@
 	<string name="country_status_downloading">^\n^\nindiriliyor</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Haritayı İndir\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Haritayı İndir</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Haritayı rota\nolmadan indirin (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">^\nindirme işlemi başarısız oldu</string>
+	<string name="country_status_download_failed">Indirme işlemi başarısız oldu</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tekrar Deneyin</string>
 	<string name="about_menu_title">MAPS.ME Hakkında</string>
@@ -114,8 +110,7 @@
 	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
 	<string name="not_enough_memory">Uygulamayı başlatmak için yeterli hafıza yok</string>
 	<string name="free_space_for_country">%2$s indirebilmeniz için lütfen ilk önce cihazınızda %1$s alan boşaltın</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %1$.1f%2$s’si gerekli.</string>
+	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %s’si gerekli.</string>
 	<string name="getting_position">Geçerli konum alınıyor</string>
 	<string name="download_resources_continue">Haritaya Git</string>
 	<string name="downloading_country_can_proceed">%s indiriliyor. Şimdi haritaya\ngidebilirsiniz.</string>
@@ -163,7 +158,7 @@
 	<string name="my_places">Yerlerim</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Adı</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adres</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Pini Kaldır</string>
@@ -235,7 +230,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Paylaşılan MAPS.ME yer imleri</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME sende yüklü ise aç. Değilse  iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!</string>
+	<string name="share_bookmarks_email_body">Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME sende yüklü ise aç. Değilse iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Yer İmleri Yükleniyor</string>
 	<!-- Kmz file successful loading -->
@@ -276,8 +271,8 @@
 	<string name="share">Paylaş</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Mesaj</string>
-	<!-- Share by email button text -->
-	<string name="email">E-Posta</string>
+	<!-- Share by email button text, also used in editor. -->
+	<string name="email">E-posta</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Bağlantıyı Kopyala</string>
 	<!-- Text for the button that returns to caller application -->
@@ -386,6 +381,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Ayarlar &amp; Fazlası</string>
 	<!-- Text in menu -->
+	<string name="website">Web Sitesi</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME Topluluğu</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebook\&#39;da beğen</string>
@@ -422,17 +419,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">MAPS.ME\&#39;nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Tümünü güncelle</string>
+	<string name="downloader_update_all_button">Hepsini güncelle</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Tümünü İptal Et</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">İndirilenler</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">İndirilen haritalar</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Haritalarım</string>
+	<string name="downloader_downloaded_subtitle">İndirildi</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">sıraya alındı</string>
+	<string name="downloader_near_me_subtitle">Yakınlarımda</string>
+	<string name="downloader_status_maps">Haritalar</string>
+	<string name="downloader_download_all_button">Hepsini indir</string>
+	<string name="downloader_downloading">İndiriliyor:</string>
+	<string name="downloader_search_results">Bulundu</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.ME uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!</string>
 	<!-- Outdated maps category -->
@@ -443,6 +441,8 @@
 	<string name="downloader_status_outdated">Güncelle</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Başarısız</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Haritayı silmek için lütfen navigasyonu durdurun.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Geçerli konum tanımlı değil. Rota oluşturmak için lütfen konum belirtin.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -518,186 +518,6 @@
 	<string name="routing_download_more_than_avail">%1$s MB indirmeniz gerekiyor fakat sadece %2$s MB boş alan mevcut.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">%s MB boyutunda veriyi Mobil Veri (Roaming) kullanarak indireceksiniz. Bu mobil operatör veri planınıza göre ilave ödeme gerektirebilir.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">bölgesel mutfak</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">hamburger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">italyan mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">çin mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kafe</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">sandviç</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">alman mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">japon mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">kebap</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">meksika mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">hint mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">amerikan mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">fransız mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">dondurma</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">asya mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">tavuk</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">yunan mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">tayland mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">uluslararası mutfak</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">suşi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">balık ve patates cipsi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">türk mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">deniz ürünleri</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">et lokantası</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">ispanyol mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">balık</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">vietnam mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">erişte</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">vejetaryen mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">kore mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">kızartma</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">mangal</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">bavyera mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">japon eriştesi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">italyan, pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">akdeniz mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">donut</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">biftek tabağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">pasta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">krep</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">heuriger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">lübnan mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">biftek</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">yerel mutfak</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">köri</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">filipino mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">rus mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">kahvaltı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">tapas</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">mangal</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">simit</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">makarna</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">buschenschank</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">sucuk</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">portekiz mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">ızgara</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">gözleme</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">malgaş mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">polonya mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">vagon restoran</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">afrika mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">doughnut</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">gürcistan mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">hırvat mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">arap mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">balkan mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">brezilya mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">karayip mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">avusturya mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">vegan mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">arjantin mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">iran mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">erişte</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">malezya mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">endonezya mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">etiyopya mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">Şarküteri</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">irlanda mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">macar mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">lao mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kahve</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">sosisli</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">doğu mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">açma</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">fas mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">barbekü</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">peru mutfağı</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">birinci sınıf restoran</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">çay</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">yer i̇mi</string>
 	<!-- map is not downloaded -->
@@ -775,7 +595,7 @@
 	<string name="dialog_routing_if_get_cross_route">Bir haritadan daha fazlasına uzanan doğrudan bir güzergah oluşturmak ister misiniz?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Bu haritanın bir kısmından geçen daha uygun bir güzergah mevcut.</string>
 	<string name="dialog_routing_always_cross_that_border">Bu sınırı her zaman geçin</string>
-	<string name="dialog_routing_not_now">Şimdi Değil</string>
+	<string name="not_now">Şimdi Değil</string>
 	<string name="dialog_routing_build_route">Oluşturun</string>
 	<string name="dialog_routing_download_and_build_cross_route">Haritayı indirerek birden fazla haritaya uzanan daha uygun bir güzergah oluşturmak ister misiniz?</string>
 	<string name="dialog_routing_download_cross_route">Bu haritanın bir kısmından geçen daha uygun bir güzergah oluşturmak için haritayı indirin.</string>
@@ -785,7 +605,6 @@
 	<string name="search_without_internet_advertisement">Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin ve artık internet bağlantısına ihtiyacınız yok.</string>
 	<string name="search_select_map">Haritayi Seçin</string>
 	<string name="search_select_other_map">Başka Bir Harita Seçin</string>
-	<string name="search_vehicle_routes">Trafik yönleri</string>
 	<!-- «Show» context menu -->
 	<string name="show">Göster</string>
 	<!-- «Hide» context menu -->
@@ -831,6 +650,148 @@
 	<string name="p2p_only_from_current">Navigasyon sadece şu anki konumunuzdan mevcut.</string>
 	<string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
 	<string name="whats_new_next_button">Sonraki</string>
-	<string name="whats_new_night_caption">Gece modu navigasyon</string>
-	<string name="whats_new_night_body">Karanlıkta sürerken MAPS.ME kullanmayı kolaylaştırmak için gece modunu ekledik. Gün batımından sonra otomatik olarak devreye girer.</string>
+	<string name="editor_time_add">Plan Ekle</string>
+	<string name="editor_time_delete">Planı Sil</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Tüm gün (24 saat)</string>
+	<string name="editor_time_open">Açık</string>
+	<string name="editor_time_close">Kapalı</string>
+	<string name="editor_time_add_closed">Kapalı olduğu saatleri ekle</string>
+	<string name="editor_time_title">Açık olduğu saatler</string>
+	<string name="editor_time_advanced">Gelişmiş Mod</string>
+	<string name="editor_time_simple">Basit Mod</string>
+	<string name="editor_hours_closed">Kapalı olduğu saatler</string>
+	<string name="editor_example_values">Örnek Değerler</string>
+	<string name="editor_correct_mistake">Hatayı düzelt</string>
+	<string name="editor_correct_mistake_message">Bir düzenleme hatası yaptınız. Lütfen düzeltin veya basit moda geçin.</string>
+	<string name="editor_add_select_location">Konum</string>
+	<string name="editor_done_dialog_1">Dünya haritasını değiştirdiniz. Bunu gizlemeyin! Arkadaşlarınıza anlatın ve birlikte düzenleyin.</string>
+	<string name="editor_done_dialog_2">Bu sizin ikinci harita iyileştirmeniz. Artık siz harita editörleri arasında %d. sıradasınız. Arkadaşlarınıza bunu anlatın.</string>
+	<string name="editor_done_dialog_3">Haritayı geliştirdiniz, arkadaşlarınıza bunu anlatın ve birlikte haritayı düzenleyin.</string>
+	<string name="share_with_friends">Arkadaşlarınla paylaş</string>
+	<string name="editor_report_problem_desription_1">OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde tanımlayın.</string>
+	<string name="editor_report_problem_desription_2">Veya bunu adresinden kendiniz yapın http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Gönder</string>
+	<string name="editor_report_problem_title">Problem</string>
+	<string name="editor_report_problem_no_place_title">Yer mevcut değil</string>
+	<string name="editor_report_problem_under_construction_title">Bakım için kapalı</string>
+	<string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
+	<string name="first_launch_congrats_title">MAPS.ME kullanıma hazır</string>
+	<string name="first_launch_congrats_text">Dünyanın tüm ülkelerinin haritalarında ücretsiz arama yap ve gezin.</string>
+	<string name="migrate_title">Önemli!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Tümünü indir</string>
+	<string name="delete_all">Tümünü sil</string>
+	<string name="autodownload">Otomatik indir</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Şu anda kapalı</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Günlük</string>
+	<string name="twentyfour_seven">Gündüz ve gece</string>
+	<string name="day_off_today">Bugün izin günü</string>
+	<string name="day_off">İzin günü</string>
+	<string name="today">Bugün</string>
+	<string name="sunrise_to_sunset">Güneşin doğuşundan batışına kadar</string>
+	<string name="sunset_to_sunrise">Gün doğumundan gün batımına</string>
+	<string name="add_opening_hours">İş saatlerini ekle</string>
+	<string name="edit_opening_hours">İş saatlerini düzenle</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">OpenStreetMap\&#39; hesabın yok mu?</string>
+	<string name="register_at_openstreetmap">Kaydol</string>
+	<string name="password_8_chars_min">Şifre (en az 8 karakter)</string>
+	<string name="invalid_username_or_password">Geçersiz Kullanıcı Adı veya Şifre.</string>
+	<string name="login">Oturum aç</string>
+	<string name="password">Şifre</string>
+	<string name="forgot_password">Şifreni mi unuttun?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Şifreyi yenile</string>
+	<string name="enter_email_address_to_reset_password">Kayıt sırasında kullandığınız e-posta adresini girin ve şifrenizi yenileyeceğiniz bağlantıyı gönderelim.</string>
+	<string name="reset_password">Parolayı sıfırla</string>
+	<string name="username">Kullanıcı Adı</string>
+	<string name="osm_account">OSM Hesabı</string>
+	<string name="logout">Oturumu kapat</string>
+	<string name="login_and_edit_map_motivation_message">Oturum aç ve haritada nesne bilgilerini düzenleyip diğer milyonlarca kullanıcıya aç. Birlikte dünyayı daha iyi bir yer haline getirelim.</string>
+	<string name="not_sent">Gönderilmedi</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Son yükleme</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">değişiklik</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">İlk nesneni düzenledin!</string>
+	<string name="thank_you">Teşekkür ederiz</string>
+	<string name="login_with_google">Google ile giriş</string>
+	<string name="login_with_facebook">Facebook ile giriş</string>
+	<string name="login_with_openstreetmap">www.openstreetmap.org adresinden oturum aç</string>
+	<string name="edit_place">Yeri düzenle</string>
+	<string name="place_name">Yer ismi</string>
+	<string name="place_name_caption">İşaret veya tabeladaki gibi ismi girin</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Diğer Diller</string>
+	<string name="add_language">Bir dil ekle</string>
+	<string name="street">Sokak</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Bina</string>
+	<string name="details">Detaylar</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Bir sokak ekle</string>
+	<string name="choose_language">Bir dil seç</string>
+	<string name="choose_street">Bir sokak seç</string>
+	<string name="postal_code">Posta kodu</string>
+	<string name="cuisine">Mutfak</string>
+	<string name="select_cuisine">Mutfak Seç</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-posta veya kullanıcı adı</string>
+	<string name="phone">Telefon</string>
+	<string name="please_note">Lütfen dikkat</string>
+	<string name="common_no_wifi_dialog">WiFi bağlantısı yok. Mobil veri ile devam etmek istiyor musunuz?</string>
+	<string name="downloader_delete_map_dialog">Harita ile birlikte tüm harita değişiklikleri de silinecektir.</string>
+	<string name="downloader_update_maps">Haritaları güncelle</string>
+	<string name="downloader_mwm_migration_dialog">Bir rota oluşturmak için tüm haritaları güncellemeli ve ardından rotayı tekrar planlamalısınız.</string>
+	<string name="downloader_search_field_hint">Harita bul</string>
+	<string name="migration_update_all_button">Haritaları güncelle</string>
+	<string name="migration_delete_all_download_current_button">Mevcut haritayı indir ve tüm eski haritaları sil</string>
+	<string name="migration_prefetch_status">Harita güncellemesi hazırlanıyor…</string>
+	<string name="migration_download_error_dialog">İndirme hatası</string>
+	<string name="common_check_internet_connection_dialog">Lütfen ayarlarınızı kontrol edin ve cihazınızın internete bağlı olduğundan emin olun.</string>
+	<string name="downloader_no_space_title">Yeterli alan yok</string>
+	<string name="downloader_no_space_message">Lütfen gereksiz verileri silin</string>
+	<string name="editor_general_auth_error_dialog">Genel giriş hatası.</string>
+	<string name="editor_login_error_dialog">Giriş hatası</string>
+	<string name="editor_login_failed_dialog">Giriş başarısız</string>
+	<string name="editor_username_error_dialog">Kullanıcı adı geçersiz</string>
+	<string name="editor_place_edited_dialog">Bir objeyi düzenlediniz\&#39;!</string>
+	<string name="editor_login_with_osm">OpenStreetMap ile giriş yapın</string>
+	<string name="editor_profile_changes">Değişiklikler:</string>
+	<string name="editor_profile_unsent_changes">Gönderilmedi:</string>
+	<string name="editor_focus_map_on_location">Objenin doğru konumunu seçmek için haritayı çekin.</string>
+	<string name="editor_add_select_category">Kategori seç</string>
+	<string name="editor_add_select_category_popular_subtitle">Popüler</string>
+	<string name="editor_add_select_category_all_subtitle">Tüm kategoriler</string>
+	<string name="editor_edit_place_title">Düzenleme</string>
+	<string name="editor_add_place_title">Ekleme</string>
+	<string name="editor_edit_place_name_hint">Yerin ismi</string>
+	<string name="editor_edit_place_category_title">Kategori</string>
+	<string name="detailed_problem_description">Sorunun ayrıntılı açıklaması</string>
+	<string name="editor_report_problem_other_title">Farklı bir problem</string>
+	<string name="placepage_add_place_button">Bir yer ekle</string>
+	<string name="placepage_report_problem_button">Bir problem bildirin</string>
+	<string name="whatsnew_smallmwm_header">Siz istediniz biz yaptık</string>
+	<string name="whatsnew_smallmwm_message">Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz.</string>
+	<string name="whatsnew_search_header">Yeni arama</string>
+	<string name="whatsnew_search_message">Adres ile aramayı önemli ölçüde geliştirdik. Kendiniz görün.</string>
+	<string name="whatsnew_editor_title">Haritayı düzenleyin*</string>
+	<string name="whatsnew_editor_message_1">Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME, OpenStreetMap topluluğu verilerini kullanmaktadır.</string>
+	<string name="onboarding_offline_navigation_title">Bir daha asla kaybolmayacaksınız</string>
+	<string name="onboarding_offline_navigation_message">En iyi araba ve yaya rotalarını planlayın, hatta internet bağlantısı olmadığında bile!</string>
+	<string name="onboarding_offline_navigation_title_2">Farklı bir problem</string>
+	<string name="onboarding_offline_navigation_message_2">En iyi araba ve yaya rotalarını planlayın.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — dünya genelinde haritaya internetsiz erişim</string>
+	<string name="onboarding_offline_maps_message">İlk önce istenilen alanın haritasını indirin ve internet bağlantısı olmadan navigasyonu ve arama fonksiyonlarını kullanın.</string>
+	<string name="onboarding_notifications_message">En son haritaları almak için güncelleme bildirimlerini alın</string>
+	<string name="onboarding_notifications_title">Güncelleme bildirimlerini etkinleştir</string>
+	<string name="onboarding_location_title">Sizi bulmamıza yardım edin</string>
+	<string name="onboarding_location_message">Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.</string>
+	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
+	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
 </resources>

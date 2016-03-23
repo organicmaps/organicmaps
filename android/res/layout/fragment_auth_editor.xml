@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    style="@style/MwmWidget.ToolbarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?colorPrimary"
+    android:gravity="end|center_vertical"
+    android:theme="@style/MwmWidget.ToolbarTheme"
+    tools:ignore="UnusedAttribute">
+
+    <ImageView
+      android:id="@+id/logout"
+      android:layout_width="?actionBarSize"
+      android:layout_height="?actionBarSize"
+      android:layout_gravity="end|center_vertical"
+      android:background="?selectableItemBackgroundBorderless"
+      android:scaleType="center"
+      android:src="@drawable/ic_logout"
+      android:visibility="gone"/>
+
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorPrimary"
+    android:fillViewport="true"
+    tools:ignore="DuplicateIds">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_base"
+      tools:ignore="ScrollViewSize">
+
+      <LinearLayout
+        android:id="@+id/block_edits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include
+          android:id="@+id/local_edits"
+          layout="@layout/item_osm_edits"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/margin_half"/>
+
+        <include
+          android:id="@+id/sent_edits"
+          layout="@layout/item_osm_edits"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/margin_half"/>
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/block_auth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+          android:id="@+id/first_osm_edit"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/margin_base"
+          android:padding="@dimen/margin_half"
+          android:text="@string/you_have_edited_your_first_object"
+          android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
+
+        <Button
+          android:id="@+id/login_google"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/editor_auth_btn_height"
+          android:layout_marginBottom="@dimen/margin_half_plus"
+          android:background="?buttonLight"
+          android:drawableLeft="@drawable/ic_login_google"
+          android:drawableStart="@drawable/ic_login_google"
+          android:fontFamily="@string/robotoMedium"
+          android:paddingEnd="@dimen/margin_half"
+          android:paddingLeft="@dimen/margin_half"
+          android:paddingRight="@dimen/margin_half"
+          android:paddingStart="@dimen/margin_half"
+          android:text="@string/login_with_google"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body1"
+          tools:targetApi="jelly_bean"/>
+
+        <Button
+          android:id="@+id/login_facebook"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/editor_auth_btn_height"
+          android:layout_marginBottom="@dimen/margin_half_plus"
+          android:background="@color/bg_editor_login_fb"
+          android:drawableLeft="@drawable/ic_login_fb"
+          android:drawableStart="@drawable/ic_login_fb"
+          android:fontFamily="@string/robotoMedium"
+          android:paddingEnd="@dimen/margin_half"
+          android:paddingLeft="@dimen/margin_half"
+          android:paddingRight="@dimen/margin_half"
+          android:paddingStart="@dimen/margin_half"
+          android:text="@string/login_with_facebook"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"
+          tools:targetApi="jelly_bean"/>
+
+        <Button
+          android:id="@+id/login_osm"
+          style="@style/MwmWidget.Button.Accent"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/editor_auth_btn_height"
+          android:fontFamily="@string/robotoMedium"
+          android:text="@string/login_with_openstreetmap"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"
+          tools:targetApi="jelly_bean"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_double"
+          android:padding="@dimen/margin_half"
+          android:text="@string/no_osm_account"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body3.Light"/>
+
+        <TextView
+          android:id="@+id/register"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_half"
+          android:background="?clickableBackground"
+          android:padding="@dimen/margin_half"
+          android:text="@string/register_at_openstreetmap"
+          android:textAllCaps="true"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </ScrollView>
+
+</LinearLayout>

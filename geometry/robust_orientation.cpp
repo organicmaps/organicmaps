@@ -38,6 +38,30 @@ namespace m2 { namespace robust
     return orient2d(a, b, c);
   }
 
+  bool IsSegmentInCone(PointD const & v, PointD const & v1,
+                       PointD const & vPrev, PointD const & vNext)
+  {
+    double const cpLR = OrientedS(vPrev, vNext, v);
+
+    if (cpLR == 0.0)
+    {
+      // Points vPrev, v, vNext placed on one line;
+      // use property that polygon has CCW orientation.
+      return OrientedS(vPrev, vNext, v1) > 0.0;
+    }
+
+    if (cpLR < 0.0)
+    {
+      // vertex is concave
+      return OrientedS(v, vPrev, v1) < 0.0 && OrientedS(v, vNext, v1) > 0.0;
+    }
+    else
+    {
+      // vertex is convex
+      return OrientedS(v, vPrev, v1) < 0.0 || OrientedS(v, vNext, v1) > 0.0;
+    }
+  }
+
   bool SegmentsIntersect(PointD const & a, PointD const & b,
                          PointD const & c, PointD const & d)
   {

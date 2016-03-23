@@ -61,7 +61,7 @@
   <FrameLayout
     android:layout_width="@dimen/menu_line_button_width_edge"
     android:layout_height="match_parent"
-    android:layout_gravity="right">
+    android:layout_gravity="end">
     <include layout="@layout/menu_news_marker"/>
   </FrameLayout>
 </FrameLayout>

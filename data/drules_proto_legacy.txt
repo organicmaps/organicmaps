@@ -4861,122 +4861,6 @@ cont {
   }
 }
 cont {
-  name: "amenity-restaurant-vegan"
-  element {
-    scale: 16
-    symbol {
-      name: "restaurant"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-}
-cont {
-  name: "amenity-restaurant-vegetarian"
-  element {
-    scale: 16
-    symbol {
-      name: "restaurant"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "restaurant"
-      priority: 16003
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4210752
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15003
-    }
-  }
-}
-cont {
   name: "amenity-school"
   element {
     scale: 13
@@ -8805,6 +8689,96 @@ cont {
       primary {
         height: 11
         color: 4210752
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "building-train_station"
+  element {
+    scale: 15
+    area {
+      color: 13487540
+      priority: 1001
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 13487540
+      priority: 1001
+    }
+    caption {
+      primary {
+        height: 10
+        color: 8421488
+      }
+      secondary {
+        height: 11
+        color: 8421488
+        offset_y: 20
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 13487540
+      priority: 1001
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+      }
+      secondary {
+        height: 11
+        color: 4210752
+        offset_y: 20
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 13487540
+      priority: 1001
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+      }
+      secondary {
+        height: 11
+        color: 4210752
+        offset_y: 20
+        text: "int_name"
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 13487540
+      priority: 1001
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4210752
+      }
+      secondary {
+        height: 11
+        color: 4210752
+        offset_y: 20
+        text: "int_name"
       }
       priority: 15000
     }

@@ -99,7 +99,7 @@ public class LocationPredictor
 
       final long elapsedMillis = info.getTime() - mLastLocation.getTime();
 
-      double[] newLatLon = Framework.predictLocation(info.getLatitude(), info.getLongitude(),
+      double[] newLatLon = Framework.nativePredictLocation(info.getLatitude(), info.getLongitude(),
               info.getAccuracy(), info.getBearing(),
               info.getSpeed(), elapsedMillis / 1000.0);
       info.setLatitude(newLatLon[0]);

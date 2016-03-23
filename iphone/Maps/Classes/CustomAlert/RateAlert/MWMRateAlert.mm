@@ -53,7 +53,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
   if (!self.rateButton.enabled)
   {
     self.rateButton.enabled = YES;
-    auto color = UIColor.buttonEnabledBlueText;
+    auto color = UIColor.linkBlue;
     self.rateButton.layer.borderColor = color.CGColor;
     [self.rateButton setTitleColor:color forState:UIControlStateNormal];
   }

@@ -30,7 +30,8 @@ class IRouter
 public:
   /// Routing possible statuses enumeration.
   /// \warning  this enum has JNI mirror!
-  /// \see android/src/com/mapswithme/maps/data/RoutingResultCodesProcessor.java
+  /// \see android/src/com/mapswithme/maps/routing/ResultCodesHelper.java
+  // TODO(gardster): Please check what items become obsolete now
   enum ResultCode // TODO(mgsergio) enum class
   {
     NoError = 0,

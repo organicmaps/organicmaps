@@ -47,14 +47,14 @@ class Settings
   /// \brief m_distancesToPronounce is a list of distances in m_lengthUnits
   ///  which are ready to be pronounced.
   vector<uint32_t> m_soundedDistancesUnits;
-  ::Settings::Units m_lengthUnits;
+  ::settings::Units m_lengthUnits;
 
   // This constructor is for testing only.
   Settings(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
            uint32_t maxNotificationDistanceUnits, uint32_t startBeforeSeconds,
            uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters,
            uint32_t minDistToSayNotificationMeters, vector<uint32_t> const & soundedDistancesUnits,
-           ::Settings::Units lengthUnits)
+           ::settings::Units lengthUnits)
     : m_timeSeconds(notificationTimeSeconds)
     , m_minDistanceUnits(minNotificationDistanceUnits)
     , m_maxDistanceUnits(maxNotificationDistanceUnits)
@@ -78,13 +78,13 @@ public:
     , m_minStartBeforeMeters(minStartBeforeMeters)
     , m_maxStartBeforeMeters(maxStartBeforeMeters)
     , m_minDistToSayNotificationMeters(minDistToSayNotificationMeters)
-    , m_lengthUnits(::Settings::Metric)
+    , m_lengthUnits(::settings::Metric)
   {
   }
 
   void SetState(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
                 uint32_t maxNotificationDistanceUnits,
-                vector<uint32_t> const & soundedDistancesUnits, ::Settings::Units lengthUnits);
+                vector<uint32_t> const & soundedDistancesUnits, ::settings::Units lengthUnits);
 
   /// \brief IsValid checks if Settings data is consistent.
   /// \warning The complexity is up to linear in size of m_soundedDistancesUnits.
@@ -112,8 +112,8 @@ public:
   /// The result will be one of the m_soundedDistancesUnits values.
   uint32_t RoundByPresetSoundedDistancesUnits(uint32_t turnNotificationUnits) const;
 
-  inline ::Settings::Units GetLengthUnits() const { return m_lengthUnits; }
-  inline void SetLengthUnits(::Settings::Units units) { m_lengthUnits = units; }
+  inline ::settings::Units GetLengthUnits() const { return m_lengthUnits; }
+  inline void SetLengthUnits(::settings::Units units) { m_lengthUnits = units; }
   double ConvertMetersPerSecondToUnitsPerSecond(double speedInMetersPerSecond) const;
   double ConvertUnitsToMeters(double distanceInUnits) const;
   double ConvertMetersToUnits(double distanceInMeters) const;
@@ -133,10 +133,10 @@ struct Notification
   /// The word "Then" shall be pronounced intead of the distance.
   bool m_useThenInsteadOfDistance;
   TurnDirection m_turnDir;
-  ::Settings::Units m_lengthUnits;
+  ::settings::Units m_lengthUnits;
 
   Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-               TurnDirection turnDir, ::Settings::Units lengthUnits)
+               TurnDirection turnDir, ::settings::Units lengthUnits)
       : m_distanceUnits(distanceUnits),
         m_exitNum(exitNum),
         m_useThenInsteadOfDistance(useThenInsteadOfDistance),

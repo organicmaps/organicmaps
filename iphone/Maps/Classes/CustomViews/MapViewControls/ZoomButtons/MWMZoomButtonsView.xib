@@ -16,14 +16,14 @@
             <rect key="frame" x="0.0" y="0.0" width="56" height="116"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NO3-Xl-Oka" userLabel="ZoomIn">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NO3-Xl-Oka" userLabel="ZoomIn" customClass="MWMButton">
                     <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="btn_zoom_in_light">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="mwm_name" value="btn_zoom_in"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="imageName" value="btn_zoom_in"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="zoomTouchDown:" destination="-1" eventType="touchDown" id="5VF-m8-Lwc"/>
@@ -31,14 +31,14 @@
                         <action selector="zoomTouchUpOutside:" destination="-1" eventType="touchUpOutside" id="w6V-A2-cZM"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hwn-8L-cFX" userLabel="ZoomOut">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hwn-8L-cFX" userLabel="ZoomOut" customClass="MWMButton">
                     <rect key="frame" x="0.0" y="60" width="56" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="btn_zoom_out_light">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="mwm_name" value="btn_zoom_out"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="imageName" value="btn_zoom_out"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="zoomTouchDown:" destination="-1" eventType="touchDown" id="o4X-Kp-9ka"/>

@@ -41,12 +41,12 @@ namespace
   class InitializeFinalize : public FinalizeBase
   {
     FILE * m_errFile;
+    my::ScopedLogLevelChanger const m_debugLog;
   public:
-    InitializeFinalize()
+    InitializeFinalize() : m_debugLog(LDEBUG)
     {
       // App runs without error console under win32.
       m_errFile = ::freopen(".\\mapsme.log", "w", stderr);
-      my::g_LogLevel = my::LDEBUG;
 
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -83,7 +83,7 @@ int main(int argc, char * argv[])
   // display EULA if needed
   char const * settingsEULA = "EulaAccepted";
   bool eulaAccepted = false;
-  if (!Settings::Get(settingsEULA, eulaAccepted) || !eulaAccepted)
+  if (!settings::Get(settingsEULA, eulaAccepted) || !eulaAccepted)
   {
     QStringList buttons;
     buttons << "Accept" << "Decline";
@@ -95,7 +95,7 @@ int main(int argc, char * argv[])
     }
     qt::InfoDialog eulaDialog("MAPS.ME End User Licensing Agreement", buffer.c_str(), NULL, buttons);
     eulaAccepted = (eulaDialog.exec() == 1);
-    Settings::Set(settingsEULA, eulaAccepted);
+    settings::Set(settingsEULA, eulaAccepted);
   }
 
   int returnCode = -1;

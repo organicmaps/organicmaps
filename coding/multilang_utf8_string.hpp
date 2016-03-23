@@ -9,24 +9,24 @@
 
 namespace utils
 {
-  template <class TSink> void WriteString(TSink & sink, string const & s)
-  {
-    CHECK(!s.empty(), ());
+template <class TSink> void WriteString(TSink & sink, string const & s)
+{
+  CHECK(!s.empty(), ());
 
-    size_t const sz = s.size();
-    WriteVarUint(sink, static_cast<uint32_t>(sz-1));
-    sink.Write(s.c_str(), sz);
-  }
-
-  template <class TSource> void ReadString(TSource & src, string & s)
-  {
-    uint32_t const sz = ReadVarUint<uint32_t>(src) + 1;
-    s.resize(sz);
-    src.Read(&s[0], sz);
-
-    CHECK(!s.empty(), ());
-  }
+  size_t const sz = s.size();
+  WriteVarUint(sink, static_cast<uint32_t>(sz - 1));
+  sink.Write(s.c_str(), sz);
 }
+
+template <class TSource> void ReadString(TSource & src, string & s)
+{
+  uint32_t const sz = ReadVarUint<uint32_t>(src) + 1;
+  s.resize(sz);
+  src.Read(&s[0], sz);
+
+  CHECK(!s.empty(), ());
+}
+}  // namespace utils
 
 class StringUtf8Multilang
 {
@@ -35,17 +35,39 @@ class StringUtf8Multilang
   size_t GetNextIndex(size_t i) const;
 
 public:
-  static int8_t const UNSUPPORTED_LANGUAGE_CODE = -1;
-  static int8_t const DEFAULT_CODE = 0;
+  static int8_t constexpr kUnsupportedLanguageCode = -1;
+  static int8_t constexpr kDefaultCode = 0;
+  static int8_t constexpr kInternationalCode = 7;
+  /// How many languages we support on indexing stage. See full list in cpp file.
+  /// TODO(AlexZ): Review and replace invalid languages by valid ones.
+  static int8_t constexpr kMaxSupportedLanguages = 64;
 
-  /// @return UNSUPPORTED_LANGUAGE_CODE if language is not recognized
+  struct Lang
+  {
+    /// OSM language code (e.g. for name:en it's "en" part).
+    char const * m_code;
+    /// Native language name.
+    char const * m_name;
+  };
+  using Languages = array<Lang, kMaxSupportedLanguages>;
+
+  static Languages const & GetSupportedLanguages();
+
+  /// @returns kUnsupportedLanguageCode if language is not recognized.
   static int8_t GetLangIndex(string const & lang);
-  /// @return empty string if langCode is invalid
+  /// @returns empty string if langCode is invalid.
   static char const * GetLangByCode(int8_t langCode);
+  /// @returns empty string if langCode is invalid.
+  static char const * GetLangNameByCode(int8_t langCode);
 
   inline bool operator== (StringUtf8Multilang const & rhs) const
   {
     return (m_s == rhs.m_s);
+  }
+
+  inline bool operator!= (StringUtf8Multilang const & rhs) const
+  {
+    return !(*this == rhs);
   }
 
   inline void Clear() { m_s.clear(); }
@@ -60,14 +82,14 @@ public:
   }
 
   template <class T>
-  void ForEachRef(T & functor) const
+  void ForEach(T && fn) const
   {
     size_t i = 0;
     size_t const sz = m_s.size();
     while (i < sz)
     {
       size_t const next = GetNextIndex(i);
-      if (!functor((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)))
+      if (!fn((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)))
         return;
       i = next;
     }

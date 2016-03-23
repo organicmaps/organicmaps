@@ -119,7 +119,7 @@ public class ParsedMwmRequest
   {
     if (hasPendingIntent())
     {
-      mZoomLevel = Framework.getDrawScale();
+      mZoomLevel = Framework.nativeGetDrawScale();
       final Intent i = new Intent();
       if (success)
       {

@@ -54,17 +54,17 @@ extern string const kLanguageKey = "Language";
       _countryCode = [[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] uppercaseString];
 
     std::string codeString;
-    if (Settings::Get(kCountryCodeKey, codeString)) // if country code stored in settings
+    if (settings::Get(kCountryCodeKey, codeString)) // if country code stored in settings
     {
       if (carrier.isoCountryCode) // if device can access sim card info
-        Settings::Set(kCountryCodeKey, std::string([_countryCode UTF8String])); // then save new code instead
+        settings::Set(kCountryCodeKey, std::string([_countryCode UTF8String])); // then save new code instead
       else
         _countryCode = @(codeString.c_str()); // if device can NOT access sim card info then using saved code
     }
     else
     {
       if (_countryCode)
-        Settings::Set(kCountryCodeKey, std::string([_countryCode UTF8String])); // saving code first time
+        settings::Set(kCountryCodeKey, std::string([_countryCode UTF8String])); // saving code first time
       else
         _countryCode = @"";
     }
@@ -77,7 +77,7 @@ extern string const kLanguageKey = "Language";
   if (!_uniqueId)
   {
     string uniqueString;
-    if (Settings::Get(kUniqueIdKey, uniqueString)) // if id stored in settings
+    if (settings::Get(kUniqueIdKey, uniqueString)) // if id stored in settings
     {
       _uniqueId = @(uniqueString.c_str());
     }
@@ -85,7 +85,7 @@ extern string const kLanguageKey = "Language";
     {
       _uniqueId = [[UIDevice currentDevice].identifierForVendor UUIDString];
       if (_uniqueId) // then saving in settings
-        Settings::Set(kUniqueIdKey, std::string([_uniqueId UTF8String]));
+        settings::Set(kUniqueIdKey, std::string([_uniqueId UTF8String]));
     }
   }
   return _uniqueId;

@@ -14,8 +14,6 @@
 	<string name="cancel_download">ยกเลิกการดาวน์โหลด</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">ลบ</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">ลบแผนที่เก่าและดำเนินการต่อไป</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">อย่าถามฉันอีก</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -52,8 +50,6 @@
 	<string name="miles">ไมล์</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">ตำแหน่งของฉัน</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">ไม่สามารถตรวจพบการเชื่อมต่ออินเทอร์เน็ต</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">ไม่สามารถตรวจพบการเชื่อมต่อ WiFi คุณต้องการใช้ข้อมูลโทรศัพท์มือถือ (GPRS, EDGE, 3G หรือ LTE) เพื่อดาวน์โหลด %s?</string>
 	<string name="ok">ตกลง</string>
@@ -73,8 +69,6 @@
 	<string name="search">ค้นหา</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">ค้นหาแผนที่</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">มีพื้นที่ว่างในดิสก์ไม่เพียงพอ</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">แตะเพื่อดาวน์โหลด</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -95,10 +89,12 @@
 	<string name="country_status_downloading">กำลังดาวน์โหลด\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">ดาวน์โหลดแผนที่\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">ดาวน์โหลดแผนที่</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">การดาวน์โหลด\n^\nล้มเหลว</string>
+	<string name="country_status_download_failed">การดาวน์โหลดล้มเหลว</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">ลองอีกครั้ง</string>
 	<string name="about_menu_title">เกี่ยวกับ MAPS.ME</string>
@@ -114,8 +110,7 @@
 	<string name="not_enough_free_space_on_sdcard">โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป</string>
 	<string name="not_enough_memory">มีหน่วยความจำไม่เพียงพอสำหรับการเปิดแอป</string>
 	<string name="free_space_for_country">โปรดเพิ่ม %1$s บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %1$.1f%2$s ของข้อมูล</string>
+	<string name="download_resources">ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %s ของข้อมูล</string>
 	<string name="getting_position">กำลังรับตำแหน่งปัจจุบัน</string>
 	<string name="download_resources_continue">ไปยังแผนที่</string>
 	<string name="downloading_country_can_proceed">กำลังดาวน์โหลด %s ตอนนี้คุณสามารถ\nดำเนินการต่อไปยังแผนที่</string>
@@ -163,7 +158,7 @@
 	<string name="my_places">สถานที่ของฉัน</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">ชื่อ</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">ที่อยู่</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">ลบหมุด</string>
@@ -274,7 +269,7 @@
 	<string name="share">แชร์</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">ข้อความ</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">อีเมล</string>
 	<!-- Copy Link -->
 	<string name="copy_link">คัดลอกลิงก์</string>
@@ -384,6 +379,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">การตั้งค่า &amp; อื่น ๆ</string>
 	<!-- Text in menu -->
+	<string name="website">เว็บไซต์</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">ชุมชน MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">ถูกใจบน Facebook</string>
@@ -420,17 +417,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">เวอร์ชันใหม่ของ MAPS.ME อนุญาติให้สร้างเส้นทางจากตำแหน่งปัจจุบันของคุณไปยังจุดปลายทาง โปรดอัปเดตแผนเพื่อใช้ฟีเจอร์นี้</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">อัปเดตทั้งหมด</string>
+	<string name="downloader_update_all_button">อัปเดตทั้งหมด</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">ยกเลิกทั้งหมด</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">ดาวน์โหลดเสร็จ</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">แผนที่ที่ดาวน์โหลดลงมา</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">แผนที่ของฉัน</string>
+	<string name="downloader_downloaded_subtitle">ดาวน์โหลดแล้ว</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ต่อแถว</string>
+	<string name="downloader_near_me_subtitle">ใกล้ฉัน</string>
+	<string name="downloader_status_maps">แผนที่</string>
+	<string name="downloader_download_all_button">ดาวน์โหลดทั้งหมด</string>
+	<string name="downloader_downloading">กำลังดาวน์โหลด:</string>
+	<string name="downloader_search_results">พบ</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">การสร้างเส้นทางในแอป MAPS.ME มีสิ่งที่ควรทราบดังต่อไปนี้:\n\n  - พึงพิจารณาเส้นทางที่แนะนำไว้ในฐานะที่เป็นการแนะนำเท่านั้น\n - สภาพถนน กฎจราจรและป้ายมีความสำคัญมากกว่าคำแนะนำในการนำทาง\n - แผนที่อาจไม่ถูกต้องหรือล้าสมัย และอาจไม่ได้มีการสร้างเส้นทางในรูปแบบพอจะเป็นไปได้ที่ดีที่สุด\n\n  ขอให้ปลอดภัยบนท้องถนนและดูแลตัวคุณเองด้วย!</string>
 	<!-- Outdated maps category -->
@@ -441,6 +439,8 @@
 	<string name="downloader_status_outdated">ปรับปรุง</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">ล้มเหลว</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">เพื่อลบแผนที่ โปรดหยุดใช้การนำทาง</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -481,7 +481,7 @@
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">เมนูของแอปพลิเคชัน</string>
 	<!-- Preference text -->
-	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ </string>
+	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">ฉันเพิ่งให้คะแนนแอปของคุณ</string>
 	<!-- Text for rating dialog -->
@@ -516,186 +516,6 @@
 	<string name="routing_download_more_than_avail">คุณจำเป็นต้องดาวน์โหลด %1$s MB แต่สามารถใช้ได้เพียง %2$s MB เท่านั้น</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">คุณกำลังจะดาวน์โหลด %s MB โดยการใช้ข้อมูลโทรศัพท์มือถือ (ในการใช้งานข้ามเขต) นี่อาจส่งผลในการคิดค่าบริการเพิ่มเติมโดยขึ้นอยู่กับแผนการใช้ข้อมูลโทรศัพท์มือถือของผู้ให้บริการของคุณ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">อาหารพื้นเมือง</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">พิซซ่า</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">เบอร์เกอร์</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">อาหารอิตาเลียน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">อาหารจีน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">ร้านกาแฟ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">แซนด์วิช</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">อาหารเยอรมัน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">อาหารญี่ปุ่น</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">เคบับ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">อาหารเม็กซิกัน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">อาหารอินเดีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">อาหารอเมริกัน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">อาหารฝรั่งเศส</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">ไอศกรีม</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">อาหารเอเชีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">ไก่</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">อาหารกรีก</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">อาหารไทย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">อาหารนานาชาติ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">ซูชิ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">ปลาและมันฝรั่งทอด</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">ตุรกีอาหารตุรกี</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">อาหารทะเล</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">ร้านสเต๊ก</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">อาหารสเปน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">ปลา</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">อาหารเวียดนาม</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">บะหมี่</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">อาหารมังสวิรัติ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">อาหารเกาหลี</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">ปลาเล็กปลาน้อย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">บาร์บีคิว</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">อาหารบาวาเรีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">ราเม็ง</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">อาหารอิตาเลียน; พิซซ่า</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">อาหารเมดิเตอร์เรเนียน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">โดนัท</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">ชามเนื้อวัว</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">เค้ก</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">เครป</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">โรงเหล้า</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">อาหารเลบานอน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">สเต๊ก</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">อาหารท้องถิ่น</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">กะหรี่</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">อาหารฟิลิปปินส์</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">อาหารรัสเซีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">อาหารเช้า</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">ทาปาส</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">บาร์บีคิว</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">เบเกิล</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">พาสต้า</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">โรงเหล้า</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">ไส้กรอก</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">อาหารโปรตุเกส</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">ย่าง</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">แพนเค้ก</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">มาดากัสการ์</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">อาหารโปแลนด์</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">ร้านอาหาร</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">อาหารแอฟริกัน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">โดนัท</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">อาหารจอร์เจีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">อาหารโครเอเชีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">อาหารอาหรับ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">อาหารบอลข่าน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">อาหารบราซิล</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">อาหารแคริบเบียน</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">อาหารออสเตรีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">อาหารมังสวิรัติ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">อาหารอาเจนติน่า</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">อาหารเปอร์เซีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">โซบะ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">อาหารมาเลเซีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">อาหารอินโดนีเซีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">อาหารเอธิโอเปีย</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">อาหารพิเศษ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">อาหารไอริช</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">อาหารฮังการี</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">อาหารลาว</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">กาแฟ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">ฮอทดอก</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">อาหารโอเรียนทอล</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">แพนเค้กแบบเค็ม</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">อาหารโมร็อกโก</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">บาร์บีคิว</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">อาหารเปรู</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">อาหารหรูหรา</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">ชา</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">บุ๊กมาร์ก</string>
 	<!-- map is not downloaded -->
@@ -773,7 +593,7 @@
 	<string name="dialog_routing_if_get_cross_route">คุณต้องการสร้างเส้นทางที่อ้อมน้อยลงซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
 	<string name="dialog_routing_cross_route_is_optimal">มีเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้</string>
 	<string name="dialog_routing_always_cross_that_border">ข้ามขอบเขตนี้เสมอ</string>
-	<string name="dialog_routing_not_now">ไว้คราวหลัง</string>
+	<string name="not_now">ไว้คราวหลัง</string>
 	<string name="dialog_routing_build_route">สร้าง</string>
 	<string name="dialog_routing_download_and_build_cross_route">คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?</string>
 	<string name="dialog_routing_download_cross_route">ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้</string>
@@ -783,7 +603,6 @@
 	<string name="search_without_internet_advertisement">เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป</string>
 	<string name="search_select_map">เลือกแผนที่</string>
 	<string name="search_select_other_map">เลือกแผนที่อื่น</string>
-	<string name="search_vehicle_routes">เส้นทางการขับรถ</string>
 	<!-- «Show» context menu -->
 	<string name="show">แสดง</string>
 	<!-- «Hide» context menu -->
@@ -829,6 +648,148 @@
 	<string name="p2p_only_from_current">สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น</string>
 	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
 	<string name="whats_new_next_button">ถัดไป</string>
-	<string name="whats_new_night_caption">การนำทางในโหมดกลางคืน</string>
-	<string name="whats_new_night_body">เราได้เพิ่มโหมดกลางคืนเพื่อส่งเสริมการใช้ MAPS.ME เมื่อคุณกำลังขับรถในสภาพมืด จะมีการเปิดใช้โหมดนี้โดยอัตโนมัติหลังจากพระอาทิตย์ตก</string>
+	<string name="editor_time_add">เพิ่มวัน</string>
+	<string name="editor_time_delete">ลบวัน</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">ตลอดวัน (24 ชั่วโมง)</string>
+	<string name="editor_time_open">เปิด</string>
+	<string name="editor_time_close">ปิด</string>
+	<string name="editor_time_add_closed">เพิ่มเวลาที่ปิดทำการเพิ่มเติม</string>
+	<string name="editor_time_title">วันเวลาทำการ</string>
+	<string name="editor_time_advanced">โหมดขั้นสูง</string>
+	<string name="editor_time_simple">โหมดแบบง่าย</string>
+	<string name="editor_hours_closed">ปิดเวลา</string>
+	<string name="editor_example_values">ตัวอย่างของค่าที่ตั้งไว้</string>
+	<string name="editor_correct_mistake">แก้ไขข้อผิดพลาด</string>
+	<string name="editor_correct_mistake_message">มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย</string>
+	<string name="editor_add_select_location">ตำแหน่ง</string>
+	<string name="editor_done_dialog_1">คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน</string>
+	<string name="editor_done_dialog_2">มันเป็นการปรับปรุงแผนที่ครั้งที่สองของคุณ ตอนนี้คุณอยู่ในอันดับที่ %d ของรายการผู้แก้ไขแผนที่ บอกให้เพื่อนคุณรู้</string>
+	<string name="editor_done_dialog_3">คุณได้ปรับปรุงแผนที่ บอกให้เพื่อนคุณรู้ แล้วมาแก้ไขแผนที่ไปด้วยกัน</string>
+	<string name="share_with_friends">แชร์กับเพื่อน</string>
+	<string name="editor_report_problem_desription_1">กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreeMap จะสามารถแก้ไขข้อผิดพลาดได้</string>
+	<string name="editor_report_problem_desription_2">หรือทำด้วยตัวคุณเองที่ http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">ส่ง</string>
+	<string name="editor_report_problem_title">ปัญหา</string>
+	<string name="editor_report_problem_no_place_title">ไม่มีสถานที่นี้อยู่</string>
+	<string name="editor_report_problem_under_construction_title">ปิดปรับปรุง</string>
+	<string name="editor_report_problem_duplicate_place_title">สถานที่ซ้ำ</string>
+	<string name="first_launch_congrats_title">MAPS.ME พร้อมใช้งานแล้ว</string>
+	<string name="first_launch_congrats_text">ค้นหาและนำทางไปตามแผนที่ของทุกประเทศในโลกได้ฟรี</string>
+	<string name="migrate_title">สำคัญ!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">ดาวน์โหลดทั้งหมด</string>
+	<string name="delete_all">ลบทั้งหมด</string>
+	<string name="autodownload">ดาวน์โหลดอัตโนมัติ</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">ปิดตอนนี้</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">ทุกวัน</string>
+	<string name="twentyfour_seven">ทั้งกลางวันและกลางคืน</string>
+	<string name="day_off_today">ปิดในวันนี้</string>
+	<string name="day_off">วันปิด</string>
+	<string name="today">วันนี้</string>
+	<string name="sunrise_to_sunset">ตั้งแต่พระอาทิตย์ขึ้นจนพระอาทิตย์ตก</string>
+	<string name="sunset_to_sunrise">ตั้งแต่พระอาทิตย์ตกจนพระอาทิตย์ขึ้น</string>
+	<string name="add_opening_hours">เพิ่มชั่วโมงทำการ</string>
+	<string name="edit_opening_hours">แก้ไขชั่วโมงทำการ</string>
+	<string name="profile">โปรไฟล์</string>
+	<string name="no_osm_account">ไม่มีบัญชีใน OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">ลงทะเบียน</string>
+	<string name="password_8_chars_min">รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)</string>
+	<string name="invalid_username_or_password">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
+	<string name="login">ล็อกอิน</string>
+	<string name="password">รหัสผ่าน</string>
+	<string name="forgot_password">ลืมรหัสผ่าน?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">เรียกคืนรหัสผ่าน</string>
+	<string name="enter_email_address_to_reset_password">ใส่ที่อยู่อีเมลที่คุณใช้ระหว่างการลงทะเบียนแล้วเราจะส่งลิงก์ไปยังคุณเพื่อต่ออายุรหัสผ่านของคุณ</string>
+	<string name="reset_password">ตั้งรหัสผ่านใหม่</string>
+	<string name="username">ชื่อผู้ใช้</string>
+	<string name="osm_account">บัญชี OSM</string>
+	<string name="logout">ออกจากระบบ</string>
+	<string name="login_and_edit_map_motivation_message">ล็อกอินและแก้ไขข้อมูลวัตถุบนแผนที่ และเราจะทำให้มันสามารถใช้งานได้สำหรับผู้ใช้ท่านอื่น ๆ อีกนับล้าน มาช่วยกันทำให้โลกดียิ่งขึ้นร่วมกัน</string>
+	<string name="not_sent">ไม่มีการส่ง</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">อัปโหลดครั้งสุดท้าย</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">การเปลี่ยนแปลง</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">คุณได้แก้ไขวัตถุแรกของคุณ!</string>
+	<string name="thank_you">ขอบพระคุณ</string>
+	<string name="login_with_google">ล็อกอินด้วย Google</string>
+	<string name="login_with_facebook">ล็อกอินด้วย Facebook</string>
+	<string name="login_with_openstreetmap">ล็อกอินที่ www.openstreetmap.org</string>
+	<string name="edit_place">แก้ไขสถานที่</string>
+	<string name="place_name">ชื่อสถานที่</string>
+	<string name="place_name_caption">กรอกชื่อตามที่แสดงในสัญลักษณ์หรือป้ายแสดงชื่อ</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">ภาษาอื่น ๆ</string>
+	<string name="add_language">เพิ่มภาษา</string>
+	<string name="street">ถนน</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">อาคาร</string>
+	<string name="details">รายละเอียด</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">เพิ่มถนน</string>
+	<string name="choose_language">เลือกภาษา</string>
+	<string name="choose_street">เลือกถนน</string>
+	<string name="postal_code">รหัสไปรษณีย์</string>
+	<string name="cuisine">ประเภทอาหาร</string>
+	<string name="select_cuisine">เลือกประเภทอาหาร</string>
+	<!-- login text field -->
+	<string name="email_or_username">อีเมลหรือชื่อผู้ใช้</string>
+	<string name="phone">โทรศัพท์</string>
+	<string name="please_note">โปรดทราบ</string>
+	<string name="common_no_wifi_dialog">ไม่มีการเชื่อมต่อ WiFi คุณต้องการดำเนินการต่อโดยใช้ข้อมูลมือถือหรือไม่?</string>
+	<string name="downloader_delete_map_dialog">การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่</string>
+	<string name="downloader_update_maps">อัปเดตแผนที่</string>
+	<string name="downloader_mwm_migration_dialog">ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง</string>
+	<string name="downloader_search_field_hint">ค้นหาแผนที่</string>
+	<string name="migration_update_all_button">อัปเดตแผนที่ทั้งหมด</string>
+	<string name="migration_delete_all_download_current_button">ดาวน์โหลดแผนที่ปัจจุบันและลบแผนที่เก่า</string>
+	<string name="migration_prefetch_status">กำลังเตรียมการอัปเดตแผนที่…</string>
+	<string name="migration_download_error_dialog">ข้อผิดพลาดในการดาวน์โหลด</string>
+	<string name="common_check_internet_connection_dialog">กรุณาตรวจสอบการตั้งค่าของคุณแล้วทำให้แน่ใจว่าอุปกรณ์ของคุณได้รับการเชื่อมต่ออินเทอร์เน็ต</string>
+	<string name="downloader_no_space_title">มีพื้นที่ไม่เพียงพอ</string>
+	<string name="downloader_no_space_message">กรุณาลบข้อมูลที่ไม่จำเป็น</string>
+	<string name="editor_general_auth_error_dialog">ข้อผิดพลาดในการล็อกอินทั่วไป</string>
+	<string name="editor_login_error_dialog">ข้อผิดพลาดในการล็อกอิน</string>
+	<string name="editor_login_failed_dialog">การล็อกอินล้มเหลว</string>
+	<string name="editor_username_error_dialog">ชื่อผู้ใช้ไม่ถูกต้อง</string>
+	<string name="editor_place_edited_dialog">คุณได้แก้ไขวัตถุ!</string>
+	<string name="editor_login_with_osm">ล็อกอินด้วย OpenStreetMap</string>
+	<string name="editor_profile_changes">การเปลี่ยนแปลง:</string>
+	<string name="editor_profile_unsent_changes">ไม่ได้ส่ง:</string>
+	<string name="editor_focus_map_on_location">ดึงแผนที่เพื่อเลือกตำแหน่งวัตถุที่ถูกต้อง</string>
+	<string name="editor_add_select_category">เลือกหมวดหมู่</string>
+	<string name="editor_add_select_category_popular_subtitle">ยอดนิยม</string>
+	<string name="editor_add_select_category_all_subtitle">หมวดหมูทั้งหมด</string>
+	<string name="editor_edit_place_title">กำลังแก้ไข</string>
+	<string name="editor_add_place_title">กำลังเพิ่ม</string>
+	<string name="editor_edit_place_name_hint">ชื่อสถานที่</string>
+	<string name="editor_edit_place_category_title">หมวดหมู่</string>
+	<string name="detailed_problem_description">คำอธิบายปัญหาอย่างละเอียด</string>
+	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
+	<string name="placepage_add_place_button">เพิ่มสถานที่</string>
+	<string name="placepage_report_problem_button">แจ้งปัญหา</string>
+	<string name="whatsnew_smallmwm_header">คุณได้ขอมา เราจึงทำมัน</string>
+	<string name="whatsnew_smallmwm_message">เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว</string>
+	<string name="whatsnew_search_header">การค้นหาใหม่</string>
+	<string name="whatsnew_search_message">เราได้ปรับปรุงครั้งใหญ่สำหรับการค้นหาตามที่อยู่ ลองดูด้วยตัวเอง</string>
+	<string name="whatsnew_editor_title">แก้ไขแผนที่*</string>
+	<string name="whatsnew_editor_message_1">เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME ใช้ข้อมูลจากชุมชน OpenStreetMap</string>
+	<string name="onboarding_offline_navigation_title">คุณจะไม่หลงทางอีกต่อไป</string>
+	<string name="onboarding_offline_navigation_message">วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด แม้ว่าจะไม่มีการเชื่อมต่ออินเทอร์เน็ต!</string>
+	<string name="onboarding_offline_navigation_title_2">การนำทางออฟไลน์</string>
+	<string name="onboarding_offline_navigation_message_2">วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — เข้าถึงแผนที่ทั่วโลกโดยไม่ใช้อินเทอร์เน็ต</string>
+	<string name="onboarding_offline_maps_message">ดาวน์โหลดแผนที่สำหรับพื้นที่ที่ต้องการเพียงหนึ่งครั้ง แล้วใช้การฟังก์ชันการนำทางและการค้นหาโดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต</string>
+	<string name="onboarding_notifications_message">เพื่อรับแผนที่ล่าสุดและรับการแจ้งเตือนอัปเดต</string>
+	<string name="onboarding_notifications_title">เปิดการแจ้งเตือนการอัปเดต</string>
+	<string name="onboarding_location_title">ช่วยให้เราค้นหาคุณ</string>
+	<string name="onboarding_location_message">เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ</string>
+	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
+	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
 </resources>

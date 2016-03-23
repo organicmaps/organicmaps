@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Smazat";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Smazat staré mapy a pokračovat";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Už se neptat";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Moje poloha";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Připojení k Internetu nenalezeno";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Připojení k WiFi nenalezeno. Chcete použít mobilní sítě (GPRS, EDGE, 3G nebo LTE) pro stažení %@?";
 
@@ -111,9 +105,6 @@
 /* Search box placeholder text */
 "search_map" = "Prohledat mapu";
 
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Nedostatek volného úložného prostoru";
-
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Klepněte pro stažení";
 
@@ -122,9 +113,6 @@
 
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Pro stahování větších map doporučujeme používat WiFi";
-
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžete vybrat ke stažení pouze region/stát, který potřebujete. Pokud však chcete používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Jaký systém pro měření preferujete?";
@@ -147,11 +135,14 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Stáhnout mapu\n(^ ^)";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Stáhnout mapu";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "Stáhnout mapy\nbez tras (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Stahování\n^\nselhalo";
+"country_status_download_failed" = "Stahování selhalo";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Zkusit znovu";
@@ -184,8 +175,7 @@
 
 "free_space_for_country" = "Prosím, uvolněte nejprve %1$@ ve svém zařízení, aby bylo možné stáhnout %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %.1f%@.";
+"download_resources" = "Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %@.";
 
 "getting_position" = "Získávání aktuální polohy";
 
@@ -261,7 +251,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Název";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Adresa";
 
 /* Place Page - Remove Pin button */
@@ -431,7 +421,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Zpráva";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-mail";
 
 /* Copy Link */
@@ -617,7 +607,7 @@
 "settings_and_more" = "Nastavení a další";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Webové stránky";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -695,22 +685,29 @@
 "routing_update_maps" = "Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Chcete-li tuto funkci používat, aktualizujte mapy.";
 
 /* Update all button text */
-"downloader_update_all" = "Aktualizovat vše";
+"downloader_update_all_button" = "Aktualizovat vše";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Zrušit vše";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Stažené";
+"downloader_downloaded_subtitle" = "Staženo";
 
 /* Downloaded maps category */
-"downloader_downloaded_maps" = "Stažené mapy";
-
-/* My maps category */
-"downloader_my_maps" = "Moje mapy";
+"downloader_available_maps" = "Available";
 
 /* Country queued for download */
 "downloader_queued" = "ve frontě";
+
+"downloader_near_me_subtitle" = "Poblíž mě";
+
+"downloader_status_maps" = "Mapy";
+
+"downloader_download_all_button" = "Stáhnout vše";
+
+"downloader_downloading" = "Probíhá stahování:";
+
+"downloader_search_results" = "Nalezeno";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Při vytváření tras v aplikaci MAPS.ME mějte, prosím, na paměti následující:\n\n • Navrhované trasy lze brát jen jako doporučení.\n • Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n • Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\nCestujte bezpečně a ohleduplně. Šťastnou cestu!";
@@ -726,6 +723,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Selhalo";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Chcete-li odstranit mapu, pak prosím zastavte navigaci.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Aktuální poloha nebyla zatím zjištěna. Chcete-li naplánovat trasu, zadejte prosím umístění.";
@@ -839,276 +839,6 @@
 
 /* Text for routing error dialog */
 "routing_download_roaming" = "Chystáte se stáhnout %@ MB pomocí mobilních dat (v roamingu). To může mít za následek další poplatky v závislosti na vašem mobilním datovém tarifu.";
-
-/* Cuisine */
-"cuisine_regional" = "regionální kuchyně";
-
-/* Cuisine */
-"cuisine_pizza" = "pizza";
-
-/* Cuisine */
-"cuisine_burger" = "burger";
-
-/* Cuisine */
-"cuisine_italian" = "italská kuchyně";
-
-/* Cuisine */
-"cuisine_chinese" = "čínská kuchyně";
-
-/* Cuisine */
-"cuisine_coffee_shop" = "kavárna";
-
-/* Cuisine */
-"cuisine_sandwich" = "sendvič";
-
-/* Cuisine */
-"cuisine_german" = "německá kuchyně";
-
-/* Cuisine */
-"cuisine_japanese" = "japonská kuchyně";
-
-/* Cuisine */
-"cuisine_kebab" = "kebab";
-
-/* Cuisine */
-"cuisine_mexican" = "mexická kuchyně";
-
-/* Cuisine */
-"cuisine_indian" = "indická kuchyně";
-
-/* Cuisine */
-"cuisine_american" = "americká kuchyně";
-
-/* Cuisine */
-"cuisine_french" = "francouzská kuchyně";
-
-/* Cuisine */
-"cuisine_ice_cream" = "zmrzlina";
-
-/* Cuisine */
-"cuisine_asian" = "asijská kuchyně";
-
-/* Cuisine */
-"cuisine_chicken" = "kuře";
-
-/* Cuisine */
-"cuisine_greek" = "řecká kuchyně";
-
-/* Cuisine */
-"cuisine_thai" = "thajská kuchyně";
-
-/* Cuisine */
-"cuisine_international" = "mezinárodní kuchyně";
-
-/* Cuisine */
-"cuisine_sushi" = "suši";
-
-/* Cuisine */
-"cuisine_fish_and_chips" = "ryba a hranolky";
-
-/* Cuisine */
-"cuisine_turkish" = "turecká kuchyně";
-
-/* Cuisine */
-"cuisine_seafood" = "mořské plody";
-
-/* Cuisine */
-"cuisine_steak_house" = "steaková restaurace";
-
-/* Cuisine */
-"cuisine_spanish" = "španělská kuchyně";
-
-/* Cuisine */
-"cuisine_fish" = "ryba";
-
-/* Cuisine */
-"cuisine_vietnamese" = "vietnamská kuchyně";
-
-/* Cuisine */
-"cuisine_noodles" = "nudle";
-
-/* Cuisine */
-"cuisine_vegetarian" = "vegetariánská kuchyně";
-
-/* Cuisine */
-"cuisine_korean" = "korejská kuchyně";
-
-/* Cuisine */
-"cuisine_friture" = "smažené pokrmy";
-
-/* Cuisine */
-"cuisine_barbecue" = "grilované pokrmy";
-
-/* Cuisine */
-"cuisine_bavarian" = "bavorská kuchyně";
-
-/* Cuisine */
-"cuisine_ramen" = "ramen";
-
-/* Cuisine */
-"cuisine_italian_pizza" = "italská, pizza";
-
-/* Cuisine */
-"cuisine_mediterranean" = "středomořská kuchyně";
-
-/* Cuisine */
-"cuisine_donut" = "kobliha";
-
-/* Cuisine */
-"cuisine_beef_bowl" = "miska hovězího";
-
-/* Cuisine */
-"cuisine_cake" = "dort";
-
-/* Cuisine */
-"cuisine_crepe" = "crêpe";
-
-/* Cuisine */
-"cuisine_heuriger" = "heuriger";
-
-/* Cuisine */
-"cuisine_lebanese" = "libanonská kuchyně";
-
-/* Cuisine */
-"cuisine_steak" = "steak";
-
-/* Cuisine */
-"cuisine_local" = "místní kuchyně";
-
-/* Cuisine */
-"cuisine_curry" = "kari";
-
-/* Cuisine */
-"cuisine_filipino" = "filipínská kuchyně";
-
-/* Cuisine */
-"cuisine_russian" = "ruská kuchyně";
-
-/* Cuisine */
-"cuisine_breakfast" = "snídaně";
-
-/* Cuisine */
-"cuisine_tapas" = "tapas";
-
-/* Cuisine */
-"cuisine_bbq" = "barbecue";
-
-/* Cuisine */
-"cuisine_bagel" = "bagel";
-
-/* Cuisine */
-"cuisine_pasta" = "těstoviny";
-
-/* Cuisine */
-"cuisine_buschenschank" = "buschenschank";
-
-/* Cuisine */
-"cuisine_sausage" = "klobása";
-
-/* Cuisine */
-"cuisine_portuguese" = "portugalská kuchyně";
-
-/* Cuisine */
-"cuisine_grill" = "gril";
-
-/* Cuisine */
-"cuisine_pancake" = "palačinka";
-
-/* Cuisine */
-"cuisine_malagasy" = "madagaskarská kuchyně";
-
-/* Cuisine */
-"cuisine_polish" = "polská kuchyně";
-
-/* Cuisine */
-"cuisine_diner" = "večeře";
-
-/* Cuisine */
-"cuisine_african" = "africká kuchyně";
-
-/* Cuisine */
-"cuisine_doughnut" = "kobliha";
-
-/* Cuisine */
-"cuisine_georgian" = "gruzínská kuchyně";
-
-/* Cuisine */
-"cuisine_croatian" = "chorvatská kuchyně";
-
-/* Cuisine */
-"cuisine_arab" = "arabská kuchyně";
-
-/* Cuisine */
-"cuisine_balkan" = "balkánská kuchyně";
-
-/* Cuisine */
-"cuisine_brazilian" = "brazilská kuchyně";
-
-/* Cuisine */
-"cuisine_caribbean" = "karibská kuchyně";
-
-/* Cuisine */
-"cuisine_austrian" = "rakouská kuchyně";
-
-/* Cuisine */
-"cuisine_vegan" = "veganská kuchyně";
-
-/* Cuisine */
-"cuisine_argentinian" = "argentinská kuchyně";
-
-/* Cuisine */
-"cuisine_persian" = "perská kuchyně";
-
-/* Cuisine */
-"cuisine_soba" = "soba";
-
-/* Cuisine */
-"cuisine_malaysian" = "malajsijská kuchyně";
-
-/* Cuisine */
-"cuisine_indonesian" = "indonéská kuchyně";
-
-/* Cuisine */
-"cuisine_ethiopian" = "etiopská kuchyně";
-
-/* Cuisine */
-"cuisine_deli" = "lahůdky";
-
-/* Cuisine */
-"cuisine_irish" = "irská kuchyně";
-
-/* Cuisine */
-"cuisine_hungarian" = "maďarská kuchyně";
-
-/* Cuisine */
-"cuisine_lao" = "laoská kuchyně";
-
-/* Cuisine */
-"cuisine_coffee" = "káva";
-
-/* Cuisine */
-"cuisine_hotdog" = "hot dog";
-
-/* Cuisine */
-"cuisine_oriental" = "orientální kuchyně";
-
-/* Cuisine */
-"cuisine_savory_pancakes" = "pikantní palačinky";
-
-/* Cuisine */
-"cuisine_moroccan" = "marocká kuchyně";
-
-/* Cuisine */
-"cuisine_barbeque" = "barbecue";
-
-/* Cuisine */
-"cuisine_peruvian" = "peruánská kuchyně";
-
-/* Cuisine */
-"cuisine_fine_dining" = "zážitková gastronomie";
-
-/* Cuisine */
-"cuisine_tea" = "čaj";
 
 /* bookmark button text */
 "bookmark" = "záložka";
@@ -1242,7 +972,7 @@
 
 "dialog_routing_always_cross_that_border" = "Vždy překročit tuto hranici";
 
-"dialog_routing_not_now" = "Nyní ne";
+"not_now" = "Nyní ne";
 
 "dialog_routing_build_route" = "Vytvořit";
 
@@ -1259,8 +989,6 @@
 "search_select_map" = "Vybrat mapu";
 
 "search_select_other_map" = "Vybrat jinou mapu";
-
-"search_vehicle_routes" = "Pokyny pro řízení";
 
 /* «Show» context menu */
 "show" = "Ukázat";
@@ -1350,6 +1078,284 @@
 
 "whats_new_next_button" = "Další";
 
-"whats_new_night_caption" = "Navigace v nočním režimu";
+"editor_time_add" = "Přidat rozvrh";
 
-"whats_new_night_body" = "Přidali jsme noční režim, abyste mohli MAPS.ME používat při řízení v noci. Zapíná se automaticky po západu slunce.";
+"editor_time_delete" = "Smazat rozvrh";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Celý den (24 hodin)";
+
+"editor_time_open" = "Otevřeno";
+
+"editor_time_close" = "Zavřeno";
+
+"editor_time_add_closed" = "Přidat dobu, kdy je zavřeno";
+
+"editor_time_title" = "Otevírací doba";
+
+"editor_time_advanced" = "Pokročilý režim";
+
+"editor_time_simple" = "Jednoduchý režim";
+
+"editor_hours_closed" = "Doba, kdy je zavřeno";
+
+"editor_example_values" = "Vzorové hodnoty";
+
+"editor_correct_mistake" = "Opravit chybu";
+
+"editor_correct_mistake_message" = "Při úpravách jste udělali chybu. Opravte ji prosím, nebo přepněte do jednoduchého režimu.";
+
+"editor_add_select_location" = "Umístění";
+
+"editor_done_dialog_1" = "Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.";
+
+"editor_done_dialog_2" = "Toto je vaše druhé vylepšení mapy. Nyní jste na %d. místě na seznamu editorů map. Řekněte o tom svým kamarádům.";
+
+"editor_done_dialog_3" = "Vylepšili jste mapu. Řekněte o tom svým kamarádům a upravujte mapu společně.";
+
+"share_with_friends" = "Sdílejte s kamarády";
+
+"editor_report_problem_desription_1" = "Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.";
+
+"editor_report_problem_desription_2" = "Nebo to udělejte sami na http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Odeslat";
+
+"editor_report_problem_title" = "Problém";
+
+"editor_report_problem_no_place_title" = "Místo neexistuje";
+
+"editor_report_problem_under_construction_title" = "Zavřeno kvůli údržbě";
+
+"editor_report_problem_duplicate_place_title" = "Duplicitní místo";
+
+"first_launch_congrats_title" = "MAPS.ME jsou připraveny k použití";
+
+"first_launch_congrats_text" = "Prohledávejte a navigujte mapy všech zemí na světě zdarma.";
+
+"migrate_title" = "Důležité!";
+
+/* Android uses image instead of text. */
+"download_all" = "Stáhnout vše";
+
+"delete_all" = "Odstranit vše";
+
+"autodownload" = "Automaticky stahovat";
+
+/* Place Page opening hours text */
+"closed_now" = "Nyní je zavřeno";
+
+/* Place Page opening hours text */
+"daily" = "Denně";
+
+"twentyfour_seven" = "Den a noc";
+
+"day_off_today" = "Dnes je den volna";
+
+"day_off" = "Den volna";
+
+"today" = "Dnes";
+
+"sunrise_to_sunset" = "Od úsvitu do soumraku";
+
+"sunset_to_sunrise" = "Od západu do východu slunce";
+
+"add_opening_hours" = "Přidat otevírací dobu";
+
+"edit_opening_hours" = "Upravit otevírací dobu";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Nemáte účet u OpenStreetMap?";
+
+"register_at_openstreetmap" = "Registrace";
+
+"password_8_chars_min" = "Heslo (minimálně 8 znaků)";
+
+"invalid_username_or_password" = "Neplatné uživatelské jméno nebo heslo.";
+
+"login" = "Přihlásit se";
+
+"password" = "Heslo";
+
+"forgot_password" = "Zapomenuté heslo?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Obnovit heslo";
+
+"enter_email_address_to_reset_password" = "Zadejte emailovou adresu, kterou jste používali během registrace a my Vám pošleme odkaz, abyste mohli obnovit svoje heslo.";
+
+"reset_password" = "Resetovat heslo";
+
+"username" = "Uživatelské jméno";
+
+"osm_account" = "Účet OSM";
+
+"logout" = "Odhlášení";
+
+"login_and_edit_map_motivation_message" = "Přihlaste se a editujte informace o objektech na mapě a my je zpřístupníme miliónům dalších uživatelů. Udělejme společně svět dokonalejším místem.";
+
+"not_sent" = "Neposláno";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Poslední nahrání";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "změn";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Editovali jste svůj první objekt!";
+
+"thank_you" = "Děkujeme Vám";
+
+"login_with_google" = "Přihlásit se pomocí účtu Google";
+
+"login_with_facebook" = "Přihlásit se pomocí účtu Facebook";
+
+"login_with_openstreetmap" = "Přihlásit se pomocí účtu www.openstreetmap.org";
+
+"edit_place" = "Upravit místo";
+
+"place_name" = "Název místa";
+
+"place_name_caption" = "Zadejte název tak, jak je uveden na ceduli nebo vývěsním štítu";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Další jazyky";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Přidat jazyk";
+
+"street" = "Ulice";
+
+/* Editable House Number text field (in address block). */
+"house" = "Budova";
+
+"details" = "Podrobnosti";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Přidat ulici";
+
+"choose_language" = "Zvolit jazyk";
+
+"choose_street" = "Zvolit ulici";
+
+"postal_code" = "PSČ";
+
+"cuisine" = "Kuchyně";
+
+"select_cuisine" = "Vybrat kuchyni";
+
+/* login text field */
+"email_or_username" = "E-mail nebo uživatelské jméno";
+
+"phone" = "Telefon";
+
+"please_note" = "Vezměte prosím na vědomí";
+
+"common_no_wifi_dialog" = "Žádné Wi-Fi připojení. Chcete pokračovat s mobilními daty?";
+
+"downloader_delete_map_dialog" = "Zároveň s touto mapou budou odstraněny také všechny změny na této mapě.";
+
+"downloader_update_maps" = "Aktualizujte mapy";
+
+"downloader_mwm_migration_dialog" = "Chcete-li vytvořit trasu, pak musíte aktualizovat všechny mapy a poté trasu naplánovat znovu.";
+
+"downloader_search_field_hint" = "Najít mapu";
+
+"migration_update_all_button" = "Aktualizovat všechny mapy";
+
+"migration_delete_all_download_current_button" = "Stáhněte si aktuální mapu a odstraňte staré";
+
+"migration_prefetch_status" = "Probíhá příprava na aktualizace map…";
+
+"migration_download_error_dialog" = "Chyba při stahování";
+
+"common_check_internet_connection_dialog" = "Zkontrolujte prosím své nastavení a ujistěte se, že je vaše zařízení připojeno k internetu.";
+
+"downloader_no_space_title" = "Nedostatek místa";
+
+"downloader_no_space_message" = "Odstraňte prosím nepotřebná data";
+
+"editor_general_auth_error_dialog" = "Obecná chyba při přihlašování.";
+
+"editor_login_error_dialog" = "Chyba při přihlašování.";
+
+"editor_login_failed_dialog" = "Přihlašování selhalo";
+
+"editor_username_error_dialog" = "Uživatelské jméno není platné";
+
+"editor_place_edited_dialog" = "Upravili jste objekt!";
+
+"editor_login_with_osm" = "Přihlásit se pomocí OpenStreetMap";
+
+"editor_profile_changes" = "Změny:";
+
+"editor_profile_unsent_changes" = "Neodesláno:";
+
+"editor_focus_map_on_location" = "Táhněte mapu, abyste vybrali správné umístění objektu.";
+
+"editor_add_select_category" = "Vyberte kategorii";
+
+"editor_add_select_category_popular_subtitle" = "Populární";
+
+"editor_add_select_category_all_subtitle" = "Všechny kategorie";
+
+"editor_edit_place_title" = "Probíhají úpravy";
+
+"editor_add_place_title" = "Probíhá přidávání";
+
+"editor_edit_place_name_hint" = "Název místa";
+
+"editor_edit_place_category_title" = "Kategorie";
+
+"detailed_problem_description" = "Detailní popis problému";
+
+"editor_report_problem_other_title" = "Jiný problém";
+
+"placepage_add_place_button" = "Přidat místo";
+
+"placepage_report_problem_button" = "Nahlásit problém";
+
+"whatsnew_smallmwm_header" = "Říkali jste si o to, a my to udělali";
+
+"whatsnew_smallmwm_message" = "Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země.";
+
+"whatsnew_search_header" = "Nové hledání";
+
+"whatsnew_search_message" = "Výrazně jsme vylepšili vyhledávání podle adresy. Podívejte se sami.";
+
+"whatsnew_editor_title" = "Upravit mapu*";
+
+"whatsnew_editor_message_1" = "Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME používá komunitní data OpenStreetMap.";
+
+"onboarding_offline_navigation_title" = "Již nikdy nezabloudíte";
+
+"onboarding_offline_navigation_message" = "Naplánujte si optimální trasy pro auto nebo pěší chůzi, i když tam nebude připojení k internetu!";
+
+"onboarding_offline_navigation_title_2" = "Offline navigace";
+
+"onboarding_offline_navigation_message_2" = "Naplánujte si optimální trasy pro auto nebo pěší chůzi.";
+
+"onboarding_offline_maps_title" = "MAPS.ME — přistupte k celosvětovým mapám bez internetu";
+
+"onboarding_offline_maps_message" = "Stáhněte si jednou mapy požadované oblasti a poté používejte navigaci a vyhledávací funkce bez připojení k internetu.";
+
+"onboarding_notifications_message" = "Chcete-li získat nejnovější mapy, pak zapněte upozornění na aktualizace";
+
+"onboarding_notifications_title" = "Povolit upozornění na aktualizace";
+
+"onboarding_location_title" = "Pomozte nám vás najít";
+
+"onboarding_location_message" = "Chcete-li používat navigaci a další funkce, pak potřebujeme přístup k vaší zeměpisné poloze.";
+
+"dialog_incorrect_feature_position" = "Změnit umístění";
+
+"message_invalid_feature_position" = "Objekt zde nemůže být umístěn";

@@ -16,6 +16,11 @@
 		670D05991B0CBD5A0013A7AC /* draw_widget.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345711A404CB200A0A8C3 /* draw_widget.hpp */; };
 		670D059A1B0CBD5B0013A7AC /* mainwindow.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345761A404CB200A0A8C3 /* mainwindow.hpp */; };
 		670D059B1B0CBD5B0013A7AC /* proxystyle.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753457A1A404CB200A0A8C3 /* proxystyle.hpp */; };
+		671182DB1C7F0D8C00CB8177 /* countries_obsolete.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182D81C7F0D8C00CB8177 /* countries_obsolete.txt */; };
+		671182DC1C7F0D8C00CB8177 /* packed_polygons_obsolete.bin in Resources */ = {isa = PBXBuildFile; fileRef = 671182D91C7F0D8C00CB8177 /* packed_polygons_obsolete.bin */; };
+		671182DD1C7F0D8C00CB8177 /* WorldCoasts_obsolete.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 671182DA1C7F0D8C00CB8177 /* WorldCoasts_obsolete.mwm */; };
+		671182F61C80E09A00CB8177 /* colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182F41C80E09A00CB8177 /* colors.txt */; };
+		671182F71C80E09A00CB8177 /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 671182F51C80E09A00CB8177 /* patterns.txt */; };
 		6714E5E41BD13F67008AB603 /* drules_proto_clear.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */; };
 		6714E5E61BD13F67008AB603 /* drules_proto_dark.bin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */; };
 		6714E6021BD14016008AB603 /* resources-mdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 6714E6001BD14016008AB603 /* resources-mdpi_clear */; };
@@ -72,6 +77,13 @@
 		674A7E391C0DB727003D48E1 /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 674A7E351C0DB727003D48E1 /* libstb_image.a */; };
 		674A7E411C0DB7D6003D48E1 /* qtoglcontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A7E3C1C0DB7D6003D48E1 /* qtoglcontext.cpp */; };
 		674A7E421C0DB7D6003D48E1 /* qtoglcontextfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A7E3E1C0DB7D6003D48E1 /* qtoglcontextfactory.cpp */; };
+		675340981C5289AC002CF0D9 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340951C5289AC002CF0D9 /* libeditor.a */; };
+		675340991C5289AC002CF0D9 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340961C5289AC002CF0D9 /* liboauthcpp.a */; };
+		6753409A1C5289AC002CF0D9 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340971C5289AC002CF0D9 /* libpugixml.a */; };
+		6753409F1C5289E0002CF0D9 /* editor_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */; };
+		675340A01C5289E0002CF0D9 /* osm_auth_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */; };
+		675340A11C528A1C002CF0D9 /* editor_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */; };
+		675340A21C528A1C002CF0D9 /* osm_auth_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753409E1C5289E0002CF0D9 /* osm_auth_dialog.hpp */; };
 		675345861A404CB200A0A8C3 /* about.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753456C1A404CB200A0A8C3 /* about.cpp */; };
 		675345881A404CB200A0A8C3 /* draw_widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345701A404CB200A0A8C3 /* draw_widget.cpp */; };
 		675345891A404CB200A0A8C3 /* info_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345721A404CB200A0A8C3 /* info_dialog.cpp */; };
@@ -163,6 +175,11 @@
 
 /* Begin PBXFileReference section */
 		670D05BC1B0E10640013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		671182D81C7F0D8C00CB8177 /* countries_obsolete.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries_obsolete.txt; sourceTree = "<group>"; };
+		671182D91C7F0D8C00CB8177 /* packed_polygons_obsolete.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons_obsolete.bin; sourceTree = "<group>"; };
+		671182DA1C7F0D8C00CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
+		671182F41C80E09A00CB8177 /* colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = colors.txt; sourceTree = "<group>"; };
+		671182F51C80E09A00CB8177 /* patterns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patterns.txt; sourceTree = "<group>"; };
 		6714E5DE1BD13F67008AB603 /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_clear.bin; sourceTree = "<group>"; };
 		6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
 		6714E6001BD14016008AB603 /* resources-mdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_clear"; sourceTree = "<group>"; };
@@ -221,6 +238,13 @@
 		674A7E3D1C0DB7D6003D48E1 /* qtoglcontext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = qtoglcontext.hpp; sourceTree = "<group>"; };
 		674A7E3E1C0DB7D6003D48E1 /* qtoglcontextfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qtoglcontextfactory.cpp; sourceTree = "<group>"; };
 		674A7E3F1C0DB7D6003D48E1 /* qtoglcontextfactory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = qtoglcontextfactory.hpp; sourceTree = "<group>"; };
+		675340951C5289AC002CF0D9 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "/Users/darkserj/mapsme/omim/xcode/editor/../../../omim-xcode-build/Release/libeditor.a"; sourceTree = "<absolute>"; };
+		675340961C5289AC002CF0D9 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "/Users/darkserj/mapsme/omim/xcode/oauthcpp/../../../omim-xcode-build/Release/liboauthcpp.a"; sourceTree = "<absolute>"; };
+		675340971C5289AC002CF0D9 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "/Users/darkserj/mapsme/omim/xcode/pugixml/../../../omim-xcode-build/Release/libpugixml.a"; sourceTree = "<absolute>"; };
+		6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor_dialog.cpp; sourceTree = "<group>"; };
+		6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_dialog.hpp; sourceTree = "<group>"; };
+		6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_auth_dialog.cpp; sourceTree = "<group>"; };
+		6753409E1C5289E0002CF0D9 /* osm_auth_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_auth_dialog.hpp; sourceTree = "<group>"; };
 		675345491A404C6100A0A8C3 /* MapsMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6753454D1A404C6100A0A8C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6753456C1A404CB200A0A8C3 /* about.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = about.cpp; sourceTree = "<group>"; };
@@ -265,6 +289,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				675340981C5289AC002CF0D9 /* libeditor.a in Frameworks */,
+				675340991C5289AC002CF0D9 /* liboauthcpp.a in Frameworks */,
+				6753409A1C5289AC002CF0D9 /* libpugixml.a in Frameworks */,
 				674A7E361C0DB727003D48E1 /* libdrape_frontend.a in Frameworks */,
 				674A7E371C0DB727003D48E1 /* libdrape.a in Frameworks */,
 				674A7E381C0DB727003D48E1 /* libsdf_image.a in Frameworks */,
@@ -317,6 +344,9 @@
 		6729A4591A684401007D5872 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				675340951C5289AC002CF0D9 /* libeditor.a */,
+				675340961C5289AC002CF0D9 /* liboauthcpp.a */,
+				675340971C5289AC002CF0D9 /* libpugixml.a */,
 				674A7E321C0DB727003D48E1 /* libdrape_frontend.a */,
 				674A7E331C0DB727003D48E1 /* libdrape.a */,
 				674A7E341C0DB727003D48E1 /* libsdf_image.a */,
@@ -360,6 +390,11 @@
 		6729A5C91A693045007D5872 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				671182F41C80E09A00CB8177 /* colors.txt */,
+				671182F51C80E09A00CB8177 /* patterns.txt */,
+				671182D81C7F0D8C00CB8177 /* countries_obsolete.txt */,
+				671182D91C7F0D8C00CB8177 /* packed_polygons_obsolete.bin */,
+				671182DA1C7F0D8C00CB8177 /* WorldCoasts_obsolete.mwm */,
 				9DA46A1A1C47E9E200EF52BA /* drules_proto_legacy.bin */,
 				9DA46A1B1C47E9E200EF52BA /* resources-hdpi_legacy */,
 				9DA46A1C1C47E9E200EF52BA /* resources-ldpi_legacy */,
@@ -420,6 +455,10 @@
 		6753454B1A404C6100A0A8C3 /* MapsMe */ = {
 			isa = PBXGroup;
 			children = (
+				6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */,
+				6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */,
+				6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */,
+				6753409E1C5289E0002CF0D9 /* osm_auth_dialog.hpp */,
 				674A7E3C1C0DB7D6003D48E1 /* qtoglcontext.cpp */,
 				674A7E3D1C0DB7D6003D48E1 /* qtoglcontext.hpp */,
 				674A7E3E1C0DB7D6003D48E1 /* qtoglcontextfactory.cpp */,
@@ -523,11 +562,16 @@
 				677A2DEB1C0DDDBE00635A00 /* resources-default in Resources */,
 				6714E6031BD14016008AB603 /* resources-mdpi_dark in Resources */,
 				9DA46A231C47E9E200EF52BA /* resources-mdpi_legacy in Resources */,
+				671182F71C80E09A00CB8177 /* patterns.txt in Resources */,
+				671182DD1C7F0D8C00CB8177 /* WorldCoasts_obsolete.mwm in Resources */,
 				9DA46A251C47E9E200EF52BA /* resources-xxhdpi_legacy in Resources */,
+				671182F61C80E09A00CB8177 /* colors.txt in Resources */,
 				6714E6021BD14016008AB603 /* resources-mdpi_clear in Resources */,
 				9DA46A241C47E9E200EF52BA /* resources-xhdpi_legacy in Resources */,
 				6729A6681A69394D007D5872 /* resources.qrc in Resources */,
 				9DA46A201C47E9E200EF52BA /* drules_proto_legacy.bin in Resources */,
+				671182DC1C7F0D8C00CB8177 /* packed_polygons_obsolete.bin in Resources */,
+				671182DB1C7F0D8C00CB8177 /* countries_obsolete.txt in Resources */,
 				9DA46A221C47E9E200EF52BA /* resources-ldpi_legacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,6 +583,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				675340A11C528A1C002CF0D9 /* editor_dialog.hpp in Sources */,
+				675340A21C528A1C002CF0D9 /* osm_auth_dialog.hpp in Sources */,
 				670D05991B0CBD5A0013A7AC /* draw_widget.hpp in Sources */,
 				670D059A1B0CBD5B0013A7AC /* mainwindow.hpp in Sources */,
 				670D059B1B0CBD5B0013A7AC /* proxystyle.hpp in Sources */,
@@ -554,9 +600,11 @@
 				675345861A404CB200A0A8C3 /* about.cpp in Sources */,
 				675345911A404CB200A0A8C3 /* slider_ctrl.cpp in Sources */,
 				6753458D1A404CB200A0A8C3 /* proxystyle.cpp in Sources */,
+				6753409F1C5289E0002CF0D9 /* editor_dialog.cpp in Sources */,
 				675345921A404CB200A0A8C3 /* update_dialog.cpp in Sources */,
 				6753458B1A404CB200A0A8C3 /* mainwindow.cpp in Sources */,
 				675345881A404CB200A0A8C3 /* draw_widget.cpp in Sources */,
+				675340A01C5289E0002CF0D9 /* osm_auth_dialog.cpp in Sources */,
 				674A7E421C0DB7D6003D48E1 /* qtoglcontextfactory.cpp in Sources */,
 				6753458C1A404CB200A0A8C3 /* preferences_dialog.cpp in Sources */,
 				6753458A1A404CB200A0A8C3 /* main.cpp in Sources */,
@@ -589,7 +637,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -610,7 +658,6 @@
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -656,7 +703,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -671,7 +718,6 @@
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"-framework",

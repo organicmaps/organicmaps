@@ -3,16 +3,32 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
+#include "base/assert.hpp"
 #include "base/stl_add.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/bind.hpp"
-
+#include "std/vector.hpp"
 
 using namespace feature;
 
 ////////////////////////////////////////////////////////////////////////////////////
 // TypesHolder implementation
 ////////////////////////////////////////////////////////////////////////////////////
+
+namespace feature
+{
+string DebugPrint(TypesHolder const & holder)
+{
+  Classificator const & c = classif();
+  string s;
+  for (uint32_t type : holder)
+    s += c.GetReadableObjectName(type) + " ";
+  if (!s.empty())
+    s.pop_back();
+  return s;
+}
+}  // namespace feature
 
 TypesHolder::TypesHolder(FeatureBase const & f)
 : m_size(0), m_geoType(f.GetFeatureType())
@@ -23,19 +39,20 @@ TypesHolder::TypesHolder(FeatureBase const & f)
   });
 }
 
-string TypesHolder::DebugPrint() const
+void TypesHolder::Remove(uint32_t type)
 {
-  Classificator const & c = classif();
-
-  string s;
-  for (uint32_t t : *this)
-    s += c.GetFullObjectName(t) + "  ";
-  return s;
+  UNUSED_VALUE(RemoveIf(EqualFunctor<uint32_t>(type)));
 }
 
-void TypesHolder::Remove(uint32_t t)
+bool TypesHolder::Equals(TypesHolder const & other) const
 {
-  (void) RemoveIf(EqualFunctor<uint32_t>(t));
+  vector<uint32_t> my(this->begin(), this->end());
+  vector<uint32_t> his(other.begin(), other.end());
+
+  sort(::begin(my), ::end(my));
+  sort(::begin(his), ::end(his));
+
+  return my == his;
 }
 
 namespace
@@ -64,6 +81,7 @@ public:
     // 1-arity
     char const * arr1[][1] = {
       { "building" },
+      { "building:part" },
       { "hwtag" },
       { "internet_access" },
     };
@@ -73,7 +91,8 @@ public:
 
     // 2-arity
     char const * arr2[][2] = {
-      { "amenity", "atm" }
+      { "amenity", "atm" },
+      { "building", "address" },
     };
 
     AddTypes(arr2);
@@ -97,7 +116,45 @@ public:
   }
 };
 
+}  // namespace
+
+namespace feature
+{
+uint8_t CalculateHeader(uint32_t const typesCount, uint8_t const headerGeomType,
+                        FeatureParamsBase const & params)
+{
+  ASSERT(typesCount != 0, ("Feature should have at least one type."));
+  uint8_t header = static_cast<uint8_t>(typesCount - 1);
+
+  if (!params.name.IsEmpty())
+    header |= HEADER_HAS_NAME;
+
+  if (params.layer != 0)
+    header |= HEADER_HAS_LAYER;
+
+  header |= headerGeomType;
+
+  // Geometry type for additional info is only one.
+  switch (headerGeomType)
+  {
+  case HEADER_GEOM_POINT:
+    if (params.rank != 0)
+      header |= HEADER_HAS_ADDINFO;
+    break;
+  case HEADER_GEOM_LINE:
+    if (!params.ref.empty())
+      header |= HEADER_HAS_ADDINFO;
+    break;
+  case HEADER_GEOM_AREA:
+  case HEADER_GEOM_POINT_EX:
+    if (!params.house.IsEmpty())
+      header |= HEADER_HAS_ADDINFO;
+    break;
+  }
+
+  return header;
 }
+}  // namespace feature
 
 void TypesHolder::SortBySpec()
 {
@@ -107,6 +164,14 @@ void TypesHolder::SortBySpec()
   // Put "very common" types to the end of possible PP-description types.
   static UselessTypesChecker checker;
   (void) RemoveIfKeepValid(m_types, m_types + m_size, bind<bool>(cref(checker), _1));
+}
+
+vector<string> TypesHolder::ToObjectNames() const
+{
+  vector<string> result;
+  for (auto type : *this)
+    result.push_back(classif().GetReadableObjectName(type));
+  return result;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -136,11 +201,8 @@ bool FeatureParamsBase::CheckValid() const
 
 string FeatureParamsBase::DebugString() const
 {
-  string utf8name;
-  name.GetString(StringUtf8Multilang::DEFAULT_CODE, utf8name);
-
+  string const utf8name = DebugPrint(name);
   return ((!utf8name.empty() ? "Name:" + utf8name : "") +
-          (" Layer:" + DebugPrint(layer)) +
           (rank != 0 ? " Rank:" + DebugPrint(rank) : "") +
           (!house.IsEmpty() ? " House:" + house.Get() : "") +
           (!ref.empty() ? " Ref:" + ref : ""));
@@ -164,12 +226,11 @@ bool IsDummyName(string const & s)
           s == "Edificio" || s == "edificio");
 }
 
-struct IsBadChar
-{
-  bool operator() (char c) const { return (c == '\n'); }
-};
-
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// FeatureParams implementation
+/////////////////////////////////////////////////////////////////////////////////////////
 
 bool FeatureParams::AddName(string const & lang, string const & s)
 {
@@ -183,7 +244,7 @@ bool FeatureParams::AddName(string const & lang, string const & s)
 
 bool FeatureParams::AddHouseName(string const & s)
 {
-  if (IsDummyName(s) || name.FindString(s) != StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE)
+  if (IsDummyName(s) || name.FindString(s) != StringUtf8Multilang::kUnsupportedLanguageCode)
     return false;
 
   // Most names are house numbers by statistics.
@@ -192,15 +253,14 @@ bool FeatureParams::AddHouseName(string const & s)
 
   // Add as a default name if we don't have it yet.
   string dummy;
-  if (!name.GetString(StringUtf8Multilang::DEFAULT_CODE, dummy))
+  if (!name.GetString(StringUtf8Multilang::kDefaultCode, dummy))
   {
-    name.AddString(StringUtf8Multilang::DEFAULT_CODE, s);
+    name.AddString(StringUtf8Multilang::kDefaultCode, s);
     return true;
   }
 
   return false;
 }
-
 
 bool FeatureParams::AddHouseNumber(string const & ss)
 {
@@ -218,35 +278,65 @@ bool FeatureParams::AddHouseNumber(string const & ss)
   return true;
 }
 
-void FeatureParams::AddStreetAddress(string const & s)
+void FeatureParams::AddStreet(string s)
 {
-  m_street = s;
+  // Replace \n with spaces because we write addresses to txt file.
+  replace(s.begin(), s.end(), '\n', ' ');
 
-  // Erase bad chars (\n) because we write addresses to txt file.
-  m_street.erase(remove_if(m_street.begin(), m_street.end(), IsBadChar()), m_street.end());
+  m_addrTags.Add(AddressData::STREET, s);
+}
 
-  // Osm likes to put house numbers into addr:street field.
-  size_t i = m_street.find_last_of("\t ");
+void FeatureParams::AddAddress(string const & s)
+{
+  size_t i = s.find_first_of("\t ");
   if (i != string::npos)
   {
-    ++i;
-    uint64_t n;
-    if (strings::to_uint64(m_street.substr(i), n))
-      m_street.erase(i);
+    string const house = s.substr(0, i);
+    if (feature::IsHouseNumber(house))
+    {
+      AddHouseNumber(house);
+      i = s.find_first_not_of("\t ", i);
+    }
+    else
+    {
+      i = 0;
+    }
   }
+  else
+  {
+    i = 0;
+  }
+
+  AddStreet(s.substr(i));
+}
+
+void FeatureParams::AddPlace(string const & s)
+{
+  m_addrTags.Add(AddressData::PLACE, s);
+}
+
+void FeatureParams::AddPostcode(string const & s)
+{
+  m_addrTags.Add(AddressData::POSTCODE, s);
 }
 
 bool FeatureParams::FormatFullAddress(m2::PointD const & pt, string & res) const
 {
-  if (!m_street.empty() && !house.IsEmpty())
+  string const street = GetStreet();
+  if (!street.empty() && !house.IsEmpty())
   {
-    res = m_street + "|" + house.Get() + "|"
+    res = street + "|" + house.Get() + "|"
         + strings::to_string_dac(MercatorBounds::YToLat(pt.y), 8) + "|"
         + strings::to_string_dac(MercatorBounds::XToLon(pt.x), 8) + '\n';
     return true;
   }
 
   return false;
+}
+
+string FeatureParams::GetStreet() const
+{
+  return m_addrTags.Get(AddressData::STREET);
 }
 
 void FeatureParams::SetGeomType(feature::EGeomType t)
@@ -366,8 +456,8 @@ bool FeatureParams::FinishAddingTypes()
 
   m_Types.swap(newTypes);
 
-  if (m_Types.size() > max_types_count)
-    m_Types.resize(max_types_count);
+  if (m_Types.size() > kMaxTypesCount)
+    m_Types.resize(kMaxTypesCount);
 
   return !m_Types.empty();
 }
@@ -411,7 +501,7 @@ uint32_t FeatureParams::FindType(uint32_t comp, uint8_t level) const
 
 bool FeatureParams::CheckValid() const
 {
-  CHECK(!m_Types.empty() && m_Types.size() <= max_types_count, ());
+  CHECK(!m_Types.empty() && m_Types.size() <= kMaxTypesCount, ());
   CHECK_NOT_EQUAL(m_geomType, 0xFF, ());
 
   return FeatureParamsBase::CheckValid();
@@ -419,28 +509,7 @@ bool FeatureParams::CheckValid() const
 
 uint8_t FeatureParams::GetHeader() const
 {
-  uint8_t header = static_cast<uint8_t>(m_Types.size() - 1);
-
-  if (!name.IsEmpty())
-    header |= HEADER_HAS_NAME;
-
-  if (layer != 0)
-    header |= HEADER_HAS_LAYER;
-
-  uint8_t const typeMask = GetTypeMask();
-  header |= typeMask;
-
-  // Geometry type for additional info is only one.
-  switch (GetTypeMask())
-  {
-  case HEADER_GEOM_POINT: if (rank != 0) header |= HEADER_HAS_ADDINFO; break;
-  case HEADER_GEOM_LINE: if (!ref.empty()) header |= HEADER_HAS_ADDINFO; break;
-  case HEADER_GEOM_AREA:
-  case HEADER_GEOM_POINT_EX:
-    if (!house.IsEmpty()) header |= HEADER_HAS_ADDINFO; break;
-  }
-
-  return header;
+  return CalculateHeader(m_Types.size(), GetTypeMask(), *this);
 }
 
 uint32_t FeatureParams::GetIndexForType(uint32_t t)

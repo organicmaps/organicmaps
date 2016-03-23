@@ -40,6 +40,8 @@ double constexpr kInvalidSpeedCameraDistance = -1;
 size_t constexpr kSpeedCameraLookAheadCount = 50;
 
 double constexpr kCompletionPercentAccuracy = 5;
+
+uint32_t constexpr kMinimumETASec = 60;
 }  // namespace
 
 namespace routing
@@ -219,11 +221,6 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
       ++m_moveAwayCounter;
       m_lastDistance = dist;
     }
-    else
-    {
-      m_moveAwayCounter = 0;
-      m_lastDistance = 0.0;
-    }
 
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {
@@ -271,7 +268,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   {
     info = FollowingInfo();
     formatDistFn(m_route.GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
-    info.m_time = m_route.GetCurrentTimeToEndSec();
+    info.m_time = max(kMinimumETASec, m_route.GetCurrentTimeToEndSec());
     return;
   }
 
@@ -290,7 +287,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_nextTurn = routing::turns::TurnDirection::NoTurn;
 
   info.m_exitNum = turn.m_exitNum;
-  info.m_time = m_route.GetCurrentTimeToEndSec();
+  info.m_time = max(kMinimumETASec, m_route.GetCurrentTimeToEndSec());
   info.m_sourceName = turn.m_sourceName;
   info.m_targetName = turn.m_targetName;
   info.m_completionPercent = GetCompletionPercent();
@@ -405,6 +402,7 @@ void RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
 
 bool RoutingSession::DisableFollowMode()
 {
+  LOG(LINFO, ("Routing disables a following mode. State: ", m_state));
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
     m_state = RouteNoFollowing;
@@ -416,8 +414,12 @@ bool RoutingSession::DisableFollowMode()
 
 bool RoutingSession::EnableFollowMode()
 {
+  LOG(LINFO, ("Routing enables a following mode. State: ", m_state));
   if (m_state == RouteNotStarted || m_state == OnRoute)
+  {
+    m_state = OnRoute;
     m_isFollowing = true;
+  }
   return m_isFollowing;
 }
 
@@ -452,7 +454,7 @@ bool RoutingSession::AreTurnNotificationsEnabled() const
   return m_turnNotificationsMgr.IsEnabled();
 }
 
-void RoutingSession::SetTurnNotificationsUnits(Settings::Units const units)
+void RoutingSession::SetTurnNotificationsUnits(settings::Units const units)
 {
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);

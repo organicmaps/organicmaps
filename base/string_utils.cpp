@@ -1,10 +1,10 @@
-#include "base/string_utils.hpp"
 #include "base/assert.hpp"
+#include "base/string_utils.hpp"
 
-#include "std/target_os.hpp"
-#include "std/iterator.hpp"
 #include "std/cmath.hpp"
 #include "std/iomanip.hpp"
+#include "std/iterator.hpp"
+#include "std/target_os.hpp"
 
 #include <boost/algorithm/string/trim.hpp>
 
@@ -45,7 +45,7 @@ bool to_int(char const * s, int & i, int base /*= 10*/)
 {
   char * stop;
   long const x = strtol(s, &stop, base);
-  if (stop && *stop == 0)
+  if (*stop == 0)
   {
     i = static_cast<int>(x);
     ASSERT_EQUAL(static_cast<long>(i), x, ());
@@ -62,7 +62,7 @@ bool to_uint64(char const * s, uint64_t & i)
 #else
   i = strtoull(s, &stop, 10);
 #endif
-  return stop && *stop == 0;
+  return *stop == 0;
 }
 
 bool to_int64(char const * s, int64_t & i)
@@ -73,14 +73,14 @@ bool to_int64(char const * s, int64_t & i)
 #else
   i = strtoll(s, &stop, 10);
 #endif
-  return stop && *stop == 0;
+  return *stop == 0;
 }
 
 bool to_double(char const * s, double & d)
 {
   char * stop;
   d = strtod(s, &stop);
-  return stop && *stop == 0 && s != stop;
+  return *stop == 0 && s != stop && isfinite(d);
 }
 
 UniString MakeLowerCase(UniString const & s)
@@ -193,6 +193,11 @@ bool EndsWith(string const & s1, char const * s2)
   if (n < m)
     return false;
   return (s1.compare(n - m, m, s2) == 0);
+}
+
+bool EndsWith(string const & s1, string const & s2)
+{
+  return s1.size() >= s2.size() && s1.compare(s1.size() - s2.size(), s2.size(), s2) == 0;
 }
 
 string to_string_dac(double d, int dac)

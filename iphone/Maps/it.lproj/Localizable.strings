@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Cancella";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Cancella le vecchie mappe e procedi";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Non me lo chiedere di nuovo";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "La mia posizione";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Non è stata rilevata alcuna connessione Internet";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Non è stata rilevata alcuna connessione WiFi. Vuoi utilizzare i dati cellulare (GPRS, EDGE, 3G o LTE) per scaricare %@?";
 
@@ -111,9 +105,6 @@
 /* Search box placeholder text */
 "search_map" = "Ricerca Mappa";
 
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Non c'è abbastanza spazio libero su disco";
-
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Tocca per scaricare";
 
@@ -122,9 +113,6 @@
 
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Ti consigliamo di utilizzare il WiFi per scaricare mappe di grandi dimensioni";
-
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Quale sistema di misura preferisci?";
@@ -147,11 +135,14 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Scarica Map\n(^ ^)";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Scarica Map";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "Scarica mappa\nsenza percorsi (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Lo scaricamento\n^\nè fallito";
+"country_status_download_failed" = "Lo scaricamento è fallito";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Riprova";
@@ -184,8 +175,7 @@
 
 "free_space_for_country" = "Libera %1$@ sul dispositivo prima per poter scaricare %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %.1f%@.";
+"download_resources" = "Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %@.";
 
 "getting_position" = "Ottieni la posizione corrente";
 
@@ -261,7 +251,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Name";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Indirizzo";
 
 /* Place Page - Remove Pin button */
@@ -431,7 +421,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Messaggio";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-mail";
 
 /* Copy Link */
@@ -617,7 +607,7 @@
 "settings_and_more" = "Impostazioni e Altro";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Sito web";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -695,22 +685,29 @@
 "routing_update_maps" = "La nuova versione di MAPS.ME ti permette di creare itinerari dalla tua posizione attuale a un punto di destinazione. Aggiorna le mappe per utilizzare questa funzione.";
 
 /* Update all button text */
-"downloader_update_all" = "Aggiorna tutto";
+"downloader_update_all_button" = "Aggiorna tutte";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Annulla tutto";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Scaricate";
+"downloader_downloaded_subtitle" = "Scaricate";
 
 /* Downloaded maps category */
-"downloader_downloaded_maps" = "Mappe scaricate";
-
-/* My maps category */
-"downloader_my_maps" = "Le mie mappe";
+"downloader_available_maps" = "Available";
 
 /* Country queued for download */
 "downloader_queued" = "in coda";
+
+"downloader_near_me_subtitle" = "Vicino a me";
+
+"downloader_status_maps" = "Mappe";
+
+"downloader_download_all_button" = "Scarica tutte";
+
+"downloader_downloading" = "In scaricamento:";
+
+"downloader_search_results" = "Trovate";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Creando percorsi nell'app MAPS.ME tieni a mente quanto segue:\n\n  - I percorsi suggeriti possono essere considerati solo come consigliati.\n - Le condizioni della strada, le regole del traffico e i segnali hanno una priorità maggiore rispetto ai consigli sulla circolazione.\n - La mappa potrebbe essere scorretta o datata e i percorsi potrebbero non aver creato la strada migliore possibile.\n\n  Stai attento sulle strade e prenditi cura di te!";
@@ -726,6 +723,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Fallito";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Per eliminare una mappa interrompi la navigazione.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "La posizione attuale non è definita. Specifica la posizione per creare il percorso.";
@@ -839,276 +839,6 @@
 
 /* Text for routing error dialog */
 "routing_download_roaming" = "Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.";
-
-/* Cuisine */
-"cuisine_regional" = "cucina regionale";
-
-/* Cuisine */
-"cuisine_pizza" = "pizza";
-
-/* Cuisine */
-"cuisine_burger" = "hamburger";
-
-/* Cuisine */
-"cuisine_italian" = "cucina italiana";
-
-/* Cuisine */
-"cuisine_chinese" = "cucina cinese";
-
-/* Cuisine */
-"cuisine_coffee_shop" = "bar caffetteria";
-
-/* Cuisine */
-"cuisine_sandwich" = "panini";
-
-/* Cuisine */
-"cuisine_german" = "cucina tedesca";
-
-/* Cuisine */
-"cuisine_japanese" = "cucina giapponese";
-
-/* Cuisine */
-"cuisine_kebab" = "kebab";
-
-/* Cuisine */
-"cuisine_mexican" = "cucina messicana";
-
-/* Cuisine */
-"cuisine_indian" = "cucina indiana";
-
-/* Cuisine */
-"cuisine_american" = "cucina americana";
-
-/* Cuisine */
-"cuisine_french" = "cucina francese";
-
-/* Cuisine */
-"cuisine_ice_cream" = "gelateria";
-
-/* Cuisine */
-"cuisine_asian" = "cucina asiatica";
-
-/* Cuisine */
-"cuisine_chicken" = "pollo";
-
-/* Cuisine */
-"cuisine_greek" = "cucina greca";
-
-/* Cuisine */
-"cuisine_thai" = "cucina tailandese";
-
-/* Cuisine */
-"cuisine_international" = "cucina internazionale";
-
-/* Cuisine */
-"cuisine_sushi" = "sushi";
-
-/* Cuisine */
-"cuisine_fish_and_chips" = "fish and chips";
-
-/* Cuisine */
-"cuisine_turkish" = "cucina turca";
-
-/* Cuisine */
-"cuisine_seafood" = "frutti di mare";
-
-/* Cuisine */
-"cuisine_steak_house" = "bisteccheria";
-
-/* Cuisine */
-"cuisine_spanish" = "cucina spagnola";
-
-/* Cuisine */
-"cuisine_fish" = "pesce";
-
-/* Cuisine */
-"cuisine_vietnamese" = "cucina vietnamita";
-
-/* Cuisine */
-"cuisine_noodles" = "noodles";
-
-/* Cuisine */
-"cuisine_vegetarian" = "cucina vegetariana";
-
-/* Cuisine */
-"cuisine_korean" = "cucina coreana";
-
-/* Cuisine */
-"cuisine_friture" = "fritture";
-
-/* Cuisine */
-"cuisine_barbecue" = "barbecue";
-
-/* Cuisine */
-"cuisine_bavarian" = "cucina bavarese";
-
-/* Cuisine */
-"cuisine_ramen" = "ramen";
-
-/* Cuisine */
-"cuisine_italian_pizza" = "cucina italiana, pizza";
-
-/* Cuisine */
-"cuisine_mediterranean" = "cucina mediterranea";
-
-/* Cuisine */
-"cuisine_donut" = "ciambelle";
-
-/* Cuisine */
-"cuisine_beef_bowl" = "gyūdon";
-
-/* Cuisine */
-"cuisine_cake" = "torte";
-
-/* Cuisine */
-"cuisine_crepe" = "crêpes";
-
-/* Cuisine */
-"cuisine_heuriger" = "heuriger";
-
-/* Cuisine */
-"cuisine_lebanese" = "cucina libanese";
-
-/* Cuisine */
-"cuisine_steak" = "bistecche";
-
-/* Cuisine */
-"cuisine_local" = "cucina locale";
-
-/* Cuisine */
-"cuisine_curry" = "curry";
-
-/* Cuisine */
-"cuisine_filipino" = "cucina filippina";
-
-/* Cuisine */
-"cuisine_russian" = "cucina russa";
-
-/* Cuisine */
-"cuisine_breakfast" = "colazione";
-
-/* Cuisine */
-"cuisine_tapas" = "tapas";
-
-/* Cuisine */
-"cuisine_bbq" = "barbecue";
-
-/* Cuisine */
-"cuisine_bagel" = "bagel";
-
-/* Cuisine */
-"cuisine_pasta" = "pasta";
-
-/* Cuisine */
-"cuisine_buschenschank" = "osteria contadina";
-
-/* Cuisine */
-"cuisine_sausage" = "salsicce";
-
-/* Cuisine */
-"cuisine_portuguese" = "cucina portoghese";
-
-/* Cuisine */
-"cuisine_grill" = "cucina alla griglia";
-
-/* Cuisine */
-"cuisine_pancake" = "pancake";
-
-/* Cuisine */
-"cuisine_malagasy" = "cucina malgascia";
-
-/* Cuisine */
-"cuisine_polish" = "cucina polacca";
-
-/* Cuisine */
-"cuisine_diner" = "ristorantino";
-
-/* Cuisine */
-"cuisine_african" = "cucina africana";
-
-/* Cuisine */
-"cuisine_doughnut" = "ciambelle";
-
-/* Cuisine */
-"cuisine_georgian" = "cucina georgiana";
-
-/* Cuisine */
-"cuisine_croatian" = "cucina croata";
-
-/* Cuisine */
-"cuisine_arab" = "cucina araba";
-
-/* Cuisine */
-"cuisine_balkan" = "cucina balcanica";
-
-/* Cuisine */
-"cuisine_brazilian" = "cucina brasiliana";
-
-/* Cuisine */
-"cuisine_caribbean" = "cucina caraibica";
-
-/* Cuisine */
-"cuisine_austrian" = "cucina austriaca";
-
-/* Cuisine */
-"cuisine_vegan" = "cucina vegana";
-
-/* Cuisine */
-"cuisine_argentinian" = "cucina argentina";
-
-/* Cuisine */
-"cuisine_persian" = "cucina persiana";
-
-/* Cuisine */
-"cuisine_soba" = "soba";
-
-/* Cuisine */
-"cuisine_malaysian" = "cucina malese";
-
-/* Cuisine */
-"cuisine_indonesian" = "cucina indonesiana";
-
-/* Cuisine */
-"cuisine_ethiopian" = "cucina etiope";
-
-/* Cuisine */
-"cuisine_deli" = "gastronomia";
-
-/* Cuisine */
-"cuisine_irish" = "cucina irlandese";
-
-/* Cuisine */
-"cuisine_hungarian" = "cucina ungherese";
-
-/* Cuisine */
-"cuisine_lao" = "cucina laotiana";
-
-/* Cuisine */
-"cuisine_coffee" = "caffè";
-
-/* Cuisine */
-"cuisine_hotdog" = "hot dog";
-
-/* Cuisine */
-"cuisine_oriental" = "cucina orientale";
-
-/* Cuisine */
-"cuisine_savory_pancakes" = "pancake salati";
-
-/* Cuisine */
-"cuisine_moroccan" = "cucina marocchina";
-
-/* Cuisine */
-"cuisine_barbeque" = "barbecue";
-
-/* Cuisine */
-"cuisine_peruvian" = "cucina peruviana";
-
-/* Cuisine */
-"cuisine_fine_dining" = "ristorante elegante";
-
-/* Cuisine */
-"cuisine_tea" = "tè";
 
 /* bookmark button text */
 "bookmark" = "segnalibro";
@@ -1242,7 +972,7 @@
 
 "dialog_routing_always_cross_that_border" = "Oltrepassa sempre questo limite";
 
-"dialog_routing_not_now" = "Non ora";
+"not_now" = "Non ora";
 
 "dialog_routing_build_route" = "Crea";
 
@@ -1259,8 +989,6 @@
 "search_select_map" = "Seleziona mappa";
 
 "search_select_other_map" = "Seleziona un'altra mappa";
-
-"search_vehicle_routes" = "Indicazioni stradali";
 
 /* «Show» context menu */
 "show" = "Mostra";
@@ -1350,6 +1078,284 @@
 
 "whats_new_next_button" = "Avanti";
 
-"whats_new_night_caption" = "Navigazione in modalità notturna";
+"editor_time_add" = "Aggiungi orari";
 
-"whats_new_night_body" = "Per poter utilizzare al meglio MAPS.ME di sera o di notte, abbiamo aggiunto la modalità notturna. L'applicazione passerà automaticamente a questa modalità dopo il tramonto.";
+"editor_time_delete" = "Elimina orari";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Tutto il giorno (24 ore)";
+
+"editor_time_open" = "Aperto";
+
+"editor_time_close" = "Chiuso";
+
+"editor_time_add_closed" = "Aggiungi orari di chiusura";
+
+"editor_time_title" = "Orari di apertura";
+
+"editor_time_advanced" = "Modalità avanzata";
+
+"editor_time_simple" = "Modalità semplice";
+
+"editor_hours_closed" = "Orari di chiusura";
+
+"editor_example_values" = "Valori esemplificativi";
+
+"editor_correct_mistake" = "Correggi errore";
+
+"editor_correct_mistake_message" = "Hai commesso un errore nella modifica. Correggerlo o passare alla modalità semplice.";
+
+"editor_add_select_location" = "Posizione";
+
+"editor_done_dialog_1" = "Hai modificato la mappa del mondo. Non tenerlo per te! Dillo ai tuoi amici e modificatela insieme.";
+
+"editor_done_dialog_2" = "Questa è la tua seconda modifica alla mappa. Adesso sei al %d° posto nella lista di chi ha modificato la mappa. Dillo ai tuoi amici.";
+
+"editor_done_dialog_3" = "Hai migliorato la mappa. Dillo ai tuoi amici e modificate la mappa insieme.";
+
+"share_with_friends" = "Condividi con gli amici";
+
+"editor_report_problem_desription_1" = "Si prega di descrivere il problema in dettaglio in modo che la community OpenStreeMap possa riparare l’errore.";
+
+"editor_report_problem_desription_2" = "O fallo tu stesso su http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Invia";
+
+"editor_report_problem_title" = "Problema";
+
+"editor_report_problem_no_place_title" = "Questo luogo non esiste";
+
+"editor_report_problem_under_construction_title" = "Chiuso per manutenzione";
+
+"editor_report_problem_duplicate_place_title" = "Luogo duplicato";
+
+"first_launch_congrats_title" = "MAPS.ME è pronto per essere usato";
+
+"first_launch_congrats_text" = "Cerca e naviga gratuitamente sulle mappe di tutti i Paesi del mondo.";
+
+"migrate_title" = "Importante!";
+
+/* Android uses image instead of text. */
+"download_all" = "Scarica tutto";
+
+"delete_all" = "Elimina tutti";
+
+"autodownload" = "Scaricamento automatico";
+
+/* Place Page opening hours text */
+"closed_now" = "Ora chiuso";
+
+/* Place Page opening hours text */
+"daily" = "Tutti i giorni";
+
+"twentyfour_seven" = "Giorno e notte";
+
+"day_off_today" = "Oggi giorno di riposo";
+
+"day_off" = "Giorno di riposo";
+
+"today" = "Oggi";
+
+"sunrise_to_sunset" = "Dall'alba al tramonto";
+
+"sunset_to_sunrise" = "Dal tramonto all'alba";
+
+"add_opening_hours" = "Aggiungi orari di apertura";
+
+"edit_opening_hours" = "Modifica orari di apertura";
+
+"profile" = "Profilo";
+
+"no_osm_account" = "Non hai un account su OpenStreetMap?";
+
+"register_at_openstreetmap" = "Registrati";
+
+"password_8_chars_min" = "Password (minimo 8 caratteri)";
+
+"invalid_username_or_password" = "Username o password non corretti.";
+
+"login" = "Accedi";
+
+"password" = "Password";
+
+"forgot_password" = "Hai dimenticato la password?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Ripristina password";
+
+"enter_email_address_to_reset_password" = "Inserisci l'indirizzo email utilizzato durante la registrazione e ti invieremo un link per recuperare la password.";
+
+"reset_password" = "Reimpostare password";
+
+"username" = "Nome utente";
+
+"osm_account" = "Account OSM";
+
+"logout" = "Esci";
+
+"login_and_edit_map_motivation_message" = "Accedi e modifica le informazioni degli oggetti sulla mappa e noi provvederemo a renderli disponibili a milioni di altri utenti. Creiamo un mondo migliore assieme.";
+
+"not_sent" = "Non inviato";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Ultimo caricamento";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "modifiche";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Hai modificato il tuo primo oggetto!";
+
+"thank_you" = "Grazie";
+
+"login_with_google" = "Accedi con Google";
+
+"login_with_facebook" = "Accedi con Facebook";
+
+"login_with_openstreetmap" = "Accedi con www.openstreetmap.org";
+
+"edit_place" = "Modifica il luogo";
+
+"place_name" = "Nome del luogo";
+
+"place_name_caption" = "Inserisci il nome riportato nel segnale o nella targhetta";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Altre lingue";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Aggiungi una lingua";
+
+"street" = "Via";
+
+/* Editable House Number text field (in address block). */
+"house" = "Edificio";
+
+"details" = "Dettagli";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Aggiungi una strada";
+
+"choose_language" = "Scegli una lingua";
+
+"choose_street" = "Scegli una strada";
+
+"postal_code" = "Codice postale";
+
+"cuisine" = "Cucina";
+
+"select_cuisine" = "Seleziona la cucina";
+
+/* login text field */
+"email_or_username" = "E-mail o nome utente";
+
+"phone" = "Telefono";
+
+"please_note" = "Si prega di notare";
+
+"common_no_wifi_dialog" = "Nessuna connessione WiFi. Vuoi continuare con la connessione dati?";
+
+"downloader_delete_map_dialog" = "Tutti i cambiamenti nella mappa saranno cancellati insieme alla mappa.";
+
+"downloader_update_maps" = "Aggiorna mappe";
+
+"downloader_mwm_migration_dialog" = "Per creare un percorso, devi aggiornare tutte le mappe e pianificare nuovamente il percorso.";
+
+"downloader_search_field_hint" = "Trova la mappa";
+
+"migration_update_all_button" = "Aggiorna tutte le mappe";
+
+"migration_delete_all_download_current_button" = "Scarica la mappa attuale e cancella quelle vecchie";
+
+"migration_prefetch_status" = "Preparazione aggiornamento delle mappe…";
+
+"migration_download_error_dialog" = "Errore nel download";
+
+"common_check_internet_connection_dialog" = "Sei pregato di verificare le tue impostazioni e assicurarti che il tuo dispositivo sia connesso a internet.";
+
+"downloader_no_space_title" = "Spazio insufficiente";
+
+"downloader_no_space_message" = "Si prega di rimuovere i dati non necessari";
+
+"editor_general_auth_error_dialog" = "Errore generale di accesso.";
+
+"editor_login_error_dialog" = "Errore accesso.";
+
+"editor_login_failed_dialog" = "Accesso fallito";
+
+"editor_username_error_dialog" = "Nome utente non valido";
+
+"editor_place_edited_dialog" = "Hai modificato un oggetto!";
+
+"editor_login_with_osm" = "Accedi con OpenStreetMap";
+
+"editor_profile_changes" = "Modifiche:";
+
+"editor_profile_unsent_changes" = "Non inviato:";
+
+"editor_focus_map_on_location" = "Sposta la mappa per selezionare l’esatta posizione dell’oggetto.";
+
+"editor_add_select_category" = "Seleziona categoria";
+
+"editor_add_select_category_popular_subtitle" = "Popolari";
+
+"editor_add_select_category_all_subtitle" = "Tutte le categorie";
+
+"editor_edit_place_title" = "Modifica";
+
+"editor_add_place_title" = "Aggiunta";
+
+"editor_edit_place_name_hint" = "Nome del luogo";
+
+"editor_edit_place_category_title" = "Categoria";
+
+"detailed_problem_description" = "Descrizione dettagliata di un problema";
+
+"editor_report_problem_other_title" = "Un problema diverso";
+
+"placepage_add_place_button" = "Aggiungi un luogo";
+
+"placepage_report_problem_button" = "Riporta un problema";
+
+"whatsnew_smallmwm_header" = "Ce lo avete chiesto e noi lo abbiamo fatto";
+
+"whatsnew_smallmwm_message" = "Abbiamo diviso le mappe in parti. Ora puoi scaricare le regioni separate, non l'intero paese.";
+
+"whatsnew_search_header" = "Nuova ricerca";
+
+"whatsnew_search_message" = "Abbiamo migliorato significativamente la ricerca per indirizzo. Guarda tu stesso.";
+
+"whatsnew_editor_title" = "Modifica la mappa*";
+
+"whatsnew_editor_message_1" = "Aggiungi nuovi luoghi alla mappa, e modifica quelli già esistenti direttamente dall’app.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME usa i dati della community OpenStreetMap.";
+
+"onboarding_offline_navigation_title" = "Non ti perderai mai più";
+
+"onboarding_offline_navigation_message" = "Pianifica percorsi ottimali in auto o a piedi, anche senza connessione internet!";
+
+"onboarding_offline_navigation_title_2" = "Navigazione offline";
+
+"onboarding_offline_navigation_message_2" = "Pianifica percorsi ottimali in auto o a piedi.";
+
+"onboarding_offline_maps_title" = "MAPS.ME — accedi alla mappa in tutto il mondo senza Internet";
+
+"onboarding_offline_maps_message" = "Scarica una volta le mappe per l’area desiderata e usa la navigazione e le funzioni di ricerca senza una connessione internet.";
+
+"onboarding_notifications_message" = "Per ricevere le mappe aggiornate, attiva le notifiche di aggiornamento";
+
+"onboarding_notifications_title" = "Attiva notifiche di aggiornamento";
+
+"onboarding_location_title" = "Aiutaci a trovarti";
+
+"onboarding_location_message" = "Per usare la navigazione e altri strumenti, dobbiamo accedere alla tua geolocalizzazione.";
+
+"dialog_incorrect_feature_position" = "Cambia posizione";
+
+"message_invalid_feature_position" = "Un oggetto non può essere posizionato qui";

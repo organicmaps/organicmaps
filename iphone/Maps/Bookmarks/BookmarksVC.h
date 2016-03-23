@@ -1,8 +1,7 @@
-#import <UIKit/UIKit.h>
-#import "TableViewController.h"
 #import "LocationManager.h"
+#import "MWMTableViewController.h"
 
-@interface BookmarksVC : TableViewController <LocationObserver, UITextFieldDelegate>
+@interface BookmarksVC : MWMTableViewController <LocationObserver, UITextFieldDelegate>
 {
   LocationManager * m_locationManager;
   size_t m_categoryIndex;

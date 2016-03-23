@@ -1,8 +1,10 @@
 #pragma once
-#include "result.hpp"
+#include "search/result.hpp"
+#include "search/v2/pre_ranking_info.hpp"
+#include "search/v2/ranking_info.hpp"
+#include "search/v2/ranking_utils.hpp"
 
 #include "indexer/feature_data.hpp"
-
 
 class FeatureType;
 class CategoriesHolder;
@@ -15,41 +17,35 @@ struct CountryInfo;
 
 namespace search
 {
+class ReverseGeocoder;
 namespace impl
 {
-
-template <class T> bool LessRankT(T const & r1, T const & r2);
-template <class T> bool LessDistanceT(T const & r1, T const & r2);
-
 /// First pass results class. Objects are creating during search in trie.
 /// Works fast without feature loading and provide ranking.
 class PreResult1
 {
   friend class PreResult2;
-  template <class T> friend bool LessRankT(T const & r1, T const & r2);
-  template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
 
   FeatureID m_id;
-  m2::PointD m_center;
-  double m_distance;
-  uint8_t m_rank;
+  double m_priority;
   int8_t m_viewportID;
 
-  void CalcParams(m2::PointD const & pivot);
+  v2::PreRankingInfo m_info;
 
 public:
-  PreResult1(FeatureID const & fID, uint8_t rank, m2::PointD const & center,
-             m2::PointD const & pivot, int8_t viewportID);
-  PreResult1(m2::PointD const & center, m2::PointD const & pivot);
+  PreResult1(FeatureID const & fID, double priority, int8_t viewportID,
+             v2::PreRankingInfo const & info);
+
+  explicit PreResult1(double priority);
 
   static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
-  static bool LessDistance(PreResult1 const & r1, PreResult1 const & r2);
-  static bool LessPointsForViewport(PreResult1 const & r1, PreResult1 const & r2);
+  static bool LessPriority(PreResult1 const & r1, PreResult1 const & r2);
 
   inline FeatureID GetID() const { return m_id; }
-  inline m2::PointD GetCenter() const { return m_center; }
-  inline uint8_t GetRank() const { return m_rank; }
+  inline double GetPriority() const { return m_priority; }
+  inline uint8_t GetRank() const { return m_info.m_rank; }
   inline int8_t GetViewportID() const { return m_viewportID; }
+  inline v2::PreRankingInfo const & GetInfo() const { return m_info; }
 };
 
 
@@ -59,25 +55,28 @@ class PreResult2
 {
   friend class PreResult2Maker;
 
-  void CalcParams(m2::PointD const & pivot);
-
 public:
   enum ResultType
   {
     RESULT_LATLON,
     RESULT_FEATURE,
-    RESULT_BUILDING
+    RESULT_BUILDING  //!< Buildings are not filtered out in duplicates filter.
   };
 
-  /// For RESULT_FEATURE.
-  PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & pivot,
-             string const & displayName, string const & fileName);
+  /// For RESULT_FEATURE and RESULT_BUILDING.
+  PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & center,
+             m2::PointD const & pivot, string const & displayName, string const & fileName);
 
   /// For RESULT_LATLON.
   PreResult2(double lat, double lon);
 
-  /// For RESULT_BUILDING.
-  PreResult2(m2::PointD const & pt, string const & str, uint32_t type);
+  inline search::v2::RankingInfo const & GetRankingInfo() const { return m_info; }
+
+  template <typename TInfo>
+  inline void SetRankingInfo(TInfo && info)
+  {
+    m_info = forward<TInfo>(info);
+  }
 
   /// @param[in]  infoGetter Need to get region for result.
   /// @param[in]  pCat    Categories need to display readable type string.
@@ -85,13 +84,7 @@ public:
   /// @param[in]  lang    Current system language.
   Result GenerateFinalResult(storage::CountryInfoGetter const & infoGetter,
                              CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
-                             int8_t locale) const;
-
-  Result GeneratePointResult(CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
-                             int8_t locale) const;
-
-  static bool LessRank(PreResult2 const & r1, PreResult2 const & r2);
-  static bool LessDistance(PreResult2 const & r1, PreResult2 const & r2);
+                             int8_t locale, ReverseGeocoder const & coder) const;
 
   /// Filter equal features for different mwm's.
   class StrictEqualF
@@ -124,13 +117,7 @@ public:
   inline feature::TypesHolder const & GetTypes() const { return m_types; }
 
 private:
-  template <class T> friend bool LessRankT(T const & r1, T const & r2);
-  template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
-
   bool IsEqualCommon(PreResult2 const & r) const;
-
-  string ReadableFeatureType(CategoriesHolder const * pCat,
-                             uint32_t type, int8_t locale) const;
 
   FeatureID m_id;
   feature::TypesHolder m_types;
@@ -160,7 +147,7 @@ private:
 
   double m_distance;
   ResultType m_resultType;
-  uint8_t m_rank;
+  v2::RankingInfo m_info;
   feature::EGeomType m_geomType;
 
   Result::Metadata m_metadata;

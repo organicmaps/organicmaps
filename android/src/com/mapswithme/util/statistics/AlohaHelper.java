@@ -55,6 +55,7 @@ public class AlohaHelper
   public static final String MENU_SHOWCASE = "showcase";
   public static final String MENU_SHARE = "share@";
   public static final String MENU_POINT2POINT = "point2point";
+  public static final String MENU_ADD_PLACE = "addPlace";
   // place page
   public static final String PP_OPEN = "ppOpen";
   public static final String PP_CLOSE = "ppClose";

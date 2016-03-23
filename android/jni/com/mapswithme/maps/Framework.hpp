@@ -3,6 +3,7 @@
 #include <jni.h>
 
 #include "map/framework.hpp"
+#include "map/place_page_info.hpp"
 
 #include "search/result.hpp"
 
@@ -28,20 +29,11 @@
 
 namespace android
 {
-  class Framework : public storage::CountryTree::CountryTreeListener,
-                    public storage::ActiveMapsLayout::ActiveMapsListener
+  class Framework
   {
   private:
     drape_ptr<dp::ThreadSafeFactory> m_contextFactory;
     ::Framework m_work;
-
-    typedef shared_ptr<jobject> TJobject;
-    TJobject m_javaCountryListener;
-    typedef map<int, TJobject> TListenerMap;
-    TListenerMap m_javaActiveMapListeners;
-    int m_currentSlotID;
-
-    int m_activeMapsConnectionID;
 
     math::LowPassVector<float, 3> m_sensors[2];
     double m_lastCompass;
@@ -56,14 +48,16 @@ namespace android
     location::EMyPositionMode m_currentMode;
     bool m_isCurrentModeInitialized;
 
+    bool m_isChoosePositionMode;
+
+    place_page::Info m_info;
+
   public:
     Framework();
-    ~Framework();
 
     storage::Storage & Storage();
 
-    void ShowCountry(storage::TIndex const & idx, bool zoomToDownloadButton);
-    storage::TStatus GetCountryStatus(storage::TIndex const & idx) const;
+    void ShowNode(storage::TCountryId const & countryId, bool zoomToDownloadButton);
 
     void OnLocationError(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(location::GpsInfo const & info);
@@ -106,32 +100,20 @@ namespace android
 
     void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
 
-    /// Show rect from another activity. Ensure that no LoadState will be called,
-    /// when main map activity will become active.
-    void ShowSearchResult(search::Result const & r);
-    void ShowAllSearchResults(search::Results const & results);
-
     bool Search(search::SearchParams const & params);
     string GetLastSearchQuery() { return m_searchQuery; }
     void ClearLastSearchQuery() { m_searchQuery.clear(); }
 
-    void LoadState();
-    void SaveState();
-
     void AddLocalMaps();
     void RemoveLocalMaps();
 
-    storage::TIndex GetCountryIndex(double lat, double lon) const;
-    string GetCountryCode(double lat, double lon) const;
-
-    string GetCountryNameIfAbsent(m2::PointD const & pt) const;
     m2::PointD GetViewportCenter() const;
 
     void AddString(string const & name, string const & value);
 
     void Scale(::Framework::EScaleMode mode);
+    void Scale(m2::PointD const & centerPt, int targetZoom, bool animate);
 
-    BookmarkAndCategory AddBookmark(size_t category, m2::PointD const & pt, BookmarkData & bm);
     void ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & bm);
     size_t ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat);
 
@@ -147,12 +129,6 @@ namespace android
 
     void ShowTrack(int category, int track);
 
-    void SetCountryTreeListener(shared_ptr<jobject> objPtr);
-    void ResetCountryTreeListener();
-
-    int AddActiveMapsListener(shared_ptr<jobject> obj);
-    void RemoveActiveMapsListener(int slotID);
-
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
     location::EMyPositionMode GetMyPositionMode() const;
     void SetMyPositionMode(location::EMyPositionMode mode);
@@ -161,30 +137,24 @@ namespace android
     void Set3dMode(bool allow3d, bool allow3dBuildings);
     void Get3dMode(bool & allow3d, bool & allow3dBuildings);
 
+    void SetChoosePositionMode(bool isChoosePositionMode);
+
     void SetupWidget(gui::EWidget widget, float x, float y, dp::Anchor anchor);
     void ApplyWidgets();
     void CleanWidgets();
-
-    // Fills mapobject's metadata from UserMark
-    void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);
 
     using TDrapeTask = function<void()>;
     // Posts a task which must be executed when Drape Engine is alive.
     void PostDrapeTask(TDrapeTask && task);
 
-  public:
-    virtual void ItemStatusChanged(int childPosition);
-    virtual void ItemProgressChanged(int childPosition, storage::LocalAndRemoteSizeT const & sizes);
+    void SetPlacePageInfo(place_page::Info const & info);
+    place_page::Info & GetPlacePageInfo();
 
-    virtual void CountryGroupChanged(storage::ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
-                                     storage::ActiveMapsLayout::TGroup const & newGroup, int newPosition);
-    virtual void CountryStatusChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
-                                      storage::TStatus const & oldStatus, storage::TStatus const & newStatus);
-    virtual void CountryOptionsChanged(storage::ActiveMapsLayout::TGroup const & group,
-                                       int position, MapOptions const & oldOpt,
-                                       MapOptions const & newOpt);
-    virtual void DownloadingProgressUpdate(storage::ActiveMapsLayout::TGroup const & group, int position,
-                                           storage::LocalAndRemoteSizeT const & progress);
+    bool HasSpaceForMigration();
+    bool NeedMigrate();
+    bool PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & statusChangeListener,
+                                                 storage::Storage::TProgressFunction const & progressListener);
+    void Migrate(bool keepOldMaps);
 
   private:
     vector<TDrapeTask> m_drapeTasksQueue;

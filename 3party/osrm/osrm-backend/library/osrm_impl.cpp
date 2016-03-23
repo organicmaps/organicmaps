@@ -38,6 +38,7 @@ class named_mutex;
 
 // Our plugin is first, because it has naming conflicts with osrm part.
 #include "../plugins/MapsMePlugin.hpp"
+#include "../plugins/WayIdPlugin.hpp"
 #include "../plugins/distance_table.hpp"
 #include "../plugins/hello_world.hpp"
 #include "../plugins/locate.hpp"
@@ -90,6 +91,7 @@ OSRM_impl::OSRM_impl(libosrm_config &lib_config)
     RegisterPlugin(new ViaRoutePlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade));
     RegisterPlugin(new MapsMePlugin<BaseDataFacade<QueryEdge::EdgeData>>(
         query_data_facade, lib_config.server_paths["borders"].string(), lib_config.server_paths["enodesdata"].string()));
+    RegisterPlugin(new WayIdPlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade, lib_config.server_paths["enodesdata"].string()));
 }
 
 OSRM_impl::~OSRM_impl()

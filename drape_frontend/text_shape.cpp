@@ -94,7 +94,7 @@ public:
                      max(x, pivot.x), max(y, pivot.y));
   }
 
-  void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override
+  void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override
   {
     rects.emplace_back(GetPixelRect(screen, perspective));
   }
@@ -123,11 +123,12 @@ private:
 } // namespace
 
 TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params,
-                     bool hasPOI, bool affectedByZoomPriority)
+                     bool hasPOI, size_t textIndex, bool affectedByZoomPriority)
   : m_basePoint(basePoint)
   , m_params(params)
   , m_hasPOI(hasPOI)
   , m_affectedByZoomPriority(affectedByZoomPriority)
+  , m_textIndex(textIndex)
 {}
 
 void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
@@ -277,16 +278,17 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
 
 uint64_t TextShape::GetOverlayPriority() const
 {
-  // Overlay priority for text shapes considers the existance of secondary string and length of primary text.
-  // - If the text has secondary string then it has more priority;
-  // - The more text length, the more priority.
-  // [6 bytes - standard overlay priority][1 byte - secondary text][1 byte - length].
+  if (m_disableDisplacing)
+    return dp::kPriorityMaskAll;
+
+  // Overlay priority for text shapes considers length of the primary text
+  // (the more text length, the more priority) and index of text.
+  // [6 bytes - standard overlay priority][1 byte - length][1 byte - text index].
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
   uint64_t priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
   priority &= kMask;
-  if (!m_params.m_secondaryText.empty())
-    priority |= 0xFF00;
-  priority |= (0xFF - static_cast<uint8_t>(m_params.m_primaryText.size()));
+  priority |= (static_cast<uint8_t>(m_params.m_primaryText.size()) << 8);
+  priority |= static_cast<uint8_t>(m_textIndex);
 
   return priority;
 }

@@ -59,6 +59,11 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
   completionCondition.wait(lock, [&notified] { return notified; });
 }
 
+bool BaseRenderer::IsRenderingEnabled() const
+{
+  return m_isEnabled;
+}
+
 void BaseRenderer::SetRenderingEnabled(bool const isEnabled, TCompletionHandler completionHandler)
 {
   if (isEnabled == m_isEnabled)

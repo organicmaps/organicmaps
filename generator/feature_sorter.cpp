@@ -21,8 +21,10 @@
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
 
-#include "base/string_utils.hpp"
+#include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
+#include "base/string_utils.hpp"
 
 namespace
 {
@@ -56,7 +58,7 @@ namespace
 
       /// May be invisible if it's small area object with [0-9] scales.
       /// @todo Probably, we need to keep that objects if 9 scale (as we do in 17 scale).
-      if (minScale != -1)
+      if (minScale != -1 || feature::RequireGeometryInIndex(ft.GetFeatureBase()))
       {
         uint64_t const order = (static_cast<uint64_t>(minScale) << 59) | (pointAsInt64 >> 5);
         m_vec.push_back(make_pair(order, pos));
@@ -85,14 +87,28 @@ namespace feature
 {
   class FeaturesCollector2 : public FeaturesCollector
   {
+    DISALLOW_COPY_AND_MOVE(FeaturesCollector2);
+
     FilesContainerW m_writer;
 
-    vector<FileWriter*> m_geoFile, m_trgFile;
+    class TmpFile : public FileWriter
+    {
+    public:
+      explicit TmpFile(string const & filePath) : FileWriter(filePath) {}
+      ~TmpFile()
+      {
+        DeleteFileX(GetName());
+      }
+    };
 
-    unique_ptr<FileWriter> m_MetadataWriter;
+    using TmpFiles = vector<unique_ptr<TmpFile>>;
+    TmpFiles m_geoFile, m_trgFile;
 
-    struct MetadataIndexValueT { uint32_t key, value; };
-    vector<MetadataIndexValueT> m_MetadataIndex;
+    enum { METADATA = 0, SEARCH_TOKENS = 1, FILES_COUNT = 2 };
+    TmpFiles m_helperFile;
+
+    // Mapping from feature id to offset in file section with the correspondent metadata.
+    vector<pair<uint32_t, uint32_t>> m_metadataIndex;
 
     DataHeader m_header;
     uint32_t m_versionDate;
@@ -101,19 +117,22 @@ namespace feature
 
   public:
     FeaturesCollector2(string const & fName, DataHeader const & header, uint32_t versionDate)
-      : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header), m_versionDate(versionDate)
+      : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName),
+        m_header(header), m_versionDate(versionDate)
     {
-      m_MetadataWriter.reset(new FileWriter(fName + METADATA_FILE_TAG));
-
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
         string const postfix = strings::to_string(i);
-        m_geoFile.push_back(new FileWriter(fName + GEOMETRY_FILE_TAG + postfix));
-        m_trgFile.push_back(new FileWriter(fName + TRIANGLE_FILE_TAG + postfix));
+        m_geoFile.push_back(make_unique<TmpFile>(fName + GEOMETRY_FILE_TAG + postfix));
+        m_trgFile.push_back(make_unique<TmpFile>(fName + TRIANGLE_FILE_TAG + postfix));
       }
+
+      m_helperFile.resize(FILES_COUNT);
+      m_helperFile[METADATA] = make_unique<TmpFile>(fName + METADATA_FILE_TAG);
+      m_helperFile[SEARCH_TOKENS] = make_unique<TmpFile>(fName + SEARCH_TOKENS_FILE_TAG);
     }
 
-    ~FeaturesCollector2()
+    void Finish()
     {
       // write version information
       {
@@ -133,43 +152,35 @@ namespace feature
 
       m_writer.Write(m_datFile.GetName(), DATA_FILE_TAG);
 
+      // File Writer finalization function with appending to the main mwm file.
+      auto const finalizeFn = [this](unique_ptr<TmpFile> w, string const & tag,
+                                     string const & postfix = string())
+      {
+        w->Flush();
+        m_writer.Write(w->GetName(), tag + postfix);
+      };
+
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
-        string const geomFile = m_geoFile[i]->GetName();
-        string const trgFile = m_trgFile[i]->GetName();
-
-        delete m_geoFile[i];
-        delete m_trgFile[i];
-
         string const postfix = strings::to_string(i);
-
-        string geoPostfix = GEOMETRY_FILE_TAG;
-        geoPostfix += postfix;
-        string trgPostfix = TRIANGLE_FILE_TAG;
-        trgPostfix += postfix;
-
-        m_writer.Write(geomFile, geoPostfix);
-        m_writer.Write(trgFile, trgPostfix);
-
-        FileWriter::DeleteFileX(geomFile);
-        FileWriter::DeleteFileX(trgFile);
+        finalizeFn(move(m_geoFile[i]), GEOMETRY_FILE_TAG, postfix);
+        finalizeFn(move(m_trgFile[i]), TRIANGLE_FILE_TAG, postfix);
       }
 
       {
+        /// @todo Replace this mapping vector with succint structure.
         FileWriter w = m_writer.GetWriter(METADATA_INDEX_FILE_TAG);
-        for (auto const & v : m_MetadataIndex)
+        for (auto const & v : m_metadataIndex)
         {
-          WriteToSink(w, v.key);
-          WriteToSink(w, v.value);
+          WriteToSink(w, v.first);
+          WriteToSink(w, v.second);
         }
       }
 
-      m_MetadataWriter->Flush();
-      m_writer.Write(m_MetadataWriter->GetName(), METADATA_FILE_TAG);
+      finalizeFn(move(m_helperFile[METADATA]), METADATA_FILE_TAG);
+      finalizeFn(move(m_helperFile[SEARCH_TOKENS]), SEARCH_TOKENS_FILE_TAG);
 
       m_writer.Finish();
-
-      FileWriter::DeleteFileX(m_MetadataWriter->GetName());
 
       if (m_header.GetType() == DataHeader::country)
       {
@@ -351,7 +362,12 @@ namespace feature
         if (!IsPolygonCCW(points.begin(), points.end()))
         {
           reverse(points.begin(), points.end());
-          ASSERT ( IsPolygonCCW(points.begin(), points.end()), (points) );
+
+          // Actually this check doesn't work for some degenerate polygons.
+          // See IsPolygonCCW_DataSet tests for more details.
+          //ASSERT(IsPolygonCCW(points.begin(), points.end()), (points));
+          if (!IsPolygonCCW(points.begin(), points.end()))
+            return false;
         }
 
         size_t const index = FindSingleStrip(count,
@@ -468,7 +484,7 @@ namespace feature
               simplified.back().swap(points);
             }
 
-            polygons_t::const_iterator iH = polys.begin();
+            auto iH = polys.begin();
             for (++iH; iH != polys.end(); ++iH)
             {
               simplified.push_back(points_t());
@@ -501,11 +517,17 @@ namespace feature
 
         uint32_t const ftID = WriteFeatureBase(holder.m_buffer.m_buffer, fb);
 
+        fb.GetAddressData().Serialize(*(m_helperFile[SEARCH_TOKENS]));
+
         if (!fb.GetMetadata().Empty())
         {
-          uint64_t offset = m_MetadataWriter->Pos();
-          m_MetadataIndex.push_back({ ftID, static_cast<uint32_t>(offset) });
-          fb.GetMetadata().SerializeToMWM(*m_MetadataWriter);
+          auto const & w = m_helperFile[METADATA];
+
+          uint64_t const offset = w->Pos();
+          ASSERT_LESS_OR_EQUAL(offset, numeric_limits<uint32_t>::max(), ());
+
+          m_metadataIndex.emplace_back(ftID, static_cast<uint32_t>(offset));
+          fb.GetMetadata().Serialize(*w);
         }
 
         uint64_t const osmID = fb.GetWayIDForRouting();
@@ -603,8 +625,10 @@ namespace feature
           // emit the feature
           collector(GetFeatureBuilder2(f));
         }
+
+        collector.Finish();
       }
-      catch (Writer::Exception const & ex)
+      catch (RootException const & ex)
       {
         LOG(LCRITICAL, ("MWM writing error:", ex.Msg()));
       }

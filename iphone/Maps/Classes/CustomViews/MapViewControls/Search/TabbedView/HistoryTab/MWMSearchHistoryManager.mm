@@ -29,7 +29,7 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
   MWMRoutingPlaneMode const m = MapsAppDelegate.theApp.routingPlaneMode;
   return (m == MWMRoutingPlaneModeSearchSource ||
          m == MWMRoutingPlaneModeSearchDestination) &&
-         MapsAppDelegate.theApp.m_locationManager.lastLocationIsValid;
+         MapsAppDelegate.theApp.locationManager.lastLocationIsValid;
 }
 
 - (void)attachCell:(MWMSearchTabbedCollectionViewCell *)cell
@@ -60,7 +60,7 @@ static NSString * const kMyPositionCellIdentifier = @"MWMSearchHistoryMyPosition
     }
     [tableView reloadData];
   }
-  cell.noResultsImage.image = [UIImage imageNamed:@"img_no_history_light"];
+  cell.noResultsImage.image = [UIImage imageNamed:@"img_search_history"];
   cell.noResultsTitle.text = L(@"search_history_title");
   cell.noResultsText.text = L(@"search_history_text");
 }

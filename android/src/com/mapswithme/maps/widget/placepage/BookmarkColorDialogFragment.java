@@ -53,7 +53,7 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
 
   private View buildView()
   {
-    final List<Icon> icons = BookmarkManager.getIcons();
+    final List<Icon> icons = BookmarkManager.ICONS;
     final IconsAdapter adapter = new IconsAdapter(getActivity(), icons);
     adapter.chooseItem(mIconType);
 

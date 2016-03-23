@@ -14,28 +14,28 @@
 
 namespace
 {
-  void ReadCommon(Reader * classificator,
-                  Reader * types)
+void ReadCommon(unique_ptr<Reader> classificator,
+                unique_ptr<Reader> types)
+{
+  Classificator & c = classif();
+  c.Clear();
+
   {
-    Classificator & c = classif();
-    c.Clear();
+    //LOG(LINFO, ("Reading classificator"));
+    ReaderStreamBuf buffer(move(classificator));
 
-    {
-      //LOG(LINFO, ("Reading classificator"));
-      ReaderStreamBuf buffer(classificator);
-
-      istream s(&buffer);
-      c.ReadClassificator(s);
-    }
-
-    {
-      //LOG(LINFO, ("Reading types mapping"));
-      ReaderStreamBuf buffer(types);
-
-      istream s(&buffer);
-      c.ReadTypesMapping(s);
-    }
+    istream s(&buffer);
+    c.ReadClassificator(s);
   }
+
+  {
+    //LOG(LINFO, ("Reading types mapping"));
+    ReaderStreamBuf buffer(move(types));
+
+    istream s(&buffer);
+    c.ReadTypesMapping(s);
+  }
+}
 }
 
 namespace classificator
@@ -55,7 +55,6 @@ namespace classificator
       if (mapStyle != MapStyleMerged || originMapStyle == MapStyleMerged)
       {
         GetStyleReader().SetCurrentStyle(mapStyle);
-
         ReadCommon(p.GetReader("classificator.txt"),
                    p.GetReader("types.txt"));
 

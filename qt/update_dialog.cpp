@@ -7,29 +7,19 @@
 
 #include "base/assert.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/bind.hpp"
 
 #include <QtCore/QDateTime>
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QVBoxLayout>
-  #include <QtGui/QHBoxLayout>
-  #include <QtGui/QLabel>
-  #include <QtGui/QPushButton>
-  #include <QtGui/QTreeWidget>
-  #include <QtGui/QHeaderView>
-  #include <QtGui/QMessageBox>
-  #include <QtGui/QProgressBar>
-#else
-  #include <QtWidgets/QVBoxLayout>
-  #include <QtWidgets/QHBoxLayout>
-  #include <QtWidgets/QLabel>
-  #include <QtWidgets/QPushButton>
-  #include <QtWidgets/QTreeWidget>
-  #include <QtWidgets/QHeaderView>
-  #include <QtWidgets/QMessageBox>
-  #include <QtWidgets/QProgressBar>
-#endif
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QProgressBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QVBoxLayout>
 
 #define CHECK_FOR_UPDATE "Check for update"
 #define LAST_UPDATE_CHECK "Last update check: "
@@ -53,6 +43,19 @@ enum
 #define COLOR_DOWNLOADFAILED  Qt::red
 #define COLOR_INQUEUE         Qt::gray
 #define COLOR_OUTOFDATE       Qt::magenta
+#define COLOR_MIXED           Qt::yellow
+
+namespace
+{
+bool DeleteNotUploadedEditsConfirmation()
+{
+  QMessageBox msb;
+  msb.setText("Some map edits are not uploaded yet. Are you sure you want to delete map anyway?");
+  msb.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
+  msb.setDefaultButton(QMessageBox::Cancel);
+  return QMessageBox::Yes == msb.exec();
+}
+}  // namespace
 
 namespace qt
 {
@@ -89,7 +92,11 @@ namespace qt
     horizontalLayout->addStretch();
     horizontalLayout->addWidget(closeButton);
 
+    QLineEdit * edit = new QLineEdit(this);
+    connect(edit, SIGNAL(textChanged(QString const &)), this , SLOT(OnTextChanged(QString const &)));
+
     QVBoxLayout * verticalLayout = new QVBoxLayout();
+    verticalLayout->addWidget(edit);
     verticalLayout->addWidget(m_tree);
     verticalLayout->addLayout(horizontalLayout);
     setLayout(verticalLayout);
@@ -97,88 +104,92 @@ namespace qt
     setWindowTitle(tr("Geographical Regions"));
     resize(700, 600);
 
-    // we want to receive all download progress and result events
+    // We want to receive all download progress and result events.
     m_observerSlotId = GetStorage().Subscribe(bind(&UpdateDialog::OnCountryChanged, this, _1),
                                               bind(&UpdateDialog::OnCountryDownloadProgress, this, _1, _2));
   }
 
   UpdateDialog::~UpdateDialog()
   {
-    // tell download manager that we're gone...
+    // Tell download manager that we're gone.
     GetStorage().Unsubscribe(m_observerSlotId);
   }
 
   /// when user clicks on any map row in the table
-  void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int /*column*/)
+  void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
   {
-    // calculate index of clicked item
-    QList<int> treeIndex;
-    {
-      QTreeWidgetItem * parent = item;
-      while (parent)
-      {
-        treeIndex.insert(0, parent->data(KColumnIndexCountry, Qt::UserRole).toInt());
-        parent = parent->parent();
-      }
-      while (treeIndex.size() < 3)
-        treeIndex.append(TIndex::INVALID);
-    }
+    TCountryId const countryId = GetCountryIdByTreeItem(item);
 
-    TIndex const countryIndex(treeIndex[0], treeIndex[1], treeIndex[2]);
     Storage & st = GetStorage();
 
-    // skip group items
-    if (st.CountriesCount(countryIndex) > 0)
+    NodeAttrs attrs;
+    st.GetNodeAttrs(countryId, attrs);
+
+    TCountriesVec children;
+    st.GetChildren(countryId, children);
+
+    // For group process only click on the column #.
+    if (!children.empty() && column != 1)
       return;
 
-    switch (m_framework.GetActiveMaps()->GetCountryStatus(countryIndex))
+    switch (attrs.m_status)
     {
-    case TStatus::EOnDiskOutOfDate:
+    case NodeStatus::OnDiskOutOfDate:
       {
-        // map is already downloaded, so ask user about deleting!
+        // Map is already downloaded, so ask user about deleting.
         QMessageBox ask(this);
         ask.setIcon(QMessageBox::Question);
-        ask.setText(tr("Do you want to update or delete %1?").arg(item->text(KColumnIndexCountry)));
+        ask.setText(tr("Do you want to update or delete %1?").arg(countryId.c_str()));
+        QPushButton * const btnUpdate = ask.addButton(tr("Update"), QMessageBox::ActionRole);
+        QPushButton * const btnDelete = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
+        QPushButton * const btnCancel = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
+        UNUSED_VALUE(btnCancel);
 
-        QPushButton * btns[3];
-        btns[0] = ask.addButton(tr("Update"), QMessageBox::ActionRole);
-        btns[1] = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
-        btns[2] = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
+        ask.exec();
 
-        (void)ask.exec();
+        QAbstractButton * const res = ask.clickedButton();
 
-        QAbstractButton * res = ask.clickedButton();
-
-        if (res == btns[0])
-          m_framework.GetActiveMaps()->DownloadMap(countryIndex, MapOptions::MapWithCarRouting);
-
-        if (res == btns[1])
-          m_framework.GetActiveMaps()->DeleteMap(countryIndex, MapOptions::MapWithCarRouting);
+        if (res == btnUpdate)
+          st.DownloadNode(countryId);
+        else if (res == btnDelete)
+        {
+          if (!m_framework.HasUnsavedEdits(countryId) || DeleteNotUploadedEditsConfirmation())
+            st.DeleteNode(countryId);
+        }
       }
       break;
 
-    case TStatus::EOnDisk:
+    case NodeStatus::OnDisk:
       {
-        // map is already downloaded, so ask user about deleting!
+        // Map is already downloaded, so ask user about deleting.
         QMessageBox ask(this);
         ask.setIcon(QMessageBox::Question);
-        ask.setText(tr("Do you want to delete %1?").arg(item->text(KColumnIndexCountry)));
-        ask.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        ask.setDefaultButton(QMessageBox::No);
+        ask.setText(tr("Do you want to delete %1?").arg(countryId.c_str()));
+        QPushButton * const btnDelete = ask.addButton(tr("Delete"), QMessageBox::ActionRole);
+        QPushButton * const btnCancel = ask.addButton(tr("Cancel"), QMessageBox::NoRole);
+        UNUSED_VALUE(btnCancel);
 
-        if (ask.exec() == QMessageBox::Yes)
-          m_framework.GetActiveMaps()->DeleteMap(countryIndex, MapOptions::MapWithCarRouting);
+        ask.exec();
+
+        QAbstractButton * const res = ask.clickedButton();
+
+        if (res == btnDelete)
+        {
+          if (!m_framework.HasUnsavedEdits(countryId) || DeleteNotUploadedEditsConfirmation())
+            st.DeleteNode(countryId);
+        }
       }
       break;
 
-    case TStatus::ENotDownloaded:
-    case TStatus::EDownloadFailed:
-      m_framework.GetActiveMaps()->DownloadMap(countryIndex, MapOptions::MapWithCarRouting);
+    case NodeStatus::NotDownloaded:
+    case NodeStatus::Error:
+    case NodeStatus::Partly:
+      st.DownloadNode(countryId);
       break;
 
-    case TStatus::EInQueue:
-    case TStatus::EDownloading:
-      m_framework.GetActiveMaps()->DeleteMap(countryIndex, MapOptions::MapWithCarRouting);
+    case NodeStatus::InQueue:
+    case NodeStatus::Downloading:
+      st.DeleteNode(countryId);
       break;
 
     default:
@@ -187,48 +198,18 @@ namespace qt
     }
   }
 
-  QTreeWidgetItem * MatchedItem(QTreeWidgetItem & parent, int index)
-  {
-    if (index >= 0)
-    {
-      for (int i = 0; i < parent.childCount(); ++i)
-      {
-        QTreeWidgetItem * item = parent.child(i);
-        if (index == item->data(KColumnIndexCountry, Qt::UserRole).toInt())
-          return item;
-      }
-    }
-    return NULL;
-  }
-
-  /// @return can be null if index is invalid
-  QTreeWidgetItem * GetTreeItemByIndex(QTreeWidget & tree, TIndex const & index)
-  {
-    QTreeWidgetItem * item = 0;
-    if (index.m_group >= 0)
-    {
-      for (int i = 0; i < tree.topLevelItemCount(); ++i)
-      {
-        QTreeWidgetItem * grItem = tree.topLevelItem(i);
-        if (index.m_group == grItem->data(KColumnIndexCountry, Qt::UserRole).toInt())
-        {
-          item = grItem;
-          break;
-        }
-      }
-    }
-    if (item && index.m_country >= 0)
-    {
-      item = MatchedItem(*item, index.m_country);
-      if (item && index.m_region >= 0)
-        item = MatchedItem(*item, index.m_region);
-    }
-    return item;
-  }
-
   void UpdateDialog::OnCloseClick()
   {
     done(0);
+  }
+
+  void UpdateDialog::OnTextChanged(QString const & text)
+  {
+    m_tree->clear();
+    m_treeItemByCountryId.clear();
+
+    string const filter = text.toUtf8().constData();
+    FillTree(filter);
   }
 
   /// Changes row's text color
@@ -238,137 +219,195 @@ namespace qt
       item.setTextColor(column, color);
   }
 
-  void UpdateDialog::UpdateRowWithCountryInfo(TIndex const & index)
+  void UpdateDialog::UpdateRowWithCountryInfo(TCountryId const & countryId)
   {
-    QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, index);
-    if (item)
-    {
-      QColor rowColor;
-      QString statusString;
-      LocalAndRemoteSizeT size(0, 0);
-
-      MapOptions const options = MapOptions::MapWithCarRouting;
-
-      Storage const & st = GetStorage();
-      switch (m_framework.GetCountryStatus(index))
-      {
-      case TStatus::ENotDownloaded:
-        if (st.CountriesCount(index) == 0)
-        {
-          size = st.CountrySizeInBytes(index, options);
-          ASSERT(size.second > 0, (index));
-          statusString = tr("Click to download");
-        }
-        rowColor = COLOR_NOTDOWNLOADED;
-        break;
-
-      case TStatus::EOnDisk:
-        statusString = tr("Installed (click to delete)");
-        rowColor = COLOR_ONDISK;
-        size = st.CountrySizeInBytes(index, options);
-        break;
-
-      case TStatus::EOnDiskOutOfDate:
-        statusString = tr("Out of date (click to update or delete)");
-        rowColor = COLOR_OUTOFDATE;
-        size = st.CountrySizeInBytes(index, options);
-        break;
-
-      case TStatus::EDownloadFailed:
-        statusString = tr("Download has failed");
-        rowColor = COLOR_DOWNLOADFAILED;
-        size = st.CountrySizeInBytes(index, options);
-        break;
-
-      case TStatus::EDownloading:
-        statusString = tr("Downloading ...");
-        rowColor = COLOR_INPROGRESS;
-        break;
-
-      case TStatus::EInQueue:
-        statusString = tr("Marked for download");
-        rowColor = COLOR_INQUEUE;
-        size = st.CountrySizeInBytes(index, options);
-        break;
-
-      default:
-        ASSERT(false, ("We shouldn't be here"));
-        break;
-      }
-
-      if (!statusString.isEmpty())
-        item->setText(KColumnIndexStatus, statusString);
-
-      if (size.second > 0)
-      {
-        int const halfMb = 512 * 1024;
-        int const Mb = 1024 * 1024;
-
-        if (size.second > Mb)
-        {
-          item->setText(KColumnIndexSize, QString("%1/%2 MB").arg(
-              uint((size.first + halfMb) / Mb)).arg(uint((size.second + halfMb) / Mb)));
-        }
-        else
-        {
-          item->setText(KColumnIndexSize, QString("%1/%2 kB").arg(
-              uint((size.first + 1023) / 1024)).arg(uint((size.second + 1023) / 1024)));
-        }
-
-        // needed for column sorting
-        item->setData(KColumnIndexSize, Qt::UserRole, QVariant(qint64(size.second)));
-      }
-
-    // commented out because it looks terrible on black backgrounds
-    //  if (!statusString.isEmpty())
-    //    SetRowColor(*item, rowColor);
-    }
+    auto const items = GetTreeItemsByCountryId(countryId);
+    for (auto const item : items)
+      UpdateRowWithCountryInfo(item, countryId);
   }
 
-  QTreeWidgetItem * UpdateDialog::CreateTreeItem(TIndex const & index, int value, QTreeWidgetItem * parent)
+  void UpdateDialog::UpdateRowWithCountryInfo(QTreeWidgetItem * item, TCountryId const & countryId)
   {
-    QString const text = QString::fromUtf8(GetStorage().CountryName(index).c_str());
+    Storage const & st = GetStorage();
+
+    QColor rowColor;
+    QString statusString;
+    TLocalAndRemoteSize size(0, 0);
+
+    TCountriesVec children;
+    st.GetChildren(countryId, children);
+
+    NodeAttrs attrs;
+    st.GetNodeAttrs(countryId, attrs);
+
+    size.first = attrs.m_downloadingProgress.first;
+    size.second = attrs.m_mwmSize;
+
+    switch (attrs.m_status)
+    {
+    case NodeStatus::NotDownloaded:
+      ASSERT(size.second > 0, (countryId));
+      statusString = tr("Click to download");
+      rowColor = COLOR_NOTDOWNLOADED;
+      break;
+
+    case NodeStatus::OnDisk:
+    case NodeStatus::Partly:
+      statusString = tr("Installed (click to delete)");
+      rowColor = COLOR_ONDISK;
+      break;
+
+    case NodeStatus::OnDiskOutOfDate:
+      statusString = tr("Out of date (click to update or delete)");
+      rowColor = COLOR_OUTOFDATE;
+      break;
+
+    case NodeStatus::Error:
+      statusString = tr("Download has failed");
+      rowColor = COLOR_DOWNLOADFAILED;
+      break;
+
+    case NodeStatus::Downloading:
+      statusString = tr("Downloading ...");
+      rowColor = COLOR_INPROGRESS;
+      break;
+
+    case NodeStatus::InQueue:
+      statusString = tr("Marked for download");
+      rowColor = COLOR_INQUEUE;
+      break;
+
+    default:
+      ASSERT(false, ("We shouldn't be here"));
+      break;
+    }
+
+    if (!statusString.isEmpty())
+      item->setText(KColumnIndexStatus, statusString);
+
+    if (size.second > 0)
+    {
+      int const halfMb = 512 * 1024;
+      int const Mb = 1024 * 1024;
+
+      if (size.second > Mb)
+      {
+        item->setText(KColumnIndexSize, QString("%1/%2 MB").arg(
+            uint((size.first + halfMb) / Mb)).arg(uint((size.second + halfMb) / Mb)));
+      }
+      else
+      {
+        item->setText(KColumnIndexSize, QString("%1/%2 kB").arg(
+            uint((size.first + 1023) / 1024)).arg(uint((size.second + 1023) / 1024)));
+      }
+
+      // Needed for column sorting.
+      item->setData(KColumnIndexSize, Qt::UserRole, QVariant(qint64(size.second)));
+    }
+
+    // Commented out because it looks terrible on black backgrounds.
+    //  if (!statusString.isEmpty())
+    //    SetRowColor(*item, rowColor);
+  }
+
+  QString UpdateDialog::GetNodeName(storage::TCountryId const & countryId)
+  {
+    // QString const text = QString::fromUtf8(GetStorage().CountryName(countryId).c_str()); // ???
+    storage::NodeAttrs attrs;
+    GetStorage().GetNodeAttrs(countryId, attrs);
+    return attrs.m_nodeLocalName.c_str();
+  }
+
+  QTreeWidgetItem * UpdateDialog::CreateTreeItem(TCountryId const & countryId, QTreeWidgetItem * parent)
+  {
+    QString const text = GetNodeName(countryId);
     QTreeWidgetItem * item = new QTreeWidgetItem(parent, QStringList(text));
-    item->setData(KColumnIndexCountry, Qt::UserRole, QVariant(value));
+    item->setData(KColumnIndexCountry, Qt::UserRole, QVariant(countryId.c_str()));
 
     if (parent == 0)
       m_tree->addTopLevelItem(item);
+
+    m_treeItemByCountryId.insert(make_pair(countryId, item));
+
     return item;
   }
 
-  int UpdateDialog::GetChildsCount(TIndex const & index) const
+  vector<QTreeWidgetItem *> UpdateDialog::GetTreeItemsByCountryId(TCountryId const & countryId)
   {
-    return static_cast<int>(GetStorage().CountriesCount(index));
+    vector<QTreeWidgetItem *> res;
+    auto const p = m_treeItemByCountryId.equal_range(countryId);
+    for (auto i = p.first; i != p.second; ++i)
+      res.emplace_back(i->second);
+    return res;
   }
 
-  void UpdateDialog::FillTree()
+  storage::TCountryId UpdateDialog::GetCountryIdByTreeItem(QTreeWidgetItem * item)
+  {
+    return item->data(KColumnIndexCountry, Qt::UserRole).toString().toUtf8().constData();
+  }
+
+  bool Matches(string countryId, string filter)
+  {
+    transform(filter.begin(), filter.end(), filter.begin(), toupper);
+    transform(countryId.begin(), countryId.end(), countryId.begin(), toupper);
+    return countryId.find(filter) != string::npos;
+  }
+
+  void UpdateDialog::FillTreeImpl(QTreeWidgetItem * parent, TCountryId const & countryId, string const & filter)
+  {
+    TCountriesVec children;
+    GetStorage().GetChildren(countryId, children);
+
+    if (children.empty())
+    {
+      // Filter leafs by matching.
+      if (!filter.empty() && !Matches(countryId, filter))
+        return;
+
+      QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+      UpdateRowWithCountryInfo(item, countryId);
+    }
+    else
+    {
+      if (!filter.empty() && Matches(countryId, filter))
+      {
+        // Filter matches to the group name, do not filter the group.
+        QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+        UpdateRowWithCountryInfo(item, countryId);
+
+        for (auto const & child : children)
+          FillTreeImpl(item, child, string()); // Do no filter children.
+      }
+      else
+      {
+        // Filter does not match to the group, but children can do.
+        QTreeWidgetItem * item = CreateTreeItem(countryId, parent);
+        UpdateRowWithCountryInfo(item, countryId);
+
+        for (auto const & child : children)
+          FillTreeImpl(item, child, filter);
+
+        // But if item has no children, then drop it.
+        if (!filter.empty() && 0 == item->childCount() && parent != nullptr)
+        {
+          parent->removeChild(item);
+          item = nullptr;
+        }
+      }
+    }
+  }
+
+  void UpdateDialog::FillTree(string const & filter)
   {
     m_tree->setSortingEnabled(false);
     m_tree->clear();
 
-    int const gCount = GetChildsCount(TIndex());
-    for (int group = 0; group < gCount; ++group)
-    {
-      TIndex const grIndex(group);
-      QTreeWidgetItem * groupItem = CreateTreeItem(grIndex, group, 0);
-      UpdateRowWithCountryInfo(grIndex);
+    TCountryId const rootId = m_framework.Storage().GetRootId();
+    FillTreeImpl(nullptr /* parent */, rootId, filter);
 
-      int const cCount = GetChildsCount(grIndex);
-      for (int country = 0; country < cCount; ++country)
-      {
-        TIndex const cIndex(group, country);
-        QTreeWidgetItem * countryItem = CreateTreeItem(cIndex, country, groupItem);
-        UpdateRowWithCountryInfo(cIndex);
-
-        int const rCount = GetChildsCount(cIndex);
-        for (int region = 0; region < rCount; ++region)
-        {
-          TIndex const rIndex(group, country, region);
-          (void)CreateTreeItem(rIndex, region, countryItem);
-          UpdateRowWithCountryInfo(rIndex);
-        }
-      }
-    }
+    // Expand the root.
+    ASSERT_EQUAL(1, m_tree->topLevelItemCount(), ());
+    m_tree->topLevelItem(0)->setExpanded(true);
 
     m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
     m_tree->setSortingEnabled(true);
@@ -381,24 +420,32 @@ namespace qt
 #endif
   }
 
-  void UpdateDialog::OnCountryChanged(TIndex const & index)
+  void UpdateDialog::OnCountryChanged(TCountryId const & countryId)
   {
-    UpdateRowWithCountryInfo(index);
+    UpdateRowWithCountryInfo(countryId);
+
+    // Now core does not support callbacks about parent country change, therefore emulate it.
+    auto const items = GetTreeItemsByCountryId(countryId);
+    for (auto const item : items)
+    {
+      for (auto p = item->parent(); p != nullptr; p = p->parent())
+        UpdateRowWithCountryInfo(GetCountryIdByTreeItem(p));
+    }
   }
 
-  void UpdateDialog::OnCountryDownloadProgress(TIndex const & index,
-                                               pair<int64_t, int64_t> const & progress)
+  void UpdateDialog::OnCountryDownloadProgress(TCountryId const & countryId,
+                                               MapFilesDownloader::TProgress const & progress)
   {
-    QTreeWidgetItem * item = GetTreeItemByIndex(*m_tree, index);
-    if (item)
+    auto const items = GetTreeItemsByCountryId(countryId);
+    for (auto const item : items)
       item->setText(KColumnIndexSize, QString("%1%").arg(progress.first * 100 / progress.second));
   }
 
   void UpdateDialog::ShowModal()
   {
-    // if called for first time
+    // If called for first time.
     if (!m_tree->topLevelItemCount())
-      FillTree();
+      FillTree(string());
 
     exec();
   }

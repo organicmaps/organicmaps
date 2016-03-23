@@ -7,11 +7,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.Surface;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.downloader.DownloadHelper;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.concurrency.UiThread;
 
 public class MapFragment extends BaseMwmFragment
                       implements View.OnTouchListener,
@@ -50,12 +55,10 @@ public class MapFragment extends BaseMwmFragment
   private boolean mEngineCreated;
   private static boolean sWasCopyrightDisplayed;
 
-  public interface MapRenderingListener
+  interface MapRenderingListener
   {
     void onRenderingInitialized();
   }
-
-  public static final String FRAGMENT_TAG = MapFragment.class.getName();
 
   private void setupWidgets(int width, int height)
   {
@@ -185,7 +188,7 @@ public class MapFragment extends BaseMwmFragment
       nativeDetachSurface();
   }
 
-  public void destroyEngine()
+  void destroyEngine()
   {
     if (!mEngineCreated)
       return;
@@ -216,7 +219,6 @@ public class MapFragment extends BaseMwmFragment
     super.onViewCreated(view, savedInstanceState);
     final SurfaceView surfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
     surfaceView.getHolder().addCallback(this);
-    nativeConnectDownloadButton();
   }
 
   @Override
@@ -267,36 +269,6 @@ public class MapFragment extends BaseMwmFragment
     }
   }
 
-  @SuppressWarnings("UnusedDeclaration")
-  public void onDownloadCountryClicked(final int group, final int country, final int region, final int options)
-  {
-    UiThread.run(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        final MapStorage.Index index = new MapStorage.Index(group, country, region);
-        if (options == -1)
-        {
-          nativeDownloadCountry(index, options);
-          return;
-        }
-
-        final long size = MapStorage.INSTANCE.countryRemoteSizeInBytes(index, options);
-        DownloadHelper.downloadWithCellularCheck(getActivity(), size, MapStorage.INSTANCE.countryName(index), new DownloadHelper.OnDownloadListener()
-        {
-          @Override
-          public void onDownload()
-          {
-            nativeDownloadCountry(index, options);
-          }
-        });
-      }
-    });
-  }
-
-  private native void nativeConnectDownloadButton();
-  private static native void nativeDownloadCountry(MapStorage.Index index, int options);
   static native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean forceRedraw);
   static native void nativeScalePlus();
   static native void nativeScaleMinus();

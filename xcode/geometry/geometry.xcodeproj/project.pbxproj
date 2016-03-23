@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		345C55F51C93140A00B6783F /* clipping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 345C55F31C93140A00B6783F /* clipping.cpp */; };
+		345C55F61C93140A00B6783F /* clipping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 345C55F41C93140A00B6783F /* clipping.hpp */; };
+		347F33701C454205009758CC /* triangle2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F336E1C454205009758CC /* triangle2d.cpp */; };
+		347F33711C454205009758CC /* triangle2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F336F1C454205009758CC /* triangle2d.hpp */; };
+		56D5456A1C74A46D00E3719C /* algorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D545681C74A46D00E3719C /* algorithm.cpp */; };
+		56D5456B1C74A46D00E3719C /* algorithm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D545691C74A46D00E3719C /* algorithm.hpp */; };
+		56EB1ED01C6B6DF30022D831 /* segment2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ECE1C6B6DF30022D831 /* segment2d.cpp */; };
+		56EB1ED11C6B6DF30022D831 /* segment2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1ECF1C6B6DF30022D831 /* segment2d.hpp */; };
 		670F296A1BA9D3C200F2ABF4 /* equality.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29291BA9D2E700F2ABF4 /* equality.hpp */; };
 		670F296C1BA9D3C200F2ABF4 /* large_polygon.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F292B1BA9D2E700F2ABF4 /* large_polygon.hpp */; };
 		670F297A1BA9D3C200F2ABF4 /* test_regions.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29391BA9D2E700F2ABF4 /* test_regions.hpp */; };
@@ -89,6 +97,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		345C55F31C93140A00B6783F /* clipping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clipping.cpp; sourceTree = "<group>"; };
+		345C55F41C93140A00B6783F /* clipping.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = clipping.hpp; sourceTree = "<group>"; };
+		347F336E1C454205009758CC /* triangle2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = triangle2d.cpp; sourceTree = "<group>"; };
+		347F336F1C454205009758CC /* triangle2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = triangle2d.hpp; sourceTree = "<group>"; };
+		56D545681C74A46D00E3719C /* algorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = algorithm.cpp; sourceTree = "<group>"; };
+		56D545691C74A46D00E3719C /* algorithm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algorithm.hpp; sourceTree = "<group>"; };
+		56EB1ECE1C6B6DF30022D831 /* segment2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = segment2d.cpp; sourceTree = "<group>"; };
+		56EB1ECF1C6B6DF30022D831 /* segment2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = segment2d.hpp; sourceTree = "<group>"; };
 		670D05A51B0E01FF0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		670F29221BA9D2E700F2ABF4 /* angle_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = angle_test.cpp; sourceTree = "<group>"; };
 		670F29231BA9D2E700F2ABF4 /* anyrect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = anyrect_test.cpp; sourceTree = "<group>"; };
@@ -250,6 +266,14 @@
 		675344931A3F684600A0A8C3 /* geometry */ = {
 			isa = PBXGroup;
 			children = (
+				345C55F31C93140A00B6783F /* clipping.cpp */,
+				345C55F41C93140A00B6783F /* clipping.hpp */,
+				56D545681C74A46D00E3719C /* algorithm.cpp */,
+				56D545691C74A46D00E3719C /* algorithm.hpp */,
+				56EB1ECE1C6B6DF30022D831 /* segment2d.cpp */,
+				56EB1ECF1C6B6DF30022D831 /* segment2d.hpp */,
+				347F336E1C454205009758CC /* triangle2d.cpp */,
+				347F336F1C454205009758CC /* triangle2d.hpp */,
 				E92D8BD21C15AFAA00A98D17 /* mercator.cpp */,
 				E92D8BD31C15AFAA00A98D17 /* mercator.hpp */,
 				6741AA9E1BF35476002C974C /* latlon.cpp */,
@@ -309,8 +333,11 @@
 				675344E01A3F68F900A0A8C3 /* boost_concept.hpp in Headers */,
 				675344C01A3F687400A0A8C3 /* cellid.hpp in Headers */,
 				675344CB1A3F687400A0A8C3 /* polyline2d.hpp in Headers */,
+				56EB1ED11C6B6DF30022D831 /* segment2d.hpp in Headers */,
 				675344D21A3F687400A0A8C3 /* screenbase.hpp in Headers */,
 				E92D8BD51C15AFAA00A98D17 /* mercator.hpp in Headers */,
+				56D5456B1C74A46D00E3719C /* algorithm.hpp in Headers */,
+				345C55F61C93140A00B6783F /* clipping.hpp in Headers */,
 				675344BF1A3F687400A0A8C3 /* avg_vector.hpp in Headers */,
 				675344D31A3F687400A0A8C3 /* simplification.hpp in Headers */,
 				675344CC1A3F687400A0A8C3 /* rect_intersect.hpp in Headers */,
@@ -319,6 +346,7 @@
 				675344CA1A3F687400A0A8C3 /* polygon.hpp in Headers */,
 				675344C11A3F687400A0A8C3 /* covering_utils.hpp in Headers */,
 				675344C51A3F687400A0A8C3 /* distance.hpp in Headers */,
+				347F33711C454205009758CC /* triangle2d.hpp in Headers */,
 				675344D71A3F687400A0A8C3 /* tree4d.hpp in Headers */,
 				675344CD1A3F687400A0A8C3 /* rect2d.hpp in Headers */,
 				675344C91A3F687400A0A8C3 /* pointu_to_uint64.hpp in Headers */,
@@ -448,14 +476,18 @@
 			files = (
 				675344C31A3F687400A0A8C3 /* distance_on_sphere.cpp in Sources */,
 				675344CF1A3F687400A0A8C3 /* robust_orientation.cpp in Sources */,
+				56D5456A1C74A46D00E3719C /* algorithm.cpp in Sources */,
 				675344D41A3F687400A0A8C3 /* spline.cpp in Sources */,
 				675344D11A3F687400A0A8C3 /* screenbase.cpp in Sources */,
+				347F33701C454205009758CC /* triangle2d.cpp in Sources */,
 				675344BC1A3F687400A0A8C3 /* angles.cpp in Sources */,
 				6741AAA01BF35476002C974C /* latlon.cpp in Sources */,
 				E92D8BD41C15AFAA00A98D17 /* mercator.cpp in Sources */,
 				E92D8BD11C15AF9100A98D17 /* mercator_test.cpp in Sources */,
 				675344C61A3F687400A0A8C3 /* packer.cpp in Sources */,
 				675344DE1A3F68F900A0A8C3 /* binary_operators.cpp in Sources */,
+				56EB1ED01C6B6DF30022D831 /* segment2d.cpp in Sources */,
+				345C55F51C93140A00B6783F /* clipping.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,27 +1,25 @@
 #include "search/locality_finder.hpp"
+#include "search/v2/mwm_context.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/features_vector.hpp"
 
 
 namespace search
 {
 
-double const MAX_RADIUS_CITY = 30000.0;
+double const kMaxCityRadiusMeters = 30000.0;
+double const kInflateRectMercator = 1.0E-3;
 
 class DoLoader
 {
 public:
-  DoLoader(LocalityFinder const & finder, FeaturesVector const & loader, LocalityFinder::Cache & cache)
-    : m_finder(finder), m_loader(loader), m_cache(cache)
+  DoLoader(LocalityFinder const & finder, LocalityFinder::Cache & cache)
+    : m_finder(finder), m_cache(cache)
   {
   }
 
-  void operator() (uint32_t id) const
+  void operator() (FeatureType & ft) const
   {
-    FeatureType ft;
-    m_loader.GetByIndex(id, ft);
-
     if (ft.GetFeatureType() != feature::GEOM_POINT)
       return;
 
@@ -35,8 +33,10 @@ public:
       return;
     }
 
+    uint32_t const id = ft.GetID().m_index;
+
     if (m_cache.m_loaded.count(id) > 0)
-      return; // already loaded
+      return;
 
     uint32_t const population = ftypes::GetPopulation(ft);
     if (population == 0)
@@ -53,14 +53,13 @@ public:
       if (!ft.GetName(0, name))
         return;
 
-    LocalityItem item(rect, population, id, name);
-    m_cache.m_tree.Add(item, item.GetLimitRect());
+    LocalityItem item(population, id, name);
+    m_cache.m_tree.Add(item, rect);
     m_cache.m_loaded.insert(id);
   }
 
 private:
   LocalityFinder const & m_finder;
-  FeaturesVector const & m_loader;
   LocalityFinder::Cache & m_cache;
 };
 
@@ -73,9 +72,9 @@ public:
   {
   }
 
-  void operator() (LocalityItem const & item)
+  void operator() (m2::RectD const & rect, LocalityItem const & item)
   {
-    double const d = MercatorBounds::DistanceOnEarth(item.m_rect.Center(), m_point);
+    double const d = MercatorBounds::DistanceOnEarth(rect.Center(), m_point);
     double const value = ftypes::GetPopulationByRadius(d) / static_cast<double>(item.m_population);
     if (value < m_bestValue)
     {
@@ -91,126 +90,87 @@ private:
 };
 
 
-LocalityItem::LocalityItem(m2::RectD const & rect, uint32_t population, ID id, string const & name)
-  : m_rect(rect), m_name(name), m_population(population), m_id(id)
+LocalityItem::LocalityItem(uint32_t population, ID id, string const & name)
+  : m_name(name), m_population(population), m_id(id)
 {
 }
+
+string DebugPrint(LocalityItem const & item)
+{
+  stringstream ss;
+  ss << "Name = " << item.m_name << "Population = " << item.m_population << "ID = " << item.m_id;
+  return ss.str();
+}
+
 
 LocalityFinder::LocalityFinder(Index const * pIndex)
   : m_pIndex(pIndex), m_lang(0)
 {
 }
 
-void LocalityFinder::CorrectMinimalRect(m2::RectD & rect) const
+void LocalityFinder::UpdateCache(Cache & cache, m2::PointD const & pt) const
 {
-  m2::RectD const rlt = MercatorBounds::RectByCenterXYAndSizeInMeters(rect.LeftTop(), MAX_RADIUS_CITY);
-  m2::RectD const rrb = MercatorBounds::RectByCenterXYAndSizeInMeters(rect.RightBottom(), MAX_RADIUS_CITY);
-  rect = m2::RectD(MercatorBounds::ClampX(rlt.minX()),
-                   MercatorBounds::ClampY(rrb.minY()),
-                   MercatorBounds::ClampX(rrb.maxX()),
-                   MercatorBounds::ClampY(rlt.maxY()));
-}
+  m2::RectD rect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, kMaxCityRadiusMeters);
+  if (cache.m_rect.IsRectInside(rect))
+    return;
 
-void LocalityFinder::RecreateCache(Cache & cache, m2::RectD rect) const
-{
+  rect.Add(cache.m_rect);
+  rect.Inflate(kInflateRectMercator, kInflateRectMercator);
+
   vector<shared_ptr<MwmInfo>> mwmsInfo;
   m_pIndex->GetMwmsInfo(mwmsInfo);
-
-  cache.Clear();
-
-  CorrectMinimalRect(rect);
-  covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
-
-  for (shared_ptr<MwmInfo> & info : mwmsInfo)
+  for (auto const & info : mwmsInfo)
   {
-    typedef feature::DataHeader HeaderT;
-    MwmSet::MwmId mwmId(info);
-    Index::MwmHandle const mwmHandle = m_pIndex->GetMwmHandleById(mwmId);
-    MwmValue const * pMwm = mwmHandle.GetValue<MwmValue>();
-    if (pMwm && pMwm->GetHeader().GetType() == HeaderT::world)
+    Index::MwmHandle handle = m_pIndex->GetMwmHandleById(info);
+    MwmValue const * value = handle.GetValue<MwmValue>();
+    if (handle.IsAlive() && value->GetHeader().GetType() == feature::DataHeader::world)
     {
-      HeaderT const & header = pMwm->GetHeader();
-
-      int const scale = header.GetLastScale();   // scales::GetUpperWorldScale()
-      covering::IntervalsT const & interval = cov.Get(scale);
-
-      ScaleIndex<ModelReaderPtr> index(pMwm->m_cont.GetReader(INDEX_FILE_TAG), pMwm->m_factory);
-
-      FeaturesVector loader(pMwm->m_cont, header, pMwm->m_table);
-
       cache.m_rect = rect;
-      for (size_t i = 0; i < interval.size(); ++i)
+      v2::MwmContext(move(handle)).ForEachFeature(rect, DoLoader(*this, cache));
+      break;
+    }
+  }
+}
+
+void LocalityFinder::GetLocality(m2::PointD const & pt, string & name)
+{
+  Cache * working = nullptr;
+
+  // Find suitable cache that includes needed point.
+  for (auto & cache : m_caches)
+  {
+    if (cache.m_rect.IsPointInside(pt))
+    {
+      working = &cache;
+      break;
+    }
+  }
+
+  if (working == nullptr)
+  {
+    // Find most unused cache.
+    size_t minUsage = numeric_limits<size_t>::max();
+    for (auto & cache : m_caches)
+    {
+      if (cache.m_usage < minUsage)
       {
-        DoLoader doLoader(*this, loader, cache);
-        index.ForEachInIntervalAndScale(doLoader, interval[i].first, interval[i].second, scale);
+        working = &cache;
+        minUsage = cache.m_usage;
       }
     }
-  }
-}
 
-void LocalityFinder::SetViewportByIndex(m2::RectD const & viewport, size_t idx)
-{
-  ASSERT_LESS(idx, (size_t)MAX_VIEWPORT_COUNT, ());
-  RecreateCache(m_cache[idx], viewport);
-}
-
-void LocalityFinder::SetReservedViewportIfNeeded(m2::RectD const & viewport)
-{
-  size_t constexpr kReservedIndex = 2;
-  if (m_cache[kReservedIndex].m_rect.IsValid() &&
-      m_cache[kReservedIndex].m_rect.IsRectInside(viewport))
-  {
-    return;
+    ASSERT(working, ());
+    working->Clear();
   }
 
-  SetViewportByIndex(viewport, kReservedIndex);
+  UpdateCache(*working, pt);
+  working->GetLocality(pt, name);
 }
 
-void LocalityFinder::GetLocalityInViewport(m2::PointD const & pt, string & name) const
+void LocalityFinder::ClearCache()
 {
-  name.clear();
-  for (size_t i = 0; i < MAX_VIEWPORT_COUNT; ++i)
-  {
-    m_cache[i].GetLocality(pt, name);
-    if (!name.empty())
-      break;
-  }
-}
-
-void LocalityFinder::GetLocalityCreateCache(m2::PointD const & pt, string & name)
-{
-  // search in temporary caches and find most unused cache
-  size_t minUsageIdx = 0;
-  size_t minUsage = numeric_limits<size_t>::max();
-  for (size_t idx = 0; idx < MAX_VIEWPORT_COUNT; ++idx)
-  {
-    Cache const & cache = m_cache[idx];
-    cache.GetLocality(pt, name);
-    if (!name.empty())
-      return;
-
-    if (cache.m_usage < minUsage)
-    {
-      minUsage = cache.m_usage;
-      minUsageIdx = idx;
-    }
-  }
-
-  Cache & cache = m_cache[minUsageIdx];
-  RecreateCache(cache, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, MAX_RADIUS_CITY));
-  cache.GetLocality(pt, name);
-}
-
-void LocalityFinder::ClearCacheAll()
-{
-  for (size_t i = 0; i < MAX_VIEWPORT_COUNT; ++i)
-    ClearCache(i);
-}
-
-void LocalityFinder::ClearCache(size_t idx)
-{
-  ASSERT_LESS(idx, (size_t)MAX_VIEWPORT_COUNT, ());
-  m_cache[idx].Clear();
+  for (auto & cache : m_caches)
+    cache.Clear();
 }
 
 void LocalityFinder::Cache::Clear()
@@ -218,15 +178,13 @@ void LocalityFinder::Cache::Clear()
   m_usage = 0;
   m_tree.Clear();
   m_loaded.clear();
+  m_rect.MakeEmpty();
 }
 
-void LocalityFinder::Cache::GetLocality(m2::PointD const & pt, string & name) const
+void LocalityFinder::Cache::GetLocality(m2::PointD const & pt, string & name)
 {
-  if (!m_rect.IsPointInside(pt))
-    return;
-
   ++m_usage;
-  m_tree.ForEachInRect(m2::RectD(pt, pt), DoSelectLocality(name, pt));
+  m_tree.ForEachInRectEx(m2::RectD(pt, pt), DoSelectLocality(name, pt));
 }
 
 }

@@ -47,7 +47,7 @@ private:
 
   bool const m_is3dBuidings;
 
-  array<TMapShapes, df::PrioritiesCount> m_mapShapes;
+  array<TMapShapes, df::MapShapeTypeCount> m_mapShapes;
   bool m_wasCancelled;
 };
 

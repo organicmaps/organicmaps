@@ -10,3 +10,8 @@ IPHONEOS_DEPLOYMENT_TARGET=7.0
 MACOSX_DEPLOYMENT_TARGET=10.10
 
 GCC_PREPROCESSOR_DEFINITIONS[config=Release] = RELEASE=1 $(inherited)
+
+FRAMEWORK_SEARCH_PATHS[sdk=macosx*] = $(QT_PATH)/lib
+
+OTHER_LDFLAGS[sdk=macosx*] = -framework QtCore -framework QtNetwork -framework QtWidgets -framework QtOpenGL -framework QtGui -framework Cocoa -framework IOKit -framework OpenGL -framework SystemConfiguration
+OTHER_LDFLAGS[sdk=iphone*] = -framework Foundation -framework IOKit -framework UIKit -framework CoreGraphics -framework OpenGLES -framework SystemConfiguration -framework AdSupport

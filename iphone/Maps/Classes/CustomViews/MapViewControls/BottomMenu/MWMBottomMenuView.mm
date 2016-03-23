@@ -2,8 +2,8 @@
 #import "EAGLView.h"
 #import "MWMBottomMenuView.h"
 #import "MWMBottomMenuViewController.h"
+#import "MWMButton.h"
 #import "MapsAppDelegate.h"
-#import "UIButton+Coloring.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
@@ -24,11 +24,11 @@
 
 @property(weak, nonatomic) IBOutlet UIView * downloadBadge;
 
-@property(weak, nonatomic) IBOutlet UIButton * locationButton;
-@property(weak, nonatomic) IBOutlet UIButton * p2pButton;
-@property(weak, nonatomic) IBOutlet UIButton * searchButton;
-@property(weak, nonatomic) IBOutlet UIButton * bookmarksButton;
-@property(weak, nonatomic) IBOutlet UIButton * menuButton;
+@property(weak, nonatomic) IBOutlet MWMButton * locationButton;
+@property(weak, nonatomic) IBOutlet MWMButton * p2pButton;
+@property(weak, nonatomic) IBOutlet MWMButton * searchButton;
+@property(weak, nonatomic) IBOutlet MWMButton * bookmarksButton;
+@property(weak, nonatomic) IBOutlet MWMButton * menuButton;
 
 @property(weak, nonatomic) IBOutlet UIButton * goButton;
 
@@ -51,7 +51,7 @@
   self.streetLabel.hidden = YES;
   self.restoreState = MWMBottomMenuStateInactive;
   [self.goButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
-  [self.goButton setBackgroundColor:[UIColor linkBlueDark] forState:UIControlStateHighlighted];
+  [self.goButton setBackgroundColor:[UIColor linkBlueHighlighted] forState:UIControlStateHighlighted];
 }
 
 - (void)layoutSubviews
@@ -270,7 +270,7 @@
         break;
       }
       UIImage * image = [UIImage imageNamed:name];
-      if (isIOSVersionLessThan(8))
+      if (isIOS7)
         image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
       [btn setImage:image forState:UIControlStateNormal];
     }
@@ -292,17 +292,27 @@
   self.layoutDuration = kDefaultAnimationDuration;
   [self setNeedsLayout];
   [self refreshButtonsColor];
+  if (self.state == MWMBottomMenuStateInactive)
+    [self updateBadge];
 }
 
 - (void)refreshButtonsColor
 {
-  if (!isIOSVersionLessThan(8))
+  if (!isIOS7)
     return;
-  auto const coloring = self.p2pButton.mwm_coloring;
-  self.p2pButton.mwm_coloring = coloring;
-  self.bookmarksButton.mwm_coloring = coloring;
-  self.locationButton.mwm_coloring = self.locationButton.mwm_coloring;
-  self.searchButton.mwm_coloring = self.searchButton.mwm_coloring;
+  auto const coloring = self.p2pButton.coloring;
+  self.p2pButton.coloring = coloring;
+  self.bookmarksButton.coloring = coloring;
+  self.locationButton.coloring = self.locationButton.coloring;
+  self.searchButton.coloring = self.searchButton.coloring;
+}
+
+- (void)updateBadge
+{
+  auto & s = GetFramework().Storage();
+  storage::Storage::UpdateInfo updateInfo{};
+  s.GetUpdateInfo(s.GetRootId(), updateInfo);
+  self.downloadBadge.hidden = (updateInfo.m_numberOfMwmFilesToUpdate == 0);
 }
 
 #pragma mark - Properties
@@ -319,52 +329,51 @@
   if (_state == state)
     return;
   [self refreshLayout];
+  BOOL updateMenuButton = YES;
   switch (state)
   {
-  case MWMBottomMenuStateHidden:
-    break;
-  case MWMBottomMenuStateInactive:
-    if (MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
-      _leftBound = 0.0;
-    self.downloadBadge.hidden =
-        GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount() == 0;
-    self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
-    self.layoutDuration =
-        (_state == MWMBottomMenuStateCompact && !IPAD) ? 0.0 : kDefaultAnimationDuration;
-    if (_state != MWMBottomMenuStateGo && _state != MWMBottomMenuStatePlanning &&
-        _state != MWMBottomMenuStateText)
+    case MWMBottomMenuStateHidden:
+      updateMenuButton = NO;
+      break;
+    case MWMBottomMenuStateInactive:
+    {
+      if (MapsAppDelegate.theApp.routingPlaneMode == MWMRoutingPlaneModeNone)
+        _leftBound = 0.0;
+      [self updateBadge];
+      self.p2pButton.hidden = self.searchButton.hidden = self.bookmarksButton.hidden = NO;
+      self.layoutDuration = (_state == MWMBottomMenuStateCompact && !IPAD) ? 0.0 : kDefaultAnimationDuration;
+      updateMenuButton = (_state != MWMBottomMenuStateGo && _state != MWMBottomMenuStatePlanning &&
+                          _state != MWMBottomMenuStateText);
+      break;
+    }
+    case MWMBottomMenuStateActive:
+      self.restoreState = _state;
       [self updateMenuButtonFromState:_state toState:state];
-    break;
-  case MWMBottomMenuStateActive:
-    self.restoreState = _state;
-    [self updateMenuButtonFromState:_state toState:state];
-    self.additionalButtons.hidden = NO;
-    self.bookmarksButton.hidden = NO;
-    self.p2pButton.hidden = NO;
-    self.searchButton.hidden = NO;
-    self.separator.hidden = NO;
-    break;
-  case MWMBottomMenuStateCompact:
-    self.layoutDuration = IPAD ? kDefaultAnimationDuration : 0.0;
-    [self updateMenuButtonFromState:_state toState:state];
-    break;
-  case MWMBottomMenuStatePlanning:
-    self.goButton.enabled = NO;
-    self.goButton.hidden = NO;
-    [self updateMenuButtonFromState:_state toState:state];
-    break;
-  case MWMBottomMenuStateGo:
-    self.goButton.enabled = YES;
-    self.goButton.hidden = NO;
-    [self updateMenuButtonFromState:_state toState:state];
-    break;
-  case MWMBottomMenuStateText:
-    self.streetLabel.font = [UIFont medium16];
-    self.streetLabel.hidden = NO;
-    self.streetLabel.textColor = [UIColor blackSecondaryText];
-    [self updateMenuButtonFromState:_state toState:state];
-    break;
+      self.additionalButtons.hidden = NO;
+      self.bookmarksButton.hidden = NO;
+      self.p2pButton.hidden = NO;
+      self.searchButton.hidden = NO;
+      self.separator.hidden = NO;
+      break;
+    case MWMBottomMenuStateCompact:
+      self.layoutDuration = IPAD ? kDefaultAnimationDuration : 0.0;
+      break;
+    case MWMBottomMenuStatePlanning:
+      self.goButton.enabled = NO;
+      self.goButton.hidden = NO;
+      break;
+    case MWMBottomMenuStateGo:
+      self.goButton.enabled = YES;
+      self.goButton.hidden = NO;
+      break;
+    case MWMBottomMenuStateText:
+      self.streetLabel.font = [UIFont medium16];
+      self.streetLabel.hidden = NO;
+      self.streetLabel.textColor = [UIColor blackSecondaryText];
+      break;
   }
+  if (updateMenuButton)
+    [self updateMenuButtonFromState:_state toState:state];
   _state = state;
 }
 

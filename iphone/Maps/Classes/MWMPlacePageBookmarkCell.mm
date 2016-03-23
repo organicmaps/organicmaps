@@ -134,21 +134,21 @@ static NSUInteger sWebViewHeight = 0;
 - (IBAction)colorPickerButtonTap
 {
   [self.placePage changeBookmarkColor];
-  [self.title resignFirstResponder];
+  [self endEditing:YES];
 }
 
 - (IBAction)categoryButtonTap
 {
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatChangeBookmarkGroup)];
   [self.placePage changeBookmarkCategory];
-  [self.title resignFirstResponder];
+  [self endEditing:YES];
 }
 
 - (IBAction)editTap
 {
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatChangeBookmarkDescription)];
   [self.placePage changeBookmarkDescription];
-  [self.title resignFirstResponder];
+  [self endEditing:YES];
 }
 
 - (MWMPlacePageEntity *)entity

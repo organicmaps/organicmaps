@@ -40,8 +40,8 @@ public:
   using TMinutes = std::chrono::minutes;
 
   HourMinutes() = default;
-  explicit HourMinutes(THours const duration) { SetDuration(duration); }
-  explicit HourMinutes(TMinutes const duration) { SetDuration(duration); }
+  HourMinutes(THours const duration) { SetDuration(duration); }
+  HourMinutes(TMinutes const duration) { SetDuration(duration); }
 
   bool IsEmpty() const { return m_empty; }
   bool IsExtended() const;
@@ -68,6 +68,16 @@ private:
 
 HourMinutes operator-(HourMinutes const & hm);
 std::ostream & operator<<(std::ostream & ost, HourMinutes const & hm);
+
+inline bool operator<(HourMinutes const & a, HourMinutes const & b)
+{
+  return a.GetDuration() < b.GetDuration();
+}
+
+inline bool operator==(HourMinutes const & a, HourMinutes const & b)
+{
+  return a.GetDuration() == b.GetDuration();
+}
 
 class Time;
 
@@ -195,6 +205,11 @@ std::ostream & operator<<(std::ostream & ost, TimespanPeriod const p);
 class Timespan
 {
 public:
+  Timespan() = default;
+  Timespan(Time const & start, Time const & end): m_start(start), m_end(end) {}
+  Timespan(HourMinutes::TMinutes const & start,
+           HourMinutes::TMinutes const & end): m_start(start), m_end(end) {}
+
   bool IsEmpty() const { return !HasStart() && !HasEnd(); }
   bool IsOpen() const { return HasStart() && !HasEnd(); }
   bool HasStart() const { return !GetStart().IsEmpty(); }
@@ -291,7 +306,7 @@ class WeekdayRange
   using TNths = std::vector<NthWeekdayOfTheMonthEntry>;
 
 public:
-  bool HasWday(Weekday const & wday) const;
+  bool HasWday(Weekday const wday) const;
 
   bool HasSunday() const { return HasWday(Weekday::Sunday); }
   bool HasMonday() const { return HasWday(Weekday::Monday); }
@@ -656,6 +671,13 @@ public:
 
   bool IsValid() const;
 
+  bool IsTwentyFourHours() const;
+  bool HasWeekdaySelector() const;
+  bool HasMonthSelector() const;
+  bool HasWeekSelector() const;
+  bool HasYearSelector() const;
+
+  TRuleSequences const & GetRule() const { return m_rule; }
 private:
   TRuleSequences m_rule;
   bool const m_valid;

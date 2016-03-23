@@ -8,6 +8,6 @@
 - (instancetype)initWithParentView:(UIView *)view;
 - (void)setTopBound:(CGFloat)bound;
 - (void)setBottomBound:(CGFloat)bound;
-- (void)refresh;
+- (void)mwm_refreshUI;
 
 @end

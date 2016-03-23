@@ -1,25 +1,27 @@
-#include "generator/feature_generator.hpp"
-#include "generator/feature_sorter.hpp"
-#include "generator/update_generator.hpp"
 #include "generator/borders_generator.hpp"
 #include "generator/borders_loader.hpp"
+#include "generator/check_model.hpp"
 #include "generator/dumper.hpp"
+#include "generator/feature_generator.hpp"
+#include "generator/feature_sorter.hpp"
+#include "generator/generate_info.hpp"
+#include "generator/osm_source.hpp"
+#include "generator/routing_generator.hpp"
+#include "generator/search_index_builder.hpp"
 #include "generator/statistics.hpp"
 #include "generator/unpack_mwm.hpp"
-#include "generator/generate_info.hpp"
-#include "generator/check_model.hpp"
-#include "generator/routing_generator.hpp"
-#include "generator/osm_source.hpp"
 
-#include "indexer/drawing_rules.hpp"
-#include "indexer/classificator_loader.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/drawing_rules.hpp"
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/index_builder.hpp"
 #include "indexer/map_style_reader.hpp"
-#include "indexer/search_index_builder.hpp"
+#include "indexer/rank_table.hpp"
+
+#include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
 
@@ -27,18 +29,7 @@
 
 #include "defines.hpp"
 
-#include "platform/platform.hpp"
-
 #include "3party/gflags/src/gflags/gflags.h"
-
-#include "std/iostream.hpp"
-#include "std/fstream.hpp"
-#include "std/iomanip.hpp"
-#include "std/numeric.hpp"
-
-
-DEFINE_bool(generate_update, false,
-              "If specified, update.maps file will be generated from cells in the data path");
 
 DEFINE_bool(generate_classif, false, "Generate classificator.");
 
@@ -62,8 +53,10 @@ DEFINE_bool(split_by_polygons, false, "Use countries borders to split planet by 
 DEFINE_bool(dump_types, false, "Prints all types combinations and their total count");
 DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes");
 DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
+DEFINE_string(dump_feature_names, "", "Print all feature names by 2-letter locale.");
 DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons.");
+DEFINE_string(unpack_borders, "", "Convert packed_polygons to a directory of polygon files (specify folder).");
 DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
 DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
@@ -74,7 +67,7 @@ DEFINE_bool(make_cross_section, false, "Make corss section in routing file for c
 DEFINE_string(osm_file_name, "", "Input osm area file");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m]");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
-DEFINE_uint64(planet_version, my::TodayAsYYMMDD(), "Version as YYMMDD, by default - today");
+DEFINE_uint64(planet_version, my::SecondsSinceEpoch(), "Version as seconds since epoch, by default - now");
 
 int main(int argc, char ** argv)
 {
@@ -130,9 +123,9 @@ int main(int argc, char ** argv)
 
   // Load classificator only when necessary.
   if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
-      FLAGS_generate_index || FLAGS_generate_search_index ||
-      FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
-      FLAGS_check_mwm)
+      FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_calc_statistics ||
+      FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
+      FLAGS_dump_feature_names != "" || FLAGS_check_mwm)
   {
     classificator::Load();
     classif().SortClassificator();
@@ -195,31 +188,29 @@ int main(int argc, char ** argv)
     {
       LOG(LINFO, ("Generating index for", datFile));
 
-      if (!indexer::BuildIndexFromDatFile(datFile, FLAGS_intermediate_data_path + country))
+      if (!indexer::BuildIndexFromDataFile(datFile, FLAGS_intermediate_data_path + country))
         LOG(LCRITICAL, ("Error generating index."));
     }
 
     if (FLAGS_generate_search_index)
     {
-      LOG(LINFO, ("Generating search index for ", datFile));
+      LOG(LINFO, ("Generating search index for", datFile));
 
-      if (!indexer::BuildSearchIndexFromDatFile(datFile, true))
+      if (!indexer::BuildSearchIndexFromDataFile(datFile, true))
         LOG(LCRITICAL, ("Error generating search index."));
-    }
-  }
 
-  // Create http update list for countries and corresponding files.
-  if (FLAGS_generate_update)
-  {
-    LOG(LINFO, ("Updating countries file..."));
-    update::UpdateCountries(path);
+      LOG(LINFO, ("Generating rank table for", datFile));
+
+      if (!search::RankTableBuilder::CreateIfNotExists(datFile))
+        LOG(LCRITICAL, ("Error generating rank table."));
+    }
   }
 
   string const datFile = path + FLAGS_output + DATA_FILE_EXTENSION;
 
   if (FLAGS_calc_statistics)
   {
-    LOG(LINFO, ("Calculating statistics for ", datFile));
+    LOG(LINFO, ("Calculating statistics for", datFile));
 
     stats::FileContainerStatistic(datFile);
     stats::FileContainerStatistic(datFile + ROUTING_FILE_EXTENSION);
@@ -231,7 +222,7 @@ int main(int argc, char ** argv)
 
   if (FLAGS_type_statistics)
   {
-    LOG(LINFO, ("Calculating type statistics for ", datFile));
+    LOG(LINFO, ("Calculating type statistics for", datFile));
 
     stats::MapInfo info;
     stats::CalcStatistic(datFile, info);
@@ -245,7 +236,10 @@ int main(int argc, char ** argv)
     feature::DumpPrefixes(datFile);
 
   if (FLAGS_dump_search_tokens)
-    feature::DumpSearchTokens(datFile);
+    feature::DumpSearchTokens(datFile, 100 /* maxTokensToShow */);
+
+  if (FLAGS_dump_feature_names != "")
+    feature::DumpFeatureNames(datFile, FLAGS_dump_feature_names);
 
   if (FLAGS_unpack_mwm)
     UnpackMwm(datFile);
@@ -255,6 +249,9 @@ int main(int argc, char ** argv)
 
   if (FLAGS_generate_packed_borders)
     borders::GeneratePackedBorders(path);
+
+  if (!FLAGS_unpack_borders.empty())
+    borders::UnpackBorders(path, FLAGS_unpack_borders);
 
   if (FLAGS_check_mwm)
     check_model::ReadFeatures(datFile);

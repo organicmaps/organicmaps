@@ -1,12 +1,63 @@
 #include "generator/osm2meta.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 #include "coding/url_encode.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/regex.hpp"
+#include "std/algorithm.hpp"
 #include "std/cctype.hpp"
+#include "std/unordered_set.hpp"
+
+namespace
+{
+
+constexpr char const * kOSMMultivalueDelimiter = ";";
+
+template <class T>
+void RemoveDuplicatesAndKeepOrder(vector<T> & vec)
+{
+  unordered_set<T> seen;
+  auto const predicate = [&seen](T const & value)
+  {
+    if (seen.find(value) != seen.end())
+      return true;
+    seen.insert(value);
+    return false;
+  };
+  vec.erase(std::remove_if(vec.begin(), vec.end(), predicate), vec.end());
+}
+
+// Also filters out duplicates.
+class MultivalueCollector
+{
+public:
+  void operator()(string const & value)
+  {
+    if (value.empty() || value == kOSMMultivalueDelimiter)
+      return;
+    m_values.push_back(value);
+  }
+  string GetString()
+  {
+    if (m_values.empty())
+      return string();
+
+    RemoveDuplicatesAndKeepOrder(m_values);
+    return strings::JoinStrings(m_values, kOSMMultivalueDelimiter);
+  }
+private:
+  vector<string> m_values;
+};
+
+void CollapseMultipleConsecutiveCharsIntoOne(char c, string & str)
+{
+  auto const comparator = [c](char lhs, char rhs) { return lhs == rhs && lhs == c; };
+  str.erase(unique(str.begin(), str.end(), comparator), str.end());
+}
+}  // namespace
 
 string MetadataTagProcessorImpl::ValidateAndFormat_maxspeed(string const & v) const
 {
@@ -60,13 +111,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_opening_hours(string const & 
 
 string MetadataTagProcessorImpl::ValidateAndFormat_ele(string const & v) const
 {
-  auto const & isPeak = ftypes::IsPeakChecker::Instance();
-  if (!isPeak(m_params.m_Types))
-    return string();
-  double val = 0;
-  if(!strings::to_double(v, val) || val == 0)
-    return string();
-  return v;
+  return MeasurementUtils::OSMDistanceToMetersString(v);
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_turn_lanes(string const & v) const
@@ -99,26 +144,26 @@ string MetadataTagProcessorImpl::ValidateAndFormat_flats(string const & v) const
   return v;
 }
 
+string MetadataTagProcessorImpl::ValidateAndFormat_internet(string v) const
+{
+  // TODO(AlexZ): Reuse/synchronize this code with MapObject::SetInternet().
+  strings::AsciiToLower(v);
+  if (v == "wlan" || v == "wired" || v == "yes" || v == "no")
+    return v;
+  return {};
+}
+
 string MetadataTagProcessorImpl::ValidateAndFormat_height(string const & v) const
 {
-  double val = 0;
-  string corrected(v, 0, v.find(" "));
-  if(!strings::to_double(corrected, val) || val == 0)
-    return string();
-  ostringstream ss;
-  ss << fixed << setprecision(1) << val;
-  return ss.str();
+  return MeasurementUtils::OSMDistanceToMetersString(v, false /*supportZeroAndNegativeValues*/, 1);
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_building_levels(string const & v) const
 {
-  double constexpr kMetersPerLevel = 3;
-  double val = 0;
-  if(!strings::to_double(v, val) || val == 0)
-    return string();
-  ostringstream ss;
-  ss << fixed << setprecision(1) << (val * kMetersPerLevel);
-  return ss.str();
+  double d;
+  if (!strings::to_double(v, d) || d == 0)
+    return {};
+  return strings::to_string_dac(d, 1);
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_denomination(string const & v) const
@@ -129,10 +174,26 @@ string MetadataTagProcessorImpl::ValidateAndFormat_denomination(string const & v
 string MetadataTagProcessorImpl::ValidateAndFormat_cuisine(string v) const
 {
   strings::MakeLowerCaseInplace(v);
-  v = regex_replace(v, regex("[;,]\\s*"), ";");
-  v = regex_replace(v, regex("\\s+"), "_");
-  strings::Trim(v, ";_");
-  return v;
+  strings::SimpleTokenizer iter(v, ",;");
+  MultivalueCollector collector;
+  while (iter) {
+    string normalized = *iter;
+    strings::Trim(normalized, " ");
+    CollapseMultipleConsecutiveCharsIntoOne(' ', normalized);
+    replace(normalized.begin(), normalized.end(), ' ', '_');
+    // Avoid duplication for some cuisines.
+    if (normalized == "bbq" || normalized == "barbeque")
+      normalized = "barbecue";
+    if (normalized == "doughnut")
+      normalized = "donut";
+    if (normalized == "steak")
+      normalized = "steak_house";
+    if (normalized == "coffee")
+      normalized = "coffee_shop";
+    collector(normalized);
+    ++iter;
+  }
+  return collector.GetString();
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_wikipedia(string v) const

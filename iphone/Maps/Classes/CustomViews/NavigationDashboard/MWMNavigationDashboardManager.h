@@ -1,4 +1,5 @@
 #import "LocationManager.h"
+#import "MWMCircularProgress.h"
 #import "MWMNavigationViewProtocol.h"
 #import "MWMRoutePreview.h"
 
@@ -29,7 +30,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 
 @class MWMNavigationDashboardEntity;
 
-@interface MWMNavigationDashboardManager : NSObject <LocationObserver>
+@interface MWMNavigationDashboardManager : NSObject <LocationObserver, MWMCircularProgressProtocol>
 
 @property (nonatomic, readonly) MWMNavigationDashboardEntity * entity;
 @property (weak, nonatomic, readonly) MWMRoutePreview * routePreview;
@@ -46,10 +47,10 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState)
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
-- (void)setRouteBuildingProgress:(CGFloat)progress;
+- (void)setRouteBuilderProgress:(CGFloat)progress;
 - (void)showHelperPanels;
 - (void)hideHelperPanels;
 - (void)setupActualRoute;
-- (void)refresh;
+- (void)mwm_refreshUI;
 
 @end

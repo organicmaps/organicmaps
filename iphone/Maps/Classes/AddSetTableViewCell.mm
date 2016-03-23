@@ -9,10 +9,10 @@
 
 - (void)awakeFromNib
 {
-  self.textField.placeholder = L(@"bookmark_set_name");
+  [super awakeFromNib];
   self.textField.textColor = [UIColor blackPrimaryText];
-  UILabel * label = [self.textField valueForKey:@"_placeholderLabel"];
-  label.textColor = [UIColor blackHintText];
+  self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:L(@"bookmark_set_name") attributes:
+                                          @{NSForegroundColorAttributeName : [UIColor blackHintText]}];
 }
 
 #pragma mark - UITextFieldDelegate

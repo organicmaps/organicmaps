@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mapswithme.maps.widget.HeightLimitedFrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:wheel="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:animateLayoutChanges="true"
+  android:background="?windowBackgroundForced">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/margin_base">
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:src="@drawable/img_news_migration"
+      android:tag="@string/tag_height_limited"/>
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:gravity="center"
+      android:text="@string/whatsnew_smallmwm_header"
+      android:textAppearance="@style/MwmTextAppearance.Title"/>
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="@string/whatsnew_smallmwm_message"
+      android:textAppearance="@style/MwmTextAppearance.Body3"/>
+
+    <Space
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_weight="1"/>
+
+    <TextView
+      android:id="@+id/error"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textColor="@color/base_red"
+      android:gravity="center_horizontal"
+      tools:text="Some error occured! Please, be patient, man."/>
+
+    <TextView
+      android:id="@+id/preparation"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:text="@string/migration_prefetch_status"
+      android:textAppearance="@style/MwmTextAppearance.Body3"/>
+
+    <FrameLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_base">
+      <Button
+        android:id="@+id/button_primary"
+        android:text="@string/migration_update_all_button"
+        style="@style/MwmWidget.Button.Accent"/>
+
+      <com.mapswithme.maps.widget.WheelProgressView
+        android:id="@+id/progress"
+        android:layout_width="@dimen/downloader_status_size"
+        android:layout_height="@dimen/downloader_status_size"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        wheel:wheelProgressColor="?colorAccent"
+        wheel:wheelSecondaryColor="?dividerHorizontal"
+        wheel:wheelThickness="@dimen/margin_eighth"
+        tools:visibility="visible"/>
+    </FrameLayout>
+
+    <Button
+      android:id="@+id/button_secondary"
+      style="@style/MwmWidget.Button"
+      android:text="@string/migration_delete_all_download_current_button"
+      android:textColor="?colorAccent"/>
+  </LinearLayout>
+</com.mapswithme.maps.widget.HeightLimitedFrameLayout>

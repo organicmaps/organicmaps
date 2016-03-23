@@ -37,7 +37,7 @@ UNIT_TEST(KMZ_UnzipTest)
 
   Framework framework;
   BookmarkCategory cat("Default", framework);
-  TEST(cat.LoadFromKML(new FileReader(kmlFile)), ());
+  TEST(cat.LoadFromKML(make_unique<FileReader>(kmlFile)), ());
 
   TEST_EQUAL(files.size(), 6, ("KMZ file wrong number of files"));
 

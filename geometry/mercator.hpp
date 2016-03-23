@@ -94,7 +94,7 @@ struct MercatorBounds
 
   static m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetresR, double latMetresR);
 
-  static double GetCellID2PointAbsEpsilon() { return 1.0E-4; }
+  static double constexpr GetCellID2PointAbsEpsilon() { return 1.0E-4; }
 
   inline static m2::PointD FromLatLon(double lat, double lon)
   {
@@ -104,6 +104,11 @@ struct MercatorBounds
   inline static m2::PointD FromLatLon(ms::LatLon const & point)
   {
     return FromLatLon(point.lat, point.lon);
+  }
+
+  inline static m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
+  {
+    return RectByCenterXYAndSizeInMeters(FromLatLon(lat, lon), size);
   }
 
   inline static ms::LatLon ToLatLon(m2::PointD const & point)

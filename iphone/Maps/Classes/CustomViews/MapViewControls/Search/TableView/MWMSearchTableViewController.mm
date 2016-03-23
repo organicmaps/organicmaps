@@ -9,7 +9,7 @@
 #import "Statistics.h"
 #import "ToastView.h"
 
-#include "std/vector.hpp"
+#include "search/params.hpp"
 
 static NSString * const kTableShowOnMapCell = @"MWMSearchShowOnMapCell";
 static NSString * const kTableSuggestionCell = @"MWMSearchSuggestionCell";
@@ -76,9 +76,15 @@ LocationObserver>
   [self setupTableView];
 }
 
-- (void)refresh
+- (void)viewDidDisappear:(BOOL)animated
 {
-  [self.view refresh];
+  [super viewDidDisappear:animated];
+  searchResults.Clear();
+}
+
+- (void)mwm_refreshUI
+{
+  [self.view mwm_refreshUI];
 }
 
 - (void)setupTableView
@@ -94,7 +100,7 @@ LocationObserver>
 - (void)setupSearchParams
 {
   __weak auto weakSelf = self;
-  searchParams.m_callback = ^(search::Results const & results)
+  searchParams.m_onResults = ^(search::Results const & results)
   {
     __strong auto self = weakSelf;
     if (!self)
@@ -336,7 +342,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         f.UpdateUserViewportChanged();
       }
       else
-        f.ShowAllSearchResults(searchResults);
+        f.ShowSearchResults(searchResults);
     }
   }
   else
@@ -354,9 +360,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     return;
   _watchLocationUpdates = watchLocationUpdates;
   if (watchLocationUpdates)
-    [[MapsAppDelegate theApp].m_locationManager start:self];
+    [[MapsAppDelegate theApp].locationManager start:self];
   else
-    [[MapsAppDelegate theApp].m_locationManager stop:self];
+    [[MapsAppDelegate theApp].locationManager stop:self];
 }
 
 @synthesize searchOnMap = _searchOnMap;

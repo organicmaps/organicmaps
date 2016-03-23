@@ -1,4 +1,3 @@
-#include "country_status_helper.hpp"
 #include "drape_gui.hpp"
 #include "ruler_helper.hpp"
 
@@ -15,16 +14,12 @@ namespace gui
 struct DrapeGui::Impl
 {
   DrapeGui::TLocalizeStringFn m_localizeFn;
-  DrapeGui::TRecacheCountryStatusSlot m_recacheSlot;
-
   RulerHelper m_rulerHelper;
-  CountryStatusHelper m_countryHelper;
 };
 
 DrapeGui::DrapeGui()
   : m_impl(new Impl())
-{
-}
+{}
 
 DrapeGui & DrapeGui::Instance()
 {
@@ -38,11 +33,6 @@ DrapeGui & DrapeGui::Instance()
 RulerHelper & DrapeGui::GetRulerHelper()
 {
   return Instance().GetRulerHelperImpl();
-}
-
-CountryStatusHelper & DrapeGui::GetCountryStatusHelper()
-{
-  return Instance().GetCountryStatusHelperImpl();
 }
 
 dp::FontDecl DrapeGui::GetGuiTextFont()
@@ -74,24 +64,6 @@ void DrapeGui::SetLocalizator(const DrapeGui::TLocalizeStringFn & fn)
   m_impl->m_localizeFn = fn;
 }
 
-void DrapeGui::SetRecacheCountryStatusSlot(TRecacheCountryStatusSlot const  & fn)
-{
-  ASSERT(m_impl != nullptr, ());
-  m_impl->m_recacheSlot = fn;
-}
-
-void DrapeGui::EmitRecacheCountryStatusSignal()
-{
-  ASSERT(m_impl != nullptr, ());
-  if (m_impl->m_recacheSlot)
-    m_impl->m_recacheSlot();
-}
-
-void DrapeGui::ClearRecacheCountryStatusSlot()
-{
-  SetRecacheCountryStatusSlot(TRecacheCountryStatusSlot());
-}
-
 string DrapeGui::GetLocalizedString(string const & stringID) const
 {
   ASSERT(m_impl != nullptr, ());
@@ -105,21 +77,9 @@ RulerHelper & DrapeGui::GetRulerHelperImpl()
   return m_impl->m_rulerHelper;
 }
 
-CountryStatusHelper & DrapeGui::GetCountryStatusHelperImpl()
-{
-  ASSERT(m_impl != nullptr, ());
-  return m_impl->m_countryHelper;
-}
-
 void DrapeGui::ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler)
 {
   m_onCompassTappedHandler = handler;
-}
-
-void DrapeGui::ConnectOnButtonPressedHandler(CountryStatusHelper::EButtonType buttonType,
-                                             Shape::TTapHandler const & handler)
-{
-  m_buttonHandlers[buttonType] = handler;
 }
 
 void DrapeGui::CallOnCompassTappedHandler()
@@ -128,11 +88,4 @@ void DrapeGui::CallOnCompassTappedHandler()
     m_onCompassTappedHandler();
 }
 
-void DrapeGui::CallOnButtonPressedHandler(CountryStatusHelper::EButtonType buttonType)
-{
-  auto it = m_buttonHandlers.find(buttonType);
-  if (it != m_buttonHandlers.end() && it->second != nullptr)
-    it->second();
-}
-
-}
+} // namespace gui

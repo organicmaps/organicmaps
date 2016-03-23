@@ -14,8 +14,6 @@
 	<string name="cancel_download">Peruuta lataus</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Poista</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Poista vanhat kartat ja jatka</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Älä kysy uudelleen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -52,8 +50,6 @@
 	<string name="miles">Mailit</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Sijaintini</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Internet-yhteyttä ei havaittu</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">WiFi-yhteyttä ei havaittu. Haluatko käyttää mobiilidataa (GPRS, EDGE, 3G tai LTE) ladataksesi tiedoston %s?</string>
 	<string name="ok">OK</string>
@@ -73,16 +69,12 @@
 	<string name="search">Haku</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Hae kartalta</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Ei tarpeeksi tyhjää levytilaa</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Lataa koskettamalla</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Kyllä</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">WiFi-yhteyttä suositellaan suurten karttojen lataamiseen</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Olemme päivittäneet karttoja ja pienentäneet niitä. Suuremmissa kartoissa voit valita lataavasi vain tarvitsemasi alueen/osavaltion. Uusia karttoja käyttääksesi sinun tulee kuitenkin ensin poistaa vanhat aiemmin lataamasi kartat.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Mitä mittayksikköä haluat käyttää?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -97,10 +89,12 @@
 	<string name="country_status_downloading">Ladataan\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Lataa kartta\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Lataa kartta</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Lataa kartta\nilman reititystä (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Ladataan\n^\nepäonnistui</string>
+	<string name="country_status_download_failed">Ladataan epäonnistui</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Yritä uudelleen</string>
 	<string name="about_menu_title">Tietoa MAPS.ME:stä</string>
@@ -116,8 +110,7 @@
 	<string name="not_enough_free_space_on_sdcard">Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta</string>
 	<string name="not_enough_memory">Ei tarpeeksi muistia sovelluksen avaamiseksi</string>
 	<string name="free_space_for_country">Ole hyvä ja vapauta ensin %1$s laitteeltasi ladataksesi %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %1$.1f%2$s dataa.</string>
+	<string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %s dataa.</string>
 	<string name="getting_position">Etsitään sijaintia</string>
 	<string name="download_resources_continue">Siirry karttaan</string>
 	<string name="downloading_country_can_proceed">Ladataan %s. Voit nyt jatkaa kartalle.</string>
@@ -165,7 +158,7 @@
 	<string name="my_places">Paikkani</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Nimi</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Osoite</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Poista nasta</string>
@@ -272,7 +265,7 @@
 	<string name="share">Jaa</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Viesti</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Sähköposti</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopioi linkki</string>
@@ -382,6 +375,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Asetukset &amp;amp; Lisää</string>
 	<!-- Text in menu -->
+	<string name="website">Kotisivut</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME -yhteisö</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Tykkää meistä Facebookissa</string>
@@ -418,17 +413,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Uusi MAPS.ME -versio mahdollistaa reittien luonnin nykyisestä sijainnista määränpäähäsi.Päivitä kartat käyttääksesi tätä ominaisuutta.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Päivitä kaikki</string>
+	<string name="downloader_update_all_button">Päivitä kaikki</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Peruuta kaikki</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Ladattu</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Ladatut kartat</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Karttani</string>
+	<string name="downloader_downloaded_subtitle">Ladatut</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">jonossa</string>
+	<string name="downloader_near_me_subtitle">Minun lähelläni</string>
+	<string name="downloader_status_maps">Kartat</string>
+	<string name="downloader_download_all_button">Lataa kaikki</string>
+	<string name="downloader_downloading">Ladataan:</string>
+	<string name="downloader_search_results">Löytyi</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Pidä mielessä seuraavat seikat luodessasi reittejä MAPS.ME -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!</string>
 	<!-- Outdated maps category -->
@@ -439,6 +435,8 @@
 	<string name="downloader_status_outdated">Päivitä</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Epäonnistunut</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Pysäytä navigointi poistaaksesi kartan.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Tämänhetkinen sijainti ei ole tiedossa. Määritä sijainti luodaksesi reitin.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -514,186 +512,6 @@
 	<string name="routing_download_more_than_avail">Sinun täytyy ladata %1$s MB, mutta saatavilla on vain %2$s MB.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Olet lataamassa %s MB Mobiilidatan (roaming-lataus) avulla. Tämä voi johtaa lisämaksuihin, riippuen matkapuhelinliittymäsi palveluntarjoajasta.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">alueellinen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">pitsa</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">hampurilainen</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">italialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">kiinalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kahvila</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">voileipä</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">saksalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">japanilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">kebab</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">meksikolainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">intialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">amerikkalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">ranskalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">jäätelö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">aasialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">kana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">kreikkalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">thaimaalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">kansainvälinen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">sushi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">fish &amp; chips</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">turkkilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">meren elävät</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">pihviravintola</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">espanjalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">kala</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">vietnamilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">nuudeli</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">kasvis keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">korealainen</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">uppopaistettu</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">grilli</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">baijerilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">ramen</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">italialainen, pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">välimeren keittiö keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">donitsi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">naudanlihakulho</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">kakku</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">kreppi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">viinitaverna</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">libanonilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">pihvi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">paikallinen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">curry</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">filippiiniläinen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">venäläinen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">aamiainen</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">tapas</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">bbq</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">bagel</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">pasta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">viinitaverna</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">makkara</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">portugalilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">grilli</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">lettu</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">madagaskarilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">puolalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">lounaskahvila</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">afrikkalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">donitsi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">georgialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">kroatialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">arabialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">balkanilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">brasilialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">karibialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">itävaltalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">vegaani keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">argentiinalainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">persialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">sobanuudeli</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">malesialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">indonesialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">etiopialainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">herkkukauppa</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">irlantilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">unkarilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">laosilainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kahvi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">hotdog</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">itämainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">suolaiset letut</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">marokkolainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">grillaus</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">perulainen keittiö</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">hieno ravintola</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">tee</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">kirjanmerkki</string>
 	<!-- map is not downloaded -->
@@ -771,7 +589,7 @@
 	<string name="dialog_routing_if_get_cross_route">Haluatko luoda suoremman reitin, joka ylettyy usealle kartalle?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Tarjolla on suorempi reitti, joka ylittää tämän kartan reunan.</string>
 	<string name="dialog_routing_always_cross_that_border">Ylitä aina tämä raja</string>
-	<string name="dialog_routing_not_now">Ei nyt</string>
+	<string name="not_now">Ei nyt</string>
 	<string name="dialog_routing_build_route">Luo</string>
 	<string name="dialog_routing_download_and_build_cross_route">Haluatko ladata kartan ja luoda paremman reitin, joka ylettyy usealle kartalle?</string>
 	<string name="dialog_routing_download_cross_route">Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.</string>
@@ -781,7 +599,6 @@
 	<string name="search_without_internet_advertisement">Lataa kartta aloittaksesi haun ja luodaksesi reittejä. Tämän jälkeen et enää tule tarvitsemaan Internet-yhteyttä.</string>
 	<string name="search_select_map">Valitse kartta</string>
 	<string name="search_select_other_map">Valitse toinen kartta</string>
-	<string name="search_vehicle_routes">Ajo-ohjeet</string>
 	<!-- «Show» context menu -->
 	<string name="show">Näytä</string>
 	<!-- «Hide» context menu -->
@@ -827,6 +644,148 @@
 	<string name="p2p_only_from_current">Navigointi onnistuu vain nykyisestä sijainnistasi.</string>
 	<string name="p2p_reroute_from_current">Haluatko valita vaihtoehtoisen reitin?</string>
 	<string name="whats_new_next_button">Seuraava</string>
-	<string name="whats_new_night_caption">Yötilanavigaatio</string>
-	<string name="whats_new_night_body">Olemme lisänneet yötilan helpottaaksemme MAPS.ME:n käyttöä pimeällä ajettaessa. Se menee automaattisesti päälle auringonlaskun jälkeen.</string>
+	<string name="editor_time_add">Lisää aikataulu</string>
+	<string name="editor_time_delete">Poista aikataulu</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Kaikki päivät (24 tuntia)</string>
+	<string name="editor_time_open">Avoinna</string>
+	<string name="editor_time_close">Suljettu</string>
+	<string name="editor_time_add_closed">Lisää suljettuna tunnit</string>
+	<string name="editor_time_title">Aukioloajat</string>
+	<string name="editor_time_advanced">Kehittynyt malli</string>
+	<string name="editor_time_simple">Yksinkertainen malli</string>
+	<string name="editor_hours_closed">Suljettuna tunnit</string>
+	<string name="editor_example_values">Esimerkkiarvot</string>
+	<string name="editor_correct_mistake">Korjaa virhe</string>
+	<string name="editor_correct_mistake_message">Teit muokkausvirheen. Korjaa se tai vaihda yksinkertaiseen malliin.</string>
+	<string name="editor_add_select_location">Sijainti</string>
+	<string name="editor_done_dialog_1">Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.</string>
+	<string name="editor_done_dialog_2">Tämä on toinen kerta, kun paransit karttaa. Nyt olet %d. sijalla kartan muokkaajien listalla. Kerro siitä ystävillesi.</string>
+	<string name="editor_done_dialog_3">Olet parantanut karttaa, kerro siitä ystävillesi ja muokatkaa karttaa yhdessä.</string>
+	<string name="share_with_friends">Jaa kavereille</string>
+	<string name="editor_report_problem_desription_1">Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.</string>
+	<string name="editor_report_problem_desription_2">Tai tee se itse osoitteessa http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Lähetä</string>
+	<string name="editor_report_problem_title">Ongelma</string>
+	<string name="editor_report_problem_no_place_title">Paikkaa ei ole olemassa</string>
+	<string name="editor_report_problem_under_construction_title">Suljettu huoltoa varten</string>
+	<string name="editor_report_problem_duplicate_place_title">Paikan kaksoiskappale</string>
+	<string name="first_launch_congrats_title">MAPS.ME on valmiina käyttöön</string>
+	<string name="first_launch_congrats_text">Hae ja navigoi ilmaiseksi maailman kaikkien maiden karttoja.</string>
+	<string name="migrate_title">Tärkeää!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Lataa kaikki</string>
+	<string name="delete_all">Poista kaikki</string>
+	<string name="autodownload">Lataa automaattisesti</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Suljettu nyt</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Päivittäin</string>
+	<string name="twentyfour_seven">Päivin ja öin</string>
+	<string name="day_off_today">Vapaapäivä tänään</string>
+	<string name="day_off">Vapaapäivä</string>
+	<string name="today">Tänään</string>
+	<string name="sunrise_to_sunset">Auringonnoususta auringonlaskuun</string>
+	<string name="sunset_to_sunrise">Auringonnoususta auringonlaskuun</string>
+	<string name="add_opening_hours">Lisää aukioloajat</string>
+	<string name="edit_opening_hours">Muokkaa aukioloaikoja</string>
+	<string name="profile">Profiili</string>
+	<string name="no_osm_account">Eikö sinulla ole tiliä OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Rekisteröidy</string>
+	<string name="password_8_chars_min">Salasana (vähintään 8 merkkiä)</string>
+	<string name="invalid_username_or_password">Virheellinen Käyttäjätunnus tai Salasana</string>
+	<string name="login">Kirjaudu sisään</string>
+	<string name="password">Salasana</string>
+	<string name="forgot_password">Unohtuiko salasana?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Palauta salasana</string>
+	<string name="enter_email_address_to_reset_password">Syötä rekisteröitymisessä käyttämäsi sähköpostiosoite, niin lähetämme sinulle linkin salasanasi vaihtamista varten.</string>
+	<string name="reset_password">Aseta salasana uudelleen</string>
+	<string name="username">Käyttäjänimi</string>
+	<string name="osm_account">OSM-tili</string>
+	<string name="logout">Kirjaudu ulos</string>
+	<string name="login_and_edit_map_motivation_message">Kirjaudu sisään ja muokkaa kartan kohteiden tietoja, ja me asetamme kohteet miljoonien muiden käyttäjien saataville. Tehdään maailmasta yhdessä parempi paikka.</string>
+	<string name="not_sent">Ei lähetetty</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Viimeisin lisäys</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">muutosta</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Olet muokannut ensimmäistä kohdettasi!</string>
+	<string name="thank_you">Kiitos</string>
+	<string name="login_with_google">Kirjaudu sisään Google-tunnuksillasi</string>
+	<string name="login_with_facebook">Kirjaudu sisään Facebook-tunnuksillasi</string>
+	<string name="login_with_openstreetmap">Kirjaudu sisään osoitteessa www.openstreetmap.org</string>
+	<string name="edit_place">Muokkaa sijaintia</string>
+	<string name="place_name">Paikan nimi</string>
+	<string name="place_name_caption">Syötä nimi kuten nimikyltissä kirjoitettu</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Muut Kielet</string>
+	<string name="add_language">Lisää kieli</string>
+	<string name="street">Katu</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Rakennus</string>
+	<string name="details">Lisätiedot</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Lisää katu</string>
+	<string name="choose_language">Valitse kieli</string>
+	<string name="choose_street">Valitse katu</string>
+	<string name="postal_code">Postikoodi</string>
+	<string name="cuisine">Ruokalaji</string>
+	<string name="select_cuisine">Valitse Ruokalaji</string>
+	<!-- login text field -->
+	<string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
+	<string name="phone">Puhelinnumero</string>
+	<string name="please_note">Huomaathan, että</string>
+	<string name="common_no_wifi_dialog">Ei Wi-Fi -yhteyttä. Haluatko jatkaa mobiilidatan avulla?</string>
+	<string name="downloader_delete_map_dialog">Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.</string>
+	<string name="downloader_update_maps">Päivitä kartat</string>
+	<string name="downloader_mwm_migration_dialog">Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.</string>
+	<string name="downloader_search_field_hint">Etsi kartta</string>
+	<string name="migration_update_all_button">Päivitä kaikki kartat</string>
+	<string name="migration_delete_all_download_current_button">Lataa nykyinen kartta ja poista kaikki vanhat kartat</string>
+	<string name="migration_prefetch_status">Karttojen päivitystä ladataan…</string>
+	<string name="migration_download_error_dialog">Latausvirhe</string>
+	<string name="common_check_internet_connection_dialog">Tarkista asetuksesi ja varmista, että laitteesi on yhteydessä Internetiin.</string>
+	<string name="downloader_no_space_title">Ei tarpeeksi tilaa</string>
+	<string name="downloader_no_space_message">Poista tarpeeton data</string>
+	<string name="editor_general_auth_error_dialog">Yleinen kirjautumisvirhe.</string>
+	<string name="editor_login_error_dialog">Kirjautumisvirhe.</string>
+	<string name="editor_login_failed_dialog">Kirjautuminen epäonnistui</string>
+	<string name="editor_username_error_dialog">Käyttäjätunnus on virheellinen</string>
+	<string name="editor_place_edited_dialog">Olet muokannut kohdetta!</string>
+	<string name="editor_login_with_osm">Kirjaudu sisään OpenStreetMapissa</string>
+	<string name="editor_profile_changes">Muutokset:</string>
+	<string name="editor_profile_unsent_changes">Ei lähetetty:</string>
+	<string name="editor_focus_map_on_location">Vedä karttaa valitaksesi kohteelle oikean sijainnin.</string>
+	<string name="editor_add_select_category">Valitse kategoria</string>
+	<string name="editor_add_select_category_popular_subtitle">Suositut</string>
+	<string name="editor_add_select_category_all_subtitle">Kaikki kategoriat</string>
+	<string name="editor_edit_place_title">Muokkaus</string>
+	<string name="editor_add_place_title">Lisääminen</string>
+	<string name="editor_edit_place_name_hint">Paikan nimi</string>
+	<string name="editor_edit_place_category_title">Kategoria</string>
+	<string name="detailed_problem_description">Ongelman tarkka kuvaus</string>
+	<string name="editor_report_problem_other_title">Eri ongelma</string>
+	<string name="placepage_add_place_button">Lisää paikka</string>
+	<string name="placepage_report_problem_button">Ilmoita ongelmasta</string>
+	<string name="whatsnew_smallmwm_header">Sitä on pyydetty, ja nyt se on tarjolla</string>
+	<string name="whatsnew_smallmwm_message">Olemme jakaneet kartat osiin, joten voitkin nyt ladata pelkkiä alueita lataamatta koko maan karttaa.</string>
+	<string name="whatsnew_search_header">Uusittu haku</string>
+	<string name="whatsnew_search_message">Olemme selkeästi parantaneet osoitehakua - kokeile vaikka itse.</string>
+	<string name="whatsnew_editor_title">Muokkaa karttaa*</string>
+	<string name="whatsnew_editor_message_1">Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME käyttää OpenStreetMap -yhteisön dataa.</string>
+	<string name="onboarding_offline_navigation_title">Et eksy enää koskaan</string>
+	<string name="onboarding_offline_navigation_message">Suunnittele ihanteellinen autoilu- tai kävelyreitti jopa ilman Internet-yhteyttä!</string>
+	<string name="onboarding_offline_navigation_title_2">Offline-navigointi</string>
+	<string name="onboarding_offline_navigation_message_2">Suunnittele ihanteelliset autoilu- ja kävelyreitit.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — koko maailman kartat ilman Internet-yhteyttä</string>
+	<string name="onboarding_offline_maps_message">Lataa haluamasi alueen kartat yhden kerran ja voit käyttää navigointi- ja hakutoimintoja ilman Internet-yhteyttä.</string>
+	<string name="onboarding_notifications_message">Ota päivitysilmoitukset käyttöön saadaksesi tuoreimmat kartat</string>
+	<string name="onboarding_notifications_title">Ota päivitysilmoitukset käyttöön</string>
+	<string name="onboarding_location_title">Auta meitä löytämään sinut</string>
+	<string name="onboarding_location_message">Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.</string>
+	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
+	<string name="message_invalid_feature_position">Objektia ei voida asettaa tänne</string>
 </resources>

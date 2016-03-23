@@ -128,6 +128,7 @@ extern const glConst GLOneMinusDstAlfa;
 extern const glConst GLDepthTest;
 extern const glConst GLBlending;
 extern const glConst GLCullFace;
+extern const glConst GLScissorTest;
 
 /// Triangle faces order
 extern const glConst GLClockwise;

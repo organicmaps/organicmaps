@@ -1,11 +1,17 @@
+#include "qt/create_feature_dialog.hpp"
 #include "qt/draw_widget.hpp"
-
+#include "qt/editor_dialog.hpp"
+#include "qt/place_page_dialog.hpp"
 #include "qt/slider_ctrl.hpp"
 #include "qt/qtoglcontext.hpp"
 
 #include "drape_frontend/visual_params.hpp"
 
 #include "search/result.hpp"
+
+#include "storage/index.hpp"
+
+#include "indexer/editable_map_object.hpp"
 
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
@@ -18,9 +24,10 @@
 #include <QtGui/QOpenGLFunctions>
 #include <QtGui/QVector2D>
 
-#include <QtWidgets/QMenu>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QMenu>
 
 #include <QtCore/QLocale>
 #include <QtCore/QDateTime>
@@ -79,25 +86,82 @@ DrawWidget::DrawWidget(QWidget * parent)
     m_enableScaleUpdate(true),
     m_emulatingLocation(false)
 {
-  m_framework->SetUserMarkActivationListener([](unique_ptr<UserMarkCopy> mark)
+  m_framework->SetMapSelectionListeners([this](place_page::Info const & info)
+  {
+    ShowPlacePage(info);
+  }, [](bool /*switchFullScreenMode*/){}); // Empty deactivation listener.
+
+  m_framework->SetRouteBuildingListener([](routing::IRouter::ResultCode,
+                                           storage::TCountriesVec const &)
   {
   });
 
-  m_framework->SetRouteBuildingListener([](routing::IRouter::ResultCode,
-                                           vector<storage::TIndex> const &,
-                                           vector<storage::TIndex> const &)
+  m_framework->SetCurrentCountryChangedListener([this](storage::TCountryId const & countryId)
   {
+    m_countryId = countryId;
+    UpdateCountryStatus(countryId);
   });
 
   QTimer * timer = new QTimer(this);
   VERIFY(connect(timer, SIGNAL(timeout()), this, SLOT(update())), ());
   timer->setSingleShot(false);
   timer->start(30);
+
+  QTimer * countryStatusTimer = new QTimer(this);
+  VERIFY(connect(countryStatusTimer, SIGNAL(timeout()), this, SLOT(OnUpdateCountryStatusByTimer())), ());
+  countryStatusTimer->setSingleShot(false);
+  countryStatusTimer->start(1000);
 }
 
 DrawWidget::~DrawWidget()
 {
+  m_framework->EnterBackground();
   m_framework.reset();
+}
+
+void DrawWidget::UpdateCountryStatus(storage::TCountryId const & countryId)
+{
+  if (m_currentCountryChanged != nullptr)
+  {
+    // TODO @bykoianko
+    string countryName = countryId;
+    uint8_t progress = 50;
+
+    auto status = m_framework->Storage().CountryStatusEx(countryId);
+
+    uint64_t sizeInBytes = 0;
+    if (!countryId.empty())
+    {
+      storage::NodeAttrs nodeAttrs;
+      m_framework->Storage().GetNodeAttrs(countryId, nodeAttrs);
+      sizeInBytes = nodeAttrs.m_mwmSize;
+    }
+
+    m_currentCountryChanged(countryId, countryName, status, sizeInBytes, progress);
+  }
+}
+
+void DrawWidget::OnUpdateCountryStatusByTimer()
+{
+  if (!m_countryId.empty())
+    UpdateCountryStatus(m_countryId);
+}
+
+void DrawWidget::SetCurrentCountryChangedListener(DrawWidget::TCurrentCountryChanged const & listener)
+{
+  m_currentCountryChanged = listener;
+}
+
+void DrawWidget::DownloadCountry(storage::TCountryId const & countryId)
+{
+  m_framework->Storage().DownloadNode(countryId);
+  if (!m_countryId.empty())
+    UpdateCountryStatus(m_countryId);
+}
+
+void DrawWidget::RetryToDownloadCountry(storage::TCountryId const & countryId)
+{
+  // TODO @bykoianko
 }
 
 void DrawWidget::SetScaleControl(QScaleSlider * pScale)
@@ -116,17 +180,6 @@ void DrawWidget::PrepareShutdown()
 void DrawWidget::UpdateAfterSettingsChanged()
 {
   m_framework->EnterForeground();
-}
-
-void DrawWidget::LoadState()
-{
-  m_framework->LoadState();
-  m_framework->LoadBookmarks();
-}
-
-void DrawWidget::SaveState()
-{
-  m_framework->SaveState();
 }
 
 void DrawWidget::ScalePlus()
@@ -174,6 +227,18 @@ void DrawWidget::SliderReleased()
   m_enableScaleUpdate = true;
 }
 
+void DrawWidget::ChoosePositionModeEnable()
+{
+  m_framework->BlockTapEvents(true);
+  m_framework->EnableChoosePositionMode(true);
+}
+
+void DrawWidget::ChoosePositionModeDisable()
+{
+  m_framework->EnableChoosePositionMode(false);
+  m_framework->BlockTapEvents(false);
+}
+
 void DrawWidget::CreateEngine()
 {
   Framework::DrapeCreationParams p;
@@ -202,7 +267,9 @@ void DrawWidget::initializeGL()
 
   emit BeforeEngineCreation();
   CreateEngine();
-  LoadState();
+
+  m_framework->LoadBookmarks();
+  m_framework->EnterForeground();
 }
 
 void DrawWidget::paintGL()
@@ -323,10 +390,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     else if (IsLocationEmulation(e))
       SubmitFakeLocationPoint(pt);
     else
-    {
       m_framework->TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_DOWN));
-      setCursor(Qt::CrossCursor);
-    }
   }
   else if (IsRightButton(e))
     ShowInfoPopup(e, pt);
@@ -419,6 +483,26 @@ void DrawWidget::ShowSearchResult(search::Result const & res)
   m_framework->ShowSearchResult(res);
 }
 
+void DrawWidget::CreateFeature()
+{
+  CreateFeatureDialog dlg(this, m_framework->GetEditorCategories());
+  if (dlg.exec() == QDialog::Accepted)
+  {
+    osm::EditableMapObject emo;
+    if (m_framework->CreateMapObject(m_framework->GetViewportCenter(), dlg.GetSelectedType(), emo))
+    {
+      EditorDialog dlg(this, emo);
+      int const result = dlg.exec();
+      if (result == QDialog::Accepted)
+        m_framework->SaveEditedMapObject(emo);
+    }
+    else
+    {
+      LOG(LWARNING, ("Error creating new map object."));
+    }
+  }
+}
+
 void DrawWidget::OnLocationUpdate(location::GpsInfo const & info)
 {
   if (!m_emulatingLocation)
@@ -461,6 +545,40 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
     m_framework->BuildRoute(m_framework->PtoG(pt), 0 /* timeoutSec */);
 }
 
+void DrawWidget::ShowPlacePage(place_page::Info const & info)
+{
+  search::AddressInfo address;
+  if (info.IsFeature())
+    address = m_framework->GetFeatureAddressInfo(info.GetID());
+  else
+    address = m_framework->GetAddressInfoAtPoint(info.GetMercator());
+
+  PlacePageDialog dlg(this, info, address);
+  if (dlg.exec() == QDialog::Accepted)
+  {
+    osm::EditableMapObject emo;
+    if (m_framework->GetEditableMapObject(info.GetID(), emo))
+    {
+      EditorDialog dlg(this, emo);
+      int const result = dlg.exec();
+      if (result == QDialog::Accepted)
+      {
+        m_framework->SaveEditedMapObject(emo);
+        m_framework->UpdatePlacePageInfoForCurrentSelection();
+      }
+      else if (result == QDialogButtonBox::DestructiveRole)
+      {
+        m_framework->DeleteFeature(info.GetID());
+      }
+    }
+    else
+    {
+      LOG(LERROR, ("Error while trying to edit feature."));
+    }
+  }
+  m_framework->DeactivateMapSelection(false);
+}
+
 void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 {
   // show feature types
@@ -470,22 +588,24 @@ void DrawWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
     menu.addAction(QString::fromUtf8(s.c_str()));
   };
 
-  search::AddressInfo info;
-  m_framework->GetAddressInfoForPixelPoint(pt, info);
+  m_framework->ForEachFeatureAtPoint([&](FeatureType & ft)
+  {
+    search::AddressInfo const info = m_framework->GetFeatureAddressInfo(ft);
 
-  // Get feature types under cursor.
-  vector<string> types;
-  m_framework->GetFeatureTypes(pt, types);
-  for (size_t i = 0; i < types.size(); ++i)
-    addStringFn(types[i]);
+    string concat;
+    for (auto const & type : info.m_types)
+      concat += type + " ";
+    addStringFn(concat);
 
-  menu.addSeparator();
+    if (!info.m_name.empty())
+      addStringFn(info.m_name);
 
-  // Format address and types.
-  if (!info.m_name.empty())
-    addStringFn(info.m_name);
-  addStringFn(info.FormatAddress());
-  addStringFn(info.FormatTypes());
+    string const addr = info.FormatAddress();
+    if (!addr.empty())
+      addStringFn(addr);
+
+    menu.addSeparator();
+  }, m_framework->PtoG(pt));
 
   menu.exec(e->pos());
 }

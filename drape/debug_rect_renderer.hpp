@@ -22,7 +22,7 @@ public:
   bool IsEnabled() const;
   void SetEnabled(bool enabled);
 
-  void DrawRect(ScreenBase const & screen, m2::RectF const & rect) const;
+  void DrawRect(ScreenBase const & screen, m2::RectF const & rect, dp::Color const & color) const;
 
 #ifdef COLLECT_DISPLACEMENT_INFO
   void DrawArrow(ScreenBase const & screen, OverlayTree::DisplacementData const & data) const;

@@ -260,7 +260,7 @@ public:
     virtual void OnAnimationStarted(ref_ptr<BaseModelViewAnimation> anim) = 0;
   };
 
-  UserEventStream(TIsCountryLoaded const & fn);
+  UserEventStream();
   void AddEvent(UserEvent const & event);
   ScreenBase const & ProcessEvents(bool & modelViewChange, bool & viewportChanged);
   ScreenBase const & GetCurrentScreen() const;
@@ -273,6 +273,8 @@ public:
   static bool IsScaleAllowableIn3d(int scale);
 
   void SetListener(ref_ptr<Listener> listener) { m_listener = listener; }
+
+  void SetKineticScrollEnabled(bool enabled);
 
 #ifdef DEBUG
   static char const * BEGIN_DRAG;
@@ -344,9 +346,6 @@ private:
 
   void ResetCurrentAnimation(bool finishAnimation = false);
 
-private:
-  TIsCountryLoaded m_isCountryLoaded;
-
   list<UserEvent> m_events;
   mutable mutex m_lock;
 
@@ -383,6 +382,7 @@ private:
 
   KineticScroller m_scroller;
   my::Timer m_kineticTimer;
+  bool m_kineticScrollEnabled = true;
 };
 
 }

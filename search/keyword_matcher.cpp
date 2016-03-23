@@ -1,4 +1,4 @@
-#include "search/keyword_matcher.hpp"
+#include "keyword_matcher.hpp"
 
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"

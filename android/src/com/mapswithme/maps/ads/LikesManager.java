@@ -3,14 +3,13 @@ package com.mapswithme.maps.ads;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.SparseArray;
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.util.Config;
-import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.Config;
-import com.mapswithme.util.concurrency.UiThread;
 
 import java.lang.ref.WeakReference;
+
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.util.Config;
+import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.concurrency.UiThread;
 
 public enum LikesManager
 {

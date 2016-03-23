@@ -30,12 +30,15 @@ public:
 
   bool Update(ScreenBase const & screen) override;
 
-  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                            ScreenBase const & screen) const override;
+  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
 
   bool IndexesRequired() const override;
 
   void SetForceUpdateNormals(bool forceUpdate) const;
+
+#ifdef DEBUG_OVERLAYS_OUTPUT
+  virtual string GetOverlayDebugInfo() override;
+#endif
 
 protected:
   gpu::TTextDynamicVertexBuffer m_buffer;

@@ -1,7 +1,10 @@
 #pragma once
+
 #include "base/base.hpp"
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
+
+#include "std/atomic.hpp"
 
 namespace my
 {
@@ -14,17 +17,41 @@ namespace my
     LCRITICAL
   };
 
+  typedef atomic<LogLevel> TLogLevel;
   typedef void (*LogMessageFn)(LogLevel level, SrcPoint const &, string const &);
 
   extern LogMessageFn LogMessage;
-  extern LogLevel g_LogLevel;
-  extern LogLevel g_LogAbortLevel;
+  extern TLogLevel g_LogLevel;
+  extern TLogLevel g_LogAbortLevel;
 
   /// @return Pointer to previous message function.
   LogMessageFn SetLogMessageFn(LogMessageFn fn);
 
   void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg);
   void LogMessageTests(LogLevel level, SrcPoint const & srcPoint, string const & msg);
+
+  /// Scope Guard to temporarily suppress specific log level, for example, in unit tests:
+  /// ...
+  /// {
+  ///   LogLevelSuppressor onlyLERRORAndLCriticalLogsAreEnabled;
+  ///   TEST(SomeFunctionWhichHasDebugOrInfoOrWarningLogs(), ());
+  /// }
+  struct ScopedLogLevelChanger
+  {
+    LogLevel m_old = g_LogLevel;
+    ScopedLogLevelChanger(LogLevel temporaryLogLevel = LERROR) { g_LogLevel = temporaryLogLevel; }
+    ~ScopedLogLevelChanger() { g_LogLevel = m_old; }
+  };
+
+  struct ScopedLogAbortLevelChanger
+  {
+    LogLevel m_old = g_LogAbortLevel;
+    ScopedLogAbortLevelChanger(LogLevel temporaryLogAbortLevel = LCRITICAL)
+    {
+      g_LogAbortLevel = temporaryLogAbortLevel;
+    }
+    ~ScopedLogAbortLevelChanger() { g_LogAbortLevel = m_old; }
+  };
 }
 
 using ::my::LDEBUG;

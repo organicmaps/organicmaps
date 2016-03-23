@@ -1,44 +1,37 @@
 #import "Common.h"
 #import "LocationManager.h"
-#import "MapsAppDelegate.h"
-#import "MWMActivityViewController.h"
 #import "MWMAPIBar.h"
+#import "MWMActivityViewController.h"
 #import "MWMBasePlacePageView.h"
 #import "MWMDirectionView.h"
-#import "MWMiPadPlacePage.h"
-#import "MWMiPhoneLandscapePlacePage.h"
-#import "MWMiPhonePortraitPlacePage.h"
+#import "MWMFrameworkListener.h"
 #import "MWMPlacePage.h"
 #import "MWMPlacePageActionBar.h"
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageNavigationBar.h"
 #import "MWMPlacePageViewManager.h"
 #import "MWMPlacePageViewManagerDelegate.h"
+#import "MWMiPadPlacePage.h"
+#import "MWMiPhoneLandscapePlacePage.h"
+#import "MWMiPhonePortraitPlacePage.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "Statistics.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "geometry/distance_on_sphere.hpp"
+#include "map/place_page_info.hpp"
 #include "platform/measurement_utils.hpp"
 
 extern NSString * const kAlohalyticsTapEventKey;
 extern NSString * const kBookmarksChangedNotification;
 
-typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
-{
-  MWMPlacePageManagerStateClosed,
-  MWMPlacePageManagerStateOpen
-};
-
 @interface MWMPlacePageViewManager () <LocationObserver>
-{
-  unique_ptr<UserMarkCopy> m_userMark;
-}
 
 @property (weak, nonatomic) UIViewController * ownerViewController;
 @property (nonatomic, readwrite) MWMPlacePageEntity * entity;
 @property (nonatomic) MWMPlacePage * placePage;
-@property (nonatomic) MWMPlacePageManagerState state;
 @property (nonatomic) MWMDirectionView * directionView;
 
 @property (weak, nonatomic) id<MWMPlacePageViewManagerProtocol> delegate;
@@ -55,7 +48,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   {
     self.ownerViewController = viewController;
     self.delegate = delegate;
-    self.state = MWMPlacePageManagerStateClosed;
   }
   return self;
 }
@@ -67,24 +59,17 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)dismissPlacePage
 {
-  if (!m_userMark)
-    return;
   [self.delegate placePageDidClose];
-  self.state = MWMPlacePageManagerStateClosed;
   [self.placePage dismiss];
-  [[MapsAppDelegate theApp].m_locationManager stop:self];
-  m_userMark = nullptr;
-  GetFramework().DeactivateUserMark();
+  [[MapsAppDelegate theApp].locationManager stop:self];
+  GetFramework().DeactivateMapSelection(false);
   self.placePage = nil;
 }
 
-- (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
+- (void)showPlacePage:(place_page::Info const &)info
 {
-  NSAssert(userMark, @"userMark cannot be nil");
-  m_userMark = move(userMark);
-  [[MapsAppDelegate theApp].m_locationManager start:self];
-  self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:m_userMark->GetUserMark()];
-  self.state = MWMPlacePageManagerStateOpen;
+  [[MapsAppDelegate theApp].locationManager start:self];
+  self.entity = [[MWMPlacePageEntity alloc] initWithInfo:info];
   if (IPAD)
     [self setPlacePageForiPad];
   else
@@ -125,10 +110,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)configPlacePage
 {
-  if (self.entity.type == MWMPlacePageEntityTypeMyPosition)
+  if (self.entity.isMyPosition)
   {
     BOOL hasSpeed;
-    self.entity.category = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed];
+    self.entity.category = [[MapsAppDelegate theApp].locationManager formattedSpeedAndAltitude:hasSpeed];
   }
   self.placePage.parentViewHeight = self.ownerViewController.view.height;
   [self.placePage configure];
@@ -143,10 +128,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [self updateDistance];
 }
 
-- (void)refresh
+- (void)mwm_refreshUI
 {
-  [self.placePage.extendedPlacePageView refresh];
-  [self.placePage.actionBar refresh];
+  [self.placePage.extendedPlacePageView mwm_refreshUI];
+  [self.placePage.actionBar mwm_refreshUI];
 }
 
 - (BOOL)hasPlacePage
@@ -162,18 +147,15 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)updateMyPositionSpeedAndAltitude
 {
-  if (self.entity.type != MWMPlacePageEntityTypeMyPosition)
+  if (!self.entity.isMyPosition)
     return;
   BOOL hasSpeed = NO;
-  [self.placePage updateMyPositionStatus:[[MapsAppDelegate theApp].m_locationManager
+  [self.placePage updateMyPositionStatus:[[MapsAppDelegate theApp].locationManager
                                           formattedSpeedAndAltitude:hasSpeed]];
 }
 
 - (void)setPlacePageForiPhoneWithOrientation:(UIInterfaceOrientation)orientation
 {
-  if (self.state == MWMPlacePageManagerStateClosed)
-    return;
-
   switch (orientation)
   {
     case UIInterfaceOrientationLandscapeLeft:
@@ -205,14 +187,11 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
                    withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
-  m2::PointD const & destination = m_userMark->GetUserMark()->GetPivot();
-  m2::PointD const myPosition([MapsAppDelegate theApp].m_locationManager.lastLocation.mercator);
-  using namespace location;
-  EMyPositionMode mode = self.myPositionMode;
-  [self.delegate buildRouteFrom:mode != EMyPositionMode::MODE_UNKNOWN_POSITION && mode != EMyPositionMode::MODE_PENDING_POSITION ?
-                                                     MWMRoutePoint(myPosition) :
-                                              MWMRoutePoint::MWMRoutePointZero()
-            to:{destination, self.placePage.basePlacePageView.titleLabel.text}];
+
+  LocationManager * lm = MapsAppDelegate.theApp.locationManager;
+  [self.delegate buildRouteFrom:lm.isLocationModeUnknownOrPending ? MWMRoutePoint::MWMRoutePointZero()
+                                                                  : MWMRoutePoint(lm.lastLocation.mercator)
+                             to:{self.entity.mercator, self.placePage.basePlacePageView.titleLabel.text}];
 }
 
 - (void)routeFrom
@@ -235,11 +214,9 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (MWMRoutePoint)target
 {
-  UserMark const * m = m_userMark->GetUserMark();
-  m2::PointD const & org = m->GetPivot();
-  return m->GetMarkType() == UserMark::Type::MY_POSITION ?
-                          MWMRoutePoint(org) :
-                          MWMRoutePoint(org, self.placePage.basePlacePageView.titleLabel.text);
+  m2::PointD const & org = self.entity.mercator;
+  return self.entity.isMyPosition ? MWMRoutePoint(org)
+                               : MWMRoutePoint(org, self.placePage.basePlacePageView.titleLabel.text);
 }
 
 - (void)share
@@ -248,7 +225,7 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   MWMPlacePageEntity * entity = self.entity;
   NSString * title = entity.bookmarkTitle ? entity.bookmarkTitle : entity.title;
-  CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.point.x, entity.point.y);
+  CLLocationCoordinate2D const coord = CLLocationCoordinate2DMake(entity.latlon.lat, entity.latlon.lon);
   MWMActivityViewController * shareVC =
       [MWMActivityViewController shareControllerForLocationTitle:title
                                                         location:coord
@@ -260,18 +237,18 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)apiBack
 {
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatAPI)];
-  ApiMarkPoint const * p = static_cast<ApiMarkPoint const *>(m_userMark->GetUserMark());
-  NSURL * url = [NSURL URLWithString:@(GetFramework().GenerateApiBackUrl(*p).c_str())];
-  [[UIApplication sharedApplication] openURL:url];
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.entity.apiURL]];
   [self.delegate apiBack];
 }
 
-- (void)changeBookmarkCategory:(BookmarkAndCategory)bac;
+- (void)editPlace
 {
-  BookmarkCategory * category = GetFramework().GetBmCategory(bac.first);
-  BookmarkCategory::Guard guard(*category);
-  UserMark const * bookmark = guard.m_controller.GetUserMark(bac.second);
-  m_userMark.reset(new UserMarkCopy(bookmark, false));
+  [(MapViewController *)self.ownerViewController openEditor];
+}
+
+- (void)reportProblem
+{
+  [static_cast<MapViewController *>(self.ownerViewController) showReportController];
 }
 
 - (void)addBookmark
@@ -279,16 +256,12 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
                    withParameters:@{kStatValue : kStatAdd}];
   Framework & f = GetFramework();
-  BookmarkData data = BookmarkData(self.entity.title.UTF8String, f.LastEditedBMType());
+  BookmarkData bmData = { self.entity.titleForNewBookmark, f.LastEditedBMType() };
   size_t const categoryIndex = f.LastEditedBMCategory();
-  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, m_userMark->GetUserMark()->GetPivot(), data);
-  self.entity.bac = make_pair(categoryIndex, bookmarkIndex);
-  self.entity.type = MWMPlacePageEntityTypeBookmark;
-
-  BookmarkCategory::Guard guard(*f.GetBmCategory(categoryIndex));
-
-  UserMark const * bookmark = guard.m_controller.GetUserMark(bookmarkIndex);
-  m_userMark.reset(new UserMarkCopy(bookmark, false));
+  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, self.entity.mercator, bmData);
+  self.entity.bac = {categoryIndex, bookmarkIndex};
+  self.entity.bookmarkTitle = @(bmData.GetName().c_str());
+  self.entity.bookmarkCategory = @(f.GetBmCategory(categoryIndex)->GetName().c_str());
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];
@@ -300,26 +273,18 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
                    withParameters:@{kStatValue : kStatRemove}];
   Framework & f = GetFramework();
-  BookmarkAndCategory bookmarkAndCategory = self.entity.bac;
-  BookmarkCategory * bookmarkCategory = f.GetBookmarkManager().GetBmCategory(bookmarkAndCategory.first);
-  if (!bookmarkCategory)
-    return;
-
-  UserMark const * bookmark = bookmarkCategory->GetUserMark(bookmarkAndCategory.second);
-  ASSERT_EQUAL(bookmarkAndCategory, f.FindBookmark(bookmark), ());
-
-  self.entity.type = MWMPlacePageEntityTypeRegular;
-
-  PoiMarkPoint const * poi = f.GetAddressMark(bookmark->GetPivot());
-  m_userMark.reset(new UserMarkCopy(poi, false));
+  BookmarkCategory * bookmarkCategory = f.GetBookmarkManager().GetBmCategory(self.entity.bac.first);
   if (bookmarkCategory)
   {
     {
       BookmarkCategory::Guard guard(*bookmarkCategory);
-      guard.m_controller.DeleteUserMark(bookmarkAndCategory.second);
+      guard.m_controller.DeleteUserMark(self.entity.bac.second);
     }
     bookmarkCategory->SaveToKMLFile();
   }
+  self.entity.bac = MakeEmptyBookmarkAndCategory();
+  self.entity.bookmarkTitle = nil;
+  self.entity.bookmarkCategory = nil;
   [NSNotificationCenter.defaultCenter postNotificationName:kBookmarksChangedNotification
                                                     object:nil
                                                   userInfo:nil];
@@ -353,12 +318,14 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (NSString *)distance
 {
-  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
-  if (!location || !m_userMark)
+  CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
+  // TODO(AlexZ): Do we REALLY need this check? Why this method is called if user mark/m_info is empty?
+  // TODO(AlexZ): Can location be checked before calling this method?
+  if (!location/* || !m_userMark*/)
     return @"";
   string distance;
   CLLocationCoordinate2D const coord = location.coordinate;
-  ms::LatLon const target = MercatorBounds::ToLatLon(m_userMark->GetUserMark()->GetPivot());
+  ms::LatLon const target = self.entity.latlon;
   MeasurementUtils::FormatDistance(ms::DistanceOnEarth(coord.latitude, coord.longitude,
                                                        target.lat, target.lon), distance);
   return @(distance.c_str());
@@ -366,11 +333,13 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
-  CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
-  if (!location || !m_userMark)
+  CLLocation * location = [MapsAppDelegate theApp].locationManager.lastLocation;
+  // TODO(AlexZ): Do we REALLY need this check? Why compass update is here if user mark/m_info is empty?
+  // TODO(AlexZ): Can location be checked before calling this method?
+  if (!location/* || !m_userMark*/)
     return;
 
-  CGFloat const angle = ang::AngleTo(location.mercator, m_userMark->GetUserMark()->GetPivot()) + info.m_bearing;
+  CGFloat const angle = ang::AngleTo(location.mercator, self.entity.mercator) + info.m_bearing;
   CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
   [self.placePage setDirectionArrowTransform:transform];
   [self.directionView setDirectionArrowTransform:transform];
@@ -426,11 +395,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 - (void)setLeftBound:(CGFloat)leftBound
 {
   _leftBound = self.placePage.leftBound = leftBound;
-}
-
-- (location::EMyPositionMode)myPositionMode
-{
-  return self.delegate.myPositionMode;
 }
 
 @end

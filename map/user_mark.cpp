@@ -1,23 +1,11 @@
-#include "user_mark.hpp"
-#include "user_mark_container.hpp"
+#include "map/user_mark.hpp"
+#include "map/user_mark_container.hpp"
 
-namespace
-{
+#include "indexer/classificator.hpp"
 
-string ToString(UserMark::Type t)
-{
-  switch (t)
-  {
-  case UserMark::Type::BOOKMARK: return "BOOKMARK";
-  case UserMark::Type::API: return "API";
-  case UserMark::Type::MY_POSITION: return "MY_POSITION";
-  case UserMark::Type::POI: return "POI";
-  case UserMark::Type::SEARCH: return "SEARCH";
-  case UserMark::Type::DEBUG_MARK: return "DEBUG";
-  }
-}
+#include "geometry/mercator.hpp"
 
-}
+#include "base/string_utils.hpp"
 
 UserMark::UserMark(m2::PointD const & ptOrg, UserMarkContainer * container)
   : m_ptOrg(ptOrg), m_container(container)
@@ -56,47 +44,13 @@ UserMarkContainer const * UserMark::GetContainer() const
   return m_container;
 }
 
-void UserMark::GetLatLon(double & lat, double & lon) const
+ms::LatLon UserMark::GetLatLon() const
 {
-  lon = MercatorBounds::XToLon(m_ptOrg.x);
-  lat = MercatorBounds::YToLat(m_ptOrg.y);
-}
-
-void UserMark::FillLogEvent(UserMark::TEventContainer & details) const
-{
-  double lat, lon;
-  GetLatLon(lat, lon);
-  details.emplace("lat", strings::to_string(lat));
-  details.emplace("lon", strings::to_string(lon));
-  details.emplace("markType", ToString(GetMarkType()));
-}
-
-UserMarkCopy::UserMarkCopy(UserMark const * srcMark, bool needDestroy)
-  : m_srcMark(srcMark)
-  , m_needDestroy(needDestroy)
-{
-}
-
-UserMarkCopy::~UserMarkCopy()
-{
-  if (m_needDestroy)
-    delete m_srcMark;
-}
-
-UserMark const * UserMarkCopy::GetUserMark() const
-{
-  return m_srcMark;
-}
-
-SearchMarkPoint::SearchMarkPoint(search::AddressInfo const & info, m2::PointD const & ptOrg,
-                                 UserMarkContainer * container)
-  : UserMark(ptOrg, container)
-  , m_info(info)
-{
+  return MercatorBounds::ToLatLon(m_ptOrg);
 }
 
 SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
-  : UserMark(ptOrg, container)
+: UserMark(ptOrg, container)
 {
 }
 
@@ -110,60 +64,17 @@ UserMark::Type SearchMarkPoint::GetMarkType() const
   return UserMark::Type::SEARCH;
 }
 
-search::AddressInfo const & SearchMarkPoint::GetInfo() const
-{
-  return m_info;
-}
-
-void SearchMarkPoint::SetInfo(search::AddressInfo const & info)
-{
-  m_info = info;
-}
-
-feature::Metadata const & SearchMarkPoint::GetMetadata() const
-{
-  return m_metadata;
-}
-
-void SearchMarkPoint::SetMetadata(feature::Metadata && metadata)
-{
-  m_metadata = metadata;
-}
-
-unique_ptr<UserMarkCopy> SearchMarkPoint::Copy() const
-{
-  return unique_ptr<UserMarkCopy>(
-        new UserMarkCopy(new SearchMarkPoint(m_info, m_ptOrg, m_container)));
-}
-
-void SearchMarkPoint::FillLogEvent(UserMark::TEventContainer & details) const
-{
-  UserMark::FillLogEvent(details);
-  details.emplace("name", m_info.GetPinName());
-  details.emplace("type", m_info.GetPinType());
-  details.emplace("metaData", m_metadata.Empty() ? "0" : "1");
-}
-
 PoiMarkPoint::PoiMarkPoint(UserMarkContainer * container)
-  : SearchMarkPoint(m2::PointD(0.0, 0.0), container) {}
+  : SearchMarkPoint(m2::PointD::Zero(), container) {}
 
 UserMark::Type PoiMarkPoint::GetMarkType() const
 {
   return UserMark::Type::POI;
 }
 
-unique_ptr<UserMarkCopy> PoiMarkPoint::Copy() const
-{
-  return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
-}
 void PoiMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
 {
   m_ptOrg = ptOrg;
-}
-
-void PoiMarkPoint::SetName(string const & name)
-{
-  m_info.m_name = name;
 }
 
 MyPositionMarkPoint::MyPositionMarkPoint(UserMarkContainer * container)
@@ -184,9 +95,4 @@ DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg, UserMarkContainer * con
 string DebugMarkPoint::GetSymbolName() const
 {
   return "api-result";
-}
-
-unique_ptr<UserMarkCopy> DebugMarkPoint::Copy() const
-{
-  return unique_ptr<UserMarkCopy>(new UserMarkCopy(new DebugMarkPoint(m_ptOrg, m_container)));
 }

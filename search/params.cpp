@@ -7,10 +7,12 @@
 
 namespace search
 {
-
 SearchParams::SearchParams()
-  : m_searchRadiusM(-1.0), m_searchMode(ALL),
-    m_forceSearch(false), m_validPos(false)
+  : m_searchRadiusM(-1.0)
+  , m_mode(Mode::Everywhere)
+  , m_forceSearch(false)
+  , m_validPos(false)
+  , m_suggestsEnabled(true)
 {
 }
 
@@ -36,17 +38,15 @@ bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
   return (m_query == rhs.m_query &&
           m_inputLocale == rhs.m_inputLocale &&
           m_validPos == rhs.m_validPos &&
-          m_searchMode == rhs.m_searchMode &&
+          m_mode == rhs.m_mode &&
           m_searchRadiusM == rhs.m_searchRadiusM);
 }
 
 string DebugPrint(SearchParams const & params)
 {
   ostringstream ss;
-  ss << "{ SearchParams: Query = " << params.m_query <<
-                      ", Locale = " << params.m_inputLocale <<
-                      ", Mode = " << params.m_searchMode << " }";
+  ss << "{ SearchParams: Query = " << params.m_query << ", Locale = " << params.m_inputLocale
+     << ", Mode = " << DebugPrint(params.m_mode) << " }";
   return ss.str();
 }
-
 } // namespace search

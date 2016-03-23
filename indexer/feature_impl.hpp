@@ -29,8 +29,13 @@ namespace feature
     return str;
   }
 
+  bool IsDigit(int c);
   bool IsNumber(strings::UniString const & s);
 
   bool IsHouseNumber(string const & s);
+  bool IsHouseNumber(strings::UniString const & s);
   bool IsHouseNumberDeepCheck(strings::UniString const & s);
-}
+
+  uint8_t PopulationToRank(uint64_t p);
+  uint64_t RankToPopulation(uint8_t r);
+} // namespace feature

@@ -1,10 +1,14 @@
 #pragma once
-#include "geometry/point2d.hpp"
+#include "point2d.hpp"
+#include "robust_orientation.hpp"
+#include "triangle2d.hpp"
+
 #include "base/assert.hpp"
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
+
 #include "std/algorithm.hpp"
 
 namespace covering
@@ -35,7 +39,7 @@ inline CellObjectIntersection IntersectCellWithLine(CellIdT const cell,
     m2::PointD(xy.first + r, xy.second - r)
   };
   for (int i = 0; i < 4; ++i)
-    if (m2::SegmentsIntersect(a, b, cellCorners[i], cellCorners[i == 0 ? 3 : i - 1]))
+    if (m2::robust::SegmentsIntersect(a, b, cellCorners[i], cellCorners[i == 0 ? 3 : i - 1]))
       return CELL_OBJECT_INTERSECT;
   if (xy.first - r <= a.x && a.x <= xy.first + r && xy.second - r <= a.y && a.y <= xy.second + r)
     return OBJECT_INSIDE_CELL;

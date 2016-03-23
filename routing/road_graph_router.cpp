@@ -70,7 +70,7 @@ bool CheckMwmVersion(vector<pair<Edge, m2::PointD>> const & vicinities, vector<s
 
     version::MwmVersion version;
     version::ReadVersion(src, version);
-    if (version.timestamp < kMinPedestrianMwmVersion)
+    if (version.GetVersion() < kMinPedestrianMwmVersion)
       mwmNames.push_back(mwmInfo->GetCountryName());
   }
   return !mwmNames.empty();
@@ -177,7 +177,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
 
   vector<pair<Edge, m2::PointD>> finalVicinity;
   FindClosestEdges(*m_roadGraph, finalPoint, finalVicinity);
-  
+
   if (finalVicinity.empty())
     return EndPointNotFound;
 
@@ -212,16 +212,17 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   m_roadGraph->AddFakeEdges(startPos, startVicinity);
   m_roadGraph->AddFakeEdges(finalPos, finalVicinity);
 
-  vector<Junction> path;
+  RoutingResult<Junction> result;
   IRoutingAlgorithm::Result const resultCode =
-      m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, delegate, path);
+      m_algorithm->CalculateRoute(*m_roadGraph, startPos, finalPos, delegate, result);
 
   if (resultCode == IRoutingAlgorithm::Result::OK)
   {
-    ASSERT(!path.empty(), ());
-    ASSERT_EQUAL(path.front(), startPos, ());
-    ASSERT_EQUAL(path.back(), finalPos, ());
-    ReconstructRoute(move(path), route, delegate);
+    ASSERT(!result.path.empty(), ());
+    ASSERT_EQUAL(result.path.front(), startPos, ());
+    ASSERT_EQUAL(result.path.back(), finalPos, ());
+    ASSERT_GREATER(result.distance, 0., ());
+    ReconstructRoute(move(result.path), route, delegate);
   }
 
   m_roadGraph->ResetFakes();

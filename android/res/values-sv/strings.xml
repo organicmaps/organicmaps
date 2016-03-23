@@ -14,8 +14,6 @@
 	<string name="cancel_download">Avbryt nedladdning</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Ta bort</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Ta bort gamla kartor och fortsätt</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Fråga mig inte igen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -32,7 +30,7 @@
 	<!-- Settings/Downloader - country info current download progress -->
 	<string name="downloading_x_touch_to_cancel">Laddar ner %qu%%, tryck för att avbryta</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
-	<string name="downloading">Laddar ner...</string>
+	<string name="downloading">Laddar ner…</string>
 	<string name="get_it_now">Skaffa det nu</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Tack för att du använder MAPS.ME! Gillar du appen? Berätta för dina vänner om den! Det skulle vara höjden av tacksamhet för oss.</string>
@@ -48,8 +46,6 @@
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Min position</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Ingen internetanslutning upptäcktes</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Ingen WiFi-anslutning upptäcktes. Vill du använda mobildata (GPRS, EDGE, 3G eller LTE) till att ladda ner %s?</string>
 	<string name="ok">OK</string>
@@ -69,8 +65,6 @@
 	<string name="search">Sök</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Sök karta</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Det finns inte tillräckligt mycket ledigt utrymme på telefonen</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Trycka för att ladda ner</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -91,10 +85,12 @@
 	<string name="country_status_downloading">Laddar ner\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Ladda ner karta\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Ladda ner karta</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Hämta karta\nutan rutter (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Downloading\n^\nhar misslyckats</string>
+	<string name="country_status_download_failed">Downloading har misslyckats</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Försök igen</string>
 	<string name="about_menu_title">Om MAPS.ME</string>
@@ -110,8 +106,7 @@
 	<string name="not_enough_free_space_on_sdcard">Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.</string>
 	<string name="not_enough_memory">Inte tillräckligt med utrymme för att starta appen</string>
 	<string name="free_space_for_country">Vänligen frigör %1$s på din enhet för att kunna ladda ner %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %1$.1f%2$s data.</string>
+	<string name="download_resources">Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %s data.</string>
 	<string name="getting_position">Hämtar nuvarande position</string>
 	<string name="download_resources_continue">Gå till karta</string>
 	<string name="downloading_country_can_proceed">Laddar ner %s. Du kan nu\n fortsätta till kartan.</string>
@@ -159,7 +154,7 @@
 	<string name="my_places">Mina Platser</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Namn</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adress</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Ta bort knappnål</string>
@@ -272,8 +267,8 @@
 	<string name="share">Dela</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Meddelande</string>
-	<!-- Share by email button text -->
-	<string name="email">E-mail</string>
+	<!-- Share by email button text, also used in editor. -->
+	<string name="email">E-post</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopiera Länk</string>
 	<!-- Text for the button that returns to caller application -->
@@ -386,6 +381,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Inställningar &amp; Mer</string>
 	<!-- Text in menu -->
+	<string name="website">Webbplats</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME Gemenskap</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Gilla på Facebook</string>
@@ -420,17 +417,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Den nya versionen av MAPS.ME låter dig skapa rutter från din nuvarande position till en destinationspunkt. Uppdatera kartan för att använda den här funktionen.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Uppdatera alla</string>
+	<string name="downloader_update_all_button">Uppdatera alla</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Avbryt alla</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Nedladdade</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Nedladdade kartor</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Mina kartor</string>
+	<string name="downloader_downloaded_subtitle">Nedladdade</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Köade</string>
+	<string name="downloader_near_me_subtitle">Nära mig</string>
+	<string name="downloader_status_maps">Kartor</string>
+	<string name="downloader_download_all_button">Ladda ned alla</string>
+	<string name="downloader_downloading">Ladda ner:</string>
+	<string name="downloader_search_results">Hittat</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">När du skapar rutter i appen MAPS.ME, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!</string>
 	<!-- Outdated maps category -->
@@ -441,6 +439,8 @@
 	<string name="downloader_status_outdated">Uppdatera</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Misslyckades</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Avsluta navigering för att radera kartan.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Nuvarande plats är inte definierad. Ange din plats för att skapa rutt.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -516,186 +516,6 @@
 	<string name="routing_download_more_than_avail">Du behöver ladda ner %1$s MB men du har bara %2$s MB tillgänglig</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Du kommer ladda ner %s MB med mobildata (i roamingläge). Detta kan resultera i extra kostnader beroende på din operatörs mobildataplan.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">regional mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">hamburgare</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">italiensk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">kinesisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kafé</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">smörgås</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">tysk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">japansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">kebab</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">mexikansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">indisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">amerikansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">fransk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">glass</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">asiatisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">kyckling</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">grekisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">thailändsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">internationell mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">sushi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">friterad fisk och pommes frites</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">turkisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">skaldjur</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">stekhus</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">spansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">fisk</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">vietnamesisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">nudlar</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">vegetarisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">koreansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">friterat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">grillat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">bayersk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">ramen</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">italiensk, pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">medelhavsmat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">munk</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">biff donburi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">tårta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">crêpe</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">vintaverna (heuriger)</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">libanesisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">biff</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">lokal mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">curry</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">filippinsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">rysk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">frukost</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">tapas</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">grillat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">bagel</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">pasta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">vintaverna</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">korv</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">portugisisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">grill</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">pannkaka</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">madagaskisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">polsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">matställe</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">afrikansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">munk</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">georgisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">kroatisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">arabisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">balkansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">brasiliansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">karibisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">österrikisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">vegansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">argentinsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">persisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">soba</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">malaysisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">indonesisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">etiopisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">deli</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">irländsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">ungersk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">laotisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kaffe</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">varmkorv</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">orientalisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">fyllda pannkakor</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">marockansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">grillat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">peruansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">lyxrestaurang</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">te</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">bokmärke</string>
 	<!-- map is not downloaded -->
@@ -773,7 +593,7 @@
 	<string name="dialog_routing_if_get_cross_route">Vill du skapa en mer direkt väg som sträcker sig över fler än en karta?</string>
 	<string name="dialog_routing_cross_route_is_optimal">En optimalare väg som sträcker sig utanför den här kartan är tillgänglig.</string>
 	<string name="dialog_routing_always_cross_that_border">Korsa alltid den här gränsen</string>
-	<string name="dialog_routing_not_now">Inte nu</string>
+	<string name="not_now">Inte nu</string>
 	<string name="dialog_routing_build_route">Skapa</string>
 	<string name="dialog_routing_download_and_build_cross_route">Vill du ladda ned kartan och skapa en optimalare väg som sträcker sig över fler än en karta?</string>
 	<string name="dialog_routing_download_cross_route">Ladda ned kartan för att skapa en optimalare väg som sträcker sig utanför den här kartan.</string>
@@ -783,7 +603,6 @@
 	<string name="search_without_internet_advertisement">För att börja söka och skapa rutter, ladda ner kartan, och du behöver inte Internet-anslutning längre.</string>
 	<string name="search_select_map">Välj kartan</string>
 	<string name="search_select_other_map">Välj en annan karta</string>
-	<string name="search_vehicle_routes">Vägbeskrivning</string>
 	<!-- «Show» context menu -->
 	<string name="show">Visa</string>
 	<!-- «Hide» context menu -->
@@ -829,6 +648,148 @@
 	<string name="p2p_only_from_current">Navigering är endast tillgänglig från din aktuella plats.</string>
 	<string name="p2p_reroute_from_current">Vill du att vi planerar en färdväg från din nuvarande plats?</string>
 	<string name="whats_new_next_button">Nästa</string>
-	<string name="whats_new_night_caption">Navigering i nattläge</string>
-	<string name="whats_new_night_body">För att underlätta användandet av MAPS.ME under mörkerkörning har vi lagt till nattläget. Det slås automatiskt på efter att solen gått ned.</string>
+	<string name="editor_time_add">Lägg till schema</string>
+	<string name="editor_time_delete">Ta bort schema</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Alla dagar (24 timmar)</string>
+	<string name="editor_time_open">Öppet</string>
+	<string name="editor_time_close">Stängt</string>
+	<string name="editor_time_add_closed">Lägg till stängda timmar</string>
+	<string name="editor_time_title">Öppettider</string>
+	<string name="editor_time_advanced">Avancerat läge</string>
+	<string name="editor_time_simple">Enkelt läge</string>
+	<string name="editor_hours_closed">Stängda timmar</string>
+	<string name="editor_example_values">Exempelvärden</string>
+	<string name="editor_correct_mistake">Korrigera fel</string>
+	<string name="editor_correct_mistake_message">Du har gjort ett fel i redigeringen. Var vänlig korrigera det eller byt till enkelt läge.</string>
+	<string name="editor_add_select_location">Plats</string>
+	<string name="editor_done_dialog_1">Du har ändrat världskartan. Dölj inte detta! Berätta för dina vänner och redigera den tillsammans.</string>
+	<string name="editor_done_dialog_2">Detta är din andra kartförbättring. Du är nu på plats %d i listan över kartredigerare. Berätta för dina vänner om det.</string>
+	<string name="editor_done_dialog_3">Du har förbättrat kartan, berätta för dina vänner om det och redigera kartan tillsammans.</string>
+	<string name="share_with_friends">Dela med vänner</string>
+	<string name="editor_report_problem_desription_1">Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.</string>
+	<string name="editor_report_problem_desription_2">Eller gör det själv på http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Skicka</string>
+	<string name="editor_report_problem_title">Problem</string>
+	<string name="editor_report_problem_no_place_title">Platsen existerar inte</string>
+	<string name="editor_report_problem_under_construction_title">Stängd för underhåll</string>
+	<string name="editor_report_problem_duplicate_place_title">Duplicerad plats</string>
+	<string name="first_launch_congrats_title">Du kan nu använda MAPS.ME</string>
+	<string name="first_launch_congrats_text">Sök och navigera gratis på kartor över alla länder i hela världen.</string>
+	<string name="migrate_title">Viktigt!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Ladda ner alla</string>
+	<string name="delete_all">Radera alla</string>
+	<string name="autodownload">Automatisk nedladdning</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Stängt just nu</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Dagligen</string>
+	<string name="twentyfour_seven">dag och natt</string>
+	<string name="day_off_today">Stängt idag</string>
+	<string name="day_off">Stängt</string>
+	<string name="today">Idag</string>
+	<string name="sunrise_to_sunset">Från gryning till skymning</string>
+	<string name="sunset_to_sunrise">Från soluppgång till solnedgång</string>
+	<string name="add_opening_hours">Lägg till öppettider</string>
+	<string name="edit_opening_hours">Redigera öppettider</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Inget konto hos OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Registrera</string>
+	<string name="password_8_chars_min">Lösenord (minst 8 tecken)</string>
+	<string name="invalid_username_or_password">Fel användarnamn eller lösenord.</string>
+	<string name="login">Logga in</string>
+	<string name="password">Lösenord</string>
+	<string name="forgot_password">Glömt lösenord?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Återställ lösenord?</string>
+	<string name="enter_email_address_to_reset_password">Mata in e-postadressen som du använde vid registrering så skickar vi en återställningslänk till dig.</string>
+	<string name="reset_password">återställ lösenord</string>
+	<string name="username">Användarnamn</string>
+	<string name="osm_account">OSM-konto</string>
+	<string name="logout">Logga ut</string>
+	<string name="login_and_edit_map_motivation_message">Logga in och redigera informationen om objekten på kartan så kommer vi att göra ändringarna tillgängliga för miljontals andra användare. Låt oss göra världen bättre tillsammans.</string>
+	<string name="not_sent">Ej skickat</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Senast uppladdad</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">ändringar</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Du har redigerat ditt första objekt!</string>
+	<string name="thank_you">Tack</string>
+	<string name="login_with_google">Logga in med Google</string>
+	<string name="login_with_facebook">Logga in med Facebook</string>
+	<string name="login_with_openstreetmap">Logga in med www.openstreetmap.org</string>
+	<string name="edit_place">Ändra platsen</string>
+	<string name="place_name">Platsens namn</string>
+	<string name="place_name_caption">Ange namnet som på skylten eller på namnbrickan</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Övriga språk</string>
+	<string name="add_language">Lägg till ett språk</string>
+	<string name="street">Gata</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Byggnad</string>
+	<string name="details">Detaljer</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Lägg till en gata</string>
+	<string name="choose_language">Välj ett språk</string>
+	<string name="choose_street">Välj en gata</string>
+	<string name="postal_code">Postkod</string>
+	<string name="cuisine">Kök</string>
+	<string name="select_cuisine">Välj kök</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-postadress eller användarnamn</string>
+	<string name="phone">Telefon</string>
+	<string name="please_note">Observera</string>
+	<string name="common_no_wifi_dialog">Ingen wifi-anslutning. Vill du fortsätta med mobildata?</string>
+	<string name="downloader_delete_map_dialog">Alla kartändringar kommer att raderas tillsammans med kartan.</string>
+	<string name="downloader_update_maps">Uppdatera kartor</string>
+	<string name="downloader_mwm_migration_dialog">För att skapa en rutt måste du uppdatera alla kartor och sedan planera rutten igen.</string>
+	<string name="downloader_search_field_hint">Hitta kartan</string>
+	<string name="migration_update_all_button">Uppdatera alla kartor</string>
+	<string name="migration_delete_all_download_current_button">Ladda ned senaste kartan och radera de gamla</string>
+	<string name="migration_prefetch_status">Förbereder kartuppdatering…</string>
+	<string name="migration_download_error_dialog">Nedladdningsfel</string>
+	<string name="common_check_internet_connection_dialog">Kontrollera dina inställningar och se till att din enhet är ansluten till internet.</string>
+	<string name="downloader_no_space_title">Ej tillräckligt utrymme</string>
+	<string name="downloader_no_space_message">Ta bort onödig data</string>
+	<string name="editor_general_auth_error_dialog">Allmänt fel vid inloggning.</string>
+	<string name="editor_login_error_dialog">Inloggningsfel.</string>
+	<string name="editor_login_failed_dialog">Inloggningen misslyckades</string>
+	<string name="editor_username_error_dialog">Användarnamnet är ogiltigt</string>
+	<string name="editor_place_edited_dialog">Du har redigerat ett objekt!</string>
+	<string name="editor_login_with_osm">Logga in med OpenStreetMap</string>
+	<string name="editor_profile_changes">Ändringar:</string>
+	<string name="editor_profile_unsent_changes">Inte skickade:</string>
+	<string name="editor_focus_map_on_location">Dra på kartan för att välja objektets rätta plats.</string>
+	<string name="editor_add_select_category">Välj kategori</string>
+	<string name="editor_add_select_category_popular_subtitle">Populära</string>
+	<string name="editor_add_select_category_all_subtitle">Alla kategorier</string>
+	<string name="editor_edit_place_title">Redigerar</string>
+	<string name="editor_add_place_title">Lägger till</string>
+	<string name="editor_edit_place_name_hint">Namn på platsen</string>
+	<string name="editor_edit_place_category_title">Kategori</string>
+	<string name="detailed_problem_description">Detaljerad beskrivning av ett problem</string>
+	<string name="editor_report_problem_other_title">Ett annat problem</string>
+	<string name="placepage_add_place_button">Lägg till en plats</string>
+	<string name="placepage_report_problem_button">Rapportera ett problem</string>
+	<string name="whatsnew_smallmwm_header">Du har bett om det och vi har gjort det</string>
+	<string name="whatsnew_smallmwm_message">Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet.</string>
+	<string name="whatsnew_search_header">Ny sökning</string>
+	<string name="whatsnew_search_message">Vi har avsevärt förbättrat sökningen på adress. Se själv.</string>
+	<string name="whatsnew_editor_title">Redigera kartan*</string>
+	<string name="whatsnew_editor_message_1">Lägg till nya platser till kartan och redigera de befintliga direkt från appen.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME använder data från OpenStreetMaps community.</string>
+	<string name="onboarding_offline_navigation_title">Du kommer aldrig att gå vilse igen</string>
+	<string name="onboarding_offline_navigation_message">Planera dina optimala bil- eller promenadrutter även när du saknar internetanslutning!</string>
+	<string name="onboarding_offline_navigation_title_2">Navigering offline</string>
+	<string name="onboarding_offline_navigation_message_2">Planera optimala bil- och promenadrutter.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — se världsomspännande kartor utan internet</string>
+	<string name="onboarding_offline_maps_message">Ladda ned kartorna för önskat område en gång och använd funktionerna för navigering och sökning utan en internetanslutning.</string>
+	<string name="onboarding_notifications_message">Få avisering om uppdateringar för de senaste kartorna</string>
+	<string name="onboarding_notifications_title">Aktivera avisering om uppdateringar</string>
+	<string name="onboarding_location_title">Hjälp oss att hitta dig</string>
+	<string name="onboarding_location_message">För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.</string>
+	<string name="dialog_incorrect_feature_position">Ändra placering</string>
+	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
 </resources>

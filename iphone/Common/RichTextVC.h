@@ -1,8 +1,6 @@
+#import "MWMViewController.h"
 
-#import <UIKit/UIKit.h>
-#import "ViewController.h"
-
-@interface RichTextVC : ViewController
+@interface RichTextVC : MWMViewController
 
 - (instancetype)initWithText:(NSString *)text;
 

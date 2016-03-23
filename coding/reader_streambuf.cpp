@@ -5,15 +5,13 @@
 #include "std/algorithm.hpp"
 
 
-ReaderStreamBuf::ReaderStreamBuf(Reader * p)
-: m_p(p), m_pos(0), m_size(p->Size())
+ReaderStreamBuf::ReaderStreamBuf(unique_ptr<Reader> && p)
+  : m_p(move(p)), m_pos(0), m_size(m_p->Size())
 {
 }
 
-ReaderStreamBuf::~ReaderStreamBuf()
-{
-  delete m_p;
-}
+// Define destructor in .cpp due to using unique_ptr with incomplete type.
+ReaderStreamBuf::~ReaderStreamBuf() = default;
 
 std::streamsize ReaderStreamBuf::xsgetn(char_type * s, std::streamsize n)
 {

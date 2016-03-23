@@ -105,6 +105,6 @@ public class LocationUtils
   public static boolean areLatLonEqual(MapObject first, MapObject second)
   {
     return Math.abs(first.getLat() - second.getLat()) < LocationUtils.LAT_LON_EPSILON &&
-        Math.abs(first.getLon() - second.getLon()) < LocationUtils.LAT_LON_EPSILON;
+           Math.abs(first.getLon() - second.getLon()) < LocationUtils.LAT_LON_EPSILON;
   }
 }

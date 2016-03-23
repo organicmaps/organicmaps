@@ -29,13 +29,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ou-1e-eFR" customClass="SolidTouchView">
                     <rect key="frame" x="0.0" y="0.0" width="360" height="186"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLk-1L-mbP" userLabel="Cancel">
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLk-1L-mbP" userLabel="Cancel" customClass="MWMButton">
                             <rect key="frame" x="6" y="6" width="44" height="44"/>
                             <state key="normal" image="ic_nav_bar_close">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="aAu-j5-Y4z"/>
@@ -87,7 +87,7 @@
                                 <constraint firstAttribute="centerX" secondItem="AZa-ok-2IV" secondAttribute="centerX" multiplier="3:1" id="sVn-sG-v3Q"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqb-lr-tzL">
+                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqb-lr-tzL" customClass="MWMButton">
                             <rect key="frame" x="312" y="6" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="UqN-lJ-bXU"/>
@@ -96,7 +96,7 @@
                             <state key="normal" image="ic_voice_off"/>
                             <state key="selected" image="ic_voice_on"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="soundTap:" destination="-1" eventType="touchUpInside" id="aqG-hG-ebJ"/>

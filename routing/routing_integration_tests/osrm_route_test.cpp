@@ -151,17 +151,13 @@ namespace
         MercatorBounds::FromLatLon(48.86123, 2.34129), 2840940.);
   }
 
-// TODO(gardster) repair routing to London.
-// https://trello.com/c/WPSQUu9J/1932-francepariscenternglandlondoncenterroutetest
-// OSRM routes through a OSM way with tag render:no. So we have no geometry in the
-// mwm and we can not obtain a cross section exit point.
-//  UNIT_TEST(FranceParisCenternglandLondonCenterRouteTest)
-//  {
-//    integration::CalculateRouteAndTestRouteLength(
-//        integration::GetOsrmComponents(),
-//        MercatorBounds::FromLatLon(48.86123, 2.34129), {0., 0.},
-//        MercatorBounds::FromLatLon(51.49884, -0.10438), 0./* Some unknown value*/);
-//  }
+  UNIT_TEST(EnglandToFranceRouteLeMansTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetOsrmComponents(),
+        MercatorBounds::FromLatLon(51.09276, 1.11369), {0., 0.},
+        MercatorBounds::FromLatLon(50.93220, 1.82690), 60498.);
+  }
 
   // Strange map edits in Africa borders. Routing not linked now.
   /*
@@ -181,19 +177,6 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetOsrmComponents(), MercatorBounds::FromLatLon(27.94049, -12.88800), {0., 0.},
         MercatorBounds::FromLatLon(27.15587, -13.23059), 100864);
-  }
-
-  UNIT_TEST(ArbatBaliCrimeanCrossMwmTest)
-  {
-    // Forward case.
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(45.90668,34.87221), {0., 0.},
-        MercatorBounds::FromLatLon(45.35697, 35.36971), 75000.);
-    // Backward case.
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetOsrmComponents(), MercatorBounds::FromLatLon(45.35697, 35.36971), {0., 0.},
-        MercatorBounds::FromLatLon(45.90668,34.87221), 75000.);
-
   }
 
   UNIT_TEST(AlbaniaToMontenegroCrossTest)
@@ -256,7 +239,7 @@ namespace
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
 
-    integration::TestRouteTime(route, 17450.);
+    integration::TestRouteTime(route, 17850.);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)

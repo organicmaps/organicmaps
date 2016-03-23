@@ -27,6 +27,8 @@
 - (void)changeBookmarkColor;
 - (void)changeBookmarkCategory;
 - (void)changeBookmarkDescription;
+- (void)editPlace;
+- (void)reportProblem;
 - (void)share;
 - (void)route;
 - (void)reloadBookmark;
@@ -43,6 +45,8 @@
 
 - (void)keyboardWillShow:(NSNotification *)aNotification;
 - (void)keyboardWillHide;
+
+- (void)refresh;
 
 - (instancetype)init __attribute__((unavailable("call initWithManager: instead")));
 

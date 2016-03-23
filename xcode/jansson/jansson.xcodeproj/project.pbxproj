@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		345C55F81C93143B00B6783F /* myjansson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 345C55F71C93143B00B6783F /* myjansson.cpp */; };
 		6753445F1A3F666300A0A8C3 /* jansson_handle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753445B1A3F666300A0A8C3 /* jansson_handle.cpp */; };
 		675344601A3F666300A0A8C3 /* jansson_handle.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753445C1A3F666300A0A8C3 /* jansson_handle.hpp */; };
 		675344611A3F666300A0A8C3 /* myjansson.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753445D1A3F666300A0A8C3 /* myjansson.hpp */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		345C55F71C93143B00B6783F /* myjansson.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = myjansson.cpp; sourceTree = "<group>"; };
 		670D05B01B0E09E40013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
 		6753444D1A3F664300A0A8C3 /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6753445B1A3F666300A0A8C3 /* jansson_handle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jansson_handle.cpp; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				6753445B1A3F666300A0A8C3 /* jansson_handle.cpp */,
 				6753445C1A3F666300A0A8C3 /* jansson_handle.hpp */,
 				6753445D1A3F666300A0A8C3 /* myjansson.hpp */,
+				345C55F71C93143B00B6783F /* myjansson.cpp */,
 			);
 			name = jansson;
 			path = ../../3party/jansson;
@@ -193,6 +196,7 @@
 				675344801A3F676C00A0A8C3 /* strconv.c in Sources */,
 				6753447D1A3F676C00A0A8C3 /* pack_unpack.c in Sources */,
 				675344761A3F676C00A0A8C3 /* hashtable.c in Sources */,
+				345C55F81C93143B00B6783F /* myjansson.cpp in Sources */,
 				675344751A3F676C00A0A8C3 /* error.c in Sources */,
 				6753445F1A3F666300A0A8C3 /* jansson_handle.cpp in Sources */,
 				675344831A3F676C00A0A8C3 /* value.c in Sources */,

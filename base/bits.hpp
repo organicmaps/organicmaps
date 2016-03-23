@@ -8,7 +8,7 @@
 namespace bits
 {
   // Count the number of 1 bits. Implementation: see Hacker's delight book.
-  inline uint32_t popcount(uint32_t x)
+  inline uint32_t PopCount(uint32_t x) noexcept
   {
     x -= ((x >> 1) & 0x55555555);
     x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
@@ -18,14 +18,14 @@ namespace bits
     return x & 0x3F;
   }
 
-  inline uint32_t popcount(uint8_t x)
+  inline uint32_t PopCount(uint8_t x) noexcept
   {
-    return popcount(static_cast<uint32_t>(x));
+    return PopCount(static_cast<uint32_t>(x));
   }
 
   // Count the number of 1 bits in array p, length n bits.
   // There is a better implementation at hackersdelight.org
-  inline uint32_t popcount(uint32_t const * p, uint32_t n)
+  inline uint32_t PopCount(uint32_t const * p, uint32_t n)
   {
     uint32_t s = 0;
     for (uint32_t i = 0; i < n; i += 31)
@@ -61,10 +61,40 @@ namespace bits
     return static_cast<unsigned int>(SELECT1_ERROR);
   }
 
+  inline uint32_t PopCount(uint64_t x) noexcept
+  {
+    x = (x & 0x5555555555555555) + ((x & 0xAAAAAAAAAAAAAAAA) >> 1);
+    x = (x & 0x3333333333333333) + ((x & 0xCCCCCCCCCCCCCCCC) >> 2);
+    x = (x & 0x0F0F0F0F0F0F0F0F) + ((x & 0xF0F0F0F0F0F0F0F0) >> 4);
+    x = (x & 0x00FF00FF00FF00FF) + ((x & 0xFF00FF00FF00FF00) >> 8);
+    x = (x & 0x0000FFFF0000FFFF) + ((x & 0xFFFF0000FFFF0000) >> 16);
+    x = x + (x >> 32);
+    return static_cast<uint32_t>(x);
+  }
+
+  inline uint8_t CeilLog(uint64_t x) noexcept
+  {
+#define CHECK_RSH(x, msb, offset) \
+    if (x >> offset)              \
+    {                             \
+      x >>= offset;               \
+      msb += offset;              \
+    }
+
+    uint8_t msb = 0;
+    CHECK_RSH(x, msb, 32);
+    CHECK_RSH(x, msb, 16);
+    CHECK_RSH(x, msb, 8);
+    CHECK_RSH(x, msb, 4);
+    CHECK_RSH(x, msb, 2);
+    CHECK_RSH(x, msb, 1);
+#undef CHECK_RSH
+
+    return msb;
+  }
+
   // Will be implemented when needed.
-  uint64_t popcount(uint64_t x);
-  // Will be implemented when needed.
-  uint64_t popcount(uint64_t const * p, uint64_t n);
+  uint64_t PopCount(uint64_t const * p, uint64_t n);
 
   template <typename T> T RoundLastBitsUpAndShiftRight(T x, T bits)
   {

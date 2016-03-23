@@ -37,40 +37,40 @@ UNIT_TEST(Metadata_ValidateAndFormat_stars)
 
   // Check correct values.
   p("stars", "1");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "1", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "1", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "2");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "2", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "2", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "3");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "3", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "3", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "4");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "4", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "4", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "5");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "5", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "5", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "6");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "6", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "6", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "7");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "7", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "7", ());
   md.Drop(Metadata::FMD_STARS);
 
   // Check almost correct values.
   p("stars", "4+");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "4", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "4", ());
   md.Drop(Metadata::FMD_STARS);
 
   p("stars", "5s");
-  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "5", ())
+  TEST_EQUAL(md.Get(Metadata::FMD_STARS), "5", ());
   md.Drop(Metadata::FMD_STARS);
 
 }
@@ -107,38 +107,6 @@ UNIT_TEST(Metadata_ValidateAndFormat_operator)
   md.Drop(Metadata::FMD_OPERATOR);
 }
 
-UNIT_TEST(Metadata_ValidateAndFormat_ele)
-{
-  classificator::Load();
-  Classificator const & c = classif();
-  uint32_t const type_peak = c.GetTypeByPath({ "natural", "peak" });
-
-  FeatureParams params;
-  MetadataTagProcessor p(params);
-  Metadata & md = params.GetMetadata();
-
-  // Ignore tag 'operator' if feature have inappropriate type.
-  p("ele", "123");
-  TEST(md.Empty(), ());
-
-  params.SetType(type_peak);
-  p("ele", "0");
-  TEST(md.Empty(), ());
-
-  params.SetType(type_peak);
-  p("ele", "0,0000");
-  TEST(md.Empty(), ());
-
-  params.SetType(type_peak);
-  p("ele", "0.0");
-  TEST(md.Empty(), ());
-
-  params.SetType(type_peak);
-  p("ele", "123");
-  TEST_EQUAL(md.Get(Metadata::FMD_ELE), "123", ());
-  md.Drop(Metadata::FMD_ELE);
-}
-
 UNIT_TEST(Metadata_ValidateAndFormat_height)
 {
   FeatureParams params;
@@ -155,7 +123,7 @@ UNIT_TEST(Metadata_ValidateAndFormat_height)
   TEST(md.Empty(), ());
 
   p("height", "123");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "123.0", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "123", ());
   md.Drop(Metadata::FMD_HEIGHT);
 
   p("height", "123.2");
@@ -163,11 +131,11 @@ UNIT_TEST(Metadata_ValidateAndFormat_height)
   md.Drop(Metadata::FMD_HEIGHT);
 
   p("height", "2 m");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "2.0", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "2", ());
   md.Drop(Metadata::FMD_HEIGHT);
 
   p("height", "3-6");
-  TEST(md.Empty(), ());
+  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "6", ());
 }
 
 UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
@@ -186,26 +154,27 @@ UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
   TEST(md.Empty(), ());
 
   p("building:levels", "1");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "3.0", ());
-  md.Drop(Metadata::FMD_HEIGHT);
+  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1", ());
+  md.Drop(Metadata::FMD_BUILDING_LEVELS);
 
   p("building:levels", "3.2");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "9.6", ());
-  md.Drop(Metadata::FMD_HEIGHT);
+  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "3.2", ());
+  md.Drop(Metadata::FMD_BUILDING_LEVELS);
 
   p("building:levels", "1.0");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "3.0", ());
-  md.Drop(Metadata::FMD_HEIGHT);
+  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1", ());
+  md.Drop(Metadata::FMD_BUILDING_LEVELS);
 
 
   p("building:levels", "1.0");
   p("height", "4.0");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "4.0", ());
-  md.Drop(Metadata::FMD_HEIGHT);
+  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1", ());
+  md.Drop(Metadata::FMD_BUILDING_LEVELS);
 
   p("height", "4.0");
-  p("building:levels", "1.0");
-  TEST_EQUAL(md.Get(Metadata::FMD_HEIGHT), "4.0", ());
+  p("building:levels", "1");
+  TEST_EQUAL(md.Get(Metadata::FMD_BUILDING_LEVELS), "1", ());
+  md.Drop(Metadata::FMD_BUILDING_LEVELS);
   md.Drop(Metadata::FMD_HEIGHT);
 
   p("building:levels", "Level 1");

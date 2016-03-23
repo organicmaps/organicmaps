@@ -10,8 +10,8 @@ namespace
 {
 /// Function to run AStar Algorithm from the base.
 IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross const & finalPos,
-                                   CrossMwmGraph const & roadGraph, vector<BorderCross> & route,
-                                   RouterDelegate const & delegate)
+                                   CrossMwmGraph const & roadGraph, RouterDelegate const & delegate,
+                                   RoutingResult<BorderCross> & route)
 {
   using TAlgorithm = AStarAlgorithm<CrossMwmGraph>;
 
@@ -28,8 +28,8 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
   switch (result)
   {
     case TAlgorithm::Result::OK:
-      ASSERT_EQUAL(route.front(), startPos, ());
-      ASSERT_EQUAL(route.back(), finalPos, ());
+      ASSERT_EQUAL(route.path.front(), startPos, ());
+      ASSERT_EQUAL(route.path.back(), finalPos, ());
       return IRouter::NoError;
     case TAlgorithm::Result::NoPath:
       return IRouter::RouteNotFound;
@@ -43,6 +43,7 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
 IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
                                           TRoutingNodes const & finalGraphNodes,
                                           RoutingIndexManager & indexManager,
+                                          double & cost,
                                           RouterDelegate const & delegate, TCheckedPath & route)
 {
   CrossMwmGraph roadGraph(indexManager);
@@ -87,16 +88,16 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
     return IRouter::EndPointNotFound;
 
   // Finding path through maps.
-  vector<BorderCross> tempRoad;
-  code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad,
-                        delegate);
+  RoutingResult<BorderCross> tempRoad;
+  code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, delegate, tempRoad);
+  cost = tempRoad.distance;
   if (code != IRouter::NoError)
     return code;
   if (delegate.IsCancelled())
     return IRouter::Cancelled;
 
   // Final path conversion to output type.
-  ConvertToSingleRouterTasks(tempRoad, startGraphNode, finalGraphNode, route);
+  ConvertToSingleRouterTasks(tempRoad.path, startGraphNode, finalGraphNode, route);
 
   return route.empty() ? IRouter::RouteNotFound : IRouter::NoError;
 }

@@ -9,10 +9,9 @@
 #include "std/algorithm.hpp"
 
 
-namespace
-{
-  typedef m2::PointD P;
-}
+namespace { typedef m2::PointD P; }
+
+using namespace m2::robust;
 
 UNIT_TEST(IsSegmentInCone)
 {
@@ -203,3 +202,13 @@ UNIT_TEST(IsPolygonCCW_DataSet3)
 }
 */
 
+/*
+UNIT_TEST(IsPolygonCCW_DataSet4)
+{
+  P arr[] = { P(37.368060441099174795, 67.293103344080122952), P(37.368017525754879671, 67.292797572252140981),
+              P(37.367990703664702323, 67.292969568905391498), P(37.368060441099174795, 67.293103344080122952),
+              P(37.368017525754879671, 67.292797572252140981), P(37.368097992025411713, 67.292830094036474975),
+              P(37.368216009222180674, 67.292969568905391498) };
+  TestPolygonOrReverseCCW(arr, arr + ARRAY_SIZE(arr));
+}
+*/

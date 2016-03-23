@@ -14,8 +14,6 @@
 	<string name="cancel_download">다운로드 취소하기</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">삭제하기</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">이전의 지도를 삭제하고 진행하기</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">또 묻지 마세요.</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -48,8 +46,6 @@
 	<string name="miles">마일</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">나의 위치</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">인터넷이 연결되지 않았습니다.</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">WiFi 연결이 감지되지 않았습니다. %s를 다운로드하기 위해 휴대 자료(GPRS, EDGE, 3G 혹은 LTE)를 사용하시겠습니까?</string>
 	<string name="ok">승인</string>
@@ -67,8 +63,6 @@
 	<string name="search">검색하기</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">지도 검색하기</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">디스크 공간이 부족합니다.</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">두드려 다운로드하세요</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -89,10 +83,12 @@
 	<string name="country_status_downloading">다운로드 중\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">지도 다운로드\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">지도 다운로드</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">라우팅없이 지도 다운로드\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">다운로드에 실패하였습니다\n^</string>
+	<string name="country_status_download_failed">다운로드에 실패하였습니다</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">다시 시도</string>
 	<string name="about_menu_title">소개</string>
@@ -108,8 +104,7 @@
 	<string name="not_enough_free_space_on_sdcard">응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오</string>
 	<string name="not_enough_memory">응용 프로그램을 실행하기위한 메모리가 충분하지 않다</string>
 	<string name="free_space_for_country">%2$s를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$s를주세요</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%1$.1f%2$s 데이터가 필요합니다.</string>
+	<string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다.</string>
 	<string name="getting_position">현재 위치 얻기</string>
 	<string name="download_resources_continue">지도로 이동</string>
 	<string name="downloading_country_can_proceed">%s다운로드. 이제지도를 진행할 수 있습니다.</string>
@@ -157,7 +152,7 @@
 	<string name="my_places">내 장소</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">이름</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">주소</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">핀 제거</string>
@@ -268,7 +263,7 @@
 	<string name="share">공유</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">메시지</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">이메일</string>
 	<!-- Copy Link -->
 	<string name="copy_link">링크 복사하기</string>
@@ -372,6 +367,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">설정 및 기타</string>
 	<!-- Text in menu -->
+	<string name="website">웹사이트</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME 커뮤니티</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebook에서 좋아요</string>
@@ -408,17 +405,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">MAPS.ME의 새로운 버전으로 당신의 현재 위치에서 목적지 지점으로 경로를 생성할 수 있습니다. 이 기능을 사용하려면 지도를 업데이트하십시오.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">모두 업데이트</string>
+	<string name="downloader_update_all_button">모두 업데이트</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">모두 취소</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">다운로드</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">다운로드한 지도</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">내 지도</string>
+	<string name="downloader_downloaded_subtitle">다운로드</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">대기</string>
+	<string name="downloader_near_me_subtitle">내 근처</string>
+	<string name="downloader_status_maps">지도</string>
+	<string name="downloader_download_all_button">모두 다운로드</string>
+	<string name="downloader_downloading">다운로드 중:</string>
+	<string name="downloader_search_results">검색 결과</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!</string>
 	<!-- Outdated maps category -->
@@ -429,6 +427,8 @@
 	<string name="downloader_status_outdated">업데이트</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">실패함</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">지도를 삭제하시려면 길 찾기를 멈추세요.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">현재 위치는 정의되지 않습니다. 경로를 생성할 위치를 지정하십시오.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -504,186 +504,6 @@
 	<string name="routing_download_more_than_avail">%1$s MB를 다운로드해야 하지만 %2$s MB만 사용할 수 있습니다.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">모바일 데이터(로밍시)를 사용하여 2840MB를 다운로드할 것입니다. 이는 운영자 모바일 데이터 계획에 따라 추가 요금이 발생할 수 있습니다.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">지역적 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">피자</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">햄버거</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">이탈리아식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">중국식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">커피 샵</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">샌드위치</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">독일식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">일본식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">케밥</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">멕시코식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">인도식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">미국식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">프랑스식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">아이스크림</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">아시아식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">닭고기</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">그리스식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">타이식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">국제 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">초밥</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">피쉬 앤 칩스</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">터키식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">해산물</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">스테이크 하우스</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">스페인식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">생선</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">베트남식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">국수</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">채식주의자 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">한국식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">튀김 요리</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">바베큐</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">바이에른식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">라면</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">이탈리아식, 피자</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">지중해식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">도너츠</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">쇠고기 덮밥</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">케이크</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">크레이프</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">호이리거</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">레바논식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">스테이크</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">현지식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">카레</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">필리핀식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">러시아식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">아침 식사</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">타파스</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">바베큐</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">베이글</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">파스타</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">와인 레스토랑</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">소시지</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">포르투갈식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">그릴</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">팬케이크</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">마다가스카르식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">폴란드식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">식당</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">아프리카식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">도너츠</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">그루지야식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">크로아티아식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">아랍식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">발칸 반도식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">브라질식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">카리브식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">오스트리아식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">비건 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">아르헨티나식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">페르시아식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">메밀 국수</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">말레이시아식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">인도네시아식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">에티오피아식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">델리</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">아일랜드식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">헝가리식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">라오식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">커피</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">핫도그</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">극동식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">맛좋은 팬케이크</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">모로코식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">바베큐</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">페루식 음식</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">고급 식당</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">차</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">북마크</string>
 	<!-- map is not downloaded -->
@@ -761,7 +581,7 @@
 	<string name="dialog_routing_if_get_cross_route">두 개 이상의 지도를 통과하는 더 직접적인 경로를 설정하시겠습니까?</string>
 	<string name="dialog_routing_cross_route_is_optimal">이 지도의 경계를 통과하는 더 최적화된 경로를 사용할 수 있습니다.</string>
 	<string name="dialog_routing_always_cross_that_border">항상 이 경계 통과</string>
-	<string name="dialog_routing_not_now">나중에</string>
+	<string name="not_now">나중에</string>
 	<string name="dialog_routing_build_route">만들기</string>
 	<string name="dialog_routing_download_and_build_cross_route">지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?</string>
 	<string name="dialog_routing_download_cross_route">이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.</string>
@@ -771,7 +591,6 @@
 	<string name="search_without_internet_advertisement">경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</string>
 	<string name="search_select_map">지도 선택</string>
 	<string name="search_select_other_map">다른 지도 선택</string>
-	<string name="search_vehicle_routes">운전 방향</string>
 	<!-- «Show» context menu -->
 	<string name="show">표시</string>
 	<!-- «Hide» context menu -->
@@ -817,6 +636,148 @@
 	<string name="p2p_only_from_current">현재 위치에서만 네비게이션을 사용할 수 있습니다.</string>
 	<string name="p2p_reroute_from_current">현재 위치에서 경로를 계획하시겠습니까?</string>
 	<string name="whats_new_next_button">다음</string>
-	<string name="whats_new_night_caption">야간 모드 탐색</string>
-	<string name="whats_new_night_body">어두운 곳에서 운전할 때 MAPS.ME를 사용하는 걸 용이하게 하려면, 야간 모드에 추가됩니다. 이는 일몰 후 자동으로 전환됩니다.</string>
+	<string name="editor_time_add">스케줄 추가</string>
+	<string name="editor_time_delete">스케줄 삭제</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">종일 영업(24시간)</string>
+	<string name="editor_time_open">개점</string>
+	<string name="editor_time_close">폐점</string>
+	<string name="editor_time_add_closed">폐점 시간 추가</string>
+	<string name="editor_time_title">영업 시간</string>
+	<string name="editor_time_advanced">고급 모드</string>
+	<string name="editor_time_simple">기본 모드</string>
+	<string name="editor_hours_closed">폐점 시간</string>
+	<string name="editor_example_values">예제</string>
+	<string name="editor_correct_mistake">입력 수정</string>
+	<string name="editor_correct_mistake_message">잘못 입력했습니다. 수정하거나 기본 모드로 전환하세요.</string>
+	<string name="editor_add_select_location">위치</string>
+	<string name="editor_done_dialog_1">세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.</string>
+	<string name="editor_done_dialog_2">이는 두 번째 지도의 개선 사항입니다. 지금 지도 편집기의 목록에서 1058번째 장소에 있습니다. 친구들에게 이에 대해 말하십시오.</string>
+	<string name="editor_done_dialog_3">지도를 개선했으며, 친구들에게 이에 대해 말하고, 함께 지도를 편집할 수 있습니다.</string>
+	<string name="share_with_friends">친구들과 공유</string>
+	<string name="editor_report_problem_desription_1">OpenStreeMap 커뮤니티가 오류를 수정할 수 있도록 상세하게 문제를 설명하십시오.</string>
+	<string name="editor_report_problem_desription_2">아니면, 다음에서 스스로 가능: http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">전송</string>
+	<string name="editor_report_problem_title">문제</string>
+	<string name="editor_report_problem_no_place_title">장소가 존재하지 않음</string>
+	<string name="editor_report_problem_under_construction_title">유지 보수를 위해 닫음</string>
+	<string name="editor_report_problem_duplicate_place_title">중복된 장소</string>
+	<string name="first_launch_congrats_title">MAPS.ME를 사용할 준비가 완료되었습니다</string>
+	<string name="first_launch_congrats_text">무료로 전 세계 모든 나라의 지도를 검색하고 길을 찾아 보세요.</string>
+	<string name="migrate_title">중요!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">모두 다운로드</string>
+	<string name="delete_all">모두 삭제</string>
+	<string name="autodownload">자동 다운로드</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">지금 닫힘</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">일별</string>
+	<string name="twentyfour_seven">24 시간</string>
+	<string name="day_off_today">오늘 휴가</string>
+	<string name="day_off">휴가</string>
+	<string name="today">오늘</string>
+	<string name="sunrise_to_sunset">일출에서 일몰로</string>
+	<string name="sunset_to_sunrise">일출에서 일몰까지</string>
+	<string name="add_opening_hours">영업일 추가</string>
+	<string name="edit_opening_hours">영업일 편집</string>
+	<string name="profile">프로필</string>
+	<string name="no_osm_account">OpenStreetMap에서 계정이 없습니까?</string>
+	<string name="register_at_openstreetmap">등록</string>
+	<string name="password_8_chars_min">암호(최소 8자)</string>
+	<string name="invalid_username_or_password">잘못된 사용자 이름 또는 암호.</string>
+	<string name="login">로그인</string>
+	<string name="password">암호</string>
+	<string name="forgot_password">암호를 잊으 셨나요?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">암호 복원</string>
+	<string name="enter_email_address_to_reset_password">등록시 사용한 이메일 주소를 입력하면 암호를 갱신하도록 링크를 전송할 것입니다.</string>
+	<string name="reset_password">비밀번호 재 설정</string>
+	<string name="username">사용자 이름</string>
+	<string name="osm_account">OSM 계정</string>
+	<string name="logout">로그 아웃</string>
+	<string name="login_and_edit_map_motivation_message">로그인하고 지도 상의 개체 정보를 편집하면 다른 수백만 명의 사용자가 사용할 수 있도록 하겠습니다. 함께 더 나은 세상으로 만들어 봅시다.</string>
+	<string name="not_sent">전송되지 않음</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">마지막 업로드</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">가지 변경</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">로그인하고 전 세계 수백만 사람들을 위해 변화를 더하십시오!</string>
+	<string name="thank_you">고맙습니다.</string>
+	<string name="login_with_google">Google로 로그인</string>
+	<string name="login_with_facebook">Facebook으로 로그인</string>
+	<string name="login_with_openstreetmap">www.openstreetmap.org에 로그인</string>
+	<string name="edit_place">장소 편집</string>
+	<string name="place_name">지명</string>
+	<string name="place_name_caption">기호 또는 이름판으로 이름 입력</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">다른 언어</string>
+	<string name="add_language">언어 추가</string>
+	<string name="street">거리</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">건물</string>
+	<string name="details">세부 정보</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">거리 추가</string>
+	<string name="choose_language">언어 선택</string>
+	<string name="choose_street">거리 선택</string>
+	<string name="postal_code">우편 번호</string>
+	<string name="cuisine">요리</string>
+	<string name="select_cuisine">요리 선택</string>
+	<!-- login text field -->
+	<string name="email_or_username">이메일 또는 사용자 이름</string>
+	<string name="phone">전화</string>
+	<string name="please_note">참고 사항</string>
+	<string name="common_no_wifi_dialog">WiFi 연결이 없습니다. 모바일 데이터를 계속하시겠습니까?</string>
+	<string name="downloader_delete_map_dialog">모든 지도의 변경 사항은 지도와 함께 삭제됩니다.</string>
+	<string name="downloader_update_maps">지도 업데이트</string>
+	<string name="downloader_mwm_migration_dialog">경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.</string>
+	<string name="downloader_search_field_hint">지도 찾기</string>
+	<string name="migration_update_all_button">모든지도 업데이트</string>
+	<string name="migration_delete_all_download_current_button">현재 지도 다운로드 및 기존 지도 삭제</string>
+	<string name="migration_prefetch_status">지도 업데이트 준비 중…</string>
+	<string name="migration_download_error_dialog">다운로드 오류</string>
+	<string name="common_check_internet_connection_dialog">설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.</string>
+	<string name="downloader_no_space_title">충분하지 않은 여유 공간</string>
+	<string name="downloader_no_space_message">불필요한 데이터를 제거하십시오.</string>
+	<string name="editor_general_auth_error_dialog">일반 로그인 오류.</string>
+	<string name="editor_login_error_dialog">로그인 오류.</string>
+	<string name="editor_login_failed_dialog">로그인 실패</string>
+	<string name="editor_username_error_dialog">잘못된 사용자 이름</string>
+	<string name="editor_place_edited_dialog">개체를 편집했습니다!</string>
+	<string name="editor_login_with_osm">OpenStreetMap으로 로그인</string>
+	<string name="editor_profile_changes">변경 사항:</string>
+	<string name="editor_profile_unsent_changes">전송되지 않음:</string>
+	<string name="editor_focus_map_on_location">개체의 정확한 위치를 선택하려면 지도를 당깁니다.</string>
+	<string name="editor_add_select_category">범주 선택</string>
+	<string name="editor_add_select_category_popular_subtitle">인기있는</string>
+	<string name="editor_add_select_category_all_subtitle">모든 카테고리</string>
+	<string name="editor_edit_place_title">편집 중</string>
+	<string name="editor_add_place_title">첨가 중</string>
+	<string name="editor_edit_place_name_hint">장소 이름</string>
+	<string name="editor_edit_place_category_title">범주</string>
+	<string name="detailed_problem_description">문제에 대한 자세한 설명</string>
+	<string name="editor_report_problem_other_title">다른 문제</string>
+	<string name="placepage_add_place_button">장소 추가</string>
+	<string name="placepage_report_problem_button">문제 신고</string>
+	<string name="whatsnew_smallmwm_header">여러분이 요청한 것을 저희가 해냈습니다</string>
+	<string name="whatsnew_smallmwm_message">지도를 여러 부분으로 나눴습니다. 이제는 전체 국가가 아닌 개별 지역을 다운로드할 수 있습니다.</string>
+	<string name="whatsnew_search_header">새로운 검색</string>
+	<string name="whatsnew_search_message">저희는 주소에 의한 검색을 놀랍게 개선 했습니다. 직접 경험해 보세요.</string>
+	<string name="whatsnew_editor_title">지도 편집*</string>
+	<string name="whatsnew_editor_message_1">지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME는 OpenStreetMap 커뮤니티 데이터를 사용합니다.</string>
+	<string name="onboarding_offline_navigation_title">다시 손실되지 않을 것임</string>
+	<string name="onboarding_offline_navigation_message">인터넷에 연결이 없는 경우에도, 최적의 자동차와 보행자 경로를 계획하십시오!</string>
+	<string name="onboarding_offline_navigation_title_2">오프라인 탐색</string>
+	<string name="onboarding_offline_navigation_message_2">최적의 자동차와 보행자 경로를 계획합니다.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — 인터넷 연결 없이 전 세계 지도 사용</string>
+	<string name="onboarding_offline_maps_message">한 번에 원하는 지역의 지도를 다운로드하고, 인터넷 연결없이 탐색 및 검색 기능을 사용합니다.</string>
+	<string name="onboarding_notifications_message">최신지도를 받으려면, 업데이트 알림 받기</string>
+	<string name="onboarding_notifications_title">업데이트 알림 활성화</string>
+	<string name="onboarding_location_title">사용자를 찾도록 돕기</string>
+	<string name="onboarding_location_message">탐색 및 기타 기능을 사용하려면, 위치 정보에 액세스해야 합니다.</string>
+	<string name="dialog_incorrect_feature_position">위치 변경</string>
+	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
 </resources>

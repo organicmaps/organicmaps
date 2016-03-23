@@ -12,6 +12,11 @@
     android:fragment="com.mapswithme.maps.settings.RoutePrefsFragment"/>
 
   <header
+    android:id="@+id/osm_profile"
+    android:key="@string/pref_osm_profile"
+    android:title="OSM profile"/>
+
+  <header
     android:id="@+id/group_misc"
     android:title="@string/prefs_group_misc"
     android:fragment="com.mapswithme.maps.settings.MiscPrefsFragment"/>

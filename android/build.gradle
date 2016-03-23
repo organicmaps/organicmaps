@@ -1,10 +1,14 @@
 buildscript {
   repositories {
     jcenter()
+    maven {
+      url 'https://maven.fabric.io/public'
+    }
   }
 
   dependencies {
     classpath 'com.android.tools.build:gradle:1.3.1'
+    classpath 'io.fabric.tools:gradle:1.+'
   }
 }
 
@@ -15,8 +19,15 @@ allprojects {
   }
 }
 
+repositories {
+  maven {
+    url 'https://maven.fabric.io/public'
+  }
+}
+
 apply plugin: 'com.android.application'
 apply from: 'secure.properties'
+apply plugin: 'io.fabric'
 
 dependencies {
   // android support libs
@@ -24,10 +35,15 @@ dependencies {
   compile 'com.android.support:appcompat-v7:22.2.1'
   compile 'com.android.support:recyclerview-v7:22.2.1'
   compile 'com.android.support:design:22.2.1'
+  compile 'com.android.support:cardview-v7:22.2.1'
   // google play services
   compile 'com.google.android.gms:play-services-location:8.4.0'
   compile 'com.google.android.gms:play-services-analytics:8.4.0'
   compile 'com.google.android.gms:play-services-plus:8.4.0'
+  // crash reporting
+  compile 'net.hockeyapp.android:HockeySDK:3.7.1'
+  compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true }
+  compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') { transitive = true }
   // 3-party
   compile 'com.facebook.android:facebook-android-sdk:4.10.0'
   compile 'com.parse.bolts:bolts-android:1.4.0'
@@ -39,6 +55,7 @@ dependencies {
   // LinearLayoutManager allowing wrap_content of RecyclerView-s
   // TODO remove this library when default LinearLayoutManager will be fixed.
   compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
+  compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
 }
 
 def getDate() {
@@ -49,6 +66,12 @@ def getDate() {
 
 project.ext.versionCodes = ['armeabi-v7a': 1, 'x86': 2]
 project.ext.appId = 'com.mapswithme.maps.pro'
+
+crashlytics {
+  enableNdk true
+  androidNdkOut 'obj/local'
+  androidNdkLibsOut 'libs'
+}
 
 android {
   // All properties are read from gradle.properties file
@@ -65,6 +88,12 @@ android {
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
     buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
+
+    // Crashlytics API key
+    Properties props = new Properties()
+    props.load(new FileInputStream("${projectDir}/fabric.properties"));
+    manifestPlaceholders = [ 'FABRIC_API_KEY': props['apiKey'] ]
+    buildConfigField 'String', 'FABRIC_API_KEY', /"${props['apiKey']}"/
   }
 
   sourceSets.main {
@@ -251,9 +280,10 @@ android {
     }
   }
 
-  // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk
+  // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk.
+  // TODO: Load all minor files via separate call to ReadAsString which can correctly handle compressed files in zip containers.
   aaptOptions {
-    noCompress 'txt', 'bin', 'html', 'png', 'json', 'mwm', 'ttf', 'sdf', 'ui'
+    noCompress 'txt', 'bin', 'html', 'png', 'json', 'mwm', 'ttf', 'sdf', 'ui', 'config'
     ignoreAssetsPattern "!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
   }
 
@@ -370,10 +400,10 @@ task obbPush(dependsOn: ['obbGenerate', 'obbPushMain', 'obbPushPatch']) {
     commandLine android.getAdbExe(), 'shell', 'rm', "${obbPath}*.obb"
   }
   tasks.create(type: Exec, name: 'obbPushMain', dependsOn: 'obbRemoveOnDevice') {
-    commandLine android.getAdbExe(), 'push', propObbWorldsOutput, "${obbPath}fonts.obb"
+    commandLine android.getAdbExe(), 'push', propObbFontsOutput, "${obbPath}fonts.obb"
   }
   tasks.create(type: Exec, name: 'obbPushPatch', dependsOn: 'obbRemoveOnDevice') {
-    commandLine android.getAdbExe(), 'push', propObbFontsOutput, "${obbPath}worlds.obb"
+    commandLine android.getAdbExe(), 'push', propObbWorldsOutput, "${obbPath}worlds.obb"
   }
 }
 

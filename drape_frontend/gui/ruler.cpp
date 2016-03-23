@@ -47,8 +47,8 @@ template<typename TBase>
 class BaseRulerHandle : public TBase
 {
 public:
-  BaseRulerHandle(dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing)
-    : TBase(anchor, pivot)
+  BaseRulerHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing)
+    : TBase(id, anchor, pivot)
     , m_isAppearing(isAppearing)
     , m_isVisibleAtEnd(true)
     , m_animation(false, 0.4)
@@ -110,8 +110,8 @@ class RulerHandle : public BaseRulerHandle<Handle>
   using TBase = BaseRulerHandle<Handle>;
 
 public:
-  RulerHandle(dp::Anchor anchor, m2::PointF const & pivot, bool appearing)
-    : TBase(anchor, pivot, appearing)
+  RulerHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, bool appearing)
+    : TBase(id, anchor, pivot, appearing)
   {}
 
 private:
@@ -133,9 +133,9 @@ class RulerTextHandle : public BaseRulerHandle<MutableLabelHandle>
   using TBase = BaseRulerHandle<MutableLabelHandle>;
 
 public:
-  RulerTextHandle(dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing,
-                  ref_ptr<dp::TextureManager> textures)
-    : TBase(anchor, pivot, isAppearing)
+  RulerTextHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
+                  bool isAppearing, ref_ptr<dp::TextureManager> textures)
+    : TBase(id, anchor, pivot, isAppearing)
     , m_firstUpdate(true)
   {
     SetTextureManager(textures);
@@ -224,7 +224,8 @@ void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Tex
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
     dp::SessionGuard guard(batcher, bind(&ShapeControl::AddShape, &control, _1, _2));
     batcher.InsertTriangleStrip(state, make_ref(&provider),
-                                make_unique_dp<RulerHandle>(m_position.m_anchor, m_position.m_pixelPivot, isAppearing));
+                                make_unique_dp<RulerHandle>(EGuiHandle::GuiHandleRuler, m_position.m_anchor,
+                                                            m_position.m_pixelPivot, isAppearing));
   }
 }
 
@@ -244,7 +245,7 @@ void Ruler::DrawText(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Text
   params.m_pivot = m_position.m_pixelPivot + m2::PointF(0.0, helper.GetVerticalTextOffset());
   params.m_handleCreator = [isAppearing, tex](dp::Anchor anchor, m2::PointF const & pivot)
   {
-    return make_unique_dp<RulerTextHandle>(anchor, pivot, isAppearing, tex);
+    return make_unique_dp<RulerTextHandle>(EGuiHandle::GuiHandleRulerLabel, anchor, pivot, isAppearing, tex);
   };
 
   m2::PointF textSize = MutableLabelDrawer::Draw(params, tex, bind(&ShapeControl::AddShape, &control, _1, _2));

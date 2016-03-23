@@ -7,11 +7,11 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
-
-#include "platform/platform.hpp"
+#include "indexer/search_string_utils.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
+#include "platform/platform.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 

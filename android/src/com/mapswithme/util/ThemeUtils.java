@@ -1,6 +1,7 @@
 package com.mapswithme.util;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.StyleRes;
@@ -32,10 +33,23 @@ public final class ThemeUtils
   public static int getResource(Context context, @AttrRes int attr)
   {
     if (!context.getTheme().resolveAttribute(attr, VALUE_BUFFER, true))
-      throw new IllegalArgumentException("Failed to resolve drawable theme attribute");
+      throw new IllegalArgumentException("Failed to resolve theme attribute");
 
     return VALUE_BUFFER.resourceId;
   }
+
+  public static int getResource(Context context, @AttrRes int style, @AttrRes int attr)
+  {
+    int styleRef = getResource(context, style);
+
+    int[] attrs = new int[] { attr };
+    TypedArray ta = context.getTheme().obtainStyledAttributes(styleRef, attrs);
+    ta.getValue(0, VALUE_BUFFER);
+    ta.recycle();
+
+    return VALUE_BUFFER.resourceId;
+  }
+
 
   public static LayoutInflater themedInflater(LayoutInflater src, @StyleRes int theme)
   {

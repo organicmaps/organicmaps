@@ -11,14 +11,15 @@ namespace helpers
 {
 // static
 void Point2PhantomNode::FindNearestSegment(FeatureType const & ft, m2::PointD const & point,
-                                           Candidate & res)
+                                           Candidate & res, size_t startIdx, size_t stopIdx)
 {
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  ASSERT_GREATER(ft.GetPointsCount(), 1, ());
+  size_t const lastIdx = min(ft.GetPointsCount() - 1, stopIdx);
+  ASSERT_GREATER_OR_EQUAL(lastIdx, startIdx + 1, ());
 
-  size_t const count = ft.GetPointsCount();
   uint32_t const featureId = ft.GetID().m_index;
-  ASSERT_GREATER(count, 1, ());
-  for (size_t i = 1; i < count; ++i)
+  for (size_t i = startIdx + 1; i <= lastIdx; ++i)
   {
     m2::ProjectionToSection<m2::PointD> segProj;
     segProj.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));

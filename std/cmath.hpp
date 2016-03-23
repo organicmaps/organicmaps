@@ -12,6 +12,7 @@
 #endif
 
 using std::abs;
+using std::isfinite;
 
 namespace math
 {

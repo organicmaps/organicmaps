@@ -1,0 +1,17 @@
+#pragma once
+
+#include "std/string.hpp"
+
+class FilesContainerR;
+class Writer;
+
+namespace indexer
+{
+// Builds the latest version of the search index section and writes it to the mwm file.
+// An attempt to rewrite the search index of an old mwm may result in a future crash
+// when using search because this function does not update mwm's version. This results
+// in version mismatch when trying to read the index.
+bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild = false);
+
+void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
+}  // namespace indexer

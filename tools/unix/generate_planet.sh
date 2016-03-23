@@ -33,6 +33,7 @@ usage() {
   echo -e "ASYNC_PBF\tGenerate PBF files asynchronously, not in a separate step"
   echo -e "MODE\tA mode to start with: coast, inter, routing, test, etc."
   echo -e "MAIL\tE-mail address to send notifications"
+  echo -e "OSRM_URL\tURL of the osrm server to build world roads."
   echo
 }
 
@@ -60,6 +61,16 @@ log() {
 putmode() {
   [ $# -gt 0 ] && log "STATUS" "$@"
   echo "$MFLAGS$MODE" > "$STATUS_FILE"
+}
+
+format_version() {
+  local planet_version=$1
+  local output_format=$2
+  if [ "$(uname -s)" == "Darwin" ]; then
+    echo $(date -j -u -f "%Y-%m-%dT%H:%M:%SZ" "$planet_version" "+$output_format")
+  else
+    echo $(date -d "$(echo "$planet_version" | sed -e 's/T/ /')" "+$output_format")
+  fi
 }
 
 # Do not start processing when there are no arguments
@@ -148,8 +159,10 @@ STATUS_FILE="$INTDIR/status"
 OSRM_FLAG="$INTDIR/osrm_done"
 SCRIPTS_PATH="$(dirname "$0")"
 ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
+ROADS_SCRIPT="$OMIM_PATH/tools/python/road_runner.py"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
-UPDATE_DATE="$(date +%y%m%d)"
+MWM_VERSION_FORMAT="%s"
+COUNTRIES_VERSION_FORMAT="%y%m%d"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
@@ -251,7 +264,7 @@ if [ "$MODE" == "coast" ]; then
     if [ -n "$OPT_COAST" ]; then
       log "STATUS" "Step 2: Creating and processing new coastline in $COASTS_O5M"
       # Strip coastlines from the planet to speed up the process
-      "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" "-o=$COASTS_O5M"
+      "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" --keep-nodes="capital=yes place=town =city" "-o=$COASTS_O5M"
       # Preprocess coastlines to separate intermediate directory
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS_O5M" \
         -preprocess 2>> "$LOG_PATH/WorldCoasts.log"
@@ -271,16 +284,30 @@ if [ "$MODE" == "coast" ]; then
       fi
     fi
   done
-  # make a working copy of generated coastlines file
-  [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/WorldCoasts.rawgeom" "$INTDIR"
-  [ -n "$OPT_COAST" ] && cp "$INTCOASTSDIR/WorldCoasts.geom" "$INTDIR"
+  # Make a working copy of generated coastlines file
+  if [ -n "$OPT_COAST" ]; then
+    cp "$INTCOASTSDIR"/WorldCoasts.*geom "$INTDIR"
+    cp "$INTCOASTSDIR"/*.csv "$INTDIR" || true
+  fi
   [ -z "$KEEP_INTDIR" ] && rm -r "$INTCOASTSDIR"
+  # Exit if nothing else was requested
   if [ -n "$OPT_ROUTING" -o -n "$OPT_WORLD" -o -z "$NO_REGIONS" ]; then
-    MODE=inter
+    MODE=roads
   else
     log "STATUS" "Nothing but coastline temporary files were requested, finishing"
     MODE=last
   fi
+fi
+
+# This mode is started only after updating or processing a planet file
+if [ "$MODE" == "roads" ]; then
+  if [ -z "${OSRM_URL-}" ]; then
+    log "OSRM_URL variable not set. World roads will not be calculated."
+  else
+    putmode "Step 2a: Generating road networks for the World map"
+    python "$ROADS_SCRIPT" "$INTDIR" "$OSRM_URL" >>"$LOG_PATH"/road_runner.log
+  fi
+  MODE=inter
 fi
 
 # Starting routing generation as early as we can, since it's done in parallel
@@ -352,6 +379,18 @@ if [ "$MODE" == "features" ]; then
   MODE=mwm
 fi
 
+# Get version from the planet file
+if [ -z "${VERSION-}" ]; then
+  PLANET_VERSION="$("$OSMCTOOLS/osmconvert" --out-timestamp "$PLANET")"
+  if [[ $PLANET_VERSION == *nvalid* ]]; then
+    MWM_VERSION="$(date "+$MWM_VERSION_FORMAT")"
+    COUNTRIES_VERSION="$(date "+$COUNTRIES_VERSION_FORMAT")"
+  else
+    MWM_VERSION="$(format_version "$PLANET_VERSION" "$MWM_VERSION_FORMAT")"
+    COUNTRIES_VERSION="$(format_version "$PLANET_VERSION" "$COUNTRIES_VERSION_FORMAT")"
+  fi
+fi
+
 if [ "$MODE" == "mwm" ]; then
   putmode "Step 5: Building all MWMs of regions and of the whole world into $TARGET"
   # First, check for *.mwm.tmp
@@ -361,10 +400,10 @@ if [ "$MODE" == "mwm" ]; then
   PARAMS="--data_path=$TARGET --intermediate_data_path=$INTDIR/ --user_resource_path=$DATA_PATH/ --node_storage=$NODE_STORAGE -generate_geometry -generate_index"
   if [ -n "$OPT_WORLD" ]; then
     (
-      "$GENERATOR_TOOL" $PARAMS --planet_version="$UPDATE_DATE" --output=World 2>> "$LOG_PATH/World.log"
-      "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$UPDATE_DATE" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" $PARAMS --planet_version="$MWM_VERSION" --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$MWM_VERSION" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
     ) &
-    "$GENERATOR_TOOL" $PARAMS --planet_version="$UPDATE_DATE" --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
+    "$GENERATOR_TOOL" $PARAMS --planet_version="$MWM_VERSION" --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
   fi
 
   if [ -z "$NO_REGIONS" ]; then
@@ -372,7 +411,7 @@ if [ "$MODE" == "mwm" ]; then
     for file in "$INTDIR"/tmp/*.mwm.tmp; do
       if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
         BASENAME="$(basename "$file" .mwm.tmp)"
-        "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --planet_version="$UPDATE_DATE" --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
+        "$GENERATOR_TOOL" $PARAMS_WITH_SEARCH --planet_version="$MWM_VERSION" --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
         forky
       fi
     done
@@ -403,26 +442,19 @@ fi
 # Clean up temporary routing files
 [ -f "$OSRM_FLAG" ] && rm "$OSRM_FLAG"
 [ -n "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" ] && mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
+[ -n "$(ls "$TARGET" | grep '\.mwm\.norouting')" ] && mkdir -p "$INTDIR/norouting" && mv "$TARGET"/*.mwm.norouting "$INTDIR/norouting"
 
 if [ "$MODE" == "resources" ]; then
   putmode "Step 7: Updating resource lists"
   # Update countries list
-  [ ! -e "$TARGET/countries.txt" ] && cp "$DATA_PATH/countries.txt" "$TARGET/countries.txt"
-  if "$GENERATOR_TOOL" --data_path="$TARGET" --planet_version="$UPDATE_DATE" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$PLANET_LOG"; then
-    # We have no means of finding the resulting file, so let's assume it was magically placed in DATA_PATH
-    [ -e "$TARGET/countries.txt.updated" ] && mv "$TARGET/countries.txt.updated" "$TARGET/countries.txt"
-    # If we know the planet's version, update it in countries.txt
-    if [ -n "${UPDATE_DATE-}" ]; then
-      # In-place editing works differently on OS X and Linux, hence two steps
-      sed -e "s/\"v\":[0-9]\\{6\\}/\"v\":$UPDATE_DATE/" "$TARGET/countries.txt" > "$INTDIR/countries.txt"
-      mv "$INTDIR/countries.txt" "$TARGET"
-    fi
-  fi
+  "$SCRIPTS_PATH/../python/hierarchy_to_countries.py" --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --version "$COUNTRIES_VERSION" \
+    --old "$DATA_PATH/old_vs_new.csv" --osm "$DATA_PATH/borders_vs_osm.csv" --output "$TARGET/countries.txt" >> "$PLANET_LOG" 2>&1
+
   # A quick fix: chmodding to a+rw all generated files
   for file in "$TARGET"/*.mwm*; do
     chmod 0666 "$file"
   done
-  chmod 0666 "$TARGET/countries.txt"
+  chmod 0666 "$TARGET"/countries*.txt
 
   if [ -n "$OPT_WORLD" ]; then
     # Update external resources
@@ -431,7 +463,7 @@ if [ "$MODE" == "resources" ]; then
     echo -n > "$EXT_RES"
     UNAME="$(uname)"
     for file in "$TARGET"/World*.mwm "$TARGET"/*.ttf; do
-      if [[ "$file" != *roboto* ]]; then
+      if [[ "$file" != *roboto_reg* ]]; then
         if [ "$UNAME" == "Darwin" ]; then
           stat -f "%N %z" "$file" | sed 's#^.*/##' >> "$EXT_RES"
         else

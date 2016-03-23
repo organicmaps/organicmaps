@@ -9,6 +9,8 @@
 #include "std/sstream.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/unordered_map.hpp"
+#include "std/unordered_set.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -28,6 +30,11 @@ template <typename T, typename C = less<T>> inline string DebugPrint(set<T, C> c
 template <typename U, typename V, typename C = less<U>> inline string DebugPrint(map<U, V, C> const & v);
 template <typename T> inline string DebugPrint(initializer_list<T> const & v);
 template <typename T> inline string DebugPrint(unique_ptr<T> const & v);
+
+template <class Key, class Hash = hash<Key>, class Pred = equal_to<Key>>
+inline string DebugPrint(unordered_set<Key, Hash, Pred> const & v);
+template <class Key, class T, class Hash = hash<Key>, class Pred = equal_to<Key>>
+inline string DebugPrint(unordered_map<Key, T, Hash, Pred> const & v);
 //@}
 
 
@@ -108,6 +115,18 @@ template <typename U, typename V, typename C> inline string DebugPrint(map<U, V,
 }
 
 template <typename T> inline string DebugPrint(initializer_list<T> const & v)
+{
+  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+}
+
+template <class Key, class Hash, class Pred>
+inline string DebugPrint(unordered_set<Key, Hash, Pred> const & v)
+{
+  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+}
+
+template <class Key, class T, class Hash, class Pred>
+inline string DebugPrint(unordered_map<Key, T, Hash, Pred> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }

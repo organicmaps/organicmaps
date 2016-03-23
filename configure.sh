@@ -7,6 +7,7 @@ set -e -u
 BASE_PATH=`dirname "$0"`
 PRIVATE_HEADER="$BASE_PATH/private.h"
 PRIVATE_PROPERTIES="$BASE_PATH/android/secure.properties"
+PRIVATE_FABRIC_PROPERTIES="$BASE_PATH/android/fabric.properties"
 SAVED_PRIVATE_REPO_FILE="$BASE_PATH/.private_repository_url"
 TMP_REPO_DIR="$BASE_PATH/.tmp.private.repo"
 
@@ -34,6 +35,8 @@ else
 #define MY_TARGET_KEY ""
 #define PARSE_APPLICATION_ID ""
 #define PARSE_CLIENT_KEY ""
+#define OSM_CONSUMER_KEY ""
+#define OSM_CONSUMER_SECRET ""
 #define MWM_GEOLOCATION_SERVER ""
 #define OSRM_ONLINE_SERVER_URL ""
 #define RESOURCES_METASERVER_URL ""
@@ -41,9 +44,11 @@ else
 #define DEFAULT_URLS_JSON ""
 #define AD_PERMISION_SERVER_URL ""
 #define AD_PERMISION_CHECK_DURATION 2 * 60 * 60
+#define HOCKEY_APP_KEY ""
+#define HOCKEY_APP_BETA_KEY ""
+#define CRASHLYTICS_IOS_KEY ""
 ' > "$PRIVATE_HEADER"
-    echo '
-ext {
+    echo 'ext {
   spropStoreFile = "../tools/android/debug.keystore"
   spropStorePassword = "12345678"
   spropKeyAlias = "debug"
@@ -54,6 +59,10 @@ ext {
   spropYotaKeyPassword = "12345678"
 }
 ' > "$PRIVATE_PROPERTIES"
+
+    echo 'apiSecret=0000000000000000000000000000000000000000000000000000000000000000
+apiKey=0000000000000000000000000000000000000000
+' > "$PRIVATE_FABRIC_PROPERTIES"
     exit
   fi
 fi

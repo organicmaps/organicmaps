@@ -1,6 +1,9 @@
-#include "timegm.hpp"
+#include "base/timegm.hpp"
 
 #include "base/assert.hpp"
+#include "base/timer.hpp"
+
+#include "std/chrono.hpp"
 
 // There are issues with this implementation due to absence
 // of time_t fromat specification. There are no guarantees
@@ -49,10 +52,10 @@ bool IsLeapYear(int year)
 time_t TimeGM(std::tm const & tm)
 {
   int year;
-  time_t days;
-  time_t hours;
-  time_t minutes;
-  time_t seconds;
+  int days;
+  int hours;
+  int minutes;
+  int seconds;
 
   year = 1900 + tm.tm_year;
   days = 365 * (year - 1970) + LeapDaysCount(1970, year);
@@ -66,7 +69,7 @@ time_t TimeGM(std::tm const & tm)
   minutes = hours * 60 + tm.tm_min;
   seconds = minutes * 60 + tm.tm_sec;
 
-  return seconds;
+  return my::SecondsSinceEpochToTimeT(seconds);
 }
 
 time_t TimeGM(int year, int month, int day, int hour, int min, int sec)
@@ -85,5 +88,4 @@ time_t TimeGM(int year, int month, int day, int hour, int min, int sec)
   t.tm_sec = sec;
   return TimeGM(t);
 }
-
 } // namespace base

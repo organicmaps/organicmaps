@@ -1,15 +1,22 @@
-#include "indexer/feature.hpp"
-#include "indexer/feature_visibility.hpp"
-#include "indexer/feature_loader_base.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+
+#include "indexer/classificator.hpp"
+#include "indexer/feature_algo.hpp"
+#include "indexer/feature_impl.hpp"
+#include "indexer/feature_loader_base.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/osm_editor.hpp"
 
 #include "geometry/distance.hpp"
 #include "geometry/robust_orientation.hpp"
 
 #include "platform/preferred_languages.hpp"
 
-#include "defines.hpp" // just for file extensions
+#include "base/range_iterator.hpp"
+#include "base/stl_helpers.hpp"
 
+#include "std/algorithm.hpp"
 
 using namespace feature;
 
@@ -25,6 +32,207 @@ void FeatureBase::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
   m_limitRect = m2::RectD::GetEmptyRect();
   m_bTypesParsed = m_bCommonParsed = false;
   m_header = m_pLoader->GetHeader();
+}
+
+void FeatureType::ApplyPatch(editor::XMLFeature const & xml)
+{
+  xml.ForEachName([this](string const & lang, string const & name)
+                  {
+                    m_params.name.AddString(lang, name);
+                  });
+
+  string const house = xml.GetHouse();
+  if (!house.empty())
+    m_params.house.Set(house);
+
+  // TODO(mgsergio):
+  // m_params.ref =
+  // m_params.layer =
+  // m_params.rank =
+  m_bCommonParsed = true;
+
+  xml.ForEachTag([this](string const & k, string const & v)
+  {
+    Metadata::EType mdType;
+    if (Metadata::TypeFromString(k, mdType))
+      m_metadata.Set(mdType, v);
+    else
+      LOG(LWARNING, ("Patching feature has unknown tags"));
+  });
+  m_bMetadataParsed = true;
+
+  // If types count are changed here, in ApplyPatch, new number of types should be passed
+  // instead of GetTypesCount().
+  m_header = CalculateHeader(GetTypesCount(), Header() & HEADER_GEOTYPE_MASK, m_params);
+  m_bHeader2Parsed = true;
+}
+
+void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
+{
+  uint8_t geoType;
+  if (emo.IsPointType())
+  {
+    // We are here for existing point features and for newly created point features.
+    m_center = emo.GetMercator();
+    m_limitRect.MakeEmpty();
+    m_limitRect.Add(m_center);
+    m_bPointsParsed = m_bTrianglesParsed = true;
+    geoType = feature::GEOM_POINT;
+  }
+  else
+  {
+    geoType = Header() & HEADER_GEOTYPE_MASK;
+  }
+
+  m_params.name = emo.GetName();
+  string const & house = emo.GetHouseNumber();
+  if (house.empty())
+    m_params.house.Clear();
+  else
+    m_params.house.Set(house);
+  m_bCommonParsed = true;
+
+  m_metadata = emo.GetMetadata();
+  m_bMetadataParsed = true;
+
+  uint32_t typesCount = 0;
+  for (uint32_t const type : emo.GetTypes())
+    m_types[typesCount++] = type;
+  m_bTypesParsed = true;
+  m_header = CalculateHeader(typesCount, geoType, m_params);
+  m_bHeader2Parsed = true;
+
+  m_id = emo.GetID();
+}
+
+editor::XMLFeature FeatureType::ToXML() const
+{
+  editor::XMLFeature feature(GetFeatureType() == feature::GEOM_POINT
+                                 ? editor::XMLFeature::Type::Node
+                                 : editor::XMLFeature::Type::Way);
+
+  if (GetFeatureType() == feature::GEOM_POINT)
+  {
+    feature.SetCenter(GetCenter());
+  }
+  else
+  {
+    ParseTriangles(BEST_GEOMETRY);
+    vector<m2::PointD> geometry(begin(m_triangles), end(m_triangles));
+    // Remove duplicates.
+    my::SortUnique(geometry);
+    feature.SetGeometry(geometry);
+  }
+
+  ForEachName([&feature](uint8_t const & lang, string const & name)
+              {
+                feature.SetName(lang, name);
+                return true;
+              });
+
+  string const house = GetHouseNumber();
+  if (!house.empty())
+    feature.SetHouse(house);
+
+  // TODO(mgsergio):
+  // feature.m_params.ref =
+  // feature.m_params.layer =
+  // feature.m_params.rank =
+
+  feature::TypesHolder th(*this);
+  // TODO(mgsergio): Use correct sorting instead of SortBySpec based on the config.
+  th.SortBySpec();
+  Classificator & cl = classif();
+  // TODO(mgsergio): Either improve "OSM"-compatible serialization for more complex types,
+  // or save all our types directly, to restore and reuse them in migration of modified features.
+  for (uint32_t const type : th)
+  {
+    string const strType = cl.GetReadableObjectName(type);
+    strings::SimpleTokenizer iter(strType, "-");
+    string const k = *iter;
+    if (++iter)
+    {
+      // First (main) type is always stored as "k=amenity v=restaurant".
+      // Any other "k=amenity v=atm" is replaced by "k=atm v=yes".
+      if (feature.GetTagValue(k).empty())
+        feature.SetTagValue(k, *iter);
+      else
+        feature.SetTagValue(*iter, "yes");
+    }
+    else
+    {
+      // We're editing building, generic craft, shop, office, amenity etc.
+      // Skip it's serialization.
+      // TODO(mgsergio): Correcly serialize all types back and forth.
+      LOG(LDEBUG, ("Skipping type serialization:", k));
+    }
+  }
+
+  for (auto const type : m_metadata.GetPresentTypes())
+  {
+    auto const attributeName = DebugPrint(static_cast<Metadata::EType>(type));
+    feature.SetTagValue(attributeName, m_metadata.Get(type));
+  }
+
+  return feature;
+}
+
+bool FeatureType::FromXML(editor::XMLFeature const & xml)
+{
+  ASSERT_EQUAL(editor::XMLFeature::Type::Node, xml.GetType(),
+               ("At the moment only new nodes (points) can can be created."));
+  m_center = xml.GetMercatorCenter();
+  m_limitRect.Add(m_center);
+  m_bPointsParsed = m_bTrianglesParsed = true;
+
+  xml.ForEachName([this](string const & lang, string const & name)
+  {
+    m_params.name.AddString(lang, name);
+  });
+
+  string const house = xml.GetHouse();
+  if (!house.empty())
+    m_params.house.Set(house);
+
+  // TODO(mgsergio):
+  // m_params.ref =
+  // m_params.layer =
+  // m_params.rank =
+  m_bCommonParsed = true;
+
+  uint32_t typesCount = 0;
+  xml.ForEachTag([this, &typesCount](string const & k, string const & v)
+  {
+    Metadata::EType mdType;
+    if (Metadata::TypeFromString(k, mdType))
+    {
+      m_metadata.Set(mdType, v);
+    }
+    else
+    {
+      // Simple heuristics. It works if all our supported types for new features at data/editor.config
+      // are of one or two levels nesting (currently it's true).
+      Classificator & cl = classif();
+      uint32_t type = cl.GetTypeByPathSafe({k, v});
+      if (type == 0)
+        type = cl.GetTypeByPathSafe({k});  // building etc.
+      if (type == 0)
+        type = cl.GetTypeByPathSafe({"amenity", k});  // atm=yes, toilet=yes etc.
+
+      if (type)
+        m_types[typesCount++] = type;
+      else
+        LOG(LWARNING, ("Can't load/parse type:", k, v));
+    }
+  });
+  m_bMetadataParsed = true;
+  m_bTypesParsed = true;
+
+  EHeaderTypeMask const geomType = house.empty() && !m_params.ref.empty() ? HEADER_GEOM_POINT : HEADER_GEOM_POINT_EX;
+  m_header = CalculateHeader(typesCount, geomType, m_params);
+  m_bHeader2Parsed = true;
+
+  return typesCount > 0;
 }
 
 void FeatureBase::ParseTypes() const
@@ -59,7 +267,7 @@ feature::EGeomType FeatureBase::GetFeatureType() const
 
 string FeatureBase::DebugString() const
 {
-  ASSERT(m_bCommonParsed, ());
+  ParseCommon();
 
   Classificator const & c = classif();
 
@@ -85,6 +293,15 @@ void FeatureType::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
   m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = m_bMetadataParsed = false;
 
   m_innerStats.MakeZero();
+}
+
+void FeatureType::ParseEverything() const
+{
+  // Also calls ParseCommon() and ParseTypes().
+  ParseHeader2();
+  ParseGeometry(FeatureType::BEST_GEOMETRY);
+  ParseTriangles(FeatureType::BEST_GEOMETRY);
+  ParseMetadata();
 }
 
 void FeatureType::ParseHeader2() const
@@ -149,6 +366,33 @@ void FeatureType::ParseMetadata() const
   m_bMetadataParsed = true;
 }
 
+StringUtf8Multilang const & FeatureType::GetNames() const
+{
+  return m_params.name;
+}
+
+void FeatureType::SetNames(StringUtf8Multilang const & newNames)
+{
+  m_params.name.Clear();
+  // Validate passed string to clean up empty names (if any).
+  newNames.ForEach([this](int8_t langCode, string const & name) -> bool
+  {
+    if (!name.empty())
+      m_params.name.AddString(langCode, name);
+    return true;
+  });
+
+  if (m_params.name.IsEmpty())
+    SetHeader(~feature::HEADER_HAS_NAME & Header());
+  else
+    SetHeader(feature::HEADER_HAS_NAME | Header());
+}
+
+void FeatureType::SetMetadata(feature::Metadata const & newMetadata)
+{
+  m_bMetadataParsed = true;
+  m_metadata = newMetadata;
+}
 
 namespace
 {
@@ -162,7 +406,7 @@ namespace
 
 string FeatureType::DebugString(int scale) const
 {
-  ParseAll(scale);
+  ParseGeometryAndTriangles(scale);
 
   string s = base_type::DebugString();
 
@@ -197,7 +441,7 @@ string DebugPrint(FeatureType const & ft)
 
 bool FeatureType::IsEmptyGeometry(int scale) const
 {
-  ParseAll(scale);
+  ParseGeometryAndTriangles(scale);
 
   switch (GetFeatureType())
   {
@@ -209,7 +453,7 @@ bool FeatureType::IsEmptyGeometry(int scale) const
 
 m2::RectD FeatureType::GetLimitRect(int scale) const
 {
-  ParseAll(scale);
+  ParseGeometryAndTriangles(scale);
 
   if (m_triangles.empty() && m_points.empty() && (GetFeatureType() != GEOM_POINT))
   {
@@ -222,7 +466,7 @@ m2::RectD FeatureType::GetLimitRect(int scale) const
   return m_limitRect;
 }
 
-void FeatureType::ParseAll(int scale) const
+void FeatureType::ParseGeometryAndTriangles(int scale) const
 {
   ParseGeometry(scale);
   ParseTriangles(scale);
@@ -283,7 +527,7 @@ void FeatureType::GetPreferredNames(string & defaultName, string & intName) cons
   ParseCommon();
 
   BestMatchedLangNames matcher;
-  ForEachNameRef(matcher);
+  ForEachName(matcher);
 
   defaultName.swap(matcher.m_defaultName);
 
@@ -309,7 +553,7 @@ void FeatureType::GetReadableName(string & name) const
   ParseCommon();
 
   BestMatchedLangNames matcher;
-  ForEachNameRef(matcher);
+  ForEachName(matcher);
 
   if (!matcher.m_nativeName.empty())
     name.swap(matcher.m_nativeName);
@@ -325,6 +569,14 @@ string FeatureType::GetHouseNumber() const
 {
   ParseCommon();
   return m_params.house.Get();
+}
+
+void FeatureType::SetHouseNumber(string const & number)
+{
+  if (number.empty())
+    m_params.house.Clear();
+  else
+    m_params.house.Set(number);
 }
 
 bool FeatureType::GetName(int8_t lang, string & name) const
@@ -344,8 +596,7 @@ uint8_t FeatureType::GetRank() const
 
 uint32_t FeatureType::GetPopulation() const
 {
-  uint8_t const r = GetRank();
-  return (r == 0 ? 1 : static_cast<uint32_t>(pow(1.1, r)));
+  return feature::RankToPopulation(GetRank());
 }
 
 string FeatureType::GetRoadNumber() const
@@ -372,82 +623,6 @@ bool FeatureType::HasInternet() const
   });
 
   return res;
-}
-
-namespace
-{
-  class DoCalcDistance
-  {
-    m2::PointD m_prev, m_pt;
-    bool m_hasPrev;
-
-    static double Inf() { return numeric_limits<double>::max(); }
-
-    static double GetDistance(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p)
-    {
-      m2::DistanceToLineSquare<m2::PointD> calc;
-      calc.SetBounds(p1, p2);
-      return sqrt(calc(p));
-    }
-
-  public:
-    DoCalcDistance(m2::PointD const & pt)
-      : m_pt(pt), m_hasPrev(false), m_dist(Inf())
-    {
-    }
-
-    void TestPoint(m2::PointD const & p)
-    {
-      m_dist = m_pt.Length(p);
-    }
-
-    void operator() (m2::PointD const & pt)
-    {
-      if (m_hasPrev)
-        m_dist = min(m_dist, GetDistance(m_prev, pt, m_pt));
-      else
-        m_hasPrev = true;
-
-      m_prev = pt;
-    }
-
-    void operator() (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-    {
-      m2::PointD arrP[] = { p1, p2, p3 };
-
-      // make right-oriented triangle
-      if (m2::robust::OrientedS(arrP[0], arrP[1], arrP[2]) < 0.0)
-        swap(arrP[1], arrP[2]);
-
-      double d = Inf();
-      for (size_t i = 0; i < 3; ++i)
-      {
-        double const s = m2::robust::OrientedS(arrP[i], arrP[(i + 1) % 3], m_pt);
-        if (s < 0.0)
-          d = min(d, GetDistance(arrP[i], arrP[(i + 1) % 3], m_pt));
-      }
-
-      m_dist = ((d == Inf()) ? 0.0 : min(m_dist, d));
-    }
-
-    double m_dist;
-  };
-}
-
-double FeatureType::GetDistance(m2::PointD const & pt, int scale) const
-{
-  DoCalcDistance calc(pt);
-
-  switch (GetFeatureType())
-  {
-  case GEOM_POINT: calc.TestPoint(GetCenter()); break;
-  case GEOM_LINE: ForEachPointRef(calc, scale); break;
-  case GEOM_AREA: ForEachTriangleRef(calc, scale); break;
-  default:
-    CHECK ( false, () );
-  }
-
-  return calc.m_dist;
 }
 
 void FeatureType::SwapGeometry(FeatureType & r)

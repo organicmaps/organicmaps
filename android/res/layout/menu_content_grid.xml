@@ -6,6 +6,14 @@
   android:layout_height="wrap_content"
   android:orientation="horizontal"
   tools:background="#200000F0">
+
+  <TextView
+    android:id="@+id/add_place"
+    style="@style/MwmTheme.Menu.Content.GridItem.Text"
+    android:drawableTop="@drawable/ic_plus"
+    android:text="@string/placepage_add_place_button"
+    tools:background="#200000FF"/>
+
   <TextView
     android:id="@+id/search"
     style="@style/MwmTheme.Menu.Content.GridItem.Text"

@@ -14,8 +14,6 @@
 	<string name="cancel_download">إلغاء التنزيل</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">حذف</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">حذف الخرائط القديمة و المتابعة</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">لا تسئلني مرة أخرى</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -52,8 +50,6 @@
 	<string name="miles">ميل</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">موقعي</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">لم يتم اكتشاف أي اتصال مع الانترنت</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">لم يتم العثور على أي اتصال واي فاي. هل ترغب باستخدام حزمة البيانات الخليوية (GPRS ، EDGE ، 3G أو LTE) من أجل تنزيل %s؟</string>
 	<string name="ok">موافق</string>
@@ -73,8 +69,6 @@
 	<string name="search">البحث</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">ابحث في الخريطة</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">لا يوجد مساحة كافية على القرص</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">انقر للتنزيل</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -95,10 +89,12 @@
 	<string name="country_status_downloading">جاري التنزيل\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">(^ ^)\nتحميل الخريطة</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">تحميل الخريطة</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">(^ ^)\nتنزيل خريطة بدون تحديد خط السير</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">فشلت عملية تنزيل\n^</string>
+	<string name="country_status_download_failed">فشلت عملية تنزيل</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">محاولة مرة أخرى</string>
 	<string name="about_menu_title">حول MAPS.ME</string>
@@ -114,8 +110,7 @@
 	<string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.</string>
 	<string name="not_enough_memory">لا يوجد ذاكرة كافية لتشغيل التطبيق.</string>
 	<string name="free_space_for_country">الرجاء إخلاء %1$s على جهازك أولا من أجل تنزيل %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %1$.1f%2$s من البيانات.</string>
+	<string name="download_resources">قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %s من البيانات.</string>
 	<string name="getting_position">الحصول على الموقع الحالي</string>
 	<string name="download_resources_continue">الذهاب الى الخريطة</string>
 	<string name="downloading_country_can_proceed">تنزيل %s. يمكنك الآن\nالمتابعة الى الخريطة.</string>
@@ -163,7 +158,7 @@
 	<string name="my_places">أماكني</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">الاسم</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">العنوان</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">إزالة الدبوس</string>
@@ -276,7 +271,7 @@
 	<string name="share">مشاركة</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">رسالة</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">البريد الالكتروني</string>
 	<!-- Copy Link -->
 	<string name="copy_link">نسخ الرابط</string>
@@ -386,6 +381,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">الإعدادات والمزيد</string>
 	<!-- Text in menu -->
+	<string name="website">الموقع الإلكتروني</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">مجتمع MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">أعجبني على الفيسبوك</string>
@@ -422,17 +419,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">إصدار MAPS.ME الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">تحديث الكل</string>
+	<string name="downloader_update_all_button">تحديث الكل</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">إلغاء الكل</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">المُنزَّلة</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">الخرائط المُنزَّلة</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">خرائطي</string>
+	<string name="downloader_downloaded_subtitle">تم تنزيلها</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">مَصْفوف</string>
+	<string name="downloader_near_me_subtitle">بالقرب مني</string>
+	<string name="downloader_status_maps">الخرائط</string>
+	<string name="downloader_download_all_button">تنزيل الكل</string>
+	<string name="downloader_downloading">يتم تنزيل:</string>
+	<string name="downloader_search_results">تم العثور على</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!</string>
 	<!-- Outdated maps category -->
@@ -443,6 +441,8 @@
 	<string name="downloader_status_outdated">تحديث</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">فشل</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">لحذف الخريطة يرجى إيقاف الملاحة.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">الموقع الحالي غير مُعَرّف. يرجى تحديد موقع لإنشاء مسار.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -518,186 +518,6 @@
 	<string name="routing_download_more_than_avail">Devi scaricare %1$s MB, ma lo spazio disponibile è di soli %2$s MB.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">مطبخ إقليمي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">بيتزا</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">برغر</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">مطبخ إيطالي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">مطبخ صيني</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">مقهى</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">ساندوتش</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">مطبخ ألماني</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">مطبخ ياباني</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">كباب</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">مطبخ مكسيكي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">مطبخ هندي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">مطبخ أمريكي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">مطبخ فرنسي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">مُثَلّجات</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">مطبخ آسيوي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">دجاج</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">مطبخ يوناني</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">مطبخ تايلندي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">مطبخ عالمي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">سوشي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">سمك و رقائق البطاطس</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">مطبخ تركي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">مأكولات بحرية</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">شرائح اللحم</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">مطبخ إسباني</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">سمك</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">مطبخ فيتنامي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">الشعرية</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">مطبخ نباتي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">مطبخ كوري</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">وجبات سريعة</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">مشويات</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">مطبخ بافاري</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">حساء رامن</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">مطبخ إيطالي؛بيتزا</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">مطبخ شرق أوسطي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">الكعك المحلاة</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">طبق لحم البقر</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">كيك</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">كريب</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">البيرة</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">مطبخ لبناني</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">شريحة لحم</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">مطبخ محلي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">كاري</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">مطبخ فلبيني</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">مطبخ روسي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">فطور</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">تاباس</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">مشويات</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">كعك بولندي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">مَعْكَرُونَة</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">البيرة</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">سجق</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">مطبخ برتغالي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">شواء</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">بان كيك</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">مدغشقر</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">مطبخ بولندي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">العشاء</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">مطبخ أفريقي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">دونت</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">مطبخ جورجي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">مطبخ كرواتي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">مطبخ عربي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">مطبخ بلقاني</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">مطبخ برازيلي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">مطبخ كاريبي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">مطبخ نمساوي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">مطبخ نباتي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">مطبخ أرجنتيني</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">مطبخ إيراني</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">سوبا</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">مطبخ ماليزي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">مطبخ إندونيسي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">مطبخ إثيوبي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">أطعمة مبردة</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">مطبخ إيرلندي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">مطبخ مجري</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">مطبخ لاوي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">قهوة</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">هوت دوغ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">مطبخ شرقي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">بان كيك السافوري</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">مطبخ مغربي</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">مشويات</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">بيرو</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">مطعم متكامل</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">شاي</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">إشارة مرجعية</string>
 	<!-- map is not downloaded -->
@@ -775,7 +595,7 @@
 	<string name="dialog_routing_if_get_cross_route">هل تريد إنشاء مسار مباشر بشكل أكبر يمتد عبر أكثر من خريطة؟</string>
 	<string name="dialog_routing_cross_route_is_optimal">هناك مسار أفضل يعبر حافة هذه الخريطة.</string>
 	<string name="dialog_routing_always_cross_that_border">اعبر هذه الحدود دائمًا</string>
-	<string name="dialog_routing_not_now">ليس الآن</string>
+	<string name="not_now">ليس الآن</string>
 	<string name="dialog_routing_build_route">إنشاء</string>
 	<string name="dialog_routing_download_and_build_cross_route">هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟</string>
 	<string name="dialog_routing_download_cross_route">تنزيل الخريطة لإنشاء مسار أفضل يعبر حافة هذه الخريطة.</string>
@@ -785,7 +605,6 @@
 	<string name="search_without_internet_advertisement">لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، وسوف لن تحتاج إلى اتصال بالإنترنت بعد الآن.</string>
 	<string name="search_select_map">اختيار الخريطة</string>
 	<string name="search_select_other_map">اختيار خريطة أخرى</string>
-	<string name="search_vehicle_routes">اتجاهات القيادة</string>
 	<!-- «Show» context menu -->
 	<string name="show">عرض</string>
 	<!-- «Hide» context menu -->
@@ -831,6 +650,148 @@
 	<string name="p2p_only_from_current">تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟</string>
 	<string name="p2p_reroute_from_current">هل ترغب في أن نرسم مسار لك من موقعك الحالي؟</string>
 	<string name="whats_new_next_button">التالي</string>
-	<string name="whats_new_night_caption">وضع التجول الليلي</string>
-	<string name="whats_new_night_body">لتسهيل استخدام MAPS.ME أثناء القيادة في الظلام، فقد أضفنا وضع التجول الليلي. إنه يعمل تلقائيا بعد غروب الشمس.</string>
+	<string name="editor_time_add">إضافة جدول</string>
+	<string name="editor_time_delete">حذف جدول</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">طوال اليوم (24 ساعة)</string>
+	<string name="editor_time_open">مفتوح</string>
+	<string name="editor_time_close">مغلق</string>
+	<string name="editor_time_add_closed">إضافة ساعات راحة</string>
+	<string name="editor_time_title">ساعات العمل</string>
+	<string name="editor_time_advanced">الوضع المتقدم</string>
+	<string name="editor_time_simple">الوضع البسيط</string>
+	<string name="editor_hours_closed">ساعات الراحة</string>
+	<string name="editor_example_values">أمثلة على القيم</string>
+	<string name="editor_correct_mistake">تصحيح الخطأ</string>
+	<string name="editor_correct_mistake_message">قمت بخطأ في التحرير. يرجى تصحيح الخطأ أو التبديل إلى الوضع البسيط.</string>
+	<string name="editor_add_select_location">الموقع</string>
+	<string name="editor_done_dialog_1">لقد غيرت خريطة العالم. لا تخفي ذلك! اخبر أصدقاءك، وغيروها معا.</string>
+	<string name="editor_done_dialog_2">هذا هو تعديلك الثاني بالخريطة. أنت الآن في الترتيب رقم %d في قائمة محرري الخريطة. اخبر أصدقاءك عن ذلك.</string>
+	<string name="editor_done_dialog_3">لقد عدلت الخريطة، اخبر أصدقائك عن ذلك، وعدلوا الخريطة معا.</string>
+	<string name="share_with_friends">شارك مع الأصدقاء</string>
+	<string name="editor_report_problem_desription_1">يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.</string>
+	<string name="editor_report_problem_desription_2">أو افعل ذلك بنفسك من خلال الموقع http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">إرسال</string>
+	<string name="editor_report_problem_title">مشكلة</string>
+	<string name="editor_report_problem_no_place_title">المكان غير موجودٍ</string>
+	<string name="editor_report_problem_under_construction_title">مغلق للصيانة</string>
+	<string name="editor_report_problem_duplicate_place_title">مكان متكرر</string>
+	<string name="first_launch_congrats_title">MAPS.ME جاهز للاستخدام</string>
+	<string name="first_launch_congrats_text">ابحث وتنقل في خرائط جميع دول العالم مجانا.</string>
+	<string name="migrate_title">هام!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">تنزيل الكل</string>
+	<string name="delete_all">حذف الكل</string>
+	<string name="autodownload">التنزيل التلقائي</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">مغلق الآن</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">يوميا</string>
+	<string name="twentyfour_seven">ليلا ونهارا</string>
+	<string name="day_off_today">اليوم عطلة</string>
+	<string name="day_off">عطلة</string>
+	<string name="today">اليوم</string>
+	<string name="sunrise_to_sunset">من الشروق إلى المغيب</string>
+	<string name="sunset_to_sunrise">من غروب الشمس وحتى الشروق</string>
+	<string name="add_opening_hours">اضف ساعات عمل</string>
+	<string name="edit_opening_hours">حرر ساعات عمل</string>
+	<string name="profile">الملف الشخصي</string>
+	<string name="no_osm_account">ليس لديك حساب في OpenStreetMap؟</string>
+	<string name="register_at_openstreetmap">التسجيل</string>
+	<string name="password_8_chars_min">كلمة المرور (8 أحرف بحد أدنى)</string>
+	<string name="invalid_username_or_password">اسم المستخدم أو كلمة المرور غير صالحة.</string>
+	<string name="login">تسجيل الدخول</string>
+	<string name="password">كلمة المرور</string>
+	<string name="forgot_password">هل نسيت كلمة المرور؟</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">استعادة كلمة المرور</string>
+	<string name="enter_email_address_to_reset_password">أدخل عنوان البريد الإلكتروني الذي استخدمته عند التسجيل وسنرسل لك رابط لتجديد كلمة المرور</string>
+	<string name="reset_password">إعادة تعيين كلمة المرور</string>
+	<string name="username">اسم المستخدم</string>
+	<string name="osm_account">حساب OSM</string>
+	<string name="logout">تسجيل الخروج</string>
+	<string name="login_and_edit_map_motivation_message">قم بتسجيل الدخول وعدل البيانات الخاصة بالمكان على الخريطة وسنجعلها متاحة لملايين المستخدمين الآخرين. لنجعل العالم أفضل معا.</string>
+	<string name="not_sent">لم ترسل</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">آخر تحميل</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">تغييرات</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">لقد قمت بتعديلك الأول!</string>
+	<string name="thank_you">شكرا لك</string>
+	<string name="login_with_google">تسجيل الدخول عبر جوجل</string>
+	<string name="login_with_facebook">تسجيل الدخول عبر فيسبوك</string>
+	<string name="login_with_openstreetmap">قم بتسجيل الدخول في www.openstreetmap.org</string>
+	<string name="edit_place">تعديل المكان</string>
+	<string name="place_name">اسم المكان</string>
+	<string name="place_name_caption">أدخل الاسم كما هو مبين على العلامة أو اللافتة</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">لغات أخرى</string>
+	<string name="add_language">إضافة لغة</string>
+	<string name="street">الشارع</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">المبني</string>
+	<string name="details">التفاصيل</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">إضافة شارع</string>
+	<string name="choose_language">اختر اللغة</string>
+	<string name="choose_street">اختر الشارع</string>
+	<string name="postal_code">الرمز البريدي</string>
+	<string name="cuisine">المطبخ</string>
+	<string name="select_cuisine">اختر المطبخ</string>
+	<!-- login text field -->
+	<string name="email_or_username">البريد الإلكتروني أو اسم المستخدم</string>
+	<string name="phone">الهاتف</string>
+	<string name="please_note">يرجى العلم أنه،</string>
+	<string name="common_no_wifi_dialog">لا يوجد اتصال واي فاي. هل ترغب في استخدام بيانات الهاتف للاتصال؟</string>
+	<string name="downloader_delete_map_dialog">سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.</string>
+	<string name="downloader_update_maps">تحديث الخرائط</string>
+	<string name="downloader_mwm_migration_dialog">لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.</string>
+	<string name="downloader_search_field_hint">اعثر على الخريطة</string>
+	<string name="migration_update_all_button">تحديث جميع الخرائط</string>
+	<string name="migration_delete_all_download_current_button">تنزيل الخريطة الحالية وحذف الخرائط القديمة</string>
+	<string name="migration_prefetch_status">جار الإعداد لتحديث الخرائط…</string>
+	<string name="migration_download_error_dialog">خطأ بالتنزيل</string>
+	<string name="common_check_internet_connection_dialog">يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.</string>
+	<string name="downloader_no_space_title">مساحة غير كافية</string>
+	<string name="downloader_no_space_message">من فضلك، قم بإزالة البيانات غير الضرورية</string>
+	<string name="editor_general_auth_error_dialog">خطأ بتسجيل الدخول العام.</string>
+	<string name="editor_login_error_dialog">خطأ في تسجيل الدخول.</string>
+	<string name="editor_login_failed_dialog">فشل تسجيل الدخول</string>
+	<string name="editor_username_error_dialog">اسم المستخدم غير صحيح</string>
+	<string name="editor_place_edited_dialog">لقد قمت بتعديل هدف!</string>
+	<string name="editor_login_with_osm">تسجيل الدخول عبر OpenStreetMap</string>
+	<string name="editor_profile_changes">التغيرات:</string>
+	<string name="editor_profile_unsent_changes">لم ترسل:</string>
+	<string name="editor_focus_map_on_location">اسحب الخريطة لتحدد الموقع الصحيح للهدف.</string>
+	<string name="editor_add_select_category">اختر الفئة</string>
+	<string name="editor_add_select_category_popular_subtitle">شائع</string>
+	<string name="editor_add_select_category_all_subtitle">جميع الفئات</string>
+	<string name="editor_edit_place_title">تعديل</string>
+	<string name="editor_add_place_title">إٍضافة</string>
+	<string name="editor_edit_place_name_hint">اسم المكان</string>
+	<string name="editor_edit_place_category_title">الفئة</string>
+	<string name="detailed_problem_description">وصف مفصل للمشكلة</string>
+	<string name="editor_report_problem_other_title">مشكلة مختلفة</string>
+	<string name="placepage_add_place_button">إضافة مكان</string>
+	<string name="placepage_report_problem_button">الإبلاغ عن مشكلة</string>
+	<string name="whatsnew_smallmwm_header">لقد طلبتم ذلك، وها نحن قد لبينا طلبكم</string>
+	<string name="whatsnew_smallmwm_message">لقد قسمنا الخرائط إلى أجزاء. الآن يمكنك تنزيل مناطق منفصلة، وليس البلد بأكمله.</string>
+	<string name="whatsnew_search_header">بحث جديد</string>
+	<string name="whatsnew_search_message">لقد طورنا كليا البحث بالعنوان. فلترى بنفسك.</string>
+	<string name="whatsnew_editor_title">تعديل الخريطة *</string>
+	<string name="whatsnew_editor_message_1">قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.</string>
+	<string name="whatsnew_editor_message_2">*تستخدم MAPS.ME البيانات الخاصة بخريطة OpenStreetMap.</string>
+	<string name="onboarding_offline_navigation_title">لن تضل الطريق أبدا بعد الآن</string>
+	<string name="onboarding_offline_navigation_message">قم بتخطيط أفضل طرق السيارات والمشاة، حتى مع عدم وجود اتصال بالإنترنت!</string>
+	<string name="onboarding_offline_navigation_title_2">الملاحة في وضع غير متصل</string>
+	<string name="onboarding_offline_navigation_message_2">خطط أفضل طرق السيارات والمشاة.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — وصول إلى الخرائط على مستوى العالم دون إنترنت</string>
+	<string name="onboarding_offline_maps_message">قم بتنزيل خرائط للمنطقة المطلوب مرة واحدة، واستخدم وظائف الملاحة والبحث دون الحاجة للاتصال بالإنترنت.</string>
+	<string name="onboarding_notifications_message">تابع إخطارات التحديث للحصول على أحدث الخرائط</string>
+	<string name="onboarding_notifications_title">تفعيل إخطارات التحديث</string>
+	<string name="onboarding_location_title">ساعدنا في العثور عليك</string>
+	<string name="onboarding_location_message">لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.</string>
+	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
+	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 </resources>

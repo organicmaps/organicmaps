@@ -14,8 +14,6 @@
 	<string name="cancel_download">Annulla il download</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Cancella</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Cancella le vecchie mappe e procedi</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Non me lo chiedere di nuovo</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -48,8 +46,6 @@
 	<string name="miles">Miglia</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">La mia posizione</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Non è stata rilevata alcuna connessione Internet</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Non è stata rilevata alcuna connessione WiFi. Vuoi utilizzare i dati cellulare (GPRS, EDGE, 3G o LTE) per scaricare %s?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
@@ -68,8 +64,6 @@
 	<string name="search">Cerca</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Ricerca Mappa</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Non c\&#39;è abbastanza spazio libero su disco</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Tocca per scaricare</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -90,10 +84,12 @@
 	<string name="country_status_downloading">Sto scaricando\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Scarica Map\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Scarica Map</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Scarica mappa\nsenza percorsi (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Lo scaricamento\n^\nè fallito</string>
+	<string name="country_status_download_failed">Lo scaricamento è fallito</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Riprova</string>
 	<string name="about_menu_title">Informazioni su MAPS.ME</string>
@@ -109,8 +105,7 @@
 	<string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l\&#39;app</string>
 	<string name="not_enough_memory">Memoria insufficiente per lanciare l\&#39;app</string>
 	<string name="free_space_for_country">Libera %1$s sul dispositivo prima per poter scaricare %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %1$.1f%2$s.</string>
+	<string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %s.</string>
 	<string name="getting_position">Ottieni la posizione corrente</string>
 	<string name="download_resources_continue">Vai alla mappa</string>
 	<string name="downloading_country_can_proceed">Sto scaricando %s. Puoi ora\nprocedere con la mappa.</string>
@@ -156,7 +151,7 @@
 	<string name="dropped_pin">Pin trascinato</string>
 	<!-- Default bookmarks set name -->
 	<string name="my_places">I miei luoghi</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Indirizzo</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Rimuovi il Pin</string>
@@ -269,7 +264,7 @@
 	<string name="share">Condividi</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Messaggio</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copia link</string>
@@ -379,6 +374,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Impostazioni e Altro</string>
 	<!-- Text in menu -->
+	<string name="website">Sito web</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">Comunità MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Dai Mi Piace su Facebook</string>
@@ -415,17 +412,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">La nuova versione di MAPS.ME ti permette di creare itinerari dalla tua posizione attuale a un punto di destinazione. Aggiorna le mappe per utilizzare questa funzione.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Aggiorna tutto</string>
+	<string name="downloader_update_all_button">Aggiorna tutte</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Annulla tutto</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Scaricate</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Mappe scaricate</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Le mie mappe</string>
+	<string name="downloader_downloaded_subtitle">Scaricate</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">in coda</string>
+	<string name="downloader_near_me_subtitle">Vicino a me</string>
+	<string name="downloader_status_maps">Mappe</string>
+	<string name="downloader_download_all_button">Scarica tutte</string>
+	<string name="downloader_downloading">In scaricamento:</string>
+	<string name="downloader_search_results">Trovate</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Creando percorsi nell\&#39;app MAPS.ME tieni a mente quanto segue:\n\n  - I percorsi suggeriti possono essere considerati solo come consigliati.\n - Le condizioni della strada, le regole del traffico e i segnali hanno una priorità maggiore rispetto ai consigli sulla circolazione.\n - La mappa potrebbe essere scorretta o datata e i percorsi potrebbero non aver creato la strada migliore possibile.\n\n  Stai attento sulle strade e prenditi cura di te!</string>
 	<!-- Outdated maps category -->
@@ -436,6 +434,8 @@
 	<string name="downloader_status_outdated">Aggiorna</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Fallito</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Per eliminare una mappa interrompi la navigazione.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">La posizione attuale non è definita. Specifica la posizione per creare il percorso.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -511,186 +511,6 @@
 	<string name="routing_download_more_than_avail">Devi scaricare %1$s MB, ma lo spazio disponibile è di soli %2$s MB.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">cucina regionale</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">hamburger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">cucina italiana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">cucina cinese</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">bar caffetteria</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">panini</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">cucina tedesca</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">cucina giapponese</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">kebab</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">cucina messicana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">cucina indiana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">cucina americana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">cucina francese</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">gelateria</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">cucina asiatica</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">pollo</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">cucina greca</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">cucina tailandese</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">cucina internazionale</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">sushi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">fish and chips</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">cucina turca</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">frutti di mare</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">bisteccheria</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">cucina spagnola</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">pesce</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">cucina vietnamita</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">noodles</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">cucina vegetariana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">cucina coreana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">fritture</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">barbecue</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">cucina bavarese</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">ramen</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">cucina italiana, pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">cucina mediterranea</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">ciambelle</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">gyūdon</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">torte</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">crêpes</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">heuriger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">cucina libanese</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">bistecche</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">cucina locale</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">curry</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">cucina filippina</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">cucina russa</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">colazione</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">tapas</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">barbecue</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">bagel</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">pasta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">osteria contadina</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">salsicce</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">cucina portoghese</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">cucina alla griglia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">pancake</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">cucina malgascia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">cucina polacca</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">ristorantino</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">cucina africana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">ciambelle</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">cucina georgiana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">cucina croata</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">cucina araba</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">cucina balcanica</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">cucina brasiliana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">cucina caraibica</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">cucina austriaca</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">cucina vegana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">cucina argentina</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">cucina persiana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">soba</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">cucina malese</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">cucina indonesiana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">cucina etiope</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">gastronomia</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">cucina irlandese</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">cucina ungherese</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">cucina laotiana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">caffè</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">hot dog</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">cucina orientale</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">pancake salati</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">cucina marocchina</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">barbecue</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">cucina peruviana</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">ristorante elegante</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">tè</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">segnalibro</string>
 	<!-- map is not downloaded -->
@@ -768,7 +588,7 @@
 	<string name="dialog_routing_if_get_cross_route">Vuoi creare un percorso più diretto che si estende su più mappe?</string>
 	<string name="dialog_routing_cross_route_is_optimal">È disponibile un percorso migliore che oltrepassa il limite di questa mappa.</string>
 	<string name="dialog_routing_always_cross_that_border">Oltrepassa sempre questo limite</string>
-	<string name="dialog_routing_not_now">Non ora</string>
+	<string name="not_now">Non ora</string>
 	<string name="dialog_routing_build_route">Crea</string>
 	<string name="dialog_routing_download_and_build_cross_route">Vuoi scaricare la mappa e creare un percorso migliore che si estende su più mappe?</string>
 	<string name="dialog_routing_download_cross_route">Per creare un percorso migliore che oltrepassa il limite di questa mappa, scarica la mappa.</string>
@@ -778,7 +598,6 @@
 	<string name="search_without_internet_advertisement">Per iniziare a cercare e a creare i percorsi, scarica la mappa e non avrai più bisogno di una connessione a internet.</string>
 	<string name="search_select_map">Seleziona mappa</string>
 	<string name="search_select_other_map">Seleziona un\&#39;altra mappa</string>
-	<string name="search_vehicle_routes">Indicazioni stradali</string>
 	<!-- «Show» context menu -->
 	<string name="show">Mostra</string>
 	<!-- «Hide» context menu -->
@@ -824,6 +643,148 @@
 	<string name="p2p_only_from_current">La navigazione è disponibile solo dalla tua posizione attuale.</string>
 	<string name="p2p_reroute_from_current">Vuoi che impostiamo il percorso dalla tua posizione corrente?</string>
 	<string name="whats_new_next_button">Avanti</string>
-	<string name="whats_new_night_caption">Navigazione in modalità notturna</string>
-	<string name="whats_new_night_body">Per poter utilizzare al meglio MAPS.ME di sera o di notte, abbiamo aggiunto la modalità notturna. L\&#39;applicazione passerà automaticamente a questa modalità dopo il tramonto.</string>
+	<string name="editor_time_add">Aggiungi orari</string>
+	<string name="editor_time_delete">Elimina orari</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Tutto il giorno (24 ore)</string>
+	<string name="editor_time_open">Aperto</string>
+	<string name="editor_time_close">Chiuso</string>
+	<string name="editor_time_add_closed">Aggiungi orari di chiusura</string>
+	<string name="editor_time_title">Orari di apertura</string>
+	<string name="editor_time_advanced">Modalità avanzata</string>
+	<string name="editor_time_simple">Modalità semplice</string>
+	<string name="editor_hours_closed">Orari di chiusura</string>
+	<string name="editor_example_values">Valori esemplificativi</string>
+	<string name="editor_correct_mistake">Correggi errore</string>
+	<string name="editor_correct_mistake_message">Hai commesso un errore nella modifica. Correggerlo o passare alla modalità semplice.</string>
+	<string name="editor_add_select_location">Posizione</string>
+	<string name="editor_done_dialog_1">Hai modificato la mappa del mondo. Non tenerlo per te! Dillo ai tuoi amici e modificatela insieme.</string>
+	<string name="editor_done_dialog_2">Questa è la tua seconda modifica alla mappa. Adesso sei al %d° posto nella lista di chi ha modificato la mappa. Dillo ai tuoi amici.</string>
+	<string name="editor_done_dialog_3">Hai migliorato la mappa. Dillo ai tuoi amici e modificate la mappa insieme.</string>
+	<string name="share_with_friends">Condividi con gli amici</string>
+	<string name="editor_report_problem_desription_1">Si prega di descrivere il problema in dettaglio in modo che la community OpenStreeMap possa riparare l’errore.</string>
+	<string name="editor_report_problem_desription_2">O fallo tu stesso su http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Invia</string>
+	<string name="editor_report_problem_title">Problema</string>
+	<string name="editor_report_problem_no_place_title">Questo luogo non esiste</string>
+	<string name="editor_report_problem_under_construction_title">Chiuso per manutenzione</string>
+	<string name="editor_report_problem_duplicate_place_title">Luogo duplicato</string>
+	<string name="first_launch_congrats_title">MAPS.ME è pronto per essere usato</string>
+	<string name="first_launch_congrats_text">Cerca e naviga gratuitamente sulle mappe di tutti i Paesi del mondo.</string>
+	<string name="migrate_title">Importante!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Scarica tutto</string>
+	<string name="delete_all">Elimina tutti</string>
+	<string name="autodownload">Scaricamento automatico</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Ora chiuso</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Tutti i giorni</string>
+	<string name="twentyfour_seven">Giorno e notte</string>
+	<string name="day_off_today">Oggi giorno di riposo</string>
+	<string name="day_off">Giorno di riposo</string>
+	<string name="today">Oggi</string>
+	<string name="sunrise_to_sunset">Dall\&#39;alba al tramonto</string>
+	<string name="sunset_to_sunrise">Dal tramonto all\&#39;alba</string>
+	<string name="add_opening_hours">Aggiungi orari di apertura</string>
+	<string name="edit_opening_hours">Modifica orari di apertura</string>
+	<string name="profile">Profilo</string>
+	<string name="no_osm_account">Non hai un account su OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Registrati</string>
+	<string name="password_8_chars_min">Password (minimo 8 caratteri)</string>
+	<string name="invalid_username_or_password">Username o password non corretti.</string>
+	<string name="login">Accedi</string>
+	<string name="password">Password</string>
+	<string name="forgot_password">Hai dimenticato la password?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Ripristina password</string>
+	<string name="enter_email_address_to_reset_password">Inserisci l\&#39;indirizzo email utilizzato durante la registrazione e ti invieremo un link per recuperare la password.</string>
+	<string name="reset_password">Reimpostare password</string>
+	<string name="username">Nome utente</string>
+	<string name="osm_account">Account OSM</string>
+	<string name="logout">Esci</string>
+	<string name="login_and_edit_map_motivation_message">Accedi e modifica le informazioni degli oggetti sulla mappa e noi provvederemo a renderli disponibili a milioni di altri utenti. Creiamo un mondo migliore assieme.</string>
+	<string name="not_sent">Non inviato</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Ultimo caricamento</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">modifiche</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Hai modificato il tuo primo oggetto!</string>
+	<string name="thank_you">Grazie</string>
+	<string name="login_with_google">Accedi con Google</string>
+	<string name="login_with_facebook">Accedi con Facebook</string>
+	<string name="login_with_openstreetmap">Accedi con www.openstreetmap.org</string>
+	<string name="edit_place">Modifica il luogo</string>
+	<string name="place_name">Nome del luogo</string>
+	<string name="place_name_caption">Inserisci il nome riportato nel segnale o nella targhetta</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Altre lingue</string>
+	<string name="add_language">Aggiungi una lingua</string>
+	<string name="street">Via</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Edificio</string>
+	<string name="details">Dettagli</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Aggiungi una strada</string>
+	<string name="choose_language">Scegli una lingua</string>
+	<string name="choose_street">Scegli una strada</string>
+	<string name="postal_code">Codice postale</string>
+	<string name="cuisine">Cucina</string>
+	<string name="select_cuisine">Seleziona la cucina</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-mail o nome utente</string>
+	<string name="phone">Telefono</string>
+	<string name="please_note">Si prega di notare</string>
+	<string name="common_no_wifi_dialog">Nessuna connessione WiFi. Vuoi continuare con la connessione dati?</string>
+	<string name="downloader_delete_map_dialog">Tutti i cambiamenti nella mappa saranno cancellati insieme alla mappa.</string>
+	<string name="downloader_update_maps">Aggiorna mappe</string>
+	<string name="downloader_mwm_migration_dialog">Per creare un percorso, devi aggiornare tutte le mappe e pianificare nuovamente il percorso.</string>
+	<string name="downloader_search_field_hint">Trova la mappa</string>
+	<string name="migration_update_all_button">Aggiorna tutte le mappe</string>
+	<string name="migration_delete_all_download_current_button">Scarica la mappa attuale e cancella quelle vecchie</string>
+	<string name="migration_prefetch_status">Preparazione aggiornamento delle mappe…</string>
+	<string name="migration_download_error_dialog">Errore nel download</string>
+	<string name="common_check_internet_connection_dialog">Sei pregato di verificare le tue impostazioni e assicurarti che il tuo dispositivo sia connesso a internet.</string>
+	<string name="downloader_no_space_title">Spazio insufficiente</string>
+	<string name="downloader_no_space_message">Si prega di rimuovere i dati non necessari</string>
+	<string name="editor_general_auth_error_dialog">Errore generale di accesso.</string>
+	<string name="editor_login_error_dialog">Errore accesso.</string>
+	<string name="editor_login_failed_dialog">Accesso fallito</string>
+	<string name="editor_username_error_dialog">Nome utente non valido</string>
+	<string name="editor_place_edited_dialog">Hai modificato un oggetto!</string>
+	<string name="editor_login_with_osm">Accedi con OpenStreetMap</string>
+	<string name="editor_profile_changes">Modifiche:</string>
+	<string name="editor_profile_unsent_changes">Non inviato:</string>
+	<string name="editor_focus_map_on_location">Sposta la mappa per selezionare l’esatta posizione dell’oggetto.</string>
+	<string name="editor_add_select_category">Seleziona categoria</string>
+	<string name="editor_add_select_category_popular_subtitle">Popolari</string>
+	<string name="editor_add_select_category_all_subtitle">Tutte le categorie</string>
+	<string name="editor_edit_place_title">Modifica</string>
+	<string name="editor_add_place_title">Aggiunta</string>
+	<string name="editor_edit_place_name_hint">Nome del luogo</string>
+	<string name="editor_edit_place_category_title">Categoria</string>
+	<string name="detailed_problem_description">Descrizione dettagliata di un problema</string>
+	<string name="editor_report_problem_other_title">Un problema diverso</string>
+	<string name="placepage_add_place_button">Aggiungi un luogo</string>
+	<string name="placepage_report_problem_button">Riporta un problema</string>
+	<string name="whatsnew_smallmwm_header">Ce lo avete chiesto e noi lo abbiamo fatto</string>
+	<string name="whatsnew_smallmwm_message">Abbiamo diviso le mappe in parti. Ora puoi scaricare le regioni separate, non l\&#39;intero paese.</string>
+	<string name="whatsnew_search_header">Nuova ricerca</string>
+	<string name="whatsnew_search_message">Abbiamo migliorato significativamente la ricerca per indirizzo. Guarda tu stesso.</string>
+	<string name="whatsnew_editor_title">Modifica la mappa*</string>
+	<string name="whatsnew_editor_message_1">Aggiungi nuovi luoghi alla mappa, e modifica quelli già esistenti direttamente dall’app.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME usa i dati della community OpenStreetMap.</string>
+	<string name="onboarding_offline_navigation_title">Non ti perderai mai più</string>
+	<string name="onboarding_offline_navigation_message">Pianifica percorsi ottimali in auto o a piedi, anche senza connessione internet!</string>
+	<string name="onboarding_offline_navigation_title_2">Navigazione offline</string>
+	<string name="onboarding_offline_navigation_message_2">Pianifica percorsi ottimali in auto o a piedi.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — accedi alla mappa in tutto il mondo senza Internet</string>
+	<string name="onboarding_offline_maps_message">Scarica una volta le mappe per l’area desiderata e usa la navigazione e le funzioni di ricerca senza una connessione internet.</string>
+	<string name="onboarding_notifications_message">Per ricevere le mappe aggiornate, attiva le notifiche di aggiornamento</string>
+	<string name="onboarding_notifications_title">Attiva notifiche di aggiornamento</string>
+	<string name="onboarding_location_title">Aiutaci a trovarti</string>
+	<string name="onboarding_location_message">Per usare la navigazione e altri strumenti, dobbiamo accedere alla tua geolocalizzazione.</string>
+	<string name="dialog_incorrect_feature_position">Cambia posizione</string>
+	<string name="message_invalid_feature_position">Un oggetto non può essere posizionato qui</string>
 </resources>

@@ -1,13 +1,15 @@
 #include "intermediate_result.hpp"
 #include "geometry_utils.hpp"
+#include "reverse_geocoder.hpp"
 
 #include "storage/country_info_getter.hpp"
 
-#include "indexer/ftypes_matcher.hpp"
+#include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
-#include "indexer/categories_holder.hpp"
 
 #include "geometry/angles.hpp"
 
@@ -17,7 +19,6 @@
 #include "base/logging.hpp"
 
 #include "3party/opening_hours/opening_hours.hpp"
-
 
 namespace search
 {
@@ -29,7 +30,9 @@ double const DIST_SAME_STREET = 5000.0;
 
 void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
 {
-  ft.ParseMetadata();
+  if (meta.m_isInitialized)
+    return;
+
   feature::Metadata const & src = ft.GetMetadata();
 
   meta.m_cuisine = src.Get(feature::Metadata::FMD_CUISINE);
@@ -37,121 +40,64 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
   string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())
   {
-    osmoh::OpeningHours oh(openHours);
-
-    // TODO(mgsergio): Switch to three-stated model instead of two-staed
-    // I.e. set unknown if we can't parse or can't answer whether it's open.
-    if (oh.IsValid())
-     meta.m_isClosed = oh.IsClosed(time(nullptr));
-    else
-      meta.m_isClosed = false;
+    osmoh::OpeningHours const oh(openHours);
+    // TODO: We should check closed/open time for specific feature's timezone.
+    time_t const now = time(nullptr);
+    if (oh.IsValid() && !oh.IsUnknown(now))
+      meta.m_isOpenNow = oh.IsOpen(now) ? osm::Yes : osm::No;
+    // In else case value us osm::Unknown, it's set in preview's constructor.
   }
 
-  meta.m_stars = 0;
-  (void) strings::to_int(src.Get(feature::Metadata::FMD_STARS), meta.m_stars);
-  meta.m_stars = my::clamp(meta.m_stars, 0, 5);
+  if (strings::to_int(src.Get(feature::Metadata::FMD_STARS), meta.m_stars))
+    meta.m_stars = my::clamp(meta.m_stars, 0, 5);
+  else
+    meta.m_stars = 0;
+  meta.m_isInitialized = true;
 }
 
 namespace impl
 {
-
-template <class T> bool LessRankT(T const & r1, T const & r2)
-{
-  if (r1.m_rank != r2.m_rank)
-    return (r1.m_rank > r2.m_rank);
-
-  return (r1.m_distance < r2.m_distance);
-}
-
-template <class T> bool LessDistanceT(T const & r1, T const & r2)
-{
-  if (r1.m_distance != r2.m_distance)
-    return (r1.m_distance < r2.m_distance);
-
-  return (r1.m_rank > r2.m_rank);
-}
-
-PreResult1::PreResult1(FeatureID const & fID, uint8_t rank, m2::PointD const & center,
-                       m2::PointD const & pivot, int8_t viewportID)
-  : m_id(fID),
-    m_center(center),
-    m_rank(rank),
-    m_viewportID(viewportID)
+PreResult1::PreResult1(FeatureID const & fID, double priority, int8_t viewportID,
+                       v2::PreRankingInfo const & info)
+  : m_id(fID), m_priority(priority), m_viewportID(viewportID), m_info(info)
 {
   ASSERT(m_id.IsValid(), ());
-
-  CalcParams(pivot);
 }
 
-PreResult1::PreResult1(m2::PointD const & center, m2::PointD const & pivot)
-  : m_center(center)
-{
-  CalcParams(pivot);
-}
+PreResult1::PreResult1(double priority) : m_priority(priority) {}
 
-namespace
-{
-
-void AssertValid(m2::PointD const & p)
-{
-  ASSERT ( my::between_s(-180.0, 180.0, p.x), (p.x) );
-  ASSERT ( my::between_s(-180.0, 180.0, p.y), (p.y) );
-}
-
-}
-
-void PreResult1::CalcParams(m2::PointD const & pivot)
-{
-  AssertValid(m_center);
-  m_distance = PointDistance(m_center, pivot);
-}
-
+// static
 bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)
 {
-  return LessRankT(r1, r2);
+  if (r1.m_info.m_rank != r2.m_info.m_rank)
+    return r1.m_info.m_rank > r2.m_info.m_rank;
+  return r1.m_priority < r2.m_priority;
 }
 
-bool PreResult1::LessDistance(PreResult1 const & r1, PreResult1 const & r2)
+// static
+bool PreResult1::LessPriority(PreResult1 const & r1, PreResult1 const & r2)
 {
-  return LessDistanceT(r1, r2);
+  if (r1.m_priority != r2.m_priority)
+    return r1.m_priority < r2.m_priority;
+  return r1.m_info.m_rank > r2.m_info.m_rank;
 }
 
-bool PreResult1::LessPointsForViewport(PreResult1 const & r1, PreResult1 const & r2)
-{
-  return r1.m_id < r2.m_id;
-}
-
-void PreResult2::CalcParams(m2::PointD const & pivot)
-{
-  m_distance = PointDistance(GetCenter(), pivot);
-}
-
-PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & pivot,
-                       string const & displayName, string const & fileName)
-  : m_id(f.GetID()),
-    m_types(f),
-    m_str(displayName),
-    m_resultType(RESULT_FEATURE),
-    m_geomType(f.GetFeatureType())
+PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & center,
+                       m2::PointD const & pivot, string const & displayName,
+                       string const & fileName)
+  : m_id(f.GetID())
+  , m_types(f)
+  , m_str(displayName)
+  , m_resultType(ftypes::IsBuildingChecker::Instance()(m_types) ? RESULT_BUILDING : RESULT_FEATURE)
+  , m_geomType(f.GetFeatureType())
 {
   ASSERT(m_id.IsValid(), ());
   ASSERT(!m_types.Empty(), ());
 
   m_types.SortBySpec();
 
-  m_rank = p ? p->GetRank() : 0;
-
-  m2::PointD fCenter;
-  if (p && f.GetFeatureType() != feature::GEOM_POINT)
-  {
-    // Optimization tip - use precalculated center point if possible.
-    fCenter = p->GetCenter();
-  }
-  else
-    fCenter = f.GetLimitRect(FeatureType::WORST_GEOMETRY).Center();
-
-  m_region.SetParams(fileName, fCenter);
-  CalcParams(pivot);
+  m_region.SetParams(fileName, center);
+  m_distance = PointDistance(center, pivot);
 
   ProcessMetadata(f, m_metadata);
 }
@@ -161,14 +107,6 @@ PreResult2::PreResult2(double lat, double lon)
     m_resultType(RESULT_LATLON)
 {
   m_region.SetParams(string(), MercatorBounds::FromLatLon(lat, lon));
-}
-
-PreResult2::PreResult2(m2::PointD const & pt, string const & str, uint32_t type)
-  : m_str(str), m_resultType(RESULT_BUILDING)
-{
-  m_region.SetParams(string(), pt);
-
-  m_types.Assign(type);
 }
 
 namespace
@@ -216,46 +154,58 @@ string PreResult2::GetRegionName(storage::CountryInfoGetter const & infoGetter,
   return info.m_name;
 }
 
+namespace
+{
+// TODO: Format street and house number according to local country's rules.
+string FormatStreetAndHouse(ReverseGeocoder::Address const & addr)
+{
+  ASSERT_GREATER_OR_EQUAL(addr.GetDistance(), 0, ());
+  return addr.GetStreetName() + ", " + addr.GetHouseNumber();
+}
+// TODO: Share common formatting code for search results and place page.
+string FormatFullAddress(ReverseGeocoder::Address const & addr, string const & region)
+{
+  // TODO: Print "near" for not exact addresses.
+  if (addr.GetDistance() != 0)
+    return region;
+
+  return FormatStreetAndHouse(addr) + (region.empty() ? "" : ", ") + region;
+}
+}  // namespace
+
 Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGetter,
                                        CategoriesHolder const * pCat,
-                                       set<uint32_t> const * pTypes, int8_t locale) const
+                                       set<uint32_t> const * pTypes, int8_t locale,
+                                       ReverseGeocoder const & coder) const
 {
+  ReverseGeocoder::Address addr;
+  coder.GetNearbyAddress(GetCenter(), addr);
+
+  // Insert exact address (street and house number) instead of empty result name.
+  string name;
+  if (m_str.empty() && addr.GetDistance() == 0)
+    name = FormatStreetAndHouse(addr);
+  else
+    name = m_str;
+
   uint32_t const type = GetBestType(pTypes);
-  string const regionName = GetRegionName(infoGetter, type);
+  // TODO: GetRegionName should return City, State, Country instead of Country, State, City.
+  string const address = FormatFullAddress(addr, GetRegionName(infoGetter, type));
 
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_id, GetCenter(), m_str, regionName, ReadableFeatureType(pCat, type, locale)
+  case RESULT_BUILDING:
+    return Result(m_id, GetCenter(), name, address, pCat->GetReadableFeatureType(type, locale)
               #ifdef DEBUG
-                  + ' ' + strings::to_string(int(m_rank))
+                  + ' ' + strings::to_string(static_cast<int>(m_info.m_rank))
               #endif
                   , type, m_metadata);
 
-  case RESULT_BUILDING:
-    return Result(GetCenter(), m_str, regionName, ReadableFeatureType(pCat, type, locale));
-
   default:
     ASSERT_EQUAL(m_resultType, RESULT_LATLON, ());
-    return Result(GetCenter(), m_str, regionName, string());
+    return Result(GetCenter(), m_str, address);
   }
-}
-
-Result PreResult2::GeneratePointResult(CategoriesHolder const * pCat, set<uint32_t> const * pTypes,
-                                       int8_t locale) const
-{
-  uint32_t const type = GetBestType(pTypes);
-  return Result(m_id, GetCenter(), m_str, ReadableFeatureType(pCat, type, locale));
-}
-
-bool PreResult2::LessRank(PreResult2 const & r1, PreResult2 const & r2)
-{
-  return LessRankT(r1, r2);
-}
-
-bool PreResult2::LessDistance(PreResult2 const & r1, PreResult2 const & r2)
-{
-  return LessDistanceT(r1, r2);
 }
 
 bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
@@ -314,7 +264,7 @@ string PreResult2::DebugPrint() const
   ss << "{ IntermediateResult: " <<
         "Name: " << m_str <<
         "; Type: " << GetBestType() <<
-        "; Rank: " << int(m_rank) <<
+        "; Rank: " << static_cast<int>(m_info.m_rank) <<
         "; Distance: " << m_distance << " }";
   return ss.str();
 }
@@ -335,20 +285,6 @@ uint32_t PreResult2::GetBestType(set<uint32_t> const * pPrefferedTypes) const
   uint32_t type = m_types.GetBestType();
   ftype::TruncValue(type, 2);
   return type;
-}
-
-string PreResult2::ReadableFeatureType(CategoriesHolder const * pCat,
-                                       uint32_t type, int8_t locale) const
-{
-  ASSERT_NOT_EQUAL(type, 0, ());
-  if (pCat)
-  {
-    string name;
-    if (pCat->GetNameByType(type, locale, name))
-      return name;
-  }
-
-  return classif().GetReadableObjectName(type);
 }
 
 void PreResult2::RegionInfo::GetRegion(storage::CountryInfoGetter const & infoGetter,

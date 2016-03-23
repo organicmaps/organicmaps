@@ -1,10 +1,10 @@
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
-FileWriter::FileWriter(FileWriter const & rhs)
-: Writer(*this), m_bTruncOnClose(rhs.m_bTruncOnClose)
+
+FileWriter::FileWriter(FileWriter && rhs)
+: m_pFileData(move(rhs.m_pFileData)), m_bTruncOnClose(rhs.m_bTruncOnClose)
 {
-  m_pFileData.swap(const_cast<FileWriter &>(rhs).m_pFileData);
 }
 
 FileWriter::FileWriter(string const & fileName, FileWriter::Op op, bool bTruncOnClose)

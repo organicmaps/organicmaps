@@ -2,35 +2,32 @@
 
 #include <jni.h>
 
+#include "ScopedLocalRef.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "std/string.hpp"
 #include "std/shared_ptr.hpp"
 
-// cache MapIndex jclass
-extern jclass g_indexClazz;
+extern jclass g_mapObjectClazz;
+extern jclass g_bookmarkClazz;
 
 namespace jni
 {
-// TODO yunitsky uncomment and use to load classes from native threads.
-// jclass FindClass(char const * name);
+  JNIEnv * GetEnv();
+  JavaVM * GetJVM();
 
-  jmethodID GetJavaMethodID(JNIEnv * env, jobject obj, char const * fn, char const * sig);
+  jmethodID GetMethodID(JNIEnv * env, jobject obj, char const * fn, char const * sig);
+  jmethodID GetConstructorID(JNIEnv * env, jclass clazz, char const * sig);
 
   // Result value should be DeleteGlobalRef`ed by caller
   jclass GetGlobalClassRef(JNIEnv * env, char const * s);
 
-  JNIEnv * GetEnv();
-  JavaVM * GetJVM();
-
   string ToNativeString(JNIEnv * env, jstring str);
-
   // Converts UTF-8 array to native UTF-8 string. Result differs from simple GetStringUTFChars call for characters greater than U+10000,
   // since jni uses modified UTF (MUTF-8) for strings.
   string ToNativeString(JNIEnv * env, jbyteArray const & utfBytes);
-
   jstring ToJavaString(JNIEnv * env, char const * s);
-
   inline jstring ToJavaString(JNIEnv * env, string const & s)
   {
     return ToJavaString(env, s.c_str());
@@ -42,6 +39,11 @@ namespace jni
   string DescribeException();
 
   shared_ptr<jobject> make_global_ref(jobject obj);
+  using TScopedLocalRef = ScopedLocalRef<jobject>;
+  using TScopedLocalClassRef = ScopedLocalRef<jclass>;
+  using TScopedLocalObjectArrayRef = ScopedLocalRef<jobjectArray>;
+  using TScopedLocalIntArrayRef = ScopedLocalRef<jintArray>;
+  using TScopedLocalByteArrayRef = ScopedLocalRef<jbyteArray>;
 
   jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD const & point);
 

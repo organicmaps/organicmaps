@@ -1,6 +1,7 @@
 #import "MWMBottomMenuCollectionViewCell.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIColor+MapsMeColor.h"
+#import "UIImageView+Coloring.h"
 
 @interface MWMBottomMenuCollectionViewCell ()
 
@@ -9,17 +10,19 @@
 @property (weak, nonatomic) IBOutlet UILabel * badgeCount;
 @property (weak, nonatomic) IBOutlet UIView * separator;
 
+@property (nonatomic, readwrite) BOOL isEnabled;
 @property (nonatomic) BOOL isWideMenu;
 
 @end
 
 @implementation MWMBottomMenuCollectionViewCell
 
-- (void)configureWithImage:(UIImage *)image
+- (void)configureWithImageName:(NSString *)imageName
                      label:(NSString *)label
                 badgeCount:(NSUInteger)badgeCount
+                 isEnabled:(BOOL)isEnabled
 {
-  self.icon.image = image;
+  self.icon.image = [UIImage imageNamed:imageName];
   [self.icon makeImageAlwaysTemplate];
   self.label.text = label;
   if (badgeCount > 0)
@@ -33,17 +36,18 @@
     self.badgeBackground.hidden = YES;
     self.badgeCount.hidden = YES;
   }
-}
-
-- (void)configureWithImageName:(NSString *)imageName label:(NSString *)label badgeCount:(NSUInteger)badgeCount
-{
-  [self configureWithImage:[UIImage imageNamed:imageName] label:label badgeCount:badgeCount];
+  self.isEnabled = isEnabled;
+  self.icon.mwm_coloring = isEnabled ? MWMImageColoringBlack : MWMImageColoringGray;
+  self.label.textColor = isEnabled ? [UIColor blackPrimaryText] : [UIColor blackHintText];
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  if (!self.isEnabled)
+    return;
+
   [super setHighlighted:highlighted];
-  self.icon.tintColor = self.label.textColor = highlighted ? [UIColor blackHintText] : [UIColor blackSecondaryText];
+  self.label.textColor = highlighted ? [UIColor blackHintText] : [UIColor blackPrimaryText];
 }
 
 - (void)setSelected:(BOOL)selected

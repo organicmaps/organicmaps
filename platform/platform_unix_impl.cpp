@@ -32,6 +32,26 @@ struct CloseDir
       closedir(dir);
   }
 };
+
+string DebugPrint(Platform::EError err)
+{
+  switch (err)
+  {
+  case Platform::ERR_OK: return "Ok";
+  case Platform::ERR_FILE_DOES_NOT_EXIST: return "File does not exist.";
+  case Platform::ERR_ACCESS_FAILED: return "Access failed.";
+  case Platform::ERR_DIRECTORY_NOT_EMPTY: return "Directory not empty.";
+  case Platform::ERR_FILE_ALREADY_EXISTS: return "File already exists.";
+  case Platform::ERR_NAME_TOO_LONG:
+    return "The length of a component of path exceeds {NAME_MAX} characters.";
+  case Platform::ERR_NOT_A_DIRECTORY:
+    return "A component of the path prefix of Path is not a directory.";
+  case Platform::ERR_SYMLINK_LOOP:
+    return "Too many symbolic links were encountered in translating path.";
+  case Platform::ERR_IO_ERROR: return "An I/O error occurred.";
+  case Platform::ERR_UNKNOWN: return "Unknown";
+  }
+}
 }  // namespace
 
 void Platform::GetSystemFontNames(FilesList & res) const
@@ -185,18 +205,36 @@ Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
   struct statfs st;
   int const ret = statfs(m_writableDir.c_str(), &st);
 
-  LOG(LDEBUG, ("statfs return = ", ret,
-               "; block size = ", st.f_bsize,
-               "; blocks available = ", st.f_bavail));
+  LOG(LDEBUG, ("statfs return =", ret,
+               "; block size =", st.f_bsize,
+               "; blocks available =", st.f_bavail));
 
   if (ret != 0)
+  {
+    LOG(LERROR, ("Path:", m_writableDir, "statfs error:", ErrnoToError()));
     return STORAGE_DISCONNECTED;
+  }
 
   /// @todo May be add additional storage space.
   if (st.f_bsize * st.f_bavail < neededSize)
     return NOT_ENOUGH_SPACE;
 
   return STORAGE_OK;
+}
+
+uint64_t Platform::GetWritableStorageSpace() const
+{
+  struct statfs st;
+  int const ret = statfs(m_writableDir.c_str(), &st);
+
+  LOG(LDEBUG, ("statfs return =", ret,
+               "; block size =", st.f_bsize,
+               "; blocks available =", st.f_bavail));
+
+  if (ret != 0)
+    LOG(LERROR, ("Path:", m_writableDir, "statfs error:", ErrnoToError()));
+
+  return (ret != 0) ? 0 : st.f_bsize * st.f_bavail;
 }
 
 namespace pl

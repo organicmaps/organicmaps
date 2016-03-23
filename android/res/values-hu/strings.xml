@@ -14,8 +14,6 @@
 	<string name="cancel_download">Letöltés megszakítása</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Törlés</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Régi térképek törlése és folytatás</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Ne kérdezze többször</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -48,8 +46,6 @@
 	<string name="miles">Mérföld</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Saját helyzet</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Nem találtam internet kapcsolatot</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Nem találtam WiFi kapcsolatot. Használjunk mobil kapcsolatot (GPRS, EDGE, 3G vagy LTE) %s letöltéséhez?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
@@ -68,16 +64,12 @@
 	<string name="search">Keresés</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Keresés a térképen</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Nincs elég szabad hely a lemezen</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Érintse meg letöltéshez</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Igen</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">WiFi használatát javasoljuk nagy térképek letöltéséhez</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Frissítettük a térképadatokat. Nagyobb országokban most egyes régiók külön is letölthetőek. Az új térképek használata előtt kérjük törölje le a régi térképeket.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Milyen mértékegységet használjunk?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -92,10 +84,12 @@
 	<string name="country_status_downloading">^\n^\nletöltése folyamatban</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Térkép letöltése\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Térkép letöltése</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Térkép letöltése\nútvonal nélkül (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">^\nletöltése sikertelen</string>
+	<string name="country_status_download_failed">Letöltése sikertelen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Újrapróbálkozás</string>
 	<string name="about_menu_title">A MAPS.ME programról</string>
@@ -111,8 +105,7 @@
 	<string name="not_enough_free_space_on_sdcard">Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!</string>
 	<string name="not_enough_memory">Nincs elegendő memória az alkalmazás futtatásához</string>
 	<string name="free_space_for_country">Kérjük szabadítson fel %1$s-t az eszközön %2$s letöltéséhez!</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Első használat előtt letöltjük a világtérképet.\n%1$.1f%2$s tárolóhely szükséges.</string>
+	<string name="download_resources">Első használat előtt letöltjük a világtérképet.\n%s tárolóhely szükséges.</string>
 	<string name="getting_position">Aktuális pozíció meghatározása…</string>
 	<string name="download_resources_continue">Térképhez ugrás</string>
 	<string name="downloading_country_can_proceed">%s letöltése. Mos továbbléphet\na térképhez.</string>
@@ -160,16 +153,16 @@
 	<string name="my_places">Saját helyeim</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Név</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Cím</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Jelző törlése</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Csoport</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
+	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
+	<string name="bookmarks_usage_hint_import_only">Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Beállítások</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -273,8 +266,8 @@
 	<string name="share">Megosztás</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Üzenet</string>
-	<!-- Share by email button text -->
-	<string name="email">Email</string>
+	<!-- Share by email button text, also used in editor. -->
+	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Hivatkozás másolása</string>
 	<!-- Text for the button that returns to caller application -->
@@ -383,6 +376,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Beállítások és egyéb</string>
 	<!-- Text in menu -->
+	<string name="website">Honlap</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME közösség</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Lájkolj minket Facebookon</string>
@@ -419,17 +414,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">A MAPS.ME új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Mind frissítése</string>
+	<string name="downloader_update_all_button">Mindegyik frissítése</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Mindent visszavon</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Letöltve</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Letöltött térképek</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Térképeim</string>
+	<string name="downloader_downloaded_subtitle">Letöltve</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">várólistás</string>
+	<string name="downloader_near_me_subtitle">A közelemben</string>
+	<string name="downloader_status_maps">Térképek</string>
+	<string name="downloader_download_all_button">Mindegyik letöltése</string>
+	<string name="downloader_downloading">Letöltés:</string>
+	<string name="downloader_search_results">Megtalálva</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Amikor útvonalakat készít a MAPS.ME appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!</string>
 	<!-- Outdated maps category -->
@@ -437,9 +433,11 @@
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Friss</string>
 	<!-- Status of outdated country in the list -->
-	<string name="downloader_status_outdated">Frissítése</string>
+	<string name="downloader_status_outdated">Frissítés</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Sikertelen</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Kérjük, állítsa le a navigációt a térkép törléséhez.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Nem meghatározott a jelenlegi helyszín. Kérjük, határozza meg a helyszínt, hogy útvonal készülhessen.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -515,186 +513,6 @@
 	<string name="routing_download_more_than_avail">%1$s MB-t kell letöltened, de csak %2$s MB hely szabad.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">%s MB-nyi adatot készül letölteni mobilján (roamingon) keresztül. Ez további költségekkel járhat, a mobilcsomagjától függően.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">regionális konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">hamburger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">olasz konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">kínai konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kávézó</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">szendvics</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">német konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">japán konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">kebab</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">mexikói konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">indiai konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">amerikai konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">francia konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">jégkrém</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">ázsiai és közel-keleti konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">csirke</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">görög konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">thai konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">nemzetközi konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">szusi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">hal és sültkrumpli</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">török konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">tenger gyümölcsei</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">steak ház</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">spanyol konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">hal</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">vietnami konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">tészta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">vegetáriánus konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">koreai konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">olajban sütött ételek</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">barbecue</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">bajor konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">rámen</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">olasz konyha, pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">mediterrán konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">fánk</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">gyúdon</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">torta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">francia palacsinta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">heuriger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">libanoni konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">steak</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">helyi konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">curry</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">filippínó konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">orosz konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">reggeli</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">tapas</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">grill</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">bagel</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">tészta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">borozó</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">kolbász</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">portugál konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">grill</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">palacsinta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">madagaszkári konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">lengyel konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">étkező</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">afrikai konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">fánk</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">grúz konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">horvát konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">arab konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">balkáni konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">brazil konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">karibi konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">osztrák konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">vegán konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">argentin konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">perzsa konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">soba</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">maláj konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">indonéz konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">etióp konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">csemege</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">ír konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">magyar konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">laoszi konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kávé</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">hotdog</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">keleti konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">sós palacsinta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">marokkói konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">barbeque</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">perui konyha</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">exkluzív étterem</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">tea</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">könyvjelző</string>
 	<!-- map is not downloaded -->
@@ -772,7 +590,7 @@
 	<string name="dialog_routing_if_get_cross_route">Szeretne egy közvetlenebb útvonalat létrehozni, amely több, mint egy térképen terül el?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Elérhető egy optimálisabb útvonal, amely áthalad a jelenlegi térkép szélén.</string>
 	<string name="dialog_routing_always_cross_that_border">Mindig haladjon át ezen a határon</string>
-	<string name="dialog_routing_not_now">Most nem</string>
+	<string name="not_now">Most nem</string>
 	<string name="dialog_routing_build_route">Létrehozás</string>
 	<string name="dialog_routing_download_and_build_cross_route">Szeretné letölteni a térképet és létrehozni egy optimálisabb útvonalat, amely több, mint egy térképen terül el?</string>
 	<string name="dialog_routing_download_cross_route">Töltse le a térképet, hogy létrehozzon egy optimálisabb útvonalat, amely áthalad a jelenlegi térkép szélén.</string>
@@ -782,7 +600,6 @@
 	<string name="search_without_internet_advertisement">Útvonalak kereséséhez és létrehozásához, kérjük, töltsd le a térképet és többé nem lesz szükséged internetkapcsolatra.</string>
 	<string name="search_select_map">Jelöld ki a térképet</string>
 	<string name="search_select_other_map">Jelölj ki másik térképet</string>
-	<string name="search_vehicle_routes">Útvonaltervezés</string>
 	<!-- «Show» context menu -->
 	<string name="show">Mutat</string>
 	<!-- «Hide» context menu -->
@@ -828,6 +645,148 @@
 	<string name="p2p_only_from_current">A navigáció csak a jelenlegi helyzetéből érhető el.</string>
 	<string name="p2p_reroute_from_current">Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?</string>
 	<string name="whats_new_next_button">Következő</string>
-	<string name="whats_new_night_caption">Navigáció éjszakai módban</string>
-	<string name="whats_new_night_body">A MAPS.ME használatának sötétben való vezetés közbeni elősegítése érdekében hozzáadtuk a funkciókhoz az éjszakai módot. Naplemente után automatikusan bekapcsol.</string>
+	<string name="editor_time_add">Időrend felvitele</string>
+	<string name="editor_time_delete">Időrend törlése</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Egész nap (24 óra)</string>
+	<string name="editor_time_open">Nyitva</string>
+	<string name="editor_time_close">Zárva</string>
+	<string name="editor_time_add_closed">Zárvatartási idők felvitele</string>
+	<string name="editor_time_title">Nyitvatartási idő</string>
+	<string name="editor_time_advanced">Haladó mód</string>
+	<string name="editor_time_simple">Egyszerű mód</string>
+	<string name="editor_hours_closed">Zárvatartási órák</string>
+	<string name="editor_example_values">Példa értékek</string>
+	<string name="editor_correct_mistake">Hiba javítása</string>
+	<string name="editor_correct_mistake_message">Szerkesztési hibát vétett. Javítsa ki vagy váltson egyszerű módba.</string>
+	<string name="editor_add_select_location">Elhelyezkedés</string>
+	<string name="editor_done_dialog_1">Megváltoztattad a világ térképét. Ne titkold el mások elől! Mondd el a barátaidnak, és szerkesszétek közösen!</string>
+	<string name="editor_done_dialog_2">Ez a második térképjavításod. Most már te is rajta vagy a térképszerkesztők listáján, az %d. helyen. Mesélj erről a barátaidnak is.</string>
+	<string name="editor_done_dialog_3">Javítottál a térképen! Mondd el a barátaidnak is és szerkesszétek közösen!</string>
+	<string name="share_with_friends">Oszd meg az ismerőseiddel</string>
+	<string name="editor_report_problem_desription_1">Kérjük, írd le részletesen a problémát, hogy az OpenStreeMap csapata kijavíthassa.</string>
+	<string name="editor_report_problem_desription_2">Vagy végezd el te magad a javítást itt: http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Küldés</string>
+	<string name="editor_report_problem_title">Probléma</string>
+	<string name="editor_report_problem_no_place_title">A hely nem létezik</string>
+	<string name="editor_report_problem_under_construction_title">Karbantartás miatt nem elérhető</string>
+	<string name="editor_report_problem_duplicate_place_title">Duplikált hely</string>
+	<string name="first_launch_congrats_title">A MAPS.ME használatra készen áll</string>
+	<string name="first_launch_congrats_text">Keress és navigálj ingyen a világ összes térképében.</string>
+	<string name="migrate_title">Fontos!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Összes letöltése</string>
+	<string name="delete_all">Összes térkép törlése</string>
+	<string name="autodownload">Automatikus letöltés</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Most zárva</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Naponta</string>
+	<string name="twentyfour_seven">Nappal és éjszaka</string>
+	<string name="day_off_today">Ma szabadnap</string>
+	<string name="day_off">Szabadnap</string>
+	<string name="today">Ma</string>
+	<string name="sunrise_to_sunset">Napkeltétől napnyugtáig</string>
+	<string name="sunset_to_sunrise">Napkeltétől napnyugtáig</string>
+	<string name="add_opening_hours">Nyitvatartás hozzáadása</string>
+	<string name="edit_opening_hours">Nyitvatartás szerkesztése</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?</string>
+	<string name="register_at_openstreetmap">Regisztráció</string>
+	<string name="password_8_chars_min">Jelszó (legalább 8 karakter)</string>
+	<string name="invalid_username_or_password">Érvénytelen felhasználónév vagy jelszó.</string>
+	<string name="login">Bejelentkezés</string>
+	<string name="password">Jelszó</string>
+	<string name="forgot_password">Elfelejtett jelszó?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Jelszó visszaállítása</string>
+	<string name="enter_email_address_to_reset_password">Add meg a regisztrációkor használt e-mail-címedet és elküldjük neked a jelszavad megújításához szükséges linket.</string>
+	<string name="reset_password">Jelszó visszaállítása</string>
+	<string name="username">Felhasználónév</string>
+	<string name="osm_account">OSM-felhasználói fiók</string>
+	<string name="logout">Kijelentkezés</string>
+	<string name="login_and_edit_map_motivation_message">Jelentkezz be és szerkeszd az egyes objektumokhoz tartozó információkat a térképen, valamint tedd őket elérhetővé több millió felhasználó számára.</string>
+	<string name="not_sent">Nincs elküldve</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Utolsó frissítés</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">változtatás</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Szerkesztetted az első objektumod!</string>
+	<string name="thank_you">Köszönjük</string>
+	<string name="login_with_google">Bejelentkezés Google- vel</string>
+	<string name="login_with_facebook">Bejelentkezés Facebookkal</string>
+	<string name="login_with_openstreetmap">Jelentkezz be a www.openstreetmap.org oldalon</string>
+	<string name="edit_place">Hely szerkesztése</string>
+	<string name="place_name">Hely neve</string>
+	<string name="place_name_caption">Adja meg a táblán vagy az utcatáblán megjelenő nevet</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Más nyelv</string>
+	<string name="add_language">Nyelv hozzáadása</string>
+	<string name="street">Utca</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Épület</string>
+	<string name="details">Részletek</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Utca hozzáadása</string>
+	<string name="choose_language">Nyelv kiválasztása</string>
+	<string name="choose_street">Utca kiválasztása</string>
+	<string name="postal_code">Irányítószám</string>
+	<string name="cuisine">Konyha</string>
+	<string name="select_cuisine">Válassz Konyhát</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-mail vagy felhasználónév</string>
+	<string name="phone">Telefonszám</string>
+	<string name="please_note">Megjegyzés</string>
+	<string name="common_no_wifi_dialog">Nincs WiFi-kapcsolat. Szeretnéd folytatni mobil adatforgalom használatával?</string>
+	<string name="downloader_delete_map_dialog">A térképekkel együtt minden rajtuk végzett módosítás is törlésre kerül.</string>
+	<string name="downloader_update_maps">Térképek frissítése</string>
+	<string name="downloader_mwm_migration_dialog">Útvonal létrehozásához frissítsd az összes térképet, majd tervezd meg újra az útvonalat.</string>
+	<string name="downloader_search_field_hint">Térkép keresése</string>
+	<string name="migration_update_all_button">Minden térkép frissítése</string>
+	<string name="migration_delete_all_download_current_button">Töltsd le a jelenlegi térképet és töröld a régieket</string>
+	<string name="migration_prefetch_status">Térképfrissítések előkészítése…</string>
+	<string name="migration_download_error_dialog">Letöltési hiba</string>
+	<string name="common_check_internet_connection_dialog">Kérjük, ellenőrizd a beállításaid és győződj meg arról, hogy a készüléked kapcsolódik az internethez.</string>
+	<string name="downloader_no_space_title">Nincs elegendő tárhely</string>
+	<string name="downloader_no_space_message">Kérjük, töröld a szükségtelen adatokat</string>
+	<string name="editor_general_auth_error_dialog">Általános bejelentkezési hiba.</string>
+	<string name="editor_login_error_dialog">Bejelentkezési hiba.</string>
+	<string name="editor_login_failed_dialog">Sikertelen bejelentkezés</string>
+	<string name="editor_username_error_dialog">Érvénytelen felhasználónév</string>
+	<string name="editor_place_edited_dialog">Szerkesztettél egy objektumot!</string>
+	<string name="editor_login_with_osm">Bejelentkezés OpenStreetMappel</string>
+	<string name="editor_profile_changes">Változások:</string>
+	<string name="editor_profile_unsent_changes">Nincs elküldve:</string>
+	<string name="editor_focus_map_on_location">Húzd a térképet a megfelelő helyre az objektum helyes helyszínének kiválasztásához.</string>
+	<string name="editor_add_select_category">Válassz kategóriát</string>
+	<string name="editor_add_select_category_popular_subtitle">Népszerűek</string>
+	<string name="editor_add_select_category_all_subtitle">Minden kategória</string>
+	<string name="editor_edit_place_title">Szerkesztés</string>
+	<string name="editor_add_place_title">Hozzáadás</string>
+	<string name="editor_edit_place_name_hint">Hely neve</string>
+	<string name="editor_edit_place_category_title">Kategória</string>
+	<string name="detailed_problem_description">A probléma részletes leírása</string>
+	<string name="editor_report_problem_other_title">Különböző probléma</string>
+	<string name="placepage_add_place_button">Hely hozzáadása</string>
+	<string name="placepage_report_problem_button">Hibabejelentés</string>
+	<string name="whatsnew_smallmwm_header">Te kérted, mi elkészítettük</string>
+	<string name="whatsnew_smallmwm_message">Felosztottuk részekre a térképeket. Mostantól az egyes régiókat is letöltheted, nem csak az egész országot.</string>
+	<string name="whatsnew_search_header">Új keresés</string>
+	<string name="whatsnew_search_message">Jelentősen javítottunk a címen alapuló keresésünkön. Nézd meg magadnak.</string>
+	<string name="whatsnew_editor_title">Térkép szerkesztése*</string>
+	<string name="whatsnew_editor_message_1">Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.</string>
+	<string name="whatsnew_editor_message_2">* A MAPS.ME az OpenStreetMap közösség adatait használja.</string>
+	<string name="onboarding_offline_navigation_title">Többé nem fogsz eltévedni</string>
+	<string name="onboarding_offline_navigation_message">Tervezd meg az optimális autós és gyalogos útvonalakat, akkor is, ha nincs internetkapcsolat!</string>
+	<string name="onboarding_offline_navigation_title_2">Offline navigáció</string>
+	<string name="onboarding_offline_navigation_message_2">Tervezd meg az optimális autós és gyalogos útvonalakat.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — hozzáférés a világ térképéhez Internet nélkül</string>
+	<string name="onboarding_offline_maps_message">Mindössze egyszer kell letöltened egy adott helyszín térképét, azt követően internetkapcsolat nélkül is használhatod a navigációs és keresési funkciókat.</string>
+	<string name="onboarding_notifications_message">Fogadj értesítő üzeneteket a legfrissebb térképekről</string>
+	<string name="onboarding_notifications_title">Értesítések engedélyezése</string>
+	<string name="onboarding_location_title">Segíts, hogy megtaláljunk</string>
+	<string name="onboarding_location_message">A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.</string>
+	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
+	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
 </resources>

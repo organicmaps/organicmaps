@@ -1,8 +1,9 @@
 #import "DownloadIndicatorProtocol.h"
-#import "MapsObservers.h"
-#import "NavigationController.h"
+#import "MWMNavigationController.h"
 
 #include "indexer/map_style.hpp"
+
+#include "storage/index.hpp"
 
 @class MapViewController;
 @class LocationManager;
@@ -16,10 +17,11 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode)
 };
 
 @interface MapsAppDelegate : UIResponder<UIApplicationDelegate, UIAlertViewDelegate,
-                                         ActiveMapsObserverProtocol, DownloadIndicatorProtocol>
+                                         DownloadIndicatorProtocol>
 {
   NSInteger m_activeDownloadsCounter;
   UIBackgroundTaskIdentifier m_backgroundTask;
+  UIBackgroundTaskIdentifier m_editorUploadBackgroundTask;
   UIAlertView * m_loadingAlertView;
 }
 
@@ -27,13 +29,16 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode)
 @property (nonatomic) MWMRoutingPlaneMode routingPlaneMode;
 
 @property (nonatomic, readonly) MapViewController * mapViewController;
-@property (nonatomic, readonly) LocationManager * m_locationManager;
+@property (nonatomic, readonly) LocationManager * locationManager;
+@property (nonatomic, readonly) BOOL isDaemonMode;
 
 + (MapsAppDelegate *)theApp;
 
 - (void)enableStandby;
 - (void)disableStandby;
+
 + (void)customizeAppearance;
++ (void)customizeAppearanceForNavigationBar:(UINavigationBar *)navigationBar;
 
 - (void)disableDownloadIndicator;
 - (void)enableDownloadIndicator;

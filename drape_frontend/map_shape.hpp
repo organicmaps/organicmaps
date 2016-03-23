@@ -14,14 +14,12 @@ namespace dp
 namespace df
 {
 
-// Priority of shapes' processing (descending order).
-enum MapShapePriority
+enum MapShapeType
 {
-  AreaPriority = 0,
-  TextAndPoiPriority,
-  LinePriority,
+  GeometryType = 0,
+  OverlayType,
 
-  PrioritiesCount
+  MapShapeTypeCount
 };
 
 class MapShape
@@ -30,27 +28,66 @@ public:
   virtual ~MapShape(){}
   virtual void Prepare(ref_ptr<dp::TextureManager> textures) const {}
   virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const = 0;
-  virtual MapShapePriority GetPriority() const { return MapShapePriority::AreaPriority; }
+  virtual MapShapeType GetType() const { return MapShapeType::GeometryType; }
+
+  void SetFeatureMinZoom(int minZoom) { m_minZoom = minZoom; }
+  int GetFeatureMinZoom() const { return m_minZoom; }
+
+private:
+  int m_minZoom = 0;
 };
 
 using TMapShapes = vector<drape_ptr<MapShape>>;
 
-class MapShapeReadedMessage : public Message
+class MapShapeMessage : public Message
+{
+public:
+  MapShapeMessage(TileKey const & key)
+    : m_tileKey(key)
+  {}
+
+  TileKey const & GetKey() const { return m_tileKey; }
+
+private:
+  TileKey m_tileKey;
+};
+
+class TileReadStartMessage : public MapShapeMessage
+{
+public:
+  TileReadStartMessage(TileKey const & key) : MapShapeMessage(key) {}
+  Type GetType() const override { return Message::TileReadStarted; }
+};
+
+class TileReadEndMessage : public MapShapeMessage
+{
+public:
+  TileReadEndMessage(TileKey const & key) : MapShapeMessage(key) {}
+  Type GetType() const override { return Message::TileReadEnded; }
+};
+
+class MapShapeReadedMessage : public MapShapeMessage
 {
 public:
   MapShapeReadedMessage(TileKey const & key, TMapShapes && shapes)
-    : m_key(key), m_shapes(move(shapes))
+    : MapShapeMessage(key), m_shapes(move(shapes))
   {}
 
   Type GetType() const override { return Message::MapShapeReaded; }
-
-  TileKey const & GetKey() const { return m_key; }
-
   TMapShapes const & GetShapes() { return m_shapes; }
 
 private:
-  TileKey m_key;
   TMapShapes m_shapes;
+};
+
+class OverlayMapShapeReadedMessage : public MapShapeReadedMessage
+{
+public:
+  OverlayMapShapeReadedMessage(TileKey const & key, TMapShapes && shapes)
+    : MapShapeReadedMessage(key, move(shapes))
+  {}
+
+  Type GetType() const override { return Message::OverlayMapShapeReaded; }
 };
 
 } // namespace df

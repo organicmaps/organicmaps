@@ -1,118 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rl__bookmark_details"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/rl__bookmark_details"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:clipChildren="false"
+  android:orientation="vertical"
+  android:paddingBottom="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingRight="@dimen/margin_base"
+  android:paddingStart="@dimen/margin_base"
+  android:visibility="invisible"
+  tools:visibility="visible">
+
+  <View
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:clipChildren="false"
-    android:paddingBottom="@dimen/margin_base"
-    android:visibility="invisible"
-    tools:visibility="visible">
-  <View android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?attr/dividerHorizontal"/>
+    android:layout_height="1dp"
+    android:background="?attr/dividerHorizontal"/>
 
   <com.mapswithme.maps.widget.CustomTextInputLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_half"
-      android:layout_marginTop="@dimen/margin_base">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_half"
+    android:layout_marginTop="@dimen/margin_base">
 
     <EditText
-        android:id="@+id/et__bookmark_name"
-        style="@style/MwmWidget.PlacePage.EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/name"
-        android:inputType="textCapWords"
-        android:singleLine="true"/>
+      android:id="@+id/et__bookmark_name"
+      style="@style/MwmWidget.PlacePage.EditText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/name"
+      android:inputType="textCapWords"
+      android:singleLine="true"/>
   </com.mapswithme.maps.widget.CustomTextInputLayout>
 
   <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_base_plus"
-      android:lineSpacingMultiplier="1.67"
-      android:text="@string/set"
-      android:textAppearance="@style/MwmTextAppearance.Caption"/>
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base_plus"
+    android:lineSpacingMultiplier="1.67"
+    android:text="@string/set"
+    android:textAppearance="@style/MwmTextAppearance.Caption"/>
 
   <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
     <TextView
-        android:id="@+id/tv__bookmark_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/iv__bookmark_color"
-        android:background="?attr/clickableBackground"
-        android:drawableRight="@drawable/ic_arrow_down"
-        android:lineSpacingMultiplier="1.43"
-        android:paddingBottom="@dimen/margin_half"
-        android:paddingRight="@dimen/margin_half"
-        android:paddingTop="@dimen/margin_half"
-        android:textAppearance="@style/MwmTextAppearance.PlacePage"/>
+      android:id="@+id/tv__bookmark_group"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_toLeftOf="@+id/iv__bookmark_color"
+      android:layout_toStartOf="@id/iv__bookmark_color"
+      android:background="?clickableBackground"
+      android:drawableEnd="@drawable/ic_arrow_down"
+      android:drawableRight="@drawable/ic_arrow_down"
+      android:lineSpacingMultiplier="1.43"
+      android:paddingBottom="@dimen/margin_half"
+      android:paddingEnd="@dimen/margin_half"
+      android:paddingRight="@dimen/margin_half"
+      android:paddingTop="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.PlacePage"
+      tools:ignore="RtlSymmetry"/>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/tv__bookmark_group"
-        android:layout_marginTop="@dimen/margin_quarter"
-        android:layout_toLeftOf="@+id/iv__bookmark_color"
-        android:background="?attr/dividerHorizontal"/>
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_below="@id/tv__bookmark_group"
+      android:layout_marginTop="@dimen/margin_quarter"
+      android:layout_toLeftOf="@id/iv__bookmark_color"
+      android:layout_toStartOf="@id/iv__bookmark_color"
+      android:background="?attr/dividerHorizontal"/>
 
     <ImageView
-        android:id="@+id/iv__bookmark_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="?attr/clickableBackground"
-        android:padding="@dimen/margin_half"
-        tools:src="@drawable/ic_bookmark_marker_red_on"/>
+      android:id="@+id/iv__bookmark_color"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:background="?clickableBackground"
+      android:padding="@dimen/margin_half"
+      tools:src="@drawable/ic_bookmark_marker_red_on"/>
   </RelativeLayout>
 
   <TextView
-      android:id="@+id/tv__bookmark_notes"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingTop="@dimen/margin_base"
-      android:paddingBottom="@dimen/margin_half"
-      android:lineSpacingMultiplier="1.67"
-      android:text="@string/description"
-      android:textAppearance="@style/MwmTextAppearance.Caption"/>
+    android:id="@+id/tv__bookmark_notes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:lineSpacingMultiplier="1.67"
+    android:paddingBottom="@dimen/margin_half"
+    android:paddingTop="@dimen/margin_base"
+    android:text="@string/description"
+    android:textAppearance="@style/MwmTextAppearance.Caption"/>
 
-  <FrameLayout android:layout_width="match_parent"
-               android:layout_height="match_parent">
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical">
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
       <WebView
-          android:id="@+id/wv__description"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
+        android:id="@+id/wv__description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
       <Button
-          android:id="@+id/btn__edit_html_bookmark"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="right|bottom"
-          android:background="?attr/selectableItemBackground"
-          android:text="@string/edit"
-          android:textAppearance="@style/MwmTextAppearance.Button"/>
+        android:id="@+id/btn__edit_html_bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:background="?attr/selectableItemBackground"
+        android:text="@string/edit"
+        android:textAppearance="@style/MwmTextAppearance.Button"/>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv__description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/MwmTextAppearance.Body1"/>
+      android:id="@+id/tv__description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body1"/>
   </FrameLayout>
 
-  <View android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/margin_half"
-        android:background="?attr/dividerHorizontal"/>
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginTop="@dimen/margin_half"
+    android:background="?attr/dividerHorizontal"/>
 </LinearLayout>

@@ -1,0 +1,63 @@
+#import "Common.h"
+#import "MapsAppDelegate.h"
+#import "MapViewController.h"
+#import "MWMAlertViewController.h"
+#import "MWMViewController.h"
+
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
+@interface MWMViewController () <UIGestureRecognizerDelegate>
+
+@property (nonatomic, readwrite) MWMAlertViewController * alertController;
+
+@end
+
+@implementation MWMViewController
+
+- (BOOL)prefersStatusBarHidden
+{
+  return NO;
+}
+
+- (void)mwm_refreshUI
+{
+  [self.navigationController.navigationBar mwm_refreshUI];
+  [self.view mwm_refreshUI];
+  if (![self isKindOfClass:[MapViewController class]])
+    [[MapsAppDelegate theApp].mapViewController mwm_refreshUI];
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  [self.navigationController.navigationBar setTranslucent:NO];
+  self.navigationController.interactivePopGestureRecognizer.delegate = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [Alohalytics logEvent:@"$viewWillAppear" withValue:NSStringFromClass([self class])];
+  [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+  [Alohalytics logEvent:@"$viewWillDisappear" withValue:NSStringFromClass([self class])];
+  [super viewWillDisappear:animated];
+}
+
+#pragma mark - Properties
+
+- (BOOL)hasNavigationBar
+{
+  return YES;
+}
+
+- (MWMAlertViewController *)alertController
+{
+  if (!_alertController)
+    _alertController = [[MWMAlertViewController alloc] initWithViewController:self];
+  return _alertController;
+}
+
+@end

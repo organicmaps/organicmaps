@@ -16,7 +16,19 @@ map<Metadata::EType, string> const kKeyValues =
 {
   {Metadata::FMD_ELE, "12345"},
   {Metadata::FMD_CUISINE, "greek;mediterranean"},
-  {Metadata::FMD_EMAIL, "cool@email.at"}
+  {Metadata::FMD_EMAIL, "cool@email.at"},
+  // This string is longer than 255 bytes.
+  {Metadata::FMD_URL, "http://rskxmkjwnikfnjqhyv"
+                      "kpjgaghhyhukjyenduiuanxgb"
+                      "mndtlpfphdgaizfcpzuiuspcp"
+                      "umeojwvekvjprlutwjmxudyzr"
+                      "lwwsepewevsuqelobqcfdzsoq"
+                      "ozkesghojribepbaitivmaqep"
+                      "hheckitonddqhbapdybhetvnw"
+                      "vlchjafepdjaeoaapysdvculx"
+                      "uwjbgdddryodiihvnpvmkgqvs"
+                      "mawbdsrbmnndcozmrgeoahbkh"
+                      "cevxkmtdqnxpxlsju.org"}
 };
 } // namespace
 
@@ -49,7 +61,7 @@ UNIT_TEST(Feature_Metadata_PresentTypes)
   auto const types = m.GetPresentTypes();
   TEST_EQUAL(types.size(), m.Size(), ());
   for (auto const & type : types)
-    TEST_EQUAL(m.Get(type), kKeyValues.find(type)->second, ());
+    TEST_EQUAL(m.Get(type), kKeyValues.find(static_cast<Metadata::EType>(type))->second, ());
 }
 
 UNIT_TEST(Feature_Serialization)
@@ -71,25 +83,6 @@ UNIT_TEST(Feature_Serialization)
 
     for (auto const & value : kKeyValues)
       TEST_EQUAL(serialized.Get(value.first), value.second, ());
-    TEST_EQUAL(serialized.Get(Metadata::FMD_OPERATOR), "", ());
-    TEST_EQUAL(serialized.Size(), kKeyValues.size(), ());
-  }
-
-  {
-    Metadata serialized;
-    vector<char> buffer;
-    MemWriter<decltype(buffer)> writer(buffer);
-    // Here is the difference.
-    original.SerializeToMWM(writer);
-
-    MemReader reader(buffer.data(), buffer.size());
-    ReaderSource<MemReader> src(reader);
-    // Here is another difference.
-    serialized.DeserializeFromMWM(src);
-
-    for (auto const & value : kKeyValues)
-      TEST_EQUAL(serialized.Get(value.first), value.second, ());
-
     TEST_EQUAL(serialized.Get(Metadata::FMD_OPERATOR), "", ());
     TEST_EQUAL(serialized.Size(), kKeyValues.size(), ());
   }

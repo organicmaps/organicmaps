@@ -13,16 +13,16 @@
 
 namespace feature
 {
-  template <class ToDo>
-  void ForEachFromDat(ModelReaderPtr reader, ToDo & toDo)
+template <class ToDo>
+void ForEachFromDat(ModelReaderPtr reader, ToDo && toDo)
   {
     FeaturesVectorTest features((FilesContainerR(reader)));
     features.GetVector().ForEach(ref(toDo));
   }
 
   template <class ToDo>
-  void ForEachFromDat(string const & fPath, ToDo & toDo)
+  void ForEachFromDat(string const & fPath, ToDo && toDo)
   {
-    ForEachFromDat(new FileReader(fPath), toDo);
+    ForEachFromDat(make_unique<FileReader>(fPath), toDo);
   }
 }

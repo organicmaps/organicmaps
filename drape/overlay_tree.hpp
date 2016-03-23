@@ -9,6 +9,7 @@
 
 #include "std/array.hpp"
 #include "std/vector.hpp"
+#include "std/unordered_set.hpp"
 
 namespace dp
 {
@@ -18,51 +19,47 @@ namespace dp
 namespace detail
 {
 
-struct OverlayInfo
-{
-  ref_ptr<OverlayHandle> m_handle;
-
-  OverlayInfo() = default;
-  OverlayInfo(ref_ptr<OverlayHandle> handle)
-    : m_handle(handle)
-  {}
-
-  bool operator==(OverlayInfo const & rhs) const
-  {
-    return m_handle == rhs.m_handle;
-  }
-};
-
 struct OverlayTraits
 {
   ScreenBase m_modelView;
 
-  inline m2::RectD const LimitRect(OverlayInfo const & info)
+  inline m2::RectD const LimitRect(ref_ptr<OverlayHandle> const & handle)
   {
-    return info.m_handle->GetExtendedPixelRect(m_modelView);
+    return handle->GetExtendedPixelRect(m_modelView);
+  }
+};
+
+struct OverlayHasher
+{
+  hash<OverlayHandle*> m_hasher;
+
+  size_t operator()(ref_ptr<OverlayHandle> const & handle) const
+  {
+    return m_hasher(handle.get());
   }
 };
 
 }
 
-class OverlayTree : public m4::Tree<detail::OverlayInfo, detail::OverlayTraits>
+using TOverlayContainer = buffer_vector<ref_ptr<OverlayHandle>, 8>;
+
+class OverlayTree : public m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTraits>
 {
-  using TBase = m4::Tree<detail::OverlayInfo, detail::OverlayTraits>;
+  using TBase = m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTraits>;
 
 public:
   OverlayTree();
 
-  bool Frame(bool is3d);
+  bool Frame();
   bool IsNeedUpdate() const;
-  void ForceUpdate();
 
   void StartOverlayPlacing(ScreenBase const & screen);
   void Add(ref_ptr<OverlayHandle> handle);
+  void Remove(ref_ptr<OverlayHandle> handle);
   void EndOverlayPlacing();
 
-  using TSelectResult = buffer_vector<ref_ptr<OverlayHandle>, 8>;
-  void Select(m2::RectD const & rect, TSelectResult & result) const;
-  void Select(m2::PointD const & glbPoint, TSelectResult & result) const;
+  void Select(m2::RectD const & rect, TOverlayContainer & result) const;
+  void Select(m2::PointD const & glbPoint, TOverlayContainer & result) const;
 
   void SetFollowingMode(bool mode);
 
@@ -83,14 +80,14 @@ public:
 private:
   ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
   void InsertHandle(ref_ptr<OverlayHandle> handle,
-                    detail::OverlayInfo const & parentOverlay);
+                    ref_ptr<OverlayHandle> const & parentOverlay);
   bool CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
-                   detail::OverlayInfo & parentOverlay) const;
-  void AddHandleToDelete(detail::OverlayInfo const & overlay);
+                   ref_ptr<OverlayHandle> & parentOverlay) const;
+  void DeleteHandle(ref_ptr<OverlayHandle> const & handle);
 
   int m_frameCounter;
   array<vector<ref_ptr<OverlayHandle>>, dp::OverlayRanksCount> m_handles;
-  vector<detail::OverlayInfo> m_handlesToDelete;
+  unordered_set<ref_ptr<OverlayHandle>, detail::OverlayHasher> m_handlesCache;
   bool m_followingMode;
 
 #ifdef COLLECT_DISPLACEMENT_INFO

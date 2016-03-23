@@ -1,14 +1,15 @@
-#include "base/timer.hpp"
 #include "base/assert.hpp"
 #include "base/macros.hpp"
 #include "base/timegm.hpp"
+#include "base/timer.hpp"
 
-#include "std/target_os.hpp"
-#include "std/systime.hpp"
-#include "std/cstdio.hpp"
-#include "std/sstream.hpp"
-#include "std/iomanip.hpp"
 #include "std/algorithm.hpp"
+#include "std/chrono.hpp"
+#include "std/cstdio.hpp"
+#include "std/iomanip.hpp"
+#include "std/sstream.hpp"
+#include "std/systime.hpp"
+#include "std/target_os.hpp"
 
 namespace my
 {
@@ -49,21 +50,24 @@ string FormatCurrentTime()
   return s;
 }
 
-uint32_t GenerateTimestamp(int year, int month, int day)
+uint32_t GenerateYYMMDD(int year, int month, int day)
 {
-  return (year - 100) * 10000 + (month + 1) * 100 + day;
+  uint32_t result = (year - 100) * 100;
+  result = (result + month + 1) * 100;
+  result = result + day;
+  return result;
 }
 
-uint32_t TodayAsYYMMDD()
+uint64_t SecondsSinceEpoch()
 {
-  time_t rawTime = time(NULL);
-  tm const * const pTm = gmtime(&rawTime);
-  CHECK(pTm, ("Can't get current date."));
-  return GenerateTimestamp(pTm->tm_year, pTm->tm_mon, pTm->tm_mday);
+  return TimeTToSecondsSinceEpoch(::time(nullptr));
 }
 
 string TimestampToString(time_t time)
 {
+  if (time == INVALID_TIME_STAMP)
+    return string("INVALID_TIME_STAMP");
+
   tm * t = gmtime(&time);
   char buf[21] = { 0 };
 #ifdef OMIM_OS_WINDOWS
@@ -79,7 +83,6 @@ string TimestampToString(time_t time)
 
 namespace
 {
-
 bool IsValid(tm const & t)
 {
   /// @todo Funny thing, but "00" month is accepted as valid in get_time function.
@@ -87,7 +90,6 @@ bool IsValid(tm const & t)
   return (t.tm_mday >= 1 && t.tm_mday <= 31 &&
           t.tm_mon >= 0 && t.tm_mon <= 11);
 }
-
 }
 
 time_t StringToTimestamp(string const & s)
@@ -154,4 +156,15 @@ double HighResTimer::ElapsedSeconds() const
   return duration_cast<duration<double>>(high_resolution_clock::now() - m_start).count();
 }
 
+time_t SecondsSinceEpochToTimeT(uint64_t secondsSinceEpoch)
+{
+  time_point<system_clock> const tpoint{seconds(secondsSinceEpoch)};
+  return system_clock::to_time_t(tpoint);
+}
+
+uint64_t TimeTToSecondsSinceEpoch(time_t time)
+{
+  auto const tpoint = system_clock::from_time_t(time);
+  return duration_cast<seconds>(tpoint.time_since_epoch()).count();
+}
 }

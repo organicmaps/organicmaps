@@ -16,6 +16,7 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="New York Cafe" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="220" translatesAutoresizingMaskIntoConstraints="NO" id="4FD-RE-ffF" customClass="MWMMultilineLabel">
                         <rect key="frame" x="16" y="12" width="220" height="20"/>
+                        <animations/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -26,6 +27,7 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30000 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="68" translatesAutoresizingMaskIntoConstraints="NO" id="P8X-Xp-AaE">
                         <rect key="frame" x="236" y="52" width="68" height="17"/>
+                        <animations/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" red="0.12549019607843137" green="0.58823529411764708" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -36,6 +38,7 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGm-lZ-JNr" userLabel="Separator">
                         <rect key="frame" x="16" y="79" width="304" height="1"/>
+                        <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="ZWt-cn-KrT"/>
@@ -49,6 +52,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcB-Lv-cex">
                                 <rect key="frame" x="0.0" y="1" width="56" height="14"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -59,6 +63,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.26000000000000001" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="Ahy-Bj-hS9"/>
@@ -76,6 +81,7 @@
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сafe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="26" translatesAutoresizingMaskIntoConstraints="NO" id="5UO-MD-Hgx">
                         <rect key="frame" x="16" y="36" width="26" height="14"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="26" id="O31-Vq-Bsz"/>
                         </constraints>
@@ -92,6 +98,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUT-ew-nNT" userLabel="Dot">
                                 <rect key="frame" x="1" y="0.0" width="4" height="14"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="4" id="bMy-k8-Iqu"/>
                                 </constraints>
@@ -105,6 +112,7 @@
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjT-oU-iIA">
                                 <rect key="frame" x="7" y="0.0" width="113" height="14"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -118,6 +126,7 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" tag="1" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star" translatesAutoresizingMaskIntoConstraints="NO" id="yWm-az-pkX">
                                         <rect key="frame" x="2" y="2" width="11" height="10"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="PlQ-4v-w8M"/>
                                             <constraint firstAttribute="width" constant="11" id="jwv-No-JFH"/>
@@ -128,6 +137,7 @@
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star" translatesAutoresizingMaskIntoConstraints="NO" id="fU0-W2-tgC">
                                         <rect key="frame" x="17" y="2" width="11" height="10"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="11" id="12P-aP-Fcq"/>
                                             <constraint firstAttribute="height" constant="10" id="fci-53-ClD"/>
@@ -138,6 +148,7 @@
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star" translatesAutoresizingMaskIntoConstraints="NO" id="E8B-4H-1PX">
                                         <rect key="frame" x="32" y="2" width="11" height="10"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="ZSp-E8-lN4"/>
                                             <constraint firstAttribute="width" constant="11" id="wJe-R5-W1w"/>
@@ -148,6 +159,7 @@
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star" translatesAutoresizingMaskIntoConstraints="NO" id="RuV-jO-kmE">
                                         <rect key="frame" x="47" y="2" width="11" height="10"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="11" id="FuT-Ha-33O"/>
                                             <constraint firstAttribute="height" constant="10" id="QrV-px-9rk"/>
@@ -158,6 +170,7 @@
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotel_star" translatesAutoresizingMaskIntoConstraints="NO" id="A5b-Hv-xec">
                                         <rect key="frame" x="62" y="2" width="11" height="10"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="11" id="5Ka-eP-MPM"/>
                                             <constraint firstAttribute="height" constant="10" id="AcP-KG-fP6"/>
@@ -167,6 +180,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="yWm-az-pkX" secondAttribute="centerY" id="0E9-Bm-hXQ"/>
                                     <constraint firstItem="A5b-Hv-xec" firstAttribute="leading" secondItem="RuV-jO-kmE" secondAttribute="trailing" constant="4" id="4pz-gI-6hO"/>
@@ -181,6 +195,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <animations/>
                         <constraints>
                             <constraint firstItem="vjT-oU-iIA" firstAttribute="top" secondItem="AXe-5n-maZ" secondAttribute="top" id="2uX-zd-E6n"/>
                             <constraint firstAttribute="bottom" secondItem="tUT-ew-nNT" secondAttribute="bottom" id="BHl-Ua-lit"/>
@@ -201,6 +216,7 @@
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Russia, Moscow &amp; Central, Moscow" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="220" translatesAutoresizingMaskIntoConstraints="NO" id="6pc-4s-GyP" customClass="MWMMultilineLabel">
                         <rect key="frame" x="16" y="54" width="220" height="14"/>
+                        <animations/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -210,6 +226,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
+                <animations/>
                 <constraints>
                     <constraint firstItem="P8X-Xp-AaE" firstAttribute="leading" secondItem="6pc-4s-GyP" secondAttribute="trailing" id="0hr-QT-t0D"/>
                     <constraint firstItem="5UO-MD-Hgx" firstAttribute="top" secondItem="4FD-RE-ffF" secondAttribute="bottom" constant="4" id="5dn-ca-dCn"/>

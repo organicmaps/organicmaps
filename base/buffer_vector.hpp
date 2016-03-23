@@ -100,6 +100,12 @@ public:
     return *this;
   }
 
+  template <size_t M>
+  void append(buffer_vector<value_type, M> const & v)
+  {
+    append(v.begin(), v.end());
+  }
+
   template <typename IterT>
   void append(IterT beg, IterT end)
   {

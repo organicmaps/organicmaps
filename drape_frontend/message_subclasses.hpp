@@ -1,19 +1,19 @@
 #pragma once
 
-#include "drape_frontend/gui/country_status_helper.hpp"
 #include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/gui/skin.hpp"
 
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/gps_track_shape.hpp"
-#include "drape_frontend/route_builder.hpp"
-#include "drape_frontend/my_position.hpp"
-#include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/message.hpp"
-#include "drape_frontend/viewport.hpp"
+#include "drape_frontend/my_position.hpp"
+#include "drape_frontend/overlay_batcher.hpp"
+#include "drape_frontend/route_builder.hpp"
+#include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
+#include "drape_frontend/viewport.hpp"
 
 #include "geometry/polyline2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -87,34 +87,23 @@ private:
   TileKey m_tileKey;
 };
 
-class TileReadStartMessage : public BaseTileMessage
-{
-public:
-  TileReadStartMessage(TileKey const & key)
-    : BaseTileMessage(key) {}
-
-  Type GetType() const override { return Message::TileReadStarted; }
-};
-
-class TileReadEndMessage : public BaseTileMessage
-{
-public:
-  TileReadEndMessage(TileKey const & key)
-    : BaseTileMessage(key) {}
-
-  Type GetType() const override { return Message::TileReadEnded; }
-};
-
 class FinishReadingMessage : public Message
 {
 public:
-  template<typename T> FinishReadingMessage(T && tiles)
+  FinishReadingMessage() = default;
+  Type GetType() const override { return Message::FinishReading; }
+};
+
+class FinishTileReadMessage : public Message
+{
+public:
+  template<typename T> FinishTileReadMessage(T && tiles)
     : m_tiles(forward<T>(tiles))
   {}
 
-  Type GetType() const override { return Message::FinishReading; }
+  Type GetType() const override { return Message::FinishTileRead; }
 
-  TTilesCollection const & GetTiles() { return m_tiles; }
+  TTilesCollection const & GetTiles() const { return m_tiles; }
   TTilesCollection && MoveTiles() { return move(m_tiles); }
 
 private:
@@ -138,6 +127,18 @@ public:
 private:
   dp::GLState m_state;
   drape_ptr<dp::RenderBucket> m_buffer;
+};
+
+class FlushOverlaysMessage : public Message
+{
+public:
+  FlushOverlaysMessage(TOverlaysRenderData && data) : m_data(move(data)) {}
+
+  Type GetType() const override { return Message::FlushOverlays; }
+  TOverlaysRenderData && AcceptRenderData() { return move(m_data); }
+
+private:
+  TOverlaysRenderData m_data;
 };
 
 class InvalidateRectMessage : public Message
@@ -257,34 +258,42 @@ private:
 class GuiLayerRecachedMessage : public Message
 {
 public:
-  GuiLayerRecachedMessage(drape_ptr<gui::LayerRenderer> && renderer)
-    : m_renderer(move(renderer)) {}
+  GuiLayerRecachedMessage(drape_ptr<gui::LayerRenderer> && renderer, bool needResetOldGui)
+    : m_renderer(move(renderer))
+    , m_needResetOldGui(needResetOldGui)
+  {}
 
   Type GetType() const override { return Message::GuiLayerRecached; }
 
   drape_ptr<gui::LayerRenderer> && AcceptRenderer() { return move(m_renderer); }
+  bool NeedResetOldGui() const { return m_needResetOldGui; }
 
 private:
   drape_ptr<gui::LayerRenderer> m_renderer;
+  bool const m_needResetOldGui;
 };
 
 class GuiRecacheMessage : public BaseBlockingMessage
 {
 public:
-  GuiRecacheMessage(Blocker & blocker, gui::TWidgetsInitInfo const & initInfo, gui::TWidgetsSizeInfo & resultInfo)
+  GuiRecacheMessage(Blocker & blocker, gui::TWidgetsInitInfo const & initInfo, gui::TWidgetsSizeInfo & resultInfo,
+                    bool needResetOldGui)
     : BaseBlockingMessage(blocker)
     , m_initInfo(initInfo)
     , m_sizeInfo(resultInfo)
-  {
-  }
+    , m_needResetOldGui(needResetOldGui)
+  {}
 
   Type GetType() const override { return Message::GuiRecache;}
+
   gui::TWidgetsInitInfo const & GetInitInfo() const { return m_initInfo; }
   gui::TWidgetsSizeInfo & GetSizeInfoMap() const { return m_sizeInfo; }
+  bool NeedResetOldGui() const { return m_needResetOldGui; }
 
 private:
   gui::TWidgetsInitInfo m_initInfo;
   gui::TWidgetsSizeInfo & m_sizeInfo;
+  bool const m_needResetOldGui;
 };
 
 class GuiLayerLayoutMessage : public Message
@@ -303,35 +312,40 @@ private:
   gui::TWidgetsLayoutInfo m_layoutInfo;
 };
 
-class CountryInfoUpdateMessage : public Message
+class ShowChoosePositionMarkMessage : public Message
 {
 public:
-  CountryInfoUpdateMessage()
-    : m_needShow(false)
-  {}
-
-  CountryInfoUpdateMessage(gui::CountryInfo const & info, bool isCurrentCountry)
-    : m_countryInfo(info)
-    , m_isCurrentCountry(isCurrentCountry)
-    , m_needShow(true)
-  {}
-
-  Type GetType() const override { return Message::CountryInfoUpdate;}
-  gui::CountryInfo const & GetCountryInfo() const { return m_countryInfo; }
-  bool IsCurrentCountry() const { return m_isCurrentCountry; }
-  bool NeedShow() const { return m_needShow; }
-
-private:
-  gui::CountryInfo m_countryInfo;
-  bool m_isCurrentCountry;
-  bool m_needShow;
+  ShowChoosePositionMarkMessage() = default;
+  Type GetType() const override { return Message::ShowChoosePositionMark; }
 };
 
-class CountryStatusRecacheMessage : public Message
+class SetKineticScrollEnabledMessage : public Message
 {
 public:
-  CountryStatusRecacheMessage() {}
-  Type GetType() const override { return Message::CountryStatusRecache ;}
+  SetKineticScrollEnabledMessage(bool enabled)
+    : m_enabled(enabled)
+  {}
+
+  Type GetType() const override { return Message::SetKineticScrollEnabled; }
+  bool IsEnabled() const { return m_enabled; }
+
+private:
+  bool m_enabled;
+};
+
+class BlockTapEventsMessage : public Message
+{
+public:
+  BlockTapEventsMessage(bool block)
+    : m_needBlock(block)
+  {}
+
+  Type GetType() const override { return Message::BlockTapEvents; }
+
+  bool NeedBlock() const { return m_needBlock; }
+
+private:
+  bool const m_needBlock;
 };
 
 class MyPositionShapeMessage : public Message

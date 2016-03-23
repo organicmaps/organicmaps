@@ -10,6 +10,8 @@ include($$ROOT_DIR/common.pri)
 SOURCES += \
     base.cpp \
     condition.cpp \
+    gmtime.cpp \
+    deferred_task.cpp \
     exception.cpp \
     internal/message.cpp \
     logging.cpp \
@@ -38,10 +40,13 @@ HEADERS += \
     buffer_vector.hpp \
     cache.hpp \
     cancellable.hpp \
+    collection_cast.hpp \
     condition.hpp \
     const_helper.hpp \
+    deferred_task.hpp \
     exception.hpp \
-    internal/message.hpp \
+    gmtime.hpp \
+    internal/messagex.hpp \
     limited_priority_queue.hpp \
     logging.hpp \
     macros.hpp \
@@ -51,6 +56,7 @@ HEADERS += \
     mutex.hpp \
     object_tracker.hpp \
     observer_list.hpp \
+    range_iterator.hpp \
     regexp.hpp \
     rolling_hash.hpp \
     scope_guard.hpp \
@@ -60,6 +66,7 @@ HEADERS += \
     stats.hpp \
     std_serialization.hpp \
     stl_add.hpp \
+    stl_helpers.hpp \
     stl_iterator.hpp \
     string_format.hpp \
     string_utils.hpp \

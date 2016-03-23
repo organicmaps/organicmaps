@@ -5,7 +5,7 @@
 namespace languages
 {
 
-/// @note This functions are heavy enough to call them often. Be careful.
+/// @note These functions are heavy enough to call them often. Be careful.
 //@{
 
 /// @return List of original system languages in the form "en-US|ru-RU|es|zh-Hant".
@@ -13,6 +13,9 @@ string GetPreferred();
 
 /// @return Original language code for the current user in the form "en-US", "zh-Hant".
 string GetCurrentOrig();
+
+/// @return Current language in out Twine translations compatible format, e.g. "en", "pt" or "zh-Hant".
+string GetCurrentTwine();
 
 /// @return Normalized language code for the current user in the form "en", "zh".
 //@{

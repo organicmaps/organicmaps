@@ -21,7 +21,7 @@ public:
     JNIEnv * env = jni::GetEnv();
     ASSERT ( env, () );
 
-    jclass klass = env->FindClass("com/mapswithme/maps/downloader/DownloadChunkTask");
+    jclass klass = env->FindClass("com/mapswithme/maps/downloader/ChunkTask");
     ASSERT ( klass, () );
 
     static jmethodID initMethodId = env->GetMethodID(klass, "<init>", "(JLjava/lang/String;JJJ[BLjava/lang/String;)V");
@@ -70,7 +70,7 @@ public:
     JNIEnv * env = jni::GetEnv();
     ASSERT ( env, () );
 
-    jmethodID methodId = jni::GetJavaMethodID(env, m_self, "cancel", "(Z)Z");
+    jmethodID methodId = jni::GetMethodID(env, m_self, "cancel", "(Z)Z");
     ASSERT ( methodId, () );
 
     env->CallBooleanMethod(m_self, methodId, false);
@@ -96,13 +96,12 @@ namespace downloader
     delete request;
   }
 
-} // namespace downloader
+}  // namespace downloader
 
 extern "C"
 {
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_downloader_DownloadChunkTask_onWrite(JNIEnv * env, jobject thiz,
-      jlong httpCallbackID, jlong beg, jbyteArray data, jlong size)
+  Java_com_mapswithme_maps_downloader_ChunkTask_nativeOnWrite(JNIEnv * env, jclass clazz, jlong httpCallbackID, jlong beg, jbyteArray data, jlong size)
   {
     downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback*>(httpCallbackID);
     jbyte * buf = env->GetByteArrayElements(data, 0);
@@ -114,8 +113,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_downloader_DownloadChunkTask_onFinish(JNIEnv * env, jobject thiz,
-      jlong httpCallbackID, jlong httpCode, jlong beg, jlong end)
+  Java_com_mapswithme_maps_downloader_ChunkTask_nativeOnFinish(JNIEnv * env, jclass clazz, jlong httpCallbackID, jlong httpCode, jlong beg, jlong end)
   {
     downloader::IHttpThreadCallback * cb = reinterpret_cast<downloader::IHttpThreadCallback*>(httpCallbackID);
     cb->OnFinish(httpCode, beg, end);

@@ -21,9 +21,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint * textViewBottomOffset;
 
-@property (nonatomic) UIBarButtonItem * leftButton;
-@property (nonatomic) UIBarButtonItem * rightButton;
-
 @property (weak, nonatomic) MWMPlacePageViewManager * manager;
 @property (nonatomic) BookmarkDescriptionState state;
 
@@ -58,10 +55,7 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     self.state = BookmarkDescriptionStateEditText;
 
   if (self.iPadOwnerNavigationController)
-  {
-    UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithCustomView:self.backButton];
-    [self.navigationItem setLeftBarButtonItem:leftButton];
-  }
+    [self showBackButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -137,22 +131,26 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
 
 - (void)configureNavigationBarForEditing
 {
-  self.leftButton = [[UIBarButtonItem alloc] initWithTitle:L(@"cancel") style:UIBarButtonItemStylePlain target:self action:@selector(cancelTap)];
-  self.rightButton = [[UIBarButtonItem alloc] initWithTitle:L(@"done") style:UIBarButtonItemStylePlain target:self action:@selector(doneTap)];
-  [self setupButtons];
+  self.navigationItem.leftBarButtonItem =
+      [[UIBarButtonItem alloc] initWithTitle:L(@"cancel")
+                                       style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(cancelTap)];
+  self.navigationItem.rightBarButtonItem =
+      [[UIBarButtonItem alloc] initWithTitle:L(@"done")
+                                       style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(doneTap)];
 }
 
 - (void)configureNavigationBarForView
 {
-  self.leftButton = [[UIBarButtonItem alloc] initWithCustomView:self.backButton];
-  self.rightButton = [[UIBarButtonItem alloc] initWithTitle:L(@"edit") style:UIBarButtonItemStylePlain target:self action:@selector(editTap)];
-  [self setupButtons];
-}
-
-- (void)setupButtons
-{
-  [self.navigationItem setLeftBarButtonItem:self.leftButton];
-  [self.navigationItem setRightBarButtonItem:self.rightButton];
+  [self showBackButton];
+  self.navigationItem.rightBarButtonItem =
+      [[UIBarButtonItem alloc] initWithTitle:L(@"edit")
+                                       style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(editTap)];
 }
 
 - (void)cancelTap
@@ -215,19 +213,6 @@ typedef NS_ENUM(NSUInteger, BookmarkDescriptionState)
     return NO;
   }
   return YES;
-}
-
-#pragma mark - Buttons
-
-- (UIButton *)backButton
-{
-  UIImage * backImage = [UIImage imageNamed:@"NavigationBarBackButton"];
-  CGFloat const imageSide = backImage.size.width;
-  UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0., 0., imageSide, imageSide)];
-  [button setImage:backImage forState:UIControlStateNormal];
-  [button addTarget:self action:@selector(backTap) forControlEvents:UIControlEventTouchUpInside];
-  button.imageEdgeInsets = UIEdgeInsetsMake(0., -imageSide, 0., 0.);
-  return button;
 }
 
 @end

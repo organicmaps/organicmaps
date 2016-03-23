@@ -26,5 +26,5 @@ void CheckEGL(my::SrcPoint const & src);
 #define CHECK_EGL(x) do { (x); CheckEGL(SRC());} while(false);
 #define CHECK_EGL_CALL() do { CheckEGL(SRC());} while (false);
 
-} // namespace android
+}  // namespace android
 

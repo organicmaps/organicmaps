@@ -1,6 +1,7 @@
 #import "Common.h"
 #import "MWMAlertViewController.h"
 #import "MWMDownloadTransitMapAlert.h"
+#import "MapsAppDelegate.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
@@ -38,7 +39,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   NSString * title = L(@"location_is_disabled_long_text");
   NSString * cancel = L(@"cancel");
   NSString * openSettings = L(@"settings");
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
   {
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:cancel otherButtonTitles:nil];
     [alertView show];
@@ -61,9 +62,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 //  });
 }
 
-- (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)block needToRebuild:(BOOL)needToRebuild
+- (void)presentPoint2PointAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild
 {
-  [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:block needToRebuild:needToRebuild]];
+  [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:okBlock needToRebuild:needToRebuild]];
 }
 
 - (void)presentFacebookAlert
@@ -78,12 +79,22 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentNoConnectionAlert
 {
-  [self displayAlert:MWMAlert.noConnectionAlert];
+  [self displayAlert:[MWMAlert noConnectionAlert]];
 }
 
-- (void)presentnoWiFiAlertWithName:(nonnull NSString *)name downloadBlock:(nullable TMWMVoidBlock)block
+- (void)presentMigrationProhibitedAlert
 {
-  [self displayAlert:[MWMAlert noWiFiAlertWithName:name downloadBlock:block]];
+  [self displayAlert:[MWMAlert migrationProhibitedAlert]];
+}
+
+- (void)presentUnsavedEditsAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert unsavedEditsAlertWithOkBlock:okBlock]];
+}
+
+- (void)presentNoWiFiAlertWithName:(nonnull NSString *)name okBlock:(nullable TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert noWiFiAlertWithName:name okBlock:okBlock]];
 }
 
 - (void)presentPedestrianToastAlert:(BOOL)isFirstLaunch
@@ -91,11 +102,31 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert pedestrianToastShareAlert:isFirstLaunch]];
 }
 
-- (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const &)countries
-                                     routes:(vector<storage::TIndex> const &)routes
-                                       code:(routing::IRouter::ResultCode)code
+- (void)presentIncorrectFeauturePositionAlert
 {
-  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries routes:routes code:code]];
+  [self displayAlert:[MWMAlert incorrectFeauturePositionAlert]];
+}
+
+- (void)presentInternalErrorAlert
+{
+  [self displayAlert:[MWMAlert internalErrorAlert]];
+}
+
+- (void)presentInvalidUserNameOrPasswordAlert
+{
+  [self displayAlert:[MWMAlert invalidUserNameOrPasswordAlert]];
+}
+
+- (void)presentRoutingMigrationAlertWithOkBlock:(TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert routingMigrationAlertWithOkBlock:okBlock]];
+}
+
+- (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
+                                       code:(routing::IRouter::ResultCode)code
+                                    okBlock:(TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert downloaderAlertWithAbsentCountries:countries code:code okBlock:okBlock]];
 }
 
 - (void)presentRoutingDisclaimerAlert
@@ -115,12 +146,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)displayAlert:(MWMAlert *)alert
 {
-  BOOL const iOS7 = isIOSVersionLessThan(8);
   alert.alertController = self;
   [self.ownerViewController addChildViewController:self];
   self.view.alpha = 0.;
   alert.alpha = 0.;
-  if (!iOS7)
+  if (!isIOS7)
   {
     CGFloat const scale = 1.1;
     alert.transform = CGAffineTransformMakeScale(scale, scale);
@@ -129,9 +159,40 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   {
     self.view.alpha = 1.;
     alert.alpha = 1.;
-    if (!iOS7)
+    if (!isIOS7)
       alert.transform = CGAffineTransformIdentity;
   }];
+  [MapsAppDelegate.theApp.window endEditing:YES];
+}
+
+- (void)presentDisableAutoDownloadAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert disableAutoDownloadAlertWithOkBlock:okBlock]];
+}
+
+- (void)presentDownloaderNoConnectionAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
+{
+  [self displayAlert:[MWMAlert downloaderNoConnectionAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
+}
+
+- (void)presentDownloaderNotEnoughSpaceAlert
+{
+  [self displayAlert:[MWMAlert downloaderNotEnoughSpaceAlert]];
+}
+
+- (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock
+{
+  [self displayAlert:[MWMAlert downloaderInternalErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock]];
+}
+
+- (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock
+{
+  [self displayAlert:[MWMAlert downloaderNeedUpdateAlertWithOkBlock:okBlock]];
+}
+
+- (void)presentEditorViralAlertWithShareBlock:(nonnull TMWMVoidBlock)share
+{
+  [self displayAlert:[MWMAlert editorViralAlertWithShareBlock:share]];
 }
 
 - (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion

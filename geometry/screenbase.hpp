@@ -139,6 +139,8 @@ public:
   Matrix3dT const & Pto3dMatrix() const { return m_Pto3d; }
   bool isPerspective() const { return m_isPerspective; }
 
+  bool IsReverseProjection3d(m2::PointD const & pt) const;
+
   m2::PointD PtoP3d(m2::PointD const & pt) const;
   m2::PointD PtoP3d(m2::PointD const & pt, double ptZ) const;
 

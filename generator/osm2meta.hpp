@@ -27,6 +27,7 @@ struct MetadataTagProcessorImpl
   string ValidateAndFormat_email(string const & v) const;
   string ValidateAndFormat_postcode(string const & v) const;
   string ValidateAndFormat_flats(string const & v) const;
+  string ValidateAndFormat_internet(string v) const;
   string ValidateAndFormat_height(string const & v) const;
   string ValidateAndFormat_building_levels(string const & v) const;
   string ValidateAndFormat_denomination(string const & v) const;
@@ -39,8 +40,8 @@ protected:
 class MetadataTagProcessor : private MetadataTagProcessorImpl
 {
 public:
+  /// Make base class constructor public.
   using MetadataTagProcessorImpl::MetadataTagProcessorImpl;
-
   /// Since it is used as a functor wich stops iteration in ftype::ForEachTag
   /// and the is no need for interrupting it always returns false.
   /// TODO(mgsergio): Move to cpp after merge with https://github.com/mapsme/omim/pull/1314
@@ -52,143 +53,49 @@ public:
     using feature::Metadata;
     Metadata & md = m_params.GetMetadata();
 
-    if (k == "cuisine")
+    Metadata::EType mdType;
+    if (!Metadata::TypeFromString(k, mdType))
     {
-      string const & value = ValidateAndFormat_cuisine(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_CUISINE, value);
-    }
-    else if (k == "phone" || k == "contact:phone")
-    {
-      string const & value = ValidateAndFormat_phone(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_PHONE_NUMBER, value);
-    }
-    else if (k == "maxspeed")
-    {
-      string const & value = ValidateAndFormat_maxspeed(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_MAXSPEED, value);
-    }
-    else if (k == "stars")
-    {
-      string const & value = ValidateAndFormat_stars(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_STARS, value);
-    }
-    else if (k == "addr:postcode")
-    {
-      string const & value = ValidateAndFormat_postcode(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_POSTCODE, value);
-    }
-    else if (k == "url")
-    {
-      string const & value = ValidateAndFormat_url(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_URL, value);
-    }
-    else if (k == "website" || k == "contact:website")
-    {
-      string const & value = ValidateAndFormat_url(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_WEBSITE, value);
-    }
-    else if (k == "operator")
-    {
-      string const & value = ValidateAndFormat_operator(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_OPERATOR, value);
-    }
-    else if (k == "opening_hours")
-    {
-      string const & value = ValidateAndFormat_opening_hours(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_OPEN_HOURS, value);
-    }
-    else if (k == "ele")
-    {
-      string const & value = ValidateAndFormat_ele(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_ELE, value);
-    }
-    else if (k == "turn:lanes")
-    {
-      string const & value = ValidateAndFormat_turn_lanes(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_TURN_LANES, value);
-    }
-    else if (k == "turn:lanes:forward")
-    {
-      string const & value = ValidateAndFormat_turn_lanes_forward(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_TURN_LANES_FORWARD, value);
-    }
-    else if (k == "turn:lanes:backward")
-    {
-      string const & value = ValidateAndFormat_turn_lanes_backward(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_TURN_LANES_BACKWARD, value);
-    }
-    else if (k == "email" || k == "contact:email")
-    {
-      string const & value = ValidateAndFormat_email(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_EMAIL, value);
-    }
-    else if (k == "wikipedia")
-    {
-      string const & value = ValidateAndFormat_wikipedia(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_WIKIPEDIA, value);
-    }
-    else if (k == "addr:flats")
-    {
-      string const & value = ValidateAndFormat_flats(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_FLATS, value);
-    }
-    else if (k == "height")
-    {
-      string const & value = ValidateAndFormat_height(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_HEIGHT, value);
-    }
-    else if (k == "building:levels")
-    {
-      // Ignoring if FMD_HEIGHT already set
-      if (md.Get(Metadata::FMD_HEIGHT).empty())
+      // Specific cases which do not map directly to our metadata types.
+      if (k == "building:min_level")
       {
-        // Converting this attribute into height
-        string const & value = ValidateAndFormat_building_levels(v);
-        if (!value.empty())
-          md.Set(Metadata::FMD_HEIGHT, value);
+        // Converting this attribute into height only if min_height has not been already set.
+        if (!md.Has(Metadata::FMD_MIN_HEIGHT))
+          md.Set(Metadata::FMD_MIN_HEIGHT, ValidateAndFormat_building_levels(v));
       }
-    }
-    else if (k == "min_height")
-    {
-      string const & value = ValidateAndFormat_height(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_MIN_HEIGHT, value);
-    }
-    else if (k == "building:min_level")
-    {
-      // Ignoring if min_height was already set
-      if (md.Get(Metadata::FMD_MIN_HEIGHT).empty())
-      {
-        // Converting this attribute into height
-        string const & value = ValidateAndFormat_building_levels(v);
-        if (!value.empty())
-          md.Set(Metadata::FMD_MIN_HEIGHT, value);
-      }
-    }
-    else if (k == "denomination")
-    {
-      string const & value = ValidateAndFormat_denomination(v);
-      if (!value.empty())
-        md.Set(Metadata::FMD_DENOMINATION, value);
+      return false;
     }
 
+    string valid;
+    switch (mdType)
+    {
+    case Metadata::FMD_CUISINE: valid = ValidateAndFormat_cuisine(v); break;
+    case Metadata::FMD_OPEN_HOURS: valid = ValidateAndFormat_opening_hours(v); break;
+    case Metadata::FMD_FAX_NUMBER:  // The same validator as for phone.
+    case Metadata::FMD_PHONE_NUMBER: valid = ValidateAndFormat_phone(v); break;
+    case Metadata::FMD_STARS: valid = ValidateAndFormat_stars(v); break;
+    case Metadata::FMD_OPERATOR: valid = ValidateAndFormat_operator(v); break;
+    case Metadata::FMD_URL:  // The same validator as for website.
+    case Metadata::FMD_WEBSITE: valid = ValidateAndFormat_url(v); break;
+    case Metadata::FMD_INTERNET: ValidateAndFormat_internet(v); break;
+    case Metadata::FMD_ELE: valid = ValidateAndFormat_ele(v); break;
+    case Metadata::FMD_TURN_LANES: valid = ValidateAndFormat_turn_lanes(v); break;
+    case Metadata::FMD_TURN_LANES_FORWARD: valid = ValidateAndFormat_turn_lanes_forward(v); break;
+    case Metadata::FMD_TURN_LANES_BACKWARD: valid = ValidateAndFormat_turn_lanes_backward(v); break;
+    case Metadata::FMD_EMAIL: valid = ValidateAndFormat_email(v); break;
+    case Metadata::FMD_POSTCODE: valid = ValidateAndFormat_postcode(v); break;
+    case Metadata::FMD_WIKIPEDIA: valid = ValidateAndFormat_wikipedia(v); break;
+    case Metadata::FMD_MAXSPEED: valid = ValidateAndFormat_maxspeed(v); break;
+    case Metadata::FMD_FLATS: valid = ValidateAndFormat_flats(v); break;
+    case Metadata::FMD_MIN_HEIGHT:  // The same validator as for height.
+    case Metadata::FMD_HEIGHT: valid = ValidateAndFormat_height(v); break;
+    case Metadata::FMD_DENOMINATION: valid = ValidateAndFormat_denomination(v); break;
+    case Metadata::FMD_BUILDING_LEVELS: valid = ValidateAndFormat_building_levels(v); break;
+
+    case Metadata::FMD_TEST_ID:
+    case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
+    }
+    md.Set(mdType, valid);
     return false;
   }
 };

@@ -10,9 +10,9 @@ namespace gui
 
 namespace
 {
-  
+
 #ifdef DEBUG
-  
+
 bool IsSimple(dp::Anchor anchor)
 {
   return anchor >= 0 && anchor <= 8;
@@ -22,7 +22,7 @@ bool IsAnchor(dp::Anchor anchor)
 {
   return anchor >= 0 && anchor <= 10;
 }
-  
+
 #endif
 
 dp::Anchor ParseValueAnchor(string const & value)
@@ -275,7 +275,7 @@ void Skin::Resize(int w, int h)
 ReaderPtr<Reader> ResolveGuiSkinFile(string const & deviceType)
 {
   Platform & pl = GetPlatform();
-  ReaderPtr<Reader> reader;
+  unique_ptr<Reader> reader;
   try
   {
     reader = pl.GetReader("resources-default/" + deviceType + ".ui");
@@ -285,7 +285,7 @@ ReaderPtr<Reader> ResolveGuiSkinFile(string const & deviceType)
     LOG(LINFO, ("Gui skin for : ", deviceType ,"not found"));
   }
 
-  if (reader.GetPtr() == 0)
+  if (!reader)
   {
     try
     {
@@ -298,7 +298,6 @@ ReaderPtr<Reader> ResolveGuiSkinFile(string const & deviceType)
     }
   }
 
-  return reader;
+  return move(reader);
 }
-
 }

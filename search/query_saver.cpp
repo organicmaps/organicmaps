@@ -34,12 +34,12 @@ public:
   {
   }
 
-  inline uint64_t Size() const
+  inline uint64_t Size() const override
   {
     return m_size;
   }
 
-  inline void Read(uint64_t pos, void * p, size_t size) const
+  inline void Read(uint64_t pos, void * p, size_t size) const override
   {
     CheckPosAndSize(pos, size);
     memcpy(p, m_pData + pos, size);
@@ -51,10 +51,10 @@ public:
     return SecureMemReader(m_pData + pos, static_cast<size_t>(size));
   }
 
-  inline SecureMemReader * CreateSubReader(uint64_t pos, uint64_t size) const
+  inline unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const override
   {
     CheckPosAndSize(pos, size);
-    return new SecureMemReader(m_pData + pos, static_cast<size_t>(size));
+    return make_unique<SecureMemReader>(m_pData + pos, static_cast<size_t>(size));
   }
 
 private:
@@ -99,7 +99,7 @@ void QuerySaver::Add(TSearchRequest const & query)
 void QuerySaver::Clear()
 {
   m_topQueries.clear();
-  Settings::Delete(kSettingsKey);
+  settings::Delete(kSettingsKey);
 }
 
 void QuerySaver::Serialize(string & data) const
@@ -146,13 +146,13 @@ void QuerySaver::Save()
 {
   string data;
   Serialize(data);
-  Settings::Set(kSettingsKey, data);
+  settings::Set(kSettingsKey, data);
 }
 
 void QuerySaver::Load()
 {
   string hexData;
-  Settings::Get(kSettingsKey, hexData);
+  settings::Get(kSettingsKey, hexData);
   if (hexData.empty())
     return;
   try

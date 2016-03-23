@@ -66,6 +66,9 @@ public:
   void ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
                      ref_ptr<AttributeBufferMutator> attrMutator);
 
+  void ResetChangingTracking() { m_isChanged = false; }
+  bool IsChanged() const { return m_isChanged; }
+
 private:
   ref_ptr<DataBuffer> GetOrCreateStaticBuffer(BindingInfo const & bindingInfo);
   ref_ptr<DataBuffer> GetOrCreateDynamicBuffer(BindingInfo const & bindingInfo);
@@ -95,6 +98,7 @@ private:
 
   bool m_isPreflushed;
   bool m_moveToGpuOnBuild;
+  bool m_isChanged;
 };
 
 } // namespace dp

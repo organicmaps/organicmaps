@@ -4,6 +4,7 @@
 
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/map_data_provider.hpp"
+#include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/viewport.hpp"
 
@@ -28,18 +29,23 @@ class RouteBuilder;
 class BackendRenderer : public BaseRenderer
 {
 public:
+  using TUpdateCurrentCountryFn = function<void (m2::PointD const &, int)>;
+
   struct Params : BaseRenderer::Params
   {
     Params(ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::OGLContextFactory> factory,
            ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model,
+           TUpdateCurrentCountryFn const & updateCurrentCountryFn,
            ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_model(model)
+      , m_updateCurrentCountryFn(updateCurrentCountryFn)
       , m_requestedTiles(requestedTiles)
       , m_allow3dBuildings(allow3dBuildings)
     {}
 
     MapDataProvider const & m_model;
+    TUpdateCurrentCountryFn m_updateCurrentCountryFn;
     ref_ptr<RequestedTiles> m_requestedTiles;
     bool m_allow3dBuildings;
   };
@@ -53,8 +59,8 @@ protected:
   unique_ptr<threads::IRoutine> CreateRoutine() override;
 
 private:
-  void RecacheGui(gui::TWidgetsInitInfo const  & initInfo, gui::TWidgetsSizeInfo & sizeInfo);
-  void RecacheCountryStatus();
+  void RecacheGui(gui::TWidgetsInitInfo const  & initInfo, gui::TWidgetsSizeInfo & sizeInfo, bool needResetOldGui);
+  void RecacheChoosePositionMark();
   void RecacheMyPosition();
 
   void AcceptMessage(ref_ptr<Message> message) override;
@@ -64,7 +70,6 @@ private:
   public:
     Routine(BackendRenderer & renderer);
 
-    // threads::IRoutine overrides:
     void Do() override;
 
   private:
@@ -76,6 +81,8 @@ private:
   void InitGLDependentResource();
   void FlushGeometry(drape_ptr<Message> && message);
 
+  void CleanupOverlays(TileKey const & tileKey);
+
   MapDataProvider m_model;
   drape_ptr<BatchersPool> m_batchersPool;
   drape_ptr<ReadManager> m_readManager;
@@ -83,6 +90,10 @@ private:
   gui::LayerCacher m_guiCacher;
 
   ref_ptr<RequestedTiles> m_requestedTiles;
+
+  TOverlaysRenderData m_overlays;
+
+  TUpdateCurrentCountryFn m_updateCurrentCountryFn;
 
 #ifdef DEBUG
   bool m_isTeardowned;

@@ -15,15 +15,6 @@
 @end
 
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
-{
-  CLLocationManager * m_locationManager;
-  BOOL m_isStarted;
-  NSMutableSet * m_observers;
-  NSDate * m_lastLocationTime;
-  BOOL m_isCourse;
-}
-
-@property (nonatomic, readonly) BOOL isDaemonMode;
 
 - (void)start:(id <LocationObserver>)observer;
 - (void)stop:(id <LocationObserver>)observer;
@@ -40,6 +31,7 @@
 - (NSString *)formattedSpeedAndAltitude:(BOOL &)hasSpeed;
 
 - (bool)lastLocationIsValid;
+- (bool)isLocationModeUnknownOrPending;
 - (BOOL)enabledOnMap;
 - (void)triggerCompass;
 
@@ -47,6 +39,8 @@
 - (void)onForeground;
 - (void)onBackground;
 - (void)beforeTerminate;
+
+- (void)reset;
 
 @end
 

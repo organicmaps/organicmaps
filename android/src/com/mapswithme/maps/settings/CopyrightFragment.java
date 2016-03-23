@@ -54,7 +54,7 @@ public class CopyrightFragment extends BaseSettingsFragment
   public boolean onBackPressed()
   {
     if (!mDelegate.onBackPressed())
-      ((SettingsActivity)getActivity()).switchToFragment(AboutFragment.class, R.string.about_menu_title);
+      getSettingsActivity().switchToFragment(AboutFragment.class, R.string.about_menu_title);
 
     return true;
   }

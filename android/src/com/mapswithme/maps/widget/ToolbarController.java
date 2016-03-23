@@ -1,9 +1,11 @@
 package com.mapswithme.maps.widget;
 
 import android.app.Activity;
+import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -16,7 +18,7 @@ public class ToolbarController
   public ToolbarController(View root, Activity activity)
   {
     mActivity = activity;
-    mToolbar = (Toolbar) root.findViewById(R.id.toolbar);
+    mToolbar = (Toolbar) root.findViewById(getToolbarId());
     UiUtils.showHomeUpButton(mToolbar);
     mToolbar.setNavigationOnClickListener(new View.OnClickListener()
     {
@@ -26,6 +28,11 @@ public class ToolbarController
         onUpClick();
       }
     });
+  }
+
+  protected @IdRes int getToolbarId()
+  {
+    return R.id.toolbar;
   }
 
   public void onUpClick()
@@ -48,5 +55,10 @@ public class ToolbarController
   public Toolbar getToolbar()
   {
     return mToolbar;
+  }
+
+  public View findViewById(@IdRes int res)
+  {
+    return mToolbar.findViewById(res);
   }
 }

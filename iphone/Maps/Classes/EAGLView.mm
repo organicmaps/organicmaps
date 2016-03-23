@@ -26,7 +26,7 @@ double correctContentScale()
 {
   UIScreen * uiScreen = [UIScreen mainScreen];
   
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
     return [uiScreen respondsToSelector:@selector(scale)] ? [uiScreen scale] : 1.f;
   else
     return [uiScreen respondsToSelector:@selector(nativeScale)] ? [uiScreen nativeScale] : 1.f;
@@ -60,10 +60,9 @@ double getExactDPI(double contentScaleFactor)
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
 - (id)initWithCoder:(NSCoder *)coder
 {
-  BOOL const isDaemon = MapsAppDelegate.theApp.m_locationManager.isDaemonMode;
   NSLog(@"EAGLView initWithCoder Started");
   self = [super initWithCoder:coder];
-  if (self && !isDaemon)
+  if (self && !MapsAppDelegate.theApp.isDaemonMode)
     [self initialize];
 
   NSLog(@"EAGLView initWithCoder Ended");
@@ -91,7 +90,7 @@ double getExactDPI(double contentScaleFactor)
 - (void)createDrapeEngineWithWidth:(int)width height:(int)height
 {
   NSLog(@"EAGLView createDrapeEngine Started");
-  if (MapsAppDelegate.theApp.m_locationManager.isDaemonMode)
+  if (MapsAppDelegate.theApp.isDaemonMode)
     return;
 
   Framework::DrapeCreationParams p;
@@ -137,7 +136,6 @@ double getExactDPI(double contentScaleFactor)
   if (GetFramework().GetDrapeEngine() == nullptr)
   {
     [self createDrapeEngineWithWidth:w height:h];
-    GetFramework().LoadState();
     return;
   }
 
@@ -152,6 +150,7 @@ double getExactDPI(double contentScaleFactor)
     CGSize const s = self.bounds.size;
     [self onSize:s.width withHeight:s.height];
   }
+  [super layoutSubviews];
 }
 
 - (void)deallocateNative

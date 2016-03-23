@@ -7,16 +7,20 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
+import java.util.List;
 
-import com.google.gson.Gson;
-import com.mapswithme.country.ActiveCountryTree;
-import com.mapswithme.country.CountryItem;
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.downloader.CountryItem;
+import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
@@ -30,9 +34,10 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.SaveCallback;
+import io.fabric.sdk.android.Fabric;
+import net.hockeyapp.android.CrashManager;
 
 public class MwmApplication extends Application
-                         implements ActiveCountryTree.ActiveCountryListener
 {
   private final static String TAG = "MwmApplication";
 
@@ -43,13 +48,34 @@ public class MwmApplication extends Application
   private static MwmApplication sSelf;
   private SharedPreferences mPrefs;
   private AppBackgroundTracker mBackgroundTracker;
-  private final Gson mGson = new Gson();
 
   private boolean mAreCountersInitialized;
   private boolean mIsFrameworkInitialized;
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
+
+  private final MapManager.StorageCallback mStorageCallbacks = new MapManager.StorageCallback()
+  {
+    @Override
+    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+    {
+      for (MapManager.StorageCallbackData item : data)
+        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
+        {
+          Notifier.cancelDownloadSuggest();
+
+          CountryItem country = CountryItem.fill(item.countryId);
+          Notifier.notifyDownloadFailed(country);
+          MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, country.errorCode);
+
+          return;
+        }
+    }
+
+    @Override
+    public void onProgress(String countryId, long localSize, long remoteSize) {}
+  };
 
   public MwmApplication()
   {
@@ -60,11 +86,6 @@ public class MwmApplication extends Application
   public static MwmApplication get()
   {
     return sSelf;
-  }
-
-  public static Gson gson()
-  {
-    return sSelf.mGson;
   }
 
   public static AppBackgroundTracker backgroundTracker()
@@ -78,36 +99,13 @@ public class MwmApplication extends Application
   }
 
   @Override
-  public void onCountryProgressChanged(int group, int position, long[] sizes) {}
-
-  @Override
-  public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
-  {
-    Notifier.cancelDownloadSuggest();
-    if (newStatus == MapStorage.DOWNLOAD_FAILED)
-    {
-      CountryItem item = ActiveCountryTree.getCountryItem(group, position);
-      Notifier.notifyDownloadFailed(ActiveCountryTree.getCoreIndex(group, position), item.getName());
-    }
-  }
-
-  @Override
-  public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition)
-  {
-    if (oldGroup == ActiveCountryTree.GROUP_NEW && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE)
-      Statistics.INSTANCE.trackMapChanged(Statistics.EventName.MAP_DOWNLOADED);
-    else if (oldGroup == ActiveCountryTree.GROUP_OUT_OF_DATE && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE)
-      Statistics.INSTANCE.trackMapChanged(Statistics.EventName.MAP_UPDATED);
-  }
-
-  @Override
-  public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions) {}
-
-  @Override
   public void onCreate()
   {
     super.onCreate();
     mMainLoopHandler = new Handler(getMainLooper());
+
+    initHockeyApp();
+    initCrashlytics();
 
     initPaths();
     nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
@@ -117,6 +115,7 @@ public class MwmApplication extends Application
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
     TrackRecorder.init();
+    Editor.init();
   }
 
   public void initNativeCore()
@@ -125,9 +124,11 @@ public class MwmApplication extends Application
       return;
 
     nativeInitFramework();
-    ActiveCountryTree.addListener(this);
+
+    MapManager.nativeSubscribe(mStorageCallbacks);
+
     initNativeStrings();
-    BookmarkManager.getIcons(); // init BookmarkManager (automatically loads bookmarks)
+    BookmarkManager.nativeLoadBookmarks();
     TtsPlayer.INSTANCE.init(this);
     ThemeSwitcher.restart();
     mIsFrameworkInitialized = true;
@@ -153,6 +154,8 @@ public class MwmApplication extends Application
     nativeAddLocalization("my_places", getString(R.string.my_places));
     nativeAddLocalization("my_position", getString(R.string.my_position));
     nativeAddLocalization("routes", getString(R.string.routes));
+    nativeAddLocalization("cancel", getString(R.string.cancel));
+    nativeAddLocalization("wifi", getString(R.string.wifi));
 
     nativeAddLocalization("routing_failed_unknown_my_position", getString(R.string.routing_failed_unknown_my_position));
     nativeAddLocalization("routing_failed_has_no_routing_file", getString(R.string.routing_failed_has_no_routing_file));
@@ -161,6 +164,20 @@ public class MwmApplication extends Application
     nativeAddLocalization("routing_failed_cross_mwm_building", getString(R.string.routing_failed_cross_mwm_building));
     nativeAddLocalization("routing_failed_route_not_found", getString(R.string.routing_failed_route_not_found));
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
+  }
+
+  private void initHockeyApp()
+  {
+    String id = ("beta".equals(BuildConfig.BUILD_TYPE) ? PrivateVariables.hockeyAppBetaId()
+                                                       : PrivateVariables.hockeyAppId());
+    if (!TextUtils.isEmpty(id))
+      CrashManager.register(this, id);
+  }
+
+  private void initCrashlytics()
+  {
+    if (!BuildConfig.FABRIC_API_KEY.startsWith("0000"))
+      Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
   }
 
   public boolean isFrameworkInitialized()
@@ -205,23 +222,6 @@ public class MwmApplication extends Application
   {
     System.loadLibrary("mapswithme");
   }
-
-  /**
-   * Initializes native Platform with paths. Should be called before usage of any other native components.
-   */
-  private native void nativeInitPlatform(String apkPath, String storagePath, String tmpPath, String obbGooglePath,
-                                         String flavorName, String buildType, boolean isYota, boolean isTablet);
-
-  private native void nativeInitFramework();
-
-  private native void nativeAddLocalization(String name, String value);
-
-  /**
-   * Check if device have at least {@code size} bytes free.
-   */
-  public native boolean hasFreeSpace(long size);
-
-  private native void runNativeFunctor(final long functorPointer);
 
   /*
    * init Parse SDK
@@ -273,22 +273,34 @@ public class MwmApplication extends Application
   }
 
   @SuppressWarnings("unused")
-  public void runNativeFunctorOnUiThread(final long functorPointer)
+  void forwardToMainThread(final long functorPointer)
   {
     Message m = Message.obtain(mMainLoopHandler, new Runnable()
     {
       @Override
       public void run()
       {
-        runNativeFunctor(functorPointer);
+        nativeProcessFunctor(functorPointer);
       }
     });
     m.obj = mMainQueueToken;
     mMainLoopHandler.sendMessage(m);
   }
 
-  public void clearFunctorsOnUiThread()
+  void clearFunctorsOnUiThread()
   {
     mMainLoopHandler.removeCallbacksAndMessages(mMainQueueToken);
   }
+
+  /**
+   * Initializes native Platform with paths. Should be called before usage of any other native components.
+   */
+  private native void nativeInitPlatform(String apkPath, String storagePath, String tmpPath, String obbGooglePath,
+                                         String flavorName, String buildType, boolean isYota, boolean isTablet);
+
+  private static native void nativeInitFramework();
+
+  private static native void nativeAddLocalization(String name, String value);
+
+  private static native void nativeProcessFunctor(long functorPointer);
 }

@@ -5,6 +5,8 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 
+#include "Framework.h"
+
 #include "geometry/mercator.hpp"
 #include "platform/measurement_utils.hpp"
 
@@ -26,14 +28,14 @@
 - (void)config:(search::Result &)result forHeight:(BOOL)forHeight
 {
   [super config:result];
-  self.typeLabel.text = @(result.GetFeatureType()).capitalizedString;
-  self.locationLabel.text = @(result.GetRegionString());
+  self.typeLabel.text = @(result.GetFeatureType().c_str()).capitalizedString;
+  self.locationLabel.text = @(result.GetAddress().c_str());
   [self.locationLabel sizeToFit];
 
   if (!forHeight)
   {
     NSUInteger const starsCount = result.GetStarsCount();
-    NSString * cuisine = @(result.GetCuisine());
+    NSString * cuisine = @(result.GetCuisine().c_str());
     if (starsCount > 0)
       [self setInfoRating:starsCount];
     else if (cuisine.length > 0)
@@ -41,12 +43,22 @@
     else
       [self clearInfo];
 
-    self.closedView.hidden = !result.IsClosed();
+    switch (result.IsOpenNow())
+    {
+      case osm::Unknown:
+      // TODO: Correctly handle Open Now = YES value (show "OPEN" mark).
+      case osm::Yes:
+        self.closedView.hidden = YES;
+        break;
+      case osm::No:
+        self.closedView.hidden = NO;
+        break;
+    }
     if (result.HasPoint())
     {
       string distanceStr;
       double lat, lon;
-      LocationManager * locationManager = MapsAppDelegate.theApp.m_locationManager;
+      LocationManager * locationManager = MapsAppDelegate.theApp.locationManager;
       if ([locationManager getLat:lat Lon:lon])
       {
         m2::PointD const mercLoc = MercatorBounds::FromLatLon(lat, lon);
@@ -56,7 +68,7 @@
       self.distanceLabel.text = @(distanceStr.c_str());
     }
   }
-  if (isIOSVersionLessThan(8))
+  if (isIOS7)
     [self layoutIfNeeded];
 }
 

@@ -18,11 +18,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.widget.RotateByAlphaDrawable;
 import com.mapswithme.maps.widget.TrackedTransitionDrawable;
@@ -51,7 +52,7 @@ public class MainMenu
     }
   }
 
-  private static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
+  public static final int ANIMATION_DURATION = MwmApplication.get().getResources().getInteger(R.integer.anim_menu);
   private static final String TAG_COLLAPSE = MwmApplication.get().getString(R.string.tag_menu_collapse);
 
   private final int mButtonsWidth = UiUtils.dimen(R.dimen.menu_line_button_width);
@@ -137,6 +138,7 @@ public class MainMenu
   public enum Item
   {
     TOGGLE(R.id.toggle),
+    ADD_PLACE(R.id.add_place),
     SEARCH(R.id.search),
     P2P(R.id.p2p),
     BOOKMARKS(R.id.bookmarks),
@@ -269,7 +271,7 @@ public class MainMenu
 
   private void adjustCollapsedItems()
   {
-    for (View v: mCollapseViews)
+    for (View v : mCollapseViews)
     {
       UiUtils.showIf(!mCollapsed, v);
       v.setAlpha(mCollapsed ? 0.0f : 1.0f);
@@ -314,8 +316,14 @@ public class MainMenu
 
   private void updateMarker()
   {
-    int count = ActiveCountryTree.getOutOfDateCount();
-    UiUtils.showIf((!mCollapsed || mCollapseViews.isEmpty()) && (count > 0) && !isOpen(), mNewsMarker);
+    UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
+    int count = (info == null ? 0 : info.filesCount);
+
+    boolean show = (MapManager.nativeIsLegacyMode() || count > 0) &&
+                   (!mCollapsed || mCollapseViews.isEmpty()) &&
+                   !isOpen();
+
+    UiUtils.showIf(show, mNewsMarker);
     UiUtils.showIf(count > 0, mNewsCounter);
 
     if (count > 0)
@@ -341,6 +349,7 @@ public class MainMenu
 
   private void init()
   {
+    mapItem(Item.ADD_PLACE);
     mapItem(Item.SEARCH);
     mapItem(Item.P2P);
     mapItem(Item.BOOKMARKS);
@@ -387,6 +396,8 @@ public class MainMenu
     mToggle.setState(state, animateToggle);
 
     boolean expandContent;
+    boolean isRouting = state == State.NAVIGATION ||
+                        state == State.ROUTE_PREPARE;
     if (mRoutePlanFrame == null)
     {
       UiUtils.showIf(state != State.NAVIGATION, mButtonsFrame);
@@ -396,14 +407,14 @@ public class MainMenu
     {
       UiUtils.showIf(state == State.MENU, mButtonsFrame);
       UiUtils.showIf(state == State.ROUTE_PREPARE, mRoutePlanFrame);
-      expandContent = (state == State.NAVIGATION ||
-                       state == State.ROUTE_PREPARE);
+      expandContent = isRouting;
     }
 
     UiUtils.showIf(state == State.NAVIGATION, mNavigationFrame);
     UiUtils.showIf(expandContent,
                    mItemViews.get(Item.SEARCH),
                    mItemViews.get(Item.BOOKMARKS));
+    setVisible(Item.ADD_PLACE, !isRouting);
 
     if (isLayoutCorrected())
     {
@@ -530,6 +541,15 @@ public class MainMenu
     button.setEnabled(enable);
   }
 
+  public void setVisible(Item item, boolean show)
+  {
+    final View itemInButtonsFrame = mButtonsFrame.findViewById(item.mViewId);
+    if (itemInButtonsFrame != null)
+      UiUtils.showIf(show, itemInButtonsFrame);
+    if (mItemViews.get(item) != null)
+      UiUtils.showIf(show, mItemViews.get(item));
+  }
+
   public View getFrame()
   {
     return mFrame;
@@ -545,14 +565,6 @@ public class MainMenu
     return mAnimationTrackListener;
   }
 
-  public void showShowcase(boolean show)
-  {
-    final View showcaseInFrame = mButtonsFrame.findViewById(R.id.showcase);
-    // showcase button can be either in mButtonsFrame, or in mItemViews(items from content frame)
-    UiUtils.showIf(show, showcaseInFrame == null ? mItemViews.get(Item.SHOWCASE)
-                                                 : showcaseInFrame);
-  }
-
   public void setShowcaseText(String text)
   {
     ((TextView) mItemViews.get(Item.SHOWCASE)).setText(text);
@@ -561,5 +573,10 @@ public class MainMenu
   public Button getRouteStartButton()
   {
     return mRouteStartButton;
+  }
+
+  public boolean isAnimating()
+  {
+    return mAnimating;
   }
 }

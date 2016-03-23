@@ -439,27 +439,24 @@ m2::PointF MutableLabel::GetAvarageSize() const
   return m2::PointF(w, h);
 }
 
-MutableLabelHandle::MutableLabelHandle(dp::Anchor anchor, m2::PointF const & pivot)
-  : TBase(anchor, pivot, m2::PointF::Zero())
+MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot)
+  : TBase(id, anchor, pivot, m2::PointF::Zero())
   , m_textView(make_unique_dp<MutableLabel>(anchor))
   , m_isContentDirty(true)
   , m_glyphsReady(false)
 {}
 
-MutableLabelHandle::MutableLabelHandle(dp::Anchor anchor, m2::PointF const & pivot,
+MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
                                        ref_ptr<dp::TextureManager> textures)
-  : TBase(anchor, pivot, m2::PointF::Zero())
+  : TBase(id, anchor, pivot, m2::PointF::Zero())
   , m_textView(make_unique_dp<MutableLabel>(anchor))
   , m_isContentDirty(true)
   , m_textureManager(textures)
   , m_glyphsReady(false)
 {}
 
-void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                                              ScreenBase const & screen) const
+void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const
 {
-  UNUSED_VALUE(screen);
-
   if (!m_isContentDirty)
     return;
 
@@ -570,11 +567,11 @@ m2::PointF MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureMa
   return staticData.m_maxPixelSize;
 }
 
-StaticLabelHandle::StaticLabelHandle(ref_ptr<dp::TextureManager> textureManager,
+StaticLabelHandle::StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager,
                                      dp::Anchor anchor, m2::PointF const & pivot,
                                      m2::PointF const & size,
                                      TAlphabet const & alphabet)
-  : TBase(anchor, pivot, size)
+  : TBase(id, anchor, pivot, size)
   , m_alphabet(alphabet.begin(), alphabet.end())
   , m_textureManager(textureManager)
   , m_glyphsReady(false)

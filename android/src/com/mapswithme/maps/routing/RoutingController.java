@@ -14,20 +14,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import com.mapswithme.country.ActiveCountryTree;
-import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeSwitcher;
-import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -61,7 +59,7 @@ public class RoutingController
     void showSearch();
     void showRoutePlan(boolean show, @Nullable Runnable completionListener);
     void showNavigation(boolean show);
-    void showDownloader(boolean openDownloadedList);
+    void showDownloader(boolean openDownloaded);
     void updateMenu();
     void updatePoints();
 
@@ -91,15 +89,14 @@ public class RoutingController
   private boolean mHasContainerSavedState;
   private boolean mContainsCachedResult;
   private int mLastResultCode;
-  private MapStorage.Index[] mLastMissingCountries;
-  private MapStorage.Index[] mLastMissingRoutes;
+  private String[] mLastMissingMaps;
   private RoutingInfo mCachedRoutingInfo;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
   {
     @Override
-    public void onRoutingEvent(final int resultCode, final MapStorage.Index[] missingCountries, final MapStorage.Index[] missingRoutes)
+    public void onRoutingEvent(final int resultCode, final String[] missingMaps)
     {
       Log.d(TAG, "onRoutingEvent(resultCode: " + resultCode + ")");
 
@@ -109,8 +106,7 @@ public class RoutingController
         public void run()
         {
           mLastResultCode = resultCode;
-          mLastMissingCountries = missingCountries;
-          mLastMissingRoutes = missingRoutes;
+          mLastMissingMaps = missingMaps;
           mContainsCachedResult = true;
 
           if (mLastResultCode == ResultCodesHelper.NO_ERROR)
@@ -163,7 +159,7 @@ public class RoutingController
     mLastBuildProgress = 0;
     updateProgress();
 
-    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingCountries, mLastMissingRoutes);
+    RoutingErrorDialogFragment fragment = RoutingErrorDialogFragment.create(mLastResultCode, mLastMissingMaps);
     fragment.setListener(new RoutingErrorDialogFragment.Listener()
     {
       @Override
@@ -171,8 +167,8 @@ public class RoutingController
       {
         cancel();
 
-        ActiveCountryTree.downloadMapsForIndices(mLastMissingCountries, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
-        ActiveCountryTree.downloadMapsForIndices(mLastMissingRoutes, StorageOptions.MAP_OPTION_CAR_ROUTING);
+        for (String map: mLastMissingMaps)
+          MapManager.nativeDownload(map);
 
         if (mContainer != null)
           mContainer.showDownloader(true);
@@ -219,8 +215,7 @@ public class RoutingController
     Log.d(TAG, "[B] State: " + mState + ", BuildState: " + mBuildState + " -> " + newState);
     mBuildState = newState;
 
-    if (mBuildState == BuildState.BUILT &&
-        !(mStartPoint instanceof MapObject.MyPosition))
+    if (mBuildState == BuildState.BUILT && !MapObject.isOfType(MapObject.MY_POSITION, mStartPoint))
       Framework.nativeDisableFollowing();
   }
 
@@ -354,7 +349,7 @@ public class RoutingController
   {
     Log.d(TAG, "start");
 
-    if (!(mStartPoint instanceof MapObject.MyPosition))
+    if (!MapObject.isOfType(MapObject.MY_POSITION, mStartPoint))
     {
       Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_START_SUGGEST_REBUILD);
       AlohaHelper.logClick(AlohaHelper.ROUTING_START_SUGGEST_REBUILD);
@@ -362,10 +357,10 @@ public class RoutingController
       return;
     }
 
-    MapObject.MyPosition my = LocationHelper.INSTANCE.getMyPosition();
+    MapObject my = LocationHelper.INSTANCE.getMyPosition();
     if (my == null)
     {
-      mRoutingListener.onRoutingEvent(ResultCodesHelper.NO_POSITION, null, null);
+      mRoutingListener.onRoutingEvent(ResultCodesHelper.NO_POSITION, null);
       return;
     }
 
@@ -393,7 +388,7 @@ public class RoutingController
     titleView.setText(R.string.p2p_only_from_current);
     builder.setCustomTitle(titleView);
 
-    if (mEndPoint instanceof MapObject.MyPosition)
+    if (MapObject.isOfType(MapObject.MY_POSITION, mEndPoint))
     {
       builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
       {
@@ -436,8 +431,7 @@ public class RoutingController
       return;
 
     mStartButton.setEnabled(mState == State.PREPARE && mBuildState == BuildState.BUILT);
-    mStartButton.setTextColor(ThemeUtils.getColor(mContainer.getActivity(), mStartButton.isEnabled() ? R.attr.routingStartButtonTextColor
-                                                                                                     : R.attr.routingStartButtonTextColorDisabled));
+    UiUtils.updateAccentButton(mStartButton);
   }
 
   public void setStartButton(@Nullable Button button)
@@ -551,7 +545,7 @@ public class RoutingController
       Framework.nativeSetRouteStartPoint(0.0, 0.0, false);
     else
       Framework.nativeSetRouteStartPoint(mStartPoint.getLat(), mStartPoint.getLon(),
-                                         !(mStartPoint instanceof MapObject.MyPosition));
+                                         !MapObject.isOfType(MapObject.MY_POSITION, mStartPoint));
 
     if (mEndPoint == null)
       Framework.nativeSetRouteEndPoint(0.0, 0.0, false);
@@ -747,9 +741,6 @@ public class RoutingController
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);
-    if (hours == 0 && minutes == 0)
-      // One minute is added to estimated time to destination point to prevent displaying zero minutes left
-      minutes++;
 
     return hours == 0 ? Utils.formatUnitsText(R.dimen.text_size_routing_number, unitsSize,
                                               String.valueOf(minutes), "min")
@@ -759,10 +750,11 @@ public class RoutingController
                                                                String.valueOf(minutes), "min"));
   }
 
-  public static String formatArrivalTime(int seconds)
+  static String formatArrivalTime(int seconds)
   {
     Calendar current = Calendar.getInstance();
+    current.set(Calendar.SECOND, 0);
     current.add(Calendar.SECOND, seconds);
-    return String.format(Locale.US, "%d:%02d", current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE));
+    return StringUtils.formatUsingUsLocale("%d:%02d", current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE));
   }
 }

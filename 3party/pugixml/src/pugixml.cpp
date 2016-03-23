@@ -4526,6 +4526,26 @@ PUGI__NS_BEGIN
 	}
 
 	template <typename String, typename Header>
+	PUGI__FN bool set_value_convert(String& dest, Header& header, uintptr_t header_mask, long value)
+	{
+		char_t buf[64];
+		char_t* end = buf + sizeof(buf) / sizeof(buf[0]);
+		char_t* begin = integer_to_string<unsigned long>(buf, end, value, value < 0);
+
+		return strcpy_insitu(dest, header, header_mask, begin, end - begin);
+	}
+
+	template <typename String, typename Header>
+	PUGI__FN bool set_value_convert(String& dest, Header& header, uintptr_t header_mask, unsigned long value)
+	{
+		char_t buf[64];
+		char_t* end = buf + sizeof(buf) / sizeof(buf[0]);
+		char_t* begin = integer_to_string<unsigned long>(buf, end, value, false);
+
+		return strcpy_insitu(dest, header, header_mask, begin, end - begin);
+	}
+
+	template <typename String, typename Header>
 	PUGI__FN bool set_value_convert(String& dest, Header& header, uintptr_t header_mask, float value)
 	{
 		char buf[128];
@@ -5129,6 +5149,18 @@ namespace pugi
 		return *this;
 	}
 
+	PUGI__FN xml_attribute& xml_attribute::operator=(long rhs)
+	{
+		set_value(rhs);
+		return *this;
+	}
+
+	PUGI__FN xml_attribute& xml_attribute::operator=(unsigned long rhs)
+	{
+		set_value(rhs);
+		return *this;
+	}
+
 	PUGI__FN xml_attribute& xml_attribute::operator=(double rhs)
 	{
 		set_value(rhs);
@@ -5183,6 +5215,20 @@ namespace pugi
 	}
 
 	PUGI__FN bool xml_attribute::set_value(unsigned int rhs)
+	{
+		if (!_attr) return false;
+
+		return impl::set_value_convert(_attr->value, _attr->header, impl::xml_memory_page_value_allocated_mask, rhs);
+	}
+
+	PUGI__FN bool xml_attribute::set_value(long rhs)
+	{
+		if (!_attr) return false;
+
+		return impl::set_value_convert(_attr->value, _attr->header, impl::xml_memory_page_value_allocated_mask, rhs);
+	}
+
+	PUGI__FN bool xml_attribute::set_value(unsigned long rhs)
 	{
 		if (!_attr) return false;
 
@@ -6322,6 +6368,20 @@ namespace pugi
 		return dn ? impl::set_value_convert(dn->value, dn->header, impl::xml_memory_page_value_allocated_mask, rhs) : false;
 	}
 
+	PUGI__FN bool xml_text::set(long rhs)
+	{
+		xml_node_struct* dn = _data_new();
+
+		return dn ? impl::set_value_convert(dn->value, dn->header, impl::xml_memory_page_value_allocated_mask, rhs) : false;
+	}
+
+	PUGI__FN bool xml_text::set(unsigned long rhs)
+	{
+		xml_node_struct* dn = _data_new();
+
+		return dn ? impl::set_value_convert(dn->value, dn->header, impl::xml_memory_page_value_allocated_mask, rhs) : false;
+	}
+
 	PUGI__FN bool xml_text::set(float rhs)
 	{
 		xml_node_struct* dn = _data_new();
@@ -6372,6 +6432,18 @@ namespace pugi
 	}
 
 	PUGI__FN xml_text& xml_text::operator=(unsigned int rhs)
+	{
+		set(rhs);
+		return *this;
+	}
+
+	PUGI__FN xml_text& xml_text::operator=(long rhs)
+	{
+		set(rhs);
+		return *this;
+	}
+
+	PUGI__FN xml_text& xml_text::operator=(unsigned long rhs)
 	{
 		set(rhs);
 		return *this;

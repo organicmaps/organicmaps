@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Slett";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Slett gamle kart og fortsett";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Ikke spør meg igjen";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Min posisjon";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Ingen Internett-tilkobling oppdaget";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Ingen WiFi-tilkobling oppdaget. Har du lyst til å bruke mobildata (GPRS, EDGE, 3G eller LTE) for å laste ned %@?";
 
@@ -111,9 +105,6 @@
 /* Search box placeholder text */
 "search_map" = "Søk kart";
 
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Det er ikke nok ledig diskplass";
-
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Trykk for å laste ned";
 
@@ -122,9 +113,6 @@
 
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Vi anbefaler å bruke WiFi når du skal laste ned store kart";
-
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Vi har oppdatert kartdata og gjort dem mindre. For større land kan du nå velge å laste ned bare det området du trenger. For å bruke de nye kartene bør du imidlertid slette eldre kartdata som du har lastet ned tidligere.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Hvilket målesystem foretrekker du?";
@@ -147,11 +135,14 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Last ned kart\n(^ ^)";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Last ned kart";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "Last ned kart\nuten veiviserfunksjon (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Laster ned\n^\nmislyktes";
+"country_status_download_failed" = "Laster ned mislyktes";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Prøv på nytt";
@@ -184,8 +175,7 @@
 
 "free_space_for_country" = "Frigjør %1$@ på enheten først for å laste ned %2$@";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %.1f%@ med data.";
+"download_resources" = "Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %@ med data.";
 
 "getting_position" = "Henter nåværende posisjon";
 
@@ -261,7 +251,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Navn";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Adresse";
 
 /* Place Page - Remove Pin button */
@@ -289,7 +279,7 @@
 "move_maps" = "Flytt kart?";
 
 /* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Dette kan ta flere minutter. Vent et øyeblikk ...";
+"wait_several_minutes" = "Dette kan ta flere minutter. Vent et øyeblikk …";
 
 /* Show bookmarks from this category on a map or not */
 "visible" = "Synlig";
@@ -431,7 +421,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Melding";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-post";
 
 /* Copy Link */
@@ -617,7 +607,7 @@
 "settings_and_more" = "Innstillinger med mer";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Nettside";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -695,22 +685,29 @@
 "routing_update_maps" = "Med den nye versjonen av MAPS.ME kan du opprette ruter fra din nåværende posisjon til et ankomststed på kartet. Oppdater kartene for å bruke denne funksjonen.";
 
 /* Update all button text */
-"downloader_update_all" = "Oppdater alle";
+"downloader_update_all_button" = "Oppdater alle";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Avbryt alle";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Lastet ned";
+"downloader_downloaded_subtitle" = "Lastet ned";
 
 /* Downloaded maps category */
-"downloader_downloaded_maps" = "Nedlastede kart";
-
-/* My maps category */
-"downloader_my_maps" = "Mine kart";
+"downloader_available_maps" = "Available";
 
 /* Country queued for download */
 "downloader_queued" = "lagt i kø";
+
+"downloader_near_me_subtitle" = "I nærheten";
+
+"downloader_status_maps" = "Kart";
+
+"downloader_download_all_button" = "Last ned alle";
+
+"downloader_downloading" = "Laster ned:";
+
+"downloader_search_results" = "Funnet";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!";
@@ -726,6 +723,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Mislyktes";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Stans navigeringen for å slette kartet.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nåværende posisjon er udefinert. Oppgi en posisjon for å opprette en rute.";
@@ -839,276 +839,6 @@
 
 /* Text for routing error dialog */
 "routing_download_roaming" = "Du er på vei til å laste ned %@ MB via mobildata (under 'roaming'). Dette kan resultere i påløpende ekstragebyrer, avhengig av din mobiloperatørløsning.";
-
-/* Cuisine */
-"cuisine_regional" = "regional mat";
-
-/* Cuisine */
-"cuisine_pizza" = "pizza";
-
-/* Cuisine */
-"cuisine_burger" = "burger";
-
-/* Cuisine */
-"cuisine_italian" = "italiensk mat";
-
-/* Cuisine */
-"cuisine_chinese" = "kinesisk mat";
-
-/* Cuisine */
-"cuisine_coffee_shop" = "kafé";
-
-/* Cuisine */
-"cuisine_sandwich" = "smørbrød";
-
-/* Cuisine */
-"cuisine_german" = "tysk mat";
-
-/* Cuisine */
-"cuisine_japanese" = "japansk mat";
-
-/* Cuisine */
-"cuisine_kebab" = "kebab";
-
-/* Cuisine */
-"cuisine_mexican" = "meksikansk mat";
-
-/* Cuisine */
-"cuisine_indian" = "indisk mat";
-
-/* Cuisine */
-"cuisine_american" = "amerikansk mat";
-
-/* Cuisine */
-"cuisine_french" = "fransk mat";
-
-/* Cuisine */
-"cuisine_ice_cream" = "iskrem";
-
-/* Cuisine */
-"cuisine_asian" = "asiatisk mat";
-
-/* Cuisine */
-"cuisine_chicken" = "kylling";
-
-/* Cuisine */
-"cuisine_greek" = "gresk mat";
-
-/* Cuisine */
-"cuisine_thai" = "Thaimat";
-
-/* Cuisine */
-"cuisine_international" = "internasjonal mat";
-
-/* Cuisine */
-"cuisine_sushi" = "sushi";
-
-/* Cuisine */
-"cuisine_fish_and_chips" = "fisk og pommes frites";
-
-/* Cuisine */
-"cuisine_turkish" = "tyrkisk mat";
-
-/* Cuisine */
-"cuisine_seafood" = "sjømat";
-
-/* Cuisine */
-"cuisine_steak_house" = "biffrestaurant";
-
-/* Cuisine */
-"cuisine_spanish" = "spansk mat";
-
-/* Cuisine */
-"cuisine_fish" = "fisk";
-
-/* Cuisine */
-"cuisine_vietnamese" = "vietnamesisk mat";
-
-/* Cuisine */
-"cuisine_noodles" = "nudler";
-
-/* Cuisine */
-"cuisine_vegetarian" = "vegetar mat";
-
-/* Cuisine */
-"cuisine_korean" = "koreansk mat";
-
-/* Cuisine */
-"cuisine_friture" = "frityrt";
-
-/* Cuisine */
-"cuisine_barbecue" = "grillmat";
-
-/* Cuisine */
-"cuisine_bavarian" = "bayersk mat";
-
-/* Cuisine */
-"cuisine_ramen" = "ramen";
-
-/* Cuisine */
-"cuisine_italian_pizza" = "italiensk mat;pizza";
-
-/* Cuisine */
-"cuisine_mediterranean" = "middelhavsmat";
-
-/* Cuisine */
-"cuisine_donut" = "smultring";
-
-/* Cuisine */
-"cuisine_beef_bowl" = "biffbolle";
-
-/* Cuisine */
-"cuisine_cake" = "kake";
-
-/* Cuisine */
-"cuisine_crepe" = "crepe";
-
-/* Cuisine */
-"cuisine_heuriger" = "heuriger";
-
-/* Cuisine */
-"cuisine_lebanese" = "libanesisk mat";
-
-/* Cuisine */
-"cuisine_steak" = "steak";
-
-/* Cuisine */
-"cuisine_local" = "lokal mat";
-
-/* Cuisine */
-"cuisine_curry" = "karri";
-
-/* Cuisine */
-"cuisine_filipino" = "filippinsk mat";
-
-/* Cuisine */
-"cuisine_russian" = "russisk mat";
-
-/* Cuisine */
-"cuisine_breakfast" = "frokost";
-
-/* Cuisine */
-"cuisine_tapas" = "tapas";
-
-/* Cuisine */
-"cuisine_bbq" = "grill";
-
-/* Cuisine */
-"cuisine_bagel" = "bagel";
-
-/* Cuisine */
-"cuisine_pasta" = "pasta";
-
-/* Cuisine */
-"cuisine_buschenschank" = "buschenschank";
-
-/* Cuisine */
-"cuisine_sausage" = "pølse";
-
-/* Cuisine */
-"cuisine_portuguese" = "portugisisk mat";
-
-/* Cuisine */
-"cuisine_grill" = "grill";
-
-/* Cuisine */
-"cuisine_pancake" = "pannekake";
-
-/* Cuisine */
-"cuisine_malagasy" = "Gassisk";
-
-/* Cuisine */
-"cuisine_polish" = "polsk mat";
-
-/* Cuisine */
-"cuisine_diner" = "middag";
-
-/* Cuisine */
-"cuisine_african" = "afrikansk mat";
-
-/* Cuisine */
-"cuisine_doughnut" = "smultring";
-
-/* Cuisine */
-"cuisine_georgian" = "georgisk mat";
-
-/* Cuisine */
-"cuisine_croatian" = "kroatisk mat";
-
-/* Cuisine */
-"cuisine_arab" = "arabisk mat";
-
-/* Cuisine */
-"cuisine_balkan" = "balkan mat";
-
-/* Cuisine */
-"cuisine_brazilian" = "brasiliansk mat";
-
-/* Cuisine */
-"cuisine_caribbean" = "karibisk mat";
-
-/* Cuisine */
-"cuisine_austrian" = "østerriksk mat";
-
-/* Cuisine */
-"cuisine_vegan" = "veganermat";
-
-/* Cuisine */
-"cuisine_argentinian" = "argentinsk mat";
-
-/* Cuisine */
-"cuisine_persian" = "persisk mat";
-
-/* Cuisine */
-"cuisine_soba" = "soba";
-
-/* Cuisine */
-"cuisine_malaysian" = "malaysisk mat";
-
-/* Cuisine */
-"cuisine_indonesian" = "indonesisk mat";
-
-/* Cuisine */
-"cuisine_ethiopian" = "etiopisk mat";
-
-/* Cuisine */
-"cuisine_deli" = "delimat";
-
-/* Cuisine */
-"cuisine_irish" = "irsk mat";
-
-/* Cuisine */
-"cuisine_hungarian" = "ungarsk mat";
-
-/* Cuisine */
-"cuisine_lao" = "lao mat";
-
-/* Cuisine */
-"cuisine_coffee" = "kaffe";
-
-/* Cuisine */
-"cuisine_hotdog" = "hotdog";
-
-/* Cuisine */
-"cuisine_oriental" = "orientalsk mat";
-
-/* Cuisine */
-"cuisine_savory_pancakes" = "fylte pannekaker";
-
-/* Cuisine */
-"cuisine_moroccan" = "marokkansk mat";
-
-/* Cuisine */
-"cuisine_barbeque" = "grillmat";
-
-/* Cuisine */
-"cuisine_peruvian" = "peruansk mat";
-
-/* Cuisine */
-"cuisine_fine_dining" = "gourmet";
-
-/* Cuisine */
-"cuisine_tea" = "te";
 
 /* bookmark button text */
 "bookmark" = "bokmerk";
@@ -1242,7 +972,7 @@
 
 "dialog_routing_always_cross_that_border" = "Kryss alltid denne grensen";
 
-"dialog_routing_not_now" = "Ikke nå";
+"not_now" = "Ikke nå";
 
 "dialog_routing_build_route" = "Opprett";
 
@@ -1259,8 +989,6 @@
 "search_select_map" = "Velg kartet";
 
 "search_select_other_map" = "Velg et annet kart";
-
-"search_vehicle_routes" = "Veibeskrivelser";
 
 /* «Show» context menu */
 "show" = "Vis";
@@ -1350,6 +1078,284 @@
 
 "whats_new_next_button" = "Neste";
 
-"whats_new_night_caption" = "Nattmodus-navigering";
+"editor_time_add" = "Legg til tidsrom";
 
-"whats_new_night_body" = "For å tilrettelegge bruk av MAPS.ME under mørkekjøring har vi lagt til funksjonen nattmodus. Funksjonen skrues automatisk på etter solnedgang.";
+"editor_time_delete" = "Slett tidsrom";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Hele dagen (24 timer)";
+
+"editor_time_open" = "Åpen";
+
+"editor_time_close" = "Stengt";
+
+"editor_time_add_closed" = "Legg til stengt tid";
+
+"editor_time_title" = "Åpningstider";
+
+"editor_time_advanced" = "Avansert modus";
+
+"editor_time_simple" = "Enkel modus";
+
+"editor_hours_closed" = "Stengt";
+
+"editor_example_values" = "Eksempelverdier";
+
+"editor_correct_mistake" = "Rett feil";
+
+"editor_correct_mistake_message" = "Du har gjort en redigeringsfeil. Rett den eller bytt til enkel modus.";
+
+"editor_add_select_location" = "Plassering";
+
+"editor_done_dialog_1" = "Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.";
+
+"editor_done_dialog_2" = "Dette er din andre forbedring av kartet. Nå er du på %d. plass i listen av kart-forbedrere. Fortell vennene dine om dette.";
+
+"editor_done_dialog_3" = "Du har forbedret kartet, fortell vennene dine om det, og rediger kartet sammen.";
+
+"share_with_friends" = "Del med venner";
+
+"editor_report_problem_desription_1" = "Beskriv problemet detaljert slik at OpenStreetMap-samfunnet kan fikse feilen.";
+
+"editor_report_problem_desription_2" = "Eller gjør det selv på http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Send";
+
+"editor_report_problem_title" = "Problem";
+
+"editor_report_problem_no_place_title" = "Stedet finnes ikke";
+
+"editor_report_problem_under_construction_title" = "Stengt pga. vedlikehold";
+
+"editor_report_problem_duplicate_place_title" = "Duplisert sted";
+
+"first_launch_congrats_title" = "MAPS.ME er klar til bruk";
+
+"first_launch_congrats_text" = "Søk og naviger i kart over alle verdens land gratis.";
+
+"migrate_title" = "Viktig!";
+
+/* Android uses image instead of text. */
+"download_all" = "Last ned alle";
+
+"delete_all" = "Slett alle";
+
+"autodownload" = "Automatisk nedlasting";
+
+/* Place Page opening hours text */
+"closed_now" = "Lukket nå";
+
+/* Place Page opening hours text */
+"daily" = "Daglig";
+
+"twentyfour_seven" = "Dag og natt";
+
+"day_off_today" = "Fridag i dag";
+
+"day_off" = "Fridag";
+
+"today" = "I dag";
+
+"sunrise_to_sunset" = "Fra morgen til kveld";
+
+"sunset_to_sunrise" = "Fra solnedgang til soloppgang";
+
+"add_opening_hours" = "Legg til åpningstider";
+
+"edit_opening_hours" = "Rediger åpningstider";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Har du ingen konto hos OpenStreetMap?";
+
+"register_at_openstreetmap" = "Registrer deg";
+
+"password_8_chars_min" = "Passord (minimum 8 tegn)";
+
+"invalid_username_or_password" = "Ugyldig brukernavn eller passord.";
+
+"login" = "Logg inn";
+
+"password" = "Passord";
+
+"forgot_password" = "Glemt passordet?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Gjenopprett passordet";
+
+"enter_email_address_to_reset_password" = "Skriv inn e-postadressen du brukte ved registreringen, så vil vi sende deg en kobling for å fornye passordet ditt.";
+
+"reset_password" = "Tilbakestill passord";
+
+"username" = "Brukernavn";
+
+"osm_account" = "OSM-konto";
+
+"logout" = "Logg ut";
+
+"login_and_edit_map_motivation_message" = "Logg deg inn og rediger informasjonen til objektene på kartet, så vil vi gjøre den tilgjengelig for millioner av andre brukere. La oss gjøre verden bedre sammen.";
+
+"not_sent" = "Ikke sendt";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Siste opplasting";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "endringer";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Du har redigert ditt første objekt!";
+
+"thank_you" = "Takk skal du ha";
+
+"login_with_google" = "Logg inn med Google";
+
+"login_with_facebook" = "Logg inn med Facebook";
+
+"login_with_openstreetmap" = "Logg inn med www.openstreetmap.org";
+
+"edit_place" = "Rediger stedet";
+
+"place_name" = "Stedsnavn";
+
+"place_name_caption" = "Oppgi navnet som på skiltet eller navneskiltet";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Andre språk";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Legg til et språk";
+
+"street" = "Gate";
+
+/* Editable House Number text field (in address block). */
+"house" = "Bygning";
+
+"details" = "Detaljer";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Legg til en gate";
+
+"choose_language" = "Velg et språk";
+
+"choose_street" = "Velg en gate";
+
+"postal_code" = "Postnummer";
+
+"cuisine" = "Matrett";
+
+"select_cuisine" = "Velg matrett";
+
+/* login text field */
+"email_or_username" = "E-postadresse eller brukernavn";
+
+"phone" = "Telefon";
+
+"please_note" = "Vær oppmerksom på at";
+
+"common_no_wifi_dialog" = "Ingen trådløs forbindelse. Vil du fortsette med mobildata?";
+
+"downloader_delete_map_dialog" = "Alle endringer i kartet vil slettes sammen med kartet.";
+
+"downloader_update_maps" = "Oppdater kart";
+
+"downloader_mwm_migration_dialog" = "For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.";
+
+"downloader_search_field_hint" = "Finn kartet";
+
+"migration_update_all_button" = "Oppdater alle kart";
+
+"migration_delete_all_download_current_button" = "Last ned det oppdaterte kartet og slett de gamle";
+
+"migration_prefetch_status" = "Forbereder oppdatering av kart…";
+
+"migration_download_error_dialog" = "Nedlastningsfeil";
+
+"common_check_internet_connection_dialog" = "Kontroller innstillingene dine og sørg for at enheten din er koblet til internett.";
+
+"downloader_no_space_title" = "Ikke nok plass";
+
+"downloader_no_space_message" = "Fjern unødvendig data";
+
+"editor_general_auth_error_dialog" = "Generell innloggingsfeil.";
+
+"editor_login_error_dialog" = "Innloggingsfeil.";
+
+"editor_login_failed_dialog" = "Innloggingen mislyktes";
+
+"editor_username_error_dialog" = "Brukernavnet er ugyldig";
+
+"editor_place_edited_dialog" = "Du har redigert et objekt!";
+
+"editor_login_with_osm" = "Logg inn med OpenStreetMat";
+
+"editor_profile_changes" = "Endringer:";
+
+"editor_profile_unsent_changes" = "Ikke sendt:";
+
+"editor_focus_map_on_location" = "Dra kartet for å velge riktig beliggenhet for objektet.";
+
+"editor_add_select_category" = "Velg kategori";
+
+"editor_add_select_category_popular_subtitle" = "Populære";
+
+"editor_add_select_category_all_subtitle" = "Alle kategorier";
+
+"editor_edit_place_title" = "Redigerer";
+
+"editor_add_place_title" = "Legger til";
+
+"editor_edit_place_name_hint" = "Navn på stedet";
+
+"editor_edit_place_category_title" = "Kategori";
+
+"detailed_problem_description" = "Detaljert beskrivelse av problemet";
+
+"editor_report_problem_other_title" = "Et annet problem";
+
+"placepage_add_place_button" = "Legg til et sted";
+
+"placepage_report_problem_button" = "Rapporter et problem";
+
+"whatsnew_smallmwm_header" = "Dere har bedt om det og vi har fått det til";
+
+"whatsnew_smallmwm_message" = "Vi har delt opp kartene i separate deler. Nå kan du laste ned separate regioner istedenfor hele land.";
+
+"whatsnew_search_header" = "Nytt søk";
+
+"whatsnew_search_message" = "Nå er det mye enklere å søke etter adresse. Se selv.";
+
+"whatsnew_editor_title" = "Rediger kartet*";
+
+"whatsnew_editor_message_1" = "Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME bruker data fra OpenStreetMap-samfunnet.";
+
+"onboarding_offline_navigation_title" = "Du vil aldri havne på villspor igjen";
+
+"onboarding_offline_navigation_message" = "Planlegg optimale reiseruter med bil og til fots, selv uten internettforbindelse!";
+
+"onboarding_offline_navigation_title_2" = "Offline-navigering";
+
+"onboarding_offline_navigation_message_2" = "Planlegg optimale reiseruter med bil og til fots.";
+
+"onboarding_offline_maps_title" = "MAPS.ME — se verdensvide kart uten Internett";
+
+"onboarding_offline_maps_message" = "Last ned kartene for et ønsket område én gang, og bruk navigeringen og andre søkefunksjoner uten internettforbindelse.";
+
+"onboarding_notifications_message" = "Få oppdateringsvarsler for å motta de nyeste kartene";
+
+"onboarding_notifications_title" = "Aktiver oppdateringsvarsler";
+
+"onboarding_location_title" = "Hjelp oss med å finne deg";
+
+"onboarding_location_message" = "For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.";
+
+"dialog_incorrect_feature_position" = "Endre plassering";
+
+"message_invalid_feature_position" = "Et objekt kan ikke plasseres her";

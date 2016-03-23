@@ -312,7 +312,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestTimespan)
     span.SetStart(HourMinutes(10_h));
     span.SetEnd(HourMinutes(00_h));
 
-    BOOST_CHECK(!span.HasExtendedHours());
+    BOOST_CHECK(span.HasExtendedHours());
     BOOST_CHECK_EQUAL(ToString(span), "10:00-00:00");
   }
 
@@ -392,7 +392,19 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestWeekdayRange)
     range.AddNth(entry);
     BOOST_CHECK(range.HasNth());
   }
+  {
+    WeekdayRange range;
+    range.SetStart(Weekday::Monday);
+    range.SetEnd(Weekday::Sunday);
 
+    BOOST_CHECK(range.HasSunday());
+    BOOST_CHECK(range.HasMonday());
+    BOOST_CHECK(range.HasTuesday());
+    BOOST_CHECK(range.HasWednesday());
+    BOOST_CHECK(range.HasThursday());
+    BOOST_CHECK(range.HasFriday());
+    BOOST_CHECK(range.HasSaturday());
+  }
 }
 
 BOOST_AUTO_TEST_CASE(OpeningHours_Holidays)

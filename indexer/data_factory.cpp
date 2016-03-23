@@ -11,7 +11,7 @@ void IndexFactory::Load(FilesContainerR const & cont)
 
 IntervalIndexIFace * IndexFactory::CreateIndex(ModelReaderPtr reader) const
 {
-  if (m_version.format == version::v1)
+  if (m_version.GetFormat() == version::Format::v1)
     return new old_101::IntervalIndex<uint32_t, ModelReaderPtr>(reader);
   return new IntervalIndex<ModelReaderPtr>(reader);
 }

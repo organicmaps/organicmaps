@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Ștergere";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Șterge hărțile vechi și continuă";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Nu mă mai întreba";
 
@@ -48,7 +45,7 @@
 "downloading_x_touch_to_cancel" = "Se descarcă %qu%%. Atingeți pentru a anula.";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Se descarcă...";
+"downloading" = "Se descarcă…";
 
 "get_it_now" = "Obțineți acum";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Poziția mea";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Nu a fost detectată nicio conexiune la internet.";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Nu a fost detectată nicio conexiune WiFi. Doriți să utilizați datele mobile (GPRS, EDGE, 3G sau LTE) pentru a descărca %@?";
 
@@ -111,9 +105,6 @@
 /* Search box placeholder text */
 "search_map" = "Căutare hartă";
 
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Nu există suficient spațiu liber pe disc.";
-
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Atingeți pentru a descărca.";
 
@@ -122,9 +113,6 @@
 
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Vă recomandăm să utilizați WiFi pentru a descărca hărți mari.";
-
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Am actualizat datele cartografice și le-am făcut mai mici. În cazul țărilor mari, acum puteți alege să descărcați doar regiunea/statul de care aveți nevoie. Totuși, pentru a putea utiliza hărțile noi, trebuie să ștergeți orice date cartografice descărcate anterior.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Ce sistem de măsură preferați?";
@@ -147,11 +135,14 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Descărcare hartă\n(^ ^)";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Descărcare hartă";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "Descărcare hartă\nfără rutare (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Se descarcă\n^\na eșuat";
+"country_status_download_failed" = "Se descarcă a eșuat";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Încercați din nou";
@@ -184,8 +175,7 @@
 
 "free_space_for_country" = "Vă rugăm să eliberați %1$@ spațiu pe dispozitivul dvs., pentru a putea descărca %2$@.";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %.1f%@ de date.";
+"download_resources" = "Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %@ de date.";
 
 "getting_position" = "Se obține poziția actuală";
 
@@ -261,7 +251,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Nume";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Adresă";
 
 /* Place Page - Remove Pin button */
@@ -289,7 +279,7 @@
 "move_maps" = "Mutare hărți?";
 
 /* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Aceasta poate dura câteva minute.\nVă rugăm să așteptați...";
+"wait_several_minutes" = "Aceasta poate dura câteva minute.\nVă rugăm să așteptați…";
 
 /* Show bookmarks from this category on a map or not */
 "visible" = "Vizibil";
@@ -431,7 +421,7 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Tin nhắn";
 
-/* Share by email button text */
+/* Share by email button text, also used in editor. */
 "email" = "E-mail";
 
 /* Copy Link */
@@ -617,7 +607,7 @@
 "settings_and_more" = "Setări și altele";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Site web";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -695,22 +685,29 @@
 "routing_update_maps" = "Noua versiune a MAPS.ME vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.";
 
 /* Update all button text */
-"downloader_update_all" = "Actualizare toate";
+"downloader_update_all_button" = "Actualizați toate";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Anulare toate";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Descărcate";
+"downloader_downloaded_subtitle" = "Descărcat";
 
 /* Downloaded maps category */
-"downloader_downloaded_maps" = "Hărți descărcate";
-
-/* My maps category */
-"downloader_my_maps" = "Hărțile mele";
+"downloader_available_maps" = "Available";
 
 /* Country queued for download */
 "downloader_queued" = "în lista de așteptare";
+
+"downloader_near_me_subtitle" = "Aproape de mine";
+
+"downloader_status_maps" = "Hărți";
+
+"downloader_download_all_button" = "Descărcați toate";
+
+"downloader_downloading" = "Descărcare:";
+
+"downloader_search_results" = "S-au găsit";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Atunci când creați rute în aplicația MAPS.ME, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!";
@@ -726,6 +723,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Eșuată";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Pentru a șterge harta, vă rugăm să opriți navigarea.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Poziția dvs. curentă este nedefinită. Vă rugăm să specificați poziția, pentru a crea o rută.";
@@ -839,276 +839,6 @@
 
 /* Text for routing error dialog */
 "routing_download_roaming" = "Urmează să descărcați %@ MB folosind abonamentul de date pentru mobil (în roaming). Acest lucru poate genera costuri suplimentare, în funcție de abonamentul dvs. de date, activat de operatorul de telefonie mobilă.";
-
-/* Cuisine */
-"cuisine_regional" = "bucătărie regional";
-
-/* Cuisine */
-"cuisine_pizza" = "pizza";
-
-/* Cuisine */
-"cuisine_burger" = "burger";
-
-/* Cuisine */
-"cuisine_italian" = "bucătărie italian";
-
-/* Cuisine */
-"cuisine_chinese" = "bucătărie chinez";
-
-/* Cuisine */
-"cuisine_coffee_shop" = "cafenea";
-
-/* Cuisine */
-"cuisine_sandwich" = "sandwich";
-
-/* Cuisine */
-"cuisine_german" = "bucătărie german";
-
-/* Cuisine */
-"cuisine_japanese" = "bucătărie japonez";
-
-/* Cuisine */
-"cuisine_kebab" = "kebab";
-
-/* Cuisine */
-"cuisine_mexican" = "bucătărie mexican";
-
-/* Cuisine */
-"cuisine_indian" = "bucătărie indian";
-
-/* Cuisine */
-"cuisine_american" = "bucătărie american";
-
-/* Cuisine */
-"cuisine_french" = "bucătărie francez";
-
-/* Cuisine */
-"cuisine_ice_cream" = "înghețată";
-
-/* Cuisine */
-"cuisine_asian" = "bucătărie asiatic";
-
-/* Cuisine */
-"cuisine_chicken" = "pui";
-
-/* Cuisine */
-"cuisine_greek" = "bucătărie grecesc";
-
-/* Cuisine */
-"cuisine_thai" = "bucătărie tailandez";
-
-/* Cuisine */
-"cuisine_international" = "bucătărie internațional";
-
-/* Cuisine */
-"cuisine_sushi" = "sushi";
-
-/* Cuisine */
-"cuisine_fish_and_chips" = "restaurant fish and chips";
-
-/* Cuisine */
-"cuisine_turkish" = "bucătărie turcesc";
-
-/* Cuisine */
-"cuisine_seafood" = "fructe de mare";
-
-/* Cuisine */
-"cuisine_steak_house" = "restaurant steakhouse";
-
-/* Cuisine */
-"cuisine_spanish" = "bucătărie spaniol";
-
-/* Cuisine */
-"cuisine_fish" = "pește";
-
-/* Cuisine */
-"cuisine_vietnamese" = "bucătărie vietnamez";
-
-/* Cuisine */
-"cuisine_noodles" = "tăiței";
-
-/* Cuisine */
-"cuisine_vegetarian" = "bucătărie vegetarian";
-
-/* Cuisine */
-"cuisine_korean" = "coreean";
-
-/* Cuisine */
-"cuisine_friture" = "prăjit";
-
-/* Cuisine */
-"cuisine_barbecue" = "grătar";
-
-/* Cuisine */
-"cuisine_bavarian" = "bucătărie bavarez";
-
-/* Cuisine */
-"cuisine_ramen" = "ramen";
-
-/* Cuisine */
-"cuisine_italian_pizza" = "italian, pizza";
-
-/* Cuisine */
-"cuisine_mediterranean" = "bucătărie cu specific mediteranean";
-
-/* Cuisine */
-"cuisine_donut" = "gogoașă";
-
-/* Cuisine */
-"cuisine_beef_bowl" = "ciorbă de văcuță";
-
-/* Cuisine */
-"cuisine_cake" = "tort";
-
-/* Cuisine */
-"cuisine_crepe" = "crep";
-
-/* Cuisine */
-"cuisine_heuriger" = "heuriger";
-
-/* Cuisine */
-"cuisine_lebanese" = "bucătărie libanez";
-
-/* Cuisine */
-"cuisine_steak" = "friptură";
-
-/* Cuisine */
-"cuisine_local" = "bucătărie local";
-
-/* Cuisine */
-"cuisine_curry" = "curry";
-
-/* Cuisine */
-"cuisine_filipino" = "bucătărie filipinez";
-
-/* Cuisine */
-"cuisine_russian" = "bucătărie rusesc";
-
-/* Cuisine */
-"cuisine_breakfast" = "mic dejun";
-
-/* Cuisine */
-"cuisine_tapas" = "tapas";
-
-/* Cuisine */
-"cuisine_bbq" = "grătar";
-
-/* Cuisine */
-"cuisine_bagel" = "chiflă";
-
-/* Cuisine */
-"cuisine_pasta" = "paste";
-
-/* Cuisine */
-"cuisine_buschenschank" = "tavernă";
-
-/* Cuisine */
-"cuisine_sausage" = "cârnat";
-
-/* Cuisine */
-"cuisine_portuguese" = "bucătărie portughez";
-
-/* Cuisine */
-"cuisine_grill" = "grătar";
-
-/* Cuisine */
-"cuisine_pancake" = "clătită";
-
-/* Cuisine */
-"cuisine_malagasy" = "bucătărie malgaș";
-
-/* Cuisine */
-"cuisine_polish" = "bucătărie polonez";
-
-/* Cuisine */
-"cuisine_diner" = "cină";
-
-/* Cuisine */
-"cuisine_african" = "bucătărie african";
-
-/* Cuisine */
-"cuisine_doughnut" = "gogoașă";
-
-/* Cuisine */
-"cuisine_georgian" = "bucătărie georgian";
-
-/* Cuisine */
-"cuisine_croatian" = "bucătărie croat";
-
-/* Cuisine */
-"cuisine_arab" = "bucătărie arăbesc";
-
-/* Cuisine */
-"cuisine_balkan" = "bucătărie balcanic";
-
-/* Cuisine */
-"cuisine_brazilian" = "bucătărie brazilian";
-
-/* Cuisine */
-"cuisine_caribbean" = "bucătărie caribbean";
-
-/* Cuisine */
-"cuisine_austrian" = "bucătărie austriac";
-
-/* Cuisine */
-"cuisine_vegan" = "bucătărie vegan";
-
-/* Cuisine */
-"cuisine_argentinian" = "bucătărie argentinian";
-
-/* Cuisine */
-"cuisine_persian" = "bucătărie persan";
-
-/* Cuisine */
-"cuisine_soba" = "soba";
-
-/* Cuisine */
-"cuisine_malaysian" = "bucătărie malaysian";
-
-/* Cuisine */
-"cuisine_indonesian" = "bucătărie indonezian";
-
-/* Cuisine */
-"cuisine_ethiopian" = "bucătărie etiopian";
-
-/* Cuisine */
-"cuisine_deli" = "deli";
-
-/* Cuisine */
-"cuisine_irish" = "bucătărie irlandez";
-
-/* Cuisine */
-"cuisine_hungarian" = "bucătărie maghiar";
-
-/* Cuisine */
-"cuisine_lao" = "bucătărie lao";
-
-/* Cuisine */
-"cuisine_coffee" = "cafea";
-
-/* Cuisine */
-"cuisine_hotdog" = "hot dog";
-
-/* Cuisine */
-"cuisine_oriental" = "bucătărie oriental";
-
-/* Cuisine */
-"cuisine_savory_pancakes" = "clătite delicioase";
-
-/* Cuisine */
-"cuisine_moroccan" = "bucătărie marocan";
-
-/* Cuisine */
-"cuisine_barbeque" = "la grătar";
-
-/* Cuisine */
-"cuisine_peruvian" = "bucătărie peruan";
-
-/* Cuisine */
-"cuisine_fine_dining" = "restaurant elegant";
-
-/* Cuisine */
-"cuisine_tea" = "ceai";
 
 /* bookmark button text */
 "bookmark" = "marcaj";
@@ -1242,7 +972,7 @@
 
 "dialog_routing_always_cross_that_border" = "Întotdeauna să se treacă această limită";
 
-"dialog_routing_not_now" = "Nu acum";
+"not_now" = "Nu acum";
 
 "dialog_routing_build_route" = "Creare";
 
@@ -1259,8 +989,6 @@
 "search_select_map" = "Selectați harta";
 
 "search_select_other_map" = "Selectați altă hartă";
-
-"search_vehicle_routes" = "Indicații rutiere";
 
 /* «Show» context menu */
 "show" = "Afișare";
@@ -1350,6 +1078,284 @@
 
 "whats_new_next_button" = "Următoarea";
 
-"whats_new_night_caption" = "Navigație mod nocturn";
+"editor_time_add" = "Adăugare planificare";
 
-"whats_new_night_body" = "Pentru a facilita utilizarea MAPS.ME atunci când conduceți noaptea, am adăugat modul nocturn. Acesta pornește automat după apusul soarelui.";
+"editor_time_delete" = "Eliminare planificare";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Toată ziua (non-stop)";
+
+"editor_time_open" = "Deschidere";
+
+"editor_time_close" = "Închidere";
+
+"editor_time_add_closed" = "Adăugare oră de închidere";
+
+"editor_time_title" = "Program";
+
+"editor_time_advanced" = "Mod Avansat";
+
+"editor_time_simple" = "Mod Simplu";
+
+"editor_hours_closed" = "Ora închiderii";
+
+"editor_example_values" = "Exemple de valori";
+
+"editor_correct_mistake" = "Corectare greșeală";
+
+"editor_correct_mistake_message" = "Ați efectuat o eroare de editare. Corectați eroarea sau treceți în modul Simplu.";
+
+"editor_add_select_location" = "Locație";
+
+"editor_done_dialog_1" = "Ați modificat harta lumii. Nu ascundeți acest lucru! Spuneți-le prietenilor dvs. și modificați-o împreună.";
+
+"editor_done_dialog_2" = "Aceasta este a doua modificare a hărții. Acum sunteți pe locul %d în lista editorilor de hărți. Spuneți prietenilor dvs. despre aceasta.";
+
+"editor_done_dialog_3" = "Ați modificat harta, spuneți prietenilor dvs. despre aceasta și modificați-o împreună.";
+
+"share_with_friends" = "Partajează cu prietenii";
+
+"editor_report_problem_desription_1" = "Vă rugăm să descrieți problema în detaliu , astfel încât comunitatea OpenStreeMap să poată remedia eroarea.";
+
+"editor_report_problem_desription_2" = "Sau faceți-o pe http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Trimiteți";
+
+"editor_report_problem_title" = "Problemă";
+
+"editor_report_problem_no_place_title" = "Această locație nu există";
+
+"editor_report_problem_under_construction_title" = "Închis pentru întreținere";
+
+"editor_report_problem_duplicate_place_title" = "Locație dublată";
+
+"first_launch_congrats_title" = "MAPS.ME este gata pentru utilizare";
+
+"first_launch_congrats_text" = "Căutați și navigați hărțile tuturor țărilor lumii pe gratis.";
+
+"migrate_title" = "Important!";
+
+/* Android uses image instead of text. */
+"download_all" = "Descarcă toate";
+
+"delete_all" = "Ștergere toate";
+
+"autodownload" = "Descărcare automată";
+
+/* Place Page opening hours text */
+"closed_now" = "Închis acum";
+
+/* Place Page opening hours text */
+"daily" = "Zilnic";
+
+"twentyfour_seven" = "Zi și noapte";
+
+"day_off_today" = "Zi liberă azi";
+
+"day_off" = "Zi liberă";
+
+"today" = "Azi";
+
+"sunrise_to_sunset" = "De la răsărit până la apus";
+
+"sunset_to_sunrise" = "De la apus până la răsărit";
+
+"add_opening_hours" = "Adăugare ore de funcționare";
+
+"edit_opening_hours" = "Editare ore de funcționare";
+
+"profile" = "Profil";
+
+"no_osm_account" = "Nu aveți un cont în OpenStreetMap?";
+
+"register_at_openstreetmap" = "Înregistrați-vă";
+
+"password_8_chars_min" = "Parolă (minim 8 caractere)";
+
+"invalid_username_or_password" = "Nume de utilizator sau parolă incorecte.";
+
+"login" = "Autentificare";
+
+"password" = "Parolă";
+
+"forgot_password" = "Ați uitat parola?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Recuperare parolă";
+
+"enter_email_address_to_reset_password" = "Introduceți adresa de e-mail pe care ați utilizat-o în momentul înregistrării, iar noi vă vom trimite link-ul pentru a vă reînnoi parola.";
+
+"reset_password" = "Resetare parolă";
+
+"username" = "Nume de utilizator";
+
+"osm_account" = "Cont OSM";
+
+"logout" = "Ieșire";
+
+"login_and_edit_map_motivation_message" = "Autentificați-vă și editați informația despre obiectele de pe hartă, iar noi le vom face disponibile pentru milioane de alți utilizatori. Să facem împreună lumea mai bună.";
+
+"not_sent" = "Nu a fost trimis";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Ultima încărcare";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "modificări";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Ați editat primul dvs. obiect!";
+
+"thank_you" = "Vă mulțumim";
+
+"login_with_google" = "Logați-vă cu contul de Google";
+
+"login_with_facebook" = "Logați-vă cu contul de Facebook";
+
+"login_with_openstreetmap" = "Logați-vă cu contul de www.openstreetmap.org";
+
+"edit_place" = "Editați loc";
+
+"place_name" = "Denumire loc";
+
+"place_name_caption" = "Introduceți denumirea așa cum apare ea pe indicator sau plăcuță";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Alte limbi";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Adăugare limbă";
+
+"street" = "Stradă";
+
+/* Editable House Number text field (in address block). */
+"house" = "Clădire";
+
+"details" = "Detalii";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Adăugare stradă";
+
+"choose_language" = "Alegeți o limbă";
+
+"choose_street" = "Alegeți o stradă";
+
+"postal_code" = "Cod postal";
+
+"cuisine" = "Bucătărie";
+
+"select_cuisine" = "Selectați tipul de bucătărie";
+
+/* login text field */
+"email_or_username" = "Adresa de e-mail sau numele de utilizator";
+
+"phone" = "Telefon";
+
+"please_note" = "Actualizați hărțile";
+
+"common_no_wifi_dialog" = "Nu există conexiune WiFi. Doriți să continuați cu conexiunea de pe mobil?";
+
+"downloader_delete_map_dialog" = "Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.";
+
+"downloader_update_maps" = "Actualizați hărțile";
+
+"downloader_mwm_migration_dialog" = "Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.";
+
+"downloader_search_field_hint" = "Găsiți harta";
+
+"migration_update_all_button" = "Actualizați toate hărțile";
+
+"migration_delete_all_download_current_button" = "Descărcați harta actuală și ștergeți toate hărțile vechi";
+
+"migration_prefetch_status" = "Pregătește actualizarea hărților…";
+
+"migration_download_error_dialog" = "Eroare de descărcare";
+
+"common_check_internet_connection_dialog" = "Vă rugăm să vă verificați setările și să vă asigurați că dispozitivul dvs. este conectat la Internet.";
+
+"downloader_no_space_title" = "Spațiu insuficient";
+
+"downloader_no_space_message" = "Vă rugăm să ștergeți datele care nu sunt necesare";
+
+"editor_general_auth_error_dialog" = "Eroare generală de conectare.";
+
+"editor_login_error_dialog" = "Eroare de conectare.";
+
+"editor_login_failed_dialog" = "Conectare eșuată";
+
+"editor_username_error_dialog" = "Nume de utilizator nevalid";
+
+"editor_place_edited_dialog" = "Ați editat un obiect!";
+
+"editor_login_with_osm" = "Conectați-vă cu OpenStreetMap";
+
+"editor_profile_changes" = "Modificări:";
+
+"editor_profile_unsent_changes" = "Netrimis:";
+
+"editor_focus_map_on_location" = "Trageți de hartă pentru a selecta locația corectă a obiectului.";
+
+"editor_add_select_category" = "Selectați categoria";
+
+"editor_add_select_category_popular_subtitle" = "Popular";
+
+"editor_add_select_category_all_subtitle" = "Toate categoriile";
+
+"editor_edit_place_title" = "Editare";
+
+"editor_add_place_title" = "Adăugare";
+
+"editor_edit_place_name_hint" = "Denumirea locației";
+
+"editor_edit_place_category_title" = "Categorie";
+
+"detailed_problem_description" = "Descrierea detaliată a problemei";
+
+"editor_report_problem_other_title" = "O problemă diferită";
+
+"placepage_add_place_button" = "Adăugați o locație";
+
+"placepage_report_problem_button" = "Raportați o problemă";
+
+"whatsnew_smallmwm_header" = "Ne-ați cerut, iar noi am făcut";
+
+"whatsnew_smallmwm_message" = "Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.";
+
+"whatsnew_search_header" = "Căutare nouă";
+
+"whatsnew_search_message" = "Am îmbunătățit semnificativ căutarea după adresă. Convinge-te singur.";
+
+"whatsnew_editor_title" = "Editați harta*";
+
+"whatsnew_editor_message_1" = "Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME folosește datele comunității OpenStreetMap community.";
+
+"onboarding_offline_navigation_title" = "Niciodată nu vă veți rătăci din nou";
+
+"onboarding_offline_navigation_message" = "Planificați traseele optime cu mașina și cele pietonale, chiar dacă nu există conexiune la Internet!";
+
+"onboarding_offline_navigation_title_2" = "Navigare offline";
+
+"onboarding_offline_navigation_message_2" = "Planificați traseele optime cu mașina și cele pietonale.";
+
+"onboarding_offline_maps_title" = "MAPS.ME — accesați hărți din întreaga lume fără conexiune Internet";
+
+"onboarding_offline_maps_message" = "Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.";
+
+"onboarding_notifications_message" = "Pentru a obține cele mai recente hărți, obțineți notificările de actualizări";
+
+"onboarding_notifications_title" = "Activați notificările de actualizări";
+
+"onboarding_location_title" = "Ajutați-ne să vă găsim";
+
+"onboarding_location_message" = "Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.";
+
+"dialog_incorrect_feature_position" = "Schimbare locație";
+
+"message_invalid_feature_position" = "În acest loc nu poate fi localizat un obiect";

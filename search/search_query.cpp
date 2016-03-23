@@ -1,72 +1,194 @@
 #include "search_query.hpp"
 
-#include "feature_offset_match.hpp"
-#include "geometry_utils.hpp"
-#include "indexed_value.hpp"
-#include "latlon_match.hpp"
-#include "search_common.hpp"
-#include "search_query_params.hpp"
-#include "search_string_intersection.hpp"
+#include "search/dummy_rank_table.hpp"
+#include "search/feature_offset_match.hpp"
+#include "search/geometry_utils.hpp"
+#include "search/indexed_value.hpp"
+#include "search/latlon_match.hpp"
+#include "search/locality.hpp"
+#include "search/region.hpp"
+#include "search/search_common.hpp"
+#include "search/search_index_values.hpp"
+#include "search/search_query_params.hpp"
+#include "search/search_string_intersection.hpp"
+#include "search/v2/pre_ranking_info.hpp"
+#include "search/v2/ranking_info.hpp"
+#include "search/v2/ranking_utils.hpp"
 
 #include "storage/country_info_getter.hpp"
+#include "storage/index.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/feature_covering.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
+#include "indexer/trie_reader.hpp"
 
+#include "platform/mwm_traits.hpp"
+#include "platform/mwm_version.hpp"
 #include "platform/preferred_languages.hpp"
 
+#include "coding/compressed_bit_vector.hpp"
 #include "coding/multilang_utf8_string.hpp"
 #include "coding/reader_wrapper.hpp"
 
 #include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/function.hpp"
+#include "std/iterator.hpp"
+#include "std/limits.hpp"
+#include "std/random.hpp"
+
+#define LONG_OP(op)    \
+  {                    \
+    if (IsCancelled()) \
+      return;          \
+    op;                \
+  }
 
 namespace search
 {
 
 namespace
 {
-using TCompareFunction1 = function<bool(impl::PreResult1 const &, impl::PreResult1 const &)>;
-using TCompareFunction2 = function<bool(impl::PreResult2 const &, impl::PreResult2 const &)>;
+/// This indexes should match the initialization routine below.
+int const g_arrLang1[] = {0, 1, 2, 2, 3};
+int const g_arrLang2[] = {0, 0, 0, 1, 0};
 
-TCompareFunction1 g_arrCompare1[] = {
-    &impl::PreResult1::LessDistance, &impl::PreResult1::LessRank,
+enum LangIndexT
+{
+  LANG_CURRENT = 0,
+  LANG_INPUT,
+  LANG_INTERNATIONAL,
+  LANG_EN,
+  LANG_DEFAULT,
+  LANG_COUNT
 };
 
-TCompareFunction2 g_arrCompare2[] = {
-    &impl::PreResult2::LessDistance, &impl::PreResult2::LessRank,
-};
+pair<int, int> GetLangIndex(int id)
+{
+  ASSERT_LESS(id, LANG_COUNT, ());
+  return make_pair(g_arrLang1[id], g_arrLang2[id]);
+}
 
-  /// This indexes should match the initialization routine below.
-  int g_arrLang1[] = { 0, 1, 2, 2, 3 };
-  int g_arrLang2[] = { 0, 0, 0, 1, 0 };
-  enum LangIndexT { LANG_CURRENT = 0,
-                    LANG_INPUT,
-                    LANG_INTERNATIONAL,
-                    LANG_EN,
-                    LANG_DEFAULT,
-                    LANG_COUNT };
+m2::PointD GetLocalityCenter(Index const & index, MwmSet::MwmId const & id,
+                             Locality const & locality)
+{
+  Index::FeaturesLoaderGuard loader(index, id);
+  FeatureType feature;
+  loader.GetFeatureByIndex(locality.m_featureId, feature);
+  return feature::GetCenter(feature, FeatureType::WORST_GEOMETRY);
+}
 
-  pair<int, int> GetLangIndex(int id)
+ftypes::Type GetLocalityIndex(feature::TypesHolder const & types)
+{
+  using namespace ftypes;
+
+  // Inner logic of SearchAddress expects COUNTRY, STATE and CITY only.
+  Type const type = IsLocalityChecker::Instance().GetType(types);
+  switch (type)
   {
-    ASSERT_LESS ( id, LANG_COUNT, () );
-    return make_pair(g_arrLang1[id], g_arrLang2[id]);
+    case NONE:
+    case COUNTRY:
+    case STATE:
+    case CITY:
+      return type;
+    case TOWN:
+      return CITY;
+    case VILLAGE:
+      return NONE;
+    case LOCALITY_COUNT:
+      return type;
+  }
+}
+
+class IndexedValue : public search::IndexedValueBase<Query::kQueuesCount>
+{
+  friend string DebugPrint(IndexedValue const & value);
+
+  /// @todo Do not use shared_ptr for optimization issues.
+  /// Need to rewrite std::unique algorithm.
+  shared_ptr<impl::PreResult2> m_val;
+
+  double m_rank;
+
+public:
+  explicit IndexedValue(unique_ptr<impl::PreResult2> v)
+    : m_val(move(v)), m_rank(m_val ? m_val->GetRankingInfo().GetLinearModelRank() : 0)
+  {
   }
 
-  // Maximum result candidates count for each viewport/criteria.
-  size_t const kPreResultsCount = 200;
+  impl::PreResult2 const & operator*() const { return *m_val; }
+
+  inline double GetRank() const { return m_rank; }
+};
+
+string DebugPrint(IndexedValue const & value)
+{
+  string index;
+  for (auto const & i : value.m_ind)
+    index.append(" " + strings::to_string(i));
+  return impl::DebugPrint(*value.m_val) + "; Index:" + index;
 }
+
+void RemoveDuplicatingLinear(vector<IndexedValue> & indV)
+{
+  impl::PreResult2::LessLinearTypesF lessCmp;
+  impl::PreResult2::EqualLinearTypesF equalCmp;
+
+  sort(indV.begin(), indV.end(),
+      [&lessCmp](IndexedValue const & lhs, IndexedValue const & rhs)
+      {
+        return lessCmp(*lhs, *rhs);
+      });
+
+  indV.erase(unique(indV.begin(), indV.end(),
+                    [&equalCmp](IndexedValue const & lhs, IndexedValue const & rhs)
+                    {
+                      return equalCmp(*lhs, *rhs);
+                    }),
+             indV.end());
+}
+
+m2::RectD NormalizeViewport(m2::RectD viewport)
+{
+  m2::RectD minViewport =
+      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), Query::kMinViewportRadiusM);
+  viewport.Add(minViewport);
+
+  m2::RectD maxViewport =
+      MercatorBounds::RectByCenterXYAndSizeInMeters(viewport.Center(), Query::kMaxViewportRadiusM);
+  VERIFY(viewport.Intersect(maxViewport), ());
+  return viewport;
+}
+
+m2::RectD GetRectAroundPosition(m2::PointD const & position)
+{
+  double constexpr kMaxPositionRadiusM = 50.0 * 1000;
+  return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
+}
+}  // namespace
+
+// static
+size_t const Query::kPreResultsCount;
+
+// static
+double const Query::kMinViewportRadiusM = 5.0 * 1000;
+double const Query::kMaxViewportRadiusM = 50.0 * 1000;
 
 Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest> const & suggests,
              storage::CountryInfoGetter const & infoGetter)
@@ -74,26 +196,17 @@ Query::Query(Index & index, CategoriesHolder const & categories, vector<Suggest>
   , m_categories(categories)
   , m_suggests(suggests)
   , m_infoGetter(infoGetter)
-#ifdef HOUSE_SEARCH_TEST
-  , m_houseDetector(&index)
-#endif
 #ifdef FIND_LOCALITY_TEST
   , m_locality(&index)
 #endif
+  , m_position(0, 0)
+  , m_mode(Mode::Everywhere)
   , m_worldSearch(true)
+  , m_suggestsEnabled(true)
+  , m_viewportSearch(false)
+  , m_keepHouseNumberInQuery(false)
+  , m_reverseGeocoder(index)
 {
-  // m_viewport is initialized as empty rects
-
-  // Results queue's initialization.
-  static_assert(kQueuesCount == ARRAY_SIZE(g_arrCompare1), "");
-  static_assert(kQueuesCount == ARRAY_SIZE(g_arrCompare2), "");
-
-  for (size_t i = 0; i < kQueuesCount; ++i)
-  {
-    m_results[i] = TQueue(kPreResultsCount, TQueueCompare(g_arrCompare1[i]));
-    m_results[i].reserve(kPreResultsCount);
-  }
-
   // Initialize keywords scorer.
   // Note! This order should match the indexes arrays above.
   vector<vector<int8_t> > langPriorities(4);
@@ -115,6 +228,22 @@ void Query::SetLanguage(int id, int8_t lang)
 int8_t Query::GetLanguage(int id) const
 {
   return m_keywordsScorer.GetLanguage(GetLangIndex(id));
+}
+
+m2::PointD Query::GetPivotPoint() const
+{
+  m2::RectD const & viewport = m_viewport[CURRENT_V];
+  if (viewport.IsPointInside(GetPosition()))
+    return GetPosition();
+  return viewport.Center();
+}
+
+m2::RectD Query::GetPivotRect() const
+{
+  m2::RectD const & viewport = m_viewport[CURRENT_V];
+  if (viewport.IsPointInside(GetPosition()))
+    return GetRectAroundPosition(GetPosition());
+  return NormalizeViewport(viewport);
 }
 
 void Query::SetViewport(m2::RectD const & viewport, bool forceUpdate)
@@ -161,19 +290,10 @@ void Query::SetViewportByIndex(TMWMVector const & mwmsInfo, m2::RectD const & vi
     }
 
     m_viewport[idx] = viewport;
-    UpdateViewportOffsets(mwmsInfo, viewport, m_offsetsInViewport[idx]);
-
-#ifdef FIND_LOCALITY_TEST
-    m_locality.SetViewportByIndex(viewport, idx);
-#endif
   }
   else
   {
     ClearCache(idx);
-
-#ifdef FIND_LOCALITY_TEST
-    m_locality.ClearCache(idx);
-#endif
   }
 }
 
@@ -226,73 +346,12 @@ void Query::ClearCaches()
   for (size_t i = 0; i < COUNT_V; ++i)
     ClearCache(i);
 
-  m_houseDetector.ClearCaches();
-
-  m_locality.ClearCacheAll();
+  m_locality.ClearCache();
 }
 
 void Query::ClearCache(size_t ind)
 {
-  // clear cache and free memory
-  TOffsetsVector emptyV;
-  emptyV.swap(m_offsetsInViewport[ind]);
-
   m_viewport[ind].MakeEmpty();
-}
-
-void Query::UpdateViewportOffsets(TMWMVector const & mwmsInfo, m2::RectD const & rect,
-                                  TOffsetsVector & offsets)
-{
-  offsets.clear();
-
-  int const queryScale = GetQueryIndexScale(rect);
-  covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
-
-  for (shared_ptr<MwmInfo> const & info : mwmsInfo)
-  {
-    // Search only mwms that intersect with viewport (world always does).
-    if (rect.IsIntersect(info->m_limitRect))
-    {
-      MwmSet::MwmId mwmId(info);
-      Index::MwmHandle const mwmHandle = m_index.GetMwmHandleById(mwmId);
-      if (MwmValue const * pMwm = mwmHandle.GetValue<MwmValue>())
-      {
-        TFHeader const & header = pMwm->GetHeader();
-        if (header.GetType() == TFHeader::country)
-        {
-          pair<int, int> const scaleR = header.GetScaleRange();
-          int const scale = min(max(queryScale, scaleR.first), scaleR.second);
-
-          covering::IntervalsT const & interval = cov.Get(header.GetLastScale());
-
-          ScaleIndex<ModelReaderPtr> index(pMwm->m_cont.GetReader(INDEX_FILE_TAG),
-                                           pMwm->m_factory);
-
-          for (size_t i = 0; i < interval.size(); ++i)
-          {
-            auto collectFn = MakeBackInsertFunctor(offsets[mwmId]);
-            index.ForEachInIntervalAndScale(collectFn, interval[i].first, interval[i].second, scale);
-          }
-
-          sort(offsets[mwmId].begin(), offsets[mwmId].end());
-        }
-      }
-    }
-  }
-
-#ifdef DEBUG
-  size_t offsetsCached = 0;
-  for (shared_ptr<MwmInfo> const & info : mwmsInfo)
-  {
-    MwmSet::MwmId mwmId(info);
-    auto const it = offsets.find(mwmId);
-    if (it != offsets.end())
-      offsetsCached += it->second.size();
-  }
-
-  LOG(LDEBUG, ("For search in viewport cached mwms:", mwmsInfo.size(),
-               "offsets:", offsetsCached));
-#endif
 }
 
 void Query::Init(bool viewportSearch)
@@ -301,35 +360,14 @@ void Query::Init(bool viewportSearch)
 
   m_tokens.clear();
   m_prefix.clear();
+  m_viewportSearch = viewportSearch;
 
-#ifdef HOUSE_SEARCH_TEST
-  m_house.clear();
-  m_streetID.clear();
-#endif
-
-  ClearQueues();
-
-  if (viewportSearch)
-  {
-    // Special case to change comparator in viewport search
-    // (more uniform results distribution on the map).
-
-    m_queuesCount = 1;
-    m_results[0] =
-        TQueue(kPreResultsCount, TQueueCompare(&impl::PreResult1::LessPointsForViewport));
-  }
-  else
-  {
-    m_queuesCount = kQueuesCount;
-    m_results[DISTANCE_TO_PIVOT] =
-        TQueue(kPreResultsCount, TQueueCompare(g_arrCompare1[DISTANCE_TO_PIVOT]));
-  }
+  ClearResults();
 }
 
-void Query::ClearQueues()
+void Query::ClearResults()
 {
-  for (size_t i = 0; i < kQueuesCount; ++i)
-    m_results[i].clear();
+  m_results.clear();
 }
 
 int Query::GetCategoryLocales(int8_t (&arr) [3]) const
@@ -391,40 +429,17 @@ void Query::ProcessEmojiIfNeeded(strings::UniString const & token, size_t ind, T
 
 void Query::SetQuery(string const & query)
 {
-  m_query = &query;
+  m_query = query;
 
   /// @todo Why Init is separated with SetQuery?
   ASSERT(m_tokens.empty(), ());
   ASSERT(m_prefix.empty(), ());
-  ASSERT(m_house.empty(), ());
 
   // Split input query by tokens with possible last prefix.
   search::Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(m_tokens), delims);
 
   bool checkPrefix = true;
-
-  // Find most suitable token for house number.
-#ifdef HOUSE_SEARCH_TEST
-  int houseInd = static_cast<int>(m_tokens.size()) - 1;
-  while (houseInd >= 0)
-  {
-    if (feature::IsHouseNumberDeepCheck(m_tokens[houseInd]))
-    {
-      if (m_tokens.size() > 1)
-      {
-        m_house.swap(m_tokens[houseInd]);
-        m_tokens[houseInd].swap(m_tokens.back());
-        m_tokens.pop_back();
-      }
-      break;
-    }
-    --houseInd;
-  }
-
-  // do check for prefix if last token is not a house number
-  checkPrefix = m_house.empty() || houseInd < m_tokens.size();
-#endif
 
   // Assign prefix with last parsed token.
   if (checkPrefix && !m_tokens.empty() && !delims(strings::LastUniChar(query)))
@@ -448,16 +463,6 @@ void Query::SetQuery(string const & query)
   });
 }
 
-void Query::SearchCoordinates(string const & query, Results & res) const
-{
-  double lat, lon;
-  if (MatchLatLonDegree(query, lat, lon))
-  {
-    ASSERT_EQUAL(res.GetCount(), 0, ());
-    res.AddResultNoChecks(MakeResult(impl::PreResult2(lat, lon)));
-  }
-}
-
 void Query::Search(Results & res, size_t resCount)
 {
   if (IsCancelled())
@@ -466,335 +471,300 @@ void Query::Search(Results & res, size_t resCount)
   if (m_tokens.empty())
     SuggestStrings(res);
 
-  if (IsCancelled())
-    return;
-  SearchAddress(res);
+  LONG_OP(SearchAddress(res));
+  LONG_OP(SearchFeatures());
 
-  if (IsCancelled())
-    return;
-  SearchFeatures();
+  // TODO (@y): this code is not working and will gone away.
+  v2::Geocoder::Params params;
+  LONG_OP(FlushResults(params, res, false /* allMWMs */, resCount, true /* oldHouseSearch */));
+}
 
-  if (IsCancelled())
+void Query::SearchViewportPoints(Results & res)
+{
+  LONG_OP(SearchAddress(res));
+  LONG_OP(SearchFeaturesInViewport(CURRENT_V));
+
+  // TODO (@y): this code is not working and will gone away.
+  v2::Geocoder::Params params;
+  FlushViewportResults(params, res, true /* oldHouseSearch */);
+}
+
+void Query::FlushViewportResults(v2::Geocoder::Params const & params, Results & res,
+                                 bool oldHouseSearch)
+{
+  vector<IndexedValue> indV;
+  vector<FeatureID> streets;
+
+  MakePreResult2(params, indV, streets);
+  if (indV.empty())
     return;
-  FlushResults(res, false, resCount);
+
+  RemoveDuplicatingLinear(indV);
+
+  for (size_t i = 0; i < indV.size(); ++i)
+  {
+    if (IsCancelled())
+      break;
+    res.AddResultNoChecks((*(indV[i])).GenerateFinalResult(m_infoGetter, &m_categories,
+        &m_prefferedTypes, m_currentLocaleCode, m_reverseGeocoder));
+  }
+}
+
+void Query::SearchCoordinates(Results & res) const
+{
+  double lat, lon;
+  if (MatchLatLonDegree(m_query, lat, lon))
+  {
+    ASSERT_EQUAL(res.GetCount(), 0, ());
+    res.AddResultNoChecks(MakeResult(impl::PreResult2(lat, lon)));
+  }
 }
 
 namespace
 {
-  /// @name Functors to convert pointers to referencies.
-  /// Pass them to stl algorithms.
-  //@{
-template <class TFunctor>
-class ProxyFunctor1
-  {
-    TFunctor m_fn;
+struct LessFeatureID
+{
+  using ValueT = impl::PreResult1;
+  bool operator()(ValueT const & r1, ValueT const & r2) const { return (r1.GetID() < r2.GetID()); }
+};
 
-  public:
-    template <class T>
-    explicit ProxyFunctor1(T const & p) : m_fn(*p) {}
+class EqualFeatureID
+{
+  using ValueT = impl::PreResult1;
+  ValueT const & m_val;
 
-    template <class T>
-    bool operator()(T const & p) { return m_fn(*p); }
-  };
+public:
+  explicit EqualFeatureID(ValueT const & v) : m_val(v) {}
+  bool operator()(ValueT const & r) const { return (m_val.GetID() == r.GetID()); }
+};
 
-  template <class TFunctor>
-  class ProxyFunctor2
-  {
-    TFunctor m_fn;
-
-  public:
-    template <class T>
-    bool operator()(T const & p1, T const & p2)
-    {
-      return m_fn(*p1, *p2);
-    }
-  };
-  //@}
-
-  class IndexedValue : public search::IndexedValueBase<Query::kQueuesCount>
-  {
-    using ValueT = impl::PreResult2;
-
-    /// @todo Do not use shared_ptr for optimization issues.
-    /// Need to rewrite std::unique algorithm.
-    shared_ptr<ValueT> m_val;
-
-  public:
-    explicit IndexedValue(ValueT * v) : m_val(v) {}
-
-    ValueT const & operator*() const { return *m_val; }
-    ValueT const * operator->() const { return m_val.get(); }
-
-    string DebugPrint() const
-    {
-      string index;
-      for (size_t i = 0; i < SIZE; ++i)
-        index = index + " " + strings::to_string(m_ind[i]);
-
-      return impl::DebugPrint(*m_val) + "; Index:" + index;
-    }
-  };
-
-  inline string DebugPrint(IndexedValue const & t)
-  {
-    return t.DebugPrint();
-  }
-
-  struct CompFactory2
-  {
-    struct CompT
-    {
-      TCompareFunction2 m_fn;
-      explicit CompT(TCompareFunction2 fn) : m_fn(fn) {}
-      template <class T>
-      bool operator()(T const & r1, T const & r2) const
-      {
-        return m_fn(*r1, *r2);
-      }
-    };
-
-    static size_t const SIZE = 2;
-
-    CompT Get(size_t i) { return CompT(g_arrCompare2[i]); }
-  };
-
-  struct LessFeatureID
-  {
-    using ValueT = impl::PreResult1;
-    bool operator() (ValueT const & r1, ValueT const & r2) const
-    {
-      return (r1.GetID() < r2.GetID());
-    }
-  };
-
-  class EqualFeatureID
-  {
-    using ValueT = impl::PreResult1;
-    ValueT const & m_val;
-  public:
-    EqualFeatureID(ValueT const & v) : m_val(v) {}
-    bool operator() (ValueT const & r) const
-    {
-      return (m_val.GetID() == r.GetID());
-    }
-  };
-
-  template <class T>
-  void RemoveDuplicatingLinear(vector<T> & indV)
-  {
-    sort(indV.begin(), indV.end(), ProxyFunctor2<impl::PreResult2::LessLinearTypesF>());
-    indV.erase(unique(indV.begin(), indV.end(),
-                      ProxyFunctor2<impl::PreResult2::EqualLinearTypesF>()),
-               indV.end());
-  }
-
-  template <class T>
-  bool IsResultExists(impl::PreResult2 const * p, vector<T> const & indV)
-  {
-    // do not insert duplicating results
-    return (indV.end() != find_if(indV.begin(), indV.end(),
-                                  ProxyFunctor1<impl::PreResult2::StrictEqualF>(p)));
-  }
+bool IsResultExists(impl::PreResult2 const & p, vector<IndexedValue> const & indV)
+{
+  impl::PreResult2::StrictEqualF equalCmp(p);
+  // Do not insert duplicating results.
+  return indV.end() != find_if(indV.begin(), indV.end(), [&equalCmp](IndexedValue const & iv)
+                               {
+                                 return equalCmp(*iv);
+                               });
 }
+}  // namespace
 
 namespace impl
 {
-  class PreResult2Maker
+class PreResult2Maker
+{
+  Query & m_query;
+  v2::Geocoder::Params const & m_params;
+
+  unique_ptr<Index::FeaturesLoaderGuard> m_pFV;
+
+  // For the best performance, incoming id's should be sorted by id.first (mwm file id).
+  void LoadFeature(FeatureID const & id, FeatureType & f, m2::PointD & center, string & name,
+                   string & country)
   {
-    Query & m_query;
+    if (m_pFV.get() == 0 || m_pFV->GetId() != id.m_mwmId)
+      m_pFV.reset(new Index::FeaturesLoaderGuard(m_query.m_index, id.m_mwmId));
 
-    unique_ptr<Index::FeaturesLoaderGuard> m_pFV;
+    m_pFV->GetFeatureByIndex(id.m_index, f);
+    f.SetID(id);
 
-    // For the best performance, incoming id's should be sorted by id.first (mwm file id).
-    void LoadFeature(FeatureID const & id, FeatureType & f, string & name, string & country)
-    {
-      if (m_pFV.get() == 0 || m_pFV->GetId() != id.m_mwmId)
-        m_pFV.reset(new Index::FeaturesLoaderGuard(m_query.m_index, id.m_mwmId));
+    center = feature::GetCenter(f);
 
-      m_pFV->GetFeatureByIndex(id.m_index, f);
-      f.SetID(id);
+    m_query.GetBestMatchName(f, name);
 
-      m_query.GetBestMatchName(f, name);
+    // country (region) name is a file name if feature isn't from World.mwm
+    if (m_pFV->IsWorld())
+      country.clear();
+    else
+      country = m_pFV->GetCountryFileName();
+  }
 
-      // country (region) name is a file name if feature isn't from World.mwm
-      if (m_pFV->IsWorld())
-        country.clear();
-      else
-        country = m_pFV->GetCountryFileName();
-    }
-
-  public:
-    PreResult2Maker(Query & q) : m_query(q)
-    {
-    }
-
-    impl::PreResult2 * operator() (impl::PreResult1 const & res)
-    {
-      FeatureType feature;
-      string name, country;
-      LoadFeature(res.GetID(), feature, name, country);
-
-      Query::ViewportID const viewportID = static_cast<Query::ViewportID>(res.GetViewportID());
-      impl::PreResult2 * res2 = new impl::PreResult2(feature, &res,
-                                                     m_query.GetPosition(viewportID),
-                                                     name, country);
-
-      /// @todo: add exluding of states (without USA states), continents
-      using namespace ftypes;
-      Type const tp = IsLocalityChecker::Instance().GetType(res2->m_types);
-      switch (tp)
-      {
-      case COUNTRY:
-        res2->m_rank /= 1.5;
-        break;
-      case CITY:
-      case TOWN:
-        if (m_query.GetViewport(Query::CURRENT_V).IsPointInside(res2->GetCenter()))
-          res2->m_rank *= 2;
-        else
-        {
-          storage::CountryInfo ci;
-          res2->m_region.GetRegion(m_query.m_infoGetter, ci);
-          if (ci.IsNotEmpty() && ci.m_name == m_query.GetPivotRegion())
-            res2->m_rank *= 1.7;
-        }
-        break;
-      case VILLAGE:
-        res2->m_rank /= 1.5;
-        break;
-      default:
-        break;
-      }
-
-      return res2;
-    }
-
-    impl::PreResult2 * operator() (FeatureID const & id)
-    {
-      FeatureType feature;
-      string name, country;
-      LoadFeature(id, feature, name, country);
-
-      if (!name.empty() && !country.empty())
-        return new impl::PreResult2(feature, 0, m_query.GetPosition(), name, country);
-      else
-        return 0;
-    }
-  };
-
-  class HouseCompFactory
+  void InitRankingInfo(FeatureType const & ft, m2::PointD const & center,
+                       impl::PreResult1 const & res, search::v2::RankingInfo & info)
   {
-    Query const & m_query;
+    auto const & preInfo = res.GetInfo();
 
-    bool LessDistance(HouseResult const & r1, HouseResult const & r2) const
+    auto const & pivot = m_params.m_accuratePivotCenter;
+
+    info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
+    info.m_rank = preInfo.m_rank;
+    info.m_searchType = preInfo.m_searchType;
+
+    info.m_nameScore = v2::NAME_SCORE_ZERO;
+    for (auto const & lang : m_params.m_langs)
     {
-      return (PointDistance(m_query.m_pivot, r1.GetOrg()) <
-              PointDistance(m_query.m_pivot, r2.GetOrg()));
+      string name;
+      if (!ft.GetName(lang, name))
+        continue;
+      vector<strings::UniString> tokens;
+      SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
+
+      auto score = GetNameScore(tokens, m_params, preInfo.m_startToken, preInfo.m_endToken);
+      auto coverage =
+          tokens.empty() ? 0 : static_cast<double>(preInfo.m_endToken - preInfo.m_startToken) /
+                                   static_cast<double>(tokens.size());
+      if (score > info.m_nameScore)
+      {
+        info.m_nameScore = score;
+        info.m_nameCoverage = coverage;
+      }
+      else if (score == info.m_nameScore && coverage > info.m_nameCoverage)
+      {
+        info.m_nameCoverage = coverage;
+      }
     }
 
-  public:
-    HouseCompFactory(Query const & q) : m_query(q) {}
-
-    struct CompT
+    if (info.m_searchType == v2::SearchModel::SEARCH_TYPE_BUILDING)
     {
-      HouseCompFactory const * m_parent;
+      string const houseNumber = ft.GetHouseNumber();
+      auto score = GetNameScore(houseNumber, m_params, preInfo.m_startToken, preInfo.m_endToken);
+      if (score > info.m_nameScore)
+        info.m_nameScore = score;
+    }
+  }
 
-      CompT(HouseCompFactory const * parent) : m_parent(parent) {}
-      bool operator() (HouseResult const & r1, HouseResult const & r2) const
-      {
-        return m_parent->LessDistance(r1, r2);
-      }
-    };
+  uint8_t NormalizeRank(uint8_t rank, v2::SearchModel::SearchType type, m2::PointD const & center,
+                        string const & country)
+  {
+    switch (type)
+    {
+    case v2::SearchModel::SEARCH_TYPE_VILLAGE: return rank /= 1.5;
+    case v2::SearchModel::SEARCH_TYPE_CITY:
+    {
+      if (m_query.GetViewport(Query::CURRENT_V).IsPointInside(center))
+        return rank * 2;
 
-    static size_t const SIZE = 1;
+      storage::CountryInfo info;
+      if (country.empty())
+        m_query.m_infoGetter.GetRegionInfo(center, info);
+      else
+        m_query.m_infoGetter.GetRegionInfo(country, info);
+      if (info.IsNotEmpty() && info.m_name == m_query.GetPivotRegion())
+        return rank *= 1.7;
+    }
+    case v2::SearchModel::SEARCH_TYPE_COUNTRY: return rank /= 1.5;
+    default: return rank;
+    }
+  }
 
-    CompT Get(size_t) { return CompT(this); }
-  };
-}
+public:
+  explicit PreResult2Maker(Query & q, v2::Geocoder::Params const & params)
+    : m_query(q), m_params(params)
+  {
+  }
+
+  unique_ptr<impl::PreResult2> operator()(impl::PreResult1 const & res1)
+  {
+    FeatureType ft;
+    m2::PointD center;
+    string name;
+    string country;
+
+    LoadFeature(res1.GetID(), ft, center, name, country);
+
+    auto res2 = make_unique<impl::PreResult2>(ft, &res1, center, m_query.GetPosition() /* pivot */,
+                                              name, country);
+
+    search::v2::RankingInfo info;
+    InitRankingInfo(ft, center, res1, info);
+    info.m_rank = NormalizeRank(info.m_rank, info.m_searchType, center, country);
+    res2->SetRankingInfo(move(info));
+
+    return res2;
+  }
+};
+}  // namespace impl
 
 template <class T>
-void Query::MakePreResult2(vector<T> & cont, vector<FeatureID> & streets)
+void Query::MakePreResult2(v2::Geocoder::Params const & params, vector<T> & cont,
+                           vector<FeatureID> & streets)
 {
   // make unique set of PreResult1
   using TPreResultSet = set<impl::PreResult1, LessFeatureID>;
   TPreResultSet theSet;
 
-  for (size_t i = 0; i < m_queuesCount; ++i)
+  sort(m_results.begin(), m_results.end(), &impl::PreResult1::LessPriority);
+  if (kPreResultsCount != 0 && m_results.size() > kPreResultsCount)
   {
-    theSet.insert(m_results[i].begin(), m_results[i].end());
-    m_results[i].clear();
+    // Priority is some kind of distance from the viewport or
+    // position, therefore if we have a bunch of results with the same
+    // priority, we have no idea here which results are relevant.  To
+    // prevent bias from previous search routines (like sorting by
+    // feature id) this code randomly selects tail of the
+    // sorted-by-priority list of pre-results.
+
+    double const lastPriority = m_results[kPreResultsCount - 1].GetPriority();
+
+    auto b = m_results.begin() + kPreResultsCount - 1;
+    for (; b != m_results.begin() && b->GetPriority() == lastPriority; --b)
+      ;
+    if (b->GetPriority() != lastPriority)
+      ++b;
+
+    auto e = m_results.begin() + kPreResultsCount;
+    for (; e != m_results.end() && e->GetPriority() == lastPriority; ++e)
+      ;
+
+    // The main reason of shuffling here is to select a random subset
+    // from the low-priority results. We're using a linear
+    // congruential method with default seed because it is fast,
+    // simple and doesn't need an external entropy source.
+    //
+    // TODO (@y, @m, @vng): consider to take some kind of hash from
+    // features and then select a subset with smallest values of this
+    // hash.  In this case this subset of results will be persistent
+    // to small changes in the original set.
+    minstd_rand engine;
+    shuffle(b, e, engine);
+  }
+  theSet.insert(m_results.begin(), m_results.begin() + min(m_results.size(), kPreResultsCount));
+
+  if (!m_viewportSearch)
+  {
+    size_t n = min(m_results.size(), kPreResultsCount);
+    nth_element(m_results.begin(), m_results.begin() + n, m_results.end(),
+                &impl::PreResult1::LessRank);
+    theSet.insert(m_results.begin(), m_results.begin() + n);
   }
 
-  // make PreResult2 vector
-  impl::PreResult2Maker maker(*this);
+  ClearResults();
+
+  // Makes PreResult2 vector.
+  impl::PreResult2Maker maker(*this, params);
   for (auto const & r : theSet)
   {
-    impl::PreResult2 * p = maker(r);
-    if (p == 0)
+    auto p = maker(r);
+    if (!p)
       continue;
 
     if (p->IsStreet())
       streets.push_back(p->GetID());
 
-    if (IsResultExists(p, cont))
-      delete p;
-    else
-      cont.push_back(IndexedValue(p));
+    if (!IsResultExists(*p, cont))
+      cont.push_back(IndexedValue(move(p)));
   }
 }
 
-void Query::FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & streets)
-{
-  if (!m_house.empty() && !streets.empty())
-  {
-    if (m_houseDetector.LoadStreets(streets) > 0)
-      m_houseDetector.MergeStreets();
-
-    m_houseDetector.ReadAllHouses();
-
-    vector<HouseResult> houses;
-    m_houseDetector.GetHouseForName(strings::ToUtf8(m_house), houses);
-
-    SortByIndexedValue(houses, impl::HouseCompFactory(*this));
-
-    // Limit address results when searching in first pass (position, viewport, locality).
-    size_t count = houses.size();
-    if (!allMWMs)
-      count = min(count, size_t(5));
-
-    for (size_t i = 0; i < count; ++i)
-    {
-      House const * h = houses[i].m_house;
-      res.AddResult(MakeResult(impl::PreResult2(h->GetPosition(),
-                                               h->GetNumber() + ", " + houses[i].m_street->GetName(),
-                                               ftypes::IsBuildingChecker::Instance().GetMainType())));
-    }
-  }
-}
-
-void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
+void Query::FlushResults(v2::Geocoder::Params const & params, Results & res, bool allMWMs,
+                         size_t resCount, bool oldHouseSearch)
 {
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
 
-  MakePreResult2(indV, streets);
+  MakePreResult2(params, indV, streets);
 
   if (indV.empty())
     return;
 
   RemoveDuplicatingLinear(indV);
 
-  SortByIndexedValue(indV, CompFactory2());
+  sort(indV.rbegin(), indV.rend(), my::CompareBy(&IndexedValue::GetRank));
 
   // Do not process suggestions in additional search.
   if (!allMWMs || res.GetCount() == 0)
     ProcessSuggestions(indV, res);
 
-#ifdef HOUSE_SEARCH_TEST
-  FlushHouses(res, allMWMs, streets);
-#endif
-
-  // emit feature results
+  // Emit feature results.
   size_t count = res.GetCount();
   for (size_t i = 0; i < indV.size() && count < resCount; ++i)
   {
@@ -803,65 +773,15 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 
     LOG(LDEBUG, (indV[i]));
 
-    if (res.AddResult(MakeResult(*(indV[i]))))
+    auto const & preResult2 = *indV[i];
+    if (res.AddResult(MakeResult(preResult2)))
       ++count;
-  }
-}
-
-void Query::SearchViewportPoints(Results & res)
-{
-  if (IsCancelled())
-    return;
-  SearchAddress(res);
-
-  if (IsCancelled())
-    return;
-  SearchFeatures();
-
-  vector<IndexedValue> indV;
-  vector<FeatureID> streets;
-
-  MakePreResult2(indV, streets);
-
-  if (indV.empty())
-    return;
-
-  RemoveDuplicatingLinear(indV);
-
-#ifdef HOUSE_SEARCH_TEST
-  FlushHouses(res, false, streets);
-#endif
-
-  for (size_t i = 0; i < indV.size(); ++i)
-  {
-    if (IsCancelled())
-      break;
-
-    res.AddResultNoChecks(
-          indV[i]->GeneratePointResult(&m_categories, &m_prefferedTypes, m_currentLocaleCode));
   }
 }
 
 int Query::GetQueryIndexScale(m2::RectD const & viewport) const
 {
   return search::GetQueryIndexScale(viewport);
-}
-
-ftypes::Type Query::GetLocalityIndex(feature::TypesHolder const & types) const
-{
-  using namespace ftypes;
-
-  // Inner logic of SearchAddress expects COUNTRY, STATE and CITY only.
-  Type const type = IsLocalityChecker::Instance().GetType(types);
-  switch (type)
-  {
-  case TOWN:
-    return CITY;
-  case VILLAGE:
-    return NONE;
-  default:
-    return type;
-  }
 }
 
 void Query::RemoveStringPrefix(string const & str, string & res) const
@@ -887,45 +807,49 @@ void Query::RemoveStringPrefix(string const & str, string & res) const
 
 void Query::GetSuggestion(string const & name, string & suggest) const
 {
-  // Split result's name on tokens.
+  // Splits result's name.
   search::Delimiters delims;
-  vector<strings::UniString> vName;
-  SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(vName), delims);
+  vector<strings::UniString> tokens;
+  SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), delims);
 
-  // Find tokens that already present in input query.
-  vector<bool> tokensMatched(vName.size());
+  // Finds tokens that are already present in the input query.
+  vector<bool> tokensMatched(tokens.size());
   bool prefixMatched = false;
-  for (size_t i = 0; i < vName.size(); ++i)
+  bool fullPrefixMatched = false;
+  for (size_t i = 0; i < tokens.size(); ++i)
   {
-    if (find(m_tokens.begin(), m_tokens.end(), vName[i]) != m_tokens.end())
+    auto const & token = tokens[i];
+    if (find(m_tokens.begin(), m_tokens.end(), token) != m_tokens.end())
       tokensMatched[i] = true;
-    else
-      if (vName[i].size() >= m_prefix.size() &&
-          StartsWith(vName[i].begin(), vName[i].end(), m_prefix.begin(), m_prefix.end()))
-      {
-        prefixMatched = true;
-      }
+    else if (StartsWith(token, m_prefix))
+    {
+      prefixMatched = true;
+      fullPrefixMatched = token.size() == m_prefix.size();
+    }
   }
 
-  // Name doesn't match prefix - do nothing.
-  if (!prefixMatched)
+  // When |name| does not match prefix or when prefix equals to some
+  // token of the |name| (for example, when user entered "Moscow"
+  // without space at the end), we should not suggest anything.
+  if (!prefixMatched || fullPrefixMatched)
     return;
 
-  RemoveStringPrefix(*m_query, suggest);
+  RemoveStringPrefix(m_query, suggest);
 
-  // Append unmatched result's tokens to the suggestion.
-  for (size_t i = 0; i < vName.size(); ++i)
-    if (!tokensMatched[i])
-    {
-      suggest += strings::ToUtf8(vName[i]);
-      suggest += " ";
-    }
+  // Appends unmatched result's tokens to the suggestion.
+  for (size_t i = 0; i < tokens.size(); ++i)
+  {
+    if (tokensMatched[i])
+      continue;
+    suggest.append(strings::ToUtf8(tokens[i]));
+    suggest.push_back(' ');
+  }
 }
 
 template <class T>
 void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
 {
-  if (m_prefix.empty())
+  if (m_prefix.empty() || !m_suggestsEnabled)
     return;
 
   int added = 0;
@@ -951,28 +875,15 @@ void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
   }
 }
 
-void Query::AddResultFromTrie(TTrieValue const & val, MwmSet::MwmId const & mwmID,
-                              ViewportID vID /*= DEFAULT_V*/)
+void Query::AddPreResult1(MwmSet::MwmId const & mwmId, uint32_t featureId, double priority,
+                          v2::PreRankingInfo const & info, ViewportID viewportId /* = DEFAULT_V */)
 {
-  /// If we are in viewport search mode, check actual "point-in-viewport" criteria.
-  /// @todo Actually, this checks are more-like hack, but not a suitable place to do ...
-  if (m_queuesCount == 1 && vID == CURRENT_V && !m_viewport[CURRENT_V].IsPointInside(val.m_pt))
-    return;
-
-  impl::PreResult1 res(FeatureID(mwmID, val.m_featureId), val.m_rank,
-                       val.m_pt, GetPosition(vID), vID);
-
-  for (size_t i = 0; i < m_queuesCount; ++i)
-  {
-    // here can be the duplicates because of different language match (for suggest token)
-    if (m_results[i].end() == find_if(m_results[i].begin(), m_results[i].end(), EqualFeatureID(res)))
-      m_results[i].push(res);
-  }
+  FeatureID id(mwmId, featureId);
+  m_results.emplace_back(id, priority, viewportId, info);
 }
 
 namespace impl
 {
-
 class BestNameFinder
 {
   KeywordLangMatcher::ScoreT m_score;
@@ -984,7 +895,7 @@ public:
   {
   }
 
-  bool operator()(signed char lang, string const & name)
+  bool operator()(int8_t lang, string const & name)
   {
     KeywordLangMatcher::ScoreT const score = m_keywordsScorer.Score(lang, name);
     if (m_score < score)
@@ -995,13 +906,12 @@ public:
     return true;
   }
 };
-
-}  // namespace search::impl
+}  // namespace impl
 
 void Query::GetBestMatchName(FeatureType const & f, string & name) const
 {
-  impl::BestNameFinder bestNameFinder(name, m_keywordsScorer);
-  (void)f.ForEachNameRef(bestNameFinder);
+  impl::BestNameFinder finder(name, m_keywordsScorer);
+  UNUSED_VALUE(f.ForEachName(finder));
 }
 
 /// Makes continuous range for tokens and prefix.
@@ -1062,19 +972,20 @@ public:
 
 Result Query::MakeResult(impl::PreResult2 const & r) const
 {
-  Result res = r.GenerateFinalResult(m_infoGetter, &m_categories,
-                                     &m_prefferedTypes, m_currentLocaleCode);
+  Result res = r.GenerateFinalResult(m_infoGetter, &m_categories, &m_prefferedTypes,
+                                     m_currentLocaleCode, m_reverseGeocoder);
   MakeResultHighlight(res);
 
 #ifdef FIND_LOCALITY_TEST
   if (ftypes::IsLocalityChecker::Instance().GetType(r.GetTypes()) == ftypes::NONE)
   {
     string city;
-    m_locality.GetLocalityInViewport(res.GetFeatureCenter(), city);
+    m_locality.GetLocality(res.GetFeatureCenter(), city);
     res.AppendCity(city);
   }
 #endif
 
+  res.SetRankingInfo(r.GetRankingInfo());
   return res;
 }
 
@@ -1284,182 +1195,6 @@ void Query::InitParams(bool localitySearch, SearchQueryParams & params)
     params.m_langs.insert(GetLanguage(i));
 }
 
-namespace impl
-{
-  struct Locality
-  {
-    string m_name, m_enName;        ///< native name and english name of locality
-    Query::TTrieValue m_value;
-    vector<size_t> m_matchedTokens; ///< indexes of matched tokens for locality
-
-    ftypes::Type m_type;
-    double m_radius;
-
-    Locality() : m_type(ftypes::NONE) {}
-    Locality(Query::TTrieValue const & val, ftypes::Type type)
-      : m_value(val), m_type(type), m_radius(0)
-    {
-    }
-
-    bool IsValid() const
-    {
-      if (m_type != ftypes::NONE)
-      {
-        ASSERT ( !m_matchedTokens.empty(), () );
-        return true;
-      }
-      else
-        return false;
-    }
-
-    void Swap(Locality & rhs)
-    {
-      m_name.swap(rhs.m_name);
-      m_enName.swap(rhs.m_enName);
-      m_matchedTokens.swap(rhs.m_matchedTokens);
-
-      using std::swap;
-      swap(m_value, rhs.m_value);
-      swap(m_type, rhs.m_type);
-      swap(m_radius, rhs.m_radius);
-    }
-
-    bool operator< (Locality const & rhs) const
-    {
-      if (m_type != rhs.m_type)
-        return (m_type < rhs.m_type);
-
-      if (m_matchedTokens.size() != rhs.m_matchedTokens.size())
-        return (m_matchedTokens.size() < rhs.m_matchedTokens.size());
-
-      return (m_value.m_rank < rhs.m_value.m_rank);
-    }
-
-  private:
-    class DoCount
-    {
-      size_t & m_count;
-    public:
-      DoCount(size_t & count) : m_count(count) { m_count = 0; }
-
-      template <class T>
-      void operator()(T const &) { ++m_count; }
-    };
-
-    bool IsFullNameMatched() const
-    {
-      size_t count;
-      SplitUniString(NormalizeAndSimplifyString(m_name), DoCount(count), search::Delimiters());
-      return (count <= m_matchedTokens.size());
-    }
-
-    using TString = strings::UniString;
-    using TTokensArray = buffer_vector<TString, 32>;
-
-    size_t GetSynonymTokenLength(TTokensArray const & tokens, TString const & prefix) const
-    {
-      // check only one token as a synonym
-      if (m_matchedTokens.size() == 1)
-      {
-        size_t const index = m_matchedTokens[0];
-        if (index < tokens.size())
-          return tokens[index].size();
-        else
-        {
-          ASSERT_EQUAL ( index, tokens.size(), () );
-          ASSERT ( !prefix.empty(), () );
-          return prefix.size();
-        }
-      }
-
-      return size_t(-1);
-    }
-
-  public:
-    /// Check that locality is suitable for source input tokens.
-    bool IsSuitable(TTokensArray const & tokens, TString const & prefix) const
-    {
-      bool const isMatched = IsFullNameMatched();
-
-      // Do filtering of possible localities.
-      using namespace ftypes;
-
-      switch (m_type)
-      {
-      case STATE:   // we process USA, Canada states only for now
-        // USA states has 2-symbol synonyms
-        return (isMatched || GetSynonymTokenLength(tokens, prefix) == 2);
-
-      case COUNTRY:
-        // USA has synonyms: "US" or "USA"
-        return (isMatched ||
-                (m_enName == "usa" && GetSynonymTokenLength(tokens, prefix) <= 3) ||
-                (m_enName == "uk" && GetSynonymTokenLength(tokens, prefix) == 2));
-
-      case CITY:
-        // need full name match for cities
-        return isMatched;
-
-      default:
-        ASSERT ( false, () );
-        return false;
-      }
-    }
-  };
-
-  void swap(Locality & r1, Locality & r2) { r1.Swap(r2); }
-
-  string DebugPrint(Locality const & l)
-  {
-    stringstream ss;
-    ss << "{ Locality: " <<
-          "Name = " + l.m_name <<
-          "; Name English = " << l.m_enName <<
-          "; Rank = " << int(l.m_value.m_rank) <<
-          "; Matched: " << l.m_matchedTokens.size() << " }";
-    return ss.str();
-  }
-
-  struct Region
-  {
-    vector<size_t> m_ids;
-    vector<size_t> m_matchedTokens;
-    string m_enName;
-
-    bool operator<(Region const & rhs) const
-    {
-      return (m_matchedTokens.size() < rhs.m_matchedTokens.size());
-    }
-
-    bool IsValid() const
-    {
-      if (!m_ids.empty())
-      {
-        ASSERT ( !m_matchedTokens.empty(), () );
-        ASSERT ( !m_enName.empty(), () );
-        return true;
-      }
-      else
-        return false;
-    }
-
-    void Swap(Region & rhs)
-    {
-      m_ids.swap(rhs.m_ids);
-      m_matchedTokens.swap(rhs.m_matchedTokens);
-      m_enName.swap(rhs.m_enName);
-    }
-  };
-
-  string DebugPrint(Region const & r)
-  {
-    string res("Region: ");
-    res += "Name English: " + r.m_enName;
-    res += "; Matched: " + ::DebugPrint(r.m_matchedTokens.size());
-    return res;
-  }
-}
-
 void Query::SearchAddress(Results & res)
 {
   // Find World.mwm and do special search there.
@@ -1474,8 +1209,8 @@ void Query::SearchAddress(Results & res)
     if (pMwm && pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) &&
         pMwm->GetHeader().GetType() == TFHeader::world)
     {
-      impl::Locality city;
-      impl::Region region;
+      Locality city;
+      Region region;
       SearchLocality(pMwm, city, region);
 
       if (city.IsValid())
@@ -1493,20 +1228,39 @@ void Query::SearchAddress(Results & res)
         {
           params.ProcessAddressTokens();
 
-          m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
-                city.m_value.m_pt, city.m_radius);
-          SetViewportByIndex(mwmsInfo, rect, LOCALITY_V, false);
+          m2::PointD const cityCenter = GetLocalityCenter(m_index, mwmId, city);
+          double const cityRadius = city.m_radius;
+          m2::RectD const rect =
+              MercatorBounds::RectByCenterXYAndSizeInMeters(cityCenter, cityRadius);
+          SetViewportByIndex(mwmsInfo, rect, LOCALITY_V, false /* forceUpdate */);
 
           /// @todo Hack - do not search for address in World.mwm; Do it better in future.
           bool const b = m_worldSearch;
           m_worldSearch = false;
-          SearchFeatures(params, mwmsInfo, LOCALITY_V);
-          m_worldSearch = b;
+          MY_SCOPE_GUARD(restoreWorldSearch, [&]() { m_worldSearch = b; });
+
+          // Candidates for search around locality. Initially filled
+          // with mwms containing city center.
+          TMWMVector localityMwms;
+          string const localityFile = m_infoGetter.GetRegionCountryId(cityCenter);
+          auto localityMismatch = [&localityFile](shared_ptr<MwmInfo> const & info)
+          {
+            return info->GetCountryName() != localityFile;
+          };
+          remove_copy_if(mwmsInfo.begin(), mwmsInfo.end(), back_inserter(localityMwms),
+                         localityMismatch);
+          SearchFeaturesInViewport(params, localityMwms, LOCALITY_V);
         }
         else
         {
           // Add found locality as a result if nothing left to match.
-          AddResultFromTrie(city.m_value, mwmId);
+
+          // TODO (@y): for backward compatibility with old search
+          // algorithm carefully fill |info| here.
+          v2::PreRankingInfo info;
+          info.m_rank = city.m_rank;
+
+          AddPreResult1(mwmId, city.m_featureId, 1.0 /* priority */, info);
         }
       }
       else if (region.IsValid())
@@ -1522,16 +1276,14 @@ void Query::SearchAddress(Results & res)
 
         if (!params.IsEmpty())
         {
-          for (shared_ptr<MwmInfo> & info : mwmsInfo)
+          TMWMVector regionMwms;
+          auto regionMismatch = [this, &region](shared_ptr<MwmInfo> const & info)
           {
-            Index::MwmHandle const handle = m_index.GetMwmHandleById(info);
-            if (handle.IsAlive() &&
-                m_infoGetter.IsBelongToRegions(handle.GetValue<MwmValue>()->GetCountryFileName(),
-                                               region.m_ids))
-            {
-              SearchInMWM(handle, params);
-            }
-          }
+            return !m_infoGetter.IsBelongToRegions(info->GetCountryName(), region.m_ids);
+          };
+          remove_copy_if(mwmsInfo.begin(), mwmsInfo.end(), back_inserter(regionMwms),
+                         regionMismatch);
+          SearchInMwms(regionMwms, params, DEFAULT_V);
         }
       }
 
@@ -1542,264 +1294,302 @@ void Query::SearchAddress(Results & res)
 
 namespace impl
 {
-  class DoFindLocality
+class DoFindLocality
+{
+  Query const & m_query;
+
+  /// Index in array equal to Locality::m_type value.
+  vector<Locality> m_localities[3];
+
+  FeaturesVector m_vector;
+  unique_ptr<RankTable> m_table;
+  size_t m_index;  ///< index of processing token
+
+  int8_t m_lang;
+  int8_t m_arrEn[3];
+
+  /// Tanslates country full english name to mwm file name prefix
+  /// (need when matching correspondent mwm file in CountryInfoGetter::GetMatchedRegions).
+  //@{
+  static bool FeatureName2FileNamePrefix(string & name, char const * prefix, char const * arr[],
+                                         size_t n)
   {
-    Query const & m_query;
+    for (size_t i = 0; i < n; ++i)
+      if (name.find(arr[i]) == string::npos)
+        return false;
 
-    /// Index in array equal to Locality::m_type value.
-    vector<Locality> m_localities[3];
+    name = prefix;
+    return true;
+  }
 
-    FeaturesVector m_vector;
-    size_t m_index;         ///< index of processing token
-
-    Locality * PushLocality(Locality const & l)
-    {
-      ASSERT ( 0 <= l.m_type && l.m_type <= ARRAY_SIZE(m_localities), (l.m_type) );
-      m_localities[l.m_type].push_back(l);
-      return &(m_localities[l.m_type].back());
-    }
-
-    int8_t m_lang;
-    int8_t m_arrEn[3];
-
-    /// Tanslates country full english name to mwm file name prefix
-    /// (need when matching correspondent mwm file in CountryInfoGetter::GetMatchedRegions).
-    //@{
-    static bool FeatureName2FileNamePrefix(string & name, char const * prefix,
-                                    char const * arr[], size_t n)
-    {
-      for (size_t i = 0; i < n; ++i)
-        if (name.find(arr[i]) == string::npos)
-          return false;
-
-      name = prefix;
-      return true;
-    }
-
-    void AssignEnglishName(FeatureType const & f, Locality & l)
-    {
-      // search for name in next order: "en", "int_name", "default"
-      for (int i = 0; i < 3; ++i)
-        if (f.GetName(m_arrEn[i], l.m_enName))
-        {
-          // make name lower-case
-          strings::AsciiToLower(l.m_enName);
-
-          char const * arrUSA[] = { "united", "states", "america" };
-          char const * arrUK[] = { "united", "kingdom" };
-
-          if (!FeatureName2FileNamePrefix(l.m_enName, "usa", arrUSA, ARRAY_SIZE(arrUSA)))
-            if (!FeatureName2FileNamePrefix(l.m_enName, "uk", arrUK, ARRAY_SIZE(arrUK)))
-              return;
-        }
-    }
-    //@}
-
-    void AddRegions(int index, vector<Region> & regions) const
-    {
-      // fill regions vector in priority order
-      vector<Locality> const & arr = m_localities[index];
-      for (auto i = arr.rbegin(); i != arr.rend(); ++i)
+  void AssignEnglishName(FeatureType const & f, Locality & l)
+  {
+    // search for name in next order: "en", "int_name", "default"
+    for (int i = 0; i < 3; ++i)
+      if (f.GetName(m_arrEn[i], l.m_enName))
       {
-        // no need to check region with empty english name (can't match for polygon)
-        if (!i->m_enName.empty() && i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
-        {
-          vector<size_t> vec;
-          m_query.m_infoGetter.GetMatchedRegions(i->m_enName, vec);
-          if (!vec.empty())
-          {
-            regions.push_back(Region());
-            Region & r = regions.back();
+        // make name lower-case
+        strings::AsciiToLower(l.m_enName);
 
-            r.m_ids.swap(vec);
-            r.m_matchedTokens = i->m_matchedTokens;
-            r.m_enName = i->m_enName;
-          }
+        char const * arrUSA[] = {"united", "states", "america"};
+        char const * arrUK[] = {"united", "kingdom"};
+
+        if (!FeatureName2FileNamePrefix(l.m_enName, "usa", arrUSA, ARRAY_SIZE(arrUSA)))
+          if (!FeatureName2FileNamePrefix(l.m_enName, "uk", arrUK, ARRAY_SIZE(arrUK)))
+            return;
+      }
+  }
+  //@}
+
+  void AddRegions(int index, vector<Region> & regions) const
+  {
+    // fill regions vector in priority order
+    vector<Locality> const & arr = m_localities[index];
+    for (auto i = arr.rbegin(); i != arr.rend(); ++i)
+    {
+      // no need to check region with empty english name (can't match for polygon)
+      if (!i->m_enName.empty() && i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
+      {
+        vector<size_t> vec;
+        m_query.m_infoGetter.GetMatchedRegions(i->m_enName, vec);
+        if (!vec.empty())
+        {
+          regions.push_back(Region());
+          Region & r = regions.back();
+
+          r.m_ids.swap(vec);
+          r.m_matchedTokens = i->m_matchedTokens;
+          r.m_enName = i->m_enName;
         }
       }
     }
+  }
 
-    bool IsBelong(Locality const & loc, Region const & r) const
+  bool InRegion(Locality const & loc, Region const & r) const
+  {
+    // check that locality and region are produced from different tokens
+    vector<size_t> dummy;
+    set_intersection(loc.m_matchedTokens.begin(), loc.m_matchedTokens.end(),
+                     r.m_matchedTokens.begin(), r.m_matchedTokens.end(), back_inserter(dummy));
+
+    if (dummy.empty())
     {
-      // check that locality and region are produced from different tokens
-      vector<size_t> dummy;
-      set_intersection(loc.m_matchedTokens.begin(), loc.m_matchedTokens.end(),
-                       r.m_matchedTokens.begin(), r.m_matchedTokens.end(),
-                       back_inserter(dummy));
-
-      if (dummy.empty())
-      {
-        // check that locality belong to region
-        return m_query.m_infoGetter.IsBelongToRegions(loc.m_value.m_pt, r.m_ids);
-      }
-
-      return false;
+      // check that locality belong to region
+      return m_query.m_infoGetter.IsBelongToRegions(loc.m_center, r.m_ids);
     }
 
-    class EqualID
-    {
-      uint32_t m_id;
-    public:
-      EqualID(uint32_t id) : m_id(id) {}
-      bool operator() (Locality const & l) const { return (l.m_value.m_featureId == m_id); }
-    };
+    return false;
+  }
+
+  class EqualID
+  {
+    uint32_t m_id;
 
   public:
-    DoFindLocality(Query & q, MwmValue const * pMwm, int8_t lang)
-      : m_query(q), m_vector(pMwm->m_cont, pMwm->GetHeader(), pMwm->m_table), m_lang(lang)
-    {
-      m_arrEn[0] = q.GetLanguage(LANG_EN);
-      m_arrEn[1] = q.GetLanguage(LANG_INTERNATIONAL);
-      m_arrEn[2] = q.GetLanguage(LANG_DEFAULT);
-    }
+    EqualID(uint32_t id) : m_id(id) {}
 
-    void Resize(size_t) {}
-
-    void SwitchTo(size_t ind) { m_index = ind; }
-
-    void operator() (Query::TTrieValue const & v)
-    {
-      if (m_query.IsCancelled())
-        throw Query::CancelException();
-
-      // find locality in current results
-      for (size_t i = 0; i < 3; ++i)
-      {
-        auto it = find_if(m_localities[i].begin(), m_localities[i].end(), EqualID(v.m_featureId));
-        if (it != m_localities[i].end())
-        {
-          it->m_matchedTokens.push_back(m_index);
-          return;
-        }
-      }
-
-      // load feature
-      FeatureType f;
-      m_vector.GetByIndex(v.m_featureId, f);
-
-      using namespace ftypes;
-
-      // check, if feature is locality
-      Type const index = m_query.GetLocalityIndex(feature::TypesHolder(f));
-      if (index != NONE)
-      {
-        Locality * loc = PushLocality(Locality(v, index));
-        if (loc)
-        {
-          loc->m_radius = GetRadiusByPopulation(GetPopulation(f));
-          // m_lang name should exist if we matched feature in search index for this language.
-          VERIFY(f.GetName(m_lang, loc->m_name), ());
-
-          loc->m_matchedTokens.push_back(m_index);
-
-          AssignEnglishName(f, *loc);
-        }
-      }
-    }
-
-    void SortLocalities()
-    {
-      for (int i = ftypes::COUNTRY; i <= ftypes::CITY; ++i)
-        sort(m_localities[i].begin(), m_localities[i].end());
-    }
-
-    void GetRegions(vector<Region> & regions) const
-    {
-      //LOG(LDEBUG, ("Countries before processing = ", m_localities[ftypes::COUNTRY]));
-      //LOG(LDEBUG, ("States before processing = ", m_localities[ftypes::STATE]));
-
-      AddRegions(ftypes::STATE, regions);
-      AddRegions(ftypes::COUNTRY, regions);
-
-      //LOG(LDEBUG, ("Regions after processing = ", regions));
-    }
-
-    void GetBestCity(Locality & res, vector<Region> const & regions)
-    {
-      size_t const regsCount = regions.size();
-      vector<Locality> & arr = m_localities[ftypes::CITY];
-
-      // Interate in reverse order from better to generic locality.
-      for (auto i = arr.rbegin(); i != arr.rend(); ++i)
-      {
-        if (!i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
-          continue;
-
-        // additional check for locality belongs to region
-        vector<Region const *> belongs;
-        for (size_t j = 0; j < regsCount; ++j)
-        {
-          if (IsBelong(*i, regions[j]))
-            belongs.push_back(&regions[j]);
-        }
-
-        for (size_t j = 0; j < belongs.size(); ++j)
-        {
-          // splice locality info with region info
-          i->m_matchedTokens.insert(i->m_matchedTokens.end(),
-                                    belongs[j]->m_matchedTokens.begin(),
-                                    belongs[j]->m_matchedTokens.end());
-          // we need to store sorted range of token indexies
-          sort(i->m_matchedTokens.begin(), i->m_matchedTokens.end());
-
-          i->m_enName += (", " + belongs[j]->m_enName);
-        }
-
-        if (res < *i)
-          i->Swap(res);
-
-        if (regsCount == 0)
-          return;
-      }
-    }
+    bool operator()(Locality const & l) const { return (l.m_featureId == m_id); }
   };
-}
 
-void Query::SearchLocality(MwmValue const * pMwm, impl::Locality & res1, impl::Region & res2)
+public:
+  DoFindLocality(Query & q, MwmValue const * pMwm, int8_t lang)
+    : m_query(q)
+    , m_vector(pMwm->m_cont, pMwm->GetHeader(), pMwm->m_table)
+    , m_table(RankTable::Load(pMwm->m_cont))
+    , m_lang(lang)
+  {
+    m_arrEn[0] = q.GetLanguage(LANG_EN);
+    m_arrEn[1] = q.GetLanguage(LANG_INTERNATIONAL);
+    m_arrEn[2] = q.GetLanguage(LANG_DEFAULT);
+  }
+
+  void Resize(size_t) {}
+
+  void SwitchTo(size_t ind) { m_index = ind; }
+
+  void operator()(FeatureWithRankAndCenter const & value) { operator()(value.m_featureId); }
+
+  void operator()(FeatureIndexValue const & value) { operator()(value.m_featureId); }
+
+  void operator()(uint32_t const featureId)
+  {
+    if (m_query.IsCancelled())
+      throw Query::CancelException();
+
+    // find locality in current results
+    for (size_t i = 0; i < 3; ++i)
+    {
+      auto it = find_if(m_localities[i].begin(), m_localities[i].end(), EqualID(featureId));
+      if (it != m_localities[i].end())
+      {
+        it->m_matchedTokens.push_back(m_index);
+        return;
+      }
+    }
+
+    // Load feature.
+    FeatureType f;
+    m_vector.GetByIndex(featureId, f);
+
+    using namespace ftypes;
+
+    // Check, if feature is locality.
+    Type const type = GetLocalityIndex(feature::TypesHolder(f));
+    if (type == NONE)
+      return;
+    ASSERT_LESS_OR_EQUAL(0, type, ());
+    ASSERT_LESS(type, ARRAY_SIZE(m_localities), ());
+
+    m2::PointD const center = feature::GetCenter(f, FeatureType::WORST_GEOMETRY);
+    uint8_t rank = 0;
+    if (m_table.get())
+    {
+      ASSERT_LESS(featureId, m_table->Size(), ());
+      rank = m_table->Get(featureId);
+    }
+    else
+    {
+      LOG(LWARNING, ("Can't get ranks table for locality search."));
+    }
+    m_localities[type].emplace_back(type, featureId, center, rank);
+    Locality & loc = m_localities[type].back();
+
+    loc.m_radius = GetRadiusByPopulation(GetPopulation(f));
+    // m_lang name should exist if we matched feature in search index for this language.
+    VERIFY(f.GetName(m_lang, loc.m_name), ());
+    loc.m_matchedTokens.push_back(m_index);
+    AssignEnglishName(f, loc);
+  }
+
+  void SortLocalities()
+  {
+    for (int i = ftypes::COUNTRY; i <= ftypes::CITY; ++i)
+      sort(m_localities[i].begin(), m_localities[i].end());
+  }
+
+  void GetRegions(vector<Region> & regions) const
+  {
+    // LOG(LDEBUG, ("Countries before processing = ", m_localities[ftypes::COUNTRY]));
+    // LOG(LDEBUG, ("States before processing = ", m_localities[ftypes::STATE]));
+
+    AddRegions(ftypes::STATE, regions);
+    AddRegions(ftypes::COUNTRY, regions);
+
+    // LOG(LDEBUG, ("Regions after processing = ", regions));
+  }
+
+  void GetBestCity(Locality & res, vector<Region> const & regions)
+  {
+    size_t const regsCount = regions.size();
+    vector<Locality> & arr = m_localities[ftypes::CITY];
+
+    // Interate in reverse order from better to generic locality.
+    for (auto i = arr.rbegin(); i != arr.rend(); ++i)
+    {
+      if (!i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
+        continue;
+
+      // additional check for locality belongs to region
+      vector<Region const *> belongs;
+      for (size_t j = 0; j < regsCount; ++j)
+      {
+        if (InRegion(*i, regions[j]))
+          belongs.push_back(&regions[j]);
+      }
+
+      for (size_t j = 0; j < belongs.size(); ++j)
+      {
+        // splice locality info with region info
+        i->m_matchedTokens.insert(i->m_matchedTokens.end(), belongs[j]->m_matchedTokens.begin(),
+                                  belongs[j]->m_matchedTokens.end());
+        // we need to store sorted range of token indexies
+        sort(i->m_matchedTokens.begin(), i->m_matchedTokens.end());
+
+        i->m_enName += (", " + belongs[j]->m_enName);
+      }
+
+      if (res < *i)
+        i->Swap(res);
+
+      if (regsCount == 0)
+        return;
+    }
+  }
+};
+
+}  // namespace impl
+
+namespace
+{
+template <typename TValue>
+void SearchLocalityImpl(Query * query, MwmValue const * pMwm, Locality & res1, Region & res2,
+                        SearchQueryParams & params, serial::CodingParams & codingParams)
+{
+    ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
+
+    auto const trieRoot = trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<TValue>>(
+        SubReaderWrapper<Reader>(searchReader.GetPtr()),
+        SingleValueSerializer<TValue>(codingParams));
+
+    auto finder = [&](TrieRootPrefix<TValue> & langRoot, int8_t lang)
+    {
+      impl::DoFindLocality doFind(*query, pMwm, lang);
+      MatchTokensInTrie(params.m_tokens, langRoot, doFind);
+
+      // Last token's prefix is used as a complete token here, to limit number of
+      // results.
+      doFind.Resize(params.m_tokens.size() + 1);
+      doFind.SwitchTo(params.m_tokens.size());
+      MatchTokenInTrie(params.m_prefixTokens, langRoot, doFind);
+      doFind.SortLocalities();
+
+      // Get regions from STATE and COUNTRY localities
+      vector<Region> regions;
+      doFind.GetRegions(regions);
+
+      // Get best CITY locality.
+      Locality loc;
+      doFind.GetBestCity(loc, regions);
+      if (res1 < loc)
+      {
+        LOG(LDEBUG, ("Better location ", loc, " for language ", lang));
+        res1.Swap(loc);
+      }
+
+      // Get best region.
+      if (!regions.empty())
+      {
+        sort(regions.begin(), regions.end());
+        if (res2 < regions.back())
+          res2.Swap(regions.back());
+      }
+    };
+
+    ForEachLangPrefix(params, *trieRoot, finder);
+}
+}  // namespace
+
+void Query::SearchLocality(MwmValue const * pMwm, Locality & res1, Region & res2)
 {
   SearchQueryParams params;
   InitParams(true /* localitySearch */, params);
 
-  serial::CodingParams cp(trie::GetCodingParams(pMwm->GetHeader().GetDefCodingParams()));
+  auto codingParams = trie::GetCodingParams(pMwm->GetHeader().GetDefCodingParams());
 
-  ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
+  version::MwmTraits mwmTraits(pMwm->GetHeader().GetFormat());
 
-  unique_ptr<trie::DefaultIterator> const trieRoot(
-      trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()), trie::ValueReader(cp),
-                     trie::TEdgeValueReader()));
-
-  ForEachLangPrefix(params, *trieRoot, [&](TrieRootPrefix & langRoot, int8_t lang)
+  if (mwmTraits.GetSearchIndexFormat() ==
+      version::MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter)
   {
-    impl::DoFindLocality doFind(*this, pMwm, lang);
-    MatchTokensInTrie(params.m_tokens, langRoot, doFind);
-
-    // Last token's prefix is used as a complete token here, to limit number of results.
-    doFind.Resize(params.m_tokens.size() + 1);
-    doFind.SwitchTo(params.m_tokens.size());
-    MatchTokenInTrie(params.m_prefixTokens, langRoot, doFind);
-    doFind.SortLocalities();
-
-    // Get regions from STATE and COUNTRY localities
-    vector<impl::Region> regions;
-    doFind.GetRegions(regions);
-
-    // Get best CITY locality.
-    impl::Locality loc;
-    doFind.GetBestCity(loc, regions);
-    if (res1 < loc)
-    {
-      LOG(LDEBUG, ("Better location ", loc, " for language ", lang));
-      res1.Swap(loc);
-    }
-
-    // Get best region.
-    if (!regions.empty())
-    {
-      sort(regions.begin(), regions.end());
-      if (res2 < regions.back())
-        res2.Swap(regions.back());
-    }
-  });
+    using TValue = FeatureWithRankAndCenter;
+    SearchLocalityImpl<TValue>(this, pMwm, res1, res2, params, codingParams);
+  }
+  else if (mwmTraits.GetSearchIndexFormat() ==
+           version::MwmTraits::SearchIndexFormat::CompressedBitVector)
+  {
+    using TValue = FeatureIndexValue;
+    SearchLocalityImpl<TValue>(this, pMwm, res1, res2, params, codingParams);
+  }
 }
 
 void Query::SearchFeatures()
@@ -1810,94 +1600,59 @@ void Query::SearchFeatures()
   SearchQueryParams params;
   InitParams(false /* localitySearch */, params);
 
-  // do usual search in viewport and near me (without last rect)
-  for (int i = 0; i < LOCALITY_V; ++i)
-  {
-    if (m_viewport[i].IsValid())
-      SearchFeatures(params, mwmsInfo, static_cast<ViewportID>(i));
-  }
+  SearchInMwms(mwmsInfo, params, CURRENT_V);
 }
 
-namespace
+void Query::SearchFeaturesInViewport(ViewportID viewportId)
 {
-  class FeaturesFilter
+  TMWMVector mwmsInfo;
+  m_index.GetMwmsInfo(mwmsInfo);
+
+  SearchQueryParams params;
+  InitParams(false /* localitySearch */, params);
+
+  SearchFeaturesInViewport(params, mwmsInfo, viewportId);
+}
+
+void Query::SearchFeaturesInViewport(SearchQueryParams const & params, TMWMVector const & mwmsInfo,
+                                     ViewportID viewportId)
+{
+  m2::RectD const * viewport = nullptr;
+  if (viewportId == LOCALITY_V)
+    viewport = &m_viewport[LOCALITY_V];
+  else
+    viewport = &m_viewport[CURRENT_V];
+  if (!viewport->IsValid())
+    return;
+
+  TMWMVector viewportMwms;
+  auto viewportMispatch = [&viewport](shared_ptr<MwmInfo> const & info)
   {
-    vector<uint32_t> const * m_offsets;
-
-    my::Cancellable const & m_cancellable;
-  public:
-    FeaturesFilter(vector<uint32_t> const * offsets, my::Cancellable const & cancellable)
-      : m_offsets(offsets), m_cancellable(cancellable)
-    {
-    }
-
-    bool operator() (uint32_t offset) const
-    {
-      if (m_cancellable.IsCancelled())
-      {
-        //LOG(LINFO, ("Throw CancelException"));
-        //dbg::ObjectTracker::PrintLeaks();
-        throw Query::CancelException();
-      }
-
-      return (m_offsets == 0 ||
-              binary_search(m_offsets->begin(), m_offsets->end(), offset));
-    }
+    return !viewport->IsIntersect(info->m_limitRect);
   };
+  remove_copy_if(mwmsInfo.begin(), mwmsInfo.end(), back_inserter(viewportMwms), viewportMispatch);
+  SearchInMwms(viewportMwms, params, viewportId);
 }
 
-void Query::SearchFeatures(SearchQueryParams const & params, TMWMVector const & mwmsInfo,
-                           ViewportID vID)
+void Query::SearchInMwms(TMWMVector const & mwmsInfo, SearchQueryParams const & params,
+                         ViewportID viewportId)
 {
-  for (shared_ptr<MwmInfo> const & info : mwmsInfo)
-  {
-    // Search only mwms that intersect with viewport (world always does).
-    if (m_viewport[vID].IsIntersect(info->m_limitRect))
-      SearchInMWM(m_index.GetMwmHandleById(info), params, vID);
-  }
-}
-
-void Query::SearchInMWM(Index::MwmHandle const & mwmHandle, SearchQueryParams const & params,
-                        ViewportID viewportId /*= DEFAULT_V*/)
-{
-  MwmValue const * const value = mwmHandle.GetValue<MwmValue>();
-  if (!value || !value->m_cont.IsExist(SEARCH_INDEX_FILE_TAG))
-    return;
-
-  TFHeader const & header = value->GetHeader();
-  /// @todo do not process World.mwm here - do it in SearchLocality
-  bool const isWorld = (header.GetType() == TFHeader::world);
-  if (isWorld && !m_worldSearch)
-    return;
-
-  serial::CodingParams cp(trie::GetCodingParams(header.GetDefCodingParams()));
-  ModelReaderPtr searchReader = value->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-  unique_ptr<trie::DefaultIterator> const trieRoot(
-      trie::ReadTrie(SubReaderWrapper<Reader>(searchReader.GetPtr()), trie::ValueReader(cp),
-                     trie::TEdgeValueReader()));
-
-  MwmSet::MwmId const mwmId = mwmHandle.GetId();
-  FeaturesFilter filter(viewportId == DEFAULT_V || isWorld ?
-                          0 : &m_offsetsInViewport[viewportId][mwmId], *this);
-  MatchFeaturesInTrie(params, *trieRoot, filter, [&](TTrieValue const & value)
-  {
-    AddResultFromTrie(value, mwmId, viewportId);
-  });
+  /// @note Old Retrieval logic is obsolete and moved to trash.
+  /// @todo Move to trash this Query code :)
 }
 
 void Query::SuggestStrings(Results & res)
 {
-  if (!m_prefix.empty())
-  {
-    int8_t arrLocales[3];
-    int const localesCount = GetCategoryLocales(arrLocales);
+  if (m_prefix.empty() || !m_suggestsEnabled)
+    return;
+  int8_t arrLocales[3];
+  int const localesCount = GetCategoryLocales(arrLocales);
 
-    string prolog;
-    RemoveStringPrefix(*m_query, prolog);
+  string prolog;
+  RemoveStringPrefix(m_query, prolog);
 
-    for (int i = 0; i < localesCount; ++i)
-      MatchForSuggestionsImpl(m_prefix, arrLocales[i], prolog, res);
-  }
+  for (int i = 0; i < localesCount; ++i)
+    MatchForSuggestionsImpl(m_prefix, arrLocales[i], prolog, res);
 }
 
 void Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale,
@@ -1931,54 +1686,20 @@ m2::RectD const & Query::GetViewport(ViewportID vID /*= DEFAULT_V*/) const
   return m_viewport[CURRENT_V];
 }
 
-m2::PointD Query::GetPosition(ViewportID vID /*= DEFAULT_V*/) const
+string DebugPrint(Query::ViewportID viewportId)
 {
-  switch (vID)
+  switch (viewportId)
   {
-  case LOCALITY_V:      // center of the founded locality
-    return m_viewport[vID].Center();
-  default:
-    return m_pivot;
+    case Query::DEFAULT_V:
+      return "Default";
+    case Query::CURRENT_V:
+      return "Current";
+    case Query::LOCALITY_V:
+      return "Locality";
+    case Query::COUNT_V:
+      return "Count";
   }
+  ASSERT(false, ("Unknown viewportId"));
+  return "Unknown";
 }
-
-void Query::SearchAdditional(Results & res, size_t resCount)
-{
-  ClearQueues();
-
-  string const fileName = m_infoGetter.GetRegionFile(m_pivot);
-  if (!fileName.empty())
-  {
-    LOG(LDEBUG, ("Additional MWM search: ", fileName));
-
-    TMWMVector mwmsInfo;
-    m_index.GetMwmsInfo(mwmsInfo);
-
-    SearchQueryParams params;
-    InitParams(false /* localitySearch */, params);
-
-    for (shared_ptr<MwmInfo> const & info : mwmsInfo)
-    {
-      Index::MwmHandle const handle = m_index.GetMwmHandleById(info);
-      if (handle.IsAlive() &&
-          handle.GetValue<MwmValue>()->GetCountryFileName() == fileName)
-      {
-        SearchInMWM(handle, params);
-      }
-    }
-
-#ifdef FIND_LOCALITY_TEST
-    m2::RectD rect;
-    for (auto const & r : m_results[0])
-      rect.Add(r.GetCenter());
-
-    // Hack with 90.0 is important for the countries divided by 180 meridian.
-    if (rect.IsValid() && (rect.maxX() - rect.minX()) <= 90.0)
-      m_locality.SetReservedViewportIfNeeded(rect);
-#endif
-
-    FlushResults(res, true, resCount);
-  }
-}
-
 }  // namespace search

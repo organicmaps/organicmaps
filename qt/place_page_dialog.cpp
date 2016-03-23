@@ -1,0 +1,176 @@
+#include "qt/place_page_dialog.hpp"
+
+#include "map/place_page_info.hpp"
+// For search::AddressInfo.
+#include "search/result.hpp"
+
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QVBoxLayout>
+
+string GenerateStars(int count)
+{
+  string stars;
+  for (int i = 0; i < count; ++i)
+    stars.append("★");
+  return stars;
+}
+
+PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info,
+                                 search::AddressInfo const & address)
+  : QDialog(parent)
+{
+  QGridLayout * grid = new QGridLayout();
+  int row = 0;
+  {  // Coordinates.
+    grid->addWidget(new QLabel("lat lon"), row, 0);
+    ms::LatLon const ll = info.GetLatLon();
+    string const llstr =
+        strings::to_string_dac(ll.lat, 7) + " " + strings::to_string_dac(ll.lon, 7);
+    QLabel * label = new QLabel(llstr.c_str());
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    grid->addWidget(label, row++, 1);
+  }
+  // Title/Name/Custom Name.
+  if (!info.GetTitle().empty())
+  {
+    grid->addWidget(new QLabel("Title"), row, 0);
+    QLabel * label = new QLabel(QString::fromStdString(info.GetTitle()));
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    grid->addWidget(label, row++, 1);
+  }
+  // Subtitle.
+  if (info.IsFeature())
+  {
+    grid->addWidget(new QLabel("Subtitle"), row, 0);
+    QLabel * label = new QLabel(QString::fromStdString(info.GetSubtitle()));
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    grid->addWidget(label, row++, 1);
+  }
+  {  // Address.
+    grid->addWidget(new QLabel("Address"), row, 0);
+    QLabel * label = new QLabel(QString::fromStdString(address.FormatAddress()));
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    grid->addWidget(label, row++, 1);
+  }
+  if (info.IsBookmark())
+  {
+    grid->addWidget(new QLabel("Bookmark"), row, 0);
+    grid->addWidget(new QLabel("Yes"), row++, 1);
+  }
+  if (info.IsMyPosition())
+  {
+    grid->addWidget(new QLabel("MyPosition"), row, 0);
+    grid->addWidget(new QLabel("Yes"), row++, 1);
+  }
+  if (info.HasApiUrl())
+  {
+    grid->addWidget(new QLabel("Api URL"), row, 0);
+    grid->addWidget(new QLabel(QString::fromStdString(info.GetApiUrl())), row++, 1);
+  }
+  if (info.IsFeature())
+  {
+    grid->addWidget(new QLabel("Raw Types"), row, 0);
+    QLabel * label = new QLabel(QString::fromStdString(DebugPrint(info.GetTypes())));
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    grid->addWidget(label, row++, 1);
+  }
+  for (auto const prop : info.AvailableProperties())
+  {
+    QString k;
+    string v;
+    bool link = false;
+    switch (prop)
+    {
+    case osm::Props::Phone:
+      k = "Phone";
+      v = info.GetPhone();
+      break;
+    case osm::Props::Fax:
+      k = "Fax";
+      v = info.GetFax();
+      break;
+    case osm::Props::Email:
+      k = "Email";
+      v = info.GetEmail();
+      link = true;
+      break;
+    case osm::Props::Website:
+      k = "Website";
+      v = info.GetWebsite();
+      link = true;
+      break;
+    case osm::Props::Internet:
+      k = "Internet";
+      v = DebugPrint(info.GetInternet());
+      break;
+    case osm::Props::Cuisine:
+      k = "Cuisine";
+      v = strings::JoinStrings(info.GetCuisines(), ", ");
+      break;
+    case osm::Props::OpeningHours:
+      k = "OpeningHours";
+      v = info.GetOpeningHours();
+      break;
+    case osm::Props::Stars:
+      k = "Stars";
+      v = GenerateStars(info.GetStars());
+      break;
+    case osm::Props::Operator:
+      k = "Operator";
+      v = info.GetOperator();
+      break;
+    case osm::Props::Elevation:
+      k = "Elevation";
+      v = info.GetElevationFormatted();
+      break;
+    case osm::Props::Wikipedia:
+      k = "Wikipedia";
+      v = info.GetWikipediaLink();
+      link = true;
+      break;
+    case osm::Props::Flats:
+      k = "Flats";
+      v = info.GetFlats();
+      break;
+    case osm::Props::BuildingLevels:
+      k = "Building Levels";
+      v = info.GetBuildingLevels();
+      break;
+    }
+    grid->addWidget(new QLabel(k), row, 0);
+    QLabel * label = new QLabel(QString::fromStdString(v));
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    if (link)
+    {
+      label->setOpenExternalLinks(true);
+      label->setTextInteractionFlags(Qt::TextBrowserInteraction);
+      label->setText(QString::fromStdString("<a href=\"" + v + "\">" + v + "</a>"));
+    }
+    grid->addWidget(label, row++, 1);
+  }
+
+  QDialogButtonBox * dbb = new QDialogButtonBox();
+  QPushButton * closeButton = new QPushButton("Close");
+  closeButton->setDefault(true);
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(OnClose()));
+  dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
+
+  if (info.IsEditable())
+  {
+    QPushButton * editButton = new QPushButton("Edit Place");
+    connect(editButton, SIGNAL(clicked()), this, SLOT(OnEdit()));
+    dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
+  }
+  grid->addWidget(dbb);
+  setLayout(grid);
+
+  string const title = string("Place Page") + (info.IsBookmark() ? " (bookmarked)" : "");
+  setWindowTitle(title.c_str());
+}
+
+void PlacePageDialog::OnClose() { reject(); }
+void PlacePageDialog::OnEdit() { accept(); }

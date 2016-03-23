@@ -16,7 +16,7 @@ namespace gui
 class Handle : public dp::OverlayHandle
 {
 public:
-  Handle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size = m2::PointF::Zero());
+  Handle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size = m2::PointF::Zero());
 
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
 
@@ -29,7 +29,7 @@ public:
 
   virtual bool IndexesRequired() const override;
   virtual m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
-  virtual void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override;
+  virtual void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
 
   m2::PointF GetSize() const { return m_size; }
   virtual void SetPivot(glsl::vec2 const & pivot) { m_pivot = pivot; }
@@ -43,8 +43,8 @@ protected:
 class TappableHandle : public Handle
 {
 public:
-  TappableHandle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size)
-    : Handle(anchor, pivot, size)
+  TappableHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size)
+    : Handle(id, anchor, pivot, size)
   {}
 
   bool IsTapped(m2::RectD const & touchArea) const override;
@@ -92,6 +92,7 @@ public:
   void SetPivot(m2::PointF const & pivot);
 
   ref_ptr<Handle> ProcessTapEvent(m2::RectD const & touchArea);
+  ref_ptr<Handle> FindHandle(FeatureID const & id);
 
 private:
   friend void ArrangeShapes(ref_ptr<ShapeRenderer>,

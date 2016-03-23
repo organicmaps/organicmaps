@@ -134,13 +134,13 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       @Override
       public void onBookmarkColorSet(int colorPos)
       {
-        final Icon newIcon = BookmarkManager.getIcons().get(colorPos);
+        final Icon newIcon = BookmarkManager.ICONS.get(colorPos);
         final String from = mBookmark.getIcon().getName();
         final String to = newIcon.getName();
         if (!TextUtils.equals(from, to))
           Statistics.INSTANCE.trackColorChanged(from, to);
 
-        mBookmark.setParams(mBookmark.getName(), newIcon, mBookmark.getBookmarkDescription());
+        mBookmark.setParams(mBookmark.getTitle(), newIcon, mBookmark.getBookmarkDescription());
         mBookmark = BookmarkManager.INSTANCE.getBookmark(mBookmark.getCategoryId(), mBookmark.getBookmarkId());
         refreshColorMarker();
       }
@@ -156,12 +156,12 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   private void refreshBookmark()
   {
-    mEtName.setText(mBookmark.getName());
+    mEtName.setText(mBookmark.getTitle());
     mEtName.selectAll();
     InputUtils.showKeyboard(mEtName);
 
     mEtDescription.setText(mBookmark.getBookmarkDescription());
-    mTvBookmarkGroup.setText(mBookmark.getCategoryName(getActivity()));
+    mTvBookmarkGroup.setText(mBookmark.getCategoryName());
     refreshColorMarker();
   }
 

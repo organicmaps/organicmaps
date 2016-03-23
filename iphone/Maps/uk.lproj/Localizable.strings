@@ -21,9 +21,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Видалити";
 
-/* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Видалити старі карти та продовжити";
-
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Більше не питати";
 
@@ -79,9 +76,6 @@
 /* View and button titles for accessibility */
 "my_position" = "Моє місце розташування";
 
-/* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Відсутнє підключення до інтернету";
-
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "Відсутнє WiFi з'єднання. Ви бажаєте завантажити %@ через стільникового оператора (GPRS, EDGE, 3G або LTE)?";
 
@@ -111,9 +105,6 @@
 /* Search box placeholder text */
 "search_map" = "Пошук на картi";
 
-/* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Немає вільного місця";
-
 /* Settings/Downloader - info for not downloaded country */
 "touch_to_download" = "Натисніть для завантаження";
 
@@ -122,9 +113,6 @@
 
 /* Settings/Downloader - No internet connection dialog message */
 "use_wifi_recommendation_text" = "Ми рекомендуємо завантажувати великі країни через WiFi";
-
-/* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Ми оновили карти і зменшили їх розмір. Для великих країн ви зможете вибірково завантажувати потрібні вам штати або регіони. Однак, щоб скористатися новими картами, необхідно попередньо видалити старi.";
 
 /* Choose measurement on first launch alert - title */
 "which_measurement_system" = "Якій системі вимірювання ви віддаєте перевагу?";
@@ -147,11 +135,14 @@
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Завантажити мапу\n(^ ^)";
 
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Завантажити мапу";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download_without_routing" = "Завантажити карту\nбез маршрутів (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Помилка завантаження\n^";
+"country_status_download_failed" = "Помилка завантаження";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Спробуйте ще раз";
@@ -184,8 +175,7 @@
 
 "free_space_for_country" = "Для завантаження %2$@ треба %1$@ вільного місця";
 
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %.1f%@ даних.";
+"download_resources" = "Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %@ даних.";
 
 "getting_position" = "Oтримуємо розташування";
 
@@ -261,7 +251,7 @@
 /* Add bookmark dialog - bookmark name */
 "name" = "Iм'я";
 
-/* Add bookmark dialog - bookmark address */
+/* Editor title above street and house number */
 "address" = "Адреса";
 
 /* Place Page - Remove Pin button */
@@ -431,8 +421,8 @@
 /* iOS share by Message button text (including SMS) */
 "message" = "Повідомлення";
 
-/* Share by email button text */
-"email" = "Електронна пошта";
+/* Share by email button text, also used in editor. */
+"email" = "Ел. пошта";
 
 /* Copy Link */
 "copy_link" = "Копіювати посилання";
@@ -617,7 +607,7 @@
 "settings_and_more" = "Налаштування";
 
 /* Text in menu */
-"website" = "Website";
+"website" = "Вебсайт";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -695,22 +685,29 @@
 "routing_update_maps" = "В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.";
 
 /* Update all button text */
-"downloader_update_all" = "Оновити все";
+"downloader_update_all_button" = "Оновити всі";
 
 /* Cancel all button text */
 "downloader_cancel_all" = "Скасувати всі";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Завантажено";
+"downloader_downloaded_subtitle" = "Завантажено";
 
 /* Downloaded maps category */
-"downloader_downloaded_maps" = "Завантажені карти";
-
-/* My maps category */
-"downloader_my_maps" = "Мої карти";
+"downloader_available_maps" = "Available";
 
 /* Country queued for download */
 "downloader_queued" = "в черзі";
+
+"downloader_near_me_subtitle" = "Поблизу";
+
+"downloader_status_maps" = "Карти";
+
+"downloader_download_all_button" = "Завантажити всі";
+
+"downloader_downloading" = "Завантажується:";
+
+"downloader_search_results" = "Знайдено";
 
 /* Disclaimer message */
 "routing_disclaimer" = "Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!";
@@ -726,6 +723,9 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Помилка";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Щоб видалити карту, будь ласка, зупините навiгацiю.";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Неможливо прокласти маршрут. Не визначено поточне місцезнаходження.";
@@ -839,276 +839,6 @@
 
 /* Text for routing error dialog */
 "routing_download_roaming" = "Ви збираєтесь завантажити %@ MB з використанням послуги передачі даних (у роумінгу). Це може потребувати додаткової оплати, в залежності від вашого мобільного оператора та умов використання вашого тарифного плану.";
-
-/* Cuisine */
-"cuisine_regional" = "регіональна кухня";
-
-/* Cuisine */
-"cuisine_pizza" = "піцерія";
-
-/* Cuisine */
-"cuisine_burger" = "бургери";
-
-/* Cuisine */
-"cuisine_italian" = "італійська кухня";
-
-/* Cuisine */
-"cuisine_chinese" = "китайська кухня";
-
-/* Cuisine */
-"cuisine_coffee_shop" = "кав'ярня";
-
-/* Cuisine */
-"cuisine_sandwich" = "сандвічі";
-
-/* Cuisine */
-"cuisine_german" = "німецька кухня";
-
-/* Cuisine */
-"cuisine_japanese" = "японська кухня";
-
-/* Cuisine */
-"cuisine_kebab" = "кебаби";
-
-/* Cuisine */
-"cuisine_mexican" = "мексиканська кухня";
-
-/* Cuisine */
-"cuisine_indian" = "індійська кухня";
-
-/* Cuisine */
-"cuisine_american" = "американська кухня";
-
-/* Cuisine */
-"cuisine_french" = "французька кухня";
-
-/* Cuisine */
-"cuisine_ice_cream" = "морозиво";
-
-/* Cuisine */
-"cuisine_asian" = "азіатська кухня";
-
-/* Cuisine */
-"cuisine_chicken" = "страви з курки";
-
-/* Cuisine */
-"cuisine_greek" = "грецька кухня";
-
-/* Cuisine */
-"cuisine_thai" = "тайська кухня";
-
-/* Cuisine */
-"cuisine_international" = "міжнародна кухня";
-
-/* Cuisine */
-"cuisine_sushi" = "суші";
-
-/* Cuisine */
-"cuisine_fish_and_chips" = "риба зі смаженою картоплею";
-
-/* Cuisine */
-"cuisine_turkish" = "турецька кухня";
-
-/* Cuisine */
-"cuisine_seafood" = "морська їжа";
-
-/* Cuisine */
-"cuisine_steak_house" = "стейк-хаус";
-
-/* Cuisine */
-"cuisine_spanish" = "іспанська кухня";
-
-/* Cuisine */
-"cuisine_fish" = "рибний ресторан";
-
-/* Cuisine */
-"cuisine_vietnamese" = "в'єтнамська кухня";
-
-/* Cuisine */
-"cuisine_noodles" = "вермішель";
-
-/* Cuisine */
-"cuisine_vegetarian" = "вегетаріанська кухня";
-
-/* Cuisine */
-"cuisine_korean" = "корейська кухня";
-
-/* Cuisine */
-"cuisine_friture" = "страви у фритюрі";
-
-/* Cuisine */
-"cuisine_barbecue" = "барбекю";
-
-/* Cuisine */
-"cuisine_bavarian" = "баварська кухня";
-
-/* Cuisine */
-"cuisine_ramen" = "рамен";
-
-/* Cuisine */
-"cuisine_italian_pizza" = "італійська кухня, піцерія";
-
-/* Cuisine */
-"cuisine_mediterranean" = "середземноморська кухня";
-
-/* Cuisine */
-"cuisine_donut" = "пончики";
-
-/* Cuisine */
-"cuisine_beef_bowl" = "тарілка з яловичиною";
-
-/* Cuisine */
-"cuisine_cake" = "кондитерська";
-
-/* Cuisine */
-"cuisine_crepe" = "креп";
-
-/* Cuisine */
-"cuisine_heuriger" = "винна таверна (хойригер)";
-
-/* Cuisine */
-"cuisine_lebanese" = "ліванська кухня";
-
-/* Cuisine */
-"cuisine_steak" = "стейки";
-
-/* Cuisine */
-"cuisine_local" = "місцева кухня";
-
-/* Cuisine */
-"cuisine_curry" = "каррі";
-
-/* Cuisine */
-"cuisine_filipino" = "філіппінська кухня";
-
-/* Cuisine */
-"cuisine_russian" = "російська кухня";
-
-/* Cuisine */
-"cuisine_breakfast" = "сніданки";
-
-/* Cuisine */
-"cuisine_tapas" = "тапас-бар";
-
-/* Cuisine */
-"cuisine_bbq" = "барбекю";
-
-/* Cuisine */
-"cuisine_bagel" = "випічка";
-
-/* Cuisine */
-"cuisine_pasta" = "паста";
-
-/* Cuisine */
-"cuisine_buschenschank" = "домашня таверна (бушеншанк)";
-
-/* Cuisine */
-"cuisine_sausage" = "сосисочна";
-
-/* Cuisine */
-"cuisine_portuguese" = "португальська кухня";
-
-/* Cuisine */
-"cuisine_grill" = "гриль";
-
-/* Cuisine */
-"cuisine_pancake" = "млинці";
-
-/* Cuisine */
-"cuisine_malagasy" = "малагасійська кухня";
-
-/* Cuisine */
-"cuisine_polish" = "польська кухня";
-
-/* Cuisine */
-"cuisine_diner" = "дайнер";
-
-/* Cuisine */
-"cuisine_african" = "африканська кухня";
-
-/* Cuisine */
-"cuisine_doughnut" = "пончики";
-
-/* Cuisine */
-"cuisine_georgian" = "грузинська кухня";
-
-/* Cuisine */
-"cuisine_croatian" = "сербська кухня";
-
-/* Cuisine */
-"cuisine_arab" = "арабська кухня";
-
-/* Cuisine */
-"cuisine_balkan" = "балканська кухня";
-
-/* Cuisine */
-"cuisine_brazilian" = "бразильська кухня";
-
-/* Cuisine */
-"cuisine_caribbean" = "карибська кухня";
-
-/* Cuisine */
-"cuisine_austrian" = "австрійська кухня";
-
-/* Cuisine */
-"cuisine_vegan" = "веганська кухня";
-
-/* Cuisine */
-"cuisine_argentinian" = "аргентинська кухня";
-
-/* Cuisine */
-"cuisine_persian" = "перська кухня";
-
-/* Cuisine */
-"cuisine_soba" = "соба";
-
-/* Cuisine */
-"cuisine_malaysian" = "малайзійська кухня";
-
-/* Cuisine */
-"cuisine_indonesian" = "індонезійська кухня";
-
-/* Cuisine */
-"cuisine_ethiopian" = "ефіопська кухня";
-
-/* Cuisine */
-"cuisine_deli" = "делікатеси";
-
-/* Cuisine */
-"cuisine_irish" = "ірландська кухня";
-
-/* Cuisine */
-"cuisine_hungarian" = "угорська кухня";
-
-/* Cuisine */
-"cuisine_lao" = "лаоська кухня";
-
-/* Cuisine */
-"cuisine_coffee" = "кав'ярня";
-
-/* Cuisine */
-"cuisine_hotdog" = "хот-доги";
-
-/* Cuisine */
-"cuisine_oriental" = "східна кухня";
-
-/* Cuisine */
-"cuisine_savory_pancakes" = "пікантні оладки";
-
-/* Cuisine */
-"cuisine_moroccan" = "марокканська кухня";
-
-/* Cuisine */
-"cuisine_barbeque" = "барбекю";
-
-/* Cuisine */
-"cuisine_peruvian" = "перуанська кухня";
-
-/* Cuisine */
-"cuisine_fine_dining" = "ресторан високої кухні";
-
-/* Cuisine */
-"cuisine_tea" = "чайна";
 
 /* bookmark button text */
 "bookmark" = "мітка";
@@ -1242,7 +972,7 @@
 
 "dialog_routing_always_cross_that_border" = "Завжди перетинати цю межу";
 
-"dialog_routing_not_now" = "Не зараз";
+"not_now" = "Не зараз";
 
 "dialog_routing_build_route" = "Побудувати";
 
@@ -1259,8 +989,6 @@
 "search_select_map" = "Вибрати карту";
 
 "search_select_other_map" = "Вибрати іншу карту";
-
-"search_vehicle_routes" = "Напрямки руху";
 
 /* «Show» context menu */
 "show" = "Показати";
@@ -1350,6 +1078,284 @@
 
 "whats_new_next_button" = "Далі";
 
-"whats_new_night_caption" = "Нічний режим навігації";
+"editor_time_add" = "Додати розклад";
 
-"whats_new_night_body" = "Для зручності використання MAPS.ME під час водіння автомобіля в темну пору доби ми додали нічний режим. Він запускається автоматично після заходу сонця.";
+"editor_time_delete" = "Видалити розклад";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Весь день (24 години)";
+
+"editor_time_open" = "Відчинено";
+
+"editor_time_close" = "Зачинено";
+
+"editor_time_add_closed" = "Додати перерву";
+
+"editor_time_title" = "Час роботи";
+
+"editor_time_advanced" = "Розширений режим";
+
+"editor_time_simple" = "Простий режим";
+
+"editor_hours_closed" = "Перерва";
+
+"editor_example_values" = "Приклади значень";
+
+"editor_correct_mistake" = "Виправте помилку";
+
+"editor_correct_mistake_message" = "Під час редагування часу роботи ви зробили помилку. Виправте її або перейдіть у простий режим.";
+
+"editor_add_select_location" = "Місцезнаходження";
+
+"editor_done_dialog_1" = "Ви змінили карту світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.";
+
+"editor_done_dialog_2" = "Це ваше друге поліпшення карти. Тепер ви на %d місці в списку редакторів карт. Розкажіть своїм друзям про це.";
+
+"editor_done_dialog_3" = "Ви покращили карту, розкажіть своїм друзям про це і редагуйте її разом.";
+
+"share_with_friends" = "Поділитися з друзями";
+
+"editor_report_problem_desription_1" = "Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.";
+
+"editor_report_problem_desription_2" = "Або зробіть це самостійно на сайті http://www.openstreetmap.org/";
+
+"editor_report_problem_send_button" = "Надіслати";
+
+"editor_report_problem_title" = "Проблема";
+
+"editor_report_problem_no_place_title" = "Місце не існує";
+
+"editor_report_problem_under_construction_title" = "Зачинено на ремонт";
+
+"editor_report_problem_duplicate_place_title" = "Дубльовані місця";
+
+"first_launch_congrats_title" = "MAPS.ME готовий до роботи";
+
+"first_launch_congrats_text" = "Користуйтесь пошуком, навігацією по всьому світу без інтернету й безкоштовно.";
+
+"migrate_title" = "Важливо!";
+
+/* Android uses image instead of text. */
+"download_all" = "Завантажити всі";
+
+"delete_all" = "Видалити всі";
+
+"autodownload" = "Автоматичне завантаження";
+
+/* Place Page opening hours text */
+"closed_now" = "Зараз закрито";
+
+/* Place Page opening hours text */
+"daily" = "Щоденно";
+
+"twentyfour_seven" = "Цілодобово";
+
+"day_off_today" = "Сьогодні вихідний";
+
+"day_off" = "Вихідний";
+
+"today" = "Сьогодні";
+
+"sunrise_to_sunset" = "Від світанку до заходу";
+
+"sunset_to_sunrise" = "Від заходу до світанку";
+
+"add_opening_hours" = "Додати години роботи";
+
+"edit_opening_hours" = "Редагувати години роботи";
+
+"profile" = "Профіль";
+
+"no_osm_account" = "Не зареєстровані в OpenStreetMap?";
+
+"register_at_openstreetmap" = "Зареєструватися";
+
+"password_8_chars_min" = "Пароль (мінімум 8 символів)";
+
+"invalid_username_or_password" = "Невірне ім'я користувача або пароль.";
+
+"login" = "Увійти";
+
+"password" = "Пароль";
+
+"forgot_password" = "Забули пароль?";
+
+/* Forgot Password dialog title */
+"restore_password" = "Відновити пароль";
+
+"enter_email_address_to_reset_password" = "Введіть адресу ел. пошти, яку ви використали під час реєстрації і ми надішлемо вам посилання для відновлення паролю.";
+
+"reset_password" = "Змінити пароль";
+
+"username" = "Ім'я користувача";
+
+"osm_account" = "Обліковий запис OSM";
+
+"logout" = "Вийти";
+
+"login_and_edit_map_motivation_message" = "Увійдіть та редагуйте інформацію про об'єкти на карті, і ми зробимо їх доступними для мільйонів інших користувачів. Давайте зробимо світ кращим разом.";
+
+"not_sent" = "Не надіслано";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Остання вiдправка";
+
+/* The number of changes made. As in "changes: 123". */
+"changes" = "змін";
+
+/* Motivates user to login/register, title above login buttons. */
+"you_have_edited_your_first_object" = "Ви редагували свій перший об'єкт!";
+
+"thank_you" = "Дякуємо";
+
+"login_with_google" = "Увійти за допомогою Google";
+
+"login_with_facebook" = "Увійти за допомогою Facebook";
+
+"login_with_openstreetmap" = "Увійти за допомогою www.openstreetmap.org";
+
+"edit_place" = "Редагувати місце";
+
+"place_name" = "Назва";
+
+"place_name_caption" = "Введіть назву як на вивісці або табличці";
+
+/* title above languages list cells in the editor, below editable name text field. */
+"other_languages" = "Інші мови";
+
+/* small button to open list with names in different languages */
+"show_more" = "Show More";
+
+/* small button to close list with names in different languages */
+"show_less" = "Show Less";
+
+"add_language" = "Додати мову";
+
+"street" = "Вулиця";
+
+/* Editable House Number text field (in address block). */
+"house" = "Будинок";
+
+"details" = "Детальніше";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Додати вулицю";
+
+"choose_language" = "Вибрати мову";
+
+"choose_street" = "Вибрати вулицю";
+
+"postal_code" = "Поштовий індекс";
+
+"cuisine" = "Кухня";
+
+"select_cuisine" = "Вибрати кухню";
+
+/* login text field */
+"email_or_username" = "Ел. пошта або ім'я користувача";
+
+"phone" = "Телефон";
+
+"please_note" = "Будь ласка, зверніть увагу";
+
+"common_no_wifi_dialog" = "Немає WiFi з’єднання. Ви бажаєте продовжити роботу через мобільний інтернет?";
+
+"downloader_delete_map_dialog" = "Разом з мапою будуть видалені й внесені Вами правки на цій мапі.";
+
+"downloader_update_maps" = "Оновити мапи";
+
+"downloader_mwm_migration_dialog" = "Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.";
+
+"downloader_search_field_hint" = "Знайти карту";
+
+"migration_update_all_button" = "Оновити всі карти";
+
+"migration_delete_all_download_current_button" = "Завантажте поточну карту і видаліть старі";
+
+"migration_prefetch_status" = "Підготовка до оновлення карт…";
+
+"migration_download_error_dialog" = "Помилка завантаження";
+
+"common_check_internet_connection_dialog" = "Будь ласка, перевірте свої налаштування і переконайтеся, що ваш пристрій підлючено до Інтернету.";
+
+"downloader_no_space_title" = "Недостатньо місця";
+
+"downloader_no_space_message" = "Видаліть непотрібні дані";
+
+"editor_general_auth_error_dialog" = "Загальна помилка входу.";
+
+"editor_login_error_dialog" = "Виникла помилка при авторизації.";
+
+"editor_login_failed_dialog" = "Помилка входу";
+
+"editor_username_error_dialog" = "Ім'я користувача є недійсним";
+
+"editor_place_edited_dialog" = "Ви відредагували об’єкт!";
+
+"editor_login_with_osm" = "Увійти через OpenStreetMap";
+
+"editor_profile_changes" = "Правки:";
+
+"editor_profile_unsent_changes" = "Не відправлено:";
+
+"editor_focus_map_on_location" = "Потягніть мапу, щоб вибрати правильне місцезнаходження об’єкту.";
+
+"editor_add_select_category" = "Вибрати категорію";
+
+"editor_add_select_category_popular_subtitle" = "Популярні";
+
+"editor_add_select_category_all_subtitle" = "Усі категорії";
+
+"editor_edit_place_title" = "Редагування";
+
+"editor_add_place_title" = "Додовання";
+
+"editor_edit_place_name_hint" = "Назва місця";
+
+"editor_edit_place_category_title" = "Категорія";
+
+"detailed_problem_description" = "Детальний опис проблеми";
+
+"editor_report_problem_other_title" = "Інші проблема";
+
+"placepage_add_place_button" = "Додати місце";
+
+"placepage_report_problem_button" = "Повідомити про проблему";
+
+"whatsnew_smallmwm_header" = "Ви просили і ми це зробили";
+
+"whatsnew_smallmwm_message" = "Ми поділили карти на частини. Тепер ви можете стягувати окремі регіони, а не країну цілком.";
+
+"whatsnew_search_header" = "Новий пошук";
+
+"whatsnew_search_message" = "Якісно покращили пошук по адресам. Перевірте.";
+
+"whatsnew_editor_title" = "Редагувати карту*";
+
+"whatsnew_editor_message_1" = "Додати нові місця до карти і редагувати існуючі місця прямо з програми.";
+
+"whatsnew_editor_message_2" = "* MAPS.ME використовує дані спільноти OpenStreetMap.";
+
+"onboarding_offline_navigation_title" = "Ви ніколи не загубитеся знову";
+
+"onboarding_offline_navigation_message" = "Плануйте оптимальні маршрути для поїздок і піших походів навіть без Інтернет з'єднання!";
+
+"onboarding_offline_navigation_title_2" = "Офлайн навігація";
+
+"onboarding_offline_navigation_message_2" = "Плануйте оптимальні маршрути для поїздок і піших походів.";
+
+"onboarding_offline_maps_title" = "MAPS.ME — використовуй карти всього світу без інтернету";
+
+"onboarding_offline_maps_message" = "Завантажте мапи необхідного регіону один раз та користуйтесь навігацією та пошуком без підключення до інтернету.";
+
+"onboarding_notifications_message" = "Отримуйте повідомлення про оновлення, щоб завжди мати актуальні мапи";
+
+"onboarding_notifications_title" = "Дозвольте відправлення повідомлень";
+
+"onboarding_location_title" = "Допоможіть знайти вас";
+
+"onboarding_location_message" = "Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.";
+
+"dialog_incorrect_feature_position" = "Змініть розташування";
+
+"message_invalid_feature_position" = "Об'єкт не може перебувати в цьому місцезнаходженні";

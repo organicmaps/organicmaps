@@ -97,7 +97,7 @@ UNIT_TEST(AustriaWein_AvoidTrunk)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(48.233, 16.3562), {0., 0.},
-      MercatorBounds::FromLatLon(48.2458, 16.3704), 2145.);
+      MercatorBounds::FromLatLon(48.2458, 16.3704), 2301.);
 }
 
 UNIT_TEST(FranceParis_AvoidBridleway)
@@ -121,7 +121,7 @@ UNIT_TEST(PolandWarshaw_AvoidCycleway)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(52.2487, 21.0173), {0., 0.},
-      MercatorBounds::FromLatLon(52.25, 21.0164), 372.);
+      MercatorBounds::FromLatLon(52.25, 21.0164), 182.);
 }
 
 UNIT_TEST(SwedenStockholmSlussenHiltonToMaritimeMuseum)

@@ -3,36 +3,31 @@ package com.mapswithme.maps.routing;
 import android.content.res.Resources;
 import android.util.Pair;
 
-import com.mapswithme.maps.LocationState;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.MapStorage;
-import com.mapswithme.maps.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mapswithme.maps.LocationState;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
+
 class ResultCodesHelper
 {
-  // Codes correspond to native routing::IRouter::ResultCode
-  public static final int NO_ERROR = 0;
-  public static final int CANCELLED = 1;
-  public static final int NO_POSITION = 2;
-  public static final int INCONSISTENT_MWM_ROUTE = 3;
-  public static final int ROUTING_FILE_NOT_EXIST = 4;
-  public static final int START_POINT_NOT_FOUND = 5;
-  public static final int END_POINT_NOT_FOUND = 6;
-  public static final int DIFFERENT_MWM = 7;
-  public static final int ROUTE_NOT_FOUND = 8;
-  public static final int NEED_MORE_MAPS = 9;
-  public static final int INTERNAL_ERROR = 10;
-  public static final int FILE_TOO_OLD = 11;
+  // Codes correspond to native routing::IRouter::ResultCode in routing/router.hpp
+  static final int NO_ERROR = 0;
+  static final int CANCELLED = 1;
+  static final int NO_POSITION = 2;
+  static final int INCONSISTENT_MWM_ROUTE = 3;
+  static final int ROUTING_FILE_NOT_EXIST = 4;
+  static final int START_POINT_NOT_FOUND = 5;
+  static final int END_POINT_NOT_FOUND = 6;
+  static final int DIFFERENT_MWM = 7;
+  static final int ROUTE_NOT_FOUND = 8;
+  static final int NEED_MORE_MAPS = 9;
+  static final int INTERNAL_ERROR = 10;
+  static final int FILE_TOO_OLD = 11;
 
-  public static Pair<String, String> getDialogTitleSubtitle(int errorCode, MapStorage.Index[] missingCountries)
+  static Pair<String, String> getDialogTitleSubtitle(int errorCode, int missingCount)
   {
-    int missingCount = 0;
-    if (missingCountries != null)
-      missingCount = missingCountries.length;
-
     Resources resources = MwmApplication.get().getResources();
     int titleRes = 0;
     List<String> messages = new ArrayList<>();
@@ -69,8 +64,10 @@ class ResultCodesHelper
     case DIFFERENT_MWM:
       messages.add(resources.getString(R.string.routing_failed_cross_mwm_building));
       break;
-    //TODO (@yunitski @marchuk) Add proper dialog for this case.
     case FILE_TOO_OLD:
+      titleRes = R.string.downloader_update_maps;
+      messages.add(resources.getString(R.string.downloader_mwm_migration_dialog));
+      break;
     case ROUTE_NOT_FOUND:
       if (missingCount == 0)
       {
@@ -102,7 +99,7 @@ class ResultCodesHelper
     return new Pair<>(titleRes == 0 ? "" : resources.getString(titleRes), builder.toString());
   }
 
-  public static boolean isDownloadable(int resultCode)
+  static boolean isDownloadable(int resultCode)
   {
     return resultCode == INCONSISTENT_MWM_ROUTE || resultCode == ROUTING_FILE_NOT_EXIST;
   }

@@ -3,7 +3,6 @@
 #import "MWMPlacePageEntity.h"
 #import "MWMPlacePageViewManager.h"
 #import "SelectSetVC.h"
-#import "UIColor+MapsMeColor.h"
 #import "UIViewController+Navigation.h"
 
 #include "Framework.h"
@@ -94,8 +93,6 @@
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
   }
-  cell.backgroundColor = [UIColor white];
-  cell.textLabel.textColor = [UIColor blackPrimaryText];
   return cell;
 }
 
@@ -117,7 +114,6 @@
 
   BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bac.first);
   entity.bookmarkCategory = @(category->GetName().c_str());
-  [self.manager changeBookmarkCategory:bac];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

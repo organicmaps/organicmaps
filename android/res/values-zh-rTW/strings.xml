@@ -14,8 +14,6 @@
 	<string name="cancel_download">取消下載</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">刪除</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">刪除舊的地圖並繼續</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">別再問我</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -48,8 +46,6 @@
 	<string name="miles">英哩</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">我的位置</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">無網路連線</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE, 3G 或 LTE)來下載嗎 %s？</string>
 	<string name="ok">好</string>
@@ -69,16 +65,12 @@
 	<string name="search">搜尋</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">搜尋地圖</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">沒有足夠的儲存空間</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">輕觸後下載</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">是的</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">我們建議透過WiFi連線來下載較大的地圖</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">“我們已經更新並縮小了地圖資料，而較大的國家，您可以只選擇您所需的地區/國家來下載即可。如果您要使用新地圖，則需先刪除先前已下載的圖資後方能使用!”</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">您偏好哪種測量單位系統？</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -93,10 +85,12 @@
 	<string name="country_status_downloading">下載中\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">下載地圖\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">下載地圖</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">下載不帶路線的地圖\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">下載\n^\n失敗</string>
+	<string name="country_status_download_failed">下載失敗</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再試一次</string>
 	<string name="about_menu_title">關於 MAPS.ME</string>
@@ -112,8 +106,7 @@
 	<string name="not_enough_free_space_on_sdcard">如要繼續使用，請先釋放一些SD卡/ USB儲存空間</string>
 	<string name="not_enough_memory">沒有足夠的記憶體以啟用程式</string>
 	<string name="free_space_for_country">請先釋放 %1$s 系統空間以下載 %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %1$.1f%2$s 。</string>
+	<string name="download_resources">在您開始之前 ， 先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %s。</string>
 	<string name="getting_position">取得目前所在位置</string>
 	<string name="download_resources_continue">跳到地圖</string>
 	<string name="downloading_country_can_proceed">正在下載 %s. 您現在 可以繼續使用地圖了</string>
@@ -161,7 +154,7 @@
 	<string name="my_places">我的地點</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名字</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">位址</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">移除PIN</string>
@@ -262,7 +255,7 @@
 	<string name="share">分享</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">消息</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">電子郵件</string>
 	<!-- Copy Link -->
 	<string name="copy_link">拷贝链接</string>
@@ -372,6 +365,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">設定及更多</string>
 	<!-- Text in menu -->
+	<string name="website">網站</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME社區</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">在Facebook 上點贊</string>
@@ -408,17 +403,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">使用新版本的MAPS.ME可以創建從您的當前位置至一個目的地的路線。請更新地圖以使用該功能。</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">更新全部</string>
+	<string name="downloader_update_all_button">更新全部</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">取消全部</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">已下載</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">已下載的地圖</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">我的地圖</string>
+	<string name="downloader_downloaded_subtitle">已下載</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已佇列</string>
+	<string name="downloader_near_me_subtitle">在我附近</string>
+	<string name="downloader_status_maps">地圖</string>
+	<string name="downloader_download_all_button">下載全部</string>
+	<string name="downloader_downloading">正在下載：</string>
+	<string name="downloader_search_results">已找到</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！</string>
 	<!-- Outdated maps category -->
@@ -429,6 +425,8 @@
 	<string name="downloader_status_outdated">更新</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">失敗</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">如欲刪除地圖，請停止導航。</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">當前地點未定。請明確地點以創建路線。</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -500,186 +498,6 @@
 	<string name="routing_download_more_than_avail">您需要下載%1$s MB，但只有%2$s MB空間。</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">您將使用移動數據下載%s MB（漫遊）。這取決於您的移動數據方案運營商，可能會產生額外的費用。</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">地区的</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">匹薩</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">漢堡包</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">意大利的</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">中国的</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">咖啡_館</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">三明治</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">德国的</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">日本的</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">烤肉</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">墨西哥的</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">印度的</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">美國菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">法國菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">冰_淇淋</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">亞洲的</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">雞</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">希臘菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">泰國菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">國際菜肴</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">壽司</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">炸魚 和 薯條</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">土耳其菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">海鮮</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">牛排_館</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">西班牙菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">魚</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">越南菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">面</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">素菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">韓國菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">油炸</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">燒烤</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">巴伐利亞菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">拉面</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">意大利菜；匹薩</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">地中海菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">甜甜圈</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">牛肉 碗</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">蛋糕</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">千層餅</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">霍里格</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">黎巴嫩菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">牛排</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">本地菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">咖喱</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">菲律賓菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">俄羅斯菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">早餐</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">塔帕斯</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">燒烤</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">貝格</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">意大利面</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">酒莊</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">火腿</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">葡萄牙菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">烤</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">煎餅</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">馬達加斯加的</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">波蘭菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">飯店</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">非洲菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">甜甜圈</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">格魯吉亞菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">克羅地亞菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">阿拉伯菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">巴爾幹菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">巴西菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">加勒比菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">奧地利菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">全素菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">阿根廷菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">波斯菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">蕎麥面</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">馬來西亞菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">印度尼西亞菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">埃塞俄比亞菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">熟食店</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">愛爾蘭菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">匈牙利菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">老撾菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">咖啡</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">熱狗</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">東方菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">鹹的 煎餅</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">摩洛哥菜</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">燒烤</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">秘魯的</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">高級 餐飲</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">茶</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">書籤</string>
 	<!-- map is not downloaded -->
@@ -757,7 +575,7 @@
 	<string name="dialog_routing_if_get_cross_route">您想產生跨越邊界的更好路線嗎？</string>
 	<string name="dialog_routing_cross_route_is_optimal">跨越邊界的路線更為理想。</string>
 	<string name="dialog_routing_always_cross_that_border">一律跨越邊界。</string>
-	<string name="dialog_routing_not_now">先不要</string>
+	<string name="not_now">先不要</string>
 	<string name="dialog_routing_build_route">產生</string>
 	<string name="dialog_routing_download_and_build_cross_route">您是否要下載地圖，產生跨越邊界的更好路線？</string>
 	<string name="dialog_routing_download_cross_route">若要產生跨越邊界的更理想路線，您需要下載地圖。</string>
@@ -767,7 +585,6 @@
 	<string name="search_without_internet_advertisement">要開始搜索和創建路線，請下載地圖，那您就不再需要網絡連接了。</string>
 	<string name="search_select_map">選擇地圖</string>
 	<string name="search_select_other_map">選擇另一個地圖</string>
-	<string name="search_vehicle_routes">駕車路線</string>
 	<!-- «Show» context menu -->
 	<string name="show">顯示</string>
 	<!-- «Hide» context menu -->
@@ -813,6 +630,148 @@
 	<string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
 	<string name="p2p_reroute_from_current">你是否想要規劃當前位置的路線？</string>
 	<string name="whats_new_next_button">下一頁</string>
-	<string name="whats_new_night_caption">夜間模式導航</string>
-	<string name="whats_new_night_body">為了便於天黑行駛時使用MAPS.ME，我們增加了夜間模式。該模式在日落之後會自動開啟。</string>
+	<string name="editor_time_add">新增排程</string>
+	<string name="editor_time_delete">刪除排程</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">全天 (24 小時)</string>
+	<string name="editor_time_open">營業時間</string>
+	<string name="editor_time_close">休息時間</string>
+	<string name="editor_time_add_closed">新增休息時間</string>
+	<string name="editor_time_title">營業時間</string>
+	<string name="editor_time_advanced">進階模式</string>
+	<string name="editor_time_simple">簡易模式</string>
+	<string name="editor_hours_closed">休息時間</string>
+	<string name="editor_example_values">範例值</string>
+	<string name="editor_correct_mistake">修正錯誤</string>
+	<string name="editor_correct_mistake_message">編輯時出錯。請修正或切換到簡易模式。</string>
+	<string name="editor_add_select_location">位置</string>
+	<string name="editor_done_dialog_1">您已經改變了世界地圖。請不要隱藏這一點！告訴您的朋友們並一起編輯它。</string>
+	<string name="editor_done_dialog_2">這是您的第二次地圖改進。現在您在地圖編輯者排行榜中排在第%d名。把它告訴您的朋友們。</string>
+	<string name="editor_done_dialog_3">您已改進此地圖，請把它告訴您的朋友們，並一起編輯此地圖。</string>
+	<string name="share_with_friends">和朋友分享</string>
+	<string name="editor_report_problem_desription_1">請詳細描述此問題以便OpenStreeMap社區能夠修復此錯誤。</string>
+	<string name="editor_report_problem_desription_2">或者在http://www.openstreetmap.org/上親自修復此錯誤</string>
+	<string name="editor_report_problem_send_button">發送</string>
+	<string name="editor_report_problem_title">問題</string>
+	<string name="editor_report_problem_no_place_title">該地點不存在</string>
+	<string name="editor_report_problem_under_construction_title">因維護而關閉</string>
+	<string name="editor_report_problem_duplicate_place_title">重復的地點</string>
+	<string name="first_launch_congrats_title">MAPS.ME已做好使用準備</string>
+	<string name="first_launch_congrats_text">免費搜索和導航世界上所有國家的地圖。</string>
+	<string name="migrate_title">重要！</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">全部下載。</string>
+	<string name="delete_all">刪除全部</string>
+	<string name="autodownload">自動下載</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">現在關門</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">每天</string>
+	<string name="twentyfour_seven">白天和黑夜</string>
+	<string name="day_off_today">今天休息日</string>
+	<string name="day_off">休息日</string>
+	<string name="today">今天</string>
+	<string name="sunrise_to_sunset">從日出到日落</string>
+	<string name="sunset_to_sunrise">從日落到日出</string>
+	<string name="add_opening_hours">添加工作時間</string>
+	<string name="edit_opening_hours">編輯工作時間</string>
+	<string name="profile">資料</string>
+	<string name="no_osm_account">OpenStreetMap上沒有賬戶嗎？</string>
+	<string name="register_at_openstreetmap">註冊</string>
+	<string name="password_8_chars_min">密碼（最少8個字符）</string>
+	<string name="invalid_username_or_password">無效的用戶名或密碼。</string>
+	<string name="login">登錄</string>
+	<string name="password">密碼</string>
+	<string name="forgot_password">忘記密碼</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">恢復密碼</string>
+	<string name="enter_email_address_to_reset_password">輸入您在註冊時所用的郵箱地址，我們會給您發送鏈接更新密碼</string>
+	<string name="reset_password">重置密碼</string>
+	<string name="username">用戶名</string>
+	<string name="osm_account">OSM賬戶</string>
+	<string name="logout">登出</string>
+	<string name="login_and_edit_map_motivation_message">登錄並編輯地圖上的物品信息，我們就會讓數百萬其他用戶看到。</string>
+	<string name="not_sent">讓我們共同把世界變得更美好。</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">上次上傳</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">次改變</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">您已編輯您的第一件物品！</string>
+	<string name="thank_you">謝謝您</string>
+	<string name="login_with_google">用谷歌登陸</string>
+	<string name="login_with_facebook">用臉書登陸</string>
+	<string name="login_with_openstreetmap">登錄到www.openstreetmap.org</string>
+	<string name="edit_place">編輯地點</string>
+	<string name="place_name">地點名稱</string>
+	<string name="place_name_caption">輸入標識或名牌上的名稱</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">其他語言</string>
+	<string name="add_language">添加語言</string>
+	<string name="street">街道</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">樓房</string>
+	<string name="details">詳細資訊</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">添加街道</string>
+	<string name="choose_language">選擇語言</string>
+	<string name="choose_street">選擇街道</string>
+	<string name="postal_code">郵政編碼</string>
+	<string name="cuisine">菜肴</string>
+	<string name="select_cuisine">選擇菜肴</string>
+	<!-- login text field -->
+	<string name="email_or_username">郵箱或用戶名</string>
+	<string name="phone">電話</string>
+	<string name="please_note">請註意</string>
+	<string name="common_no_wifi_dialog">無WiFi連接。您想繼續使用移動數據進行連接嗎？</string>
+	<string name="downloader_delete_map_dialog">所有對地圖的修改都將與地圖一起被刪除。</string>
+	<string name="downloader_update_maps">更新地圖</string>
+	<string name="downloader_mwm_migration_dialog">為了創建路線，您需要更新全部地圖並重新規劃路線。</string>
+	<string name="downloader_search_field_hint">找到地圖</string>
+	<string name="migration_update_all_button">更新全部地圖</string>
+	<string name="migration_delete_all_download_current_button">下載當前地圖並刪除舊地圖</string>
+	<string name="migration_prefetch_status">正在準備地圖更新…</string>
+	<string name="migration_download_error_dialog">下載錯誤</string>
+	<string name="common_check_internet_connection_dialog">請檢查您的設置並確保您的設備已連接至網絡。</string>
+	<string name="downloader_no_space_title">無足夠的空間</string>
+	<string name="downloader_no_space_message">請刪除不必要的數據</string>
+	<string name="editor_general_auth_error_dialog">一般登錄錯誤。</string>
+	<string name="editor_login_error_dialog">登錄錯誤。</string>
+	<string name="editor_login_failed_dialog">登錄失敗</string>
+	<string name="editor_username_error_dialog">用戶名不存在</string>
+	<string name="editor_place_edited_dialog">您已編輯了一個對象！</string>
+	<string name="editor_login_with_osm">使用OpenStreetMap進行登錄</string>
+	<string name="editor_profile_changes">更改：</string>
+	<string name="editor_profile_unsent_changes">未發送：</string>
+	<string name="editor_focus_map_on_location">拖動地圖以選擇此對象的正確位置。</string>
+	<string name="editor_add_select_category">選擇類別</string>
+	<string name="editor_add_select_category_popular_subtitle">受歡迎的</string>
+	<string name="editor_add_select_category_all_subtitle">所有類別</string>
+	<string name="editor_edit_place_title">編輯中</string>
+	<string name="editor_add_place_title">添加中</string>
+	<string name="editor_edit_place_name_hint">該地點的名稱</string>
+	<string name="editor_edit_place_category_title">類別</string>
+	<string name="detailed_problem_description">問題的詳細描述</string>
+	<string name="editor_report_problem_other_title">一個不同的問題</string>
+	<string name="placepage_add_place_button">添加一個地點</string>
+	<string name="placepage_report_problem_button">報告一個問題</string>
+	<string name="whatsnew_smallmwm_header">您一直在尋求，而我們已經完成</string>
+	<string name="whatsnew_smallmwm_message">我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。</string>
+	<string name="whatsnew_search_header">新搜尋</string>
+	<string name="whatsnew_search_message">我們已明顯改進了按地址的搜索。親自看看。</string>
+	<string name="whatsnew_editor_title">編輯此地圖*</string>
+	<string name="whatsnew_editor_message_1">添加新地點到該地圖，並直接通過此應用編輯已存在的地點。</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME使用OpenStreetMap社區的數據。</string>
+	<string name="onboarding_offline_navigation_title">您將不再迷路</string>
+	<string name="onboarding_offline_navigation_message">規劃最佳的駕車和步行路線，即使在沒有網絡連接的情況下！</string>
+	<string name="onboarding_offline_navigation_title_2">離線導航</string>
+	<string name="onboarding_offline_navigation_message_2">規劃最佳的駕車和步行路線。</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — 無需網際網路獲取全球地圖</string>
+	<string name="onboarding_offline_maps_message">一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。</string>
+	<string name="onboarding_notifications_message">為了接收最新的地圖，請獲取更新通知</string>
+	<string name="onboarding_notifications_title">啟用更新通知</string>
+	<string name="onboarding_location_title">幫我們找到您</string>
+	<string name="onboarding_location_message">如要使用導航和其他功能，我們需要能獲取您的地理位置.</string>
+	<string name="dialog_incorrect_feature_position">改變位置</string>
+	<string name="message_invalid_feature_position">對象無法設置在這裡</string>
 </resources>

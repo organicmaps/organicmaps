@@ -10,12 +10,15 @@ DEPENDENCIES = base
 
 include($$ROOT_DIR/common.pri)
 
+DEFINES += OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
+
 SOURCES += \
   ../../testing/testingmain.cpp \
   assert_test.cpp \
   bits_test.cpp \
   buffer_vector_test.cpp \
   cache_test.cpp \
+  collection_cast_test.cpp \
   condition_test.cpp \
   const_helper.cpp \
   containers_test.cpp \
@@ -24,10 +27,12 @@ SOURCES += \
   matrix_test.cpp \
   mem_trie_test.cpp \
   observer_list_test.cpp \
+  range_iterator_test.cpp \
   regexp_test.cpp \
   rolling_hash_test.cpp \
   scope_guard_test.cpp \
   stl_add_test.cpp \
+  stl_helpers_test.cpp \
   string_format_test.cpp \
   string_utils_test.cpp \
   sunrise_sunset_test.cpp \

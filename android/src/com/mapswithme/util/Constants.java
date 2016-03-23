@@ -31,6 +31,9 @@ public final class Constants
     public static final String COPYRIGHT = "file:///android_asset/copyright.html";
     public static final String FAQ = "file:///android_asset/faq.html";
 
+    public static final String OSM_REGISTER = "https://www.openstreetmap.org/user/new";
+    public static final String OSM_RECOVER_PASSWORD = "https://www.openstreetmap.org/user/forgot-password";
+
     private Url() {}
   }
 

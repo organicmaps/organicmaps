@@ -152,8 +152,8 @@ class AccumulatorEtalon : public AccumulatorBase
     switch (f.GetFeatureType())
     {
     case GEOM_POINT: check.TestPoint(f.GetCenter()); break;
-    case GEOM_LINE: f.ForEachPointRef(check, m_scale); break;
-    case GEOM_AREA: f.ForEachTriangleRef(check, m_scale); break;
+    case GEOM_LINE: f.ForEachPoint(check, m_scale); break;
+    case GEOM_AREA: f.ForEachTriangle(check, m_scale); break;
     default:
       CHECK ( false, () );
     }
@@ -306,8 +306,8 @@ void RunTest(string const & countryFileName)
 
 }
 
-UNIT_TEST(ForEach_QueryResults)
-{
-  RunTest("minsk-pass");
-  //RunTestForChoice("london-center");
-}
+//UNIT_TEST(ForEach_QueryResults)
+//{
+//  RunTest("minsk-pass");
+//  //RunTestForChoice("london-center");
+//}

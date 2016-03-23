@@ -5,9 +5,9 @@
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
 
-+ (instancetype)downloaderAlertWithMaps:(vector<storage::TIndex> const &)maps
-                                 routes:(vector<storage::TIndex> const &)routes
-                                   code:(routing::IRouter::ResultCode)code;
++ (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)maps
+                                   code:(routing::IRouter::ResultCode)code
+                                okBlock:(TMWMVoidBlock)okBlock;
 - (void)showDownloadDetail:(UIButton *)sender;
 
 @end

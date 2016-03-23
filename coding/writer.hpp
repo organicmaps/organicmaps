@@ -49,9 +49,21 @@ public:
 
   inline void Write(void const * p, size_t size)
   {
-    if (m_Pos + size > m_Data.size())
+    intptr_t freeSize = m_Data.size() - m_Pos;
+    if (freeSize < 0)
+    {
       m_Data.resize(m_Pos + size);
-    memcpy(((uint8_t*)m_Data.data()) + m_Pos, p, size);
+      freeSize = size;
+    }
+
+    memcpy(&m_Data[m_Pos], p, min(size, static_cast<size_t>(freeSize)));
+
+    if (size > freeSize)
+    {
+      uint8_t const * it = reinterpret_cast<uint8_t const *>(p);
+      m_Data.insert(m_Data.end(), it + freeSize, it + size);
+    }
+
     m_Pos += size;
   }
 

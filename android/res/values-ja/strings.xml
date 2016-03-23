@@ -14,8 +14,6 @@
 	<string name="cancel_download">ダウンロードをキャンセル</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">削除</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">古いマップを削除して処理を続行</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">以後、このメッセージを表示しない</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -48,8 +46,6 @@
 	<string name="miles">マイル</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">現在地</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">インターネットに接続されていません</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">WiFi接続が見つかりません。GPRS、EDGE、3G、LTE等の携帯電話回線で%sをダウンロードしますか？</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
@@ -68,8 +64,6 @@
 	<string name="search">検索</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">マップを検索</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">ディスクに十分な空き領域がありません</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">タッチしてダウンロード</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
@@ -90,10 +84,12 @@
 	<string name="country_status_downloading">^\n^\nをダウンロード中</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">地図をダウンロード\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">地図をダウンロード</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">ルートなしで地図をダウンロード\n(^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">^\nのダウンロードに失敗しました</string>
+	<string name="country_status_download_failed">のダウンロードに失敗しました</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再実行</string>
 	<string name="about_menu_title">MAPS.MEについて</string>
@@ -109,8 +105,7 @@
 	<string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
 	<string name="not_enough_memory">メモリ不足のためアプリを起動できません</string>
 	<string name="free_space_for_country">%2$sをダウンロードするにはデバイスに%1$sの空き容量が必要です</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%1$.1f%2$sの空き容量が必要です。</string>
+	<string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。</string>
 	<string name="getting_position">現在地を取得中</string>
 	<string name="download_resources_continue">マップを表示</string>
 	<string name="downloading_country_can_proceed">%sをダウンロードしました\nマップを表示可能です</string>
@@ -158,7 +153,7 @@
 	<string name="my_places">マイロケーション</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">名称</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">住所</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">ピンを削除</string>
@@ -269,7 +264,7 @@
 	<string name="share">その他の共有</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">メッセージ</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Eメール</string>
 	<!-- Copy Link -->
 	<string name="copy_link">リンクをコピー</string>
@@ -379,6 +374,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">設定&amp;その他</string>
 	<!-- Text in menu -->
+	<string name="website">ウェブサイト</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.MEコミュニティ</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebookでいいねをクリック</string>
@@ -415,17 +412,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">新バージョンのMAPS.MEは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">全てをアップデート</string>
+	<string name="downloader_update_all_button">全てをアップデート</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">すべてキャンセル</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">ダウンロード済</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">ダウンロード済みのマップ</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">マイマップ</string>
+	<string name="downloader_downloaded_subtitle">ダウンロード済み</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
+	<string name="downloader_near_me_subtitle">付近</string>
+	<string name="downloader_status_maps">地図</string>
+	<string name="downloader_download_all_button">全てをダウンロード</string>
+	<string name="downloader_downloading">づンロード中：</string>
+	<string name="downloader_search_results">見つかりました</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！</string>
 	<!-- Outdated maps category -->
@@ -436,6 +434,8 @@
 	<string name="downloader_status_outdated">を更新</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">失敗</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">地図を削除するにはナビゲーションを停止してください。</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">現在地が設定されていません。ルートを作成するには現在地を設定してください。</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -511,186 +511,6 @@
 	<string name="routing_download_more_than_avail">%1$s MBダウンロードする必要がありますが、%2$s MBしか空いていません。</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">携帯のデータ通信（ローミング）を使用して%s MBダウンロードしようとしています。これにより、ご利用の通信会社の携帯データプランによっては追加料金が発生する可能性があります。</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">郷土料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">ピザ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">ハンバーガー</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">イタリア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">中華料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">コーヒーショップ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">サンドイッチ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">ドイツ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">日本料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">カバブ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">メキシコ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">インド料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">アメリカ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">フランス料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">アイスクリーム</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">アジア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">鶏肉</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">ギリシャ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">タイ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">国際料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">寿司</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">フィッシュ・アンド・チップス</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">トルコ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">シーフード</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">ステーキハウス</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">スペイン料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">魚料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">ベトナム料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">麺類</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">ベジタリアン料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">韓国料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">揚げ物</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">バーベキュー</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">ババロア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">ラーメン</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">イタリア料理；ピザ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">地中海料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">ドーナッツ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">ビーフボウル</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">ケーキ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">クレープ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">ホイリゲ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">レバノン料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">ステーキ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">地元の料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">カレー</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">フィリピン料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">ロシア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">朝食</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">タパス</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">bbq</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">ベーグル</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">パスタ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">ブッシェンシャンク</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">ソーセージ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">ポルトガル料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">グリル</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">ホットケーキ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">マダガスカル料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">ポーランド料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">ダイナー</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">アフリカ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">ドーナッツ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">ジョージア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">クロアチア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">アラビア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">バルカン料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">ブラジル料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">カリブ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">オーストリア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">ビーガン料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">アルゼンチン料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">ペルシャ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">そば</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">マレーシア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">インドネシア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">エチオピア料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">デリ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">アイルランド料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">ハンガリー料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">ラオス料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">コーヒー</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">ホットドッグ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">東洋の料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">おいしいホットケーキ</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">モロッコ料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">バーベキュー</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">ペルー料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">高級料理</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">紅茶</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">お気に入り</string>
 	<!-- map is not downloaded -->
@@ -768,7 +588,7 @@
 	<string name="dialog_routing_if_get_cross_route">複数マップを利用してより最適なルートを作成しますか？</string>
 	<string name="dialog_routing_cross_route_is_optimal">このマップの境界を越えて複数マップを利用すると、より最適なルートを作成できます。</string>
 	<string name="dialog_routing_always_cross_that_border">常にこの境界を越える</string>
-	<string name="dialog_routing_not_now">あとで</string>
+	<string name="not_now">あとで</string>
 	<string name="dialog_routing_build_route">作成する</string>
 	<string name="dialog_routing_download_and_build_cross_route">マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？</string>
 	<string name="dialog_routing_download_cross_route">このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。</string>
@@ -778,7 +598,6 @@
 	<string name="search_without_internet_advertisement">検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は必要なくなります。</string>
 	<string name="search_select_map">地図を選択</string>
 	<string name="search_select_other_map">別の地図を選択</string>
-	<string name="search_vehicle_routes">道案内</string>
 	<!-- «Show» context menu -->
 	<string name="show">表示する</string>
 	<!-- «Hide» context menu -->
@@ -824,6 +643,148 @@
 	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
 	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
 	<string name="whats_new_next_button">次へ</string>
-	<string name="whats_new_night_caption">夜間モードナビゲーション</string>
-	<string name="whats_new_night_body">MAPS.MEを夜間の運転中に使いやすくするため、夜間モードを追加しました。日の入り後に自動的に切り替わります。</string>
+	<string name="editor_time_add">スケジュール追加</string>
+	<string name="editor_time_delete">スケジュール削除</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">終日 (24時間)</string>
+	<string name="editor_time_open">営業中</string>
+	<string name="editor_time_close">閉店</string>
+	<string name="editor_time_add_closed">閉店時間追加</string>
+	<string name="editor_time_title">営業時間</string>
+	<string name="editor_time_advanced">詳細モード</string>
+	<string name="editor_time_simple">シンプルモード</string>
+	<string name="editor_hours_closed">閉店時間</string>
+	<string name="editor_example_values">値の例</string>
+	<string name="editor_correct_mistake">間違いの訂正</string>
+	<string name="editor_correct_mistake_message">編集の間違いがあります。訂正するか、シンプルモードに切り替えてください。</string>
+	<string name="editor_add_select_location">現在位置</string>
+	<string name="editor_done_dialog_1">世界地図を変更しました。この変更を秘密にしないでください! 友達に教えて一緒に編集しましょう。</string>
+	<string name="editor_done_dialog_2">これは2回目の地図改善。現在地図編集者リストで%d位です。</string>
+	<string name="editor_done_dialog_3">地図を改善したので、友達に教えて一緒に編集しましょう。</string>
+	<string name="share_with_friends">友達にシェア</string>
+	<string name="editor_report_problem_desription_1">OpenStreeMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。</string>
+	<string name="editor_report_problem_desription_2">または、このURLでご自身で修正してください http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">送信</string>
+	<string name="editor_report_problem_title">問題</string>
+	<string name="editor_report_problem_no_place_title">この場所は存在しません</string>
+	<string name="editor_report_problem_under_construction_title">メンテナンスのため使えません</string>
+	<string name="editor_report_problem_duplicate_place_title">重複している場所</string>
+	<string name="first_launch_congrats_title">MAPS.MEを使用する準備が整いました</string>
+	<string name="first_launch_congrats_text">世界中のすべての国のマップを無料で検索しナビゲートします。</string>
+	<string name="migrate_title">重要！</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">全てをダウンロード</string>
+	<string name="delete_all">すべて削除</string>
+	<string name="autodownload">自動ダウンロード</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">現在閉店</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">毎日</string>
+	<string name="twentyfour_seven">昼と夜</string>
+	<string name="day_off_today">今日は休み</string>
+	<string name="day_off">休み</string>
+	<string name="today">今日は</string>
+	<string name="sunrise_to_sunset">日の出から日没まで</string>
+	<string name="sunset_to_sunrise">日の出から日没まで</string>
+	<string name="add_opening_hours">営業時間を追加</string>
+	<string name="edit_opening_hours">営業時間を編集</string>
+	<string name="profile">プロフィール</string>
+	<string name="no_osm_account">OpenStreetMapのアカウントがありませんか？</string>
+	<string name="register_at_openstreetmap">登録</string>
+	<string name="password_8_chars_min">パスワード(最低8文字)</string>
+	<string name="invalid_username_or_password">ユーザー名またはパスワードが無効です。</string>
+	<string name="login">ログイン</string>
+	<string name="password">パスワード</string>
+	<string name="forgot_password">パスワードをお忘れですか？</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">パスワードをf復元</string>
+	<string name="enter_email_address_to_reset_password">登録の際に使用したメールアドレスを入力してください。パスワードを更新するリンクをお送りします。</string>
+	<string name="reset_password">パスワードをリセット</string>
+	<string name="username">ユーザー名</string>
+	<string name="osm_account">OSMアカウント</string>
+	<string name="logout">ログアウト</string>
+	<string name="login_and_edit_map_motivation_message">ログインしてマップ上のオブジェクトの詳細を編集すると、何百万人もの他のユーザーがその情報を利用できるようになります。一緒により良い世界を作りましょう。</string>
+	<string name="not_sent">送信されませんでした</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">最終更新</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">つの変更点</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">初めてオブジェクトを編集しました！</string>
+	<string name="thank_you">ありがとうございます</string>
+	<string name="login_with_google">Googleでログイン</string>
+	<string name="login_with_facebook">Facebookでログイン</string>
+	<string name="login_with_openstreetmap">www.openstreetmap.orgでログインしてください</string>
+	<string name="edit_place">場所を編集</string>
+	<string name="place_name">場所の名前</string>
+	<string name="place_name_caption">標識や表札の地名を入力</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">その他の言語</string>
+	<string name="add_language">言語を追加</string>
+	<string name="street">通り</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">建物</string>
+	<string name="details">詳細</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">通りを追加</string>
+	<string name="choose_language">言語を選択</string>
+	<string name="choose_street">通りを選択</string>
+	<string name="postal_code">郵便番号</string>
+	<string name="cuisine">料理</string>
+	<string name="select_cuisine">料理を選択</string>
+	<!-- login text field -->
+	<string name="email_or_username">メールアドレスまたはユーザー名</string>
+	<string name="phone">電話</string>
+	<string name="please_note">ご注意ください</string>
+	<string name="common_no_wifi_dialog">WiFi接続がありません。モバイルデータ通信を続行しますか?</string>
+	<string name="downloader_delete_map_dialog">この地図を削除すると、今まで行った変更の全ても一緒に削除されます。</string>
+	<string name="downloader_update_maps">地図をアップデート</string>
+	<string name="downloader_mwm_migration_dialog">ルートを作成するには、全ての地図をアップデートした後で再びルート計画を行う必要があります。</string>
+	<string name="downloader_search_field_hint">地図を検索</string>
+	<string name="migration_update_all_button">全ての地図をアップデート</string>
+	<string name="migration_delete_all_download_current_button">現在の地図をダウンロードして古い地図を削除</string>
+	<string name="migration_prefetch_status">地図のアップデートの準備中…</string>
+	<string name="migration_download_error_dialog">ダウンロードエラー</string>
+	<string name="common_check_internet_connection_dialog">設定をチェックし、デバイスがインターネットに接続されているか確認してください。</string>
+	<string name="downloader_no_space_title">十分な空き容量がありません</string>
+	<string name="downloader_no_space_message">不必要なデータを削除してください</string>
+	<string name="editor_general_auth_error_dialog">一般的なログインエラー。</string>
+	<string name="editor_login_error_dialog">ログインエラー。</string>
+	<string name="editor_login_failed_dialog">ログインに失敗しました</string>
+	<string name="editor_username_error_dialog">ユーザー名が無効です</string>
+	<string name="editor_place_edited_dialog">オブジェクトを編集しました!</string>
+	<string name="editor_login_with_osm">OpenStreetMapを使ってログイン</string>
+	<string name="editor_profile_changes">変更回数：</string>
+	<string name="editor_profile_unsent_changes">未送信：</string>
+	<string name="editor_focus_map_on_location">地図をプルしてオブジェクトの正しい場所を選択します。</string>
+	<string name="editor_add_select_category">カテゴリを選択</string>
+	<string name="editor_add_select_category_popular_subtitle">人気</string>
+	<string name="editor_add_select_category_all_subtitle">全てのカテゴリ</string>
+	<string name="editor_edit_place_title">編集中</string>
+	<string name="editor_add_place_title">追加中</string>
+	<string name="editor_edit_place_name_hint">場所の名前</string>
+	<string name="editor_edit_place_category_title">カテゴリ</string>
+	<string name="detailed_problem_description">問題の詳細な説明</string>
+	<string name="editor_report_problem_other_title">異なる問題</string>
+	<string name="placepage_add_place_button">場所を追加</string>
+	<string name="placepage_report_problem_button">問題を報告</string>
+	<string name="whatsnew_smallmwm_header">皆様のご要望にお応えして、実現を果たしました</string>
+	<string name="whatsnew_smallmwm_message">マップを分割し、国全体でなく個別の地域をダウンロードできるようにしました。</string>
+	<string name="whatsnew_search_header">新しい検索機能</string>
+	<string name="whatsnew_search_message">住所での検索機能を大幅に改善しました。ご自身の目でご覧ください。</string>
+	<string name="whatsnew_editor_title">地図を編集*</string>
+	<string name="whatsnew_editor_message_1">アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。</string>
+	<string name="whatsnew_editor_message_2">* MAPS.MEはOpenStreetMapコミュニティのデータを使用しています。</string>
+	<string name="onboarding_offline_navigation_title">もう道に迷うことは絶対ありません</string>
+	<string name="onboarding_offline_navigation_message">インターネット接続がなくても、車や徒歩での最短ルートを計画できます!</string>
+	<string name="onboarding_offline_navigation_title_2">オフラインナビゲーション</string>
+	<string name="onboarding_offline_navigation_message_2">車や徒歩での最短ルートを計画できます。</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — 世界中の地図にインターネットなしでアクセス</string>
+	<string name="onboarding_offline_maps_message">希望するエリアの地図を一回ダウンロードするだけで、インターネット接続なしでもナビゲーションや検索の機能を使用できます。</string>
+	<string name="onboarding_notifications_message">最新地図の入手のためにアップデート通知を受信</string>
+	<string name="onboarding_notifications_title">アップデート通知を有効にする</string>
+	<string name="onboarding_location_title">現在地判定のお手伝い</string>
+	<string name="onboarding_location_message">ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります</string>
+	<string name="dialog_incorrect_feature_position">位置を変更してください</string>
+	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
 </resources>

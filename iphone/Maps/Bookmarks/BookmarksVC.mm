@@ -43,7 +43,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    m_locationManager = [MapsAppDelegate theApp].m_locationManager;
+    m_locationManager = [MapsAppDelegate theApp].locationManager;
     m_categoryIndex = index;
     self.title = @(GetFramework().GetBmCategory(index)->GetName().c_str());
     [self calculateSections];

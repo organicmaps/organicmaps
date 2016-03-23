@@ -11,14 +11,21 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pZD-rg-W4y" userLabel="BackButton">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" id="WPU-f0-gXc">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pZD-rg-W4y" userLabel="BackButton" customClass="MWMButton">
                     <rect key="frame" x="0.0" y="-5" width="80" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="ic_back_api">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="backTap" destination="iN0-l3-epB" eventType="touchUpInside" id="C4S-yq-52j"/>
@@ -36,14 +43,14 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jtm-w6-q1e" userLabel="ShareButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jtm-w6-q1e" userLabel="ShareButton" customClass="MWMButton">
                     <rect key="frame" x="80" y="-5" width="80" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="ic_menu_share">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="shareTap" destination="iN0-l3-epB" eventType="touchUpInside" id="PGT-Ie-Gmr"/>
@@ -61,13 +68,13 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="66j-hn-azO" userLabel="SaveButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="66j-hn-azO" userLabel="SaveButton" customClass="MWMButton">
                     <rect key="frame" x="160" y="-5" width="80" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="" image="ic_bookmarks_off"/>
                     <state key="selected" image="ic_bookmarks_on"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="bookmarkTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="sTn-J9-JAv"/>
@@ -85,14 +92,14 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6cp-1o-ehc" userLabel="RouteButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6cp-1o-ehc" userLabel="RouteButton" customClass="MWMButton">
                     <rect key="frame" x="240" y="-5" width="80" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="ic_route">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="routeTap" destination="iN0-l3-epB" eventType="touchUpInside" id="mAp-BH-2qW"/>
@@ -110,11 +117,6 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular10"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <view contentMode="scaleToFill" id="8aC-eJ-egB">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                </view>
             </subviews>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -138,11 +140,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="5cx-Cs-3B4" userLabel="hSeparator">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="separator_image" id="Lgi-vx-FHb">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
-                </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMSeparator"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yN5-Eq-jO7">
                     <rect key="frame" x="0.0" y="0.0" width="159" height="48"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -194,5 +198,6 @@
         <image name="ic_bookmarks_on" width="28" height="28"/>
         <image name="ic_menu_share" width="28" height="28"/>
         <image name="ic_route" width="28" height="28"/>
+        <image name="separator_image" width="1" height="1"/>
     </resources>
 </document>

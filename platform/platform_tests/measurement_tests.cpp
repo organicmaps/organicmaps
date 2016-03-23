@@ -3,12 +3,34 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
-
 using namespace MeasurementUtils;
+using namespace settings;
+
+struct ScopedSettings
+{
+  ScopedSettings() { m_wasSet = Get(kMeasurementUnits, m_oldUnits); }
+
+  /// Saves/restores previous units and sets new units for a scope.
+  ScopedSettings(Units newUnits) : ScopedSettings()
+  {
+    Set(kMeasurementUnits, newUnits);
+  }
+
+  ~ScopedSettings()
+  {
+    if (m_wasSet)
+      Set(kMeasurementUnits, m_oldUnits);
+    else
+      Delete(kMeasurementUnits);
+  }
+
+  bool m_wasSet;
+  Units m_oldUnits;
+};
 
 UNIT_TEST(Measurement_Smoke)
 {
-  Settings::Set("Units", Settings::Metric);
+  ScopedSettings guard(settings::Metric);
 
   typedef pair<double, char const *> PairT;
 
@@ -66,15 +88,72 @@ UNIT_TEST(LatLonToDMS_NoRounding)
 
 UNIT_TEST(FormatAltitude)
 {
-  Settings::Set("Units", Settings::Foot);
+  ScopedSettings guard;
+  settings::Set(settings::kMeasurementUnits, settings::Foot);
   TEST_EQUAL(FormatAltitude(10000), "32808ft", ());
-  Settings::Set("Units", Settings::Metric);
+  settings::Set(settings::kMeasurementUnits, settings::Metric);
   TEST_EQUAL(FormatAltitude(5), "5m", ());
 }
 
 UNIT_TEST(FormatSpeed)
 {
-  Settings::Set("Units", Settings::Metric);
+  ScopedSettings guard(settings::Metric);
   TEST_EQUAL(FormatSpeed(10), "36km/h", ());
   TEST_EQUAL(FormatSpeed(1), "3.6km/h", ());
+}
+
+UNIT_TEST(OSMDistanceToMetersString)
+{
+  TEST_EQUAL(OSMDistanceToMetersString(""), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("INF"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("NAN"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("not a number"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("10й"), "10", ());
+  TEST_EQUAL(OSMDistanceToMetersString("0"), "0", ());
+  TEST_EQUAL(OSMDistanceToMetersString("0.0"), "0", ());
+  TEST_EQUAL(OSMDistanceToMetersString("0.0000000"), "0", ());
+  TEST_EQUAL(OSMDistanceToMetersString("22.5"), "22.5", ());
+  TEST_EQUAL(OSMDistanceToMetersString("+21.5"), "21.5", ());
+  TEST_EQUAL(OSMDistanceToMetersString("1e+2"), "100", ());
+  TEST_EQUAL(OSMDistanceToMetersString("5 метров"), "5", ());
+  TEST_EQUAL(OSMDistanceToMetersString(" 4.4 "), "4.4", ());
+  TEST_EQUAL(OSMDistanceToMetersString("8-15"), "15", ());
+  TEST_EQUAL(OSMDistanceToMetersString("8-15 ft"), "4.57", ());
+  TEST_EQUAL(OSMDistanceToMetersString("8-й километр"), "8", ());
+  // Do not support lists for distance values.
+  TEST_EQUAL(OSMDistanceToMetersString("8;9;10"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("8;9;10 meters"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("8;9;10 km"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("10;20!111"), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("10;20\""), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("-100.3"), "-100.3", ());
+  TEST_EQUAL(OSMDistanceToMetersString("99.0000000"), "99", ());
+  TEST_EQUAL(OSMDistanceToMetersString("8900.000023"), "8900", ());
+  TEST_EQUAL(OSMDistanceToMetersString("-300.9999"), "-301", ());
+  TEST_EQUAL(OSMDistanceToMetersString("-300.9"), "-300.9", ());
+  TEST_EQUAL(OSMDistanceToMetersString("15 m"), "15", ());
+  TEST_EQUAL(OSMDistanceToMetersString("15.9 m"), "15.9", ());
+  TEST_EQUAL(OSMDistanceToMetersString("15.9m"), "15.9", ());
+  TEST_EQUAL(OSMDistanceToMetersString("3000 ft"), "914.4", ());
+  TEST_EQUAL(OSMDistanceToMetersString("3000ft"), "914.4", ());
+  TEST_EQUAL(OSMDistanceToMetersString("100 feet"), "30.48", ());
+  TEST_EQUAL(OSMDistanceToMetersString("100feet"), "30.48", ());
+  TEST_EQUAL(OSMDistanceToMetersString("3 nmi"), "5556", ());
+  TEST_EQUAL(OSMDistanceToMetersString("3 mi"), "4828.03", ());
+  TEST_EQUAL(OSMDistanceToMetersString("3.3 km"), "3300", ());
+  TEST_EQUAL(OSMDistanceToMetersString("105'"), "32", ());
+  TEST_EQUAL(OSMDistanceToMetersString("11'"), "3.35", ());
+  TEST_EQUAL(OSMDistanceToMetersString("11 3\""), "11", ());
+  TEST_EQUAL(OSMDistanceToMetersString("11 3'"), "11", ());
+  TEST_EQUAL(OSMDistanceToMetersString("11\"'"), "0.28", ());
+  TEST_EQUAL(OSMDistanceToMetersString("11'\""), "3.35", ());
+  TEST_EQUAL(OSMDistanceToMetersString("11'4\""), "3.45", ());
+  TEST_EQUAL(OSMDistanceToMetersString("11\""), "0.28", ());
+  TEST_EQUAL(OSMDistanceToMetersString("100 \""), "100", ());
+
+  TEST_EQUAL(OSMDistanceToMetersString("0", false), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("-15", false), "", ());
+  TEST_EQUAL(OSMDistanceToMetersString("15.12345", false, 1), "15.1", ());
+  TEST_EQUAL(OSMDistanceToMetersString("15.123", false, 4), "15.123", ());
+  TEST_EQUAL(OSMDistanceToMetersString("15.654321", true, 1), "15.7", ());
 }

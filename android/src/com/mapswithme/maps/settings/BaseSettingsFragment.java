@@ -95,4 +95,9 @@ abstract class BaseSettingsFragment extends Fragment
     lp.rightMargin = margin;
     view.setLayoutParams(lp);
   }
+
+  protected SettingsActivity getSettingsActivity()
+  {
+    return (SettingsActivity) getActivity();
+  }
 }

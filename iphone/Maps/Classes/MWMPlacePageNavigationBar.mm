@@ -54,7 +54,7 @@ static inline CGPoint const dismissCenter(CGFloat xPosition)
 
   navBar.placePage = placePage;
   MWMPlacePageEntity * entity = placePage.manager.entity;
-  navBar.titleLabel.text = entity.type == MWMPlacePageEntityTypeBookmark ? entity.bookmarkTitle : entity.title;
+  navBar.titleLabel.text = entity.isMyPosition ? entity.bookmarkTitle : entity.title;
   [navBar show];
 }
 

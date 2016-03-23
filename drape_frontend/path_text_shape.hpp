@@ -9,15 +9,16 @@ namespace df
 {
 
 class PathTextLayout;
+
 class PathTextShape : public MapShape
 {
 public:
   PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params);
   void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
-  MapShapePriority GetPriority() const override { return MapShapePriority::LinePriority; }
+  MapShapeType GetType() const override { return MapShapeType::OverlayType; }
 
 private:
-  uint64_t GetOverlayPriority(bool followingMode) const;
+  uint64_t GetOverlayPriority(size_t textIndex, bool followingMode) const;
 
   void DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
                          ref_ptr<dp::Batcher> batcher,

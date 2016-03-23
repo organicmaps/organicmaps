@@ -46,7 +46,7 @@ private:
   friend class FeaturesVectorTest;
 
   feature::SharedLoadInfo m_LoadInfo;
-  VarRecordReader<FilesContainerR::ReaderT, &VarRecordSizeReaderVarint> m_RecordReader;
+  VarRecordReader<FilesContainerR::TReader, &VarRecordSizeReaderVarint> m_RecordReader;
   mutable vector<char> m_buffer;
   feature::FeaturesOffsetsTable const * m_table;
 };

@@ -29,7 +29,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9t0-Kj-KTa" customClass="SolidTouchView">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJi-qt-H0B" userLabel="Cancel">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJi-qt-H0B" userLabel="Cancel" customClass="MWMButton">
                             <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="Ok9-eV-7ac"/>
@@ -39,7 +39,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="navigationCancelPressed:" destination="-1" eventType="touchUpInside" id="FHv-ny-D7o"/>
@@ -170,7 +170,7 @@
                             <color key="minimumTrackTintColor" red="0.0" green="0.0" blue="0.0" alpha="0.56000000000000005" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="maximumTrackTintColor" red="0.0" green="0.0" blue="0.0" alpha="0.080000000000000002" colorSpace="calibratedRGB"/>
                         </slider>
-                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YYH-DO-DXQ">
+                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YYH-DO-DXQ" customClass="MWMButton">
                             <rect key="frame" x="276" y="2" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="g60-zB-ibp"/>
@@ -179,7 +179,7 @@
                             <state key="normal" image="ic_voice_off"/>
                             <state key="selected" image="ic_voice_on"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="soundTap:" destination="-1" eventType="touchUpInside" id="mDK-P2-VpS"/>
@@ -246,7 +246,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_direction" width="96" height="96"/>
+        <image name="ic_direction" width="64" height="64"/>
         <image name="ic_nav_bar_close" width="44" height="44"/>
         <image name="ic_voice_off" width="28" height="28"/>
         <image name="ic_voice_on" width="28" height="28"/>

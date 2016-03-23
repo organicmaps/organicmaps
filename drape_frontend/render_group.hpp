@@ -8,6 +8,7 @@
 #include "drape/glstate.hpp"
 #include "drape/render_bucket.hpp"
 
+#include "std/deque.hpp"
 #include "std/vector.hpp"
 #include "std/set.hpp"
 #include "std/unique_ptr.hpp"
@@ -57,30 +58,25 @@ public:
 
   void Update(ScreenBase const & modelView);
   void CollectOverlay(ref_ptr<dp::OverlayTree> tree);
+  void RemoveOverlay(ref_ptr<dp::OverlayTree> tree);
   void Render(ScreenBase const & screen) override;
 
   void AddBucket(drape_ptr<dp::RenderBucket> && bucket);
 
   bool IsEmpty() const { return m_renderBuckets.empty(); }
+
   void DeleteLater() const { m_pendingOnDelete = true; }
   bool IsPendingOnDelete() const { return m_pendingOnDelete; }
-  bool CanBeDeleted() const { return IsPendingOnDelete() && !IsAnimating(); }
+  bool CanBeDeleted() const { return m_canBeDeleted; }
+
+  bool UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree);
 
   bool IsLess(RenderGroup const & other) const;
 
-  void UpdateAnimation() override;
-  double GetOpacity() const;
-  bool IsAnimating() const;
-
-  void Appear();
-  void Disappear();
-
 private:
   vector<drape_ptr<dp::RenderBucket> > m_renderBuckets;
-  unique_ptr<OpacityAnimation> m_disappearAnimation;
-  unique_ptr<OpacityAnimation> m_appearAnimation;
-
   mutable bool m_pendingOnDelete;
+  mutable bool m_canBeDeleted;
 
 private:
   friend string DebugPrint(RenderGroup const & group);

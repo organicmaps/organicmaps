@@ -6,24 +6,26 @@
 
 namespace scales
 {
-  int const UPPER_STYLE_SCALE = 19;
+  constexpr int UPPER_STYLE_SCALE = 19;
 
   /// Upper scale for data generation and indexer buckets.
-  inline int GetUpperScale() { return 17; }
+  constexpr int GetUpperScale() { return 17; }
   /// Upper scale according to drawing rules.
-  inline int GetUpperStyleScale() { return UPPER_STYLE_SCALE; }
+  constexpr int GetUpperStyleScale() { return UPPER_STYLE_SCALE; }
   /// Upper scales for World visible styles and indexer buckets.
-  inline int GetUpperWorldScale() { return 9; }
+  constexpr int GetUpperWorldScale() { return 9; }
+  /// Upper scale level for countries.
+  constexpr int GetUpperCountryScale() { return GetUpperWorldScale() + 1; }
   /// Upper scale for user comfort view (e.g. location zoom).
-  inline int GetUpperComfortScale() { return UPPER_STYLE_SCALE - 2; }
+  constexpr int GetUpperComfortScale() { return UPPER_STYLE_SCALE - 2; }
   /// Default navigation mode scale
-  inline int GetNavigationScale() { return UPPER_STYLE_SCALE - 3; }
+  constexpr int GetNavigationScale() { return UPPER_STYLE_SCALE - 3; }
   /// Default pedestrian navigation mode scale
-  inline int GetPedestrianNavigationScale() { return UPPER_STYLE_SCALE - 2; }
+  constexpr int GetPedestrianNavigationScale() { return UPPER_STYLE_SCALE - 2; }
   /// Default navigation 3d mode scale
-  inline int GetNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
+  constexpr int GetNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
   /// Default pedestrian navigation 3d mode scale
-  inline int GetPedestrianNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
+  constexpr int GetPedestrianNavigation3dScale() { return UPPER_STYLE_SCALE - 2; }
 
   int GetMinAllowableIn3dScale();
 

@@ -14,8 +14,6 @@
 	<string name="cancel_download">Download annuleer</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Verwijder</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Verwijder oude kaarten en ga door</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Nooit meer vragen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -46,8 +44,6 @@
 	<string name="miles">Mijlen</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Mijn Locatie</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Geen Internet verbinding gedetecteerd</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Geen WiFi verbinding gedetecteerd. Wilt u mobiele data (GPRS, EDGE, 3G of LTE) gebruiken om %s te downloaden?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
@@ -64,16 +60,12 @@
 	<string name="search">Zoeken</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Zoek Kaart</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Er is niet genoeg vrije ruimte</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Klik om te downloaden</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ja</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">We raden WiFi aan om grote kaarten te downloaden</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Wij hebben de kaart geupdate en hem verkleind. Met grote landen kunt u nu ervoor kiezen om allen de regio/staat te downloaden die u nodig heeft. Om de nieuwe kaarten te gebruiken moet u alle oude kaarten verwijderen.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Welk meetstelsel heeft u liever?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -88,10 +80,12 @@
 	<string name="country_status_downloading">aan het downloaden\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Kaart downloaden\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Kaart downloaden</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Download kaart\nzonder routeplanning (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Downloaden\n^\nis niet gelukt</string>
+	<string name="country_status_download_failed">Downloaden is niet gelukt</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Probeer opnieuw</string>
 	<string name="about_menu_title">Over MAPS.ME</string>
@@ -105,8 +99,7 @@
 	<string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken</string>
 	<string name="not_enough_memory">Not genoeg geheugen om app te starten</string>
 	<string name="free_space_for_country">Maak %1$s aan ruimte vrij op uw apparaat om %2$s te downloaden</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %1$.1f%2$s in beslag.</string>
+	<string name="download_resources">Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %s in beslag.</string>
 	<string name="getting_position">Huidige locatie opvragen</string>
 	<string name="download_resources_continue">Ga naar de Kaart</string>
 	<string name="downloading_country_can_proceed">%s aan het downloaden. U kunt doorgaan\nnaar de kaart</string>
@@ -153,7 +146,7 @@
 	<string name="my_places">Mijn Plaatsen</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Naam</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adres</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Verwijder speld</string>
@@ -264,7 +257,7 @@
 	<string name="share">Delen</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Bericht</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-mail</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopieer koppeling</string>
@@ -374,6 +367,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Instellingen &amp; meer</string>
 	<!-- Text in menu -->
+	<string name="website">Website</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">Gemeenschap van MAPS.ME</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Ons leuk vinden op Facebook</string>
@@ -396,7 +391,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Ik wil graag als eerste horen over het laatste nieuws updates en acties. Ik kan mijn abonnement te allen tijde annuleren.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nMAPS.ME zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.\n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we MAPS.ME volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support@maps.me. We reageren op elke aanvraag!\n\nVindt je MAPS.ME leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren: - plaats een beoordeling op je App Market - like onze Facebook-pagina http://www.facebook.com/mapswithme - of vertel gewoon je ma, vrienden en collega’s over MAPS.ME :) Dank je dat je ons steunt. Wij waarderen dit heel erg!\n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op http://openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in MAPS.ME verschijnen.</string>
+	<string name="about_text">MAPS.ME biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nMAPS.ME zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.\n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we MAPS.ME volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support@maps.me. We reageren op elke aanvraag!\n\nVindt je MAPS.ME leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren:\n- plaats een beoordeling op je App Market\n- like onze Facebook-pagina http://www.facebook.com/mapswithme\n- of vertel gewoon je ma, vrienden en collega’s over MAPS.ME :) Dank je dat je ons steunt. Wij waarderen dit heel erg!\n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op http://openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in MAPS.ME verschijnen.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">De e-mailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %s</string>
 	<!-- Alert title -->
@@ -410,17 +405,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Alles bijwerken</string>
+	<string name="downloader_update_all_button">Update alles</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Alles annuleren</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Gedownload</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Gedownloade kaarten</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Mijn kaarten</string>
+	<string name="downloader_downloaded_subtitle">Gedownload</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">in de wachtrij</string>
+	<string name="downloader_near_me_subtitle">Bij mij in de buurt</string>
+	<string name="downloader_status_maps">Kaarten</string>
+	<string name="downloader_download_all_button">Alles downloaden</string>
+	<string name="downloader_downloading">Aan het downloaden:</string>
+	<string name="downloader_search_results">Gevonden</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Bij het creëren van routes in MAPS.ME-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!</string>
 	<!-- Outdated maps category -->
@@ -429,6 +425,8 @@
 	<string name="downloader_uptodate_maps">Up-to-date</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Mislukt</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Stop de navigatie om de kaart te verwijderen.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -504,186 +502,6 @@
 	<string name="routing_download_more_than_avail">U dient %1$s MB te downloaden, maar er is slechts %2$s MB beschikbaar.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">U gaat %s MB downloaden met behulp van mobiele data (roaming). Dit kan leiden tot extra kosten, afhankelijk van het mobiele data-abonnement van uw aanbieder.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">regionale keuken</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">pizza\&#39;s</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">hamburgers</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">italiaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">chinees</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">koffiehuis</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">broodjes</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">duits</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">japans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">kebab</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">mexicaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">indisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">amerikaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">frans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">ijs</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">aziatisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">kip</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">grieks</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">thais gerechten</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">internationaal</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">sushi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">fish and chips</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">turks</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">vis en zeevruchten</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">steakhouse</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">spaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">vis</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">vietnamees</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">noedels</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">vegetarisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">koreaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">frituur</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">barbecue</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">beiers</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">ramennoedels</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">italiaans, pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">mediterraans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">donuts</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">gyudon</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">taart</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">pannenkoek</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">heuriger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">libanees</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">steak</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">regionale keuken</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">curry\&#39;s</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">filipijns</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">russisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">ontbijt</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">tapas</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">barbecue</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">bagels</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">pasta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">buschenschank</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">worst</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">portugees</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">gegrilde gerechten</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">pannenkoek</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">malagassisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">pools</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">diner</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">afrikaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">donuts</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">georgisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">kroatisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">arabisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">balkan</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">braziliaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">caraïbisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">oostenrijks</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">veganistisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">argentijns</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">perzisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">soba</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">maleisisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">indonesisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">ethiopisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">deli</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">iers</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">hongaars</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">laotiaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">koffie</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">hotdogs</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">oosters</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">hartige pannenkoeken</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">marokkaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">barbecue</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">peruaans</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">gastronomisch</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">thee</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">markeren</string>
 	<!-- map is not downloaded -->
@@ -761,7 +579,7 @@
 	<string name="dialog_routing_if_get_cross_route">Wilt u een rechtstreeksere route samenstellen die meer dan één kaart beslaat?</string>
 	<string name="dialog_routing_cross_route_is_optimal">Er is een betere route beschikbaar die de grenzen van deze kaart overschrijdt.</string>
 	<string name="dialog_routing_always_cross_that_border">Deze grens altijd overschrijden</string>
-	<string name="dialog_routing_not_now">Niet nu</string>
+	<string name="not_now">Niet nu</string>
 	<string name="dialog_routing_build_route">Samenstellen</string>
 	<string name="dialog_routing_download_and_build_cross_route">Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?</string>
 	<string name="dialog_routing_download_cross_route">Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.</string>
@@ -771,7 +589,6 @@
 	<string name="search_without_internet_advertisement">Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.</string>
 	<string name="search_select_map">Selecteer de kaart</string>
 	<string name="search_select_other_map">Selecteer een andere kaart</string>
-	<string name="search_vehicle_routes">Routebeschrijving</string>
 	<!-- «Show» context menu -->
 	<string name="show">Tonen</string>
 	<!-- «Hide» context menu -->
@@ -817,6 +634,148 @@
 	<string name="p2p_only_from_current">Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.</string>
 	<string name="p2p_reroute_from_current">Wilt u dat wij een route plannen vanaf uw huidige locatie?</string>
 	<string name="whats_new_next_button">Volgende</string>
-	<string name="whats_new_night_caption">Nachtmodusnavigatie</string>
-	<string name="whats_new_night_body">Om het gebruik van MAPS.ME te vergemakkelijken tijdens het rijden in het donker, hebben we de nachtmodus toegevoegd. Deze wordt automatisch ingeschakeld na zonsondergang.</string>
+	<string name="editor_time_add">Schema toevoegen</string>
+	<string name="editor_time_delete">Schema verwijderen</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Elke dag (dag en nacht)</string>
+	<string name="editor_time_open">Open</string>
+	<string name="editor_time_close">Gesloten</string>
+	<string name="editor_time_add_closed">Sluitingstijden toevoegen</string>
+	<string name="editor_time_title">Openingstijden</string>
+	<string name="editor_time_advanced">Geavanceerde modus</string>
+	<string name="editor_time_simple">Eenvoudige modus</string>
+	<string name="editor_hours_closed">Sluitingstijden</string>
+	<string name="editor_example_values">Voorbeeldwaarden</string>
+	<string name="editor_correct_mistake">Fout corrigeren</string>
+	<string name="editor_correct_mistake_message">U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.</string>
+	<string name="editor_add_select_location">Locatie</string>
+	<string name="editor_done_dialog_1">Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk het samen.</string>
+	<string name="editor_done_dialog_2">Dit is je tweede kaartverbetering. Nu sta je op de %de plaats in de lijst van de kaartbewerkers. Vertel je vrienden erover.</string>
+	<string name="editor_done_dialog_3">Je hebt de kaart verbeterd, vertel je vrienden erover en bewerk samen de kaart.</string>
+	<string name="share_with_friends">Deel met je vrienden</string>
+	<string name="editor_report_problem_desription_1">Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.</string>
+	<string name="editor_report_problem_desription_2">Of doe het zelf op http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Verzenden</string>
+	<string name="editor_report_problem_title">Probleem</string>
+	<string name="editor_report_problem_no_place_title">De plaats bestaat niet</string>
+	<string name="editor_report_problem_under_construction_title">Gesloten voor onderhoud</string>
+	<string name="editor_report_problem_duplicate_place_title">Dubbele plaats</string>
+	<string name="first_launch_congrats_title">MAPS.ME is klaar voor gebruik</string>
+	<string name="first_launch_congrats_text">Zoek en navigeer gratis met kaarten van alle landen van de wereld.</string>
+	<string name="migrate_title">Belangrijk!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Alles downloaden</string>
+	<string name="delete_all">Alles verwijderen</string>
+	<string name="autodownload">Automatische download</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Nu gesloten</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Dagelijks</string>
+	<string name="twentyfour_seven">Nacht en dag</string>
+	<string name="day_off_today">Vrije dag vandaag</string>
+	<string name="day_off">Vrije dag</string>
+	<string name="today">Vandaag</string>
+	<string name="sunrise_to_sunset">Van zonsopgang tot zonsondergang</string>
+	<string name="sunset_to_sunrise">Van zonsondergang tot zonsopgang</string>
+	<string name="add_opening_hours">Openingsuren toevoegen</string>
+	<string name="edit_opening_hours">Openingsuren bewerken</string>
+	<string name="profile">Profiel</string>
+	<string name="no_osm_account">Geen account bij OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Registeren</string>
+	<string name="password_8_chars_min">Wachtwoord (minimaal 8 tekens)</string>
+	<string name="invalid_username_or_password">Ongeldige gebruikersnaam of ongeldig wachtwoord.</string>
+	<string name="login">Log in</string>
+	<string name="password">Wachtwoord</string>
+	<string name="forgot_password">Wachtwoord vergeten?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Wachtwoord herstellen</string>
+	<string name="enter_email_address_to_reset_password">Voer het e-mailadres in dat u heeft gebruikt tijdens de registratie, dan sturen wij u de link om uw wachtwoord te vernieuwen.</string>
+	<string name="reset_password">Wachtwoord resetten</string>
+	<string name="username">Gebruikersnaam</string>
+	<string name="osm_account">OSM-account</string>
+	<string name="logout">Uitloggen</string>
+	<string name="login_and_edit_map_motivation_message">Log in en bewerk gegevens van de objecten op de kaart, dan zullen wij ze beschikbaar maken voor miljoenen andere gebruikers. Laten we samen de wereld beter maken.</string>
+	<string name="not_sent">Niet verzonden</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Laatste upload</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">wijzigingen</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Je hebt je eerste object aangepast!</string>
+	<string name="thank_you">Dank je wel</string>
+	<string name="login_with_google">Aanmelden met Google</string>
+	<string name="login_with_facebook">Aanmelden met Facebook</string>
+	<string name="login_with_openstreetmap">Aanmelden met www.openstreetmap.org</string>
+	<string name="edit_place">De locatie bewerken</string>
+	<string name="place_name">Locatienaam</string>
+	<string name="place_name_caption">Voer de naam in zoals die op het bord of naamplaatje wordt weergegeven</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Overige talen</string>
+	<string name="add_language">Een taal toevoegen</string>
+	<string name="street">Straat</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Gebouw</string>
+	<string name="details">Details</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Een straat toevoegen</string>
+	<string name="choose_language">Een taal kiezen</string>
+	<string name="choose_street">Een straat kiezen</string>
+	<string name="postal_code">Postcode</string>
+	<string name="cuisine">Keuken</string>
+	<string name="select_cuisine">Selecteer Keuken</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-mailadres of gebruikersnaam</string>
+	<string name="phone">Telefoonnummer</string>
+	<string name="please_note">Opgelet</string>
+	<string name="common_no_wifi_dialog">Geen WiFi-verbinding. Wil je doorgaan via mobiele data?</string>
+	<string name="downloader_delete_map_dialog">Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.</string>
+	<string name="downloader_update_maps">Kaarten updaten</string>
+	<string name="downloader_mwm_migration_dialog">Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.</string>
+	<string name="downloader_search_field_hint">Vind de kaart</string>
+	<string name="migration_update_all_button">Update alle kaarten</string>
+	<string name="migration_delete_all_download_current_button">Download de huidige kaart en verwijder de oude</string>
+	<string name="migration_prefetch_status">Het voorbereiden van de update van de kaart…</string>
+	<string name="migration_download_error_dialog">Downloadfout</string>
+	<string name="common_check_internet_connection_dialog">Controleer je instellingen en zorg ervoor dat het apparaat is verbonden met het internet.</string>
+	<string name="downloader_no_space_title">Niet genoeg ruimte</string>
+	<string name="downloader_no_space_message">Verwijder overbodige gegevens</string>
+	<string name="editor_general_auth_error_dialog">Algemene inlogfout.</string>
+	<string name="editor_login_error_dialog">Inlogfout.</string>
+	<string name="editor_login_failed_dialog">Inloggen mislukt</string>
+	<string name="editor_username_error_dialog">Gebruikersnaam is ongeldig</string>
+	<string name="editor_place_edited_dialog">Je hebt een object bewerkt!</string>
+	<string name="editor_login_with_osm">Log in met OpenStreetMap</string>
+	<string name="editor_profile_changes">Wijzigingen:</string>
+	<string name="editor_profile_unsent_changes">Niet verzonden:</string>
+	<string name="editor_focus_map_on_location">Trek aan de kaart om de juiste locatie van het object te selecteren.</string>
+	<string name="editor_add_select_category">Selecteer categorie</string>
+	<string name="editor_add_select_category_popular_subtitle">Populair</string>
+	<string name="editor_add_select_category_all_subtitle">Alle categorieën</string>
+	<string name="editor_edit_place_title">Aan het aanpassen</string>
+	<string name="editor_add_place_title">Aan het toevoegen</string>
+	<string name="editor_edit_place_name_hint">Naam van de plaats</string>
+	<string name="editor_edit_place_category_title">Categorie</string>
+	<string name="detailed_problem_description">Gedetailleerde probleemomschrijving</string>
+	<string name="editor_report_problem_other_title">Een ander probleem</string>
+	<string name="placepage_add_place_button">Voeg een plaats toe</string>
+	<string name="placepage_report_problem_button">Meld een probleem</string>
+	<string name="whatsnew_smallmwm_header">Op veler verzoek hebben we het voor elkaar gekregen</string>
+	<string name="whatsnew_smallmwm_message">We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio\&#39;s downloaden in plaats van het hele land.</string>
+	<string name="whatsnew_search_header">Nieuwe zoekopdracht</string>
+	<string name="whatsnew_search_message">We hebben het zoeken op adres significant verbeterd. Bekijk het zelf.</string>
+	<string name="whatsnew_editor_title">Bewerk de kaart*</string>
+	<string name="whatsnew_editor_message_1">Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME gebruikt OpenStreetMap-communitiedata.</string>
+	<string name="onboarding_offline_navigation_title">Je zult nooit meer verdwalen</string>
+	<string name="onboarding_offline_navigation_message">Plan optimale auto- en wandelroutes, zelfs als er geen internetverbinding is!</string>
+	<string name="onboarding_offline_navigation_title_2">Offline navigatie</string>
+	<string name="onboarding_offline_navigation_message_2">Plan optimale auto- en wandelroutes.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — toegang tot kaarten van de hele wereld, zonder verbinding met het internet</string>
+	<string name="onboarding_offline_maps_message">Download eenmaal de kaarten voor het gewenste gebied en gebruik de navigatie- en zoekfuncties zonder een internetverbinding.</string>
+	<string name="onboarding_notifications_message">Ontvang update-meldingen om de nieuwste kaarten te ontvangen</string>
+	<string name="onboarding_notifications_title">Schakel update-meldingen in</string>
+	<string name="onboarding_location_title">Help ons om je te vinden</string>
+	<string name="onboarding_location_message">Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.</string>
+	<string name="dialog_incorrect_feature_position">Locatie wijzigen</string>
+	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
 </resources>

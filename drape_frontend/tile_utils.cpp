@@ -1,4 +1,8 @@
-#include "tile_utils.hpp"
+#include "drape_frontend/tile_utils.hpp"
+
+#include "indexer/scales.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"
@@ -6,108 +10,40 @@
 namespace df
 {
 
-namespace
+CoverageResult CalcTilesCoverage(m2::RectD const & rect, int targetZoom,
+                                 function<void(int, int)> const & processTile)
 {
+  ASSERT_GREATER(targetZoom, 0, ());
+  double const range = MercatorBounds::maxX - MercatorBounds::minX;
+  double const rectSize = range / (1 << (targetZoom - 1));
 
-int Minificate(int coord, int zoom, int targetZoom)
-{
-  ASSERT(targetZoom < zoom, ());
+  CoverageResult result;
+  result.m_minTileX = static_cast<int>(floor(rect.minX() / rectSize));
+  result.m_maxTileX = static_cast<int>(ceil(rect.maxX() / rectSize));
+  result.m_minTileY = static_cast<int>(floor(rect.minY() / rectSize));
+  result.m_maxTileY = static_cast<int>(ceil(rect.maxY() / rectSize));
 
-  int z = zoom - targetZoom;
-  if (coord >= 0)
-    return coord >> z;
-
-  // here we iteratively minificate zoom
-  int c = -coord;
-  ASSERT(c > 0, ());
-  while (z > 0)
+  if (processTile != nullptr)
   {
-    // c = c / 2 + 1, if c is odd
-    // c = c / 2, if c is even
-    c = (c + 1) >> 1;
-    z--;
+    for (int tileY = result.m_minTileY; tileY < result.m_maxTileY; ++tileY)
+      for (int tileX = result.m_minTileX; tileX < result.m_maxTileX; ++tileX)
+        processTile(tileX, tileY);
   }
-  return -c;
-}
 
-} // namespace
-
-void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, TTilesCollection & tiles)
-{
-  CalcTilesCoverage(tileKey, targetZoom, MakeInsertFunctor(tiles));
-}
-
-void CalcTilesCoverage(set<TileKey> const & tileKeys, int targetZoom, TTilesCollection & tiles)
-{
-  for(TileKey const & tileKey : tileKeys)
-    CalcTilesCoverage(tileKey, targetZoom, tiles);
-}
-
-void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, function<void(TileKey const &)> const & processTile)
-{
-  ASSERT(processTile != nullptr, ());
-
-  if (tileKey.m_zoomLevel == targetZoom)
-    processTile(tileKey);
-  else if (tileKey.m_zoomLevel > targetZoom)
-  {
-    // minification
-    processTile(GetParentTile(tileKey, targetZoom));
-  }
-  else
-  {
-    // magnification
-    int const z = targetZoom - tileKey.m_zoomLevel;
-    int const tilesInRow = 1 << z;
-    int const startX = tileKey.m_x << z;
-    int const startY = tileKey.m_y << z;
-    for (int x = 0; x < tilesInRow; x++)
-      for (int y = 0; y < tilesInRow; y++)
-        processTile(TileKey(startX + x, startY + y, targetZoom));
-  }
-}
-
-bool IsTileAbove(TileKey const & tileKey, TileKey const & targetTileKey)
-{
-  if (tileKey.m_zoomLevel <= targetTileKey.m_zoomLevel)
-    return false;
-
-  int const x = Minificate(tileKey.m_x, tileKey.m_zoomLevel, targetTileKey.m_zoomLevel);
-  if (x != targetTileKey.m_x)
-    return false;
-
-  int const y = Minificate(tileKey.m_y, tileKey.m_zoomLevel, targetTileKey.m_zoomLevel);
-  return y == targetTileKey.m_y;
-}
-
-bool IsTileBelow(TileKey const & tileKey, TileKey const & targetTileKey)
-{
-  if (tileKey.m_zoomLevel >= targetTileKey.m_zoomLevel)
-    return false;
-
-  int const z = targetTileKey.m_zoomLevel - tileKey.m_zoomLevel;
-  int const tilesInRow = 1 << z;
-  int const startX = tileKey.m_x << z;
-  if (targetTileKey.m_x < startX || targetTileKey.m_x >= startX + tilesInRow)
-    return false;
-
-  int const startY = tileKey.m_y << z;
-  return targetTileKey.m_y >= startY && targetTileKey.m_y < startY + tilesInRow;
-}
-
-TileKey GetParentTile(TileKey const & tileKey, int targetZoom)
-{
-  ASSERT(tileKey.m_zoomLevel > targetZoom, ());
-
-  return TileKey(Minificate(tileKey.m_x, tileKey.m_zoomLevel, targetZoom),
-                 Minificate(tileKey.m_y, tileKey.m_zoomLevel, targetZoom),
-                 targetZoom);
+  return result;
 }
 
 bool IsNeighbours(TileKey const & tileKey1, TileKey const & tileKey2)
 {
-  return (abs(tileKey1.m_x - tileKey2.m_x) < 2) &&
+  return !((tileKey1.m_x == tileKey2.m_x) && (tileKey1.m_y == tileKey2.m_y)) &&
+         (abs(tileKey1.m_x - tileKey2.m_x) < 2) &&
          (abs(tileKey1.m_y - tileKey2.m_y) < 2);
+}
+
+int ClipTileZoomByMaxDataZoom(int zoom)
+{
+  int const upperScale = scales::GetUpperScale();
+  return zoom <= upperScale ? zoom : upperScale;
 }
 
 } // namespace df

@@ -49,11 +49,10 @@ class GpsTrackHandle : public dp::OverlayHandle
 
 public:
   GpsTrackHandle(size_t pointsCount);
-  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
-                            ScreenBase const & screen) const override;
+  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
   bool Update(ScreenBase const & screen) override;
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
-  void GetPixelShape(ScreenBase const & screen, Rects & rects, bool perspective) const override;
+  void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
   bool IndexesRequired() const override;
 
   void Clear();

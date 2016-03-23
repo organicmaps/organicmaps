@@ -13,16 +13,16 @@ class RequestedTiles
 {
 public:
   RequestedTiles() = default;
-  void Set(ScreenBase const & screen, bool is3dBuildings, TTilesCollection && tiles);
+  void Set(ScreenBase const & screen, bool have3dBuildings, TTilesCollection && tiles);
   TTilesCollection GetTiles();
   ScreenBase GetScreen();
-  bool Is3dBuildings();
+  bool Have3dBuildings();
   bool CheckTileKey(TileKey const & tileKey) const;
 
 private:
   TTilesCollection m_tiles;
   ScreenBase m_screen;
-  bool m_is3dBuildings = false;
+  bool m_have3dBuildings = false;
   mutable mutex m_mutex;
 };
 

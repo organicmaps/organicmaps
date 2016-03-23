@@ -23,11 +23,11 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
   @Override
   public int getItemCount()
   {
-    return BookmarkManager.INSTANCE.getCategoriesCount();
+    return BookmarkManager.INSTANCE.nativeGetCategoriesCount();
   }
 
   public BookmarkCategory getItem(int position)
   {
-    return BookmarkManager.INSTANCE.getCategoryById(position);
+    return BookmarkManager.INSTANCE.getCategory(position);
   }
 }

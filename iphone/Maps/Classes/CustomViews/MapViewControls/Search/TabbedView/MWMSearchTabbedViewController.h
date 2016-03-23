@@ -1,8 +1,8 @@
 #import "MWMSearchTabbedViewProtocol.h"
 #import "MWMSearchTabButtonsView.h"
-#import "ViewController.h"
+#import "MWMViewController.h"
 
-@interface MWMSearchTabbedViewController : ViewController
+@interface MWMSearchTabbedViewController : MWMViewController
 
 @property (copy, nonatomic) NSArray * tabButtons;
 @property (weak, nonatomic) NSLayoutConstraint * scrollIndicatorOffset;

@@ -14,8 +14,6 @@
 	<string name="cancel_download">Avbryt nedlasting</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Slett</string>
-	<!-- Button in iOS Downloader, displayed only when upgrading from v1 to v2 -->
-	<string name="delete_old_maps">Slett gamle kart og fortsett</string>
 	<!-- Button to dismiss dialog forever -->
 	<string name="do_not_ask_me_again">Ikke spør meg igjen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
@@ -52,8 +50,6 @@
 	<string name="miles">Miles</string>
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Min posisjon</string>
-	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Ingen Internett-tilkobling oppdaget</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Ingen WiFi-tilkobling oppdaget. Har du lyst til å bruke mobildata (GPRS, EDGE, 3G eller LTE) for å laste ned %s?</string>
 	<string name="ok">OK</string>
@@ -73,16 +69,12 @@
 	<string name="search">Søk</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Søk kart</string>
-	<!-- Settings/Downloader - No free space dialog title -->
-	<string name="not_enough_disk_space">Det er ikke nok ledig diskplass</string>
 	<!-- Settings/Downloader - info for not downloaded country -->
 	<string name="touch_to_download">Trykk for å laste ned</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ja</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
 	<string name="use_wifi_recommendation_text">Vi anbefaler å bruke WiFi når du skal laste ned store kart</string>
-	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
-	<string name="new_map_data_format_upgrade_dialog">Vi har oppdatert kartdata og gjort dem mindre. For større land kan du nå velge å laste ned bare det området du trenger. For å bruke de nye kartene bør du imidlertid slette eldre kartdata som du har lastet ned tidligere.</string>
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Hvilket målesystem foretrekker du?</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -97,10 +89,12 @@
 	<string name="country_status_downloading">Laster ned\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Last ned kart\n(^ ^)</string>
+	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
+	<string name="country_status_download_without_size">Last ned kart</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download_without_routing">Last ned kart\nuten veiviserfunksjon (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Laster ned\n^\nmislyktes</string>
+	<string name="country_status_download_failed">Laster ned mislyktes</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Prøv på nytt</string>
 	<string name="about_menu_title">Om MAPS.ME</string>
@@ -116,8 +110,7 @@
 	<string name="not_enough_free_space_on_sdcard">Frigjør plass på SD-kortet/USB-enheten først for å bruke appen</string>
 	<string name="not_enough_memory">Ikke nok minne til å starte appen</string>
 	<string name="free_space_for_country">Frigjør %1$s på enheten først for å laste ned %2$s</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %1$.1f%2$s med data.</string>
+	<string name="download_resources">Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %s med data.</string>
 	<string name="getting_position">Henter nåværende posisjon</string>
 	<string name="download_resources_continue">Gå til kart</string>
 	<string name="downloading_country_can_proceed">Laster ned %s. Du kan nå\nfortsette til kartet.</string>
@@ -165,7 +158,7 @@
 	<string name="my_places">Mine steder</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Navn</string>
-	<!-- Add bookmark dialog - bookmark address -->
+	<!-- Editor title above street and house number -->
 	<string name="address">Adresse</string>
 	<!-- Place Page - Remove Pin button -->
 	<string name="remove_pin">Fjern merke</string>
@@ -184,7 +177,7 @@
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flytt kart?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">Dette kan ta flere minutter. Vent et øyeblikk ...</string>
+	<string name="wait_several_minutes">Dette kan ta flere minutter. Vent et øyeblikk …</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Synlig</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
@@ -272,7 +265,7 @@
 	<string name="share">Del</string>
 	<!-- iOS share by Message button text (including SMS) -->
 	<string name="message">Melding</string>
-	<!-- Share by email button text -->
+	<!-- Share by email button text, also used in editor. -->
 	<string name="email">E-post</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopier kobling</string>
@@ -382,6 +375,8 @@
 	<!-- Text in menu -->
 	<string name="settings_and_more">Innstillinger med mer</string>
 	<!-- Text in menu -->
+	<string name="website">Nettside</string>
+	<!-- Text in menu -->
 	<string name="maps_me_community">MAPS.ME-samfunnet</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Lik på Facebook</string>
@@ -418,17 +413,18 @@
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Med den nye versjonen av MAPS.ME kan du opprette ruter fra din nåværende posisjon til et ankomststed på kartet. Oppdater kartene for å bruke denne funksjonen.</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all">Oppdater alle</string>
+	<string name="downloader_update_all_button">Oppdater alle</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Avbryt alle</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Lastet ned</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Nedlastede kart</string>
-	<!-- My maps category -->
-	<string name="downloader_my_maps">Mine kart</string>
+	<string name="downloader_downloaded_subtitle">Lastet ned</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">lagt i kø</string>
+	<string name="downloader_near_me_subtitle">I nærheten</string>
+	<string name="downloader_status_maps">Kart</string>
+	<string name="downloader_download_all_button">Last ned alle</string>
+	<string name="downloader_downloading">Laster ned:</string>
+	<string name="downloader_search_results">Funnet</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Når du oppretter ruter i MAPS.ME-appen må du huske på følgende:\n\n- Foreslåtte ruter må bare betraktes som anbefalinger.\n- Veiforhold, trafikkregler og skilt må gis høyere prioritet enn navigasjonsråd.\n- Kartet kan være feil eller utdatert, og det er ikke sikkert at rutene opprettes på best mulig måte.\n\nVær nøye med veisikkerheten og pass på deg selv!</string>
 	<!-- Outdated maps category -->
@@ -439,6 +435,8 @@
 	<string name="downloader_status_outdated">Oppdatering</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Mislyktes</string>
+	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+	<string name="downloader_delete_map_while_routing_dialog">Stans navigeringen for å slette kartet.</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Nåværende posisjon er udefinert. Oppgi en posisjon for å opprette en rute.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
@@ -514,186 +512,6 @@
 	<string name="routing_download_more_than_avail">Du vil laste ned %1$s MB, men du har kun %2$s MB tilgjengelig.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Du er på vei til å laste ned %s MB via mobildata (under \&#39;roaming\&#39;). Dette kan resultere i påløpende ekstragebyrer, avhengig av din mobiloperatørløsning.</string>
-	<!-- Cuisine -->
-	<string name="cuisine_regional">regional mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pizza">pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_burger">burger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian">italiensk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chinese">kinesisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">kafé</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sandwich">smørbrød</string>
-	<!-- Cuisine -->
-	<string name="cuisine_german">tysk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_japanese">japansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_kebab">kebab</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mexican">meksikansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indian">indisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_american">amerikansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_french">fransk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">iskrem</string>
-	<!-- Cuisine -->
-	<string name="cuisine_asian">asiatisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_chicken">kylling</string>
-	<!-- Cuisine -->
-	<string name="cuisine_greek">gresk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_thai">Thaimat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_international">internasjonal mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sushi">sushi</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish_and_chips">fisk og pommes frites</string>
-	<!-- Cuisine -->
-	<string name="cuisine_turkish">tyrkisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_seafood">sjømat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak_house">biffrestaurant</string>
-	<!-- Cuisine -->
-	<string name="cuisine_spanish">spansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fish">fisk</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">vietnamesisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_noodles">nudler</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">vegetar mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_korean">koreansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_friture">frityrt</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbecue">grillmat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bavarian">bayersk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ramen">ramen</string>
-	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">italiensk mat;pizza</string>
-	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">middelhavsmat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_donut">smultring</string>
-	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">biffbolle</string>
-	<!-- Cuisine -->
-	<string name="cuisine_cake">kake</string>
-	<!-- Cuisine -->
-	<string name="cuisine_crepe">crepe</string>
-	<!-- Cuisine -->
-	<string name="cuisine_heuriger">heuriger</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lebanese">libanesisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_steak">steak</string>
-	<!-- Cuisine -->
-	<string name="cuisine_local">lokal mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_curry">karri</string>
-	<!-- Cuisine -->
-	<string name="cuisine_filipino">filippinsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_russian">russisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_breakfast">frokost</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tapas">tapas</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bbq">grill</string>
-	<!-- Cuisine -->
-	<string name="cuisine_bagel">bagel</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pasta">pasta</string>
-	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">buschenschank</string>
-	<!-- Cuisine -->
-	<string name="cuisine_sausage">pølse</string>
-	<!-- Cuisine -->
-	<string name="cuisine_portuguese">portugisisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_grill">grill</string>
-	<!-- Cuisine -->
-	<string name="cuisine_pancake">pannekake</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malagasy">Gassisk</string>
-	<!-- Cuisine -->
-	<string name="cuisine_polish">polsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_diner">middag</string>
-	<!-- Cuisine -->
-	<string name="cuisine_african">afrikansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_doughnut">smultring</string>
-	<!-- Cuisine -->
-	<string name="cuisine_georgian">georgisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_croatian">kroatisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_arab">arabisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_balkan">balkan mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_brazilian">brasiliansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_caribbean">karibisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_austrian">østerriksk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_vegan">veganermat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_argentinian">argentinsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_persian">persisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_soba">soba</string>
-	<!-- Cuisine -->
-	<string name="cuisine_malaysian">malaysisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_indonesian">indonesisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">etiopisk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_deli">delimat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_irish">irsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hungarian">ungarsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_lao">lao mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_coffee">kaffe</string>
-	<!-- Cuisine -->
-	<string name="cuisine_hotdog">hotdog</string>
-	<!-- Cuisine -->
-	<string name="cuisine_oriental">orientalsk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">fylte pannekaker</string>
-	<!-- Cuisine -->
-	<string name="cuisine_moroccan">marokkansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_barbeque">grillmat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_peruvian">peruansk mat</string>
-	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">gourmet</string>
-	<!-- Cuisine -->
-	<string name="cuisine_tea">te</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">bokmerk</string>
 	<!-- map is not downloaded -->
@@ -771,7 +589,7 @@
 	<string name="dialog_routing_if_get_cross_route">Vil du opprette en mer direkte rute som går over flere kart?</string>
 	<string name="dialog_routing_cross_route_is_optimal">En mer optimal rute som går utenfor dette kartet er tilgjengelig.</string>
 	<string name="dialog_routing_always_cross_that_border">Kryss alltid denne grensen</string>
-	<string name="dialog_routing_not_now">Ikke nå</string>
+	<string name="not_now">Ikke nå</string>
 	<string name="dialog_routing_build_route">Opprett</string>
 	<string name="dialog_routing_download_and_build_cross_route">Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?</string>
 	<string name="dialog_routing_download_cross_route">Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.</string>
@@ -781,7 +599,6 @@
 	<string name="search_without_internet_advertisement">Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.</string>
 	<string name="search_select_map">Velg kartet</string>
 	<string name="search_select_other_map">Velg et annet kart</string>
-	<string name="search_vehicle_routes">Veibeskrivelser</string>
 	<!-- «Show» context menu -->
 	<string name="show">Vis</string>
 	<!-- «Hide» context menu -->
@@ -827,6 +644,148 @@
 	<string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
 	<string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
 	<string name="whats_new_next_button">Neste</string>
-	<string name="whats_new_night_caption">Nattmodus-navigering</string>
-	<string name="whats_new_night_body">For å tilrettelegge bruk av MAPS.ME under mørkekjøring har vi lagt til funksjonen nattmodus. Funksjonen skrues automatisk på etter solnedgang.</string>
+	<string name="editor_time_add">Legg til tidsrom</string>
+	<string name="editor_time_delete">Slett tidsrom</string>
+	<!-- Text for allday switch. -->
+	<string name="editor_time_allday">Hele dagen (24 timer)</string>
+	<string name="editor_time_open">Åpen</string>
+	<string name="editor_time_close">Stengt</string>
+	<string name="editor_time_add_closed">Legg til stengt tid</string>
+	<string name="editor_time_title">Åpningstider</string>
+	<string name="editor_time_advanced">Avansert modus</string>
+	<string name="editor_time_simple">Enkel modus</string>
+	<string name="editor_hours_closed">Stengt</string>
+	<string name="editor_example_values">Eksempelverdier</string>
+	<string name="editor_correct_mistake">Rett feil</string>
+	<string name="editor_correct_mistake_message">Du har gjort en redigeringsfeil. Rett den eller bytt til enkel modus.</string>
+	<string name="editor_add_select_location">Plassering</string>
+	<string name="editor_done_dialog_1">Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.</string>
+	<string name="editor_done_dialog_2">Dette er din andre forbedring av kartet. Nå er du på %d. plass i listen av kart-forbedrere. Fortell vennene dine om dette.</string>
+	<string name="editor_done_dialog_3">Du har forbedret kartet, fortell vennene dine om det, og rediger kartet sammen.</string>
+	<string name="share_with_friends">Del med venner</string>
+	<string name="editor_report_problem_desription_1">Beskriv problemet detaljert slik at OpenStreetMap-samfunnet kan fikse feilen.</string>
+	<string name="editor_report_problem_desription_2">Eller gjør det selv på http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_send_button">Send</string>
+	<string name="editor_report_problem_title">Problem</string>
+	<string name="editor_report_problem_no_place_title">Stedet finnes ikke</string>
+	<string name="editor_report_problem_under_construction_title">Stengt pga. vedlikehold</string>
+	<string name="editor_report_problem_duplicate_place_title">Duplisert sted</string>
+	<string name="first_launch_congrats_title">MAPS.ME er klar til bruk</string>
+	<string name="first_launch_congrats_text">Søk og naviger i kart over alle verdens land gratis.</string>
+	<string name="migrate_title">Viktig!</string>
+	<!-- Android uses image instead of text. -->
+	<string name="download_all">Last ned alle</string>
+	<string name="delete_all">Slett alle</string>
+	<string name="autodownload">Automatisk nedlasting</string>
+	<!-- Place Page opening hours text -->
+	<string name="closed_now">Lukket nå</string>
+	<!-- Place Page opening hours text -->
+	<string name="daily">Daglig</string>
+	<string name="twentyfour_seven">Dag og natt</string>
+	<string name="day_off_today">Fridag i dag</string>
+	<string name="day_off">Fridag</string>
+	<string name="today">I dag</string>
+	<string name="sunrise_to_sunset">Fra morgen til kveld</string>
+	<string name="sunset_to_sunrise">Fra solnedgang til soloppgang</string>
+	<string name="add_opening_hours">Legg til åpningstider</string>
+	<string name="edit_opening_hours">Rediger åpningstider</string>
+	<string name="profile">Profil</string>
+	<string name="no_osm_account">Har du ingen konto hos OpenStreetMap?</string>
+	<string name="register_at_openstreetmap">Registrer deg</string>
+	<string name="password_8_chars_min">Passord (minimum 8 tegn)</string>
+	<string name="invalid_username_or_password">Ugyldig brukernavn eller passord.</string>
+	<string name="login">Logg inn</string>
+	<string name="password">Passord</string>
+	<string name="forgot_password">Glemt passordet?</string>
+	<!-- Forgot Password dialog title -->
+	<string name="restore_password">Gjenopprett passordet</string>
+	<string name="enter_email_address_to_reset_password">Skriv inn e-postadressen du brukte ved registreringen, så vil vi sende deg en kobling for å fornye passordet ditt.</string>
+	<string name="reset_password">Tilbakestill passord</string>
+	<string name="username">Brukernavn</string>
+	<string name="osm_account">OSM-konto</string>
+	<string name="logout">Logg ut</string>
+	<string name="login_and_edit_map_motivation_message">Logg deg inn og rediger informasjonen til objektene på kartet, så vil vi gjøre den tilgjengelig for millioner av andre brukere. La oss gjøre verden bedre sammen.</string>
+	<string name="not_sent">Ikke sendt</string>
+	<!-- Information text: "Last upload 11.01.2016" -->
+	<string name="last_upload">Siste opplasting</string>
+	<!-- The number of changes made. As in "changes: 123". -->
+	<string name="changes">endringer</string>
+	<!-- Motivates user to login/register, title above login buttons. -->
+	<string name="you_have_edited_your_first_object">Du har redigert ditt første objekt!</string>
+	<string name="thank_you">Takk skal du ha</string>
+	<string name="login_with_google">Logg inn med Google</string>
+	<string name="login_with_facebook">Logg inn med Facebook</string>
+	<string name="login_with_openstreetmap">Logg inn med www.openstreetmap.org</string>
+	<string name="edit_place">Rediger stedet</string>
+	<string name="place_name">Stedsnavn</string>
+	<string name="place_name_caption">Oppgi navnet som på skiltet eller navneskiltet</string>
+	<!-- title above languages list cells in the editor, below editable name text field. -->
+	<string name="other_languages">Andre språk</string>
+	<string name="add_language">Legg til et språk</string>
+	<string name="street">Gate</string>
+	<!-- Editable House Number text field (in address block). -->
+	<string name="house">Bygning</string>
+	<string name="details">Detaljer</string>
+	<!-- Text field to enter non-existing street name, below list of known streets around -->
+	<string name="add_street">Legg til en gate</string>
+	<string name="choose_language">Velg et språk</string>
+	<string name="choose_street">Velg en gate</string>
+	<string name="postal_code">Postnummer</string>
+	<string name="cuisine">Matrett</string>
+	<string name="select_cuisine">Velg matrett</string>
+	<!-- login text field -->
+	<string name="email_or_username">E-postadresse eller brukernavn</string>
+	<string name="phone">Telefon</string>
+	<string name="please_note">Vær oppmerksom på at</string>
+	<string name="common_no_wifi_dialog">Ingen trådløs forbindelse. Vil du fortsette med mobildata?</string>
+	<string name="downloader_delete_map_dialog">Alle endringer i kartet vil slettes sammen med kartet.</string>
+	<string name="downloader_update_maps">Oppdater kart</string>
+	<string name="downloader_mwm_migration_dialog">For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.</string>
+	<string name="downloader_search_field_hint">Finn kartet</string>
+	<string name="migration_update_all_button">Oppdater alle kart</string>
+	<string name="migration_delete_all_download_current_button">Last ned det oppdaterte kartet og slett de gamle</string>
+	<string name="migration_prefetch_status">Forbereder oppdatering av kart…</string>
+	<string name="migration_download_error_dialog">Nedlastningsfeil</string>
+	<string name="common_check_internet_connection_dialog">Kontroller innstillingene dine og sørg for at enheten din er koblet til internett.</string>
+	<string name="downloader_no_space_title">Ikke nok plass</string>
+	<string name="downloader_no_space_message">Fjern unødvendig data</string>
+	<string name="editor_general_auth_error_dialog">Generell innloggingsfeil.</string>
+	<string name="editor_login_error_dialog">Innloggingsfeil.</string>
+	<string name="editor_login_failed_dialog">Innloggingen mislyktes</string>
+	<string name="editor_username_error_dialog">Brukernavnet er ugyldig</string>
+	<string name="editor_place_edited_dialog">Du har redigert et objekt!</string>
+	<string name="editor_login_with_osm">Logg inn med OpenStreetMat</string>
+	<string name="editor_profile_changes">Endringer:</string>
+	<string name="editor_profile_unsent_changes">Ikke sendt:</string>
+	<string name="editor_focus_map_on_location">Dra kartet for å velge riktig beliggenhet for objektet.</string>
+	<string name="editor_add_select_category">Velg kategori</string>
+	<string name="editor_add_select_category_popular_subtitle">Populære</string>
+	<string name="editor_add_select_category_all_subtitle">Alle kategorier</string>
+	<string name="editor_edit_place_title">Redigerer</string>
+	<string name="editor_add_place_title">Legger til</string>
+	<string name="editor_edit_place_name_hint">Navn på stedet</string>
+	<string name="editor_edit_place_category_title">Kategori</string>
+	<string name="detailed_problem_description">Detaljert beskrivelse av problemet</string>
+	<string name="editor_report_problem_other_title">Et annet problem</string>
+	<string name="placepage_add_place_button">Legg til et sted</string>
+	<string name="placepage_report_problem_button">Rapporter et problem</string>
+	<string name="whatsnew_smallmwm_header">Dere har bedt om det og vi har fått det til</string>
+	<string name="whatsnew_smallmwm_message">Vi har delt opp kartene i separate deler. Nå kan du laste ned separate regioner istedenfor hele land.</string>
+	<string name="whatsnew_search_header">Nytt søk</string>
+	<string name="whatsnew_search_message">Nå er det mye enklere å søke etter adresse. Se selv.</string>
+	<string name="whatsnew_editor_title">Rediger kartet*</string>
+	<string name="whatsnew_editor_message_1">Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.</string>
+	<string name="whatsnew_editor_message_2">* MAPS.ME bruker data fra OpenStreetMap-samfunnet.</string>
+	<string name="onboarding_offline_navigation_title">Du vil aldri havne på villspor igjen</string>
+	<string name="onboarding_offline_navigation_message">Planlegg optimale reiseruter med bil og til fots, selv uten internettforbindelse!</string>
+	<string name="onboarding_offline_navigation_title_2">Offline-navigering</string>
+	<string name="onboarding_offline_navigation_message_2">Planlegg optimale reiseruter med bil og til fots.</string>
+	<string name="onboarding_offline_maps_title">MAPS.ME — se verdensvide kart uten Internett</string>
+	<string name="onboarding_offline_maps_message">Last ned kartene for et ønsket område én gang, og bruk navigeringen og andre søkefunksjoner uten internettforbindelse.</string>
+	<string name="onboarding_notifications_message">Få oppdateringsvarsler for å motta de nyeste kartene</string>
+	<string name="onboarding_notifications_title">Aktiver oppdateringsvarsler</string>
+	<string name="onboarding_location_title">Hjelp oss med å finne deg</string>
+	<string name="onboarding_location_message">For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.</string>
+	<string name="dialog_incorrect_feature_position">Endre plassering</string>
+	<string name="message_invalid_feature_position">Et objekt kan ikke plasseres her</string>
 </resources>

@@ -25,8 +25,10 @@ namespace m2
   }
 
   template <class T>
-  bool Intersect(m2::Rect<T> const & r, m2::Point<T> & p1, m2::Point<T> & p2)
+  bool Intersect(m2::Rect<T> const & r, m2::Point<T> & p1, m2::Point<T> & p2, int & code1, int & code2)
   {
+    code1 = code2 = 0;
+    int codeClip[2] = { 0, 0 };
     int code[2] = { detail::vcode(r, p1), detail::vcode(r, p2) };
 
     // do while one of the point is out of rect
@@ -58,12 +60,14 @@ namespace m2
         if (p1 == p2) return false;
         pp->y += (p1.y - p2.y) * (r.minX() - pp->x) / (p1.x - p2.x);
         pp->x = r.minX();
+        codeClip[i] = detail::LEFT;
       }
       else if (code[i] & detail::RIGHT)
       {
         if (p1 == p2) return false;
         pp->y += (p1.y - p2.y) * (r.maxX() - pp->x) / (p1.x - p2.x);
         pp->x = r.maxX();
+        codeClip[i] = detail::RIGHT;
       }
 
       if (code[i] & detail::BOT)
@@ -71,19 +75,30 @@ namespace m2
         if (p1 == p2) return false;
         pp->x += (p1.x - p2.x) * (r.minY() - pp->y) / (p1.y - p2.y);
         pp->y = r.minY();
+        codeClip[i] = detail::BOT;
       }
       else if (code[i] & detail::TOP)
       {
         if (p1 == p2) return false;
         pp->x += (p1.x - p2.x) * (r.maxY() - pp->y) / (p1.y - p2.y);
         pp->y = r.maxY();
+        codeClip[i] = detail::TOP;
       }
 
       // update code with new point
       code[i] = detail::vcode(r, *pp);
     }
 
+    code1 = codeClip[0];
+    code2 = codeClip[1];
     // both codes are equal to zero => points area inside rect
     return true;
+  }
+
+  template <class T>
+  bool Intersect(m2::Rect<T> const & r, m2::Point<T> & p1, m2::Point<T> & p2)
+  {
+    int code1, code2;
+    return Intersect(r, p1, p2, code1, code2);
   }
 }
