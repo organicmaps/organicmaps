@@ -17,7 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_block_base"
     android:layout_alignParentBottom="true"
-    android:background="?ppBackground"/>
+    android:background="?cardBackground"/>
 
   <TextView
     android:id="@+id/tv__mode_switch"

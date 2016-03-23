@@ -26,7 +26,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 {
   private static final String PREF_LAST_AUTH_DISPLAY_TIMESTAMP = "LastAuth";
   private boolean mIsNewObject;
-  private View mSearch;
 
   enum Mode
   {
@@ -49,7 +48,6 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mSearch = mToolbarController.findViewById(R.id.frame);
     mToolbarController.findViewById(R.id.save).setOnClickListener(this);
     mToolbarController.getToolbar().setNavigationOnClickListener(new View.OnClickListener()
     {
@@ -112,7 +110,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   protected void editMapObject()
   {
     mMode = Mode.MAP_OBJECT;
-    UiUtils.hide(mSearch);
+    ((SearchToolbarController) mToolbarController).showControls(false);
     mToolbarController.setTitle(getTitle());
     final Fragment editorFragment = Fragment.instantiate(getActivity(), EditorFragment.class.getName());
     getChildFragmentManager().beginTransaction()
@@ -150,7 +148,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     temporaryStoreEdits();
     mMode = Mode.CUISINE;
     mToolbarController.setTitle("");
-    UiUtils.show(mSearch);
+    ((SearchToolbarController) mToolbarController).showControls(true);
     final Fragment cuisineFragment = Fragment.instantiate(getActivity(), CuisineFragment.class.getName());
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, cuisineFragment, CuisineFragment.class.getName())

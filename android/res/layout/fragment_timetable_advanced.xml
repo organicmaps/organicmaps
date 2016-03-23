@@ -16,7 +16,7 @@
     <android.support.v7.widget.CardView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      card_view:cardBackgroundColor="?ppBackground"
+      card_view:cardBackgroundColor="?cardBackground"
       card_view:cardCornerRadius="2dp"
       card_view:cardElevation="4dp">
 
@@ -39,7 +39,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_half"
-      card_view:cardBackgroundColor="?ppBackground"
+      card_view:cardBackgroundColor="?cardBackground"
       card_view:cardCornerRadius="2dp"
       card_view:cardElevation="4dp">
 

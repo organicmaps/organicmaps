@@ -323,9 +323,10 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeSetSelectedCuisines(JNIEnv * env, jclass clazz, jobjectArray jKeys)
 {
   int const length = env->GetArrayLength(jKeys);
-  vector<string> cuisines(length);
+  vector<string> cuisines;
+  cuisines.reserve(length);
   for (int i = 0; i < length; i++)
-    cuisines[i] = jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(jKeys, i));
+    cuisines.push_back(jni::ToNativeString(env, (jstring) env->GetObjectArrayElement(jKeys, i)));
   g_editableMapObject.SetCuisines(cuisines);
 }
 
