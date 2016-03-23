@@ -122,9 +122,19 @@ public final class Editor
   }
   public static native void nativeCreateMapObject(int categoryId);
 
+  /**
+   * @return all cuisines keys.
+   */
   public static native String[] nativeGetCuisines();
+
+  /**
+   * @return selected cuisines keys.
+   */
   public static native String[] nativeGetSelectedCuisines();
-  public static native String[] nativeGetCuisinesTranslations();
-  public static native void nativeSetSelectedCuisines(String [] cuisines);
+  public static native String[] nativeTranslateCuisines(String[] keys);
+  public static native void nativeSetSelectedCuisines(String [] keys);
+  /**
+   * @return properly formatted and appended cuisines string to display in UI.
+   */
   public static native String nativeGetFormattedCuisine();
 }

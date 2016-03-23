@@ -8,6 +8,7 @@
   android:orientation="horizontal"
   android:baselineAligned="false"
   android:gravity="center_vertical">
+
   <EditText
     android:id="@+id/query"
     style="@style/MwmTextAppearance.Toolbar.Search"
@@ -28,6 +29,7 @@
     style="@style/Widget.AppCompat.ProgressBar"
     android:layout_width="@dimen/search_progress_size"
     android:layout_height="@dimen/search_progress_size"
+    android:layout_marginEnd="@dimen/margin_half"
     android:layout_marginRight="@dimen/margin_half"
     android:layout_weight="0"
     android:background="@null"

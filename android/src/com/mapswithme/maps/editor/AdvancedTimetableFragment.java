@@ -1,6 +1,7 @@
 package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.editor.data.Timetable;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 
 public class AdvancedTimetableFragment extends BaseMwmFragment
@@ -51,7 +53,9 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
     view.findViewById(R.id.examples).setOnClickListener(this);
     mInput = (EditText) view.findViewById(R.id.et__timetable);
     mExample = (TextView) view.findViewById(R.id.tv__examples);
+    // TODO set text of example from html stored in data/
     mExamplesTitle = (TextView) view.findViewById(R.id.tv__examples_title);
+    setExampleDrawables(R.drawable.ic_type_text, R.drawable.ic_expand_more);
   }
 
   private void showExample(boolean show)
@@ -60,13 +64,19 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
     if (mIsExampleShown)
     {
       UiUtils.show(mExample);
-      mExamplesTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_type_text, 0, R.drawable.ic_expand_less, 0);
+      setExampleDrawables(R.drawable.ic_type_text, R.drawable.ic_expand_less);
     }
     else
     {
       UiUtils.hide(mExample);
-      mExamplesTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_type_text, 0, R.drawable.ic_expand_more, 0);
+      setExampleDrawables(R.drawable.ic_type_text, R.drawable.ic_expand_more);
     }
+  }
+
+  private void setExampleDrawables(@DrawableRes int left, @DrawableRes int right)
+  {
+    mExamplesTitle.setCompoundDrawablesWithIntrinsicBounds(Graphics.tint(getActivity(), left, R.attr.colorAccent), null,
+                                                           Graphics.tint(getActivity(), right, R.attr.colorAccent), null);
   }
 
   @Override

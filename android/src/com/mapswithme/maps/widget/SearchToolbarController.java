@@ -84,7 +84,7 @@ public class SearchToolbarController extends ToolbarController
 
   private void updateButtons(boolean queryEmpty)
   {
-    UiUtils.showIf(queryEmpty && mVoiceInputSupported, mVoiceInput);
+    UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
     UiUtils.showIf(!queryEmpty, mClear);
   }
 
@@ -105,6 +105,14 @@ public class SearchToolbarController extends ToolbarController
   protected void startVoiceRecognition(Intent intent, int code)
   {
     throw new RuntimeException("To be used startVoiceRecognition() must be implemented by descendant class");
+  }
+
+  /**
+   * Return true to display & activate voice search. Turned OFF by default.
+   */
+  protected boolean supportsVoiceSearch()
+  {
+    return false;
   }
 
   private void onVoiceInputClick()

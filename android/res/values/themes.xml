@@ -101,7 +101,7 @@
   <style name="MwmTheme.Editor"/>
 
   <style name="MwmTheme.Editor.EditText">
-    <item name="android:colorControlNormal" tools:ignore="NewApi">@color/divider</item>
-    <item name="colorControlNormal">@color/divider</item>
+    <item name="android:colorControlNormal" tools:ignore="NewApi">?dividerHorizontal</item>
+    <item name="colorControlNormal">?dividerHorizontal</item>
   </style>
 </resources>

@@ -25,7 +25,7 @@
   <color name="divider_night">#1EFFFFFF</color>
 
   <!-- Backgrounds -->
-  <color name="bg_window">#FFF5F5F5</color>
+  <color name="bg_window">#FFEEEEEE</color>
   <color name="bg_window_night">#FF32363A</color>
   <color name="bg_primary">#FF1F9952</color>
   <color name="bg_primary_night">#FF1E2226</color>

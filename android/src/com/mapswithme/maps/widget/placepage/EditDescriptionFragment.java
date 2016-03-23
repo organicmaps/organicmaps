@@ -56,10 +56,10 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
     mBookmark = getArguments().getParcelable(EXTRA_BOOKMARK);
     String description = mBookmark.getBookmarkDescription();
 
-    if (StringUtils.isHtml(description))
+    if (StringUtils.nativeIsHtml(description))
     {
       final String descriptionNoSimpleTags = StringUtils.removeEditTextHtmlTags(description);
-      if (!StringUtils.isHtml(descriptionNoSimpleTags))
+      if (!StringUtils.nativeIsHtml(descriptionNoSimpleTags))
         description = Html.fromHtml(description).toString();
     }
 

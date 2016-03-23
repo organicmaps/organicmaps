@@ -11,9 +11,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.StringUtils;
 
 public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHolder>
 {
@@ -21,13 +24,11 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
   {
     String cuisineTranslated;
     String cuisineKey;
-    boolean selected;
 
-    public Item(String key, String translation, boolean selected)
+    public Item(String key, String translation)
     {
       this.cuisineKey = key;
       this.cuisineTranslated = translation;
-      this.selected = selected;
     }
 
     @Override
@@ -37,17 +38,41 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
     }
   }
 
-  private List<Item> mItems;
+  private List<Item> mItems = new ArrayList<>();
+  private Set<String> mSelectedKeys = new HashSet<>();
+  private String mFilter;
 
-  public CuisineAdapter(@NonNull String[] selectedCuisines, @NonNull String[] cuisines, @NonNull String[] translations)
+  public CuisineAdapter()
   {
-    mItems = new ArrayList<>(cuisines.length);
-    Arrays.sort(selectedCuisines);
-    for (int i = 0; i < cuisines.length; i++)
+    final String[] keys = Editor.nativeGetCuisines();
+    final String[] selectedKeys = Editor.nativeGetSelectedCuisines();
+    final String[] translations = Editor.nativeTranslateCuisines(keys);
+
+    Arrays.sort(selectedKeys);
+    for (int i = 0; i < keys.length; i++)
     {
-      final String key = cuisines[i];
-      mItems.add(new Item(key, translations[i], Arrays.binarySearch(selectedCuisines, key) >= 0));
+      final String key = keys[i];
+      mItems.add(new Item(key, translations[i]));
+
+      if (Arrays.binarySearch(selectedKeys, key) >= 0)
+        mSelectedKeys.add(key);
     }
+  }
+
+  public void setFilter(@NonNull String filter)
+  {
+    if (filter.equals(mFilter))
+      return;
+    mFilter = filter;
+
+    final String[] filteredKeys = StringUtils.nativeFilterContainsNormalized(Editor.nativeGetCuisines(), filter);
+    final String[] filteredValues = Editor.nativeTranslateCuisines(filteredKeys);
+
+    mItems.clear();
+    for (int i = 0; i < filteredKeys.length; i++)
+      mItems.add(new Item(filteredKeys[i], filteredValues[i]));
+
+    notifyDataSetChanged();
   }
 
   @Override
@@ -70,14 +95,7 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
 
   public String[] getCuisines()
   {
-    final List<String> selectedList = new ArrayList<>();
-    for (Item item : mItems)
-    {
-      if (item.selected)
-        selectedList.add(item.cuisineKey);
-    }
-
-    return selectedList.toArray(new String[selectedList.size()]);
+    return mSelectedKeys.toArray(new String[mSelectedKeys.size()]);
   }
 
   protected class ViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener
@@ -106,15 +124,18 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
       final String text = mItems.get(position).cuisineTranslated;
       cuisine.setText(text);
       selected.setOnCheckedChangeListener(null);
-      selected.setChecked(mItems.get(position).selected);
+      selected.setChecked(mSelectedKeys.contains(mItems.get(position).cuisineKey));
       selected.setOnCheckedChangeListener(this);
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
     {
-      Item item = mItems.get(getAdapterPosition());
-      item.selected = isChecked;
+      final String key = mItems.get(getAdapterPosition()).cuisineKey;
+      if (isChecked)
+        mSelectedKeys.add(key);
+      else
+        mSelectedKeys.remove(key);
     }
   }
 }
