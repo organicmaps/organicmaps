@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3492DA0E1CA2D9BF00C1F3B3 /* animation_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */; };
+		3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */; };
 		56BF56DA1C7608C0006DD7CB /* choose_position_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */; };
 		56BF56DB1C7608C0006DD7CB /* choose_position_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */; };
 		56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D545641C74A44900E3719C /* overlay_batcher.cpp */; };
@@ -183,6 +185,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_utils.cpp; sourceTree = "<group>"; };
+		3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_utils.hpp; sourceTree = "<group>"; };
 		56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = choose_position_mark.cpp; sourceTree = "<group>"; };
 		56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = choose_position_mark.hpp; sourceTree = "<group>"; };
 		56D545641C74A44900E3719C /* overlay_batcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = overlay_batcher.cpp; sourceTree = "<group>"; };
@@ -392,6 +396,8 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				3492DA0C1CA2D9BF00C1F3B3 /* animation_utils.cpp */,
+				3492DA0D1CA2D9BF00C1F3B3 /* animation_utils.hpp */,
 				56D545641C74A44900E3719C /* overlay_batcher.cpp */,
 				56D545651C74A44900E3719C /* overlay_batcher.hpp */,
 				670E39361C46C59000E9C0A6 /* batch_merge_helper.cpp */,
@@ -651,6 +657,7 @@
 				6709487D1BDF9C7F005014C0 /* point.h in Headers */,
 				6709479A1BDF9BE1005014C0 /* map_shape.hpp in Headers */,
 				670948731BDF9C7F005014C0 /* frame_image.hpp in Headers */,
+				3492DA0F1CA2D9BF00C1F3B3 /* animation_utils.hpp in Headers */,
 				670947FB1BDF9BF5005014C0 /* backend_renderer.hpp in Headers */,
 				670947DF1BDF9BE1005014C0 /* visual_params.hpp in Headers */,
 				670948171BDF9C39005014C0 /* interpolation_holder.hpp in Headers */,
@@ -772,6 +779,7 @@
 				670947CE1BDF9BE1005014C0 /* tile_key.cpp in Sources */,
 				670947AB1BDF9BE1005014C0 /* path_text_shape.cpp in Sources */,
 				670947F61BDF9BF5005014C0 /* apply_feature_functors.cpp in Sources */,
+				3492DA0E1CA2D9BF00C1F3B3 /* animation_utils.cpp in Sources */,
 				670947D81BDF9BE1005014C0 /* user_mark_shapes.cpp in Sources */,
 				670947A51BDF9BE1005014C0 /* my_position.cpp in Sources */,
 				670947BB1BDF9BE1005014C0 /* route_shape.cpp in Sources */,

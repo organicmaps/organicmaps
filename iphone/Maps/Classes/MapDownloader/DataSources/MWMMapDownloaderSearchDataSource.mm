@@ -7,6 +7,7 @@ using namespace storage;
 extern NSString * const kCountryCellIdentifier;
 extern NSString * const kSubplaceCellIdentifier;
 extern NSString * const kPlaceCellIdentifier;
+extern NSString * const kLargeCountryCellIdentifier;
 
 @interface MWMMapDownloaderSearchDataSource ()
 
@@ -66,8 +67,13 @@ extern NSString * const kPlaceCellIdentifier;
 - (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
 {
   auto const & s = GetFramework().Storage();
-  NodeAttrs nodeAttrs;
   NSString * countryId = [self countryIdForIndexPath:indexPath];
+  TCountriesVec children;
+  s.GetChildren(countryId.UTF8String, children);
+  BOOL const haveChildren = !children.empty();
+  if (haveChildren)
+    return kLargeCountryCellIdentifier;
+  NodeAttrs nodeAttrs;
   s.GetNodeAttrs(countryId.UTF8String, nodeAttrs);
   NSString * nodeLocalName = @(nodeAttrs.m_nodeLocalName.c_str());
   NSString * matchedResult = [self searchMatchedResultForCountryId:countryId];
