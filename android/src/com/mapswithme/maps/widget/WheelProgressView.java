@@ -2,21 +2,26 @@ package com.mapswithme.maps.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PointF;
+import android.graphics.Point;
 import android.graphics.RectF;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.View;
+import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Graphics;
+import com.mapswithme.util.ThemeUtils;
 
 /**
  * Draws progress wheel, consisting of circle with background and 'stop' button in the center of the circle.
  */
-public class WheelProgressView extends View
+public class WheelProgressView extends ImageView
 {
   private static final int DEFAULT_THICKNESS = 4;
 
@@ -25,12 +30,13 @@ public class WheelProgressView extends View
   private Paint mFgPaint;
   private Paint mBgPaint;
   private int mStrokeWidth;
-  private Paint mRectPaint; // paint for rectangle(stop button)
-  private RectF mProgressRect; // main rect for progress wheel
-  private RectF mCenterRect; // rect for stop button
-  private PointF mCenter; // center of rect
+  private final RectF mProgressRect = new RectF(); // main rect for progress wheel
+  private final RectF mCenterRect = new RectF(); // rect for stop button
+  private final Point mCenter = new Point(); // center of rect
   private boolean mIsInit;
+  private boolean mIsPending;
   private Drawable mCenterDrawable;
+  private AnimationDrawable mPendingDrawable;
 
   public WheelProgressView(Context context)
   {
@@ -57,7 +63,11 @@ public class WheelProgressView extends View
     final int progressColor = typedArray.getColor(R.styleable.WheelProgressView_wheelProgressColor, Color.WHITE);
     final int secondaryColor = typedArray.getColor(R.styleable.WheelProgressView_wheelSecondaryColor, Color.GRAY);
     mCenterDrawable = typedArray.getDrawable(R.styleable.WheelProgressView_centerDrawable);
+    if (mCenterDrawable == null)
+      mCenterDrawable = Graphics.tint(getContext(), R.drawable.ic_close_spinner);
     typedArray.recycle();
+
+    mPendingDrawable = (AnimationDrawable) getResources().getDrawable(ThemeUtils.getResource(getContext(), R.attr.wheelPendingAnimation));
 
     mBgPaint = new Paint();
     mBgPaint.setColor(secondaryColor);
@@ -70,12 +80,6 @@ public class WheelProgressView extends View
     mFgPaint.setStrokeWidth(mStrokeWidth);
     mFgPaint.setStyle(Paint.Style.STROKE);
     mFgPaint.setAntiAlias(true);
-
-    mRectPaint = new Paint();
-    mRectPaint.setColor(progressColor);
-    mRectPaint.setStrokeWidth(mStrokeWidth);
-    mRectPaint.setStyle(Paint.Style.FILL);
-    mRectPaint.setAntiAlias(true);
   }
 
   public void setProgress(int progress)
@@ -89,18 +93,6 @@ public class WheelProgressView extends View
     return mProgress;
   }
 
-  public void setProgressColor(int color)
-  {
-    mFgPaint.setColor(color);
-    invalidate();
-  }
-
-  public void setCenterDrawable(Drawable drawable)
-  {
-    mCenterDrawable = drawable;
-    invalidate();
-  }
-
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
@@ -112,9 +104,18 @@ public class WheelProgressView extends View
     final int height = bottom - top;
 
     mRadius = (Math.min(width, height) - mStrokeWidth) / 2;
-    mCenter = new PointF(left + width / 2, top + height / 2);
-    mProgressRect = new RectF(mCenter.x - mRadius, mCenter.y - mRadius, mCenter.x + mRadius, mCenter.y + mRadius);
-    mCenterRect = new RectF(mCenter.x - width / 6, mCenter.y - height / 6, mCenter.x + width / 6, mCenter.y + height / 6);
+    mCenter.set(left + width / 2, top + height / 2);
+    mProgressRect.set(mCenter.x - mRadius, mCenter.y - mRadius, mCenter.x + mRadius, mCenter.y + mRadius);
+    if (mCenterDrawable instanceof BitmapDrawable)
+    {
+      Bitmap bmp = ((BitmapDrawable)mCenterDrawable).getBitmap();
+      int halfw = bmp.getWidth() / 2;
+      int halfh = bmp.getHeight() / 2;
+      mCenterDrawable.setBounds(mCenter.x - halfw, mCenter.y - halfh, mCenter.x + halfw, mCenter.y + halfh);
+    }
+    else
+      mCenterRect.set(mProgressRect);
+
     mIsInit = true;
   }
 
@@ -123,16 +124,32 @@ public class WheelProgressView extends View
   {
     if (mIsInit)
     {
-      canvas.drawCircle(mCenter.x, mCenter.y, mRadius, mBgPaint);
-      canvas.drawArc(mProgressRect, -90, 360 * mProgress / 100, false, mFgPaint);
-      if (mCenterDrawable == null)
-        canvas.drawRoundRect(mCenterRect, 3, 3, mRectPaint);
-      else
+      super.onDraw(canvas);
+
+      if (!mIsPending)
       {
-        mCenterDrawable.setBounds((int) mCenterRect.left, (int) mCenterRect.top, (int) mCenterRect.right, (int) mCenterRect.bottom);
-        mCenterDrawable.draw(canvas);
+        canvas.drawCircle(mCenter.x, mCenter.y, mRadius, mBgPaint);
+        canvas.drawArc(mProgressRect, -90, 360 * mProgress / 100, false, mFgPaint);
       }
+
+      mCenterDrawable.draw(canvas);
     }
-    super.onDraw(canvas);
+  }
+
+  public void setPending(boolean pending)
+  {
+    mIsPending = pending;
+    if (mIsPending)
+    {
+      mPendingDrawable.start();
+      setImageDrawable(mPendingDrawable);
+    }
+    else
+    {
+      setImageDrawable(null);
+      mPendingDrawable.stop();
+    }
+
+    invalidate();
   }
 }

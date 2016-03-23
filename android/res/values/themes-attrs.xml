@@ -43,7 +43,15 @@
     <attr name="menuBackgroundOpen" format="color"/>
 
     <attr name="myPositionButtonAnimation" format="reference"/>
+    <attr name="wheelPendingAnimation" format="reference"/>
 
     <attr name="downloaderTheme" format="reference"/>
+  </declare-styleable>
+
+  <declare-styleable name="ThemeAttrs.Downloader">
+    <attr name="status_done" format="reference"/>
+    <attr name="status_downloadable" format="reference"/>
+    <attr name="status_failed" format="reference"/>
+    <attr name="status_updatable" format="reference"/>
   </declare-styleable>
 </resources>
