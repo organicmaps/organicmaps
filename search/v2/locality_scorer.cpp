@@ -99,8 +99,8 @@ void LocalityScorer::SortByName(vector<ExLocality> & ls) const
     auto score = NAME_SCORE_ZERO;
     for (auto const & name : names)
     {
-      score = max(score,
-                  GetNameScore(name, m_params, l.m_locality.m_startToken, l.m_locality.m_endToken));
+      score = max(score, GetNameScore(name, v2::TokensSlice(m_params, l.m_locality.m_startToken,
+                                                            l.m_locality.m_endToken)));
     }
     l.m_nameScore = score;
   }

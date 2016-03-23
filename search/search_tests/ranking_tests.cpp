@@ -32,7 +32,7 @@ NameScore GetScore(string const & name, string const & query, size_t startToken,
     params.m_prefixTokens.swap(params.m_tokens.back());
     params.m_tokens.pop_back();
   }
-  return GetNameScore(name, params, startToken, endToken);
+  return GetNameScore(name, TokensSlice(params, startToken, endToken));
 }
 
 UNIT_TEST(NameTest_Smoke)

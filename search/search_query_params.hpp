@@ -16,6 +16,8 @@ struct SearchQueryParams
 
   vector<TSynonymsVector> m_tokens;
   TSynonymsVector m_prefixTokens;
+  vector<bool> m_isCategorySynonym;
+
   TLangsSet m_langs;
   int m_scale;
 
