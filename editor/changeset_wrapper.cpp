@@ -28,7 +28,7 @@ m2::RectD GetBoundingRect(vector<m2::PointD> const & geometry)
   return rect;
 }
 
-bool OsmFeatrueHasTags(pugi::xml_node const & osmFt)
+bool OsmFeatureHasTags(pugi::xml_node const & osmFt)
 {
   return osmFt.child("tag");
 }
@@ -102,7 +102,7 @@ XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & ce
             ("OSM does not have any nodes at the coordinates", ll, ", server has returned:", doc));
   }
 
-  if (!OsmFeatrueHasTags(bestNode))
+  if (!OsmFeatureHasTags(bestNode))
   {
     stringstream sstr;
     bestNode.print(sstr);
@@ -148,7 +148,7 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> co
               ("Got relation as the best matching"));
     }
 
-    if (!OsmFeatrueHasTags(bestWayOrRelation))
+    if (!OsmFeatureHasTags(bestWayOrRelation))
     {
       stringstream sstr;
       bestWayOrRelation.print(sstr);
