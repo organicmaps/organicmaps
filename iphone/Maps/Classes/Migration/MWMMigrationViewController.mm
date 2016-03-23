@@ -111,6 +111,7 @@ using namespace storage;
   auto const retryBlock = ^
   {
     GetFramework().Storage().GetPrefetchStorage()->RetryDownloadNode(self->m_countryId);
+    [self setState:MWMMigrationViewState::Processing];
   };
   auto const cancelBlock = ^
   {
