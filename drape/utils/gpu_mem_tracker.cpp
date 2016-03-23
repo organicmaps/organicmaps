@@ -49,7 +49,7 @@ string GPUMemTracker::Report()
 
   ss << " ===== Mem Report ===== \n";
 
-  return move(ss.str());
+  return ss.str();
 }
 
 void GPUMemTracker::AddAllocated(string const & tag, uint32_t id, uint32_t size)
