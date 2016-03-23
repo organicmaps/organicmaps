@@ -187,6 +187,18 @@ NSString * fontName(FontWeight weight, CGFloat size)
   return [UIFont fontWithName:fontName(FontWeightLight, size) size:size];
 }
 
++ (UIFont *)bold12
+{
+  CGFloat const size = 12;
+  return [UIFont fontWithName:fontName(FontWeightBold, size) size:size];
+}
+
++ (UIFont *)bold14
+{
+  CGFloat const size = 14;
+  return [UIFont fontWithName:fontName(FontWeightBold, size) size:size];
+}
+
 + (UIFont *)bold16
 {
   CGFloat const size = 16;

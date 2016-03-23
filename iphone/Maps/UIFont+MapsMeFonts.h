@@ -24,6 +24,8 @@
 + (UIFont *)light12;
 + (UIFont *)light16;
 + (UIFont *)light17;
++ (UIFont *)bold12;
++ (UIFont *)bold14;
 + (UIFont *)bold16;
 + (UIFont *)bold17;
 + (UIFont *)bold48;
