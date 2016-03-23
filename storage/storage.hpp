@@ -117,7 +117,7 @@ private:
   /// We support only one simultaneous request at the moment
   unique_ptr<MapFilesDownloader> m_downloader;
 
-  /// stores timestamp for update checks
+  /// Stores timestamp for update checks
   int64_t m_currentVersion;
 
   TCountryTree m_countries;
@@ -306,7 +306,7 @@ public:
   /// and will be added to |queuedChildren|.
   void GetQueuedChildren(TCountryId const & parent, TCountriesVec & queuedChildren) const;
 
-  /// \brief Returns current version for mwms which are available on the server.
+  /// \brief Returns current version for mwms which are used by storage.
   inline int64_t GetCurrentDataVersion() const { return m_currentVersion; }
 
   /// \brief Returns true if the node with countryId has been downloaded and false othewise.
