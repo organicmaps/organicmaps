@@ -7,7 +7,7 @@
 {
   [super mwm_refreshUI];
   [self setBackgroundImage:[UIImage imageWithColor:[UIColor linkBlue]] forState:UIControlStateNormal];
-  [self setBackgroundImage:[UIImage imageWithColor:[UIColor linkBlueDark]] forState:UIControlStateHighlighted];
+  [self setBackgroundImage:[UIImage imageWithColor:[UIColor linkBlueHighlighted]] forState:UIControlStateHighlighted];
 }
 
 @end

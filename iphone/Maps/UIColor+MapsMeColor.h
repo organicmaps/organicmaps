@@ -10,6 +10,7 @@
 + (UIColor *)red;
 + (UIColor *)orange;
 + (UIColor *)linkBlue;
++ (UIColor *)linkBlueHighlighted;
 + (UIColor *)linkBlueDark;
 + (UIColor *)blackPrimaryText;
 + (UIColor *)blackSecondaryText;

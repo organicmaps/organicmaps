@@ -51,7 +51,7 @@
   self.streetLabel.hidden = YES;
   self.restoreState = MWMBottomMenuStateInactive;
   [self.goButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
-  [self.goButton setBackgroundColor:[UIColor linkBlueDark] forState:UIControlStateHighlighted];
+  [self.goButton setBackgroundColor:[UIColor linkBlueHighlighted] forState:UIControlStateHighlighted];
 }
 
 - (void)layoutSubviews

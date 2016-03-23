@@ -103,7 +103,7 @@ CGFloat const kButtonsLooseSpacing = 60.0;
 
       [self.selectAnotherMapButton setTitleColor:[UIColor white] forState:UIControlStateNormal];
       [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlue] forState:UIControlStateNormal];
-      [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlueDark] forState:UIControlStateHighlighted];
+      [self.selectAnotherMapButton setBackgroundColor:[UIColor linkBlueHighlighted] forState:UIControlStateHighlighted];
       self.betweenButtonsSpace.constant = kButtonsLooseSpacing;
       break;
   }

@@ -65,7 +65,7 @@ namespace
     switch (self.coloring)
     {
       case MWMButtonColoringBlue:
-        self.tintColor = [UIColor linkBlueDark];
+        self.tintColor = [UIColor linkBlueHighlighted];
         break;
       case MWMButtonColoringBlack:
         self.tintColor = [UIColor blackHintText];
