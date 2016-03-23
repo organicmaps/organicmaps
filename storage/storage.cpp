@@ -308,6 +308,14 @@ bool Storage::IsCoutryIdCountryTreeLeaf(TCountryId const & countryId) const
   return node != nullptr && node->ChildrenCount() == 0 /* countryId is a leaf. */;
 }
 
+bool Storage::IsCoutryIdCountryTreeInnerNode(TCountryId const & countryId) const
+{
+  if (!IsCountryIdValid(countryId))
+    return false;
+  TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
+  return node != nullptr && node->ChildrenCount() != 0 /* countryId is a inner node. */;
+}
+
 TLocalAndRemoteSize Storage::CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const
 {
   QueuedCountry const * queuedCountry = FindCountryInQueue(countryId);

@@ -1073,12 +1073,9 @@ bool Framework::Search(search::SearchParams const & params)
 
 bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
 {
-  // @TODO(bykoianko) It's necessary to implement searching in Storage
-  // for group and leaf mwms based on country tree.
+  static const int8_t kEngIndex = StringUtf8Multilang::GetLangIndex("en");
 
-  // Searching based on World.mwm.
   search::SearchParams searchParam;
-
   searchParam.m_query = params.m_query;
   searchParam.m_inputLocale = params.m_inputLocale;
   searchParam.SetMode(search::Mode::World);
@@ -1091,6 +1088,39 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
     {
       if (!it->HasPoint())
         continue;
+
+      if (it->GetResultType() != search::Result::RESULT_LATLON)
+      {
+        FeatureID const & fid = it->GetFeatureID();
+        Index::FeaturesLoaderGuard loader(m_model.GetIndex(), fid.m_mwmId);
+        FeatureType ft;
+        loader.GetFeatureByIndex(fid.m_index, ft);
+        ftypes::Type const type = ftypes::IsLocalityChecker::Instance().GetType(ft);
+
+        if (type == ftypes::COUNTRY || type == ftypes::STATE)
+        {
+          auto pushIfFound = [&](int8_t index)
+          {
+            string name;
+            if (!ft.GetName(index, name))
+              return false;
+
+            if (Storage().IsCoutryIdCountryTreeInnerNode(name))
+            {
+              downloaderSearchResults.m_results.emplace_back(name, it->GetString() /* m_matchedName */);
+              return true;
+            }
+            return false;
+          };
+
+          if (pushIfFound(kEngIndex) || pushIfFound(FeatureType::DEFAULT_LANG)
+              || pushIfFound(StringUtf8Multilang::kInternationalCode))
+          {
+            continue;
+          }
+        }
+      }
+
       auto const & mercator = it->GetFeatureCenter();
       TCountryId const & countryId = CountryInfoGetter().GetRegionCountryId(mercator);
       if (countryId == kInvalidCountryId)
