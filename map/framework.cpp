@@ -1071,10 +1071,24 @@ bool Framework::Search(search::SearchParams const & params)
   return true;
 }
 
+bool Framework::GetGroupCountryIdFromFeature(FeatureType const & ft, string & name) const
+{
+  static const vector<int8_t> langIndices =
+      { StringUtf8Multilang::GetLangIndex("en"), FeatureType::DEFAULT_LANG,
+        StringUtf8Multilang::kInternationalCode };
+
+  for (auto const langIndex : langIndices)
+  {
+    if (!ft.GetName(langIndex, name))
+      continue;
+    if (Storage().IsCoutryIdCountryTreeInnerNode(name))
+      return true;
+  }
+  return false;
+}
+
 bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
 {
-  static const int8_t kEngIndex = StringUtf8Multilang::GetLangIndex("en");
-
   search::SearchParams searchParam;
   searchParam.m_query = params.m_query;
   searchParam.m_inputLocale = params.m_inputLocale;
@@ -1099,23 +1113,10 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
 
         if (type == ftypes::COUNTRY || type == ftypes::STATE)
         {
-          auto pushIfFound = [&](int8_t index)
+          string groupFeatureName;
+          if (GetGroupCountryIdFromFeature(ft, groupFeatureName))
           {
-            string name;
-            if (!ft.GetName(index, name))
-              return false;
-
-            if (Storage().IsCoutryIdCountryTreeInnerNode(name))
-            {
-              downloaderSearchResults.m_results.emplace_back(name, it->GetString() /* m_matchedName */);
-              return true;
-            }
-            return false;
-          };
-
-          if (pushIfFound(kEngIndex) || pushIfFound(FeatureType::DEFAULT_LANG)
-              || pushIfFound(StringUtf8Multilang::kInternationalCode))
-          {
+            downloaderSearchResults.m_results.emplace_back(groupFeatureName, it->GetString() /* m_matchedName */);
             continue;
           }
         }
