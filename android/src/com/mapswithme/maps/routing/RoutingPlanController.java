@@ -204,10 +204,10 @@ public class RoutingPlanController extends ToolbarController
     UiUtils.visibleIf(vehicle, mProgressVehicle);
     UiUtils.visibleIf(!vehicle, mProgressPedestrian);
 
-    if (vehicle)
-      mProgressVehicle.setProgress(progress);
-    else
-      mProgressPedestrian.setProgress(progress);
+    WheelProgressView view = (vehicle ? mProgressVehicle : mProgressPedestrian);
+    view.setPending(progress == 0);
+    if (progress != 0)
+      view.setProgress(progress);
   }
 
   private void toggleSlots()

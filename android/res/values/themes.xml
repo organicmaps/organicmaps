@@ -104,4 +104,15 @@
     <item name="android:colorControlNormal" tools:ignore="NewApi">?dividerHorizontal</item>
     <item name="colorControlNormal">?dividerHorizontal</item>
   </style>
+
+  <style name="MwmTheme.Downloader">
+    <item name="status_done">@drawable/downloader_done</item>
+    <item name="status_downloadable">@drawable/downloader_download</item>
+    <item name="status_failed">@drawable/downloader_failed</item>
+    <item name="status_updatable">@drawable/downloader_update</item>
+  </style>
+
+  <style name="MwmTheme.Downloader.Night">
+    <item name="status_downloadable">@drawable/downloader_download_night</item>
+  </style>
 </resources>

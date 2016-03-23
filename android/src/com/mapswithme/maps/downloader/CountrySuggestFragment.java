@@ -3,7 +3,6 @@ package com.mapswithme.maps.downloader;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -153,7 +152,6 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     Button selectMap = (Button)view.findViewById(R.id.btn__select_map);
     selectMap.setOnClickListener(this);
     mWpvDownloadProgress = (WheelProgressView) view.findViewById(R.id.wpv__download_progress);
-    mWpvDownloadProgress.setCenterDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_close));
     mWpvDownloadProgress.setOnClickListener(this);
     mTvCountry = (TextView) view.findViewById(R.id.tv__country_name);
     mTvActiveCountry = (TextView) view.findViewById(R.id.tv__active_country_name);

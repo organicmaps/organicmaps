@@ -34,7 +34,7 @@
       android:duplicateParentState="false"
       android:visibility="gone"
       tools:visibility="visible"
-      tools:src="@drawable/ic_downloader_download"/>
+      tools:src="@drawable/downloader_failed"/>
   </FrameLayout>
 
   <FrameLayout
