@@ -1073,9 +1073,9 @@ bool Framework::Search(search::SearchParams const & params)
 
 bool Framework::GetGroupCountryIdFromFeature(FeatureType const & ft, string & name) const
 {
-  static const vector<int8_t> langIndices =
-      { StringUtf8Multilang::GetLangIndex("en"), FeatureType::DEFAULT_LANG,
-        StringUtf8Multilang::kInternationalCode };
+  static const vector<int8_t> langIndices = {StringUtf8Multilang::GetLangIndex("en"),
+                                             FeatureType::DEFAULT_LANG,
+                                             StringUtf8Multilang::kInternationalCode};
 
   for (auto const langIndex : langIndices)
   {
@@ -1116,7 +1116,8 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
           string groupFeatureName;
           if (GetGroupCountryIdFromFeature(ft, groupFeatureName))
           {
-            downloaderSearchResults.m_results.emplace_back(groupFeatureName, it->GetString() /* m_matchedName */);
+            downloaderSearchResults.m_results.emplace_back(groupFeatureName,
+                                                           it->GetString() /* m_matchedName */);
             continue;
           }
         }
