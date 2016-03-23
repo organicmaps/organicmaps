@@ -1007,27 +1007,23 @@ UNIT_TEST(StorageTest_GetChildren)
   TEST_EQUAL(algeriaList.front(), "Algeria_Central", ());
 }
 
-/*
 UNIT_TEST(StorageTest_GetAffiliations)
 {
   Storage storage(kSingleMwmCountriesTxt, make_unique<TestMapFilesDownloader>());
 
-  string const abkhaziaId = "Abkhazia";
-  vector<string> const expectedAffiliations1 = {"Georgia", "Russia", "Europe"};
-  TEST_EQUAL(expectedAffiliations1, storage.GetAffiliations().at(abkhaziaId), ());
-
-  TEST(storage.GetAffiliations().at("Algeria").empty(), ());
+  vector<string> const abkhaziaId = {"Abkhazia"};
+  for (auto const & s : {"Georgia", "Russia", "Europe"})
+    TEST_EQUAL(storage.GetAffiliations().at(s), abkhaziaId, ());
 
   // Affiliation inheritance.
-  string const disputableId = "Disputable Territory";
-  vector<string> const expectedAffiliations2 = {"Stepchild Land1", "Stepchild Land2"};
-  TEST_EQUAL(expectedAffiliations2, storage.GetAffiliations().at(disputableId), ());
+  vector<string> const disputableId = {"Disputable Territory"};
+  for (auto const & s : {"Stepchild Land1", "Stepchild Land2"})
+    TEST_EQUAL(storage.GetAffiliations().at(s), disputableId, ());
 
-  string const indisputableId = "Indisputable Territory Of Country1";
-  vector<string> const expectedAffiliations3 = {"Child Land1"};
-  TEST_EQUAL(expectedAffiliations3, storage.GetAffiliations().at(indisputableId), ());
+  vector<string> const indisputableId = {"Indisputable Territory Of Country1"};
+  for (auto const & s : {"Child Land1"})
+    TEST_EQUAL(storage.GetAffiliations().at(s), indisputableId, ());
 }
-*/
 
 UNIT_TEST(StorageTest_HasCountryId)
 {

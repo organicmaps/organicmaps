@@ -13,7 +13,6 @@
 #include "coding/read_write_utils.hpp"
 
 #include "base/logging.hpp"
-#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
@@ -118,25 +117,16 @@ m2::RectD CountryInfoGetter::GetLimitRectForLeaf(TCountryId const & leafCountryI
   return m_countries[it->second].m_rect;
 }
 
-namespace
-{
-
-bool IsInCountrySet(string const & id, vector<TCountryId> const & ids)
-{
-  return binary_search(ids.begin(), ids.end(), id);
-}
-
-}
-
 void CountryInfoGetter::GetMatchedRegions(string const & affiliation, IdSet & regions) const
 {
-  auto it = m_affMap->find(affiliation);
-  if (it == m_affMap->end())
+  CHECK(m_affiliations, ());
+  auto it = m_affiliations->find(affiliation);
+  if (it == m_affiliations->end())
     return;
 
   for (size_t i = 0; i < m_countries.size(); ++i)
   {
-    if (IsInCountrySet(m_countries[i].m_name, it->second))
+    if (binary_search(it->second.begin(), it->second.end(), m_countries[i].m_name))
       regions.push_back(i);
   }
 }
@@ -161,11 +151,9 @@ bool CountryInfoGetter::IsBelongToRegions(string const & fileName, IdSet const &
   return false;
 }
 
-void CountryInfoGetter::InitAffiliationsInfo(TMappingAffiliations * affMap)
+void CountryInfoGetter::InitAffiliationsInfo(TMappingAffiliations const * affiliations)
 {
-  for (auto & v : *affMap)
-    my::SortUnique(v.second);
-  m_affMap = affMap;
+  m_affiliations = affiliations;
 }
 
 CountryInfoGetter::IdType CountryInfoGetter::FindFirstCountry(m2::PointD const & pt) const

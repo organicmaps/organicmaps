@@ -710,7 +710,7 @@ void Geocoder::FillLocalitiesTable()
     FeatureType ft;
     m_context->GetFeature(l.m_featureId, ft);
 
-    auto addMWMFn = [&](size_t & count, size_t maxCount, RegionType type)
+    auto addRegionMaps = [&](size_t & count, size_t maxCount, RegionType type)
     {
       if (count < maxCount && ft.GetFeatureType() == feature::GEOM_POINT)
       {
@@ -723,7 +723,7 @@ void Geocoder::FillLocalitiesTable()
 
         m_infoGetter.GetMatchedRegions(region.m_enName, region.m_ids);
         if (region.m_ids.empty())
-          LOG(LWARNING, ("Empty MWM IDs set for", region.m_enName));
+          LOG(LWARNING, ("Maps not found for region", region.m_enName));
 
         ++count;
         m_regions[type][make_pair(l.m_startToken, l.m_endToken)].push_back(region);
@@ -756,12 +756,12 @@ void Geocoder::FillLocalitiesTable()
     }
     case SearchModel::SEARCH_TYPE_STATE:
     {
-      addMWMFn(numStates, kMaxNumStates, REGION_TYPE_STATE);
+      addRegionMaps(numStates, kMaxNumStates, REGION_TYPE_STATE);
       break;
     }
     case SearchModel::SEARCH_TYPE_COUNTRY:
     {
-      addMWMFn(numCountries, kMaxNumCountries, REGION_TYPE_COUNTRY);
+      addRegionMaps(numCountries, kMaxNumCountries, REGION_TYPE_COUNTRY);
       break;
     }
     default:

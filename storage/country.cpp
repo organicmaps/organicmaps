@@ -4,6 +4,7 @@
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "3party/jansson/myjansson.hpp"
 
@@ -41,6 +42,11 @@ public:
   StoreCountriesSingleMwms(TCountryTree & countries, TMappingAffiliations & affiliations)
     : m_countries(countries), m_affiliations(affiliations)
   {
+  }
+  ~StoreCountriesSingleMwms()
+  {
+    for (auto & entry : m_affiliations)
+      my::SortUnique(entry.second);
   }
 
   // StoreSingleMwmInterface overrides:

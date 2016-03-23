@@ -6,6 +6,7 @@ namespace search
 {
 namespace v2
 {
+// static
 size_t const LocalityScorer::kDefaultReadLimit = 100;
 
 namespace

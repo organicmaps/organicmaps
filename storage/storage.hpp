@@ -358,7 +358,7 @@ public:
   /// \return true if updateInfo is filled correctly and false otherwise.
   bool GetUpdateInfo(TCountryId const & countryId, UpdateInfo & updateInfo) const;
 
-  TMappingAffiliations & GetAffiliations() { return m_affiliations; }
+  TMappingAffiliations const & GetAffiliations() const { return m_affiliations; }
 
   /// \brief Calls |toDo| for each node for subtree with |root|.
   /// For example ForEachInSubtree(GetRootId()) calls |toDo| for every node including
