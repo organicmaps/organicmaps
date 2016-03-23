@@ -1,3 +1,4 @@
+#import "NSString+Categories.h"
 #import "ToastView.h"
 #import "UIColor+MapsMeColor.h"
 

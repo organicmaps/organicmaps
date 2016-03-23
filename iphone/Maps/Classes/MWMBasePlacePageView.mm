@@ -9,6 +9,7 @@
 #import "MWMPlacePageInfoCell.h"
 #import "MWMPlacePageOpeningHoursCell.h"
 #import "MWMPlacePageViewManager.h"
+#import "NSString+Categories.h"
 #import "Statistics.h"
 #import "UIColor+MapsMeColor.h"
 
@@ -81,25 +82,6 @@ CGFloat placePageWidth()
 {
   CGSize const size = UIScreen.mainScreen.bounds.size;
   return IPAD ? kMaximumWidth : (size.width > size.height ? MIN(kMaximumWidth, size.height) : size.width);
-}
-
-vector<NSRange> separatorsLocationInString(NSString * str)
-{
-  vector<NSRange> r;
-  if (str.length == 0)
-    return r;
-
-  NSRange searchRange = {0, str.length};
-  while (searchRange.location < str.length)
-  {
-    searchRange.length = str.length - searchRange.location;
-    NSRange const foundRange = [str rangeOfString:@(place_page::Info::kSubtitleSeparator) options:NSCaseInsensitiveSearch range:searchRange];
-    if (foundRange.location == NSNotFound)
-      break;
-    searchRange.location = foundRange.location + foundRange.length;
-    r.push_back(foundRange);
-  }
-  return r;
 }
 
 enum class AttributePosition
@@ -183,7 +165,7 @@ enum class AttributePosition
   else
   {
     self.titleLabel.text = entity.title;
-    auto const ranges = separatorsLocationInString(entity.category);
+    auto const ranges = [entity.category rangesOfString:@(place_page::Info::kSubtitleSeparator)];
     if (!ranges.empty())
     {
       NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:entity.category];

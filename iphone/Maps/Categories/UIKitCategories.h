@@ -72,14 +72,6 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @end
 
-
-@interface NSString (Size)
-
-- (CGSize)sizeWithDrawSize:(CGSize)size font:(UIFont *)font;
-
-@end
-
-
 @interface SolidTouchView : UIView
 
 @end
