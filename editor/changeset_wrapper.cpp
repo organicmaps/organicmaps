@@ -9,6 +9,7 @@
 #include "base/macros.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/random.hpp"
 #include "std/sstream.hpp"
 
 #include "private.h"
@@ -31,6 +32,31 @@ m2::RectD GetBoundingRect(vector<m2::PointD> const & geometry)
 bool OsmFeatureHasTags(pugi::xml_node const & osmFt)
 {
   return osmFt.child("tag");
+}
+
+vector<m2::PointD> NaiveSample(vector<m2::PointD> const & source, size_t count)
+{
+  count = min(count, source.size());
+  vector<m2::PointD> result;
+  result.reserve(count);
+  vector<size_t> indexes;
+  indexes.reserve(count);
+
+  mt19937 engine;
+  uniform_int_distribution<> distrib(0, source.size());
+
+  while (count--)
+  {
+    size_t index;
+    do
+    {
+      index = distrib(engine);
+    } while (find(begin(indexes), end(indexes), index) != end(indexes));
+    result.push_back(source[index]);
+    indexes.push_back(index);
+  }
+
+  return result;
 }
 }  // namespace
 
@@ -115,9 +141,10 @@ XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & ce
 
 XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> const & geometry)
 {
-  // TODO: Make two/four requests using points on inscribed rectagle.
+  auto const kSamplePointsCount = 3;
   bool hasRelation = false;
-  for (auto const & pt : geometry)
+  // Try several points in case of poor osm response.
+  for (auto const & pt : NaiveSample(geometry, kSamplePointsCount))
   {
     ms::LatLon const ll = MercatorBounds::ToLatLon(pt);
     pugi::xml_document doc;
