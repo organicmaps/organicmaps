@@ -113,6 +113,10 @@ def transform_data(data):
     grouped = data.groupby(data['SampleId'], sort=False).groups
 
     xs, ys = [], []
+
+    # k is used to create a balanced samples set for better linear
+    # separation.
+    k = 1
     for id in grouped:
         indices = grouped[id]
         features = data.ix[indices][FEATURES]
@@ -123,10 +127,16 @@ def transform_data(data):
             y = np.sign(relevances[j] - relevances[i])
             if y == 0:
                 continue
-            x = (np.array(features.iloc[j]) - np.array(features.iloc[i]))
+
+            x = np.array(features.iloc[j]) - np.array(features.iloc[i])
+            if y != k:
+                x = np.negative(x)
+                y = -y
+
             xs.append(x)
             ys.append(y)
-            total = total + 1
+            total += 1
+            k = -k
 
         # Scales this group of features to equalize different search
         # queries.
