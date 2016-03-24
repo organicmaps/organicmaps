@@ -227,7 +227,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeHasSomethingToUpload(JNIEnv * env, jclass clazz)
 {
-  return Editor::Instance().HaveSomethingToUpload();
+  return Editor::Instance().HaveMapEditsOrNotesToUpload();
 }
 
 JNIEXPORT void JNICALL

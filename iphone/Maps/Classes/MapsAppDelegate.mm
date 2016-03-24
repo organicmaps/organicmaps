@@ -493,7 +493,7 @@ using namespace osm_auth_ios;
     [Alohalytics forceUpload:callback];
   });
   // 2. Upload map edits (if any).
-  if (osm::Editor::Instance().HaveSomethingToUpload() && AuthorizationHaveCredentials())
+  if (osm::Editor::Instance().HaveMapEditsOrNotesToUpload() && AuthorizationHaveCredentials())
   {
     runFetchTask(^
     {
@@ -534,7 +534,7 @@ using namespace osm_auth_ios;
     }];
   }
   // Upload map edits if any, but only if we have Internet connection and user has already been authorized.
-  if (osm::Editor::Instance().HaveSomethingToUpload() &&
+  if (osm::Editor::Instance().HaveMapEditsOrNotesToUpload() &&
       AuthorizationHaveCredentials() &&
       Platform::EConnectionType::CONNECTION_NONE != Platform::ConnectionStatus())
   {

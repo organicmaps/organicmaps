@@ -507,10 +507,8 @@ EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder co
   return {};
 }
 
-bool Editor::HaveSomethingToUpload() const
+bool Editor::HaveMapEditsToUpload() const
 {
-  if (m_notes->NotUploadedNotesCount() != 0)
-    return true;
   for (auto const & id : m_features)
   {
     for (auto const & index : id.second)
@@ -522,7 +520,15 @@ bool Editor::HaveSomethingToUpload() const
   return false;
 }
 
-bool Editor::HaveSomethingToUpload(MwmSet::MwmId const & mwmId) const
+bool Editor::HaveMapEditsOrNotesToUpload() const
+{
+  if (m_notes->NotUploadedNotesCount() != 0)
+    return true;
+
+  return HaveMapEditsToUpload();
+}
+
+bool Editor::HaveMapEditsToUpload(MwmSet::MwmId const & mwmId) const
 {
   auto const found = m_features.find(mwmId);
   if (found != m_features.end())
@@ -542,7 +548,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
   if (m_notes->NotUploadedNotesCount())
     UploadNotes(key, secret);
 
-  if (!HaveSomethingToUpload())
+  if (!HaveMapEditsToUpload())
   {
     LOG(LDEBUG, ("There are no local edits to upload."));
     return;

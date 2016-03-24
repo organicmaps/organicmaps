@@ -102,8 +102,9 @@ public:
 
   EditableProperties GetEditableProperties(FeatureType const & feature) const;
 
-  bool HaveSomethingToUpload() const;
-  bool HaveSomethingToUpload(MwmSet::MwmId const & mwmId) const;
+  bool HaveMapEditsOrNotesToUpload() const;
+  bool HaveMapEditsToUpload(MwmSet::MwmId const & mwmId) const;
+  bool HaveMapEditsToUpload() const;
   using TChangesetTags = map<string, string>;
   /// Tries to upload all local changes to OSM server in a separate thread.
   /// @param[in] tags should provide additional information about client to use in changeset.
