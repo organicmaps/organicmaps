@@ -1272,6 +1272,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingMwmCounter, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
   TEST(!nodeAttrs.m_present, ());
 
   storage.GetNodeAttrs("Algeria", nodeAttrs);
@@ -1284,6 +1286,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
   TEST(!nodeAttrs.m_present, ());
 
@@ -1298,6 +1302,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingMwmCounter, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
   TEST(!nodeAttrs.m_present, ());
 
   storage.GetNodeAttrs("South Korea_South", nodeAttrs);
@@ -1310,6 +1316,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
   TEST(!nodeAttrs.m_present, ());
 
@@ -1325,6 +1333,8 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.first, 0, ());
   TEST_EQUAL(nodeAttrs.m_downloadingProgress.second, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmCounter, 0, ());
+  TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
+  TEST_EQUAL(nodeAttrs.m_downloadingMwmCounter, 0, ());
   TEST_EQUAL(nodeAttrs.m_localMwmSize, 0, ());
   TEST(!nodeAttrs.m_present, ());
 }
