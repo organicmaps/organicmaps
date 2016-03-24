@@ -59,6 +59,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     initViews(view);
 
     // TODO(yunikkk): Add multilanguages support.
+    UiUtils.hide(mTvLocalizedNames);
     mEtName.setText(Editor.nativeGetDefaultName());
     mTvStreet.setText(Editor.nativeGetStreet());
     mEtHouseNumber.setText(Editor.nativeGetHouseNumber());
@@ -76,10 +77,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   public void onSaveInstanceState(Bundle outState)
   {
     super.onSaveInstanceState(outState);
-    saveEdits();
+    setEdits();
   }
 
-  protected void saveEdits()
+  protected void setEdits()
   {
     Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, getPhone());
     Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, getWebsite());
@@ -206,6 +207,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mAddressBlock = view.findViewById(R.id.cv__address);
     mMetadataBlock = view.findViewById(R.id.cv__metadata);
     mEtName = findInput(view.findViewById(R.id.name));
+    mTvLocalizedNames = (TextView) view.findViewById(R.id.name_multilang);
     view.findViewById(R.id.block_street).setOnClickListener(this);
     mTvStreet = (TextView) view.findViewById(R.id.street);
     mEtHouseNumber = findInput(view.findViewById(R.id.building));

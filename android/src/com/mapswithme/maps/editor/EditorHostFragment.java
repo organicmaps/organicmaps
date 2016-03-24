@@ -113,7 +113,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editTimetable()
   {
-    saveEdits();
+    setEdits();
     mMode = Mode.OPENING_HOURS;
     mToolbarController.setTitle(R.string.editor_time_title);
     final Bundle args = new Bundle();
@@ -126,7 +126,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editStreet()
   {
-    saveEdits();
+    setEdits();
     mMode = Mode.STREET;
     mToolbarController.setTitle(R.string.choose_street);
     final Fragment streetFragment = Fragment.instantiate(getActivity(), StreetFragment.class.getName());
@@ -137,7 +137,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   protected void editCuisine()
   {
-    saveEdits();
+    setEdits();
     mMode = Mode.CUISINE;
     mToolbarController.setTitle("");
     ((SearchToolbarController) mToolbarController).showControls(true);
@@ -147,9 +147,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
                              .commit();
   }
 
-  private void saveEdits()
+  private void setEdits()
   {
-    ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).saveEdits();
+    ((EditorFragment) getChildFragmentManager().findFragmentByTag(EditorFragment.class.getName())).setEdits();
   }
 
   @Override
@@ -173,7 +173,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         editMapObject();
         break;
       case MAP_OBJECT:
-        saveEdits();
+        setEdits();
         if (Editor.nativeSaveEditedFeature())
         {
           Statistics.INSTANCE.trackEditorSuccess();
