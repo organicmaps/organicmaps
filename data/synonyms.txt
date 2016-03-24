@@ -1,6 +1,6 @@
 United Kingdom: UK
 
-United States of America: US, USA
+United States of America: US, USA, США
 Alabama: AL
 Alaska: AK
 Arizona: AZ

@@ -322,6 +322,16 @@ void CountryInfoGetterForTesting::AddCountry(CountryDef const & country)
   m_id2info[name].m_name = name;
 }
 
+void CountryInfoGetterForTesting::GetMatchedRegions(string const & affiliation,
+                                                    IdSet & regions) const
+{
+  for (size_t i = 0; i < m_countries.size(); ++i)
+  {
+    if (m_countries[i].m_name == affiliation)
+      regions.push_back(i);
+  }
+}
+
 void CountryInfoGetterForTesting::ClearCachesImpl() const {}
 
 bool CountryInfoGetterForTesting::IsBelongToRegionImpl(size_t id,

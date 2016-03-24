@@ -416,10 +416,10 @@ void Geocoder::SetParams(Params const & params)
   if (m_params.m_tokens.size() > 1)
   {
     for (auto & v : m_params.m_tokens)
-      v.erase(remove_if(v.begin(), v.end(), &IsStopWord), v.end());
+      my::EraseIf(v, &IsStopWord);
 
     auto & v = m_params.m_tokens;
-    v.erase(remove_if(v.begin(), v.end(), mem_fn(&Params::TSynonymsVector::empty)), v.end());
+    my::EraseIf(v, mem_fn(&Params::TSynonymsVector::empty));
 
     // If all tokens are stop words - give up.
     if (m_params.m_tokens.empty())
@@ -488,10 +488,10 @@ void Geocoder::GoInViewport(TResultList & results)
   vector<shared_ptr<MwmInfo>> infos;
   m_index.GetMwmsInfo(infos);
 
-  infos.erase(remove_if(infos.begin(), infos.end(), [this](shared_ptr<MwmInfo> const & info)
+  my::EraseIf(infos, [this](shared_ptr<MwmInfo> const & info)
   {
     return !m_params.m_pivot.IsIntersect(info->m_limitRect);
-  }), infos.end());
+  });
 
   GoImpl(infos, true /* inViewport */);
 }
@@ -998,7 +998,7 @@ void Geocoder::GreedilyMatchStreets()
     for (; curToken < m_numTokens && !m_usedTokens[curToken]; ++curToken)
     {
       auto const & token = m_params.GetTokens(curToken).front();
-      if (IsStreetSynonym(token))
+      if (IsStreetSynonymPrefix(token))
         continue;
 
       if (feature::IsHouseNumber(token))
@@ -1129,7 +1129,7 @@ void Geocoder::MatchPOIsAndBuildings(size_t curToken)
         return !features->GetBit(featureId);
       };
       for (auto & cluster : clusters)
-        cluster.erase(remove_if(cluster.begin(), cluster.end(), noFeature), cluster.end());
+        my::EraseIf(cluster, noFeature);
     }
 
     for (size_t i = 0; i < ARRAY_SIZE(clusters); ++i)

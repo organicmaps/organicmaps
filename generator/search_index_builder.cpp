@@ -177,10 +177,12 @@ public:
     // the search phase this part of the query will be matched against the
     // "street" in the categories branch of the search index.
     // However, we still add it when there are two or more street tokens
-    // ("industrial st", "улица набережная").
+    // ("avenue st", "улица набережная").
+
+    size_t const tokensCount = tokens.size();
     size_t numStreetTokens = 0;
-    vector<bool> isStreet(tokens.size());
-    for (size_t i = 0; i < tokens.size(); ++i)
+    vector<bool> isStreet(tokensCount);
+    for (size_t i = 0; i < tokensCount; ++i)
     {
       if (search::IsStreetSynonym(tokens[i]))
       {
@@ -189,11 +191,11 @@ public:
       }
     }
 
-    for (size_t i = 0; i < tokens.size(); ++i)
+    for (size_t i = 0; i < tokensCount; ++i)
     {
       if (numStreetTokens == 1 && isStreet[i] && m_hasStreetType)
       {
-        LOG(LDEBUG, ("skipping token:", tokens[i], "in", name));
+        //LOG(LDEBUG, ("Skipping token:", tokens[i], "in", name));
         continue;
       }
       AddToken(lang, tokens[i]);
@@ -334,8 +336,7 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
 
       size_t streetIndex;
       bool streetMatched = false;
-      string street;
-      search::GetStreetNameAsKey(data.Get(feature::AddressData::STREET), street);
+      strings::UniString const street = search::GetStreetNameAsKey(data.Get(feature::AddressData::STREET));
       if (!street.empty())
       {
         FeatureType ft;

@@ -33,11 +33,6 @@ namespace storage
 {
 namespace
 {
-template <typename T>
-void RemoveIf(vector<T> & v, function<bool(T const & t)> const & p)
-{
-  v.erase(remove_if(v.begin(), v.end(), p), v.end());
-}
 
 uint64_t GetLocalSize(shared_ptr<LocalCountryFile> file, MapOptions opt)
 {

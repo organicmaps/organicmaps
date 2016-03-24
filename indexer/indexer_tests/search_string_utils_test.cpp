@@ -4,9 +4,20 @@
 
 #include "base/string_utils.hpp"
 
+using namespace search;
+using namespace strings;
+
+namespace
+{
+bool TestStreetPrefixMatch(char const * s)
+{
+  return IsStreetSynonymPrefix(MakeUniString(s));
+}
+} // namespace
+
 UNIT_TEST(FeatureTypeToString)
 {
-  TEST_EQUAL("!type:123", strings::ToUtf8(search::FeatureTypeToString(123)), ());
+  TEST_EQUAL("!type:123", ToUtf8(FeatureTypeToString(123)), ());
 }
 
 UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
@@ -37,18 +48,29 @@ UNIT_TEST(NormalizeAndSimplifyStringWithOurTambourines)
                        };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)
-    TEST_EQUAL(arr[i + 1], strings::ToUtf8(search::NormalizeAndSimplifyString(arr[i])), (i));
+    TEST_EQUAL(arr[i + 1], ToUtf8(NormalizeAndSimplifyString(arr[i])), (i));
 }
 
 UNIT_TEST(Contains)
 {
   constexpr char const * kTestStr = "ØøÆæŒœ Ўвага!";
-  TEST(search::ContainsNormalized(kTestStr, ""), ());
-  TEST(!search::ContainsNormalized("", "z"), ());
-  TEST(search::ContainsNormalized(kTestStr, "ooae"), ());
-  TEST(search::ContainsNormalized(kTestStr, " у"), ());
-  TEST(search::ContainsNormalized(kTestStr, "Ў"), ());
-  TEST(search::ContainsNormalized(kTestStr, "ўв"), ());
-  TEST(!search::ContainsNormalized(kTestStr, "ага! "), ());
-  TEST(!search::ContainsNormalized(kTestStr, "z"), ());
+  TEST(ContainsNormalized(kTestStr, ""), ());
+  TEST(!ContainsNormalized("", "z"), ());
+  TEST(ContainsNormalized(kTestStr, "ooae"), ());
+  TEST(ContainsNormalized(kTestStr, " у"), ());
+  TEST(ContainsNormalized(kTestStr, "Ў"), ());
+  TEST(ContainsNormalized(kTestStr, "ўв"), ());
+  TEST(!ContainsNormalized(kTestStr, "ага! "), ());
+  TEST(!ContainsNormalized(kTestStr, "z"), ());
+}
+
+UNIT_TEST(StreetPrefixMatch)
+{
+  TEST(TestStreetPrefixMatch("п"), ());
+  TEST(TestStreetPrefixMatch("пр"), ());
+  TEST(TestStreetPrefixMatch("про"), ());
+  TEST(TestStreetPrefixMatch("прое"), ());
+  TEST(TestStreetPrefixMatch("проез"), ());
+  TEST(TestStreetPrefixMatch("проезд"), ());
+  TEST(!TestStreetPrefixMatch("проездд"), ());
 }

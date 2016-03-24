@@ -19,8 +19,7 @@ void TestAddress(ReverseGeocoder & coder, ms::LatLon const & ll,
   ReverseGeocoder::Address addr;
   coder.GetNearbyAddress(MercatorBounds::FromLatLon(ll), addr);
 
-  string key;
-  GetStreetNameAsKey(addr.m_street.m_name, key);
+  string const key = strings::ToUtf8(GetStreetNameAsKey(addr.m_street.m_name));
 
   TEST_EQUAL(stName, key, (addr));
   TEST_EQUAL(hNumber, addr.m_building.m_name, (addr));

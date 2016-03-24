@@ -26,7 +26,8 @@ class SearchQueryV2Test : public SearchTest
 
 UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
 {
-  TestCountry wonderlandCountry(m2::PointD(10, 10), "Wonderland", "en");
+  string const countryName = "Wonderland";
+  TestCountry wonderlandCountry(m2::PointD(10, 10), countryName, "en");
 
   TestCity losAlamosCity(m2::PointD(10, 10), "Los Alamos", "en", 100 /* rank */);
   TestCity mskCity(m2::PointD(0, 0), "Moscow", "en", 100 /* rank */);
@@ -72,7 +73,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
              builder.Add(mskCity);
            });
   auto wonderlandId =
-      BuildMwm("wonderland", feature::DataHeader::country, [&](TestMwmBuilder & builder)
+      BuildMwm(countryName, feature::DataHeader::country, [&](TestMwmBuilder & builder)
                {
                  builder.Add(losAlamosCity);
                  builder.Add(mskCity);
@@ -99,7 +100,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
                  builder.Add(lantern2);
                });
 
-  RegisterCountry("wonderland", m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(10.1, 10.1)));
+  RegisterCountry(countryName, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(10.1, 10.1)));
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
 
@@ -169,7 +170,8 @@ UNIT_CLASS_TEST(SearchQueryV2Test, Smoke)
 
 UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
 {
-  TestCountry wonderland(m2::PointD(0, 0), "Wonderland", "en");
+  string const countryName = "Wonderland";
+  TestCountry wonderland(m2::PointD(0, 0), countryName, "en");
   TestCity losAlamos(m2::PointD(0, 0), "Los Alamos", "en", 100 /* rank */);
 
   auto testWorldId = BuildMwm("testWorld", feature::DataHeader::world, [&](TestMwmBuilder & builder)
@@ -178,7 +180,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
                                 builder.Add(losAlamos);
                               });
 
-  RegisterCountry("Wonderland", m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
+  RegisterCountry(countryName, m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(1.0, 1.0)));
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(-0.5, -0.5)));
   {
@@ -197,6 +199,7 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchInWorld)
 
 UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
 {
+  string const countryName = "Wonderland";
   TestCity london(m2::PointD(1, 1), "London", "en", 100 /* rank */);
   TestPark hydePark(vector<m2::PointD>{m2::PointD(0.5, 0.5), m2::PointD(1.5, 0.5),
                                        m2::PointD(1.5, 1.5), m2::PointD(0.5, 1.5)},
@@ -208,12 +211,12 @@ UNIT_CLASS_TEST(SearchQueryV2Test, SearchByName)
                             builder.Add(london);
                           });
   auto wonderlandId =
-      BuildMwm("wonderland", feature::DataHeader::country, [&](TestMwmBuilder & builder)
+      BuildMwm(countryName, feature::DataHeader::country, [&](TestMwmBuilder & builder)
                {
                  builder.Add(hydePark);
                  builder.Add(cafe);
                });
-  RegisterCountry("Wonderland", m2::RectD(m2::PointD(0, 0), m2::PointD(2, 2)));
+  RegisterCountry(countryName, m2::RectD(m2::PointD(0, 0), m2::PointD(2, 2)));
 
   SetViewport(m2::RectD(m2::PointD(-1.0, -1.0), m2::PointD(-0.9, -0.9)));
 
