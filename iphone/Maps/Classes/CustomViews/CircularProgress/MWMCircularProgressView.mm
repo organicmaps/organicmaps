@@ -150,12 +150,13 @@ static inline CGFloat angleWithProgress(CGFloat progress)
     self.spinner.hidden = NO;
     self.backgroundLayer.hidden = self.progressLayer.hidden = YES;
   }
-  NSUInteger const animationImagesCount = 18;
+  NSUInteger const animationImagesCount = 12;
   NSMutableArray * animationImages = [NSMutableArray arrayWithCapacity:animationImagesCount];
   NSString * postfix = ([UIColor isNightMode] && !self.isInvertColor) || (![UIColor isNightMode] && self.isInvertColor) ? @"dark" : @"light";
   for (NSUInteger i = 0; i < animationImagesCount; ++i)
     animationImages[i] = [UIImage imageNamed:[NSString stringWithFormat:@"Spinner_%@_%@", @(i+1), postfix]];
 
+  self.spinner.animationDuration = 0.8;
   self.spinner.animationImages = animationImages;
   [self.spinner startAnimating];
 }
