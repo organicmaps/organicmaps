@@ -145,7 +145,7 @@ using namespace osm;
         if (auth.IsAuthorized())
         {
           osm_auth_ios::AuthorizationStoreCredentials(auth.GetKeySecret());
-          [self dismissViewControllerAnimated:YES completion:nil];
+          [self.navigationController popToRootViewControllerAnimated:YES];
         }
         else
         {

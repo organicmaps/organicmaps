@@ -149,7 +149,7 @@ NSString * getVerifier(NSString * urlString)
       if (OsmOAuth::IsValid(ks))
       {
         osm_auth_ios::AuthorizationStoreCredentials(ks);
-        [self dismissViewControllerAnimated:NO completion:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
       }
       else
       {
