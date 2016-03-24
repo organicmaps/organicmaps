@@ -220,8 +220,10 @@ class FeatureBuilder2 : public FeatureBuilder1
 
   static void SerializeOffsets(uint32_t mask, TOffsets const & offsets, TBuffer & buffer);
 
-public:
+  /// For debugging
+  friend string DebugPrint(FeatureBuilder2 const & f);
 
+public:
   struct SupportingData
   {
     /// @name input
