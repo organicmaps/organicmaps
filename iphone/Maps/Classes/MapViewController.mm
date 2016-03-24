@@ -437,16 +437,13 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   if (!AuthorizationIsNeedCheck() || [ud objectForKey:kUDViralAlertWasShown] || !AuthorizationHaveCredentials())
     return;
 
-  if (osm::Editor::Instance().GetStats().m_edits.size() < 2)
+  if (osm::Editor::Instance().GetStats().m_edits.size() != 2)
     return;
 
   if (!Platform::IsConnected())
     return;
 
-  [self.alertController presentEditorViralAlertWithShareBlock:^
-  {
-
-  }];
+  [self.alertController presentEditorViralAlert];
 
   [ud setObject:[NSDate date] forKey:kUDViralAlertWasShown];
   [ud synchronize];

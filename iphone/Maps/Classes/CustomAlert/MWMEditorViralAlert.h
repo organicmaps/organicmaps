@@ -2,6 +2,6 @@
 
 @interface MWMEditorViralAlert : MWMAlert
 
-+ (nonnull instancetype)alertWithShareBlock:(nonnull TMWMVoidBlock)share;
++ (nonnull instancetype)alert;
 
 @end

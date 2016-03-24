@@ -151,9 +151,9 @@
   return [MWMDefaultAlert downloaderNeedUpdateAlertWithOkBlock:okBlock];
 }
 
-+ (MWMAlert *)editorViralAlertWithShareBlock:(TMWMVoidBlock)share
++ (MWMAlert *)editorViralAlert
 {
-  return [MWMEditorViralAlert alertWithShareBlock:share];
+  return [MWMEditorViralAlert alert];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
