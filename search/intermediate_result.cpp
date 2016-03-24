@@ -162,6 +162,7 @@ string FormatStreetAndHouse(ReverseGeocoder::Address const & addr)
   ASSERT_GREATER_OR_EQUAL(addr.GetDistance(), 0, ());
   return addr.GetStreetName() + ", " + addr.GetHouseNumber();
 }
+
 // TODO: Share common formatting code for search results and place page.
 string FormatFullAddress(ReverseGeocoder::Address const & addr, string const & region)
 {
@@ -178,19 +179,26 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
                                        set<uint32_t> const * pTypes, int8_t locale,
                                        ReverseGeocoder const & coder) const
 {
-  ReverseGeocoder::Address addr;
-  coder.GetNearbyAddress(GetCenter(), addr);
-
-  // Insert exact address (street and house number) instead of empty result name.
-  string name;
-  if (m_str.empty() && addr.GetDistance() == 0)
-    name = FormatStreetAndHouse(addr);
-  else
-    name = m_str;
+  string name = m_str;
+  if (name.empty())
+  {
+    // Insert exact address (street and house number) instead of empty result name.
+    ReverseGeocoder::Address addr;
+    coder.GetNearbyAddress(GetCenter(), addr);
+    if (addr.GetDistance() == 0)
+      name = FormatStreetAndHouse(addr);
+  }
 
   uint32_t const type = GetBestType(pTypes);
-  // TODO: GetRegionName should return City, State, Country instead of Country, State, City.
-  string const address = FormatFullAddress(addr, GetRegionName(infoGetter, type));
+
+  // Format full address only for suitable results.
+  string address = GetRegionName(infoGetter, type);
+  if (ftypes::IsAddressObjectChecker::Instance()(m_types))
+  {
+    ReverseGeocoder::Address addr;
+    coder.GetNearbyAddress(GetCenter(), addr);
+    address = FormatFullAddress(addr, address);
+  }
 
   switch (m_resultType)
   {
@@ -204,7 +212,7 @@ Result PreResult2::GenerateFinalResult(storage::CountryInfoGetter const & infoGe
 
   default:
     ASSERT_EQUAL(m_resultType, RESULT_LATLON, ());
-    return Result(GetCenter(), m_str, address);
+    return Result(GetCenter(), name, address);
   }
 }
 

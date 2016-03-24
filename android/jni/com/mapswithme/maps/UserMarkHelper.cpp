@@ -44,15 +44,17 @@ jobject CreateMapObject(JNIEnv * env, int mapObjectType, string const & title, s
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
   ms::LatLon const ll = info.GetLatLon();
-  search::AddressInfo const address = g_framework->NativeFramework()->GetAddressInfoAtPoint(info.GetMercator());
 
   // TODO(yunikkk): object can be POI + API + search result + bookmark simultaneously.
   // TODO(yunikkk): Should we pass localized strings here and in other methods as byte arrays?
   if (info.IsMyPosition())
-    return CreateMapObject(env, kMyPosition, "", "", ll.lat, ll.lon, address.FormatAddress(), {}, "");
+    return CreateMapObject(env, kMyPosition, "", "", ll.lat, ll.lon, info.GetAddress(), {}, "");
 
   if (info.HasApiUrl())
-    return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(), info.GetMetadata(), info.GetApiUrl());
+  {
+    return CreateMapObject(env, kApiPoint, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon,
+                           info.GetAddress(), info.GetMetadata(), info.GetApiUrl());
+  }
 
   if (info.IsBookmark())
   {
@@ -68,7 +70,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     return mapObject;
   }
 
-  return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, address.FormatAddress(),
+  return CreateMapObject(env, kPoi, info.GetTitle(), info.GetSubtitle(), ll.lat, ll.lon, info.GetAddress(),
                          info.IsFeature() ? info.GetMetadata() : Metadata(), "");
 }
 }  // namespace usermark_helper

@@ -32,8 +32,7 @@ public:
   /// TODO: Support all possible Internet types in UI. @See MapObject::GetInternet().
   bool HasWifi() const;
 
-  // TODO(AlexZ): Finish address refactoring.
-  //  AddressInfo GetAddress() const;
+  string GetAddress() const { return m_address; }
 
   /// Should be used by UI code to generate cool name for new bookmarks.
   // TODO: Tune new bookmark name. May be add address or some other data.
@@ -60,6 +59,9 @@ public:
   string m_apiId;
   /// [Deep] link to open when "Back" button is pressed in a Place Page.
   string m_apiUrl;
+  /// Formatted feature address.
+  string m_address;
+
   bool m_isMyPosition = false;
   bool m_isEditable = false;
 
