@@ -493,7 +493,6 @@ using namespace storage;
 
 #pragma mark - UILongPressGestureRecognizer
 
-
 - (IBAction)longPress:(UILongPressGestureRecognizer *)sender
 {
   if (sender.state != UIGestureRecognizerStateBegan)
