@@ -459,6 +459,7 @@ if [ "$MODE" == "resources" ]; then
   if [ -n "$OPT_WORLD" ]; then
     # Update external resources
     [ -z "$(ls "$TARGET" | grep '\.ttf')" ] && cp "$DATA_PATH"/*.ttf "$TARGET"
+    cp "$DATA_PATH/WorldCoasts_obsolete.mwm" "$TARGET"
     EXT_RES="$TARGET/external_resources.txt"
     echo -n > "$EXT_RES"
     UNAME="$(uname)"
