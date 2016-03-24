@@ -112,7 +112,6 @@ uint32_t ReadVersionDate(ModelReaderPtr const & reader)
 
 bool IsSingleMwm(int64_t version)
 {
-  #pragma message("Check this version and move if necessary before small mwm release.")
   int64_t constexpr kMinSingleMwmVersion = 160302;
   return version >= kMinSingleMwmVersion || version == 0 /* Version of mwm in the root directory. */;
 }
