@@ -214,6 +214,7 @@ public:
   //@}
 
   storage::Storage & Storage() { return m_storage; }
+  storage::Storage const & Storage() const { return m_storage; }
   storage::CountryInfoGetter & CountryInfoGetter() { return *m_infoGetter; }
 
   /// @name Bookmarks, Tracks and other UserMarks
@@ -389,6 +390,7 @@ private:
 
   void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
                                       pair<size_t, size_t> const & toRemove);
+  bool GetGroupCountryIdFromFeature(FeatureType const & ft, string & name) const;
 
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;
