@@ -135,6 +135,8 @@ using namespace osmoh;
 
 - (void)updateOpeningHours
 {
+  if (!self.isSimpleMode)
+    return;
   stringstream sstr;
   sstr << MakeOpeningHours(timeTableSet).GetRule();
   self.delegate.openingHours = @(sstr.str().c_str());
