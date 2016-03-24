@@ -29,9 +29,9 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
 
   private final SearchFragment mSearchFragment;
   private SearchResult[] mResults;
-  private Drawable mClosedMarkerBackground;
+  private final Drawable mClosedMarkerBackground;
 
-  protected static abstract class BaseViewHolder extends RecyclerView.ViewHolder
+  static abstract class BaseViewHolder extends RecyclerView.ViewHolder
   {
     SearchResult mResult;
     // Position within search results
@@ -221,7 +221,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     }
   }
 
-  public SearchAdapter(SearchFragment fragment)
+  SearchAdapter(SearchFragment fragment)
   {
     mSearchFragment = fragment;
     mClosedMarkerBackground = fragment.getResources().getDrawable(ThemeUtils.isNightTheme() ? R.drawable.search_closed_marker_night
@@ -320,7 +320,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.BaseViewHolder>
     refreshData(null);
   }
 
-  public void refreshData(SearchResult[] results)
+  void refreshData(SearchResult[] results)
   {
     mResults = results;
     notifyDataSetChanged();

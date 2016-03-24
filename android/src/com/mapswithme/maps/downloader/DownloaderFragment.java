@@ -68,7 +68,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
 
       if (isLast)
       {
-        mAdapter.setSearchResultsMode(mResults.values());
+        mAdapter.setSearchResultsMode(mResults.values(), mToolbarController.getQuery());
         mResults.clear();
 
         onSearchEnd();
