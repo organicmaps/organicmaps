@@ -53,12 +53,6 @@ string BuildPostRequest(map<string, string> const & params)
   return result;
 }
 
-// Trying to determine whether it's a login page.
-bool IsLoggedIn(string const & contents)
-{
-  return contents.find("<form id=\"login_form\"") == string::npos;
-}
-
 // TODO(AlexZ): DebugPrint doesn't detect this overload. Fix it.
 string DP(alohalytics::HTTPClientPlatformWrapper const & request)
 {
@@ -173,35 +167,50 @@ bool OsmOAuth::LoginUserPassword(string const & login, string const & password, 
     {"authenticity_token", sid.m_token}
   };
   HTTPClientPlatformWrapper request(m_baseUrl + "/login");
-  request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded");
-  request.set_cookies(sid.m_cookies);
+  request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded")
+         .set_cookies(sid.m_cookies)
+         .set_handle_redirects(false);
   if (!request.RunHTTPRequest())
     MYTHROW(NetworkError, ("LoginUserPassword Network error while connecting to", request.url_requested()));
-  if (request.error_code() != HTTP::OK)
+
+  // At the moment, automatic redirects handling is buggy on Androids < 4.4.
+  // set_handle_redirects(false) works only for Android code, iOS one (and curl) still automatically follow all redirects.
+  if (request.error_code() != HTTP::OK && request.error_code() != HTTP::Found)
     MYTHROW(LoginUserPasswordServerError, (DP(request)));
 
   // Not redirected page is a 100% signal that login and/or password are invalid.
   if (!request.was_redirected())
     return false;
-  // Parse redirected page contents to make sure that it's not some router in-between.
-  return IsLoggedIn(request.server_response());
+
+  // Check if we were redirected to some 3rd party site.
+  if (request.url_received().find(m_baseUrl) != 0)
+    MYTHROW(UnexpectedRedirect, (DP(request)));
+
+  // m_baseUrl + "/login" means login and/or password are invalid.
+  return request.server_response().find("/login") == string::npos;
 }
 
 bool OsmOAuth::LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const
 {
   string const url = m_baseUrl + callbackPart + socialToken;
   HTTPClientPlatformWrapper request(url);
-  request.set_cookies(sid.m_cookies);
+  request.set_cookies(sid.m_cookies)
+         .set_handle_redirects(false);
   if (!request.RunHTTPRequest())
     MYTHROW(NetworkError, ("LoginSocial Network error while connecting to", request.url_requested()));
-  if (request.error_code() != HTTP::OK)
+  if (request.error_code() != HTTP::OK && request.error_code() != HTTP::Found)
     MYTHROW(LoginSocialServerError, (DP(request)));
 
   // Not redirected page is a 100% signal that social login has failed.
   if (!request.was_redirected())
     return false;
-  // Parse redirected page contents to make sure that it's not some router in-between.
-  return IsLoggedIn(request.server_response());
+
+  // Check if we were redirected to some 3rd party site.
+  if (request.url_received().find(m_baseUrl) != 0)
+    MYTHROW(UnexpectedRedirect, (DP(request)));
+
+  // m_baseUrl + "/login" means login and/or password are invalid.
+  return request.server_response().find("/login") == string::npos;
 }
 
 // Fakes a buttons press to automatically accept requested permissions.
@@ -219,8 +228,9 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
     {"commit", "Save changes"}
   };
   HTTPClientPlatformWrapper request(m_baseUrl + "/oauth/authorize");
-  request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded");
-  request.set_cookies(sid.m_cookies);
+  request.set_body_data(BuildPostRequest(params), "application/x-www-form-urlencoded")
+         .set_cookies(sid.m_cookies)
+         .set_handle_redirects(false);
   if (!request.RunHTTPRequest())
     MYTHROW(NetworkError, ("SendAuthRequest Network error while connecting to", request.url_requested()));
 
