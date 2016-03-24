@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Ваш пристрій не підтримує геолокацію";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Показати країну на карті";
+"zoom_to_country" = "Показати на мапі";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\nдобавлено в чергу завантаження";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Завантажено";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Доступні";
 
 /* Country queued for download */
 "downloader_queued" = "в черзі";
@@ -766,7 +766,7 @@
 "routing_go" = "Поїхали!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Спробуйте знову";
+"downloader_retry" = "Повторити";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Мапа + Маршрути";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME готовий до роботи";
 
-"first_launch_congrats_text" = "Користуйтесь пошуком, навігацією по всьому світу без інтернету й безкоштовно.";
+"first_launch_congrats_text" = "Користуйтесь пошуком і навігацією по всьому світу без інтернету і безкоштовно.";
 
 "migrate_title" = "Важливо!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Змініть розташування";
 
 "message_invalid_feature_position" = "Об'єкт не може перебувати в цьому місцезнаходженні";
+
+"login_to_make_edits_visible" = "Увійдіть, щоб ваші зміни побачили інші користувачі.";
+
+"no_migration_during_navigation" = "Під час навігації оновлення заборонено.";
+
+"editor_sharing_title" = "Я покращив мапи MAPS.ME";
+
+"editor_comment_will_be_sent" = "Ми обов'язково відправимо ваш коментар картографам.";
+
+"editor_unsupported_category_message" = "Ви додали об'єкт, категорію якого ми поки що не підтримуємо. У майбутньому він з'явиться на мапі.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d з %2$d";

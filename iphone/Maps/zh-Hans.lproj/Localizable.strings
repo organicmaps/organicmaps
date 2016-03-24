@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "您的设备不支持位置服务。";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "放大至该国";
+"zoom_to_country" = "在地图上显示";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\n添加至下载序列";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "已下载";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "可用";
 
 /* Country queued for download */
 "downloader_queued" = "已排队";
@@ -766,7 +766,7 @@
 "routing_go" = "出发！";
 
 /* Item status in downloader. */
-"downloader_retry" = "重试";
+"downloader_retry" = "重复";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "地图 + 布置路线";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME已经可用";
 
-"first_launch_congrats_text" = "免费搜索和浏览世界各国的地图。";
+"first_launch_congrats_text" = "在世界各地离线搜索和导航，免费。";
 
 "migrate_title" = "重要！";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "改变位置";
 
 "message_invalid_feature_position" = "对象无法设置在这里";
+
+"login_to_make_edits_visible" = "登陆，让其他用户能看到您所作出的修改。";
+
+"no_migration_during_navigation" = "导航中禁止更新。";
+
+"editor_sharing_title" = "我改进了MAPS.ME地图";
+
+"editor_comment_will_be_sent" = "我们将把您的评论发送给地图制作者。";
+
+"editor_unsupported_category_message" = "您已添加了一个我们尚未支持类别的地点。它将在一段时间之后显示在地图上。";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d个/共%2$d个";

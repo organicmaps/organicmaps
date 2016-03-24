@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Vaše zařízení nepodporuje služby pro určování polohy";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Zobrazit na mapě";
+"zoom_to_country" = "Ukázat na mapě";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\npřidáno do fronty stahování";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Staženo";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Dostupné";
 
 /* Country queued for download */
 "downloader_queued" = "ve frontě";
@@ -766,7 +766,7 @@
 "routing_go" = "Jet!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Zkusit znovu";
+"downloader_retry" = "Opakovat";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Mapa + trasy";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME jsou připraveny k použití";
 
-"first_launch_congrats_text" = "Prohledávejte a navigujte mapy všech zemí na světě zdarma.";
+"first_launch_congrats_text" = "Prohledávejte a navigujte offline zdarma kdekoliv na světě.";
 
 "migrate_title" = "Důležité!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Změnit umístění";
 
 "message_invalid_feature_position" = "Objekt zde nemůže být umístěn";
+
+"login_to_make_edits_visible" = "Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.";
+
+"no_migration_during_navigation" = "Aktualizace jsou během navigování zakázány.";
+
+"editor_sharing_title" = "Vylepšil jsem mapy MAPS.ME";
+
+"editor_comment_will_be_sent" = "Váš komentář pošleme kartografům.";
+
+"editor_unsupported_category_message" = "Přidali jste místo kategorie, kterou zatím nepodporujeme. Na mapě se objeví za nějaký čas.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d z %2$d";

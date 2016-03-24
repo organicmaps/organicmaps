@@ -82,7 +82,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Ihr Gerät unterstützt keine Ortungsdienste</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Dieses Land auf der Karte anzeigen</string>
+	<string name="zoom_to_country">Auf der Karte anzeigen</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nwird zur Herunterladen-Warteschleife hinzugefügt</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -440,6 +440,8 @@
 	<string name="downloader_cancel_all">Alle abbrechen</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Heruntergeladen</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Verfügbar</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">in der Warteschlange</string>
 	<string name="downloader_near_me_subtitle">In meiner Nähe</string>
@@ -693,7 +695,7 @@
 	<string name="editor_report_problem_under_construction_title">Wegen Wartung geschlossen</string>
 	<string name="editor_report_problem_duplicate_place_title">Doppelter Ort</string>
 	<string name="first_launch_congrats_title">MAPS.ME kann verwendet werden</string>
-	<string name="first_launch_congrats_text">Suchen und navigieren Sie gratis auf den Karten aller Länder der Welt.</string>
+	<string name="first_launch_congrats_text">Suche und Navigation weltweit offline verfügbar, völlig kostenfrei.</string>
 	<string name="migrate_title">Wichtig!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Alle herunterladen</string>
@@ -810,4 +812,11 @@
 	<string name="onboarding_location_message">Um Navigation und andere Funktionen zu verwenden, brauchen wir Zugriff auf Ihren Geo-Standort.</string>
 	<string name="dialog_incorrect_feature_position">Standort wechseln</string>
 	<string name="message_invalid_feature_position">Ein Objekt kann nicht hier positioniert werden</string>
+	<string name="login_to_make_edits_visible">Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.</string>
+	<string name="no_migration_during_navigation">Aktualisieren ist während der Navigation verboten.</string>
+	<string name="editor_sharing_title">Ich habe die MAPS.ME-Karten verbessert</string>
+	<string name="editor_comment_will_be_sent">Wir werden Ihr Kommentar an die Kartografierer weiterleiten.</string>
+	<string name="editor_unsupported_category_message">Sie haben einen Ort in einer Kategorie hinzugefügt, die wir noch nicht unterstützten. Er wird zu einem späteren Zeitpunkt auf der Karte erscheinen.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d von %2$d</string>
 </resources>

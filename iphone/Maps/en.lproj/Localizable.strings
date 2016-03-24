@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Your device doesn't support Location Services";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Zoom to the country";
+"zoom_to_country" = "Show on the map";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\nis added to the downloading queue.";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME is ready to use";
 
-"first_launch_congrats_text" = "Search and navigate the maps of all countries in the world for free.";
+"first_launch_congrats_text" = "Search and navigate everywhere in the world offline, free of charge.";
 
 "migrate_title" = "Important!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Change location";
 
 "message_invalid_feature_position" = "An object can't be located here";
+
+"login_to_make_edits_visible" = "Log in so other users can see the changes you have made";
+
+"no_migration_during_navigation" = "Updating is not allowed during navigation.";
+
+"editor_sharing_title" = "I improved the MAPS.ME maps";
+
+"editor_comment_will_be_sent" = "We will make sure to send your comments to the map editors.";
+
+"editor_unsupported_category_message" = "You have added an object whose category we do not support yet. It will appear on the map in the future.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d of %2$d";

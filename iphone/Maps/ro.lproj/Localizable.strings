@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Dispozitivul dvs. nu acceptă servicii de localizare.";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Faceți zoom spre această țară";
+"zoom_to_country" = "Afișare pe hartă";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\neste adăugată la coada de descărcare.";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Descărcat";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Disponibil";
 
 /* Country queued for download */
 "downloader_queued" = "în lista de așteptare";
@@ -766,7 +766,7 @@
 "routing_go" = "Pornește!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Reîncercare";
+"downloader_retry" = "Repetare";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Hartă + trasee";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME este gata pentru utilizare";
 
-"first_launch_congrats_text" = "Căutați și navigați hărțile tuturor țărilor lumii pe gratis.";
+"first_launch_congrats_text" = "Căutați și navigați în regim offline oriunde în lume, în mod gratuit.";
 
 "migrate_title" = "Important!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Schimbare locație";
 
 "message_invalid_feature_position" = "În acest loc nu poate fi localizat un obiect";
+
+"login_to_make_edits_visible" = "Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.";
+
+"no_migration_during_navigation" = "În timpul navigării, actualizarea este interzisă.";
+
+"editor_sharing_title" = "Am îmbunătățit hărțile MAPS.ME";
+
+"editor_comment_will_be_sent" = "Vom trimite comentariul dumneavoastră cartografilor.";
+
+"editor_unsupported_category_message" = "Ați adăugat o locație pentru care nu avem încă o categorie creată. Aceasta va apărea pe hartă în viitorul apropiat.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d din %2$d";

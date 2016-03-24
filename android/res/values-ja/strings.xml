@@ -77,7 +77,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">ご使用中の端末は位置情報サービスをサポートしていません。</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">特定の地域へズーム</string>
+	<string name="zoom_to_country">地図に表示</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nをダウンロードキューに追加しました</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -417,6 +417,8 @@
 	<string name="downloader_cancel_all">すべてキャンセル</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">ダウンロード済み</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">利用可能</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
 	<string name="downloader_near_me_subtitle">付近</string>
@@ -462,7 +464,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">開始！</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">再試行</string>
+	<string name="downloader_retry">リピート</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">地図とルート</string>
 	<!-- Item in context menu. -->
@@ -670,7 +672,7 @@
 	<string name="editor_report_problem_under_construction_title">メンテナンスのため使えません</string>
 	<string name="editor_report_problem_duplicate_place_title">重複している場所</string>
 	<string name="first_launch_congrats_title">MAPS.MEを使用する準備が整いました</string>
-	<string name="first_launch_congrats_text">世界中のすべての国のマップを無料で検索しナビゲートします。</string>
+	<string name="first_launch_congrats_text">世界中どこでも無料で検索・ナビゲーションできます。</string>
 	<string name="migrate_title">重要！</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">全てをダウンロード</string>
@@ -787,4 +789,11 @@
 	<string name="onboarding_location_message">ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります</string>
 	<string name="dialog_incorrect_feature_position">位置を変更してください</string>
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
+	<string name="login_to_make_edits_visible">他のユーザーにも変更が表示されるようログインしてください。</string>
+	<string name="no_migration_during_navigation">ナビゲーション中は更新できません。</string>
+	<string name="editor_sharing_title">MAPS.MEの地図を改善しました</string>
+	<string name="editor_comment_will_be_sent">いただいたコメントを地図製作者に送ります。</string>
+	<string name="editor_unsupported_category_message">現在未対応のカテゴリーの場所を追加しました。地図には後程表示されるようになります。</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%2$d中%1$d</string>
 </resources>

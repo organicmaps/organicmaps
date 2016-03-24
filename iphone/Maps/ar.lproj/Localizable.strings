@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "جهازك لا يدعم خدمات تحديد المواقع.";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "تكبير الى الدولة";
+"zoom_to_country" = "عرض على الخريطة";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\nقد تم إضافته الى صف الانتظار لعملية التنزيل";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "تم تنزيلها";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "متاح";
 
 /* Country queued for download */
 "downloader_queued" = "مَصْفوف";
@@ -766,7 +766,7 @@
 "routing_go" = "انطلق!";
 
 /* Item status in downloader. */
-"downloader_retry" = "إعادة المحاولة";
+"downloader_retry" = "تكرار";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "الخريطة + تحديد المسار";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME جاهز للاستخدام";
 
-"first_launch_congrats_text" = "ابحث وتنقل في خرائط جميع دول العالم مجانا.";
+"first_launch_congrats_text" = "ابحث وتصفح كل مكان في العالم بدون اتصال, مجانا.";
 
 "migrate_title" = "هام!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "تغيير الموقع";
 
 "message_invalid_feature_position" = "لا يمكن تحديد موقع الكائن هنا";
+
+"login_to_make_edits_visible" = "قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.";
+
+"no_migration_during_navigation" = "التحديث ممنوع أثناء الملاحة.";
+
+"editor_sharing_title" = "لقد قمت بتحديث خرائط تطبيق MAPS.ME";
+
+"editor_comment_will_be_sent" = "سوف نرسل تعليقك إلى فريق رسم الخرائط.";
+
+"editor_unsupported_category_message" = "لقد قمت بإضافة مكان ينتمي لفئة غير متوفرة لدينا بعد. سوف تظهر على الخريطة لاحقا.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d من%2$d";

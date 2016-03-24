@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Su dispositivo no es compatible con los servicios de localización";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Ampliar la vista del país";
+"zoom_to_country" = "Mostrar en el mapa";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\nañadido a la cola de descarga";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Descargado";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Disponible";
 
 /* Country queued for download */
 "downloader_queued" = "En cola";
@@ -766,7 +766,7 @@
 "routing_go" = "¡Listo!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Reintentar";
+"downloader_retry" = "Repetir";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Mapa + itinerario";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME está listo para usar";
 
-"first_launch_congrats_text" = "Busca y navega gratis por los mapas de todos los países del mundo.";
+"first_launch_congrats_text" = "Busca y navega sin conexión por cualquier parte del mundo, sin cargos.";
 
 "migrate_title" = "¡Importante!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Cambiar ubicación";
 
 "message_invalid_feature_position" = "No se puede ubicar ningún objeto aquí";
+
+"login_to_make_edits_visible" = "Inicia sesión para que otros usuarios puedan ver los cambios que has efectuado.";
+
+"no_migration_during_navigation" = "No se permite la actualización durante la navegación.";
+
+"editor_sharing_title" = "He mejorado los mapas de MAPS.ME";
+
+"editor_comment_will_be_sent" = "Enviaremos tus comentarios a los cartógrafos.";
+
+"editor_unsupported_category_message" = "Has añadido un lugar de una categoría que no hemos incluido aún. Aparecerá en el mapa en unos momentos.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d de %2$d";

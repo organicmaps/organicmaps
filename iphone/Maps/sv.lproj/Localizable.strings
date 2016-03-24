@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Din enhet stöder inte platstjänster";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Zooma till landet";
+"zoom_to_country" = "Visa på kartan";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\när tillagd till nedladdningskön";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Nedladdade";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Tillgänglig";
 
 /* Country queued for download */
 "downloader_queued" = "Köade";
@@ -766,7 +766,7 @@
 "routing_go" = "Kör!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Försök igen";
+"downloader_retry" = "Repetera";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Karta + Navigering";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "Du kan nu använda MAPS.ME";
 
-"first_launch_congrats_text" = "Sök och navigera gratis på kartor över alla länder i hela världen.";
+"first_launch_congrats_text" = "Sök och navigera offline var som helst i världen, helt gratis.";
 
 "migrate_title" = "Viktigt!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Ändra placering";
 
 "message_invalid_feature_position" = "Ett objekt kan inte placeras här";
+
+"login_to_make_edits_visible" = "Logga in så att andra användare kan se de ändringar du gjort.";
+
+"no_migration_during_navigation" = "Att uppdatera är förbjudet under navigering.";
+
+"editor_sharing_title" = "Jag förbättrade kartorna hos MAPS.ME";
+
+"editor_comment_will_be_sent" = "Vi vidarebefordrar din kommentar till kartritarna.";
+
+"editor_unsupported_category_message" = "Du har lagt till en plats i en kategori vi ännu inte stödjer. Den kommer att finnas på kartan vid ett senare tillfälle.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d av %2$d";

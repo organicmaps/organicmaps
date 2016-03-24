@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Twoje urządzenie nie wspiera usług lokalizacji";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Przybliż na kraj";
+"zoom_to_country" = "Wyświetl na mapie";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\ndodano do kolejki pobierania";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Pobrane";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Dostępne";
 
 /* Country queued for download */
 "downloader_queued" = "w kolejce";
@@ -766,7 +766,7 @@
 "routing_go" = "Przejdź!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Spróbuj ponownie";
+"downloader_retry" = "Powtórz";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Mapa + trasy";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "Aplikacja MAPS.ME jest gotowa";
 
-"first_launch_congrats_text" = "Bezpłatnie wyszukuj mapy wszystkich krajów świata i nawiguj z ich użyciem.";
+"first_launch_congrats_text" = "Wyszukuj i nawiguj w każdym zakątku świata — offline i bezpłatnie.";
 
 "migrate_title" = "Ważne!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Zmień lokalizację";
 
 "message_invalid_feature_position" = "Obiekt nie może znajdować się tutaj";
+
+"login_to_make_edits_visible" = "Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.";
+
+"no_migration_during_navigation" = "Podczas nawigacji aktualizacja jest niemożliwa.";
+
+"editor_sharing_title" = "Dokonałem poprawek map na MAPS.ME";
+
+"editor_comment_will_be_sent" = "Prześlemy Twoje komentarze kartografom.";
+
+"editor_unsupported_category_message" = "Dodałeś miejsce w kategorii, której jeszcze nie obsługujemy. Pojawi się ono na mapie za jakiś czas.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d z %2$d";

@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "你的裝置不支援定位服務唷!";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "放大到全國檢視";
+"zoom_to_country" = "在地圖上顯示";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\n已加入到下載佇列中";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "已下載";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "可用";
 
 /* Country queued for download */
 "downloader_queued" = "已佇列";
@@ -766,7 +766,7 @@
 "routing_go" = "開始！";
 
 /* Item status in downloader. */
-"downloader_retry" = "重試";
+"downloader_retry" = "重復";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "地圖 + 布置路線";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME已做好使用準備";
 
-"first_launch_congrats_text" = "免費搜索和導航世界上所有國家的地圖。";
+"first_launch_congrats_text" = "在世界各地離線搜索和導航，免費。";
 
 "migrate_title" = "重要！";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "改變位置";
 
 "message_invalid_feature_position" = "對象無法設置在這裡";
+
+"login_to_make_edits_visible" = "登陸，讓其他用戶能看到您所作出的修改。";
+
+"no_migration_during_navigation" = "導航中禁止更新。";
+
+"editor_sharing_title" = "我改進了MAPS.ME地圖";
+
+"editor_comment_will_be_sent" = "我們將把您的評論發送給地圖制作者。";
+
+"editor_unsupported_category_message" = "您已添加了一個我們尚未支持類別的地點。它將在一段時間之後顯示在地圖上。";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d個/共%2$d個";

@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "O seu dispositivo não suporta os Serviços de Localização";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Zoom no país";
+"zoom_to_country" = "Mostrar no mapa";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\né adicionado à fila de descargas";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Descarregado";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Disponível";
 
 /* Country queued for download */
 "downloader_queued" = "Na fila";
@@ -766,7 +766,7 @@
 "routing_go" = "Avançar!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Tentar de novo";
+"downloader_retry" = "Repetir";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Mapa + Criação de Trajeto";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME está pronto para utilização";
 
-"first_launch_congrats_text" = "Pesquise e navegue nos mapas de todos os países do mundo gratuitamente.";
+"first_launch_congrats_text" = "Busque qualquer lugar do mundo e navegue offline, gratuitamente.";
 
 "migrate_title" = "Importante!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Mudar o local";
 
 "message_invalid_feature_position" = "Um objeto não pode ser localizado aqui";
+
+"login_to_make_edits_visible" = "Fazer Login para que outros usuários vejam as mudanças que você fez.";
+
+"no_migration_during_navigation" = "Atualização não é permitida durante a navegação.";
+
+"editor_sharing_title" = "Melhorei os mapas do MAPS.ME";
+
+"editor_comment_will_be_sent" = "Encaminharemos o seu comentário aos cartógrafos.";
+
+"editor_unsupported_category_message" = "Você adicionou um local de uma categoria para a qual ainda não temos suporte. Ele aparecerá no mapa no futuro.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d de %2$d";

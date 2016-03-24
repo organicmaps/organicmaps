@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Uw apparaat ondersteunt geen Locatie Services";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Zoom in richting het land";
+"zoom_to_country" = "Op de kaart tonen";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\nis toegevoegd aan de download wachtrij";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Gedownload";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Beschikbaar";
 
 /* Country queued for download */
 "downloader_queued" = "in de wachtrij";
@@ -766,7 +766,7 @@
 "routing_go" = "Starten!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Opnieuw proberen";
+"downloader_retry" = "Herhalen";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Kaart + route";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME is klaar voor gebruik";
 
-"first_launch_congrats_text" = "Zoek en navigeer gratis met kaarten van alle landen van de wereld.";
+"first_launch_congrats_text" = "Zoek en navigeer overal ter wereld offline, gratis.";
 
 "migrate_title" = "Belangrijk!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Locatie wijzigen";
 
 "message_invalid_feature_position" = "Hier kan geen object worden geplaatst";
+
+"login_to_make_edits_visible" = "Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.";
+
+"no_migration_during_navigation" = "Updaten tijdens navigatie is niet toegestaan.";
+
+"editor_sharing_title" = "Ik heb de MAPS.ME-kaarten verbeterd";
+
+"editor_comment_will_be_sent" = "We zullen uw opmerking doorsturen naar de kaartmakers.";
+
+"editor_unsupported_category_message" = "U hebt een plaats of categorie toegevoegd die we nog niet ondersteunen. Het zal enige tijd duren voordat deze op de kaart verschijnt.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d van %2$d";

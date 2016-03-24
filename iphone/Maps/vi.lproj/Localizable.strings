@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Thiết bị của bạn không hỗ trợ Dịch vụ Định vị";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Phóng to vào quốc gia";
+"zoom_to_country" = "Hiển thị trên bản đồ";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\nđã được thêm vào danh sách đợi tải xuống.";
@@ -694,14 +694,14 @@
 "downloader_downloaded_subtitle" = "Đã tải xuống";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Đã có";
 
 /* Country queued for download */
 "downloader_queued" = "đã xếp hàng chờ";
 
 "downloader_near_me_subtitle" = "Gần tôi";
 
-"downloader_status_maps" = "Bản đồ: %s";
+"downloader_status_maps" = "Bản đồ";
 
 "downloader_download_all_button" = "Tải xuống tất cả";
 
@@ -766,7 +766,7 @@
 "routing_go" = "Tiến hành!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Thử lại";
+"downloader_retry" = "Lặp lại";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Bản đồ + Định tuyến";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME đã sẵn sàng để sử dụng";
 
-"first_launch_congrats_text" = "Tìm kiếm và điều hướng miễn phí bản đồ của tất cả các quốc gia trên thế giới.";
+"first_launch_congrats_text" = "Tìm kiếm và điều hướng ngoại tuyến, miễn phí khắp mọi nơi trên thế giới.";
 
 "migrate_title" = "Quan trọng!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Thay đổi địa điểm";
 
 "message_invalid_feature_position" = "Một đối tượng không thể đặt được ở đây";
+
+"login_to_make_edits_visible" = "Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.";
+
+"no_migration_during_navigation" = "Không cho phép cập nhật trong khi điều hướng.";
+
+"editor_sharing_title" = "Tôi đã cải thiện các bản đồ MAPS.ME";
+
+"editor_comment_will_be_sent" = "Chúng tôi sẽ gửi bình luận của bạn đến những người lập bản đồ.";
+
+"editor_unsupported_category_message" = "Bạn đã thêm một địa điểm của một hạng mục mà chúng tôi chưa hỗ trợ. Nó sẽ xuất hiện trên bản đồ một thời gian sau đó.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d trên %2$d";

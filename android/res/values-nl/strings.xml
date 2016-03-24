@@ -73,7 +73,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Uw apparaat ondersteunt geen Locatie Services</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Zoom in richting het land</string>
+	<string name="zoom_to_country">Op de kaart tonen</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nis toegevoegd aan de download wachtrij</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -410,6 +410,8 @@
 	<string name="downloader_cancel_all">Alles annuleren</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Gedownload</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Beschikbaar</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">in de wachtrij</string>
 	<string name="downloader_near_me_subtitle">Bij mij in de buurt</string>
@@ -453,7 +455,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Starten!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Opnieuw proberen</string>
+	<string name="downloader_retry">Herhalen</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Kaart + route</string>
 	<!-- Item in context menu. -->
@@ -661,7 +663,7 @@
 	<string name="editor_report_problem_under_construction_title">Gesloten voor onderhoud</string>
 	<string name="editor_report_problem_duplicate_place_title">Dubbele plaats</string>
 	<string name="first_launch_congrats_title">MAPS.ME is klaar voor gebruik</string>
-	<string name="first_launch_congrats_text">Zoek en navigeer gratis met kaarten van alle landen van de wereld.</string>
+	<string name="first_launch_congrats_text">Zoek en navigeer overal ter wereld offline, gratis.</string>
 	<string name="migrate_title">Belangrijk!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Alles downloaden</string>
@@ -778,4 +780,11 @@
 	<string name="onboarding_location_message">Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.</string>
 	<string name="dialog_incorrect_feature_position">Locatie wijzigen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
+	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
+	<string name="no_migration_during_navigation">Updaten tijdens navigatie is niet toegestaan.</string>
+	<string name="editor_sharing_title">Ik heb de MAPS.ME-kaarten verbeterd</string>
+	<string name="editor_comment_will_be_sent">We zullen uw opmerking doorsturen naar de kaartmakers.</string>
+	<string name="editor_unsupported_category_message">U hebt een plaats of categorie toegevoegd die we nog niet ondersteunen. Het zal enige tijd duren voordat deze op de kaart verschijnt.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d van %2$d</string>
 </resources>

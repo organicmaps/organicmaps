@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Din enhed understøtter ikke lokationstjenester";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Zoom til landet";
+"zoom_to_country" = "Vis på kortet";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\ner tilføjet til download-køen";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Downloadet";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Tilgængelige";
 
 /* Country queued for download */
 "downloader_queued" = "i kø";
@@ -766,7 +766,7 @@
 "routing_go" = "Kør!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Prøv igen";
+"downloader_retry" = "Gentag";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Kort og rutevejledning";
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Skift lokation";
 
 "message_invalid_feature_position" = "Et objekt kan ikke placeres her";
+
+"login_to_make_edits_visible" = "Log på så andre brugere kan se ændringerne som du har foretaget.";
+
+"no_migration_during_navigation" = "Opdatering er ikke tilladt under navigering.";
+
+"editor_sharing_title" = "Jeg forbedrede MAPS.ME kortene";
+
+"editor_comment_will_be_sent" = "Vi vil sende dine kommentarer til kartograferne.";
+
+"editor_unsupported_category_message" = "Du har tilføjet en placering i en kategori som vi ikke understøtter på nuværende tidspunkt. Den vil vises på kortet på et senere tidspunkt.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d af %2$d";

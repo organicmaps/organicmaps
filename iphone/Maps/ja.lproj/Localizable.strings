@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "ご使用中の端末は位置情報サービスをサポートしていません。";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "特定の地域へズーム";
+"zoom_to_country" = "地図に表示";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\nをダウンロードキューに追加しました";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "ダウンロード済み";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "利用可能";
 
 /* Country queued for download */
 "downloader_queued" = "待ち行列型の";
@@ -766,7 +766,7 @@
 "routing_go" = "開始！";
 
 /* Item status in downloader. */
-"downloader_retry" = "再試行";
+"downloader_retry" = "リピート";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "地図とルート";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.MEを使用する準備が整いました";
 
-"first_launch_congrats_text" = "世界中のすべての国のマップを無料で検索しナビゲートします。";
+"first_launch_congrats_text" = "世界中どこでも無料で検索・ナビゲーションできます。";
 
 "migrate_title" = "重要！";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "位置を変更してください";
 
 "message_invalid_feature_position" = "ここにはオブジェクトを配置できません";
+
+"login_to_make_edits_visible" = "他のユーザーにも変更が表示されるようログインしてください。";
+
+"no_migration_during_navigation" = "ナビゲーション中は更新できません。";
+
+"editor_sharing_title" = "MAPS.MEの地図を改善しました";
+
+"editor_comment_will_be_sent" = "いただいたコメントを地図製作者に送ります。";
+
+"editor_unsupported_category_message" = "現在未対応のカテゴリーの場所を追加しました。地図には後程表示されるようになります。";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%2$d中%1$d";

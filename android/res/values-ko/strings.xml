@@ -76,7 +76,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">귀하의장치가 위치 서비스를 지원하지 않습니다.</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">국가로 확대하여 주세요</string>
+	<string name="zoom_to_country">지도에 표시</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\n는 다운로드 대기열에추가됩니다</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -410,6 +410,8 @@
 	<string name="downloader_cancel_all">모두 취소</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">다운로드</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">사용 가능</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">대기</string>
 	<string name="downloader_near_me_subtitle">내 근처</string>
@@ -455,7 +457,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">이동!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">다시 시도</string>
+	<string name="downloader_retry">반복</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">지도 + 라우팅</string>
 	<!-- Item in context menu. -->
@@ -663,7 +665,7 @@
 	<string name="editor_report_problem_under_construction_title">유지 보수를 위해 닫음</string>
 	<string name="editor_report_problem_duplicate_place_title">중복된 장소</string>
 	<string name="first_launch_congrats_title">MAPS.ME를 사용할 준비가 완료되었습니다</string>
-	<string name="first_launch_congrats_text">무료로 전 세계 모든 나라의 지도를 검색하고 길을 찾아 보세요.</string>
+	<string name="first_launch_congrats_text">무료로 세계 어디에서나 오프라인으로 검색하고 탐색할 수 있습니다.</string>
 	<string name="migrate_title">중요!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">모두 다운로드</string>
@@ -780,4 +782,11 @@
 	<string name="onboarding_location_message">탐색 및 기타 기능을 사용하려면, 위치 정보에 액세스해야 합니다.</string>
 	<string name="dialog_incorrect_feature_position">위치 변경</string>
 	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
+	<string name="login_to_make_edits_visible">로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.</string>
+	<string name="no_migration_during_navigation">업데이트는 탐색 중 금지되어 있습니다.</string>
+	<string name="editor_sharing_title">나는 MAPS.ME 지도를 향상함</string>
+	<string name="editor_comment_will_be_sent">지도 제작자에게 의견을 보낼 것입니다.</string>
+	<string name="editor_unsupported_category_message">아직 지원하지 않는 카테고리의 장소를 추가했습니다. 시간이 좀 흐른 나중에 이 지도에 표시될 것입니다.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%2$d중의 %1$d</string>
 </resources>

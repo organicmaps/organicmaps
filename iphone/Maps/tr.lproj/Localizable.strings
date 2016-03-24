@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Cihazınız Yer Hizmetlerini desteklemiyor";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Ülkeyi yakınlaştır";
+"zoom_to_country" = "Haritada göster";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\nindirme kuyruğuna eklendi";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "İndirildi";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Mevcut";
 
 /* Country queued for download */
 "downloader_queued" = "sıraya alındı";
@@ -766,7 +766,7 @@
 "routing_go" = "Git!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Tekrar Dene";
+"downloader_retry" = "Tekrarla";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Harita + Rota";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME kullanıma hazır";
 
-"first_launch_congrats_text" = "Dünyanın tüm ülkelerinin haritalarında ücretsiz arama yap ve gezin.";
+"first_launch_congrats_text" = "Dünyanın her yerinde çevrimdışı olarak ücretsiz arama yapın ve gezinin.";
 
 "migrate_title" = "Önemli!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Konumu değiştir";
 
 "message_invalid_feature_position" = "Buraya bir nesne konumlandırılamıyor";
+
+"login_to_make_edits_visible" = "Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.";
+
+"no_migration_during_navigation" = "Navigasyon sırasında güncelleme yasaktır.";
+
+"editor_sharing_title" = "MAPS.ME haritalarını iyileştirdim";
+
+"editor_comment_will_be_sent" = "Yorumunuzu haritacılara göndereceğiz.";
+
+"editor_unsupported_category_message" = "Henüz desteklemediğimiz bir kategori yeri eklediniz. Bir süre sonra haritada yer alacaktır.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d/%2$d";

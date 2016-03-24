@@ -82,7 +82,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Enheten din støtter ikke posisjonstjenester</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Zoom til landet</string>
+	<string name="zoom_to_country">Vis på kartet</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\ner lagt til i nedlastingskøen.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -418,6 +418,8 @@
 	<string name="downloader_cancel_all">Avbryt alle</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Lastet ned</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Tilgjengelig</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">lagt i kø</string>
 	<string name="downloader_near_me_subtitle">I nærheten</string>
@@ -463,7 +465,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Kjør!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Prøv på nytt</string>
+	<string name="downloader_retry">Gjenta</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Kart + rutetilordning</string>
 	<!-- Item in context menu. -->
@@ -671,7 +673,7 @@
 	<string name="editor_report_problem_under_construction_title">Stengt pga. vedlikehold</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplisert sted</string>
 	<string name="first_launch_congrats_title">MAPS.ME er klar til bruk</string>
-	<string name="first_launch_congrats_text">Søk og naviger i kart over alle verdens land gratis.</string>
+	<string name="first_launch_congrats_text">Søk og naviger i frakoblet status, hvor som helst i verden, helt gratis.</string>
 	<string name="migrate_title">Viktig!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Last ned alle</string>
@@ -788,4 +790,11 @@
 	<string name="onboarding_location_message">For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.</string>
 	<string name="dialog_incorrect_feature_position">Endre plassering</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke plasseres her</string>
+	<string name="login_to_make_edits_visible">Logg inn slik at andre brukere kan se endringene du har utført.</string>
+	<string name="no_migration_during_navigation">Det er ikke mulig å oppdatere under navigering.</string>
+	<string name="editor_sharing_title">Jeg har forbedret MAPS.ME kartene</string>
+	<string name="editor_comment_will_be_sent">Vi vil sende kommentaren din til kartografene.</string>
+	<string name="editor_unsupported_category_message">Du har lagt til et sted i en kategori som enda ikke har støtte. Den vil vises på kartet senere.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d av %2$d</string>
 </resources>

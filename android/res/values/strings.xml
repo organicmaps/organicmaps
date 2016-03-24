@@ -82,7 +82,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Your device doesn\&#39;t support Location Services</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Zoom to the country</string>
+	<string name="zoom_to_country">Show on the map</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nis added to the downloading queue.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -706,7 +706,7 @@
 	<string name="editor_report_problem_under_construction_title">Сlosed for maintenance</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicated place</string>
 	<string name="first_launch_congrats_title">MAPS.ME is ready to use</string>
-	<string name="first_launch_congrats_text">Search and navigate the maps of all countries in the world for free.</string>
+	<string name="first_launch_congrats_text">Search and navigate everywhere in the world offline, free of charge.</string>
 	<string name="migrate_title">Important!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Download all</string>
@@ -827,4 +827,11 @@
 	<string name="onboarding_location_message">In order for you to use navigation and the other app functions, MAPS.ME needs access to your geoposition.</string>
 	<string name="dialog_incorrect_feature_position">Change location</string>
 	<string name="message_invalid_feature_position">An object can\&#39;t be located here</string>
+	<string name="login_to_make_edits_visible">Log in so other users can see the changes you have made</string>
+	<string name="no_migration_during_navigation">Updating is not allowed during navigation.</string>
+	<string name="editor_sharing_title">I improved the MAPS.ME maps</string>
+	<string name="editor_comment_will_be_sent">We will make sure to send your comments to the map editors.</string>
+	<string name="editor_unsupported_category_message">You have added an object whose category we do not support yet. It will appear on the map in the future.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d of %2$d</string>
 </resources>

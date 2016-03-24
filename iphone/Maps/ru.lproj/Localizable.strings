@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Ваше устройство не поддерживает геолокацию";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Показать страну на карте";
+"zoom_to_country" = "Показать на карте";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\nдобавлено в очередь загрузки";
@@ -766,7 +766,7 @@
 "routing_go" = "Поехали!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Повторите попытку";
+"downloader_retry" = "Повторить";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Карта + Маршруты";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME готов к работе";
 
-"first_launch_congrats_text" = "Пользуйтесь поиском, навигацией по всему миру без интернета и бесплатно.";
+"first_launch_congrats_text" = "Пользуйтесь поиском и навигацией по всему миру без интернета и бесплатно.";
 
 "migrate_title" = "Важно!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
 "message_invalid_feature_position" = "Объект не может находиться в этом месте";
+
+"login_to_make_edits_visible" = "Войдите, чтобы ваши изменения увидели другие пользователи.";
+
+"no_migration_during_navigation" = "Во время навигации обновление запрещено.";
+
+"editor_sharing_title" = "Я улучшил карты MAPS.ME";
+
+"editor_comment_will_be_sent" = "Мы обязательно отправим ваш комментарий картографам.";
+
+"editor_unsupported_category_message" = "Вы добавили объект, категорию которого мы пока не поддерживаем. В будущем он появится на карте.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d из %2$d";

@@ -78,7 +78,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">您的设备不支持位置服务。</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">放大至该国</string>
+	<string name="zoom_to_country">在地图上显示</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\n添加至下载序列</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -426,6 +426,8 @@
 	<string name="downloader_cancel_all">全部取消</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">已下载</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">可用</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已排队</string>
 	<string name="downloader_near_me_subtitle">在我附近</string>
@@ -471,7 +473,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">出发！</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">重试</string>
+	<string name="downloader_retry">重复</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">地图 + 布置路线</string>
 	<!-- Item in context menu. -->
@@ -677,7 +679,7 @@
 	<string name="editor_report_problem_under_construction_title">因维护而关闭</string>
 	<string name="editor_report_problem_duplicate_place_title">重复的地点</string>
 	<string name="first_launch_congrats_title">MAPS.ME已经可用</string>
-	<string name="first_launch_congrats_text">免费搜索和浏览世界各国的地图。</string>
+	<string name="first_launch_congrats_text">在世界各地离线搜索和导航，免费。</string>
 	<string name="migrate_title">重要！</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">下载所有</string>
@@ -794,4 +796,11 @@
 	<string name="onboarding_location_message">为了使用导航和其他功能，我们需要访问您的地理位置信息.</string>
 	<string name="dialog_incorrect_feature_position">改变位置</string>
 	<string name="message_invalid_feature_position">对象无法设置在这里</string>
+	<string name="login_to_make_edits_visible">登陆，让其他用户能看到您所作出的修改。</string>
+	<string name="no_migration_during_navigation">导航中禁止更新。</string>
+	<string name="editor_sharing_title">我改进了MAPS.ME地图</string>
+	<string name="editor_comment_will_be_sent">我们将把您的评论发送给地图制作者。</string>
+	<string name="editor_unsupported_category_message">您已添加了一个我们尚未支持类别的地点。它将在一段时间之后显示在地图上。</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d个/共%2$d个</string>
 </resources>

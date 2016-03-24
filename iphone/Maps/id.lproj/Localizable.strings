@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Perangkat Anda tidak mendukung Layanan Lokasi";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Perbesar ke negara";
+"zoom_to_country" = "Tampilkan di peta";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\ntelah ditambahkan ke antrean pengunduhan.";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Diunduh";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Tersedia";
 
 /* Country queued for download */
 "downloader_queued" = "telah diantrekan";
@@ -766,7 +766,7 @@
 "routing_go" = "Mulai!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Coba lagi";
+"downloader_retry" = "Ulangi";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Peta + Rute";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME siap digunakan";
 
-"first_launch_congrats_text" = "Telusuri dan jelajalahi peta semua negara di dunia secara gratis.";
+"first_launch_congrats_text" = "Cari dan bernavigasilah ke mana saja di dunia secara offline, bebas biaya.";
 
 "migrate_title" = "Penting!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Ubah lokasi";
 
 "message_invalid_feature_position" = "Objek tidak dapat diletakkan di sini";
+
+"login_to_make_edits_visible" = "Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.";
+
+"no_migration_during_navigation" = "Memperbarui tidak diperbolehkan selama navigasi.";
+
+"editor_sharing_title" = "Saya meningkatkan peta MAPS.ME";
+
+"editor_comment_will_be_sent" = "Kami akan mengirim komen Anda ke pembuat peta.";
+
+"editor_unsupported_category_message" = "Anda telah menambahkan sebuah tempat kategori yang belum kami dukung. Tempat itu akan muncul di peta beberapa saat kemudian.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d dari %2$d";

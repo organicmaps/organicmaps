@@ -81,7 +81,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Votre appareil ne prend pas en charge les services de localisation</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Zoomer sur le pays</string>
+	<string name="zoom_to_country">Voir sur la carte</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nest ajouté à la file de téléchargement</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -429,6 +429,8 @@
 	<string name="downloader_cancel_all">Tout annuler</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Téléchargé</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Disponible</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">en file d\&#39;attente</string>
 	<string name="downloader_near_me_subtitle">Près de moi</string>
@@ -474,7 +476,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Allez-y !</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Réessayer</string>
+	<string name="downloader_retry">Répéter</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Carte + itinéraire</string>
 	<!-- Item in context menu. -->
@@ -682,7 +684,7 @@
 	<string name="editor_report_problem_under_construction_title">Fermé pour cause de maintenance</string>
 	<string name="editor_report_problem_duplicate_place_title">Lieu doublon</string>
 	<string name="first_launch_congrats_title">MAPS.ME est prêt à l\&#39;utilisation</string>
-	<string name="first_launch_congrats_text">Cherchez et naviguez sur les cartes de tous les pays du monde gratuitement.</string>
+	<string name="first_launch_congrats_text">Cherchez et trouvez la bonne direction partout dans le monde, en mode hors-connexion, gratuitement.</string>
 	<string name="migrate_title">Important !</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Tout télécharger</string>
@@ -799,4 +801,11 @@
 	<string name="onboarding_location_message">Pour utiliser la navigation et d\&#39;autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.</string>
 	<string name="dialog_incorrect_feature_position">Modifier l\&#39;emplacement</string>
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
+	<string name="login_to_make_edits_visible">Se connecter pour que d\&#39;autres utilisateurs puissent voir les changements que vous avez effectués.</string>
+	<string name="no_migration_during_navigation">La mise à jour est interdite pendant la navigation.</string>
+	<string name="editor_sharing_title">J\&#39;ai amélioré les cartes de MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">Nous transmettrons votre commentaire aux cartographes.</string>
+	<string name="editor_unsupported_category_message">Vous avez ajouté un lieu appartenant à une catégorie que nous ne prenons pas encore en charge. Il apparaîtra sur la carte prochainement.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d de %2$d</string>
 </resources>
