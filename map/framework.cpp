@@ -1073,7 +1073,7 @@ bool Framework::Search(search::SearchParams const & params)
 
 bool Framework::GetGroupCountryIdFromFeature(FeatureType const & ft, string & name) const
 {
-  static const vector<int8_t> langIndices = {StringUtf8Multilang::GetLangIndex("en"),
+  static vector<int8_t> const langIndices = {StringUtf8Multilang::GetLangIndex("en"),
                                              FeatureType::DEFAULT_LANG,
                                              StringUtf8Multilang::kInternationalCode};
 

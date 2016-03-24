@@ -313,7 +313,7 @@ bool Storage::IsCoutryIdCountryTreeInnerNode(TCountryId const & countryId) const
   if (!IsCountryIdValid(countryId))
     return false;
   TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
-  return node != nullptr && node->ChildrenCount() != 0 /* countryId is a inner node. */;
+  return node != nullptr && node->ChildrenCount() != 0 /* countryId is an inner node. */;
 }
 
 TLocalAndRemoteSize Storage::CountrySizeInBytes(TCountryId const & countryId, MapOptions opt) const
