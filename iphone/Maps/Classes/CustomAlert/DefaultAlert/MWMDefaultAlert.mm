@@ -78,7 +78,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)migrationProhibitedAlert
 {
   kStatisticsEvent = @"Migration Prohibited Alert";
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"navigation_migration_prohibited_error"
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:@"no_migration_during_navigation"
                                                 message:nil
                                        rightButtonTitle:@"ok"
                                         leftButtonTitle:nil
