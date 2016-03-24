@@ -110,10 +110,10 @@ exec /usr/local/bin/sbcl --noinform --quit --load $0 --end-toplevel-options "$@"
                 (defsample query ,ls ,ps ,vs results)))
          ,@body))))
 
-(defun power-set (list)
-  (unless list (return-from power-set '(())))
-  (let ((x (car list))
-        (ps (power-set (cdr list))))
+(defun power-set (seq)
+  (unless seq (return-from power-set '(())))
+  (let ((x (car seq))
+        (ps (power-set (cdr seq))))
     (concatenate 'list ps (mapcar #'(lambda (xs) (cons x xs)) ps))))
 
 (defun join-strings (strings)
