@@ -114,7 +114,7 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
 
 - (IBAction)cancelButtonPressed
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatSearch, kStatCancel)];
+  [Statistics logEvent:kStatEventName(kStatSearch, kStatCancel)];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"searchCancel"];
   self.state = MWMSearchManagerStateHidden;
   MapsAppDelegate * a = MapsAppDelegate.theApp;
@@ -374,19 +374,19 @@ extern NSString * const kSearchStateKey = @"SearchStateKey";
   switch (state)
   {
   case MWMSearchManagerStateHidden:
-    [[Statistics instance] logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatClose}];
+    [Statistics logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatClose}];
     [self changeToHiddenState];
     break;
   case MWMSearchManagerStateDefault:
-    [[Statistics instance] logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatOpen}];
+    [Statistics logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatOpen}];
     [self changeToDefaultState];
     break;
   case MWMSearchManagerStateTableSearch:
-    [[Statistics instance] logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatTable}];
+    [Statistics logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatTable}];
     [self changeToTableSearchState];
     break;
   case MWMSearchManagerStateMapSearch:
-    [[Statistics instance] logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatMapSearch}];
+    [Statistics logEvent:kStatSearchEnteredState withParameters:@{kStatName : kStatMapSearch}];
     [self changeToMapSearchState];
     break;
   }

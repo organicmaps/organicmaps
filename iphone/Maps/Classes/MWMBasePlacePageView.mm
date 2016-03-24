@@ -315,7 +315,7 @@ enum class AttributePosition
 
 - (void)addBookmark
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleBookmark)
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleBookmark)
                    withParameters:@{kStatValue : kStatAdd}];
   [self.typeLabel sizeToFit];
 
@@ -328,7 +328,7 @@ enum class AttributePosition
 
 - (void)removeBookmark
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleBookmark)
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleBookmark)
                    withParameters:@{kStatValue : kStatRemove}];
 
   auto const it = find(m_sections.begin(), m_sections.end(), PlacePageSection::Bookmark);
@@ -351,7 +351,7 @@ enum class AttributePosition
 
 - (IBAction)directionButtonTap
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatCompass)];
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatCompass)];
   [self.ownerPlacePage.manager showDirectionViewWithTitle:self.titleLabel.text type:self.typeLabel.text];
 }
 

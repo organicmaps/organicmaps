@@ -210,7 +210,7 @@ static NSString * const kPlacePageViewCenterKeyPath = @"center";
 
 - (void)willStartEditingBookmarkTitle
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatRename)];
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatRename)];
 // This method should be оverridden.
 }
 

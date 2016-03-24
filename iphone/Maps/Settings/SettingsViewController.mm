@@ -226,13 +226,13 @@ typedef NS_ENUM(NSUInteger, Section)
   switch (sections[indexPath.section])
   {
   case SectionAd:
-    [stat logEvent:kStatSettings
+    [Statistics logEvent:kStatSettings
       withParameters:@{kStatAction : kStatMoreApps, kStatValue : (value ? kStatOn : kStatOff)}];
     settings::Set(kAdForbiddenSettingsKey, (bool)!value);
     break;
 
   case SectionStatistics:
-    [stat logEvent:kStatEventName(kStatSettings, kStatToggleStatistics)
+    [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleStatistics)
         withParameters: @{kStatAction : kStatToggleStatistics, kStatValue : (value ? kStatOn : kStatOff)}];
     if (value)
       [stat enableOnNextAppLaunch];
@@ -251,7 +251,7 @@ typedef NS_ENUM(NSUInteger, Section)
       // 3D buildings
       case 2:
       {
-        [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStat3DBuildings)
+        [Statistics logEvent:kStatEventName(kStatSettings, kStat3DBuildings)
                          withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
         auto & f = GetFramework();
         bool _ = true, is3dBuildings = true;
@@ -264,7 +264,7 @@ typedef NS_ENUM(NSUInteger, Section)
       // Zoom buttons
       case 3:
       {
-        [stat logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
+        [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleZoomButtonsVisibility)
             withParameters:@{kStatValue : (value ? kStatVisible : kStatHidden)}];
         settings::Set("ZoomButtonsEnabled", (bool)value);
         [MapsAppDelegate theApp].mapViewController.controlsManager.zoomHidden = !value;
@@ -274,7 +274,7 @@ typedef NS_ENUM(NSUInteger, Section)
     break;
 
   case SectionCalibration:
-    [stat logEvent:kStatEventName(kStatSettings, kStatToggleCompassCalibration)
+    [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleCompassCalibration)
         withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
     settings::Set("CompassCalibrationEnabled", (bool)value);
     break;
@@ -283,7 +283,7 @@ typedef NS_ENUM(NSUInteger, Section)
     // 3D mode
     if (indexPath.row == 0)
     {
-      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStat3D)
+      [Statistics logEvent:kStatEventName(kStatSettings, kStat3D)
                        withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
       auto & f = GetFramework();
       bool _ = true, is3d = true;
@@ -295,7 +295,7 @@ typedef NS_ENUM(NSUInteger, Section)
     // Enable TTS
     else if (indexPath.row == 1)
     {
-      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
+      [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
                        withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
       [[MWMTextToSpeech tts] setNeedToEnable:value];
       [[NSNotificationCenter defaultCenter] postNotificationName:kTTSStatusWasChangedNotification
@@ -320,7 +320,7 @@ settings::Units unitsForIndex(NSInteger index)
   case SectionMetrics:
   {
     settings::Units units = unitsForIndex(indexPath.row);
-    [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
+    [Statistics logEvent:kStatEventName(kStatSettings, kStatChangeMeasureUnits)
         withParameters:@{kStatValue : (units == settings::Units::Metric ? kStatKilometers : kStatMiles)}];
     settings::Set(settings::kMeasurementUnits, units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
@@ -331,7 +331,7 @@ settings::Units unitsForIndex(NSInteger index)
     // Change TTS language
     if (indexPath.row == 2)
     {
-      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatTTS)
+      [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
                      withParameters:@{kStatAction : kStatChangeLanguage}];
       [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
     }
@@ -340,13 +340,13 @@ settings::Units unitsForIndex(NSInteger index)
     // Change night mode
     if (indexPath.row == 0)
     {
-      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatNightMode)
+      [Statistics logEvent:kStatEventName(kStatSettings, kStatNightMode)
                        withParameters:@{kStatAction : kStatChangeNightMode}];
       [self performSegueWithIdentifier:@"SettingsToNightMode" sender:nil];
     }
     else if (indexPath.row == 1)
     {
-      [[Statistics instance] logEvent:kStatEventName(kStatSettings, kStatRecentTrack)
+      [Statistics logEvent:kStatEventName(kStatSettings, kStatRecentTrack)
                        withParameters:@{kStatAction : kStatChangeRecentTrack}];
       [self performSegueWithIdentifier:@"SettingsToRecentTrackSegue" sender:nil];
     }

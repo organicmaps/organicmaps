@@ -100,7 +100,7 @@ static inline CGPoint const dismissCenter(CGFloat xPosition)
 
 - (IBAction)backTap:(id)sender
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBack)];
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBack)];
   [self dismiss];
   [self.placePage.manager refreshPlacePage];
 }

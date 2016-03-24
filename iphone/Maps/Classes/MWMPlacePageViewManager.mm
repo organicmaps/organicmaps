@@ -184,7 +184,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)buildRoute
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
                    withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
 
@@ -196,7 +196,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)routeFrom
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
                    withParameters:@{kStatValue : kStatSource}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   [self.delegate buildRouteFrom:self.target];
@@ -205,7 +205,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)routeTo
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
                    withParameters:@{kStatValue : kStatDestination}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   [self.delegate buildRouteTo:self.target];
@@ -221,7 +221,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)share
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatShare)];
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatShare)];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   MWMPlacePageEntity * entity = self.entity;
   NSString * title = entity.bookmarkTitle ? entity.bookmarkTitle : entity.title;
@@ -236,7 +236,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)apiBack
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatAPI)];
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatAPI)];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.entity.apiURL]];
   [self.delegate apiBack];
 }
@@ -253,7 +253,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)addBookmark
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
                    withParameters:@{kStatValue : kStatAdd}];
   Framework & f = GetFramework();
   BookmarkData bmData = { self.entity.titleForNewBookmark, f.LastEditedBMType() };
@@ -270,7 +270,7 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (void)removeBookmark
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
+  [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBookmarks)
                    withParameters:@{kStatValue : kStatRemove}];
   Framework & f = GetFramework();
   BookmarkCategory * bookmarkCategory = f.GetBookmarkManager().GetBmCategory(self.entity.bac.first);

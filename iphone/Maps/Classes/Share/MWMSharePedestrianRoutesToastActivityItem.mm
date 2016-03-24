@@ -19,7 +19,7 @@
          itemForActivityType:(NSString *)activityType
 {
   NSString * event = @"MWMSharePedestrianRoutesToastActivityItem:activityViewController:itemForActivityType:";
-  [[Statistics instance] logEvent:kStatEventName(kStatShare, kStatSocial) withParameters:@{kStatAction : activityType}];
+  [Statistics logEvent:kStatEventName(kStatShare, kStatSocial) withParameters:@{kStatAction : activityType}];
   [Alohalytics logEvent:event withValue:activityType];
   if ([activityType isEqualToString:UIActivityTypePostToFacebook] ||
       [activityType isEqualToString:@"com.facebook.Facebook.ShareExtension"] ||

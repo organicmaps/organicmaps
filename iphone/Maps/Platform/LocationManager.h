@@ -50,6 +50,11 @@
 
 @end
 
+static inline ms::LatLon ToLatLon(m2::PointD const & p)
+{
+  return MercatorBounds::ToLatLon(p);
+}
+
 static inline m2::PointD ToMercator(CLLocationCoordinate2D const & l)
 {
   return MercatorBounds::FromLatLon(l.latitude, l.longitude);

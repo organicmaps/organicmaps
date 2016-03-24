@@ -255,7 +255,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     if (cellType == MWMSearchTableCellTypeSuggestion)
     {
       NSString * suggestionString = @(result.GetSuggestionString());
-      [[Statistics instance] logEvent:kStatEventName(kStatSearch, kStatSelectResult)
+      [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
                        withParameters:@{kStatValue : suggestionString, kStatScreen : kStatSearch}];
       [self.delegate searchText:suggestionString forInputLocale:nil];
     }

@@ -30,7 +30,7 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
 - (IBAction)headerButtonTap:(UIButton *)sender
 {
   BOOL const currentState = sender.selected;
-  [[Statistics instance] logEvent:kStatEventName(kStatDownloaderDialog, kStatExpand)
+  [Statistics logEvent:kStatEventName(kStatDownloaderDialog, kStatExpand)
                    withParameters:@{kStatValue : currentState ? kStatOff : kStatOn}];
   sender.selected = !currentState;
   self.dividerView.hidden = currentState;

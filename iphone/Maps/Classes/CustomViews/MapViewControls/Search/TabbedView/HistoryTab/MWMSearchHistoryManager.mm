@@ -145,7 +145,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   {
     search::QuerySaver::TSearchRequest const & query = [self queryAtIndex:isRouteSearch ? indexPath.row - 1 : indexPath.row];
     NSString * queryText = @(query.second.c_str());
-    [[Statistics instance] logEvent:kStatEventName(kStatSearch, kStatSelectResult)
+    [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
                      withParameters:@{kStatValue : queryText, kStatScreen : kStatHistory}];
     [self.delegate searchText:queryText forInputLocale:@(query.first.c_str())];
   }
@@ -153,12 +153,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
   {
     if (isRouteSearch)
     {
-      [[Statistics instance] logEvent:kStatEventName(kStatSearch, kStatSelectResult)
+      [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
                        withParameters:@{kStatValue : kStatMyPosition, kStatScreen : kStatHistory}];
       [self.delegate tapMyPositionFromHistory];
       return;
     }
-    [[Statistics instance] logEvent:kStatEventName(kStatSearch, kStatSelectResult)
+    [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
                      withParameters:@{kStatValue : kStatClear, kStatScreen : kStatHistory}];
     f.ClearSearchHistory();
     MWMSearchTabbedCollectionViewCell * cell = self.cell;

@@ -145,7 +145,7 @@
 
 - (IBAction)selectMapTouchUpInside:(nonnull UIButton *)sender
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatDownloadRequest, kStatSelectMap)];
+  [Statistics logEvent:kStatEventName(kStatDownloadRequest, kStatSelectMap)];
   [self.delegate selectMapsAction];
 }
 

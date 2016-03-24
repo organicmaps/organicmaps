@@ -111,16 +111,16 @@
   {
     case MWMPlacePageCellTypeURL:
     case MWMPlacePageCellTypeWebsite:
-      [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
+      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatOpenSite)];
       break;
     case MWMPlacePageCellTypeEmail:
-      [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
+      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatSendEmail)];
       break;
     case MWMPlacePageCellTypePhoneNumber:
-      [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
+      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatCallPhoneNumber)];
       break;
     case MWMPlacePageCellTypeCoordinate:
-      [[Statistics instance] logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
+      [Statistics logEvent:kStatEventName(kStatPlacePage, kStatToggleCoordinates)];
       [self.currentEntity toggleCoordinateSystem];
       [self changeText:[self.currentEntity getCellValue:MWMPlacePageCellTypeCoordinate]];
       break;

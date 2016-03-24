@@ -232,7 +232,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatNavigationDashboard, kStatButton)
+  [Statistics logEvent:kStatEventName(kStatNavigationDashboard, kStatButton)
                    withParameters:@{kStatValue : kStatProgress}];
   MWMCircularProgressState const s = progress.state;
   if (s == MWMCircularProgressStateSelected || s == MWMCircularProgressStateCompleted)
@@ -242,7 +242,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
   routing::RouterType type;
   if ([progress isEqual:self.routePreview.pedestrianProgress])
   {
-    [[Statistics instance]
+    [Statistics
               logEvent:kStatPointToPoint
         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatPedestrian}];
     self.routePreview.vehicleProgress.state = MWMCircularProgressStateNormal;
@@ -250,7 +250,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
   }
   else
   {
-    [[Statistics instance]
+    [Statistics
               logEvent:kStatPointToPoint
         withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatVehicle}];
     self.routePreview.pedestrianProgress.state = MWMCircularProgressStateNormal;
@@ -277,7 +277,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 - (IBAction)navigationCancelPressed:(UIButton *)sender
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatNavigationDashboard, kStatClose)];
+  [Statistics logEvent:kStatEventName(kStatNavigationDashboard, kStatClose)];
   if (IPAD && self.state != MWMNavigationDashboardStateNavigation)
     [self.delegate routePreviewDidChangeFrame:{}];
   [self removePanel:self.nextTurnPanel];
@@ -289,7 +289,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 - (IBAction)soundTap:(UIButton *)sender
 {
   BOOL const isEnable = !sender.selected;
-  [[Statistics instance] logEvent:kStatEventName(kStatNavigationDashboard, isEnable ? kStatOn : kStatOff)];
+  [Statistics logEvent:kStatEventName(kStatNavigationDashboard, isEnable ? kStatOn : kStatOff)];
   MWMTextToSpeech * tts = [MWMTextToSpeech tts];
   if (isEnable)
     [tts enable];
@@ -303,7 +303,7 @@ extern NSString * const kTTSStatusWasChangedNotification;
 
 - (IBAction)navigationGoPressed:(UIButton *)sender
 {
-  [[Statistics instance] logEvent:kStatEventName(kStatNavigationDashboard, kStatGo)];
+  [Statistics logEvent:kStatEventName(kStatNavigationDashboard, kStatGo)];
   if ([self.delegate didStartFollowing])
     self.state = MWMNavigationDashboardStateNavigation;
 }

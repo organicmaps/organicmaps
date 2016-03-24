@@ -56,5 +56,6 @@ using MWMPlacePageCellTypeValueMap = map<MWMPlacePageCellType, string>;
 - (void)toggleCoordinateSystem;
 
 - (NSString *)getCellValue:(MWMPlacePageCellType)cellType;
+- (place_page::Info const &)info;
 
 @end

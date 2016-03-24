@@ -19,7 +19,7 @@ static NSString * const kStatisticsEvent = @"Facebook Alert";
 
 + (MWMFacebookAlert *)alert
 {
-  [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMFacebookAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kFacebookAlertNibName
                                                             owner:self
                                                           options:nil] firstObject];
@@ -30,7 +30,7 @@ static NSString * const kStatisticsEvent = @"Facebook Alert";
 
 - (IBAction)shareButtonTap:(id)sender
 {
-  [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
   [Alohalytics logEvent:kFacebookInviteEventName withValue:@"shareTap"];
   [self close];
   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDAlreadySharedKey];
@@ -44,7 +44,7 @@ static NSString * const kStatisticsEvent = @"Facebook Alert";
 
 - (IBAction)notNowButtonTap:(id)sender
 {
-  [[Statistics instance] logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
+  [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatClose}];
   [Alohalytics logEvent:kFacebookInviteEventName withValue:@"notNowTap"];
   [self close];
 }
