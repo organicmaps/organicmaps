@@ -183,7 +183,7 @@ m2::RectD GetRectAroundPosition(m2::PointD const & position)
 }
 
 template <typename TSlice>
-void UpdateNameScore(string const & name, TSlice const & slice, search::v2::NameScore & bestScore)
+void UpdateNameScore(string const & name, TSlice const & slice, v2::NameScore & bestScore)
 {
   auto const score = v2::GetNameScore(name, slice);
   if (score > bestScore)
@@ -192,7 +192,7 @@ void UpdateNameScore(string const & name, TSlice const & slice, search::v2::Name
 
 template <typename TSlice>
 void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & slice,
-                     search::v2::NameScore & bestScore, double & bestCoverage)
+                     v2::NameScore & bestScore, double & bestCoverage)
 {
   auto const score = v2::GetNameScore(tokens, slice);
   auto const coverage =
