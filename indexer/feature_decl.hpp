@@ -22,8 +22,8 @@ string DebugPrint(feature::EGeomType type);
 
 struct FeatureID
 {
-  using MwmName = string;
-  using MwmVersion = int64_t;
+  static char const * const kInvalidFileName;
+  static int64_t const kInvalidMwmVersion;
 
   MwmSet::MwmId m_mwmId;
   uint32_t m_index;
@@ -48,7 +48,8 @@ struct FeatureID
 
   inline bool operator!=(FeatureID const & r) const { return !(*this == r); }
 
-  pair<MwmName, MwmVersion> GetMwmNameAndVersion() const;
+  string GetMwmName() const;
+  int64_t GetMwmVersion() const;
 
   friend string DebugPrint(FeatureID const & id);
 };
