@@ -225,7 +225,7 @@ using namespace storage;
 - (void)showDownloading:(CGFloat)progress
 {
   self.nodeSize.textColor = [UIColor blackSecondaryText];
-  self.nodeSize.text = [@(static_cast<NSUInteger>(progress * 100)).stringValue stringByAppendingString:@"%"];
+  self.nodeSize.text = [NSString stringWithFormat:@"%@ %@%%", L(@"downloader_downloading"), @(static_cast<NSUInteger>(progress * 100))];
   self.downloadButton.hidden = YES;
   self.progressWrapper.hidden = NO;
   self.progress.progress = progress;
