@@ -491,6 +491,18 @@ using namespace storage;
   return 0.0;
 }
 
+#pragma mark - UILongPressGestureRecognizer
+
+
+- (IBAction)longPress:(UILongPressGestureRecognizer *)sender
+{
+  if (sender.state != UIGestureRecognizerStateBegan)
+    return;
+  NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:[sender locationInView:self.tableView]];
+  if (indexPath)
+    [self showActionSheetForRowAtIndexPath:indexPath];
+}
+
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
