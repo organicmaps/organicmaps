@@ -262,41 +262,50 @@ string ChangesetWrapper::TypeCountToString(TTypeCount const & typeCount) const
 {
   if (typeCount.empty())
     return string();
-  if (typeCount.size() > 3)
-  {
-    // TODO(zverik): Instead return top 2 + "and XX other features".
-    int count = 0;
-    for (auto const & tc : typeCount)
-      count += tc.second;
-    return strings::to_string(count) + " objects";
-  }
 
-  // TODO(zverik): Reverse sort by count
+  // Convert map to vector and sort pairs by count, descending.
   vector<pair<string, uint16_t>> items;
   for (auto const & tc : typeCount)
     items.push_back(tc);
 
+  sort(items.begin(), items.end(),
+       [](pair<string, uint16_t> const & a, pair<string, uint16_t> const & b)
+       {
+         return a.second > b.second;
+       });
+
   ostringstream ss;
-  for (auto i = 0; i < items.size(); ++i)
+  auto limit = items.size() > 3 ? 3 : items.size();
+  for (auto i = 0; i < limit; ++i)
   {
     if (i > 0)
     {
       // Separator: "A and B" for two, "A, B, and C" for three or more.
-      if (items.size() > 2)
+      if (limit > 2)
         ss << ", ";
       else
         ss << " ";
-      if (i == items.size() - 1)
+      if (i == limit - 1)
         ss << "and ";
     }
 
+    auto & currentPair = items[i];
+    // If we have more objects left, make the last one a list of these.
+    if (i == limit - 1 && limit < items.size())
+    {
+      int count = 0;
+      for (auto j = i; j < items.size(); ++j)
+        count += items[j].second;
+      currentPair = {"other object", count};
+    }
+
     // Format a count: "a shop" for single shop, "4 shops" for multiple.
-    if (items[i].second == 1)
+    if (currentPair.second == 1)
       ss << "a ";
     else
-      ss << items[i].second << ' ';
-    ss << items[i].first;
-    if (items[i].second > 1)
+      ss << currentPair.second << ' ';
+    ss << currentPair.first;
+    if (currentPair.second > 1)
       ss << 's';
   }
   return ss.str();
