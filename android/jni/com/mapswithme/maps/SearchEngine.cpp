@@ -33,6 +33,11 @@ jmethodID g_suggestConstructor;
 jclass g_descriptionClass;
 jmethodID g_descriptionConstructor;
 
+// Implements 'NativeMapSearchListener' java interface.
+jmethodID g_mapResultsMethod;
+jclass g_mapResultClass;
+jmethodID g_mapResultCtor;
+
 jobject ToJavaResult(Result & result, bool hasPosition, double lat, double lon)
 {
   JNIEnv * env = jni::GetEnv();
@@ -93,7 +98,7 @@ jobjectArray BuildJavaResults(Results const & results, bool hasPosition, double 
   g_results = results;
 
   int const count = g_results.GetCount();
-  jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, 0);
+  jobjectArray const jResults = env->NewObjectArray(count, g_resultClass, nullptr);
   for (int i = 0; i < count; i++)
   {
     jni::TScopedLocalRef jRes(env, ToJavaResult(g_results.GetResult(i), hasPosition, lat, lon));
@@ -122,6 +127,36 @@ void OnResults(Results const & results, long long timestamp, bool isMapAndTable,
   jni::TScopedLocalObjectArrayRef jResults(env, BuildJavaResults(results, hasPosition, lat, lon));
   env->CallVoidMethod(g_javaListener, g_updateResultsId, jResults.get(), static_cast<jlong>(timestamp));
 }
+
+jobjectArray BuildJavaMapResults(vector<storage::DownloaderSearchResult> const & results)
+{
+  JNIEnv * env = jni::GetEnv();
+  lock_guard<mutex> guard(g_resultsMutex);
+
+  int const count = results.size();
+  jobjectArray const res = env->NewObjectArray(count, g_mapResultClass, nullptr);
+  for (int i = 0; i < count; i++)
+  {
+    jni::TScopedLocalRef country(env, jni::ToJavaString(env, results[i].m_countryId));
+    jni::TScopedLocalRef matched(env, jni::ToJavaString(env, results[i].m_matchedName));
+    jni::TScopedLocalRef item(env, env->NewObject(g_mapResultClass, g_mapResultCtor, country.get(), matched.get()));
+    env->SetObjectArrayElement(res, i, item.get());
+  }
+
+  return res;
+}
+
+void OnMapSearchResults(storage::DownloaderSearchResults const & results, long long timestamp)
+{
+  // Ignore results from obsolete searches.
+  if (g_queryTimestamp > timestamp)
+    return;
+
+  JNIEnv * env = jni::GetEnv();
+  jni::TScopedLocalObjectArrayRef jResults(env, BuildJavaMapResults(results.m_results));
+  env->CallVoidMethod(g_javaListener, g_mapResultsMethod, jResults.get(), static_cast<jlong>(timestamp), results.m_endMarker);
+}
+
 }  // namespace
 
 extern "C"
@@ -129,8 +164,6 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeInit(JNIEnv * env, jobject thiz)
   {
-    if ( g_javaListener )
-      env->DeleteGlobalRef(g_javaListener);
     g_javaListener = env->NewGlobalRef(thiz);
     g_updateResultsId = jni::GetMethodID(env, g_javaListener, "onResultsUpdate", "([Lcom/mapswithme/maps/search/SearchResult;J)V");
     g_endResultsId = jni::GetMethodID(env, g_javaListener, "onResultsEnd", "(J)V");
@@ -139,6 +172,10 @@ extern "C"
     g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I)V");
     g_descriptionClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/SearchResult$Description");
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II)V");
+
+    g_mapResultsMethod = jni::GetMethodID(env, g_javaListener, "onMapSearchResults", "([Lcom/mapswithme/maps/search/NativeMapSearchListener$Result;JZ)V");
+    g_mapResultClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/NativeMapSearchListener$Result");
+    g_mapResultCtor = jni::GetConstructorID(env, g_mapResultClass, "(Ljava/lang/String;Ljava/lang/String;)V");
   }
 
   JNIEXPORT jboolean JNICALL
@@ -180,16 +217,13 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearchMaps(JNIEnv * env, jclass clazz, jbyteArray bytes, jstring lang, jlong timestamp)
   {
-    search::SearchParams params;
+    storage::DownloaderSearchParams params;
     params.m_query = jni::ToNativeString(env, bytes);
-    params.SetInputLocale(ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang)));
-    params.SetForceSearch(true);
-    params.SetMode(search::Mode::World);
-    params.SetSuggestsEnabled(false);
-    params.m_onResults = bind(&OnResults, _1, timestamp, false /* isMapAndTable */, false /* hasPosition */, 0.0, 0.0);
+    params.m_inputLocale = ReplaceDeprecatedLanguageCode(jni::ToNativeString(env, lang));
+    params.m_onResults = bind(&OnMapSearchResults, _1, timestamp);
 
-    g_framework->NativeFramework()->Search(params);
-    g_queryTimestamp = timestamp;
+    if (g_framework->NativeFramework()->SearchInDownloader(params))
+      g_queryTimestamp = timestamp;
   }
 
   JNIEXPORT void JNICALL

@@ -3,6 +3,7 @@ package com.mapswithme.maps.downloader;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
@@ -11,7 +12,10 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -53,6 +57,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private final StickyRecyclerHeadersDecoration mHeadersDecoration;
 
   private boolean mSearchResultsMode;
+  private String mSearchQuery;
+
   private final List<CountryItem> mItems = new ArrayList<>();
   private final Map<String, CountryItem> mCountryIndex = new HashMap<>();  // Country.id -> Country
 
@@ -490,8 +496,17 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
       if (mSearchResultsMode)
       {
+        String found = mItem.searchResultName.toLowerCase();
+        SpannableStringBuilder builder = new SpannableStringBuilder(mItem.searchResultName);
+        int start = found.indexOf(mSearchQuery);
+        int end = start + mSearchQuery.length();
+
+        if (start > -1)
+          builder.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        mSearchFoundName.setText(builder);
+
         mSearchName.setText(mItem.name);
-        mSearchFoundName.setText(mItem.searchResultName);
         UiUtils.setTextAndHideIfEmpty(mSearchParent, mItem.parentName);
       }
       else
@@ -532,6 +547,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private void collectHeaders()
   {
     mHeaders.clear();
+    if (mSearchResultsMode)
+      return;
 
     int headerId = 0;
     int prev = -1;
@@ -574,6 +591,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private void refreshData()
   {
     mSearchResultsMode = false;
+    mSearchQuery = null;
 
     mItems.clear();
 
@@ -603,9 +621,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       refreshData();
   }
 
-  void setSearchResultsMode(Collection<CountryItem> results)
+  void setSearchResultsMode(Collection<CountryItem> results, String query)
   {
     mSearchResultsMode = true;
+    mSearchQuery = query.toLowerCase();
 
     mItems.clear();
     mItems.addAll(results);

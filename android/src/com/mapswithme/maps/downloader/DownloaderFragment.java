@@ -17,9 +17,8 @@ import java.util.Map;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.search.NativeSearchListener;
+import com.mapswithme.maps.search.NativeMapSearchListener;
 import com.mapswithme.maps.search.SearchEngine;
-import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 
@@ -47,39 +46,33 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     }
   };
 
-  private final NativeSearchListener mSearchListener = new NativeSearchListener()
+  private final NativeMapSearchListener mSearchListener = new NativeMapSearchListener()
   {
     private final Map<String, CountryItem> mResults = new HashMap<>();
 
     @Override
-    public void onResultsUpdate(SearchResult[] results, long timestamp)
+    public void onMapSearchResults(Result[] results, long timestamp, boolean isLast)
     {
       if (!mSearchRunning || timestamp != mCurrentSearch)
         return;
 
-      for (SearchResult result : results)
+      for (Result result : results)
       {
-        String id = MapManager.nativeFindCountry(result.lat, result.lon);
-        if (!TextUtils.isEmpty(id) && !mResults.containsKey(id))
-        {
-          CountryItem item = CountryItem.fill(id);
-          item.searchResultName = result.name;
-          item.category = CountryItem.CATEGORY_AVAILABLE;
-          mResults.put(id, item);
-        }
+        if (TextUtils.isEmpty(result.countryId) || mResults.containsKey(result.countryId))
+          continue;
+
+        CountryItem item = CountryItem.fill(result.countryId);
+        item.searchResultName = result.matchedString;
+        mResults.put(result.countryId, item);
       }
-    }
 
-    @Override
-    public void onResultsEnd(long timestamp)
-    {
-      if (!mSearchRunning || timestamp != mCurrentSearch)
-        return;
+      if (isLast)
+      {
+        mAdapter.setSearchResultsMode(mResults.values(), mToolbarController.getQuery());
+        mResults.clear();
 
-      mAdapter.setSearchResultsMode(mResults.values());
-      mResults.clear();
-
-      onSearchEnd();
+        onSearchEnd();
+      }
     }
   };
 
@@ -93,14 +86,15 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
 
   void cancelSearch()
   {
-    onSearchEnd();
     mAdapter.cancelSearch();
+    onSearchEnd();
   }
 
   private void onSearchEnd()
   {
     mSearchRunning = false;
     mToolbarController.showProgress(false);
+    update();
   }
 
   void update()
@@ -112,7 +106,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     mToolbarController.update(onTop ? null : mAdapter.getCurrentParent(), onTop ? "" : rootName);
 
     // Bottom panel
-    boolean showBottom = onTop;
+    boolean showBottom = (onTop && !mAdapter.isSearchResultsMode());
     if (showBottom)
     {
       UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
@@ -142,7 +136,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
       public void onProgress(String countryId, long localSize, long remoteSize) {}
     });
 
-    SearchEngine.INSTANCE.addListener(mSearchListener);
+    SearchEngine.INSTANCE.addMapListener(mSearchListener);
   }
 
   @Override
@@ -155,7 +149,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
       mSubscriberSlot = 0;
     }
 
-    SearchEngine.INSTANCE.removeListener(mSearchListener);
+    SearchEngine.INSTANCE.removeMapListener(mSearchListener);
   }
 
   @Override
