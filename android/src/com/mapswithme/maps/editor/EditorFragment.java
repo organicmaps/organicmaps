@@ -72,6 +72,23 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     refreshEditableFields();
   }
 
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    saveEdits();
+  }
+
+  protected void saveEdits()
+  {
+    Editor.setMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, getPhone());
+    Editor.setMetadata(Metadata.MetadataType.FMD_WEBSITE, getWebsite());
+    Editor.setMetadata(Metadata.MetadataType.FMD_EMAIL, getEmail());
+    Editor.setMetadata(Metadata.MetadataType.FMD_INTERNET, getWifi());
+    Editor.nativeSetDefaultName(getName());
+    Editor.nativeSetHouseNumber(getHouseNumber());
+  }
+
   public String getName()
   {
     // TODO add localized names
@@ -116,18 +133,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   public String getOpeningHours()
   {
     return Editor.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
-  }
-
-  public Metadata getMetadata()
-  {
-    final Metadata res = new Metadata();
-    res.addMetadata(Metadata.MetadataType.FMD_OPEN_HOURS, mOpeningHours.getText().toString());
-    res.addMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER, mEtPhone.getText().toString());
-    res.addMetadata(Metadata.MetadataType.FMD_WEBSITE, mEtWebsite.getText().toString());
-    res.addMetadata(Metadata.MetadataType.FMD_EMAIL, mEtEmail.getText().toString());
-    res.addMetadata(Metadata.MetadataType.FMD_CUISINE, mTvCuisine.getText().toString());
-    res.addMetadata(Metadata.MetadataType.FMD_INTERNET, mSwWifi.isChecked() ? "Yes" : "");
-    return res;
   }
 
   private void refreshEditableFields()

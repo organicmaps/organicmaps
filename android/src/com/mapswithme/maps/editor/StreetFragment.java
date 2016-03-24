@@ -12,15 +12,20 @@ import com.mapswithme.maps.dialog.EditTextDialogFragment;
 
 public class StreetFragment extends BaseMwmRecyclerFragment implements EditTextDialogFragment.OnTextSaveListener
 {
-  public static final String EXTRA_CURRENT_STREET = "Street";
-
   private String mSelectedString;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    mSelectedString = getArguments().getString(EXTRA_CURRENT_STREET, "");
+    mSelectedString = Editor.nativeGetStreet();
     return super.onCreateView(inflater, container, savedInstanceState);
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    Editor.nativeSetStreet(getStreet());
   }
 
   @Override
