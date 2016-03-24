@@ -1285,7 +1285,10 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
   node->ForEachInSubtree([this, &nodeAttrs](TCountryTreeNode const & d)
   {
     // Downloading mwm information.
-    if (nodeAttrs.m_status != NodeStatus::NotDownloaded && d.ChildrenCount() == 0)
+    StatusAndError const statusAndErr = GetNodeStatus(d);
+    ASSERT_NOT_EQUAL(statusAndErr.status, NodeStatus::Undefined, ());
+    if (statusAndErr.status != NodeStatus::NotDownloaded && statusAndErr.status != NodeStatus::Partly
+        && d.ChildrenCount() == 0)
     {
       nodeAttrs.m_downloadingMwmCounter += 1;
       nodeAttrs.m_downloadingMwmSize += d.Value().GetSubtreeMwmSizeBytes();
