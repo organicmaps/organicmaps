@@ -28,6 +28,5 @@ namespace dp
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;
 - (CGPoint)globalPoint2ViewPoint:(CGPoint)pt;
 - (void)initialize;
-- (void)setPresentAvailable:(BOOL)available;
 
 @end

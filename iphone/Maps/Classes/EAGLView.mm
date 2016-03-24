@@ -173,9 +173,4 @@ double getExactDPI(double contentScaleFactor)
   return CGPointMake(ptP.x / scaleFactor, ptP.y / scaleFactor);
 }
 
-- (void)setPresentAvailable:(BOOL)available
-{
-  static_cast<iosOGLContextFactory*>(m_factory.get())->setPresentAvailable(available);
-}
-
 @end
