@@ -82,7 +82,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Cihazınız Yer Hizmetlerini desteklemiyor</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Ülkeyi yakınlaştır</string>
+	<string name="zoom_to_country">Haritada göster</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nindirme kuyruğuna eklendi</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -424,6 +424,8 @@
 	<string name="downloader_cancel_all">Tümünü İptal Et</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">İndirildi</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Mevcut</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">sıraya alındı</string>
 	<string name="downloader_near_me_subtitle">Yakınlarımda</string>
@@ -469,7 +471,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Git!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Tekrar Dene</string>
+	<string name="downloader_retry">Tekrarla</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Harita + Rota</string>
 	<!-- Item in context menu. -->
@@ -677,7 +679,7 @@
 	<string name="editor_report_problem_under_construction_title">Bakım için kapalı</string>
 	<string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
 	<string name="first_launch_congrats_title">MAPS.ME kullanıma hazır</string>
-	<string name="first_launch_congrats_text">Dünyanın tüm ülkelerinin haritalarında ücretsiz arama yap ve gezin.</string>
+	<string name="first_launch_congrats_text">Dünyanın her yerinde çevrimdışı olarak ücretsiz arama yapın ve gezinin.</string>
 	<string name="migrate_title">Önemli!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Tümünü indir</string>
@@ -794,4 +796,11 @@
 	<string name="onboarding_location_message">Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.</string>
 	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
+	<string name="login_to_make_edits_visible">Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.</string>
+	<string name="no_migration_during_navigation">Navigasyon sırasında güncelleme yasaktır.</string>
+	<string name="editor_sharing_title">MAPS.ME haritalarını iyileştirdim</string>
+	<string name="editor_comment_will_be_sent">Yorumunuzu haritacılara göndereceğiz.</string>
+	<string name="editor_unsupported_category_message">Henüz desteklemediğimiz bir kategori yeri eklediniz. Bir süre sonra haritada yer alacaktır.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d/%2$d</string>
 </resources>

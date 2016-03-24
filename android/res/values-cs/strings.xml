@@ -77,7 +77,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Vaše zařízení nepodporuje služby pro určování polohy</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Zobrazit na mapě</string>
+	<string name="zoom_to_country">Ukázat na mapě</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\npřidáno do fronty stahování</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -425,6 +425,8 @@
 	<string name="downloader_cancel_all">Zrušit vše</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Staženo</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Dostupné</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ve frontě</string>
 	<string name="downloader_near_me_subtitle">Poblíž mě</string>
@@ -470,7 +472,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Jet!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Zkusit znovu</string>
+	<string name="downloader_retry">Opakovat</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Mapa + trasy</string>
 	<!-- Item in context menu. -->
@@ -678,7 +680,7 @@
 	<string name="editor_report_problem_under_construction_title">Zavřeno kvůli údržbě</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicitní místo</string>
 	<string name="first_launch_congrats_title">MAPS.ME jsou připraveny k použití</string>
-	<string name="first_launch_congrats_text">Prohledávejte a navigujte mapy všech zemí na světě zdarma.</string>
+	<string name="first_launch_congrats_text">Prohledávejte a navigujte offline zdarma kdekoliv na světě.</string>
 	<string name="migrate_title">Důležité!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Stáhnout vše</string>
@@ -795,4 +797,11 @@
 	<string name="onboarding_location_message">Chcete-li používat navigaci a další funkce, pak potřebujeme přístup k vaší zeměpisné poloze.</string>
 	<string name="dialog_incorrect_feature_position">Změnit umístění</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
+	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
+	<string name="no_migration_during_navigation">Aktualizace jsou během navigování zakázány.</string>
+	<string name="editor_sharing_title">Vylepšil jsem mapy MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">Váš komentář pošleme kartografům.</string>
+	<string name="editor_unsupported_category_message">Přidali jste místo kategorie, kterou zatím nepodporujeme. Na mapě se objeví za nějaký čas.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d z %2$d</string>
 </resources>

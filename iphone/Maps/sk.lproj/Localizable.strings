@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Vaše zariadenie nepodporuje služby pre určovanie polohy";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Zobraziť na mape";
+"zoom_to_country" = "Ukázať na mape";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\npridané do zoznamu sťahovania";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Stiahnuté";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Dostupné";
 
 /* Country queued for download */
 "downloader_queued" = "V rade";
@@ -766,7 +766,7 @@
 "routing_go" = "Štart!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Skúsiť znova";
+"downloader_retry" = "Zopakovať";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Mapa + Smerovanie";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "Aplikácia MAPS.ME je pripravená na použitie";
 
-"first_launch_congrats_text" = "Vyhľadávajte a riaďte sa mapami všetkých krajín na svete zadarmo.";
+"first_launch_congrats_text" = "Vyhľadávajte a určujte trasu bez pripojenia všade na svete bez poplatkov.";
 
 "migrate_title" = "Dôležité!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Zmeniť polohu";
 
 "message_invalid_feature_position" = "Objekt sa tu nedá umiestniť";
+
+"login_to_make_edits_visible" = "Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.";
+
+"no_migration_during_navigation" = "Počas hľadania trasy nie je možné vykonať aktualizáciu.";
+
+"editor_sharing_title" = "Vďaka mne sú mapy na MAPS.ME lepšie";
+
+"editor_comment_will_be_sent" = "Pošleme Váš príspevok kartografom.";
+
+"editor_unsupported_category_message" = "Pridali ste miesto z kategórie, ktorú zatiaľ nepodporujeme. Na mape sa zobrazí až za istú dobu.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d z %2$d";

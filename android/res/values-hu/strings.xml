@@ -77,7 +77,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Az eszköz nem támogatja a helyzetmeghatározó szolgáltatásokat</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Nagyítson az országra</string>
+	<string name="zoom_to_country">Megjelenítés a térképen</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\n-t hozzáadtuk a letöltési sorhoz</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -419,6 +419,8 @@
 	<string name="downloader_cancel_all">Mindent visszavon</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Letöltve</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Elérhető</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">várólistás</string>
 	<string name="downloader_near_me_subtitle">A közelemben</string>
@@ -464,7 +466,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Indulás!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Újra próbál</string>
+	<string name="downloader_retry">Ismétlés</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Térkép + útvonal megállapítása</string>
 	<!-- Item in context menu. -->
@@ -672,7 +674,7 @@
 	<string name="editor_report_problem_under_construction_title">Karbantartás miatt nem elérhető</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplikált hely</string>
 	<string name="first_launch_congrats_title">A MAPS.ME használatra készen áll</string>
-	<string name="first_launch_congrats_text">Keress és navigálj ingyen a világ összes térképében.</string>
+	<string name="first_launch_congrats_text">Keress és navigálj offline a világon mindenhol, térítésmentesen.</string>
 	<string name="migrate_title">Fontos!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Összes letöltése</string>
@@ -789,4 +791,11 @@
 	<string name="onboarding_location_message">A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.</string>
 	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
+	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
+	<string name="no_migration_during_navigation">Navigáció közbeni módosítás nem engedélyezett.</string>
+	<string name="editor_sharing_title">Én fejlesztettem a MAPS.ME térképeket</string>
+	<string name="editor_comment_will_be_sent">Megjegyzését elküldjük a térképészeknek.</string>
+	<string name="editor_unsupported_category_message">Olyan kategóriához adott helyet, amelyet még nem támogatunk. Ez a kategória később fog megjelenni a térképen.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d/%2$d</string>
 </resources>

@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Az eszköz nem támogatja a helyzetmeghatározó szolgáltatásokat";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Nagyítson az országra";
+"zoom_to_country" = "Megjelenítés a térképen";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\n-t hozzáadtuk a letöltési sorhoz";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Letöltve";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Elérhető";
 
 /* Country queued for download */
 "downloader_queued" = "várólistás";
@@ -766,7 +766,7 @@
 "routing_go" = "Indulás!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Újra próbál";
+"downloader_retry" = "Ismétlés";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Térkép + útvonal megállapítása";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "A MAPS.ME használatra készen áll";
 
-"first_launch_congrats_text" = "Keress és navigálj ingyen a világ összes térképében.";
+"first_launch_congrats_text" = "Keress és navigálj offline a világon mindenhol, térítésmentesen.";
 
 "migrate_title" = "Fontos!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Helyszín megváltoztatása";
 
 "message_invalid_feature_position" = "Célpont áthelyezése ide nem lehetséges";
+
+"login_to_make_edits_visible" = "Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.";
+
+"no_migration_during_navigation" = "Navigáció közbeni módosítás nem engedélyezett.";
+
+"editor_sharing_title" = "Én fejlesztettem a MAPS.ME térképeket";
+
+"editor_comment_will_be_sent" = "Megjegyzését elküldjük a térképészeknek.";
+
+"editor_unsupported_category_message" = "Olyan kategóriához adott helyet, amelyet még nem támogatunk. Ez a kategória később fog megjelenni a térképen.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d/%2$d";

@@ -81,7 +81,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Ваш пристрій не підтримує геолокацію</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Показати країну на карті</string>
+	<string name="zoom_to_country">Показати на мапі</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nдобавлено в чергу завантаження</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -421,6 +421,8 @@
 	<string name="downloader_cancel_all">Скасувати всі</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Завантажено</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Доступні</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">в черзі</string>
 	<string name="downloader_near_me_subtitle">Поблизу</string>
@@ -466,7 +468,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Поїхали!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Спробуйте знову</string>
+	<string name="downloader_retry">Повторити</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Мапа + Маршрути</string>
 	<!-- Item in context menu. -->
@@ -674,7 +676,7 @@
 	<string name="editor_report_problem_under_construction_title">Зачинено на ремонт</string>
 	<string name="editor_report_problem_duplicate_place_title">Дубльовані місця</string>
 	<string name="first_launch_congrats_title">MAPS.ME готовий до роботи</string>
-	<string name="first_launch_congrats_text">Користуйтесь пошуком, навігацією по всьому світу без інтернету й безкоштовно.</string>
+	<string name="first_launch_congrats_text">Користуйтесь пошуком і навігацією по всьому світу без інтернету і безкоштовно.</string>
 	<string name="migrate_title">Важливо!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Завантажити всі</string>
@@ -791,4 +793,11 @@
 	<string name="onboarding_location_message">Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.</string>
 	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
 	<string name="message_invalid_feature_position">Об\&#39;єкт не може перебувати в цьому місцезнаходженні</string>
+	<string name="login_to_make_edits_visible">Увійдіть, щоб ваші зміни побачили інші користувачі.</string>
+	<string name="no_migration_during_navigation">Під час навігації оновлення заборонено.</string>
+	<string name="editor_sharing_title">Я покращив мапи MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">Ми обов\&#39;язково відправимо ваш коментар картографам.</string>
+	<string name="editor_unsupported_category_message">Ви додали об\&#39;єкт, категорію якого ми поки що не підтримуємо. У майбутньому він з\&#39;явиться на мапі.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d з %2$d</string>
 </resources>

@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Enheten din støtter ikke posisjonstjenester";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Zoom til landet";
+"zoom_to_country" = "Vis på kartet";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\ner lagt til i nedlastingskøen.";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Lastet ned";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Tilgjengelig";
 
 /* Country queued for download */
 "downloader_queued" = "lagt i kø";
@@ -766,7 +766,7 @@
 "routing_go" = "Kjør!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Prøv på nytt";
+"downloader_retry" = "Gjenta";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Kart + rutetilordning";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME er klar til bruk";
 
-"first_launch_congrats_text" = "Søk og naviger i kart over alle verdens land gratis.";
+"first_launch_congrats_text" = "Søk og naviger i frakoblet status, hvor som helst i verden, helt gratis.";
 
 "migrate_title" = "Viktig!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Endre plassering";
 
 "message_invalid_feature_position" = "Et objekt kan ikke plasseres her";
+
+"login_to_make_edits_visible" = "Logg inn slik at andre brukere kan se endringene du har utført.";
+
+"no_migration_during_navigation" = "Det er ikke mulig å oppdatere under navigering.";
+
+"editor_sharing_title" = "Jeg har forbedret MAPS.ME kartene";
+
+"editor_comment_will_be_sent" = "Vi vil sende kommentaren din til kartografene.";
+
+"editor_unsupported_category_message" = "Du har lagt til et sted i en kategori som enda ikke har støtte. Den vil vises på kartet senere.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d av %2$d";

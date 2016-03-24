@@ -82,7 +82,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Perangkat Anda tidak mendukung Layanan Lokasi</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Perbesar ke negara</string>
+	<string name="zoom_to_country">Tampilkan di peta</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\ntelah ditambahkan ke antrean pengunduhan.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -418,6 +418,8 @@
 	<string name="downloader_cancel_all">Batalkan Semuanya</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Diunduh</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Tersedia</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">telah diantrekan</string>
 	<string name="downloader_near_me_subtitle">Dekat saya</string>
@@ -463,7 +465,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Mulai!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Coba lagi</string>
+	<string name="downloader_retry">Ulangi</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Peta + Rute</string>
 	<!-- Item in context menu. -->
@@ -670,7 +672,7 @@
 	<string name="editor_report_problem_under_construction_title">Ditutup karena pemeliharaan</string>
 	<string name="editor_report_problem_duplicate_place_title">Tempat ganda</string>
 	<string name="first_launch_congrats_title">MAPS.ME siap digunakan</string>
-	<string name="first_launch_congrats_text">Telusuri dan jelajalahi peta semua negara di dunia secara gratis.</string>
+	<string name="first_launch_congrats_text">Cari dan bernavigasilah ke mana saja di dunia secara offline, bebas biaya.</string>
 	<string name="migrate_title">Penting!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Unduh semua</string>
@@ -787,4 +789,11 @@
 	<string name="onboarding_location_message">Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.</string>
 	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
+	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
+	<string name="no_migration_during_navigation">Memperbarui tidak diperbolehkan selama navigasi.</string>
+	<string name="editor_sharing_title">Saya meningkatkan peta MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">Kami akan mengirim komen Anda ke pembuat peta.</string>
+	<string name="editor_unsupported_category_message">Anda telah menambahkan sebuah tempat kategori yang belum kami dukung. Tempat itu akan muncul di peta beberapa saat kemudian.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d dari %2$d</string>
 </resources>

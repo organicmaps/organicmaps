@@ -80,7 +80,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Din enhed understøtter ikke lokationstjenester</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Zoom til landet</string>
+	<string name="zoom_to_country">Vis på kortet</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\ner tilføjet til download-køen</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -422,6 +422,8 @@
 	<string name="downloader_cancel_all">Aflys Alt</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Downloadet</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Tilgængelige</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">i kø</string>
 	<string name="downloader_near_me_subtitle">I nærheden</string>
@@ -465,7 +467,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Kør!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Prøv igen</string>
+	<string name="downloader_retry">Gentag</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Kort og rutevejledning</string>
 	<!-- Item in context menu. -->
@@ -790,4 +792,11 @@
 	<string name="onboarding_location_message">For at bruge navigering og andre funktioner skal vi have adgang til din geolokation.</string>
 	<string name="dialog_incorrect_feature_position">Skift lokation</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
+	<string name="login_to_make_edits_visible">Log på så andre brugere kan se ændringerne som du har foretaget.</string>
+	<string name="no_migration_during_navigation">Opdatering er ikke tilladt under navigering.</string>
+	<string name="editor_sharing_title">Jeg forbedrede MAPS.ME kortene</string>
+	<string name="editor_comment_will_be_sent">Vi vil sende dine kommentarer til kartograferne.</string>
+	<string name="editor_unsupported_category_message">Du har tilføjet en placering i en kategori som vi ikke understøtter på nuværende tidspunkt. Den vil vises på kortet på et senere tidspunkt.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d af %2$d</string>
 </resources>

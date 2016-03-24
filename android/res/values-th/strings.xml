@@ -82,7 +82,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">อุปกรณ์ของคุณไม่รองรับการบริการตำแหน่งที่ตั้ง</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">ซูมเข้าไปยังประเทศ</string>
+	<string name="zoom_to_country">แสดงบนแผนที่</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">มีการเพิ่ม ^\nไปยังลำดับการดาวน์โหลดแล้ว</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -422,6 +422,8 @@
 	<string name="downloader_cancel_all">ยกเลิกทั้งหมด</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">ดาวน์โหลดแล้ว</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">มีให้ใช้</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">ต่อแถว</string>
 	<string name="downloader_near_me_subtitle">ใกล้ฉัน</string>
@@ -467,7 +469,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">ไป!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">ลองอีกครั้ง</string>
+	<string name="downloader_retry">ทำซ้ำ</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">แผนที่ + เส้นทาง</string>
 	<!-- Item in context menu. -->
@@ -675,7 +677,7 @@
 	<string name="editor_report_problem_under_construction_title">ปิดปรับปรุง</string>
 	<string name="editor_report_problem_duplicate_place_title">สถานที่ซ้ำ</string>
 	<string name="first_launch_congrats_title">MAPS.ME พร้อมใช้งานแล้ว</string>
-	<string name="first_launch_congrats_text">ค้นหาและนำทางไปตามแผนที่ของทุกประเทศในโลกได้ฟรี</string>
+	<string name="first_launch_congrats_text">ค้นหาและนำทางไปทุกที่ในโลกแบบออฟไลน์ ไม่มีค่าใช้จ่าย</string>
 	<string name="migrate_title">สำคัญ!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">ดาวน์โหลดทั้งหมด</string>
@@ -792,4 +794,11 @@
 	<string name="onboarding_location_message">เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ</string>
 	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
+	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
+	<string name="no_migration_during_navigation">ห้ามอัปเดตระหว่างการนำทาง</string>
+	<string name="editor_sharing_title">ฉันได้ปรับปรุงแผนที่ MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">เราจะส่งความคิดเห็นของคุณไปให้กับนักเขียนแผนที่</string>
+	<string name="editor_unsupported_category_message">คุณได้เพิ่มสถานที่ในหมวดหมู่ที่เรายังไม่รองรับ มันจะปรากฏบนแผนที่หลังจากนี้สักพักหนึ่ง</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d จาก %2$d</string>
 </resources>

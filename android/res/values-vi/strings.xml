@@ -82,7 +82,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Thiết bị của bạn không hỗ trợ Dịch vụ Định vị</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Phóng to vào quốc gia</string>
+	<string name="zoom_to_country">Hiển thị trên bản đồ</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nđã được thêm vào danh sách đợi tải xuống.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -418,10 +418,12 @@
 	<string name="downloader_cancel_all">Hủy tất cả</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Đã tải xuống</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Đã có</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">đã xếp hàng chờ</string>
 	<string name="downloader_near_me_subtitle">Gần tôi</string>
-	<string name="downloader_status_maps">Bản đồ: %s</string>
+	<string name="downloader_status_maps">Bản đồ</string>
 	<string name="downloader_download_all_button">Tải xuống tất cả</string>
 	<string name="downloader_downloading">Đang tải về:</string>
 	<string name="downloader_search_results">Đã tìm thấy</string>
@@ -463,7 +465,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Tiến hành!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Thử lại</string>
+	<string name="downloader_retry">Lặp lại</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Bản đồ + Định tuyến</string>
 	<!-- Item in context menu. -->
@@ -671,7 +673,7 @@
 	<string name="editor_report_problem_under_construction_title">Tạm dừng để bảo trì</string>
 	<string name="editor_report_problem_duplicate_place_title">Địa điểm trùng lặp</string>
 	<string name="first_launch_congrats_title">MAPS.ME đã sẵn sàng để sử dụng</string>
-	<string name="first_launch_congrats_text">Tìm kiếm và điều hướng miễn phí bản đồ của tất cả các quốc gia trên thế giới.</string>
+	<string name="first_launch_congrats_text">Tìm kiếm và điều hướng ngoại tuyến, miễn phí khắp mọi nơi trên thế giới.</string>
 	<string name="migrate_title">Quan trọng!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Tải về tất cả</string>
@@ -788,4 +790,11 @@
 	<string name="onboarding_location_message">Để sử dụng tính năng dẫn đường và các tính năng khác, chúng tôi cần truy cập vị trí địa lý của bạn.</string>
 	<string name="dialog_incorrect_feature_position">Thay đổi địa điểm</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
+	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
+	<string name="no_migration_during_navigation">Không cho phép cập nhật trong khi điều hướng.</string>
+	<string name="editor_sharing_title">Tôi đã cải thiện các bản đồ MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">Chúng tôi sẽ gửi bình luận của bạn đến những người lập bản đồ.</string>
+	<string name="editor_unsupported_category_message">Bạn đã thêm một địa điểm của một hạng mục mà chúng tôi chưa hỗ trợ. Nó sẽ xuất hiện trên bản đồ một thời gian sau đó.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d trên %2$d</string>
 </resources>

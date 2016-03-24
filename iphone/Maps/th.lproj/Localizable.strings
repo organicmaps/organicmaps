@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "อุปกรณ์ของคุณไม่รองรับการบริการตำแหน่งที่ตั้ง";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "ซูมเข้าไปยังประเทศ";
+"zoom_to_country" = "แสดงบนแผนที่";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "มีการเพิ่ม ^\nไปยังลำดับการดาวน์โหลดแล้ว";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "ดาวน์โหลดแล้ว";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "มีให้ใช้";
 
 /* Country queued for download */
 "downloader_queued" = "ต่อแถว";
@@ -766,7 +766,7 @@
 "routing_go" = "ไป!";
 
 /* Item status in downloader. */
-"downloader_retry" = "ลองอีกครั้ง";
+"downloader_retry" = "ทำซ้ำ";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "แผนที่ + เส้นทาง";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME พร้อมใช้งานแล้ว";
 
-"first_launch_congrats_text" = "ค้นหาและนำทางไปตามแผนที่ของทุกประเทศในโลกได้ฟรี";
+"first_launch_congrats_text" = "ค้นหาและนำทางไปทุกที่ในโลกแบบออฟไลน์ ไม่มีค่าใช้จ่าย";
 
 "migrate_title" = "สำคัญ!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
 
 "message_invalid_feature_position" = "ไม่สามารถตั้งวัตถุได้ที่นี่";
+
+"login_to_make_edits_visible" = "ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้";
+
+"no_migration_during_navigation" = "ห้ามอัปเดตระหว่างการนำทาง";
+
+"editor_sharing_title" = "ฉันได้ปรับปรุงแผนที่ MAPS.ME";
+
+"editor_comment_will_be_sent" = "เราจะส่งความคิดเห็นของคุณไปให้กับนักเขียนแผนที่";
+
+"editor_unsupported_category_message" = "คุณได้เพิ่มสถานที่ในหมวดหมู่ที่เรายังไม่รองรับ มันจะปรากฏบนแผนที่หลังจากนี้สักพักหนึ่ง";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d จาก %2$d";

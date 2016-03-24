@@ -78,7 +78,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Din enhet stöder inte platstjänster</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Zooma till landet</string>
+	<string name="zoom_to_country">Visa på kartan</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\när tillagd till nedladdningskön</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -422,6 +422,8 @@
 	<string name="downloader_cancel_all">Avbryt alla</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Nedladdade</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Tillgänglig</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Köade</string>
 	<string name="downloader_near_me_subtitle">Nära mig</string>
@@ -467,7 +469,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Kör!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Försök igen</string>
+	<string name="downloader_retry">Repetera</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Karta + Navigering</string>
 	<!-- Item in context menu. -->
@@ -675,7 +677,7 @@
 	<string name="editor_report_problem_under_construction_title">Stängd för underhåll</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicerad plats</string>
 	<string name="first_launch_congrats_title">Du kan nu använda MAPS.ME</string>
-	<string name="first_launch_congrats_text">Sök och navigera gratis på kartor över alla länder i hela världen.</string>
+	<string name="first_launch_congrats_text">Sök och navigera offline var som helst i världen, helt gratis.</string>
 	<string name="migrate_title">Viktigt!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Ladda ner alla</string>
@@ -792,4 +794,11 @@
 	<string name="onboarding_location_message">För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.</string>
 	<string name="dialog_incorrect_feature_position">Ändra placering</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
+	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
+	<string name="no_migration_during_navigation">Att uppdatera är förbjudet under navigering.</string>
+	<string name="editor_sharing_title">Jag förbättrade kartorna hos MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">Vi vidarebefordrar din kommentar till kartritarna.</string>
+	<string name="editor_unsupported_category_message">Du har lagt till en plats i en kategori vi ännu inte stödjer. Den kommer att finnas på kartan vid ett senare tillfälle.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d av %2$d</string>
 </resources>

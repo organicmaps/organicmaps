@@ -78,7 +78,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">你的裝置不支援定位服務唷!</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">放大到全國檢視</string>
+	<string name="zoom_to_country">在地圖上顯示</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\n已加入到下載佇列中</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -408,6 +408,8 @@
 	<string name="downloader_cancel_all">取消全部</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">已下載</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">可用</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已佇列</string>
 	<string name="downloader_near_me_subtitle">在我附近</string>
@@ -453,7 +455,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">開始！</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">重試</string>
+	<string name="downloader_retry">重復</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">地圖 + 布置路線</string>
 	<!-- Item in context menu. -->
@@ -657,7 +659,7 @@
 	<string name="editor_report_problem_under_construction_title">因維護而關閉</string>
 	<string name="editor_report_problem_duplicate_place_title">重復的地點</string>
 	<string name="first_launch_congrats_title">MAPS.ME已做好使用準備</string>
-	<string name="first_launch_congrats_text">免費搜索和導航世界上所有國家的地圖。</string>
+	<string name="first_launch_congrats_text">在世界各地離線搜索和導航，免費。</string>
 	<string name="migrate_title">重要！</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">全部下載。</string>
@@ -774,4 +776,11 @@
 	<string name="onboarding_location_message">如要使用導航和其他功能，我們需要能獲取您的地理位置.</string>
 	<string name="dialog_incorrect_feature_position">改變位置</string>
 	<string name="message_invalid_feature_position">對象無法設置在這裡</string>
+	<string name="login_to_make_edits_visible">登陸，讓其他用戶能看到您所作出的修改。</string>
+	<string name="no_migration_during_navigation">導航中禁止更新。</string>
+	<string name="editor_sharing_title">我改進了MAPS.ME地圖</string>
+	<string name="editor_comment_will_be_sent">我們將把您的評論發送給地圖制作者。</string>
+	<string name="editor_unsupported_category_message">您已添加了一個我們尚未支持類別的地點。它將在一段時間之後顯示在地圖上。</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d個/共%2$d個</string>
 </resources>

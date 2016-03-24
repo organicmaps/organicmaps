@@ -82,7 +82,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Laitteesi ei tue sijaintipalveluita</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Zoomaa maahan</string>
+	<string name="zoom_to_country">Näytä kartalla</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\non lisätty latausjonoon.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -418,6 +418,8 @@
 	<string name="downloader_cancel_all">Peruuta kaikki</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Ladatut</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Saatavilla</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">jonossa</string>
 	<string name="downloader_near_me_subtitle">Minun lähelläni</string>
@@ -463,7 +465,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Lähde!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Yritä uudelleen</string>
+	<string name="downloader_retry">Toista</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Kartta + reititys</string>
 	<!-- Item in context menu. -->
@@ -671,7 +673,7 @@
 	<string name="editor_report_problem_under_construction_title">Suljettu huoltoa varten</string>
 	<string name="editor_report_problem_duplicate_place_title">Paikan kaksoiskappale</string>
 	<string name="first_launch_congrats_title">MAPS.ME on valmiina käyttöön</string>
-	<string name="first_launch_congrats_text">Hae ja navigoi ilmaiseksi maailman kaikkien maiden karttoja.</string>
+	<string name="first_launch_congrats_text">Etsi ja navigoi ympäri maailman ilman verkkoyhteyttä, ilmaiseksi.</string>
 	<string name="migrate_title">Tärkeää!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Lataa kaikki</string>
@@ -788,4 +790,11 @@
 	<string name="onboarding_location_message">Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.</string>
 	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
 	<string name="message_invalid_feature_position">Objektia ei voida asettaa tänne</string>
+	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
+	<string name="no_migration_during_navigation">Päivittäminen ei ole mahdollista navigoinnin aikana.</string>
+	<string name="editor_sharing_title">Minä paransin MAPS.ME-karttoja</string>
+	<string name="editor_comment_will_be_sent">Lähetämme kommenttisi kartanpiirtäjille.</string>
+	<string name="editor_unsupported_category_message">Olet lisännyt sijainnin katergoriaan jota emme vielä tue. Se tulee näkyviin kartalle hieman myöhemmin.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d/%2$d</string>
 </resources>

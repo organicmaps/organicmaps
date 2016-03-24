@@ -81,7 +81,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Ваше устройство не поддерживает геолокацию</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Показать страну на карте</string>
+	<string name="zoom_to_country">Показать на карте</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\nдобавлено в очередь загрузки</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -492,7 +492,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Поехали!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Повторите попытку</string>
+	<string name="downloader_retry">Повторить</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Карта + Маршруты</string>
 	<!-- Item in context menu. -->
@@ -702,7 +702,7 @@
 	<string name="editor_report_problem_under_construction_title">Закрыто на ремонт</string>
 	<string name="editor_report_problem_duplicate_place_title">Повторяющееся место</string>
 	<string name="first_launch_congrats_title">MAPS.ME готов к работе</string>
-	<string name="first_launch_congrats_text">Пользуйтесь поиском, навигацией по всему миру без интернета и бесплатно.</string>
+	<string name="first_launch_congrats_text">Пользуйтесь поиском и навигацией по всему миру без интернета и бесплатно.</string>
 	<string name="migrate_title">Важно!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Загрузить все</string>
@@ -823,4 +823,11 @@
 	<string name="onboarding_location_message">Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.</string>
 	<string name="dialog_incorrect_feature_position">Измените местоположение</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
+	<string name="login_to_make_edits_visible">Войдите, чтобы ваши изменения увидели другие пользователи.</string>
+	<string name="no_migration_during_navigation">Во время навигации обновление запрещено.</string>
+	<string name="editor_sharing_title">Я улучшил карты MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">Мы обязательно отправим ваш комментарий картографам.</string>
+	<string name="editor_unsupported_category_message">Вы добавили объект, категорию которого мы пока не поддерживаем. В будущем он появится на карте.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d из %2$d</string>
 </resources>

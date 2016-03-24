@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Laitteesi ei tue sijaintipalveluita";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Zoomaa maahan";
+"zoom_to_country" = "Näytä kartalla";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\non lisätty latausjonoon.";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Ladatut";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Saatavilla";
 
 /* Country queued for download */
 "downloader_queued" = "jonossa";
@@ -766,7 +766,7 @@
 "routing_go" = "Lähde!";
 
 /* Item status in downloader. */
-"downloader_retry" = "Yritä uudelleen";
+"downloader_retry" = "Toista";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Kartta + reititys";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME on valmiina käyttöön";
 
-"first_launch_congrats_text" = "Hae ja navigoi ilmaiseksi maailman kaikkien maiden karttoja.";
+"first_launch_congrats_text" = "Etsi ja navigoi ympäri maailman ilman verkkoyhteyttä, ilmaiseksi.";
 
 "migrate_title" = "Tärkeää!";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Vaihda sijaintia";
 
 "message_invalid_feature_position" = "Objektia ei voida asettaa tänne";
+
+"login_to_make_edits_visible" = "Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.";
+
+"no_migration_during_navigation" = "Päivittäminen ei ole mahdollista navigoinnin aikana.";
+
+"editor_sharing_title" = "Minä paransin MAPS.ME-karttoja";
+
+"editor_comment_will_be_sent" = "Lähetämme kommenttisi kartanpiirtäjille.";
+
+"editor_unsupported_category_message" = "Olet lisännyt sijainnin katergoriaan jota emme vielä tue. Se tulee näkyviin kartalle hieman myöhemmin.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d/%2$d";

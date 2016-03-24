@@ -124,7 +124,7 @@
 "device_doesnot_support_location_services" = "Votre appareil ne prend pas en charge les services de localisation";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Zoomer sur le pays";
+"zoom_to_country" = "Voir sur la carte";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
 "country_status_added_to_queue" = "^\nest ajouté à la file de téléchargement";
@@ -694,7 +694,7 @@
 "downloader_downloaded_subtitle" = "Téléchargé";
 
 /* Downloaded maps category */
-"downloader_available_maps" = "Available";
+"downloader_available_maps" = "Disponible";
 
 /* Country queued for download */
 "downloader_queued" = "en file d'attente";
@@ -766,7 +766,7 @@
 "routing_go" = "Allez-y !";
 
 /* Item status in downloader. */
-"downloader_retry" = "Réessayer";
+"downloader_retry" = "Répéter";
 
 /* Item in context menu. */
 "downloader_map_and_routing" = "Carte + itinéraire";
@@ -1131,7 +1131,7 @@
 
 "first_launch_congrats_title" = "MAPS.ME est prêt à l'utilisation";
 
-"first_launch_congrats_text" = "Cherchez et naviguez sur les cartes de tous les pays du monde gratuitement.";
+"first_launch_congrats_text" = "Cherchez et trouvez la bonne direction partout dans le monde, en mode hors-connexion, gratuitement.";
 
 "migrate_title" = "Important !";
 
@@ -1359,3 +1359,16 @@
 "dialog_incorrect_feature_position" = "Modifier l'emplacement";
 
 "message_invalid_feature_position" = "Aucun objet ne peut être localisé ici";
+
+"login_to_make_edits_visible" = "Se connecter pour que d'autres utilisateurs puissent voir les changements que vous avez effectués.";
+
+"no_migration_during_navigation" = "La mise à jour est interdite pendant la navigation.";
+
+"editor_sharing_title" = "J'ai amélioré les cartes de MAPS.ME";
+
+"editor_comment_will_be_sent" = "Nous transmettrons votre commentaire aux cartographes.";
+
+"editor_unsupported_category_message" = "Vous avez ajouté un lieu appartenant à une catégorie que nous ne prenons pas encore en charge. Il apparaîtra sur la carte prochainement.";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d de %2$d";

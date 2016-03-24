@@ -82,7 +82,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Dispozitivul dvs. nu acceptă servicii de localizare.</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Faceți zoom spre această țară</string>
+	<string name="zoom_to_country">Afișare pe hartă</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\neste adăugată la coada de descărcare.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -416,6 +416,8 @@
 	<string name="downloader_cancel_all">Anulare toate</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Descărcat</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Disponibil</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">în lista de așteptare</string>
 	<string name="downloader_near_me_subtitle">Aproape de mine</string>
@@ -461,7 +463,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Pornește!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Reîncercare</string>
+	<string name="downloader_retry">Repetare</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Hartă + trasee</string>
 	<!-- Item in context menu. -->
@@ -668,7 +670,7 @@
 	<string name="editor_report_problem_under_construction_title">Închis pentru întreținere</string>
 	<string name="editor_report_problem_duplicate_place_title">Locație dublată</string>
 	<string name="first_launch_congrats_title">MAPS.ME este gata pentru utilizare</string>
-	<string name="first_launch_congrats_text">Căutați și navigați hărțile tuturor țărilor lumii pe gratis.</string>
+	<string name="first_launch_congrats_text">Căutați și navigați în regim offline oriunde în lume, în mod gratuit.</string>
 	<string name="migrate_title">Important!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Descarcă toate</string>
@@ -785,4 +787,11 @@
 	<string name="onboarding_location_message">Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
+	<string name="login_to_make_edits_visible">Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.</string>
+	<string name="no_migration_during_navigation">În timpul navigării, actualizarea este interzisă.</string>
+	<string name="editor_sharing_title">Am îmbunătățit hărțile MAPS.ME</string>
+	<string name="editor_comment_will_be_sent">Vom trimite comentariul dumneavoastră cartografilor.</string>
+	<string name="editor_unsupported_category_message">Ați adăugat o locație pentru care nu avem încă o categorie creată. Aceasta va apărea pe hartă în viitorul apropiat.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d din %2$d</string>
 </resources>

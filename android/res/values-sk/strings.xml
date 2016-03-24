@@ -77,7 +77,7 @@
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Vaše zariadenie nepodporuje služby pre určovanie polohy</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Zobraziť na mape</string>
+	<string name="zoom_to_country">Ukázať na mape</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
 	<string name="country_status_added_to_queue">^\npridané do zoznamu sťahovania</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
@@ -423,6 +423,8 @@
 	<string name="downloader_cancel_all">Zrušiť všetko</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Stiahnuté</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Dostupné</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">V rade</string>
 	<string name="downloader_near_me_subtitle">Neďaleko mňa</string>
@@ -468,7 +470,7 @@
 	<!-- Button for routing. -->
 	<string name="routing_go">Štart!</string>
 	<!-- Item status in downloader. -->
-	<string name="downloader_retry">Skúsiť znova</string>
+	<string name="downloader_retry">Zopakovať</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Mapa + Smerovanie</string>
 	<!-- Item in context menu. -->
@@ -674,7 +676,7 @@
 	<string name="editor_report_problem_under_construction_title">Zatvorené kvôli prebiehajúcej údržbe</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicitné miesto</string>
 	<string name="first_launch_congrats_title">Aplikácia MAPS.ME je pripravená na použitie</string>
-	<string name="first_launch_congrats_text">Vyhľadávajte a riaďte sa mapami všetkých krajín na svete zadarmo.</string>
+	<string name="first_launch_congrats_text">Vyhľadávajte a určujte trasu bez pripojenia všade na svete bez poplatkov.</string>
 	<string name="migrate_title">Dôležité!</string>
 	<!-- Android uses image instead of text. -->
 	<string name="download_all">Stiahnuť všetko</string>
@@ -791,4 +793,11 @@
 	<string name="onboarding_location_message">Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.</string>
 	<string name="dialog_incorrect_feature_position">Zmeniť polohu</string>
 	<string name="message_invalid_feature_position">Objekt sa tu nedá umiestniť</string>
+	<string name="login_to_make_edits_visible">Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.</string>
+	<string name="no_migration_during_navigation">Počas hľadania trasy nie je možné vykonať aktualizáciu.</string>
+	<string name="editor_sharing_title">Vďaka mne sú mapy na MAPS.ME lepšie</string>
+	<string name="editor_comment_will_be_sent">Pošleme Váš príspevok kartografom.</string>
+	<string name="editor_unsupported_category_message">Pridali ste miesto z kategórie, ktorú zatiaľ nepodporujeme. Na mape sa zobrazí až za istú dobu.</string>
+	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
+	<string name="downloader_of">%1$d z %2$d</string>
 </resources>
