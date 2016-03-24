@@ -1053,3 +1053,17 @@ highway|world_level
 highway|world_towns_level
 building|train_station
 route|shuttle_train
+shop|copyshop
+shop|photo
+shop|travel_agency
+shop|travel_agency
+shop|outdoor
+craft|tailor
+office|estate_agent
+shop|dry_cleaning
+shop|tyres
+leisure|swimming_pool
+amenity|car_wash
+amenity|veterinary
+amenity|charging_station
+amenity|childcare

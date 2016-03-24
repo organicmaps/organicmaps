@@ -2954,6 +2954,24 @@ cont {
   }
 }
 cont {
+  name: "amenity-car_wash"
+  element {
+    scale: 19
+    symbol {
+      name: "none"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "amenity-casino"
   element {
     scale: 16
@@ -3017,6 +3035,42 @@ cont {
         offset_y: 10
       }
       priority: 15837
+    }
+  }
+}
+cont {
+  name: "amenity-charging_station"
+  element {
+    scale: 19
+    symbol {
+      name: "none"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "amenity-childcare"
+  element {
+    scale: 19
+    symbol {
+      name: "none"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
     }
   }
 }
@@ -7277,6 +7331,24 @@ cont {
         offset_y: 10
       }
       priority: 15837
+    }
+  }
+}
+cont {
+  name: "amenity-veterinary"
+  element {
+    scale: 19
+    symbol {
+      name: "none"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
     }
   }
 }
@@ -62577,6 +62649,89 @@ cont {
   }
 }
 cont {
+  name: "shop-copyshop"
+  element {
+    scale: 15
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+}
+cont {
   name: "shop-department_store"
   element {
     scale: 15
@@ -62661,6 +62816,89 @@ cont {
 }
 cont {
   name: "shop-doityourself"
+  element {
+    scale: 15
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+}
+cont {
+  name: "shop-dry_cleaning"
   element {
     scale: 15
     symbol {
@@ -63939,6 +64177,172 @@ cont {
   }
 }
 cont {
+  name: "shop-outdoor"
+  element {
+    scale: 15
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+}
+cont {
+  name: "shop-photo"
+  element {
+    scale: 15
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+}
+cont {
   name: "shop-shoes"
   element {
     scale: 15
@@ -64223,6 +64627,172 @@ cont {
 }
 cont {
   name: "shop-toys"
+  element {
+    scale: 15
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+}
+cont {
+  name: "shop-travel_agency"
+  element {
+    scale: 15
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-l"
+      priority: 16851
+      min_distance: 0
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15851
+    }
+  }
+}
+cont {
+  name: "shop-tyres"
   element {
     scale: 15
     symbol {

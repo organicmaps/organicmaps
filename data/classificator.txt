@@ -31,7 +31,10 @@ world  +
         cafe  -
         car_rental  -
         car_sharing  -
+        car_wash  -
         casino  -
+        charging_station  -
+        childcare  -
         cinema  -
         clinic  -
         college  -
@@ -97,6 +100,7 @@ world  +
             parking_tickets  -
             public_transport_tickets  -
             {}
+        veterinary  -
         waste_disposal  -
         {}
     area:highway  +
@@ -722,8 +726,10 @@ world  +
         computer  -
         confectionery  -
         convenience  -
+        copyshop  -
         department_store  -
         doityourself  -
+        dry_cleaning  -
         electronics  -
         florist  -
         furniture  -
@@ -738,10 +744,14 @@ world  +
         mall  -
         mobile_phone  -
         optician  -
+        outdoor  -
+        photo  -
         shoes  -
         sports  -
         supermarket  -
         toys  -
+        travel_agency  -
+        tyres  -
         {}
     sport  +
         american_football  -
