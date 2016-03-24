@@ -137,7 +137,7 @@ UNIT_TEST(SwedenStockholmSlussenHiltonToAfChapmanHostel)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(59.32045, 18.06928), {0., 0.},
-      MercatorBounds::FromLatLon(59.3254, 18.08022), 2155.);
+      MercatorBounds::FromLatLon(59.3254, 18.08022), 2410.);
 }
 
 UNIT_TEST(EstoniaTallinnRadissonHiltonToCatherdalChurch)
@@ -209,7 +209,7 @@ UNIT_TEST(RussiaTaganrogSyzranov10k3ToLazo5k2)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(47.2183, 38.8634), {0., 0.},
-      MercatorBounds::FromLatLon(47.2584, 38.9128), 8520.);
+      MercatorBounds::FromLatLon(47.2584, 38.9128), 9200.);
 }
 
 UNIT_TEST(RussiaTaganrogJukova2ToBolBulvarnaya8)
@@ -225,7 +225,7 @@ UNIT_TEST(RussiaTaganrogCheckhova267k2ToKotlostroy33)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetPedestrianComponents(),
       MercatorBounds::FromLatLon(47.2198, 38.8906), {0., 0.},
-      MercatorBounds::FromLatLon(47.2459, 38.8937), 3798.);
+      MercatorBounds::FromLatLon(47.2459, 38.8937), 3485.);
 }
 
 UNIT_TEST(RussiaTaganrogCheckhova267k2ToBolBulvarnaya8)
