@@ -496,6 +496,7 @@
                                 <accessibility key="accessibilityConfiguration" identifier="ContainerView"/>
                                 <constraints>
                                     <constraint firstItem="8GY-gg-9ty" firstAttribute="centerX" secondItem="aSi-go-AxL" secondAttribute="centerX" id="0MV-lq-uuk"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="B1q-Pf-ckt" secondAttribute="trailing" priority="750" constant="12" id="2rV-MQ-mfy"/>
                                     <constraint firstItem="Kox-tu-DVp" firstAttribute="top" secondItem="aSi-go-AxL" secondAttribute="top" constant="36" id="3Al-j1-FaY"/>
                                     <constraint firstItem="KPp-Sj-AzL" firstAttribute="top" secondItem="Hs7-0i-ftc" secondAttribute="bottom" priority="500" constant="10" id="8X5-JG-GPL"/>
                                     <constraint firstItem="Hs7-0i-ftc" firstAttribute="top" secondItem="Kox-tu-DVp" secondAttribute="bottom" priority="250" constant="80" id="8d5-4Y-Vwo"/>
@@ -503,6 +504,7 @@
                                     <constraint firstItem="Hs7-0i-ftc" firstAttribute="top" secondItem="B1q-Pf-ckt" secondAttribute="bottom" priority="250" constant="16" id="EAh-12-SGQ"/>
                                     <constraint firstItem="KPp-Sj-AzL" firstAttribute="centerX" secondItem="aSi-go-AxL" secondAttribute="centerX" id="JKt-fl-YFD"/>
                                     <constraint firstAttribute="trailing" secondItem="Kox-tu-DVp" secondAttribute="trailing" constant="16" id="LXV-yG-TMr"/>
+                                    <constraint firstItem="B1q-Pf-ckt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aSi-go-AxL" secondAttribute="leading" priority="750" constant="12" id="Oob-n6-UtB"/>
                                     <constraint firstItem="Hs7-0i-ftc" firstAttribute="centerX" secondItem="aSi-go-AxL" secondAttribute="centerX" id="b7R-uH-Lrc"/>
                                     <constraint firstAttribute="bottom" secondItem="KPp-Sj-AzL" secondAttribute="bottom" constant="20" id="hs0-7V-gdN"/>
                                     <constraint firstItem="vDh-VK-Hht" firstAttribute="height" secondItem="aSi-go-AxL" secondAttribute="height" multiplier="0.3" priority="750" id="oZ8-dU-N1J"/>
