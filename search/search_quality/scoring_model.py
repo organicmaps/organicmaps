@@ -110,21 +110,19 @@ def transform_data(data):
     linear SVM.
     """
 
-    grouped = data.groupby(data['SampleId'], sort=False).groups
+    grouped = data.groupby(data['SampleId'], sort=False)
 
     xs, ys = [], []
 
     # k is used to create a balanced samples set for better linear
     # separation.
     k = 1
-    for id in grouped:
-        indices = grouped[id]
-        features = data.ix[indices][FEATURES]
-        relevances = np.array(data.ix[indices]['Relevance'])
+    for _, group in grouped:
+        features, relevances = group[FEATURES], group['Relevance']
 
-        n, total = len(indices), 0
+        n, total = len(group), 0
         for _, (i, j) in enumerate(itertools.combinations(range(n), 2)):
-            y = np.sign(relevances[j] - relevances[i])
+            y = np.sign(relevances.iloc[j] - relevances.iloc[i])
             if y == 0:
                 continue
 
