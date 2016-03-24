@@ -191,7 +191,7 @@ extern NSString * const kBookmarksChangedNotification;
   LocationManager * lm = MapsAppDelegate.theApp.locationManager;
   [self.delegate buildRouteFrom:lm.isLocationModeUnknownOrPending ? MWMRoutePoint::MWMRoutePointZero()
                                                                   : MWMRoutePoint(lm.lastLocation.mercator)
-                             to:{self.entity.mercator, self.placePage.basePlacePageView.titleLabel.text}];
+                             to:self.target];
 }
 
 - (void)routeFrom
@@ -214,9 +214,21 @@ extern NSString * const kBookmarksChangedNotification;
 
 - (MWMRoutePoint)target
 {
+  NSString * name = nil;
+  if (self.entity.title.length > 0)
+    name = self.entity.title;
+  else if (self.entity.address.length > 0)
+    name = self.entity.address;
+  else if (self.entity.category.length > 0)
+    name = self.entity.category;
+  else if (self.entity.isBookmark)
+    name = self.entity.bookmarkTitle;
+  else
+    name = L(@"dropped_pin");
+  
   m2::PointD const & org = self.entity.mercator;
   return self.entity.isMyPosition ? MWMRoutePoint(org)
-                               : MWMRoutePoint(org, self.placePage.basePlacePageView.titleLabel.text);
+                               : MWMRoutePoint(org, name);
 }
 
 - (void)share
