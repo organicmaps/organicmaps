@@ -1096,7 +1096,7 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   searchParam.SetMode(search::Mode::World);
   searchParam.SetSuggestsEnabled(false);
   searchParam.SetForceSearch(true);
-  searchParam.m_onResults = [this, &params](search::Results const & results)
+  searchParam.m_onResults = [this, params](search::Results const & results)
   {
     DownloaderSearchResults downloaderSearchResults;
     for (auto it = results.Begin(); it != results.End(); ++it)
