@@ -14,6 +14,8 @@ public:
 
   virtual bool isDrawContextCreated() const;
   virtual bool isUploadContextCreated() const;
+  
+  void setPresentAvailable(bool available);
 
 private:
   CAEAGLLayer * m_layer;

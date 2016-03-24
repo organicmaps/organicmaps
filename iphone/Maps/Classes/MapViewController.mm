@@ -362,6 +362,16 @@ NSString * const kReportSegue = @"Map2ReportSegue";
   GetFramework().EnterForeground();
 }
 
+- (void)onGetFocus
+{
+  [(EAGLView *)self.view setPresentAvailable:YES];
+}
+
+- (void)onLoseFocus
+{
+  [(EAGLView *)self.view setPresentAvailable:NO];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
