@@ -414,7 +414,7 @@ public class MainMenu
     UiUtils.showIf(expandContent,
                    mItemViews.get(Item.SEARCH),
                    mItemViews.get(Item.BOOKMARKS));
-    setVisible(Item.ADD_PLACE, !isRouting);
+    setVisible(Item.ADD_PLACE, !isRouting && !MapManager.nativeIsLegacyMode());
 
     if (isLayoutCorrected())
     {

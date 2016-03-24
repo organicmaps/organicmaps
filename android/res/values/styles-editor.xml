@@ -47,6 +47,7 @@
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
+    <item name="android:textColor">@color/timetable_add_complement_text</item>
   </style>
 
   <style name="MwmWidget.Editor.DayLayout">
@@ -67,6 +68,8 @@
   <style name="MwmWidget.Editor.FieldLayout.EditText">
     <item name="android:singleLine">true</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
+    <!-- TODO check night colors -->
+    <item name="android:theme">@style/MwmTheme.Editor.EditText</item>
   </style>
 
   <style name="MwmWidget.Editor.Problem" tools:ignore="NewApi">

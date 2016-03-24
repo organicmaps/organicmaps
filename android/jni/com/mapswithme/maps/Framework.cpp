@@ -417,11 +417,6 @@ bool Framework::HasSpaceForMigration()
   return m_work.IsEnoughSpaceForMigrate();
 }
 
-bool Framework::NeedMigrate()
-{
-  return platform::migrate::NeedMigrate();
-}
-
 void Framework::Migrate(bool keepOldMaps)
 {
   m_work.Migrate(keepOldMaps);

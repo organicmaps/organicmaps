@@ -151,7 +151,6 @@ namespace android
     place_page::Info & GetPlacePageInfo();
 
     bool HasSpaceForMigration();
-    bool NeedMigrate();
     bool PreMigrate(ms::LatLon const & position, storage::Storage::TChangeCountryFunction const & statusChangeListener,
                                                  storage::Storage::TProgressFunction const & progressListener);
     void Migrate(bool keepOldMaps);

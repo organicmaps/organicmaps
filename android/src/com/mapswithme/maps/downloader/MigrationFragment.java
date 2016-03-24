@@ -145,7 +145,7 @@ public class MigrationFragment extends BaseMwmFragment
       return;
 
     if (getActivity() instanceof MwmActivity)
-      ((MwmActivity)getActivity()).showDownloader(false);
+      ((MwmActivity) getActivity()).showDownloader(false);
     else
       getActivity().recreate();
 

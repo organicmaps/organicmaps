@@ -3,9 +3,12 @@
 #include "../core/jni_helper.hpp"
 
 #include "coding/internal/file_data.hpp"
+
 #include "storage/storage.hpp"
 
 #include "base/thread_checker.hpp"
+
+#include "platform/mwm_version.hpp"
 
 #include "std/bind.hpp"
 #include "std/shared_ptr.hpp"
@@ -66,7 +69,6 @@ static TCountryId const GetRootId(JNIEnv * env, jstring root)
 {
   return (root ? jni::ToNativeString(env, root) : GetStorage().GetRootId());
 }
-
 }  // namespace
 
 extern "C"
@@ -89,7 +91,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeHasSpaceForMigration(JNIEnv
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeIsLegacyMode(JNIEnv * env, jclass clazz)
 {
-  return g_framework->NeedMigrate();
+  return !version::IsSingleMwm(GetStorage().GetCurrentDataVersion());
 }
 
 static void FinishMigration(JNIEnv * env)

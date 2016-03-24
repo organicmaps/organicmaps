@@ -54,6 +54,7 @@ import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OpeningHours;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
@@ -430,8 +431,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours();
-    UiUtils.showIf(mMapObject != null && Editor.nativeIsFeatureEditable() && !RoutingController.get().isNavigating(), mEditor);
-    UiUtils.showIf(!RoutingController.get().isNavigating(), mReport);
+    UiUtils.showIf(mMapObject != null && Editor.nativeIsFeatureEditable() &&
+                   !RoutingController.get().isNavigating() && !MapManager.nativeIsLegacyMode(),
+                   mEditor);
+    UiUtils.showIf(!RoutingController.get().isNavigating() && !MapManager.nativeIsLegacyMode(), mReport);
   }
 
   private void refreshOpeningHours()

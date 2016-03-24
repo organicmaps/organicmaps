@@ -29,7 +29,7 @@ namespace migrate
 {
 // Set of functions to support migration between different versions of MWM
 // with totaly incompatible formats.
-// 160107 - Migrate to small single file MWM
+// 160302 - Migrate to small single file MWM
 uint32_t constexpr kMinRequiredVersion = 160302;
 bool NeedMigrate()
 {

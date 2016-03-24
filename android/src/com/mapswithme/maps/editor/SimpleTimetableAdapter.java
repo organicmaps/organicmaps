@@ -5,7 +5,6 @@ import android.support.annotation.IntRange;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,7 +94,6 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
   protected void addTimetable()
   {
     mItems.add(OpeningHours.nativeGetComplementTimetable(mItems.toArray(new Timetable[mItems.size()])));
-    printItems();
     notifyItemInserted(mItems.size() - 1);
     refreshComplement();
   }
@@ -103,7 +101,6 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
   protected void removeTimetable(int position)
   {
     mItems.remove(position);
-    printItems();
     notifyItemRemoved(position);
     refreshComplement();
   }
@@ -154,16 +151,7 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     final Timetable tts[] = mItems.toArray(new Timetable[mItems.size()]);
     mItems = new ArrayList<>(Arrays.asList(OpeningHours.nativeRemoveWorkingDay(tts, position, day)));
     refreshComplement();
-    printItems();
     notifyDataSetChanged();
-  }
-
-  // FIXME remove
-  private void printItems()
-  {
-    Log.d("TEST", "Items : \n");
-    for (Timetable tt : mItems)
-      Log.d("TEST", tt.toString() + "\n");
   }
 
   private void setFullday(int position, boolean fullday)
@@ -400,8 +388,8 @@ public class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetable
     @Override
     void onBind()
     {
-      // TODO @yunik add text with complement days
       add.setEnabled(mComplementItem != null && mComplementItem.weekdays.length != 0);
+      add.setText(TimeFormatUtils.formatWeekdays(mComplementItem));
     }
   }
 }
