@@ -181,6 +181,32 @@ m2::RectD GetRectAroundPosition(m2::PointD const & position)
   double constexpr kMaxPositionRadiusM = 50.0 * 1000;
   return MercatorBounds::RectByCenterXYAndSizeInMeters(position, kMaxPositionRadiusM);
 }
+
+template <typename TSlice>
+void UpdateNameScore(string const & name, TSlice const & slice, v2::NameScore & bestScore)
+{
+  auto const score = v2::GetNameScore(name, slice);
+  if (score > bestScore)
+    bestScore = score;
+}
+
+template <typename TSlice>
+void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & slice,
+                     v2::NameScore & bestScore, double & bestCoverage)
+{
+  auto const score = v2::GetNameScore(tokens, slice);
+  auto const coverage =
+      tokens.empty() ? 0 : static_cast<double>(slice.Size()) / static_cast<double>(tokens.size());
+  if (score > bestScore)
+  {
+    bestScore = score;
+    bestCoverage = coverage;
+  }
+  else if (score == bestScore && coverage > bestCoverage)
+  {
+    bestCoverage = coverage;
+  }
+}
 }  // namespace
 
 // static
@@ -591,6 +617,9 @@ class PreResult2Maker
     info.m_searchType = preInfo.m_searchType;
 
     info.m_nameScore = v2::NAME_SCORE_ZERO;
+
+    v2::TokensSliceNoCategories slice(m_params, preInfo.m_startToken, preInfo.m_endToken);
+
     for (auto const & lang : m_params.m_langs)
     {
       string name;
@@ -599,28 +628,11 @@ class PreResult2Maker
       vector<strings::UniString> tokens;
       SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
 
-      auto score = GetNameScore(tokens, m_params, preInfo.m_startToken, preInfo.m_endToken);
-      auto coverage =
-          tokens.empty() ? 0 : static_cast<double>(preInfo.m_endToken - preInfo.m_startToken) /
-                                   static_cast<double>(tokens.size());
-      if (score > info.m_nameScore)
-      {
-        info.m_nameScore = score;
-        info.m_nameCoverage = coverage;
-      }
-      else if (score == info.m_nameScore && coverage > info.m_nameCoverage)
-      {
-        info.m_nameCoverage = coverage;
-      }
+      UpdateNameScore(tokens, slice, info.m_nameScore, info.m_nameCoverage);
     }
 
     if (info.m_searchType == v2::SearchModel::SEARCH_TYPE_BUILDING)
-    {
-      string const houseNumber = ft.GetHouseNumber();
-      auto score = GetNameScore(houseNumber, m_params, preInfo.m_startToken, preInfo.m_endToken);
-      if (score > info.m_nameScore)
-        info.m_nameScore = score;
-    }
+      UpdateNameScore(ft.GetHouseNumber(), slice, info.m_nameScore);
   }
 
   uint8_t NormalizeRank(uint8_t rank, v2::SearchModel::SearchType type, m2::PointD const & center,
@@ -1164,6 +1176,8 @@ void Query::InitParams(bool localitySearch, SearchQueryParams & params)
   for (size_t i = 0; i < tokensCount; ++i)
     params.m_tokens[i].push_back(m_tokens[i]);
 
+  params.m_isCategorySynonym.assign(tokensCount + (m_prefix.empty() ? 0 : 1), false);
+
   // Add names of categories (and synonyms).
   if (!localitySearch)
   {
@@ -1175,6 +1189,7 @@ void Query::InitParams(bool localitySearch, SearchQueryParams & params)
 
       uint32_t const index = cl.GetIndexForType(t);
       v.push_back(FeatureTypeToString(index));
+      params.m_isCategorySynonym[i] = true;
 
       // v2-version MWM has raw classificator types in search index prefix, so
       // do the hack: add synonyms for old convention if needed.

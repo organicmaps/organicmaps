@@ -63,6 +63,7 @@ void SearchQueryParams::Clear()
 {
   m_tokens.clear();
   m_prefixTokens.clear();
+  m_isCategorySynonym.clear();
   m_langs.clear();
   m_scale = scales::GetUpperScale();
 }

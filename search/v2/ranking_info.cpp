@@ -14,7 +14,7 @@ namespace
 double const kDistanceToPivot = 24.443;
 double const kRank = 11.010;
 double const kNameScore = 1.0;
-double const kNameCoverage = 0.0;
+double const kNameCoverage = 1.0;
 double const kSearchType = 22.378;
 
 double TransformDistance(double distance)
