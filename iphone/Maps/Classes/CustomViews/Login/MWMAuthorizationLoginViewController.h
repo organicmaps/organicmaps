@@ -2,6 +2,4 @@
 
 @interface MWMAuthorizationLoginViewController : MWMViewController
 
-@property (nonatomic) BOOL isCalledFromSettings;
-
 @end

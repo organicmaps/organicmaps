@@ -6,6 +6,7 @@
 #import "MWMEditorViralAlert.h"
 #import "MWMFacebookAlert.h"
 #import "MWMLocationAlert.h"
+#import "MWMOsmAuthAlert.h"
 #import "MWMPedestrianShareAlert.h"
 #import "MWMRateAlert.h"
 #import "MWMRoutingDisclaimerAlert.h"
@@ -154,6 +155,11 @@
 + (MWMAlert *)editorViralAlert
 {
   return [MWMEditorViralAlert alert];
+}
+
++ (MWMAlert *)osmAuthAlert
+{
+  return [MWMOsmAuthAlert alert];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation

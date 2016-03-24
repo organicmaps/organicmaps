@@ -195,6 +195,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert editorViralAlert]];
 }
 
+- (void)presentOsmAuthAlert
+{
+  [self displayAlert:[MWMAlert osmAuthAlert]];
+}
+
 - (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion
 {
   MWMAlert * alert = self.view.subviews.firstObject;

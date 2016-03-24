@@ -32,6 +32,7 @@
 + (MWMAlert *)downloaderInternalErrorAlertWithOkBlock:(TMWMVoidBlock)okBlock cancelBlock:(TMWMVoidBlock)cancelBlock;
 + (MWMAlert *)downloaderNeedUpdateAlertWithOkBlock:(TMWMVoidBlock)okBlock;
 + (MWMAlert *)editorViralAlert;
++ (MWMAlert *)osmAuthAlert;
 - (void)close;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;

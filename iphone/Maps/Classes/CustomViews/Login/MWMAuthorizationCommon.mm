@@ -11,7 +11,6 @@ namespace osm_auth_ios
 
 NSString * const kOSMRequestToken = @"OSMRequestToken";
 NSString * const kOSMRequestSecret = @"OSMRequestSecret";
-NSString * const kAuthUserSkip = @"AuthUserSkip";
 NSString * const kAuthNeedCheck = @"AuthNeedCheck";
 NSString * const kOSMUserName = @"UDOsmUserName";
 
@@ -116,18 +115,6 @@ osm::TKeySecret AuthorizationGetCredentials()
   if (requestToken && requestSecret)
     return osm::TKeySecret(requestToken.UTF8String, requestSecret.UTF8String);
   return {};
-}
-
-void AuthorizationSetUserSkip()
-{
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
-  [ud setObject:[NSDate date] forKey:kAuthUserSkip];
-  [ud synchronize];
-}
-
-BOOL AuthorizationIsUserSkip()
-{
-  return [[NSUserDefaults standardUserDefaults] objectForKey:kAuthUserSkip] != nil;
 }
 
 void AuthorizationSetNeedCheck(BOOL needCheck)

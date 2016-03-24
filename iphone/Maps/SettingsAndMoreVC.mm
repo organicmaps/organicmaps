@@ -167,10 +167,8 @@ extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
 - (void)authorization
 {
   [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatAuthorization}];
-  UINavigationController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:@"LoginNavigationController"];
-  MWMAuthorizationLoginViewController * authVC = (MWMAuthorizationLoginViewController *)[vc topViewController];
-  authVC.isCalledFromSettings = YES;
-  [self.navigationController presentViewController:vc animated:YES completion:nil];
+  UINavigationController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:@"AuthorizationLoginViewController"];
+  [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)community

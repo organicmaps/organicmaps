@@ -34,6 +34,7 @@
 - (void)presentDownloaderInternalErrorAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock cancelBlock:(nonnull TMWMVoidBlock)cancelBlock;
 - (void)presentDownloaderNeedUpdateAlertWithOkBlock:(nonnull TMWMVoidBlock)okBlock;
 - (void)presentEditorViralAlert;
+- (void)presentOsmAuthAlert;
 - (void)closeAlertWithCompletion:(nullable TMWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));
