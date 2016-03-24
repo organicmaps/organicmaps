@@ -223,7 +223,7 @@ void Editor::LoadMapEdits()
           case FeatureStatus::Deleted: ++deleted; break;
           case FeatureStatus::Modified: ++modified; break;
           case FeatureStatus::Created: ++created; break;
-          case FeatureStatus::Untouched: ASSERT(false, ()); break;
+          case FeatureStatus::Untouched: ASSERT(false, ()); continue;
           }
           // Insert initialized structure at the end: exceptions are possible in above code.
           m_features[fid.m_mwmId].emplace(fid.m_index, move(fti));
@@ -570,6 +570,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         // Do not process already uploaded features or those failed permanently.
         if (!NeedsUpload(fti.m_uploadStatus))
           continue;
+
         try
         {
           XMLFeature feature = fti.m_feature.ToXML();
@@ -578,7 +579,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
 
           switch (fti.m_status)
           {
-          case FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); break;
+          case FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); continue;
 
           case FeatureStatus::Created:
             {
@@ -644,15 +645,12 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
             break;
           }
           fti.m_uploadStatus = kUploaded;
-          // TODO(AlexZ): Use timestamp from the server.
-          fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError.clear();
           ++uploadedFeaturesCount;
         }
         catch (ChangesetWrapper::OsmObjectWasDeletedException const & ex)
         {
           fti.m_uploadStatus = kDeletedFromOSMServer;
-          fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError = ex.what();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
@@ -660,7 +658,6 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         catch (ChangesetWrapper::RelationFeatureAreNotSupportedException const & ex)
         {
           fti.m_uploadStatus = kRelationsAreNotSupported;
-          fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError = ex.what();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
@@ -668,7 +665,6 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         catch (ChangesetWrapper::EmptyFeatureException const & ex)
         {
           fti.m_uploadStatus = kWrongMatch;
-          fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError = ex.what();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
@@ -676,11 +672,12 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         catch (RootException const & ex)
         {
           fti.m_uploadStatus = kNeedsRetry;
-          fti.m_uploadAttemptTimestamp = time(nullptr);
           fti.m_uploadError = ex.what();
           ++errorsCount;
           LOG(LWARNING, (ex.what()));
         }
+        // TODO(AlexZ): Use timestamp from the server.
+        fti.m_uploadAttemptTimestamp = time(nullptr);
         // Call Save every time we modify each feature's information.
         SaveUploadedInformation(fti);
       }
