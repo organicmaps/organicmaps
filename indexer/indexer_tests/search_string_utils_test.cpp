@@ -7,6 +7,14 @@
 using namespace search;
 using namespace strings;
 
+namespace
+{
+bool TestStreetPrefixMatch(char const * s)
+{
+  return IsStreetSynonymPrefix(MakeUniString(s));
+}
+} // namespace
+
 UNIT_TEST(FeatureTypeToString)
 {
   TEST_EQUAL("!type:123", ToUtf8(FeatureTypeToString(123)), ());
@@ -56,21 +64,13 @@ UNIT_TEST(Contains)
   TEST(!ContainsNormalized(kTestStr, "z"), ());
 }
 
-namespace
-{
-bool TestPrefixMatch(char const * s)
-{
-  return IsStreetSynonymPrefix(MakeUniString(s));
-}
-} // namespace
-
 UNIT_TEST(StreetPrefixMatch)
 {
-  TEST(TestPrefixMatch("п"), ());
-  TEST(TestPrefixMatch("пр"), ());
-  TEST(TestPrefixMatch("про"), ());
-  TEST(TestPrefixMatch("прое"), ());
-  TEST(TestPrefixMatch("проез"), ());
-  TEST(TestPrefixMatch("проезд"), ());
-  TEST(!TestPrefixMatch("проездд"), ());
+  TEST(TestStreetPrefixMatch("п"), ());
+  TEST(TestStreetPrefixMatch("пр"), ());
+  TEST(TestStreetPrefixMatch("про"), ());
+  TEST(TestStreetPrefixMatch("прое"), ());
+  TEST(TestStreetPrefixMatch("проез"), ());
+  TEST(TestStreetPrefixMatch("проезд"), ());
+  TEST(!TestStreetPrefixMatch("проездд"), ());
 }

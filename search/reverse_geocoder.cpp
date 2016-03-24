@@ -72,7 +72,7 @@ size_t ReverseGeocoder::GetMatchedStreetIndex(strings::UniString const & keyName
 
   for (size_t i = 0; i < count; ++i)
   {
-    strings::UniString const actual = search::GetStreetNameAsKey(streets[i].m_name);
+    strings::UniString const actual = GetStreetNameAsKey(streets[i].m_name);
 
     size_t const editDistance = strings::EditDistance(keyName.begin(), keyName.end(),
                                                       actual.begin(), actual.end());
