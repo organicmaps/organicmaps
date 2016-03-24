@@ -323,6 +323,11 @@ void XMLFeature::SetUploadError(string const & error)
   SetAttribute(kUploadError, error);
 }
 
+bool XMLFeature::HasAnyTags() const
+{
+  return m_document.child("tag");
+}
+
 bool XMLFeature::HasTag(string const & key) const
 {
   return FindTag(m_document, key);

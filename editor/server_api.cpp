@@ -13,6 +13,21 @@
 
 #include "3party/pugixml/src/pugixml.hpp"
 
+namespace
+{
+string KeyValueTagsToXML(osm::ServerApi06::TKeyValueTags const & kvTags)
+{
+  ostringstream stream;
+  stream << "<osm>\n"
+  "<changeset>\n";
+  for (auto const & tag : kvTags)
+    stream << "  <tag k=\"" << tag.first << "\" v=\"" << tag.second << "\"/>\n";
+  stream << "</changeset>\n"
+  "</osm>\n";
+  return stream.str();
+}
+}  // namespace
+
 namespace osm
 {
 
@@ -26,15 +41,7 @@ uint64_t ServerApi06::CreateChangeSet(TKeyValueTags const & kvTags) const
   if (!m_auth.IsAuthorized())
     MYTHROW(NotAuthorized, ("Not authorized."));
 
-  ostringstream stream;
-  stream << "<osm>\n"
-  "<changeset>\n";
-  for (auto const & tag : kvTags)
-    stream << "  <tag k=\"" << tag.first << "\" v=\"" << tag.second << "\"/>\n";
-  stream << "</changeset>\n"
-  "</osm>\n";
-
-  OsmOAuth::Response const response = m_auth.Request("/changeset/create", "PUT", stream.str());
+  OsmOAuth::Response const response = m_auth.Request("/changeset/create", "PUT", KeyValueTagsToXML(kvTags));
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(CreateChangeSetHasFailed, ("CreateChangeSet request has failed:", response));
 
@@ -95,6 +102,13 @@ void ServerApi06::DeleteElement(editor::XMLFeature const & element) const
                                                      "DELETE", element.ToOSMString());
   if (response.first != OsmOAuth::HTTP::OK && response.first != OsmOAuth::HTTP::Gone)
     MYTHROW(ErrorDeletingElement, ("Could not delete an element:", response));
+}
+
+void ServerApi06::UpdateChangeSet(uint64_t changesetId, TKeyValueTags const & kvTags) const
+{
+  OsmOAuth::Response const response = m_auth.Request("/changeset/" + strings::to_string(changesetId), "PUT", KeyValueTagsToXML(kvTags));
+  if (response.first != OsmOAuth::HTTP::OK)
+    MYTHROW(UpdateChangeSetHasFailed, ("UpdateChangeSet request has failed:", response));
 }
 
 void ServerApi06::CloseChangeSet(uint64_t changesetId) const

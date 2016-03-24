@@ -34,6 +34,7 @@ public:
   DECLARE_EXCEPTION(NotAuthorized, ServerApi06Exception);
   DECLARE_EXCEPTION(CantParseServerResponse, ServerApi06Exception);
   DECLARE_EXCEPTION(CreateChangeSetHasFailed, ServerApi06Exception);
+  DECLARE_EXCEPTION(UpdateChangeSetHasFailed, ServerApi06Exception);
   DECLARE_EXCEPTION(CreateElementHasFailed, ServerApi06Exception);
   DECLARE_EXCEPTION(ModifiedElementHasNoIdAttribute, ServerApi06Exception);
   DECLARE_EXCEPTION(ModifyElementHasFailed, ServerApi06Exception);
@@ -70,6 +71,7 @@ public:
   /// @param element should already have all attributes set, including "id", "version", "changeset".
   /// @returns true if element was successfully deleted (or was already deleted).
   void DeleteElement(editor::XMLFeature const & element) const;
+  void UpdateChangeSet(uint64_t changesetId, TKeyValueTags const & kvTags) const;
   void CloseChangeSet(uint64_t changesetId) const;
   /// @returns id of a created note.
   uint64_t CreateNote(ms::LatLon const & ll, string const & message) const;

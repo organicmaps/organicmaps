@@ -140,6 +140,7 @@ public:
   void SetUploadError(string const & error);
   //@}
 
+  bool HasAnyTags() const;
   bool HasTag(string const & key) const;
   bool HasAttribute(string const & key) const;
   bool HasKey(string const & key) const;
