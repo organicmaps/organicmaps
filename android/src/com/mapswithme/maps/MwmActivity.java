@@ -307,6 +307,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void showDownloader(boolean openDownloaded)
   {
+    if (RoutingController.get().checkMigration(this))
+      return;
+
     final Bundle args = new Bundle();
     args.putBoolean(DownloaderActivity.EXTRA_OPEN_DOWNLOADED, openDownloaded);
     if (mIsFragmentContainer)
