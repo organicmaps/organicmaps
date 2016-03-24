@@ -598,6 +598,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       // Request new tiles.
       ScreenBase screen = m_userEventStream.GetCurrentScreen();
+      m_lastReadedModelView = screen;
       m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), ResolveTileKeys(screen));
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 make_unique_dp<UpdateReadManagerMessage>(),
@@ -760,6 +761,7 @@ void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
     blocker.Wait();
 
     // Request new tiles.
+    m_lastReadedModelView = screen;
     m_requestedTiles->Set(screen, m_isIsometry || screen.isPerspective(), ResolveTileKeys(screen));
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<UpdateReadManagerMessage>(),
@@ -1577,10 +1579,14 @@ void FrontendRenderer::UpdateScene(ScreenBase const & modelView)
   for (RenderLayer & layer : m_layers)
     layer.m_isDirty |= RemoveGroups(removePredicate, layer.m_renderGroups, make_ref(m_overlayTree));
 
-  m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), ResolveTileKeys(modelView));
-  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                            make_unique_dp<UpdateReadManagerMessage>(),
-                            MessagePriority::UberHighSingleton);
+  if (m_lastReadedModelView != modelView)
+  {
+    m_lastReadedModelView = modelView;
+    m_requestedTiles->Set(modelView, m_isIsometry || modelView.isPerspective(), ResolveTileKeys(modelView));
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<UpdateReadManagerMessage>(),
+                              MessagePriority::UberHighSingleton);
+  }
 }
 
 void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const

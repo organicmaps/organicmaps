@@ -40,7 +40,6 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   : m_commutator(commutator)
   , m_model(model)
   , m_pool(make_unique_dp<threads::ThreadPool>(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)))
-  , m_forceUpdate(true)
   , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
   , m_modeChanged(false)
@@ -88,10 +87,6 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
 void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings,
                                  TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng)
 {
-  if (screen == m_currentViewport && !m_forceUpdate)
-    return;
-
-  m_forceUpdate = false;
   m_modeChanged |= (m_have3dBuildings != have3dBuildings);
   m_have3dBuildings = have3dBuildings;
 
@@ -160,8 +155,6 @@ void ReadManager::Invalidate(TTilesCollection const & keyStorage)
     CancelTileInfo(info);
     m_tileInfos.erase(info);
   }
-
-  m_forceUpdate = true;
 }
 
 void ReadManager::InvalidateAll()
@@ -171,7 +164,6 @@ void ReadManager::InvalidateAll()
 
   m_tileInfos.clear();
 
-  m_forceUpdate = true;
   m_modeChanged = true;
 }
 
@@ -271,7 +263,6 @@ void ReadManager::Allow3dBuildings(bool allow3dBuildings)
   if (m_allow3dBuildings != allow3dBuildings)
   {
     m_modeChanged = true;
-    m_forceUpdate = true;
     m_allow3dBuildings = allow3dBuildings;
   }
 }

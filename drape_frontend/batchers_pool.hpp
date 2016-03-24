@@ -29,7 +29,7 @@ public:
 
 private:
   typedef pair<dp::Batcher *, int> TBatcherPair;
-  typedef map<TileKey, TBatcherPair> TBatcherMap;
+  typedef map<TileKey, TBatcherPair, TileKeyStrictComparator> TBatcherMap;
   typedef TBatcherMap::iterator TIterator;
   TSendMessageFn m_sendMessageFn;
 

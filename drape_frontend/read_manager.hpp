@@ -54,7 +54,6 @@ private:
   drape_ptr<threads::ThreadPool> m_pool;
 
   ScreenBase m_currentViewport;
-  bool m_forceUpdate;
   bool m_have3dBuildings;
   bool m_allow3dBuildings;
   bool m_modeChanged;
