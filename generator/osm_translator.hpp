@@ -189,7 +189,7 @@ protected:
     for (auto const & p : e.tags)
     {
       /// @todo Skip common key tags.
-      if (p.first == "type" || p.first == "route")
+      if (p.first == "type" || p.first == "route" || p.first == "area")
         continue;
 
       // Important! Skip all "name" tags.
