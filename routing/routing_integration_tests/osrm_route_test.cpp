@@ -156,7 +156,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetOsrmComponents(),
         MercatorBounds::FromLatLon(51.09276, 1.11369), {0., 0.},
-        MercatorBounds::FromLatLon(50.93220, 1.82690), 60498.);
+        MercatorBounds::FromLatLon(50.93227, 1.82725), 60498.);
   }
 
   // Strange map edits in Africa borders. Routing not linked now.
