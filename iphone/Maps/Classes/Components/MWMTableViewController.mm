@@ -7,7 +7,7 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-@interface MWMTableViewController () <UIGestureRecognizerDelegate>
+@interface MWMTableViewController ()
 
 @property (nonatomic, readwrite) MWMAlertViewController * alertController;
 
@@ -39,7 +39,6 @@
   self.tableView.separatorColor = [UIColor blackDividers];
   [self.navigationController.navigationBar setTranslucent:NO];
   [self.tableView registerClass:[MWMTableViewCell class] forCellReuseIdentifier:[UITableViewCell className]];
-  self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
