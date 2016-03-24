@@ -53,6 +53,8 @@ public:
   /// Throws exceptions from above list.
   void Delete(editor::XMLFeature node);
 
+  uint64_t GetChangesetId() const { return m_changesetId; }
+
 private:
   /// Unfortunately, pugi can't return xml_documents from methods.
   /// Throws exceptions from above list.
