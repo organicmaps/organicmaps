@@ -2,7 +2,7 @@
 exec /usr/local/bin/sbcl --noinform --quit --load $0 --end-toplevel-options "$@"
 |#
 
-; Silently loads :cl-json.
+;;; Silently loads :cl-json.
 (with-open-file (*standard-output* "/dev/null"
                                    :direction :output
                                    :if-exists :supersede)
@@ -110,7 +110,18 @@ exec /usr/local/bin/sbcl --noinform --quit --load $0 --end-toplevel-options "$@"
                 (defsample query ,ls ,ps ,vs results)))
          ,@body))))
 
-; Loads samples specification from standard input.
+(defun power-set (seq)
+  (unless seq (return-from power-set '(())))
+  (let ((x (car seq))
+        (ps (power-set (cdr seq))))
+    (concatenate 'list ps (mapcar #'(lambda (xs) (cons x xs)) ps))))
+
+(defun join-strings (strings)
+  "Joins a list of strings with spaces between them."
+  (with-output-to-string (s)
+    (format s "~{~a~^ ~}" strings)))
+
+;;; Loads samples specification from standard input.
 (load *standard-input*)
 
 (format *error-output* "Num samples: ~a~%" (length *samples*))
