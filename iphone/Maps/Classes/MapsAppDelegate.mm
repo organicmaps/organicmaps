@@ -559,6 +559,7 @@ using namespace osm_auth_ios;
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+  [self.mapViewController onLoseFocus];
   [self.mapViewController.appWallAd close];
   [RouteState save];
   GetFramework().SetRenderingEnabled(false);
@@ -585,6 +586,7 @@ using namespace osm_auth_ios;
 {
   if (application.applicationState == UIApplicationStateBackground)
     return;
+  [self.mapViewController onGetFocus];
   [self handleURLs];
   [self restoreRouteState];
   [[Statistics instance] applicationDidBecomeActive];
