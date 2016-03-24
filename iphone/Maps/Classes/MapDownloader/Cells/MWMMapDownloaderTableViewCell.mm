@@ -77,7 +77,8 @@ namespace
   self.title.attributedText = [self matchedString:@(nodeAttrs.m_nodeLocalName.c_str())
                                     selectedAttrs:kSelectedTitleAttrs
                                   unselectedAttrs:kUnselectedTitleAttrs];
-  self.downloadSize.text = formattedSize(nodeAttrs.m_mwmSize);
+  BOOL const haveDownloadingCountries = nodeAttrs.m_downloadingMwmCounter != 0;
+  self.downloadSize.text = formattedSize(haveDownloadingCountries ? nodeAttrs.m_downloadingMwmSize : nodeAttrs.m_mwmSize);
 }
 
 - (void)configProgress:(const storage::NodeAttrs &)nodeAttrs
