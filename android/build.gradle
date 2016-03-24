@@ -292,6 +292,19 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_7
     targetCompatibility JavaVersion.VERSION_1_7
   }
+
+  packagingOptions {
+    exclude 'lib/arm64-v8a/libcrashlytics-envelope.so'
+    exclude 'lib/arm64-v8a/libcrashlytics.so'
+    exclude 'lib/armeabi/libcrashlytics-envelope.so'
+    exclude 'lib/armeabi/libcrashlytics.so'
+    exclude 'lib/mips64/libcrashlytics-envelope.so'
+    exclude 'lib/mips64/libcrashlytics.so'
+    exclude 'lib/mips/libcrashlytics-envelope.so'
+    exclude 'lib/mips/libcrashlytics.so'
+    exclude 'lib/x86_64/libcrashlytics-envelope.so'
+    exclude 'lib/x86_64/libcrashlytics.so'
+  }
 }
 
 // Tasks needed to compile NDK part
