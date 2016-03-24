@@ -5037,3 +5037,43 @@ en:Lighthouse
 nl:Vuurtoren
 ru:Маяк
 de:Leuchtturm
+
+shop-copyshop
+en:Copy Shop|Printer
+ru:Копировальный центр|печать|полиграфия
+
+shop-photo
+en:Photo Shop|frames|shop
+ru:Фототовары|магазин
+
+shop-travel_agency
+en:Travel Agency|tours
+ru:Турагентство|путешествия
+
+shop-outdoor
+en:Outdoor Equipment|trekking|climbing|camping|shop
+ru:Снаряжение|магазин
+
+shop-dry_cleaning
+en:Dry Cleaning|cleaning
+ru:Химчистка
+
+shop-tyres
+en:Tyre Shop|shop
+ru:Магазин шин|магазин
+
+amenity-car_wash
+en:Car Wash
+ru:Автомойка
+
+amenity-veterinary
+en:Veterinary Doctor
+ru:Ветеринарная клиника
+
+amenity-charging_station
+en:Charging Station|charging
+ru:Зарядная станция
+
+amenity-childcare
+en:Nursery|Child Care
+ru:Детская комната|ясли
