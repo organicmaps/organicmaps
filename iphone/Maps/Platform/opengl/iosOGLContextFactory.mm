@@ -35,9 +35,3 @@ bool iosOGLContextFactory::isUploadContextCreated() const
 {
   return m_uploadContext != nullptr;
 }
-
-void iosOGLContextFactory::setPresentAvailable(bool available)
-{
-  if (m_drawContext != nullptr)
-    m_drawContext->setPresentAvailable(available);
-}

@@ -21,8 +21,6 @@ namespace search { struct AddressInfo; }
 - (void)onTerminate;
 - (void)onEnterForeground;
 - (void)onEnterBackground;
-- (void)onGetFocus;
-- (void)onLoseFocus;
 
 - (void)setMapStyle:(MapStyle)mapStyle;
 

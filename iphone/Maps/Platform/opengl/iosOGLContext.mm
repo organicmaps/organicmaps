@@ -12,7 +12,6 @@ iosOGLContext::iosOGLContext(CAEAGLLayer * layer, iosOGLContext * contextToShare
   , m_renderBufferId(0)
   , m_depthBufferId(0)
   , m_frameBufferId(0)
-  , m_presentAvailable(true)
 {
   if (contextToShareWith != NULL)
   {
@@ -37,23 +36,16 @@ void iosOGLContext::makeCurrent()
     initBuffers();
 }
 
-void iosOGLContext::setPresentAvailable(bool available)
-{
-  m_presentAvailable = available;
-}
-
 void iosOGLContext::present()
 {
   ASSERT(m_nativeContext != NULL, ());
   ASSERT(m_renderBufferId, ());
-  
+
   GLenum const discards[] = { GL_DEPTH_ATTACHMENT, GL_COLOR_ATTACHMENT0 };
   GLCHECK(glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards));
 
   glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
-  
-  if (m_presentAvailable)
-    [m_nativeContext presentRenderbuffer: GL_RENDERBUFFER];
+  [m_nativeContext presentRenderbuffer: GL_RENDERBUFFER];
 
   GLCHECK(glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards + 1));
 }
