@@ -113,6 +113,9 @@
                                     <constraint firstItem="Nik-XU-pbs" firstAttribute="centerY" secondItem="q0y-yK-baH" secondAttribute="centerY" id="jUI-Oj-8KB"/>
                                     <constraint firstAttribute="trailing" secondItem="yiN-gR-5R2" secondAttribute="trailing" id="v6y-np-1cO"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                </userDefinedRuntimeAttributes>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="jUI-Oj-8KB"/>
@@ -260,6 +263,9 @@
                                     <constraint firstItem="etq-PP-stT" firstAttribute="leading" secondItem="Lqq-c4-P1I" secondAttribute="leading" constant="16" id="laV-5t-x5P"/>
                                     <constraint firstItem="etq-PP-stT" firstAttribute="centerY" secondItem="Lqq-c4-P1I" secondAttribute="centerY" id="sBV-HW-CLa"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                                </userDefinedRuntimeAttributes>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="gM5-mR-fRE"/>
