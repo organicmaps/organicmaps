@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
@@ -36,14 +36,14 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_socializing" translatesAutoresizingMaskIntoConstraints="NO" id="m8G-07-Mf3">
-                            <rect key="frame" x="60" y="54" width="160" height="160"/>
+                            <rect key="frame" x="60" y="53" width="160" height="160"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="160" id="j6u-9U-ijj"/>
                                 <constraint firstAttribute="width" constant="160" id="zUT-wz-832"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffp-Nm-vdI" userLabel="Message">
-                            <rect key="frame" x="20" y="230" width="240" height="20"/>
+                            <rect key="frame" x="20" y="229" width="240" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Zgj-S1-C3z"/>
                                 <constraint firstAttribute="width" constant="240" id="t4I-mS-iNs"/>
@@ -57,7 +57,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G21-zf-Val" userLabel="hDivider">
-                            <rect key="frame" x="0.0" y="270" width="280" height="1"/>
+                            <rect key="frame" x="0.0" y="269" width="280" height="1"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="3gT-zA-0eH"/>
@@ -120,7 +120,7 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="Xcl-gD-T7R" firstAttribute="top" secondItem="G21-zf-Val" secondAttribute="bottom" id="0Yv-Ng-AJG"/>
+                        <constraint firstItem="Xcl-gD-T7R" firstAttribute="top" secondItem="G21-zf-Val" secondAttribute="bottom" constant="1" id="0Yv-Ng-AJG"/>
                         <constraint firstAttribute="width" secondItem="G21-zf-Val" secondAttribute="width" id="AE0-FM-k3r"/>
                         <constraint firstItem="ffp-Nm-vdI" firstAttribute="top" secondItem="m8G-07-Mf3" secondAttribute="bottom" constant="16" id="Dup-dp-LKY"/>
                         <constraint firstItem="esF-hg-RBd" firstAttribute="top" secondItem="Xcl-gD-T7R" secondAttribute="bottom" id="HTB-8j-TTM"/>
@@ -155,6 +155,7 @@
             </constraints>
             <connections>
                 <outlet property="message" destination="ffp-Nm-vdI" id="bXH-zX-hr6"/>
+                <outlet property="shareButton" destination="Xcl-gD-T7R" id="1Dr-cC-7Ah"/>
             </connections>
             <point key="canvasLocation" x="305" y="172"/>
         </view>

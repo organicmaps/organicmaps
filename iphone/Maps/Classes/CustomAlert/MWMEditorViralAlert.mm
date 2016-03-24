@@ -1,3 +1,6 @@
+#import "Common.h"
+#import "MWMActivityViewController.h"
+#import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMEditorViralAlert.h"
 #import "Statistics.h"
@@ -8,34 +11,29 @@
 
 namespace
 {
-  array<NSString *, 3> const kMessages {{L(@"editor_done_dialog_1"), L(@"editor_done_dialog_2"), L(@"editor_done_dialog_3")}};
+  array<NSString *, 2> const kMessages {{L(@"editor_done_dialog_1"), L(@"editor_done_dialog_2")}};
 } // namespace
 
 @interface MWMEditorViralAlert ()
 
 @property (weak, nonatomic) IBOutlet UILabel * message;
-@property (copy, nonatomic) TMWMVoidBlock share;
+@property (weak, nonatomic) IBOutlet UIButton * shareButton;
 
 @end
 
 @implementation MWMEditorViralAlert
 
-+ (nonnull instancetype)alertWithShareBlock:(nonnull TMWMVoidBlock)share
++ (nonnull instancetype)alert
 {
   MWMEditorViralAlert * alert = [[[NSBundle mainBundle] loadNibNamed:[MWMEditorViralAlert className] owner:nil options:nil] firstObject];
-  NSAssert(share, @"Share block can't be nil!");
-  alert.share = share;
   int const index = rand() % kMessages.size();
   NSString * message = kMessages[index];
   if (index == 1)
   {
-    auto const edits = osm::Editor::Instance().GetStats().m_edits.size();
     int const ratingValue = (rand() % 1000) + 1000;
-    int const rating = ceil(ratingValue / (ceil(edits / 10)));
-    message = [NSString stringWithFormat:message, edits, rating];
+    message = [NSString stringWithFormat:message, ratingValue];
   }
   alert.message.text = message;
-
   NSMutableDictionary <NSString *, NSString *> * info = [@{kStatValue : message} mutableCopy];
   if (NSString * un = osm_auth_ios::OSMUserName())
     [info setObject:un forKey:kStatOSMUserName];
@@ -47,8 +45,9 @@ namespace
 - (IBAction)shareTap
 {
   [Statistics logEvent:kStatEditorSecondTimeShareClick withParameters:@{kStatValue : self.message.text}];
-  self.share();
+  MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForEditorViral];
   [self close];
+  [shareVC presentInParentViewController:self.alertController.ownerViewController anchorView:self.shareButton];
 }
 
 - (IBAction)cancelTap

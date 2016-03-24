@@ -1,4 +1,5 @@
 #import "MWMActivityViewController.h"
+#import "MWMEditorViralActivityItem.h"
 #import "MWMShareLocationActivityItem.h"
 #import "MWMSharePedestrianRoutesToastActivityItem.h"
 
@@ -13,11 +14,16 @@
 
 - (instancetype)initWithActivityItem:(id<UIActivityItemSource>)activityItem
 {
-  self = [super initWithActivityItems:@[activityItem] applicationActivities:nil];
+  return [self initWithActivityItems:@[activityItem]];
+}
+
+- (instancetype)initWithActivityItems:(NSArray *)activityItems
+{
+  self = [super initWithActivityItems:activityItems applicationActivities:nil];
   if (self)
     self.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
-                                   UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
-                                   UIActivityTypePostToVimeo];
+                                 UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
+                                 UIActivityTypePostToVimeo];
   return self;
 }
 
@@ -33,6 +39,16 @@
 {
   MWMSharePedestrianRoutesToastActivityItem * item = [[MWMSharePedestrianRoutesToastActivityItem alloc] init];
   MWMActivityViewController * vc = [[self alloc] initWithActivityItem:item];
+  if ([vc respondsToSelector:@selector(popoverPresentationController)])
+    vc.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionDown;
+  return vc;
+}
+
++ (instancetype)shareControllerForEditorViral
+{
+  MWMEditorViralActivityItem * item = [[MWMEditorViralActivityItem alloc] init];
+  UIImage * image = [UIImage imageNamed:@"img_sharing_editor"];
+  MWMActivityViewController * vc = [[self alloc] initWithActivityItems:@[item, image]];
   if ([vc respondsToSelector:@selector(popoverPresentationController)])
     vc.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionDown;
   return vc;
