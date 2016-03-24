@@ -17,6 +17,7 @@ import java.util.Locale;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
@@ -195,7 +196,8 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
       break;
 
     case R.id.btn__select_map:
-      getMwmActivity().replaceFragment(DownloaderFragment.class, null, null);
+      if (!RoutingController.get().checkMigration(getMwmActivity()))
+        getMwmActivity().replaceFragment(DownloaderFragment.class, null, null);
       break;
 
     case R.id.wpv__download_progress:

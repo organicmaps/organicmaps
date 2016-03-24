@@ -1,5 +1,6 @@
 package com.mapswithme.maps.routing;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.annotation.DimenRes;
 import android.support.annotation.IntRange;
@@ -756,5 +757,19 @@ public class RoutingController
     current.set(Calendar.SECOND, 0);
     current.add(Calendar.SECOND, seconds);
     return StringUtils.formatUsingUsLocale("%d:%02d", current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE));
+  }
+
+  public boolean checkMigration(Activity activity)
+  {
+    if (!MapManager.nativeIsLegacyMode() || !isNavigating())
+      return false;
+
+    new AlertDialog.Builder(activity)
+        .setTitle(R.string.migrate_title)
+        .setMessage(R.string.no_migration_during_navigation)
+        .setPositiveButton(android.R.string.ok, null)
+        .show();
+
+    return true;
   }
 }
