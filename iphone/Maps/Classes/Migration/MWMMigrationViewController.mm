@@ -139,8 +139,19 @@ using namespace storage;
 
 - (void)setState:(MWMMigrationViewState)state
 {
-  static_cast<MWMMigrationView *>(self.view).state = state;
-  self.navigationItem.leftBarButtonItem.enabled = (state != MWMMigrationViewState::Processing);
+  MWMMigrationView * migrationView = static_cast<MWMMigrationView *>(self.view);
+  if (state == MWMMigrationViewState::Processing)
+  {
+    NodeAttrs nodeAttrs;
+    GetFramework().Storage().GetPrefetchStorage()->GetNodeAttrs(m_countryId, nodeAttrs);
+    migrationView.nodeLocalName = @(nodeAttrs.m_nodeLocalName.c_str());
+    self.navigationItem.leftBarButtonItem.enabled = NO;
+  }
+  else
+  {
+    self.navigationItem.leftBarButtonItem.enabled = YES;
+  }
+  migrationView.state = state;
 }
 
 #pragma mark - MWMCircularProgressProtocol
