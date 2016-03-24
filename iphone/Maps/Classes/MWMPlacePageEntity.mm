@@ -84,9 +84,8 @@ void initFieldsMap()
 
 - (void)configureDefault
 {
-  search::AddressInfo const address = GetFramework().GetAddressInfoAtPoint(m_info.GetMercator());
   self.title = @(m_info.GetTitle().c_str());
-  self.address = @(address.FormatAddress().c_str());
+  self.address = @(m_info.GetAddress().c_str());
 }
 
 - (void)configureFeature

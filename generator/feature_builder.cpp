@@ -549,6 +549,11 @@ uint64_t FeatureBuilder1::GetWayIDForRouting() const
   return 0;
 }
 
+string DebugPrint(FeatureBuilder2 const & f)
+{
+  return DebugPrint(static_cast<FeatureBuilder1 const &>(f));
+}
+
 bool FeatureBuilder2::PreSerialize(SupportingData const & data)
 {
   // make flags actual before header serialization

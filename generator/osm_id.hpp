@@ -28,6 +28,7 @@ public:
 
   bool operator<(Id const & other) const { return m_encodedId < other.m_encodedId; }
   bool operator==(Id const & other) const { return m_encodedId == other.m_encodedId; }
+  bool operator==(uint64_t other) const { return OsmId() == other; }
 };
 
 string DebugPrint(osm::Id const & id);

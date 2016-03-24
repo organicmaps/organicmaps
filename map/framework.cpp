@@ -689,8 +689,12 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
 void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info & info) const
 {
   info.SetFromFeatureType(ft);
+
   info.m_isEditable = osm::Editor::Instance().GetEditableProperties(ft).IsEditable();
   info.m_localizedWifiString = m_stringsBundle.GetString("wifi");
+
+  if (ftypes::IsAddressObjectChecker::Instance()(ft))
+    info.m_address = GetAddressInfoAtPoint(feature::GetCenter(ft)).FormatHouseAndStreet();
 }
 
 void Framework::FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const
