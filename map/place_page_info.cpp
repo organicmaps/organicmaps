@@ -44,6 +44,9 @@ string Info::GetTitle() const
 
 string Info::GetSubtitle() const
 {
+  if (!IsFeature())
+    return {};
+
   vector<string> values;
 
   // Type.
